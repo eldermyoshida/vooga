@@ -1,4 +1,4 @@
-package controller;
+package vooga.rts.controller;
 
 import java.awt.Graphics2D;
 

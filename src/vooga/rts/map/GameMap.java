@@ -1,4 +1,4 @@
-package map;
+package vooga.rts.map;
 
 import java.util.ArrayList;
 import java.util.List;

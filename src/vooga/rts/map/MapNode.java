@@ -1,4 +1,4 @@
-package map;
+package vooga.rts.map;
 
 public class MapNode {
     

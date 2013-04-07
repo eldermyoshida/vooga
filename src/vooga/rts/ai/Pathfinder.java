@@ -1,7 +1,7 @@
-package ai;
+package vooga.rts.ai;
 
 import java.util.List;
-import map.MapNode;
+import vooga.rts.map.MapNode;
 
 public abstract class Pathfinder {
     

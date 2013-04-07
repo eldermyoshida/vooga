@@ -1,4 +1,4 @@
-package command;
+package vooga.rts.command;
 
 public class CommandBuilder {
 
