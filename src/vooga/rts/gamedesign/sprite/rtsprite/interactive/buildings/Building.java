@@ -1,6 +1,7 @@
-package gamedesign.sprite.rtsprite.interactive.buildings;
+package vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings;
 
-import gamedesign.sprite.rtsprite.interactive.Interactive;
+import vooga.rts.gamedesign.sprite.rtsprite.interactive.Interactive;
+
 
 /**
  * This is an abstract class that represents a building.  It will be extended
