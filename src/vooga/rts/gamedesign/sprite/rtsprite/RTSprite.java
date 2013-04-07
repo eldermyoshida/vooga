@@ -20,7 +20,6 @@ public abstract class RTSprite extends Sprite implements IAttackable, RTSpriteVi
 
     public RTSprite (Pixmap image, Location center, Dimension size) {
         super(image, center, size);
-        // TODO Auto-generated constructor stub
     }
 
     public Integer curHealth;
