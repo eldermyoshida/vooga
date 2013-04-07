@@ -2,6 +2,7 @@ package vooga.fighter.controller;
 
 import vooga.fighter.game.SplashScreen;
 
+import java.awt.Dimension;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,8 +31,8 @@ public class ModeManager {
 		setup();
 	}
 	
-	public void update(double time){
-		myCurrentMode.update(time);
+	public void update(double time, Dimension bounds){
+		myCurrentMode.update(time, bounds);
 		switchModes(myCurrentMode.needNextMode());
 	}
 	

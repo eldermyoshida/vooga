@@ -1,6 +1,7 @@
 package vooga.fighter.game;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -29,7 +30,7 @@ public class SplashScreen implements Mode {
 	}
 
 	@Override
-	public void update(double steptime) {
+	public void update(double steptime, Dimension bounds) {
 		if(myCanvas.getLastKeyPressed()!= -1){
 			myStartGame = true;
 		}
