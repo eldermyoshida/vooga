@@ -1,6 +1,7 @@
 package vooga.rts.controller;
 
 import java.awt.Graphics2D;
+import vooga.rts.gui.Window;
 
 import vooga.rts.command.Action;
 
@@ -25,7 +26,7 @@ public class MainController extends AbstractController {
     }
 
     @Override
-    public void update () {
+    public void update (double elapsedTime) {
         // TODO Auto-generated method stub
         
     }
@@ -34,6 +35,10 @@ public class MainController extends AbstractController {
     public void paint (Graphics2D pen) {
         // TODO Auto-generated method stub
         
+    }
+    
+    public static void main(String[] args) {
+        new Window(); 
     }
 
 }

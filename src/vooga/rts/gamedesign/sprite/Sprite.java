@@ -14,7 +14,7 @@ import vooga.rts.util.*;
  *   
  * @author Robert C. Duvall
  */
-public abstract class Sprite {
+public abstract class Sprite implements GameLoop{
     // canonical directions for a collision
     public static final int RIGHT_DIRECTION = 0;
     public static final int UP_DIRECTION =  270;

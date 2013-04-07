@@ -37,7 +37,7 @@ public class GameController extends AbstractController {
     }
 
     @Override
-    public void update () {
+    public void update (double elapsedTime) {
         // TODO Auto-generated method stub
 
     }
