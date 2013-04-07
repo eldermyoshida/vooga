@@ -23,6 +23,7 @@ import vooga.rts.gamedesign.upgrades.Upgrade;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
+import vooga.rts.util.Sound;
 import vooga.rts.gamedesign.factories.Factory;
 
 /**
@@ -49,16 +50,19 @@ public abstract class Interactive extends RTSprite implements RTSpriteVisitor {
     
     public Map<String, Factory> myMakers;
 
-    public Interactive (Pixmap image, Location center, Dimension size) {
-        super(image, center, size);
+    public Interactive (Pixmap image, Location center, Dimension size, Sound sound, int teamID, int health) {
+        super(image, center, size, sound, teamID, health);
         myMakers = new HashMap<String, Factory>();
         myAttackStrategy = new CannotAttack();
         myGatherStrategy = new CannotGather();
         myOccupyStrategy = new CannotOccupy();
         
     }
+    
 
     public void visit(IAttackable a){
+    	Class toCast = a.getClass();
+    	toCast.cast(a);
     	myAttackStrategy.attack(a);
     }
     
@@ -89,5 +93,7 @@ public abstract class Interactive extends RTSprite implements RTSpriteVisitor {
     	upgrade.apply(this);
     }
 
+    
+    
 
 }
