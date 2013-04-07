@@ -1,10 +1,15 @@
 package vooga.rts.controller;
 
+import vooga.rts.command.*;
+
 import java.awt.Graphics2D;
+import java.util.List;
 
 
 public class GameController extends AbstractController {
 
+	private List<ICommand> myCommands;
+	
     public GameController () {
 
     }
@@ -22,9 +27,13 @@ public class GameController extends AbstractController {
     }
     
     @Override
-    public void receiveUserInput () {
-        // TODO Auto-generated method stub
-
+    public void receiveUserInput (Action a) {
+        for (ICommand c : myCommands) {
+        	if (c.getAction().equals(a)) {
+        		c.executeCommand(a);
+        	}
+        		
+        }
     }
 
     @Override
@@ -38,5 +47,6 @@ public class GameController extends AbstractController {
         // TODO Auto-generated method stub
 
     }
+
 
 }

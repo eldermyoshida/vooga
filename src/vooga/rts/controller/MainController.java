@@ -2,6 +2,8 @@ package vooga.rts.controller;
 
 import java.awt.Graphics2D;
 
+import vooga.rts.command.Action;
+
 public class MainController extends AbstractController {
 
 	
@@ -17,7 +19,7 @@ public class MainController extends AbstractController {
     }
     
     @Override
-    public void receiveUserInput () {
+    public void receiveUserInput (Action a) {
         // TODO Auto-generated method stub
         
     }
