@@ -5,6 +5,7 @@ bin/
 *.checkstyle
 .checkstyle
 
+.classpath
 .project
 .settings
 .DS_Store
