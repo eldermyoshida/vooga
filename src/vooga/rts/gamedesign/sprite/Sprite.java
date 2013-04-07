@@ -1,11 +1,11 @@
-package gamedesign.sprite;
+package vooga.rts.gamedesign.sprite;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
-import util.Location;
-import util.Pixmap;
+import vooga.rts.util.Location;
+import vooga.rts.util.Pixmap;
 
 /**
  * 

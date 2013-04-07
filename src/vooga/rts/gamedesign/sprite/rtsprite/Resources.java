@@ -1,6 +1,6 @@
-package gamedesign.sprite.rtsprite;
+package vooga.rts.gamedesign.sprite.rtsprite;
 
-import gamedesign.sprite.map.Terrain;
+import vooga.rts.gamedesign.sprite.map.Terrain;
 
 /**
  * 

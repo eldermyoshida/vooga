@@ -1,6 +1,6 @@
-package gamedesign.sprite.map;
+package vooga.rts.gamedesign.sprite.map;
 
-import gamedesign.sprite.Sprite;
+import vooga.rts.gamedesign.sprite.Sprite;
 
 /**
  * The background image for the map.

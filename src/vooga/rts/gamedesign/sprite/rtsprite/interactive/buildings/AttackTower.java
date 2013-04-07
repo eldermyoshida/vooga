@@ -1,7 +1,7 @@
-package gamedesign.sprite.rtsprite.interactive.buildings;
+package vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings;
 
-import gamedesign.sprite.rtsprite.RTSprite;
-import gamedesign.sprite.rtsprite.RTSpriteVisitor;
+import vooga.rts.gamedesign.sprite.rtsprite.RTSprite;
+import vooga.rts.gamedesign.sprite.rtsprite.RTSpriteVisitor;
 
 /**
  * 

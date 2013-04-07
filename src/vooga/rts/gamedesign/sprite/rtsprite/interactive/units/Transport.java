@@ -1,9 +1,9 @@
-package gamedesign.sprite.rtsprite.interactive.units;
+package vooga.rts.gamedesign.sprite.rtsprite.interactive.units;
 
-import gamedesign.sprite.rtsprite.RTSprite;
-import gamedesign.sprite.rtsprite.RTSpriteVisitor;
-import gamedesign.sprite.rtsprite.interactive.IOccupiable;
-import util.Location;
+import vooga.rts.gamedesign.sprite.rtsprite.RTSprite;
+import vooga.rts.gamedesign.sprite.rtsprite.RTSpriteVisitor;
+import vooga.rts.gamedesign.sprite.rtsprite.interactive.IOccupiable;
+import vooga.rts.util.Location;
 
 /**
  * 

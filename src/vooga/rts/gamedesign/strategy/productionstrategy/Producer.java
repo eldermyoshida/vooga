@@ -1,7 +1,7 @@
-package gamedesign.strategy.productionstrategy;
+package vooga.rts.gamedesign.strategy.productionstrategy;
 
-import gamedesign.factories.Factory;
-import gamedesign.sprite.rtsprite.interactive.Interactive;
+import vooga.rts.gamedesign.factories.Factory;
+import vooga.rts.gamedesign.sprite.rtsprite.interactive.Interactive;
 
 import java.util.List;
 

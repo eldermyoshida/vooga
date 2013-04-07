@@ -1,4 +1,4 @@
-package gamedesign.upgrades;
+package vooga.rts.gamedesign.upgrades;
 
 /**
  * This class is the tree of upgrades that any object that can be upgraded will

@@ -1,11 +1,11 @@
-package gamedesign.sprite.rtsprite.interactive;
+package vooga.rts.gamedesign.sprite.rtsprite.interactive;
 
-import gamedesign.sprite.rtsprite.RTSprite;
-import gamedesign.strategy.attackstrategy.AttackStrategy;
-import gamedesign.strategy.productionstrategy.ProductionStrategy;
-import gamedesign.strategy.skillstrategy.SkillStrategy;
-import gamedesign.upgrades.Upgrade;
-import gamedesign.upgrades.UpgradeTree;
+import vooga.rts.gamedesign.sprite.rtsprite.RTSprite;
+import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
+import vooga.rts.gamedesign.strategy.productionstrategy.ProductionStrategy;
+import vooga.rts.gamedesign.strategy.skillstrategy.SkillStrategy;
+import vooga.rts.gamedesign.upgrades.Upgrade;
+import vooga.rts.gamedesign.upgrades.UpgradeTree;
 
 /**
  * 

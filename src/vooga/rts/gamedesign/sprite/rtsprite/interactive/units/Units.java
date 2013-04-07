@@ -1,10 +1,10 @@
-package gamedesign.sprite.rtsprite.interactive.units;
+package vooga.rts.gamedesign.sprite.rtsprite.interactive.units;
 
-import gamedesign.Weapon;
-import gamedesign.sprite.rtsprite.IMovable;
-import gamedesign.sprite.rtsprite.interactive.Interactive;
-import gamedesign.strategy.gatherstrategy.GatherStrategy;
-import gamedesign.strategy.occupystrategy.OccupyStrategy;
+import vooga.rts.gamedesign.Weapon;
+import vooga.rts.gamedesign.sprite.rtsprite.IMovable;
+import vooga.rts.gamedesign.sprite.rtsprite.interactive.Interactive;
+import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
+import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
 
 import java.util.List;
 

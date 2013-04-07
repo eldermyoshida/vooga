@@ -1,4 +1,4 @@
-package gamedesign.strategy.gatherstrategy;
+package vooga.rts.gamedesign.strategy.gatherstrategy;
 /**
  * 
  * This class implements GatherStrategy and is used as an instance in 

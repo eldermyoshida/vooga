@@ -1,9 +1,9 @@
-package gamedesign.sprite.rtsprite.interactive.buildings;
+package vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings;
 
-import gamedesign.sprite.rtsprite.RTSprite;
-import gamedesign.sprite.rtsprite.RTSpriteVisitor;
-import gamedesign.sprite.rtsprite.interactive.IOccupiable;
-import gamedesign.strategy.occupystrategy.OccupyStrategy;
+import vooga.rts.gamedesign.sprite.rtsprite.RTSprite;
+import vooga.rts.gamedesign.sprite.rtsprite.RTSpriteVisitor;
+import vooga.rts.gamedesign.sprite.rtsprite.interactive.IOccupiable;
+import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
 
 import java.util.List;
 

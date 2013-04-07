@@ -1,10 +1,10 @@
-package gamedesign.strategy.attackstrategy;
+package vooga.rts.gamedesign.strategy.attackstrategy;
 
 import java.util.List;
 
-import gamedesign.Weapon;
-import gamedesign.sprite.rtsprite.interactive.buildings.Building;
-import gamedesign.sprite.rtsprite.interactive.units.Units;
+import vooga.rts.gamedesign.Weapon;
+import vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings.Building;
+import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Units;
 
 /**
  * This class implements AttackStrategy and is used as an instance in 

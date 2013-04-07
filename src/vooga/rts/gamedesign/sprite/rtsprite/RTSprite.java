@@ -1,9 +1,9 @@
-package gamedesign.sprite.rtsprite;
+package vooga.rts.gamedesign.sprite.rtsprite;
 
-import gamedesign.sprite.Sprite;
-import gamedesign.strategy.attackstrategy.AttackStrategy;
-import gamedesign.strategy.occupystrategy.OccupyStrategy;
-import util.Sound;
+import vooga.rts.gamedesign.sprite.Sprite;
+import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
+import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
+import vooga.rts.util.Sound;
 
 /**
  * 

@@ -1,8 +1,8 @@
-package gamedesign;
+package vooga.rts.gamedesign;
 
-import gamedesign.sprite.rtsprite.Projectile;
-import gamedesign.upgrades.Upgrade;
-import gamedesign.upgrades.UpgradeTree;
+import vooga.rts.gamedesign.sprite.rtsprite.Projectile;
+import vooga.rts.gamedesign.upgrades.Upgrade;
+import vooga.rts.gamedesign.upgrades.UpgradeTree;
 
 /**
  * This class represents a weapon.  The CanAttack class the implements

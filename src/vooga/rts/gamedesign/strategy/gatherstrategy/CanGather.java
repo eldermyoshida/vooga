@@ -1,4 +1,4 @@
-package gamedesign.strategy.gatherstrategy;
+package vooga.rts.gamedesign.strategy.gatherstrategy;
 
 /**
  * This interface is implemented by the classes CanGather and CannotGather that

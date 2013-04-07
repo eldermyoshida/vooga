@@ -1,4 +1,4 @@
-package gamedesign.strategy.productionstrategy;
+package vooga.rts.gamedesign.strategy.productionstrategy;
 
 /**
  * 
