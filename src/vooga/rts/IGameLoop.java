@@ -11,7 +11,7 @@ import java.awt.Graphics2D;
  * @author Jonathan Schmidt
  * 
  */
-public interface GameLoop {
+public interface IGameLoop {
 
     /**
      * Updates the entity every time the game is updated.

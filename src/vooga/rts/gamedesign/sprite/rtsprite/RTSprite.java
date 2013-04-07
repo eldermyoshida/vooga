@@ -25,7 +25,6 @@ import vooga.rts.util.Sound;
  */
 public abstract class RTSprite extends Sprite implements IAttackable, RTSpriteVisitor {
 
-
     private Integer curHealth;
 
     private OccupyStrategy myOccupyStrategy;

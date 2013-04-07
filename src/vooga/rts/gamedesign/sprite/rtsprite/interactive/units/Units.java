@@ -5,7 +5,11 @@ import vooga.rts.gamedesign.sprite.rtsprite.IMovable;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.Interactive;
 import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
 import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
+import vooga.rts.util.Location;
+import vooga.rts.util.Pixmap;
+import vooga.rts.util.Sound;
 
+import java.awt.Dimension;
 import java.util.List;
 
 /**
@@ -18,12 +22,18 @@ import java.util.List;
  * @author Wenshun Liu 
  *
  */
-public abstract class Units extends Interactive implements IMovable, GatherStrategy {
+public abstract class Units extends Interactive implements IMovable {
 
   private  List<Interactive> myKills;
 
   private GatherStrategy myGatherStrategy;
 
   private OccupyStrategy myOccupyStrategy;
+
+  public Units(Pixmap image, Location center, Dimension size, Sound sound, int teamID, int health) {
+      super(image, center, size, sound, teamID, health);
+	  
+  }
+
 
 }
