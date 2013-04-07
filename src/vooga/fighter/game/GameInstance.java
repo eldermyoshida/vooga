@@ -15,8 +15,7 @@ public class GameInstance implements Mode {
     private Map myNonInteractables;
     private boolean myStartGame = false;
     
-    
-    public void GameInstance (String levelName, String filePath, String nextMode) {
+    public GameInstance (String levelName, String filePath, String nextMode) {
         myID = levelName;
         myFilePath = filePath;
         myNextMode = nextMode;

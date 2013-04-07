@@ -15,7 +15,11 @@ import javax.swing.Timer;
 import vooga.fighter.util.Pixmap;
 import vooga.fighter.util.Text;
 import vooga.fighter.view.Canvas;
-
+import vooga.fighter.game.*;
+import java.util.Enumeration;
+import java.util.List;
+import java.util.Map;
+import java.util.ResourceBundle;
 
 public class Controller {
 	public static final Dimension SIZE = new Dimension(800, 600);
@@ -28,6 +32,19 @@ public class Controller {
     private Canvas myCanvas;
     private ModeManager myModeManager;
     private PlayerStatus myPlayerStatus;
+    
+    //added by Jerry
+    private ResourceBundle myResources;
+    private Map<String, String> myLevelPaths; 
+    private List<String> myLevelNames;
+    private List<GameInstance> myLevels;
+    
+    //added by Jerry
+    private static final String DEFAULT_RESOURCE_PACKAGE = "vooga.fighter.config.";
+    
+    
+   
+   
 	
     public Controller() {
         myCanvas = new Canvas(SIZE); 
@@ -40,8 +57,42 @@ public class Controller {
         // display them
         frame.pack();
         frame.setVisible(true);
-		myModeManager = new ModeManager(myCanvas, myPlayerStatus);
+	myModeManager = new ModeManager(myCanvas, myPlayerStatus);
+	
+	//Added by Jerry
+	myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "LevelConfig");
+	readFile(myResources);
+	
 	}
+        
+        //added by Jerry
+        public void readFile(ResourceBundle resources) {
+            Enumeration<String> keys = resources.getKeys();
+            String key = null;
+            while(keys.hasMoreElements()) {
+                key = keys.nextElement();
+                myLevelPaths.put(key, myResources.getObject(key).toString());
+                myLevelNames.add(key);
+            }
+            loadGame(myLevelPaths);
+        }
+        
+        //added by jerry
+        //THis is kinda messy but gets the point across. Mainly adding the games with the string and key is
+        //simple enough, but passing through the next mode is tricky once you reach the end of the array.
+        //So the last level just gets passed the first level as the next mode
+        public void loadGame(Map<String, String> levels) {
+            for (int i = 1; i <= myLevelNames.size(); i++) {
+               if (i == myLevelNames.size()) {
+                   GameInstance game = 
+                           new GameInstance(myLevelNames.get(i), myLevelPaths.get(i), myLevelNames.get(0));
+                   myLevels.add(game);
+               }
+                GameInstance game = 
+                        new GameInstance(myLevelNames.get(i), myLevelPaths.get(i), myLevelNames.get(i+1));
+                   myLevels.add(game);
+            }
+        }
     
 	
 	 public void start () {
