@@ -32,6 +32,7 @@ public abstract class RTSprite extends Sprite implements IAttackable, RTSpriteVi
  * @return 
    */
   public void accept(RTSpriteVisitor visitor) {
+	  visitor.visit(this);
   }
 
   public boolean interactsWith(RTSprite rtSprite) {

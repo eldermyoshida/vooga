@@ -18,7 +18,7 @@ import vooga.rts.gamedesign.upgrades.UpgradeTree;
  * @author Wenshun Liu 
  *
  */
-public class Weapon {
+public abstract class Weapon {
 
   public Integer myDamage;
 

@@ -1,4 +1,8 @@
 package vooga.rts.gamedesign.strategy.gatherstrategy;
+
+import vooga.rts.gamedesign.sprite.rtsprite.RTSprite;
+import vooga.rts.gamedesign.sprite.rtsprite.Resource;
+
 /**
  * 
  * This class implements GatherStrategy and is used as an instance in 
@@ -12,5 +16,11 @@ package vooga.rts.gamedesign.strategy.gatherstrategy;
  */
 
 public class CannotGather implements GatherStrategy {
+	
+
+	@Override
+	public void gather(Resource r) {
+		//do nothing
+	}
 
 }

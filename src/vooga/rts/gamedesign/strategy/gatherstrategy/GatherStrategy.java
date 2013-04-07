@@ -1,5 +1,7 @@
 package vooga.rts.gamedesign.strategy.gatherstrategy;
 
+import vooga.rts.gamedesign.sprite.rtsprite.Resource;
+
 /**
  * This interface is implemented by the classes CanGather and CannotGather that
  * are then used as instance variables in the classes that could potentially
@@ -18,4 +20,8 @@ package vooga.rts.gamedesign.strategy.gatherstrategy;
  *
  */
 public interface GatherStrategy {
+	
+	public void gather(Resource r); //change to specify which kind of resource.
+	
+	
 }
