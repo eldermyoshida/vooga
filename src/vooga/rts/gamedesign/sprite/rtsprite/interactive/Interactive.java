@@ -2,7 +2,7 @@ package vooga.rts.gamedesign.sprite.rtsprite.interactive;
 
 import vooga.rts.gamedesign.sprite.rtsprite.RTSprite;
 import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
-import vooga.rts.gamedesign.strategy.productionstrategy.ProductionStrategy;
+import vooga.rts.gamedesign.strategy.production.IProducer;
 import vooga.rts.gamedesign.strategy.skillstrategy.SkillStrategy;
 import vooga.rts.gamedesign.upgrades.Upgrade;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
@@ -22,7 +22,7 @@ public abstract class Interactive extends RTSprite {
    */
   public AttackStrategy myAttackStrategy;
 
-  public ProductionStrategy myProductionStrategy;
+  public IProducer myProducer;
 
   public UpgradeTree myUpgradeTree;
 

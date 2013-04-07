@@ -2,7 +2,7 @@ package vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings;
 
 import vooga.rts.gamedesign.sprite.rtsprite.RTSprite;
 import vooga.rts.gamedesign.sprite.rtsprite.RTSpriteVisitor;
-import vooga.rts.gamedesign.strategy.productionstrategy.Producer;
+import vooga.rts.gamedesign.strategy.production.Producer;
 
 /**
  * 
