@@ -1,6 +1,8 @@
 package vooga.fighter.game;
-import vooga.fighter.util.Pixmap;
-import vooga.fighter.util.Sound;
+import vooga.fighter.objects.*;
+import vooga.fighter.util.*;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
 import java.util.*;
 
 /**
@@ -137,6 +139,10 @@ public class Map {
         }
     }
     
+    public void paint(Graphics2D pen) {
+        paintBackground(pen);
+        paintEnvironment(pen);
+    }
     /**
      * paints the background of this map
      * @param pen

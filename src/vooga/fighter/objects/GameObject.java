@@ -9,7 +9,8 @@ import java.awt.Rectangle;
 import java.awt.geom.Point2D;
 
 public class GameObject {
-	private static final int DEFAULT_HEALTH=10;
+
+    private static final int DEFAULT_HEALTH=10;
 	
 	private Pixmap myImage;
 	private Location myCenter;

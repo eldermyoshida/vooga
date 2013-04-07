@@ -1,11 +1,17 @@
 package vooga.fighter.game;
 
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.List;
 import vooga.fighter.controller.*;
 import vooga.fighter.util.*;
 import vooga.fighter.objects.*;
 
+/**
+ * A Game instance 
+ * @author Jerry
+ *
+ */
 public class GameInstance implements Mode {
     
     private List<GameObject> myInteractables;
@@ -15,8 +21,7 @@ public class GameInstance implements Mode {
     private Map myNonInteractables;
     private boolean myStartGame = false;
     
-    
-    public void GameInstance (String levelName, String filePath, String nextMode) {
+    public GameInstance (String levelName, String filePath, String nextMode) {
         myID = levelName;
         myFilePath = filePath;
         myNextMode = nextMode;
@@ -29,21 +34,21 @@ public class GameInstance implements Mode {
     }
     
     
-    public void updateObjects(double stepTime) {
+    public void updateObjects(double stepTime, Dimension bounds) {
         for (GameObject s : myInteractables) {
-            s.update(stepTime);
+            s.update(stepTime, bounds);
         }
-        myNonInteractables.update(stepTime);
+        myNonInteractables.update(stepTime, bounds);
     }
 
 
     @Override
-    public void update (double stepTime) {
-        updateObjects(stepTime);
-        detectCollisons(myInteractables);
+    public void update (double stepTime, Dimension bounds) {
+        updateObjects(stepTime, bounds);
+        detectCollisions(myInteractables);
     }
     
-    public void detectCollision(List<GameObject> objects) {
+    public void detectCollisions(List<GameObject> objects) {
         for (GameObject g : objects) {
             for (GameObject o : objects) {
                 detectCollision(g, o);
