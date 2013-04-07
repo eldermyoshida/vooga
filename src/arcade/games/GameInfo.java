@@ -5,7 +5,9 @@ import arcade.util.Pixmap;
 
 public class GameInfo {
     public static final String FILEPATH = "src/";
-    public static final String RESOURCE_DIR_NAME = "/resources";
+    public static final String RESOURCE_DIR_NAME = ".resources";
+    public static final String FILE_NAME = ".test";
+    
     public static final String GAME_NAME = "name";
     public static final String THUMBNAIL_NAME = "thumbnail";
     public static final String AD_SCREEN = "adscreen";
@@ -17,7 +19,7 @@ public class GameInfo {
     private ResourceBundle myResourceBundle;
 
     public GameInfo (String gamename) {
-        String filepath = FILEPATH + gamename + RESOURCE_DIR_NAME;
+        String filepath = gamename + RESOURCE_DIR_NAME + FILE_NAME;
         myResourceBundle = ResourceBundle.getBundle(filepath);
     }
 
@@ -26,7 +28,6 @@ public class GameInfo {
     }
 
     public String getName () {
-
         return myResourceBundle.getString(GAME_NAME);
     }
 
