@@ -11,6 +11,7 @@ public class CharacterObject extends GameObject implements Damageable, Knockable
 	private int myHealth=DEFAULT_HEALTH;
 	private int myAttackPower=DEFAULT_ATTACK_POWER;
 	private int mySpecialAttackPower=DEFAULT_SPECIAL_ATTACK_POWER;
+	private AttackObject myAttack; 
 	public CharacterObject(Pixmap image, Location center, Dimension size) {
 		super(image, center, size);
 	}
@@ -34,7 +35,18 @@ public class CharacterObject extends GameObject implements Damageable, Knockable
 		translate(v);
 	}
 
-	public void attack(){
-		
+	public void normalAttack(){
+		myAttack= new AttackObject(null, new Location(getX(), getY()), myAttackPower, 1, new Vector());
+	}
+	
+	public void specialAttack(){
+		myAttack= new AttackObject(null, new Location(getX(), getY()), mySpecialAttackPower, 2, new Vector());
+	}
+	
+	public AttackObject getMyAttack(){
+		if (myAttack==null){
+			return null;
+		}
+		return myAttack;
 	}
 }

@@ -5,8 +5,9 @@ import java.awt.Dimension;
 import vooga.fighter.util.Location;
 import vooga.fighter.util.Pixmap;
 
-public class ItemObject extends GameObject implements Damageable, Perishable, Spawnable, Wieldable{
-
+public class ItemObject extends GameObject implements Damageable,Perishable, Spawnable, Wieldable{
+	private static final int DEFAULT_HEALTH=10; 
+	private int myHealth=DEFAULT_HEALTH; 
 	public ItemObject(Pixmap image, Location center, Dimension size) {
 		super(image, center, size);
 		// TODO Auto-generated constructor stub
@@ -60,10 +61,9 @@ public class ItemObject extends GameObject implements Damageable, Perishable, Sp
 		
 	}
 
-	@Override
 	public boolean isDestroyed() {
 		// TODO Auto-generated method stub
-		return false;
+		return myHealth<=0;
 	}
 
 }
