@@ -19,7 +19,8 @@ public class Soldier extends Units {
   public Weapon myWeapon;
 
   /** 
-   *  for this implementation of visit where the soldier visits a IOccupiable, the soldier occupies the IOccupiable RTSprite. 
+   *  for this implementation of visit where the soldier visits a IOccupiable,
+   *  the soldier occupies the IOccupiable RTSprite. 
    *  Code: would call myOccupyStrategy.occupy(RTSprite); 
    */
   public void visit(IOccupiable occupiable) {

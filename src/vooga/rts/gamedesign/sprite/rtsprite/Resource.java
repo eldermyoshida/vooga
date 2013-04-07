@@ -10,7 +10,7 @@ import vooga.rts.gamedesign.sprite.map.Terrain;
  * @author Wenshun Liu 
  *
  */
-public abstract class Resources extends RTSprite {
+public abstract class Resource extends RTSprite {
 
   public Terrain myTerrain;
 

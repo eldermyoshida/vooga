@@ -14,4 +14,7 @@ import vooga.rts.gamedesign.sprite.rtsprite.interactive.Interactive;
  *
  */
 public abstract class Building extends Interactive {
+	
+	
+	
 }

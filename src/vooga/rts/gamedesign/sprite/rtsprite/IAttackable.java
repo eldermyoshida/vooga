@@ -11,7 +11,6 @@ package vooga.rts.gamedesign.sprite.rtsprite;
  */
 public interface IAttackable {
 
-  public void getAttacked(RTSpriteVisitor visitor);
 
   public int calculateDamage();
 
