@@ -26,7 +26,7 @@ public class Main {
         Pixmap p = new Pixmap("soldier.png");
         Location l = new Location();
         Dimension s = new Dimension();
-        Sound soun = new Sound("soldier.png");
+        Sound soun = new Sound("pikachu.wav");
     
         Interactive a = new Soldier(p,l,s,soun,20,20);
         
