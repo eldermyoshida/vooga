@@ -1,19 +1,50 @@
 package vooga.rts.map;
 
+import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import vooga.rts.gamedesign.sprite.map.Tile;
 
 public class GameMap {
-    private List<MapNode> myMap;
+    
+    public static final int GRID_SIZE = 8;
+    
+    private Tile[][] myTiles;
+    private HashMap<Integer, MapNode[][]> myMap;
+    
+    /**
+     * The Width of the map in Grid Size
+     */
+    private int myWidth;
+    
+    /**
+     * The height of the map in Grid Size
+     */
+    private int myHeight;
     
     // Eventually, this will ideally read in a map file of sort to create the map.
     // Currently just makes a square map of nodes from 
-    public GameMap(int height, int width) { 
-       myMap = new ArrayList<MapNode>();
-       for (int i = 0; i < width; i++) {
-           for (int j = 0; j < height; j++) {
-               myMap.add(new MapNode(i, j));
-           }
-       }
+    
+    
+    public GameMap(Dimension mapSize, Dimension tileSize) {
+       myWidth = (mapSize.width * tileSize.width) / GRID_SIZE;
+       myHeight = (mapSize.height * tileSize.height) / GRID_SIZE;
+       
+       // Create map and add first layer
+       myMap = new HashMap<>();
+       myMap.put(1, createLayer(myWidth, myHeight));
+       
+       myTiles = new Tile[mapSize.width][mapSize.height];
     }    
+    
+    private MapNode[][] createLayer(int w, int h) {
+        MapNode[][] res = new MapNode[w][h];
+        for (int x = 0; x < w; x++) {
+            for (int y = 0; y < h; y++) {
+                res[x][y]= new MapNode(x, y);
+            }
+        }
+        return res;
+    }
 }
