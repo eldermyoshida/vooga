@@ -1,11 +1,17 @@
 package vooga.rts.gamedesign.sprite.rtsprite.interactive;
 
+import java.awt.Dimension;
+import java.util.ArrayList;
+import java.util.List;
 import vooga.rts.gamedesign.sprite.rtsprite.RTSprite;
 import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
 import vooga.rts.gamedesign.strategy.productionstrategy.ProductionStrategy;
 import vooga.rts.gamedesign.strategy.skillstrategy.SkillStrategy;
 import vooga.rts.gamedesign.upgrades.Upgrade;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
+import vooga.rts.util.Location;
+import vooga.rts.util.Pixmap;
+import vooga.rts.gamedesign.factories.Factory;
 
 /**
  * 
@@ -17,23 +23,32 @@ import vooga.rts.gamedesign.upgrades.UpgradeTree;
  */
 public abstract class Interactive extends RTSprite {
 
-  /** 
-   *  the data structure for storing progress of upgrades can be changed? 
-   */
-  public AttackStrategy myAttackStrategy;
 
-  public ProductionStrategy myProductionStrategy;
 
-  public UpgradeTree myUpgradeTree;
+    /** 
+     *  the data structure for storing progress of upgrades can be changed? 
+     */
+    public AttackStrategy myAttackStrategy;
 
-  public Integer buildTime;
+    public ProductionStrategy myProductionStrategy;
 
-  public SkillStrategy mySkillStrategy;
+    public UpgradeTree myUpgradeTree;
 
-  public void upgrade(Upgrade upgrade) {
-  }
+    public Integer buildTime;
 
-  public void die() {
-  }
+    public SkillStrategy mySkillStrategy;
+    
+    public List<Factory> myMakers;
+
+    public Interactive (Pixmap image, Location center, Dimension size) {
+        super(image, center, size);
+        myMakers = new ArrayList<Factory>();
+    }
+
+    public void upgrade(Upgrade upgrade) {
+    }
+
+    public void die() {
+    }
 
 }

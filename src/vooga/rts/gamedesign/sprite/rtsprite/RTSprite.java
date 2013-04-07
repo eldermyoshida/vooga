@@ -1,8 +1,11 @@
 package vooga.rts.gamedesign.sprite.rtsprite;
 
+import java.awt.Dimension;
 import vooga.rts.gamedesign.sprite.Sprite;
 import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
 import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
+import vooga.rts.util.Location;
+import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
 
 /**
@@ -15,28 +18,33 @@ import vooga.rts.util.Sound;
  */
 public abstract class RTSprite extends Sprite implements IAttackable, RTSpriteVisitor {
 
-  public Integer curHealth;
+    public RTSprite (Pixmap image, Location center, Dimension size) {
+        super(image, center, size);
+        // TODO Auto-generated constructor stub
+    }
 
-  public OccupyStrategy myOccupyStrategy;
+    public Integer curHealth;
 
-  public AttackStrategy myAttackStrategy;
+    public OccupyStrategy myOccupyStrategy;
 
-  public Integer maxHealth;
+    public AttackStrategy myAttackStrategy;
 
-  public Integer TeamID;
+    public Integer maxHealth;
 
-  public Sound mySound;
+    public Integer TeamID;
 
-  /** 
-   *  This would accept RTSpriteVisitors and behave according to the visitor's visit method. This code will always run RTSpriteVisitor.visit(this). "this" being the subclass of RTSprite. 
- * @return 
-   */
-  public void accept(RTSpriteVisitor visitor) {
-	  visitor.visit(this);
-  }
+    public Sound mySound;
 
-  public boolean interactsWith(RTSprite rtSprite) {
-	return false;
-  }
+    /** 
+     *  This would accept RTSpriteVisitors and behave according to the visitor's visit method. This code will always run RTSpriteVisitor.visit(this). "this" being the subclass of RTSprite. 
+     * @return 
+     */
+    public void accept(RTSpriteVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public boolean interactsWith(RTSprite rtSprite) {
+        return false;
+    }
 
 }
