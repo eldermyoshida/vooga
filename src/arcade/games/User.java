@@ -8,6 +8,6 @@ public interface User {
     
     Image getAvatar();
     
-    UserGameData getUserGameData();
+    
 
 }

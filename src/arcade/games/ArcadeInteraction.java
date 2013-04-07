@@ -31,4 +31,10 @@ public interface ArcadeInteraction {
      * Make the game full screen if not full screen, or not full screen if it is.
      */
     void toggleFullScreen();
+    
+    /**
+     * Get data associated with a specific game and a user
+     * @return UserGameData
+     */
+    UserGameData getUserGameData();
 }
