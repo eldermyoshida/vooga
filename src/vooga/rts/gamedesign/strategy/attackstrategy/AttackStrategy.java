@@ -1,5 +1,6 @@
 package vooga.rts.gamedesign.strategy.attackstrategy;
 
+import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings.Building;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Units;
 
@@ -23,6 +24,7 @@ import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Units;
  *
  */
 public interface AttackStrategy {
+
 
 	/**
 	 * This method specifies how buildings will attack

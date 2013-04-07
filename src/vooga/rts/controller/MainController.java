@@ -4,8 +4,16 @@ import java.awt.Graphics2D;
 
 public class MainController extends AbstractController {
 
+	
+	public GameController myGameController;
+	public LoadingController myLoadingController;
+	public MenuController myMenuController;
+
+	
     public MainController () {
-        
+        myGameController = new GameController();
+        myLoadingController = new LoadingController();
+        myMenuController = new MenuController();
     }
     
     @Override
