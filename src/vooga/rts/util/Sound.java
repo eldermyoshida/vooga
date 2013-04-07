@@ -14,7 +14,7 @@ import java.applet.AudioClip;
  */
 public class Sound {
     // OS-independent relative resource locations (like URLs)
-    private static final String RESOURCE_LOCATION = "/sounds/";
+    private static final String RESOURCE_LOCATION = "/vooga/rts/sounds/";
     // underlying implementation
     private AudioClip myClip;
 

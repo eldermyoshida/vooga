@@ -13,7 +13,7 @@ package vooga.rts.gamedesign.sprite.rtsprite;
 public abstract class Projectile extends RTSprite implements IMovable {
 
 	
-	public Integer myDamage;
+	private Integer myDamage;
 	
 	
 	public Projectile(){
