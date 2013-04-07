@@ -1,5 +1,7 @@
 package vooga.rts.gamedesign.sprite.rtsprite.interactive.units;
 
+import java.util.List;
+
 import vooga.rts.gamedesign.Weapon;
 import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
 import vooga.rts.gamedesign.sprite.rtsprite.RTSprite;
@@ -16,7 +18,7 @@ import vooga.rts.util.Location;
  */
 public class Soldier extends Units {
 
-  public Weapon myWeapon;
+  private Weapon myWeapon;
 
   /** 
    *  for this implementation of visit where the soldier visits a IOccupiable,

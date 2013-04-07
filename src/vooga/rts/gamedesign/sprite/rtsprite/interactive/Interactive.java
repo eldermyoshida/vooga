@@ -24,20 +24,20 @@ import vooga.rts.gamedesign.factories.Factory;
 public abstract class Interactive extends RTSprite {
 
 
-	public IProducer myProducer;
+	private IProducer myProducer;
 
     /** 
      *  the data structure for storing progress of upgrades can be changed? 
      */
-    public AttackStrategy myAttackStrategy;
+    private AttackStrategy myAttackStrategy;
 
-    public UpgradeTree myUpgradeTree;
+    private UpgradeTree myUpgradeTree;
 
-    public Integer buildTime;
+    private Integer buildTime;
 
-    public SkillStrategy mySkillStrategy;
+    private SkillStrategy mySkillStrategy;
     
-    public List<Factory> myMakers;
+    private List<Factory> myMakers;
 
     public Interactive (Pixmap image, Location center, Dimension size) {
         super(image, center, size);

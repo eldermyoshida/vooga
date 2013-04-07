@@ -14,7 +14,7 @@ import vooga.rts.gamedesign.strategy.production.Producer;
  */
 public class Barracks extends Building {
 
-  public Producer myProducer;
+  private Producer myProducer;
 
   /** 
    *  call new RTSprite where the RTSprite can be specified based on the type. For Barracks, produce() can create a new instance of Soldier. 
