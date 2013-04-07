@@ -21,7 +21,9 @@ public class Window {
         myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         myFrame.setUndecorated(true);
         myFrame.setVisible(true);
-        myCanvas = new Canvas();
+        myFrame.setIgnoreRepaint(true);
+        myFrame.createBufferStrategy(2);        
+        myCanvas = new Canvas(myFrame.getBufferStrategy());
         myFrame.add(myCanvas);
         
         setFullscreen(true);
