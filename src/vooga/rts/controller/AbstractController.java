@@ -1,13 +1,10 @@
 package vooga.rts.controller;
 
 import java.awt.Graphics2D;
+import vooga.rts.GameLoop;
 
-public abstract class AbstractController {
+public abstract class AbstractController implements GameLoop {
 
     public abstract void receiveUserInput();
-    
-    public abstract void update();
-    
-    public abstract void paint (Graphics2D pen);
     
 }

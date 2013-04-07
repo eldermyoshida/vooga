@@ -38,6 +38,14 @@ public class GameMap {
        myTiles = new Tile[mapSize.width][mapSize.height];
     }    
     
+    /**
+     * Generates a new 2D array for nodes. This will be used to generate
+     * each layer that can be created in the map.
+     * 
+     * @param w Width of the map.
+     * @param h Height of the map.
+     * @return The new layer of nodes.
+     */
     private MapNode[][] createLayer(int w, int h) {
         MapNode[][] res = new MapNode[w][h];
         for (int x = 0; x < w; x++) {
