@@ -17,11 +17,7 @@ import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Units;
 public class CannotAttack implements AttackStrategy{
 
 	
-	
-	public void attack(IAttackable a){
-		
-	}
-	
+
 
 	public void attack(Building building) {
 		
