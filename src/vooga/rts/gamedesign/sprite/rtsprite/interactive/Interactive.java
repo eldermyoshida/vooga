@@ -47,7 +47,4 @@ public abstract class Interactive extends RTSprite {
     public void upgrade(Upgrade upgrade) {
     }
 
-    public void die() {
-    }
-
 }
