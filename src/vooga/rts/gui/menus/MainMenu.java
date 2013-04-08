@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import vooga.rts.gui.Button;
 import vooga.rts.gui.Menu;
+import vooga.rts.gui.Window;
 import vooga.rts.gui.buttons.TextButton;
 import vooga.rts.gui.buttons.USButton;
 import vooga.rts.resourcemanager.ResourceManager;
@@ -19,7 +20,7 @@ public class MainMenu extends Menu {
     public MainMenu() {
         super();
         setImage(ResourceManager.instance().loadFile("got1.jpg"));
-        addButton(new USButton("tree.jpg", new Dimension(120, 40), new Location(100, 500)));
-        addButton(new TextButton("I'm an Awesome Button", Color.WHITE, new Dimension(200, 20), new Location(400, 500)));
+        addButton(new USButton("tree.jpg", new Dimension(120, 80), new Location(50, 50)));
+        addButton(new TextButton("I'm an Awesome Button", Color.WHITE, new Dimension(300, 50), new Location(50, Window.SCREEN_SIZE.height - 100)));
     }
 }
