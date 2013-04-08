@@ -60,6 +60,7 @@ public class GameController extends AbstractController {
     @Override
     public void onLeftMouseUp (PositionObject o) {
         // if it's not a gui thing
+        System.out.println("Left Click");
         HumanPlayer human = (HumanPlayer) myPlayers.get(0);
         human.handleLeftClick((int) o.getX(), (int) o.getY());
     }
@@ -72,7 +73,7 @@ public class GameController extends AbstractController {
     @Override
     public void onRightMouseUp (PositionObject o) {
         // If it's not a GUI thing
-
+        System.out.println("Right Click");
         HumanPlayer human = (HumanPlayer) myPlayers.get(0);
         human.handleRightClick((int) o.getX(), (int) o.getY());
     }
