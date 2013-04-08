@@ -3,6 +3,8 @@ package vooga.fighter.objects;
 import vooga.fighter.util.Pixmap;
 import vooga.fighter.util.Location;
 import vooga.fighter.util.Vector;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
 
@@ -20,17 +22,20 @@ public abstract class GameObject {
     private Location myCenter;
     private Rectangle myHitbox;
     
+    private Dimension mySize;
+    
     private Location myOriginalCenter;
     private Pixmap myOriginalImage;
 
-    public GameObject(Pixmap image, Location center) {
-        this(image, center, new Vector());       
+    public GameObject(Pixmap image, Location center, Dimension size) {
+        this(image, center, size, new Vector());       
     }
 
-    public GameObject(Pixmap image, Location center, Vector velocity) {
+    public GameObject(Pixmap image, Location center, Dimension size, Vector velocity) {
         // make copies just to be sure no one else has access
         myOriginalCenter = new Location(center);
         myOriginalImage = new Pixmap(image);
+        mySize = size;
         reset();
     }
     
@@ -119,6 +124,13 @@ public abstract class GameObject {
      */
     public boolean intersects(Point2D pt) {
         return getHitbox().contains(pt);
+    }
+    
+    /**
+     * Paints the object. This will be deleted.
+     */
+    public void paint(Graphics2D pen) {
+        myImage.paint(pen, myCenter, mySize);
     }
     
 }
