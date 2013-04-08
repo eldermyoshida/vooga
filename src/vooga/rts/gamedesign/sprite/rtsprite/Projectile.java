@@ -22,6 +22,8 @@ public abstract class Projectile extends RTSprite implements IMovable {
 	
 	private Integer myDamage;
 	
+	private boolean myIsSelected;
+	
 	
 	public Projectile(Pixmap pixmap, Location loc, Dimension size, Sound sound, int damage, int health){
 		super(pixmap, loc, size, sound, damage, health);

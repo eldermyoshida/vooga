@@ -28,7 +28,6 @@ public abstract class RTSprite extends Sprite implements IAttackable, RTSpriteVi
     private Integer curHealth;
 
     private OccupyStrategy myOccupyStrategy;
-
     private AttackStrategy myAttackStrategy;
 
     private Integer maxHealth;

@@ -93,7 +93,14 @@ public abstract class Sprite implements IGameLoop {
         myCenter.setLocation(x, y);
         resetBounds();
     }
-
+    
+    /**
+     * Retuens shape's center
+     */
+    public Location getCenter(){
+    	return myCenter;
+    }
+    
     /**
      * Returns shape's x coordinate in pixels.
      */
