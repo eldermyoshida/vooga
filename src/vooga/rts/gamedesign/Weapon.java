@@ -1,6 +1,7 @@
 package vooga.rts.gamedesign;
 
 import vooga.rts.gamedesign.sprite.rtsprite.Projectile;
+import vooga.rts.gamedesign.sprite.rtsprite.interactive.Interactive;
 import vooga.rts.gamedesign.upgrades.Upgrade;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
 
@@ -61,5 +62,9 @@ public abstract class Weapon {
 
 	public void setRange(int range) {
 		myRange = range;
+	}
+	
+	public boolean inRange(Interactive interactive) {
+		return Math.sqrt(Math.pow(interactive.getX(), 2) + Math.pow(interactive.getY(), 2)) - myRange <= 0;
 	}
 }

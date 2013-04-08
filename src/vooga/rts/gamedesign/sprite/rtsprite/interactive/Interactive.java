@@ -54,6 +54,8 @@ public abstract class Interactive extends RTSprite implements RTSpriteVisitor {
     private SkillStrategy mySkillStrategy;
 
     private Map<String, Factory> myMakers;
+    
+    private int myVision;
 
     public Interactive (Pixmap image, Location center, Dimension size, Sound sound, int teamID, int health) {
         super(image, center, size, sound, teamID, health);
