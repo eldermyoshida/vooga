@@ -1,6 +1,5 @@
 package vooga.rts.ai;
 
-import java.util.List;
 import java.util.Queue;
 import vooga.rts.map.*;
 import vooga.rts.util.Location;
@@ -19,7 +18,7 @@ public class PathingHelper {
     public void constructPath (Location start, Location desired) {
         MapNode startNode = myMap.getNode(start);
         MapNode desiredNode = myMap.getNode(desired);
-        myPath = myFinder.findPath(startNode, desiredNode);
+        myPath = myFinder.findPath(startNode, desiredNode, myMap);
         myNext = myPath.poll();
     }
     

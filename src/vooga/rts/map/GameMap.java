@@ -12,7 +12,7 @@ public class GameMap {
     public static final int NODE_SIZE = 8;
     
     private Tile[][] myTiles;
-    private HashMap<Integer, MapNode[][]> myMap;
+    private MapNode[][] myMap;
     
     /**
      * The Width of the map in Grid Size
@@ -33,9 +33,7 @@ public class GameMap {
        myHeight = (mapSize.height * tileSize.height) / NODE_SIZE;
        
        // Create map and add first layer
-       myMap = new HashMap<Integer, MapNode[][]>();
-       myMap.put(1, createLayer(myWidth, myHeight));
-       
+       myMap = new MapNode[myWidth][myHeight];
        myTiles = new Tile[mapSize.width][mapSize.height];
     }    
     
@@ -68,6 +66,16 @@ public class GameMap {
       * @return
       */
      public MapNode getNode (Location location) {
-         return myMap.get(0)[(int)location.x/NODE_SIZE][(int)location.y/NODE_SIZE];
+         return myMap[(int)location.x/NODE_SIZE][(int)location.y/NODE_SIZE];
+     }
+     
+     public List<MapNode> getNeighbors (MapNode center) {
+         List<MapNode> neighbors = new ArrayList<MapNode>();
+         for (int i = -1; i < 2; i += 2) {
+             for (int j = -1; j < 2; j += 2) {
+                 neighbors.add(myMap[center.getX() + i][center.getY()  + j]);
+             }
+         }
+         return neighbors;
      }
 }

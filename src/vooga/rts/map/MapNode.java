@@ -8,7 +8,7 @@ import vooga.rts.util.Location;
 public class MapNode {
 
     private static final int DEFAULT_VALUE = 1;
-
+    private double myDistance = 10;
     private List<Terrain> myTerrain;
     private int myHeight;
     /* X and Y are relative to the width of the map as defined by the number of 
@@ -45,5 +45,9 @@ public class MapNode {
     
     public Location getLocation () {
         return myLocation;
+    }
+    
+    public double getDistance () {
+        return myDistance;
     }
 }
