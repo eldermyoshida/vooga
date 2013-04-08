@@ -90,8 +90,8 @@ public class GameTable extends Table {
         return false;
     }
     
-    public String getGameID(String gameName) {
-        String stm = "SELECT * FROM games WHERE gamename='" + gameName + "'";
+    public String retrieveGameId(String gameName) {
+        String stm = "SELECT * FROM " + TABLE_NAME + " WHERE " + GAMENAME_COLUMN_FIELD + "='" + gameName + "'";
         String gameid = "";
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
@@ -114,11 +114,11 @@ public class GameTable extends Table {
      * @param lastname is lastname
      * @param dateOfBirth is date of birth
      */
-    public boolean addGame(String gameName) {
+    public boolean createGame(String gameName) {
         if (gameNameExists(gameName)) {
             return false;
         }
-        String stm = "INSERT INTO games(gamename) VALUES(?)";
+        String stm = "INSERT INTO " + TABLE_NAME + "(" + GAMENAME_COLUMN_FIELD + ") VALUES(?)";
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
             myPreparedStatement.setString(GAMENAME_COLUMN_INDEX, gameName);
@@ -130,7 +130,7 @@ public class GameTable extends Table {
         return true;
     }
     
-    public List<String> getGameList() {
+    public List<String> retrieveGameList() {
         String stm = "SELECT " + GAMENAME_COLUMN_FIELD + " FROM "  + TABLE_NAME;
         List<String> myGameNames = new ArrayList<String>();
         try {

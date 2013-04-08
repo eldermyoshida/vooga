@@ -21,8 +21,8 @@ public class UserGameDataTable extends Table {
     
     private static final int GAMEID_COLUMN_INDEX = 1;
     private static final int USERID_COLUMN_INDEX = 2;
-    private static final int USERGAMEFILEPATH_COLUMN_INDEX = 3;
-    private static final int HIGHSCORE_COLUMN_INDEX = 4;
+    private static final int HIGHSCORE_COLUMN_INDEX = 3;
+    private static final int USERGAMEFILEPATH_COLUMN_INDEX = 4;
     private static final int USERGAMEID_COLUMN_INDEX = 5;
 
     
@@ -86,12 +86,15 @@ public class UserGameDataTable extends Table {
      * @param gameid is game id
      * @param userid is user id
      */
-    public void addNewUserGameData (String gameid, String userid) {
-        String stm = "INSERT INTO usergamedata(gameid, userid) VALUES(?, ?)";
+    public void createNewUserGameData (String gameid, String userid, String highscore) {
+        
+        String stm = "INSERT INTO usergamedata(gameid, userid, highscore) VALUES (?, ?, ?)";
+        //String stm = "INSERT INTO " + TABLE_NAME + "(" + GAMEID_COLUMN_FIELD + ", " + USERID_COLUMN_FIELD + ", " + HIGHSCORE_COLUMN_FIELD + ") VALUES(?, ?, ?)";
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
             myPreparedStatement.setString(GAMEID_COLUMN_INDEX, gameid);
             myPreparedStatement.setString(USERID_COLUMN_INDEX, userid);
+            myPreparedStatement.setString(HIGHSCORE_COLUMN_INDEX, highscore);
             myPreparedStatement.executeUpdate();
         }
         catch (SQLException e) {
@@ -99,12 +102,24 @@ public class UserGameDataTable extends Table {
         }
     }
     
+    public void updateHighScore(String userid, String gameid, String highscore) {
+        String stm = "UPDATE usergamedata SET highscore = '" + highscore + "' WHERE userid = '" + userid + "' AND gameid = '" + gameid + "'" ;
+        try {
+            myPreparedStatement = myConnection.prepareStatement(stm);
+            myPreparedStatement.executeUpdate();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+    
     /**
      * Given userid, delete the user from the table
      * @param userid is user id
      */
     public void deleteUser(String userid) {
-        String stm = "DELETE FROM usergamedata WHERE userid='" + userid + "'";
+        String stm = "DELETE FROM " + TABLE_NAME + " WHERE "+ USERID_COLUMN_FIELD + "='" + userid + "'";
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
             myPreparedStatement.executeUpdate();
@@ -121,9 +136,9 @@ public class UserGameDataTable extends Table {
             myResultSet = myPreparedStatement.executeQuery();
             while (myResultSet.next()) {
                 System.out.print(myResultSet.getString(GAMEID_COLUMN_INDEX) + TABLE_SEPARATOR);
-                System.out.print(myResultSet.getString(USERID_COLUMN_INDEX) + TABLE_SEPARATOR);
+                System.out.print(myResultSet.getString(USERID_COLUMN_INDEX) + TABLE_SEPARATOR);                
+                System.out.print(myResultSet.getString(HIGHSCORE_COLUMN_INDEX) + TABLE_SEPARATOR);
                 System.out.print(myResultSet.getString(USERGAMEFILEPATH_COLUMN_INDEX) + TABLE_SEPARATOR);
-                System.out.print(myResultSet.getString(USERGAMEID_COLUMN_INDEX) + TABLE_SEPARATOR);
                 System.out.println(myResultSet.getString(USERGAMEID_COLUMN_INDEX) + TABLE_SEPARATOR);
             }
         }

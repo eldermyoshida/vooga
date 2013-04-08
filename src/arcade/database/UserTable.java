@@ -131,7 +131,7 @@ public class UserTable extends Table {
      * @param lastname is lastname
      * @param dob is date of birth
      */
-    public boolean addUser(String user, String pw, String firstname, 
+    public boolean createUser(String user, String pw, String firstname, 
                         String lastname, String dob) {
         if (usernameExists(user)) {
             return false;
@@ -153,23 +153,54 @@ public class UserTable extends Table {
     }
     
     /**
+     * Adds a user to user table based on information when avatar is present
+     * @param user is the username
+     * @param pw is the password
+     * @param firstname is firstname
+     * @param lastname is lastname
+     * @param dob is date of birth
+     * @param filepath is the filepath
+     */
+    public boolean createUser(String user, String pw, String firstname, 
+                        String lastname, String dob, String filepath) {
+        if (usernameExists(user)) {
+            return false;
+        }
+            createUser(user, pw, firstname, lastname, dob);
+            updateAvatar(user, filepath);
+        return true;
+    }
+    
+    /**
      * Returns the userid when given the username
      * @param username is the username
      */
-    public String getUserid(String username) {
-        String stm = "SELECT * FROM users WHERE username='" + username + "'";
-        String userid = "";
+    public String retrieveUserId(String username) {
+        return retrieveEntry(username, USERNAME_COLUMN_INDEX);
+    }
+    
+    public String retrieveDOB(String username) {
+        return retrieveEntry(username, DOB_COLUMN_INDEX);
+    }
+    
+    public String retrieveAvatar(String username) {
+        return retrieveEntry(username, AVATAR_COLUMN_INDEX);
+    }
+    
+    public String retrieveEntry(String username, int COLUMN_INDEX) {
+        String stm = "SELECT * FROM " +TABLE_NAME + " WHERE " + USERNAME_COLUMN_FIELD + "='" + username + "'";
+        String entry = "";
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
-            myResultSet  = myPreparedStatement.executeQuery();
+            myResultSet = myPreparedStatement.executeQuery();
             if (myResultSet.next()) {
-                userid = myResultSet.getString(USERID_COLUMN_INDEX);
+                entry = myResultSet.getString(COLUMN_INDEX);
             }
         }
         catch (SQLException e) {
             e.printStackTrace();
         }
-        return userid;
+        return entry;
     }
 
     /**
@@ -177,7 +208,7 @@ public class UserTable extends Table {
      * @param username is user
      */
     public void deleteUser(String username) {
-        String stm = "DELETE FROM users WHERE username='" + username + "'";
+        String stm = "DELETE FROM " + TABLE_NAME + " WHERE " + USERNAME_COLUMN_FIELD + "='" + username + "'";
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
             myPreparedStatement.executeUpdate();
@@ -185,6 +216,18 @@ public class UserTable extends Table {
         catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    
+    public void updateAvatar(String user, String filepath) {
+        String userid = retrieveUserId(user);
+        String stm = "UPDATE users SET avatarfilepath = '" + filepath + "' WHERE userid = '" + userid + "'";
+        try {
+            myPreparedStatement = myConnection.prepareStatement(stm);
+            myPreparedStatement.executeUpdate();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        } 
     }
     
     void printEntireTable () {
