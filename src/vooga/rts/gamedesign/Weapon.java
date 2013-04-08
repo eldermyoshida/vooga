@@ -57,7 +57,7 @@ public abstract class Weapon {
     	if(cooldown == 0) {
 
         	myProjectile.attack(toBeShot);
-        	setCooldown(maxCooldown);
+        	//setCooldown(maxCooldown);
     	}
     }
 
