@@ -7,7 +7,4 @@ public interface User {
     String getUsername();
     
     Image getAvatar();
-    
-    UserGameData getUserGameData();
-
 }

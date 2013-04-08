@@ -18,7 +18,7 @@ import javax.swing.ImageIcon;
  */
 public class Pixmap {
     // OS-independent relative resource locations (like URLs)
-    private static final String RESOURCE_LOCATION = "/arcade/resources/images/";
+    private static final String RESOURCE_LOCATION = "/";
     // underlying implementation
     private java.awt.Image myImage;
     private String myFileName;

@@ -7,16 +7,16 @@ import javax.swing.JComponent;
 
 
 @SuppressWarnings("serial")
-public class Thumbnail extends JComponent {
+public class JPicture extends JComponent {
     
     private Pixmap myImage;
     private Dimension mySize;
     
-    public Thumbnail(String filename, Dimension size) {
+    public JPicture(String filename, Dimension size) {
         this(new Pixmap(filename), size);
     }
     
-    public Thumbnail(Pixmap pixmap, Dimension size) {
+    public JPicture(Pixmap pixmap, Dimension size) {
         myImage = pixmap;
         mySize = size;
     }

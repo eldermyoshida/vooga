@@ -19,7 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import arcade.model.Model;
-import arcade.util.Thumbnail;
+import arcade.util.JPicture;
 
 
 /**
@@ -35,7 +35,7 @@ public class LoginView extends JFrame {
     /**
      * 
      */
-    private static final String BACKGROUND_FILENAME = "LoginBackGround.jpg";
+    private static final String BACKGROUND_FILENAME = "arcade/resources/images/LoginBackGround.jpg";
     private static final String LOGO_FILENAME = "VoogaLogo.png";
     private static final String TITLE_KEYWORD = "title";
     private static final String LOGIN_KEYWORD = "login";
@@ -93,7 +93,7 @@ public class LoginView extends JFrame {
     private void createHeadLine () {
         ImageIcon headlineIcon = createImageIcon(LOGO_FILENAME);
         JLabel headline = new JLabel(headlineIcon);
-        headline.setBounds(WINDOW_WIDTH / 2 - OFFSET, OFFSET / 10, HEADLINE_WIDTH, HEADLINE_HEIGHT);
+        headline.setBounds(WINDOW_WIDTH / 2 - OFFSET, OFFSET / 20, HEADLINE_WIDTH, HEADLINE_HEIGHT);
         myContentPanel.add(headline);
     }
 
@@ -104,9 +104,9 @@ public class LoginView extends JFrame {
         String usernameDescription = myResources.getString(USERNAME_KEYWORD);
         String passwordDescription = myResources.getString(PASSWORD_KEYWORD);
         JLabel username = new JLabel("<html><b>" + usernameDescription + "</b></html>");
-        username.setBounds(50, 60, 80, 25);
+        username.setBounds(50, 70, 80, 25);
         JLabel password = new JLabel("<html><b>" + passwordDescription + "</b></html>");
-        password.setBounds(50, 90, 80, 25);
+        password.setBounds(50, 100, 80, 25);
         myContentPanel.add(username);
         myContentPanel.add(password);
     }
@@ -117,12 +117,12 @@ public class LoginView extends JFrame {
     private void createTextFields () {
         // UserNameTextField
         myUserNameTextField = new JTextField();
-        myUserNameTextField.setBounds(145, 60, 100, 25);
+        myUserNameTextField.setBounds(145, 70, 100, 25);
         myUserNameTextField.addKeyListener(createKeyAdapter());
 
         // PasswordTextField
         myPasswordTextField = new JPasswordField();
-        myPasswordTextField.setBounds(145, 90, 100, 25);
+        myPasswordTextField.setBounds(145, 100, 100, 25);
         myPasswordTextField.addKeyListener(createKeyAdapter());
         resetTextFields();
         myContentPanel.add(myUserNameTextField);
@@ -196,7 +196,7 @@ public class LoginView extends JFrame {
     }
 
     private void createBackground () {
-        myBackground = new Thumbnail(BACKGROUND_FILENAME, getSize());
+        myBackground = new JPicture(BACKGROUND_FILENAME, getSize());
         myBackground.setBounds(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
         myContentPanel.add(myBackground);
 
