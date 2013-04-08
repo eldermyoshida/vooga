@@ -190,7 +190,9 @@ public class RTSprite extends Sprite implements IAttackable, RTSpriteVisitor {
         // TODO Auto-generated method stub
         return myAttackStrategy;
     }
-
+    public void die(){
+        curHealth = 0;
+    }
 
 
 

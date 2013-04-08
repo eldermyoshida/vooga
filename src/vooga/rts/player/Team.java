@@ -20,7 +20,7 @@ public class Team {
     }
     
     public List<Units> getUnits() {
-        List<Units> res = new ArrayList<>();
+        List<Units> res = new ArrayList<Units>();
         for (Player p : myPlayers) {
             res.addAll(p.getUnits().getAllUnits());
         }
