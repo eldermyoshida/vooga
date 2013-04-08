@@ -33,7 +33,7 @@ public class GameMap {
        myHeight = (mapSize.height * tileSize.height) / NODE_SIZE;
        
        // Create map and add first layer
-       myMap = new HashMap<>();
+       myMap = new HashMap<Integer, MapNode[][]>();
        myMap.put(1, createLayer(myWidth, myHeight));
        
        myTiles = new Tile[mapSize.width][mapSize.height];
