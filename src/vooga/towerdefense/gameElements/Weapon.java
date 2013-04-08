@@ -1,12 +1,13 @@
-package gameElements;
+package vooga.towerdefense.gameElements;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
-import util.Pixmap;
-import util.Vector;
+import vooga.towerdefense.util.Pixmap;
+import vooga.towerdefense.util.Vector;
+
 
 /**
  * There will be two primary types of weapons - loaded and primitive.
@@ -17,7 +18,7 @@ import util.Vector;
  */
 public abstract class Weapon extends Asset{
 	
-	private static final Pixmap myImage;
+	private static final Pixmap myImage = new Pixmap(""); //fill in image
 	private Attributes myAttributes;
 	private List<Ammunition> myAmmo;
 	private Vector myHeading;

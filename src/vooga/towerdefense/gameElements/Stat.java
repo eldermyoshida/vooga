@@ -1,4 +1,4 @@
-package gameElements;
+package vooga.towerdefense.gameElements;
 
 /**
  * Game stat object that can be added to a game element's collection of attributes.

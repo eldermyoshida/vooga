@@ -1,7 +1,8 @@
-package controller;
+package vooga.towerdefense.controller;
 
-import view.TDView;
-import model.GameModel;
+import vooga.towerdefense.model.GameModel;
+import vooga.towerdefense.view.TDView;
+
 
 
 /**

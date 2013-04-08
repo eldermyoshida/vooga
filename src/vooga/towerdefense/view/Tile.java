@@ -1,7 +1,7 @@
-package view;
-import gameElements.Tower;
+package vooga.towerdefense.view;
 
-import util.Location;
+import vooga.towerdefense.gameElements.Tower;
+import vooga.towerdefense.util.Location;
 
 
 public class Tile {

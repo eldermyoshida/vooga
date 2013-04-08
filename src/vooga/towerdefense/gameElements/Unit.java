@@ -1,14 +1,14 @@
-package gameElements;
+package vooga.towerdefense.gameElements;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.Map;
 
-import model.Path;
+import vooga.towerdefense.model.Path;
+import vooga.towerdefense.util.Location;
+import vooga.towerdefense.util.Pixmap;
+import vooga.towerdefense.util.Sprite;
+import vooga.towerdefense.util.Vector;
 
-import util.Location;
-import util.Pixmap;
-import util.Sprite;
-import util.Vector;
 
 /**
  *  used for creating enemy, boss in a tower defense game
