@@ -18,7 +18,7 @@ public class TextButton extends Button {
     public TextButton (String text, Color c, Dimension size, Location pos) {
         super(null, size, pos);
         myText = text;
-        myColor = c;
+        myColor = c;        
     }
 
     @Override
@@ -32,10 +32,10 @@ public class TextButton extends Button {
     public void paint(Graphics2D pen) {
         pen.setColor(myColor);        
         pen.fill(new Rectangle2D.Double(myPos.x, myPos.y, mySize.width, mySize.height));
-        pen.setFont(new Font("Arial", Font.BOLD, 16));   
+        pen.setFont(new Font("Arial", Font.BOLD, 24));   
         
         int cX = (int) (myPos.x + 5);
-        int cY = (int) ((myPos.y + (mySize.height / 2)) + 8);
+        int cY = (int) ((myPos.y + (mySize.height / 2)) + 12);
         pen.setColor(Color.BLACK);
         pen.drawString(myText, cX, cY);
     }
