@@ -28,6 +28,14 @@ public class MainView extends JFrame {
     private Model myModel;
     private ResourceBundle myResources;
 
+    
+    
+    
+    /**
+     * 
+     * @param model
+     * @param rb
+     */
     public MainView (Model model, ResourceBundle rb) {
         myModel = model;
         myResources = rb;

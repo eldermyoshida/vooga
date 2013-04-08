@@ -1,5 +1,6 @@
 package arcade.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import arcade.games.GameInfo;
@@ -52,10 +53,9 @@ public class Model {
      * @return
      */
     public List<GameInfo> getGameList(){
+        List<GameInfo> result = new ArrayList<GameInfo>();
     	GameInfo myGameInfo = new GameInfo("example");
-    	System.out.println(myGameInfo.getDescription());
-    	Pixmap p1 = myGameInfo.getAdScreen();
-    	Pixmap p2 = myGameInfo.getThumbnail();
-        return null;
+    	result.add(myGameInfo);
+        return result;
     }
 }
