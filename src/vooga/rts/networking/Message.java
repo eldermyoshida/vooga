@@ -8,7 +8,7 @@ import java.io.Serializable;
  * @author David Winegar
  *
  */
-public class Message implements Serializable {
+public class Message implements Serializable, Comparable<Message> {
 
     /**
      * 
@@ -31,6 +31,28 @@ public class Message implements Serializable {
     
     public int getTimeReceived () {
         return myTimeReceivedByServer;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if(object == null) {
+            return false;
+        }
+        if (!(object instanceof Message)) {
+            return false;
+        } 
+        Message message = (Message) object;
+        return (getTimeSent() != message.getTimeSent());
+    }
+    
+    @Override
+    public int hashCode () {
+        return myTimeSent * 200 - 13;
+    }
+
+    @Override
+    public int compareTo (Message message) {
+        return getTimeSent() - message.getTimeSent();
     }
     
 }
