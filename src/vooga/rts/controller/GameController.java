@@ -1,10 +1,17 @@
 package vooga.rts.controller;
 
+import vooga.rts.gamedesign.sprite.rtsprite.interactive.Interactive;
+import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Soldier;
+import vooga.rts.gamedesign.strategy.attackstrategy.CannotAttack;
 import vooga.rts.input.*;
 import vooga.rts.player.AIPlayer;
 import vooga.rts.player.HumanPlayer;
 import vooga.rts.player.Player;
 import vooga.rts.player.Team;
+import vooga.rts.util.Location;
+import vooga.rts.util.Pixmap;
+import vooga.rts.util.Sound;
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -85,7 +92,14 @@ public class GameController extends AbstractController {
 
     private void setupGame () {
         Player p1 = new HumanPlayer();
-        p1.getUnits().addUnit(null);
+        Pixmap p = new Pixmap("vooga.rts.images.soldier.png");
+        Location l = new Location(40,50);
+        Dimension s = new Dimension();
+        Sound soun = new Sound("vooga.rts.sounds.pikachu.wav");
+
+        Units a = new Soldier(p,l,s,soun,20,40);
+        a.setAttackStrategy(new CannotAttack());
+        p1.getUnits().addUnit(a);
         Player p2 = new HumanPlayer();
         p2.getUnits().addUnit(null);
     }

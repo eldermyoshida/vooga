@@ -7,6 +7,7 @@ import vooga.rts.gamedesign.sprite.rtsprite.Bullet;
 import vooga.rts.gamedesign.sprite.rtsprite.Projectile;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.Interactive;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Soldier;
+import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Units;
 import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;
 import vooga.rts.gamedesign.strategy.attackstrategy.CannotAttack;
 import vooga.rts.gamedesign.upgrades.UpgradeNode;
