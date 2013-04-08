@@ -1,4 +1,4 @@
-package vooga.towerdefense.gameElements;
+package gameElements;
 /**
  * designer should create customized object to implement this interface for creating multiple states 
  * for a unit  e.g. normal state/dead state/slowed state, the state is responsible for painting

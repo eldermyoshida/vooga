@@ -1,13 +1,14 @@
-package vooga.towerdefense.gameElements;
+package gameElements;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.Map;
 
-import vooga.towerdefense.util.Location;
-import vooga.towerdefense.util.Pixmap;
-import vooga.towerdefense.util.Sprite;
-import vooga.towerdefense.util.Vector;
-import vooga.towerdefense.model.Path;
+import model.Path;
+
+import util.Location;
+import util.Pixmap;
+import util.Sprite;
+import util.Vector;
 
 /**
  *  used for creating enemy, boss in a tower defense game
@@ -62,7 +63,7 @@ public class Unit extends Sprite {
 	 * @return
 	 */
 	private boolean hasArrived(Location destination) {
-		return destination.distance(this.getCenter())<DISTANCE_OFFSET;
+		return destination.distance(getCenter())<DISTANCE_OFFSET;
 		
 	}
 	

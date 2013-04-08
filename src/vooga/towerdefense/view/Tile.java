@@ -1,7 +1,6 @@
 package view;
 import gameElements.Tower;
 
-import java.awt.geom.Point2D;
 import util.Location;
 
 

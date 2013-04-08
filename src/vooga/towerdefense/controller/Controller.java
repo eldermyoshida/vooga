@@ -1,5 +1,6 @@
 package controller;
 
+import view.View;
 import model.GameModel;
 
 
@@ -21,7 +22,7 @@ public class Controller {
 
 
     private GameModel myGameModel;
-    private VoogaView myView;
+    private View myView;
 
     
     /**
@@ -29,8 +30,8 @@ public class Controller {
      * and the parser
      */
     public Controller () {
-        myGameModel = new GameModel();
-        myView = new VoogaView();
+        //myGameModel = new GameModel(); //constructor parameters need to be added
+        myView = new View();
     }
     
     /**
@@ -46,3 +47,4 @@ public class Controller {
     private GameModel getModel () {
         return myGameModel;
     }
+}
