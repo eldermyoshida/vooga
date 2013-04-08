@@ -14,8 +14,6 @@ public class GameDesignMain {
      * @param args
      */
     public static void main(String[] args) {
-
-
         Pixmap p = new Pixmap("soldier.png");
         Location l = new Location();
         Dimension s = new Dimension();
@@ -24,10 +22,7 @@ public class GameDesignMain {
         Interactive a = new Soldier(p,l,s,soun,20,20);
         Interactive b = new Soldier(p,l,s,soun,20,20);
 
-        //a.visit(b);
         b.accept(a);
-
-
     }
 
 }
