@@ -17,8 +17,9 @@ public class GameDesignMain {
 
     /**
      * @param args
+     * @throws CloneNotSupportedException 
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws CloneNotSupportedException {
 
 
         Pixmap p = new Pixmap("soldier.png");
@@ -28,23 +29,21 @@ public class GameDesignMain {
 
         Interactive a = new Soldier(p,l,s,soun,20,40);
         a.setAttackStrategy(new CannotAttack());
-       
-        
-        
+
         Interactive b = new Soldier(p,new Location(20,30),s,soun,20,50);
         Projectile proj = new Bullet(new Pixmap("bullet.png"), b.getCenter(), new Dimension(30, 30), soun, 10, 1);
         b.setAttackStrategy(new CanAttack());
         ((CanAttack) b.getAttackstrategy()).addWeapons(new Gun(0, proj, 50, b.getCenter()));
 
-        
+
         for(int i = 0 ; i < 10 ; i++){
-        	if(a.isDead()){
-        	    System.out.println("SOldier A DIED WOOHOO");
-        	}
-        	else {
-        	    System.out.println(a.getHealth());
-        	    a.accept(b);
-        	}
+            if(a.isDead()){
+                System.out.println("SOldier A DIED WOOHOO");
+            }
+            else {
+                System.out.println(a.getHealth());
+                a.accept(b);
+            }
         }
 
 

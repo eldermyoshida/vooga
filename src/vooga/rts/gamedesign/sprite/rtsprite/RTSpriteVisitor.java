@@ -16,8 +16,9 @@ public interface RTSpriteVisitor {
     /**
      * 
      * @param rtSprite
+     * @throws CloneNotSupportedException 
      */
-    public void visit(IAttackable a);
+    public void visit(IAttackable a) throws CloneNotSupportedException;
 
     public void visit(IOccupiable o);
 

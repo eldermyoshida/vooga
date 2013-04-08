@@ -11,6 +11,8 @@ import vooga.rts.gamedesign.sprite.rtsprite.IGatherable;
 import vooga.rts.gamedesign.sprite.rtsprite.RTSprite;
 import vooga.rts.gamedesign.sprite.rtsprite.RTSpriteVisitor;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.IOccupiable;
+import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
+import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
@@ -45,19 +47,15 @@ public class Soldier extends Units {
 
     }
 
-    public void visit(IAttackable a){
+    public void visit(IAttackable a) throws CloneNotSupportedException{
         getAttackstrategy().attack(a);
     }
 
     @Override
-    public int calculateDamage() {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    @Override
     public void update(double elapsedTime) {
-        // TODO Auto-generated method stub
+       AttackStrategy as = getAttackStrategy() ;
+    	if(as instanceof CanAttack)
+    		((CanAttack) as).update();
 
     }
 

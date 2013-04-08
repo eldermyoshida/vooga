@@ -29,7 +29,16 @@ public abstract class Units extends Interactive implements IMovable {
 	
 	private boolean myIsLeftSelected; //TODO: also need the same thing for Projectiles
 	private boolean myIsRightSelected; //TODO: should be observing the mouse action instead!!
-
+	
+	/**
+	 * Creates a new unit with an image, location, size, sound, teamID and health
+	 * @param image is the image of the unit
+	 * @param center is the position of the unit on the map
+	 * @param size is the size of the unit
+	 * @param sound is the sound the unit makes
+	 * @param teamID is the ID for the team that the unit is on
+	 * @param health is the max health of the unit
+	 */
 	public Units(Pixmap image, Location center, Dimension size, Sound sound, int teamID, int health) {
 		super(image, center, size, sound, teamID, health);
 

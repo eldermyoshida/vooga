@@ -15,6 +15,5 @@ public class Bullet extends Projectile{
 		super(pixmap, loc, size, sound, damage, health);
 		setAttackStrategy(new InstantDamage());
 	}
-
-
 }
+

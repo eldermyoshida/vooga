@@ -44,6 +44,7 @@ public class RTSprite extends Sprite implements IAttackable, RTSpriteVisitor {
 
     private Sound mySound;
 
+    private int armor;
 
     public RTSprite (Pixmap image, Location center, Dimension size, Sound sound, int teamID, int health) {
         super(image, center, size);
@@ -60,8 +61,9 @@ public class RTSprite extends Sprite implements IAttackable, RTSpriteVisitor {
      *  This would accept RTSpriteVisitors and behave according to the 
      *  visitor's visit method. This code will always run 
      *  RTSpriteVisitor.visit(this). "this" being the subclass of RTSprite. 
+     * @throws CloneNotSupportedException 
      */
-    public void accept(RTSpriteVisitor visitor) {
+    public void accept(RTSpriteVisitor visitor) throws CloneNotSupportedException {
         visitor.visit(this);
     }
 
@@ -84,7 +86,7 @@ public class RTSprite extends Sprite implements IAttackable, RTSpriteVisitor {
         return mySound;
     }
 
-    public void visit(IAttackable a){
+    public void visit(IAttackable a) throws CloneNotSupportedException{
         myAttackStrategy.attack(a);
     }
     public void visit(IGatherable g){
@@ -156,14 +158,16 @@ public class RTSprite extends Sprite implements IAttackable, RTSpriteVisitor {
         setVelocity(angle, magnitude);
     }
 
+
     @Override
-    public int calculateDamage() {
-        return 10;
+    public int calculateDamage(int damage) {
+        return damage * (1-armor/100);
     }
 
     @Override
     public void changeHealth(int change) {
-        curHealth -= change;
+        curHealth -= calculateDamage(change);
+
     }
 
     @Override
@@ -172,11 +176,11 @@ public class RTSprite extends Sprite implements IAttackable, RTSpriteVisitor {
         getCenter().translate(getVelocity());
     }
 
-    @Override
     public AttackStrategy getAttackStrategy () {
         // TODO Auto-generated method stub
         return myAttackStrategy;
     }
+
 
 
 
