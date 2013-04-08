@@ -3,6 +3,8 @@ package vooga.rts.controller;
 import java.awt.Graphics2D;
 import java.awt.MenuItem;
 
+import vooga.rts.command.Action;
+
 public class MenuController extends AbstractController {
 
     public MenuController () {
@@ -14,7 +16,7 @@ public class MenuController extends AbstractController {
     }
     
     @Override
-    public void receiveUserInput () {
+    public void receiveUserInput (Action a) {
         // TODO Auto-generated method stub
         
     }

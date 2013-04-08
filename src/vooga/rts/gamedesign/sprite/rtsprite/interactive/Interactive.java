@@ -41,16 +41,12 @@ public abstract class Interactive extends RTSprite implements RTSpriteVisitor {
      * the data structure for storing progress of upgrades can be changed?
      */
     private AttackStrategy myAttackStrategy;
-
     private GatherStrategy myGatherStrategy;
     private OccupyStrategy myOccupyStrategy;
 
     private UpgradeTree myUpgradeTree;
-
     private Integer buildTime;
-
     private SkillStrategy mySkillStrategy;
-
     private Map<String, Factory> myMakers;
 
     private int myVision;

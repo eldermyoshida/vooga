@@ -9,5 +9,4 @@ public interface IMessageServer {
 
     public void sendMessage (Message message);
     
-    public void sendObject (Object object);
 }

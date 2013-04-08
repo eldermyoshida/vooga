@@ -1,14 +1,17 @@
 package vooga.rts.controller;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.Timer;
 import java.util.TimerTask;
 import vooga.rts.Game;
+import vooga.rts.IGameLoop;
 import vooga.rts.gui.Window;
 import vooga.rts.resourcemanager.ResourceManager;
 
+import vooga.rts.command.Action;
 
-public class MainController extends AbstractController {
+public class MainController extends AbstractController implements IGameLoop {
 
     private GameController myGameController;
     private LoadingController myLoadingController;
@@ -41,7 +44,7 @@ public class MainController extends AbstractController {
     }
 
     @Override
-    public void receiveUserInput () {
+    public void receiveUserInput (Action a) {
         // TODO Auto-generated method stub
 
     }
