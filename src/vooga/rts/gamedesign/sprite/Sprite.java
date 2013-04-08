@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
+
+
 import vooga.rts.util.*;
 
 /**
@@ -14,7 +16,7 @@ import vooga.rts.util.*;
  *   
  * @author Robert C. Duvall
  */
-public abstract class Sprite implements GameLoop{
+public abstract class Sprite {
     // canonical directions for a collision
     public static final int RIGHT_DIRECTION = 0;
     public static final int UP_DIRECTION =  270;
