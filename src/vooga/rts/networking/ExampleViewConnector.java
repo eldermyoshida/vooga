@@ -25,6 +25,7 @@ public class ExampleViewConnector extends Thread {
             Socket sock = new Socket("localhost", PORT);
             out = new ObjectOutputStream(sock.getOutputStream());
             in = new ObjectInputStream(sock.getInputStream());
+            System.out.println("opened");
         }
         catch (UnknownHostException e) {
             e.printStackTrace();
