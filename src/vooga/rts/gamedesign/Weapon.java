@@ -20,11 +20,11 @@ import vooga.rts.gamedesign.upgrades.UpgradeTree;
  */
 public abstract class Weapon {
 
-  public Integer myDamage;
+  private Integer myDamage;
 
-  public Projectile myProjectile;
+  private Projectile myProjectile;
 
-  public UpgradeTree myUpgradeTree;
+  private UpgradeTree myUpgradeTree;
   
   /**
    * Creates a new weapon with default damage and projectile.
