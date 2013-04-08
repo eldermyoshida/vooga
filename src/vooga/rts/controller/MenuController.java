@@ -58,7 +58,9 @@ public class MenuController extends AbstractController implements Observer  {
 
     @Override
     public void update (Observable arg0, Object arg1) {
-        System.out.println("I am hereby notified.");        
+        System.out.println("I am hereby notified.");  
+        setChanged();
+        notifyObservers(arg1);
     }
     
     

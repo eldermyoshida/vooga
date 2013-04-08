@@ -33,6 +33,10 @@ public abstract class Player implements IGameLoop {
     public int getTeamID () {
         return myTeamID;
     }
+    
+    public void setTeamID (int id) {
+        myTeamID = id;
+    }
 
     /*
      * (non-Javadoc)

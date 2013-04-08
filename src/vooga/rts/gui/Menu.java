@@ -18,7 +18,7 @@ public abstract class Menu extends Observable implements IGameLoop, Observer{
 
     public Menu () {
         myButtons = new ArrayList<Button>();
-    }
+    }    
 
     @Override
     public void update (double elapsedTime) {
@@ -60,6 +60,12 @@ public abstract class Menu extends Observable implements IGameLoop, Observer{
                 b.update(0);
             }
         }
+    }
+    
+    @Override
+    public void update (Observable o, Object arg) {
+        setChanged();
+        notifyObservers(arg);        
     }
 
 }

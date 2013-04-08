@@ -1,30 +1,37 @@
 package vooga.rts.controller;
 
 import vooga.rts.input.*;
+import vooga.rts.player.AIPlayer;
+import vooga.rts.player.HumanPlayer;
 import vooga.rts.player.Player;
+import vooga.rts.player.Team;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 
 public class GameController extends AbstractController {
 
-    private Map<Integer, List<Player>> myTeams;
+    private Map<Integer, Team> myTeams;
     private List<Player> myPlayers;
 
     public GameController () {
-
+        myTeams = new HashMap<Integer, Team>();
+        myPlayers = new ArrayList<Player>();
     }
 
-    public void addHumanPlayer (Player player, int teamID) {
+    public void addPlayer (Player player, int teamID) {
         myPlayers.add(player);
-        myTeams.get(teamID).add(player);
-        myTeams.put(teamID, myTeams.get(teamID));
+        if (myTeams.get(teamID) == null) {
+            addTeam(teamID);
+        }
+        myTeams.get(teamID).addPlayer(player);
     }
 
     public void addTeam (int teamID) {
-        myTeams.put(teamID, new ArrayList<Player>());
+        myTeams.put(teamID, new Team(teamID));
     }
 
     public void connect (/* NetworkGameInfo n */) {
@@ -52,7 +59,9 @@ public class GameController extends AbstractController {
 
     @Override
     public void onLeftMouseUp (PositionObject o) {
-
+        // if it's not a gui thing
+        HumanPlayer human = (HumanPlayer) myPlayers.get(0);
+        human.handleLeftClick((int) o.getX(), (int) o.getY());
     }
 
     @Override
@@ -62,11 +71,21 @@ public class GameController extends AbstractController {
 
     @Override
     public void onRightMouseUp (PositionObject o) {
+        // If it's not a GUI thing
 
+        HumanPlayer human = (HumanPlayer) myPlayers.get(0);
+        human.handleRightClick((int) o.getX(), (int) o.getY());
     }
 
     @Override
     public void activate (MainState gameState) {
+        setupGame();
+    }
 
+    private void setupGame () {
+        Player p1 = new HumanPlayer();
+        p1.getUnits().addUnit(null);
+        Player p2 = new HumanPlayer();
+        p2.getUnits().addUnit(null);
     }
 }
