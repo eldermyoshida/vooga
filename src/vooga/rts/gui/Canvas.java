@@ -6,13 +6,14 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
 import java.awt.image.BufferStrategy;
 import javax.swing.JPanel;
 
 public class Canvas extends JPanel{
 
     BufferStrategy myStrategy;
-    private Graphics myGraphics;
+    private Graphics2D myGraphics;
     
     public Canvas (BufferStrategy buffer) {
         super();
@@ -21,8 +22,9 @@ public class Canvas extends JPanel{
     }
     
     public Graphics2D getGraphics() {    
-        myGraphics = myStrategy.getDrawGraphics();  
-        return (Graphics2D)myGraphics;
+        myGraphics = (Graphics2D)myStrategy.getDrawGraphics();
+        myGraphics.draw(new Rectangle());
+        return myGraphics;
         
     }
 

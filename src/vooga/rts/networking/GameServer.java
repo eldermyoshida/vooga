@@ -15,11 +15,13 @@ public class GameServer extends Thread implements IMessageServer {
     private List<ConnectionThread> myClients;
     private int myID;
     private boolean gameRunning = false;
-    private Queue<Message> myMessageQueue = new LinkedList<Message>();
-    
+    private JTextArea dummyText;
+    private Queue<Message> myMessageQueue;
+       
     public GameServer(int ID){
         myClients = new ArrayList<ConnectionThread>();
         myID = ID;
+        myMessageQueue = new LinkedList<Message>();
     }
     
     /**

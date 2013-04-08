@@ -9,8 +9,6 @@ import vooga.rts.IGameLoop;
 import vooga.rts.gui.Window;
 import vooga.rts.resourcemanager.ResourceManager;
 
-import vooga.rts.command.Action;
-
 public class MainController extends AbstractController implements IGameLoop {
 
     private GameController myGameController;
@@ -39,7 +37,7 @@ public class MainController extends AbstractController implements IGameLoop {
                 update(this.scheduledExecutionTime());
                 render();
             }
-        }, 0, Game.TIME_PER_FRAME());
+        }, 500, Game.TIME_PER_FRAME());
         myWindow.setFullscreen(true);
     }
 
@@ -73,8 +71,16 @@ public class MainController extends AbstractController implements IGameLoop {
     }
 
     public void render () {
-        Graphics2D graphics = myWindow.getCanvas().getGraphics();        
+        // Get graphics and clear frame 
+        Graphics2D graphics = myWindow.getCanvas().getGraphics();
+        graphics.setColor(Color.WHITE);
+        graphics.fillRect(0, 0, myWindow.getCanvas().getWidth(), myWindow.getCanvas().getHeight());
+        graphics.setColor(Color.BLACK);
+        
+        // Paint stuff
         paint(graphics);
+        
+        // 
         myWindow.getCanvas().render();
     }
 

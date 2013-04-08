@@ -24,7 +24,7 @@ public class ResourceManager {
     int count = 0;
     public boolean isLoading() {
         count++;
-        return count < 500;
+        return count < 100;
     }
     
     public static ResourceManager instance() {
