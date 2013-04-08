@@ -1,5 +1,6 @@
 package vooga.fighter.objects;
 
+import java.awt.Dimension;
 import java.io.File;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -16,10 +17,12 @@ public class ObjectLoader {
 	
 	private int[] myMovespeeds;
 	private Pixmap[] myImages;
+	private Dimension[] myDimensions;
 	
 	public ObjectLoader () {
 		myImages = new Pixmap[10];
 		myMovespeeds = new int[10];
+		myDimensions = new Dimension[10];
 		init();
 	}
 
@@ -44,6 +47,7 @@ public class ObjectLoader {
 					int movespeed = Integer.parseInt(getValue("movespeed", element));
 					myImages[0] = image;
 					myMovespeeds[0] = movespeed;
+					myDimensions[0] = new Dimension(30, 50);
 				}
 			}
 		} catch (Exception e) {
@@ -59,6 +63,6 @@ public class ObjectLoader {
 	
 	public CharacterObject getTestCharacter () {
 		Location beginningLocation = new Location(100, 100);
-		return new CharacterObject(myImages[0], beginningLocation, myMovespeeds[0]);
+		return new CharacterObject(myImages[0], beginningLocation, myMovespeeds[0], myDimensions[0]);
 	}
 }
