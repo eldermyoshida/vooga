@@ -31,7 +31,8 @@ public abstract class Units extends Interactive implements IMovable {
 
 	private OccupyStrategy myOccupyStrategy;
 	
-	private boolean myIsSelected;
+	private boolean myIsLeftSelected; //TODO: also need the same thing for Projectiles
+	private boolean myIsRightSelected;
 
 	public Units(Pixmap image, Location center, Dimension size, Sound sound, int teamID, int health) {
 		super(image, center, size, sound, teamID, health);
@@ -44,13 +45,24 @@ public abstract class Units extends Interactive implements IMovable {
 	}
 
 	/**
-	 * Moves the Unit only when it is selected.
+	 * Moves the Unit only when it is selected. Updates first the angle
+	 * the Unit is facing, and then its location.
 	 */
 	public void move(Location loc){
-		if (myIsSelected){
-			setVelocity(getCenter().difference(loc).getDirection(), getCenter().difference(loc).getMagnitude());
+		if (myIsLeftSelected){
+			double angle = getCenter().difference(loc).getDirection();
+			double magnitude = getCenter().difference(loc).getMagnitude();
+			turn(angle);
+			setVelocity(angle, magnitude);
 		}
 	}
 
+	/**
+	 * Rotates the Unit by the given angle. 
+	 * @param angle
+	 */
+	public void turn(double angle){
+		getVelocity().turn(angle);
+	}
 
 }
