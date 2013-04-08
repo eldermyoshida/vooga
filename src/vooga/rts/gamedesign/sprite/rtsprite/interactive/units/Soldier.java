@@ -56,30 +56,9 @@ public class Soldier extends Units {
     }
 
     @Override
-    public void changeHealth() {
-        // TODO Auto-generated method stub
-
-    }
-
-
-    @Override
     public void update(double elapsedTime) {
         // TODO Auto-generated method stub
 
-    }
-
-
-    @Override
-    public void visit (IOccupiable o) {
-        // TODO Auto-generated method stub
-        
-    }
-
-
-    @Override
-    public void visit (IGatherable g) { // duplicated with GatherStrategy???
-        // TODO Auto-generated method stub
-        
     }
     
     public void myHealth(int value){ //TESTING PURPOSE

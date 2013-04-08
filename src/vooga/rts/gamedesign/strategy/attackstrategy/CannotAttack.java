@@ -17,7 +17,7 @@ public class CannotAttack implements AttackStrategy{
 
     
     public void attack(IAttackable a) {
-
+        System.out.println("I am a nicene creed");
         
     }
     

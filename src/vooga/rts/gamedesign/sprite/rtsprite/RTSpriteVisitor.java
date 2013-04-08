@@ -13,14 +13,14 @@ import vooga.rts.gamedesign.sprite.rtsprite.interactive.IOccupiable;
  */
 public interface RTSpriteVisitor {
 
-	/**
-	 * 
-	 * @param rtSprite
-	 */
-  public void visit(IAttackable a);
-  
-  public void visit(IOccupiable o);
-  
-  public void visit(IGatherable g);
+    /**
+     * 
+     * @param rtSprite
+     */
+    public void visit(IAttackable a);
+
+    public void visit(IOccupiable o);
+
+    public void visit(IGatherable g);
 
 }

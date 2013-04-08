@@ -36,14 +36,14 @@ public class RTSprite extends Sprite implements IAttackable, RTSpriteVisitor {
     private OccupyStrategy myOccupyStrategy;
     private AttackStrategy myAttackStrategy;
     private GatherStrategy myGatherStrategy;
-    
+
 
     private Integer maxHealth;
 
     private Integer TeamID;
 
     private Sound mySound;
-    
+
 
     public RTSprite (Pixmap image, Location center, Dimension size, Sound sound, int teamID, int health) {
         super(image, center, size);
@@ -55,7 +55,7 @@ public class RTSprite extends Sprite implements IAttackable, RTSpriteVisitor {
         myGatherStrategy = new CannotGather();
         myOccupyStrategy = new CannotOccupy();
     }
-    
+
     /** 
      *  This would accept RTSpriteVisitors and behave according to the 
      *  visitor's visit method. This code will always run 
@@ -64,10 +64,10 @@ public class RTSprite extends Sprite implements IAttackable, RTSpriteVisitor {
     public void accept(RTSpriteVisitor visitor) {
         visitor.visit(this);
     }
-    
-    
+
+
     public int getHealth(){
-    	return curHealth;
+        return curHealth;
     }
     /**
      * This would determine if two RTSprites collide.
@@ -79,44 +79,71 @@ public class RTSprite extends Sprite implements IAttackable, RTSpriteVisitor {
     public boolean interactsWith(RTSprite rtSprite) {
         return getBounds().intersects(rtSprite.getBounds());
     }
-    
+
     public Sound getSound(){
         return mySound;
     }
-    
+
     public void visit(IAttackable a){
-    	a.getAttackStrategy().attack(this);
+        myAttackStrategy.attack(a);
     }
     public void visit(IGatherable g){
-    	myGatherStrategy.gather(g);
-    	
+        myGatherStrategy.gather(g);
+
     }
     public void visit(IOccupiable o){
-    	myOccupyStrategy.occupy(o);
+        myOccupyStrategy.occupy(o);
     }
-    
-    
+
+    /**
+     * Sets the attack strategy for an interactive. Can set the interactive
+     * to CanAttack or to CannotAttack and then can specify how it would
+     * attack.
+     * 
+     * @param newStrategy is the new attack strategy that the interactive
+     *        will have
+     */
     public void setAttackStrategy(AttackStrategy newStrategy){
-    	myAttackStrategy = newStrategy;
+        myAttackStrategy = newStrategy;
     }
-    
+    /**
+     * Sets the gatehr strategy for an interactive. Can set the interactive
+     * to CanGather or to CannotGather and then can specify how it would
+     * gather.
+     * 
+     * @param newStrategy is the new gather strategy that the interactive
+     *        will have
+     */
     public void setGatherStrategy(GatherStrategy newStrategy){
-    	myGatherStrategy = newStrategy;
+        myGatherStrategy = newStrategy;
     }
-    
+    /**
+     * Sets the occupy strategy for an interactive. Can set the interactive
+     * to CanOccupy or to CannotOccupy.
+     * 
+     * @param newStrategy is the new occupy strategy that the interactive
+     *        will have
+     */
     public void setOccupyStrategy(OccupyStrategy newStrategy){
-    	myOccupyStrategy = newStrategy;
+        myOccupyStrategy = newStrategy;
     }
-    
+    /**
+     * Returns the current attack strategy of the interactive
+     * 
+     * @return the current attack strategy
+     */
+    public AttackStrategy getAttackstrategy () {
+        return myAttackStrategy;
+    }
     /**
      * Checks to see if an RTSprite is dead.
      * @return true if the RTSprite has been killed and true if the RTSprite 
      * is still alive.
      */
     public boolean isDead() {
-    	return curHealth <= 0;
+        return curHealth <= 0;
     }
-    
+
     /**
      * Moves the Unit only. Updates first the angle the Unit is facing,
      * and then its location.
@@ -130,22 +157,21 @@ public class RTSprite extends Sprite implements IAttackable, RTSpriteVisitor {
     }
 
 
-	@Override
-	public int calculateDamage() {
-		return 10;
-	}
+    @Override
+    public int calculateDamage() {
+        return 10;
+    }
 
-	@Override
-	public void changeHealth(int change) {
-		curHealth -= change;
-		
-	}
+    @Override
+    public void changeHealth(int change) {
+        curHealth -= change;
+    }
 
-	@Override
-	public void update(double elapsedTime) {
-		getVelocity().scale(elapsedTime);
-		getCenter().translate(getVelocity());
-	}
+    @Override
+    public void update(double elapsedTime) {
+        getVelocity().scale(elapsedTime);
+        getCenter().translate(getVelocity());
+    }
 
     @Override
     public AttackStrategy getAttackStrategy () {
