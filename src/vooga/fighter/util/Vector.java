@@ -8,32 +8,35 @@ import java.awt.geom.Point2D;
  * 
  * Note, this class has no relation to java.util.Vector!
  * 
- * @author Robert C. Duvall
+ * @author rcd, james
  */
 public class Vector {
+
+    // public static instance variables defining degrees for directions
+    public static final int DEGREES_RIGHT = 0;
+    public static final int DEGREES_DOWN = 90;
+    public static final int DEGREES_LEFT = 180;
+    public static final int DEGREES_UP = 270;
+    
     // angle in degrees
     private double myAngle;
     // "speed" in pixels per second
     private double myMagnitude;
 
-    
-
-
     /**
      * Create a zero vector, i.e., with no magnitude.
      */
-    public Vector () {
+    public Vector() {
         this(0, 0);
     }
 
     /**
      * Create a vector in the given direction with the given magnitude.
      */
-    public Vector (double angle, double magnitude) {
+    public Vector(double angle, double magnitude) {
         setDirection(angle);
         setMagnitude(magnitude);
     }
-    
 
     /**
      * Create a vector whose direction and magnitude are determined by
@@ -67,7 +70,6 @@ public class Vector {
     public double getMagnitude () {
         return myMagnitude;
     }
-    
 
     /**
      * Returns this vector's magnitude relative to the given other vector.
@@ -97,7 +99,6 @@ public class Vector {
     protected void setMagnitude (double value) {
         myMagnitude = value;
     }
-
 
     /**
      * Returns this vector's direction (in degrees).
@@ -199,8 +200,8 @@ public class Vector {
     public boolean equals (Object vector) {
         try {
             Vector other = (Vector) vector;
-            return (fuzzyEquals(getMagnitude(), other.getMagnitude()) && 
-                    fuzzyEquals(getDirection(), other.getDirection()));
+            return (fuzzyEquals(getMagnitude(), other.getMagnitude()) && fuzzyEquals(getDirection(),
+                                                                                     other.getDirection()));
         }
         catch (ClassCastException e) {
             return false;

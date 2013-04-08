@@ -6,7 +6,7 @@ package vooga.fighter.objects.interfaces;
  * @author james, alan
  * 
  */
-public interface Damageable {
+public interface Health {
 
     /**
      * Returns the current value of the object's health.
