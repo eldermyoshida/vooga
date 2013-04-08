@@ -10,7 +10,7 @@ import vooga.fighter.util.Pixmap;
  * @author alanni
  * Objects that characters can pick up 
  */
-public class ItemObject extends GameObject implements Damageable,Perishable, Spawnable, Wieldable{
+public class ItemObject extends MoveableGameObject implements Damageable,Perishable, Spawnable, Wieldable{
 	private static final int DEFAULT_HEALTH=2; 
 	private int myHealth=DEFAULT_HEALTH; 
 	public ItemObject(Pixmap image, Location center, Dimension size) {

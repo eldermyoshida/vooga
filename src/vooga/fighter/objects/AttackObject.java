@@ -10,7 +10,7 @@ import vooga.fighter.util.Vector;
  * @author alanni
  * Object that can inflict damage on other moveable game objects 
  */
-public class AttackObject extends GameObject implements Attackable, Perishable{
+public class AttackObject extends MoveableGameObject implements Attackable, Perishable{
 	
 	private int myAttackPriority; 
 	private int myAttackPower;

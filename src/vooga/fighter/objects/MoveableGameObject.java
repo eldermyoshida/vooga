@@ -27,17 +27,20 @@ public class MoveableGameObject extends GameObject{
     private int myHealth= DEFAULT_HEALTH;
     private int myPriority;   
     
+
+    public MoveableGameObject(Pixmap image, Location center, Dimension size) {
+		super(image, center, size);
+	}
+	public MoveableGameObject(Pixmap image, Location center, Dimension size, Vector velocity) {
+		super(image, center, size, velocity);
+	}
+	
     public void update (double elapsedTime, Dimension bounds) {
 		// do not change original velocity
         Vector v = new Vector(myVelocity);
         v.scale(elapsedTime);
         translate(v);
     }
-
-	public MoveableGameObject(Pixmap image, Location center, Dimension size, Vector velocity) {
-		super(image, center, size, velocity);
-	}
-	
 	protected void resetBounds () {
         myBounds = new Rectangle((int)getLeft(), (int)getTop(), mySize.width, mySize.height);
     }
