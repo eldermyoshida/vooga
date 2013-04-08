@@ -14,7 +14,7 @@ import vooga.rts.input.Input;
 import vooga.rts.resourcemanager.ResourceManager;
 
 
-public class MainController extends AbstractController {
+public class MainController extends AbstractController implements Observer {
 
     private final static String DEFAULT_INPUT_LOCATION = "vooga/resources/Input.properties";
     private GameController myGameController;
@@ -60,14 +60,15 @@ public class MainController extends AbstractController {
         }, 500, Game.TIME_PER_FRAME());
     }
 
-    /**
-     * public void update(double elapsedTime) {
-     * myActiveController.update(elapsedTime);
-     * }
-     */
+    
+      public void update(double elapsedTime) {
+          myActiveController.update(elapsedTime);
+      }
+     
 
-    @Override
-    public void update (double elapsedTime) {
+    /*
+     @Override
+    public void update (double elapsedTime) {        
         switch (myState) {
             case Game:
                 myGameController.update(elapsedTime);
@@ -81,7 +82,7 @@ public class MainController extends AbstractController {
                 myMenuController.update(elapsedTime);
                 break;
             case Splash:
-                if (!ResourceManager.instance().isLoading()) {
+                if (!ResourceManager.instance().isLoading()) {                    
                     setState(MainState.Menu);
                 }
                 break;
@@ -92,7 +93,7 @@ public class MainController extends AbstractController {
                 break;
         }
     }
-
+*/
     public void paint (Graphics2D pen) {
         myActiveController.paint(pen);
     }
@@ -118,19 +119,17 @@ public class MainController extends AbstractController {
     public void setActiveController (AbstractController myController) {
         myActiveController = myController;
     }
-
-    @Override
+    
     public void update (Observable myObservable, Object myObject) {
         MainState myMainState = (MainState) myObject;
         switch (myMainState) {
             case Starting:
-
                 break;
             case Loading:
                 myActiveController = myLoadingController;
                 break;
             case Splash:
-
+                
                 break;
             case Menu:
                 myActiveController = myMenuController;
