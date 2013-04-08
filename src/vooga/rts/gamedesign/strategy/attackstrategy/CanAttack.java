@@ -1,10 +1,13 @@
 package vooga.rts.gamedesign.strategy.attackstrategy;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import vooga.rts.gamedesign.Weapon;
 import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
+import vooga.rts.gamedesign.sprite.rtsprite.RTSprite;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings.Building;
+import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Soldier;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Units;
 
 /**
@@ -19,25 +22,44 @@ import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Units;
  *
  */
 public class CanAttack implements AttackStrategy{
-	
-	private List<Weapon> myWeapons;
-	
-	@Override
-	public void attack(Building building) {
-		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	public void attack(Units units) {
-		// TODO Auto-generated method stub
-		
-	}
+    private List<Weapon> myWeapons;
+    private int myWeaponIndex;
 
-	@Override
-	public void attack(IAttackable a) {
-		// TODO Auto-generated method stub
-		
-	}
+    public CanAttack(){
+        myWeapons = new ArrayList<Weapon>();
+        myWeaponIndex = 0;
+
+    }
+
+
+    public void attack(IAttackable a) throws CloneNotSupportedException{
+
+        System.out.println("Soldier a health " + ((RTSprite) a).getHealth());
+        myWeapons.get(myWeaponIndex).fire((RTSprite) a);
+
+        ((RTSprite)a).die();
+        System.out.println("a died");
+    }
+    public boolean hasWeapon(){
+        return !myWeapons.isEmpty();
+
+    }
+    public Weapon getWeapon(){
+        return myWeapons.get(0);
+    }
+    public void addWeapons(Weapon weapon) {
+        myWeapons.add(weapon);
+    }
+
+    public void update() {
+        for(int i = 0; i < myWeapons.size(); i++) {
+            Weapon weapon = myWeapons.get(i);
+            if(weapon.getCooldown() > 0) {
+                weapon.decrementCooldown();
+            }
+        }
+    }
+
 
 }

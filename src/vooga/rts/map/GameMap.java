@@ -10,9 +10,12 @@ import vooga.rts.gamedesign.sprite.map.Tile;
 public class GameMap {
     
     public static final int NODE_SIZE = 8;
+    public static final int[][] mapGrid = {{1,1,1,1,1,1},
+                                           {0,0,3,3,3,3},
+                                           {2,2,0,0,3,3}};
     
     private Tile[][] myTiles;
-    private HashMap<Integer, MapNode[][]> myMap;
+    private MapNode[][] myMap;
     
     /**
      * The Width of the map in Grid Size
@@ -33,9 +36,7 @@ public class GameMap {
        myHeight = (mapSize.height * tileSize.height) / NODE_SIZE;
        
        // Create map and add first layer
-       myMap = new HashMap<>();
-       myMap.put(1, createLayer(myWidth, myHeight));
-       
+       myMap = makeMap(myWidth, myHeight);
        myTiles = new Tile[mapSize.width][mapSize.height];
     }    
     
@@ -47,11 +48,11 @@ public class GameMap {
      * @param h Height of the map.
      * @return The new layer of nodes.
      */
-    private MapNode[][] createLayer(int w, int h) {
+    private MapNode[][] makeMap(int w, int h) {
         MapNode[][] res = new MapNode[w][h];
         for (int x = 0; x < w; x++) {
             for (int y = 0; y < h; y++) {
-                res[x][y]= new MapNode(x, y);
+                res[x][y]= new MapNode(x, y, NODE_SIZE, 1);
             }
         }
         return res;
@@ -68,6 +69,16 @@ public class GameMap {
       * @return
       */
      public MapNode getNode (Location location) {
-         return myMap.get(0)[(int)location.x/NODE_SIZE][(int)location.y/NODE_SIZE];
+         return myMap[(int)location.x/NODE_SIZE][(int)location.y/NODE_SIZE];
+     }
+     
+     public List<MapNode> getNeighbors (MapNode center) {
+         List<MapNode> neighbors = new ArrayList<MapNode>();
+         for (int i = -1; i < 2; i += 2) {
+             for (int j = -1; j < 2; j += 2) {
+                 neighbors.add(myMap[center.getX() + i][center.getY()  + j]);
+             }
+         }
+         return neighbors;
      }
 }

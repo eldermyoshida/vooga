@@ -15,8 +15,11 @@ public class Game {
 	}
 	
     public Game () {
-        // TODO Auto-generated constructor stub
+        myMainController = new MainController();
     }
     
+    public static void main(String[] args) {
+    	Game game = new Game();
+    }
 }
 

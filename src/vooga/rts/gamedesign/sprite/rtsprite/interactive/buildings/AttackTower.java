@@ -27,45 +27,5 @@ public class AttackTower extends Building {
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public int calculateDamage() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void changeHealth() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void visit(RTSprite rtSprite) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void update(double elapsedTime) {
-		// TODO Auto-generated method stub
-		
-	}
-
-    @Override
-    public void visit (IAttackable a) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void visit (IOccupiable o) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void visit (IGatherable g) {
-        // TODO Auto-generated method stub
-        
-    }
+	
 }
