@@ -1,10 +1,10 @@
-package level_editor.commands;
+package vooga.scroller.level_editor.commands;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import level_editor.LevelEditor;
+import vooga.scroller.level_editor.LevelEditor;
 
 
 /**

@@ -1,4 +1,4 @@
-package level_editor.commands;
+package vooga.scroller.level_editor.commands;
 
 /**
  * Contains names of Commands to be called by the LEView.
