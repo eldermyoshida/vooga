@@ -43,7 +43,7 @@ public class ObjectLoader {
 					Pixmap image = new Pixmap(getValue("image",element));
 					int movespeed = Integer.parseInt(getValue("movespeed", element));
 					myImages[0] = image;
-					
+					myMovespeeds[0] = movespeed;
 				}
 			}
 		} catch (Exception e) {
