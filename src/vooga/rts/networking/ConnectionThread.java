@@ -7,6 +7,12 @@ import java.net.Socket;
 import java.util.LinkedList;
 import java.util.Queue;
 
+/**
+ * Represents a server-side connection between the client and the server.
+ * @author David Winegar
+ * @author Henrique Morales
+ *
+ */
 public class ConnectionThread extends Thread {
         private Socket mySocket;
         private ObjectInputStream mySInput;
@@ -18,7 +24,7 @@ public class ConnectionThread extends Thread {
          * Represents a thread that communicates to a client
          * @param socket socket used for establishing the connection
          */
-        ConnectionThread(Socket socket, IMessageServer server){
+        ConnectionThread(Socket socket, IMessageServer server, int ID){
             mySocket = socket;
             myMessageServer = server;
             
@@ -27,7 +33,7 @@ public class ConnectionThread extends Thread {
                 mySOutput = new ObjectOutputStream(mySocket.getOutputStream());
             }
             catch (IOException e) {
-                
+                // TODO add logger
             }
         }
         
