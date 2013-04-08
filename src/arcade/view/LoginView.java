@@ -19,7 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import arcade.model.Model;
-import arcade.util.Thumbnail;
+import arcade.util.JPicture;
 
 
 /**
@@ -196,7 +196,7 @@ public class LoginView extends JFrame {
     }
 
     private void createBackground () {
-        myBackground = new Thumbnail(BACKGROUND_FILENAME, getSize());
+        myBackground = new JPicture(BACKGROUND_FILENAME, getSize());
         myBackground.setBounds(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
         myContentPanel.add(myBackground);
 
