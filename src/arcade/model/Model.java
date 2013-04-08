@@ -24,7 +24,7 @@ public class Model {
     }
 
     public void authenticate (String username, String password) {
-        if (username.equals("a") && password.equals("b")) {
+        if (username.equals("ellango") && password.equals("password")) {
             myLoginView.destroy();
             getGameList();
             new MainView(this, myResources);
