@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import vooga.fighter.controller.*;
@@ -21,7 +22,7 @@ import vooga.fighter.objects.*;
 @InputClassTarget
 public class GameInstance implements Mode {
     
-    private List<CharacterObject> myInteractables;
+    private List<CharacterObject> myInteractables = new ArrayList<CharacterObject>();
     private String myID;
     private String myFilePath;
     private String myNextMode;
@@ -35,7 +36,7 @@ public class GameInstance implements Mode {
         myNextMode = nextMode;
         loadFile(filePath);
         myInput = input;
-        ObjectLoader loader = new ObjectLoader();
+        ObjectLoader loader = new ObjectLoader(input);
         myInteractables.add(loader.getTestCharacter());
     }
     
@@ -71,7 +72,7 @@ public class GameInstance implements Mode {
     	for (CharacterObject s : myInteractables) {
             s.update(stepTime, bounds);
         }
-        myNonInteractables.update(stepTime, bounds);
+        //myNonInteractables.update(stepTime, bounds);
     }
 
 
@@ -127,7 +128,7 @@ public class GameInstance implements Mode {
     			s.paint(pen);
         	}
     	
-        myNonInteractables.paint(pen);
+        //myNonInteractables.paint(pen);
     	}
     }
 
