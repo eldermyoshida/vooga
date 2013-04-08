@@ -52,6 +52,13 @@ public abstract class Projectile extends RTSprite implements IMovable {
     public void turn(double angle){
         getVelocity().turn(angle);
     }
+    
+    @Override
+    public void update(double elapsedTime, Dimension bounds){
+        super.update(elapsedTime, bounds);
+        getCenter().translate(getVelocity());
+    }
+
 
     /*
      * returns a new instance of this class

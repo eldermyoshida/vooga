@@ -72,7 +72,7 @@ public abstract class Sprite implements IGameLoop {
      * Currently, moves by the current velocity.
      */
     public void update (double elapsedTime, Dimension bounds) {
-        translate(myVelocity);
+        if(!isVisible) return;
     }
     /**
      * Resets shape's center.
