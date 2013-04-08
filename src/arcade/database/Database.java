@@ -1,9 +1,10 @@
 package arcade.database;
+
 /**
  * Creates overall database
  * @author Natalia Carvalho
  */
-public class Database{
+public class Database {
     
     private GameTable myGameTable;
     private UserTable myUserTable;
@@ -34,7 +35,7 @@ public class Database{
     }
     
     public void deleteUser(String username) {
-        //myUserGameDataTable.deleteUser(myUserTable.getUserid(username));
+        myUserGameDataTable.deleteUser(myUserTable.getUserid(username));
         myUserTable.deleteUser(username);
     }
     
