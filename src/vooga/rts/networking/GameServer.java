@@ -10,9 +10,9 @@ import java.util.Queue;
 import javax.swing.JTextArea;
 
 /**
- * Main server of the game. It receives information from clients and AI and 
- * sends approprieate responses back to them
- * @author Henrique Moraes
+ * Server that represents one instance of a in-play game.. It receives information from game clients and AI and 
+ * sends pushes changes to all other clients
+ * @author Henrique Moraes, Sean Wareham, David Winegar
  *
  */
 public class GameServer {
@@ -22,7 +22,7 @@ public class GameServer {
     private boolean gameRunning = false;
     private JTextArea dummyText;
     
-    public Server(int port){
+    public GameServer(int port){
         myPort = port;
         myClients = new LinkedList<ClientThread>();
     }
