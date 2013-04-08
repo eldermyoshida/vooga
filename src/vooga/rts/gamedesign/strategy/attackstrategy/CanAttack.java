@@ -38,11 +38,15 @@ public class CanAttack implements AttackStrategy{
             System.out.println("Soldier a health " + ((RTSprite) a).getHealth());
             myWeapons.get(myWeaponIndex).fire((RTSprite) a);
         }
+        
         System.out.println("a died");
     }
     public boolean hasWeapon(){
         return !myWeapons.isEmpty();
 
+    }
+    public Weapon getWeapon(){
+        return myWeapons.get(0);
     }
     public void addWeapons(Weapon weapon) {
         myWeapons.add(weapon);

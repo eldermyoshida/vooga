@@ -25,6 +25,7 @@ public class HumanPlayer extends Player {
     }
     
     public void handleLeftClick(int x, int y) {
+        getUnits().deselectAll();
         for (Units u : getUnits().getAllUnits())
         {         
             if (u.intersects(new Point(x, y))) {

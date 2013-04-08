@@ -10,6 +10,7 @@ import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
+import vooga.rts.util.Vector;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.List;
@@ -28,9 +29,11 @@ import java.util.List;
 public abstract class Units extends Interactive implements IMovable {
 
     private List<Interactive> myKills;
-    private boolean myIsLeftSelected; // TODO: also need the same thing for Projectiles
-    private boolean myIsRightSelected; // TODO: should be observing the mouse action instead!!
+    // private boolean myIsLeftSelected; // TODO: also need the same thing for Projectiles
+    // private boolean myIsRightSelected; // TODO: should be observing the mouse action instead!!
     private PathingHelper myPather;
+
+    private Location myGoal;
 
     /**
      * Creates a new unit with an image, location, size, sound, teamID and health
@@ -45,6 +48,7 @@ public abstract class Units extends Interactive implements IMovable {
     public Units (Pixmap image, Location center, Dimension size, Sound sound, int teamID, int health) {
         super(image, center, size, sound, teamID, health);
         myPather = new PathingHelper();
+        myGoal = new Location(center);
     }
 
     public void visit (RTSprite rtSprite) {
@@ -56,12 +60,21 @@ public abstract class Units extends Interactive implements IMovable {
      * the Unit is facing, and then its location.
      */
     public void move (Location loc) {
-        if (myIsLeftSelected) {
-            double angle = getCenter().difference(loc).getDirection();
-            double magnitude = getCenter().difference(loc).getMagnitude();
-            turn(angle);
+        myGoal = new Location(loc);
+    }
+
+    public void update (double elapsedTime) {
+        Vector diff = getCenter().difference(myGoal);
+        if (diff.getMagnitude() > 5) {
+            double angle = diff.getDirection();
+            double magnitude = 100;            
             setVelocity(angle, magnitude);
         }
+        else
+        {
+            setVelocity(0, 0);
+        }
+        super.update(elapsedTime);
     }
 
     /**

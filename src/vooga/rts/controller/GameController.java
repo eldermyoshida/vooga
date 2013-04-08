@@ -13,6 +13,7 @@ import vooga.rts.player.AIPlayer;
 import vooga.rts.player.HumanPlayer;
 import vooga.rts.player.Player;
 import vooga.rts.player.Team;
+import vooga.rts.resourcemanager.ResourceManager;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
@@ -20,6 +21,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -55,6 +57,25 @@ public class GameController extends AbstractController {
         for (Player f : myPlayers) {
             f.update(elapsedTime);
         }
+        /*
+        Iterator<Team> it = myTeams.values().iterator();        
+        while (it.hasNext()) {
+            1Team t = it.next();
+            
+        }
+        */
+        List<Units> p1 = myTeams.get(1).getUnits();
+        List<Units> p2 = myTeams.get(2).getUnits();
+        for (Units u1 : p1) {
+            for (Units u2 : p2) {
+                if(((CanAttack)u1.getAttackStrategy()).getWeapon().inRange(u2, u1.getCenter())){
+                    u2.accept(u1);
+                }
+                if(((CanAttack)u2.getAttackStrategy()).getWeapon().inRange(u1, u2.getCenter())){
+                    u1.accept(u2);
+                }
+            }
+        }
     }
 
     @Override
@@ -71,8 +92,7 @@ public class GameController extends AbstractController {
 
     @Override
     public void onLeftMouseUp (PositionObject o) {
-        // if it's not a gui thing
-        System.out.println("Left Click");
+        // if it's not a gui thing        
         HumanPlayer human = (HumanPlayer) myPlayers.get(0);
         human.handleLeftClick((int) o.getX(), (int) o.getY());
     }
@@ -84,8 +104,7 @@ public class GameController extends AbstractController {
 
     @Override
     public void onRightMouseUp (PositionObject o) {
-        // If it's not a GUI thing
-        System.out.println("Right Click");
+        // If it's not a GUI thing        
         HumanPlayer human = (HumanPlayer) myPlayers.get(0);
         human.handleRightClick((int) o.getX(), (int) o.getY());
     }
@@ -96,27 +115,35 @@ public class GameController extends AbstractController {
     }
 
     private void setupGame () {
-        System.out.println("yolo");
+        
         Player p1 = new HumanPlayer();
-        Pixmap p = new Pixmap("vooga.rts.images.soldier.png");
-        Location l = new Location(400,500);
-        Dimension s = new Dimension();
-        Sound soun = new Sound("vooga.rts.sounds.pikachu.wav");
+        Pixmap p = new Pixmap(ResourceManager.instance().loadFile("images/soldier.png"));        
+        Dimension s = new Dimension(100, 100);
+        Sound soun = null;//new Sound("/vooga/rts/sounds/pikachu.wav");
 
-        Units a = new Soldier(p,l,s,soun,20,40);
+        Units a = null;
+        try{            
+            a = new Soldier(p,new Location(100, 100),s,soun,20,40);
+        }
+        catch (Exception e) {
+            // trollolol
+        }
         a.setAttackStrategy(new CannotAttack());
         
-        Units b = new Soldier(p,new Location(20,30),s,soun,20,50);
-        Projectile proj = new Bullet(new Pixmap("vooga.rts.images.bullet.png"), b.getCenter(), new Dimension(30, 30), soun, 10, 1);
+        Units b = new Soldier(p,new Location(200,300),s,soun,20,50);
+        Projectile proj = new Bullet(new Pixmap(ResourceManager.instance().loadFile("images/bullet.png")), b.getCenter(), new Dimension(30, 30), soun, 10, 1);
         b.setAttackStrategy(new CanAttack());
         ((CanAttack) b.getAttackstrategy()).addWeapons(new Gun(0, proj, 50, b.getCenter(),20));
         
-        Units c = new Soldier(p,l,s,soun,20,40);
+        Units c = new Soldier(p,new Location(500, 500),s,soun,20,40);
         c.setAttackStrategy(new CannotAttack());
         
         p1.getUnits().addUnit(a);
         p1.getUnits().addUnit(b);
         Player p2 = new HumanPlayer();
         p2.getUnits().addUnit(c);
+        
+        addPlayer(p1, 1);
+        addPlayer(p2, 2);
     }
 }

@@ -2,6 +2,7 @@ package vooga.rts.util;
 
 import java.awt.Graphics2D;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.geom.Point2D;
 import java.awt.geom.AffineTransform;
 import javax.swing.ImageIcon;
@@ -29,12 +30,20 @@ public class Pixmap {
     public Pixmap (String fileName) {
         setImage(fileName);
     }
+    
+    /**
+     * Create an image from the given filename.
+     */
+    public Pixmap (Image image) {
+        myImage = image;
+    }
 
     /**
      * Create a copy of image from the given other image.
      */
     public Pixmap (Pixmap other) {
-        this(other.myFileName);
+        //this(other.myFileName);
+        this(other.myImage);
     }
 
     /**
