@@ -1,10 +1,12 @@
 package arcade.view;
 
 import java.awt.CardLayout;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import arcade.games.GameInfo;
 import arcade.model.Model;
 import arcade.view.panels.ButtonPanel;
 import arcade.view.panels.GameCenterPanel;
@@ -51,7 +53,7 @@ public class MainView extends JFrame {
      */
     private void createViewPanel () {
         myViewPanelList = new JPanel[3];
-        myViewPanelList[0] = new GameCenterPanel();
+        myViewPanelList[0] = new GameCenterPanel(this);
         myViewPanelList[1] = new SocialCenterPanel();
         myViewPanelList[2] = new StorePanel();
 
@@ -79,6 +81,10 @@ public class MainView extends JFrame {
         // Second trial
         CardLayout temp = (CardLayout) (myViewPanel.getLayout());
         temp.show(myViewPanel, centers[index]);
+    }
+
+    public List<GameInfo> getGameList () {
+       return myModel.getGameList();
     }
 
 }
