@@ -35,6 +35,7 @@ public class MatchmakerServer extends Thread implements IMessageServer {
         }
         catch (IOException e) {
             // TODO log file
+            e.printStackTrace();
             System.exit(0);
         }
         while(myServerRunning) {
@@ -56,6 +57,7 @@ public class MatchmakerServer extends Thread implements IMessageServer {
     }
     
     private void initializeGame() {
+        System.out.println("Switch");
         GameServer gameServer = new GameServer(myGameServerID++);
         myGameServers.add(gameServer);
         for(ConnectionThread ct : myConnectionThreads) {
