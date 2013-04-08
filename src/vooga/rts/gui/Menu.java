@@ -6,10 +6,11 @@ import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
+import java.util.Observer;
 import vooga.rts.IGameLoop;
 
 
-public abstract class Menu extends Observable implements IGameLoop{
+public abstract class Menu extends Observable implements IGameLoop, Observer{
 
     private List<Button> myButtons;
     private Image myImage;
@@ -21,11 +22,7 @@ public abstract class Menu extends Observable implements IGameLoop{
 
     @Override
     public void update (double elapsedTime) {
-        /*
-        for (Button b : myButtons) {
-            b.update(elapsedTime);
-        }
-        */
+        
     }
 
     @Override
@@ -54,6 +51,7 @@ public abstract class Menu extends Observable implements IGameLoop{
 
     public void addButton (Button b) {
         myButtons.add(b);
+        b.addObserver(this);
     }
     
     public void handleClick(int x, int y) {

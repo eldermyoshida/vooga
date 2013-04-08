@@ -3,11 +3,13 @@ package vooga.rts.gui;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.util.Observable;
+import java.util.Observer;
 import vooga.rts.util.Location;
 import vooga.rts.IGameLoop;
 import vooga.rts.resourcemanager.ResourceManager;
 
-public abstract class Button implements IGameLoop {
+public abstract class Button extends Observable implements IGameLoop {
 
     private BufferedImage myImage;
     protected Dimension mySize;

@@ -24,6 +24,8 @@ public class TextButton extends Button {
     @Override
     public void update (double elapsedTime) {
         System.out.println(myText);
+        setChanged();
+        notifyAll();
     }
     
     @Override

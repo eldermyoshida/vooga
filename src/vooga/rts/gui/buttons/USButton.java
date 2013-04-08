@@ -13,6 +13,8 @@ public class USButton extends Button {
     @Override
     public void update (double elapsedTime) {
         System.out.println("LOL");
+        setChanged();
+        notifyAll();
     }
 
 }
