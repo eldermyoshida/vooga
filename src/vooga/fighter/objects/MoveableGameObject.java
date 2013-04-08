@@ -1,67 +1,52 @@
 package vooga.fighter.objects;
 
 import java.awt.Dimension;
-import java.awt.Rectangle;
-
 import vooga.fighter.util.Location;
 import vooga.fighter.util.Pixmap;
 import vooga.fighter.util.Vector;
 
-/**
- * 
- * @author alanni
- * Objects that can be moved 
- */
-public class MoveableGameObject extends GameObject{
-    private static final int DEFAULT_HEALTH=10;
-	
-	private Pixmap myImage;
-	private Location myCenter;
-	private Dimension mySize;  
-	private Vector myVelocity;
-    private Location myOriginalCenter;
-    private Vector myOriginalVelocity;
-    private Dimension myOriginalSize;
-    private Pixmap myOriginalImage;
-    private Rectangle myBounds;
-    private int myHealth= DEFAULT_HEALTH;
-    private int myPriority;   
-    
 
-    public MoveableGameObject(Pixmap image, Location center, Dimension size) {
-		super(image, center, size);
-	}
-	public MoveableGameObject(Pixmap image, Location center, Dimension size, Vector velocity) {
-		super(image, center, size, velocity);
-	}
-	
-    public void update (double elapsedTime, Dimension bounds) {
-		// do not change original velocity
+/**
+ * Represents a game object that is moveable.
+ * 
+ * @author alanni, james
+ * 
+ */
+public class MoveableGameObject extends GameObject {
+
+    private Vector myVelocity;
+
+    public MoveableGameObject(Pixmap image, Location center) {
+        super(image, center);
+        myVelocity = new Vector();
+    }
+
+    public void update(double elapsedTime, Dimension bounds) {
         Vector v = new Vector(myVelocity);
         v.scale(elapsedTime);
         translate(v);
     }
-	protected void resetBounds () {
-        myBounds = new Rectangle((int)getLeft(), (int)getTop(), mySize.width, mySize.height);
+
+    /**
+     * Moves the center for this moveable game object by a given vector.
+     */
+    public void translate(Vector v) {
+        getCenter().translate(v);
     }
 
-	public void reduceHealth(int amount){
-		myHealth-=amount; 
-	}
-	
-	public int getHealth() {
-		return myHealth;
-	}
-	
-	public void setHealth(int amount){
-		myHealth=amount; 
-	}
-	
+
     /**
-     * Moves shape's center by given vector.
+     * Sets the velocity for this moveable game object.
      */
-    public void translate (Vector v) {
-        myCenter.translate(v);
+    public void setVelocity(double angle, double magnitude) {
+        myVelocity = new Vector(angle, magnitude);
+    }
+    
+    /**
+     * Returns the velocity for this moveable game object.
+     */
+    public Vector getVelocity() {
+        return myVelocity;
     }
 
 }
