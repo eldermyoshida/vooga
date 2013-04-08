@@ -28,7 +28,7 @@ public abstract class Projectile extends RTSprite implements IMovable {
 	public Projectile(Pixmap pixmap, Location loc, Dimension size, Sound sound, int damage, int health){
 		super(pixmap, loc, size, sound, damage, health);
 		myDamage = damage;
-		setVelocity(0, 60);
+		setVelocity(0, 10);
 	}
 	
 	
