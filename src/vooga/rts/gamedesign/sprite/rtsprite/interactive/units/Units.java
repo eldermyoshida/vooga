@@ -25,9 +25,9 @@ import java.util.List;
  */
 public abstract class Units extends Interactive implements IMovable {
 
-    private  List<Interactive> myKills;
+	private  List<Interactive> myKills;
 
-    private GatherStrategy myGatherStrategy;
+	private GatherStrategy myGatherStrategy;
 
 	private OccupyStrategy myOccupyStrategy;
 	

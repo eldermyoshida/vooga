@@ -77,7 +77,7 @@ public class Soldier extends Units {
 
 
     @Override
-    public void visit (IGatherable g) {
+    public void visit (IGatherable g) { // duplicated with GatherStrategy???
         // TODO Auto-generated method stub
         
     }
