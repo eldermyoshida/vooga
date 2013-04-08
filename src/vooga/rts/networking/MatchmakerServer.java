@@ -1,5 +1,6 @@
 package vooga.rts.networking;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -8,11 +9,17 @@ import java.util.List;
  * @author srwareham
  *
  */
-public class MatchmakerServer {
+public class MatchmakerServer extends Thread {
     private List<ConnectionThread> myConnectionThreads;
     private List<GameServer> myGameServers;
     
     public MatchmakerServer() {
+        myConnectionThreads = new ArrayList<ConnectionThread>();
+        myGameServers = new ArrayList<GameServer>();
+    }
+    
+    @Override
+    public void run () {
         
     }
     

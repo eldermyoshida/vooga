@@ -37,6 +37,10 @@ public class ConnectionThread extends Thread {
             }
         }
         
+        public void switchMessageServer (IMessageServer server) {
+            myMessageServer = server;
+        }
+        
         /**
          * Keeps listening for messages and adds to the server's message queue
          */
@@ -45,7 +49,7 @@ public class ConnectionThread extends Thread {
             while(true){
                 try {
                     Message message = (Message) mySInput.readObject();
-                    myMessageServer.addMessage(message);
+                    myMessageServer.sendMessage(message);
                 }
                 catch (IOException e) {
                     // TODO add logger
