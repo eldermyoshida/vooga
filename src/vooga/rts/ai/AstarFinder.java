@@ -28,11 +28,12 @@ public class AstarFinder extends Pathfinder {
         double fMax;
         double gMax;
         while (open.size() > 0) {
+            System.out.println(open.size());
             MapNode current = getLowest(fScore, open);
             if (current.equals(destination)) {
                 fMax = getMin(fScore);
                 gMax = getMin(gScore);
-                result = constructPath(comesFrom, destination);
+                return constructPath(comesFrom, destination);
             }
             else {
                 open.remove(current);
