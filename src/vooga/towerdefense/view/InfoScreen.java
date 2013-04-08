@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import javax.swing.JComponent;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
@@ -72,14 +71,5 @@ public class InfoScreen extends JPanel {
         myTextArea = new JTextArea(myWidth, myHeight);
         myTextArea.setEditable(false);
         return myTextArea;
-    }
-    
-    /**
-     * sets the title of this particular InfoScreen.
-     * @param title is the title of this screen
-     * @return the JLabel with the title
-     */
-    private JLabel setTitle (String title) {
-        return new JLabel(title);
     }
 }
