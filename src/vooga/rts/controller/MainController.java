@@ -7,14 +7,18 @@ import java.util.TimerTask;
 import vooga.rts.Game;
 import vooga.rts.IGameLoop;
 import vooga.rts.gui.Window;
-
-import vooga.rts.command.Action;
+import vooga.rts.input.Input;
 
 public class MainController extends AbstractController implements IGameLoop {
 
+	private final static String DEFAULT_INPUT_LOCATION = "vooga/resources/Input.properties";
     private GameController myGameController;
     private LoadingController myLoadingController;
     private MenuController myMenuController;
+
+    private InputController myInputController;
+    
+    private AbstractController myActiveController;
 
     private Window myWindow;
 
@@ -22,6 +26,8 @@ public class MainController extends AbstractController implements IGameLoop {
 
     private Timer myTimer;
 
+    private Input myInput;
+    
     public MainController () {
         myState = MainState.Starting;
 
@@ -29,7 +35,11 @@ public class MainController extends AbstractController implements IGameLoop {
         myGameController = new GameController();
         myLoadingController = new LoadingController();
         myMenuController = new MenuController();
+        myInputController = new InputController(myActiveController);
 
+        myInput = new Input(DEFAULT_INPUT_LOCATION, myWindow.getCanvas()); 
+        myInput.addListenerTo(myInputController);
+        
         myState = MainState.Loading;
         myTimer = new Timer();
         myTimer.scheduleAtFixedRate(new TimerTask() {
@@ -41,13 +51,6 @@ public class MainController extends AbstractController implements IGameLoop {
         }, 0, Game.TIME_PER_FRAME());
         myWindow.setFullscreen(true);
     }
-
-    @Override
-    public void receiveUserInput (Action a) {
-        // TODO Auto-generated method stub
-
-    }
-
     @Override
     public void update (double elapsedTime) {
         switch (myState) {
@@ -75,7 +78,6 @@ public class MainController extends AbstractController implements IGameLoop {
 
     @Override
     public void paint (Graphics2D pen) {
-
     }
 
     public MainState getState () {

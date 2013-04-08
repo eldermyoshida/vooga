@@ -1,12 +1,14 @@
 package vooga.rts.controller;
 
-import java.awt.Graphics2D;
 import vooga.rts.IGameLoop;
-
-import vooga.rts.command.Action;
+import vooga.rts.input.PositionObject;
 
 public abstract class AbstractController implements IGameLoop {
-
-    public abstract void receiveUserInput(Action a);
     
+	public void onLeftMouseDown (PositionObject o) {};
+	public void onLeftMouseUp (PositionObject o) {};
+	public void onRightMouseDown (PositionObject o) {};
+	public void onRightMouseUp (PositionObject o) {};
+	public void onMouseDrag (PositionObject o) {};
+
 }
