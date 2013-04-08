@@ -1,4 +1,5 @@
-package level_editor;
+
+package vooga.scroller.level_editor;
 
 public class Status {
 

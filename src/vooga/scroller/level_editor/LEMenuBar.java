@@ -1,9 +1,10 @@
-package level_editor;
+
+package vooga.scroller.level_editor;
 
 import java.awt.event.KeyEvent;
 import javax.swing.JMenu;
-import viewUtil.MenuBarView;
-import viewUtil.Window;
+import vooga.scroller.viewUtil.MenuBarView;
+import vooga.scroller.viewUtil.Window;
 
 public class LEMenuBar extends MenuBarView {
 

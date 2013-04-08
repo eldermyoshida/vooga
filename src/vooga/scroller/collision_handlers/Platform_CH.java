@@ -1,13 +1,14 @@
-package collision_handlers;
 
-import test_sprites.Coin;
-import test_sprites.Koopa;
-import test_sprites.Mario;
-import test_sprites.Platform;
-import test_sprites.Turtle;
-import test_sprites.Type;
-import util.Sprite;
-import design_patterns.Visitor;
+package vooga.scroller.collision_handlers;
+
+import vooga.scroller.test_sprites.Coin;
+import vooga.scroller.test_sprites.Koopa;
+import vooga.scroller.test_sprites.Mario;
+import vooga.scroller.test_sprites.Platform;
+import vooga.scroller.test_sprites.Turtle;
+import vooga.scroller.test_sprites.Type;
+import vooga.scroller.util.Sprite;
+import vooga.scroller.design_patterns.Visitor;
 
 public class Platform_CH extends CollisionHandler implements Visitor {
 

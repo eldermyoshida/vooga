@@ -1,9 +1,10 @@
-package level_editor;
+
+package vooga.scroller.level_editor;
 
 import javax.swing.JFrame;
-import viewUtil.Renderable;
-import viewUtil.Window;
-import viewUtil.WorkspaceView;
+import vooga.scroller.viewUtil.Renderable;
+import vooga.scroller.viewUtil.Window;
+import vooga.scroller.viewUtil.WorkspaceView;
 
 
 public class LEView extends Window {

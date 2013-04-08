@@ -1,17 +1,18 @@
-package level_editor;
+
+package vooga.scroller.level_editor;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
-import util.Editable;
-import util.Location;
-import util.Sprite;
-import viewUtil.Renderable;
-import scrollingmanager.ScrollingManager;
-import sprite_superclasses.Player;
-import util.PlatformerConstants;
-import view.View;
+import vooga.scroller.util.Editable;
+import vooga.scroller.util.Location;
+import vooga.scroller.util.Sprite;
+import vooga.scroller.viewUtil.Renderable;
+import vooga.scroller.scrollingmanager.ScrollingManager;
+import vooga.scroller.sprite_superclasses.Player;
+import vooga.scroller.util.PlatformerConstants;
+import vooga.scroller.view.View;
 
 public class Level implements Editable, Renderable {
 

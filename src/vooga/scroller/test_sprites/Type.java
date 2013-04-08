@@ -1,4 +1,5 @@
-package test_sprites;
+
+package vooga.scroller.test_sprites;
 
 
 public enum Type {

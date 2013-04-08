@@ -1,11 +1,11 @@
-package model;
+package vooga.scroller.model;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import javax.swing.JFrame;
-import scrollingmanager.DefaultScrollingManager;
-import scrollingmanager.ScrollingManager;
-import util.PlatformerConstants;
-import view.View;
+import vooga.scroller.scrollingmanager.DefaultScrollingManager;
+import vooga.scroller.scrollingmanager.ScrollingManager;
+import vooga.scroller.util.PlatformerConstants;
+import vooga.scroller.view.View;
 
 
 /**

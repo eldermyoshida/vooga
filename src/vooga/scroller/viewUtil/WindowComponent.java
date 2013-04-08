@@ -1,4 +1,5 @@
-package viewUtil;
+
+package vooga.scroller.viewUtil;
 import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;

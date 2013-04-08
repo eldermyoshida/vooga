@@ -1,12 +1,13 @@
-package level_editor;
+
+package vooga.scroller.level_editor;
 
 import java.awt.Container;
-import util.Editable;
-import viewUtil.EasyGridFactory;
-import viewUtil.IView;
-import viewUtil.IWindow;
-import viewUtil.Renderable;
-import viewUtil.WorkspaceView;
+import vooga.scroller.util.Editable;
+import vooga.scroller.viewUtil.EasyGridFactory;
+import vooga.scroller.viewUtil.IView;
+import vooga.scroller.viewUtil.IWindow;
+import vooga.scroller.viewUtil.Renderable;
+import vooga.scroller.viewUtil.WorkspaceView;
 
 /**
  * This class is a specialized Workspace for a Level Editor.

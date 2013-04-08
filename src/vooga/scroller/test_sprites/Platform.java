@@ -1,10 +1,11 @@
-package test_sprites;
+
+package vooga.scroller.test_sprites;
 
 import java.awt.Dimension;
-import collision_handlers.Platform_CH;
-import sprite_superclasses.StaticEntity;
-import util.Location;
-import util.Pixmap;
+import vooga.scroller.collision_handlers.Platform_CH;
+import vooga.scroller.sprite_superclasses.StaticEntity;
+import vooga.scroller.util.Location;
+import vooga.scroller.util.Pixmap;
 
 public class Platform extends StaticEntity{
 

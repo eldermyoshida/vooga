@@ -1,9 +1,10 @@
-package scrollingmanager;
+
+package vooga.scroller.scrollingmanager;
 
 import java.awt.Dimension;
-import model.Model;
-import util.Location;
-import view.View;
+import vooga.scroller.model.Model;
+import vooga.scroller.util.Location;
+import vooga.scroller.view.View;
 /**
  * The default scrolling manager
  * @author Ross

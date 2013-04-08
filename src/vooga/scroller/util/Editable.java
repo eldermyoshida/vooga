@@ -1,4 +1,5 @@
-package util;
+
+package vooga.scroller.util;
 
 
 

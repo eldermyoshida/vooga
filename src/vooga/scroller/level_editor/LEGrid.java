@@ -1,14 +1,15 @@
-package level_editor;
+
+package vooga.scroller.level_editor;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.HashSet;
 import java.util.Set;
-import scrollingmanager.ScrollingManager;
-import util.Editable;
-import util.Location;
-import util.Sprite;
-import viewUtil.Renderable;
+import vooga.scroller.scrollingmanager.ScrollingManager;
+import vooga.scroller.util.Editable;
+import vooga.scroller.util.Location;
+import vooga.scroller.util.Sprite;
+import vooga.scroller.viewUtil.Renderable;
 
 
 

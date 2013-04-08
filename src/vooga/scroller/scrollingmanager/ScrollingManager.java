@@ -1,9 +1,9 @@
-package scrollingmanager;
+package vooga.scroller.scrollingmanager;
 
 import java.awt.Dimension;
-import util.Location;
-import view.View;
-import model.Model;
+import vooga.scroller.util.Location;
+import vooga.scroller.view.View;
+import vooga.scroller.model.Model;
 
 /**
  * Abstract class for all ScrollingManagers to extend

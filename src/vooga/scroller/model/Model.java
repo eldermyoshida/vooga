@@ -1,24 +1,25 @@
-package model;
+
+package vooga.scroller.model;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
-import sprite_superclasses.Player;
-import sprites.Test_S_One;
-import test_sprites.Coin;
-import test_sprites.Koopa;
-import test_sprites.Mario;
-import test_sprites.Platform;
-import test_sprites.Turtle;
-import test_sprites.Type;
-import util.Location;
-import util.Pixmap;
-import util.PlatformerConstants;
-import util.Sprite;
-import view.View;
-import level_editor.Level;
-import scrollingmanager.ScrollingManager;
+import vooga.scroller.sprite_superclasses.Player;
+import vooga.scroller.sprites.Test_S_One;
+import vooga.scroller.test_sprites.Coin;
+import vooga.scroller.test_sprites.Koopa;
+import vooga.scroller.test_sprites.Mario;
+import vooga.scroller.test_sprites.Platform;
+import vooga.scroller.test_sprites.Turtle;
+import vooga.scroller.test_sprites.Type;
+import vooga.scroller.util.Location;
+import vooga.scroller.util.Pixmap;
+import vooga.scroller.util.PlatformerConstants;
+import vooga.scroller.util.Sprite;
+import vooga.scroller.view.View;
+import vooga.scroller.level_editor.Level;
+import vooga.scroller.scrollingmanager.ScrollingManager;
 
 
 /**
