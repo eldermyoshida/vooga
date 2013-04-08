@@ -1,5 +1,6 @@
 package vooga.rts.gamedesign.strategy.gatherstrategy;
 
+import vooga.rts.gamedesign.sprite.rtsprite.IGatherable;
 import vooga.rts.gamedesign.sprite.rtsprite.Resource;
 
 /**
@@ -21,7 +22,7 @@ import vooga.rts.gamedesign.sprite.rtsprite.Resource;
  */
 public interface GatherStrategy {
 	
-	public void gather(Resource r); //change to specify which kind of resource.
+	public void gather(IGatherable g); //change to specify which kind of resource.
 	
 	
 }
