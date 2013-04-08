@@ -17,14 +17,14 @@ import vooga.rts.util.Pixmap;
  */
 public class Tile extends Sprite {
 
-	public Tile(Pixmap image, Location center, Dimension size) {
-		super(image, center, size);
-		// TODO Auto-generated constructor stub
-	}
+    public Tile(Pixmap image, Location center, Dimension size) {
+        super(image, center, size);
+        // TODO Auto-generated constructor stub
+    }
 
-	@Override
-	public void update(double elapsedTime) {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void update(double elapsedTime) {
+        // TODO Auto-generated method stub
+
+    }
 }
