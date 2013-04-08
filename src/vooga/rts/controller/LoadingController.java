@@ -15,19 +15,19 @@ public class LoadingController extends AbstractController {
     double elap = 0;
     @Override
     public void update (double elapsedTime) {
-        
+        /*
         elap += elapsedTime;        
         if (elap > 1000) {
             elap = 0;
             setChanged();
             notifyObservers(MainState.Menu);
-        }
-        /*
+        }*/
+        
         if (!ResourceManager.instance().isLoading()) {
             setChanged();
             notifyObservers(MainState.Menu);
         }
-        */
+        
     }
 
     @Override

@@ -29,7 +29,7 @@ public class GameDesignMain {
      * @throws SecurityException 
      * @throws IllegalArgumentException 
      */
-    public static void main(String[] args) throws CloneNotSupportedException, IllegalArgumentException, SecurityException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException {
+    public static void main(String[] args) {
 
 
         Pixmap p = new Pixmap("soldier.png");
@@ -44,14 +44,40 @@ public class GameDesignMain {
         Projectile proj = new Bullet(new Pixmap("bullet.png"), b.getCenter(), new Dimension(30, 30), soun, 10, 1);
         b.setAttackStrategy(new CanAttack());
 
-        ((CanAttack) b.getAttackstrategy()).addWeapons(new Gun(0, proj, 50, b.getCenter(),20));
+        ((CanAttack) b.getAttackStrategy()).addWeapons(new Gun(0, proj, 50, b.getCenter(),20));
         a.accept(b);
 
         Units c = new Soldier(p,l,s,soun,20,40);
         c.setAttackStrategy(new CannotAttack());
         System.out.println("Soldier C before upgrade " + c.getHealth());
         
-        c.upgradeNode(c.getTree().findCurrent("armor1"));
+        try {
+            c.upgradeNode(c.getTree().findCurrent("armor1"));
+        }
+        catch (IllegalArgumentException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        catch (SecurityException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        catch (IllegalAccessException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        catch (InvocationTargetException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        catch (InstantiationException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        catch (NoSuchMethodException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         System.out.println("Soldier C after upgrade " + c.getHealth());
         
         
