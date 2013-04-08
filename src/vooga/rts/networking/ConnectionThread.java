@@ -7,18 +7,20 @@ import java.net.Socket;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public abstract class NetworkThread extends Thread{
+public class ConnectionThread extends Thread {
         private Socket mySocket;
-        protected ObjectInputStream mySInput;
-        protected ObjectOutputStream mySOutput;
+        private ObjectInputStream mySInput;
+        private ObjectOutputStream mySOutput;
         private int myID;
-          
+        private IMessageServer myMessageServer;
+        
         /**
          * Represents a thread that communicates to a client
          * @param socket socket used for establishing the connection
          */
-        NetworkThread(Socket socket){
+        ConnectionThread(Socket socket, IMessageServer server){
             mySocket = socket;
+            myMessageServer = server;
             
             try {
                 mySInput = new ObjectInputStream(mySocket.getInputStream());
@@ -28,6 +30,25 @@ public abstract class NetworkThread extends Thread{
                 
             }
         }
+        
+        /**
+         * Keeps listening for messages and adds to the server's message queue
+         */
+        @Override
+        public void run(){
+            while(true){
+                try {
+                    Message message = (Message) mySInput.readObject();
+                    myMessageServer.addMessage(message);
+                }
+                catch (IOException e) {
+                    // TODO add logger
+                }
+                catch (ClassNotFoundException e) {
+                    // TODO add logger
+                }
+            }
+        } 
         
         /**
          * Closes streams and socket of this thread
@@ -53,7 +74,7 @@ public abstract class NetworkThread extends Thread{
          */
         public void sendMessage(Message m){
             if(!mySocket.isConnected()){
-                socketDisconnected();
+                close();
             }
             try {
                 mySOutput.writeObject(m);
@@ -62,10 +83,6 @@ public abstract class NetworkThread extends Thread{
                 
             }
         }
-        
-        /**
-         * Handles socket disconnection
-         */
-        protected abstract void socketDisconnected();
+     
         
 }
