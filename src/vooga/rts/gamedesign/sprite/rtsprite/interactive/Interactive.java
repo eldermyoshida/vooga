@@ -66,8 +66,6 @@ public abstract class Interactive extends RTSprite implements RTSpriteVisitor {
     
 
     public void visit(IAttackable a){
-    	Class toCast = a.getClass();
-    	toCast.cast(a);
     	myAttackStrategy.attack(a);
     }
     
