@@ -7,47 +7,48 @@ import java.awt.event.ActionListener;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 
 public class ExampleView extends JFrame {
+    int portdiff = 0;
     JPanel windowPanel;
-
+    JPanel panel;
     public ExampleView () {
         setTitle("Example");
-        JPanel panel = new JPanel();
+        panel = new JPanel();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setVisible(true);
-        BorderLayout layout = new BorderLayout();
         windowPanel = new JPanel();
+        windowPanel.setPreferredSize(new Dimension(800, 500));
         JButton button = new JButton("New chat window");
-        button.setVisible(true);
         button.addActionListener(new ActionListener () {
             @Override
             public void actionPerformed (ActionEvent arg0) {
                 windowPanel.add(createPane());
+                setVisible(true);
             }    
         });
-        //layout.addLayoutComponent(button, BorderLayout.NORTH);
-        //layout.addLayoutComponent(windowPanel, BorderLayout.SOUTH);
-        //panel.setLayout(layout);
         panel.add(button);
         panel.add(windowPanel);
         add(panel);
         pack();
-
+        setVisible(true);
     }
     
     public JPanel createPane() {
         JPanel panel = new JPanel();
         JTextField field = new JTextField();
         JTextArea area = new JTextArea();
-        area.setPreferredSize(new Dimension(300, 380));
+        area.setPreferredSize(new Dimension(260, 100));
+        field.setPreferredSize(new Dimension(100, 100));
         panel.add(field);
-        panel.add(field);
-        new ExampleViewConnector(area, field);
+        panel.add(area);
+        ExampleViewConnector connect = new ExampleViewConnector(area, field, portdiff);
+        portdiff++;
+        connect.start();
         return panel;
     }
 

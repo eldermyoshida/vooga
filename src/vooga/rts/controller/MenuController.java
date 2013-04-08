@@ -35,10 +35,5 @@ public class MenuController extends AbstractController {
         myMenus.get(myCurrentMenu).paint(pen);        
     }
 
-    @Override
-    public void receiveUserInput () {
-        // TODO Auto-generated method stub
-        
-    }
 
 }

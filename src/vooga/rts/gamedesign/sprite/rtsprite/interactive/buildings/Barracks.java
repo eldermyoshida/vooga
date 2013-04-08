@@ -78,10 +78,4 @@ public class Barracks extends Building {
 
     }
 
-    @Override
-    public Interactive clone () {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
 }

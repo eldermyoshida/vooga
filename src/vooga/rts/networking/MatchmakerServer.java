@@ -15,6 +15,7 @@ import java.util.List;
  */
 public class MatchmakerServer extends Thread implements IMessageServer {
     private List<ConnectionThread> myConnectionThreads;
+    private List<ConnectionThread> myPotentialConnections;
     private List<GameServer> myGameServers;
     private int myGameServerID = 0;
     private int myConnectionID = 0;
@@ -24,27 +25,32 @@ public class MatchmakerServer extends Thread implements IMessageServer {
     public MatchmakerServer() {
         myConnectionThreads = new ArrayList<ConnectionThread>();
         myGameServers = new ArrayList<GameServer>();
+        myPotentialConnections = new ArrayList<ConnectionThread>();
     }
     
     @Override
     public void run () {
         myServerRunning = true;
         ServerSocket serverSocket = null;
-        try {
-            serverSocket = new ServerSocket(PORT);
+       /* try {
+            
         }
         catch (IOException e) {
             // TODO log file
+            e.printStackTrace();
             System.exit(0);
-        }
+        }*/
         while(myServerRunning) {
             try {
+                System.out.println(myConnectionID);
+                serverSocket = new ServerSocket(PORT + myConnectionID);
                 Socket socket = serverSocket.accept();
                 ConnectionThread thread = new ConnectionThread(socket, this, myConnectionID);
                 myConnectionThreads.add(thread);
+                myPotentialConnections.add(thread);
                 myConnectionID++;
-                thread.run();
-                if(myConnectionThreads.size() > 1 ){
+                thread.start();
+                if(myPotentialConnections.size() > 1 ){
                     initializeGame();
                 }
             }
@@ -56,12 +62,14 @@ public class MatchmakerServer extends Thread implements IMessageServer {
     }
     
     private void initializeGame() {
+        System.out.println("Switch");
         GameServer gameServer = new GameServer(myGameServerID++);
         myGameServers.add(gameServer);
-        for(ConnectionThread ct : myConnectionThreads) {
+        for(ConnectionThread ct : myPotentialConnections) {
             gameServer.addClient(ct);
         }
-        gameServer.run();
+        myPotentialConnections.clear();
+        gameServer.start();
         myGameServerID++;
     }
 

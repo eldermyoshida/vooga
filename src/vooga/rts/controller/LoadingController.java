@@ -14,7 +14,6 @@ public class LoadingController extends AbstractController {
     @Override
     public void update (double elapsedTime) {
         // TODO Auto-generated method stub
-        
     }
 
     @Override
@@ -26,10 +25,5 @@ public class LoadingController extends AbstractController {
         pen.drawString("Game is Loading! Yolo.", screen.width / 2, screen.height / 2);
     }
 
-    @Override
-    public void receiveUserInput () {
-        // TODO Auto-generated method stub
-        
-    }
 
 }
