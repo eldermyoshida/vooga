@@ -59,5 +59,19 @@ public class GameMap {
     public MapNode getNode (Location location) {
         return myMap[(int)location.x/NODE_SIZE][(int)location.y/NODE_SIZE];
     }
+    
+   /*
+    * It might be easier and more efficient to store a unit's current node and 
+    * update it as they move rather than having to calculate where they are every
+    * time you need to move them.
+    */
+    /**
+     * Determines which map node corresponds to the given location
+     * @param location
+     * @return
+     */
+    public MapNode getNode (Location location) {
+        return myMap[(int)location.x/NODE_SIZE][(int)location.y/NODE_SIZE];
+    }
 }
 }
