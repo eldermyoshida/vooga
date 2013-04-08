@@ -9,6 +9,8 @@ import vooga.rts.gamedesign.upgrades.UpgradeTree;
 import vooga.rts.util.Location;
 import java.awt.geom.Ellipse2D.Double;
 import java.awt.geom.Ellipse2D;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -31,6 +33,7 @@ public abstract class Weapon {
     private Projectile myProjectile;
     private UpgradeTree myUpgradeTree;
     private int myRange;
+    private List<Projectile> myProjectiles;
     private int maxCooldown;
     private int cooldown; 
     private Ellipse2D myRangeCircle;
@@ -47,6 +50,7 @@ public abstract class Weapon {
         myRange = range;
         maxCooldown = cooldownTime;
         myRangeCircle = new Ellipse2D.Double(center.getX(), center.getY(), range, range);
+        myProjectiles = new ArrayList<Projectile>();
     }
 
     /**
@@ -54,11 +58,14 @@ public abstract class Weapon {
      * @throws CloneNotSupportedException 
      */
     public void fire (RTSprite toBeShot) throws CloneNotSupportedException {
-    	if(cooldown == 0) {
-
-        	myProjectile.attack(toBeShot);
-        	//setCooldown(maxCooldown);
-    	}
+        if(cooldown == 0) {
+            //probably bad implementation
+            while(!((RTSprite)toBeShot).isDead()){
+                myProjectile.attack(toBeShot);
+                myProjectiles.add(myProjectile);
+                //setCooldown(maxCooldown);
+            }
+        }
     }
 
     /**
@@ -69,6 +76,9 @@ public abstract class Weapon {
     public void upgrade (Upgrade upgrade) {
     }
 
+    public List<Projectile> getProjectiles(){
+        return myProjectiles;
+    }
     /**
      * This method is used to change the projectile for the weapon
      * 
@@ -91,19 +101,19 @@ public abstract class Weapon {
         myRangeCircle = new Ellipse2D.Double(center.getX(), center.getY(), myRange, myRange);
         return myRangeCircle.contains(interactive.getCenter());
     }
-    
+
     /**
      * subtracts 1 from the cooldown counter
      */
     public void decrementCooldown() {
-    	cooldown--;
+        cooldown--;
     }
     /**
      * Returns the cooldown time on the weapon
      * @return the cooldown time on the weapon
      */
     public int getCooldown() {
-    	return cooldown;
+        return cooldown;
     }
     /**
      * After the weapon fires, the cooldown is set to the max cooldown for the
@@ -111,6 +121,6 @@ public abstract class Weapon {
      * @param time is the time that the cooldown is set to
      */
     private void setCooldown(int time) {
-    	cooldown = time;
+        cooldown = time;
     }
 }

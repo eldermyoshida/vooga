@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import vooga.rts.gamedesign.Weapon;
 import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
 import vooga.rts.gamedesign.sprite.rtsprite.IGatherable;
+import vooga.rts.gamedesign.sprite.rtsprite.Projectile;
 import vooga.rts.gamedesign.sprite.rtsprite.RTSprite;
 import vooga.rts.gamedesign.sprite.rtsprite.RTSpriteVisitor;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.IOccupiable;
@@ -54,7 +55,9 @@ public class Soldier extends Units {
         super.update(elapsedTime);
         AttackStrategy as = getAttackStrategy();
         if (as instanceof CanAttack) {
-            ((CanAttack)as).update();
+            for(Projectile p : ((CanAttack)as).getWeapon().getProjectiles()) {
+                p.update(elapsedTime);
+            }
         }
 
     }
