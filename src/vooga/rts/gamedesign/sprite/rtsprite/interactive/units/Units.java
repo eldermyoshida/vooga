@@ -47,7 +47,7 @@ public abstract class Units extends Interactive implements IMovable {
      */
     public Units (Pixmap image, Location center, Dimension size, Sound sound, int teamID, int health) {
         super(image, center, size, sound, teamID, health);
-        myPather = new PathingHelper();
+        //myPather = new PathingHelper();
         myGoal = new Location(center);
     }
 
