@@ -63,6 +63,6 @@ public class ObjectLoader {
 	
 	public CharacterObject getTestCharacter () {
 		Location beginningLocation = new Location(100, 100);
-		return new CharacterObject(myImages[0], beginningLocation, myMovespeeds[0], myDimensions[0]);
+		return new CharacterObject(myImages[0], beginningLocation, myDimensions[0], myMovespeeds[0]);
 	}
 }
