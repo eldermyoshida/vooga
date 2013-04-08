@@ -45,7 +45,7 @@ public class ResourceManager {
         return f;
     }
     
-    public boolean isLoading () {        
+    public boolean isLoading () {
         return loadThread.isAlive();
     }
 

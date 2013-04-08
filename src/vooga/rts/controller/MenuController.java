@@ -22,17 +22,23 @@ public class MenuController extends AbstractController {
     public void setMenu(int index) {
         if (myMenus.containsKey(index)) {
             myCurrentMenu = index;
-        }
+        }        
     }
-
+    
     @Override
-    public void update (double elapsedTime) {
+    public void update (double elapsedTime) {        
         myMenus.get(myCurrentMenu).update(elapsedTime);        
     }
 
     @Override
     public void paint (Graphics2D pen) {
         myMenus.get(myCurrentMenu).paint(pen);        
+    }
+
+    @Override
+    public void activate (MainState gameState) {
+        // TODO Auto-generated method stub
+        
     }
 
 

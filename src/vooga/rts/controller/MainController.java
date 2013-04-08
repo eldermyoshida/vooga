@@ -2,10 +2,11 @@ package vooga.rts.controller;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Timer;
-import java.util.TimerTask;
+import javax.swing.Timer;
 import vooga.rts.Game;
 import vooga.rts.gui.Menu;
 import vooga.rts.gui.Window;
@@ -16,7 +17,7 @@ import vooga.rts.resourcemanager.ResourceManager;
 
 public class MainController extends AbstractController implements Observer {
 
-    private final static String DEFAULT_INPUT_LOCATION = "vooga/resources/Input.properties";
+    private final static String DEFAULT_INPUT_LOCATION = "vooga.rts.resources.Input";
     private GameController myGameController;
     private LoadingController myLoadingController;
     private MenuController myMenuController;
@@ -28,6 +29,8 @@ public class MainController extends AbstractController implements Observer {
     private Window myWindow;
 
     private Timer myTimer;
+    
+    private MainState myGameState;
 
     private Input myInput;
 
@@ -44,56 +47,29 @@ public class MainController extends AbstractController implements Observer {
         myMenuController.addObserver(this);
         myMenuController.addMenu(0, new MainMenu());
 
-        myInputController = new InputController(myActiveController);
+        myInputController = new InputController(this);
         myInput = new Input(DEFAULT_INPUT_LOCATION, myWindow.getCanvas());
         myInput.addListenerTo(myInputController);
+        
+        myWindow.setFullscreen(true);   
+        
+        myGameState = MainState.Loading;
+        setActiveController(myLoadingController);
 
-        myActiveController = myLoadingController;
-
-        myTimer = new Timer();
-        myTimer.scheduleAtFixedRate(new TimerTask() {
+        myTimer = new Timer((int) Game.TIME_PER_FRAME(), new ActionListener() {
             @Override
-            public void run () {
-                update(this.scheduledExecutionTime());
+            public void actionPerformed (ActionEvent e) {
+                update(Game.TIME_PER_FRAME());
                 render();
             }
-        }, 500, Game.TIME_PER_FRAME());
+        });
+        myTimer.start();
     }
 
+    public void update (double elapsedTime) {
+        myActiveController.update(elapsedTime);
+    }
     
-      public void update(double elapsedTime) {
-          myActiveController.update(elapsedTime);
-      }
-     
-
-    /*
-     @Override
-    public void update (double elapsedTime) {        
-        switch (myState) {
-            case Game:
-                myGameController.update(elapsedTime);
-                break;
-            case Loading:
-                ResourceManager.instance().load();
-                myWindow.setFullscreen(true);
-                setState(MainState.Splash);
-                break;
-            case Menu:
-                myMenuController.update(elapsedTime);
-                break;
-            case Splash:
-                if (!ResourceManager.instance().isLoading()) {                    
-                    setState(MainState.Menu);
-                }
-                break;
-            case Starting:
-                // What state is this?
-                break;
-            default:
-                break;
-        }
-    }
-*/
     public void paint (Graphics2D pen) {
         myActiveController.paint(pen);
     }
@@ -117,29 +93,37 @@ public class MainController extends AbstractController implements Observer {
     }
 
     public void setActiveController (AbstractController myController) {
-        myActiveController = myController;
+        myActiveController = myController;        
+        myInputController.setActiveController(myController);
+        myActiveController.activate(myGameState);
     }
-    
-    public void update (Observable myObservable, Object myObject) {
-        MainState myMainState = (MainState) myObject;
-        switch (myMainState) {
+
+    @Override
+    public void update (Observable myObservable, Object myObject) {   
+        if (!(myObject instanceof MainState)) { return; } 
+        myGameState = (MainState)myObject;
+        switch (myGameState) {
             case Starting:
                 break;
             case Loading:
-                myActiveController = myLoadingController;
+                setActiveController(myLoadingController);
                 break;
             case Splash:
-                
+                setActiveController(myLoadingController);
                 break;
             case Menu:
-                myActiveController = myMenuController;
+                setActiveController(myMenuController);
                 break;
             case Game:
-                myActiveController = myGameController;
+                setActiveController(myGameController);
                 break;
             default:
                 break;
         }
+    }
+
+    @Override
+    public void activate (MainState gameState) {        
     }
 
 }

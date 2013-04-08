@@ -68,4 +68,9 @@ public class GameController extends AbstractController {
 	public void onRightMouseUp(PositionObject o) {
 		
 	}
+
+    @Override
+    public void activate (MainState gameState) {
+        
+    }
 }
