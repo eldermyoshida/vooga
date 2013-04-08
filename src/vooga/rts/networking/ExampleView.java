@@ -19,6 +19,7 @@ public class ExampleView extends JFrame{
        // setPreferredSize(new Dimension(300,400));
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
+        myDisplay.setEnabled(false);
         myDisplay.setPreferredSize(new Dimension(300,380));
         panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
         panel.add(myField);

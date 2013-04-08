@@ -72,26 +72,18 @@ public abstract class Sprite implements IGameLoop {
      * Currently, moves by the current velocity.
      */
     public void update (double elapsedTime, Dimension bounds) {
-       if(!isVisible) return;
-        Vector v = new Vector(myVelocity);
-        v.scale(elapsedTime);
-        translate(v);
+ 
     }
-
-    /**
-     * Moves shape's center by given vector.
-     */
-    public void translate (Vector v) {
-        myCenter.translate(v);
-        resetBounds();
-    }
-
     /**
      * Resets shape's center.
      */
     public void setCenter (double x, double y) {
         myCenter.setLocation(x, y);
         resetBounds();
+    }
+    
+    public Location getCenter() {
+    	return myCenter;
     }
 
     /**
@@ -194,14 +186,6 @@ public abstract class Sprite implements IGameLoop {
      */
     public Rectangle getBounds () {
         return myBounds;
-    }
-
-    /**
-     * Returns true if the given point is within a rectangle representing this shape.
-     */
-    public boolean intersects (Sprite other) {
-    	if(!isVisible || !other.isVisible) return false;
-        return getBounds().intersects(other.getBounds());
     }
 
     /**

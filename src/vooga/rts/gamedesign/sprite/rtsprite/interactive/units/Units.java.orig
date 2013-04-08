@@ -25,19 +25,32 @@ import java.util.List;
  */
 public abstract class Units extends Interactive implements IMovable {
 
-	private  List<Interactive> myKills;
+    private  List<Interactive> myKills;
+
+    private GatherStrategy myGatherStrategy;
+
+<<<<<<< HEAD
+    private OccupyStrategy myOccupyStrategy;
+=======
+	private OccupyStrategy myOccupyStrategy;
 	
 	private boolean myIsLeftSelected; //TODO: also need the same thing for Projectiles
 	private boolean myIsRightSelected; //TODO: should be observing the mouse action instead!!
+>>>>>>> cfbfa963a7ee0e5786c2e94dcee90bf9a719aef1
 
-	public Units(Pixmap image, Location center, Dimension size, Sound sound, int teamID, int health) {
-		super(image, center, size, sound, teamID, health);
+    private boolean myIsSelected;
 
-	}
+    public Units(Pixmap image, Location center, Dimension size, Sound sound, int teamID, int health) {
+        super(image, center, size, sound, teamID, health);
 
-	public void visit(RTSprite rtSprite) {
-		// TODO Auto-generated method stub
+    }
 
+<<<<<<< HEAD
+    public void visit(RTSprite rtSprite) {
+        // TODO Auto-generated method stub
+
+    }
+=======
 	}
 
 	/**
@@ -60,5 +73,14 @@ public abstract class Units extends Interactive implements IMovable {
 	public void turn(double angle){
 		getVelocity().turn(angle);
 	}
+>>>>>>> cfbfa963a7ee0e5786c2e94dcee90bf9a719aef1
 
+    /**
+     * Moves the Unit only when it is selected.
+     */
+    public void move(Location loc){
+        if (myIsSelected){
+            setVelocity(getCenter().difference(loc).getDirection(), getCenter().difference(loc).getMagnitude());
+        }
+    }
 }

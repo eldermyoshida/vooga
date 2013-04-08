@@ -1,9 +1,5 @@
 package vooga.rts.networking;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -15,18 +11,17 @@ import javax.swing.JTextArea;
  * @author Henrique Moraes, Sean Wareham, David Winegar
  *
  */
-public class GameServer {
-    private List<ClientThread> myClients;
-    private int uniqueID = 0;
-    private int myPort;
+public class GameServer extends Thread implements IMessageServer {
+    private List<ConnectionThread> myClients;
+    private int myID;
     private boolean gameRunning = false;
     private JTextArea dummyText;
-    private List<Message> myMessages;
-    
-    public GameServer(int port){
-        myPort = port;
-        myClients = new LinkedList<ClientThread>();
-        myMessages = new LinkedList<Message>();
+    private Queue<Message> myMessageQueue;
+       
+    public GameServer(int ID){
+        myClients = new ArrayList<ConnectionThread>();
+        myID = ID;
+        myMessageQueue = new LinkedList<Message>();
     }
     
     /**
@@ -34,34 +29,30 @@ public class GameServer {
      * this connection
      * @param c
      */
-    public void addClient(ClientInfo ci){
-        //TODO implement in such a way that the server extracts the 
-        // information from ClientInfo
-        try {
-            ServerSocket serverSocket = new ServerSocket(myPort);
-            Socket socket = serverSocket.accept();
-            myClients.add(new ClientThread(socket));
-        }
-        catch (IOException e) {
-            dummyText.append("Problem in creating input and output streams\n");
-        }     
+    public void addClient(ConnectionThread thread){
+        thread.switchMessageServer(this);
+        myClients.add(thread);
     }
     
-    public void start(){
+    @Override
+    public void run () {
         gameRunning = true;
         while(gameRunning){
-            //TODO process message queue and generate messages back to the clients
-            // using sendMessage method from ClientThread
+            while(!myMessageQueue.isEmpty()){
+                Message message = myMessageQueue.poll();
+                for(ConnectionThread ct : myClients) {
+                    ct.sendMessage(message);
+                }
+            }
         }
-        
     }
     
     /**
      * Closes all streams of this server and related threads, clears the 
      * list of threads as well
      */
-    private void disconnect() {
-        for(ClientThread ct : myClients) {
+    private void disconnect () {
+        for(ConnectionThread ct : myClients) {
             ct.close();
         }
         myClients.clear();
@@ -70,45 +61,16 @@ public class GameServer {
     private void haltGame(){
         //TODO implement pause screen on clients and wait for disconnected
         //clients to reestablish connection
+        gameRunning = false;
     }
-    
-    
-    private class ClientThread extends NetworkThread{
-        private String myUsername;
-        private int myID;
-          
-        /**
-         * Represents a thread that communicates to a client
-         * @param socket socket used for establishing the connection
-         */
-        ClientThread(Socket socket) {
-            super(socket);
-            myID = ++uniqueID;
-        }
-        
-        /**
-         * Keeps listening for messages and adds to the server's message queue
-         */
-        @Override
-        public void run(){
-            while(gameRunning){
-                try {
-                    Message message = (Message) mySInput.readObject();
-                    myMessages.add(message);
-                }
-                catch (IOException e) {
-                    dummyText.append("Problem in reading Message input stream\n");
-                }
-                catch (ClassNotFoundException e) {
-                }
-            }
-            close();
-        } 
 
-        @Override
-        protected void socketDisconnected () {
-            // TODO Auto-generated method stub
-            
-        }
+    @Override
+    public void sendMessage (Message message) {
+        myMessageQueue.add(message);
     }
+    
+    public int getID () {
+        return myID;
+    }
+
 }

@@ -1,8 +1,4 @@
-import java.awt.Dimension;
 
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.Interactive;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Soldier;
-import vooga.rts.util.*;
 
 /**
  * The one class that starts the entire project.

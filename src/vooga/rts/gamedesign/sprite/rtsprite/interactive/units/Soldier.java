@@ -23,9 +23,6 @@ import vooga.rts.util.Sound;
  *
  */
 public class Soldier extends Units {
-
-    private Weapon myWeapon;
-
     /** 
      *  for this implementation of visit where the soldier visits a IOccupiable,
      *  the soldier occupies the IOccupiable RTSprite. 
@@ -77,7 +74,7 @@ public class Soldier extends Units {
 
 
     @Override
-    public void visit (IGatherable g) {
+    public void visit (IGatherable g) { // duplicated with GatherStrategy???
         // TODO Auto-generated method stub
         
     }

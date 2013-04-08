@@ -18,13 +18,15 @@ import vooga.rts.util.Pixmap;
  */
 public abstract class Terrain extends Sprite {
 
- public int traverseID;
+    public int myHeight;
+    public int myLevel;
 
-  public Integer level;
-  
-  public Terrain(Pixmap image, Location center, Dimension size) {
-		super(image, center, size);
-		// TODO Auto-generated constructor stub
-	}
+    public Terrain(Pixmap image, Location center, Dimension size) {
+        super(image, center, size);
+        // TODO Auto-generated constructor stub
+    }
 
+    public int getLevel () {
+        return myLevel;
+    }
 }
