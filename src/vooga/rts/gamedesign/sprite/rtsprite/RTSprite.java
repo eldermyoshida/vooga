@@ -85,7 +85,7 @@ public class RTSprite extends Sprite implements IAttackable, RTSpriteVisitor {
     }
     
     public void visit(IAttackable a){
-    	myAttackStrategy.attack(a);
+    	a.getAttackStrategy().attack(this);
     }
     public void visit(IGatherable g){
     	myGatherStrategy.gather(g);
@@ -106,10 +106,6 @@ public class RTSprite extends Sprite implements IAttackable, RTSpriteVisitor {
     
     public void setOccupyStrategy(OccupyStrategy newStrategy){
     	myOccupyStrategy = newStrategy;
-    }
-    
-    public AttackStrategy getAttackstrategy(){
-        return myAttackStrategy;
     }
     
     /**
@@ -150,6 +146,12 @@ public class RTSprite extends Sprite implements IAttackable, RTSpriteVisitor {
 		getVelocity().scale(elapsedTime);
 		getCenter().translate(getVelocity());
 	}
+
+    @Override
+    public AttackStrategy getAttackStrategy () {
+        // TODO Auto-generated method stub
+        return myAttackStrategy;
+    }
 
 
 

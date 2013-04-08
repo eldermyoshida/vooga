@@ -1,5 +1,7 @@
 package vooga.rts.gamedesign.sprite.rtsprite;
 
+import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
+
 
 /**
  * 
@@ -12,8 +14,10 @@ package vooga.rts.gamedesign.sprite.rtsprite;
 public interface IAttackable {
 
 
-  public int calculateDamage();
+    public int calculateDamage();
 
-  public void changeHealth(int change);
+    public void changeHealth(int change);
+
+    public AttackStrategy getAttackStrategy ();
 
 }

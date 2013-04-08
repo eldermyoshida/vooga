@@ -43,7 +43,10 @@ public class CanAttack implements AttackStrategy{
 		System.out.println("What");
 		
 	}
-	
+	public boolean hasWeapon(){
+	    return !myWeapons.isEmpty();
+
+	}
 	public void addWeapons(Weapon weapon) {
 		myWeapons.add(weapon);
 	}
