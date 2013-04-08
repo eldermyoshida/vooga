@@ -1,6 +1,8 @@
 package vooga.rts.networking;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import javax.swing.JTextArea;
 
 /**
@@ -11,12 +13,13 @@ import javax.swing.JTextArea;
  */
 public class GameServer extends Thread implements IMessageServer {
     private List<ConnectionThread> myClients;
-    private int uniqueID;
+    private int myID;
     private boolean gameRunning = false;
-    private JTextArea dummyText;
+    private Queue<Message> myMessageQueue = new LinkedList<Message>();
     
-    public GameServer(){
+    public GameServer(int ID){
         myClients = new ArrayList<ConnectionThread>();
+        myID = ID;
     }
     
     /**
@@ -31,23 +34,22 @@ public class GameServer extends Thread implements IMessageServer {
     
     @Override
     public void run () {
-        start();
-    }
-    
-    public void start(){
         gameRunning = true;
         while(gameRunning){
-            //TODO process message queue and generate messages back to the clients
-            // using sendMessage method from ClientThread
+            while(!myMessageQueue.isEmpty()){
+                Message message = myMessageQueue.poll();
+                for(ConnectionThread ct : myClients) {
+                    ct.sendMessage(message);
+                }
+            }
         }
-        
     }
     
     /**
      * Closes all streams of this server and related threads, clears the 
      * list of threads as well
      */
-    private void disconnect() {
+    private void disconnect () {
         for(ConnectionThread ct : myClients) {
             ct.close();
         }
@@ -62,8 +64,11 @@ public class GameServer extends Thread implements IMessageServer {
 
     @Override
     public void sendMessage (Message message) {
-        // TODO Auto-generated method stub
-        
+        myMessageQueue.add(message);
+    }
+    
+    public int getID () {
+        return myID;
     }
 
 }
