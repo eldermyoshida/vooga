@@ -47,10 +47,11 @@ public abstract class Weapon {
 
     /**
      * This method is used by the weapon to attack an RTSprite.
+     * @throws CloneNotSupportedException 
      */
-    public void fire (RTSprite toBeShot) {
+    public void fire (RTSprite toBeShot) throws CloneNotSupportedException {
         if (cooldown == 0) {
-        	myProjectile.clone().attack(toBeShot);
+        	myProjectile.clone(myProjectile).attack(toBeShot);
         }
     }
 

@@ -72,7 +72,7 @@ public abstract class Sprite implements IGameLoop {
      * Currently, moves by the current velocity.
      */
     public void update (double elapsedTime, Dimension bounds) {
- 
+        translate(myVelocity);
     }
     /**
      * Resets shape's center.
@@ -164,6 +164,12 @@ public abstract class Sprite implements IGameLoop {
     public Vector getVelocity () {
         return myVelocity;
     }
+    /**
+     * Returns shape's size.
+     */
+    public Dimension getSize () {
+        return mySize;
+    }
 
     /**
      * Resets shape's velocity.
@@ -187,7 +193,12 @@ public abstract class Sprite implements IGameLoop {
     public Rectangle getBounds () {
         return myBounds;
     }
-
+    /*
+     * Returns pixmap that is the image of this sprite
+     */
+    public Pixmap getImage(){
+        return myView;
+    }
     /**
      * Returns true if the given point is within a rectangle representing this shape.
      */

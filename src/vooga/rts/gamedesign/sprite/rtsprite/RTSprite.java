@@ -75,6 +75,9 @@ public abstract class RTSprite extends Sprite implements IAttackable, RTSpriteVi
         return getBounds().intersects(rtSprite.getBounds());
     }
     
+    public Sound getSound(){
+        return mySound;
+    }
     
     public void visit(IAttackable a){
     	myAttackStrategy.attack(a);
