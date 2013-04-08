@@ -6,7 +6,7 @@ import vooga.fighter.util.Location;
 import vooga.fighter.util.Pixmap;
 
 public class ItemObject extends GameObject implements Damageable,Perishable, Spawnable, Wieldable{
-	private static final int DEFAULT_HEALTH=10; 
+	private static final int DEFAULT_HEALTH=2; 
 	private int myHealth=DEFAULT_HEALTH; 
 	public ItemObject(Pixmap image, Location center, Dimension size) {
 		super(image, center, size);
