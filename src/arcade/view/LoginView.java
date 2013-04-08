@@ -134,7 +134,7 @@ public class LoginView extends JFrame {
      */
     private void createLoginButton () {
         JButton login = new JButton(myResources.getString(LOGIN_KEYWORD));
-        login.setBounds(70, 140, 80, 25);
+        login.setBounds(70, 170, 80, 25);
 
         login.addActionListener(new ActionListener() {
             @Override
@@ -152,7 +152,7 @@ public class LoginView extends JFrame {
     // Figure out the actual action!!
     private void createRegisterButton () {
         JButton register = new JButton(myResources.getString(REGISTER_KEYWORD));
-        register.setBounds(150, 140, 80, 25);
+        register.setBounds(150, 170, 80, 25);
         myContentPanel.add(register);
     }
 
@@ -205,7 +205,7 @@ public class LoginView extends JFrame {
     public void sendMessage (String message) {
         JLabel warning =
                 new JLabel("<html><font color = red>" + message + "</font></html>");
-        warning.setBounds(50, 95, 250, 50);
+        warning.setBounds(50, 120, 250, 50);
         myContentPanel.remove(myBackground);
         myContentPanel.add(warning);
         refreshFrame();
