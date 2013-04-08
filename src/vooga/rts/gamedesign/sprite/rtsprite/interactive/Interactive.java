@@ -64,20 +64,8 @@ public abstract class Interactive extends RTSprite implements RTSpriteVisitor {
         
     }
     
-
-    public void visit(IAttackable a){
-    	myAttackStrategy.attack(a);
-    }
     
-    public void visit(IOccupiable o){
-    	
-    }
-    
-    public void visit(IGatherable g){
-    	
-    }
-    
-    
+        
     public void setAttackStrategy(AttackStrategy newStrategy){
     	myAttackStrategy = newStrategy;
     }
@@ -89,8 +77,9 @@ public abstract class Interactive extends RTSprite implements RTSpriteVisitor {
     public void setOccupyStrategy(OccupyStrategy newStrategy){
     	myOccupyStrategy = newStrategy;
     }
-    
-    
+    public AttackStrategy getAttackstrategy(){
+        return myAttackStrategy;
+    }
     
     public void upgrade(Upgrade upgrade) {
     	upgrade.apply(this);
