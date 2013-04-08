@@ -2,10 +2,14 @@ package vooga.fighter.objects;
 
 import java.awt.Dimension;
 
+import vooga.fighter.objects.interfaces.Damageable;
+import vooga.fighter.objects.interfaces.Perishable;
+import vooga.fighter.objects.interfaces.Spawnable;
+import vooga.fighter.objects.interfaces.CanWield;
 import vooga.fighter.util.Location;
 import vooga.fighter.util.Pixmap;
 
-public class ItemObject extends GameObject implements Damageable,Perishable, Spawnable, Wieldable{
+public class ItemObject extends GameObject implements Damageable,Perishable, Spawnable, CanWield{
 	private static final int DEFAULT_HEALTH=2; 
 	private int myHealth=DEFAULT_HEALTH; 
 	public ItemObject(Pixmap image, Location center, Dimension size) {
