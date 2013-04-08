@@ -85,6 +85,15 @@ public abstract class Sprite implements IGameLoop {
     public Location getCenter() {
     	return myCenter;
     }
+    
+    /**
+     * Rotates the Unit by the given angle. 
+     * @param angle
+     */
+    public void turn(double angle){
+        myVelocity.turn(angle);
+    }
+    
 
     /**
      * Returns shape's x coordinate in pixels.

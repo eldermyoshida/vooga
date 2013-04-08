@@ -115,6 +115,26 @@ public abstract class RTSprite extends Sprite implements IAttackable, RTSpriteVi
     public boolean isDead() {
     	return curHealth <= 0;
     }
+    
+    /**
+     * Moves the Unit only. Updates first the angle the Unit is facing,
+     * and then its location.
+     * Possible design choice error. 
+     */
+    //TODO: duplicated code!!!!!!!! with Units
+    public void move (Location loc){
+        double angle = getCenter().difference(loc).getDirection();
+        double magnitude = getCenter().difference(loc).getMagnitude();
+        turn(angle);
+        setVelocity(angle, magnitude);
+    }
+
+    @Override
+    public void update(double elapsedTime, Dimension bounds){
+        super.update(elapsedTime, bounds);
+        getCenter().translate(getVelocity());
+    }
+
 
 
 }

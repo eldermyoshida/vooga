@@ -33,33 +33,6 @@ public abstract class Projectile extends RTSprite implements IMovable {
         move(other.getCenter());
     }
 
-    /**
-     * Moves the Unit only. Updates first the angle the Unit is facing,
-     * and then its location.
-     */
-    //TODO: duplicated code!!!!!!!! with Units
-    public void move (Location loc){
-        double angle = getCenter().difference(loc).getDirection();
-        double magnitude = getCenter().difference(loc).getMagnitude();
-        turn(angle);
-        setVelocity(angle, magnitude);
-    }
-
-    /**
-     * Rotates the Unit by the given angle. 
-     * @param angle
-     */
-    public void turn(double angle){
-        getVelocity().turn(angle);
-    }
-    
-    @Override
-    public void update(double elapsedTime, Dimension bounds){
-        super.update(elapsedTime, bounds);
-        getCenter().translate(getVelocity());
-    }
-
-
     /*
      * returns a new instance of this class
      */
