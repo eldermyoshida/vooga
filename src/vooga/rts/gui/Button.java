@@ -1,24 +1,38 @@
 package vooga.rts.gui;
 
+import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import vooga.rts.util.Location;
 import vooga.rts.IGameLoop;
+import vooga.rts.resourcemanager.ResourceManager;
 
-public class Button implements IGameLoop {
+public abstract class Button implements IGameLoop {
 
-    public Button () {
-        // TODO Auto-generated constructor stub
+    private BufferedImage myImage;
+    protected Dimension mySize;
+    protected Location myPos;
+    
+    public Button (String image, Dimension size, Location pos) {
+        if (image != null) {
+            myImage = ResourceManager.instance().loadFile(image);
+        }
+        mySize = size;
+        myPos = pos;
     }
 
     @Override
-    public void update (double elapsedTime) {
-        // TODO Auto-generated method stub
-        
-    }
+    public abstract void update (double elapsedTime);
 
     @Override
     public void paint (Graphics2D pen) {
-        // TODO Auto-generated method stub
-        
+        if (myImage != null) {
+            pen.drawImage(myImage, (int)myPos.x, (int)myPos.y, mySize.width, mySize.height, null);
+        }
+    }
+    
+    public boolean checkClick(int x, int y) {
+        return (x > myPos.x && y > myPos.y && x < (myPos.x + mySize.width) && y < (myPos.y + mySize.height));
     }
 
 }
