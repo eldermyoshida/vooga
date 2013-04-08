@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
 import vooga.rts.gamedesign.sprite.rtsprite.IGatherable;
+import vooga.rts.gamedesign.sprite.rtsprite.Projectile;
 import vooga.rts.gamedesign.sprite.rtsprite.RTSprite;
 import vooga.rts.gamedesign.sprite.rtsprite.RTSpriteVisitor;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings.Building;
@@ -109,6 +110,7 @@ public abstract class Interactive extends RTSprite implements RTSpriteVisitor {
         return myAttackStrategy;
     }
 
+    
     /**
      * upgrades the interactive based on the selected upgrade
      * 
