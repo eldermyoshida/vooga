@@ -58,12 +58,12 @@ public abstract class Weapon {
      * @throws CloneNotSupportedException 
      */
     public void fire (RTSprite toBeShot) throws CloneNotSupportedException {
+        System.out.println(cooldown);
         if(cooldown == 0) {
-            //probably bad implementation
-            while(!((RTSprite)toBeShot).isDead()){
+            if (!toBeShot.isDead()) {
                 myProjectile.attack(toBeShot);
                 myProjectiles.add(myProjectile);
-                //setCooldown(maxCooldown);
+                setCooldown(maxCooldown);
             }
         }
     }

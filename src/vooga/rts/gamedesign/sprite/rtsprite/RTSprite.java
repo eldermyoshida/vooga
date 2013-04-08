@@ -1,6 +1,7 @@
 package vooga.rts.gamedesign.sprite.rtsprite;
 
 import java.awt.Dimension;
+import java.awt.Graphics2D;
 import vooga.rts.gamedesign.sprite.Sprite;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.IOccupiable;
 import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
@@ -191,7 +192,11 @@ public class RTSprite extends Sprite implements IAttackable, RTSpriteVisitor {
     public void die(){
         curHealth = 0;
     }
-
-
+    
+    public void paint(Graphics2D pen) {
+        if (!isDead()) {
+            super.paint(pen);
+        }
+    }
 
 }
