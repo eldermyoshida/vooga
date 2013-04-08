@@ -29,8 +29,9 @@ public class Main {
         Sound soun = new Sound("pikachu.wav");
     
         Interactive a = new Soldier(p,l,s,soun,20,20);
+        Interactive b = new Soldier(p,l,s,soun,20,20);
         
-        a.visit(new Soldier(p,l,s,soun,20,20));
+        a.visit(b);
     	
     	
     }
