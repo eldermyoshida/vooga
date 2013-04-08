@@ -28,6 +28,8 @@ public abstract class Weapon {
 	private UpgradeTree myUpgradeTree;
 
 	private int myRange;
+	
+	private int cooldown;
 
 
 
@@ -46,6 +48,9 @@ public abstract class Weapon {
 	 * This method is used by the weapon to attack an RTSprite.
 	 */
 	public void fire() {
+		if(cooldown  == 0) {
+			
+		}
 	}
 
 	/**
@@ -62,12 +67,23 @@ public abstract class Weapon {
 	public void setProjectile(Projectile projectile) {
 		myProjectile = projectile;
 	}
-
+	/**
+	 * Sets the range of the weapon.
+	 * @param range is the range the weapon will ahve
+	 */
 	public void setRange(int range) {
 		myRange = range;
 	}
 	
+	/**
+	 * Checks to see if the interactive passed in is in the range of the 
+	 * weapon.
+	 * @param interactive is checked to see if it is in the range of the weapon
+	 * @return true if the interactive is in the range of the weapon and false
+	 * if the interactive is out of the range of the weapon
+	 */
 	public boolean inRange(Interactive interactive) {
+		//add z axis
 		return Math.sqrt(Math.pow(interactive.getX(), 2) + Math.pow(interactive.getY(), 2)) - myRange <= 0;
 	}
 }

@@ -67,22 +67,49 @@ public abstract class Interactive extends RTSprite implements RTSpriteVisitor {
     }
     
     
-        
+        /**
+         * Sets the attack strategy for an interactive. Can set the interactive
+         * to CanAttack or to CannotAttack and then can specify how it would
+         * attack. 
+         * @param newStrategy is the new attack strategy that the interactive
+         * will have
+         */
     public void setAttackStrategy(AttackStrategy newStrategy){
     	myAttackStrategy = newStrategy;
     }
     
+    /**
+     * Sets the gatehr strategy for an interactive. Can set the interactive
+     * to CanGather or to CannotGather and then can specify how it would
+     * gather. 
+     * @param newStrategy is the new gather strategy that the interactive
+     * will have
+     */
     public void setGatherStrategy(GatherStrategy newStrategy){
     	myGatherStrategy = newStrategy;
     }
     
+    /**
+     * Sets the occupy strategy for an interactive. Can set the interactive
+     * to CanOccupy or to CannotOccupy. 
+     * @param newStrategy is the new occupy strategy that the interactive
+     * will have
+     */
     public void setOccupyStrategy(OccupyStrategy newStrategy){
     	myOccupyStrategy = newStrategy;
     }
+    /**
+     * Returns the current attack strategy of the interactive
+     * @return the current attack strategy
+     */
     public AttackStrategy getAttackstrategy(){
         return myAttackStrategy;
     }
     
+    /**
+     * upgrades the interactive based on the selected upgrade
+     * @param upgrade is the upgrade that the interactive will get
+     */
     public void upgrade(Upgrade upgrade) {
     	upgrade.apply(this);
     }
