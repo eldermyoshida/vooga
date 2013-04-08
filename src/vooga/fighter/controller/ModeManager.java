@@ -18,16 +18,10 @@ public class ModeManager {
 	private PlayerStatus myPlayerStatus;
 	
 	
-	public ModeManager(Canvas frame, PlayerStatus playerstatus) {
+	public ModeManager(Canvas frame, PlayerStatus playerstatus, MediaManager mediamanager) {
 		myCanvas = frame;
 		myPlayerStatus = playerstatus;
-		myModeMap = new ModeFactory(frame).getMap();
-		setup();
-	}
-	
-	public ModeManager(Canvas frame, PlayerStatus playerstatus, PaintManager paintmanager) {
-		this(frame, playerstatus);
-		myModeMap = new ModeFactory(frame, paintmanager).getMap();
+		myModeMap = new ModeFactory(frame, mediamanager).getMap();
 		setup();
 	}
 	

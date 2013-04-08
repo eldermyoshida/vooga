@@ -2,7 +2,10 @@ package vooga.fighter.game;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.List;
+import java.util.Scanner;
 import vooga.fighter.controller.*;
 import vooga.fighter.util.*;
 import vooga.fighter.objects.*;
@@ -25,14 +28,37 @@ public class GameInstance implements Mode {
         myID = levelName;
         myFilePath = filePath;
         myNextMode = nextMode;
-        loadLevel(filePath);
+        loadFile(filePath);
         
     }
     
-    public void loadLevel(String filePath) {
-        //Some scanner method
+    public void loadFile(String filePath) {
+        File fileName = new File(filePath);
+        Scanner scan;
+        try {
+            scan = new Scanner(fileName);
+            loadLevel(scan);
+        }
+        catch (FileNotFoundException e) {
+           System.out.println("file not found");
+        }
     }
     
+    public void loadLevel(Scanner scan) {
+        while (scan.hasNextLine()) {
+            String line = scan.nextLine();
+            Scanner lineScan = new Scanner(line);
+            String className = lineScan.next();
+            Class<?> commandClass = null;
+            try {
+                commandClass = Class.forName("src/vooga.fighter.objects." + className);
+                
+            }
+            catch (ClassNotFoundException e) {
+                System.out.println("class not found");
+            }
+        }
+    }
     
     public void updateObjects(double stepTime, Dimension bounds) {
         for (GameObject s : myInteractables) {
@@ -77,7 +103,7 @@ public class GameInstance implements Mode {
 
     @Override
     public void reset () {
-        loadLevel(myFilePath);
+        loadFile(myFilePath);
     }
 
     @Override
