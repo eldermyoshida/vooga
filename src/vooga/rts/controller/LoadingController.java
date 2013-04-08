@@ -1,8 +1,9 @@
 package vooga.rts.controller;
 
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics2D;
-
-import vooga.rts.command.Action;
+import java.awt.Rectangle;
 
 public class LoadingController extends AbstractController {
 
@@ -24,6 +25,13 @@ public class LoadingController extends AbstractController {
 
     @Override
     public void paint (Graphics2D pen) {
+        pen.draw(new Rectangle(new Dimension( 400, 560)));
+        pen.setFont(new Font("Arial", Font.PLAIN, 12));
+        pen.drawString("Game is Loading! Yolo.", 400, 500);
+    }
+
+    @Override
+    public void receiveUserInput () {
         // TODO Auto-generated method stub
         
     }

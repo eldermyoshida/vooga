@@ -3,9 +3,16 @@ package vooga.rts.gui;
 import java.awt.DisplayMode;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.lang.reflect.InvocationTargetException;
 import javax.swing.JFrame;
 import javax.swing.RepaintManager;
+import javax.swing.SwingUtilities;
 
+/**
+ * 
+ * @author Jonathan Schmidt
+ *
+ */
 public class Window {
     
     private Canvas myCanvas;
@@ -20,12 +27,30 @@ public class Window {
     public Window () {
         myFrame = new JFrame();
         myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        myFrame.setUndecorated(true);
-        myFrame.setVisible(true);
+        myFrame.setUndecorated(true);        
         myFrame.setIgnoreRepaint(true);
-        myFrame.createBufferStrategy(2);        
+        
+        try {
+            SwingUtilities.invokeAndWait(new Runnable() {
+                @Override
+                public void run () {
+                    // TODO Auto-generated method stub
+                    myFrame.setVisible(true);
+                    myFrame.createBufferStrategy(2);    
+                    
+                }
+            });
+        }
+        catch (InvocationTargetException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }   
         myCanvas = new Canvas(myFrame.getBufferStrategy());
-        myFrame.add(myCanvas);        
+        myFrame.add(myCanvas);
     }
     
     public void setFullscreen(boolean fullscreen) {        
