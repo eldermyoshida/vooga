@@ -93,7 +93,7 @@ public class LoginView extends JFrame {
     private void createHeadLine () {
         ImageIcon headlineIcon = createImageIcon(LOGO_FILENAME);
         JLabel headline = new JLabel(headlineIcon);
-        headline.setBounds(WINDOW_WIDTH / 2 - OFFSET, OFFSET / 10, HEADLINE_WIDTH, HEADLINE_HEIGHT);
+        headline.setBounds(WINDOW_WIDTH / 2 - OFFSET, OFFSET / 20, HEADLINE_WIDTH, HEADLINE_HEIGHT);
         myContentPanel.add(headline);
     }
 
@@ -104,9 +104,9 @@ public class LoginView extends JFrame {
         String usernameDescription = myResources.getString(USERNAME_KEYWORD);
         String passwordDescription = myResources.getString(PASSWORD_KEYWORD);
         JLabel username = new JLabel("<html><b>" + usernameDescription + "</b></html>");
-        username.setBounds(50, 60, 80, 25);
+        username.setBounds(50, 70, 80, 25);
         JLabel password = new JLabel("<html><b>" + passwordDescription + "</b></html>");
-        password.setBounds(50, 90, 80, 25);
+        password.setBounds(50, 100, 80, 25);
         myContentPanel.add(username);
         myContentPanel.add(password);
     }
@@ -117,12 +117,12 @@ public class LoginView extends JFrame {
     private void createTextFields () {
         // UserNameTextField
         myUserNameTextField = new JTextField();
-        myUserNameTextField.setBounds(145, 60, 100, 25);
+        myUserNameTextField.setBounds(145, 70, 100, 25);
         myUserNameTextField.addKeyListener(createKeyAdapter());
 
         // PasswordTextField
         myPasswordTextField = new JPasswordField();
-        myPasswordTextField.setBounds(145, 90, 100, 25);
+        myPasswordTextField.setBounds(145, 100, 100, 25);
         myPasswordTextField.addKeyListener(createKeyAdapter());
         resetTextFields();
         myContentPanel.add(myUserNameTextField);
