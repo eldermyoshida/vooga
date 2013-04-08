@@ -1,7 +1,12 @@
 package vooga.rts.controller;
 
+import vooga.rts.gamedesign.Gun;
+import vooga.rts.gamedesign.sprite.rtsprite.Bullet;
+import vooga.rts.gamedesign.sprite.rtsprite.Projectile;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.Interactive;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Soldier;
+import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Units;
+import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;
 import vooga.rts.gamedesign.strategy.attackstrategy.CannotAttack;
 import vooga.rts.input.*;
 import vooga.rts.player.AIPlayer;
@@ -91,16 +96,27 @@ public class GameController extends AbstractController {
     }
 
     private void setupGame () {
+        System.out.println("yolo");
         Player p1 = new HumanPlayer();
         Pixmap p = new Pixmap("vooga.rts.images.soldier.png");
-        Location l = new Location(40,50);
+        Location l = new Location(400,500);
         Dimension s = new Dimension();
         Sound soun = new Sound("vooga.rts.sounds.pikachu.wav");
 
         Units a = new Soldier(p,l,s,soun,20,40);
         a.setAttackStrategy(new CannotAttack());
+        
+        Units b = new Soldier(p,new Location(20,30),s,soun,20,50);
+        Projectile proj = new Bullet(new Pixmap("vooga.rts.images.bullet.png"), b.getCenter(), new Dimension(30, 30), soun, 10, 1);
+        b.setAttackStrategy(new CanAttack());
+        ((CanAttack) b.getAttackstrategy()).addWeapons(new Gun(0, proj, 50, b.getCenter(),20));
+        
+        Units c = new Soldier(p,l,s,soun,20,40);
+        c.setAttackStrategy(new CannotAttack());
+        
         p1.getUnits().addUnit(a);
+        p1.getUnits().addUnit(b);
         Player p2 = new HumanPlayer();
-        p2.getUnits().addUnit(null);
+        p2.getUnits().addUnit(c);
     }
 }

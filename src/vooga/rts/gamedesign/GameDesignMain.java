@@ -37,17 +37,17 @@ public class GameDesignMain {
         Dimension s = new Dimension();
         Sound soun = new Sound("pikachu.wav");
 
-        Interactive a = new Soldier(p,l,s,soun,20,40);
+        Units a = new Soldier(p,l,s,soun,20,40);
         a.setAttackStrategy(new CannotAttack());
 
-        Interactive b = new Soldier(p,new Location(20,30),s,soun,20,50);
+        Units b = new Soldier(p,new Location(20,30),s,soun,20,50);
         Projectile proj = new Bullet(new Pixmap("bullet.png"), b.getCenter(), new Dimension(30, 30), soun, 10, 1);
         b.setAttackStrategy(new CanAttack());
 
         ((CanAttack) b.getAttackstrategy()).addWeapons(new Gun(0, proj, 50, b.getCenter(),20));
         a.accept(b);
 
-        Interactive c = new Soldier(p,l,s,soun,20,40);
+        Units c = new Soldier(p,l,s,soun,20,40);
         c.setAttackStrategy(new CannotAttack());
         System.out.println("Soldier C before upgrade " + c.getHealth());
         
