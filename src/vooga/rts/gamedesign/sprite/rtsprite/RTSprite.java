@@ -137,14 +137,8 @@ public class RTSprite extends Sprite implements IAttackable, RTSpriteVisitor {
     public void setOccupyStrategy(OccupyStrategy newStrategy){
         myOccupyStrategy = newStrategy;
     }
-    /**
-     * Returns the current attack strategy of the interactive
-     * 
-     * @return the current attack strategy
-     */
-    public AttackStrategy getAttackstrategy () {
-        return myAttackStrategy;
-    }
+
+   
     /**
      * Checks to see if an RTSprite is dead.
      * @return true if the RTSprite has been killed and true if the RTSprite 
@@ -185,7 +179,11 @@ public class RTSprite extends Sprite implements IAttackable, RTSpriteVisitor {
         getCenter().translate(scale);
         resetBounds();
     }
-
+    /**
+     * Returns the current attack strategy of the interactive
+     * 
+     * @return the current attack strategy
+     */
     public AttackStrategy getAttackStrategy () {
         // TODO Auto-generated method stub
         return myAttackStrategy;

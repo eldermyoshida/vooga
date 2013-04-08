@@ -48,11 +48,12 @@ public class Soldier extends Units {
     }
 
     public void visit (IAttackable a) throws CloneNotSupportedException {
-        getAttackstrategy().attack(a);
+        getAttackStrategy().attack(a);
     }
 
     @Override
     public void update (double elapsedTime) {
+
         super.update(elapsedTime);
         AttackStrategy as = getAttackStrategy();
         if (as instanceof CanAttack) {
@@ -64,6 +65,7 @@ public class Soldier extends Units {
     }
     @Override
     public void paint(Graphics2D pen) {
+
         super.paint(pen);
         AttackStrategy as = getAttackStrategy();
         if (as instanceof CanAttack) {
@@ -71,7 +73,6 @@ public class Soldier extends Units {
                 p.paint(pen);
             }
         }
-
     }
     public void upgradeHealth (int armor) { // TESTING PURPOSE
         setHealth(getHealth() + armor);
