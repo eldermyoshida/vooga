@@ -31,27 +31,25 @@ import vooga.rts.util.Sound;
  */
 public class RTSprite extends Sprite implements IAttackable, RTSpriteVisitor {
 
-    private Integer curHealth;
+ 
 
     private OccupyStrategy myOccupyStrategy;
     private AttackStrategy myAttackStrategy;
     private GatherStrategy myGatherStrategy;
 
-
-    private Integer maxHealth;
-
-    private Integer TeamID;
-
+    private int armor;
+    private int curHealth;
+    private int maxHealth;
+    private int playerID;
     private Sound mySound;
 
-    private int armor;
 
     public RTSprite (Pixmap image, Location center, Dimension size, Sound sound, int teamID, int health) {
         super(image, center, size);
         maxHealth = health;
         curHealth = maxHealth;
         mySound = sound;
-        TeamID = teamID;
+        playerID = teamID;
         myAttackStrategy = new CanAttack();
         myGatherStrategy = new CannotGather();
         myOccupyStrategy = new CannotOccupy();
