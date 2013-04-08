@@ -2,6 +2,8 @@ package vooga.rts.gamedesign.sprite.rtsprite.interactive.units;
 
 import java.awt.Dimension;
 
+import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
+import vooga.rts.gamedesign.sprite.rtsprite.IGatherable;
 import vooga.rts.gamedesign.sprite.rtsprite.RTSprite;
 import vooga.rts.gamedesign.sprite.rtsprite.RTSpriteVisitor;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.IOccupiable;
@@ -48,6 +50,21 @@ public class Transport extends Units implements IOccupiable {
 	}
 	@Override
 	public void update(double elapsedTime) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void visit(IAttackable a) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void visit(IOccupiable o) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void visit(IGatherable g) {
 		// TODO Auto-generated method stub
 		
 	}
