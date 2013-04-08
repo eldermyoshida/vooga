@@ -29,6 +29,8 @@ public class GameInstance implements Mode {
     private Map myNonInteractables;
     private boolean myStartGame = false;
     private Input myInput;
+    private boolean shouldEnd;
+    private ObjectLoader myLoader;
     
     public GameInstance (String levelName, String filePath, String nextMode, Input input) {
         myID = levelName;
@@ -36,8 +38,9 @@ public class GameInstance implements Mode {
         myNextMode = nextMode;
         loadFile(filePath);
         myInput = input;
-        ObjectLoader loader = new ObjectLoader(input);
-        myInteractables.add(loader.getTestCharacter());
+        myLoader = new ObjectLoader(input);
+        myInteractables.add(myLoader.getTestCharacter());
+        shouldEnd = false;
     }
     
     public void loadFile(String filePath) {
@@ -71,18 +74,26 @@ public class GameInstance implements Mode {
     public void updateObjects(double stepTime, Dimension bounds) {
     	for (CharacterObject s : myInteractables) {
             s.update(stepTime, bounds);
+            if (s.getCenter().getX() >= bounds.width || s.getCenter().getX() <= 0
+                || s.getCenter().getY() <= 0 || s.getCenter().getY() >= bounds.height) {
+                shouldEnd = true;
+            }
         }
         //myNonInteractables.update(stepTime, bounds);
     }
-
+    
+    @Override
+    public void switchNeed() {
+        shouldEnd = !shouldEnd;
+    }
 
     @Override
     public void update (double stepTime, Dimension bounds) {
-    	if (myInteractables != null) {
-    	updateObjects(stepTime, bounds);
-        detectCollisions(myInteractables);
-        System.out.println("GameInstance initialized and updating");
-    	}
+        if (myInteractables != null) {
+            updateObjects(stepTime, bounds);
+            detectCollisions(myInteractables);
+            
+        }
     }
     
     public void detectCollisions(List<CharacterObject> objects) {
@@ -109,12 +120,13 @@ public class GameInstance implements Mode {
 
     @Override
     public boolean needNextMode () {
-        return false;
+        return shouldEnd;
     }
 
     @Override
     public void reset () {
-        loadFile(myFilePath);
+        myInteractables.clear();
+        myInteractables.add(myLoader.getTestCharacter());
     }
 
     @Override
