@@ -1,8 +1,4 @@
-import java.awt.Dimension;
-
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.Interactive;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Soldier;
-import vooga.rts.util.*;
+import vooga.rts.*;
 
 /**
  * The one class that starts the entire project.
@@ -21,17 +17,7 @@ public class Main {
      */
     public static void main (String[] args) {
 
-            
-            
-        Pixmap p = new Pixmap("soldier.png");
-        Location l = new Location();
-        Dimension s = new Dimension();
-        Sound soun = new Sound("soldier.png");
-    
-        Interactive a = new Soldier(p,l,s,soun,20,20);
-        
-        a.visit(new Soldier(p,l,s,soun,20,20));
-    	
+        Game main = new Game();
     	
     }
 }
