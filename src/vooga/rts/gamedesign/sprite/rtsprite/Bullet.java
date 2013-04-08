@@ -13,22 +13,5 @@ public class Bullet extends Projectile{
 			int damage, int health) {
 		super(pixmap, loc, size, sound, damage, health);
 	}
-
-	@Override
-	public int calculateDamage() {
-		return 0;
-	}
-
-	@Override
-	public void changeHealth() {
-		return;
-		
-	}
-
-	@Override
-	public void update(double elapsedTime) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }
+
