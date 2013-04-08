@@ -124,6 +124,7 @@ public class GameController extends AbstractController {
             Projectile proj = new Bullet(new Pixmap(ResourceManager.instance().loadFile("images/bullet.png")), a.getCenter(), new Dimension(30, 30), soun, 10, 1);
             a.setAttackStrategy(new CanAttack());
             ((CanAttack) a.getAttackstrategy()).addWeapons(new Gun(0, proj, 100, a.getCenter(),20));
+
         }
         catch (Exception e) {
             // trollolol
@@ -132,8 +133,8 @@ public class GameController extends AbstractController {
         Units b = new Soldier(p,new Location(200,300),s,soun,20,50);
         Projectile proj2 = new Bullet(new Pixmap(ResourceManager.instance().loadFile("images/bullet.png")), b.getCenter(), new Dimension(30, 30), soun, 10, 1);
         b.setAttackStrategy(new CanAttack());
-        ((CanAttack) b.getAttackstrategy()).addWeapons(new Gun(0, proj2, 100, b.getCenter(),20));
-        
+
+        ((CanAttack) b.getAttackstrategy()).addWeapons(new Gun(0, proj2, 100, b.getCenter(),20));        
         Units c = new Soldier(p,new Location(500, 500),s,soun,20,40);
         c.setAttackStrategy(new CannotAttack());
         
