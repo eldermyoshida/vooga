@@ -1,5 +1,6 @@
 package vooga.fighter.objects;
 
+import java.awt.Dimension;
 import vooga.fighter.util.Location;
 import vooga.fighter.util.Pixmap;
 import vooga.fighter.util.Vector; 
@@ -9,8 +10,8 @@ public class CharacterObject extends MoveableGameObject {
     
     private int myDefaultSpeed;
     
-    public CharacterObject(Pixmap image, Location center, int defaultSpeed) {
-        super(image, center);
+    public CharacterObject(Pixmap image, Location center, Dimension size, int defaultSpeed) {
+        super(image, center, size);
         myDefaultSpeed = defaultSpeed;
     }
     

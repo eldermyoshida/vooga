@@ -19,8 +19,8 @@ public class MoveableGameObject extends GameObject {
     private Vector myVelocity;
     private List<Vector> myAccelerations;
 
-    public MoveableGameObject(Pixmap image, Location center) {
-        super(image, center);
+    public MoveableGameObject(Pixmap image, Location center, Dimension size) {
+        super(image, center, size);
         myVelocity = new Vector();
         myAccelerations = new ArrayList<Vector>();
     }
