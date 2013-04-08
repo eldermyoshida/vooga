@@ -1,5 +1,9 @@
 package vooga.rts.gamedesign.upgrades;
 
+import java.util.ArrayList;
+import java.util.List;
+import vooga.rts.gamedesign.upgrades.UpgradeNode;
+
 /**
  * This class is the tree of upgrades that any object that can be upgraded will
  * hold.  For example, every unit will have an upgrade tree (and each unit of
@@ -19,4 +23,23 @@ package vooga.rts.gamedesign.upgrades;
  *
  */
 public class UpgradeTree {
+	private UpgradeNode myHead;
+	
+	public UpgradeTree() {
+		myHead = new UpgradeNode();
+	}
+	
+	public UpgradeNode findCurrent(String upgradeType){
+		UpgradeNode current = new UpgradeNode();
+		for (UpgradeNode u: myHead.getChildren()){
+			if (u.getUpgradeType().equals(upgradeType)){
+				current = u;
+			}
+		}
+		while (current.getChildren().get(0) != null && current.getChildren().get(0).getHasBeenUpgraded()) {
+			current = current.getChildren().get(0);
+		}
+		return current;
+	}
+	
 }
