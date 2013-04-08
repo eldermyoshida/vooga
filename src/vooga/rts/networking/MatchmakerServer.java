@@ -10,6 +10,7 @@ import java.util.List;
  * Object responsible for creating an instance of a game, and establishing 
  * connections between clients and the game.
  * @author srwareham
+ * @author David Winegar
  *
  */
 public class MatchmakerServer extends Thread implements IMessageServer {
