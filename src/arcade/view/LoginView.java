@@ -35,7 +35,7 @@ public class LoginView extends JFrame {
     /**
      * 
      */
-    private static final String BACKGROUND_FILENAME = "LoginBackGround.jpg";
+    private static final String BACKGROUND_FILENAME = "arcade/resources/images/LoginBackGround.jpg";
     private static final String LOGO_FILENAME = "VoogaLogo.png";
     private static final String TITLE_KEYWORD = "title";
     private static final String LOGIN_KEYWORD = "login";
