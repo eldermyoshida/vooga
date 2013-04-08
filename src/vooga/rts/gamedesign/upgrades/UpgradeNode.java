@@ -1,5 +1,6 @@
 package vooga.rts.gamedesign.upgrades;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.Interactive;
@@ -18,25 +19,33 @@ public class UpgradeNode {
 
 	private String myUpgradeType;
 	private int myUpgradeValue;
+	private String myUpgradeObject;
 	private boolean myHasBeenUpgraded;
 	private ArrayList<UpgradeNode> myChildren; //set to list for the Head.
 
 	public UpgradeNode(){
-		this(null, 0);
+		this(null, null, 0);
 	}
 	
-	public UpgradeNode(String upgradeType, int upgradeValue){
+	public UpgradeNode(String upgradeType, String upgradeObject, int upgradeValue){
 		myUpgradeType = upgradeType;
 		myChildren = new ArrayList<UpgradeNode>();
 		myHasBeenUpgraded = false;
+		myUpgradeObject = upgradeObject;
 		myUpgradeValue = upgradeValue;
 	}
 	
 	/**
 	 * Applies the effect of this Upgrade type to the given interactive.
 	 * @param interactive
+	 * @throws InvocationTargetException 
+	 * @throws IllegalAccessException 
+	 * @throws IllegalArgumentException 
+	 * @throws InstantiationException 
+	 * @throws NoSuchMethodException 
+	 * @throws SecurityException 
 	 */
-	public void apply(Interactive interactive) {
+	public void apply(Interactive interactive) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException, InstantiationException, SecurityException, NoSuchMethodException {
 	}
 	
 	public ArrayList<UpgradeNode> getChildren(){
@@ -50,5 +59,12 @@ public class UpgradeNode {
 	public boolean getHasBeenUpgraded(){
 		return myHasBeenUpgraded;
 	}
+	
+	public String getUpgradeObject(){
+		return myUpgradeObject;
+	}
 
+	public int getUpgradeValue(){
+		return myUpgradeValue;
+	}
 }

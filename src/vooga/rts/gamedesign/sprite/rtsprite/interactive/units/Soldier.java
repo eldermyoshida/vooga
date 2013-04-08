@@ -11,7 +11,6 @@ import vooga.rts.gamedesign.sprite.rtsprite.IGatherable;
 import vooga.rts.gamedesign.sprite.rtsprite.RTSprite;
 import vooga.rts.gamedesign.sprite.rtsprite.RTSpriteVisitor;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.IOccupiable;
-import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
@@ -30,18 +29,70 @@ public class Soldier extends Units {
      *  Code: would call myOccupyStrategy.occupy(RTSprite); 
      */
 
+	private int myHealth = 0; //TESTING PURPOSE
+	
+	public Soldier(){
+		this(null, null, null, null, 0, 0); //TESTING PURPOSE
+	}
     public Soldier(Pixmap image, Location center, Dimension size, Sound sound, int teamID, int health) {
         super(image, center, size, sound, teamID, health);
-        setAttackStrategy(new CanAttack());
+    }
+
+
+    @Override
+    public void move(Location loc) {
+        // TODO Auto-generated method stub
 
     }
 
-	
+    public void visit(IAttackable a){
+        getAttackstrategy().attack(a);
+    }
+
+    @Override
+    public int calculateDamage() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public void changeHealth() {
+        // TODO Auto-generated method stub
+
+    }
 
 
-   
+    @Override
+    public void update(double elapsedTime) {
+        // TODO Auto-generated method stub
 
-   
+    }
+
+
+    @Override
+    public void visit (IOccupiable o) {
+        // TODO Auto-generated method stub
+        
+    }
+
+
+    @Override
+    public void visit (IGatherable g) { // duplicated with GatherStrategy???
+        // TODO Auto-generated method stub
+        
+    }
+    
+    public void myHealth(int value){ //TESTING PURPOSE
+    	myHealth += value;
+    }
+    
+    public int getHealth() { //TESTING PURPOSE
+    	return myHealth;
+    }
+    
+    public void test() { //TESTING PURPOSE
+    	myHealth += 50;
+    }
 
 
 }

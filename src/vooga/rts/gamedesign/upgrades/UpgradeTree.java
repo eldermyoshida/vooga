@@ -26,9 +26,31 @@ public class UpgradeTree {
 	private UpgradeNode myHead;
 	
 	public UpgradeTree() {
-		myHead = new UpgradeNode();
+		this(null);
 	}
 	
+	public UpgradeTree(String filename){
+		myHead = new UpgradeNode();
+		readFile(filename);
+	}
+	
+	//Sample file format: <type> <name> <upgradeObejct> <upgradeValue>
+	//e.g. Armor armorUpgrade1 Health 50
+	/**
+	 * Initializes the UpgradeTree by reading the info from a file.
+	 * @param filename
+	 */
+	private void readFile(String filename){
+		if (filename != null){
+			
+		}
+	}
+	
+	/**
+	 * Finds the most advanced upgrade has been made in the giving upgrade type.
+	 * @param upgradeType
+	 * @return
+	 */
 	public UpgradeNode findCurrent(String upgradeType){
 		UpgradeNode current = new UpgradeNode();
 		for (UpgradeNode u: myHead.getChildren()){
