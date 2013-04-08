@@ -18,7 +18,6 @@ public class MapNode {
     public MapNode(int x, int y) {
         myX = x;
         myY = y;
-        myTerrain = DEFAULT_VALUE;
     }
     
     public int getX() {
