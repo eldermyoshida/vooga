@@ -23,45 +23,52 @@ import vooga.rts.gamedesign.upgrades.UpgradeNode;
  *
  */
 public class UpgradeTree {
-	private UpgradeNode myHead;
-	
-	public UpgradeTree() {
-		this(null);
-	}
-	
-	public UpgradeTree(String filename){
-		myHead = new UpgradeNode();
-		readFile(filename);
-	}
-	
-	//Sample file format: <type> <name> <upgradeObejct> <upgradeValue>
-	//e.g. Armor armorUpgrade1 Health 50
-	/**
-	 * Initializes the UpgradeTree by reading the info from a file.
-	 * @param filename
-	 */
-	private void readFile(String filename){
-		if (filename != null){
-			
-		}
-	}
-	
-	/**
-	 * Finds the most advanced upgrade has been made in the giving upgrade type.
-	 * @param upgradeType
-	 * @return
-	 */
-	public UpgradeNode findCurrent(String upgradeType){
-		UpgradeNode current = new UpgradeNode();
-		for (UpgradeNode u: myHead.getChildren()){
-			if (u.getUpgradeType().equals(upgradeType)){
-				current = u;
-			}
-		}
-		while (current.getChildren().get(0) != null && current.getChildren().get(0).getHasBeenUpgraded()) {
+    private UpgradeNode myHead;
+
+    public UpgradeTree() {
+        this(null);
+    }
+
+    public UpgradeTree(String filename){
+        myHead = new UpgradeNode();
+        readFile(filename);
+    }
+
+    //Sample file format: <type> <name> <upgradeObejct> <upgradeValue>
+    //e.g. Armor armorUpgrade1 Health 50
+    /**
+     * Initializes the UpgradeTree by reading the info from a file.
+     * @param filename
+     */
+    private void readFile(String filename){
+        if (filename != null){
+
+        }
+    }
+    /*
+     * TODO: implement later 
+     */
+    public void addUpgrade(UpgradeNode un){
+        myHead.getChildren().add(un);
+    }
+
+    /**
+     * Finds the most advanced upgrade has been made in the giving upgrade type.
+     * @param upgradeType
+     * @return
+     */
+    public UpgradeNode findCurrent(String upgradeType){
+        UpgradeNode current = new UpgradeNode();
+        for (UpgradeNode u: myHead.getChildren()){
+            if (u.getUpgradeType().equals(upgradeType)){
+                current = u;
+            }
+        }
+        //need to find a way to traverse
+        /*while (current.getChildren().get(0) != null && current.getChildren().get(0).getHasBeenUpgraded()) {
 			current = current.getChildren().get(0);
-		}
-		return current;
-	}
-	
+		}*/
+        return current;
+    }
+
 }

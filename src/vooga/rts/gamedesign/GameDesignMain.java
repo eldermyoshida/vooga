@@ -1,6 +1,7 @@
 package vooga.rts.gamedesign;
 
 import java.awt.Dimension;
+import java.lang.reflect.InvocationTargetException;
 
 import vooga.rts.gamedesign.sprite.rtsprite.Bullet;
 import vooga.rts.gamedesign.sprite.rtsprite.Projectile;
@@ -8,6 +9,8 @@ import vooga.rts.gamedesign.sprite.rtsprite.interactive.Interactive;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Soldier;
 import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;
 import vooga.rts.gamedesign.strategy.attackstrategy.CannotAttack;
+import vooga.rts.gamedesign.upgrades.UpgradeNode;
+import vooga.rts.gamedesign.upgrades.ArmorUpgradeNode;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
@@ -18,8 +21,14 @@ public class GameDesignMain {
     /**
      * @param args
      * @throws CloneNotSupportedException 
+     * @throws NoSuchMethodException 
+     * @throws InstantiationException 
+     * @throws InvocationTargetException 
+     * @throws IllegalAccessException 
+     * @throws SecurityException 
+     * @throws IllegalArgumentException 
      */
-    public static void main(String[] args) throws CloneNotSupportedException {
+    public static void main(String[] args) throws CloneNotSupportedException, IllegalArgumentException, SecurityException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException {
 
 
         Pixmap p = new Pixmap("soldier.png");
@@ -34,19 +43,17 @@ public class GameDesignMain {
         Projectile proj = new Bullet(new Pixmap("bullet.png"), b.getCenter(), new Dimension(30, 30), soun, 10, 1);
         b.setAttackStrategy(new CanAttack());
         ((CanAttack) b.getAttackstrategy()).addWeapons(new Gun(0, proj, 50, b.getCenter()));
+        a.accept(b);
 
-
-        for(int i = 0 ; i < 10 ; i++){
-            if(a.isDead()){
-                System.out.println("SOldier A DIED WOOHOO");
-            }
-            else {
-                System.out.println(a.getHealth());
-                a.accept(b);
-            }
-        }
-
-
+        Interactive c = new Soldier(p,l,s,soun,20,40);
+        c.setAttackStrategy(new CannotAttack());
+        System.out.println("Soldier C before upgrade " + c.getHealth());
+        
+        c.upgradeNode(c.getTree().findCurrent("armor1"));
+        System.out.println("Soldier C after upgrade " + c.getHealth());
+        
+        
+        
     }
 
 }

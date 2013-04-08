@@ -23,35 +23,38 @@ import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Units;
  */
 public class CanAttack implements AttackStrategy{
 
-	private List<Weapon> myWeapons;
-	private int myWeaponIndex;
+    private List<Weapon> myWeapons;
+    private int myWeaponIndex;
 
-	public CanAttack(){
-		myWeapons = new ArrayList<Weapon>();
-		myWeaponIndex = 0;
+    public CanAttack(){
+        myWeapons = new ArrayList<Weapon>();
+        myWeaponIndex = 0;
 
-	}
+    }
 
 
-	public void attack(IAttackable a) throws CloneNotSupportedException{
-		myWeapons.get(myWeaponIndex).fire((RTSprite) a);
+    public void attack(IAttackable a) throws CloneNotSupportedException{
+        while(!((RTSprite)a).isDead()){
+            System.out.println("Soldier a health " + ((RTSprite) a).getHealth());
+            myWeapons.get(myWeaponIndex).fire((RTSprite) a);
+        }
+        System.out.println("a died");
+    }
+    public boolean hasWeapon(){
+        return !myWeapons.isEmpty();
 
-	}
-	public boolean hasWeapon(){
-		return !myWeapons.isEmpty();
+    }
+    public void addWeapons(Weapon weapon) {
+        myWeapons.add(weapon);
+    }
 
-	}
-	public void addWeapons(Weapon weapon) {
-		myWeapons.add(weapon);
-	}
-
-	public void update() {
-		for(int i = 0; i < myWeapons.size(); i++) {
-			Weapon weapon = myWeapons.get(i);
-			if(weapon.getCooldown() > 0) {
-				weapon.decrementCooldown();
-			}
-		}
-	}
+    public void update() {
+        for(int i = 0; i < myWeapons.size(); i++) {
+            Weapon weapon = myWeapons.get(i);
+            if(weapon.getCooldown() > 0) {
+                weapon.decrementCooldown();
+            }
+        }
+    }
 
 }

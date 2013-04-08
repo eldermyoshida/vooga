@@ -32,7 +32,7 @@ public abstract class Projectile extends RTSprite implements IMovable {
 	
 	
 	public void attack(RTSprite other) throws CloneNotSupportedException{
-		System.out.println("projectile is on target");
+		
 		other.accept(this);
 		move(other.getCenter());
 	}

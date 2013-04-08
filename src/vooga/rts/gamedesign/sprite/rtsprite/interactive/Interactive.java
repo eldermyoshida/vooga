@@ -20,6 +20,7 @@ import vooga.rts.gamedesign.strategy.occupystrategy.CannotOccupy;
 import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
 import vooga.rts.gamedesign.strategy.production.IProducer;
 import vooga.rts.gamedesign.strategy.skillstrategy.SkillStrategy;
+import vooga.rts.gamedesign.upgrades.ArmorUpgradeNode;
 import vooga.rts.gamedesign.upgrades.UpgradeNode;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
 import vooga.rts.util.Location;
@@ -42,7 +43,7 @@ public abstract class Interactive extends RTSprite implements RTSpriteVisitor {
     /**
      * the data structure for storing progress of upgrades can be changed?
      */
-    private int myHealth; //TESTING PURPOSE
+
 
     private UpgradeTree myUpgradeTree;
     private Integer buildTime;
@@ -59,7 +60,10 @@ public abstract class Interactive extends RTSprite implements RTSpriteVisitor {
                         int health) {
         super(image, center, size, sound, teamID, health);
         myMakers = new HashMap<String, Factory>();
+        myUpgradeTree = new UpgradeTree();
 
+        UpgradeNode armor = new ArmorUpgradeNode("armor1","myHealth",40);
+        myUpgradeTree.addUpgrade(armor);
     }
     
     /**
@@ -75,6 +79,10 @@ public abstract class Interactive extends RTSprite implements RTSpriteVisitor {
      */
     public void upgradeNode (UpgradeNode upgradeNode) throws IllegalArgumentException, SecurityException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException {
         upgradeNode.apply(this);
+    }
+    
+    public UpgradeTree getTree(){
+        return myUpgradeTree;
     }
 
 

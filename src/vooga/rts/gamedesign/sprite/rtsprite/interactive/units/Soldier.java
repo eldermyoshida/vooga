@@ -31,7 +31,7 @@ public class Soldier extends Units {
      *  Code: would call myOccupyStrategy.occupy(RTSprite); 
      */
 
-    private int myHealth; //TESTING PURPOSE
+    //private int myHealth; //TESTING PURPOSE
 
     public Soldier(){
         this(null, null, null, null, 0, 50); //TESTING PURPOSE
@@ -59,8 +59,8 @@ public class Soldier extends Units {
 
     }
 
-    public void test() { //TESTING PURPOSE
-        myHealth += 50;
+    public void upgradeHealth(int armor) { //TESTING PURPOSE
+        setHealth(getHealth() + armor);
     }
 
 

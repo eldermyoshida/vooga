@@ -66,8 +66,9 @@ public class RTSprite extends Sprite implements IAttackable, RTSpriteVisitor {
     public void accept(RTSpriteVisitor visitor) throws CloneNotSupportedException {
         visitor.visit(this);
     }
-
-
+    public void setHealth(int health){
+        curHealth = health;
+    }
     public int getHealth(){
         return curHealth;
     }
@@ -87,7 +88,9 @@ public class RTSprite extends Sprite implements IAttackable, RTSpriteVisitor {
     }
 
     public void visit(IAttackable a) throws CloneNotSupportedException{
-        myAttackStrategy.attack(a);
+        if(!isDead()){
+            myAttackStrategy.attack(a);
+        }
     }
     public void visit(IGatherable g){
         myGatherStrategy.gather(g);

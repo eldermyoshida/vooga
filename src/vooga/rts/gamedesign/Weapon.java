@@ -53,7 +53,7 @@ public abstract class Weapon {
      */
     public void fire (RTSprite toBeShot) throws CloneNotSupportedException {
     	if(cooldown == 0) {
-        	myProjectile.attack(toBeShot);
+    	    myProjectile.attack(toBeShot);
     	}
     }
 
