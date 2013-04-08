@@ -14,8 +14,8 @@ import javax.swing.JPanel;
 public class EastWindow extends JPanel {
 
     private static final long serialVersionUID = 1L;
-    private GameStatisticsWindow myStatsWindow;
-    private InfoWindow myInformationWindow;
+    private GameStatsScreen myStatsWindow;
+    private InfoScreen myInformationWindow;
     private static final Dimension STATS_WINDOW_SIZE = new Dimension(200, 300);
     private static final Dimension INFO_WINDOW_SIZE = new Dimension(200, 300);
     
@@ -28,8 +28,8 @@ public class EastWindow extends JPanel {
     }
     
     private void initAndAddWindows () {
-        myStatsWindow = new GameStatisticsWindow(STATS_WINDOW_SIZE);
-        myInformationWindow = new InfoWindow(INFO_WINDOW_SIZE);
+        myStatsWindow = new GameStatsScreen(STATS_WINDOW_SIZE);
+        myInformationWindow = new InfoScreen(INFO_WINDOW_SIZE);
         add(myStatsWindow, BorderLayout.NORTH);
         add(myInformationWindow, BorderLayout.SOUTH);
     }

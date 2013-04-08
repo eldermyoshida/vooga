@@ -1,6 +1,6 @@
 package controller;
 
-import view.View;
+import view.TDView;
 import model.GameModel;
 
 
@@ -22,7 +22,7 @@ public class Controller {
 
 
     private GameModel myGameModel;
-    private View myView;
+    private TDView myView;
 
     
     /**
@@ -31,7 +31,7 @@ public class Controller {
      */
     public Controller () {
         //myGameModel = new GameModel(); //constructor parameters need to be added
-        myView = new View();
+        myView = new TDView();
     }
     
     /**
