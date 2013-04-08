@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 
 public class SplashScreen extends JPanel {
 
+	private static final String RESOURCE = "/vooga/towerdefense/images/";
 	private static final long serialVersionUID = 1L;
 	private static final int XCOORD = 0;
     private static final int YCOORD = 0;
@@ -25,8 +26,8 @@ public class SplashScreen extends JPanel {
 	public SplashScreen (Dimension size, TDView view) {
 		setPreferredSize(size);
 		myView = view;
-		myBackgroundImage = new ImageIcon("images/splashscreen.JPG").getImage();
-		add(nextScreenButton(), BorderLayout.SOUTH);
+		myBackgroundImage = new ImageIcon(getClass().getResource(RESOURCE + "splashscreen.gif")).getImage();
+		this.add(nextScreenButton(), BorderLayout.SOUTH);
 	}
 	
 	private Component nextScreenButton() {
@@ -35,7 +36,6 @@ public class SplashScreen extends JPanel {
             @Override
             public void actionPerformed (ActionEvent e) {
                 myView.assembleScreens();
-                System.out.println("NEXT");
             }
         });
         return result;	}
@@ -43,9 +43,11 @@ public class SplashScreen extends JPanel {
 	@Override
     public void paintComponent (Graphics pen) {
         super.paintComponent(pen);
-        pen.drawImage(myBackgroundImage, 0, 0, null);
-        pen.setColor(myBackgroundColor);
-        pen.fillRect(XCOORD, YCOORD, getSize().width, getSize().height);
+        if (myBackgroundImage != null) {
+			pen.drawImage(myBackgroundImage, 0, 0, this.getSize().width, this.getSize().height, null);
+        }
+        //pen.setColor(myBackgroundColor);
+        //pen.fillRect(XCOORD, YCOORD, getSize().width, getSize().height);
         
     }
 	
