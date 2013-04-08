@@ -13,15 +13,16 @@ import java.util.List;
  */
 public class GameTable extends Table {
 
-    public static final String GAMENAME_COLUMN_FIELD = "gamename";  
-    public static final String GAMEFILEPATH_COLUMN_FIELD = "gamefilepath";
-    public static final String GAMEID_COLUMN_FIELD = "gameid";  
+    private static final String TABLE_SEPARATOR = ": ";
+    private static final String GAMENAME_COLUMN_FIELD = "gamename";  
+    private static final String GAMEFILEPATH_COLUMN_FIELD = "gamefilepath";
+    private static final String GAMEID_COLUMN_FIELD = "gameid";  
     
-    public static final int GAMENAME_COLUMN_INDEX = 1;
-    public static final int GAMEFILEPATH_COLUMN_INDEX = 2;
-    public static final int GAMEID_COLUMN_INDEX = 3;
+    private static final int GAMENAME_COLUMN_INDEX = 1;
+    private static final int GAMEFILEPATH_COLUMN_INDEX = 2;
+    private static final int GAMEID_COLUMN_INDEX = 3;
     
-    public static final String TABLE_NAME = "games";  
+    private static final String TABLE_NAME = "games";  
 
 
     private Connection myConnection;
@@ -57,32 +58,23 @@ public class GameTable extends Table {
     }
 
     public void closeConnection() {
-        if (myPreparedStatement != null) {
-            try {
+        try {
+            if (myPreparedStatement != null) {
                 myPreparedStatement.close();
             }
-            catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        if (myResultSet != null) {
-            try {
+            if (myResultSet != null) {
                 myResultSet.close();
             }
-            catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        if (myConnection != null) {
-            try {
+            if (myConnection != null) {
                 myConnection.close();
             }
-            catch (SQLException e) {
-                e.printStackTrace();
-            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
         }
     }
-    
+
+
     public boolean gameNameExists(String gameName) {
         String stm = "SELECT gamename FROM games WHERE gamename='" + gameName + "'";
         try {
@@ -98,8 +90,8 @@ public class GameTable extends Table {
         return false;
     }
     
-    public String getGameID(String gameName) {
-        String stm = "SELECT * FROM games WHERE gamename='" + gameName + "'";
+    public String retrieveGameId(String gameName) {
+        String stm = "SELECT * FROM " + TABLE_NAME + " WHERE " + GAMENAME_COLUMN_FIELD + "='" + gameName + "'";
         String gameid = "";
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
@@ -122,11 +114,11 @@ public class GameTable extends Table {
      * @param lastname is lastname
      * @param dateOfBirth is date of birth
      */
-    public boolean addGame(String gameName) {
+    public boolean createGame(String gameName) {
         if (gameNameExists(gameName)) {
             return false;
         }
-        String stm = "INSERT INTO games(gamename) VALUES(?)";
+        String stm = "INSERT INTO " + TABLE_NAME + "(" + GAMENAME_COLUMN_FIELD + ") VALUES(?)";
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
             myPreparedStatement.setString(GAMENAME_COLUMN_INDEX, gameName);
@@ -138,7 +130,7 @@ public class GameTable extends Table {
         return true;
     }
     
-    public List<String> getGameList() {
+    public List<String> retrieveGameList() {
         String stm = "SELECT " + GAMENAME_COLUMN_FIELD + " FROM "  + TABLE_NAME;
         List<String> myGameNames = new ArrayList<String>();
         try {
@@ -161,8 +153,8 @@ public class GameTable extends Table {
             myPreparedStatement = myConnection.prepareStatement("SELECT * FROM " + TABLE_NAME);
             myResultSet = myPreparedStatement.executeQuery();
             while (myResultSet.next()) {
-                System.out.print(myResultSet.getString(GAMENAME_COLUMN_INDEX) + ": ");
-                System.out.print(myResultSet.getString(GAMEFILEPATH_COLUMN_INDEX) + ": ");
+                System.out.print(myResultSet.getString(GAMENAME_COLUMN_INDEX) + TABLE_SEPARATOR);
+                System.out.print(myResultSet.getString(GAMEFILEPATH_COLUMN_INDEX) + TABLE_SEPARATOR);
                 System.out.println(myResultSet.getString(GAMEID_COLUMN_INDEX));
             }
         }
