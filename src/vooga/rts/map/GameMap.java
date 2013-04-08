@@ -1,25 +1,24 @@
 package vooga.rts.map;
 
 import java.awt.Dimension;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import vooga.rts.gamedesign.sprite.map.Tile;
+import vooga.rts.util.Location;
 
 public class GameMap {
     
-    public static final int GRID_SIZE = 8;
+    public static final int NODE_SIZE = 8;
     
     private Tile[][] myTiles;
-    private HashMap<Integer, MapNode[][]> myMap;
+    private MapNode[][] myMap;
+//    private HashMap<Integer, MapNode[][]> myMap;
     
     /**
-     * The Width of the map in Grid Size
+     * The width of the map in terms of MapNodes
      */
     private int myWidth;
     
     /**
-     * The height of the map in Grid Size
+     * The height of the map in terms of MapNodes
      */
     private int myHeight;
     
@@ -28,14 +27,14 @@ public class GameMap {
     
     
     public GameMap(Dimension mapSize, Dimension tileSize) {
-       myWidth = (mapSize.width * tileSize.width) / GRID_SIZE;
-       myHeight = (mapSize.height * tileSize.height) / GRID_SIZE;
-       
-       // Create map and add first layer
-       myMap = new HashMap<>();
-       myMap.put(1, createLayer(myWidth, myHeight));
-       
-       myTiles = new Tile[mapSize.width][mapSize.height];
+       myWidth = (mapSize.width * tileSize.width) / NODE_SIZE;
+       myHeight = (mapSize.height * tileSize.height) / NODE_SIZE;
+       myMap = new MapNode[myWidth][myHeight];
+       for (int i = 0; i < myWidth; i++) {
+           for (int j = 0; j < myHeight; j++) {
+               myMap[i][j] = new MapNode(i, j);
+           }
+       }
     }    
     
     /**
@@ -54,5 +53,14 @@ public class GameMap {
             }
         }
         return res;
+    }
+    
+   /*
+    * It might be easier and more efficient to store a unit's current node and 
+    * update it as they move rather than having to calculate where they are every
+    * time you need to move them.
+    */
+    public MapNode getNode (Location location) {
+        return myMap[(int)location.x/NODE_SIZE][(int)location.y/NODE_SIZE];
     }
 }
