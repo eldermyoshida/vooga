@@ -1,4 +1,4 @@
-package gameElements;
+package vooga.towerdefense.gameElements;
 
 /**
  * An asset can be anything useful held by a Tower or a Unit. It can be a weapon, money or anything the designer wishes to include in the game design.

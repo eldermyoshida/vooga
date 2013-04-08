@@ -1,4 +1,4 @@
-package gameElements;
+package vooga.towerdefense.gameElements;
 
 import java.util.List;
 

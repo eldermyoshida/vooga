@@ -1,13 +1,15 @@
-package model;
-import gameElements.Tower;
-import gameElements.Unit;
+package vooga.towerdefense.model;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import util.Location;
-import view.Tile;
+
+import vooga.towerdefense.gameElements.Tower;
+import vooga.towerdefense.gameElements.Unit;
+import vooga.towerdefense.util.Location;
+import vooga.towerdefense.view.Tile;
+
 
 public class GameMap {
     private List<Unit> myUnits;

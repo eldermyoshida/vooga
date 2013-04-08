@@ -1,4 +1,4 @@
-package view;
+package vooga.towerdefense.view;
 /**
  * 
  * @author Leonard K. Ng'eno
