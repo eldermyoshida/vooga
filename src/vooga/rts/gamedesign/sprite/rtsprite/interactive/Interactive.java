@@ -1,6 +1,7 @@
 package vooga.rts.gamedesign.sprite.rtsprite.interactive;
 
 import java.awt.Dimension;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,7 +20,7 @@ import vooga.rts.gamedesign.strategy.occupystrategy.CannotOccupy;
 import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
 import vooga.rts.gamedesign.strategy.production.IProducer;
 import vooga.rts.gamedesign.strategy.skillstrategy.SkillStrategy;
-import vooga.rts.gamedesign.upgrades.Upgrade;
+import vooga.rts.gamedesign.upgrades.UpgradeNode;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
@@ -44,6 +45,7 @@ public abstract class Interactive extends RTSprite implements RTSpriteVisitor {
     private AttackStrategy myAttackStrategy;
     private GatherStrategy myGatherStrategy;
     private OccupyStrategy myOccupyStrategy;
+    private int myHealth = 0; //TESTING PURPOSE
 
     private UpgradeTree myUpgradeTree;
     private Integer buildTime;
@@ -114,10 +116,20 @@ public abstract class Interactive extends RTSprite implements RTSpriteVisitor {
     /**
      * upgrades the interactive based on the selected upgrade
      * 
-     * @param upgrade is the upgrade that the interactive will get
+     * @param upgradeNode is the upgrade that the interactive will get
+     * @throws NoSuchMethodException 
+     * @throws InstantiationException 
+     * @throws InvocationTargetException 
+     * @throws IllegalAccessException 
+     * @throws SecurityException 
+     * @throws IllegalArgumentException 
      */
-    public void upgrade (Upgrade upgrade) {
-        upgrade.apply(this);
+    public void upgradeNode (UpgradeNode upgradeNode) throws IllegalArgumentException, SecurityException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException {
+        upgradeNode.apply(this);
+    }
+    
+    public int getHealth() { //TESTING PURPOSE
+    	return myHealth;
     }
 
 }
