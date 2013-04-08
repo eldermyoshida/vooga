@@ -23,11 +23,9 @@ public class Window {
         myFrame.setUndecorated(true);
         myFrame.setVisible(true);
         myFrame.setIgnoreRepaint(true);
-        //myFrame.createBufferStrategy(2);        
+        myFrame.createBufferStrategy(2);        
         myCanvas = new Canvas(myFrame.getBufferStrategy());
-        myFrame.add(myCanvas);
-        
-        setFullscreen(true);
+        myFrame.add(myCanvas);        
     }
     
     public void setFullscreen(boolean fullscreen) {        

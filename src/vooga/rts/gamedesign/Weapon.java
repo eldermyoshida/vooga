@@ -20,12 +20,13 @@ import vooga.rts.gamedesign.upgrades.UpgradeTree;
  *
  */
 public abstract class Weapon {
+	private int myDamage;
 
-  public Integer myDamage;
+	private Projectile myProjectile;
 
-  public Projectile myProjectile;
+	private UpgradeTree myUpgradeTree;
 
-  public UpgradeTree myUpgradeTree;
+	private int myRange;
   
   /**
    * Creates a new weapon with default damage and projectile.
@@ -37,26 +38,42 @@ public abstract class Weapon {
 	  myProjectile = projectile;
   }
   
-  /**
-   * This method is used by the weapon to attack an RTSprite.
-   */
-  public void fire(RTSprite toBeShot) {
-	  myProjectile.clone().attack(toBeShot);
-  }
 
-  /**
-   * This method is used to upgrade a weapon either 
-   * @param upgrade
-   */
-  public void upgrade(Upgrade upgrade) {
-  }
-  
-  /**
-   * This method is used to change the projectile for the weapon
-   * @param projectile is the projectile that will be used by the weapon
-   */
-  public void setProjectile(Projectile projectile) {
-	  myProjectile = projectile;
-  }
 
+	/**
+	 * Creates a new weapon with default damage and projectile.
+	 * @param damage
+	 * @param projectile
+	 */
+	public Weapon(int damage, Projectile projectile, int range) {
+		myDamage = damage;
+		myProjectile = projectile;
+		myRange = range;
+	}
+
+
+	/**
+	* This method is used by the weapon to attack an RTSprite.
+	*/
+	public void fire(RTSprite toBeShot) {
+	}
+
+	/**
+	 * This method is used to upgrade a weapon either 
+	 * @param upgrade
+	 */
+	public void upgrade(Upgrade upgrade) {
+	}
+
+	/**
+	 * This method is used to change the projectile for the weapon
+	 * @param projectile is the projectile that will be used by the weapon
+	 */
+	public void setProjectile(Projectile projectile) {
+		myProjectile = projectile;
+	}
+
+	public void setRange(int range) {
+		myRange = range;
+	}
 }
