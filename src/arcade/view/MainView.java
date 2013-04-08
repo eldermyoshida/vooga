@@ -11,6 +11,7 @@ import arcade.view.panels.GameCenterPanel;
 import arcade.view.panels.SocialCenterPanel;
 import arcade.view.panels.StorePanel;
 
+@SuppressWarnings("serial")
 public class MainView extends JFrame {
     private static String TITLE = "The Awesome Vooga Center";
     private static final int WINDOW_WIDTH = 800;

@@ -6,6 +6,7 @@ import arcade.util.Pixmap;
 public class GameInfo {
     public static final String FILEPATH = "games.";
     public static final String RESOURCE_DIR_NAME = ".resources.";
+
     public static final String FILE_NAME = ".example";
     
     public static final String GAME_NAME = "name";
@@ -19,7 +20,7 @@ public class GameInfo {
     private ResourceBundle myResourceBundle;
 
     public GameInfo (String gamename) {
-        String filepath = FILEPATH + gamename + RESOURCE_DIR_NAME + gamename;
+    	String filepath = FILEPATH + gamename + RESOURCE_DIR_NAME + gamename;
         myResourceBundle = ResourceBundle.getBundle(filepath);
     }
 

@@ -9,6 +9,8 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
+import arcade.games.GameInfo;
+import arcade.view.SnapShot;
 
 
 public class GameCenterPanel extends JPanel {
@@ -46,7 +48,8 @@ public class GameCenterPanel extends JPanel {
      * Create the JList for games.
      */
     private void createGameJList () {
-        
+        //GameInfo gi = new GameInfo("example");
+        //this.add(new SnapShot(gi));
 
     }
 
