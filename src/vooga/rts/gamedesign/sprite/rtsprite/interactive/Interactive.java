@@ -42,7 +42,7 @@ public abstract class Interactive extends RTSprite implements RTSpriteVisitor {
     /**
      * the data structure for storing progress of upgrades can be changed?
      */
-    private int myHealth = 0; //TESTING PURPOSE
+    private int myHealth; //TESTING PURPOSE
 
     private UpgradeTree myUpgradeTree;
     private Integer buildTime;
@@ -76,9 +76,6 @@ public abstract class Interactive extends RTSprite implements RTSpriteVisitor {
     public void upgradeNode (UpgradeNode upgradeNode) throws IllegalArgumentException, SecurityException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException {
         upgradeNode.apply(this);
     }
-    
-    public int getHealth() { //TESTING PURPOSE
-    	return myHealth;
-    }
+
 
 }

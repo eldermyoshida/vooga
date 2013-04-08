@@ -29,11 +29,11 @@ public class Soldier extends Units {
      *  Code: would call myOccupyStrategy.occupy(RTSprite); 
      */
 
-	private int myHealth = 0; //TESTING PURPOSE
-	
-	public Soldier(){
-		this(null, null, null, null, 0, 0); //TESTING PURPOSE
-	}
+    private int myHealth; //TESTING PURPOSE
+
+    public Soldier(){
+        this(null, null, null, null, 0, 50); //TESTING PURPOSE
+    }
     public Soldier(Pixmap image, Location center, Dimension size, Sound sound, int teamID, int health) {
         super(image, center, size, sound, teamID, health);
     }
@@ -60,17 +60,9 @@ public class Soldier extends Units {
         // TODO Auto-generated method stub
 
     }
-    
-    public void myHealth(int value){ //TESTING PURPOSE
-    	myHealth += value;
-    }
-    
-    public int getHealth() { //TESTING PURPOSE
-    	return myHealth;
-    }
-    
+
     public void test() { //TESTING PURPOSE
-    	myHealth += 50;
+        myHealth += 50;
     }
 
 
