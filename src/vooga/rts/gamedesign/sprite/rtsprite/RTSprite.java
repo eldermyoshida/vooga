@@ -156,7 +156,6 @@ public class RTSprite extends Sprite implements IAttackable, RTSpriteVisitor {
         setVelocity(angle, magnitude);
     }
 
-
     @Override
     public int calculateDamage() {
         return 10;

@@ -38,11 +38,13 @@ public class GameDesignMain {
 
         
         for(int i = 0 ; i < 10 ; i++){
-        	System.out.println(a.getHealth());
-        	if(((CanAttack) b.getAttackstrategy()).hasWeapon()){
-        	    System.out.println("er ma gawd");
+        	if(a.isDead()){
+        	    System.out.println("SOldier A DIED WOOHOO");
         	}
-        	a.accept(b);
+        	else {
+        	    System.out.println(a.getHealth());
+        	    a.accept(b);
+        	}
         }
 
 
