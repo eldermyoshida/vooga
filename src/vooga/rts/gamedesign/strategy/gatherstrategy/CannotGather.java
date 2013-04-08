@@ -1,7 +1,7 @@
 package vooga.rts.gamedesign.strategy.gatherstrategy;
 
-import vooga.rts.gamedesign.sprite.rtsprite.IGatherable;
-
+import vooga.rts.gamedesign.sprite.rtsprite.RTSprite;
+import vooga.rts.gamedesign.sprite.rtsprite.Resource;
 
 /**
  * 
@@ -17,9 +17,10 @@ import vooga.rts.gamedesign.sprite.rtsprite.IGatherable;
 
 public class CannotGather implements GatherStrategy {
 	
-	
-	public void gather(IGatherable r) {
-		
+
+	@Override
+	public void gather(Resource r) {
+		//do nothing
 	}
 
 }

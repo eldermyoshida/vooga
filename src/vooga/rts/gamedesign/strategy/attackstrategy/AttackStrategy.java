@@ -1,6 +1,9 @@
 package vooga.rts.gamedesign.strategy.attackstrategy;
 
 import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
+import vooga.rts.gamedesign.sprite.rtsprite.interactive.Interactive;
+import vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings.Building;
+import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Units;
 
 /**
  * 
@@ -23,12 +26,18 @@ import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
  */
 public interface AttackStrategy {
 
-	  /**
-     * This method specifies how attackables will be attacked
-     * @param this is what is attacking
-     */
+
     public void attack(IAttackable a);
-    
-    
+    /**
+     * This method specifies how buildings will attack
+     * @param building is the building that is attacking
+     */
+    public void attack(Building building);
+
+    /**
+     * This method specifies how units will attack
+     * @param units is the unit that is attacking
+     */
+    public void attack(Units units);
 
 }

@@ -20,21 +20,24 @@ import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Units;
  */
 public class CanAttack implements AttackStrategy{
 	
-	private Weapon myWeapon;
-
+	private List<Weapon> myWeapons;
 	
-	public CanAttack(Weapon weapon){
-		myWeapon = weapon;
+	@Override
+	public void attack(Building building) {
+		// TODO Auto-generated method stub
+		
 	}
 
-	public void attack(IAttackable a){
-		if(a instanceof Units){
-			attack((Units ) a);
-		}
+	@Override
+	public void attack(Units units) {
+		// TODO Auto-generated method stub
+		
 	}
-	
-	private void attack(Units u){
-		myWeapon.fire(u);
+
+	@Override
+	public void attack(IAttackable a) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -32,7 +32,7 @@ public abstract class Units extends Interactive implements IMovable {
 	private OccupyStrategy myOccupyStrategy;
 	
 	private boolean myIsLeftSelected; //TODO: also need the same thing for Projectiles
-	private boolean myIsRightSelected;
+	private boolean myIsRightSelected; //TODO: should be observing the mouse action instead!!
 
 	public Units(Pixmap image, Location center, Dimension size, Sound sound, int teamID, int health) {
 		super(image, center, size, sound, teamID, health);

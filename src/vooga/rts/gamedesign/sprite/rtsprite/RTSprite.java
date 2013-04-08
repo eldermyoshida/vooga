@@ -2,12 +2,7 @@ package vooga.rts.gamedesign.sprite.rtsprite;
 
 import java.awt.Dimension;
 import vooga.rts.gamedesign.sprite.Sprite;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.IOccupiable;
 import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
-import vooga.rts.gamedesign.strategy.attackstrategy.CannotAttack;
-import vooga.rts.gamedesign.strategy.gatherstrategy.CannotGather;
-import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
-import vooga.rts.gamedesign.strategy.occupystrategy.CannotOccupy;
 import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
@@ -34,8 +29,6 @@ public abstract class RTSprite extends Sprite implements IAttackable, RTSpriteVi
 
     private OccupyStrategy myOccupyStrategy;
     private AttackStrategy myAttackStrategy;
-    private GatherStrategy myGatherStrategy;
-    
 
     private Integer maxHealth;
 
@@ -50,9 +43,6 @@ public abstract class RTSprite extends Sprite implements IAttackable, RTSpriteVi
         curHealth = maxHealth;
         mySound = sound;
         TeamID = teamID;
-        myAttackStrategy = new CannotAttack();
-        myGatherStrategy = new CannotGather();
-        myOccupyStrategy = new CannotOccupy();
     }
     
     /** 
@@ -73,35 +63,6 @@ public abstract class RTSprite extends Sprite implements IAttackable, RTSpriteVi
      */
     public boolean interactsWith(RTSprite rtSprite) {
         return getBounds().intersects(rtSprite.getBounds());
-    }
-    
-    
-    public void visit(IAttackable a){
-    	myAttackStrategy.attack(a);
-    }
-    public void visit(IGatherable g){
-    	myGatherStrategy.gather(g);
-    	
-    }
-    public void visit(IOccupiable o){
-    	myOccupyStrategy.occupy(o);
-    }
-    
-    
-    public void setAttackStrategy(AttackStrategy newStrategy){
-    	myAttackStrategy = newStrategy;
-    }
-    
-    public void setGatherStrategy(GatherStrategy newStrategy){
-    	myGatherStrategy = newStrategy;
-    }
-    
-    public void setOccupyStrategy(OccupyStrategy newStrategy){
-    	myOccupyStrategy = newStrategy;
-    }
-    
-    public AttackStrategy getAttackstrategy(){
-        return myAttackStrategy;
     }
     
     /**

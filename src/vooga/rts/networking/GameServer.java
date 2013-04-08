@@ -1,7 +1,12 @@
 package vooga.rts.networking;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import javax.swing.JTextArea;
 
 /**
@@ -10,8 +15,8 @@ import javax.swing.JTextArea;
  * @author Henrique Moraes, Sean Wareham, David Winegar
  *
  */
-public class GameServer implements IMessageServer {
-    private List<ConnectionThread> myClients;
+public class GameServer {
+    private List<ClientThread> myClients;
     private int uniqueID = 0;
     private int myPort;
     private boolean gameRunning = false;
@@ -19,7 +24,7 @@ public class GameServer implements IMessageServer {
     
     public GameServer(int port){
         myPort = port;
-        myClients = new ArrayList<ConnectionThread>();
+        myClients = new LinkedList<ClientThread>();
     }
     
     /**
@@ -27,8 +32,17 @@ public class GameServer implements IMessageServer {
      * this connection
      * @param c
      */
-    public void addClient(Socket socket){
-        myClients.add(new ConnectionThread(socket, this, 0));    
+    public void addClient(ClientInfo ci){
+        //TODO implement in such a way that the server extracts the 
+        // information from ClientInfo
+        try {
+            ServerSocket serverSocket = new ServerSocket(myPort);
+            Socket socket = serverSocket.accept();
+            myClients.add(new ClientThread(socket));
+        }
+        catch (IOException e) {
+            dummyText.append("Problem in creating input and output streams\n");
+        }     
     }
     
     public void start(){
@@ -45,7 +59,7 @@ public class GameServer implements IMessageServer {
      * list of threads as well
      */
     private void disconnect() {
-        for(ConnectionThread ct : myClients) {
+        for(ClientThread ct : myClients) {
             ct.close();
         }
         myClients.clear();
@@ -55,16 +69,86 @@ public class GameServer implements IMessageServer {
         //TODO implement pause screen on clients and wait for disconnected
         //clients to reestablish connection
     }
-
-    @Override
-    public void addMessage (Message message) {
-        // TODO Auto-generated method stub
+    
+    
+    private class ClientThread extends Thread{
+        private Socket mySocket;
+        private ObjectInputStream mySInput;
+        private ObjectOutputStream mySOutput;
+        private String myUsername;
+        private int myID;
+        private Queue<Message> myMessages;
+          
+        /**
+         * Represents a thread that communicates to a client
+         * @param socket socket used for establishing the connection
+         */
+        ClientThread(Socket socket){
+            myID = ++uniqueID;
+            mySocket = socket;
+            myMessages = new LinkedList<Message>();
+            
+            try {
+                mySInput = new ObjectInputStream(mySocket.getInputStream());
+                mySOutput = new ObjectOutputStream(mySocket.getOutputStream());
+            }
+            catch (IOException e) {
+                dummyText.append("Problem in creating input and output streams\n");
+            }
+        }
         
-    }
-
-    @Override
-    public void addObject (Object object) {
-        // TODO Auto-generated method stub
+        /**
+         * Keeps listening for messages and adds to the server's message queue
+         */
+        @Override
+        public void run(){
+            while(gameRunning){
+                try {
+                    Message message = (Message) mySInput.readObject();
+                    myMessages.add(message);
+                }
+                catch (IOException e) {
+                    dummyText.append("Problem in reading Message input stream\n");
+                }
+                catch (ClassNotFoundException e) {
+                }
+            }
+            close();
+        } 
         
+        /**
+         * Closes streams and socket of this thread
+         */
+        private void close() {
+            try {
+                    if(mySOutput != null) mySOutput.close();
+            }
+            catch(Exception e) {}
+            try {
+                if(mySInput != null) mySInput.close();
+            }
+            catch(Exception e) {};
+            try {
+                if(mySocket != null) mySocket.close();
+            }
+            catch (Exception e) {}
+        }
+        
+        /**
+         * Broadcasts a Message object to the client
+         * @param m Message object to be sent
+         */
+        public void sendMessage(Message m){
+            if(!mySocket.isConnected()){
+                haltGame();
+                return;
+            }
+            try {
+                mySOutput.writeObject(m);
+            }
+            catch (IOException e) {
+                dummyText.append("Problem in writing Message to client\n");
+            }
+        }
     }
 }
