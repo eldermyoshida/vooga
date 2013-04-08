@@ -28,7 +28,7 @@ public class GameServer implements IMessageServer {
      * @param c
      */
     public void addClient(Socket socket){
-        myClients.add(new ConnectionThread(socket, this));    
+        myClients.add(new ConnectionThread(socket, this, 0));    
     }
     
     public void start(){
