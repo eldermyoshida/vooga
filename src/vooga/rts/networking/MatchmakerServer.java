@@ -42,7 +42,11 @@ public class MatchmakerServer extends Thread implements IMessageServer {
                 Socket socket = serverSocket.accept();
                 ConnectionThread thread = new ConnectionThread(socket, this, myConnectionID);
                 myConnectionThreads.add(thread);
+                myConnectionID++;
                 thread.run();
+                if(myConnectionThreads.size() > 1 ){
+                    initializeGame();
+                }
             }
             catch (IOException e) {
                 // TODO log file
@@ -52,7 +56,13 @@ public class MatchmakerServer extends Thread implements IMessageServer {
     }
     
     private void initializeGame() {
-        
+        GameServer gameServer = new GameServer(myGameServerID++);
+        myGameServers.add(gameServer);
+        for(ConnectionThread ct : myConnectionThreads) {
+            gameServer.addClient(ct);
+        }
+        gameServer.run();
+        myGameServerID++;
     }
 
     @Override
