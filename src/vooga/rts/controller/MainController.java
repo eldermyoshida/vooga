@@ -16,7 +16,7 @@ import vooga.rts.resourcemanager.ResourceManager;
 
 public class MainController extends AbstractController implements Observer {
 
-    private final static String DEFAULT_INPUT_LOCATION = "vooga/resources/Input.properties";
+    private final static String DEFAULT_INPUT_LOCATION = "vooga.rts.resources.Input";
     private GameController myGameController;
     private LoadingController myLoadingController;
     private MenuController myMenuController;
@@ -66,34 +66,6 @@ public class MainController extends AbstractController implements Observer {
       }
      
 
-    /*
-     @Override
-    public void update (double elapsedTime) {        
-        switch (myState) {
-            case Game:
-                myGameController.update(elapsedTime);
-                break;
-            case Loading:
-                ResourceManager.instance().load();
-                myWindow.setFullscreen(true);
-                setState(MainState.Splash);
-                break;
-            case Menu:
-                myMenuController.update(elapsedTime);
-                break;
-            case Splash:
-                if (!ResourceManager.instance().isLoading()) {                    
-                    setState(MainState.Menu);
-                }
-                break;
-            case Starting:
-                // What state is this?
-                break;
-            default:
-                break;
-        }
-    }
-*/
     public void paint (Graphics2D pen) {
         myActiveController.paint(pen);
     }
