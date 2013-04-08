@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.LinkedList;
-import java.util.Queue;
 
 /**
  * Represents a server-side connection between the client and the server.
@@ -37,6 +35,10 @@ public class ConnectionThread extends Thread {
             }
         }
         
+        public void switchMessageServer (IMessageServer server) {
+            myMessageServer = server;
+        }
+        
         /**
          * Keeps listening for messages and adds to the server's message queue
          */
@@ -44,8 +46,11 @@ public class ConnectionThread extends Thread {
         public void run(){
             while(true){
                 try {
-                    Message message = (Message) mySInput.readObject();
-                    myMessageServer.addMessage(message);
+                    Object obj;
+                    if((obj = mySInput.readObject()) != null && obj instanceof Message) {
+                        Message message = (Message) obj;
+                        myMessageServer.sendMessage(message);
+                    }
                 }
                 catch (IOException e) {
                     // TODO add logger

@@ -26,10 +26,6 @@ import java.util.List;
 public abstract class Units extends Interactive implements IMovable {
 
 	private  List<Interactive> myKills;
-
-	private GatherStrategy myGatherStrategy;
-
-	private OccupyStrategy myOccupyStrategy;
 	
 	private boolean myIsLeftSelected; //TODO: also need the same thing for Projectiles
 	private boolean myIsRightSelected; //TODO: should be observing the mouse action instead!!

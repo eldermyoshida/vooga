@@ -23,9 +23,6 @@ import vooga.rts.util.Sound;
  *
  */
 public class Soldier extends Units {
-
-    private Weapon myWeapon;
-
     /** 
      *  for this implementation of visit where the soldier visits a IOccupiable,
      *  the soldier occupies the IOccupiable RTSprite. 
