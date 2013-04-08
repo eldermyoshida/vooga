@@ -34,18 +34,28 @@ public class UpgradeTree {
         readFile(filename);
     }
 
-    //Sample file format: <type> <name> <upgradeObejct> <upgradeValue>
-    //e.g. Armor armorUpgrade1 Health 50
-    /**
-     * Initializes the UpgradeTree by reading the info from a file.
-     * @param filename
-     */
-    private void readFile(String filename){
-        if (filename != null){
-
-        }
-    }
-    /*
+    //Sample file format: <name> <upgradeObejct> <upgradeValue>
+	//e.g. armorUpgrade1 Health 50
+	/**
+	 * Initializes the UpgradeTree by reading the info from a file.
+	 * @param filename
+	 */
+	private void readFile(String filename){
+		try {
+			BufferedReader bReader
+			= new BufferedReader(new FileReader(filename));
+			readHelper(bReader);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void readHelper(BufferedReader bReader) throws IOException {
+		String individualLine = bReader.readLine();
+		
+		
+		
+	}    /*
      * TODO: implement later 
      */
     public void addUpgrade(UpgradeNode un){

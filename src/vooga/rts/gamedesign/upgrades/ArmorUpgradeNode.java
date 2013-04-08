@@ -26,4 +26,22 @@ public class ArmorUpgradeNode extends UpgradeNode {
         Method thisMethod = thisClass.getDeclaredMethod("upgradeHealth", params);
         thisMethod.invoke(interactive, getUpgradeValue());
     }
+    
+    /**
+	 * Testing purpose.
+	 * @param args
+	 * @throws IllegalArgumentException
+	 * @throws SecurityException
+	 * @throws IllegalAccessException
+	 * @throws InvocationTargetException
+	 * @throws InstantiationException
+	 * @throws NoSuchMethodException
+	 */
+	/**public static void main (String[] args) throws IllegalArgumentException, SecurityException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException {
+    	ArmorUpgradeNode a = new ArmorUpgradeNode();
+		Interactive i = new Soldier(new Pixmap("soldier.png"), new Location(0,0), new Dimension(50, 50), new Sound("pikachu.wav"), 0, 0);
+    	System.out.println(i.getHealth());
+    	a.apply(i);
+    	System.out.println(i.getHealth());
+	}*/
 }

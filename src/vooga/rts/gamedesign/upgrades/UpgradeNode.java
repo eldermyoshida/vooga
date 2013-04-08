@@ -51,6 +51,10 @@ public class UpgradeNode {
     public ArrayList<UpgradeNode> getChildren(){
         return myChildren;
     }
+    
+    public void addChild(UpgradeNode upgrade) {
+		myChildren.add(upgrade);
+	}
 
     public String getUpgradeType(){
         return myUpgradeType;
