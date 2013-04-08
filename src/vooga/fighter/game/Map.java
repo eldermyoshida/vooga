@@ -135,7 +135,7 @@ public class Map {
      */
     public void update(double elapsedTime, Dimension bounds) {
         for(GameObject g: myEnviroObjects) {
-            g.update(elapsedTime, bounds);
+            //g.update(elapsedTime, bounds);
         }
     }
     
