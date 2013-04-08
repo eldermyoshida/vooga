@@ -10,12 +10,6 @@ public class LoadingController extends AbstractController {
     public LoadingController() {
         
     }
-    
-    @Override
-    public void receiveUserInput (Action a) {
-        // TODO Auto-generated method stub
-        
-    }
 
     @Override
     public void update (double elapsedTime) {
@@ -25,9 +19,11 @@ public class LoadingController extends AbstractController {
 
     @Override
     public void paint (Graphics2D pen) {
+        Rectangle screen = pen.getDeviceConfiguration().getBounds();
         pen.draw(new Rectangle(new Dimension( 400, 560)));
-        pen.setFont(new Font("Arial", Font.PLAIN, 12));
-        pen.drawString("Game is Loading! Yolo.", 400, 500);
+        
+        pen.setFont(new Font("Arial", Font.PLAIN, 72));
+        pen.drawString("Game is Loading! Yolo.", screen.width / 2, screen.height / 2);
     }
 
     @Override

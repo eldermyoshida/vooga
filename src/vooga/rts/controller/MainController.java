@@ -5,11 +5,12 @@ import java.awt.Graphics2D;
 import java.util.Timer;
 import java.util.TimerTask;
 import vooga.rts.Game;
-import vooga.rts.IGameLoop;
+import vooga.rts.gui.Menu;
 import vooga.rts.gui.Window;
+import vooga.rts.gui.menus.MainMenu;
 import vooga.rts.resourcemanager.ResourceManager;
 
-public class MainController extends AbstractController implements IGameLoop {
+public class MainController extends AbstractController {
 
     private GameController myGameController;
     private LoadingController myLoadingController;
@@ -28,6 +29,7 @@ public class MainController extends AbstractController implements IGameLoop {
         myGameController = new GameController();
         myLoadingController = new LoadingController();
         myMenuController = new MenuController();
+        myMenuController.addMenu(0, new MainMenu());
 
         myState = MainState.Loading;
         myTimer = new Timer();
@@ -37,15 +39,8 @@ public class MainController extends AbstractController implements IGameLoop {
                 update(this.scheduledExecutionTime());
                 render();
             }
-        }, 500, Game.TIME_PER_FRAME());
-        myWindow.setFullscreen(true);
-    }
-
-    @Override
-    public void receiveUserInput (Action a) {
-        // TODO Auto-generated method stub
-
-    }
+        }, 500, Game.TIME_PER_FRAME());        
+    }    
 
     @Override
     public void update (double elapsedTime) {
@@ -54,23 +49,26 @@ public class MainController extends AbstractController implements IGameLoop {
                 myGameController.update(elapsedTime);
                 break;
             case Loading:
-                myState = MainState.Splash;
+                myWindow.setFullscreen(true);
+                setState(MainState.Splash);
                 break;
             case Menu:
+                myMenuController.update(elapsedTime);
                 break;
             case Splash:
                 if (!ResourceManager.instance().isLoading()) {
-                    myState = MainState.Menu;
+                    setState(MainState.Menu);
                 }
                 break;
             case Starting:
+                // What state is this?
                 break;
             default:
                 break;
         }
     }
 
-    public void render () {
+    private void render () {
         // Get graphics and clear frame 
         Graphics2D graphics = myWindow.getCanvas().getGraphics();
         graphics.setColor(Color.WHITE);
@@ -93,6 +91,7 @@ public class MainController extends AbstractController implements IGameLoop {
             case Loading:                
                 break;
             case Menu:
+                myMenuController.paint(pen);
                 break;
             case Splash:                
                 myLoadingController.paint(pen);
@@ -110,6 +109,12 @@ public class MainController extends AbstractController implements IGameLoop {
 
     public void setState (MainState state) {
         this.myState = state;
+    }
+
+    @Override
+    public void receiveUserInput () {
+        // TODO Auto-generated method stub
+        
     }
 
 }

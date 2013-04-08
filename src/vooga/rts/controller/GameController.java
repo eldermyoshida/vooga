@@ -33,6 +33,7 @@ public class GameController extends AbstractController {
         
     }
     
+    /**
     @Override
     public void receiveUserInput (Action a) {
         for (ICommand c : myCommands) {
@@ -42,6 +43,7 @@ public class GameController extends AbstractController {
         		
         }
     }
+    */
 
     @Override
     public void update (double elapsedTime) {
@@ -53,6 +55,12 @@ public class GameController extends AbstractController {
     public void paint (Graphics2D pen) {
         // TODO Auto-generated method stub
 
+    }
+
+    @Override
+    public void receiveUserInput () {
+        // TODO Auto-generated method stub
+        
     }
 
 
