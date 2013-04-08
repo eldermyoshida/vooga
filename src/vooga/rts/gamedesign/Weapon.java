@@ -1,6 +1,7 @@
 package vooga.rts.gamedesign;
 
 import vooga.rts.gamedesign.sprite.rtsprite.Projectile;
+import vooga.rts.gamedesign.sprite.rtsprite.RTSprite;
 import vooga.rts.gamedesign.upgrades.Upgrade;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
 
@@ -27,6 +28,18 @@ public abstract class Weapon {
 	private UpgradeTree myUpgradeTree;
 
 	private int myRange;
+  
+  /**
+   * Creates a new weapon with default damage and projectile.
+   * @param damage
+   * @param projectile
+   */
+  public Weapon(int damage, Projectile projectile) {
+	  myDamage = damage;
+	  myProjectile = projectile;
+  }
+  
+
 
 
 
@@ -41,10 +54,11 @@ public abstract class Weapon {
 		myRange = range;
 	}
 
+
 	/**
-	 * This method is used by the weapon to attack an RTSprite.
-	 */
-	public void fire() {
+	* This method is used by the weapon to attack an RTSprite.
+	*/
+	public void fire(RTSprite toBeShot) {
 	}
 
 	/**
