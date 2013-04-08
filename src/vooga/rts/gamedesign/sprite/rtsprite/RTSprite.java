@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import vooga.rts.gamedesign.sprite.Sprite;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.IOccupiable;
 import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
+import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;
 import vooga.rts.gamedesign.strategy.attackstrategy.CannotAttack;
 import vooga.rts.gamedesign.strategy.gatherstrategy.CannotGather;
 import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
@@ -28,42 +29,47 @@ import vooga.rts.util.Sound;
  * @author Wenshun Liu 
  *
  */
-public abstract class RTSprite extends Sprite implements IAttackable, RTSpriteVisitor {
+public class RTSprite extends Sprite implements IAttackable, RTSpriteVisitor {
 
-    private Integer curHealth;
+ 
 
     private OccupyStrategy myOccupyStrategy;
     private AttackStrategy myAttackStrategy;
     private GatherStrategy myGatherStrategy;
-    
 
-    private Integer maxHealth;
-
-    private Integer TeamID;
-
+    private int armor;
+    private int curHealth;
+    private int maxHealth;
+    private int playerID;
     private Sound mySound;
-    
+
 
     public RTSprite (Pixmap image, Location center, Dimension size, Sound sound, int teamID, int health) {
         super(image, center, size);
         maxHealth = health;
         curHealth = maxHealth;
         mySound = sound;
-        TeamID = teamID;
-        myAttackStrategy = new CannotAttack();
+        playerID = teamID;
+        myAttackStrategy = new CanAttack();
         myGatherStrategy = new CannotGather();
         myOccupyStrategy = new CannotOccupy();
     }
-    
+
     /** 
      *  This would accept RTSpriteVisitors and behave according to the 
      *  visitor's visit method. This code will always run 
      *  RTSpriteVisitor.visit(this). "this" being the subclass of RTSprite. 
+     * @throws CloneNotSupportedException 
      */
-    public void accept(RTSpriteVisitor visitor) {
+    public void accept(RTSpriteVisitor visitor) throws CloneNotSupportedException {
         visitor.visit(this);
     }
-    
+    public void setHealth(int health){
+        curHealth = health;
+    }
+    public int getHealth(){
+        return curHealth;
+    }
     /**
      * This would determine if two RTSprites collide.
      * @param rtSprite is an RTSprite that is being checked to see if it 
@@ -74,54 +80,78 @@ public abstract class RTSprite extends Sprite implements IAttackable, RTSpriteVi
     public boolean interactsWith(RTSprite rtSprite) {
         return getBounds().intersects(rtSprite.getBounds());
     }
-    
+
     public Sound getSound(){
         return mySound;
     }
-    
-    public void visit(IAttackable a){
-    	myAttackStrategy.attack(a);
+
+    public void visit(IAttackable a) throws CloneNotSupportedException{
+        if(!isDead()){
+            myAttackStrategy.attack(a);
+        }
     }
     public void visit(IGatherable g){
-    	myGatherStrategy.gather(g);
-    	
+        myGatherStrategy.gather(g);
+
     }
     public void visit(IOccupiable o){
-    	myOccupyStrategy.occupy(o);
+        myOccupyStrategy.occupy(o);
     }
-    
-    
+
+    /**
+     * Sets the attack strategy for an interactive. Can set the interactive
+     * to CanAttack or to CannotAttack and then can specify how it would
+     * attack.
+     * 
+     * @param newStrategy is the new attack strategy that the interactive
+     *        will have
+     */
     public void setAttackStrategy(AttackStrategy newStrategy){
-    	myAttackStrategy = newStrategy;
+        myAttackStrategy = newStrategy;
     }
-    
+    /**
+     * Sets the gatehr strategy for an interactive. Can set the interactive
+     * to CanGather or to CannotGather and then can specify how it would
+     * gather.
+     * 
+     * @param newStrategy is the new gather strategy that the interactive
+     *        will have
+     */
     public void setGatherStrategy(GatherStrategy newStrategy){
-    	myGatherStrategy = newStrategy;
+        myGatherStrategy = newStrategy;
     }
-    
+    /**
+     * Sets the occupy strategy for an interactive. Can set the interactive
+     * to CanOccupy or to CannotOccupy.
+     * 
+     * @param newStrategy is the new occupy strategy that the interactive
+     *        will have
+     */
     public void setOccupyStrategy(OccupyStrategy newStrategy){
-    	myOccupyStrategy = newStrategy;
+        myOccupyStrategy = newStrategy;
     }
-    
-    public AttackStrategy getAttackstrategy(){
+    /**
+     * Returns the current attack strategy of the interactive
+     * 
+     * @return the current attack strategy
+     */
+    public AttackStrategy getAttackstrategy () {
         return myAttackStrategy;
     }
-    
     /**
      * Checks to see if an RTSprite is dead.
      * @return true if the RTSprite has been killed and true if the RTSprite 
      * is still alive.
      */
     public boolean isDead() {
-    	return curHealth <= 0;
+        return curHealth <= 0;
     }
-    
+
     /**
      * Moves the Unit only. Updates first the angle the Unit is facing,
      * and then its location.
      * Possible design choice error. 
      */
-    //TODO: duplicated code!!!!!!!! with Units
     public void move (Location loc){
         double angle = getCenter().difference(loc).getDirection();
         double magnitude = getCenter().difference(loc).getMagnitude();
@@ -129,11 +159,29 @@ public abstract class RTSprite extends Sprite implements IAttackable, RTSpriteVi
         setVelocity(angle, magnitude);
     }
 
+
     @Override
-    public void update(double elapsedTime, Dimension bounds){
-        super.update(elapsedTime, bounds);
+    public int calculateDamage(int damage) {
+        return damage * (1-armor/100);
+    }
+
+    @Override
+    public void changeHealth(int change) {
+        curHealth -= calculateDamage(change);
+
+    }
+
+    @Override
+    public void update(double elapsedTime) {
+        getVelocity().scale(elapsedTime);
         getCenter().translate(getVelocity());
     }
+
+    public AttackStrategy getAttackStrategy () {
+        // TODO Auto-generated method stub
+        return myAttackStrategy;
+    }
+
 
 
 

@@ -11,6 +11,8 @@ import vooga.rts.gamedesign.sprite.rtsprite.IGatherable;
 import vooga.rts.gamedesign.sprite.rtsprite.RTSprite;
 import vooga.rts.gamedesign.sprite.rtsprite.RTSpriteVisitor;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.IOccupiable;
+import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
+import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
@@ -29,10 +31,13 @@ public class Soldier extends Units {
      *  Code: would call myOccupyStrategy.occupy(RTSprite); 
      */
 
+    //private int myHealth; //TESTING PURPOSE
+
+    public Soldier(){
+        this(null, null, null, null, 0, 50); //TESTING PURPOSE
+    }
     public Soldier(Pixmap image, Location center, Dimension size, Sound sound, int teamID, int health) {
         super(image, center, size, sound, teamID, health);
-
-
     }
 
 
@@ -42,41 +47,20 @@ public class Soldier extends Units {
 
     }
 
-    public void visit(IAttackable a){
+    public void visit(IAttackable a) throws CloneNotSupportedException{
         getAttackstrategy().attack(a);
     }
 
     @Override
-    public int calculateDamage() {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    @Override
-    public void changeHealth() {
-        // TODO Auto-generated method stub
-
-    }
-
-
-    @Override
     public void update(double elapsedTime) {
-        // TODO Auto-generated method stub
+       AttackStrategy as = getAttackStrategy() ;
+    	if(as instanceof CanAttack)
+    		((CanAttack) as).update();
 
     }
 
-
-    @Override
-    public void visit (IOccupiable o) {
-        // TODO Auto-generated method stub
-        
-    }
-
-
-    @Override
-    public void visit (IGatherable g) { // duplicated with GatherStrategy???
-        // TODO Auto-generated method stub
-        
+    public void upgradeHealth(int armor) { //TESTING PURPOSE
+        setHealth(getHealth() + armor);
     }
 
 
