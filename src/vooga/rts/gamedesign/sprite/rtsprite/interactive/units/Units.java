@@ -60,6 +60,9 @@ public abstract class Units extends Interactive implements IMovable {
     }
     
     public void move () {
+        if (myPather.size() == 0) {
+            return;
+        }
         Location next = myPather.getNext(getCenter());
         double angle = getCenter().difference(next).getDirection();
         turn(angle);
@@ -73,5 +76,4 @@ public abstract class Units extends Interactive implements IMovable {
     public void turn(double angle){
         getVelocity().turn(angle);
     }
-
 }

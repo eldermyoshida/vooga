@@ -10,6 +10,9 @@ import vooga.rts.gamedesign.sprite.map.Tile;
 public class GameMap {
     
     public static final int NODE_SIZE = 8;
+    public static final int[][] mapGrid = {{1,1,1,1,1,1},
+                                           {0,0,3,3,3,3},
+                                           {2,2,0,0,3,3}};
     
     private Tile[][] myTiles;
     private MapNode[][] myMap;
@@ -33,7 +36,7 @@ public class GameMap {
        myHeight = (mapSize.height * tileSize.height) / NODE_SIZE;
        
        // Create map and add first layer
-       myMap = new MapNode[myWidth][myHeight];
+       myMap = makeMap(myWidth, myHeight);
        myTiles = new Tile[mapSize.width][mapSize.height];
     }    
     
@@ -45,11 +48,11 @@ public class GameMap {
      * @param h Height of the map.
      * @return The new layer of nodes.
      */
-    private MapNode[][] createLayer(int w, int h) {
+    private MapNode[][] makeMap(int w, int h) {
         MapNode[][] res = new MapNode[w][h];
         for (int x = 0; x < w; x++) {
             for (int y = 0; y < h; y++) {
-                res[x][y]= new MapNode(x, y);
+                res[x][y]= new MapNode(x, y, NODE_SIZE, 1);
             }
         }
         return res;

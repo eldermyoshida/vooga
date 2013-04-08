@@ -22,18 +22,15 @@ public class PathingHelper {
         myNext = myPath.poll();
     }
     
-//    public void getNext (Location current) {
-//       MapNode currentNode = myMap.getNode(current);
-//       if (currentNode.equals(myNext)){
-//           myNext = myPath.poll();
-//       }
-//    }
-    
     public Location getNext(Location current) {
         MapNode currentNode = myMap.getNode(current);
         if (!currentNode.equals(myNext)) {
             myNext = myPath.poll();
         }
         return myNext.getLocation();
+    }
+    
+    public int size () {
+        return myPath.size();
     }
 }

@@ -7,7 +7,6 @@ import vooga.rts.util.Location;
 
 public class MapNode {
 
-    private static final int DEFAULT_VALUE = 1;
     private double myDistance = 10;
     private List<Terrain> myTerrain;
     private int myHeight;
@@ -18,10 +17,10 @@ public class MapNode {
     private int myX;
     private int myY;
 
-    public MapNode(int x, int y) {
+    public MapNode(int x, int y, int size, int height) {
         myLocation = new Location(x,y);
-        myX = x;
-        myY = y;
+        myDistance = size;
+        myHeight = height;
     }
 
     public int getX() {
@@ -49,5 +48,13 @@ public class MapNode {
     
     public double getDistance () {
         return myDistance;
+    }
+   
+    public double getHeight () {
+        return myHeight;
+    }
+    public boolean connectsTo (MapNode other) {
+        return getHeight() == other.getHeight() || getHeight() == 0 || 
+                other.getHeight() == 0;
     }
 }

@@ -39,8 +39,17 @@ public class AstarFinder extends Pathfinder {
                 closed.add(current);
                 List<MapNode> neighbors = map.getNeighbors(current);
                 for (MapNode neighbor: neighbors) {
+                    if (neighbor == null) {
+                        continue;
+                    }
                     double newGScore = gScore.get(current) + current.getDistance();
-                    if (!open.contains(neighbor) && newGScore < gScore.get(neighbor)); {
+                    if (closed.contains(neighbor) && newGScore >= gScore.get(neighbor)) {
+                        continue;
+                    }
+                    if (!current.connectsTo(neighbor)) {
+                        continue;
+                    }
+                    if (!open.contains(neighbor) || newGScore < gScore.get(neighbor)) {
                         comesFrom.put(neighbor, current);
                         gScore.put(neighbor, newGScore);
                         fScore.put(neighbor, gScore.get(neighbor) 
