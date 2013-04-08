@@ -21,7 +21,8 @@ public class GameObject {
     private Dimension myOriginalSize;
     private Pixmap myOriginalImage;
     private Rectangle myBounds;
-    private int myHealth= DEFAULT_HEALTH;  
+    private int myHealth= DEFAULT_HEALTH;
+    private int myPriority;   
     
 	public GameObject(Pixmap image, Location center, Dimension size){
 		this(image, center, size, new Vector());
@@ -224,4 +225,5 @@ public class GameObject {
 	public void setHealth(int amount){
 		myHealth=amount; 
 	}
+	
 }

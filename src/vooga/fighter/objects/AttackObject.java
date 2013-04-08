@@ -1,23 +1,38 @@
 package vooga.fighter.objects;
 import java.awt.Dimension;
+import java.util.Timer;
 
 import vooga.fighter.util.Location;
 import vooga.fighter.util.Pixmap;
 import vooga.fighter.util.Vector;
-public class AttackObject implements Attackable, Perishable{
+public class AttackObject extends GameObject implements Attackable, Perishable{
 	
 	private int myAttackPriority; 
 	private int myAttackPower;
 	private Pixmap myImage; 
 	private Location myCenter;
 	private Vector myVelocity;
-	public AttackObject(Pixmap image, Location l, int attackPriority, int attackPower, Vector v){
+	private Timer myTimer; 
+	private Dimension mySize; 
+
+	public AttackObject(Pixmap image, Location center, Dimension size, int attackPriority, int attackPower, Vector v){
 		 // make copies just to be sure no one else has access
+		super(image, center, size);
 		myImage= image;
-		myCenter= l; 
-		myVelocity= v;
+		myCenter= center; 
+		myVelocity= v; 
+		mySize=size; 
 		
 	}
+	
+	@Override 
+	public void update (double elapsedTime, Dimension bounds) {
+        
+		// do not change original velocity
+        Vector v = new Vector(myVelocity);
+        v.scale(elapsedTime);
+        translate(v);
+    }	
 	@Override
 	public boolean timedOut() {
 		// TODO Auto-generated method stub
@@ -26,7 +41,7 @@ public class AttackObject implements Attackable, Perishable{
 
 	@Override
 	public void stopTime() {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
