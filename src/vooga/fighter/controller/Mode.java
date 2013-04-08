@@ -15,4 +15,5 @@ public interface Mode {
 	public void paint(Graphics2D pen);
 	public void setupPainting(PaintManager paintmanager);
 	public Integer getStatus();
+	public void switchNeed();
 }

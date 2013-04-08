@@ -35,9 +35,10 @@ public class ModeManager {
 	
 	private void switchModes(boolean shouldChange){
 		if(shouldChange){
+		myCurrentMode.reset();
+		myCurrentMode.switchNeed();
 //		myPlayerStatus.addScore(myCurrentMode.getStatus());
 		myCurrentMode = myModeMap.get(myCurrentMode.getNextModeName());
-		myCurrentMode.reset();
 		myCanvas.setMode(myCurrentMode);
 		}
 	}
