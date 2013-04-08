@@ -35,10 +35,7 @@ public abstract class Units extends Interactive implements IMovable {
 
 	}
 
-	public void visit(RTSprite rtSprite) {
-		// TODO Auto-generated method stub
 
-	}
 
 	/**
 	 * Moves the Unit only when it is selected. Updates first the angle

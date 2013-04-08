@@ -28,7 +28,7 @@ import vooga.rts.util.Sound;
  * @author Wenshun Liu 
  *
  */
-public abstract class RTSprite extends Sprite implements IAttackable, RTSpriteVisitor {
+public class RTSprite extends Sprite implements IAttackable, RTSpriteVisitor {
 
     private Integer curHealth;
 
@@ -121,7 +121,6 @@ public abstract class RTSprite extends Sprite implements IAttackable, RTSpriteVi
      * and then its location.
      * Possible design choice error. 
      */
-    //TODO: duplicated code!!!!!!!! with Units
     public void move (Location loc){
         double angle = getCenter().difference(loc).getDirection();
         double magnitude = getCenter().difference(loc).getMagnitude();
@@ -129,11 +128,23 @@ public abstract class RTSprite extends Sprite implements IAttackable, RTSpriteVi
         setVelocity(angle, magnitude);
     }
 
-    @Override
-    public void update(double elapsedTime, Dimension bounds){
-        super.update(elapsedTime, bounds);
-        getCenter().translate(getVelocity());
-    }
+
+	@Override
+	public int calculateDamage() {
+		return 10;
+	}
+
+	@Override
+	public void changeHealth(int change) {
+		curHealth += change;
+		
+	}
+
+	@Override
+	public void update(double elapsedTime) {
+		getVelocity().scale(elapsedTime);
+		getCenter().translate(getVelocity());
+	}
 
 
 

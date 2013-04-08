@@ -14,6 +14,6 @@ public interface IAttackable {
 
   public int calculateDamage();
 
-  public void changeHealth();
+  public void changeHealth(int change);
 
 }
