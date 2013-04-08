@@ -29,7 +29,7 @@ public class MainController extends AbstractController implements Observer {
     private Window myWindow;
 
     private Timer myTimer;
-    
+
     private MainState myGameState;
 
     private Input myInput;
@@ -50,9 +50,9 @@ public class MainController extends AbstractController implements Observer {
         myInputController = new InputController(this);
         myInput = new Input(DEFAULT_INPUT_LOCATION, myWindow.getCanvas());
         myInput.addListenerTo(myInputController);
-        
-        myWindow.setFullscreen(true);   
-        
+
+        myWindow.setFullscreen(true);
+
         myGameState = MainState.Loading;
         setActiveController(myLoadingController);
 
@@ -69,7 +69,7 @@ public class MainController extends AbstractController implements Observer {
     public void update (double elapsedTime) {
         myActiveController.update(elapsedTime);
     }
-    
+
     public void paint (Graphics2D pen) {
         myActiveController.paint(pen);
     }
@@ -93,15 +93,17 @@ public class MainController extends AbstractController implements Observer {
     }
 
     public void setActiveController (AbstractController myController) {
-        myActiveController = myController;        
+        myActiveController = myController;
         myInputController.setActiveController(myController);
         myActiveController.activate(myGameState);
     }
 
     @Override
-    public void update (Observable myObservable, Object myObject) {   
-        if (!(myObject instanceof MainState)) { return; } 
-        myGameState = (MainState)myObject;
+    public void update (Observable myObservable, Object myObject) {
+        if (!(myObject instanceof MainState)) {
+            return;
+        }
+        myGameState = (MainState) myObject;
         switch (myGameState) {
             case Starting:
                 break;
@@ -123,7 +125,6 @@ public class MainController extends AbstractController implements Observer {
     }
 
     @Override
-    public void activate (MainState gameState) {        
+    public void activate (MainState gameState) {
     }
-
 }
