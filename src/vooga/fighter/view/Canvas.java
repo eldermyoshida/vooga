@@ -1,5 +1,6 @@
 package vooga.fighter.view;
 
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.DisplayMode;
