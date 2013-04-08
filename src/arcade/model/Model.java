@@ -33,6 +33,20 @@ public class Model {
         }
     }
     
+    /**
+     * Create a new user profile by entering user-specific information. 
+     * This information is eventually stored in the database.
+     */
+    public void createNewUserProfile() {
+    	
+    }
+    
+    /**
+     * Rate a specific game, store in user-game database
+     */
+    public void rateGame(GameInfo g, int rating){
+    	
+    }
     /**TODO: 
      * Get the list of games from the database.
      * @return
