@@ -35,6 +35,8 @@ public class GameInstance implements Mode {
         myNextMode = nextMode;
         loadFile(filePath);
         myInput = input;
+        ObjectLoader loader = new ObjectLoader();
+        myInteractables.add(loader.getTestCharacter());
     }
     
     public void loadFile(String filePath) {
@@ -82,9 +84,9 @@ public class GameInstance implements Mode {
     	}
     }
     
-    public void detectCollisions(List<GameObject> objects) {
-        for (GameObject g : objects) {
-            for (GameObject o : objects) {
+    public void detectCollisions(List<CharacterObject> objects) {
+        for (CharacterObject g : objects) {
+            for (CharacterObject o : objects) {
                 detectCollision(g, o);
             }
         }
