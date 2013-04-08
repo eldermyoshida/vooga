@@ -6,9 +6,10 @@ import vooga.rts.manager.*;
 
 public abstract class Player implements IGameLoop {
 
-	ResourceManager myResourceManager;
-	UnitManager myUnitManager;
-	BuildingManager myBuildingManager;
+	private ResourceManager myResourceManager;
+	private UnitManager myUnitManager;
+	private BuildingManager myBuildingManager;
+	private int myTeamID;
 
 	
 	public ResourceManager getResourceManager () {
@@ -28,5 +29,8 @@ public abstract class Player implements IGameLoop {
 		return myBuildingManager;
 	}
 	
+	public int getTeamID() {
+		return myTeamID;
+	}
 	
 }
