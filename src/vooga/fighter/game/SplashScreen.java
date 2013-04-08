@@ -45,7 +45,12 @@ public class SplashScreen implements Mode {
 	public void nextMode(AlertObject alObj) {
 		myStartGame = true;
 	}
-
+	
+	@Override
+	public void switchNeed() {
+	    myStartGame = !myStartGame;
+	}
+	
 	@Override
 	public String getNextModeName() {
 		return myNextMode;

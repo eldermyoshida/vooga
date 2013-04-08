@@ -1,9 +1,14 @@
 package vooga.fighter.objects;
 
 import java.awt.Dimension;
+import vooga.fighter.input.AlertObject;
+import vooga.fighter.input.Input;
+import vooga.fighter.input.InputClassTarget;
+import vooga.fighter.input.InputMethodTarget;
 import vooga.fighter.util.Location;
 import vooga.fighter.util.Pixmap;
 import vooga.fighter.util.Vector; 
+
 
 /**
  * Represents a character in the game.
@@ -11,13 +16,17 @@ import vooga.fighter.util.Vector;
  * @author james
  *
  */
+@InputClassTarget
 public class CharacterObject extends MoveableGameObject {    
     
     private int myDefaultSpeed;
+    private Input myInput;
     
-    public CharacterObject(Pixmap image, Location center, Dimension size, int defaultSpeed) {
+    public CharacterObject(Pixmap image, Location center, Dimension size, int defaultSpeed, Input input) {
         super(image, center, size);
         myDefaultSpeed = defaultSpeed;
+        myInput = input;
+        myInput.addListenerTo(this);
     }
     
     
@@ -32,7 +41,8 @@ public class CharacterObject extends MoveableGameObject {
     /**
      * Moves the character left.
      */
-    public void moveLeft() {
+    @InputMethodTarget(name="left")
+    public void moveLeft(AlertObject alObj) {
         Vector left = new Vector(Vector.DEGREES_LEFT, myDefaultSpeed);
         super.translate(left);
     }
@@ -40,7 +50,8 @@ public class CharacterObject extends MoveableGameObject {
     /**
      * Moves the character right.
      */
-    public void moveRight() {
+    @InputMethodTarget(name="right")
+    public void moveRight(AlertObject alObj) {
         Vector right = new Vector(Vector.DEGREES_RIGHT, myDefaultSpeed);
         super.translate(right);
     }
@@ -48,7 +59,8 @@ public class CharacterObject extends MoveableGameObject {
     /**
      * Moves the character up.
      */
-    public void moveUp() {
+    @InputMethodTarget(name="up")
+    public void moveUp(AlertObject alObj) {
         Vector up = new Vector(Vector.DEGREES_UP, myDefaultSpeed);
         super.translate(up);
     }
@@ -56,7 +68,8 @@ public class CharacterObject extends MoveableGameObject {
     /**
      * Moves the character down.
      */
-    public void moveDown() {
+    @InputMethodTarget(name="down")
+    public void moveDown(AlertObject alObj) {
         Vector down = new Vector(Vector.DEGREES_DOWN, myDefaultSpeed);
         super.translate(down);
     }

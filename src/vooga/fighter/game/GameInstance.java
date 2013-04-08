@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import vooga.fighter.controller.*;
@@ -21,13 +22,15 @@ import vooga.fighter.objects.*;
 @InputClassTarget
 public class GameInstance implements Mode {
     
-    private List<CharacterObject> myInteractables;
+    private List<CharacterObject> myInteractables = new ArrayList<CharacterObject>();
     private String myID;
     private String myFilePath;
     private String myNextMode;
     private Map myNonInteractables;
     private boolean myStartGame = false;
     private Input myInput;
+    private boolean shouldEnd;
+    private ObjectLoader myLoader;
     
     public GameInstance (String levelName, String filePath, String nextMode, Input input) {
         myID = levelName;
@@ -35,6 +38,9 @@ public class GameInstance implements Mode {
         myNextMode = nextMode;
         loadFile(filePath);
         myInput = input;
+        myLoader = new ObjectLoader(input);
+        myInteractables.add(myLoader.getTestCharacter());
+        shouldEnd = false;
     }
     
     public void loadFile(String filePath) {
@@ -68,23 +74,31 @@ public class GameInstance implements Mode {
     public void updateObjects(double stepTime, Dimension bounds) {
     	for (CharacterObject s : myInteractables) {
             s.update(stepTime, bounds);
+            if (s.getCenter().getX() >= bounds.width || s.getCenter().getX() <= 0
+                || s.getCenter().getY() <= 0 || s.getCenter().getY() >= bounds.height) {
+                shouldEnd = true;
+            }
         }
-        myNonInteractables.update(stepTime, bounds);
+        //myNonInteractables.update(stepTime, bounds);
     }
-
+    
+    @Override
+    public void switchNeed() {
+        shouldEnd = !shouldEnd;
+    }
 
     @Override
     public void update (double stepTime, Dimension bounds) {
-    	if (myInteractables != null) {
-    	updateObjects(stepTime, bounds);
-        detectCollisions(myInteractables);
-        System.out.println("GameInstance initialized and updating");
-    	}
+        if (myInteractables != null) {
+            updateObjects(stepTime, bounds);
+            detectCollisions(myInteractables);
+            
+        }
     }
     
-    public void detectCollisions(List<GameObject> objects) {
-        for (GameObject g : objects) {
-            for (GameObject o : objects) {
+    public void detectCollisions(List<CharacterObject> objects) {
+        for (CharacterObject g : objects) {
+            for (CharacterObject o : objects) {
                 detectCollision(g, o);
             }
         }
@@ -106,12 +120,13 @@ public class GameInstance implements Mode {
 
     @Override
     public boolean needNextMode () {
-        return false;
+        return shouldEnd;
     }
 
     @Override
     public void reset () {
-        loadFile(myFilePath);
+        myInteractables.clear();
+        myInteractables.add(myLoader.getTestCharacter());
     }
 
     @Override
@@ -125,7 +140,7 @@ public class GameInstance implements Mode {
     			s.paint(pen);
         	}
     	
-        myNonInteractables.paint(pen);
+        //myNonInteractables.paint(pen);
     	}
     }
 
