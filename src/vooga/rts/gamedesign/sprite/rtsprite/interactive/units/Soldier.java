@@ -33,9 +33,7 @@ public class Soldier extends Units {
 
     //private int myHealth; //TESTING PURPOSE
 
-    public Soldier(){
-        this(null, null, null, null, 0, 50); //TESTING PURPOSE
-    }
+
     public Soldier(Pixmap image, Location center, Dimension size, Sound sound, int teamID, int health) {
         super(image, center, size, sound, teamID, health);
     }
@@ -43,7 +41,6 @@ public class Soldier extends Units {
 
     @Override
     public void move(Location loc) {
-        // TODO Auto-generated method stub
 
     }
 
