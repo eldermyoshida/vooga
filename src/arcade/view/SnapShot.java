@@ -29,7 +29,7 @@ public class SnapShot extends JPanel implements MouseListener {
         myTitle = new JLabel("<html><b><font size = 6>" + myGameInfo.getName() +
                              "</font></html></b>");
         Pixmap p = myGameInfo.getThumbnail();
-        myThumbnail = new JPicture(p, new Dimension(50, 50));
+        myThumbnail = new JPicture(p, new Dimension(160, 160));
         myRating = new JLabel(myGameInfo.getRating() + "");
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         add(myTitle);
