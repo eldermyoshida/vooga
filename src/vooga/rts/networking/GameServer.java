@@ -21,10 +21,12 @@ public class GameServer {
     private int myPort;
     private boolean gameRunning = false;
     private JTextArea dummyText;
+    private List<Message> myMessages;
     
     public GameServer(int port){
         myPort = port;
         myClients = new LinkedList<ClientThread>();
+        myMessages = new LinkedList<Message>();
     }
     
     /**
@@ -71,30 +73,17 @@ public class GameServer {
     }
     
     
-    private class ClientThread extends Thread{
-        private Socket mySocket;
-        private ObjectInputStream mySInput;
-        private ObjectOutputStream mySOutput;
+    private class ClientThread extends NetworkThread{
         private String myUsername;
         private int myID;
-        private Queue<Message> myMessages;
           
         /**
          * Represents a thread that communicates to a client
          * @param socket socket used for establishing the connection
          */
-        ClientThread(Socket socket){
+        ClientThread(Socket socket) {
+            super(socket);
             myID = ++uniqueID;
-            mySocket = socket;
-            myMessages = new LinkedList<Message>();
-            
-            try {
-                mySInput = new ObjectInputStream(mySocket.getInputStream());
-                mySOutput = new ObjectOutputStream(mySocket.getOutputStream());
-            }
-            catch (IOException e) {
-                dummyText.append("Problem in creating input and output streams\n");
-            }
         }
         
         /**
@@ -115,40 +104,11 @@ public class GameServer {
             }
             close();
         } 
-        
-        /**
-         * Closes streams and socket of this thread
-         */
-        private void close() {
-            try {
-                    if(mySOutput != null) mySOutput.close();
-            }
-            catch(Exception e) {}
-            try {
-                if(mySInput != null) mySInput.close();
-            }
-            catch(Exception e) {};
-            try {
-                if(mySocket != null) mySocket.close();
-            }
-            catch (Exception e) {}
-        }
-        
-        /**
-         * Broadcasts a Message object to the client
-         * @param m Message object to be sent
-         */
-        public void sendMessage(Message m){
-            if(!mySocket.isConnected()){
-                haltGame();
-                return;
-            }
-            try {
-                mySOutput.writeObject(m);
-            }
-            catch (IOException e) {
-                dummyText.append("Problem in writing Message to client\n");
-            }
+
+        @Override
+        protected void socketDisconnected () {
+            // TODO Auto-generated method stub
+            
         }
     }
 }
