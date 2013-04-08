@@ -66,10 +66,4 @@ public class GameServer extends Thread implements IMessageServer {
         
     }
 
-    @Override
-    public void sendObject (Object object) {
-        // TODO Auto-generated method stub
-        
-    }
-    
 }
