@@ -2,6 +2,7 @@ package vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings;
 
 import java.awt.Dimension;
 
+import vooga.rts.gamedesign.sprite.rtsprite.RTSprite;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.Interactive;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
@@ -24,6 +25,11 @@ public abstract class Building extends Interactive {
 			int teamID, int health) {
 		super(image, center, size, sound, teamID, health);
 		// TODO Auto-generated constructor stub
+	}
+
+	public void visit(RTSprite rtSprite) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

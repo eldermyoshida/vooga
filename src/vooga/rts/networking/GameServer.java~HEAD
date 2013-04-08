@@ -11,20 +11,22 @@ import javax.swing.JTextArea;
 
 /**
  * Main server of the game. It receives information from clients and AI and 
- * sends approprieate responses back to them
+ * sends appropriate responses back to them
  * @author Henrique Moraes
  *
  */
-public class Server {
-    private List<ClientThread> myClients;
+public class GameServer {
+    private List<GameThread> myClients;
     private int uniqueID = 0;
     private int myPort;
     private boolean gameRunning = false;
     private JTextArea dummyText;
+    private List<Message> myMessages;
     
-    public Server(int port){
+    public GameServer(int port){
         myPort = port;
-        myClients = new LinkedList<ClientThread>();
+        myClients = new LinkedList<GameThread>();
+        myMessages = new LinkedList<Message>();
     }
     
     /**
@@ -38,7 +40,7 @@ public class Server {
         try {
             ServerSocket serverSocket = new ServerSocket(myPort);
             Socket socket = serverSocket.accept();
-            myClients.add(new ClientThread(socket));
+            myClients.add(new GameThread(socket));
         }
         catch (IOException e) {
             dummyText.append("Problem in creating input and output streams\n");
@@ -59,7 +61,7 @@ public class Server {
      * list of threads as well
      */
     private void disconnect() {
-        for(ClientThread ct : myClients) {
+        for(GameThread ct : myClients) {
             ct.close();
         }
         myClients.clear();
@@ -71,30 +73,18 @@ public class Server {
     }
     
     
-    private class ClientThread extends Thread{
-        private Socket mySocket;
-        private ObjectInputStream mySInput;
-        private ObjectOutputStream mySOutput;
+    private class GameThread extends NetworkThread{
         private String myUsername;
         private int myID;
-        private Queue<Message> myMessages;
           
         /**
          * Represents a thread that communicates to a client
          * @param socket socket used for establishing the connection
          */
-        ClientThread(Socket socket){
+        GameThread(Socket socket){
+            super(socket);
             myID = ++uniqueID;
-            mySocket = socket;
-            myMessages = new LinkedList<Message>();
             
-            try {
-                mySInput = new ObjectInputStream(mySocket.getInputStream());
-                mySOutput = new ObjectOutputStream(mySocket.getOutputStream());
-            }
-            catch (IOException e) {
-                dummyText.append("Problem in creating input and output streams\n");
-            }
         }
         
         /**
@@ -115,40 +105,10 @@ public class Server {
             }
             close();
         } 
-        
-        /**
-         * Closes streams and socket of this thread
-         */
-        private void close() {
-            try {
-                    if(mySOutput != null) mySOutput.close();
-            }
-            catch(Exception e) {}
-            try {
-                if(mySInput != null) mySInput.close();
-            }
-            catch(Exception e) {};
-            try {
-                if(mySocket != null) mySocket.close();
-            }
-            catch (Exception e) {}
-        }
-        
-        /**
-         * Broadcasts a Message object to the client
-         * @param m Message object to be sent
-         */
-        public void sendMessage(Message m){
-            if(!mySocket.isConnected()){
-                haltGame();
-                return;
-            }
-            try {
-                mySOutput.writeObject(m);
-            }
-            catch (IOException e) {
-                dummyText.append("Problem in writing Message to client\n");
-            }
+
+        @Override
+        protected void socketDisconnected () {
+            // TODO Handle this exception    
         }
     }
 }

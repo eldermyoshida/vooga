@@ -2,8 +2,11 @@ package vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings;
 
 import java.awt.Dimension;
 
+import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
+import vooga.rts.gamedesign.sprite.rtsprite.IGatherable;
 import vooga.rts.gamedesign.sprite.rtsprite.RTSprite;
 import vooga.rts.gamedesign.sprite.rtsprite.RTSpriteVisitor;
+import vooga.rts.gamedesign.sprite.rtsprite.interactive.IOccupiable;
 import vooga.rts.gamedesign.strategy.production.Producer;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
@@ -45,14 +48,31 @@ public void changeHealth() {
 	
 }
 
-@Override
-public void getAttacked(RTSpriteVisitor visitor) {
+public void visit(RTSprite rtSprite) {
 	// TODO Auto-generated method stub
 	
 }
 
 @Override
-public void visit(RTSprite rtSprite) {
+public void update(double elapsedTime) {
+	// TODO Auto-generated method stub
+	
+}
+
+@Override
+public void visit(IAttackable a) {
+	// TODO Auto-generated method stub
+	
+}
+
+@Override
+public void visit(IOccupiable o) {
+	// TODO Auto-generated method stub
+	
+}
+
+@Override
+public void visit(IGatherable g) {
 	// TODO Auto-generated method stub
 	
 }

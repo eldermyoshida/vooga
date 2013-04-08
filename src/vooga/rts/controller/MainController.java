@@ -9,12 +9,17 @@ public class MainController extends AbstractController {
 	public GameController myGameController;
 	public LoadingController myLoadingController;
 	public MenuController myMenuController;
+	
+	private Window myWindow; 
 
 	
     public MainController () {
+    	myWindow = new Window();    	
         myGameController = new GameController();
         myLoadingController = new LoadingController();
         myMenuController = new MenuController();
+        
+        myWindow.setFullscreen(true);
     }
     
     @Override
@@ -35,8 +40,4 @@ public class MainController extends AbstractController {
         
     }
     
-    public static void main(String[] args) {
-        new Window(); 
-    }
-
 }

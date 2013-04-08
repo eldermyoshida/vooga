@@ -10,23 +10,21 @@ import java.util.Queue;
 import javax.swing.JTextArea;
 
 /**
- * Main server of the game. It receives information from clients and AI and 
- * sends appropriate responses back to them
- * @author Henrique Moraes
+ * Server that represents one instance of a in-play game.. It receives information from game clients and AI and 
+ * sends pushes changes to all other clients
+ * @author Henrique Moraes, Sean Wareham, David Winegar
  *
  */
 public class GameServer {
-    private List<GameThread> myClients;
+    private List<ClientThread> myClients;
     private int uniqueID = 0;
     private int myPort;
     private boolean gameRunning = false;
     private JTextArea dummyText;
-    private List<Message> myMessages;
     
     public GameServer(int port){
         myPort = port;
-        myClients = new LinkedList<GameThread>();
-        myMessages = new LinkedList<Message>();
+        myClients = new LinkedList<ClientThread>();
     }
     
     /**
@@ -40,7 +38,7 @@ public class GameServer {
         try {
             ServerSocket serverSocket = new ServerSocket(myPort);
             Socket socket = serverSocket.accept();
-            myClients.add(new GameThread(socket));
+            myClients.add(new ClientThread(socket));
         }
         catch (IOException e) {
             dummyText.append("Problem in creating input and output streams\n");
@@ -61,7 +59,7 @@ public class GameServer {
      * list of threads as well
      */
     private void disconnect() {
-        for(GameThread ct : myClients) {
+        for(ClientThread ct : myClients) {
             ct.close();
         }
         myClients.clear();
@@ -73,18 +71,30 @@ public class GameServer {
     }
     
     
-    private class GameThread extends NetworkThread{
+    private class ClientThread extends Thread{
+        private Socket mySocket;
+        private ObjectInputStream mySInput;
+        private ObjectOutputStream mySOutput;
         private String myUsername;
         private int myID;
+        private Queue<Message> myMessages;
           
         /**
          * Represents a thread that communicates to a client
          * @param socket socket used for establishing the connection
          */
-        GameThread(Socket socket){
-            super(socket);
+        ClientThread(Socket socket){
             myID = ++uniqueID;
+            mySocket = socket;
+            myMessages = new LinkedList<Message>();
             
+            try {
+                mySInput = new ObjectInputStream(mySocket.getInputStream());
+                mySOutput = new ObjectOutputStream(mySocket.getOutputStream());
+            }
+            catch (IOException e) {
+                dummyText.append("Problem in creating input and output streams\n");
+            }
         }
         
         /**
@@ -105,10 +115,40 @@ public class GameServer {
             }
             close();
         } 
-
-        @Override
-        protected void socketDisconnected () {
-            // TODO Handle this exception    
+        
+        /**
+         * Closes streams and socket of this thread
+         */
+        private void close() {
+            try {
+                    if(mySOutput != null) mySOutput.close();
+            }
+            catch(Exception e) {}
+            try {
+                if(mySInput != null) mySInput.close();
+            }
+            catch(Exception e) {};
+            try {
+                if(mySocket != null) mySocket.close();
+            }
+            catch (Exception e) {}
+        }
+        
+        /**
+         * Broadcasts a Message object to the client
+         * @param m Message object to be sent
+         */
+        public void sendMessage(Message m){
+            if(!mySocket.isConnected()){
+                haltGame();
+                return;
+            }
+            try {
+                mySOutput.writeObject(m);
+            }
+            catch (IOException e) {
+                dummyText.append("Problem in writing Message to client\n");
+            }
         }
     }
 }

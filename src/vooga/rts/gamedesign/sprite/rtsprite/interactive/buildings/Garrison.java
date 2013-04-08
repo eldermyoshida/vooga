@@ -1,10 +1,16 @@
 package vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings;
 
+import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
+import vooga.rts.gamedesign.sprite.rtsprite.IGatherable;
 import vooga.rts.gamedesign.sprite.rtsprite.RTSprite;
 import vooga.rts.gamedesign.sprite.rtsprite.RTSpriteVisitor;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.IOccupiable;
 import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
+import vooga.rts.util.Location;
+import vooga.rts.util.Pixmap;
+import vooga.rts.util.Sound;
 
+import java.awt.Dimension;
 import java.util.List;
 
 /**
@@ -17,7 +23,13 @@ import java.util.List;
  */
 public class Garrison extends Building implements IOccupiable {
 
-  public List<OccupyStrategy> myOccupiers;
+  public Garrison(Pixmap image, Location center, Dimension size, Sound sound,
+			int teamID, int health) {
+		super(image, center, size, sound, teamID, health);
+		// TODO Auto-generated constructor stub
+	}
+
+public List<OccupyStrategy> myOccupiers;
 
 @Override
 public int calculateDamage() {
@@ -31,14 +43,33 @@ public void changeHealth() {
 	
 }
 
+
 @Override
-public void getAttacked(RTSpriteVisitor visitor) {
+public void visit(RTSprite rtSprite) {
 	// TODO Auto-generated method stub
 	
 }
 
 @Override
-public void visit(RTSprite rtSprite) {
+public void update(double elapsedTime) {
+	// TODO Auto-generated method stub
+	
+}
+
+@Override
+public void visit(IAttackable a) {
+	// TODO Auto-generated method stub
+	
+}
+
+@Override
+public void visit(IOccupiable o) {
+	// TODO Auto-generated method stub
+	
+}
+
+@Override
+public void visit(IGatherable g) {
 	// TODO Auto-generated method stub
 	
 }
