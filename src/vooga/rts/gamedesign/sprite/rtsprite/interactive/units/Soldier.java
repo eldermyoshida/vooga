@@ -2,6 +2,7 @@ package vooga.rts.gamedesign.sprite.rtsprite.interactive.units;
 
 import java.util.List;
 import java.awt.Dimension;
+import java.awt.Graphics2D;
 import vooga.rts.gamedesign.Weapon;
 import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
 import vooga.rts.gamedesign.sprite.rtsprite.IGatherable;
@@ -61,7 +62,17 @@ public class Soldier extends Units {
         }
 
     }
+    @Override
+    public void paint(Graphics2D pen) {
+        super.paint(pen);
+        AttackStrategy as = getAttackStrategy();
+        if (as instanceof CanAttack) {
+            for(Projectile p : ((CanAttack)as).getWeapon().getProjectiles()) {
+                p.paint(pen);
+            }
+        }
 
+    }
     public void upgradeHealth (int armor) { // TESTING PURPOSE
         setHealth(getHealth() + armor);
     }
