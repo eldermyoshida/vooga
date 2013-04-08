@@ -66,6 +66,8 @@ public abstract class Sprite implements IGameLoop {
         resetBounds();
     }
 
+    
+    
     /**
      * Resets shape's center.
      */

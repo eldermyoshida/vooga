@@ -19,25 +19,32 @@ import vooga.rts.util.Sound;
  */
 public abstract class Projectile extends RTSprite implements IMovable {
 
+	
+	private Integer myDamage;
+	
+	private boolean isSelected;
+	
+	
+	public Projectile(Pixmap pixmap, Location loc, Dimension size, Sound sound, int damage, int health){
+		super(pixmap, loc, size, sound, damage, health);
+		myDamage = damage;
+	}
+	
+	
+	public void attack(RTSprite other){
+		System.out.println("projectile is on target");
+		other.accept(this);
+		move(other.getCenter());
+	}
+	
+	public Projectile clone(Projectile toClone){
+		try {
+			return (Projectile) toClone.clone();
+		} catch (CloneNotSupportedException e) {
+			System.out.println("this was a dumb idea");
+		}
+		return null;
+	}
+	
 
-    private Integer myDamage;
-
-
-    public Projectile(Pixmap pixmap, Location loc, Dimension size, Sound sound, int damage, int health){
-        super(pixmap, loc, size, sound, damage, health);
-        myDamage = damage;
-    }
-
-    public void attack(RTSprite other) {
-        //calculate vector between this and other and move
-        move(other.getCenter());
-    }
-
-    /*
-     * returns a new instance of this class
-     */
-    public Projectile clone(Projectile toClone) throws CloneNotSupportedException{
-        return (Projectile) toClone.clone();
-    }
-
-}       
+}

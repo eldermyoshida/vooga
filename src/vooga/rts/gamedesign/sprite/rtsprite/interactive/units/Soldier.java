@@ -34,7 +34,6 @@ public class Soldier extends Units {
         super(image, center, size, sound, teamID, health);
         setAttackStrategy(new CanAttack());
 
-
     }
 
 	

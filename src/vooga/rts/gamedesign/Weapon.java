@@ -1,5 +1,6 @@
 package vooga.rts.gamedesign;
 
+import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
 import vooga.rts.gamedesign.sprite.rtsprite.Projectile;
 import vooga.rts.gamedesign.sprite.rtsprite.RTSprite;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.Interactive;
@@ -51,9 +52,8 @@ public abstract class Weapon {
      * @throws CloneNotSupportedException 
      */
     public void fire (RTSprite toBeShot) throws CloneNotSupportedException {
-        if (cooldown == 0) {
-        	myProjectile.clone(myProjectile).attack(toBeShot);
-        }
+        	myProjectile.attack(toBeShot);
+        
     }
 
     /**
