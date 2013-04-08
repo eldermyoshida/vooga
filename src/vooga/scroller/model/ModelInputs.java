@@ -1,12 +1,12 @@
-package model;
+package vooga.scroller.model;
 
-import input.AlertObject;
-import input.Input;
-import input.InputClassTarget;
-import input.InputMethodTarget;
-import input.PositionObject;
+import vooga.scroller.input.AlertObject;
+import vooga.scroller.input.Input;
+import vooga.scroller.input.InputClassTarget;
+import vooga.scroller.input.InputMethodTarget;
+import vooga.scroller.input.PositionObject;
 import javax.swing.JComponent;
-import sprite_superclasses.Player;
+import vooga.scroller.sprite_superclasses.Player;
 /**
  * Class that holds all user defined control methods. These methods can work
  * on the player used in the construciton of this.

@@ -1,4 +1,4 @@
-package util;
+package vooga.scroller.util;
 
 import java.applet.Applet;
 import java.applet.AudioClip;

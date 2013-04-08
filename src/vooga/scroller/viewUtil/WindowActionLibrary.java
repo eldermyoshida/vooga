@@ -1,4 +1,4 @@
-package viewUtil;
+package vooga.scroller.viewUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;

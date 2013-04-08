@@ -1,18 +1,18 @@
-package model;
+package vooga.scroller.model;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
-import level_editor.Level;
-import scrollingmanager.ScrollingManager;
-import test_sprites.Coin;
-import test_sprites.Koopa;
-import test_sprites.Platform;
-import test_sprites.Turtle;
-import util.Location;
-import util.Pixmap;
-import util.PlatformerConstants;
-import view.View;
+import vooga.scroller.level_editor.Level;
+import vooga.scroller.scrollingmanager.ScrollingManager;
+import vooga.scroller.test_sprites.Coin;
+import vooga.scroller.test_sprites.Koopa;
+import vooga.scroller.test_sprites.Platform;
+import vooga.scroller.test_sprites.Turtle;
+import vooga.scroller.util.Location;
+import vooga.scroller.util.Pixmap;
+import vooga.scroller.util.PlatformerConstants;
+import vooga.scroller.view.View;
 /**
  * Instantiates all of the levels for gameplay.
  * 

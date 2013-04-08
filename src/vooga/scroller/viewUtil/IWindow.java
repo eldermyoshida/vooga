@@ -1,4 +1,4 @@
-package viewUtil;
+package vooga.scroller.viewUtil;
 
 
 public interface IWindow {

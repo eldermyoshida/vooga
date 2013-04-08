@@ -2,12 +2,12 @@ package vooga.scroller.test_sprites;
 
 import java.awt.Dimension;
 import java.util.List;
-import collision_handlers.Mario_CH;
-import design_patterns.State;
-import sprite_superclasses.Player;
-import util.Location;
-import util.Pixmap;
-import view.View;
+import vooga.scroller.collision_handlers.Mario_CH;
+import vooga.scroller.design_patterns.State;
+import vooga.scroller.sprite_superclasses.Player;
+import vooga.scroller.util.Location;
+import vooga.scroller.util.Pixmap;
+import vooga.scroller.view.View;
 
 public class Mario extends Player {
 

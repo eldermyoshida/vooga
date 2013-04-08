@@ -1,10 +1,10 @@
 package vooga.scroller.test_sprites;
 
 import java.awt.Dimension;
-import collision_handlers.Coin_CH;
-import sprite_superclasses.StaticEntity;
-import util.Location;
-import util.Pixmap;
+import vooga.scroller.collision_handlers.Coin_CH;
+import vooga.scroller.sprite_superclasses.StaticEntity;
+import vooga.scroller.util.Location;
+import vooga.scroller.util.Pixmap;
 
 public class Coin extends StaticEntity {
 

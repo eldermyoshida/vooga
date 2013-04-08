@@ -1,4 +1,4 @@
-package viewUtil;
+package vooga.scroller.viewUtil;
 
 
 import java.awt.Color;
@@ -15,8 +15,8 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JTabbedPane;
-import level_editor.LEController;
-import viewUtil.Renderable;
+import vooga.scroller.level_editor.LEController;
+import vooga.scroller.viewUtil.Renderable;
 
 /**
  * The manager for all the views of the application

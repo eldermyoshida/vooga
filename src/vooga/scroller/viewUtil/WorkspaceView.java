@@ -1,13 +1,13 @@
-package viewUtil;
+package vooga.scroller.viewUtil;
 
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.Image;
 import java.util.Stack;
-import viewUtil.Renderable;
-import viewUtil.ViewConstants;
-import viewUtil.Window;
+import vooga.scroller.viewUtil.Renderable;
+import vooga.scroller.viewUtil.ViewConstants;
+import vooga.scroller.viewUtil.Window;
 
 /**
  * A workspace is an entity with at least a space for a Renderable 

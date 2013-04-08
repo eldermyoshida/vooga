@@ -1,17 +1,17 @@
-package sprite_superclasses;
+package vooga.scroller.sprite_superclasses;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.util.List;
-import collision_handlers.Mario_CH;
-import design_patterns.State;
-import test_sprites.Type;
-import util.Location;
-import util.Pixmap;
-import util.Sprite;
-import util.Vector;
-import view.View;
+import vooga.scroller.collision_handlers.Mario_CH;
+import vooga.scroller.design_patterns.State;
+import vooga.scroller.test_sprites.Type;
+import vooga.scroller.util.Location;
+import vooga.scroller.util.Pixmap;
+import vooga.scroller.util.Sprite;
+import vooga.scroller.util.Vector;
+import vooga.scroller.view.View;
 
 
 /**

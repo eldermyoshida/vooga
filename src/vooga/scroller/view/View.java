@@ -1,4 +1,4 @@
-package view;
+package vooga.scroller.view;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -19,10 +19,10 @@ import java.util.TreeSet;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.Timer;
-import scrollingmanager.ScrollingManager;
-import sprite_superclasses.Player;
-import util.Sprite;
-import model.Model;
+import vooga.scroller.scrollingmanager.ScrollingManager;
+import vooga.scroller.sprite_superclasses.Player;
+import vooga.scroller.util.Sprite;
+import vooga.scroller.model.Model;
 
 
 /**

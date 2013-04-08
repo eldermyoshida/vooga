@@ -1,4 +1,4 @@
-package util;
+package vooga.scroller.util;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -6,8 +6,8 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
-import collision_handlers.CollisionHandler;
-import test_sprites.Type;
+import vooga.scroller.collision_handlers.CollisionHandler;
+import vooga.scroller.test_sprites.Type;
 
 
 /**
