@@ -1,7 +1,7 @@
 package vooga.rts.gamedesign.strategy.occupystrategy;
 
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings.Building;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Units;
+import vooga.rts.gamedesign.sprite.rtsprite.interactive.IOccupiable;
+
 
 /**
  * 
@@ -16,15 +16,7 @@ import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Units;
  */
 public class CannotOccupy implements OccupyStrategy{
 
-	@Override
-	public void occupy(Building building) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void occupy(Units units) {
-		// TODO Auto-generated method stub
+	public void occupy(IOccupiable toOccupy){
 		
 	}
 

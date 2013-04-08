@@ -1,5 +1,6 @@
 package vooga.rts.gamedesign.strategy.occupystrategy;
 
+import vooga.rts.gamedesign.sprite.rtsprite.interactive.IOccupiable;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings.Building;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Units;
 
@@ -22,8 +23,6 @@ import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Units;
  */
 public interface OccupyStrategy {
 
-  public void occupy(Building building);
-
-  public void occupy(Units units);
+  public void occupy(IOccupiable toOccupy);
 
 }

@@ -27,5 +27,10 @@ public abstract class Projectile extends RTSprite implements IMovable {
 		super(pixmap, loc, size, sound, damage, health);
 		myDamage = damage;
 	}
+	
+	
+	public void attack(RTSprite other){
+		//calculate vector between this and other and translate accordingly. 
+	}
 
 }
