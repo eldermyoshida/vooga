@@ -29,53 +29,7 @@ public class Barracks extends Building {
         // TODO Auto-generated constructor stub
     }
 
-    private Producer myProducer;
-
-    /** 
-     *  call new RTSprite where the RTSprite can be specified based on the type. For Barracks, produce() can create a new instance of Soldier. 
-     */
-    public void produce() {
-    }
-
-    @Override
-    public int calculateDamage() {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    @Override
-    public void changeHealth() {
-        // TODO Auto-generated method stub
-
-    }
-
-    public void visit(RTSprite rtSprite) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void update(double elapsedTime) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void visit(IAttackable a) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void visit(IOccupiable o) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void visit(IGatherable g) {
-        // TODO Auto-generated method stub
-
-    }
+  
+ 
 
 }

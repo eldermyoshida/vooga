@@ -67,14 +67,6 @@ public abstract class Sprite implements IGameLoop {
     }
 
     /**
-     * Describes how to "animate" the shape by changing its state.
-     * 
-     * Currently, moves by the current velocity.
-     */
-    public void update (double elapsedTime, Dimension bounds) {
-        if(!isVisible) return;
-    }
-    /**
      * Resets shape's center.
      */
     public void setCenter (double x, double y) {

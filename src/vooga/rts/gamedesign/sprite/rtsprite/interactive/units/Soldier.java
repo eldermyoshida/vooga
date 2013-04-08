@@ -35,49 +35,12 @@ public class Soldier extends Units {
 
     }
 
-
-    @Override
-    public void move(Location loc) {
-        // TODO Auto-generated method stub
-
-    }
-
-    public void visit(IAttackable a){
-        getAttackstrategy().attack(a);
-    }
-
-    @Override
-    public int calculateDamage() {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    @Override
-    public void changeHealth() {
-        // TODO Auto-generated method stub
-
-    }
+	
 
 
-    @Override
-    public void update(double elapsedTime) {
-        // TODO Auto-generated method stub
+   
 
-    }
-
-
-    @Override
-    public void visit (IOccupiable o) {
-        // TODO Auto-generated method stub
-        
-    }
-
-
-    @Override
-    public void visit (IGatherable g) { // duplicated with GatherStrategy???
-        // TODO Auto-generated method stub
-        
-    }
+   
 
 
 }
