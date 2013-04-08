@@ -5,8 +5,8 @@ import vooga.rts.util.Location;
 
 public class Gun extends Weapon{
 
-	public Gun(int damage, Projectile projectile, int range, Location center) {
-		super(damage, projectile, range, center);
+	public Gun(int damage, Projectile projectile, int range, Location center, int cooldown) {
+		super(damage, projectile, range, center, cooldown);
 	}
 
 }
