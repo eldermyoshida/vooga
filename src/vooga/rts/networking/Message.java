@@ -14,8 +14,9 @@ public class Message implements Serializable, Comparable<Message> {
      * 
      */
     private static final long serialVersionUID = 3906028159511905867L;
+    private static final int DEFAULT_VALUE = -1;
     private int myTimeSent;
-    private int myTimeReceivedByServer;
+    private int myTimeReceivedByServer = DEFAULT_VALUE;
     
     public Message (int timeSent) {
         myTimeSent = timeSent;
@@ -52,6 +53,9 @@ public class Message implements Serializable, Comparable<Message> {
 
     @Override
     public int compareTo (Message message) {
+        if(message != null && message.getTimeReceived() != DEFAULT_VALUE && getTimeReceived() != DEFAULT_VALUE) {
+            return getTimeReceived() - message.getTimeReceived();
+        }
         return getTimeSent() - message.getTimeSent();
     }
     
