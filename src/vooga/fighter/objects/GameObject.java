@@ -12,7 +12,7 @@ import java.awt.geom.Point2D;
 /**
  * Represents a single object in the game.
  * 
- * @author james, alanni, dayvid
+ * @author james, alanni
  * 
  */
 public abstract class GameObject {

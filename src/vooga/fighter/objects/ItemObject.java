@@ -8,7 +8,7 @@ import vooga.fighter.util.Pixmap;
 /**
  * Objects that characters can pick up and equip.
  * 
- * @author alan
+ * @author alanni, james
  *  
  */
 

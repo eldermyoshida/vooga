@@ -5,7 +5,12 @@ import vooga.fighter.util.Location;
 import vooga.fighter.util.Pixmap;
 import vooga.fighter.util.Vector; 
 
-
+/**
+ * Represents a character in the game.
+ * 
+ * @author james
+ *
+ */
 public class CharacterObject extends MoveableGameObject {    
     
     private int myDefaultSpeed;
@@ -14,6 +19,8 @@ public class CharacterObject extends MoveableGameObject {
         super(image, center, size);
         myDefaultSpeed = defaultSpeed;
     }
+    
+    
     
     /**
      * Returns the default speed of this character.

@@ -8,7 +8,7 @@ import vooga.fighter.util.Vector;
 /**
  * Object that can inflict damage on other moveable game objects
  * 
- * @author alan
+ * @author alanni, james
  *  
  */
 
