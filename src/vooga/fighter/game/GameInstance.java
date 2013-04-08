@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.List;
 import vooga.fighter.controller.*;
+import vooga.fighter.input.Input;
+import vooga.fighter.input.InputClassTarget;
 import vooga.fighter.util.*;
 import vooga.fighter.objects.*;
 
@@ -12,6 +14,8 @@ import vooga.fighter.objects.*;
  * @author Jerry
  *
  */
+
+@InputClassTarget
 public class GameInstance implements Mode {
     
     private List<GameObject> myInteractables;
@@ -20,13 +24,14 @@ public class GameInstance implements Mode {
     private String myNextMode;
     private Map myNonInteractables;
     private boolean myStartGame = false;
+    private Input myInput;
     
-    public GameInstance (String levelName, String filePath, String nextMode) {
+    public GameInstance (String levelName, String filePath, String nextMode, Input input) {
         myID = levelName;
         myFilePath = filePath;
         myNextMode = nextMode;
         loadLevel(filePath);
-        
+        myInput = input;
     }
     
     public void loadLevel(String filePath) {
@@ -35,7 +40,7 @@ public class GameInstance implements Mode {
     
     
     public void updateObjects(double stepTime, Dimension bounds) {
-        for (GameObject s : myInteractables) {
+    	for (GameObject s : myInteractables) {
             s.update(stepTime, bounds);
         }
         myNonInteractables.update(stepTime, bounds);
@@ -44,8 +49,11 @@ public class GameInstance implements Mode {
 
     @Override
     public void update (double stepTime, Dimension bounds) {
-        updateObjects(stepTime, bounds);
+    	if (myInteractables != null) {
+    	updateObjects(stepTime, bounds);
         detectCollisions(myInteractables);
+        System.out.println("GameInstance initialized and updating");
+    	}
     }
     
     public void detectCollisions(List<GameObject> objects) {
@@ -86,10 +94,13 @@ public class GameInstance implements Mode {
     }
     
     public void paintObjects(Graphics2D pen) {
-        for (GameObject s: myInteractables) {
-            s.paint(pen);
-        }
+    	if (myInteractables != null) {
+    		for (GameObject s: myInteractables) {
+    			s.paint(pen);
+        	}
+    	
         myNonInteractables.paint(pen);
+    	}
     }
 
     @Override

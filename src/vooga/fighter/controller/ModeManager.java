@@ -1,6 +1,8 @@
 package vooga.fighter.controller;
 
 import vooga.fighter.game.SplashScreen;
+import vooga.fighter.input.Input;
+import vooga.fighter.input.InputClassTarget;
 
 import java.awt.Dimension;
 import java.util.Collection;
@@ -17,11 +19,11 @@ public class ModeManager {
 	private Canvas myCanvas;
 	private PlayerStatus myPlayerStatus;
 	
-	
-	public ModeManager(Canvas frame, PlayerStatus playerstatus, MediaManager mediamanager) {
+	@InputClassTarget
+	public ModeManager(Canvas frame, PlayerStatus playerstatus, MediaManager mediamanager, Input input) {
 		myCanvas = frame;
 		myPlayerStatus = playerstatus;
-		myModeMap = new ModeFactory(frame, mediamanager).getMap();
+		myModeMap = new ModeFactory(frame, mediamanager , input).getMap();
 		setup();
 	}
 	
@@ -33,7 +35,7 @@ public class ModeManager {
 	
 	private void switchModes(boolean shouldChange){
 		if(shouldChange){
-		myPlayerStatus.addScore(myCurrentMode.getStatus());
+//		myPlayerStatus.addScore(myCurrentMode.getStatus());
 		myCurrentMode = myModeMap.get(myCurrentMode.getNextModeName());
 		myCurrentMode.reset();
 		myCanvas.setMode(myCurrentMode);
