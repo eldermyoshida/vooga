@@ -7,7 +7,7 @@ package vooga.fighter.objects.interfaces;
  * @author james, alan
  * 
  */
-public interface Perishable {
+public interface Timer {
 
     /**
      * Sets the value of the current object counter.

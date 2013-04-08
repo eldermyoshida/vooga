@@ -99,7 +99,7 @@ public class Canvas extends JComponent {
      * @param pen used to paint shape on the screen
      */
     @Override
-    public void paintComponent (Graphics pen) {
+    public void paintComponent(Graphics pen) {
         pen.setColor(Color.WHITE);
         pen.fillRect(0, 0, getSize().width, getSize().height);
         // first time needs to be special cased :(
@@ -131,31 +131,7 @@ public class Canvas extends JComponent {
     public void setMode(Mode mode){
     	myMode = mode;
     }
-//    /**
-//     * Start the animation.
-//     */
-//    public void start () {
-//        final int stepTime = DEFAULT_DELAY;
-//        // create a timer to animate the canvas
-//        Timer timer = new Timer(stepTime, 
-//            new ActionListener() {
-//                public void actionPerformed (ActionEvent e) {
-//                    myMode.update((double) stepTime / ONE_SECOND);
-//                    repaint();
-//                    // This checks whether the user has tried to make full screen
-//                }
-//            });
-//        // start animation
-//        timer.start();
-//    }
 
-////    /**
-//     * Stop the animation.
-//     */
-//    public void stop () {
-//        myTimer.stop();
-//    }
-    
     /**
      * This checks if the Splash Screen is up, and if it is, enables changing to full screen
      * and back.  Unfortunately, this is implemented in the Start() method and therefore makes
