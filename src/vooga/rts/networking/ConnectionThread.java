@@ -35,6 +35,8 @@ public class ConnectionThread extends Thread {
         }
         catch (IOException e) {
             // TODO add logger
+            e.printStackTrace();
+
         }
     }
 
@@ -57,9 +59,13 @@ public class ConnectionThread extends Thread {
             }
             catch (IOException e) {
                 // TODO add logger
+                e.printStackTrace();
+
             }
             catch (ClassNotFoundException e) {
                 // TODO add logger
+                e.printStackTrace();
+
             }
         }
     }
@@ -107,6 +113,8 @@ public class ConnectionThread extends Thread {
         }
         catch (IOException e) {
             // TODO add logger
+            e.printStackTrace();
+
         }
     }
 

@@ -34,6 +34,10 @@ public class GameController extends AbstractController {
 
 	@Override
 	public void update(double elapsedTime) {
+		if (true) {
+			setChanged();
+			notifyObservers();
+		}
 	}
 
 	@Override
@@ -42,6 +46,8 @@ public class GameController extends AbstractController {
 			p.paint(pen);
 		}
 	}
+	
+	
 	
 	@Override
 	public void onLeftMouseDown(PositionObject o) {
@@ -62,5 +68,4 @@ public class GameController extends AbstractController {
 	public void onRightMouseUp(PositionObject o) {
 		
 	}
-
 }
