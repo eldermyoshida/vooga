@@ -5,10 +5,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import vooga.rts.gamedesign.sprite.map.Tile;
+import vooga.rts.util.Location;
 
 public class GameMap {
     
-    public static final int GRID_SIZE = 8;
+    public static final int NODE_SIZE = 8;
     
     private Tile[][] myTiles;
     private HashMap<Integer, MapNode[][]> myMap;
@@ -55,4 +56,8 @@ public class GameMap {
         }
         return res;
     }
+    public MapNode getNode (Location location) {
+        return myMap[(int)location.x/NODE_SIZE][(int)location.y/NODE_SIZE];
+    }
+}
 }
