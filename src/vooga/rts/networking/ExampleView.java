@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 
 
 public class ExampleView extends JFrame {
+    int portdiff = 0;
     JPanel windowPanel;
     JPanel panel;
     public ExampleView () {
@@ -45,8 +46,9 @@ public class ExampleView extends JFrame {
         field.setPreferredSize(new Dimension(100, 100));
         panel.add(field);
         panel.add(area);
-        ExampleViewConnector connect = new ExampleViewConnector(area, field);
-        connect.run();
+        ExampleViewConnector connect = new ExampleViewConnector(area, field, portdiff);
+        portdiff++;
+        connect.start();
         return panel;
     }
 
