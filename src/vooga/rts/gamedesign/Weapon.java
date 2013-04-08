@@ -1,6 +1,7 @@
 package vooga.rts.gamedesign;
 
 import vooga.rts.gamedesign.sprite.rtsprite.Projectile;
+import vooga.rts.gamedesign.sprite.rtsprite.RTSprite;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.Interactive;
 import vooga.rts.gamedesign.upgrades.Upgrade;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
@@ -47,9 +48,9 @@ public abstract class Weapon {
     /**
      * This method is used by the weapon to attack an RTSprite.
      */
-    public void fire () {
+    public void fire (RTSprite toBeShot) {
         if (cooldown == 0) {
-
+        	myProjectile.clone().attack(toBeShot);
         }
     }
 
