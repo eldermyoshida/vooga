@@ -1,15 +1,16 @@
-package gamedesign.strategy.gatherstrategy;
+package vooga.rts.gamedesign.strategy.gatherstrategy;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import vooga.rts.gamedesign.sprite.rtsprite.IGatherable;
+import vooga.rts.gamedesign.sprite.rtsprite.Resource;
 
 /**
- * This interface is implemented by the classes CanGather and CannotGather that
- * are then used as instance variables in the classes that could potentially
- * gather resources.  If the unit currently can gather, it will have an 
- * instance of CanGather, otherwise it will have an instance of CannotGather.
- * Using the strategy pattern like this, interactives ability to gather 
- * can be dynamically changed. For example, a unit may be implemented such 
- * that it cannot gather resources until it hits a certain level. The unit 
- * will initially have an instance of CannotGather but once the level is 
- * reached it will switch to have an instance of CanGather.
+ * This class implements GatherStrategy and is used as an instance in 
+ * interactives for objects that are able to gather. This class holds the list
+ * of resources the interactive gathers. And the gather method
+ * will specify how the interactive will gather.
  * 
  * @author Ryan Fishel
  * @author Kevin Oh
@@ -18,5 +19,20 @@ package gamedesign.strategy.gatherstrategy;
  *
  */
 public class CanGather implements GatherStrategy{
+	private List<IGatherable> myResources = new ArrayList<IGatherable>();
+	
+	@Override
+	public void gather(IGatherable g) {
+		myResources.add(g);
+		//TODO: check for if meeting certain goals probably??
+	}
+	
+	/**
+	 * Checks if the current resources makes the CanGather object legible for
+	 * certain updates.
+	 */
+	public void goalCheck(){
+		
+	}
 
 }

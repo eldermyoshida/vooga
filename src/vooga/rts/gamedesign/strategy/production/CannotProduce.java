@@ -1,4 +1,4 @@
-package gamedesign.strategy.productionstrategy;
+package vooga.rts.gamedesign.strategy.production;
 
 /**
  * This class implements ProductionStrategy and is used as an instance in 
@@ -10,7 +10,7 @@ package gamedesign.strategy.productionstrategy;
  * @author Wenshun Liu 
  *
  */
-public class CannotProduce implements ProductionStrategy{
+public class CannotProduce implements IProducer{
 
 	@Override
 	public void produce(String str) {

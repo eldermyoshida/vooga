@@ -1,6 +1,10 @@
-package controller;
+package vooga.rts.controller;
 
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import vooga.rts.resourcemanager.ResourceManager;
 
 public class LoadingController extends AbstractController {
 
@@ -8,22 +12,35 @@ public class LoadingController extends AbstractController {
         
     }
     
+    double elap = 0;
     @Override
-    public void receiveUserInput () {
-        // TODO Auto-generated method stub
+    public void update (double elapsedTime) {
         
-    }
-
-    @Override
-    public void update () {
-        // TODO Auto-generated method stub
-        
+        elap += elapsedTime;        
+        if (elap > 1000) {
+            elap = 0;
+            setChanged();
+            notifyObservers(MainState.Menu);
+        }
+        /*
+        if (!ResourceManager.instance().isLoading()) {
+            setChanged();
+            notifyObservers(MainState.Menu);
+        }
+        */
     }
 
     @Override
     public void paint (Graphics2D pen) {
-        // TODO Auto-generated method stub
+        Rectangle screen = pen.getDeviceConfiguration().getBounds();
+        pen.draw(new Rectangle(new Dimension( 400, 560)));
         
+        pen.setFont(new Font("Arial", Font.PLAIN, 72));
+        pen.drawString("Game is Loading! Yolo.", screen.width / 2, screen.height / 2);
     }
 
+    @Override
+    public void activate (MainState gameState) {
+        ResourceManager.instance().load();        
+    }
 }

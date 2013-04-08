@@ -1,7 +1,7 @@
-package gamedesign.strategy.productionstrategy;
+package vooga.rts.gamedesign.strategy.production;
 
-import gamedesign.factories.Factory;
-import gamedesign.sprite.rtsprite.interactive.Interactive;
+import vooga.rts.gamedesign.factories.Factory;
+import vooga.rts.gamedesign.sprite.rtsprite.interactive.Interactive;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ import java.util.List;
  * @author Wenshun Liu 
  *
  */
-public class Producer implements ProductionStrategy {
+public class Producer implements IProducer {
 
   public List<Interactive> myProducables;
 

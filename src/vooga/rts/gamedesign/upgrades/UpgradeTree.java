@@ -1,4 +1,8 @@
-package gamedesign.upgrades;
+package vooga.rts.gamedesign.upgrades;
+
+import java.util.ArrayList;
+import java.util.List;
+import vooga.rts.gamedesign.upgrades.UpgradeNode;
 
 /**
  * This class is the tree of upgrades that any object that can be upgraded will
@@ -19,4 +23,52 @@ package gamedesign.upgrades;
  *
  */
 public class UpgradeTree {
+    private UpgradeNode myHead;
+
+    public UpgradeTree() {
+        this(null);
+    }
+
+    public UpgradeTree(String filename){
+        myHead = new UpgradeNode();
+        readFile(filename);
+    }
+
+    //Sample file format: <type> <name> <upgradeObejct> <upgradeValue>
+    //e.g. Armor armorUpgrade1 Health 50
+    /**
+     * Initializes the UpgradeTree by reading the info from a file.
+     * @param filename
+     */
+    private void readFile(String filename){
+        if (filename != null){
+
+        }
+    }
+    /*
+     * TODO: implement later 
+     */
+    public void addUpgrade(UpgradeNode un){
+        myHead.getChildren().add(un);
+    }
+
+    /**
+     * Finds the most advanced upgrade has been made in the giving upgrade type.
+     * @param upgradeType
+     * @return
+     */
+    public UpgradeNode findCurrent(String upgradeType){
+        UpgradeNode current = new UpgradeNode();
+        for (UpgradeNode u: myHead.getChildren()){
+            if (u.getUpgradeType().equals(upgradeType)){
+                current = u;
+            }
+        }
+        //need to find a way to traverse
+        /*while (current.getChildren().get(0) != null && current.getChildren().get(0).getHasBeenUpgraded()) {
+			current = current.getChildren().get(0);
+		}*/
+        return current;
+    }
+
 }
