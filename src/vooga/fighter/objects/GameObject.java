@@ -8,7 +8,12 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
 
-public class GameObject {
+/**
+ * 
+ * @author alanni
+ * Objects that are viewed on the screen
+ */
+public abstract class GameObject {
 
     private static final int DEFAULT_HEALTH=10;
 	
@@ -35,35 +40,20 @@ public class GameObject {
 	        myOriginalVelocity = new Vector(velocity);
 	        myOriginalImage = new Pixmap(image);
 	        reset();
-	        resetBounds();
 	 }
 	   /**
      * Describes how to "animate" the shape by changing its state.
      * 
      * Currently, moves by the current velocity.
      */
-    public void update (double elapsedTime, Dimension bounds) {
-        
-		// do not change original velocity
-        Vector v = new Vector(myVelocity);
-        v.scale(elapsedTime);
-        translate(v);
-    }
 
-    /**
-     * Moves shape's center by given vector.
-     */
-    public void translate (Vector v) {
-        myCenter.translate(v);
-        resetBounds();
-    }
+
 
     /**
      * Resets shape's center.
      */
     public void setCenter (double x, double y) {
-        myCenter.setLocation(x, y);
-        resetBounds();
+        myCenter.setLocation(x, y);;
     }
 
     /**
@@ -127,7 +117,6 @@ public class GameObject {
      */
     public void scale (double widthFactor, double heightFactor) {
         mySize.setSize(mySize.width * widthFactor, mySize.height * heightFactor);
-        resetBounds();
     }
 
     /**
@@ -135,7 +124,6 @@ public class GameObject {
      */
     public void setSize (int width, int height) {
         mySize.setSize(width, height);
-        resetBounds();
     }
 
     /**
@@ -210,20 +198,6 @@ public class GameObject {
     /**
      * Returns rectangle that encloses this shape.
      */
-    protected void resetBounds () {
-        myBounds = new Rectangle((int)getLeft(), (int)getTop(), mySize.width, mySize.height);
-    }
-
-	public void reduceHealth(int amount){
-		myHealth-=amount; 
-	}
-	
-	public int getHealth() {
-		return myHealth;
-	}
-	
-	public void setHealth(int amount){
-		myHealth=amount; 
-	}
+    
 	
 }

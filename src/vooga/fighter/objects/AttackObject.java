@@ -5,6 +5,11 @@ import java.util.Timer;
 import vooga.fighter.util.Location;
 import vooga.fighter.util.Pixmap;
 import vooga.fighter.util.Vector;
+/**
+ * 
+ * @author alanni
+ * Object that can inflict damage on other moveable game objects 
+ */
 public class AttackObject extends GameObject implements Attackable, Perishable{
 	
 	private int myAttackPriority; 
