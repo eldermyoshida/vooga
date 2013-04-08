@@ -1,8 +1,13 @@
 package vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings;
 
+import java.awt.Dimension;
+
 import vooga.rts.gamedesign.sprite.rtsprite.RTSprite;
 import vooga.rts.gamedesign.sprite.rtsprite.RTSpriteVisitor;
 import vooga.rts.gamedesign.strategy.production.Producer;
+import vooga.rts.util.Location;
+import vooga.rts.util.Pixmap;
+import vooga.rts.util.Sound;
 
 /**
  * 
@@ -14,7 +19,13 @@ import vooga.rts.gamedesign.strategy.production.Producer;
  */
 public class Barracks extends Building {
 
-  private Producer myProducer;
+  public Barracks(Pixmap image, Location center, Dimension size, Sound sound,
+			int teamID, int health) {
+		super(image, center, size, sound, teamID, health);
+		// TODO Auto-generated constructor stub
+	}
+
+private Producer myProducer;
 
   /** 
    *  call new RTSprite where the RTSprite can be specified based on the type. For Barracks, produce() can create a new instance of Soldier. 

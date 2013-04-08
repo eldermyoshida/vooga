@@ -3,6 +3,7 @@ package vooga.rts.gamedesign.strategy.attackstrategy;
 import java.util.List;
 
 import vooga.rts.gamedesign.Weapon;
+import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings.Building;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Units;
 
@@ -29,6 +30,12 @@ public class CanAttack implements AttackStrategy{
 
 	@Override
 	public void attack(Units units) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void attack(IAttackable a) {
 		// TODO Auto-generated method stub
 		
 	}
