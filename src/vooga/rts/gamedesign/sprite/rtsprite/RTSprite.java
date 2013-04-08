@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import vooga.rts.gamedesign.sprite.Sprite;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.IOccupiable;
 import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
+import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;
 import vooga.rts.gamedesign.strategy.attackstrategy.CannotAttack;
 import vooga.rts.gamedesign.strategy.gatherstrategy.CannotGather;
 import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
@@ -50,7 +51,7 @@ public class RTSprite extends Sprite implements IAttackable, RTSpriteVisitor {
         curHealth = maxHealth;
         mySound = sound;
         TeamID = teamID;
-        myAttackStrategy = new CannotAttack();
+        myAttackStrategy = new CanAttack();
         myGatherStrategy = new CannotGather();
         myOccupyStrategy = new CannotOccupy();
     }
@@ -64,6 +65,10 @@ public class RTSprite extends Sprite implements IAttackable, RTSpriteVisitor {
         visitor.visit(this);
     }
     
+    
+    public int getHealth(){
+    	return curHealth;
+    }
     /**
      * This would determine if two RTSprites collide.
      * @param rtSprite is an RTSprite that is being checked to see if it 
@@ -80,7 +85,7 @@ public class RTSprite extends Sprite implements IAttackable, RTSpriteVisitor {
     }
     
     public void visit(IAttackable a){
-    	myAttackStrategy.attack(a);
+    	a.getAttackStrategy().attack(this);
     }
     public void visit(IGatherable g){
     	myGatherStrategy.gather(g);
@@ -101,10 +106,6 @@ public class RTSprite extends Sprite implements IAttackable, RTSpriteVisitor {
     
     public void setOccupyStrategy(OccupyStrategy newStrategy){
     	myOccupyStrategy = newStrategy;
-    }
-    
-    public AttackStrategy getAttackstrategy(){
-        return myAttackStrategy;
     }
     
     /**
@@ -136,7 +137,7 @@ public class RTSprite extends Sprite implements IAttackable, RTSpriteVisitor {
 
 	@Override
 	public void changeHealth(int change) {
-		curHealth += change;
+		curHealth -= change;
 		
 	}
 
@@ -145,6 +146,12 @@ public class RTSprite extends Sprite implements IAttackable, RTSpriteVisitor {
 		getVelocity().scale(elapsedTime);
 		getCenter().translate(getVelocity());
 	}
+
+    @Override
+    public AttackStrategy getAttackStrategy () {
+        // TODO Auto-generated method stub
+        return myAttackStrategy;
+    }
 
 
 

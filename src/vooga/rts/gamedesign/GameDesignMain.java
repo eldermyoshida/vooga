@@ -21,18 +21,27 @@ public class GameDesignMain {
 
 
         Pixmap p = new Pixmap("soldier.png");
-        Location l = new Location();
+        Location l = new Location(40,50);
         Dimension s = new Dimension();
         Sound soun = new Sound("pikachu.wav");
 
         Interactive a = new Soldier(p,l,s,soun,20,20);
         a.setAttackStrategy(new CanAttack());
+       
         Projectile proj = new Bullet(new Pixmap("bullet.png"), a.getCenter(), new Dimension(30, 30), soun, 10, 1);
-        ((CanAttack) a.getAttackstrategy()).addWeapons(new Gun(10, proj, 10, a.getCenter()));
-        Interactive b = new Soldier(p,l,s,soun,20,20);
+        
+        Interactive b = new Soldier(p,new Location(20,30),s,soun,20,20);
+        b.setAttackStrategy(new CanAttack());
+        ((CanAttack) b.getAttackstrategy()).addWeapons(new Gun(10, proj, 50, b.getCenter()));
 
-        //a.visit(b);
-        b.accept(a);
+        
+        for(int i = 0 ; i < 10 ; i++){
+        	System.out.println(b.getHealth());
+        	if(((CanAttack) b.getAttackstrategy()).hasWeapon()){
+        	    System.out.println("er ma gawd");
+        	}
+        	b.accept(a);
+        }
 
 
     }

@@ -5,7 +5,9 @@ import java.util.List;
 
 import vooga.rts.gamedesign.Weapon;
 import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
+import vooga.rts.gamedesign.sprite.rtsprite.RTSprite;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings.Building;
+import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Soldier;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Units;
 
 /**
@@ -22,31 +24,34 @@ import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Units;
 public class CanAttack implements AttackStrategy{
 	
 	private List<Weapon> myWeapons;
+	private int myWeaponIndex;
 	
-	public CanAttack() {
+	public CanAttack(){
 		myWeapons = new ArrayList<Weapon>();
+		myWeaponIndex = 0;
+
 	}
 	
-	@Override
-	public void attack(Building building) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void attack(Units units) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void attack(IAttackable a) {
-		// TODO Auto-generated method stub
-		
-	}
 	
+	public void attack(IAttackable a){
+			try {
+				System.out.println("Weapon has been fired");
+				myWeapons.get(myWeaponIndex).fire((RTSprite) a);
+			} catch (CloneNotSupportedException e) {
+				System.out.println("ERRRRRR");
+			}
+		System.out.println("What");
+		
+	}
+	public boolean hasWeapon(){
+	    return !myWeapons.isEmpty();
+
+	}
 	public void addWeapons(Weapon weapon) {
 		myWeapons.add(weapon);
 	}
+
+	
+	
 
 }
