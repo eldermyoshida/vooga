@@ -15,7 +15,7 @@ import javax.swing.JTextArea;
  * @author Henrique Moraes
  *
  */
-public class Server {
+public class GameServer {
     private List<ClientThread> myClients;
     private int uniqueID = 0;
     private int myPort;
