@@ -1,4 +1,4 @@
-package gamedesign.strategy.productionstrategy;
+package vooga.rts.gamedesign.strategy.production;
 
 /**
  * 
@@ -18,7 +18,7 @@ package gamedesign.strategy.productionstrategy;
  * @author Wenshun Liu 
  *
  */
-public interface ProductionStrategy {
+public interface IProducer {
 
   /** 
    *  requires a timer for cooldown for production 

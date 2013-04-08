@@ -1,4 +1,4 @@
-package gamedesign.strategy.skillstrategy;
+package vooga.rts.gamedesign.strategy.skillstrategy;
 
 /**
  * 
