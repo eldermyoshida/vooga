@@ -6,6 +6,7 @@ import vooga.fighter.util.Location;
 import vooga.fighter.util.Pixmap;
 import vooga.fighter.util.Vector; 
 
+
 public class CharacterObject {
 
 }

@@ -14,6 +14,7 @@ import vooga.fighter.util.Vector;
  * @author alan
  *  
  */
+
 public class AttackObject {
 	
 }

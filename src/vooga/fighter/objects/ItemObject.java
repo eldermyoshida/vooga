@@ -15,6 +15,7 @@ import vooga.fighter.util.Pixmap;
  * @author alan
  *  
  */
+
 public class ItemObject {
 
 }
