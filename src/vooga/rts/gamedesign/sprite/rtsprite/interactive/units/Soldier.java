@@ -47,29 +47,16 @@ public class Soldier extends Units {
 
     }
 
-    public void visit(IAttackable a){
+    public void visit(IAttackable a) throws CloneNotSupportedException{
         getAttackstrategy().attack(a);
     }
+
     @Override
     public void update(double elapsedTime) {
        AttackStrategy as = getAttackStrategy() ;
     	if(as instanceof CanAttack)
     		((CanAttack) as).update();
 
-    }
-
-
-    @Override
-    public void visit (IOccupiable o) {
-        // TODO Auto-generated method stub
-        
-    }
-
-
-    @Override
-    public void visit (IGatherable g) { // duplicated with GatherStrategy???
-        // TODO Auto-generated method stub
-        
     }
     
     public void myHealth(int value){ //TESTING PURPOSE

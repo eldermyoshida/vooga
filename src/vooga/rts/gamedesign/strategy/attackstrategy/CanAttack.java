@@ -22,35 +22,29 @@ import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Units;
  *
  */
 public class CanAttack implements AttackStrategy{
-	
+
 	private List<Weapon> myWeapons;
 	private int myWeaponIndex;
-	
+
 	public CanAttack(){
 		myWeapons = new ArrayList<Weapon>();
 		myWeaponIndex = 0;
 
 	}
-	
-	
-	public void attack(IAttackable a){
-			try {
-				System.out.println("Weapon has been fired");
-				myWeapons.get(myWeaponIndex).fire((RTSprite) a);
-			} catch (CloneNotSupportedException e) {
-				System.out.println("ERRRRRR");
-			}
-		System.out.println("What");
-		
+
+
+	public void attack(IAttackable a) throws CloneNotSupportedException{
+		myWeapons.get(myWeaponIndex).fire((RTSprite) a);
+
 	}
 	public boolean hasWeapon(){
-	    return !myWeapons.isEmpty();
+		return !myWeapons.isEmpty();
 
 	}
 	public void addWeapons(Weapon weapon) {
 		myWeapons.add(weapon);
 	}
-	
+
 	public void update() {
 		for(int i = 0; i < myWeapons.size(); i++) {
 			Weapon weapon = myWeapons.get(i);
@@ -59,8 +53,5 @@ public class CanAttack implements AttackStrategy{
 			}
 		}
 	}
-
-	
-	
 
 }

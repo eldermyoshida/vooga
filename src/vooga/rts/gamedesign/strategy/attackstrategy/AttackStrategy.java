@@ -27,7 +27,7 @@ import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Units;
 public interface AttackStrategy {
 
 
-    public void attack(IAttackable a);
+    public void attack(IAttackable a) throws CloneNotSupportedException;
   
 
 }
