@@ -1,5 +1,12 @@
 package vooga.rts.gamedesign.sprite.rtsprite;
 
+import java.awt.Dimension;
+
+
+import vooga.rts.util.Location;
+import vooga.rts.util.Pixmap;
+import vooga.rts.util.Sound;
+
 
 
 /**
@@ -16,8 +23,9 @@ public abstract class Projectile extends RTSprite implements IMovable {
 	private Integer myDamage;
 	
 	
-	public Projectile(){
-		super();
+	public Projectile(Pixmap pixmap, Location loc, Dimension size, Sound sound, int damage, int health){
+		super(pixmap, loc, size, sound, damage, health);
+		myDamage = damage;
 	}
 
 }

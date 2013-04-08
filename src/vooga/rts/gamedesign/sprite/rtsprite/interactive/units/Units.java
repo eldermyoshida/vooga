@@ -2,6 +2,7 @@ package vooga.rts.gamedesign.sprite.rtsprite.interactive.units;
 
 import vooga.rts.gamedesign.Weapon;
 import vooga.rts.gamedesign.sprite.rtsprite.IMovable;
+import vooga.rts.gamedesign.sprite.rtsprite.RTSprite;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.Interactive;
 import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
 import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
@@ -34,6 +35,11 @@ public abstract class Units extends Interactive implements IMovable {
       super(image, center, size, sound, teamID, health);
 	  
   }
+
+public void visit(RTSprite rtSprite) {
+	// TODO Auto-generated method stub
+	
+}
 
 
 }

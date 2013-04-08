@@ -1,8 +1,12 @@
 package vooga.rts.gamedesign.sprite.rtsprite.interactive.units;
 
+import java.awt.Dimension;
+
 import vooga.rts.gamedesign.sprite.rtsprite.RTSprite;
 import vooga.rts.gamedesign.sprite.rtsprite.RTSpriteVisitor;
 import vooga.rts.util.Location;
+import vooga.rts.util.Pixmap;
+import vooga.rts.util.Sound;
 
 /**
  * 
@@ -14,7 +18,13 @@ import vooga.rts.util.Location;
  */
 public class MinionSpawner extends Units {
 
-  /** 
+  public MinionSpawner(Pixmap image, Location center, Dimension size,
+			Sound sound, int teamID, int health) {
+		super(image, center, size, sound, teamID, health);
+		// TODO Auto-generated constructor stub
+	}
+
+/** 
    *  produce minions
    */
   public void produce() {
@@ -22,12 +32,6 @@ public class MinionSpawner extends Units {
 
 @Override
 public void move(Location loc) {
-	// TODO Auto-generated method stub
-	
-}
-
-@Override
-public void getAttacked(RTSpriteVisitor visitor) {
 	// TODO Auto-generated method stub
 	
 }
@@ -46,6 +50,12 @@ public void changeHealth() {
 
 @Override
 public void visit(RTSprite rtSprite) {
+	// TODO Auto-generated method stub
+	
+}
+
+@Override
+public void update(double elapsedTime) {
 	// TODO Auto-generated method stub
 	
 }

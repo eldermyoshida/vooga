@@ -45,14 +45,13 @@ public void changeHealth() {
 	
 }
 
-@Override
-public void getAttacked(RTSpriteVisitor visitor) {
+public void visit(RTSprite rtSprite) {
 	// TODO Auto-generated method stub
 	
 }
 
 @Override
-public void visit(RTSprite rtSprite) {
+public void update(double elapsedTime) {
 	// TODO Auto-generated method stub
 	
 }
