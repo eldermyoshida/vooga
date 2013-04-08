@@ -57,4 +57,5 @@ public class CanAttack implements AttackStrategy{
         }
     }
 
+
 }

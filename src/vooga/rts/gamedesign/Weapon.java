@@ -31,6 +31,7 @@ public abstract class Weapon {
     private Projectile myProjectile;
     private UpgradeTree myUpgradeTree;
     private int myRange;
+    private int maxCooldown;
     private int cooldown; 
     private Ellipse2D myRangeCircle;
 
@@ -40,10 +41,11 @@ public abstract class Weapon {
      * @param damage
      * @param projectile
      */
-    public Weapon (int damage, Projectile projectile, int range, Location center) {
+    public Weapon (int damage, Projectile projectile, int range, Location center, int cooldownTime) {
         myDamage = damage;
         myProjectile = projectile;
         myRange = range;
+        maxCooldown = cooldownTime;
         myRangeCircle = new Ellipse2D.Double(center.getX(), center.getY(), range, range);
     }
 
@@ -53,7 +55,9 @@ public abstract class Weapon {
      */
     public void fire (RTSprite toBeShot) throws CloneNotSupportedException {
     	if(cooldown == 0) {
-    	    myProjectile.attack(toBeShot);
+
+        	myProjectile.attack(toBeShot);
+        	setCooldown(maxCooldown);
     	}
     }
 
@@ -88,10 +92,25 @@ public abstract class Weapon {
         return myRangeCircle.contains(interactive.getCenter());
     }
     
+    /**
+     * subtracts 1 from the cooldown counter
+     */
     public void decrementCooldown() {
     	cooldown--;
     }
+    /**
+     * Returns the cooldown time on the weapon
+     * @return the cooldown time on the weapon
+     */
     public int getCooldown() {
     	return cooldown;
+    }
+    /**
+     * After the weapon fires, the cooldown is set to the max cooldown for the
+     * weapon. 
+     * @param time is the time that the cooldown is set to
+     */
+    private void setCooldown(int time) {
+    	cooldown = time;
     }
 }
