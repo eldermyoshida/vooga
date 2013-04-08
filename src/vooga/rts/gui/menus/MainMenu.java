@@ -7,17 +7,11 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import vooga.rts.gui.Menu;
+import vooga.rts.resourcemanager.ResourceManager;
 
 public class MainMenu extends Menu {
     public MainMenu() {
         super();
-        try {
-            URL f = getClass().getResource("tree.jpg");
-            setImage(ImageIO.read(f));
-        }
-        catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        setImage(ResourceManager.instance().loadFile("tree.jpg"));
     }
 }

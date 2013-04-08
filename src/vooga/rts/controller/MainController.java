@@ -24,7 +24,7 @@ public class MainController extends AbstractController {
 
     public MainController () {
         myState = MainState.Starting;
-
+        ResourceManager.instance().load();
         myWindow = new Window();
         myGameController = new GameController();
         myLoadingController = new LoadingController();
@@ -39,16 +39,19 @@ public class MainController extends AbstractController {
                 update(this.scheduledExecutionTime());
                 render();
             }
-        }, 500, Game.TIME_PER_FRAME());        
+        }, 50, Game.TIME_PER_FRAME());  
+        
+        
     }    
 
     @Override
-    public void update (double elapsedTime) {
+    public void update (double elapsedTime) {        
         switch (myState) {
             case Game:
                 myGameController.update(elapsedTime);
                 break;
             case Loading:
+                ResourceManager.instance().load();
                 myWindow.setFullscreen(true);
                 setState(MainState.Splash);
                 break;
@@ -56,7 +59,7 @@ public class MainController extends AbstractController {
                 myMenuController.update(elapsedTime);
                 break;
             case Splash:
-                if (!ResourceManager.instance().isLoading()) {
+                if (!ResourceManager.instance().isLoading()) {                    
                     setState(MainState.Menu);
                 }
                 break;

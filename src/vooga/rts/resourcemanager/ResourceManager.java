@@ -3,62 +3,81 @@
  */
 package vooga.rts.resourcemanager;
 
-import java.io.File;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
+import javax.imageio.ImageIO;
+
 
 /**
  * 
  * 
  * @author Jonathan Schmidt
- *
+ * 
  */
 public class ResourceManager {
-    
-    private Map<String, Object> myResources;
-    
-    private Queue<File> myLoadQueue;
-    
+
+    private static final String RESOURCES = "../resources/";
+
+    private Map<URL, BufferedImage> myResources;
+
+    private Queue<URL> myLoadQueue;
+
     private Thread loadThread;
-    
+
     private static ResourceManager myInstance;
 
     /**
      * 
      */
     private ResourceManager () {
-        myResources = new HashMap<String, Object>();
-        myLoadQueue = new LinkedList<File>();
+        myResources = new HashMap<URL, BufferedImage>();
+        myLoadQueue = new LinkedList<URL>();
+        loadThread = new Thread();
     }
     
-    
-    int count = 0;
-    public boolean isLoading() {
-        count++;
-        return count < 100;
-        /*
-         return loadThread.isBusy();         
-         */
+    private URL getFileName(String file) {
+        URL f = getClass().getResource(RESOURCES + file);
+        return f;
     }
     
-    public void loadFile(String filename) {
-        queueFile(filename);
-        load();
+    public boolean isLoading () {        
+        return loadThread.isAlive();
     }
-    
-    public void queueFile(String filename) {
-        File newFile = new File(filename);
-        if (newFile.exists()) {
-            myLoadQueue.add(newFile);
+
+    public BufferedImage loadFile (String filename) {
+        if (queueFile(filename)) {
+            load();
+            try {
+                loadThread.join();
+            }
+            catch (InterruptedException e) {
+                System.out.println("Error waiting for threads.");
+            }
         }
-        else {
-            System.out.println("No such file");
-        }            
+        return myResources.get(getFileName(filename));        
     }
-    
-    public void load() {
+
+    public boolean queueFile (String filename) {
+        URL f = getFileName(filename);
+        if (!myResources.containsKey(f)) {
+            if (f != null) {
+                myLoadQueue.add(f);
+            }
+            else {
+                System.out.println("No such file");
+            }
+            return true;
+        }
+        System.out.println("File already stored.");
+        return false;
+    }
+
+    public void load () {
         if (!isLoading()) {
             loadThread = new Thread(new Runnable() {
                 @Override
@@ -66,22 +85,32 @@ public class ResourceManager {
                     loadFiles();
                 }
             });
+            loadThread.start();
         }
     }
-    
-    private synchronized void loadFiles() {
+
+    private synchronized void loadFiles () {
         while (!myLoadQueue.isEmpty()) {
-            File f = myLoadQueue.poll();
-            //if (f.get)
-            //myResources.put(f.getPath(), )
+            URL next = myLoadQueue.poll();
+            loadSingleFile(next);
         }
     }
-    
-    public static ResourceManager instance() {
+
+    private void loadSingleFile (URL filename) {
+        try {
+            BufferedImage image = ImageIO.read(filename);            
+            myResources.put(filename, image);
+        }
+        catch (IOException e) {
+            System.out.println("This is not an image.");
+        }
+    }
+
+    public static ResourceManager instance () {
         if (myInstance == null) {
             myInstance = new ResourceManager();
         }
-        synchronized (myInstance) {            
+        synchronized (myInstance) {
             return myInstance;
         }
     }
