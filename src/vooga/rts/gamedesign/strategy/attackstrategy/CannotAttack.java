@@ -21,19 +21,21 @@ public class CannotAttack implements AttackStrategy{
 
 
     @Override
-    public void attack(Building building, Interactive i) {
+    public void attack(Building building) {
         System.out.println("attacked building");
     }
 
     @Override
-    public void attack(Units units, Interactive i) {
+    public void attack(Units units) {
         System.out.println("attacked unit");
     }
-
+    
     @Override
-    public void attack(IAttackable a, Interactive i) {
+    public void attack(IAttackable a) {
         // TODO Auto-generated method stub
-        
+            if(a instanceof Units){
+                attack((Units)a);
+            }
             System.out.println("I am nothing");
         
     }

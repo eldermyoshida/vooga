@@ -45,9 +45,8 @@ public class Soldier extends Units {
 
     }
 
-    @Override
     public void visit(IAttackable a){
-        getAttackstrategy().attack(a, this);
+        getAttackstrategy().attack(a);
     }
 
     @Override

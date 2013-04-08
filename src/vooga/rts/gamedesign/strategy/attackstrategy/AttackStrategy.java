@@ -27,17 +27,17 @@ import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Units;
 public interface AttackStrategy {
 
 
-    public void attack(IAttackable a, Interactive i);
+    public void attack(IAttackable a);
     /**
      * This method specifies how buildings will attack
      * @param building is the building that is attacking
      */
-    public void attack(Building building, Interactive i);
+    public void attack(Building building);
 
     /**
      * This method specifies how units will attack
      * @param units is the unit that is attacking
      */
-    public void attack(Units units, Interactive i);
+    public void attack(Units units);
 
 }
