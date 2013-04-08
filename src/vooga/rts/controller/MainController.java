@@ -5,6 +5,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import vooga.rts.Game;
 import vooga.rts.gui.Window;
+import vooga.rts.resourcemanager.ResourceManager;
 
 
 public class MainController extends AbstractController {
@@ -52,10 +53,14 @@ public class MainController extends AbstractController {
                 myGameController.update(elapsedTime);
                 break;
             case Loading:
+                myState = MainState.Splash;
                 break;
             case Menu:
                 break;
             case Splash:
+                if (!ResourceManager.instance().isLoading()) {
+                    myState = MainState.Menu;
+                }
                 break;
             case Starting:
                 break;
@@ -65,14 +70,29 @@ public class MainController extends AbstractController {
     }
 
     public void render () {
-        Graphics2D graphics = myWindow.getCanvas().getGraphics();
+        Graphics2D graphics = myWindow.getCanvas().getGraphics();        
         paint(graphics);
         myWindow.getCanvas().render();
     }
 
     @Override
     public void paint (Graphics2D pen) {
-
+        switch (myState) {
+            case Game:
+                myGameController.paint(pen);
+                break;
+            case Loading:                
+                break;
+            case Menu:
+                break;
+            case Splash:                
+                myLoadingController.paint(pen);
+                break;
+            case Starting:
+                break;
+            default:
+                break;
+        }
     }
 
     public MainState getState () {
