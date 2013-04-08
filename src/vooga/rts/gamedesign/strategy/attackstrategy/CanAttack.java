@@ -1,5 +1,6 @@
 package vooga.rts.gamedesign.strategy.attackstrategy;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import vooga.rts.gamedesign.Weapon;
@@ -22,6 +23,10 @@ public class CanAttack implements AttackStrategy{
 	
 	private List<Weapon> myWeapons;
 	
+	public CanAttack() {
+		myWeapons = new ArrayList<Weapon>();
+	}
+	
 	@Override
 	public void attack(Building building) {
 		// TODO Auto-generated method stub
@@ -38,6 +43,10 @@ public class CanAttack implements AttackStrategy{
 	public void attack(IAttackable a) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void addWeapons(Weapon weapon) {
+		myWeapons.add(weapon);
 	}
 
 }
