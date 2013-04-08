@@ -5,7 +5,15 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-
+/**
+ * Object refers to a singular instance of a running game.
+ * For example, 2 players playing against each other each have one game client.  A Client is responsible for syncing its machines running game 
+ * simulation with the GameServer it is connected to.
+ * 
+ * 
+ * @author srwareham
+ *
+ */
 public class Client {
     private ObjectInputStream mySInput;
     private ObjectOutputStream mySOutput;
