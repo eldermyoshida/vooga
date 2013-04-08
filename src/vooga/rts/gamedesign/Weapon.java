@@ -52,8 +52,9 @@ public abstract class Weapon {
      * @throws CloneNotSupportedException 
      */
     public void fire (RTSprite toBeShot) throws CloneNotSupportedException {
+    	if(cooldown == 0) {
         	myProjectile.attack(toBeShot);
-        
+    	}
     }
 
     /**
@@ -85,5 +86,12 @@ public abstract class Weapon {
         // add z axis
         myRangeCircle = new Ellipse2D.Double(center.getX(), center.getY(), myRange, myRange);
         return myRangeCircle.contains(interactive.getCenter());
+    }
+    
+    public void decrementCooldown() {
+    	cooldown--;
+    }
+    public int getCooldown() {
+    	return cooldown;
     }
 }

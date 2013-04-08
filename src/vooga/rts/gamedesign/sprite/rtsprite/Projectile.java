@@ -37,13 +37,16 @@ public abstract class Projectile extends RTSprite implements IMovable {
 		move(other.getCenter());
 	}
 	
-	public Projectile clone(Projectile toClone){
-		try {
+	/**
+	 * Creates a copy of the projectile so that we can keep shooting a new
+	 * instance of the projectile every time we shoot. 
+	 * @param toClone is the projectile that we are making a copy of
+	 * @return the cloned copy of the projectile
+	 * @throws CloneNotSupportedException 
+	 */
+	public Projectile clone(Projectile toClone) throws CloneNotSupportedException{
 			return (Projectile) toClone.clone();
-		} catch (CloneNotSupportedException e) {
-			System.out.println("this was a dumb idea");
-		}
-		return null;
+
 	}
 	
 

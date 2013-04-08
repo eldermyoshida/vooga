@@ -44,6 +44,8 @@ public class RTSprite extends Sprite implements IAttackable, RTSpriteVisitor {
 
     private Sound mySound;
     
+    private int armor;
+    
 
     public RTSprite (Pixmap image, Location center, Dimension size, Sound sound, int teamID, int health) {
         super(image, center, size);
@@ -131,13 +133,13 @@ public class RTSprite extends Sprite implements IAttackable, RTSpriteVisitor {
 
 
 	@Override
-	public int calculateDamage() {
-		return 10;
+	public int calculateDamage(int damage) {
+		return damage * (1-armor/100);
 	}
 
 	@Override
 	public void changeHealth(int change) {
-		curHealth -= change;
+		curHealth -= calculateDamage(change);
 		
 	}
 

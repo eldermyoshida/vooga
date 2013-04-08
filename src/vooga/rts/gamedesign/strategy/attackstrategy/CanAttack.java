@@ -50,6 +50,15 @@ public class CanAttack implements AttackStrategy{
 	public void addWeapons(Weapon weapon) {
 		myWeapons.add(weapon);
 	}
+	
+	public void update() {
+		for(int i = 0; i < myWeapons.size(); i++) {
+			Weapon weapon = myWeapons.get(i);
+			if(weapon.getCooldown() > 0) {
+				weapon.decrementCooldown();
+			}
+		}
+	}
 
 	
 	
