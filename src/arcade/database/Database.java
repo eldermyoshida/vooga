@@ -37,9 +37,7 @@ public class Database {
     }
     
     public void userPlaysGameFirst(String user, String gameName, String highscore) {
-        String gameid = retrieveGameId(gameName);
-        String userid = myUserTable.retrieveUserId(user);
-        myUserGameDataTable.createNewUserGameData(gameid, userid, highscore);
+        myUserGameDataTable.createNewUserGameData(retrieveGameId(gameName), retrieveUserId(user), highscore);
     }
     
     public void updateAvatar(String user, String filepath) {
@@ -63,7 +61,7 @@ public class Database {
     }
     
     public void deleteUser(String username) {
-        myUserGameDataTable.deleteUser(myUserTable.retrieveUserId(username));
+        myUserGameDataTable.deleteUser(retrieveUserId(username));
         myUserTable.deleteUser(username);
     }
     
@@ -80,7 +78,7 @@ public class Database {
     }
     
     public void updateUserGameFilePath(String filepath) {
-        
+        //TODO implement method
     }
     
     public void retrieveGameFilePath(String filepath) {
