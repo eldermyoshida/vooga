@@ -28,13 +28,6 @@ public class MapNode {
         return myY;
     }
     
-    public void add (Terrain terrain) {
-        myTerrain.add(terrain);
-        if (terrain.getLevel() > myHeight) {
-            myHeight = terrain.getLevel();
-        }
-    }
-    
     /**
      * Adds terrain to this map node for the purposes of pathing
      * @param terrain
