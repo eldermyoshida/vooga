@@ -18,13 +18,12 @@ import vooga.rts.util.Pixmap;
  */
 public abstract class Terrain extends Sprite {
 
-    // myLevel is how tall each terrain is. 1 = base level, and it increases in 
-    // increments of 1. We can then use the level in the pathfinding algorithm for units that aren't on the ground.
     public int myHeight;
     public int myLevel;
 
     public Terrain(Pixmap image, Location center, Dimension size) {
         super(image, center, size);
+        // TODO Auto-generated constructor stub
     }
 
     public int getLevel () {

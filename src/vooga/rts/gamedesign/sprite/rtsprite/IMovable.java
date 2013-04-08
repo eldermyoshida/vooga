@@ -12,6 +12,9 @@ import vooga.rts.util.Location;
  */
 public interface IMovable {
 
-  public void move(Location loc);
-
+	/**
+	 * Moves the Object to the given location.
+	 * @param loc
+	 */
+	public void move(Location loc);
 }

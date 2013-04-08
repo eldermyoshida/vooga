@@ -237,7 +237,7 @@ public abstract class Sprite implements IGameLoop {
     public void paint (Graphics2D pen)
     {
     	if(!isVisible) return;
-        myView.paint(pen, myCenter, mySize);
+        myView.paint(pen, myCenter, mySize, myVelocity.getDirection());
     }
 
     /**
