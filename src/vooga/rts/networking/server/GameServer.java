@@ -47,6 +47,15 @@ public class GameServer extends Thread implements IMessageServer {
                     ct.sendMessage(message);
                 }
             }
+            // Sleep in order to cut CPU usage and go to another thread
+            // TODO not sure if this is actually a good idea - review
+            try {
+                Thread.sleep(1);
+            }
+            catch (InterruptedException e) {
+                // TODO add logger
+                e.printStackTrace();
+            }
         }
     }
 
