@@ -33,7 +33,7 @@ import vooga.rts.util.Vector;
  */
 public class RTSprite extends Sprite implements IAttackable, RTSpriteVisitor {
 
- 
+
 
     private OccupyStrategy myOccupyStrategy;
     private AttackStrategy myAttackStrategy;
@@ -139,7 +139,7 @@ public class RTSprite extends Sprite implements IAttackable, RTSpriteVisitor {
         myOccupyStrategy = newStrategy;
     }
 
-   
+
     /**
      * Checks to see if an RTSprite is dead.
      * @return true if the RTSprite has been killed and true if the RTSprite 
@@ -164,7 +164,7 @@ public class RTSprite extends Sprite implements IAttackable, RTSpriteVisitor {
 
     @Override
     public int calculateDamage(int damage) {
-        return damage * (1-armor/100);
+        return damage * (1-(armor/100));
     }
 
     @Override
@@ -186,13 +186,12 @@ public class RTSprite extends Sprite implements IAttackable, RTSpriteVisitor {
      * @return the current attack strategy
      */
     public AttackStrategy getAttackStrategy () {
-        // TODO Auto-generated method stub
         return myAttackStrategy;
     }
     public void die(){
         curHealth = 0;
     }
-    
+
     public void paint(Graphics2D pen) {
         if (!isDead()) {
             super.paint(pen);

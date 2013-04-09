@@ -50,6 +50,7 @@ public abstract class Interactive extends RTSprite implements RTSpriteVisitor {
     private SkillStrategy mySkillStrategy;
     private Map<String, Factory> myMakers;
 
+
     private int myVision;
 
     public Interactive (Pixmap image,
@@ -65,7 +66,7 @@ public abstract class Interactive extends RTSprite implements RTSpriteVisitor {
         UpgradeNode armor = new ArmorUpgradeNode("armor1","myHealth",40);
         myUpgradeTree.addUpgrade(armor);
     }
-    
+   
     /**
      * upgrades the interactive based on the selected upgrade
      * 
