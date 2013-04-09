@@ -1,12 +1,12 @@
-package vooga.fighter.objects.interfaces;
+package vooga.fighter.objects.utils;
 
 /**
  * Represents an object that maintains a wieldable item slot
  * and can wield ItemObjects in that slot.
  * 
- * Not currently implemented.
+ * To be added in future updates.
  * 
- * @author james, alan
+ * @author james
  * 
  */
 public interface WeaponSlot {
