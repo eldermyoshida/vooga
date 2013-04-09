@@ -2,10 +2,10 @@ package vooga.towerdefense.gameElements;
 
 import java.awt.Dimension;
 
+import vooga.towerdefense.model.Tile;
 import vooga.towerdefense.util.Location;
 import vooga.towerdefense.util.Pixmap;
 import vooga.towerdefense.util.Sprite;
-import vooga.towerdefense.view.Tile;
 
 
 
