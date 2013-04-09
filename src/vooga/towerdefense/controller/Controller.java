@@ -50,6 +50,11 @@ public class Controller {
         return myGameModel;
     }
     
+    /**
+     * handles a click to the map appropriately depending
+     *          on the mode.
+     * @param p is the location of the click
+     */
     public void handleMapClick(Point p) {
         //TODO: handle a map click
     }
