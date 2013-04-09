@@ -48,16 +48,21 @@ public class LevelEditor extends JPanel //TODO: implements listener
     {
         JFrame left = new JFrame();
         JPanel game = new LevelEditor();
-
+        
+        
         left.getContentPane().setLayout(new GridBagLayout());
         left.getContentPane().add(game);
         left.pack();
 
         left.setResizable(false);
-        left.setTitle("crimson_cubes");
+        left.setTitle("Level Editor");
         left.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        left.setLocationRelativeTo(null);
+   
+      
 
         left.setVisible(true);
+        
 
     }
 }
