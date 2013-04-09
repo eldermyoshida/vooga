@@ -18,28 +18,53 @@ public class Message implements Serializable, Comparable<Message> {
     private int myTimeSent;
     private int myTimeReceivedByServer = DEFAULT_VALUE;
 
+    /**
+     * Default message constructor, sets the time sent by client. Not hardcoded so that games may
+     * use a Timer, System, or other basis for time.
+     * 
+     * @param timeSent time message sent (created) by client.
+     */
     public Message (int timeSent) {
         myTimeSent = timeSent;
     }
 
+    /**
+     * Sets time received by server. Not hardcoded so that games may use a Timer, System, or other
+     * basis for time.
+     * 
+     * @param timeReceived received by server
+     */
     public void setTimeReceived (int timeReceived) {
         myTimeReceivedByServer = timeReceived;
     }
 
+    /**
+     * Gets time sent by client. Not hardcoded so that games may use a Timer, System, or other basis
+     * for time.
+     * 
+     * @return time sent by client
+     */
     public int getTimeSent () {
         return myTimeSent;
     }
 
+    /**
+     * Gets time received by server. Not hardcoded so that games may use a Timer, System, or other
+     * basis for time.
+     * 
+     * @return time received by server
+     */
     public int getTimeReceived () {
         return myTimeReceivedByServer;
     }
 
     @Override
     public boolean equals (Object object) {
-        if (object == null) { return false; }
-        if (!(object instanceof Message)) { return false; }
+        if (object == null || !(object instanceof Message)) { 
+            return false; 
+        }
         Message message = (Message) object;
-        return (getTimeSent() != message.getTimeSent());
+        return getTimeSent() != message.getTimeSent();
     }
 
     @Override
@@ -50,8 +75,9 @@ public class Message implements Serializable, Comparable<Message> {
     @Override
     public int compareTo (Message message) {
         if (message != null && message.getTimeReceived() != DEFAULT_VALUE &&
-            getTimeReceived() != DEFAULT_VALUE) { return message.getTimeReceived() -
-                                                         getTimeReceived(); }
+            getTimeReceived() != DEFAULT_VALUE) { 
+            return message.getTimeReceived() - getTimeReceived(); 
+        }
         return message.getTimeSent() - getTimeSent();
     }
 
