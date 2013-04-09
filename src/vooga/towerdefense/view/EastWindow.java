@@ -31,7 +31,7 @@ public class EastWindow extends JPanel {
         myStatsWindow = new GameStatsScreen(STATS_WINDOW_SIZE);
         myInformationWindow = new InfoScreen("Info", INFO_WINDOW_SIZE);
         //tests info screen
-        myInformationWindow.displayInformation("Stuff about towers\n more stuff about towers");
+        myInformationWindow.displayInformation("Stuff about towers\nMore stuff about towers");
         add(myStatsWindow, BorderLayout.NORTH);
         add(myInformationWindow, BorderLayout.SOUTH);
     }
