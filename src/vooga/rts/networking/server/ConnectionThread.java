@@ -15,10 +15,11 @@ import java.net.Socket;
  */
 public class ConnectionThread extends Thread {
     private Socket mySocket;
-    private ObjectInputStream mySInput;
-    private ObjectOutputStream mySOutput;
+    private ObjectInputStream myInput;
+    private ObjectOutputStream myOutput;
     private int myID;
     private IMessageServer myMessageServer;
+    private boolean myConnectionActive = false;
 
     /**
      * Represents a thread that communicates to a client
@@ -30,8 +31,8 @@ public class ConnectionThread extends Thread {
         myMessageServer = server;
 
         try {
-            mySInput = new ObjectInputStream(mySocket.getInputStream());
-            mySOutput = new ObjectOutputStream(mySocket.getOutputStream());
+            myInput = new ObjectInputStream(mySocket.getInputStream());
+            myOutput = new ObjectOutputStream(mySocket.getOutputStream());
         }
         catch (IOException e) {
             // TODO add logger
@@ -49,10 +50,11 @@ public class ConnectionThread extends Thread {
      */
     @Override
     public void run () {
-        while (true) {
+        myConnectionActive = true;
+        while (myConnectionActive) {
             try {
                 Object obj;
-                if ((obj = mySInput.readObject()) != null && obj instanceof Message) {
+                if ((obj = myInput.readObject()) != null && obj instanceof Message) {
                     Message message = (Message) obj;
                     myMessageServer.sendMessage(message);
                 }
@@ -60,12 +62,12 @@ public class ConnectionThread extends Thread {
             catch (IOException e) {
                 // TODO add logger
                 e.printStackTrace();
-
+                close();
             }
             catch (ClassNotFoundException e) {
                 // TODO add logger
                 e.printStackTrace();
-
+                close();
             }
         }
     }
@@ -75,16 +77,17 @@ public class ConnectionThread extends Thread {
      * TODO catch exceptions
      */
     public void close () {
+        myConnectionActive = false;
         try {
-            if (mySOutput != null) {
-                mySOutput.close();
+            if (myOutput != null) {
+                myOutput.close();
             }
         }
         catch (Exception e) {
         }
         try {
-            if (mySInput != null) {
-                mySInput.close();
+            if (myInput != null) {
+                myInput.close();
             }
         }
         catch (Exception e) {
@@ -109,7 +112,7 @@ public class ConnectionThread extends Thread {
             close();
         }
         try {
-            mySOutput.writeObject(m);
+            myOutput.writeObject(m);
         }
         catch (IOException e) {
             // TODO add logger

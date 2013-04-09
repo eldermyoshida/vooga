@@ -6,7 +6,7 @@ import java.net.Socket;
 
 
 /**
- * Unused at this point, but can be added as a pure connection server
+ * A pure connection server that listens to connections, creates them, and sends them to the MatchmakerServer.
  * 
  * @author David Winegar
  * 
@@ -25,19 +25,21 @@ public class ConnectionServer extends Thread {
     @Override
     public void run () {
         myServerAcceptingConnections = true;
-        ServerSocket serverSocket;
-        try {
+        ServerSocket serverSocket = null;
+        // TODO remove comment marks after example
+        /**try {
             serverSocket = new ServerSocket(PORT);
         }
         catch (IOException e1) {
             // TODO log file
             e1.printStackTrace();
-        }
+        }**/
 
         while (myServerAcceptingConnections) {
             try {
                 // DEBUGGING - can only use ports once on localhost, so use this to test multiple
                 // connections
+                // TODO remove after example
                 serverSocket = new ServerSocket(PORT + myConnectionID);
                 Socket socket = serverSocket.accept();
                 ConnectionThread thread =
@@ -45,6 +47,17 @@ public class ConnectionServer extends Thread {
                 myConnectionID++;
                 thread.start();
                 myMatchServer.addConnection(thread);
+                // TODO remove after example
+                serverSocket.close();
+            }
+            catch (IOException e) {
+                // TODO log file
+                e.printStackTrace();
+            }
+        }
+        
+        if(serverSocket != null) {
+            try {
                 serverSocket.close();
             }
             catch (IOException e) {

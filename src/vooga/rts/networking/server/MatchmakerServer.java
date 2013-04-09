@@ -20,41 +20,18 @@ public class MatchmakerServer extends Thread implements IMessageServer {
     private List<ConnectionThread> myPotentialConnections;
     private List<GameServer> myGameServers;
     private int myGameServerID = 0;
-    private int myConnectionID = 0;
-    private boolean myServerRunning = false;
-    private static final int PORT = 2233;
+    private ConnectionServer myConnectionServer;
 
     public MatchmakerServer () {
         myConnectionThreads = new ArrayList<ConnectionThread>();
         myGameServers = new ArrayList<GameServer>();
         myPotentialConnections = new ArrayList<ConnectionThread>();
+        myConnectionServer = new ConnectionServer(this);
     }
 
     @Override
     public void run () {
-        myServerRunning = true;
-
-        while (myServerRunning) {
-            try {
-                // ServerSocket serverSocket = new ServerSocket(PORT);
-                // DEBUGGING - can only use ports once on localhost, so use this to test multiple
-                // connections
-                ServerSocket serverSocket = new ServerSocket(PORT + myConnectionID);
-                Socket socket = serverSocket.accept();
-                ConnectionThread thread = new ConnectionThread(socket, this, myConnectionID);
-                myConnectionThreads.add(thread);
-                myPotentialConnections.add(thread);
-                myConnectionID++;
-                thread.start();
-                if (myPotentialConnections.size() > 1) {
-                    initializeGame();
-                }
-            }
-            catch (IOException e) {
-                // TODO log file
-                e.printStackTrace();
-            }
-        }
+        myConnectionServer.start();
     }
 
     protected void addConnection (ConnectionThread thread) {
