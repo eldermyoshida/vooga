@@ -6,12 +6,14 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.util.Observable;
+import java.util.Observer;
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import vooga.rts.leveleditor.components.EditableMap;
 
-public class MapPanel extends JComponent {
+public class MapPanel extends JComponent implements Observer {
     
     public static final Dimension DEFAULT_MAP_SIZE  = new Dimension (600,600);
     
@@ -22,16 +24,20 @@ public class MapPanel extends JComponent {
     private int myTileHeight;
     
     
-    public MapPanel(EditableMap m) {
-        myMap = m;
-        myWidth = 16;
-        myHeight = 16;
+    public MapPanel() {
+        myMap = new EditableMap();
+        myWidth = 0;
+        myHeight = 0;
         myTileWidth = 32;
         myTileHeight = 32;
-        setPreferredSize(DEFAULT_MAP_SIZE);
+        setPanelSize();
         
     }
     
+    private void setPanelSize() {
+        setPreferredSize(new Dimension(myTileWidth*myWidth, myTileHeight*myHeight));       
+    }
+
     @Override
     public void paintComponent (Graphics g) {
         g.setColor(Color.white);
@@ -53,6 +59,24 @@ public class MapPanel extends JComponent {
         g.drawLine(myWidth * myTileWidth, 0, myWidth * myTileWidth, myHeight * myTileHeight);
         g.drawLine(0, myHeight * myTileHeight, myWidth * myTileWidth, myHeight * myTileHeight);
 
+        
+    }
+    
+    public void setWidth(int w) {
+        myWidth = w;
+        setPanelSize();
+        repaint();
+    }
+    
+    public void setHeight(int h) {
+        myHeight = h;
+        setPanelSize();
+        repaint();
+    }
+
+    @Override
+    public void update(Observable arg0, Object arg1) {
+        repaint();
         
     }
     

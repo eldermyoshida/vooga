@@ -67,6 +67,24 @@ public class EditableMap {
     public void removeFeatures(int x ,int y) {
         myIndexMatrix[x][y].clearAllFeatures();
     }
+    
+    public int getWidth() {
+        return myXSize;
+    }
+    
+    public int getHeight() {
+        return myYSize;
+    }
+    
+    public void setWidth(int w) {
+        myXSize = w;
+        
+    }
+    
+    public void setHeight(int h) {
+        myXSize = h;
+        
+    }
    
     
     
@@ -215,5 +233,6 @@ public class EditableMap {
         }
         
     }
+
     
 }

@@ -1,6 +1,7 @@
 package vooga.rts.leveleditor.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,8 +11,10 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import vooga.rts.leveleditor.components.EditableMap;
 
 public class Canvas extends JFrame {
@@ -25,15 +28,12 @@ public class Canvas extends JFrame {
     private JScrollPane myMapPane;
     private JFileChooser myChooser;
     private ResourceOutliner myResourceOutliner;
-    private EditableMap myMap;
     
     public Canvas() {
         setTitle("Level Editor");
-        myMap = new EditableMap();
-        myMapPanel = new MapPanel(myMap);
+        myMapPanel = new MapPanel();
         myResourcePanel = new JPanel(new BorderLayout());
         myResourcePanel.setSize(DEFAULT_RESOURCE_SIZE);
-        //myResourcePanel.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
         JPanel ButtonPanel = createButtonPanel();
         
         ResourceContainer[] top = new ResourceContainer[5];
@@ -47,8 +47,6 @@ public class Canvas extends JFrame {
         myResourcePanel.add(myResourceOutliner, BorderLayout.NORTH);
         myResourcePanel.add(ButtonPanel, BorderLayout.SOUTH);
         myMapPane = new JScrollPane(myMapPanel);
-        myMapPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        myMapPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         myChooser = new JFileChooser(System.getProperties().getProperty(USER_DIR));
         getContentPane().add(myMapPane, BorderLayout.CENTER);
         getContentPane().add(myResourcePanel, BorderLayout.EAST);
@@ -103,12 +101,15 @@ public class Canvas extends JFrame {
     }
 
     private void createFileMenu(JMenu menu) {
+        
+        menu.add(new AbstractAction("New") {
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                showCustomizeMapDialog();
+            }
+        });
+        
         menu.add(new AbstractAction("Save") {
-            /**
-             * 
-             */
-            private static final long serialVersionUID = 1L;
-
             @Override
             public void actionPerformed (ActionEvent e) {
                 try {
@@ -124,10 +125,6 @@ public class Canvas extends JFrame {
         });
         
         menu.add(new AbstractAction("Load") {
-            /**
-             * 
-             */
-            private static final long serialVersionUID = 1L;
 
             @Override
             public void actionPerformed (ActionEvent e) {
@@ -146,6 +143,27 @@ public class Canvas extends JFrame {
     }
 
     
+    protected void showCustomizeMapDialog() {
+        JTextField MapWidth = new JTextField();
+        JTextField MapHeight = new JTextField();
+        
+        Object[] message = {"MapWidth", MapWidth, "MapHeight", MapHeight};
+        
+        int option = JOptionPane.showConfirmDialog(null, message,"Set Map Size",JOptionPane.OK_CANCEL_OPTION);
+        
+        if (option == JOptionPane.OK_OPTION) {
+            try {
+                int w = Integer.parseInt(MapWidth.getText());
+                int h = Integer.parseInt(MapHeight.getText());
+                myMapPanel.setWidth(w);
+                myMapPanel.setHeight(h);
+            }
+            catch (Exception e1) {
+                //TODO
+            }
+        }
+    }
+
     public static void main(String[] argv) {
         new Canvas();
     }
