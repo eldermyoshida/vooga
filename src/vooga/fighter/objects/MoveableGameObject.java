@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+import vooga.fighter.objects.utils.Health;
 import vooga.fighter.util.Location;
 import vooga.fighter.util.Pixmap;
 import vooga.fighter.util.Vector;
@@ -12,19 +13,19 @@ import vooga.fighter.util.Vector;
 
 /**
  * Represents a game object that is moveable.
- * 
  * @author alanni, james
- * 
  */
 public class MoveableGameObject extends GameObject {
 
     private Vector myVelocity;
     private List<Vector> myAccelerations;
+    private Health myHealth; 
 
-    public MoveableGameObject(Pixmap image, Location center, Dimension size) {
+    public MoveableGameObject(Pixmap image, Location center, Dimension size, Health health) {
         super(image, center, size);
         myVelocity = new Vector();
         myAccelerations = new ArrayList<Vector>();
+        myHealth= health; 
     }
 
     public void update(double elapsedTime, Dimension bounds) {
@@ -70,5 +71,27 @@ public class MoveableGameObject extends GameObject {
     public Vector getVelocity() {
         return myVelocity;
     }
+    /**
+     * Returns the health of the object
+     */
+    public Health getHealth(){
+    	return myHealth;
+    }
+    
+    /**
+     * reduces the health by an amount
+     */
+    public int reduceHealth(int amount){
+    	myHealth.reduceHealth(amount);
+    	return myHealth.getHealth(); 
+    }
 
+    /**
+     *adds to the health by an amount 
+     */
+    public int addHealth(int amount){
+    	myHealth.addHealth(amount);
+    	return myHealth.getHealth(); 
+    }
+    
 }

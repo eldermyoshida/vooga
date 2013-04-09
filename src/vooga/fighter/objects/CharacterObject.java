@@ -14,7 +14,7 @@ import vooga.fighter.util.Vector;
 /**
  * Represents a character in the game.
  * 
- * @author james
+ * @author alanni, james
  *
  */
 @InputClassTarget
@@ -29,8 +29,8 @@ public class CharacterObject extends MoveableGameObject {
      * Note: Dayvid once the object loader is functional we will replace this
      * constructor to take in just an ID, then we will load parameters from XML.
      */
-    public CharacterObject(Pixmap image, Location center, Dimension size, int defaultSpeed, Input input) {
-        super(image, center, size);
+    public CharacterObject(Pixmap image, Location center, Dimension size, int defaultSpeed, Input input, Health health) {
+        super(image, center, size, health);
         myDefaultSpeed = defaultSpeed;
         myInput = input;
         myInput.addListenerTo(this);

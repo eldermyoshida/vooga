@@ -3,7 +3,7 @@ package vooga.fighter.objects.utils;
 /**
  * Represents a health value for an object.
  * 
- * @author james
+ * @author james, Alan
  * 
  */
 public class Health {
@@ -30,20 +30,36 @@ public class Health {
         myHealth = amount;
     }
 
+//    /**
+//     * Modifies the object's health by a certain amount. Positive values
+//     * increase health, and negative values decrease health. Will not modify
+//     * health to be a negative value; instead health will decrease to zero
+//     * and remain at zero. Returns the amount of health remaining after the change.
+//     */
+//    public int changeHealth(int amount) {
+//        myHealth += amount;
+//        if (myHealth < 0) {
+//            myHealth = 0;
+//        }
+//        return myHealth;
+//    }
+//    
+    
     /**
-     * Modifies the object's health by a certain amount. Positive values
-     * increase health, and negative values decrease health. Will not modify
-     * health to be a negative value; instead health will decrease to zero
-     * and remain at zero. Returns the amount of health remaining after the change.
+     * reduces health by amount and returns current health
      */
-    public int changeHealth(int amount) {
-        myHealth += amount;
-        if (myHealth < 0) {
-            myHealth = 0;
-        }
-        return myHealth;
+    public int reduceHealth(int amount){
+    	myHealth-=amount; 
+    	return myHealth; 
     }
     
+    /**
+     * add health by amount and returns current health
+     */
+    public int addHealth(int amount){
+    	myHealth+=amount;
+    	return myHealth;
+    }
 
     /**
      * Returns true if the object has any remaining health.
@@ -51,5 +67,8 @@ public class Health {
     public boolean hasHealthRemaining() {
         return (myHealth > 0);
     }
+
+
+    
     
 }
