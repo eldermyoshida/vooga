@@ -27,8 +27,7 @@ public class AstarFinder extends Pathfinder {
         fScore.put(start, calculateHeuristic(start, destination));
         double fMax;
         double gMax;
-        while (open.size() > 0) {
-            System.out.println(open.size());
+        while (open.size() > 0) {            
             MapNode current = getLowest(fScore, open);
             if (current.equals(destination)) {
                 fMax = getMin(fScore);

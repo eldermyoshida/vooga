@@ -1,10 +1,12 @@
-package gameElements;
+package vooga.towerdefense.gameElements;
 
 import java.awt.Dimension;
-import util.Location;
-import util.Pixmap;
-import util.Sprite;
-import view.Tile;
+
+import vooga.towerdefense.util.Location;
+import vooga.towerdefense.util.Pixmap;
+import vooga.towerdefense.util.Sprite;
+import vooga.towerdefense.view.Tile;
+
 
 
 public abstract class Tower extends Sprite {

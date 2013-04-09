@@ -38,6 +38,7 @@ public class PathingHelper {
         }
         return myNext.getLocation();
     }
+
     public int size () {
         return myPath.size();
     }

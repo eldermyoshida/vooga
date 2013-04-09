@@ -1,11 +1,10 @@
 package vooga.rts.map;
 
-import vooga.rts.map.MapNode;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
-import vooga.rts.util.Location;
 import vooga.rts.gamedesign.sprite.map.Tile;
+import vooga.rts.util.Location;
 
 public class GameMap {
     
@@ -85,7 +84,7 @@ public class GameMap {
          }
          return neighbors;
      }
-     
+    
      public String toString() {
          String str = "";
          for (int j = 0; j < mapGrid.length; j++) {
