@@ -14,6 +14,8 @@ public class Model {
     private ResourceBundle myResources;
     private LoginView myLoginView;
     
+    private List<GameInfo> mySnapshots;
+    
     
     public Model(ResourceBundle rb) {
         myResources = rb;
@@ -28,6 +30,7 @@ public class Model {
         if (username.equals("ellango") && password.equals("password")) {
             myLoginView.destroy();
             getGameList();
+            organizeSnapshots();
             new MainView(this, myResources);
         }
         else {
@@ -54,23 +57,32 @@ public class Model {
      * @return
      */
     public List<GameInfo> getGameList(){
-        List<GameInfo> result = new ArrayList<GameInfo>();
-    	GameInfo myGameInfo = new GameInfo("example");
-    	result.add(myGameInfo);
-        return result;
+        return mySnapshots;
     }
+    
+    private void organizeSnapshots() {
+    	mySnapshots = new ArrayList<GameInfo>();
+    	GameInfo myGameInfo = new GameInfo("example");
+    	mySnapshots.add(myGameInfo);
+    }
+    
+    
     
 
     /**
-     * TODO: GameDetailPanel must call this method to get game-specific info.
+     * GameDetailPanel must call this method to get game-specific info.
      * @param gameName: name of the chosen game (String)
      * @return
      */
     public GameInfo getGameDetail(String gameName) {
-    	// 1. Get Game info for a specific game
-    	// 2. Query database to get info specific to the user and the game (e.g. scores)
+    	for (GameInfo g : mySnapshots) {
+    		if (g.getName().equals(gameName)) {
+    			return g;
+    		}
+    	}
     	return null;
     }
+    
     
     /**
      * TODO: GameDetail
@@ -78,7 +90,7 @@ public class Model {
      * @return
      */
     public UserGameData getUserGameData(String user, String game) {
-    	// Query the database to get specific User-Game datait 
+    	// Query database to get info specific to the user and the game (e.g. scores)
     	return null;
     }
     
