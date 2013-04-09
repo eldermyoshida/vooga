@@ -85,7 +85,7 @@ public class Model {
     
     
     /**
-     * TODO: GameDetail
+     * TODO: Must add user-game specific detail
      * @param user ,game (whatever that identifies the user and the game)
      * @return
      */
