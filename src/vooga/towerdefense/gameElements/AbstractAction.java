@@ -22,6 +22,8 @@ public abstract class AbstractAction {
 	
 	public abstract void execute();
 	
+	public abstract void execute(double elapsedTime);
+	
 	/**
 	 * Act on target units
 	 */
@@ -38,6 +40,4 @@ public abstract class AbstractAction {
 	public void useAsset(Asset asset){
 		asset.use();
 	}
-
-
 }
