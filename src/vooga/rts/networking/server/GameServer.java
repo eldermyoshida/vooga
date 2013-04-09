@@ -1,4 +1,4 @@
-package vooga.rts.networking;
+package vooga.rts.networking.server;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;

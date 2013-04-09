@@ -1,4 +1,4 @@
-package vooga.rts.networking;
+package vooga.rts.networking.server;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -42,7 +42,8 @@ public class MatchmakerServer extends Thread implements IMessageServer {
         }*/
         while(myServerRunning) {
             try {
-                System.out.println(myConnectionID);
+                //serverSocket = new ServerSocket(PORT);
+                // DEBUGGING - can only use ports once on localhost, so use this to test multiple connections
                 serverSocket = new ServerSocket(PORT + myConnectionID);
                 Socket socket = serverSocket.accept();
                 ConnectionThread thread = new ConnectionThread(socket, this, myConnectionID);
@@ -62,7 +63,6 @@ public class MatchmakerServer extends Thread implements IMessageServer {
     }
     
     private void initializeGame() {
-        System.out.println("Switch");
         GameServer gameServer = new GameServer(myGameServerID++);
         myGameServers.add(gameServer);
         for(ConnectionThread ct : myPotentialConnections) {

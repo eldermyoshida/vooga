@@ -1,4 +1,4 @@
-package vooga.rts.networking;
+package vooga.rts.networking.server;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -6,7 +6,7 @@ import java.net.Socket;
 
 /**
  * Unused at this point, but can be added as a pure connection server
- * @author David
+ * @author David Winegar
  *
  */
 public class ConnectionServer extends Thread {
