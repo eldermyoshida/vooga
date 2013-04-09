@@ -1,5 +1,6 @@
 package vooga.rts.leveleditor.gui;
 
+import vooga.rts.leveleditor.components.EditableMap;
 import vooga.rts.util.Location;
 
 
@@ -37,7 +38,7 @@ public class Cursor {
     public void setTileValue(int index) {
         int x = (int) myCurrentLocation.getX();
         int y = (int) myCurrentLocation.getY();
-        myMap.myIndexMatrix[x][y] = index;
+        
         
     }
     

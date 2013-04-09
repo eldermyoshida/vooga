@@ -2,19 +2,15 @@ package vooga.rts.leveleditor.gui;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ResourceBundle;
 import javax.imageio.ImageIO;
-import javax.swing.JButton;
+import javax.swing.JComponent;
 
 
-public class ResourceButton extends JButton {
+public class ResourceButton extends JComponent {
 
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
     
