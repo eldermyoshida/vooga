@@ -15,7 +15,6 @@ public class GameServer extends Thread implements IMessageServer {
     private List<ConnectionThread> myClients;
     private int myID;
     private boolean gameRunning = false;
-    private JTextArea dummyText;
     private Queue<Message> myMessageQueue;
        
     public GameServer(int ID){
