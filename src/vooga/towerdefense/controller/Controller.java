@@ -1,5 +1,6 @@
 package vooga.towerdefense.controller;
 
+import java.awt.Point;
 import vooga.towerdefense.model.GameModel;
 import vooga.towerdefense.view.TDView;
 
@@ -47,5 +48,9 @@ public class Controller {
      */
     private GameModel getModel () {
         return myGameModel;
+    }
+    
+    public void handleMapClick(Point p) {
+        //TODO: handle a map click
     }
 }
