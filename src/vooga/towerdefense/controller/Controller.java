@@ -33,7 +33,7 @@ public class Controller {
      */
     public Controller () {
         //myGameModel = new GameModel(); //constructor parameters need to be added
-        myView = new TDView();
+        myView = new TDView(this);
     }
     
     /**
