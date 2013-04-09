@@ -12,6 +12,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import vooga.rts.leveleditor.components.EditableMap;
 
 public class Canvas extends JFrame {
     
@@ -24,10 +25,12 @@ public class Canvas extends JFrame {
     private JScrollPane myMapPane;
     private JFileChooser myChooser;
     private ResourceOutliner myResourceOutliner;
+    private EditableMap myMap;
     
     public Canvas() {
         setTitle("Level Editor");
-        myMapPanel = new MapPanel();
+        myMap = new EditableMap();
+        myMapPanel = new MapPanel(myMap);
         myResourcePanel = new JPanel(new BorderLayout());
         myResourcePanel.setSize(DEFAULT_RESOURCE_SIZE);
         //myResourcePanel.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
