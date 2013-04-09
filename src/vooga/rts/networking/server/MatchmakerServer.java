@@ -31,20 +31,12 @@ public class MatchmakerServer extends Thread implements IMessageServer {
     @Override
     public void run () {
         myServerRunning = true;
-        ServerSocket serverSocket = null;
-       /* try {
-            
-        }
-        catch (IOException e) {
-            // TODO log file
-            e.printStackTrace();
-            System.exit(0);
-        }*/
+        
         while(myServerRunning) {
             try {
-                //serverSocket = new ServerSocket(PORT);
+                //ServerSocket serverSocket = new ServerSocket(PORT);
                 // DEBUGGING - can only use ports once on localhost, so use this to test multiple connections
-                serverSocket = new ServerSocket(PORT + myConnectionID);
+                ServerSocket serverSocket = new ServerSocket(PORT + myConnectionID);
                 Socket socket = serverSocket.accept();
                 ConnectionThread thread = new ConnectionThread(socket, this, myConnectionID);
                 myConnectionThreads.add(thread);
