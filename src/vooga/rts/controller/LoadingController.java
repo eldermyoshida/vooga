@@ -4,19 +4,31 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import vooga.rts.resourcemanager.ResourceManager;
 
 public class LoadingController extends AbstractController {
 
     public LoadingController() {
         
     }
-
+    
+    double elap = 0;
     @Override
     public void update (double elapsedTime) {
-        // TODO Auto-generated method stub
+        /*
+        elap += elapsedTime;        
+        if (elap > 1000) {
+            elap = 0;
+            setChanged();
+            notifyObservers(MainState.Menu);
+        }*/
         
+        if (!ResourceManager.instance().isLoading()) {
+            setChanged();
+            notifyObservers(MainState.Menu);
+        }
     }
-
+    
     @Override
     public void paint (Graphics2D pen) {
         Rectangle screen = pen.getDeviceConfiguration().getBounds();
@@ -27,9 +39,7 @@ public class LoadingController extends AbstractController {
     }
 
     @Override
-    public void receiveUserInput () {
-        // TODO Auto-generated method stub
-        
+    public void activate (MainState gameState) {
+        ResourceManager.instance().load();        
     }
-
 }

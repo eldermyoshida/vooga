@@ -49,7 +49,7 @@ public abstract class Sprite implements IGameLoop {
      * Create a shape at the given position, with the given size.
      */
     public Sprite (Pixmap image, Location center, Dimension size) {
-        this(image, center, size, new Vector());
+        this(image, center, size, new Vector(0, 0));
     }
 
     /**
@@ -60,7 +60,7 @@ public abstract class Sprite implements IGameLoop {
         myOriginalCenter = new Location(center);
         myOriginalSize = new Dimension(size);
         myOriginalVelocity = new Vector(velocity);
-        myOriginalView = new Pixmap(image);
+        myOriginalView = image; //new Pixmap(image);
         isVisible = true;
         reset();
         resetBounds();
@@ -226,7 +226,7 @@ public abstract class Sprite implements IGameLoop {
      * Display this shape on the screen.
      */
     public void paint (Graphics2D pen)
-    {
+    {   
     	if(!isVisible) return;
         myView.paint(pen, myCenter, mySize);
     }

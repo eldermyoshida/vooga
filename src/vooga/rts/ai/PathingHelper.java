@@ -1,6 +1,5 @@
 package vooga.rts.ai;
 
-import java.util.List;
 import java.util.Queue;
 import vooga.rts.map.*;
 import vooga.rts.util.Location;
@@ -10,18 +9,37 @@ public class PathingHelper {
     private Pathfinder myFinder;
     private GameMap myMap;
     private Queue<MapNode> myPath;
+    private MapNode myNext;
     
-    public PathingHelper () {
+    public PathingHelper (GameMap map) {
         myFinder = new AstarFinder();
+        myMap = map;
     }
     
-    public void constructPath (Location current, Location desired) {
-        MapNode currentNode = myMap.getNode(current);
+    public void constructPath (Location start, Location desired) {
+        MapNode startNode = myMap.getNode(start);
         MapNode desiredNode = myMap.getNode(desired);
-        myPath = myFinder.findPath(currentNode, desiredNode);
+        constructPath(startNode, desiredNode);
     }
     
-    public MapNode getNext (Location current) {
-        return null;
+    public void constructPath (MapNode startNode, MapNode endNode) {
+        myPath = myFinder.findPath(startNode, endNode, myMap);
+        myNext = myPath.poll();
+    }
+    
+    public Location getNext(Location current) {
+        MapNode currentNode = myMap.getNode(current);
+        return getNext(currentNode);
+    }
+    
+    public Location getNext(MapNode currentNode) {
+        if (!currentNode.equals(myNext)) {
+            myNext = myPath.poll();
+        }
+        return myNext.getLocation();
+    }
+
+    public int size () {
+        return myPath.size();
     }
 }

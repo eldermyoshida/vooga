@@ -18,14 +18,13 @@ public class ExampleViewConnector extends Thread {
     private ObjectOutputStream out = null;
     private ObjectInputStream in = null;
     
-    public ExampleViewConnector (JTextArea output, JTextField input) {
+    public ExampleViewConnector (JTextArea output, JTextField input, int portDiff) {
         outputArea = output;
         inputArea = input;
         try {
-            Socket sock = new Socket("localhost", PORT);
+            Socket sock = new Socket("localhost", PORT + portDiff);
             out = new ObjectOutputStream(sock.getOutputStream());
             in = new ObjectInputStream(sock.getInputStream());
-            System.out.println("opened");
         }
         catch (UnknownHostException e) {
             e.printStackTrace();

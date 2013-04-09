@@ -20,7 +20,7 @@ public class ResourceOutliner extends JPanel
         for(int i = 0; i < resourceContainer.length; i++)
         {
             resourceContainer[i] = new ResourceContainer(i, this);
-            resourceContainer[i].val = -1;
+            resourceContainer[i].setMyValue(-1) ;
 
 
             add(resourceContainer[i]);
@@ -53,8 +53,8 @@ public class ResourceOutliner extends JPanel
                 resourceContainer[i].getY() - offset,
                 resourceContainer[i].getWidth() + (offset * 2),
                 resourceContainer[i].getHeight() + (offset * 2),
-                resourceContainer[i].arc.width,
-                resourceContainer[i].arc.height
+                resourceContainer[i].getArc().width,
+                resourceContainer[i].getArc().height
             );
         }
 
@@ -64,9 +64,9 @@ public class ResourceOutliner extends JPanel
     {
         for(int i = 0; i < resourceContainer.length; i++)
         {
-            if(resourceContainer[i].val == -1)
+            if(resourceContainer[i].getMyValue() == -1)
             {
-                resourceContainer[i].val = 0;
+                resourceContainer[i].setMyValue(0);
                 return;
             }
         }

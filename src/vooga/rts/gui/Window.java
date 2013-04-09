@@ -1,5 +1,6 @@
 package vooga.rts.gui;
 
+import java.awt.Dimension;
 import java.awt.DisplayMode;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
@@ -17,6 +18,8 @@ public class Window {
     
     private Canvas myCanvas;
     private JFrame myFrame;
+    
+    public static Dimension SCREEN_SIZE;
     
     private boolean myFullscreen = false;
     
@@ -51,6 +54,7 @@ public class Window {
         }   
         myCanvas = new Canvas(myFrame.getBufferStrategy());
         myFrame.add(myCanvas);
+        setFullscreen(true);
     }
     
     public void setFullscreen(boolean fullscreen) {        
@@ -102,10 +106,15 @@ public class Window {
                 myFrame.setVisible(true);
             }
         }
+        SCREEN_SIZE = new Dimension(myGraphics.getDisplayMode().getWidth(), myGraphics.getDisplayMode().getHeight());
         myFrame.repaint();
     }
     
     public Canvas getCanvas() {
         return myCanvas;
+    }
+    
+    public JFrame getJFrame() {
+    	return myFrame;
     }
 }

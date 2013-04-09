@@ -1,6 +1,7 @@
 package vooga.rts.gamedesign.sprite.rtsprite;
 
 import java.awt.Dimension;
+import java.awt.Graphics2D;
 import vooga.rts.gamedesign.sprite.Sprite;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.IOccupiable;
 import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
@@ -13,6 +14,7 @@ import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
+import vooga.rts.util.Vector;
 
 /**
  * This class represents a sprite that can be attacked and that can visit
@@ -61,8 +63,14 @@ public class RTSprite extends Sprite implements IAttackable, RTSpriteVisitor {
      *  RTSpriteVisitor.visit(this). "this" being the subclass of RTSprite. 
      * @throws CloneNotSupportedException 
      */
-    public void accept(RTSpriteVisitor visitor) throws CloneNotSupportedException {
-        visitor.visit(this);
+    public void accept(RTSpriteVisitor visitor) {
+        try {
+            visitor.visit(this);
+        }
+        catch (CloneNotSupportedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
     public void setHealth(int health){
         curHealth = health;
@@ -130,14 +138,8 @@ public class RTSprite extends Sprite implements IAttackable, RTSpriteVisitor {
     public void setOccupyStrategy(OccupyStrategy newStrategy){
         myOccupyStrategy = newStrategy;
     }
-    /**
-     * Returns the current attack strategy of the interactive
-     * 
-     * @return the current attack strategy
-     */
-    public AttackStrategy getAttackstrategy () {
-        return myAttackStrategy;
-    }
+
+   
     /**
      * Checks to see if an RTSprite is dead.
      * @return true if the RTSprite has been killed and true if the RTSprite 
@@ -172,17 +174,29 @@ public class RTSprite extends Sprite implements IAttackable, RTSpriteVisitor {
     }
 
     @Override
-    public void update(double elapsedTime) {
-        getVelocity().scale(elapsedTime);
-        getCenter().translate(getVelocity());
+    public void update(double elapsedTime) {                
+        Vector scale = new Vector(getVelocity());
+        scale.scale(1/elapsedTime);
+        getCenter().translate(scale);
+        resetBounds();
     }
-
+    /**
+     * Returns the current attack strategy of the interactive
+     * 
+     * @return the current attack strategy
+     */
     public AttackStrategy getAttackStrategy () {
         // TODO Auto-generated method stub
         return myAttackStrategy;
     }
-
-
-
+    public void die(){
+        curHealth = 0;
+    }
+    
+    public void paint(Graphics2D pen) {
+        if (!isDead()) {
+            super.paint(pen);
+        }
+    }
 
 }

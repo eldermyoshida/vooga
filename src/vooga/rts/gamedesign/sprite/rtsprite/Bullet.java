@@ -14,6 +14,7 @@ public class Bullet extends Projectile{
 			int damage, int health) {
 		super(pixmap, loc, size, sound, damage, health);
 		setAttackStrategy(new InstantDamage());
+		
 		//where was this supposed to go? :( 
 		((InstantDamage)getAttackStrategy()).setDamage(damage);
 	}

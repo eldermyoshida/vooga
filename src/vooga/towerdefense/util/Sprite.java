@@ -1,4 +1,4 @@
-package util;
+package vooga.towerdefense.util;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
@@ -245,5 +245,13 @@ public abstract class Sprite {
         }
         return 0;
         //return Double.NaN;
+    }
+    
+    public void turnTo (Location loc) {
+    	
+    }
+    
+    public Location getCenter () {
+    	return myCenter;
     }
 }
