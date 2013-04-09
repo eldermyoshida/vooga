@@ -1,10 +1,11 @@
-package vooga.fighter.objects.interfaces;
+package vooga.fighter.objects.utils;
 
 /**
  * Represents an object that can be wielded. Wielded objects modify the
  * attack behavior of the appropriate CanWield object.
  * 
- * Not currently implemented.
+ * To be added in future updates.
+ * 
  * @author james
  *
  */

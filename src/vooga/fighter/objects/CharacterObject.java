@@ -5,29 +5,43 @@ import vooga.fighter.input.AlertObject;
 import vooga.fighter.input.Input;
 import vooga.fighter.input.InputClassTarget;
 import vooga.fighter.input.InputMethodTarget;
+import vooga.fighter.objects.utils.Health;
 import vooga.fighter.util.Location;
 import vooga.fighter.util.Pixmap;
 import vooga.fighter.util.Vector; 
 
+
+/**
+ * Represents a character in the game.
+ * 
+ * @author james
+ *
+ */
 @InputClassTarget
 public class CharacterObject extends MoveableGameObject {    
-    
+        
     private int myDefaultSpeed;
     private Input myInput;
     
+    /**
+     * Constructs a new CharacterObject.
+     * 
+     * Note: Dayvid once the object loader is functional we will replace this
+     * constructor to take in just an ID, then we will load parameters from XML.
+     */
     public CharacterObject(Pixmap image, Location center, Dimension size, int defaultSpeed, Input input) {
         super(image, center, size);
         myDefaultSpeed = defaultSpeed;
         myInput = input;
         myInput.addListenerTo(this);
-    }
+    }        
     
     /**
      * Returns the default speed of this character.
      */
     public int getDefaultSpeed() {
         return myDefaultSpeed;
-    }   
+    }    
     
     /**
      * Moves the character left.

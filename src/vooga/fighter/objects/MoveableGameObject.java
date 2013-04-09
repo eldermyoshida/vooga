@@ -33,6 +33,7 @@ public class MoveableGameObject extends GameObject {
         }
         Vector v = new Vector(myVelocity);
         translate(v);
+        clearAccelerations();
     }      
     
     /**
