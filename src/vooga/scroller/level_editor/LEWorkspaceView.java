@@ -44,14 +44,15 @@ public class LEWorkspaceView extends WorkspaceView {
     @Override
     protected void initializeVariables () {
         // TODO Auto-generated method stub
-        myLevelView = new LEGridView(this);
-        myEditorView = new LEToolsView(this);
+        myLevelView = new LEGridView(this, .8, 1.0);
+        myEditorView = new LEToolsView(this, .2, 1.0);
     }
 
     @Override
     protected void addComponents () {
         // TODO Add other comp.
-        EasyGridFactory.layoutVertical(this, myLevelView);
+//        EasyGridFactory.layoutHorizontal(this, myLevelView, myEditorView);
+        EasyGridFactory.layout(this, myLevelView, myEditorView);
     }
 
     @Override

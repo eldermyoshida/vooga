@@ -18,17 +18,17 @@ public class LEGridView extends WindowComponent{
     private Dimension mySize;
     private Renderable myLevel;
 
-    public LEGridView (IView parent) {
-        super(parent);
+    public LEGridView (IView parent, double d, double e) {
         // TODO Auto-generated constructor stub
+        super(parent, d, e);
     }
 
     @Override
     protected void initializeVariables () {
         // TODO Auto-generated method stub
-        mySize = ViewConstants.DEFAULT_ROOM_SIZE;
-        this.setPreferredSize(mySize);
-        this.setMinimumSize(mySize);
+//        mySize = ViewConstants.DEFAULT_ROOM_SIZE;
+//        this.setPreferredSize(mySize);
+//        this.setMinimumSize(mySize);
         
     }
 

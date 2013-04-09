@@ -27,7 +27,7 @@ import vooga.scroller.viewUtil.Renderable;
 public abstract class Window extends JFrame implements IWindow, IView {
 
     private static ResourceBundle ourResources;
-    private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
+    private static final String DEFAULT_RESOURCE_PACKAGE = "vooga.scroller.resources.";
     private static final String USER_DIR = "user.dir";
     private LEController myController;
     private JTabbedPane myTabbedPane;

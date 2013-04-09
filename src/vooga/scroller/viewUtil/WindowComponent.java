@@ -1,6 +1,7 @@
 
 package vooga.scroller.viewUtil;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import javax.swing.JPanel;
@@ -21,22 +22,47 @@ public abstract class WindowComponent extends JPanel implements IView {
     private GridBagConstraints myConstraints;
     private IView myParent;
 
-    private WindowComponent () {
-        setLayoutManager();
-        myConstraints = new GridBagConstraints();
-        this.setBorder(ViewConstants.DEFAULT_BORDER);
-        initializeVariables(); 
-        addComponents();
-    }
     
     
     /**
      * Constructor for WindowView
      * @param parent the parent of the View being created
      */
-    public WindowComponent (IView parent) {
-        this();
+    private WindowComponent (IView parent) {
         myParent = parent;
+//        myConstraints = new GridBagConstraints();
+        this.setBorder(ViewConstants.DEFAULT_BORDER);
+    }
+    
+    private Dimension getDefaultSize (double w, double h) {
+        // TODO Auto-generated method stub
+        Dimension base = myParent.getSize();
+        int width = (int) (base.getWidth()*w);
+        int height = (int) (base.getHeight()*h);
+        Dimension rel = new Dimension (width, height);
+        return rel;
+    }
+
+
+    public WindowComponent (IView parent, double relativeWidth, double relativeHeight) {
+        this(parent);
+        Dimension rel = getDefaultSize(relativeWidth, relativeHeight);
+        setDefaultSize(rel);
+        initializeVariables(); 
+        addComponents();
+    }
+    
+    public WindowComponent (IView parent, Dimension size) {
+        this(parent);
+        setDefaultSize(size);
+        initializeVariables(); 
+        addComponents();
+    }
+    
+    private void setDefaultSize(Dimension d) {
+        this.setSize(d);
+        this.setPreferredSize(d);
+        this.setMinimumSize(d);
     }
     
 //    /**
@@ -51,11 +77,11 @@ public abstract class WindowComponent extends JPanel implements IView {
     }
 
     
-    private void setLayoutManager() {
-        this.setLayout(new GridBagLayout());
-        myConstraints = new GridBagConstraints();
-        this.setBorder(ViewConstants.DEFAULT_BORDER);
-    }
+//    private void setLayoutManager() {
+//        this.setLayout(new GridBagLayout());
+//        myConstraints = new GridBagConstraints();
+//        this.setBorder(ViewConstants.DEFAULT_BORDER);
+//    }
     
     /**
      * 

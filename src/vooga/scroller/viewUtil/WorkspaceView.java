@@ -30,7 +30,7 @@ public abstract class WorkspaceView extends WindowComponent {
     private Dimension mySize = ViewConstants.DEFAULT_TAB_SIZE;
 
     public WorkspaceView (IView hostWindow) {
-        super(hostWindow);
+        super(hostWindow, .9, .9);
         setWindow();
         setPreferredSize(mySize);
         //TODO : for undo/redo stuff

@@ -14,8 +14,8 @@ import vooga.scroller.viewUtil.WindowComponent;
  */
 public class LEToolsView extends WindowComponent {
 
-    public LEToolsView (IView parent) {
-        super(parent);
+    public LEToolsView (IView parent, double d, double e) {
+        super(parent, d, e);
         // TODO Auto-generated constructor stub
     }
 
