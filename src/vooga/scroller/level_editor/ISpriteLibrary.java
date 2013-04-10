@@ -1,5 +1,6 @@
 package vooga.scroller.level_editor;
 
+import java.util.Map;
 import vooga.scroller.util.Sprite;
 
 
@@ -12,4 +13,5 @@ import vooga.scroller.util.Sprite;
 public interface ISpriteLibrary {
 
     Class<? extends Sprite>[] getSpritesClasses();
+    
 }

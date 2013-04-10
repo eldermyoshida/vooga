@@ -5,7 +5,12 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
+import vooga.scroller.sprite_superclasses.NonStaticEntity;
+import vooga.scroller.sprite_superclasses.StaticEntity;
+import vooga.scroller.test_sprites.MarioLib;
 import vooga.scroller.util.Editable;
+import vooga.scroller.util.Location;
+import vooga.scroller.util.Sprite;
 import vooga.scroller.viewUtil.IWindow;
 import vooga.scroller.viewUtil.Renderable;
 import vooga.scroller.viewUtil.WorkspaceView;
@@ -29,11 +34,18 @@ public class LEController {
     private Map<Editable, WorkspaceView> myWorkspace2Tab;
     private Map<WorkspaceView, Editable> myTab2Workspace;
     private static final int DEFAULT_SPRITE_GRID_SIZE = 10;
+    private Map<Integer, Sprite> m;
     
     /**
      * Constructor
      */
-    public LEController(SpriteLibrary lib) {
+    public LEController(MarioLib lib) {
+        m = new HashMap<Integer, Sprite>();
+        m = (new ToolsMaker(lib)).getTools();
+       //TODO
+        for(int k:m.keySet()) {
+            System.out.println(m.get(k).getClass());
+        }
         String language = getLanguage();
         myModel = new LevelEditor(language,lib);
         myView = new LEView(language, this, lib);

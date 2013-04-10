@@ -31,20 +31,19 @@ public class LevelFactory {
         // TODO: this will ideally read in levels from file and create instances of each level
         // This works for demos
         
-        MarioLib lib = new MarioLib();
         
-        myCurrLevel.addSprite(lib.new Coin( 
+        myCurrLevel.addSprite(new MarioLib.Coin( 
                                 new Location(view.getWidth() - 400, view.getHeight() - 250)
                                 ));   
 
-        myCurrLevel.addSprite(lib.new Koopa( 
+        myCurrLevel.addSprite(new MarioLib.Koopa( 
                                  new Location(view.getWidth() - 300, view.getHeight() - 275)
                                  ));   
-        myCurrLevel.addSprite(lib.new Platform( 
+        myCurrLevel.addSprite(new MarioLib.Platform( 
                                     new Location(view.getWidth() - 80, view.getHeight() - 150)
                                     ));   
 
-        myCurrLevel.addSprite(lib.new Turtle(
+        myCurrLevel.addSprite(new MarioLib.Turtle(
                                   new Location(view.getWidth() - 500, view.getHeight() - 75)
                                   ));   
         

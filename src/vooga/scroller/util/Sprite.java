@@ -285,7 +285,7 @@ public abstract class Sprite {
     /**
      * Returns a view of this sprite -TODO: Maybe should be specified in an interface(?)
      */
-    protected Pixmap getView() {
+    public Pixmap getView() {
         return myView;
     }
 

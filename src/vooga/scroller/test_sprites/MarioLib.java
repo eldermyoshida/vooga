@@ -1,6 +1,8 @@
 package vooga.scroller.test_sprites;
 
 import java.awt.Dimension;
+import java.util.HashMap;
+import java.util.Map;
 import vooga.scroller.level_editor.ISpriteLibrary;
 import vooga.scroller.sprite_superclasses.NonStaticEntity;
 import vooga.scroller.sprite_superclasses.StaticEntity;
@@ -12,16 +14,21 @@ import vooga.scroller.util.Sprite;
  * This class is a convenient way to gather all the classes and use reflection
  * to retrieve all classes. Not sure if this is the best way to implement this.
  * But it is definitely better than having to parse the package. -DF
+ * The Classes are static to allow instantiation w/o an instance of MarioLib.
  * TODO
  *
  */
 public class MarioLib implements ISpriteLibrary {
     private static final Dimension DEFAULT_SIZE = new Dimension(30, 30);
+    private static final Location DEFAULT_LOC = new Location(30, 30);
     
-    public class Coin extends StaticEntity {
+    public static class Coin extends StaticEntity {
 
         private static final String DEFAULT_IMG = "coin.gif";
         
+        public Coin() {
+            this(DEFAULT_LOC);
+        }
         
         public Coin (Location center) {
             super(new Pixmap(DEFAULT_IMG), center, DEFAULT_SIZE);
@@ -32,14 +39,13 @@ public class MarioLib implements ISpriteLibrary {
         public void print() {
             System.out.println("Coin");
         }
-        
-
-
-
-
     }
     
-    public class Koopa extends NonStaticEntity {
+    public static class Koopa extends NonStaticEntity {
+        
+        public Koopa() {
+            this(DEFAULT_LOC);
+        }
 
         private static final String DEFAULT_IMG ="koopa.gif";
 
@@ -55,9 +61,13 @@ public class MarioLib implements ISpriteLibrary {
         
     }
 
-    public class Turtle extends NonStaticEntity {
+    public static class Turtle extends NonStaticEntity {
 
         private static final String DEFAULT_IMG = "turtle.gif";
+        
+        public Turtle() {
+            this(DEFAULT_LOC);
+        }
         
         public Turtle (Location center) {
             super(new Pixmap(DEFAULT_IMG), center, DEFAULT_SIZE);
@@ -70,9 +80,13 @@ public class MarioLib implements ISpriteLibrary {
 
     }
 
-    public class Platform extends StaticEntity{
+    public static class Platform extends StaticEntity{
         
         private static final String DEFAULT_IMG = "platform.gif";
+        
+        public Platform() {
+            this(DEFAULT_LOC);
+        }
 
         public Platform (Location center) {
             super(new Pixmap(DEFAULT_IMG), center, DEFAULT_SIZE);
@@ -88,5 +102,6 @@ public class MarioLib implements ISpriteLibrary {
     @Override
     public Class<? extends Sprite>[] getSpritesClasses() {
         return (Class<? extends Sprite>[]) this.getClass().getClasses();
-    }   
+    }
+
 }

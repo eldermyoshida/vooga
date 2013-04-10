@@ -32,11 +32,11 @@ public class LevelEditor implements ILevelEditor {
     private ScrollingManager myScrollingManager;
     private Editable mySpriteGrid;
 
-    public LevelEditor (SpriteLibrary lib) {
+    public LevelEditor (ISpriteLibrary lib) {
         myLevel = new Level(1, myScrollingManager); 
     }
 
-    public LevelEditor (String language, SpriteLibrary lib) {
+    public LevelEditor (String language, ISpriteLibrary lib) {
         this(lib);
     }
 
