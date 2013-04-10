@@ -29,7 +29,6 @@ public class MapPanel extends JComponent implements MouseListener {
     
     
     public MapPanel() {
-        myMap = new EditableMap();
         myWidth = 0;
         myHeight = 0;
         myTileWidth = 32;
@@ -78,6 +77,11 @@ public class MapPanel extends JComponent implements MouseListener {
         setPanelSize();
         repaint();
     }
+    
+    public void initializeMap(int w, int h) {
+        myMap = new EditableMap(w,h);
+        
+    }
 
     public void mapClicked(int x, int y) {
         //TODO
@@ -108,6 +112,8 @@ public class MapPanel extends JComponent implements MouseListener {
     public void mouseReleased(MouseEvent arg0) {
         
     }
+
+    
 
 
 

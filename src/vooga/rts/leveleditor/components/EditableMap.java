@@ -38,7 +38,7 @@ public class EditableMap {
     public void initializeMap(int nodeX, int nodeY) {
         myIndexMatrix = new EditableNode[myXSize][myYSize];
         for(int i =0 ; i<myXSize ; i++) {
-            for(int j =0 ; j<myXSize ; j++) {
+            for(int j =0 ; j<myYSize ; j++) {
                 myIndexMatrix[i][j] = new EditableNode(i*nodeX,j*nodeY,new Dimension(nodeX,nodeY));
             }
         }
