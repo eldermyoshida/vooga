@@ -1,4 +1,4 @@
-package util;
+package vooga.towerdefense.util;
 
 import java.awt.geom.Point2D;
 

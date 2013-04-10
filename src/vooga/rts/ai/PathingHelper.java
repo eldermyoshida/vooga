@@ -1,6 +1,6 @@
 package vooga.rts.ai;
 
-import java.util.Queue;
+import java.util.List;
 import vooga.rts.map.*;
 import vooga.rts.util.Location;
 
@@ -8,7 +8,7 @@ public class PathingHelper {
     
     private Pathfinder myFinder;
     private GameMap myMap;
-    private Queue<MapNode> myPath;
+    private List<MapNode> myPath;
     private MapNode myNext;
     
     public PathingHelper (GameMap map) {
@@ -24,7 +24,8 @@ public class PathingHelper {
     
     public void constructPath (MapNode startNode, MapNode endNode) {
         myPath = myFinder.findPath(startNode, endNode, myMap);
-        myNext = myPath.poll();
+        myNext = myPath.get(0);
+        myPath.remove(0);
     }
     
     public Location getNext(Location current) {
@@ -32,12 +33,12 @@ public class PathingHelper {
         return getNext(currentNode);
     }
     
-    public Location getNext(MapNode currentNode) {
-        if (!currentNode.equals(myNext)) {
-            myNext = myPath.poll();
-        }
-        return myNext.getLocation();
+    public MapNode getNext(MapNode currentNode) {
+        myNext = myPath.get(0);
+        myPath.remove(0);
+        return myNext;
     }
+
     public int size () {
         return myPath.size();
     }

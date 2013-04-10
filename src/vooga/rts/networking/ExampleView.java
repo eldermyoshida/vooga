@@ -17,6 +17,7 @@ public class ExampleView extends JFrame {
     int portdiff = 0;
     JPanel windowPanel;
     JPanel panel;
+
     public ExampleView () {
         setTitle("Example");
         panel = new JPanel();
@@ -24,12 +25,12 @@ public class ExampleView extends JFrame {
         windowPanel = new JPanel();
         windowPanel.setPreferredSize(new Dimension(800, 500));
         JButton button = new JButton("New chat window");
-        button.addActionListener(new ActionListener () {
+        button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent arg0) {
                 windowPanel.add(createPane());
                 setVisible(true);
-            }    
+            }
         });
         panel.add(button);
         panel.add(windowPanel);
@@ -37,8 +38,8 @@ public class ExampleView extends JFrame {
         pack();
         setVisible(true);
     }
-    
-    public JPanel createPane() {
+
+    public JPanel createPane () {
         JPanel panel = new JPanel();
         JTextField field = new JTextField();
         JTextArea area = new JTextArea();

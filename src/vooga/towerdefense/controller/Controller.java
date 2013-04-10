@@ -1,6 +1,8 @@
-package controller;
+package vooga.towerdefense.controller;
 
-import model.GameModel;
+import vooga.towerdefense.model.GameModel;
+import vooga.towerdefense.view.TDView;
+
 
 
 /**
@@ -21,7 +23,7 @@ public class Controller {
 
 
     private GameModel myGameModel;
-    private VoogaView myView;
+    private TDView myView;
 
     
     /**
@@ -29,8 +31,8 @@ public class Controller {
      * and the parser
      */
     public Controller () {
-        myGameModel = new GameModel();
-        myView = new VoogaView();
+        //myGameModel = new GameModel(); //constructor parameters need to be added
+        myView = new TDView();
     }
     
     /**
@@ -46,3 +48,4 @@ public class Controller {
     private GameModel getModel () {
         return myGameModel;
     }
+}

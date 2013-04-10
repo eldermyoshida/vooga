@@ -27,10 +27,6 @@ public abstract class Building extends Interactive {
 		// TODO Auto-generated constructor stub
 	}
 
-	public void visit(RTSprite rtSprite) {
-		// TODO Auto-generated method stub
-		
-	}
 	
 	
 	

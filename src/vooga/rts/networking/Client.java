@@ -1,39 +1,39 @@
 package vooga.rts.networking;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import vooga.rts.networking.server.Message;
+
 
 /**
- * Object refers to a singular instance of a running game.
- * For example, 2 players playing against each other each have one game client.  A Client is responsible for syncing its machines running game 
- * simulation with the GameServer it is connected to.
+ * Provides client-side methods for connecting to the multiplayer server.
+ * In this case the client is the Arcade and the Game.
  * 
  * 
  * @author srwareham
- *
+ * @author David Winegar
+ * 
  */
-public class Client {
-    private ObjectInputStream mySInput;
-    private ObjectOutputStream mySOutput;
+public class Client implements IClient {
+    private static final int PORT = 2233;
+    private static final String HOST = "localhost";
+    private ObjectInputStream myInput;
+    private ObjectOutputStream myOutput;
     private Socket mySocket;
-    private String myHost, myUsername;
-    private int myPort;
-    
-    public Client(String host, int port){
-        myPort = port;
-        
-    }
-    
+    private String myHost = HOST;
+    private int myPort = PORT;
+
     /**
-     * Creates the sockets and streams for this client 
+     * Creates the sockets and streams for this client
      */
-    public void start(){
+    public void start () {
         try {
-            mySocket = new Socket(myHost,myPort);
-            mySInput = new ObjectInputStream(mySocket.getInputStream());
-            mySOutput = new ObjectOutputStream(mySocket.getOutputStream());
+            mySocket = new Socket(myHost, myPort);
+            myInput = new ObjectInputStream(mySocket.getInputStream());
+            myOutput = new ObjectOutputStream(mySocket.getOutputStream());
         }
         catch (UnknownHostException e) {
             // TODO Auto-generated catch block
@@ -42,41 +42,33 @@ public class Client {
         catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }      
+        }
     }
-    
-    private void processMessage(Message m){
-        //TODO Client reads server's message and handles it accordingly
-    }
-    
-    void sendMessage(Message msg) {
+
+    @Override
+    public void sendData (Message message) {
         try {
-                mySOutput.writeObject(msg);
+            myOutput.writeObject(message);
         }
-        catch(IOException e) {
-                System.out.println("Exception writing to server: " + e);
+        catch (IOException e) {
+            System.out.println("Exception writing to server: " + e);
         }
-}
-    
-    /**
-     * Keeps listening for incoming messages from the server
-     * @author Henrique Moraes
-     *
-     */
-    private class MessageReceiver extends Thread{
-        public void run(){
-            while(true){
-                try {
-                    Message message = (Message) mySInput.readObject();
-                }
-                catch (IOException e) {
-                    System.out.print("Server has ceased connection" );
-                }
-                catch (ClassNotFoundException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-            }
+    }
+
+    @Override
+    public Message getData () {
+        try {
+            Object object;
+            if ((object = myInput.readObject()) != null && object instanceof Message) { return (Message) object; }
         }
+        catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null;
     }
 }

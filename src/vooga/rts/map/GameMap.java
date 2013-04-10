@@ -1,18 +1,17 @@
 package vooga.rts.map;
 
-import vooga.rts.map.MapNode;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
-import vooga.rts.util.Location;
 import vooga.rts.gamedesign.sprite.map.Tile;
+import vooga.rts.util.Location;
 
 public class GameMap {
     
     public static final int NODE_SIZE = 8;
-    public static final int[][] mapGrid = {{1,1,1,1,1,1},
-                                           {0,0,3,3,3,3},
-                                           {2,2,0,0,3,3}};
+    public static final int[][] mapGrid = {{0,0,1,1,1,1},
+                                           {0,0,1,0,0,0},
+                                           {1,0,0,0,1,0}};
     
     private Tile[][] myTiles;
     private MapNode[][] myMap;
@@ -52,6 +51,7 @@ public class GameMap {
         MapNode[][] res = new MapNode[mapGrid.length][mapGrid[0].length];
         for (int x = 0; x < mapGrid[0].length; x++) {
             for (int y = 0; y < mapGrid.length; y++) {
+       
                 res[y][x]= new MapNode(x, y, NODE_SIZE, mapGrid[y][x]);
             }
         }
@@ -79,13 +79,14 @@ public class GameMap {
      public List<MapNode> getNeighbors (MapNode center) {
          List<MapNode> neighbors = new ArrayList<MapNode>();
          for (int i = -1; i < 2; i += 2) {
-             for (int j = -1; j < 2; j += 2) {
-                 neighbors.add(getNode(i, j));
-             }
+             neighbors.add(getNode(center.getX() + i, center.getY()));
+
+             neighbors.add(getNode(center.getX() , center.getY() + i));
+
          }
          return neighbors;
      }
-     
+    
      public String toString() {
          String str = "";
          for (int j = 0; j < mapGrid.length; j++) {
@@ -98,12 +99,8 @@ public class GameMap {
      }
      
      public MapNode getNode(int x, int y) {
-         if (x >= 0 && y >= 0)
-         {
-             if (x < myMap[0].length && y < myMap.length)
-             {
-                 return myMap[y][x];
-             }
+         if(x >= 0 && x < myMap[0].length && y >= 0 && y < myMap.length) {
+             return myMap[y][x];
          }
          return null;
      }
