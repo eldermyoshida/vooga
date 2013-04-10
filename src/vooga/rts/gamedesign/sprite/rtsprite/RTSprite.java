@@ -52,7 +52,7 @@ public class RTSprite extends Sprite implements IAttackable, RTSpriteVisitor {
         curHealth = maxHealth;
         mySound = sound;
         playerID = teamID;
-        myAttackStrategy = new CanAttack();
+        myAttackStrategy = new CannotAttack();
         myGatherStrategy = new CannotGather();
         myOccupyStrategy = new CannotOccupy();
     }
