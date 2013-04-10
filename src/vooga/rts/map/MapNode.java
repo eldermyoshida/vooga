@@ -7,22 +7,16 @@ import vooga.rts.util.Location;
 
 public class MapNode {
 
-    private double myDistance = 10;
-    private List<Terrain> myTerrain;
+    private double myDifficulty = 10;
+    private List<IObstruction> myObstruction;
     private int myHeight;
-    /* X and Y are relative to the width of the map as defined by the number of 
-     * nodes.
-     */
-    private Location myLocation;
     private int myX;
     private int myY;
 
     public MapNode(int x, int y, int size, int height) {
         myX = x;
         myY = y;
-        myLocation = new Location(x,y);
-        myDistance = size;
-        myHeight = height;
+        
     }
 
     public int getX() {
