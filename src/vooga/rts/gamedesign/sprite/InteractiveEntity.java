@@ -1,14 +1,13 @@
 package vooga.rts.gamedesign.sprite;
 
 import java.awt.Dimension;
-import java.awt.Graphics2D;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
 import vooga.rts.gamedesign.factories.Factory;
 import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
-import vooga.rts.gamedesign.sprite.rtsprite.RTSpriteVisitor;
+import vooga.rts.gamedesign.sprite.rtsprite.Projectile;
 import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
 import vooga.rts.gamedesign.strategy.attackstrategy.CannotAttack;
 import vooga.rts.gamedesign.upgrades.ArmorUpgradeNode;
@@ -17,7 +16,6 @@ import vooga.rts.gamedesign.upgrades.UpgradeTree;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
-import vooga.rts.util.ThreeDimension;
 
 /**
  * This class is the extension of GameEntity. It represents shapes that are
@@ -31,21 +29,21 @@ import vooga.rts.util.ThreeDimension;
  *
  */
 public class InteractiveEntity extends GameEntity implements IAttackable{
-	
-	private UpgradeTree myUpgradeTree;
+
+    private UpgradeTree myUpgradeTree;
     private Sound mySound;
     private AttackStrategy myAttackStrategy;
     private int myArmor;
 
     private Map<String, Factory> myMakers; //WHERE SHOULD THIS GO??
 
-    public InteractiveEntity (Pixmap image, Location center, ThreeDimension size, Sound sound, int teamID) {
-        super(image, center, size, teamID);
+    public InteractiveEntity (Pixmap image, Location center, Dimension size, Sound sound, int teamID, int health) {
+        super(image, center, size, teamID, health);
         myMakers = new HashMap<String, Factory>(); //WHERE SHOULD THIS GO?
         myUpgradeTree =new UpgradeTree();
         mySound = sound;
         myAttackStrategy = new CannotAttack();
-        
+
         UpgradeNode armor = new ArmorUpgradeNode("armor1","myHealth",40); //TESTING
         myUpgradeTree.addUpgrade(armor); //TESTING
     }
@@ -56,14 +54,8 @@ public class InteractiveEntity extends GameEntity implements IAttackable{
      *  RTSpriteVisitor.visit(this). "this" being the subclass of RTSprite. 
      * @throws CloneNotSupportedException 
      */
-    public void accept(RTSpriteVisitor visitor) {
-        try {
-            visitor.visit(this);
-        }
-        catch (CloneNotSupportedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+    public void accept(Projectile p) {
+        p.attack(this);
     }
 
 
@@ -89,7 +81,7 @@ public class InteractiveEntity extends GameEntity implements IAttackable{
     public void setAttackStrategy(AttackStrategy newStrategy){
         myAttackStrategy = newStrategy;
     }
-     /**
+    /**
      * Returns the current attack strategy of the interactive
      * 
      * @return the current attack strategy
@@ -112,7 +104,7 @@ public class InteractiveEntity extends GameEntity implements IAttackable{
     public void upgradeNode (UpgradeNode upgradeNode) throws IllegalArgumentException, SecurityException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException {
         upgradeNode.apply(this);
     }
-    
+
     public UpgradeTree getTree(){
         return myUpgradeTree;
     }
@@ -120,13 +112,4 @@ public class InteractiveEntity extends GameEntity implements IAttackable{
     public int calculateDamage(int damage) {
         return damage * (1-(myArmor/(myArmor+100)));
     }
-    
-    public void paint(Graphics2D pen) {
-        if (!isDead()) {
-            super.paint(pen);
-        }
-    }
-	
-	
-	
 }

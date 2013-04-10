@@ -50,8 +50,8 @@ public class Unit extends InteractiveEntity {
      * @param teamID is the ID for the team that the unit is on
      * @param health is the max health of the unit
      */
-    public Unit (Pixmap image, Location center, ThreeDimension size, Sound sound, int teamID) {
-        super(image, center, size, sound, teamID);
+    public Unit (Pixmap image, Location center, Dimension size, Sound sound, int teamID, int health) {
+        super(image, center, size, sound, teamID, health);
         //myPather = new PathingHelper();
         myGoal = new Location(center);
         myGatherStrategy = new CannotGather();
@@ -59,7 +59,7 @@ public class Unit extends InteractiveEntity {
     }
 
     public void visit (RTSprite rtSprite) {
-        // TODO Auto-generated method stub
+        System.out.println("visit in Unit got called");
     }
 
     /**
@@ -77,8 +77,7 @@ public class Unit extends InteractiveEntity {
             double magnitude = 100;            
             setVelocity(angle, magnitude);
         }
-        else
-        {
+        else{
             setVelocity(0, 0);
         }
         super.update(elapsedTime);

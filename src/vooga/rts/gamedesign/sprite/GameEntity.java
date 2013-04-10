@@ -1,5 +1,7 @@
 package vooga.rts.gamedesign.sprite;
 
+import java.awt.Dimension;
+import java.awt.Graphics2D;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
@@ -28,8 +30,10 @@ public class GameEntity extends GameSprite {
     
     private Vector myOriginalVelocity;
     
-    public GameEntity (Pixmap image, Location center, ThreeDimension size, int teamID) {
+    public GameEntity (Pixmap image, Location center, Dimension size, int teamID, int health) {
         super(image, center, size);
+        myMaxHealth = health;
+        myCurrentHealth = myMaxHealth;
         myTeamID = teamID;
         myVelocity = new Vector(0,0);
     }
@@ -86,7 +90,17 @@ public class GameEntity extends GameSprite {
         super.reset();
         myVelocity = new Vector(myOriginalVelocity);
     }
-    
+    /**
+     * Moves the Unit only. Updates first the angle the Unit is facing,
+     * and then its location.
+     * Possible design choice error. 
+     */
+    public void move (Location loc){
+        double angle = getCenter().difference(loc).getDirection();
+        double magnitude = getCenter().difference(loc).getMagnitude();
+        turn(angle);
+        setVelocity(angle, magnitude);
+    }
     /**
      * Updates the shape's location.
      */
@@ -100,7 +114,6 @@ public class GameEntity extends GameSprite {
     
     public void changeHealth(int change) {
         myCurrentHealth -= change;
-
     }
     
     /**
@@ -114,6 +127,12 @@ public class GameEntity extends GameSprite {
     
     public void die(){
         myCurrentHealth = 0;
+    }
+    
+    public void paint(Graphics2D pen) {
+        if (!isDead()) {
+            super.paint(pen);
+        }
     }
     
 }

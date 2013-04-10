@@ -34,8 +34,6 @@ import vooga.rts.util.Vector;
  */
 public class RTSprite extends GameSprite implements IAttackable, RTSpriteVisitor {
 
-
-    
     private Vector myVelocity;
     private Sound mySound;
     
@@ -103,13 +101,7 @@ public class RTSprite extends GameSprite implements IAttackable, RTSpriteVisitor
     public void visit(IOccupiable o){
         myOccupyStrategy.occupy(o);
     }
-    /**
-     * Rotates the Unit by the given angle. 
-     * @param angle
-     */
-    public void turn(double angle){
-        myVelocity.turn(angle);
-    }
+
     /**
      * Sets the attack strategy for an interactive. Can set the interactive
      * to CanAttack or to CannotAttack and then can specify how it would

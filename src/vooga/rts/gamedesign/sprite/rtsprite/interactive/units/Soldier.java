@@ -4,8 +4,8 @@ import java.util.List;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import vooga.rts.gamedesign.Weapon;
+import vooga.rts.gamedesign.sprite.Unit;
 import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
-import vooga.rts.gamedesign.sprite.rtsprite.IGatherable;
 import vooga.rts.gamedesign.sprite.rtsprite.Projectile;
 import vooga.rts.gamedesign.sprite.rtsprite.RTSprite;
 import vooga.rts.gamedesign.sprite.rtsprite.RTSpriteVisitor;
@@ -25,7 +25,7 @@ import vooga.rts.util.Sound;
  * @author Wenshun Liu
  * 
  */
-public class Soldier extends Units {
+public class Soldier extends Unit {
     /**
      * for this implementation of visit where the soldier visits a IOccupiable,
      * the soldier occupies the IOccupiable RTSprite.
@@ -45,13 +45,7 @@ public class Soldier extends Units {
     @Override
     public void update (double elapsedTime) {
         super.update(elapsedTime);
-        AttackStrategy as = getAttackStrategy();
-        if (as instanceof CanAttack) {
-            for(Projectile p : ((CanAttack)as).getWeapon().getProjectiles()) {
-                p.update(elapsedTime);
-            }
-        }
-
+        getAttackStrategy().update(elapsedTime);
     }
     @Override
     public void paint(Graphics2D pen) {
