@@ -43,7 +43,6 @@ public class Canvas extends JFrame {
         ChooserPanel.add(ButtonPanel, BorderLayout.SOUTH);
 
         myMapScroll = new JScrollPane(myMapPanel);
-        MapPanel.setViewport(myMapScroll.getViewport());
         getContentPane().add(myMapScroll, BorderLayout.CENTER);
         getContentPane().add(ChooserPanel, BorderLayout.EAST);
         
