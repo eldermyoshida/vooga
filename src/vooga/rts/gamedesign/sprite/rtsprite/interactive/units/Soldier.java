@@ -8,7 +8,6 @@ import vooga.rts.gamedesign.sprite.Unit;
 import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
 import vooga.rts.gamedesign.sprite.rtsprite.Projectile;
 import vooga.rts.gamedesign.sprite.rtsprite.RTSprite;
-import vooga.rts.gamedesign.sprite.rtsprite.EntityVisitor;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.IOccupiable;
 import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
 import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;

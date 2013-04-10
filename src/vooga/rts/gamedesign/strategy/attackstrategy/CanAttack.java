@@ -35,7 +35,13 @@ public class CanAttack implements AttackStrategy{
     public void attack(IAttackable a) {
 
         System.out.println("Soldier a health " + ((InteractiveEntity) a).getHealth());
-        myWeapons.get(myWeaponIndex).fire((InteractiveEntity) a);
+        try {
+            myWeapons.get(myWeaponIndex).fire((InteractiveEntity) a);
+        }
+        catch (CloneNotSupportedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         System.out.println("a died");
     }
     
