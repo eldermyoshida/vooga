@@ -17,7 +17,7 @@ import java.util.Queue;
 public class GameServer extends Thread implements IMessageServer {
     private List<ConnectionThread> myClients;
     private int myID;
-    private boolean gameRunning = false;
+    private boolean gameRunning = true;
     private Queue<Message> myMessageQueue;
 
     public GameServer (int ID) {
@@ -39,8 +39,7 @@ public class GameServer extends Thread implements IMessageServer {
 
     @Override
     public void run () {
-        gameRunning = true;
-        while (gameRunning) {
+        while (isGameRunning()) {
             while (!myMessageQueue.isEmpty()) {
                 Message message = myMessageQueue.poll();
                 for (ConnectionThread ct : myClients) {
@@ -63,17 +62,16 @@ public class GameServer extends Thread implements IMessageServer {
      * Closes all streams of this server and related threads, clears the
      * list of threads as well
      */
-    private void disconnect () {
+    protected void disconnect () {
         for (ConnectionThread ct : myClients) {
             ct.close();
         }
         myClients.clear();
-    }
-
-    private void haltGame () {
-        // TODO implement pause screen on clients and wait for disconnected
-        // clients to reestablish connection
         gameRunning = false;
+    }
+    
+    protected boolean isGameRunning () {
+        return gameRunning;
     }
 
     @Override
