@@ -22,54 +22,54 @@ import vooga.rts.util.Vector;
  */
 public class GameEntity extends GameSprite {
     private Vector myVelocity;
-    
+
     private int myMaxHealth;
     private int myCurrentHealth;
-    
+
     private int myTeamID;
-    
+
     private Vector myOriginalVelocity;
-    
+
     public GameEntity (Pixmap image, Location center, Dimension size, int teamID, int health) {
         super(image, center, size);
         myMaxHealth = health;
         myCurrentHealth = myMaxHealth;
         myTeamID = teamID;
-        
+
         //ALERT THIS IS JUST FOR TESTING
         myOriginalVelocity = new Vector(0,0);
         myVelocity = new Vector(0,0);
     }
-    
+
     /**
      * Returns shape's velocity.
      */
     public Vector getVelocity () {
         return myVelocity;
     }
-    
+
     /**
      * Resets shape's velocity.
      */
     public void setVelocity (double angle, double magnitude) {
         myVelocity = new Vector(angle, magnitude);
     }
-    
+
     public int getHealth() {
-    	return myCurrentHealth;
+        return myCurrentHealth;
     }
-    
+
     public void setHealth(int health) {
-    	myCurrentHealth = health;
+        myCurrentHealth = health;
     }
-    
+
     /**
      * Returns the teamID the shape belongs to.
      */
     public int getTeamID(){
-    	return myTeamID;
+        return myTeamID;
     }
-    
+
     /**
      * Rotates the Unit by the given angle.
      * @param angle
@@ -82,9 +82,9 @@ public class GameEntity extends GameSprite {
      * @param v
      */
     public void translate(Vector v){
-    	getCenter().translate(v);
+        getCenter().translate(v);
     }
-    
+
     /**
      * Reset shape back to its original values.
      */
@@ -105,23 +105,23 @@ public class GameEntity extends GameSprite {
         turn(angle);
         setVelocity(angle, magnitude);
     }
-    
-    
+
+
     /**
      * Updates the shape's location.
      */
     //TODO: make Velocity three dimensional...
     public void update (double elapsedTime) {
-    	if(!isVisible()) return;
+        if(!isVisible()) return;
         Vector v = new Vector(myVelocity);
         v.scale(elapsedTime);
         translate(v);
     }
-    
+
     public void changeHealth(int change) {
         myCurrentHealth -= change;
     }
-    
+
     /**
      * Checks to see if an RTSprite is dead.
      * @return true if the RTSprite has been killed and true if the RTSprite 
@@ -130,16 +130,16 @@ public class GameEntity extends GameSprite {
     public boolean isDead() {
         return myCurrentHealth <= 0;
     }
-    
+
     public void die(){
         myCurrentHealth = 0;
     }
-    
+
     public void paint(Graphics2D pen) {
         if (!isDead()) {
             super.paint(pen);
         }
     }
-    
+
 }
 
