@@ -4,46 +4,27 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 
 import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
-import vooga.rts.gamedesign.sprite.rtsprite.IGatherable;
-import vooga.rts.gamedesign.sprite.rtsprite.IMovable;
 import vooga.rts.gamedesign.sprite.rtsprite.RTSpriteVisitor;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.IOccupiable;
 import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
-import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;
 import vooga.rts.gamedesign.strategy.attackstrategy.CannotAttack;
-import vooga.rts.gamedesign.strategy.gatherstrategy.CannotGather;
-import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
-import vooga.rts.gamedesign.strategy.occupystrategy.CannotOccupy;
-import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
-import vooga.rts.util.Vector;
+import vooga.rts.util.ThreeDimension;
 
 
 public class InteractiveEntity extends GameEntity implements IAttackable{
 	
 	 
-    private Vector myVelocity;
     private Sound mySound;
-    
-    private Vector myOriginalVelocity;
-    
-    private OccupyStrategy myOccupyStrategy;
+   
     private AttackStrategy myAttackStrategy;
-    private GatherStrategy myGatherStrategy;
 
     private int myArmor;
-    private int myCurrentHealth;
-    private int myMaxHealth;
 
 
-
-    public InteractiveEntity (Pixmap image, Location center, Dimension size, Vector velocity, Sound sound, int teamID, int health) {
-        super(image, center, size);
-        myOriginalVelocity = new Vector(velocity);
-        myMaxHealth = health;
-        myCurrentHealth = myMaxHealth;
+    public InteractiveEntity (Pixmap image, Location center, ThreeDimension size, Sound sound, int teamID) {
+        super(image, center, size, teamID);
         mySound = sound;
         myAttackStrategy = new CannotAttack();
     }
@@ -80,20 +61,8 @@ public class InteractiveEntity extends GameEntity implements IAttackable{
             myAttackStrategy.attack(a);
         }
     }
-    public void visit(IGatherable g){
-        myGatherStrategy.gather(g);
 
-    }
-    public void visit(IOccupiable o){
-        myOccupyStrategy.occupy(o);
-    }
-    /**
-     * Rotates the Unit by the given angle. 
-     * @param angle
-     */
-    public void turn(double angle){
-        myVelocity.turn(angle);
-    }
+
     /**
      * Sets the attack strategy for an interactive. Can set the interactive
      * to CanAttack or to CannotAttack and then can specify how it would
@@ -105,28 +74,6 @@ public class InteractiveEntity extends GameEntity implements IAttackable{
     public void setAttackStrategy(AttackStrategy newStrategy){
         myAttackStrategy = newStrategy;
     }
-    /**
-     * Sets the gatehr strategy for an interactive. Can set the interactive
-     * to CanGather or to CannotGather and then can specify how it would
-     * gather.
-     * 
-     * @param newStrategy is the new gather strategy that the interactive
-     *        will have
-     */
-    public void setGatherStrategy(GatherStrategy newStrategy){
-        myGatherStrategy = newStrategy;
-    }
-    /**
-     * Sets the occupy strategy for an interactive. Can set the interactive
-     * to CanOccupy or to CannotOccupy.
-     * 
-     * @param newStrategy is the new occupy strategy that the interactive
-     *        will have
-     */
-    public void setOccupyStrategy(OccupyStrategy newStrategy){
-        myOccupyStrategy = newStrategy;
-    }
-
 
     /**
      * Checks to see if an RTSprite is dead.

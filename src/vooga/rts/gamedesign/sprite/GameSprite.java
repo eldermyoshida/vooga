@@ -7,7 +7,6 @@ import vooga.rts.gamedesign.sprite.rtsprite.RTSprite;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.ThreeDimension;
-import vooga.rts.util.Vector;
 
 public abstract class GameSprite extends Sprite {
     // canonical directions for a collision

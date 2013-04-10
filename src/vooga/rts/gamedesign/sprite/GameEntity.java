@@ -21,6 +21,8 @@ import vooga.rts.util.Vector;
 public class GameEntity extends GameSprite {
     private Vector myVelocity;
     private Sound mySound;
+    private int myMaxHealth;
+    private int myCurrentHealth;
     
     private int myTeamID;
     
@@ -84,6 +86,24 @@ public class GameEntity extends GameSprite {
         Vector v = new Vector(myVelocity);
         v.scale(elapsedTime);
         translate(v);
+    }
+    
+    public void changeHealth(int change) {
+        myCurrentHealth -= calculateDamage(change);
+
+    }
+    
+    /**
+     * Checks to see if an RTSprite is dead.
+     * @return true if the RTSprite has been killed and true if the RTSprite 
+     * is still alive.
+     */
+    public boolean isDead() {
+        return myCurrentHealth <= 0;
+    }
+    
+    public void die(){
+        myCurrentHealth = 0;
     }
     
 }
