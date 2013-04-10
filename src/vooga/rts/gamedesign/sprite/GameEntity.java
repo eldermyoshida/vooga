@@ -88,7 +88,7 @@ public class GameEntity extends GameSprite {
     @Override
     public void reset () {
         super.reset();
-        myVelocity = new Vector(myOriginalVelocity);
+        myVelocity = myOriginalVelocity;
     }
     /**
      * Moves the Unit only. Updates first the angle the Unit is facing,
