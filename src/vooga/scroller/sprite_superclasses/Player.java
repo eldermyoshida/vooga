@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.util.List;
-import vooga.scroller.collision_handlers.Mario_CH;
 import vooga.scroller.design_patterns.State;
 import vooga.scroller.test_sprites.Type;
 import vooga.scroller.util.Location;
@@ -34,7 +33,6 @@ import vooga.scroller.view.View;
 public class Player extends Sprite {
 
 //    Graphics2D pen;
-    Mario_CH myCollisionHandler;
     List<State> myStates;
     State currentState; 
     View myView;

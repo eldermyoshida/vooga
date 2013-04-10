@@ -3,7 +3,6 @@ package vooga.scroller.test_sprites;
 
 import java.awt.Dimension;
 import java.util.List;
-import vooga.scroller.collision_handlers.Mario_CH;
 import vooga.scroller.design_patterns.State;
 import vooga.scroller.sprite_superclasses.Player;
 import vooga.scroller.util.Location;
@@ -12,7 +11,6 @@ import vooga.scroller.view.View;
 
 public class Mario extends Player {
 
-    private Mario_CH collisionHandler;
     List<State> myStates;    
     State currentState; 
     View myView;
@@ -21,22 +19,13 @@ public class Mario extends Player {
     private Pixmap myImage;
     
     
-    
-    public Mario_CH getCollisionHandler () {
-        return collisionHandler;
-    }
 
-    public void setCollisionHandler (Mario_CH collisionHandler) {
-        this.collisionHandler = collisionHandler;
-    }
-    
     public Mario (Pixmap image, Location center, Dimension size, View view) {
         super(image, center, size, view);
         myView = view;
         myOriginalCenter = center;
         mySize = size;
         myImage = image;
-        collisionHandler = new Mario_CH(view);
         // TODO Auto-generated constructor stub
     }
 
