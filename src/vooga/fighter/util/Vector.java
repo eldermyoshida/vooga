@@ -1,5 +1,6 @@
 package vooga.fighter.util;
 
+
 import java.awt.geom.Point2D;
 
 
@@ -8,10 +9,12 @@ import java.awt.geom.Point2D;
  * 
  * Note, this class has no relation to java.util.Vector!
  * 
+ * @author Robert C. Duvall
+ * @author Wayne You
  * @author rcd, james
  */
-public class Vector {
-
+public class Vector implements Cloneable {
+    
     // public static instance variables defining degrees for directions
     public static final int DEGREES_RIGHT = 0;
     public static final int DEGREES_DOWN = 90;
@@ -22,18 +25,35 @@ public class Vector {
     private double myAngle;
     // "speed" in pixels per second
     private double myMagnitude;
+    
+    private double myX = 0;
+    private double myY = 0;
+
 
     /**
      * Create a zero vector, i.e., with no magnitude.
      */
-    public Vector() {
+    public Vector () {
         this(0, 0);
+    }
+    
+    /**
+     * Create a new vector based on magnitude and direction with base at a point (x,y)
+     * @param x X location of the base of the vector.
+     * @param y Y location of the base of the vector.
+     * @param angle Angle the vector points in.
+     * @param magnitude Magnitude of the vector.
+     */
+    public Vector (double x, double y, double angle, double magnitude) {
+        this(0, 0);
+        myX = x;
+        myY = y;
     }
 
     /**
      * Create a vector in the given direction with the given magnitude.
      */
-    public Vector(double angle, double magnitude) {
+    public Vector (double angle, double magnitude) {
         setDirection(angle);
         setMagnitude(magnitude);
     }
@@ -43,17 +63,20 @@ public class Vector {
      * direction and distance between the two given points.
      */
     public Vector (Point2D source, Point2D target) {
-        double dx = target.getX() - source.getX();
-        double dy = source.getY() - target.getY();
-        setDirection(angleBetween(dx, dy));
-        setMagnitude(distanceBetween(dx, dy));
+        this(angleBetween(target, source), distanceBetween(target, source));
     }
 
     /**
      * Create a vector that is identical to the given other vector.
      */
     public Vector (Vector other) {
-        this(other.getDirection(), other.getMagnitude());
+        this(other.getX(), other.getY(), other.getDirection(), other.getMagnitude());
+    }
+    
+    public Vector(Vector other, double dX, double dY) {
+        myX = other.getX();
+        myY = other.getY();
+        setVector(dX,dY);
     }
 
     /**
@@ -96,7 +119,7 @@ public class Vector {
     /**
      * Sets this vector's magnitude to the given value.
      */
-    protected void setMagnitude (double value) {
+    public void setMagnitude (double value) {
         myMagnitude = value;
     }
 
@@ -115,6 +138,30 @@ public class Vector {
      */
     public double getAngleBetween (Vector other) {
         return getDirection() - other.getDirection();
+    }
+    
+    /**
+     * @return The x coordinate of the origin of the vector
+     */
+    public double getX () {
+        return myX;
+    }
+    
+    /**
+     * @return The y coordinate of the origin of the vector
+     */
+    public double getY () {
+        return myY;
+    }
+    
+    /**
+     * Translates the origin of the vector
+     * @param dx The amount to shift in the x direction
+     * @param dy The amount to shift in the y direction 
+     */
+    public void translate (double dx, double dy) {
+        myX += dx;
+        myY += dy;
     }
 
     /**
@@ -200,8 +247,8 @@ public class Vector {
     public boolean equals (Object vector) {
         try {
             Vector other = (Vector) vector;
-            return (fuzzyEquals(getMagnitude(), other.getMagnitude()) && fuzzyEquals(getDirection(),
-                                                                                     other.getDirection()));
+            return (fuzzyEquals(getMagnitude(), other.getMagnitude()) && 
+                    fuzzyEquals(getDirection(), other.getDirection()));
         }
         catch (ClassCastException e) {
             return false;
@@ -241,6 +288,7 @@ public class Vector {
      * Returns the angle represented by the given dx and dy
      */
     public static double angleBetween (double dx, double dy) {
+        // TODO: this is still buggy :(
         return Math.toDegrees(Math.atan2(dy, dx));
     }
 
@@ -262,5 +310,19 @@ public class Vector {
         else {
             return Math.abs(a / b - 1) < EPSILON;
         }
+    }
+    
+    @Override
+    public Vector clone () {
+        return new Vector(this);
+    }
+    
+    public double getDotProduct (Vector other) {
+        return myX * other.getX() + myY * other.getY();
+    }
+    
+    public void setVector (double dX, double dY) {
+        myMagnitude = Math.sqrt(Math.pow(dX, 2) + Math.pow(dY, 2));
+        myAngle = Math.atan2(dX, dY);
     }
 }
