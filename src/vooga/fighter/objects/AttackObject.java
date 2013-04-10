@@ -15,18 +15,21 @@ import vooga.fighter.util.Vector;
  * @author james, alanni
  *  
  */
-public class AttackObject {
+public class AttackObject extends MoveableGameObject{
 
     private Counter myCounter;
     private Player myOwner;
     private List<Effect> myEffects;
     private int myAttackPower;  
     private int myVelocity; 
+    private int myDirection; 
+    
     
     /**
      * Constructs an AttackObject with the given Player owner.
      */
-    public AttackObject(Player owner, int power, int attackSpeed) {
+    public AttackObject(Pixmap image, Location center, Dimension size, Player owner, int power, int attackSpeed) {
+    	super(image, center, size);
         myOwner = owner;
         myEffects = new ArrayList<Effect>();
         //add effects to myEffects list
@@ -73,5 +76,9 @@ public class AttackObject {
     	for (Effect e: myEffects){
     		e.applyEffect();
     	}
+    }
+     
+    public void translate(){
+    	getCenter().translate(new Vector(myDirection, myVelocity));
     }
 }

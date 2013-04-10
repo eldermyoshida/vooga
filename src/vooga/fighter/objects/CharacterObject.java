@@ -117,7 +117,7 @@ public class CharacterObject extends MoveableGameObject {
      * Creates an attack object
      */
     private void createAttack(){
-    	myAttack=new AttackObject(myPlayer, myAttackPower, myAttackSpeed);
+    	myAttack=new AttackObject(null, null, null, myPlayer, myAttackPower, myAttackSpeed);
     }
     
 
