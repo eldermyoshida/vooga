@@ -27,7 +27,7 @@ import java.util.List;
  * @author Wenshun Liu
  * 
  */
-public abstract class Weapon {
+public class Weapon {
 
     private int myDamage;
     private Projectile myProjectile;

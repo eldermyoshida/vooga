@@ -33,7 +33,7 @@ public class CanAttack implements AttackStrategy{
     }
 
 
-    public void attack(IAttackable a) throws CloneNotSupportedException{
+    public void attack(IAttackable a) {
 
         System.out.println("Soldier a health " + ((RTSprite) a).getHealth());
         myWeapons.get(myWeaponIndex).fire((RTSprite) a);
@@ -41,6 +41,8 @@ public class CanAttack implements AttackStrategy{
         ((RTSprite)a).die();
         System.out.println("a died");
     }
+    
+    
     public boolean hasWeapon(){
         return !myWeapons.isEmpty();
 
