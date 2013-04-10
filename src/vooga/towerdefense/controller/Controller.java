@@ -58,4 +58,11 @@ public class Controller {
     public void handleMapClick(Point p) {
         //TODO: handle a map click
     }
+    
+    /**
+     * paints the map on the view.
+     */
+    public void paintMap() {
+        //TODO: paint the map to the view
+    }
 }
