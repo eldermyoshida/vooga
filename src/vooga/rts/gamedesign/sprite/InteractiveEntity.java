@@ -17,9 +17,7 @@ public class InteractiveEntity extends GameEntity implements IAttackable{
 	
 	 
     private Sound mySound;
-   
     private AttackStrategy myAttackStrategy;
-
     private int myArmor;
 
 
@@ -68,6 +66,7 @@ public class InteractiveEntity extends GameEntity implements IAttackable{
     public void setAttackStrategy(AttackStrategy newStrategy){
         myAttackStrategy = newStrategy;
     }
+
 
     /**
      * Returns the current attack strategy of the interactive

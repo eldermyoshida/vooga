@@ -20,7 +20,6 @@ import vooga.rts.util.Vector;
  */
 public class GameEntity extends GameSprite {
     private Vector myVelocity;
-    private Sound mySound;
     
     private int myMaxHealth;
     private int myCurrentHealth;
