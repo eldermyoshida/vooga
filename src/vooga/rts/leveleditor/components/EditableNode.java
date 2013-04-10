@@ -1,15 +1,12 @@
 package vooga.rts.leveleditor.components;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
-import javax.imageio.ImageIO;
 
 public class EditableNode {
 

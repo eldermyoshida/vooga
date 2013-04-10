@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-import vooga.rts.map.GameMap;
 import vooga.rts.util.Location;
 
 

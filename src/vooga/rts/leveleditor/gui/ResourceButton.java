@@ -58,25 +58,24 @@ public class ResourceButton extends JToggleButton implements ActionListener {
 //        }
 //    }
     
-    public void paint(Graphics pen, int x, int y) {
-        pen.drawImage(myIcon, x, y, null);
-    }
- 
-    public boolean judgeInArea(int x , int y) {
-        if( x > myXPosition && x < myXPosition + mySize.width && y > myYPosition && x < myYPosition + mySize.height) {
-           return true; 
-        }
-        return false;
-    }
-
-    public int getIndex() {
-        return myIndex;
-    }
+//    public void paint(Graphics pen, int x, int y) {
+//        pen.drawImage(myIcon, x, y, null);
+//    }
+// 
+//    public boolean judgeInArea(int x , int y) {
+//        if( x > myXPosition && x < myXPosition + mySize.width && y > myYPosition && x < myYPosition + mySize.height) {
+//           return true; 
+//        }
+//        return false;
+//    }
+//
+//    public int getIndex() {
+//        return myIndex;
+//    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         myOwner.setCurrentSelectResource(myResource);
-        System.out.println("test");
     }
 
 
