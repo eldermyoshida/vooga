@@ -9,12 +9,7 @@ import vooga.rts.util.Location;
 public class GameMap {
     
     public static final int NODE_SIZE = 8;
-    public static final int[][] mapGrid = {{0,0,1,1,1,1},
-                                           {0,0,1,0,0,0},
-                                           {1,0,0,0,1,0}};
-    
-    private Tile[][] myTiles;
-    private MapNode[][] myMap;
+    private NodeMap myMap;
     
     /**
      * The Width of the map in Grid Size
@@ -29,14 +24,15 @@ public class GameMap {
     // Eventually, this will ideally read in a map file of sort to create the map.
     // Currently just makes a square map of nodes from 
     
-    
-    public GameMap(Dimension mapSize, Dimension tileSize) {
-       myWidth = (mapSize.width * tileSize.width) / NODE_SIZE;
-       myHeight = (mapSize.height * tileSize.height) / NODE_SIZE;
-       
-       // Create map and add first layer
-       myMap = makeMap(myWidth, myHeight);
-       myTiles = new Tile[mapSize.width][mapSize.height];
+    /**
+     * calculates how many nodes there are
+     * 
+     * @param mapSize This is the size of the map in pixels
+     */
+    public GameMap(Dimension mapSize, NodeFactory factory) {
+       myWidth = (mapSize.width) / NODE_SIZE;
+       myHeight = (mapSize.height) / NODE_SIZE;
+       myMap = factory.makeMap(NODE_SIZE);
     }    
     
     /**
@@ -74,17 +70,6 @@ public class GameMap {
      
      public MapNode get (int x, int y) {
          return myMap[y][x];
-     }
-     
-     public List<MapNode> getNeighbors (MapNode center) {
-         List<MapNode> neighbors = new ArrayList<MapNode>();
-         for (int i = -1; i < 2; i += 2) {
-             neighbors.add(getNode(center.getX() + i, center.getY()));
-
-             neighbors.add(getNode(center.getX() , center.getY() + i));
-
-         }
-         return neighbors;
      }
     
      public String toString() {

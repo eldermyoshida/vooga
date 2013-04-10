@@ -1,9 +1,9 @@
 package vooga.rts.map;
 
+import java.util.ArrayList;
 import java.util.List;
-import vooga.rts.ai.Path;
-import vooga.rts.ai.Pathfinder;
 
+// This class might extend sprite at some point to make it paintable/gameloop.
 public class NodeMap {
     
     private MapNode[][] myMap;
@@ -11,20 +11,19 @@ public class NodeMap {
     public NodeMap (List<MapNode> myNodeList, int width, int height) {
         myMap = new MapNode[width][height];
     }
-    
-    /**
-     * This function creates a path for an object to follow. 
-     * 
-     * @param finder
-     * @param start
-     * @param end
-     * @return
-     */
-    public Path calculatePath (Pathfinder finder, MapNode start, MapNode end) {
-        return finder.calculatePath(start, end, this);
-    }
-    
+
     public MapNode get (int x, int y) {
         return myMap[x][y];
+    }
+    
+    public List<MapNode> getNeighbors (MapNode current) {
+        List<MapNode> neighbors = new ArrayList<MapNode>();
+        int x = current.getX();
+        int y = current.getY();
+        for (int i = -1; i < 2; i += 2) {
+            neighbors.add(get(x + i, y));
+            neighbors.add(get(x, y + i));
+        }
+        return neighbors;
     }
 }
