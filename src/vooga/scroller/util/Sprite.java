@@ -290,5 +290,12 @@ public abstract class Sprite {
         return 0;
         //return Double.NaN;
     }
+    
+    /**
+     * Returns a view of this sprite -TODO: Maybe should be specified in an interface(?)
+     */
+    protected Pixmap getView() {
+        return myView;
+    }
 
 }

@@ -30,8 +30,6 @@ public abstract class WindowComponent extends JPanel implements IView {
      */
     private WindowComponent (IView parent) {
         myParent = parent;
-//        myConstraints = new GridBagConstraints();
-        this.setBorder(ViewConstants.DEFAULT_BORDER);
     }
     
     private Dimension getDefaultSize (double w, double h) {
@@ -50,6 +48,8 @@ public abstract class WindowComponent extends JPanel implements IView {
         setDefaultSize(rel);
         initializeVariables(); 
         addComponents();
+
+        this.setBorder(ViewConstants.DEFAULT_BORDER);
     }
     
     public WindowComponent (IView parent, Dimension size) {
@@ -57,6 +57,8 @@ public abstract class WindowComponent extends JPanel implements IView {
         setDefaultSize(size);
         initializeVariables(); 
         addComponents();
+
+        this.setBorder(ViewConstants.DEFAULT_BORDER);
     }
     
     private void setDefaultSize(Dimension d) {
