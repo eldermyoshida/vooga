@@ -35,7 +35,7 @@ public class GameEntity extends GameSprite {
         myMaxHealth = health;
         myCurrentHealth = myMaxHealth;
         myTeamID = teamID;
-        myVelocity = new Vector(0,0);
+        myOriginalVelocity = new Vector(0,0);
     }
     
     /**

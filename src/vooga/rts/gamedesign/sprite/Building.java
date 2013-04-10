@@ -24,8 +24,8 @@ public abstract class Building extends InteractiveEntity {
 	
 	public Building(Pixmap image, Location center, ThreeDimension size, Sound sound,
 			int teamID, int health) {
-		super(image, center, size, sound, teamID);
-		setHealth(MAXHEALTH);
+		super(image, center, size, sound, teamID, MAXHEALTH);
+
 	}
 
 	public void visit(RTSprite rtSprite) {

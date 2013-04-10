@@ -67,10 +67,7 @@ public class InteractiveEntity extends GameEntity implements IAttackable{
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
     }
-
-
     public Sound getSound(){
         return mySound;
     }

@@ -38,10 +38,6 @@ public class Soldier extends Unit {
         super(image, center, size, sound, teamID, health);
     }
 
-    public void visit (IAttackable a) throws CloneNotSupportedException {
-        getAttackStrategy().attack(a);
-    }
-
     @Override
     public void update (double elapsedTime) {
         super.update(elapsedTime);

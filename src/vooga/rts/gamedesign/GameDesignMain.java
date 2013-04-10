@@ -3,15 +3,15 @@ package vooga.rts.gamedesign;
 import java.awt.Dimension;
 import java.lang.reflect.InvocationTargetException;
 
+import vooga.rts.gamedesign.sprite.Unit;
 import vooga.rts.gamedesign.sprite.rtsprite.Bullet;
 import vooga.rts.gamedesign.sprite.rtsprite.Projectile;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.Interactive;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Soldier;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Units;
 import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;
 import vooga.rts.gamedesign.strategy.attackstrategy.CannotAttack;
 import vooga.rts.gamedesign.upgrades.UpgradeNode;
 import vooga.rts.gamedesign.upgrades.ArmorUpgradeNode;
+import vooga.rts.resourcemanager.ResourceManager;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
@@ -31,23 +31,22 @@ public class GameDesignMain {
      */
     public static void main(String[] args) {
 
-        Pixmap p = new Pixmap("soldier.png");
+        Pixmap p = new Pixmap(ResourceManager.instance().loadFile("images/soldier.png"));
         Location l = new Location(40,50);
         Dimension s = new Dimension();
         Sound soun = new Sound("pikachu.wav");
 
-        Units a = new Soldier(p,l,s,soun,20,40);
+        Unit a = new Soldier(p,l,s,soun,20,40);
         a.setAttackStrategy(new CannotAttack());
 
-        Units b = new Soldier(p,new Location(20,30),s,soun,20,50);
-        Projectile proj = new Bullet(new Pixmap("bullet.png"), b.getCenter(), new Dimension(30, 30), soun, 10, 1);
+        Unit b = new Soldier(p,new Location(20,30),s,soun,20,50);
+        Projectile proj = new Bullet(new Pixmap(ResourceManager.instance().loadFile("images/bullet.png")), b.getCenter(), new Dimension(30, 30), 10, 1);
         b.setAttackStrategy(new CanAttack());
 
 
         ((CanAttack) b.getAttackStrategy()).addWeapons(new Gun(0, proj, 50, b.getCenter(),20));
-        a.accept(b);
 
-        Units c = new Soldier(p,l,s,soun,20,40);
+        Unit c = new Soldier(p,l,s,soun,20,40);
         c.setAttackStrategy(new CannotAttack());
         System.out.println("Soldier C before upgrade " + c.getHealth());        
 
