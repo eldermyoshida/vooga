@@ -1,4 +1,4 @@
-package vooga.towerdefense.view;
+package vooga.towerdefense.model;
 
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.util.Location;
@@ -10,6 +10,12 @@ public class Tile {
     private Location myCenter;
     private GameElement myTower;
     
+	public Tile(Location center, boolean walkable, boolean buildable) {
+		myIsWalkable = walkable;
+		myIsBuildable = buildable;
+		myCenter = center;
+	}
+
     public void update(double elapsedTime) {
         if (myTower != null) {
             myTower.update(elapsedTime);

@@ -42,7 +42,7 @@ public class Unit extends Sprite {
     }
     
     @Override
-    public void update(double elapsedTime,Dimension bounds){
+	public void update(double elapsedTime, Dimension bounds) {
     	if (this.hasArrived(myDestination)){
     		updatePath(myPath.next());
     		this.turnTo(myDestination); //turnTo should be implemented in Sprite and thus can be used for both tower and unit
