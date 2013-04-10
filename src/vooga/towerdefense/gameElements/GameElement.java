@@ -14,12 +14,12 @@ import vooga.towerdefense.util.Sprite;
  * @author Matthew Roy
  *
  */
-public class Tower extends Sprite {
+public class GameElement extends Sprite {
     
     Attributes myAttributes;
     List<AbstractAction> myActions;
     
-    public Tower (Pixmap image, Location center, Dimension size, Attributes attributes, List<AbstractAction> actions) {
+    public GameElement (Pixmap image, Location center, Dimension size, Attributes attributes, List<AbstractAction> actions) {
         super(image, center, size);
         myAttributes = attributes;
         myActions = actions;

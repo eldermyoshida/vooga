@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import vooga.towerdefense.gameElements.Tower;
+import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.gameElements.Unit;
 import vooga.towerdefense.util.Location;
 import vooga.towerdefense.view.Tile;
@@ -45,7 +45,7 @@ public class GameMap {
         myUnits.add(u);
     }
     
-    public void buildTower(int i, int j, Tower t) {
+    public void buildTower(int i, int j, GameElement t) {
         myGrid[i][j].setTower(t);
     }
     
