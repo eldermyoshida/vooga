@@ -30,5 +30,9 @@ public class Tower extends Sprite {
             a.execute(elapsedTime);
         }
     }
+    
+    public Attributes getAttributes() {
+        return myAttributes;
+    }
 
 }
