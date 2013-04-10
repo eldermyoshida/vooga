@@ -69,26 +69,6 @@ public class InteractiveEntity extends GameEntity implements IAttackable{
         myAttackStrategy = newStrategy;
     }
 
-
-
-    /**
-     * Moves the Unit only. Updates first the angle the Unit is facing,
-     * and then its location.
-     * Possible design choice error. 
-     */
-    public void move(Location loc){
-        double angle = getCenter().difference(loc).getDirection();
-        double magnitude = getCenter().difference(loc).getMagnitude();
-        turn(angle);
-        setVelocity(angle, magnitude);
-    }
-
-    public int calculateDamage(int damage) {
-        return damage * (1-(myArmor/(myArmor+100)));
-    }
-
-
-
     /**
      * Returns the current attack strategy of the interactive
      * 
@@ -97,8 +77,13 @@ public class InteractiveEntity extends GameEntity implements IAttackable{
     public AttackStrategy getAttackStrategy () {
         return myAttackStrategy;
     }
-
-
+    
+    
+    
+    public int calculateDamage(int damage) {
+        return damage * (1-(myArmor/(myArmor+100)));
+    }
+    
     public void paint(Graphics2D pen) {
         if (!isDead()) {
             super.paint(pen);
