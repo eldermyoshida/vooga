@@ -21,6 +21,7 @@ import vooga.rts.util.Vector;
 public class GameEntity extends GameSprite {
     private Vector myVelocity;
     private Sound mySound;
+    
     private int myMaxHealth;
     private int myCurrentHealth;
     
@@ -31,6 +32,7 @@ public class GameEntity extends GameSprite {
     public GameEntity (Pixmap image, Location center, ThreeDimension size, int teamID) {
         super(image, center, size);
         myTeamID = teamID;
+        myVelocity = new Vector(0,0);
     }
     
     /**
@@ -39,11 +41,20 @@ public class GameEntity extends GameSprite {
     public Vector getVelocity () {
         return myVelocity;
     }
+    
     /**
      * Resets shape's velocity.
      */
     public void setVelocity (double angle, double magnitude) {
         myVelocity = new Vector(angle, magnitude);
+    }
+    
+    public int getHealth() {
+    	return myCurrentHealth;
+    }
+    
+    public void setHealth(int health) {
+    	myCurrentHealth = health;
     }
     
     /**
@@ -54,7 +65,7 @@ public class GameEntity extends GameSprite {
     }
     
     /**
-     * Rotates the Unit by the given angle. 
+     * Rotates the Unit by the given angle.
      * @param angle
      */
     public void turn(double angle){
@@ -89,7 +100,7 @@ public class GameEntity extends GameSprite {
     }
     
     public void changeHealth(int change) {
-        myCurrentHealth -= calculateDamage(change);
+        myCurrentHealth -= change;
 
     }
     
@@ -107,3 +118,4 @@ public class GameEntity extends GameSprite {
     }
     
 }
+

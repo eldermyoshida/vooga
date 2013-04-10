@@ -44,12 +44,6 @@ public class InteractiveEntity extends GameEntity implements IAttackable{
             e.printStackTrace();
         }
     }
-    public void setHealth(int health){
-        myCurrentHealth = health;
-    }
-    public int getHealth(){
-        return myCurrentHealth;
-    }
 
 
     public Sound getSound(){
@@ -75,14 +69,7 @@ public class InteractiveEntity extends GameEntity implements IAttackable{
         myAttackStrategy = newStrategy;
     }
 
-    /**
-     * Checks to see if an RTSprite is dead.
-     * @return true if the RTSprite has been killed and true if the RTSprite 
-     * is still alive.
-     */
-    public boolean isDead() {
-        return myCurrentHealth <= 0;
-    }
+
 
     /**
      * Moves the Unit only. Updates first the angle the Unit is facing,
@@ -100,10 +87,7 @@ public class InteractiveEntity extends GameEntity implements IAttackable{
         return damage * (1-(myArmor/(myArmor+100)));
     }
 
-    public void changeHealth(int change) {
-        myCurrentHealth -= calculateDamage(change);
 
-    }
 
     /**
      * Returns the current attack strategy of the interactive
@@ -113,9 +97,7 @@ public class InteractiveEntity extends GameEntity implements IAttackable{
     public AttackStrategy getAttackStrategy () {
         return myAttackStrategy;
     }
-    public void die(){
-        myCurrentHealth = 0;
-    }
+
 
     public void paint(Graphics2D pen) {
         if (!isDead()) {
