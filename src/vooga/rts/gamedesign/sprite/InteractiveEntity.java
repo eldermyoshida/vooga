@@ -21,7 +21,7 @@ import vooga.rts.util.Sound;
 import vooga.rts.util.Vector;
 
 
-public class InteractiveEntity extends GameEntity {
+public class InteractiveEntity extends GameEntity implements IAttackable{
 	
 	 
     private Vector myVelocity;
@@ -36,7 +36,6 @@ public class InteractiveEntity extends GameEntity {
     private int myArmor;
     private int myCurrentHealth;
     private int myMaxHealth;
-    private int myPlayerID;
 
 
 
@@ -46,7 +45,6 @@ public class InteractiveEntity extends GameEntity {
         myMaxHealth = health;
         myCurrentHealth = myMaxHealth;
         mySound = sound;
-        myPlayerID = teamID;
         myAttackStrategy = new CannotAttack();
     }
 
