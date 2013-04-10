@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.util.List;
 
 import vooga.rts.ai.PathingHelper;
+import vooga.rts.gamedesign.sprite.rtsprite.EntityVisitor;
 import vooga.rts.gamedesign.sprite.rtsprite.RTSprite;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.IGatherable;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.IOccupiable;
@@ -118,5 +119,17 @@ public class Unit extends InteractiveEntity {
     public void setPath (Location location) {
         myPather.constructPath(getCenter(), location);
     }
+
+	@Override
+	public void visit(IOccupiable o) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void visit(IGatherable g) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

@@ -35,7 +35,10 @@ public class GameEntity extends GameSprite {
         myMaxHealth = health;
         myCurrentHealth = myMaxHealth;
         myTeamID = teamID;
+        
+        //ALERT THIS IS JUST FOR TESTING
         myOriginalVelocity = new Vector(0,0);
+        myVelocity = new Vector(0,0);
     }
     
     /**
@@ -96,11 +99,14 @@ public class GameEntity extends GameSprite {
      * Possible design choice error. 
      */
     public void move (Location loc){
-        double angle = getCenter().difference(loc).getDirection();
         double magnitude = getCenter().difference(loc).getMagnitude();
+        double angle = getCenter().difference(loc).getDirection();
+
         turn(angle);
         setVelocity(angle, magnitude);
     }
+    
+    
     /**
      * Updates the shape's location.
      */

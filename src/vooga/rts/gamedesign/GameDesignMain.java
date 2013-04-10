@@ -40,44 +40,18 @@ public class GameDesignMain {
         a.setAttackStrategy(new CannotAttack());
 
         Unit b = new Soldier(p,new Location(20,30),s,soun,20,50);
-        Projectile proj = new Bullet(new Pixmap(ResourceManager.instance().loadFile("images/bullet.png")), b.getCenter(), new Dimension(30, 30), 10, 1);
+        Projectile proj = new Projectile(new Pixmap(ResourceManager.instance().loadFile("images/bullet.png")), new Location(20,30), new Dimension(30, 30), 10, 1);
         b.setAttackStrategy(new CanAttack());
+        
+        
+        ((CanAttack) b.getAttackStrategy()).addWeapons(new Weapon(0, proj, 50, new Location(20,30),20));
 
-
-        ((CanAttack) b.getAttackStrategy()).addWeapons(new Gun(0, proj, 50, b.getCenter(),20));
-
+        
+        
+        a.accept(b);
+        
         Unit c = new Soldier(p,l,s,soun,20,40);
         c.setAttackStrategy(new CannotAttack());
-        System.out.println("Soldier C before upgrade " + c.getHealth());        
-
-        try {
-            c.upgradeNode(c.getTree().findCurrent("armor1"));
-        }
-        catch (IllegalArgumentException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        catch (SecurityException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        catch (IllegalAccessException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        catch (InvocationTargetException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        catch (InstantiationException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        catch (NoSuchMethodException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        System.out.println("Soldier C after upgrade " + c.getHealth());
         
         
     }

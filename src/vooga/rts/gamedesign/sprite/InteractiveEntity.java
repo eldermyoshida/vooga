@@ -9,6 +9,8 @@ import vooga.rts.gamedesign.factories.Factory;
 import vooga.rts.gamedesign.sprite.rtsprite.EntityVisitor;
 import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
 import vooga.rts.gamedesign.sprite.rtsprite.Projectile;
+import vooga.rts.gamedesign.sprite.rtsprite.interactive.IGatherable;
+import vooga.rts.gamedesign.sprite.rtsprite.interactive.IOccupiable;
 
 import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
 import vooga.rts.gamedesign.strategy.attackstrategy.CannotAttack;
@@ -30,7 +32,7 @@ import vooga.rts.util.Sound;
  * @author Wenshun Liu
  *
  */
-public class InteractiveEntity extends GameEntity implements IAttackable{
+public class InteractiveEntity extends GameEntity implements IAttackable, EntityVisitor{
 
     private UpgradeTree myUpgradeTree;
     private Sound mySound;
@@ -42,12 +44,12 @@ public class InteractiveEntity extends GameEntity implements IAttackable{
     public InteractiveEntity (Pixmap image, Location center, Dimension size, Sound sound, int teamID, int health) {
         super(image, center, size, teamID, health);
         myMakers = new HashMap<String, Factory>(); //WHERE SHOULD THIS GO?
-        myUpgradeTree =new UpgradeTree();
+        //myUpgradeTree =new UpgradeTree();
         mySound = sound;
         myAttackStrategy = new CannotAttack();
 
-        UpgradeNode armor = new ArmorUpgradeNode("armor1","myHealth",40); //TESTING
-        myUpgradeTree.addUpgrade(armor); //TESTING
+        //UpgradeNode armor = new ArmorUpgradeNode("armor1","myHealth",40); //TESTING
+        //myUpgradeTree.addUpgrade(armor); //TESTING
     }
 
     /** 
@@ -125,4 +127,16 @@ public class InteractiveEntity extends GameEntity implements IAttackable{
     public int calculateDamage(int damage) {
         return damage * (1-(myArmor/(myArmor+100)));
     }
+
+	@Override
+	public void visit(IOccupiable o) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void visit(IGatherable g) {
+		// TODO Auto-generated method stub
+		
+	}
 }
