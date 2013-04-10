@@ -1,4 +1,5 @@
-package util;
+
+package vooga.scroller.util;
 
 import java.awt.Graphics2D;
 import java.awt.Dimension;
@@ -17,7 +18,7 @@ import javax.swing.ImageIcon;
  */
 public class Pixmap {
     // OS-independent relative resource locations (like URLs)
-    private static final String RESOURCE_LOCATION = "/images/";
+    private static final String RESOURCE_LOCATION = "/vooga/scroller/images/";
     // underlying implementation
     private java.awt.Image myImage;
     private String myFileName;

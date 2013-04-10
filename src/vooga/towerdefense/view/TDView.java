@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import vooga.towerdefense.controller.Controller;
 
 /**
  * 
@@ -26,8 +27,10 @@ public class TDView {
     private ShopScreen myShopWindow;
     private LevelsSelectorScreen myEditorWindow;
     private SplashScreen mySplashScreen;
+    private Controller myController;
     
-    public TDView () {
+    public TDView (Controller controller) {
+        myController = controller;
         createGUI();
     }
     
@@ -63,7 +66,7 @@ public class TDView {
     	myFrame.remove(mySplashScreen);
     	
       //add view components to the BorderLayout manager
-      myMapWindow = new MapScreen(MAP_WINDOW_SIZE);
+      myMapWindow = new MapScreen(MAP_WINDOW_SIZE, myController);
       myFrame.getContentPane().add(myMapWindow, BorderLayout.CENTER);
       
       myEastWindow = new EastWindow(EAST_WINDOW_SIZE);

@@ -1,17 +1,16 @@
-package sprite_superclasses;
+
+package vooga.scroller.sprite_superclasses;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.util.List;
-import collision_handlers.Mario_CH;
-import design_patterns.State;
-import test_sprites.Type;
-import util.Location;
-import util.Pixmap;
-import util.Sprite;
-import util.Vector;
-import view.View;
+import vooga.scroller.design_patterns.State;
+import vooga.scroller.util.Location;
+import vooga.scroller.util.Pixmap;
+import vooga.scroller.util.Sprite;
+import vooga.scroller.util.Vector;
+import vooga.scroller.view.View;
 
 
 /**
@@ -33,7 +32,6 @@ import view.View;
 public class Player extends Sprite {
 
 //    Graphics2D pen;
-    Mario_CH myCollisionHandler;
     List<State> myStates;
     State currentState; 
     View myView;
@@ -61,28 +59,7 @@ public class Player extends Sprite {
     }
 
     public void update(double elapsedTime, Dimension bounds) {
-//        Commented out for scrolling testing
-//        currentState.update();
-        // move based on input
-//      ONLY FOR TESTING
-//        int key = myView.getLastKeyPressed();
-//        if (key == MOVE_LEFT)
-//        {
-//            translate(LEFT_VELOCITY);
-//        }
-//        if (key == MOVE_RIGHT)
-//        {
-//            translate(RIGHT_VELOCITY);
-//        }
-//        if (key == MOVE_UP)
-//        {
-//            translate(UP_VELOCITY);
-//        }
-//        if (key == MOVE_DOWN)
-//        {
-//            translate(DOWN_VELOCITY);
-//        }
-//        ONLY FOR TESTING
+
     }
    
     @Override
@@ -97,8 +74,5 @@ public class Player extends Sprite {
     public Location getOriginalCenter() {
         return myOriginalCenter;
     }
-    
-    public Type getType() {
-        return Type.NONE;
-    }
+
 }

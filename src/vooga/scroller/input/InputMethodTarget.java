@@ -1,4 +1,4 @@
-package input;
+package vooga.scroller.input;
  
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

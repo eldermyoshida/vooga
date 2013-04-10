@@ -1,4 +1,5 @@
-package viewUtil;
+
+package vooga.scroller.viewUtil;
 
 
 import java.awt.event.ActionEvent;
@@ -9,7 +10,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JSeparator;
 import javax.swing.Timer;
-import level_editor.LEditorActionLibrary;
+import vooga.scroller.level_editor.LEditorActionLibrary;
 
 
 /**

@@ -1,10 +1,10 @@
-package level_editor;
+
+package vooga.scroller.level_editor;
 
 import java.awt.Container;
-import viewUtil.IView;
-import viewUtil.Renderable;
-import viewUtil.WindowComponent;
-
+import vooga.scroller.viewUtil.IView;
+import vooga.scroller.viewUtil.Renderable;
+import vooga.scroller.viewUtil.WindowComponent;
 /**
  * EditorView is responsible for presenting editing tools to the user.
  * It provides a UI for the user to select various kind of sprites or 

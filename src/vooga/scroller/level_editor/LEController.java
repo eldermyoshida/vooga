@@ -1,13 +1,14 @@
-package level_editor;
+
+package vooga.scroller.level_editor;
 
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
-import util.Editable;
-import viewUtil.IWindow;
-import viewUtil.Renderable;
-import viewUtil.WorkspaceView;
+import vooga.scroller.util.Editable;
+import vooga.scroller.viewUtil.IWindow;
+import vooga.scroller.viewUtil.Renderable;
+import vooga.scroller.viewUtil.WorkspaceView;
 
 /**
  * The controller is responsible for interfacing between an IView and an IModel.

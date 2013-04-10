@@ -1,6 +1,7 @@
-package util;
 
-import viewUtil.Renderable;
+package vooga.scroller.util;
+
+import vooga.scroller.viewUtil.Renderable;
 
 
 public interface IView {

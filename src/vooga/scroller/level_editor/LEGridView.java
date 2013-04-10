@@ -1,14 +1,14 @@
-package level_editor;
 
+package vooga.scroller.level_editor;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import viewUtil.IView;
-import viewUtil.ViewConstants;
-import viewUtil.Renderable;
-import viewUtil.WindowComponent;
+import vooga.scroller.viewUtil.IView;
+import vooga.scroller.viewUtil.ViewConstants;
+import vooga.scroller.viewUtil.Renderable;
+import vooga.scroller.viewUtil.WindowComponent;
 
 public class LEGridView extends WindowComponent{
     /**
