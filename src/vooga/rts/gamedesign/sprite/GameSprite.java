@@ -103,8 +103,6 @@ public abstract class GameSprite extends Sprite {
     public void reset () {
         super.reset();
         mySize = myOriginalSize;
-        
-        myVelocity = new Vector(myOriginalVelocity);
     }
     
     /**

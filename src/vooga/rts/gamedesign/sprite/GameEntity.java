@@ -1,9 +1,9 @@
 package vooga.rts.gamedesign.sprite;
 
-import java.awt.Dimension;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
+import vooga.rts.util.ThreeDimension;
 import vooga.rts.util.Vector;
 
 public class GameEntity extends GameSprite {
@@ -12,7 +12,7 @@ public class GameEntity extends GameSprite {
     
     private Vector myOriginalVelocity;
     
-    public GameEntity (Pixmap image, Location center, Dimension size) {
+    public GameEntity (Pixmap image, Location center, ThreeDimension size) {
         super(image, center, size);
         
     }
@@ -45,15 +45,23 @@ public class GameEntity extends GameSprite {
     }
     
     /**
-     * Updates the GameEntity. 
+     * Reset shape back to its original values.
      */
     @Override
+    public void reset () {
+        super.reset();
+        myVelocity = new Vector(myOriginalVelocity);
+    }
+    
+    /**
+     * Updates the shape's location.
+     */
+    //TODO: make Velocity three dimensional...
     public void update (double elapsedTime) {
     	if(!isVisible()) return;
         Vector v = new Vector(myVelocity);
         v.scale(elapsedTime);
         translate(v);
-        resetBounds();
     }
-
+    
 }
