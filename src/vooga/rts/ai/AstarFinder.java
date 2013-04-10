@@ -12,11 +12,12 @@ import java.util.Queue;
 import vooga.rts.map.GameMap;
 import vooga.rts.map.MapNode;
 
-public class AstarFinder extends Pathfinder {
 
+public class AstarFinder extends Pathfinder {
+    
     @Override
-    public Queue<MapNode> findPath (MapNode start, MapNode destination, GameMap map) {
-        Queue<MapNode> result;
+    public List<MapNode> findPath (MapNode start, MapNode destination, GameMap map) {
+        List<MapNode> result = null;
         List<MapNode> closed = new ArrayList<MapNode>();
         List<MapNode> open = new ArrayList<MapNode>();
         open.add(start);
@@ -25,59 +26,52 @@ public class AstarFinder extends Pathfinder {
         Map<MapNode, Double> fScore = new HashMap<MapNode, Double>();
         gScore.put(start, 0.0);
         fScore.put(start, calculateHeuristic(start, destination));
-        double fMax;
-        double gMax;
-        while (open.size() > 0) {            
+        double fMax = 0;
+        double gMax = 0;
+        while (open.size() > 0) {  
             MapNode current = getLowest(fScore, open);
+          
             if (current.equals(destination)) {
                 fMax = getMin(fScore);
                 gMax = getMin(gScore);
                 return constructPath(comesFrom, destination);
             }
-            else {
-                open.remove(current);
-                closed.add(current);
-                List<MapNode> neighbors = map.getNeighbors(current);
-                for (MapNode neighbor: neighbors) {
-                    if (neighbor == null) {
-                        continue;
-                    }
-                    double newGScore = gScore.get(current) + current.getDistance();
-                    if (closed.contains(neighbor) && newGScore >= gScore.get(neighbor)) {
-                        continue;
-                    }
-                    if (!current.connectsTo(neighbor)) {
-                        continue;
-                    }
-                    if (!open.contains(neighbor) || newGScore < gScore.get(neighbor)) {
-                        comesFrom.put(neighbor, current);
-                        gScore.put(neighbor, newGScore);
-                        fScore.put(neighbor, gScore.get(neighbor) 
-                                   + calculateHeuristic(neighbor, destination));
-                        if(!open.contains(neighbor)) {
+            open.remove(current);
+            closed.add(current);
+            List<MapNode> neighbors = map.getNeighbors(current);
+            for (MapNode neighbor: neighbors) {
+                if (neighbor == null) {
+                    continue;
+                }
+                double newGScore = gScore.get(current) + current.getDistance();
+                if (closed.contains(neighbor) && newGScore >= gScore.get(neighbor)) {
+                    continue;
+                }
+                if (!open.contains(neighbor) || newGScore < gScore.get(neighbor)) {
+                    comesFrom.put(neighbor, current);
+                    gScore.put(neighbor, newGScore);
+                    fScore.put(neighbor, gScore.get(neighbor) 
+                               + calculateHeuristic(neighbor, destination));
+                    if(!open.contains(neighbor) ){
+                        if(!(neighbor.getHeight() > 0)) {
                             open.add(neighbor);
-                        }
+                        }   
                     }
                 }
+
             }
         }
-        return null;
+        return result;
     }
 
-    private double getMin(Map<MapNode, Double> f) {    
-        double max = Collections.max(f.values(), new Comparator<Double>(){
-            @Override
-            public int compare (Double o1, Double o2) {
-                if (o1 > 1000000) {
-                    return -1;
-                }
-                if (o2 > 1000000) {
-                    return 1;
-                }
-                return o1.compareTo(o2);
-            }            
-        });
-        return max;
+    private double getMin(Map<MapNode, Double> f) {
+        double min = 0;
+        for(MapNode key: f.keySet()){
+            if (f.get(key) < min) {
+                min = f.get(key);
+            }
+        }
+        return min;
     }
 
     private double calculateHeuristic (MapNode start, MapNode destination) {
@@ -86,8 +80,8 @@ public class AstarFinder extends Pathfinder {
         return start.getDistance() * (dx + dy);
     }
 
-    private Queue<MapNode> constructPath(Map<MapNode, MapNode> comesFrom, MapNode destination) {
-        Queue<MapNode> path = new LinkedList<MapNode>();
+    private List<MapNode> constructPath(Map<MapNode, MapNode> comesFrom, MapNode destination) {
+        List<MapNode> path = new LinkedList<MapNode>();
         if (comesFrom.containsKey(destination)) {
             path.addAll(constructPath(comesFrom, comesFrom.get(destination)));
             path.add(destination);

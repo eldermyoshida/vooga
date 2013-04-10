@@ -1,5 +1,6 @@
 package vooga.rts.ai;
 
+import java.util.List;
 import java.awt.Dimension;
 import vooga.rts.map.*;
 import vooga.rts.util.Location;
@@ -12,11 +13,13 @@ public class AIMain {
     public static void main (String[] args) {
         GameMap map = new GameMap(new Dimension(0,0), new Dimension(0,0));
         PathingHelper help = new PathingHelper(map);
-        help.constructPath(map.get(0,0), map.get(2,1));
-        Location next = new Location(0,0);
+        help.constructPath(map.get(0,0), map.get(5,2));
+        MapNode next = null;
+        System.out.println(help.size());
         while(help.size() > 0) {
             next = help.getNext(next);
-            System.out.println(next.x + next.y + "\n");
+            System.out.print(next.getX() + " ");
+            System.out.println(next.getY());
         }
     }
 
