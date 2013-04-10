@@ -18,6 +18,8 @@ public class MapNode {
     private int myY;
 
     public MapNode(int x, int y, int size, int height) {
+        myX = x;
+        myY = y;
         myLocation = new Location(x,y);
         myDistance = size;
         myHeight = height;
