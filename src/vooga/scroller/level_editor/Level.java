@@ -6,9 +6,9 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 import vooga.scroller.util.Editable;
-import vooga.scroller.util.Location;
 import vooga.scroller.util.Sprite;
 import vooga.scroller.viewUtil.Renderable;
+import vooga.scroller.collision_handlers.CollisionManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprite_superclasses.Player;
 import vooga.scroller.util.PlatformerConstants;
@@ -84,6 +84,7 @@ public class Level implements Editable, Renderable {
             for(Sprite s: myFrameOfActionSprites) {
                 s.update(elapsedTime, bounds);
             }
+            intersectingSprites();
         }
     }
 
@@ -172,5 +173,26 @@ public class Level implements Editable, Renderable {
     public void deleteSprite (int x, int y) {
         // TODO Auto-generated method stub
         
+    }
+    
+    private void intersectingSprites () {
+        Sprite obj1;
+        Sprite obj2;
+        CollisionManager CM = new CollisionManager(myView);
+
+        mySprites.add(myPlayer);
+        
+        for (int i = 0; i < mySprites.size(); i++) {
+            for (int j = i + 1; j < mySprites.size(); j++) {     
+                obj1 = mySprites.get(i);
+                obj2 = mySprites.get(j);
+                if (obj1.intersects(obj2)) {
+                    CM.handleCollision(obj1, obj2);
+                    CM.handleCollision(obj2, obj1);
+                }
+
+            }
+        }
+        mySprites.remove(mySprites.size()-1);
     }
 }

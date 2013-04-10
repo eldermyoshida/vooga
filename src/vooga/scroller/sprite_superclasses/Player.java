@@ -32,9 +32,9 @@ import vooga.scroller.view.View;
 public class Player extends Sprite {
 
 //    Graphics2D pen;
-    List<State> myStates;
-    State currentState; 
-    View myView;
+    private List<State> myStates;
+    private State currentState; 
+    private View myView;
     private Location myOriginalCenter;
     private Dimension mySize;
     private Pixmap myImage;
