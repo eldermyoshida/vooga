@@ -1,5 +1,5 @@
 package vooga.towerdefense.action;
 
-public interface Armed {
+public interface Upgradable {
 
 }
