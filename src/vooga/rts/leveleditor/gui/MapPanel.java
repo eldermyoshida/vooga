@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.util.Observable;
 import java.util.Observer;
@@ -14,7 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JViewport;
 import vooga.rts.leveleditor.components.EditableMap;
 
-public class MapPanel extends JComponent {
+public class MapPanel extends JComponent implements MouseListener {
     
     public static final Dimension DEFAULT_MAP_SIZE  = new Dimension (600,600);
     
@@ -77,8 +79,33 @@ public class MapPanel extends JComponent {
         repaint();
     }
 
-    public static void setViewport(JViewport viewport) {
-        myViewport = viewport;
+    public void mapClicked(int x, int y) {
+        //TODO
+    }
+    
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        mapClicked(e.getX(), e.getY());
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent arg0) {
         
     }
 
