@@ -66,9 +66,7 @@ public class InteractiveEntity extends GameEntity implements IAttackable{
     public void setAttackStrategy(AttackStrategy newStrategy){
         myAttackStrategy = newStrategy;
     }
-
-
-
+    
     /**
      * Moves the Unit only. Updates first the angle the Unit is facing,
      * and then its location.

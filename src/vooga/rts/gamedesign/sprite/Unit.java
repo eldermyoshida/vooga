@@ -6,6 +6,7 @@ import java.util.List;
 import vooga.rts.ai.PathingHelper;
 import vooga.rts.gamedesign.sprite.rtsprite.RTSprite;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.IGatherable;
+import vooga.rts.gamedesign.sprite.rtsprite.interactive.IOccupiable;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.Interactive;
 import vooga.rts.gamedesign.strategy.gatherstrategy.CannotGather;
 import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
@@ -86,6 +87,22 @@ public class Unit extends InteractiveEntity {
     
     public void gatherResources(IGatherable g) {
     	myGatherStrategy.gather(g);
+    }
+    
+    public void occupyOther(IOccupiable o) {
+    	myOccupyStrategy.occupy(o);
+    }
+    
+    public void occupyOther(Unit units) {
+    	myOccupyStrategy.occupy(units);
+    }
+    
+    public void setGatherStrategy (GatherStrategy newStrategy) {
+    	myGatherStrategy = newStrategy;
+    }
+    
+    public void setOccupyStrategy (OccupyStrategy newStrategy) {
+    	myOccupyStrategy = newStrategy;
     }
 
     public void setPath (Location location) {
