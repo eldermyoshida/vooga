@@ -2,8 +2,7 @@ package vooga.rts.gamedesign.strategy.attackstrategy;
 
 import vooga.rts.gamedesign.sprite.Building;
 import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.Interactive;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Units;
+
 
 /**
  * 
@@ -27,7 +26,7 @@ import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Units;
 public interface AttackStrategy {
 
 
-    public void attack(IAttackable a) throws CloneNotSupportedException;
+    public void attack(IAttackable a);
   
 
 }

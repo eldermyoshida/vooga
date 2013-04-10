@@ -57,13 +57,8 @@ public class InteractiveEntity extends GameEntity implements IAttackable{
      * @throws CloneNotSupportedException 
      */
     public void accept(RTSpriteVisitor visitor) {
-        try {
-            visitor.visit(this);
-        }
-        catch (CloneNotSupportedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+    	visitor.visit(this);
+  
     }
 
 
@@ -71,7 +66,7 @@ public class InteractiveEntity extends GameEntity implements IAttackable{
         return mySound;
     }
 
-    public void visit(IAttackable a) throws CloneNotSupportedException{
+    public void visit(IAttackable a){
         if(!isDead()){
             myAttackStrategy.attack(a);
         }
