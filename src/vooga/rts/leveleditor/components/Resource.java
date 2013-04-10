@@ -1,7 +1,12 @@
 package vooga.rts.leveleditor.components;
 
 import java.awt.image.BufferedImage;
-import vooga.rts.util.Pixmap;
+/**
+ * This class represents the available resource types the designer can choose from
+ * 
+ * @author Ziqiang Huang
+ *
+ */
 
 public class Resource {
     
@@ -9,6 +14,13 @@ public class Resource {
     private String myName;
     private BufferedImage myImage;
     
+    /**
+     * Constructor for this class
+     * 
+     * @param id
+     * @param name
+     * @param image
+     */
     public Resource(int id, String name, BufferedImage image) {
         
         myID = id;

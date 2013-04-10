@@ -18,24 +18,24 @@ import javax.swing.JTextField;
 import vooga.rts.leveleditor.components.Resource;
 
 public class Canvas extends JFrame {
-    
+
     public static final Dimension DEFAULT_CANVAS_SIZE  = new Dimension (800,600);
     public static final Dimension DEFAULT_RESOURCE_SIZE  = new Dimension (200,600);
     public static final String USER_DIR = "user.dir";
-    
+
     private MapPanel myMapPanel;
     private ResourcePanel myResourcePanel;
     private Resource myCurrentSelectResource;
     private JFileChooser myChooser;
     private JScrollPane  myMapScroll;
-    
+
     public Canvas() {
         setTitle("Level Editor");
         myMapPanel = new MapPanel(this);
         myResourcePanel = new ResourcePanel(this);
         myChooser = new JFileChooser(System.getProperties().getProperty(USER_DIR));
-     
-        
+
+
         JPanel ChooserPanel = new JPanel(new BorderLayout());        
         JScrollPane resourceScroll = new JScrollPane(myResourcePanel);
         JTabbedPane ResourceTabPane = new JTabbedPane();
@@ -47,17 +47,17 @@ public class Canvas extends JFrame {
         myMapScroll = new JScrollPane(myMapPanel);
         getContentPane().add(myMapScroll, BorderLayout.CENTER);
         getContentPane().add(ChooserPanel, BorderLayout.EAST);
-        
+
         setJMenuBar(createMenuBar());
-        
+
         setPreferredSize(DEFAULT_CANVAS_SIZE);
         pack();
         setVisible(true);
-        
-        
-        
+
+
+
     }
-    
+
     private JPanel createButtonPanel() {
         JPanel ButtonPanel = new JPanel();
         JButton ZoomInButton = new JButton("ZoomIn");
@@ -90,7 +90,7 @@ public class Canvas extends JFrame {
         menuBar.add(createFileMenu());
         return menuBar;
     }
-    
+
     private JMenu createFileMenu() {
         JMenu menu = new JMenu("File");
         createFileMenu(menu);
@@ -98,21 +98,21 @@ public class Canvas extends JFrame {
     }
 
     private void createFileMenu(JMenu menu) {
-        
+
         menu.add(new AbstractAction("New") {
             @Override
             public void actionPerformed (ActionEvent e) {
                 showCustomizeMapDialog();
             }
         });
-        
+
         menu.add(new AbstractAction("Save") {
             @Override
             public void actionPerformed (ActionEvent e) {
                 try {
                     int response = myChooser.showSaveDialog(null);
                     if (response == JFileChooser.APPROVE_OPTION) {
-                       //TODO
+                        //TODO
                     }
                 }
                 catch (Exception exception) {
@@ -120,7 +120,7 @@ public class Canvas extends JFrame {
                 }
             }
         });
-        
+
         menu.add(new AbstractAction("Load") {
 
             @Override
@@ -128,7 +128,7 @@ public class Canvas extends JFrame {
                 try {
                     int response = myChooser.showOpenDialog(null);
                     if (response == JFileChooser.APPROVE_OPTION) {
-                      //TODO  
+                        //TODO  
                     }
                 }
                 catch (Exception exception) {
@@ -136,18 +136,18 @@ public class Canvas extends JFrame {
                 }
             }
         });
-        
+
     }
 
-    
+
     protected void showCustomizeMapDialog() {
         JTextField MapWidth = new JTextField();
         JTextField MapHeight = new JTextField();
-        
+
         Object[] message = {"MapWidth", MapWidth, "MapHeight", MapHeight};
-        
+
         int option = JOptionPane.showConfirmDialog(null, message,"Set Map Size",JOptionPane.OK_CANCEL_OPTION);
-        
+
         if (option == JOptionPane.OK_OPTION) {
             try {
                 int w = Integer.parseInt(MapWidth.getText());
@@ -161,11 +161,11 @@ public class Canvas extends JFrame {
             }
         }
     }
-    
+
     public void setCurrentSelectResource(Resource r) {
         myCurrentSelectResource = r;
     }
-    
+
     public Resource getCurrentSelectResource() {
         return myCurrentSelectResource;
     }
