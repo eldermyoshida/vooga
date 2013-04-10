@@ -1,12 +1,12 @@
-package vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings;
+package vooga.rts.gamedesign.sprite;
 
 import java.awt.Dimension;
 
 import vooga.rts.gamedesign.sprite.rtsprite.RTSprite;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.Interactive;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
+import vooga.rts.util.ThreeDimension;
 
 
 /**
@@ -19,19 +19,16 @@ import vooga.rts.util.Sound;
  * @author Wenshun Liu 
  *
  */
-public abstract class Building extends Interactive {
-
-	public Building(Pixmap image, Location center, Dimension size, Sound sound,
+public abstract class Building extends InteractiveEntity {
+	public static final int MAXHEALTH = 100;
+	
+	public Building(Pixmap image, Location center, ThreeDimension size, Sound sound,
 			int teamID, int health) {
-		super(image, center, size, sound, teamID, health);
-		// TODO Auto-generated constructor stub
+		super(image, center, size, sound, teamID);
+		setHealth(MAXHEALTH);
 	}
 
 	public void visit(RTSprite rtSprite) {
-		// TODO Auto-generated method stub
-		
+		//TODO
 	}
-	
-	
-	
 }

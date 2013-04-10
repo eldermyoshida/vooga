@@ -3,6 +3,7 @@ package vooga.rts.gamedesign.upgrades;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
+import vooga.rts.gamedesign.sprite.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.Interactive;
 
 /**
@@ -45,8 +46,9 @@ public class UpgradeNode {
      * @throws NoSuchMethodException 
      * @throws SecurityException 
      */
-    public void apply(Interactive interactive) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException, InstantiationException, SecurityException, NoSuchMethodException {
-    }
+	public void apply(InteractiveEntity interactiveEntity) {
+
+	}
 
     public ArrayList<UpgradeNode> getChildren(){
         return myChildren;

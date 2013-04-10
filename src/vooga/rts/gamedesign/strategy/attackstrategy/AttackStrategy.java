@@ -1,8 +1,8 @@
 package vooga.rts.gamedesign.strategy.attackstrategy;
 
+import vooga.rts.gamedesign.sprite.Building;
 import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.Interactive;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings.Building;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Units;
 
 /**

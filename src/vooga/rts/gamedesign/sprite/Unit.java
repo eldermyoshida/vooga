@@ -7,7 +7,6 @@ import vooga.rts.ai.PathingHelper;
 import vooga.rts.gamedesign.sprite.rtsprite.RTSprite;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.IGatherable;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.IOccupiable;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.Interactive;
 import vooga.rts.gamedesign.strategy.gatherstrategy.CannotGather;
 import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
 import vooga.rts.gamedesign.strategy.occupystrategy.CannotOccupy;
@@ -32,7 +31,7 @@ import vooga.rts.util.Vector;
  */
 public class Unit extends InteractiveEntity {
 	
-    private List<Interactive> myKills;
+    private List<GameSprite> myKills; //TODO: WHAT TYPE SHOULD IT BE??
     // private boolean myIsLeftSelected; // TODO: also need the same thing for Projectiles
     // private boolean myIsRightSelected; // TODO: should be observing the mouse action instead!!
     private PathingHelper myPather;
