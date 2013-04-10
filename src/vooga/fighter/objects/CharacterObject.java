@@ -1,68 +1,63 @@
 package vooga.fighter.objects;
 
 import java.awt.Dimension;
+import java.util.HashMap;
+import java.util.Map;
 import vooga.fighter.input.AlertObject;
 import vooga.fighter.input.Input;
 import vooga.fighter.input.InputClassTarget;
 import vooga.fighter.input.InputMethodTarget;
+import vooga.fighter.objects.utils.Health;
 import vooga.fighter.util.Location;
 import vooga.fighter.util.Pixmap;
-import vooga.fighter.util.Vector; 
+import vooga.fighter.util.Vector;
 
+
+/**
+ * Represents a character in the game. Only character data is stored and used here.
+ * Data regarding a specific play-through such as current health are not stored here.
+ * 
+ * @author alanni, james
+ * 
+ */
 @InputClassTarget
-public class CharacterObject extends MoveableGameObject {    
-    
-    private int myDefaultSpeed;
-    private Input myInput;
-    
-    public CharacterObject(Pixmap image, Location center, Dimension size, int defaultSpeed, Input input) {
+public class CharacterObject extends MoveableGameObject {
+
+    private Map<String,Integer> myProperties;    
+    private Map<String,AttackObject> myAttacks;
+
+    /**
+     * Constructs a new CharacterObject.
+     * 
+     * Note: Dayvid once the object loader is functional we will replace this
+     * constructor to take in just an ID, then we will load parameters from XML.
+     */
+    public CharacterObject (Pixmap image, Location center, Dimension size, int speed, Input input) {
         super(image, center, size);
-        myDefaultSpeed = defaultSpeed;
-        myInput = input;
-        myInput.addListenerTo(this);
+        myProperties = new HashMap<String,Integer>();
+        myAttacks = new HashMap<String,AttackObject>();
     }
-    
+
     /**
-     * Returns the default speed of this character.
+     * Returns a property for this character. Returns -1 if property name not found.
      */
-    public int getDefaultSpeed() {
-        return myDefaultSpeed;
-    }   
-    
-    /**
-     * Moves the character left.
-     */
-    @InputMethodTarget(name="left")
-    public void moveLeft(AlertObject alObj) {
-        Vector left = new Vector(Vector.DEGREES_LEFT, myDefaultSpeed);
-        super.translate(left);
+    public int getProperty(String key) {
+        if (myProperties.containsKey(key)) {
+            return myProperties.get(key);
+        } else {
+            return -1;
+        }
     }
-    
+
     /**
-     * Moves the character right.
+     * Creates and returns an attack object based on a given identifier.
+     * 
+     * Note: For now just using String to represent attack types, but this is obviously
+     * subject to change.
      */
-    @InputMethodTarget(name="right")
-    public void moveRight(AlertObject alObj) {
-        Vector right = new Vector(Vector.DEGREES_RIGHT, myDefaultSpeed);
-        super.translate(right);
-    }
-    
-    /**
-     * Moves the character up.
-     */
-    @InputMethodTarget(name="up")
-    public void moveUp(AlertObject alObj) {
-        Vector up = new Vector(Vector.DEGREES_UP, myDefaultSpeed);
-        super.translate(up);
-    }
-    
-    /**
-     * Moves the character down.
-     */
-    @InputMethodTarget(name="down")
-    public void moveDown(AlertObject alObj) {
-        Vector down = new Vector(Vector.DEGREES_DOWN, myDefaultSpeed);
-        super.translate(down);
+    private AttackObject createAttack(String key) {
+        //TODO: implement this
+        return null;
     }
 
 }

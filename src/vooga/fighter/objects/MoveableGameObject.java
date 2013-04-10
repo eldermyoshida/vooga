@@ -3,6 +3,9 @@ package vooga.fighter.objects;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
+
+
+import vooga.fighter.objects.utils.Health;
 import vooga.fighter.util.Location;
 import vooga.fighter.util.Pixmap;
 import vooga.fighter.util.Vector;
@@ -10,9 +13,7 @@ import vooga.fighter.util.Vector;
 
 /**
  * Represents a game object that is moveable.
- * 
  * @author alanni, james
- * 
  */
 public class MoveableGameObject extends GameObject {
 
@@ -31,6 +32,7 @@ public class MoveableGameObject extends GameObject {
         }
         Vector v = new Vector(myVelocity);
         translate(v);
+        clearAccelerations();
     }      
     
     /**

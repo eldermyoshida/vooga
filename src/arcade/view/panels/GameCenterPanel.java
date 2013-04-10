@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import arcade.games.GameInfo;
+import arcade.view.MainView;
 import arcade.view.SnapShot;
 
 
@@ -25,47 +26,31 @@ public class GameCenterPanel extends JPanel {
     private static final int VERTICAL_GAP = 5;
 
     /**
-         * 
-         */
-    private JList myGameList;
-    private DefaultListModel gameListModel;
+     * 
+     */
+    private MainView myUpperLevel;
 
     /**
      * Constructor
      */
-    public GameCenterPanel () {
+    public GameCenterPanel (MainView mv) {
+        myUpperLevel = mv;
         GridLayout gamePanelLayout = new GridLayout(0, 2);
         gamePanelLayout.setHgap(HORIZONTAL_GAP);
         gamePanelLayout.setVgap(VERTICAL_GAP);
         setLayout(gamePanelLayout);
-        // JList
-        createGameJList();
-        //
 
+        createGameJList();
     }
 
     /**
      * Create the JList for games.
      */
     private void createGameJList () {
-        //GameInfo gi = new GameInfo("example");
-        //this.add(new SnapShot(gi));
 
-    }
-
-    /**
-     * TODO:
-     * Return the list of games in the GameList.
-     */
-    public List gameListContent () {
-        return null;
-    }
-
-    /**
-     * TODO:
-     * Update the List of games
-     */
-    public void updateGameList (List inputList) {
-
+        for ( GameInfo info: myUpperLevel.getGameList() ){
+            SnapShot temp = new SnapShot(info);
+            add(temp);
+        }
     }
 }

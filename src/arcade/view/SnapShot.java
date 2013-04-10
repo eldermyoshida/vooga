@@ -54,6 +54,8 @@ public class SnapShot extends JPanel implements MouseListener {
             // JFrame des = new JFrame(myGameInfo.title());
             // des.setVisible(true);
             openHelpPage();
+            
+            
         }
     }
 
