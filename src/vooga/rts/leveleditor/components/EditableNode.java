@@ -18,6 +18,8 @@ public class EditableNode {
     private int myX;
     private int myY;
     
+    private double myZoomRate;
+    
     private Dimension myDimension;
     private List<Integer> myFeatures = new LinkedList<Integer>();
     private ResourceBundle myResources = ResourceBundle.getBundle(RELATIVE_PATH + "ImageIndex");
@@ -69,12 +71,20 @@ public class EditableNode {
         return myFeatures.get(featureIndex);
     }
     
+    public double getMyZoomRate() {
+        return myZoomRate;
+    }
+    
+    public void setMyZoomRate(double rate) {
+        myZoomRate = rate;
+    }
+    
     public void paint(Graphics pen) throws IOException {
         for(Integer i : myFeatures) {
             if(myResources.containsKey(i+"")) {
                 String path = System.getProperty("user.dir") + RELATIVE_PATH + myResources.getString(i+"");
                 BufferedImage myImage = ImageIO.read(new File(path));
-                pen.drawImage(myImage, myX, myY, null);
+                pen.drawImage(myImage, myX, myY, (int)(myDimension.getWidth()*myZoomRate), (int)(myDimension.getHeight()*myZoomRate), null);
             }    
         }
     }
