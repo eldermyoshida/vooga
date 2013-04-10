@@ -1,5 +1,6 @@
 package vooga.rts.gamedesign.sprite.rtsprite;
 
+import vooga.rts.gamedesign.sprite.rtsprite.interactive.IGatherable;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.IOccupiable;
 
 

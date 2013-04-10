@@ -17,12 +17,14 @@ public abstract class GameSprite extends Sprite {
     public static final int LEFT_DIRECTION = 180;
     public static final int DOWN_DIRECTION = 90;
 
-    private ThreeDimension mySize;
+    //private ThreeDimension mySize;
+    private Dimension mySize;
     //store myWorldLocation 
 
-    private ThreeDimension myOriginalSize;
+    //private ThreeDimension myOriginalSize;
+    private Dimension myOriginalSize;
 
-    public GameSprite (Pixmap image, Location center, ThreeDimension size) {
+    public GameSprite (Pixmap image, Location center, Dimension size) {
         super(image, center);
         mySize = size;
         myOriginalSize = size;
@@ -71,9 +73,10 @@ public abstract class GameSprite extends Sprite {
     
     /**
      * Return shape's z-axis length in pixels.
+     * need to implement! 
      */
     public double getHeight() {
-    	return mySize.getZ();
+    	return 0;
     }
     
     /**
@@ -126,13 +129,13 @@ public abstract class GameSprite extends Sprite {
 
     /**
      * This would determine if two RTSprites collide.
-     * @param rtSprite is an RTSprite that is being checked to see if it 
+     * @param gameEntity is an RTSprite that is being checked to see if it 
      * collides with the current RTSprite
      * @return true if the two RTsprites collided and false if the RTSprites
      * did not collide.
      */
-    public boolean interactsWith(RTSprite rtSprite) {
-        return getBounds().intersects(rtSprite.getBounds());
+    public boolean interactsWith(GameEntity gameEntity) {
+        return getBounds().intersects(gameEntity.getBounds());
     }
     /**
      * Returns approximate direction from center of rectangle to side which was hit or

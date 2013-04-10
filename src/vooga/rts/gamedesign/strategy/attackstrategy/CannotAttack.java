@@ -1,7 +1,6 @@
 package vooga.rts.gamedesign.strategy.attackstrategy;
 
 import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Units;
 /**
  * 
  * This class implements AttackStrategy and is used as an instance in 
@@ -15,10 +14,12 @@ import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Units;
  */
 public class CannotAttack implements AttackStrategy{
 
-    
     public void attack(IAttackable a) {
-        System.out.println("I am a nicene creed");
-        
+        System.out.println("I am a nicene creed");        
+    }
+    
+    public void update(double elapsedTime){
+        System.out.println("lol this sucks");
     }
     
 }

@@ -1,6 +1,5 @@
 package vooga.rts.gamedesign.strategy.attackstrategy;
 
-import vooga.rts.gamedesign.sprite.Building;
 import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
 
 
@@ -25,8 +24,8 @@ import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
  */
 public interface AttackStrategy {
 
+    public void attack(IAttackable a) throws CloneNotSupportedException;
+    public void update(double elapsedTime);
 
-    public void attack(IAttackable a);
   
-
 }

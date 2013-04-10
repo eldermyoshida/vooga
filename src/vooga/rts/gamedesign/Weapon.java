@@ -1,9 +1,9 @@
 package vooga.rts.gamedesign;
 
+import vooga.rts.gamedesign.sprite.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
 import vooga.rts.gamedesign.sprite.rtsprite.Projectile;
 import vooga.rts.gamedesign.sprite.rtsprite.RTSprite;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.Interactive;
 import vooga.rts.gamedesign.upgrades.Upgrade;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
 import vooga.rts.util.Location;
@@ -57,11 +57,12 @@ public class Weapon {
      * This method is used by the weapon to attack an RTSprite.
      * @throws CloneNotSupportedException 
      */
-    public void fire (RTSprite toBeShot) throws CloneNotSupportedException {
+    public void fire (InteractiveEntity toBeShot) throws CloneNotSupportedException {
         System.out.println(cooldown);
         if(cooldown == 0) {
             if (!toBeShot.isDead()) {
-                myProjectile.attack(toBeShot);
+                //should set the velocity of the projectile to the location of the toBeshot
+                myProjectile.move(toBeShot.getCenter());
                 myProjectiles.add(myProjectile);
                 setCooldown(maxCooldown);
             }
@@ -97,7 +98,7 @@ public class Weapon {
      * @return true if the interactive is in the range of the weapon and false
      *         if the interactive is out of the range of the weapon
      */
-    public boolean inRange (Interactive interactive, Location center) {
+    public boolean inRange (InteractiveEntity interactive, Location center) {
         // add z axis
         myRangeCircle = new Ellipse2D.Double(center.getX(), center.getY(), myRange, myRange);
         return myRangeCircle.contains(interactive.getCenter());
@@ -123,5 +124,11 @@ public class Weapon {
      */
     private void setCooldown(int time) {
         cooldown = time;
+    }
+
+    public void update (double elapsedTime) {
+        for(Projectile p : myProjectiles){
+            p.update(elapsedTime);
+        }
     }
 }

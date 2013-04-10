@@ -5,10 +5,10 @@ import java.util.List;
 
 import vooga.rts.gamedesign.Weapon;
 import vooga.rts.gamedesign.sprite.Building;
+import vooga.rts.gamedesign.sprite.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
 import vooga.rts.gamedesign.sprite.rtsprite.RTSprite;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Soldier;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Units;
 
 /**
  * This class implements AttackStrategy and is used as an instance in 
@@ -32,20 +32,16 @@ public class CanAttack implements AttackStrategy{
 
     }
 
-
     public void attack(IAttackable a) {
 
-        System.out.println("Soldier a health " + ((RTSprite) a).getHealth());
-        myWeapons.get(myWeaponIndex).fire((RTSprite) a);
-
-        ((RTSprite)a).die();
+        System.out.println("Soldier a health " + ((InteractiveEntity) a).getHealth());
+        myWeapons.get(myWeaponIndex).fire((InteractiveEntity) a);
         System.out.println("a died");
     }
     
     
     public boolean hasWeapon(){
         return !myWeapons.isEmpty();
-
     }
     public Weapon getWeapon(){
         return myWeapons.get(0);
@@ -54,14 +50,8 @@ public class CanAttack implements AttackStrategy{
         myWeapons.add(weapon);
     }
 
-    public void update() {
-        for(int i = 0; i < myWeapons.size(); i++) {
-            Weapon weapon = myWeapons.get(i);
-            if(weapon.getCooldown() > 0) {
-                weapon.decrementCooldown();
-            }
-        }
+    @Override
+    public void update (double elapsedTime) {
+        myWeapons.get(myWeaponIndex).update(elapsedTime);
     }
-
-
 }
