@@ -84,7 +84,7 @@ public class View extends JComponent {
 
         // first time needs to be special cased :(
         if (myGame != null & myScrollManager != null) {
-            Image img = new ImageIcon(getClass().getResource("/images/forestbackground.jpg")).getImage();
+            Image img = new ImageIcon(getClass().getResource("/vooga/scroller/images/forestbackground.jpg")).getImage();
             pen.drawImage(img, myScrollManager.left(), myScrollManager.upper(), 800, 300, null);
             pen.drawImage(img, myScrollManager.right(),  myScrollManager.upper(), 800, 300, null);
             pen.drawImage(img, myScrollManager.left(), myScrollManager.lower(), 800, 300, null);
@@ -181,7 +181,7 @@ public class View extends JComponent {
     
   //only used for testing, please remove later
     private void paintWin(Graphics pen) {
-        Image img = new ImageIcon(getClass().getResource("/images/win.gif")).getImage();
+        Image img = new ImageIcon(getClass().getResource("/vooga/scroller/images/win.gif")).getImage();
         pen.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), null);
     }
     

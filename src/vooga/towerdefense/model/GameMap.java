@@ -1,35 +1,56 @@
 package vooga.towerdefense.model;
 
-import java.awt.geom.Point2D;
+import java.awt.Dimension;
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import vooga.towerdefense.gameElements.Tower;
+import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.gameElements.Unit;
+import vooga.towerdefense.model.Tile;
 import vooga.towerdefense.util.Location;
-import vooga.towerdefense.view.Tile;
 
 
 public class GameMap {
+	
+	//a normal computer screen will have 
+	private final int TILE_SIZE = 25;
+	
     private List<Unit> myUnits;
     private Tile[][] myGrid;
-    private Location myDestination;
+	private Location myDestination;
+	private Dimension myDimension;
     
     public GameMap(int height, int width, Location destination) {
         myUnits = new ArrayList<Unit>();
-        myGrid = new Tile[height][width];
+		myDimension = new Dimension(width, height);
+		initializeGrid();
         myDestination = destination;
     }
     
-    public void update(double elapsedTime) {
+	private void initializeGrid() {
+		myGrid = new Tile[(int) (myDimension.getWidth() / TILE_SIZE)][(int) (myDimension
+				.getHeight() / TILE_SIZE)];
+		for (int i = 0; i < (int) myDimension.getWidth() / TILE_SIZE; i++)
+			for (int j = 0; j < (int) myDimension.getHeight() / TILE_SIZE; j++) {
+				int xLocation = (int) (i * TILE_SIZE / myDimension.getWidth()
+						+ TILE_SIZE / 2);
+				int yLocation = (int) (j * TILE_SIZE / myDimension.getHeight()
+						+ TILE_SIZE / 2);
+				// TODO: replace booleans with parsed values from file
+				myGrid[i][j] = new Tile(new Location(xLocation, yLocation),
+						true, true);
+			}
+	}
+
+	public void update(double elapsedTime) {
         updateUnits(elapsedTime);
         updateTiles(elapsedTime);
     }
     
     private void updateUnits(double elapsedTime) {
         for (Unit unit : myUnits) {
-            //unit.update(elapsedTime);
+			unit.update(elapsedTime, null);
         }
     }
     
@@ -45,11 +66,15 @@ public class GameMap {
         myUnits.add(u);
     }
     
-    public void buildTower(int i, int j, Tower t) {
+    public void buildTower(int i, int j, GameElement t) {
         myGrid[i][j].setTower(t);
     }
     
     public void sellTower(int i, int j) {
         myGrid[i][j].deleteTower();
+    }
+    
+    public Tile getTile(Point point) {
+		return myGrid[(int) (point.getX() / TILE_SIZE)][(int) (point.getY() / TILE_SIZE)];
     }
 }

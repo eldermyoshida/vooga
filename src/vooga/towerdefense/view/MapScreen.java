@@ -1,6 +1,7 @@
 package vooga.towerdefense.view;
 
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JPanel;
@@ -29,6 +30,19 @@ public class MapScreen extends JPanel {
         makeMouseListener();
         addMouseListener(myMouseListener);
         repaint();
+    }
+    
+    /**
+     * updates the mapscreen appropriately.
+     */
+    public void update() {
+        revalidate();
+        repaint();
+    }
+    
+    public void paintComponent(Graphics pen) {
+        super.paintComponent(pen);
+        myController.paintMap();
     }
     
     /**
