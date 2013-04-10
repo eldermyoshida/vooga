@@ -53,6 +53,7 @@ public class Model {
                              new Location(myView.getWidth() / 2, myView.getHeight() / 2),
                              new Dimension(30, 60),
                              myView);
+        
     }
 
     /**

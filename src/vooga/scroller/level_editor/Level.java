@@ -180,7 +180,7 @@ public class Level implements Editable, Renderable {
         Sprite obj2;
         CollisionManager CM = new CollisionManager(myView);
 
-        mySprites.add(myPlayer);
+       mySprites.add(myPlayer);
         
         for (int i = 0; i < mySprites.size(); i++) {
             for (int j = i + 1; j < mySprites.size(); j++) {     
@@ -194,6 +194,6 @@ public class Level implements Editable, Renderable {
             }
         }
         
-        mySprites.remove(mySprites.size()-1);
+       mySprites.remove(mySprites.size()-1);
     }
 }

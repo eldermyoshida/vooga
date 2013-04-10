@@ -3,6 +3,7 @@ package vooga.scroller.test_sprites;
 import java.awt.Dimension;
 import java.util.HashMap;
 import java.util.Map;
+import vooga.rts.util.Vector;
 import vooga.scroller.level_editor.ISpriteLibrary;
 import vooga.scroller.sprite_superclasses.NonStaticEntity;
 import vooga.scroller.sprite_superclasses.StaticEntity;
@@ -77,6 +78,11 @@ public class MarioLib implements ISpriteLibrary {
         public void print() {
             System.out.println("Turtle");
         }
+        
+        public void update(double elapsedTime, Dimension bounds) {
+            changeVelocity(getRandomVelocity()); //want to make this call every X seconds
+            super.update(elapsedTime, bounds);
+        }
 
     }
 
@@ -96,6 +102,8 @@ public class MarioLib implements ISpriteLibrary {
         public void print() {
             System.out.println("Platform");
         }
+        
+        
     }
 
     @SuppressWarnings("unchecked")
