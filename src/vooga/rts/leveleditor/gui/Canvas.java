@@ -152,6 +152,7 @@ public class Canvas extends JFrame {
                 int h = Integer.parseInt(MapHeight.getText());
                 myMapPanel.setWidth(w);
                 myMapPanel.setHeight(h);
+                myMapPanel.initializeMap(w,h);
             }
             catch (Exception e1) {
                 //TODO

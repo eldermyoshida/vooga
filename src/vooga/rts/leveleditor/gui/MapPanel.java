@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
 import javax.imageio.ImageIO;
@@ -32,10 +33,10 @@ public class MapPanel extends JComponent implements MouseListener {
         myMap = new EditableMap();
         myWidth = 0;
         myHeight = 0;
-        myTileWidth = 32;
-        myTileHeight = 32;
+        myTileWidth = 50;
+        myTileHeight = 50;
         setPanelSize();
-        
+        this.addMouseListener(this);
     }
     
     private void setPanelSize() {
@@ -64,6 +65,19 @@ public class MapPanel extends JComponent implements MouseListener {
         g.drawLine(myWidth * myTileWidth, 0, myWidth * myTileWidth, myHeight * myTileHeight);
         g.drawLine(0, myHeight * myTileHeight, myWidth * myTileWidth, myHeight * myTileHeight);
 
+        //paint Node
+        for(int i=0; i<myMap.getWidth(); ++i) {
+            for(int j=0; j<myMap.getHeight(); ++j) {
+                if(myMap.getMapNode(i, j).getOccupied()) {
+                    try {
+                        myMap.getMapNode(i, j).paint(g);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+        
         
     }
     
@@ -78,15 +92,22 @@ public class MapPanel extends JComponent implements MouseListener {
         setPanelSize();
         repaint();
     }
+    
+    public void initializeMap(int w, int h) {
+        myMap = new EditableMap(w,h);
+        
+    }
 
     public void mapClicked(int x, int y) {
-        //TODO
+        x=x/myTileWidth;
+        y=y/myTileWidth;
+        myMap.getMapNode(x, y).setOccupied(true);
     }
     
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        
+        mapClicked(e.getX(), e.getY());
     }
 
     @Override
@@ -108,6 +129,8 @@ public class MapPanel extends JComponent implements MouseListener {
     public void mouseReleased(MouseEvent arg0) {
         
     }
+
+    
 
 
 

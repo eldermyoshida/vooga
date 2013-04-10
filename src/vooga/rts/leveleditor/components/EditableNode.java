@@ -1,5 +1,6 @@
 package vooga.rts.leveleditor.components;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -19,19 +20,23 @@ public class EditableNode {
     private int myY;
     
     private double myZoomRate;
+    private boolean myOccupied;
     
     private Dimension myDimension;
-    private List<Integer> myFeatures = new LinkedList<Integer>();
+    private List<Integer> myFeatures;
     private ResourceBundle myResources = ResourceBundle.getBundle(RELATIVE_PATH + "ImageIndex");
     
     
     public EditableNode() {
-        this(0,0,DEFAULT_DIMENSION);
+        this(0,0,DEFAULT_DIMENSION,false);
     }
     
-    public EditableNode(int x, int y, Dimension dimension) {
+    public EditableNode(int x, int y, Dimension dimension, boolean isOccupied) {
         myX = x;
         myY = y;
+        myZoomRate = 1;
+        myOccupied = false;
+        myFeatures = new LinkedList<Integer>();
         myDimension = dimension;
     }
 
@@ -45,6 +50,15 @@ public class EditableNode {
 
     public Dimension getMyDimension () {
         return myDimension;
+    }
+    
+    public void setOccupied(boolean b) {
+        myOccupied = b;
+    }
+    
+    
+    public boolean getOccupied() {
+        return myOccupied;
     }
     
     public void addFeature(int index) {
@@ -87,6 +101,10 @@ public class EditableNode {
                 pen.drawImage(myImage, myX, myY, (int)(myDimension.getWidth()*myZoomRate), (int)(myDimension.getHeight()*myZoomRate), null);
             }    
         }
+        
+        //test
+        pen.setColor(Color.RED);
+        pen.fillRect(myX, myY,(int)(myDimension.getWidth()*myZoomRate), (int)(myDimension.getHeight()*myZoomRate));
     }
     
     

@@ -49,8 +49,8 @@ public class EditableMap {
     public void initializeMap(int nodeX, int nodeY) {
         myIndexMatrix = new EditableNode[myXSize][myYSize];
         for(int i =0 ; i<myXSize ; i++) {
-            for(int j =0 ; j<myXSize ; j++) {
-                myIndexMatrix[i][j] = new EditableNode(i*nodeX,j*nodeY,new Dimension(nodeX,nodeY));
+            for(int j =0 ; j<myYSize ; j++) {
+                myIndexMatrix[i][j] = new EditableNode(i*nodeX,j*nodeY,new Dimension(nodeX,nodeY),false);
             }
         }
         myPlayerLocations = new HashMap<Integer , Location>();
@@ -259,7 +259,6 @@ public class EditableMap {
     }
     
     
-    
     public int getMyLayers () {
         return myLayers;
     }
@@ -286,6 +285,24 @@ public class EditableMap {
 
     public Map<Integer, Location> getAllPlayers () {
         return myPlayerLocations;
+    }
+ 
+    public int getWidth() {
+        return myXSize;
+    }
+
+    public int getHeight() {
+        return myYSize;
+    }
+
+    public void setWidth(int w) {
+        myXSize = w;
+
+    }
+
+    public void setHeight(int h) {
+        myXSize = h;
+
     }
 
     public static void main(String[] args) {
