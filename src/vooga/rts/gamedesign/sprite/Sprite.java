@@ -42,8 +42,8 @@ public abstract class Sprite implements IGameLoop {
         myOriginalCenter = new Location(center);
         myOriginalView = image; //new Pixmap(image);
         isVisible = true;
-        reset();
-        resetBounds();
+        myCenter = center;
+        //resetBounds();
     }
 
     
