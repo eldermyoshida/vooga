@@ -64,6 +64,9 @@ public abstract class Sprite implements IGameLoop {
     	return myOriginalCenter;
     }
     
+    
+    
+   
 
     /**
      * Returns shape's x coordinate in pixels.
