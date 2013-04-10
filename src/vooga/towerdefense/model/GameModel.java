@@ -31,6 +31,10 @@ public class GameModel {
     }
     
     private void startNextWave() {
-        myCurrentWave = myWaves.iterator().next();
+		if (myWaves.iterator().hasNext())
+    		myCurrentWave = myWaves.iterator().next();
+    	else
+    		//TODO: add win behavior
+    		System.out.println("you win!");
     }
 }

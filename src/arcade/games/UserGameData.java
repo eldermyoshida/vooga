@@ -20,14 +20,14 @@ public abstract class UserGameData implements Serializable {
      * Represents something like a score or a win/loss ratio or any number
      * that is relevant to how a user is performing.
      */
-    protected double getStatistic () {
+    public double getStatistic () {
         return myStatistic;
     }
 
     /**
      * Lets the game update the user's statistic.
      */
-    protected void setStatistic (double statistic) {
+    public void setStatistic (double statistic) {
         myStatistic = statistic;
     }
 

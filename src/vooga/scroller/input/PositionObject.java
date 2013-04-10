@@ -1,4 +1,4 @@
-package input;
+package vooga.scroller.input;
 
 import java.awt.geom.Point2D;
 
