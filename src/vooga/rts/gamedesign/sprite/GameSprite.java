@@ -1,11 +1,12 @@
 package vooga.rts.gamedesign.sprite;
 
 import java.awt.Dimension;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import sun.security.action.GetLongAction;
 import vooga.rts.gamedesign.sprite.rtsprite.RTSprite;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
+import vooga.rts.util.ThreeDimension;
 import vooga.rts.util.Vector;
 
 public abstract class GameSprite extends Sprite {
@@ -15,14 +16,15 @@ public abstract class GameSprite extends Sprite {
     public static final int LEFT_DIRECTION = 180;
     public static final int DOWN_DIRECTION = 90;
 
-    private Dimension mySize;
+    private ThreeDimension mySize;
     //store myWorldLocation 
 
-    private Dimension myOriginalSize;
+    private ThreeDimension myOriginalSize;
 
-    public GameSprite (Pixmap image, Location center, Dimension size) {
+    public GameSprite (Pixmap image, Location center, ThreeDimension size) {
         super(image, center);
-        myOriginalSize = new Dimension(size);
+        mySize = size;
+        myOriginalSize = size;
     }
     /**
      * Returns shape's left-most coordinate in pixels.
@@ -32,9 +34,9 @@ public abstract class GameSprite extends Sprite {
     }
 
     /**
-     * Returns shape's top-most coordinate in pixels.
+     * Returns shape's up-most coordinate in pixels.
      */
-    public double getTop () {
+    public double getUp () {
         return getCenter().getY() - mySize.height / 2;
     }
 
@@ -53,18 +55,26 @@ public abstract class GameSprite extends Sprite {
     }
 
     /**
-     * Returns shape's width in pixels.
+     * Returns shape's x-axis length in pixels.
      */
     public double getWidth () {
         return mySize.getWidth();
     }
 
     /**
-     * Returns shape's height  in pixels.
+     * Returns shape's y-axis length in pixels.
      */
-    public double getHeight () {
+    public double getDepth () {
         return mySize.getHeight();
     }
+    
+    /**
+     * Return shape's z-axis length in pixels.
+     */
+    public double getHeight() {
+    	return mySize.getZ();
+    }
+    
     /**
      * Resets shape's size.
      */
@@ -86,9 +96,34 @@ public abstract class GameSprite extends Sprite {
         resetBounds();
     }
 
+    /**
+     * Reset shape back to its original values.
+     */
+    @Override
+    public void reset () {
+        super.reset();
+        mySize = myOriginalSize;
+        
+        myVelocity = new Vector(myOriginalVelocity);
+    }
+    
+    /**
+     * Display this shape on the screen.
+     */
+    @Override
+    public void paint (Graphics2D pen)
+    {   
+    	if(!isVisible()) return;
+        getView().paint(pen, getCenter(), mySize);
+    }
     
     
-    
+    /**
+     * Returns rectangle that encloses this shape.
+     */
+    protected void resetBounds () {
+        setBounds(new Rectangle((int)getLeft(), (int)getUp(), mySize.width, mySize.height));
+    }
 
     /**
      * This would determine if two RTSprites collide.
@@ -116,7 +151,7 @@ public abstract class GameSprite extends Sprite {
         else if (bounds.contains(new Location(getRight(), getY()))) {
             return LEFT_DIRECTION;
         }
-        else if (bounds.contains(new Location(getX(), getTop()))) {
+        else if (bounds.contains(new Location(getX(), getUp()))) {
             return DOWN_DIRECTION;
         }
         return 0;
