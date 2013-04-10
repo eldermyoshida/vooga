@@ -193,6 +193,7 @@ public class Level implements Editable, Renderable {
 
             }
         }
+        
         mySprites.remove(mySprites.size()-1);
     }
 }

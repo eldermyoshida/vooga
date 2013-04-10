@@ -40,7 +40,6 @@ public class LevelFactory {
         myCurrLevel.addSprite(lib.new Koopa( 
                                  new Location(view.getWidth() - 300, view.getHeight() - 275)
                                  ));   
-
         myCurrLevel.addSprite(lib.new Platform( 
                                     new Location(view.getWidth() - 80, view.getHeight() - 150)
                                     ));   

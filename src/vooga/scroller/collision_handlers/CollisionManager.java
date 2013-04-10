@@ -129,6 +129,8 @@ public class CollisionManager {
         
         Direction collisionType = collisionDirection(mario, platform);
 
+        if (collisionType == null) return;
+        
         switch (collisionType) {
             case TOP:
                 mario.setCenter(mario.getX(), platform.getTop() - (mario.getHeight() / 2));
