@@ -17,9 +17,7 @@ public class InteractiveEntity extends GameEntity implements IAttackable{
 	
 	 
     private Sound mySound;
-   
     private AttackStrategy myAttackStrategy;
-
     private int myArmor;
 
 
