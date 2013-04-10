@@ -39,7 +39,7 @@ public class EditableMap {
         myIndexMatrix = new EditableNode[myXSize][myYSize];
         for(int i =0 ; i<myXSize ; i++) {
             for(int j =0 ; j<myYSize ; j++) {
-                myIndexMatrix[i][j] = new EditableNode(i*nodeX,j*nodeY,new Dimension(nodeX,nodeY));
+                myIndexMatrix[i][j] = new EditableNode(i*nodeX,j*nodeY,new Dimension(nodeX,nodeY),false);
             }
         }
     }
@@ -248,6 +248,26 @@ public class EditableMap {
     public EditableNode[][] getMap() {
         return myIndexMatrix;
     }
+    
+ 
+    public int getWidth() {
+        return myXSize;
+    }
+
+    public int getHeight() {
+        return myYSize;
+    }
+
+    public void setWidth(int w) {
+        myXSize = w;
+
+    }
+
+    public void setHeight(int h) {
+        myXSize = h;
+
+    }
+
     
     public static void main(String[] args) {
         EditableMap test = new EditableMap(100,100);
