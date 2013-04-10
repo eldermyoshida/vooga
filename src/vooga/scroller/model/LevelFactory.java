@@ -44,7 +44,7 @@ public class LevelFactory {
 
         myCurrLevel.addSprite(new Platform(new Pixmap("platform.gif"), 
                                     new Location(view.getWidth() - 80, view.getHeight() - 150),
-                                    new Dimension(30, 60)));   
+                                    new Dimension(150, 70)));   
 
         myCurrLevel.addSprite(new Turtle(new Pixmap("turtle.gif"), 
                                   new Location(view.getWidth() - 500, view.getHeight() - 75),
