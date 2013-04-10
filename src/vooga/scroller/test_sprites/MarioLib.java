@@ -1,10 +1,12 @@
 package vooga.scroller.test_sprites;
 
 import java.awt.Dimension;
+import vooga.scroller.level_editor.ISpriteLibrary;
 import vooga.scroller.sprite_superclasses.NonStaticEntity;
 import vooga.scroller.sprite_superclasses.StaticEntity;
 import vooga.scroller.util.Location;
 import vooga.scroller.util.Pixmap;
+import vooga.scroller.util.Sprite;
 
 /**
  * This class is a convenient way to gather all the classes and use reflection
@@ -13,15 +15,16 @@ import vooga.scroller.util.Pixmap;
  * TODO
  *
  */
-public class MarioLib {
+public class MarioLib implements ISpriteLibrary {
+    private static final Dimension DEFAULT_SIZE = new Dimension(30, 30);
     
     public class Coin extends StaticEntity {
 
+        private static final String DEFAULT_IMG = "coin.gif";
         
-
         
-        public Coin (Pixmap image, Location center, Dimension size) {
-            super(image, center, size);
+        public Coin (Location center) {
+            super(new Pixmap(DEFAULT_IMG), center, DEFAULT_SIZE);
             // TODO Auto-generated constructor stub
         }
 
@@ -38,9 +41,10 @@ public class MarioLib {
     
     public class Koopa extends NonStaticEntity {
 
+        private static final String DEFAULT_IMG ="koopa.gif";
 
-        public Koopa (Pixmap image, Location center, Dimension size) {
-            super(image, center, size);
+        public Koopa (Location center) {
+            super(new Pixmap(DEFAULT_IMG), center, DEFAULT_SIZE);
         }
 
         public void print() {
@@ -53,9 +57,10 @@ public class MarioLib {
 
     public class Turtle extends NonStaticEntity {
 
+        private static final String DEFAULT_IMG = "turtle.gif";
         
-        public Turtle (Pixmap image, Location center, Dimension size) {
-            super(image, center, size);
+        public Turtle (Location center) {
+            super(new Pixmap(DEFAULT_IMG), center, DEFAULT_SIZE);
             // TODO Auto-generated constructor stub
         }
 
@@ -66,14 +71,22 @@ public class MarioLib {
     }
 
     public class Platform extends StaticEntity{
+        
+        private static final String DEFAULT_IMG = "platform.gif";
 
-        public Platform (Pixmap image, Location center, Dimension size) {
-            super(image, center, size);
+        public Platform (Location center) {
+            super(new Pixmap(DEFAULT_IMG), center, DEFAULT_SIZE);
             // TODO Auto-generated constructor stub
         }
     
         public void print() {
             System.out.println("Platform");
         }
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public Class<? extends Sprite>[] getSpritesClasses() {
+        return (Class<? extends Sprite>[]) this.getClass().getClasses();
     }   
 }

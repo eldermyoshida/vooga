@@ -33,21 +33,21 @@ public class LevelFactory {
         
         MarioLib lib = new MarioLib();
         
-        myCurrLevel.addSprite(lib.new Coin(new Pixmap("coin.gif"), 
-                                new Location(view.getWidth() - 400, view.getHeight() - 250),
-                                new Dimension(30, 30)));   
+        myCurrLevel.addSprite(lib.new Coin( 
+                                new Location(view.getWidth() - 400, view.getHeight() - 250)
+                                ));   
 
-        myCurrLevel.addSprite(lib.new Koopa(new Pixmap("koopa.gif"), 
-                                 new Location(view.getWidth() - 300, view.getHeight() - 275),
-                                 new Dimension(30, 60)));   
+        myCurrLevel.addSprite(lib.new Koopa( 
+                                 new Location(view.getWidth() - 300, view.getHeight() - 275)
+                                 ));   
 
-        myCurrLevel.addSprite(lib.new Platform(new Pixmap("platform.gif"), 
-                                    new Location(view.getWidth() - 80, view.getHeight() - 150),
-                                    new Dimension(30, 60)));   
+        myCurrLevel.addSprite(lib.new Platform( 
+                                    new Location(view.getWidth() - 80, view.getHeight() - 150)
+                                    ));   
 
-        myCurrLevel.addSprite(lib.new Turtle(new Pixmap("turtle.gif"), 
-                                  new Location(view.getWidth() - 500, view.getHeight() - 75),
-                                  new Dimension(30, 60)));   
+        myCurrLevel.addSprite(lib.new Turtle(
+                                  new Location(view.getWidth() - 500, view.getHeight() - 75)
+                                  ));   
         
         
         
