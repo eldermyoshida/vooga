@@ -2,53 +2,54 @@ package vooga.rts.leveleditor.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.AbstractAction;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
-import javax.swing.JTextField;
 import vooga.rts.leveleditor.components.Resource;
 
+/**
+ * 
+ * This class holds all the visible components. 
+ * It will be roughly divided into two parts - the left being the EditableMap, 
+ * which visualizes the map the designer is creating, 
+ * the right being all the resources (e.g. Trees) available to be put on the map. 
+ * It will also contains a menu bar that allows user to save and load map
+ * 
+ * @author Ziqiang Huang
+ *
+ */
 public class Canvas extends JFrame {
 
     public static final Dimension DEFAULT_CANVAS_SIZE  = new Dimension (800,600);
-    public static final Dimension DEFAULT_RESOURCE_SIZE  = new Dimension (200,600);
     public static final String USER_DIR = "user.dir";
 
     private MapPanel myMapPanel;
     private ResourcePanel myResourcePanel;
+    private ButtonPanel myButtonPanel;
+    private MenuManager myMenuManager;
     private Resource myCurrentSelectResource;
-    private JFileChooser myChooser;
     private JScrollPane  myMapScroll;
 
     public Canvas() {
         setTitle("Level Editor");
         myMapPanel = new MapPanel(this);
         myResourcePanel = new ResourcePanel(this);
-        myChooser = new JFileChooser(System.getProperties().getProperty(USER_DIR));
-
+        myButtonPanel = new ButtonPanel(this);
+        myMenuManager = new MenuManager(this);
 
         JPanel ChooserPanel = new JPanel(new BorderLayout());        
         JScrollPane resourceScroll = new JScrollPane(myResourcePanel);
         JTabbedPane ResourceTabPane = new JTabbedPane();
         ResourceTabPane.add("Resources", resourceScroll);
-        JPanel ButtonPanel = createButtonPanel();
         ChooserPanel.add(ResourceTabPane, BorderLayout.CENTER);
-        ChooserPanel.add(ButtonPanel, BorderLayout.SOUTH);
+        ChooserPanel.add(myButtonPanel, BorderLayout.SOUTH);
 
         myMapScroll = new JScrollPane(myMapPanel);
         getContentPane().add(myMapScroll, BorderLayout.CENTER);
         getContentPane().add(ChooserPanel, BorderLayout.EAST);
 
-        setJMenuBar(createMenuBar());
+        setJMenuBar(myMenuManager);
 
         setPreferredSize(DEFAULT_CANVAS_SIZE);
         pack();
@@ -58,109 +59,6 @@ public class Canvas extends JFrame {
 
     }
 
-    private JPanel createButtonPanel() {
-        JPanel ButtonPanel = new JPanel();
-        JButton ZoomInButton = new JButton("ZoomIn");
-        ZoomInButton.addActionListener(new ActionListener() {
-            public void actionPerformed (ActionEvent arg0) {
-                //TODO
-            }
-        });
-        JButton ZoomOutButton = new JButton("ZoomOut");
-        ZoomOutButton.addActionListener(new ActionListener() {
-            public void actionPerformed (ActionEvent arg0) {
-                //TODO
-            }
-        });
-        JButton RemoveButton = new JButton("Remove");
-        RemoveButton.addActionListener(new ActionListener() {
-            public void actionPerformed (ActionEvent arg0) {
-                //TODO
-            }
-        });
-
-        ButtonPanel.add(ZoomInButton);
-        ButtonPanel.add(ZoomOutButton);
-        ButtonPanel.add(RemoveButton);
-        return ButtonPanel;
-    }
-
-    public JMenuBar createMenuBar() {
-        JMenuBar menuBar = new JMenuBar();
-        menuBar.add(createFileMenu());
-        return menuBar;
-    }
-
-    private JMenu createFileMenu() {
-        JMenu menu = new JMenu("File");
-        createFileMenu(menu);
-        return menu;
-    }
-
-    private void createFileMenu(JMenu menu) {
-
-        menu.add(new AbstractAction("New") {
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                showCustomizeMapDialog();
-            }
-        });
-
-        menu.add(new AbstractAction("Save") {
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                try {
-                    int response = myChooser.showSaveDialog(null);
-                    if (response == JFileChooser.APPROVE_OPTION) {
-                        //TODO
-                    }
-                }
-                catch (Exception exception) {
-                    //TODO
-                }
-            }
-        });
-
-        menu.add(new AbstractAction("Load") {
-
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                try {
-                    int response = myChooser.showOpenDialog(null);
-                    if (response == JFileChooser.APPROVE_OPTION) {
-                        //TODO  
-                    }
-                }
-                catch (Exception exception) {
-                    //TODO
-                }
-            }
-        });
-
-    }
-
-
-    protected void showCustomizeMapDialog() {
-        JTextField MapWidth = new JTextField();
-        JTextField MapHeight = new JTextField();
-
-        Object[] message = {"MapWidth", MapWidth, "MapHeight", MapHeight};
-
-        int option = JOptionPane.showConfirmDialog(null, message,"Set Map Size",JOptionPane.OK_CANCEL_OPTION);
-
-        if (option == JOptionPane.OK_OPTION) {
-            try {
-                int w = Integer.parseInt(MapWidth.getText());
-                int h = Integer.parseInt(MapHeight.getText());
-                myMapPanel.setWidth(w);
-                myMapPanel.setHeight(h);
-                myMapPanel.initializeMap(w,h);
-            }
-            catch (Exception e1) {
-                //TODO
-            }
-        }
-    }
 
     public void setCurrentSelectResource(Resource r) {
         myCurrentSelectResource = r;
@@ -169,9 +67,31 @@ public class Canvas extends JFrame {
     public Resource getCurrentSelectResource() {
         return myCurrentSelectResource;
     }
+    
+    public void ZoomIn() {
+        myMapPanel.ZoomIn();      
+    }
+    
+    public void ZoomOut() {
+        myMapPanel.ZoomOut();      
+    }
 
+    public void clear() {
+        myMapPanel.clear();
+        
+    }
+    
+    public void remove(boolean b) {
+        myMapPanel.setRemoveFlag(b);       
+    }
+    
+    public MapPanel getMapPanel() {
+        return myMapPanel;
+    }
     public static void main(String[] argv) {
         new Canvas();
     }
+
+
 
 }

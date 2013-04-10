@@ -16,6 +16,9 @@ import vooga.rts.leveleditor.components.EditableNode;
 public class MapPanel extends JComponent implements MouseListener {
     
     public static final Dimension DEFAULT_MAP_SIZE  = new Dimension (600,600);
+    public static final double ZOOM_RATE = 1.25;
+    public static int DEFAULT_TILE_WIDTH = 50;
+    public static int DEFAULT_TILE_HEIGHT = 50;
     
     private Canvas myCanvas;
     private EditableMap myMap;
@@ -23,16 +26,15 @@ public class MapPanel extends JComponent implements MouseListener {
     private int myHeight;
     private int myTileWidth;
     private int myTileHeight;
-    static JViewport myViewport;
-    
+    private boolean myRemoveFlag;
     
     public MapPanel(Canvas canvas) {
         myCanvas = canvas;
         myMap = new EditableMap();
         myWidth = 0;
         myHeight = 0;
-        myTileWidth = 50;
-        myTileHeight = 50;
+        myTileWidth = DEFAULT_TILE_WIDTH;
+        myTileHeight = DEFAULT_TILE_HEIGHT;
         setPanelSize();
         this.addMouseListener(this);
     }
@@ -91,21 +93,62 @@ public class MapPanel extends JComponent implements MouseListener {
         repaint();
     }
     
+    public void setTileWidth(int w) {
+        myTileWidth = w;
+        setPanelSize();
+        repaint();
+    }
+    
+    public void setTileHeight(int h) {
+        myTileHeight = h;
+        setPanelSize();
+        repaint();
+    }
+    
     public void initializeMap(int w, int h) {
         myMap = new EditableMap(w,h);
         
     }
+    
+    public void ZoomIn() {
+        myMap.ZoomIn();
+        myTileWidth = (int) (myTileWidth * ZOOM_RATE);
+        myTileHeight = (int) (myTileHeight * ZOOM_RATE);
+        setPanelSize();
+        repaint();
+    }
+
+    public void ZoomOut() {
+        myMap.ZoomOut();
+        myTileWidth = (int) (myTileWidth / ZOOM_RATE);
+        myTileHeight = (int) (myTileHeight / ZOOM_RATE);
+        setPanelSize();
+        repaint();        
+    }
 
     public void mapClicked(int x, int y) {
         x=x/myTileWidth;
-        y=y/myTileWidth;
+        y=y/myTileHeight;
         if(x>=0 && x<myWidth && y>=0 && y<myHeight){
             EditableNode n = myMap.getMapNode(x, y);
-            n.addFeature(myCanvas.getCurrentSelectResource().getID());
-            n.setImage(myCanvas.getCurrentSelectResource().getImage());
-            n.setOccupied(true);
+            if(!myRemoveFlag){
+                n.addFeature(myCanvas.getCurrentSelectResource().getID());
+                n.setImage(myCanvas.getCurrentSelectResource().getImage());
+                n.setOccupied(true);
+            } else {
+                n.reset();
+            }
             repaint();
         }
+    }
+
+    public void clear() {
+        myMap.clear();
+        repaint();
+    }
+    
+    public void setRemoveFlag(boolean b) {
+        myRemoveFlag = b; 
     }
     
 
@@ -134,8 +177,6 @@ public class MapPanel extends JComponent implements MouseListener {
         
     }
 
-
-    
 
 
 

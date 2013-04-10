@@ -7,14 +7,16 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
+import vooga.rts.leveleditor.gui.MapPanel;
 
 public class EditableNode {
 
     private static final String RELATIVE_PATH = "vooga.rts.leveleditor.resource.";
-    public static final Dimension DEFAULT_DIMENSION = new Dimension(50,50);
     
     private int myX;
     private int myY;
+    private int myWidth;
+    private int myHeight;
     
     private double myZoomRate;
     private boolean myOccupied;
@@ -26,16 +28,15 @@ public class EditableNode {
     
     
     public EditableNode() {
-        this(0,0,DEFAULT_DIMENSION,false);
+        this(0, 0, MapPanel.DEFAULT_TILE_WIDTH, MapPanel.DEFAULT_TILE_HEIGHT, false);
     }
-    
-    public EditableNode(int x, int y, Dimension dimension, boolean isOccupied) {
+    public EditableNode(int x, int y, int width, int height, boolean isOccupied) {
         myX = x;
         myY = y;
-        myZoomRate = 1;
-        myOccupied = false;
+        myWidth = width;
+        myHeight = height;
+        myOccupied = isOccupied;
         myFeatures = new LinkedList<Integer>();
-        myDimension = dimension;
     }
 
     public int getMyX () {
@@ -97,18 +98,21 @@ public class EditableNode {
     
     
     public void paint(Graphics pen) throws IOException {
-//        for(Integer i : myFeatures) {
-//            if(myResources.containsKey(i+"")) {
-//                String path = System.getProperty("user.dir") + RELATIVE_PATH + myResources.getString(i+"");
-//                BufferedImage myImage = ImageIO.read(new File(path));
-//                pen.drawImage(myImage, myX, myY, (int)(myDimension.getWidth()*myZoomRate), (int)(myDimension.getHeight()*myZoomRate), null);
-//            }    
-//        }
+        pen.drawImage(myImage, myX*myWidth, myY*myHeight, myWidth, myHeight,null);
+    }
 
-        //test
-        //pen.setColor(Color.RED);
-        //pen.fillRect(myX, myY,(int)(myDimension.getWidth()*myZoomRate), (int)(myDimension.getHeight()*myZoomRate));
-        pen.drawImage(myImage, myX, myY, (int)(myDimension.getWidth()*myZoomRate), (int)(myDimension.getHeight()*myZoomRate), null);
+    public void ZoomIn() {
+        myWidth = (int)(myWidth * MapPanel.ZOOM_RATE);
+        myHeight = (int)(myHeight * MapPanel.ZOOM_RATE);
+    }
+
+    public void ZoomOut() {
+        myWidth = (int)(myWidth / MapPanel.ZOOM_RATE);
+        myHeight = (int)(myHeight / MapPanel.ZOOM_RATE);
+    }
+    public void reset() {
+        myOccupied = false;
+        myFeatures.clear();
     }
     
     
