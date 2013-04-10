@@ -41,6 +41,7 @@ public class Model {
         myInputs = new ModelInputs(myPlayer, view);
         myLevelManager = new LevelManager(myScrollingManager, view);
         myLevelManager.currentLevel().addPlayer(myPlayer);
+
     }
 
     /**

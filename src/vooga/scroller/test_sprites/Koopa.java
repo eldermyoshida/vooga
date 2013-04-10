@@ -17,9 +17,6 @@ public class Koopa extends NonStaticEntity {
         System.out.println("Koopa");
     }
     
-    @Override
-    public Type getType() {
-        return Type.KOOPA;
-    }
+
     
 }

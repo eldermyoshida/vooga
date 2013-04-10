@@ -32,12 +32,7 @@ public class Mario extends Player {
     public void print() {
         System.out.println("Mario");
     }
-    
-    @Override
-    public Type getType() {
-        return Type.MARIO;
-    }
-    
+
 
    
     

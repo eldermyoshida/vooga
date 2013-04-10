@@ -7,7 +7,6 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
-import vooga.scroller.test_sprites.Type;
 
 
 /**
@@ -250,10 +249,6 @@ public abstract class Sprite {
     private Location translate(Location loc, Location origLoc) {
         Location temp =  new Location(myCenter.getX()-(loc.getX()-origLoc.getX()), myCenter.getY() - (loc.getY() - origLoc.getY()));        
         return temp;
-    }
-    
-    public Type getType() {
-        return null;
     }
     
 

@@ -5,15 +5,10 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
-import vooga.scroller.test_sprites.Coin;
-import vooga.scroller.test_sprites.Koopa;
-import vooga.scroller.test_sprites.Mario;
-import vooga.scroller.test_sprites.Platform;
-import vooga.scroller.test_sprites.Turtle;
 import vooga.scroller.util.Editable;
-import vooga.scroller.util.Location;
 import vooga.scroller.util.Sprite;
 import vooga.scroller.viewUtil.Renderable;
+import vooga.scroller.collision_handlers.CollisionManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprite_superclasses.Player;
 import vooga.scroller.util.PlatformerConstants;
@@ -183,52 +178,21 @@ public class Level implements Editable, Renderable {
     private void intersectingSprites () {
         Sprite obj1;
         Sprite obj2;
+        CollisionManager CM = new CollisionManager(myView);
 
+        mySprites.add(myPlayer);
+        
         for (int i = 0; i < mySprites.size(); i++) {
-            for (int j = i + 1; j < mySprites.size(); j++) {
+            for (int j = i + 1; j < mySprites.size(); j++) {     
                 obj1 = mySprites.get(i);
                 obj2 = mySprites.get(j);
-
                 if (obj1.intersects(obj2)) {
-                    handleCollision(obj1, obj2);
-                    handleCollision(obj2, obj1);
+                    CM.handleCollision(obj1, obj2);
+                    CM.handleCollision(obj2, obj1);
                 }
 
             }
         }
-    }
-    
-    private void handleCollision (Sprite obj1, Sprite obj2) {
-
-        switch (obj1.getType()) {
-            case COIN:
-                Coin object1 = (Coin) obj1;
-                object1.getCollisionHandler().handleCoinCollision(obj2);
-                break;
-
-            case KOOPA:
-                Koopa object2 = (Koopa) obj1;
-                object2.getCollisionHandler().handleKoopaCollision(obj2);
-                break;
-
-            case MARIO:
-                Mario object3 = (Mario) obj1;
-                object3.getCollisionHandler().handleMarioCollision(obj2);
-                break;
-
-            case PLATFORM:
-                Platform object4 = (Platform) obj1;
-                object4.getCollisionHandler().handlePlatformCollision(obj2);
-                break;
-
-            case TURTLE:
-                Turtle object5 = (Turtle) obj1;
-                object5.getCollisionHandler().handleTurtleCollision(obj2);
-                break;
-
-            default:
-                break;
-
-        }
+        mySprites.remove(mySprites.size()-1);
     }
 }

@@ -21,10 +21,7 @@ public class Coin extends StaticEntity {
         System.out.println("Coin");
     }
     
-    @Override
-    public Type getType() {
-        return Type.COIN;
-    }
+
 
 
 
