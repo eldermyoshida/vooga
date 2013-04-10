@@ -40,6 +40,7 @@ public class ResourceButton extends JToggleButton implements ActionListener {
         setToolTipText(r.getName());
         setIcon(new ImageIcon(myIcon));
         setMargin(new Insets(2,2,2,2));
+        this.addActionListener(this);
     }
     
 //    public ResourceButton(int index, int x, int y){
@@ -75,7 +76,7 @@ public class ResourceButton extends JToggleButton implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         myOwner.setCurrentSelectResource(myResource);
-        
+        System.out.println("test");
     }
 
 
