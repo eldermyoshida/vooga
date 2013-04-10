@@ -32,7 +32,7 @@ import vooga.rts.util.Vector;
  * @author Wenshun Liu 
  *
  */
-public class RTSprite extends GameSprite implements IAttackable, RTSpriteVisitor {
+public class RTSprite extends GameSprite implements IAttackable, EntityVisitor {
 
     private Vector myVelocity;
     private Sound mySound;
@@ -68,7 +68,7 @@ public class RTSprite extends GameSprite implements IAttackable, RTSpriteVisitor
      *  RTSpriteVisitor.visit(this). "this" being the subclass of RTSprite. 
      * @throws CloneNotSupportedException 
      */
-    public void accept(RTSpriteVisitor visitor) {
+    public void accept(EntityVisitor visitor) {
         try {
             visitor.visit(this);
         }

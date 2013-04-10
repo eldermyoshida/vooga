@@ -1,5 +1,6 @@
 package vooga.rts.gamedesign.sprite.rtsprite;
 
+import vooga.rts.gamedesign.sprite.rtsprite.interactive.IGatherable;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.IOccupiable;
 
 
@@ -11,7 +12,7 @@ import vooga.rts.gamedesign.sprite.rtsprite.interactive.IOccupiable;
  * @author Wenshun Liu 
  *
  */
-public interface RTSpriteVisitor {
+public interface EntityVisitor {
 
    
     public void visit(IAttackable a);

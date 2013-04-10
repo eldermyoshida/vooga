@@ -9,6 +9,7 @@ import vooga.rts.gamedesign.factories.Factory;
 import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
 import vooga.rts.gamedesign.sprite.rtsprite.Projectile;
 import vooga.rts.gamedesign.sprite.rtsprite.RTSpriteVisitor;
+
 import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
 import vooga.rts.gamedesign.strategy.attackstrategy.CannotAttack;
 import vooga.rts.gamedesign.upgrades.ArmorUpgradeNode;
@@ -55,12 +56,8 @@ public class InteractiveEntity extends GameEntity implements IAttackable{
      *  RTSpriteVisitor.visit(this). "this" being the subclass of RTSprite. 
      * @throws CloneNotSupportedException 
      */
-
-    public void accept(Projectile p) {
-        p.attack(this);
-    }
     public void accept(RTSpriteVisitor visitor) {
-        try {
+    	try {
             visitor.visit(this);
         }
         catch (CloneNotSupportedException e) {
@@ -68,20 +65,26 @@ public class InteractiveEntity extends GameEntity implements IAttackable{
             e.printStackTrace();
         }
     }
+  
+
+    public void accept(Projectile p) {
+        p.attack(this);
+    }
+
+
     public Sound getSound(){
         return mySound;
     }
 
     public void visit(IAttackable a){
-        if(!isDead()){
-            try {
-                myAttackStrategy.attack(a);
-            }
-            catch (CloneNotSupportedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+    	try {
+            myAttackStrategy.attack(a);
         }
+        catch (CloneNotSupportedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+            
     }
 
 
