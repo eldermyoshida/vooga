@@ -11,9 +11,10 @@ import java.util.Observer;
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
+import javax.swing.JViewport;
 import vooga.rts.leveleditor.components.EditableMap;
 
-public class MapPanel extends JComponent implements Observer {
+public class MapPanel extends JComponent {
     
     public static final Dimension DEFAULT_MAP_SIZE  = new Dimension (600,600);
     
@@ -22,6 +23,7 @@ public class MapPanel extends JComponent implements Observer {
     private int myHeight;
     private int myTileWidth;
     private int myTileHeight;
+    static JViewport myViewport;
     
     
     public MapPanel() {
@@ -42,6 +44,7 @@ public class MapPanel extends JComponent implements Observer {
     public void paintComponent (Graphics g) {
         g.setColor(Color.white);
         g.fillRect(0,0,myWidth*myTileWidth, myHeight*myTileHeight);
+        
 
         g.setColor(Color.gray);
         for(int i=0; i<myWidth; i++) {
@@ -74,13 +77,11 @@ public class MapPanel extends JComponent implements Observer {
         repaint();
     }
 
-    @Override
-    public void update(Observable arg0, Object arg1) {
-        repaint();
+    public static void setViewport(JViewport viewport) {
+        myViewport = viewport;
         
     }
-    
 
-    
+
 
 }

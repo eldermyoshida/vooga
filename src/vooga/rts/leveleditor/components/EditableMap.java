@@ -1,6 +1,8 @@
 package vooga.rts.leveleditor.components;
 
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Point;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -233,6 +235,9 @@ public class EditableMap {
         }
         
     }
+
+
+
 
     
 }

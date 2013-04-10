@@ -1,7 +1,6 @@
 package vooga.rts.leveleditor.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,8 +13,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
-import vooga.rts.leveleditor.components.EditableMap;
 
 public class Canvas extends JFrame {
     
@@ -24,32 +23,29 @@ public class Canvas extends JFrame {
     public static final String USER_DIR = "user.dir";
     
     private MapPanel myMapPanel;
-    private JPanel myResourcePanel;
-    private JScrollPane myMapPane;
+    private ResourcePanel myResourcePanel;
     private JFileChooser myChooser;
-    private ResourceOutliner myResourceOutliner;
+    private JScrollPane  myMapScroll;
     
     public Canvas() {
         setTitle("Level Editor");
         myMapPanel = new MapPanel();
-        myResourcePanel = new JPanel(new BorderLayout());
-        myResourcePanel.setSize(DEFAULT_RESOURCE_SIZE);
-        JPanel ButtonPanel = createButtonPanel();
-        
-        ResourceContainer[] top = new ResourceContainer[5];
-        myResourceOutliner = new ResourceOutliner(top);
-        for(int i = 0; i < 5; i++)
-        {
-            myResourceOutliner.addDice();
-        }
-        
-       
-        myResourcePanel.add(myResourceOutliner, BorderLayout.NORTH);
-        myResourcePanel.add(ButtonPanel, BorderLayout.SOUTH);
-        myMapPane = new JScrollPane(myMapPanel);
+        myResourcePanel = new ResourcePanel();
         myChooser = new JFileChooser(System.getProperties().getProperty(USER_DIR));
-        getContentPane().add(myMapPane, BorderLayout.CENTER);
-        getContentPane().add(myResourcePanel, BorderLayout.EAST);
+     
+        
+        JPanel ChooserPanel = new JPanel(new BorderLayout());        
+        JScrollPane resourceScroll = new JScrollPane(myResourcePanel);
+        JTabbedPane ResourceTabPane = new JTabbedPane();
+        ResourceTabPane.add("Resources", resourceScroll);
+        JPanel ButtonPanel = createButtonPanel();
+        ChooserPanel.add(ResourceTabPane, BorderLayout.CENTER);
+        ChooserPanel.add(ButtonPanel, BorderLayout.SOUTH);
+
+        myMapScroll = new JScrollPane(myMapPanel);
+        MapPanel.setViewport(myMapScroll.getViewport());
+        getContentPane().add(myMapScroll, BorderLayout.CENTER);
+        getContentPane().add(ChooserPanel, BorderLayout.EAST);
         
         setJMenuBar(createMenuBar());
         
