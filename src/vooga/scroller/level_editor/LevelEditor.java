@@ -30,7 +30,7 @@ public class LevelEditor implements ILevelEditor {
     private static final String DEFAULT_COMMAND_ERROR = "Incorrect Command";
     private Editable myLevel;
     private ScrollingManager myScrollingManager;
-    private LEGrid mySpriteGrid;
+    private Editable mySpriteGrid;
 
     public LevelEditor (SpriteLibrary lib) {
         myLevel = new Level(1, myScrollingManager); 
@@ -43,7 +43,7 @@ public class LevelEditor implements ILevelEditor {
     @Override
     public void processCommand (Editable m, String cmd) {
         // TODO Auto-generated method stub
-        mySpriteGrid = (LEGrid) m;
+        mySpriteGrid = m;
         processCommand(cmd);
     }
 

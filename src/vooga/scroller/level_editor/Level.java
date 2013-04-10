@@ -175,8 +175,9 @@ public class Level implements Editable, Renderable {
     }
 
     @Override
-    public void deleteSprite (Location deleteAtLocation) {
+    public void deleteSprite (int x, int y) {
         // TODO Auto-generated method stub
+        
     }
     
     private void intersectingSprites () {
