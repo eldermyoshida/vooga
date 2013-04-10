@@ -4,23 +4,23 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 import vooga.rts.IGameLoop;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Units;
+import vooga.rts.gamedesign.sprite.Unit;
 
 
 public class UnitManager implements IGameLoop {
-    private List<Units> myUnits;
-    private List<Units> mySelectedUnits;
+    private List<Unit> myUnits;
+    private List<Unit> mySelectedUnits;
     
-    public void addUnit(Units u) {
+    public void addUnit(Unit u) {
         myUnits.add(u);
     }
 
     public UnitManager () {
-        myUnits = new ArrayList<Units>();
-        mySelectedUnits = new ArrayList<Units>();
+        myUnits = new ArrayList<Unit>();
+        mySelectedUnits = new ArrayList<Unit>();
     }
 
-    public void select (Units u) {
+    public void select (Unit u) {
         if (!mySelectedUnits.contains(u)) {
             if (myUnits.contains(u)) {
                 mySelectedUnits.add(u);
@@ -28,7 +28,7 @@ public class UnitManager implements IGameLoop {
         }
     }
 
-    public void deselect (Units u) {
+    public void deselect (Unit u) {
         if (mySelectedUnits.contains(u)) {
             mySelectedUnits.remove(u);
         }
@@ -46,24 +46,24 @@ public class UnitManager implements IGameLoop {
         mySelectedUnits.clear();
     }
     
-    public List<Units> getSelected() {
+    public List<Unit> getSelected() {
         return mySelectedUnits;
     }
     
-    public List<Units> getAllUnits() {
+    public List<Unit> getAllUnits() {
         return myUnits;
     }
 
     @Override
     public void update (double elapsedTime) {
-        for (Units u : myUnits) {
+        for (Unit u : myUnits) {
             u.update(elapsedTime);
         }
     }
 
     @Override
     public void paint (Graphics2D pen) {
-        for (Units u : myUnits) {
+        for (Unit u : myUnits) {
             u.paint(pen);
         }
     }

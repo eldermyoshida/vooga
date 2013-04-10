@@ -1,11 +1,10 @@
 package vooga.rts.controller;
 
 import vooga.rts.gamedesign.Gun;
+import vooga.rts.gamedesign.sprite.Unit;
 import vooga.rts.gamedesign.sprite.rtsprite.Bullet;
 import vooga.rts.gamedesign.sprite.rtsprite.Projectile;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.Interactive;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Soldier;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Units;
 import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;
 import vooga.rts.gamedesign.strategy.attackstrategy.CannotAttack;
 import vooga.rts.input.*;
@@ -64,10 +63,10 @@ public class GameController extends AbstractController {
             
         }
         */
-        List<Units> p1 = myTeams.get(1).getUnits();
-        List<Units> p2 = myTeams.get(2).getUnits();
-        for (Units u1 : p1) {
-            for (Units u2 : p2) {
+        List<Unit> p1 = myTeams.get(1).getUnits();
+        List<Unit> p2 = myTeams.get(2).getUnits();
+        for (Unit u1 : p1) {
+            for (Unit u2 : p2) {
                 if(((CanAttack)u1.getAttackStrategy()).getWeapon().inRange(u2, u1.getCenter())){
                     u2.accept(u1);
                 }               
@@ -118,10 +117,10 @@ public class GameController extends AbstractController {
         Dimension s = new Dimension(100, 100);
         Sound soun = null;//new Sound("/vooga/rts/sounds/pikachu.wav");
         
-        Units a = null;
+        Unit a = null;
         try{
             a = new Soldier(p,new Location(100, 100),s,soun,20,100);
-            Projectile proj = new Bullet(new Pixmap(ResourceManager.instance().loadFile("images/bullet.png")), a.getCenter(), new Dimension(30, 30), soun, 10, 1);
+            Projectile proj = new Projectile(new Pixmap(ResourceManager.instance().loadFile("images/bullet.png")), a.getCenter(), new Dimension(30, 30), 10, 1);
             a.setAttackStrategy(new CanAttack());
             ((CanAttack) a.getAttackStrategy()).addWeapons(new Gun(0, proj, 200, a.getCenter(),20));
 
@@ -131,12 +130,12 @@ public class GameController extends AbstractController {
         }
         
 
-        Units b = new Soldier(p,new Location(100,300),s,soun,20,50);
-        Projectile proj2 = new Bullet(new Pixmap(ResourceManager.instance().loadFile("images/bullet.png")), b.getCenter(), new Dimension(30, 30), soun, 10, 1);
+        Unit b = new Soldier(p,new Location(100,300),s,soun,20,50);
+        Projectile proj2 = new Projectile(new Pixmap(ResourceManager.instance().loadFile("images/bullet.png")), b.getCenter(), new Dimension(30, 30), 10, 1);
         b.setAttackStrategy(new CanAttack());
 
         ((CanAttack) b.getAttackStrategy()).addWeapons(new Gun(0, proj2, 200, b.getCenter(),20));        
-        Units c = new Soldier(p,new Location(500, 500),s,soun,20,40);
+        Unit c = new Soldier(p,new Location(500, 500),s,soun,20,40);
         c.setAttackStrategy(new CannotAttack());
         
         p1.getUnits().addUnit(a);
