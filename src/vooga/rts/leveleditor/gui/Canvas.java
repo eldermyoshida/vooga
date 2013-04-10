@@ -25,6 +25,7 @@ public class Canvas extends JFrame {
 
     private MapPanel myMapPanel;
     private ResourcePanel myResourcePanel;
+    private ButtonPanel myButtonPanel;
     private Resource myCurrentSelectResource;
     private JFileChooser myChooser;
     private JScrollPane  myMapScroll;
@@ -33,6 +34,7 @@ public class Canvas extends JFrame {
         setTitle("Level Editor");
         myMapPanel = new MapPanel(this);
         myResourcePanel = new ResourcePanel(this);
+        myButtonPanel = new ButtonPanel(this);
         myChooser = new JFileChooser(System.getProperties().getProperty(USER_DIR));
 
 
@@ -40,9 +42,8 @@ public class Canvas extends JFrame {
         JScrollPane resourceScroll = new JScrollPane(myResourcePanel);
         JTabbedPane ResourceTabPane = new JTabbedPane();
         ResourceTabPane.add("Resources", resourceScroll);
-        JPanel ButtonPanel = createButtonPanel();
         ChooserPanel.add(ResourceTabPane, BorderLayout.CENTER);
-        ChooserPanel.add(ButtonPanel, BorderLayout.SOUTH);
+        ChooserPanel.add(myButtonPanel, BorderLayout.SOUTH);
 
         myMapScroll = new JScrollPane(myMapPanel);
         getContentPane().add(myMapScroll, BorderLayout.CENTER);
@@ -58,32 +59,6 @@ public class Canvas extends JFrame {
 
     }
 
-    private JPanel createButtonPanel() {
-        JPanel ButtonPanel = new JPanel();
-        JButton ZoomInButton = new JButton("ZoomIn");
-        ZoomInButton.addActionListener(new ActionListener() {
-            public void actionPerformed (ActionEvent arg0) {
-                //TODO
-            }
-        });
-        JButton ZoomOutButton = new JButton("ZoomOut");
-        ZoomOutButton.addActionListener(new ActionListener() {
-            public void actionPerformed (ActionEvent arg0) {
-                //TODO
-            }
-        });
-        JButton RemoveButton = new JButton("Remove");
-        RemoveButton.addActionListener(new ActionListener() {
-            public void actionPerformed (ActionEvent arg0) {
-                //TODO
-            }
-        });
-
-        ButtonPanel.add(ZoomInButton);
-        ButtonPanel.add(ZoomOutButton);
-        ButtonPanel.add(RemoveButton);
-        return ButtonPanel;
-    }
 
     public JMenuBar createMenuBar() {
         JMenuBar menuBar = new JMenuBar();
@@ -169,9 +144,18 @@ public class Canvas extends JFrame {
     public Resource getCurrentSelectResource() {
         return myCurrentSelectResource;
     }
+    
+    public void ZoomIn() {
+        myMapPanel.ZoomIn();      
+    }
+    
+    public void ZoomOut() {
+        myMapPanel.ZoomOut();      
+    }
 
     public static void main(String[] argv) {
         new Canvas();
     }
+
 
 }

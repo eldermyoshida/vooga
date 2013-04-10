@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import vooga.rts.leveleditor.gui.MapPanel;
 import vooga.rts.util.Location;
 
 
@@ -45,18 +46,30 @@ public class EditableMap {
         this(0,0);
     }
     
-    public void initializeMap(int nodeX, int nodeY) {
+//    public void initializeMap(int nodeX, int nodeY) {
+//        myIndexMatrix = new EditableNode[myXSize][myYSize];
+//        for(int i =0 ; i<myXSize ; i++) {
+//            for(int j =0 ; j<myYSize ; j++) {
+//                myIndexMatrix[i][j] = new EditableNode(i*nodeX,j*nodeY,new Dimension(nodeX,nodeY),false);
+//            }
+//        }
+//        myPlayerLocations = new HashMap<Integer , Location>();
+//        myPlayerNumber = 0;
+//    }
+    
+    public void initializeMap(int width, int height) {
         myIndexMatrix = new EditableNode[myXSize][myYSize];
         for(int i =0 ; i<myXSize ; i++) {
             for(int j =0 ; j<myYSize ; j++) {
-                myIndexMatrix[i][j] = new EditableNode(i*nodeX,j*nodeY,new Dimension(nodeX,nodeY),false);
+                myIndexMatrix[i][j] = new EditableNode(i,j,width, height, false);
             }
         }
         myPlayerLocations = new HashMap<Integer , Location>();
         myPlayerNumber = 0;
     }
+    
     public void initializeMap() {
-        initializeMap((int)EditableNode.DEFAULT_DIMENSION.getWidth(),(int)EditableNode.DEFAULT_DIMENSION.getHeight());
+        initializeMap(MapPanel.DEFAULT_TILE_WIDTH,MapPanel.DEFAULT_TILE_HEIGHT);
     }
     
     public void addFeature(int x , int y , int index) {
@@ -303,6 +316,24 @@ public class EditableMap {
         myXSize = h;
 
     }
+    
+    public void ZoomIn() {
+        for(int i =0 ; i<myXSize ; i++) {
+            for(int j =0 ; j<myYSize ; j++) {
+                myIndexMatrix[i][j].ZoomIn();
+            }
+        }
+        
+    }
+
+    public void ZoomOut() {
+        for(int i =0 ; i<myXSize ; i++) {
+            for(int j =0 ; j<myYSize ; j++) {
+                myIndexMatrix[i][j].ZoomOut();
+            }
+        }
+        
+    }
 
     public static void main(String[] args) {
         EditableMap test = new EditableMap(100,100);
@@ -322,5 +353,5 @@ public class EditableMap {
         test.printMatrix();
        
     }
-    
+
 }
