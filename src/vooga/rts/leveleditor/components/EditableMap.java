@@ -1,8 +1,6 @@
 package vooga.rts.leveleditor.components;
 
 import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Point;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -68,24 +66,6 @@ public class EditableMap {
     
     public void removeFeatures(int x ,int y) {
         myIndexMatrix[x][y].clearAllFeatures();
-    }
-    
-    public int getWidth() {
-        return myXSize;
-    }
-    
-    public int getHeight() {
-        return myYSize;
-    }
-    
-    public void setWidth(int w) {
-        myXSize = w;
-        
-    }
-    
-    public void setHeight(int h) {
-        myXSize = h;
-        
     }
    
     
@@ -156,26 +136,34 @@ public class EditableMap {
     }
     
     public void loadMapFile(String fileName) throws FileNotFoundException {
-        File resourceFile = new File(fileName);
+        File resourceFile = new File(System.getProperty("user.dir") + "./src/" + fileName);
         Scanner myScanner = new Scanner(resourceFile);
         int x = countRows(resourceFile) ;
         int y = countColumns(resourceFile);
+        int layers = countLayers(resourceFile);
         
-        int buffer[][] = new int[x][y];
+        EditableMap buffer = new EditableMap(x,y);
+        
         String line = myScanner.nextLine();
         
-        for(int i =0 ; i<x ; i++) {
-            for(int j =0 ; j<y ; j++) {
-                buffer[i][j] = Integer.parseInt(line.charAt(j)+"");
+        for(int l = 0 ; l<layers ; l++) {
+            if(line.contains("*")) {
+                line = myScanner.nextLine();
             }
-            if(myScanner.hasNextLine()) {
-               line = myScanner.nextLine();
-            } else {
-                break;
+            for(int i =0 ; i<x ; i++) {
+                for(int j =0 ; j<y ; j++) {
+                    if(Integer.parseInt(line.charAt(j)+"") != 0){
+                        buffer.getMapNode(i, j).addFeature(Integer.parseInt(line.charAt(j)+""));    
+                    }
+                }
+                if(myScanner.hasNextLine()) {
+                    line = myScanner.nextLine();
+                } else {
+                    break;
+                }
             }
         }
-        //TO Fix
-        //myIndexMatrix = buffer;
+        myIndexMatrix = buffer.getMap();
         myScanner.close();
     }
     
@@ -185,9 +173,14 @@ public class EditableMap {
         String line = myScanner.nextLine();
         while(myScanner.hasNextLine()) {
             line = myScanner.nextLine();
-            rows ++;
+            if(line.contains("*")) {
+                break;
+            }else {
+                rows ++;
+            }
         }
         myScanner.close();
+        System.out.println("Number of rows: " + rows);
         return rows;
         
     }
@@ -203,41 +196,69 @@ public class EditableMap {
             }
         }
         myScanner.close();
+        System.out.println("Number of column: " + column);
         return column;
     } 
+    
+    public int countLayers(File file)  throws FileNotFoundException {
+        Scanner myScanner = new Scanner(file);
+        String line = myScanner.nextLine();
+        int layer = 0 ;
+        while(myScanner.hasNextLine()) {
+            if(line.contains("*")) {
+                layer ++;
+            }
+            line = myScanner.nextLine();
+        }
+        if(line.contains("*")) {
+            layer ++;
+        }
+        myScanner.close();
+        System.out.println("Number of layers: " + layer);
+        return layer;
+    }
    
     public void printMatrix() {
-        int x = myIndexMatrix.length;
-        int y = myIndexMatrix[0].length;
-        for(int i =0 ; i<x ; i++) {
-            for(int j =0 ; j<y ; j++) {
-                System.out.print(myIndexMatrix[i][j]);
-                System.out.print(" ");
+        int layers = getLayerNumber();
+        for(int l =0 ; l< layers ; l++) {
+            for(int i =0 ; i<myXSize ; i++) {
+                for(int j =0 ; j<myYSize ; j++) {
+                    if( l>= myIndexMatrix[i][j].getLayerNumber()) {
+                        System.out.print("0");
+                        System.out.print(" ");    
+                    } else {
+                        System.out.print(myIndexMatrix[i][j].getFeature(l));
+                        System.out.print(" ");    
+                    }
+                }
+                System.out.print("\n");
+            }
+            for(int i = 0 ; i<10 ; i++) {
+                System.out.print("**");
             }
             System.out.print("\n");
+    
         }
     }
     
+    public EditableNode getMapNode(int x, int y) {
+        return myIndexMatrix[x][y];
+    }
    
+    public EditableNode[][] getMap() {
+        return myIndexMatrix;
+    }
     
     public static void main(String[] args) {
         EditableMap test = new EditableMap(100,100);
-        test.addFeature(99, 99, 1);
-        test.addFeature(99, 99, 1);
-        test.addFeature(99, 99, 1);
-        test.addFeature(99, 99, 1);
         try {
-            test.generateMapFile("test.dat");
+            test.loadMapFile("test.sav");
         }
-        catch (IOException e) {
-            // TODO Auto-generated catch block
+        catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        test.printMatrix();
         
     }
-
-
-
-
     
 }
