@@ -20,8 +20,17 @@ import vooga.fighter.util.Vector;
 @InputClassTarget
 public class CharacterObject extends MoveableGameObject {    
         
-    private int myDefaultSpeed;
+	private static final int DEFAULT_ATTACK_STRENGTH=5;
+	private static final int DEFAULT_SPECIAL_ATTACK_STRENGTH=10;
+	private AttackObject myAttack; 
+	private int myAttackPower;
+	private int mySpecialAttackPower;
+	private int myOriginalAttackPower;
+	private int myOriginalSpecialAttackPower; 
+    private int myOriginalSpeed;
+    private Player myPlayer; 
     private Input myInput;
+    private int mySpeed;
     
     /**
      * Constructs a new CharacterObject.
@@ -31,24 +40,32 @@ public class CharacterObject extends MoveableGameObject {
      */
     public CharacterObject(Pixmap image, Location center, Dimension size, int defaultSpeed, Input input, Health health) {
         super(image, center, size, health);
-        myDefaultSpeed = defaultSpeed;
+        myOriginalSpeed = defaultSpeed;
+        mySpeed= myOriginalSpeed; 
         myInput = input;
         myInput.addListenerTo(this);
     }        
     
     /**
-     * Returns the default speed of this character.
+     * Returns the speed of this character.
      */
-    public int getDefaultSpeed() {
-        return myDefaultSpeed;
+    public int getSpeed() {
+        return mySpeed;
     }    
+    
+    /**
+     * Returns the player
+     */
+    private Player getPlayer(){
+    	return myPlayer;
+    }
     
     /**
      * Moves the character left.
      */
     @InputMethodTarget(name="left")
     public void moveLeft(AlertObject alObj) {
-        Vector left = new Vector(Vector.DEGREES_LEFT, myDefaultSpeed);
+        Vector left = new Vector(Vector.DEGREES_LEFT, mySpeed);
         super.translate(left);
     }
     
@@ -57,7 +74,7 @@ public class CharacterObject extends MoveableGameObject {
      */
     @InputMethodTarget(name="right")
     public void moveRight(AlertObject alObj) {
-        Vector right = new Vector(Vector.DEGREES_RIGHT, myDefaultSpeed);
+        Vector right = new Vector(Vector.DEGREES_RIGHT, mySpeed);
         super.translate(right);
     }
     
@@ -66,7 +83,7 @@ public class CharacterObject extends MoveableGameObject {
      */
     @InputMethodTarget(name="up")
     public void moveUp(AlertObject alObj) {
-        Vector up = new Vector(Vector.DEGREES_UP, myDefaultSpeed);
+        Vector up = new Vector(Vector.DEGREES_UP, mySpeed);
         super.translate(up);
     }
     
@@ -75,8 +92,30 @@ public class CharacterObject extends MoveableGameObject {
      */
     @InputMethodTarget(name="down")
     public void moveDown(AlertObject alObj) {
-        Vector down = new Vector(Vector.DEGREES_DOWN, myDefaultSpeed);
+        Vector down = new Vector(Vector.DEGREES_DOWN, mySpeed);
         super.translate(down);
     }
+    /**
+     * Sets character speed to 0
+     */
+    public void freezeCharacter(){
+    	mySpeed=0; 
+    }
+    
+    /**
+     * resets character speed
+     */
+    public void resetSpeed(){
+    	mySpeed=myOriginalSpeed; 
+    }
+    
+    /**
+     * Creates an attackobject
+     */
+    private void createAttack(){
+    	myAttack=new AttackObject(myPlayer, myAttackPower);
+    }
+    
+
 
 }

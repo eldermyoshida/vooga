@@ -5,7 +5,7 @@ import vooga.fighter.objects.CharacterObject;
 /**
  * Represents an effect placed on a character (or several).
  * 
- * @author james
+ * @author james, alanni
  *
  */
 public abstract class Effect {
@@ -50,5 +50,10 @@ public abstract class Effect {
      * Creates a clone of this effect.
      */
     public abstract Effect getCloneOfEffect();
+    
+    /**
+     * Applies effect to target
+     */
+    public abstract void applyEffect();
 
 }

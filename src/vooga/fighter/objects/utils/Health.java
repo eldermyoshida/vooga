@@ -3,7 +3,7 @@ package vooga.fighter.objects.utils;
 /**
  * Represents a health value for an object.
  * 
- * @author james, Alan
+ * @author james, alanni
  * 
  */
 public class Health {
@@ -67,7 +67,6 @@ public class Health {
     public boolean hasHealthRemaining() {
         return (myHealth > 0);
     }
-
 
     
     

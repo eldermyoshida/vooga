@@ -12,7 +12,7 @@ import vooga.fighter.util.Vector;
 /**
  * Object that can inflict damage on other moveable game objects
  * 
- * @author james
+ * @author james, alanni
  *  
  */
 public class AttackObject {
@@ -20,16 +20,18 @@ public class AttackObject {
     private Counter myCounter;
     private Player myOwner;
     private List<Effect> myEffects;
-    private int AttackPower;  
+    private int myAttackPower;  
+    private int myVelocity; 
     
     /**
      * Constructs an AttackObject with the given Player owner.
      */
-    public AttackObject(Player owner) {
+    public AttackObject(Player owner, int power) {
         myOwner = owner;
         myEffects = new ArrayList<Effect>();
         //add effects to myEffects list
         myCounter = new Counter();
+        myAttackPower=power; 
         //myCounter.setCounter(count);
     }
     
@@ -60,7 +62,7 @@ public class AttackObject {
      * @return current health of the inflicted object
      */
     public int inflictDamage(MoveableGameObject o){
-    	return o.reduceHealth(AttackPower);
+    	return o.reduceHealth(myAttackPower);
     }
     
     /**

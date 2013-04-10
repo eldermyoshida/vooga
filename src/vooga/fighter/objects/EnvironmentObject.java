@@ -9,7 +9,7 @@ import vooga.fighter.util.Pixmap;
  * 
  * More behavior will be added.
  * 
- * @author james
+ * @author james, alanni
  *
  */
 public class EnvironmentObject extends GameObject {

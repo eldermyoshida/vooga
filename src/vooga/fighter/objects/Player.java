@@ -12,13 +12,12 @@ import vooga.fighter.objects.utils.Health;
  * corresponds to a character being controlled in the game. Things such as input
  * listeners and game state variables corresponding to the level in progress go here.
  * 
- * @author james
+ * @author james, alanni
  *
  */
 public class Player {
 
     private Health myHealth;
-    private CharacterObject myCharacter;
     private Input myInput;
     
     /**
@@ -26,8 +25,7 @@ public class Player {
      * 
      * Note: Will be updated to use object loader.
      */
-    public Player(CharacterObject character, Input input) {
-        myCharacter = character;
+    public Player(Input input) {
         myInput = input;
         myHealth = new Health();
     }
