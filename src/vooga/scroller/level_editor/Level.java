@@ -65,6 +65,10 @@ public class Level implements Editable, Renderable {
             mySprites.add(s);
     }
     
+    public void removeSprite(Sprite s) {
+        mySprites.remove(s);
+    }
+    
     public void addPlayer(Player s) {
         myPlayer = s;
     }
@@ -178,7 +182,7 @@ public class Level implements Editable, Renderable {
     private void intersectingSprites () {
         Sprite obj1;
         Sprite obj2;
-        CollisionManager CM = new CollisionManager(myView);
+        CollisionManager CM = new CollisionManager(this);
 
        mySprites.add(myPlayer);
         
@@ -195,5 +199,9 @@ public class Level implements Editable, Renderable {
         }
         
        mySprites.remove(mySprites.size()-1);
+    }
+    
+    public View getView() {
+        return myView;
     }
 }
