@@ -7,6 +7,7 @@ import java.lang.reflect.Method;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprite_superclasses.Player;
 import vooga.scroller.util.Location;
+import vooga.scroller.util.Sprite;
 import vooga.scroller.level_editor.commands.Command;
 import vooga.scroller.level_editor.commands.CommandLibrary;
 
@@ -49,7 +50,8 @@ public class LevelEditor implements ILevelEditor {
 
     @Command
     public void createSprite (int id, int x, int y) {
-        //TODO create Sprite based on id.
+        Sprite spr;
+        mySpriteGrid.addNewSprite(spr);
     }
     
     @Command
