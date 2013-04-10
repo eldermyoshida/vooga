@@ -16,7 +16,7 @@ public class Main {
             Sprite s;
             try {
                 s = (Sprite) c.newInstance();
-                System.out.println(s.getType());
+                System.out.println(s);
             }
             catch (InstantiationException e) {
                 // TODO Auto-generated catch block

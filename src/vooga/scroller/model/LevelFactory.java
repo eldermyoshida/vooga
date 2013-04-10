@@ -6,10 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import vooga.scroller.level_editor.Level;
 import vooga.scroller.scrollingmanager.ScrollingManager;
-import vooga.scroller.test_sprites.Coin;
-import vooga.scroller.test_sprites.Koopa;
-import vooga.scroller.test_sprites.Platform;
-import vooga.scroller.test_sprites.Turtle;
+import vooga.scroller.test_sprites.MarioLib;
 import vooga.scroller.util.Location;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.PlatformerConstants;
@@ -34,19 +31,21 @@ public class LevelFactory {
         // TODO: this will ideally read in levels from file and create instances of each level
         // This works for demos
         
-        myCurrLevel.addSprite(new Coin(new Pixmap("coin.gif"), 
+        MarioLib lib = new MarioLib();
+        
+        myCurrLevel.addSprite(lib.new Coin(new Pixmap("coin.gif"), 
                                 new Location(view.getWidth() - 400, view.getHeight() - 250),
                                 new Dimension(30, 30)));   
 
-        myCurrLevel.addSprite(new Koopa(new Pixmap("koopa.gif"), 
+        myCurrLevel.addSprite(lib.new Koopa(new Pixmap("koopa.gif"), 
                                  new Location(view.getWidth() - 300, view.getHeight() - 275),
                                  new Dimension(30, 60)));   
 
-        myCurrLevel.addSprite(new Platform(new Pixmap("platform.gif"), 
+        myCurrLevel.addSprite(lib.new Platform(new Pixmap("platform.gif"), 
                                     new Location(view.getWidth() - 80, view.getHeight() - 150),
                                     new Dimension(30, 60)));   
 
-        myCurrLevel.addSprite(new Turtle(new Pixmap("turtle.gif"), 
+        myCurrLevel.addSprite(lib.new Turtle(new Pixmap("turtle.gif"), 
                                   new Location(view.getWidth() - 500, view.getHeight() - 75),
                                   new Dimension(30, 60)));   
         

@@ -4,7 +4,9 @@ package vooga.scroller.test_sprites;
 import java.awt.Dimension;
 import java.util.List;
 import vooga.scroller.design_patterns.State;
+import vooga.scroller.sprite_superclasses.NonStaticEntity;
 import vooga.scroller.sprite_superclasses.Player;
+import vooga.scroller.sprite_superclasses.StaticEntity;
 import vooga.scroller.util.Location;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.view.View;
@@ -64,6 +66,37 @@ public class Mario extends Player {
    
     public void changeState(State newState) {
         currentState = newState;
+    }
+    
+    public class Platform extends StaticEntity{
+
+
+        
+        public Platform (Pixmap image, Location center, Dimension size) {
+            super(image, center, size);
+            // TODO Auto-generated constructor stub
+        }
+
+        public void print() {
+            System.out.println("Platform");
+        }
+        
+
+    }
+    
+    
+    public class Turtle extends NonStaticEntity {
+
+        
+        public Turtle (Pixmap image, Location center, Dimension size) {
+            super(image, center, size);
+            // TODO Auto-generated constructor stub
+        }
+
+        public void print() {
+            System.out.println("Turtle");
+        }
+
     }
 }
 

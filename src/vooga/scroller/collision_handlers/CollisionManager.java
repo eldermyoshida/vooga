@@ -3,11 +3,8 @@ package vooga.scroller.collision_handlers;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import vooga.scroller.test_sprites.Coin;
-import vooga.scroller.test_sprites.Koopa;
 import vooga.scroller.test_sprites.Mario;
-import vooga.scroller.test_sprites.Platform;
-import vooga.scroller.test_sprites.Turtle;
+import vooga.scroller.test_sprites.MarioLib;
 import vooga.scroller.util.Direction;
 import vooga.scroller.util.Sprite;
 import vooga.scroller.view.View;
@@ -118,17 +115,17 @@ public class CollisionManager {
         
     }
     
-    public void visit (Mario mario, Coin coin) {
+    public void visit (Mario mario, MarioLib.Coin coin) {
         System.out.println("Mario has just collided with Coin!");
         
     }
 
-    public void visit (Mario mario, Koopa koopa) {
+    public void visit (Mario mario, MarioLib.Koopa koopa) {
         System.out.println("Mario has just collided with Koopa!");
         
     }
 
-    public void visit (Mario mario, Platform platform) {
+    public void visit (Mario mario, MarioLib.Platform platform) {
         
         Direction collisionType = collisionDirection(mario, platform);
 
@@ -153,106 +150,106 @@ public class CollisionManager {
         
     }
     
-    public void visit (Mario mario, Turtle turtle) {
+    public void visit (Mario mario, MarioLib.Turtle turtle) {
         endGame();
         System.out.println("Mario has just collided with Turtle!");
         
     }
     
-    public void visit (Coin coin, Mario mario) {
+    public void visit (MarioLib.Coin coin, Mario mario) {
         System.out.println("Coin has just collided with Mario!");
     }
 
-    public void visit (Coin coin, Coin coin2) {
+    public void visit (MarioLib.Coin coin, MarioLib.Coin coin2) {
         System.out.println("Coin has just collided with Coin!");
         
     }
 
-    public void visit (Coin coin, Koopa koopa) {
+    public void visit (MarioLib.Coin coin, MarioLib.Koopa koopa) {
         System.out.println("Coin has just collided with Koopa!");
         
     }
 
-    public void visit (Coin coin, Platform platform) {
+    public void visit (MarioLib.Coin coin, MarioLib.Platform platform) {
         System.out.println("Coin has just collided with Platform!");
         
     }
 
-    public void visit (Coin coin, Turtle turtle) {
+    public void visit (MarioLib.Coin coin, MarioLib.Turtle turtle) {
         System.out.println("Coin has just collided with Turtle!");
     }
 
-    public void visit (Koopa koopa, Mario mario) {
+    public void visit (MarioLib.Koopa koopa, Mario mario) {
         System.out.println("Koopa has just collided with Mario!");
         
     }
 
-    public void visit (Koopa koopa, Coin coin) {
+    public void visit (MarioLib.Koopa koopa, MarioLib.Coin coin) {
         System.out.println("Koopa has just collided with Coin!");
         
     }
 
-    public void visit (Koopa koopa, Koopa koopa2) {
+    public void visit (MarioLib.Koopa koopa, MarioLib.Koopa koopa2) {
         System.out.println("Koopa has just collided with Koopa!");
         
     }
 
-    public void visit (Koopa koopa, Platform platform) {
+    public void visit (MarioLib.Koopa koopa, MarioLib.Platform platform) {
         System.out.println("Koopa has just collided with Platform!");
         
     }
 
-    public void visit (Koopa koopa, Turtle turtle) {
+    public void visit (MarioLib.Koopa koopa, MarioLib.Turtle turtle) {
         System.out.println("Koopa has just collided with Turtle!");
         
     }
     
-    public void visit (Platform platform, Mario mario) {
+    public void visit (MarioLib.Platform platform, Mario mario) {
         //System.out.println("Platform has just collided with Mario!");
         
     }
 
-    public void visit (Platform platform, Coin coin) {
+    public void visit (MarioLib.Platform platform, MarioLib.Coin coin) {
         System.out.println("Platform has just collided with Coin!");
         
     }
 
-    public void visit (Platform platform, Koopa koopa) {
+    public void visit (MarioLib.Platform platform, MarioLib.Koopa koopa) {
         System.out.println("Platform has just collided with Koopa!");
         
     }
 
-    public void visit (Platform platform, Platform platform2) {
+    public void visit (MarioLib.Platform platform, MarioLib.Platform platform2) {
         System.out.println("Platform has just collided with Platform!");
         
     }
 
-    public void visit (Platform platform, Turtle turtle) {
+    public void visit (MarioLib.Platform platform, MarioLib.Turtle turtle) {
         System.out.println("Platform has just collided with Turtle!");
         
     }
     
-    public void visit (Turtle turtle, Mario mario) {
+    public void visit (MarioLib.Turtle turtle, Mario mario) {
         System.out.println("Turtle has just collided with Mario!");
         
     }
 
-    public void visit (Turtle turtle, Coin coin) {
+    public void visit (MarioLib.Turtle turtle, MarioLib.Coin coin) {
         System.out.println("Turtle has just collided with Coin!");
         
     }
 
-    public void visit (Turtle turtle, Koopa koopa) {
+    public void visit (MarioLib.Turtle turtle, MarioLib.Koopa koopa) {
         System.out.println("Turtle has just collided with Koopa!");
         
     }
 
-    public void visit (Turtle turtle, Platform platform) {
+    public void visit (MarioLib.Turtle turtle, MarioLib.Platform platform) {
         System.out.println("Turtle has just collided with Platform!");
         
     }
 
-    public void visit (Turtle turtle, Turtle turtle2) {
+    public void visit (MarioLib.Turtle turtle, MarioLib.Turtle turtle2) {
         System.out.println("Turtle has just collided with Turtle!");
         
     }
