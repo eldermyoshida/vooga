@@ -3,16 +3,32 @@ package vooga.rts.networking;
 import java.io.Serializable;
 
 /**
- * Represents a timeStamp that will be sent across the network
+ * Represents a timeStamp that will be sent across the network. If no parameters
+ * are given, it automatically uses the current time in the system as an initial 
+ * time
  * @author Henrique Moraes
  *
  */
 public class TimeStamp implements Comparable<TimeStamp>{
+    public static final int TO_MILLISEC = 1000000;
     private long myInitialTime;
     private int DEFAULT_VALUE = -1;
     private long myFinalTime;
+    
+    /**
+     * Creates a timestamp object with the current time as the initial time
+     */
     public TimeStamp(){
         resetStamp();
+    }
+    
+    /**
+     * Creates a timestamp object with the given initial time
+     * @param time
+     */
+    public TimeStamp(long time){
+        myInitialTime = time;
+        myFinalTime = DEFAULT_VALUE;
     }
     
     /**
@@ -25,11 +41,12 @@ public class TimeStamp implements Comparable<TimeStamp>{
     }
     
     /**
-     * @return difference in elapsed time since this stamp was created
+     * @return difference in elapsed time since this stamp was created 
+     * in milliseconds
      */
     public long getDifference(){
         if(myInitialTime > myFinalTime)
-            myFinalTime = System.nanoTime();
+            myFinalTime = System.currentTimeMillis();
         return myFinalTime - myInitialTime;
     }
     
@@ -37,16 +54,37 @@ public class TimeStamp implements Comparable<TimeStamp>{
      * Resets this stamp setting the initial time as the current one
      */
     public void resetStamp(){
-        myInitialTime = System.nanoTime();
+        myInitialTime = System.currentTimeMillis();
         myFinalTime = DEFAULT_VALUE;
     } 
     
-    public long getTimeSent () {
+    /**
+     * 
+     * @return time message was created or reset in milliseconds
+     */
+    public long getInitialTime () {
         return myInitialTime;
     }
     
-    public long getTimeReceived () {
+    /**
+     * 
+     * @return time this message was stamped in milliseconds
+     */
+    public long getFinalTime () {
         return myFinalTime;
+    }
+    
+    /**
+     * @param time value to be converted
+     * @return time in nanoseconds converted to milliseconds
+     */
+    private long toMilliseconds(long time){
+        return time/TO_MILLISEC;
+    }
+    
+    @Override
+    public int hashCode () {
+        return (int) (myInitialTime * 200 - 13);
     }
     
     @Override
@@ -58,14 +96,14 @@ public class TimeStamp implements Comparable<TimeStamp>{
             return false;
         } 
         TimeStamp message = (TimeStamp) object;
-        return (getTimeSent() != message.getTimeSent());
+        return (getInitialTime() != message.getInitialTime());
     }
     
     @Override
     public int compareTo (TimeStamp message) {
-        if(message != null && message.getTimeReceived() != DEFAULT_VALUE && getTimeReceived() != DEFAULT_VALUE) {
-            return (int) ((int) getTimeReceived() - message.getTimeReceived());
+        if(message != null && message.getFinalTime() != DEFAULT_VALUE && getFinalTime() != DEFAULT_VALUE) {
+            return (int) (getInitialTime() - message.getInitialTime());
         }
-        return (int) ((int) getTimeSent() - message.getTimeSent());
+        return (int) (getInitialTime() - message.getInitialTime());
     }
 }
