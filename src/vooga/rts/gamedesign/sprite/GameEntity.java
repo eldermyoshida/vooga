@@ -14,7 +14,7 @@ public class GameEntity extends GameSprite {
     
     public GameEntity (Pixmap image, Location center, Dimension size) {
         super(image, center, size);
-        // TODO Auto-generated constructor stub
+        
     }
     
     /**
@@ -36,9 +36,13 @@ public class GameEntity extends GameSprite {
     public void turn(double angle){
         myVelocity.turn(angle);
     }
+    
+    
     @Override
     public void update (double elapsedTime) {
-        // TODO Auto-generated method stub
+        Vector v = new Vector(myVelocity);
+        v.scale(elapsedTime);
+        translate(v);
 
     }
 
