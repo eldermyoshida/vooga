@@ -68,7 +68,8 @@ public class GameController extends AbstractController {
         for (Unit u1 : p1) {
             for (Unit u2 : p2) {
                 if(((CanAttack)u1.getAttackStrategy()).getWeapon().inRange(u2, u1.getCenter())){
-                    u2.accept(u1);
+                    //u2.accept(u1);
+                    System.out.println("lol in range");
                 }               
             }
         }

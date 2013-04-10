@@ -129,6 +129,9 @@ public class Weapon {
     public void update (double elapsedTime) {
         for(Projectile p : myProjectiles){
             p.update(elapsedTime);
+            if(p.isDead()){
+                myProjectiles.remove(p);
+            }
         }
     }
 }

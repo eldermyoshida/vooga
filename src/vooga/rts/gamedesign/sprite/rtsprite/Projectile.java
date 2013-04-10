@@ -45,6 +45,7 @@ public class Projectile extends GameEntity implements Cloneable{
 	    super.update(elapsedTime);
 	    if(this.interactsWith(myTarget)){
 	        myTarget.accept(this);
+	        this.setHealth(0);
 	    }
 	}
 }
