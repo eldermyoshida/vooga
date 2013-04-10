@@ -19,6 +19,8 @@ public abstract class Sprite implements IGameLoop {
     private Pixmap myView;
     // keep copies of the original state so shape can be reset as needed
     private Location myOriginalCenter;
+    
+    private Rectangle myOriginalBounds;
 
     private Pixmap myOriginalView;
     // cached for efficiency
@@ -58,6 +60,10 @@ public abstract class Sprite implements IGameLoop {
     	return myCenter;
     }
     
+    public Location getOriginalCenter() {
+    	return myOriginalCenter;
+    }
+
     
 
     /**
@@ -82,6 +88,10 @@ public abstract class Sprite implements IGameLoop {
             myView = image;
         }
     }
+    
+    public Pixmap getView() {
+    	return myView;
+    }
 
     /**
      * Returns rectangle that encloses this shape.
@@ -89,12 +99,18 @@ public abstract class Sprite implements IGameLoop {
     public Rectangle getBounds () {
         return myBounds;
     }
+    
+    public void setBounds(Rectangle bound){
+    	myBounds = bound;
+    }
     /*
      * Returns pixmap that is the image of this sprite
      */
     public Pixmap getImage(){
         return myView;
     }
+   
+    
     /**
      * Returns true if the given point is within a rectangle representing this shape.
      */
@@ -108,8 +124,6 @@ public abstract class Sprite implements IGameLoop {
      */
     public void reset () {
         myCenter = new Location(myOriginalCenter);
-        mySize = new Dimension(myOriginalSize);
-        myVelocity = new Vector(myOriginalVelocity);
         myView = new Pixmap(myOriginalView);
     }
     
@@ -121,14 +135,14 @@ public abstract class Sprite implements IGameLoop {
     public void paint (Graphics2D pen)
     {   
     	if(!isVisible) return;
-        myView.paint(pen, myCenter, mySize);
+        myView.paint(pen, myCenter);
     }
 
     /**
-     * Returns rectangle that encloses this shape.
+     * Returns rectangle to the original bound.
      */
     protected void resetBounds () {
-        myBounds = new Rectangle((int)getLeft(), (int)getTop(), mySize.width, mySize.height);
+        myBounds = myOriginalBounds;
     }
 
 
