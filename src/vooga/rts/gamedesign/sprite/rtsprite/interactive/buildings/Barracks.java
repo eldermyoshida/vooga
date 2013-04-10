@@ -1,8 +1,17 @@
-package gamedesign.sprite.rtsprite.interactive.buildings;
+package vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings;
 
-import gamedesign.sprite.rtsprite.RTSprite;
-import gamedesign.sprite.rtsprite.RTSpriteVisitor;
-import gamedesign.strategy.productionstrategy.Producer;
+import java.awt.Dimension;
+
+import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
+import vooga.rts.gamedesign.sprite.rtsprite.IGatherable;
+import vooga.rts.gamedesign.sprite.rtsprite.RTSprite;
+import vooga.rts.gamedesign.sprite.rtsprite.RTSpriteVisitor;
+import vooga.rts.gamedesign.sprite.rtsprite.interactive.IOccupiable;
+import vooga.rts.gamedesign.sprite.rtsprite.interactive.Interactive;
+import vooga.rts.gamedesign.strategy.production.Producer;
+import vooga.rts.util.Location;
+import vooga.rts.util.Pixmap;
+import vooga.rts.util.Sound;
 
 /**
  * 
@@ -14,36 +23,13 @@ import gamedesign.strategy.productionstrategy.Producer;
  */
 public class Barracks extends Building {
 
-  public Producer myProducer;
+    public Barracks(Pixmap image, Location center, Dimension size, Sound sound,
+                    int teamID, int health) {
+        super(image, center, size, sound, teamID, health);
+        // TODO Auto-generated constructor stub
+    }
 
-  /** 
-   *  call new RTSprite where the RTSprite can be specified based on the type. For Barracks, produce() can create a new instance of Soldier. 
-   */
-  public void produce() {
-  }
-
-@Override
-public int calculateDamage() {
-	// TODO Auto-generated method stub
-	return 0;
-}
-
-@Override
-public void changeHealth() {
-	// TODO Auto-generated method stub
-	
-}
-
-@Override
-public void getAttacked(RTSpriteVisitor visitor) {
-	// TODO Auto-generated method stub
-	
-}
-
-@Override
-public void visit(RTSprite rtSprite) {
-	// TODO Auto-generated method stub
-	
-}
+  
+ 
 
 }

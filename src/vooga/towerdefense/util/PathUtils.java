@@ -1,4 +1,4 @@
-package util;
+package vooga.towerdefense.util;
 
 public class PathUtils {
     

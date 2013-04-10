@@ -1,4 +1,7 @@
-package gamedesign.strategy.gatherstrategy;
+package vooga.rts.gamedesign.strategy.gatherstrategy;
+
+import vooga.rts.gamedesign.sprite.rtsprite.IGatherable;
+import vooga.rts.gamedesign.sprite.rtsprite.Resource;
 
 /**
  * This interface is implemented by the classes CanGather and CannotGather that
@@ -18,4 +21,8 @@ package gamedesign.strategy.gatherstrategy;
  *
  */
 public interface GatherStrategy {
+	
+	public void gather(IGatherable g); //change to specify which kind of resource.
+	
+	
 }

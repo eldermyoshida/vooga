@@ -21,11 +21,10 @@ public class MoveableGameObject extends GameObject {
     private List<Vector> myAccelerations;
     private Health myHealth; 
 
-    public MoveableGameObject(Pixmap image, Location center, Dimension size, Health health) {
+    public MoveableGameObject(Pixmap image, Location center, Dimension size) {
         super(image, center, size);
         myVelocity = new Vector();
         myAccelerations = new ArrayList<Vector>();
-        myHealth= health; 
     }
 
     public void update(double elapsedTime, Dimension bounds) {

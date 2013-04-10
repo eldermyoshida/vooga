@@ -1,4 +1,4 @@
-package gamedesign.factories;
+package vooga.rts.gamedesign.factories;
 
 /** 
  *  This class will be an abstract class for factories that will be able to

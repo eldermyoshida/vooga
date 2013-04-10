@@ -1,7 +1,12 @@
-package gamedesign.sprite.rtsprite;
+package vooga.rts.gamedesign.sprite.rtsprite;
+
+import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
 
 
 /**
+ * This interface represents all things that can be attacked.  For example, 
+ * buildings and units would implement this interface since they can be
+ * attacked
  * 
  * @author Ryan Fishel
  * @author Kevin Oh
@@ -11,10 +16,18 @@ package gamedesign.sprite.rtsprite;
  */
 public interface IAttackable {
 
-  public void getAttacked(RTSpriteVisitor visitor);
-
-  public int calculateDamage();
-
-  public void changeHealth();
+	/**
+	 * Calculates the damage that should be done to the IAttackable based on
+	 * armor
+	 * @return the amount of damage that will be done to the IAttackable
+	 */
+    public int calculateDamage(int damage);
+    
+    /**
+     * Changes the health of an IAttackable after calculating the amount of 
+     * damage that will be done
+     * @param change is the amount that the health will be changed by
+     */
+    public void changeHealth(int change);
 
 }

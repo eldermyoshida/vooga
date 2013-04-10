@@ -1,13 +1,15 @@
 package vooga.towerdefense.gameElements;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.util.List;
 import java.util.Map;
 
+import vooga.towerdefense.model.Path;
 import vooga.towerdefense.util.Location;
 import vooga.towerdefense.util.Pixmap;
 import vooga.towerdefense.util.Sprite;
 import vooga.towerdefense.util.Vector;
-import vooga.towerdefense.model.Path;
+
 
 /**
  *  used for creating enemy, boss in a tower defense game
@@ -20,6 +22,8 @@ public class Unit extends Sprite {
     private Location myDestination;
     private Map<String, State> myStates;
     private State currentState;
+    private Attributes myAttributes;
+    private List<AbstractAction> myActions;
 
     public Unit (Location destination, Pixmap image, Location center, Dimension size, Vector velocity) {
         super(image, center, size, velocity);
@@ -43,6 +47,7 @@ public class Unit extends Sprite {
     		this.turnTo(myDestination); //turnTo should be implemented in Sprite and thus can be used for both tower and unit
     	}
     	updateMove(elapsedTime);
+    	executeActions(elapsedTime);
     }
     
     /**
@@ -56,13 +61,20 @@ public class Unit extends Sprite {
 		this.translate(toMove);
 	}
 	
+	private void executeActions(double elapsedTime){
+		for (AbstractAction act: myActions){
+			act.execute(elapsedTime);
+		
+		}
+	}
+	
 	/**
 	 * check whether this unit has arrived at the location specified (within some radius of the location)
 	 * @param destination
 	 * @return
 	 */
 	private boolean hasArrived(Location destination) {
-		return destination.distance(this.getCenter())<DISTANCE_OFFSET;
+		return destination.distance(getCenter())<DISTANCE_OFFSET;
 		
 	}
 	

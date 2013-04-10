@@ -1,4 +1,4 @@
-package view;
+package vooga.towerdefense.view;
 
 public class Canvas {
     

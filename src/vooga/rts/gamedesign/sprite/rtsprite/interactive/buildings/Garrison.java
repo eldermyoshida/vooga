@@ -1,11 +1,11 @@
-package gamedesign.sprite.rtsprite.interactive.buildings;
+package vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings;
+import vooga.rts.gamedesign.sprite.rtsprite.interactive.IOccupiable;
 
-import gamedesign.sprite.rtsprite.RTSprite;
-import gamedesign.sprite.rtsprite.RTSpriteVisitor;
-import gamedesign.sprite.rtsprite.interactive.IOccupiable;
-import gamedesign.strategy.occupystrategy.OccupyStrategy;
+import vooga.rts.util.Location;
+import vooga.rts.util.Pixmap;
+import vooga.rts.util.Sound;
 
-import java.util.List;
+import java.awt.Dimension;
 
 /**
  * 
@@ -17,30 +17,11 @@ import java.util.List;
  */
 public class Garrison extends Building implements IOccupiable {
 
-  public List<OccupyStrategy> myOccupiers;
+  public Garrison(Pixmap image, Location center, Dimension size, Sound sound,
+			int teamID, int health) {
+		super(image, center, size, sound, teamID, health);
+		// TODO Auto-generated constructor stub
+	}
 
-@Override
-public int calculateDamage() {
-	// TODO Auto-generated method stub
-	return 0;
-}
-
-@Override
-public void changeHealth() {
-	// TODO Auto-generated method stub
-	
-}
-
-@Override
-public void getAttacked(RTSpriteVisitor visitor) {
-	// TODO Auto-generated method stub
-	
-}
-
-@Override
-public void visit(RTSprite rtSprite) {
-	// TODO Auto-generated method stub
-	
-}
 
 }

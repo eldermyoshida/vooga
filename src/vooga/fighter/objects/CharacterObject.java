@@ -22,11 +22,15 @@ public class CharacterObject extends MoveableGameObject {
         
 	private static final int DEFAULT_ATTACK_STRENGTH=5;
 	private static final int DEFAULT_SPECIAL_ATTACK_STRENGTH=10;
+	private static final int DEFAULT_SPEED=5; 
+	private static final int DEFAULT_ATTACK_SPEED=20;
+	
 	private AttackObject myAttack; 
 	private int myAttackPower;
 	private int mySpecialAttackPower;
 	private int myOriginalAttackPower;
 	private int myOriginalSpecialAttackPower; 
+	private int myAttackSpeed; 
     private int myOriginalSpeed;
     private Player myPlayer; 
     private Input myInput;
@@ -38,9 +42,9 @@ public class CharacterObject extends MoveableGameObject {
      * Note: Dayvid once the object loader is functional we will replace this
      * constructor to take in just an ID, then we will load parameters from XML.
      */
-    public CharacterObject(Pixmap image, Location center, Dimension size, int defaultSpeed, Input input, Health health) {
-        super(image, center, size, health);
-        myOriginalSpeed = defaultSpeed;
+    public CharacterObject(Pixmap image, Location center, Dimension size, int speed, Input input) {
+        super(image, center, size);
+        myOriginalSpeed = speed;
         mySpeed= myOriginalSpeed; 
         myInput = input;
         myInput.addListenerTo(this);
@@ -110,12 +114,11 @@ public class CharacterObject extends MoveableGameObject {
     }
     
     /**
-     * Creates an attackobject
+     * Creates an attack object
      */
     private void createAttack(){
-    	myAttack=new AttackObject(myPlayer, myAttackPower);
+    	myAttack=new AttackObject(myPlayer, myAttackPower, myAttackSpeed);
     }
     
-
 
 }

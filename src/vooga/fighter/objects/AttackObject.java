@@ -26,12 +26,13 @@ public class AttackObject {
     /**
      * Constructs an AttackObject with the given Player owner.
      */
-    public AttackObject(Player owner, int power) {
+    public AttackObject(Player owner, int power, int attackSpeed) {
         myOwner = owner;
         myEffects = new ArrayList<Effect>();
         //add effects to myEffects list
         myCounter = new Counter();
         myAttackPower=power; 
+        myVelocity=attackSpeed; 
         //myCounter.setCounter(count);
     }
     

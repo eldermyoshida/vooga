@@ -1,6 +1,6 @@
-package gamedesign.upgrades;
+package vooga.rts.gamedesign.upgrades;
 
-import gamedesign.sprite.rtsprite.interactive.Interactive;
+import vooga.rts.gamedesign.sprite.rtsprite.interactive.Interactive;
 
 /**
  * This class specifies an upgrade and is used to apply the upgrade to the 
