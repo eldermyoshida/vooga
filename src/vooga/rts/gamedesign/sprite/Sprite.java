@@ -58,9 +58,6 @@ public abstract class Sprite implements IGameLoop {
     	return myCenter;
     }
     
-    public void translate(Vector v ){
-    	myCenter.translate(v);
-    }
     
 
     /**

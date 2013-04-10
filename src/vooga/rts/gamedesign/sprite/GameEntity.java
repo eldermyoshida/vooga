@@ -36,14 +36,24 @@ public class GameEntity extends GameSprite {
     public void turn(double angle){
         myVelocity.turn(angle);
     }
+    /**
+     * Translates the current center by vector v
+     * @param v
+     */
+    public void translate(Vector v){
+    	getCenter().translate(v);
+    }
     
-    
+    /**
+     * Updates the GameEntity. 
+     */
     @Override
     public void update (double elapsedTime) {
+    	if(!isVisible()) return;
         Vector v = new Vector(myVelocity);
         v.scale(elapsedTime);
         translate(v);
-
+        resetBounds();
     }
 
 }

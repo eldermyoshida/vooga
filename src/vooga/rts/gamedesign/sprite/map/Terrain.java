@@ -2,7 +2,7 @@ package vooga.rts.gamedesign.sprite.map;
 
 import java.awt.Dimension;
 
-import vooga.rts.gamedesign.sprite.Sprite;
+import vooga.rts.gamedesign.sprite.GameSprite;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
 
@@ -16,7 +16,7 @@ import vooga.rts.util.Pixmap;
  * @author Wenshun Liu 
  *
  */
-public abstract class Terrain extends Sprite {
+public abstract class Terrain extends GameSprite {
 
     public int myHeight;
     public int myLevel;
