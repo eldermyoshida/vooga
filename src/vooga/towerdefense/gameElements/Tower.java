@@ -3,6 +3,7 @@ package vooga.towerdefense.gameElements;
 import java.awt.Dimension;
 import java.util.List;
 
+import vooga.towerdefense.action.AbstractAction;
 import vooga.towerdefense.util.Location;
 import vooga.towerdefense.util.Pixmap;
 import vooga.towerdefense.util.Sprite;
