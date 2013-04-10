@@ -32,9 +32,7 @@ import vooga.rts.util.Vector;
  *
  */
 public class RTSprite extends Sprite implements IAttackable, RTSpriteVisitor {
-
- 
-
+    
     private OccupyStrategy myOccupyStrategy;
     private AttackStrategy myAttackStrategy;
     private GatherStrategy myGatherStrategy;

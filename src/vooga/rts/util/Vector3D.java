@@ -10,7 +10,7 @@ import java.awt.geom.Point2D;
  * 
  * @author Robert C. Duvall
  */
-public class Vector {
+public class Vector3D {
      
     // angle in degrees
     private double myAngle;
@@ -21,14 +21,14 @@ public class Vector {
     /**
      * Create a zero vector, i.e., with no magnitude.
      */
-    public Vector () {
+    public Vector3D () {
         this(0, 0);
     }
 
     /**
      * Create a vector in the given direction with the given magnitude.
      */
-    public Vector (double angle, double magnitude) {
+    public Vector3D (double angle, double magnitude) {
         setDirection(angle);
         setMagnitude(magnitude);
     }
@@ -37,16 +37,16 @@ public class Vector {
      * Create a vector whose direction and magnitude are determined by
      * direction and distance between the two given points.
      */
-    public Vector (Point2D source, Point2D target) {
+    public Vector3D (Point2D source, Point2D target) {
         double dx = target.getX() - source.getX();
         double dy = source.getY() - target.getY();
         setDirection(angleBetween(dx, -dy));
         setMagnitude(distanceBetween(dx, dy));
     }
     
-    public static Vector CreateCoordinateVector(double X, double Y)
+    public static Vector3D CreateCoordinateVector(double X, double Y)
     {
-    	Vector t = new Vector();    	
+    	Vector3D t = new Vector3D();    	
     	t.setDirection(angleBetween(X, Y));
     	t.setMagnitude(distanceBetween(X, Y));
     	return t;
@@ -55,7 +55,7 @@ public class Vector {
     /**
      * Create a vector that is identical to the given other vector.
      */
-    public Vector (Vector other) {
+    public Vector3D (Vector3D other) {
         this(other.getDirection(), other.getMagnitude());
     }
 
@@ -80,7 +80,7 @@ public class Vector {
      * More formally, returns the magnitude of this vector projected onto the
      * given other vector.
      */
-    public double getRelativeMagnitude (Vector other) {
+    public double getRelativeMagnitude (Vector3D other) {
         return -getMagnitude() * Math.cos(Math.toRadians(getAngleBetween(other)));
     }
 
@@ -121,7 +121,7 @@ public class Vector {
     /**
      * Returns the angle between this vector and the given other vector.
      */
-    public double getAngleBetween (Vector other) {
+    public double getAngleBetween (Vector3D other) {
         return getDirection() - other.getDirection();
     }
 
@@ -156,7 +156,7 @@ public class Vector {
     /**
      * Adds the given vector to this vector.
      */
-    public void sum (Vector other) {
+    public void sum (Vector3D other) {
         // double a1 = getAngle();
         // double a2 = other.getAngle();
         // double m1 = getMagnitude();
@@ -177,9 +177,9 @@ public class Vector {
     /**
      * Subtracts the given vector from this vector.
      */
-    public void difference (Vector other) {
+    public void difference (Vector3D other) {
         // avoid changing other vector
-        Vector v = new Vector(other);
+        Vector3D v = new Vector3D(other);
         v.negate();
         sum(v);
     }
@@ -195,8 +195,8 @@ public class Vector {
     /**
      * Returns the average of this vector with the given other vector.
      */
-    public Vector average (Vector other) {
-        return new Vector((getDirection() + other.getDirection()) / 2.0,
+    public Vector3D average (Vector3D other) {
+        return new Vector3D((getDirection() + other.getDirection()) / 2.0,
                           (getMagnitude() + other.getMagnitude()) / 2.0);
     }
 
@@ -207,7 +207,7 @@ public class Vector {
     @Override
     public boolean equals (Object vector) {
         try {
-            Vector other = (Vector) vector;
+            Vector3D other = (Vector3D) vector;
             return (fuzzyEquals(getMagnitude(), other.getMagnitude()) && 
                     fuzzyEquals(getDirection(), other.getDirection()));
         }
@@ -300,12 +300,12 @@ public class Vector {
     		return;
     	} */   	
     	
-    	Vector remove;
-    	double amount = this.getRelativeMagnitude(new Vector(angle, 1));
+    	Vector3D remove;
+    	double amount = this.getRelativeMagnitude(new Vector3D(angle, 1));
     	//System.out.println(amount);
     	if (amount < 0)
     	{
-    		remove = new Vector(angle, -amount);
+    		remove = new Vector3D(angle, -amount);
     		this.difference(remove);
     	}
     }
@@ -320,15 +320,15 @@ public class Vector {
     		return;
     	}
     	
-    	Vector remove;
+    	Vector3D remove;
     	double dy = this.getYChange();
     	if (dy > 0)
     	{
-    		remove = new Vector(90, Math.abs(dy));
+    		remove = new Vector3D(90, Math.abs(dy));
     	}
     	else
     	{
-    		remove = new Vector(-90, Math.abs(dy));
+    		remove = new Vector3D(-90, Math.abs(dy));
     	}
     	this.difference(remove);
     }

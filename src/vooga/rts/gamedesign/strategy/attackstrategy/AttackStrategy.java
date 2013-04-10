@@ -28,6 +28,7 @@ public interface AttackStrategy {
 
 
     public void attack(IAttackable a) throws CloneNotSupportedException;
-  
-
+    
+    public boolean canAttack();
+    
 }
