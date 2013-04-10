@@ -19,7 +19,6 @@ public class MoveableGameObject extends GameObject {
 
     private Vector myVelocity;
     private List<Vector> myAccelerations;
-    private Health myHealth; 
 
     public MoveableGameObject(Pixmap image, Location center, Dimension size) {
         super(image, center, size);
@@ -70,27 +69,5 @@ public class MoveableGameObject extends GameObject {
     public Vector getVelocity() {
         return myVelocity;
     }
-    /**
-     * Returns the health of the object
-     */
-    public Health getHealth(){
-    	return myHealth;
-    }
-    
-    /**
-     * reduces the health by an amount
-     */
-    public int reduceHealth(int amount){
-    	myHealth.reduceHealth(amount);
-    	return myHealth.getHealth(); 
-    }
 
-    /**
-     *adds to the health by an amount 
-     */
-    public int addHealth(int amount){
-    	myHealth.addHealth(amount);
-    	return myHealth.getHealth(); 
-    }
-    
 }

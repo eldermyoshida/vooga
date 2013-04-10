@@ -31,6 +31,21 @@ public class Player {
     }
     
     /**
+     * Returns the health of the player.
+     */
+    public Health getHealth(){
+        return myHealth;
+    }
+    
+    /**
+     * Changes the player's health by a given amount. Positive input raises it, and
+     * negative input decreases it. Returns health remaining.
+     */
+    public int changeHealth(int amount) {
+        return myHealth.changeHealth(amount);
+    }
+        
+    /**
      * We will insert methods to check rules for actions, as well as handling raw input.
      */
     

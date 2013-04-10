@@ -60,25 +60,21 @@ public class AttackObject extends MoveableGameObject{
     public Player getOwner(){
     	return myOwner; 
     }
+    
     /**
-     * Subtracts amount of damage from health
-     * @param o
-     * @return current health of the inflicted object
+     * Inflicts damage upon a target player.
      */
-    public int inflictDamage(MoveableGameObject o){
-    	return o.reduceHealth(myAttackPower);
+    public int inflictDamage(Player o){
+    	return o.changeHealth(-myAttackPower);
     }
     
     /**
-     * applies all effects to the effect targets
+     * Applies all effects to the target of the attack.
      */
     public void applyEffects(){
     	for (Effect e: myEffects){
     		e.applyEffect();
     	}
     }
-     
-    public void translate(){
-    	getCenter().translate(new Vector(myDirection, myVelocity));
-    }
+
 }

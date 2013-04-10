@@ -1,6 +1,8 @@
 package vooga.fighter.objects;
 
 import java.awt.Dimension;
+import java.util.HashMap;
+import java.util.Map;
 import vooga.fighter.input.AlertObject;
 import vooga.fighter.input.Input;
 import vooga.fighter.input.InputClassTarget;
@@ -8,117 +10,54 @@ import vooga.fighter.input.InputMethodTarget;
 import vooga.fighter.objects.utils.Health;
 import vooga.fighter.util.Location;
 import vooga.fighter.util.Pixmap;
-import vooga.fighter.util.Vector; 
+import vooga.fighter.util.Vector;
 
 
 /**
- * Represents a character in the game.
+ * Represents a character in the game. Only character data is stored and used here.
+ * Data regarding a specific play-through such as current health are not stored here.
  * 
  * @author alanni, james
- *
+ * 
  */
 @InputClassTarget
-public class CharacterObject extends MoveableGameObject {    
-        
-	private static final int DEFAULT_ATTACK_STRENGTH=5;
-	private static final int DEFAULT_SPECIAL_ATTACK_STRENGTH=10;
-	private static final int DEFAULT_SPEED=5; 
-	private static final int DEFAULT_ATTACK_SPEED=20;
-	
-	private AttackObject myAttack; 
-	private int myAttackPower;
-	private int mySpecialAttackPower;
-	private int myOriginalAttackPower;
-	private int myOriginalSpecialAttackPower; 
-	private int myAttackSpeed; 
-    private int myOriginalSpeed;
-    private Player myPlayer; 
-    private Input myInput;
-    private int mySpeed;
-    
+public class CharacterObject extends MoveableGameObject {
+
+    private Map<String,Integer> myProperties;    
+    private Map<String,AttackObject> myAttacks;
+
     /**
      * Constructs a new CharacterObject.
      * 
      * Note: Dayvid once the object loader is functional we will replace this
      * constructor to take in just an ID, then we will load parameters from XML.
      */
-    public CharacterObject(Pixmap image, Location center, Dimension size, int speed, Input input) {
+    public CharacterObject (Pixmap image, Location center, Dimension size, int speed, Input input) {
         super(image, center, size);
-        myOriginalSpeed = speed;
-        mySpeed= myOriginalSpeed; 
-        myInput = input;
-        myInput.addListenerTo(this);
-    }        
-    
-    /**
-     * Returns the speed of this character.
-     */
-    public int getSpeed() {
-        return mySpeed;
-    }    
-    
-    /**
-     * Returns the player
-     */
-    private Player getPlayer(){
-    	return myPlayer;
+        myProperties = new HashMap<String,Integer>();
+        myAttacks = new HashMap<String,AttackObject>();
     }
-    
+
     /**
-     * Moves the character left.
+     * Returns a property for this character. Returns -1 if property name not found.
      */
-    @InputMethodTarget(name="left")
-    public void moveLeft(AlertObject alObj) {
-        Vector left = new Vector(Vector.DEGREES_LEFT, mySpeed);
-        super.translate(left);
+    public int getProperty(String key) {
+        if (myProperties.containsKey(key)) {
+            return myProperties.get(key);
+        } else {
+            return -1;
+        }
     }
-    
+
     /**
-     * Moves the character right.
+     * Creates and returns an attack object based on a given identifier.
+     * 
+     * Note: For now just using String to represent attack types, but this is obviously
+     * subject to change.
      */
-    @InputMethodTarget(name="right")
-    public void moveRight(AlertObject alObj) {
-        Vector right = new Vector(Vector.DEGREES_RIGHT, mySpeed);
-        super.translate(right);
+    private AttackObject createAttack(String key) {
+        //TODO: implement this
+        return null;
     }
-    
-    /**
-     * Moves the character up.
-     */
-    @InputMethodTarget(name="up")
-    public void moveUp(AlertObject alObj) {
-        Vector up = new Vector(Vector.DEGREES_UP, mySpeed);
-        super.translate(up);
-    }
-    
-    /**
-     * Moves the character down.
-     */
-    @InputMethodTarget(name="down")
-    public void moveDown(AlertObject alObj) {
-        Vector down = new Vector(Vector.DEGREES_DOWN, mySpeed);
-        super.translate(down);
-    }
-    /**
-     * Sets character speed to 0
-     */
-    public void freezeCharacter(){
-    	mySpeed=0; 
-    }
-    
-    /**
-     * resets character speed
-     */
-    public void resetSpeed(){
-    	mySpeed=myOriginalSpeed; 
-    }
-    
-    /**
-     * Creates an attack object
-     */
-    private void createAttack(){
-    	myAttack=new AttackObject(null, null, null, myPlayer, myAttackPower, myAttackSpeed);
-    }
-    
 
 }
