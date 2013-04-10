@@ -2,6 +2,7 @@ package vooga.rts.gamedesign.sprite.rtsprite;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import vooga.rts.gamedesign.sprite.GameSprite;
 import vooga.rts.gamedesign.sprite.Sprite;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.IOccupiable;
 import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
@@ -31,10 +32,15 @@ import vooga.rts.util.Vector;
  * @author Wenshun Liu 
  *
  */
-public class RTSprite extends Sprite implements IAttackable, RTSpriteVisitor {
+public class RTSprite extends GameSprite implements IAttackable, RTSpriteVisitor {
 
 
-
+    
+    private Vector myVelocity;
+    private Sound mySound;
+    
+    private Vector myOriginalVelocity;
+    
     private OccupyStrategy myOccupyStrategy;
     private AttackStrategy myAttackStrategy;
     private GatherStrategy myGatherStrategy;
@@ -43,11 +49,12 @@ public class RTSprite extends Sprite implements IAttackable, RTSpriteVisitor {
     private int curHealth;
     private int maxHealth;
     private int playerID;
-    private Sound mySound;
 
 
-    public RTSprite (Pixmap image, Location center, Dimension size, Sound sound, int teamID, int health) {
+
+    public RTSprite (Pixmap image, Location center, Dimension size, Vector velocity, Sound sound, int teamID, int health) {
         super(image, center, size);
+        myOriginalVelocity = new Vector(velocity);
         maxHealth = health;
         curHealth = maxHealth;
         mySound = sound;
@@ -78,16 +85,7 @@ public class RTSprite extends Sprite implements IAttackable, RTSpriteVisitor {
     public int getHealth(){
         return curHealth;
     }
-    /**
-     * This would determine if two RTSprites collide.
-     * @param rtSprite is an RTSprite that is being checked to see if it 
-     * collides with the current RTSprite
-     * @return true if the two RTsprites collided and false if the RTSprites
-     * did not collide.
-     */
-    public boolean interactsWith(RTSprite rtSprite) {
-        return getBounds().intersects(rtSprite.getBounds());
-    }
+
 
     public Sound getSound(){
         return mySound;
@@ -105,7 +103,13 @@ public class RTSprite extends Sprite implements IAttackable, RTSpriteVisitor {
     public void visit(IOccupiable o){
         myOccupyStrategy.occupy(o);
     }
-
+    /**
+     * Rotates the Unit by the given angle. 
+     * @param angle
+     */
+    public void turn(double angle){
+        myVelocity.turn(angle);
+    }
     /**
      * Sets the attack strategy for an interactive. Can set the interactive
      * to CanAttack or to CannotAttack and then can specify how it would
@@ -164,7 +168,7 @@ public class RTSprite extends Sprite implements IAttackable, RTSpriteVisitor {
 
     @Override
     public int calculateDamage(int damage) {
-        return damage * (1-(armor/100));
+        return damage * (1-(armor/(armor+100)));
     }
 
     @Override
