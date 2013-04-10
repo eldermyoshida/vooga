@@ -2,6 +2,7 @@ package vooga.rts.gamedesign.strategy.attackstrategy;
 
 import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
 
+
 /**
  * 
  * This interface is implemented by the classes CanAttack and CannotAttack that
@@ -25,5 +26,6 @@ public interface AttackStrategy {
 
     public void attack(IAttackable a) throws CloneNotSupportedException;
     public void update(double elapsedTime);
+
   
 }
