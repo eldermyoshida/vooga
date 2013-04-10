@@ -35,7 +35,7 @@ public class Weapon {
     private int myRange;
     private List<Projectile> myProjectiles;
     private int maxCooldown;
-    private int cooldown; 
+    private int cooldown;
     private Ellipse2D myRangeCircle;
 
     /**
@@ -55,19 +55,24 @@ public class Weapon {
 
     /**
      * This method is used by the weapon to attack an RTSprite.
-     * @throws CloneNotSupportedException 
+     * 
+     * @throws CloneNotSupportedException
      */
     public void fire (InteractiveEntity toBeShot) throws CloneNotSupportedException {
-        System.out.println(cooldown);
-        if(cooldown == 0) {
-            if (!toBeShot.isDead()) {
-                //should set the velocity of the projectile to the location of the toBeshot
-                myProjectile.move(toBeShot.getCenter());
-                myProjectiles.add(myProjectile);
-                setCooldown(maxCooldown);
-            }
+
+        System.out.println("Health of enemy " + toBeShot.getHealth());
+        System.out.println("cooldown " + cooldown);
+        if (cooldown == 0) {
+            // should set the velocity of the projectile to the location of the toBeshot
+            myProjectile.attack(toBeShot);
+            // myProjectile.move(toBeShot.getCenter()); is NOT working :( dumb angles
+            // myProjectile.setTarget(toBeShot);
+            myProjectiles.add(myProjectile);
+            System.out.println("Weapon has fired");
+            setCooldown(maxCooldown);
         }
-        decrementCooldown();
+        System.out.println("Health of enemy " + toBeShot.getHealth() +
+                           "number of projectiles fired " + myProjectiles.size());
     }
 
     /**
@@ -78,9 +83,10 @@ public class Weapon {
     public void upgrade (Upgrade upgrade) {
     }
 
-    public List<Projectile> getProjectiles(){
+    public List<Projectile> getProjectiles () {
         return myProjectiles;
     }
+
     /**
      * This method is used to change the projectile for the weapon
      * 
@@ -107,31 +113,36 @@ public class Weapon {
     /**
      * subtracts 1 from the cooldown counter
      */
-    public void decrementCooldown() {
+    public void decrementCooldown () {
         cooldown--;
     }
+
     /**
      * Returns the cooldown time on the weapon
+     * 
      * @return the cooldown time on the weapon
      */
-    public int getCooldown() {
+    public int getCooldown () {
         return cooldown;
     }
+
     /**
      * After the weapon fires, the cooldown is set to the max cooldown for the
-     * weapon. 
+     * weapon.
+     * 
      * @param time is the time that the cooldown is set to
      */
-    private void setCooldown(int time) {
+    private void setCooldown (int time) {
         cooldown = time;
     }
 
     public void update (double elapsedTime) {
-        for(Projectile p : myProjectiles){
+        for (Projectile p : myProjectiles) {
             p.update(elapsedTime);
-            if(p.isDead()){
+            if (p.isDead()) {
                 myProjectiles.remove(p);
             }
         }
+        decrementCooldown();
     }
 }

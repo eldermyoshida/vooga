@@ -24,8 +24,9 @@ public class Projectile extends GameEntity implements Cloneable{
 	private Integer myDamage;
 	private InteractiveEntity myTarget;
 	
-	public Projectile(Pixmap pixmap, Location loc, Dimension size, int teamID, int health){
+	public Projectile(Pixmap pixmap, Location loc, Dimension size, int teamID, int damage, int health){
 		super(pixmap, loc, size, teamID, health);
+		myDamage = damage;
 	}
 	
 	public Projectile clone() {
@@ -44,6 +45,7 @@ public class Projectile extends GameEntity implements Cloneable{
 	public void update(double elapsedTime){
 	    super.update(elapsedTime);
 	    if(this.interactsWith(myTarget)){
+	        System.out.println("projectile has hit");
 	        myTarget.accept(this);
 	        this.setHealth(0);
 	    }

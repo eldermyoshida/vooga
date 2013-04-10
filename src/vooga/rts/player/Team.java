@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vooga.rts.gamedesign.sprite.Unit;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Units;
 
 public class Team {
 

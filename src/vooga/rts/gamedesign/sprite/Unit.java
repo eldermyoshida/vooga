@@ -36,7 +36,7 @@ public class Unit extends InteractiveEntity {
     // private boolean myIsLeftSelected; // TODO: also need the same thing for Projectiles
     // private boolean myIsRightSelected; // TODO: should be observing the mouse action instead!!
     private PathingHelper myPather;
-    private Location myGoal;
+
     
     private GatherStrategy myGatherStrategy;
     private OccupyStrategy myOccupyStrategy;
@@ -54,7 +54,6 @@ public class Unit extends InteractiveEntity {
     public Unit (Pixmap image, Location center, Dimension size, Sound sound, int teamID, int health) {
         super(image, center, size, sound, teamID, health);
         //myPather = new PathingHelper();
-        myGoal = new Location(center);
         myGatherStrategy = new CannotGather();
         myOccupyStrategy = new CannotOccupy();
     }
@@ -63,24 +62,8 @@ public class Unit extends InteractiveEntity {
         System.out.println("visit in Unit got called");
     }
 
-    /**
-     * Moves the Unit only when it is selected. Updates first the angle
-     * the Unit is facing, and then its location.
-     */
-    public void move (Location loc) {
-        myGoal = new Location(loc);
-    }
-
     public void update (double elapsedTime) {
-        Vector diff = getCenter().difference(myGoal);
-        if (diff.getMagnitude() > 5) {
-            double angle = diff.getDirection();
-            double magnitude = 100;            
-            setVelocity(angle, magnitude);
-        }
-        else{
-            setVelocity(0, 0);
-        }
+       
         super.update(elapsedTime);
     }
     

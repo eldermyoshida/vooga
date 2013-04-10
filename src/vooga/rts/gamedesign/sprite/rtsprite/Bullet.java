@@ -11,8 +11,8 @@ import vooga.rts.util.Sound;
 
 public class Bullet extends Projectile{
 
-    public Bullet(Pixmap pixmap, Location loc, Dimension size, int teamID, int health){
-        super(pixmap, loc, size, teamID, health);
+    public Bullet(Pixmap pixmap, Location loc, Dimension size, int teamID, int damage, int health){
+        super(pixmap, loc, size, teamID, damage, health);
     }
     
     public void paint(Graphics2D pen){

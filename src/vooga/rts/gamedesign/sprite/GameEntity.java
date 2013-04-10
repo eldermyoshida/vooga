@@ -13,12 +13,12 @@ import vooga.rts.util.Vector;
  * This class represents Sprites that can be attacked (have health value),
  * can move (have velocity value), and is belonged to a certain team (have
  * team ID).
- *
+ * 
  * @author Ryan Fishel
  * @author Kevin Oh
  * @author Francesco Agosti
  * @author Wenshun Liu
- *
+ * 
  */
 public class GameEntity extends GameSprite {
     private Vector myVelocity;
@@ -28,6 +28,8 @@ public class GameEntity extends GameSprite {
 
     private int myTeamID;
 
+    private Location myGoal;
+
     private Vector myOriginalVelocity;
 
     public GameEntity (Pixmap image, Location center, Dimension size, int teamID, int health) {
@@ -35,10 +37,10 @@ public class GameEntity extends GameSprite {
         myMaxHealth = health;
         myCurrentHealth = myMaxHealth;
         myTeamID = teamID;
-
-        //ALERT THIS IS JUST FOR TESTING
-        myOriginalVelocity = new Vector(0,0);
-        myVelocity = new Vector(0,0);
+        myGoal = new Location(center);
+        // ALERT THIS IS JUST FOR TESTING
+        myOriginalVelocity = new Vector(0, 0);
+        myVelocity = new Vector(0, 0);
     }
 
     /**
@@ -55,34 +57,38 @@ public class GameEntity extends GameSprite {
         myVelocity = new Vector(angle, magnitude);
     }
 
-    public int getHealth() {
+    public int getHealth () {
         return myCurrentHealth;
     }
 
-    public void setHealth(int health) {
+    public void setHealth (int health) {
         myCurrentHealth = health;
     }
 
     /**
      * Returns the teamID the shape belongs to.
      */
-    public int getTeamID(){
+    public int getTeamID () {
         return myTeamID;
     }
 
     /**
      * Rotates the Unit by the given angle.
+     * 
      * @param angle
      */
-    public void turn(double angle){
+    public void turn (double angle) {
         myVelocity.turn(angle);
     }
+
     /**
      * Translates the current center by vector v
+     * 
      * @param v
      */
-    public void translate(Vector v){
+    public void translate (Vector v) {
         getCenter().translate(v);
+        resetBounds();
     }
 
     /**
@@ -93,53 +99,60 @@ public class GameEntity extends GameSprite {
         super.reset();
         myVelocity = myOriginalVelocity;
     }
+
     /**
      * Moves the Unit only. Updates first the angle the Unit is facing,
      * and then its location.
-     * Possible design choice error. 
+     * Possible design choice error.
      */
-    public void move (Location loc){
-        double magnitude = getCenter().difference(loc).getMagnitude();
-        double angle = getCenter().difference(loc).getDirection();
-
-        turn(angle);
-        setVelocity(angle, magnitude);
+    public void move (Location loc) {
+        myGoal = new Location(loc);
     }
-
 
     /**
      * Updates the shape's location.
      */
-    //TODO: make Velocity three dimensional...
+    // TODO: make Velocity three dimensional...
     public void update (double elapsedTime) {
-        if(!isVisible()) return;
+        Vector diff = getCenter().difference(myGoal);
+        if (diff.getMagnitude() > 10) {
+            double angle = diff.getDirection();
+            double magnitude = 1;            
+            setVelocity(angle, magnitude);
+        }
+        else{
+            setVelocity(0, 0);
+            setCenter(myGoal.getX(), myGoal.getY());
+        }
+        
+        if (!isVisible()) return;
         Vector v = new Vector(myVelocity);
         v.scale(elapsedTime);
         translate(v);
     }
 
-    public void changeHealth(int change) {
+    public void changeHealth (int change) {
         myCurrentHealth -= change;
     }
 
     /**
      * Checks to see if an RTSprite is dead.
-     * @return true if the RTSprite has been killed and true if the RTSprite 
-     * is still alive.
+     * 
+     * @return true if the RTSprite has been killed and true if the RTSprite
+     *         is still alive.
      */
-    public boolean isDead() {
+    public boolean isDead () {
         return myCurrentHealth <= 0;
     }
 
-    public void die(){
+    public void die () {
         myCurrentHealth = 0;
     }
 
-    public void paint(Graphics2D pen) {
+    public void paint (Graphics2D pen) {
         if (!isDead()) {
             super.paint(pen);
         }
     }
 
 }
-

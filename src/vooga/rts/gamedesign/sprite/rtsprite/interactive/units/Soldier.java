@@ -48,7 +48,7 @@ public class Soldier extends Unit {
         AttackStrategy as = getAttackStrategy();
         if (as instanceof CanAttack) {
             for(Projectile p : ((CanAttack)as).getWeapon().getProjectiles()) {
-                p.paint(pen);
+                p.paint(pen);               
             }
         }
     }

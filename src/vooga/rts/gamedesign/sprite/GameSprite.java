@@ -28,6 +28,7 @@ public abstract class GameSprite extends Sprite {
         super(image, center);
         mySize = size;
         myOriginalSize = size;
+        resetBounds();
     }
     /**
      * Returns shape's left-most coordinate in pixels.
@@ -116,6 +117,8 @@ public abstract class GameSprite extends Sprite {
     public void paint (Graphics2D pen)
     {   
     	if(!isVisible()) return;
+
+        System.out.println(getCenter().x + " " + getCenter().y + " " + mySize.height + " " + mySize.width);
         getView().paint(pen, getCenter(), mySize);
     }
     
@@ -136,28 +139,6 @@ public abstract class GameSprite extends Sprite {
      */
     public boolean interactsWith(GameEntity gameEntity) {
         return getBounds().intersects(gameEntity.getBounds());
-    }
-    /**
-     * Returns approximate direction from center of rectangle to side which was hit or
-     * NaN if no hit took place.
-     */
-    protected double getHitDirection (Rectangle bounds) {
-        // double angle = Vector.angleBetween(myCenter, new Location(bounds.getCenterX(), bounds.getCenterY()));
-        // BUGBUG: FIX ME --- this is very imperfect, but sort of works for now
-        if (bounds.contains(new Location(getLeft(), getY()))) {
-            return RIGHT_DIRECTION;
-        }
-        else if (bounds.contains(new Location(getX(), getBottom()))) {
-            return UP_DIRECTION;
-        }
-        else if (bounds.contains(new Location(getRight(), getY()))) {
-            return LEFT_DIRECTION;
-        }
-        else if (bounds.contains(new Location(getX(), getUp()))) {
-            return DOWN_DIRECTION;
-        }
-        return 0;
-        //return Double.NaN;
     }
 
 }

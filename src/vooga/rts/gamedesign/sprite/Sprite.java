@@ -40,14 +40,10 @@ public abstract class Sprite implements IGameLoop {
     public Sprite (Pixmap image, Location center) {
         // make copies just to be sure no one else has access
         myOriginalCenter = new Location(center);
-        myOriginalView = image; //new Pixmap(image);
+        myView = image; //new Pixmap(image);
         isVisible = true;
         myCenter = center;
-        //resetBounds();
     }
-
-    
-    
     /**
      * Resets shape's center.
      */
@@ -63,11 +59,6 @@ public abstract class Sprite implements IGameLoop {
     public Location getOriginalCenter() {
     	return myOriginalCenter;
     }
-
-    
-    
-    
-   
 
     /**
      * Returns shape's x coordinate in pixels.
@@ -118,7 +109,6 @@ public abstract class Sprite implements IGameLoop {
      * Returns true if the given point is within a rectangle representing this shape.
      */
     public boolean intersects (Point2D pt) {
-    	
         return getBounds().contains(pt);
     }
 
@@ -127,7 +117,7 @@ public abstract class Sprite implements IGameLoop {
      */
     public void reset () {
         myCenter = new Location(myOriginalCenter);
-        myView = new Pixmap(myOriginalView);
+        myView = new Pixmap(myView);
     }
     
  
@@ -138,7 +128,7 @@ public abstract class Sprite implements IGameLoop {
     public void paint (Graphics2D pen)
     {   
     	if(!isVisible) return;
-        myView.paint(pen, myCenter);
+        //myView.paint(pen, myCenter);
     }
 
     /**
