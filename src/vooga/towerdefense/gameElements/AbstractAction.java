@@ -34,10 +34,5 @@ public abstract class AbstractAction {
 	 */
 	abstract void actOnTowerTargets();
 	
-	/**
-	 * Use a particular asset
-	 */
-	public void useAsset(Asset asset){
-		asset.use();
-	}
+	
 }

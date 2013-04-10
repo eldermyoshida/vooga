@@ -1,11 +1,14 @@
 package vooga.towerdefense.gameElements;
 
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
+import vooga.towerdefense.util.Location;
 import vooga.towerdefense.util.Pixmap;
+import vooga.towerdefense.util.Sprite;
 import vooga.towerdefense.util.Vector;
 
 
@@ -16,21 +19,21 @@ import vooga.towerdefense.util.Vector;
  * @author XuRui
  *
  */
-public abstract class Weapon extends Asset{
+public abstract class Weapon extends Sprite{
 	
 	private static final Pixmap myImage = new Pixmap(""); //fill in image
 	private Attributes myAttributes;
-	private List<Ammunition> myAmmo;
+	
 	private Vector myHeading;
 	
-	public Weapon(){
-		myAmmo = new ArrayList<Ammunition>();
+	public Weapon(Pixmap image, Location center, Dimension size){
+		super(image, center, size);
 	}
 	
 	/**
 	 * Define main weapon function for specific weapon. 
 	 */
-	@Override
+	
 	public abstract void use();
 	
 	
