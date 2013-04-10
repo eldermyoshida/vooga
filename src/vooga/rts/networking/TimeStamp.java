@@ -7,7 +7,7 @@ import java.io.Serializable;
  * @author Henrique Moraes
  *
  */
-public class TimeStamp extends Message implements Comparable<TimeStamp>{
+public class TimeStamp implements Comparable<TimeStamp>{
     private long myInitialTime;
     private int DEFAULT_VALUE = -1;
     private long myFinalTime;
