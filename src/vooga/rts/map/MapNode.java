@@ -1,8 +1,13 @@
 package vooga.rts.map;
 
-import java.util.ArrayList;
-import java.util.List;
-
+/**
+ * For now, height can either be one or zero. Eventually, there will be more
+ * instance variables that describe how high it is off the ground for the sake 
+ * of Pathfinding for multiple levels (flying, walking, underground, etc)l
+ * 
+ * @author Challen Herzberg-Brovold
+ *
+ */
 public class MapNode {
 
     private int myHeight;
@@ -27,9 +32,9 @@ public class MapNode {
         return myY;
     }
 
-    public void addObstruction (IObstruction obstruct) {
-       myHeight = obstruct.getHeight();
-    }
+//    public void addObstruction (IObstruction obstruct) {
+//       myHeight = obstruct.getHeight();
+//    }
    
     public double getHeight () {
         return myHeight;

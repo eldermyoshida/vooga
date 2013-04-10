@@ -11,10 +11,6 @@ public class NodeMap {
     public NodeMap (List<MapNode> myNodeList, int width, int height) {
         myMap = new MapNode[width][height];
     }
-
-    public MapNode get (int x, int y) {
-        return myMap[x][y];
-    }
     
     public List<MapNode> getNeighbors (MapNode current) {
         List<MapNode> neighbors = new ArrayList<MapNode>();
@@ -25,5 +21,9 @@ public class NodeMap {
             neighbors.add(get(x, y + i));
         }
         return neighbors;
+    }
+    
+    public MapNode get (int x, int y) {
+        return myMap[x][y];
     }
 }

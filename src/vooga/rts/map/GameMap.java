@@ -1,92 +1,30 @@
 package vooga.rts.map;
 
-import java.awt.Dimension;
-import java.util.ArrayList;
-import java.util.List;
-import vooga.rts.gamedesign.sprite.map.Tile;
 import vooga.rts.util.Location;
 
+/**
+ * The GameMap will be responsible for taking in the location of
+ * @author Challen Herzberg-Brovold
+ *
+ */
 public class GameMap {
-    
-    public static final int NODE_SIZE = 8;
+
+    private int myNodeSize;
     private NodeMap myMap;
-    
-    /**
-     * The Width of the map in Grid Size
-     */
-    private int myWidth;
-    
-    /**
-     * The height of the map in Grid Size
-     */
-    private int myHeight;
-    
-    // Eventually, this will ideally read in a map file of sort to create the map.
-    // Currently just makes a square map of nodes from 
     
     /**
      * calculates how many nodes there are
      * 
      * @param mapSize This is the size of the map in pixels
      */
-    public GameMap(Dimension mapSize, NodeFactory factory) {
-       myWidth = (mapSize.width) / NODE_SIZE;
-       myHeight = (mapSize.height) / NODE_SIZE;
-       myMap = factory.makeMap(NODE_SIZE);
+    public GameMap(NodeFactory factory, int node) {
+        myNodeSize = node;
+        myMap = factory.makeMap(myNodeSize);
     }    
     
-    /**
-     * Generates a new 2D array for nodes. This will be used to generate
-     * each layer that can be created in the map.
-     * 
-     * @param w Width of the map.
-     * @param h Height of the map.
-     * @return The new layer of nodes.
-     */
-    private MapNode[][] makeMap(int w, int h) {
-        MapNode[][] res = new MapNode[mapGrid.length][mapGrid[0].length];
-        for (int x = 0; x < mapGrid[0].length; x++) {
-            for (int y = 0; y < mapGrid.length; y++) {
-       
-                res[y][x]= new MapNode(x, y, NODE_SIZE, mapGrid[y][x]);
-            }
-        }
-        return res;
+    public MapNode getNode (Location location) {
+        int x = (int) location.x/myNodeSize;
+        int y = (int) location.y/myNodeSize;
+        return myMap.get(x, y);
     }
-    
-    /*
-     * It might be easier and more efficient to store a unit's current node and 
-     * update it as they move rather than having to calculate where they are every
-     * time you need to move them.
-     */
-     /**
-      * Determines which map node corresponds to the given location
-      * @param location
-      * @return
-      */
-     public MapNode getNode (Location location) {
-         return myMap[(int)location.x/NODE_SIZE][(int)location.y/NODE_SIZE];
-     }
-     
-     public MapNode get (int x, int y) {
-         return myMap[y][x];
-     }
-    
-     public String toString() {
-         String str = "";
-         for (int j = 0; j < mapGrid.length; j++) {
-             for (int i = 0; i < mapGrid[0].length; i++) {
-                 str += get(i, j).getHeight();
-             }
-             str += "\n";        
-         }
-         return str;
-     }
-     
-     public MapNode getNode(int x, int y) {
-         if(x >= 0 && x < myMap[0].length && y >= 0 && y < myMap.length) {
-             return myMap[y][x];
-         }
-         return null;
-     }
 }
