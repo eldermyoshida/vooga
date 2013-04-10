@@ -33,7 +33,7 @@ public class ResourcePanel extends JPanel {
     public ResourcePanel(Canvas canvas) {
         myCanvas = canvas;
         myPanel = new JPanel();
-        myPanel.setLayout(new GridLayout(0,5));
+        myPanel.setLayout(new GridLayout(0,4));
 
         add(myPanel, BorderLayout.NORTH);
         addResouceButton();
@@ -65,6 +65,10 @@ public class ResourcePanel extends JPanel {
         catch (Exception e) {
 
         }
+    }
+    
+    public Canvas getCanvas() {
+        return myCanvas;
     }
     
     /**

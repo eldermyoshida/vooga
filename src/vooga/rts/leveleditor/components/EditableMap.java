@@ -46,17 +46,6 @@ public class EditableMap {
         this(0,0);
     }
     
-//    public void initializeMap(int nodeX, int nodeY) {
-//        myIndexMatrix = new EditableNode[myXSize][myYSize];
-//        for(int i =0 ; i<myXSize ; i++) {
-//            for(int j =0 ; j<myYSize ; j++) {
-//                myIndexMatrix[i][j] = new EditableNode(i*nodeX,j*nodeY,new Dimension(nodeX,nodeY),false);
-//            }
-//        }
-//        myPlayerLocations = new HashMap<Integer , Location>();
-//        myPlayerNumber = 0;
-//    }
-    
     public void initializeMap(int width, int height) {
         myIndexMatrix = new EditableNode[myXSize][myYSize];
         for(int i =0 ; i<myXSize ; i++) {
@@ -114,18 +103,6 @@ public class EditableMap {
             }
         }
     }
-    
-//    public Location calculateAbsolutePosition(Location loc) {
-//        int x = myCamera.getX() + loc.getX();
-//        int y = myCamera.getY() + loc.getY();
-//        return new Location(x,y);
-//    }
-//    
-//    public Location calculateAbsolutePosition(int x , int y) {
-//        int newX = myCamera.getX() + x;
-//        int newY = myCamera.getY() + y;
-//        return new Location(newX,newY);
-//    }
     
     public void generateMapFile(String fileName) throws IOException {
         
@@ -334,6 +311,15 @@ public class EditableMap {
         }
         
     }
+    
+    public void clear() {
+        for(int i =0 ; i<myXSize ; i++) {
+            for(int j =0 ; j<myYSize ; j++) {
+                myIndexMatrix[i][j].reset();
+            }
+        }
+        
+    }
 
     public static void main(String[] args) {
         EditableMap test = new EditableMap(100,100);
@@ -353,5 +339,7 @@ public class EditableMap {
         test.printMatrix();
        
     }
+
+    
 
 }

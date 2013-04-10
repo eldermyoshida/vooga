@@ -26,8 +26,7 @@ public class MapPanel extends JComponent implements MouseListener {
     private int myHeight;
     private int myTileWidth;
     private int myTileHeight;
-    static JViewport myViewport;
-    
+    private boolean myRemoveFlag;
     
     public MapPanel(Canvas canvas) {
         myCanvas = canvas;
@@ -132,11 +131,24 @@ public class MapPanel extends JComponent implements MouseListener {
         y=y/myTileHeight;
         if(x>=0 && x<myWidth && y>=0 && y<myHeight){
             EditableNode n = myMap.getMapNode(x, y);
-            n.addFeature(myCanvas.getCurrentSelectResource().getID());
-            n.setImage(myCanvas.getCurrentSelectResource().getImage());
-            n.setOccupied(true);
+            if(!myRemoveFlag){
+                n.addFeature(myCanvas.getCurrentSelectResource().getID());
+                n.setImage(myCanvas.getCurrentSelectResource().getImage());
+                n.setOccupied(true);
+            } else {
+                n.reset();
+            }
             repaint();
         }
+    }
+
+    public void clear() {
+        myMap.clear();
+        repaint();
+    }
+    
+    public void setRemoveFlag(boolean b) {
+        myRemoveFlag = b; 
     }
     
 
@@ -164,5 +176,8 @@ public class MapPanel extends JComponent implements MouseListener {
     public void mouseReleased(MouseEvent e) {
         
     }
+
+
+
 
 }

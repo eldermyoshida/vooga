@@ -12,7 +12,6 @@ import vooga.rts.leveleditor.gui.MapPanel;
 public class EditableNode {
 
     private static final String RELATIVE_PATH = "vooga.rts.leveleditor.resource.";
-    public static final Dimension DEFAULT_DIMENSION = new Dimension(50,50);
     
     private int myX;
     private int myY;
@@ -39,17 +38,6 @@ public class EditableNode {
         myOccupied = isOccupied;
         myFeatures = new LinkedList<Integer>();
     }
-    
-//    public EditableNode(int x, int y, Dimension dimension, boolean isOccupied) {
-//        myX = x;
-//        myY = y;
-//        myWidth = MapPanel.DEFAULT_TILE_WIDTH;
-//        myHeight = MapPanel.DEFAULT_TILE_HEIGHT;
-//        myZoomRate = 1;
-//        myOccupied = isOccupied;
-//        myFeatures = new LinkedList<Integer>();
-//        myDimension = dimension;
-//    }
 
     public int getMyX () {
         return myX;
@@ -121,6 +109,10 @@ public class EditableNode {
     public void ZoomOut() {
         myWidth = (int)(myWidth / MapPanel.ZOOM_RATE);
         myHeight = (int)(myHeight / MapPanel.ZOOM_RATE);
+    }
+    public void reset() {
+        myOccupied = false;
+        myFeatures.clear();
     }
     
     
