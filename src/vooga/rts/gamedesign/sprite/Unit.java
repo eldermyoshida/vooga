@@ -85,14 +85,26 @@ public class Unit extends InteractiveEntity {
         super.update(elapsedTime);
     }
     
+    /**
+     * Gathers a resource specified by gather strategy.
+     * @param g
+     */
     public void gatherResources(IGatherable g) {
     	myGatherStrategy.gather(g);
     }
     
+    /**
+     * Occupies an IOccupiable object specified by occupy strategy.
+     * @param o
+     */
     public void occupyOther(IOccupiable o) {
     	myOccupyStrategy.occupy(o);
     }
     
+    /**
+     * Occupies another unit specified by occupy strategy.
+     * @param units
+     */
     public void occupyOther(Unit units) {
     	myOccupyStrategy.occupy(units);
     }
