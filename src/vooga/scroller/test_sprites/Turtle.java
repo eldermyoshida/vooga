@@ -17,9 +17,5 @@ public class Turtle extends NonStaticEntity {
     public void print() {
         System.out.println("Turtle");
     }
-    
-    @Override
-    public Type getType() {
-        return Type.TURTLE;
-    }
+
 }

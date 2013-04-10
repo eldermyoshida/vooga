@@ -12,7 +12,6 @@ import vooga.scroller.test_sprites.Koopa;
 import vooga.scroller.test_sprites.Mario;
 import vooga.scroller.test_sprites.Platform;
 import vooga.scroller.test_sprites.Turtle;
-import vooga.scroller.test_sprites.Type;
 import vooga.scroller.util.Location;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.PlatformerConstants;
@@ -67,7 +66,7 @@ public class Model {
 
         spriteList.add(new Platform(new Pixmap("platform.gif"),
                                     new Location(myView.getWidth() - 80, myView.getHeight() - 150),
-                                    new Dimension(30, 60)));
+                                    new Dimension(110, 60)));
 
         spriteList.add(new Turtle(new Pixmap("turtle.gif"),
                                   new Location(myView.getWidth() - 500, myView.getHeight() - 75),
@@ -79,7 +78,7 @@ public class Model {
                                  myView));
 
         for (Sprite sprite : spriteList) {
-            if (sprite.getType().equals(Type.MARIO)) {
+            if (sprite.getClass().equals(Mario.class)) {
                 myCurrLevel.addPlayer((Player) sprite);
             }
             else {

@@ -19,8 +19,5 @@ public class Platform extends StaticEntity{
         System.out.println("Platform");
     }
     
-    @Override
-    public Type getType() {
-        return Type.PLATFORM;
-    }
+
 }
