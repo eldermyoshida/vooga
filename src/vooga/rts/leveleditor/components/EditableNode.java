@@ -22,6 +22,7 @@ public class EditableNode {
     private double myZoomRate;
     private boolean myOccupied;
     
+    private BufferedImage myImage;
     private Dimension myDimension;
     private List<Integer> myFeatures;
     private ResourceBundle myResources = ResourceBundle.getBundle(RELATIVE_PATH + "ImageIndex");
@@ -93,18 +94,24 @@ public class EditableNode {
         myZoomRate = rate;
     }
     
+    public void setImage(BufferedImage i) {
+        myImage = i;
+    }
+    
+    
     public void paint(Graphics pen) throws IOException {
-        for(Integer i : myFeatures) {
-            if(myResources.containsKey(i+"")) {
-                String path = System.getProperty("user.dir") + RELATIVE_PATH + myResources.getString(i+"");
-                BufferedImage myImage = ImageIO.read(new File(path));
-                pen.drawImage(myImage, myX, myY, (int)(myDimension.getWidth()*myZoomRate), (int)(myDimension.getHeight()*myZoomRate), null);
-            }    
-        }
-        
+//        for(Integer i : myFeatures) {
+//            if(myResources.containsKey(i+"")) {
+//                String path = System.getProperty("user.dir") + RELATIVE_PATH + myResources.getString(i+"");
+//                BufferedImage myImage = ImageIO.read(new File(path));
+//                pen.drawImage(myImage, myX, myY, (int)(myDimension.getWidth()*myZoomRate), (int)(myDimension.getHeight()*myZoomRate), null);
+//            }    
+//        }
+
         //test
-        pen.setColor(Color.RED);
-        pen.fillRect(myX, myY,(int)(myDimension.getWidth()*myZoomRate), (int)(myDimension.getHeight()*myZoomRate));
+        //pen.setColor(Color.RED);
+        //pen.fillRect(myX, myY,(int)(myDimension.getWidth()*myZoomRate), (int)(myDimension.getHeight()*myZoomRate));
+        pen.drawImage(myImage, myX, myY, (int)(myDimension.getWidth()*myZoomRate), (int)(myDimension.getHeight()*myZoomRate), null);
     }
     
     

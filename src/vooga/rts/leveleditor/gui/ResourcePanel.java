@@ -12,11 +12,12 @@ public class ResourcePanel extends JPanel {
     
     public static final String IMAGE_PATH = "/vooga/rts/leveleditor/resource/tree1.jpg";
     
+    private Canvas myCanvas;
     private JPanel myPanel;
     private BufferedImage myImage;
-    private Resource myCurrentSelectResource;
     
-    public ResourcePanel() {
+    public ResourcePanel(Canvas canvas) {
+        myCanvas = canvas;
         myPanel = new JPanel();
         myPanel.setLayout(new GridLayout(0,5));
         
@@ -45,7 +46,7 @@ public class ResourcePanel extends JPanel {
     }
     
     public void setCurrentSelectResource(Resource r) {
-        myCurrentSelectResource = r;
+        myCanvas.setCurrentSelectResource(r);
     }
 
 

@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
+import vooga.rts.leveleditor.components.Resource;
 
 public class Canvas extends JFrame {
     
@@ -24,13 +25,14 @@ public class Canvas extends JFrame {
     
     private MapPanel myMapPanel;
     private ResourcePanel myResourcePanel;
+    private Resource myCurrentSelectResource;
     private JFileChooser myChooser;
     private JScrollPane  myMapScroll;
     
     public Canvas() {
         setTitle("Level Editor");
-        myMapPanel = new MapPanel();
-        myResourcePanel = new ResourcePanel();
+        myMapPanel = new MapPanel(this);
+        myResourcePanel = new ResourcePanel(this);
         myChooser = new JFileChooser(System.getProperties().getProperty(USER_DIR));
      
         
@@ -158,6 +160,14 @@ public class Canvas extends JFrame {
                 //TODO
             }
         }
+    }
+    
+    public void setCurrentSelectResource(Resource r) {
+        myCurrentSelectResource = r;
+    }
+    
+    public Resource getCurrentSelectResource() {
+        return myCurrentSelectResource;
     }
 
     public static void main(String[] argv) {

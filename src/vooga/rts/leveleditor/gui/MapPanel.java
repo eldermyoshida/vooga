@@ -7,20 +7,17 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.Observable;
-import java.util.Observer;
-import javax.imageio.ImageIO;
 import javax.swing.JComponent;
-import javax.swing.JPanel;
 import javax.swing.JViewport;
 import vooga.rts.leveleditor.components.EditableMap;
+import vooga.rts.leveleditor.components.EditableNode;
 
 public class MapPanel extends JComponent implements MouseListener {
     
     public static final Dimension DEFAULT_MAP_SIZE  = new Dimension (600,600);
     
+    private Canvas myCanvas;
     private EditableMap myMap;
     private int myWidth;
     private int myHeight;
@@ -29,7 +26,8 @@ public class MapPanel extends JComponent implements MouseListener {
     static JViewport myViewport;
     
     
-    public MapPanel() {
+    public MapPanel(Canvas canvas) {
+        myCanvas = canvas;
         myMap = new EditableMap();
         myWidth = 0;
         myHeight = 0;
@@ -101,7 +99,13 @@ public class MapPanel extends JComponent implements MouseListener {
     public void mapClicked(int x, int y) {
         x=x/myTileWidth;
         y=y/myTileWidth;
-        myMap.getMapNode(x, y).setOccupied(true);
+        if(x>=0 && x<myWidth && y>=0 && y<myHeight){
+            EditableNode n = myMap.getMapNode(x, y);
+            n.addFeature(myCanvas.getCurrentSelectResource().getID());
+            n.setImage(myCanvas.getCurrentSelectResource().getImage());
+            n.setOccupied(true);
+            repaint();
+        }
     }
     
 
@@ -122,13 +126,14 @@ public class MapPanel extends JComponent implements MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        mapClicked(e.getX(), e.getY());
+
     }
 
     @Override
-    public void mouseReleased(MouseEvent arg0) {
+    public void mouseReleased(MouseEvent e) {
         
     }
+
 
     
 
