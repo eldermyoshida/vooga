@@ -1,9 +1,5 @@
 package vooga.rts.networking.logger;
 
-
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.net.Socket;
 import java.util.logging.Formatter;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;

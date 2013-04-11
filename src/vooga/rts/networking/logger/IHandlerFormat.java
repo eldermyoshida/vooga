@@ -9,6 +9,7 @@ import java.util.logging.Logger;
  *
  */
 public interface IHandlerFormat {
+    
     /**
      * Sets a handler for the input
      * @param log the logger being used for the programm
