@@ -11,13 +11,14 @@ package vooga.rts.map;
 public class Node {
 
     private int myHeight;
+    private int myTier;
     private int myX;
     private int myY;
 
-    public Node(int x, int y, int height) {
+    public Node(int x, int y, int tier) {
         myX = x;
         myY = y;
-        myHeight = height;
+        myTier = tier;
     }
     
     public Node(int x, int y) {
@@ -36,12 +37,16 @@ public class Node {
 //       myHeight = obstruct.getHeight();
 //    }
    
-    public double getHeight () {
-        return myHeight;
+    public double getTier () {
+        return myTier;
     }
     
+    // This return statement could potentially be cleaned up, but still will wait for patter to clear  up.
     public boolean connectsTo (Node other) {
-        return getHeight() == other.getHeight() || getHeight() == 0 || 
-                other.getHeight() == 0;
+        return getTier() == other.getTier() || other.getTier() < 0;
+    }
+    
+    public int getHeight () {
+        return myHeight;
     }
 }

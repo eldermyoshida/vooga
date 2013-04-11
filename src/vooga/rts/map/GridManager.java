@@ -1,5 +1,7 @@
 package vooga.rts.map;
 
+import java.util.HashMap;
+import java.util.Map;
 /**
  * This class will be used to calculate pathing for multiple story maps.
  * It will keep track of which nodes are passable at a given level, simplifying
@@ -15,5 +17,21 @@ package vooga.rts.map;
  */
 public class GridManager {
 
+    private int myWidth;
+    private int myHeight;
+    private int[][] myBaseGrid;
+    private Map<Integer, Integer[]> myGrids;
     
+    public GridManager (NodeMap map) {
+        myGrids = createGrids(map);
+        myWidth = map.getWidth();
+        myHeight = map.getHeight();
+        myBaseGrid = new int[myWidth][myHeight];
+    }
+    
+    private Map<Integer, Integer[]> createGrids (NodeMap map) {
+        HashMap<Integer, Integer[]> layers = new HashMap<Integer, Integer[]>();
+        
+        return null;
+    }
 }
