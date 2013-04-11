@@ -27,13 +27,9 @@ public class GameWindow extends HUDWindow {
 	private DamageStatisticsWindow player2DamageWindow; 
 	private GameTimerWindow myGameTimerWindow;  
 	
-	 
-	
-
-	
-    public GameWindow (String title) {
-    	super(); 
-    	//sizes/constants TODO
+    
+    public GameWindow (RootWindow rootWindow) { 
+    	super(rootWindow); 
         setPreferredSize(mySize);
         setBorder(ViewConstants.DEFAULT_BORDER);
         player1StatsWindow = new PlayerStatisticsWindow(this); 
@@ -73,8 +69,8 @@ public class GameWindow extends HUDWindow {
 		LayoutManager.layoutDefaultTimerWindow(this, myGameTimerWindow); 
 	}
 	
-	public void setLink (GameLink link) { 
-		myLink = link; 
+	public void setLink (Link link) { 
+		myLink = (GameLink) link; 
 	}
 	
 }

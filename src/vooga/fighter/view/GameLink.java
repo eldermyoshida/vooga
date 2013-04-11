@@ -9,9 +9,10 @@ import java.util.Observer;
 
 
 
-public class GameLink implements Observer, InGameRenderable {
+public class GameLink implements Link, Observer, InGameRenderable {
 
 	
+	private RootWindow myRootWindow; 
 	private GameWindow myView; 
 	private InGameRenderable myModel;
 	private Rectangle myBounds; 

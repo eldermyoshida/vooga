@@ -16,8 +16,8 @@ public class MenuWindow  extends HUDWindow{
 
 	private Dimension mySize;
 	
-	public MenuWindow (GameWindow gameWindow) {
-		super (gameWindow);
+	public MenuWindow (RootWindow rootWindow) {
+		super (rootWindow);
 		this.setPreferredSize(mySize);
 		this.setBorder(ViewConstants.DEFAULT_BORDER);
 		setVisible(true); 

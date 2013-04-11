@@ -23,6 +23,15 @@ public abstract class HUDWindow extends JComponent {
         addComponents();
     }
     
+    public HUDWindow (Container parent) { 
+    	myParent = parent;
+    	setLayoutManager();
+        myConstraints = new GridBagConstraints();
+        this.setBorder(ViewConstants.DEFAULT_BORDER);
+        initializeVariables(); 
+        addComponents();
+    }
+    
     public Container getParent() {
         return myParent;
     }
