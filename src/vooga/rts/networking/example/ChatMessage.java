@@ -12,7 +12,7 @@ public class ChatMessage extends Message {
     private String myMessage;
 
     public ChatMessage (int timeSent, String message) {
-        super(timeSent);
+        //super(timeSent);
         myMessage = message;
     }
     
