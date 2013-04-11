@@ -1,5 +1,6 @@
 package vooga.rts.networking.logger;
 
+
 import java.io.IOException;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
@@ -14,6 +15,9 @@ import java.util.logging.SimpleFormatter;
  *
  */
 public class HandlerConsole implements IHandlerFormat {
+    private static final String ERROR_MESSAGE = 
+            "Error in creating Console based handler";
+    
     @Override
     public Handler getFormatHandler () {
         Handler handler = null;
@@ -21,9 +25,8 @@ public class HandlerConsole implements IHandlerFormat {
             handler = new ConsoleHandler();
             handler.setFormatter(new SimpleFormatter());
         }
-        catch (SecurityException e) {
-            
-            e.printStackTrace();
+        catch (Exception e){
+            NetworkLogger.LOGGER.severe(ERROR_MESSAGE);
         } 
         return handler;
     }

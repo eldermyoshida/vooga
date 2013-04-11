@@ -1,5 +1,6 @@
 package vooga.rts.networking.logger;
 
+
 import java.io.IOException;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
@@ -14,6 +15,8 @@ import java.util.logging.XMLFormatter;
  */
 public class HandlerXML implements IHandlerFormat {
     private static final String XML_EXT = ".xml";
+    private static final String ERROR_MESSAGE =
+            "Error in creating XML format handler";
     private String myFileName;
        
     /**
@@ -39,12 +42,8 @@ public class HandlerXML implements IHandlerFormat {
             handler = new FileHandler(myFileName+XML_EXT);
             handler.setFormatter(new XMLFormatter());
         }
-        catch (SecurityException e) {
-            return null;
-        }
-        catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        catch (Exception e){
+            NetworkLogger.LOGGER.severe(ERROR_MESSAGE);
         }
         return handler;
     }

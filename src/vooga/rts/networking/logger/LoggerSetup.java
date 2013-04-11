@@ -1,5 +1,6 @@
 package vooga.rts.networking.logger;
 
+
 import java.io.IOException;
 import java.util.logging.Handler;
 import java.util.logging.Level;
@@ -12,6 +13,8 @@ import java.util.logging.MemoryHandler;
  */
 public class LoggerSetup {
     public static final String DEFAULT_NAME = "Logger";
+    private static final String ERROR_MESSAGE =
+            "Error in adding handler to logger";
 
     private String myFileName = DEFAULT_NAME;
 
@@ -44,7 +47,7 @@ public class LoggerSetup {
             NetworkLogger.LOGGER.addHandler(createHandler(outputFormat));
         }
         catch (Exception e){
-            NetworkLogger.LOGGER.severe("Error in adding handler to logger");
+            NetworkLogger.LOGGER.severe(ERROR_MESSAGE);
         }
     }
     
@@ -60,13 +63,8 @@ public class LoggerSetup {
         try {
             NetworkLogger.LOGGER.addHandler(new MemoryHandler(createHandler(outputFormat),size,pushLevel));
         }
-        catch (SecurityException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        catch (Exception e){
+            NetworkLogger.LOGGER.severe(ERROR_MESSAGE);
         }
     }
     

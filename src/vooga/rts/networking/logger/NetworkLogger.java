@@ -1,5 +1,6 @@
 package vooga.rts.networking.logger;
 
+
 import java.util.logging.Formatter;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
@@ -49,19 +50,7 @@ public class NetworkLogger {
       LOGGER.setUseParentHandlers(false);
       myStringBuilder = new StringBuilder();
       myDefaultFormatter = new SimpleFormatter();
-  }
-  
-  public static void main(String args[]){
-      NetworkLogger n = NetworkLogger.getInstance();
-      n.addMemoryHandler(NetworkLogger.FORMAT_TXT, 50, Level.WARNING);  
-      n.test();
-  }
-
-  public void test(){
-      for (int i = 0; i<100; i++){
-          LOGGER.info("record "+i);
-      }
-      LOGGER.warning("WARNING");
+      LOGGER.setLevel(Level.INFO);
   }
   
   /**
@@ -84,13 +73,20 @@ public class NetworkLogger {
   }
   
   /**
-   * Logs a message into the logger
+   * Logs a message into the logger with its current level
    * @param message
    */
   public void logMessage(String message){
-      LOGGER.info(message);
-      myStringBuilder.append(myDefaultFormatter.
-                             format(new LogRecord(LOGGER.getLevel(),message)));
+      LOGGER.log(LOGGER.getLevel(),message);
+  }
+  
+  /**
+   * 
+   * @param level Constant representing the level of the message
+   * @param message String containing the message to be logged
+   */
+  public void logMessage(Level level, String message) {
+      LOGGER.log(level,message);
   }
   
 }
