@@ -13,6 +13,12 @@ public class Counter {
      * The count remaining on the Counter object.
      */
     private int myCount;
+    /**
+     * Construct counter with initial count set to my count
+     */
+    public Counter (int count){
+    	myCount=count; 
+    }
     
     /**
      * Sets the value of the current object counter. Count must not be negative.

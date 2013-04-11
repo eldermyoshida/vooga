@@ -33,7 +33,7 @@ public class AttackObject extends MoveableGameObject{
         myOwner = owner;
         myEffects = new ArrayList<Effect>();
         //add effects to myEffects list
-        myCounter = new Counter();
+        myCounter = new Counter(0);
         myAttackPower=power; 
         myVelocity=attackSpeed; 
         //myCounter.setCounter(count);
