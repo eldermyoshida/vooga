@@ -42,7 +42,7 @@ public class AstarFinder extends Pathfinder {
             open.remove(current);
             close.add(current);
             for (Node neighbor: map.getNeighbors(current)) {
-                if (neighbor == null) {
+                if (neighbor == null || !neighbor.connectsTo(current)) {
                     continue;
                 }
                 double newGscore = gScore.get(current) + 1;
@@ -55,7 +55,7 @@ public class AstarFinder extends Pathfinder {
                     fScore.put(neighbor, gScore.get(neighbor) +
                                calculateHeuristic(neighbor, finish));
                     if (!open.contains(neighbor)) {
-                        if (!(neighbor.getHeight() > 0)) {
+                        if (!(neighbor.getTier() > 0)) {
                             open.add(neighbor);
                         }
                     }
