@@ -1,23 +1,25 @@
 package vooga.rts.networking.logger;
+
 import java.util.logging.Handler;
-import java.util.logging.SimpleFormatter;
 import java.util.logging.SocketHandler;
-import java.util.logging.StreamHandler;
+
 
 /**
- * Class that sets a handler to the logger and outputs a records to a given 
+ * Class that sets a handler to the logger and outputs a records to a given
  * socket
+ * 
  * @author Henrique Moraes
- *
+ * 
  */
 public class HandlerSocket implements IHandlerFormat {
     private static final String ERROR_MESSAGE =
             "Error in creating socket format handler";
     private String myHost;
     private int myPort;
-    
+
     /**
      * Constructor
+     * 
      * @param host name of the host
      * @param port number of the port to create socket
      */
@@ -30,9 +32,9 @@ public class HandlerSocket implements IHandlerFormat {
     public Handler getFormatHandler () {
         Handler handler = null;
         try {
-            handler = new SocketHandler(myHost,myPort);
+            handler = new SocketHandler(myHost, myPort);
         }
-        catch (Exception e){
+        catch (Exception e) {
             NetworkLogger.LOGGER.severe(ERROR_MESSAGE);
         }
         return handler;
