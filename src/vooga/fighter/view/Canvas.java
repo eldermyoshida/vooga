@@ -21,6 +21,7 @@ import javax.swing.JFrame;
 import javax.swing.Timer;
 
 import vooga.fighter.controller.Mode;
+import vooga.fighter.controller.ViewDelegate;
 
 
 import vooga.fighter.util.Pixmap;
@@ -66,7 +67,7 @@ public class Canvas extends JComponent {
     // drives the animation
     private Timer myTimer;
     // game to be animated
-    private Mode myMode;
+    private ViewDelegate myViewDelegate;
 
     // input state
     private int myLastKeyPressed;
@@ -103,9 +104,10 @@ public class Canvas extends JComponent {
         pen.setColor(Color.WHITE);
         pen.fillRect(0, 0, getSize().width, getSize().height);
         // first time needs to be special cased :(
-        if (myMode != null) {
-        	// if it's in splash mode, only paint the splash
-        	myMode.paint((Graphics2D) pen);
+        for(int i = 0; i< myViewDelegate.ObjectNumber(); i++){
+        	myViewDelegate.getPaintable(i).paint(pen, 
+        			myViewDelegate.getLocation(i),
+        			myViewDelegate.size(i));
         }
     }
 

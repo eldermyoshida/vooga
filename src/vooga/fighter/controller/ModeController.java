@@ -12,7 +12,7 @@ import java.util.Map;
 import vooga.fighter.view.Canvas;
 
 
-public class Controller {
+public class ModeController {
 	private static final String SPLASHSCREEEN = "SplashScreen";
 	private Map<String, Mode> myModeMap;
 	private Mode myCurrentMode;
@@ -20,7 +20,7 @@ public class Controller {
 	private PlayerStatus myPlayerStatus;
 	
 	@InputClassTarget
-	public Controller(Canvas frame, PlayerStatus playerstatus, MediaManager mediamanager, Input input) {
+	public ModeController(Canvas frame, PlayerStatus playerstatus, MediaManager mediamanager, Input input) {
 		myCanvas = frame;
 		myPlayerStatus = playerstatus;
 		myModeMap = new ModeFactory(frame, mediamanager , input).getMap();
@@ -32,6 +32,24 @@ public class Controller {
 		switchModes(myCurrentMode.needNextMode());
 	}
 	
-
+	
+	private void switchModes(boolean shouldChange){
+		if(shouldChange){
+		myCurrentMode.reset();
+		myCurrentMode.switchNeed();
+//		myPlayerStatus.addScore(myCurrentMode.getStatus());
+		myCurrentMode = myModeMap.get(myCurrentMode.getNextModeName());
+		myCanvas.setMode(myCurrentMode);
+		}
+	}
+	
+	private void setup(){
+		myCurrentMode = myModeMap.get(SPLASHSCREEEN);
+		myCanvas.setMode(myCurrentMode);
+	}
+	
+//	public Mode getCurrentMode(){
+//		return myCurrentMode;
+//	}
 
 }
