@@ -1,7 +1,9 @@
 package vooga.rts.networking.logger;
 
 
+import java.io.OutputStream;
 import java.util.logging.Formatter;
+import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
@@ -14,8 +16,9 @@ import java.util.logging.StreamHandler;
 * This class does not propagate LogRecords to parent Loggers, so if the 
 * user wants the log printed on the console, he should manually call addHandler
 * with FORMAT_CONSOLE as input
-* This class also contains a string builder that records any LogRecord with
-* a simpleFormatter so the user can refer to it later or send it through streams
+* In case it is needed to record the entries and exits in methods, the level
+* of the logger has to be changes to FINER through the method setLevel of this 
+* class
 * 
 * @author Henrique Moraes
 */
@@ -25,10 +28,10 @@ public class NetworkLogger {
   public static final int FORMAT_XML = 1221;
   public static final int FORMAT_TXT = 1356;
   public static final int FORMAT_CONSOLE = 1209;
+  public static final int FORMAT_STREAM = 1200;
   
   private static NetworkLogger instance = null;
   private LoggerSetup mySetup;
-  private StringBuilder myStringBuilder;
   private Formatter myDefaultFormatter;
   
   /**
@@ -48,9 +51,7 @@ public class NetworkLogger {
   private NetworkLogger(){
       mySetup = new LoggerSetup();
       LOGGER.setUseParentHandlers(false);
-      myStringBuilder = new StringBuilder();
       myDefaultFormatter = new SimpleFormatter();
-      LOGGER.setLevel(Level.INFO);
   }
   
   /**
@@ -70,6 +71,26 @@ public class NetworkLogger {
    */
   public void addMemoryHandler(int handlerType, int size, Level pushLevel){
       mySetup.addMemoryHandler(handlerType, size, pushLevel);
+  }
+  
+  /**
+   * 
+   * Adds a handler that sends log records across a given stream
+   * @param Output stream in case using a stream handler
+   */
+  public void addStreamHandler(OutputStream out) {
+      mySetup.addStreamHandler(out);
+  }
+  
+  /**
+   * Sets the level of the logger and all its handlers
+   * @param level 
+   */
+  public void setLevel(Level level){
+      LOGGER.setLevel(level);
+      for (Handler h : LOGGER.getHandlers()){
+          h.setLevel(level);
+      }
   }
   
   /**

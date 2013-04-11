@@ -2,6 +2,7 @@ package vooga.rts.networking.logger;
 
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.MemoryHandler;
@@ -17,6 +18,8 @@ public class LoggerSetup {
             "Error in adding handler to logger";
 
     private String myFileName = DEFAULT_NAME;
+    
+    private OutputStream myOutputToLog;
 
     /**
      * Creates a handler to the logger according to specifications
@@ -31,6 +34,8 @@ public class LoggerSetup {
           case NetworkLogger.FORMAT_TXT: loggerFormat = new HandlerTxt(myFileName);
               break;
           case NetworkLogger.FORMAT_CONSOLE: loggerFormat = new HandlerConsole();
+              break;
+          case NetworkLogger.FORMAT_STREAM: loggerFormat = new HandlerStream(myOutputToLog);
               break;
       }
       return loggerFormat.getFormatHandler();
@@ -52,8 +57,19 @@ public class LoggerSetup {
     }
     
     /**
+     * 
+     * Adds a handler that sends log records across a given stream
+     * @param Output stream in case using a stream handler
+     */
+    public void addStreamHandler(OutputStream out) {
+        myOutputToLog = out;
+        addHandler(NetworkLogger.FORMAT_STREAM);
+    }
+    
+    /**
      * Adds a memory handler to the logger depending on static constants and 
-     * constraints.
+     * constraints. A memory handler pushes all log records after a message of 
+     * the specified threshold level is logged
      * @param outputFormat the type of handler to have records pushed to
      * @param size Number of maximum records this handler will maintain
      * @param pushLevel push log in memory as soon as a message of the 
