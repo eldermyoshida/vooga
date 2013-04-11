@@ -3,9 +3,11 @@ package vooga.rts.networking.logger;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.Socket;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.MemoryHandler;
+import java.util.logging.SocketHandler;
 
 /**
  * Helper that sets handlers for the logger
@@ -18,15 +20,14 @@ public class LoggerSetup {
             "Error in adding handler to logger";
 
     private String myFileName = DEFAULT_NAME;
-    
-    private OutputStream myOutputToLog;
 
     /**
      * Creates a handler to the logger according to specifications
      * @param outputFormat type of handler
+     * @param args arguments used for Stream and Socket handlers
      * @throws IOException
      */
-    private Handler createHandler(int outputFormat) throws IOException {
+    private Handler createHandler(int outputFormat,Object...args) throws IOException {
       IHandlerFormat loggerFormat = null;
       switch (outputFormat){
           case NetworkLogger.FORMAT_XML: loggerFormat = new HandlerXML(myFileName);
@@ -35,8 +36,11 @@ public class LoggerSetup {
               break;
           case NetworkLogger.FORMAT_CONSOLE: loggerFormat = new HandlerConsole();
               break;
-          case NetworkLogger.FORMAT_STREAM: loggerFormat = new HandlerStream(myOutputToLog);
+          case NetworkLogger.FORMAT_STREAM: loggerFormat = new HandlerStream((OutputStream) args[0]);
               break;
+          case NetworkLogger.FORMAT_SOCKET: 
+              loggerFormat = new SocketStream((String) args[0],(Integer) args[1]);
+          break;
       }
       return loggerFormat.getFormatHandler();
 
@@ -47,9 +51,9 @@ public class LoggerSetup {
      * @param outputFormat format in which the handler will be created
      * uses one of the constants from NetworkLogger
      */
-    public void addHandler(int outputFormat) {
+    public void addHandler(int outputFormat, Object...args) {
         try {
-            NetworkLogger.LOGGER.addHandler(createHandler(outputFormat));
+            NetworkLogger.LOGGER.addHandler(createHandler(outputFormat,args));
         }
         catch (Exception e){
             NetworkLogger.LOGGER.severe(ERROR_MESSAGE);
@@ -62,8 +66,17 @@ public class LoggerSetup {
      * @param Output stream in case using a stream handler
      */
     public void addStreamHandler(OutputStream out) {
-        myOutputToLog = out;
-        addHandler(NetworkLogger.FORMAT_STREAM);
+        addHandler(NetworkLogger.FORMAT_STREAM,out);
+    }
+    
+    /**
+     * 
+     * Adds a handler that sends log records through a given socket
+     * @param host string with the name of the host of this connection
+     * @param port number of the port to be used
+     */
+    public void addSocketHandler(String host, int port) {
+        addHandler(NetworkLogger.FORMAT_STREAM,host,port);
     }
     
     /**

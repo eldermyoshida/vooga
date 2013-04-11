@@ -29,6 +29,7 @@ public class NetworkLogger {
   public static final int FORMAT_TXT = 1356;
   public static final int FORMAT_CONSOLE = 1209;
   public static final int FORMAT_STREAM = 1200;
+  public static final int FORMAT_SOCKET = 1333;
   
   private static NetworkLogger instance = null;
   private LoggerSetup mySetup;
@@ -80,6 +81,16 @@ public class NetworkLogger {
    */
   public void addStreamHandler(OutputStream out) {
       mySetup.addStreamHandler(out);
+  }
+  
+  /**
+   * 
+   * Adds a handler that sends log records through a given socket
+   * @param host string with the name of the host of this connection
+   * @param port number of the port to be used
+   */
+  public void addSocketHandler(String host, int port) {
+      mySetup.addSocketHandler(host,port);
   }
   
   /**
