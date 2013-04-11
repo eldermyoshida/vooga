@@ -1,10 +1,13 @@
 package vooga.fighter.controller;
 
-import java.util.List;
 import vooga.fighter.game.*;
-import vooga.fighter.objects.*;
 import java.util.ResourceBundle;
 
+/**
+ * 
+ * @author Jerry Li
+ *
+ */
 public class MenuController extends Controller {
     
     private Controller myNextController;
@@ -12,22 +15,13 @@ public class MenuController extends Controller {
     
     private static String DEFAULT_RESOURCE = "vooga.fighter.config.LevelConfig";
     
-    public MenuController (GameInstance model) {
-        super(model);
-        myLevelNames = ResourceBundle.getBundle(DEFAULT_RESOURCE);
+    public MenuController (Model model, String id, ManagerDelegate manager) {
+        super(model, id, manager);
     }
-    
-    public MenuController (GameInstance model, String id) {
-        super(model, id);
-    }
-    
-    public MenuController (String id) {
-        super(id);
-    }
-    
+ 
     public void createMenu(String menuName) {
         String filePath = myLevelNames.getString(menuName);
-        GameInstance menu = new GameInstance(menuName, filePath);
+        myModel = new Model(menuName, filePath, this);
     }
     
     /**
