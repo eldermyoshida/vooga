@@ -6,7 +6,7 @@ public class InitialConnectionMessage extends Message {
     private String myUsername;
     private String myGameName;
 
-    public InitialConnectionMessage (int timeSent, String username, String gameName) {
+    public InitialConnectionMessage (TimeStamp timeSent, String username, String gameName) {
         super(timeSent);
         myUsername = username;
     }

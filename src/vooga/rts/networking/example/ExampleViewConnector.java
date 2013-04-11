@@ -1,4 +1,4 @@
-package vooga.rts.networking;
+package vooga.rts.networking.example;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,7 +10,11 @@ import java.net.UnknownHostException;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-
+/**
+ * Example conector used to debug when running server on Localhost. 
+ * @author David Winegar
+ *
+ */
 public class ExampleViewConnector extends Thread {
 
     JTextArea outputArea;

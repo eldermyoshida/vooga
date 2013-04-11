@@ -11,7 +11,7 @@ import java.io.Serializable;
  * @author David Winegar
  * 
  */
-public class Message implements Serializable, Comparable<Message> {
+public abstract class Message implements Serializable, Comparable<Message> {
 
     private static final long serialVersionUID = 3906028159511905867L;
     private TimeStamp myTimeStamp;
@@ -21,17 +21,17 @@ public class Message implements Serializable, Comparable<Message> {
      * Creates a timestamp for this message with the given time 
      * as the initial time
      */
-    public Message (int timeSent) {
-        myTimeStamp = new TimeStamp(timeSent);
+    public Message (TimeStamp timeStamp) {
+        myTimeStamp = timeStamp;
     }
-    
+   
     /**
      * Constructor for this class
      * Creates a timestamp for this message with the current system time 
      * as the initial time
      */
     public Message () {
-        myTimeStamp = new TimeStamp();
+        myTimeStamp = new SystemTimeStamp();
     }
     
     /**
@@ -55,6 +55,13 @@ public class Message implements Serializable, Comparable<Message> {
      */
     public void stampTime(){
         myTimeStamp.stamp();
+    }
+    
+    /**
+     * Call this method to mark the time received (final time)
+     */
+    public void stampTime(long time){
+        myTimeStamp.stamp(time);
     }
 
     /**

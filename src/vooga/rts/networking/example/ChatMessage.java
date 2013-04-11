@@ -1,4 +1,4 @@
-package vooga.rts.networking;
+package vooga.rts.networking.example;
 
 import vooga.rts.networking.server.Message;
 
@@ -12,7 +12,7 @@ public class ChatMessage extends Message {
     private String myMessage;
 
     public ChatMessage (int timeSent, String message) {
-        super(timeSent);
+        //super(timeSent);
         myMessage = message;
     }
     
