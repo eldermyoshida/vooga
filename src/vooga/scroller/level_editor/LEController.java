@@ -34,21 +34,21 @@ public class LEController {
     private Map<Editable, WorkspaceView> myWorkspace2Tab;
     private Map<WorkspaceView, Editable> myTab2Workspace;
     private static final int DEFAULT_SPRITE_GRID_SIZE = 10;
-    private Map<Integer, Sprite> m;
+    private LETools tools;
     
     /**
      * Constructor
      */
     public LEController(MarioLib lib) {
-        m = new HashMap<Integer, Sprite>();
-        m = (new ToolsMaker(lib)).getTools();
+        tools = (new ToolsMaker(lib)).getViewTools();
        //TODO
-        for(int k:m.keySet()) {
-            System.out.println(m.get(k).getClass());
+        for(Object s:tools.getSpriteMakingOptions().keySet()) {
+            System.out.println(tools.getSpriteMakingOptions().get(s));
         }
         String language = getLanguage();
         myModel = new LevelEditor(language,lib);
         myView = new LEView(language, this, lib);
+        myView.setDefaultWorkspaceTools(tools);
         myWorkspace2Tab = new HashMap<Editable, WorkspaceView>();
         myTab2Workspace = new HashMap<WorkspaceView, Editable>();
     }

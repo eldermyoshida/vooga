@@ -28,6 +28,7 @@ public abstract class WorkspaceView extends WindowComponent {
     @SuppressWarnings("unused")
     private GridBagConstraints myConstraints;
     private Dimension mySize = ViewConstants.DEFAULT_TAB_SIZE;
+    private static Tools myTools;
 
     public WorkspaceView (IView hostWindow) {
         super(hostWindow, .9, .9);
@@ -94,6 +95,15 @@ public abstract class WorkspaceView extends WindowComponent {
      */
     public void processConsoleInput (String s) {
         myWindow.processCommand(this, s);
-    } 
+    }
+    
+    //TODO - good design choice?
+    public static void setTools(Tools t) {
+        myTools = t;
+    }
+    
+    public Tools getTools() {
+        return myTools;
+    }
 
 }
