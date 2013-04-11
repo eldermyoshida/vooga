@@ -1,6 +1,7 @@
 package vooga.rts.networking;
 
 import java.io.Serializable;
+import vooga.rts.networking.server.TimeStamp;
 
 
 /**
@@ -91,7 +92,7 @@ public class Message implements Serializable, Comparable<Message> {
     }
 
     /**
-     * Compares based on the timestamp
+     * Compares based on timestamps
      */
     @Override
     public int compareTo (Message message) {

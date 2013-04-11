@@ -14,71 +14,88 @@ import java.io.Serializable;
 public class Message implements Serializable, Comparable<Message> {
 
     private static final long serialVersionUID = 3906028159511905867L;
-    private static final int DEFAULT_VALUE = -1;
-    private int myTimeSent;
-    private int myTimeReceivedByServer = DEFAULT_VALUE;
+    private TimeStamp myTimeStamp;
 
     /**
-     * Default message constructor, sets the time sent by client. Not hardcoded so that games may
-     * use a Timer, System, or other basis for time.
-     * 
-     * @param timeSent time message sent (created) by client.
+     * Constructor for this class
+     * Creates a timestamp for this message with the given time 
+     * as the initial time
      */
     public Message (int timeSent) {
-        myTimeSent = timeSent;
+        myTimeStamp = new TimeStamp(timeSent);
+    }
+    
+    /**
+     * Constructor for this class
+     * Creates a timestamp for this message with the current system time 
+     * as the initial time
+     */
+    public Message () {
+        myTimeStamp = new TimeStamp();
+    }
+    
+    /**
+     * 
+     * @return this message's timestamp
+     */
+    public TimeStamp getTimeStamp(){
+        return myTimeStamp;
     }
 
     /**
-     * Sets time received by server. Not hardcoded so that games may use a Timer, System, or other
-     * basis for time.
-     * 
-     * @param timeReceived received by server
+     * Call this method to reset the initial time to the current one and 
+     * the final time to the default
      */
-    public void setTimeReceived (int timeReceived) {
-        myTimeReceivedByServer = timeReceived;
+    public void resetTime () {
+        myTimeStamp.resetStamp();
+    }
+    
+    /**
+     * Call this method to mark the time received (final time)
+     */
+    public void stampTime(){
+        myTimeStamp.stamp();
     }
 
     /**
-     * Gets time sent by client. Not hardcoded so that games may use a Timer, System, or other basis
-     * for time.
      * 
-     * @return time sent by client
+     * @return time message was created or reset in milliseconds
      */
-    public int getTimeSent () {
-        return myTimeSent;
+    public long getInitialTime () {
+        return myTimeStamp.getInitialTime();
     }
 
     /**
-     * Gets time received by server. Not hardcoded so that games may use a Timer, System, or other
-     * basis for time.
      * 
-     * @return time received by server
+     * @return time this message was stamped in milliseconds
      */
-    public int getTimeReceived () {
-        return myTimeReceivedByServer;
+    public long getFinalTime () {
+        return myTimeStamp.getFinalTime();
     }
 
     @Override
     public boolean equals (Object object) {
-        if (object == null || !(object instanceof Message)) { 
-            return false; 
+        if(object == null) {
+            return false;
         }
-        Message message = (Message) object;
-        return getTimeSent() != message.getTimeSent();
+        if (!(object instanceof Message)) {
+            return false;
+        }
+        Message m = (Message) object;
+        return myTimeStamp.equals(m.getTimeStamp());
     }
 
     @Override
     public int hashCode () {
-        return myTimeSent * 200 - 13;
+        return myTimeStamp.hashCode();
     }
 
+    /**
+     * Compares based on timestamps
+     */
     @Override
     public int compareTo (Message message) {
-        if (message != null && message.getTimeReceived() != DEFAULT_VALUE &&
-            getTimeReceived() != DEFAULT_VALUE) { 
-            return message.getTimeReceived() - getTimeReceived(); 
-        }
-        return message.getTimeSent() - getTimeSent();
+        return myTimeStamp.compareTo(message.getTimeStamp());
     }
 
 }

@@ -15,6 +15,11 @@ public class ChatMessage extends Message {
         super(timeSent);
         myMessage = message;
     }
+    
+    public ChatMessage (String message) {
+        super();
+        myMessage = message;
+    }
 
     public String getMessage () {
         return myMessage;
