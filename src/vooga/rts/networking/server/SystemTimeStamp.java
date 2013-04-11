@@ -30,11 +30,11 @@ public class SystemTimeStamp extends TimeStamp {
     }
 
     /**
-     * Stamps as current system time plus time passed in.
+     * Stamps as initial time plus .
      */
     @Override
     public long stamp (long time) {
-        setFinalTime(System.currentTimeMillis() + time);
+        setFinalTime(getInitialTime() + time);
         return getDifference();
     }
 

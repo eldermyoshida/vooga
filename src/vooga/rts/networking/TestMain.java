@@ -12,5 +12,6 @@ public class TestMain {
         frame.add(new ServerBrowserDisplay());
         frame.pack();
         frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 }
