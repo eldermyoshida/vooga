@@ -1,7 +1,7 @@
-package model;
-import gameElements.Wave;
-
+package vooga.towerdefense.model;
 import java.util.List;
+
+import vooga.towerdefense.gameElements.Wave;
 
 
 public class GameModel {

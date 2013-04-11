@@ -1,6 +1,6 @@
-package gamedesign.sprite.rtsprite;
+package vooga.rts.gamedesign.sprite.rtsprite;
 
-import util.Location;
+import vooga.rts.util.Location;
 
 /**
  * 
@@ -12,6 +12,9 @@ import util.Location;
  */
 public interface IMovable {
 
-  public void move(Location loc);
-
+	/**
+	 * Moves the Object to the given location.
+	 * @param loc
+	 */
+	public void move(Location loc);
 }

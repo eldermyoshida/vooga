@@ -1,5 +1,4 @@
 package arcade.database;
-import java.sql.SQLException;
 
 /**
  * Creates and updates table

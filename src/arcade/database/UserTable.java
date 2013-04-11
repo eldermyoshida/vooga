@@ -1,53 +1,41 @@
 package arcade.database;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * Creates and updates user table
  * @author Natalia Carvalho
  */
-public class UserTable extends Table{
-    /**
-     */
-    public static final String USERNAME_COLUMN_FIELD = "username";  
-    /**
-     */
-    public static final String PASSWORD_COLUMN_FIELD = "pw";
-    /**
-     */
-    public static final String FIRSTNAME_COLUMN_FIELD  = "firstname";
-    /**
-     */
-    public static final String LASTNAME_COLUMN_FIELD  = "lastname";
-    /**
-     */
-    public static final String DOB_COLUMN_FIELD  = "DOB";
-    /**
-     */
-    public static final String AVATAR_COLUMN_FIELD  = "avatarfilepath";
+public class UserTable extends Table {
+    private static final String TABLE_SEPARATOR = ": ";
+    private static final String USERNAME_COLUMN_FIELD = "username";  
+    private static final String PASSWORD_COLUMN_FIELD = "pw";
+    private static final String FIRSTNAME_COLUMN_FIELD  = "firstname";
+    private static final String LASTNAME_COLUMN_FIELD  = "lastname";
+    private static final String DOB_COLUMN_FIELD  = "DOB";
+    private static final String AVATAR_COLUMN_FIELD  = "avatarfilepath";
+    private static final String USERID_COLUMN_FIELD = "userid";
 
-    public static final String USERID_COLUMN_FIELD = "userid";
-    public static final int USERNAME_COLUMN_INDEX = 1;
-    /**
-     */
-    public static final int PASSWORD_COLUMN_INDEX = 2;
-    /**
-     */
-    public static final int FIRSTNAME_COLUMN_INDEX = 3;
-    /**
-     */
-    public static final int LASTNAME_COLUMN_INDEX = 4;
-    /**
-     */
-    public static final int DOB_COLUMN_INDEX = 5;
-    public static final int AVATAR_COLUMN_INDEX = 6;
-    public static final int USERID_COLUMN_INDEX = 7;
+    private static final int USERNAME_COLUMN_INDEX = 1;
+    private static final int PASSWORD_COLUMN_INDEX = 2;
+    private static final int FIRSTNAME_COLUMN_INDEX = 3;
+    private static final int LASTNAME_COLUMN_INDEX = 4;
+    private static final int DOB_COLUMN_INDEX = 5;
+    private static final int AVATAR_COLUMN_INDEX = 6;
+    private static final int USERID_COLUMN_INDEX = 7;
     
-    public static final String TABLE_NAME = "users";
+    private static final String TABLE_NAME = "users";
 
     private Connection myConnection;
     private PreparedStatement myPreparedStatement; 
     private ResultSet myResultSet;
     
+    /**
+     * Constructor but eventually I want to make this part of the abstract class
+     */
     public UserTable() {
         createDatabase();
     }
@@ -76,30 +64,20 @@ public class UserTable extends Table{
 
     }
 
-    void closeConnection() {
-        if (myPreparedStatement != null) {
-            try {
+    public void closeConnection() {
+        try {
+            if (myPreparedStatement != null) {
                 myPreparedStatement.close();
             }
-            catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        if (myResultSet != null) {
-            try {
+            if (myResultSet != null) {
                 myResultSet.close();
             }
-            catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        if (myConnection != null) {
-            try {
+            if (myConnection != null) {
                 myConnection.close();
             }
-            catch (SQLException e) {
-                e.printStackTrace();
-            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
@@ -126,6 +104,10 @@ public class UserTable extends Table{
         return false;
     }
     
+    /**
+     * Returns true if usernameExists, false othwerwise
+     * @param username is the username
+     */
     public boolean usernameExists(String username) {
         String stm = "SELECT username FROM users WHERE username='" + username + "'";
         try {
@@ -147,10 +129,10 @@ public class UserTable extends Table{
      * @param pw is the password
      * @param firstname is firstname
      * @param lastname is lastname
-     * @param dateOfBirth is date of birth
+     * @param dob is date of birth
      */
     public boolean addUser(String user, String pw, String firstname, 
-                        String lastname, String dateOfBirth) {
+                        String lastname, String dob) {
         if (usernameExists(user)) {
             return false;
         }
@@ -161,7 +143,7 @@ public class UserTable extends Table{
             myPreparedStatement.setString(PASSWORD_COLUMN_INDEX, pw);
             myPreparedStatement.setString(FIRSTNAME_COLUMN_INDEX, firstname);
             myPreparedStatement.setString(LASTNAME_COLUMN_INDEX, lastname);
-            myPreparedStatement.setString(DOB_COLUMN_INDEX, dateOfBirth);
+            myPreparedStatement.setString(DOB_COLUMN_INDEX, dob);
             myPreparedStatement.executeUpdate();
         }
         catch (SQLException e) {
@@ -170,23 +152,28 @@ public class UserTable extends Table{
         return true;
     }
     
+    /**
+     * Returns the userid when given the username
+     * @param username is the username
+     */
     public String getUserid(String username) {
         String stm = "SELECT * FROM users WHERE username='" + username + "'";
+        String userid = "";
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
             myResultSet  = myPreparedStatement.executeQuery();
             if (myResultSet.next()) {
-                return myResultSet.getString(USERID_COLUMN_INDEX);
+                userid = myResultSet.getString(USERID_COLUMN_INDEX);
             }
         }
         catch (SQLException e) {
             e.printStackTrace();
         }
-        return "User doesn't exist";
+        return userid;
     }
 
     /**
-     * Given a username, deletes that user from table
+     * Given a username, deletes that user from userTable
      * @param username is user
      */
     public void deleteUser(String username) {
@@ -206,12 +193,12 @@ public class UserTable extends Table{
             myPreparedStatement = myConnection.prepareStatement("SELECT * FROM " + TABLE_NAME);
             myResultSet = myPreparedStatement.executeQuery();
             while (myResultSet.next()) {
-                System.out.print(myResultSet.getString(USERNAME_COLUMN_INDEX) + ": ");
-                System.out.print(myResultSet.getString(PASSWORD_COLUMN_INDEX) + ": ");
-                System.out.print(myResultSet.getString(FIRSTNAME_COLUMN_INDEX) + ": ");
-                System.out.print(myResultSet.getString(LASTNAME_COLUMN_INDEX) + ": ");
-                System.out.print(myResultSet.getString(DOB_COLUMN_INDEX) + ": ");
-                System.out.print(myResultSet.getString(AVATAR_COLUMN_INDEX) + ": ");
+                System.out.print(myResultSet.getString(USERNAME_COLUMN_INDEX) + TABLE_SEPARATOR);
+                System.out.print(myResultSet.getString(PASSWORD_COLUMN_INDEX) + TABLE_SEPARATOR);
+                System.out.print(myResultSet.getString(FIRSTNAME_COLUMN_INDEX) + TABLE_SEPARATOR);
+                System.out.print(myResultSet.getString(LASTNAME_COLUMN_INDEX) + TABLE_SEPARATOR);
+                System.out.print(myResultSet.getString(DOB_COLUMN_INDEX) + TABLE_SEPARATOR);
+                System.out.print(myResultSet.getString(AVATAR_COLUMN_INDEX) + TABLE_SEPARATOR);
                 System.out.println(myResultSet.getString(USERID_COLUMN_INDEX));
             }
         }
