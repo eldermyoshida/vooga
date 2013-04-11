@@ -5,7 +5,12 @@ import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
-
+/**
+ * Class that sets a handler to the logger and outputs a file 
+ * records to the console
+ * @author Henrique Moraes
+ *
+ */
 public class HandlerConsole implements IHandlerFormat {
     @Override
     public void setFormatHandler (Logger log) {

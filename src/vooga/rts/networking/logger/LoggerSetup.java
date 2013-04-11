@@ -6,17 +6,14 @@ import java.util.logging.XMLFormatter;
 
 
 public class LoggerSetup {
-    public static final int FORMAT_XML = 1221;
-    public static final int FORMAT_TXT = 1356;
-    public static final int FORMAT_CONSOLE = 1209;
     public static final String DEFAULT_NAME = "Logger";
 
     private String myFileName = DEFAULT_NAME;
     
-    public void setup(Logger logger, int outputFormat,String fileName){
+    public void setup(int outputFormat,String fileName){
         setFileName(fileName);
         try {
-            addHandler(logger,outputFormat);
+            addHandler(outputFormat);
         }
         catch (IOException e) {
             // TODO Auto-generated catch block
@@ -24,20 +21,29 @@ public class LoggerSetup {
         }
     }
 
-    public void addHandler(Logger logger, int outputFormat) throws IOException {
+    /**
+     * Adds a handler to the logger according to specifications
+     * @param outputFormat type of handler
+     * @throws IOException
+     */
+    public void addHandler(int outputFormat) throws IOException {
       IHandlerFormat loggerFormat = null;
       switch (outputFormat){
-          case FORMAT_XML: loggerFormat = new HandlerXML(myFileName);
+          case NetworkLogger.FORMAT_XML: loggerFormat = new HandlerXML(myFileName);
               break;
-          case FORMAT_TXT: loggerFormat = new HandlerTxt(myFileName);
+          case NetworkLogger.FORMAT_TXT: loggerFormat = new HandlerTxt(myFileName);
               break;
-          case FORMAT_CONSOLE: loggerFormat = new HandlerConsole();
+          case NetworkLogger.FORMAT_CONSOLE: loggerFormat = new HandlerConsole();
               break;
       }
-      loggerFormat.setFormatHandler(logger);
+      loggerFormat.setFormatHandler(NetworkLogger.LOGGER);
 
     }
     
+    /**
+     * 
+     * @param fileName name of the file to write to in case a file handler is used
+     */
     public void setFileName(String fileName){
         myFileName = fileName;
     }
