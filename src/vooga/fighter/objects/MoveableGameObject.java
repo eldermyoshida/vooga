@@ -1,67 +1,71 @@
 package vooga.fighter.objects;
 
 import java.awt.Dimension;
-import java.awt.Rectangle;
-
+import java.util.ArrayList;
+import java.util.List;
 import vooga.fighter.util.Location;
 import vooga.fighter.util.Pixmap;
 import vooga.fighter.util.Vector;
 
+
 /**
+ * Represents a game object that is moveable.
  * 
- * @author alanni
- * Objects that can be moved 
+ * @author alanni, james
+ * 
  */
-public class MoveableGameObject extends GameObject{
-    private static final int DEFAULT_HEALTH=10;
-	
-	private Pixmap myImage;
-	private Location myCenter;
-	private Dimension mySize;  
-	private Vector myVelocity;
-    private Location myOriginalCenter;
-    private Vector myOriginalVelocity;
-    private Dimension myOriginalSize;
-    private Pixmap myOriginalImage;
-    private Rectangle myBounds;
-    private int myHealth= DEFAULT_HEALTH;
-    private int myPriority;   
-    
+public class MoveableGameObject extends GameObject {
+
+    private Vector myVelocity;
+    private List<Vector> myAccelerations;
 
     public MoveableGameObject(Pixmap image, Location center, Dimension size) {
-		super(image, center, size);
-	}
-	public MoveableGameObject(Pixmap image, Location center, Dimension size, Vector velocity) {
-		super(image, center, size, velocity);
-	}
-	
-    public void update (double elapsedTime, Dimension bounds) {
-		// do not change original velocity
-        Vector v = new Vector(myVelocity);
-        v.scale(elapsedTime);
-        translate(v);
-    }
-	protected void resetBounds () {
-        myBounds = new Rectangle((int)getLeft(), (int)getTop(), mySize.width, mySize.height);
+        super(image, center, size);
+        myVelocity = new Vector();
+        myAccelerations = new ArrayList<Vector>();
     }
 
-	public void reduceHealth(int amount){
-		myHealth-=amount; 
-	}
-	
-	public int getHealth() {
-		return myHealth;
-	}
-	
-	public void setHealth(int amount){
-		myHealth=amount; 
-	}
-	
+    public void update(double elapsedTime, Dimension bounds) {
+        for (Vector acceleration : myAccelerations) {
+            myVelocity.sum(acceleration);
+        }
+        Vector v = new Vector(myVelocity);
+        translate(v);
+    }      
+    
     /**
-     * Moves shape's center by given vector.
+     * Adds an acceleration force to the list of accelerations.
      */
-    public void translate (Vector v) {
-        myCenter.translate(v);
+    public void addAcceleration(Vector v) {
+        myAccelerations.add(v);
+    }
+    
+    /**
+     * Clears the list of acceleration forces.
+     */
+    public void clearAccelerations() {
+        myAccelerations.clear();
+    }
+
+    /**
+     * Moves the center for this moveable game object by a given vector.
+     */
+    public void translate(Vector v) {
+        getCenter().translate(v);
+    }
+
+    /**
+     * Sets the velocity for this moveable game object.
+     */
+    public void setVelocity(double angle, double magnitude) {
+        myVelocity = new Vector(angle, magnitude);
+    }
+    
+    /**
+     * Returns the velocity for this moveable game object.
+     */
+    public Vector getVelocity() {
+        return myVelocity;
     }
 
 }

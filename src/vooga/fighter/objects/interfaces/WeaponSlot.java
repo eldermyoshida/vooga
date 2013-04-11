@@ -9,7 +9,7 @@ package vooga.fighter.objects.interfaces;
  * @author james, alan
  * 
  */
-public interface CanWield {
+public interface WeaponSlot {
 
     /**
      * Returns the object that is currently wielded, or null if there is none.

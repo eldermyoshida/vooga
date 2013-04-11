@@ -32,24 +32,28 @@ import vooga.fighter.util.Text;
 public class RootWindow extends JFrame {
 
 	private Dimension mySize;
-	
 	private Controller myController; 
+	private GameWindow myGameWindow;
+	private HUDWindow myWindow; 
+
 	
-	public RootWindow (String title, Controller controller) { 
-        super(title);
+	public RootWindow (HUDWindow window) { 
+		myWindow = window; 
         this.setResizable(false);
         setPreferredSize(mySize);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        myController = controller;
+        //myController = controller;
         getContentPane().setLayout(new GridBagLayout());
         addComponents(); 
         setVisible(true); 
 	}
 	
+	public void setTitle (String title) { 
+		setTitle(title); 
+	}
 	
-	private void addComponents() { 
-		GameWindow gameWindow = new GameWindow(this); 
-		LayoutManager.layoutDefaultGameWindow(this, gameWindow); 
+	private void addComponents() {  
+		LayoutManager.layoutDefaultGameWindow(this, myGameWindow); 
 	}
 	
 }

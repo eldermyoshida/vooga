@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<objects>
+	<character>
+		<id>1</id>
+		<name>Blue Box</name>
+		<image>bluebox.png</image>
+		<movespeed>50</movespeed>
+	</character>
+</objects>

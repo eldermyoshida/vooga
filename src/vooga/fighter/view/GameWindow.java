@@ -19,7 +19,7 @@ import vooga.fighter.controller.Mode;
 public class GameWindow extends HUDWindow {
 
 	private Dimension mySize; 
-	private Mode myMode;
+	private GameLink myLink; 
 	
 	private PlayerStatisticsWindow player1StatsWindow; 
 	private PlayerStatisticsWindow player2StatsWindow;
@@ -27,11 +27,15 @@ public class GameWindow extends HUDWindow {
 	private DamageStatisticsWindow player2DamageWindow; 
 	private GameTimerWindow myGameTimerWindow;  
 	
+	 
 	
-    public GameWindow (RootWindow rootWindow) {
-        super (rootWindow);
-        this.setPreferredSize(mySize);
-        this.setBorder(ViewConstants.DEFAULT_BORDER);
+
+	
+    public GameWindow (String title) {
+    	super(); 
+    	//sizes/constants TODO
+        setPreferredSize(mySize);
+        setBorder(ViewConstants.DEFAULT_BORDER);
         player1StatsWindow = new PlayerStatisticsWindow(this); 
         player2StatsWindow = new PlayerStatisticsWindow(this); 
         player1DamageWindow = new DamageStatisticsWindow(this); 
@@ -45,11 +49,12 @@ public class GameWindow extends HUDWindow {
         pen.setColor(Color.WHITE);
         pen.fillRect(0, 0, getSize().width, getSize().height);
         // first time needs to be special cased :(
-        if (myMode != null) {
+        if (myLink != null) {
         	// if it's in splash mode, only paint the splash
-        	myMode.paint((Graphics2D) pen);
+        	myLink.paint((Graphics2D) pen);
         }
     }
+
     
 	@Override
 	protected void initializeVariables() {
@@ -66,6 +71,10 @@ public class GameWindow extends HUDWindow {
 		LayoutManager.layoutDefaultPlayerStatisticsWindows(this, player1StatsWindow, player2StatsWindow); 
 		LayoutManager.layoutDefaultDamageStatisticsWindows(this, player1DamageWindow, player2DamageWindow);
 		LayoutManager.layoutDefaultTimerWindow(this, myGameTimerWindow); 
+	}
+	
+	public void setLink (GameLink link) { 
+		myLink = link; 
 	}
 	
 }

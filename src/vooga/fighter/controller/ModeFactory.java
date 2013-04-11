@@ -2,6 +2,8 @@ package vooga.fighter.controller;
 
 import vooga.fighter.game.GameInstance;
 import vooga.fighter.game.SplashScreen;
+import vooga.fighter.input.Input;
+import vooga.fighter.input.InputClassTarget;
 
 
 
@@ -15,7 +17,7 @@ import java.util.ResourceBundle;
 
 import vooga.fighter.view.Canvas;
 
-
+@InputClassTarget
 public class ModeFactory {
 	private static final String DEFAULT_RESOURCE_PACKAGE = "vooga.fighter.config.";
 	
@@ -25,17 +27,19 @@ public class ModeFactory {
     private Map<String, String> myLevelPathMap; 
     private List<String> myLevelNames;
     private MediaManager myMediaManager;
+    private Input myInput;
     
-	
-	public ModeFactory(Canvas frame, MediaManager mediamanager) {
+ 
+	public ModeFactory(Canvas frame, MediaManager mediamanager, Input input) {
 		myCanvas = frame;
 		myModeMap = new HashMap<String, Mode>();
 		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "LevelConfig");
 		myLevelPathMap = new HashMap<String, String>();
 		myLevelNames = new ArrayList<String>();
 		myMediaManager = mediamanager;
+		myInput = input;
 		readFile(myResources, myLevelPathMap, myLevelNames);
-		loadGame(myCanvas, myModeMap, myLevelPathMap, myLevelNames);
+		loadGame(myCanvas, myModeMap, myLevelPathMap, myLevelNames, myInput);
 	}
 	
 	public Map getMap(){
@@ -52,15 +56,15 @@ public class ModeFactory {
     }
     
     private void loadGame(Canvas frame, Map<String, Mode> modemap, Map<String, String> levelpathmap, 
-    	   List<String> levelnames) {
-		Mode mode = new SplashScreen(frame, levelnames.get(0));
+    	   List<String> levelnames, Input input) {
+		Mode mode = new SplashScreen(frame, levelnames.get(0), input);
 		modemap.put(mode.getModeName(), mode);
     	for(int i = 0; i < levelnames.size()-1; i++) {
-            Mode level = new GameInstance(levelnames.get(i), levelpathmap.get(i), levelnames.get(i+1));
+            Mode level = new GameInstance(levelnames.get(i), levelpathmap.get(i), levelnames.get(i+1), input);
             modemap.put(level.getModeName(), level);
         }
     	Mode level = new GameInstance(levelnames.get(levelnames.size()-1), 
-    			levelpathmap.get(levelnames.size()-1), mode.getModeName());
+    			levelpathmap.get(levelnames.size()-1), mode.getModeName(), input);
     	modemap.put(level.getModeName(), level);
     }
 

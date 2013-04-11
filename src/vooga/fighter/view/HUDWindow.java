@@ -8,20 +8,19 @@ import javax.swing.JComponent;
 
 public abstract class HUDWindow extends JComponent {
 
-    private GridBagConstraints myConstraints;
+     
+	private GridBagConstraints myConstraints;
     private Container myParent;
 
-    private HUDWindow () {
-        setLayoutManager();
+    
+    public HUDWindow () {
+    	RootWindow root = new RootWindow(this);
+    	myParent = root;
+    	setLayoutManager();
         myConstraints = new GridBagConstraints();
         this.setBorder(ViewConstants.DEFAULT_BORDER);
         initializeVariables(); 
         addComponents();
-    }
-    
-    public HUDWindow (Container parent) {
-        this();
-        myParent = parent;
     }
     
     public Container getParent() {

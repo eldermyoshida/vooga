@@ -4,9 +4,12 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import vooga.fighter.controller.*;
+import vooga.fighter.input.Input;
+import vooga.fighter.input.InputClassTarget;
 import vooga.fighter.util.*;
 import vooga.fighter.objects.*;
 
@@ -15,68 +18,87 @@ import vooga.fighter.objects.*;
  * @author Jerry
  *
  */
+
+@InputClassTarget
 public class GameInstance implements Mode {
     
-    private List<GameObject> myInteractables;
+    private List<CharacterObject> myInteractables = new ArrayList<CharacterObject>();
     private String myID;
     private String myFilePath;
     private String myNextMode;
     private Map myNonInteractables;
     private boolean myStartGame = false;
+    private Input myInput;
+    private boolean shouldEnd;
+    private ObjectLoader myLoader;
     
-    public GameInstance (String levelName, String filePath, String nextMode) {
+    public GameInstance (String levelName, String filePath, String nextMode, Input input) {
         myID = levelName;
         myFilePath = filePath;
         myNextMode = nextMode;
         loadFile(filePath);
-        
+        myInput = input;
+        myLoader = new ObjectLoader(input);
+        myInteractables.add(myLoader.getTestCharacter());
+        shouldEnd = false;
     }
     
     public void loadFile(String filePath) {
-        File fileName = new File(filePath);
-        Scanner scan;
-        try {
-            scan = new Scanner(fileName);
-            loadLevel(scan);
-        }
-        catch (FileNotFoundException e) {
-           System.out.println("file not found");
-        }
+//        File fileName = new File(filePath);
+//        Scanner scan;
+//        try {
+//            scan = new Scanner(fileName);
+//            loadLevel(scan);
+//        }
+//        catch (FileNotFoundException e) {
+//           System.out.println("file not found");
+//        }
     }
     
     public void loadLevel(Scanner scan) {
-        while (scan.hasNextLine()) {
-            String line = scan.nextLine();
-            Scanner lineScan = new Scanner(line);
-            String className = lineScan.next();
-            Class<?> commandClass = null;
-            try {
-                commandClass = Class.forName("src/vooga.fighter.objects." + className);
-                
-            }
-            catch (ClassNotFoundException e) {
-                System.out.println("class not found");
-            }
-        }
+//        while (scan.hasNextLine()) {
+//            String line = scan.nextLine();
+//            Scanner lineScan = new Scanner(line);
+//            String className = lineScan.next();
+//            Class<?> commandClass = null;
+//            try {
+//                commandClass = Class.forName("src/vooga.fighter.objects." + className);
+//                
+//            }
+//            catch (ClassNotFoundException e) {
+//                System.out.println("class not found");
+//            }
+//        }
     }
     
     public void updateObjects(double stepTime, Dimension bounds) {
-        for (GameObject s : myInteractables) {
+    	for (CharacterObject s : myInteractables) {
             s.update(stepTime, bounds);
+            if (s.getCenter().getX() >= bounds.width || s.getCenter().getX() <= 0
+                || s.getCenter().getY() <= 0 || s.getCenter().getY() >= bounds.height) {
+                shouldEnd = true;
+            }
         }
-        myNonInteractables.update(stepTime, bounds);
+        //myNonInteractables.update(stepTime, bounds);
     }
-
+    
+    @Override
+    public void switchNeed() {
+        shouldEnd = !shouldEnd;
+    }
 
     @Override
     public void update (double stepTime, Dimension bounds) {
-        updateObjects(stepTime, bounds);
-        detectCollisions(myInteractables);
+        if (myInteractables != null) {
+            updateObjects(stepTime, bounds);
+            detectCollisions(myInteractables);
+            
+        }
     }
     
-    public void detectCollisions(List<GameObject> objects) {
-        for (GameObject g : objects) {
-            for (GameObject o : objects) {
+    public void detectCollisions(List<CharacterObject> objects) {
+        for (CharacterObject g : objects) {
+            for (CharacterObject o : objects) {
                 detectCollision(g, o);
             }
         }
@@ -98,12 +120,13 @@ public class GameInstance implements Mode {
 
     @Override
     public boolean needNextMode () {
-        return false;
+        return shouldEnd;
     }
 
     @Override
     public void reset () {
-        loadFile(myFilePath);
+        myInteractables.clear();
+        myInteractables.add(myLoader.getTestCharacter());
     }
 
     @Override
@@ -112,10 +135,13 @@ public class GameInstance implements Mode {
     }
     
     public void paintObjects(Graphics2D pen) {
-        for (GameObject s: myInteractables) {
-            s.paint(pen);
-        }
-        myNonInteractables.paint(pen);
+    	if (myInteractables != null) {
+    		for (CharacterObject s: myInteractables) {
+    			s.paint(pen);
+        	}
+    	
+        //myNonInteractables.paint(pen);
+    	}
     }
 
     @Override
