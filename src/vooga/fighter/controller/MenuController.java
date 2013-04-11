@@ -15,13 +15,13 @@ public class MenuController extends Controller {
     
     private static String DEFAULT_RESOURCE = "vooga.fighter.config.LevelConfig";
     
-    public MenuController (Model model, String id, ManagerDelegate manager) {
+    public MenuController (Game model, String id, ManagerDelegate manager) {
         super(model, id, manager);
     }
  
     public void createMenu(String menuName) {
         String filePath = myLevelNames.getString(menuName);
-        myModel = new Model(menuName, filePath, this);
+        myGame = new Game(menuName, filePath, this);
     }
     
     /**

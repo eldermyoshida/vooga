@@ -10,20 +10,20 @@ import vooga.fighter.game.*;
  */
 public abstract class Controller implements ControlDelegate {
     
-    protected Model myModel;
+    protected Game myGame;
     protected final Dimension DEFAULT_BOUNDS = new Dimension(800, 800);
     private ManagerDelegate myManager;
     private String myID;
     
     
-    public Controller (Model model, ManagerDelegate manager) {
-        myModel = model;
+    public Controller (Game model, ManagerDelegate manager) {
+        myGame = model;
         myManager = manager;
         myID = null;
     }
     
-    public Controller (Model model, String id, ManagerDelegate manager) {
-        myModel = model;
+    public Controller (Game model, String id, ManagerDelegate manager) {
+        myGame = model;
         myID = id;
         myManager = manager;
     }
@@ -38,7 +38,7 @@ public abstract class Controller implements ControlDelegate {
     }
     
     public void update (double elapsedTime, Dimension bounds) {
-        myModel.update(elapsedTime, bounds);
+        myGame.update(elapsedTime, bounds);
     }
     
     

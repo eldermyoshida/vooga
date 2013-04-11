@@ -4,7 +4,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ResourceBundle;
-import vooga.fighter.game.Model;
+import vooga.fighter.game.Game;
 import javax.swing.Timer;
 
 /**
@@ -23,7 +23,7 @@ public class LevelController extends Controller {
     
     private static String DEFAULT_RESOURCE = "vooga.fighter.config.LevelConfig";
     
-    public LevelController (Model model, String id, ManagerDelegate manager) {
+    public LevelController (Game model, String id, ManagerDelegate manager) {
         super(model, id, manager);
         myLevelNames = ResourceBundle.getBundle(DEFAULT_RESOURCE);
         
@@ -36,7 +36,7 @@ public class LevelController extends Controller {
     
     public void loadGame(String levelName) {
         String filePath = myLevelNames.getString(levelName);
-        myModel = new Model(levelName, filePath, this);
+        myGame = new Game(levelName, filePath, this);
         start();
     }
     
@@ -47,7 +47,7 @@ public class LevelController extends Controller {
         Timer timer = new Timer(stepTime, 
             new ActionListener() {
                 public void actionPerformed (ActionEvent e) {
-                    myModel.update((double) stepTime / ONE_SECOND, DEFAULT_BOUNDS);
+                    myGame.update((double) stepTime / ONE_SECOND, DEFAULT_BOUNDS);
                 }
             });
         // start animation
