@@ -12,9 +12,7 @@ import java.util.logging.Logger;
  * This class does not propagate LogRecords to parent Loggers, so if the
  * user wants the log printed on the console, he should manually call addHandler
  * with FORMAT_CONSOLE as input
- * In case it is needed to record the entries and exits in methods, the level
- * of the logger has to be changes to FINER through the method setLevel of this
- * class
+ * 
  * By default, the logger starts at ALL level so any type of message is logged
  * 
  * >>>Note that the user does not need to use any other class in this package 
