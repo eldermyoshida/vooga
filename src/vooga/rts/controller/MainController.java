@@ -56,10 +56,10 @@ public class MainController extends AbstractController implements Observer {
         myGameState = MainState.Loading;
         setActiveController(myLoadingController);
 
-        myTimer = new Timer((int) Game.TIME_PER_FRAME(), new ActionListener() {
+        myTimer = new Timer((int) Mode.TIME_PER_FRAME(), new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {
-                update(Game.TIME_PER_FRAME());
+                update(Mode.TIME_PER_FRAME());
                 render();
             }
         });
@@ -116,7 +116,7 @@ public class MainController extends AbstractController implements Observer {
             case Menu:
                 setActiveController(myMenuController);
                 break;
-            case Game:
+            case Mode:
                 setActiveController(myGameController);
                 break;
             default:
