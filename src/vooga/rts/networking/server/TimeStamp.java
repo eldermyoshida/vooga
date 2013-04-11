@@ -2,62 +2,20 @@ package vooga.rts.networking.server;
 
 import java.io.Serializable;
 
+
 /**
- * Represents a timeStamp that will be sent across the network. If no parameters
- * are given, it automatically uses the current time in the system as an initial 
- * time
+ * Represents a timeStamp that will be sent across the network. This is an abstract class
+ * 
  * @author Henrique Moraes
- *
+ * @author David Winegar
+ * 
  */
-public class TimeStamp implements Comparable<TimeStamp>{
-    public static final int TO_MILLISEC = 1000000;
-    private long myInitialTime;
-    private int DEFAULT_VALUE = -1;
-    private long myFinalTime;
-    
-    /**
-     * Creates a timestamp object with the current time as the initial time
-     */
-    public TimeStamp(){
-        resetStamp();
-    }
-    
-    /**
-     * Creates a timestamp object with the given initial time
-     * @param time
-     */
-    public TimeStamp(long time){
-        myInitialTime = time;
-        myFinalTime = DEFAULT_VALUE;
-    }
-    
-    /**
-     * sets the received message time for this stamp
-     * @return difference in elapsed time since this stamp was created
-     */
-    public long stamp(){
-        myFinalTime = System.nanoTime();
-        return getDifference();
-    }
-    
-    /**
-     * @return difference in elapsed time since this stamp was created 
-     * in milliseconds
-     */
-    public long getDifference(){
-        if(myInitialTime > myFinalTime)
-            myFinalTime = System.currentTimeMillis();
-        return myFinalTime - myInitialTime;
-    }
-    
-    /**
-     * Resets this stamp setting the initial time as the current one
-     */
-    public void resetStamp(){
-        myInitialTime = System.currentTimeMillis();
-        myFinalTime = DEFAULT_VALUE;
-    } 
-    
+public abstract class TimeStamp implements Serializable, Comparable<TimeStamp> {
+    private static final long serialVersionUID = -2759543981020260696L;
+    protected static final int DEFAULT_VALUE = -1;
+    private long myInitialTime = DEFAULT_VALUE;
+    private long myFinalTime = DEFAULT_VALUE;
+
     /**
      * 
      * @return time message was created or reset in milliseconds
@@ -65,7 +23,7 @@ public class TimeStamp implements Comparable<TimeStamp>{
     public long getInitialTime () {
         return myInitialTime;
     }
-    
+
     /**
      * 
      * @return time this message was stamped in milliseconds
@@ -73,37 +31,66 @@ public class TimeStamp implements Comparable<TimeStamp>{
     public long getFinalTime () {
         return myFinalTime;
     }
-    
+
     /**
-     * @param time value to be converted
-     * @return time in nanoseconds converted to milliseconds
+     * Resets this stamp setting the initial time as the current one
      */
-    private long toMilliseconds(long time){
-        return time/TO_MILLISEC;
+    public abstract void resetStamp ();
+
+    /**
+     * Returns the difference between initial and final times.
+     * 
+     * @return difference in elapsed time since this stamp was created
+     *         in milliseconds
+     */
+    public abstract long getDifference ();
+
+    /**
+     * sets the received message time for this stamp
+     * 
+     * @return difference in elapsed time since this stamp was created
+     */
+    public abstract long stamp ();
+
+    /**
+     * sets the received message time for this stamp
+     * 
+     * @return difference in elapsed time since this stamp was created
+     */
+    public abstract long stamp (long time);
+
+    /**
+     * Used by subclasses to set initial time.
+     */
+    protected void setInitialTime (long time) {
+        myInitialTime = time;
     }
-    
+
+    /**
+     * Used by subclasses to set final time.
+     */
+    protected void setFinalTime (long time) {
+        myFinalTime = time;
+    }
+
     @Override
     public int hashCode () {
-        return (int) (myInitialTime * 200 - 13);
+        return (int) (myInitialTime * 200 - 13 + myFinalTime * 30 + 23);
     }
-    
+
     @Override
-    public boolean equals(Object object) {
-        if(object == null) {
-            return false;
-        }
-        if (!(object instanceof TimeStamp)) {
-            return false;
-        } 
-        TimeStamp message = (TimeStamp) object;
+    public boolean equals (Object object) {
+        if (object == null) { return false; }
+        if (!(object instanceof SystemTimeStamp)) { return false; }
+        SystemTimeStamp message = (SystemTimeStamp) object;
         return (getInitialTime() != message.getInitialTime());
     }
-    
+
     @Override
     public int compareTo (TimeStamp message) {
-        if(message != null && message.getFinalTime() != DEFAULT_VALUE && getFinalTime() != DEFAULT_VALUE) {
-            return (int) (getInitialTime() - message.getInitialTime());
-        }
+        if (message != null && message.getFinalTime() != DEFAULT_VALUE &&
+            getFinalTime() != DEFAULT_VALUE) { return (int) (getInitialTime() - message
+                .getInitialTime()); }
         return (int) (getInitialTime() - message.getInitialTime());
     }
 }
