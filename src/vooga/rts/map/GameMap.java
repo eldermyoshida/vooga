@@ -1,5 +1,7 @@
 package vooga.rts.map;
 
+import vooga.rts.ai.Path;
+import vooga.rts.ai.Pathfinder;
 import vooga.rts.util.Location;
 
 /**
@@ -8,7 +10,7 @@ import vooga.rts.util.Location;
  *
  */
 public class GameMap {
-
+    
     private int myNodeSize;
     private NodeMap myMap;
     
@@ -17,14 +19,19 @@ public class GameMap {
      * 
      * @param mapSize This is the size of the map in pixels
      */
-    public GameMap(NodeFactory factory, int node) {
+    public GameMap(int node) {
+        NodeFactory factory = new NodeFactory();
         myNodeSize = node;
         myMap = factory.makeMap(myNodeSize);
     }    
     
-    public MapNode getNode (Location location) {
+    public Node getNode (Location location) {
         int x = (int) location.x/myNodeSize;
         int y = (int) location.y/myNodeSize;
         return myMap.get(x, y);
+    }
+    
+    public Path getPath (Pathfinder finder, Location start, Location finish) {
+        return finder.calculatePath(getNode(start), getNode(finish), myMap);
     }
 }

@@ -14,9 +14,9 @@ import vooga.rts.map.*;
  */ 
 public class Path {
     
-    private Queue<MapNode> myPath;
+    private Queue<Node> myPath;
     
-    public Path (Queue<MapNode> path) {
+    public Path (Queue<Node> path) {
         myPath = path;
     }
     
@@ -24,7 +24,7 @@ public class Path {
      * 
      * @return This methods will return the next node to go
      */
-    public MapNode getNext() { // Still need to decide what to pass in here
+    public Node getNext() { // Still need to decide what to pass in here
         return myPath.poll();
     }
     
