@@ -1,6 +1,9 @@
 package vooga.fighter.objects.utils;
 
+import java.util.ArrayList;
+import java.util.List;
 import vooga.fighter.objects.CharacterObject;
+import vooga.fighter.objects.Player;
 
 /**
  * Represents an effect placed on a character (or several).
@@ -11,12 +14,12 @@ import vooga.fighter.objects.CharacterObject;
 public abstract class Effect {
     
     private Counter myCounter;
-    private CharacterObject myTarget;
+    private List<CharacterObject> myTargets;
     private boolean isActive;
     
     public Effect() {
         myCounter = null;
-        myTarget = null;
+        myTargets = new ArrayList<CharacterObject>();
         isActive = false;        
     }
     
@@ -26,17 +29,17 @@ public abstract class Effect {
      * activate the effect as well.
      */
     public void addTarget(CharacterObject target) {
-        myTarget = target;
+        myTargets.add(target);
         isActive = true;
         //myCounter = new Counter();
         //myCounter.setCounter(count);
     }
     
     /**
-     * Returns the target of the effect, or null if none is set.
+     * Returns the targets of the effect in a list.
      */
-    public CharacterObject getTarget() {
-        return myTarget;
+    public List<CharacterObject> getTarget() {
+        return myTargets;
     }
     
     /**
@@ -50,6 +53,13 @@ public abstract class Effect {
      * Creates a clone of this effect.
      */
     public abstract Effect getCloneOfEffect();
+    
+    /**
+     * Adds the effect to a certain player's list of effects.
+     */
+    public void addEffectToPlayer(Player player) {
+        
+    }
     
     /**
      * Applies effect to target

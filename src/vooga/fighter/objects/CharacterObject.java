@@ -20,7 +20,6 @@ import vooga.fighter.util.Vector;
  * @author alanni, james
  * 
  */
-@InputClassTarget
 public class CharacterObject extends MoveableGameObject {
 
     private Map<String,Integer> myProperties;    

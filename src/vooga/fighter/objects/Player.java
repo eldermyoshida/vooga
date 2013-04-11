@@ -1,6 +1,9 @@
 package vooga.fighter.objects;
 
+import java.util.List;
 import vooga.fighter.input.Input;
+import vooga.fighter.objects.utils.Counter;
+import vooga.fighter.objects.utils.Effect;
 import vooga.fighter.objects.utils.Health;
 
 /**
@@ -19,6 +22,7 @@ public class Player {
 
     private Health myHealth;
     private Input myInput;
+    private List<Effect> myEffects;    
     
     /**
      * Constructs a new player object.
@@ -43,6 +47,10 @@ public class Player {
      */
     public int changeHealth(int amount) {
         return myHealth.changeHealth(amount);
+    }    
+    
+    public void update() {
+
     }
         
     /**
