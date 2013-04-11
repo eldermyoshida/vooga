@@ -21,8 +21,8 @@ public abstract class Message implements Serializable, Comparable<Message> {
      * Creates a timestamp for this message with the given time 
      * as the initial time
      */
-    public Message (long timeSent) {
-        myTimeStamp = new UserTimeStamp(timeSent);
+    public Message (TimeStamp timeStamp) {
+        myTimeStamp = timeStamp;
     }
    
     /**
@@ -55,6 +55,13 @@ public abstract class Message implements Serializable, Comparable<Message> {
      */
     public void stampTime(){
         myTimeStamp.stamp();
+    }
+    
+    /**
+     * Call this method to mark the time received (final time)
+     */
+    public void stampTime(long time){
+        myTimeStamp.stamp(time);
     }
 
     /**
