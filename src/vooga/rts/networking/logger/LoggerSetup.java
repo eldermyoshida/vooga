@@ -7,7 +7,6 @@ import java.net.Socket;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.MemoryHandler;
-import java.util.logging.SocketHandler;
 
 /**
  * Helper that sets handlers for the logger

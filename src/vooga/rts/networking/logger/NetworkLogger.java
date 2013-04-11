@@ -7,8 +7,6 @@ import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
-import java.util.logging.StreamHandler;
 
 /**
 * A class that handles a logger. It makes use of the singleton pattern
@@ -19,6 +17,7 @@ import java.util.logging.StreamHandler;
 * In case it is needed to record the entries and exits in methods, the level
 * of the logger has to be changes to FINER through the method setLevel of this 
 * class
+* By default, the logger starts at ALL level so any type of message is logged
 * 
 * @author Henrique Moraes
 */
@@ -33,7 +32,6 @@ public class NetworkLogger {
   
   private static NetworkLogger instance = null;
   private LoggerSetup mySetup;
-  private Formatter myDefaultFormatter;
   
   /**
    * 
@@ -52,7 +50,7 @@ public class NetworkLogger {
   private NetworkLogger(){
       mySetup = new LoggerSetup();
       LOGGER.setUseParentHandlers(false);
-      myDefaultFormatter = new SimpleFormatter();
+      LOGGER.setLevel(Level.ALL);
   }
   
   /**
@@ -65,13 +63,19 @@ public class NetworkLogger {
   
   /**
    * Adds a memory handler to the logger depending on static constants and 
-   * constraints.
+   * constraints. A memory handler pushes all log records after a message of 
+   * the specified threshold level is logged
+   * This API was designed to be able to combine any other handler to the
+   * memoryHandler
+   * WARNING the type of handler added will have the same level as the 
+   * current level of the logger. Once it is set, its level cannot be changed
    * @param handlerType the type of handler to have records pushed to
    * @param size Number of maximum records this handler will maintain
    * @param push as soon as a message of the given level is issued
+   * @param args any necessary argument to create Socket or Stream handlers
    */
-  public void addMemoryHandler(int handlerType, int size, Level pushLevel){
-      mySetup.addMemoryHandler(handlerType, size, pushLevel);
+  public void addMemoryHandler(int handlerType, int size, Level pushLevel,Object...args){
+      mySetup.addMemoryHandler(handlerType, size, pushLevel,args);
   }
   
   /**
