@@ -1,7 +1,7 @@
 package vooga.rts.ai;
 
 import vooga.rts.map.NodeMap;
-import vooga.rts.map.MapNode;
+import vooga.rts.map.Node;
 
 /**
  * 
@@ -10,6 +10,6 @@ import vooga.rts.map.MapNode;
  */
 public abstract class Pathfinder {
     
-    public abstract Path calculatePath(MapNode current, MapNode destination, 
+    public abstract Path calculatePath(Node start, Node finish, 
                                             NodeMap map);
 }
