@@ -1,4 +1,4 @@
-package vooga.rts.networking;
+package vooga.rts.networking.example;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
