@@ -16,7 +16,7 @@ public class LEGridView extends WindowComponent{
      */
     private static final long serialVersionUID = 8266835201464623542L;
     private Dimension mySize;
-    private Renderable myLevel;
+    private Renderable myGrid;
 
     public LEGridView (IView parent, double d, double e) {
         // TODO Auto-generated constructor stub
@@ -38,7 +38,7 @@ public class LEGridView extends WindowComponent{
 
     @Override
     public void render (Renderable r) {
-        myLevel = r;
+        myGrid = r;
         repaint();
     }
     
@@ -55,8 +55,8 @@ public class LEGridView extends WindowComponent{
     public void paintComponent (Graphics pen) {
         pen.setColor(Color.WHITE);
         pen.fillRect(0, 0, getSize().width, getSize().height);
-        if (myLevel != null) {
-            myLevel.paint((Graphics2D) pen);
+        if (myGrid != null) {
+            myGrid.paint((Graphics2D) pen);
         }
     }
 
