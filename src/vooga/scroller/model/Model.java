@@ -2,6 +2,7 @@ package vooga.scroller.model;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprite_superclasses.Player;
 import vooga.scroller.test_sprites.Mario;
@@ -95,5 +96,9 @@ public class Model {
 
     public Dimension getLevelBounds () {
         return myLevelManager.currentLevel().getLevelBounds();
+    }
+    
+    public Image getBackground() {
+        return myLevelManager.currentLevel().getBackground();
     }
 }

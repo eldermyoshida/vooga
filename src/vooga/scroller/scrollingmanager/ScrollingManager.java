@@ -1,6 +1,7 @@
 package vooga.scroller.scrollingmanager;
 
 import java.awt.Dimension;
+import java.awt.Image;
 import vooga.scroller.util.Location;
 import vooga.scroller.view.View;
 import vooga.scroller.model.Model;
@@ -40,6 +41,8 @@ public abstract class ScrollingManager {
     public abstract double levelUpperBoundary();
     
     public abstract double levelLowerBoundary();
+    
+    public abstract Image getBackground();
     
     
 }

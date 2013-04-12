@@ -2,6 +2,7 @@
 package vooga.scroller.scrollingmanager;
 
 import java.awt.Dimension;
+import java.awt.Image;
 import vooga.scroller.model.Model;
 import vooga.scroller.util.Location;
 import vooga.scroller.view.View;
@@ -87,5 +88,9 @@ public class DefaultScrollingManager extends ScrollingManager {
     public double levelLowerBoundary () {
         myGame.getLevelBounds().getHeight();
         return 0;
+    }
+    
+    public Image getBackground() {
+        return myGame.getBackground();
     }
 }

@@ -3,8 +3,10 @@ package vooga.scroller.level_editor;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ImageIcon;
 import vooga.scroller.util.Editable;
 import vooga.scroller.util.Sprite;
 import vooga.scroller.viewUtil.Renderable;
@@ -25,12 +27,16 @@ public class Level implements Editable, Renderable {
     private List<Sprite> myFrameOfReferenceSprites;
     private View myView;
     private ScrollingManager myScrollManager;
+    private Image myBackground;
+    //TEMPORARY 
+    private Image DEFAULT_BACKGROUND = new ImageIcon(getClass().getResource("/vooga/scroller/images/forestbackground.jpg")).getImage();
 
     public Level(int id, ScrollingManager sm){
 
         //MIGHT WANT TO INITIALIZE THIS WITH A PLAYER AS WELL
         mySize = PlatformerConstants.DEFAULT_LEVEL_SIZE;
         initFrames();
+        myBackground = DEFAULT_BACKGROUND;
     }
     
     public Level(int id){
@@ -45,6 +51,7 @@ public class Level implements Editable, Renderable {
         frameOfReferenceSize = myView.getSize();
         frameOfActionSize = calcActionFrameSize(myView.getSize());
         myScrollManager = sm;
+        myBackground = DEFAULT_BACKGROUND;
     }
 
     private void initFrames() {
@@ -67,6 +74,14 @@ public class Level implements Editable, Renderable {
     
     public void addPlayer(Player s) {
         myPlayer = s;
+    }
+    
+    public void setBackground(Image i) {
+        myBackground = i;
+    }
+    
+    public Image getBackground() {
+        return myBackground;
     }
 
     //Methods from Renderable Interface. To be called by View components.  

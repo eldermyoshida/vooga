@@ -84,15 +84,15 @@ public class View extends JComponent {
 
         // first time needs to be special cased :(
         if (myGame != null & myScrollManager != null) {
-            Image img = new ImageIcon(getClass().getResource("/vooga/scroller/images/forestbackground.jpg")).getImage();
-            
-            pen.drawImage(img, myScrollManager.leftpaintbound(), myScrollManager.upperpaintbound(), 800, 300, null);
-            pen.drawImage(img, myScrollManager.rightpaintbound(),  myScrollManager.upperpaintbound(), 800, 300, null);
-            pen.drawImage(img, myScrollManager.leftpaintbound(), myScrollManager.lowerpaintbound(), 800, 300, null);
-            pen.drawImage(img, myScrollManager.rightpaintbound(), myScrollManager.lowerpaintbound(), 800, 300, null);
+            Image img = myScrollManager.getBackground();
+            int imgwidth = img.getWidth(null);
+            int imgheight = img.getHeight(null);
+            pen.drawImage(img, myScrollManager.leftpaintbound(), myScrollManager.upperpaintbound(), imgwidth, imgheight, null);
+            pen.drawImage(img, myScrollManager.rightpaintbound(),  myScrollManager.upperpaintbound(), imgwidth, imgheight, null);
+            pen.drawImage(img, myScrollManager.leftpaintbound(), myScrollManager.lowerpaintbound(), imgwidth, imgheight, null);
+            pen.drawImage(img, myScrollManager.rightpaintbound(), myScrollManager.lowerpaintbound(), imgwidth, imgheight, null);
             myGame.paint((Graphics2D) pen);
-        }
-      
+        }      
         
         //only used for testing, please remove later
         if (win == true) {
