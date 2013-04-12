@@ -10,12 +10,17 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.io.IOException;
 import javax.swing.JComponent;
-import javax.swing.JViewport;
+import vooga.rts.input.Input;
+import vooga.rts.input.InputClassTarget;
+import vooga.rts.input.InputMethodTarget;
+import vooga.rts.input.PositionObject;
 import vooga.rts.leveleditor.components.EditableMap;
 import vooga.rts.leveleditor.components.EditableNode;
 
-public class MapPanel extends JComponent implements MouseListener, MouseMotionListener {
+@InputClassTarget
+public class MapPanel extends JComponent {
     
+    public static final String INPUT_DIR = "vooga.rts.resources.Input";
     public static final Dimension DEFAULT_MAP_SIZE  = new Dimension (600,600);
     public static final double ZOOM_RATE = 1.25;
     public static int DEFAULT_TILE_WIDTH = 50;
@@ -23,6 +28,7 @@ public class MapPanel extends JComponent implements MouseListener, MouseMotionLi
     
     private Canvas myCanvas;
     private EditableMap myMap;
+    private Input myInput;
     private int myWidth;
     private int myHeight;
     private int myTileWidth;
@@ -32,13 +38,15 @@ public class MapPanel extends JComponent implements MouseListener, MouseMotionLi
     public MapPanel(Canvas canvas) {
         myCanvas = canvas;
         myMap = new EditableMap();
+        myInput = new Input(INPUT_DIR, this);
+        myInput.addListenerTo(this);
         myWidth = 0;
         myHeight = 0;
         myTileWidth = DEFAULT_TILE_WIDTH;
         myTileHeight = DEFAULT_TILE_HEIGHT;
         setPanelSize();
-        this.addMouseListener(this);
-        this.addMouseMotionListener(this);
+        //this.addMouseListener(this);
+        //this.addMouseMotionListener(this);
     }
     
     private void setPanelSize() {
@@ -154,44 +162,53 @@ public class MapPanel extends JComponent implements MouseListener, MouseMotionLi
         myRemoveFlag = b; 
     }
     
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        placeResource(e.getX(), e.getY());
+    @InputMethodTarget(name="onLeftMouseDown")
+    public void testClick (PositionObject p) {
+        placeResource((int)(p.getX()), (int)(p.getY()));
     }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-        
+    
+    @InputMethodTarget(name="onMouseDrag")
+    public void testDrag (PositionObject p) {
+        placeResource((int)(p.getX()), (int)(p.getY()));
     }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-        
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        
-    }
-
-    @Override
-    public void mouseDragged(MouseEvent e) {
-        placeResource(e.getX(),e.getY());  
-    }
-
-
-    @Override
-    public void mouseMoved(MouseEvent arg0) {
-
-    }
-
-
-
+    
+    
+    
+//    @Override
+//    public void mouseClicked(MouseEvent e) {
+//        placeResource(e.getX(), e.getY());
+//    }
+//
+//    @Override
+//    public void mouseEntered(MouseEvent e) {
+//        
+//    }
+//
+//    @Override
+//    public void mouseExited(MouseEvent e) {
+//        
+//    }
+//
+//    @Override
+//    public void mousePressed(MouseEvent e) {
+//
+//    }
+//
+//    @Override
+//    public void mouseReleased(MouseEvent e) {
+//        
+//    }
+//
+//    @Override
+//    public void mouseDragged(MouseEvent e) {
+//        placeResource(e.getX(),e.getY());  
+//    }
+//
+//
+//    @Override
+//    public void mouseMoved(MouseEvent arg0) {
+//
+//    }
+//    
 
 }
