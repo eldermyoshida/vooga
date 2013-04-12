@@ -28,6 +28,7 @@ public class Model {
     // This is weird how it works. I think you just need to instantiate it(see constructor)
     private ModelInputs myInputs;
     private LevelManager myLevelManager;
+    private Dimesnion my
 
     /**
      * Constructs a new Model based on the view and the scrolling manager used by the game.

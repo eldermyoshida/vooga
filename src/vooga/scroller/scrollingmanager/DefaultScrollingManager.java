@@ -16,14 +16,13 @@ public class DefaultScrollingManager extends ScrollingManager {
     
     public void initGame(Model game) {
         myGame = game;
-        
     }
 
     public void initView(View view) {
         myView = view;
     }
 
-    public int upper() {
+    public int upperpaintbound() {
         if(myGame != null & myView != null) {
             int vertical = ((int) myGame.getLowerBoundary() + myView.getHeight()*1000) % myView.getHeight();
             return 0 - vertical;
@@ -31,7 +30,7 @@ public class DefaultScrollingManager extends ScrollingManager {
         return 0;
     }
 
-    public int lower() { 
+    public int lowerpaintbound() { 
         if(myGame != null & myView != null) {
             int vertical = ((int) myGame.getLowerBoundary() + myView.getHeight()*1000) % myView.getHeight();
             return myView.getHeight() - vertical;
@@ -40,7 +39,7 @@ public class DefaultScrollingManager extends ScrollingManager {
 
     }
 
-    public int left() {
+    public int leftpaintbound() {
         if(myGame != null & myView != null) {
             int horizontal = ((int) myGame.getRightBoundary() + myView.getWidth()*1000) % myView.getWidth();
             return 0 - horizontal;
@@ -48,7 +47,7 @@ public class DefaultScrollingManager extends ScrollingManager {
         return 0;
     }
 
-    public int right() {
+    public int rightpaintbound() {
         if(myGame != null & myView != null) {
             int horizontal = ((int) myGame.getRightBoundary() + myView.getWidth()*1000) % myView.getWidth();
             return myView.getWidth() - horizontal;
@@ -70,5 +69,23 @@ public class DefaultScrollingManager extends ScrollingManager {
     
     public double getLowerBoundary(Dimension frame, Location center) { 
         return (center.getY() + frame.getHeight() / 2);
+    }
+
+    public double levelRightBoundary () {
+        myGame.getLevelBounds().getWidth();
+        return 0;
+    }
+
+    public double levelLeftBoundary () {
+        return 0;
+    }
+
+    public double levelUpperBoundary () {
+        return 0;
+    }
+
+    public double levelLowerBoundary () {
+        myGame.getLevelBounds().getHeight();
+        return 0;
     }
 }

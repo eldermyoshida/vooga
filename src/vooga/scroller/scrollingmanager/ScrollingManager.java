@@ -17,13 +17,13 @@ public abstract class ScrollingManager {
 
     public abstract void initView(View view);
 
-    public abstract int upper();
+    public abstract int upperpaintbound();
 
-    public abstract int lower();
+    public abstract int lowerpaintbound();
 
-    public abstract int left();
+    public abstract int leftpaintbound();
 
-    public abstract int right();
+    public abstract int rightpaintbound();
     
     public abstract double getRightBoundary(Dimension frame, Location center);
     
@@ -32,4 +32,14 @@ public abstract class ScrollingManager {
     public abstract double getUpperBoundary(Dimension frame, Location center);
     
     public abstract double getLowerBoundary(Dimension frame, Location center);
+    
+    public abstract double levelRightBoundary();
+    
+    public abstract double levelLeftBoundary();
+    
+    public abstract double levelUpperBoundary();
+    
+    public abstract double levelLowerBoundary();
+    
+    
 }
