@@ -151,6 +151,9 @@ public class MapPanel extends JComponent implements MouseListener {
         myRemoveFlag = b; 
     }
     
+    public EditableMap getMyMap() {
+        return myMap;
+    }
 
     @Override
     public void mouseClicked(MouseEvent e) {

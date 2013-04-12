@@ -11,7 +11,14 @@ import java.util.Scanner;
 import vooga.rts.leveleditor.gui.MapPanel;
 import vooga.rts.util.Location;
 
-
+/**
+ * a class of EditableMap, this editable map is used to generate a 
+ * map that can be used for game players. This class enables them to
+ * generated their own map
+ * 
+ * @author Richard Yang
+ *
+ */
 
 
 public class EditableMap {
@@ -104,9 +111,8 @@ public class EditableMap {
         }
     }
     
-    public void generateMapFile(String fileName) throws IOException {
+    public void generateMapFile(File mySavFile) throws IOException {
         
-        File mySavFile = new File(System.getProperty("user.dir") + "./src/" + fileName);
         if(!mySavFile.exists()) {
             mySavFile.createNewFile();
         } 
@@ -159,8 +165,8 @@ public class EditableMap {
         return count;
     }
     
-    public void loadMapFile(String fileName) throws FileNotFoundException {
-        File resourceFile = new File(System.getProperty("user.dir") + "./src/" + fileName);
+    public void loadMapFile(File resourceFile) throws FileNotFoundException {
+        
         Scanner myScanner = new Scanner(resourceFile);
         String line = myScanner.nextLine();
         
@@ -321,24 +327,6 @@ public class EditableMap {
         
     }
 
-    public static void main(String[] args) {
-        EditableMap test = new EditableMap(100,100);
-        try {
-            test.loadMapFile("test.sav");
-        }
-        catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        System.out.println("Map Size : " + test.myXSize + "*" + test.myYSize );
-        int players = test.getMyPlayerNumber();
-        System.out.println("Player Number : " + players);
-        for(int i=0 ; i<players ; i++) {
-            System.out.println("Players : " + (int)test.getPlayer(i).getX() + "*" + (int)test.getPlayer(i).getY() );
-        }
-        test.printMatrix();
-       
-    }
 
     
 
