@@ -1,7 +1,7 @@
 package vooga.towerdefense.action;
 
-public interface ShootAction {
+public class ShootAction extends AttackAction {
 	
-	public class 
+	
 
 }

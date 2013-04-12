@@ -1,13 +1,13 @@
 package vooga.towerdefense.model;
 
 import java.awt.Dimension;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.gameElements.Unit;
-import vooga.towerdefense.model.Tile;
 import vooga.towerdefense.util.Location;
 
 
@@ -17,6 +17,7 @@ public class GameMap {
 	private final int TILE_SIZE = 25;
 	
     private List<Unit> myUnits;
+	private List<GameElement> myGameElements;
     private Tile[][] myGrid;
 	private Location myDestination;
 	private Dimension myDimension;
@@ -77,4 +78,13 @@ public class GameMap {
     public Tile getTile(Point point) {
 		return myGrid[(int) (point.getX() / TILE_SIZE)][(int) (point.getY() / TILE_SIZE)];
     }
+
+	public void paint(Graphics2D pen) {
+		for (Unit u : myUnits) {
+			u.paint(pen);
+		}
+		for (GameElement e : myGameElements)
+			e.paint(pen);
+
+	}
 }

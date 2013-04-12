@@ -20,7 +20,7 @@ public class MainView extends JFrame {
     private static final int WINDOW_HEIGHT = 620;
     private static final String GAMECENTER = "Game Center";
     private static final String SOCIALCENTER = "Social Center";
-    private static final String STORE = "Store";
+    private static final String STORE = "Game Store";
     private static final String[] centers = { GAMECENTER, SOCIALCENTER, STORE };
     private JPanel myButtonPanel, myViewPanel;
     private JPanel[] myViewPanelList;

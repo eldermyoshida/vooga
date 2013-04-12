@@ -9,4 +9,5 @@ public abstract class UpgradeAction {
 		myUpgradeHierarchy = upgradeHierarchy;
 	}
 
+	public abstract void checkUpgradeCondition();
 }
