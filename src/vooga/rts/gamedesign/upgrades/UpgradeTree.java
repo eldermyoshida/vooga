@@ -30,6 +30,12 @@ public class UpgradeTree {
     private List<UpgradeNode> myNextUpgrades;
     private List<InteractiveEntity> myUsers;
 
+    public UpgradeTree() {
+    	myHead = null;
+    	myCurrentUpgrades = new ArrayList<UpgradeNode>();
+    	myNextUpgrades = new ArrayList<UpgradeNode>();
+    }
+    
     /**
      * reads the input file that specifies the upgrade hierarchy and
      * information for each upgrade, and creates the UpgradeTree.
