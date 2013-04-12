@@ -59,6 +59,7 @@ public class Player extends Sprite {
     @Override
     public void update (double elapsedTime, Dimension bounds) {
         myStateManager.update(elapsedTime, bounds);
+        super.update(elapsedTime, bounds);
     }
    
     @Override

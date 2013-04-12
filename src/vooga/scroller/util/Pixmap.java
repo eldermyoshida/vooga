@@ -75,4 +75,8 @@ public class Pixmap {
     public Image getImg() {
         return myImage;
     }
+    
+    protected void setImg(Image im) {
+        myImage = im;
+    }
 }

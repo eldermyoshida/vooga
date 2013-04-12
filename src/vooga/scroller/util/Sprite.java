@@ -1,12 +1,12 @@
 
 package vooga.scroller.util;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
+import java.util.Queue;
 
 
 /**
@@ -36,6 +36,9 @@ public abstract class Sprite {
     private Pixmap myOriginalView;
     // cached for efficiency
     private Rectangle myBounds;
+    private Location myLastLocation;
+    private Location myLastLocation2;
+    private Pixmap myDefaultImage;
     
     /**
      * Create a shape at the given position, with the given size.
@@ -49,7 +52,11 @@ public abstract class Sprite {
      */
     public Sprite (Pixmap image, Location center, Dimension size, Vector velocity) {
         // make copies just to be sure no one else has access
+        
+        myDefaultImage = image;
         myOriginalCenter = new Location(center);
+        myLastLocation = new Location(myOriginalCenter.x, myOriginalCenter.y);
+        myLastLocation2 = new Location(myOriginalCenter.x, myOriginalCenter.y);
         myOriginalSize = new Dimension(size);
         myOriginalVelocity = new Vector(velocity);
         myOriginalView = new Pixmap(image);
@@ -63,6 +70,9 @@ public abstract class Sprite {
      * Currently, moves by the current velocity.
      */
     public void update (double elapsedTime, Dimension bounds) {
+        myLastLocation2 = new Location(myLastLocation.x, myLastLocation.y);
+        myLastLocation = new Location(myCenter.x, myCenter.y);
+
         // do not change original velocity
         Vector v = new Vector(myVelocity);
         v.scale(elapsedTime);
@@ -289,8 +299,17 @@ public abstract class Sprite {
         return myView;
     }
     
+    public Location lastLocation() {
+        return myLastLocation2;
+    }
+    
     public Sprite_Type getType() {
         return Sprite_Type.NONE;
+    }
+
+    public Image getDefaultImg () {
+        
+        return myDefaultImage.getImg();
     }
 
 }

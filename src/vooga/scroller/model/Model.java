@@ -3,6 +3,7 @@ package vooga.scroller.model;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import vooga.scroller.scrollingmanager.ScrollingManager;
+import vooga.scroller.sprites.animation.Animation;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.sprites.test_sprites.mario.Mario;
 import vooga.scroller.util.Location;
@@ -53,7 +54,7 @@ public class Model {
                              new Location(myView.getWidth() / 2, myView.getHeight() / 2),
                              new Dimension(30, 60),
                              myView);
-        
+        myPlayer.setView(new Animation("mario.gif", myPlayer));
     }
 
     /**
