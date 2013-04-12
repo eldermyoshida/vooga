@@ -61,11 +61,12 @@ public class Player extends Sprite {
         myScrollingManager = sm;
     }
 
+    @Override
     public void update(double elapsedTime, Dimension bounds) {
     myStateManager.update(elapsedTime, bounds);
     super.update(elapsedTime, bounds);
-        Gravity gravity = new Gravity(this);
-        //gravity.applyGravity();
+    Gravity gravity = new Gravity(this);
+        gravity.applyGravity();
 
     }
    

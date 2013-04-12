@@ -154,7 +154,8 @@ public class CollisionManager {
     }
     
     public void visit (Mario mario, MarioLib.Turtle turtle) {
-        endGame();
+        //endGame();
+        mario.hit(turtle);
         System.out.println("Mario has just collided with Turtle!");
         
     }

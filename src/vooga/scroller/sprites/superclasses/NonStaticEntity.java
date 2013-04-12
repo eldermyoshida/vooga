@@ -63,6 +63,11 @@ public class NonStaticEntity extends Sprite {
         }
         return new Vector(Sprite.DOWN_DIRECTION, speed);
     }
+
+    public int getHit () {
+        // TODO Auto-generated method stub
+        return 1;
+    }
     
 
 }
