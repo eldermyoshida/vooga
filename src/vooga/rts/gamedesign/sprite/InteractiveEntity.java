@@ -1,6 +1,7 @@
 package vooga.rts.gamedesign.sprite;
 
 import java.awt.Dimension;
+import java.awt.Graphics2D;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,6 +12,7 @@ import vooga.rts.gamedesign.Action;
 import vooga.rts.gamedesign.Weapon;
 import vooga.rts.gamedesign.factories.Factory;
 import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
+import vooga.rts.gamedesign.sprite.rtsprite.Projectile;
 
 import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
 import vooga.rts.gamedesign.strategy.attackstrategy.CannotAttack;
@@ -57,9 +59,9 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
         //UpgradeNode armor = new ArmorUpgradeNode("armor1","myHealth",40); //TESTING
         //myUpgradeTree.addUpgrade(armor); //TESTING
     }
-    
+
     public void getAttacked(InteractiveEntity a){
-    	a.attack(this);
+        a.attack(this);
     }
     public Sound getSound(){
         return mySound;
@@ -74,12 +76,12 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
         myWeaponIndex = weaponIndex;
     }
     public void attack(IAttackable a){
-    	if(myAttackStrategy.canAttack(a) && inRange((InteractiveEntity) a)){
-    		myWeapons.get(myWeaponIndex).fire((InteractiveEntity) a);
-    	}    
+        if(myAttackStrategy.canAttack(a) && inRange((InteractiveEntity) a)){
+            myWeapons.get(myWeaponIndex).fire((InteractiveEntity) a);
+        }    
     } 
     public boolean inRange(InteractiveEntity enemy){
-    	return myWeapons.get(myWeaponIndex).inRange(enemy);
+        return myWeapons.get(myWeaponIndex).inRange(enemy);
     }
 
     /**
@@ -99,7 +101,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
      * @return the current attack strategy
      */
     public AttackStrategy getAttackStrategy () {
-        
+
         return myAttackStrategy;
     }
 
@@ -114,7 +116,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
      * @throws IllegalArgumentException 
      */
     public void upgrade (UpgradeNode upgradeNode) throws IllegalArgumentException, SecurityException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException { 	
-    	upgradeNode.apply(upgradeNode.getUpgradeTree().getUsers());
+        upgradeNode.apply(upgradeNode.getUpgradeTree().getUsers());
     }
     public UpgradeTree getTree(){
         return myUpgradeTree;
@@ -139,7 +141,16 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
             myWeapons.get(myWeaponIndex).update(elapsedTime);
         }
     }
-    
+    @Override
+    public void paint(Graphics2D pen) {
+        super.paint(pen);
+        if(!myWeapons.isEmpty()){
+            for(Projectile p : getWeapons().get(getWeaponIndex()).getProjectiles()) {
+                p.paint(pen);               
+            }
+        }
+    }
+
     private void initDefaultActions(){
         myActions.add(new Action("Stop", null, "Action to stop InteractiveEntity"){
             @Override
@@ -162,6 +173,6 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
             }
         });
     }
-    
+
 
 }

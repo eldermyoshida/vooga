@@ -34,14 +34,7 @@ public class Soldier extends Unit {
     public Soldier(Pixmap image, Location center, Dimension size, Sound sound, int teamID, int health) {
         super(image, center, size, sound, teamID, health);
     }
-    @Override
-    public void paint(Graphics2D pen) {
-        super.paint(pen);
-        for(Projectile p : getWeapons().get(getWeaponIndex()).getProjectiles()) {
-            p.paint(pen);               
-        }
-
-    }
+    
     public void upgradeHealth (int armor) { // TESTING PURPOSE
         setHealth(getHealth() + armor);
     }

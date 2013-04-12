@@ -120,6 +120,7 @@ public class GameEntity extends GameSprite {
         Vector v = new Vector(myVelocity);
         v.scale(elapsedTime);
         translate(v);
+        resetBounds();
     }
 
     public void changeHealth (int change) {
