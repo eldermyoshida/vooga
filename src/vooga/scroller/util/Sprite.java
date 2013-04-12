@@ -311,11 +311,20 @@ public abstract class Sprite {
         return myView;
     }
     
+    /**
+     * Gives the last location of this sprite.
+     * 
+     * @return The locaiton of the sprite at the previous update.
+     */
     public Location lastLocation() {
         return myLastLocation2;
     }
-
-
+    
+    /**
+     * Returns the default image for this sprite.
+     * 
+     * @return
+     */
     public Image getDefaultImg () {
         
         return myDefaultImage.getImg();

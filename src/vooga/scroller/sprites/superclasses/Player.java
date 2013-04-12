@@ -34,7 +34,7 @@ import vooga.scroller.view.View;
 public class Player extends Sprite {
 
 //    Graphics2D pen;
-    //private View myView;
+    private View myView;
     private Location myOriginalCenter;
     private Dimension mySize;
     //private Pixmap myImage;
@@ -50,7 +50,7 @@ public class Player extends Sprite {
 
     public Player (Pixmap image, Location center, Dimension size, View view) {
         super(image, center, size);
-        //myView = view;
+        myView = view;
         myOriginalCenter = center;
         mySize = size;
         //myImage = image;
@@ -67,7 +67,7 @@ public class Player extends Sprite {
    
     @Override
     public void paint (Graphics2D pen) {
-        super.getView().paint(pen, myOriginalCenter, mySize);
+        super.getView().paint(pen, new Location(myView.getWidth()/2, myView.getHeight()/2), mySize);
     }
     
     public void changeState(int stateID) {

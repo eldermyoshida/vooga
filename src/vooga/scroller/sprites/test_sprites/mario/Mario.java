@@ -14,19 +14,12 @@ public class Mario extends Player {
     List<State> myStates;    
     State currentState; 
     View myView;
-    private Location myOriginalCenter;
-    private Dimension mySize;
-    private Pixmap myImage;
-    
+ 
     
 
     public Mario (Pixmap image, Location center, Dimension size, View view) {
         super(image, center, size, view);
         myView = view;
-        myOriginalCenter = center;
-        mySize = size;
-        myImage = image;
-        // TODO Auto-generated constructor stub
     }
 
     public void print() {

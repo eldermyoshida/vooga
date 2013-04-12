@@ -6,8 +6,19 @@ import vooga.scroller.sprites.test_sprites.mario.animation_states.LeftWalk;
 import vooga.scroller.sprites.test_sprites.mario.animation_states.RightWalk;
 import vooga.scroller.sprites.test_sprites.mario.animation_states.Stand;
 
+/**
+ * Initiates a list of animations for a sprite to use.
+ * 
+ * @author Scott Valentine
+ *
+ */
 public class AnimationFactory {
 
+    /**
+     * Generates animation states that can be used by sprites.
+     * 
+     * @return A List of all possible animation states.
+     */
     public List<AnimationState> generateAnimations () {
         
         List<AnimationState> res = new ArrayList<AnimationState>();

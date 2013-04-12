@@ -8,18 +8,34 @@ import java.util.List;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.Sprite;
 
-
-public class Animation extends Pixmap{
+/**
+ * Represents an animation that depends on different movements of a sprite.
+ * 
+ * @author Scott Valentine
+ *
+ */
+public class Animation extends Pixmap {
 
     private List<AnimationState> myAnimations;
     private Sprite mySprite;
-    
+    private Image myDefaultImage;
+
+    /**
+     * Creates a new animation that acts on a sprite.
+     * 
+     * @param defaultImageFile is the file path of the default image for this animation.
+     * @param sp is the sprite on that this animation animates.
+     */
     public Animation (String defaultImageFile, Sprite sp) {
         super(defaultImageFile);
+        myDefaultImage = super.getImg();
         mySprite = sp;
         initAnimations();
     }
     
+    /**
+     * Initiates all of the animationStates used in this animation.
+     */
     private void initAnimations () {
         AnimationFactory af = new AnimationFactory();
         myAnimations = af.generateAnimations();       
@@ -31,14 +47,23 @@ public class Animation extends Pixmap{
      * @return
      */
     private Image getImage() {
-        for(AnimationState as: myAnimations) {
-            if(as.validAnimation(mySprite)) {
+        for (AnimationState as: myAnimations) {
+            if (as.validAnimation(mySprite)) {
                 return as.getImage();
             }
         }
-        return mySprite.getDefaultImg();
+        return this.getDefaultImg();
     }
     
+    /**
+     * Gives the default image of this animation.
+     * 
+     * @return The default image of this animation.
+     */
+    private Image getDefaultImg () {
+        return myDefaultImage;
+    }
+
     @Override
     public void paint (Graphics2D pen, Point2D center, Dimension size, double angle) {
         Image image = getImage();
@@ -46,6 +71,4 @@ public class Animation extends Pixmap{
         super.paint(pen, center, size, angle);
         
     }
-
-
 }
