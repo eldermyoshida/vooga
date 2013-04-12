@@ -49,7 +49,7 @@ public class Player extends Sprite {
     protected static final int MOVE_SPEED = 10;    
     public static final Vector LEFT_VELOCITY = new Vector(LEFT_DIRECTION, MOVE_SPEED);
     public static final Vector RIGHT_VELOCITY = new Vector(RIGHT_DIRECTION, MOVE_SPEED);
-    public static final Vector UP_VELOCITY = new Vector(UP_DIRECTION, 50);
+    public static final Vector UP_VELOCITY = new Vector(UP_DIRECTION, MOVE_SPEED);
     public static final Vector DOWN_VELOCITY = new Vector(DOWN_DIRECTION, MOVE_SPEED);
 
     public Player (Pixmap image, Location center, Dimension size, View view) {
@@ -61,8 +61,9 @@ public class Player extends Sprite {
     }
 
     public void update(double elapsedTime, Dimension bounds) {
+        
         Gravity gravity = new Gravity(this);
-        gravity.applyGravity();
+        //gravity.applyGravity();
 
     }
    

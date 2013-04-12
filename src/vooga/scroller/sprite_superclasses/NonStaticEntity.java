@@ -54,5 +54,15 @@ public class NonStaticEntity extends Sprite {
         myPlayer = player;
     }
     
+    
+    public Vector upAndDown(int top, int bottom, int speed) {
+       
+        if (this.getTop() > top) {
+            System.out.println("Here");
+            return new Vector(Sprite.UP_DIRECTION, speed);
+        }
+        return new Vector(Sprite.DOWN_DIRECTION, speed);
+    }
+    
 
 }
