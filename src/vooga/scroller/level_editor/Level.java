@@ -3,13 +3,17 @@ package vooga.scroller.level_editor;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ImageIcon;
 import vooga.scroller.util.Editable;
 import vooga.scroller.util.Location;
 import vooga.scroller.util.Sprite;
 import vooga.scroller.viewUtil.Renderable;
+import vooga.scroller.collision_handlers.CollisionManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
+import vooga.scroller.sprite_superclasses.NonStaticEntity;
 import vooga.scroller.sprite_superclasses.Player;
 import vooga.scroller.util.PlatformerConstants;
 import vooga.scroller.view.View;
@@ -25,12 +29,16 @@ public class Level implements Editable, Renderable {
     private List<Sprite> myFrameOfReferenceSprites;
     private View myView;
     private ScrollingManager myScrollManager;
+    private Image myBackground;
+    //TEMPORARY 
+    private Image DEFAULT_BACKGROUND = new ImageIcon(getClass().getResource("/vooga/scroller/images/forestbackground.jpg")).getImage();
 
     public Level(int id, ScrollingManager sm){
 
         //MIGHT WANT TO INITIALIZE THIS WITH A PLAYER AS WELL
         mySize = PlatformerConstants.DEFAULT_LEVEL_SIZE;
         initFrames();
+        myBackground = DEFAULT_BACKGROUND;
     }
     
     public Level(int id){
@@ -45,6 +53,7 @@ public class Level implements Editable, Renderable {
         frameOfReferenceSize = myView.getSize();
         frameOfActionSize = calcActionFrameSize(myView.getSize());
         myScrollManager = sm;
+        myBackground = DEFAULT_BACKGROUND;
     }
 
     private void initFrames() {
@@ -65,8 +74,31 @@ public class Level implements Editable, Renderable {
             mySprites.add(s);
     }
     
+    public void removeSprite(Sprite s) {
+        mySprites.remove(s);
+    }
+    
     public void addPlayer(Player s) {
         myPlayer = s;
+        for (Sprite sprite : mySprites) {
+
+            if (sprite instanceof NonStaticEntity) {
+                addPlayerToSprite((NonStaticEntity) sprite);
+            }
+            
+        }
+    }
+    
+    public void addPlayerToSprite(NonStaticEntity sprite) {
+        sprite.addPlayer(myPlayer);
+    }
+    
+    public void setBackground(Image i) {
+        myBackground = i;
+    }
+    
+    public Image getBackground() {
+        return myBackground;
     }
 
     //Methods from Renderable Interface. To be called by View components.  
@@ -84,6 +116,7 @@ public class Level implements Editable, Renderable {
             for(Sprite s: myFrameOfActionSprites) {
                 s.update(elapsedTime, bounds);
             }
+            intersectingSprites();
         }
     }
 
@@ -119,10 +152,10 @@ public class Level implements Editable, Renderable {
     private boolean checkRange(Sprite sprite, Dimension frame) {
         //This is pretty hacky, I am trying to think of a more elegant way
         if(myPlayer == null ||
-                getLeftBoundary() > sprite.getX()
-                || getRightBoundary() < sprite.getX()
-                || getLowerBoundary() < sprite.getY()
-                || getUpperBoundary() > sprite.getY()) {
+                getLeftBoundary(frame) > sprite.getX()
+                || getRightBoundary(frame) < sprite.getX()
+                || getLowerBoundary(frame) < sprite.getY()
+                || getUpperBoundary(frame) > sprite.getY()) {
             return false;
         }
         return true;
@@ -133,6 +166,21 @@ public class Level implements Editable, Renderable {
         return temp;
     }
     
+    public double getRightBoundary(Dimension frame) {
+        return myScrollManager.getRightBoundary(frame, myPlayer.getCenter());
+    }
+    
+    public double getLeftBoundary(Dimension frame) {
+        return myScrollManager.getLeftBoundary(frame, myPlayer.getCenter());
+    }
+    
+    public double getUpperBoundary(Dimension frame) {
+        return myScrollManager.getUpperBoundary(frame, myPlayer.getCenter());
+    }
+    
+    public double getLowerBoundary(Dimension frame) { 
+        return myScrollManager.getLowerBoundary(frame, myPlayer.getCenter());
+    }
     public double getRightBoundary() {
         return myScrollManager.getRightBoundary(frameOfReferenceSize, myPlayer.getCenter());
     }
@@ -148,6 +196,7 @@ public class Level implements Editable, Renderable {
     public double getLowerBoundary() { 
         return myScrollManager.getLowerBoundary(frameOfReferenceSize, myPlayer.getCenter());
     }
+
 
     public Dimension getLevelBounds() {
         return mySize;
@@ -172,5 +221,31 @@ public class Level implements Editable, Renderable {
     public void deleteSprite (int x, int y) {
         // TODO Auto-generated method stub
         
+    }
+    
+    private void intersectingSprites () {
+        Sprite obj1;
+        Sprite obj2;
+        CollisionManager CM = new CollisionManager(this);
+
+       mySprites.add(myPlayer);
+        
+        for (int i = 0; i < mySprites.size(); i++) {
+            for (int j = i + 1; j < mySprites.size(); j++) {     
+                obj1 = mySprites.get(i);
+                obj2 = mySprites.get(j);
+                if (obj1.intersects(obj2)) {
+                    CM.handleCollision(obj1, obj2);
+                    CM.handleCollision(obj2, obj1);
+                }
+
+            }
+        }
+        
+       mySprites.remove(mySprites.size()-1);
+    }
+    
+    public View getView() {
+        return myView;
     }
 }

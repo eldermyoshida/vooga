@@ -6,6 +6,8 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.util.List;
 import vooga.scroller.design_patterns.State;
+import vooga.scroller.scrollingmanager.ScrollingManager;
+import vooga.scroller.util.Gravity;
 import vooga.scroller.util.Location;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.Sprite;
@@ -32,12 +34,14 @@ import vooga.scroller.view.View;
 public class Player extends Sprite {
 
 //    Graphics2D pen;
-    List<State> myStates;
-    State currentState; 
-    View myView;
+    private List<State> myStates;
+    private State currentState; 
+    private View myView;
     private Location myOriginalCenter;
     private Dimension mySize;
     private Pixmap myImage;
+    private ScrollingManager myScrollingManager;
+    
     
     // Used for testing purposes only
     protected static final int MOVE_LEFT = KeyEvent.VK_A;
@@ -50,21 +54,25 @@ public class Player extends Sprite {
     public static final Vector UP_VELOCITY = new Vector(UP_DIRECTION, MOVE_SPEED);
     public static final Vector DOWN_VELOCITY = new Vector(DOWN_DIRECTION, MOVE_SPEED);
 
-    public Player (Pixmap image, Location center, Dimension size, View view) {
+    public Player (Pixmap image, Location center, Dimension size, View view, ScrollingManager sm) {
         super(image, center, size);
         myView = view;
         myOriginalCenter = center;
         mySize = size;
         myImage = image;
+        myScrollingManager = sm;
     }
 
     public void update(double elapsedTime, Dimension bounds) {
+        
+        Gravity gravity = new Gravity(this);
+        //gravity.applyGravity();
 
     }
    
     @Override
     public void paint (Graphics2D pen) {
-        myImage.paint(pen, myOriginalCenter, mySize);
+        myImage.paint(pen, myScrollingManager.playerPaintLocation(this), mySize);
     }
     
     public void changeState(State newState) {
@@ -72,7 +80,8 @@ public class Player extends Sprite {
     }
     
     public Location getOriginalCenter() {
-        return myOriginalCenter;
+        return new Location(myView.getWidth() / 2, myView.getHeight() / 2);
     }
+   
 
 }
