@@ -22,7 +22,7 @@ public class GameMap {
     private Location myDestination;
     private Dimension myDimension;
 
-    public GameMap (int height, int width, Location destination) {
+    public GameMap (int width, int height, Location destination) {
         myUnits = new ArrayList<Unit>();
         myDimension = new Dimension(width, height);
         initializeGrid();
@@ -32,18 +32,20 @@ public class GameMap {
     private void initializeGrid () {
         myGrid = new Tile[(int) (myDimension.getWidth() / TILE_SIZE)][(int) (myDimension
                 .getHeight() / TILE_SIZE)];
-        for (int i = 0; i < (int) myDimension.getWidth() / TILE_SIZE; i++)
-            for (int j = 0; j < (int) myDimension.getHeight() / TILE_SIZE; j++) {
+        for (int i = 0; i < myGrid.length; i++) {
+            for (int j = 0; j < myGrid[i].length; j++) {
                 int xLocation = (int) (i * TILE_SIZE + TILE_SIZE / 2);
                 int yLocation = (int) (j * TILE_SIZE + TILE_SIZE / 2);
                 // TODO: replace booleans with parsed values from file
                 myGrid[i][j] = new Tile(new Point(xLocation, yLocation),
                                         true, true);
-            }
+            }        
+        }
 //        for (int i = 0; i < myGrid.length; ++i) {
 //            for (int j = 0; j < myGrid[i].length; ++j) {
-//                System.out.println(myGrid[i][j]);
+//                System.out.print(myGrid[i][j] + " ");
 //            }
+//            System.out.println();
 //        }
     }
 

@@ -17,7 +17,7 @@ import vooga.towerdefense.util.Vector;
  * @author gouzhen-1
  *
  */
-public class Unit extends Sprite {
+public class Unit extends GameElement {
     private static final double DISTANCE_OFFSET = 5;
 	private Path myPath;
     private Location myDestination;
@@ -26,8 +26,9 @@ public class Unit extends Sprite {
     private Attributes myAttributes;
     private List<AbstractAction> myActions;
 
-    public Unit (Location destination, Pixmap image, Location center, Dimension size, Vector velocity) {
-        super(image, center, size, velocity);
+    public Unit (Location destination, Pixmap image, Location center, Dimension size, Vector velocity, Attributes attributes, List<AbstractAction> actions) {
+        super(image, center, size, attributes, actions);
+        setVelocity(velocity);
         myDestination = destination;
     }
 

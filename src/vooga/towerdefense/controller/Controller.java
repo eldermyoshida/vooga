@@ -35,7 +35,6 @@ public class Controller {
             
         } 
         else {
-            System.out.println(p);
             myModel.displayTileCoordinates(p);
         }
     }

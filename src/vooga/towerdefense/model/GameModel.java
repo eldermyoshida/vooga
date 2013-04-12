@@ -32,8 +32,9 @@ public class GameModel {
         Tile t = myGameMap.getTile(p);
         Point center = t.getCenter();
         myView.getTowerInfoScreen().displayInformation("(" + center.getX() + ", " + center.getY() + ")");
+//        myView.getTowerInfoScreen().displayInformation(p.toString());
     }
-
+    
     public void update (double elapsedTime) {
         updateWave(elapsedTime);
         myGameMap.update(elapsedTime);

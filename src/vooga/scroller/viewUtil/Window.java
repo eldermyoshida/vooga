@@ -27,7 +27,7 @@ import vooga.scroller.viewUtil.Renderable;
 public abstract class Window extends JFrame implements IWindow, IView {
 
     private static ResourceBundle ourResources;
-    private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
+    private static final String DEFAULT_RESOURCE_PACKAGE = "vooga.scroller.resources.";
     private static final String USER_DIR = "user.dir";
     private LEController myController;
     private JTabbedPane myTabbedPane;
@@ -122,8 +122,8 @@ public abstract class Window extends JFrame implements IWindow, IView {
      * @param tabView The Tabview that is requesting the string to be processed
      * @param s The string to be processed
      */
-    public void processCommand (WorkspaceView tabView, String s) {
-        myController.processCommand(tabView, s);
+    public void process (WorkspaceView tabView, Object o) {
+        myController.process(tabView, o);
     }
     
     /**
@@ -131,8 +131,8 @@ public abstract class Window extends JFrame implements IWindow, IView {
      * Uses the active tab
      * @param s The string to be processed
      */
-    public void processCommand (String s) {
-        processCommand(getActiveTab(), s);
+    public void process (Object o) {
+        process(getActiveTab(), o);
     }
     
     protected WorkspaceView getActiveTab() {
