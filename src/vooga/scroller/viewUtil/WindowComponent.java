@@ -30,6 +30,7 @@ public abstract class WindowComponent extends JPanel implements IView {
      */
     private WindowComponent (IView parent) {
         myBoss = parent;
+        this.setBorder(ViewConstants.DEFAULT_BORDER);
     }
     
     private Dimension getDefaultSize (double w, double h) {
@@ -54,7 +55,7 @@ public abstract class WindowComponent extends JPanel implements IView {
         initializeVariables(); 
         addComponents();
 
-        this.setBorder(ViewConstants.DEFAULT_BORDER);
+        
     }
     
     public WindowComponent (IView parent, Dimension size) {
