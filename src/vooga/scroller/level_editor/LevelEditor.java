@@ -48,8 +48,8 @@ public class LevelEditor implements ILevelEditor {
     }
 
     @Command
-    public void createSprite (int id, int x, int y) {
-        //TODO create Sprite based on id.
+    public void createSprite (int x, int y, int id) {
+        
     }
     
     @Command
