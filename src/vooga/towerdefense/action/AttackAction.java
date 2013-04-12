@@ -1,49 +1,22 @@
 package vooga.towerdefense.action;
 
-import java.util.List;
+import vooga.towerdefense.gameElements.GameElement;
+import vooga.towerdefense.gameElements.Projectile;
 
-/**
- * An attack action is an action which may contain a series of subactions that act on (potentially damage) one or more targets.
- *  
- * @author XuRui
- *
- */
-
-public abstract class AttackAction extends AbstractAction {
+public class AttackAction extends AbstractAction{
+	Attacker myInitiator;
 	
-	List<AttackAction> myAttackMoves; //list of attack moves in attack action called by game element
-	
-	public AttackAction(List<AttackAction> attackMoves){
-		myAttackMoves = attackMoves;
-	}
-
-	@Override
-	public void execute() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void execute(double elapsedTime) {
-		// TODO Auto-generated method stub
+	public AttackAction(InfoBridge info, Attacker source){
+		super(info);
 		
 	}
 	
-	/**
-	 * Get all targets for attack.
-	 * 
-	 * @param targets
-	 */
-	public abstract void getTarget(List<Targetable> targets);
-	
-	
-	/**
-	 * Act on all targets locked. 
-	 * 
-	 * @param targets
-	 */
-	public abstract void actOnTarget(List<Targetable> targets);
-	
-	
-
+	@Override
+	public void execute(GameElement initiator, double elapsedTime){
+		Targetable[] targets=getInfoBridge().getTargetsWithinRadiusOfGivenLocation(initiator.getCenter(), myInitiator.getAttackRadius(),myInitiator.getNumberOfTargets());
+		for (Targetable target: targets){
+			getInfoBridge().addGameElement(new Projectile(initiator,target));
+		}
+		
+	}
 }

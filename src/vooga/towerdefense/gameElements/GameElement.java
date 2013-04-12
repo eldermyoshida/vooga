@@ -25,10 +25,15 @@ public class GameElement extends Sprite {
         myActions = actions;
     }
     
+    public GameElement (Pixmap image, Location center, Dimension size, List<AbstractAction> actions) {
+        super(image, center, size);
+        myActions = actions;
+    }
+    
     
     public void update(double elapsedTime) {
         for (AbstractAction a : myActions) {
-            a.execute(elapsedTime);
+            a.execute(this,elapsedTime);
         }
     }
     

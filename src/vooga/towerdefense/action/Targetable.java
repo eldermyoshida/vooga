@@ -15,13 +15,13 @@ public interface Targetable {
 	 * Tracks damage taken by updating target's Attributes only if isRightAttacker returns true.
 	 * @param attack
 	 */
-	public void takeDamage(AttackAction attack);
+	public void takeDamage(double attack);
 	
 	/**
 	 * Option to define attacker type.
 	 * @param attack
 	 */
-	public void setAttackerType(AttackAction attack);
+	public void setAttackerType(ComboAttackAction attack);
 	
 	public void getAttackerType();
 	
@@ -30,7 +30,7 @@ public interface Targetable {
 	 * @param attack
 	 * @return
 	 */
-	public boolean isRightAttacker(AttackAction attack);
+	public boolean isRightAttacker(ComboAttackAction attack);
 			
 	/**
 	 * Checks to see if target is alive.

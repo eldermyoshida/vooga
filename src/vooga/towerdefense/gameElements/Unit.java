@@ -65,7 +65,7 @@ public class Unit extends GameElement {
 	
 	private void executeActions(double elapsedTime){
 		for (AbstractAction act: myActions){
-			act.execute(elapsedTime);
+			act.execute(this,elapsedTime);
 		
 		}
 	}
