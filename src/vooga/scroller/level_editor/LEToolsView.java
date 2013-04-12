@@ -19,7 +19,8 @@ import vooga.scroller.viewUtil.WindowComponent;
 public class LEToolsView extends WindowComponent {
 
     private LETools myTools;
-    private RadioGroup spriteUI;
+    private JPanel spriteUI;
+    private String selectedSprite;
 
     public LEToolsView (IView parent, double d, double e) {
         super(parent, d, e);
@@ -29,7 +30,7 @@ public class LEToolsView extends WindowComponent {
     public LEToolsView (LEWorkspaceView parent, double d, double e) {
         super(parent, d, e);
         myTools = (LETools) parent.getTools();
-        spriteUI = new RadioGroup(new CreateSpriteListener(),
+        spriteUI = new RadioGroup(new SelectSpriteListener(),
                                         myTools.getSpriteMakingOptions());
         this.add(spriteUI);
         // TODO Auto-generated constructor stub
@@ -53,21 +54,21 @@ public class LEToolsView extends WindowComponent {
         
     }
     
-    private class CreateSpriteListener implements ActionListener {
+    private class SelectSpriteListener implements ActionListener {
 
         @Override
         public void actionPerformed (ActionEvent e) {
-            createSprite(e.getActionCommand());
-            spriteUI.updateState();
+            setSelectedSprite(e.getActionCommand());
         }
         
     }
-
-    public void createSprite (String spriteID) {
-        // TODO Auto-generated method stub
-        String res = "cs " + spriteID;
-        System.out.println(res);
-        processCommand(res);
+    
+    private void setSelectedSprite(String spriteID) {
+        selectedSprite = spriteID;
+    }
+    
+    public String getSelectedSpriteID() {
+        return selectedSprite;
     }
     
     public void setTools(LETools t) {

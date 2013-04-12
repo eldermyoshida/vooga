@@ -251,13 +251,6 @@ public class RadioGroup extends JPanel {
     public static AbstractAction getTestAction() {
         return new TestAction();
     }
-    
-    /**
-     * Manual way to handle multiple-exclusion
-     */
-    public void updateState() {
-        myGrouper.clearSelection();
-    }
 }
 
 

@@ -22,7 +22,7 @@ public class LETools extends Tools {
     }
     
     public void addSpriteOption(Sprite s) {
-        icons.put(new ImageIcon(s.getView().getImg().getScaledInstance(20, 20, Image.SCALE_SMOOTH )), 
+        icons.put(new ImageIcon(s.getView().getImg().getScaledInstance(40, 40, Image.SCALE_SMOOTH )), 
                   s.getClass().getCanonicalName());
     }
 }
