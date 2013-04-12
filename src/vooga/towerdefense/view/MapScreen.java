@@ -50,9 +50,9 @@ public class MapScreen extends JPanel {
     }
     
     public void paintGridLines(Graphics pen) {
-        for (int i = 0; i < mySize.height; i+=25)
+        for (int i = 0; i < mySize.width; i+=25)
             pen.drawLine(i, 0, i, mySize.height);
-        for (int j = 0; j < mySize.width; j+=25)
+        for (int j = 0; j < mySize.height; j+=25)
             pen.drawLine(0, j, mySize.width, j);
     }
     
@@ -64,7 +64,7 @@ public class MapScreen extends JPanel {
         myMouseListener = new MouseListener() {
             @Override
             public void mouseClicked (MouseEvent e) {
-                myController.handleMapClick(e.getPoint());
+                myController.handleMapClick(e.getComponent().getLocation());
             }
             @Override
             public void mouseEntered (MouseEvent e) {
