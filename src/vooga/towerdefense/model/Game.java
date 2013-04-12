@@ -20,7 +20,7 @@ public class Game {
     public Game (Controller controller) {
         // TODO: functions to construct model from file. Probably put that in
         // GameModel constructor.
-        myController = new Controller();
+        myController = controller;
     }
 
     public void start () {
