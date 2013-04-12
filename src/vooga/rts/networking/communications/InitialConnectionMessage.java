@@ -1,6 +1,6 @@
-package vooga.rts.networking.server;
+package vooga.rts.networking.communications;
 
-import vooga.rts.networking.communications.Message;
+import vooga.rts.networking.server.TimeStamp;
 
 public class InitialConnectionMessage extends Message {
 
