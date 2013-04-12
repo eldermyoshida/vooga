@@ -246,12 +246,19 @@ public abstract class Sprite {
         return 0;
         //return Double.NaN;
     }
-    
+    /**
+     * 
+     * @param loc
+     */
     public void turnTo (Location loc) {
-    	
+    	// TODO implement this method
     }
-    
+    /**
+     * 
+     * @return
+     */
     public Location getCenter () {
     	return myCenter;
+    	// TODO check if this is the center that the units need
     }
 }
