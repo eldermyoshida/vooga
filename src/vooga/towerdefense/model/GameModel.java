@@ -13,8 +13,8 @@ public class GameModel {
     private GameMap myGameMap;
     private double myWaveTimeElapsed;
     private Wave myCurrentWave;
-
-    public GameModel (TDView view, List<Wave> waves, GameMap gameMap) {
+    
+    public GameModel(TDView view, List<Wave> waves, GameMap gameMap) {
         myView = view;
         myWaves = waves;
         myGameMap = gameMap;
