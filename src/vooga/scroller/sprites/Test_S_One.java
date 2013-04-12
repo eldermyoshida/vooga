@@ -3,7 +3,7 @@ package vooga.scroller.sprites;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import vooga.scroller.sprite_superclasses.StaticEntity;
+import vooga.scroller.sprites.superclasses.StaticEntity;
 import vooga.scroller.util.Location;
 import vooga.scroller.util.Pixmap;
 

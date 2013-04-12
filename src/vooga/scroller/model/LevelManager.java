@@ -4,7 +4,7 @@ package vooga.scroller.model;
 import java.util.List;
 import vooga.scroller.util.Location;
 import vooga.scroller.scrollingmanager.ScrollingManager;
-import vooga.scroller.sprite_superclasses.Player;
+import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.view.View;
 import vooga.scroller.level_editor.Level;
 

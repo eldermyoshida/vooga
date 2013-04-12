@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import vooga.scroller.level_editor.Level;
 import vooga.scroller.scrollingmanager.ScrollingManager;
-import vooga.scroller.test_sprites.MarioLib;
+import vooga.scroller.sprites.test_sprites.MarioLib;
 import vooga.scroller.util.Location;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.PlatformerConstants;
