@@ -10,6 +10,9 @@ import vooga.rts.util.Location;
  * @author Challen Herzberg-Brovold
  *
  */
+
+// Still need to figure how to read in terrain. Also need to figure out how to 
+// add obstructions to the nodes. Possibly use the GameMap to implement vision. 
 public class GameMap {
     
     private int myNodeSize;

@@ -5,11 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 import vooga.rts.IGameLoop;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Units;
+import vooga.rts.map.GameMap;
 
 
 public class UnitManager implements IGameLoop {
     private List<Units> myUnits;
     private List<Units> mySelectedUnits;
+
+    //At some point, adding the gameMap might be in the constructor.
     
     public void addUnit(Units u) {
         myUnits.add(u);

@@ -3,12 +3,10 @@ package vooga.rts.player;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Units;
-import vooga.rts.map.GameMap;
 import vooga.rts.util.Location;
 
 public class HumanPlayer extends Player {
     
-    private GameMap myMap;
     @Override
     public void update (double elapsedTime) {        
         super.update(elapsedTime);
@@ -22,7 +20,14 @@ public class HumanPlayer extends Player {
     public void handleRightClick(int x, int y) {
         for (Units u : getUnits().getSelected())
         {            
-            u.move(new Location(x, y), myMap);            
+            u.move(new Location(x, y));            
+        }
+    }
+    // Duplicate method 
+    public void handlRightClick(int x, int y, int z) {
+        for (Units u : getUnits().getSelected())
+        {            
+            u.move(new Location(x, y), getMap());            
         }
     }
     
