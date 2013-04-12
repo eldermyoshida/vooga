@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import vooga.scroller.util.Location;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.Sprite;
-import vooga.scroller.util.Sprite_Type;
 
 public class StaticEntity extends Sprite {
 
@@ -15,8 +14,6 @@ public class StaticEntity extends Sprite {
     }
     
     
-    public Sprite_Type getSpriteType() {
-        return Sprite_Type.STATIC;
-    }
+    
 
 }

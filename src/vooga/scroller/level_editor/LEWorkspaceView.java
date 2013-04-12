@@ -2,6 +2,7 @@
 package vooga.scroller.level_editor;
 
 import java.awt.Container;
+import java.awt.Point;
 import vooga.scroller.util.Editable;
 import vooga.scroller.viewUtil.EasyGridFactory;
 import vooga.scroller.viewUtil.IView;
@@ -36,11 +37,6 @@ public class LEWorkspaceView extends WorkspaceView {
 
 
 
-    @Override
-    public int getID () {
-        // TODO Auto-generated method stub
-        return 0;
-    }
 
     @Override
     protected void initializeVariables () {
@@ -71,11 +67,15 @@ public class LEWorkspaceView extends WorkspaceView {
     }
 
     @Override
-    public void processCommand (String command) {
+    public void process (Object isn) {
         // TODO - Need to refactor
-        String res;
-        res = command + " " + myEditorView.getSelectedSpriteID();
-        super.processCommand(res);
+        String res=new String();
+        if (isn instanceof Point) {
+            Point a = (Point)isn;
+            res = "createSprite "+ myEditorView.getSelectedSpriteID()
+                    +" "+a.x+" "+a.y;
+        }
+        super.process(res);
     }
     
     //TODO - Good design choice??

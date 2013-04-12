@@ -20,7 +20,7 @@ import javax.swing.JPanel;
 public abstract class WindowComponent extends JPanel implements IView {
 
     private GridBagConstraints myConstraints;
-    private IView myParent;
+    private IView myBoss;
 
     
     
@@ -29,16 +29,21 @@ public abstract class WindowComponent extends JPanel implements IView {
      * @param parent the parent of the View being created
      */
     private WindowComponent (IView parent) {
-        myParent = parent;
+        myBoss = parent;
     }
     
     private Dimension getDefaultSize (double w, double h) {
         // TODO Auto-generated method stub
-        Dimension base = myParent.getSize();
+        Dimension base = myBoss.getSize();
         int width = (int) (base.getWidth()*w);
         int height = (int) (base.getHeight()*h);
         Dimension rel = new Dimension (width, height);
         return rel;
+    }
+    
+    //TODO - renamed getParent() getResponsible to avoid conflict w/ container's class
+    protected IView getResponsible() {
+        return myBoss;
     }
 
 
@@ -74,8 +79,8 @@ public abstract class WindowComponent extends JPanel implements IView {
 //        return myParent;
 //    }
     
-    public void processCommand(String cmd) {
-        myParent.processCommand(cmd);
+    public void process(Object cmd) {
+        getResponsible().process(cmd);
     }
 
     

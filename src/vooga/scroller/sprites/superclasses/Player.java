@@ -7,10 +7,10 @@ import java.awt.event.KeyEvent;
 import java.util.List;
 import vooga.scroller.sprites.state.State;
 import vooga.scroller.sprites.state.StateManager;
+import vooga.scroller.util.Gravity;
 import vooga.scroller.util.Location;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.Sprite;
-import vooga.scroller.util.Sprite_Type;
 import vooga.scroller.util.Vector;
 import vooga.scroller.view.View;
 
@@ -40,6 +40,7 @@ public class Player extends Sprite {
     //private Pixmap myImage;
     private StateManager myStateManager;
     
+    
     // Used for testing purposes only
     protected static final int MOVE_SPEED = 10;    
     public static final Vector LEFT_VELOCITY = new Vector(LEFT_DIRECTION, MOVE_SPEED);
@@ -56,10 +57,12 @@ public class Player extends Sprite {
         myStateManager = new StateManager(this);
     }
 
-    @Override
-    public void update (double elapsedTime, Dimension bounds) {
-        myStateManager.update(elapsedTime, bounds);
-        super.update(elapsedTime, bounds);
+    public void update(double elapsedTime, Dimension bounds) {
+    myStateManager.update(elapsedTime, bounds);
+    super.update(elapsedTime, bounds);
+        Gravity gravity = new Gravity(this);
+        //gravity.applyGravity();
+
     }
    
     @Override
@@ -74,9 +77,6 @@ public class Player extends Sprite {
     public Location getOriginalCenter() {
         return myOriginalCenter;
     }
-    
-    public Sprite_Type getSpriteType() {
-        return Sprite_Type.PLAYER;
-    }
+   
 
 }

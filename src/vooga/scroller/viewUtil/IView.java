@@ -10,9 +10,9 @@ public interface IView {
     /**
      * Process a String representing a command.
      * 
-     * @param command - unprocessed String.
+     * @param command - unprocessed object, ideally a string.
      */
-    public void processCommand(String command);
+    public void process(Object command);
     
     
     /**

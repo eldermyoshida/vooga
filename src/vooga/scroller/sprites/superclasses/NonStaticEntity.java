@@ -7,9 +7,18 @@ import vooga.scroller.level_editor.Level;
 import vooga.scroller.util.Location;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.Sprite;
-import vooga.scroller.util.Sprite_Type;
 import vooga.scroller.util.Vector;
 
+/**
+ * This is the superclass for all entities that move. Generally 
+ * these are going to be enemies that extend this class. 
+ * 
+ * This class provides some tracking functionality as well as ways 
+ * to generate random movements. 
+ * 
+ * @author Jay Wang
+ *
+ */
 public class NonStaticEntity extends Sprite {
     
     private static Vector DEFAULT_SPEED = new Vector(0, 45);
@@ -35,8 +44,9 @@ public class NonStaticEntity extends Sprite {
     }
     
     
-    public Vector trackPlayer(int speed) {
+    public Vector trackPlayer(int speed, int radius) {
         Location player = myPlayer.getCenter();
+        if (Vector.distanceBetween(player, this.getCenter()) > (double) radius) return DEFAULT_SPEED; 
         return new Vector(Vector.angleBetween(player, this.getCenter()), speed);
     }
     
@@ -44,7 +54,15 @@ public class NonStaticEntity extends Sprite {
         myPlayer = player;
     }
     
-    public Sprite_Type getSpriteType() {
-        return Sprite_Type.NONSTATIC;
+    
+    public Vector upAndDown(int top, int bottom, int speed) {
+       
+        if (this.getTop() > top) {
+            System.out.println("Here");
+            return new Vector(Sprite.UP_DIRECTION, speed);
+        }
+        return new Vector(Sprite.DOWN_DIRECTION, speed);
     }
+    
+
 }
