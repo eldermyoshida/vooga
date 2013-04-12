@@ -2,9 +2,12 @@ package vooga.rts.gamedesign.sprite;
 
 import java.awt.Dimension;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import vooga.rts.gamedesign.Weapon;
 import vooga.rts.gamedesign.factories.Factory;
 import vooga.rts.gamedesign.sprite.rtsprite.EntityVisitor;
 import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
@@ -14,7 +17,7 @@ import vooga.rts.gamedesign.sprite.rtsprite.interactive.IOccupiable;
 
 import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
 import vooga.rts.gamedesign.strategy.attackstrategy.CannotAttack;
-import vooga.rts.gamedesign.upgrades.ArmorUpgradeNode;
+import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
 import vooga.rts.gamedesign.upgrades.UpgradeNode;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
 import vooga.rts.util.Location;
@@ -32,12 +35,15 @@ import vooga.rts.util.Sound;
  * @author Wenshun Liu
  *
  */
-public class InteractiveEntity extends GameEntity implements IAttackable, EntityVisitor{
+public abstract class InteractiveEntity extends GameEntity implements IAttackable{
 
     private UpgradeTree myUpgradeTree;
     private Sound mySound;
     private AttackStrategy myAttackStrategy;
     private int myArmor;
+    
+    private List<Weapon> myWeapons;
+    private int myWeaponIndex;
 
     private Map<String, Factory> myMakers; //WHERE SHOULD THIS GO??
 
@@ -47,36 +53,38 @@ public class InteractiveEntity extends GameEntity implements IAttackable, Entity
         //myUpgradeTree =new UpgradeTree();
         mySound = sound;
         myAttackStrategy = new CannotAttack();
+        
+        myWeapons = new ArrayList<Weapon>();
+        myWeaponIndex = 0;
 
         //UpgradeNode armor = new ArmorUpgradeNode("armor1","myHealth",40); //TESTING
         //myUpgradeTree.addUpgrade(armor); //TESTING
     }
 
-    /** 
-     *  This would accept RTSpriteVisitors and behave according to the 
-     *  visitor's visit method. This code will always run 
-     *  RTSpriteVisitor.visit(this). "this" being the subclass of RTSprite. 
-     * @throws CloneNotSupportedException 
-     */
-    public void accept(EntityVisitor visitor) {
-            visitor.visit(this);
 
+    
+    public void getAttacked(InteractiveEntity a){
+    	a.attack(this);
     }
   
-
-    public void accept(Projectile p) {
-        p.attack(this);
-    }
-
 
     public Sound getSound(){
         return mySound;
     }
-
-    public void visit(IAttackable a){
-    	myAttackStrategy.attack(a);
+    
+    
+ 
+    public void attack(IAttackable a){
+    	if(myAttackStrategy.canAttack(a) && inRange((InteractiveEntity) a)){
+    		myWeapons.get(myWeaponIndex).fire((InteractiveEntity) a);
+    	}
        
             
+    }
+    
+    
+    public boolean inRange(InteractiveEntity enemy){
+    	return myWeapons.get(myWeaponIndex).inRange(enemy);
     }
 
     /**
@@ -110,8 +118,8 @@ public class InteractiveEntity extends GameEntity implements IAttackable, Entity
      * @throws SecurityException 
      * @throws IllegalArgumentException 
      */
-    public void upgrade (UpgradeNode upgradeNode) throws IllegalArgumentException, SecurityException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException {
-        upgradeNode.apply(this);
+    public void upgrade (UpgradeNode upgradeNode) throws IllegalArgumentException, SecurityException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException { 	
+    	upgradeNode.apply(upgradeNode.getUpgradeTree().getUsers());
     }
 
     public UpgradeTree getTree(){
@@ -121,16 +129,16 @@ public class InteractiveEntity extends GameEntity implements IAttackable, Entity
     public int calculateDamage(int damage) {
         return damage * (1-(myArmor/(myArmor+100)));
     }
+    
+    public boolean hasWeapon(){
+        return !myWeapons.isEmpty();
+    }
+    public Weapon getWeapon(){
+        return myWeapons.get(0);
+    }
+    public void addWeapons(Weapon weapon) {
+        myWeapons.add(weapon);
+    }
 
-	@Override
-	public void visit(IOccupiable o) {
-		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	public void visit(IGatherable g) {
-		// TODO Auto-generated method stub
-		
-	}
 }

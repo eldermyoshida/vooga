@@ -20,8 +20,8 @@ public class CannotGather implements GatherStrategy {
 	
 
 	@Override
-	public void gather(IGatherable g) {
-		//do nothing
+	public boolean canGather(IGatherable g) {
+		return false;
 	}
 
 }

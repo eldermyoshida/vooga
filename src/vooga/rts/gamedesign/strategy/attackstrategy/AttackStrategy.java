@@ -24,8 +24,7 @@ import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
  */
 public interface AttackStrategy {
 
-    public void attack(IAttackable a);
-    public void update(double elapsedTime);
+    public boolean canAttack(IAttackable a);
 
   
 }

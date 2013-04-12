@@ -30,35 +30,34 @@ public class GameDesignMain {
      * @throws IllegalArgumentException 
      */
     public static void main(String[] args) {
+    	
 
         Pixmap p = new Pixmap(ResourceManager.instance().loadFile("images/soldier.png"));
-        Location l = new Location(40,50);
+        Location l1 = new Location(40,50);
+        Location l2 = new Location(200,200);
         Dimension s = new Dimension(100,100);
         Sound soun = new Sound("pikachu.wav");
 
-        Unit a = new Soldier(p,l,s,soun,20,40);
+        Unit a = new Soldier(p,l1,s,soun,100,40);
         a.setAttackStrategy(new CannotAttack());
 
-        Unit b = new Soldier(p,new Location(20,30),s,soun,20,50);
-        Projectile proj = new Projectile(new Pixmap(ResourceManager.instance().loadFile("images/bullet.png")), new Location(20,30), new Dimension(30, 30), 1, 10, 1);
+        Unit b = new Soldier(p,l2,s,soun,20,50);
+        Projectile proj = new Projectile(new Pixmap(ResourceManager.instance().loadFile("images/bullet.png")), l2, new Dimension(30, 30), 1, 10, 1);
         b.setAttackStrategy(new CanAttack());
         
         
-        ((CanAttack) b.getAttackStrategy()).addWeapons(new Weapon(0, proj, 50, new Location(20,30),20));
-        if(((CanAttack)b.getAttackStrategy()).getWeapon().inRange(a, b.getCenter())){
-            //u2.accept(u1);
-            System.out.println("lol in range");
-            try {
-                ((CanAttack)b.getAttackStrategy()).getWeapon().fire(a);
-            }
-            catch (CloneNotSupportedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        } 
+       b.addWeapons(new Weapon(0, proj, 50, new Location(20,30),20));
+       
+        a.getAttacked(b);
         
-        Unit c = new Soldier(p,l,s,soun,20,40);
-        c.setAttackStrategy(new CannotAttack());
+        for(int i = 0 ; i < 50 ; i++){
+        	System.out.println(i);
+        	proj.update(1.0);
+        	if(a.collidesWith(proj)){
+        		System.out.println("enemy hit");
+        	}
+        	
+        }
         
         
     }

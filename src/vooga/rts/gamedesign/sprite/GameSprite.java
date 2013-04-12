@@ -137,7 +137,7 @@ public abstract class GameSprite extends Sprite {
      * @return true if the two RTsprites collided and false if the RTSprites
      * did not collide.
      */
-    public boolean interactsWith(GameEntity gameEntity) {
+    public boolean collidesWith(GameEntity gameEntity) {
         return getBounds().intersects(gameEntity.getBounds());
     }
 

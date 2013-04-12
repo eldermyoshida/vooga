@@ -1,0 +1,10 @@
+<?xml version="1.0"standalone="yes"encoding="UTF-8"?>
+<!-- This is a comment -->
+
+<GameDesign>
+	<Upgrade>
+		<type>ARMOR</type>
+			<upgradeNode id=1 name="WorstArmor" object=health value=50></name>
+			<upgradeNode id=2 name="BestArmor" object=damage value=30></name>
+	</Upgrade>
+</GameDesign>

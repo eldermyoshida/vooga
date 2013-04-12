@@ -1,8 +1,8 @@
 package vooga.rts.gamedesign.strategy.occupystrategy;
 
+
 import vooga.rts.gamedesign.sprite.Building;
 import vooga.rts.gamedesign.sprite.Unit;
-import vooga.rts.gamedesign.sprite.Units;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.IOccupiable;
 
 /**
@@ -24,8 +24,6 @@ import vooga.rts.gamedesign.sprite.rtsprite.interactive.IOccupiable;
  */
 public interface OccupyStrategy {
 
-  public void occupy(IOccupiable o);
-
-  public void occupy(Unit unit);
+  public boolean canOccupy(IOccupiable o);
 
 }

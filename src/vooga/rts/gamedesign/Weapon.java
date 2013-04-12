@@ -37,6 +37,7 @@ public class Weapon {
     private int maxCooldown;
     private int cooldown;
     private Ellipse2D myRangeCircle;
+    private Location myCenter;
 
     /**
      * Creates a new weapon with default damage and projectile.
@@ -49,30 +50,25 @@ public class Weapon {
         myProjectile = projectile;
         myRange = range;
         maxCooldown = cooldownTime;
-        myRangeCircle = new Ellipse2D.Double(center.getX(), center.getY(), range, range);
+        myCenter = center;
         myProjectiles = new ArrayList<Projectile>();
     }
 
     /**
      * This method is used by the weapon to attack an RTSprite.
      * 
-     * @throws CloneNotSupportedException
+     * 
      */
     public void fire (InteractiveEntity toBeShot) {
 
         System.out.println("Health of enemy " + toBeShot.getHealth());
         System.out.println("cooldown " + cooldown);
-        if (cooldown == 0) {
+        
             // should set the velocity of the projectile to the location of the toBeshot
-            myProjectile.attack(toBeShot);
-            // myProjectile.move(toBeShot.getCenter()); is NOT working :( dumb angles
-            // myProjectile.setTarget(toBeShot);
-            myProjectiles.add(myProjectile);
-            System.out.println("Weapon has fired");
-            setCooldown(maxCooldown);
-        }
-        System.out.println("Health of enemy " + toBeShot.getHealth() +
-                           "number of projectiles fired " + myProjectiles.size());
+        myProjectile.setTarget(toBeShot);
+        setCooldown(maxCooldown);
+        
+        
     }
 
     /**
@@ -104,10 +100,10 @@ public class Weapon {
      * @return true if the interactive is in the range of the weapon and false
      *         if the interactive is out of the range of the weapon
      */
-    public boolean inRange (InteractiveEntity interactive, Location center) {
+    public boolean inRange (InteractiveEntity enemy) {
         // add z axis
-        myRangeCircle = new Ellipse2D.Double(center.getX(), center.getY(), myRange, myRange);
-        return myRangeCircle.contains(interactive.getCenter());
+        myRangeCircle = new Ellipse2D.Double(myCenter.getX(), myCenter.getY(), myRange, myRange);
+        return myRangeCircle.contains(enemy.getCenter());
     }
 
     /**
@@ -137,12 +133,7 @@ public class Weapon {
     }
 
     public void update (double elapsedTime) {
-        for (Projectile p : myProjectiles) {
-            p.update(elapsedTime);
-            if (p.isDead()) {
-                myProjectiles.remove(p);
-            }
-        }
+        
         decrementCooldown();
     }
 }
