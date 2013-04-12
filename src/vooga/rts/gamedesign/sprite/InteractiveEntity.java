@@ -72,6 +72,9 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     public int getWeaponIndex(){
         return myWeaponIndex;
     }
+    public List<Action> getActions(){
+        return myActions;
+    }
     public void setWeaponIndex(int weaponIndex){
         myWeaponIndex = weaponIndex;
     }
@@ -127,9 +130,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     public boolean hasWeapon(){
         return !myWeapons.isEmpty();
     }
-    public Weapon getWeapon(){
-        return myWeapons.get(0);
-    }
+    
     public void addWeapons(Weapon weapon) {
         myWeapons.add(weapon);
     }

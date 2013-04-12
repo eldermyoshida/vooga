@@ -30,13 +30,11 @@ public class UpgradeTree {
     private List<UpgradeNode> myNextUpgrades;
     private List<InteractiveEntity> myUsers;
 
-    /**
-     * reads the input file that specifies the upgrade hierarchy and
-     * information for each upgrade, and creates the UpgradeTree.
-     * @param fileName
-     */
-    private void readFile(String fileName){
-    	//TODO: to be combined with XML
+    public UpgradeTree() {
+    	myHead = null;
+    	myCurrentUpgrades = new ArrayList<UpgradeNode>();
+    	myNextUpgrades = new ArrayList<UpgradeNode>();
+    	
     }
     
     /**

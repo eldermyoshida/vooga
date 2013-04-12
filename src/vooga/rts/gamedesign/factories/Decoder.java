@@ -15,5 +15,6 @@ import org.w3c.dom.Document;
 public abstract class Decoder {
 	Factory myFactory;
 	
-	public void create(Document doc){};
+	public <T extends Object> T create(Document doc) {
+		return null;};
 }

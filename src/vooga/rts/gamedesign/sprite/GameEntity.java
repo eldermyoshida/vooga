@@ -31,7 +31,7 @@ public class GameEntity extends GameSprite {
     private int myTeamID;
 
     private Location myCurrentLocation;
-
+    private Location myGoal;
     private Vector myOriginalVelocity;
 
 
@@ -44,6 +44,7 @@ public class GameEntity extends GameSprite {
         // ALERT THIS IS JUST FOR TESTING
         myOriginalVelocity = new Vector(0, 0);
         myVelocity = new Vector(0, 0);
+        myGoal = new Location();
     }
 
     /**
@@ -110,10 +111,7 @@ public class GameEntity extends GameSprite {
      */
     public void move (Location loc) {
         System.out.println("move is called");
-        Vector between = getCenter().difference(loc);
-        double angle = between.getAngle();
-        setVelocity(angle, 4);
-        //myCurrentLocation = new Location(loc);
+        myGoal = new Location(loc);
     }
 
     /**
@@ -121,10 +119,15 @@ public class GameEntity extends GameSprite {
      */
     // TODO: make Velocity three dimensional...
     public void update (double elapsedTime) {
-        Vector v = new Vector(myVelocity);
-        v.scale(elapsedTime);
-        translate(v);
-        resetBounds();
+        
+        if(getCenter() != myGoal){
+            Vector v = getCenter().difference(myGoal);
+            double angle = v.getAngle();
+            setVelocity(angle, 4);
+            v.scale(elapsedTime);
+            translate(v);
+        }
+        //resetBounds();
     }
 
     public void changeHealth (int change) {
