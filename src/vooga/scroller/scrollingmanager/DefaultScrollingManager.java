@@ -131,21 +131,24 @@ public class DefaultScrollingManager extends ScrollingManager {
     }
 
     public Location playerPaintLocation (Player p) {
-        double x = myView.getWidth() / 2;
-        double y = myView.getHeight() / 2;
-        if(p.getX() > (levelRightBoundary() - myView.getWidth() / 2)) {
-            x =  (myView.getWidth() / 2) + ((myView.getWidth() / 2) - (levelRightBoundary() - p.getX()));
+        double halfwidth = myView.getWidth() / 2;
+        double halfheight = myView.getHeight() / 2;
+        double x = halfwidth;
+        double y = halfheight;
+        double playerlocx = p.getX();
+        double playerlocy = p.getY();
+        if(playerlocx > (levelRightBoundary() - halfwidth)) {
+            x =  halfwidth + (halfwidth - (levelRightBoundary() - playerlocx));
         }
-        if(p.getX() < (levelLeftBoundary() + myView.getWidth() / 2)) {
-            x =  (myView.getWidth() / 2) - ((myView.getWidth() / 2) - (levelLeftBoundary() + p.getX()));
+        if(playerlocx < (levelLeftBoundary() + halfwidth)) {
+            x =  halfwidth - (halfwidth - (levelLeftBoundary() + playerlocx));
         }
-        if(p.getY() > (levelLowerBoundary() - myView.getHeight() / 2)) {
-            y =  (myView.getHeight() / 2) + ((myView.getHeight() / 2) - (levelLowerBoundary() - p.getY()));
+        if(playerlocy > (levelLowerBoundary() - halfheight)) {
+            y =  halfheight + (halfheight - (levelLowerBoundary() - playerlocy));
         }
-        if(p.getY() < (levelUpperBoundary() + myView.getHeight() / 2)) {
-            y =  (myView.getHeight() / 2) - ((myView.getHeight() / 2) - (levelUpperBoundary() + p.getY()));
-        }
-        
+        if(playerlocy < (levelUpperBoundary() + halfheight)) {
+            y =  halfheight - (halfheight - (levelUpperBoundary() + playerlocy));
+        }        
         return new Location(x, y);
         
     }
