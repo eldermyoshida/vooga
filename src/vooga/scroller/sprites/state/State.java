@@ -1,7 +1,9 @@
 
 package vooga.scroller.sprites.state;
 
+import java.awt.Dimension;
 import java.awt.Graphics2D;
+import vooga.scroller.util.Sprite;
 
 /**
  * This is our implementation of the State design pattern. This 
@@ -26,7 +28,8 @@ import java.awt.Graphics2D;
 
 public interface State {
 
-    public void draw (Graphics2D pen);   
-    public void update(); 
+    public void update (double elapsedTime, Dimension bounds);
+    public void activate (); 
+    public void deactivate();
       
 }

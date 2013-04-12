@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.util.List;
 import vooga.scroller.sprites.state.State;
+import vooga.scroller.sprites.state.StateManager;
 import vooga.scroller.util.Location;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.Sprite;
@@ -32,12 +33,11 @@ import vooga.scroller.view.View;
 public class Player extends Sprite {
 
 //    Graphics2D pen;
-    private List<State> myStates;
-    private State currentState; 
-    private View myView;
+    //private View myView;
     private Location myOriginalCenter;
     private Dimension mySize;
-    private Pixmap myImage;
+    //private Pixmap myImage;
+    private StateManager myStateManager;
     
     // Used for testing purposes only
     protected static final int MOVE_SPEED = 10;    
@@ -48,23 +48,25 @@ public class Player extends Sprite {
 
     public Player (Pixmap image, Location center, Dimension size, View view) {
         super(image, center, size);
-        myView = view;
+        //myView = view;
         myOriginalCenter = center;
         mySize = size;
-        myImage = image;
+        //myImage = image;
+        myStateManager = new StateManager(this);
     }
 
-    public void update(double elapsedTime, Dimension bounds) {
-
+    @Override
+    public void update (double elapsedTime, Dimension bounds) {
+        myStateManager.update(elapsedTime, bounds);
     }
    
     @Override
     public void paint (Graphics2D pen) {
-        myImage.paint(pen, myOriginalCenter, mySize);
+        super.getView().paint(pen, myOriginalCenter, mySize);
     }
     
-    public void changeState(State newState) {
-        currentState = newState;
+    public void changeState(int stateID) {
+        myStateManager.changeState(stateID);
     }
     
     public Location getOriginalCenter() {

@@ -4,8 +4,8 @@ package vooga.scroller.collision_handlers;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import vooga.scroller.level_editor.Level;
-import vooga.scroller.sprites.test_sprites.Mario;
 import vooga.scroller.sprites.test_sprites.MarioLib;
+import vooga.scroller.sprites.test_sprites.mario.Mario;
 import vooga.scroller.util.Direction;
 import vooga.scroller.util.Sprite;
 import vooga.scroller.view.View;
@@ -183,8 +183,8 @@ public class CollisionManager {
     }
 
     public void visit (MarioLib.Koopa koopa, Mario mario) {
+        mario.changeState(1);
         System.out.println("Koopa has just collided with Mario!");
-        
     }
 
     public void visit (MarioLib.Koopa koopa, MarioLib.Coin coin) {
