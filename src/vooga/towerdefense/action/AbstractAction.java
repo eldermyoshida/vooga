@@ -3,6 +3,7 @@ package vooga.towerdefense.action;
 import java.util.List;
 
 import vooga.towerdefense.gameElements.GameElement;
+import vooga.towerdefense.util.CoolDownManager;
 
 /**
  * An AbstractAction is superclassed to define specific Actions that can be taken by game elements. 
@@ -14,9 +15,10 @@ import vooga.towerdefense.gameElements.GameElement;
  */
 
 public abstract class AbstractAction {
-	private infoBridge myInfoBridge;
+	private InfoBridge myInfoBridge;
+	private CoolDownManager myCDManager;
 	
-	public AbstractAction(infoBridge info){
+	public AbstractAction(InfoBridge info){
 		myInfoBridge=info;
 		
 	}
@@ -40,6 +42,19 @@ public abstract class AbstractAction {
 	 */
 	public abstract void execute(GameElement initiator, double elapsedTime);
 	
+	/**
+	 * sets the time interval needed to elapse before it's ready again.
+	 * if the boolean is set to false, the action will be in Not Ready indefinitely.
+	 * @param cd
+	 * @param canBeDoneAgain
+	 */
+	public void setCoolDown(double cd, boolean canBeDoneAgain){
+		myCDManager.setCoolDown(cd, canBeDoneAgain);
+	}
 	
-	
+	public boolean isReady(){
+		return myCDManager.isReady();
+		
+	}
+
 }
