@@ -1,5 +1,5 @@
 
-package vooga.scroller.model;
+package vooga.scroller.level_management;
 
 import java.util.List;
 import vooga.scroller.util.Location;

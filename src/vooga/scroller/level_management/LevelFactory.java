@@ -1,5 +1,5 @@
 
-package vooga.scroller.model;
+package vooga.scroller.level_management;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
@@ -50,7 +50,7 @@ public class LevelFactory {
                                        ));   
         
         myCurrLevel.addSprite(new MarioLib.Platform( 
-                                    new Location(view.getWidth() - 80, view.getHeight() - 150)
+                                    new Location(500, 600)
                                     ));   
 
         myCurrLevel.addSprite(new MarioLib.Turtle(

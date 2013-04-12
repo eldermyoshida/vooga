@@ -3,6 +3,7 @@ package vooga.scroller.model;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import vooga.scroller.level_management.LevelManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.animation.Animation;
 import vooga.scroller.sprites.superclasses.Player;
