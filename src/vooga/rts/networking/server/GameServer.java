@@ -84,7 +84,7 @@ public class GameServer extends Thread implements IMessageReceiver {
     }
 
     @Override
-    public void sendMessage (Message message) {
+    public void sendMessage (Message message, ConnectionThread thread) {
         myMessageQueue.add(message);
     }
 

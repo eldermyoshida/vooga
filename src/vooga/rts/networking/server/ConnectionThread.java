@@ -58,7 +58,7 @@ public class ConnectionThread extends Thread {
                 Object obj;
                 if ((obj = myInput.readObject()) != null && obj instanceof Message) {
                     Message message = (Message) obj;
-                    myMessageServer.sendMessage(message);
+                    myMessageServer.sendMessage(message, this);
                 }
             }
             catch (IOException e) {

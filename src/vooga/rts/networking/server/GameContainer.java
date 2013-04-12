@@ -2,13 +2,12 @@ package vooga.rts.networking.server;
 
 import java.util.ArrayList;
 import java.util.List;
-import vooga.rts.networking.communications.Message;
-import vooga.rts.networking.communications.SystemMessage;
 
-public class GameContainer implements IMessageReceiver {
+public class GameContainer {
 
     private String myGameName;
     private List<ConnectionThread> threads = new ArrayList<ConnectionThread>();
+    private List<GameServer> myGameServers = new ArrayList<GameServer>();
     
     public GameContainer(String gameName) {
         myGameName = gameName;
@@ -21,11 +20,24 @@ public class GameContainer implements IMessageReceiver {
     public void addConnection (ConnectionThread thread) {
         threads.add(thread);
     }
-
-    @Override
-    public void sendMessage (Message message) {
-        if (message instanceof SystemMessage) {
-            
-        }
+    
+    private void initializeGame (int id) {
+        GameServer gameServer = new GameServer(id);
+        myGameServers.add(gameServer);
     }
+    
+    public void closeConnection (ConnectionThread thread) {
+        threads.remove(thread);
+        thread.close();
+    }
+    
+    public ConnectionThread getConnectionThread (int id) {
+        for(ConnectionThread thread : threads) {
+            if(thread.getID() == id) {
+                return thread;
+            }
+        }
+        return null;
+    }
+
 }

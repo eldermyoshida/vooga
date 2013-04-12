@@ -3,6 +3,9 @@ package vooga.rts.networking.server;
 import java.util.ArrayList;
 import java.util.List;
 import vooga.rts.networking.communications.Message;
+import vooga.rts.networking.communications.SystemMessage;
+import vooga.rts.networking.factory.Command;
+import vooga.rts.networking.factory.Factory;
 
 
 /**
@@ -20,7 +23,7 @@ public class MatchmakerServer extends Thread implements IMessageReceiver {
     private List<GameContainer> myGameContainers = new ArrayList<GameContainer>();
     private int myGameServerID = 0;
     private ConnectionServer myConnectionServer = new ConnectionServer(this);
-
+    private Factory myFactory = new Factory();
 
     @Override
     public void run () {
@@ -48,9 +51,10 @@ public class MatchmakerServer extends Thread implements IMessageReceiver {
     }
 
     @Override
-    public void sendMessage (Message message) {
-        // TODO Auto-generated method stub
-
+    public void sendMessage (Message message, ConnectionThread thread) {
+        SystemMessage systemMessage = (SystemMessage) message;
+        Command command = myFactory.getCommand(systemMessage.getMessage());
+        command.execute(thread, this);
     }
 
 }
