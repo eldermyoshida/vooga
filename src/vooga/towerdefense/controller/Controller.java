@@ -1,10 +1,19 @@
 package vooga.towerdefense.controller;
 
+import java.awt.Graphics2D;
 import java.awt.Point;
+
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.GameModel;
 import vooga.towerdefense.view.TDView;
 
+/**
+ * As part of a MVC framework, the Controller controls how the view interacts
+ * with the model.
+ * 
+ * @author Jimmy Longley
+ * @author Erick Gonzalez
+ */
 public class Controller {
     private boolean onBuildMode;
     private GameModel myModel;
@@ -34,8 +43,8 @@ public class Controller {
     /**
      * paints the map on the view.
      */
-    public void paintMap() {
-        //TODO: paint the map to the view
+	public void paintMap(Graphics2D pen) {
+		myModel.getMap().paint(pen);
     }
     
     public static void main(String[] args) {

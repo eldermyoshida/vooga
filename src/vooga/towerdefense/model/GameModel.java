@@ -6,7 +6,13 @@ import java.util.List;
 import vooga.towerdefense.gameElements.Wave;
 import vooga.towerdefense.view.TDView;
 
-
+/**
+ * GameModel holds all of the state and behavior for a particular game of
+ * towerdefense
+ * 
+ * @author Jimmy Longley
+ * @author Erick Gonzalez
+ */
 public class GameModel {
     private TDView myView;
     private List<Wave> myWaves;
@@ -42,14 +48,19 @@ public class GameModel {
     }
 
     private void startNextWave () {
-        if (myWaves.iterator().hasNext())
-            myCurrentWave = myWaves.iterator().next();
-        else
-        // TODO: add win behavior
-        System.out.println("you win!");
+		if (myWaves.iterator().hasNext()) {
+			myCurrentWave = myWaves.iterator().next();
+		} else {
+			// TODO: add win behavior
+			System.out.println("you win!");
+		}
     }
 
 	public void displayMap() {
 		myView.getMapScreen().update();
     }
+
+	public GameMap getMap() {
+		return myGameMap;
+	}
 }
