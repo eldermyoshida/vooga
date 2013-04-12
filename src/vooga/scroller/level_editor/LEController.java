@@ -101,10 +101,12 @@ public class LEController {
      * @param cmd - command to process
      * @return ret - return int from command process
      */
-    public void processCommand (WorkspaceView t, String cmd) {
+    public void process (WorkspaceView t, Object cmd) {
         Editable m = getModelForWorkspace(t);
         System.out.println("Controller got "+ cmd);
-        myModel.processCommand(m, cmd);
+        if(cmd instanceof String) {
+            myModel.processCommand(m, (String)cmd);
+        }
         t.setRenderable((Renderable) m);
     }
 

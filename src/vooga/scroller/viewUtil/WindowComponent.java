@@ -74,8 +74,8 @@ public abstract class WindowComponent extends JPanel implements IView {
 //        return myParent;
 //    }
     
-    public void processCommand(String cmd) {
-        myParent.processCommand(cmd);
+    public void process(Object cmd) {
+        myParent.process(cmd);
     }
 
     
