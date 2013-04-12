@@ -28,9 +28,9 @@ public class NodeFactory {
             xCenter = x + nodeSize/2;
             for (int y = 0; y < yNodes; y++) {
                 yCenter = y + nodeSize/2;
-                map.put(new Node(x, y, new Location(xCenter, yCenter)), x, y);
+                map.put(new Node(x, y, new Location(xCenter, yCenter)), 0, 0);
             }
         }
-        return null;
+        return map;
     }
 }
