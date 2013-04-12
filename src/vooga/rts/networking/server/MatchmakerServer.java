@@ -5,7 +5,7 @@ import java.util.List;
 import vooga.rts.networking.communications.Message;
 import vooga.rts.networking.communications.SystemMessage;
 import vooga.rts.networking.factory.Command;
-import vooga.rts.networking.factory.Factory;
+import vooga.rts.networking.factory.CommandFactory;
 
 
 /**
@@ -23,7 +23,7 @@ public class MatchmakerServer extends Thread implements IMessageReceiver {
     private List<GameContainer> myGameContainers = new ArrayList<GameContainer>();
     private int myGameServerID = 0;
     private ConnectionServer myConnectionServer = new ConnectionServer(this);
-    private Factory myFactory = new Factory();
+    private CommandFactory myFactory = new CommandFactory();
 
     @Override
     public void run () {

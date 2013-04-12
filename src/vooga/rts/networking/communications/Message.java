@@ -1,8 +1,6 @@
 package vooga.rts.networking.communications;
 
 import java.io.Serializable;
-import vooga.rts.networking.server.SystemTimeStamp;
-import vooga.rts.networking.server.TimeStamp;
 
 
 /**

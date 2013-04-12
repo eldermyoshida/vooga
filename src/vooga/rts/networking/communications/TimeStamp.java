@@ -1,4 +1,4 @@
-package vooga.rts.networking.server;
+package vooga.rts.networking.communications;
 
 import java.io.Serializable;
 
