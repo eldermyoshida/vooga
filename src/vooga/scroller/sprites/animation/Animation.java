@@ -67,6 +67,9 @@ public class Animation extends Pixmap {
     @Override
     public void paint (Graphics2D pen, Point2D center, Dimension size, double angle) {
         Image image = getImage();
+        
+        pen.drawImage(image, -size.width / 2, -size.height / 2, size.width, size.height, null);
+        
         setImg(image);
         super.paint(pen, center, size, angle);
         
