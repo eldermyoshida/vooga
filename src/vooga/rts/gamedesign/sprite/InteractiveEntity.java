@@ -32,7 +32,7 @@ import vooga.rts.util.Sound;
  * @author Wenshun Liu
  *
  */
-public class InteractiveEntity extends GameEntity implements IAttackable, EntityVisitor{
+public abstract class InteractiveEntity extends GameEntity implements IAttackable, EntityVisitor{
 
     private UpgradeTree myUpgradeTree;
     private Sound mySound;

@@ -39,6 +39,7 @@ public class Projectile extends GameEntity implements Cloneable{
 	public Projectile clone() {
 		return this.clone();
 	}
+
 	
 	public void setTarget(InteractiveEntity target){
 		Vector between = getCenter().difference(target.getCenter());
@@ -51,5 +52,10 @@ public class Projectile extends GameEntity implements Cloneable{
 	public void update(double elapsedTime){
 	    super.update(elapsedTime);
 	    System.out.println(this.getCenter());
+	}
+
+	public void attack(InteractiveEntity interactiveEntity) {
+		interactiveEntity.changeHealth(myDamage);
+		
 	}
 }
