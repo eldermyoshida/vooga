@@ -31,7 +31,6 @@ public class GameDesignMain {
      */
     public static void main(String[] args) {
 
-
         Pixmap p = new Pixmap("soldier.png");
         Location l = new Location(40,50);
         Dimension s = new Dimension();
@@ -44,13 +43,14 @@ public class GameDesignMain {
         Projectile proj = new Bullet(new Pixmap("bullet.png"), b.getCenter(), new Dimension(30, 30), soun, 10, 1);
         b.setAttackStrategy(new CanAttack());
 
+
         ((CanAttack) b.getAttackStrategy()).addWeapons(new Gun(0, proj, 50, b.getCenter(),20));
         a.accept(b);
 
         Units c = new Soldier(p,l,s,soun,20,40);
         c.setAttackStrategy(new CannotAttack());
-        System.out.println("Soldier C before upgrade " + c.getHealth());
-        
+        System.out.println("Soldier C before upgrade " + c.getHealth());        
+
         try {
             c.upgradeNode(c.getTree().findCurrent("armor1"));
         }

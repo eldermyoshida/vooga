@@ -17,7 +17,11 @@ public class ArmorUpgradeNode extends UpgradeNode {
     }
     
     @Override
-    public void apply(Interactive interactive) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException, InstantiationException, SecurityException, NoSuchMethodException {
+    public void apply(Interactive interactive) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException, InstantiationException, SecurityException, NoSuchMethodException {        
+        if (interactive instanceof Soldier) {
+            interactive.setHealth(myValue);
+        }
+        
         Class thisClass = interactive.getClass();
         //System.out.println(thisClass.getName());
         //Object iClass = thisClass.newInstance();

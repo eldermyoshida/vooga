@@ -29,7 +29,6 @@ public class CanAttack implements AttackStrategy{
     public CanAttack(){
         myWeapons = new ArrayList<Weapon>();
         myWeaponIndex = 0;
-
     }
 
 
@@ -60,6 +59,4 @@ public class CanAttack implements AttackStrategy{
             }
         }
     }
-
-
 }

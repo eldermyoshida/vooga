@@ -1,6 +1,7 @@
 package vooga.rts.util;
 
 import java.awt.geom.Point2D;
+import com.sun.jmx.snmp.Timestamp;
 
 
 /**
@@ -16,7 +17,7 @@ public class Location extends Point2D.Double {
     // default serialization ID
     private static final long serialVersionUID = 1L;
 
-
+    
     /**
      * Create a location at the origin.
      */

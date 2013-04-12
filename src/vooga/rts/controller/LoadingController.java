@@ -27,9 +27,8 @@ public class LoadingController extends AbstractController {
             setChanged();
             notifyObservers(MainState.Menu);
         }
-        
     }
-
+    
     @Override
     public void paint (Graphics2D pen) {
         Rectangle screen = pen.getDeviceConfiguration().getBounds();
