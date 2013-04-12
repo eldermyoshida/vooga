@@ -105,11 +105,27 @@ public class DefaultScrollingManager extends ScrollingManager {
         int rightpaintbound = rightpaintbound();
         int lowerpaintbound = lowerpaintbound();
         
-        System.out.println(myGame.getLeftBoundary());
-        if(myGame.getLeftBoundary() < levelLeftBoundary()) {
-            leftpaintbound = 0;
-        }
-
+//        if(myGame.getLeftBoundary() < levelLeftBoundary()) {
+//            leftpaintbound = (int) levelLeftBoundary();
+//            rightpaintbound = (int) levelRightBoundary();
+//            System.out.println("1");
+//        }
+//        if(myGame.getRightBoundary() > levelRightBoundary()) {
+//            leftpaintbound = (int) levelLeftBoundary();
+//            rightpaintbound = (int) levelRightBoundary();
+//            System.out.println("2");
+//            
+//        }
+//        if(myGame.getLowerBoundary() > levelLowerBoundary()) {
+//            upperpaintbound = (int) levelUpperBoundary();
+//            lowerpaintbound = (int) levelLowerBoundary();
+//            System.out.println("3");
+//        }
+//        if(myGame.getUpperBoundary() < levelUpperBoundary()) {
+//            upperpaintbound = (int) levelUpperBoundary();
+//            lowerpaintbound = (int) levelLowerBoundary();
+//            System.out.println("4");
+//        }
         pen.drawImage(img, leftpaintbound, upperpaintbound, imgwidth, imgheight, null);
         pen.drawImage(img, rightpaintbound, upperpaintbound, imgwidth, imgheight, null);
         pen.drawImage(img, leftpaintbound, lowerpaintbound, imgwidth, imgheight, null);

@@ -26,7 +26,7 @@ public class PlatformerConstants {
     
     public static final Dimension ACTION_FRAME_SIZE = new Dimension(REFERENCE_FRAME_SIZE.width + 200, REFERENCE_FRAME_SIZE.height + 200);
 
-    public static final Dimension DEFAULT_LEVEL_SIZE = new Dimension(1200, 300);
+    public static final Dimension DEFAULT_LEVEL_SIZE = new Dimension(2000, 3000);
 
     /**
      * Added to fully prevent instantiation of this utility class.

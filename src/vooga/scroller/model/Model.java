@@ -51,7 +51,7 @@ public class Model {
     private void initPlayer() {
         // TODO: this is implemented by the developer. 
         myPlayer = new Mario(new Pixmap("mario.gif"),
-                             new Location(myView.getWidth() / 2, myView.getHeight() / 2),
+                             new Location(myView.getWidth(), myView.getHeight()),
                              new Dimension(30, 60),
                              myView);
         
@@ -62,6 +62,7 @@ public class Model {
      */
     public void paint (Graphics2D pen) {
         myLevelManager.currentLevel().paint(pen);
+        
     }
 
     /**

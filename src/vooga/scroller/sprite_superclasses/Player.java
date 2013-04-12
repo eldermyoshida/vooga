@@ -65,7 +65,7 @@ public class Player extends Sprite {
    
     @Override
     public void paint (Graphics2D pen) {
-        myImage.paint(pen, myOriginalCenter, mySize);
+        myImage.paint(pen, new Location(myView.getWidth() / 2, myView.getHeight() / 2), mySize);
     }
     
     public void changeState(State newState) {
@@ -73,7 +73,7 @@ public class Player extends Sprite {
     }
     
     public Location getOriginalCenter() {
-        return myOriginalCenter;
+        return new Location(myView.getWidth() / 2, myView.getHeight() / 2);
     }
     
     public Sprite_Type getSpriteType() {
