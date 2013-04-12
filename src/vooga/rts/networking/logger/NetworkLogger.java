@@ -1,5 +1,6 @@
 package vooga.rts.networking.logger;
 
+
 import java.io.OutputStream;
 import java.util.logging.Handler;
 import java.util.logging.Level;
@@ -28,6 +29,7 @@ public class NetworkLogger {
     public static final int FORMAT_CONSOLE = 1209;
     public static final int FORMAT_STREAM = 1200;
     public static final int FORMAT_SOCKET = 1333;
+    public static final int FORMAT_LOG_FILE = 1398;
 
     private static NetworkLogger instance = null;
     private LoggerSetup mySetup;
@@ -126,6 +128,14 @@ public class NetworkLogger {
      */
     public void logMessage (Level level, String message) {
         LOGGER.log(level, message);
+    }
+    
+    /**
+     * 
+     * @param fileName name of the file to write to in case a file handler is used
+     */
+    public void setFileName (String fileName) {
+        mySetup.setFileName(fileName);
     }
 
 }

@@ -1,5 +1,6 @@
 package vooga.rts.networking.logger;
 
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.logging.Handler;
@@ -19,6 +20,7 @@ public class LoggerSetup {
             "Error in adding handler to logger";
     private static final String ERROR_ARGUMENT_MESSAGE =
             "Not necessary arguments to create this handler";
+    private static final String LOG_EXT = ".txt";
 
     private String myFileName = DEFAULT_NAME;
 
@@ -48,6 +50,9 @@ public class LoggerSetup {
                     break;
                 case NetworkLogger.FORMAT_SOCKET:
                     loggerFormat = new HandlerSocket((String) args[0], (Integer) args[1]);
+                    break;
+                case NetworkLogger.FORMAT_LOG_FILE:
+                    loggerFormat = new HandlerTxt(myFileName, LOG_EXT);
                     break;
             }
         }

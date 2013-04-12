@@ -1,5 +1,6 @@
 package vooga.rts.networking.logger;
 
+
 import java.util.logging.Handler;
 
 
