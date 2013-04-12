@@ -6,7 +6,8 @@ import java.net.Socket;
 
 
 /**
- * A pure connection server that listens to connections, creates them, and sends them to the MatchmakerServer.
+ * A pure connection server that listens to connections, creates them, and sends them to the
+ * MatchmakerServer.
  * 
  * @author David Winegar
  * 
@@ -27,13 +28,15 @@ public class ConnectionServer extends Thread {
         myServerAcceptingConnections = true;
         ServerSocket serverSocket = null;
         // TODO remove comment marks after example
-        /**try {
-            serverSocket = new ServerSocket(PORT);
-        }
-        catch (IOException e1) {
-            // TODO log file
-            e1.printStackTrace();
-        }**/
+        /**
+         * try {
+         * serverSocket = new ServerSocket(PORT);
+         * }
+         * catch (IOException e1) {
+         * // TODO log file
+         * e1.printStackTrace();
+         * }
+         **/
 
         while (myServerAcceptingConnections) {
             try {
@@ -55,8 +58,8 @@ public class ConnectionServer extends Thread {
                 e.printStackTrace();
             }
         }
-        
-        if(serverSocket != null) {
+
+        if (serverSocket != null) {
             try {
                 serverSocket.close();
             }
