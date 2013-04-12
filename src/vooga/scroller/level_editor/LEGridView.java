@@ -1,12 +1,12 @@
 
 package vooga.scroller.level_editor;
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import vooga.scroller.viewUtil.IView;
-import vooga.scroller.viewUtil.ViewConstants;
 import vooga.scroller.viewUtil.Renderable;
 import vooga.scroller.viewUtil.WindowComponent;
 
@@ -34,6 +34,7 @@ public class LEGridView extends WindowComponent{
 
     @Override
     protected void addComponents () {
+        this.addMouseListener(new GridPositionListener());
     }
 
     @Override
@@ -58,6 +59,49 @@ public class LEGridView extends WindowComponent{
         if (myGrid != null) {
             myGrid.paint((Graphics2D) pen);
         }
+    }
+    
+    private void createSprite (String location) {
+        // TODO Auto-generated method stub
+        String res = "cs " + location;
+        System.out.println(res);
+        processCommand(res);
+    }
+    
+    private class GridPositionListener implements MouseListener {
+
+
+        @Override
+        public void mouseClicked (MouseEvent e) {
+            // TODO Auto-generated method stub
+            createSprite(e.getLocationOnScreen().getX()+" "+ e.getLocationOnScreen().getY());
+            System.out.println(e.getLocationOnScreen());
+        }
+
+        @Override
+        public void mousePressed (MouseEvent e) {
+            // TODO Auto-generated method stub
+            
+        }
+
+        @Override
+        public void mouseReleased (MouseEvent e) {
+            // TODO Auto-generated method stub
+            
+        }
+
+        @Override
+        public void mouseEntered (MouseEvent e) {
+            // TODO Auto-generated method stub
+            
+        }
+
+        @Override
+        public void mouseExited (MouseEvent e) {
+            // TODO Auto-generated method stub
+            
+        }
+        
     }
 
 }

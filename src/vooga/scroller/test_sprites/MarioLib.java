@@ -16,8 +16,9 @@ import vooga.scroller.util.Sprite;
  * to retrieve all classes. Not sure if this is the best way to implement this.
  * But it is definitely better than having to parse the package. -DF
  * The Classes are static to allow instantiation w/o an instance of MarioLib.
- * TODO
- *
+ * TODO - Decide Whether to keep this implementation or switch to ENUM
+ * Moreover, it is an example of the sprite-specification file the game designer
+ * will need to provide.
  */
 public class MarioLib implements ISpriteLibrary {
     private static final Dimension DEFAULT_SIZE = new Dimension(30, 30);
