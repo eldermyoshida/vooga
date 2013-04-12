@@ -19,12 +19,10 @@ public class Gravity {
     public Gravity (Sprite sprite) {
         this.sprite = sprite;
         groundLoc = (PlatformerConstants.DEFAULT_WINDOW_SIZE.height) - DISTANCE_OFF_GROUND;
-        gravityVector = new Vector(270, GRAVITY_CONSTANT);
+        gravityVector = new Vector(Sprite.UP_DIRECTION, GRAVITY_CONSTANT);
     }
     
     public void applyGravity() {
-        if (sprite.getBottom() < groundLoc) {
-            sprite.translate(gravityVector);
-        }
+        sprite.translate(gravityVector);
     }
 }

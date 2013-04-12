@@ -58,6 +58,10 @@ public class LevelFactory {
                                   new Location(view.getWidth() - 500, view.getHeight() - 75)
                                   ));   
         
+        myCurrLevel.addSprite(new MarioLib.MovingPlatform( 
+                                                    new Location(view.getWidth() - 80, view.getHeight() - 20)
+                                                    )); 
+        
         
         
         myCurrLevel.setSize(PlatformerConstants.DEFAULT_LEVEL_SIZE);
