@@ -6,7 +6,6 @@ import java.awt.Graphics2D;
 import vooga.rts.gamedesign.Weapon;
 import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
 import vooga.rts.gamedesign.sprite.rtsprite.Projectile;
-import vooga.rts.gamedesign.sprite.rtsprite.RTSprite;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.IOccupiable;
 import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
 import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;
@@ -35,21 +34,13 @@ public class Soldier extends Unit {
     public Soldier(Pixmap image, Location center, Dimension size, Sound sound, int teamID, int health) {
         super(image, center, size, sound, teamID, health);
     }
-
-    @Override
-    public void update (double elapsedTime) {
-        super.update(elapsedTime);
-        getAttackStrategy().update(elapsedTime);
-    }
     @Override
     public void paint(Graphics2D pen) {
         super.paint(pen);
-        AttackStrategy as = getAttackStrategy();
-        if (as instanceof CanAttack) {
-            for(Projectile p : ((CanAttack)as).getWeapon().getProjectiles()) {
-                p.paint(pen);               
-            }
+        for(Projectile p : getWeapons().get(getWeaponIndex()).getProjectiles()) {
+            p.paint(pen);               
         }
+
     }
     public void upgradeHealth (int armor) { // TESTING PURPOSE
         setHealth(getHealth() + armor);

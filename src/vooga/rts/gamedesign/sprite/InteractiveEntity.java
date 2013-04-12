@@ -66,19 +66,23 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     public void getAttacked(InteractiveEntity a){
     	a.attack(this);
     }
-  
-
     public Sound getSound(){
         return mySound;
     } 
-    
+    public List<Weapon> getWeapons(){
+        return myWeapons;
+    }
+    public int getWeaponIndex(){
+        return myWeaponIndex;
+    }
+    public void setWeaponIndex(int weaponIndex){
+        myWeaponIndex = weaponIndex;
+    }
     public void attack(IAttackable a){
     	if(myAttackStrategy.canAttack(a) && inRange((InteractiveEntity) a)){
     		myWeapons.get(myWeaponIndex).fire((InteractiveEntity) a);
     	}    
-    }
-    
-    
+    } 
     public boolean inRange(InteractiveEntity enemy){
     	return myWeapons.get(myWeaponIndex).inRange(enemy);
     }
@@ -106,7 +110,6 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
 
     /**
      * upgrades the interactive based on the selected upgrade
-     * 
      * @param upgradeNode is the upgrade that the interactive will get
      * @throws NoSuchMethodException 
      * @throws InstantiationException 
@@ -118,15 +121,12 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     public void upgrade (UpgradeNode upgradeNode) throws IllegalArgumentException, SecurityException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException { 	
     	upgradeNode.apply(upgradeNode.getUpgradeTree().getUsers());
     }
-
     public UpgradeTree getTree(){
         return myUpgradeTree;
     }
-
     public int calculateDamage(int damage) {
         return damage * (1-(myArmor/(myArmor+100)));
     }
-    
     public boolean hasWeapon(){
         return !myWeapons.isEmpty();
     }
@@ -135,6 +135,12 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     }
     public void addWeapons(Weapon weapon) {
         myWeapons.add(weapon);
+    }
+    @Override
+    public void update(double elapsedTime){
+        super.update(elapsedTime);
+        System.out.println("InteractiveEntity is updating");
+        myWeapons.get(myWeaponIndex).update(elapsedTime);
     }
     
     private void initDefaultActions(){
@@ -158,8 +164,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
                 setVelocity(0, 0);
             }
         });
-        
     }
-
+    
 
 }

@@ -3,7 +3,6 @@ package vooga.rts.gamedesign;
 import vooga.rts.gamedesign.sprite.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
 import vooga.rts.gamedesign.sprite.rtsprite.Projectile;
-import vooga.rts.gamedesign.sprite.rtsprite.RTSprite;
 import vooga.rts.gamedesign.upgrades.Upgrade;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
 import vooga.rts.util.Location;
@@ -64,7 +63,7 @@ public class Weapon {
         System.out.println("Health of enemy " + toBeShot.getHealth());
         System.out.println("cooldown " + cooldown);
         
-            // should set the velocity of the projectile to the location of the toBeshot
+        // should set the velocity of the projectile to the location of the toBeshot
         myProjectile.setTarget(toBeShot);
         setCooldown(maxCooldown);
         
@@ -133,7 +132,11 @@ public class Weapon {
     }
 
     public void update (double elapsedTime) {
-        
-        decrementCooldown();
+        if(cooldown != 0){
+            decrementCooldown();
+        }
+        for(Projectile p : myProjectiles){
+            p.update(elapsedTime);
+        }
     }
 }
