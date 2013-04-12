@@ -3,6 +3,7 @@ import java.awt.Graphics2D;
 import java.util.List;
 
 import vooga.towerdefense.gameElements.Wave;
+import vooga.towerdefense.view.TDView;
 
 
 public class GameModel {
@@ -10,8 +11,10 @@ public class GameModel {
     private GameMap myGameMap;
     private double myWaveTimeElapsed;
     private Wave myCurrentWave;
+    private TDView myView;
     
-    public GameModel(List<Wave> waves, GameMap gameMap) {
+    public GameModel(TDView view, List<Wave> waves, GameMap gameMap) {
+        myView = view;
         myWaves = waves;
         myGameMap = gameMap;
         myWaveTimeElapsed = 0;
