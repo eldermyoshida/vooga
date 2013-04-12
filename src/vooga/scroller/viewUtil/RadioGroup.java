@@ -1,6 +1,8 @@
 package vooga.scroller.viewUtil;
 
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -45,7 +47,7 @@ public class RadioGroup extends JPanel {
         myGrouper = new ButtonGroup();
         myListener = listener;
         myOptions = new TreeMap<String, String>();
-        applyView();
+        applyLayout();
     }
     
     /**
@@ -102,7 +104,7 @@ public class RadioGroup extends JPanel {
         sex.put("Female", "F");
         RadioGroup rg2 = new RadioGroup(testAction, sex);
         System.out.println(rg2);
-        EasyGridFactory.layoutVertical(tester, rg1, rg2);
+        EasyGridFactory.layout(tester, rg1, rg2);
         tester.pack();
         tester.setVisible(true);
     }
@@ -118,9 +120,10 @@ public class RadioGroup extends JPanel {
     }
     
 
-    private void applyView() {
-//        this.setSize(new Dimension(150, 100));
-        this.setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
+    private void applyLayout() {
+//        this.setPreferredSize(new Dimension(150, 100));
+//        this.setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
+        this.setLayout(new GridLayout(0, 4));//TODO - Generalize
     }
     
     private void add (JToggleButton b) {
