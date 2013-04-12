@@ -14,19 +14,13 @@ import vooga.rts.networking.communications.Message;
  * 
  */
 public class MatchmakerServer extends Thread implements IMessageReceiver {
-    private List<ConnectionThread> myConnectionThreads;
-    private List<ConnectionThread> myPotentialConnections;
-    private List<GameServer> myGameServers;
-    private List<GameContainer> myGameContainers;
+    private List<ConnectionThread> myConnectionThreads = new ArrayList<ConnectionThread>();
+    private List<ConnectionThread> myPotentialConnections = new ArrayList<ConnectionThread>();
+    private List<GameServer> myGameServers = new ArrayList<GameServer>();
+    private List<GameContainer> myGameContainers = new ArrayList<GameContainer>();
     private int myGameServerID = 0;
-    private ConnectionServer myConnectionServer;
+    private ConnectionServer myConnectionServer = new ConnectionServer(this);
 
-    public MatchmakerServer () {
-        myConnectionThreads = new ArrayList<ConnectionThread>();
-        myGameServers = new ArrayList<GameServer>();
-        myPotentialConnections = new ArrayList<ConnectionThread>();
-        myConnectionServer = new ConnectionServer(this);
-    }
 
     @Override
     public void run () {
