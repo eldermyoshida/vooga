@@ -1,10 +1,16 @@
-<?xml version="1.0"standalone="yes"encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!-- This is a comment -->
 
-<GameDesign>
-	<Upgrade>
-		<type>ARMOR</type>
-			<upgradeNode id=1 name="WorstArmor" object=health value=50></name>
-			<upgradeNode id=2 name="BestArmor" object=damage value=30></name>
-	</Upgrade>
-</GameDesign>
+<Upgrade>
+	<type>
+		<name>Armor</name>
+		<upgradeNode>
+			<id>1</id> 
+			<nodeName>WorstArmor</nodeName>
+		</upgradeNode>
+		<upgradeNode>
+			<id>2</id>
+			<nodeName>BestArmor</nodeName>
+		</upgradeNode>
+	</type>
+</Upgrade>
