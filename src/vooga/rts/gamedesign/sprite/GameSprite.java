@@ -5,7 +5,6 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 import vooga.rts.gamedesign.sprite.Sprite;
-import vooga.rts.gamedesign.sprite.rtsprite.RTSprite;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.ThreeDimension;

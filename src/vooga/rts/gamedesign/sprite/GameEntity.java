@@ -34,6 +34,7 @@ public class GameEntity extends GameSprite {
 
     private Vector myOriginalVelocity;
 
+
     public GameEntity (Pixmap image, Location center, Dimension size, int teamID, int health) {
         super(image, center, size);
         myMaxHealth = health;
@@ -148,6 +149,5 @@ public class GameEntity extends GameSprite {
             super.paint(pen);
         }
     }
-    
 
 }

@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import vooga.rts.gamedesign.Action;
 import vooga.rts.gamedesign.Weapon;
 import vooga.rts.gamedesign.factories.Factory;
 import vooga.rts.gamedesign.sprite.rtsprite.EntityVisitor;
@@ -41,7 +42,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     private Sound mySound;
     private AttackStrategy myAttackStrategy;
     private int myArmor;
-    
+    private List<Action> myActions;
     private List<Weapon> myWeapons;
     private int myWeaponIndex;
 
@@ -53,15 +54,14 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
         //myUpgradeTree =new UpgradeTree();
         mySound = sound;
         myAttackStrategy = new CannotAttack();
-        
+        myActions = new ArrayList<Action>();
         myWeapons = new ArrayList<Weapon>();
         myWeaponIndex = 0;
+        initDefaultActions();
 
         //UpgradeNode armor = new ArmorUpgradeNode("armor1","myHealth",40); //TESTING
         //myUpgradeTree.addUpgrade(armor); //TESTING
     }
-
-
     
     public void getAttacked(InteractiveEntity a){
     	a.attack(this);
@@ -70,16 +70,12 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
 
     public Sound getSound(){
         return mySound;
-    }
+    } 
     
-    
- 
     public void attack(IAttackable a){
     	if(myAttackStrategy.canAttack(a) && inRange((InteractiveEntity) a)){
     		myWeapons.get(myWeaponIndex).fire((InteractiveEntity) a);
-    	}
-       
-            
+    	}    
     }
     
     
@@ -104,6 +100,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
      * @return the current attack strategy
      */
     public AttackStrategy getAttackStrategy () {
+        
         return myAttackStrategy;
     }
 
@@ -138,6 +135,30 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     }
     public void addWeapons(Weapon weapon) {
         myWeapons.add(weapon);
+    }
+    
+    private void initDefaultActions(){
+        myActions.add(new Action("Stop", null, "Action to stop InteractiveEntity"){
+            @Override
+            public void apply(){
+                //change the state of the entity to normal
+                setVelocity(0, 0);
+            }
+        });
+        myActions.add(new Action("Hold", null, "Sets the InteractiveEntity to hold position"){
+            @Override
+            public void apply(){
+                //does not change state
+                setVelocity(0,0);
+            }
+        });
+        myActions.add(new Action("Test2", null, "Action to stop InteractiveEntity"){
+            @Override
+            public void apply(){
+                setVelocity(0, 0);
+            }
+        });
+        
     }
 
 
