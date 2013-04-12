@@ -6,10 +6,10 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.util.List;
 import vooga.scroller.design_patterns.State;
+import vooga.scroller.util.Gravity;
 import vooga.scroller.util.Location;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.Sprite;
-import vooga.scroller.util.Sprite_Type;
 import vooga.scroller.util.Vector;
 import vooga.scroller.view.View;
 
@@ -40,6 +40,7 @@ public class Player extends Sprite {
     private Dimension mySize;
     private Pixmap myImage;
     
+    
     // Used for testing purposes only
     protected static final int MOVE_LEFT = KeyEvent.VK_A;
     protected static final int MOVE_RIGHT = KeyEvent.VK_D;
@@ -48,7 +49,7 @@ public class Player extends Sprite {
     protected static final int MOVE_SPEED = 10;    
     public static final Vector LEFT_VELOCITY = new Vector(LEFT_DIRECTION, MOVE_SPEED);
     public static final Vector RIGHT_VELOCITY = new Vector(RIGHT_DIRECTION, MOVE_SPEED);
-    public static final Vector UP_VELOCITY = new Vector(UP_DIRECTION, MOVE_SPEED);
+    public static final Vector UP_VELOCITY = new Vector(UP_DIRECTION, 50);
     public static final Vector DOWN_VELOCITY = new Vector(DOWN_DIRECTION, MOVE_SPEED);
 
     public Player (Pixmap image, Location center, Dimension size, View view) {
@@ -60,6 +61,8 @@ public class Player extends Sprite {
     }
 
     public void update(double elapsedTime, Dimension bounds) {
+        Gravity gravity = new Gravity(this);
+        gravity.applyGravity();
 
     }
    
@@ -75,9 +78,6 @@ public class Player extends Sprite {
     public Location getOriginalCenter() {
         return myOriginalCenter;
     }
-    
-    public Sprite_Type getSpriteType() {
-        return Sprite_Type.PLAYER;
-    }
+   
 
 }

@@ -300,9 +300,5 @@ public abstract class Sprite {
     public Pixmap getView() {
         return myView;
     }
-    
-    public Sprite_Type getType() {
-        return Sprite_Type.NONE;
-    }
-
+   
 }

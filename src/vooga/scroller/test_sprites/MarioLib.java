@@ -36,7 +36,6 @@ public class MarioLib implements ISpriteLibrary {
         
         public Coin (Location center) {
             super(new Pixmap(DEFAULT_IMG), center, DEFAULT_SIZE);
-            // TODO Auto-generated constructor stub
         }
 
         
@@ -61,6 +60,11 @@ public class MarioLib implements ISpriteLibrary {
             System.out.println("Koopa");
         }
         
+        public void update(double elapsedTime, Dimension bounds) {
+            changeVelocity(trackPlayer(45, 100)); //want to make this call every X seconds
+            super.update(elapsedTime, bounds);
+        }
+        
 
         
     }
@@ -68,7 +72,7 @@ public class MarioLib implements ISpriteLibrary {
     public static class Turtle extends NonStaticEntity {
 
         private static final String DEFAULT_IMG = "turtle.gif";
-            
+
         public Turtle() {
             this(DEFAULT_LOC);
         }
@@ -83,7 +87,7 @@ public class MarioLib implements ISpriteLibrary {
         }
         
         public void update(double elapsedTime, Dimension bounds) {
-            changeVelocity(trackPlayer(70)); //want to make this call every X seconds
+            changeVelocity(trackPlayer(70, 150)); //want to make this call every X seconds
             super.update(elapsedTime, bounds);
         }
 
