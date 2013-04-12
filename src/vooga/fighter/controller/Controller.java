@@ -1,7 +1,17 @@
 package vooga.fighter.controller;
 
+import vooga.fighter.game.SplashScreen;
+import vooga.fighter.input.Input;
+import vooga.fighter.input.InputClassTarget;
+
 import java.awt.Dimension;
-import vooga.fighter.game.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+
+import vooga.fighter.view.Canvas;
+
+
 
 /**
  * 
@@ -40,9 +50,7 @@ public abstract class Controller implements ControlDelegate {
     public void update (double elapsedTime, Dimension bounds) {
         myGame.update(elapsedTime, bounds);
     }
-    
-    
-    
-    
 
+    
+    
 }

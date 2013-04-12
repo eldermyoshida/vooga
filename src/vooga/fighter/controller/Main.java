@@ -27,8 +27,8 @@ public class Main extends JFrame
         // view of user's content
 
         // start animation
-        Controller control = new Controller();
-        control.start();
+        GameManager control = new GameManager();
+        control.run();
         // Stopping the game is handled in the MarioTime Class, as it can implement methods that update 
         // as the game updates
         // Full Screen Options are handled in the Canvas Class (as they must be updated with the game).
