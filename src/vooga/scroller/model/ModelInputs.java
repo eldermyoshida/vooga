@@ -18,13 +18,13 @@ import vooga.scroller.sprite_superclasses.Player;
 @InputClassTarget
 public class ModelInputs {
 
-    private static final String TEST_CONTROLS = "resources/controls/TestMapping";
+    private static final String TEST_CONTROLS = "vooga/scroller/resources/controls/TestMapping";
 
     private Input myInput;
     private Player myPlayer;
 
     /**
-     * Creats a new set of ModelInputs based on
+     * Creates a new set of ModelInputs based on
      * 
      * @param player on which the controls will act
      * @param view from where the controls come from.

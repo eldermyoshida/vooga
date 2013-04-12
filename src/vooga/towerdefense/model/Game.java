@@ -38,7 +38,6 @@ public class Game {
 			}
 			myModel.displayMap();
 		}
-
 	}
 
 	public void setRunning(boolean isRunning) {
