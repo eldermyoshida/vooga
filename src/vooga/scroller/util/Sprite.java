@@ -7,6 +7,7 @@ import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
 import java.util.Queue;
+import vooga.scroller.sprites.IPaintable;
 
 
 /**
@@ -28,38 +29,36 @@ public abstract class Sprite {
     private Location myCenter;
     private Vector myVelocity;
     private Dimension mySize;
-    private Pixmap myView;
+    private IPaintable myView;
     // keep copies of the original state so shape can be reset as needed
     private Location myOriginalCenter;
     private Vector myOriginalVelocity;
     private Dimension myOriginalSize;
-    private Pixmap myOriginalView;
     // cached for efficiency
     private Rectangle myBounds;
     private Location myLastLocation;
     private Location myLastLocation2;
-    private Pixmap myDefaultImage;
     
     /**
      * Create a shape at the given position, with the given size.
      */
-    public Sprite (Pixmap image, Location center, Dimension size) {
+    public Sprite (IPaintable image, Location center, Dimension size) {
         this(image, center, size, new Vector());
     }
 
     /**
      * Create a shape at the given position, with the given size, velocity, and color.
      */
-    public Sprite (Pixmap image, Location center, Dimension size, Vector velocity) {
+    public Sprite (IPaintable image, Location center, Dimension size, Vector velocity) {
         // make copies just to be sure no one else has access
         
-        myDefaultImage = image;
+        mySize = size;
+        myView = image;
         myOriginalCenter = new Location(center);
         myLastLocation = new Location(myOriginalCenter.x, myOriginalCenter.y);
         myLastLocation2 = new Location(myOriginalCenter.x, myOriginalCenter.y);
         myOriginalSize = new Dimension(size);
         myOriginalVelocity = new Vector(velocity);
-        myOriginalView = new Pixmap(image);
         reset();
         resetBounds();
     }
@@ -203,7 +202,7 @@ public abstract class Sprite {
     /**
      * Resets shape's image.
      */
-    public void setView (Pixmap image) {
+    public void setView (IPaintable image) {
         if (image != null) {
             myView = image;
         }
@@ -243,7 +242,7 @@ public abstract class Sprite {
         myCenter = new Location(myOriginalCenter);
         mySize = new Dimension(myOriginalSize);
         myVelocity = new Vector(myOriginalVelocity);
-        myView = new Pixmap(myOriginalView);
+        // TODO: reset paintable?
     }
 
     /**
@@ -251,14 +250,14 @@ public abstract class Sprite {
      */
     public void paint (Graphics2D pen)
     {
-        myView.paint(pen, myCenter, mySize);
+        myView.paint(pen, myCenter, mySize, 0);
     }
     
     /**
      * Display this shape translated on the screen, used for all Sprites besides Player
      */
     public void paint (Graphics2D pen, Location loc, Location origLoc) {
-        myView.paint(pen, translate(loc, origLoc), mySize);
+        myView.paint(pen, translate(loc, origLoc), mySize, 0);
         
     }
     
@@ -307,7 +306,7 @@ public abstract class Sprite {
     /**
      * Returns a view of this sprite -TODO: Maybe should be specified in an interface(?)
      */
-    public Pixmap getView() {
+    public IPaintable getView() {
         return myView;
     }
     
@@ -319,16 +318,4 @@ public abstract class Sprite {
     public Location lastLocation() {
         return myLastLocation2;
     }
-    
-    /**
-     * Returns the default image for this sprite.
-     * 
-     * @return
-     */
-    public Image getDefaultImg () {
-        
-        return myDefaultImage.getImg();
-    }
-
-
 }

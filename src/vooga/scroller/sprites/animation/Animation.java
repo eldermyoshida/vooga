@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.geom.Point2D;
 import java.util.List;
+import vooga.scroller.sprites.IPaintable;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.Sprite;
 
@@ -14,11 +15,11 @@ import vooga.scroller.util.Sprite;
  * @author Scott Valentine
  *
  */
-public class Animation extends Pixmap {
+public class Animation implements IPaintable {
 
     private List<AnimationState> myAnimations;
     private Sprite mySprite;
-    private Image myDefaultImage;
+    private Pixmap myDefaultImage;
 
     /**
      * Creates a new animation that acts on a sprite.
@@ -26,9 +27,7 @@ public class Animation extends Pixmap {
      * @param defaultImageFile is the file path of the default image for this animation.
      * @param sp is the sprite on that this animation animates.
      */
-    public Animation (String defaultImageFile, Sprite sp) {
-        super(defaultImageFile);
-        myDefaultImage = super.getImg();
+    public Animation (Sprite sp) {
         mySprite = sp;
         initAnimations();
     }
@@ -38,7 +37,8 @@ public class Animation extends Pixmap {
      */
     private void initAnimations () {
         AnimationFactory af = new AnimationFactory();
-        myAnimations = af.generateAnimations();       
+        myAnimations = af.generateAnimations();
+        myDefaultImage = af.getDefaultImage();
     }
 
     /**
@@ -46,32 +46,19 @@ public class Animation extends Pixmap {
      * 
      * @return
      */
-    private Image getImage() {
+    private Pixmap getImage() {
         for (AnimationState as: myAnimations) {
             if (as.validAnimation(mySprite)) {
                 return as.getImage();
             }
         }
-        return this.getDefaultImg();
-    }
-    
-    /**
-     * Gives the default image of this animation.
-     * 
-     * @return The default image of this animation.
-     */
-    private Image getDefaultImg () {
         return myDefaultImage;
     }
 
     @Override
     public void paint (Graphics2D pen, Point2D center, Dimension size, double angle) {
-        Image image = getImage();
-        
-        pen.drawImage(image, -size.width / 2, -size.height / 2, size.width, size.height, null);
-        
-        setImg(image);
-        super.paint(pen, center, size, angle);
-        
+        Pixmap image = getImage();        
+        image.paint(pen, center, size, angle); 
     }
+
 }

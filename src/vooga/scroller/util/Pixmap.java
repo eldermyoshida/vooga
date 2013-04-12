@@ -8,6 +8,7 @@ import java.awt.geom.Point2D;
 import java.awt.geom.AffineTransform;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import vooga.scroller.sprites.IPaintable;
 
 
 /**
@@ -19,7 +20,7 @@ import javax.swing.ImageIcon;
  * @author Robert C. Duvall, Dagbedji F
  * Added get icon
  */
-public class Pixmap {
+public class Pixmap implements IPaintable{
     // OS-independent relative resource locations (like URLs)
     private static final String RESOURCE_LOCATION = "/vooga/scroller/images/";
     // underlying implementation

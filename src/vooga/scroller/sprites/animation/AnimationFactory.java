@@ -5,6 +5,7 @@ import java.util.List;
 import vooga.scroller.sprites.test_sprites.mario.animation_states.LeftWalk;
 import vooga.scroller.sprites.test_sprites.mario.animation_states.RightWalk;
 import vooga.scroller.sprites.test_sprites.mario.animation_states.Stand;
+import vooga.scroller.util.Pixmap;
 
 /**
  * Initiates a list of animations for a sprite to use.
@@ -33,6 +34,11 @@ public class AnimationFactory {
         res.add(left);
         
         return res;
+    }
+
+    public Pixmap getDefaultImage () {
+        // TODO: see above. need better way (reflection)
+        return new Pixmap("mario.gif");
     }
 
 }
