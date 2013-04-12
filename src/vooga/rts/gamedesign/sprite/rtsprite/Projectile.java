@@ -12,6 +12,10 @@ import vooga.rts.util.ThreeDimension;
 
 
 /**
+ * This class is the generic abstract class for all types of projectiles that
+ * can be fired from a weapon by an InteractiveEntity. The Projectile’s health
+ * is the time the projectile can exist on the map before it vanishes. It also
+ * vanishes after it collides with a GameEntity. 
  * 
  * @author Ryan Fishel
  * @author Kevin Oh
@@ -21,7 +25,7 @@ import vooga.rts.util.ThreeDimension;
  */
 public class Projectile extends GameEntity implements Cloneable{
 
-	private Integer myDamage;
+	private int myDamage;
 	private InteractiveEntity myTarget;
 	
 	public Projectile(Pixmap pixmap, Location loc, Dimension size, int teamID, int damage, int health){
@@ -37,8 +41,14 @@ public class Projectile extends GameEntity implements Cloneable{
 	    myTarget = target;
 	}
 	
-	public void attack(InteractiveEntity ie){
-	    ie.changeHealth(ie.calculateDamage(myDamage));
+	/**
+	 * Applies the damage to the target it collides with by updating the
+	 * target’s health value.
+	 * 
+	 * @param target
+	 */
+	public void attack(InteractiveEntity target){
+	    target.changeHealth(target.calculateDamage(myDamage));
 	}
 	
 	@Override

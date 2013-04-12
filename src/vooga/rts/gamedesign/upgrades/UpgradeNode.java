@@ -1,10 +1,11 @@
 package vooga.rts.gamedesign.upgrades;
 
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.List;
 
 import vooga.rts.gamedesign.sprite.InteractiveEntity;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.Interactive;
 
 /**
  * This class specifies an upgrade and is used to apply the upgrade to the 
@@ -20,7 +21,7 @@ public class UpgradeNode {
 
     private String myUpgradeType;
     private int myUpgradeValue;
-    private String myUpgradeObject;
+    private String myUpgradeProperty;
     private boolean myHasBeenUpgraded;
     private ArrayList<UpgradeNode> myChildren; //set to list for the Head.
 
@@ -32,7 +33,7 @@ public class UpgradeNode {
         myUpgradeType = upgradeType;
         myChildren = new ArrayList<UpgradeNode>();
         myHasBeenUpgraded = false;
-        myUpgradeObject = upgradeObject;
+        myUpgradeProperty = upgradeObject;
         myUpgradeValue = upgradeValue;
     }
 
@@ -46,8 +47,20 @@ public class UpgradeNode {
      * @throws NoSuchMethodException 
      * @throws SecurityException 
      */
-	public void apply(InteractiveEntity interactiveEntity) {
-
+    public void apply(List<InteractiveEntity> requester)
+			throws IllegalArgumentException, IllegalAccessException,
+			InvocationTargetException, InstantiationException,
+			SecurityException, NoSuchMethodException {
+        for (InteractiveEntity i: requester){
+        	Class thisClass = i.getClass();
+            //System.out.println(thisClass.getName());
+            //Object iClass = thisClass.newInstance();
+            Class[] params = new Class[] {int.class};
+            //Object[] args = new Object[] {};
+            Method thisMethod = thisClass.getDeclaredMethod("upgradeHealth", params);
+            thisMethod.invoke(i, getUpgradeValue());
+        }
+		
 	}
 
     public ArrayList<UpgradeNode> getChildren(){
@@ -67,7 +80,7 @@ public class UpgradeNode {
     }
 
     public String getUpgradeObject(){
-        return myUpgradeObject;
+        return myUpgradeProperty;
     }
 
     public int getUpgradeValue(){

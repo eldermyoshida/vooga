@@ -10,9 +10,11 @@ import vooga.rts.util.Vector;
 
 
 /**
- * This class represents Sprites that can be attacked (have health value),
- * can move (have velocity value), and is belonged to a certain team (have
- * team ID).
+ * This class encompasses all classes that can affect the game directly through
+ * specific behavior. This class has the health behavior (can ÒdieÓ) and
+ * velocity (can move and collide), and belong to a certain team. Setting the
+ * health to zero sets the isVisible boolean to false, not allowing the
+ * GameEntity to be painted.
  * 
  * @author Ryan Fishel
  * @author Kevin Oh
@@ -28,7 +30,7 @@ public class GameEntity extends GameSprite {
 
     private int myTeamID;
 
-    private Location myGoal;
+    private Location myCurrentLocation;
 
     private Vector myOriginalVelocity;
 
@@ -37,7 +39,7 @@ public class GameEntity extends GameSprite {
         myMaxHealth = health;
         myCurrentHealth = myMaxHealth;
         myTeamID = teamID;
-        myGoal = new Location(center);
+        myCurrentLocation = new Location(center);
         // ALERT THIS IS JUST FOR TESTING
         myOriginalVelocity = new Vector(0, 0);
         myVelocity = new Vector(0, 0);
@@ -106,7 +108,7 @@ public class GameEntity extends GameSprite {
      * Possible design choice error.
      */
     public void move (Location loc) {
-        myGoal = new Location(loc);
+        myCurrentLocation = new Location(loc);
     }
 
     /**
@@ -114,7 +116,7 @@ public class GameEntity extends GameSprite {
      */
     // TODO: make Velocity three dimensional...
     public void update (double elapsedTime) {
-        Vector diff = getCenter().difference(myGoal);
+        Vector diff = getCenter().difference(myCurrentLocation);
         if (diff.getMagnitude() > 10) {
             double angle = diff.getDirection();
             double magnitude = 1;            
@@ -122,7 +124,7 @@ public class GameEntity extends GameSprite {
         }
         else{
             setVelocity(0, 0);
-            setCenter(myGoal.getX(), myGoal.getY());
+            setCenter(myCurrentLocation.getX(), myCurrentLocation.getY());
         }
         
         if (!isVisible()) return;
@@ -136,15 +138,18 @@ public class GameEntity extends GameSprite {
     }
 
     /**
-     * Checks to see if an RTSprite is dead.
+     * Checks to see if an GameEntity is dead.
      * 
-     * @return true if the RTSprite has been killed and true if the RTSprite
+     * @return true if the GameEntity has been killed and false if the GameEntity
      *         is still alive.
      */
     public boolean isDead () {
         return myCurrentHealth <= 0;
     }
 
+    /**
+     * Kills the GameEntity by setting its current health value to zero.	
+     */
     public void die () {
         myCurrentHealth = 0;
     }

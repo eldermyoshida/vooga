@@ -3,8 +3,9 @@ package vooga.rts.gamedesign.upgrades;
 import java.awt.Dimension;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.List;
 
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.Interactive;
+import vooga.rts.gamedesign.sprite.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Soldier;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
@@ -17,14 +18,16 @@ public class ArmorUpgradeNode extends UpgradeNode {
     }
     
     @Override
-    public void apply(Interactive interactive) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException, InstantiationException, SecurityException, NoSuchMethodException {
-        Class thisClass = interactive.getClass();
-        //System.out.println(thisClass.getName());
-        //Object iClass = thisClass.newInstance();
-        Class[] params = new Class[] {int.class};
-        //Object[] args = new Object[] {};
-        Method thisMethod = thisClass.getDeclaredMethod("upgradeHealth", params);
-        thisMethod.invoke(interactive, getUpgradeValue());
+    public void apply(List<InteractiveEntity> requester) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException, InstantiationException, SecurityException, NoSuchMethodException {
+        for (InteractiveEntity i: requester){
+        	Class thisClass = i.getClass();
+            //System.out.println(thisClass.getName());
+            //Object iClass = thisClass.newInstance();
+            Class[] params = new Class[] {int.class};
+            //Object[] args = new Object[] {};
+            Method thisMethod = thisClass.getDeclaredMethod("upgradeHealth", params);
+            thisMethod.invoke(i, getUpgradeValue());
+        }
     }
     
     /**

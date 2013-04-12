@@ -25,43 +25,6 @@ import vooga.rts.gamedesign.upgrades.UpgradeNode;
 public class UpgradeTree {
     private UpgradeNode myHead;
 
-    public UpgradeTree() {
-        this(null);
-    }
-
-    public UpgradeTree(String filename){
-        myHead = new UpgradeNode();
-        readFile(filename);
-    }
-
-    //Sample file format: <name> <upgradeObejct> <upgradeValue>
-	//e.g. armorUpgrade1 Health 50
-	/**
-	 * Initializes the UpgradeTree by reading the info from a file.
-	 * @param filename
-	 */
-	private void readFile(String filename){
-		try {
-			BufferedReader bReader
-			= new BufferedReader(new FileReader(filename));
-			readHelper(bReader);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	private void readHelper(BufferedReader bReader) throws IOException {
-		String individualLine = bReader.readLine();
-		
-		
-		
-	}    /*
-     * TODO: implement later 
-     */
-    public void addUpgrade(UpgradeNode un){
-        myHead.getChildren().add(un);
-    }
-
     /**
      * Finds the most advanced upgrade has been made in the giving upgrade type.
      * @param upgradeType

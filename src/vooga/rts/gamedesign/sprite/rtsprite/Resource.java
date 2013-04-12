@@ -21,8 +21,8 @@ public abstract class Resource extends GameEntity {
 	
 	private Terrain myTerrain;
 
-  public Resource(Pixmap image, Location center, ThreeDimension size, int teamID) {
-		super(image, center, size, teamID);
+  public Resource(Pixmap image, Location center, Dimension size, int teamID, int health) {
+		super(image, center, size, teamID, health);
 		
 	}
 
