@@ -153,7 +153,8 @@ public class GameEntity extends GameSprite {
     public void die () {
         myCurrentHealth = 0;
     }
-
+    
+    @Override
     public void paint (Graphics2D pen) {
         if (!isDead()) {
             super.paint(pen);

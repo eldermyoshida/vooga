@@ -2,6 +2,7 @@ package vooga.rts.player;
 
 import java.awt.Graphics2D;
 import java.awt.Point;
+
 import vooga.rts.gamedesign.sprite.Unit;
 import vooga.rts.util.Location;
 
