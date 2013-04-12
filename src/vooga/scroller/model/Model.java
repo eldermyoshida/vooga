@@ -51,7 +51,7 @@ public class Model {
     private void initPlayer() {
         // TODO: this is implemented by the developer. 
         myPlayer = new Mario(new Pixmap("mario.gif"),
-                             new Location(myView.getWidth(), myView.getHeight()),
+                             new Location(2500, 2500),
                              new Dimension(30, 60),
                              myView);
         

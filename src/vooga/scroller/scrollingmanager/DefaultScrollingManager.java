@@ -75,8 +75,7 @@ public class DefaultScrollingManager extends ScrollingManager {
     }
 
     public double levelRightBoundary () {
-        myGame.getLevelBounds().getWidth();
-        return 0;
+        return myGame.getLevelBounds().getWidth();
     }
 
     public double levelLeftBoundary () {
@@ -87,9 +86,8 @@ public class DefaultScrollingManager extends ScrollingManager {
         return 0;
     }
 
-    public double levelLowerBoundary () {
-        myGame.getLevelBounds().getHeight();
-        return 0;
+    public double levelLowerBoundary () {        
+        return myGame.getLevelBounds().getHeight();
     }
     
     public Image getBackground() {
@@ -105,27 +103,25 @@ public class DefaultScrollingManager extends ScrollingManager {
         int rightpaintbound = rightpaintbound();
         int lowerpaintbound = lowerpaintbound();
         
-//        if(myGame.getLeftBoundary() < levelLeftBoundary()) {
-//            leftpaintbound = (int) levelLeftBoundary();
-//            rightpaintbound = (int) levelRightBoundary();
-//            System.out.println("1");
-//        }
-//        if(myGame.getRightBoundary() > levelRightBoundary()) {
-//            leftpaintbound = (int) levelLeftBoundary();
-//            rightpaintbound = (int) levelRightBoundary();
-//            System.out.println("2");
-//            
-//        }
-//        if(myGame.getLowerBoundary() > levelLowerBoundary()) {
-//            upperpaintbound = (int) levelUpperBoundary();
-//            lowerpaintbound = (int) levelLowerBoundary();
-//            System.out.println("3");
-//        }
-//        if(myGame.getUpperBoundary() < levelUpperBoundary()) {
-//            upperpaintbound = (int) levelUpperBoundary();
-//            lowerpaintbound = (int) levelLowerBoundary();
-//            System.out.println("4");
-//        }
+        if(myGame.getLeftBoundary() < levelLeftBoundary()) {
+            leftpaintbound = (int) levelLeftBoundary();
+            rightpaintbound = (int) levelRightBoundary();
+        }
+        
+        if(myGame.getRightBoundary() > levelRightBoundary()) {
+            //Messy code
+            leftpaintbound =  - ((int) levelRightBoundary() % myGame.getBackground().getWidth(null));
+            rightpaintbound = myView.getWidth()  - ((int) levelRightBoundary() % myGame.getBackground().getWidth(null));
+            
+        }
+        if(myGame.getLowerBoundary() > levelLowerBoundary()) {
+            upperpaintbound = - ((int) levelLowerBoundary() % myGame.getBackground().getHeight(null));
+            lowerpaintbound = myView.getHeight()  - ((int) levelLowerBoundary() % myGame.getBackground().getHeight(null));
+        }
+        if(myGame.getUpperBoundary() < levelUpperBoundary()) {
+            upperpaintbound = (int) levelUpperBoundary();
+            lowerpaintbound = (int) levelLowerBoundary();
+        }
         pen.drawImage(img, leftpaintbound, upperpaintbound, imgwidth, imgheight, null);
         pen.drawImage(img, rightpaintbound, upperpaintbound, imgwidth, imgheight, null);
         pen.drawImage(img, leftpaintbound, lowerpaintbound, imgwidth, imgheight, null);
