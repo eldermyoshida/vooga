@@ -74,13 +74,8 @@ public class InteractiveEntity extends GameEntity implements IAttackable, Entity
     }
 
     public void visit(IAttackable a){
-    	try {
-            myAttackStrategy.attack(a);
-        }
-        catch (CloneNotSupportedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+    	myAttackStrategy.attack(a);
+       
             
     }
 
