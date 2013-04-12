@@ -54,7 +54,7 @@ public class MapScreen extends JPanel {
         myMouseListener = new MouseListener() {
             @Override
             public void mouseClicked (MouseEvent e) {
-                myController.handleMapClick(new Location(e.getLocationOnScreen().getX(), e.getLocationOnScreen().getY()));
+                myController.handleMapClick(e.getLocationOnScreen());
             }
             @Override
             public void mouseEntered (MouseEvent e) {
