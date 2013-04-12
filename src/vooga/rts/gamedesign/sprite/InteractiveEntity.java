@@ -79,7 +79,6 @@ public class InteractiveEntity extends GameEntity implements IAttackable, Entity
             
     }
 
-
     /**
      * Sets the attack strategy for an interactive. Can set the interactive
      * to CanAttack or to CannotAttack and then can specify how it would
@@ -111,7 +110,7 @@ public class InteractiveEntity extends GameEntity implements IAttackable, Entity
      * @throws SecurityException 
      * @throws IllegalArgumentException 
      */
-    public void upgradeNode (UpgradeNode upgradeNode) throws IllegalArgumentException, SecurityException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException {
+    public void upgrade (UpgradeNode upgradeNode) throws IllegalArgumentException, SecurityException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException {
         upgradeNode.apply(this);
     }
 

@@ -61,11 +61,6 @@ public class Unit extends InteractiveEntity {
     public void visit (RTSprite rtSprite) {
         System.out.println("visit in Unit got called");
     }
-
-    public void update (double elapsedTime) {
-       
-        super.update(elapsedTime);
-    }
     
     /**
      * Gathers a resource specified by gather strategy.
