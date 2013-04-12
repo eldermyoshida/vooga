@@ -3,10 +3,12 @@ package vooga.rts.player;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Units;
+import vooga.rts.map.GameMap;
 import vooga.rts.util.Location;
 
 public class HumanPlayer extends Player {
-
+    
+    private GameMap myMap;
     @Override
     public void update (double elapsedTime) {        
         super.update(elapsedTime);

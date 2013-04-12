@@ -1,7 +1,9 @@
 package vooga.rts.gamedesign.sprite.rtsprite.interactive.units;
 
 import vooga.rts.gamedesign.Weapon;
-import vooga.rts.ai.PathingHelper;
+import vooga.rts.ai.AstarFinder;
+import vooga.rts.ai.Path;
+import vooga.rts.ai.PathFinder;
 import vooga.rts.gamedesign.sprite.rtsprite.IMovable;
 import vooga.rts.gamedesign.sprite.rtsprite.RTSprite;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.Interactive;
@@ -31,8 +33,8 @@ public abstract class Units extends Interactive implements IMovable {
     private List<Interactive> myKills;
     // private boolean myIsLeftSelected; // TODO: also need the same thing for Projectiles
     // private boolean myIsRightSelected; // TODO: should be observing the mouse action instead!!
-    private PathingHelper myPather;
-
+    private Path myPath;
+    private PathFinder myFinder;
     private Location myGoal;
 
     /**
@@ -84,7 +86,7 @@ public abstract class Units extends Interactive implements IMovable {
     }
 
     public void setPath (Location location) {
-        myPather.constructPath(getCenter(), location);
+       
     }
 
     /*

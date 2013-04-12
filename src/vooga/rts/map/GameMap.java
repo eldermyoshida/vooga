@@ -1,7 +1,7 @@
 package vooga.rts.map;
 
 import vooga.rts.ai.Path;
-import vooga.rts.ai.Pathfinder;
+import vooga.rts.ai.PathFinder;
 import vooga.rts.util.Location;
 
 /**
@@ -31,7 +31,11 @@ public class GameMap {
         return myMap.get(x, y);
     }
     
-    public Path getPath (Pathfinder finder, Location start, Location finish) {
+    public Path getPath (PathFinder finder, Location start, Location finish) {
         return finder.calculatePath(getNode(start), getNode(finish), myMap);
+    }
+    
+    public NodeMap getMap () {
+        return myMap;
     }
 }
