@@ -93,8 +93,8 @@ public abstract class WorkspaceView extends WindowComponent {
      * Take in a string and send it to Window to process it as a command.
      * @param s The string to be parsed.
      */
-    public void processConsoleInput (String s) {
-        myWindow.processCommand(this, s);
+    public void process (Object o) {
+        myWindow.process(this, o);
     }
     
     //TODO - good design choice?
