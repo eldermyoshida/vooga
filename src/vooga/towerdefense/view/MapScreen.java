@@ -62,7 +62,6 @@ public class MapScreen extends JPanel {
         myController.paintMap(pen);
         paintGridLines(pen);
         if (towerImage != null) {
-            System.out.println("not null");
             pen.drawImage(towerImage, (int)mouseLocation.getX(), (int)mouseLocation.getY(), null);
         }
         }
@@ -82,7 +81,7 @@ public class MapScreen extends JPanel {
         myMouseListener = new MouseListener() {
             @Override
             public void mouseClicked (MouseEvent e) {
-                //myController.handleMapClick(e.getPoint());
+                myController.handleMapClick(e.getPoint());
             }
             @Override
             public void mouseEntered (MouseEvent e) {
@@ -103,7 +102,7 @@ public class MapScreen extends JPanel {
             }
             @Override
             public void mouseMoved (MouseEvent e) {
-                System.out.println("moving");
+                //myController.handleMouseMovement(e.getPoint());
                 mouseLocation = e.getPoint();
                 update();
             }

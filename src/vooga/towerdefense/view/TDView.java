@@ -11,8 +11,10 @@ import javax.swing.JPanel;
 import vooga.towerdefense.controller.Controller;
 
 /**
- * 
+ * Container that holds the screens for the view.
+ *
  * @author Leonard K. Ng'eno
+ * @author Angelica Schwartz
  *
  */
 public class TDView {
@@ -59,27 +61,6 @@ public class TDView {
         myFrame.setVisible(true);
     }
     
-//    public void assembleScreens () {
-//    	
-//    	myFrame.remove(mySplashScreen);
-//    	
-//      //add view components to the BorderLayout manager
-//      myMapScreen = new MapScreen(MAP_WINDOW_SIZE, myController);
-//      myFrame.getContentPane().add(myMapScreen, BorderLayout.CENTER);
-//      
-//      myEastWindow = new EastWindow(EAST_WINDOW_SIZE);
-//      myFrame.getContentPane().add(myEastWindow, BorderLayout.EAST);
-//      
-//      myShopScreen = new ShopScreen(SHOP_WINDOW_SIZE);
-//      myFrame.getContentPane().add(myShopScreen, BorderLayout.SOUTH);
-//
-//      myEditorWindow = new LevelsSelectorScreen(EDITOR_WINDOW_SIZE);
-//      myFrame.getContentPane().add(myEditorWindow, BorderLayout.CENTER);
-//      
-//      myFrame.pack();
-//      myFrame.setVisible(true);
-//    }
-    
     private Component nextScreenButton () {
         myNextScreen = new JButton("NEXT");
         myNextScreen.addActionListener(new ActionListener() {
@@ -97,7 +78,6 @@ public class TDView {
     private void showPredefinedMaps () {
         myFrame.remove(mySplashScreen);
         myFrame.remove(myNextScreen);
-        myFrame.revalidate();
 
         myMapSelector = new MapsSelectorScreen(MAP_WINDOW_SIZE, this);
         myFrame.getContentPane().add(myMapSelector, BorderLayout.CENTER);
@@ -108,7 +88,6 @@ public class TDView {
 
     public void showModesScreen (){
         myFrame.remove(myMapSelector);
-        myFrame.revalidate();
 
         myLevelSelector = new LevelsSelectorScreen(MAP_WINDOW_SIZE, this);
         myFrame.getContentPane().add(myLevelSelector, BorderLayout.CENTER);
