@@ -7,17 +7,14 @@ import java.io.FileReader;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-import vooga.rts.networking.server.MatchmakerServer;
 
 public class Factory {
 
-    private MatchmakerServer myServer;
     private static final String RESOURCES_LOCATION = "/vooga/rts/networking/resources/";
     private static final String CLASS_LOCATION = "vooga.rts.networking.factory";
     private Map<String, Command> myCommands = new HashMap<String, Command>();
     
-    public Factory (MatchmakerServer server) {
-        myServer = server;
+    public Factory () {
         loadObjects();
     }
     

@@ -19,6 +19,7 @@ public class ConnectionThread extends Thread {
     private ObjectInputStream myInput;
     private ObjectOutputStream myOutput;
     private int myID;
+    private String myName;
     private IMessageReceiver myMessageServer;
     private boolean myConnectionActive = false;
 

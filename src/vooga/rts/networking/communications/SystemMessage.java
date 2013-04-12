@@ -1,5 +1,6 @@
 package vooga.rts.networking.communications;
 
+import java.util.Arrays;
 import vooga.rts.networking.server.TimeStamp;
 
 /**
@@ -14,13 +15,23 @@ public class SystemMessage extends Message {
 
     private static final long serialVersionUID = 405038499514244311L;
     private String myMessage;
-
-    public SystemMessage (TimeStamp timeStamp, String message) {
+    private Object[] myParameters;
+    
+    public SystemMessage (TimeStamp timeStamp, String message, Object[] parameters) {
         super(timeStamp);
+        myParameters = parameters;
     }
-
+    
     public SystemMessage (String message) {
         myMessage = message;
+    }
+    
+    public String getMessage () {
+        return myMessage;
+    }
+    
+    public Object[] getParameters () {
+        return Arrays.copyOf(myParameters, myParameters.length);
     }
 
 }

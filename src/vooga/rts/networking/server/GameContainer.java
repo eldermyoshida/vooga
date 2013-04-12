@@ -20,7 +20,6 @@ public class GameContainer implements IMessageReceiver {
     
     public void addConnection (ConnectionThread thread) {
         threads.add(thread);
-        
     }
 
     @Override

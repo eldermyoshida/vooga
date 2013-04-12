@@ -41,12 +41,7 @@ public class GameServer extends Thread implements IMessageReceiver {
     @Override
     public void run () {
         while (isGameRunning()) {
-            while (!myMessageQueue.isEmpty()) {
-                Message message = myMessageQueue.poll();
-                for (ConnectionThread ct : myClients) {
-                    ct.sendMessage(message);
-                }
-            }
+            sendMessages();
             // Sleep in order to cut CPU usage and go to another thread
             // TODO not sure if this is actually a good idea - review
             try {
@@ -55,6 +50,15 @@ public class GameServer extends Thread implements IMessageReceiver {
             catch (InterruptedException e) {
                 // TODO add logger
                 e.printStackTrace();
+            }
+        }
+    }
+    
+    protected void sendMessages () {
+        while (!getMessageQueue().isEmpty()) {
+            Message message = getMessageQueue().poll();
+            for (ConnectionThread ct : myClients) {
+                ct.sendMessage(message);
             }
         }
     }
@@ -73,6 +77,10 @@ public class GameServer extends Thread implements IMessageReceiver {
     
     protected boolean isGameRunning () {
         return gameRunning;
+    }
+    
+    protected Queue<Message> getMessageQueue() {
+        return myMessageQueue;
     }
 
     @Override
