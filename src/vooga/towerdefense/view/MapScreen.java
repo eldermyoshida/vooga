@@ -2,11 +2,18 @@ package vooga.towerdefense.view;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.awt.geom.Point2D;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import vooga.towerdefense.controller.Controller;
 import vooga.towerdefense.util.Location;
+import vooga.towerdefense.util.Pixmap;
 
 /**
  * Displays the map and everything on the map.
@@ -16,10 +23,14 @@ import vooga.towerdefense.util.Location;
 public class MapScreen extends JPanel {
 
     private static final long serialVersionUID = 1L;
+    private static final String RESOURCE = "/vooga/towerdefense/images/";
     private Controller myController;
     private MouseListener myMouseListener;
+    private MouseMotionListener myMouseMotionListener;
     private Dimension mySize;
-
+    private Image towerImage; 
+    private Point mouseLocation; 
+    
     /**
      * Constructor.
      * @param size
@@ -30,8 +41,11 @@ public class MapScreen extends JPanel {
         setFocusable(true);
         setVisible(true);
         myController = controller;
+        towerImage = new ImageIcon(getClass().getResource(RESOURCE + "tower.gif")).getImage();
         makeMouseListener();
+        mouseLocation = new Point(0,0);
         addMouseListener(myMouseListener);
+        addMouseMotionListener(myMouseMotionListener);
         repaint();
     }
     
@@ -45,9 +59,13 @@ public class MapScreen extends JPanel {
     
     public void paintComponent(Graphics pen) {
         super.paintComponent(pen);
-        myController.paintMap();
+        myController.paintMap(pen);
         paintGridLines(pen);
-    }
+        if (towerImage != null) {
+            System.out.println("not null");
+            pen.drawImage(towerImage, (int)mouseLocation.getX(), (int)mouseLocation.getY(), null);
+        }
+        }
     
     public void paintGridLines(Graphics pen) {
         for (int i = 0; i < mySize.width; i+=25)
@@ -64,7 +82,7 @@ public class MapScreen extends JPanel {
         myMouseListener = new MouseListener() {
             @Override
             public void mouseClicked (MouseEvent e) {
-                myController.handleMapClick(e.getPoint());
+                //myController.handleMapClick(e.getPoint());
             }
             @Override
             public void mouseEntered (MouseEvent e) {
@@ -77,6 +95,17 @@ public class MapScreen extends JPanel {
             }
             @Override
             public void mouseReleased (MouseEvent e) {
+            }
+        };
+        myMouseMotionListener = new MouseMotionListener() {
+            @Override
+            public void mouseDragged (MouseEvent e) {
+            }
+            @Override
+            public void mouseMoved (MouseEvent e) {
+                System.out.println("moving");
+                mouseLocation = e.getPoint();
+                update();
             }
         };
     }

@@ -1,7 +1,6 @@
 package vooga.towerdefense.model;
 
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.ArrayList;
@@ -41,12 +40,6 @@ public class GameMap {
                                         true, true);
             }        
         }
-//        for (int i = 0; i < myGrid.length; ++i) {
-//            for (int j = 0; j < myGrid[i].length; ++j) {
-//                System.out.print(myGrid[i][j] + " ");
-//            }
-//            System.out.println();
-//        }
     }
 
     public void update (double elapsedTime) {

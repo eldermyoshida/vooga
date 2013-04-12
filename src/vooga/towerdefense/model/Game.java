@@ -1,5 +1,13 @@
 package vooga.towerdefense.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import vooga.towerdefense.gameElements.ExampleWave;
+import vooga.towerdefense.gameElements.Unit;
+import vooga.towerdefense.gameElements.Wave;
+import vooga.towerdefense.view.TDView;
+
 
 
 public class Game {
@@ -10,10 +18,19 @@ public class Game {
 	private boolean game_is_running = false;
 	private GameModel myModel;
 
-	public Game() {
+	public Game(TDView view) {
 		// TODO: functions to construct model from file. Probably put that in
 		// GameModel constructor.
-		myModel = new GameModel(null, null, null);
+		
+		List<Unit> units = new ArrayList<Unit>();
+		double spawnDelay = 100;
+		double duration = 60000;
+		Wave wave = new ExampleWave(myModel.getMap(), units, spawnDelay,
+				duration);
+		List<Wave> waves = new ArrayList<Wave>();
+		waves.add(wave);
+		
+		myModel = new GameModel(view, waves, myModel.getMap());
 	}
 
 	public void start() {
@@ -38,7 +55,6 @@ public class Game {
 			}
 			myModel.displayMap();
 		}
-
 	}
 
 	public void setRunning(boolean isRunning) {
