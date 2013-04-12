@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import vooga.rts.networking.communications.Message;
 
 
 /**
@@ -14,7 +15,7 @@ import java.util.Queue;
  * @author Henrique Moraes, Sean Wareham, David Winegar
  * 
  */
-public class GameServer extends Thread implements IMessageServer {
+public class GameServer extends Thread implements IMessageReceiver {
     private List<ConnectionThread> myClients;
     private int myID;
     private boolean gameRunning = true;
@@ -40,12 +41,7 @@ public class GameServer extends Thread implements IMessageServer {
     @Override
     public void run () {
         while (isGameRunning()) {
-            while (!myMessageQueue.isEmpty()) {
-                Message message = myMessageQueue.poll();
-                for (ConnectionThread ct : myClients) {
-                    ct.sendMessage(message);
-                }
-            }
+            sendMessages();
             // Sleep in order to cut CPU usage and go to another thread
             // TODO not sure if this is actually a good idea - review
             try {
@@ -54,6 +50,15 @@ public class GameServer extends Thread implements IMessageServer {
             catch (InterruptedException e) {
                 // TODO add logger
                 e.printStackTrace();
+            }
+        }
+    }
+    
+    protected void sendMessages () {
+        while (!getMessageQueue().isEmpty()) {
+            Message message = getMessageQueue().poll();
+            for (ConnectionThread ct : myClients) {
+                ct.sendMessage(message);
             }
         }
     }
@@ -73,9 +78,13 @@ public class GameServer extends Thread implements IMessageServer {
     protected boolean isGameRunning () {
         return gameRunning;
     }
+    
+    protected Queue<Message> getMessageQueue() {
+        return myMessageQueue;
+    }
 
     @Override
-    public void sendMessage (Message message) {
+    public void sendMessage (Message message, ConnectionThread thread) {
         myMessageQueue.add(message);
     }
 

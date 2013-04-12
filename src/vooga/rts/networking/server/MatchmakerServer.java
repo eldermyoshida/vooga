@@ -1,10 +1,11 @@
 package vooga.rts.networking.server;
 
-import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import vooga.rts.networking.communications.Message;
+import vooga.rts.networking.communications.SystemMessage;
+import vooga.rts.networking.factory.Command;
+import vooga.rts.networking.factory.Factory;
 
 
 /**
@@ -15,19 +16,14 @@ import java.util.List;
  * @author David Winegar
  * 
  */
-public class MatchmakerServer extends Thread implements IMessageServer {
-    private List<ConnectionThread> myConnectionThreads;
-    private List<ConnectionThread> myPotentialConnections;
-    private List<GameServer> myGameServers;
+public class MatchmakerServer extends Thread implements IMessageReceiver {
+    private List<ConnectionThread> myConnectionThreads = new ArrayList<ConnectionThread>();
+    private List<ConnectionThread> myPotentialConnections = new ArrayList<ConnectionThread>();
+    private List<GameServer> myGameServers = new ArrayList<GameServer>();
+    private List<GameContainer> myGameContainers = new ArrayList<GameContainer>();
     private int myGameServerID = 0;
-    private ConnectionServer myConnectionServer;
-
-    public MatchmakerServer () {
-        myConnectionThreads = new ArrayList<ConnectionThread>();
-        myGameServers = new ArrayList<GameServer>();
-        myPotentialConnections = new ArrayList<ConnectionThread>();
-        myConnectionServer = new ConnectionServer(this);
-    }
+    private ConnectionServer myConnectionServer = new ConnectionServer(this);
+    private Factory myFactory = new Factory();
 
     @Override
     public void run () {
@@ -55,9 +51,10 @@ public class MatchmakerServer extends Thread implements IMessageServer {
     }
 
     @Override
-    public void sendMessage (Message message) {
-        // TODO Auto-generated method stub
-
+    public void sendMessage (Message message, ConnectionThread thread) {
+        SystemMessage systemMessage = (SystemMessage) message;
+        Command command = myFactory.getCommand(systemMessage.getMessage());
+        command.execute(thread, this);
     }
 
 }

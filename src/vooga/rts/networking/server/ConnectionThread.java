@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import vooga.rts.networking.communications.Message;
 
 
 /**
@@ -18,7 +19,9 @@ public class ConnectionThread extends Thread {
     private ObjectInputStream myInput;
     private ObjectOutputStream myOutput;
     private int myID;
-    private IMessageServer myMessageServer;
+    private String myUserName;
+    private String myGameName;
+    private IMessageReceiver myMessageServer;
     private boolean myConnectionActive = false;
 
     /**
@@ -26,7 +29,7 @@ public class ConnectionThread extends Thread {
      * 
      * @param socket socket used for establishing the connection
      */
-    ConnectionThread (Socket socket, IMessageServer server, int ID) {
+    ConnectionThread (Socket socket, IMessageReceiver server, int ID) {
         mySocket = socket;
         myMessageServer = server;
 
@@ -41,7 +44,7 @@ public class ConnectionThread extends Thread {
         }
     }
 
-    public void switchMessageServer (IMessageServer server) {
+    public void switchMessageServer (IMessageReceiver server) {
         myMessageServer = server;
     }
 
@@ -56,7 +59,7 @@ public class ConnectionThread extends Thread {
                 Object obj;
                 if ((obj = myInput.readObject()) != null && obj instanceof Message) {
                     Message message = (Message) obj;
-                    myMessageServer.sendMessage(message);
+                    myMessageServer.sendMessage(message, this);
                 }
             }
             catch (IOException e) {
