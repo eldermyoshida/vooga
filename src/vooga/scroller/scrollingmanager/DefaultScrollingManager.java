@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import vooga.scroller.model.Model;
+import vooga.scroller.sprite_superclasses.Player;
 import vooga.scroller.util.Location;
 import vooga.scroller.view.View;
 /**
@@ -129,8 +130,23 @@ public class DefaultScrollingManager extends ScrollingManager {
         myGame.paint((Graphics2D) pen);
     }
 
-    public Location playerPaintLocation () {
-        return new Location(myView.getWidth() / 2, myView.getHeight() / 2);
+    public Location playerPaintLocation (Player p) {
+        double x = myView.getWidth() / 2;
+        double y = myView.getHeight() / 2;
+        if(p.getX() > (levelRightBoundary() - myView.getWidth() / 2)) {
+            x =  (myView.getWidth() / 2) + ((myView.getWidth() / 2) - (levelRightBoundary() - p.getX()));
+        }
+        if(p.getX() < (levelLeftBoundary() + myView.getWidth() / 2)) {
+            x =  (myView.getWidth() / 2) - ((myView.getWidth() / 2) - (levelLeftBoundary() + p.getX()));
+        }
+        if(p.getY() > (levelLowerBoundary() - myView.getHeight() / 2)) {
+            y =  (myView.getHeight() / 2) + ((myView.getHeight() / 2) - (levelLowerBoundary() - p.getY()));
+        }
+        if(p.getY() < (levelUpperBoundary() + myView.getHeight() / 2)) {
+            y =  (myView.getHeight() / 2) - ((myView.getHeight() / 2) - (levelUpperBoundary() + p.getY()));
+        }
+        
+        return new Location(x, y);
         
     }
 }

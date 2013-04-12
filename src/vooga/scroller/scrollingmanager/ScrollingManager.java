@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import vooga.scroller.sprite_superclasses.Player;
 import vooga.scroller.util.Location;
 import vooga.scroller.view.View;
 import vooga.scroller.model.Model;
@@ -48,7 +49,7 @@ public abstract class ScrollingManager {
     
     public abstract void viewPaint(Graphics pen);
     
-    public abstract Location playerPaintLocation();
+    public abstract Location playerPaintLocation(Player player);
     
     
 }

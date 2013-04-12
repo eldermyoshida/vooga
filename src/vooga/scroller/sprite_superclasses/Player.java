@@ -68,7 +68,7 @@ public class Player extends Sprite {
    
     @Override
     public void paint (Graphics2D pen) {
-        myImage.paint(pen, myScrollingManager.playerPaintLocation(), mySize);
+        myImage.paint(pen, myScrollingManager.playerPaintLocation(this), mySize);
     }
     
     public void changeState(State newState) {
