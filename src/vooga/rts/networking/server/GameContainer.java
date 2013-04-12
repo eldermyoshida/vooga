@@ -2,6 +2,8 @@ package vooga.rts.networking.server;
 
 import java.util.ArrayList;
 import java.util.List;
+import vooga.rts.networking.communications.Message;
+import vooga.rts.networking.communications.SystemMessage;
 
 public class GameContainer implements IMessageReceiver {
 

@@ -1,5 +1,7 @@
 package vooga.rts.networking.server;
 
+import vooga.rts.networking.communications.Message;
+
 public class InitialConnectionMessage extends Message {
 
     private static final long serialVersionUID = -6750642234836246976L;

@@ -1,6 +1,6 @@
 package vooga.rts.networking.example;
 
-import vooga.rts.networking.server.Message;
+import vooga.rts.networking.communications.Message;
 
 
 public class ChatMessage extends Message {

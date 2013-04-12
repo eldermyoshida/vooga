@@ -1,11 +1,16 @@
-package vooga.rts.networking.server;
+package vooga.rts.networking.communications;
 
 import java.io.Serializable;
+import vooga.rts.networking.server.SystemTimeStamp;
+import vooga.rts.networking.server.TimeStamp;
 
 
 /**
- * This class contains all the information that is required to pass among
- * server and clients
+ * A Message is the object sent between the server and the client.
+ * A Designer may subclass Message to send whatever form of data they wish.
+ * There is also a SystemLevel Message subclass that is used to communicate 
+ * between the server for managerial tasks; the developer likely will not need
+ * to worry about these.
  * 
  * @author Henrique Moraes
  * @author David Winegar
