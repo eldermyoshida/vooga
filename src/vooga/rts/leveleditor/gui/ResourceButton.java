@@ -6,6 +6,10 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 import javax.swing.JToggleButton;
+import vooga.rts.input.AlertObject;
+import vooga.rts.input.Input;
+import vooga.rts.input.InputClassTarget;
+import vooga.rts.input.InputMethodTarget;
 import vooga.rts.leveleditor.components.Resource;
 
 /**
@@ -16,11 +20,15 @@ import vooga.rts.leveleditor.components.Resource;
  *
  */
 
+//@InputClassTarget
 public class ResourceButton extends JToggleButton implements ActionListener {
+    
+    //public static final String INPUT_DIR = "vooga.rts.resources.Input";
 
     private Resource myResource;
     private ResourcePanel myOwner;
     private BufferedImage myIcon;
+    private Input myInput;
     
     /**
      * Constructor for this class
@@ -32,6 +40,8 @@ public class ResourceButton extends JToggleButton implements ActionListener {
         myResource = r;
         myIcon = r.getImage();
         myOwner = owner;
+        //myInput = new Input(INPUT_DIR, this);
+        //myInput.addListenerTo(this);
        
         myIcon.getGraphics().drawImage(myIcon, 0, 0, 32, 32, null);
         setToolTipText(r.getName());
@@ -39,6 +49,13 @@ public class ResourceButton extends JToggleButton implements ActionListener {
         setMargin(new Insets(2,2,2,2));
         this.addActionListener(this);
     }
+    
+//    @InputMethodTarget(name="onLeftMouseClick")
+//    public void getResource(AlertObject alObj) {
+//        myOwner.getCanvas().remove(false);
+//        myOwner.setCurrentSelectResource(myResource);
+//        System.out.println("test");
+//    }
     
     @Override
     public void actionPerformed(ActionEvent e) {
