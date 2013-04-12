@@ -45,6 +45,11 @@ public class LevelFactory {
                                  new Location(view.getWidth() - 300, view.getHeight() - 275)  
                                  ));   
         
+        
+        myCurrLevel.addSprite(new MarioLib.Koopa( 
+                                 new Location(view.getWidth() - 200, view.getHeight() - 350)  
+                                       ));   
+        
         myCurrLevel.addSprite(new MarioLib.Platform( 
                                     new Location(view.getWidth() - 80, view.getHeight() - 150)
                                     ));   
