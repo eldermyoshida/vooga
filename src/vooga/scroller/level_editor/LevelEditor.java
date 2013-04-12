@@ -54,7 +54,7 @@ public class LevelEditor implements ILevelEditor {
     }
 
     @Command
-    public void createSprite (int x, int y, int id) {
+    public void createSprite (int id, int x, int y) {
         Sprite sprite = mySpriteMap.get(id);
         sprite = sprite.copy();
         try{
@@ -94,15 +94,19 @@ public class LevelEditor implements ILevelEditor {
         }
         catch (NullPointerException e) {
           //TODO NO_METHOD_COMMAND_ERROR = "Command does not exist";
+            System.out.println(NO_METHOD_COMMAND_ERROR);
         }
         catch (IllegalAccessException e) {
           //TODO DEFAULT_COMMAND_ERROR = "Incorrect Command";
+            System.out.println(DEFAULT_COMMAND_ERROR);
         }
         catch (IllegalArgumentException e) {
           //TODO PARAM_COMMAND_ERROR = "Incorrect Parameters";
+            System.out.println(PARAM_COMMAND_ERROR);
         }
         catch (InvocationTargetException e) {
-            //TODO DEFAULT_COMMAND_ERROR = "Incorrect Command";
+          //TODO DEFAULT_COMMAND_ERROR = "Incorrect Command";
+            System.out.println(DEFAULT_COMMAND_ERROR);
         }
     }
 
