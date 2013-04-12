@@ -26,36 +26,36 @@ import vooga.rts.util.Vector;
  */
 public class Projectile extends GameEntity implements Cloneable{
 
-	
-	private static final int SPEED = 4;
-	private int myDamage;
-	private InteractiveEntity myTarget;
-	
-	public Projectile(Pixmap pixmap, Location loc, Dimension size, int teamID, int damage, int health){
-		super(pixmap, loc, size, teamID, health);
-		myDamage = damage;
-	}
-	
-	public Projectile clone() {
-		return this.clone();
-	}
 
-	
-	public void setTarget(InteractiveEntity target){
-		Vector between = getCenter().difference(target.getCenter());
-		double angle = between.getAngle();
-		setVelocity(angle, SPEED);
-	}
-	
-	
-	@Override
-	public void update(double elapsedTime){
-	    super.update(elapsedTime);
-	    System.out.println(this.getCenter());
-	}
+    private static final int SPEED = 4;
+    private int myDamage;
+    private InteractiveEntity myTarget;
 
-	public void attack(InteractiveEntity interactiveEntity) {
-		interactiveEntity.changeHealth(myDamage);
-		
-	}
+    public Projectile(Pixmap pixmap, Location loc, Dimension size, int teamID, int damage, int health){
+        super(pixmap, loc, size, teamID, health);
+        myDamage = damage;
+    }
+
+    public Projectile clone() {
+        return this.clone();
+    }
+
+
+    public void setTarget(InteractiveEntity target){
+        Vector between = getCenter().difference(target.getCenter());
+        double angle = between.getAngle();
+        setVelocity(angle, SPEED);
+    }
+
+
+    @Override
+    public void update(double elapsedTime){
+        super.update(elapsedTime);
+        System.out.println(this.getCenter());
+    }
+
+    public void attack(InteractiveEntity interactiveEntity) {
+        interactiveEntity.changeHealth(myDamage);
+
+    }
 }

@@ -116,8 +116,7 @@ public abstract class GameSprite extends Sprite {
     public void paint (Graphics2D pen)
     {   
     	if(!isVisible()) return;
-
-        System.out.println(getCenter().x + " " + getCenter().y + " " + mySize.height + " " + mySize.width);
+        //System.out.println(getCenter().x + " " + getCenter().y + " " + mySize.height + " " + mySize.width);
         getView().paint(pen, getCenter(), mySize);
     }
     

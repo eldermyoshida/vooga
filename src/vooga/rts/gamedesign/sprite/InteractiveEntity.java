@@ -136,7 +136,6 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     @Override
     public void update(double elapsedTime){
         super.update(elapsedTime);
-        System.out.println("InteractiveEntity is updating");
         if(!myWeapons.isEmpty()){
             myWeapons.get(myWeaponIndex).update(elapsedTime);
         }

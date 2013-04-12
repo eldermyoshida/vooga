@@ -109,7 +109,11 @@ public class GameEntity extends GameSprite {
      * Possible design choice error.
      */
     public void move (Location loc) {
-        myCurrentLocation = new Location(loc);
+        System.out.println("move is called");
+        Vector between = getCenter().difference(loc);
+        double angle = between.getAngle();
+        setVelocity(angle, 4);
+        //myCurrentLocation = new Location(loc);
     }
 
     /**

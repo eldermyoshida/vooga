@@ -19,8 +19,8 @@ public class HumanPlayer extends Player {
     }
     
     public void handleRightClick(int x, int y) {
-        for (Unit u : getUnits().getSelected())
-        {            
+        for (Unit u : getUnits().getSelected()) {
+            System.out.println("handling right click >< ");
             u.move(new Location(x, y));            
         }
     }
