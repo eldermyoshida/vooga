@@ -1,8 +1,11 @@
 package vooga.towerdefense.controller;
 
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 
+import vooga.towerdefense.controller.modes.ControlMode;
+import vooga.towerdefense.controller.modes.SelectMode;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.GameModel;
 import vooga.towerdefense.view.TDView;
@@ -15,14 +18,14 @@ import vooga.towerdefense.view.TDView;
  * @author Erick Gonzalez
  */
 public class Controller {
-    private boolean onBuildMode;
     private GameModel myModel;
     private TDView myView;
+	private ControlMode myControlMode;
     
     public Controller() {
         myView = new TDView(this);
         myModel = new GameModel(myView, null, new GameMap(800, 600, null));
-        onBuildMode = false;
+		myControlMode = new SelectMode();
     }
     
     /**
@@ -31,19 +34,14 @@ public class Controller {
      * @param p is the location of the click
      */
     public void handleMapClick(Point p) {
-        if (onBuildMode) {
-            
-        } 
-        else {
-            myModel.displayTileCoordinates(p);
-        }
+		myControlMode.handleMapClick(p, myModel);
     }
     
     /**
      * paints the map on the view.
      */
-	public void paintMap(Graphics2D pen) {
-		myModel.getMap().paint(pen);
+	public void paintMap(Graphics pen) {
+		myModel.getMap().paint((Graphics2D) pen);
     }
     
     public static void main(String[] args) {
