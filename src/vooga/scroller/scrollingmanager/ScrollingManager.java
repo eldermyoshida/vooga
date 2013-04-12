@@ -45,7 +45,7 @@ public abstract class ScrollingManager {
     
     public abstract Image getBackground();
     
-    public abstract void paint(Graphics pen);
+    public abstract void viewPaint(Graphics pen);
     
     
 }

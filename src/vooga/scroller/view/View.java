@@ -84,7 +84,7 @@ public class View extends JComponent {
 
         // first time needs to be special cased :(
         if (myGame != null & myScrollManager != null) {
-               myScrollManager.paint(pen);
+               myScrollManager.viewPaint(pen);
         }      
         
         //only used for testing, please remove later

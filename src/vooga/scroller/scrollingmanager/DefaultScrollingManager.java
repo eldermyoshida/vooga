@@ -94,7 +94,7 @@ public class DefaultScrollingManager extends ScrollingManager {
         return myGame.getBackground();
     }
     
-    public void paint(Graphics pen) {
+    public void viewPaint(Graphics pen) {
         Image img = getBackground();
         int imgwidth = img.getWidth(null);
         int imgheight = img.getHeight(null);
