@@ -4,9 +4,11 @@ package vooga.scroller.level_editor;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Map;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.Location;
+import vooga.scroller.util.Sprite;
 import vooga.scroller.level_editor.commands.Command;
 import vooga.scroller.level_editor.commands.CommandLibrary;
 
@@ -104,6 +106,12 @@ public class LevelEditor implements ILevelEditor {
             params[i] = Integer.parseInt(splitCommand[i + 1]);
         }
         return params;
+    }
+
+    @Override
+    public void setSpriteMap (Map<Integer, Sprite> spriteMap) {
+        // TODO Auto-generated method stub
+        
     }
 
 }

@@ -10,6 +10,7 @@ import vooga.scroller.util.Sprite;
 import vooga.scroller.viewUtil.Renderable;
 import vooga.scroller.collision_handlers.CollisionManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
+import vooga.scroller.sprites.superclasses.NonStaticEntity;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.PlatformerConstants;
 import vooga.scroller.view.View;
@@ -71,6 +72,17 @@ public class Level implements Editable, Renderable {
     
     public void addPlayer(Player s) {
         myPlayer = s;
+        for (Sprite sprite : mySprites) {
+
+            if (sprite instanceof NonStaticEntity) {
+                addPlayerToSprite((NonStaticEntity) sprite);
+            }
+            
+        }
+    }
+    
+    public void addPlayerToSprite(NonStaticEntity sprite) {
+        sprite.addPlayer(myPlayer);
     }
 
     //Methods from Renderable Interface. To be called by View components.  

@@ -7,6 +7,7 @@ import vooga.scroller.viewUtil.EasyGridFactory;
 import vooga.scroller.viewUtil.IView;
 import vooga.scroller.viewUtil.IWindow;
 import vooga.scroller.viewUtil.Renderable;
+import vooga.scroller.viewUtil.Tools;
 import vooga.scroller.viewUtil.WorkspaceView;
 
 /**
@@ -72,7 +73,14 @@ public class LEWorkspaceView extends WorkspaceView {
     @Override
     public void processCommand (String command) {
         // TODO - Need to refactor
-        super.processConsoleInput(command);
+        String res;
+        res = command + " " + myEditorView.getSelectedSpriteID();
+        super.processCommand(res);
+    }
+    
+    //TODO - Good design choice??
+    public static void setTools(Tools t) {
+        WorkspaceView.setTools(t);
     }
 
 }

@@ -1,8 +1,9 @@
 
-package vooga.scroller.sprites.test_sprites.mario;
+package vooga.scroller.test_sprites;
 
 import java.awt.Dimension;
 import java.util.List;
+
 import vooga.scroller.sprites.state.State;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.Location;
@@ -32,7 +33,8 @@ public class Mario extends Player {
     public void print() {
         System.out.println("Mario");
     }
-   
+
+
     public void changeState(State newState) {
         currentState = newState;
     }

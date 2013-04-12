@@ -10,6 +10,7 @@ import vooga.scroller.sprites.state.StateManager;
 import vooga.scroller.util.Location;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.Sprite;
+import vooga.scroller.util.Sprite_Type;
 import vooga.scroller.util.Vector;
 import vooga.scroller.view.View;
 
@@ -71,6 +72,10 @@ public class Player extends Sprite {
     
     public Location getOriginalCenter() {
         return myOriginalCenter;
+    }
+    
+    public Sprite_Type getSpriteType() {
+        return Sprite_Type.PLAYER;
     }
 
 }

@@ -1,8 +1,6 @@
 package vooga.scroller.sprites.test_sprites;
 
 import java.awt.Dimension;
-import java.util.HashMap;
-import java.util.Map;
 import vooga.scroller.level_editor.ISpriteLibrary;
 import vooga.scroller.sprites.superclasses.NonStaticEntity;
 import vooga.scroller.sprites.superclasses.StaticEntity;
@@ -15,12 +13,14 @@ import vooga.scroller.util.Sprite;
  * to retrieve all classes. Not sure if this is the best way to implement this.
  * But it is definitely better than having to parse the package. -DF
  * The Classes are static to allow instantiation w/o an instance of MarioLib.
- * TODO
- *
+ * TODO - Decide Whether to keep this implementation or switch to ENUM
+ * Moreover, it is an example of the sprite-specification file the game designer
+ * will need to provide.
  */
 public class MarioLib implements ISpriteLibrary {
     private static final Dimension DEFAULT_SIZE = new Dimension(30, 30);
     private static final Location DEFAULT_LOC = new Location(30, 30);
+
     
     public static class Coin extends StaticEntity {
 
@@ -43,10 +43,6 @@ public class MarioLib implements ISpriteLibrary {
     
     public static class Koopa extends NonStaticEntity {
         
-        public Koopa() {
-            this(DEFAULT_LOC);
-        }
-
         private static final String DEFAULT_IMG ="koopa.gif";
 
         public Koopa (Location center) {
@@ -64,11 +60,7 @@ public class MarioLib implements ISpriteLibrary {
     public static class Turtle extends NonStaticEntity {
 
         private static final String DEFAULT_IMG = "turtle.gif";
-        
-        public Turtle() {
-            this(DEFAULT_LOC);
-        }
-        
+                
         public Turtle (Location center) {
             super(new Pixmap(DEFAULT_IMG), center, DEFAULT_SIZE);
             // TODO Auto-generated constructor stub
@@ -79,7 +71,7 @@ public class MarioLib implements ISpriteLibrary {
         }
         
         public void update(double elapsedTime, Dimension bounds) {
-            changeVelocity(getRandomVelocity()); //want to make this call every X seconds
+            changeVelocity(trackPlayer(70)); //want to make this call every X seconds
             super.update(elapsedTime, bounds);
         }
 
