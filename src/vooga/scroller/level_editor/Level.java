@@ -3,9 +3,12 @@ package vooga.scroller.level_editor;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ImageIcon;
 import vooga.scroller.util.Editable;
+import vooga.scroller.util.Location;
 import vooga.scroller.util.Sprite;
 import vooga.scroller.viewUtil.Renderable;
 import vooga.scroller.collision_handlers.CollisionManager;
@@ -26,12 +29,16 @@ public class Level implements Editable, Renderable {
     private List<Sprite> myFrameOfReferenceSprites;
     private View myView;
     private ScrollingManager myScrollManager;
+    private Image myBackground;
+    //TEMPORARY 
+    private Image DEFAULT_BACKGROUND = new ImageIcon(getClass().getResource("/vooga/scroller/images/forestbackground.jpg")).getImage();
 
     public Level(int id, ScrollingManager sm){
 
         //MIGHT WANT TO INITIALIZE THIS WITH A PLAYER AS WELL
         mySize = PlatformerConstants.DEFAULT_LEVEL_SIZE;
         initFrames();
+        myBackground = DEFAULT_BACKGROUND;
     }
     
     public Level(int id){
@@ -46,6 +53,7 @@ public class Level implements Editable, Renderable {
         frameOfReferenceSize = myView.getSize();
         frameOfActionSize = calcActionFrameSize(myView.getSize());
         myScrollManager = sm;
+        myBackground = DEFAULT_BACKGROUND;
     }
 
     private void initFrames() {
@@ -83,6 +91,14 @@ public class Level implements Editable, Renderable {
     
     public void addPlayerToSprite(NonStaticEntity sprite) {
         sprite.addPlayer(myPlayer);
+    }
+    
+    public void setBackground(Image i) {
+        myBackground = i;
+    }
+    
+    public Image getBackground() {
+        return myBackground;
     }
 
     //Methods from Renderable Interface. To be called by View components.  
@@ -136,10 +152,10 @@ public class Level implements Editable, Renderable {
     private boolean checkRange(Sprite sprite, Dimension frame) {
         //This is pretty hacky, I am trying to think of a more elegant way
         if(myPlayer == null ||
-                getLeftBoundary() > sprite.getX()
-                || getRightBoundary() < sprite.getX()
-                || getLowerBoundary() < sprite.getY()
-                || getUpperBoundary() > sprite.getY()) {
+                getLeftBoundary(frame) > sprite.getX()
+                || getRightBoundary(frame) < sprite.getX()
+                || getLowerBoundary(frame) < sprite.getY()
+                || getUpperBoundary(frame) > sprite.getY()) {
             return false;
         }
         return true;
@@ -150,6 +166,21 @@ public class Level implements Editable, Renderable {
         return temp;
     }
     
+    public double getRightBoundary(Dimension frame) {
+        return myScrollManager.getRightBoundary(frame, myPlayer.getCenter());
+    }
+    
+    public double getLeftBoundary(Dimension frame) {
+        return myScrollManager.getLeftBoundary(frame, myPlayer.getCenter());
+    }
+    
+    public double getUpperBoundary(Dimension frame) {
+        return myScrollManager.getUpperBoundary(frame, myPlayer.getCenter());
+    }
+    
+    public double getLowerBoundary(Dimension frame) { 
+        return myScrollManager.getLowerBoundary(frame, myPlayer.getCenter());
+    }
     public double getRightBoundary() {
         return myScrollManager.getRightBoundary(frameOfReferenceSize, myPlayer.getCenter());
     }
@@ -165,6 +196,7 @@ public class Level implements Editable, Renderable {
     public double getLowerBoundary() { 
         return myScrollManager.getLowerBoundary(frameOfReferenceSize, myPlayer.getCenter());
     }
+
 
     public Dimension getLevelBounds() {
         return mySize;
