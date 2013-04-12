@@ -2,6 +2,8 @@
 package vooga.scroller.scrollingmanager;
 
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import vooga.scroller.model.Model;
 import vooga.scroller.util.Location;
@@ -92,5 +94,26 @@ public class DefaultScrollingManager extends ScrollingManager {
     
     public Image getBackground() {
         return myGame.getBackground();
+    }
+    
+    public void paint(Graphics pen) {
+        Image img = getBackground();
+        int imgwidth = img.getWidth(null);
+        int imgheight = img.getHeight(null);
+        int leftpaintbound = leftpaintbound();
+        int upperpaintbound = upperpaintbound();
+        int rightpaintbound = rightpaintbound();
+        int lowerpaintbound = lowerpaintbound();
+        
+        System.out.println(myGame.getLeftBoundary());
+        if(myGame.getLeftBoundary() < levelLeftBoundary()) {
+            leftpaintbound = 0;
+        }
+
+        pen.drawImage(img, leftpaintbound, upperpaintbound, imgwidth, imgheight, null);
+        pen.drawImage(img, rightpaintbound, upperpaintbound, imgwidth, imgheight, null);
+        pen.drawImage(img, leftpaintbound, lowerpaintbound, imgwidth, imgheight, null);
+        pen.drawImage(img, rightpaintbound, lowerpaintbound, imgwidth, imgheight, null);
+        myGame.paint((Graphics2D) pen);
     }
 }
