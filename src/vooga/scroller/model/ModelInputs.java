@@ -1,11 +1,11 @@
 
 package vooga.scroller.model;
 
-import vooga.scroller.input.AlertObject;
-import vooga.scroller.input.Input;
-import vooga.scroller.input.InputClassTarget;
-import vooga.scroller.input.InputMethodTarget;
-import vooga.scroller.input.PositionObject;
+import input.AlertObject;
+import input.Input;
+import input.InputClassTarget;
+import input.InputMethodTarget;
+import input.PositionObject;
 import javax.swing.JComponent;
 import vooga.scroller.sprites.superclasses.Player;
 /**
