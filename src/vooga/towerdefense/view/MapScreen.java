@@ -2,15 +2,18 @@ package vooga.towerdefense.view;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.geom.Point2D;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import vooga.towerdefense.controller.Controller;
 import vooga.towerdefense.util.Location;
+import vooga.towerdefense.util.Pixmap;
 
 /**
  * Displays the map and everything on the map.
@@ -20,11 +23,12 @@ import vooga.towerdefense.util.Location;
 public class MapScreen extends JPanel {
 
     private static final long serialVersionUID = 1L;
+    private static final String RESOURCE = "/vooga/towerdefense/images/";
     private Controller myController;
     private MouseListener myMouseListener;
     private MouseMotionListener myMouseMotionListener;
     private Dimension mySize;
-    private java.awt.Image towerImage = new ImageIcon("/vooga/towerdefense/images/tower.gif").getImage();
+    private Image towerImage; 
     private Point mouseLocation; 
     
     /**
@@ -37,6 +41,7 @@ public class MapScreen extends JPanel {
         setFocusable(true);
         setVisible(true);
         myController = controller;
+        towerImage = new ImageIcon(getClass().getResource(RESOURCE + "tower.gif")).getImage();
         makeMouseListener();
         mouseLocation = new Point(0,0);
         addMouseListener(myMouseListener);
@@ -58,8 +63,6 @@ public class MapScreen extends JPanel {
         paintGridLines(pen);
         if (towerImage != null) {
             System.out.println("not null");
-            System.out.println(towerImage.getWidth(null));
-            pen.drawImage(towerImage, 0, 0, 20, 20, this);
             pen.drawImage(towerImage, (int)mouseLocation.getX(), (int)mouseLocation.getY(), null);
         }
         }

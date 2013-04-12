@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
+
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.gameElements.Unit;
 import vooga.towerdefense.util.Location;
@@ -46,6 +47,7 @@ public class GameMap {
         updateUnits(elapsedTime);
         updateTiles(elapsedTime);
     }
+
 
     private void updateUnits (double elapsedTime) {
         for (Unit unit : myUnits) {
