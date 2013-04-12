@@ -58,7 +58,7 @@ public class Weapon {
      * 
      * @throws CloneNotSupportedException
      */
-    public void fire (InteractiveEntity toBeShot) throws CloneNotSupportedException {
+    public void fire (InteractiveEntity toBeShot) {
 
         System.out.println("Health of enemy " + toBeShot.getHealth());
         System.out.println("cooldown " + cooldown);
