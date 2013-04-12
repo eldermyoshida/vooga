@@ -1,6 +1,7 @@
 package vooga.rts.networking;
 
 import javax.swing.JFrame;
+import vooga.rts.networking.client.ServerBrowserView;
 
 public class TestMain {
 

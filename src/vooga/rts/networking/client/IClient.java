@@ -1,4 +1,4 @@
-package vooga.rts.networking;
+package vooga.rts.networking.client;
 
 import vooga.rts.networking.server.Message;
 
