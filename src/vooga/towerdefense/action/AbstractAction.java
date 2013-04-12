@@ -29,8 +29,8 @@ public abstract class AbstractAction {
 	public abstract void execute(GameElement initiator, double elapsedTime);
 	
 	
-	public void setCoolDown(double cd, boolean canBeDoneAgain){
-		myCDManager.setCoolDown(cd, canBeDoneAgain);
+	public void setCoolDown(double cd, boolean isOneTime){
+		myCDManager.setCoolDown(cd, isOneTime);
 	}
 	
 	public boolean isReady(){
