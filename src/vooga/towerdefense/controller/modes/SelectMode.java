@@ -1,8 +1,7 @@
 package vooga.towerdefense.controller.modes;
 
 import java.awt.Point;
-
-import vooga.towerdefense.model.GameModel;
+import vooga.towerdefense.controller.Controller;
 
 /**
  * The default game mode used when nothing is selected.
@@ -11,7 +10,7 @@ import vooga.towerdefense.model.GameModel;
  */
 public class SelectMode extends ControlMode {
 
-	public void handleMapClick(Point p, GameModel model) {
-		model.displayTileCoordinates(p);
-	}
+    public void handleMapClick (Point p, Controller controller) {
+        controller.displayTileCoordinates(p);
+    }
 }

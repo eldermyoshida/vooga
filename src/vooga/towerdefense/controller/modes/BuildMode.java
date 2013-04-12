@@ -1,8 +1,8 @@
 package vooga.towerdefense.controller.modes;
 
 import java.awt.Point;
+import vooga.towerdefense.controller.Controller;
 
-import vooga.towerdefense.model.GameModel;
 
 /**
  * A build mode used to aid in the placing and building of towers.
@@ -11,7 +11,7 @@ import vooga.towerdefense.model.GameModel;
  */
 public class BuildMode extends ControlMode {
 
-	public void handleMapClick(Point p, GameModel model) {
-		// TODO: implement
-	}
+    public void handleMapClick (Point p, Controller controller) {
+        // TODO: implement
+    }
 }

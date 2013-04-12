@@ -36,12 +36,13 @@ public class Controller {
      * @param p is the location of the click
      */
     public void handleMapClick (Point p) {
-        myControlMode.handleMapClick(p, myModel);
+        myControlMode.handleMapClick(p, this);
     }
 
     public void displayTileCoordinates (Point p) {
         Tile t = myModel.getTile(p);
         Point center = t.getCenter();
+        System.out.println(center);
         myView.getTowerInfoScreen().displayInformation(center.toString());
     }
     

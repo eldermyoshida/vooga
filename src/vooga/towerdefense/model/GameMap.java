@@ -80,11 +80,11 @@ public class GameMap {
     }
 
     public void paint (Graphics2D pen) {
-        for (Unit u : myUnits) {
-            u.paint(pen);
-        }
-        for (GameElement e : myGameElements)
-            e.paint(pen);
+//        for (Unit u : myUnits) {
+//            u.paint(pen);
+//        }
+//        for (GameElement e : myGameElements)
+//            e.paint(pen);
 
     }
 }
