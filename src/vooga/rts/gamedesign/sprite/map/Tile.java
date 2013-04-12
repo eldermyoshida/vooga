@@ -1,6 +1,10 @@
-package gamedesign.sprite.map;
+package vooga.rts.gamedesign.sprite.map;
 
-import gamedesign.sprite.Sprite;
+import java.awt.Dimension;
+
+import vooga.rts.gamedesign.sprite.Sprite;
+import vooga.rts.util.Location;
+import vooga.rts.util.Pixmap;
 
 /**
  * The background image for the map.
@@ -12,4 +16,15 @@ import gamedesign.sprite.Sprite;
  *
  */
 public class Tile extends Sprite {
+
+	public Tile(Pixmap image, Location center, Dimension size) {
+		super(image, center, size);
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public void update(double elapsedTime) {
+		// TODO Auto-generated method stub
+		
+	}
 }

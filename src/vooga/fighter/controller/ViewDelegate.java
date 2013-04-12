@@ -14,4 +14,10 @@ public interface ViewDelegate {
 	public Location getLocation(int index);
 	
 	public Dimension getSize(int index);
+	
+	public Integer getPlayerNumber();
+	
+	public Integer getScore(int index);
+	
+	public Integer getPlayerHealth();
 }

@@ -1,4 +1,4 @@
-package gamedesign.sprite.rtsprite.interactive;
+package vooga.rts.gamedesign.sprite.rtsprite.interactive;
 
 /**
  * 

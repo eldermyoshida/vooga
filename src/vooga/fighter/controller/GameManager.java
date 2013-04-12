@@ -25,8 +25,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 
-@InputClassTarget
-public class GameManager {
+public class GameManager implements ManagerDelegate{
 	public static final Dimension SIZE = new Dimension(800, 600);
     public static final String TITLE = "Fighter!";
 

@@ -1,23 +1,35 @@
-package gameElements;
+package vooga.towerdefense.gameElements;
 
 import java.awt.Dimension;
-import util.Location;
-import util.Pixmap;
-import util.Sprite;
-import view.Tile;
+import java.util.List;
+
+import vooga.towerdefense.action.AbstractAction;
+import vooga.towerdefense.util.Location;
+import vooga.towerdefense.util.Pixmap;
+import vooga.towerdefense.util.Sprite;
 
 
-public abstract class Tower extends Sprite {
-    private Tile myTile;
+/**
+ * Blank tower that holds its attributes and actions that define it
+ * @author Matthew Roy
+ *
+ */
+public class Tower extends Sprite {
     
-    public Tower (Pixmap image, Location center, Dimension size,
-                  Tile tile) {
+    Attributes myAttributes;
+    List<AbstractAction> myActions;
+    
+    public Tower (Pixmap image, Location center, Dimension size, Attributes attributes, List<AbstractAction> actions) {
         super(image, center, size);
-        myTile = tile;
+        myAttributes = attributes;
+        myActions = actions;
     }
     
+    
     public void update(double elapsedTime) {
-        
+        for (AbstractAction a : myActions) {
+            a.execute(elapsedTime);
+        }
     }
 
 }

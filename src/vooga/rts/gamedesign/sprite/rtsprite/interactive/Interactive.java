@@ -1,39 +1,89 @@
-package gamedesign.sprite.rtsprite.interactive;
+package vooga.rts.gamedesign.sprite.rtsprite.interactive;
 
-import gamedesign.sprite.rtsprite.RTSprite;
-import gamedesign.strategy.attackstrategy.AttackStrategy;
-import gamedesign.strategy.productionstrategy.ProductionStrategy;
-import gamedesign.strategy.skillstrategy.SkillStrategy;
-import gamedesign.upgrades.Upgrade;
-import gamedesign.upgrades.UpgradeTree;
+import java.awt.Dimension;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
+import vooga.rts.gamedesign.sprite.rtsprite.IGatherable;
+import vooga.rts.gamedesign.sprite.rtsprite.Projectile;
+import vooga.rts.gamedesign.sprite.rtsprite.RTSprite;
+import vooga.rts.gamedesign.sprite.rtsprite.RTSpriteVisitor;
+import vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings.Building;
+import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
+import vooga.rts.gamedesign.strategy.attackstrategy.CannotAttack;
+import vooga.rts.gamedesign.strategy.gatherstrategy.CannotGather;
+import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
+import vooga.rts.gamedesign.strategy.occupystrategy.CannotOccupy;
+import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
+import vooga.rts.gamedesign.strategy.production.IProducer;
+import vooga.rts.gamedesign.strategy.skillstrategy.SkillStrategy;
+import vooga.rts.gamedesign.upgrades.ArmorUpgradeNode;
+import vooga.rts.gamedesign.upgrades.UpgradeNode;
+import vooga.rts.gamedesign.upgrades.UpgradeTree;
+import vooga.rts.util.Location;
+import vooga.rts.util.Pixmap;
+import vooga.rts.util.Sound;
+import vooga.rts.gamedesign.factories.Factory;
+
 
 /**
  * 
  * @author Ryan Fishel
  * @author Kevin Oh
  * @author Francesco Agosti
- * @author Wenshun Liu 
- *
+ * @author Wenshun Liu
+ * 
  */
-public abstract class Interactive extends RTSprite {
 
-  /** 
-   *  the data structure for storing progress of upgrades can be changed? 
-   */
-  public AttackStrategy myAttackStrategy;
+public abstract class Interactive extends RTSprite implements RTSpriteVisitor {
 
-  public ProductionStrategy myProductionStrategy;
+    /**
+     * the data structure for storing progress of upgrades can be changed?
+     */
 
-  public UpgradeTree myUpgradeTree;
 
-  public Integer buildTime;
+    private UpgradeTree myUpgradeTree;
+    private Integer buildTime;
+    private SkillStrategy mySkillStrategy;
+    private Map<String, Factory> myMakers;
 
-  public SkillStrategy mySkillStrategy;
+    private int myVision;
 
-  public void upgrade(Upgrade upgrade) {
-  }
+    public Interactive (Pixmap image,
+                        Location center,
+                        Dimension size,
+                        Sound sound,
+                        int teamID,
+                        int health) {
+        super(image, center, size, sound, teamID, health);
+        myMakers = new HashMap<String, Factory>();
+        myUpgradeTree = new UpgradeTree();
 
-  public void die() {
-  }
+        UpgradeNode armor = new ArmorUpgradeNode("armor1","myHealth",40);
+        myUpgradeTree.addUpgrade(armor);
+    }
+    
+    /**
+     * upgrades the interactive based on the selected upgrade
+     * 
+     * @param upgradeNode is the upgrade that the interactive will get
+     * @throws NoSuchMethodException 
+     * @throws InstantiationException 
+     * @throws InvocationTargetException 
+     * @throws IllegalAccessException 
+     * @throws SecurityException 
+     * @throws IllegalArgumentException 
+     */
+    public void upgradeNode (UpgradeNode upgradeNode) throws IllegalArgumentException, SecurityException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException {
+        upgradeNode.apply(this);
+    }
+    
+    public UpgradeTree getTree(){
+        return myUpgradeTree;
+    }
+
 
 }

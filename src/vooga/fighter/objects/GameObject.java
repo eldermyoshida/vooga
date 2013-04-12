@@ -1,5 +1,6 @@
 package vooga.fighter.objects;
 
+import vooga.fighter.objects.utils.Hitbox;
 import vooga.fighter.util.Pixmap;
 import vooga.fighter.util.Location;
 import vooga.fighter.util.Vector;
@@ -12,38 +13,45 @@ import java.awt.geom.Point2D;
 /**
  * Represents a single object in the game.
  * 
- * @author james, alanni, dayvid
+ * @author james, alanni
  * 
  */
 public abstract class GameObject {
     
-    private long myId;
+    private long myInstanceId;
+    private long myObjectId;
     private Pixmap myImage;
     private Location myCenter;
-    private Rectangle myHitbox;
-    
+    private Hitbox myHitbox;    
     private Dimension mySize;
-    
-    private Location myOriginalCenter;
-    private Pixmap myOriginalImage;
 
+    /**
+     * Constructs a new GameObject with the given image, center, and size.
+     * 
+     * Note: Dayvid, once the loader is fully functional we will modify this to
+     * only take in an object ID, and we will load the parameters from the XML.
+     */
     public GameObject(Pixmap image, Location center, Dimension size) {
-        this(image, center, size, new Vector());       
-    }
-
-    public GameObject(Pixmap image, Location center, Dimension size, Vector velocity) {
-        // make copies just to be sure no one else has access
-        myOriginalCenter = new Location(center);
-        myOriginalImage = new Pixmap(image);
-        mySize = size;
-        reset();
+        myCenter = new Location(center);
+        myImage = new Pixmap(image);
+        mySize = size;       
     }
     
     /**
-     * Returns the game object's id.
+     * Returns the game object's instance id. This id is unique to this particular
+     * instantiation of the object.
      */
-    public long getId() {
-        return myId;
+    public long getInstanceId() {
+        return myInstanceId;
+    }
+
+    
+    /**
+     * Returns the game object's object id. This id is unique to the type of object
+     * this instance represents.
+     */
+    public long getObjectId() {
+        return myObjectId;
     }
     
     /**
@@ -79,58 +87,22 @@ public abstract class GameObject {
     /**
      * Sets the hitbox for this game object.
      */
-    public void setHitbox(Rectangle hitbox) {
+    public void setHitbox(Hitbox hitbox) {
         myHitbox = hitbox;
     }
 
     /**
      * Returns the hitbox for this game object.
      */
-    public Rectangle getHitbox() {
+    public Hitbox getHitbox() {
         return myHitbox;
     }
-    
-    /**
-     * Returns the original image of the game object.
-     */
-    public Location getOriginalImage() {
-        return new Location(myOriginalCenter);
-    }
-    
-    /**
-     * Returns the original center of the game object.
-     */
-    public Location getOriginalCenter() {
-        return new Location(myOriginalCenter);
-    }
 
     /**
-     * Reset shape back to its original values.
+     * Returns true if this object collides with another object.
      */
-    public void reset() {
-        myCenter = new Location(myOriginalCenter);
-        myImage = new Pixmap(myOriginalImage);
-    }    
-
-    /**
-     * Returns true if the given point is within a rectangle representing this shape.
-     */
-    public boolean intersects(GameObject other) {
-        return getHitbox().intersects(other.getHitbox());
-    }
-
-    /**
-     * Returns true if the given point is within a rectangle representing this shape.
-     */
-    public boolean intersects(Point2D pt) {
-        return getHitbox().contains(pt);
-    }
-    
-    /**
-     * Paints the object. This will be deleted.
-     */
-    public void paint(Graphics2D pen) {
-        myImage.paint(pen, myCenter, mySize);
+    public boolean collidesWith(GameObject other) {
+        return getHitbox().getCurrentRectangle().intersects(other.getHitbox().getCurrentRectangle());
     }
     
 }
