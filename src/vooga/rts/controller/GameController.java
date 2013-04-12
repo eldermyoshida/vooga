@@ -1,6 +1,7 @@
 package vooga.rts.controller;
 
 import vooga.rts.gamedesign.Gun;
+import vooga.rts.gamedesign.Weapon;
 import vooga.rts.gamedesign.sprite.rtsprite.Bullet;
 import vooga.rts.gamedesign.sprite.rtsprite.Projectile;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Soldier;
@@ -68,7 +69,7 @@ public class GameController extends AbstractController {
         for (Unit u1 : p1) {
             for (Unit u2 : p2) {
                 if(u1.inRange(u2)){
-                   System.out.println("omg in range!");
+                   u2.getAttacked(u1);
                 }               
             }
         }
@@ -120,16 +121,18 @@ public class GameController extends AbstractController {
         Unit a = null;
         try{
             a = new Soldier(p,new Location(100, 100),s,soun,20,100);
-            Projectile proj = new Projectile(new Pixmap(ResourceManager.instance().loadFile("images/bullet.png")), a.getCenter(), new Dimension(30, 30), 1, 10, 1);
+            Location proj1Loc = new Location(a.getCenter());
+            Projectile proj = new Projectile(new Pixmap(ResourceManager.instance().loadFile("images/bullet.png")), proj1Loc, new Dimension(30, 30), 1, 10, 1);
             a.setAttackStrategy(new CanAttack());
-            a.addWeapons(new Gun(0, proj, 200, a.getCenter(),20));
+            a.addWeapons(new Weapon(0, proj, 200, a.getCenter(),20));
         }
         catch (Exception e) {
             // trollolol
         }
 
         Unit b = new Soldier(p,new Location(100,300),s,soun,20,50);
-        Projectile proj2 = new Projectile(new Pixmap(ResourceManager.instance().loadFile("images/bullet.png")), b.getCenter(), new Dimension(30, 30), 1, 10, 1);
+        Location proj2Loc = new Location(b.getCenter());
+        Projectile proj2 = new Projectile(new Pixmap(ResourceManager.instance().loadFile("images/bullet.png")), proj2Loc ,new Dimension(30, 30), 1, 10, 1);
         b.setAttackStrategy(new CanAttack());
 
         b.addWeapons(new Gun(0, proj2, 200, b.getCenter(),20));        

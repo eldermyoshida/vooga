@@ -91,6 +91,7 @@ public class GameEntity extends GameSprite {
      * @param v
      */
     public void translate (Vector v) {
+       
         getCenter().translate(v);
         resetBounds();
     }
@@ -112,6 +113,8 @@ public class GameEntity extends GameSprite {
     public void move (Location loc) {
         System.out.println("move is called");
         myGoal = new Location(loc);
+        Vector v = getCenter().difference(myGoal);
+        setVelocity(v.getAngle(),1);
     }
 
     /**
@@ -119,15 +122,17 @@ public class GameEntity extends GameSprite {
      */
     // TODO: make Velocity three dimensional...
     public void update (double elapsedTime) {
-        
-        if(getCenter() != myGoal){
-            Vector v = getCenter().difference(myGoal);
-            double angle = v.getAngle();
-            setVelocity(angle, 4);
-            v.scale(elapsedTime);
+        Vector v = new Vector(myVelocity);
+        v.scale(elapsedTime);
+        if(this.intersects(myGoal)){
+            //System.out.println("myGoal reached");
+            setVelocity(0,0);
+        }
+        else { 
+            //System.out.println("Veclocity " + v.getAngle() + " " + v.getMagnitude());
+            //this is kinda messed up right now
             translate(v);
         }
-        //resetBounds();
     }
 
     public void changeHealth (int change) {
@@ -150,7 +155,7 @@ public class GameEntity extends GameSprite {
     public void die () {
         myCurrentHealth = 0;
     }
-    
+
     @Override
     public void paint (Graphics2D pen) {
         if (!isDead()) {

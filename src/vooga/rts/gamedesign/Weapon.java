@@ -3,14 +3,12 @@ package vooga.rts.gamedesign;
 import vooga.rts.gamedesign.sprite.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
 import vooga.rts.gamedesign.sprite.rtsprite.Projectile;
-import vooga.rts.gamedesign.upgrades.Upgrade;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
 import vooga.rts.util.Location;
 import java.awt.geom.Ellipse2D.Double;
 import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.List;
-
 
 /**
  * This class represents a weapon. The CanAttack class the implements
@@ -60,19 +58,18 @@ public class Weapon {
      */
     public void fire (InteractiveEntity toBeShot) {
         System.out.println("Health of enemy " + toBeShot.getHealth());
-        System.out.println("cooldown " + cooldown);
-        
-        // should set the velocity of the projectile to the location of the toBeshot
-        myProjectile.setTarget(toBeShot);
-        setCooldown(maxCooldown);
+        if(cooldown == 0){
+            // should set the velocity of the projectile to the location of the toBeshot
+            myProjectile.setTarget(toBeShot);
+            myProjectiles.add(myProjectile);
+            setCooldown(maxCooldown);
+        }
     }
     /**
      * This method is used to upgrade a weapon either
      * 
      * @param upgrade
      */
-    public void upgrade (Upgrade upgrade) {
-    }
 
     public List<Projectile> getProjectiles () {
         return myProjectiles;
@@ -105,7 +102,10 @@ public class Weapon {
      * subtracts 1 from the cooldown counter
      */
     public void decrementCooldown () {
+
+        System.out.println("dec cooldown " + cooldown);
         cooldown--;
+        System.out.println("dec cooldown " + cooldown);
     }
 
     /**
@@ -128,7 +128,9 @@ public class Weapon {
     }
 
     public void update (double elapsedTime) {
+        System.out.println("weapon is being updated ");
         if(cooldown != 0){
+            System.out.println("dec cooldown " + cooldown);
             decrementCooldown();
         }
         for(Projectile p : myProjectiles){
