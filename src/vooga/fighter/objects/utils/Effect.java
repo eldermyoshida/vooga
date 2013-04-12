@@ -3,7 +3,7 @@ package vooga.fighter.objects.utils;
 import java.util.ArrayList;
 import java.util.List;
 import vooga.fighter.objects.CharacterObject;
-import vooga.fighter.objects.Player;
+import vooga.fighter.objects.PlayerObject;
 
 /**
  * Represents an effect placed on a character (or several).
@@ -57,7 +57,7 @@ public abstract class Effect {
     /**
      * Adds the effect to a certain player's list of effects.
      */
-    public void addEffectToPlayer(Player player) {
+    public void addEffectToPlayer(PlayerObject player) {
         
     }
     

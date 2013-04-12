@@ -18,10 +18,9 @@ import vooga.fighter.objects.utils.Health;
  * @author james, alanni
  *
  */
-public class Player {
+public class PlayerObject {
 
     private Health myHealth;
-    private Input myInput;
     private List<Effect> myEffects;    
     
     /**
@@ -29,8 +28,7 @@ public class Player {
      * 
      * Note: Will be updated to use object loader.
      */
-    public Player(Input input) {
-        myInput = input;
+    public PlayerObject() {
         myHealth = new Health();
     }
     
@@ -49,6 +47,9 @@ public class Player {
         return myHealth.changeHealth(amount);
     }    
     
+    /**
+     * Updates the player object by applying all active effects.
+     */
     public void update() {
 
     }

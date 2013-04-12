@@ -18,7 +18,7 @@ import vooga.fighter.util.Vector;
 public class AttackObject extends MoveableGameObject{
 
     private Counter myCounter;
-    private Player myOwner;
+    private PlayerObject myOwner;
     private List<Effect> myEffects;
     private int myAttackPower;  
     private int myVelocity; 
@@ -28,7 +28,7 @@ public class AttackObject extends MoveableGameObject{
     /**
      * Constructs an AttackObject with the given Player owner.
      */
-    public AttackObject(Pixmap image, Location center, Dimension size, Player owner, int power, int attackSpeed) {
+    public AttackObject(Pixmap image, Location center, Dimension size, PlayerObject owner, int power, int attackSpeed) {
     	super(image, center, size);
         myOwner = owner;
         myEffects = new ArrayList<Effect>();
@@ -57,14 +57,14 @@ public class AttackObject extends MoveableGameObject{
     /**
      * Gets the player who created the attack
      */
-    public Player getOwner(){
+    public PlayerObject getOwner(){
     	return myOwner; 
     }
     
     /**
      * Inflicts damage upon a target player.
      */
-    public int inflictDamage(Player o){
+    public int inflictDamage(PlayerObject o){
     	return o.changeHealth(-myAttackPower);
     }
     
