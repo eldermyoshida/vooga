@@ -12,6 +12,10 @@ import vooga.scroller.util.Sprite;
  */
 public interface ISpriteLibrary {
 
+    /**
+     * Get a list of classes that can be used in the level editor
+     * @return
+     */
     Class<? extends Sprite>[] getSpritesClasses();
     
 }

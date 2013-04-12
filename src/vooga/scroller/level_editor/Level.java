@@ -12,6 +12,7 @@ import vooga.scroller.util.Sprite;
 import vooga.scroller.viewUtil.Renderable;
 import vooga.scroller.collision_handlers.CollisionManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
+import vooga.scroller.sprite_superclasses.NonStaticEntity;
 import vooga.scroller.sprite_superclasses.Player;
 import vooga.scroller.util.PlatformerConstants;
 import vooga.scroller.view.View;
@@ -72,8 +73,23 @@ public class Level implements Editable, Renderable {
             mySprites.add(s);
     }
     
+    public void removeSprite(Sprite s) {
+        mySprites.remove(s);
+    }
+    
     public void addPlayer(Player s) {
         myPlayer = s;
+        for (Sprite sprite : mySprites) {
+
+            if (sprite instanceof NonStaticEntity) {
+                addPlayerToSprite((NonStaticEntity) sprite);
+            }
+            
+        }
+    }
+    
+    public void addPlayerToSprite(NonStaticEntity sprite) {
+        sprite.addPlayer(myPlayer);
     }
     
     public void setBackground(Image i) {
@@ -193,9 +209,9 @@ public class Level implements Editable, Renderable {
     private void intersectingSprites () {
         Sprite obj1;
         Sprite obj2;
-        CollisionManager CM = new CollisionManager(myView);
+        CollisionManager CM = new CollisionManager(this);
 
-        mySprites.add(myPlayer);
+       mySprites.add(myPlayer);
         
         for (int i = 0; i < mySprites.size(); i++) {
             for (int j = i + 1; j < mySprites.size(); j++) {     
@@ -209,6 +225,10 @@ public class Level implements Editable, Renderable {
             }
         }
         
-        mySprites.remove(mySprites.size()-1);
+       mySprites.remove(mySprites.size()-1);
+    }
+    
+    public View getView() {
+        return myView;
     }
 }

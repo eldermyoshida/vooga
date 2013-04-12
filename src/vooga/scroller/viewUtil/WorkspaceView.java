@@ -28,6 +28,7 @@ public abstract class WorkspaceView extends WindowComponent {
     @SuppressWarnings("unused")
     private GridBagConstraints myConstraints;
     private Dimension mySize = ViewConstants.DEFAULT_TAB_SIZE;
+    private static Tools myTools;
 
     public WorkspaceView (IView hostWindow) {
         super(hostWindow, .9, .9);
@@ -92,8 +93,17 @@ public abstract class WorkspaceView extends WindowComponent {
      * Take in a string and send it to Window to process it as a command.
      * @param s The string to be parsed.
      */
-    public void processConsoleInput (String s) {
-        myWindow.processCommand(this, s);
-    } 
+    public void process (Object o) {
+        myWindow.process(this, o);
+    }
+    
+    //TODO - good design choice?
+    public static void setTools(Tools t) {
+        myTools = t;
+    }
+    
+    public Tools getTools() {
+        return myTools;
+    }
 
 }

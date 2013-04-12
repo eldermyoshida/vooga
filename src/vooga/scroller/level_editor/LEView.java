@@ -3,6 +3,7 @@ package vooga.scroller.level_editor;
 
 import javax.swing.JFrame;
 import vooga.scroller.viewUtil.Renderable;
+import vooga.scroller.viewUtil.Tools;
 import vooga.scroller.viewUtil.Window;
 import vooga.scroller.viewUtil.WorkspaceView;
 
@@ -41,6 +42,10 @@ public class LEView extends Window {
     public void render (Renderable r) {
         getActiveTab().setRenderable(r);
         
+    }
+    
+    public void setDefaultWorkspaceTools(Tools t) {
+        LEWorkspaceView.setTools(t);
     }
 
 }
