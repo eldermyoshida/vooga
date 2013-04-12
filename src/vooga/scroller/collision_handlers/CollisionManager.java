@@ -3,6 +3,7 @@ package vooga.scroller.collision_handlers;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import vooga.scroller.level_editor.Level;
 import vooga.scroller.test_sprites.Mario;
 import vooga.scroller.test_sprites.MarioLib;
 import vooga.scroller.util.Direction;
@@ -22,12 +23,12 @@ import vooga.scroller.view.View;
 
 public class CollisionManager {
 
-    View myView; 
+    Level myLevel;
     private static final int COLLISION_GRANULARITY = 15;
     
     
-    public CollisionManager (View view) {
-        myView = view;
+    public CollisionManager (Level level) {
+        myLevel = level;
     }
     
     
@@ -116,7 +117,7 @@ public class CollisionManager {
     }
     
     public void visit (Mario mario, MarioLib.Coin coin) {
-        System.out.println("Mario has just collided with Coin!");
+        System.out.println("Mario just collected a coin");
         
     }
 
@@ -159,7 +160,7 @@ public class CollisionManager {
     }
     
     public void visit (MarioLib.Coin coin, Mario mario) {
-        System.out.println("Coin has just collided with Mario!");
+        myLevel.removeSprite(coin);
     }
 
     public void visit (MarioLib.Coin coin, MarioLib.Coin coin2) {
@@ -257,7 +258,7 @@ public class CollisionManager {
     }
     
     private void endGame () {
-        myView.win();        
+        myLevel.getView().win();        
     }
     
     
