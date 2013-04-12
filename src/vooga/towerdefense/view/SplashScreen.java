@@ -27,18 +27,8 @@ public class SplashScreen extends JPanel {
 		setPreferredSize(size);
 		myView = view;
 		myBackgroundImage = new ImageIcon(getClass().getResource(RESOURCE + "splashscreen.gif")).getImage();
-		this.add(nextScreenButton(), BorderLayout.SOUTH);
 	}
 	
-	private Component nextScreenButton() {
-		JButton result = new JButton("NEXT");
-        result.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                myView.assembleScreens();
-            }
-        });
-        return result;	}
 
 	@Override
     public void paintComponent (Graphics pen) {

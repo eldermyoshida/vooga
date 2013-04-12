@@ -17,7 +17,7 @@ import javax.swing.ImageIcon;
  */
 public class Pixmap {
     // OS-independent relative resource locations (like URLs)
-    private static final String RESOURCE_LOCATION = "vooga/towerdefense/images/";
+    private static final String RESOURCE_LOCATION = "/vooga/towerdefense/images/";
     // underlying implementation
     private java.awt.Image myImage;
     private String myFileName;
@@ -66,5 +66,9 @@ public class Pixmap {
         pen.drawImage(myImage, -size.width / 2, -size.height / 2, size.width, size.height, null);
         // restore graphics area to its old state, so our changes have no lasting effects
         pen.setTransform(old);
+    }
+    
+    public String getFileName () {
+        return myFileName;
     }
 }
