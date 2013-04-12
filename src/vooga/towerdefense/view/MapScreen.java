@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JPanel;
 import vooga.towerdefense.controller.Controller;
+import vooga.towerdefense.util.Location;
 
 /**
  * Displays the map and everything on the map.
@@ -53,7 +54,7 @@ public class MapScreen extends JPanel {
         myMouseListener = new MouseListener() {
             @Override
             public void mouseClicked (MouseEvent e) {
-                myController.handleMapClick(e.getLocationOnScreen());
+                myController.handleMapClick(new Location(e.getLocationOnScreen().getX(), e.getLocationOnScreen().getY()));
             }
             @Override
             public void mouseEntered (MouseEvent e) {
