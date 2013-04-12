@@ -53,7 +53,7 @@ public class GameDesignMain {
         for(int i = 0 ; i < 50 ; i++){
         	System.out.println(i);
         	proj.update(1.0);
-        	if(a.interactsWith(proj)){
+        	if(a.collidesWith(proj)){
         		System.out.println("enemy hit");
         	}
         	

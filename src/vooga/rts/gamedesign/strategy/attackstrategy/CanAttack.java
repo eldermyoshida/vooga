@@ -4,11 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vooga.rts.gamedesign.Weapon;
-import vooga.rts.gamedesign.sprite.Building;
 import vooga.rts.gamedesign.sprite.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
-import vooga.rts.gamedesign.sprite.rtsprite.RTSprite;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Soldier;
+
 
 /**
  * This class implements AttackStrategy and is used as an instance in 
@@ -51,8 +49,5 @@ public class CanAttack implements AttackStrategy{
         myWeapons.add(weapon);
     }
 
-    @Override
-    public void update (double elapsedTime) {
-        myWeapons.get(myWeaponIndex).update(elapsedTime);
-    }
+
 }

@@ -14,7 +14,7 @@ import vooga.rts.gamedesign.sprite.rtsprite.interactive.IOccupiable;
 
 import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
 import vooga.rts.gamedesign.strategy.attackstrategy.CannotAttack;
-import vooga.rts.gamedesign.upgrades.ArmorUpgradeNode;
+import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
 import vooga.rts.gamedesign.upgrades.UpgradeNode;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
 import vooga.rts.util.Location;
@@ -32,7 +32,7 @@ import vooga.rts.util.Sound;
  * @author Wenshun Liu
  *
  */
-public abstract class InteractiveEntity extends GameEntity implements IAttackable, EntityVisitor{
+public abstract class InteractiveEntity extends GameEntity implements IAttackable{
 
     private UpgradeTree myUpgradeTree;
     private Sound mySound;
@@ -52,28 +52,20 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
         //myUpgradeTree.addUpgrade(armor); //TESTING
     }
 
-    /** 
-     *  This would accept RTSpriteVisitors and behave according to the 
-     *  visitor's visit method. This code will always run 
-     *  RTSpriteVisitor.visit(this). "this" being the subclass of RTSprite. 
-     * @throws CloneNotSupportedException 
-     */
-    public void accept(EntityVisitor visitor) {
-            visitor.visit(this);
 
+    
+    public void getAttacked(AttackStrategy a){
+    	a.attack(this);
     }
   
-
-    public void accept(Projectile p) {
-        p.attack(this);
-    }
-
 
     public Sound getSound(){
         return mySound;
     }
-
-    public void visit(IAttackable a){
+    
+    
+ 
+    public void attack(IAttackable a){
     	myAttackStrategy.attack(a);
        
             
@@ -122,15 +114,5 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
         return damage * (1-(myArmor/(myArmor+100)));
     }
 
-	@Override
-	public void visit(IOccupiable o) {
-		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	public void visit(IGatherable g) {
-		// TODO Auto-generated method stub
-		
-	}
 }

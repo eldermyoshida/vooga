@@ -66,7 +66,7 @@ public class Unit extends InteractiveEntity {
      * Gathers a resource specified by gather strategy.
      * @param g
      */
-    public void gatherResources(IGatherable g) {
+    public void gather(IGatherable g) {
     	myGatherStrategy.gather(g);
     }
     
@@ -74,17 +74,10 @@ public class Unit extends InteractiveEntity {
      * Occupies an IOccupiable object specified by occupy strategy.
      * @param o
      */
-    public void occupyOther(IOccupiable o) {
+    public void occupy(IOccupiable o) {
     	myOccupyStrategy.occupy(o);
     }
     
-    /**
-     * Occupies another unit specified by occupy strategy.
-     * @param units
-     */
-    public void occupyOther(Unit units) {
-    	myOccupyStrategy.occupy(units);
-    }
     
     public void setGatherStrategy (GatherStrategy newStrategy) {
     	myGatherStrategy = newStrategy;
@@ -98,16 +91,6 @@ public class Unit extends InteractiveEntity {
         myPather.constructPath(getCenter(), location);
     }
 
-	@Override
-	public void visit(IOccupiable o) {
-		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	public void visit(IGatherable g) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }
