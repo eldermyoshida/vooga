@@ -122,7 +122,7 @@ public class EditableMap {
             
         FileWriter myWriter = new FileWriter(mySavFile);
        
-        myWriter.write( myXSize + "*" + myYSize + "*" + myLayers);
+        myWriter.write( myXSize + "*" + myYSize + "*" + layerNumber);
         myWriter.write("\r\n");
         
         for(int i=0 ; i< myPlayerNumber ; i++) {
@@ -224,6 +224,10 @@ public class EditableMap {
     }
    
     public void printMatrix() {
+        System.out.println("printmatrix executed");
+        System.out.println("layers : " + myLayers);
+        System.out.println("X Size : " + myXSize);
+        System.out.println("Y Size : " + myYSize);
         for(int l =0 ; l< myLayers ; l++) {
             for(int i =0 ; i<myXSize ; i++) {
                 for(int j =0 ; j<myYSize ; j++) {
