@@ -48,6 +48,10 @@ public class MarioLib implements ISpriteLibrary {
     public static class Koopa extends NonStaticEntity {
         
         private static final String DEFAULT_IMG ="koopa.gif";
+        
+        public Koopa() {
+            this(DEFAULT_LOC);
+        }
 
         public Koopa (Location center) {
             super(new Pixmap(DEFAULT_IMG), center, DEFAULT_SIZE);
@@ -64,7 +68,11 @@ public class MarioLib implements ISpriteLibrary {
     public static class Turtle extends NonStaticEntity {
 
         private static final String DEFAULT_IMG = "turtle.gif";
-                
+            
+        public Turtle() {
+            this(DEFAULT_LOC);
+        }
+        
         public Turtle (Location center) {
             super(new Pixmap(DEFAULT_IMG), center, DEFAULT_SIZE);
             // TODO Auto-generated constructor stub

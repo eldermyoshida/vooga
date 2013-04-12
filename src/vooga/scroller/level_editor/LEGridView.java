@@ -65,7 +65,7 @@ public class LEGridView extends WindowComponent{
         // TODO Auto-generated method stub
         String res = "createSprite " + location;
         System.out.println(res);
-        processCommand(res);
+        process(res);
     }
     
     private class GridPositionListener implements MouseListener {
