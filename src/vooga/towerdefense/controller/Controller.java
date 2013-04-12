@@ -3,11 +3,11 @@ package vooga.towerdefense.controller;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
-
 import vooga.towerdefense.controller.modes.ControlMode;
 import vooga.towerdefense.controller.modes.SelectMode;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.GameModel;
+import vooga.towerdefense.model.Tile;
 import vooga.towerdefense.view.TDView;
 
 
@@ -21,12 +21,12 @@ import vooga.towerdefense.view.TDView;
 public class Controller {
     private GameModel myModel;
     private TDView myView;
-	private ControlMode myControlMode;
-    
-    public Controller() {
+    private ControlMode myControlMode;
+
+    public Controller () {
+        myModel = new GameModel(this, null, new GameMap(800, 600, null));
         myView = new TDView(this);
-        myModel = new GameModel(myView, null, new GameMap(800, 600, null));
-		myControlMode = new SelectMode();
+        myControlMode = new SelectMode();
     }
 
     /**
@@ -35,19 +35,26 @@ public class Controller {
      * 
      * @param p is the location of the click
      */
-    public void handleMapClick(Point p) {
-		myControlMode.handleMapClick(p, myModel);
+    public void handleMapClick (Point p) {
+        myControlMode.handleMapClick(p, myModel);
     }
 
-    /**
-     * paints the map on the view.
-     */
-	public void paintMap(Graphics pen) {
-		myModel.getMap().paint((Graphics2D) pen);
+    public void displayTileCoordinates (Point p) {
+        Tile t = myModel.getTile(p);
+        Point center = t.getCenter();
+        myView.getTowerInfoScreen().displayInformation(center.toString());
+    }
+    
+    public void displayMap() {
+        myView.getMapScreen().update();
+    }
+    
+    public void update(double elapsedTime) {
+        myModel.update(elapsedTime);
+    }
+    
+    public void paintMap(Graphics pen) {
+        myModel.paintMap((Graphics2D) pen);
     }
 
-    public static void main (String[] args) {
-        Controller c = new Controller();
-
-    }
 }

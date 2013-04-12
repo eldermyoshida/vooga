@@ -54,7 +54,7 @@ public class MapScreen extends JPanel {
     
     public void paintComponent(Graphics pen) {
         super.paintComponent(pen);
-        myController.paintMap();
+        myController.paintMap(pen);
         paintGridLines(pen);
         if (towerImage != null) {
             System.out.println("not null");
