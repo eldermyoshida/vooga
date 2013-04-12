@@ -1,8 +1,5 @@
 package vooga.rts.networking.server;
 
-import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,10 +12,11 @@ import java.util.List;
  * @author David Winegar
  * 
  */
-public class MatchmakerServer extends Thread implements IMessageServer {
+public class MatchmakerServer extends Thread implements IMessageReceiver {
     private List<ConnectionThread> myConnectionThreads;
     private List<ConnectionThread> myPotentialConnections;
     private List<GameServer> myGameServers;
+    private List<GameContainer> myGameContainers;
     private int myGameServerID = 0;
     private ConnectionServer myConnectionServer;
 

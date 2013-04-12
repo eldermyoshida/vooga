@@ -5,10 +5,12 @@ package vooga.rts.networking.server;
  * Permits sending messages or objects to parent server.
  * 
  * @author srwareham
+ * @Author David Winegar
  * 
  */
-public interface IMessageServer {
+public interface IMessageReceiver {
 
     public void sendMessage (Message message);
 
 }
+

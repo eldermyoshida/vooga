@@ -14,7 +14,7 @@ import java.util.Queue;
  * @author Henrique Moraes, Sean Wareham, David Winegar
  * 
  */
-public class GameServer extends Thread implements IMessageServer {
+public class GameServer extends Thread implements IMessageReceiver {
     private List<ConnectionThread> myClients;
     private int myID;
     private boolean gameRunning = true;

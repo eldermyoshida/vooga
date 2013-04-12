@@ -9,13 +9,13 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 
 
-public class ServerBrowserDisplay extends JPanel {
+public class ServerBrowserView extends JPanel {
     private JTable serverListTable;
 
     /**
      * Create the panel.
      */
-    public ServerBrowserDisplay () {
+    public ServerBrowserView () {
         setLayout(new BorderLayout(0, 0));
 
         JPanel panel = new JPanel();
