@@ -73,7 +73,9 @@ public class LEWorkspaceView extends WorkspaceView {
     @Override
     public void processCommand (String command) {
         // TODO - Need to refactor
-        super.processConsoleInput(command);
+        String res;
+        res = command + " " + myEditorView.getSelectedSpriteID();
+        super.processCommand(res);
     }
     
     //TODO - Good design choice??

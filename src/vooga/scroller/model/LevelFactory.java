@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import vooga.scroller.level_editor.Level;
 import vooga.scroller.scrollingmanager.ScrollingManager;
+import vooga.scroller.sprite_superclasses.Player;
 import vooga.scroller.test_sprites.MarioLib;
 import vooga.scroller.util.Location;
 import vooga.scroller.util.Pixmap;
@@ -18,7 +19,7 @@ import vooga.scroller.view.View;
  *
  */
 public class LevelFactory {
-
+    
     /**
      * Generates levels to be displayed by the view and played by the model.
      * 
@@ -35,10 +36,15 @@ public class LevelFactory {
         myCurrLevel.addSprite(new MarioLib.Coin( 
                                 new Location(view.getWidth() - 400, view.getHeight() - 250)
                                 ));   
+        
+        myCurrLevel.addSprite(new MarioLib.Coin( 
+                                                new Location(view.getWidth() - 400, view.getHeight() - 350)
+                                                ));   
 
         myCurrLevel.addSprite(new MarioLib.Koopa( 
-                                 new Location(view.getWidth() - 300, view.getHeight() - 275)
+                                 new Location(view.getWidth() - 300, view.getHeight() - 275)  
                                  ));   
+        
         myCurrLevel.addSprite(new MarioLib.Platform( 
                                     new Location(view.getWidth() - 80, view.getHeight() - 150)
                                     ));   

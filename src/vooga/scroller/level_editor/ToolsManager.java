@@ -6,22 +6,27 @@ import java.util.Map;
 import vooga.scroller.util.Sprite;
 import vooga.scroller.viewUtil.RadioGroup;
 
-public class ToolsMaker {
+public class ToolsManager {
 
     ISpriteLibrary lib;
+    Map<Integer, Sprite> spriteMap;
+    LETools viewTools;
     
-    public ToolsMaker(ISpriteLibrary l) {
+    public ToolsManager(ISpriteLibrary l) {
         lib = l;
+        setTools();
     }
     
-    public Map<Integer, Sprite> getTools () {
+    private void setTools () {
         int i=0;
-        Map<Integer, Sprite> res = new HashMap<Integer, Sprite>();
+        spriteMap = new HashMap<Integer, Sprite>();
+        viewTools = new LETools();
         for (Class<? extends Sprite> c:lib.getSpritesClasses()) {
             Sprite sprite;
             try {
                 sprite = (Sprite) c.newInstance();
-                res.put(i, sprite);
+                spriteMap.put(i, sprite);
+                viewTools.addSpriteOption(sprite, i);
             }
             catch (InstantiationException e) {
                 e.printStackTrace();
@@ -31,24 +36,13 @@ public class ToolsMaker {
             }
             i++;
         }
-        return res;
     }
     
     public LETools getViewTools() {
-        LETools res = new LETools();
-        for (Class<? extends Sprite> c:lib.getSpritesClasses()) {
-            Sprite sprite;
-            try {
-                sprite = (Sprite) c.newInstance();
-                res.addSpriteOption(sprite);
-            }
-            catch (InstantiationException e) {
-                e.printStackTrace();
-            }
-            catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
-        }
-        return res;
+        return viewTools;
+    }
+    
+    public Map<Integer, Sprite> getSpriteMap() {
+        return spriteMap;
     }
 }
