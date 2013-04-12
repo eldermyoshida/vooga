@@ -1,7 +1,17 @@
 package vooga.fighter.controller;
 
+import vooga.fighter.game.SplashScreen;
+import vooga.fighter.input.Input;
+import vooga.fighter.input.InputClassTarget;
+
 import java.awt.Dimension;
-import vooga.fighter.game.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+
+import vooga.fighter.view.Canvas;
+
+
 
 /**
  * 
@@ -10,19 +20,19 @@ import vooga.fighter.game.*;
  */
 public abstract class Controller implements ControlDelegate {
     
-    protected Game myGame;
+    protected Mode myGame;
     protected final Dimension DEFAULT_BOUNDS = new Dimension(800, 800);
     private ManagerDelegate myManager;
     private String myID;
     
     
-    public Controller (Game model, ManagerDelegate manager) {
+    public Controller (Mode model, ManagerDelegate manager) {
         myGame = model;
         myManager = manager;
         myID = null;
     }
     
-    public Controller (Game model, String id, ManagerDelegate manager) {
+    public Controller (Mode model, String id, ManagerDelegate manager) {
         myGame = model;
         myID = id;
         myManager = manager;
@@ -40,9 +50,7 @@ public abstract class Controller implements ControlDelegate {
     public void update (double elapsedTime, Dimension bounds) {
         myGame.update(elapsedTime, bounds);
     }
-    
-    
-    
-    
 
+    
+    
 }
