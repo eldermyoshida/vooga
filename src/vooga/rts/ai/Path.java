@@ -3,6 +3,7 @@ package vooga.rts.ai;
 
 import java.util.Queue;
 import vooga.rts.map.*;
+import vooga.rts.util.Location;
 
 /**
  * 
@@ -24,9 +25,12 @@ public class Path {
      * 
      * @return This methods will return the next node to go
      */
-    public Node getNext() { // Still need to decide what to pass in here
-        return myPath.poll();
+    public Location getNext() { 
+        return myPath.poll().getCenter();
     }
     
+    public int size () {
+        return myPath.size();
+    }
     
 }

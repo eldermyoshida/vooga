@@ -1,5 +1,6 @@
 package vooga.rts.map;
 
+import java.awt.Dimension;
 import vooga.rts.ai.Path;
 import vooga.rts.ai.PathFinder;
 import vooga.rts.util.Location;
@@ -19,10 +20,10 @@ public class GameMap {
      * 
      * @param mapSize This is the size of the map in pixels
      */
-    public GameMap(int node) {
+    public GameMap(int node, Dimension size) {
         NodeFactory factory = new NodeFactory();
         myNodeSize = node;
-        myMap = factory.makeMap(myNodeSize);
+        myMap = factory.makeMap(myNodeSize, size);
     }    
     
     public Node getNode (Location location) {

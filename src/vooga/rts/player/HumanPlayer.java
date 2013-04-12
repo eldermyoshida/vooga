@@ -22,7 +22,7 @@ public class HumanPlayer extends Player {
     public void handleRightClick(int x, int y) {
         for (Units u : getUnits().getSelected())
         {            
-            u.move(new Location(x, y));            
+            u.move(new Location(x, y), myMap);            
         }
     }
     
