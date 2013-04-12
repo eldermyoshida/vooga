@@ -6,8 +6,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
 import vooga.scroller.scrollingmanager.ScrollingManager;
-import vooga.scroller.sprite_superclasses.Player;
-import vooga.scroller.util.Location;
 import vooga.scroller.util.Sprite;
 import vooga.scroller.level_editor.commands.Command;
 import vooga.scroller.level_editor.commands.CommandLibrary;
@@ -22,20 +20,21 @@ import vooga.scroller.level_editor.commands.CommandLibrary;
  */
 
 import vooga.scroller.util.Editable;
-import vooga.scroller.viewUtil.IView;
 
 public class LevelEditor implements ILevelEditor {
 
+    private static final int DEFAULT_GRID_SIZE = 20;
     private static final String SPACE = " ";
     private static final String NO_METHOD_COMMAND_ERROR = "Command does not exist";
     private static final String PARAM_COMMAND_ERROR = "Incorrect Parameters";
     private static final String DEFAULT_COMMAND_ERROR = "Incorrect Command";
-    private Editable myLevel;
+    private static final String COPY_ERROR = "Cannot copy Sprite. Missing default constructor";
     private ScrollingManager myScrollingManager;
-    private Editable mySpriteGrid;
+    private Editable myGrid;
+    private Map<Integer, Sprite> mySpriteMap;
 
     public LevelEditor (ISpriteLibrary lib) {
-        myLevel = new Level(1, myScrollingManager); 
+        myGrid = new LEGrid(DEFAULT_GRID_SIZE,DEFAULT_GRID_SIZE);
     }
 
     public LevelEditor (String language, ISpriteLibrary lib) {
@@ -45,18 +44,31 @@ public class LevelEditor implements ILevelEditor {
     @Override
     public void processCommand (Editable m, String cmd) {
         // TODO Auto-generated method stub
-        mySpriteGrid = m;
+        myGrid = m;
         processCommand(cmd);
+    }
+
+    @Override
+    public void setSpriteMap (Map<Integer, Sprite> spriteMap) {
+        mySpriteMap = spriteMap;
     }
 
     @Command
     public void createSprite (int x, int y, int id) {
+        Sprite sprite = mySpriteMap.get(id);
+        sprite = sprite.copy();
+        try{
+            myGrid.addNewSprite(sprite);
+        }
+        catch(NullPointerException e){
+            //TODO COPY_ERROR = "Cannot copy Sprite. Missing default constructor";
+        }
         
     }
     
     @Command
     public void deleteSprite (int x, int y) {
-        mySpriteGrid.deleteSprite(x,y);
+        myGrid.deleteSprite(x,y);
     }
 
     @Command
@@ -106,12 +118,6 @@ public class LevelEditor implements ILevelEditor {
             params[i] = Integer.parseInt(splitCommand[i + 1]);
         }
         return params;
-    }
-
-    @Override
-    public void setSpriteMap (Map<Integer, Sprite> spriteMap) {
-        // TODO Auto-generated method stub
-        
     }
 
 }
