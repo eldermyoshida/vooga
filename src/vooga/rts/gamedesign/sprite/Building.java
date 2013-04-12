@@ -30,8 +30,8 @@ public abstract class Building extends InteractiveEntity implements IOccupiable{
 
 	}
 
-	public void getOccupied(OccupyStrategy o){
-		o.occupy(this);
+	public void getOccupied(Unit u){
+		u.occupy(this);
 	}
 		
 	}
