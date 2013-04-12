@@ -17,13 +17,17 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 /** 
- *  This class will be loading an xml file.
+ *  This class is in charge of the loading of input XML files for different
+ *  class types. It will figure out the class type this given file is in charge
+ *  of, and pass the information to the corresponding decoder. All the decoders
+ *  are loaded through an input file.
  *  
  * @author Ryan Fishel
  * @author Kevin Oh
  * @author Francesco Agosti
  * @author Wenshun Liu 
  */
+
 public class Factory {
 	public static final String DECODER_MATCHING_FILE = "src/vooga/rts/gamedesign/factories/DecodeMatchUp";
 	
@@ -34,6 +38,25 @@ public class Factory {
 		loadDecoder(DECODER_MATCHING_FILE);
 	}
 	
+	/**
+	 * Creates decoders by loading the input file that specifies the path of
+	 * each Decoder and the type of class it is in charge of. Puts the decoders
+	 * and their corresponding types into a map.
+	 * 
+	 * This method will be called when the Factory class is created.
+	 * 
+	 * @param fileName the name of the XML file that specifies decoder paths.
+	 * @throws ClassNotFoundException
+	 * @throws IllegalArgumentException
+	 * @throws SecurityException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws InvocationTargetException
+	 * @throws NoSuchMethodException
+	 * @throws ParserConfigurationException
+	 * @throws SAXException
+	 * @throws IOException
+	 */
 	private void loadDecoder(String fileName) throws ClassNotFoundException, IllegalArgumentException, SecurityException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ParserConfigurationException, SAXException, IOException {
 		File file = new File(fileName);
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -63,6 +86,14 @@ public class Factory {
 		System.out.println(myDecoders);
 	}
 	
+	/**
+	 * Loads the XML file passed in and determines the type of class it provides
+	 * information for. Then passes the input file to the corresponding decoder
+	 * in charge of that type of class.
+	 * 
+	 * @param fileName the name of the XML file that provides class information
+	 * and to be loaded
+	 */
 	public void loadXMLFile(String fileName) {
 		try {
 			File file = new File(fileName);
@@ -77,6 +108,9 @@ public class Factory {
 		}
 	}
 	
+	/**
+	 * TESTING PURPOSE
+	 */
 	public static void main(String[] args) throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ParserConfigurationException, SAXException, IOException {
 		Factory factory = new Factory();
 		factory.loadXMLFile("src/vooga/rts/gamedesign/factories/XML_Sample");

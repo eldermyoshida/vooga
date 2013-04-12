@@ -13,8 +13,8 @@ import org.w3c.dom.NodeList;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
 
 /**
- * This class is an extension of Decoder class that reads from an XML file to
- * create UpgradeTree.
+ * This class is an extension of Decoder class that is in charge of the creation
+ * of UpgradeTree for upgrade package.
  * 
  * @author Ryan Fishel
  * @author Kevin Oh
@@ -31,8 +31,12 @@ public class UpgradeDecoder extends Decoder {
 	}
 	
 	/**
-	 * Creates the UpgradeTree by receiving the Document generated from the
-	 * XML input file.
+	 * Creates the UpgradeTree by receiving Document passed in from
+	 * the Factory, containing necessary information related to the
+	 * UpgradeTree
+	 * 
+	 * @param doc the Document passed in from Factory
+	 * 
 	 */
 	public void create(Document doc) {
 		NodeList nodeLst = doc.getElementsByTagName("type");
