@@ -1,18 +1,17 @@
-package level_editor;
+package vooga.scroller.level_editor;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.HashSet;
 import java.util.Set;
-import scrollingmanager.ScrollingManager;
-import util.Editable;
-import util.Location;
-import util.Sprite;
-import viewUtil.Renderable;
+import vooga.scroller.scrollingmanager.ScrollingManager;
+import vooga.scroller.util.Editable;
+import vooga.scroller.util.Location;
+import vooga.scroller.util.Sprite;
+import vooga.scroller.viewUtil.Renderable;
 
 
-
-public class LEGrid implements Editable, Renderable{
+public class LEGrid implements Editable, Renderable {
 
     private static final int DEFAULT_SPRITE_SIZE = 25;
     private int mySpriteSize;
@@ -58,6 +57,7 @@ public class LEGrid implements Editable, Renderable{
         }
     }
 
+    @Override
     public void deleteSprite (int x, int y) {
         SpriteBox currentBox = nearestBox(x, y);
         currentBox.deleteSprite();
@@ -116,17 +116,12 @@ public class LEGrid implements Editable, Renderable{
 
     @Override
     public void changeBackground () {
-        
+
     }
 
     @Override
     public void addNewSprite (Sprite s) {
-        addSprite(s,(int)s.getLeft(),(int)s.getRight());
-    }
-
-    @Override
-    public void deleteSprite (Location deleteAtLocation) {
-        deleteSprite((int) deleteAtLocation.getX(), (int) deleteAtLocation.getY());
+        addSprite(s, (int) s.getLeft(), (int) s.getRight());
     }
 
 }

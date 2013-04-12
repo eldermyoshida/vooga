@@ -1,13 +1,14 @@
-package level_editor;
+
+package vooga.scroller.level_editor;
 
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import scrollingmanager.ScrollingManager;
-import sprite_superclasses.Player;
-import util.Location;
-import level_editor.commands.Command;
-import level_editor.commands.CommandLibrary;
+import vooga.scroller.scrollingmanager.ScrollingManager;
+import vooga.scroller.sprite_superclasses.Player;
+import vooga.scroller.util.Location;
+import vooga.scroller.level_editor.commands.Command;
+import vooga.scroller.level_editor.commands.CommandLibrary;
 
 
 /**
@@ -17,8 +18,9 @@ import level_editor.commands.CommandLibrary;
  * @author Danny Goodman
  *
  */
-import util.Editable;
-import viewUtil.IView;
+
+import vooga.scroller.util.Editable;
+import vooga.scroller.viewUtil.IView;
 
 public class LevelEditor implements ILevelEditor {
 
@@ -28,7 +30,7 @@ public class LevelEditor implements ILevelEditor {
     private static final String DEFAULT_COMMAND_ERROR = "Incorrect Command";
     private Editable myLevel;
     private ScrollingManager myScrollingManager;
-    private LEGrid mySpriteGrid;
+    private Editable mySpriteGrid;
 
     public LevelEditor (SpriteLibrary lib) {
         myLevel = new Level(1, myScrollingManager); 
@@ -41,7 +43,7 @@ public class LevelEditor implements ILevelEditor {
     @Override
     public void processCommand (Editable m, String cmd) {
         // TODO Auto-generated method stub
-        mySpriteGrid = (LEGrid) m;
+        mySpriteGrid = m;
         processCommand(cmd);
     }
 

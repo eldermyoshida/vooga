@@ -1,6 +1,7 @@
-package level_editor;
 
-import util.Editable;
+package vooga.scroller.level_editor;
+
+import vooga.scroller.util.Editable;
 
 /**
  * Interface between a LevelEditor model and a Level Editor view.

@@ -248,6 +248,8 @@ public abstract class Sprite {
     }
     
     public void turnTo (Location loc) {
+
+		getVelocity().setDirection(getVelocity().getDirection()+Vector.angleBetween(myCenter, loc));
     	
     }
     

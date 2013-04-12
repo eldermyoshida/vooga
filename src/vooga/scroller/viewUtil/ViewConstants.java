@@ -1,5 +1,4 @@
-package viewUtil;
-
+package vooga.scroller.viewUtil;
 import java.awt.Dimension;
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;

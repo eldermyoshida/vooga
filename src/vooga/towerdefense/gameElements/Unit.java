@@ -1,8 +1,10 @@
 package vooga.towerdefense.gameElements;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.util.List;
 import java.util.Map;
 
+import vooga.towerdefense.action.AbstractAction;
 import vooga.towerdefense.model.Path;
 import vooga.towerdefense.util.Location;
 import vooga.towerdefense.util.Pixmap;
@@ -21,6 +23,8 @@ public class Unit extends Sprite {
     private Location myDestination;
     private Map<String, State> myStates;
     private State currentState;
+    private Attributes myAttributes;
+    private List<AbstractAction> myActions;
 
     public Unit (Location destination, Pixmap image, Location center, Dimension size, Vector velocity) {
         super(image, center, size, velocity);
@@ -38,12 +42,13 @@ public class Unit extends Sprite {
     }
     
     @Override
-    public void update(double elapsedTime,Dimension bounds){
+	public void update(double elapsedTime, Dimension bounds) {
     	if (this.hasArrived(myDestination)){
     		updatePath(myPath.next());
     		this.turnTo(myDestination); //turnTo should be implemented in Sprite and thus can be used for both tower and unit
     	}
     	updateMove(elapsedTime);
+    	executeActions(elapsedTime);
     }
     
     /**
@@ -55,6 +60,13 @@ public class Unit extends Sprite {
 		Vector toMove=new Vector(getVelocity());
 		toMove.scale(elapsedTime);
 		this.translate(toMove);
+	}
+	
+	private void executeActions(double elapsedTime){
+		for (AbstractAction act: myActions){
+			act.execute(elapsedTime);
+		
+		}
 	}
 	
 	/**

@@ -1,4 +1,5 @@
-package util;
+
+package vooga.scroller.util;
 
 
 
@@ -16,5 +17,5 @@ public interface Editable {
 
     public void addNewSprite (Sprite s);
 
-    public void deleteSprite (Location deleteAtLocation);
+    public void deleteSprite (int x, int y);
 }

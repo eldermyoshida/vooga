@@ -1,11 +1,11 @@
-package sprites;
+
+package vooga.scroller.sprites;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import sprite_superclasses.StaticEntity;
-import test_sprites.Type;
-import util.Location;
-import util.Pixmap;
+import vooga.scroller.sprite_superclasses.StaticEntity;
+import vooga.scroller.util.Location;
+import vooga.scroller.util.Pixmap;
 
 
 /**
@@ -21,7 +21,5 @@ public class Test_S_One extends StaticEntity {
         super(image, center, size);
     }
 
-    public Type getType() {
-        return Type.NONE;
-    }
+
 }

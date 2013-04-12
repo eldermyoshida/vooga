@@ -1,3 +1,4 @@
+
 package arcade.view;
 
 import java.awt.Dimension;
@@ -23,9 +24,15 @@ public class SnapShot extends JPanel implements MouseListener {
     private JLabel myTitle;
     private JComponent myThumbnail;
     private JLabel myRating;
+    
+    
+    private String gameName;
 
     public SnapShot (GameInfo info) {
         myGameInfo = info;
+        
+        gameName = info.getName();
+        
         myTitle = new JLabel("<html><b><font size = 6>" + myGameInfo.getName() +
                              "</font></html></b>");
         Pixmap p = myGameInfo.getThumbnail();

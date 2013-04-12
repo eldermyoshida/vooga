@@ -1,4 +1,5 @@
-package viewUtil;
+
+package vooga.scroller.viewUtil;
 
 import java.awt.Graphics2D;
 
