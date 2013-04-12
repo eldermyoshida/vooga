@@ -13,7 +13,7 @@ import org.w3c.dom.NodeList;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
 
 /**
- * This class is an extension of Factory class that reads from an XML file to
+ * This class is an extension of Decoder class that reads from an XML file to
  * create UpgradeTree.
  * 
  * @author Ryan Fishel
@@ -26,6 +26,7 @@ public class UpgradeDecoder extends Decoder {
 	Factory myFactory;
 	
 	public UpgradeDecoder(Factory factory){
+		System.out.println("hahahahahaha");
 		myFactory = factory;
 	}
 	

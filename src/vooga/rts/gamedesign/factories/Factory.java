@@ -1,6 +1,7 @@
 package vooga.rts.gamedesign.factories;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,8 +13,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /** 
- *  This class will be an abstract class for factories that will be able to
- *  read in from an xml file or some input.
+ *  This class will be loading an xml file.
  *  
  * @author Ryan Fishel
  * @author Kevin Oh
@@ -28,7 +28,16 @@ public class Factory {
 		myDecoders.put("Upgrade", new UpgradeDecoder(this));
 	}
 	
-	public void load(String fileName) {
+	private void loadDecoder() throws ClassNotFoundException, IllegalArgumentException, SecurityException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+		
+		String pathName = "vooga.rts.gamedesign.factories.UpgradeDecoder";
+		
+		Class<?> headClass =
+				Class.forName(pathName);
+		Decoder temp = (Decoder) headClass.getConstructor(Factory.class).newInstance(this);
+	}
+	
+	public void loadXMLFile(String fileName) {
 		try {
 			File file = new File(fileName);
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -42,9 +51,9 @@ public class Factory {
 		}
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 		Factory factory = new Factory();
-		factory.load("src/vooga/rts/gamedesign/factories/XML_Sample");
+		factory.loadDecoder();
 	}
 
 }

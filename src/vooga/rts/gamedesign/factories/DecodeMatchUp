@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- This is the match up between XML input type and its decoder -->
+
+<XML Match Up>
+	<pair>
+		<type>Upgrade</type>
+		<decoder>vooga.rts.gamedesign.factories.UpgradeDecoder</decoder>
+	</pair>
+</XML Match Up>
