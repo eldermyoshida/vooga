@@ -9,6 +9,15 @@ import java.util.List;
 import java.util.ResourceBundle;
 import vooga.rts.leveleditor.gui.MapPanel;
 
+
+/**
+ * the class of a single editable map node. This node has a linked list
+ * to store the information of tiles, terrains and resources.
+ * 
+ * @author Richard Yang
+ *
+ */
+
 public class EditableNode {
 
     private static final String RELATIVE_PATH = "vooga.rts.leveleditor.resource.";

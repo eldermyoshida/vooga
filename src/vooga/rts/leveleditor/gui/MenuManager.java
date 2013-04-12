@@ -48,7 +48,8 @@ public class MenuManager extends JMenuBar {
                 try {
                     int response = myChooser.showSaveDialog(null);
                     if (response == JFileChooser.APPROVE_OPTION) {
-                        //TODO
+                        
+                        myCanvas.getMapPanel().getMyMap().generateMapFile(myChooser.getSelectedFile());
                     }
                 }
                 catch (Exception exception) {
@@ -64,7 +65,12 @@ public class MenuManager extends JMenuBar {
                 try {
                     int response = myChooser.showOpenDialog(null);
                     if (response == JFileChooser.APPROVE_OPTION) {
-                        //TODO  
+                        myCanvas.getMapPanel().getMyMap().loadMapFile(myChooser.getSelectedFile());
+                        myCanvas.getMapPanel().getMyMap().printMatrix();
+                        myCanvas.getMapPanel().setWidth(myCanvas.getMapPanel().getMyMap().getWidth());
+                        myCanvas.getMapPanel().setHeight(myCanvas.getMapPanel().getMyMap().getHeight());
+                        myCanvas.getMapPanel().setTileWidth(MapPanel.DEFAULT_TILE_WIDTH);
+                        myCanvas.getMapPanel().setTileHeight(MapPanel.DEFAULT_TILE_HEIGHT);
                     }
                 }
                 catch (Exception exception) {

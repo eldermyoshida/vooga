@@ -78,13 +78,12 @@ public class MapPanel extends JComponent {
         //paint Node
         for(int i=0; i<myMap.getWidth(); ++i) {
             for(int j=0; j<myMap.getHeight(); ++j) {
-                if(myMap.getMapNode(i, j).getOccupied()) {
                     try {
                         myMap.getMapNode(i, j).paint(g);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                }
+                
             }
         }
         
@@ -162,9 +161,44 @@ public class MapPanel extends JComponent {
         myRemoveFlag = b; 
     }
     
+<<<<<<< HEAD
     @InputMethodTarget(name="onLeftMouseDown")
     public void testClick (PositionObject p) {
         placeResource((int)(p.getX()), (int)(p.getY()));
+=======
+    public EditableMap getMyMap() {
+        return myMap;
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        placeResource(e.getX(), e.getY());
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        placeResource(e.getX(),e.getY());  
+>>>>>>> f58e6df52440e0a5280ce7142f319d5e9865ad40
     }
     
     @InputMethodTarget(name="onMouseDrag")
