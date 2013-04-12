@@ -29,6 +29,7 @@ public class Model {
     // This is weird how it works. I think you just need to instantiate it(see constructor)
     private ModelInputs myInputs;
     private LevelManager myLevelManager;
+    private ScrollingManager myScrollingManager;
 
     /**
      * Constructs a new Model based on the view and the scrolling manager used by the game.
@@ -36,12 +37,14 @@ public class Model {
      * @param view which is used to display/control game.
      * @param myScrollingManager used to control in-game scrolling.
      */
-    public Model (View view, ScrollingManager myScrollingManager) {
+    public Model (View view, ScrollingManager sm) {
+        myScrollingManager = sm;
         myView = view;
         initPlayer();
         myInputs = new ModelInputs(myPlayer, view);
         myLevelManager = new LevelManager(myScrollingManager, view);
         myLevelManager.currentLevel().addPlayer(myPlayer);
+
         
     }
 
@@ -53,7 +56,7 @@ public class Model {
         myPlayer = new Mario(new Pixmap("mario.gif"),
                              new Location(2500, 2500),
                              new Dimension(30, 60),
-                             myView);
+                             myView, myScrollingManager);
         
     }
 

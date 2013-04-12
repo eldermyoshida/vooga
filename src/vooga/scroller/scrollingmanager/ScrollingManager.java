@@ -48,7 +48,7 @@ public abstract class ScrollingManager {
     
     public abstract void viewPaint(Graphics pen);
     
-    public abstract void playerPaint(Graphics2D pen);
+    public abstract Location playerPaintLocation();
     
     
 }

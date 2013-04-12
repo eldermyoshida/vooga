@@ -129,9 +129,8 @@ public class DefaultScrollingManager extends ScrollingManager {
         myGame.paint((Graphics2D) pen);
     }
 
-    @Override
-    public void playerPaint (Graphics2D pen) {
-        // TODO Auto-generated method stub
+    public Location playerPaintLocation () {
+        return new Location(myView.getWidth() / 2, myView.getHeight() / 2);
         
     }
 }

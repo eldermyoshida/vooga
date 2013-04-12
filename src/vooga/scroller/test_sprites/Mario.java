@@ -4,6 +4,7 @@ package vooga.scroller.test_sprites;
 import java.awt.Dimension;
 import java.util.List;
 import vooga.scroller.design_patterns.State;
+import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprite_superclasses.NonStaticEntity;
 import vooga.scroller.sprite_superclasses.Player;
 import vooga.scroller.sprite_superclasses.StaticEntity;
@@ -22,8 +23,8 @@ public class Mario extends Player {
     
     
 
-    public Mario (Pixmap image, Location center, Dimension size, View view) {
-        super(image, center, size, view);
+    public Mario (Pixmap image, Location center, Dimension size, View view, ScrollingManager sm) {
+        super(image, center, size, view, sm);
         myView = view;
         myOriginalCenter = center;
         mySize = size;
