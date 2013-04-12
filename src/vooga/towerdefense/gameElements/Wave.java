@@ -1,6 +1,5 @@
 package vooga.towerdefense.gameElements;
 
-import java.util.HashSet;
 import java.util.List;
 
 import vooga.towerdefense.model.GameMap;
@@ -14,13 +13,16 @@ import vooga.towerdefense.model.GameMap;
 
 public abstract class Wave{
     
-	private List<Unit> myUnits;
-    private Attributes myAttributes;
-    private int myDuration;
+	protected List<Unit> myUnits;
+	protected Attributes myAttributes;
+	protected double myDuration;
+	protected double mySpawnDelay;
     
     public Wave (GameMap gameMap, List<Unit> units, double spawnDelay,
                  double duration) {
         myUnits = units;
+		myDuration = duration;
+		mySpawnDelay = spawnDelay;
 
     }
 
@@ -28,7 +30,7 @@ public abstract class Wave{
 
     }
     
-    public int getDuration () {
+	public double getDuration() {
     	return myDuration;
     }
     

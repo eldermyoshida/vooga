@@ -10,9 +10,7 @@ import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.gameElements.Unit;
 import vooga.towerdefense.util.Location;
 
-
 public class GameMap {
-
     // a normal computer screen will have
     private final int TILE_SIZE = 25;
 
