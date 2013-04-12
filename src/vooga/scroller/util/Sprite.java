@@ -56,6 +56,18 @@ public abstract class Sprite {
         reset();
         resetBounds();
     }
+    
+    public Sprite copy(){
+        try {
+            return this.getClass().newInstance();
+        }
+        catch (InstantiationException e) {
+            return null;
+        }
+        catch (IllegalAccessException e) {
+            return null;
+        }
+    }
 
     /**
      * Describes how to "animate" the shape by changing its state.
@@ -288,9 +300,5 @@ public abstract class Sprite {
     public Pixmap getView() {
         return myView;
     }
-    
-    public Sprite_Type getType() {
-        return Sprite_Type.NONE;
-    }
-
+   
 }

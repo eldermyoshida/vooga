@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import vooga.scroller.viewUtil.IView;
@@ -16,7 +17,7 @@ public class LEGridView extends WindowComponent{
      */
     private static final long serialVersionUID = 8266835201464623542L;
     private Dimension mySize;
-    private Renderable myLevel;
+    private Renderable myGrid;
 
     public LEGridView (IView parent, double d, double e) {
         // TODO Auto-generated constructor stub
@@ -39,7 +40,7 @@ public class LEGridView extends WindowComponent{
 
     @Override
     public void render (Renderable r) {
-        myLevel = r;
+        myGrid = r;
         repaint();
     }
     
@@ -56,16 +57,14 @@ public class LEGridView extends WindowComponent{
     public void paintComponent (Graphics pen) {
         pen.setColor(Color.WHITE);
         pen.fillRect(0, 0, getSize().width, getSize().height);
-        if (myLevel != null) {
-            myLevel.paint((Graphics2D) pen);
+        if (myGrid != null) {
+            myGrid.paint((Graphics2D) pen);
         }
     }
     
-    private void createSprite (String location) {
+    private void createSprite (Point loc) {
         // TODO Auto-generated method stub
-        String res = "createSprite " + location;
-        System.out.println(res);
-        process(res);
+        process(loc);
     }
     
     private class GridPositionListener implements MouseListener {
@@ -74,7 +73,7 @@ public class LEGridView extends WindowComponent{
         @Override
         public void mouseClicked (MouseEvent e) {
             // TODO Auto-generated method stub
-            createSprite(e.getLocationOnScreen().x+" "+ e.getLocationOnScreen().y);
+            createSprite(e.getLocationOnScreen());
             System.out.println(e.getLocationOnScreen());
         }
 

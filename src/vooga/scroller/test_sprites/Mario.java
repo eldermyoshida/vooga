@@ -62,7 +62,10 @@ public class Mario extends Player {
         {
             translate(DOWN_VELOCITY);
         }
-//        ONLY FOR TESTING
+
+        super.update(elapsedTime, bounds);
+        
+        //        ONLY FOR TESTING
     }
    
     public void changeState(State newState) {

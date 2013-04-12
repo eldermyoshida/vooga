@@ -24,7 +24,6 @@ public abstract class WorkspaceView extends WindowComponent {
     private static final long serialVersionUID = 2039042992476659779L;
     
     private int myID;
-    private Window myWindow;
     @SuppressWarnings("unused")
     private GridBagConstraints myConstraints;
     private Dimension mySize = ViewConstants.DEFAULT_TAB_SIZE;
@@ -32,7 +31,6 @@ public abstract class WorkspaceView extends WindowComponent {
 
     public WorkspaceView (IView hostWindow) {
         super(hostWindow, .9, .9);
-        setWindow();
         setPreferredSize(mySize);
         //TODO : for undo/redo stuff
 //        myRenderableHistory = new Stack<Renderable>();
@@ -44,6 +42,7 @@ public abstract class WorkspaceView extends WindowComponent {
         this(hostWindow);
         myID = id; 
     }
+    
 
     public abstract void setRenderable(Renderable r);
     
@@ -55,12 +54,6 @@ public abstract class WorkspaceView extends WindowComponent {
         return myID;
     }
     
-    /**
-     * TODO - for use in history browsing
-     */
-    private void setWindow() {
-        myWindow = (Window) getParent();
-    }
     
     
 //TODO : Maybe not (maybe remove this one)
@@ -93,8 +86,9 @@ public abstract class WorkspaceView extends WindowComponent {
      * Take in a string and send it to Window to process it as a command.
      * @param s The string to be parsed.
      */
+    @Override
     public void process (Object o) {
-        myWindow.process(this, o);
+        ((Window) getResponsible()).process(this, o);
     }
     
     //TODO - good design choice?

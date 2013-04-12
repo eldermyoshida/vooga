@@ -7,10 +7,10 @@ import java.awt.event.KeyEvent;
 import java.util.List;
 import vooga.scroller.design_patterns.State;
 import vooga.scroller.scrollingmanager.ScrollingManager;
+import vooga.scroller.util.Gravity;
 import vooga.scroller.util.Location;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.Sprite;
-import vooga.scroller.util.Sprite_Type;
 import vooga.scroller.util.Vector;
 import vooga.scroller.view.View;
 
@@ -42,6 +42,7 @@ public class Player extends Sprite {
     private Pixmap myImage;
     private ScrollingManager myScrollingManager;
     
+    
     // Used for testing purposes only
     protected static final int MOVE_LEFT = KeyEvent.VK_A;
     protected static final int MOVE_RIGHT = KeyEvent.VK_D;
@@ -63,6 +64,9 @@ public class Player extends Sprite {
     }
 
     public void update(double elapsedTime, Dimension bounds) {
+        
+        Gravity gravity = new Gravity(this);
+        //gravity.applyGravity();
 
     }
    
@@ -78,9 +82,6 @@ public class Player extends Sprite {
     public Location getOriginalCenter() {
         return new Location(myView.getWidth() / 2, myView.getHeight() / 2);
     }
-    
-    public Sprite_Type getSpriteType() {
-        return Sprite_Type.PLAYER;
-    }
+   
 
 }
