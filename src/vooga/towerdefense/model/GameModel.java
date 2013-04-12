@@ -1,8 +1,8 @@
 package vooga.towerdefense.model;
 
-import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.List;
+
 import vooga.towerdefense.gameElements.Wave;
 import vooga.towerdefense.view.TDView;
 
@@ -50,7 +50,7 @@ public class GameModel {
         System.out.println("you win!");
     }
 
-    public void display (Graphics2D pen) {
-        myGameMap.paint(pen);
+	public void displayMap() {
+		myView.getMapScreen().update();
     }
 }
