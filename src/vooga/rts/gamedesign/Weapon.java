@@ -37,6 +37,7 @@ public class Weapon {
     private int maxCooldown;
     private int cooldown;
     private Ellipse2D myRangeCircle;
+    private Location myCenter;
 
     /**
      * Creates a new weapon with default damage and projectile.
@@ -49,7 +50,7 @@ public class Weapon {
         myProjectile = projectile;
         myRange = range;
         maxCooldown = cooldownTime;
-        myRangeCircle = new Ellipse2D.Double(center.getX(), center.getY(), range, range);
+        myCenter = center;
         myProjectiles = new ArrayList<Projectile>();
     }
 
@@ -99,10 +100,10 @@ public class Weapon {
      * @return true if the interactive is in the range of the weapon and false
      *         if the interactive is out of the range of the weapon
      */
-    public boolean inRange (InteractiveEntity interactive, Location center) {
+    public boolean inRange (InteractiveEntity enemy) {
         // add z axis
-        myRangeCircle = new Ellipse2D.Double(center.getX(), center.getY(), myRange, myRange);
-        return myRangeCircle.contains(interactive.getCenter());
+        myRangeCircle = new Ellipse2D.Double(myCenter.getX(), myCenter.getY(), myRange, myRange);
+        return myRangeCircle.contains(enemy.getCenter());
     }
 
     /**

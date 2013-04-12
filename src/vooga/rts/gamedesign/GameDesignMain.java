@@ -46,9 +46,9 @@ public class GameDesignMain {
         b.setAttackStrategy(new CanAttack());
         
         
-        ((CanAttack) b.getAttackStrategy()).addWeapons(new Weapon(0, proj, 50, new Location(20,30),20));
+       b.addWeapons(new Weapon(0, proj, 50, new Location(20,30),20));
        
-        a.accept(b);
+        a.getAttacked(b);
         
         for(int i = 0 ; i < 50 ; i++){
         	System.out.println(i);

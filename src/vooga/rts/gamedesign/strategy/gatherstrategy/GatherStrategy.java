@@ -22,7 +22,7 @@ import vooga.rts.gamedesign.sprite.rtsprite.Resource;
  */
 public interface GatherStrategy {
 	
-	public void gather(IGatherable g); //change to specify which kind of resource.
+	public boolean canGather(IGatherable g); //change to specify which kind of resource.
 	
 	
 }

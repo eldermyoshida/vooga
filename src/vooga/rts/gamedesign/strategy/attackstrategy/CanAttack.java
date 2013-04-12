@@ -21,33 +21,16 @@ import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
  */
 public class CanAttack implements AttackStrategy{
 
-    private List<Weapon> myWeapons;
-    private int myWeaponIndex;
+
 
     public CanAttack(){
-        myWeapons = new ArrayList<Weapon>();
-        myWeaponIndex = 0;
-
     }
 
-    public void attack(IAttackable a) {
-
-        System.out.println("Soldier a health " + ((InteractiveEntity) a).getHealth());
-   
-        myWeapons.get(myWeaponIndex).fire((InteractiveEntity) a);
-        
+    public boolean canAttack(IAttackable a) {
+    	return true;
     }
     
     
-    public boolean hasWeapon(){
-        return !myWeapons.isEmpty();
-    }
-    public Weapon getWeapon(){
-        return myWeapons.get(0);
-    }
-    public void addWeapons(Weapon weapon) {
-        myWeapons.add(weapon);
-    }
 
 
 }

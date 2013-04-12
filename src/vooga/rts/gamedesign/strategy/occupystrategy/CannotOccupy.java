@@ -19,17 +19,8 @@ import vooga.rts.gamedesign.sprite.rtsprite.interactive.IOccupiable;
 public class CannotOccupy implements OccupyStrategy{
 
 	@Override
-	public void occupy(IOccupiable o) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-	@Override
-	public void occupy(Unit unit) {
-		// TODO Auto-generated method stub
-		
+	public boolean canOccupy(IOccupiable o){
+		return false;
 	}
 
 }

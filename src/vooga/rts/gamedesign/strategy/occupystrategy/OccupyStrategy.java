@@ -1,9 +1,6 @@
 package vooga.rts.gamedesign.strategy.occupystrategy;
 
-import vooga.rts.gamedesign.sprite.Building;
-import vooga.rts.gamedesign.sprite.Unit;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.IOccupiable;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Units;
 
 /**
  * This interface is implemented by the classes CanOccupy and CannotOccupy that
@@ -24,8 +21,6 @@ import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Units;
  */
 public interface OccupyStrategy {
 
-  public void occupy(IOccupiable o);
-
-  public void occupy(Unit unit);
+  public boolean canOccupy(IOccupiable o);
 
 }

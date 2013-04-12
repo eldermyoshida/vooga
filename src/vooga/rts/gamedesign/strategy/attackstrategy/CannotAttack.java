@@ -14,12 +14,9 @@ import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
  */
 public class CannotAttack implements AttackStrategy{
 
-    public void attack(IAttackable a) {
-        System.out.println("I am a nicene creed");        
+    public boolean canAttack(IAttackable a) {
+        return false;        
     }
     
-    public void update(double elapsedTime){
-        System.out.println("lol this sucks");
-    }
     
 }

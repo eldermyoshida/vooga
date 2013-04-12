@@ -19,12 +19,10 @@ import vooga.rts.gamedesign.sprite.rtsprite.Resource;
  *
  */
 public class CanGather implements GatherStrategy{
-	private List<IGatherable> myResources = new ArrayList<IGatherable>();
 	
 	@Override
-	public void gather(IGatherable g) {
-		myResources.add(g);
-		//TODO: check for if meeting certain goals probably??
+	public boolean canGather(IGatherable g) {
+		return true;
 	}
 	
 	/**
