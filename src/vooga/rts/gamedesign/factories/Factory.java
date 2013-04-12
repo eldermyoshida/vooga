@@ -1,16 +1,20 @@
 package vooga.rts.gamedesign.factories;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 /** 
  *  This class will be loading an xml file.
@@ -21,20 +25,42 @@ import org.w3c.dom.NodeList;
  * @author Wenshun Liu 
  */
 public class Factory {
+	public static final String DECODER_MATCHING_FILE = "src/vooga/rts/gamedesign/factories/DecodeMatchUp";
+	
 	Map<String, Decoder> myDecoders = new HashMap<String, Decoder>();
 	
-	public Factory() {
-		//TODO: a better way to load the decoders to close the class!!!!
-		myDecoders.put("Upgrade", new UpgradeDecoder(this));
+	public Factory() throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ParserConfigurationException, SAXException, IOException {
+		myDecoders = new HashMap<String, Decoder>();
+		loadDecoder(DECODER_MATCHING_FILE);
 	}
 	
-	private void loadDecoder() throws ClassNotFoundException, IllegalArgumentException, SecurityException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+	private void loadDecoder(String fileName) throws ClassNotFoundException, IllegalArgumentException, SecurityException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ParserConfigurationException, SAXException, IOException {
+		File file = new File(fileName);
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		DocumentBuilder db = dbf.newDocumentBuilder();
+		Document doc = db.parse(file);
+		doc.getDocumentElement().normalize();
 		
-		String pathName = "vooga.rts.gamedesign.factories.UpgradeDecoder";
+		NodeList nodeLst = doc.getElementsByTagName("pair");
 		
-		Class<?> headClass =
-				Class.forName(pathName);
-		Decoder temp = (Decoder) headClass.getConstructor(Factory.class).newInstance(this);
+		for (int i = 0; i < nodeLst.getLength(); i++) {
+			Element pairElmnt = (Element) nodeLst.item(i);
+			
+			Element typeElmnt = (Element)pairElmnt.getElementsByTagName("type").item(0);
+			NodeList typeList = typeElmnt.getChildNodes();
+			String type = ((Node) typeList.item(0)).getNodeValue();
+			
+			Element pathElmnt = (Element)pairElmnt.getElementsByTagName("decoderPath").item(0);
+			NodeList pathList = pathElmnt.getChildNodes();
+			String path = ((Node) pathList.item(0)).getNodeValue();
+			
+			Class<?> headClass =
+					Class.forName(path);
+			Decoder decoder = (Decoder) headClass.getConstructor(Factory.class).newInstance(this);
+			myDecoders.put(type, decoder);
+		}
+		
+		System.out.println(myDecoders);
 	}
 	
 	public void loadXMLFile(String fileName) {
@@ -51,9 +77,9 @@ public class Factory {
 		}
 	}
 	
-	public static void main(String[] args) throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+	public static void main(String[] args) throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ParserConfigurationException, SAXException, IOException {
 		Factory factory = new Factory();
-		factory.loadDecoder();
+		factory.loadXMLFile("src/vooga/rts/gamedesign/factories/XML_Sample");
 	}
 
 }
