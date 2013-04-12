@@ -116,18 +116,6 @@ public class GameEntity extends GameSprite {
      */
     // TODO: make Velocity three dimensional...
     public void update (double elapsedTime) {
-        Vector diff = getCenter().difference(myCurrentLocation);
-        if (diff.getMagnitude() > 10) {
-            double angle = diff.getDirection();
-            double magnitude = 1;            
-            setVelocity(angle, magnitude);
-        }
-        else{
-            setVelocity(0, 0);
-            setCenter(myCurrentLocation.getX(), myCurrentLocation.getY());
-        }
-        
-        if (!isVisible()) return;
         Vector v = new Vector(myVelocity);
         v.scale(elapsedTime);
         translate(v);

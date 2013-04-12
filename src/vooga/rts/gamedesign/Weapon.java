@@ -56,23 +56,18 @@ public class Weapon {
     /**
      * This method is used by the weapon to attack an RTSprite.
      * 
-     * @throws CloneNotSupportedException
+     * 
      */
     public void fire (InteractiveEntity toBeShot) {
 
         System.out.println("Health of enemy " + toBeShot.getHealth());
         System.out.println("cooldown " + cooldown);
-        if (cooldown == 0) {
+        
             // should set the velocity of the projectile to the location of the toBeshot
-            myProjectile.attack(toBeShot);
-            // myProjectile.move(toBeShot.getCenter()); is NOT working :( dumb angles
-            // myProjectile.setTarget(toBeShot);
-            myProjectiles.add(myProjectile);
-            System.out.println("Weapon has fired");
-            setCooldown(maxCooldown);
-        }
-        System.out.println("Health of enemy " + toBeShot.getHealth() +
-                           "number of projectiles fired " + myProjectiles.size());
+        myProjectile.setTarget(toBeShot);
+        setCooldown(maxCooldown);
+        
+        
     }
 
     /**
@@ -137,12 +132,7 @@ public class Weapon {
     }
 
     public void update (double elapsedTime) {
-        for (Projectile p : myProjectiles) {
-            p.update(elapsedTime);
-            if (p.isDead()) {
-                myProjectiles.remove(p);
-            }
-        }
+        
         decrementCooldown();
     }
 }

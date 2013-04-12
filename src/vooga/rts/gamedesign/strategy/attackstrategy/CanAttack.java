@@ -38,8 +38,6 @@ public class CanAttack implements AttackStrategy{
    
         myWeapons.get(myWeaponIndex).fire((InteractiveEntity) a);
         
-
-        System.out.println("a died");
     }
     
     

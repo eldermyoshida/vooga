@@ -9,6 +9,7 @@ import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
 import vooga.rts.util.ThreeDimension;
+import vooga.rts.util.Vector;
 
 
 /**
@@ -25,6 +26,8 @@ import vooga.rts.util.ThreeDimension;
  */
 public class Projectile extends GameEntity implements Cloneable{
 
+	
+	private static final int SPEED = 4;
 	private int myDamage;
 	private InteractiveEntity myTarget;
 	
@@ -38,26 +41,15 @@ public class Projectile extends GameEntity implements Cloneable{
 	}
 	
 	public void setTarget(InteractiveEntity target){
-	    myTarget = target;
+		Vector between = getCenter().difference(target.getCenter());
+		double angle = between.getAngle();
+		setVelocity(angle, SPEED);
 	}
 	
-	/**
-	 * Applies the damage to the target it collides with by updating the
-	 * target’s health value.
-	 * 
-	 * @param target
-	 */
-	public void attack(InteractiveEntity target){
-	    target.changeHealth(target.calculateDamage(myDamage));
-	}
 	
 	@Override
 	public void update(double elapsedTime){
 	    super.update(elapsedTime);
-	    if(this.interactsWith(myTarget)){
-	        System.out.println("projectile has hit");
-	        myTarget.accept(this);
-	        this.setHealth(0);
-	    }
+	    System.out.println(this.getCenter());
 	}
 }
