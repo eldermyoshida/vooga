@@ -10,15 +10,10 @@ import java.util.Map;
 import vooga.rts.gamedesign.Action;
 import vooga.rts.gamedesign.Weapon;
 import vooga.rts.gamedesign.factories.Factory;
-import vooga.rts.gamedesign.sprite.rtsprite.EntityVisitor;
 import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
-import vooga.rts.gamedesign.sprite.rtsprite.Projectile;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.IGatherable;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.IOccupiable;
 
 import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
 import vooga.rts.gamedesign.strategy.attackstrategy.CannotAttack;
-import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
 import vooga.rts.gamedesign.upgrades.UpgradeNode;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
 import vooga.rts.util.Location;
@@ -140,7 +135,9 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     public void update(double elapsedTime){
         super.update(elapsedTime);
         System.out.println("InteractiveEntity is updating");
-        myWeapons.get(myWeaponIndex).update(elapsedTime);
+        if(!myWeapons.isEmpty()){
+            myWeapons.get(myWeaponIndex).update(elapsedTime);
+        }
     }
     
     private void initDefaultActions(){

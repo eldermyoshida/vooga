@@ -67,16 +67,8 @@ public class GameController extends AbstractController {
         List<Unit> p2 = myTeams.get(2).getUnits();
         for (Unit u1 : p1) {
             for (Unit u2 : p2) {
-                if(((CanAttack)u1.getAttackStrategy()).getWeapon().inRange(u2, u1.getCenter())){
-                    //u2.accept(u1);
-                    System.out.println("lol in range");
-                    try {
-                        ((CanAttack)u1.getAttackStrategy()).getWeapon().fire(u2);
-                    }
-                    catch (CloneNotSupportedException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
+                if(u1.inRange(u2)){
+                   System.out.println("omg in range!");
                 }               
             }
         }
@@ -130,7 +122,7 @@ public class GameController extends AbstractController {
             a = new Soldier(p,new Location(100, 100),s,soun,20,100);
             Projectile proj = new Projectile(new Pixmap(ResourceManager.instance().loadFile("images/bullet.png")), a.getCenter(), new Dimension(30, 30), 1, 10, 1);
             a.setAttackStrategy(new CanAttack());
-            ((CanAttack) a.getAttackStrategy()).addWeapons(new Gun(0, proj, 200, a.getCenter(),20));
+            a.addWeapons(new Gun(0, proj, 200, a.getCenter(),20));
         }
         catch (Exception e) {
             // trollolol
@@ -140,7 +132,7 @@ public class GameController extends AbstractController {
         Projectile proj2 = new Projectile(new Pixmap(ResourceManager.instance().loadFile("images/bullet.png")), b.getCenter(), new Dimension(30, 30), 1, 10, 1);
         b.setAttackStrategy(new CanAttack());
 
-        ((CanAttack) b.getAttackStrategy()).addWeapons(new Gun(0, proj2, 200, b.getCenter(),20));        
+        b.addWeapons(new Gun(0, proj2, 200, b.getCenter(),20));        
         Unit c = new Soldier(p,new Location(500, 500),s,soun,20,40);
         c.setAttackStrategy(new CannotAttack());
         

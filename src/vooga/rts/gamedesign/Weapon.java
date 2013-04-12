@@ -59,17 +59,13 @@ public class Weapon {
      * 
      */
     public void fire (InteractiveEntity toBeShot) {
-
         System.out.println("Health of enemy " + toBeShot.getHealth());
         System.out.println("cooldown " + cooldown);
         
         // should set the velocity of the projectile to the location of the toBeshot
         myProjectile.setTarget(toBeShot);
         setCooldown(maxCooldown);
-        
-        
     }
-
     /**
      * This method is used to upgrade a weapon either
      * 

@@ -3,7 +3,6 @@ package vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings;
 import java.awt.Dimension;
 
 import vooga.rts.gamedesign.sprite.InteractiveEntity;
-import vooga.rts.gamedesign.sprite.rtsprite.RTSprite;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.IOccupiable;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Unit;
 import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
@@ -25,7 +24,7 @@ import vooga.rts.util.ThreeDimension;
  */
 public abstract class Building extends InteractiveEntity implements IOccupiable{
 	public static final int MAXHEALTH = 100;
-	
+	//building is lonely :(
 	public Building(Pixmap image, Location center, ThreeDimension size, Sound sound,
 			int teamID, int health) {
 		super(image, center, size, sound, teamID, MAXHEALTH);

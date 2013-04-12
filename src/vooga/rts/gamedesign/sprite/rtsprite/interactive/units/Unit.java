@@ -6,8 +6,6 @@ import java.util.List;
 import vooga.rts.ai.PathingHelper;
 import vooga.rts.gamedesign.sprite.GameSprite;
 import vooga.rts.gamedesign.sprite.InteractiveEntity;
-import vooga.rts.gamedesign.sprite.rtsprite.EntityVisitor;
-import vooga.rts.gamedesign.sprite.rtsprite.RTSprite;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.IGatherable;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.IOccupiable;
 import vooga.rts.gamedesign.strategy.gatherstrategy.CannotGather;
@@ -38,8 +36,6 @@ public class Unit extends InteractiveEntity {
     // private boolean myIsLeftSelected; // TODO: also need the same thing for Projectiles
     // private boolean myIsRightSelected; // TODO: should be observing the mouse action instead!!
     private PathingHelper myPather;
-
-    
     private GatherStrategy myGatherStrategy;
     private OccupyStrategy myOccupyStrategy;
 
@@ -59,17 +55,15 @@ public class Unit extends InteractiveEntity {
         myGatherStrategy = new CannotGather();
         myOccupyStrategy = new CannotOccupy();
     }
-
-    public void visit (RTSprite rtSprite) {
-        System.out.println("visit in Unit got called");
-    }
     
     /**
      * Gathers a resource specified by gather strategy.
      * @param g
      */
     public void gather(IGatherable g) {
-    	//myGatherStrategy.gather(g);
+    	if(myGatherStrategy.canGather(g)){
+    	    g.getGathered(this);
+    	}
     }
     
     /**
@@ -77,9 +71,10 @@ public class Unit extends InteractiveEntity {
      * @param o
      */
     public void occupy(IOccupiable o) {
-    	//myOccupyStrategy.occupy(o);
+    	if(myOccupyStrategy.canOccupy(o)){
+    	    o.getOccupied(this);
+    	}
     }
-    
     
     public void setGatherStrategy (GatherStrategy newStrategy) {
     	myGatherStrategy = newStrategy;
