@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import vooga.scroller.viewUtil.IView;
@@ -61,11 +62,9 @@ public class LEGridView extends WindowComponent{
         }
     }
     
-    private void createSprite (String location) {
+    private void createSprite (Point loc) {
         // TODO Auto-generated method stub
-        String res = "createSprite " + location;
-        System.out.println(res);
-        process(res);
+        process(loc);
     }
     
     private class GridPositionListener implements MouseListener {
@@ -74,7 +73,7 @@ public class LEGridView extends WindowComponent{
         @Override
         public void mouseClicked (MouseEvent e) {
             // TODO Auto-generated method stub
-            createSprite(e.getLocationOnScreen().x+" "+ e.getLocationOnScreen().y);
+            createSprite(e.getLocationOnScreen());
             System.out.println(e.getLocationOnScreen());
         }
 
