@@ -2,6 +2,8 @@ package vooga.rts.gamedesign.upgrades;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import vooga.rts.gamedesign.sprite.InteractiveEntity;
 import vooga.rts.gamedesign.upgrades.UpgradeNode;
 
 /**
@@ -24,7 +26,30 @@ import vooga.rts.gamedesign.upgrades.UpgradeNode;
  */
 public class UpgradeTree {
     private UpgradeNode myHead;
+    private List<UpgradeNode> myCurrentUpgrades;
+    private List<UpgradeNode> myNextUpgrades;
+    private List<InteractiveEntity> myUsers;
 
+    /**
+     * reads the input file that specifies the upgrade hierarchy and
+     * information for each upgrade, and creates the UpgradeTree.
+     * @param fileName
+     */
+    private void readFile(String fileName){
+    	//TODO: to be combined with XML
+    }
+    
+    /**
+     * updates the list of current and next upgrades based on the given
+     * UpgradeNode, which is newly activated
+     * @param u
+     */
+    public void updateTree(UpgradeNode u){
+    	myCurrentUpgrades.add(u);
+    	UpgradeNode nextUpgrade = u.getChildren().get(0);
+    	myNextUpgrades.add(nextUpgrade);
+    } 
+    
     /**
      * Finds the most advanced upgrade has been made in the giving upgrade type.
      * @param upgradeType
@@ -32,16 +57,23 @@ public class UpgradeTree {
      */
     public UpgradeNode findCurrent(String upgradeType){
         UpgradeNode current = new UpgradeNode();
-        for (UpgradeNode u: myHead.getChildren()){
-            if (u.getUpgradeType().equals(upgradeType)){
-                current = u;
-            }
+    	for (UpgradeNode n: myHead.getChildren()){
+        	if (n.getUpgradeType().equals(upgradeType)){
+        		current = n;
+        	}
         }
-        //need to find a way to traverse
-        /*while (current.getChildren().get(0) != null && current.getChildren().get(0).getHasBeenUpgraded()) {
-			current = current.getChildren().get(0);
-		}*/
+    	
+        while (current != null) {
+        	if (current.getHasBeenUpgraded()){
+        		current = current.getChildren().get(0);
+        	} else {
+        		break;
+        	}
+        }
         return current;
     }
 
+    public List<InteractiveEntity> getUsers(){
+    	return myUsers;
+    }
 }

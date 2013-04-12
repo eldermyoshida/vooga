@@ -115,8 +115,8 @@ public class InteractiveEntity extends GameEntity implements IAttackable, Entity
      * @throws SecurityException 
      * @throws IllegalArgumentException 
      */
-    public void upgrade (UpgradeNode upgradeNode) throws IllegalArgumentException, SecurityException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException {
-        upgradeNode.apply(this);
+    public void upgrade (UpgradeNode upgradeNode) throws IllegalArgumentException, SecurityException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException { 	
+    	upgradeNode.apply(upgradeNode.getUpgradeTree().getUsers());
     }
 
     public UpgradeTree getTree(){
