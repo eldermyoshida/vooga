@@ -12,6 +12,8 @@ public class Stat {
 
 	private String myName;
 	private double myValue;
+	private double regenRate;
+	private double myMaxValue;
 	
 	public Stat(String statName, double statValue){
 		myName = statName;
@@ -43,5 +45,7 @@ public class Stat {
 	public String getName(){
 		return myName;
 	}
+	
+	
 	
 }

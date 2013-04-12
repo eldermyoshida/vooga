@@ -12,5 +12,8 @@ public class StaticEntity extends Sprite {
         super(image, center, size);
         // TODO Auto-generated constructor stub
     }
+    
+    
+    
 
 }
