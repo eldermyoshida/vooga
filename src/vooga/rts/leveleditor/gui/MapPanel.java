@@ -73,16 +73,18 @@ public class MapPanel extends JComponent {
         //paint Node
         for(int i=0; i<myMap.getWidth(); ++i) {
             for(int j=0; j<myMap.getHeight(); ++j) {
+                if(myMap.getMapNode(i, j).getOccupied()){
                     try {
                         myMap.getMapNode(i, j).paint(g);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                
+                }
+
             }
         }
-        
-        
+
+
     }
     
     public void setWidth(int w) {

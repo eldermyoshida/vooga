@@ -55,8 +55,6 @@ public class Canvas extends JFrame {
         pack();
         setVisible(true);
 
-
-
     }
 
 
