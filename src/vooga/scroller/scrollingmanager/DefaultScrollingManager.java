@@ -128,4 +128,10 @@ public class DefaultScrollingManager extends ScrollingManager {
         pen.drawImage(img, rightpaintbound, lowerpaintbound, imgwidth, imgheight, null);
         myGame.paint((Graphics2D) pen);
     }
+
+    @Override
+    public void playerPaint (Graphics2D pen) {
+        // TODO Auto-generated method stub
+        
+    }
 }
