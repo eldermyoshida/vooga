@@ -6,7 +6,7 @@ import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Units;
 import vooga.rts.util.Location;
 
 public class HumanPlayer extends Player {
-
+    
     @Override
     public void update (double elapsedTime) {        
         super.update(elapsedTime);
@@ -21,6 +21,13 @@ public class HumanPlayer extends Player {
         for (Units u : getUnits().getSelected())
         {            
             u.move(new Location(x, y));            
+        }
+    }
+    // Duplicate method 
+    public void handlRightClick(int x, int y, int z) {
+        for (Units u : getUnits().getSelected())
+        {            
+            u.move(new Location(x, y), getMap());            
         }
     }
     

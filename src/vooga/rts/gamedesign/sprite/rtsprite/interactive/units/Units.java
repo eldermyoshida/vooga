@@ -1,12 +1,16 @@
 package vooga.rts.gamedesign.sprite.rtsprite.interactive.units;
 
 import vooga.rts.gamedesign.Weapon;
-import vooga.rts.ai.PathingHelper;
+import vooga.rts.ai.AstarFinder;
+import vooga.rts.ai.Path;
+import vooga.rts.ai.PathFinder;
 import vooga.rts.gamedesign.sprite.rtsprite.IMovable;
 import vooga.rts.gamedesign.sprite.rtsprite.RTSprite;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.Interactive;
 import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
 import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
+import vooga.rts.map.GameMap;
+import vooga.rts.map.Node;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
@@ -14,6 +18,8 @@ import vooga.rts.util.Vector;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.List;
+import java.util.LinkedList;
+import java.util.Queue;
 
 
 /**
@@ -31,8 +37,8 @@ public abstract class Units extends Interactive implements IMovable {
     private List<Interactive> myKills;
     // private boolean myIsLeftSelected; // TODO: also need the same thing for Projectiles
     // private boolean myIsRightSelected; // TODO: should be observing the mouse action instead!!
-    private PathingHelper myPather;
-
+    private Path myPath;
+    private PathFinder myFinder;
     private Location myGoal;
 
     /**
@@ -49,6 +55,8 @@ public abstract class Units extends Interactive implements IMovable {
         super(image, center, size, sound, teamID, health);
         //myPather = new PathingHelper();
         myGoal = new Location(center);
+        Queue<Node> path = new LinkedList<Node>();
+        myPath = new Path(path);
     }
 
 
@@ -59,10 +67,17 @@ public abstract class Units extends Interactive implements IMovable {
     public void move (Location loc) {
         myGoal = new Location(loc);
     }
+    
+    public void move (Location loc, GameMap map) {
+        setPath(loc, map);
+    }
 
     public void update (double elapsedTime) {
         Vector diff = getCenter().difference(myGoal);
         if (diff.getMagnitude() > 5) {
+            if (myPath.size() > 0) {
+                myGoal = myPath.getNext();
+            }
             double angle = diff.getDirection();
             double magnitude = 100;            
             setVelocity(angle, magnitude);
@@ -83,8 +98,10 @@ public abstract class Units extends Interactive implements IMovable {
         getVelocity().turn(angle);
     }
 
-    public void setPath (Location location) {
-        myPather.constructPath(getCenter(), location);
+    public void setPath (Location location, GameMap map) {
+       myPath = myFinder.calculatePath(map.getNode(getCenter()), 
+                                       map.getNode(location), map.getMap());
+       myGoal = myPath.getNext();
     }
 
     /*
