@@ -2,6 +2,7 @@ package vooga.rts.gamedesign.sprite.rtsprite.interactive.units;
 
 import java.awt.Dimension;
 
+import vooga.rts.gamedesign.sprite.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.IOccupiable;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
@@ -15,11 +16,17 @@ import vooga.rts.util.Sound;
  * @author Wenshun Liu 
  *
  */
-public class Transport extends Units implements IOccupiable {
+public class Transport extends Unit implements IOccupiable {
 
 	public Transport(Pixmap image, Location center, Dimension size,
 			Sound sound, int teamID, int health) {
 		super(image, center, size, sound, teamID, health);
+	}
+
+	@Override
+	public void getOccupied(InteractiveEntity e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -4,7 +4,7 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 import vooga.rts.IGameLoop;
-import vooga.rts.gamedesign.sprite.Unit;
+import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Unit;
 
 
 public class UnitManager implements IGameLoop {

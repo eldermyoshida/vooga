@@ -4,7 +4,6 @@ import java.util.List;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import vooga.rts.gamedesign.Weapon;
-import vooga.rts.gamedesign.sprite.Unit;
 import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
 import vooga.rts.gamedesign.sprite.rtsprite.Projectile;
 import vooga.rts.gamedesign.sprite.rtsprite.RTSprite;

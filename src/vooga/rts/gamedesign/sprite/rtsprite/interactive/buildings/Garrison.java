@@ -1,5 +1,4 @@
 package vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings;
-import vooga.rts.gamedesign.sprite.Building;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.IOccupiable;
 
 import vooga.rts.util.Location;

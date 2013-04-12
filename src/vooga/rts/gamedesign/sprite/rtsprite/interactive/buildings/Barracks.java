@@ -2,7 +2,6 @@ package vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings;
 
 import java.awt.Dimension;
 
-import vooga.rts.gamedesign.sprite.Building;
 import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
 import vooga.rts.gamedesign.sprite.rtsprite.IGatherable;
 import vooga.rts.gamedesign.sprite.rtsprite.RTSprite;

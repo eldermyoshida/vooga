@@ -2,7 +2,7 @@ package vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings;
 
 import java.awt.Dimension;
 
-import vooga.rts.gamedesign.sprite.Building;
+import vooga.rts.gamedesign.sprite.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
 import vooga.rts.gamedesign.sprite.rtsprite.IGatherable;
 import vooga.rts.gamedesign.sprite.rtsprite.RTSprite;
@@ -27,6 +27,7 @@ public class AttackTower extends Building {
 		super(image, center, size, sound, teamID, health);
 		// TODO Auto-generated constructor stub
 	}
+
 
 	
 }
