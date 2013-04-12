@@ -5,9 +5,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.io.IOException;
 import javax.swing.JComponent;
 import vooga.rts.input.Input;
@@ -45,8 +42,6 @@ public class MapPanel extends JComponent {
         myTileWidth = DEFAULT_TILE_WIDTH;
         myTileHeight = DEFAULT_TILE_HEIGHT;
         setPanelSize();
-        //this.addMouseListener(this);
-        //this.addMouseMotionListener(this);
     }
     
     private void setPanelSize() {
@@ -161,88 +156,21 @@ public class MapPanel extends JComponent {
         myRemoveFlag = b; 
     }
     
-<<<<<<< HEAD
-    @InputMethodTarget(name="onLeftMouseDown")
-    public void testClick (PositionObject p) {
-        placeResource((int)(p.getX()), (int)(p.getY()));
-=======
     public EditableMap getMyMap() {
         return myMap;
     }
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        placeResource(e.getX(), e.getY());
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-        
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-        
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        
-    }
-
-    @Override
-    public void mouseDragged(MouseEvent e) {
-        placeResource(e.getX(),e.getY());  
->>>>>>> f58e6df52440e0a5280ce7142f319d5e9865ad40
-    }
     
+
+    @InputMethodTarget(name="onLeftMouseDown")
+    public void testClick (PositionObject p) {
+        placeResource((int)(p.getX()), (int)(p.getY()));
+    }
+
+
     @InputMethodTarget(name="onMouseDrag")
     public void testDrag (PositionObject p) {
         placeResource((int)(p.getX()), (int)(p.getY()));
     }
-    
-    
-    
-//    @Override
-//    public void mouseClicked(MouseEvent e) {
-//        placeResource(e.getX(), e.getY());
-//    }
-//
-//    @Override
-//    public void mouseEntered(MouseEvent e) {
-//        
-//    }
-//
-//    @Override
-//    public void mouseExited(MouseEvent e) {
-//        
-//    }
-//
-//    @Override
-//    public void mousePressed(MouseEvent e) {
-//
-//    }
-//
-//    @Override
-//    public void mouseReleased(MouseEvent e) {
-//        
-//    }
-//
-//    @Override
-//    public void mouseDragged(MouseEvent e) {
-//        placeResource(e.getX(),e.getY());  
-//    }
-//
-//
-//    @Override
-//    public void mouseMoved(MouseEvent arg0) {
-//
-//    }
-//    
+
 
 }
