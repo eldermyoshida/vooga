@@ -68,36 +68,6 @@ public class Mario extends Player {
         currentState = newState;
     }
     
-    public class Platform extends StaticEntity{
-
-
-        
-        public Platform (Pixmap image, Location center, Dimension size) {
-            super(image, center, size);
-            // TODO Auto-generated constructor stub
-        }
-
-        public void print() {
-            System.out.println("Platform");
-        }
-        
-
-    }
-    
-    
-    public class Turtle extends NonStaticEntity {
-
-        
-        public Turtle (Pixmap image, Location center, Dimension size) {
-            super(image, center, size);
-            // TODO Auto-generated constructor stub
-        }
-
-        public void print() {
-            System.out.println("Turtle");
-        }
-
-    }
 }
 
 
