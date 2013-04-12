@@ -1,4 +1,5 @@
 package vooga.towerdefense.model;
+import java.awt.Graphics2D;
 import java.util.List;
 
 import vooga.towerdefense.gameElements.Wave;
@@ -37,4 +38,8 @@ public class GameModel {
     		//TODO: add win behavior
     		System.out.println("you win!");
     }
+
+	public void display(Graphics2D pen) {
+		myGameMap.paint(pen);
+	}
 }
