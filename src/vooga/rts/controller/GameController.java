@@ -135,7 +135,7 @@ public class GameController extends AbstractController {
         Projectile proj2 = new Projectile(new Pixmap(ResourceManager.instance().loadFile("images/bullet.png")), proj2Loc ,new Dimension(30, 30), 1, 10, 1);
         b.setAttackStrategy(new CanAttack());
 
-        b.addWeapons(new Gun(0, proj2, 200, b.getCenter(),20));        
+        //b.addWeapons(new Weapon(0, proj2, 200, b.getCenter(),20));        
         Unit c = new Soldier(p,new Location(500, 500),s,soun,20,40);
         c.setAttackStrategy(new CannotAttack());
         

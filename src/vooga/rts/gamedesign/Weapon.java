@@ -94,10 +94,13 @@ public class Weapon {
      */
     public boolean inRange (InteractiveEntity enemy) {
         // add z axis
+        //see if enemy is in adjacent node, better way. 
         myRangeCircle = new Ellipse2D.Double(myCenter.getX(), myCenter.getY(), myRange, myRange);
         return myRangeCircle.contains(enemy.getCenter());
     }
-
+    public int getRange(){
+        return myRange;
+    }
     /**
      * subtracts 1 from the cooldown counter
      */

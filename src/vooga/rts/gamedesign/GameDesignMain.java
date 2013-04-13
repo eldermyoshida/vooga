@@ -30,36 +30,28 @@ public class GameDesignMain {
      * @throws IllegalArgumentException 
      */
     public static void main(String[] args) {
-    	
+
 
         Pixmap p = new Pixmap(ResourceManager.instance().loadFile("images/soldier.png"));
         Location l1 = new Location(40,50);
-        Location l2 = new Location(200,200);
+        Location l2 = new Location(20,20);
         Dimension s = new Dimension(100,100);
         Sound soun = new Sound("pikachu.wav");
 
-        Unit a = new Soldier(p,l1,s,soun,100,40);
+        Unit a = new Soldier(p,l1,s,soun,3,40);
         a.setAttackStrategy(new CannotAttack());
 
-        Unit b = new Soldier(p,l2,s,soun,20,50);
+        Unit b = new Soldier(p,l2,s,soun,2,50);
         Projectile proj = new Projectile(new Pixmap(ResourceManager.instance().loadFile("images/bullet.png")), l2, new Dimension(30, 30), 1, 10, 1);
         b.setAttackStrategy(new CanAttack());
+
+        b.addWeapons(new Weapon(0, proj, 200, b.getCenter(),20));
+        System.out.println("lol");
         
-        
-       b.addWeapons(new Weapon(0, proj, 50, new Location(20,30),20));
-       
-        a.getAttacked(b);
-        
-        for(int i = 0 ; i < 50 ; i++){
-        	System.out.println(i);
-        	proj.update(1.0);
-        	if(a.collidesWith(proj)){
-        		System.out.println("enemy hit");
-        	}
-        	
+        if(b.inRange(a)){
+            System.out.println("a in range b");
         }
-        
-        
+
     }
 
 }

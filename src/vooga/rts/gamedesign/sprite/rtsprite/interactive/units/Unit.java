@@ -56,7 +56,7 @@ public class Unit extends InteractiveEntity {
         //myPather = new PathingHelper();
         myGatherStrategy = new CannotGather();
         myOccupyStrategy = new CannotOccupy();
-        addUpgradeActions();
+        //addUpgradeActions();
     }
     
     /**
