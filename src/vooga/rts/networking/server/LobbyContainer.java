@@ -7,25 +7,17 @@ import vooga.rts.networking.communications.SystemMessage;
 import vooga.rts.networking.factory.Command;
 import vooga.rts.networking.factory.CommandFactory;
 
-
-/**
- * Object responsible for creating an instance of a game, and establishing
- * connections between clients and the game.
- * 
- * @author srwareham
- * @author David Winegar
- * 
- */
-public class MatchmakerServer extends Thread implements IMessageReceiver, ICommandable {
+public class LobbyContainer implements ICommandable, IMessageReceiver {
+    
     private Map<Integer, ConnectionThread> myConnectionThreads = new HashMap<Integer, ConnectionThread>();
-    private Map<String, GameContainer> myGameContainers = new HashMap<String, GameContainer>();
-    private ConnectionServer myConnectionServer = new ConnectionServer(this);
-    private CommandFactory myFactory = new CommandFactory();
-
-    @Override
-    public void run () {
-        myConnectionServer.start();
-        // need to load game containers - games.properties - may want to do this in constructor
+    private CommandFactory myFactory;
+    
+    public LobbyContainer (CommandFactory factory) {
+        myFactory = factory;
+    }
+    
+    protected void addConnection (ConnectionThread thread) {
+        myConnectionThreads.put(thread.getID(), thread);
     }
     
     @Override
@@ -39,33 +31,30 @@ public class MatchmakerServer extends Thread implements IMessageReceiver, IComma
         }
     }
     
-    protected void addConnection (ConnectionThread thread) {
-        myConnectionThreads.put(thread.getID(), thread);
-    }
-
     @Override
     public void removeConnection (ConnectionThread thread) {
-        myConnectionThreads.remove(thread.getID());
+        // TODO Auto-generated method stub
+        
     }
-
+    
     @Override
-    public void joinGame (ConnectionThread thread, String gameName) {
-        if (myGameContainers.containsKey(gameName)) {
-            myGameContainers.get(gameName).addConnection(thread);
-            myConnectionThreads.remove(thread.getID());
-        }
+    public void joinGame (ConnectionThread thread, String gameName) {        
     }
-
+    
     @Override
     public void joinLobby (ConnectionThread thread, String lobbyName) {        
     }
-
+    
     @Override
     public void leaveLobby (ConnectionThread thread) {
+        // TODO Auto-generated method stub
+        
     }
-
+    
     @Override
     public void startGameServer (ConnectionThread thread) {
+        // TODO Auto-generated method stub
+        
     }
-
+    
 }
