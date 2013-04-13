@@ -1,7 +1,7 @@
 package vooga.fighter.controller;
 
 public interface ControllerDelegate {
-    
-    public void switchController(String NextController);
+
+	public void notifyEndCondition(String condition);
 
 }

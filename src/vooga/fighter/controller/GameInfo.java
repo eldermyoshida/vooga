@@ -1,5 +1,4 @@
-package vooga.fighter.controller ;
-
+package vooga.fighter.controller;
 
 
 /**

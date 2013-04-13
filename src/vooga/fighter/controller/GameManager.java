@@ -26,6 +26,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 
+
 public class GameManager{
 	public static final Dimension SIZE = new Dimension(800, 600);
     public static final String TITLE = "Fighter!";

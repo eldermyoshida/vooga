@@ -1,17 +1,13 @@
-package vooga.fighter.controller;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.Timer;
 
-
-import vooga.fighter.game.Game;
-import vooga.fighter.game.SplashScreen;
+import vooga.fighter.game.Mode;
 import vooga.fighter.input.Input;
 import vooga.fighter.input.InputClassTarget;
 import vooga.fighter.view.Canvas;
-import vooga.fighter.game.Mode;
 
-import java.util.ResourceBundle;
-
-import javax.swing.Timer;
 
 
 /**
@@ -34,6 +30,7 @@ public class LevelController extends Controller implements ModelDelegate{
     public LevelController(String name, Canvas frame){
     	super(name,frame);
     }
+
 	
     public LevelController(String name, Canvas frame, ControllerDelegate manager, 
     		GameInfo gameinfo) {

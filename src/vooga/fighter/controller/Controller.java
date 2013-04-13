@@ -20,15 +20,12 @@ import java.awt.Dimension;
 
 public abstract class Controller implements ModelDelegate {
 
-    
-    protected Mode myGame;
-    private Input myInput;
-    protected final Dimension DEFAULT_BOUNDS = new Dimension(800, 800);
     private ControllerDelegate myManager;
     private String myName;
     private String myPath;
     private Canvas myCanvas;
     private GameInfo myGameInfo;
+    private Input myInput;
     
     public Controller(String name, Canvas frame){
     	myName = name;
