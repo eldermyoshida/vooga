@@ -127,5 +127,33 @@ public class ConnectionThread extends Thread {
     public int getID () {
         return myID;
     }
+    
+    public String getUserName () {
+        return myUserName;
+    }
+    
+    public String getGameName () {
+        return myGameName;
+    }
+    
+    /**
+     * Sets the user name - can only be set once.
+     * @param userName name to set
+     */
+    public void setUserName (String userName) {
+        if (myUserName == null) {
+            myUserName = userName;
+        }
+    }
+    
+    /**
+     * Sets the game name - can only be set once.
+     * @param gameName name to set
+     */
+    public void setGameName (String gameName) {
+        if (myGameName == null) {
+            myGameName = gameName;
+        }
+    }
 
 }

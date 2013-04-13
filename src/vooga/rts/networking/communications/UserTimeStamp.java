@@ -1,4 +1,4 @@
-package vooga.rts.networking.server;
+package vooga.rts.networking.communications;
 
 /**
  * Represents a timeStamp that will be sent across the network. It is based on parameters passed in

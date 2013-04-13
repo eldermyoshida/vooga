@@ -8,13 +8,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-public class Factory {
+public class CommandFactory {
 
     private static final String RESOURCES_LOCATION = "/vooga/rts/networking/resources/";
     private static final String CLASS_LOCATION = "vooga.rts.networking.factory";
     private Map<String, Command> myCommands = new HashMap<String, Command>();
     
-    public Factory () {
+    public CommandFactory () {
         loadCommands();
     }
     
