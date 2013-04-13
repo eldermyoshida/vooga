@@ -14,19 +14,19 @@ public class AttackerAttributes {
 		myNumberOfTargets=number;
 
 	}
-	public Stat getMyAttackDamage() {
+	public Stat getAttackDamage() {
 		return myAttackDamage;
 	}
 
-	public Stat getMyAttackRadius() {
+	public Stat getAttackRadius() {
 		return myAttackRadius;
 	}
 
-	public Stat getMyAttackInterval() {
+	public Stat getAttackInterval() {
 		return myAttackInterval;
 	}
 
-	public Stat getMyNumberOfTargets() {
+	public Stat getNumberOfTargets() {
 		return myNumberOfTargets;
 	}
 

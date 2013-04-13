@@ -9,13 +9,14 @@ import vooga.towerdefense.util.Pixmap;
 import vooga.towerdefense.util.Sprite;
 
 
+
 /**
  * Blank tower that holds its attributes and actions that define it
  * @author Matthew Roy
  *
  */
 public class GameElement extends Sprite {
-    
+
     Attributes myAttributes;
     List<AbstractAction> myActions;
     
