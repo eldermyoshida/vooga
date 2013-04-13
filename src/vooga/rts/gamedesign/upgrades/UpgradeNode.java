@@ -32,10 +32,10 @@ public class UpgradeNode {
     private int myID;
 
     public UpgradeNode(){
-        this(null, null, 0);
+        this(0, null, null, 0);
     }
 
-    public UpgradeNode(String upgradeType, String upgradeObject, int upgradeValue){
+    public UpgradeNode(int myID, String upgradeType, String upgradeObject, int upgradeValue){
         myUpgradeType = upgradeType;
         myChildren = new ArrayList<UpgradeNode>();
         myHasBeenUpgraded = false;
