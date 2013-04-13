@@ -16,41 +16,58 @@ import vooga.fighter.view.Canvas;
 /**
  * 
  * @author Jerry Li
+ * 
+ * @Modified by Jack Matteucci
  *
  */
-public abstract class Controller implements ControlDelegate {
+public abstract class Controller{
     
     protected Mode myGame;
+    private Input myInput;
     protected final Dimension DEFAULT_BOUNDS = new Dimension(800, 800);
     private ManagerDelegate myManager;
-    private String myID;
+    private String myName;
+    private String myPath;
+    private Canvas myCanvas;
     
-    
-    public Controller (Mode model, ManagerDelegate manager) {
-        myGame = model;
-        myManager = manager;
-        myID = null;
+    public Controller(String name, Canvas frame){
+    	myName = name;
+    	myCanvas = frame;
+    	myInput = makeInput();
     }
     
-    public Controller (Mode model, String id, ManagerDelegate manager) {
-        myGame = model;
-        myID = id;
-        myManager = manager;
+    public Controller(String name, Canvas frame, ManagerDelegate manager) {
+    	this(name, frame);
+    	myManager = manager;
     }
     
-    public Controller (String id, ManagerDelegate manager) {
-        myID = id;
-        myManager = manager;
+    public String getName(){
+    	return myName;
     }
     
-    public Controller(ManagerDelegate manager) {
-        myManager = manager;
+    protected Canvas getView(){
+    	return myCanvas;
     }
     
-    public void update (double elapsedTime, Dimension bounds) {
-        myGame.update(elapsedTime, bounds);
+    protected String getPath(){
+    	return myPath;
     }
+    
+    protected ManagerDelegate getManager(){
+    	return myManager;
+    }
+    
+    public void displaySplash(){
+    	
+    }
+    
+    public abstract void start();
+    
+    public abstract void stop();
+    
+    public abstract Controller getController();
 
+    protected abstract Input makeInput();
     
     
 }

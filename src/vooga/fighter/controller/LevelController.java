@@ -1,6 +1,7 @@
 package vooga.fighter.controller;
 
 
+import vooga.fighter.game.Game;
 import vooga.fighter.game.SplashScreen;
 import vooga.fighter.input.Input;
 import vooga.fighter.input.InputClassTarget;
@@ -21,115 +22,44 @@ import vooga.fighter.view.Canvas;
  * @author Jerry Li
  *
  */
-public class LevelController extends Controller {
+@InputClassTarget
+public class LevelController extends Controller implements ModelDelegate{
     
     public static final int FRAMES_PER_SECOND = 25;
     // better way to think about timed events (in milliseconds)
     public static final int ONE_SECOND = 1000;
     public static final int DEFAULT_DELAY = ONE_SECOND / FRAMES_PER_SECOND;
-    private ModeController myModeManager;
-    private MediaManager myMediaManager;
-    private Input myInput;
-	private static final String SPLASHSCREEEN = "SplashScreen";
-	private Map<String, Mode> myModeMap;
-	private Mode myCurrentMode;
-	private Canvas myCanvas;
+    private static final String INPUT_PATHWAY = "PATHWAY";
 	private PlayerStatus myPlayerStatus;
-	public static final Dimension SIZE = new Dimension(800, 600);
-    public static final String TITLE = "Fighter!";
+	private Timer myTimer;
+	private Mode myMode;
+	private Canvas myCanvas;
 	
-	@InputClassTarget
-	public LevelController(Canvas frame, PlayerStatus playerstatus, MediaManager mediamanager, Input input) {
-		myCanvas = frame;
-		myPlayerStatus = playerstatus;
-		myModeMap = new ModeFactory(frame, mediamanager , input).getMap();
-		setup();
-	}
+    public LevelController(String name, Canvas frame){
+    	super(name,frame);
+    }
 	
-	public void update(double time, Dimension bounds){
-		myCurrentMode.update(time, bounds);
-		switchModes(myCurrentMode.needNextMode());
-	}
+    public LevelController(String name, Canvas frame, ManagerDelegate manager, 
+    		PlayerStatus PlayerScores) {
+    	super(name, frame, manager);
+    	myPlayerStatus = PlayerScores;
+    }
+    
 	
-	
-	private void switchModes(boolean shouldChange){
-		if(shouldChange){
-		myCurrentMode.reset();
-		myCurrentMode.switchNeed();
-//		myPlayerStatus.addScore(myCurrentMode.getStatus());
-		myCurrentMode = myModeMap.get(myCurrentMode.getNextModeName());
-		myCanvas.setMode(myCurrentMode);
-		}
-	}
-	
-	private void setup(){
-		myCurrentMode = myModeMap.get(SPLASHSCREEEN);
-		myCanvas.setMode(myCurrentMode);
-	}
-	
-	 public void run () {
+	 public void start() {
 	        final int stepTime = DEFAULT_DELAY;
 	        // create a timer to animate the canvas
-	        Timer timer = new Timer(stepTime, 
+	        myCanvas = super.getView();
+	         myTimer = new Timer(stepTime, 
 	            new ActionListener() {
 	                public void actionPerformed (ActionEvent e) {
-	                    myLevel.update((double) stepTime / ONE_SECOND, myCanvas.getSize());
+	                    myMode.update((double) stepTime / ONE_SECOND, myCanvas.getSize());
 	                    myCanvas.paint();
 	                }
 	            });
 	        // start animation
-	        timer.start();
+	        myTimer.start();
 	    }
-
-    private Controller myNextController;
-    private ResourceBundle myLevelNames;
-    
-    private static String DEFAULT_RESOURCE = "vooga.fighter.config.LevelConfig";
-    
-    public LevelController (Mode model, String id, ManagerDelegate manager) {
-        super(model, id, manager);
-        myLevelNames = ResourceBundle.getBundle(DEFAULT_RESOURCE);
-        
-        //The reason why I'm not calling loadGame is because I feel like GameManager should call loadgame.
-        //For whatever reason I don't like having controller calling its own loadgame. A game manager can
-        //initiate the controller and tell it when to load game i feel. This makes things more flexible imo. 
-        //Also, this is for logic/practical reasons. The menu button will send its data string to the gamemanager,
-        //and the game manager loads the game with the string as the parameter.
-    }
-    
-    public void loadGame(String levelName) {
-        String filePath = myLevelNames.getString(levelName);
-        myGame = new Mode(levelName, filePath, this);
-        start();
-    }
-    
-    
-    public void start () {
-        final int stepTime = DEFAULT_DELAY;
-        // create a timer to animate the canvas
-        Timer timer = new Timer(stepTime, 
-            new ActionListener() {
-                public void actionPerformed (ActionEvent e) {
-                    myGame.update((double) stepTime / ONE_SECOND, DEFAULT_BOUNDS);
-                }
-            });
-        // start animation
-        timer.start();
-    }
-    
-    
-    
-    public void setNextMode(Controller controller) {
-        myNextController = controller;
-    }
-    
-    /**
-     * Returns next mode
-     */
-    public Controller switchMode(Controller controller) {
-        setNextMode(controller);
-        return myNextController;
-    }
     
     /**
      * Checks special occurences of game state. 
@@ -152,10 +82,32 @@ public class LevelController extends Controller {
         //use check conditions
     }
     
+    private PlayerStatus getPlayerStatus(){
+    	return myPlayerStatus;
+    }
+    
     /**
      * Exits program. 
      */
     public void exit() {
         System.exit(0);
     }
+
+	@Override
+	public void stop() {
+		myTimer.stop();
+		
+	}
+
+	@Override
+	public Controller getController(ManagerDelegate manager, PlayerStatus playerstatus) {
+		return new LevelController(super.getName(), super.getView(),
+				super.getManager(), getPlayerStatus());
+}
+
+	@Override
+	protected Input makeInput() {
+		return new Input(INPUT_PATHWAY, super.getView());
+	}
+
 }
