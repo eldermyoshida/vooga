@@ -7,14 +7,13 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.io.IOException;
 import javax.swing.JComponent;
 import javax.swing.JViewport;
 import vooga.rts.leveleditor.components.EditableMap;
 import vooga.rts.leveleditor.components.EditableNode;
 
-public class MapPanel extends JComponent implements MouseListener, MouseMotionListener {
+public class MapPanel extends JComponent implements MouseListener {
     
     public static final Dimension DEFAULT_MAP_SIZE  = new Dimension (600,600);
     public static final double ZOOM_RATE = 1.25;
@@ -38,7 +37,6 @@ public class MapPanel extends JComponent implements MouseListener, MouseMotionLi
         myTileHeight = DEFAULT_TILE_HEIGHT;
         setPanelSize();
         this.addMouseListener(this);
-        this.addMouseMotionListener(this);
     }
     
     private void setPanelSize() {
@@ -127,7 +125,7 @@ public class MapPanel extends JComponent implements MouseListener, MouseMotionLi
         repaint();        
     }
 
-    public void placeResource(int x, int y) {
+    public void mapClicked(int x, int y) {
         x=x/myTileWidth;
         y=y/myTileHeight;
         if(x>=0 && x<myWidth && y>=0 && y<myHeight){
@@ -142,7 +140,6 @@ public class MapPanel extends JComponent implements MouseListener, MouseMotionLi
             repaint();
         }
     }
-    
 
     public void clear() {
         myMap.clear();
@@ -159,7 +156,7 @@ public class MapPanel extends JComponent implements MouseListener, MouseMotionLi
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        placeResource(e.getX(), e.getY());
+        mapClicked(e.getX(), e.getY());
     }
 
     @Override
@@ -180,17 +177,6 @@ public class MapPanel extends JComponent implements MouseListener, MouseMotionLi
     @Override
     public void mouseReleased(MouseEvent e) {
         
-    }
-
-    @Override
-    public void mouseDragged(MouseEvent e) {
-        placeResource(e.getX(),e.getY());  
-    }
-
-
-    @Override
-    public void mouseMoved(MouseEvent arg0) {
-
     }
 
 

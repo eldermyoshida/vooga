@@ -67,6 +67,7 @@ public class MenuManager extends JMenuBar {
                     if (response == JFileChooser.APPROVE_OPTION) {
                         myCanvas.getMapPanel().getMyMap().loadMapFile(myChooser.getSelectedFile());
                         myCanvas.getMapPanel().getMyMap().printMatrix();
+                        
                         myCanvas.getMapPanel().setWidth(myCanvas.getMapPanel().getMyMap().getWidth());
                         myCanvas.getMapPanel().setHeight(myCanvas.getMapPanel().getMyMap().getHeight());
                         myCanvas.getMapPanel().setTileWidth(MapPanel.DEFAULT_TILE_WIDTH);

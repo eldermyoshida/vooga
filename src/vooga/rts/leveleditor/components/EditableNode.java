@@ -3,10 +3,12 @@ package vooga.rts.leveleditor.components;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
+import javax.imageio.ImageIO;
 import vooga.rts.leveleditor.gui.MapPanel;
 
 
@@ -105,6 +107,16 @@ public class EditableNode {
         myImage = i;
     }
     
+    public void refreshImage(int i) {
+        String imageName = myResources.getString(i+"");
+        try {
+            myImage = ImageIO.read(new File(System.getProperty("user.dir")+ "./src/vooga/rts/levelEditor/resource/" + imageName));
+        }
+        catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
     
     public void paint(Graphics pen) throws IOException {
         pen.drawImage(myImage, myX*myWidth, myY*myHeight, myWidth, myHeight,null);
