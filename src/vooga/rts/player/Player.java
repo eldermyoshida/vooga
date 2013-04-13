@@ -1,12 +1,14 @@
 package vooga.rts.player;
 
 import java.awt.Graphics2D;
+import java.util.Observable;
+import java.util.Observer;
 import vooga.rts.IGameLoop;
 import vooga.rts.gamedesign.sprite.InteractiveEntity;
 import vooga.rts.manager.*;
 import vooga.rts.map.GameMap;
 
-public abstract class Player implements IGameLoop {
+public abstract class Player implements IGameLoop, Observer {    
 
     private ResourceManager myResourceManager;
     private UnitManager myUnitManager;
@@ -72,5 +74,4 @@ public abstract class Player implements IGameLoop {
     public GameMap getMap () {
         return myMap;
     }
-
 }
