@@ -60,4 +60,7 @@ public class Interval {
 	public void setMaxCooldown(int maxCooldown) {
 		myMaxCooldown = maxCooldown;
 	}
+	public int getCooldown() {
+		return myCooldown;
+	}
 }

@@ -112,6 +112,7 @@ public class GameController extends AbstractController {
     }
 
     private void setupGame () {
+    	System.out.println("Game is setup");
         
         Player p1 = new HumanPlayer();
         Pixmap p = new Pixmap(ResourceManager.instance().loadFile("images/soldier.png"));        
@@ -134,13 +135,15 @@ public class GameController extends AbstractController {
         b.addWeapons(new Weapon(0, proj2, 200, b.getCenter(),50));        
         Unit c = new Soldier(p,new Location(500, 500),s,soun,20,40);
         c.setAttackStrategy(new CannotAttack());
-        
+        System.out.println("should print1");
         p1.getUnits().addUnit(a);
         p1.getUnits().addUnit(b);
         Player p2 = new HumanPlayer();
         p2.getUnits().addUnit(c);
+        System.out.println("should print2");
         
         addPlayer(p1, 1);
         addPlayer(p2, 2);
+       
     }
 }

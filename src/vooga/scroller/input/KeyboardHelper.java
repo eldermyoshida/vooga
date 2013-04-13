@@ -1,4 +1,4 @@
-package input;
+package vooga.scroller.input;
 
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
