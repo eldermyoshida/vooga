@@ -6,9 +6,8 @@ import vooga.rts.networking.server.MatchmakerServer;
 public class Logout implements Command {
 
     @Override
-    public void execute (ConnectionThread thread, MatchmakerServer server) {
+    public void execute (ConnectionThread thread, MatchmakerServer server, Object[] parameters) {
         int id = thread.getID();
-        thread.close();
     }
 
 }
