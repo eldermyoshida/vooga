@@ -71,6 +71,10 @@ public class Weapon {
      * 
      * @param upgrade
      */
+    
+    //    public void upgrade (Upgrade upgrade) {
+//    }
+
 
     public List<Projectile> getProjectiles () {
         return myProjectiles;

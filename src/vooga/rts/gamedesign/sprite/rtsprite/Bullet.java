@@ -6,7 +6,6 @@ import java.awt.Graphics2D;
 
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
-import vooga.rts.util.Sound;
 
 public class Bullet extends Projectile{
 

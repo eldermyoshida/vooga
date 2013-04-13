@@ -1,6 +1,6 @@
 package vooga.rts.gamedesign.sprite.rtsprite.interactive;
 
-import vooga.rts.gamedesign.sprite.InteractiveEntity;
+import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Unit;
 
 /**
  * 
@@ -12,5 +12,5 @@ import vooga.rts.gamedesign.sprite.InteractiveEntity;
  */
 public interface IOccupiable {
 	
-	public void getOccupied(InteractiveEntity e);
+	public void getOccupied(Unit u);
 }

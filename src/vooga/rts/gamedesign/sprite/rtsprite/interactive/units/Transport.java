@@ -2,7 +2,6 @@ package vooga.rts.gamedesign.sprite.rtsprite.interactive.units;
 
 import java.awt.Dimension;
 
-import vooga.rts.gamedesign.sprite.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.IOccupiable;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
@@ -24,7 +23,7 @@ public class Transport extends Unit implements IOccupiable {
 	}
 
 	@Override
-	public void getOccupied(InteractiveEntity e) {
+	public void getOccupied(Unit u) {
 		// TODO Auto-generated method stub
 		
 	}

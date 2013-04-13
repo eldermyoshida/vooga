@@ -17,9 +17,6 @@ import vooga.rts.gamedesign.upgrades.UpgradeNode;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
-import vooga.rts.util.ThreeDimension;
-import vooga.rts.util.Vector;
-
 /**
  * This class is an extension of InteractiveEntity, and represents shapes that
  * have the potential to gather resources (contains GatherStrategy) and the

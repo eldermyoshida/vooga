@@ -117,7 +117,6 @@ public class GameController extends AbstractController {
         Pixmap p = new Pixmap(ResourceManager.instance().loadFile("images/soldier.png"));        
         Dimension s = new Dimension(100, 100);
         Sound soun = null;//new Sound("/vooga/rts/sounds/pikachu.wav");
-        
         Unit a = null;
         try{
             a = new Soldier(p,new Location(100, 100),s,soun,20,100);
@@ -128,7 +127,7 @@ public class GameController extends AbstractController {
         catch (Exception e) {
             // trollolol
         }
-
+        
         Unit b = new Soldier(p,new Location(100,300),s,soun,20,50);
         Projectile proj2 = new Projectile(new Pixmap(ResourceManager.instance().loadFile("images/bullet.png")), b.getCenter(), new Dimension(30, 30), 1, 10, 1);
         b.setAttackStrategy(new CanAttack());

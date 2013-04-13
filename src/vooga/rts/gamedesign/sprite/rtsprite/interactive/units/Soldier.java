@@ -1,15 +1,6 @@
 package vooga.rts.gamedesign.sprite.rtsprite.interactive.units;
 
-import java.util.List;
 import java.awt.Dimension;
-import java.awt.Graphics2D;
-import vooga.rts.gamedesign.Action;
-import vooga.rts.gamedesign.Weapon;
-import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
-import vooga.rts.gamedesign.sprite.rtsprite.Projectile;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.IOccupiable;
-import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
-import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
