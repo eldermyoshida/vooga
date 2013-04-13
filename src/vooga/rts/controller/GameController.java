@@ -2,6 +2,8 @@ package vooga.rts.controller;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,12 +31,17 @@ public class GameController extends AbstractController {
     private List<Player> myPlayers;
     private GameMap myMap; // This needs a dimension that describes the total size of the map. Not
                            // made for now.
+    
+    private PositionObject myLeftMouse;
+    private Rectangle2D myDrag;
 
     public GameController () {
         myTeams = new HashMap<Integer, Team>();
         myPlayers = new ArrayList<Player>();
         myMap = new GameMap(8, new Dimension(512, 512));
     }
+
+    
 
     public void addPlayer (Player player, int teamID) {
         myPlayers.add(player);
@@ -83,11 +90,14 @@ public class GameController extends AbstractController {
         for (Player p : myPlayers) {
             p.paint(pen);
         }
+        if (myDrag != null) {
+            pen.draw(myDrag);
+        }
     }
 
     @Override
     public void onLeftMouseDown (PositionObject o) {
-
+        myLeftMouse = o;
     }
 
     @Override
@@ -95,6 +105,8 @@ public class GameController extends AbstractController {
         // if it's not a gui thing
         HumanPlayer human = (HumanPlayer) myPlayers.get(0);
         human.handleLeftClick((int) o.getX(), (int) o.getY());
+        myLeftMouse = null;
+        myDrag = null;
     }
 
     @Override
@@ -107,6 +119,16 @@ public class GameController extends AbstractController {
         // If it's not a GUI thing
         HumanPlayer human = (HumanPlayer) myPlayers.get(0);
         human.handleRightClick((int) o.getX(), (int) o.getY());
+    }
+    
+    @Override
+    public void onMouseDrag (PositionObject o) {
+        if (myLeftMouse != null) {
+            myDrag = new Rectangle2D.Double(myLeftMouse.getX(), myLeftMouse.getY(), 
+                                            o.getX() - myLeftMouse.getX(), o.getY()- myLeftMouse.getY());
+            HumanPlayer human = (HumanPlayer) myPlayers.get(0);
+            human.getUnits().select(myDrag);
+        }
     }
 
     @Override

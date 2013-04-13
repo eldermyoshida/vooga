@@ -2,6 +2,7 @@ package vooga.rts.player;
 
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.util.Observable;
 
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Unit;
 import vooga.rts.util.Location;
@@ -19,8 +20,7 @@ public class HumanPlayer extends Player {
     }
     
     public void handleRightClick(int x, int y) {
-        for (Unit u : getUnits().getSelected()) {
-            System.out.println("handling right click >< ");
+        for (Unit u : getUnits().getSelected()) {            
             u.move(new Location(x, y));            
         }
     }
@@ -28,7 +28,7 @@ public class HumanPlayer extends Player {
     public void handlRightClick(int x, int y, int z) {
         for (Unit u : getUnits().getSelected())
         {            
-            u.move(new Location(x, y), getMap());            
+            //u.move(new Location(x, y), getMap());            
         }
     }
     
@@ -37,9 +37,15 @@ public class HumanPlayer extends Player {
         for (Unit u : getUnits().getAllUnits())
         {         
             if (u.intersects(new Point(x, y))) {
-                getUnits().select(u);
+                getUnits().select(u);                
+                //return;
             }            
         }
+    }
+
+    @Override
+    public void update (Observable o, Object arg) {
+                
     }
 
 }
