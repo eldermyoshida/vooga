@@ -58,7 +58,7 @@ public class LevelFactory {
                                   ));   
         
         myCurrLevel.addSprite(new MarioLib.MovingPlatform( 
-                                                    new Location(view.getWidth() - 80, view.getHeight() - 20)
+                                                    new Location(400, 200)
                                                     )); 
         
         

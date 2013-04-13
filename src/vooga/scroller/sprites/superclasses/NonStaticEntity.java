@@ -55,14 +55,44 @@ public class NonStaticEntity extends Sprite {
     }
     
     
+    /**
+     * This method will only work if the Y coordinate of moving platform is 
+     * instantiated somewhere between TOP and BOTTOM. You can't create a moving platform 
+     * outside the bounds of TOP and BOTTOM. Likewise, you therefore cannot give TOP 
+     * and BOTTOM bounds that do not encapsulate where your moving platform is instantiated. 
+     * 
+     * @param top
+     * @param bottom
+     * @param speed
+     * @return a vector in the UP or DOWN direction with given SPEED
+     */
     public Vector upAndDown(int top, int bottom, int speed) {
-       
-        if (this.getTop() > top) {
-            System.out.println("Here");
-            return new Vector(Sprite.UP_DIRECTION, speed);
+ 
+        if (this.getTop() < top) {
+            if (this.getBottom() < top) { //this line may need to be adjusted by a size of this.getHeight()
+                this.getVelocity().turn(180);
+                return this.getVelocity();
+            }
+            this.getVelocity();
         }
-        return new Vector(Sprite.DOWN_DIRECTION, speed);
+        
+        if (this.getBottom() > bottom) {
+            if (this.getTop() > bottom) { //this line may need to be adjusted by a size of this.getHeight()
+                this.getVelocity().turn(180);
+                return this.getVelocity();
+            }
+            this.getVelocity();
+        }
+        
+        if (this.getTop() < (top - this.getHeight()) || this.getBottom() > (bottom + this.getHeight())) {
+            System.err.println("ERROR: Cannot give moving platform bounds that do not encapsulate its instantiated Y position.");
+            return null;
+        }
+        
+        return this.getVelocity();
     }
+    
+    
 
     public int getHit () {
         // TODO Auto-generated method stub

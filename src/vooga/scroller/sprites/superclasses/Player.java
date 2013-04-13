@@ -67,7 +67,7 @@ public class Player extends Sprite {
     myStateManager.update(elapsedTime, bounds);
     super.update(elapsedTime, bounds);
     Gravity gravity = new Gravity(this);
-        gravity.applyGravity();
+        //gravity.applyGravity();
 
     }
    
