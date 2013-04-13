@@ -55,16 +55,6 @@ public class Unit extends InteractiveEntity {
     }
     
     /**
-     * Gathers a resource specified by gather strategy.
-     * @param g
-     */
-    public void gather(IGatherable g) {
-    	if(myGatherStrategy.canGather(g)){
-    	    g.getGathered(this);
-    	}
-    }
-    
-    /**
      * Occupies an IOccupiable object specified by occupy strategy.
      * @param o
      */

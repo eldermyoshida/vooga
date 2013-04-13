@@ -1,5 +1,8 @@
 package vooga.rts.gamedesign.strategy.attackstrategy;
 
+import java.util.List;
+
+import vooga.rts.gamedesign.Weapon;
 import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
 
 
@@ -23,7 +26,12 @@ import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
  * 
  */
 public interface AttackStrategy {
-
-    public boolean canAttack (IAttackable a);
+	public void attack(IAttackable a, double distance);
+	
+	public List<Weapon> getWeapons();
+	
+	public void addWeapons(Weapon weapon);
+	
+	public int getWeaponIndex();
 
 }

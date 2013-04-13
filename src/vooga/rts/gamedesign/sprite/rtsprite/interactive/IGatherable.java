@@ -4,6 +4,6 @@ import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
 
 public interface IGatherable {
 	
-	public void getGathered(GatherStrategy gatherStrategy, int damage);
+	public void getGathered(int damage);
 
 }

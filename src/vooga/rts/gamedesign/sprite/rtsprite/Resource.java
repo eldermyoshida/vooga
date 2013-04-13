@@ -16,16 +16,19 @@ import vooga.rts.util.Pixmap;
  * @author Wenshun Liu 
  *
  */
-public abstract class Resource extends GameEntity implements IGatherable {
-
-
-  public Resource(Pixmap image, Location center, Dimension size, int teamID, int health) {
+public class Resource extends GameEntity implements IGatherable {
+	
+	public Resource(Pixmap image, Location center, Dimension size, int teamID, int health) {
 		super(image, center, size, teamID, health);
-		
+
 	}
-  
-  public abstract void getGathered(InteractiveEntity e);
 
-
-
+	@Override
+	public void getGathered(int damage) {
+		changeHealth(damage);
+		if (isDead()) {
+			setVisible(false);
+			//TODO: completely remove it.
+		}
+	}
 }

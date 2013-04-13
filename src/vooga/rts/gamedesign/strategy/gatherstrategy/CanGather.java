@@ -23,7 +23,8 @@ public class CanGather implements GatherStrategy{
 	}
 	
 	public void gatherResource (IGatherable g) {
-		g.getGathered(this, myDamage);
+		g.getGathered(myDamage);
+		
 	}
 	
 	/**
