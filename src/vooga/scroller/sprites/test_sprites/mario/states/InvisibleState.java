@@ -2,6 +2,7 @@ package vooga.scroller.sprites.test_sprites.mario.states;
 
 import java.awt.Dimension;
 import vooga.scroller.sprites.state.State;
+import vooga.scroller.util.ISpriteView;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.Sprite;
 
@@ -13,7 +14,7 @@ public class InvisibleState implements State{
     private static final Pixmap DEFAULT_IMAGE = new Pixmap("invisible.gif");
     private static final double INVISIBLE_TIME = 5;
     private Sprite mySprite;
-    private Pixmap myDefaultView;
+    private ISpriteView mySpriteNormalView;
     private double myTime;
     
     public InvisibleState(Sprite sprite) {
@@ -33,14 +34,14 @@ public class InvisibleState implements State{
     @Override
     public void activate () {
         if(!mySprite.getView().equals(DEFAULT_IMAGE)){
-            myDefaultView = mySprite.getView();
+            mySpriteNormalView = mySprite.getView();
         }
         mySprite.setView(DEFAULT_IMAGE);
     }
 
     @Override
     public void deactivate () {
-        mySprite.setView(myDefaultView);   
+        mySprite.setView(mySpriteNormalView);   
         myTime = 0.0;
     }
 

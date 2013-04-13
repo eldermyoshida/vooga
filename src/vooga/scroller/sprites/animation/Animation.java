@@ -5,6 +5,8 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.geom.Point2D;
 import java.util.List;
+import vooga.scroller.util.ISpriteView;
+import vooga.scroller.util.Location;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.Sprite;
 
@@ -14,11 +16,11 @@ import vooga.scroller.util.Sprite;
  * @author Scott Valentine
  *
  */
-public class Animation extends Pixmap {
+public class Animation implements ISpriteView {
 
     private List<AnimationState> myAnimations;
     private Sprite mySprite;
-    private Image myDefaultImage;
+    private Pixmap myDefaultStateView;
 
     /**
      * Creates a new animation that acts on a sprite.
@@ -27,8 +29,9 @@ public class Animation extends Pixmap {
      * @param sp is the sprite on that this animation animates.
      */
     public Animation (String defaultImageFile, Sprite sp) {
-        super(defaultImageFile);
-        myDefaultImage = super.getImg();
+//        super(defaultImageFile);
+        myDefaultStateView = new Pixmap(defaultImageFile);
+//        myDefaultImage = super.getImg();
         mySprite = sp;
         initAnimations();
     }
@@ -46,29 +49,48 @@ public class Animation extends Pixmap {
      * 
      * @return
      */
-    private Image getImage() {
+    private Pixmap getStateView() {
         for (AnimationState as: myAnimations) {
             if (as.validAnimation(mySprite)) {
-                return as.getImage();
+                return as.getStateView();
             }
         }
-        return this.getDefaultImg();
+        return this.getDefaultStateView();
     }
     
+    private Pixmap getDefaultStateView () {
+        // TODO Auto-generated method stub
+        return myDefaultStateView;
+    }
+
     /**
      * Gives the default image of this animation.
      * 
      * @return The default image of this animation.
      */
-    private Image getDefaultImg () {
-        return myDefaultImage;
+    public Image getDefaultImg () {
+        return getDefaultStateView().getDefaultImg();
     }
 
     @Override
     public void paint (Graphics2D pen, Point2D center, Dimension size, double angle) {
-        Image image = getImage();
-        setImg(image);
-        super.paint(pen, center, size, angle);
+        Pixmap currView = getStateView();
+//        setImg(image);
+        currView.paint(pen, center, size, angle);
         
+    }
+
+    @Override
+    public ISpriteView reset () {
+        // TODO Need to think a bit more about this.
+        return myDefaultStateView.reset();
+    }
+
+    @Override
+    public void paint (Graphics2D pen, Point2D myCenter, Dimension mySize) {
+        // TODO Auto-generated method stub
+        Pixmap currView = getStateView();
+//      setImg(image);
+      currView.paint(pen, myCenter, mySize);
     }
 }

@@ -1,4 +1,3 @@
-
 package vooga.scroller.util;
 
 import java.awt.Dimension;
@@ -6,7 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
-import java.util.Queue;
+import vooga.scroller.viewUtil.Renderable;
 
 
 /**
@@ -28,17 +27,17 @@ public abstract class Sprite {
     private Location myCenter;
     private Vector myVelocity;
     private Dimension mySize;
-    private Pixmap myView;
+    private ISpriteView myView;
     // keep copies of the original state so shape can be reset as needed
     private Location myOriginalCenter;
     private Vector myOriginalVelocity;
     private Dimension myOriginalSize;
-    private Pixmap myOriginalView;
+    private ISpriteView myOriginalView;
     // cached for efficiency
     private Rectangle myBounds;
     private Location myLastLocation;
     private Location myLastLocation2;
-    private Pixmap myDefaultImage;
+    private ISpriteView myDefaultImage;// ??
     
     /**
      * Create a shape at the given position, with the given size.
@@ -203,7 +202,7 @@ public abstract class Sprite {
     /**
      * Resets shape's image.
      */
-    public void setView (Pixmap image) {
+    public void setView (ISpriteView image) {
         if (image != null) {
             myView = image;
         }
@@ -243,7 +242,7 @@ public abstract class Sprite {
         myCenter = new Location(myOriginalCenter);
         mySize = new Dimension(myOriginalSize);
         myVelocity = new Vector(myOriginalVelocity);
-        myView = new Pixmap(myOriginalView);
+        myView = myOriginalView.reset();
     }
 
     /**
@@ -307,7 +306,7 @@ public abstract class Sprite {
     /**
      * Returns a view of this sprite -TODO: Maybe should be specified in an interface(?)
      */
-    public Pixmap getView() {
+    public ISpriteView getView() {
         return myView;
     }
     
@@ -327,7 +326,7 @@ public abstract class Sprite {
      */
     public Image getDefaultImg () {
         
-        return myDefaultImage.getImg();
+        return myOriginalView.getDefaultImg();
     }
 
 

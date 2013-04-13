@@ -1,4 +1,3 @@
-
 package vooga.scroller.util;
 
 import java.awt.Color;
