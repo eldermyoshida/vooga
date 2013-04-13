@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<!-- Factory information for building game elements -->
+
+<GameElements>
+	<resources src = "vooga.rts.gamedesign.sprite.rtsprite.Resource" >
+		<resource>
+			<name>gold</name>
+			<img>gold.jpg</name>
+		</resource>
+		<resource>
+			<name>wood</name>
+			<img>wood.jpg</name>
+		</resource>
+	</resources>
+	<strategies>
+		<attack>
+			<canattack src = "vooga.rts.gamedesign.strategy.attackstrategy.CanAttack"/>
+			<cannotattack src = "vooga.rts.gamedesign.strategy.attackstrategy.CannotAttack"/>
+		</attack>
+		<occupy>
+			<canoccupy src = "vooga.rts.gamedesign.strategy.occupystrategy.CanOccupy"/>
+			<cannotoccupy src = "vooga.rts.gamedesign.strategy.occupystrategy.CannotOccupy"/>
+		</occupy>
+		<gather>
+			<cangather src = "vooga.rts.gamedesign.strategy.gatherstrategy.CanGather"/>
+			<cannotgather src = "vooga.rts.gamedesign.strategy.gatherstrategy.CannotGather"/>
+		</gather>
+	</strategies>
+	<buildings src = "vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings.Building"/>
+		<building>
+			<name>Home</name>
+			<img>home.jpg</img>
+			<health>1000</health>
+			<buildtime>100</buildtime>
+			<attack>cannotattack</attack>
+			<produce>customstrategy</produce>
+			<cost>
+				<gold>50</gold>
+				<wood>50</wood>
+			</cost>
+		</building>
+	</buildings>
+	<units src = "vooga.rts.gamedesign.sprite.rtsprite.interactive.units">
+		<unit>
+			<name>Soldier</name>
+			<img>soldier.jpg</img>
+			<health>100</health>
+			<attack>canattack</attack>
+			<gather>cannotgather</gather>
+			<occupy>cannotoccupy</occupy>
+			<produce>cannotproduce</produce>
+			<cost>
+				<gold>50</gold>
+			</cost>
+		</unit>
+		<unit>
+			<name>Worker</name>
+			<img>worker.jpg</name>
+			<health>100</health>
+			<attack>cannotattack</attack>
+			<gather>cangather</gather>
+			<occupy>cannotoccupy</occupy>
+			<produce>cannotproduce</produce>
+			<cost>
+				<gold>50</gold>
+			</cost>
+		</unit>
+	</units>
+
+
+
+
+			
+
+
+	<stategies
+
+
+
