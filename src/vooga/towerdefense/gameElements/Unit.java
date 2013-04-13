@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import vooga.towerdefense.action.AbstractAction;
+import vooga.towerdefense.action.ComboAttackAction;
+import vooga.towerdefense.action.Targetable;
 import vooga.towerdefense.model.Path;
 import vooga.towerdefense.util.Location;
 import vooga.towerdefense.util.Pixmap;
@@ -17,7 +19,7 @@ import vooga.towerdefense.util.Vector;
  * @author gouzhen-1
  *
  */
-public class Unit extends GameElement {
+public class Unit extends GameElement implements Targetable {
     private static final double DISTANCE_OFFSET = 5;
 	private Path myPath;
     private Location myDestination;
@@ -96,6 +98,36 @@ public class Unit extends GameElement {
 		currentState=myStates.get(state);
 		currentState.setSate();
 		
+	}
+
+	@Override
+	public void takeDamage(double attack) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setAttackerType(ComboAttackAction attack) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void getAttackerType() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isRightAttacker(ComboAttackAction attack) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isAlive() {
+		// TODO Auto-generated method stub
+		return false;
 	}
     
 }

@@ -3,6 +3,7 @@ package vooga.towerdefense.gameElements;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Attributes object that helps to track all game element stats.
@@ -13,9 +14,9 @@ import java.util.List;
  *
  */
 public abstract class Attributes{
-	private HashSet<Stat> myAttributes;
+	private Map<String,Stat> myAttributes;
 
-	public Attributes(HashSet<Stat> attributes){
+	public Attributes(Map<String,Stat> attributes){
 		myAttributes = attributes;	
 	}
 	
@@ -41,7 +42,7 @@ public abstract class Attributes{
 	 * Add stats attribute to game element
 	 */
 	public void addAttribute(Stat newStat) {
-		myAttributes.add(newStat);
+		myAttributes.put(newStat.getName(), newStat);
 		
 	}
 	

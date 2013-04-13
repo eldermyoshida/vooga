@@ -1,5 +1,9 @@
 package vooga.towerdefense.gameElements;
 
+import java.awt.Graphics2D;
+
+import vooga.towerdefense.util.Location;
+
 /**
  * Game stat object that can be added to a game element's collection of attributes.
  * Can be health, lives, damage level depending on nature of game element.
@@ -46,6 +50,13 @@ public class Stat {
 		return myName;
 	}
 	
+	/**
+	 * 
+	 * paints a bar representing this stat
+	 */
+	public void paint(Graphics2D pen, Location where){
+		//paints a bar representing this stat
+	}
 	
 	
 }
