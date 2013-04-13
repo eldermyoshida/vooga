@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class GameContainer {
+public class GameContainer implements ICommandable {
 
     private String myGameName;
     private Map<Integer, ConnectionThread> myConnectionThreads = new HashMap<Integer, ConnectionThread>();
@@ -24,11 +24,6 @@ public class GameContainer {
         myConnectionThreads.put(thread.getID(), thread);
     }
     
-    private void initializeGame (int id) {
-        GameServer gameServer = new GameServer(id);
-        myGameServers.add(gameServer);
-    }
-    
     public void removeConnection (ConnectionThread thread) {
         myConnectionThreads.remove(thread);
     }
@@ -36,12 +31,28 @@ public class GameContainer {
     public ConnectionThread getConnectionThread (int id) {
         return myConnectionThreads.get(id);
     }
-    
-    public void addConnectionToLobby (ConnectionThread thread, String lobbyName) {
+
+    @Override
+    public void joinGame (ConnectionThread thread, String gameName) {
+        // TODO Auto-generated method stub
         
     }
-    
-    public void startGame (String lobbyName) {
+
+    @Override
+    public void joinLobby (ConnectionThread thread, String lobbyName) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void leaveLobby (ConnectionThread thread) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void startGameServer (ConnectionThread thread) {
+        // TODO Auto-generated method stub
         
     }
 
