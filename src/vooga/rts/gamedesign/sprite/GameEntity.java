@@ -2,6 +2,8 @@ package vooga.rts.gamedesign.sprite;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+
+import vooga.rts.gamedesign.GameState;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
@@ -32,6 +34,8 @@ public class GameEntity extends GameSprite {
     private Location myCurrentLocation;
     private Location myGoal;
     private Vector myOriginalVelocity;
+    
+    private GameState myGameState;
 
 
     public GameEntity (Pixmap image, Location center, Dimension size, int teamID, int health) {
@@ -159,6 +163,10 @@ public class GameEntity extends GameSprite {
         if (!isDead()) {
             super.paint(pen);
         }
+    }
+    
+    public GameState getGameState() {
+    	return myGameState;
     }
 
 }
