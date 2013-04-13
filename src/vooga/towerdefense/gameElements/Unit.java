@@ -25,13 +25,14 @@ public class Unit extends GameElement implements Targetable {
     private Location myDestination;
     private Map<String, State> myStates;
     private State currentState;
-    private Attributes myAttributes;
+    private TargetableAttributes myAttributes;
     private List<AbstractAction> myActions;
 
-    public Unit (Location destination, Pixmap image, Location center, Dimension size, Vector velocity, Attributes attributes, List<AbstractAction> actions) {
-        super(image, center, size, attributes, actions);
+    public Unit (Location destination, Pixmap image, Location center, Dimension size, Vector velocity, TargetableAttributes attributes, List<AbstractAction> actions) {
+        super(image, center, size, actions);
         setVelocity(velocity);
         myDestination = destination;
+        myAttributes=attributes;
     }
 
     public void updatePath(Location destination) {
@@ -102,32 +103,13 @@ public class Unit extends GameElement implements Targetable {
 
 	@Override
 	public void takeDamage(double attack) {
-		// TODO Auto-generated method stub
+		myAttributes.getHealth().decrement(attack);
 		
-	}
-
-	@Override
-	public void setAttackerType(ComboAttackAction attack) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void getAttackerType() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public boolean isRightAttacker(ComboAttackAction attack) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 	@Override
 	public boolean isAlive() {
-		// TODO Auto-generated method stub
-		return false;
+		return myAttributes.getHealth().getValue()>0;
 	}
     
 }

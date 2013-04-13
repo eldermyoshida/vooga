@@ -16,21 +16,6 @@ public interface Targetable {
 	 * @param attack
 	 */
 	public void takeDamage(double attack);
-	
-	/**
-	 * Option to define attacker type.
-	 * @param attack
-	 */
-	public void setAttackerType(ComboAttackAction attack);
-	
-	public void getAttackerType();
-	
-	/**
-	 * Returns true only if attack is applicable to target. 
-	 * @param attack
-	 * @return
-	 */
-	public boolean isRightAttacker(ComboAttackAction attack);
 			
 	/**
 	 * Checks to see if target is alive.
