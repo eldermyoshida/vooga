@@ -70,7 +70,10 @@ public class GameController extends AbstractController {
             for (Unit u2 : p2) {
                 if(u1.inRange(u2)){
                    u2.getAttacked(u1);
-                }               
+                }   
+                if(u2.inRange(u1)){
+                    u1.getAttacked(u2);
+                }
             }
         }
     }
@@ -84,7 +87,7 @@ public class GameController extends AbstractController {
 
     @Override
     public void onLeftMouseDown (PositionObject o) {
-
+        
     }
 
     @Override
@@ -131,16 +134,18 @@ public class GameController extends AbstractController {
         
         Unit b = new Soldier(p,new Location(100,300),s,soun,20,50);
         Projectile proj2 = new Projectile(new Pixmap(ResourceManager.instance().loadFile("images/bullet.png")), b.getCenter(), new Dimension(30, 30), 1, 10, 1);
-        b.setAttackStrategy(new CanAttack());
-        b.addWeapons(new Weapon(0, proj2, 200, b.getCenter(),50));        
+        b.setAttackStrategy(new CannotAttack());
+        b.addWeapons(new Weapon(0, proj2, 200, b.getCenter(),50));
+        
         Unit c = new Soldier(p,new Location(500, 500),s,soun,20,40);
-        c.setAttackStrategy(new CannotAttack());
-        System.out.println("should print1");
+        Projectile proj3 = new Projectile(new Pixmap(ResourceManager.instance().loadFile("images/bullet.png")), c.getCenter(), new Dimension(30, 30), 1, 10, 1);
+        c.setAttackStrategy(new CanAttack());
+        c.addWeapons(new Weapon(0, proj3, 200, c.getCenter(),50));  
+        
         p1.getUnits().addUnit(a);
         p1.getUnits().addUnit(b);
         Player p2 = new HumanPlayer();
         p2.getUnits().addUnit(c);
-        System.out.println("should print2");
         
         addPlayer(p1, 1);
         addPlayer(p2, 2);
