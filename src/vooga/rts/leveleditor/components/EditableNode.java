@@ -135,10 +135,5 @@ public class EditableNode {
         myOccupied = false;
         myFeatures.clear();
     }
-    
-    
-    
-    
-    
-    
+
 }

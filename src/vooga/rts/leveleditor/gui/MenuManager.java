@@ -15,18 +15,18 @@ import javax.swing.JTextField;
  *
  */
 public class MenuManager extends JMenuBar {
-    
+
     public static final String USER_DIR = "user.dir";
     private Canvas myCanvas;
     private JFileChooser myChooser;
-    
+
     public MenuManager(Canvas canvas) {
         myCanvas = canvas;
         myChooser = new JFileChooser(System.getProperties().getProperty(USER_DIR));
         this.add(createFileMenu());
-        
+
     }
-    
+
     private JMenu createFileMenu() {
         JMenu menu = new JMenu("File");
         createFileMenu(menu);
@@ -48,7 +48,7 @@ public class MenuManager extends JMenuBar {
                 try {
                     int response = myChooser.showSaveDialog(null);
                     if (response == JFileChooser.APPROVE_OPTION) {
-                        
+
                         myCanvas.getMapPanel().getMyMap().generateMapFile(myChooser.getSelectedFile());
                     }
                 }
