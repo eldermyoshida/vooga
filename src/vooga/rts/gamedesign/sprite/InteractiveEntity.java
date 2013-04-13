@@ -83,7 +83,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
         myWeaponIndex = weaponIndex;
     }
     public void attack(IAttackable a) {
-        if(myAttackStrategy.canAttack(a) && inRange((InteractiveEntity) a)) {
+        if(myAttackStrategy.canAttack(a) && inRange((InteractiveEntity) a) && !this.isDead()) {
             myWeapons.get(myWeaponIndex).fire((InteractiveEntity) a);
         }    
     } 

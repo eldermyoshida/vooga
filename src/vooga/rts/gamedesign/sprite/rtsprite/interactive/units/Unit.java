@@ -2,8 +2,6 @@ package vooga.rts.gamedesign.sprite.rtsprite.interactive.units;
 
 import java.awt.Dimension;
 import java.util.List;
-
-import vooga.rts.ai.PathingHelper;
 import vooga.rts.gamedesign.Action;
 import vooga.rts.gamedesign.sprite.GameSprite;
 import vooga.rts.gamedesign.sprite.InteractiveEntity;
@@ -34,7 +32,7 @@ public class Unit extends InteractiveEntity {
     private List<GameSprite> myKills; //TODO: WHAT TYPE SHOULD IT BE??
     // private boolean myIsLeftSelected; // TODO: also need the same thing for Projectiles
     // private boolean myIsRightSelected; // TODO: should be observing the mouse action instead!!
-    private PathingHelper myPather;
+    //private PathingHelper myPather;
     private GatherStrategy myGatherStrategy;
     private OccupyStrategy myOccupyStrategy;
 
@@ -100,11 +98,4 @@ public class Unit extends InteractiveEntity {
     public void setOccupyStrategy (OccupyStrategy newStrategy) {
     	myOccupyStrategy = newStrategy;
     }
-
-    public void setPath (Location location) {
-        myPather.constructPath(getCenter(), location);
-    }
-
-
-
 }
