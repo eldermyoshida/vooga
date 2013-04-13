@@ -8,10 +8,10 @@ public class AttackerAttributes {
 
 
 	public AttackerAttributes(Stat dmg, Stat radius, Stat interval, Stat number) {
-		myAttackDamage.updateStat(dmg.getValue());
-		myAttackRadius.updateStat(radius.getValue());
-		myAttackInterval.updateStat(interval.getValue());
-		myNumberOfTargets.updateStat(number.getValue());
+		myAttackDamage=dmg;
+		myAttackRadius=radius;
+		myAttackInterval=interval;
+		myNumberOfTargets=number;
 
 	}
 	public Stat getMyAttackDamage() {
