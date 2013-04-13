@@ -1,6 +1,6 @@
 package vooga.fighter.objects;
 
-import vooga.fighter.objects.utils.State;
+import vooga.fighter.objects.utils.Hitbox;
 import vooga.fighter.util.Pixmap;
 import vooga.fighter.util.Location;
 import vooga.fighter.util.Vector;
@@ -22,7 +22,7 @@ public abstract class GameObject {
     private long myObjectId;
     private Pixmap myImage;
     private Location myCenter;
-    private State myHitbox;    
+    private Hitbox myHitbox;    
     private Dimension mySize;
 
     /**
@@ -31,10 +31,8 @@ public abstract class GameObject {
      * Note: Dayvid, once the loader is fully functional we will modify this to
      * only take in an object ID, and we will load the parameters from the XML.
      */
-    public GameObject(Pixmap image, Location center, Dimension size) {
-        myCenter = new Location(center);
-        myImage = new Pixmap(image);
-        mySize = size;       
+    public GameObject(long instanceId) {
+        myInstanceId=instanceId;        
     }
     
     /**
@@ -86,14 +84,14 @@ public abstract class GameObject {
     /**
      * Sets the hitbox for this game object.
      */
-    public void setHitbox(State hitbox) {
+    public void setHitbox(Hitbox hitbox) {
         myHitbox = hitbox;
     }
 
     /**
      * Returns the hitbox for this game object.
      */
-    public State getHitbox() {
+    public Hitbox getHitbox() {
         return myHitbox;
     }
 
