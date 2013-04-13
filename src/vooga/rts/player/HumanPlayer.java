@@ -26,7 +26,7 @@ public class HumanPlayer extends Player {
     }
     // Duplicate method 
     public void handlRightClick(int x, int y, int z) {
-        for (Units u : getUnits().getSelected())
+        for (Unit u : getUnits().getSelected())
         {            
             u.move(new Location(x, y), getMap());            
         }

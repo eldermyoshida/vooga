@@ -14,6 +14,7 @@ public abstract class Player implements IGameLoop {
     private int myTeamID;
     private GameMap myMap;
     
+    
     public Player() {
         myResourceManager = new ResourceManager();
         myUnitManager= new UnitManager();

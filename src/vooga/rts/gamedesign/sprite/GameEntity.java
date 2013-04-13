@@ -6,6 +6,9 @@ import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
 import vooga.rts.util.Vector;
+import vooga.rts.map.GameMap;
+import vooga.rts.ai.Path;
+import vooga.rts.ai.PathFinder;
 
 
 /**
@@ -23,12 +26,12 @@ import vooga.rts.util.Vector;
  */
 public class GameEntity extends GameSprite {
     private Vector myVelocity;
-
+    private GameMap myMap;
     private int myMaxHealth;
     private int myCurrentHealth;
-
+    private PathFinder myFinder;
     private int myTeamID;
-
+    private Path myPath;
     private Location myCurrentLocation;
     private Location myGoal;
     private Vector myOriginalVelocity;
@@ -114,7 +117,16 @@ public class GameEntity extends GameSprite {
         Vector v = getCenter().difference(myGoal);
         setVelocity(v.getAngle(),1);
     }
-
+    
+    public void move (Location loc, GameMap map) {
+        setPath(loc, map);
+    }
+    
+    public void setPath (Location location, GameMap map) {
+        myPath = myFinder.calculatePath(map.getNode(getCenter()), 
+                                        map.getNode(location), map.getMap());
+        myGoal = myPath.getNext();
+     }
     /**
      * Updates the shape's location.
      */
