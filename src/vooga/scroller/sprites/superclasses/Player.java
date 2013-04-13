@@ -9,6 +9,7 @@ import vooga.scroller.sprites.state.State;
 import vooga.scroller.sprites.state.StateManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.util.Gravity;
+import vooga.scroller.util.ISpriteView;
 import vooga.scroller.util.Location;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.Sprite;
@@ -51,7 +52,7 @@ public class Player extends Sprite {
     public static final Vector UP_VELOCITY = new Vector(UP_DIRECTION, MOVE_SPEED);
     public static final Vector DOWN_VELOCITY = new Vector(DOWN_DIRECTION, MOVE_SPEED);
 
-    public Player (Pixmap image, Location center, Dimension size, View view, ScrollingManager sm) {
+    public Player (ISpriteView image, Location center, Dimension size, View view, ScrollingManager sm) {
         super(image, center, size);
         myView = view;
         myOriginalCenter = center;
@@ -72,7 +73,7 @@ public class Player extends Sprite {
    
     @Override
     public void paint (Graphics2D pen) {
-        super.getView().paint(pen, myScrollingManager.playerPaintLocation(this), mySize);
+        super.getView().paint(pen, myScrollingManager.playerPaintLocation(this), mySize, 0);
         //myImage.paint(pen, myScrollingManager.playerPaintLocation(this), mySize);
     }
     

@@ -5,7 +5,6 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
-import vooga.scroller.viewUtil.Renderable;
 
 
 /**
@@ -42,23 +41,23 @@ public abstract class Sprite {
     /**
      * Create a shape at the given position, with the given size.
      */
-    public Sprite (Pixmap image, Location center, Dimension size) {
+    public Sprite (ISpriteView image, Location center, Dimension size) {
         this(image, center, size, new Vector());
     }
 
     /**
      * Create a shape at the given position, with the given size, velocity, and color.
      */
-    public Sprite (Pixmap image, Location center, Dimension size, Vector velocity) {
+    public Sprite (ISpriteView image, Location center, Dimension size, Vector velocity) {
         // make copies just to be sure no one else has access
         
-        myDefaultImage = image;
+        mySize = size;
+        myOriginalView = image;
         myOriginalCenter = new Location(center);
         myLastLocation = new Location(myOriginalCenter.x, myOriginalCenter.y);
         myLastLocation2 = new Location(myOriginalCenter.x, myOriginalCenter.y);
         myOriginalSize = new Dimension(size);
         myOriginalVelocity = new Vector(velocity);
-        myOriginalView = new Pixmap(image);
         reset();
         resetBounds();
     }
@@ -243,6 +242,7 @@ public abstract class Sprite {
         mySize = new Dimension(myOriginalSize);
         myVelocity = new Vector(myOriginalVelocity);
         myView = myOriginalView.reset();
+        // TODO: reset paintable?
     }
 
     /**
@@ -250,14 +250,14 @@ public abstract class Sprite {
      */
     public void paint (Graphics2D pen)
     {
-        myView.paint(pen, myCenter, mySize);
+        myView.paint(pen, myCenter, mySize, 0);
     }
     
     /**
      * Display this shape translated on the screen, used for all Sprites besides Player
      */
     public void paint (Graphics2D pen, Location loc, Location origLoc) {
-        myView.paint(pen, translate(loc, origLoc), mySize);
+        myView.paint(pen, translate(loc, origLoc), mySize, 0);
         
     }
     
@@ -328,6 +328,5 @@ public abstract class Sprite {
         
         return myOriginalView.getDefaultImg();
     }
-
 
 }

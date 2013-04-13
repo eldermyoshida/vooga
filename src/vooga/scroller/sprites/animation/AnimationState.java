@@ -37,7 +37,7 @@ public abstract class AnimationState {
      * 
      * @return The image used by this animation state.
      */
-    public Pixmap getStateView() {
+    public Pixmap getImage() {
         return myImage;
     }
     

@@ -16,6 +16,7 @@ import vooga.scroller.util.Sprite;
  * @author Scott Valentine
  *
  */
+
 public class Animation implements ISpriteView {
 
     private List<AnimationState> myAnimations;
@@ -28,10 +29,7 @@ public class Animation implements ISpriteView {
      * @param defaultImageFile is the file path of the default image for this animation.
      * @param sp is the sprite on that this animation animates.
      */
-    public Animation (String defaultImageFile, Sprite sp) {
-//        super(defaultImageFile);
-        myDefaultStateView = new Pixmap(defaultImageFile);
-//        myDefaultImage = super.getImg();
+    public Animation (Sprite sp) {
         mySprite = sp;
         initAnimations();
     }
@@ -41,7 +39,8 @@ public class Animation implements ISpriteView {
      */
     private void initAnimations () {
         AnimationFactory af = new AnimationFactory();
-        myAnimations = af.generateAnimations();       
+        myAnimations = af.generateAnimations();
+        myDefaultStateView = af.getDefaultImage();
     }
 
     /**
@@ -52,7 +51,7 @@ public class Animation implements ISpriteView {
     private Pixmap getStateView() {
         for (AnimationState as: myAnimations) {
             if (as.validAnimation(mySprite)) {
-                return as.getStateView();
+                return as.getImage();
             }
         }
         return this.getDefaultStateView();

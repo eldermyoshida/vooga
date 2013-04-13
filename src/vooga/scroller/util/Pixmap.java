@@ -8,6 +8,7 @@ import java.awt.geom.Point2D;
 import java.awt.geom.AffineTransform;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import vooga.scroller.sprites.IPaintable;
 
 
 /**
@@ -19,6 +20,7 @@ import javax.swing.ImageIcon;
  * @author Robert C. Duvall
  * Added getter for view @author DF
  */
+
 public class Pixmap implements ISpriteView {
     // OS-independent relative resource locations (like URLs)
     private static final String RESOURCE_LOCATION = "/vooga/scroller/images/";
@@ -97,7 +99,7 @@ public class Pixmap implements ISpriteView {
     @Override
     public ISpriteView reset () {
         // TODO Auto-generated method stub
-        return new Pixmap(this);
+        return this;
     }
 
 }

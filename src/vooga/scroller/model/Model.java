@@ -55,11 +55,11 @@ public class Model {
      */
     private void initPlayer() {
         // TODO: this is implemented by the developer. 
-        myPlayer = new Mario(new Pixmap("mario.gif"),
+        myPlayer = new Mario(
                              new Location(500, 500),
                              new Dimension(30, 60),
                              myView, myScrollingManager);
-        myPlayer.setView(new Animation("mario.gif", myPlayer));
+        myPlayer.setView(new Animation(myPlayer));
 
     }
 
