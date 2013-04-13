@@ -7,8 +7,6 @@ import vooga.rts.gamedesign.sprite.GameEntity;
 import vooga.rts.gamedesign.sprite.InteractiveEntity;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
-import vooga.rts.util.Sound;
-import vooga.rts.util.ThreeDimension;
 import vooga.rts.util.Vector;
 
 
@@ -51,7 +49,7 @@ public class Projectile extends GameEntity implements Cloneable{
     @Override
     public void update(double elapsedTime){
         super.update(elapsedTime);
-        System.out.println(this.getCenter());
+        //System.out.println(this.getCenter());
     }
 
     public void attack(InteractiveEntity interactiveEntity) {

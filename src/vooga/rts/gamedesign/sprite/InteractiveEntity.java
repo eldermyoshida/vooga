@@ -60,31 +60,40 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
         //myUpgradeTree.addUpgrade(armor); //TESTING
     }
 
-    public void getAttacked(InteractiveEntity a){
+    public UpgradeTree getUpgradeTree() {
+    	return myUpgradeTree;
+    }
+    
+    public void getAttacked(InteractiveEntity a) {
         a.attack(this);
     }
-    public Sound getSound(){
+    public Sound getSound() {
         return mySound;
     } 
-    public List<Weapon> getWeapons(){
+    public List<Weapon> getWeapons() {
         return myWeapons;
     }
-    public int getWeaponIndex(){
+    public int getWeaponIndex() {
         return myWeaponIndex;
     }
-    public List<Action> getActions(){
+    public List<Action> getActions() {
         return myActions;
     }
-    public void setWeaponIndex(int weaponIndex){
+    public void setWeaponIndex(int weaponIndex) {
         myWeaponIndex = weaponIndex;
     }
-    public void attack(IAttackable a){
-        if(myAttackStrategy.canAttack(a) && inRange((InteractiveEntity) a)){
+    public void attack(IAttackable a) {
+        if(myAttackStrategy.canAttack(a) && inRange((InteractiveEntity) a)) {
             myWeapons.get(myWeaponIndex).fire((InteractiveEntity) a);
         }    
     } 
-    public boolean inRange(InteractiveEntity enemy){
-        return myWeapons.get(myWeaponIndex).inRange(enemy);
+    public boolean inRange(InteractiveEntity enemy) {
+        //ellipse thing doesnt seem to be working very well. 
+        double distance = Math.sqrt(Math.pow(getCenter().x - enemy.getX(), 2) + Math.pow(this.getY() - enemy.getY(), 2)); 
+        if(!myWeapons.isEmpty() && distance < myWeapons.get(myWeaponIndex).getRange()){
+            return true;
+        }
+        return false;
     }
 
     /**

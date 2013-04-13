@@ -13,8 +13,8 @@ import vooga.rts.util.Sound;
 
 public class ArmorUpgradeNode extends UpgradeNode {
 
-    public ArmorUpgradeNode(String upgradeType, String upgradeObject, int upgradeValue){
-       super(upgradeType, upgradeObject, upgradeValue);
+    public ArmorUpgradeNode(int id, String upgradeType, String upgradeObject, int upgradeValue){
+       super(id, upgradeType, upgradeObject, upgradeValue);
     }
     
     @Override

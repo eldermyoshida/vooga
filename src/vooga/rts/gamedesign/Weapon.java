@@ -10,7 +10,6 @@ import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * This class represents a weapon. The CanAttack class the implements
  * AttackStrategy contains a list of weapons so that every interactive that can attack
@@ -59,19 +58,22 @@ public class Weapon {
      */
     public void fire (InteractiveEntity toBeShot) {
         System.out.println("Health of enemy " + toBeShot.getHealth());
-        System.out.println("cooldown " + cooldown);
-        
-        // should set the velocity of the projectile to the location of the toBeshot
-        myProjectile.setTarget(toBeShot);
-        setCooldown(maxCooldown);
+        if(cooldown == 0){
+            // should set the velocity of the projectile to the location of the toBeshot
+            myProjectile.setTarget(toBeShot);
+            myProjectiles.add(myProjectile);
+            setCooldown(maxCooldown);
+        }
     }
     /**
      * This method is used to upgrade a weapon either
      * 
      * @param upgrade
      */
-//    public void upgrade (Upgrade upgrade) {
+    
+    //    public void upgrade (Upgrade upgrade) {
 //    }
+
 
     public List<Projectile> getProjectiles () {
         return myProjectiles;
@@ -96,15 +98,21 @@ public class Weapon {
      */
     public boolean inRange (InteractiveEntity enemy) {
         // add z axis
+        //see if enemy is in adjacent node, better way. 
         myRangeCircle = new Ellipse2D.Double(myCenter.getX(), myCenter.getY(), myRange, myRange);
         return myRangeCircle.contains(enemy.getCenter());
     }
-
+    public int getRange(){
+        return myRange;
+    }
     /**
      * subtracts 1 from the cooldown counter
      */
     public void decrementCooldown () {
+
+        System.out.println("dec cooldown " + cooldown);
         cooldown--;
+        System.out.println("dec cooldown " + cooldown);
     }
 
     /**
@@ -127,7 +135,9 @@ public class Weapon {
     }
 
     public void update (double elapsedTime) {
+        System.out.println("weapon is being updated ");
         if(cooldown != 0){
+            System.out.println("dec cooldown " + cooldown);
             decrementCooldown();
         }
         for(Projectile p : myProjectiles){

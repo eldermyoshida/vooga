@@ -4,11 +4,8 @@ import java.awt.Dimension;
 
 import vooga.rts.gamedesign.sprite.GameEntity;
 import vooga.rts.gamedesign.sprite.InteractiveEntity;
-import vooga.rts.gamedesign.sprite.map.Terrain;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
-import vooga.rts.util.Sound;
-import vooga.rts.util.ThreeDimension;
 
 /**
  * 
