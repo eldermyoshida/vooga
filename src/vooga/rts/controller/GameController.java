@@ -125,7 +125,8 @@ public class GameController extends AbstractController {
         if (myLeftMouse != null) {
             myDrag = new Rectangle2D.Double(myLeftMouse.getX(), myLeftMouse.getY(), 
                                             o.getX() - myLeftMouse.getX(), o.getY()- myLeftMouse.getY());
-            
+            HumanPlayer human = (HumanPlayer) myPlayers.get(0);
+            human.getUnits().select(myDrag);
         }
     }
 
