@@ -122,7 +122,7 @@ public class GameController extends AbstractController {
             a = new Soldier(p,new Location(100, 100),s,soun,20,100);
             Projectile proj = new Projectile(new Pixmap(ResourceManager.instance().loadFile("images/bullet.png")), a.getCenter(), new Dimension(30, 30), 1, 10, 1);
             a.setAttackStrategy(new CanAttack());
-            a.addWeapons(new Weapon(0, proj, 200, a.getCenter(),50));
+            a.addWeapons(new Weapon(0, proj, 200, a.getCenter(),25));
         }
         catch (Exception e) {
             // trollolol
