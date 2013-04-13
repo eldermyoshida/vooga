@@ -5,7 +5,6 @@ import java.awt.Graphics2D;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
-import vooga.rts.util.ThreeDimension;
 import vooga.rts.util.Vector;
 
 
@@ -111,7 +110,6 @@ public class GameEntity extends GameSprite {
      * Possible design choice error.
      */
     public void move (Location loc) {
-        System.out.println("move is called");
         myGoal = new Location(loc);
         Vector v = getCenter().difference(myGoal);
         setVelocity(v.getAngle(),1);

@@ -7,7 +7,6 @@ import java.awt.Rectangle;
 import vooga.rts.gamedesign.sprite.Sprite;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
-import vooga.rts.util.ThreeDimension;
 
 public abstract class GameSprite extends Sprite {
     // canonical directions for a collision

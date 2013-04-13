@@ -98,11 +98,4 @@ public class Unit extends InteractiveEntity {
     public void setOccupyStrategy (OccupyStrategy newStrategy) {
     	myOccupyStrategy = newStrategy;
     }
-
-    public void setPath (Location location) {
-        myPather.constructPath(getCenter(), location);
-    }
-
-
-
 }
