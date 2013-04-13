@@ -4,6 +4,7 @@ import java.awt.Dimension;
 
 import vooga.rts.gamedesign.sprite.GameEntity;
 import vooga.rts.gamedesign.sprite.InteractiveEntity;
+import vooga.rts.gamedesign.sprite.rtsprite.interactive.IGatherable;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
 
@@ -15,7 +16,7 @@ import vooga.rts.util.Pixmap;
  * @author Wenshun Liu 
  *
  */
-public abstract class Resource extends GameEntity {
+public abstract class Resource extends GameEntity implements IGatherable {
 
 
   public Resource(Pixmap image, Location center, Dimension size, int teamID, int health) {

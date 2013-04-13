@@ -16,9 +16,14 @@ import vooga.rts.gamedesign.sprite.rtsprite.interactive.IGatherable;
  */
 public class CanGather implements GatherStrategy{
 	
-	@Override
-	public boolean canGather(IGatherable g) {
-		return true;
+	private int myDamage;
+	
+	public CanGather(int damage) {
+		myDamage = damage;
+	}
+	
+	public void gatherResource (IGatherable g) {
+		g.getGathered(this, myDamage);
 	}
 	
 	/**

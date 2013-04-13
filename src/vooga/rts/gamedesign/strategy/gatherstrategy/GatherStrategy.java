@@ -21,7 +21,5 @@ import vooga.rts.gamedesign.sprite.rtsprite.interactive.IGatherable;
  */
 public interface GatherStrategy {
 	
-	public boolean canGather(IGatherable g); //change to specify which kind of resource.
-	
 	
 }

@@ -17,9 +17,4 @@ import vooga.rts.gamedesign.sprite.rtsprite.interactive.IGatherable;
 public class CannotGather implements GatherStrategy {
 	
 
-	@Override
-	public boolean canGather(IGatherable g) {
-		return false;
-	}
-
 }
