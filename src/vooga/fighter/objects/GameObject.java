@@ -1,6 +1,6 @@
 package vooga.fighter.objects;
 
-import vooga.fighter.objects.utils.Hitbox;
+import vooga.fighter.objects.utils.State;
 import vooga.fighter.util.Pixmap;
 import vooga.fighter.util.Location;
 import vooga.fighter.util.Vector;
@@ -22,7 +22,7 @@ public abstract class GameObject {
     private long myObjectId;
     private Pixmap myImage;
     private Location myCenter;
-    private Hitbox myHitbox;    
+    private State myHitbox;    
     private Dimension mySize;
 
     /**
@@ -86,14 +86,14 @@ public abstract class GameObject {
     /**
      * Sets the hitbox for this game object.
      */
-    public void setHitbox(Hitbox hitbox) {
+    public void setHitbox(State hitbox) {
         myHitbox = hitbox;
     }
 
     /**
      * Returns the hitbox for this game object.
      */
-    public Hitbox getHitbox() {
+    public State getHitbox() {
         return myHitbox;
     }
 

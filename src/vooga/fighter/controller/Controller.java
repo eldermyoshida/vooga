@@ -1,15 +1,11 @@
 package vooga.fighter.controller;
 
-import vooga.fighter.game.SplashScreen;
 import vooga.fighter.input.Input;
 import vooga.fighter.input.InputClassTarget;
+import vooga.fighter.game.*;
 
 import java.awt.Dimension;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
-import vooga.fighter.view.Canvas;
 
 
 
@@ -18,7 +14,7 @@ import vooga.fighter.view.Canvas;
  * @author Jerry Li
  *
  */
-public abstract class Controller implements ControlDelegate {
+public abstract class Controller implements ModelDelegate {
     
     protected Mode myGame;
     protected final Dimension DEFAULT_BOUNDS = new Dimension(800, 800);
