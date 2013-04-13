@@ -4,8 +4,7 @@ import vooga.rts.gamedesign.sprite.rtsprite.interactive.IOccupiable;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
-
-import java.awt.Dimension;
+import vooga.rts.util.ThreeDimension;
 
 /**
  * 
@@ -17,7 +16,7 @@ import java.awt.Dimension;
  */
 public class Garrison extends Building implements IOccupiable {
 
-  public Garrison(Pixmap image, Location center, Dimension size, Sound sound,
+  public Garrison(Pixmap image, Location center, ThreeDimension size, Sound sound,
 			int teamID, int health) {
 		super(image, center, size, sound, teamID, health);
 		// TODO Auto-generated constructor stub

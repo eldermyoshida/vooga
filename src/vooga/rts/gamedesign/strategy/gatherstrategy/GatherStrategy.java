@@ -1,7 +1,6 @@
 package vooga.rts.gamedesign.strategy.gatherstrategy;
 
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.IGatherable;
-import vooga.rts.gamedesign.sprite.rtsprite.Resource;
 
 /**
  * This interface is implemented by the classes CanGather and CannotGather that

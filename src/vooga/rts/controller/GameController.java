@@ -69,7 +69,7 @@ public class GameController extends AbstractController {
         for (Unit u1 : p1) {
             for (Unit u2 : p2) {
                 if(u1.inRange(u2)){
-                   System.out.println("omg in range!");
+                   u2.getAttacked(u1);
                 }               
             }
         }
@@ -119,21 +119,20 @@ public class GameController extends AbstractController {
         Dimension s = new Dimension(100, 100);
         Sound soun = null;//new Sound("/vooga/rts/sounds/pikachu.wav");
         Unit a = null;
-        a = new Soldier(p,new Location(100, 100),s,soun,20,100);
-        Projectile proj = new Projectile(new Pixmap(ResourceManager.instance().loadFile("images/bullet.png")), a.getCenter(), new Dimension(30, 30), 1, 10, 1);
-        a.setAttackStrategy(new CanAttack());
+        try{
+            a = new Soldier(p,new Location(100, 100),s,soun,20,100);
+            Projectile proj = new Projectile(new Pixmap(ResourceManager.instance().loadFile("images/bullet.png")), a.getCenter(), new Dimension(30, 30), 1, 10, 1);
+            a.setAttackStrategy(new CanAttack());
+            a.addWeapons(new Weapon(0, proj, 200, a.getCenter(),50));
+        }
+        catch (Exception e) {
+            // trollolol
+        }
         
-        
-        a.addWeapons(new Weapon(0, proj, 200, a.getCenter(),20));
-        
-       
-        
-        System.out.println("should print!");
         Unit b = new Soldier(p,new Location(100,300),s,soun,20,50);
         Projectile proj2 = new Projectile(new Pixmap(ResourceManager.instance().loadFile("images/bullet.png")), b.getCenter(), new Dimension(30, 30), 1, 10, 1);
         b.setAttackStrategy(new CanAttack());
-        System.out.println("should print0");
-        b.addWeapons(new Weapon(0, proj2, 200, b.getCenter(),20));        
+        b.addWeapons(new Weapon(0, proj2, 200, b.getCenter(),50));        
         Unit c = new Soldier(p,new Location(500, 500),s,soun,20,40);
         c.setAttackStrategy(new CannotAttack());
         System.out.println("should print1");

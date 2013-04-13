@@ -1,11 +1,8 @@
 package vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings;
 
-import java.awt.Dimension;
-
 import vooga.rts.gamedesign.sprite.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.IOccupiable;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Unit;
-import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
@@ -34,5 +31,5 @@ public abstract class Building extends InteractiveEntity implements IOccupiable{
 	public void getOccupied(Unit u){
 		u.occupy(this);
 	}
-		
-	}
+
+}

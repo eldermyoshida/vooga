@@ -7,8 +7,6 @@ import vooga.rts.gamedesign.sprite.GameEntity;
 import vooga.rts.gamedesign.sprite.InteractiveEntity;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
-import vooga.rts.util.Sound;
-import vooga.rts.util.ThreeDimension;
 import vooga.rts.util.Vector;
 
 
@@ -26,36 +24,33 @@ import vooga.rts.util.Vector;
  */
 public class Projectile extends GameEntity implements Cloneable{
 
-
-    private static final int SPEED = 4;
     private int myDamage;
     private InteractiveEntity myTarget;
 
+    public Projectile(Projectile other, Location shootFrom) {
+        this(new Pixmap(other.getImage()), new Location(shootFrom), new Dimension(other.getSize()), other.getTeamID(), other.getDamage(), other.getHealth());
+    }
     public Projectile(Pixmap pixmap, Location loc, Dimension size, int teamID, int damage, int health){
         super(pixmap, loc, size, teamID, health);
         myDamage = damage;
     }
-
-    public Projectile clone() {
-        return this.clone();
+    public void setEnemy(InteractiveEntity enemy){
+        myTarget = enemy;
     }
-
-
-    public void setTarget(InteractiveEntity target){
-        Vector between = getCenter().difference(target.getCenter());
-        double angle = between.getAngle();
-        setVelocity(angle, SPEED);
+    public int getDamage() {
+        return myDamage;
     }
-
-
     @Override
     public void update(double elapsedTime){
         super.update(elapsedTime);
-        System.out.println(this.getCenter());
+        if(this.intersects(myTarget.getCenter())){
+            attack(myTarget);
+            this.die();
+            //lol very bad way 
+            myDamage = 0;
+        }
     }
-
     public void attack(InteractiveEntity interactiveEntity) {
         interactiveEntity.changeHealth(myDamage);
-
     }
 }

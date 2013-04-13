@@ -1,10 +1,6 @@
 package vooga.rts.gamedesign.strategy.gatherstrategy;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.IGatherable;
-import vooga.rts.gamedesign.sprite.rtsprite.Resource;
 
 /**
  * This class implements GatherStrategy and is used as an instance in 

@@ -7,10 +7,29 @@
 		<upgradeNode>
 			<id>1</id> 
 			<nodeName>WorstArmor</nodeName>
+			<object>Health</object>
+			<value>50</value>
 		</upgradeNode>
 		<upgradeNode>
 			<id>2</id>
 			<nodeName>BestArmor</nodeName>
+			<object>Damage</object>
+			<value>100</value>
+		</upgradeNode>
+	</type>
+	<type>
+		<name>Health</name>
+		<upgradeNode>
+			<id>1</id> 
+			<nodeName>Boost1</nodeName>
+			<object>Health</object>
+			<value>50</value>
+		</upgradeNode>
+		<upgradeNode>
+			<id>2</id>
+			<nodeName>Boost2</nodeName>
+			<object>Health</object>
+			<value>100</value>
 		</upgradeNode>
 	</type>
 </Upgrade>

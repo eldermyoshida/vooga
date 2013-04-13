@@ -3,13 +3,12 @@ package vooga.rts.gamedesign;
 import vooga.rts.gamedesign.sprite.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
 import vooga.rts.gamedesign.sprite.rtsprite.Projectile;
-import vooga.rts.gamedesign.upgrades.UpgradeTree;
+import vooga.rts.gamedesign.upgrades.*;
 import vooga.rts.util.Location;
 import java.awt.geom.Ellipse2D.Double;
 import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.List;
-
 
 /**
  * This class represents a weapon. The CanAttack class the implements
@@ -58,21 +57,23 @@ public class Weapon {
      * 
      */
     public void fire (InteractiveEntity toBeShot) {
-        System.out.println("Health of enemy " + toBeShot.getHealth());
-        System.out.println("cooldown " + cooldown);
-        
-        // should set the velocity of the projectile to the location of the toBeshot
-        myProjectile.setTarget(toBeShot);
-        setCooldown(maxCooldown);
+        if(cooldown == 0 && !toBeShot.isDead()){
+            Projectile fire = new Projectile(myProjectile, myCenter);
+            fire.setEnemy(toBeShot);
+            fire.move(toBeShot.getCenter());
+            myProjectiles.add(fire);
+            setCooldown(maxCooldown);
+        }
     }
     /**
      * This method is used to upgrade a weapon either
      * 
      * @param upgrade
      */
+
     public void upgrade (Upgrade upgrade) {
     	
-    }
+	}
 
     public List<Projectile> getProjectiles () {
         return myProjectiles;
@@ -97,10 +98,13 @@ public class Weapon {
      */
     public boolean inRange (InteractiveEntity enemy) {
         // add z axis
+        //see if enemy is in adjacent node, better way. 
         myRangeCircle = new Ellipse2D.Double(myCenter.getX(), myCenter.getY(), myRange, myRange);
         return myRangeCircle.contains(enemy.getCenter());
     }
-
+    public int getRange(){
+        return myRange;
+    }
     /**
      * subtracts 1 from the cooldown counter
      */
