@@ -19,12 +19,10 @@ public class Tile extends GameSprite {
 
 	public Tile(Pixmap image, Location center, Dimension size) {
 		super(image, center, size);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void update(double elapsedTime) {
-		// TODO Auto-generated method stub
 		
 	}
 }

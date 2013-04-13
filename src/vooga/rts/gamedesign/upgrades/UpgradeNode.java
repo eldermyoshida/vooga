@@ -43,6 +43,7 @@ public class UpgradeNode {
         myUpgradeValue = upgradeValue;
     }
 
+    //TODO: can refactor some subclass methods to here!
     /**
      * Applies the effect of this Upgrade type to the given interactive.
      * @param interactive
@@ -57,19 +58,11 @@ public class UpgradeNode {
 			throws IllegalArgumentException, IllegalAccessException,
 			InvocationTargetException, InstantiationException,
 			SecurityException, NoSuchMethodException {
-        for (InteractiveEntity i: requester){
-        	Class thisClass = i.getClass();
-            //System.out.println(thisClass.getName());
-            //Object iClass = thisClass.newInstance();
-            Class[] params = new Class[] {int.class};
-            //Object[] args = new Object[] {};
-            Method thisMethod = thisClass.getDeclaredMethod("upgradeHealth", params);
-            thisMethod.invoke(i, getUpgradeValue());
-        }
+    	return;
 	}
     
     public boolean validUpdate(Player player){
-    	//TODO
+    	//TODO check if play has enough resource to "buy the update"
     	return true;
     }
 

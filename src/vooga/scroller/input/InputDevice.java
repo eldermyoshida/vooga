@@ -1,4 +1,4 @@
-package input;
+package vooga.scroller.input;
 
 public class InputDevice {
 	private String myName;

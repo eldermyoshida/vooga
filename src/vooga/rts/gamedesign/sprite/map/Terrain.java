@@ -23,7 +23,6 @@ public abstract class Terrain extends GameSprite {
 
     public Terrain(Pixmap image, Location center, Dimension size) {
         super(image, center, size);
-        // TODO Auto-generated constructor stub
     }
 
     public int getLevel () {
