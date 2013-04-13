@@ -1,7 +1,6 @@
 package vooga.rts.networking.communications;
 
 import java.util.Arrays;
-import vooga.rts.networking.server.TimeStamp;
 
 /**
  * A SystemLevel Message is used to communicate manegrial information

@@ -1,7 +1,8 @@
 package vooga.rts.map;
 
+import java.awt.Dimension;
 import vooga.rts.ai.Path;
-import vooga.rts.ai.Pathfinder;
+import vooga.rts.ai.PathFinder;
 import vooga.rts.util.Location;
 
 /**
@@ -9,6 +10,9 @@ import vooga.rts.util.Location;
  * @author Challen Herzberg-Brovold
  *
  */
+
+// Still need to figure how to read in terrain. Also need to figure out how to 
+// add obstructions to the nodes. Possibly use the GameMap to implement vision. 
 public class GameMap {
     
     private int myNodeSize;
@@ -19,10 +23,10 @@ public class GameMap {
      * 
      * @param mapSize This is the size of the map in pixels
      */
-    public GameMap(int node) {
+    public GameMap(int node, Dimension size) {
         NodeFactory factory = new NodeFactory();
         myNodeSize = node;
-        myMap = factory.makeMap(myNodeSize);
+        myMap = factory.makeMap(myNodeSize, size);
     }    
     
     public Node getNode (Location location) {
@@ -31,7 +35,11 @@ public class GameMap {
         return myMap.get(x, y);
     }
     
-    public Path getPath (Pathfinder finder, Location start, Location finish) {
+    public Path getPath (PathFinder finder, Location start, Location finish) {
         return finder.calculatePath(getNode(start), getNode(finish), myMap);
+    }
+    
+    public NodeMap getMap () {
+        return myMap;
     }
 }

@@ -5,5 +5,5 @@ import vooga.rts.networking.server.MatchmakerServer;
 
 public interface Command {
 
-    public void execute (ConnectionThread thread, MatchmakerServer server);
+    public void execute (ConnectionThread thread, MatchmakerServer server, Object[] parameters);
 }
