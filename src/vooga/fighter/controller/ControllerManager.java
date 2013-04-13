@@ -12,18 +12,18 @@ import java.util.Map;
 import vooga.fighter.view.Canvas;
 
 
-public class ControllerManager implements ManagerDelegate{
+public class ControllerManager implements ControllerDelegate{
 	private static final String MAINMENU = "MainMenu";
 	private Map<String, Controller> myControllerMap;
 	private Controller myCurrentController;
 	private Canvas myCanvas;
-	private String myControllerFilePath;
+	private GameInfo myGameInfo;
 	
-	@InputClassTarget
-	public ControllerManager(Canvas frame, MediaManager mediamanager, String ControllerFilePath) {
+	public ControllerManager(Canvas frame, GameInfo gameinfo) {
 		myCanvas = frame;
 		myControllerMap = new ControllerFactory(frame).getMap();
 		myCurrentController = myControllerMap.get(MAINMENU);
+		myGameInfo = gameinfo;
 	}
 	
 	public void run(){
@@ -34,11 +34,8 @@ public class ControllerManager implements ManagerDelegate{
 		myCurrentController.stop();
 		myCurrentController = myControllerMap.get(NextController);
 		myCurrentController.displaySplash();
-		myCurrentController = myCurrentController.getController();
-		myCurrentController.start();
-		
-		
-		
+		myCurrentController = myCurrentController.getController(this, myGameInfo);
+		myCurrentController.start();	
 	}
 
 }

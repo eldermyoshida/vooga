@@ -1,21 +1,18 @@
 package vooga.fighter.controller;
 
 
+
 import vooga.fighter.game.Game;
 import vooga.fighter.game.SplashScreen;
 import vooga.fighter.input.Input;
 import vooga.fighter.input.InputClassTarget;
+import vooga.fighter.view.Canvas;
+import vooga.fighter.game.Mode;
 
-import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ResourceBundle;
 
 import javax.swing.Timer;
 
-import vooga.fighter.view.Canvas;
 
 /**
  * 
@@ -30,7 +27,6 @@ public class LevelController extends Controller implements ModelDelegate{
     public static final int ONE_SECOND = 1000;
     public static final int DEFAULT_DELAY = ONE_SECOND / FRAMES_PER_SECOND;
     private static final String INPUT_PATHWAY = "PATHWAY";
-	private PlayerStatus myPlayerStatus;
 	private Timer myTimer;
 	private Mode myMode;
 	private Canvas myCanvas;
@@ -39,10 +35,9 @@ public class LevelController extends Controller implements ModelDelegate{
     	super(name,frame);
     }
 	
-    public LevelController(String name, Canvas frame, ManagerDelegate manager, 
-    		PlayerStatus PlayerScores) {
-    	super(name, frame, manager);
-    	myPlayerStatus = PlayerScores;
+    public LevelController(String name, Canvas frame, ControllerDelegate manager, 
+    		GameInfo gameinfo) {
+    	super(name, frame, manager, gameinfo);
     }
     
 	
@@ -60,7 +55,13 @@ public class LevelController extends Controller implements ModelDelegate{
 	        // start animation
 	        myTimer.start();
 	    }
+
     
+    public void loadGame(String levelName) {
+        myGame = new Mode(levelName, super.getGameInfo(), this);
+        start();
+    }
+
     /**
      * Checks special occurences of game state. 
      */
@@ -81,10 +82,7 @@ public class LevelController extends Controller implements ModelDelegate{
         //interactions, and all that, but as far as significant changes to game state goes we should
         //use check conditions
     }
-    
-    private PlayerStatus getPlayerStatus(){
-    	return myPlayerStatus;
-    }
+
     
     /**
      * Exits program. 
@@ -100,9 +98,9 @@ public class LevelController extends Controller implements ModelDelegate{
 	}
 
 	@Override
-	public Controller getController(ManagerDelegate manager, PlayerStatus playerstatus) {
+	public Controller getController(ControllerDelegate delegate, GameInfo gameinfo) {
 		return new LevelController(super.getName(), super.getView(),
-				super.getManager(), getPlayerStatus());
+				delegate,gameinfo);
 }
 
 	@Override

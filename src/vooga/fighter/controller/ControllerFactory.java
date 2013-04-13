@@ -1,6 +1,5 @@
 package vooga.fighter.controller;
 
-import vooga.fighter.game.GameInstance;
 import vooga.fighter.game.SplashScreen;
 import vooga.fighter.input.Input;
 import vooga.fighter.input.InputClassTarget;

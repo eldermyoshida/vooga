@@ -1,4 +1,4 @@
-package src.vooga.fighter.controller;
+package vooga.fighter.controller;
 
 import java.awt.Dimension;
 

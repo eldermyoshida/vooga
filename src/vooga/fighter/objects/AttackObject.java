@@ -18,24 +18,22 @@ import vooga.fighter.util.Vector;
 public class AttackObject extends MoveableGameObject{
 
     private Counter myCounter;
-    private Player myOwner;
+    private CharacterObject myOwner;
     private List<Effect> myEffects;
-    private int myAttackPower;  
-    private int myVelocity; 
-    private int myDirection; 
-    
+    private int myAttackPower;      
     
     /**
-     * Constructs an AttackObject with the given Player owner.
+     * Constructs an AttackObject with the given owner.
+     * 
+     * Will update to use ObjectLoader.
      */
-    public AttackObject(Pixmap image, Location center, Dimension size, Player owner, int power, int attackSpeed) {
+    public AttackObject(Pixmap image, Location center, Dimension size, CharacterObject owner, int power, int attackSpeed) {
     	super(image, center, size);
         myOwner = owner;
         myEffects = new ArrayList<Effect>();
         //add effects to myEffects list
-        myCounter = new Counter(0);
-        myAttackPower=power; 
-        myVelocity=attackSpeed; 
+        myCounter = new Counter();
+        myAttackPower = power; 
         //myCounter.setCounter(count);
     }
     
@@ -55,26 +53,27 @@ public class AttackObject extends MoveableGameObject{
     }
     
     /**
-     * Gets the player who created the attack
+     * Gets the character who created the attack
      */
-    public Player getOwner(){
+    public CharacterObject getOwner(){
     	return myOwner; 
     }
     
     /**
      * Inflicts damage upon a target player.
      */
-    public int inflictDamage(Player o){
-    	return o.changeHealth(-myAttackPower);
+    public int inflictDamage(CharacterObject target){
+    	return target.changeHealth(-myAttackPower);
     }
     
     /**
-     * Applies all effects to the target of the attack.
+     * Designates a character as a target of this attack's effects.
      */
-    public void applyEffects(){
-    	for (Effect e: myEffects){
-    		e.applyEffect();
-    	}
-    }
+    public void addTargetForEffects(CharacterObject target){
+        for (Effect effect : myEffects) {
+            Effect copyOfEffect = effect.getCloneOfEffect();
+            target.addActiveEffect(copyOfEffect);
+        }
+    }    
 
 }

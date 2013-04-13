@@ -29,9 +29,9 @@ public class Mode {
     private boolean myStartGame = false;
     private boolean shouldEnd;
     private ObjectLoader myLoader;
-    private ControlDelegate myDelegate;
+    private ModelDelegate myDelegate;
     
-    public Mode (String levelName, String filePath, ControlDelegate delegate) {
+    public Mode (String levelName, String filePath, ModelDelegate delegate) {
         loadFile(filePath);
         myInteractables.add(myLoader.getTestCharacter());
         shouldEnd = false;

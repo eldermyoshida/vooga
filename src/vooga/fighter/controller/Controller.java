@@ -1,15 +1,12 @@
 package vooga.fighter.controller;
 
-import vooga.fighter.game.SplashScreen;
 import vooga.fighter.input.Input;
 import vooga.fighter.input.InputClassTarget;
+import vooga.fighter.view.Canvas;
+import vooga.fighter.game.*;
 
 import java.awt.Dimension;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
-import vooga.fighter.view.Canvas;
 
 
 
@@ -20,15 +17,18 @@ import vooga.fighter.view.Canvas;
  * @Modified by Jack Matteucci
  *
  */
-public abstract class Controller{
+
+public abstract class Controller implements ModelDelegate {
+
     
     protected Mode myGame;
     private Input myInput;
     protected final Dimension DEFAULT_BOUNDS = new Dimension(800, 800);
-    private ManagerDelegate myManager;
+    private ControllerDelegate myManager;
     private String myName;
     private String myPath;
     private Canvas myCanvas;
+    private GameInfo myGameInfo;
     
     public Controller(String name, Canvas frame){
     	myName = name;
@@ -36,9 +36,10 @@ public abstract class Controller{
     	myInput = makeInput();
     }
     
-    public Controller(String name, Canvas frame, ManagerDelegate manager) {
+    public Controller(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo) {
     	this(name, frame);
     	myManager = manager;
+    	myGameInfo = gameinfo;
     }
     
     public String getName(){
@@ -53,8 +54,12 @@ public abstract class Controller{
     	return myPath;
     }
     
-    protected ManagerDelegate getManager(){
+    protected ControllerDelegate getManager(){
     	return myManager;
+    }
+    
+    protected GameInfo getGameInfo(){
+    	return myGameInfo;
     }
     
     public void displaySplash(){
@@ -65,7 +70,7 @@ public abstract class Controller{
     
     public abstract void stop();
     
-    public abstract Controller getController();
+    public abstract Controller getController(ControllerDelegate manager, GameInfo gameinfo);
 
     protected abstract Input makeInput();
     

@@ -31,10 +31,8 @@ public abstract class GameObject {
      * Note: Dayvid, once the loader is fully functional we will modify this to
      * only take in an object ID, and we will load the parameters from the XML.
      */
-    public GameObject(Pixmap image, Location center, Dimension size) {
-        myCenter = new Location(center);
-        myImage = new Pixmap(image);
-        mySize = size;       
+    public GameObject(long instanceId) {
+        myInstanceId=instanceId;        
     }
     
     /**
@@ -44,7 +42,6 @@ public abstract class GameObject {
     public long getInstanceId() {
         return myInstanceId;
     }
-
     
     /**
      * Returns the game object's object id. This id is unique to the type of object

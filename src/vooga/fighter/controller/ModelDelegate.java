@@ -1,11 +1,15 @@
 package vooga.fighter.controller;
 
-public interface ModelDelegate {
-	
-	public void WonLevel();
-	
-	public void LostLevel();
-	
-	public void PlayerHealth(int a);
 
+
+/**
+ * 
+ * @author Jerry Li
+ *
+ */
+public interface ModelDelegate {
+    
+    public void checkConditions(String condition);
+    
+    
 }

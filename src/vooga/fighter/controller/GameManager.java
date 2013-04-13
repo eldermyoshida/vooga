@@ -16,7 +16,6 @@ import vooga.fighter.util.Pixmap;
 import vooga.fighter.util.Text;
 import vooga.fighter.view.Canvas;
 import vooga.fighter.controller.ControllerManager;
-import vooga.fighter.controller.PlayerStatus;
 import vooga.fighter.game.*;
 import vooga.fighter.input.Input;
 import vooga.fighter.input.InputClassTarget;
@@ -31,8 +30,7 @@ public class GameManager{
 	public static final Dimension SIZE = new Dimension(800, 600);
     public static final String TITLE = "Fighter!";
     private Canvas myCanvas;
-    private ControllerManager myContollerManager;
-    private PlayerStatus myPlayerStatus;
+    private ControllerManager myControllerManager;
   
 
     public GameManager() {
@@ -46,9 +44,6 @@ public class GameManager{
         // display them
         frame.pack();
         frame.setVisible(true);
-		myInput = new Input("vooga.fighter.input.Game1Mapping_en_US", myCanvas);
-		myInput.addListenerTo(this);
-		myModeManager = new ControllerManager(myCanvas, myPlayerStatus, myMediaManager, myInput);
 	
 	}
 	 public void run (){
