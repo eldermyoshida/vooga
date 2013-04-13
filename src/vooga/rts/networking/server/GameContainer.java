@@ -10,6 +10,7 @@ public class GameContainer {
     private String myGameName;
     private Map<Integer, ConnectionThread> myConnectionThreads = new HashMap<Integer, ConnectionThread>();
     private List<GameServer> myGameServers = new ArrayList<GameServer>();
+    private Map<String, List<ConnectionThread>> myServerLobbies = new HashMap<String, List<ConnectionThread>>();
     
     public GameContainer(String gameName) {
         myGameName = gameName;
@@ -34,6 +35,14 @@ public class GameContainer {
     
     public ConnectionThread getConnectionThread (int id) {
         return myConnectionThreads.get(id);
+    }
+    
+    public void addConnectionToLobby (ConnectionThread thread, String lobbyName) {
+        
+    }
+    
+    public void startGame (String lobbyName) {
+        
     }
 
 }

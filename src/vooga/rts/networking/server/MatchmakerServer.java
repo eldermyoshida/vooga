@@ -58,5 +58,11 @@ public class MatchmakerServer extends Thread implements IMessageReceiver {
             myGameContainers.get(gameName).removeConnection(thread);
         }
     }
+    
+    public void joinLobby (ConnectionThread thread, String gameName, String lobbyName) {
+        if (myGameContainers.containsKey(gameName)) {
+            myGameContainers.get(gameName).addConnectionToLobby(thread, lobbyName);
+        }
+    }
 
 }
