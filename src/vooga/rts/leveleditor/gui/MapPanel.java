@@ -131,7 +131,7 @@ public class MapPanel extends JComponent {
         repaint();        
     }
 
-    public void mapClicked(int x, int y) {
+    public void placeResource(int x, int y) {
         x=x/myTileWidth;
         y=y/myTileHeight;
         if(x>=0 && x<myWidth && y>=0 && y<myHeight){
