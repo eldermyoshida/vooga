@@ -1,6 +1,7 @@
 package vooga.rts.controller;
 
 import vooga.rts.gamedesign.Gun;
+import vooga.rts.gamedesign.Weapon;
 import vooga.rts.gamedesign.sprite.rtsprite.Bullet;
 import vooga.rts.gamedesign.sprite.rtsprite.Projectile;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Soldier;
@@ -116,18 +117,17 @@ public class GameController extends AbstractController {
         Pixmap p = new Pixmap(ResourceManager.instance().loadFile("images/soldier.png"));        
         Dimension s = new Dimension(100, 100);
         Sound soun = null;//new Sound("/vooga/rts/sounds/pikachu.wav");
-        
         Unit a = null;
         try{
             a = new Soldier(p,new Location(100, 100),s,soun,20,100);
             Projectile proj = new Projectile(new Pixmap(ResourceManager.instance().loadFile("images/bullet.png")), a.getCenter(), new Dimension(30, 30), 1, 10, 1);
             a.setAttackStrategy(new CanAttack());
-            a.addWeapons(new Gun(0, proj, 200, a.getCenter(),20));
+            a.addWeapons(new Weapon(0, proj, 200, a.getCenter(),20));
         }
         catch (Exception e) {
             // trollolol
         }
-
+        
         Unit b = new Soldier(p,new Location(100,300),s,soun,20,50);
         Projectile proj2 = new Projectile(new Pixmap(ResourceManager.instance().loadFile("images/bullet.png")), b.getCenter(), new Dimension(30, 30), 1, 10, 1);
         b.setAttackStrategy(new CanAttack());

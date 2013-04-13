@@ -3,7 +3,6 @@ package vooga.rts.gamedesign;
 import vooga.rts.gamedesign.sprite.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
 import vooga.rts.gamedesign.sprite.rtsprite.Projectile;
-import vooga.rts.gamedesign.upgrades.Upgrade;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
 import vooga.rts.util.Location;
 import java.awt.geom.Ellipse2D.Double;
@@ -71,8 +70,8 @@ public class Weapon {
      * 
      * @param upgrade
      */
-    public void upgrade (Upgrade upgrade) {
-    }
+//    public void upgrade (Upgrade upgrade) {
+//    }
 
     public List<Projectile> getProjectiles () {
         return myProjectiles;
