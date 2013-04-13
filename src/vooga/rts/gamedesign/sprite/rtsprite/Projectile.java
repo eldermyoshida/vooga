@@ -30,7 +30,6 @@ public class Projectile extends GameEntity implements Cloneable{
     public Projectile(Projectile other, Location shootFrom) {
         this(new Pixmap(other.getImage()), new Location(shootFrom), new Dimension(other.getSize()), other.getTeamID(), other.getDamage(), other.getHealth());
     }
-
     public Projectile(Pixmap pixmap, Location loc, Dimension size, int teamID, int damage, int health){
         super(pixmap, loc, size, teamID, health);
         myDamage = damage;
@@ -44,7 +43,12 @@ public class Projectile extends GameEntity implements Cloneable{
     @Override
     public void update(double elapsedTime){
         super.update(elapsedTime);
-        //check if hit target
+        if(this.intersects(myTarget.getCenter())){
+            attack(myTarget);
+            this.die();
+            //lol very bad way 
+            myDamage = 0;
+        }
     }
     public void attack(InteractiveEntity interactiveEntity) {
         interactiveEntity.changeHealth(myDamage);

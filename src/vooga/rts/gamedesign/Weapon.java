@@ -57,8 +57,7 @@ public class Weapon {
      * 
      */
     public void fire (InteractiveEntity toBeShot) {
-        System.out.println("Health of enemy " + toBeShot.getHealth());
-        if(cooldown == 0){
+        if(cooldown == 0 && !toBeShot.isDead()){
             Projectile fire = new Projectile(myProjectile, myCenter);
             fire.setEnemy(toBeShot);
             fire.move(toBeShot.getCenter());
@@ -110,10 +109,7 @@ public class Weapon {
      * subtracts 1 from the cooldown counter
      */
     public void decrementCooldown () {
-
-        System.out.println("dec cooldown " + cooldown);
         cooldown--;
-        System.out.println("dec cooldown " + cooldown);
     }
 
     /**
@@ -137,7 +133,6 @@ public class Weapon {
 
     public void update (double elapsedTime) {
         if(cooldown != 0){
-            System.out.println("dec cooldown " + cooldown);
             decrementCooldown();
         }
         for(Projectile p : myProjectiles){

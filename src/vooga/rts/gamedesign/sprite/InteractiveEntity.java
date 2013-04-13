@@ -89,11 +89,12 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     } 
     public boolean inRange(InteractiveEntity enemy) {
         //ellipse thing doesnt seem to be working very well. 
-//        double distance = Math.sqrt(Math.pow(getCenter().x - enemy.getX(), 2) + Math.pow(this.getY() - enemy.getY(), 2)); 
-//        if(!myWeapons.isEmpty() && distance < myWeapons.get(myWeaponIndex).getRange()){
-//            return true;
-//        }
-        return myWeapons.get(myWeaponIndex).inRange(enemy);
+        double distance = Math.sqrt(Math.pow(getCenter().x - enemy.getX(), 2) + Math.pow(this.getY() - enemy.getY(), 2)); 
+        if(!myWeapons.isEmpty() && distance < myWeapons.get(myWeaponIndex).getRange()){
+            return true;
+        }
+        //buggy :( myWeapons.get(myWeaponIndex).inRange(enemy)
+        return false;
     }
 
     /**
