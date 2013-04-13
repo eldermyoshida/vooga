@@ -27,6 +27,9 @@ public class EditableMap {
     
     private int myLayers;
     
+    private String myMapName = "CIEMAS";
+    private String myDescription = " our RTS is the best one !";
+    
     EditableNode[][] myIndexMatrix;
     
     private Map<Integer , Location> myPlayerLocations;
@@ -188,6 +191,22 @@ public class EditableMap {
     
     
     
+    public String getMyMapName () {
+        return myMapName;
+    }
+
+    public void setMyMapName (String myMapName) {
+        this.myMapName = myMapName;
+    }
+
+    public String getMyDescription () {
+        return myDescription;
+    }
+
+    public void setMyDescription (String myDescription) {
+        this.myDescription = myDescription;
+    }
+
     public EditableNode getMapNode(int x, int y) {
         return myIndexMatrix[x][y];
     }
