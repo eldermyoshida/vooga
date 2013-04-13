@@ -2,7 +2,7 @@
 package vooga.scroller.level_management;
 
 import java.util.List;
-import vooga.scroller.util.Location;
+import util.Location;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.view.View;

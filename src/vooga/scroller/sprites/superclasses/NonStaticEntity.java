@@ -3,11 +3,11 @@ package vooga.scroller.sprites.superclasses;
 
 import java.awt.Dimension;
 import java.util.Random;
+import util.Location;
+import util.Vector;
 import vooga.scroller.level_editor.Level;
-import vooga.scroller.util.Location;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.Sprite;
-import vooga.scroller.util.Vector;
 
 /**
  * This is the superclass for all entities that move. Generally 

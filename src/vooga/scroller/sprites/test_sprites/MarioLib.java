@@ -1,10 +1,10 @@
 package vooga.scroller.sprites.test_sprites;
 
 import java.awt.Dimension;
+import util.Location;
 import vooga.scroller.level_editor.ISpriteLibrary;
 import vooga.scroller.sprites.superclasses.NonStaticEntity;
 import vooga.scroller.sprites.superclasses.StaticEntity;
-import vooga.scroller.util.Location;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.Sprite;
 

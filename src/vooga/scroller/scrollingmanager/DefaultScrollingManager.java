@@ -5,9 +5,9 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import util.Location;
 import vooga.scroller.model.Model;
 import vooga.scroller.sprites.superclasses.Player;
-import vooga.scroller.util.Location;
 import vooga.scroller.view.View;
 /**
  * The default scrolling manager

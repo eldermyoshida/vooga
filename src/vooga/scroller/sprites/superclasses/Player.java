@@ -5,15 +5,15 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.util.List;
+import util.Location;
+import util.Vector;
 import vooga.scroller.sprites.state.State;
 import vooga.scroller.sprites.state.StateManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.util.Gravity;
 import vooga.scroller.util.ISpriteView;
-import vooga.scroller.util.Location;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.Sprite;
-import vooga.scroller.util.Vector;
 import vooga.scroller.view.View;
 
 

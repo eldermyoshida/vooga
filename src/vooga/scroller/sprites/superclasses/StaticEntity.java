@@ -2,7 +2,7 @@
 package vooga.scroller.sprites.superclasses;
 
 import java.awt.Dimension;
-import vooga.scroller.util.Location;
+import util.Location;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.Sprite;
 

@@ -1,5 +1,7 @@
 package vooga.scroller.util;
 
+import util.Vector;
+
 /**
  * This is how we want to handle gravity. Every sprite will have an instance of this 
  * gravity object. 
