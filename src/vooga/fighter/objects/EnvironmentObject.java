@@ -13,13 +13,15 @@ import vooga.fighter.util.Pixmap;
  *
  */
 public class EnvironmentObject extends GameObject {
-
+	private long myInstanceId; 
+	private ObjectLoader myLoader; 
     /**
      * Constructs a new EnvironmentObject with the given image, center, and size.
      * In the future this will use the object loader to read from XML.
      */
-    public EnvironmentObject (Pixmap image, Location center, Dimension size) {
-        super(image, center, size);
+    public EnvironmentObject (long instanceId, int objectId) {
+        super(instanceId);
+    	myLoader= new EnvironmentObjectLoader(objectId);
     }
 
 }

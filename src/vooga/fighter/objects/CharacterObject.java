@@ -11,7 +11,6 @@ import vooga.fighter.input.InputClassTarget;
 import vooga.fighter.input.InputMethodTarget;
 import vooga.fighter.objects.utils.Effect;
 import vooga.fighter.objects.utils.Health;
-import vooga.fighter.objects.utils.State;
 import vooga.fighter.util.Location;
 import vooga.fighter.util.Pixmap;
 import vooga.fighter.util.Vector;
@@ -24,14 +23,14 @@ import vooga.fighter.util.Vector;
  * @author alanni, james
  * 
  */
-public class CharacterObject extends MoveableGameObject {
+public class CharacterObject extends GameObject {
 
     private Map<String,Integer> myProperties;    
     private Map<String,AttackObject> myAttacks;
-    private Map<String,State> myStates;
     private List<Effect> myActiveEffects;
     private Health myHealth;
-    private State myCurrentState;
+    private Location myLocation;
+    private ObjectLoader loader;  
 
     /**
      * Constructs a new CharacterObject.
@@ -39,15 +38,11 @@ public class CharacterObject extends MoveableGameObject {
      * Note: Dayvid once the object loader is functional we will replace this
      * constructor to take in just an ID, then we will load parameters from XML.
      */
-    public CharacterObject (Pixmap image, Location center, Dimension size, int maxHealth) {
-        super(image, center, size);
-        myProperties = new HashMap<String,Integer>();
-        myAttacks = new HashMap<String,AttackObject>();
-        myStates = new HashMap<String,State>();
-        myActiveEffects = new ArrayList<Effect>();        
-        myHealth = new Health();
-        myHealth.setHealth(maxHealth);
-        myCurrentState = null;
+    public CharacterObject (long instanceId, int objectId, Location center) {
+        super(instanceId);
+    	myLocation=center; 
+    	loader= new CharacterObject(objectId);
+    	
     }    
 
     /**
@@ -89,25 +84,6 @@ public class CharacterObject extends MoveableGameObject {
     public List<Effect> getActiveEffects() {
         return myActiveEffects;
     }
-
-    /**
-     * Adds a state to this character's map of states. Overwrites any existing
-     * state with the given key name.
-     */
-    public void addState(String key, State state) {
-        myStates.put(key, state);
-    }
-    
-    /**
-     * Switches the current state to the one indicated by the given key. If the
-     * key does not map to any known states, this method does nothing.
-     */
-    public void switchState(String key) {
-        if (!myStates.containsKey(key)) {
-            return;
-        }
-        myCurrentState = myStates.get(key);
-    }
     
     /**
      * Adds an AttackObject to the list of attacks available for this character.
@@ -137,8 +113,8 @@ public class CharacterObject extends MoveableGameObject {
     /**
      * Returns the health of the character.
      */
-    public int getHealth(){
-        return myHealth.getHealth();
+    public Health getHealth(){
+        return myHealth;
     }
     
     /**
@@ -165,7 +141,6 @@ public class CharacterObject extends MoveableGameObject {
         for (Effect effect : myActiveEffects) {
             effect.update();
         }
-        myCurrentState.update();
     }
     
     /**
