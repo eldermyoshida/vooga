@@ -7,6 +7,7 @@ import vooga.scroller.sprites.superclasses.StaticEntity;
 import vooga.scroller.util.Location;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.Sprite;
+import vooga.scroller.util.Vector;
 
 /**
  * This class is a convenient way to gather all the classes and use reflection
@@ -107,6 +108,8 @@ public class MarioLib implements ISpriteLibrary {
     public static class MovingPlatform extends NonStaticEntity {
         
         private static final String DEFAULT_IMG = "platform.gif";
+        private static final int DEFAULT_SPEED = 60;
+        private static final Vector DEFAULT_VELOCITY = new Vector(Sprite.DOWN_DIRECTION, DEFAULT_SPEED);
 
         public MovingPlatform() {
             this(DEFAULT_LOC);
@@ -114,11 +117,12 @@ public class MarioLib implements ISpriteLibrary {
         
         public MovingPlatform (Location center) {
             super(new Pixmap(DEFAULT_IMG), center, new Dimension(100, 30));
+            this.changeVelocity(DEFAULT_VELOCITY);
         }
         
         public void update(double elapsedTime, Dimension bounds) {
-            System.out.println(getTop() + " " + getBottom());
-            changeVelocity(upAndDown(0, 200, 60)); //want to make this call every X seconds
+           // System.out.println(getTop() + " " + getBottom());
+            changeVelocity(upAndDown(100, 250, DEFAULT_SPEED)); //want to make this call every X seconds
             super.update(elapsedTime, bounds);
         }
         
