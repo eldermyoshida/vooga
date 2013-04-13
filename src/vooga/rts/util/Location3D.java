@@ -73,6 +73,19 @@ public class Location3D {
         this.add(amount.getXChange(), amount.getYChange(), 0);
     }
 
+    /**
+     * Returns a vector that represents the difference between the
+     * current location and another 2D location.
+     * Ignores the Z value of the two locations.
+     * 
+     * @param other The other position.
+     * @return The vector
+     */
+    public Vector difference (Point2D other) {
+        return new Vector(new Point2D.Double(getX(), getY()), new Point2D.Double(other.getX(),
+                                                                                 other.getY()));
+    }
+
     // TODO: Translate by Vector Amount
     // TODO: Return the difference between two points as a vector.
 
@@ -85,8 +98,8 @@ public class Location3D {
     public void add (Location3D add) {
         this.add(add.getX(), add.getY(), add.getZ());
     }
-    
-    public void add(double x, double y, double z) {
+
+    public void add (double x, double y, double z) {
         myX += x;
         myY += y;
         myZ += z;
@@ -133,5 +146,11 @@ public class Location3D {
      */
     public double getDistance (Location3D other) {
         return getDistance(other.getX(), other.getY(), other.getZ());
+    }
+    
+    public void negate() {
+        myX *= -1;
+        myY *= -1;
+        myZ *= -1;
     }
 }
