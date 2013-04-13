@@ -93,6 +93,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
         if(!myWeapons.isEmpty() && distance < myWeapons.get(myWeaponIndex).getRange()){
             return true;
         }
+        //buggy :( myWeapons.get(myWeaponIndex).inRange(enemy)
         return false;
     }
 
