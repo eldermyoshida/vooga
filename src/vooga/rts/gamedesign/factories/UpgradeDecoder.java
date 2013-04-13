@@ -59,6 +59,7 @@ public class UpgradeDecoder extends Decoder {
 			Element nameElmnt = (Element) nameElmntLst.item(0);
 			NodeList name = nameElmnt.getChildNodes();
 			UpgradeNode branchHead = upgradeTree.addBranch(i, ((Node) name.item(0)).getNodeValue());
+			UpgradeNode current = branchHead;
 			System.out.println("name : "  + ((Node) name.item(0)).getNodeValue());
 			
 			NodeList upgradeNodeList = typeElmnt.getElementsByTagName(INDIVIDUAL_UPGRADE_TAG);
@@ -85,7 +86,9 @@ public class UpgradeDecoder extends Decoder {
 				String value = ((Node)valueElmnt.getChildNodes().item(0)).getNodeValue();
 				System.out.println("value : " + value);
 				
-				branchHead.addChild(new UpgradeNode(Integer.parseInt(id), nodeName, object, Integer.parseInt(value)));
+				UpgradeNode newLeaf = current.addChild(new UpgradeNode(Integer.parseInt(id), nodeName, object, Integer.parseInt(value)));
+				current = newLeaf;
+				//TODO: need to find a way to upgrade CurrentUpgrades.
 			}
 		}
 		

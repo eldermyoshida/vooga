@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.util.List;
 
 import vooga.rts.ai.PathingHelper;
+import vooga.rts.gamedesign.Action;
 import vooga.rts.gamedesign.sprite.GameSprite;
 import vooga.rts.gamedesign.sprite.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.IGatherable;
@@ -12,6 +13,7 @@ import vooga.rts.gamedesign.strategy.gatherstrategy.CannotGather;
 import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
 import vooga.rts.gamedesign.strategy.occupystrategy.CannotOccupy;
 import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
+import vooga.rts.gamedesign.upgrades.UpgradeNode;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
@@ -54,6 +56,7 @@ public class Unit extends InteractiveEntity {
         //myPather = new PathingHelper();
         myGatherStrategy = new CannotGather();
         myOccupyStrategy = new CannotOccupy();
+        addUpgradeActions();
     }
     
     /**
@@ -74,6 +77,23 @@ public class Unit extends InteractiveEntity {
     	if(myOccupyStrategy.canOccupy(o)){
     	    o.getOccupied(this);
     	}
+    }
+    
+    /**
+     * Adds the list of available upgrades into the list of available actions.
+     */
+    private void addUpgradeActions(){
+        List<UpgradeNode> currentUpgrades = getUpgradeTree().getCurrentUpgrades();
+    	for (UpgradeNode u: currentUpgrades) {
+    		//TODO:
+    	}
+        
+        getActions().add(new Action("AttackUpgrade", null, "This is a new action specific for soldier"){
+            @Override
+            public void apply(){
+                //what will the action be? 
+            }
+        });
     }
     
     public void setGatherStrategy (GatherStrategy newStrategy) {

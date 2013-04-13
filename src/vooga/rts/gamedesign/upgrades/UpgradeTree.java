@@ -38,15 +38,22 @@ public class UpgradeTree {
     }
     
     /**
-     * updates the list of current and next upgrades based on the given
+     * Updates the list of current and next upgrades based on the given
      * UpgradeNode, which is newly activated
      * @param u
      */
-    public void updateTree(UpgradeNode u){
+    public void activateNode(UpgradeNode u) {
     	myCurrentUpgrades.add(u);
     	UpgradeNode nextUpgrade = u.getChildren().get(0);
     	myNextUpgrades.add(nextUpgrade);
     } 
+    
+    /**
+     * Updates the list of current and next upgrades.
+     */
+    public void updateTreeStatus() {
+    	//TODO
+    }
     
     public UpgradeNode addBranch(int ID, String branchName) {
     	UpgradeNode branch = new UpgradeNode(ID, branchName, null, 0);
@@ -79,5 +86,9 @@ public class UpgradeTree {
 
     public List<InteractiveEntity> getUsers(){
     	return myUsers;
+    }
+    
+    public List<UpgradeNode> getCurrentUpgrades() {
+    	return myCurrentUpgrades;
     }
 }

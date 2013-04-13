@@ -77,8 +77,9 @@ public class UpgradeNode {
         return myChildren;
     }
     
-    public void addChild(UpgradeNode upgrade) {
+    public UpgradeNode addChild(UpgradeNode upgrade) {
 		myChildren.add(upgrade);
+		return upgrade;
 	}
 
     public UpgradeTree getUpgradeTree() {
