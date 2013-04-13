@@ -24,14 +24,14 @@ import vooga.rts.leveleditor.components.Resource;
 
 @InputClassTarget
 public class ResourceButton extends JToggleButton {
-    
+
     public static final String INPUT_DIR = "vooga.rts.resources.Input";
 
     private Resource myResource;
     private ResourcePanel myOwner;
     private BufferedImage myIcon;
     private Input myInput;
-    
+
     /**
      * Constructor for this class
      * 
@@ -44,17 +44,17 @@ public class ResourceButton extends JToggleButton {
         myOwner = owner;
         myInput = new Input(INPUT_DIR, this);
         myInput.addListenerTo(this);
-       
+
         myIcon.getGraphics().drawImage(myIcon, 0, 0, 32, 32, null);
         setToolTipText(r.getName());
         setIcon(new ImageIcon(myIcon));
         setMargin(new Insets(2,2,2,2));
     }
-    
-        @InputMethodTarget(name="onLeftMouseDown")
-        public void getResource(PositionObject p) {
-            myOwner.getCanvas().remove(false);
-            myOwner.setCurrentSelectResource(myResource);
-        }
+
+    @InputMethodTarget(name="onLeftMouseDown")
+    public void getResource(PositionObject p) {
+        myOwner.getCanvas().remove(false);
+        myOwner.setCurrentSelectResource(myResource);
+    }
 
 }

@@ -16,13 +16,13 @@ import vooga.rts.leveleditor.components.EditableNode;
 
 @InputClassTarget
 public class MapPanel extends JComponent {
-    
+
     public static final String INPUT_DIR = "vooga.rts.resources.Input";
     public static final Dimension DEFAULT_MAP_SIZE  = new Dimension (600,600);
     public static final double ZOOM_RATE = 1.25;
     public static int DEFAULT_TILE_WIDTH = 50;
     public static int DEFAULT_TILE_HEIGHT = 50;
-    
+
     private Canvas myCanvas;
     private EditableMap myMap;
     private Input myInput;
@@ -31,7 +31,7 @@ public class MapPanel extends JComponent {
     private int myTileWidth;
     private int myTileHeight;
     private boolean myRemoveFlag;
-    
+
     public MapPanel(Canvas canvas) {
         myCanvas = canvas;
         myMap = new EditableMap();
@@ -43,7 +43,7 @@ public class MapPanel extends JComponent {
         myTileHeight = DEFAULT_TILE_HEIGHT;
         setPanelSize();
     }
-    
+
     private void setPanelSize() {
         setPreferredSize(new Dimension(myTileWidth*myWidth, myTileHeight*myHeight));       
     }
@@ -52,7 +52,7 @@ public class MapPanel extends JComponent {
     public void paintComponent (Graphics g) {
         g.setColor(Color.white);
         g.fillRect(0,0,myWidth*myTileWidth, myHeight*myTileHeight);
-        
+
 
         g.setColor(Color.gray);
         for(int i=0; i<myWidth; i++) {
@@ -79,43 +79,42 @@ public class MapPanel extends JComponent {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                }
-
+                }              
             }
         }
 
 
     }
-    
+
     public void setWidth(int w) {
         myWidth = w;
         setPanelSize();
         repaint();
     }
-    
+
     public void setHeight(int h) {
         myHeight = h;
         setPanelSize();
         repaint();
     }
-    
+
     public void setTileWidth(int w) {
         myTileWidth = w;
         setPanelSize();
         repaint();
     }
-    
+
     public void setTileHeight(int h) {
         myTileHeight = h;
         setPanelSize();
         repaint();
     }
-    
+
     public void initializeMap(int w, int h) {
         myMap = new EditableMap(w,h);
-        
+
     }
-    
+
     public void ZoomIn() {
         myMap.ZoomIn();
         myTileWidth = (int) (myTileWidth * ZOOM_RATE);
@@ -147,21 +146,21 @@ public class MapPanel extends JComponent {
             repaint();
         }
     }
-    
+
 
     public void clear() {
         myMap.clear();
         repaint();
     }
-    
+
     public void setRemoveFlag(boolean b) {
         myRemoveFlag = b; 
     }
-    
+
     public EditableMap getMyMap() {
         return myMap;
     }
-    
+
 
     @InputMethodTarget(name="onLeftMouseDown")
     public void testClick (PositionObject p) {
