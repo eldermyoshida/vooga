@@ -1,13 +1,11 @@
 package vooga.rts.leveleditor.components;
 
-import java.awt.Dimension;
+
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 import vooga.rts.leveleditor.gui.MapPanel;
 import vooga.rts.util.Location;
 
@@ -34,6 +32,8 @@ public class EditableMap {
     private Map<Integer , Location> myPlayerLocations;
     private int myPlayerNumber;
     
+    private MapSaver mySaver;
+    private MapLoader myLoader;
     
     public EditableMap(int x , int y, int nodeX, int nodeY) {
         
@@ -62,6 +62,8 @@ public class EditableMap {
         }
         myPlayerLocations = new HashMap<Integer , Location>();
         myPlayerNumber = 0;
+        mySaver = new MapSaver();
+        myLoader = new MapLoader();
     }
     
     public void initializeMap() {
@@ -70,9 +72,7 @@ public class EditableMap {
     
     public void addFeature(int x , int y , int index) {
         myIndexMatrix[x][y].addFeature(index);
-        if(myIndexMatrix[x][y].getLayerNumber() > myLayers) {
-            myLayers = myIndexMatrix[x][y].getLayerNumber();
-        }
+        refreshLayerNumber();
     }
     
     public void addFeature(Location loc, int index) {
@@ -86,7 +86,7 @@ public class EditableMap {
     public void removeFeatures(int x ,int y) {
        
         myIndexMatrix[x][y].clearAllFeatures();
-        myLayers = getLayerNumber(); 
+        refreshLayerNumber(); 
     
     }
    
@@ -95,6 +95,11 @@ public class EditableMap {
         myPlayerLocations.put(myPlayerNumber, new Location(x,y));
         myPlayerNumber ++;
         
+    }
+    
+    public void addPlayer(Location loc) {
+        myPlayerLocations.put(myPlayerNumber, loc);
+        myPlayerNumber ++;
     }
     
     public void removePlayer(int index) {
@@ -111,49 +116,8 @@ public class EditableMap {
         }
     }
     
-    public void generateMapFile(File mySavFile) throws IOException {
-        
-        if(!mySavFile.exists()) {
-            mySavFile.createNewFile();
-        } 
-        int x = myXSize;
-        int y = myYSize;
-        int layerNumber = getLayerNumber();
-            
-        FileWriter myWriter = new FileWriter(mySavFile);
-       
-        myWriter.write( myXSize + "*" + myYSize + "*" + layerNumber);
-        myWriter.write("\r\n");
-        
-        for(int i=0 ; i< myPlayerNumber ; i++) {
-            int playerX = (int)myPlayerLocations.get(i).getX();
-            int playerY = (int)myPlayerLocations.get(i).getY();
-            myWriter.write("Player " + i + " " + playerX + " " + playerY );   
-            myWriter.write("\r\n");
-        }
-        
-        
-        
-        for(int layer = 0 ; layer<layerNumber ; layer++ ) {
-            for(int i =0 ; i < x ; i++) {
-                for(int j = 0 ; j < y ; j++) {
-                    if( layer < myIndexMatrix[i][j].getLayerNumber()) {
-                        myWriter.write(myIndexMatrix[i][j].getFeature(layer)+"");                        
-                    } else {
-                        myWriter.write(0+"");
-                    }
-                }
-                myWriter.write("\r\n");
-            }
-            for(int i = 0 ; i < 10 ; i++) {
-                myWriter.write("**");
-            }
-            myWriter.write("\r\n");
-        }
-        myWriter.close();
-    }
     
-    public int getLayerNumber() {
+    public void refreshLayerNumber() {
         int count =0;
         for( int i =0 ; i< myXSize; i++) {
             for( int j =0 ; j< myYSize ; j++) {
@@ -162,66 +126,9 @@ public class EditableMap {
                 }
             }
         }
-        return count;
+        myLayers = count;
     }
     
-    public void loadMapFile(File resourceFile) throws FileNotFoundException {
-        
-        Scanner myScanner = new Scanner(resourceFile);
-        String line = myScanner.nextLine();
-        
-        String[] sizeBuffer = line.split("\\*");
-        int x = Integer.parseInt(sizeBuffer[0]);
-        int y = Integer.parseInt(sizeBuffer[1]);
-        int layerCount = Integer.parseInt(sizeBuffer[2]);
-        
-        EditableMap buffer = new EditableMap(x,y);
-        buffer.setMyLayers(layerCount);
-        
-        line = myScanner.nextLine();
-        int count =0;
-        
-        while(line.contains("Player")) {
-            String[] playerBuffer = line.split(" ");
-            buffer.addPlayer(Integer.parseInt(playerBuffer[2]), Integer.parseInt(playerBuffer[3]));
-            System.out.println("player added");
-            count ++;
-            line = myScanner.nextLine();
-            
-        }
-        buffer.setMyPlayerNumber(count);
-        
-        
-        
-        for(int l = 0 ; l<layerCount ; l++) {
-            if(line.contains("*")) {
-                line = myScanner.nextLine();
-            }
-            for(int i =0 ; i<x ; i++) {
-                for(int j =0 ; j<y ; j++) {
-                    if(Integer.parseInt(line.charAt(j)+"") != 0){
-                        buffer.getMapNode(i, j).addFeature(Integer.parseInt(line.charAt(j)+""));    
-                    }
-                }
-                if(myScanner.hasNextLine()) {
-                    line = myScanner.nextLine();
-                } else {
-                    break;
-                }
-            }
-        }
-        
-        
-        myIndexMatrix = buffer.getMap();
-        myPlayerLocations = new HashMap<Integer,Location>(buffer.getAllPlayers());
-        myPlayerNumber = buffer.getMyPlayerNumber();
-        myXSize = x;
-        myYSize = y;
-        myLayers = layerCount;
-        
-        
-        myScanner.close();
-    }
    
     public void printMatrix() {
         System.out.println("printmatrix executed");
@@ -249,6 +156,38 @@ public class EditableMap {
         }
     }
     
+    public void load(File resourceFile) {
+        try {
+            myLoader.loadMapFile(this, resourceFile);
+        }
+        catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+    
+    public void load(String filePath) {
+        File bufferFile = new File(filePath);
+        load(bufferFile);
+    }
+    
+    public void save(File objectiveFile) { 
+        try {
+            mySaver.generateMapFile(this, objectiveFile);
+        }
+        catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+    
+    public void save(String filePath) {
+        File bufferFile = new File(filePath);
+        save(bufferFile);
+    }
+    
+    
+    
     public EditableNode getMapNode(int x, int y) {
         return myIndexMatrix[x][y];
     }
@@ -267,15 +206,23 @@ public class EditableMap {
     public int getMyPlayerNumber () {
         return myPlayerNumber;
     }
-
-    public void setMyPlayerNumber (int myPlayerNumber) {
-        this.myPlayerNumber = myPlayerNumber;
-    }
-
-    public void setMyLayers (int myLayers) {
-        this.myLayers = myLayers;
-    }
     
+    public int getMyXSize () {
+        return myXSize;
+    }
+
+    public int getMyYSize () {
+        return myYSize;
+    }  
+
+    public void setMyXSize (int myXSize) {
+        this.myXSize = myXSize;
+    }
+
+    public void setMyYSize (int myYSize) {
+        this.myYSize = myYSize;
+    }
+
     public Location getPlayer(int index) {
         return myPlayerLocations.get(index); 
     }
@@ -303,6 +250,11 @@ public class EditableMap {
         myXSize = h;
 
     }
+    
+    public void setMyLayers (int myLayers) {
+        this.myLayers = myLayers;
+    }
+    
     
     public void ZoomIn() {
         for(int i =0 ; i<myXSize ; i++) {
