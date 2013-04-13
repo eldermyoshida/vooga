@@ -1,10 +1,9 @@
 package vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings;
 
-import java.awt.Dimension;
-
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
+import vooga.rts.util.ThreeDimension;
 
 /**
  * 
@@ -16,7 +15,7 @@ import vooga.rts.util.Sound;
  */
 public class ResearchFacility extends Building {
 
-  public ResearchFacility(Pixmap image, Location center, Dimension size,
+  public ResearchFacility(Pixmap image, Location center, ThreeDimension size,
 			Sound sound, int teamID, int health) {
 		super(image, center, size, sound, teamID, health);
 		

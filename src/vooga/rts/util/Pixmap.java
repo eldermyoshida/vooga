@@ -57,6 +57,13 @@ public class Pixmap {
     /**
      * Describes how to draw the image on the screen.
      */
+    public void paint (Graphics2D pen, Point2D center) {
+        paint(pen, center, null, 0);
+    }
+    
+    /**
+     * Describes how to draw the image on the screen.
+     */
     public void paint (Graphics2D pen, Point2D center, Dimension size) {
         paint(pen, center, size, 0);
     }

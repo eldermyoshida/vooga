@@ -15,11 +15,17 @@ import vooga.rts.util.Sound;
  * @author Wenshun Liu 
  *
  */
-public class Transport extends Units implements IOccupiable {
+public class Transport extends Unit implements IOccupiable {
 
 	public Transport(Pixmap image, Location center, Dimension size,
 			Sound sound, int teamID, int health) {
 		super(image, center, size, sound, teamID, health);
+	}
+
+	@Override
+	public void getOccupied(Unit u) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

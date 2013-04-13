@@ -1,10 +1,6 @@
 package vooga.rts.gamedesign.strategy.gatherstrategy;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import vooga.rts.gamedesign.sprite.rtsprite.IGatherable;
-import vooga.rts.gamedesign.sprite.rtsprite.Resource;
+import vooga.rts.gamedesign.sprite.rtsprite.interactive.IGatherable;
 
 /**
  * This class implements GatherStrategy and is used as an instance in 
@@ -19,12 +15,10 @@ import vooga.rts.gamedesign.sprite.rtsprite.Resource;
  *
  */
 public class CanGather implements GatherStrategy{
-	private List<IGatherable> myResources = new ArrayList<IGatherable>();
 	
 	@Override
-	public void gather(IGatherable g) {
-		myResources.add(g);
-		//TODO: check for if meeting certain goals probably??
+	public boolean canGather(IGatherable g) {
+		return true;
 	}
 	
 	/**

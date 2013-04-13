@@ -15,7 +15,7 @@ import vooga.rts.util.Sound;
  * @author Wenshun Liu 
  *
  */
-public class MinionSpawner extends Units {
+public class MinionSpawner extends Unit {
 
   public MinionSpawner(Pixmap image, Location center, Dimension size,
 			Sound sound, int teamID, int health) {

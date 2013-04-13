@@ -8,5 +8,4 @@ public class Gun extends Weapon{
 	public Gun(int damage, Projectile projectile, int range, Location center, int cooldown) {
 		super(damage, projectile, range, center, cooldown);
 	}
-
 }

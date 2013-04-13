@@ -2,7 +2,7 @@ package vooga.rts.player;
 
 import java.awt.Graphics2D;
 import vooga.rts.IGameLoop;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.Interactive;
+import vooga.rts.gamedesign.sprite.InteractiveEntity;
 import vooga.rts.manager.*;
 import vooga.rts.map.GameMap;
 
@@ -28,7 +28,7 @@ public abstract class Player implements IGameLoop {
         return myResourceManager;
     }
 
-    public ResourceManager removeResources (Interactive i) {
+    public ResourceManager removeResources (InteractiveEntity i) {
         return myResourceManager;
 
     }

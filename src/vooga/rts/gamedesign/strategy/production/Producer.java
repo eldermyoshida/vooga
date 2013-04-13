@@ -1,7 +1,7 @@
 package vooga.rts.gamedesign.strategy.production;
 
 import vooga.rts.gamedesign.factories.Factory;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.Interactive;
+import vooga.rts.gamedesign.sprite.InteractiveEntity;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class Producer implements IProducer {
 
-  public List<Interactive> myProducables;
+  public List<InteractiveEntity> myProducables;
 
   public Integer cooldown;
 
