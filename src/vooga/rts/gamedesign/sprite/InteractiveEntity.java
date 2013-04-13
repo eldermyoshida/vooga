@@ -8,8 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import vooga.rts.gamedesign.Action;
 import vooga.rts.gamedesign.Weapon;
+import vooga.rts.gamedesign.action.Action;
 import vooga.rts.gamedesign.factories.Factory;
 import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
 import vooga.rts.gamedesign.sprite.rtsprite.Projectile;
@@ -42,7 +42,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     private List<Action> myActions;
     private List<Weapon> myWeapons;
     private int myWeaponIndex;
-
+    private int myBuildTime; //add to constructor, getters and setters
     private Map<String, Factory> myMakers; //WHERE SHOULD THIS GO??
 
     public InteractiveEntity (Pixmap image, Location center, Dimension size, Sound sound, int teamID, int health) {
@@ -114,7 +114,6 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
      * @return the current attack strategy
      */
     public AttackStrategy getAttackStrategy () {
-
         return myAttackStrategy;
     }
 

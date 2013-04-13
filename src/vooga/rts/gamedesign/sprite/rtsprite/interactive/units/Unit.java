@@ -2,7 +2,7 @@ package vooga.rts.gamedesign.sprite.rtsprite.interactive.units;
 
 import java.awt.Dimension;
 import java.util.List;
-import vooga.rts.gamedesign.Action;
+import vooga.rts.gamedesign.action.Action;
 import vooga.rts.gamedesign.sprite.GameSprite;
 import vooga.rts.gamedesign.sprite.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.IGatherable;
