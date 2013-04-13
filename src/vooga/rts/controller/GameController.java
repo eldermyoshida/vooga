@@ -79,6 +79,7 @@ public class GameController extends AbstractController {
     public void paint (Graphics2D pen) {
         for (Player p : myPlayers) {
             p.paint(pen);
+            
         }
     }
 
@@ -107,7 +108,7 @@ public class GameController extends AbstractController {
     }
 
     @Override
-    public void activate (MainState gameState) {
+    public void activate () {
         setupGame();
     }
 
@@ -147,4 +148,9 @@ public class GameController extends AbstractController {
         addPlayer(p1, 1);
         addPlayer(p2, 2);
     }
+
+	@Override
+	public MainState getGameState() {
+		return MainState.Game;
+	}
 }
