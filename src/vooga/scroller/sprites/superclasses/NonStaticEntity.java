@@ -56,7 +56,7 @@ public class NonStaticEntity extends Sprite {
     
     
     /**
-     * NOTE - this method will only work if the Y coordinate of moving platform is 
+     * This method will only work if the Y coordinate of moving platform is 
      * instantiated somewhere between TOP and BOTTOM. You can't create a moving platform 
      * outside the bounds of TOP and BOTTOM. Likewise, you therefore cannot give TOP 
      * and BOTTOM bounds that do not encapsulate where your moving platform is instantiated. 
@@ -64,7 +64,7 @@ public class NonStaticEntity extends Sprite {
      * @param top
      * @param bottom
      * @param speed
-     * @return
+     * @return a vector in the UP or DOWN direction with given SPEED
      */
     public Vector upAndDown(int top, int bottom, int speed) {
  
