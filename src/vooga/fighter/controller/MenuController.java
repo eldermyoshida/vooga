@@ -15,7 +15,7 @@ public class MenuController extends Controller {
     
     private static String DEFAULT_RESOURCE = "vooga.fighter.config.LevelConfig";
     
-    public MenuController (Mode model, String id, ManagerDelegate manager) {
+    public MenuController (Mode model, String id, ControllerDelegate manager) {
         super(model, id, manager);
     }
  

@@ -9,7 +9,7 @@ package vooga.fighter.controller;
  */
 public interface ModelDelegate {
     
-    public void checkConditions(String condition);
+    public void notifyEndCondition(String modeName);
     
     
 }

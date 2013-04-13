@@ -27,7 +27,7 @@ public class LevelController extends Controller {
     
     private static String DEFAULT_RESOURCE = "vooga.fighter.config.LevelConfig";
     
-    public LevelController (Mode model, String id, ManagerDelegate manager) {
+    public LevelController (Mode model, String id, ControllerDelegate manager) {
         super(model, id, manager);
         myLevelNames = ResourceBundle.getBundle(DEFAULT_RESOURCE);
         

@@ -18,28 +18,28 @@ public abstract class Controller implements ModelDelegate {
     
     protected Mode myGame;
     protected final Dimension DEFAULT_BOUNDS = new Dimension(800, 800);
-    private ManagerDelegate myManager;
+    private ControllerDelegate myManager;
     private String myID;
     
     
-    public Controller (Mode model, ManagerDelegate manager) {
+    public Controller (Mode model, ControllerDelegate manager) {
         myGame = model;
         myManager = manager;
         myID = null;
     }
     
-    public Controller (Mode model, String id, ManagerDelegate manager) {
+    public Controller (Mode model, String id, ControllerDelegate manager) {
         myGame = model;
         myID = id;
         myManager = manager;
     }
     
-    public Controller (String id, ManagerDelegate manager) {
+    public Controller (String id, ControllerDelegate manager) {
         myID = id;
         myManager = manager;
     }
     
-    public Controller(ManagerDelegate manager) {
+    public Controller(ControllerDelegate manager) {
         myManager = manager;
     }
     
