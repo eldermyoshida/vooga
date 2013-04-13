@@ -1,22 +1,24 @@
-package vooga.rts.networking;
+package vooga.rts.networking.example;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-
+/**
+ * Used for chat example, deprecated.
+ * @author David Winegar
+ *
+ */
 public class ExampleView extends JFrame {
     int portdiff = 0;
     JPanel windowPanel;
     JPanel panel;
+
     public ExampleView () {
         setTitle("Example");
         panel = new JPanel();
@@ -24,12 +26,12 @@ public class ExampleView extends JFrame {
         windowPanel = new JPanel();
         windowPanel.setPreferredSize(new Dimension(800, 500));
         JButton button = new JButton("New chat window");
-        button.addActionListener(new ActionListener () {
+        button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent arg0) {
                 windowPanel.add(createPane());
                 setVisible(true);
-            }    
+            }
         });
         panel.add(button);
         panel.add(windowPanel);
@@ -37,8 +39,8 @@ public class ExampleView extends JFrame {
         pack();
         setVisible(true);
     }
-    
-    public JPanel createPane() {
+
+    public JPanel createPane () {
         JPanel panel = new JPanel();
         JTextField field = new JTextField();
         JTextArea area = new JTextArea();
@@ -46,9 +48,9 @@ public class ExampleView extends JFrame {
         field.setPreferredSize(new Dimension(100, 100));
         panel.add(field);
         panel.add(area);
-        ExampleViewConnector connect = new ExampleViewConnector(area, field, portdiff);
+        //ExampleViewConnector connect = new ExampleViewConnector(area, field, portdiff);
         portdiff++;
-        connect.start();
+        //connect.start();
         return panel;
     }
 

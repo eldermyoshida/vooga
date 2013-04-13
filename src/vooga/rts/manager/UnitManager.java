@@ -10,8 +10,8 @@ import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Unit;
 public class UnitManager implements IGameLoop {
     private List<Unit> myUnits;
     private List<Unit> mySelectedUnits;
-    
-    public void addUnit(Unit u) {
+
+    public void addUnit (Unit u) {
         myUnits.add(u);
     }
 
@@ -33,25 +33,25 @@ public class UnitManager implements IGameLoop {
             mySelectedUnits.remove(u);
         }
     }
-    
-    public void group(int groupID) {
+
+    public void group (int groupID) {
         // TODO: implement
     }
-    
-    public void activateGroup(int groupID) {
+
+    public void activateGroup (int groupID) {
         // TODO: implement
     }
-    
-    public void deselectAll() {
+
+    public void deselectAll () {
         mySelectedUnits.clear();
     }
-    
-    public List<Unit> getSelected() {
+
+    public List<Unit> getSelected () {
         System.out.println("returning selected units");
         return mySelectedUnits;
     }
-    
-    public List<Unit> getAllUnits() {
+
+    public List<Unit> getAllUnits () {
         return myUnits;
     }
 
@@ -68,5 +68,5 @@ public class UnitManager implements IGameLoop {
             u.paint(pen);
         }
     }
-    
+
 }

@@ -1,55 +1,66 @@
 package vooga.rts.leveleditor.gui;
 
-import java.awt.Dimension;
-import java.awt.Graphics;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.ResourceBundle;
-import javax.imageio.ImageIO;
-import javax.swing.JComponent;
+import javax.swing.ImageIcon;
+import javax.swing.JToggleButton;
+import vooga.rts.input.AlertObject;
+import vooga.rts.input.Input;
+import vooga.rts.input.InputClassTarget;
+import vooga.rts.input.InputMethodTarget;
+import vooga.rts.leveleditor.components.Resource;
 
+/**
+ * This class represents the resource button on Resource Panel
+ * User can click and add the resource onto the map
+ *
+ * @author Ziqiang Huang
+ *
+ */
 
-public class ResourceButton extends JComponent {
-
-    private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
+//@InputClassTarget
+public class ResourceButton extends JToggleButton implements ActionListener {
     
-    private int myIndex;
+    //public static final String INPUT_DIR = "vooga.rts.resources.Input";
+
+    private Resource myResource;
+    private ResourcePanel myOwner;
     private BufferedImage myIcon;
-    private int myXPosition;
-    private int myYPosition;
-    private Dimension mySize;
-    private ResourceBundle myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE+"map");
+    private Input myInput;
     
-    
-    public ResourceButton(int index, int x, int y){
-        if(myResources.containsKey(index+"")) {
-            String iconName = myResources.getString(index+"");
-            try {
-                myIcon = ImageIO.read(new File(System.getProperty("user.dir")+ "./src/resources/images/" + iconName ));
-            }
-            catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            myXPosition = x;
-            myYPosition = y;
-        }
+    /**
+     * Constructor for this class
+     * 
+     * @param r : the Resource which the button represents
+     * @param owner : the ResourcePanel which holds this button;
+     */
+    public ResourceButton (Resource r, ResourcePanel owner) {
+        myResource = r;
+        myIcon = r.getImage();
+        myOwner = owner;
+        //myInput = new Input(INPUT_DIR, this);
+        //myInput.addListenerTo(this);
+       
+        myIcon.getGraphics().drawImage(myIcon, 0, 0, 32, 32, null);
+        setToolTipText(r.getName());
+        setIcon(new ImageIcon(myIcon));
+        setMargin(new Insets(2,2,2,2));
+        this.addActionListener(this);
     }
     
-    public void paint(Graphics pen, int x, int y) {
-        pen.drawImage(myIcon, x, y, null);
-    }
- 
-    public boolean judgeInArea(int x , int y) {
-        if( x > myXPosition && x < myXPosition + mySize.width && y > myYPosition && x < myYPosition + mySize.height) {
-           return true; 
-        }
-        return false;
-    }
-
-    public int getIndex() {
-        return myIndex;
+//    @InputMethodTarget(name="onLeftMouseClick")
+//    public void getResource(AlertObject alObj) {
+//        myOwner.getCanvas().remove(false);
+//        myOwner.setCurrentSelectResource(myResource);
+//        System.out.println("test");
+//    }
+    
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        myOwner.getCanvas().remove(false);
+        myOwner.setCurrentSelectResource(myResource);
     }
 
 

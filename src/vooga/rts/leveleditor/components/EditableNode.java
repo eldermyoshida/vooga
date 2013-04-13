@@ -3,34 +3,40 @@ package vooga.rts.leveleditor.components;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
-import javax.imageio.ImageIO;
+import vooga.rts.leveleditor.gui.MapPanel;
 
 public class EditableNode {
 
     private static final String RELATIVE_PATH = "vooga.rts.leveleditor.resource.";
-    public static final Dimension DEFAULT_DIMENSION = new Dimension(50,50);
     
     private int myX;
     private int myY;
+    private int myWidth;
+    private int myHeight;
     
+    private double myZoomRate;
+    private boolean myOccupied;
+    
+    private BufferedImage myImage;
     private Dimension myDimension;
-    private List<Integer> myFeatures = new LinkedList<Integer>();
+    private List<Integer> myFeatures;
     private ResourceBundle myResources = ResourceBundle.getBundle(RELATIVE_PATH + "ImageIndex");
     
     
     public EditableNode() {
-        this(0,0,DEFAULT_DIMENSION);
+        this(0, 0, MapPanel.DEFAULT_TILE_WIDTH, MapPanel.DEFAULT_TILE_HEIGHT, false);
     }
-    
-    public EditableNode(int x, int y, Dimension dimension) {
+    public EditableNode(int x, int y, int width, int height, boolean isOccupied) {
         myX = x;
         myY = y;
-        myDimension = dimension;
+        myWidth = width;
+        myHeight = height;
+        myOccupied = isOccupied;
+        myFeatures = new LinkedList<Integer>();
     }
 
     public int getMyX () {
@@ -43,6 +49,15 @@ public class EditableNode {
 
     public Dimension getMyDimension () {
         return myDimension;
+    }
+    
+    public void setOccupied(boolean b) {
+        myOccupied = b;
+    }
+    
+    
+    public boolean getOccupied() {
+        return myOccupied;
     }
     
     public void addFeature(int index) {
@@ -69,14 +84,35 @@ public class EditableNode {
         return myFeatures.get(featureIndex);
     }
     
+    public double getMyZoomRate() {
+        return myZoomRate;
+    }
+    
+    public void setMyZoomRate(double rate) {
+        myZoomRate = rate;
+    }
+    
+    public void setImage(BufferedImage i) {
+        myImage = i;
+    }
+    
+    
     public void paint(Graphics pen) throws IOException {
-        for(Integer i : myFeatures) {
-            if(myResources.containsKey(i+"")) {
-                String path = System.getProperty("user.dir") + RELATIVE_PATH + myResources.getString(i+"");
-                BufferedImage myImage = ImageIO.read(new File(path));
-                pen.drawImage(myImage, myX, myY, null);
-            }    
-        }
+        pen.drawImage(myImage, myX*myWidth, myY*myHeight, myWidth, myHeight,null);
+    }
+
+    public void ZoomIn() {
+        myWidth = (int)(myWidth * MapPanel.ZOOM_RATE);
+        myHeight = (int)(myHeight * MapPanel.ZOOM_RATE);
+    }
+
+    public void ZoomOut() {
+        myWidth = (int)(myWidth / MapPanel.ZOOM_RATE);
+        myHeight = (int)(myHeight / MapPanel.ZOOM_RATE);
+    }
+    public void reset() {
+        myOccupied = false;
+        myFeatures.clear();
     }
     
     

@@ -1,4 +1,4 @@
-package vooga.rts.networking;
+package vooga.rts.networking.example;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,6 +10,11 @@ import java.net.UnknownHostException;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+/**
+ * Example conector used to debug when running server on Localhost. 
+ * @author David Winegar
+ *
+ */
 public class ExampleViewConnector extends Thread {
 
     JTextArea outputArea;
@@ -17,7 +22,7 @@ public class ExampleViewConnector extends Thread {
     private static final int PORT = 2233;
     private ObjectOutputStream out = null;
     private ObjectInputStream in = null;
-    
+
     public ExampleViewConnector (JTextArea output, JTextField input, int portDiff) {
         outputArea = output;
         inputArea = input;
@@ -32,7 +37,7 @@ public class ExampleViewConnector extends Thread {
         catch (IOException e) {
             e.printStackTrace();
         }
-        
+
         inputArea.addActionListener(new ActionListener() {
 
             @Override
@@ -48,15 +53,15 @@ public class ExampleViewConnector extends Thread {
                 }
                 inputArea.setText("");
             }
-            
+
         });
     }
-    
+
     public void run () {
-        while(true) {
+        while (true) {
             Object obj;
             try {
-                if((obj = in.readObject()) != null && obj instanceof ChatMessage) {
+                if ((obj = in.readObject()) != null && obj instanceof ChatMessage) {
                     ChatMessage message = (ChatMessage) obj;
                     outputArea.append(message.getMessage() + "\n");
                 }
@@ -69,5 +74,5 @@ public class ExampleViewConnector extends Thread {
             }
         }
     }
-    
+
 }

@@ -1,74 +1,68 @@
 package vooga.rts.networking.server;
 
-import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+import vooga.rts.networking.communications.Message;
+import vooga.rts.networking.communications.SystemMessage;
+import vooga.rts.networking.factory.Command;
+import vooga.rts.networking.factory.CommandFactory;
+
 
 /**
- * Object responsible for creating an instance of a game, and establishing 
+ * Object responsible for creating an instance of a game, and establishing
  * connections between clients and the game.
+ * 
  * @author srwareham
  * @author David Winegar
- *
+ * 
  */
-public class MatchmakerServer extends Thread implements IMessageServer {
-    private List<ConnectionThread> myConnectionThreads;
-    private List<ConnectionThread> myPotentialConnections;
-    private List<GameServer> myGameServers;
+public class MatchmakerServer extends Thread implements IMessageReceiver {
+    private Map<Integer, ConnectionThread> myConnectionThreads = new HashMap<Integer, ConnectionThread>();
+    private Map<String, GameContainer> myGameContainers = new HashMap<String, GameContainer>();
     private int myGameServerID = 0;
-    private int myConnectionID = 0;
-    private boolean myServerRunning = false;
-    private static final int PORT = 2233;
-    
-    public MatchmakerServer() {
-        myConnectionThreads = new ArrayList<ConnectionThread>();
-        myGameServers = new ArrayList<GameServer>();
-        myPotentialConnections = new ArrayList<ConnectionThread>();
-    }
-    
-    @Override
-    public void run () {
-        myServerRunning = true;
-        
-        while(myServerRunning) {
-            try {
-                //ServerSocket serverSocket = new ServerSocket(PORT);
-                // DEBUGGING - can only use ports once on localhost, so use this to test multiple connections
-                ServerSocket serverSocket = new ServerSocket(PORT + myConnectionID);
-                Socket socket = serverSocket.accept();
-                ConnectionThread thread = new ConnectionThread(socket, this, myConnectionID);
-                myConnectionThreads.add(thread);
-                myPotentialConnections.add(thread);
-                myConnectionID++;
-                thread.start();
-                if(myPotentialConnections.size() > 1 ){
-                    initializeGame();
-                }
-            }
-            catch (IOException e) {
-                // TODO log file
-                e.printStackTrace();
-            }
-        }
-    }
-    
-    private void initializeGame() {
-        GameServer gameServer = new GameServer(myGameServerID++);
-        myGameServers.add(gameServer);
-        for(ConnectionThread ct : myPotentialConnections) {
-            gameServer.addClient(ct);
-        }
-        myPotentialConnections.clear();
-        gameServer.start();
-        myGameServerID++;
-    }
+    private ConnectionServer myConnectionServer = new ConnectionServer(this);
+    private CommandFactory myFactory = new CommandFactory();
 
     @Override
-    public void sendMessage (Message message) {
-        // TODO Auto-generated method stub
-        
+    public void run () {
+        myConnectionServer.start();
     }
     
+    @Override
+    public void sendMessage (Message message, ConnectionThread thread) {
+        SystemMessage systemMessage = (SystemMessage) message;
+        Command command = myFactory.getCommand(systemMessage.getMessage());
+        command.execute(thread, this, systemMessage.getParameters());
+    }
+    
+    protected void addConnection (ConnectionThread thread) {
+        myConnectionThreads.put(thread.getID(), thread);
+    }
+
+    public void addConnectionToGame (ConnectionThread thread, String gameName) {
+        if (myGameContainers.containsKey(gameName)) {
+            myGameContainers.get(gameName).addConnection(thread);
+            myConnectionThreads.remove(thread.getID());
+        }
+    }
+    
+    public void addConnectionToGame (int connectionID, String gameName) {
+        if (myConnectionThreads.containsKey(connectionID)) {
+            addConnectionToGame(myConnectionThreads.get(connectionID), gameName);
+        }
+    }
+    
+    public void removeConnection (ConnectionThread thread, String gameName) {
+        myConnectionThreads.remove(thread.getID());
+        if (myGameContainers.containsKey(gameName)) {
+            myGameContainers.get(gameName).removeConnection(thread);
+        }
+    }
+    
+    public void joinLobby (ConnectionThread thread, String gameName, String lobbyName) {
+        if (myGameContainers.containsKey(gameName)) {
+            myGameContainers.get(gameName).addConnectionToLobby(thread, lobbyName);
+        }
+    }
+
 }

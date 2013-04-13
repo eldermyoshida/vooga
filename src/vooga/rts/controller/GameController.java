@@ -8,6 +8,7 @@ import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Soldier;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Unit;
 import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;
 import vooga.rts.gamedesign.strategy.attackstrategy.CannotAttack;
+import vooga.rts.map.GameMap;
 import vooga.rts.input.*;
 import vooga.rts.player.AIPlayer;
 import vooga.rts.player.HumanPlayer;
@@ -30,6 +31,7 @@ public class GameController extends AbstractController {
 
     private Map<Integer, Team> myTeams;
     private List<Player> myPlayers;
+    private GameMap myMap; // This needs a dimension that describes the total size of the map. Not made for now.
 
     public GameController () {
         myTeams = new HashMap<Integer, Team>();

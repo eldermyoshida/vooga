@@ -4,7 +4,7 @@ import java.awt.Graphics2D;
 import vooga.rts.IGameLoop;
 import vooga.rts.gamedesign.sprite.InteractiveEntity;
 import vooga.rts.manager.*;
-
+import vooga.rts.map.GameMap;
 
 public abstract class Player implements IGameLoop {
 
@@ -12,10 +12,16 @@ public abstract class Player implements IGameLoop {
     private UnitManager myUnitManager;
     private BuildingManager myBuildingManager;
     private int myTeamID;
+    private GameMap myMap;
     
     public Player() {
         myResourceManager = new ResourceManager();
         myUnitManager= new UnitManager();
+    }
+    
+    public Player(GameMap map) {
+        this();
+        myMap = map;
     }
 
     public ResourceManager getResourceManager () {
@@ -61,6 +67,10 @@ public abstract class Player implements IGameLoop {
     @Override
     public void paint (Graphics2D pen) {
         myUnitManager.paint(pen);
+    }
+    
+    public GameMap getMap () {
+        return myMap;
     }
 
 }

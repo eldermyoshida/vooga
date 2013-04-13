@@ -1,6 +1,7 @@
-package vooga.rts.networking;
+package vooga.rts.networking.example;
 
-import vooga.rts.networking.server.Message;
+import vooga.rts.networking.communications.Message;
+
 
 public class ChatMessage extends Message {
 
@@ -9,13 +10,18 @@ public class ChatMessage extends Message {
      */
     private static final long serialVersionUID = 765150064081796600L;
     private String myMessage;
-    
+
     public ChatMessage (int timeSent, String message) {
-        super(timeSent);
+        //super(timeSent);
+        myMessage = message;
+    }
+    
+    public ChatMessage (String message) {
+        super();
         myMessage = message;
     }
 
-    public String getMessage() {
+    public String getMessage () {
         return myMessage;
     }
 }
