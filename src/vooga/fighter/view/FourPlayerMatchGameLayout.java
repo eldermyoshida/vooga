@@ -5,6 +5,13 @@ import java.awt.Graphics2D;
 import vooga.fighter.controller.ViewDataSource;
 import java.awt.geom.Point2D;
 
+/**
+ * Displays the first HUDTimer object in the center top of the screen and up to four HUDPlayerValue objects 
+ * along the bottom of the screen evenly spaced.
+ * 
+ * @author Wayne You
+ *
+ */
 public class FourPlayerMatchGameLayout extends CanvasLayout {
     private static final int MAX_TIMER = 1;
     private static final int MAX_PLAYER = 4;

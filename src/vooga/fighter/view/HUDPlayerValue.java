@@ -18,18 +18,15 @@ public class HUDPlayerValue extends HUDElement {
     public class Stats {
         public String myName;
         public int myValue;
-        public int myLivesLeft;
         
         public Stats (String name, int value, int lives) {
             myName = name;
             myValue = value;
-            myLivesLeft = lives;
         }
     }
     
     Text myPlayerNameText = new Text("");
     Text myPlayerValue = new Text("");
-    Text myPlayerLives = new Text("");
     
     @Override
     public void update (Observable o, Object arg) {
@@ -39,7 +36,7 @@ public class HUDPlayerValue extends HUDElement {
         }
         catch (SecurityException e) {}
         catch (IllegalArgumentException e) {
-            System.err.println("Expected HUDPlayerValue.Stats for HUDTimer");
+            System.err.println("Expected HUDPlayerValue.Stats for HUDPlayervalue");
         }
         catch (NoSuchFieldException e) {
             System.err.println(myFieldName + " is not a member of the class observed.");
@@ -54,14 +51,11 @@ public class HUDPlayerValue extends HUDElement {
         
         myPlayerNameText.setText(newStats.myName);
         myPlayerValue.setText(myName + ": " + newStats.myValue);
-        myPlayerLives.setText("Lives: " + newStats.myLivesLeft);
     }
     
     public void paint (Graphics2D pen, Point2D center, Dimension size) {
         myPlayerNameText.paint(pen, center, java.awt.Color.BLACK);
         center.setLocation(center.getX(), center.getY() + HUDElement.DEFAULT_TEXT_HEIGHT);
-        myPlayerNameText.paint(pen, center, java.awt.Color.BLACK);
-        center.setLocation(center.getX(), center.getY() + HUDElement.DEFAULT_TEXT_HEIGHT);
-        myPlayerNameText.paint(pen, center, java.awt.Color.BLACK);
+        myPlayerValue.paint(pen, center, java.awt.Color.BLACK);
     }
 }

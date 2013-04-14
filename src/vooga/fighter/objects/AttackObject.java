@@ -91,5 +91,26 @@ public class AttackObject extends GameObject{
             target.addActiveEffect(copyOfEffect);
         }
     }    
+    
+    /**
+     * Sets the amount of time left in attack to zero
+     */
+    public void endCounter(){
+    	myCounter.setCounter(0); 
+    }
+    @Override
+    public void applyCollideEffect(GameObject o){
+    	if (this.compare(o)>=0){
+	    	if (o instanceof CharacterObject){
+	    		inflictDamage((CharacterObject) o);
+	    		addTargetForEffects((CharacterObject) o);
+	    	}
+	    	else if (o instanceof AttackObject){
+	    		
+	    			((AttackObject) o).endCounter();
+	    		
+	    	}
+    	}
+    }
 
 }
