@@ -8,6 +8,7 @@ import vooga.fighter.game.*;
 import vooga.fighter.input.Input;
 import vooga.fighter.view.Canvas;
 
+import java.util.List;
 import java.util.ResourceBundle;
 
 
@@ -19,6 +20,7 @@ import java.util.ResourceBundle;
 public class MenuController extends Controller {
 
     private static final String INPUT_PATHWAY = "PATHWAY";
+    private GameInfo myGameInfo;
 
     public MenuController (String name, Canvas frame) {
         super(name, frame);
@@ -28,6 +30,14 @@ public class MenuController extends Controller {
     		GameInfo gameinfo) {
     	super(name, frame, manager, gameinfo);
     }
+    
+    public void loadMode() {
+        List<Integer> characterNames = myGameInfo.getCharacters();
+        int mapID = myGameInfo.getMapName();
+        Mode temp = new LevelMode(this, characterNames, mapID);
+        setMode(temp);
+    }
+
 
     /**
      * Checks special occurences of game state.
