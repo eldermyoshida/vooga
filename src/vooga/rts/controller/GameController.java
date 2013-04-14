@@ -29,6 +29,8 @@ public class GameController extends AbstractController {
 
     private Map<Integer, Team> myTeams;
     private List<Player> myPlayers;
+    private HumanPlayer myHuman;
+    
     private GameMap myMap; // This needs a dimension that describes the total size of the map. Not
                            // made for now.
 
@@ -47,6 +49,9 @@ public class GameController extends AbstractController {
             addTeam(teamID);
         }
         myTeams.get(teamID).addPlayer(player);
+        if (player instanceof HumanPlayer) {
+            myHuman = (HumanPlayer)player;
+        }
     }
 
     public void addTeam (int teamID) {
@@ -102,9 +107,8 @@ public class GameController extends AbstractController {
     @Override
     public void onLeftMouseUp (PositionObject o) {
         // if it's not a gui thing
-        if (myDrag == null) {
-            HumanPlayer human = (HumanPlayer) myPlayers.get(0);
-            human.handleLeftClick((int) o.getX(), (int) o.getY());
+        if (myDrag == null) {            
+            myHuman.handleLeftClick((int) o.getX(), (int) o.getY());
         }
         myLeftMouse = null;
         myDrag = null;
@@ -117,9 +121,9 @@ public class GameController extends AbstractController {
 
     @Override
     public void onRightMouseUp (PositionObject o) {
-        // If it's not a GUI thing
-        HumanPlayer human = (HumanPlayer) myPlayers.get(0);
-        human.handleRightClick((int) o.getX(), (int) o.getY());
+        
+        // If it's not a GUI thing        
+        myHuman.handleRightClick((int) o.getX(), (int) o.getY());
     }
 
     @Override
