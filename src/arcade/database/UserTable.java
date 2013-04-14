@@ -64,6 +64,9 @@ public class UserTable extends Table {
 
     }
 
+    /**
+     * Closes Connection, ResultSet, and PreparedStatements once done with database
+     */
     public void closeConnection() {
         try {
             if (myPreparedStatement != null) {
@@ -166,8 +169,8 @@ public class UserTable extends Table {
         if (usernameExists(user)) {
             return false;
         }
-            createUser(user, pw, firstname, lastname, dob);
-            updateAvatar(user, filepath);
+        createUser(user, pw, firstname, lastname, dob);
+        updateAvatar(user, filepath);
         return true;
     }
     
@@ -179,22 +182,35 @@ public class UserTable extends Table {
         return retrieveEntry(username, USERNAME_COLUMN_INDEX);
     }
     
+    /**
+     * Given a username, retrieves the date of birth
+     * @param username is the user
+     */
     public String retrieveDOB(String username) {
         return retrieveEntry(username, DOB_COLUMN_INDEX);
     }
     
+    /**
+     * Given a username, retrieves avatar filepath
+     * @param username is the username
+     */
     public String retrieveAvatar(String username) {
         return retrieveEntry(username, AVATAR_COLUMN_INDEX);
     }
     
-    public String retrieveEntry(String username, int COLUMN_INDEX) {
+    /**
+     * Given a username and a column_index, returns that entire row entry
+     * @param username is the username
+     * @param columnIndex is the index that we want the information for
+     */
+    public String retrieveEntry(String username, int columnIndex) {
         String stm = "SELECT * FROM " +TABLE_NAME + " WHERE " + USERNAME_COLUMN_FIELD + "='" + username + "'";
         String entry = "";
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
             myResultSet = myPreparedStatement.executeQuery();
             if (myResultSet.next()) {
-                entry = myResultSet.getString(COLUMN_INDEX);
+                entry = myResultSet.getString(columnIndex);
             }
         }
         catch (SQLException e) {
@@ -208,7 +224,8 @@ public class UserTable extends Table {
      * @param username is user
      */
     public void deleteUser(String username) {
-        String stm = "DELETE FROM " + TABLE_NAME + " WHERE " + USERNAME_COLUMN_FIELD + "='" + username + "'";
+        String stm = "DELETE FROM " + TABLE_NAME + " WHERE " + 
+                USERNAME_COLUMN_FIELD + "='" + username + "'";
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
             myPreparedStatement.executeUpdate();
@@ -218,9 +235,15 @@ public class UserTable extends Table {
         }
     }
     
+    /**
+     * Given a username and a filepath, updates avatar
+     * @param user is username
+     * @param filepath is the filepath of the avatar
+     */
     public void updateAvatar(String user, String filepath) {
         String userid = retrieveUserId(user);
-        String stm = "UPDATE users SET avatarfilepath = '" + filepath + "' WHERE userid = '" + userid + "'";
+        String stm = "UPDATE " + TABLE_NAME + " SET " + AVATAR_COLUMN_FIELD + "='" + 
+                "filepath" + "' WHERE " + USERID_COLUMN_FIELD + "='" + userid + "'";
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
             myPreparedStatement.executeUpdate();
