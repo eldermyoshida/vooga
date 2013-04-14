@@ -17,12 +17,18 @@ public class PaletteSwap {
 
     }
 
-    public Color newColor (Color c) {
-
+    public Color newColor () {
+    	Graphics2D pen = p.getPen();
+    	pen.setColor(c.darker);
     }
-
+    
     public void applyNewColor () {
-        ObjectImage.invertColor();
+    	newColor(p);
+    	p.paint();
     }
-
+    
+    public void mirror(Graphics2D pen) {
+    	pen.setTransform(AffineTransform.getScaleInstance(-1, -1));
+    	pen.drawImage();
+    }
 }
