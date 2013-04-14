@@ -48,13 +48,13 @@ public class ModelInputs {
      */
     @InputMethodTarget(name = "jump")
     public void jumpInput (AlertObject alObj) {
-//        if(myPlayer.getVelocity().getRelativeMagnitude(new Vector(Sprite.UP_DIRECTION,myPlayer.getVelocity().getMagnitude())) < 0.5) {
-//            
-//            System.out.println("jump!");
+        if(myPlayer.getVelocity().getRelativeMagnitude(new Vector(Sprite.UP_DIRECTION,myPlayer.getVelocity().getMagnitude())) < 0.5) {
             
-            myPlayer.addVector(new Vector(Sprite.UP_DIRECTION, 10));
+            System.out.println("jump!");
+            
+            myPlayer.addVector(new Vector(Sprite.UP_DIRECTION, 200));
 
-        //}
+        }
 
     }
 

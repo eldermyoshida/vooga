@@ -14,7 +14,7 @@ public class Gravity {
     Sprite sprite;
     private double groundLoc;
     private static final double DISTANCE_OFF_GROUND = 15;
-    private static final double GRAVITY_CONSTANT = -2;
+    private static final double GRAVITY_CONSTANT = -10;
 
     private Vector gravityVector;
     

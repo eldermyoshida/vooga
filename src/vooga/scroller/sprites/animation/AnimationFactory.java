@@ -38,7 +38,7 @@ public class AnimationFactory {
 
     public Pixmap getDefaultImage () {
         // TODO: see above. need better way (reflection)
-        return new Pixmap("mario.gif");
+        return new Pixmap("mario_stand.png");
     }
 
 }
