@@ -24,14 +24,14 @@ public class Resource extends GameEntity implements IGatherable {
 	 * @param image is the image of the resource
 	 * @param center is the location of the resource
 	 * @param size is the size of the resource
-	 * @param teamID is the team the resource is on.  Will be set to 0 to 
+	 * @param playerID is the team the resource is on.  Will be set to 0 to 
 	 * signify that the resource is not on anyone's team
 	 * @param health is the value contained in the resource.  When this value
 	 * becomes 0, the resource will disappear because it will not have any value
 	 * left
 	 */
-	public Resource(Pixmap image, Location center, Dimension size, int teamID, int health) {
-		super(image, center, size, teamID, health);
+	public Resource(Pixmap image, Location center, Dimension size, int playerID, int health) {
+		super(image, center, size, playerID, health);
 	}
 
 	@Override

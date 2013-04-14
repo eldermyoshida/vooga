@@ -18,8 +18,8 @@ import java.awt.Dimension;
 public class Garrison extends Building implements IOccupiable {
 
     public Garrison(Pixmap image, Location center, Dimension size, Sound sound,
-                    int teamID, int health) {
-        super(image, center, size, sound, teamID, health);
+                    int playerID, int health) {
+        super(image, center, size, sound, playerID, health);
         // TODO Auto-generated constructor stub
     }
 

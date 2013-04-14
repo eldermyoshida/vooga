@@ -28,10 +28,10 @@ public class Projectile extends GameEntity{
     private InteractiveEntity myTarget;
 
     public Projectile(Projectile other, Location shootFrom) {
-        this(new Pixmap(other.getImage()), new Location(shootFrom), new Dimension(other.getSize()), other.getTeamID(), other.getDamage(), other.getHealth());
+        this(new Pixmap(other.getImage()), new Location(shootFrom), new Dimension(other.getSize()), other.getPlayerID(), other.getDamage(), other.getHealth());
     }
-    public Projectile(Pixmap pixmap, Location loc, Dimension size, int teamID, int damage, int health){
-        super(pixmap, loc, size, teamID, health);
+    public Projectile(Pixmap pixmap, Location loc, Dimension size, int playerID, int damage, int health){
+        super(pixmap, loc, size, playerID, health);
         myDamage = damage;
     }
     public void setEnemy(InteractiveEntity enemy){
@@ -47,8 +47,6 @@ public class Projectile extends GameEntity{
         if(this.intersects(myTarget.getCenter())){
             attack(myTarget);
             this.die();
-            //lol very bad way 
-            myDamage = 0;
         }
     }
     public void attack(InteractiveEntity interactiveEntity) {

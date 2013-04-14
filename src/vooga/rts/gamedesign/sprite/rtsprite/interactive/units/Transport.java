@@ -18,8 +18,8 @@ import vooga.rts.util.Sound;
 public class Transport extends Unit implements IOccupiable {
 
 	public Transport(Pixmap image, Location center, Dimension size,
-			Sound sound, int teamID, int health) {
-		super(image, center, size, sound, teamID, health);
+			Sound sound, int playerID, int health) {
+		super(image, center, size, sound, playerID, health);
 	}
 
 	@Override

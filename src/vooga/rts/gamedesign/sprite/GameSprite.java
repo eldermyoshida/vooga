@@ -127,15 +127,4 @@ public abstract class GameSprite extends Sprite {
         setBounds(new Rectangle((int)getLeft(), (int)getUp(), mySize.width, mySize.height));
     }
 
-    /**
-     * This would determine if two RTSprites collide.
-     * @param gameEntity is an RTSprite that is being checked to see if it 
-     * collides with the current RTSprite
-     * @return true if the two RTsprites collided and false if the RTSprites
-     * did not collide.
-     */
-    public boolean collidesWith(GameEntity gameEntity) {
-        return getBounds().intersects(gameEntity.getBounds());
-    }
-
 }
