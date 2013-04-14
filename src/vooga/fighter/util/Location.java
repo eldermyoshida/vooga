@@ -1,4 +1,8 @@
+<<<<<<< HEAD:src/vooga/fighter/util/Location.java
 package vooga.fighter.util;
+=======
+package vooga.rts.util;
+>>>>>>> 7362f1f68e473e33a6b1ac1ac75b1d10ad4db368:src/vooga/rts/util/Location.java
 
 import java.awt.geom.Point2D;
 

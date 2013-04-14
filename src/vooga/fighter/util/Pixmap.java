@@ -1,4 +1,8 @@
+<<<<<<< HEAD:src/vooga/fighter/util/Pixmap.java
 package vooga.fighter.util;
+=======
+package vooga.towerdefense.util;
+>>>>>>> 7362f1f68e473e33a6b1ac1ac75b1d10ad4db368:src/vooga/towerdefense/util/Pixmap.java
 
 import java.awt.Graphics2D;
 import java.awt.Dimension;
