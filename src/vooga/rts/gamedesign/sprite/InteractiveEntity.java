@@ -80,7 +80,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     public boolean inRange(InteractiveEntity enemy) {
         //ellipse thing doesnt seem to be working very well. 
     	double distance = Math.sqrt(Math.pow(getCenter().x - enemy.getX(), 2) + Math.pow(this.getY() - enemy.getY(), 2)); 
-    	if(getAttackStrategy().getCanAttack() && distance < getAttackStrategy().getWeapons().get(getAttackStrategy().getWeaponIndex()).getRange()){
+    	if(getAttackStrategy().getCanAttack() && !getAttackStrategy().getWeapons().isEmpty() && distance < getAttackStrategy().getWeapons().get(getAttackStrategy().getWeaponIndex()).getRange()){
             return true;
         }
         //buggy :( myWeapons.get(myWeaponIndex).inRange(enemy)
@@ -131,14 +131,14 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     @Override
     public void update(double elapsedTime){
         super.update(elapsedTime);
-        if(myAttackStrategy.getCanAttack()){
+        if(myAttackStrategy.getCanAttack() && !getAttackStrategy().getWeapons().isEmpty()){
         	myAttackStrategy.getWeapons().get(myAttackStrategy.getWeaponIndex()).update(elapsedTime);
         }
     }
     @Override
     public void paint(Graphics2D pen) {
         super.paint(pen);
-        if(myAttackStrategy.getCanAttack()){
+        if(myAttackStrategy.getCanAttack() && !getAttackStrategy().getWeapons().isEmpty()){
             for(Projectile p : myAttackStrategy.getWeapons().get(myAttackStrategy.getWeaponIndex()).getProjectiles()) {
                 p.paint(pen);               
             }
