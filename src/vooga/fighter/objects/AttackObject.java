@@ -19,12 +19,11 @@ import vooga.fighter.util.Vector;
 public class AttackObject extends GameObject{
 
     private Counter myCounter;
-    private CharacterObject myOwner;
+    private GameObject myOwner;
     private List<Effect> myEffects;
     private int myPower;   
     private int mySpeed;
     private int myDirection; 
-    private ObjectLoader myLoader;
     private UpdatableLocation myUpdatableLocation;  
     
     /**
@@ -73,7 +72,7 @@ public class AttackObject extends GameObject{
     /**
      * Gets the character who created the attack
      */
-    public CharacterObject getOwner(){
+    public GameObject getOwner(){
     	return myOwner; 
     }
     

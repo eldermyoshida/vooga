@@ -26,12 +26,10 @@ import vooga.fighter.objects.utils.UpdatableLocation;
  */
 public class CharacterObject extends GameObject {
 
-    private Map<String, Integer> myProperties;
     private Map<String, AttackObject> myAttacks;
     private List<Effect> myActiveEffects;
     private Health myHealth;
     private UpdatableLocation myUpdatableLocation;  
-    private ObjectLoader myLoader;
     private int mySpeed;  
     
 
@@ -43,7 +41,7 @@ public class CharacterObject extends GameObject {
      */
     public CharacterObject (long instanceId, int objectId, UpdatableLocation center) {
         super(instanceId);
-        myLoader = new CharacterObjectLoader(objectId);
+//        myLoader = new CharacterObjectLoader(objectId);
         myUpdatableLocation = center;
 
     }
@@ -57,25 +55,6 @@ public class CharacterObject extends GameObject {
         super.update();
         for (Effect effect : myActiveEffects) {
             effect.update();
-        }
-    }
-
-    /**
-     * Adds a property for this character. Overwrites any existing value.
-     */
-    public void addProperty (String key, int value) {
-        myProperties.put(key, value);
-    }
-
-    /**
-     * Returns a property for this character. Returns -1 if property does not exist.
-     */
-    public int getProperty (String key) {
-        if (myProperties.containsKey(key)) {
-            return myProperties.get(key);
-        }
-        else {
-            return -1;
         }
     }
 
@@ -148,10 +127,6 @@ public class CharacterObject extends GameObject {
     public int changeHealth (int amount) {
         return myHealth.changeHealth(amount);
     }
-
-
-
-
     
     /**
      * Creates a new attack based on type of attack on current 
