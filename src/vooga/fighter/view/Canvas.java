@@ -2,10 +2,8 @@ package vooga.fighter.view;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.DisplayMode;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.*;
 import javax.swing.JComponent;
 import vooga.fighter.controller.ViewDataSource;
 import vooga.fighter.view.CanvasLayout;
@@ -25,11 +23,6 @@ import vooga.fighter.view.CanvasLayout;
 public class Canvas extends JComponent {
     // default serialization ID
     private static final long serialVersionUID = 1L;
-    
-    // This object is needed to create the full screen, see full screen method
-    private DisplayMode dm;
-    // Needed in order to implement the full screen option
-    private GraphicsDevice VideoCard;
 
     // game to be animated
     private ViewDataSource myViewDataSource;
@@ -43,10 +36,6 @@ public class Canvas extends JComponent {
         // set size (a bit of a pain)
         setPreferredSize(size);
         setSize(size);
-        // Get our graphics environment
-        GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        // Get access to graphics card
-        VideoCard = environment.getDefaultScreenDevice();
         // prepare to receive input
         setFocusable(true);
         requestFocus();
@@ -97,7 +86,7 @@ public class Canvas extends JComponent {
             }
         }
         else {
-            myLayout.paintComponents(pen, myViewDataSource, this.getSize());
+            myLayout.paintComponents((Graphics2D) pen, myViewDataSource, this.getSize());
         }
     }
 }
