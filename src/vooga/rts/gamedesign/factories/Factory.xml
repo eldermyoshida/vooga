@@ -45,18 +45,18 @@
 		</resource>
 	</resources>
 	<strategies>
-		<attack>
+		<attacks>
 			<canattack src = "vooga.rts.gamedesign.strategy.attackstrategy.CanAttack"/>
 			<cannotattack src = "vooga.rts.gamedesign.strategy.attackstrategy.CannotAttack"/>
-		</attack>
-		<occupy>
+		</attacks>
+		<occupys>
 			<canoccupy src = "vooga.rts.gamedesign.strategy.occupystrategy.CanOccupy"/>
 			<cannotoccupy src = "vooga.rts.gamedesign.strategy.occupystrategy.CannotOccupy"/>
-		</occupy>
-		<gather>
+		</occupys>
+		<gathers>
 			<cangather src = "vooga.rts.gamedesign.strategy.gatherstrategy.CanGather"/>
 			<cannotgather src = "vooga.rts.gamedesign.strategy.gatherstrategy.CannotGather"/>
-		</gather>
+		</gathers>
 	</strategies>
 	<buildings src = "vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings.Building">
 		<building>

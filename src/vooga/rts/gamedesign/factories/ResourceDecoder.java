@@ -13,7 +13,6 @@ import vooga.rts.gamedesign.sprite.rtsprite.*;;
 
 public class ResourceDecoder extends Decoder{
 
-	private static final String ROOT_TAG = "resources";
 	private static final String TYPE_TAG = "resource";
 	private static final String NAME_TAG = "name";
 	private static final String IMAGE_TAG = "img";
@@ -35,6 +34,7 @@ public class ResourceDecoder extends Decoder{
 			Node nNode = nodeLst.item(i);
 			
 			Element eElement = (Element) nNode;
+			System.out.println("Type:" + eElement.getNodeName());
 			System.out.println("Name: " + eElement.getElementsByTagName(NAME_TAG).item(0).getTextContent());
 			System.out.println("Img: " + eElement.getElementsByTagName(IMAGE_TAG).item(0).getTextContent());
 			
