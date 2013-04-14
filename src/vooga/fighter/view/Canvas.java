@@ -67,7 +67,7 @@ public class Canvas extends JComponent {
     // drives the animation
     private Timer myTimer;
     // game to be animated
-    private ViewDelegate myViewDelegate;
+    private ViewDataSource myViewDelegate;
 
     // input state
     private int myLastKeyPressed;

@@ -1,13 +1,13 @@
-package vooga.fighter.controller;
-
-
-import vooga.fighter.game.Mode;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ResourceBundle;
 
 import javax.swing.Timer;
+
+import vooga.fighter.game.Mode;
+import vooga.fighter.input.Input;
+import vooga.fighter.input.InputClassTarget;
+import vooga.fighter.view.Canvas;
+
 
 
 /**
@@ -15,63 +15,50 @@ import javax.swing.Timer;
  * @author Jerry Li
  *
  */
-public class LevelController extends Controller {
+@InputClassTarget
+public class LevelController extends Controller implements ModelDelegate{
     
     public static final int FRAMES_PER_SECOND = 25;
     // better way to think about timed events (in milliseconds)
     public static final int ONE_SECOND = 1000;
     public static final int DEFAULT_DELAY = ONE_SECOND / FRAMES_PER_SECOND;
-  
-    private Controller myNextController;
-    private ResourceBundle myLevelNames;
-    
-    private static String DEFAULT_RESOURCE = "vooga.fighter.config.LevelConfig";
-    
-    public LevelController (Mode model, String id, ManagerDelegate manager) {
-        super(model, id, manager);
-        myLevelNames = ResourceBundle.getBundle(DEFAULT_RESOURCE);
-        
-        //The reason why I'm not calling loadGame is because I feel like GameManager should call loadgame.
-        //For whatever reason I don't like having controller calling its own loadgame. A game manager can
-        //initiate the controller and tell it when to load game i feel. This makes things more flexible imo. 
-        //Also, this is for logic/practical reasons. The menu button will send its data string to the gamemanager,
-        //and the game manager loads the game with the string as the parameter.
+    private static final String INPUT_PATHWAY = "PATHWAY";
+	private Timer myTimer;
+	private Mode myMode;
+	private Canvas myCanvas;
+	
+    public LevelController(String name, Canvas frame){
+    	super(name,frame);
     }
+
+	
+    public LevelController(String name, Canvas frame, ControllerDelegate manager, 
+    		GameInfo gameinfo) {
+    	super(name, frame, manager, gameinfo);
+    }
+    
+	
+	 public void start() {
+	        final int stepTime = DEFAULT_DELAY;
+	        // create a timer to animate the canvas
+	        myCanvas = super.getView();
+	         myTimer = new Timer(stepTime, 
+	            new ActionListener() {
+	                public void actionPerformed (ActionEvent e) {
+	                    myMode.update((double) stepTime / ONE_SECOND, myCanvas.getSize());
+	                    myCanvas.paint();
+	                }
+	            });
+	        // start animation
+	        myTimer.start();
+	    }
+
     
     public void loadGame(String levelName) {
-        String filePath = myLevelNames.getString(levelName);
-        myGame = new Mode(levelName, filePath, this);
+        myGame = new Mode(levelName, super.getGameInfo(), this);
         start();
     }
-    
-    
-    public void start () {
-        final int stepTime = DEFAULT_DELAY;
-        // create a timer to animate the canvas
-        Timer timer = new Timer(stepTime, 
-            new ActionListener() {
-                public void actionPerformed (ActionEvent e) {
-                    myGame.update((double) stepTime / ONE_SECOND, DEFAULT_BOUNDS);
-                }
-            });
-        // start animation
-        timer.start();
-    }
-    
-    
-    
-    public void setNextMode(Controller controller) {
-        myNextController = controller;
-    }
-    
-    /**
-     * Returns next mode
-     */
-    public Controller switchMode(Controller controller) {
-        setNextMode(controller);
-        return myNextController;
-    }
-    
+
     /**
      * Checks special occurences of game state. 
      */
@@ -92,6 +79,7 @@ public class LevelController extends Controller {
         //interactions, and all that, but as far as significant changes to game state goes we should
         //use check conditions
     }
+
     
     /**
      * Exits program. 
@@ -99,4 +87,22 @@ public class LevelController extends Controller {
     public void exit() {
         System.exit(0);
     }
+
+	@Override
+	public void stop() {
+		myTimer.stop();
+		
+	}
+
+	@Override
+	public Controller getController(ControllerDelegate delegate, GameInfo gameinfo) {
+		return new LevelController(super.getName(), super.getView(),
+				delegate,gameinfo);
+}
+
+	@Override
+	protected Input makeInput() {
+		return new Input(INPUT_PATHWAY, super.getView());
+	}
+
 }
