@@ -1,5 +1,6 @@
 package vooga.fighter.game;
 
+import util.Pixmap;
 import vooga.fighter.objects.*;
 import vooga.fighter.util.*;
 import java.awt.Dimension;
@@ -55,6 +56,21 @@ public class Map {
         return myEnviroObjects;
     }
 
+    /**
+     * Adds an environment object to map
+     */
+    
+    public void addObject(EnvironmentObject object){
+    	myEnviroObjects.add(object);
+    }
+    
+    /**
+     * Creates empty list of Environment Objects
+     */
+    
+    public void initialize(){
+    	myEnviroObjects= new ArrayList<GameObject>(); 
+    }
     /**
      * return the GameObject environmental object at index i of
      * myEnviroObjects.
