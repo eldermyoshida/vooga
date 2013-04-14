@@ -64,7 +64,8 @@ public class Player extends Sprite {
 
     myPaintCenter = myScrollingManager.playerPaintLocation(this);
     Gravity gravity = new Gravity(this);
-        gravity.applyGravity();
+    gravity.applyGravity();
+
 
     }
    

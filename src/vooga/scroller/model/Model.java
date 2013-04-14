@@ -38,7 +38,7 @@ public class Model {
     private List<String> spriteStrings = Arrays.asList("Mario mario", "Koopa koopa", "Coin coin",
                                                        "MarioLib.MovingPlatform movingPlatform"); 
     private static final String PART_ONE = "public void visit (";
-    private static final String PART_TWO = ") {};";
+    private static final String PART_TWO = ") {}";
     private static final String COMMA = ", ";
     
     /**

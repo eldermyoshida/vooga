@@ -13,7 +13,7 @@ public class RightWalk extends AnimationState {
 
     @Override
     public boolean validAnimation (Sprite unit) {
-        return unit.lastLocation().x - unit.getCenter().x < 0;
+        return unit.lastLocation().x - unit.getCenter().x < -1;
     }
 
 }

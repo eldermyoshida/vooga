@@ -611,5 +611,9 @@ public abstract class Sprite {
         
         return myOriginalView.getDefaultImg();
     }
+    
+    public void addVector(Vector force) {
+        myVelocity.sum(force);
+    }
 }
 

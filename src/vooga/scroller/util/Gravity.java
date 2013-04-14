@@ -14,7 +14,7 @@ public class Gravity {
     Sprite sprite;
     private double groundLoc;
     private static final double DISTANCE_OFF_GROUND = 15;
-    private static final double GRAVITY_CONSTANT = -6;
+    private static final double GRAVITY_CONSTANT = -2;
 
     private Vector gravityVector;
     
@@ -25,6 +25,6 @@ public class Gravity {
     }
     
     public void applyGravity() {
-        sprite.translate(gravityVector);
+        sprite.addVector(gravityVector);
     }
 }

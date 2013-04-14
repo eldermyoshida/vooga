@@ -24,7 +24,7 @@ import util.Vector;
  */
 public class MarioLib implements ISpriteLibrary {
     private static final Dimension DEFAULT_SIZE = new Dimension(32, 32);
-    private static final Location DEFAULT_LOC = new Location(30, 30);
+    private static final Location DEFAULT_LOC = new Location(32, 32);
 
     public static class Coin extends StaticEntity {
 
@@ -157,7 +157,7 @@ public class MarioLib implements ISpriteLibrary {
         }
 
         public MovingPlatformOne (Location center) {
-            super(new Pixmap(DEFAULT_IMG), center, new Dimension(100, 30));
+            super(new Pixmap(DEFAULT_IMG), center, new Dimension(96, 32));
             this.changeVelocity(DEFAULT_VELOCITY);
         }
 
@@ -186,7 +186,7 @@ public class MarioLib implements ISpriteLibrary {
         }
 
         public MovingPlatformTwo (Location center) {
-            super(new Pixmap(DEFAULT_IMG), center, new Dimension(100, 30));
+            super(new Pixmap(DEFAULT_IMG), center, new Dimension(96, 32));
             this.changeVelocity(DEFAULT_VELOCITY);
         }
 
