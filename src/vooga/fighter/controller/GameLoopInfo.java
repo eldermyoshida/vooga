@@ -4,11 +4,11 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Observable;
 
+import util.Location;
 import vooga.fighter.objects.utils.Health;
 import vooga.fighter.util.HUDVariable;
-import vooga.fighter.util.Location;
 import vooga.fighter.util.Paintable;
-import vooga.fighter.util.Pixmap;
+import util.Pixmap;
 
 
 /**
