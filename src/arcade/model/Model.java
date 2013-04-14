@@ -12,6 +12,7 @@ import arcade.view.MainView;
 
 public class Model {
 	public static final String DEFAULT_LOGIN_MESSAGE = "";
+	private static final String LOGIN_FAILURE_MESSAGE = "The username or password you entered is incorrect";
 	private ResourceBundle myResources;
 	private LoginView myLoginView;
 	private String myLanguage;
@@ -30,10 +31,11 @@ public class Model {
 	}
 
 	public void authenticate (String username, String password) {
-		myLoginView.destroy();
-		getGameList();
-		organizeSnapshots();
-		new MainView(this, myResources);
+	    myLoginView.sendMessage(LOGIN_FAILURE_MESSAGE);
+//		myLoginView.destroy();
+//		getGameList();
+//		organizeSnapshots();
+//		new MainView(this, myResources);
 
 		//        if (username.equals("ellango") && password.equals("password")) {
 		//            myLoginView.destroy();
@@ -42,7 +44,7 @@ public class Model {
 		//            new MainView(this, myResources);
 		//        }
 		//        else {
-		//            myLoginView.sendMessage("The username or password you entered is incorrect");
+		//            myLoginView.sendMessage(LOGIN_FAILURE_MESSAGE);
 		//        }
 	}
 
