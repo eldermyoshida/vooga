@@ -50,7 +50,7 @@ public class LEGrid implements Editable, Renderable {
 
     @Override
     public void addSprite (Sprite spr, int x, int y) {
-        SpriteBox currentBox = nearestBox(x, y);
+        SpriteBox currentBox = getBox(x, y);
         if (checkAvailable(currentBox, spr.getWidth(), spr.getHeight())) {
             currentBox.addSprite(spr);
             myPaintableBoxes.add(currentBox);
@@ -63,7 +63,7 @@ public class LEGrid implements Editable, Renderable {
 
     @Override
     public void deleteSprite (int x, int y) {
-        SpriteBox currentBox = nearestBox(x, y);
+        SpriteBox currentBox = getBox(x, y);
         currentBox.deleteSprite();
         myPaintableBoxes.remove(currentBox);
     }
@@ -87,11 +87,11 @@ public class LEGrid implements Editable, Renderable {
         boolean bool1 = true;
         boolean bool2 = true;
         if (width > mySpriteSize) {
-            SpriteBox next = nearestBox(current.getX() + mySpriteSize, current.getY());
+            SpriteBox next = getBox(current.getX() + mySpriteSize, current.getY());
             bool1 = checkAvailable(next, width - mySpriteSize, height);
         }
         if (height > mySpriteSize && bool1) {
-            SpriteBox nextBox = nearestBox(current.getX(), current.getY() + mySpriteSize);
+            SpriteBox nextBox = getBox(current.getX(), current.getY() + mySpriteSize);
             bool2 = checkAvailable(nextBox, width, height - mySpriteSize);
         }
         return bool1 && bool2;
@@ -99,20 +99,20 @@ public class LEGrid implements Editable, Renderable {
 
     private void combineBoxes (SpriteBox initial, SpriteBox current, double width, double height) {
         if (width > mySpriteSize) {
-            SpriteBox next = nearestBox(current.getX() + mySpriteSize, current.getY());
+            SpriteBox next = getBox(current.getX() + mySpriteSize, current.getY());
             initial.combineWith(next);
             combineBoxes(initial, next, width - mySpriteSize, height);
         }
         if (height > mySpriteSize) {
-            SpriteBox next = nearestBox(current.getX(), current.getY() + mySpriteSize);
+            SpriteBox next = getBox(current.getX(), current.getY() + mySpriteSize);
             initial.combineWith(next);
             combineBoxes(initial, next, width, height - mySpriteSize);
         }
     }
 
-    private SpriteBox nearestBox (double x, double y) {
-        int xCoord = (int) Math.round(x / mySpriteSize);
-        int yCoord = (int) Math.round(y / mySpriteSize);
+    private SpriteBox getBox (double x, double y) {
+        int xCoord = (int) Math.floor(x / mySpriteSize);
+        int yCoord = (int) Math.floor(y / mySpriteSize);
         return myGrid[xCoord][yCoord];
     }
 
