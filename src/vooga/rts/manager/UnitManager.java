@@ -47,7 +47,6 @@ public class UnitManager implements IGameLoop {
     }
 
     public List<Unit> getSelected () {
-        System.out.println("returning selected units");
         return mySelectedUnits;
     }
 

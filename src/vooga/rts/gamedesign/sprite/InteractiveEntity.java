@@ -135,6 +135,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     }
     @Override
     public void paint(Graphics2D pen) {
+        //pen.rotate(getVelocity().getAngle());
         super.paint(pen);
         if(myAttackStrategy.getCanAttack() && !getAttackStrategy().getWeapons().isEmpty()){
             for(Projectile p : myAttackStrategy.getWeapons().get(myAttackStrategy.getWeaponIndex()).getProjectiles()) {
