@@ -8,7 +8,7 @@ import java.lang.reflect.*;
 import vooga.fighter.view.HUDElement;
 
 public class HUDFactory {
-    public List<HUDElement> getHUDElements (Observable gameObject) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+    public static List<HUDElement> getHUDElements (Observable gameObject) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         @SuppressWarnings("rawtypes")
         Class objectClass = gameObject.getClass();
         
