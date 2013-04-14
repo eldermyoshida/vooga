@@ -77,8 +77,8 @@ public class UnitManager implements IGameLoop {
      */
     public void select (Rectangle2D area) {
         deselectAll();
-        for (Unit u : myUnits) {
-            if (area.contains(u.getBounds())) {
+        for (Unit u : myUnits) {            
+            if (area.intersects(u.getBounds())) {
                 select(u);
             }
         }

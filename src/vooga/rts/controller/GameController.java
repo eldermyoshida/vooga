@@ -31,7 +31,7 @@ public class GameController extends AbstractController {
     private List<Player> myPlayers;
     private GameMap myMap; // This needs a dimension that describes the total size of the map. Not
                            // made for now.
-    
+
     private PositionObject myLeftMouse;
     private Rectangle2D myDrag;
 
@@ -40,8 +40,6 @@ public class GameController extends AbstractController {
         myPlayers = new ArrayList<Player>();
         myMap = new GameMap(8, new Dimension(512, 512));
     }
-
-    
 
     public void addPlayer (Player player, int teamID) {
         myPlayers.add(player);
@@ -122,12 +120,13 @@ public class GameController extends AbstractController {
         HumanPlayer human = (HumanPlayer) myPlayers.get(0);
         human.handleRightClick((int) o.getX(), (int) o.getY());
     }
-    
+
     @Override
     public void onMouseDrag (PositionObject o) {
         if (myLeftMouse != null) {
-            myDrag = new Rectangle2D.Double(myLeftMouse.getX(), myLeftMouse.getY(), 
-                                            Math.abs(o.getX() - myLeftMouse.getX()), Math.abs(o.getY()- myLeftMouse.getY()));
+            myDrag =
+                    new Rectangle2D.Double(myLeftMouse.getX(), myLeftMouse.getY(), Math.abs(o
+                            .getX() - myLeftMouse.getX()), Math.abs(o.getY() - myLeftMouse.getY()));
             HumanPlayer human = (HumanPlayer) myPlayers.get(0);
             human.getUnits().select(myDrag);
         }
@@ -153,7 +152,7 @@ public class GameController extends AbstractController {
                             .loadFile("images/bullet.png")), a.getCenter(), new Dimension(30, 30),
                                    1, 10, 1);
             a.setAttackStrategy(new CanAttack());
-            a.addWeapons(new Weapon(0, proj, 200, a.getCenter(), 25));
+            a.addWeapons(new Weapon(0, proj, 200, a.getCenter(), 250));
         }
         catch (Exception e) {
             // trollolol
@@ -164,8 +163,8 @@ public class GameController extends AbstractController {
                 new Projectile(
                                new Pixmap(ResourceManager.instance().loadFile("images/bullet.png")),
                                b.getCenter(), new Dimension(30, 30), 1, 10, 1);
-        b.setAttackStrategy(new CannotAttack());
-        b.addWeapons(new Weapon(0, proj2, 200, b.getCenter(), 50));
+        b.setAttackStrategy(new CanAttack());
+        b.addWeapons(new Weapon(0, proj2, 200, b.getCenter(), 300));
 
         Unit c = new Soldier(p, new Location(500, 500), s, soun, 20, 40);
         Projectile proj3 =
@@ -173,7 +172,7 @@ public class GameController extends AbstractController {
                                new Pixmap(ResourceManager.instance().loadFile("images/bullet.png")),
                                c.getCenter(), new Dimension(30, 30), 1, 10, 1);
         c.setAttackStrategy(new CanAttack());
-        c.addWeapons(new Weapon(0, proj3, 200, c.getCenter(), 50));
+        c.addWeapons(new Weapon(0, proj3, 200, c.getCenter(), 300));
 
         p1.getUnits().addUnit(a);
         p1.getUnits().addUnit(b);

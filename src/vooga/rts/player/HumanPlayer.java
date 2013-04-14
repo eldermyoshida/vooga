@@ -33,7 +33,7 @@ public class HumanPlayer extends Player {
         }
     }
     
-    public void handleLeftClick(int x, int y) {        
+public void handleLeftClick(int x, int y) {        
         getUnits().select(new Point(x, y));
     }
 
