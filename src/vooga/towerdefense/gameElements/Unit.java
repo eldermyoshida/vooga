@@ -6,7 +6,8 @@ import java.util.Map;
 
 import vooga.towerdefense.action.AbstractAction;
 import vooga.towerdefense.action.ComboAttackAction;
-import vooga.towerdefense.action.Targetable;
+import vooga.towerdefense.attributes.Targetable;
+import vooga.towerdefense.attributes.TargetableAttributes;
 import vooga.towerdefense.model.Path;
 import vooga.towerdefense.util.Location;
 import vooga.towerdefense.util.Pixmap;

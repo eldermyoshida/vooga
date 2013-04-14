@@ -5,8 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vooga.towerdefense.action.AbstractAction;
-import vooga.towerdefense.action.Attacker;
-import vooga.towerdefense.action.Targetable;
+import vooga.towerdefense.attributes.Attacker;
+import vooga.towerdefense.attributes.AttackerAttributes;
+import vooga.towerdefense.attributes.Targetable;
 import vooga.towerdefense.util.Location;
 import vooga.towerdefense.util.Pixmap;
 import vooga.towerdefense.gameElements.GameElement;

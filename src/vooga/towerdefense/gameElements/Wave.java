@@ -2,6 +2,7 @@ package vooga.towerdefense.gameElements;
 
 import java.util.List;
 
+import vooga.towerdefense.attributes.Attributes;
 import vooga.towerdefense.model.GameMap;
 
 /**

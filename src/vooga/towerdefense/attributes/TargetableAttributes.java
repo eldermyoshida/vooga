@@ -1,4 +1,6 @@
-package vooga.towerdefense.gameElements;
+package vooga.towerdefense.attributes;
+
+import vooga.towerdefense.gameElements.Stat;
 
 public class TargetableAttributes {
 	private Stat myHealth;

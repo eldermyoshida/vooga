@@ -1,9 +1,11 @@
-package vooga.towerdefense.gameElements;
+package vooga.towerdefense.attributes;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+
+import vooga.towerdefense.gameElements.Stat;
 
 /**
  * Attributes object that helps to track all game element stats.
