@@ -1,5 +1,7 @@
 package vooga.fighter.util;
 
+import util.Vector;
+
 public class Physics {
     /**
      * Calculates an elastic collision given two objects of given masses and velocities.

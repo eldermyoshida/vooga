@@ -19,7 +19,7 @@ import vooga.fighter.view.Canvas;
  * 
  */
 @InputClassTarget
-public class LevelController extends Controller implements ModelDelegate {
+public class LevelController extends Controller {
     private static final String INPUT_PATHWAY = "PATHWAY";
 
     public LevelController (String name, Canvas frame) {
@@ -42,7 +42,7 @@ public class LevelController extends Controller implements ModelDelegate {
     /**
      * Checks special occurences of game state.
      */
-    public void notifyEndCondition(String string) {
+    public void notifyEndCondition() {
         
     }
 

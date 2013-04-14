@@ -11,8 +11,12 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import vooga.fighter.objects.utils.State;
+<<<<<<< HEAD
 import vooga.fighter.objects.utils.UpdatableLocation;
 import vooga.fighter.util.Pixmap;
+=======
+import util.Pixmap;
+>>>>>>> f1197b87aa65124773687aa36f73b32a4eb2c34a
 
 public class CharacterLoader extends ObjectLoader {
 	

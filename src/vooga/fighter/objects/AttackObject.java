@@ -6,9 +6,6 @@ import java.util.List;
 import vooga.fighter.objects.utils.Counter;
 import vooga.fighter.objects.utils.Effect;
 import vooga.fighter.objects.utils.UpdatableLocation;
-import vooga.fighter.util.Location;
-import vooga.fighter.util.Pixmap;
-import vooga.fighter.util.Vector;
 
 /**
  * Object that can inflict damage on other moveable game objects
@@ -91,5 +88,26 @@ public class AttackObject extends GameObject{
             target.addActiveEffect(copyOfEffect);
         }
     }    
+    
+    /**
+     * Sets the amount of time left in attack to zero
+     */
+    public void endCounter(){
+    	myCounter.setCounter(0); 
+    }
+    @Override
+    public void applyCollideEffect(GameObject o){
+    	if (this.compare(o)>=0){
+	    	if (o instanceof CharacterObject){
+	    		inflictDamage((CharacterObject) o);
+	    		addTargetForEffects((CharacterObject) o);
+	    	}
+	    	else if (o instanceof AttackObject){
+	    		
+	    			((AttackObject) o).endCounter();
+	    		
+	    	}
+    	}
+    }
 
 }

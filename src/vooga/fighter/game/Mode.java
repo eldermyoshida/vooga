@@ -1,150 +1,88 @@
 package vooga.fighter.game;
 
 import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import vooga.fighter.controller.*;
-import vooga.fighter.input.Input;
-import vooga.fighter.input.InputClassTarget;
-import vooga.fighter.util.*;
-import vooga.fighter.objects.*;
-
+import java.util.HashSet;
+import java.util.Set;
+import vooga.fighter.controller.ControllerDelegate;
+import vooga.fighter.objects.GameObject;
 
 /**
- * A Game instance
+ * Represents a mode in the game. Holds a list of all game objects in the mode,
+ * and updates those every update cycle.
  * 
- * @author Jerry
- * 
+ * @author james
+ *
  */
+public abstract class Mode {
 
-@InputClassTarget
-public class Mode {
+    private Set<GameObject> myObjects;
+    private long myId;
+    private ControllerDelegate myControllerDelegate;
 
-    private List<CharacterObject> myInteractables = new ArrayList<CharacterObject>();
-    private String myID;
-    private String myFilePath;
-    private Map myNonInteractables;
-    private boolean myStartGame = false;
-    private boolean shouldEnd;
-    private ObjectLoader myLoader;
-    private ModelDelegate myDelegate;
-
-    public Mode (String levelName, GameInfo gameinfo, ModelDelegate delegate) {
-       
-        myInteractables.add(myLoader.getTestCharacter());
-        shouldEnd = false;
-
-        // do not delete these three!
-        myID = levelName;
-        myFilePath = filePath;
-        myDelegate = delegate;
+    /**
+     * Constructs a new Mode.
+     */
+    public Mode(ControllerDelegate cd) {
+        myObjects = new HashSet<GameObject>();
+        setControllerDelegate(cd);
+    }
+    
+    /**
+     * Sets the controller delegate for this mode.
+     */
+    public void setControllerDelegate(ControllerDelegate cd) {
+        myControllerDelegate = cd;
+    }
+    
+    /**
+    * Returns the id of the mode.
+    */
+    public long getMyId() {
+        return myId;
     }
 
-    public void loadFile (String filePath) {
-        // File fileName = new File(filePath);
-        // Scanner scan;
-        // try {
-        // scan = new Scanner(fileName);
-        // loadLevel(scan);
-        // }
-        // catch (FileNotFoundException e) {
-        // System.out.println("file not found");
-        // }
+    /**
+    * Returns the list of objects for this mode.
+    */
+    public Set<GameObject> getMyObjects() {
+        return myObjects;
     }
 
-    public void loadLevel (Scanner scan) {
-        // while (scan.hasNextLine()) {
-        // String line = scan.nextLine();
-        // Scanner lineScan = new Scanner(line);
-        // String className = lineScan.next();
-        // Class<?> commandClass = null;
-        // try {
-        // commandClass = Class.forName("src/vooga.fighter.objects." + className);
-        //
-        // }
-        // catch (ClassNotFoundException e) {
-        // System.out.println("class not found");
-        // }
-        // }
+    /**
+    * Add an object to the list of game objects.
+    */
+    public void addObject(GameObject object) {
+        myObjects.add(object);
     }
 
-    public void updateObjects (double stepTime, Dimension bounds) {
-        for (CharacterObject s : myInteractables) {
-            s.update(stepTime, bounds);
-            if (s.getCenter().getX() >= bounds.width || s.getCenter().getX() <= 0
-                || s.getCenter().getY() <= 0 || s.getCenter().getY() >= bounds.height) {
-                shouldEnd = true;
-            }
-        }
-        // myNonInteractables.update(stepTime, bounds);
+    /**
+    * Remove an object from the list of game objects.
+    */
+    public void removeObject(GameObject object) {
+        myObjects.remove(object);
     }
 
-    public void switchNeed () {
-        shouldEnd = !shouldEnd;
+    /**
+    * Notifies the subcontroller that the mode should terminate. Specific rules
+    * for when the mode should be terminated are implemented in subclasses.
+    */
+    public void signalTermination() {
+        myControllerDelegate.notifyEndCondition();
     }
-
-    public void update (double stepTime, Dimension bounds) {
-        if (myInteractables != null) {
-            updateObjects(stepTime, bounds);
-            detectCollisions(myInteractables);
-
+    
+    /**
+     * Updates the mode for one game loop.
+     */
+    public void update(double stepTime, Dimension bounds) {
+        for (GameObject object : myObjects) {
+            object.update();
         }
     }
-
-    public void detectCollisions (List<CharacterObject> objects) {
-        for (GameObject g : objects) {
-            for (GameObject o : objects) {
-                detectCollision(g, o);
-            }
-        }
-    }
-
-    public void detectCollision (GameObject a, GameObject b) {
-        // some sort of algorithm
-    }
-
-    public String getNextModeName () {
-        return myNextMode;
-    }
-
-    public String getModeName () {
-        return myID;
-    }
-
-    public boolean needNextMode () {
-        return shouldEnd;
-    }
-
-    public void reset () {
-        myInteractables.clear();
-        myInteractables.add(myLoader.getTestCharacter());
-    }
-
-    public void paint (Graphics2D pen) {
-        paintObjects(pen);
-    }
-
-    public void paintObjects (Graphics2D pen) {
-        if (myInteractables != null) {
-            for (GameObject s : myInteractables) {
-                s.paint(pen);
-            }
-
-            // myNonInteractables.paint(pen);
-        }
-    }
-
-    public void setupPainting (PaintManager paintmanager) {
-        // TODO Auto-generated method stub
-
-    }
-
-    public Integer getStatus () {
-        return 0;
-    }
+    
+    /**
+    * Handles all initialization details when the mode is loaded by the appropriate
+    * subcontroller. This method should be called first by the subcontroller.
+    */
+    public abstract void initializeMode();
 
 }
