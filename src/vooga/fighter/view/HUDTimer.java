@@ -21,7 +21,7 @@ public class HUDTimer extends HUDElement {
         Integer time = (Integer)this.getObservedValue(o);
         int minutes = time / 60;
         int seconds = time % 60;
-        myTimerDisplay.setText(minutes + ":" + seconds);
+        myTimerDisplay.setText(String.format("%03d", minutes) + ":" + String.format("%03d", seconds));
     }
 
     public void paint (Graphics2D pen, Point2D center, Dimension size) {

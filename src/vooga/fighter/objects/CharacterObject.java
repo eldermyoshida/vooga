@@ -11,9 +11,10 @@ import vooga.fighter.input.InputClassTarget;
 import vooga.fighter.input.InputMethodTarget;
 import vooga.fighter.objects.utils.Effect;
 import vooga.fighter.objects.utils.Health;
-import vooga.fighter.util.Location;
+
 import vooga.fighter.util.Pixmap;
 import vooga.fighter.util.Vector;
+import vooga.fighter.objects.utils.UpdatableLocation;
 
 
 /**
@@ -29,8 +30,10 @@ public class CharacterObject extends GameObject {
     private Map<String, AttackObject> myAttacks;
     private List<Effect> myActiveEffects;
     private Health myHealth;
-    private Location myLocation;
-    private ObjectLoader loader;
+    private UpdatableLocation myUpdatableLocation;  
+    private ObjectLoader myLoader;
+    private int mySpeed;  
+    
 
     /**
      * Constructs a new CharacterObject.
@@ -38,11 +41,23 @@ public class CharacterObject extends GameObject {
      * Note: Dayvid once the object loader is functional we will replace this
      * constructor to take in just an ID, then we will load parameters from XML.
      */
-    public CharacterObject (long instanceId, int objectId, Location center) {
+    public CharacterObject (long instanceId, int objectId, UpdatableLocation center) {
         super(instanceId);
-        myLocation = center;
-        loader = new CharacterObject(objectId);
+        myLoader = new CharacterObjectLoader(objectId);
+        myUpdatableLocation = center;
 
+    }
+
+    /**
+     * Updates the character for one game loop cycle. Applies movement from acceleration
+     * forces acting on the character.
+     */
+
+    public void update () {
+        super.update();
+        for (Effect effect : myActiveEffects) {
+            effect.update();
+        }
     }
 
     /**
@@ -134,19 +149,32 @@ public class CharacterObject extends GameObject {
         return myHealth.changeHealth(amount);
     }
 
+
+
+
+    
     /**
-     * Updates the character for one game loop cycle. Applies movement from acceleration
-     * forces acting on the character.
+     * Creates a new attack based on type of attack on current 
+     * @param attack
      */
-    public void update () {
-        super.update();
-        for (Effect effect : myActiveEffects) {
-            effect.update();
-        }
+    public void attack(String attack){
+    	if (myAttacks.containsKey(attack)){
+    		new AttackObject(myAttacks.get(attack), myUpdatableLocation);
+    	}
     }
-
+    
     /**
-     * Will add action methods such as move, jump, attack, etc. here
+     * Moves in given direction at speed of character
+     * @param direction
      */
-
+    public void move(int direction){
+    	myUpdatableLocation.translate(new Vector(direction,mySpeed));
+    }
+    
+    /**
+     * Will add jump method 
+     */
+    public void jump(){
+    	
+    }
 }

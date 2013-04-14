@@ -23,5 +23,9 @@ public class EnvironmentObject extends GameObject {
         super(instanceId);
     	myLoader= new EnvironmentObjectLoader(objectId);
     }
+    
+    public void update(){
+    	super.update();
+    }
 
 }
