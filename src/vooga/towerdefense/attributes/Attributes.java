@@ -28,7 +28,7 @@ public abstract class Attributes{
 	 */
 	public List<String> getAttributesInfo() {
 		List<String> info = new ArrayList<String>();
-		for (Stat stat: myAttributes){
+		for (A stat: myAttributes){
 			info.add(stat.getDisplayableInfo());
 		}
 		return info;
