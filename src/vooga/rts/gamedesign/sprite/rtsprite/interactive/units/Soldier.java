@@ -1,6 +1,7 @@
 package vooga.rts.gamedesign.sprite.rtsprite.interactive.units;
 
 import java.awt.Dimension;
+import vooga.rts.resourcemanager.ResourceManager;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
@@ -8,10 +9,7 @@ import vooga.rts.util.Sound;
 
 /**
  * 
- * @author Ryan Fishel
  * @author Kevin Oh
- * @author Francesco Agosti
- * @author Wenshun Liu
  * 
  */
 public class Soldier extends Unit {
@@ -20,15 +18,33 @@ public class Soldier extends Unit {
      * the soldier occupies the IOccupiable RTSprite.
      * Code: would call myOccupyStrategy.occupy(RTSprite);
      */
+    //default values
+    public static Pixmap DEFAULT_IMAGE = new Pixmap(ResourceManager.instance().loadFile("images/soldier.png"));
+    public static Location DEFAULT_LOCATION = new Location();
+    public static Dimension DEFAULT_SIZE = new Dimension(90,90);
+    public static Sound DEFAULT_SOUND = null;
+    public static int DEFAULT_TEAMID = 0;
+    public static int DEFAULT_HEALTH = 100;
 
     // private int myHealth; //TESTING PURPOSE
-
+    public Soldier() {
+        this(DEFAULT_IMAGE, DEFAULT_LOCATION, DEFAULT_SIZE, DEFAULT_SOUND, DEFAULT_TEAMID, DEFAULT_HEALTH);
+    }
+    
     public Soldier(Pixmap image, Location center, Dimension size, Sound sound, int teamID, int health) {
         super(image, center, size, sound, teamID, health);
     }
-    
+
     public void upgradeHealth (int armor) { // TESTING PURPOSE
         setHealth(getHealth() + armor);
     }
-
+    /*
+     * Returns a copy of the default soldier. 
+     */
+    public Soldier copy() {
+        //System.out.println("soldier's copy method called");
+        //return null;
+        return new Soldier();
+    }
+    
 }

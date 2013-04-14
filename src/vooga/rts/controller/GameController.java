@@ -9,6 +9,8 @@ import java.util.Map;
 import vooga.rts.gamedesign.Weapon;
 import vooga.rts.gamedesign.sprite.rtsprite.Projectile;
 import vooga.rts.gamedesign.sprite.rtsprite.Resource;
+import vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings.Barracks;
+import vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings.Building;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Soldier;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Unit;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Worker;
@@ -33,6 +35,7 @@ public class GameController extends AbstractController {
     private GameMap myMap; // This needs a dimension that describes the total size of the map. Not
                            // made for now.
     private Resource r; 
+    private Building building;
     
     public GameController () {
         myTeams = new HashMap<Integer, Team>();
@@ -83,6 +86,7 @@ public class GameController extends AbstractController {
                 }
             }
         }
+        building.update(elapsedTime);
     }
 
     @Override
@@ -91,6 +95,7 @@ public class GameController extends AbstractController {
             p.paint(pen);
         }
         r.paint(pen);
+        building.paint(pen);
     }
 
     @Override
@@ -143,7 +148,7 @@ public class GameController extends AbstractController {
         catch (Exception e) {
             // trollolol
         }
-
+        
         Unit b = new Soldier(p, new Location(100, 300), s, soun, 20, 50);
         Projectile proj2 =
                 new Projectile(
@@ -169,6 +174,9 @@ public class GameController extends AbstractController {
         
         addPlayer(p1, 1);
         addPlayer(p2, 2);
-
+        
+        building = new Barracks(new Pixmap(ResourceManager.instance().loadFile("images/barracks.jpeg")), 
+                                new Location(800,500), new Dimension(150,150), null, 1,300);
+        
     }
 }

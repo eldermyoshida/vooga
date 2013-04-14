@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import vooga.rts.gamedesign.Weapon;
 import vooga.rts.gamedesign.action.Action;
 import vooga.rts.gamedesign.factories.Factory;
 import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
@@ -52,7 +51,14 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
         myActions = new ArrayList<Action>();
         initDefaultActions();
     }
-
+    /*
+     * Ze clone method
+     */
+    public InteractiveEntity copy() {
+        System.out.println("Interactive Entity clone method, should NOT be printing");
+        return null;
+    }
+    
     public UpgradeTree getUpgradeTree() {
     	return myUpgradeTree;
     }
