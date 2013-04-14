@@ -3,10 +3,12 @@ package vooga.fighter.view;
 import java.awt.geom.Point2D;
 import java.lang.reflect.Field;
 import java.util.Observer;
-import vooga.fighter.util.Paintable;
+import src.vooga.fighter.util.Paintable;
 
 
 public abstract class HUDElement implements Observer, Paintable {
+    public static final int DEFAULT_TEXT_HEIGHT = 20;
+    
     protected String myName;
     protected String myFieldName;
     protected Point2D.Double myLocation;
