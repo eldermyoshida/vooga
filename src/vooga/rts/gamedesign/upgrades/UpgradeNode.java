@@ -35,8 +35,9 @@ public class UpgradeNode {
         this(0, null, null, 0);
     }
 
-    public UpgradeNode(int myID, String upgradeType, String upgradeObject, int upgradeValue){
-        myUpgradeType = upgradeType;
+    public UpgradeNode(int id, String upgradeType, String upgradeObject, int upgradeValue){
+        myID = id;
+    	myUpgradeType = upgradeType;
         myChildren = new ArrayList<UpgradeNode>();
         myHasBeenUpgraded = false;
         myUpgradeProperty = upgradeObject;

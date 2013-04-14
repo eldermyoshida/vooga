@@ -93,4 +93,8 @@ public class UpgradeTree {
     public List<UpgradeNode> getCurrentUpgrades () {
         return myCurrentUpgrades;
     }
+    
+    public UpgradeNode getHead() {
+    	return myHead;
+    }
 }

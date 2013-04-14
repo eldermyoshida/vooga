@@ -10,6 +10,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import vooga.rts.gamedesign.upgrades.DamageUpgradeNode;
+import vooga.rts.gamedesign.upgrades.HealthUpgradeNode;
 import vooga.rts.gamedesign.upgrades.UpgradeNode;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
 
@@ -58,7 +60,7 @@ public class UpgradeDecoder extends Decoder {
 			NodeList nameElmntLst = typeElmnt.getElementsByTagName(CATEGORY_NAME_TAG);
 			Element nameElmnt = (Element) nameElmntLst.item(0);
 			NodeList name = nameElmnt.getChildNodes();
-			UpgradeNode branchHead = upgradeTree.addBranch(i, ((Node) name.item(0)).getNodeValue());
+			UpgradeNode branchHead = upgradeTree.addBranch(i+1, ((Node) name.item(0)).getNodeValue());
 			UpgradeNode current = branchHead;
 			System.out.println("name : "  + ((Node) name.item(0)).getNodeValue());
 			
@@ -86,12 +88,33 @@ public class UpgradeDecoder extends Decoder {
 				String value = ((Node)valueElmnt.getChildNodes().item(0)).getNodeValue();
 				System.out.println("value : " + value);
 				
-				UpgradeNode newLeaf = current.addChild(new UpgradeNode(Integer.parseInt(id), nodeName, object, Integer.parseInt(value)));
-				current = newLeaf;
+				if (object.equals("Health")) { //SO BAD!!
+					UpgradeNode newLeaf = current.addChild(new HealthUpgradeNode(Integer.parseInt(id), nodeName, object, Integer.parseInt(value)));
+					current = newLeaf;
+				} else if (object.equals("Damage")) {
+					UpgradeNode newLeaf = current.addChild(new DamageUpgradeNode(Integer.parseInt(id), nodeName, object, Integer.parseInt(value)));
+					current = newLeaf;
+				}
 				//TODO: need to find a way to upgrade CurrentUpgrades.
 			}
 		}
-		
+		printTree(upgradeTree);
 		return upgradeTree;
+	}
+	
+	/**
+	 * TESTING PURPOSE. PRINTS TREE.
+	 * @param upgradeTree
+	 */
+	private void printTree(UpgradeTree upgradeTree) {
+		for (UpgradeNode u: upgradeTree.getHead().getChildren()) {
+			UpgradeNode current = u;
+			while (!current.getChildren().isEmpty()) {
+				System.out.println("Type: " + current.getChildren().get(0).getUpgradeType() +
+						" Parent ID " + current.getID() + " ID " + 
+						current.getChildren().get(0).getID());
+				current = current.getChildren().get(0);
+			}
+		}
 	}
 }

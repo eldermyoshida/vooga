@@ -29,7 +29,7 @@ import org.xml.sax.SAXException;
  */
 
 public class Factory {
-	public static final String DECODER_MATCHING_FILE = "src/vooga/rts/gamedesign/factories/DecodeMatchUp";
+	public static final String DECODER_MATCHING_FILE = "/Users/Sherry/Desktop/Academics/Compsci 308/Final VOOGA/GameDesign/src/vooga/rts/gamedesign/factories/DecodeMatchUp";
 	
 	Map<String, Decoder> myDecoders = new HashMap<String, Decoder>();
 	
@@ -113,7 +113,7 @@ public class Factory {
 	 */
 	public static void main(String[] args) throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ParserConfigurationException, SAXException, IOException {
 		Factory factory = new Factory();
-		factory.loadXMLFile("src/vooga/rts/gamedesign/factories/XML_Sample");
+		factory.loadXMLFile("/Users/Sherry/Desktop/Academics/Compsci 308/Final VOOGA/GameDesign/src/vooga/rts/gamedesign/factories/XML_Sample");
 	}
 
 }

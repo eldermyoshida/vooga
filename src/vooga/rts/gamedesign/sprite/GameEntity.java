@@ -85,6 +85,7 @@ public class GameEntity extends GameSprite {
      * @param angle
      */
     public void turn (double angle) {
+        System.out.println("turning by angle: " + angle);
         myVelocity.turn(angle);
     }
 
@@ -94,7 +95,6 @@ public class GameEntity extends GameSprite {
      * @param v
      */
     public void translate (Vector v) {
-       
         getCenter().translate(v);
         resetBounds();
     }
@@ -116,6 +116,8 @@ public class GameEntity extends GameSprite {
     public void move (Location loc) {
         myGoal = new Location(loc);
         Vector v = getCenter().difference(myGoal);
+
+        turn(v.getAngle());
         setVelocity(v.getAngle(),1);
     }
 
