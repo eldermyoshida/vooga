@@ -3,6 +3,7 @@ package vooga.fighter.objects.utils;
 import java.util.ArrayList;
 import java.util.List;
 import vooga.fighter.objects.CharacterObject;
+import vooga.fighter.objects.GameObject;
 
 /**
  * Represents an effect placed on a character (or several).
@@ -40,7 +41,7 @@ public abstract class Effect {
     /**
      * Returns the owner of this effect, aka the target.
      */
-    public CharacterObject getOwner() {
+    public GameObject getOwner() {
         return myOwner;
     }
     
