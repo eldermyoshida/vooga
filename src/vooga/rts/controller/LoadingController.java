@@ -1,45 +1,68 @@
 package vooga.rts.controller;
 
-import java.awt.Dimension;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
+
+import vooga.rts.input.PositionObject;
 import vooga.rts.resourcemanager.ResourceManager;
 
 public class LoadingController extends AbstractController {
 
+	AffineTransform myTransform;
+	BufferedImage myBGImage;
+	public static final String DEFAULT_BGIMAGE_LOCATION = "images/backgrounds/loading_bg.png";
+	
     public LoadingController() {
-        
+    	myBGImage = ResourceManager.instance().loadFile(DEFAULT_BGIMAGE_LOCATION);
     }
     
-    double elap = 0;
     @Override
     public void update (double elapsedTime) {
         /*
-        elap += elapsedTime;        
-        if (elap > 1000) {
-            elap = 0;
-            setChanged();
-            notifyObservers(MainState.Menu);
-        }*/
-        
         if (!ResourceManager.instance().isLoading()) {
             setChanged();
-            notifyObservers(MainState.Menu);
+            notifyObservers();
         }
+        */
+    }
+    
+    @Override
+    public void onLeftMouseDown(PositionObject o) {
+    	setChanged();
+        notifyObservers();
     }
     
     @Override
     public void paint (Graphics2D pen) {
+    	myTransform = new AffineTransform();
+        double sx = pen.getDeviceConfiguration().getBounds().getWidth();
+        sx /= myBGImage.getWidth();
+        double sy = pen.getDeviceConfiguration().getBounds().getHeight();
+        sy /= myBGImage.getHeight();
+        myTransform.scale(sx, sy);
+        pen.drawImage(myBGImage, myTransform, null);
+
         Rectangle screen = pen.getDeviceConfiguration().getBounds();
-        pen.draw(new Rectangle(new Dimension( 400, 560)));
-        
-        pen.setFont(new Font("Arial", Font.PLAIN, 72));
-        pen.drawString("Game is Loading! Yolo.", screen.width / 2, screen.height / 2);
+        pen.setColor(Color.white);
+        pen.setFont(new Font("Georgia", Font.PLAIN, 72));
+        pen.drawString("Game is Loading...", 200, 300);
+        pen.setFont(new Font("Georgia", Font.PLAIN, 30));
+        pen.drawString("Click to start.", 200, 380);
     }
 
     @Override
-    public void activate (MainState gameState) {
+    public void activate () {
         ResourceManager.instance().load();        
     }
+
+	@Override
+	public MainState getGameState() {
+		return MainState.Loading;
+	}
+	
 }
+
