@@ -48,7 +48,7 @@ public class ModelInputs {
      */
     @InputMethodTarget(name = "jump")
     public void jumpInput (AlertObject alObj) {
-        if(myPlayer.getVelocity().getRelativeMagnitude(new Vector(Sprite.UP_DIRECTION,myPlayer.getVelocity().getMagnitude())) < 0.5) {
+        if(Math.abs(myPlayer.getVelocity().getComponentVector(Sprite.UP_DIRECTION).getMagnitude()) < 1) {
             
             System.out.println("jump!");
             
