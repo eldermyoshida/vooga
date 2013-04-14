@@ -26,6 +26,11 @@ public class AttackObject extends GameObject{
     private int myDirection; 
     private ObjectLoader myLoader;
     private UpdatableLocation myUpdatableLocation;  
+    private long myInstanceId;
+    private Pixmap myImage;
+    private Location myCenter;
+    private Dimension mySize;
+
     
     /**
      * Constructs an AttackObject with the given owner.
@@ -33,7 +38,7 @@ public class AttackObject extends GameObject{
      * Will update to use ObjectLoader.
      */
     public AttackObject(long instanceId, int objectId, UpdatableLocation center) {
-    	super(instanceId);
+    	super();
         myEffects = new ArrayList<Effect>();
         myCounter = new Counter();
         myUpdatableLocation=center; 

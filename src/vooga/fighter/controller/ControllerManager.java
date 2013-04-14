@@ -10,7 +10,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import vooga.fighter.view.Canvas;
-
+/**
+ * 
+ * @author Jack Matteucci
+ *
+ */
 
 public class ControllerManager implements ControllerDelegate{
 	private static final String MAINMENU = "MainMenu";
