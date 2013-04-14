@@ -43,7 +43,7 @@ public class CharacterObject extends GameObject {
      * Note: Dayvid once the object loader is functional we will replace this
      * constructor to take in just an ID, then we will load parameters from XML.
      */
-    public CharacterObject (long instanceId, int objectId, UpdatableLocation center) {
+    public CharacterObject(int objectId, UpdatableLocation center) {
 
 //        myLoader = new CharacterObjectLoader(objectId);
         super();
@@ -158,4 +158,12 @@ public class CharacterObject extends GameObject {
     public void jump(){
     	
     }
+
+	@Override
+	public void applyCollideEffect(GameObject o) {
+		// TODO Auto-generated method stub
+		if (o instanceof AttackObject){
+			((AttackObject) o).endCounter();
+		}
+	}
 }

@@ -26,4 +26,10 @@ public class EnvironmentObject extends GameObject {
 //    	super.update();
     }
 
+	@Override
+	public void applyCollideEffect(GameObject o) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
