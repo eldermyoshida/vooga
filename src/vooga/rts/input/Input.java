@@ -1,5 +1,6 @@
 package vooga.rts.input;
 
+import java.util.Observable;
 import java.lang.annotation.Annotation;
 import java.lang.ref.WeakReference;
 import java.lang.reflect.InvocationTargetException;
@@ -19,7 +20,7 @@ import javax.swing.JComponent;
  * 
  */
 @SuppressWarnings("rawtypes")
-public class Input {
+public class Input extends Observable {
 
 	private final ResourceBundle RESOURCES;
 
