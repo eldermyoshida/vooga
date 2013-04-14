@@ -28,8 +28,11 @@ public class EnvironmentObject extends GameObject {
 
 	@Override
 	public void applyCollideEffect(GameObject o) {
-		// TODO Auto-generated method stub
-		
+		if (this.compare(o)>0){
+			if (o instanceof AttackObject){	
+				((AttackObject) o).endCounter();
+			}
+		}
 	}
 
 }

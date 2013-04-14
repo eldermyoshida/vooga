@@ -17,7 +17,6 @@ import vooga.fighter.util.Text;
 import vooga.fighter.view.Canvas;
 import vooga.fighter.controller.ControllerManager;
 import vooga.fighter.controller.GameInfo;
-import vooga.fighter.game.*;
 import vooga.fighter.input.Input;
 import vooga.fighter.input.InputClassTarget;
 
@@ -28,7 +27,7 @@ import java.util.ResourceBundle;
 
 
 
-public class GameManager{
+public class GameManager extends Game{
 public static final Dimension SIZE = new Dimension(800, 600);
     public static final String TITLE = "Fighter!";
     private Canvas myCanvas;
@@ -38,7 +37,17 @@ public static final Dimension SIZE = new Dimension(800, 600);
 
     public GameManager() {
         myCanvas = new Canvas(SIZE); 
-        //DisplayMode dm = new DisplayMode(SIZE.width,SIZE.height, 16, DisplayMode.REFRESH_RATE_UNKNOWN);
+        myGameInfo = new GameInfo();
+        myControllerManager = new ControllerManager(myCanvas, myGameInfo);
+	}
+    
+    public GameManager(ArcadeInteraction arcade){
+    	this();
+    }
+    
+    public GameManager(String runindividually){
+        this();
+    	//DisplayMode dm = new DisplayMode(SIZE.width,SIZE.height, 16, DisplayMode.REFRESH_RATE_UNKNOWN);
         // container that will work with user's OS
         JFrame frame = new JFrame(TITLE);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -47,13 +56,15 @@ public static final Dimension SIZE = new Dimension(800, 600);
         // display them
         frame.pack();
         frame.setVisible(true);
-        myGameInfo = new GameInfo();
-        myControllerManager = new ControllerManager(myCanvas, myGameInfo);
-	}
+    }
     
     
 	 public void run (){
 		 myControllerManager.run();
 	    }
+	 
+	 public UserGameData generateNewProfile(){
+		 ;
+	 }
 
 }

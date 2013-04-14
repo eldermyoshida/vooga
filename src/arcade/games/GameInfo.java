@@ -2,7 +2,7 @@ package arcade.games;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import arcade.util.Pixmap;
+import util.Pixmap;
 
 
 public class GameInfo {
