@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import vooga.scroller.level_editor.commands.CommandConstants;
 import vooga.scroller.viewUtil.IView;
 import vooga.scroller.viewUtil.Renderable;
 import vooga.scroller.viewUtil.WindowComponent;
@@ -62,9 +63,10 @@ public class LEGridView extends WindowComponent{
         }
     }
     
-    private void createSprite (Point loc) {
-        // TODO Auto-generated method stub
-        process(loc);
+    private void createSprite (int x, int y) {
+        String cmd = CommandConstants.CREATE_SPRITE + CommandConstants.SPACE
+                + x + CommandConstants.SPACE + y;
+        process(cmd);
     }
     
     private class GridPositionListener implements MouseListener {
@@ -73,7 +75,7 @@ public class LEGridView extends WindowComponent{
         @Override
         public void mouseClicked (MouseEvent e) {
             // TODO Auto-generated method stub
-            createSprite(new Point(e.getX(),e.getY()));
+            createSprite(e.getX(),e.getY());
             System.out.println(e.getLocationOnScreen());
         }
 

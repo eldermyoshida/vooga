@@ -15,4 +15,6 @@ public class CommandConstants {
     public static final String DELETE_SPRITE = "deleteSprite";
 
     public static final String CHANGE_BACKGROUND = "changeBackground";
+    
+    public static final String SPACE = " ";
 }

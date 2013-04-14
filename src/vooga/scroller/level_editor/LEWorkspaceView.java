@@ -1,8 +1,8 @@
-
 package vooga.scroller.level_editor;
 
 import java.awt.Container;
 import java.awt.Point;
+import vooga.scroller.level_editor.commands.CommandConstants;
 import vooga.scroller.util.Editable;
 import vooga.scroller.viewUtil.EasyGridFactory;
 import vooga.scroller.viewUtil.IView;
@@ -11,10 +11,12 @@ import vooga.scroller.viewUtil.Renderable;
 import vooga.scroller.viewUtil.Tools;
 import vooga.scroller.viewUtil.WorkspaceView;
 
+
 /**
  * This class is a specialized Workspace for a Level Editor.
+ * 
  * @author Dagbedji Fagnisse
- *
+ * 
  */
 public class LEWorkspaceView extends WorkspaceView {
     /**
@@ -35,9 +37,6 @@ public class LEWorkspaceView extends WorkspaceView {
         super(id, host);
     }
 
-
-
-
     @Override
     protected void initializeVariables () {
         // TODO Auto-generated method stub
@@ -48,7 +47,7 @@ public class LEWorkspaceView extends WorkspaceView {
     @Override
     protected void addComponents () {
         // TODO Add other comp.
-//        EasyGridFactory.layoutHorizontal(this, myLevelView, myEditorView);
+        // EasyGridFactory.layoutHorizontal(this, myLevelView, myEditorView);
         EasyGridFactory.layout(this, myLevelView, myEditorView);
     }
 
@@ -62,24 +61,32 @@ public class LEWorkspaceView extends WorkspaceView {
     public void setRenderable (Renderable r) {
         // TODO Auto-generated method stub
         myRenderable = r;
-//        myRenderableHistory.add(renderableRoom);
+        // myRenderableHistory.add(renderableRoom);
         render(myRenderable);
     }
 
     @Override
     public void process (Object isn) {
-        // TODO - Need to refactor
-        String res=new String();
-        if (isn instanceof Point) {
-            Point a = (Point)isn;
-            res = "createSprite "+ myEditorView.getSelectedSpriteID()
-                    +" "+a.x+" "+a.y;
+        if (isn instanceof String) {
+            String cmd = (String) isn;
+            switch (getCommand(cmd)) {
+                case CommandConstants.CREATE_SPRITE:
+                    cmd = cmd + CommandConstants.SPACE + myEditorView.getSelectedSpriteID();
+                    break;
+                default: // TODO add more cases for other commands
+                    break;
+            }
+            super.process(cmd);
         }
-        super.process(res);
+        super.process(isn);
     }
-    
-    //TODO - Good design choice??
-    public static void setTools(Tools t) {
+
+    private String getCommand (String cmd) {
+        return cmd.split(CommandConstants.SPACE)[0];
+    }
+
+    // TODO - Good design choice??
+    public static void setTools (Tools t) {
         WorkspaceView.setTools(t);
     }
 
