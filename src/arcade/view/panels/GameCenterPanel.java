@@ -38,7 +38,7 @@ public class GameCenterPanel extends JPanel {
     public GameCenterPanel (MainView mv) {
         myUpperLevel = mv;
         setBackground(Color.WHITE);
-        GridLayout gamePanelLayout = new GridLayout(4, 2);
+        GridLayout gamePanelLayout = new GridLayout(0, 2);
         gamePanelLayout.setHgap(HORIZONTAL_GAP);
         gamePanelLayout.setVgap(VERTICAL_GAP);
         setLayout(gamePanelLayout);
@@ -53,9 +53,7 @@ public class GameCenterPanel extends JPanel {
 
         for ( GameInfo info: myUpperLevel.getGameList() ){
             SnapShot temp = new SnapShot(info);
-            temp.setPreferredSize(new Dimension(60,60));
-            temp.setMaximumSize(new Dimension(60,60));
-            temp.setMinimumSize(new Dimension(60, 60));
+            add(temp);
             add(temp);
         }
         
