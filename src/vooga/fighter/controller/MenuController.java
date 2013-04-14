@@ -1,74 +1,57 @@
 package vooga.fighter.controller;
 
+import vooga.fighter.controller.Controller;
+import vooga.fighter.controller.ControllerDelegate;
+import vooga.fighter.controller.GameInfo;
+import vooga.fighter.controller.LevelController;
 import vooga.fighter.game.*;
+import vooga.fighter.input.Input;
+import vooga.fighter.view.Canvas;
+
 import java.util.ResourceBundle;
 
 
 /**
  * 
- * @author Jerry Li
+ * @author Jerry Li and Jack Matteucci
  * 
  */
 public class MenuController extends Controller {
 
-    private Controller myNextController;
-    private ResourceBundle myLevelNames;
+    private static final String INPUT_PATHWAY = "PATHWAY";
 
-    private static String DEFAULT_RESOURCE = "vooga.fighter.config.LevelConfig";
-
-    public MenuController (Mode model, String id, ControllerDelegate manager) {
-        super(model, id, manager);
+    public MenuController (String name, Canvas frame) {
+        super(name, frame);
     }
-
-    public void createMenu (String menuName) {
-        String filePath = myLevelNames.getString(menuName);
-        myGame = new Mode(menuName, filePath, this);
-    }
-
-    /**
-     * Sets next mode
-     * 
-     * @param controller
-     */
-    public void setNextMode (Controller controller) {
-        myNextController = controller;
-    }
-
-    /**
-     * Returns next mode
-     */
-    public Controller switchMode (Controller controller) {
-        setNextMode(controller);
-        return myNextController;
+	
+    public MenuController(String name, Canvas frame, ControllerDelegate manager, 
+    		GameInfo gameinfo) {
+    	super(name, frame, manager, gameinfo);
     }
 
     /**
      * Checks special occurences of game state.
      */
-    public void checkConditions () {
-        // Couple of reasons for this method as opposed to just one switchMode()
-        // button is selected, switch mode
-        // If player is knocked out, flash sign
-        // If player health is very low, change display
-        // If player controller disconnected, flash splash/message
-        // etc......
-
-        // checkLowPlayerHealth()
-        // checkDisconnect()
-        // checkSpecial() etc.
-
-        // Essentially check conditions is different than update in that
-        // it checks special occurences in games. Update will check for bounds,
-        // interactions, and all that, but as far as significant changes to game state goes we
-        // should
-        // use check conditions
+    public void notifyEndCondition () {
+       
+    }
+    /**
+     * Checks special occurences of game state.
+     */
+    public void notifyEndCondition(String string) {
+        
     }
 
-    /**
-     * Exits program.
-     */
-    public void exit () {
-        System.exit(0);
+
+    @Override
+    public Controller getController (ControllerDelegate delegate, GameInfo gameinfo) {
+        return new MenuController(super.getName(), super.getView(),
+                                   delegate, gameinfo);
+    }
+
+    @Override
+    protected Input makeInput () {
+        return new Input(INPUT_PATHWAY, super.getView());
     }
 
 }

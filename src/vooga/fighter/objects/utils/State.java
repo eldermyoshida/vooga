@@ -60,8 +60,8 @@ public class State {
      * Note: Dayvid once you determine how you want the data from the XML file to be
      * loaded into a hitbox object we will tweak this method appropriately.
      */
-    public void populateRectangles() {
-        
+    public void populateRectangle(Rectangle rect, int index) {
+        myRectangles[index] = rect;
     }
     
     /**
@@ -72,8 +72,8 @@ public class State {
      * Note: Dayvid once you determine how you want the data from the XML file to be
      * loaded into a hitbox object we will tweak this method appropriately.
      */
-    public void populateImages() {
-        
+    public void populateImage(Pixmap image, int index) {
+        myImages[index] = image;
     }
     
     /**

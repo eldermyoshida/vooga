@@ -1,13 +1,9 @@
 package vooga.fighter.objects;
 
-import vooga.fighter.objects.utils.Hitbox;
-import vooga.fighter.util.Pixmap;
-import vooga.fighter.util.Location;
-import vooga.fighter.util.Vector;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.geom.Point2D;
+import vooga.fighter.objects.utils.State;
+import vooga.fighter.objects.utils.UpdatableLocation;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -19,11 +15,11 @@ import java.awt.geom.Point2D;
 public abstract class GameObject {
     
     private long myInstanceId;
-    private long myObjectId;
-    private Pixmap myImage;
-    private Location myCenter;
-    private Hitbox myHitbox;    
-    private Dimension mySize;
+    private ObjectLoader myLoader;
+    private UpdatableLocation myCenter;
+    private State myCurrentState;
+    private Map<String,State> myStates;
+    private Map<String,Integer> myProperties;
 
     /**
      * Constructs a new GameObject with the given image, center, and size.
@@ -31,15 +27,11 @@ public abstract class GameObject {
      * Note: Dayvid, once the loader is fully functional we will modify this to
      * only take in an object ID, and we will load the parameters from the XML.
      */
-    public GameObject(long instanceId) {
-        myInstanceId=instanceId;        
-    }
-    
-    /**
-     * Will create update method for one gameloop cycle, checks for collisions
-     */
-    public void update(){
-    	
+    public GameObject() {
+//        myInstanceId = System.currentTimeMillis();
+        myStates = new HashMap<String,State>();
+        myProperties = new HashMap<String,Integer>();
+        myCurrentState = null;
     }
     
     /**
@@ -49,65 +41,130 @@ public abstract class GameObject {
     public long getInstanceId() {
         return myInstanceId;
     }
-    
-    /**
-     * Returns the game object's object id. This id is unique to the type of object
-     * this instance represents.
-     */
-    public long getObjectId() {
-        return myObjectId;
-    }
-    
-    /**
-     * Sets game object's image.
-     */
-    public void setImage(Pixmap image) {
-        if (image != null) {
-            myImage = image;
-        }
-    }
-    
-    /**
-     * Returns the game object's image.
-     */
-    public Pixmap getImage() {
-        return myImage;
-    }
 
     /**
      * Sets game object's center.
      */
-    public void setCenter(double x, double y) {
-        myCenter.setLocation(x, y);
+    public void setLocation(UpdatableLocation ul) {
+        myCenter = ul;
     }
 
     /**
      * Returns game object's center.
      */
-    public Location getCenter() {
+    public UpdatableLocation getLocation() {
         return myCenter;
     }
-    
+
     /**
-     * Sets the hitbox for this game object.
+     * Adds a property for this object. Overwrites any existing value.
      */
-    public void setHitbox(Hitbox hitbox) {
-        myHitbox = hitbox;
+    public void addProperty(String key, int value) {
+        myProperties.put(key, value);
     }
 
     /**
-     * Returns the hitbox for this game object.
+     * Returns a property for this object. Returns -1 if property does not exist.
      */
-    public Hitbox getHitbox() {
-        return myHitbox;
-    }
-
-    /**
-     * Returns true if this object collides with another object.
-     */
-    public boolean collidesWith(GameObject other) {
-        return getHitbox().getCurrentRectangle().intersects(other.getHitbox().getCurrentRectangle());
+    public int getProperty(String key) {
+        if (myProperties.containsKey(key)) {
+            return myProperties.get(key);
+        } else {
+            return -1;
+        }
     }
     
+    /**
+     * Clears all properties.
+     */
+    public void clearProperties() {
+        myProperties.clear();
+    }
+    
+    /**
+     * Adds a state for this object. Overwrites any existing value.
+     */
+    public void addState(String key, State value) {
+        myStates.put(key, value);
+    }
+    
+    /**
+     * Returns a state for this object. Returns null if it doesn't exist.
+     */
+    public State getState(String key) {
+        if (myStates.containsKey(key)) {
+            return myStates.get(key);
+        } else {
+            return null;
+        }
+    }
+    
+    /**
+     * Sets the current state for this object.
+     */
+    public void setCurrentState(String key) {
+        myCurrentState = getState(key);
+    }
+    
+    /**
+     * Gets the current state for this object.
+     */
+    public State getCurrentState() {
+        return myCurrentState;
+    }
 
+    /**
+     * Clears all states.
+     */
+    public void clearStates() {
+        myStates.clear();
+    }
+    
+    /**
+     * Sets the object loader for this object.
+     */
+    public void setLoader(ObjectLoader loader) {
+        myLoader = loader;
+    }
+    
+    /**
+     * gets priority of the object
+     */
+    
+    public int getPriority(){
+    	return myCurrentState.getPriority(); 
+    }
+    /**
+     * Returns the object loader for this object.
+     */
+    public ObjectLoader getLoader() {
+        return myLoader;
+    }
+    
+    /**
+     * Updates the object for the game loop. Should be overriden by subclasses if
+     * necessary, but all overrides shuld call superclass method.
+     */
+    public void update() {
+        if (myCenter != null) {
+            myCenter.update();
+        }
+        if (myCurrentState != null) {
+            myCurrentState.update();
+        }
+    }
+    
+    /**
+     * 
+     * returns the difference between two game object's priorities   
+     */
+    public int compare(GameObject o){
+    	return this.getPriority()-o.getPriority();
+    }
+    
+    /**
+     * 
+     */
+    
+    public abstract void applyCollideEffect(GameObject o);
 }

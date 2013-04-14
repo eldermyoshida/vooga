@@ -3,7 +3,7 @@ package vooga.fighter.view;
 import java.awt.geom.Point2D;
 import java.lang.reflect.Field;
 import java.util.Observer;
-import src.vooga.fighter.util.Paintable;
+import vooga.fighter.util.Paintable;
 
 
 public abstract class HUDElement implements Observer, Paintable {

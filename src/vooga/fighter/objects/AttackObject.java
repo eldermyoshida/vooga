@@ -19,39 +19,32 @@ import vooga.fighter.util.Vector;
 public class AttackObject extends GameObject{
 
     private Counter myCounter;
-    private CharacterObject myOwner;
+    private GameObject myOwner;
     private List<Effect> myEffects;
     private int myPower;   
     private int mySpeed;
-    private int myDirection; 
-    private ObjectLoader myLoader;
-    private UpdatableLocation myUpdatableLocation;  
-    private long myInstanceId;
-    private Pixmap myImage;
-    private Location myCenter;
-    private Dimension mySize;
-
+    private int myDirection;   
     
     /**
      * Constructs an AttackObject with the given owner.
      * 
      * Will update to use ObjectLoader.
      */
-    public AttackObject(long instanceId, int objectId, UpdatableLocation center) {
+    public AttackObject(long instanceId, int objectId) {
     	super();
         myEffects = new ArrayList<Effect>();
         myCounter = new Counter();
-        myUpdatableLocation=center; 
     }
     
     public AttackObject (AttackObject attack, UpdatableLocation center){
-    	super(attack.getInstanceId());
-    	try {
-			attack.clone();
-		} catch (CloneNotSupportedException e) {
-			e.printStackTrace();
-		}
-    	myUpdatableLocation=center;
+    	super();
+        try {
+            attack.clone();
+        }
+        catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+    	setLocation(center);
     }
     
     /**
@@ -78,7 +71,7 @@ public class AttackObject extends GameObject{
     /**
      * Gets the character who created the attack
      */
-    public CharacterObject getOwner(){
+    public GameObject getOwner(){
     	return myOwner; 
     }
     
@@ -98,5 +91,26 @@ public class AttackObject extends GameObject{
             target.addActiveEffect(copyOfEffect);
         }
     }    
+    
+    /**
+     * Sets the amount of time left in attack to zero
+     */
+    public void endCounter(){
+    	myCounter.setCounter(0); 
+    }
+    @Override
+    public void applyCollideEffect(GameObject o){
+    	if (this.compare(o)>=0){
+	    	if (o instanceof CharacterObject){
+	    		inflictDamage((CharacterObject) o);
+	    		addTargetForEffects((CharacterObject) o);
+	    	}
+	    	else if (o instanceof AttackObject){
+	    		
+	    			((AttackObject) o).endCounter();
+	    		
+	    	}
+    	}
+    }
 
 }

@@ -1,11 +1,17 @@
-package fighter.view;
+package vooga.fighter.view;
 
 import java.awt.Dimension;
-import java.awt.Graphics;
-import src.vooga.fighter.controller.ViewDataSource;
+import java.awt.Graphics2D;
+import vooga.fighter.controller.ViewDataSource;
 import java.awt.geom.Point2D;
-import java.awt.geom.Point2D.Double;
 
+/**
+ * Displays the first HUDTimer object in the center top of the screen and up to four HUDPlayerValue objects 
+ * along the bottom of the screen evenly spaced.
+ * 
+ * @author Wayne You
+ *
+ */
 public class FourPlayerMatchGameLayout extends CanvasLayout {
     private static final int MAX_TIMER = 1;
     private static final int MAX_PLAYER = 4;
@@ -13,12 +19,13 @@ public class FourPlayerMatchGameLayout extends CanvasLayout {
     private static final int SCREEN_ROWS = 7;
     private static final int VALUE_ROW = 6;
     
-    public void paintComponents (Graphics pen, ViewDataSource data, Dimension screenSize) {
+    @Override
+    public void paintComponents (Graphics2D pen, ViewDataSource data, Dimension screenSize) {
         int timerCount = 0;
         int playerCount = 0;
         
         for (int n = 0; n < data.ObjectNumber(); n++) {
-            if (timerCount < 1 && data.getPaintable(n) instanceof HUDTimer) {
+            if (timerCount < MAX_TIMER && data.getPaintable(n) instanceof HUDTimer) {
                 Point2D.Double location = new Point2D.Double(screenSize.width / 2, 0);
                 data.getPaintable(n).paint(pen, location, data.getSize(n));
                 timerCount++;
