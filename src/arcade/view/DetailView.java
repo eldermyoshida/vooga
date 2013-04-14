@@ -24,6 +24,7 @@ public class DetailView extends JFrame{
 	 * TODO:
 	 * display ad screen from resource bundle
 	 * display description
+	 * display comments
 	 * display play button (if game is single player)
 	 * display multiplayer button (if game is multiplayer) 
 	 * 
