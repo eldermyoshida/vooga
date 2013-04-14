@@ -18,7 +18,7 @@ import vooga.rts.util.Pixmap;
  *
  */
 public class Resource extends GameEntity implements IGatherable {
-	
+
 	/**
 	 * Creates a new resource
 	 * @param image is the image of the resource
@@ -33,7 +33,7 @@ public class Resource extends GameEntity implements IGatherable {
 	public Resource(Pixmap image, Location center, Dimension size, int teamID, int health) {
 		super(image, center, size, teamID, health);
 	}
-	
+
 	@Override
 	public void getGathered(int gatherAmount) {
 		changeHealth(gatherAmount);
@@ -42,5 +42,4 @@ public class Resource extends GameEntity implements IGatherable {
 			setVisible(false);
 		}
 	}
-
 }

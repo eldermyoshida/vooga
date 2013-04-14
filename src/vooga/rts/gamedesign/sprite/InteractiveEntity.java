@@ -15,6 +15,7 @@ import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
 import vooga.rts.gamedesign.sprite.rtsprite.Projectile;
 
 import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
+import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;
 import vooga.rts.gamedesign.strategy.attackstrategy.CannotAttack;
 import vooga.rts.gamedesign.upgrades.UpgradeNode;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
@@ -40,24 +41,17 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     private AttackStrategy myAttackStrategy;
     private int myArmor;
     private List<Action> myActions;
-    private List<Weapon> myWeapons;
-    private int myWeaponIndex;
 
     private Map<String, Factory> myMakers; //WHERE SHOULD THIS GO??
 
     public InteractiveEntity (Pixmap image, Location center, Dimension size, Sound sound, int teamID, int health) {
         super(image, center, size, teamID, health);
         myMakers = new HashMap<String, Factory>(); //WHERE SHOULD THIS GO?
-        //myUpgradeTree =new UpgradeTree();
+        
         mySound = sound;
         myAttackStrategy = new CannotAttack();
         myActions = new ArrayList<Action>();
-        myWeapons = new ArrayList<Weapon>();
-        myWeaponIndex = 0;
         initDefaultActions();
-
-        //UpgradeNode armor = new ArmorUpgradeNode("armor1","myHealth",40); //TESTING
-        //myUpgradeTree.addUpgrade(armor); //TESTING
     }
 
     public UpgradeTree getUpgradeTree() {
@@ -70,33 +64,29 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     public Sound getSound() {
         return mySound;
     } 
-    public List<Weapon> getWeapons() {
-        return myWeapons;
-    }
-    public int getWeaponIndex() {
-        return myWeaponIndex;
-    }
+    
     public List<Action> getActions() {
         return myActions;
     }
-    public void setWeaponIndex(int weaponIndex) {
-        myWeaponIndex = weaponIndex;
-    }
+
     public void attack(IAttackable a) {
-        if(myAttackStrategy.canAttack(a) && inRange((InteractiveEntity) a) && !this.isDead()) {
-            myWeapons.get(myWeaponIndex).fire((InteractiveEntity) a);
+    	double distance = Math.sqrt(Math.pow(getCenter().x - ((InteractiveEntity) a).getX(), 2) + Math.pow(this.getY() - ((InteractiveEntity) a).getY(), 2)); 
+        if(!this.isDead()) {
+            myAttackStrategy.attack(a, distance);
         }    
     } 
+    
+    //TODO: THIS IS DUPLICATED CODE AS IN ATTACK STRATEGY!!! SHOULD DELETE IT!
     public boolean inRange(InteractiveEntity enemy) {
         //ellipse thing doesnt seem to be working very well. 
-        double distance = Math.sqrt(Math.pow(getCenter().x - enemy.getX(), 2) + Math.pow(this.getY() - enemy.getY(), 2)); 
-        if(!myWeapons.isEmpty() && distance < myWeapons.get(myWeaponIndex).getRange()){
+    	double distance = Math.sqrt(Math.pow(getCenter().x - enemy.getX(), 2) + Math.pow(this.getY() - enemy.getY(), 2)); 
+    	if(getAttackStrategy().getCanAttack() && !getAttackStrategy().getWeapons().isEmpty() && distance < getAttackStrategy().getWeapons().get(getAttackStrategy().getWeaponIndex()).getRange()){
             return true;
         }
         //buggy :( myWeapons.get(myWeaponIndex).inRange(enemy)
         return false;
     }
-
+    
     /**
      * Sets the attack strategy for an interactive. Can set the interactive
      * to CanAttack or to CannotAttack and then can specify how it would
@@ -137,25 +127,19 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     public int calculateDamage(int damage) {
         return damage * (1-(myArmor/(myArmor+100)));
     }
-    public boolean hasWeapon(){
-        return !myWeapons.isEmpty();
-    }
-    
-    public void addWeapons(Weapon weapon) {
-        myWeapons.add(weapon);
-    }
+
     @Override
     public void update(double elapsedTime){
         super.update(elapsedTime);
-        if(!myWeapons.isEmpty()){
-            myWeapons.get(myWeaponIndex).update(elapsedTime);
+        if(myAttackStrategy.getCanAttack() && !getAttackStrategy().getWeapons().isEmpty()){
+        	myAttackStrategy.getWeapons().get(myAttackStrategy.getWeaponIndex()).update(elapsedTime);
         }
     }
     @Override
     public void paint(Graphics2D pen) {
         super.paint(pen);
-        if(!myWeapons.isEmpty()){
-            for(Projectile p : getWeapons().get(getWeaponIndex()).getProjectiles()) {
+        if(myAttackStrategy.getCanAttack() && !getAttackStrategy().getWeapons().isEmpty()){
+            for(Projectile p : myAttackStrategy.getWeapons().get(myAttackStrategy.getWeaponIndex()).getProjectiles()) {
                 p.paint(pen);               
             }
         }

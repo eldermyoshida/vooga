@@ -10,4 +10,5 @@ public interface IGatherable {
 	 */
 	public void getGathered(int gatherAmount);
 
+
 }
