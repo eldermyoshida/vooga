@@ -32,4 +32,6 @@ public interface ArcadeInteraction {
      * @return UserGameData
      */
     UserGameData getUserGameData();
+    
+    GameData getGameData();
 }
