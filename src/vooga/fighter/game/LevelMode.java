@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import vooga.fighter.controller.ControllerDelegate;
+import vooga.fighter.controller.ModelDelegate;
 import vooga.fighter.objects.CharacterObject;
 import vooga.fighter.objects.GameObject;
 import vooga.fighter.objects.utils.UpdatableLocation;
@@ -21,7 +22,7 @@ public class LevelMode extends Mode {
     private List<Integer> myCharacterIds;
     private int myMapId;    
     
-    public LevelMode(ControllerDelegate cd, List<Integer> charIds, int mapId) {
+    public LevelMode(ModelDelegate cd, List<Integer> charIds, int mapId) {
         super(cd);
         myStartLocations = new ArrayList<UpdatableLocation>();
         myCharacterIds = charIds;

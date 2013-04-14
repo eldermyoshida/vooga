@@ -3,7 +3,7 @@ package vooga.fighter.game;
 import java.awt.Dimension;
 import java.util.HashSet;
 import java.util.Set;
-import vooga.fighter.controller.ControllerDelegate;
+import vooga.fighter.controller.ModelDelegate;
 import vooga.fighter.objects.GameObject;
 
 /**
@@ -17,21 +17,21 @@ public abstract class Mode {
 
     private Set<GameObject> myObjects;
     private long myId;
-    private ControllerDelegate myControllerDelegate;
+    private ModelDelegate myModelDelegate;
 
     /**
      * Constructs a new Mode.
      */
-    public Mode(ControllerDelegate cd) {
+    public Mode(ModelDelegate cd) {
         myObjects = new HashSet<GameObject>();
-        setControllerDelegate(cd);
+        setModelDelegate(cd);
     }
     
     /**
      * Sets the controller delegate for this mode.
      */
-    public void setControllerDelegate(ControllerDelegate cd) {
-        myControllerDelegate = cd;
+    public void setModelDelegate(ModelDelegate cd) {
+        myModelDelegate = cd;
     }
     
     /**
@@ -67,7 +67,7 @@ public abstract class Mode {
     * for when the mode should be terminated are implemented in subclasses.
     */
     public void signalTermination() {
-        myControllerDelegate.notifyEndCondition();
+        myModelDelegate.notifyEndCondition();
     }
     
     /**
