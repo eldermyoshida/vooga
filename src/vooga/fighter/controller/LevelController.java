@@ -35,18 +35,18 @@ public class LevelController extends Controller implements ModelDelegate{
     public LevelController(String name, Canvas frame, ControllerDelegate manager, 
     		GameInfo gameinfo) {
     	super(name, frame, manager, gameinfo);
+    	myCanvas = super.getView(); // Sorry about this line!  it needs to be here for now...
     }
     
 	
 	 public void start() {
 	        final int stepTime = DEFAULT_DELAY;
 	        // create a timer to animate the canvas
-	        myCanvas = super.getView();
 	         myTimer = new Timer(stepTime, 
 	            new ActionListener() {
 	                public void actionPerformed (ActionEvent e) {
 	                    myMode.update((double) stepTime / ONE_SECOND, myCanvas.getSize());
-	                    myCanvas.paint();
+	                    myCanvas.paintComponent();
 	                }
 	            });
 	        // start animation

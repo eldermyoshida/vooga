@@ -16,6 +16,7 @@ import vooga.fighter.util.Pixmap;
 import vooga.fighter.util.Text;
 import vooga.fighter.view.Canvas;
 import vooga.fighter.controller.ControllerManager;
+import vooga.fighter.controller.GameInfo;
 import vooga.fighter.game.*;
 import vooga.fighter.input.Input;
 import vooga.fighter.input.InputClassTarget;
@@ -32,6 +33,7 @@ public class GameManager{
     public static final String TITLE = "Fighter!";
     private Canvas myCanvas;
     private ControllerManager myControllerManager;
+    private GameInfo myGameInfo;
   
 
     public GameManager() {
@@ -45,8 +47,11 @@ public class GameManager{
         // display them
         frame.pack();
         frame.setVisible(true);
-	
+        myGameInfo = new GameInfo();
+        myControllerManager = new ControllerManager(myCanvas, myGameInfo);
 	}
+    
+    
 	 public void run (){
 		 myControllerManager.run();
 	    }
