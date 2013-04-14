@@ -11,6 +11,13 @@ public class DamageUpgradeNode extends UpgradeNode {
 				//TODO: check method name
 	public static final Class[] DAMAGE_UPGRADE_METHOD_PARAM = new Class[] {int.class};
 
+	public DamageUpgradeNode(int id, String upgradeType, String upgradeObject, int upgradeValue){
+		super(id, upgradeType, upgradeObject, upgradeValue);
+	}
+	
+	/**
+	 * Applies the damage upgrade by the method that updates damage.
+	 */
 	@Override
 	public void apply(List<InteractiveEntity> requester)
 			throws IllegalArgumentException, IllegalAccessException,

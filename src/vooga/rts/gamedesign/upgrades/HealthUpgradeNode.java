@@ -11,6 +11,14 @@ public class HealthUpgradeNode extends UpgradeNode {
 									//TODO: check method name
 	public static final Class[] HEALTH_UPGRADE_METHOD_PARAM = new Class[] {int.class};
 	
+	public HealthUpgradeNode(int id, String upgradeType, String upgradeObject, int upgradeValue){
+		super(id, upgradeType, upgradeObject, upgradeValue);
+	}
+	
+	
+	/**
+	 * Applies the health upgrade by the method that updates health.
+	 */
 	@Override
 	public void apply(List<InteractiveEntity> requester)
 			throws IllegalArgumentException, IllegalAccessException,
