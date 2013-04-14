@@ -38,6 +38,7 @@ public class GameController extends AbstractController {
     public GameController () {
         myTeams = new HashMap<Integer, Team>();
         myPlayers = new ArrayList<Player>();
+        myMap = new GameMap(8, new Dimension(512, 512));
     }
 
     
