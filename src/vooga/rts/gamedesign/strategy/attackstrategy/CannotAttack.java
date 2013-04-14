@@ -23,6 +23,7 @@ import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
 public class CannotAttack implements AttackStrategy {
 	private List<Weapon> myWeapons;
 	private int myWeaponIndex;
+	private boolean myCanAttack = false;
 
 	public CannotAttack() {
 		 myWeapons = new ArrayList<Weapon>();
@@ -50,5 +51,10 @@ public class CannotAttack implements AttackStrategy {
 	public void addWeapons(Weapon weapon) {
 		myWeapons.add(weapon);
 
+	}
+
+	@Override
+	public boolean getCanAttack() {
+		return myCanAttack;
 	}
 }

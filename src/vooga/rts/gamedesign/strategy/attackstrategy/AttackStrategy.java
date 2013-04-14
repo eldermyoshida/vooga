@@ -33,5 +33,7 @@ public interface AttackStrategy {
 	public void addWeapons(Weapon weapon);
 	
 	public int getWeaponIndex();
+	
+	public boolean getCanAttack();
 
 }
