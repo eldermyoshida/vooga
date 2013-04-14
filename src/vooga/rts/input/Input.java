@@ -28,13 +28,11 @@ public class Input {
     Map<String, Method> keyToMethod = new HashMap<String, Method>();
     Map<String, Object> keyToInstance = new HashMap<String, Object>();
     ArrayList<InputDevice> inputDevices = new ArrayList<InputDevice>(); //still not sure if needed 
-    private Controller myController;
 
-    public Input(String resourcePath, JComponent component, Controller controller) {
+    public Input(String resourcePath, JComponent component) {
         RESOURCES = ResourceBundle.getBundle(resourcePath);
         inputDevices.add(new KeyboardModule(component, this));
         inputDevices.add(new MouseModule(component, this));
-        myController = controller;
     }
 
     /**
@@ -87,12 +85,12 @@ public class Input {
      * @param object
      */
     public void actionNotification(String action, ActionObject object) {
-        myController.receiveInput(action, object);
-//        try {
-//            if(RESOURCES.containsKey(action))
-//                execute(RESOURCES.getString(action), object);
-//        } catch (NullPointerException e) {
-//            System.out.println("Null Pointer Exception");
-//        }
+        try {
+            if(RESOURCES.containsKey(action))
+                execute(RESOURCES.getString(action), object);
+        } catch (NullPointerException e) {
+            System.out.println("Null Pointer Exception");
+        }
     }
+    
 }
