@@ -112,7 +112,7 @@ public abstract class GameObject {
     public State getCurrentState() {
         return myCurrentState;
     }
-    
+
     /**
      * Clears all states.
      */
@@ -127,6 +127,13 @@ public abstract class GameObject {
         myLoader = loader;
     }
     
+    /**
+     * gets priority of the object
+     */
+    
+    public int getPriority(){
+    	return myCurrentState.getPriority(); 
+    }
     /**
      * Returns the object loader for this object.
      */
@@ -147,4 +154,17 @@ public abstract class GameObject {
         }
     }
     
+    /**
+     * 
+     * returns the difference between two game object's priorities   
+     */
+    public int compare(GameObject o){
+    	return this.getPriority()-o.getPriority();
+    }
+    
+    /**
+     * 
+     */
+    
+    public abstract void applyCollideEffect(GameObject o);
 }
