@@ -42,7 +42,7 @@ public abstract class Sprite implements IGameLoop {
         myOriginalCenter = new Location(center);
         myView = image; //new Pixmap(image);
         isVisible = true;
-        myCenter = center;
+        myCenter = new Location(center);
     }
     /**
      * Resets shape's center.

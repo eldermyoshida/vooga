@@ -25,7 +25,7 @@ public class Soldier extends Unit {
     public static Location DEFAULT_LOCATION = new Location();
     public static Dimension DEFAULT_SIZE = new Dimension(90,90);
     public static Sound DEFAULT_SOUND = null;
-    public static int DEFAULT_TEAMID = 0;
+    public static int DEFAULT_TEAMID = 1;
     public static int DEFAULT_HEALTH = 100;
 
     // private int myHealth; //TESTING PURPOSE

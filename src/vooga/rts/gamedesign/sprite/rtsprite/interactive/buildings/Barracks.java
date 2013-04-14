@@ -1,15 +1,16 @@
 package vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings;
 
+import java.awt.Dimension;
+import java.awt.Graphics2D;
+import java.util.ArrayList;
+import java.util.List;
+
 import vooga.rts.gamedesign.action.ProductionAction;
 import vooga.rts.gamedesign.sprite.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Soldier;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
-import java.awt.Dimension;
-import java.util.List;
-import java.util.ArrayList;
-import java.awt.Graphics2D;
 
 /**
  * 
@@ -38,8 +39,8 @@ public class Barracks extends ProductionBuilding {
             @Override
             public void apply() {
                 InteractiveEntity ie = getProducables().get(0).copy();
-                
-                ie.setCenter(getProduceFrom().x, getProduceFrom().y);
+                Location ieLoc = new Location(getProduceFrom());                
+                ie.setCenter(ieLoc.x, ieLoc.y);
                 //these below are for testing purposes 
                 ie.move(new Location(300,400));
                 myBabies.add(ie);
@@ -50,8 +51,8 @@ public class Barracks extends ProductionBuilding {
     @Override
     public void paint(Graphics2D pen) {
         super.paint(pen);
-        for(InteractiveEntity ie : myBabies) {
-            ie.paint(pen);
+        for(int i = 0; i < myBabies.size(); i++) {
+            myBabies.get(i).paint(pen);
         }
     }
     
@@ -63,7 +64,6 @@ public class Barracks extends ProductionBuilding {
             getActions().get(3).apply();
             PRODUCE_TIME = 90;
         }
-        System.out.println("Size of my babies " + myBabies.size());
         for(InteractiveEntity ie : myBabies) {
             ie.update(elapsedTime);
         }
