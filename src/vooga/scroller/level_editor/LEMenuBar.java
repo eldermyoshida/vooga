@@ -8,6 +8,12 @@ import javax.swing.JMenu;
 import vooga.scroller.viewUtil.MenuBarView;
 import vooga.scroller.viewUtil.Window;
 
+/**
+ * A specialized menubar for a Level Editor.
+ * Note that default File and Edit Menu are inherited from the superclass.
+ * @author Dagbedji Fagnisse
+ *
+ */
 public class LEMenuBar extends MenuBarView {
 
     /**
@@ -17,13 +23,17 @@ public class LEMenuBar extends MenuBarView {
 
     private List<JMenu> myMenus;
     
+    /**
+     * Attach the menu to the specified window
+     * @param window - window which is accessible via this menu
+     */
     public LEMenuBar (Window window) {
         super(window);
     }
 
     @Override
     protected JMenu makePreferencesMenu () {
-        // TODO Auto-generated method stub
+        // TODO - Add LEPreferences
         JMenu result = new JMenu(Window.getResources().getString("PreferencesMenu"));
         result.setMnemonic(KeyEvent.VK_P);
         result.setEnabled(false);
@@ -32,7 +42,7 @@ public class LEMenuBar extends MenuBarView {
 
     @Override
     protected JMenu makeHelpMenu () {
-        // TODO Auto-generated method stub
+        // TODO - Add LEHelp
         JMenu result = new JMenu(Window.getResources().getString("HelpMenu"));
         result.setMnemonic(KeyEvent.VK_H);
         result.setEnabled(true);
@@ -52,9 +62,11 @@ public class LEMenuBar extends MenuBarView {
         
     }
 
+    /**
+     * Make the Workspace specific menus available to members of the class hierarchy
+     */
     @Override
-    protected List<JMenu> getWorkspaceMenus () {
-        // TODO Auto-generated method stub
+    protected List<JMenu> getWorkspaceMenus () { 
         return myMenus;
     }
 
