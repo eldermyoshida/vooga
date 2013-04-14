@@ -31,7 +31,7 @@ public class LoadingController extends AbstractController {
     }
     
     @Override
-    public void onLeftMouseDown(PositionObject o) {
+    public void onLeftMouseUp(PositionObject o) {
     	setChanged();
         notifyObservers();
     }
