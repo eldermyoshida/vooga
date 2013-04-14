@@ -48,7 +48,7 @@ public class CharacterObject extends GameObject {
      */
     public CharacterObject (long instanceId, int objectId, UpdatableLocation center) {
         super();
-        myLoader = new CharacterObjectLoader(objectId);
+        myLoader = new CharacterLoader(objectId, this);
         myUpdatableLocation = center;
 
     }
