@@ -23,7 +23,6 @@ import vooga.rts.resourcemanager.ResourceManager;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
-import vooga.rts.gamedesign.sprite.rtsprite.Resource;
 
 
 public class GameController extends AbstractController {

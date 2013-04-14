@@ -12,6 +12,7 @@ import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
 import vooga.rts.gamedesign.strategy.occupystrategy.CannotOccupy;
 import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
 import vooga.rts.gamedesign.upgrades.UpgradeNode;
+import vooga.rts.gamedesign.upgrades.UpgradeTree;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
@@ -35,6 +36,10 @@ public class Unit extends InteractiveEntity {
     //private PathingHelper myPather;
     private OccupyStrategy myOccupyStrategy;
 
+    public Unit (UpgradeTree upgradeTree) { //TESTING PURPOSE. FEEL FREE TO DELETE
+    	this(null, new Location(0,0), new Dimension(30, 30), null, 0, 50, upgradeTree);
+    }
+    
     /**
      * Creates a new unit with an image, location, size, sound, teamID and health
      * 
@@ -46,7 +51,11 @@ public class Unit extends InteractiveEntity {
      * @param health is the max health of the unit
      */
     public Unit (Pixmap image, Location center, Dimension size, Sound sound, int teamID, int health) {
-        super(image, center, size, sound, teamID, health);
+        this(image, center, size, sound, teamID, health, null);
+    }
+    
+    public Unit (Pixmap image, Location center, Dimension size, Sound sound, int teamID, int health, UpgradeTree upgradeTree) {
+        super(image, center, size, sound, teamID, health, upgradeTree);
         //myPather = new PathingHelper();
         myOccupyStrategy = new CannotOccupy();
         //addUpgradeActions();

@@ -41,12 +41,19 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     private AttackStrategy myAttackStrategy;
     private int myArmor;
     private List<Action> myActions;
-    private Map<String, Factory> myMakers; //WHERE SHOULD THIS GO??
-
+    private Map<String, Factory> myMakers; //WHERE SHOULD THIS GO?
+    
     public InteractiveEntity (Pixmap image, Location center, Dimension size, Sound sound, int teamID, int health) {
+        this(image, center, size, sound, teamID, health, null);
+    }
+    
+    public InteractiveEntity (Pixmap image, Location center, Dimension size, Sound sound, int teamID, int health, UpgradeTree upgradeTree) {
         super(image, center, size, teamID, health);
         myMakers = new HashMap<String, Factory>(); //WHERE SHOULD THIS GO?
-        
+       
+        if(upgradeTree != null) {
+        	 myUpgradeTree = upgradeTree;
+        }
         mySound = sound;
         myAttackStrategy = new CannotAttack();
         myActions = new ArrayList<Action>();
