@@ -127,8 +127,8 @@ public class GameController extends AbstractController {
 
         Player p1 = new HumanPlayer();
         Pixmap p = new Pixmap(ResourceManager.instance().loadFile("images/soldier.png"));
-        Dimension s = new Dimension(100, 100);
-        r = new Resource(new Pixmap(ResourceManager.instance().loadFile("images/mineral.gif")), new Location (300,300), new Dimension(100, 100), 0, 80);
+        Dimension s = new Dimension(90, 90);
+        r = new Resource(new Pixmap(ResourceManager.instance().loadFile("images/mineral.gif")), new Location (300,300), new Dimension(60, 60), 0, 80);
         Sound soun = null;// new Sound("/vooga/rts/sounds/pikachu.wav");
         Unit a = null;
         try {
@@ -158,7 +158,7 @@ public class GameController extends AbstractController {
                                new Pixmap(ResourceManager.instance().loadFile("images/bullet.png")),
                                c.getCenter(), new Dimension(30, 30), 1, 10, 1);
         c.setAttackStrategy(new CanAttack());
-        Unit w = new Worker(p, new Location(500, 200), s, soun, 20, 40, 40);
+        Unit w = new Worker(new Pixmap(ResourceManager.instance().loadFile("images/scv.gif")), new Location(500, 200), s, soun, 20, 40, 40);
         c.getAttackStrategy().addWeapons(new Weapon(0, proj3, 200, c.getCenter(), 50));
 
         p1.getUnits().addUnit(a);
