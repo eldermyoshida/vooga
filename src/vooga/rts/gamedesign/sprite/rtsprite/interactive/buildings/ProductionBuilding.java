@@ -8,7 +8,12 @@ import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Unit;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
-
+/**
+ * This class is a subclass of Building to deal with production buildings.
+ * Has rallypoints which is where newly produced units go to. 
+ * 
+ * @author Junho Oh
+ */
 public class ProductionBuilding extends Building {
     private Location myRallyPoint;
     private List<InteractiveEntity> myProducables; //for testing really, need to make it work with xml file
@@ -26,8 +31,22 @@ public class ProductionBuilding extends Building {
 
     @Override
     public void getOccupied (Unit u) {
-        // TODO Auto-generated method stub
+        // does nothing if building isnt occupied. 
     }
+    
+    /*
+     * returns the list of producables
+     */
+    public List<InteractiveEntity> getProducables() {
+        return myProducables;
+    }
+    
+    /**
+     * Returns the rally point of the production building. 
+     * Will be used to move the newly created units to
+     * @return myRallyPoint, the rally point of the 
+     * production building 
+     */
     public Location getRallyPoint() {
         return myRallyPoint;
     }
@@ -37,10 +56,13 @@ public class ProductionBuilding extends Building {
     public void addProducable(InteractiveEntity i) {
         myProducables.add(i);
     }
-    /*
-     * returns the list of producables
+    
+    /**
+     * Sets the rally point of the production building
+     * @param rallyPoint the location of the new rally point 
      */
-    public List<InteractiveEntity> getProducables() {
-        return myProducables;
+    public void setRallyPoint(Location rallyPoint) {
+    	myRallyPoint = rallyPoint;
     }
+   
 }

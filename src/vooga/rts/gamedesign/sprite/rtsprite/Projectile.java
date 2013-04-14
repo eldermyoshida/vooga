@@ -47,8 +47,6 @@ public class Projectile extends GameEntity{
         if(this.intersects(myTarget.getCenter())){
             attack(myTarget);
             this.die();
-            //lol very bad way 
-            myDamage = 0;
         }
     }
     public void attack(InteractiveEntity interactiveEntity) {

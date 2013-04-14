@@ -8,6 +8,7 @@ import vooga.rts.util.Location;
 import java.awt.geom.Ellipse2D.Double;
 import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -100,7 +101,7 @@ public class Weapon {
      */
     public boolean inRange (InteractiveEntity enemy) {
         // add z axis
-        //see if enemy is in adjacent node, better way. 
+        //see if enemy is in adjacent node, better way ? 
         myRangeCircle = new Ellipse2D.Double(myCenter.getX(), myCenter.getY(), myRange, myRange);
         return myRangeCircle.contains(enemy.getCenter());
     }
@@ -112,8 +113,16 @@ public class Weapon {
         if(!interval.allowAction()){
             interval.decrementCooldown();
         }
-        for(Projectile p : myProjectiles){
-            p.update(elapsedTime);
+        Iterator<Projectile> it = myProjectiles.iterator();
+        while (it.hasNext()) {
+        	Projectile p = it.next();
+        	if (!p.isDead()) {
+        		p.update(elapsedTime);
+        	}
+        	else {
+        		it.remove();
+        	}
         }
+        
     }
 }

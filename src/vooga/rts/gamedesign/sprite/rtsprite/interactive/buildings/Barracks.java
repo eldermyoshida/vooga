@@ -34,15 +34,17 @@ public class Barracks extends ProductionBuilding {
     private void initProducables() {
         addProducable(new Soldier());
     }
+    
     public void addProductionActions(ProductionBuilding p) {
         getActions().add(new ProductionAction("soldier",null,"I maketh un soldier", p.getCenter()){
             @Override
             public void apply() {
                 InteractiveEntity ie = getProducables().get(0).copy();
-                Location ieLoc = new Location(getProduceFrom());                
+                Location ieLoc = new Location(getProducedFrom());                
                 ie.setCenter(ieLoc.x, ieLoc.y);
                 //these below are for testing purposes 
                 ie.move(new Location(300,400));
+                //this part below will not be in actual implementaiton as I will notify player/unit manager that a new unit should be added to the player
                 myBabies.add(ie);
             }
         });
