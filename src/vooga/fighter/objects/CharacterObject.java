@@ -47,6 +47,7 @@ public class CharacterObject extends GameObject {
 
 //        myLoader = new CharacterObjectLoader(objectId);
         super();
+        setLoader(new CharacterLoader(objectId, this));
         setLocation(center);
 
     }

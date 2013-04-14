@@ -44,23 +44,8 @@ public class ScoreController extends Controller {
     }
     
     
-    public void checkConditions () {
-        // Couple of reasons for this method as opposed to just one switchMode()
-        // button is selected, switch mode
-        // If player is knocked out, flash sign
-        // If player health is very low, change display
-        // If player controller disconnected, flash splash/message
-        // etc......
-
-        // checkLowPlayerHealth()
-        // checkDisconnect()
-        // checkSpecial() etc.
-
-        // Essentially check conditions is different than update in that
-        // it checks special occurences in games. Update will check for bounds,
-        // interactions, and all that, but as far as significant changes to game state goes we
-        // should
-        // use check conditions
+    public void notifyEndCondition () {
+        
     }
 
     /**
@@ -86,7 +71,8 @@ public class ScoreController extends Controller {
     protected Input makeInput () {
         return new Input(INPUT_PATHWAY, super.getView());
     }
-
+    
+    
     
 
 }
