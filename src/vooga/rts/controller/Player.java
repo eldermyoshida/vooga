@@ -1,8 +1,7 @@
 package vooga.rts.controller;
 
-import java.util.Observable;
-import java.util.Observer;
 import vooga.rts.manager.Manager;
+import vooga.rts.input.ActionObject;
 
 /**
  * At the moment, the player class is implementing the humanplayer. For network
@@ -11,7 +10,7 @@ import vooga.rts.manager.Manager;
  * @author Challen Herzberg-Brovold
  *
  */
-public class Player implements Controller, Observer {
+public class Player implements Controller {
     
     private Manager myManager;
     
@@ -19,11 +18,11 @@ public class Player implements Controller, Observer {
         myManager = manager;
     }
     
-    public void sendCommand () {
+    public void sendCommand () { // this will send the command to the unit manager. Exactly what this is going to be is still being determined
         return;
     }
     
-    public void update (Observable o, Object arg) {
+    public void receiveInput (String action, ActionObject o) {
         
     }
 }
