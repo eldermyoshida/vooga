@@ -2,9 +2,7 @@
 package vooga.scroller.level_management;
 
 import java.awt.Dimension;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import util.Location;
 import vooga.scroller.level_editor.Level;
@@ -12,7 +10,6 @@ import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.test_sprites.MarioLib;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.PlatformerConstants;
-import vooga.scroller.util.Sprite;
 import vooga.scroller.view.View;
 /**
  * Instantiates all of the levels for gameplay.
@@ -75,7 +72,7 @@ public class LevelFactory {
         
         Level secondLevel = new Level(2, myScrollingManager, view);
         
-        StartPoint exit= new StaticStartingPoint(myCurrLevel, new Location(500,500));
+        StartPoint exit= new StaticStartPoint(myCurrLevel, new Location(500,500));
         
         
         LevelPortal portal = new LevelPortal(new Pixmap("brick9.gif"), new Location(900,900),

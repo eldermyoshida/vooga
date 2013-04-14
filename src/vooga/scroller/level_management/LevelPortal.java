@@ -7,6 +7,13 @@ import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.ISpriteView;
 import vooga.scroller.util.Sprite;
 
+/**
+ * Acts as a portal between different levels and differnent positions. This can be used to change
+ * player position inside of a level or take the player to a whole different level.
+ * 
+ * @author Scott Valentine
+ *
+ */
 public class LevelPortal extends Sprite implements IDoor {
 
     private StartPoint myExit;
@@ -34,7 +41,11 @@ public class LevelPortal extends Sprite implements IDoor {
     }
 
     @Override
-    public void goToNextStartPoint (Player player) {       
+    public void goToNextStartPoint (Player player) {      
+        
+        // TODO: this can be where animations or cutscreens are played?
+        // This could also be done in the level manager.
+        
         int nextLevelID = myExit.getLevelId();        
         myLevelManager.setCurrentLevel(nextLevelID);
         
@@ -42,10 +53,7 @@ public class LevelPortal extends Sprite implements IDoor {
         
         myLevelManager.currentLevel().addPlayer(player);
         
-        player.setCenter(startPosition.x, startPosition.y);
-        // TODO: use the start position to specify where in the level the player goes.
-        // NOTE: we need to be able to add the player arbitrarily to the level.
-        
+        player.setCenter(startPosition.x, startPosition.y);       
     }
 
 }

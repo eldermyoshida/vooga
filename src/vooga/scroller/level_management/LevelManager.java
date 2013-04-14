@@ -17,7 +17,6 @@ import vooga.scroller.level_editor.Level;
  */
 public class LevelManager {
 
-    private static final int DEFAULT_START_INDEX = 1;
     private Map<Integer,Level> myLevels;
     private int myLevelID;    
     

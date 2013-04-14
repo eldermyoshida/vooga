@@ -3,12 +3,20 @@ package vooga.scroller.level_management;
 import util.Location;
 import vooga.scroller.level_editor.Level;
 
-public class StaticStartingPoint implements StartPoint {
+/**
+ * Acts as a start point for IDoors to go to.
+ * 
+ * This simply acts as a data struct with a Level and a Location that specify the next starting point.
+ * 
+ * @author Scott Valentine
+ *
+ */
+public class StaticStartPoint implements StartPoint {
 
     private Level myLevel;
     private Location myLocation;
     
-    public StaticStartingPoint (Level level, Location location) {
+    public StaticStartPoint (Level level, Location location) {
         myLevel = level;
         myLocation = location;
     }
