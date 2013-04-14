@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
+import java.util.ResourceBundle;
 import javax.swing.BoxLayout;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -21,6 +22,7 @@ public class SnapShot extends JPanel implements MouseListener {
          */
     private static final long serialVersionUID = 1859238824934859448L;
     private GameInfo myGameInfo;
+    private ResourceBundle myResources;
     private JLabel myTitle;
     private JComponent myThumbnail;
     private JLabel myRating;
@@ -28,8 +30,9 @@ public class SnapShot extends JPanel implements MouseListener {
     
     private String gameName;
 
-    public SnapShot (GameInfo info) {
+    public SnapShot (GameInfo info, ResourceBundle resources) {
         myGameInfo = info;
+        myResources = resources;
         gameName = info.getName();
         myTitle = new JLabel("<html><b><font size = 4>" + myGameInfo.getName() +
                              "</font></html></b>");
@@ -60,7 +63,8 @@ public class SnapShot extends JPanel implements MouseListener {
             // the database
             // JFrame des = new JFrame(myGameInfo.title());
             // des.setVisible(true);
-            openHelpPage();
+            //openHelpPage();
+            DetailView dv = new DetailView(myGameInfo, myResources);
             
             
         }
