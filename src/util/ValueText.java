@@ -1,5 +1,7 @@
 
-package vooga.scroller.util;
+package util;
+
+import vooga.scroller.util.Text;
 
 
 /**

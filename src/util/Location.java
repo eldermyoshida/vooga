@@ -1,5 +1,5 @@
 
-package vooga.scroller.util;
+package util;
 
 import java.awt.geom.Point2D;
 

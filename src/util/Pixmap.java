@@ -1,5 +1,5 @@
 
-package vooga.scroller.util;
+package util;
 
 import java.awt.Graphics2D;
 import java.awt.Dimension;
