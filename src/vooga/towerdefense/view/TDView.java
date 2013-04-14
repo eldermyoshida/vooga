@@ -10,12 +10,13 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import vooga.towerdefense.controller.Controller;
 
+
 /**
  * Container that holds the screens for the view.
- *
+ * 
  * @author Leonard K. Ng'eno
  * @author Angelica Schwartz
- *
+ * 
  */
 public class TDView {
 
@@ -39,12 +40,12 @@ public class TDView {
     private MapsSelectorScreen myMapSelector;
     private LevelsSelectorScreen myLevelSelector;
     private JButton myNextScreen;
-    
+
     public TDView (Controller controller) {
         myController = controller;
         createGUI();
     }
-    
+
     public void createGUI () {
         myFrame = new JFrame(TITLE);
         myPanel = new JPanel();
@@ -56,11 +57,11 @@ public class TDView {
         myFrame.getContentPane().add(mySplashScreen, BorderLayout.NORTH);
 
         myFrame.getContentPane().add(nextScreenButton());
-     
+
         myFrame.pack();
         myFrame.setVisible(true);
     }
-    
+
     private Component nextScreenButton () {
         myNextScreen = new JButton("NEXT");
         myNextScreen.addActionListener(new ActionListener() {
@@ -86,7 +87,7 @@ public class TDView {
         myFrame.setVisible(true);
     }
 
-    public void showModesScreen (){
+    public void showModesScreen () {
         myFrame.remove(myMapSelector);
 
         myLevelSelector = new LevelsSelectorScreen(MAP_WINDOW_SIZE, this);
@@ -95,7 +96,7 @@ public class TDView {
         myFrame.pack();
         myFrame.setVisible(true);
     }
-    
+
     public void assembleScreens () {
 
         myFrame.remove(myLevelSelector);
@@ -113,16 +114,16 @@ public class TDView {
         myFrame.pack();
         myFrame.setVisible(true);
     }
-    
-    public MapScreen getMapScreen() {
+
+    public MapScreen getMapScreen () {
         return myMapScreen;
     }
-    
-    public InfoScreen getTowerInfoScreen() {
+
+    public InfoScreen getTowerInfoScreen () {
         return myEastWindow.getTowerScreen();
     }
-    
-    public InfoScreen getPlayerInfoScreen() {
+
+    public InfoScreen getPlayerInfoScreen () {
         return myEastWindow.getPlayerScreen();
     }
 }
