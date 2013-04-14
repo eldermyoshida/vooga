@@ -5,8 +5,10 @@ import java.awt.Graphics2D;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
-import vooga.rts.util.ThreeDimension;
 import vooga.rts.util.Vector;
+import vooga.rts.map.GameMap;
+import vooga.rts.ai.Path;
+import vooga.rts.ai.PathFinder;
 
 
 /**
@@ -24,12 +26,12 @@ import vooga.rts.util.Vector;
  */
 public class GameEntity extends GameSprite {
     private Vector myVelocity;
-
+    private GameMap myMap;
     private int myMaxHealth;
     private int myCurrentHealth;
-
+    private PathFinder myFinder;
     private int myTeamID;
-
+    private Path myPath;
     private Location myCurrentLocation;
     private Location myGoal;
     private Vector myOriginalVelocity;
@@ -111,18 +113,28 @@ public class GameEntity extends GameSprite {
      * Possible design choice error.
      */
     public void move (Location loc) {
-        System.out.println("move is called");
         myGoal = new Location(loc);
         Vector v = getCenter().difference(myGoal);
-        setVelocity(v.getAngle(),1);
+        // TODO: not static amount
+        setVelocity(v.getAngle(), 20);
     }
-
+    
+    public void move (Location loc, GameMap map) {
+        setPath(loc, map);
+    }
+    
+    public void setPath (Location location, GameMap map) {
+        myPath = myFinder.calculatePath(map.getNode(getCenter()), 
+                                        map.getNode(location), map.getMap());
+        myGoal = myPath.getNext();
+     }
     /**
      * Updates the shape's location.
      */
     // TODO: make Velocity three dimensional...
     public void update (double elapsedTime) {
         Vector v = new Vector(myVelocity);
+        System.out.println(elapsedTime);
         v.scale(elapsedTime);
         if(this.intersects(myGoal)){
             //System.out.println("myGoal reached");

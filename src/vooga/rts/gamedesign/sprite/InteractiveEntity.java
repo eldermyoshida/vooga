@@ -18,6 +18,7 @@ import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
 import vooga.rts.gamedesign.strategy.attackstrategy.CannotAttack;
 import vooga.rts.gamedesign.upgrades.UpgradeNode;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
+import vooga.rts.resourcemanager.ResourceManager;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
@@ -42,7 +43,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     private List<Action> myActions;
     private List<Weapon> myWeapons;
     private int myWeaponIndex;
-
+    private boolean isSelected;
     private Map<String, Factory> myMakers; //WHERE SHOULD THIS GO??
 
     public InteractiveEntity (Pixmap image, Location center, Dimension size, Sound sound, int teamID, int health) {
@@ -54,16 +55,22 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
         myActions = new ArrayList<Action>();
         myWeapons = new ArrayList<Weapon>();
         myWeaponIndex = 0;
+        isSelected = false;
         initDefaultActions();
 
         //UpgradeNode armor = new ArmorUpgradeNode("armor1","myHealth",40); //TESTING
         //myUpgradeTree.addUpgrade(armor); //TESTING
     }
-
-    public UpgradeTree getUpgradeTree() {
-    	return myUpgradeTree;
+    /*
+     * Sets the isSelected boolean to the passed in bool value. 
+     */
+    public void select(boolean bool) {
+        isSelected = bool;
     }
-    
+    public UpgradeTree getUpgradeTree() {
+        return myUpgradeTree;
+    }
+
     public void getAttacked(InteractiveEntity a) {
         a.attack(this);
     }
@@ -83,7 +90,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
         myWeaponIndex = weaponIndex;
     }
     public void attack(IAttackable a) {
-        if(myAttackStrategy.canAttack(a) && inRange((InteractiveEntity) a)) {
+        if(myAttackStrategy.canAttack(a) && inRange((InteractiveEntity) a) && !this.isDead()) {
             myWeapons.get(myWeaponIndex).fire((InteractiveEntity) a);
         }    
     } 
@@ -140,7 +147,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     public boolean hasWeapon(){
         return !myWeapons.isEmpty();
     }
-    
+
     public void addWeapons(Weapon weapon) {
         myWeapons.add(weapon);
     }
@@ -153,12 +160,19 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     }
     @Override
     public void paint(Graphics2D pen) {
+        
         super.paint(pen);
         if(!myWeapons.isEmpty()){
             for(Projectile p : getWeapons().get(getWeaponIndex()).getProjectiles()) {
                 p.paint(pen);               
             }
         }
+        /*
+        if(isSelected){
+            Pixmap lol = new Pixmap(ResourceManager.instance().loadFile("images/potion.png"));
+            lol.paint(pen, getCenter(), getSize());
+        }*/
+
     }
 
     private void initDefaultActions(){

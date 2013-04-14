@@ -2,14 +2,15 @@ package vooga.rts.player;
 
 import java.awt.Graphics2D;
 import java.awt.Point;
-
+import java.util.Observable;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Unit;
 import vooga.rts.util.Location;
 
+
 public class HumanPlayer extends Player {
-    
+
     @Override
-    public void update (double elapsedTime) {        
+    public void update (double elapsedTime) {
         super.update(elapsedTime);
     }
 
@@ -17,29 +18,20 @@ public class HumanPlayer extends Player {
     public void paint (Graphics2D pen) {
         super.paint(pen);
     }
-    
-    public void handleRightClick(int x, int y) {
+
+    public void handleRightClick (int x, int y) {
         for (Unit u : getUnits().getSelected()) {
-            System.out.println("handling right click >< ");
-            u.move(new Location(x, y));            
+            u.move(new Location(x, y));
         }
     }
-    // Duplicate method 
-    public void handlRightClick(int x, int y, int z) {
-        for (Units u : getUnits().getSelected())
-        {            
-            u.move(new Location(x, y), getMap());            
-        }
+
+    public void handleLeftClick (int x, int y) {
+        getUnits().select(new Point(x, y));
     }
-    
-    public void handleLeftClick(int x, int y) {
-        getUnits().deselectAll();
-        for (Unit u : getUnits().getAllUnits())
-        {         
-            if (u.intersects(new Point(x, y))) {
-                getUnits().select(u);
-            }            
-        }
+
+    @Override
+    public void update (Observable o, Object arg) {
+        
     }
 
 }

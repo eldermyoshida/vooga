@@ -43,6 +43,7 @@ public class Projectile extends GameEntity implements Cloneable{
     @Override
     public void update(double elapsedTime){
         super.update(elapsedTime);
+        this.move(myTarget.getCenter());
         if(this.intersects(myTarget.getCenter())){
             attack(myTarget);
             this.die();
