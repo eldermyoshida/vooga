@@ -96,8 +96,8 @@ public class Mode {
     }
 
     public void detectCollisions (List<CharacterObject> objects) {
-        for (CharacterObject g : objects) {
-            for (CharacterObject o : objects) {
+        for (GameObject g : objects) {
+            for (GameObject o : objects) {
                 detectCollision(g, o);
             }
         }
@@ -130,7 +130,7 @@ public class Mode {
 
     public void paintObjects (Graphics2D pen) {
         if (myInteractables != null) {
-            for (CharacterObject s : myInteractables) {
+            for (GameObject s : myInteractables) {
                 s.paint(pen);
             }
 
