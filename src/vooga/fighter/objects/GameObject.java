@@ -36,6 +36,13 @@ public abstract class GameObject {
     }
     
     /**
+     * Will create update method for one gameloop cycle, checks for collisions
+     */
+    public void update(){
+    	
+    }
+    
+    /**
      * Returns the game object's instance id. This id is unique to this particular
      * instantiation of the object.
      */
@@ -102,4 +109,5 @@ public abstract class GameObject {
         return getHitbox().getCurrentRectangle().intersects(other.getHitbox().getCurrentRectangle());
     }
     
+
 }

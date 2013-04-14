@@ -2,6 +2,8 @@ package vooga.fighter.objects;
 
 import java.awt.Dimension;
 import java.io.File;
+import java.util.ResourceBundle;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -16,41 +18,45 @@ import vooga.fighter.util.Pixmap;
 
 public class ObjectLoader {
 	
+	private static final String OBJECTS_PATH = "src/vooga/fighter/config/objects.xml";
+	
 	private int[] myMovespeeds;
 	private Pixmap[] myImages;
 	private Dimension[] myDimensions;
+	private File myObjectFile;
 	private Input myInput;
 	
 	public ObjectLoader (Input input) {
 		myImages = new Pixmap[10];
 		myMovespeeds = new int[10];
 		myDimensions = new Dimension[10];
+		myObjectFile = new File(OBJECTS_PATH);
 		myInput = input;
-		init();
+		loadChar(1, new Location(100, 100));
 	}
 
-	public void init() {
+	public void loadChar(int charid, Location center) {
 		try {
 
-			File objectFile = new File("src/vooga/fighter/config/objects.xml");
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			Document doc = dBuilder.parse(objectFile);
+			Document doc = dBuilder.parse(myObjectFile);
 			doc.getDocumentElement().normalize();
 
-			NodeList nodes = doc.getElementsByTagName("character");
+			NodeList charNodes = doc.getElementsByTagName("character");
 
-			for (int i = 0; i < nodes.getLength(); i++) {
-				Node node = nodes.item(i);
-
-				if (node.getNodeType() == Node.ELEMENT_NODE) {
-					Element element = (Element) node;
-					int id = Integer.parseInt(getValue("id", element));
-					Pixmap image = new Pixmap(getValue("image",element));
-					int movespeed = Integer.parseInt(getValue("movespeed", element));
-					myImages[0] = image;
-					myMovespeeds[0] = movespeed;
-					myDimensions[0] = new Dimension(30, 50);
+			for (int i = 0; i < charNodes.getLength(); i++) {
+				Node node = charNodes.item(i);
+				int id = Integer.parseInt(node.getAttributes().getNamedItem("charID").getTextContent());
+				if (id == charid) {
+					String charName = getAttributeValue(node, "charName");
+					int maxHealth = Integer.parseInt(getAttributeValue(node, "maxHealth"));
+					NodeList stateNodes = doc.getElementsByTagName("state");
+					for (int j = 0; j < stateNodes.getLength(); j++) {
+						Element state = (Element) stateNodes.item(i);
+						
+					}
+					
 				}
 			}
 		} catch (Exception e) {
@@ -58,14 +64,17 @@ public class ObjectLoader {
 		}
 	}
 	
-	private static String getValue(String tag, Element element) {
+	private String getAttributeValue(Node node, String tag) {
+		return node.getAttributes().getNamedItem(tag).getTextContent();
+	}
+	
+	private String getChildValue(String tag, Element element) {
 		NodeList nodes = element.getElementsByTagName(tag).item(0).getChildNodes();
 		Node node = (Node) nodes.item(0);
 		return node.getNodeValue();
 	}
 	
-	public CharacterObject getTestCharacter () {
-		Location beginningLocation = new Location(100, 100);
-		return new CharacterObject(myImages[0], beginningLocation, myDimensions[0], myMovespeeds[0], myInput);
+	public static void main (String[] args) {
+		ObjectLoader o = new ObjectLoader(null);
 	}
 }

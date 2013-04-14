@@ -14,16 +14,16 @@ public interface WeaponSlot {
     /**
      * Returns the object that is currently wielded, or null if there is none.
      */
-    public Wieldable getMyWieldedObject();    
+    public Wieldable getMyWieldedObject ();
 
     /**
      * Wields a wieldable object.
      */
-    public void wield(Wieldable w);
-    
+    public void wield (Wieldable w);
+
     /**
      * Unwields the currently wielded object.
      */
-    public void unwield();
+    public void unwield ();
 
 }

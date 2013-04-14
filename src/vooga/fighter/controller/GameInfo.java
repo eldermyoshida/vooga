@@ -1,64 +1,129 @@
 package vooga.fighter.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * 
+ * Information about the broader game state. includes game mode, selected map and characters.
  * @author matthewparides
- *
+ * 
  */
 public class GameInfo {
-	private String myGameMode;
-	private String myMapName;
-	private String[] myCharacters;
-	private int myNumCharacters;
-	
+    private String myGameMode;
+    private String myMapName;
+    private List<String> myCharacters;
+    private Integer myNumCharacters;
+    private List<Integer> myScores;
+    
 
-	public GameInfo() {
-	}
-	
-	public String getGameMode() {
-		return myGameMode;
-	}
+    /**
+     * Constructor
+     */
+    public GameInfo () {
+    	myCharacters = new ArrayList<String>();
+    	myScores = new ArrayList<Integer>();
+    }
 
+    /**
+     * 
+     */
+    public void setScores(List<Integer> scores) {
+    	myScores = scores;
+    }
+    
+    /**
+     * 
+     */
+    public int getScore(int index) {
+    	return myScores.get(index);
+    }
+    
+    /**
+     * 
+     */
+    public void setScore(int index, int score) {
+    	myScores.set(index, score);
+    }
+    
+    /**
+     * 
+     * @return
+     */
+    public List<Integer> getScores() {
+    	return myScores;
+    }
+    
+    /**
+     * 
+     * @return
+     */
+    public String getGameMode () {
+        return myGameMode;
+    }
 
-	public void setGameMode(String myGameMode) {
-		myGameMode = myGameMode;
-	}
+    /**
+     * 
+     * @param myGameMode
+     */
+    public void setGameMode (String myGameMode) {
+        myGameMode = myGameMode;
+    }
 
+    /**
+     * 
+     * @return
+     */
+    public String getMapName () {
+        return myMapName;
+    }
 
-	public String getMapName() {
-		return myMapName;
-	}
+    /**
+     * 
+     * @param myMapName
+     */
+    public void setMapName (String myMapName) {
+        myMapName = myMapName;
+    }
 
+    /**
+     * 
+     * @return
+     */
+    public List<String> getCharacters () {
+        return myCharacters;
+    }
 
-	public void setMapName(String myMapName) {
-		myMapName = myMapName;
-	}
+    /**
+     * 
+     * @param index
+     * @param characterName
+     */
+    public void setCharacter (int index, String characterName) {
+        myCharacters.set(index, characterName);
+    }
 
+    /**
+     * 
+     * @param myCharacters
+     */
+    public void setCharacters (List<String> myCharacters) {
+        myCharacters = myCharacters;
+    }
 
-	public String[] getCharacters() {
-		return myCharacters;
-	}
+    /**
+     * 
+     * @return
+     */
+    public int getNumCharacters () {
+        return myNumCharacters;
+    }
 
-	public void setCharacter(int index, String characterName) {
-		myCharacters[index] = characterName;
-	}
-	
-	public void setCharacters(String[] myCharacters) {
-		myCharacters = myCharacters;
-	}
+    /**
+     * 
+     * @param myNumCharacters
+     */
+    public void setNumCharacters (int myNumCharacters) {
+        myNumCharacters = myNumCharacters;
+    }
 
-
-	public int getNumCharacters() {
-		return myNumCharacters;
-	}
-
-
-	public void setNumCharacters(int myNumCharacters) {
-		myNumCharacters = myNumCharacters;
-	}
-
-
-
-	
 }

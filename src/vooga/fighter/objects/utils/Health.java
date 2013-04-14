@@ -12,21 +12,19 @@ public class Health {
      * Representation of the current level of health.
      */
     private int myHealth;
-    
+
     /**
      * Returns the current value of the object's health.
      */
-    public int getHealth() {
+    public int getHealth () {
         return myHealth;
     }
-    
+
     /**
      * Sets the health to an absolute number. Must not be negative.
      */
-    public void setHealth(int amount) {
-        if (amount < 0) {
-            return;
-        }
+    public void setHealth (int amount) {
+        if (amount < 0) { return; }
         myHealth = amount;
     }
 
@@ -36,7 +34,7 @@ public class Health {
      * health to be a negative value; instead health will decrease to zero
      * and remain at zero. Returns the amount of health remaining after the change.
      */
-    public int changeHealth(int amount) {
+    public int changeHealth (int amount) {
         myHealth += amount;
         if (myHealth < 0) {
             myHealth = 0;
@@ -47,10 +45,8 @@ public class Health {
     /**
      * Returns true if the object has any remaining health.
      */
-    public boolean hasHealthRemaining() {
+    public boolean hasHealthRemaining () {
         return (myHealth > 0);
     }
 
-    
-    
 }
