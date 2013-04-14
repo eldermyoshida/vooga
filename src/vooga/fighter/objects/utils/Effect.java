@@ -1,5 +1,7 @@
 package vooga.fighter.objects.utils;
 
+import java.util.ArrayList;
+import java.util.List;
 import vooga.fighter.objects.CharacterObject;
 
 /**
@@ -11,32 +13,35 @@ import vooga.fighter.objects.CharacterObject;
 public abstract class Effect {
     
     private Counter myCounter;
-    private CharacterObject myTarget;
-    private boolean isActive;
+    private CharacterObject myOwner;
     
+    /**
+     * Constructs a new Effect with no owner.
+     */
     public Effect() {
-        myCounter = null;
-        myTarget = null;
-        isActive = false;        
+        this(null);
+    }    
+    
+    /**
+     * Constructs a new Effect with the given owner.
+     */
+    public Effect(CharacterObject owner) {
+        myCounter = new Counter();
+        myOwner = owner;
     }
     
     /**
-     * Used to designate the target of this effect. Call this method when the effect
-     * is actually placed upon a target and activated. Note that this method will
-     * activate the effect as well.
+     * Designates the owner of this effect, aka the target.
      */
-    public void addTarget(CharacterObject target) {
-        myTarget = target;
-        isActive = true;
-        //myCounter = new Counter();
-        //myCounter.setCounter(count);
+    public void setOwner(CharacterObject owner) {
+        myOwner = owner;
     }
     
     /**
-     * Returns the target of the effect, or null if none is set.
+     * Returns the owner of this effect, aka the target.
      */
-    public CharacterObject getTarget() {
-        return myTarget;
+    public CharacterObject getOwner() {
+        return myOwner;
     }
     
     /**
@@ -47,13 +52,20 @@ public abstract class Effect {
     }
     
     /**
-     * Creates a clone of this effect.
+     * Creates a clone of this effect. The clone should be a deep copy.
      */
-    public abstract Effect getCloneOfEffect();
+    public abstract Effect getCloneOfEffect();    
     
     /**
-     * Applies effect to target
+     * Applies the effect to its targets for one game loop cycle. This method should
+     * be overridden by subclasses, and should call the superclass method after
+     * handling its own updates.   
      */
-    public abstract void applyEffect();
+    public void update() {
+        myCounter.decrementCounter();
+        if (!myCounter.hasCountRemaining()) {
+            myOwner.removeActiveEffect(this);
+        }
+    }
 
 }

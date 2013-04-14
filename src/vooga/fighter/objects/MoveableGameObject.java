@@ -26,7 +26,7 @@ public class MoveableGameObject extends GameObject {
         myAccelerations = new ArrayList<Vector>();
     }
 
-    public void update(double elapsedTime, Dimension bounds) {
+    public void update() {
         for (Vector acceleration : myAccelerations) {
             myVelocity.sum(acceleration);
         }
