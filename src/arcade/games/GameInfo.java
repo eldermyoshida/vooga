@@ -1,4 +1,6 @@
 package arcade.games;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import arcade.util.Pixmap;
 
@@ -43,5 +45,13 @@ public class GameInfo {
     public double getRating () {
         // TODO
         return 0;
+    }
+    
+    public List<String[]> getComments() {
+        List<String[]> comments = new ArrayList<String[]>();
+        String[] comment1 = {"theCoolestGuy", "this game is awesome"};
+        comments.add(comment1);
+        return comments;
+        
     }
 }
