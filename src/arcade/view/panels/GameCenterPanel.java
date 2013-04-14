@@ -7,6 +7,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -50,12 +51,14 @@ public class GameCenterPanel extends JPanel {
      * Create the JList for games.
      */
     private void createGameJList () {
-
-        for ( GameInfo info: myUpperLevel.getGameList() ){
-            SnapShot temp = new SnapShot(info);
-            add(temp);
-            add(temp);
+        for (int i = 0; i < 4; i++) {
+            for (GameInfo info : myUpperLevel.getGameList()) {
+                SnapShot temp = new SnapShot(info);
+                add(temp);
+                SnapShot temp2 = new SnapShot(info);
+                add(temp2);
+            }
         }
-        
+
     }
 }
