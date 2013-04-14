@@ -153,6 +153,10 @@ public class EditableMap {
         myTerrains.add(ter);
     }
     
+    public void addTile(int x , int y , String tileType) {
+        myNodeMatrix[x][y].setTileType(tileType);
+    }
+    
     
     public String getMyMapName () {
         return myMapName;
@@ -243,6 +247,14 @@ public class EditableMap {
             }
         }
         
+    }
+    
+    public static void main(String[] args) {
+        EditableMap test = new EditableMap(10,10);
+        test.addTile(1, 1, "grass");
+        test.addTile(2, 2, "sand");
+        test.addTile(3, 3, "shit");
+        test.save(System.getProperty("user.dir") + "./src/test.xml");
     }
    
 }

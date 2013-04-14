@@ -66,8 +66,8 @@ public void generateMapFile(EditableMap myMap , File mySavFile) throws IOExcepti
         
         myWriter.write("   <resources>\r\n");
         myWriter.write("      <info>\r\n");
-        myWriter.write("         tilesize width=" + width + " height=" + height + " />");
-        myWriter.write("         tileamount X=" + x + " Y=" + y + " />");
+        myWriter.write("         tilesize width=" + width + " height=" + height + " />\r\n");
+        myWriter.write("         tileamount X=" + x + " Y=" + y + " />\r\n");
         myWriter.write("      </info>\r\n");
     }
     
@@ -77,13 +77,12 @@ public void generateMapFile(EditableMap myMap , File mySavFile) throws IOExcepti
         myWriter.write("      <tiles>\r\n");
     
         for(int i = 0 ; i < x ; i++) {
-            for(int j = 0 ; i < y ; j++) {
-                int id = i*y + j + 1;
+            for(int j = 0 ; j < y ; j++) {
+                int id = i*y + j ;
                 String name = myMap.getMapNode(i, j).getTileType();
                 myWriter.write("         <tiles ID=" + id + " name=\"" + name + "\" />\r\n" );
             }
         }
         myWriter.write("      </tiles>\r\n");
-        
     }
 }
