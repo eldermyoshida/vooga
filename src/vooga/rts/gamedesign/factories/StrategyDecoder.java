@@ -19,26 +19,27 @@ public class StrategyDecoder extends Decoder{
 		myFactory = factory;
 	}
 	
+	
+	private void getSources(NodeList list){
+		for(int j = 0 ; j < list.getLength() ; j++ ){
+			Node Node = list.item(j);
+			if(Node.getNodeType() == Node.ELEMENT_NODE){
+				System.out.println("Name : " + Node.getNodeName());
+				System.out.println("src : " + Node.getAttributes().item(0).getTextContent());
+			}
+		}
+	}
+	
 	@Override
 	public <T> T create(Document doc) {
 		NodeList attackLst = doc.getElementsByTagName(ATTACK_TAG).item(0).getChildNodes();
 		NodeList occupyLst = doc.getElementsByTagName(OCCUPY_TAG).item(0).getChildNodes();
 		NodeList gatherLst = doc.getElementsByTagName(GATHER_TAG).item(0).getChildNodes();
-		
-		
-		
-		for(int i = 0 ; i < attackLst.getLength() ; i++){
-			Node nNode = attackLst.item(i);
 			
-			if(nNode.getNodeType() == Node.ELEMENT_NODE){
-				System.out.println("Name : " + nNode.getNodeName());
-				System.out.println("src : " + nNode.getAttributes().item(0).getTextContent());
-			}
+		getSources(attackLst);
+		getSources(occupyLst);
+		getSources(gatherLst);
 		
-		
-			
-			
-		}
 		return null;
 	}
 

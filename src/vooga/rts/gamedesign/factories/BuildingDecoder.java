@@ -1,10 +1,18 @@
 package vooga.rts.gamedesign.factories;
 
+import org.w3c.dom.Document;
+
 public class BuildingDecoder extends Decoder{
 	Factory myFactory;
 
 	public BuildingDecoder(Factory factory){
-		System.out.println("hahahahahaha");
 		myFactory = factory;
+	}
+
+	@Override
+	public <T> T create(Document doc) {
+		
+		
+		
 	}
 }
