@@ -11,7 +11,7 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import arcade.games.GameInfo;
-import arcade.util.Pixmap;
+import util.Pixmap;
 import arcade.util.JPicture;
 
 

@@ -11,7 +11,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import vooga.fighter.objects.utils.State;
-import vooga.fighter.util.Pixmap;
+import util.Pixmap;
 
 public class CharacterLoader extends ObjectLoader {
 	

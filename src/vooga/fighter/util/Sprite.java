@@ -1,13 +1,12 @@
-<<<<<<< HEAD:src/vooga/fighter/util/Sprite.java
 package vooga.fighter.util;
-=======
-package vooga.rts.util;
->>>>>>> 7362f1f68e473e33a6b1ac1ac75b1d10ad4db368:src/vooga/rts/util/Sprite.java
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
+import util.Location;
+import util.Pixmap;
+import util.Vector;
 
 
 /**

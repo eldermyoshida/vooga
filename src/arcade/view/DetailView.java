@@ -16,7 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import arcade.games.GameInfo;
 import arcade.util.JPicture;
-import arcade.util.Pixmap;
+import util.Pixmap;
 
 public class DetailView extends JFrame{
         private static final int WINDOW_WIDTH = 600;

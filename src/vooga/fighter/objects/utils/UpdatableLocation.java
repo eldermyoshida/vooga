@@ -2,7 +2,7 @@ package vooga.fighter.objects.utils;
 
 import java.awt.geom.Point2D;
 import java.util.Stack;
-import vooga.fighter.util.Vector;
+import util.Vector;
 
 /**
  * Represents a location that can take in acceleration forces and resolve them
