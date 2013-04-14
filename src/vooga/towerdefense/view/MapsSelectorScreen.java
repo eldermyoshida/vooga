@@ -1,5 +1,6 @@
 package vooga.towerdefense.view;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -7,6 +8,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.Stroke;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -42,6 +44,7 @@ public class MapsSelectorScreen extends JPanel {
     private Color myBackgroundColor = Color.WHITE;
     private TDView myView;
     private boolean myMapSelected = false;
+    private String myPrevName = "";
 
     public MapsSelectorScreen (Dimension size, TDView view) {
         myView = view;
@@ -100,14 +103,32 @@ public class MapsSelectorScreen extends JPanel {
     }
 
     private void checkPositionClicked (Point point) {
+        
+        if (!myPrevName.isEmpty()) {
+            System.out.println("myPrevName: " + myPrevName);
+            for (Map.Entry<Pixmap, Rectangle> entry1 : myMapImages.entrySet()) {
+                if (entry1.getKey().getFileName().equals("checked.gif")) {
+                    entry1.getKey().setImage(myPrevName); 
+                    repaint();
+                }
+            }
+        }
+        
         for (Map.Entry<Pixmap, Rectangle> entry : myMapImages.entrySet()) {
             if (entry.getValue().contains(point)) {
                 System.out.println("Pixmap name: " + entry.getKey().getFileName());
                 myMapSelected = true;
-            }
-        }
+                selectedImage(entry.getKey());
+           }
+        }       
     }
 
+    private void selectedImage (Pixmap myImage) {
+        myPrevName = myImage.getFileName();
+        myImage.setImage("checked.gif");
+        repaint();
+    }
+    
     private void displayMaps (Graphics2D pen) {
         for (Map.Entry<Pixmap, Rectangle> entry : myMapImages.entrySet()) {
             entry.getKey().paint(pen,
@@ -116,6 +137,7 @@ public class MapsSelectorScreen extends JPanel {
         }
     }
 
+    
     private void sendMapImageClicked (String imageName) {
         // TODO send the name of the type of map the user selected to the GameModel/Controller?
     }

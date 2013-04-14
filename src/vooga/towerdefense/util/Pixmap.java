@@ -68,6 +68,10 @@ public class Pixmap {
         pen.setTransform(old);
     }
     
+    /**
+     * 
+     * @return  String. The name of the Pixmap's image
+     */
     public String getFileName () {
         return myFileName;
     }
