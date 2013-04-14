@@ -29,6 +29,9 @@ public class GameTable extends Table {
     private PreparedStatement myPreparedStatement; 
     private ResultSet myResultSet;
     
+    /**
+     * GameTable constructor
+     */
     public GameTable() {
         createDatabase();
     }
@@ -57,6 +60,9 @@ public class GameTable extends Table {
 
     }
 
+    /**
+     * Closes Connection, ResultSet, and PreparedStatements once done with database
+     */
     public void closeConnection() {
         try {
             if (myPreparedStatement != null) {
@@ -74,7 +80,10 @@ public class GameTable extends Table {
         }
     }
 
-
+    /**
+     * Returns true if gameName already exists, false otherwise
+     * @param gameName is the name of game
+     */
     public boolean gameNameExists(String gameName) {
         String stm = "SELECT gamename FROM games WHERE gamename='" + gameName + "'";
         try {
@@ -90,6 +99,10 @@ public class GameTable extends Table {
         return false;
     }
     
+    /**
+     * Given a gameName, retrieves a gameID
+     * @param gameName is the game's name
+     */
     public String retrieveGameId(String gameName) {
         String stm = "SELECT * FROM " + TABLE_NAME + " WHERE " + GAMENAME_COLUMN_FIELD + "='" + gameName + "'";
         String gameid = "";
@@ -107,12 +120,8 @@ public class GameTable extends Table {
     }
     
     /**
-     * Adds a user to user table based on information
-     * @param user is the username
-     * @param pw is the password
-     * @param firstname is firstname
-     * @param lastname is lastname
-     * @param dateOfBirth is date of birth
+     * Given the gameName, adds a game
+     * @param gameName is the name of game
      */
     public boolean createGame(String gameName) {
         if (gameNameExists(gameName)) {
@@ -130,6 +139,9 @@ public class GameTable extends Table {
         return true;
     }
     
+    /**
+     * Returns a list of all the games
+     */
     public List<String> retrieveGameList() {
         String stm = "SELECT " + GAMENAME_COLUMN_FIELD + " FROM "  + TABLE_NAME;
         List<String> myGameNames = new ArrayList<String>();
