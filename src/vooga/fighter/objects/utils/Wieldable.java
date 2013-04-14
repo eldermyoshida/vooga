@@ -7,10 +7,8 @@ package vooga.fighter.objects.utils;
  * To be added in future updates.
  * 
  * @author james
- *
+ * 
  */
 public interface Wieldable {
 
-    
-    
 }
