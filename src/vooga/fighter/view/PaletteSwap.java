@@ -15,12 +15,13 @@ public class PaletteSwap {
 
     }
 
-    public Color newColor (Color c) {
-
+    public Color newColor (Pixmap p) {
+    	Graphics2D pen = p.getPen();
+    	pen.setColor(c.darker);
     }
-
-    public void applyNewColor () {
-        ObjectImage.invertColor();
+    
+    public void applyNewColor (Pixmap p) {
+    	newColor(p);
+    	p.paint();
     }
-
 }
