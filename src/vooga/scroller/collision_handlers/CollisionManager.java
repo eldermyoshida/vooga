@@ -106,6 +106,29 @@ public class CollisionManager {
         return (sprite1.getLeft() <= sprite2.getRight() && sprite1.getLeft() >= sprite2.getRight() - COLLISION_GRANULARITY);
     }
     
+    private void marioAndNonStaticEntityCollision (Mario mario, Sprite sprite) {
+        Direction collisionType = collisionDirection(mario, sprite);
+
+        if (collisionType == null) return;
+        
+        switch (collisionType) {
+            case TOP:
+                mario.setCenter(mario.getX(), sprite.getTop() - (mario.getHeight() / 2));
+                break;
+            case BOTTOM:
+                mario.setCenter(mario.getX(), sprite.getBottom() + (mario.getHeight() / 2));
+                break;
+            case LEFT:
+                mario.setCenter(sprite.getLeft() - (mario.getWidth() / 2), mario.getY());
+                break;
+            case RIGHT:
+                mario.setCenter(sprite.getRight() + (mario.getWidth() / 2), mario.getY());
+                break;
+            default: 
+                break;
+        }
+    }
+    
     
     
     /**
@@ -130,28 +153,13 @@ public class CollisionManager {
     }
 
     public void visit (Mario mario, MarioLib.Platform platform) {
+        marioAndNonStaticEntityCollision(mario, platform);
+        System.out.println("Mario has just collided with Platform!");
         
-        Direction collisionType = collisionDirection(mario, platform);
-
-        if (collisionType == null) return;
-        
-        switch (collisionType) {
-            case TOP:
-                mario.setCenter(mario.getX(), platform.getTop() - (mario.getHeight() / 2));
-                break;
-            case BOTTOM:
-                mario.setCenter(mario.getX(), platform.getBottom() + (mario.getHeight() / 2));
-                break;
-            case LEFT:
-                mario.setCenter(platform.getLeft() - (mario.getWidth() / 2), mario.getY());
-                break;
-            case RIGHT:
-                mario.setCenter(platform.getRight() + (mario.getWidth() / 2), mario.getY());
-                break;
-            default: 
-                break;
-        }
-        
+    }
+    
+    public void visit (Mario mario, MarioLib.MovingPlatform movingPlatform) {
+        marioAndNonStaticEntityCollision(mario, movingPlatform);
         System.out.println("Mario has just collided with Platform!");
         
     }
