@@ -1,5 +1,7 @@
 package arcade.view.panels;
 
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -35,7 +37,8 @@ public class GameCenterPanel extends JPanel {
      */
     public GameCenterPanel (MainView mv) {
         myUpperLevel = mv;
-        GridLayout gamePanelLayout = new GridLayout(0, 2);
+        setBackground(Color.WHITE);
+        GridLayout gamePanelLayout = new GridLayout(4, 2);
         gamePanelLayout.setHgap(HORIZONTAL_GAP);
         gamePanelLayout.setVgap(VERTICAL_GAP);
         setLayout(gamePanelLayout);
@@ -50,7 +53,11 @@ public class GameCenterPanel extends JPanel {
 
         for ( GameInfo info: myUpperLevel.getGameList() ){
             SnapShot temp = new SnapShot(info);
+            temp.setPreferredSize(new Dimension(60,60));
+            temp.setMaximumSize(new Dimension(60,60));
+            temp.setMinimumSize(new Dimension(60, 60));
             add(temp);
         }
+        
     }
 }
