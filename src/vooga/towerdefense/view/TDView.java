@@ -23,8 +23,10 @@ public class TDView {
     private JPanel myPanel;
     private EastWindow myEastWindow;
     private JFrame myFrame;
-    private MapScreen myMapWindow;
-    private ShopScreen myShopWindow;
+    private InfoScreen myTowerInfoScreen;
+    private InfoScreen myPlayerInfoScreen;
+    private MapScreen myMapScreen;
+    private ShopScreen myShopScreen;
     private LevelsSelectorScreen myEditorWindow;
     private SplashScreen mySplashScreen;
     private Controller myController;
@@ -43,19 +45,6 @@ public class TDView {
 
         mySplashScreen = new SplashScreen(SPLASH_SCREEN_SIZE, this);
         myFrame.getContentPane().add(mySplashScreen, BorderLayout.SOUTH);
-        
-//        //add view components to the BorderLayout manager
-//        myMapWindow = new MapScreen(MAP_WINDOW_SIZE);
-//        myFrame.getContentPane().add(myMapWindow, BorderLayout.CENTER);
-//        
-//        myEastWindow = new EastWindow(EAST_WINDOW_SIZE);
-//        myFrame.getContentPane().add(myEastWindow, BorderLayout.EAST);
-//        
-//        myShopWindow = new ShopScreen(SHOP_WINDOW_SIZE);
-//        myFrame.getContentPane().add(myShopWindow, BorderLayout.SOUTH);
-
-//        myEditorWindow = new LevelsEditorWindow(EDITOR_WINDOW_SIZE);
-//        myFrame.getContentPane().add(myEditorWindow, BorderLayout.CENTER);
 
         myFrame.pack();
         myFrame.setVisible(true);
@@ -66,19 +55,31 @@ public class TDView {
     	myFrame.remove(mySplashScreen);
     	
       //add view components to the BorderLayout manager
-      myMapWindow = new MapScreen(MAP_WINDOW_SIZE, myController);
-      myFrame.getContentPane().add(myMapWindow, BorderLayout.CENTER);
+      myMapScreen = new MapScreen(MAP_WINDOW_SIZE, myController);
+      myFrame.getContentPane().add(myMapScreen, BorderLayout.CENTER);
       
       myEastWindow = new EastWindow(EAST_WINDOW_SIZE);
       myFrame.getContentPane().add(myEastWindow, BorderLayout.EAST);
       
-      myShopWindow = new ShopScreen(SHOP_WINDOW_SIZE);
-      myFrame.getContentPane().add(myShopWindow, BorderLayout.SOUTH);
+      myShopScreen = new ShopScreen(SHOP_WINDOW_SIZE);
+      myFrame.getContentPane().add(myShopScreen, BorderLayout.SOUTH);
 
       myEditorWindow = new LevelsSelectorScreen(EDITOR_WINDOW_SIZE);
       myFrame.getContentPane().add(myEditorWindow, BorderLayout.CENTER);
       
       myFrame.pack();
       myFrame.setVisible(true);
+    }
+    
+    public MapScreen getMapScreen() {
+        return myMapScreen;
+    }
+    
+    public InfoScreen getTowerInfoScreen() {
+        return myEastWindow.getTowerScreen();
+    }
+    
+    public InfoScreen getPlayerInfoScreen() {
+        return myEastWindow.getPlayerScreen();
     }
 }

@@ -2,6 +2,7 @@
 package vooga.scroller.level_management;
 
 import java.util.List;
+import java.util.Map;
 import util.Location;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.superclasses.Player;
@@ -16,18 +17,20 @@ import vooga.scroller.level_editor.Level;
  */
 public class LevelManager {
 
-    private static final int DEFAULT_START_INDEX = 0;
-    private List<Level> myLevels;
-    private int myIndex;    
+    private Map<Integer,Level> myLevels;
+    private int myLevelID;    
     
     /**
      * Creates a new level manager based on the view used by individual levels.
      * @param view to be used in constructing individual levels.
      */
     public LevelManager(ScrollingManager myScrollingManager, View view) {
-        myIndex = DEFAULT_START_INDEX;
-        LevelFactory lf = new LevelFactory();
+        
+        LevelFactory lf = new LevelFactory(this);
         myLevels = lf.generateLevels(myScrollingManager, view);
+        
+        // UGLY but works
+        myLevelID = myLevels.keySet().iterator().next();
     }
     
     /**
@@ -36,11 +39,11 @@ public class LevelManager {
      * @return The current level
      */
     public Level currentLevel() {
-        return myLevels.get(myIndex);
+        return myLevels.get(myLevelID);
     }
     
     public void setCurrentLevel(int id) {
-        myIndex = id;
+        myLevelID = id;
     }
     
     /**
@@ -49,7 +52,7 @@ public class LevelManager {
      * @param player is the player that will play the current level.
      */
     public void startLevel(Player player, Location location){
-        myLevels.get(myIndex).addSprite(player);
+        myLevels.get(myLevelID).addSprite(player);
     }
 }
 

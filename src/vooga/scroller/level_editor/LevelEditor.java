@@ -60,10 +60,12 @@ public class LevelEditor implements ILevelEditor {
         Sprite sprite = mySpriteMap.get(id);
         sprite = sprite.copy();
         try{
-            myGrid.addNewSprite(sprite);
+            System.out.println("LE got create sprite");
+            myGrid.addSprite(sprite, x, y);
         }
         catch(NullPointerException e){
             //TODO COPY_ERROR = "Cannot copy Sprite. Missing default constructor";
+            System.out.println(COPY_ERROR);
         }
         
     }
@@ -100,7 +102,7 @@ public class LevelEditor implements ILevelEditor {
         }
         catch (IllegalAccessException e) {
           //TODO DEFAULT_COMMAND_ERROR = "Incorrect Command";
-            System.out.println(DEFAULT_COMMAND_ERROR);
+            System.out.println("Illegal Access Exception");
         }
         catch (IllegalArgumentException e) {
           //TODO PARAM_COMMAND_ERROR = "Incorrect Parameters";
@@ -108,7 +110,7 @@ public class LevelEditor implements ILevelEditor {
         }
         catch (InvocationTargetException e) {
           //TODO DEFAULT_COMMAND_ERROR = "Incorrect Command";
-            System.out.println(DEFAULT_COMMAND_ERROR);
+            System.out.println("Invocation Target Exception");
         }
     }
 

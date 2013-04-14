@@ -25,11 +25,11 @@ import vooga.scroller.viewUtil.WorkspaceView;
 
 public class LEController {
 
-    private static final int DEFAULT_SPRITE_GRID_SIZE = 10;
     private IWindow myView;
     private ILevelEditor myModel;
     private Map<Editable, WorkspaceView> myWorkspace2Tab;
     private Map<WorkspaceView, Editable> myTab2Workspace;
+    private static final int DEFAULT_SPRITE_GRID_SIZE = 30;
     private ToolsManager myToolsManager;
     
     /**
