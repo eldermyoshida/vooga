@@ -1,5 +1,6 @@
 package vooga.fighter.game;
 
+import util.Pixmap;
 import vooga.fighter.objects.*;
 import vooga.fighter.util.*;
 import java.awt.Dimension;

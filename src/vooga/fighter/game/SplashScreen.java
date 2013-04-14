@@ -5,13 +5,13 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import vooga.fighter.controller.Mode;
+import vooga.fighter.game.Mode;
 import vooga.fighter.controller.PaintManager;
 import vooga.fighter.input.Input;
 import vooga.fighter.input.InputClassTarget;
 import vooga.fighter.input.AlertObject;
 import vooga.fighter.input.InputMethodTarget;
-import vooga.fighter.util.Pixmap;
+import util.Pixmap;
 import vooga.fighter.util.Text;
 import vooga.fighter.view.Canvas;
 
