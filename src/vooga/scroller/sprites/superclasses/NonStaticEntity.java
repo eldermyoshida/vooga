@@ -32,6 +32,7 @@ public class NonStaticEntity extends Sprite {
     public void changeVelocity(Vector vector) {
         super.setVelocity(vector.getDirection(), vector.getMagnitude());
     }
+   
     
     public void changeVelocity(double direction, double magnitude) {
         super.setVelocity(direction, magnitude);
@@ -58,7 +59,6 @@ public class NonStaticEntity extends Sprite {
     public Vector upAndDown(int top, int bottom, int speed) {
        
         if (this.getTop() > top) {
-            System.out.println("Here");
             return new Vector(Sprite.UP_DIRECTION, speed);
         }
         return new Vector(Sprite.DOWN_DIRECTION, speed);

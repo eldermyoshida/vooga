@@ -74,7 +74,7 @@ public class LEGridView extends WindowComponent{
         public void mouseClicked (MouseEvent e) {
             // TODO Auto-generated method stub
             createSprite(e.getLocationOnScreen());
-            System.out.println(e.getLocationOnScreen());
+//            System.out.println(e.getLocationOnScreen());
         }
 
         @Override

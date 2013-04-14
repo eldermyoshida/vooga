@@ -110,7 +110,6 @@ public class DefaultScrollingManager extends ScrollingManager {
         }
         
         if(myGame.getRightBoundary() > levelRightBoundary()) {
-            //Messy code
             leftpaintbound =  - ((int) levelRightBoundary() % myGame.getBackground().getWidth(null));
             rightpaintbound = myView.getWidth()  - ((int) levelRightBoundary() % myGame.getBackground().getWidth(null));
             

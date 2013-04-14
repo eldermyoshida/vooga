@@ -111,6 +111,7 @@ public class Level implements Editable, Renderable {
 
     public void update(double elapsedTime, Dimension bounds, View view) {
         if(myPlayer != null) {
+//            System.out.println(myPlayer.getPaintLocation());
             updateFrames(view);
             myPlayer.update(elapsedTime, bounds);
             for(Sprite s: myFrameOfActionSprites) {
@@ -124,7 +125,7 @@ public class Level implements Editable, Renderable {
     public void paint (Graphics2D pen) {
         if(myPlayer != null) {
             for(Sprite s: myFrameOfReferenceSprites) {
-                s.paint(pen,myPlayer.getCenter(), myPlayer.getOriginalCenter());
+                s.paint(pen,myPlayer.getCenter(), myPlayer.getPaintLocation());
             }
             myPlayer.paint(pen);
         }
