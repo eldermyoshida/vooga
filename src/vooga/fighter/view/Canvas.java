@@ -63,7 +63,9 @@ public class Canvas extends JComponent {
     // drives the animation
     private Timer myTimer;
     // game to be animated
-    private ViewDataSource myViewDelegate;
+    private ViewDataSource myViewDataSource;
+    // current layout of the game
+    private CanvasLayout myLayout = null;
 
     // input state
     private int myLastKeyPressed;
@@ -85,6 +87,22 @@ public class Canvas extends JComponent {
         requestFocus();
         setInputListeners();
     }
+    
+    /**
+     * Sets the data source from the controller.
+     * @param data
+     */
+    public void setViewDataSource (ViewDataSource data) {
+        myViewDataSource = data;
+    }
+    
+    /**
+     * Sets up the layout of the view. Null implies no layout.
+     * @param layout
+     */
+    public void setLayout (CanvasLayout layout) {
+        myLayout = layout;
+    }
 
     /**
      * Paint the contents of the canvas.
@@ -100,10 +118,15 @@ public class Canvas extends JComponent {
         pen.setColor(Color.WHITE);
         pen.fillRect(0, 0, getSize().width, getSize().height);
         // first time needs to be special cased :(
-        for (int i = 0; i < myViewDelegate.ObjectNumber(); i++) {
-            myViewDelegate.getPaintable(i).paint(pen,
-                                                 myViewDelegate.getLocation(i),
-                                                 myViewDelegate.size(i));
+        if (myLayout == null) {
+            for (int i = 0; i < myViewDataSource.ObjectNumber(); i++) {
+                myViewDataSource.getPaintable(i).paint(pen,
+                                                 myViewDataSource.getLocation(i),
+                                                 myViewDataSource.size(i));
+            }
+        }
+        else {
+            myLayout.paintComponents(pen, myViewDataSource, this.getSize());
         }
     }
 

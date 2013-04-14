@@ -1,24 +1,14 @@
 package vooga.fighter.controller;
 
-
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Timer;
 import vooga.fighter.game.Mode;
 import vooga.fighter.input.Input;
-import vooga.fighter.input.InputClassTarget;
 import vooga.fighter.view.Canvas;
 
-
-/**
- * 
- * @author Jerry Li
- * 
- */
-@InputClassTarget
-public class LevelController extends Controller implements ModelDelegate {
-
+public class ScoreController extends Controller {
+    
     public static final int FRAMES_PER_SECOND = 25;
     // better way to think about timed events (in milliseconds)
     public static final int ONE_SECOND = 1000;
@@ -28,11 +18,11 @@ public class LevelController extends Controller implements ModelDelegate {
     private Mode myMode;
     private Canvas myCanvas;
 
-    public LevelController (String name, Canvas frame) {
+    public ScoreController (String name, Canvas frame) {
         super(name, frame);
     }
 
-    public LevelController (String name, Canvas frame, ControllerDelegate manager,
+    public ScoreController (String name, Canvas frame, ControllerDelegate manager,
                             GameInfo gameinfo) {
         super(name, frame, manager, gameinfo);
     }
@@ -52,13 +42,25 @@ public class LevelController extends Controller implements ModelDelegate {
         // start animation
         myTimer.start();
     }
+    
+    
+    public void checkConditions () {
+        // Couple of reasons for this method as opposed to just one switchMode()
+        // button is selected, switch mode
+        // If player is knocked out, flash sign
+        // If player health is very low, change display
+        // If player controller disconnected, flash splash/message
+        // etc......
 
+        // checkLowPlayerHealth()
+        // checkDisconnect()
+        // checkSpecial() etc.
 
-    /**
-     * Checks special occurences of game state.
-     */
-    public void notifyEndCondition(String string) {
-        
+        // Essentially check conditions is different than update in that
+        // it checks special occurences in games. Update will check for bounds,
+        // interactions, and all that, but as far as significant changes to game state goes we
+        // should
+        // use check conditions
     }
 
     /**
@@ -84,5 +86,7 @@ public class LevelController extends Controller implements ModelDelegate {
     protected Input makeInput () {
         return new Input(INPUT_PATHWAY, super.getView());
     }
+
+    
 
 }
