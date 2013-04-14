@@ -32,8 +32,7 @@ public abstract class Game{
     
     
     /**
-     * starts the game (should probably start displaying the splash screen or
-     * title screen).
+     * starts the game (should probably start running the game loop)
      *
      */
     public abstract void run ();
