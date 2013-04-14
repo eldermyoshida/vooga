@@ -19,9 +19,11 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import vooga.rts.gamedesign.Weapon;
 import vooga.rts.gamedesign.sprite.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Soldier;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Unit;
+import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;
 import vooga.rts.gamedesign.upgrades.UpgradeNode;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
 import vooga.rts.resourcemanager.ResourceManager;
@@ -42,6 +44,7 @@ import vooga.rts.util.Sound;
  */
 
 public class Factory {
+	//BUGBUG: the file path will break code! :/ (two places: here and in main())
 	public static final String DECODER_MATCHING_FILE = "/Users/Sherry/Desktop/Academics/Compsci 308/Final VOOGA/GameDesign/src/vooga/rts/gamedesign/factories/DecodeMatchUp";
 	
 	Map<String, Decoder> myDecoders = new HashMap<String, Decoder>();
@@ -145,10 +148,13 @@ public class Factory {
 		UpgradeTree resultTree = factory.loadXMLFile("/Users/Sherry/Desktop/Academics/Compsci 308/Final VOOGA/GameDesign/src/vooga/rts/gamedesign/factories/XML_Sample");
 		List<InteractiveEntity> requester = new ArrayList<InteractiveEntity>();
 		InteractiveEntity temp = new Unit(resultTree);
-		System.out.println(temp.getMaxHealth());
+		temp.setAttackStrategy(new CanAttack());
+		temp.getAttackStrategy().addWeapons(new Weapon(50, null, 10, new Location(0,0), 10));
+		System.out.println(temp.getAttackStrategy().getCurrentWeapon().getDamage());
 		requester.add(temp);
-		UpgradeNode HealthTester = temp.getTree().getHead().getChildren().get(0).getChildren().get(0);
-		HealthTester.apply(requester);
-		System.out.println(temp.getMaxHealth());
+		UpgradeNode DamageTester = temp.getTree().getHead().getChildren().get(0).getChildren().get(0).getChildren().get(0);
+		System.out.println(DamageTester.getUpgradeType());
+		DamageTester.apply(requester);
+		System.out.println(temp.getAttackStrategy().getCurrentWeapon().getDamage());
 	}
 }

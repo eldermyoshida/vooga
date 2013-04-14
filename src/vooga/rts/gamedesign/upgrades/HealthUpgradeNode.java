@@ -9,7 +9,6 @@ import vooga.rts.gamedesign.sprite.InteractiveEntity;
 
 public class HealthUpgradeNode extends UpgradeNode {
 	public static final String HEALTH_UPGRADE_METHOD_NAME = "addMaxHealth";
-									//TODO: check method name
 	public static final Class[] HEALTH_UPGRADE_METHOD_PARAM = new Class[] {int.class};
 	
 	public HealthUpgradeNode(int id, String upgradeType, String upgradeObject, int upgradeValue){
@@ -27,7 +26,6 @@ public class HealthUpgradeNode extends UpgradeNode {
 			SecurityException, NoSuchMethodException {
         for (InteractiveEntity i: requester){
         	Class thisClass = GameEntity.class;
-        	//Class thisClass = i.getClass(); //TODO: need to check path (in case in super class)
         	System.out.println(thisClass);
             Class[] params = HEALTH_UPGRADE_METHOD_PARAM;
             Method thisMethod = thisClass.getDeclaredMethod(HEALTH_UPGRADE_METHOD_NAME, params);

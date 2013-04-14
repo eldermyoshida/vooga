@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 
+import vooga.rts.gamedesign.Weapon;
 import vooga.rts.gamedesign.sprite.InteractiveEntity;
 
 public class DamageUpgradeNode extends UpgradeNode {
@@ -24,10 +25,10 @@ public class DamageUpgradeNode extends UpgradeNode {
 			InvocationTargetException, InstantiationException,
 			SecurityException, NoSuchMethodException {
 		for (InteractiveEntity i: requester){
-			Class thisClass = i.getClass(); //TODO: need to check path (in case in super class)
+			Class thisClass = Weapon.class;
 			Class[] params = DAMAGE_UPGRADE_METHOD_PARAM;
 			Method thisMethod = thisClass.getDeclaredMethod(DAMAGE_UPGRADE_METHOD_NAME, params);
-			thisMethod.invoke(i, getUpgradeValue());
+			thisMethod.invoke(i.getAttackStrategy().getCurrentWeapon(), getUpgradeValue());
 		}
 	}
 }
