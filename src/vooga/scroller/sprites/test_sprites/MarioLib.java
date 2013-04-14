@@ -105,17 +105,22 @@ public class MarioLib implements ISpriteLibrary {
         }    
     }
     
-    public static class MovingPlatform extends NonStaticEntity {
+    /**
+     * Represents a moving platform that moves in the up/down direction
+     * 
+     * @author Jay Wang
+     */
+    public static class MovingPlatformOne extends NonStaticEntity {
         
         private static final String DEFAULT_IMG = "platform.gif";
         private static final int DEFAULT_SPEED = 60;
         private static final Vector DEFAULT_VELOCITY = new Vector(Sprite.DOWN_DIRECTION, DEFAULT_SPEED);
 
-        public MovingPlatform() {
+        public MovingPlatformOne() {
             this(DEFAULT_LOC);
         }
         
-        public MovingPlatform (Location center) {
+        public MovingPlatformOne (Location center) {
             super(new Pixmap(DEFAULT_IMG), center, new Dimension(100, 30));
             this.changeVelocity(DEFAULT_VELOCITY);
         }
@@ -124,9 +129,36 @@ public class MarioLib implements ISpriteLibrary {
            // System.out.println(getTop() + " " + getBottom());
             changeVelocity(upAndDown(100, 250, DEFAULT_SPEED)); //want to make this call every X seconds
             super.update(elapsedTime, bounds);
+        }   
+    }
+    
+    /**
+     * Represents a moving platform that moves in the left/right direction
+     * 
+     * @author Jay Wang
+     */
+    public static class MovingPlatformTwo extends NonStaticEntity {
+        
+        private static final String DEFAULT_IMG = "platform.gif";
+        private static final int DEFAULT_SPEED = 60;
+        private static final Vector DEFAULT_VELOCITY = new Vector(Sprite.RIGHT_DIRECTION, DEFAULT_SPEED);
+
+        public MovingPlatformTwo() {
+            this(DEFAULT_LOC);
         }
         
+        public MovingPlatformTwo (Location center) {
+            super(new Pixmap(DEFAULT_IMG), center, new Dimension(100, 30));
+            this.changeVelocity(DEFAULT_VELOCITY);
+        }
+        
+        public void update(double elapsedTime, Dimension bounds) {
+           // System.out.println(getTop() + " " + getBottom());
+            changeVelocity(leftAndRight(50, 300, DEFAULT_SPEED)); //want to make this call every X seconds
+            super.update(elapsedTime, bounds);
+        }   
     }
+
 
     @SuppressWarnings("unchecked")
     @Override

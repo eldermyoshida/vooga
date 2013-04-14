@@ -158,7 +158,7 @@ public class CollisionManager {
         
     }
     
-    public void visit (Mario mario, MarioLib.MovingPlatform movingPlatform) {
+    public void visit (Mario mario, MarioLib.MovingPlatformOne movingPlatform) {
         marioAndNonStaticEntityCollision(mario, movingPlatform);
         System.out.println("Mario has just collided with Platform!");
         

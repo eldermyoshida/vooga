@@ -63,9 +63,13 @@ public class LevelFactory {
                                   new Location(view.getWidth() - 500, view.getHeight() - 75)
                                   ));   
         
-        myCurrLevel.addSprite(new MarioLib.MovingPlatform( 
+        myCurrLevel.addSprite(new MarioLib.MovingPlatformOne( 
                                                     new Location(400, 200)
                                                     )); 
+        
+        myCurrLevel.addSprite(new MarioLib.MovingPlatformTwo( 
+                                                             new Location(200, 200)
+                                                             )); 
         
         // adding levelportal --> acts as portal between levels.
         
