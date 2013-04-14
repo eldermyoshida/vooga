@@ -16,6 +16,7 @@ public class InvisibleState implements State{
     private Sprite mySprite;
     private ISpriteView myDefaultView;
     private double myTime;
+    //private 
     
     public InvisibleState(Sprite sprite) {
         mySprite = sprite;

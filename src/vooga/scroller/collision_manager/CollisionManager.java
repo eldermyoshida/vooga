@@ -2,6 +2,7 @@ package vooga.scroller.collision_manager;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import util.Vector;
 import vooga.scroller.level_editor.Level;
 import vooga.scroller.level_management.LevelPortal;
 import vooga.scroller.sprites.test_sprites.MarioLib;
@@ -108,15 +109,27 @@ public class CollisionManager {
         switch (collisionType) {
             case TOP:
                 mario.setCenter(mario.getX(), sprite.getTop() - (mario.getHeight() / 2));
+                Vector v = mario.getVelocity().getComponentVector((double)Sprite.DOWN_DIRECTION);
+                //v.negate();
+                mario.addVector(v);
                 break;
             case BOTTOM:
                 mario.setCenter(mario.getX(), sprite.getBottom() + (mario.getHeight() / 2));
+                //mario.addVector(force);
+
                 break;
             case LEFT:
                 mario.setCenter(sprite.getLeft() - (mario.getWidth() / 2), mario.getY());
+                //mario.addVector(force);
+
+                
                 break;
             case RIGHT:
                 mario.setCenter(sprite.getRight() + (mario.getWidth() / 2), mario.getY());
+                
+                //mario.addVector(force);
+
+                
                 break;
             default: 
                 break;
