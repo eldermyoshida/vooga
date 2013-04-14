@@ -4,6 +4,7 @@ import java.util.List;
 
 public class CollisionManager {
 	List<GameObject> myObjects;
+	
 	public CollisionManager (List<GameObject> objects){
 		myObjects= objects; 
 	}
