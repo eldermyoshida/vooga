@@ -44,8 +44,10 @@ public class UpgradeTree {
      */
     public void activateNode (UpgradeNode u) {
         myCurrentUpgrades.add(u);
-        UpgradeNode nextUpgrade = u.getChildren().get(0);
-        myNextUpgrades.add(nextUpgrade);
+        if (!u.getChildren().isEmpty()) {
+        	 UpgradeNode nextUpgrade = u.getChildren().get(0);
+             myNextUpgrades.add(nextUpgrade);
+        }
     }
 
     /**
@@ -69,7 +71,7 @@ public class UpgradeTree {
     }
 
     public UpgradeNode addBranch (int ID, String branchName) {
-        UpgradeNode branch = new UpgradeNode(ID, branchName, null, 0);
+        UpgradeNode branch = new UpgradeNode(this, ID, branchName, null, 0);
         myHead.addChild(branch);
         return branch;
     }

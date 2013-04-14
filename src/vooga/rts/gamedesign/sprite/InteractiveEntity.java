@@ -4,9 +4,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import vooga.rts.gamedesign.action.Action;
 import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
@@ -176,6 +174,15 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
                 setVelocity(0, 0);
             }
         });
+    }
+    
+    public Action findAction(String name) {
+    	for (Action a: myActions) {
+    		if (a.getName().equals(name)) {
+    			return a;
+    		}
+    	}
+    	return null;
     }
 
 
