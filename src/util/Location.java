@@ -1,4 +1,5 @@
-package arcade.util;
+
+package util;
 
 import java.awt.geom.Point2D;
 
@@ -43,5 +44,23 @@ public class Location extends Point2D.Double {
      */
     public void reset () {
         setLocation(0, 0);
+    }
+
+    /**
+     * Move this location by given vector.
+     * 
+     * @see java.awt.Point#translate(int, int)
+     */
+    public void translate (Vector amount) {
+        setLocation(getX() + amount.getXChange(), getY() + amount.getYChange());
+    }
+    
+
+    /**
+     * Returns a vector that is the difference between this location and
+     * the given other location.
+     */
+    public Vector difference (Point2D other) {
+        return new Vector(this, other);
     }
 }

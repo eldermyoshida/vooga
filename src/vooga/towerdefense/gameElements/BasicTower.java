@@ -4,10 +4,11 @@ import java.awt.Dimension;
 import java.util.List;
 
 import vooga.towerdefense.action.AbstractAction;
-import vooga.towerdefense.action.Attacker;
 import vooga.towerdefense.action.InfoBridge;
-import vooga.towerdefense.action.Targetable;
-import vooga.towerdefense.action.Upgradable;
+import vooga.towerdefense.attributes.Attacker;
+import vooga.towerdefense.attributes.Attributes;
+import vooga.towerdefense.attributes.Targetable;
+import vooga.towerdefense.attributes.Upgradable;
 import vooga.towerdefense.util.Location;
 import vooga.towerdefense.util.Pixmap;
 
@@ -17,7 +18,7 @@ import vooga.towerdefense.util.Pixmap;
  * @author XuRui
  *
  */
-public class BasicTower extends GameElement implements Attacker, InfoBridge {
+public class BasicTower extends GameElement implements Attacker {
 
 	List<AbstractAction> myActions;
 	Attributes myAttributes;
@@ -28,42 +29,6 @@ public class BasicTower extends GameElement implements Attacker, InfoBridge {
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public Unit[] getUnits() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public GameElement[] getGameElements() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Targetable[] getTargetables() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Upgradable[] getUpgradables() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Targetable[] getTargetsWithinRadiusOfGivenLocation(Location source,
-			double radius, int howMany) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void addGameElement(Projectile projectile) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public double getAttackRadius() {

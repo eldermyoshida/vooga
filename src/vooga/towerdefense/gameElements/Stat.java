@@ -13,37 +13,38 @@ import vooga.towerdefense.util.Location;
  */
 
 public class Stat {
-
+	private final double myOriginalValue;
 	private String myName;
-	private double myValue;
+	private double myCurrentValue;
 	private double regenRate;
 	private double myMaxValue;
 	
 	public Stat(String statName, double statValue){
 		myName = statName;
-		myValue = statValue;
+		myOriginalValue=statValue;
+		myCurrentValue = myOriginalValue;
 	}
 	
 	public void updateStat(double value){
-		myValue = value;
+		myCurrentValue = value;
 	}
 		
 	public void increment(double value){
-		myValue += value;
+		myCurrentValue += value;
 	}
 	
 	public void decrement(double value){
-		myValue -= value;
+		myCurrentValue -= value;
 	}
 	
 	public String getDisplayableInfo(){
-		String info = myName + " : " + String.valueOf(myValue);
+		String info = myName + " : " + String.valueOf(myCurrentValue);
 		return info;
 	}
 	
 	
 	public double getValue(){
-		return myValue;
+		return myCurrentValue;
 	}
 	
 	public String getName(){
@@ -56,6 +57,14 @@ public class Stat {
 	 */
 	public void paint(Graphics2D pen, Location where){
 		//paints a bar representing this stat
+	}
+	
+	/**
+	 * check whether this stat is different from its original value
+	 * @return
+	 */
+	public boolean isChanged(){
+		return myOriginalValue!=myCurrentValue;
 	}
 	
 	

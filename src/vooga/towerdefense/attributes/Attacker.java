@@ -1,4 +1,6 @@
-package vooga.towerdefense.action;
+package vooga.towerdefense.attributes;
+
+import vooga.towerdefense.util.Location;
 
 /**
  * Interface implemented by any object that can attack a Targetable object
@@ -20,6 +22,8 @@ public interface Attacker {
 	Targetable getTarget();
 	
 	void addTarget();
+
+	Location getAttackCenter();
 	
 
 }

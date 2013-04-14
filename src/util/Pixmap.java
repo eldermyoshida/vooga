@@ -1,10 +1,12 @@
-package vooga.towerdefense.util;
+
+package util;
 
 import java.awt.Graphics2D;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.geom.Point2D;
 import java.awt.geom.AffineTransform;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 
@@ -14,11 +16,12 @@ import javax.swing.ImageIcon;
  * 
  * Note, Java only supports the formats: png, jpg, gif.
  * 
- * @author Robert C. Duvall
+ * @author Robert C. Duvall, Dagbedji F
+ * Added get icon
  */
 public class Pixmap {
     // OS-independent relative resource locations (like URLs)
-    private static final String RESOURCE_LOCATION = "/vooga/towerdefense/images/";
+    private static final String RESOURCE_LOCATION = "/vooga/scroller/images/";
     // underlying implementation
     private java.awt.Image myImage;
     private String myFileName;
@@ -69,15 +72,7 @@ public class Pixmap {
         pen.setTransform(old);
     }
     
-    /**
-     * 
-     * @return  String. The name of the Pixmap's image
-     */
-    public String getFileName () {
-        return myFileName;
-    }
-    
-    public Image getImage(){
-    	return myImage;
+    public Image getImg() {
+        return myImage;
     }
 }

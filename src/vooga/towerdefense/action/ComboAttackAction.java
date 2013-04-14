@@ -2,6 +2,7 @@ package vooga.towerdefense.action;
 
 import java.util.List;
 
+import vooga.towerdefense.attributes.Targetable;
 import vooga.towerdefense.gameElements.GameElement;
 
 /**
@@ -13,9 +14,9 @@ import vooga.towerdefense.gameElements.GameElement;
 
 public abstract class ComboAttackAction extends AbstractAction {
 	
-	List<ComboAttackAction> myAttackMoves; //list of attack moves in attack action called by game element
+	List<AttackAction> myAttackMoves; //list of attack moves in attack action called by game element
 	
-	public ComboAttackAction(InfoBridge info,List<ComboAttackAction> attackMoves){
+	public ComboAttackAction(InfoBridge info,List<AttackAction> attackMoves){
 		super(info);
 		myAttackMoves = attackMoves;
 	}
