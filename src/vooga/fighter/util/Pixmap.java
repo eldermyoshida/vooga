@@ -15,7 +15,7 @@ import javax.swing.ImageIcon;
  * 
  * @author Robert C. Duvall
  */
-public class Pixmap {
+public class Pixmap implements Paintable{
     // OS-independent relative resource locations (like URLs)
     private static final String RESOURCE_LOCATION = "../images/";
     // underlying implementation
