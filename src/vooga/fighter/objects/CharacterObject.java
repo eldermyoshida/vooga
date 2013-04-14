@@ -12,6 +12,7 @@ import vooga.fighter.input.InputMethodTarget;
 import vooga.fighter.objects.utils.Effect;
 import vooga.fighter.objects.utils.Health;
 
+import vooga.fighter.util.Location;
 import vooga.fighter.util.Pixmap;
 import vooga.fighter.util.Vector;
 import vooga.fighter.objects.utils.UpdatableLocation;
@@ -33,6 +34,10 @@ public class CharacterObject extends GameObject {
     private UpdatableLocation myUpdatableLocation;  
     private ObjectLoader myLoader;
     private int mySpeed;  
+    private long myInstanceId;
+    private Pixmap myImage;
+    private Location myCenter;
+    private Dimension mySize;
     
 
     /**
@@ -42,7 +47,7 @@ public class CharacterObject extends GameObject {
      * constructor to take in just an ID, then we will load parameters from XML.
      */
     public CharacterObject (long instanceId, int objectId, UpdatableLocation center) {
-        super(instanceId);
+        super();
         myLoader = new CharacterObjectLoader(objectId);
         myUpdatableLocation = center;
 
