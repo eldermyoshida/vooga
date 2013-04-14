@@ -99,6 +99,10 @@ public class MainView extends JFrame {
 	public List<GameInfo> getGameList () {
 		return myModel.getGameList();
 	}
+	
+	public ResourceBundle getResources() {
+	    return myResources;
+	}
 
 }
 
