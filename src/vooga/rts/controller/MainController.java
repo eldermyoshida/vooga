@@ -17,7 +17,7 @@ import vooga.rts.resourcemanager.ResourceManager;
 
 public class MainController extends AbstractController implements Observer {
 
-    private final static String DEFAULT_INPUT_LOCATION = "vooga.rts.resources.Input";
+    private final static String DEFAULT_INPUT_LOCATION = "vooga.rts.resources.properties.Input";
     private GameController myGameController;
     private LoadingController myLoadingController;
     private MenuController myMenuController;
@@ -45,7 +45,6 @@ public class MainController extends AbstractController implements Observer {
 
         myMenuController = new MenuController();
         myMenuController.addObserver(this);
-        myMenuController.addMenu(0, new MainMenu());
 
         myInputController = new InputController(this);
         myInput = new Input(DEFAULT_INPUT_LOCATION, myWindow.getCanvas());
@@ -84,7 +83,7 @@ public class MainController extends AbstractController implements Observer {
         // Paint stuff
         paint(graphics);
 
-        //
+        // Now, render the window
         myWindow.getCanvas().render();
     }
 
@@ -94,27 +93,24 @@ public class MainController extends AbstractController implements Observer {
 
     public void setActiveController (AbstractController myController) {
         myActiveController = myController;
+        myGameState = myActiveController.getGameState();
         myInputController.setActiveController(myController);
-        myActiveController.activate(myGameState);
+        myActiveController.activate();
     }
 
     @Override
     public void update (Observable myObservable, Object myObject) {
-        if (!(myObject instanceof MainState)) {
-            return;
-        }
-        myGameState = (MainState) myObject;
         switch (myGameState) {
             case Starting:
                 break;
             case Loading:
-                setActiveController(myLoadingController);
+                setActiveController(myMenuController);
                 break;
             case Splash:
                 setActiveController(myLoadingController);
                 break;
             case Menu:
-                setActiveController(myMenuController);
+                setActiveController(myGameController);
                 break;
             case Game:
                 setActiveController(myGameController);
@@ -124,7 +120,10 @@ public class MainController extends AbstractController implements Observer {
         }
     }
 
-    @Override
-    public void activate (MainState gameState) {
+    public void activate () {
     }
+
+	public MainState getGameState() {
+		return MainState.Main;
+	}
 }

@@ -92,6 +92,7 @@ public class GameController extends AbstractController {
     public void paint (Graphics2D pen) {
         for (Player p : myPlayers) {
             p.paint(pen);
+            
         }
         if (myDrag != null) {
             pen.draw(myDrag);
@@ -138,8 +139,7 @@ public class GameController extends AbstractController {
         }
     }
 
-    @Override
-    public void activate (MainState gameState) {
+    public void activate () {
         setupGame();
     }
 
@@ -147,7 +147,7 @@ public class GameController extends AbstractController {
         System.out.println("Game is setup");
 
         Player p1 = new HumanPlayer();
-        Pixmap p = new Pixmap(ResourceManager.instance().loadFile("images/soldier.png"));
+        Pixmap p = new Pixmap(ResourceManager.instance().loadFile("images/sprites/halo_soldier.png"));
         Dimension s = new Dimension(100, 100);
         Sound soun = null;// new Sound("/vooga/rts/sounds/pikachu.wav");
         Unit a = null;
@@ -189,4 +189,10 @@ public class GameController extends AbstractController {
         addPlayer(p2, 2);
 
     }
+
+	@Override
+	public MainState getGameState() {
+		return MainState.Game;
+	}
+
 }

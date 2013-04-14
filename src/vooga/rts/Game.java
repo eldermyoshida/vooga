@@ -1,6 +1,5 @@
 package vooga.rts;
 
-
 import vooga.rts.controller.MainController;
 
 public class Game {
@@ -12,10 +11,12 @@ public class Game {
 		double persecond = 1/(double)FPS;
 		return persecond;
 	}
-	
-    public Game () {
-        // TODO Auto-generated constructor stub
-    }
-    
-}
 
+	public Game() {
+		myMainController = new MainController();
+	}
+
+	public static void main(String[] args) {
+		Game game = new Game();
+	}
+}
