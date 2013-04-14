@@ -144,7 +144,7 @@ public class Canvas extends JComponent {
         return myLastMousePosition;
     }
 
-    public void paintMode () {
+    public void paint() {
         repaint();
     }
 

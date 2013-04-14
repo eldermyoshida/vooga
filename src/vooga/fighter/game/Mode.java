@@ -33,8 +33,8 @@ public class Mode {
     private ObjectLoader myLoader;
     private ModelDelegate myDelegate;
 
-    public Mode (String levelName, String filePath, ModelDelegate delegate) {
-        loadFile(filePath);
+    public Mode (String levelName, GameInfo gameinfo, ModelDelegate delegate) {
+       
         myInteractables.add(myLoader.getTestCharacter());
         shouldEnd = false;
 
