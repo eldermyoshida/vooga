@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import arcade.games.GameInfo;
 import arcade.games.UserGameData;
-import arcade.util.Pixmap;
+import util.Pixmap;
 import arcade.view.LoginView;
 import arcade.view.MainView;
 

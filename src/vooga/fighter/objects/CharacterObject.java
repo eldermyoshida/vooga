@@ -12,9 +12,9 @@ import vooga.fighter.input.InputMethodTarget;
 import vooga.fighter.objects.utils.Effect;
 import vooga.fighter.objects.utils.Health;
 
-import vooga.fighter.util.Location;
-import vooga.fighter.util.Pixmap;
-import vooga.fighter.util.Vector;
+import util.Location;
+import util.Pixmap;
+import util.Vector;
 import vooga.fighter.objects.utils.UpdatableLocation;
 
 
@@ -43,13 +43,17 @@ public class CharacterObject extends GameObject {
      * Note: Dayvid once the object loader is functional we will replace this
      * constructor to take in just an ID, then we will load parameters from XML.
      */
+<<<<<<< HEAD
+    public CharacterObject (int objectId, UpdatableLocation center) {
+=======
     public CharacterObject(int objectId, UpdatableLocation center) {
 
 //        myLoader = new CharacterObjectLoader(objectId);
+>>>>>>> f1197b87aa65124773687aa36f73b32a4eb2c34a
         super();
+        myHealth = new Health();
         setLoader(new CharacterLoader(objectId, this));
         setLocation(center);
-
     }
 
     /**
@@ -126,6 +130,10 @@ public class CharacterObject extends GameObject {
         return myHealth.hasHealthRemaining();
     }
 
+    public void setHealth (int amount) {
+        myHealth.setHealth(amount);
+    }
+    
     /**
      * Changes the player's health by a given amount. Positive input raises it, and
      * negative input decreases it. Returns health remaining.

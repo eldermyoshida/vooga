@@ -2,7 +2,7 @@ package vooga.fighter.objects.utils;
 
 import java.awt.Rectangle;
 import vooga.fighter.objects.GameObject;
-import vooga.fighter.util.Pixmap;
+import util.Pixmap;
 
 /**
  * Holds a series of rectangles and images representing one state of an object.

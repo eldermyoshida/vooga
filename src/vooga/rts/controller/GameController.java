@@ -14,7 +14,7 @@ import vooga.rts.player.HumanPlayer;
 import vooga.rts.player.Player;
 import vooga.rts.player.Team;
 import vooga.rts.resourcemanager.ResourceManager;
-import vooga.rts.util.Location;
+import util.Location;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
 import java.awt.Dimension;
