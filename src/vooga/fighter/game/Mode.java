@@ -1,5 +1,6 @@
 package vooga.fighter.game;
 
+import java.awt.Dimension;
 import java.util.HashSet;
 import java.util.Set;
 import vooga.fighter.controller.ControllerDelegate;
@@ -72,7 +73,7 @@ public abstract class Mode {
     /**
      * Updates the mode for one game loop.
      */
-    public void update() {
+    public void update(double stepTime, Dimension bounds) {
         for (GameObject object : myObjects) {
             object.update();
         }
