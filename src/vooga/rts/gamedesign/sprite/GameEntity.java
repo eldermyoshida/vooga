@@ -133,8 +133,7 @@ public class GameEntity extends GameSprite {
      */
     // TODO: make Velocity three dimensional...
     public void update (double elapsedTime) {
-        Vector v = new Vector(myVelocity);
-        System.out.println(elapsedTime);
+        Vector v = new Vector(myVelocity);        
         v.scale(elapsedTime);
         if(this.intersects(myGoal)){
             //System.out.println("myGoal reached");
