@@ -12,9 +12,9 @@ import vooga.fighter.input.InputMethodTarget;
 import vooga.fighter.objects.utils.Effect;
 import vooga.fighter.objects.utils.Health;
 
-import vooga.fighter.util.Location;
-import vooga.fighter.util.Pixmap;
-import vooga.fighter.util.Vector;
+import util.Location;
+import util.Pixmap;
+import util.Vector;
 import vooga.fighter.objects.utils.UpdatableLocation;
 
 
