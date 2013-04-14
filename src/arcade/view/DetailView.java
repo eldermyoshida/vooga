@@ -144,7 +144,7 @@ public class DetailView extends JFrame{
                 List<String[]> commentContents = myGameInfo.getComments();
                 StringBuilder sb = new StringBuilder();
                 for(String[] comment: commentContents){
-                        String subject = HTML_BOLD_HEADER+ comment[0] + NEWLINE +HTML_BOLD_TAIL;
+                        String subject = BOLD_HEADER+ comment[0] + NEWLINE +BOLD_TAIL;
                         sb.append(subject);
                         String user  = comment[1] + NEWLINE;
                         sb.append(user);
