@@ -10,5 +10,5 @@ public interface ICommandable {
     
     public void leaveLobby (ConnectionThread thread);
     
-    public void startGameServer (ConnectionThread thread);
+    public void startGameServer ();
 }

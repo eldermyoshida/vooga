@@ -11,9 +11,11 @@ public class LobbyContainer implements ICommandable, IMessageReceiver {
     
     private Map<Integer, ConnectionThread> myConnectionThreads = new HashMap<Integer, ConnectionThread>();
     private CommandFactory myFactory;
+    private GameContainer myGameContainer;
     
-    public LobbyContainer (CommandFactory factory) {
+    public LobbyContainer (CommandFactory factory, GameContainer container) {
         myFactory = factory;
+        myGameContainer = container;
     }
     
     protected void addConnection (ConnectionThread thread) {
@@ -33,8 +35,7 @@ public class LobbyContainer implements ICommandable, IMessageReceiver {
     
     @Override
     public void removeConnection (ConnectionThread thread) {
-        // TODO Auto-generated method stub
-        
+        myConnectionThreads.remove(thread.getID());
     }
     
     @Override
@@ -47,13 +48,12 @@ public class LobbyContainer implements ICommandable, IMessageReceiver {
     
     @Override
     public void leaveLobby (ConnectionThread thread) {
-        // TODO Auto-generated method stub
-        
+        removeConnection(thread);
+        myGameContainer.addConnection(thread);
     }
     
     @Override
-    public void startGameServer (ConnectionThread thread) {
-        // TODO Auto-generated method stub
+    public void startGameServer () {
         
     }
     

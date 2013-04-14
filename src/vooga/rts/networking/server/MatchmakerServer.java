@@ -65,7 +65,7 @@ public class MatchmakerServer extends Thread implements IMessageReceiver, IComma
     }
 
     @Override
-    public void startGameServer (ConnectionThread thread) {
+    public void startGameServer () {
     }
 
 }

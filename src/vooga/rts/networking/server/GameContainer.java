@@ -1,6 +1,8 @@
 package vooga.rts.networking.server;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import vooga.rts.networking.communications.Message;
 import vooga.rts.networking.communications.SystemMessage;
@@ -11,7 +13,9 @@ public class GameContainer implements IMessageReceiver, ICommandable {
 
     private Map<Integer, ConnectionThread> myConnectionThreads = new HashMap<Integer, ConnectionThread>();
     private Map<String, LobbyContainer> myLobbies = new HashMap<String, LobbyContainer>();
+    private List<GameServer> myGameServers = new ArrayList<GameServer>();
     private CommandFactory myFactory;
+    private int myGameNumber = 0;
     
     public GameContainer (CommandFactory factory) {
         myFactory = factory;
@@ -19,6 +23,14 @@ public class GameContainer implements IMessageReceiver, ICommandable {
     
     protected void addConnection (ConnectionThread thread) {
         myConnectionThreads.put(thread.getID(), thread);
+    }
+    
+    protected void addGameServer (GameServer server) {
+        myGameServers.add(server);
+    }
+    
+    protected void removeGameServer (GameServer server) {
+        
     }
     
     @Override
@@ -45,7 +57,7 @@ public class GameContainer implements IMessageReceiver, ICommandable {
     public void joinLobby (ConnectionThread thread, String lobbyName) {
         LobbyContainer lobby;
         if(!myLobbies.containsKey(lobbyName)) {
-            lobby = new LobbyContainer(myFactory);
+            lobby = new LobbyContainer(myFactory, this);
             myLobbies.put(lobbyName, lobby);
         }
         myConnectionThreads.remove(thread.getID());
@@ -58,7 +70,7 @@ public class GameContainer implements IMessageReceiver, ICommandable {
     }
 
     @Override
-    public void startGameServer (ConnectionThread thread) {
+    public void startGameServer () {
     }
 
 }
