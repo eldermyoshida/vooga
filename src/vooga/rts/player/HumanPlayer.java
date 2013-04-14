@@ -2,6 +2,7 @@ package vooga.rts.player;
 
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.geom.Point2D;
 import java.util.Observable;
 
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Unit;
@@ -32,15 +33,8 @@ public class HumanPlayer extends Player {
         }
     }
     
-    public void handleLeftClick(int x, int y) {
-        getUnits().deselectAll();
-        for (Unit u : getUnits().getAllUnits())
-        {         
-            if (u.intersects(new Point(x, y))) {
-                getUnits().select(u);                
-                //return;
-            }            
-        }
+    public void handleLeftClick(int x, int y) {        
+        getUnits().select(new Point(x, y));
     }
 
     @Override

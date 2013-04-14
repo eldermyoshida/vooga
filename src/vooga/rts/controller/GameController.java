@@ -102,8 +102,10 @@ public class GameController extends AbstractController {
     @Override
     public void onLeftMouseUp (PositionObject o) {
         // if it's not a gui thing
-        HumanPlayer human = (HumanPlayer) myPlayers.get(0);
-        human.handleLeftClick((int) o.getX(), (int) o.getY());
+        if (myDrag == null) {
+            HumanPlayer human = (HumanPlayer) myPlayers.get(0);
+            human.handleLeftClick((int) o.getX(), (int) o.getY());
+        }
         myLeftMouse = null;
         myDrag = null;
     }
@@ -124,7 +126,7 @@ public class GameController extends AbstractController {
     public void onMouseDrag (PositionObject o) {
         if (myLeftMouse != null) {
             myDrag = new Rectangle2D.Double(myLeftMouse.getX(), myLeftMouse.getY(), 
-                                            o.getX() - myLeftMouse.getX(), o.getY()- myLeftMouse.getY());
+                                            Math.abs(o.getX() - myLeftMouse.getX()), Math.abs(o.getY()- myLeftMouse.getY()));
             HumanPlayer human = (HumanPlayer) myPlayers.get(0);
             human.getUnits().select(myDrag);
         }

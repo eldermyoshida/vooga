@@ -112,7 +112,8 @@ public class GameEntity extends GameSprite {
     public void move (Location loc) {
         myGoal = new Location(loc);
         Vector v = getCenter().difference(myGoal);
-        setVelocity(v.getAngle(),1);
+        // TODO: not static amount
+        setVelocity(v.getAngle(), 20);
     }
 
     /**
@@ -121,6 +122,7 @@ public class GameEntity extends GameSprite {
     // TODO: make Velocity three dimensional...
     public void update (double elapsedTime) {
         Vector v = new Vector(myVelocity);
+        System.out.println(elapsedTime);
         v.scale(elapsedTime);
         if(this.intersects(myGoal)){
             //System.out.println("myGoal reached");

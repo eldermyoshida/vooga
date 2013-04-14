@@ -167,11 +167,11 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
                 p.paint(pen);               
             }
         }
-        
+        /*
         if(isSelected){
             Pixmap lol = new Pixmap(ResourceManager.instance().loadFile("images/potion.png"));
             lol.paint(pen, getCenter(), getSize());
-        }
+        }*/
 
     }
 

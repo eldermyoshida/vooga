@@ -15,6 +15,8 @@ import vooga.rts.gamedesign.upgrades.UpgradeNode;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
+
+
 /**
  * This class is an extension of InteractiveEntity, and represents shapes that
  * have the potential to gather resources (contains GatherStrategy) and the
@@ -25,14 +27,14 @@ import vooga.rts.util.Sound;
  * @author Kevin Oh
  * @author Francesco Agosti
  * @author Wenshun Liu
- *
+ * 
  */
 public class Unit extends InteractiveEntity {
-	
-    private List<GameSprite> myKills; //TODO: WHAT TYPE SHOULD IT BE??
+
+    private List<GameSprite> myKills; // TODO: WHAT TYPE SHOULD IT BE??
     // private boolean myIsLeftSelected; // TODO: also need the same thing for Projectiles
     // private boolean myIsRightSelected; // TODO: should be observing the mouse action instead!!
-    //private PathingHelper myPather;
+    // private PathingHelper myPather;
     private GatherStrategy myGatherStrategy;
     private OccupyStrategy myOccupyStrategy;
 
@@ -48,54 +50,57 @@ public class Unit extends InteractiveEntity {
      */
     public Unit (Pixmap image, Location center, Dimension size, Sound sound, int teamID, int health) {
         super(image, center, size, sound, teamID, health);
-        //myPather = new PathingHelper();
+        // myPather = new PathingHelper();
         myGatherStrategy = new CannotGather();
         myOccupyStrategy = new CannotOccupy();
-        //addUpgradeActions();
+        // addUpgradeActions();
     }
-    
+
     /**
      * Gathers a resource specified by gather strategy.
+     * 
      * @param g
      */
-    public void gather(IGatherable g) {
-    	if(myGatherStrategy.canGather(g)){
-    	    g.getGathered(this);
-    	}
+    public void gather (IGatherable g) {
+        if (myGatherStrategy.canGather(g)) {
+            g.getGathered(this);
+        }
     }
-    
+
     /**
      * Occupies an IOccupiable object specified by occupy strategy.
+     * 
      * @param o
      */
-    public void occupy(IOccupiable o) {
-    	if(myOccupyStrategy.canOccupy(o)){
-    	    o.getOccupied(this);
-    	}
+    public void occupy (IOccupiable o) {
+        if (myOccupyStrategy.canOccupy(o)) {
+            o.getOccupied(this);
+        }
     }
-    
+
     /**
      * Adds the list of available upgrades into the list of available actions.
      */
-    private void addUpgradeActions(){
+    private void addUpgradeActions () {
         List<UpgradeNode> currentUpgrades = getUpgradeTree().getCurrentUpgrades();
-    	for (UpgradeNode u: currentUpgrades) {
-    		//TODO:
-    	}
-        
-        getActions().add(new Action("AttackUpgrade", null, "This is a new action specific for soldier"){
-            @Override
-            public void apply(){
-                //what will the action be? 
-            }
-        });
+        for (UpgradeNode u : currentUpgrades) {
+            // TODO:
+        }
+
+        getActions().add(new Action("AttackUpgrade", null,
+                                    "This is a new action specific for soldier") {
+                             @Override
+                             public void apply () {
+                                 // what will the action be?
+                             }
+                         });
     }
-    
+
     public void setGatherStrategy (GatherStrategy newStrategy) {
-    	myGatherStrategy = newStrategy;
+        myGatherStrategy = newStrategy;
     }
-    
+
     public void setOccupyStrategy (OccupyStrategy newStrategy) {
-    	myOccupyStrategy = newStrategy;
+        myOccupyStrategy = newStrategy;
     }
 }
