@@ -47,7 +47,7 @@ public class CharacterLoader extends ObjectLoader {
 
 				NodeList stateNodes = ((Element) node).getElementsByTagName("state");
 				addStates(stateNodes, myChar);
-				NodeList attackNodes = doc.getElementsByTagName("attack");
+				NodeList attackNodes = ((Element) node).getElementsByTagName("attack");
 				addAttacks(attackNodes);
 			}
 		}
