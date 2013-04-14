@@ -23,29 +23,28 @@ public class AttackObject extends GameObject{
     private List<Effect> myEffects;
     private int myPower;   
     private int mySpeed;
-    private int myDirection; 
-    private UpdatableLocation myUpdatableLocation;  
+    private int myDirection;   
     
     /**
      * Constructs an AttackObject with the given owner.
      * 
      * Will update to use ObjectLoader.
      */
-    public AttackObject(long instanceId, int objectId, UpdatableLocation center) {
-    	super(instanceId);
+    public AttackObject(long instanceId, int objectId) {
+    	super();
         myEffects = new ArrayList<Effect>();
         myCounter = new Counter();
-        myUpdatableLocation=center; 
     }
     
     public AttackObject (AttackObject attack, UpdatableLocation center){
-    	super(attack.getInstanceId());
-    	try {
-			attack.clone();
-		} catch (CloneNotSupportedException e) {
-			e.printStackTrace();
-		}
-    	myUpdatableLocation=center;
+    	super();
+        try {
+            attack.clone();
+        }
+        catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+    	setLocation(center);
     }
     
     /**

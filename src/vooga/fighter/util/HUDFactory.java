@@ -9,6 +9,16 @@ import vooga.fighter.view.HUDElement;
 
 
 public class HUDFactory {
+    /**
+     * Generate a list of HUDElements based off of annotations of member variables in the
+     *  given Observable object.
+     * 
+     * @param gameObject The Observable object with potentially annotated member variables.
+     * @return A List of HUDElements
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     * @throws ClassNotFoundException
+     */
     public static List<HUDElement> getHUDElements (Observable gameObject)
                                                                          throws InstantiationException,
                                                                          IllegalAccessException,
@@ -22,6 +32,9 @@ public class HUDFactory {
             for (Annotation a : member.getAnnotations()) {
                 if (a.getClass() == HUDVariable.class) {
                     HUDVariable varAnnotation = (HUDVariable) a;
+                    if (member.get(gameObject) == null) {
+                        continue;
+                    }
                     String subclass = "HUD" + varAnnotation.HUDElementClass();
                     HUDElement newElement = (HUDElement) Class.forName(subclass).newInstance();
                     newElement.setName(varAnnotation.name());

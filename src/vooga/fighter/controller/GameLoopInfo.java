@@ -17,12 +17,14 @@ public class GameLoopInfo {
 	List<Pixmap> mySprites;
 	List<Health> myHealthStats;
 	List<Dimension> myImageSizes;
+	List<Integer> myScores;
 	
 	public GameLoopInfo() {
 		mySpriteLocations = new ArrayList<Location>();
 		mySprites = new ArrayList<Pixmap>();
 		myHealthStats = new ArrayList<Health>();
 		myImageSizes = new ArrayList<Dimension>();
+		myScores = new ArrayList<Integer>();
 	}
 	
 	/**
@@ -104,6 +106,34 @@ public class GameLoopInfo {
 		myImageSizes.set(index, dim);
 	}
 	
+	/**
+     * 
+     */
+    public void setScores(List<Integer> scores) {
+    	myScores = scores;
+    }
+    
+    /**
+     * 
+     */
+    public int getScore(int index) {
+    	return myScores.get(index);
+    }
+    
+    /**
+     * 
+     */
+    public void setScore(int index, int score) {
+    	myScores.set(index, score);
+    }
+    
+    /**
+     * 
+     * @return
+     */
+    public List<Integer> getScores() {
+    	return myScores;
+    }
 	
 	
 }

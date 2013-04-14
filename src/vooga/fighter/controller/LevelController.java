@@ -1,3 +1,7 @@
+package vooga.fighter.controller;
+
+
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Timer;
@@ -10,6 +14,8 @@ import vooga.fighter.view.Canvas;
 /**
  * 
  * @author Jerry Li
+ * 
+ * @Modified by Jack Matteucci
  * 
  */
 @InputClassTarget
@@ -27,53 +33,40 @@ public class LevelController extends Controller implements ModelDelegate {
     public LevelController (String name, Canvas frame) {
         super(name, frame);
     }
-
-    public LevelController (String name, Canvas frame, ControllerDelegate manager,
-                            GameInfo gameinfo) {
-        super(name, frame, manager, gameinfo);
+	
+    public LevelController(String name, Canvas frame, ControllerDelegate manager, 
+    		GameInfo gameinfo) {
+    	super(name, frame, manager, gameinfo);
+    	myCanvas = super.getView(); // Sorry about this line!  it needs to be here for now...
     }
+    
+	
+	 public void start() {
+	        final int stepTime = DEFAULT_DELAY;
+	        // create a timer to animate the canvas
+	         myTimer = new Timer(stepTime, 
+	            new ActionListener() {
+	                public void actionPerformed (ActionEvent e) {
+	                    myMode.update((double) stepTime / ONE_SECOND, myCanvas.getSize());
+	                    myCanvas.paintComponent();
+	                }
+	            });
+	        // start animation
+	        myTimer.start();
+	    }
 
-    public void start () {
-        final int stepTime = DEFAULT_DELAY;
-        // create a timer to animate the canvas
-        myCanvas = super.getView();
-        myTimer = new Timer(stepTime,
-                            new ActionListener() {
-                                public void actionPerformed (ActionEvent e) {
-                                    myMode.update((double) stepTime / ONE_SECOND,
-                                                  myCanvas.getSize());
-                                    myCanvas.paint();
-                                }
-                            });
-        // start animation
-        myTimer.start();
-    }
-
-    public void loadGame (String levelName) {
+    
+    public void loadGame(String levelName) {
         myGame = new Mode(levelName, super.getGameInfo(), this);
         start();
     }
 
+
     /**
      * Checks special occurences of game state.
      */
-    public void checkConditions () {
-        // Couple of reasons for this method as opposed to just one switchMode()
-        // button is selected, switch mode
-        // If player is knocked out, flash sign
-        // If player health is very low, change display
-        // If player controller disconnected, flash splash/message
-        // etc......
-
-        // checkLowPlayerHealth()
-        // checkDisconnect()
-        // checkSpecial() etc.
-
-        // Essentially check conditions is different than update in that
-        // it checks special occurences in games. Update will check for bounds,
-        // interactions, and all that, but as far as significant changes to game state goes we
-        // should
-        // use check conditions
+    public void notifyEndCondition(String string) {
+        
     }
 
     /**

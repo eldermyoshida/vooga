@@ -17,7 +17,7 @@ public class EnvironmentObject extends GameObject {
     public EnvironmentObject(int objectId) {
         super();
 //    	setLoader(new EnvironmentObjectLoader(objectId));
-    }
+    }    
     
     /**
      * Updates the environment object. Behavior to be added.
