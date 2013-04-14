@@ -31,7 +31,7 @@ public class StrategyDecoder extends Decoder{
 	}
 	
 	@Override
-	public <T> T create(Document doc) {
+	public void create(Document doc) {
 		NodeList attackLst = doc.getElementsByTagName(ATTACK_TAG).item(0).getChildNodes();
 		NodeList occupyLst = doc.getElementsByTagName(OCCUPY_TAG).item(0).getChildNodes();
 		NodeList gatherLst = doc.getElementsByTagName(GATHER_TAG).item(0).getChildNodes();
@@ -39,8 +39,7 @@ public class StrategyDecoder extends Decoder{
 		getSources(attackLst);
 		getSources(occupyLst);
 		getSources(gatherLst);
-		
-		return null;
+	
 	}
 
 }

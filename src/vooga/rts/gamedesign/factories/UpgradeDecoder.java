@@ -46,7 +46,7 @@ public class UpgradeDecoder extends Decoder {
 	 * @param doc the Document passed in from Factory
 	 * 
 	 */
-	public UpgradeTree create(Document doc) {
+	public void create(Document doc) {
 		UpgradeTree upgradeTree = new UpgradeTree();
 		
 		NodeList nodeLst = doc.getElementsByTagName(UPGRADE_CATEGORY_TAG);
@@ -92,6 +92,5 @@ public class UpgradeDecoder extends Decoder {
 			}
 		}
 		
-		return upgradeTree;
 	}
 }

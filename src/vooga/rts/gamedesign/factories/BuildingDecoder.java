@@ -1,8 +1,16 @@
 package vooga.rts.gamedesign.factories;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 public class BuildingDecoder extends Decoder{
+	
+	private static final String TYPE_TAG = "building";
+	private static final String COST_TAG = "cost";
+	
+	
 	Factory myFactory;
 
 	public BuildingDecoder(Factory factory){
@@ -10,9 +18,18 @@ public class BuildingDecoder extends Decoder{
 	}
 
 	@Override
-	public <T> T create(Document doc) {
+	public void create(Document doc) {
 		
+		NodeList nodeLst = doc.getElementsByTagName(TYPE_TAG);
 		
+		for(int i = 0 ; i < nodeLst.getLength() ; i++){
+			Node nNode = nodeLst.item(i);
+			
+			
+			
+			
+		}
 		
+
 	}
 }

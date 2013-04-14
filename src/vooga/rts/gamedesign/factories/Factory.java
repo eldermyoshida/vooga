@@ -16,6 +16,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import vooga.rts.gamedesign.sprite.rtsprite.Resource;
+
 /** 
  *  This class is in charge of the loading of input XML files for different
  *  class types. It will figure out the class type this given file is in charge
@@ -32,10 +34,18 @@ public class Factory {
 	public static final String DECODER_MATCHING_FILE = "src/vooga/rts/gamedesign/factories/DecodeMatchUp";
 	
 	Map<String, Decoder> myDecoders = new HashMap<String, Decoder>();
+	Map<String, Resource> myResources;
+	
 	
 	public Factory() throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ParserConfigurationException, SAXException, IOException {
 		myDecoders = new HashMap<String, Decoder>();
 		loadDecoder(DECODER_MATCHING_FILE);
+		myResources = new HashMap<String, Resource>();
+	}
+	
+	
+	public Map<String, Resource> getResources(){
+		return myResources;
 	}
 	
 	/**

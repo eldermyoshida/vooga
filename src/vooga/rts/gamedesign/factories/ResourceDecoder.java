@@ -12,10 +12,12 @@ import org.w3c.dom.NodeList;
 import vooga.rts.gamedesign.sprite.rtsprite.*;;
 
 public class ResourceDecoder extends Decoder{
-
+	
+	private static final String HEAD_TAG = "resources";
 	private static final String TYPE_TAG = "resource";
 	private static final String NAME_TAG = "name";
 	private static final String IMAGE_TAG = "img";
+	private static final String SOURCE_TAG = "src";
 	
 	private Factory myFactory;
 	
@@ -25,27 +27,22 @@ public class ResourceDecoder extends Decoder{
 	}
 		
 	@Override
-	public Map<String,Resource> create(Document doc) {
-		Map<String,Resource> resources = new HashMap<String,Resource>();
-		
+	public void create(Document doc) {
+		String path = doc.getElementsByTagName(HEAD_TAG).item(0).getAttributes().getNamedItem(SOURCE_TAG).getTextContent();
 		NodeList nodeLst = doc.getElementsByTagName(TYPE_TAG);
 		
 		for(int i = 0 ; i < nodeLst.getLength() ; i++){
 			Node nNode = nodeLst.item(i);
 			
-			Element eElement = (Element) nNode;
-			System.out.println("Type:" + eElement.getNodeName());
-			System.out.println("Name: " + eElement.getElementsByTagName(NAME_TAG).item(0).getTextContent());
-			System.out.println("Img: " + eElement.getElementsByTagName(IMAGE_TAG).item(0).getTextContent());
-			
-			
+			NodeList children = nNode.getChildNodes();
+			for(int j = 0 ; j < children.getLength() ; j++){
+				Node current = children.item(j);
+				if(current.getNodeType() == Node.ELEMENT_NODE){
+					System.out.println(current.getNodeName() + " : " + current.getTextContent());
+				}
+			}	
 		}
 		
-		
-		
-		
-		
-		return resources;
 		
 	}
 	
