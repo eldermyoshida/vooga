@@ -3,13 +3,15 @@ package vooga.scroller.model;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.util.Arrays;
+import java.util.List;
+import util.Location;
 import vooga.scroller.level_management.LevelManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.animation.Animation;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.sprites.test_sprites.mario.Mario;
-import vooga.scroller.util.Location;
-import vooga.scroller.util.Pixmap;
+import vooga.scroller.util.Secretary;
 import vooga.scroller.view.View;
 
 
@@ -32,7 +34,13 @@ public class Model {
     private ModelInputs myInputs;
     private LevelManager myLevelManager;
     private ScrollingManager myScrollingManager;
-
+    private Secretary mySecretary;
+    private List<String> spriteStrings = Arrays.asList("Mario mario", "Koopa koopa", "Coin coin",
+                                                       "MarioLib.MovingPlatform movingPlatform"); 
+    private static final String PART_ONE = "public void visit (";
+    private static final String PART_TWO = ") {};";
+    private static final String COMMA = ", ";
+    
     /**
      * Constructs a new Model based on the view and the scrolling manager used by the game.
      * 
@@ -46,7 +54,8 @@ public class Model {
         myInputs = new ModelInputs(myPlayer, view);
         myLevelManager = new LevelManager(myScrollingManager, view);
         myLevelManager.currentLevel().addPlayer(myPlayer);
-
+        mySecretary = new Secretary();
+        generateVisitMethods(spriteStrings);
         
     }
 
@@ -55,11 +64,11 @@ public class Model {
      */
     private void initPlayer() {
         // TODO: this is implemented by the developer. 
-        myPlayer = new Mario(new Pixmap("mario.gif"),
-                             new Location(500, 500),
+        myPlayer = new Mario(
+                             new Location(500, 140),
                              new Dimension(30, 60),
                              myView, myScrollingManager);
-        myPlayer.setView(new Animation("mario.gif", myPlayer));
+        myPlayer.setView(new Animation(myPlayer));
 
     }
 
@@ -107,5 +116,26 @@ public class Model {
     
     public Image getBackground() {
         return myLevelManager.currentLevel().getBackground();
+    }
+    
+    
+    /**
+     * This method is a helper I created to generate all the visit methods CollisionManager 
+     * uses. It can be a real pain typing out all those visit methods. This method merely 
+     * takes a list of Strings - you need a unique String for each sprite type you have - 
+     * and it writes all combinations of sprite combinations to calculate all visit method 
+     * combinations. 
+     * 
+     * The result is stored in a file called visitMethods.txt under the files package of 
+     * collision_manager. 
+     * @param List<Strings> spriteStrings
+     * @author Jay Wang
+     */
+    private void generateVisitMethods (List<String> spriteStrings) {
+        for (String firstSpriteString : spriteStrings) {
+            for (String secondSpriteString : spriteStrings) {
+                mySecretary.write(PART_ONE + firstSpriteString + COMMA + secondSpriteString + PART_TWO);
+            }
+        }        
     }
 }

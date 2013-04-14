@@ -3,13 +3,13 @@ package vooga.scroller.sprites.superclasses;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import util.Location;
+import util.Vector;
 import vooga.scroller.sprites.state.StateManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.util.Gravity;
-import vooga.scroller.util.Location;
-import vooga.scroller.util.Pixmap;
+import vooga.scroller.util.ISpriteView;
 import vooga.scroller.util.Sprite;
-import vooga.scroller.util.Vector;
 import vooga.scroller.view.View;
 
 
@@ -26,7 +26,7 @@ import vooga.scroller.view.View;
  * methods. 
  * 
  * 
- * @author Jay Wang
+ * @author Jay Wang, Ross Cahoon
  *
  */
 public class Player extends Sprite {
@@ -37,7 +37,6 @@ public class Player extends Sprite {
     private Dimension mySize;
     //private Pixmap myImage;
     private StateManager myStateManager;
-    private Pixmap myImage;
     private ScrollingManager myScrollingManager;
     
     
@@ -48,7 +47,7 @@ public class Player extends Sprite {
     public static final Vector UP_VELOCITY = new Vector(UP_DIRECTION, MOVE_SPEED);
     public static final Vector DOWN_VELOCITY = new Vector(DOWN_DIRECTION, MOVE_SPEED);
 
-    public Player (Pixmap image, Location center, Dimension size, View view, ScrollingManager sm) {
+    public Player (ISpriteView image, Location center, Dimension size, View view, ScrollingManager sm) {
         super(image, center, size);
         myView = view;
         myPaintCenter = new Location(myView.getWidth() / 2, myView.getHeight() / 2);

@@ -1,5 +1,6 @@
 package vooga.scroller.input;
 
+
 import java.awt.geom.Point2D;
 
 public class PositionObject extends ActionObject {

@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JPanel;
 import vooga.towerdefense.controller.Controller;
+import vooga.towerdefense.util.Location;
 
 /**
  * Displays the map and everything on the map.
@@ -17,13 +18,15 @@ public class MapScreen extends JPanel {
     private static final long serialVersionUID = 1L;
     private Controller myController;
     private MouseListener myMouseListener;
+    private Dimension mySize;
 
     /**
      * Constructor.
      * @param size
      */
     public MapScreen (Dimension size, Controller controller) {
-        setPreferredSize(size);
+        mySize = size;
+        setPreferredSize(mySize);
         setFocusable(true);
         setVisible(true);
         myController = controller;
@@ -43,6 +46,14 @@ public class MapScreen extends JPanel {
     public void paintComponent(Graphics pen) {
         super.paintComponent(pen);
         myController.paintMap();
+        paintGridLines(pen);
+    }
+    
+    public void paintGridLines(Graphics pen) {
+        for (int i = 0; i < mySize.width; i+=25)
+            pen.drawLine(i, 0, i, mySize.height);
+        for (int j = 0; j < mySize.height; j+=25)
+            pen.drawLine(0, j, mySize.width, j);
     }
     
     /**
@@ -53,7 +64,7 @@ public class MapScreen extends JPanel {
         myMouseListener = new MouseListener() {
             @Override
             public void mouseClicked (MouseEvent e) {
-                myController.handleMapClick(e.getLocationOnScreen());
+                myController.handleMapClick(e.getPoint());
             }
             @Override
             public void mouseEntered (MouseEvent e) {
@@ -68,5 +79,5 @@ public class MapScreen extends JPanel {
             public void mouseReleased (MouseEvent e) {
             }
         };
-    }    
+    }
 }

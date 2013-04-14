@@ -1,3 +1,4 @@
+
 package arcade.view.panels;
 
 import java.awt.event.ActionEvent;
@@ -76,3 +77,4 @@ public class ButtonPanel extends JPanel {
         return output;
     }
 }
+

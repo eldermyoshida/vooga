@@ -1,6 +1,5 @@
 package vooga.scroller.sprites.animation;
 
-import java.awt.Image;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.Sprite;
 
@@ -37,8 +36,8 @@ public abstract class AnimationState {
      * 
      * @return The image used by this animation state.
      */
-    public Image getImage() {
-        return myImage.getImg();
+    public Pixmap getImage() {
+        return myImage;
     }
     
 }

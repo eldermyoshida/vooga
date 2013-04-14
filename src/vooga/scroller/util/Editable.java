@@ -15,7 +15,7 @@ public interface Editable {
 
     public void changeBackground ();
 
-    public void addNewSprite (Sprite s);
+    public void addSprite (Sprite s, int x, int y);
 
     public void deleteSprite (int x, int y);
 }

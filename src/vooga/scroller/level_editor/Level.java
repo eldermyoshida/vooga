@@ -7,11 +7,11 @@ import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
+import util.Location;
 import vooga.scroller.util.Editable;
-import vooga.scroller.util.Location;
 import vooga.scroller.util.Sprite;
 import vooga.scroller.viewUtil.Renderable;
-import vooga.scroller.collision_handlers.CollisionManager;
+import vooga.scroller.collision_manager.CollisionManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.superclasses.NonStaticEntity;
 import vooga.scroller.sprites.superclasses.Player;
@@ -32,6 +32,12 @@ public class Level implements Editable, Renderable {
     private Image myBackground;
     //TEMPORARY 
     private Image DEFAULT_BACKGROUND = new ImageIcon(getClass().getResource("/vooga/scroller/images/forestbackground.jpg")).getImage();
+
+    private int myID;
+    
+    public int getID () {
+        return myID;
+    }
 
     public Level(int id, ScrollingManager sm){
 
@@ -54,6 +60,7 @@ public class Level implements Editable, Renderable {
         frameOfActionSize = calcActionFrameSize(myView.getSize());
         myScrollManager = sm;
         myBackground = DEFAULT_BACKGROUND;
+        myID = id;
     }
 
     private void initFrames() {
@@ -88,6 +95,7 @@ public class Level implements Editable, Renderable {
             
         }
     }
+    
     
     public void addPlayerToSprite(NonStaticEntity sprite) {
         sprite.addPlayer(myPlayer);
@@ -214,11 +222,6 @@ public class Level implements Editable, Renderable {
     }
 
     @Override
-    public void addNewSprite (Sprite s) {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
     public void deleteSprite (int x, int y) {
         // TODO Auto-generated method stub
         
@@ -248,5 +251,11 @@ public class Level implements Editable, Renderable {
     
     public View getView() {
         return myView;
+    }
+
+    @Override
+    public void addSprite (Sprite s, int x, int y) {
+        // TODO Auto-generated method stub
+        
     }
 }

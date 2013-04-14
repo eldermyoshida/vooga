@@ -1,14 +1,13 @@
-package vooga.scroller.collision_handlers;
-
+package vooga.scroller.collision_manager;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import vooga.scroller.level_editor.Level;
+import vooga.scroller.level_management.LevelPortal;
 import vooga.scroller.sprites.test_sprites.MarioLib;
 import vooga.scroller.sprites.test_sprites.mario.Mario;
 import vooga.scroller.util.Direction;
 import vooga.scroller.util.Sprite;
-import vooga.scroller.view.View;
 
 /**
  * Currently, we are handling all collisions through CollisionManager. 
@@ -25,13 +24,11 @@ public class CollisionManager {
 
     Level myLevel;
     private static final int COLLISION_GRANULARITY = 15;
-    
-    
+       
     public CollisionManager (Level level) {
         myLevel = level;
     }
-    
-    
+        
     public void handleCollision (Sprite sprite1, Sprite sprite2) {
 
         Class[] classArray = {sprite1.getClass(), sprite2.getClass()};
@@ -103,6 +100,29 @@ public class CollisionManager {
         return (sprite1.getLeft() <= sprite2.getRight() && sprite1.getLeft() >= sprite2.getRight() - COLLISION_GRANULARITY);
     }
     
+    private void marioAndNonStaticEntityCollision (Mario mario, Sprite sprite) {
+        Direction collisionType = collisionDirection(mario, sprite);
+
+        if (collisionType == null) return;
+        
+        switch (collisionType) {
+            case TOP:
+                mario.setCenter(mario.getX(), sprite.getTop() - (mario.getHeight() / 2));
+                break;
+            case BOTTOM:
+                mario.setCenter(mario.getX(), sprite.getBottom() + (mario.getHeight() / 2));
+                break;
+            case LEFT:
+                mario.setCenter(sprite.getLeft() - (mario.getWidth() / 2), mario.getY());
+                break;
+            case RIGHT:
+                mario.setCenter(sprite.getRight() + (mario.getWidth() / 2), mario.getY());
+                break;
+            default: 
+                break;
+        }
+    }
+    
     
     
     /**
@@ -127,28 +147,13 @@ public class CollisionManager {
     }
 
     public void visit (Mario mario, MarioLib.Platform platform) {
+        marioAndNonStaticEntityCollision(mario, platform);
+        System.out.println("Mario has just collided with Platform!");
         
-        Direction collisionType = collisionDirection(mario, platform);
-
-        if (collisionType == null) return;
-        
-        switch (collisionType) {
-            case TOP:
-                mario.setCenter(mario.getX(), platform.getTop() - (mario.getHeight() / 2));
-                break;
-            case BOTTOM:
-                mario.setCenter(mario.getX(), platform.getBottom() + (mario.getHeight() / 2));
-                break;
-            case LEFT:
-                mario.setCenter(platform.getLeft() - (mario.getWidth() / 2), mario.getY());
-                break;
-            case RIGHT:
-                mario.setCenter(platform.getRight() + (mario.getWidth() / 2), mario.getY());
-                break;
-            default: 
-                break;
-        }
-        
+    }
+    
+    public void visit (Mario mario, MarioLib.MovingPlatformOne movingPlatform) {
+        marioAndNonStaticEntityCollision(mario, movingPlatform);
         System.out.println("Mario has just collided with Platform!");
         
     }
@@ -158,6 +163,11 @@ public class CollisionManager {
         mario.hit(turtle);
         System.out.println("Mario has just collided with Turtle!");
         
+    }
+    
+    public void visit (Mario mario, LevelPortal sp) {
+        System.out.println("Hit portal");
+        sp.goToNextStartPoint(mario);
     }
     
     public void visit (MarioLib.Coin coin, Mario mario) {
@@ -257,7 +267,7 @@ public class CollisionManager {
         System.out.println("Turtle has just collided with Turtle!");
         
     }
-    
+     
     private void endGame () {
         myLevel.getView().win();        
     }

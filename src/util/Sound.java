@@ -1,4 +1,4 @@
-package vooga.towerdefense.util;
+package util;
 
 import java.applet.Applet;
 import java.applet.AudioClip;
@@ -38,13 +38,6 @@ public class Sound {
      */
     public void play () {
         myClip.play();
-    }
-    
-    /**
-     * Loop the given sound.  this was added for the music
-     */
-    public void loop() {
-    	myClip.loop();
     }
 
     /**

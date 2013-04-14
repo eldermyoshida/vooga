@@ -3,11 +3,10 @@ package vooga.scroller.sprites.superclasses;
 
 import java.awt.Dimension;
 import java.util.Random;
-import vooga.scroller.level_editor.Level;
-import vooga.scroller.util.Location;
+import util.Location;
+import util.Vector;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.Sprite;
-import vooga.scroller.util.Vector;
 
 /**
  * This is the superclass for all entities that move. Generally 
@@ -21,12 +20,11 @@ import vooga.scroller.util.Vector;
  */
 public class NonStaticEntity extends Sprite {
     
-    private static Vector DEFAULT_SPEED = new Vector(0, 45);
+    public static Vector DEFAULT_SPEED = new Vector(0, 45);
     private Player myPlayer;
     
     public NonStaticEntity (Pixmap image, Location center, Dimension size) {
         super(image, center, size, DEFAULT_SPEED);
-        // TODO Auto-generated constructor stub
     }
     
     public void changeVelocity(Vector vector) {
@@ -37,37 +35,31 @@ public class NonStaticEntity extends Sprite {
     public void changeVelocity(double direction, double magnitude) {
         super.setVelocity(direction, magnitude);
     }
-
     
     public Vector getRandomVelocity() {
         Random randomGenerator = new Random(); 
         return new Vector((double) randomGenerator.nextInt(360), (double) randomGenerator.nextInt(100));
     }
     
-    
-    public Vector trackPlayer(int speed, int radius) {
-        Location player = myPlayer.getCenter();
-        if (Vector.distanceBetween(player, this.getCenter()) > (double) radius) return DEFAULT_SPEED; 
-        return new Vector(Vector.angleBetween(player, this.getCenter()), speed);
-    }
-    
     public void addPlayer(Player player) {
         myPlayer = player;
     }
-    
-    
-    public Vector upAndDown(int top, int bottom, int speed) {
-       
+
+    public Vector upAndDown(int top, int bottom, int speed) {       
         if (this.getTop() > top) {
             return new Vector(Sprite.UP_DIRECTION, speed);
         }
         return new Vector(Sprite.DOWN_DIRECTION, speed);
     }
+    
+    public Player getPlayer() {
+        return myPlayer;
+    }
 
     public int getHit () {
-        // TODO Auto-generated method stub
         return 1;
     }
     
+
 
 }

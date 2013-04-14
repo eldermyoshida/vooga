@@ -1,4 +1,4 @@
-package vooga.rts.util;
+package util;
 
 import java.awt.Color;
 import java.awt.Font;

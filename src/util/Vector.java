@@ -1,4 +1,4 @@
-package vooga.rts.util;
+package util;
 
 import java.awt.geom.Point2D;
 
@@ -39,16 +39,8 @@ public class Vector {
     public Vector (Point2D source, Point2D target) {
         double dx = target.getX() - source.getX();
         double dy = source.getY() - target.getY();
-        setDirection(angleBetween(dx, -dy));
+        setDirection(angleBetween(dx, dy));
         setMagnitude(distanceBetween(dx, dy));
-    }
-    
-    public static Vector CreateCoordinateVector(double X, double Y)
-    {
-    	Vector t = new Vector();    	
-    	t.setDirection(angleBetween(X, Y));
-    	t.setMagnitude(distanceBetween(X, Y));
-    	return t;
     }
 
     /**
@@ -110,11 +102,6 @@ public class Vector {
         final double OFFSET = 0.001;
         double sign = (myAngle < 0) ? 1 : -1;
         return ((myAngle + sign * OFFSET) % 360) - sign * OFFSET;
-    }
-    
-    public double getAngle()
-    {
-    	return myAngle;    			
     }
 
     /**
@@ -269,66 +256,5 @@ public class Vector {
         else {
             return Math.abs(a / b - 1) < EPSILON;
         }
-    }
-   
-    
-    public void removeXComponent()
-    {
-    	double nAngle;
-    	double dy = this.getYChange();
-    	if (dy > 0)
-    	{
-    		nAngle = 90;    		
-    	}
-    	else
-    	{
-    		nAngle = -90;
-    	}
-    	this.setMagnitude(this.getYChange());
-    	this.setDirection(nAngle);
-    }
-    
-    public void removeComponent(double angle)
-    {
-    	double ang = Math.abs(this.getAngle());
-    	/*
-    	System.out.println(ang);
-    	// if already perpendicular
-    	if (Math.abs(ang - angle) == 90)
-    	{
-    		return;
-    	} */   	
-    	
-    	Vector remove;
-    	double amount = this.getRelativeMagnitude(new Vector(angle, 1));
-    	//System.out.println(amount);
-    	if (amount < 0)
-    	{
-    		remove = new Vector(angle, -amount);
-    		this.difference(remove);
-    	}
-    }
-    
-    
-    public void removeYComponent()
-    {
-    	double ang = Math.abs(this.getAngle());
-    	//System.out.println(ang);
-    	if (Math.abs(this.getAngle()) == 90)
-    	{
-    		return;
-    	}
-    	
-    	Vector remove;
-    	double dy = this.getYChange();
-    	if (dy > 0)
-    	{
-    		remove = new Vector(90, Math.abs(dy));
-    	}
-    	else
-    	{
-    		remove = new Vector(-90, Math.abs(dy));
-    	}
-    	this.difference(remove);
     }
 }
