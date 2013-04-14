@@ -18,6 +18,7 @@ public class GameLoopInfo {
 	List<Health> myHealthStats;
 	List<Dimension> myImageSizes;
 	List<Integer> myScores;
+
 	
 	public GameLoopInfo() {
 		mySpriteLocations = new ArrayList<Location>();
