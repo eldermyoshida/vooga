@@ -2,6 +2,7 @@ package vooga.rts.gamedesign.sprite.rtsprite.interactive.units;
 
 import java.awt.Dimension;
 import vooga.rts.resourcemanager.ResourceManager;
+import vooga.rts.gamedesign.upgrades.UpgradeTree;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
@@ -18,6 +19,7 @@ public class Soldier extends Unit {
      * the soldier occupies the IOccupiable RTSprite.
      * Code: would call myOccupyStrategy.occupy(RTSprite);
      */
+
     //default values
     public static Pixmap DEFAULT_IMAGE = new Pixmap(ResourceManager.instance().loadFile("images/soldier.png"));
     public static Location DEFAULT_LOCATION = new Location();

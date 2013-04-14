@@ -67,6 +67,18 @@ public class GameEntity extends GameSprite {
     public void setHealth (int health) {
         myCurrentHealth = health;
     }
+    
+    /**
+     * NOTE: moving this method around is gonna affact HealthUpgradeNode
+     * @param health
+     */
+    public void addMaxHealth (int health) {
+    	myMaxHealth += health;
+    }
+    
+    public int getMaxHealth() {
+    	return myMaxHealth;
+    }
 
     /**
      * Returns the teamID the shape belongs to.

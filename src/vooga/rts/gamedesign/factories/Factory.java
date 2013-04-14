@@ -1,9 +1,12 @@
 package vooga.rts.gamedesign.factories;
 
+import java.awt.Dimension;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -15,6 +18,18 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+
+import vooga.rts.gamedesign.Weapon;
+import vooga.rts.gamedesign.sprite.InteractiveEntity;
+import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Soldier;
+import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Unit;
+import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;
+import vooga.rts.gamedesign.upgrades.UpgradeNode;
+import vooga.rts.gamedesign.upgrades.UpgradeTree;
+import vooga.rts.resourcemanager.ResourceManager;
+import vooga.rts.util.Location;
+import vooga.rts.util.Pixmap;
+import vooga.rts.util.Sound;
 
 /** 
  *  This class is in charge of the loading of input XML files for different
@@ -29,6 +44,7 @@ import org.xml.sax.SAXException;
  */
 
 public class Factory {
+	//BUGBUG: the file path will break code! :/ (two places: here and in main())
 	public static final String DECODER_MATCHING_FILE = "/Users/Sherry/Desktop/Academics/Compsci 308/Final VOOGA/GameDesign/src/vooga/rts/gamedesign/factories/DecodeMatchUp";
 	
 	Map<String, Decoder> myDecoders = new HashMap<String, Decoder>();
@@ -82,8 +98,6 @@ public class Factory {
 			Decoder decoder = (Decoder) headClass.getConstructor(Factory.class).newInstance(this);
 			myDecoders.put(type, decoder);
 		}
-		
-		System.out.println(myDecoders);
 	}
 	
 	/**
@@ -94,17 +108,35 @@ public class Factory {
 	 * @param fileName the name of the XML file that provides class information
 	 * and to be loaded
 	 */
-	public void loadXMLFile(String fileName) {
+	public <T extends Object> T loadXMLFile(String fileName) {
+		Object result = new Object();
 		try {
 			File file = new File(fileName);
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 			DocumentBuilder db = dbf.newDocumentBuilder();
 			Document doc = db.parse(file);
 			doc.getDocumentElement().normalize();
-			System.out.println("Root element " + doc.getDocumentElement().getNodeName());
-			myDecoders.get(doc.getDocumentElement().getNodeName()).create(doc);
+			result = myDecoders.get(doc.getDocumentElement().getNodeName()).create(doc);
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+		printTree((UpgradeTree) result);
+		return (T) result;
+	}
+	
+	/**
+	 * TESTING PURPOSE. PRINTS TREE.
+	 * @param upgradeTree
+	 */
+	private void printTree(UpgradeTree upgradeTree) {
+		for (UpgradeNode u: upgradeTree.getHead().getChildren()) {
+			UpgradeNode current = u;
+			while (!current.getChildren().isEmpty()) {
+				System.out.println("Type: " + current.getChildren().get(0).getUpgradeType() +
+						" Parent ID " + current.getID() + " ID " + 
+						current.getChildren().get(0).getID());
+				current = current.getChildren().get(0);
+			}
 		}
 	}
 	
@@ -113,7 +145,16 @@ public class Factory {
 	 */
 	public static void main(String[] args) throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ParserConfigurationException, SAXException, IOException {
 		Factory factory = new Factory();
-		factory.loadXMLFile("/Users/Sherry/Desktop/Academics/Compsci 308/Final VOOGA/GameDesign/src/vooga/rts/gamedesign/factories/XML_Sample");
+		UpgradeTree resultTree = factory.loadXMLFile("/Users/Sherry/Desktop/Academics/Compsci 308/Final VOOGA/GameDesign/src/vooga/rts/gamedesign/factories/XML_Sample");
+		List<InteractiveEntity> requester = new ArrayList<InteractiveEntity>();
+		InteractiveEntity temp = new Unit(resultTree);
+		temp.setAttackStrategy(new CanAttack());
+		//temp.getAttackStrategy().addWeapons(new Weapon(50, null, 10, new Location(0,0), 10));
+		//System.out.println(temp.getAttackStrategy().getCurrentWeapon().getDamage());
+		requester.add(temp);
+		UpgradeNode DamageTester = temp.getTree().getHead().getChildren().get(0).getChildren().get(0).getChildren().get(0);
+		System.out.println(DamageTester.getUpgradeType());
+		DamageTester.apply(requester);
+		//System.out.println(temp.getAttackStrategy().getCurrentWeapon().getDamage());
 	}
-
 }

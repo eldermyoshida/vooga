@@ -64,15 +64,18 @@ public class Weapon {
             interval.resetCooldown();
         }
     }
+    
+    public int getDamage() {
+    	return myDamage;
+    }
+    
     /**
-     * This method is used to upgrade a weapon either
-     * 
-     * @param upgrade
+     * NOTE: moving this method is gonna break DamageUpgradeNode.
+     * @param damage
      */
-
-    //public void upgrade (Upgrade upgrade) {
-
-    //}
+    public void addDamage(int damage) {
+    	myDamage += damage;
+    }
 
     public List<Projectile> getProjectiles () {
         return myProjectiles;

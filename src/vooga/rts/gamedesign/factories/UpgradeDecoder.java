@@ -10,6 +10,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import vooga.rts.gamedesign.sprite.InteractiveEntity;
 import vooga.rts.gamedesign.upgrades.DamageUpgradeNode;
 import vooga.rts.gamedesign.upgrades.HealthUpgradeNode;
 import vooga.rts.gamedesign.upgrades.UpgradeNode;
@@ -34,10 +35,15 @@ public class UpgradeDecoder extends Decoder {
 	public static final String AFFECTING_OBJECT_TAG = "object";
 	public static final String AFFECTING_VALUE_TAG = "value";
 	
-	Factory myFactory;
+	private Factory myFactory;
+	private InteractiveEntity myInteractiveEntity;
 	
 	public UpgradeDecoder(Factory factory){
 		myFactory = factory;
+	}
+	
+	public void addInteractiveEntity(InteractiveEntity i) {
+		myInteractiveEntity = i;
 	}
 	
 	/**
@@ -48,11 +54,11 @@ public class UpgradeDecoder extends Decoder {
 	 * @param doc the Document passed in from Factory
 	 * 
 	 */
+	@Override
 	public UpgradeTree create(Document doc) {
 		UpgradeTree upgradeTree = new UpgradeTree();
 		
 		NodeList nodeLst = doc.getElementsByTagName(UPGRADE_CATEGORY_TAG);
-		System.out.println("Information of all upgrades");
 
 		for (int i = 0; i < nodeLst.getLength(); i++) {
 
@@ -62,7 +68,6 @@ public class UpgradeDecoder extends Decoder {
 			NodeList name = nameElmnt.getChildNodes();
 			UpgradeNode branchHead = upgradeTree.addBranch(i+1, ((Node) name.item(0)).getNodeValue());
 			UpgradeNode current = branchHead;
-			System.out.println("name : "  + ((Node) name.item(0)).getNodeValue());
 			
 			NodeList upgradeNodeList = typeElmnt.getElementsByTagName(INDIVIDUAL_UPGRADE_TAG);
 			for (int j=0; j<upgradeNodeList.getLength(); ++j) {
@@ -71,22 +76,18 @@ public class UpgradeDecoder extends Decoder {
 				NodeList idNodeElmntLst = upgradeNodeElement.getElementsByTagName(ID_TAG);
 				Element idNodeElmnt = (Element) idNodeElmntLst.item(0);
 				String id = ((Node)idNodeElmnt.getChildNodes().item(0)).getNodeValue();
-				System.out.println("id : " + id);
 				
 				NodeList nodeNameElmntLst = upgradeNodeElement.getElementsByTagName(TITLE_TAG);
 				Element nodeNameElmnt = (Element) nodeNameElmntLst.item(0);
 				String nodeName = ((Node)nodeNameElmnt.getChildNodes().item(0)).getNodeValue();
-				System.out.println("upgrade name : " + nodeName);
 				
 				NodeList objectElmntLst = upgradeNodeElement.getElementsByTagName(AFFECTING_OBJECT_TAG);
 				Element objectElmnt = (Element) objectElmntLst.item(0);
 				String object = ((Node)objectElmnt.getChildNodes().item(0)).getNodeValue();
-				System.out.println("object : " + object);
 				
 				NodeList valueElmntLst = upgradeNodeElement.getElementsByTagName(AFFECTING_VALUE_TAG);
 				Element valueElmnt = (Element) valueElmntLst.item(0);
 				String value = ((Node)valueElmnt.getChildNodes().item(0)).getNodeValue();
-				System.out.println("value : " + value);
 				
 				if (object.equals("Health")) { //SO BAD!!
 					UpgradeNode newLeaf = current.addChild(new HealthUpgradeNode(Integer.parseInt(id), nodeName, object, Integer.parseInt(value)));

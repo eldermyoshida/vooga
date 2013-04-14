@@ -42,6 +42,12 @@ public interface AttackStrategy {
 	public List<Weapon> getWeapons();
 	
 	/**
+	 * Returns the currently activated Weapon.
+	 * @return the currently activated Weapon.
+	 */
+	public Weapon getCurrentWeapon();
+	
+	/**
 	 * Adds a Weapon to the list of Weapons belonged to this AttackStrategy.
 	 * @param weapon the new Weapon to be added into the list.
 	 */

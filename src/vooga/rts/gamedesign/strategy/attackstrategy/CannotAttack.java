@@ -73,4 +73,8 @@ public class CannotAttack implements AttackStrategy {
 	public boolean getCanAttack() {
 		return myCanAttack;
 	}
+
+	public Weapon getCurrentWeapon() {
+		return null;
+	}
 }
