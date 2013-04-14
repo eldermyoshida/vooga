@@ -1,37 +1,49 @@
 package vooga.rts.leveleditor.components;
 
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.ResourceBundle;
+import javax.imageio.ImageIO;
 import vooga.rts.util.Location;
 
 public class Terrain {
    
+   private static final String BUNDLE_RELATIVE_PATH = "vooga.rts.leveleditor.resource.";
+   private static final String IMAGE_RELATIVE_PATH = "./src/vooga/rts/leveleditor/resources/";
+   
+   private int myID; 
    private Location myLocation;
     
-   private int myID;
    private String myName;
    private int myWalkAbility;
    
-   private Dimension myDimension;
-   
    private BufferedImage myImage;
    
-   public Terrain(int id , String name , int walkAbility, Dimension dimension) {
-       myID = id;
-       myName = name;
+   private ResourceBundle myResources = ResourceBundle.getBundle(BUNDLE_RELATIVE_PATH + "ImageIndex");
+   
+   public Terrain(Location loc , int ID , int walkAbility) {
+       myLocation = loc;
+       myID = ID;
+       myName = myResources.getString(ID+"");
        myWalkAbility = walkAbility;
-       myDimension = dimension;
+       try {
+        myImage = ImageIO.read(new File(System.getProperty("user.dir") + IMAGE_RELATIVE_PATH+ myName+".jpg"));
+    }
+    catch (IOException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+    }
+       
+       
    }
    
-   //temporary method, need further modifications
-   public void setImage(BufferedImage image) {
-       myImage = image;
+   public Terrain(int x , int y , int ID ,int walkAbility) {
+       
+       this(new Location(x,y) , ID , walkAbility);
    }
-
-   public int getMyID () {
-    return myID;
-   }
+  
 
    public String getMyName () {
     return myName;
@@ -41,8 +53,8 @@ public class Terrain {
     return myWalkAbility;
    }
    
-   public Dimension getMyDimension() {
-       return myDimension;
+   public int getMyID() {
+       return myID;
    }
    
    public Location getMyLocation() {
@@ -50,8 +62,7 @@ public class Terrain {
    }
    
    public void paint(Graphics pen) {
-       pen.drawImage(myImage, (int)myLocation.getX(), (int)myLocation.getY(), (int)myDimension.getWidth(), 
-                     (int)myDimension.getHeight(), null);
+       pen.drawImage(myImage, (int)myLocation.getX(), (int)myLocation.getY(), null);
    }
    
    

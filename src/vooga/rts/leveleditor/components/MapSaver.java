@@ -19,9 +19,7 @@ public void generateMapFile(EditableMap myMap , File mySavFile) throws IOExcepti
         
         if(!mySavFile.exists()) {
             mySavFile.createNewFile();
-        } 
-        int x = myMap.getMyXSize();
-        int y = myMap.getMyYSize();
+        }
             
         FileWriter myWriter = new FileWriter(mySavFile);
         
@@ -33,6 +31,9 @@ public void generateMapFile(EditableMap myMap , File mySavFile) throws IOExcepti
         myMap.addPlayer(40, 40);
         myMap.addPlayer(50, 50);
         
+        writePlayers(myMap,myWriter);
+        writeSize(myMap,myWriter);
+        writeTiles(myMap,myWriter);
         
         myWriter.close();
     }
@@ -68,6 +69,21 @@ public void generateMapFile(EditableMap myMap , File mySavFile) throws IOExcepti
         myWriter.write("         tilesize width=" + width + " height=" + height + " />");
         myWriter.write("         tileamount X=" + x + " Y=" + y + " />");
         myWriter.write("      </info>\r\n");
+    }
+    
+    public void writeTiles(EditableMap myMap , FileWriter myWriter) throws IOException {
+        int x = myMap.getMyXSize();
+        int y = myMap.getMyYSize();
+        myWriter.write("      <tiles>\r\n");
+    
+        for(int i = 0 ; i < x ; i++) {
+            for(int j = 0 ; i < y ; j++) {
+                int id = i*y + j + 1;
+                String name = myMap.getMapNode(i, j).getTileType();
+                myWriter.write("         <tiles ID=" + id + " name=\"" + name + "\" />\r\n" );
+            }
+        }
+        myWriter.write("      </tiles>\r\n");
         
     }
 }
