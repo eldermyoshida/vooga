@@ -102,11 +102,20 @@ public class Factory {
 			Document doc = db.parse(file);
 			doc.getDocumentElement().normalize();
 			System.out.println("Root element " + doc.getDocumentElement().getNodeName());
-			NodeList children = doc.getChildNodes();
+			
+			NodeList head = doc.getChildNodes();
+			Node childNode = head.item(0);
+			NodeList children = childNode.getChildNodes();
 			for(int i = 0 ; i < children.getLength() ; i++){
 				Node tempNode = children.item(i);
-				System.out.println(tempNode.getNodeName());
-				//myDecoders.get(doc.getDocumentElement().getNodeName()).create(doc);
+				
+				if(tempNode.getNodeType() == Node.ELEMENT_NODE){
+					System.out.println(tempNode.getNodeName());
+					myDecoders.get(tempNode.getNodeName()).create(doc);
+				}
+				
+				
+				
 			}
 				
 		} catch (Exception e) {
