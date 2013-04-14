@@ -6,15 +6,19 @@ import vooga.fighter.view.Canvas;
 import vooga.fighter.game.*;
 
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.Timer;
 
 
 
 
 /**
  * 
- * @author Jerry Li
+ * @author Jerry Li and Jack Matteucci
  * 
- * @Modified by Jack Matteucci
+ *
  *
  */
 
@@ -26,6 +30,12 @@ public abstract class Controller implements ModelDelegate {
     private Canvas myCanvas;
     private GameInfo myGameInfo;
     private Input myInput;
+    public static final int FRAMES_PER_SECOND = 25;
+    // better way to think about timed events (in milliseconds)
+    public static final int ONE_SECOND = 1000;
+    public static final int DEFAULT_DELAY = ONE_SECOND / FRAMES_PER_SECOND;
+    private Timer myTimer;
+    private Mode myMode;
     
     public Controller(String name, Canvas frame){
     	myName = name;
@@ -59,13 +69,43 @@ public abstract class Controller implements ModelDelegate {
     	return myGameInfo;
     }
     
+	protected void setMode(Mode mode){
+		myMode = mode;
+	}
+    
     public void displaySplash(){
     	
     }
     
-    public abstract void start();
+	 public void start() {
+	        final int stepTime = DEFAULT_DELAY;
+	        // create a timer to animate the canvas
+	         myTimer = new Timer(stepTime, 
+	            new ActionListener() {
+	                public void actionPerformed (ActionEvent e) {
+	                    myMode.update((double) stepTime / ONE_SECOND, myCanvas.getSize());
+	                    myCanvas.paint();
+	                }
+	            });
+	        // start animation
+	        myTimer.start();
+	    }
     
-    public abstract void stop();
+	    /**
+	     * Exits program.
+	     */
+	    public void exit () {
+	        System.exit(0);
+	    }
+	    
+	    public void stop () {
+	        myTimer.stop();
+
+	    }
+	    
+	public void loadMode() {
+	        setMode(new Mode(getName(),getGameInfo(), this));
+	    }
     
     public abstract Controller getController(ControllerDelegate manager, GameInfo gameinfo);
 
