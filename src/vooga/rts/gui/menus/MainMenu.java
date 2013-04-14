@@ -2,9 +2,11 @@ package vooga.rts.gui.menus;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
+import vooga.rts.gui.Button;
 import vooga.rts.gui.Menu;
 import vooga.rts.gui.buttons.ScreenButton;
 import vooga.rts.resourcemanager.ResourceManager;
@@ -16,7 +18,7 @@ public class MainMenu extends Menu {
 	public BufferedImage myBGImage;
 	private Dimension myDefaultButtonDimension = new Dimension(500, 122);
 
-	private Location myDefaultButtonLocation = new Location(678, 350);
+	private Location myDefaultButtonLocation = new Location(678, 500);
 
 	private double myX;
 	private double myY;
@@ -30,27 +32,35 @@ public class MainMenu extends Menu {
 				DEFAULT_BGIMAGE_LOCATION);
 		setImage(myBGImage);
 
-		myStartButton = new ScreenButton(myDefaultButtonDimension,
+		myStartButton = new ScreenButton("Start Game", myDefaultButtonDimension,
 				myDefaultButtonLocation);
 
 		addButton(myStartButton);
 
 	}
 
-	@Override
-	public void paint(Graphics2D pen) {
+	public void setScaledButton(Graphics2D pen, ScreenButton b) {
 		myX = pen.getDeviceConfiguration().getBounds().getWidth();
 		myY = pen.getDeviceConfiguration().getBounds().getHeight();
 		double xFactor = myX / myBGImage.getWidth();
 		double yFactor = myY / myBGImage.getHeight();
-		myStartButton.setSize(new Dimension((int) (myDefaultButtonDimension
+		b.setSize(new Dimension((int) (myDefaultButtonDimension
 			.getWidth() * xFactor), (int) (myDefaultButtonDimension
 				.getHeight() * yFactor)));
 
-		myStartButton.setPos(new Location(
+		b.setPos(new Location(
 				(int) (myDefaultButtonLocation.getX() * xFactor),
 				(int) (myDefaultButtonLocation.getY() * yFactor)));
-
+	}
+	@Override
+	public void paint(Graphics2D pen) {
+		
 		super.paint(pen);
+		
+		pen.setFont(new Font("Helvetica", Font.BOLD, 100));
+		pen.setColor(Color.white);
+		pen.drawString("The Vooga RTS Game", 150, 150);
+		
+		setScaledButton(pen, myStartButton);
 	}
 }
