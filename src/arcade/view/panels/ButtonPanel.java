@@ -1,3 +1,4 @@
+
 package arcade.view.panels;
 
 import java.awt.event.ActionEvent;
@@ -49,7 +50,7 @@ public class ButtonPanel extends JPanel {
         
         JLabel gameCenterLabel = new JLabel("<html><b><font size = 5><font face = champion>Game Center</font></font></b></html>");
         JLabel socialCenterLabel = new JLabel("<html><b><font size = 5><font face = champion>Social Center</font></font></b></html>");
-        JLabel storeLabel = new JLabel("<html><b><font size = 5><font face = champion>Social</font></font></b></html>");
+        JLabel storeLabel = new JLabel("<html><b><font size = 5><font face = champion>Game Store</font></font></b></html>");
         
         
         add(gameCenterButton);
@@ -76,3 +77,4 @@ public class ButtonPanel extends JPanel {
         return output;
     }
 }
+

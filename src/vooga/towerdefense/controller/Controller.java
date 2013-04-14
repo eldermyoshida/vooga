@@ -1,53 +1,19 @@
 package vooga.towerdefense.controller;
 
 import java.awt.Point;
+import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.GameModel;
 import vooga.towerdefense.view.TDView;
 
-
-
-/**
- * The bridge between the model and the view. 
- * Initializes view components and updates view using information from game model
- * Point of communication between arcade and other extensible components
- * 
- * @author Xu Rui
- * 
- */
-
 public class Controller {
-    private static final String LANGUAGE = "English";
-    private int DEFAULT_MOVE_VALUE = 100;
-    private int DEFAULT_TURN_VALUE = 90;
-    public static final String USER_DIR = "user.dir";
-    public static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
-
-
-    private GameModel myGameModel;
+    private boolean onBuildMode;
+    private GameModel myModel;
     private TDView myView;
-
     
-    /**
-     * Constructor for controller responsible for initializing the view
-     * and the parser
-     */
-    public Controller () {
-        //myGameModel = new GameModel(); //constructor parameters need to be added
+    public Controller() {
         myView = new TDView(this);
-    }
-    
-    /**
-     * Initializes view components
-     */
-    public void createView () {
-
-    }
-
-    /**
-     * Returns game model
-     */
-    private GameModel getModel () {
-        return myGameModel;
+        myModel = new GameModel(myView, null, new GameMap(800, 600, null));
+        onBuildMode = false;
     }
     
     /**
@@ -56,6 +22,23 @@ public class Controller {
      * @param p is the location of the click
      */
     public void handleMapClick(Point p) {
-        //TODO: handle a map click
+        if (onBuildMode) {
+            
+        } 
+        else {
+            myModel.displayTileCoordinates(p);
+        }
+    }
+    
+    /**
+     * paints the map on the view.
+     */
+    public void paintMap() {
+        //TODO: paint the map to the view
+    }
+    
+    public static void main(String[] args) {
+        Controller c = new Controller();
+        
     }
 }

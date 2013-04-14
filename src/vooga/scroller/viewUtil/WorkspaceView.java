@@ -28,9 +28,11 @@ public abstract class WorkspaceView extends WindowComponent {
     private GridBagConstraints myConstraints;
     private Dimension mySize = ViewConstants.DEFAULT_TAB_SIZE;
     private static Tools myTools;
+    private static Double DEF_WIDTH_RATIO = .95;
+    private static Double DEF_HEIGHT_RATIO = .9;
 
     public WorkspaceView (IView hostWindow) {
-        super(hostWindow, .9, .9);
+        super(hostWindow, DEF_WIDTH_RATIO, DEF_HEIGHT_RATIO);
         setPreferredSize(mySize);
         //TODO : for undo/redo stuff
 //        myRenderableHistory = new Stack<Renderable>();

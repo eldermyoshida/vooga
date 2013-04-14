@@ -5,6 +5,8 @@ import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+import vooga.scroller.viewUtil.EasyGridFactory;
 import vooga.scroller.viewUtil.IView;
 import vooga.scroller.viewUtil.RadioGroup;
 import vooga.scroller.viewUtil.Renderable;
@@ -19,6 +21,7 @@ import vooga.scroller.viewUtil.WindowComponent;
 public class LEToolsView extends WindowComponent {
 
     private LETools myTools;
+    private JTabbedPane myTabs;
     private JPanel spriteUI;
     private String selectedSprite;
 
@@ -29,23 +32,26 @@ public class LEToolsView extends WindowComponent {
     
     public LEToolsView (LEWorkspaceView parent, double d, double e) {
         super(parent, d, e);
-        myTools = (LETools) parent.getTools();
-        spriteUI = new RadioGroup(new SelectSpriteListener(),
-                                        myTools.getSpriteMakingOptions());
-        this.add(spriteUI);
+        
         // TODO Auto-generated constructor stub
     }
 
     @Override
     protected void initializeVariables () {
         // TODO Auto-generated method stub
-        
+//        this.setSize(120, 300);
+        myTools = (LETools) ((LEWorkspaceView) getResponsible()).getTools();
+        spriteUI = new RadioGroup(new SelectSpriteListener(),
+                                        myTools.getSpriteMakingOptions());
+        myTabs = new JTabbedPane();
     }
 
     @Override
     protected void addComponents () {
         // TODO Auto-generated method stub
-        
+        myTabs.add(spriteUI, "Sprites");
+        myTabs.add(null, "Other");
+        EasyGridFactory.layout(this, myTabs);
     }
 
     @Override

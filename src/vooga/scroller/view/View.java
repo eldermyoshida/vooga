@@ -21,7 +21,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.Timer;
 import vooga.scroller.scrollingmanager.ScrollingManager;
-import vooga.scroller.sprite_superclasses.Player;
+import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.Sprite;
 import vooga.scroller.model.Model;
 
@@ -84,14 +84,8 @@ public class View extends JComponent {
 
         // first time needs to be special cased :(
         if (myGame != null & myScrollManager != null) {
-            Image img = new ImageIcon(getClass().getResource("/vooga/scroller/images/forestbackground.jpg")).getImage();
-            pen.drawImage(img, myScrollManager.left(), myScrollManager.upper(), 800, 300, null);
-            pen.drawImage(img, myScrollManager.right(),  myScrollManager.upper(), 800, 300, null);
-            pen.drawImage(img, myScrollManager.left(), myScrollManager.lower(), 800, 300, null);
-            pen.drawImage(img, myScrollManager.right(), myScrollManager.lower(), 800, 300, null);
-            myGame.paint((Graphics2D) pen);
-        }
-      
+               myScrollManager.viewPaint(pen);
+        }      
         
         //only used for testing, please remove later
         if (win == true) {

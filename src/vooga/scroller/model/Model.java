@@ -2,11 +2,13 @@ package vooga.scroller.model;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.Image;
+import util.Location;
+import vooga.scroller.level_management.LevelManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
-import vooga.scroller.sprite_superclasses.Player;
-import vooga.scroller.test_sprites.Mario;
-import vooga.scroller.util.Location;
-import vooga.scroller.util.Pixmap;
+import vooga.scroller.sprites.animation.Animation;
+import vooga.scroller.sprites.superclasses.Player;
+import vooga.scroller.sprites.test_sprites.mario.Mario;
 import vooga.scroller.view.View;
 
 
@@ -28,6 +30,7 @@ public class Model {
     // This is weird how it works. I think you just need to instantiate it(see constructor)
     private ModelInputs myInputs;
     private LevelManager myLevelManager;
+    private ScrollingManager myScrollingManager;
 
     /**
      * Constructs a new Model based on the view and the scrolling manager used by the game.
@@ -35,12 +38,14 @@ public class Model {
      * @param view which is used to display/control game.
      * @param myScrollingManager used to control in-game scrolling.
      */
-    public Model (View view, ScrollingManager myScrollingManager) {
+    public Model (View view, ScrollingManager sm) {
+        myScrollingManager = sm;
         myView = view;
         initPlayer();
         myInputs = new ModelInputs(myPlayer, view);
         myLevelManager = new LevelManager(myScrollingManager, view);
         myLevelManager.currentLevel().addPlayer(myPlayer);
+
         
     }
 
@@ -49,11 +54,12 @@ public class Model {
      */
     private void initPlayer() {
         // TODO: this is implemented by the developer. 
-        myPlayer = new Mario(new Pixmap("mario.gif"),
-                             new Location(myView.getWidth() / 2, myView.getHeight() / 2),
+        myPlayer = new Mario(
+                             new Location(500, 140),
                              new Dimension(30, 60),
-                             myView);
-        
+                             myView, myScrollingManager);
+        myPlayer.setView(new Animation(myPlayer));
+
     }
 
     /**
@@ -61,6 +67,7 @@ public class Model {
      */
     public void paint (Graphics2D pen) {
         myLevelManager.currentLevel().paint(pen);
+        
     }
 
     /**
@@ -95,5 +102,9 @@ public class Model {
 
     public Dimension getLevelBounds () {
         return myLevelManager.currentLevel().getLevelBounds();
+    }
+    
+    public Image getBackground() {
+        return myLevelManager.currentLevel().getBackground();
     }
 }
