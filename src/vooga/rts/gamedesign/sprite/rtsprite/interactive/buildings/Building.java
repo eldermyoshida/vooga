@@ -27,9 +27,9 @@ public abstract class Building extends InteractiveEntity implements IOccupiable 
                      Location center,
                      Dimension size,
                      Sound sound,
-                     int teamID,
+                     int playerID,
                      int health) {
-        super(image, center, size, sound, teamID, MAXHEALTH);
+        super(image, center, size, sound, playerID, MAXHEALTH);
 
     }
 

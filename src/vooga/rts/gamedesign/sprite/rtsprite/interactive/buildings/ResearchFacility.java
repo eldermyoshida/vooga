@@ -17,8 +17,8 @@ import java.awt.Dimension;
 public class ResearchFacility extends Building {
 
     public ResearchFacility(Pixmap image, Location center, Dimension size,
-                            Sound sound, int teamID, int health) {
-        super(image, center, size, sound, teamID, health);
+                            Sound sound, int playerID, int health) {
+        super(image, center, size, sound, playerID, health);
     }
 
     @Override

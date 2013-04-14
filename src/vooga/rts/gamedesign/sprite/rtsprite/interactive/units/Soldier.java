@@ -25,16 +25,16 @@ public class Soldier extends Unit {
     public static Location DEFAULT_LOCATION = new Location();
     public static Dimension DEFAULT_SIZE = new Dimension(90,90);
     public static Sound DEFAULT_SOUND = null;
-    public static int DEFAULT_TEAMID = 1;
+    public static int DEFAULT_PLAYERID = 1;
     public static int DEFAULT_HEALTH = 100;
 
     // private int myHealth; //TESTING PURPOSE
     public Soldier() {
-        this(DEFAULT_IMAGE, DEFAULT_LOCATION, DEFAULT_SIZE, DEFAULT_SOUND, DEFAULT_TEAMID, DEFAULT_HEALTH);
+        this(DEFAULT_IMAGE, DEFAULT_LOCATION, DEFAULT_SIZE, DEFAULT_SOUND, DEFAULT_PLAYERID, DEFAULT_HEALTH);
     }
     
-    public Soldier(Pixmap image, Location center, Dimension size, Sound sound, int teamID, int health) {
-        super(image, center, size, sound, teamID, health);
+    public Soldier(Pixmap image, Location center, Dimension size, Sound sound, int playerID, int health) {
+        super(image, center, size, sound, playerID, health);
     }
 
     public void upgradeHealth (int armor) { // TESTING PURPOSE

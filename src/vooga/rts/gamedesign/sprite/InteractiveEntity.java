@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 
 import vooga.rts.gamedesign.action.Action;
-import vooga.rts.gamedesign.factories.Factory;
 import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
 import vooga.rts.gamedesign.sprite.rtsprite.Projectile;
 
@@ -40,15 +39,14 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     private AttackStrategy myAttackStrategy;
     private int myArmor;
     private List<Action> myActions;
-    private Map<String, Factory> myMakers; //WHERE SHOULD THIS GO?
     
-    public InteractiveEntity (Pixmap image, Location center, Dimension size, Sound sound, int teamID, int health) {
-        this(image, center, size, sound, teamID, health, null);
+    public InteractiveEntity (Pixmap image, Location center, Dimension size, Sound sound, int playerID, int health) {
+        this(image, center, size, sound, playerID, health, null);
     }
     
-    public InteractiveEntity (Pixmap image, Location center, Dimension size, Sound sound, int teamID, int health, UpgradeTree upgradeTree) {
-        super(image, center, size, teamID, health);
-        myMakers = new HashMap<String, Factory>(); //WHERE SHOULD THIS GO?
+    public InteractiveEntity (Pixmap image, Location center, Dimension size, Sound sound, int playerID, int health, UpgradeTree upgradeTree) {
+        super(image, center, size, playerID, health);
+        //myMakers = new HashMap<String, Factory>(); //WHERE SHOULD THIS GO?
        
         if(upgradeTree != null) {
         	 myUpgradeTree = upgradeTree;

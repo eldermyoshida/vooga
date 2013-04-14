@@ -22,8 +22,8 @@ public class Barracks extends ProductionBuilding {
     private List<InteractiveEntity> myBabies;
     
     public Barracks(Pixmap image, Location center, Dimension size, Sound sound,
-                    int teamID, int health) {
-        super(image, center, size, sound, teamID, health);
+                    int playerID, int health) {
+        super(image, center, size, sound, playerID, health);
         myBabies = new ArrayList<InteractiveEntity>();
         initProducables();
         addProductionActions(this);
@@ -48,7 +48,6 @@ public class Barracks extends ProductionBuilding {
                 myBabies.add(ie);
             }
         });
-        //add actions to create a unit
     }
     @Override
     public void paint(Graphics2D pen) {

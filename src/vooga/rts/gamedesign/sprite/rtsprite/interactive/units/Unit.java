@@ -47,15 +47,15 @@ public class Unit extends InteractiveEntity {
      * @param center is the position of the unit on the map
      * @param size is the size of the unit
      * @param sound is the sound the unit makes
-     * @param teamID is the ID for the team that the unit is on
+     * @param playerID is the ID for the team that the unit is on
      * @param health is the max health of the unit
      */
-    public Unit (Pixmap image, Location center, Dimension size, Sound sound, int teamID, int health) {
-        this(image, center, size, sound, teamID, health, null);
+    public Unit (Pixmap image, Location center, Dimension size, Sound sound, int playerID, int health) {
+        this(image, center, size, sound, playerID, health, null);
     }
     
-    public Unit (Pixmap image, Location center, Dimension size, Sound sound, int teamID, int health, UpgradeTree upgradeTree) {
-        super(image, center, size, sound, teamID, health, upgradeTree);
+    public Unit (Pixmap image, Location center, Dimension size, Sound sound, int playerID, int health, UpgradeTree upgradeTree) {
+        super(image, center, size, sound, playerID, health, upgradeTree);
         //myPather = new PathingHelper();
         myOccupyStrategy = new CannotOccupy();
         //addUpgradeActions();

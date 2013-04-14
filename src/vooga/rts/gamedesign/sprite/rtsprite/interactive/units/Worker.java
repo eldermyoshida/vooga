@@ -32,12 +32,12 @@ public class Worker extends Unit {
 	 * @param center is the location of the worker
 	 * @param size is the size of the worker
 	 * @param sound is the sound the worker will make
-	 * @param teamID represents the team that the worker is on
+	 * @param playerID represents the team that the worker is on
 	 * @param health is the health of the worker
 	 */
 	public Worker(Pixmap image, Location center, Dimension size, Sound sound,
-			int teamID, int health, int gatherAmount) {
-		super(image, center, size, sound, teamID, health);
+			int playerID, int health, int gatherAmount) {
+		super(image, center, size, sound, playerID, health);
 		//interval = new Interval(DEFUALT_GATHER_INTERVAL);
 		myGatherAmount = gatherAmount;
 		myGatherStrategy = new CanGather(DEFUALT_GATHER_INTERVAL, gatherAmount);

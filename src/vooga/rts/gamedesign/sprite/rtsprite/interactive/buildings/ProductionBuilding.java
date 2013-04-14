@@ -22,9 +22,9 @@ public class ProductionBuilding extends Building {
                                Location center,
                                Dimension size,
                                Sound sound,
-                               int teamID,
+                               int playerID,
                                int health) {
-        super(image, center, size, sound, teamID, health);
+        super(image, center, size, sound, playerID, health);
         myRallyPoint = new Location((int)getCenter().x, (int)getCenter().y + 50);
         myProducables = new ArrayList<InteractiveEntity>();
     }

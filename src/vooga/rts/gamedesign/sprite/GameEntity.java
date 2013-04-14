@@ -27,18 +27,18 @@ public class GameEntity extends GameSprite {
     private int myMaxHealth;
     private int myCurrentHealth;
 
-    private int myTeamID;
+    private int myPlayerID;
 
     private Location myCurrentLocation;
     private Location myGoal;
     private Vector myOriginalVelocity;
 
 
-    public GameEntity (Pixmap image, Location center, Dimension size, int teamID, int health) {
+    public GameEntity (Pixmap image, Location center, Dimension size, int playerID, int health) {
         super(image, center, size);
         myMaxHealth = health;
         myCurrentHealth = myMaxHealth;
-        myTeamID = teamID;
+        myPlayerID = playerID;
         myCurrentLocation = new Location(center);
         // ALERT THIS IS JUST FOR TESTING
         myOriginalVelocity = new Vector(0, 0);
@@ -83,8 +83,8 @@ public class GameEntity extends GameSprite {
     /**
      * Returns the teamID the shape belongs to.
      */
-    public int getTeamID () {
-        return myTeamID;
+    public int getPlayerID () {
+        return myPlayerID;
     }
 
     /**
@@ -106,7 +106,18 @@ public class GameEntity extends GameSprite {
         getCenter().translate(v);
         resetBounds();
     }
-
+    
+    /**
+     * This would determine if two GameEntities collide.
+     * @param gameEntity is an RTSprite that is being checked to see if it 
+     * collides with the current RTSprite
+     * @return true if the two RTsprites collided and false if the RTSprites
+     * did not collide.
+     */
+    public boolean collidesWith(GameEntity gameEntity) {
+        return getBounds().intersects(gameEntity.getBounds());
+    }
+    
     /**
      * Reset shape back to its original values.
      */
