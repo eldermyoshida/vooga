@@ -12,7 +12,7 @@ import vooga.towerdefense.util.Location;
  * @author gouzhen-1
  *
  */
-public interface InfoBridge {
+public interface infoBridge {
 	
 	public Unit[] getUnits();
 	public GameElement[] getGameElements();
@@ -28,6 +28,7 @@ public interface InfoBridge {
 	 * @return
 	 */
 	public Targetable[] getTargetsWithinRadiusOfGivenLocation(Location source,double radius, int howMany);
+	
 	public void addGameElement(Projectile projectile);
 	
 
