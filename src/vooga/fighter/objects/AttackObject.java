@@ -5,6 +5,7 @@ import java.util.List;
 
 import vooga.fighter.objects.utils.Counter;
 import vooga.fighter.objects.utils.Effect;
+import vooga.fighter.objects.utils.UpdatableLocation;
 import vooga.fighter.util.Location;
 import vooga.fighter.util.Pixmap;
 import vooga.fighter.util.Vector;
@@ -15,28 +16,45 @@ import vooga.fighter.util.Vector;
  * @author james, alanni
  *  
  */
-public class AttackObject extends MoveableGameObject{
+public class AttackObject extends GameObject{
 
     private Counter myCounter;
     private CharacterObject myOwner;
     private List<Effect> myEffects;
-    private int myAttackPower;      
+    private int myPower;   
+    private int mySpeed;
+    private int myDirection; 
+    private ObjectLoader myLoader;
+    private UpdatableLocation myUpdatableLocation;  
     
     /**
      * Constructs an AttackObject with the given owner.
      * 
      * Will update to use ObjectLoader.
      */
-    public AttackObject(Pixmap image, Location center, Dimension size, CharacterObject owner, int power, int attackSpeed) {
-    	super(image, center, size);
-        myOwner = owner;
+    public AttackObject(long instanceId, int objectId, UpdatableLocation center) {
+    	super(instanceId);
         myEffects = new ArrayList<Effect>();
-        //add effects to myEffects list
         myCounter = new Counter();
-        myAttackPower = power; 
-        //myCounter.setCounter(count);
+        myUpdatableLocation=center; 
     }
     
+    public AttackObject (AttackObject attack, UpdatableLocation center){
+    	super(attack.getInstanceId());
+    	try {
+			attack.clone();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+    	myUpdatableLocation=center;
+    }
+    
+    /**
+     * Updates the attack object
+     */
+    public void update(){
+    	super.update();
+    }
     /**
      * Adds an effect to myEffects
      */
@@ -63,7 +81,7 @@ public class AttackObject extends MoveableGameObject{
      * Inflicts damage upon a target player.
      */
     public int inflictDamage(CharacterObject target){
-    	return target.changeHealth(-myAttackPower);
+    	return target.changeHealth(-myPower);
     }
     
     /**
