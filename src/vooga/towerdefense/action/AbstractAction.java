@@ -17,11 +17,14 @@ import vooga.towerdefense.util.CoolDownManager;
 public abstract class AbstractAction {
 	private InfoBridge myInfoBridge;
 	private CoolDownManager myCDManager;
+	private boolean enabled;
 	
 	public AbstractAction(InfoBridge info){
-		myInfoBridge=info;
-		
+		myInfoBridge=info;		
 	}
+	
+	public abstract void initAction();
+	
 	public InfoBridge getInfoBridge(){
 		return myInfoBridge;
 	}
@@ -36,6 +39,10 @@ public abstract class AbstractAction {
 	public boolean isReady(){
 		return myCDManager.isReady();
 		
+	}
+	
+	public boolean isEnabled(){
+		return enabled;
 	}
 
 }
