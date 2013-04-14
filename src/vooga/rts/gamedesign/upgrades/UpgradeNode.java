@@ -62,6 +62,13 @@ public class UpgradeNode {
     	return;
 	}
     
+    public void apply(InteractiveEntity requester) //TODO: figure out which one should actually be called under Action
+    		throws IllegalArgumentException, IllegalAccessException,
+    		InvocationTargetException, InstantiationException,
+    		SecurityException, NoSuchMethodException {
+    	return;
+    }
+
     public boolean validUpdate(Player player){
     	//TODO check if play has enough resource to "buy the update"
     	return true;

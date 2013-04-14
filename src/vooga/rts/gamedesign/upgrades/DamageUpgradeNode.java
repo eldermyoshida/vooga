@@ -24,13 +24,18 @@ public class DamageUpgradeNode extends UpgradeNode {
 			InvocationTargetException, InstantiationException,
 			SecurityException, NoSuchMethodException {
 		for (InteractiveEntity i: requester){
-			if (i.getAttackStrategy().getCanAttack() && !i.getAttackStrategy().getWeapons().isEmpty()){
-				i.getAttackStrategy().getCurrentWeapon().addDamage(getUpgradeValue());
-			}
+			apply(i);
 			//Class thisClass = Weapon.class;
 			//Class[] params = DAMAGE_UPGRADE_METHOD_PARAM;
 			//Method thisMethod = thisClass.getDeclaredMethod(DAMAGE_UPGRADE_METHOD_NAME, params);
 			//thisMethod.invoke(i.getAttackStrategy().getCurrentWeapon(), getUpgradeValue());
+		}
+	}
+	
+	@Override
+	public void apply(InteractiveEntity requester) { //TODO: figure out which one should actually be called under Action
+		if (requester.getAttackStrategy().getCanAttack() && !requester.getAttackStrategy().getWeapons().isEmpty()){
+			requester.getAttackStrategy().getCurrentWeapon().addDamage(getUpgradeValue());
 		}
 	}
 }

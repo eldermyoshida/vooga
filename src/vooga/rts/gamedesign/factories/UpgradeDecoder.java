@@ -99,6 +99,7 @@ public class UpgradeDecoder extends Decoder {
 				//TODO: need to find a way to upgrade CurrentUpgrades.
 			}
 		}
+		upgradeTree.updateTreeStatus();
 		printTree(upgradeTree);
 		return upgradeTree;
 	}
@@ -116,6 +117,12 @@ public class UpgradeDecoder extends Decoder {
 						current.getChildren().get(0).getID());
 				current = current.getChildren().get(0);
 			}
+		}
+		for (UpgradeNode u: upgradeTree.getCurrentUpgrades()) {
+			System.out.println("Current Upgradss: " + u.getID());
+		}
+		for (UpgradeNode u: upgradeTree.getNextUpgrades()) {
+			System.out.println("Next Upgrades: " + u.getID());
 		}
 	}
 }

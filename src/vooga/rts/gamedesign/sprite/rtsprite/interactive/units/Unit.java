@@ -1,6 +1,7 @@
 package vooga.rts.gamedesign.sprite.rtsprite.interactive.units;
 
 import java.awt.Dimension;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import vooga.rts.gamedesign.action.Action;
 import vooga.rts.gamedesign.sprite.GameSprite;
@@ -74,18 +75,16 @@ public class Unit extends InteractiveEntity {
     /**
      * Adds the list of available upgrades into the list of available actions.
      */
-    private void addUpgradeActions(){
+    private void addUpgradeActions(final Unit unit){
         List<UpgradeNode> currentUpgrades = getUpgradeTree().getCurrentUpgrades();
-    	for (UpgradeNode u: currentUpgrades) {
-    		//TODO:
+    	for (final UpgradeNode u: currentUpgrades) {
+    		 getActions().add(new Action(u.getUpgradeType(), null, "An upgrade action for soldier"){
+    	            @Override
+    	            public void apply() throws IllegalArgumentException, SecurityException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException{
+    	                u.apply(unit);
+    	            }
+    	        });
     	}
-        
-        getActions().add(new Action("AttackUpgrade", null, "This is a new action specific for soldier"){
-            @Override
-            public void apply(){
-                //what will the action be? 
-            }
-        });
     }
     
     public void setOccupyStrategy (OccupyStrategy newStrategy) {

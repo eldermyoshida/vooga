@@ -25,12 +25,17 @@ public class HealthUpgradeNode extends UpgradeNode {
 			InvocationTargetException, InstantiationException,
 			SecurityException, NoSuchMethodException {
         for (InteractiveEntity i: requester){
-        	i.addMaxHealth(getUpgradeValue());
+        	apply(i);
         	//Class thisClass = GameEntity.class;
         	//System.out.println(thisClass);
             //Class[] params = HEALTH_UPGRADE_METHOD_PARAM;
             //Method thisMethod = thisClass.getDeclaredMethod(HEALTH_UPGRADE_METHOD_NAME, params);
             //thisMethod.invoke(i, getUpgradeValue());
         }
+	}
+	
+	@Override
+	public void apply(InteractiveEntity requester) { //TODO: figure out which one should actually be called under Action
+		requester.addMaxHealth(getUpgradeValue());
 	}
 }

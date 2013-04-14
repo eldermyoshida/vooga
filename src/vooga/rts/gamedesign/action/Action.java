@@ -1,5 +1,7 @@
 package vooga.rts.gamedesign.action;
 
+import java.lang.reflect.InvocationTargetException;
+
 import vooga.rts.util.Pixmap;
 /*
  * This is the abstract super class for Actions
@@ -34,7 +36,7 @@ public class Action {
      * This is the method to execute the action. 
      * 
      */
-    public void apply(){
+    public void apply() throws IllegalArgumentException, SecurityException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException{
         
     }
     

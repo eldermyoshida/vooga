@@ -49,10 +49,23 @@ public class UpgradeTree {
     }
 
     /**
-     * Updates the list of current and next upgrades.
+     * Updates the list of current and next upgrades. Only to be called when
+     * upgradeTree is first created.
      */
     public void updateTreeStatus () {
-        // TODO
+        for (UpgradeNode u: myHead.getChildren()) {
+        	UpgradeNode current = u;
+        	while(!u.getChildren().isEmpty() && u.getChildren().get(0).getHasBeenUpgraded()) {
+        		current = current.getChildren().get(0);
+        	}
+        	if (!current.getChildren().isEmpty()) {
+        		current = current.getChildren().get(0);
+        		myCurrentUpgrades.add(current);
+        		if (!current.getChildren().isEmpty()) {
+        			myNextUpgrades.add(current.getChildren().get(0));
+        		}
+        	}
+        }
     }
 
     public UpgradeNode addBranch (int ID, String branchName) {
@@ -86,12 +99,16 @@ public class UpgradeTree {
         return current;
     }
 
-    public List<InteractiveEntity> getUsers () {
+    public List<InteractiveEntity> getUsers() {
         return myUsers;
     }
 
-    public List<UpgradeNode> getCurrentUpgrades () {
+    public List<UpgradeNode> getCurrentUpgrades() {
         return myCurrentUpgrades;
+    }
+    
+    public List<UpgradeNode> getNextUpgrades() {
+    	return myNextUpgrades;
     }
     
     public UpgradeNode getHead() {
