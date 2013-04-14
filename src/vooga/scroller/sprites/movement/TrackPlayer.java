@@ -7,8 +7,8 @@ import vooga.scroller.sprites.superclasses.Player;
 
 public class TrackPlayer extends Movement {
 
-
     private NonStaticEntity myEntity;
+    
     public TrackPlayer (NonStaticEntity nse) {
         super(nse);
         myEntity = nse;
