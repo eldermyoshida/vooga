@@ -2,12 +2,14 @@ package vooga.fighter.controller;
 import java.awt.Dimension;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Observable;
 
 import vooga.fighter.objects.utils.Health;
 import vooga.fighter.util.HUDVariable;
 import vooga.fighter.util.Location;
 import vooga.fighter.util.Paintable;
 import vooga.fighter.util.Pixmap;
+
 
 /**
  * Contains all information required by the view about game objects in a game loop.
@@ -24,18 +26,31 @@ public class GameLoopInfo implements Observable, ViewDataSource{
 	private List<Health> myHealthStats;
 	private List<Dimension> myImageSizes;
 	private List<Integer> myScores;
+	private List<PlayerStatus> myPlayerStats;
 	
 	@HUDVariable(
-	             name = "Player1",
-	             HUDElementClass = "PlayerScoreAndHealth"
-	             )
+			name = "Player1",
+			HUDElementClass = "PlayerScoreAndHealth"
+			)
 	private PlayerStatus Player1Status;
-	
-//	@HUDVariable(
-//	             name = "Cheese",
-//	             HUDElementClass = "PlayerValue"
-//	             )
-//	private HUDPlayerValue.Stats Player1Coins = 1;
+
+	@HUDVariable(
+			name = "Player2",
+			HUDElementClass = "PlayerScoreAndHealth"
+			)
+	private PlayerStatus Player2Status;
+
+	@HUDVariable(
+			name = "Player3",
+			HUDElementClass = "PlayerScoreAndHealth"
+			)
+	private PlayerStatus Player3Status;
+
+	@HUDVariable(
+			name = "Player4",
+			HUDElementClass = "PlayerScoreAndHealth"
+			)
+	private PlayerStatus Player4Status;
 	
 	public GameLoopInfo(int numObjects) {
 		myNumObjects = numObjects;
@@ -44,12 +59,24 @@ public class GameLoopInfo implements Observable, ViewDataSource{
 		myHealthStats = new ArrayList<Health>();
 		myImageSizes = new ArrayList<Dimension>();
 		myScores = new ArrayList<Integer>();
+		myPlayerStats = new ArrayList<PlayerStatus>();
+		myPlayerStats.add(Player1Status);
+		myPlayerStats.add(Player2Status);
+		myPlayerStats.add(Player3Status);
+		myPlayerStats.add(Player4Status);
 	}
+	
+	public void updatePlayerStats() {
+		for(i = 0; i < 4; i++) {
+			myPlayerStats.get(i).set
+		}
+	}
+	
 	
 	/**
 	 * @return number of objects in this game loop
 	 */
-	public int numObjects () {
+	public int ObjectNumber () {
 		return myNumObjects;
 	}
 
