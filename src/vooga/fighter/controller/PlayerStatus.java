@@ -27,4 +27,16 @@ public class PlayerStatus {
         return myScore;
     }
     
+    public void setName(String name) {
+        myName = name;
+    }
+    
+    public void setHealth(Health health) {
+        myHealth = health;
+    }
+    
+    public void setScore(int score) {
+        myScore = score;
+    }
+    
 }
