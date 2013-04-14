@@ -15,7 +15,8 @@ public class StateManager {
     /** ID for the default state of a sprite*/
     public static final int DEFAULT_ID = 0;
     private Map<Integer, State> myStates;    
-    private State myCurrentState; 
+    private State myCurrentState;
+    //private List<Integer> myActiveState; 
     
     public StateManager(Sprite sprite) {
         StateFactory sf = new StateFactory(sprite);
@@ -40,5 +41,9 @@ public class StateManager {
         else{
             myCurrentState.deactivate();
         }
+    }
+    
+    public void undoState(){
+        
     }
 }

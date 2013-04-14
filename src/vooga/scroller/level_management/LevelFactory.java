@@ -82,7 +82,7 @@ public class LevelFactory {
         
         Level secondLevel = new Level(2, myScrollingManager, view);
         
-        StartPoint exit= new StaticStartPoint(myCurrLevel, new Location(500,500));
+        StartPoint exit= new StaticStartPoint(myCurrLevel, new Location(900,500));
         
         
         LevelPortal portal = new LevelPortal(new Pixmap("brick9.gif"), new Location(900,900),
