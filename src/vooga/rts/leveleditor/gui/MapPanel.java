@@ -137,7 +137,7 @@ public class MapPanel extends JComponent {
         if(x>=0 && x<myWidth && y>=0 && y<myHeight){
             EditableNode n = myMap.getMapNode(x, y);
             if(!myRemoveFlag){
-                n.addFeature(myCanvas.getCurrentSelectResource().getID());
+                n.setTileType(myCanvas.getCurrentSelectResource().getName());
                 n.setImage(myCanvas.getCurrentSelectResource().getImage());
                 n.setOccupied(true);
             } else {
@@ -147,7 +147,7 @@ public class MapPanel extends JComponent {
         }
     }
     public void clear() {
-        myMap.clear();
+        myMap.clearMap();
         repaint();
     }
 
