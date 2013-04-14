@@ -19,8 +19,8 @@ public class GameInfo {
     
     private ResourceBundle myResourceBundle;
 
-    public GameInfo (String gamename) {
-    	String filepath = FILEPATH + gamename + RESOURCE_DIR_NAME + gamename;
+    public GameInfo (String gamename, String language) {
+    	String filepath = FILEPATH + gamename + RESOURCE_DIR_NAME + language;
         myResourceBundle = ResourceBundle.getBundle(filepath);
     }
 

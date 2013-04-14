@@ -14,12 +14,14 @@ public class Model {
 	public static final String DEFAULT_LOGIN_MESSAGE = "";
 	private ResourceBundle myResources;
 	private LoginView myLoginView;
+	private String myLanguage;
 
 	private List<GameInfo> mySnapshots;
 
 
-	public Model(ResourceBundle rb) {
+	public Model(ResourceBundle rb, String language) {
 		myResources = rb;
+		myLanguage = language;
 	}
 
 
@@ -68,7 +70,7 @@ public class Model {
 
 	private void organizeSnapshots() {
 		mySnapshots = new ArrayList<GameInfo>();
-		GameInfo myGameInfo = new GameInfo("example");
+		GameInfo myGameInfo = new GameInfo("example", myLanguage);
 		mySnapshots.add(myGameInfo);
 	}
 
