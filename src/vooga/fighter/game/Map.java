@@ -57,6 +57,21 @@ public class Map {
     }
 
     /**
+     * Adds an environment object to map
+     */
+    
+    public void addObject(EnvironmentObject object){
+    	myEnviroObjects.add(object);
+    }
+    
+    /**
+     * Creates empty list of Environment Objects
+     */
+    
+    public void initialize(){
+    	myEnviroObjects= new ArrayList<GameObject>(); 
+    }
+    /**
      * return the GameObject environmental object at index i of
      * myEnviroObjects.
      * 

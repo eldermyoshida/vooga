@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<maps>
+    <map mapID="1" mapName="BlueBackground" enviroBackground="BlueBackground.jpeg">
+        <enviroObject enviroId="1" objectName="brick" image="brick1.gif" xCoord="50" yCoord="50">
+        </enviroObject>
+        <enviroObject enviroId="2" objectName="platform" image="paddle.gif" xCoord="100" yCoord="100">
+        </enviroObject>
+
+    </map>
+</maps>
