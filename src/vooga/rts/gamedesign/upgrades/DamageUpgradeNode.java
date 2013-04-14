@@ -8,9 +8,8 @@ import vooga.rts.gamedesign.Weapon;
 import vooga.rts.gamedesign.sprite.InteractiveEntity;
 
 public class DamageUpgradeNode extends UpgradeNode {
-	public static final String DAMAGE_UPGRADE_METHOD_NAME = "addDamage";
-				//TODO: check method name
-	public static final Class[] DAMAGE_UPGRADE_METHOD_PARAM = new Class[] {int.class};
+	//public static final String DAMAGE_UPGRADE_METHOD_NAME = "addDamage";
+	//public static final Class[] DAMAGE_UPGRADE_METHOD_PARAM = new Class[] {int.class};
 
 	public DamageUpgradeNode(int id, String upgradeType, String upgradeObject, int upgradeValue){
 		super(id, upgradeType, upgradeObject, upgradeValue);
@@ -25,10 +24,13 @@ public class DamageUpgradeNode extends UpgradeNode {
 			InvocationTargetException, InstantiationException,
 			SecurityException, NoSuchMethodException {
 		for (InteractiveEntity i: requester){
-			Class thisClass = Weapon.class;
-			Class[] params = DAMAGE_UPGRADE_METHOD_PARAM;
-			Method thisMethod = thisClass.getDeclaredMethod(DAMAGE_UPGRADE_METHOD_NAME, params);
-			thisMethod.invoke(i.getAttackStrategy().getCurrentWeapon(), getUpgradeValue());
+			if (i.getAttackStrategy().getCanAttack() && !i.getAttackStrategy().getWeapons().isEmpty()){
+				i.getAttackStrategy().getCurrentWeapon().addDamage(getUpgradeValue());
+			}
+			//Class thisClass = Weapon.class;
+			//Class[] params = DAMAGE_UPGRADE_METHOD_PARAM;
+			//Method thisMethod = thisClass.getDeclaredMethod(DAMAGE_UPGRADE_METHOD_NAME, params);
+			//thisMethod.invoke(i.getAttackStrategy().getCurrentWeapon(), getUpgradeValue());
 		}
 	}
 }

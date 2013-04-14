@@ -149,12 +149,12 @@ public class Factory {
 		List<InteractiveEntity> requester = new ArrayList<InteractiveEntity>();
 		InteractiveEntity temp = new Unit(resultTree);
 		temp.setAttackStrategy(new CanAttack());
-		temp.getAttackStrategy().addWeapons(new Weapon(50, null, 10, new Location(0,0), 10));
-		System.out.println(temp.getAttackStrategy().getCurrentWeapon().getDamage());
+		//temp.getAttackStrategy().addWeapons(new Weapon(50, null, 10, new Location(0,0), 10));
+		//System.out.println(temp.getAttackStrategy().getCurrentWeapon().getDamage());
 		requester.add(temp);
 		UpgradeNode DamageTester = temp.getTree().getHead().getChildren().get(0).getChildren().get(0).getChildren().get(0);
 		System.out.println(DamageTester.getUpgradeType());
 		DamageTester.apply(requester);
-		System.out.println(temp.getAttackStrategy().getCurrentWeapon().getDamage());
+		//System.out.println(temp.getAttackStrategy().getCurrentWeapon().getDamage());
 	}
 }
