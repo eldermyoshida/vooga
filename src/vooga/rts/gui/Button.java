@@ -36,5 +36,20 @@ public abstract class Button extends Observable implements IGameLoop {
     public boolean checkClick(int x, int y) {
         return (x > myPos.x && y > myPos.y && x < (myPos.x + mySize.width) && y < (myPos.y + mySize.height));
     }
+    
+    public Dimension getSize () {
+    	return mySize;
+    }
+    
+    public void setSize (Dimension s) {
+    	mySize = s;
+    }
+    
+    public Location getPos () {
+    	return myPos;
+    }
 
+    public void setPos (Location l) {
+    	myPos = l;
+    }
 }
