@@ -1,17 +1,13 @@
-package vooga.scroller.collision_handlers;
-
+package vooga.scroller.collision_manager;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import vooga.scroller.level_editor.Level;
-import vooga.scroller.level_management.IDoor;
 import vooga.scroller.level_management.LevelPortal;
-import vooga.scroller.level_management.StartPoint;
 import vooga.scroller.sprites.test_sprites.MarioLib;
 import vooga.scroller.sprites.test_sprites.mario.Mario;
 import vooga.scroller.util.Direction;
 import vooga.scroller.util.Sprite;
-import vooga.scroller.view.View;
 
 /**
  * Currently, we are handling all collisions through CollisionManager. 
@@ -28,13 +24,11 @@ public class CollisionManager {
 
     Level myLevel;
     private static final int COLLISION_GRANULARITY = 15;
-    
-    
+       
     public CollisionManager (Level level) {
         myLevel = level;
     }
-    
-    
+        
     public void handleCollision (Sprite sprite1, Sprite sprite2) {
 
         Class[] classArray = {sprite1.getClass(), sprite2.getClass()};
@@ -273,9 +267,7 @@ public class CollisionManager {
         System.out.println("Turtle has just collided with Turtle!");
         
     }
-    
-    
-    
+     
     private void endGame () {
         myLevel.getView().win();        
     }
