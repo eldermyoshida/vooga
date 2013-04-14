@@ -43,13 +43,7 @@ public class CharacterObject extends GameObject {
      * Note: Dayvid once the object loader is functional we will replace this
      * constructor to take in just an ID, then we will load parameters from XML.
      */
-<<<<<<< HEAD
     public CharacterObject (int objectId, UpdatableLocation center) {
-=======
-    public CharacterObject(int objectId, UpdatableLocation center) {
-
-//        myLoader = new CharacterObjectLoader(objectId);
->>>>>>> f1197b87aa65124773687aa36f73b32a4eb2c34a
         super();
         myHealth = new Health();
         setLoader(new CharacterLoader(objectId, this));
