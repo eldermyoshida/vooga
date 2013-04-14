@@ -58,8 +58,11 @@ public class MapLoader extends ObjectLoader {
 			String imagePath= getAttributeValue(environmentObject, "image");
 			int xCoord= Integer.parseInt(getAttributeValue(environmentObject, "xCoord"));
 			int yCoord= Integer.parseInt(getAttributeValue(environmentObject, "yCoord"));
-			EnvironmentObject toAdd= new EnvironmentObject();
-			
+			EnvironmentObject toAdd= new EnvironmentObject(new UpdatableLocation(xCoord, yCoord));
+			NodeList stateNodes = ((Element) environmentObject).getElementsByTagName("state");
+			addStates(stateNodes, toAdd);
 		}
 	}
+	
+
 }

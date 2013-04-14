@@ -1,10 +1,15 @@
 <?xml version="1.0"?>
 <maps>
     <map mapID="1" mapName="BlueBackground" enviroBackground="BlueBackground.jpeg">
-        <enviroObject enviroId="1" objectName="brick" image="brick1.gif" xCoord="50" yCoord="50">
+        <enviroObject enviroId="1" objectName="platform" xCoord="50" yCoord="50">
+        	<state>
+        		<frame image="brick1.gif">
+                	<hitbox cornerX="10" cornerY="3" rectX="28" rectY="78"/>
+            	</frame>
+            	<frame image="paddle.gif">
+                	<hitbox cornerX="10" cornerY="3" rectX="28" rectY="78"/>
+            	</frame>
+        	</state>
         </enviroObject>
-        <enviroObject enviroId="2" objectName="platform" image="paddle.gif" xCoord="100" yCoord="100">
-        </enviroObject>
-
     </map>
 </maps>

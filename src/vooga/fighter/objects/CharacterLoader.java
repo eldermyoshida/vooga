@@ -13,7 +13,11 @@ import org.w3c.dom.NodeList;
 import vooga.fighter.objects.utils.State;
 import vooga.fighter.objects.utils.UpdatableLocation;
 import util.Pixmap;
-
+/**
+ * 
+ * @author Dayvid, Alan
+ *
+ */
 public class CharacterLoader extends ObjectLoader {
 	
 	private static final String CHARACTER_PATH = "src/vooga/fighter/config/objects.xml";
@@ -37,27 +41,10 @@ public class CharacterLoader extends ObjectLoader {
 				String charName = getAttributeValue(node, "charName");
 				int maxHealth = Integer.parseInt(getAttributeValue(node, "maxHealth"));
 				myChar.setHealth(maxHealth);
-				NodeList stateNodes = doc.getElementsByTagName("state");
-				addStates(stateNodes);
+				NodeList stateNodes = ((Element) node).getElementsByTagName("state");
+				addStates(stateNodes, myChar);
 			}
 		}
 	}
 	
-	public void addStates(NodeList stateNodes) {
-		for (int i = 0; i < stateNodes.getLength(); i++) {
-			Element state = (Element) stateNodes.item(i);
-			String stateName = getAttributeValue(stateNodes.item(i), "stateName");
-			NodeList frameNodes = state.getElementsByTagName("frame");
-			for (int j = 0; j < frameNodes.getLength(); j++) {
-				State newState = new State(myChar, frameNodes.getLength());
-				newState.populateImage(new Pixmap(getAttributeValue(frameNodes.item(j), "image")), j);
-				Element frame = (Element) frameNodes.item(j);
-				Node hitboxNode = frame.getElementsByTagName("hitbox").item(0);
-				newState.populateRectangle(new Rectangle(Integer.parseInt(getAttributeValue(hitboxNode, "cornerX")),
-						Integer.parseInt(getAttributeValue(hitboxNode, "cornerY")), Integer.parseInt(getAttributeValue(hitboxNode, "rectX")),
-						Integer.parseInt(getAttributeValue(hitboxNode, "rectY"))), j);
-				myChar.addState(stateName, newState);
-			}
-		}
-	}
 }
