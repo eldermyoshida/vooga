@@ -9,6 +9,16 @@ import vooga.fighter.view.HUDElement;
 
 
 public class HUDFactory {
+    /**
+     * Generate a list of HUDElements based off of annotations of member variables in the
+     *  given Observable object.
+     * 
+     * @param gameObject The Observable object with potentially annotated member variables.
+     * @return A List of HUDElements
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     * @throws ClassNotFoundException
+     */
     public static List<HUDElement> getHUDElements (Observable gameObject)
                                                                          throws InstantiationException,
                                                                          IllegalAccessException,
