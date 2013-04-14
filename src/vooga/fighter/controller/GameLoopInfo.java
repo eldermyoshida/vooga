@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 import vooga.fighter.objects.utils.Health;
+import vooga.fighter.util.HUDVariable;
 import vooga.fighter.util.Location;
 import vooga.fighter.util.Paintable;
 import vooga.fighter.util.Pixmap;
@@ -15,13 +16,25 @@ import vooga.fighter.util.Pixmap;
  * @author matthewparides
  *
  */
-public class GameLoopInfo implements ViewDataSource{
+public class GameLoopInfo implements Observable, ViewDataSource{
 	private Integer myNumObjects;
 	private List<Location> mySpriteLocations;
 	private List<Pixmap> mySprites;
 	private List<Health> myHealthStats;
 	private List<Dimension> myImageSizes;
 	private List<Integer> myScores;
+	
+	@HUDVariable(
+	             name = "Player1",
+	             HUDElementClass = "PlayerScoreAndHealth"
+	             )
+	private PlayerStatus Player1Status;
+	
+//	@HUDVariable(
+//	             name = "Cheese",
+//	             HUDElementClass = "PlayerValue"
+//	             )
+//	private HUDPlayerValue.Stats Player1Coins = 1;
 	
 	public GameLoopInfo(int numObjects) {
 		myNumObjects = numObjects;
