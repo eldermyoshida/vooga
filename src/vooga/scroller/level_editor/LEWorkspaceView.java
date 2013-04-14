@@ -2,6 +2,7 @@ package vooga.scroller.level_editor;
 
 import java.awt.Container;
 import java.awt.Point;
+import javax.swing.JScrollPane;
 import vooga.scroller.level_editor.commands.CommandConstants;
 import vooga.scroller.util.Editable;
 import vooga.scroller.viewUtil.EasyGridFactory;
@@ -78,7 +79,9 @@ public class LEWorkspaceView extends WorkspaceView {
             }
             super.process(cmd);
         }
-        super.process(isn);
+        else {
+            super.process(isn);
+        }
     }
 
     private String getCommand (String cmd) {
