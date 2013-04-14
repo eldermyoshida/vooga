@@ -32,6 +32,9 @@ public class HUDFactory {
             for (Annotation a : member.getAnnotations()) {
                 if (a.getClass() == HUDVariable.class) {
                     HUDVariable varAnnotation = (HUDVariable) a;
+                    if (member.get(gameObject) == null) {
+                        continue;
+                    }
                     String subclass = "HUD" + varAnnotation.HUDElementClass();
                     HUDElement newElement = (HUDElement) Class.forName(subclass).newInstance();
                     newElement.setName(varAnnotation.name());
