@@ -158,4 +158,12 @@ public class CharacterObject extends GameObject {
     public void jump(){
     	
     }
+
+	@Override
+	public void applyCollideEffect(GameObject o) {
+		// TODO Auto-generated method stub
+		if (o instanceof AttackObject){
+			((AttackObject) o).endCounter();
+		}
+	}
 }
