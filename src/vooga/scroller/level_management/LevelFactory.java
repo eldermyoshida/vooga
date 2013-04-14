@@ -3,13 +3,16 @@ package vooga.scroller.level_management;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import util.Location;
 import vooga.scroller.level_editor.Level;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.test_sprites.MarioLib;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.PlatformerConstants;
+import vooga.scroller.util.Sprite;
 import vooga.scroller.view.View;
 /**
  * Instantiates all of the levels for gameplay.
@@ -19,13 +22,19 @@ import vooga.scroller.view.View;
  */
 public class LevelFactory {
     
+    private LevelManager myLevelManager;
+    
+    public LevelFactory(LevelManager lm){
+        myLevelManager = lm;
+    }
+    
     /**
      * Generates levels to be displayed by the view and played by the model.
      * 
      * @param view is the view used for level information.
      * @return a List of all levels that will be played in the game.
      */
-    public List<Level> generateLevels (ScrollingManager myScrollingManager, View view) {
+    public Map<Integer,Level> generateLevels (ScrollingManager myScrollingManager, View view) {
         Level myCurrLevel = new Level(1, myScrollingManager, view);
         
         // TODO: this will ideally read in levels from file and create instances of each level
@@ -61,11 +70,23 @@ public class LevelFactory {
                                                     new Location(400, 200)
                                                     )); 
         
+        // adding levelportal --> acts as portal between levels.
         
+        
+        Level secondLevel = new Level(2, myScrollingManager, view);
+        
+        StartPoint exit= new StaticStartingPoint(myCurrLevel, new Location(500,500));
+        
+        
+        LevelPortal portal = new LevelPortal(new Pixmap("brick9.gif"), new Location(900,900),
+                               new Dimension(50,50), exit, myLevelManager);
+        
+        myCurrLevel.addSprite(portal);
         
         myCurrLevel.setSize(PlatformerConstants.DEFAULT_LEVEL_SIZE);
-        List<Level> l = new ArrayList<Level>();
-        l.add(myCurrLevel);
+        Map<Integer,Level> l = new HashMap<Integer,Level>();
+        l.put(myCurrLevel.getID(),myCurrLevel);
+        l.put(secondLevel.getID(), secondLevel);
         return l;
     }
 

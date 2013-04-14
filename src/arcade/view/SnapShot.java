@@ -1,3 +1,4 @@
+
 package arcade.view;
 
 import java.awt.Dimension;

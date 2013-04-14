@@ -4,6 +4,9 @@ package vooga.scroller.collision_handlers;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import vooga.scroller.level_editor.Level;
+import vooga.scroller.level_management.IDoor;
+import vooga.scroller.level_management.LevelPortal;
+import vooga.scroller.level_management.StartPoint;
 import vooga.scroller.sprites.test_sprites.MarioLib;
 import vooga.scroller.sprites.test_sprites.mario.Mario;
 import vooga.scroller.util.Direction;
@@ -160,6 +163,11 @@ public class CollisionManager {
         
     }
     
+    public void visit (Mario mario, LevelPortal sp) {
+        System.out.println("Hit portal");
+        sp.goToNextStartPoint(mario);
+    }
+    
     public void visit (MarioLib.Coin coin, Mario mario) {
         myLevel.removeSprite(coin);
     }
@@ -257,6 +265,8 @@ public class CollisionManager {
         System.out.println("Turtle has just collided with Turtle!");
         
     }
+    
+    
     
     private void endGame () {
         myLevel.getView().win();        

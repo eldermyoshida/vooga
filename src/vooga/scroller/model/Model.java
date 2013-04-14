@@ -9,7 +9,6 @@ import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.animation.Animation;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.sprites.test_sprites.mario.Mario;
-import vooga.scroller.util.Pixmap;
 import vooga.scroller.view.View;
 
 

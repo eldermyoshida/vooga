@@ -33,6 +33,12 @@ public class Level implements Editable, Renderable {
     //TEMPORARY 
     private Image DEFAULT_BACKGROUND = new ImageIcon(getClass().getResource("/vooga/scroller/images/forestbackground.jpg")).getImage();
 
+    private int myID;
+    
+    public int getID () {
+        return myID;
+    }
+
     public Level(int id, ScrollingManager sm){
 
         //MIGHT WANT TO INITIALIZE THIS WITH A PLAYER AS WELL
@@ -54,6 +60,7 @@ public class Level implements Editable, Renderable {
         frameOfActionSize = calcActionFrameSize(myView.getSize());
         myScrollManager = sm;
         myBackground = DEFAULT_BACKGROUND;
+        myID = id;
     }
 
     private void initFrames() {
