@@ -22,7 +22,7 @@ import vooga.fighter.objects.utils.UpdatableLocation;
  * Represents a character in the game, as well as the character's current state
  * in the given session.
  * 
- * @author alanni, james
+ * @author alanni, james, David Le
  * 
  */
 public class CharacterObject extends GameObject {

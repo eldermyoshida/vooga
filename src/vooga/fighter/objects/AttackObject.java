@@ -10,7 +10,7 @@ import vooga.fighter.objects.utils.UpdatableLocation;
 /**
  * Object that can inflict damage on other moveable game objects
  * 
- * @author james, alanni
+ * @author james, alanni, David Le
  *  
  */
 public class AttackObject extends GameObject{
@@ -27,7 +27,7 @@ public class AttackObject extends GameObject{
      * 
      * Will update to use ObjectLoader.
      */
-    public AttackObject(long instanceId, int objectId) {
+    public AttackObject() {
     	super();
         myEffects = new ArrayList<Effect>();
         myCounter = new Counter();
@@ -70,6 +70,13 @@ public class AttackObject extends GameObject{
      */
     public GameObject getOwner(){
     	return myOwner; 
+    }
+    
+    /**
+     * Sets the damage done by the attack
+     */
+    public void setPower(int power) {
+    	myPower = power;
     }
     
     /**
