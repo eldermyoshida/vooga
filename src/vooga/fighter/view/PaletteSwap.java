@@ -1,4 +1,6 @@
-package src.vooga.fighter.view;
+package vooga.fighter.view;
+
+import vooga.fighter.util.Pixmap;
 
 public class PaletteSwap {
     // palette swapping is a common practice in fighting games
@@ -7,7 +9,7 @@ public class PaletteSwap {
     // select the same character
     private Pixmap ObjectImage;
 
-    public Pixmap PaletteSwap () {
+    public PaletteSwap () {
 
     }
 
