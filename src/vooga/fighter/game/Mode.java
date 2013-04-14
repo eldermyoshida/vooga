@@ -33,8 +33,8 @@ public class Mode {
     private ObjectLoader myLoader;
     private ModelDelegate myDelegate;
 
-    public Mode (String levelName, String filePath, ModelDelegate delegate) {
-        loadFile(filePath);
+    public Mode (String levelName, GameInfo gameinfo, ModelDelegate delegate) {
+       
         myInteractables.add(myLoader.getTestCharacter());
         shouldEnd = false;
 
@@ -96,8 +96,8 @@ public class Mode {
     }
 
     public void detectCollisions (List<CharacterObject> objects) {
-        for (CharacterObject g : objects) {
-            for (CharacterObject o : objects) {
+        for (GameObject g : objects) {
+            for (GameObject o : objects) {
                 detectCollision(g, o);
             }
         }
@@ -130,7 +130,7 @@ public class Mode {
 
     public void paintObjects (Graphics2D pen) {
         if (myInteractables != null) {
-            for (CharacterObject s : myInteractables) {
+            for (GameObject s : myInteractables) {
                 s.paint(pen);
             }
 

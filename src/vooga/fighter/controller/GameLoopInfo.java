@@ -5,27 +5,72 @@ import java.util.ArrayList;
 
 import vooga.fighter.objects.utils.Health;
 import vooga.fighter.util.Location;
+import vooga.fighter.util.Paintable;
 import vooga.fighter.util.Pixmap;
 
 /**
- * 
+ * Contains all information required by the view about game objects in a game loop.
+ * List indices line up between lists (i.e. index 0 of all lists is player 1 information,
+ * index 1 is player 2 info)
  * @author matthewparides
  *
  */
-public class GameLoopInfo {
-	List<Location> mySpriteLocations;
-	List<Pixmap> mySprites;
-	List<Health> myHealthStats;
-	List<Dimension> myImageSizes;
-	List<Integer> myScores;
+public class GameLoopInfo implements ViewDataSource{
+	private Integer myNumObjects;
+	private List<Location> mySpriteLocations;
+	private List<Pixmap> mySprites;
+	private List<Health> myHealthStats;
+	private List<Dimension> myImageSizes;
+	private List<Integer> myScores;
 	
-	public GameLoopInfo() {
+	public GameLoopInfo(int numObjects) {
+		myNumObjects = numObjects;
 		mySpriteLocations = new ArrayList<Location>();
 		mySprites = new ArrayList<Pixmap>();
 		myHealthStats = new ArrayList<Health>();
 		myImageSizes = new ArrayList<Dimension>();
 		myScores = new ArrayList<Integer>();
 	}
+	
+	/**
+	 * @return number of objects in this game loop
+	 */
+	public int numObjects () {
+		return myNumObjects;
+	}
+
+	/**
+	 * @return paintable object at list index
+	 */
+    public Paintable getPaintable (int index) {
+    	return mySprites.get(index);
+    }
+
+    /**
+     * @return object location at list index
+     */
+    public Location getLocation (int index) {
+    	return mySpriteLocations.get(index);
+    }
+
+    /**
+     * @return size of sprite at list index
+     */
+    public Dimension getSize (int index) {
+    	return myImageSizes.get(index);
+    }
+    
+    /**
+     * @return Health at list index
+     */
+    public Health getHealth(int index) {
+    	return myHealthStats.get(index);
+    }
+    
+    
+    public Integer getScore(int index) {
+    	return myScores.get(index);
+    }
 	
 	/**
 	 * @return the mySpriteLocations
@@ -113,12 +158,6 @@ public class GameLoopInfo {
     	myScores = scores;
     }
     
-    /**
-     * 
-     */
-    public int getScore(int index) {
-    	return myScores.get(index);
-    }
     
     /**
      * 

@@ -27,12 +27,9 @@ import vooga.fighter.objects.utils.UpdatableLocation;
  */
 public class CharacterObject extends GameObject {
 
-    private Map<String, Integer> myProperties;
     private Map<String, AttackObject> myAttacks;
     private List<Effect> myActiveEffects;
     private Health myHealth;
-    private UpdatableLocation myUpdatableLocation;  
-    private ObjectLoader myLoader;
     private int mySpeed;  
     private long myInstanceId;
     private Pixmap myImage;
@@ -47,9 +44,15 @@ public class CharacterObject extends GameObject {
      * constructor to take in just an ID, then we will load parameters from XML.
      */
     public CharacterObject (long instanceId, int objectId, UpdatableLocation center) {
+
+//        myLoader = new CharacterObjectLoader(objectId);
         super();
+<<<<<<< HEAD
         myLoader = new CharacterLoader(objectId, this);
         myUpdatableLocation = center;
+=======
+        setLocation(center);
+>>>>>>> 06731e378dd39348c6f68b1e172e0c8e272480e7
 
     }
 
@@ -62,25 +65,6 @@ public class CharacterObject extends GameObject {
         super.update();
         for (Effect effect : myActiveEffects) {
             effect.update();
-        }
-    }
-
-    /**
-     * Adds a property for this character. Overwrites any existing value.
-     */
-    public void addProperty (String key, int value) {
-        myProperties.put(key, value);
-    }
-
-    /**
-     * Returns a property for this character. Returns -1 if property does not exist.
-     */
-    public int getProperty (String key) {
-        if (myProperties.containsKey(key)) {
-            return myProperties.get(key);
-        }
-        else {
-            return -1;
         }
     }
 
@@ -153,10 +137,6 @@ public class CharacterObject extends GameObject {
     public int changeHealth (int amount) {
         return myHealth.changeHealth(amount);
     }
-
-
-
-
     
     /**
      * Creates a new attack based on type of attack on current 
@@ -164,7 +144,7 @@ public class CharacterObject extends GameObject {
      */
     public void attack(String attack){
     	if (myAttacks.containsKey(attack)){
-    		new AttackObject(myAttacks.get(attack), myUpdatableLocation);
+    		new AttackObject(myAttacks.get(attack), getLocation());
     	}
     }
     
@@ -173,7 +153,7 @@ public class CharacterObject extends GameObject {
      * @param direction
      */
     public void move(int direction){
-    	myUpdatableLocation.translate(new Vector(direction,mySpeed));
+    	getLocation().translate(new Vector(direction,mySpeed));
     }
     
     /**

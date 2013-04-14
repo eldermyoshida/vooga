@@ -89,4 +89,5 @@ public class Canvas extends JComponent {
             myLayout.paintComponents((Graphics2D) pen, myViewDataSource, this.getSize());
         }
     }
+
 }
