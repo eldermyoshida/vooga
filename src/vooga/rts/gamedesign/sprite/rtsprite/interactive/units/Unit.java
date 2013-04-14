@@ -33,7 +33,6 @@ public class Unit extends InteractiveEntity {
     // private boolean myIsLeftSelected; // TODO: also need the same thing for Projectiles
     // private boolean myIsRightSelected; // TODO: should be observing the mouse action instead!!
     //private PathingHelper myPather;
-    private GatherStrategy myGatherStrategy;
     private OccupyStrategy myOccupyStrategy;
 
     /**
@@ -49,19 +48,8 @@ public class Unit extends InteractiveEntity {
     public Unit (Pixmap image, Location center, Dimension size, Sound sound, int teamID, int health) {
         super(image, center, size, sound, teamID, health);
         //myPather = new PathingHelper();
-        myGatherStrategy = new CannotGather();
         myOccupyStrategy = new CannotOccupy();
         //addUpgradeActions();
-    }
-    
-    /**
-     * Gathers a resource specified by gather strategy.
-     * @param g
-     */
-    public void gather(IGatherable g) {
-    	if(myGatherStrategy.canGather(g)){
-    	    g.getGathered(this);
-    	}
     }
     
     /**
@@ -89,10 +77,6 @@ public class Unit extends InteractiveEntity {
                 //what will the action be? 
             }
         });
-    }
-    
-    public void setGatherStrategy (GatherStrategy newStrategy) {
-    	myGatherStrategy = newStrategy;
     }
     
     public void setOccupyStrategy (OccupyStrategy newStrategy) {
