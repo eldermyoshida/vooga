@@ -7,6 +7,7 @@ import vooga.scroller.sprites.superclasses.Player;
 public class UpAndDown extends Movement {
 
     private NonStaticEntity myEntity;
+    
     public UpAndDown (NonStaticEntity nse) {
         super(nse);
         myEntity = nse;

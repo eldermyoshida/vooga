@@ -7,6 +7,7 @@ import vooga.scroller.sprites.superclasses.Player;
 public class LeftAndRight extends Movement {
 
     private NonStaticEntity myEntity;
+    
     public LeftAndRight (NonStaticEntity nse) {
         super(nse);
         myEntity = nse;

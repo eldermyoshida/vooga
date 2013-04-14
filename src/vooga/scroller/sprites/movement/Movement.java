@@ -4,6 +4,15 @@ import util.Vector;
 import vooga.scroller.sprites.superclasses.NonStaticEntity;
 import vooga.scroller.sprites.superclasses.Player;
 
+/**
+ * Abstract superclass using the strategy design pattern. Every movement of 
+ * a NonStaticEntity will extend Movement. Thus, each NonStaticEntity only needs 
+ * an instance of the Movement they want. They can then call execute on their 
+ * Movement object to get the vector they need. 
+ * 
+ * @author Jay Wang
+ *
+ */
 public abstract class Movement {
 
     protected NonStaticEntity myEntity;
@@ -15,10 +24,7 @@ public abstract class Movement {
     public abstract Vector execute ();
     public abstract Vector execute (int bounds1, int bounds2, int speed);
     public abstract Vector execute (int speed, int radius, Player myPlayer);
-    
-    
-    
-    
+
     
     /*
      * HELPER FUNCTIONS TO USE IN BUILDING YOUR PERSONAL MOVEMENTS ---------------------------------------------
@@ -47,13 +53,4 @@ public abstract class Movement {
         }      
         return myEntity.getVelocity();
     }
-
-
-
-
-
-    
-    
-
-
 }
