@@ -2,6 +2,7 @@ package vooga.scroller.level_editor;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.Shape;
 import java.util.HashSet;
 import java.util.Set;
 import util.Location;
@@ -13,7 +14,7 @@ import vooga.scroller.viewUtil.Renderable;
 
 public class LEGrid implements Editable, Renderable {
 
-    private static final int DEFAULT_SPRITE_SIZE = 25;
+    private static final int DEFAULT_SPRITE_SIZE = 32;
     private int mySpriteSize;
     private SpriteBox[][] myGrid;
     private Dimension mySize;
@@ -40,8 +41,10 @@ public class LEGrid implements Editable, Renderable {
 
     @Override
     public void paint (Graphics2D pen) {
-        for (SpriteBox box : myPaintableBoxes) {
-            box.paint(pen);
+        for(int i = 0; i < mySize.width; i++){
+            for( int j = 0; j < mySize.height; j++){
+                myGrid[i][j].paint(pen);
+            }
         }
     }
 
@@ -63,6 +66,11 @@ public class LEGrid implements Editable, Renderable {
         SpriteBox currentBox = nearestBox(x, y);
         currentBox.deleteSprite();
         myPaintableBoxes.remove(currentBox);
+    }
+
+    @Override
+    public void changeBackground () {
+        //TODO
     }
 
     public Level createLevel (int id) {
@@ -114,11 +122,6 @@ public class LEGrid implements Editable, Renderable {
                 myGrid[x][y] = new SpriteBox(this, x, y);
             }
         }
-    }
-
-    @Override
-    public void changeBackground () {
-
     }
 
 }
