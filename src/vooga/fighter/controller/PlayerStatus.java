@@ -7,9 +7,9 @@ public class PlayerStatus {
     
     private String myName;
     private Health myHealth;
-    private Integer myScore;
+    private Double myScore;
     
-    public PlayerStatus (String name, Health health, Integer score) {
+    public PlayerStatus (String name, Health health, Double score) {
         myName = name;
         myHealth = health;
         myScore = score;
@@ -23,7 +23,7 @@ public class PlayerStatus {
         return myHealth;
     }
     
-    public Integer getScore() {
+    public Double getScore() {
         return myScore;
     }
     
@@ -35,7 +35,7 @@ public class PlayerStatus {
         myHealth = health;
     }
     
-    public void setScore(int score) {
+    public void setScore(double score) {
         myScore = score;
     }
     

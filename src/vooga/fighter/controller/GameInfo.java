@@ -23,6 +23,16 @@ public class GameInfo {
     	myCharacters = new ArrayList<Integer>();
     	myScores = new ArrayList<Integer>();
     }
+    
+    /**
+     * Test constructor, automatically adds character index and map index to load. 
+     */
+    public GameInfo (int characterIndex, int mapID) {
+        myCharacters = new ArrayList<Integer>();
+        myScores = new ArrayList<Integer>();
+        myCharacters.add(characterIndex);
+        myMapID = mapID;
+    }
 
     /**
      * 
