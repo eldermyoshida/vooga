@@ -36,7 +36,7 @@ public class HUDPlayerValue extends HUDElement {
         }
         catch (SecurityException e) {}
         catch (IllegalArgumentException e) {
-            System.err.println("Expected HUDPlayerValue.Stats for HUDTimer");
+            System.err.println("Expected HUDPlayerValue.Stats for HUDPlayervalue");
         }
         catch (NoSuchFieldException e) {
             System.err.println(myFieldName + " is not a member of the class observed.");
