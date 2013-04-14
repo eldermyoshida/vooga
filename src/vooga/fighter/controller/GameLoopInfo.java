@@ -21,6 +21,7 @@ import vooga.fighter.util.Pixmap;
 
 public class GameLoopInfo implements Observable, ViewDataSource{
 	private Integer myNumObjects;
+	private List<String> myCharacterNames;
 	private List<Location> mySpriteLocations;
 	private List<Pixmap> mySprites;
 	private List<Health> myHealthStats;
@@ -59,6 +60,7 @@ public class GameLoopInfo implements Observable, ViewDataSource{
 		myHealthStats = new ArrayList<Health>();
 		myImageSizes = new ArrayList<Dimension>();
 		myScores = new ArrayList<Integer>();
+		myCharacterNames = new ArrayList<String>();
 		myPlayerStats = new ArrayList<PlayerStatus>();
 		myPlayerStats.add(Player1Status);
 		myPlayerStats.add(Player2Status);
@@ -66,9 +68,15 @@ public class GameLoopInfo implements Observable, ViewDataSource{
 		myPlayerStats.add(Player4Status);
 	}
 	
+	/**
+	 * Updates the information in the PlayerStatus objects to reflect the 
+	 * current data in this GameLoopInfo class.
+	 */
 	public void updatePlayerStats() {
-		for(i = 0; i < 4; i++) {
-			myPlayerStats.get(i).set
+		for(int i = 0; i < 4; i++) {
+			myPlayerStats.get(i).setName(myCharacterNames.get(i));
+			myPlayerStats.get(i).setScore(myScores.get(i));
+			myPlayerStats.get(i).setHealth(myHealthStats.get(i));
 		}
 	}
 	
