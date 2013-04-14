@@ -43,7 +43,7 @@ public class ControllerManager implements ControllerDelegate{
 	}
 
 	@Override
-	public void notifyEndCondition(String condition) {
+	public void notifyEndCondition() {
 		switchController(pickController(condition));
 	}
 	
