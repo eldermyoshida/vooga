@@ -3,6 +3,9 @@ package vooga.scroller.sprites.test_sprites;
 import java.awt.Dimension;
 import util.Location;
 import vooga.scroller.level_editor.ISpriteLibrary;
+import vooga.scroller.sprites.movement.LeftAndRight;
+import vooga.scroller.sprites.movement.TrackPlayer;
+import vooga.scroller.sprites.movement.UpAndDown;
 import vooga.scroller.sprites.superclasses.NonStaticEntity;
 import vooga.scroller.sprites.superclasses.StaticEntity;
 import vooga.scroller.util.Pixmap;
@@ -58,7 +61,8 @@ public class MarioLib implements ISpriteLibrary {
         }
         
         public void update(double elapsedTime, Dimension bounds) {
-            changeVelocity(trackPlayer(45, 100)); //want to make this call every X seconds
+            TrackPlayer movement = new TrackPlayer(this);
+            changeVelocity(movement.execute(45, 100, getPlayer())); //want to make this call every X seconds
             super.update(elapsedTime, bounds);
         }
         
@@ -126,8 +130,8 @@ public class MarioLib implements ISpriteLibrary {
         }
         
         public void update(double elapsedTime, Dimension bounds) {
-           // System.out.println(getTop() + " " + getBottom());
-            changeVelocity(upAndDown(100, 250, DEFAULT_SPEED)); //want to make this call every X seconds
+            UpAndDown movement = new UpAndDown(this);
+            changeVelocity(movement.execute(100, 250, DEFAULT_SPEED)); //want to make this call every X seconds
             super.update(elapsedTime, bounds);
         }   
     }
@@ -153,8 +157,8 @@ public class MarioLib implements ISpriteLibrary {
         }
         
         public void update(double elapsedTime, Dimension bounds) {
-           // System.out.println(getTop() + " " + getBottom());
-            changeVelocity(leftAndRight(50, 300, DEFAULT_SPEED)); //want to make this call every X seconds
+            LeftAndRight movement = new LeftAndRight(this); 
+            changeVelocity(movement.execute(50, 300, DEFAULT_SPEED)); 
             super.update(elapsedTime, bounds);
         }   
     }
