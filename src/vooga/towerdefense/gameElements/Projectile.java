@@ -49,4 +49,22 @@ public class Projectile extends GameElement implements Attacker{
 	}
 
 
+
+
+	@Override
+	public Targetable getTarget() {
+		
+		return null;
+	}
+
+
+
+
+	@Override
+	public void addTarget() {
+		
+		
+	}
+
+
 }

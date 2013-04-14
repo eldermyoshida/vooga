@@ -25,14 +25,15 @@ public class Unit extends GameElement implements Targetable {
     private Location myDestination;
     private Map<String, State> myStates;
     private State currentState;
-    private TargetableAttributes myAttributes;
+    private TargetableAttributes myTargetableAttributes;
     private List<AbstractAction> myActions;
+    private StateManager myStateManager;
 
     public Unit (Location destination, Pixmap image, Location center, Dimension size, Vector velocity, TargetableAttributes attributes, List<AbstractAction> actions) {
         super(image, center, size, actions);
         setVelocity(velocity);
         myDestination = destination;
-        myAttributes=attributes;
+        myTargetableAttributes=attributes;
     }
 
     public void updatePath(Location destination) {
@@ -42,7 +43,7 @@ public class Unit extends GameElement implements Targetable {
     
     @Override
     public void paint(Graphics2D pen){
-    	currentState.paint();	
+    	myStateManager.updateAndPaint(pen);	
     }
     
     @Override
@@ -94,22 +95,24 @@ public class Unit extends GameElement implements Targetable {
 	public String getInfo(){
 		return "TO-DO"; //temporarily using String, maybe need a info class to handle more complicated task
 	}
-	
-	public void switchState(String state){
-		currentState=myStates.get(state);
-		currentState.setSate();
-		
-	}
 
 	@Override
 	public void takeDamage(double attack) {
-		myAttributes.getHealth().decrement(attack);
+		myTargetableAttributes.getHealth().decrement(attack);
 		
 	}
 
 	@Override
 	public boolean isAlive() {
-		return myAttributes.getHealth().getValue()>0;
+		return myTargetableAttributes.getHealth().getValue()>0;
 	}
+
+	@Override
+	public TargetableAttributes getTargetableAttributes() {
+		return myTargetableAttributes;
+		
+	}
+	
+	
     
 }

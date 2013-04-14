@@ -263,4 +263,8 @@ public abstract class Sprite {
     public Location getCenter () {
     	return myCenter;
     }
+    
+    public Pixmap getPixmap(){
+    	return myView;
+    }
 }
