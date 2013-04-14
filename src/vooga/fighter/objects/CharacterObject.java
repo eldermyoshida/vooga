@@ -30,7 +30,7 @@ public class CharacterObject extends GameObject {
     private List<Effect> myActiveEffects;
     private Health myHealth;
     private Location myLocation;
-    private ObjectLoader loader;  
+    private ObjectLoader myLoader;  
 
     /**
      * Constructs a new CharacterObject.
@@ -38,11 +38,10 @@ public class CharacterObject extends GameObject {
      * Note: Dayvid once the object loader is functional we will replace this
      * constructor to take in just an ID, then we will load parameters from XML.
      */
-    public CharacterObject (long instanceId, int objectId, Location center) {
+    public CharacterObject (long instanceId, int charId, Location center) {
         super(instanceId);
     	myLocation=center; 
-    	loader= new CharacterObject(objectId);
-    	
+    	myLoader = new CharacterLoader(charId);
     }    
 
     /**
