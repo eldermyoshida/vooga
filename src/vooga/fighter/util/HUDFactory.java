@@ -7,13 +7,17 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.*;
 import vooga.fighter.view.HUDElement;
 
+
 public class HUDFactory {
-    public static List<HUDElement> getHUDElements (Observable gameObject) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+    public static List<HUDElement> getHUDElements (Observable gameObject)
+                                                                         throws InstantiationException,
+                                                                         IllegalAccessException,
+                                                                         ClassNotFoundException {
         @SuppressWarnings("rawtypes")
         Class objectClass = gameObject.getClass();
-        
+
         ArrayList<HUDElement> elements = new ArrayList<HUDElement>();
-        
+
         for (Field member : objectClass.getDeclaredFields()) {
             for (Annotation a : member.getAnnotations()) {
                 if (a.getClass() == HUDVariable.class) {
@@ -27,7 +31,7 @@ public class HUDFactory {
                 }
             }
         }
-        
+
         return elements;
     }
 }

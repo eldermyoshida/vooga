@@ -25,12 +25,12 @@ import vooga.fighter.util.Vector;
  */
 public class CharacterObject extends GameObject {
 
-    private Map<String,Integer> myProperties;    
-    private Map<String,AttackObject> myAttacks;
+    private Map<String, Integer> myProperties;
+    private Map<String, AttackObject> myAttacks;
     private List<Effect> myActiveEffects;
     private Health myHealth;
     private Location myLocation;
-    private ObjectLoader loader;  
+    private ObjectLoader loader;
 
     /**
      * Constructs a new CharacterObject.
@@ -40,58 +40,59 @@ public class CharacterObject extends GameObject {
      */
     public CharacterObject (long instanceId, int objectId, Location center) {
         super(instanceId);
-    	myLocation=center; 
-    	loader= new CharacterObject(objectId);
-    	
-    }    
+        myLocation = center;
+        loader = new CharacterObject(objectId);
+
+    }
 
     /**
      * Adds a property for this character. Overwrites any existing value.
      */
-    public void addProperty(String key, int value) {
+    public void addProperty (String key, int value) {
         myProperties.put(key, value);
     }
-    
+
     /**
      * Returns a property for this character. Returns -1 if property does not exist.
      */
-    public int getProperty(String key) {
+    public int getProperty (String key) {
         if (myProperties.containsKey(key)) {
             return myProperties.get(key);
-        } else {
+        }
+        else {
             return -1;
         }
-    }    
-    
+    }
+
     /**
      * Adds an effect to this character's list of active effects.
      */
-    public void addActiveEffect(Effect effect) {
+    public void addActiveEffect (Effect effect) {
         effect.setOwner(this);
-        myActiveEffects.add(effect);        
+        myActiveEffects.add(effect);
     }
-    
+
     /**
      * Removes an effect from this character's list of active effects.
      */
-    public void removeActiveEffect(Effect effect) {
+    public void removeActiveEffect (Effect effect) {
         myActiveEffects.remove(effect);
     }
-    
+
     /**
      * Returns list of currently active effects on this character.
      */
-    public List<Effect> getActiveEffects() {
+    public List<Effect> getActiveEffects () {
         return myActiveEffects;
     }
-    
+
     /**
      * Adds an AttackObject to the list of attacks available for this character.
      * Note that this attack will not be added to the list of game objects in a
      * level, thus it will not update and should be used solely for generating
      * other attack objects as needed. Overwrites any existing attack.
      */
-    public void addAttack(String key, AttackObject object) {
+    public void addAttack (String key, AttackObject object) {
         myAttacks.put(key, object);
     }
 
@@ -102,47 +103,48 @@ public class CharacterObject extends GameObject {
      * Note: For now just using String to represent attack types, but this is obviously
      * subject to change.
      */
-    private AttackObject createAttack(String key) {
+    private AttackObject createAttack (String key) {
         if (myAttacks.containsKey(key)) {
             return myAttacks.get(key);
-        } else {
+        }
+        else {
             return null;
         }
     }
-    
+
     /**
      * Returns the health of the character.
      */
-    public Health getHealth(){
+    public Health getHealth () {
         return myHealth;
     }
-    
+
     /**
      * Returns whether or not the character has remaining health.
      */
-    public boolean hasHealthRemaining() {
+    public boolean hasHealthRemaining () {
         return myHealth.hasHealthRemaining();
     }
-    
+
     /**
      * Changes the player's health by a given amount. Positive input raises it, and
      * negative input decreases it. Returns health remaining.
      */
-    public int changeHealth(int amount) {
+    public int changeHealth (int amount) {
         return myHealth.changeHealth(amount);
-    }  
-    
+    }
+
     /**
      * Updates the character for one game loop cycle. Applies movement from acceleration
-     * forces acting on the character. 
+     * forces acting on the character.
      */
-    public void update() {
+    public void update () {
         super.update();
         for (Effect effect : myActiveEffects) {
             effect.update();
         }
     }
-    
+
     /**
      * Will add action methods such as move, jump, attack, etc. here
      */
