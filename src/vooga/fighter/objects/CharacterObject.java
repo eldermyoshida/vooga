@@ -43,13 +43,11 @@ public class CharacterObject extends GameObject {
      * Note: Dayvid once the object loader is functional we will replace this
      * constructor to take in just an ID, then we will load parameters from XML.
      */
-    public CharacterObject (long instanceId, int objectId, UpdatableLocation center) {
-
-//        myLoader = new CharacterObjectLoader(objectId);
+    public CharacterObject (int objectId, UpdatableLocation center) {
         super();
+        myHealth = new Health();
         setLoader(new CharacterLoader(objectId, this));
         setLocation(center);
-
     }
 
     /**
@@ -126,6 +124,10 @@ public class CharacterObject extends GameObject {
         return myHealth.hasHealthRemaining();
     }
 
+    public void setHealth (int amount) {
+        myHealth.setHealth(amount);
+    }
+    
     /**
      * Changes the player's health by a given amount. Positive input raises it, and
      * negative input decreases it. Returns health remaining.
