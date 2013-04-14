@@ -3,14 +3,46 @@
 <!-- Factory information for building game elements -->
 
 <GameElements>
-	<resources src = "vooga.rts.gamedesign.sprite.rtsprite.Resource" >
+	<Upgrade>
+		<type>
+			<name>Armor</name>
+			<upgradeNode>
+				<id>1</id> 
+				<nodeName>WorstArmor</nodeName>
+				<object>Health</object>
+				<value>50</value>
+			</upgradeNode>
+			<upgradeNode>
+				<id>2</id>
+				<nodeName>BestArmor</nodeName>
+				<object>Damage</object>
+				<value>100</value>
+			</upgradeNode>
+		</type>
+		<type>
+			<name>Health</name>
+			<upgradeNode>
+				<id>1</id> 
+				<nodeName>Boost1</nodeName>
+				<object>Health</object>
+				<value>50</value>
+			</upgradeNode>
+			<upgradeNode>
+				<id>2</id>
+				<nodeName>Boost2</nodeName>
+				<object>Health</object>
+				<value>100</value>
+			</upgradeNode>
+		</type>
+	</Upgrade>
+	<resources src = "vooga.rts.gamedesign.sprite.rtsprite.Resource">
 		<resource>
 			<name>gold</name>
-			<img>gold.jpg</name>
+			<img>gold.jpg</img>
 		</resource>
 		<resource>
 			<name>wood</name>
-			<img>wood.jpg</name>
+			<img>wood.jpg</img>
 		</resource>
 	</resources>
 	<strategies>
@@ -27,54 +59,46 @@
 			<cannotgather src = "vooga.rts.gamedesign.strategy.gatherstrategy.CannotGather"/>
 		</gather>
 	</strategies>
-	<buildings src = "vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings.Building"/>
+	<buildings src = "vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings.Building">
 		<building>
-			<name>Home</name>
+			<name>home</name>
 			<img>home.jpg</img>
 			<health>1000</health>
 			<buildtime>100</buildtime>
 			<attack>cannotattack</attack>
-			<produce>customstrategy</produce>
+			<produce>worker soldier</produce>
 			<cost>
 				<gold>50</gold>
 				<wood>50</wood>
 			</cost>
 		</building>
 	</buildings>
-	<units src = "vooga.rts.gamedesign.sprite.rtsprite.interactive.units">
+	<units src = "vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Unit">
 		<unit>
-			<name>Soldier</name>
+			<name>soldier</name>
 			<img>soldier.jpg</img>
 			<health>100</health>
 			<attack>canattack</attack>
 			<gather>cannotgather</gather>
 			<occupy>cannotoccupy</occupy>
-			<produce>cannotproduce</produce>
+			<produce></produce>
 			<cost>
 				<gold>50</gold>
 			</cost>
 		</unit>
 		<unit>
-			<name>Worker</name>
-			<img>worker.jpg</name>
+			<name>worker</name>
+			<img>worker.jpg</img>
 			<health>100</health>
 			<attack>cannotattack</attack>
 			<gather>cangather</gather>
 			<occupy>cannotoccupy</occupy>
-			<produce>cannotproduce</produce>
+			<produce>home</produce>
 			<cost>
 				<gold>50</gold>
 			</cost>
 		</unit>
 	</units>
-
-
-
-
-			
-
-
-	<stategies
-
+</GameElements>
 
 

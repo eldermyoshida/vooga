@@ -102,7 +102,13 @@ public class Factory {
 			Document doc = db.parse(file);
 			doc.getDocumentElement().normalize();
 			System.out.println("Root element " + doc.getDocumentElement().getNodeName());
-			myDecoders.get(doc.getDocumentElement().getNodeName()).create(doc);
+			NodeList children = doc.getChildNodes();
+			for(int i = 0 ; i < children.getLength() ; i++){
+				Node tempNode = children.item(i);
+				System.out.println(tempNode.getNodeName());
+				//myDecoders.get(doc.getDocumentElement().getNodeName()).create(doc);
+			}
+				
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -113,7 +119,7 @@ public class Factory {
 	 */
 	public static void main(String[] args) throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ParserConfigurationException, SAXException, IOException {
 		Factory factory = new Factory();
-		factory.loadXMLFile("src/vooga/rts/gamedesign/factories/XML_Sample");
+		factory.loadXMLFile("src/vooga/rts/gamedesign/factories/Factory.xml");
 	}
 
 }
