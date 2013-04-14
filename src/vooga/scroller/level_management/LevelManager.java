@@ -1,7 +1,6 @@
 
 package vooga.scroller.level_management;
 
-import java.util.List;
 import java.util.Map;
 import util.Location;
 import vooga.scroller.scrollingmanager.ScrollingManager;

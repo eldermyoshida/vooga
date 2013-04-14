@@ -2,7 +2,6 @@ package vooga.scroller.sprites.test_sprites.mario.states;
 
 import java.awt.Dimension;
 import vooga.scroller.sprites.state.State;
-import vooga.scroller.util.IPaintable;
 import vooga.scroller.util.ISpriteView;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.Sprite;

@@ -1,6 +1,5 @@
 package vooga.scroller.level_editor;
 
-import java.util.Map;
 import vooga.scroller.util.Sprite;
 
 

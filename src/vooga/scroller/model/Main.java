@@ -1,6 +1,5 @@
 package vooga.scroller.model;
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import javax.swing.JFrame;
 import vooga.scroller.scrollingmanager.DefaultScrollingManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;

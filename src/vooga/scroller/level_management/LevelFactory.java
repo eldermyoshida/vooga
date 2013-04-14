@@ -8,6 +8,7 @@ import util.Location;
 import vooga.scroller.level_editor.Level;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.test_sprites.MarioLib;
+import vooga.scroller.sprites.test_sprites.MarioLib.MovingPlatformOne;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.PlatformerConstants;
 import vooga.scroller.view.View;
@@ -63,6 +64,11 @@ public class LevelFactory {
                                   new Location(view.getWidth() - 500, view.getHeight() - 75)
                                   ));   
         
+        myCurrLevel.addSprite(new MovingPlatformOne( 
+                                                    new Location(view.getWidth() - 80, view.getHeight() - 20)
+                                                    )); 
+        
+
         myCurrLevel.addSprite(new MarioLib.MovingPlatformOne( 
                                                     new Location(400, 200)
                                                     )); 

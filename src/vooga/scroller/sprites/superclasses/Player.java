@@ -3,16 +3,12 @@ package vooga.scroller.sprites.superclasses;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.event.KeyEvent;
-import java.util.List;
 import util.Location;
 import util.Vector;
-import vooga.scroller.sprites.state.State;
 import vooga.scroller.sprites.state.StateManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.util.Gravity;
 import vooga.scroller.util.ISpriteView;
-import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.Sprite;
 import vooga.scroller.view.View;
 
@@ -30,18 +26,17 @@ import vooga.scroller.view.View;
  * methods. 
  * 
  * 
- * @author Jay Wang
+ * @author Jay Wang, Ross Cahoon
  *
  */
 public class Player extends Sprite {
 
 //    Graphics2D pen;
     private View myView;
-    private Location myOriginalCenter;
+    private Location myPaintCenter;
     private Dimension mySize;
     //private Pixmap myImage;
     private StateManager myStateManager;
-    private Pixmap myImage;
     private ScrollingManager myScrollingManager;
     
     
@@ -55,7 +50,7 @@ public class Player extends Sprite {
     public Player (ISpriteView image, Location center, Dimension size, View view, ScrollingManager sm) {
         super(image, center, size);
         myView = view;
-        myOriginalCenter = center;
+        myPaintCenter = new Location(myView.getWidth() / 2, myView.getHeight() / 2);
         mySize = size;
         //myImage = image;
         myStateManager = new StateManager(this);
@@ -66,6 +61,8 @@ public class Player extends Sprite {
     public void update(double elapsedTime, Dimension bounds) {
     myStateManager.update(elapsedTime, bounds);
     super.update(elapsedTime, bounds);
+
+    myPaintCenter = myScrollingManager.playerPaintLocation(this);
     Gravity gravity = new Gravity(this);
         //gravity.applyGravity();
 
@@ -73,17 +70,17 @@ public class Player extends Sprite {
    
     @Override
     public void paint (Graphics2D pen) {
-        super.getView().paint(pen, myScrollingManager.playerPaintLocation(this), mySize, 0);
-        //myImage.paint(pen, myScrollingManager.playerPaintLocation(this), mySize);
+        super.getView().paint(pen, myPaintCenter, mySize);
     }
     
     public void changeState(int stateID) {
         myStateManager.changeState(stateID);
     }
     
-    public Location getOriginalCenter() {
-        return new Location(myView.getWidth() / 2, myView.getHeight() / 2);
+    public Location getPaintLocation() {
+        return myPaintCenter;
     }
+
    
 
 }

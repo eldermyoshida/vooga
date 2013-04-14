@@ -5,12 +5,8 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
-import util.Location;
-import vooga.scroller.sprites.superclasses.NonStaticEntity;
-import vooga.scroller.sprites.superclasses.StaticEntity;
 import vooga.scroller.sprites.test_sprites.MarioLib;
 import vooga.scroller.util.Editable;
-import vooga.scroller.util.Sprite;
 import vooga.scroller.viewUtil.IWindow;
 import vooga.scroller.viewUtil.Renderable;
 import vooga.scroller.viewUtil.WorkspaceView;
@@ -18,10 +14,10 @@ import vooga.scroller.viewUtil.WorkspaceView;
 /**
  * The controller is responsible for interfacing between an IView and an IModel.
  * Among other things, it is responsible for 
- * <LI> Instantiating a generic model and a view
- * <LI> Keeping track of multiple high-level domain-specific objects (eg. Room, Level...)
- * <LI> Send Renderable versions to the adequate IView workspace
- * <LI> Send Editable versions to the Model
+ * <LI> Instantiating a generic model and a view </LI>
+ * <LI> Keeping track of multiple high-level domain-specific objects (eg. Room, Level...)</LI>
+ * <LI> Send Renderable versions to the adequate IView workspace</LI>
+ * <LI> Send Editable versions to the Model</LI>
  * <LI> Ensuring that all high-level domain instances are kept in sync.
  * @author SLogo team 3, Dagbedji F.
  *

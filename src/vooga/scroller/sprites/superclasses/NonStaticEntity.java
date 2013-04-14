@@ -5,8 +5,6 @@ import java.awt.Dimension;
 import java.util.Random;
 import util.Location;
 import util.Vector;
-import vooga.scroller.level_editor.Level;
-import vooga.scroller.sprites.movement.Movement;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.Sprite;
 
@@ -32,6 +30,7 @@ public class NonStaticEntity extends Sprite {
     public void changeVelocity(Vector vector) {
         super.setVelocity(vector.getDirection(), vector.getMagnitude());
     }
+   
     
     public void changeVelocity(double direction, double magnitude) {
         super.setVelocity(direction, magnitude);
@@ -44,6 +43,13 @@ public class NonStaticEntity extends Sprite {
     
     public void addPlayer(Player player) {
         myPlayer = player;
+    }
+
+    public Vector upAndDown(int top, int bottom, int speed) {       
+        if (this.getTop() > top) {
+            return new Vector(Sprite.UP_DIRECTION, speed);
+        }
+        return new Vector(Sprite.DOWN_DIRECTION, speed);
     }
     
     public Player getPlayer() {

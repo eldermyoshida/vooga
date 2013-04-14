@@ -1,6 +1,5 @@
 package vooga.scroller.sprites.animation;
 
-import java.awt.Image;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.Sprite;
 
