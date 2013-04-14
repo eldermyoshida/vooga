@@ -58,10 +58,12 @@ public class LevelEditor implements ILevelEditor {
         Sprite sprite = mySpriteMap.get(id);
         sprite = sprite.copy();
         try{
-            myGrid.addNewSprite(sprite);
+            System.out.println("LE got create sprite");
+            myGrid.addSprite(sprite, x, y);
         }
         catch(NullPointerException e){
             //TODO COPY_ERROR = "Cannot copy Sprite. Missing default constructor";
+            System.out.println(COPY_ERROR);
         }
         
     }

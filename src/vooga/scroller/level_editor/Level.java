@@ -181,11 +181,6 @@ public class Level implements Editable, Renderable {
     }
 
     @Override
-    public void addNewSprite (Sprite s) {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
     public void deleteSprite (int x, int y) {
         // TODO Auto-generated method stub
         
@@ -215,5 +210,11 @@ public class Level implements Editable, Renderable {
     
     public View getView() {
         return myView;
+    }
+
+    @Override
+    public void addSprite (Sprite s, int x, int y) {
+        // TODO Auto-generated method stub
+        
     }
 }

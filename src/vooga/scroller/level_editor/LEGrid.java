@@ -45,6 +45,7 @@ public class LEGrid implements Editable, Renderable {
         }
     }
 
+    @Override
     public void addSprite (Sprite spr, int x, int y) {
         SpriteBox currentBox = nearestBox(x, y);
         if (checkAvailable(currentBox, spr.getWidth(), spr.getHeight())) {
@@ -65,9 +66,10 @@ public class LEGrid implements Editable, Renderable {
     }
 
     public Level createLevel (int id) {
+        //TODO need to refactor. Editable Level.
         Level lev = new Level(id);
         for (SpriteBox box : myPaintableBoxes) {
-            lev.addNewSprite(box.getSprite());
+            lev.addSprite(box.getSprite());
         }
         return lev;
     }
@@ -117,11 +119,6 @@ public class LEGrid implements Editable, Renderable {
     @Override
     public void changeBackground () {
 
-    }
-
-    @Override
-    public void addNewSprite (Sprite s) {
-        addSprite(s, (int) s.getLeft(), (int) s.getRight());
     }
 
 }
