@@ -23,7 +23,7 @@ public void loadMapFile(EditableMap myMap , File resourceFile) throws FileNotFou
         int layerCount = Integer.parseInt(sizeBuffer[2]);
         
         EditableMap buffer = new EditableMap(x,y);
-        buffer.setMyLayers(layerCount);
+       
         
         line = myScanner.nextLine();
         
@@ -54,7 +54,7 @@ public void loadMapFile(EditableMap myMap , File resourceFile) throws FileNotFou
         }
         
         
-        myMap.myIndexMatrix = buffer.getMap();
+        myMap.myTileIndex = buffer.getMap();
         for(Integer i : buffer.getAllPlayers().keySet()) {
             myMap.addPlayer(buffer.getPlayer(i));
         }
