@@ -1,17 +1,22 @@
 package vooga.fighter.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- * 
+ * Information about the broader game state. includes game mode, selected map and characters.
  * @author matthewparides
  * 
  */
 public class GameInfo {
     private String myGameMode;
     private String myMapName;
-    private String[] myCharacters;
+    private List<String> myCharacters;
     private int myNumCharacters;
+    
 
     public GameInfo () {
+    	myCharacters = new ArrayList<String>();
     }
 
     public String getGameMode () {
@@ -30,15 +35,15 @@ public class GameInfo {
         myMapName = myMapName;
     }
 
-    public String[] getCharacters () {
+    public List<String> getCharacters () {
         return myCharacters;
     }
 
     public void setCharacter (int index, String characterName) {
-        myCharacters[index] = characterName;
+        myCharacters.set(index, characterName);
     }
 
-    public void setCharacters (String[] myCharacters) {
+    public void setCharacters (List<String> myCharacters) {
         myCharacters = myCharacters;
     }
 
