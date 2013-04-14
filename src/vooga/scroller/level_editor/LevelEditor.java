@@ -56,11 +56,10 @@ public class LevelEditor implements ILevelEditor {
     }
 
     @Command
-    public void createSprite (int id, int x, int y) {
+    public void createSprite (int x, int y, int id) {
         Sprite sprite = mySpriteMap.get(id);
         sprite = sprite.copy();
         try{
-            System.out.println("LE got create sprite");
             myGrid.addSprite(sprite, x, y);
         }
         catch(NullPointerException e){

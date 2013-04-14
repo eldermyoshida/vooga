@@ -66,6 +66,7 @@ public class Player extends Sprite {
     Gravity gravity = new Gravity(this);
     gravity.applyGravity();
 
+
     }
    
     @Override
