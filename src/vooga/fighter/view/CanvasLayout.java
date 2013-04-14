@@ -10,4 +10,9 @@ public abstract class CanvasLayout {
     protected void defaultPaint(Graphics2D pen, ViewDataSource data, int objectNumber) {
         data.getPaintable(objectNumber).paint(pen, data.getLocation(objectNumber),data.getSize(objectNumber));
     }
+    
+    protected void horizontalReversePaint(Graphics2D pen, ViewDataSource data, int objectNumber) {
+    	pen.setTransform(AffineTransform.getScaleInstance(1, -1));
+    	data.getPaintable(objectNumber).paint(pen, data.getLocation(objectNumber),data.getSize(objectNumber));
+    }
 }
