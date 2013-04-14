@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> d91774e3125c7e327839540ffd65a4d5a62eac1f
 package arcade.games;
 
 import java.io.Serializable;
@@ -40,4 +43,7 @@ public abstract class GameData implements Serializable {
     }
 
 }
+<<<<<<< HEAD
 >>>>>>> 7362f1f68e473e33a6b1ac1ac75b1d10ad4db368
+=======
+>>>>>>> d91774e3125c7e327839540ffd65a4d5a62eac1f

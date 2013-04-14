@@ -1,8 +1,13 @@
 <<<<<<< HEAD:src/vooga/fighter/util/ValueText.java
 package vooga.fighter.util;
 =======
+<<<<<<< HEAD
 package vooga.rts.util;
 >>>>>>> 7362f1f68e473e33a6b1ac1ac75b1d10ad4db368:src/vooga/rts/util/ValueText.java
+=======
+package vooga.towerdefense.util;
+>>>>>>> 7362f1f68e473e33a6b1ac1ac75b1d10ad4db368:src/vooga/towerdefense/util/ValueText.java
+>>>>>>> d91774e3125c7e327839540ffd65a4d5a62eac1f
 
 
 /**

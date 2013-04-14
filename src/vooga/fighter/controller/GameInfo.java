@@ -10,8 +10,8 @@ import java.util.List;
  */
 public class GameInfo {
     private String myGameMode;
-    private String myMapName;
-    private List<String> myCharacters;
+    private int myMapID;
+    private List<Integer> myCharacters;
     private Integer myNumCharacters;
     private List<Integer> myScores;
     
@@ -20,7 +20,7 @@ public class GameInfo {
      * Constructor
      */
     public GameInfo () {
-    	myCharacters = new ArrayList<String>();
+    	myCharacters = new ArrayList<Integer>();
     	myScores = new ArrayList<Integer>();
     }
 
@@ -73,8 +73,8 @@ public class GameInfo {
      * 
      * @return
      */
-    public String getMapName () {
-        return myMapName;
+    public int getMapName () {
+        return myMapID;
     }
 
     /**
@@ -89,7 +89,7 @@ public class GameInfo {
      * 
      * @return
      */
-    public List<String> getCharacters () {
+    public List<Integer> getCharacters () {
         return myCharacters;
     }
 
@@ -98,8 +98,8 @@ public class GameInfo {
      * @param index
      * @param characterName
      */
-    public void setCharacter (int index, String characterName) {
-        myCharacters.set(index, characterName);
+    public void setCharacter (int index, int characterID) {
+        myCharacters.set(index, characterID);
     }
 
     /**

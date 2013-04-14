@@ -8,6 +8,7 @@ import vooga.fighter.game.*;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.Timer;
 
@@ -71,6 +72,7 @@ public abstract class Controller implements ModelDelegate {
     
 	protected void setMode(Mode mode){
 		myMode = mode;
+		mode.initializeMode();
 	}
     
     public void displaySplash(){
@@ -104,8 +106,8 @@ public abstract class Controller implements ModelDelegate {
 	    }
 	    
 	public void loadMode() {
-	        setMode(new Mode(getName(),getGameInfo(), this));
-	    }
+	        
+	}
     
     public abstract Controller getController(ControllerDelegate manager, GameInfo gameinfo);
 

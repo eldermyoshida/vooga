@@ -4,7 +4,9 @@ package vooga.fighter.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.Timer;
+import vooga.fighter.game.LevelMode;
 import vooga.fighter.game.Mode;
 import vooga.fighter.input.Input;
 import vooga.fighter.input.InputClassTarget;
@@ -21,6 +23,7 @@ import vooga.fighter.view.Canvas;
 @InputClassTarget
 public class LevelController extends Controller {
     private static final String INPUT_PATHWAY = "PATHWAY";
+    private GameInfo myGameInfo;
 
     public LevelController (String name, Canvas frame) {
         super(name, frame);
@@ -35,7 +38,10 @@ public class LevelController extends Controller {
 
     
     public void loadMode() {
-        super.setMode(new Mode(super.getName(), super.getGameInfo(), this));
+        List<Integer> characterNames = myGameInfo.getCharacters();
+        int mapID = myGameInfo.getMapName();
+        Mode temp = new LevelMode(this, characterNames, mapID);
+        setMode(temp);
     }
 
 
