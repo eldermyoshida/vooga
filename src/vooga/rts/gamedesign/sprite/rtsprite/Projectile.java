@@ -22,7 +22,7 @@ import vooga.rts.util.Vector;
  * @author Wenshun Liu 
  *
  */
-public class Projectile extends GameEntity implements Cloneable{
+public class Projectile extends GameEntity{
 
     private int myDamage;
     private InteractiveEntity myTarget;
