@@ -43,6 +43,7 @@ public class CharacterObject extends GameObject {
         myHealth = new Health();
         setLoader(new CharacterLoader(objectId, this));
         setLocation(center);
+        setCurrentState("stand");
     }
 
     /**
@@ -51,7 +52,11 @@ public class CharacterObject extends GameObject {
      */
 
     public void update() {
+        setCurrentState("stand");
         super.update();
+        if (getCurrentState().hasCompleted()) {
+            setCurrentState("stand");
+        }
         for (Effect effect : myActiveEffects) {
             effect.update();
         }
@@ -136,6 +141,7 @@ public class CharacterObject extends GameObject {
      * in the attacks map.
      */
     public void attack(String attack) {
+        setCurrentState("weakPunch");
         if (myAttacks.containsKey(attack)) {
             new AttackObject(myAttacks.get(attack), getLocation());
         }
@@ -145,6 +151,7 @@ public class CharacterObject extends GameObject {
      * Moves in given direction at speed of character
      */
     public void move(int direction) {
+        setCurrentState("moveRight");
         getLocation().translate(new Vector(direction, mySpeed));
     }
 

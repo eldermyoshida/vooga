@@ -18,6 +18,7 @@ public class CollisionManager {
             for (int j = i + 1; j < myObjects.size(); j++) {
                 GameObject o1 = myObjects.get(i);
                 GameObject o2 = myObjects.get(j);
+                System.out.printf("Null checks:\no1, %s: %b\no2, %s: %b\n", o1.getClass().toString(), (o1.getCurrentState()==null), o2.getClass().toString(), (o2.getCurrentState()==null));
                 if (o1.getCurrentState().getCurrentRectangle()
                         .intersects(o2.getCurrentState().getCurrentRectangle())) {
                     handleCollisions(o1, o2);

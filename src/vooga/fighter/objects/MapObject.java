@@ -147,6 +147,9 @@ public class MapObject extends GameObject {
     public void update() {
         if (myCurrentState != null) {
             myCurrentState.update();
+            if (myCurrentState.hasCompleted()) {
+                myCurrentState.resetState();
+            }
         }
         if (myCurrentSound != null) {
 

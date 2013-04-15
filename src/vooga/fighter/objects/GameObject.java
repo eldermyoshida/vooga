@@ -103,10 +103,12 @@ public abstract class GameObject {
     }
     
     /**
-     * Sets the current state for this object.
+     * Sets the current state for this object. Resets the current state after
+     * switching.
      */
     public void setCurrentState(String key) {
         myCurrentState = getState(key);
+        myCurrentState.resetState();
     }
     
     /**
