@@ -25,7 +25,7 @@ import javax.swing.Timer;
 
 public abstract class Controller implements ModelDelegate {
 
-    private ControllerDelegate myManager;
+    protected ControllerDelegate myManager;
     private String myName;
     private String myPath;
     private Canvas myCanvas;
@@ -85,7 +85,7 @@ public abstract class Controller implements ModelDelegate {
     }
 
     public void displaySplash(){
-
+        
     }
 
     public void start() {
