@@ -72,7 +72,7 @@ public class LEGrid implements Editable, Renderable {
     public void changeBackground () {
         //TODO
     }
-
+    
     public Level createLevel (int id) {
         //TODO need to refactor. Editable Level.
         Level lev = new Level(id);
@@ -80,6 +80,14 @@ public class LEGrid implements Editable, Renderable {
             lev.addSprite(box.getSprite());
         }
         return lev;
+    }
+    
+    public Sprite getSprite(int xcoor, int ycoor){
+        return myGrid[xcoor][ycoor].getSprite();
+    }
+    
+    public Dimension getSize(){
+        return mySize;
     }
 
     private boolean checkAvailable (SpriteBox current, double width, double height) {
