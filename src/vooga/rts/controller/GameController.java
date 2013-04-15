@@ -128,7 +128,7 @@ public class GameController extends AbstractController {
 			}
 		}
 		building.update(elapsedTime);
-		upgradeBuilding.update(elapsedTime);
+		//upgradeBuilding.update(elapsedTime);
         checkCameraMouse();
     }
 
@@ -137,6 +137,9 @@ public class GameController extends AbstractController {
         for (Player p : myPlayers) {
             p.paint(pen);
         }
+        r.paint(pen);
+        building.paint(pen);
+        
         if (myDrag != null) {
             pen.draw(myDrag);
         }
@@ -200,17 +203,16 @@ public class GameController extends AbstractController {
     }
 
     private void setupGame () {
-		System.out.println("Game is setup");
-
+		System.out.println("Game is starting setup");
 		
 		try {
-			Factory factory = new Factory();
+			//Factory factory = new Factory();
 
-			UpgradeTree resultTree = factory.loadXMLFile("XML_Sample");
-			
+			//UpgradeTree resultTree = factory.loadXMLFile("XML_Sample");
+			/*
 			upgradeBuilding = new UpgradeBuilding(new Pixmap(ResourceManager.instance().loadFile("images/barracks.jpeg")), 
 					new Location(700,700), new Dimension(150,150), null, 1,300);
-			
+			*/
 			Player p1 = new HumanPlayer();
 			Pixmap p = new Pixmap(ResourceManager.instance().loadFile("images/soldier.png"));
 			Dimension s = new Dimension(90, 90);
@@ -219,8 +221,8 @@ public class GameController extends AbstractController {
 			Unit a = null;
 			a = new Soldier(p, new Location(100, 100), s, soun, 1, 400);
 			System.out.println("Player ID for a: " + a.getPlayerID());
-			a.setUpgradeTree(resultTree,a.getPlayerID());
-			upgradeBuilding.addUpgradeActions(resultTree);
+			//a.setUpgradeTree(resultTree,a.getPlayerID());
+			//upgradeBuilding.addUpgradeActions(resultTree);
 			Projectile proj =
 					new Projectile(new Pixmap(ResourceManager.instance()
 							.loadFile("images/bullet.png")), a.getCenter(), new Dimension(30, 30),
@@ -259,6 +261,7 @@ public class GameController extends AbstractController {
 			
 			building = new Barracks(new Pixmap(ResourceManager.instance().loadFile("images/barracks.jpeg")), 
 					new Location(800,500), new Dimension(150,150), null, 1,300);
+			System.out.println("Setup Game");
 
 		}
 		catch (Exception e) {

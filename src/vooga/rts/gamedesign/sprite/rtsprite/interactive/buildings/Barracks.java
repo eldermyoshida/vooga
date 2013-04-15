@@ -45,7 +45,7 @@ public class Barracks extends ProductionBuilding {
                 ie.setCenter(ieLoc.x, ieLoc.y);
                 //these below are for testing purposes 
                 ie.move(new Location(300,400));
-                //this part below will not be in actual implementaiton as I will notify player/unit manager that a new unit should be added to the player
+                //this part below will not be in actual implementation as I will notify player/unit manager that a new unit should be added to the player
                 myBabies.add(ie);
             }
         });
@@ -64,7 +64,7 @@ public class Barracks extends ProductionBuilding {
         PRODUCE_TIME -= 1/elapsedTime;
         if(PRODUCE_TIME <= 0) { 
             try {
-				getActions().get(3).apply(2); //2: for testing. make Barrack create new Units of different team.
+				getActions().get(0).apply(2); //2: for testing. make Barrack create new Units of different team.
 			} catch (Exception e) {
 				e.printStackTrace();
 			} 
