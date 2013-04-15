@@ -5,7 +5,7 @@ import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.Sprite;
 
 public class RightWalk extends AnimationState {
-    public static final Pixmap RIGHT = new Pixmap("llama_walk_right.gif");
+    public static final Pixmap RIGHT = new Pixmap("runright.gif");
 
     public RightWalk () {
         super(RIGHT);

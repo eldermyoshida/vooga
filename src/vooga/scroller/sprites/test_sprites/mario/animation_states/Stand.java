@@ -6,7 +6,7 @@ import vooga.scroller.util.Sprite;
 
 public class Stand extends AnimationState {
 
-    private static final Pixmap STAND = new Pixmap("llama_still.gif");
+    private static final Pixmap STAND = new Pixmap("standleft.png");
     
     public Stand () {
         super(STAND);
