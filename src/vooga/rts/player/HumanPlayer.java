@@ -20,13 +20,12 @@ public class HumanPlayer extends Player {
     
     public void handleRightClick(int x, int y) {
         for (Unit u : getUnits().getSelected()) {
-            System.out.println("handling right click >< ");
             u.move(new Location(x, y));            
         }
     }
     // Duplicate method 
     public void handlRightClick(int x, int y, int z) {
-        for (Units u : getUnits().getSelected())
+        for (Unit u : getUnits().getSelected())
         {            
             u.move(new Location(x, y), getMap());            
         }

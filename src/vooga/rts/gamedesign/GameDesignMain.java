@@ -28,7 +28,6 @@ public class GameDesignMain {
      */
     public static void main(String[] args) {
 
-
         Pixmap p = new Pixmap(ResourceManager.instance().loadFile("images/soldier.png"));
         Location l1 = new Location(40,50);
         Location l2 = new Location(20,20);
@@ -42,7 +41,7 @@ public class GameDesignMain {
         Projectile proj = new Projectile(new Pixmap(ResourceManager.instance().loadFile("images/bullet.png")), l2, new Dimension(30, 30), 1, 10, 1);
         b.setAttackStrategy(new CanAttack());
 
-        b.addWeapons(new Weapon(0, proj, 200, b.getCenter(),20));
+        //b.addWeapons(new Weapon(0, proj, 200, b.getCenter(),20));
         System.out.println("lol");
         
         if(b.inRange(a)){

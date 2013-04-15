@@ -1,9 +1,10 @@
 package vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings;
 
+import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Unit;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
-import vooga.rts.util.ThreeDimension;
+import java.awt.Dimension;
 
 /**
  * 
@@ -15,11 +16,16 @@ import vooga.rts.util.ThreeDimension;
  */
 public class ResearchFacility extends Building {
 
-  public ResearchFacility(Pixmap image, Location center, ThreeDimension size,
-			Sound sound, int teamID, int health) {
-		super(image, center, size, sound, teamID, health);
-		
-	}
+    public ResearchFacility(Pixmap image, Location center, Dimension size,
+                            Sound sound, int playerID, int health) {
+        super(image, center, size, sound, playerID, health);
+    }
+
+    @Override
+    public void getOccupied (Unit u) {
+        // TODO Auto-generated method stub
+
+    }
 
 
 }

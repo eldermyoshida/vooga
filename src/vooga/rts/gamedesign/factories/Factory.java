@@ -16,13 +16,20 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+
 import vooga.rts.gamedesign.sprite.Sprite;
 import vooga.rts.gamedesign.sprite.rtsprite.Resource;
 import vooga.rts.gamedesign.strategy.Strategy;
 import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
 import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
 import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
-
+import vooga.rts.gamedesign.action.Action;
+import vooga.rts.gamedesign.sprite.InteractiveEntity;
+import vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings.UpgradeBuilding;
+import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Unit;
+import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;
+import vooga.rts.gamedesign.upgrades.UpgradeNode;
+import vooga.rts.gamedesign.upgrades.UpgradeTree;
 /** 
  *  This class is in charge of the loading of input XML files for different
  *  class types. It will figure out the class type this given file is in charge
@@ -36,8 +43,9 @@ import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
  */
 
 public class Factory {
-	public static final String DECODER_MATCHING_FILE = "src/vooga/rts/gamedesign/factories/DecodeMatchUp";
-	
+	//BUGBUG: the file path will break code! :/ (two places: here and in main())
+
+	public static final String DECODER_MATCHING_FILE = "DecodeMatchUp";
 	Map<String, Decoder> myDecoders = new HashMap<String, Decoder>();
 	Map<String, Sprite> mySprites;
 	Map<String, Strategy> myStrategies;
@@ -95,7 +103,7 @@ public class Factory {
 	 * @throws IOException
 	 */
 	private void loadDecoder(String fileName) throws ClassNotFoundException, IllegalArgumentException, SecurityException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ParserConfigurationException, SAXException, IOException {
-		File file = new File(fileName);
+		File file = new File(getClass().getResource(fileName).getFile());
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		DocumentBuilder db = dbf.newDocumentBuilder();
 		Document doc = db.parse(file);
@@ -119,8 +127,6 @@ public class Factory {
 			Decoder decoder = (Decoder) headClass.getConstructor(Factory.class).newInstance(this);
 			myDecoders.put(type, decoder);
 		}
-		
-		System.out.println(myDecoders);
 	}
 	
 	/**
@@ -131,9 +137,10 @@ public class Factory {
 	 * @param fileName the name of the XML file that provides class information
 	 * and to be loaded
 	 */
-	public void loadXMLFile(String fileName) {
+	public <T extends Object> T loadXMLFile(String fileName) {
+		Object result = new Object();
 		try {
-			File file = new File(fileName);
+			File file = new File(getClass().getResource(fileName).getFile());
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 			DocumentBuilder db = dbf.newDocumentBuilder();
 			Document doc = db.parse(file);
@@ -157,15 +164,56 @@ public class Factory {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		printTree((UpgradeTree) result);
+		return (T) result;
+	}
+	
+	/**
+	 * TESTING PURPOSE. PRINTS TREE.
+	 * @param upgradeTree
+	 */
+	private void printTree(UpgradeTree upgradeTree) {
+		for (UpgradeNode u: upgradeTree.getHead().getChildren()) {
+			UpgradeNode current = u;
+			while (!current.getChildren().isEmpty()) {
+				System.out.println("Type: " + current.getChildren().get(0).getUpgradeType() +
+						" Parent ID " + current.getID() + " ID " + 
+						current.getChildren().get(0).getID());
+				current = current.getChildren().get(0);
+			}
+		}
 	}
 	
 	/**
 	 * TESTING PURPOSE
 	 */
-	public static void main(String[] args) throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ParserConfigurationException, SAXException, IOException {
+	/**public static void main(String[] args) throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ParserConfigurationException, SAXException, IOException {
+		//loads Upgrade XML - creates tree - updates activate state
 		Factory factory = new Factory();
-		factory.loadXMLFile("src/vooga/rts/gamedesign/factories/Factory.xml");
-		
-	}
 
+		factory.loadXMLFile("src/vooga/rts/gamedesign/factories/Factory.xml");
+
+		//creates an UpgradeBuilding
+		UpgradeBuilding upgradeBuilding = new UpgradeBuilding();
+		
+		//creates two Units - adds upgrade Actions to the UpgradeBuilding
+		//the first Unit needs to specify the UpgradeTree all Units will be using.
+		InteractiveEntity oneUnit = new Unit();
+		//oneUnit.setUpgradeTree(resultTree);
+		upgradeBuilding.addUpgradeActions(resultTree);
+		InteractiveEntity twoUnit = new Unit();
+		oneUnit.setAttackStrategy(new CanAttack());
+		twoUnit.setAttackStrategy(new CanAttack());
+		for (Action a: upgradeBuilding.getActions()) {
+			System.out.println("Action type: " + a.getName());
+		}
+		System.out.println(oneUnit.getMaxHealth());
+		System.out.println(twoUnit.getMaxHealth());
+		
+		//finds Action  - 
+		Action WorstArmorAction = upgradeBuilding.findAction("Boost1");
+		//WorstArmorAction.apply();
+		System.out.println(oneUnit.getMaxHealth());
+		System.out.println(twoUnit.getMaxHealth());
+	}*/
 }

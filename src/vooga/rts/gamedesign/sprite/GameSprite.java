@@ -7,7 +7,6 @@ import java.awt.Rectangle;
 import vooga.rts.gamedesign.sprite.Sprite;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
-import vooga.rts.util.ThreeDimension;
 
 public abstract class GameSprite extends Sprite {
     // canonical directions for a collision
@@ -126,17 +125,6 @@ public abstract class GameSprite extends Sprite {
      */
     protected void resetBounds () {
         setBounds(new Rectangle((int)getLeft(), (int)getUp(), mySize.width, mySize.height));
-    }
-
-    /**
-     * This would determine if two RTSprites collide.
-     * @param gameEntity is an RTSprite that is being checked to see if it 
-     * collides with the current RTSprite
-     * @return true if the two RTsprites collided and false if the RTSprites
-     * did not collide.
-     */
-    public boolean collidesWith(GameEntity gameEntity) {
-        return getBounds().intersects(gameEntity.getBounds());
     }
 
 }
