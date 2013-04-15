@@ -3,6 +3,7 @@ package vooga.fighter.objects.utils;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 import vooga.fighter.objects.GameObject;
+import util.Location;
 import util.Pixmap;
 
 /**
@@ -94,7 +95,10 @@ public class State {
      * Returns the current active rectangle for this state.
      */
     public Rectangle getCurrentRectangle() {
-        return myRectangles[myCurrentFrame];
+        Rectangle result = myRectangles[myCurrentFrame];
+        Location location = myOwner.getLocation().getLocation();
+        result.setLocation((int) location.getX(), (int) location.getY());
+        return result;
     }
     
     /**

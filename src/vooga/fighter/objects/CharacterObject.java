@@ -1,18 +1,11 @@
 package vooga.fighter.objects;
 
-import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import vooga.fighter.input.AlertObject;
-import vooga.fighter.input.Input;
-import vooga.fighter.input.InputClassTarget;
-import vooga.fighter.input.InputMethodTarget;
 import vooga.fighter.objects.utils.Effect;
 import vooga.fighter.objects.utils.Health;
-import util.Location;
-import util.Pixmap;
 import util.Vector;
 import vooga.fighter.objects.utils.UpdatableLocation;
 
@@ -54,7 +47,6 @@ public class CharacterObject extends GameObject {
 
     public void update() {
         super.update();
-        System.out.printf("State current frame: %d\n", getCurrentState().myCurrentFrame);
         if (getCurrentState().hasCompleted()) {
             setCurrentState("stand");
         }
@@ -102,7 +94,7 @@ public class CharacterObject extends GameObject {
      * Note: For now just using String to represent attack types, but this is obviously
      * subject to change.
      */
-    private AttackObject createAttack(String key) {
+    public AttackObject createAttack(String key) {
         if (myAttacks.containsKey(key)) {
             return myAttacks.get(key);
         }
