@@ -1,26 +1,20 @@
 package vooga.towerdefense.model;
 
-import java.util.ArrayList;
-import java.util.List;
 import vooga.towerdefense.controller.Controller;
-import vooga.towerdefense.gameElements.ExampleWave;
-import vooga.towerdefense.gameElements.Unit;
-import vooga.towerdefense.gameElements.Wave;
-import vooga.towerdefense.view.TDView;
 
 
-public class Game {
+public class GameController {
     private final int TICKS_PER_SECOND = 50;
     private final int SKIP_TICKS = 1000 / TICKS_PER_SECOND;
     private final int MAX_FRAMESKIP = 10;
 
-    private boolean game_is_running = false;
+    private boolean gameIsRunning = false;
     private Controller myController;
 
-    public Game (Controller controller) {
+    public GameController (Controller controller) {
         // TODO: functions to construct model from file. Probably put that in
         // GameModel constructor.
-        myController = new Controller();
+        myController = controller;
     }
 
     public void start () {
@@ -31,16 +25,14 @@ public class Game {
     public void run () {
         // this game loop will update the game at up to TICKS_PER_SECOND, and
         // repaint the screen as fast as possible.
-        long next_game_tick = System.currentTimeMillis();
+        long nextGameTick = System.currentTimeMillis();
 
-        int loops;
-
-        while (game_is_running) {
-            loops = 0;
-            while (System.currentTimeMillis() > next_game_tick
+        int loops = 0;
+        while (gameIsRunning) {
+            while (System.currentTimeMillis() > nextGameTick
                    && loops < MAX_FRAMESKIP) {
-                myController.update(System.currentTimeMillis() - next_game_tick);
-                next_game_tick += SKIP_TICKS;
+                myController.update(System.currentTimeMillis() - nextGameTick);
+                nextGameTick += SKIP_TICKS;
                 loops++;
             }
             myController.displayMap();
@@ -48,7 +40,7 @@ public class Game {
     }
 
     public void setRunning (boolean isRunning) {
-        game_is_running = isRunning;
+        gameIsRunning = isRunning;
         run();
     }
 }

@@ -18,14 +18,16 @@ import javax.swing.JPanel;
 import vooga.towerdefense.util.Location;
 import vooga.towerdefense.util.Pixmap;
 
+
 /**
  * This view screen enables the player to select the mode they want to play in.
  * There is easy, medium and hard modes.
  * 
  * @author Leonard K. Ng'eno
- *
+ * 
  */
 public class LevelsSelectorScreen extends JPanel {
+    private static final String CHECKED_IMAGE = "checked.gif";
     private static final long serialVersionUID = 1L;
     private static final int XCOORD = 0;
     private static final int YCOORD = 0;
@@ -39,7 +41,8 @@ public class LevelsSelectorScreen extends JPanel {
     private Map<Pixmap, Rectangle> myLevelsImages;
     private JButton myNextScreen;
     private boolean myLevelSelected = false;
-    
+    private String myPrevName = "";
+
     public LevelsSelectorScreen (Dimension size, TDView view) {
         setPreferredSize(size);
         setInputListener();
@@ -67,13 +70,15 @@ public class LevelsSelectorScreen extends JPanel {
         pen.setColor(myBackgroundColor);
         pen.fillRect(XCOORD, YCOORD, getSize().width, getSize().height);
 
-        displayLevels ((Graphics2D) pen);
+        displayLevels((Graphics2D) pen);
     }
 
     private void displayLevels (Graphics2D pen) {
         for (Map.Entry<Pixmap, Rectangle> entry : myLevelsImages.entrySet()) {
-            entry.getKey().paint(pen, new Location(entry.getValue().getCenterX(), entry.getValue().getCenterY()), SIZE);
-        }        
+            entry.getKey().paint(pen,
+                                 new Location(entry.getValue().getCenterX(), entry.getValue()
+                                         .getCenterY()), SIZE);
+        }
     }
 
     private JButton nextScreenButton () {
@@ -88,7 +93,7 @@ public class LevelsSelectorScreen extends JPanel {
         });
         return myNextScreen;
     }
-    
+
     private void setInputListener () {
         myMouseListener = new MouseAdapter() {
             @Override
@@ -97,13 +102,30 @@ public class LevelsSelectorScreen extends JPanel {
             }
         };
     }
-    
+
     private void checkPositionClicked (Point point) {
-        for (Map.Entry<Pixmap, Rectangle> entry : myLevelsImages.entrySet()) {
-            if (entry.getValue().contains(point)) {
-                System.out.println("Level image name: " + entry.getKey().getFileName());
-                myLevelSelected = true;
+
+        if (!myPrevName.isEmpty()) {
+            for (Map.Entry<Pixmap, Rectangle> entry1 : myLevelsImages.entrySet()) {
+                if (entry1.getKey().getFileName().equals(CHECKED_IMAGE)) {
+                    entry1.getKey().setImage(myPrevName);
+                    repaint();
+                }
             }
         }
+
+        for (Map.Entry<Pixmap, Rectangle> entry : myLevelsImages.entrySet()) {
+            if (entry.getValue().contains(point)) {
+                myLevelSelected = true;
+                selectedImage(entry.getKey());
+            }
+        }
+    }
+
+    public void selectedImage (Pixmap myImage) {
+        // super (myImage);
+        myPrevName = myImage.getFileName();
+        myImage.setImage(CHECKED_IMAGE);
+        repaint();
     }
 }

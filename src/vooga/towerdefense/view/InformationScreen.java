@@ -7,13 +7,14 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+
 /**
  * This class makes a screen that can display any information in it.
  * Examples include information about game stats, units, towers, etc.
- *
+ * 
  * @author Angelica Schwartz
  */
-public class InfoScreen extends JPanel {
+public class InformationScreen extends JPanel {
 
     private static final long serialVersionUID = 1L;
     private static final String INFO_LOCATION = BorderLayout.SOUTH;
@@ -21,13 +22,14 @@ public class InfoScreen extends JPanel {
     private int myHeight;
     private JTextArea myTextArea;
     private String myTitle;
-    
+
     /**
      * Constructor.
+     * 
      * @param title
      * @param size
      */
-    public InfoScreen (String title, Dimension size) {
+    public InformationScreen (String title, Dimension size) {
         setPreferredSize(size);
         setLayout(new BorderLayout());
         myTitle = title + "\n";
@@ -36,35 +38,38 @@ public class InfoScreen extends JPanel {
         add(makeInfoTextArea(), INFO_LOCATION);
         setVisible(true);
     }
-    
+
     /**
      * displays the information contained in the string parameter.
+     * 
      * @param information is the string to display
      */
     public void displayInformation (String information) {
         myTextArea.setText(myTitle + information);
         repaint();
     }
-    
+
     /**
      * clears the text from the information screen.
      */
-    public void clearScreen() {
+    public void clearScreen () {
         displayInformation("");
     }
-    
+
     /**
      * paints the InfoScreen.
+     * 
      * @param pen
      */
     @Override
-    public void paint(Graphics pen) {
+    public void paint (Graphics pen) {
         super.paintComponent(pen);
         myTextArea.paint(pen);
     }
-    
+
     /**
      * helper method to create the text area.
+     * 
      * @return the blank JTextArea
      */
     private JComponent makeInfoTextArea () {

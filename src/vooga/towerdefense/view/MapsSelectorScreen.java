@@ -27,7 +27,7 @@ import vooga.towerdefense.util.Pixmap;
  * 
  */
 public class MapsSelectorScreen extends JPanel {
-    // private static final String RESOURCE = "/vooga/towerdefense/images/maps/";
+    private static final String CHECKED_IMAGE = "checked.gif";
     private static final long serialVersionUID = 1L;
     private static final Dimension SIZE = new Dimension(200, 200);
     private MouseAdapter myMouseListener;
@@ -42,8 +42,10 @@ public class MapsSelectorScreen extends JPanel {
     private Color myBackgroundColor = Color.WHITE;
     private TDView myView;
     private boolean myMapSelected = false;
+    private String myPrevName = "";
 
     public MapsSelectorScreen (Dimension size, TDView view) {
+        super();
         myView = view;
         setPreferredSize(size);
         myMapImages = new HashMap<Pixmap, Rectangle>();
@@ -93,19 +95,35 @@ public class MapsSelectorScreen extends JPanel {
         myMouseListener = new MouseAdapter() {
             @Override
             public void mouseClicked (MouseEvent e) {
-                System.out.println("clicked: " + e.getPoint());
                 checkPositionClicked(e.getPoint());
             }
         };
     }
 
     private void checkPositionClicked (Point point) {
-        for (Map.Entry<Pixmap, Rectangle> entry : myMapImages.entrySet()) {
-            if (entry.getValue().contains(point)) {
-                System.out.println("Pixmap name: " + entry.getKey().getFileName());
-                myMapSelected = true;
+
+        if (!myPrevName.isEmpty()) {
+            for (Map.Entry<Pixmap, Rectangle> entry1 : myMapImages.entrySet()) {
+                if (entry1.getKey().getFileName().equals(CHECKED_IMAGE)) {
+                    entry1.getKey().setImage(myPrevName);
+                    repaint();
+                }
             }
         }
+
+        for (Map.Entry<Pixmap, Rectangle> entry : myMapImages.entrySet()) {
+            if (entry.getValue().contains(point)) {
+                myMapSelected = true;
+                selectedImage(entry.getKey());
+            }
+        }
+    }
+
+    public void selectedImage (Pixmap myImage) {
+        // super(myImage);
+        myPrevName = myImage.getFileName();
+        myImage.setImage(CHECKED_IMAGE);
+        repaint();
     }
 
     private void displayMaps (Graphics2D pen) {

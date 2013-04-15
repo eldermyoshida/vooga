@@ -2,6 +2,7 @@ package vooga.towerdefense.util;
 
 import java.awt.Graphics2D;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.geom.Point2D;
 import java.awt.geom.AffineTransform;
 import javax.swing.ImageIcon;
@@ -68,7 +69,19 @@ public class Pixmap {
         pen.setTransform(old);
     }
     
+    /**
+     * 
+     * @return  String. The name of the Pixmap's image
+     */
     public String getFileName () {
         return myFileName;
+    }
+    
+    /**
+     * 
+     * @return
+     */
+    public Image getImage(){
+    	return myImage;
     }
 }

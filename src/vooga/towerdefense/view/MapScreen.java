@@ -2,37 +2,34 @@ package vooga.towerdefense.view;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.Point;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import java.awt.geom.Point2D;
-import javax.swing.ImageIcon;
+import java.awt.event.MouseMotionAdapter;
 import javax.swing.JPanel;
 import vooga.towerdefense.controller.Controller;
-import vooga.towerdefense.util.Location;
 import vooga.towerdefense.util.Pixmap;
+
 
 /**
  * Displays the map and everything on the map.
+ * 
  * @author Angelica Schwartz
- *
+ * 
  */
 public class MapScreen extends JPanel {
 
     private static final long serialVersionUID = 1L;
     private static final String RESOURCE = "/vooga/towerdefense/images/";
     private Controller myController;
-    private MouseListener myMouseListener;
-    private MouseMotionListener myMouseMotionListener;
+    private MouseAdapter myMouseAdapter;
+    private MouseMotionAdapter myMouseMotionAdapter;
     private Dimension mySize;
-    private Image towerImage; 
-    private Point mouseLocation; 
-    
+    private Point mouseLocation;
+
     /**
      * Constructor.
+     * 
      * @param size
      */
     public MapScreen (Dimension size, Controller controller) {
@@ -41,71 +38,77 @@ public class MapScreen extends JPanel {
         setFocusable(true);
         setVisible(true);
         myController = controller;
-        towerImage = new ImageIcon(getClass().getResource(RESOURCE + "tower.gif")).getImage();
-        makeMouseListener();
-        mouseLocation = new Point(0,0);
-        addMouseListener(myMouseListener);
-        addMouseMotionListener(myMouseMotionListener);
+        makeMouseAdapters();
+        mouseLocation = new Point(0, 0);
+        addMouseListener(myMouseAdapter);
+        addMouseMotionListener(myMouseMotionAdapter);
         repaint();
     }
-    
+
     /**
      * updates the mapscreen appropriately.
      */
-    public void update() {
+    public void update () {
         revalidate();
         repaint();
     }
-    
-    public void paintComponent(Graphics pen) {
+
+    /**
+     * paints the MapScreen component.
+     */
+    @Override
+    public void paintComponent (Graphics pen) {
         super.paintComponent(pen);
         myController.paintMap(pen);
         paintGridLines(pen);
-        if (towerImage != null) {
-            System.out.println("not null");
-            pen.drawImage(towerImage, (int)mouseLocation.getX(), (int)mouseLocation.getY(), null);
-        }
-        }
-    
-    public void paintGridLines(Graphics pen) {
-        for (int i = 0; i < mySize.width; i+=25)
-            pen.drawLine(i, 0, i, mySize.height);
-        for (int j = 0; j < mySize.height; j+=25)
-            pen.drawLine(0, j, mySize.width, j);
     }
-    
+
+    /**
+     * paints the ghost image at the mouse location.
+     * 
+     * @param p is the mouse location
+     * @param image is the pixmap image to paint
+     */
+    public void paintGhostImage (Point p, Pixmap image) {
+        getGraphics().drawImage(image.getImage(), p.x, p.y,
+                                image.getImage().getWidth(null),
+                                image.getImage().getWidth(null), null);
+    }
+
+    /**
+     * used for testing to paint a grid.
+     * TODO: remove this method
+     * 
+     * @param pen
+     */
+    public void paintGridLines (Graphics pen) {
+        for (int i = 0; i < mySize.width; i += 25) {
+            pen.drawLine(i, 0, i, mySize.height);
+        }
+        for (int j = 0; j < mySize.height; j += 25) {
+            pen.drawLine(0, j, mySize.width, j);
+        }
+    }
+
     /**
      * helper method to create the listener for mouse input.
      */
-    //TODO: integrate this with input team
-    private void makeMouseListener() {
-        myMouseListener = new MouseListener() {
+    // TODO: integrate this with input team
+    private void makeMouseAdapters () {
+        myMouseAdapter = new MouseAdapter() {
             @Override
             public void mouseClicked (MouseEvent e) {
-                //myController.handleMapClick(e.getPoint());
-            }
-            @Override
-            public void mouseEntered (MouseEvent e) {
-            }
-            @Override
-            public void mouseExited (MouseEvent e) {
-            }
-            @Override
-            public void mousePressed (MouseEvent e) {
-            }
-            @Override
-            public void mouseReleased (MouseEvent e) {
+                myController.handleMapClick(e.getPoint());
             }
         };
-        myMouseMotionListener = new MouseMotionListener() {
-            @Override
-            public void mouseDragged (MouseEvent e) {
-            }
+        myMouseMotionAdapter = new MouseMotionAdapter() {
             @Override
             public void mouseMoved (MouseEvent e) {
-                System.out.println("moving");
-                mouseLocation = e.getPoint();
-                update();
+                // TODO: remove these comments
+                // myController.handleMouseMovement(e.getPoint());
+                // mouseLocation = e.getPoint();
+                // update();
+                myController.handleMapMouseDrag(e.getPoint());
             }
         };
     }

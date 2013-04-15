@@ -1,49 +1,61 @@
 package vooga.towerdefense.action;
 
-import java.util.List;
+import vooga.towerdefense.attributes.Attacker;
+import vooga.towerdefense.attributes.Targetable;
+import vooga.towerdefense.gameElements.GameElement;
+import vooga.towerdefense.gameElements.Projectile;
 
 /**
- * An attack action is an action which may contain a series of subactions that act on (potentially damage) one or more targets.
- *  
+ * Single attack action launched by a GameElement at Targetable object.
  * @author XuRui
+ * @author Matthew Roy
  *
  */
+public class AttackAction extends AbstractAction {
+	Attacker myInitiator;
+	double myCoolDown;
+	boolean isOneTimeAction;
 
-public abstract class AttackAction extends AbstractAction {
-	
-	List<AttackAction> myAttackMoves; //list of attack moves in attack action called by game element
-	
-	public AttackAction(List<AttackAction> attackMoves){
-		myAttackMoves = attackMoves;
-	}
-
-	@Override
-	public void execute() {
-		// TODO Auto-generated method stub
+	public AttackAction(GameElement initiator){
+		super(initiator);
 		
 	}
+	
+	/*public AttackAction(InfoBridge info, Attacker source, double cooldown, boolean isOneTime) {
+		super(info);
+		myCoolDown=cooldown;
+		isOneTimeAction=isOneTime;
+
+	}*/
 
 	@Override
 	public void execute(double elapsedTime) {
-		// TODO Auto-generated method stub
+		//check whether it's in cool down
+		if (isEnabled()) {
+			//get targets that we wanna shoot
+			Targetable[] targets = getInfoBridge()
+					.getTargetsWithinRadiusOfGivenLocation(
+							myInitiator.getAttackCenter(),
+							myInitiator.getAttackRadius(),
+							myInitiator.getNumberOfTargets());
+			
+			//shoot a projectile towards each target
+			for (Targetable target : targets) {
+				getInfoBridge().addGameElement(
+						new Projectile(myInitiator, target));
+			}
+		}
 		
-	}
-	
-	/**
-	 * Get all targets for attack.
-	 * 
-	 * @param targets
-	 */
-	public abstract void getTarget(List<Targetable> targets);
-	
-	
-	/**
-	 * Act on all targets locked. 
-	 * 
-	 * @param targets
-	 */
-	public abstract void actOnTarget(List<Targetable> targets);
-	
-	
+		//set cooldown
+		/*else{
+			setCoolDown(myCoolDown,isOneTimeAction);
+		}*/
 
+	}
+
+    @Override
+    public void initAction () {
+        // TODO Auto-generated method stub
+        
+    }
 }
