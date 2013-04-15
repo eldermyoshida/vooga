@@ -121,7 +121,6 @@ public class LevelMode extends Mode {
     public List<ImageDataObject> getImageData() {
         List<ImageDataObject> result = new ArrayList<ImageDataObject>();
         for (GameObject object : getMyObjects()) {
-        	System.out.println(object);
             result.add(object.getImageData());
         }
         return result;

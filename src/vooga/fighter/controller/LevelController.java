@@ -82,18 +82,21 @@ public class LevelController extends Controller {
     
     @InputMethodTarget(name = "player1_left")
     public void leftInput (AlertObject alObj) {
+        System.out.println("moving left");
         myInputObjects.get(0).move(180);
         
     }
     
     @InputMethodTarget(name = "player1_right")
     public void rightInput(AlertObject alObj) {
+        System.out.println("moving right");
         myInputObjects.get(0).move(0);
         
     }
     
     @InputMethodTarget(name = "player1_down")
     public void downInput(AlertObject alObj) {
+        System.out.println("moving down");
         myInputObjects.get(0).move(90);
         
     }
