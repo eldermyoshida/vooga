@@ -9,6 +9,7 @@ import vooga.scroller.input.InputClassTarget;
 import vooga.scroller.input.InputMethodTarget;
 import vooga.scroller.input.PositionObject;
 import vooga.scroller.sprites.superclasses.Player;
+import vooga.scroller.sprites.test_sprites.mario.Mario;
 import vooga.scroller.util.Sprite;
 /**
  * Class that holds all user defined control methods. These methods can work
@@ -53,7 +54,8 @@ public class ModelInputs {
             
             System.out.println("jump!");
             
-            myPlayer.addVector(new Vector(Sprite.UP_DIRECTION, 300));
+            Mario m = (Mario) myPlayer;
+            m.jump();
 
         }
 

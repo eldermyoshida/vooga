@@ -6,6 +6,7 @@ import util.Vector;
 import vooga.scroller.level_editor.Level;
 import vooga.scroller.level_management.LevelPortal;
 import vooga.scroller.sprites.test_sprites.MarioLib;
+import vooga.scroller.sprites.test_sprites.MarioLib.Koopa;
 import vooga.scroller.sprites.test_sprites.mario.Mario;
 import vooga.scroller.util.Direction;
 import vooga.scroller.util.Sprite;
@@ -102,6 +103,12 @@ public class CollisionManager {
         return (sprite1.getLeft() <= sprite2.getRight() && sprite1.getLeft() >= sprite2.getRight() - COLLISION_GRANULARITY);
     }
     
+    private void kill (Sprite sprite) {
+        
+        // TODO Auto-generated method stub
+        
+    }
+    
     private void marioAndNonStaticEntityCollision (Mario mario, Sprite sprite) {
   
         
@@ -180,9 +187,18 @@ public class CollisionManager {
     }
 
     public void visit (Mario mario, MarioLib.Koopa koopa) {
+        if (collisionDirection(mario, koopa).equals(Direction.TOP)) {
+            koopa.takeHit();
+        }
+        else {
+            mario.takeHit();
+        }
+        
         System.out.println("Mario has just collided with Koopa!");
         
     }
+
+
 
     public void visit (Mario mario, MarioLib.Platform platform) {
         marioAndNonStaticEntityCollision(mario, platform);
@@ -198,9 +214,13 @@ public class CollisionManager {
     
     public void visit (Mario mario, MarioLib.Turtle turtle) {
         //endGame();
-        mario.hit(turtle);
-        System.out.println("Mario has just collided with Turtle!");
-        
+
+        if (collisionDirection(mario, turtle).equals(Direction.TOP)) {
+            turtle.takeHit();
+        }
+        else {
+            mario.takeHit();
+        }        
     }
     
     public void visit (Mario mario, LevelPortal sp) {
@@ -232,7 +252,6 @@ public class CollisionManager {
     }
 
     public void visit (MarioLib.Koopa koopa, Mario mario) {
-        mario.changeState(1);
         System.out.println("Koopa has just collided with Mario!");
     }
 

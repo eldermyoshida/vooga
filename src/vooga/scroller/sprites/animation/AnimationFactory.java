@@ -36,9 +36,4 @@ public class AnimationFactory {
         return res;
     }
 
-    public Pixmap getDefaultImage () {
-        // TODO: see above. need better way (reflection)
-        return new Pixmap("llama_still.gif");
-    }
-
 }

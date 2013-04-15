@@ -1,6 +1,7 @@
 
 package vooga.scroller.level_editor;
 
+import java.io.File;
 import javax.swing.JFrame;
 import vooga.scroller.viewUtil.Renderable;
 import vooga.scroller.viewUtil.Tools;

@@ -102,6 +102,7 @@ public class MarioLib implements ISpriteLibrary {
     public static class Turtle extends NonStaticEntity {
 
         private static final String DEFAULT_IMG = "turtle.gif";
+        private int health = 1;
 
         public Turtle () {
             this(DEFAULT_LOC);

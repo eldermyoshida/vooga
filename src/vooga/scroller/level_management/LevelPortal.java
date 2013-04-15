@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import util.Location;
 import vooga.scroller.level_editor.exceptions.LevelEditorException;
 import vooga.scroller.sprites.superclasses.Player;
+import vooga.scroller.sprites.superclasses.StaticEntity;
 import vooga.scroller.util.ISpriteView;
 import vooga.scroller.util.Sprite;
 
@@ -21,7 +22,7 @@ public class LevelPortal extends Sprite implements IDoor {
     
     
     public LevelPortal (ISpriteView image, Location center, Dimension size, StartPoint exit, LevelManager lm) {
-        super(image, center, size);
+        super(image, center, size, StaticEntity.INANIMATE_ENTITY_HEALTH);
         myLevelManager = lm;
         myExit = exit;
     }

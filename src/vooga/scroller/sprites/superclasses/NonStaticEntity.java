@@ -24,7 +24,11 @@ public class NonStaticEntity extends Sprite {
     private Player myPlayer;
     
     public NonStaticEntity (Pixmap image, Location center, Dimension size) {
-        super(image, center, size, DEFAULT_SPEED);
+        super(image, center, size, DEFAULT_SPEED, StaticEntity.INANIMATE_ENTITY_HEALTH);  //health defaulted to 1
+    }
+    
+    public NonStaticEntity (Pixmap image, Location center, Dimension size, int health) {
+        super(image, center, size, DEFAULT_SPEED, health);
     }
     
     public void changeVelocity(Vector vector) {
@@ -59,6 +63,11 @@ public class NonStaticEntity extends Sprite {
     public int getHit () {
         return 1;
     }
+    
+    public void takeHit() {
+        super.takeHit();
+    }
+    
     
 
 

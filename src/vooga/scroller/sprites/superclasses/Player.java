@@ -44,11 +44,11 @@ public class Player extends Sprite {
     protected static final int MOVE_SPEED = 10;    
     public static final Vector LEFT_VELOCITY = new Vector(LEFT_DIRECTION, MOVE_SPEED);
     public static final Vector RIGHT_VELOCITY = new Vector(RIGHT_DIRECTION, MOVE_SPEED);
-    public static final Vector UP_VELOCITY = new Vector(UP_DIRECTION, MOVE_SPEED);
+    public static final Vector UP_VELOCITY = new Vector(UP_DIRECTION, 300);
     public static final Vector DOWN_VELOCITY = new Vector(DOWN_DIRECTION, MOVE_SPEED);
 
-    public Player (ISpriteView image, Location center, Dimension size, View view, ScrollingManager sm) {
-        super(image, center, size);
+    public Player (ISpriteView image, Location center, Dimension size, View view, ScrollingManager sm, int health) {
+        super(image, center, size, health);
         myView = view;
         myPaintCenter = new Location(myView.getWidth() / 2, myView.getHeight() / 2);
         mySize = size;

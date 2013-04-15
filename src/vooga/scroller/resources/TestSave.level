@@ -1,0 +1,39 @@
+/level
+     a                        
+      b                a      
+                    c   b     
+           c                  
+    d          a              
+      c         b             
+                              
+      e  e ee  e  e  e        
+                              
+   c                     d    
+             d                
+       c                      
+                              
+            c                 
+                 c  c         
+                              
+                              
+    f    f    f               
+                   f    f     
+ g     g       g      g    g  
+                              
+                              
+                              
+                              
+                              
+                              
+                              
+                              
+                              
+                              
+/key
+e=vooga.scroller.sprites.test_sprites.MarioLib.Coin
+a=vooga.scroller.sprites.test_sprites.MarioLib.MovingPlatformTwo
+c=vooga.scroller.sprites.test_sprites.MarioLib.Turtle
+g=vooga.scroller.sprites.test_sprites.MarioLib.BigMario
+f=vooga.scroller.sprites.test_sprites.MarioLib.LilMario
+d=vooga.scroller.sprites.test_sprites.MarioLib.Koopa
+b=vooga.scroller.sprites.test_sprites.MarioLib.MovingPlatformOne

@@ -98,8 +98,8 @@ public abstract class Window extends JFrame implements IWindow, IView {
      * Load the specified file in a new tab - TODO
      * @param file2open
      */
-    private void loadFile (File file2open) {
-        return;
+    private void loadFile (File file2open){
+        
     }
 
     /**
@@ -114,7 +114,16 @@ public abstract class Window extends JFrame implements IWindow, IView {
      * Save the active workspace - TODO
      */
     public void saveFile () {
+        int response = myChooser.showSaveDialog(null);
+        if (response == JFileChooser.APPROVE_OPTION) {
+            File file2save = myChooser.getSelectedFile();
+            saveFile(file2save);
+        }
         return;
+    }
+
+    private void saveFile (File file2save){
+        myController.saveFile(file2save, getActiveTab());
     }
 
     /**

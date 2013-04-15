@@ -124,6 +124,9 @@ public class Level implements Editable, Renderable {
             myPlayer.update(elapsedTime, bounds);
             for(Sprite s: myFrameOfActionSprites) {
                 s.update(elapsedTime, bounds);
+                if (s.getHealth() <= 0) {
+                    this.removeSprite(s);
+                }
             }
             intersectingSprites();
         }
