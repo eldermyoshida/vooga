@@ -1,5 +1,7 @@
 package arcade.view.panels;
 
+import java.awt.Color;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -7,6 +9,8 @@ import javax.swing.JPanel;
 public class StorePanel extends JPanel {
     public StorePanel(){
         setLayout(null);
+
+        setBackground(Color.WHITE);
         
         JLabel title = new JLabel("Store");
         title.setBounds(5,5,40,40);

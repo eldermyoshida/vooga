@@ -1,19 +1,45 @@
-package map;
+package vooga.rts.map;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.awt.Dimension;
+import vooga.rts.ai.Path;
+import vooga.rts.ai.PathFinder;
+import vooga.rts.util.Location;
 
+/**
+ * The GameMap will be responsible for taking in the location of
+ * @author Challen Herzberg-Brovold
+ *
+ */
+
+// Still need to figure how to read in terrain. Also need to figure out how to 
+// add obstructions to the nodes. Possibly use the GameMap to implement vision. 
 public class GameMap {
-    private List<MapNode> myMap;
     
-    // Eventually, this will ideally read in a map file of sort to create the map.
-    // Currently just makes a square map of nodes from 
-    public GameMap(int height, int width) { 
-       myMap = new ArrayList<MapNode>();
-       for (int i = 0; i < width; i++) {
-           for (int j = 0; j < height; j++) {
-               myMap.add(new MapNode(i, j));
-           }
-       }
+    private int myNodeSize;
+    private NodeMap myMap;
+    
+    /**
+     * calculates how many nodes there are
+     * 
+     * @param mapSize This is the size of the map in pixels
+     */
+    public GameMap(int node, Dimension size) {
+        NodeFactory factory = new NodeFactory();
+        myNodeSize = node;
+        myMap = factory.makeMap(myNodeSize, size);
     }    
+    
+    public Node getNode (Location location) {
+        int x = (int) location.x/myNodeSize;
+        int y = (int) location.y/myNodeSize;
+        return myMap.get(x, y);
+    }
+    
+    public Path getPath (PathFinder finder, Location start, Location finish) {
+        return finder.calculatePath(getNode(start), getNode(finish), myMap);
+    }
+    
+    public NodeMap getMap () {
+        return myMap;
+    }
 }

@@ -20,7 +20,7 @@ public interface ArcadeInteraction {
      * 
      * @param n is the number of high scores the game wants
      */
-    HighScores aggregateHighScores(int n);
+    HighScores getHighScores(int n);
 
     /**
      * Closes the window containing the game
@@ -28,7 +28,10 @@ public interface ArcadeInteraction {
     void killGame();
     
     /**
-     * Make the game full screen if not full screen, or not full screen if it is.
+     * Get data associated with a specific game and a user
+     * @return UserGameData
      */
-    void toggleFullScreen();
+    UserGameData getUserGameData();
+    
+    GameData getGameData();
 }

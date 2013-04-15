@@ -1,4 +1,4 @@
-package util;
+package vooga.towerdefense.util;
 
 import java.awt.geom.Point2D;
 
@@ -257,4 +257,5 @@ public class Vector {
             return Math.abs(a / b - 1) < EPSILON;
         }
     }
+ 
 }

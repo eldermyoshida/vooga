@@ -1,7 +1,8 @@
-package model;
+package vooga.towerdefense.model;
 import java.util.Iterator;
 import java.util.List;
-import util.Location;
+
+import vooga.towerdefense.util.Location;
 
 
 public class Path implements Iterator<Location> {    
@@ -23,5 +24,11 @@ public class Path implements Iterator<Location> {
     @Override
     public void remove () {
         myPoints.iterator().remove();
+    }
+    
+    public void paint () {
+        for (Location loc: myPoints) {
+            
+        }
     }
 }

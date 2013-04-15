@@ -1,7 +1,11 @@
-package gamedesign.sprite.rtsprite.interactive.buildings;
+package vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings;
 
-import gamedesign.sprite.rtsprite.RTSprite;
-import gamedesign.sprite.rtsprite.RTSpriteVisitor;
+import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Unit;
+import vooga.rts.util.Location;
+import vooga.rts.util.Location3D;
+import vooga.rts.util.Pixmap;
+import vooga.rts.util.Sound;
+import java.awt.Dimension;
 
 /**
  * 
@@ -13,31 +17,16 @@ import gamedesign.sprite.rtsprite.RTSpriteVisitor;
  */
 public class ResearchFacility extends Building {
 
-  public void accept() {
-  }
+    public ResearchFacility(Pixmap image, Location3D center, Dimension size,
+                            Sound sound, int playerID, int health) {
+        super(image, center, size, sound, playerID, health);
+    }
 
-@Override
-public void getAttacked(RTSpriteVisitor visitor) {
-	// TODO Auto-generated method stub
-	
-}
+    @Override
+    public void getOccupied (Unit u) {
+        // TODO Auto-generated method stub
 
-@Override
-public int calculateDamage() {
-	// TODO Auto-generated method stub
-	return 0;
-}
+    }
 
-@Override
-public void changeHealth() {
-	// TODO Auto-generated method stub
-	
-}
-
-@Override
-public void visit(RTSprite rtSprite) {
-	// TODO Auto-generated method stub
-	
-}
 
 }

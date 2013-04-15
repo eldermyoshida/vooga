@@ -19,7 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import arcade.model.Model;
-import arcade.util.Thumbnail;
+import arcade.util.JPicture;
 
 
 /**
@@ -32,10 +32,12 @@ import arcade.util.Thumbnail;
 @SuppressWarnings("serial")
 public class LoginView extends JFrame {
 
+    private static final String IMAGES_LOCATION = "src/arcade/resources/images/";
+    private static final String ERROR_MESSAGE = "Required file is not present.";
     /**
      * 
      */
-    private static final String BACKGROUND_FILENAME = "LoginBackGround.jpg";
+    private static final String BACKGROUND_FILENAME = "arcade/resources/images/LoginBackGround.jpg";
     private static final String LOGO_FILENAME = "VoogaLogo.png";
     private static final String TITLE_KEYWORD = "title";
     private static final String LOGIN_KEYWORD = "login";
@@ -57,6 +59,7 @@ public class LoginView extends JFrame {
     private JPanel myContentPanel;
     private JTextField myUserNameTextField;
     private JPasswordField myPasswordTextField;
+    private JLabel myWarningMessage;
     private JComponent myBackground;
     private int myLastKeyPressed;
 
@@ -81,6 +84,8 @@ public class LoginView extends JFrame {
         createTextFields();
         createLoginButton();
         createRegisterButton();
+
+        createMessageArea();
         createBackground();
 
         setResizable(false);
@@ -93,7 +98,7 @@ public class LoginView extends JFrame {
     private void createHeadLine () {
         ImageIcon headlineIcon = createImageIcon(LOGO_FILENAME);
         JLabel headline = new JLabel(headlineIcon);
-        headline.setBounds(WINDOW_WIDTH / 2 - OFFSET, OFFSET / 10, HEADLINE_WIDTH, HEADLINE_HEIGHT);
+        headline.setBounds(WINDOW_WIDTH / 2 - OFFSET, OFFSET / 20, HEADLINE_WIDTH, HEADLINE_HEIGHT);
         myContentPanel.add(headline);
     }
 
@@ -104,9 +109,9 @@ public class LoginView extends JFrame {
         String usernameDescription = myResources.getString(USERNAME_KEYWORD);
         String passwordDescription = myResources.getString(PASSWORD_KEYWORD);
         JLabel username = new JLabel("<html><b>" + usernameDescription + "</b></html>");
-        username.setBounds(50, 60, 80, 25);
+        username.setBounds(50, 70, 80, 25);
         JLabel password = new JLabel("<html><b>" + passwordDescription + "</b></html>");
-        password.setBounds(50, 90, 80, 25);
+        password.setBounds(50, 100, 80, 25);
         myContentPanel.add(username);
         myContentPanel.add(password);
     }
@@ -117,12 +122,12 @@ public class LoginView extends JFrame {
     private void createTextFields () {
         // UserNameTextField
         myUserNameTextField = new JTextField();
-        myUserNameTextField.setBounds(145, 60, 100, 25);
+        myUserNameTextField.setBounds(145, 70, 100, 25);
         myUserNameTextField.addKeyListener(createKeyAdapter());
 
         // PasswordTextField
         myPasswordTextField = new JPasswordField();
-        myPasswordTextField.setBounds(145, 90, 100, 25);
+        myPasswordTextField.setBounds(145, 100, 100, 25);
         myPasswordTextField.addKeyListener(createKeyAdapter());
         resetTextFields();
         myContentPanel.add(myUserNameTextField);
@@ -134,7 +139,7 @@ public class LoginView extends JFrame {
      */
     private void createLoginButton () {
         JButton login = new JButton(myResources.getString(LOGIN_KEYWORD));
-        login.setBounds(70, 140, 80, 25);
+        login.setBounds(70, 170, 80, 25);
 
         login.addActionListener(new ActionListener() {
             @Override
@@ -152,7 +157,7 @@ public class LoginView extends JFrame {
     // Figure out the actual action!!
     private void createRegisterButton () {
         JButton register = new JButton(myResources.getString(REGISTER_KEYWORD));
-        register.setBounds(150, 140, 80, 25);
+        register.setBounds(150, 170, 80, 25);
         myContentPanel.add(register);
     }
 
@@ -196,27 +201,21 @@ public class LoginView extends JFrame {
     }
 
     private void createBackground () {
-        myBackground = new Thumbnail(BACKGROUND_FILENAME, getSize());
+        myBackground = new JPicture(BACKGROUND_FILENAME, getSize());
         myBackground.setBounds(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
         myContentPanel.add(myBackground);
 
     }
 
-    public void sendMessage (String message) {
-        JLabel warning =
-                new JLabel("<html><font color = red>" + message + "</font></html>");
-        warning.setBounds(50, 95, 250, 50);
-        myContentPanel.remove(myBackground);
-        myContentPanel.add(warning);
-        refreshFrame();
-        myContentPanel.add(myBackground);
-        myContentPanel.validate();
+    private void createMessageArea () {
+        myWarningMessage = new JLabel();
+        myWarningMessage.setBounds(50, 120, 250, 50);
+        myContentPanel.add(myWarningMessage);
+
     }
 
-    private void refreshFrame () {
-        this.setBounds(0, 0, WINDOW_WIDTH + 1, WINDOW_HEIGHT);
-        this.setBounds(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
-        setLocationRelativeTo(null);
+    public void sendMessage (String message) {
+        myWarningMessage.setText("<html><font color = red>" + message + "</font></html>");
     }
 
     public void destroy () {
@@ -232,12 +231,18 @@ public class LoginView extends JFrame {
     private ImageIcon createImageIcon (String filename) {
         Image myImage;
         try {
-            myImage = ImageIO.read(new File("src/arcade/resources/images/" + filename));
+            myImage = ImageIO.read(new File(IMAGES_LOCATION + filename));
             return new ImageIcon(myImage, filename);
         }
         catch (IOException e) {
-            throw new MissingResourceException("", "", "");
+            throw new MissingResourceException(ERROR_MESSAGE, "", "");
         }
 
     }
+
+    // private void refreshFrame () {
+    // this.setBounds(0, 0, WINDOW_WIDTH + 1, WINDOW_HEIGHT);
+    // this.setBounds(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+    // setLocationRelativeTo(null);
+    // }
 }

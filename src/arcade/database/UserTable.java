@@ -171,6 +171,8 @@ public class UserTable extends Table {
         }
         createUser(user, pw, firstname, lastname, dob);
         updateAvatar(user, filepath);
+            createUser(user, pw, firstname, lastname, dob);
+            updateAvatar(user, filepath);
         return true;
     }
     
@@ -204,6 +206,7 @@ public class UserTable extends Table {
      * @param columnIndex is the index that we want the information for
      */
     public String retrieveEntry(String username, int columnIndex) {
+    public String retrieveEntry(String username, int COLUMN_INDEX) {
         String stm = "SELECT * FROM " +TABLE_NAME + " WHERE " + USERNAME_COLUMN_FIELD + "='" + username + "'";
         String entry = "";
         try {
@@ -211,6 +214,7 @@ public class UserTable extends Table {
             myResultSet = myPreparedStatement.executeQuery();
             if (myResultSet.next()) {
                 entry = myResultSet.getString(columnIndex);
+                entry = myResultSet.getString(COLUMN_INDEX);
             }
         }
         catch (SQLException e) {
@@ -226,6 +230,7 @@ public class UserTable extends Table {
     public void deleteUser(String username) {
         String stm = "DELETE FROM " + TABLE_NAME + " WHERE " + 
                 USERNAME_COLUMN_FIELD + "='" + username + "'";
+        String stm = "DELETE FROM " + TABLE_NAME + " WHERE " + USERNAME_COLUMN_FIELD + "='" + username + "'";
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
             myPreparedStatement.executeUpdate();
@@ -244,6 +249,11 @@ public class UserTable extends Table {
         String userid = retrieveUserId(user);
         String stm = "UPDATE " + TABLE_NAME + " SET " + AVATAR_COLUMN_FIELD + "='" + 
                 "filepath" + "' WHERE " + USERID_COLUMN_FIELD + "='" + userid + "'";
+=======
+    public void updateAvatar(String user, String filepath) {
+        String userid = retrieveUserId(user);
+        String stm = "UPDATE users SET avatarfilepath = '" + filepath + "' WHERE userid = '" + userid + "'";
+>>>>>>> db33675460551d990c9a9f53b90108bfded60ff7
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
             myPreparedStatement.executeUpdate();
