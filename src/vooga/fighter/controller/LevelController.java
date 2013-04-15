@@ -10,6 +10,7 @@ import java.util.List;
 import javax.swing.Timer;
 
 import util.Location;
+import vooga.fighter.input.*;
 import vooga.fighter.game.LevelMode;
 import vooga.fighter.game.Mode;
 import vooga.fighter.input.AlertObject;
@@ -74,7 +75,9 @@ public class LevelController extends Controller {
 
     @Override
     protected Input makeInput () {
-        return new Input(INPUT_PATHWAY, super.getView());
+        Input input = new Input(INPUT_PATHWAY, super.getView());
+        input.addListenerTo(this);
+    	return input;
     }
     
     @InputMethodTarget(name = "player1_jump")
@@ -104,5 +107,9 @@ public class LevelController extends Controller {
 		
 	}
 
+	@InputMethodTarget(name="jump")
+	public void PlayerOneJump(){
+		//fill in the method here
+	}
     
 }
