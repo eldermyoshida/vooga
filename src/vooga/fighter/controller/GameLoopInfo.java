@@ -116,7 +116,7 @@ public class GameLoopInfo extends Observable implements ViewDataSource{
      * @return paintable object at list index
      */
     public Paintable getPaintable (int index) {
-        return (Paintable) mySprites.get(index);
+        return mySprites.get(index);
     }
 
     /**

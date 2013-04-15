@@ -23,6 +23,7 @@ import vooga.fighter.controller.GameInfo;
 import vooga.fighter.input.Input;
 import vooga.fighter.input.InputClassTarget;
 
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
@@ -39,7 +40,10 @@ public static final Dimension SIZE = new Dimension(800, 600);
 
     public GameManager() {
         myCanvas = new Canvas(SIZE); 
-        myGameInfo = new GameInfo(1, 1);
+        List<Integer> myTwoCharacters = new ArrayList<Integer>();
+        myTwoCharacters.add(1);
+        myTwoCharacters.add(2);
+        myGameInfo = new GameInfo(myTwoCharacters, 1);
         myControllerManager = new ControllerManager(myCanvas, myGameInfo);
         JFrame frame = new JFrame(TITLE);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
