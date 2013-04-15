@@ -50,6 +50,8 @@ public class CharacterLoader extends ObjectLoader {
 			int id = Integer.parseInt(getAttributeValue(node, "charID"));
 			if (id == charId) {
 				int maxHealth = Integer.parseInt(getAttributeValue(node, "maxHealth"));
+				int speed= Integer.parseInt(getAttributeValue(node, "movespeed"));
+				myChar.addProperty("speed", speed);
 				myChar.setHealth(maxHealth);
 
 				NodeList stateNodes = ((Element) node).getElementsByTagName("state");
