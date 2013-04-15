@@ -101,7 +101,7 @@ public class Controller {
     public void fixItemOnMap (GameElement item, Point p) {
         Tile myTile = myModel.getTile(p);
         myTile.setTower(item);
-        myModel.getMap().addToMap(item);
+        myModel.getMap().addToMap(item, myTile);
         displayMap();
         myControlMode = new SelectMode();
     }
