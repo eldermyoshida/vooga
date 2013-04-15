@@ -122,7 +122,7 @@ public class Model implements ArcadeInteraction {
 
     @Override
     public void killGame () {
-        // save the usergamedata game data if applicable, and return to detail screen
+        // save the usergamedata and game data if applicable, and return to detail screen
 
     }
 
