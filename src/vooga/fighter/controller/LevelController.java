@@ -12,8 +12,11 @@ import javax.swing.Timer;
 import util.Location;
 import vooga.fighter.game.LevelMode;
 import vooga.fighter.game.Mode;
+import vooga.fighter.input.AlertObject;
 import vooga.fighter.input.Input;
 import vooga.fighter.input.InputClassTarget;
+import vooga.fighter.input.InputMethodTarget;
+import vooga.fighter.objects.CharacterObject;
 import vooga.fighter.util.Paintable;
 import vooga.fighter.view.Canvas;
 
@@ -29,6 +32,7 @@ import vooga.fighter.view.Canvas;
 
 public class LevelController extends Controller {
     private static final String INPUT_PATHWAY = "vooga.fighter.input.Game1Mapping_en_US";
+    private List<CharacterObject> myInputObjects;
 
     public LevelController (String name, Canvas frame) {
         super(name, frame);
@@ -73,6 +77,25 @@ public class LevelController extends Controller {
         return new Input(INPUT_PATHWAY, super.getView());
     }
     
+    @InputMethodTarget(name = "player1_jump")
+    public void jumpInput (AlertObject alObj)  {
+        
+    }
+    
+    @InputMethodTarget(name = "player1_left")
+    public void leftInput (AlertObject alObj) {
+        
+    }
+    
+    @InputMethodTarget(name = "player1_right")
+    public void rightInput(AlertObject alObj) {
+        
+    }
+    
+    @InputMethodTarget(name = "player1_down")
+    public void downInput(AlertObject alObj) {
+        
+    }
     
 
 	@Override
