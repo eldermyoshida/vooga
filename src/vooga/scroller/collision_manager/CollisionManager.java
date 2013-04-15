@@ -25,6 +25,7 @@ public class CollisionManager {
 
     Level myLevel;
     private static final int COLLISION_GRANULARITY = 15;
+    private static final double FRICTION = .5;
        
     public CollisionManager (Level level) {
         myLevel = level;
@@ -102,6 +103,8 @@ public class CollisionManager {
     }
     
     private void marioAndNonStaticEntityCollision (Mario mario, Sprite sprite) {
+  
+        
         Direction collisionType = collisionDirection(mario, sprite);
 
         if (collisionType == null) return;
@@ -110,8 +113,30 @@ public class CollisionManager {
             case TOP:
                 mario.setCenter(mario.getX(), sprite.getTop() - (mario.getHeight() / 2));
                 Vector v = mario.getVelocity().getComponentVector((double)Sprite.DOWN_DIRECTION);
-                //v.negate();
+                v.negate();
                 mario.addVector(v);
+                
+                
+                Vector right = mario.getVelocity().getComponentVector(Sprite.RIGHT_DIRECTION);
+                Vector left = mario.getVelocity().getComponentVector(Sprite.LEFT_DIRECTION);
+                
+                right.negate();
+                right.scale(FRICTION);
+                left.negate();
+                left.scale(FRICTION);
+                mario.addVector(right);
+                mario.addVector(left);
+                
+                Vector sLeft = sprite.getVelocity().getComponentVector(Sprite.LEFT_DIRECTION);
+                sLeft.scale(FRICTION);
+                Vector sRight = sprite.getVelocity().getComponentVector(Sprite.RIGHT_DIRECTION);
+                sRight.scale(FRICTION);
+                
+                
+                mario.addVector(sRight);
+                mario.addVector(sLeft);
+
+                
                 break;
             case BOTTOM:
                 mario.setCenter(mario.getX(), sprite.getBottom() + (mario.getHeight() / 2));
@@ -165,7 +190,7 @@ public class CollisionManager {
         
     }
     
-    public void visit (Mario mario, MarioLib.MovingPlatformOne movingPlatform) {
+    public void visit (Mario mario, MarioLib.MovingPlatformTwo movingPlatform) {
         marioAndNonStaticEntityCollision(mario, movingPlatform);
         System.out.println("Mario has just collided with Platform!");
         
