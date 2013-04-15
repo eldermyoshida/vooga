@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.ResourceBundle;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JEditorPane;
@@ -78,8 +79,11 @@ public class DetailView extends JFrame{
                 myRating = new JLabel("5");
                 myRating.setBounds(170, 40, LABEL_WIDTH, LABEL_HEIGHT);
                 
-                myPlayButton = new JButton("PLAY!!");
-                myPlayButton.setBounds(400, 100, 180, 80);
+                String localDirectory = System.getProperty("user.dir");
+                ImageIcon playButtonIcon = new ImageIcon(localDirectory+"/src/arcade/resources/images/PlayIcon.jpg");
+                
+                myPlayButton = new JButton(playButtonIcon);
+                myPlayButton.setBounds(380, 50, 130, 110);
                 myPlayButton.addActionListener(new ActionListener(){
 
                     @Override

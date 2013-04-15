@@ -1,6 +1,9 @@
 package vooga.towerdefense.action;
 
+import vooga.towerdefense.attributes.Targetable;
+import vooga.towerdefense.attributes.Upgradable;
 import vooga.towerdefense.gameElements.GameElement;
+import vooga.towerdefense.gameElements.Projectile;
 import vooga.towerdefense.gameElements.Unit;
 import vooga.towerdefense.util.Location;
 
@@ -25,6 +28,8 @@ public interface InfoBridge {
 	 * @return
 	 */
 	public Targetable[] getTargetsWithinRadiusOfGivenLocation(Location source,double radius, int howMany);
+	
+	public void addGameElement(Projectile projectile);
 	
 
 }
