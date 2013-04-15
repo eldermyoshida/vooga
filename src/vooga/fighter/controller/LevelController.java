@@ -10,6 +10,7 @@ import java.util.List;
 import javax.swing.Timer;
 
 import util.Location;
+import vooga.fighter.input.*;
 import vooga.fighter.game.LevelMode;
 import vooga.fighter.game.Mode;
 import vooga.fighter.input.Input;
@@ -37,9 +38,12 @@ public class LevelController extends Controller {
     public LevelController(String name, Canvas frame, ControllerDelegate manager, 
     		GameInfo gameinfo) {
     	super(name, frame, manager, gameinfo);
-    	frame.setViewDataSource(this);
+    	//frame.setViewDataSource(this);
     	loadMode();
-    	setGameLoopInfo(new GameLoopInfo((LevelMode) super.getMode()));
+    	GameLoopInfo gameLoopInfo = new GameLoopInfo((LevelMode) super.getMode());
+    	setGameLoopInfo(gameLoopInfo);
+    	frame.setViewDataSource(gameLoopInfo);
+    	
     }
 
     
@@ -67,7 +71,9 @@ public class LevelController extends Controller {
 
     @Override
     protected Input makeInput () {
-        return new Input(INPUT_PATHWAY, super.getView());
+        Input input = new Input(INPUT_PATHWAY, super.getView());
+        input.addListenerTo(this);
+    	return input;
     }
     
     
@@ -78,28 +84,9 @@ public class LevelController extends Controller {
 		
 	}
 
-    @Override
-    public int ObjectNumber () {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    @Override
-    public Paintable getPaintable (int index) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public Location getLocation (int index) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public Dimension getSize (int index) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
+	@InputMethodTarget(name="jump")
+	public void PlayerOneJump(){
+		//fill in the method here
+	}
+    
 }
