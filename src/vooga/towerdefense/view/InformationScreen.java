@@ -14,7 +14,7 @@ import javax.swing.JTextArea;
  * 
  * @author Angelica Schwartz
  */
-public class InfoScreen extends JPanel {
+public class InformationScreen extends JPanel {
 
     private static final long serialVersionUID = 1L;
     private static final String INFO_LOCATION = BorderLayout.SOUTH;
@@ -29,7 +29,7 @@ public class InfoScreen extends JPanel {
      * @param title
      * @param size
      */
-    public InfoScreen (String title, Dimension size) {
+    public InformationScreen (String title, Dimension size) {
         setPreferredSize(size);
         setLayout(new BorderLayout());
         myTitle = title + "\n";

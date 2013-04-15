@@ -30,8 +30,8 @@ public class TDView {
     private JPanel myPanel;
     private EastWindow myEastWindow;
     private JFrame myFrame;
-    private InfoScreen myTowerInfoScreen;
-    private InfoScreen myPlayerInfoScreen;
+    private InformationScreen myTowerInfoScreen;
+    private InformationScreen myPlayerInfoScreen;
     private MapScreen myMapScreen;
     private ShopScreen myShopScreen;
     private LevelsSelectorScreen myEditorWindow;
@@ -105,7 +105,7 @@ public class TDView {
         myMapScreen = new MapScreen(MAP_WINDOW_SIZE, myController);
         myFrame.getContentPane().add(myMapScreen, BorderLayout.CENTER);
 
-        myEastWindow = new EastWindow(EAST_WINDOW_SIZE);
+        myEastWindow = new EastWindow(EAST_WINDOW_SIZE, myController);
         myFrame.getContentPane().add(myEastWindow, BorderLayout.EAST);
 
         myShopScreen = new ShopScreen(SHOP_WINDOW_SIZE, myController);
@@ -119,11 +119,11 @@ public class TDView {
         return myMapScreen;
     }
 
-    public InfoScreen getTowerInfoScreen () {
+    public GameElementInformationScreen getTowerInfoScreen () {
         return myEastWindow.getTowerScreen();
     }
 
-    public InfoScreen getPlayerInfoScreen () {
+    public InformationScreen getPlayerInfoScreen () {
         return myEastWindow.getPlayerScreen();
     }
 }

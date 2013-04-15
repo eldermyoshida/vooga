@@ -2,6 +2,7 @@ package vooga.towerdefense.controller.modes;
 
 import java.awt.Point;
 import vooga.towerdefense.controller.Controller;
+import vooga.towerdefense.gameElements.GameElement;
 
 /**
  * The default game mode used when nothing is selected.
@@ -11,6 +12,8 @@ import vooga.towerdefense.controller.Controller;
  */
 public class SelectMode extends ControlMode {
 
+    private GameElement currentlySelectedItem;
+    
     /**
      * handles a click on the map screen in Select mode.
      * @param p
@@ -18,8 +21,8 @@ public class SelectMode extends ControlMode {
      */
     @Override
     public void handleMapClick (Point p, Controller controller) {
-        //controller.displayTileCoordinates(p);
-        controller.displayElementInformation(p);
+        currentlySelectedItem = controller.getItemAt(p);
+        controller.displayElementInformation(currentlySelectedItem);
     }
 
     /**
@@ -30,5 +33,13 @@ public class SelectMode extends ControlMode {
     @Override
     public void handleMapMouseDrag (Point p, Controller controller) {
         //do nothing
+    }
+    
+    /**
+     * gets the currently selected item.
+     * @return selected GameElement
+     */
+    public GameElement getCurrentlySelectedItem() {
+        return currentlySelectedItem;
     }
 }
