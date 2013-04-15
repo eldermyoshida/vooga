@@ -128,9 +128,9 @@ public class CollisionManager {
                 mario.addVector(left);
                 
                 Vector sLeft = sprite.getVelocity().getComponentVector(Sprite.LEFT_DIRECTION);
-                sLeft.scale(.5);
+                sLeft.scale(FRICTION);
                 Vector sRight = sprite.getVelocity().getComponentVector(Sprite.RIGHT_DIRECTION);
-                sRight.scale(.5);
+                sRight.scale(FRICTION);
                 
                 
                 mario.addVector(sRight);

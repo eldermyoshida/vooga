@@ -9,6 +9,8 @@ import vooga.scroller.input.InputClassTarget;
 import vooga.scroller.input.InputMethodTarget;
 import vooga.scroller.input.PositionObject;
 import vooga.scroller.sprites.superclasses.Player;
+import vooga.scroller.sprites.test_sprites.mario.animation_states.LeftWalk;
+import vooga.scroller.sprites.test_sprites.mario.animation_states.RightWalk;
 import vooga.scroller.util.Sprite;
 /**
  * Class that holds all user defined control methods. These methods can work
@@ -48,7 +50,8 @@ public class ModelInputs {
      */
     @InputMethodTarget(name = "jump")
     public void jumpInput (AlertObject alObj) {
-        if(Math.abs(myPlayer.getVelocity().getComponentVector(Sprite.UP_DIRECTION).getMagnitude()) < .5) {
+        if(myPlayer.getVelocity().getComponentVector(Sprite.UP_DIRECTION).getMagnitude() < .5 &&
+                myPlayer.getVelocity().getComponentVector(Sprite.DOWN_DIRECTION).getMagnitude() < .5 ) {
             
             System.out.println("jump!");
             
@@ -65,6 +68,12 @@ public class ModelInputs {
      */
     @InputMethodTarget(name = "left")
     public void leftInput (AlertObject alObj) {
+        
+        //myPlayer.setView(LeftWalk.LEFT);
+        Vector force = myPlayer.getVelocity().getComponentVector(Player.RIGHT_DIRECTION);
+        force.negate();
+        myPlayer.addVector(force);
+        
         myPlayer.addVector(Player.LEFT_VELOCITY);
         myPlayer.translate(Player.LEFT_VELOCITY);
     }
@@ -76,7 +85,15 @@ public class ModelInputs {
      */
     @InputMethodTarget(name = "right")
     public void rightInput (AlertObject alObj) {
+        //myPlayer.setView(RightWalk.RIGHT);
+        // TODO: set max speed for player
+        Vector force = myPlayer.getVelocity().getComponentVector(Player.LEFT_DIRECTION);
+        force.negate();
+        myPlayer.addVector(force);
+        
         myPlayer.addVector(Player.RIGHT_VELOCITY);
+
+        
         myPlayer.translate(Player.RIGHT_VELOCITY);
     }
 
