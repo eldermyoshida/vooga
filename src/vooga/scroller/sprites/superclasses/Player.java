@@ -47,8 +47,8 @@ public class Player extends Sprite {
     public static final Vector UP_VELOCITY = new Vector(UP_DIRECTION, MOVE_SPEED);
     public static final Vector DOWN_VELOCITY = new Vector(DOWN_DIRECTION, MOVE_SPEED);
 
-    public Player (ISpriteView image, Location center, Dimension size, View view, ScrollingManager sm) {
-        super(image, center, size);
+    public Player (ISpriteView image, Location center, Dimension size, View view, ScrollingManager sm, int health) {
+        super(image, center, size, health);
         myView = view;
         myPaintCenter = new Location(myView.getWidth() / 2, myView.getHeight() / 2);
         mySize = size;
