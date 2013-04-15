@@ -15,7 +15,7 @@ public class Mario extends Player {
 
     private static final int MAX_JUMPS = 2;
     private static final int MAX_HORIZONTAL_SPEED = 5;
-    private static final Pixmap DEFAULT_IMAGE = new Pixmap("llama_still.gif");
+    private static final Pixmap DEFAULT_IMAGE = new Pixmap("standright.png");
     private static final int DEATH_PENALTY = 1000;
     private static int health = 5;
     private int myJumpCount;

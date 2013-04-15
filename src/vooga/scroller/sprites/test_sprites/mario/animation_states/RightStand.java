@@ -6,7 +6,7 @@ import vooga.scroller.util.Sprite;
 
 public class RightStand extends AnimationState {
 
-    private static final Pixmap RIGHT_STAND = new Pixmap("llama_stand_right.gif");
+    private static final Pixmap RIGHT_STAND = new Pixmap("standright.png");
 
     private boolean myFacingLeft;
     

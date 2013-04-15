@@ -53,6 +53,18 @@ public class LEGrid implements Editable, Renderable, Scrollable {
     @Override
     public void addSprite (Sprite spr, int x, int y) {
         SpriteBox currentBox = getBox(x, y);
+        addToBox(spr, currentBox);
+    }
+
+    public void addSpriteToBox(int xcoor, int ycoor, Sprite sprite){
+        addToBox(sprite,getBoxFromCoor(xcoor,ycoor));
+    }
+
+    /**
+     * @param spr
+     * @param currentBox
+     */
+    private void addToBox (Sprite spr, SpriteBox currentBox) {
         if (checkAvailable(currentBox, spr.getWidth(), spr.getHeight())) {
             currentBox.addSprite(spr);
             myPaintableBoxes.add(currentBox);
@@ -84,8 +96,12 @@ public class LEGrid implements Editable, Renderable, Scrollable {
         return lev;
     }
     
+    public SpriteBox getBoxFromCoor(int xcoor, int ycoor){
+        return myGrid[xcoor][ycoor];
+    }
+    
     public Sprite getSprite(int xcoor, int ycoor){
-        return myGrid[xcoor][ycoor].getSprite();
+        return getBoxFromCoor(xcoor,ycoor).getSprite();
     }
     
     public Dimension getSize(){

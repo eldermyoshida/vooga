@@ -11,10 +11,12 @@ import vooga.scroller.util.Sprite;
 
 public class LevelWriter {
 
+    private static final String NEW_LINE = System.getProperty("line.separator");
     private static final String BEGIN_LEVEL = "/level";
     private static final String BEGIN_KEY = "/key";
     private static final String KEY_CREATOR = "abcdefghijklmnopqrstuvwxyz" +
     		"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()";
+    private static final char SPACE = ' ';
     private int myKeyCounter;
     private Map<String, Character> myMap;
     private FileWriter myFileWriter;
@@ -39,11 +41,11 @@ public class LevelWriter {
         try {
             myFileWriter.write(BEGIN_LEVEL);
             for (int i = 0; i < myGrid.getSize().height; i++) {
-                myFileWriter.write(System.getProperty("line.separator"));
+                myFileWriter.write(NEW_LINE);
                 for (int j = 0; j < myGrid.getSize().width; j++) {
                     Sprite s = myGrid.getSprite(j, i);
                     if (s == null) {
-                        myFileWriter.write(' ');
+                        myFileWriter.write(SPACE);
                     }
                     else {
                         if(!myMap.containsKey(s.getClass().getCanonicalName())){
@@ -54,7 +56,7 @@ public class LevelWriter {
                     }
                 }
             }
-            myFileWriter.write(System.getProperty("line.separator"));
+            myFileWriter.write(NEW_LINE);
         }
         catch (IOException e) {
             // TODO Auto-generated catch block
@@ -68,7 +70,7 @@ public class LevelWriter {
         try{
             myFileWriter.write(BEGIN_KEY);
             for(String key:keySet){
-                myFileWriter.write(System.getProperty("line.separator"));
+                myFileWriter.write(NEW_LINE);
                 myFileWriter.write(""+myMap.get(key)+'='+key);
             }
             myFileWriter.close();
