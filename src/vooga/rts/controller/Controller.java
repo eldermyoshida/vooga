@@ -1,16 +1,15 @@
 package vooga.rts.controller;
 
-import vooga.rts.input.ActionObject;
 
 /**
  * The controller will be responsible for reading the input, and applying it to 
- * all the sprites under its command
+ * its manager, which then changes its state accordingly. 
  * 
  * @author Challen Herzberg-Brovold
  *
  */
 public interface Controller {
     
-    public void sendCommand();
+    public void sendCommand(Command command);
     
 }
