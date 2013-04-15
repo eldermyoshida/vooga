@@ -144,10 +144,10 @@ public class GameController extends AbstractController {
 		System.out.println("Game is setup");
 
 		Factory factory = new Factory();
-		UpgradeTree resultTree = factory.loadXMLFile("/src/vooga/rts/gamedesign/factories/XML_Sample");
+		UpgradeTree resultTree = factory.loadXMLFile("/Users/Sherry/Desktop/Academics/Compsci 308/Final VOOGA/GameDesign//src/vooga/rts/gamedesign/factories/XML_Sample");
 		
 		upgradeBuilding = new UpgradeBuilding(new Pixmap(ResourceManager.instance().loadFile("images/barracks.jpeg")), 
-				new Location(500,500), new Dimension(150,150), null, 1,300);
+				new Location(700,700), new Dimension(150,150), null, 1,300);
 		
 		Player p1 = new HumanPlayer();
 		Pixmap p = new Pixmap(ResourceManager.instance().loadFile("images/soldier.png"));

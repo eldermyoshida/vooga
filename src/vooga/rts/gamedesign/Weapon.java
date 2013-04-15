@@ -57,6 +57,7 @@ public class Weapon {
      */
     public void fire (InteractiveEntity toBeShot) {
         if(interval.allowAction() && !toBeShot.isDead()){
+        	System.out.println("is shooting");
             Projectile fire = new Projectile(myProjectile, myCenter);
             fire.setEnemy(toBeShot);
             fire.move(toBeShot.getCenter());
