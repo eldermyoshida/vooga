@@ -4,10 +4,10 @@
         <enviroObject enviroId="1" objectName="platform" xCoord="50" yCoord="50">
         	<state>
         		<frame image="brick1.gif">
-                	<hitbox cornerX="10" cornerY="3" rectX="28" rectY="78"/>
+                	<hitbox cornerX="0" cornerY="0" rectX="70" rectY="20"/>
             	</frame>
             	<frame image="paddle.gif">
-                	<hitbox cornerX="10" cornerY="3" rectX="28" rectY="78"/>
+                	<hitbox cornerX="0" cornerY="0" rectX="60" rectY="12"/>
             	</frame>
         	</state>
         </enviroObject>
