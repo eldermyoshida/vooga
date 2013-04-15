@@ -1,9 +1,11 @@
 package arcade.model;
 
+import games.example.Example;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import arcade.games.ArcadeInteraction;
+import arcade.games.Game;
 import arcade.games.GameData;
 import arcade.games.GameInfo;
 import arcade.games.HighScores;
@@ -70,6 +72,8 @@ public class Model implements ArcadeInteraction {
     public void playGame(GameInfo gameinfo) {
         System.out.println(gameinfo.getName());
         //TODO: instantiate the game.
+        Game game = new Example(this);
+        game.run();
     }
 
     /**
