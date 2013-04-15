@@ -13,13 +13,36 @@ import vooga.towerdefense.gameElements.GameElement;
  */
 public class BuildMode extends ControlMode {
 
+    /**
+     * item that the user wants to build.
+     */
     private GameElement myItemToBuild;
     
+    /**
+     * sets the item the user is trying to build.
+     * @param item, gotten from shop
+     */
     public void setItemToBuild(GameElement item) {
         myItemToBuild = item;
     }
     
+    /**
+     * handles a click on the map screen in Build mode.
+     * @param p
+     * @param controller
+     */
+    @Override
     public void handleMapClick (Point p, Controller controller) {
        controller.fixItemOnMap(myItemToBuild, p);
+    }
+
+    /**
+     * handles mouse dragging on the map screen in Build mode.
+     * @param p
+     * @param controller
+     */
+    @Override
+    public void handleMapMouseDrag (Point p, Controller controller) {
+        controller.paintGhostImage(p, myItemToBuild.getPixmap());
     }
 }

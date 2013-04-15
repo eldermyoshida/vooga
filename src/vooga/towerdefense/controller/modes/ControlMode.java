@@ -9,8 +9,21 @@ import vooga.towerdefense.controller.Controller;
  * view.
  * 
  * @author Jimmy Longley
+ * @author Angelica Schwartz
  */
 public abstract class ControlMode {
 
+    /**
+     * handles a click on the map screen.
+     * @param p
+     * @param controller
+     */
     public abstract void handleMapClick (Point p, Controller controller);
+    
+    /**
+     * handles mouse dragging on the map screen.
+     * @param p
+     * @param controller
+     */
+    public abstract void handleMapMouseDrag (Point p, Controller controller);
 }
