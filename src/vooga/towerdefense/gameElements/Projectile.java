@@ -50,4 +50,10 @@ public class Projectile extends GameElement implements Attacker {
 
     }
 
+    @Override
+    public Location getAttackCenter () {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }

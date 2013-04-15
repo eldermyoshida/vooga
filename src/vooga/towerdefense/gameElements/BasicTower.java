@@ -3,7 +3,6 @@ package vooga.towerdefense.gameElements;
 import java.awt.Dimension;
 import java.util.List;
 import vooga.towerdefense.action.AbstractAction;
-import vooga.towerdefense.action.InfoBridge;
 import vooga.towerdefense.attributes.Attacker;
 import vooga.towerdefense.attributes.Attributes;
 import vooga.towerdefense.attributes.Targetable;
@@ -57,6 +56,12 @@ public class BasicTower extends GameElement implements Attacker {
     public void addTarget () {
         // TODO Auto-generated method stub
 
+    }
+
+    @Override
+    public Location getAttackCenter () {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

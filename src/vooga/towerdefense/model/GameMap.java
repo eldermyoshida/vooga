@@ -29,6 +29,7 @@ public class GameMap {
         myDimension = new Dimension(width, height);
         initializeGrid();
         myDestination = destination;
+        myGameElements = new ArrayList<GameElement>();
     }
 
     private void initializeGrid () {
