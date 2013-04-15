@@ -44,7 +44,7 @@ public class Barracks extends ProductionBuilding {
                 Location ieLoc = new Location(getProducedFrom());                
                 ie.setCenter(ieLoc.x, ieLoc.y);
                 //these below are for testing purposes 
-                //ie.move(new Location(300,400));
+                ie.move(new Location(300,400));
                 //this part below will not be in actual implementation as I will notify player/unit manager that a new unit should be added to the player
                 myBabies.add(ie);
             }
@@ -61,7 +61,7 @@ public class Barracks extends ProductionBuilding {
     @Override
     public void update(double elapsedTime) {
         super.update(elapsedTime);
-        PRODUCE_TIME -= 1/elapsedTime;
+        PRODUCE_TIME -= 1;
         if(PRODUCE_TIME <= 0) { 
             try {
 				getActions().get(0).apply(2); //2: for testing. make Barrack create new Units of different team.
