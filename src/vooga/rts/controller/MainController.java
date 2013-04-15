@@ -8,11 +8,8 @@ import java.util.Observable;
 import java.util.Observer;
 import javax.swing.Timer;
 import vooga.rts.Game;
-import vooga.rts.gui.Menu;
 import vooga.rts.gui.Window;
-import vooga.rts.gui.menus.MainMenu;
 import vooga.rts.input.Input;
-import vooga.rts.resourcemanager.ResourceManager;
 import vooga.rts.util.FrameCounter;
 
 
@@ -41,20 +38,22 @@ public class MainController extends AbstractController implements Observer {
 
         myWindow = new Window();
         
-        myInputController = new InputController(this);
-        myInput = new Input(DEFAULT_INPUT_LOCATION, myWindow.getCanvas());
-        myInput.addListenerTo(myInputController);
-
-        myLoadingController = new LoadingController();
-        myLoadingController.addObserver(this);
-
-        myMenuController = new MenuController();
-        myMenuController.addObserver(this);        
-        
-        setActiveController(myLoadingController);
-
         myGameController = new GameController();
         myGameController.addObserver(this);
+        
+        myLoadingController = new LoadingController();
+        myLoadingController.addObserver(this);
+        
+        myMenuController = new MenuController();
+        myMenuController.addObserver(this);  
+        
+        myInputController = new InputController(this);
+        myInput = new Input(DEFAULT_INPUT_LOCATION, myWindow.getCanvas());
+        myInput.addListenerTo(myInputController);  
+        
+        myWindow.setFullscreen(true);
+        
+        setActiveController(myLoadingController);       
 
         myFrames = new FrameCounter();
 

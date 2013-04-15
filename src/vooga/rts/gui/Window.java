@@ -5,7 +5,6 @@ import java.awt.DisplayMode;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.lang.reflect.InvocationTargetException;
-import java.security.spec.MGF1ParameterSpec;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
@@ -33,8 +32,7 @@ public class Window {
         myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         myFrame.setUndecorated(true);
         myFrame.setIgnoreRepaint(true);
-        setFullscreen(true);
-        
+
         try {
             SwingUtilities.invokeAndWait(new Runnable() {
                 @Override
@@ -55,8 +53,6 @@ public class Window {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        
-        
     }
 
     public void setFullscreen (boolean fullscreen) {
