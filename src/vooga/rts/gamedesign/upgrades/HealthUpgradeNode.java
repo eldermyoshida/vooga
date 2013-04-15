@@ -13,7 +13,6 @@ public class HealthUpgradeNode extends UpgradeNode {
 		super(upgradeTree, id, upgradeType, upgradeObject, upgradeValue);
 	}
 	
-	
 	/**
 	 * Applies the health upgrade by the method that updates health.
 	 */

@@ -22,6 +22,7 @@ import org.xml.sax.SAXException;
 import vooga.rts.gamedesign.Weapon;
 import vooga.rts.gamedesign.action.Action;
 import vooga.rts.gamedesign.sprite.InteractiveEntity;
+import vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings.UpgradeBuilding;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Soldier;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Unit;
 import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;
@@ -149,20 +150,24 @@ public class Factory {
 		Factory factory = new Factory();
 		UpgradeTree resultTree = factory.loadXMLFile("/Users/Sherry/Desktop/Academics/Compsci 308/Final VOOGA/GameDesign/src/vooga/rts/gamedesign/factories/XML_Sample");
 		
-		//creates two Units - adds upgrade Actions to the Units
+		//creates an UpgradeBuilding
+		UpgradeBuilding upgradeBuilding = new UpgradeBuilding();
+		
+		//creates two Units - adds upgrade Actions to the UpgradeBuilding
 		//the first Unit needs to specify the UpgradeTree all Units will be using.
 		InteractiveEntity oneUnit = new Unit(resultTree);
+		upgradeBuilding.addUpgradeActions(resultTree);
 		InteractiveEntity twoUnit = new Unit();
 		oneUnit.setAttackStrategy(new CanAttack());
 		twoUnit.setAttackStrategy(new CanAttack());
-		for (Action a: oneUnit.getActions()) {
+		for (Action a: upgradeBuilding.getActions()) {
 			System.out.println("Action type: " + a.getName());
 		}
 		System.out.println(oneUnit.getMaxHealth());
 		System.out.println(twoUnit.getMaxHealth());
 		
 		//finds Action  - 
-		Action WorstArmorAction = oneUnit.findAction("Boost1");
+		Action WorstArmorAction = upgradeBuilding.findAction("Boost1");
 		WorstArmorAction.apply();
 		System.out.println(oneUnit.getMaxHealth());
 		System.out.println(twoUnit.getMaxHealth());

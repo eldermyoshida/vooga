@@ -76,7 +76,6 @@ public class Unit extends InteractiveEntity {
         myOccupyStrategy = new CannotOccupy();
         if (upgradeTree != null) {
         	myUpgradeTree = upgradeTree;
-        	addUpgradeActions(this);
         }
         myUpgradeTree.addUser(this);
     }
@@ -84,21 +83,6 @@ public class Unit extends InteractiveEntity {
     @Override
     public UpgradeTree getUpgradeTree() {
     	return myUpgradeTree;
-    }
-    
-    /**
-     * Adds the list of available upgrades into the list of available actions.
-     */
-    private void addUpgradeActions(final Unit unit){
-        List<UpgradeNode> currentUpgrades = myUpgradeTree.getCurrentUpgrades();
-    	for (final UpgradeNode u: currentUpgrades) {
-    		 getActions().add(new Action(u.getUpgradeType(), null, "An upgrade action for soldier"){
-    	            @Override
-    	            public void apply() throws IllegalArgumentException, SecurityException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException{
-    	                u.apply();
-    	            }
-    	        });
-    	}
     }
     
     /**
