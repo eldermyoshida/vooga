@@ -30,6 +30,7 @@ public class Barracks extends ProductionBuilding {
         myBabies = new ArrayList<InteractiveEntity>();
         initProducables();
         addProductionActions(this);
+        setRallyPoint(new Location3D(300,400,0));
     }
     /*
      * FOR TESTING: CALLED IN CONSTRUCTOR TO INITIALIZE PRODUCABLE LIST 
@@ -46,7 +47,8 @@ public class Barracks extends ProductionBuilding {
                 Location3D ieLoc = new Location3D(getProducedFrom());                
                 ie.setWorldLocation(ieLoc.getX(), ieLoc.getY(), 0);
                 //these below are for testing purposes 
-                ie.move(new Location3D(300,400,0));
+                System.err.println("location to move " + getRallyPoint().to2D());
+                ie.move(getRallyPoint());
                 //this part below will not be in actual implementation as I will notify player/unit manager that a new unit should be added to the player
                 myBabies.add(ie);
             }

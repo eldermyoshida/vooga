@@ -32,7 +32,7 @@ public abstract class GameSprite extends Sprite {
 		super(image, new Location());
 		mySize = size;
 		myOriginalSize = size;
-		myWorldLocation = center;
+		myWorldLocation = new Location3D(center);
 		resetBounds();
 	}
 
@@ -154,7 +154,7 @@ public abstract class GameSprite extends Sprite {
 	 */
 	public void setWorldBounds() {
 		myWorldBounds = new Rectangle((int) getLeft(), (int) getUp(),
-				(int) getWidth(), (int) getHeight());
+				getSize().width, getSize().height);
 
 	}
 
