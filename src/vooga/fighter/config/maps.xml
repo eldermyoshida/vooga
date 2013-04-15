@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <maps>
-    <map mapID="1" mapName="BlueBackground" enviroBackground="BlueBackground.jpeg">
+    <map mapID="1" mapName="BlueBackground" enviroBackground="fighter/images/BlueBackground.jpeg">
     	<startingPos xCoord="140" yCoord="300"/>
     	<startingPos xCoord="200" yCoord="300"/>
         <enviroObject enviroId="1" objectName="platform" xCoord="200" yCoord="500">

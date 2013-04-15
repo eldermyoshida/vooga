@@ -6,6 +6,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import util.Pixmap;
+import vooga.fighter.objects.utils.State;
 import vooga.fighter.objects.utils.UpdatableLocation;
 
 
@@ -39,6 +41,9 @@ public class MapLoader extends ObjectLoader {
 			Element node = (Element) mapNodes.item(i);
 			int id = Integer.parseInt(getAttributeValue(node, "mapID"));
 			if (id == mapId) {
+				State mapState = new State(myMap, 1);
+				mapState.populateImage(new Pixmap(getAttributeValue(node, "mapID")), 0);
+				myMap.addState("background", mapState);
 				NodeList enviroObjectNodes = node.getElementsByTagName("enviroObject");
 				addEnviroObjects(enviroObjectNodes);
 				NodeList startingPosNodes= node.getElementsByTagName("startingPos");
