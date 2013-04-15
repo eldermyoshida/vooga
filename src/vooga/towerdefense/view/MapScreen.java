@@ -119,6 +119,7 @@ public class MapScreen extends JPanel {
             }
             @Override
             public void mouseMoved (MouseEvent e) {
+                //TODO: remove these comments
                 // myController.handleMouseMovement(e.getPoint());
                 //mouseLocation = e.getPoint();
                 //update();
