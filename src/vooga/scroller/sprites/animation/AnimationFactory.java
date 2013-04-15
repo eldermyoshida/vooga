@@ -3,6 +3,7 @@ package vooga.scroller.sprites.animation;
 import java.util.ArrayList;
 import java.util.List;
 import vooga.scroller.sprites.test_sprites.mario.animation_states.LeftWalk;
+import vooga.scroller.sprites.test_sprites.mario.animation_states.RightStand;
 import vooga.scroller.sprites.test_sprites.mario.animation_states.RightWalk;
 import vooga.scroller.sprites.test_sprites.mario.animation_states.Stand;
 import vooga.scroller.util.Pixmap;
@@ -28,17 +29,14 @@ public class AnimationFactory {
         AnimationState stand = new Stand();
         AnimationState right = new RightWalk();
         AnimationState left = new LeftWalk();
+        AnimationState standRight = new RightStand();
         
         res.add(stand);
         res.add(right);
         res.add(left);
+        res.add(standRight);
         
         return res;
-    }
-
-    public Pixmap getDefaultImage () {
-        // TODO: see above. need better way (reflection)
-        return new Pixmap("mario_stand.png");
     }
 
 }

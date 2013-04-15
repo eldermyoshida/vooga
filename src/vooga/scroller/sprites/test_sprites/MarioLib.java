@@ -29,6 +29,7 @@ public class MarioLib implements ISpriteLibrary {
     public static class Coin extends StaticEntity {
 
         private static final String DEFAULT_IMG = "coin.gif";
+        private static final int DEFAULT_COIN_VALUE = 900;
 
         public Coin () {
             this(DEFAULT_LOC);
@@ -40,6 +41,16 @@ public class MarioLib implements ISpriteLibrary {
 
         public void print () {
             System.out.println("Coin");
+        }
+
+        /**
+         * Gives a value of the coin
+         * 
+         * @return an integer that represents the 
+         */
+        public int getValue () {
+            
+            return DEFAULT_COIN_VALUE;
         }
     }
     

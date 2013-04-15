@@ -6,7 +6,6 @@ import java.awt.Image;
 import java.awt.geom.Point2D;
 import java.util.List;
 import vooga.scroller.util.ISpriteView;
-import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.Sprite;
 
 /**
@@ -20,7 +19,7 @@ public class Animation implements ISpriteView {
 
     private List<AnimationState> myAnimations;
     private Sprite mySprite;
-    private Pixmap myDefaultStateView;
+    private ISpriteView myDefaultStateView;
 
     /**
      * Creates a new animation that acts on a sprite.
@@ -39,7 +38,7 @@ public class Animation implements ISpriteView {
     private void initAnimations () {
         AnimationFactory af = new AnimationFactory();
         myAnimations = af.generateAnimations();
-        myDefaultStateView = af.getDefaultImage();
+        myDefaultStateView = mySprite.getView();
     }
 
     /**
@@ -47,7 +46,7 @@ public class Animation implements ISpriteView {
      * 
      * @return
      */
-    private Pixmap getStateView() {
+    private ISpriteView getStateView() {
         for (AnimationState as: myAnimations) {
             if (as.validAnimation(mySprite)) {
                 return as.getImage();
@@ -56,8 +55,7 @@ public class Animation implements ISpriteView {
         return this.getDefaultStateView();
     }
     
-    private Pixmap getDefaultStateView () {
-        // TODO Auto-generated method stub
+    private ISpriteView getDefaultStateView () {
         return myDefaultStateView;
     }
 
@@ -72,23 +70,19 @@ public class Animation implements ISpriteView {
 
     @Override
     public void paint (Graphics2D pen, Point2D center, Dimension size, double angle) {
-        Pixmap currView = getStateView();
-//        setImg(image);
+        ISpriteView currView = getStateView();
         currView.paint(pen, center, size, angle);
         
     }
 
     @Override
     public ISpriteView reset () {
-        // TODO Need to think a bit more about this.
         return myDefaultStateView.reset();
     }
 
     @Override
     public void paint (Graphics2D pen, Point2D myCenter, Dimension mySize) {
-        // TODO Auto-generated method stub
-        Pixmap currView = getStateView();
-//      setImg(image);
+      ISpriteView currView = getStateView();
       currView.paint(pen, myCenter, mySize);
     }
 }
