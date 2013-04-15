@@ -19,7 +19,8 @@ public class GameMap {
     private Tile[][] myGrid;
     private Location myDestination;
     private Dimension myDimension;
-
+    private Path myPath;
+    
     public GameMap (int width, int height, Location destination) {
         myUnits = new ArrayList<Unit>();
         myDimension = new Dimension(width, height);
