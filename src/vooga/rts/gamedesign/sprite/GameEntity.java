@@ -129,7 +129,6 @@ public class GameEntity extends GameSprite {
      * Possible design choice error.
      */
     public void move (Location3D loc) {
-    	System.err.println("Ooga");
     	myEntityState.setMovementState(MovementState.MOVING);
         myGoal = new Location3D(loc);
         Vector v = getWorldLocation().difference(myGoal.to2D());

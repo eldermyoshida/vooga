@@ -47,7 +47,6 @@ public class Barracks extends ProductionBuilding {
                 Location3D ieLoc = new Location3D(getProducedFrom());                
                 ie.setWorldLocation(ieLoc.getX(), ieLoc.getY(), 0);
                 //these below are for testing purposes 
-                System.err.println("location to move " + getRallyPoint().to2D());
                 ie.move(getRallyPoint());
                 //this part below will not be in actual implementation as I will notify player/unit manager that a new unit should be added to the player
                 myBabies.add(ie);

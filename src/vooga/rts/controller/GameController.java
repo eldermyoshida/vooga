@@ -231,7 +231,6 @@ public class GameController extends AbstractController {
 			Unit b = new Soldier(p, new Location3D(300, 150,0), s, soun, 1, 300);
 			System.out.println("Player ID for b: " + b.getPlayerID());
 
-			System.out.println("Game is setup 1");
 			Projectile proj2 =
 					new Projectile(
 							new Pixmap(ResourceManager.instance().loadFile("images/bullet.png")),
