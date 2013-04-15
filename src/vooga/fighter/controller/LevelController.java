@@ -121,6 +121,7 @@ public class LevelController extends Controller {
     }
     @Override
     public void notifyEndCondition () {
+        System.out.println("level controller notify end is working");
         myGameInfo.setMapName(2);
         myGameInfo.getCharacters().clear();
         myManager.notifyEndCondition("GameOver");
