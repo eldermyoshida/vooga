@@ -16,10 +16,10 @@ import vooga.fighter.objects.utils.UpdatableLocation;
  */
 
 public class MapLoader extends ObjectLoader {
-	
+
 
 	private static final String CHARACTER_PATH = "src/vooga/fighter/config/maps.xml";
-	
+
 	private MapObject myMap;
 
 	public MapLoader (int mapId, MapObject map) {
@@ -37,23 +37,21 @@ public class MapLoader extends ObjectLoader {
 
 		for (int i = 0; i < mapNodes.getLength(); i++) {
 			Element node = (Element) mapNodes.item(i);
-			if(node.getAttributes().getNamedItem("enviroId") != null) {
-				int id = Integer.parseInt(getAttributeValue(node, "enviroId"));
-				if (id == mapId) {
-					NodeList enviroObjectNodes = node.getElementsByTagName("enviroObject");
-					addEnviroObjects(enviroObjectNodes);
-					NodeList startingPosNodes= node.getElementsByTagName("startingPos");
-					addStartingPositions(startingPosNodes);
-				}
+			int id = Integer.parseInt(getAttributeValue(node, "mapID"));
+			if (id == mapId) {
+				NodeList enviroObjectNodes = node.getElementsByTagName("enviroObject");
+				addEnviroObjects(enviroObjectNodes);
+				NodeList startingPosNodes= node.getElementsByTagName("startingPos");
+				addStartingPositions(startingPosNodes);
 			}
 		}
 	}
-	
+
 	/**
 	 * 
 	 * Adds starting position for the characters
 	 */
-	
+
 	private void addStartingPositions(NodeList startingPosNodes) {
 		for (int i=0; i<startingPosNodes.getLength(); i++){
 			Node startingPosition= startingPosNodes.item(i);
@@ -61,7 +59,7 @@ public class MapLoader extends ObjectLoader {
 			int yCoord= Integer.parseInt(getAttributeValue(startingPosition, "yCoord"));
 			myMap.addStartPosition(new UpdatableLocation(xCoord,yCoord));
 		}
-		
+
 	}
 
 	/**
@@ -70,7 +68,7 @@ public class MapLoader extends ObjectLoader {
 	private void addEnviroObjects(NodeList enviroObjectNodes) {
 		for (int i = 0; i < enviroObjectNodes.getLength(); i++) {
 			Node environmentObject = enviroObjectNodes.item(i);
-			String imagePath= getAttributeValue(environmentObject, "image");
+			//String imagePath= getAttributeValue(environmentObject, "image");
 			int xCoord= Integer.parseInt(getAttributeValue(environmentObject, "xCoord"));
 			int yCoord= Integer.parseInt(getAttributeValue(environmentObject, "yCoord"));
 			EnvironmentObject toAdd= new EnvironmentObject(new UpdatableLocation(xCoord, yCoord));
@@ -78,6 +76,6 @@ public class MapLoader extends ObjectLoader {
 			addStates(stateNodes, toAdd);
 		}
 	}
-	
+
 
 }

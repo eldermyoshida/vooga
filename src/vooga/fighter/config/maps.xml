@@ -4,12 +4,9 @@
     	<startingPos xCoord="140" yCoord="300"/>
     	<startingPos xCoord="200" yCoord="300"/>
         <enviroObject enviroId="1" objectName="platform" xCoord="200" yCoord="500">
-        	<state>
-        		<frame image="brick1.gif">
+        	<state stateName = "brick">
+        		<frame image="fighter/images/brick1.gif">
                 	<hitbox cornerX="0" cornerY="0" rectX="70" rectY="20"/>
-            	</frame>
-            	<frame image="paddle.gif">
-                	<hitbox cornerX="0" cornerY="0" rectX="60" rectY="12"/>
             	</frame>
         	</state>
         </enviroObject>
