@@ -66,7 +66,7 @@ public class MainView extends JFrame {
 	 */
 	private void createViewPanel () {
 		myViewPanelList = new JPanel[3];
-		myViewPanelList[0] = new GameCenterPanel(this);
+		myViewPanelList[0] = new GameCenterPanel(this, myModel);
 		myViewPanelList[1] = new SocialCenterPanel();
 		myViewPanelList[2] = new StorePanel();
 

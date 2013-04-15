@@ -54,10 +54,20 @@ public abstract class Menu extends Observable implements IGameLoop, Observer{
         b.addObserver(this);
     }
     
-    public void handleClick(int x, int y) {
+    public void handleMouseDown(int x, int y) {
         for (Button b: myButtons) {
-            if (b.checkClick(x, y)) {
-                b.update(0);
+            if (b.checkWithinBounds(x, y)) {
+                b.processClick();
+            }
+        }
+    }
+    
+    public void handleMouseMovement(int x, int y) {
+        for (Button b: myButtons) {
+            if (b.checkWithinBounds(x, y)) {
+                b.setFocused(true);
+            } else {
+                b.setFocused(false);
             }
         }
     }
