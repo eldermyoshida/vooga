@@ -19,9 +19,8 @@ public class EnvironmentObject extends GameObject {
      */
     private UpdatableLocation myStartingLocation;
 
-    public EnvironmentObject(UpdatableLocation startingLocation) {
+    public EnvironmentObject() {
         super();
-        myStartingLocation = startingLocation;
         // setLoader(new EnvironmentObjectLoader(objectId));
     }
 

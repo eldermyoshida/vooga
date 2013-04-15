@@ -48,8 +48,10 @@ public class MapLoader extends ObjectLoader {
 				mapState.populateImage(new Pixmap(getAttributeValue(node, "enviroBackground")), 0);
 				Node mapSize = node.getElementsByTagName("size").item(0);
 				mapState.populateSize(new Dimension(Integer.parseInt(getAttributeValue(mapSize, "xSize")),
-						Integer.parseInt(getAttributeValue(mapSize, "ySize"))), 0);;
+						Integer.parseInt(getAttributeValue(mapSize, "ySize"))), 0);
 				myMap.addState("background", mapState);
+				myMap.setLocation(new UpdatableLocation(Integer.parseInt(getAttributeValue(mapSize, "xSize"))/2,
+						Integer.parseInt(getAttributeValue(mapSize, "ySize"))/2));
 				NodeList enviroObjectNodes = node.getElementsByTagName("enviroObject");
 				addEnviroObjects(enviroObjectNodes);
 				NodeList startingPosNodes= node.getElementsByTagName("startingPos");
@@ -82,7 +84,8 @@ public class MapLoader extends ObjectLoader {
 			//String imagePath= getAttributeValue(environmentObject, "image");
 			int xCoord= Integer.parseInt(getAttributeValue(environmentObject, "xCoord"));
 			int yCoord= Integer.parseInt(getAttributeValue(environmentObject, "yCoord"));
-			EnvironmentObject toAdd= new EnvironmentObject(new UpdatableLocation(xCoord, yCoord));
+			EnvironmentObject toAdd= new EnvironmentObject();
+			toAdd.setLocation(new UpdatableLocation(xCoord, yCoord));
 			NodeList stateNodes = ((Element) environmentObject).getElementsByTagName("state");
 			addStates(stateNodes, toAdd);
 			toAdd.setCurrentState("brick");
