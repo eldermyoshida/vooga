@@ -7,7 +7,7 @@ import vooga.rts.networking.communications.SystemMessage;
 import vooga.rts.networking.factory.Command;
 import vooga.rts.networking.factory.CommandFactory;
 
-public class LobbyContainer implements ICommandable, IMessageReceiver {
+public class LobbyContainer implements IThreadContainer, IMessageReceiver {
     
     private Map<Integer, ConnectionThread> myConnectionThreads = new HashMap<Integer, ConnectionThread>();
     private CommandFactory myFactory;

@@ -17,7 +17,7 @@ import vooga.rts.networking.communications.Message;
  * @author David Winegar
  * 
  */
-public class Client implements IClient {
+public class Client extends Thread implements IClient {
     private static final int PORT = 2233;
     private static final String HOST = "localhost";
     private ObjectInputStream myInput;
@@ -25,17 +25,33 @@ public class Client implements IClient {
     private Socket mySocket;
     private String myHost = HOST;
     private int myPort = PORT;
+    private IMessageReceiver myReceiver;
 
     /**
      * Creates the sockets and streams for this client
      */
-    public void start () {
+    public void run () {
         try {
             mySocket = new Socket(myHost, myPort);
             myInput = new ObjectInputStream(mySocket.getInputStream());
             myOutput = new ObjectOutputStream(mySocket.getOutputStream());
         }
         catch (UnknownHostException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
+        try {
+            Object object;
+            if ((object = myInput.readObject()) != null && object instanceof Message) { 
+                myReceiver.getMessage((Message) object); 
+            }
+        }
+        catch (ClassNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
@@ -56,19 +72,7 @@ public class Client implements IClient {
     }
 
     @Override
-    public Message getData () {
-        try {
-            Object object;
-            if ((object = myInput.readObject()) != null && object instanceof Message) { return (Message) object; }
-        }
-        catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return null;
+    public void setMessageReceiver (IMessageReceiver messageReceiver) {
+        myReceiver = messageReceiver;
     }
 }
