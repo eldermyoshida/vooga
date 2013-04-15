@@ -48,11 +48,42 @@ public class Factory {
 		myDecoders = new HashMap<String, Decoder>();
 		loadDecoder(DECODER_MATCHING_FILE);
 		mySprites = new HashMap<String, Sprite>();
+		myAttackStrategies = new HashMap<String, AttackStrategy>();
+		myGatherStrategies = new HashMap<String, GatherStrategy>();
+		myOccupyStrategies = new HashMap<String, OccupyStrategy>();
 	}
 	
 	
-	public Map<String, Sprite> getSpriteMap(){
-		return mySprites;
+	public void put(String name, Sprite value){
+		mySprites.put(name, value);
+	}
+	
+	public void put(String key, AttackStrategy a){
+		myAttackStrategies.put(key,a);
+	}
+	
+	public void put(String key, GatherStrategy g){
+		myGatherStrategies.put(key,g);
+	}
+	
+	public void put(String key, OccupyStrategy o){
+		myOccupyStrategies.put(key,o);
+	}
+	
+	public AttackStrategy getAttackStrategy(String key){
+		return myAttackStrategies.get(key);
+	}
+	
+	public GatherStrategy getGatherStrategy(String key){
+		return myGatherStrategies.get(key);
+	}
+	
+	public OccupyStrategy getOccupyStrategy(String key){
+		return myOccupyStrategies.get(key);
+	}
+	
+	public Sprite getSprite(String key){
+		return mySprites.get(key);
 	}
 	
 	/**

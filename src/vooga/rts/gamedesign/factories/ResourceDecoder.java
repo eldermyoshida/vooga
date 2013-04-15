@@ -73,7 +73,7 @@ public class ResourceDecoder extends Decoder{
 																			RESOURCE_SIZE,
 																			0,
 																			health);																	
-			myFactory.getSpriteMap().put(name, res);
+			myFactory.put(name, res);
 		}
 		
 		
