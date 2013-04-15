@@ -107,8 +107,8 @@ public class GameInfo extends UserGameData{
      * 
      * @param myMapName
      */
-    public void setMapName (String myMapName) {
-        myMapName = myMapName;
+    public void setMapName (int mapID) {
+        myMapID = mapID;
     }
 
     /**
