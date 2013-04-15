@@ -6,7 +6,9 @@ import java.util.List;
 import vooga.fighter.controller.ModelDelegate;
 import vooga.fighter.objects.CharacterObject;
 import vooga.fighter.objects.CollisionManager;
+import vooga.fighter.objects.EnvironmentObject;
 import vooga.fighter.objects.GameObject;
+import vooga.fighter.objects.ImageDataObject;
 import vooga.fighter.objects.MapLoader;
 import vooga.fighter.objects.MapObject;
 import vooga.fighter.objects.utils.UpdatableLocation;
@@ -23,12 +25,14 @@ public class LevelMode extends Mode {
     private List<UpdatableLocation> myStartLocations;
     private List<Integer> myCharacterIds;
     private int myMapId;
+    private MapObject myMap;
 
     public LevelMode(ModelDelegate cd, List<Integer> charIds, int mapId) {
         super(cd);
         myStartLocations = new ArrayList<UpdatableLocation>();
         myCharacterIds = charIds;
         myMapId = mapId;
+        myMap = null;
     }
 
     /**
@@ -61,9 +65,15 @@ public class LevelMode extends Mode {
     /**
      * Loads the environment objects for a map using the ObjectLoader.
      */
-    public void loadMap (int mapId) {        
-    	MapLoader myMapLoader= new MapLoader(mapId, new MapObject(mapId));
+    public void loadMap (int mapId) {
+        myMap = new MapObject(mapId);
+    	MapLoader myMapLoader = new MapLoader(mapId, myMap);
     	myMapLoader.load(mapId);
+    	addObject(myMap);
+    	List<EnvironmentObject> mapObjects = myMap.getEnviroObjects();
+    	for (EnvironmentObject object : mapObjects) {
+    	    addObject(object);
+    	}    	
     }
 
     /**
@@ -100,4 +110,15 @@ public class LevelMode extends Mode {
         return false;
     }
 
+    /**
+     * Creates the list of image data objects and returns it.
+     */
+    public List<ImageDataObject> getImageData() {
+        List<ImageDataObject> result = new ArrayList<ImageDataObject>();
+        for (GameObject object : getMyObjects()) {
+            result.add(object.getImageData());
+        }
+        return result;
+    }
+    
 }

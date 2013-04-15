@@ -15,7 +15,7 @@ import java.util.*;
  * 
  */
 
-public class MapObject {
+public class MapObject extends GameObject {
 
     private List<EnvironmentObject> myEnviroObjects;
     private List<UpdatableLocation> myStartingPositions;
@@ -145,15 +145,26 @@ public class MapObject {
      * Updates all environmental objects in the map object.
      */
     public void update() {
-        for (EnvironmentObject object : myEnviroObjects) {
-             object.update();
-        }
         if (myCurrentState != null) {
             myCurrentState.update();
         }
         if (myCurrentSound != null) {
 
         }
+    }
+
+    /**
+     * Nothing for now, will refactor GameObject to remove this method.
+     */
+    public void applyCollideEffect(GameObject o) {
+        
+    }
+
+    /**
+     * Nothing for now, just return false. Never need to remove map.
+     */
+    public boolean shouldBeRemoved() {
+        return false;
     }
     
 }

@@ -1,7 +1,9 @@
 package vooga.fighter.objects;
 
+import util.Pixmap;
 import vooga.fighter.objects.utils.State;
 import vooga.fighter.objects.utils.UpdatableLocation;
+import java.awt.Dimension;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,21 +19,24 @@ public abstract class GameObject {
     private long myInstanceId;
     private ObjectLoader myLoader;
     private UpdatableLocation myCenter;
+    private Dimension mySize;
     private State myCurrentState;
+    private ImageDataObject myImageData;
     private Map<String,State> myStates;
     private Map<String,Integer> myProperties;
 
     /**
-     * Constructs a new GameObject with the given image, center, and size.
-     * 
-     * Note: Dayvid, once the loader is fully functional we will modify this to
-     * only take in an object ID, and we will load the parameters from the XML.
+     * Constructs a new GameObject. All fields are initially empty, and must be
+     * populated with an ObjectLoader.
      */
     public GameObject() {
 //        myInstanceId = System.currentTimeMillis();
         myStates = new HashMap<String,State>();
         myProperties = new HashMap<String,Integer>();
+        mySize = null;
+        myLoader = null;
         myCurrentState = null;
+        myImageData = null;
     }
     
     /**
@@ -128,17 +133,50 @@ public abstract class GameObject {
     }
     
     /**
-     * gets priority of the object
-     */
-    
-    public int getPriority(){
-    	return myCurrentState.getPriority(); 
-    }
-    /**
      * Returns the object loader for this object.
      */
     public ObjectLoader getLoader() {
         return myLoader;
+    }
+    
+    /**
+     * Returns the priority of the object
+     */   
+    public int getPriority(){
+    	return myCurrentState.getPriority(); 
+    }
+    
+    /**
+     * Sets the size for this object.
+     */
+    public void setSize(Dimension size) {
+        mySize = size;
+    }
+    
+    /**
+     * Returns the size for this object.
+     */
+    public Dimension getSize() {
+        return mySize;
+    }
+    
+    /**
+     * Sets image data for this object. Size, Location, and Image must not be
+     * null for this object before calling this method, otherwise, this method
+     * returns null.
+     */
+    public void setImageData() {
+        Pixmap myCurrentImage = myCurrentState.getCurrentImage();
+        if (mySize == null || myCurrentImage == null || myCenter == null) {
+            myImageData = new ImageDataObject(myCurrentImage, myCenter, mySize);
+        }
+    }
+    
+    /**
+     * Returns image data for this object.
+     */
+    public ImageDataObject getImageData() {
+        return myImageData;
     }
     
     /**
