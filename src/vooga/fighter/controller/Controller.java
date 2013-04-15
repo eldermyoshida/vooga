@@ -80,7 +80,6 @@ public abstract class Controller implements ModelDelegate, ViewDataSource {
     }
 
     public void start() {
-        System.out.println("timer started");
         final int stepTime = DEFAULT_DELAY;
         // create a timer to animate the canvas
         Timer time = new Timer(stepTime, 
