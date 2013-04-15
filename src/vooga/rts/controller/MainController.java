@@ -40,7 +40,7 @@ public class MainController extends AbstractController implements Observer {
 
     private Input myInput;
 
-    public MainController () throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ParserConfigurationException, SAXException, IOException {
+    public MainController () {
 
         myWindow = new Window();
         
@@ -101,7 +101,7 @@ public class MainController extends AbstractController implements Observer {
         return myActiveController;
     }
 
-    public void setActiveController (AbstractController myController) throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ParserConfigurationException, SAXException, IOException {
+    public void setActiveController (AbstractController myController) {
         myActiveController = myController;
 
         myGameState = myActiveController.getGameState();
