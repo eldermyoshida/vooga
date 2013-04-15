@@ -35,7 +35,7 @@ public class LevelController extends Controller {
     public LevelController(String name, Canvas frame, ControllerDelegate manager, 
     		GameInfo gameinfo) {
     	super(name, frame, manager, gameinfo);
-    	loadMode();
+    	//loadMode();
     }
 
     
