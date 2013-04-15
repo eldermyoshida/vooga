@@ -3,6 +3,7 @@ package vooga.towerdefense.controller;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import vooga.towerdefense.controller.modes.BuildMode;
 import vooga.towerdefense.controller.modes.ControlMode;
 import vooga.towerdefense.controller.modes.SelectMode;
 import vooga.towerdefense.gameElements.GameElement;
@@ -27,7 +28,7 @@ public class Controller {
 
     //TODO: controller constructor should take waves & map in order to initialize GameModel?
     public Controller () {
-        myModel = new GameModel(this, null, new GameMap(null, 800, 600, null));
+        myModel = new GameModel(this, null, new GameMap(null, 800, 600, null), null);
         myView = new TDView(this);
         myControlMode = new SelectMode();
     }
@@ -59,11 +60,18 @@ public class Controller {
         myView.getTowerInfoScreen().displayInformation(center.toString());
     }
     
+    /**
+     * places the new item onto the map & changes the mode
+     *          back to SelectMode.
+     * @param item
+     * @param p
+     */
     public void fixItemOnMap (GameElement item, Point p) {
         Tile myTile = myModel.getTile(p);
         myTile.setTower(item);
         myModel.getMap().addToMap(item);
         displayMap();
+        myControlMode = new SelectMode();
     }
     
     public void displayMap() {
@@ -80,6 +88,18 @@ public class Controller {
     
     public void paintGhostImage (Point p, Pixmap itemImage) {
         myView.getMapScreen().paintGhostImage(p, itemImage);
+    }
+    
+    /**
+     * changes the mode to BuildMode and gets the item the user
+     *          wants to build from the Shop.
+     * @param itemName
+     */
+    public void prepareToBuild (String itemName) {
+        GameElement itemToBuy = myModel.getShop().getShopItem(itemName);
+        BuildMode myNewMode = new BuildMode();
+        myNewMode.setItemToBuild(itemToBuy);
+        myControlMode = myNewMode;
     }
 
 }
