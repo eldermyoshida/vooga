@@ -2,6 +2,7 @@ package vooga.towerdefense.model;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,7 @@ public class GameMap {
     // a normal computer screen will have
     private final int TILE_SIZE = 25;
 
+    private Image myBackgroundImage;
     private List<Unit> myUnits;
     private List<GameElement> myGameElements;
     private Tile[][] myGrid;
@@ -21,7 +23,8 @@ public class GameMap {
     private Dimension myDimension;
     private Path myPath;
     
-    public GameMap (int width, int height, Location destination) {
+    public GameMap (Image background, int width, int height, Location destination) {
+        myBackgroundImage = background;
         myUnits = new ArrayList<Unit>();
         myDimension = new Dimension(width, height);
         initializeGrid();
@@ -65,6 +68,10 @@ public class GameMap {
     public void spawnUnit (Unit u) {
         myUnits.add(u);
     }
+    
+    public void addToMap (GameElement e) {
+        myGameElements.add(e);
+    }
 
     public void buildTower (int i, int j, GameElement t) {
         myGrid[i][j].setTower(t);
@@ -79,11 +86,11 @@ public class GameMap {
     }
 
     public void paint (Graphics2D pen) {
-//        for (Unit u : myUnits) {
-//            u.paint(pen);
-//        }
-//        for (GameElement e : myGameElements)
-//            e.paint(pen);
-
+        //TODO: draw background image on mapscreen
+        for (Unit u : myUnits) {
+            u.paint(pen);
+        }
+        for (GameElement e : myGameElements)
+            e.paint(pen);
     }
 }
