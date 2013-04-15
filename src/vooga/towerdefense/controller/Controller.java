@@ -75,6 +75,10 @@ public class Controller {
         Tile tile = myModel.getTile(p);
         if (tile.containsElement()) {
             myView.getTowerInfoScreen().displayInformation(tile.getElement().getAttributes().toString());
+            //TODO: implement tower upgrades section
+//            if (tile.getElement() instanceof Tower) {
+//                myView.getTowerInfoScreen().showUpgradeInformation(tile.getElement());
+//            }
         }
     }
 
@@ -118,6 +122,7 @@ public class Controller {
      * @param itemImage is the image
      */
     public void paintGhostImage (Point p, Pixmap itemImage) {
+        displayMap();
         myView.getMapScreen().paintGhostImage(p, itemImage);
     }
 
