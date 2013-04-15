@@ -30,9 +30,9 @@ public class GameInfo extends UserGameData{
      * Test constructor, automatically adds character index and map index to load. 
      */
     public GameInfo (int characterIndex, int mapID) {
-        myCharacters = new ArrayList<Integer>();
-        myScores = new ArrayList<Integer>();
+        this();
         myCharacters.add(characterIndex);
+        System.out.println("character size" + myCharacters.size());
         myMapID = mapID;
     }
 
