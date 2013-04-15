@@ -1,5 +1,6 @@
 package vooga.towerdefense.model;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,8 +19,8 @@ public class Shop {
        myShopItems = new HashMap<String, GameElement> (); 
     }
     
-    public List<GameElement> getShopItems() {
-        return (List<GameElement>) myShopItems.values();
+    public Collection<GameElement> getShopItems() {
+        return myShopItems.values();        
     }
     
     public void addShopItem (String name, GameElement e) {
