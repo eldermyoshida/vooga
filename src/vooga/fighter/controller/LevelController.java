@@ -37,9 +37,12 @@ public class LevelController extends Controller {
     public LevelController(String name, Canvas frame, ControllerDelegate manager, 
     		GameInfo gameinfo) {
     	super(name, frame, manager, gameinfo);
-    	frame.setViewDataSource(this);
+    	//frame.setViewDataSource(this);
     	loadMode();
-    	setGameLoopInfo(new GameLoopInfo((LevelMode) super.getMode()));
+    	GameLoopInfo gameLoopInfo = new GameLoopInfo((LevelMode) super.getMode());
+    	setGameLoopInfo(gameLoopInfo);
+    	frame.setViewDataSource(gameLoopInfo);
+    	
     }
 
     
@@ -78,28 +81,5 @@ public class LevelController extends Controller {
 		
 	}
 
-    @Override
-    public int ObjectNumber () {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    @Override
-    public Paintable getPaintable (int index) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public Location getLocation (int index) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public Dimension getSize (int index) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
+    
 }

@@ -1,13 +1,16 @@
 package vooga.fighter.controller;
 
+import util.Location;
 import vooga.fighter.controller.Controller;
 import vooga.fighter.controller.ControllerDelegate;
 import vooga.fighter.controller.GameInfo;
 import vooga.fighter.controller.LevelController;
 import vooga.fighter.game.*;
 import vooga.fighter.input.Input;
+import vooga.fighter.util.Paintable;
 import vooga.fighter.view.Canvas;
 
+import java.awt.Dimension;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -63,5 +66,7 @@ public class MenuController extends Controller {
     protected Input makeInput () {
         return new Input(INPUT_PATHWAY, super.getView());
     }
+
+    
 
 }
