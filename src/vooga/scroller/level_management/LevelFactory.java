@@ -38,7 +38,52 @@ public class LevelFactory {
 
         // TODO: this will ideally read in levels from file and create instances of each level
         // This works for demos
+                
+        myCurrLevel.addSprite(new MarioLib.Coin( 
+                                new Location(view.getWidth() - 400, view.getHeight() - 250)
+                                ));   
         
+        myCurrLevel.addSprite(new MarioLib.Coin( 
+                                                new Location(view.getWidth() - 400, view.getHeight() - 350)
+                                                ));   
+
+        myCurrLevel.addSprite(new MarioLib.Koopa( 
+                                 new Location(view.getWidth() - 300, view.getHeight() - 275)  
+                                 ));   
+        
+        
+        myCurrLevel.addSprite(new MarioLib.Koopa( 
+                                 new Location(view.getWidth() - 200, view.getHeight() - 350)  
+                                       ));   
+        
+        myCurrLevel.addSprite(new MarioLib.Platform( 
+                                    new Location(500, 600)
+                                    ));
+        myCurrLevel.addSprite(new MarioLib.Platform( 
+                                                    new Location(700, 600)
+                                                    ));
+        
+//        myCurrLevel.addSprite(new MarioLib.Platform( 
+//                                                    new Location(900, 500)
+//                                                    ));
+        myCurrLevel.addSprite(new MarioLib.Platform( 
+                                                    new Location(1100, 500)
+                                                    ));
+        
+        myCurrLevel.addSprite(new MarioLib.Platform(
+                                                    new Location(1300, 400)
+                ));
+        myCurrLevel.addSprite(new MarioLib.Platform(
+                                                    new Location(1500, 400)
+                ));
+
+        myCurrLevel.addSprite(new MarioLib.Plant(
+                                                 new Location(500, 400)
+                                                 ));
+
+        myCurrLevel.addSprite(new MarioLib.MovingPlatformTwo(
+                                                             new Location(900, 500)
+                ));
         myCurrLevel.setBackground(new ImageIcon(getClass().getResource("/vooga/scroller/images/background_small.png")).getImage());
 
         myCurrLevel.addSprite(new MarioLib.LevelTwoBlockOne( 

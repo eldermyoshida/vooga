@@ -122,6 +122,11 @@ public class Level implements Editable, Renderable {
 //            System.out.println(myPlayer.getPaintLocation());
             updateFrames(view);
             myPlayer.update(elapsedTime, bounds);
+            if (myPlayer.getHealth() <= 0) {
+                System.err.println("MARIO HAS DIED!!!!");
+                endGame();
+            }
+            
             for(Sprite s: myFrameOfActionSprites) {
                 s.update(elapsedTime, bounds);
                 if (s.getHealth() <= 0) {
@@ -260,5 +265,9 @@ public class Level implements Editable, Renderable {
     public void addSprite (Sprite s, int x, int y) {
         // TODO Auto-generated method stub
         
+    }
+    
+    private void endGame () {
+        this.getView().win();  //says you win but you really lost
     }
 }

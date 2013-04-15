@@ -154,6 +154,19 @@ public class MarioLib implements ISpriteLibrary {
             System.out.println("Platform");
         }
     }
+    
+    public static class Plant extends StaticEntity {
+        private static final String DEFAULT_IMG = "plant.png";
+        
+        public Plant () {
+            this(DEFAULT_LOC);
+        }
+
+        public Plant (Location center) {
+            super(new Pixmap(DEFAULT_IMG), center, new Dimension(32, 32));
+        }
+
+    }
 
     /**
      * Represents a moving platform that moves in the up/down direction
@@ -212,6 +225,7 @@ public class MarioLib implements ISpriteLibrary {
         }
     }
     
+
     public static class LevelTwoBlockOne extends Platform {
 
         private static final String DEFAULT_IMG = "leveltwoblock1.png";

@@ -7,6 +7,7 @@ import vooga.scroller.level_editor.Level;
 import vooga.scroller.level_management.LevelPortal;
 import vooga.scroller.sprites.test_sprites.MarioLib;
 import vooga.scroller.sprites.test_sprites.MarioLib.Koopa;
+import vooga.scroller.sprites.test_sprites.MarioLib.Plant;
 import vooga.scroller.sprites.test_sprites.mario.Mario;
 import vooga.scroller.util.Direction;
 import vooga.scroller.util.Sprite;
@@ -103,11 +104,6 @@ public class CollisionManager {
         return (sprite1.getLeft() <= sprite2.getRight() && sprite1.getLeft() >= sprite2.getRight() - COLLISION_GRANULARITY);
     }
     
-    private void kill (Sprite sprite) {
-        
-        // TODO Auto-generated method stub
-        
-    }
     
     private void marioAndNonStaticEntityCollision (Mario mario, Sprite sprite) {
   
@@ -179,6 +175,12 @@ public class CollisionManager {
     public void visit (Mario mario, Mario mario2) {
         System.out.println("Mario has just collided with Mario!");
         
+    }
+    
+    public void visit (Mario mario, Plant plant) {
+        System.out.println("Mario hits plant");
+        mario.takeHit(mario.getHealth());  //kill Mario
+        System.out.println(mario.getHealth());
     }
     
     public void visit (Mario mario, MarioLib.Coin coin) {
@@ -344,9 +346,7 @@ public class CollisionManager {
         
     }
      
-    private void endGame () {
-        myLevel.getView().win();        
-    }
+
     
     
 }

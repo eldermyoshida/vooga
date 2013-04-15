@@ -236,4 +236,9 @@ public abstract class Window extends JFrame implements IWindow, IView {
     public void redo () {
         getActiveTab().redo();
     }
+
+    public WorkspaceView initializeWorkspaceView (int id, Renderable r) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }
