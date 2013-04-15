@@ -31,7 +31,7 @@ public class Mario extends Player {
     
     public void hit(NonStaticEntity nse){
         int hit = nse.getHit();
-        super.takeHit(hit);
+        takeHit(hit);
     }
 
     public int getHP () {
@@ -84,6 +84,16 @@ public class Mario extends Player {
 
     private void takeDeathPenalty () {
         this.getStatistic().removeValue(DEATH_PENALTY);
+    }
+
+    public int getHealth () {
+        // TODO Auto-generated method stub
+        return 1;
+    }
+
+    public void takeHit (int health2) {
+        // TODO Auto-generated method stub
+        
     }   
 }
 

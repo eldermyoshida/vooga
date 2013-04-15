@@ -53,7 +53,7 @@ public class Model {
         myScrollingManager = sm;
         myView = view;
         myInputs = new SplashInputs(this, myView);
-        mySplash = new Pixmap("plant.png"); 
+        mySplash = new Pixmap("MARIO SPLASH.png"); 
         
         initPlayer();
         myLevelManager = new LevelManager(myScrollingManager, myView);
@@ -81,7 +81,7 @@ public class Model {
     public void paint (Graphics2D pen) {
         
         if(mySecretary == null) {
-            mySplash.paint(pen, myView.getLocation(), myView.getSize());
+            mySplash.paint(pen, new Location(myView.getSize().width/2,myView.getSize().height/2), myView.getSize());
         }
         else {
             myLevelManager.currentLevel().paint(pen);

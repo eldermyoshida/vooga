@@ -173,23 +173,23 @@ public abstract class Sprite {
     /**
      * Returns the health of the sprite.
      */
-    public int getHealth () {
-        return health;
-    }
-    
-    /**
-     * Reduces the health of sprite by 1.
-     */
-    public void takeHit () {
-        health--;
-    }
-    
-    /**
-     * Reduces the health of the sprite by hit.
-     */
-    public void takeHit (int hit) {
-        health -= hit;
-    }
+//    public int getHealth () {
+//        return health;
+//    }
+//    
+//    /**
+//     * Reduces the health of sprite by 1.
+//     */
+//    public void takeHit () {
+//        health--;
+//    }
+//    
+//    /**
+//     * Reduces the health of the sprite by hit.
+//     */
+//    public void takeHit (int hit) {
+//        health -= hit;
+//    }
 
     /**
      * Scales shape's size by the given factors.
@@ -354,6 +354,11 @@ public abstract class Sprite {
     
     public void addVector(Vector force) {
         myVelocity.sum(force);
+    }
+
+    public int getHealth () {
+        // TODO Auto-generated method stub
+        return 1;
     }
 }
 
