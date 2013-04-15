@@ -20,6 +20,7 @@ import vooga.towerdefense.view.TDView;
  * 
  * @author Jimmy Longley
  * @author Erick Gonzalez
+ * @author Angelica Schwartz
  */
 public class Controller {
     private GameModel myModel;
@@ -54,11 +55,16 @@ public class Controller {
     }
     
     /**
-     * handles a click on the ShopScreen.
-     * @param p
+     * changes the mode to BuildMode and gets the item the user
+     *          wants to build from the Shop.
+     * @param itemName is the name of the item the user wants to
+     *          buy
      */
-    public void handleShopClick(Point p) {
-        String name = myView.getShopScreen().getItemName();
+    public void handleShopClickOnItem(String itemName) {
+        GameElement itemToBuy = myModel.getShop().getShopItem(itemName);
+        BuildMode myNewMode = new BuildMode();
+        myNewMode.setItemToBuild(itemToBuy);
+        myControlMode = myNewMode;
     }
 
     public void displayTileCoordinates (Point p) {
@@ -94,20 +100,13 @@ public class Controller {
         myModel.paintMap((Graphics2D) pen);
     }
     
+    /**
+     * paints the ghost image of the item on the MapScreen.
+     * @param p is the mouselocation
+     * @param itemImage is the image
+     */
     public void paintGhostImage (Point p, Pixmap itemImage) {
         myView.getMapScreen().paintGhostImage(p, itemImage);
-    }
-    
-    /**
-     * changes the mode to BuildMode and gets the item the user
-     *          wants to build from the Shop.
-     * @param itemName
-     */
-    public void prepareToBuild (String itemName) {
-        GameElement itemToBuy = myModel.getShop().getShopItem(itemName);
-        BuildMode myNewMode = new BuildMode();
-        myNewMode.setItemToBuild(itemToBuy);
-        myControlMode = myNewMode;
     }
 
 }
