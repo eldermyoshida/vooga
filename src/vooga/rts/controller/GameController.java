@@ -214,12 +214,12 @@ public class GameController extends AbstractController {
 					new Location(700,700), new Dimension(150,150), null, 1,300);
 			*/
 			Player p1 = new HumanPlayer();
-			Pixmap p = new Pixmap(ResourceManager.instance().loadFile("images/soldier.png"));
+			Pixmap p = new Pixmap(ResourceManager.instance().loadFile("images/sprites/soldier.png"));
 			Dimension s = new Dimension(90, 90);
 			r = new Resource(new Pixmap(ResourceManager.instance().loadFile("images/mineral.gif")), new Location (300,300), new Dimension(60, 60), 0, 80);
 			Sound soun = null;// new Sound("/vooga/rts/sounds/pikachu.wav");
 			Unit a = null;
-			a = new Soldier(p, new Location(100, 100), s, soun, 1, 400);
+			a = new Soldier(p, new Location(200, 250), s, soun, 1, 400);
 			System.out.println("Player ID for a: " + a.getPlayerID());
 			//a.setUpgradeTree(resultTree,a.getPlayerID());
 			//upgradeBuilding.addUpgradeActions(resultTree);
@@ -229,7 +229,7 @@ public class GameController extends AbstractController {
 							2, 10, 1);
 			a.setAttackStrategy(new CanAttack());
 			a.getAttackStrategy().addWeapons(new Weapon(0, proj, 200, a.getCenter(), 25));
-			Unit b = new Soldier(p, new Location(100, 300), s, soun, 1, 800);
+			Unit b = new Soldier(p, new Location(300, 150), s, soun, 1, 800);
 			System.out.println("Player ID for b: " + b.getPlayerID());
 
 			System.out.println("Game is setup 1");
@@ -240,7 +240,7 @@ public class GameController extends AbstractController {
 			b.setAttackStrategy(new CannotAttack());
 			b.getAttackStrategy().addWeapons(new Weapon(0, proj2, 200, b.getCenter(), 50));
 
-			Unit c = new Soldier(p, new Location(500, 500), s, soun, 2, 300);
+			Unit c = new Soldier(p, new Location(500, 300), s, soun, 2, 300);
 
 			Projectile proj3 =
 					new Projectile(
@@ -262,6 +262,7 @@ public class GameController extends AbstractController {
 			building = new Barracks(new Pixmap(ResourceManager.instance().loadFile("images/barracks.jpeg")), 
 					new Location(800,500), new Dimension(150,150), null, 1,300);
 			System.out.println("Setup Game");
+			myHuman = (HumanPlayer) p1;
 
 		}
 		catch (Exception e) {

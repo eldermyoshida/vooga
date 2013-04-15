@@ -58,7 +58,6 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
         mySound = sound;
         myAttackStrategy = new CannotAttack();
         myActions = new ArrayList<Action>();
-
         isSelected = false;
 
     }

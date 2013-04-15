@@ -21,7 +21,7 @@ public class Soldier extends Unit {
      */
 
     //default values
-    public static Pixmap DEFAULT_IMAGE = new Pixmap(ResourceManager.instance().loadFile("images/soldier.png"));
+    public static Pixmap DEFAULT_IMAGE = new Pixmap(ResourceManager.instance().loadFile("images/sprites/soldier.png"));
     public static Location DEFAULT_LOCATION = new Location();
     public static Dimension DEFAULT_SIZE = new Dimension(90,90);
     public static Sound DEFAULT_SOUND = null;

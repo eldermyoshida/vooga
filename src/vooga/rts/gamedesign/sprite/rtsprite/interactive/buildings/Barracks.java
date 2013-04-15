@@ -44,7 +44,7 @@ public class Barracks extends ProductionBuilding {
                 Location ieLoc = new Location(getProducedFrom());                
                 ie.setCenter(ieLoc.x, ieLoc.y);
                 //these below are for testing purposes 
-                ie.move(new Location(300,400));
+                //ie.move(new Location(300,400));
                 //this part below will not be in actual implementation as I will notify player/unit manager that a new unit should be added to the player
                 myBabies.add(ie);
             }

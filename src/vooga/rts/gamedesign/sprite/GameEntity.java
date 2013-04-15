@@ -129,11 +129,12 @@ public class GameEntity extends GameSprite {
      * Possible design choice error.
      */
     public void move (Location loc) {
+    	System.err.println("Ooga");
     	myEntityState.setMovementState(MovementState.MOVING);
         myGoal = new Location(loc);
         Vector v = getCenter().difference(myGoal);
         // TODO: not static amount
-        setVelocity(v.getAngle(), 1);
+        setVelocity(v.getAngle(), 50);
     }
 
     public void move (Location loc, GameMap map) {
