@@ -5,12 +5,9 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JPanel;
 import vooga.towerdefense.controller.Controller;
 import vooga.towerdefense.gameElements.BasicTower;
@@ -50,8 +47,9 @@ public class ShopScreen extends JPanel {
     // TODO this is just a place holder! Needs to be fixed later!
     private void initShopItems () {
         Pixmap myImage = new Pixmap("tower.gif");
-        BasicTower tower = new BasicTower(myImage, new Location(20, 20), new Dimension(50, 50), null, null);
-        myShop.addShopItem("tower",tower);
+        BasicTower tower =
+                new BasicTower(myImage, new Location(20, 20), new Dimension(50, 50), null, null);
+        myShop.addShopItem("tower", tower);
     }
 
     @Override
@@ -62,25 +60,36 @@ public class ShopScreen extends JPanel {
 
         displayShopItems((Graphics2D) pen);
     }
-    
+
     private void displayShopItems (Graphics2D pen) {
         for (GameElement item : myShop.getShopItems()) {
-            item.getPixmap().paint(pen, item.getCenter(), new Dimension((int)item.getWidth(), (int)item.getHeight()));
+            item.getPixmap().paint(pen, item.getCenter(),
+                                   new Dimension((int) item.getWidth(), (int) item.getHeight()));
         }
     }
-    
+
     private void makeMouseListener () {
         myMouseListener = new MouseAdapter() {
             @Override
             public void mouseClicked (MouseEvent e) {
-                //myController.handleShopClick(e.getPoint());
-                checkIfItemClickedOn (e.getPoint());
+                // myController.handleShopClick(e.getPoint());
+                checkIfItemClickedOn(e.getPoint());
             }
         };
     }
 
     protected void checkIfItemClickedOn (Point point) {
-        
+        for (GameElement item : myShop.getShopItems()) {
+            Location center = item.getCenter();
+            double x = item.getWidth() / 2 - center.x;
+            double y = item.getHeight() / 2 - center.y;
+            Rectangle rect =
+                    new Rectangle((int) x, (int) y, (int) item.getWidth(), (int) item.getHeight());
+            if (rect.contains(point)) {
+                System.out.println("clicked on");
+                myController.handleShopClickOnItem(myShop.getShopItemName(item));
+            }
+        }
     }
-    
+
 }

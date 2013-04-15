@@ -104,7 +104,7 @@ public class LevelsSelectorScreen extends JPanel {
     }
 
     private void checkPositionClicked (Point point) {
-        
+
         if (!myPrevName.isEmpty()) {
             for (Map.Entry<Pixmap, Rectangle> entry1 : myLevelsImages.entrySet()) {
                 if (entry1.getKey().getFileName().equals(CHECKED_IMAGE)) {
@@ -113,17 +113,17 @@ public class LevelsSelectorScreen extends JPanel {
                 }
             }
         }
-        
+
         for (Map.Entry<Pixmap, Rectangle> entry : myLevelsImages.entrySet()) {
             if (entry.getValue().contains(point)) {
                 myLevelSelected = true;
-                selectedImage (entry.getKey());
+                selectedImage(entry.getKey());
             }
         }
     }
-    
+
     public void selectedImage (Pixmap myImage) {
-        //super (myImage);
+        // super (myImage);
         myPrevName = myImage.getFileName();
         myImage.setImage(CHECKED_IMAGE);
         repaint();

@@ -2,12 +2,10 @@ package vooga.towerdefense.view;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import vooga.towerdefense.controller.Controller;
 import vooga.towerdefense.util.Pixmap;
@@ -64,21 +62,23 @@ public class MapScreen extends JPanel {
         myController.paintMap(pen);
         paintGridLines(pen);
     }
-    
+
     /**
      * paints the ghost image at the mouse location.
+     * 
      * @param p is the mouse location
      * @param image is the pixmap image to paint
      */
-    public void paintGhostImage(Point p, Pixmap image) {
+    public void paintGhostImage (Point p, Pixmap image) {
         getGraphics().drawImage(image.getImage(), p.x, p.y,
                                 image.getImage().getWidth(null),
                                 image.getImage().getWidth(null), null);
     }
-    
+
     /**
      * used for testing to paint a grid.
      * TODO: remove this method
+     * 
      * @param pen
      */
     public void paintGridLines (Graphics pen) {
@@ -94,7 +94,7 @@ public class MapScreen extends JPanel {
      * helper method to create the listener for mouse input.
      */
     // TODO: integrate this with input team
-    private void makeMouseAdapters() {
+    private void makeMouseAdapters () {
         myMouseAdapter = new MouseAdapter() {
             @Override
             public void mouseClicked (MouseEvent e) {
@@ -104,10 +104,10 @@ public class MapScreen extends JPanel {
         myMouseMotionAdapter = new MouseMotionAdapter() {
             @Override
             public void mouseMoved (MouseEvent e) {
-                //TODO: remove these comments
+                // TODO: remove these comments
                 // myController.handleMouseMovement(e.getPoint());
-                //mouseLocation = e.getPoint();
-                //update();
+                // mouseLocation = e.getPoint();
+                // update();
                 myController.handleMapMouseDrag(e.getPoint());
             }
         };
