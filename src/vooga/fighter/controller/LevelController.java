@@ -10,6 +10,7 @@ import java.util.List;
 import javax.swing.Timer;
 
 import util.Location;
+import vooga.fighter.input.*;
 import vooga.fighter.game.LevelMode;
 import vooga.fighter.game.Mode;
 import vooga.fighter.input.Input;
@@ -81,5 +82,9 @@ public class LevelController extends Controller {
 		
 	}
 
+	@InputMethodTarget(name="jump")
+	public void PlayerOneJump(){
+		//fill in the method here
+	}
     
 }
