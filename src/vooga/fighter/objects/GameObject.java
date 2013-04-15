@@ -1,5 +1,6 @@
 package vooga.fighter.objects;
 
+import util.Location;
 import util.Pixmap;
 import vooga.fighter.objects.utils.State;
 import vooga.fighter.objects.utils.UpdatableLocation;
@@ -154,8 +155,9 @@ public abstract class GameObject {
     public void setImageData() {
         Pixmap myCurrentImage = myCurrentState.getCurrentImage();
         Dimension myCurrentSize = myCurrentState.getCurrentSize();
+        Location myCurrentLocation = myCenter.getLocation();
         if (!(myCurrentSize == null || myCurrentImage == null || myCenter == null)) {
-            myImageData = new ImageDataObject(myCurrentImage, myCenter, myCurrentSize);
+            myImageData = new ImageDataObject(myCurrentImage, myCurrentLocation, myCurrentSize);
         }
     }
     
