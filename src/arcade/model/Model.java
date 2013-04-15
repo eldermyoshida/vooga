@@ -4,13 +4,16 @@ package arcade.model;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import arcade.games.ArcadeInteraction;
 import arcade.games.GameInfo;
+import arcade.games.HighScores;
+import arcade.games.User;
 import arcade.games.UserGameData;
 import arcade.util.Pixmap;
 import arcade.view.LoginView;
 import arcade.view.MainView;
 
-public class Model {
+public class Model implements ArcadeInteraction {
 	public static final String DEFAULT_LOGIN_MESSAGE = "";
 	private static final String LOGIN_FAILURE_MESSAGE = "The username or password you entered is incorrect";
 	private ResourceBundle myResources;
@@ -103,5 +106,33 @@ public class Model {
 		// Query database to get info specific to the user and the game (e.g. scores)
 		return null;
 	}
+
+
+    @Override
+    public User getUser () {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+
+    @Override
+    public HighScores getHighScores (int n) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+
+    @Override
+    public void killGame () {
+        // TODO Auto-generated method stub
+        
+    }
+
+
+    @Override
+    public UserGameData getUserGameData () {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 }
