@@ -182,6 +182,7 @@ public class CollisionManager {
     }
     
     public void visit (Mario mario, MarioLib.Coin coin) {
+        mario.scorePoints(coin.getValue());
         System.out.println("Mario just collected a coin");
         
     }

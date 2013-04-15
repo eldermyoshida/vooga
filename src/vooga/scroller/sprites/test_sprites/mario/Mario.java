@@ -16,6 +16,7 @@ public class Mario extends Player {
     private static final int MAX_JUMPS = 2;
     private static final int MAX_HORIZONTAL_SPEED = 5;
     private static final Pixmap DEFAULT_IMAGE = new Pixmap("llama_still.gif");
+    private static final int DEATH_PENALTY = 1000;
     private static int health = 5;
     private int myJumpCount;
 
@@ -44,7 +45,10 @@ public class Mario extends Player {
             this.addVector(UP_VELOCITY);
             myJumpCount +=1;
         }
-
+    }
+    
+    public void scorePoints(int value) {
+        this.getStatistic().addValue(value);
     }
     
     @Override
@@ -65,8 +69,19 @@ public class Mario extends Player {
             Vector right= new Vector(RIGHT_DIRECTION,MAX_HORIZONTAL_SPEED- rightMag);
             this.addVector(right);
         }
+
         
         super.update(elapsedTime, bounds);
+    }
+
+    @Override
+    public void handleDeath () {
+        this.setCenter(this.getOriginalLocation().x, this.getOriginalLocation().y);
+        takeDeathPenalty();
+    }
+
+    private void takeDeathPenalty () {
+        this.getStatistic().removeValue(DEATH_PENALTY);
     }   
 }
 

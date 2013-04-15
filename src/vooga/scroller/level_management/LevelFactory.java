@@ -45,6 +45,11 @@ public class LevelFactory {
                                                             new Location(64, 252)
                 ));   
 
+        for(int i = 0; i < 32; ++i){
+            myCurrLevel.addSprite(new MarioLib.Coin(new Location(i*50,75))); 
+        }
+        
+        
         myCurrLevel.addSprite(new MarioLib.LevelTwoBlockTwo( 
                                                             new Location(272, 220)
                 ));   
