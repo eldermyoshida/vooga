@@ -10,11 +10,13 @@ import vooga.rts.gamedesign.action.ProductionAction;
 import vooga.rts.gamedesign.sprite.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Soldier;
 import vooga.rts.util.Location;
+import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
 
 /**
  * 
+ * @author Ryan Fishel
  * @author Kevin Oh
  *
  */
@@ -22,7 +24,7 @@ public class Barracks extends ProductionBuilding {
     public int PRODUCE_TIME = 90;
     private List<InteractiveEntity> myBabies;
     
-    public Barracks(Pixmap image, Location center, Dimension size, Sound sound,
+    public Barracks(Pixmap image, Location3D center, Dimension size, Sound sound,
                     int playerID, int health) {
         super(image, center, size, sound, playerID, health);
         myBabies = new ArrayList<InteractiveEntity>();
@@ -37,14 +39,14 @@ public class Barracks extends ProductionBuilding {
     }
     
     public void addProductionActions(ProductionBuilding p) {
-        getActions().add(new ProductionAction("soldier",null,"I maketh un soldier", p.getCenter()){
+        getActions().add(new ProductionAction("soldier",null,"I maketh un soldier", p.getWorldLocation()){
             @Override
             public void apply(int playerID) {
                 InteractiveEntity ie = getProducables().get(0).copy();
-                Location ieLoc = new Location(getProducedFrom());                
-                ie.setCenter(ieLoc.x, ieLoc.y);
+                Location3D ieLoc = new Location3D(getProducedFrom());                
+                ie.setWorldLocation(ieLoc.getX(), ieLoc.getY(), 0);
                 //these below are for testing purposes 
-                ie.move(new Location(300,400));
+                ie.move(new Location3D(300,400,0));
                 //this part below will not be in actual implementation as I will notify player/unit manager that a new unit should be added to the player
                 myBabies.add(ie);
             }

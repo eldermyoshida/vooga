@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import vooga.rts.gamedesign.sprite.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Unit;
 import vooga.rts.util.Location;
+import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
 /**
@@ -15,17 +16,17 @@ import vooga.rts.util.Sound;
  * @author Junho Oh
  */
 public class ProductionBuilding extends Building {
-    private Location myRallyPoint;
+    private Location3D myRallyPoint;
     private List<InteractiveEntity> myProducables; //for testing really, need to make it work with xml file
     
     public ProductionBuilding (Pixmap image,
-                               Location center,
+                               Location3D center,
                                Dimension size,
                                Sound sound,
                                int playerID,
                                int health) {
         super(image, center, size, sound, playerID, health);
-        myRallyPoint = new Location((int)getCenter().x, (int)getCenter().y + 50);
+        myRallyPoint = new Location3D(getWorldLocation().getX(), getWorldLocation().getY() + 50, 0);
         myProducables = new ArrayList<InteractiveEntity>();
     }
 
@@ -47,7 +48,7 @@ public class ProductionBuilding extends Building {
      * @return myRallyPoint, the rally point of the 
      * production building 
      */
-    public Location getRallyPoint() {
+    public Location3D getRallyPoint() {
         return myRallyPoint;
     }
     /*
@@ -61,7 +62,7 @@ public class ProductionBuilding extends Building {
      * Sets the rally point of the production building
      * @param rallyPoint the location of the new rally point 
      */
-    public void setRallyPoint(Location rallyPoint) {
+    public void setRallyPoint(Location3D rallyPoint) {
     	myRallyPoint = rallyPoint;
     }
    

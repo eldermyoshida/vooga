@@ -5,6 +5,7 @@ import vooga.rts.gamedesign.sprite.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.IOccupiable;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
 import vooga.rts.util.Location;
+import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
 import vooga.towerdefense.gameElements.Unit;
@@ -25,7 +26,7 @@ public abstract class Building extends InteractiveEntity implements IOccupiable 
     private static UpgradeTree myUpgradeTree;
     
     public Building (Pixmap image,
-            Location center,
+            Location3D center,
             Dimension size,
             Sound sound,
             int playerID,
@@ -34,7 +35,7 @@ public abstract class Building extends InteractiveEntity implements IOccupiable 
     }
     
     public Building (Pixmap image,
-                     Location center,
+                     Location3D center,
                      Dimension size,
                      Sound sound,
                      int playerID,

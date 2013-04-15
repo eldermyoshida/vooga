@@ -4,6 +4,7 @@ import java.awt.Dimension;
 
 
 import vooga.rts.util.Location;
+import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
 
@@ -17,7 +18,7 @@ import vooga.rts.util.Sound;
  */
 public class MinionSpawner extends Unit {
 
-  public MinionSpawner(Pixmap image, Location center, Dimension size,
+  public MinionSpawner(Pixmap image, Location3D center, Dimension size,
 			Sound sound, int playerID, int health) {
 		super(image, center, size, sound, playerID, health);
 		// TODO Auto-generated constructor stub

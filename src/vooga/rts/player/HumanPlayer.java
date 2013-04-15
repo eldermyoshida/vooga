@@ -5,6 +5,7 @@ import java.awt.Point;
 import java.util.Observable;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Unit;
 import vooga.rts.util.Location;
+import vooga.rts.util.Location3D;
 
 public class HumanPlayer extends Player {
 
@@ -20,12 +21,12 @@ public class HumanPlayer extends Player {
 
 	public void handleRightClick(int x, int y) {
 		for (Unit u : getUnits().getSelected()) {
-			u.move(new Location(x, y));
+			u.move(new Location3D(x, y,0));
 		}
 	}
 
 	public void handleLeftClick(int x, int y) {
-		getUnits().select(new Point(x, y));
+		getUnits().select(new Location3D(x, y,0));
 	}
 
 	@Override

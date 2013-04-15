@@ -9,6 +9,7 @@ import vooga.rts.gamedesign.strategy.gatherstrategy.CanGather;
 import vooga.rts.gamedesign.strategy.gatherstrategy.CannotGather;
 import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
 import vooga.rts.util.Location;
+import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
 
@@ -35,7 +36,7 @@ public class Worker extends Unit {
 	 * @param playerID represents the team that the worker is on
 	 * @param health is the health of the worker
 	 */
-	public Worker(Pixmap image, Location center, Dimension size, Sound sound,
+	public Worker(Pixmap image, Location3D center, Dimension size, Sound sound,
 			int playerID, int health, int gatherAmount) {
 		super(image, center, size, sound, playerID, health);
 		//interval = new Interval(DEFUALT_GATHER_INTERVAL);

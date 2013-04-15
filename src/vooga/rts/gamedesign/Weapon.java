@@ -5,6 +5,8 @@ import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
 import vooga.rts.gamedesign.sprite.rtsprite.Projectile;
 import vooga.rts.gamedesign.upgrades.*;
 import vooga.rts.util.Location;
+import vooga.rts.util.Location3D;
+
 import java.awt.geom.Ellipse2D.Double;
 import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
@@ -34,7 +36,7 @@ public class Weapon {
     private List<Projectile> myProjectiles;
     private Interval interval;
     private Ellipse2D myRangeCircle;
-    private Location myCenter;
+    private Location3D myCenter;
 
     /**
      * Creates a new weapon with default damage and projectile.
@@ -42,7 +44,7 @@ public class Weapon {
      * @param damage
      * @param projectile
      */
-    public Weapon (int damage, Projectile projectile, int range, Location center, int cooldownTime) {
+    public Weapon (int damage, Projectile projectile, int range, Location3D center, int cooldownTime) {
         myDamage = damage;
         myProjectile = projectile;
         myRange = range;
@@ -60,7 +62,7 @@ public class Weapon {
         	System.out.println("is shooting");
             Projectile fire = new Projectile(myProjectile, myCenter);
             fire.setEnemy(toBeShot);
-            fire.move(toBeShot.getCenter());
+            fire.move(toBeShot.getWorldLocation());
             myProjectiles.add(fire);
             interval.resetCooldown();
         }
@@ -118,7 +120,7 @@ public class Weapon {
         // add z axis
         //see if enemy is in adjacent node, better way ? 
         myRangeCircle = new Ellipse2D.Double(myCenter.getX(), myCenter.getY(), myRange, myRange);
-        return myRangeCircle.contains(enemy.getCenter());
+        return myRangeCircle.contains(enemy.getWorldLocation().to2D());
     }
     /**
      * Returns the range of the weapon.

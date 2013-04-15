@@ -6,6 +6,7 @@ import vooga.rts.gamedesign.sprite.GameEntity;
 import vooga.rts.gamedesign.sprite.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.IGatherable;
 import vooga.rts.util.Location;
+import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 
 /**
@@ -31,7 +32,7 @@ public class Resource extends GameEntity implements IGatherable {
 	 * becomes 0, the resource will disappear because it will not have any value
 	 * left
 	 */
-	public Resource(Pixmap image, Location center, Dimension size, int playerID, int health) {
+	public Resource(Pixmap image, Location3D center, Dimension size, int playerID, int health) {
 		super(image, center, size, playerID, health);
 	}
 

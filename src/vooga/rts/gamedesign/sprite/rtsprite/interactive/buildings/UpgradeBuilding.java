@@ -10,13 +10,14 @@ import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Unit;
 import vooga.rts.gamedesign.upgrades.UpgradeNode;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
 import vooga.rts.util.Location;
+import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
 
 public class UpgradeBuilding extends Building{
 	public int PRODUCE_TIME = 90;
 	
-	public UpgradeBuilding(Pixmap image, Location center, Dimension size,
+	public UpgradeBuilding(Pixmap image, Location3D center, Dimension size,
 			Sound sound, int playerID, int health) {
 		super(image, center, size, sound, playerID, health, null);
 	}

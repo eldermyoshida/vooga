@@ -16,6 +16,7 @@ import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
 import vooga.rts.gamedesign.upgrades.UpgradeNode;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
 import vooga.rts.util.Location;
+import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
 
@@ -45,7 +46,7 @@ public class Unit extends InteractiveEntity {
     private OccupyStrategy myOccupyStrategy;
 
     public Unit() {
-    	this(null, new Location(0,0), new Dimension(0,0), null, 0, 100);
+    	this(null, new Location3D(), new Dimension(0,0), null, 0, 100);
     }
     
     /**
@@ -58,7 +59,7 @@ public class Unit extends InteractiveEntity {
      * @param playerID is the ID for the team that the unit is on
      * @param health is the max health of the unit
      */
-    public Unit (Pixmap image, Location center, Dimension size, Sound sound, int playerID, int health) {
+    public Unit (Pixmap image, Location3D center, Dimension size, Sound sound, int playerID, int health) {
         super(image, center, size, sound, playerID, health);
         //myPather = new PathingHelper();
         System.out.println(playerID + " " + health);

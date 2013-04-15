@@ -2,6 +2,7 @@ package vooga.rts.gamedesign.sprite;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 
 import vooga.rts.gamedesign.state.AttackingState;
 import vooga.rts.gamedesign.state.EntityState;
@@ -9,6 +10,7 @@ import vooga.rts.gamedesign.state.MovementState;
 import vooga.rts.gamedesign.state.OccupyState;
 import vooga.rts.gamedesign.state.ProducingState;
 import vooga.rts.util.Location;
+import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
 import vooga.rts.util.Vector;
@@ -39,21 +41,19 @@ public class GameEntity extends GameSprite {
     private PathFinder myFinder;
     private int myPlayerID;
     private Path myPath;
-    private Location myCurrentLocation;
-    private Location myGoal;
+    private Location3D myGoal;
     private Vector myOriginalVelocity;
     private EntityState myEntityState;
 
-    public GameEntity (Pixmap image, Location center, Dimension size, int playerID, int health) {
+    public GameEntity (Pixmap image, Location3D center, Dimension size, int playerID, int health) {
         super(image, center, size);
         myMaxHealth = health;
         myCurrentHealth = myMaxHealth;
         myPlayerID = playerID;
-        myCurrentLocation = new Location(center);
         // ALERT THIS IS JUST FOR TESTING
         myOriginalVelocity = new Vector(0, 0);
         myVelocity = new Vector(0, 0);
-        myGoal = new Location();
+        myGoal = new Location3D();
         myEntityState = new EntityState();
     }
 
@@ -110,7 +110,7 @@ public class GameEntity extends GameSprite {
      */
     public void translate (Vector v) {
 
-        getCenter().translate(v);
+        getWorldLocation().translate(v);
         resetBounds();
     }
 
@@ -128,24 +128,24 @@ public class GameEntity extends GameSprite {
      * and then its location.
      * Possible design choice error.
      */
-    public void move (Location loc) {
+    public void move (Location3D loc) {
     	System.err.println("Ooga");
     	myEntityState.setMovementState(MovementState.MOVING);
-        myGoal = new Location(loc);
-        Vector v = getCenter().difference(myGoal);
+        myGoal = new Location3D(loc);
+        Vector v = getWorldLocation().difference(myGoal.to2D());
         // TODO: not static amount
         setVelocity(v.getAngle(), 50);
     }
 
-    public void move (Location loc, GameMap map) {
-        setPath(loc, map);
+    public void move (Location3D loc, GameMap map) {
+        setPath(loc.to2D(), map);
     }
 
     public void setPath (Location location, GameMap map) {
         myPath =
-                myFinder.calculatePath(map.getNode(getCenter()), map.getNode(location),
+                myFinder.calculatePath(map.getNode(getWorldLocation().to2D()), map.getNode(location),
                                        map.getMap());
-        myGoal = myPath.getNext();
+       // myGoal = myPath.getNext();
     }
 
     /**
@@ -200,5 +200,6 @@ public class GameEntity extends GameSprite {
     		setVelocity(getVelocity().getAngle(), 0);
     	}
     }
+
     
 }

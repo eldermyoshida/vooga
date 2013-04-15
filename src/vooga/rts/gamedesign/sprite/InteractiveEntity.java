@@ -20,6 +20,7 @@ import vooga.rts.gamedesign.upgrades.UpgradeNode;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
 import vooga.rts.resourcemanager.ResourceManager;
 import vooga.rts.util.Location;
+import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
 
@@ -52,7 +53,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
 	 * @param teamID is the ID of the team that the interactive entity is on
 	 * @param health is the health of the interactive entity
 	 */
-    public InteractiveEntity (Pixmap image, Location center, Dimension size, Sound sound, int playerID, int health) {
+    public InteractiveEntity (Pixmap image, Location3D center, Dimension size, Sound sound, int playerID, int health) {
         super(image, center, size, playerID, health);
         //myMakers = new HashMap<String, Factory>(); //WHERE SHOULD THIS GO?
         mySound = sound;
@@ -64,10 +65,10 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     /*
      * Ze clone method
      */
-    public InteractiveEntity copy() {
-        return null;
+    //TODO: Make abstract
+    public InteractiveEntity copy(){
+    	return null;
     }
-    
 	/**
 	 * Returns the upgrade tree for the interactive entity.
 	 * @return the upgrade tree for the interactive entity
@@ -117,7 +118,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
 	 * @param a is the IAttackable that is being attacked.
 	 */
 	public void attack(IAttackable a) {
-		double distance = Math.sqrt(Math.pow(getCenter().x - ((InteractiveEntity) a).getX(), 2) + Math.pow(this.getY() - ((InteractiveEntity) a).getY(), 2)); 
+		double distance = Math.sqrt(Math.pow(getWorldLocation().getX() - ((InteractiveEntity) a).getWorldLocation().getX(), 2) + Math.pow(getWorldLocation().getY() - ((InteractiveEntity) a).getWorldLocation().getY(), 2)); 
 		if(!this.isDead()) {
 			//getEntityState().setAttackingState(AttackingState.ATTACKING);
 			getEntityState().attack();
@@ -133,7 +134,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
 	//TODO: THIS IS DUPLICATED CODE AS IN ATTACK STRATEGY!!! SHOULD DELETE IT!
 	public boolean inRange(InteractiveEntity enemy) {
 		//ellipse thing doesnt seem to be working very well. 
-		double distance = Math.sqrt(Math.pow(getCenter().x - enemy.getX(), 2) + Math.pow(this.getY() - enemy.getY(), 2)); 
+		double distance = Math.sqrt(Math.pow(getWorldLocation().getX() - enemy.getWorldLocation().getX(), 2) + Math.pow(this.getWorldLocation().getY() - enemy.getWorldLocation().getY(), 2)); 
 		if(getAttackStrategy().getCanAttack() && !getAttackStrategy().getWeapons().isEmpty() && distance < getAttackStrategy().getWeapons().get(getAttackStrategy().getWeaponIndex()).getRange()){
 			return true;
 		}
