@@ -63,9 +63,7 @@ public class GameEntity extends GameSprite {
     public Vector getVelocity () {
         return myVelocity;
     }
-    public int getMaxHealth() {
-    	return myMaxHealth;
-    }
+
     /**
      * Resets shape's velocity.
      */
@@ -80,7 +78,12 @@ public class GameEntity extends GameSprite {
     public void setHealth (int health) {
         myCurrentHealth = health;
     }
-
+    public void addMaxHealth(int health) {
+    	myMaxHealth += health;
+    }
+    public int getMaxHealth() {
+    	return myMaxHealth;
+    }
     /**
      * Returns the teamID the shape belongs to.
      */
@@ -159,6 +162,7 @@ public class GameEntity extends GameSprite {
         translate(v);
         myEntityState.update();
     }
+    
 
     public void changeHealth (int change) {
         myCurrentHealth -= change;
