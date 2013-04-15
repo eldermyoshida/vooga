@@ -1,4 +1,5 @@
-package design_patterns;
+
+package vooga.scroller.design_patterns;
 
 import java.awt.Graphics2D;
 

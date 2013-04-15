@@ -1,12 +1,13 @@
-package model;
 
-import input.AlertObject;
-import input.Input;
-import input.InputClassTarget;
-import input.InputMethodTarget;
-import input.PositionObject;
+package vooga.scroller.model;
+
+import vooga.scroller.input.AlertObject;
+import vooga.scroller.input.Input;
+import vooga.scroller.input.InputClassTarget;
+import vooga.scroller.input.InputMethodTarget;
+import vooga.scroller.input.PositionObject;
 import javax.swing.JComponent;
-import sprite_superclasses.Player;
+import vooga.scroller.sprite_superclasses.Player;
 /**
  * Class that holds all user defined control methods. These methods can work
  * on the player used in the construciton of this.
@@ -17,13 +18,13 @@ import sprite_superclasses.Player;
 @InputClassTarget
 public class ModelInputs {
 
-    private static final String TEST_CONTROLS = "resources/controls/TestMapping";
+    private static final String TEST_CONTROLS = "vooga/scroller/resources/controls/TestMapping";
 
     private Input myInput;
     private Player myPlayer;
 
     /**
-     * Creats a new set of ModelInputs based on
+     * Creates a new set of ModelInputs based on
      * 
      * @param player on which the controls will act
      * @param view from where the controls come from.

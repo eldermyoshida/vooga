@@ -1,9 +1,10 @@
-package sprite_superclasses;
+
+package vooga.scroller.sprite_superclasses;
 
 import java.awt.Dimension;
-import util.Location;
-import util.Pixmap;
-import util.Sprite;
+import vooga.scroller.util.Location;
+import vooga.scroller.util.Pixmap;
+import vooga.scroller.util.Sprite;
 
 public class StaticEntity extends Sprite {
 
@@ -11,5 +12,8 @@ public class StaticEntity extends Sprite {
         super(image, center, size);
         // TODO Auto-generated constructor stub
     }
+    
+    
+    
 
 }

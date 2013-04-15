@@ -1,13 +1,19 @@
-package level_editor;
+
+package vooga.scroller.level_editor;
 
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
-import util.Editable;
-import viewUtil.IWindow;
-import viewUtil.Renderable;
-import viewUtil.WorkspaceView;
+import vooga.scroller.sprite_superclasses.NonStaticEntity;
+import vooga.scroller.sprite_superclasses.StaticEntity;
+import vooga.scroller.test_sprites.MarioLib;
+import vooga.scroller.util.Editable;
+import vooga.scroller.util.Location;
+import vooga.scroller.util.Sprite;
+import vooga.scroller.viewUtil.IWindow;
+import vooga.scroller.viewUtil.Renderable;
+import vooga.scroller.viewUtil.WorkspaceView;
 
 /**
  * The controller is responsible for interfacing between an IView and an IModel.
@@ -28,14 +34,18 @@ public class LEController {
     private Map<Editable, WorkspaceView> myWorkspace2Tab;
     private Map<WorkspaceView, Editable> myTab2Workspace;
     private static final int DEFAULT_SPRITE_GRID_SIZE = 10;
+    private ToolsManager myToolsManager;
     
     /**
      * Constructor
      */
-    public LEController(SpriteLibrary lib) {
+    public LEController(MarioLib lib) {
+        myToolsManager = new ToolsManager(lib);
         String language = getLanguage();
         myModel = new LevelEditor(language,lib);
+        myModel.setSpriteMap(myToolsManager.getSpriteMap());
         myView = new LEView(language, this, lib);
+        myView.setDefaultWorkspaceTools(myToolsManager.getViewTools());
         myWorkspace2Tab = new HashMap<Editable, WorkspaceView>();
         myTab2Workspace = new HashMap<WorkspaceView, Editable>();
     }
@@ -91,9 +101,12 @@ public class LEController {
      * @param cmd - command to process
      * @return ret - return int from command process
      */
-    public void processCommand (WorkspaceView t, String cmd) {
+    public void process (WorkspaceView t, Object cmd) {
         Editable m = getModelForWorkspace(t);
-        myModel.processCommand(m, cmd);
+        System.out.println("Controller got "+ cmd);
+        if(cmd instanceof String) {
+            myModel.processCommand(m, (String)cmd);
+        }
         t.setRenderable((Renderable) m);
     }
 

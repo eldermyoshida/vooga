@@ -1,12 +1,15 @@
-package level_editor;
+
+package vooga.scroller.level_editor;
 
 import java.awt.Container;
-import util.Editable;
-import viewUtil.EasyGridFactory;
-import viewUtil.IView;
-import viewUtil.IWindow;
-import viewUtil.Renderable;
-import viewUtil.WorkspaceView;
+import java.awt.Point;
+import vooga.scroller.util.Editable;
+import vooga.scroller.viewUtil.EasyGridFactory;
+import vooga.scroller.viewUtil.IView;
+import vooga.scroller.viewUtil.IWindow;
+import vooga.scroller.viewUtil.Renderable;
+import vooga.scroller.viewUtil.Tools;
+import vooga.scroller.viewUtil.WorkspaceView;
 
 /**
  * This class is a specialized Workspace for a Level Editor.
@@ -34,23 +37,19 @@ public class LEWorkspaceView extends WorkspaceView {
 
 
 
-    @Override
-    public int getID () {
-        // TODO Auto-generated method stub
-        return 0;
-    }
 
     @Override
     protected void initializeVariables () {
         // TODO Auto-generated method stub
-        myLevelView = new LEGridView(this);
-        myEditorView = new LEToolsView(this);
+        myLevelView = new LEGridView(this, .8, 1.0);
+        myEditorView = new LEToolsView(this, .2, 1.0);
     }
 
     @Override
     protected void addComponents () {
         // TODO Add other comp.
-        EasyGridFactory.layoutVertical(this, myLevelView);
+//        EasyGridFactory.layoutHorizontal(this, myLevelView, myEditorView);
+        EasyGridFactory.layout(this, myLevelView, myEditorView);
     }
 
     @Override
@@ -68,9 +67,20 @@ public class LEWorkspaceView extends WorkspaceView {
     }
 
     @Override
-    public void processCommand (String command) {
+    public void process (Object isn) {
         // TODO - Need to refactor
-        super.processConsoleInput(command);
+        String res=new String();
+        if (isn instanceof Point) {
+            Point a = (Point)isn;
+            res = "createSprite "+ myEditorView.getSelectedSpriteID()
+                    +" "+a.x+" "+a.y;
+        }
+        super.process(res);
+    }
+    
+    //TODO - Good design choice??
+    public static void setTools(Tools t) {
+        WorkspaceView.setTools(t);
     }
 
 }

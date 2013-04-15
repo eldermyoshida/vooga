@@ -1,4 +1,8 @@
-package level_editor;
+
+package vooga.scroller.level_editor;
+
+import vooga.scroller.test_sprites.MarioLib;
+import vooga.scroller.util.Sprite;
 
 
 public class Main {
@@ -7,8 +11,8 @@ public class Main {
      * @param args
      */
     public static void main (String[] args) {
-        // TODO Auto-generated method stub
-        LEController con = new LEController(new SpriteLibrary());
-        con.start();
+        
+        LEController con = new LEController(new MarioLib());
+        con.start(); 
     }
 }

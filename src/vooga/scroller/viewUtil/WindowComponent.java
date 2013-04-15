@@ -1,5 +1,7 @@
-package viewUtil;
+
+package vooga.scroller.viewUtil;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import javax.swing.JPanel;
@@ -18,24 +20,57 @@ import javax.swing.JPanel;
 public abstract class WindowComponent extends JPanel implements IView {
 
     private GridBagConstraints myConstraints;
-    private IView myParent;
+    private IView myBoss;
 
-    private WindowComponent () {
-        setLayoutManager();
-        myConstraints = new GridBagConstraints();
-        this.setBorder(ViewConstants.DEFAULT_BORDER);
-        initializeVariables(); 
-        addComponents();
-    }
     
     
     /**
      * Constructor for WindowView
      * @param parent the parent of the View being created
      */
-    public WindowComponent (IView parent) {
-        this();
-        myParent = parent;
+    private WindowComponent (IView parent) {
+        myBoss = parent;
+        this.setBorder(ViewConstants.DEFAULT_BORDER);
+    }
+    
+    private Dimension getDefaultSize (double w, double h) {
+        // TODO Auto-generated method stub
+        Dimension base = myBoss.getSize();
+        int width = (int) (base.getWidth()*w);
+        int height = (int) (base.getHeight()*h);
+        Dimension rel = new Dimension (width, height);
+        return rel;
+    }
+    
+    //TODO - renamed getParent() getResponsible to avoid conflict w/ container's class
+    protected IView getResponsible() {
+        return myBoss;
+    }
+
+
+    public WindowComponent (IView parent, double relativeWidth, double relativeHeight) {
+        this(parent);
+        Dimension rel = getDefaultSize(relativeWidth, relativeHeight);
+        setDefaultSize(rel);
+        initializeVariables(); 
+        addComponents();
+
+        
+    }
+    
+    public WindowComponent (IView parent, Dimension size) {
+        this(parent);
+        setDefaultSize(size);
+        initializeVariables(); 
+        addComponents();
+
+        this.setBorder(ViewConstants.DEFAULT_BORDER);
+    }
+    
+    private void setDefaultSize(Dimension d) {
+        this.setSize(d);
+        this.setPreferredSize(d);
+        this.setMinimumSize(d);
     }
     
 //    /**
@@ -45,16 +80,16 @@ public abstract class WindowComponent extends JPanel implements IView {
 //        return myParent;
 //    }
     
-    public void processCommand(String cmd) {
-        myParent.processCommand(cmd);
+    public void process(Object cmd) {
+        getResponsible().process(cmd);
     }
 
     
-    private void setLayoutManager() {
-        this.setLayout(new GridBagLayout());
-        myConstraints = new GridBagConstraints();
-        this.setBorder(ViewConstants.DEFAULT_BORDER);
-    }
+//    private void setLayoutManager() {
+//        this.setLayout(new GridBagLayout());
+//        myConstraints = new GridBagConstraints();
+//        this.setBorder(ViewConstants.DEFAULT_BORDER);
+//    }
     
     /**
      * 

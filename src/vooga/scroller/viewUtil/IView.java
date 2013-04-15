@@ -1,4 +1,7 @@
-package viewUtil;
+
+package vooga.scroller.viewUtil;
+
+import java.awt.Dimension;
 
 
 
@@ -7,9 +10,9 @@ public interface IView {
     /**
      * Process a String representing a command.
      * 
-     * @param command - unprocessed String.
+     * @param command - unprocessed object, ideally a string.
      */
-    public void processCommand(String command);
+    public void process(Object command);
     
     
     /**
@@ -18,5 +21,11 @@ public interface IView {
      * @param r
      */
     public void render(Renderable r);
+    
+    /**
+     * Provides the size of this view entity. All views are supposed to occupy
+     * some space.
+     */
+    public Dimension getSize();
 
 }

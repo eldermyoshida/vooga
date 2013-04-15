@@ -1,17 +1,17 @@
 package vooga.rts.gamedesign;
 
+import vooga.rts.gamedesign.sprite.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
 import vooga.rts.gamedesign.sprite.rtsprite.Projectile;
-import vooga.rts.gamedesign.sprite.rtsprite.RTSprite;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.Interactive;
-import vooga.rts.gamedesign.upgrades.Upgrade;
-import vooga.rts.gamedesign.upgrades.UpgradeTree;
+import vooga.rts.gamedesign.upgrades.*;
 import vooga.rts.util.Location;
+import vooga.rts.util.Location3D;
+
 import java.awt.geom.Ellipse2D.Double;
 import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-
 
 /**
  * This class represents a weapon. The CanAttack class the implements
@@ -27,16 +27,16 @@ import java.util.List;
  * @author Wenshun Liu
  * 
  */
-public abstract class Weapon {
+public class Weapon {
 
     private int myDamage;
     private Projectile myProjectile;
     private UpgradeTree myUpgradeTree;
     private int myRange;
     private List<Projectile> myProjectiles;
-    private int maxCooldown;
-    private int cooldown; 
+    private Interval interval;
     private Ellipse2D myRangeCircle;
+    private Location3D myCenter;
 
     /**
      * Creates a new weapon with default damage and projectile.
@@ -44,43 +44,63 @@ public abstract class Weapon {
      * @param damage
      * @param projectile
      */
-    public Weapon (int damage, Projectile projectile, int range, Location center, int cooldownTime) {
+    public Weapon (int damage, Projectile projectile, int range, Location3D center, int cooldownTime) {
         myDamage = damage;
         myProjectile = projectile;
         myRange = range;
-        maxCooldown = cooldownTime;
-        myRangeCircle = new Ellipse2D.Double(center.getX(), center.getY(), range, range);
+        interval = new Interval(cooldownTime);
+        myCenter = center;
         myProjectiles = new ArrayList<Projectile>();
     }
 
     /**
-     * This method is used by the weapon to attack an RTSprite.
-     * @throws CloneNotSupportedException 
+     * This method is used by the weapon to attack an InteractiveEntity.
+     * 
      */
-    public void fire (RTSprite toBeShot) throws CloneNotSupportedException {
-        System.out.println(cooldown);
-        if(cooldown == 0) {
-            if (!toBeShot.isDead()) {
-                myProjectile.attack(toBeShot);
-                myProjectiles.add(myProjectile);
-                setCooldown(maxCooldown);
-            }
+    public void fire (InteractiveEntity toBeShot) {
+        if(interval.allowAction() && !toBeShot.isDead()){
+        	System.out.println("is shooting");
+            Projectile fire = new Projectile(myProjectile, myCenter);
+            fire.setEnemy(toBeShot);
+            fire.move(toBeShot.getWorldLocation());
+            myProjectiles.add(fire);
+            interval.resetCooldown();
         }
     }
-
-    /**
-     * This method is used to upgrade a weapon either
-     * 
-     * @param upgrade
-     */
-    public void upgrade (Upgrade upgrade) {
+    
+    public int getDamage() {
+    	return myDamage;
     }
+    
+    /**
 
-    public List<Projectile> getProjectiles(){
+     * NOTE: moving this method is gonna break DamageUpgradeNode.
+     * @param damage
+     */
+    public void addDamage(int damage) {
+    	myDamage += damage;
+    }
+    
+    /**
+     * This method is used to upgrade a weapon either.
+     * 
+     * @param upgrade is the upgrade that has been selected for the weapon
+     */
+
+    //public void upgrade (Upgrade upgrade) {
+
+    //}
+    
+    /**
+     * Returns the list of projectiles.
+     * @return the list of projectiles that this weapon has
+     */
+    public List<Projectile> getProjectiles () {
         return myProjectiles;
     }
+
     /**
-     * This method is used to change the projectile for the weapon
+     * This method is used to change the projectile for the weapon.
      * 
      * @param projectile is the projectile that will be used by the weapon
      */
@@ -96,31 +116,38 @@ public abstract class Weapon {
      * @return true if the interactive is in the range of the weapon and false
      *         if the interactive is out of the range of the weapon
      */
-    public boolean inRange (Interactive interactive, Location center) {
+    public boolean inRange (InteractiveEntity enemy) {
         // add z axis
-        myRangeCircle = new Ellipse2D.Double(center.getX(), center.getY(), myRange, myRange);
-        return myRangeCircle.contains(interactive.getCenter());
-    }
-
-    /**
-     * subtracts 1 from the cooldown counter
-     */
-    public void decrementCooldown() {
-        cooldown--;
+        //see if enemy is in adjacent node, better way ? 
+        myRangeCircle = new Ellipse2D.Double(myCenter.getX(), myCenter.getY(), myRange, myRange);
+        return myRangeCircle.contains(enemy.getWorldLocation().to2D());
     }
     /**
-     * Returns the cooldown time on the weapon
-     * @return the cooldown time on the weapon
+     * Returns the range of the weapon.
+     * @return the range of the weapon
      */
-    public int getCooldown() {
-        return cooldown;
+    public int getRange(){
+        return myRange;
     }
     /**
-     * After the weapon fires, the cooldown is set to the max cooldown for the
-     * weapon. 
-     * @param time is the time that the cooldown is set to
+     * Updates the weapon so that the cooldown between attacks is decremented
+     * and the projectiles are updated.
+     * @param elapsedTime is the time that has elapsed.
      */
-    private void setCooldown(int time) {
-        cooldown = time;
+    public void update (double elapsedTime) {
+        if(!interval.allowAction()){
+            interval.decrementCooldown();
+        }
+        Iterator<Projectile> it = myProjectiles.iterator();
+        while (it.hasNext()) {
+        	Projectile p = it.next();
+        	if (!p.isDead()) {
+        		p.update(elapsedTime);
+        	}
+        	else {
+        		it.remove();
+        	}
+        }
+        
     }
 }

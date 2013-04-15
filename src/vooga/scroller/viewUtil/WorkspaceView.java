@@ -1,13 +1,14 @@
-package viewUtil;
+
+package vooga.scroller.viewUtil;
 
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.Image;
 import java.util.Stack;
-import viewUtil.Renderable;
-import viewUtil.ViewConstants;
-import viewUtil.Window;
+import vooga.scroller.viewUtil.Renderable;
+import vooga.scroller.viewUtil.ViewConstants;
+import vooga.scroller.viewUtil.Window;
 
 /**
  * A workspace is an entity with at least a space for a Renderable 
@@ -23,14 +24,15 @@ public abstract class WorkspaceView extends WindowComponent {
     private static final long serialVersionUID = 2039042992476659779L;
     
     private int myID;
-    private Window myWindow;
     @SuppressWarnings("unused")
     private GridBagConstraints myConstraints;
     private Dimension mySize = ViewConstants.DEFAULT_TAB_SIZE;
+    private static Tools myTools;
+    private static Double DEF_WIDTH_RATIO = .95;
+    private static Double DEF_HEIGHT_RATIO = .9;
 
     public WorkspaceView (IView hostWindow) {
-        super(hostWindow);
-        setWindow();
+        super(hostWindow, DEF_WIDTH_RATIO, DEF_HEIGHT_RATIO);
         setPreferredSize(mySize);
         //TODO : for undo/redo stuff
 //        myRenderableHistory = new Stack<Renderable>();
@@ -42,6 +44,7 @@ public abstract class WorkspaceView extends WindowComponent {
         this(hostWindow);
         myID = id; 
     }
+    
 
     public abstract void setRenderable(Renderable r);
     
@@ -53,12 +56,6 @@ public abstract class WorkspaceView extends WindowComponent {
         return myID;
     }
     
-    /**
-     * TODO - for use in history browsing
-     */
-    private void setWindow() {
-        myWindow = (Window) getParent();
-    }
     
     
 //TODO : Maybe not (maybe remove this one)
@@ -91,8 +88,18 @@ public abstract class WorkspaceView extends WindowComponent {
      * Take in a string and send it to Window to process it as a command.
      * @param s The string to be parsed.
      */
-    public void processConsoleInput (String s) {
-        myWindow.processCommand(this, s);
-    } 
+    @Override
+    public void process (Object o) {
+        ((Window) getResponsible()).process(this, o);
+    }
+    
+    //TODO - good design choice?
+    public static void setTools(Tools t) {
+        myTools = t;
+    }
+    
+    public Tools getTools() {
+        return myTools;
+    }
 
 }

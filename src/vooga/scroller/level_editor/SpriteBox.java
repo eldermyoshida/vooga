@@ -1,11 +1,12 @@
-package level_editor;
+
+package vooga.scroller.level_editor;
 
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.HashSet;
 import java.util.Set;
-import util.Sprite;
-import viewUtil.Renderable;
+import vooga.scroller.util.Sprite;
+import vooga.scroller.viewUtil.Renderable;
 
 
 public class SpriteBox implements Renderable {

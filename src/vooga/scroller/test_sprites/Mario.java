@@ -1,17 +1,19 @@
-package test_sprites;
+
+package vooga.scroller.test_sprites;
 
 import java.awt.Dimension;
 import java.util.List;
-import collision_handlers.Mario_CH;
-import design_patterns.State;
-import sprite_superclasses.Player;
-import util.Location;
-import util.Pixmap;
-import view.View;
+import vooga.scroller.design_patterns.State;
+import vooga.scroller.scrollingmanager.ScrollingManager;
+import vooga.scroller.sprite_superclasses.NonStaticEntity;
+import vooga.scroller.sprite_superclasses.Player;
+import vooga.scroller.sprite_superclasses.StaticEntity;
+import vooga.scroller.util.Location;
+import vooga.scroller.util.Pixmap;
+import vooga.scroller.view.View;
 
 public class Mario extends Player {
 
-    private Mario_CH collisionHandler;
     List<State> myStates;    
     State currentState; 
     View myView;
@@ -20,34 +22,20 @@ public class Mario extends Player {
     private Pixmap myImage;
     
     
-    
-    public Mario_CH getCollisionHandler () {
-        return collisionHandler;
-    }
 
-    public void setCollisionHandler (Mario_CH collisionHandler) {
-        this.collisionHandler = collisionHandler;
-    }
-    
-    public Mario (Pixmap image, Location center, Dimension size, View view) {
-        super(image, center, size, view);
+    public Mario (Pixmap image, Location center, Dimension size, View view, ScrollingManager sm) {
+        super(image, center, size, view, sm);
         myView = view;
         myOriginalCenter = center;
         mySize = size;
         myImage = image;
-        collisionHandler = new Mario_CH(view);
         // TODO Auto-generated constructor stub
     }
 
     public void print() {
         System.out.println("Mario");
     }
-    
-    @Override
-    public Type getType() {
-        return Type.MARIO;
-    }
-    
+
 
    
     
@@ -74,12 +62,16 @@ public class Mario extends Player {
         {
             translate(DOWN_VELOCITY);
         }
-//        ONLY FOR TESTING
+
+        super.update(elapsedTime, bounds);
+        
+        //        ONLY FOR TESTING
     }
    
     public void changeState(State newState) {
         currentState = newState;
     }
+    
 }
 
 

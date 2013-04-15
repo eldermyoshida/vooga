@@ -1,4 +1,5 @@
-package level_editor.commands;
+
+package vooga.scroller.level_editor.commands;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;

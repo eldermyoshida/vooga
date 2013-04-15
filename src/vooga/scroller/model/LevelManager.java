@@ -1,10 +1,12 @@
-package model;
+
+package vooga.scroller.model;
 
 import java.util.List;
-import scrollingmanager.ScrollingManager;
-import sprite_superclasses.Player;
-import view.View;
-import level_editor.Level;
+import vooga.scroller.util.Location;
+import vooga.scroller.scrollingmanager.ScrollingManager;
+import vooga.scroller.sprite_superclasses.Player;
+import vooga.scroller.view.View;
+import vooga.scroller.level_editor.Level;
 
 /**
  * Manages the flow and order of levels in gameplay.
@@ -37,12 +39,17 @@ public class LevelManager {
         return myLevels.get(myIndex);
     }
     
+    public void setCurrentLevel(int id) {
+        myIndex = id;
+    }
+    
     /**
      * Starts game-play in the current level.
      * 
      * @param player is the player that will play the current level.
      */
-    public void startLevel(Player player){
+    public void startLevel(Player player, Location location){
         myLevels.get(myIndex).addSprite(player);
     }
 }
+

@@ -257,4 +257,5 @@ public class Vector {
             return Math.abs(a / b - 1) < EPSILON;
         }
     }
+ 
 }
