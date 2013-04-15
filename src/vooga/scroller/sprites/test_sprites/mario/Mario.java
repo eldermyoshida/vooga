@@ -69,8 +69,10 @@ public class Mario extends Player {
             Vector right= new Vector(RIGHT_DIRECTION,MAX_HORIZONTAL_SPEED- rightMag);
             this.addVector(right);
         }
-
-        
+//
+//        if(this.getVelocity().getMagnitude() < 5){
+//            this.setVelocity(0, 0);
+//        }
         super.update(elapsedTime, bounds);
     }
 

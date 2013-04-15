@@ -4,14 +4,14 @@ import vooga.scroller.sprites.animation.AnimationState;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.Sprite;
 
-public class RightStand extends AnimationState {
+public class LeftStand extends AnimationState {
 
-    private static final Pixmap RIGHT_STAND = new Pixmap("llama_stand_right.gif");
+    private static final Pixmap LEFT_STAND = new Pixmap("llama_still.gif");
 
     private boolean myFacingLeft;
     
-    public RightStand () {
-        super(RIGHT_STAND);
+    public LeftStand () {
+        super(LEFT_STAND);
         // TODO Auto-generated constructor stub
     }
 
@@ -23,7 +23,7 @@ public class RightStand extends AnimationState {
                 unit.getVelocity().getComponentVector(Sprite.LEFT_DIRECTION).getMagnitude() >= 5){
             myFacingLeft = false;
         }
-        if (unit.lastLocation().x - unit.getCenter().x < -.3){ 
+        if (unit.lastLocation().x - unit.getCenter().x > .3){ 
             myFacingLeft = true;
         }
         
