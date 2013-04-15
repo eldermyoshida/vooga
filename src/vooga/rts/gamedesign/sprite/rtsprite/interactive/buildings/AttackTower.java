@@ -1,15 +1,11 @@
 package vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings;
 
-import java.awt.Dimension;
-
-import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
-import vooga.rts.gamedesign.sprite.rtsprite.IGatherable;
-import vooga.rts.gamedesign.sprite.rtsprite.RTSprite;
-import vooga.rts.gamedesign.sprite.rtsprite.RTSpriteVisitor;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.IOccupiable;
+import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Unit;
 import vooga.rts.util.Location;
+import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
+import java.awt.Dimension;
 
 /**
  * 
@@ -21,11 +17,18 @@ import vooga.rts.util.Sound;
  */
 public class AttackTower extends Building {
 
-	public AttackTower(Pixmap image, Location center, Dimension size,
-			Sound sound, int teamID, int health) {
-		super(image, center, size, sound, teamID, health);
+	public AttackTower(Pixmap image, Location3D center, Dimension size,
+			Sound sound, int playerID, int health) {
+		super(image, center, size, sound, playerID, health);
 		// TODO Auto-generated constructor stub
 	}
+
+    @Override
+    public void getOccupied (Unit u) {
+        // TODO Auto-generated method stub
+        
+    }
+
 
 	
 }

@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import vooga.rts.gui.Menu;
+import vooga.rts.gui.menus.MainMenu;
 import vooga.rts.input.PositionObject;
 
 public class MenuController extends AbstractController implements Observer  {
@@ -16,6 +17,7 @@ public class MenuController extends AbstractController implements Observer  {
     
     public MenuController () {
         myMenus = new HashMap<Integer, Menu>();
+        addMenu(0, new MainMenu());
     }
     
     public void addMenu (int index, Menu menu) {
@@ -44,7 +46,7 @@ public class MenuController extends AbstractController implements Observer  {
     }
 
     @Override
-    public void activate (MainState gameState) {
+    public void activate () {
         setMenu(0);
     }
 
@@ -53,7 +55,7 @@ public class MenuController extends AbstractController implements Observer  {
      */
     @Override
     public void onLeftMouseUp (PositionObject o) {        
-        getCurrentMenu().handleClick((int)o.getX(), (int)o.getY());
+        getCurrentMenu().handleMouseDown((int)o.getX(), (int)o.getY());
     }
 
     @Override
@@ -62,6 +64,11 @@ public class MenuController extends AbstractController implements Observer  {
         setChanged();
         notifyObservers(arg1);
     }
+
+	@Override
+	public MainState getGameState() {
+		return MainState.Menu;
+	}
     
     
 
