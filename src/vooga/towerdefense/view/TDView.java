@@ -105,7 +105,7 @@ public class TDView {
         myMapScreen = new MapScreen(MAP_WINDOW_SIZE, myController);
         myFrame.getContentPane().add(myMapScreen, BorderLayout.CENTER);
 
-        myEastWindow = new EastWindow(EAST_WINDOW_SIZE);
+        myEastWindow = new EastWindow(EAST_WINDOW_SIZE, myController);
         myFrame.getContentPane().add(myEastWindow, BorderLayout.EAST);
 
         myShopScreen = new ShopScreen(SHOP_WINDOW_SIZE, myController);
@@ -119,7 +119,7 @@ public class TDView {
         return myMapScreen;
     }
 
-    public InformationScreen getTowerInfoScreen () {
+    public GameElementInformationScreen getTowerInfoScreen () {
         return myEastWindow.getTowerScreen();
     }
 

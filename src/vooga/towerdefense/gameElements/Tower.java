@@ -23,5 +23,14 @@ public class Tower extends GameElement {
     public Tower (Pixmap image, Location center, Dimension size, AttributeManager attributes, List<AbstractAction> actions) {
         super(image, center, size, attributes, actions);
     }
+    
+    /**
+     * returns list of the tower's available upgrades.
+     * @return a list of strings
+     */
+    public List<String> getUpgrades() {
+        //TODO: implement get upgrade in tower
+        return null;
+    }
 
 }

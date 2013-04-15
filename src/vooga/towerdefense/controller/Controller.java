@@ -7,6 +7,7 @@ import vooga.towerdefense.controller.modes.BuildMode;
 import vooga.towerdefense.controller.modes.ControlMode;
 import vooga.towerdefense.controller.modes.SelectMode;
 import vooga.towerdefense.gameElements.GameElement;
+import vooga.towerdefense.gameElements.Tower;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.GameModel;
 import vooga.towerdefense.model.Shop;
@@ -70,18 +71,40 @@ public class Controller {
     }
     
     /**
+     * gets the associated game element at a point.
+     * @param p
+     * @return the game element
+     */
+    public GameElement getItemAt(Point p) {
+        Tile tile = myModel.getTile(p);
+        if (tile.containsElement()) {
+            return tile.getElement();
+        }
+        return null;
+    }
+    
+    /**
      * displays information about the GameElement on the tile.
      * @param p is the point that was clicked.
      */
-    public void displayElementInformation(Point p) {
-        Tile tile = myModel.getTile(p);
-        if (tile.containsElement()) {
-            myView.getTowerInfoScreen().displayInformation(tile.getElement().getAttributes().toString());
-            //TODO: implement tower upgrades section
-//            if (tile.getElement() instanceof Tower) {
-//                myView.getTowerInfoScreen().showUpgradeInformation(tile.getElement());
-//            }
+    public void displayElementInformation(GameElement e) {
+        if (e != null) {
+            myView.getTowerInfoScreen().displayInformation(e.getAttributes().toString());
+            if (e instanceof Tower) {
+                myView.getTowerInfoScreen().displayUpgradesAndButton(((Tower) e).getUpgrades());
+            }
         }
+        else {
+            myView.getTowerInfoScreen().clearScreen();
+        }
+    }
+    
+    /**
+     * upgrades the item to the new type.
+     * @param upgradeName
+     */
+    public void upgradeSelectedItemTo(String upgradeName) {
+        //TODO: implement upgrade stuff (ask unit team for tower upgrade info!)
     }
 
 //    //testing method to check if displaying the correct info
