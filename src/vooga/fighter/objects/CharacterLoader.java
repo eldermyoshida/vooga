@@ -1,5 +1,6 @@
 package vooga.fighter.objects;
 
+import java.awt.Dimension;
 import java.awt.Rectangle;
 
 

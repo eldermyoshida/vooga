@@ -154,7 +154,7 @@ public abstract class GameObject {
     public void setImageData() {
         Pixmap myCurrentImage = myCurrentState.getCurrentImage();
         Dimension myCurrentSize = myCurrentState.getCurrentSize();
-        if (myCurrentSize == null || myCurrentImage == null || myCenter == null) {
+        if (!(myCurrentSize == null || myCurrentImage == null || myCenter == null)) {
             myImageData = new ImageDataObject(myCurrentImage, myCenter, myCurrentSize);
         }
     }
