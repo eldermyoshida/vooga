@@ -20,6 +20,7 @@ import vooga.towerdefense.view.TDView;
  * 
  * @author Jimmy Longley
  * @author Erick Gonzalez
+ * @author Angelica Schwartz
  */
 public class Controller {
     private GameModel myModel;
@@ -99,7 +100,12 @@ public class Controller {
         myModel.paintMap((Graphics2D) pen);
     }
     
-    public void paintGhostImage (Point p, Pixmap itemImage) {
+    /**
+     * paints the ghost image of the item on the MapScreen.
+     * @param p is the mouselocation
+     * @param itemImage is the image
+     */
+    private void paintGhostImage (Point p, Pixmap itemImage) {
         myView.getMapScreen().paintGhostImage(p, itemImage);
     }
 
