@@ -44,13 +44,6 @@ public class ControllerManager implements ControllerDelegate{
 		myCurrentController.start();	
 	}      
 
-
-	
-	private String pickController(String condition){
-		String NextController = ""; //ERROR LOGIC NEEDED!
-		return NextController;
-	}
-
 	@Override
 	public void notifyEndCondition(String string) {
 		switchController(string);
