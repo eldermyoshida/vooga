@@ -173,6 +173,7 @@ public abstract class GameObject {
      * necessary, but all overrides should call superclass method.
      */
     public void update() {
+    	setImageData();
         if (myCenter != null) {
             myCenter.update();
         }
