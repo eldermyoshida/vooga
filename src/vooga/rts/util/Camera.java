@@ -1,12 +1,8 @@
 package vooga.rts.util;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
-import java.awt.Shape;
-import java.awt.geom.Ellipse2D;
 import vooga.rts.gui.Window;
 
 
@@ -18,15 +14,13 @@ public class Camera {
 
     private static Camera myInstance;
 
-    private Location myScreenLocation;
     private Dimension myScreenSize;
 
     private Location3D myWorldCenter;
-    private Location3D myScreenCenter;
 
     public Camera (Location3D playerLoc) {
         myWorldCenter = new Location3D(playerLoc);
-        myScreenSize = new Dimension(Window.SCREEN_SIZE);
+        myScreenSize = Window.SCREEN_SIZE;
     }
 
     /**
@@ -60,42 +54,43 @@ public class Camera {
      */
     public Location3D viewtoWorld (Location view) {
         return viewtoWorld(view, myWorldCenter);
-        /*
-        int Zvalue = 0;
-        double x = (ISO_HEIGHT * view.getX()) + view.getY() + Zvalue;
-        x += -(myScreenSize.getHeight() * ISO_HEIGHT);
-        x += -(myScreenSize.getWidth() * ISO_HEIGHT * ISO_HEIGHT);
-        x += myWorldCenter.getX();
-        
-        double y = view.getY() + myWorldCenter.getY() + Zvalue;
-        y += -myScreenSize.getHeight() * ISO_HEIGHT;
-        y += -view.getX() * ISO_HEIGHT;
-        y += myScreenSize.getWidth() * (ISO_HEIGHT * ISO_HEIGHT);        
 
-        return new Location3D(x, y, Zvalue);
-        */
+        /*
+         * int Zvalue = 0;
+         * double x = (ISO_HEIGHT * view.getX()) + view.getY() + Zvalue;
+         * x += -(myScreenSize.getHeight() * ISO_HEIGHT);
+         * x += -(myScreenSize.getWidth() * ISO_HEIGHT * ISO_HEIGHT);
+         * x += myWorldCenter.getX();
+         * 
+         * double y = view.getY() + myWorldCenter.getY() + Zvalue;
+         * y += -myScreenSize.getHeight() * ISO_HEIGHT;
+         * y += -view.getX() * ISO_HEIGHT;
+         * y += myScreenSize.getWidth() * (ISO_HEIGHT * ISO_HEIGHT);
+         * 
+         * return new Location3D(x, y, Zvalue);
+         */
     }
-    
-    private Location3D viewtoWorld(Location view, Location3D camera) {
+
+    private Location3D viewtoWorld (Location view, Location3D camera) {
         double Zvalue = camera.getZ();
-        
+
         double x = (ISO_HEIGHT * view.getX()) + view.getY() + Zvalue;
         x += -(myScreenSize.getHeight() * ISO_HEIGHT);
         x += -(myScreenSize.getWidth() * ISO_HEIGHT * ISO_HEIGHT);
         x += camera.getX();
-        
+
         double y = view.getY() + camera.getY() + Zvalue;
         y += -myScreenSize.getHeight() * ISO_HEIGHT;
         y += -view.getX() * ISO_HEIGHT;
-        y += myScreenSize.getWidth() * (ISO_HEIGHT * ISO_HEIGHT);        
+        y += myScreenSize.getWidth() * (ISO_HEIGHT * ISO_HEIGHT);
 
         return new Location3D(x, y, Zvalue);
     }
-    
-    private Location3D deltaviewtoWorld(Location delta) {
-        double Zvalue = 0;         
+
+    private Location3D deltaviewtoWorld (Location delta) {
+        double Zvalue = 0;
         double x = (ISO_HEIGHT * delta.getX()) + delta.getY() + Zvalue;
-        double y = delta.getY() + Zvalue - delta.getX() * ISO_HEIGHT;        
+        double y = delta.getY() + Zvalue - delta.getX() * ISO_HEIGHT;
 
         return new Location3D(x, y, Zvalue);
     }
@@ -142,9 +137,20 @@ public class Camera {
         }
         return myInstance;
     }
+    
+    public void setWorldLocation(Location3D center) {
+        myWorldCenter = center;
+    }
 
-    public void moveCamera (Location change) {        
-        Location3D temp = deltaviewtoWorld(change);        
+    /**
+     * Moves the camera by a specified change. This change
+     * is represented in view coordinates and will be
+     * converted into moving the camera's world location.
+     * 
+     * @param change The amount to move the camera by
+     */
+    public void moveCamera (Location change) {
+        Location3D temp = deltaviewtoWorld(change);
         myWorldCenter.add(temp);
     }
 }

@@ -46,12 +46,20 @@ public class GameController extends AbstractController {
     private Rectangle2D myDrag;
 
     private PointTester pt;
+    
+    private Robot myMouseMover = null;
 
     public GameController () {
         myTeams = new HashMap<Integer, Team>();
         myPlayers = new ArrayList<Player>();
         myMap = new GameMap(8, new Dimension(512, 512));
         pt = new PointTester();
+        try {
+            myMouseMover = new Robot();
+        }
+        catch (AWTException e) {
+            // Cannot move the camera            
+        }
     }
 
     public void addPlayer (Player player, int teamID) {
@@ -121,9 +129,8 @@ public class GameController extends AbstractController {
     public void onLeftMouseUp (PositionObject o) {
         // if it's not a gui thing
         if (myDrag == null) {
-            Location3D worldClick = Camera.instance().viewtoWorld(new Location(o.getPoint2D()));
-            System.out.println("World Click" + worldClick);
-            //myHuman.handleLeftClick((int) o.getX(), (int) o.getY());
+            Location3D worldClick = Camera.instance().viewtoWorld(new Location(o.getPoint2D()));            
+            myHuman.handleLeftClick((int) worldClick.getX(), (int) worldClick.getY());
         }
         myLeftMouse = null;
         myDrag = null;
@@ -233,16 +240,8 @@ public class GameController extends AbstractController {
             setY = Window.SCREEN_SIZE.getHeight() - 1;
         }
         if (x != 0 || y != 0) {
-            Camera.instance().moveCamera(new Location(x, y));
-            Robot r = null;
-            try {
-                r = new Robot();
-            }
-            catch (AWTException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            r.mouseMove((int) setX, (int) setY);
+            Camera.instance().moveCamera(new Location(x, y));            
+            myMouseMover.mouseMove((int) setX, (int) setY);
         }
     }
 
