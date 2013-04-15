@@ -102,6 +102,14 @@ public class AttackObject extends GameObject{
     public void endCounter(){
     	myCounter.setCounter(0); 
     }
+    
+    /**
+     * Returns true if this attack object has expired.
+     */
+    public boolean shouldBeRemoved() {
+        return getCurrentState().hasCompleted();
+    }
+    
     @Override
     public void applyCollideEffect(GameObject o){
     	if (this.compare(o)>=0){
