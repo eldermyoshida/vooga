@@ -52,6 +52,14 @@ public class Controller {
     public void handleMapClick (Point p) {
         myControlMode.handleMapClick(p, this);
     }
+    
+    /**
+     * handles a click on the ShopScreen.
+     * @param p
+     */
+    public void handleShopClick(Point p) {
+        String name = myView.getShopScreen().getItemName();
+    }
 
     public void displayTileCoordinates (Point p) {
         Tile t = myModel.getTile(p);
