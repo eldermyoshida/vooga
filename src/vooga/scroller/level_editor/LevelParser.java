@@ -41,8 +41,8 @@ public class LevelParser {
         return createGrid();
     }
 
-    public Level loadFileToLevel (File file) {
-        return loadFileToGrid(file).createLevel(0);
+    public Level loadFileToLevel (File file, int id) {
+        return loadFileToGrid(file).createLevel(id);
     }
 
     private void parseLevel () {
