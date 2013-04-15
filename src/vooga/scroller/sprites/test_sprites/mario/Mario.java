@@ -31,7 +31,7 @@ public class Mario extends Player {
     
     public void hit(NonStaticEntity nse){
         int hit = nse.getHit();
-        super.takeHit(hit);
+        takeHit(hit);
     }
 
     public int getHP () {
@@ -69,8 +69,10 @@ public class Mario extends Player {
             Vector right= new Vector(RIGHT_DIRECTION,MAX_HORIZONTAL_SPEED- rightMag);
             this.addVector(right);
         }
-
-        
+//
+//        if(this.getVelocity().getMagnitude() < 5){
+//            this.setVelocity(0, 0);
+//        }
         super.update(elapsedTime, bounds);
     }
 
@@ -82,6 +84,16 @@ public class Mario extends Player {
 
     private void takeDeathPenalty () {
         this.getStatistic().removeValue(DEATH_PENALTY);
+    }
+
+    public int getHealth () {
+        // TODO Auto-generated method stub
+        return 1;
+    }
+
+    public void takeHit (int health2) {
+        // TODO Auto-generated method stub
+        
     }   
 }
 

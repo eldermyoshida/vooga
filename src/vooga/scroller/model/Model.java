@@ -11,6 +11,7 @@ import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.animation.Animation;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.sprites.test_sprites.mario.Mario;
+import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.Secretary;
 import vooga.scroller.view.View;
 
@@ -30,12 +31,10 @@ public class Model {
     private View myView;
     private Player myPlayer;
 
-    // This is weird how it works. I think you just need to instantiate it(see constructor)
-    private ModelInputs myInputs;
     private LevelManager myLevelManager;
     private ScrollingManager myScrollingManager;
     private Secretary mySecretary;
-    private List<String> spriteStrings = Arrays.asList("Mario mario", "Koopa koopa", "Coin coin",
+    private List<String> spriteStrings = Arrays.asList("Koopa koopa", "Coin coin",
                                                        "MarioLib.MovingPlatform movingPlatform"); 
     private static final String PART_ONE = "public void visit (";
     private static final String PART_TWO = ") {}";
@@ -50,14 +49,22 @@ public class Model {
     public Model (View view, ScrollingManager sm) {
         myScrollingManager = sm;
         myView = view;
+        //myInputs = new SplashInputs(this, myView);
+        //mySplash = new Pixmap("MARIO SPLASH.png"); 
+        
         initPlayer();
-        myInputs = new ModelInputs(myPlayer, view);
-        myLevelManager = new LevelManager(myScrollingManager, view);
+        
+        myScrollingManager.initGame(this);
+        myScrollingManager.initView(view);
+        
+        myLevelManager = new LevelManager(myScrollingManager, myView);
+        
         myLevelManager.currentLevel().addPlayer(myPlayer);
         mySecretary = new Secretary();
-        generateVisitMethods(spriteStrings);
-        
+        generateVisitMethods(spriteStrings);  
     }
+
+
 
     /**
      * User defined player initialization.
@@ -78,6 +85,8 @@ public class Model {
     public void paint (Graphics2D pen) {
         myLevelManager.currentLevel().paint(pen);
         
+        
+        
     }
 
     /**
@@ -86,7 +95,9 @@ public class Model {
      * @param elapsedTime is the elapsed time since the last update.
      */
     public void update (double elapsedTime) {
+
         myLevelManager.currentLevel().update(elapsedTime, myView.getSize(), myView);
+
     }
 
     /**
@@ -116,6 +127,10 @@ public class Model {
     
     public Image getBackground() {
         return myLevelManager.currentLevel().getBackground();
+    }
+    
+    public Player getPlayer(){
+        return myPlayer;
     }
     
     

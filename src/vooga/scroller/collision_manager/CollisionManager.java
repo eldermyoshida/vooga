@@ -173,19 +173,19 @@ public class CollisionManager {
      */
     
     public void visit (Mario mario, Mario mario2) {
-        System.out.println("Mario has just collided with Mario!");
+        //System.out.println("Mario has just collided with Mario!");
         
     }
     
     public void visit (Mario mario, Plant plant) {
-        System.out.println("Mario hits plant");
+        //System.out.println("Mario hits plant");
         mario.takeHit(mario.getHealth());  //kill Mario
-        System.out.println(mario.getHealth());
+        //System.out.println(mario.getHealth());
     }
     
     public void visit (Mario mario, MarioLib.Coin coin) {
         mario.scorePoints(coin.getValue());
-        System.out.println("Mario just collected a coin");
+        //System.out.println("Mario just collected a coin");
         
     }
 
@@ -194,10 +194,10 @@ public class CollisionManager {
             koopa.takeHit();
         }
         else {
-            mario.takeHit();
+            mario.takeHit(koopa.getHit());
         }
         
-        System.out.println("Mario has just collided with Koopa!");
+        //System.out.println("Mario has just collided with Koopa!");
         
     }
 
@@ -205,31 +205,31 @@ public class CollisionManager {
 
     public void visit (Mario mario, MarioLib.Platform platform) {
         marioAndNonStaticEntityCollision(mario, platform);
-        System.out.println("Mario has just collided with Platform!");
+        //System.out.println("Mario has just collided with Platform!");
         
     }
 
     public void visit (Mario mario, MarioLib.LevelTwoBlockOne platform) {
         marioAndNonStaticEntityCollision(mario, platform);
-        System.out.println("Mario has just collided with Platform!");
+        //System.out.println("Mario has just collided with Platform!");
         
     }
     
     public void visit (Mario mario, MarioLib.LevelTwoBlockTwo platform) {
         marioAndNonStaticEntityCollision(mario, platform);
-        System.out.println("Mario has just collided with Platform!");
+        //System.out.println("Mario has just collided with Platform!");
         
     }
     
     public void visit (Mario mario, MarioLib.LevelTwoBlockThree platform) {
         marioAndNonStaticEntityCollision(mario, platform);
-        System.out.println("Mario has just collided with Platform!");
+        //System.out.println("Mario has just collided with Platform!");
         
     }
     
     public void visit (Mario mario, MarioLib.MovingPlatformOne movingPlatform) {
         marioAndNonStaticEntityCollision(mario, movingPlatform);
-        System.out.println("Mario has just collided with Platform!");
+        //System.out.println("Mario has just collided with Platform!");
         
     }
     
@@ -240,7 +240,7 @@ public class CollisionManager {
             turtle.takeHit();
         }
         else {
-            mario.takeHit();
+            mario.takeHit(turtle.getHit());
         }        
     }
     
@@ -254,45 +254,45 @@ public class CollisionManager {
     }
 
     public void visit (MarioLib.Coin coin, MarioLib.Coin coin2) {
-        System.out.println("Coin has just collided with Coin!");
+        //System.out.println("Coin has just collided with Coin!");
         
     }
 
     public void visit (MarioLib.Coin coin, MarioLib.Koopa koopa) {
-        System.out.println("Coin has just collided with Koopa!");
+        //System.out.println("Coin has just collided with Koopa!");
         
     }
 
     public void visit (MarioLib.Coin coin, MarioLib.Platform platform) {
-        System.out.println("Coin has just collided with Platform!");
+        //System.out.println("Coin has just collided with Platform!");
         
     }
 
     public void visit (MarioLib.Coin coin, MarioLib.Turtle turtle) {
-        System.out.println("Coin has just collided with Turtle!");
+        //System.out.println("Coin has just collided with Turtle!");
     }
 
     public void visit (MarioLib.Koopa koopa, Mario mario) {
-        System.out.println("Koopa has just collided with Mario!");
+        //System.out.println("Koopa has just collided with Mario!");
     }
 
     public void visit (MarioLib.Koopa koopa, MarioLib.Coin coin) {
-        System.out.println("Koopa has just collided with Coin!");
+        //System.out.println("Koopa has just collided with Coin!");
         
     }
 
     public void visit (MarioLib.Koopa koopa, MarioLib.Koopa koopa2) {
-        System.out.println("Koopa has just collided with Koopa!");
+        //System.out.println("Koopa has just collided with Koopa!");
         
     }
 
     public void visit (MarioLib.Koopa koopa, MarioLib.Platform platform) {
-        System.out.println("Koopa has just collided with Platform!");
+        //System.out.println("Koopa has just collided with Platform!");
         
     }
 
     public void visit (MarioLib.Koopa koopa, MarioLib.Turtle turtle) {
-        System.out.println("Koopa has just collided with Turtle!");
+        //System.out.println("Koopa has just collided with Turtle!");
         
     }
     
@@ -302,47 +302,47 @@ public class CollisionManager {
     }
 
     public void visit (MarioLib.Platform platform, MarioLib.Coin coin) {
-        System.out.println("Platform has just collided with Coin!");
+        //System.out.println("Platform has just collided with Coin!");
         
     }
 
     public void visit (MarioLib.Platform platform, MarioLib.Koopa koopa) {
-        System.out.println("Platform has just collided with Koopa!");
+        //System.out.println("Platform has just collided with Koopa!");
         
     }
 
     public void visit (MarioLib.Platform platform, MarioLib.Platform platform2) {
-        System.out.println("Platform has just collided with Platform!");
+        //System.out.println("Platform has just collided with Platform!");
         
     }
 
     public void visit (MarioLib.Platform platform, MarioLib.Turtle turtle) {
-        System.out.println("Platform has just collided with Turtle!");
+        //System.out.println("Platform has just collided with Turtle!");
         
     }
     
     public void visit (MarioLib.Turtle turtle, Mario mario) {
-        System.out.println("Turtle has just collided with Mario!");
+        //System.out.println("Turtle has just collided with Mario!");
         
     }
 
     public void visit (MarioLib.Turtle turtle, MarioLib.Coin coin) {
-        System.out.println("Turtle has just collided with Coin!");
+        //System.out.println("Turtle has just collided with Coin!");
         
     }
 
     public void visit (MarioLib.Turtle turtle, MarioLib.Koopa koopa) {
-        System.out.println("Turtle has just collided with Koopa!");
+        //System.out.println("Turtle has just collided with Koopa!");
         
     }
 
     public void visit (MarioLib.Turtle turtle, MarioLib.Platform platform) {
-        System.out.println("Turtle has just collided with Platform!");
+        //System.out.println("Turtle has just collided with Platform!");
         
     }
 
     public void visit (MarioLib.Turtle turtle, MarioLib.Turtle turtle2) {
-        System.out.println("Turtle has just collided with Turtle!");
+        //System.out.println("Turtle has just collided with Turtle!");
         
     }
      

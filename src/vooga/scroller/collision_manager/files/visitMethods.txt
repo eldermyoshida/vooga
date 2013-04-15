@@ -1,16 +1,9 @@
-public void visit (Mario mario, Mario mario) {}
-public void visit (Mario mario, Koopa koopa) {}
-public void visit (Mario mario, Coin coin) {}
-public void visit (Mario mario, MarioLib.MovingPlatform movingPlatform) {}
-public void visit (Koopa koopa, Mario mario) {}
 public void visit (Koopa koopa, Koopa koopa) {}
 public void visit (Koopa koopa, Coin coin) {}
 public void visit (Koopa koopa, MarioLib.MovingPlatform movingPlatform) {}
-public void visit (Coin coin, Mario mario) {}
 public void visit (Coin coin, Koopa koopa) {}
 public void visit (Coin coin, Coin coin) {}
 public void visit (Coin coin, MarioLib.MovingPlatform movingPlatform) {}
-public void visit (MarioLib.MovingPlatform movingPlatform, Mario mario) {}
 public void visit (MarioLib.MovingPlatform movingPlatform, Koopa koopa) {}
 public void visit (MarioLib.MovingPlatform movingPlatform, Coin coin) {}
 public void visit (MarioLib.MovingPlatform movingPlatform, MarioLib.MovingPlatform movingPlatform) {}

@@ -67,7 +67,7 @@ public class LevelParser {
     private LEGrid createGrid () {
         if (myLevelStrings.isEmpty()) { return null; }
         System.out.println("" + myLevelStrings.size() + " " + myLevelStrings.get(1).length());
-        LEGrid grid = new LEGrid(myLevelStrings.size(), myLevelStrings.get(1).length());
+        LEGrid grid = new LEGrid(myLevelStrings.get(1).length(), myLevelStrings.size());
         for (int i = 1; i < myLevelStrings.size(); i++) {
             for (int j = 0; j < myLevelStrings.get(1).length(); j++) {
                 char c = myLevelStrings.get(i).charAt(j);

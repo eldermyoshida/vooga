@@ -28,7 +28,7 @@ public class MarioLib implements ISpriteLibrary {
 
     public static class Coin extends StaticEntity {
 
-        private static final String DEFAULT_IMG = "coin.gif";
+        private static final String DEFAULT_IMG = "coin.png";
         private static final int DEFAULT_COIN_VALUE = 900;
 
         public Coin () {
@@ -88,6 +88,8 @@ public class MarioLib implements ISpriteLibrary {
 
         private static final String DEFAULT_IMG = "koopa.png";
         private static final Dimension KOOPA_SIZE = new Dimension(32, 64);
+        
+        private int myHealth = 1;
 
         public Koopa () {
             this(DEFAULT_LOC);
@@ -106,6 +108,14 @@ public class MarioLib implements ISpriteLibrary {
             changeVelocity(movement.execute(45, 100, getPlayer())); // want to make this call every
                                                                     // X seconds
             super.update(elapsedTime, bounds);
+        }
+        @Override
+        public int getHealth() {
+            return myHealth;
+        }
+        
+        public void takeHit() {
+            myHealth = 0;
         }
 
     }
