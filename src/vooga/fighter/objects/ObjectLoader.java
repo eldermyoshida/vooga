@@ -91,18 +91,19 @@ public abstract class ObjectLoader {
 			Element state = (Element) stateNodes.item(i);
 			String stateName = getAttributeValue(stateNodes.item(i), "stateName");
 			NodeList frameNodes = state.getElementsByTagName("frame");
+			State newState = new State(myObject, frameNodes.getLength());
 			for (int j = 0; j < frameNodes.getLength(); j++) {
-				State newState = new State(myObject, frameNodes.getLength());
 				newState.populateImage(new Pixmap(getAttributeValue(frameNodes.item(j), "image")), j);
 				Element frame = (Element) frameNodes.item(j);
 				Node hitboxNode = frame.getElementsByTagName("hitbox").item(0);
+				
 				newState.populateRectangle(new Rectangle(Integer.parseInt(getAttributeValue(hitboxNode, "cornerX")),
 						Integer.parseInt(getAttributeValue(hitboxNode, "cornerY")), Integer.parseInt(getAttributeValue(hitboxNode, "rectX")),
 						Integer.parseInt(getAttributeValue(hitboxNode, "rectY"))), j);
 				newState.populateSize(new Dimension(Integer.parseInt(getAttributeValue(hitboxNode, "rectX")),
 						Integer.parseInt(getAttributeValue(hitboxNode, "rectY"))), j);
-				myObject.addState(stateName, newState);
 			}
+			myObject.addState(stateName, newState);
 		}
 	}
 }

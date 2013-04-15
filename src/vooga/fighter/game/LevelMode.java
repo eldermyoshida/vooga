@@ -53,10 +53,10 @@ public class LevelMode extends Mode {
         for (int i=0; i<myObjects.size(); i++) {
             GameObject object = myObjects.get(i);
             State state = object.getCurrentState();
-            System.out.printf("Updating %s:\n", object.getClass().toString());
-            System.out.printf("Object current state:\ncurrentFrame: %d\nnumFrames: %d\nNull checks:\nImage: %b\nRectangle: %b\nSize: %b\n",
-                              state.myCurrentFrame, state.myNumFrames, (state.getCurrentImage()==null), (state.getCurrentRectangle()==null),
-                              (state.getCurrentSize()==null));
+//            System.out.printf("Updating %s:\n", object.getClass().toString());
+//            System.out.printf("Object current state:\ncurrentFrame: %d\nnumFrames: %d\nNull checks:\nImage: %b\nRectangle: %b\nSize: %b\n",
+//                              state.myCurrentFrame, state.myNumFrames, (state.getCurrentImage()==null), (state.getCurrentRectangle()==null),
+//                              (state.getCurrentSize()==null));
             object.update();
             if (object.shouldBeRemoved()) {
                 myObjects.remove(object);
