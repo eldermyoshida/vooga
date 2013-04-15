@@ -194,7 +194,7 @@ public class CollisionManager {
             koopa.takeHit();
         }
         else {
-            mario.takeHit();
+            mario.takeHit(koopa.getHit());
         }
         
         System.out.println("Mario has just collided with Koopa!");
@@ -240,7 +240,7 @@ public class CollisionManager {
             turtle.takeHit();
         }
         else {
-            mario.takeHit();
+            mario.takeHit(turtle.getHit());
         }        
     }
     

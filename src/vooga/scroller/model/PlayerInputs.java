@@ -19,12 +19,13 @@ import vooga.scroller.util.Sprite;
  * 
  */
 @InputClassTarget
-public class ModelInputs {
+public class PlayerInputs implements IInput{
 
     private static final String TEST_CONTROLS = "vooga/scroller/resources/controls/TestMapping";
 
     private Input myInput;
     private Player myPlayer;
+    private Model myModel;
 
     /**
      * Creates a new set of ModelInputs based on
@@ -32,10 +33,13 @@ public class ModelInputs {
      * @param player on which the controls will act
      * @param view from where the controls come from.
      */
-    public ModelInputs (Player player, JComponent view) {
+    public PlayerInputs (Model model, JComponent view) {
         myInput = new Input(TEST_CONTROLS, view);
-        myPlayer = player;
+        myModel = model;
+               
+        myPlayer = myModel.getPlayer();;
         myInput.addListenerTo(this);
+        
     }
 
     // Note, these methods can be redefined to customize games.
@@ -94,23 +98,16 @@ public class ModelInputs {
         
         myPlayer.translate(Player.RIGHT_VELOCITY);
     }
-
-    
-//    @InputMethodTarget(name = "down")
-//    public void duckInput (AlertObject alObj) {
-//        myPlayer.setSize((int)myPlayer.getWidth(), (int)myPlayer.getHeight()/2);
-//    }
-//    
-//    @InputMethodTarget(name = "down_release")
-//    public void unDuckInput (AlertObject alObj) {
-//        myPlayer.setSize((int)myPlayer.getWidth(), (int)myPlayer.getHeight()*2);
-//
-//    }
-//    
-    
+   
     @InputMethodTarget(name="test")
     public void movementCoordTest(PositionObject posObj) {
         myPlayer.setCenter(posObj.getX(), posObj.getY());
+    }
+
+    @Override
+    public boolean isValidInputClass () {
+        Class inputClass = this.getClass();
+        return inputClass.getAnnotation(InputClassTarget.class) != null;
     }
 
 }
