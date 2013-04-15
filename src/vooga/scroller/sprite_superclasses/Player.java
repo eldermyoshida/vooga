@@ -35,8 +35,8 @@ public class Player extends Sprite {
 
 //    Graphics2D pen;
     Mario_CH myCollisionHandler;
-    List<State> myStates;
-    State currentState; 
+    List<MainState> myStates;
+    MainState currentState; 
     View myView;
     private Location myOriginalCenter;
     private Dimension mySize;
@@ -91,7 +91,7 @@ public class Player extends Sprite {
         myImage.paint(pen, myOriginalCenter, mySize);
     }
     
-    public void changeState(State newState) {
+    public void changeState(MainState newState) {
         currentState = newState;
     }
     

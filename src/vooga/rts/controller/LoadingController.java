@@ -24,7 +24,7 @@ public class LoadingController extends AbstractController {
     public void update (double elapsedTime) {
 
     }
-
+    
     @Override
     public void onLeftMouseUp (PositionObject o) {
         setChanged();

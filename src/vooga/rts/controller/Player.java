@@ -11,22 +11,18 @@ import vooga.rts.input.PositionObject;
  * At the moment, the player class is implementing the humanplayer. For network
  * player and ai player, some methods will be refactored into a super class
  * 
- * @author Challen Herzberg-Brovold
+ * @author Challen Herzberg-Brovold, Jonno Schmidt
  *
  */
 public class Player implements Controller {
 
-    private final static String DEFAULT_INPUT_LOCATION = "vooga.rts.resources.properties.Input";
     private PositionObject myLeftMouse;
     private Rectangle2D myDrag;
     private Manager myManager;
     
-    public Player (Manager manager, JComponent component) {
+    public Player (Manager manager) {
         myManager = manager;
-        Input input = new Input(DEFAULT_INPUT_LOCATION, component);
-        input.addListenerTo(this);
     }
-    
     
     public void sendCommand(Command command) {
             myManager.receiveCommand(command);

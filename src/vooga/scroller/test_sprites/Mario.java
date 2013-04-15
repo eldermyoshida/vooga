@@ -13,8 +13,8 @@ import vooga.scroller.view.View;
 public class Mario extends Player {
 
     private Mario_CH collisionHandler;
-    List<State> myStates;    
-    State currentState; 
+    List<MainState> myStates;    
+    MainState currentState; 
     View myView;
     private Location myOriginalCenter;
     private Dimension mySize;
@@ -78,7 +78,7 @@ public class Mario extends Player {
 //        ONLY FOR TESTING
     }
    
-    public void changeState(State newState) {
+    public void changeState(MainState newState) {
         currentState = newState;
     }
 }
