@@ -122,7 +122,8 @@ public class LevelsSelectorScreen extends JPanel {
         }
     }
     
-    private void selectedImage (Pixmap myImage) {
+    public void selectedImage (Pixmap myImage) {
+        //super (myImage);
         myPrevName = myImage.getFileName();
         myImage.setImage(CHECKED_IMAGE);
         repaint();

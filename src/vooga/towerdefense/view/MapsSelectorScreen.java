@@ -45,6 +45,7 @@ public class MapsSelectorScreen extends JPanel {
     private String myPrevName = "";
 
     public MapsSelectorScreen (Dimension size, TDView view) {
+        super();
         myView = view;
         setPreferredSize(size);
         myMapImages = new HashMap<Pixmap, Rectangle>();
@@ -118,7 +119,8 @@ public class MapsSelectorScreen extends JPanel {
         }
     }
 
-    private void selectedImage (Pixmap myImage) {
+    public void selectedImage (Pixmap myImage) {
+        //super(myImage);
         myPrevName = myImage.getFileName();
         myImage.setImage(CHECKED_IMAGE);
         repaint();
