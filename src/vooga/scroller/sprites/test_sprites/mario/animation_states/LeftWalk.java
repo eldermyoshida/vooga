@@ -5,7 +5,7 @@ import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.Sprite;
 
 public class LeftWalk extends AnimationState {
-    private static final Pixmap LEFT = new Pixmap("mario_left.png");
+    public static final Pixmap LEFT = new Pixmap("mario_left.png");
 
     public LeftWalk () {
         super(LEFT);
@@ -13,7 +13,8 @@ public class LeftWalk extends AnimationState {
 
     @Override
     public boolean validAnimation (Sprite unit) {
-        return unit.lastLocation().x - unit.getCenter().x > 0;
+        
+        return unit.lastLocation().x - unit.getCenter().x > 1;
     }
 
 }

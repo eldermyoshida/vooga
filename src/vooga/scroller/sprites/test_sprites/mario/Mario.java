@@ -11,11 +11,10 @@ import vooga.scroller.view.View;
 
 public class Mario extends Player {
 
-    private int myHP;
+    private static int health = 5;
 
     public Mario (Location center, Dimension size, View view, ScrollingManager sm) {
-        super(new Pixmap("mario.gif"), center, size, view, sm);
-        myHP = 2;
+        super(new Pixmap("mario_stand.png"), center, size, view, sm, health);
     }
 
     public void print() {
@@ -24,11 +23,11 @@ public class Mario extends Player {
     
     public void hit(NonStaticEntity nse){
         int hit = nse.getHit();
-        myHP -= hit;
+        super.takeHit(hit);
     }
 
     public int getHP () {
-        return myHP;
+        return health;
     }
     
 }

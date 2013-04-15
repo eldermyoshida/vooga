@@ -169,6 +169,41 @@ public class Vector {
         v.negate();
         sum(v);
     }
+    
+    /**
+     * Gives the vector component in this given direction.
+     * <br>
+     * <b> Examples: </b>
+     * <br>
+     * 
+     * <i>Vector(angle, magnitude)</i>
+     * <br>
+     * Starting with <code>Vector v = new Vector (90, 10)</code>
+     * 
+     * <br>
+     * <br>
+     * <ul>
+     * <code>
+     * <li>v.getComponent(45) ---> Vector(45, 10/sqrt(2)) 
+     * <li>v.getComponent(180) ---> Vector(180,0)
+     * <li>v.getComponent(90) ---> Vector(90,10)
+     * <li>v.getComponent(270) ---> Vector(270,0)
+     * </code>
+     * </ul>
+     * 
+     * @param direction of the component to get from this vector.
+     */
+    public Vector getComponentVector(double direction) {
+        Vector projectionComp = new Vector(direction, myMagnitude);
+        
+        double projectionMagnitude = -1*getRelativeMagnitude(projectionComp);
+        
+        if(projectionMagnitude < 0){
+            projectionMagnitude = 0;
+        }
+        
+        return new Vector(direction, projectionMagnitude);
+    }
 
     /**
      * Returns a vector of the same magnitude, but in the opposite direction as
