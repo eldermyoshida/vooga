@@ -56,6 +56,7 @@ public class LevelController extends Controller {
         int mapID = myGameInfo.getMapName();
         Mode temp = new LevelMode(this, characterNames, mapID);
         setMode(temp);
+        myInputObjects = temp.getMyCharacterObjects();
     }
 
 
@@ -75,21 +76,25 @@ public class LevelController extends Controller {
     
     @InputMethodTarget(name = "player1_jump")
     public void jumpInput (AlertObject alObj)  {
-        
+        System.out.println("jumping");
+        myInputObjects.get(0).move(270);
     }
     
     @InputMethodTarget(name = "player1_left")
     public void leftInput (AlertObject alObj) {
+        myInputObjects.get(0).move(180);
         
     }
     
     @InputMethodTarget(name = "player1_right")
     public void rightInput(AlertObject alObj) {
+        myInputObjects.get(0).move(0);
         
     }
     
     @InputMethodTarget(name = "player1_down")
     public void downInput(AlertObject alObj) {
+        myInputObjects.get(0).move(90);
         
     }
 
