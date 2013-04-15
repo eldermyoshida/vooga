@@ -16,7 +16,6 @@ import vooga.rts.util.Sound;
 
 /**
  * 
- * @author Ryan Fishel
  * @author Kevin Oh
  *
  */
