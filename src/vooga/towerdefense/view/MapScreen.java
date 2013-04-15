@@ -27,7 +27,6 @@ public class MapScreen extends JPanel {
     private MouseListener myMouseListener;
     private MouseMotionListener myMouseMotionListener;
     private Dimension mySize;
-    private Image towerImage;
     private Point mouseLocation;
 
     /**
@@ -41,7 +40,6 @@ public class MapScreen extends JPanel {
         setFocusable(true);
         setVisible(true);
         myController = controller;
-        towerImage = new ImageIcon(getClass().getResource(RESOURCE + "tower.gif")).getImage();
         makeMouseListener();
         mouseLocation = new Point(0, 0);
         addMouseListener(myMouseListener);
@@ -57,26 +55,32 @@ public class MapScreen extends JPanel {
         repaint();
     }
 
+    /**
+     * paints the MapScreen component.
+     */
     @Override
     public void paintComponent (Graphics pen) {
         super.paintComponent(pen);
         myController.paintMap(pen);
         paintGridLines(pen);
-        if (towerImage != null) {
-            pen.drawImage(towerImage, (int) mouseLocation.getX(), (int) mouseLocation.getY(), null);
-        }
     }
     
+    /**
+     * paints the ghost image at the mouse location.
+     * @param p is the mouse location
+     * @param image is the pixmap image to paint
+     */
     public void paintGhostImage(Point p, Pixmap image) {
         getGraphics().drawImage(image.getImage(), p.x, p.y,
                                 image.getImage().getWidth(null),
                                 image.getImage().getWidth(null), null);
     }
-
-    public void placeItem (Point point) {
-        
-    }
     
+    /**
+     * used for testing to paint a grid.
+     * TODO: remove this method
+     * @param pen
+     */
     public void paintGridLines (Graphics pen) {
         for (int i = 0; i < mySize.width; i += 25) {
             pen.drawLine(i, 0, i, mySize.height);
@@ -96,19 +100,15 @@ public class MapScreen extends JPanel {
             public void mouseClicked (MouseEvent e) {
                 myController.handleMapClick(e.getPoint());
             }
-
             @Override
             public void mouseEntered (MouseEvent e) {
             }
-
             @Override
             public void mouseExited (MouseEvent e) {
             }
-
             @Override
             public void mousePressed (MouseEvent e) {
             }
-
             @Override
             public void mouseReleased (MouseEvent e) {
             }
@@ -117,7 +117,6 @@ public class MapScreen extends JPanel {
             @Override
             public void mouseDragged (MouseEvent e) {
             }
-
             @Override
             public void mouseMoved (MouseEvent e) {
                 // myController.handleMouseMovement(e.getPoint());
