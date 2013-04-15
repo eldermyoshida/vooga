@@ -3,7 +3,7 @@ package vooga.towerdefense.model;
 import vooga.towerdefense.controller.Controller;
 
 
-public class Game {
+public class GameController {
     private final int TICKS_PER_SECOND = 50;
     private final int SKIP_TICKS = 1000 / TICKS_PER_SECOND;
     private final int MAX_FRAMESKIP = 10;
@@ -11,7 +11,7 @@ public class Game {
     private boolean gameIsRunning = false;
     private Controller myController;
 
-    public Game (Controller controller) {
+    public GameController (Controller controller) {
         // TODO: functions to construct model from file. Probably put that in
         // GameModel constructor.
         myController = controller;
