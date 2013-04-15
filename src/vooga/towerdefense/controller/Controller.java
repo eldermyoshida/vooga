@@ -48,7 +48,7 @@ public class Controller {
         myView.getTowerInfoScreen().displayInformation(center.toString());
     }
     
-    private void fixItemOnMap (GameElement item, Point p) {
+    public void fixItemOnMap (GameElement item, Point p) {
         Tile myTile = myModel.getTile(p);
         myTile.setTower(item);
         myModel.getMap().addToMap(item);
