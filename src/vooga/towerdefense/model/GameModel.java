@@ -5,6 +5,7 @@ import java.awt.Point;
 import java.util.List;
 
 import vooga.towerdefense.controller.Controller;
+import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.gameElements.Wave;
 
 
@@ -21,17 +22,23 @@ public class GameModel {
     private GameMap myGameMap;
     private double myWaveTimeElapsed;
     private Wave myCurrentWave;
+    private Shop myShop;
 
-    public GameModel(Controller controller, List<Wave> waves, GameMap gameMap) {
+    public GameModel(Controller controller, List<Wave> waves, GameMap gameMap, Shop shop) {
         myController = controller;
         myWaves = waves;
         myGameMap = gameMap;
         myWaveTimeElapsed = 0;
+        myShop = shop;
         // startNextWave();
     }
     
     public Tile getTile(Point p) {
         return myGameMap.getTile(p);
+    }
+    
+    public Shop getShop() {
+        return myShop;
     }
 
     public void update (double elapsedTime) {
