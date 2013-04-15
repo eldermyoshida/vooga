@@ -49,9 +49,9 @@ public class UserGameDataTable extends Table {
             e.printStackTrace();
         }
 
-        String url = "jdbc:postgresql:mynewdatabase";
-        String user = "user1";
-        String password = "1234";
+        String url = "jdbc:postgresql://cgi.cs.duke.edu/nrc10";
+        String user = "nrc10";
+        String password = "aUsg5xj2f";
 
         try {
             myConnection = DriverManager.getConnection(url, user, password);
