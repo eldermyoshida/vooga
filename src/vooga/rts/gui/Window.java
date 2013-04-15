@@ -5,6 +5,7 @@ import java.awt.DisplayMode;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.lang.reflect.InvocationTargetException;
+import java.security.spec.MGF1ParameterSpec;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
@@ -32,7 +33,8 @@ public class Window {
         myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         myFrame.setUndecorated(true);
         myFrame.setIgnoreRepaint(true);
-
+        setFullscreen(true);
+        
         try {
             SwingUtilities.invokeAndWait(new Runnable() {
                 @Override
@@ -40,7 +42,8 @@ public class Window {
                     // TODO Auto-generated method stub
                     myFrame.setVisible(true);
                     myFrame.createBufferStrategy(2);
-
+                    myCanvas = new Canvas(myFrame.getBufferStrategy());
+                    myFrame.add(myCanvas);
                 }
             });
         }
@@ -52,13 +55,15 @@ public class Window {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        myCanvas = new Canvas(myFrame.getBufferStrategy());
-        myFrame.add(myCanvas);
-        setFullscreen(true);
+        
+        
     }
 
     public void setFullscreen (boolean fullscreen) {
         myGraphics = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+        if (!myGraphics.isFullScreenSupported()) {
+            return;
+        }
         DisplayMode displayMode = myGraphics.getDisplayMode();
         myPrevDispMode = myGraphics.getDisplayMode();
 
@@ -71,13 +76,7 @@ public class Window {
             myFrame.dispose();
             myFrame.setUndecorated(true);
             try {
-                if (myGraphics.isFullScreenSupported()) {
-                    myGraphics.setFullScreenWindow(myFrame);
-
-                }
-                else {
-                    System.out.println("Fail");
-                }
+                myGraphics.setFullScreenWindow(myFrame);
             }
             finally {
                 myGraphics.setDisplayMode(displayMode);
@@ -103,6 +102,7 @@ public class Window {
             finally {
                 myFrame.setLocationRelativeTo(null);
                 myGraphics.setDisplayMode(myPrevDispMode);
+                myFrame.setMinimumSize(new Dimension(SCREEN_SIZE));
                 myFrame.setResizable(true);
                 myFrame.setVisible(true);
             }

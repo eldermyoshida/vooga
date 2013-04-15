@@ -24,6 +24,9 @@ public abstract class AbstractController extends Observable implements IGameLoop
 
     public abstract void activate ();
 
-	public abstract MainState getGameState();
+    public abstract MainState getGameState ();
+
+    public void onMouseMove (PositionObject o) {
+    }
 
 }
