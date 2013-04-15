@@ -152,12 +152,12 @@ public class GameController extends AbstractController {
         b.setAttackStrategy(new CannotAttack());
         b.getAttackStrategy().addWeapons(new Weapon(0, proj2, 200, b.getCenter(), 50));
 
-        Unit c = new Soldier(p, new Location(500, 500), s, soun, 20, 40);
+        Unit c = new Soldier(p, new Location(500, 500), s, soun, 20, 1000);
         Projectile proj3 =
                 new Projectile(
                                new Pixmap(ResourceManager.instance().loadFile("images/bullet.png")),
                                c.getCenter(), new Dimension(30, 30), 1, 10, 1);
-        c.setAttackStrategy(new CanAttack());
+        c.setAttackStrategy(new CannotAttack());
         Unit w = new Worker(new Pixmap(ResourceManager.instance().loadFile("images/scv.gif")), new Location(500, 200), s, soun, 20, 40, 40);
         c.getAttackStrategy().addWeapons(new Weapon(0, proj3, 200, c.getCenter(), 50));
 
