@@ -1,6 +1,5 @@
 package vooga.fighter.controller;
 
-import vooga.fighter.game.SplashScreen;
 import vooga.fighter.input.Input;
 import vooga.fighter.input.InputClassTarget;
 
@@ -43,14 +42,17 @@ public class ControllerManager implements ControllerDelegate{
 		myCurrentController.start();	
 	}
 
-	@Override
-	public void notifyEndCondition() {
-		switchController(pickController(condition));
-	}
+
 	
 	private String pickController(String condition){
 		String NextController = ""; //ERROR LOGIC NEEDED!
 		return NextController;
+	}
+
+	@Override
+	public void notifyEndCondition(String string) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

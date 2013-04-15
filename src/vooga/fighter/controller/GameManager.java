@@ -41,6 +41,13 @@ public static final Dimension SIZE = new Dimension(800, 600);
         myCanvas = new Canvas(SIZE); 
         myGameInfo = new GameInfo(1, 1);
         myControllerManager = new ControllerManager(myCanvas, myGameInfo);
+        JFrame frame = new JFrame(TITLE);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // add our user interface components
+        frame.getContentPane().add(myCanvas, BorderLayout.CENTER);
+        // display them
+        frame.pack();
+        frame.setVisible(true);
 	}
     
 //    public GameManager(ArcadeInteraction arcade){
