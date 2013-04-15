@@ -20,7 +20,11 @@ import vooga.fighter.util.Paintable;
  */
 public class Pixmap implements Paintable {
     // OS-independent relative resource locations (like URLs)
+<<<<<<< HEAD:src/vooga/towerdefense/util/Pixmap.java
+    private static final String RESOURCE_LOCATION = "vooga/towerdefense/images/";
+=======
     private static final String RESOURCE_LOCATION = "/vooga/";
+>>>>>>> a58a1303755828e092b62a873d4b4f51b3abdb8c:src/util/Pixmap.java
     // underlying implementation
     private java.awt.Image myImage;
     private String myFileName;
