@@ -144,7 +144,7 @@ public class MarioLib implements ISpriteLibrary {
         }
 
         public Platform (Location center) {
-            super(new Pixmap(DEFAULT_IMG), center, new Dimension(200,50));
+            super(new Pixmap(DEFAULT_IMG), center, DEFAULT_SIZE);
         }
         public Platform (String img, Location center, Dimension size) {
             super(new Pixmap(img), center, size);
