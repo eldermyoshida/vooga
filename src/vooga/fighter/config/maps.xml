@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 <maps>
     <map mapID="1" mapName="BlueBackground" enviroBackground="BlueBackground.jpeg">
-        <enviroObject enviroId="1" objectName="platform" xCoord="50" yCoord="50">
+    	<startingPos xCoord="140" yCoord="300"/>
+    	<startingPos xCoord="200" yCoord="300"/>
+        <enviroObject enviroId="1" objectName="platform" xCoord="200" yCoord="500">
         	<state>
         		<frame image="brick1.gif">
                 	<hitbox cornerX="0" cornerY="0" rectX="70" rectY="20"/>
