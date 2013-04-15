@@ -12,6 +12,9 @@ import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 
+import arcade.games.ArcadeInteraction;
+import arcade.games.Game;
+import arcade.games.UserGameData;
 import util.Pixmap;
 import vooga.fighter.util.Text;
 import vooga.fighter.view.Canvas;
@@ -33,12 +36,18 @@ public static final Dimension SIZE = new Dimension(800, 600);
     private Canvas myCanvas;
     private ControllerManager myControllerManager;
     private GameInfo myGameInfo;
-  
 
     public GameManager() {
         myCanvas = new Canvas(SIZE); 
         myGameInfo = new GameInfo(1, 1);
         myControllerManager = new ControllerManager(myCanvas, myGameInfo);
+        JFrame frame = new JFrame(TITLE);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // add our user interface components
+        frame.getContentPane().add(myCanvas, BorderLayout.CENTER);
+        // display them
+        frame.pack();
+        frame.setVisible(true);
 	}
     
 //    public GameManager(ArcadeInteraction arcade){
@@ -63,8 +72,9 @@ public static final Dimension SIZE = new Dimension(800, 600);
 		 myControllerManager.run();
 	    }
 	 
-//	 public UserGameData generateNewProfile(){
-//		 ;
-//	 }
+
+	 public UserGameData generateNewProfile(){
+		return myGameInfo;
+	 }
 
 }

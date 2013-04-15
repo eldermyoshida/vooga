@@ -1,5 +1,6 @@
 package vooga.fighter.objects.utils;
 
+import java.awt.Dimension;
 import java.awt.Rectangle;
 import vooga.fighter.objects.GameObject;
 import util.Pixmap;
@@ -32,22 +33,24 @@ public class State {
     private Pixmap[] myImages;
     private Rectangle[] myRectangles;    
     private GameObject myOwner;    
+    private Dimension mySize;
     
     /**
      * Creates a state with the given owner, number of frames, and default priority of zero.
      */
-    public State(GameObject owner, int numFrames) {
-        this(owner, numFrames, 0, 0);
+    public State(GameObject owner, int numFrames, Dimension size) {
+        this(owner, size, numFrames, 0, 0);
     }
     
     /**
      * Creates a state with the given owner, number of frames, and priority.
      */
-    public State(GameObject owner, int numFrames, int priority, int depth) {
+    public State(GameObject owner, Dimension size, int numFrames, int priority, int depth) {
         myOwner = owner;
         myNumFrames = numFrames;
         myPriority = priority;
         myDepth = depth;
+        mySize = size;
         myRectangles = new Rectangle[myNumFrames];
         myImages = new Pixmap[myNumFrames];
     }    
@@ -140,6 +143,13 @@ public class State {
     public void resetState() {
         myCurrentFrame = 0;
     }
+    
+    /**
+     * Returns the size of the state.
+     */
+    public Dimension getSize() {
+        return mySize;
+    }    
     
     /**
      * Returns true if the state's animation has concluded, false otherwise.

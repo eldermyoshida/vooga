@@ -42,14 +42,17 @@ public class ControllerManager implements ControllerDelegate{
 		myCurrentController.start();	
 	}
 
-	@Override
-	public void notifyEndCondition(String condition) {
-		switchController(pickController(condition));
-	}
+
 	
 	private String pickController(String condition){
 		String NextController = ""; //ERROR LOGIC NEEDED!
 		return NextController;
+	}
+
+	@Override
+	public void notifyEndCondition(String string) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

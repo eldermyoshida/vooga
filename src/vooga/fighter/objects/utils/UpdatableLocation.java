@@ -2,6 +2,7 @@ package vooga.fighter.objects.utils;
 
 import java.awt.geom.Point2D;
 import java.util.Stack;
+import util.Location;
 import util.Vector;
 
 /**
@@ -10,7 +11,7 @@ import util.Vector;
  * @author james
  *
  */
-public class UpdatableLocation {
+public class UpdatableLocation extends Location {
 
     private Point2D.Double myCoordinates;
     private Stack<Vector> myAccelerations;

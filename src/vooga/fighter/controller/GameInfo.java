@@ -3,12 +3,14 @@ package vooga.fighter.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import arcade.games.UserGameData;
+
 /**
  * Information about the broader game state. includes game mode, selected map and characters.
  * @author matthewparides
  * 
  */
-public class GameInfo {
+public class GameInfo extends UserGameData{
     private String myGameMode;
     private int myMapID;
     private List<Integer> myCharacters;
@@ -59,9 +61,23 @@ public class GameInfo {
      * 
      * @return
      */
-    public List<Integer> getScores() {
+    @Override
+    public List<Double> getScores() {
+    	List<Double> myArcadeScores = new ArrayList<Double>();
+    	for(Integer i : myScores){
+    		myArcadeScores.add((double) i);
+    	}
+    	return myArcadeScores;
+    }
+    
+    /**
+     * 
+     * @return
+     */
+    public List<Integer> getIntScores() {
     	return myScores;
     }
+   
     
     /**
      * 

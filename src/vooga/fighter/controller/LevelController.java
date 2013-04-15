@@ -5,7 +5,9 @@ package vooga.fighter.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+
 import javax.swing.Timer;
+
 import vooga.fighter.game.LevelMode;
 import vooga.fighter.game.Mode;
 import vooga.fighter.input.Input;
@@ -21,9 +23,9 @@ import vooga.fighter.view.Canvas;
  * 
  */
 @InputClassTarget
+
 public class LevelController extends Controller {
     private static final String INPUT_PATHWAY = "vooga.fighter.input.Game1Mapping_en_US";
-
 
     public LevelController (String name, Canvas frame) {
         super(name, frame);
@@ -33,10 +35,8 @@ public class LevelController extends Controller {
     public LevelController(String name, Canvas frame, ControllerDelegate manager, 
     		GameInfo gameinfo) {
     	super(name, frame, manager, gameinfo);
-    	loadMode();
+    	//loadMode();
     }
-    
-	
 
     
     public void loadMode() {
@@ -52,7 +52,7 @@ public class LevelController extends Controller {
     /**
      * Checks special occurences of game state.
      */
-    public void notifyEndCondition() {
+    public void notifyEndCondition(String string) {
         
     }
 
@@ -67,5 +67,11 @@ public class LevelController extends Controller {
     protected Input makeInput () {
         return new Input(INPUT_PATHWAY, super.getView());
     }
+
+	@Override
+	public void notifyEndCondition() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
