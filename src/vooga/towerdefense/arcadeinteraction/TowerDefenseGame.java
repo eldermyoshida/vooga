@@ -18,7 +18,7 @@ public class TowerDefenseGame extends Game {
 
     @Override
     public UserGameData generateNewProfile () {
-        return null;
+        return new TowerDefenseUserGameData();
     }
 
     @Override
