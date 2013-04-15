@@ -1,6 +1,8 @@
 package vooga.fighter.objects;
 
 
+import java.awt.Dimension;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -43,6 +45,9 @@ public class MapLoader extends ObjectLoader {
 			if (id == mapId) {
 				State mapState = new State(myMap, 1);
 				mapState.populateImage(new Pixmap(getAttributeValue(node, "enviroBackground")), 0);
+				Node mapSize = node.getElementsByTagName("enviroObject").item(0);
+				mapState.populateSize(new Dimension(Integer.parseInt(getAttributeValue(mapSize, "xSize")),
+						Integer.parseInt(getAttributeValue(mapSize, "ySize"))), 0);;
 				myMap.addState("background", mapState);
 				NodeList enviroObjectNodes = node.getElementsByTagName("enviroObject");
 				addEnviroObjects(enviroObjectNodes);
