@@ -11,19 +11,37 @@ import vooga.rts.input.PositionObject;
  * At the moment, the player class is implementing the humanplayer. For network
  * player and ai player, some methods will be refactored into a super class
  * 
+<<<<<<< HEAD
+ * @author Challen Herzberg-Brovold, Jonno Schmidt
+=======
  * @author Challen Herzberg-Brovold
+>>>>>>> 2646ef6a4f0f46174366747559fcffc90ee51b06
  *
  */
 public class Player implements Controller {
 
+<<<<<<< HEAD
+=======
+    private final static String DEFAULT_INPUT_LOCATION = "vooga.rts.resources.properties.Input";
+>>>>>>> 2646ef6a4f0f46174366747559fcffc90ee51b06
     private PositionObject myLeftMouse;
     private Rectangle2D myDrag;
     private Manager myManager;
     
+<<<<<<< HEAD
     public Player (Manager manager) {
         myManager = manager;
     }
     
+=======
+    public Player (Manager manager, JComponent component) {
+        myManager = manager;
+        Input input = new Input(DEFAULT_INPUT_LOCATION, component);
+        input.addListenerTo(this);
+    }
+    
+    
+>>>>>>> 2646ef6a4f0f46174366747559fcffc90ee51b06
     public void sendCommand(Command command) {
             myManager.receiveCommand(command);
     }
@@ -36,7 +54,11 @@ public class Player implements Controller {
         if (myDrag == null) {            
             sendCommand(new DragCommand("drag", myDrag));
         }
+<<<<<<< HEAD
         sendCommand(new LeftClickCommand("leftclick", o));
+=======
+        sendCommand(new LeftClickCommand("rightclick", o));
+>>>>>>> 2646ef6a4f0f46174366747559fcffc90ee51b06
         myLeftMouse = null;
         myDrag = null;
     }
