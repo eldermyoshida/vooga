@@ -32,7 +32,6 @@ public class LevelController extends Controller {
 
     public LevelController (String name, Canvas frame) {
         super(name, frame);
-        System.out.println(getName());
     }
 	
     public LevelController(String name, Canvas frame, ControllerDelegate manager, 
@@ -44,10 +43,8 @@ public class LevelController extends Controller {
 
     
     public void loadMode() {
-        System.out.println("loading mode");
         List<Integer> characterNames = myGameInfo.getCharacters();
         int mapID = myGameInfo.getMapName();
-        System.out.println("size of character list" + characterNames.size());
         Mode temp = new LevelMode(this, characterNames, mapID);
         setMode(temp);
     }
@@ -71,6 +68,8 @@ public class LevelController extends Controller {
     protected Input makeInput () {
         return new Input(INPUT_PATHWAY, super.getView());
     }
+    
+    
 
 	@Override
 	public void notifyEndCondition() {
