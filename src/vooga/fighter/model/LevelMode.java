@@ -1,18 +1,17 @@
-package vooga.fighter.game;
+package vooga.fighter.model;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 import vooga.fighter.controller.ModelDelegate;
-import vooga.fighter.objects.CharacterObject;
-import vooga.fighter.objects.CollisionManager;
-import vooga.fighter.objects.EnvironmentObject;
-import vooga.fighter.objects.GameObject;
-import vooga.fighter.objects.ImageDataObject;
-import vooga.fighter.objects.MapLoader;
-import vooga.fighter.objects.MapObject;
-import vooga.fighter.objects.utils.State;
-import vooga.fighter.objects.utils.UpdatableLocation;
+import vooga.fighter.model.loaders.MapLoader;
+import vooga.fighter.model.objects.CharacterObject;
+import vooga.fighter.model.objects.EnvironmentObject;
+import vooga.fighter.model.objects.GameObject;
+import vooga.fighter.model.objects.MapObject;
+import vooga.fighter.model.utils.ImageDataObject;
+import vooga.fighter.model.utils.State;
+import vooga.fighter.model.utils.UpdatableLocation;
 
 
 /**
