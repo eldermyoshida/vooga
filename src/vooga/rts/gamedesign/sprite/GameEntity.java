@@ -134,7 +134,7 @@ public class GameEntity extends GameSprite {
         myGoal = new Location3D(loc);
         Vector v = getWorldLocation().difference(myGoal.to2D());
         // TODO: not static amount
-        setVelocity(v.getAngle(), 50);
+        setVelocity(v.getAngle(), 120);
     }
 
     public void move (Location3D loc, GameMap map) {
