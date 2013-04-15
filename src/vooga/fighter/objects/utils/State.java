@@ -30,6 +30,11 @@ public class State {
      */
     private int myDepth;
     
+    /**
+     * True if the animation for this state loops, false otherwise.
+     */
+    private boolean myLooping;
+    
     private Pixmap[] myImages;
     private Rectangle[] myRectangles;    
     private Dimension[] mySizes;
@@ -54,7 +59,15 @@ public class State {
         myRectangles = new Rectangle[myNumFrames];
         myImages = new Pixmap[myNumFrames];
         myCurrentFrame = 0;
+        myLooping = false;
     }    
+    
+    /**
+     * Sets looping boolean. If this method is not called, looping defaults to false.
+     */
+    public void setLooping(boolean looping) {
+        myLooping = looping;
+    }
     
     /**
      * Adds a rectangle this state's rectangle array.
@@ -140,6 +153,9 @@ public class State {
      */
     public void update() {
         myCurrentFrame++;
+        if (hasCompleted() && myLooping) {
+            resetState();
+        }
     }
     
     /**

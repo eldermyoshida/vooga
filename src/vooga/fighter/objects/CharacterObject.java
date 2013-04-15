@@ -54,6 +54,7 @@ public class CharacterObject extends GameObject {
 
     public void update() {
         super.update();
+        System.out.printf("State current frame: %d\n", getCurrentState().myCurrentFrame);
         if (getCurrentState().hasCompleted()) {
             setCurrentState("stand");
         }
