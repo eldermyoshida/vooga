@@ -15,6 +15,7 @@ import util.Pixmap;
 import vooga.fighter.objects.utils.State;
 
 /**
+ * Abstract class with shared methods that all ObjectLoader-derived classes may need.
  * 
  * @author Dayvid, alanni
  *
@@ -24,6 +25,11 @@ public abstract class ObjectLoader {
 	private File myObjectFile;
 	private Document myDocument;
 	
+	/**
+	 * Points to the xml file that the loader will be parsing
+	 * 
+	 * @param objectPath
+	 */
 	public ObjectLoader (String objectPath) {
 		myObjectFile = new File(objectPath);
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -38,22 +44,47 @@ public abstract class ObjectLoader {
 		}
 	}
 
+	/**
+	 * Loads object based on the id given
+	 * @param id
+	 */
 	public abstract void load(int id);
 	
+	/**
+	 * Returns the xml document which the loader points to
+	 * @return
+	 */
 	protected Document getDocument() {
 		return myDocument;
 	}
 	
+	/**
+	 * Returns the string attribute value of the specified tag for the specified mode.
+	 * @param node
+	 * @param tag
+	 * @return
+	 */
 	protected String getAttributeValue(Node node, String tag) {
 		return node.getAttributes().getNamedItem(tag).getTextContent();
 	}
 	
+	/**
+	 * Returns the value of the child node with the specified tag for the element.
+	 * @param tag
+	 * @param element
+	 * @return
+	 */
 	protected String getChildValue(String tag, Element element) {
 		NodeList nodes = element.getElementsByTagName(tag).item(0).getChildNodes();
 		Node node = (Node) nodes.item(0);
 		return node.getNodeValue();
 	}
 	
+	/**
+	 * Loads and adds states for the GameObject.
+	 * @param stateNodes
+	 * @param myObject
+	 */
 	protected void addStates(NodeList stateNodes, GameObject myObject) {
 		for (int i = 0; i < stateNodes.getLength(); i++) {
 			Element state = (Element) stateNodes.item(i);
