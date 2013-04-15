@@ -34,6 +34,11 @@ public class GameElement extends Sprite {
         super(image, center, size);
         myActions = actions;
     }
+    
+    public void setLocation(Location newLocation) {
+        Location center = getCenter();
+        center.setLocation(newLocation.getX(), newLocation.getY());
+    }
 
     public void update (double elapsedTime) {
         for (AbstractAction a : myActions) {
