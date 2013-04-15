@@ -29,7 +29,6 @@ public class CharacterObject extends GameObject {
     private Map<String, AttackObject> myAttacks;
     private List<Effect> myActiveEffects;
     private Health myHealth;
-    private int mySpeed;
 
     /**
      * Constructs a new CharacterObject.
@@ -54,7 +53,6 @@ public class CharacterObject extends GameObject {
      */
 
     public void update() {
-        setCurrentState("stand");
         super.update();
         if (getCurrentState().hasCompleted()) {
             setCurrentState("stand");
@@ -154,7 +152,7 @@ public class CharacterObject extends GameObject {
      */
     public void move(int direction) {
         setCurrentState("moveRight");
-        getLocation().translate(new Vector(direction, mySpeed));
+        getLocation().translate(new Vector(direction, getProperty("speed")));
     }
 
     /**
