@@ -49,7 +49,7 @@ public class CollisionManager {
         }
         
         /**
-         * If there is No Suck Method, that means the game designer does not want 
+         * If there is No Such Method, that means the game designer does not want 
          * anything to happen when this collision occurs. 
          */
         catch (NoSuchMethodException e) {

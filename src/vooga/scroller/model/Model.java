@@ -34,7 +34,7 @@ public class Model {
     private LevelManager myLevelManager;
     private ScrollingManager myScrollingManager;
     private Secretary mySecretary;
-    private List<String> spriteStrings = Arrays.asList("Koopa koopa", "Coin coin",
+    private List<String> spriteStrings = Arrays.asList("Mario mario", "Koopa koopa", "Coin coin",
                                                        "MarioLib.MovingPlatform movingPlatform"); 
     private static final String PART_ONE = "public void visit (";
     private static final String PART_TWO = ") {}";
@@ -147,9 +147,10 @@ public class Model {
      * @author Jay Wang
      */
     private void generateVisitMethods (List<String> spriteStrings) {
-        for (String firstSpriteString : spriteStrings) {
-            for (String secondSpriteString : spriteStrings) {
-                mySecretary.write(PART_ONE + firstSpriteString + COMMA + secondSpriteString + PART_TWO);
+        for (int i = 0; i < spriteStrings.size(); i++) {
+            for (int j = i+1; j < spriteStrings.size(); j++) {
+                
+                mySecretary.write(PART_ONE + spriteStrings.get(i) + COMMA + spriteStrings.get(j) + PART_TWO);
             }
         }        
     }

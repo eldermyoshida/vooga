@@ -254,9 +254,7 @@ public class Level implements Editable, Renderable {
                 obj2 = mySprites.get(j);
                 if (obj1.intersects(obj2)) {
                     CM.handleCollision(obj1, obj2);
-                    CM.handleCollision(obj2, obj1);
                 }
-
             }
         }
         
