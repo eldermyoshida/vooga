@@ -16,7 +16,11 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import vooga.rts.gamedesign.sprite.Sprite;
 import vooga.rts.gamedesign.sprite.rtsprite.Resource;
+import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
+import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
+import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
 
 /** 
  *  This class is in charge of the loading of input XML files for different
@@ -34,18 +38,21 @@ public class Factory {
 	public static final String DECODER_MATCHING_FILE = "src/vooga/rts/gamedesign/factories/DecodeMatchUp";
 	
 	Map<String, Decoder> myDecoders = new HashMap<String, Decoder>();
-	Map<String, Resource> myResources;
+	Map<String, Sprite> mySprites;
+	Map<String, AttackStrategy> myAttackStrategies;
+	Map<String, GatherStrategy> myGatherStrategies;
+	Map<String, OccupyStrategy> myOccupyStrategies;
 	
 	
 	public Factory() throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ParserConfigurationException, SAXException, IOException {
 		myDecoders = new HashMap<String, Decoder>();
 		loadDecoder(DECODER_MATCHING_FILE);
-		myResources = new HashMap<String, Resource>();
+		mySprites = new HashMap<String, Sprite>();
 	}
 	
 	
-	public Map<String, Resource> getResources(){
-		return myResources;
+	public Map<String, Sprite> getSpriteMap(){
+		return mySprites;
 	}
 	
 	/**

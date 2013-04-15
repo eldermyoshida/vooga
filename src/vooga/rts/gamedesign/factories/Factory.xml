@@ -37,11 +37,13 @@
 	<resources src = "vooga.rts.gamedesign.sprite.rtsprite.Resource">
 		<resource>
 			<name>gold</name>
-			<img>gold.jpg</img>
+			<img>gold.png</img>
+			<health>100</health>
 		</resource>
 		<resource>
 			<name>wood</name>
 			<img>wood.jpg</img>
+			<health>100</health>
 		</resource>
 	</resources>
 	<strategies>

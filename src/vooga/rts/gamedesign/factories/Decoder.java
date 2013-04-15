@@ -1,5 +1,7 @@
 package vooga.rts.gamedesign.factories;
 
+import java.lang.reflect.InvocationTargetException;
+
 import org.w3c.dom.Document;
 
 /**
@@ -15,5 +17,5 @@ import org.w3c.dom.Document;
 public abstract class Decoder {
 	Factory myFactory;
 	
-	public abstract void create(Document doc);
+	public abstract void create(Document doc) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException;
 }

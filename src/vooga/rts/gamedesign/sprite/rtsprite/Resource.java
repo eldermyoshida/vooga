@@ -15,7 +15,7 @@ import vooga.rts.util.Pixmap;
  * @author Wenshun Liu 
  *
  */
-public abstract class Resource extends GameEntity {
+public class Resource extends GameEntity {
 
 
   public Resource(Pixmap image, Location center, Dimension size, int teamID, int health) {
@@ -23,7 +23,9 @@ public abstract class Resource extends GameEntity {
 		
 	}
   
-  public abstract void getGathered(InteractiveEntity e);
+  public void getGathered(InteractiveEntity e){
+	  
+  }
 
 
 
