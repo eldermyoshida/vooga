@@ -147,7 +147,7 @@ public class Factory {
 		//creates two Units - adds upgrade Actions to the UpgradeBuilding
 		//the first Unit needs to specify the UpgradeTree all Units will be using.
 		InteractiveEntity oneUnit = new Unit();
-		oneUnit.setUpgradeTree(resultTree);
+		//oneUnit.setUpgradeTree(resultTree);
 		upgradeBuilding.addUpgradeActions(resultTree);
 		InteractiveEntity twoUnit = new Unit();
 		oneUnit.setAttackStrategy(new CanAttack());
@@ -160,7 +160,7 @@ public class Factory {
 		
 		//finds Action  - 
 		Action WorstArmorAction = upgradeBuilding.findAction("Boost1");
-		WorstArmorAction.apply();
+		//WorstArmorAction.apply();
 		System.out.println(oneUnit.getMaxHealth());
 		System.out.println(twoUnit.getMaxHealth());
 	}

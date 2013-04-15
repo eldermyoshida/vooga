@@ -1,7 +1,10 @@
 package vooga.rts.gamedesign.upgrades;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import vooga.rts.gamedesign.sprite.InteractiveEntity;
 
 
@@ -27,13 +30,15 @@ public class UpgradeTree {
     private UpgradeNode myHead;
     private List<UpgradeNode> myCurrentUpgrades;
     private List<UpgradeNode> myNextUpgrades;
-    private List<InteractiveEntity> myUsers;
+    private Map<Integer, List<InteractiveEntity>> myUsers;
+    //private List<InteractiveEntity> myUsers;
 
     public UpgradeTree () {
         myHead = new UpgradeNode();
         myCurrentUpgrades = new ArrayList<UpgradeNode>();
         myNextUpgrades = new ArrayList<UpgradeNode>();
-        myUsers = new ArrayList<InteractiveEntity>();
+        myUsers = new HashMap<Integer, List<InteractiveEntity>>();
+        //myUsers = new ArrayList<InteractiveEntity>();
     }
 
     /**
@@ -101,12 +106,26 @@ public class UpgradeTree {
         return current;
     }
 
-    public List<InteractiveEntity> getUsers() {
-        return myUsers;
+    public Map<Integer, List<InteractiveEntity>> getUsers() {
+    	return myUsers;
     }
     
-    public void addUser(InteractiveEntity i) {
-    	myUsers.add(i);
+    public List<InteractiveEntity> getPlayerUsers(int playerID) {
+        return myUsers.get(playerID);
+    }
+    
+    public void addUser(InteractiveEntity i, int playerID) {
+    	if (myUsers.get(playerID) == null) {
+    		List<InteractiveEntity> entityGroup = new ArrayList<InteractiveEntity>();
+    		entityGroup.add(i);
+    		myUsers.put(playerID, entityGroup);
+    	} else {
+    		List<InteractiveEntity> entityGroup = myUsers.get(playerID);
+    		entityGroup.add(i);
+    		myUsers.put(playerID, entityGroup);
+    	}
+    	
+    	myUsers.get(playerID).add(i);
     }
 
     public List<UpgradeNode> getCurrentUpgrades() {

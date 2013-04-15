@@ -34,11 +34,13 @@ public class UpgradeBuilding extends Building{
     	for (final UpgradeNode u: currentUpgrades) {
     		 getActions().add(new Action(u.getUpgradeType(), null, "An upgrade action for soldier"){
     	            @Override
-    	            public void apply() throws IllegalArgumentException, SecurityException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException{
-    	                u.apply();
+    	            public void apply(int playerID) throws IllegalArgumentException, SecurityException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException{
+    	                u.apply(playerID);
     	                System.out.println("Number of users: " + u.getUpgradeTree().getUsers().size());
-    	                for (InteractiveEntity i: u.getUpgradeTree().getUsers()) {
-    	                	System.out.println("health: " + i.getMaxHealth());
+    	                for (int id: u.getUpgradeTree().getUsers().keySet()){
+    	                	for (InteractiveEntity i: u.getUpgradeTree().getUsers().get(id)) {
+    	                		System.out.println("health: " + i.getMaxHealth());
+    	                	}
     	                }
     	            }
     	        });
@@ -57,7 +59,7 @@ public class UpgradeBuilding extends Building{
 		PRODUCE_TIME -= 1/elapsedTime;
 		if(PRODUCE_TIME <= 0) { 
 			try {
-				findAction("Boost1").apply();
+				findAction("Boost1").apply(1);
 			} catch (Exception e) {
 				e.printStackTrace();
 			} 

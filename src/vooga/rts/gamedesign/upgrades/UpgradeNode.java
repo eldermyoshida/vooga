@@ -56,7 +56,7 @@ public class UpgradeNode {
      * @throws NoSuchMethodException 
      * @throws SecurityException 
      */
-    public void apply()
+    public void apply(int playerID)
 			throws IllegalArgumentException, IllegalAccessException,
 			InvocationTargetException, InstantiationException,
 			SecurityException, NoSuchMethodException {

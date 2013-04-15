@@ -17,11 +17,11 @@ public class HealthUpgradeNode extends UpgradeNode {
 	 * Applies the health upgrade by the method that updates health.
 	 */
 	@Override
-	public void apply()
+	public void apply(int playerID)
 			throws IllegalArgumentException, IllegalAccessException,
 			InvocationTargetException, InstantiationException,
 			SecurityException, NoSuchMethodException {
-        for (InteractiveEntity i: getUpgradeTree().getUsers()){
+        for (InteractiveEntity i: getUpgradeTree().getUsers().get(playerID)){
         	apply(i);
         }
 	}

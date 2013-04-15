@@ -36,7 +36,7 @@ public class Action {
      * This is the method to execute the action. 
      * 
      */
-    public void apply() throws IllegalArgumentException, SecurityException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException{
+    public void apply(int playerID) throws IllegalArgumentException, SecurityException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException{
         
     }
     

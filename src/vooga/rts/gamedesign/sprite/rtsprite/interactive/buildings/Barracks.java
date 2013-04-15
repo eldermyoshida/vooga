@@ -39,7 +39,7 @@ public class Barracks extends ProductionBuilding {
     public void addProductionActions(ProductionBuilding p) {
         getActions().add(new ProductionAction("soldier",null,"I maketh un soldier", p.getCenter()){
             @Override
-            public void apply() {
+            public void apply(int playerID) {
                 InteractiveEntity ie = getProducables().get(0).copy();
                 Location ieLoc = new Location(getProducedFrom());                
                 ie.setCenter(ieLoc.x, ieLoc.y);
@@ -64,7 +64,7 @@ public class Barracks extends ProductionBuilding {
         PRODUCE_TIME -= 1/elapsedTime;
         if(PRODUCE_TIME <= 0) { 
             try {
-				getActions().get(3).apply();
+				getActions().get(3).apply(2); //2: for testing. make Barrack create new Units of different team.
 			} catch (Exception e) {
 				e.printStackTrace();
 			} 

@@ -73,7 +73,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
 		return myUpgradeTree;
 	}
 	
-	public void setUpgradeTree(UpgradeTree upgradeTree) {
+	public void setUpgradeTree(UpgradeTree upgradeTree, int playerID) {
 		myUpgradeTree = upgradeTree;
 	}
 
@@ -148,20 +148,6 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
 		return myAttackStrategy;
 	}
 
-    /**
-     * upgrades the interactive based on the selected upgrade
-     * @param upgradeNode is the upgrade that the interactive will get
-     * @throws NoSuchMethodException 
-     * @throws InstantiationException 
-     * @throws InvocationTargetException 
-     * @throws IllegalAccessException 
-     * @throws SecurityException 
-     * @throws IllegalArgumentException 
-     */
-    public void upgrade (UpgradeNode upgradeNode) throws IllegalArgumentException, SecurityException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException { 	
-        upgradeNode.apply();
-    }
-
 	public int calculateDamage(int damage) {
 		return damage * (1-(myArmor/(myArmor+100)));
 	}
@@ -169,21 +155,21 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     private void initDefaultActions(){
         myActions.add(new Action("Stop", null, "Action to stop InteractiveEntity"){
             @Override
-            public void apply(){
+            public void apply(int playerID){
                 //change the state of the entity to normal
                 setVelocity(0, 0);
             }
         });
         myActions.add(new Action("Hold", null, "Sets the InteractiveEntity to hold position"){
             @Override
-            public void apply(){
+            public void apply(int playerID){
                 //does not change state
                 setVelocity(0,0);
             }
         });
         myActions.add(new Action("Test2", null, "Action to stop InteractiveEntity"){
             @Override
-            public void apply(){
+            public void apply(int playerID){
                 setVelocity(0, 0);
             }
         });
