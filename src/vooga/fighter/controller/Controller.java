@@ -23,7 +23,7 @@ import javax.swing.Timer;
  *
  */
 
-public abstract class Controller implements ModelDelegate {
+public abstract class Controller implements ModelDelegate, ViewDataSource {
 
     private ControllerDelegate myManager;
     private String myName;
@@ -86,8 +86,8 @@ public abstract class Controller implements ModelDelegate {
         Timer time = new Timer(stepTime, 
                                new ActionListener() {
             public void actionPerformed (ActionEvent e) {
-                //myMode.update((double) stepTime / ONE_SECOND, myCanvas.getSize());
-                //myCanvas.paint();
+                myMode.update((double) stepTime / ONE_SECOND, myCanvas.getSize());
+                myCanvas.paint();
                 System.out.println("running");
             }
         });

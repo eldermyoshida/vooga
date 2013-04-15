@@ -66,21 +66,19 @@ public class LevelMode extends Mode {
      * Loads the environment objects for a map using the ObjectLoader.
      */
     public void loadMap (int mapId) {
-<<<<<<< HEAD
-    	MapObject loadedMap = new MapObject(mapId);
-    	MapLoader myMapLoader= new MapLoader(mapId, loadedMap);
-    	myStartLocations = loadedMap.getStartPositions();
-    	myStartLocations.get(0);
-=======
+
+    
+
+
         myMap = new MapObject(mapId);
     	MapLoader myMapLoader = new MapLoader(mapId, myMap);
-    	myMapLoader.load(mapId);
+    	myStartLocations = myMap.getStartPositions();
     	addObject(myMap);
     	List<EnvironmentObject> mapObjects = myMap.getEnviroObjects();
     	for (EnvironmentObject object : mapObjects) {
     	    addObject(object);
     	}    	
->>>>>>> d49066e349f5e0f479ad2abc89a99c43f0460557
+
     }
 
     /**
