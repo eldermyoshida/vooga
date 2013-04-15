@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import arcade.games.ArcadeInteraction;
+import arcade.games.GameData;
 import arcade.games.GameInfo;
 import arcade.games.HighScores;
 import arcade.games.User;
@@ -132,6 +133,13 @@ public class Model implements ArcadeInteraction {
 
     @Override
     public UserGameData getUserGameData () {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+
+    @Override
+    public GameData getGameData () {
         // TODO Auto-generated method stub
         return null;
     }
