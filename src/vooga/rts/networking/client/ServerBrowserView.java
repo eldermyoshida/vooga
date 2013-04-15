@@ -26,6 +26,8 @@ import javax.swing.border.EmptyBorder;
 public class ServerBrowserView extends JPanel {
     
     private static final long serialVersionUID = -4494998676210936451L;
+    private JTable myServerListTable;
+
     /**
      * Create the panel.
      */
@@ -37,6 +39,8 @@ public class ServerBrowserView extends JPanel {
         tabPanel.add(createJoinPanel(),"Join a Game");
         tabPanel.add(createHostPanel(),"Host a Game");
         add(tabPanel);
+        myServerListTable = new JTable();
+        //add(myServerListTable, BorderLayout.CENTER);
        
 
     }
@@ -46,6 +50,7 @@ public class ServerBrowserView extends JPanel {
         joinPanel.repaint();
         joinPanel.setBorder(new EmptyBorder(70, 110, 70, 110) );
         //joinPanel.setLayout(new BoxLayout(joinPanel,BoxLayout.X_AXIS));
+        
         
         List<String> s = new ArrayList<String>();
         for (int i = 0; i<100; i++){
