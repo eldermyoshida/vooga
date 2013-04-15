@@ -3,9 +3,7 @@ package vooga.rts.networking.server;
 import java.util.HashMap;
 import java.util.Map;
 import vooga.rts.networking.communications.Message;
-import vooga.rts.networking.communications.SystemMessage;
-import vooga.rts.networking.factory.Command;
-import vooga.rts.networking.factory.CommandFactory;
+import vooga.rts.networking.communications.server.ServerSystemMessage;
 
 
 /**
@@ -20,7 +18,6 @@ public class MatchmakerServer extends Thread implements IMessageReceiver, IThrea
     private Map<Integer, ConnectionThread> myConnectionThreads = new HashMap<Integer, ConnectionThread>();
     private Map<String, GameContainer> myGameContainers = new HashMap<String, GameContainer>();
     private ConnectionServer myConnectionServer = new ConnectionServer(this);
-    private CommandFactory myFactory = new CommandFactory();
 
     @Override
     public void run () {
@@ -30,12 +27,9 @@ public class MatchmakerServer extends Thread implements IMessageReceiver, IThrea
     
     @Override
     public void sendMessage (Message message, ConnectionThread thread) {
-        if(message instanceof SystemMessage) {
-            SystemMessage systemMessage = (SystemMessage) message;
-            Command command = myFactory.getCommand(systemMessage.getMessage());
-            command.execute(thread, this, systemMessage.getParameters());
-        } else {
-            
+        if(message instanceof ServerSystemMessage) {
+            ServerSystemMessage systemMessage = (ServerSystemMessage) message;
+            systemMessage.execute(thread, this);
         }
     }
     

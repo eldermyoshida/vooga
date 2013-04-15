@@ -5,20 +5,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import vooga.rts.networking.communications.Message;
-import vooga.rts.networking.communications.SystemMessage;
-import vooga.rts.networking.factory.Command;
-import vooga.rts.networking.factory.CommandFactory;
+import vooga.rts.networking.communications.server.ServerSystemMessage;
 
 public class GameContainer implements IMessageReceiver, IThreadContainer {
 
     private Map<Integer, ConnectionThread> myConnectionThreads = new HashMap<Integer, ConnectionThread>();
     private Map<String, LobbyContainer> myLobbies = new HashMap<String, LobbyContainer>();
     private List<GameServer> myGameServers = new ArrayList<GameServer>();
-    private CommandFactory myFactory;
     private int myGameNumber = 0;
     
-    public GameContainer (CommandFactory factory) {
-        myFactory = factory;
+    public GameContainer () {
     }
     
     protected void addConnection (ConnectionThread thread) {
@@ -35,12 +31,9 @@ public class GameContainer implements IMessageReceiver, IThreadContainer {
     
     @Override
     public void sendMessage (Message message, ConnectionThread thread) {
-        if(message instanceof SystemMessage) {
-            SystemMessage systemMessage = (SystemMessage) message;
-            Command command = myFactory.getCommand(systemMessage.getMessage());
-            command.execute(thread, this, systemMessage.getParameters());
-        } else {
-            
+        if(message instanceof ServerSystemMessage) {
+            ServerSystemMessage systemMessage = (ServerSystemMessage) message;
+            systemMessage.execute(thread, this);
         }
     }
     
@@ -57,7 +50,7 @@ public class GameContainer implements IMessageReceiver, IThreadContainer {
     public void joinLobby (ConnectionThread thread, String lobbyName) {
         LobbyContainer lobby;
         if(!myLobbies.containsKey(lobbyName)) {
-            lobby = new LobbyContainer(myFactory, this);
+            lobby = new LobbyContainer(this);
             myLobbies.put(lobbyName, lobby);
         }
         myConnectionThreads.remove(thread.getID());
