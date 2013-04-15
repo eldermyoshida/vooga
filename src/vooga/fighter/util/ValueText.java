@@ -1,8 +1,5 @@
-<<<<<<< HEAD:src/vooga/towerdefense/util/ValueText.java
-package vooga.towerdefense.util;
-=======
-package vooga.rts.util;
->>>>>>> d91774e3125c7e327839540ffd65a4d5a62eac1f:src/vooga/rts/util/ValueText.java
+package vooga.fighter.util;
+
 
 
 /**
@@ -40,6 +37,10 @@ public class ValueText extends Text {
         setText(myLabel + " " + myValue);
     }
 
+    public void setValue (int value) {
+        myValue = value;
+        setText(myLabel + " " + myValue);
+    }
     /**
      * Reset displayed value to its initial value
      */

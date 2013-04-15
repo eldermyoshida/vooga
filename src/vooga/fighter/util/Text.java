@@ -1,6 +1,4 @@
-
-package vooga.towerdefense.util;
-
+package vooga.fighter.util;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -24,7 +22,6 @@ public class Text {
     // underlying implementation
     private String myText;
     private Font myFont;
-
 
     /**
      * Construct a shape at the given position, with the given velocity,
@@ -70,7 +67,7 @@ public class Text {
         Rectangle2D bounds = layout.getBounds();
         bounds.setRect(-bounds.getWidth() / 2, -height / 2, bounds.getWidth(), bounds.getHeight());
         // draw text
-        layout.draw(pen, (float) (center.getX() - bounds.getWidth() / 2),
+        layout.draw((Graphics2D) pen, (float) (center.getX() - bounds.getWidth() / 2),
                     (float) (center.getY() + bounds.getHeight() / 2 - layout.getDescent()));
         // unset attributes
         pen.setColor(oldColor);
