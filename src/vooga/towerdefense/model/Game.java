@@ -1,6 +1,5 @@
 package vooga.towerdefense.model;
 
-import java.awt.Graphics2D;
 
 
 public class Game {
@@ -10,16 +9,14 @@ public class Game {
 
 	private boolean game_is_running = false;
 	private GameModel myModel;
-	private Graphics2D myPen;
 
 	public Game() {
 		// TODO: functions to construct model from file. Probably put that in
 		// GameModel constructor.
-		myModel = new GameModel(null, null);
+		myModel = new GameModel(null, null, null);
 	}
 
-	public void start(Graphics2D pen) {
-		myPen = pen;
+	public void start() {
 		setRunning(true);
 		run();
 	}
@@ -39,7 +36,7 @@ public class Game {
 				next_game_tick += SKIP_TICKS;
 				loops++;
 			}
-			myModel.display(myPen);
+			myModel.displayMap();
 		}
 
 	}

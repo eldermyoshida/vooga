@@ -32,6 +32,8 @@ import arcade.util.JPicture;
 @SuppressWarnings("serial")
 public class LoginView extends JFrame {
 
+    private static final String IMAGES_LOCATION = "src/arcade/resources/images/";
+    private static final String ERROR_MESSAGE = "Required file is not present.";
     /**
      * 
      */
@@ -57,6 +59,7 @@ public class LoginView extends JFrame {
     private JPanel myContentPanel;
     private JTextField myUserNameTextField;
     private JPasswordField myPasswordTextField;
+    private JLabel myWarningMessage;
     private JComponent myBackground;
     private int myLastKeyPressed;
 
@@ -81,6 +84,8 @@ public class LoginView extends JFrame {
         createTextFields();
         createLoginButton();
         createRegisterButton();
+
+        createMessageArea();
         createBackground();
 
         setResizable(false);
@@ -202,21 +207,15 @@ public class LoginView extends JFrame {
 
     }
 
-    public void sendMessage (String message) {
-        JLabel warning =
-                new JLabel("<html><font color = red>" + message + "</font></html>");
-        warning.setBounds(50, 120, 250, 50);
-        myContentPanel.remove(myBackground);
-        myContentPanel.add(warning);
-        refreshFrame();
-        myContentPanel.add(myBackground);
-        myContentPanel.validate();
+    private void createMessageArea () {
+        myWarningMessage = new JLabel();
+        myWarningMessage.setBounds(50, 120, 250, 50);
+        myContentPanel.add(myWarningMessage);
+
     }
 
-    private void refreshFrame () {
-        this.setBounds(0, 0, WINDOW_WIDTH + 1, WINDOW_HEIGHT);
-        this.setBounds(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
-        setLocationRelativeTo(null);
+    public void sendMessage (String message) {
+        myWarningMessage.setText("<html><font color = red>" + message + "</font></html>");
     }
 
     public void destroy () {
@@ -232,12 +231,18 @@ public class LoginView extends JFrame {
     private ImageIcon createImageIcon (String filename) {
         Image myImage;
         try {
-            myImage = ImageIO.read(new File("src/arcade/resources/images/" + filename));
+            myImage = ImageIO.read(new File(IMAGES_LOCATION + filename));
             return new ImageIcon(myImage, filename);
         }
         catch (IOException e) {
-            throw new MissingResourceException("", "", "");
+            throw new MissingResourceException(ERROR_MESSAGE, "", "");
         }
 
     }
+
+    // private void refreshFrame () {
+    // this.setBounds(0, 0, WINDOW_WIDTH + 1, WINDOW_HEIGHT);
+    // this.setBounds(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+    // setLocationRelativeTo(null);
+    // }
 }
