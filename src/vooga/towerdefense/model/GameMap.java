@@ -68,6 +68,10 @@ public class GameMap {
     public void spawnUnit (Unit u) {
         myUnits.add(u);
     }
+    
+    public void addToMap (GameElement e) {
+        myGameElements.add(e);
+    }
 
     public void buildTower (int i, int j, GameElement t) {
         myGrid[i][j].setTower(t);
