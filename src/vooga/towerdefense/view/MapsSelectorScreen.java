@@ -120,7 +120,7 @@ public class MapsSelectorScreen extends JPanel {
     }
 
     public void selectedImage (Pixmap myImage) {
-        // super(myImage);
+        //super(myImage);
         myPrevName = myImage.getFileName();
         myImage.setImage(CHECKED_IMAGE);
         repaint();

@@ -70,8 +70,7 @@ public class GameMap {
         myUnits.add(u);
     }
     
-    public void addToMap (GameElement e, Tile t) {
-        e.setCenter(t.getCenter().getX(), t.getCenter().getY());
+    public void addToMap (GameElement e) {
         myGameElements.add(e);
     }
 
