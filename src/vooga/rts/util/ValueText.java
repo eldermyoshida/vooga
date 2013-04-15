@@ -1,4 +1,8 @@
+<<<<<<< HEAD:src/vooga/towerdefense/util/ValueText.java
+package vooga.towerdefense.util;
+=======
 package vooga.rts.util;
+>>>>>>> d91774e3125c7e327839540ffd65a4d5a62eac1f:src/vooga/rts/util/ValueText.java
 
 
 /**

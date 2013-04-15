@@ -1,4 +1,4 @@
-package vooga.towerdefense.gameElements.testSuite;
+package src.vooga.towerdefense.gameElements.testSuite;
 
 import static org.junit.Assert.*;
 
