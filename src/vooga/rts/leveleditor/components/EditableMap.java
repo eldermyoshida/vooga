@@ -4,6 +4,7 @@ package vooga.rts.leveleditor.components;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +27,7 @@ public class EditableMap {
     private int myXSize;
     private int myYSize; 
     
-    private List<Terrain> myTerrains;
+    private Map<Integer , MapLayer> myLayers;
     
     private String myMapName = "CIEMAS";
     private String myDescription = " our RTS is the best one !";
@@ -68,6 +69,8 @@ public class EditableMap {
         myPlayerNumber = 0;
         mySaver = new MapSaver();
         myLoader = new MapLoader();
+        
+        myLayers = new HashMap<Integer , MapLayer>();
     }
     
     public void initializeMap() {
@@ -90,6 +93,8 @@ public class EditableMap {
         myPlayerLocations.remove(index);
         myPlayerNumber --;
     }
+    
+    
     
     
     public void clearMap() {
@@ -149,8 +154,14 @@ public class EditableMap {
         save(bufferFile);
     }
     
-    public void addTerrain(Terrain ter) {
-        myTerrains.add(ter);
+    public void addTerrain(int layerIndex , Terrain ter) {
+        if(myLayers.containsKey(layerIndex)) {
+            myLayers.get(layerIndex).addTerrain(ter);
+        } else {
+           MapLayer bufferLayer = new MapLayer();
+           bufferLayer.addTerrain(ter);
+           myLayers.put(layerIndex, bufferLayer);
+        }
     }
     
     public void addTile(int x , int y , String tileType) {
