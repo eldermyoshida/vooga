@@ -10,7 +10,15 @@ import vooga.rts.networking.communications.Message;
  *
  */
 public interface IClient {
+    /**
+     * Sends this message to the server.
+     * @param message to send
+     */
     public abstract void sendData (Message message);
 
-    public abstract Message getData ();
+    /**
+     * Sets this as the message receiver. 
+     * @param messageReceiver
+     */
+    public abstract void setMessageReceiver(IMessageReceiver messageReceiver);
 }

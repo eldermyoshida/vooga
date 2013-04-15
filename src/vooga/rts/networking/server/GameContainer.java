@@ -9,7 +9,7 @@ import vooga.rts.networking.communications.SystemMessage;
 import vooga.rts.networking.factory.Command;
 import vooga.rts.networking.factory.CommandFactory;
 
-public class GameContainer implements IMessageReceiver, ICommandable {
+public class GameContainer implements IMessageReceiver, IThreadContainer {
 
     private Map<Integer, ConnectionThread> myConnectionThreads = new HashMap<Integer, ConnectionThread>();
     private Map<String, LobbyContainer> myLobbies = new HashMap<String, LobbyContainer>();

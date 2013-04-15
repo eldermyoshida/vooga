@@ -16,7 +16,7 @@ import vooga.rts.networking.factory.CommandFactory;
  * @author David Winegar
  * 
  */
-public class MatchmakerServer extends Thread implements IMessageReceiver, ICommandable {
+public class MatchmakerServer extends Thread implements IMessageReceiver, IThreadContainer {
     private Map<Integer, ConnectionThread> myConnectionThreads = new HashMap<Integer, ConnectionThread>();
     private Map<String, GameContainer> myGameContainers = new HashMap<String, GameContainer>();
     private ConnectionServer myConnectionServer = new ConnectionServer(this);

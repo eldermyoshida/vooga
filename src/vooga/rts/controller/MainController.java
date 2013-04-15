@@ -8,11 +8,9 @@ import java.util.Observable;
 import java.util.Observer;
 import javax.swing.Timer;
 import vooga.rts.Game;
-import vooga.rts.gui.Menu;
 import vooga.rts.gui.Window;
-import vooga.rts.gui.menus.MainMenu;
 import vooga.rts.input.Input;
-import vooga.rts.resourcemanager.ResourceManager;
+import vooga.rts.util.FrameCounter;
 
 
 public class MainController extends AbstractController implements Observer {
@@ -30,6 +28,8 @@ public class MainController extends AbstractController implements Observer {
 
     private Timer myTimer;
 
+    private FrameCounter myFrames;
+
     private MainState myGameState;
 
     private Input myInput;
@@ -37,23 +37,25 @@ public class MainController extends AbstractController implements Observer {
     public MainController () {
 
         myWindow = new Window();
+        
         myGameController = new GameController();
         myGameController.addObserver(this);
-
+        
         myLoadingController = new LoadingController();
         myLoadingController.addObserver(this);
-
+        
         myMenuController = new MenuController();
-        myMenuController.addObserver(this);
-
+        myMenuController.addObserver(this);  
+        
         myInputController = new InputController(this);
         myInput = new Input(DEFAULT_INPUT_LOCATION, myWindow.getCanvas());
-        myInput.addListenerTo(myInputController);
-
+        myInput.addListenerTo(myInputController);  
+        
         myWindow.setFullscreen(true);
+        
+        setActiveController(myLoadingController);       
 
-        myGameState = MainState.Loading;
-        setActiveController(myLoadingController);
+        myFrames = new FrameCounter();
 
         myTimer = new Timer((int) Game.TIME_PER_FRAME(), new ActionListener() {
             @Override
@@ -67,10 +69,12 @@ public class MainController extends AbstractController implements Observer {
 
     public void update (double elapsedTime) {
         myActiveController.update(elapsedTime);
+        myFrames.update(elapsedTime);
     }
 
     public void paint (Graphics2D pen) {
         myActiveController.paint(pen);
+        myFrames.paint(pen);
     }
 
     private void render () {
@@ -95,7 +99,7 @@ public class MainController extends AbstractController implements Observer {
         myActiveController = myController;
         myGameState = myActiveController.getGameState();
         myInputController.setActiveController(myController);
-        myActiveController.activate();
+        myActiveController.activate();        
     }
 
     @Override
@@ -123,7 +127,7 @@ public class MainController extends AbstractController implements Observer {
     public void activate () {
     }
 
-	public MainState getGameState() {
-		return MainState.Main;
-	}
+    public MainState getGameState () {
+        return MainState.Main;
+    }
 }
