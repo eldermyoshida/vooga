@@ -36,7 +36,6 @@ public class GameEntity extends GameSprite {
     private Location myGoal;
     private Vector myOriginalVelocity;
 
-
     public GameEntity (Pixmap image, Location center, Dimension size, int teamID, int health) {
         super(image, center, size);
         myMaxHealth = health;
@@ -93,7 +92,7 @@ public class GameEntity extends GameSprite {
      * @param v
      */
     public void translate (Vector v) {
-       
+
         getCenter().translate(v);
         resetBounds();
     }
@@ -116,32 +115,34 @@ public class GameEntity extends GameSprite {
         myGoal = new Location(loc);
         Vector v = getCenter().difference(myGoal);
         // TODO: not static amount
-        setVelocity(v.getAngle(), 20);
+        setVelocity(v.getAngle(), 50);
     }
-    
+
     public void move (Location loc, GameMap map) {
         setPath(loc, map);
     }
-    
+
     public void setPath (Location location, GameMap map) {
-        myPath = myFinder.calculatePath(map.getNode(getCenter()), 
-                                        map.getNode(location), map.getMap());
+        myPath =
+                myFinder.calculatePath(map.getNode(getCenter()), map.getNode(location),
+                                       map.getMap());
         myGoal = myPath.getNext();
-     }
+    }
+
     /**
      * Updates the shape's location.
      */
     // TODO: make Velocity three dimensional...
     public void update (double elapsedTime) {
-        Vector v = new Vector(myVelocity);        
+        Vector v = new Vector(myVelocity);
         v.scale(elapsedTime);
-        if(this.intersects(myGoal)){
-            //System.out.println("myGoal reached");
-            setVelocity(0,0);
+        if (this.intersects(myGoal)) {
+            // System.out.println("myGoal reached");
+            setVelocity(0, 0);
         }
-        else { 
-            //System.out.println("Veclocity " + v.getAngle() + " " + v.getMagnitude());
-            //this is kinda messed up right now
+        else {
+            // System.out.println("Veclocity " + v.getAngle() + " " + v.getMagnitude());
+            // this is kinda messed up right now
             translate(v);
         }
     }
@@ -161,7 +162,7 @@ public class GameEntity extends GameSprite {
     }
 
     /**
-     * Kills the GameEntity by setting its current health value to zero.	
+     * Kills the GameEntity by setting its current health value to zero.
      */
     public void die () {
         myCurrentHealth = 0;

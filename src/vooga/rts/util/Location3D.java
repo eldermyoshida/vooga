@@ -37,6 +37,14 @@ public class Location3D {
         myZ = z;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString () {
+        return "Location3D [X=" + myX + ", Y=" + myY + ", Z=" + myZ + "]";
+    }
+
     /**
      * Creates a Location3D with the specified Point 2D and
      * sets the Z value to 0.

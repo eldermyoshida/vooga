@@ -29,7 +29,9 @@ public class Canvas extends JPanel{
     }
 
     public void render() {
-        myGraphics.dispose();
-        myStrategy.show();
+        if (!myStrategy.contentsLost()) {
+            myGraphics.dispose();
+            myStrategy.show();
+        }
     }
 }

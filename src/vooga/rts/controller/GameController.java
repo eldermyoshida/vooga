@@ -1,8 +1,12 @@
 package vooga.rts.controller;
 
+import java.awt.AWTException;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.MouseInfo;
+import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.Robot;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,14 +18,18 @@ import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Soldier;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Unit;
 import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;
 import vooga.rts.gamedesign.strategy.attackstrategy.CannotAttack;
+import vooga.rts.gui.Window;
 import vooga.rts.input.PositionObject;
 import vooga.rts.map.GameMap;
 import vooga.rts.player.HumanPlayer;
 import vooga.rts.player.Player;
 import vooga.rts.player.Team;
 import vooga.rts.resourcemanager.ResourceManager;
+import vooga.rts.util.Camera;
 import vooga.rts.util.Location;
+import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
+import vooga.rts.util.PointTester;
 import vooga.rts.util.Sound;
 
 
@@ -30,17 +38,28 @@ public class GameController extends AbstractController {
     private Map<Integer, Team> myTeams;
     private List<Player> myPlayers;
     private HumanPlayer myHuman;
-    
+
     private GameMap myMap; // This needs a dimension that describes the total size of the map. Not
                            // made for now.
 
     private PositionObject myLeftMouse;
     private Rectangle2D myDrag;
 
+    private PointTester pt;
+    
+    private Robot myMouseMover = null;
+
     public GameController () {
         myTeams = new HashMap<Integer, Team>();
         myPlayers = new ArrayList<Player>();
         myMap = new GameMap(8, new Dimension(512, 512));
+        pt = new PointTester();
+        try {
+            myMouseMover = new Robot();
+        }
+        catch (AWTException e) {
+            // Cannot move the camera            
+        }
     }
 
     public void addPlayer (Player player, int teamID) {
@@ -50,7 +69,7 @@ public class GameController extends AbstractController {
         }
         myTeams.get(teamID).addPlayer(player);
         if (player instanceof HumanPlayer) {
-            myHuman = (HumanPlayer)player;
+            myHuman = (HumanPlayer) player;
         }
     }
 
@@ -86,17 +105,19 @@ public class GameController extends AbstractController {
                 }
             }
         }
+        checkCameraMouse();
     }
 
     @Override
     public void paint (Graphics2D pen) {
         for (Player p : myPlayers) {
             p.paint(pen);
-            
         }
         if (myDrag != null) {
             pen.draw(myDrag);
         }
+        pt.paint(pen);
+
     }
 
     @Override
@@ -107,8 +128,9 @@ public class GameController extends AbstractController {
     @Override
     public void onLeftMouseUp (PositionObject o) {
         // if it's not a gui thing
-        if (myDrag == null) {            
-            myHuman.handleLeftClick((int) o.getX(), (int) o.getY());
+        if (myDrag == null) {
+            Location3D worldClick = Camera.instance().viewtoWorld(new Location(o.getPoint2D()));            
+            myHuman.handleLeftClick((int) worldClick.getX(), (int) worldClick.getY());
         }
         myLeftMouse = null;
         myDrag = null;
@@ -121,8 +143,8 @@ public class GameController extends AbstractController {
 
     @Override
     public void onRightMouseUp (PositionObject o) {
-        
-        // If it's not a GUI thing        
+
+        // If it's not a GUI thing
         myHuman.handleRightClick((int) o.getX(), (int) o.getY());
     }
 
@@ -130,7 +152,7 @@ public class GameController extends AbstractController {
     public void onMouseDrag (PositionObject o) {
         if (myLeftMouse != null) {
             double uX = o.getX() > myLeftMouse.getX() ? myLeftMouse.getX() : o.getX();
-            double uY = o.getY() > myLeftMouse.getY() ? myLeftMouse.getY() : o.getY();            
+            double uY = o.getY() > myLeftMouse.getY() ? myLeftMouse.getY() : o.getY();
             double width = Math.abs(o.getX() - myLeftMouse.getX());
             double height = Math.abs(o.getY() - myLeftMouse.getY());
             myDrag = new Rectangle2D.Double(uX, uY, width, height);
@@ -147,7 +169,8 @@ public class GameController extends AbstractController {
         System.out.println("Game is setup");
 
         Player p1 = new HumanPlayer();
-        Pixmap p = new Pixmap(ResourceManager.instance().loadFile("images/sprites/halo_soldier.png"));
+        Pixmap p =
+                new Pixmap(ResourceManager.instance().loadFile("images/sprites/halo_soldier.png"));
         Dimension s = new Dimension(100, 100);
         Sound soun = null;// new Sound("/vooga/rts/sounds/pikachu.wav");
         Unit a = null;
@@ -187,12 +210,49 @@ public class GameController extends AbstractController {
 
         addPlayer(p1, 1);
         addPlayer(p2, 2);
+        myHuman = (HumanPlayer) p1;
 
     }
 
-	@Override
-	public MainState getGameState() {
-		return MainState.Game;
-	}
+    private void checkCameraMouse () {
+        Point p = MouseInfo.getPointerInfo().getLocation();
+
+        double x = 0;
+        double y = 0;
+        double setX = p.getX();
+        double setY = p.getY();
+
+        if (p.getX() <= 0) {
+            x = -1 * Camera.MOVE_SPEED;
+            setX = 0;
+        }
+        if (p.getY() <= 0) {
+            y = -1 * Camera.MOVE_SPEED;
+            setY = 0;
+        }
+        if (p.getX() >= Window.SCREEN_SIZE.getWidth() - 1) {
+            x = 1 * Camera.MOVE_SPEED;
+            setX = Window.SCREEN_SIZE.getWidth() - 1;
+        }
+
+        if (p.getY() >= Window.SCREEN_SIZE.getHeight() - 1) {
+            y = 1 * Camera.MOVE_SPEED;
+            setY = Window.SCREEN_SIZE.getHeight() - 1;
+        }
+        if (x != 0 || y != 0) {
+            Camera.instance().moveCamera(new Location(x, y));            
+            myMouseMover.mouseMove((int) setX, (int) setY);
+        }
+    }
+
+    @Override
+    public void onMouseMove (PositionObject o) {
+
+    }
+
+    @Override
+    public MainState getGameState () {
+        return MainState.Game;
+    }
 
 }

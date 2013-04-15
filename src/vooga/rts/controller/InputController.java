@@ -42,5 +42,10 @@ public class InputController {
     public void onMouseDrag (PositionObject o) {        
         myActiveController.onMouseDrag(o);
     }
+    
+    @InputMethodTarget(name = "onMouseMove")
+    public void onMouseMove (PositionObject o) {        
+        myActiveController.onMouseMove(o);
+    }
 
 }
