@@ -26,7 +26,7 @@ public abstract class Mode {
      */
     public Mode(ModelDelegate cd) {
         myObjects = new ArrayList<GameObject>();
-        myCharacterObjects= new ArrayList<CharacterObjects>();
+        myCharacterObjects= new ArrayList<CharacterObject>();
         setModelDelegate(cd);
     }
     
