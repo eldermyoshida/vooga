@@ -24,7 +24,9 @@ import vooga.rts.util.Vector;
  *
  */
 public class Projectile extends GameEntity{
-
+	//Default speed
+	public static int DEFAULT_PROJECTILE_SPEED = 1600;
+	
     private int myDamage;
     private InteractiveEntity myTarget;
 
@@ -52,5 +54,9 @@ public class Projectile extends GameEntity{
     }
     public void attack(InteractiveEntity interactiveEntity) {
         interactiveEntity.changeHealth(myDamage);
+    }
+    @Override
+    public int getSpeed() {
+    	return DEFAULT_PROJECTILE_SPEED;
     }
 }
