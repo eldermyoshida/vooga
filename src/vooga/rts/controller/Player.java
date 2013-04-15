@@ -1,5 +1,6 @@
 package vooga.rts.controller;
 
+import java.awt.geom.Rectangle2D;
 import javax.swing.JComponent;
 import vooga.rts.manager.Manager;
 import vooga.rts.input.ActionObject;
@@ -16,7 +17,8 @@ import vooga.rts.input.PositionObject;
 public class Player implements Controller {
 
     private final static String DEFAULT_INPUT_LOCATION = "vooga.rts.resources.properties.Input";
-    
+    private PositionObject myLeftMouse;
+    private Rectangle2D myDrag;
     private Manager myManager;
     
     public Player (Manager manager, JComponent component) {
@@ -25,9 +27,31 @@ public class Player implements Controller {
         input.addListenerTo(this);
     }
     
-    public void sendCommand () { // this will send the command to the unit manager. Exactly what this is going to be is still being determined
-        return;
+    
+    public void sendCommand(Command command) {
+            myManager.receiveCommand(command);
     }
     
-    //TODO: figure out how to have the same method called for all 
+    public void leftMouseDown (PositionObject o) {
+        myLeftMouse = o;
+    }
+    
+    public void leftMouseUp (PositionObject o) {
+        if (myDrag == null) {            
+            sendCommand(new DragCommand("drag", myDrag));
+        }
+        sendCommand(new LeftClickCommand("rightclick", o));
+        myLeftMouse = null;
+        myDrag = null;
+    }
+    
+    public void mouseDrag (PositionObject o) {
+        if (myLeftMouse != null) {
+            double uX = o.getX() > myLeftMouse.getX() ? myLeftMouse.getX() : o.getX();
+            double uY = o.getY() > myLeftMouse.getY() ? myLeftMouse.getY() : o.getY();            
+            double width = Math.abs(o.getX() - myLeftMouse.getX());
+            double height = Math.abs(o.getY() - myLeftMouse.getY());
+            myDrag = new Rectangle2D.Double(uX, uY, width, height);
+        }
+    }
 }
