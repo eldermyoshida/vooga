@@ -37,6 +37,7 @@ public abstract class Controller implements ModelDelegate, ViewDataSource {
     public static final int DEFAULT_DELAY = ONE_SECOND / FRAMES_PER_SECOND;
     private Timer myTimer;
     private Mode myMode;
+    private GameLoopInfo myGameLoopInfo;
 
     public Controller(String name, Canvas frame){
         myName = name;
@@ -69,10 +70,18 @@ public abstract class Controller implements ModelDelegate, ViewDataSource {
     protected GameInfo getGameInfo(){
         return myGameInfo;
     }
+    
+    protected Mode getMode(){
+    	return myMode;
+    }
 
     protected void setMode(Mode mode){
         myMode = mode;
         mode.initializeMode();
+    }
+    
+    protected void setGameLoopInfo(GameLoopInfo gameinfo){
+    	myGameLoopInfo = gameinfo;
     }
 
     public void displaySplash(){
@@ -86,6 +95,7 @@ public abstract class Controller implements ModelDelegate, ViewDataSource {
                                new ActionListener() {
             public void actionPerformed (ActionEvent e) {
                 myMode.update((double) stepTime / ONE_SECOND, myCanvas.getSize());
+                myGameLoopInfo.updateImages();
                 myCanvas.paint();
                 System.out.println("running");
             }

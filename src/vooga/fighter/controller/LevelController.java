@@ -39,6 +39,7 @@ public class LevelController extends Controller {
     	super(name, frame, manager, gameinfo);
     	frame.setViewDataSource(this);
     	loadMode();
+    	setGameLoopInfo(new GameLoopInfo((LevelMode) super.getMode()));
     }
 
     

@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Observable;
 
 import util.Location;
+import vooga.fighter.game.LevelMode;
+import vooga.fighter.objects.ImageDataObject;
 import vooga.fighter.objects.utils.Health;
 import vooga.fighter.util.HUDVariable;
 import vooga.fighter.util.Paintable;
@@ -20,7 +22,9 @@ import util.*;
  */
 
 public class GameLoopInfo extends Observable implements ViewDataSource{
+	private LevelMode myMode;
     private Integer myNumObjects;
+    private List<ImageDataObject> myImageData;
     private List<String> myCharacterNames;
     private List<Location> mySpriteLocations;
     private List<Pixmap> mySprites;
@@ -53,12 +57,13 @@ public class GameLoopInfo extends Observable implements ViewDataSource{
             )
     private PlayerStatus Player4Status;
 
-    public GameLoopInfo(int numObjects) {
-        myNumObjects = numObjects;
+    public GameLoopInfo(LevelMode mode) {
+    	myMode = mode;
+    	myImageData = mode.getImageData();
         mySpriteLocations = new ArrayList<Location>();
         mySprites = new ArrayList<Pixmap>();
-        myHealthStats = new ArrayList<Health>();
         myImageSizes = new ArrayList<Dimension>();
+        myHealthStats = new ArrayList<Health>();
         myScores = new ArrayList<Double>();
         myCharacterNames = new ArrayList<String>();
         myPlayerStats = new ArrayList<PlayerStatus>();
@@ -66,6 +71,20 @@ public class GameLoopInfo extends Observable implements ViewDataSource{
         myPlayerStats.add(Player2Status);
         myPlayerStats.add(Player3Status);
         myPlayerStats.add(Player4Status);
+        updateImages();
+    }
+    
+    public void updateImages(){
+    	mySpriteLocations.clear();
+    	mySprites.clear();
+    	 myImageSizes.clear();
+    	myImageData = myMode.getImageData();
+    	myNumObjects = myImageData.size();
+    	for(ImageDataObject data : myImageData){
+    		mySprites.add(data.getMyImage());
+    	mySpriteLocations.add(data.getMyLocation());
+    	myImageSizes.add(data.getMySize());
+    	}
     }
 
     /**
