@@ -23,8 +23,9 @@ public class LEView extends Window {
     }
 
     @Override
-    public WorkspaceView initializeWorkspaceView (int id) {
-        return new LEWorkspaceView(id, this);
+    public WorkspaceView initializeWorkspaceView (int id, Renderable r) {
+        LEWorkspaceView res = new LEWorkspaceView(this, id, r);
+        return res;
     }
 
     @Override

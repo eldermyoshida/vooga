@@ -1,6 +1,8 @@
 
 package vooga.scroller.util;
 
+import java.awt.Dimension;
+
 
 
 /**
@@ -18,4 +20,5 @@ public interface Editable {
     public void addSprite (Sprite s, int x, int y);
 
     public void deleteSprite (int x, int y);
+    
 }

@@ -1,6 +1,7 @@
 package vooga.scroller.level_editor;
 
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Point;
 import javax.swing.JScrollPane;
 import vooga.scroller.level_editor.commands.CommandConstants;
@@ -25,12 +26,16 @@ public class LEWorkspaceView extends WorkspaceView {
      */
     private static final long serialVersionUID = 1L;
     private Renderable myRenderable;
+    private Dimension myOriginalGridSize;
     private LEGridView myLevelView;
     private LEToolsView myEditorView;
+    private JScrollPane myLevelGridScroller;
 
-    public LEWorkspaceView (IView host) {
+    public LEWorkspaceView (IView host, double numHBlocks, double numVBlocks) {
         super(host);
-        // TODO Auto-generated constructor stub
+        myOriginalGridSize = new Dimension(
+                                 (int)numHBlocks*LEGrid.DEFAULT_SPRITE_SIZE,
+                                 (int)numVBlocks*LEGrid.DEFAULT_SPRITE_SIZE);
     }
 
     public LEWorkspaceView (int id, IView host) {
@@ -38,18 +43,31 @@ public class LEWorkspaceView extends WorkspaceView {
         super(id, host);
     }
 
+    public LEWorkspaceView (LEView host, int id, Renderable r) {
+        // TODO Auto-generated constructor stub
+        super(id, host);
+        myRenderable = r;
+        myLevelView = new LEGridView(this, r);
+        myEditorView = new LEToolsView(this, .2, 1.0);
+        myLevelGridScroller = new JScrollPane(myLevelView, 
+                                  JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                                  JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        EasyGridFactory.layout(this, myLevelGridScroller, myEditorView);
+    }
+
     @Override
     protected void initializeVariables () {
         // TODO Auto-generated method stub
-        myLevelView = new LEGridView(this, .8, 1.0);
-        myEditorView = new LEToolsView(this, .2, 1.0);
+        
     }
 
     @Override
     protected void addComponents () {
         // TODO Add other comp.
         // EasyGridFactory.layoutHorizontal(this, myLevelView, myEditorView);
-        EasyGridFactory.layout(this, myLevelView, myEditorView);
+        
+//        add(myLevelGridScroller);
+        
     }
 
     @Override
