@@ -1,7 +1,10 @@
 package vooga.rts.networking.server;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.Timer;
 import vooga.rts.networking.communications.Message;
 import vooga.rts.networking.communications.server.ServerSystemMessage;
 
@@ -18,10 +21,24 @@ public class MatchmakerServer extends Thread implements IMessageReceiver, IThrea
     private Map<Integer, ConnectionThread> myConnectionThreads = new HashMap<Integer, ConnectionThread>();
     private Map<String, GameContainer> myGameContainers = new HashMap<String, GameContainer>();
     private ConnectionServer myConnectionServer = new ConnectionServer(this);
-
+    private Timer myTimer;
+    private static final int ONE_SECOND = 1000;
+    private static final int DEFAULT_TIMER_DELAY = ONE_SECOND * 2;
+    
+    public MatchmakerServer () {
+        myTimer = new Timer(DEFAULT_TIMER_DELAY, new ActionListener () {
+            @Override
+            public void actionPerformed (ActionEvent arg0) {
+                // TODO Auto-generated method stub      
+            }     
+        });
+    
+    }
+    
     @Override
     public void run () {
         myConnectionServer.start();
+        myTimer.start();
         // need to load game containers - games.properties - may want to do this in constructor
     }
     
