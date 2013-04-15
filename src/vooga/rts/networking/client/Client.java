@@ -26,6 +26,11 @@ public class Client extends Thread implements IClient {
     private String myHost = HOST;
     private int myPort = PORT;
     private IMessageReceiver myReceiver;
+    private boolean myRunning = false;
+    
+    public Client (IMessageReceiver receiver) {
+        myReceiver = receiver;
+    }
 
     /**
      * Creates the sockets and streams for this client
@@ -44,20 +49,23 @@ public class Client extends Thread implements IClient {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        
-        try {
-            Object object;
-            if ((object = myInput.readObject()) != null && object instanceof Message) { 
-                myReceiver.getMessage((Message) object); 
+        myRunning = true;
+        while(myRunning){
+            try {
+                Object object;
+                if ((object = myInput.readObject()) != null && object instanceof Message) { 
+                    myReceiver.getMessage((Message) object); 
+                }
             }
-        }
-        catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            catch (ClassNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+                myRunning = false;
+            }
         }
     }
 

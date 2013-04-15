@@ -10,7 +10,9 @@ import javax.swing.JTable;
 
 
 public class ServerBrowserView extends JPanel {
-    private JTable serverListTable;
+    
+    private static final long serialVersionUID = -4494998676210936451L;
+    private JTable myServerListTable;
 
     /**
      * Create the panel.
@@ -18,6 +20,25 @@ public class ServerBrowserView extends JPanel {
     public ServerBrowserView () {
         setLayout(new BorderLayout(0, 0));
 
+        createBottomPanel();
+        createLabelPanel();
+
+        myServerListTable = new JTable();
+        add(myServerListTable, BorderLayout.CENTER);
+       
+
+    }
+
+    private void createLabelPanel () {
+        JPanel labelPanel = new JPanel();
+        add(labelPanel, BorderLayout.NORTH);
+
+        // TODO get the name of the game and display it here
+        JLabel gameNameLabel = new JLabel("New label");
+        labelPanel.add(gameNameLabel);
+    }
+
+    private void createBottomPanel () {
         JPanel panel = new JPanel();
         add(panel, BorderLayout.SOUTH);
         panel.setLayout(new BorderLayout(0, 0));
@@ -28,15 +49,7 @@ public class ServerBrowserView extends JPanel {
             }
         });
         panel.add(btnCreateNewServer, BorderLayout.WEST);
-
-        JPanel panel_1 = new JPanel();
-        add(panel_1, BorderLayout.NORTH);
-
-        JLabel gameNameLabel = new JLabel("New label");
-        panel_1.add(gameNameLabel);
-
-        serverListTable = new JTable();
-        add(serverListTable, BorderLayout.CENTER);
+        
         JButton btnJoinServer = new JButton("Join Server");
 
         btnJoinServer.addActionListener(new ActionListener() {
@@ -44,7 +57,6 @@ public class ServerBrowserView extends JPanel {
             }
         });
         panel.add(btnJoinServer, BorderLayout.EAST);
-
     }
 
 }
