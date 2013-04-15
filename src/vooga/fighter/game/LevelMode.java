@@ -6,6 +6,8 @@ import vooga.fighter.controller.ModelDelegate;
 import vooga.fighter.objects.CharacterObject;
 import vooga.fighter.objects.CollisionManager;
 import vooga.fighter.objects.GameObject;
+import vooga.fighter.objects.MapLoader;
+import vooga.fighter.objects.MapObject;
 import vooga.fighter.objects.utils.UpdatableLocation;
 
 
@@ -54,8 +56,8 @@ public class LevelMode extends Mode {
      * Loads the environment objects for a map using the ObjectLoader.
      */
     public void loadMap (int mapId) {        
-        // create a map object and add it to myObjects
-        // call map.getStartingPositions() and save to myStartingPositions        
+    	MapLoader myMapLoader= new MapLoader(mapId, new MapObject(mapId));
+    	myMapLoader.load(mapId);
     }
 
     /**
