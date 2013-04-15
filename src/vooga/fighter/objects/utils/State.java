@@ -14,8 +14,8 @@ import util.Pixmap;
  */
 public class State {
 
-    private int myNumFrames;
-    private int myCurrentFrame;
+    public int myNumFrames;
+    public int myCurrentFrame;
     
     /**
      * The priority of the hitbox when interacting with other hitboxes.

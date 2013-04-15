@@ -40,6 +40,7 @@ public class CharacterObject extends GameObject {
     public CharacterObject(int objectId, UpdatableLocation center) {
         super();
         myAttacks = new HashMap<String, AttackObject>();
+        myActiveEffects = new ArrayList<Effect>();
         myHealth = new Health();
         setLoader(new CharacterLoader(objectId, this));
         setLocation(center);
