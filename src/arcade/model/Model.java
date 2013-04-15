@@ -9,7 +9,7 @@ import arcade.games.GameInfo;
 import arcade.games.HighScores;
 import arcade.games.User;
 import arcade.games.UserGameData;
-import util.Pixmap;
+import arcade.util.Pixmap;
 import arcade.view.LoginView;
 import arcade.view.MainView;
 

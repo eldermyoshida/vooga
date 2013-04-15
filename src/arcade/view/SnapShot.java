@@ -11,10 +11,9 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import arcade.games.GameInfo;
-
-import util.Pixmap;
 import arcade.model.Model;
 import arcade.util.JPicture;
+import arcade.util.Pixmap;
 
 
 public class SnapShot extends JPanel implements MouseListener {

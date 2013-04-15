@@ -17,7 +17,7 @@ import javax.swing.JTextArea;
 import arcade.games.GameInfo;
 import arcade.model.Model;
 import arcade.util.JPicture;
-import util.Pixmap;
+import arcade.util.Pixmap;
 
 public class DetailView extends JFrame{
         private static final int WINDOW_WIDTH = 600;
