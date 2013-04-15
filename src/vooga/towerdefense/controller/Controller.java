@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import vooga.towerdefense.controller.modes.ControlMode;
 import vooga.towerdefense.controller.modes.SelectMode;
+import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.GameModel;
 import vooga.towerdefense.model.Tile;
@@ -45,6 +46,12 @@ public class Controller {
         Point center = t.getCenter();
         System.out.println(center);
         myView.getTowerInfoScreen().displayInformation(center.toString());
+    }
+    
+    private void fixItemOnMap (GameElement item, Point p) {
+        //item.setCenter(p.x, p.y);
+        Tile myTile = myModel.getTile(p);
+        myTile.setTower(item);
     }
     
     public void displayMap() {
