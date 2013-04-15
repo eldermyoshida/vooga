@@ -31,7 +31,7 @@ public abstract class AbstractAction {
 		return myInfoBridge;
 	}
 	
-	public abstract void execute( double elapsedTime);
+	public abstract void execute(double elapsedTime);
 	
 	
 	/*public void setCoolDown(double cd, boolean isOneTime){

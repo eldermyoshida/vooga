@@ -6,8 +6,9 @@ import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.gameElements.Projectile;
 
 /**
- * Single attack action launched by at Targetble object.
+ * Single attack action launched by a GameElement at Targetable object.
  * @author XuRui
+ * @author Matthew Roy
  *
  */
 public class AttackAction extends AbstractAction {
@@ -51,4 +52,10 @@ public class AttackAction extends AbstractAction {
 		}*/
 
 	}
+
+    @Override
+    public void initAction () {
+        // TODO Auto-generated method stub
+        
+    }
 }

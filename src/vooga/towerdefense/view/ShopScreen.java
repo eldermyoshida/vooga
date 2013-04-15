@@ -7,7 +7,7 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JPanel;
-import vooga.towerdefense.gameElements.BasicTower;
+import vooga.towerdefense.gameElements.Tower;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.util.Location;
 import vooga.towerdefense.util.Pixmap;
@@ -38,7 +38,7 @@ public class ShopScreen extends JPanel {
     // TODO this is just a place holder! Needs to be fixed later!
     private void initShopItems () {
         Pixmap myImage = new Pixmap("tower.gif");
-        BasicTower tower = new BasicTower(myImage, new Location(20, 20), new Dimension(50, 50), null, null);
+        Tower tower = new Tower(myImage, new Location(20, 20), new Dimension(50, 50), null, null);
         myShopItems.add(tower);
     }
 
