@@ -1,7 +1,7 @@
 package vooga.fighter.controller;
 
 import java.awt.Dimension;
-import vooga.fighter.util.Location;
+import util.Location;
 import vooga.fighter.util.Paintable;
 
 

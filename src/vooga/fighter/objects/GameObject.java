@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * Represents a single object in the game.
  * 
- * @author james, alanni
+ * @author james, alanni, David Le
  * 
  */
 public abstract class GameObject {
@@ -142,8 +142,8 @@ public abstract class GameObject {
     }
     
     /**
-     * Updates the object for the game loop. Should be overriden by subclasses if
-     * necessary, but all overrides shuld call superclass method.
+     * Updates the object for the game loop. Should be overridden by subclasses if
+     * necessary, but all overrides should call superclass method.
      */
     public void update() {
         if (myCenter != null) {
@@ -155,16 +155,16 @@ public abstract class GameObject {
     }
     
     /**
-     * 
-     * returns the difference between two game object's priorities   
+     * Returns the difference between two game object's priorities. A negative
+     * number indicates the calling object has higher priority, whereas a positive
+     * number indicates the other object has higher priority.   
      */
     public int compare(GameObject o){
     	return this.getPriority()-o.getPriority();
     }
     
     /**
-     * 
-     */
-    
+     * Applies the effect of a collision with another game object.
+     */    
     public abstract void applyCollideEffect(GameObject o);
 }

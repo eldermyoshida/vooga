@@ -15,8 +15,7 @@ import javax.swing.Timer;
 import arcade.games.ArcadeInteraction;
 import arcade.games.Game;
 import arcade.games.UserGameData;
-
-import vooga.fighter.util.Pixmap;
+import util.Pixmap;
 import vooga.fighter.util.Text;
 import vooga.fighter.view.Canvas;
 import vooga.fighter.controller.ControllerManager;
@@ -31,18 +30,34 @@ import java.util.ResourceBundle;
 
 
 
-public class GameManager extends Game{
+public class GameManager { //extends Game{
 public static final Dimension SIZE = new Dimension(800, 600);
     public static final String TITLE = "Fighter!";
     private Canvas myCanvas;
     private ControllerManager myControllerManager;
     private GameInfo myGameInfo;
-    
-    public GameManager(ArcadeInteraction arcade){
-    	super(arcade);
-    	myCanvas = new Canvas(SIZE); 
-        myGameInfo = new GameInfo();
+
+    public GameManager() {
+        myCanvas = new Canvas(SIZE); 
+        myGameInfo = new GameInfo(1, 1);
         myControllerManager = new ControllerManager(myCanvas, myGameInfo);
+	}
+    
+//    public GameManager(ArcadeInteraction arcade){
+//    	this();
+//    }
+    
+    public GameManager(String runindividually){
+        this();
+    	//DisplayMode dm = new DisplayMode(SIZE.width,SIZE.height, 16, DisplayMode.REFRESH_RATE_UNKNOWN);
+        // container that will work with user's OS
+        JFrame frame = new JFrame(TITLE);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // add our user interface components
+        frame.getContentPane().add(myCanvas, BorderLayout.CENTER);
+        // display them
+        frame.pack();
+        frame.setVisible(true);
     }
     
     
@@ -50,6 +65,7 @@ public static final Dimension SIZE = new Dimension(800, 600);
 		 myControllerManager.run();
 	    }
 	 
+
 	 public UserGameData generateNewProfile(){
 		return myGameInfo;
 	 }

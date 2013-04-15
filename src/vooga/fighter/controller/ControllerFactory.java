@@ -18,36 +18,36 @@ import vooga.fighter.view.Canvas;
 
 @InputClassTarget
 public class ControllerFactory {
-	private static final String DEFAULT_RESOURCE_PACKAGE = "vooga.fighter.config.";
-	
-	private Map<String, Controller> myControllerMap;
-	private Canvas myCanvas;
+    private static final String DEFAULT_RESOURCE_PACKAGE = "vooga.fighter.config.";
+
+    private Map<String, Controller> myControllerMap;
+    private Canvas myCanvas;
     private ResourceBundle myResources;
     private List<String> myControllerNames;
-    
- 
-	public ControllerFactory(Canvas frame) {
-		myCanvas = frame;
-		myControllerMap = new HashMap<String, Controller>();
-		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "LevelConfig");
-		myControllerNames = new ArrayList<String>();
-		setupControllerConfiguration(myResources, myControllerNames);
-		setupControllerMap(myCanvas, myControllerMap, myControllerNames);
-	}
-	
-	public Map getMap(){
-		return myControllerMap;
-	}
-	
+
+
+    public ControllerFactory(Canvas frame) {
+        myCanvas = frame;
+        myControllerMap = new HashMap<String, Controller>();
+        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "LevelConfig");
+        myControllerNames = new ArrayList<String>();
+        setupControllerConfiguration(myResources, myControllerNames);
+        setupControllerMap(myCanvas, myControllerMap, myControllerNames);
+    }
+
+    public Map getMap(){
+        return myControllerMap;
+    }
+
     private void setupControllerConfiguration(ResourceBundle resources, List<String> controllerName) {
         for(String key: resources.keySet()){
             controllerName.add(key);
         }
     }
-    
+
     private void setupControllerMap(Canvas frame, Map<String, Controller> controllermap, 
-    		List<String> controllerName) {
-    	for(String name: controllerName) {
+                                    List<String> controllerName) {
+        for(String name: controllerName) {
             Controller controller = new LevelController(name, frame);
             controllermap.put(controller.getName(), controller);
         }

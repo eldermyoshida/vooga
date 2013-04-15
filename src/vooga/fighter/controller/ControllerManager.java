@@ -18,6 +18,7 @@ import vooga.fighter.view.Canvas;
 
 public class ControllerManager implements ControllerDelegate{
 	private static final String MAINMENU = "MainMenu";
+	private static final String TEST = "Test";
 	private Map<String, Controller> myControllerMap;
 	private Controller myCurrentController;
 	private Canvas myCanvas;
@@ -26,7 +27,7 @@ public class ControllerManager implements ControllerDelegate{
 	public ControllerManager(Canvas frame, GameInfo gameinfo) {
 		myCanvas = frame;
 		myControllerMap = new ControllerFactory(frame).getMap();
-		myCurrentController = myControllerMap.get(MAINMENU);
+		myCurrentController = myControllerMap.get(TEST);
 		myGameInfo = gameinfo;
 	}
 	

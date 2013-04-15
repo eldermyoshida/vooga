@@ -2,20 +2,18 @@
 <objects>
     <character charID="1" charName="Ryu" charIcon="ryuicon.png" maxHealth="100" movespeed="50">
         <state stateName="stand">
-            <frames>
-                <frame image="ryu_standing1.png">
-                    <hitbox cornerX="10" cornerY="3" rectX="28" rectY="78"/>
-                </frame>
-                <frame image="ryu_standing2.png">
-                    <hitbox cornerX="10" cornerY="3" rectX="28" rectY="78"/>
-                </frame>
-                <frame image="ryu_standing3.png">
-                    <hitbox cornerX="10" cornerY="3" rectX="28" rectY="78"/>
-                </frame>
-                <frame image="ryu_standing4.png">
-                    <hitbox cornerX="10" cornerY="3" rectX="28" rectY="78"/>
-                </frame>
-            </frames>
+            <frame image="ryu_stand1.png">
+                <hitbox cornerX="10" cornerY="3" rectX="28" rectY="78"/>
+            </frame>
+            <frame image="ryu_stand2.png">
+                <hitbox cornerX="10" cornerY="3" rectX="28" rectY="78"/>
+            </frame>
+            <frame image="ryu_stand3.png">
+                <hitbox cornerX="10" cornerY="3" rectX="28" rectY="78"/>
+            </frame>
+            <frame image="ryu_stand4.png">
+                <hitbox cornerX="10" cornerY="3" rectX="28" rectY="78"/>
+            </frame>
         </state>
     </character>
 </objects>

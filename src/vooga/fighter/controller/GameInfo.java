@@ -12,8 +12,8 @@ import arcade.games.UserGameData;
  */
 public class GameInfo extends UserGameData{
     private String myGameMode;
-    private String myMapName;
-    private List<String> myCharacters;
+    private int myMapID;
+    private List<Integer> myCharacters;
     private Integer myNumCharacters;
     private List<Integer> myScores;
     
@@ -22,8 +22,18 @@ public class GameInfo extends UserGameData{
      * Constructor
      */
     public GameInfo () {
-    	myCharacters = new ArrayList<String>();
+    	myCharacters = new ArrayList<Integer>();
     	myScores = new ArrayList<Integer>();
+    }
+    
+    /**
+     * Test constructor, automatically adds character index and map index to load. 
+     */
+    public GameInfo (int characterIndex, int mapID) {
+        myCharacters = new ArrayList<Integer>();
+        myScores = new ArrayList<Integer>();
+        myCharacters.add(characterIndex);
+        myMapID = mapID;
     }
 
     /**
@@ -89,8 +99,8 @@ public class GameInfo extends UserGameData{
      * 
      * @return
      */
-    public String getMapName () {
-        return myMapName;
+    public int getMapName () {
+        return myMapID;
     }
 
     /**
@@ -105,7 +115,7 @@ public class GameInfo extends UserGameData{
      * 
      * @return
      */
-    public List<String> getCharacters () {
+    public List<Integer> getCharacters () {
         return myCharacters;
     }
 
@@ -114,8 +124,8 @@ public class GameInfo extends UserGameData{
      * @param index
      * @param characterName
      */
-    public void setCharacter (int index, String characterName) {
-        myCharacters.set(index, characterName);
+    public void setCharacter (int index, int characterID) {
+        myCharacters.set(index, characterID);
     }
 
     /**

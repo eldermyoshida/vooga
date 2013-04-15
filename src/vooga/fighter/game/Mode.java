@@ -1,9 +1,9 @@
 package vooga.fighter.game;
 
 import java.awt.Dimension;
-import java.util.HashSet;
-import java.util.Set;
-import vooga.fighter.controller.ControllerDelegate;
+import java.util.ArrayList;
+import java.util.List;
+import vooga.fighter.controller.ModelDelegate;
 import vooga.fighter.objects.GameObject;
 
 /**
@@ -15,23 +15,23 @@ import vooga.fighter.objects.GameObject;
  */
 public abstract class Mode {
 
-    private Set<GameObject> myObjects;
+    private List<GameObject> myObjects;
     private long myId;
-    private ControllerDelegate myControllerDelegate;
+    private ModelDelegate myModelDelegate;
 
     /**
      * Constructs a new Mode.
      */
-    public Mode(ControllerDelegate cd) {
-        myObjects = new HashSet<GameObject>();
-        setControllerDelegate(cd);
+    public Mode(ModelDelegate cd) {
+        myObjects = new ArrayList<GameObject>();
+        setModelDelegate(cd);
     }
     
     /**
      * Sets the controller delegate for this mode.
      */
-    public void setControllerDelegate(ControllerDelegate cd) {
-        myControllerDelegate = cd;
+    public void setModelDelegate(ModelDelegate cd) {
+        myModelDelegate = cd;
     }
     
     /**
@@ -44,7 +44,7 @@ public abstract class Mode {
     /**
     * Returns the list of objects for this mode.
     */
-    public Set<GameObject> getMyObjects() {
+    public List<GameObject> getMyObjects() {
         return myObjects;
     }
 
@@ -67,22 +67,23 @@ public abstract class Mode {
     * for when the mode should be terminated are implemented in subclasses.
     */
     public void signalTermination() {
-        myControllerDelegate.notifyEndCondition();
+        myModelDelegate.notifyEndCondition();
     }
     
     /**
-     * Updates the mode for one game loop.
+     * Updates the mode for one game loop. Implemented by subclasses.
      */
-    public void update(double stepTime, Dimension bounds) {
-        for (GameObject object : myObjects) {
-            object.update();
-        }
-    }
+    public abstract void update(double stepTime, Dimension bounds);
     
     /**
     * Handles all initialization details when the mode is loaded by the appropriate
     * subcontroller. This method should be called first by the subcontroller.
     */
     public abstract void initializeMode();
+    
+    /**
+     * Returns true if the mode should end. Implemented by subclasses.
+     */
+    public abstract boolean shouldModeEnd();
 
 }

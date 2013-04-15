@@ -1,4 +1,6 @@
-package vooga.rts.util;
+
+package vooga.towerdefense.util;
+
 
 import java.awt.Color;
 import java.awt.Font;
@@ -68,7 +70,7 @@ public class Text {
         Rectangle2D bounds = layout.getBounds();
         bounds.setRect(-bounds.getWidth() / 2, -height / 2, bounds.getWidth(), bounds.getHeight());
         // draw text
-        layout.draw((Graphics2D) pen, (float) (center.getX() - bounds.getWidth() / 2),
+        layout.draw(pen, (float) (center.getX() - bounds.getWidth() / 2),
                     (float) (center.getY() + bounds.getHeight() / 2 - layout.getDescent()));
         // unset attributes
         pen.setColor(oldColor);

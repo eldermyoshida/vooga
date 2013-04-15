@@ -1,3 +1,4 @@
+
 package arcade.view.panels;
 
 import java.awt.Color;
@@ -62,3 +63,4 @@ public class GameCenterPanel extends JPanel {
 
     }
 }
+
