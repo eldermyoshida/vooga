@@ -6,12 +6,16 @@ import java.util.List;
 import vooga.towerdefense.action.AbstractAction;
 import vooga.towerdefense.attributes.Attacker;
 import vooga.towerdefense.attributes.AttackerAttributes;
+import vooga.towerdefense.attributes.AttributeManager;
 import vooga.towerdefense.attributes.Targetable;
 import vooga.towerdefense.util.Location;
 import vooga.towerdefense.util.Pixmap;
 import vooga.towerdefense.gameElements.GameElement;
 
-
+/**
+ * GameElement projectile that can affect other game elements.
+ *
+ */
 public class Projectile extends GameElement implements Attacker {
     private static int DEFAULT_WIDTH;
     private static final Pixmap DEFAULT_IMAGE = new Pixmap("defined by designer");
@@ -19,8 +23,10 @@ public class Projectile extends GameElement implements Attacker {
     private static final List<AbstractAction> DEFAULT_ACTIONS = new ArrayList<AbstractAction>();
     private AttackerAttributes myAttackAttributes;
 
-    public Projectile (GameElement initiator, Targetable target) {
+    
+    public Projectile (GameElement initiator, Targetable target, List<AbstractAction> actions, AttackerAttributes attributes) {
         super(DEFAULT_IMAGE, initiator.getCenter(), DEFAULT_SIZE, DEFAULT_ACTIONS);
+        myAttackAttributes = attributes;
 
     }
 

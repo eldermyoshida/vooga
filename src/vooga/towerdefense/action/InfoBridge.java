@@ -12,7 +12,7 @@ import vooga.towerdefense.util.Location;
  * @author gouzhen-1
  *
  */
-public interface infoBridge {
+public interface InfoBridge {
 	
 	public Unit[] getUnits();
 	public GameElement[] getGameElements();

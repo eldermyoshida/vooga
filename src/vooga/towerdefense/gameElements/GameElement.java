@@ -3,7 +3,7 @@ package vooga.towerdefense.gameElements;
 import java.awt.Dimension;
 import java.util.List;
 import vooga.towerdefense.action.AbstractAction;
-import vooga.towerdefense.attributes.Attributes;
+import vooga.towerdefense.attributes.AttributeManager;
 import vooga.towerdefense.util.Location;
 import vooga.towerdefense.util.Pixmap;
 import vooga.towerdefense.util.Sprite;
@@ -17,13 +17,13 @@ import vooga.towerdefense.util.Sprite;
  */
 public class GameElement extends Sprite {
 
-    Attributes myAttributes;
+    AttributeManager myAttributes;
     List<AbstractAction> myActions;
 
     public GameElement (Pixmap image,
                         Location center,
                         Dimension size,
-                        Attributes attributes,
+                        AttributeManager attributes,
                         List<AbstractAction> actions) {
         super(image, center, size);
         myAttributes = attributes;
@@ -34,20 +34,20 @@ public class GameElement extends Sprite {
         super(image, center, size);
         myActions = actions;
     }
-    
-    public void setLocation(Location newLocation) {
-        Location center = getCenter();
-        center.setLocation(newLocation.getX(), newLocation.getY());
-    }
 
     public void update (double elapsedTime) {
         for (AbstractAction a : myActions) {
-            //a.execute(this, elapsedTime);
+            a.execute(elapsedTime);
         }
     }
 
-    public Attributes getAttributes () {
+    public AttributeManager getAttributes () {
         return myAttributes;
+    }
+    
+    public List<AbstractAction> getActions() {
+        return myActions;
     }
 
 }
+
