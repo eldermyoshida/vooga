@@ -49,6 +49,7 @@ public class AttackObject extends GameObject{
      */
     public void update(){
     	super.update();
+    	myCounter.decrementCounter();
     }
     /**
      * Adds an effect to myEffects
@@ -107,22 +108,7 @@ public class AttackObject extends GameObject{
      * Returns true if this attack object has expired.
      */
     public boolean shouldBeRemoved() {
-        return getCurrentState().hasCompleted();
-    }
-    
-    @Override
-    public void applyCollideEffect(GameObject o){
-    	if (this.compare(o)>=0){
-	    	if (o instanceof CharacterObject){
-	    		inflictDamage((CharacterObject) o);
-	    		addTargetForEffects((CharacterObject) o);
-	    	}
-	    	else if (o instanceof AttackObject){
-	    		
-	    			((AttackObject) o).endCounter();
-	    		
-	    	}
-    	}
+        return !myCounter.hasCountRemaining();
     }
 
 }

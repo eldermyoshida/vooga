@@ -188,12 +188,7 @@ public abstract class GameObject {
      */
     public int compare(GameObject o){
     	return this.getPriority()-o.getPriority();
-    }
-    
-    /**
-     * Applies the effect of a collision with another game object.
-     */    
-    public abstract void applyCollideEffect(GameObject o);
+    }   
     
     /**
      * Indicates whether or not the object is ready to be removed.

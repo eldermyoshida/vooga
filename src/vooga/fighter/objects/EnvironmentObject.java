@@ -38,13 +38,4 @@ public class EnvironmentObject extends GameObject {
         return false;
     }
 
-    @Override
-    public void applyCollideEffect (GameObject o) {
-        if (this.compare(o) > 0) {
-            if (o instanceof AttackObject) {
-                ((AttackObject) o).endCounter();
-            }
-        }
-    }
-
 }

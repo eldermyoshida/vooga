@@ -167,10 +167,4 @@ public class CharacterObject extends GameObject {
         return false;
     }
 
-    @Override
-    public void applyCollideEffect(GameObject o) {
-        if (o instanceof AttackObject) {
-            ((AttackObject) o).endCounter();
-        }
-    }
 }
