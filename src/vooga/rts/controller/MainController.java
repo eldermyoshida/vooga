@@ -4,14 +4,10 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Observable;
 import java.util.Observer;
-import javax.swing.Timer;
-import javax.xml.parsers.ParserConfigurationException;
 
-import org.xml.sax.SAXException;
+import javax.swing.Timer;
 
 import vooga.rts.Game;
 import vooga.rts.gui.Window;
@@ -103,7 +99,6 @@ public class MainController extends AbstractController implements Observer {
 
 	public void setActiveController(AbstractController myController) {
 		myActiveController = myController;
-
 		myGameState = myActiveController.getGameState();
 		myInputController.setActiveController(myController);
 		myActiveController.activate();

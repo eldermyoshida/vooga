@@ -3,7 +3,6 @@ package vooga.rts.controller;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import vooga.rts.input.PositionObject;
@@ -26,10 +25,11 @@ public class LoadingController extends AbstractController {
     }
 
     @Override
-    public void onLeftMouseUp (PositionObject o) {
-        setChanged();
-        notifyObservers();
-
+    public void onLeftMouseUp (PositionObject o) {        
+        if (!ResourceManager.instance().isLoading()) {
+            setChanged();
+            notifyObservers();
+        }
     }
 
     @Override
