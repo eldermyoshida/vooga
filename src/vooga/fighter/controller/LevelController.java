@@ -71,7 +71,9 @@ public class LevelController extends Controller {
 
     @Override
     protected Input makeInput () {
-        return new Input(INPUT_PATHWAY, super.getView());
+        Input input = new Input(INPUT_PATHWAY, super.getView());
+        input.addListenerTo(this);
+    	return input;
     }
     
     
