@@ -5,17 +5,18 @@ import java.util.Map;
 import vooga.rts.networking.communications.Message;
 import vooga.rts.networking.communications.server.ServerSystemMessage;
 
-public class LobbyContainer implements IThreadContainer, IMessageReceiver {
+public class Lobby implements IThreadContainer, IMessageReceiver {
     
     private Map<Integer, ConnectionThread> myConnectionThreads = new HashMap<Integer, ConnectionThread>();
     private GameContainer myGameContainer;
     
-    public LobbyContainer (GameContainer container) {
+    public Lobby (GameContainer container) {
         myGameContainer = container;
     }
     
     protected void addConnection (ConnectionThread thread) {
         myConnectionThreads.put(thread.getID(), thread);
+        thread.switchMessageServer(this);
     }
     
     @Override
@@ -32,7 +33,7 @@ public class LobbyContainer implements IThreadContainer, IMessageReceiver {
     }
     
     @Override
-    public void joinGame (ConnectionThread thread, String gameName) {        
+    public void joinGame (ConnectionThread thread, String gameName) {
     }
     
     @Override

@@ -123,6 +123,10 @@ public class ConnectionThread extends Thread {
 
         }
     }
+    
+    public void sendErrorMessage (String error) {
+        // TODO
+    }
 
     public int getID () {
         return myID;

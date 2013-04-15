@@ -52,6 +52,7 @@ public class MatchmakerServer extends Thread implements IMessageReceiver, IThrea
     
     protected void addConnection (ConnectionThread thread) {
         myConnectionThreads.put(thread.getID(), thread);
+        thread.switchMessageServer(this);
     }
 
     @Override
