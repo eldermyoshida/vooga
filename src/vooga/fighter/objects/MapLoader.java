@@ -37,16 +37,16 @@ public class MapLoader extends ObjectLoader {
 
 		for (int i = 0; i < mapNodes.getLength(); i++) {
 			Node node = mapNodes.item(i);
-			int id = Integer.parseInt(getAttributeValue(node, "enviroId"));
-			if (id == mapId) {
-				NodeList enviroObjectNodes = doc.getElementsByTagName("enviroObject");
-				addEnviroObjects(enviroObjectNodes);
-				NodeList startingPosNodes= doc.getElementsByTagName("startingPos");
-				addStartingPositions(startingPosNodes);
+			if(node.getAttributes().getNamedItem("enviroId") != null) {
+				int id = Integer.parseInt(getAttributeValue(node, "enviroId"));
+				if (id == mapId) {
+					NodeList enviroObjectNodes = doc.getElementsByTagName("enviroObject");
+					addEnviroObjects(enviroObjectNodes);
+					NodeList startingPosNodes= doc.getElementsByTagName("startingPos");
+					addStartingPositions(startingPosNodes);
+				}
 			}
 		}
-		
-		
 	}
 	
 	/**
