@@ -192,7 +192,7 @@ public class MarioLib implements ISpriteLibrary {
 
         public void update (double elapsedTime, Dimension bounds) {
             LeftAndRight movement = new LeftAndRight(this);
-            changeVelocity(movement.execute(50, 300, DEFAULT_SPEED));
+            changeVelocity(movement.execute(500, 1000, DEFAULT_SPEED));
             super.update(elapsedTime, bounds);
         }
     }

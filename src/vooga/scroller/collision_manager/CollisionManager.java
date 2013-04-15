@@ -127,6 +127,15 @@ public class CollisionManager {
                 mario.addVector(right);
                 mario.addVector(left);
                 
+                Vector sLeft = sprite.getVelocity().getComponentVector(Sprite.LEFT_DIRECTION);
+                sLeft.scale(.5);
+                Vector sRight = sprite.getVelocity().getComponentVector(Sprite.RIGHT_DIRECTION);
+                sRight.scale(.5);
+                
+                
+                mario.addVector(sRight);
+                mario.addVector(sLeft);
+
                 
                 break;
             case BOTTOM:
@@ -181,7 +190,7 @@ public class CollisionManager {
         
     }
     
-    public void visit (Mario mario, MarioLib.MovingPlatformOne movingPlatform) {
+    public void visit (Mario mario, MarioLib.MovingPlatformTwo movingPlatform) {
         marioAndNonStaticEntityCollision(mario, movingPlatform);
         System.out.println("Mario has just collided with Platform!");
         
