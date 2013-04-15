@@ -19,7 +19,13 @@ public class BuildMode extends ControlMode {
         myItemToBuild = item;
     }
     
+    @Override
     public void handleMapClick (Point p, Controller controller) {
        controller.fixItemOnMap(myItemToBuild, p);
+    }
+
+    @Override
+    public void handleMapMouseDrag (Point p, Controller controller) {
+        controller.paintGhostImage(p, myItemToBuild.getPixmap());
     }
 }

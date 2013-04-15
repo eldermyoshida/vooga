@@ -10,6 +10,7 @@ import java.awt.event.MouseMotionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import vooga.towerdefense.controller.Controller;
+import vooga.towerdefense.util.Pixmap;
 
 
 /**
@@ -65,6 +66,12 @@ public class MapScreen extends JPanel {
             pen.drawImage(towerImage, (int) mouseLocation.getX(), (int) mouseLocation.getY(), null);
         }
     }
+    
+    public void paintGhostImage(Point p, Pixmap image) {
+        getGraphics().drawImage(image.getImage(), p.x, p.y,
+                                image.getImage().getWidth(null),
+                                image.getImage().getWidth(null), null);
+    }
 
     public void paintGridLines (Graphics pen) {
         for (int i = 0; i < mySize.width; i += 25) {
@@ -110,8 +117,9 @@ public class MapScreen extends JPanel {
             @Override
             public void mouseMoved (MouseEvent e) {
                 // myController.handleMouseMovement(e.getPoint());
-                mouseLocation = e.getPoint();
-                update();
+                //mouseLocation = e.getPoint();
+                //update();
+                myController.handleMapMouseDrag(e.getPoint());
             }
         };
     }

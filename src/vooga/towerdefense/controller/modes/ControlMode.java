@@ -13,4 +13,6 @@ import vooga.towerdefense.controller.Controller;
 public abstract class ControlMode {
 
     public abstract void handleMapClick (Point p, Controller controller);
+    
+    public abstract void handleMapMouseDrag (Point p, Controller controller);
 }

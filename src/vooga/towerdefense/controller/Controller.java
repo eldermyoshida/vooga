@@ -9,6 +9,7 @@ import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.GameModel;
 import vooga.towerdefense.model.Tile;
+import vooga.towerdefense.util.Pixmap;
 import vooga.towerdefense.view.TDView;
 
 
@@ -37,6 +38,16 @@ public class Controller {
      * 
      * @param p is the location of the click
      */
+    public void handleMapMouseDrag (Point p) {
+        myControlMode.handleMapMouseDrag(p, this);
+    }
+    
+    /**
+     * handles a mouse drag on the map appropriately depending
+     * on the mode.
+     * 
+     * @param p is the location of the mouse
+     */
     public void handleMapClick (Point p) {
         myControlMode.handleMapClick(p, this);
     }
@@ -64,6 +75,10 @@ public class Controller {
     
     public void paintMap(Graphics pen) {
         myModel.paintMap((Graphics2D) pen);
+    }
+    
+    public void paintGhostImage (Point p, Pixmap itemImage) {
+        myView.getMapScreen().paintGhostImage(p, itemImage);
     }
 
 }
