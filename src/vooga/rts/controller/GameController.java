@@ -193,7 +193,6 @@ public class GameController extends AbstractController {
             width = Math.abs(o.getX() - myLeftMouse.getX());
             height = Math.abs(o.getY() - myLeftMouse.getY());
             myDrag = new Rectangle2D.Double(uX, uY, width, height);
-            System.err.println(worldDrag);
             myHuman.getUnits().select(worldDrag);
         }
     }
@@ -216,7 +215,7 @@ public class GameController extends AbstractController {
 			Player p1 = new HumanPlayer();
 			Pixmap p = new Pixmap(ResourceManager.instance().loadFile("images/sprites/soldier.png"));
 			Dimension s = new Dimension(90, 90);
-			r = new Resource(new Pixmap(ResourceManager.instance().loadFile("images/mineral.gif")), new Location3D (300,300,0), new Dimension(60, 60), 0, 80);
+			r = new Resource(new Pixmap(ResourceManager.instance().loadFile("images/mineral.gif")), new Location3D (300,300,0), new Dimension(60, 60), 0, 400);
 			Sound soun = null;// new Sound("/vooga/rts/sounds/pikachu.wav");
 			Unit a = null;
 			a = new Soldier(p, new Location3D(200, 250 ,0), s, soun, 1, 400);
@@ -228,8 +227,8 @@ public class GameController extends AbstractController {
 							.loadFile("images/bullet.png")), a.getWorldLocation(), new Dimension(30, 30),
 							2, 10, 1);
 			a.setAttackStrategy(new CanAttack());
-			a.getAttackStrategy().addWeapons(new Weapon(0, proj, 200, a.getWorldLocation(), 25));
-			Unit b = new Soldier(p, new Location3D(300, 150,0), s, soun, 1, 800);
+			a.getAttackStrategy().addWeapons(new Weapon(0, proj, 500, a.getWorldLocation(), 175));
+			Unit b = new Soldier(p, new Location3D(300, 150,0), s, soun, 1, 300);
 			System.out.println("Player ID for b: " + b.getPlayerID());
 
 			System.out.println("Game is setup 1");
@@ -237,18 +236,18 @@ public class GameController extends AbstractController {
 					new Projectile(
 							new Pixmap(ResourceManager.instance().loadFile("images/bullet.png")),
 							b.getWorldLocation(), new Dimension(30, 30), 1, 10, 1);
-			b.setAttackStrategy(new CannotAttack());
-			b.getAttackStrategy().addWeapons(new Weapon(0, proj2, 200, b.getWorldLocation(), 50));
+			b.setAttackStrategy(new CanAttack());
+			b.getAttackStrategy().addWeapons(new Weapon(0, proj2, 400, b.getWorldLocation(), 200));
 
-			Unit c = new Soldier(p, new Location3D(500, 300,0), s, soun, 2, 300);
+			Unit c = new Soldier(p, new Location3D(500, 800,0), s, soun, 2, 500);
 
 			Projectile proj3 =
 					new Projectile(
 							new Pixmap(ResourceManager.instance().loadFile("images/bullet.png")),
 							c.getWorldLocation(), new Dimension(30, 30), 1, 10, 1);
-			c.setAttackStrategy(new CannotAttack());
+			c.setAttackStrategy(new CanAttack());
 			Unit w = new Worker(new Pixmap(ResourceManager.instance().loadFile("images/scv.gif")), new Location3D(500, 200,0), s, soun, 20, 40, 40);
-			c.getAttackStrategy().addWeapons(new Weapon(0, proj3, 200, c.getWorldLocation(), 50));
+			c.getAttackStrategy().addWeapons(new Weapon(0, proj3, 450, c.getWorldLocation(), 200));
 			
 			p1.getUnits().addUnit(a);
 			p1.getUnits().addUnit(b);
