@@ -108,7 +108,7 @@ public class TDView {
         myEastWindow = new EastWindow(EAST_WINDOW_SIZE);
         myFrame.getContentPane().add(myEastWindow, BorderLayout.EAST);
 
-        myShopScreen = new ShopScreen(SHOP_WINDOW_SIZE);
+        myShopScreen = new ShopScreen(SHOP_WINDOW_SIZE, myController);
         myFrame.getContentPane().add(myShopScreen, BorderLayout.SOUTH);
 
         myFrame.pack();

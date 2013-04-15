@@ -77,6 +77,10 @@ public class Pixmap {
         return myFileName;
     }
     
+    /**
+     * 
+     * @return
+     */
     public Image getImage(){
     	return myImage;
     }
