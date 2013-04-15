@@ -81,7 +81,6 @@ public class State {
      * Returns the current active rectangle for this state.
      */
     public Rectangle getCurrentRectangle() {
-    	System.out.println(myRectangles[0]);
         return myRectangles[myCurrentFrame];
     }
     
