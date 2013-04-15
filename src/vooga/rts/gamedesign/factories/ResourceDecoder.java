@@ -10,7 +10,6 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
@@ -24,6 +23,9 @@ public class ResourceDecoder extends Decoder{
 	
 	private static final String HEAD_TAG = "resources";
 	private static final String TYPE_TAG = "resource";
+	private static final String NAME_TAG = "name";
+	private static final String IMAGE_TAG = "img";
+	private static final String HEALTH_TAG = "health";
 	private static final String SOURCE_TAG = "src";
 	
 	private Factory myFactory;
@@ -58,9 +60,9 @@ public class ResourceDecoder extends Decoder{
 		
 		for(int i = 0 ; i < nodeLst.getLength() ; i++){
 			Element nElement = (Element) nodeLst.item(i);
-			String name = nElement.getElementsByTagName("name").item(0).getTextContent();
-			String img = nElement.getElementsByTagName("img").item(0).getTextContent();
-			int health = Integer.parseInt((nElement.getElementsByTagName("health").item(0).getTextContent()));
+			String name = nElement.getElementsByTagName(NAME_TAG).item(0).getTextContent();
+			String img = nElement.getElementsByTagName(IMAGE_TAG).item(0).getTextContent();
+			int health = Integer.parseInt((nElement.getElementsByTagName(HEALTH_TAG).item(0).getTextContent()));
 			
 			
 			

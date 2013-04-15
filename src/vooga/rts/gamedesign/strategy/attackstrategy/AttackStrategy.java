@@ -1,6 +1,7 @@
 package vooga.rts.gamedesign.strategy.attackstrategy;
 
 import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
+import vooga.rts.gamedesign.strategy.Strategy;
 
 
 /**
@@ -22,7 +23,7 @@ import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
  * 
  * 
  */
-public interface AttackStrategy {
+public interface AttackStrategy extends Strategy{
 
     public boolean canAttack (IAttackable a);
 
