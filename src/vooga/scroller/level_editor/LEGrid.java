@@ -190,6 +190,11 @@ public class LEGrid implements Editable, Renderable, Scrollable {
         return res;
     }
 
+    public boolean isValidForSimulation () {
+        // TODO Check for valid starting and exit points.
+        return false;
+    }
+
     
 
 }

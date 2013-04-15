@@ -54,30 +54,13 @@ public class LEGridView extends WindowComponent implements Scrollable{
         }
 
     }
-    private static final double ContainerHeightRatio = .95;
-    private static final double containerWidthRatio = .7;
+    private static final double DEFAULT_HEIGHT_RATIO = .95;
+    private static final double DEFAULT_WIDTH_RATIO = .70;
     /**
      * 
      */
     private static final long serialVersionUID = 8266835201464623542L;
-    private double gridWidthRatio;
     private LEGrid myGrid;
-
-    private Dimension mySize;
-
-//    @Override
-//    protected void initializeVariables () {
-//        // TODO Auto-generated method stub
-//        // mySize = ViewConstants.DEFAULT_ROOM_SIZE;
-//        // this.setPreferredSize(mySize);
-//        // this.setMinimumSize(mySize);
-//
-//    }
-//
-//    @Override
-//    protected void addComponents () {
-//        
-//    }
 
     /**
      * Specify a container parent and a width and height ratio.
@@ -108,8 +91,8 @@ public class LEGridView extends WindowComponent implements Scrollable{
     public Dimension getPreferredScrollableViewportSize () {
         // TODO Auto-generated method stub
         Dimension d = this.getResponsible().getSize();
-        Dimension res = new Dimension((int)(d.width*containerWidthRatio), 
-                                      (int)(d.height*ContainerHeightRatio));
+        Dimension res = new Dimension((int)(d.width*DEFAULT_WIDTH_RATIO), 
+                                      (int)(d.height*DEFAULT_HEIGHT_RATIO));
         return res;
     }
 
@@ -158,6 +141,10 @@ public class LEGridView extends WindowComponent implements Scrollable{
         myGrid = (LEGrid) r;
         setSize(myGrid.getPixelSize());
         repaint();
+    }
+
+    public boolean isValidForSimulation () {
+        return myGrid.isValidForSimulation();
     }
 
 }

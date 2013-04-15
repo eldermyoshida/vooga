@@ -1,6 +1,7 @@
 
 package vooga.scroller.level_editor;
 
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JPanel;
@@ -32,15 +33,15 @@ public class LEToolsView extends WindowComponent {
     
     public LEToolsView (LEWorkspaceView parent, double d, double e) {
         super(parent, d, e);
-        myTools = (LETools) ((LEWorkspaceView) getResponsible()).getTools();
-        spriteUI = new RadioGroup(new SelectSpriteListener(),
-                                        myTools.getSpriteMakingOptions());
         myTabs = new JTabbedPane();
+        myTools = (LETools) ((LEWorkspaceView) getResponsible()).getTools();
+        spriteUI = new JPanel();
+        JPanel spriteButtons = new RadioGroup(new SelectSpriteListener(),
+                                        myTools.getSpriteMakingOptions());
+        spriteUI.add(spriteButtons);
         myTabs.add(spriteUI, "Sprites");
         myTabs.add(null, "Other");
         EasyGridFactory.layout(this, myTabs);
-        
-        // TODO Auto-generated constructor stub
     }
 
 //    @Override

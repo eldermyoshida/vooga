@@ -42,7 +42,7 @@ public class LEWorkspaceView extends WorkspaceView {
         super(id, host);
         myRenderable = r;
         myLevelView = new LEGridView(this, r);
-        myEditorView = new LEToolsView(this, .2, .9);
+        myEditorView = new LEToolsView(this, .25, .9);
         myLevelGridScroller = new JScrollPane(myLevelView, 
                                   JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                                   JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -87,6 +87,10 @@ public class LEWorkspaceView extends WorkspaceView {
     // TODO - Good design choice??
     public static void setTools (Tools t) {
         WorkspaceView.setTools(t);
+    }
+
+    public boolean isValidForSimulation () {
+        return myLevelView.isValidForSimulation();
     }
 
 }

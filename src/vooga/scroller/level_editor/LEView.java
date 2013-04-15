@@ -3,6 +3,7 @@ package vooga.scroller.level_editor;
 
 import java.io.File;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import vooga.scroller.viewUtil.Renderable;
 import vooga.scroller.viewUtil.Tools;
 import vooga.scroller.viewUtil.Window;
@@ -48,6 +49,28 @@ public class LEView extends Window {
     
     public void setDefaultWorkspaceTools(Tools t) {
         LEWorkspaceView.setTools(t);
+    }
+    
+    /**
+     * Get the active tab and simulate it if it is valid
+     * @param tab
+     */
+    private void simulate (LEWorkspaceView tab) {
+        if (tab.isValidForSimulation()) {
+            //TODO
+        }
+        else 
+            JOptionPane.showMessageDialog(this, 
+                                          getLiteral("SimulationError"));
+    }
+
+    /**
+     * Simulate the existing workspace data
+     */
+    public void simulate () {
+        if (super.getActiveTab() instanceof LEWorkspaceView) {
+            simulate((LEWorkspaceView)super.getActiveTab());
+        }
     }
 
 }
