@@ -2,9 +2,7 @@ package vooga.fighter.game;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import vooga.fighter.controller.ModelDelegate;
 import vooga.fighter.objects.GameObject;
 
@@ -73,18 +71,19 @@ public abstract class Mode {
     }
     
     /**
-     * Updates the mode for one game loop.
+     * Updates the mode for one game loop. Implemented by subclasses.
      */
-    public void update(double stepTime, Dimension bounds) {
-        for (GameObject object : myObjects) {
-            object.update();
-        }
-    }
+    public abstract void update(double stepTime, Dimension bounds);
     
     /**
     * Handles all initialization details when the mode is loaded by the appropriate
     * subcontroller. This method should be called first by the subcontroller.
     */
     public abstract void initializeMode();
+    
+    /**
+     * Returns true if the mode should end. Implemented by subclasses.
+     */
+    public abstract boolean shouldModeEnd();
 
 }
