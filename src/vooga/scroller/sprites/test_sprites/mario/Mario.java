@@ -14,7 +14,7 @@ public class Mario extends Player {
     private int myHP;
 
     public Mario (Location center, Dimension size, View view, ScrollingManager sm) {
-        super(new Pixmap("mario_stand.png"), center, size, view, sm);
+        super(new Pixmap("llama_still.gif"), center, size, view, sm);
         myHP = 2;
     }
 
