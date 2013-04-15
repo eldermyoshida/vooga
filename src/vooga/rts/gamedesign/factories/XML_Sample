@@ -3,16 +3,16 @@
 
 <Upgrade>
 	<type>
-		<name>Armor</name>
+		<name>DamageKiller</name>
 		<upgradeNode>
 			<id>11</id> 
-			<nodeName>WorstArmor</nodeName>
-			<object>Health</object>
+			<nodeName>MiniDamage</nodeName>
+			<object>Damage</object>
 			<value>50</value>
 		</upgradeNode>
 		<upgradeNode>
 			<id>12</id>
-			<nodeName>BestArmor</nodeName>
+			<nodeName>BigDamage</nodeName>
 			<object>Damage</object>
 			<value>100</value>
 		</upgradeNode>

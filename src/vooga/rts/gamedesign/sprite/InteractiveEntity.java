@@ -39,16 +39,9 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     private List<Action> myActions;
     
     public InteractiveEntity (Pixmap image, Location center, Dimension size, Sound sound, int playerID, int health) {
-        this(image, center, size, sound, playerID, health, null);
-    }
-    
-    public InteractiveEntity (Pixmap image, Location center, Dimension size, Sound sound, int playerID, int health, UpgradeTree upgradeTree) {
         super(image, center, size, playerID, health);
         //myMakers = new HashMap<String, Factory>(); //WHERE SHOULD THIS GO?
-       
-        if(upgradeTree != null) {
-        	 myUpgradeTree = upgradeTree;
-        }
+
         mySound = sound;
         myAttackStrategy = new CannotAttack();
         myActions = new ArrayList<Action>();
@@ -64,6 +57,10 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     
     public UpgradeTree getUpgradeTree() {
     	return myUpgradeTree;
+    }
+    
+    public void setUpgradeTree(UpgradeTree upgradeTree) {
+    	myUpgradeTree = upgradeTree;
     }
     
     public void getAttacked(InteractiveEntity a) {
@@ -126,11 +123,9 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
      * @throws IllegalArgumentException 
      */
     public void upgrade (UpgradeNode upgradeNode) throws IllegalArgumentException, SecurityException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException { 	
-        upgradeNode.apply(upgradeNode.getUpgradeTree().getUsers());
+        upgradeNode.apply();
     }
-    public UpgradeTree getTree(){
-        return myUpgradeTree;
-    }
+    
     public int calculateDamage(int damage) {
         return damage * (1-(myArmor/(myArmor+100)));
     }

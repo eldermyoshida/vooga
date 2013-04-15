@@ -68,16 +68,16 @@ public class GameEntity extends GameSprite {
         myCurrentHealth = health;
     }
     
+    public int getMaxHealth() {
+    	return myMaxHealth;
+    }
+    
     /**
      * NOTE: moving this method around is gonna affact HealthUpgradeNode
      * @param health
      */
     public void addMaxHealth (int health) {
     	myMaxHealth += health;
-    }
-    
-    public int getMaxHealth() {
-    	return myMaxHealth;
     }
 
     /**

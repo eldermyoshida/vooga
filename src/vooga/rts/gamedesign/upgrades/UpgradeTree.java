@@ -33,7 +33,7 @@ public class UpgradeTree {
         myHead = new UpgradeNode();
         myCurrentUpgrades = new ArrayList<UpgradeNode>();
         myNextUpgrades = new ArrayList<UpgradeNode>();
-
+        myUsers = new ArrayList<InteractiveEntity>();
     }
 
     /**
@@ -103,6 +103,10 @@ public class UpgradeTree {
 
     public List<InteractiveEntity> getUsers() {
         return myUsers;
+    }
+    
+    public void addUser(InteractiveEntity i) {
+    	myUsers.add(i);
     }
 
     public List<UpgradeNode> getCurrentUpgrades() {

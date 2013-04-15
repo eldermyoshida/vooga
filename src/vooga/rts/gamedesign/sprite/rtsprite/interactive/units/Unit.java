@@ -31,12 +31,17 @@ import vooga.rts.util.Sound;
  */
 public class Unit extends InteractiveEntity {
 	
+	private static UpgradeTree myUpgradeTree;
     private List<GameSprite> myKills; //TODO: WHAT TYPE SHOULD IT BE??
     // private boolean myIsLeftSelected; // TODO: also need the same thing for Projectiles
     // private boolean myIsRightSelected; // TODO: should be observing the mouse action instead!!
     //private PathingHelper myPather;
     private OccupyStrategy myOccupyStrategy;
 
+    public Unit() {
+    	this(null);
+    }
+    
     public Unit (UpgradeTree upgradeTree) { //TESTING PURPOSE. FEEL FREE TO DELETE
     	this(null, new Location(0,0), new Dimension(30, 30), null, 0, 50, upgradeTree);
     }
@@ -55,11 +60,50 @@ public class Unit extends InteractiveEntity {
         this(image, center, size, sound, playerID, health, null);
     }
     
+    /**
+     * Only be used when the first Unit under the same UpgradeTree is created.
+     * @param image
+     * @param center
+     * @param size
+     * @param sound
+     * @param playerID
+     * @param health
+     * @param upgradeTree
+     */
     public Unit (Pixmap image, Location center, Dimension size, Sound sound, int playerID, int health, UpgradeTree upgradeTree) {
-        super(image, center, size, sound, playerID, health, upgradeTree);
+        super(image, center, size, sound, playerID, health);
         //myPather = new PathingHelper();
         myOccupyStrategy = new CannotOccupy();
-        addUpgradeActions(this);
+        if (upgradeTree != null) {
+        	myUpgradeTree = upgradeTree;
+        	addUpgradeActions(this);
+        }
+        myUpgradeTree.addUser(this);
+    }
+    
+    @Override
+    public UpgradeTree getUpgradeTree() {
+    	return myUpgradeTree;
+    }
+    
+    @Override
+    public void setUpgradeTree(UpgradeTree upgradeTree) {
+    	myUpgradeTree = upgradeTree;
+    }
+    
+    /**
+     * Adds the list of available upgrades into the list of available actions.
+     */
+    private void addUpgradeActions(final Unit unit){
+        List<UpgradeNode> currentUpgrades = myUpgradeTree.getCurrentUpgrades();
+    	for (final UpgradeNode u: currentUpgrades) {
+    		 getActions().add(new Action(u.getUpgradeType(), null, "An upgrade action for soldier"){
+    	            @Override
+    	            public void apply() throws IllegalArgumentException, SecurityException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException{
+    	                u.apply();
+    	            }
+    	        });
+    	}
     }
     
     /**
@@ -70,24 +114,5 @@ public class Unit extends InteractiveEntity {
     	if(myOccupyStrategy.canOccupy(o)){
     	    o.getOccupied(this);
     	}
-    }
-    
-    /**
-     * Adds the list of available upgrades into the list of available actions.
-     */
-    private void addUpgradeActions(final Unit unit){
-        List<UpgradeNode> currentUpgrades = getUpgradeTree().getCurrentUpgrades();
-    	for (final UpgradeNode u: currentUpgrades) {
-    		 getActions().add(new Action(u.getUpgradeType(), null, "An upgrade action for soldier"){
-    	            @Override
-    	            public void apply() throws IllegalArgumentException, SecurityException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException{
-    	                u.apply(unit);
-    	            }
-    	        });
-    	}
-    }
-    
-    public void setOccupyStrategy (OccupyStrategy newStrategy) {
-    	myOccupyStrategy = newStrategy;
     }
 }

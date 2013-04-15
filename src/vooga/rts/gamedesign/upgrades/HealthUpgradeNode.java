@@ -8,8 +8,6 @@ import vooga.rts.gamedesign.sprite.GameEntity;
 import vooga.rts.gamedesign.sprite.InteractiveEntity;
 
 public class HealthUpgradeNode extends UpgradeNode {
-	//public static final String HEALTH_UPGRADE_METHOD_NAME = "addMaxHealth";
-	//public static final Class[] HEALTH_UPGRADE_METHOD_PARAM = new Class[] {int.class};
 	
 	public HealthUpgradeNode(UpgradeTree upgradeTree, int id, String upgradeType, String upgradeObject, int upgradeValue){
 		super(upgradeTree, id, upgradeType, upgradeObject, upgradeValue);
@@ -20,17 +18,12 @@ public class HealthUpgradeNode extends UpgradeNode {
 	 * Applies the health upgrade by the method that updates health.
 	 */
 	@Override
-	public void apply(List<InteractiveEntity> requester)
+	public void apply()
 			throws IllegalArgumentException, IllegalAccessException,
 			InvocationTargetException, InstantiationException,
 			SecurityException, NoSuchMethodException {
-        for (InteractiveEntity i: requester){
+        for (InteractiveEntity i: getUpgradeTree().getUsers()){
         	apply(i);
-        	//Class thisClass = GameEntity.class;
-        	//System.out.println(thisClass);
-            //Class[] params = HEALTH_UPGRADE_METHOD_PARAM;
-            //Method thisMethod = thisClass.getDeclaredMethod(HEALTH_UPGRADE_METHOD_NAME, params);
-            //thisMethod.invoke(i, getUpgradeValue());
         }
 	}
 	
@@ -38,4 +31,5 @@ public class HealthUpgradeNode extends UpgradeNode {
 	public void apply(InteractiveEntity requester) { //TODO: figure out which one should actually be called under Action
 		requester.addMaxHealth(getUpgradeValue());
 	}
+
 }

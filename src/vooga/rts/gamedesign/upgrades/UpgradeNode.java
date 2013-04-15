@@ -56,7 +56,7 @@ public class UpgradeNode {
      * @throws NoSuchMethodException 
      * @throws SecurityException 
      */
-    public void apply(List<InteractiveEntity> requester)
+    public void apply()
 			throws IllegalArgumentException, IllegalAccessException,
 			InvocationTargetException, InstantiationException,
 			SecurityException, NoSuchMethodException {

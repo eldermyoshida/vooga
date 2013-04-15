@@ -145,20 +145,26 @@ public class Factory {
 	 * TESTING PURPOSE
 	 */
 	public static void main(String[] args) throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ParserConfigurationException, SAXException, IOException {
+		//loads Upgrade XML - creates tree - updates activate state
 		Factory factory = new Factory();
 		UpgradeTree resultTree = factory.loadXMLFile("/Users/Sherry/Desktop/Academics/Compsci 308/Final VOOGA/GameDesign/src/vooga/rts/gamedesign/factories/XML_Sample");
 		
-		List<InteractiveEntity> requesterList = new ArrayList<InteractiveEntity>();
+		//creates two Units - adds upgrade Actions to the Units
+		//the first Unit needs to specify the UpgradeTree all Units will be using.
 		InteractiveEntity oneUnit = new Unit(resultTree);
+		InteractiveEntity twoUnit = new Unit();
 		oneUnit.setAttackStrategy(new CanAttack());
+		twoUnit.setAttackStrategy(new CanAttack());
 		for (Action a: oneUnit.getActions()) {
 			System.out.println("Action type: " + a.getName());
 		}
-		requesterList.add(oneUnit);
 		System.out.println(oneUnit.getMaxHealth());
+		System.out.println(twoUnit.getMaxHealth());
 		
-		Action WorstArmorAction = oneUnit.findAction("WorstArmor"); //TODO: NOW ONLY UPGRADES ONE!!!!
+		//finds Action  - 
+		Action WorstArmorAction = oneUnit.findAction("Boost1");
 		WorstArmorAction.apply();
 		System.out.println(oneUnit.getMaxHealth());
+		System.out.println(twoUnit.getMaxHealth());
 	}
 }
