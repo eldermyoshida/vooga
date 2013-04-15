@@ -12,15 +12,24 @@ import arcade.games.UserGameData;
  */
 public class TowerDefenseGame extends Game {
 
+    /**
+     * constructor.
+     */
     public TowerDefenseGame (ArcadeInteraction arcade) {
         super(arcade);
     }
 
+    /**
+     * implements abstract method specifically for TowerDefense.
+     */
     @Override
     public UserGameData generateNewProfile () {
         return new TowerDefenseUserGameData();
     }
 
+    /**
+     * runs the TowerDefense game.
+     */
     @Override
     public void run () {
         GameController game = new GameController(new Controller());
