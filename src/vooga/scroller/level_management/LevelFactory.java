@@ -2,11 +2,13 @@
 package vooga.scroller.level_management;
 
 import java.awt.Dimension;
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.ImageIcon;
 import util.Location;
 import vooga.scroller.level_editor.Level;
+import vooga.scroller.level_editor.LevelParser;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.test_sprites.MarioLib;
 import vooga.scroller.sprites.test_sprites.MarioLib.MovingPlatformOne;
@@ -22,6 +24,7 @@ import vooga.scroller.view.View;
 public class LevelFactory {
 
     private LevelManager myLevelManager;
+    private LevelParser myLevelParser;
 
     public LevelFactory(LevelManager lm){
         myLevelManager = lm;
@@ -109,7 +112,6 @@ public class LevelFactory {
                                                             new Location(1216, 204)
                 )); 
         // adding levelportal --> acts as portal between levels.
-
 
         Level secondLevel = new Level(2, myScrollingManager, view);
 

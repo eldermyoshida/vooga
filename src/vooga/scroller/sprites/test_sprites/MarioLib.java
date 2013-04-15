@@ -28,7 +28,7 @@ public class MarioLib implements ISpriteLibrary {
 
     public static class Coin extends StaticEntity {
 
-        private static final String DEFAULT_IMG = "coin.gif";
+        private static final String DEFAULT_IMG = "coin.png";
         private static final int DEFAULT_COIN_VALUE = 900;
 
         public Coin () {
