@@ -38,6 +38,14 @@ public abstract class AttributeManager {
         }
         return info;
     }
+    
+    public String toString() {
+        String returnValue = "";
+        for (String s : getAttributesInfo()) {
+            returnValue += s + "\n";
+        }
+        return returnValue;
+    }
 
     /**
      * Updates a stat whenever they're changed in the game element.
