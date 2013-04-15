@@ -18,7 +18,7 @@ import javax.swing.ImageIcon;
  */
 public class Pixmap {
     // OS-independent relative resource locations (like URLs)
-    private static final String RESOURCE_LOCATION = "/vooga/rts/images/";
+    private static final String RESOURCE_LOCATION = "/vooga/rts/resources/images/";
     // underlying implementation
     private java.awt.Image myImage;
     private String myFileName;
@@ -54,6 +54,13 @@ public class Pixmap {
         myFileName = fileName;
     }
 
+    /**
+     * Describes how to draw the image on the screen.
+     */
+    public void paint (Graphics2D pen, Point2D center) {
+        paint(pen, center, null, 0);
+    }
+    
     /**
      * Describes how to draw the image on the screen.
      */

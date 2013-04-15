@@ -1,11 +1,15 @@
 package vooga.rts.ai;
 
-import java.util.Queue;
-import vooga.rts.map.GameMap;
-import vooga.rts.map.MapNode;
+import vooga.rts.map.NodeMap;
+import vooga.rts.map.Node;
 
-public abstract class Pathfinder {
+/**
+ * 
+ * @author Challen Herzberg-Brovold
+ * 
+ */
+public abstract class PathFinder {
     
-    public abstract Queue<MapNode> findPath(MapNode current, MapNode destination, 
-                                            GameMap map);
+    public abstract Path calculatePath(Node start, Node finish, 
+                                            NodeMap map);
 }
