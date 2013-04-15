@@ -91,7 +91,7 @@ public abstract class Controller implements ModelDelegate {
     public void start() {
         final int stepTime = DEFAULT_DELAY;
         // create a timer to animate the canvas
-        Timer time = new Timer(stepTime, 
+         myTimer = new Timer(stepTime, 
                                new ActionListener() {
             public void actionPerformed (ActionEvent e) {
                 myMode.update((double) stepTime / ONE_SECOND, myCanvas.getSize());
@@ -101,7 +101,7 @@ public abstract class Controller implements ModelDelegate {
             }
         });
         // start animation
-        time.start();
+        myTimer.start();
     }
 
     /**

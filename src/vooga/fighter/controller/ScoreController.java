@@ -56,12 +56,14 @@ public class ScoreController extends Controller {
     
     @InputMethodTarget(name = "Restart")
     public void playerOneLeftInput (AlertObject alObj) {
+        System.out.println("restarting");
         notifyEndCondition();
         
     }
 
     @Override
     public void notifyEndCondition () {
+        System.out.println("score controller notify end is working");
         myGameInfo.setCharacter(0, 1);
         myGameInfo.setCharacter(1, 2);
         myGameInfo.setMapName(1);
