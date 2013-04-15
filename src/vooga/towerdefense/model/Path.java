@@ -25,4 +25,10 @@ public class Path implements Iterator<Location> {
     public void remove () {
         myPoints.iterator().remove();
     }
+    
+    public void paint () {
+        for (Location loc: myPoints) {
+            
+        }
+    }
 }

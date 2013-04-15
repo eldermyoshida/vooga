@@ -38,9 +38,13 @@ import vooga.rts.player.HumanPlayer;
 import vooga.rts.player.Player;
 import vooga.rts.player.Team;
 import vooga.rts.resourcemanager.ResourceManager;
+<<<<<<< HEAD
+import util.Location;
+=======
 import vooga.rts.util.Camera;
 import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
+>>>>>>> 9dccbd781fb23e9dd7c08d6dbaa393fae7a1e645
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.PointTester;
 import vooga.rts.util.Sound;

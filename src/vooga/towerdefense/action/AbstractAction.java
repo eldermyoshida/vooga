@@ -9,52 +9,42 @@ import vooga.towerdefense.util.CoolDownManager;
  * An AbstractAction is superclassed to define specific Actions that can be taken by game elements. 
  * This includes attacks, upgrades, path creation and anything the developer may wish to implement. 
  *  
- * 
+ * test
  * @author XuRui
  *
  */
 
 public abstract class AbstractAction {
+	private GameElement myInitiator;
 	private InfoBridge myInfoBridge;
-	private CoolDownManager myCDManager;
+	//private CoolDownManager myCDManager;
+	private boolean enabled;
 	
-	public AbstractAction(InfoBridge info){
-		myInfoBridge=info;
-		
+	public AbstractAction(GameElement initiator){
+		//myInfoBridge=info;	
+		myInitiator = initiator;
 	}
 	
-	/**
-	 * Executes action and inputs who initiated this action.
-	 */
+	public abstract void initAction();
 	
-	public abstract void execute(GameElement initiator);
+	public InfoBridge getInfoBridge(){
+		return myInfoBridge;
+	}
 	
-	/**
-	 * executes action state according to elapsed time.
-	 * @param elapsedTime
-	 */
 	public abstract void execute(double elapsedTime);
 	
-	/**
-	 * executes action that needs knowledge to initiator and elapsedTime
-	 * @param initiator
-	 * @param elapsedTime
-	 */
-	public abstract void execute(GameElement initiator, double elapsedTime);
 	
-	/**
-	 * sets the time interval needed to elapse before it's ready again.
-	 * if the boolean is set to false, the action will be in Not Ready indefinitely.
-	 * @param cd
-	 * @param canBeDoneAgain
-	 */
-	public void setCoolDown(double cd, boolean canBeDoneAgain){
-		myCDManager.setCoolDown(cd, canBeDoneAgain);
+	/*public void setCoolDown(double cd, boolean isOneTime){
+		myCDManager.setCoolDown(cd, isOneTime);
 	}
 	
 	public boolean isReady(){
 		return myCDManager.isReady();
 		
+	}*/
+	
+	public boolean isEnabled(){
+		return enabled;
 	}
 
 }
