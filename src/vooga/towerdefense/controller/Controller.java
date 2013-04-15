@@ -105,7 +105,7 @@ public class Controller {
      * @param p is the mouselocation
      * @param itemImage is the image
      */
-    private void paintGhostImage (Point p, Pixmap itemImage) {
+    public void paintGhostImage (Point p, Pixmap itemImage) {
         myView.getMapScreen().paintGhostImage(p, itemImage);
     }
 
