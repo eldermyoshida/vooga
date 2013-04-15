@@ -44,7 +44,7 @@ public class Tower extends GameElement {
      */
     public void upgrade(String upgradeName) {
         //TODO: implement upgrade in tower
-        System.out.println("Tower upgraded to " + upgradeName);
+        System.out.println("Tower upgraded");
     }
 
 }

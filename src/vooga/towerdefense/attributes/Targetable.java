@@ -25,6 +25,6 @@ public interface Targetable {
 	 */
 	public boolean isAlive();
 
-	public TargetableAttributes getTargetableAttributes();
+	public Attributes getTargetableAttributes();
 
 }

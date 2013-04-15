@@ -1,5 +1,9 @@
 package vooga.towerdefense.attributes;
 
+import java.awt.Graphics2D;
+
+import vooga.towerdefense.util.Location;
+
 /**
  * Shell of an attribute class
  * 
@@ -8,11 +12,12 @@ package vooga.towerdefense.attributes;
  */
 public abstract class Attribute {
     private String myName;
-    private Object myValue;
+    private Double myOriginalValue;
+    private Double myCurrentValue;
 
-    public Attribute (String attributeName, Object attributeValue) {
+    public Attribute (String attributeName, Double attributeValue) {
         myName = attributeName;
-        myValue = attributeValue;
+        myCurrentValue = attributeValue;
     }
     
     /**
@@ -24,9 +29,9 @@ public abstract class Attribute {
      */
     public Object applyAttribute(Attribute toApply) {
         if (toApply.getClass().equals(this)) {
-            myValue = toApply.getValue();
+            myCurrentValue = toApply.getValue();
         }
-        return myValue;
+        return myCurrentValue;
     }
 
     /**
@@ -44,7 +49,7 @@ public abstract class Attribute {
      */
     @Override
     public String toString() {
-        String info = myName + ": " + String.valueOf(myValue);
+        String info = myName + ": " + String.valueOf(myCurrentValue);
         return info;
     }
 
@@ -62,12 +67,67 @@ public abstract class Attribute {
      * 
      * @return
      */
-    public Object getValue () {
-        return myValue;
+    public Double getValue () {
+        return myCurrentValue;
     }
     
-    public void setValue(Object newValue) {
-        myValue = newValue;
+    public void setValue(double newValue) {
+        myCurrentValue = newValue;
     }
+
+	/**
+	 * Replaces stat value with new value
+	 * @param value 
+	 */
+	public void updateStat (double value) {
+		myCurrentValue = value;
+	}
+
+	/**
+	 * Adds the given parameter to the value.
+	 * Negative values subtract
+	 * 
+	 * @param valueToAdd 
+	 */
+	public void modifyValue (double valueToAdd) {
+		myCurrentValue += valueToAdd;
+	}
+
+	/**
+	 * Multiplies the current value. Values over 1 increase it.
+	 * Values < 1 decrease
+	 * 
+	 * @param multiplierToApply 
+	 */
+	public void applyMultiplier (double multiplierToApply) {
+		myCurrentValue *= multiplierToApply;
+	}
+
+
+	public void increment (double value) {
+		myCurrentValue += value;
+	}
+	
+	public void decrement (double value) {
+		myCurrentValue -= value;
+	}
+
+	/**
+	 * 
+	 * paints a bar representing this stat
+	 */
+	public void paint (Graphics2D pen, Location where) {
+		// paints a bar representing this stat
+	}
+
+	/**
+	 * check whether this stat is different from its original value
+	 * 
+	 * @return
+	 */
+	public boolean isChanged () {
+		return myOriginalValue != myCurrentValue;
+	}
+	
 
 }
