@@ -42,11 +42,13 @@ public class GameController extends AbstractController {
     private GameMap myMap; // This needs a dimension that describes the total size of the map. Not
                            // made for now.
 
-    private PositionObject myLeftMouse;
+    private Location myLeftMouse;
+    private Location myLeftMouseWorld;
+    
     private Rectangle2D myDrag;
 
     private PointTester pt;
-    
+
     private Robot myMouseMover = null;
 
     public GameController () {
@@ -58,7 +60,7 @@ public class GameController extends AbstractController {
             myMouseMover = new Robot();
         }
         catch (AWTException e) {
-            // Cannot move the camera            
+            // Cannot move the camera
         }
     }
 
@@ -122,14 +124,16 @@ public class GameController extends AbstractController {
 
     @Override
     public void onLeftMouseDown (PositionObject o) {
-        myLeftMouse = o;
+        myLeftMouse = new Location(o.getPoint2D());
+        myLeftMouseWorld = Camera.instance().viewtoWorld(o.getPoint2D()).to2D();
     }
 
     @Override
     public void onLeftMouseUp (PositionObject o) {
         // if it's not a gui thing
+
         if (myDrag == null) {
-            Location3D worldClick = Camera.instance().viewtoWorld(new Location(o.getPoint2D()));            
+            Location3D worldClick = Camera.instance().viewtoWorld(o.getPoint2D());
             myHuman.handleLeftClick((int) worldClick.getX(), (int) worldClick.getY());
         }
         myLeftMouse = null;
@@ -145,19 +149,28 @@ public class GameController extends AbstractController {
     public void onRightMouseUp (PositionObject o) {
 
         // If it's not a GUI thing
-        myHuman.handleRightClick((int) o.getX(), (int) o.getY());
+        Location3D world = Camera.instance().viewtoWorld(o.getPoint2D()); 
+        myHuman.handleRightClick((int) world.getX(), (int) world.getY());
     }
 
     @Override
     public void onMouseDrag (PositionObject o) {
         if (myLeftMouse != null) {
-            double uX = o.getX() > myLeftMouse.getX() ? myLeftMouse.getX() : o.getX();
-            double uY = o.getY() > myLeftMouse.getY() ? myLeftMouse.getY() : o.getY();
-            double width = Math.abs(o.getX() - myLeftMouse.getX());
-            double height = Math.abs(o.getY() - myLeftMouse.getY());
+            Location3D world = Camera.instance().viewtoWorld(o.getPoint2D());
+            
+            double uX = world.getX() > myLeftMouseWorld.getX() ? myLeftMouseWorld.getX() : world.getX();
+            double uY = world.getY() > myLeftMouseWorld.getY() ? myLeftMouseWorld.getY() : world.getY();
+            double width = Math.abs(world.getX() - myLeftMouseWorld.getX());
+            double height = Math.abs(world.getY() - myLeftMouseWorld.getY());
+            Rectangle2D worldDrag = new Rectangle2D.Double(uX, uY, width, height);
+            
+            uX = o.getX() > myLeftMouse.getX() ? myLeftMouse.getX() : o.getX();
+            uY = o.getY() > myLeftMouse.getY() ? myLeftMouse.getY() : o.getY();
+            width = Math.abs(o.getX() - myLeftMouse.getX());
+            height = Math.abs(o.getY() - myLeftMouse.getY());
             myDrag = new Rectangle2D.Double(uX, uY, width, height);
-            HumanPlayer human = (HumanPlayer) myPlayers.get(0);
-            human.getUnits().select(myDrag);
+            
+            myHuman.getUnits().select(worldDrag);
         }
     }
 
@@ -240,7 +253,7 @@ public class GameController extends AbstractController {
             setY = Window.SCREEN_SIZE.getHeight() - 1;
         }
         if (x != 0 || y != 0) {
-            Camera.instance().moveCamera(new Location(x, y));            
+            Camera.instance().moveCamera(new Location(x, y));
             myMouseMover.mouseMove((int) setX, (int) setY);
         }
     }

@@ -2,7 +2,9 @@ package vooga.rts.util;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.Polygon;
+import java.awt.geom.Point2D;
 import vooga.rts.gui.Window;
 
 
@@ -31,7 +33,7 @@ public class Camera {
      * @param world
      * @return
      */
-    public Location worldToView (Location3D world) {
+    public Point2D worldToView (Location3D world) {
         double x = (world.getX() - myWorldCenter.getX()) * ISO_WIDTH;
         x += -(world.getY() - myWorldCenter.getY()) * ISO_WIDTH;
         x += myScreenSize.getWidth() / 2;
@@ -52,7 +54,7 @@ public class Camera {
      * @param view
      * @return
      */
-    public Location3D viewtoWorld (Location view) {
+    public Location3D viewtoWorld (Point2D view) {
         return viewtoWorld(view, myWorldCenter);
 
         /*
@@ -71,7 +73,7 @@ public class Camera {
          */
     }
 
-    private Location3D viewtoWorld (Location view, Location3D camera) {
+    private Location3D viewtoWorld (Point2D view, Location3D camera) {
         double Zvalue = camera.getZ();
 
         double x = (ISO_HEIGHT * view.getX()) + view.getY() + Zvalue;
@@ -87,7 +89,7 @@ public class Camera {
         return new Location3D(x, y, Zvalue);
     }
 
-    private Location3D deltaviewtoWorld (Location delta) {
+    private Location3D deltaviewtoWorld (Point2D delta) {
         double Zvalue = 0;
         double x = (ISO_HEIGHT * delta.getX()) + delta.getY() + Zvalue;
         double y = delta.getY() + Zvalue - delta.getX() * ISO_HEIGHT;

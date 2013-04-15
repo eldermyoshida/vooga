@@ -6,6 +6,7 @@ import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +51,7 @@ public class PointTester {
         
         
         for (Location3D loc : myShapes) {
-            Location nP = Camera.instance().worldToView(loc);
+            Point2D nP = Camera.instance().worldToView(loc);
             Ellipse2D diamond = new Ellipse2D.Double(nP.getX(), nP.getY(), 3, 3);            
             pen.draw(diamond);            
         }
