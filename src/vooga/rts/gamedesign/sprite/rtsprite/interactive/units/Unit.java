@@ -59,7 +59,7 @@ public class Unit extends InteractiveEntity {
         super(image, center, size, sound, playerID, health, upgradeTree);
         //myPather = new PathingHelper();
         myOccupyStrategy = new CannotOccupy();
-        //addUpgradeActions();
+        addUpgradeActions(this);
     }
     
     /**

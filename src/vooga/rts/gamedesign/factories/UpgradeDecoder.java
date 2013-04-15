@@ -90,13 +90,12 @@ public class UpgradeDecoder extends Decoder {
 				String value = ((Node)valueElmnt.getChildNodes().item(0)).getNodeValue();
 				
 				if (object.equals("Health")) { //SO BAD!!
-					UpgradeNode newLeaf = current.addChild(new HealthUpgradeNode(Integer.parseInt(id), nodeName, object, Integer.parseInt(value)));
+					UpgradeNode newLeaf = current.addChild(new HealthUpgradeNode(upgradeTree, Integer.parseInt(id), nodeName, object, Integer.parseInt(value)));
 					current = newLeaf;
 				} else if (object.equals("Damage")) {
-					UpgradeNode newLeaf = current.addChild(new DamageUpgradeNode(Integer.parseInt(id), nodeName, object, Integer.parseInt(value)));
+					UpgradeNode newLeaf = current.addChild(new DamageUpgradeNode(upgradeTree, Integer.parseInt(id), nodeName, object, Integer.parseInt(value)));
 					current = newLeaf;
 				}
-				//TODO: need to find a way to upgrade CurrentUpgrades.
 			}
 		}
 		upgradeTree.updateTreeStatus();

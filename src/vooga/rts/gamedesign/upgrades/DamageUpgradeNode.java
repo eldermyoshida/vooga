@@ -11,8 +11,8 @@ public class DamageUpgradeNode extends UpgradeNode {
 	//public static final String DAMAGE_UPGRADE_METHOD_NAME = "addDamage";
 	//public static final Class[] DAMAGE_UPGRADE_METHOD_PARAM = new Class[] {int.class};
 
-	public DamageUpgradeNode(int id, String upgradeType, String upgradeObject, int upgradeValue){
-		super(id, upgradeType, upgradeObject, upgradeValue);
+	public DamageUpgradeNode(UpgradeTree upgradeTree, int id, String upgradeType, String upgradeObject, int upgradeValue){
+		super(upgradeTree, id, upgradeType, upgradeObject, upgradeValue);
 	}
 	
 	/**

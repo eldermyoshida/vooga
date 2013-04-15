@@ -20,6 +20,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import vooga.rts.gamedesign.Weapon;
+import vooga.rts.gamedesign.action.Action;
 import vooga.rts.gamedesign.sprite.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Soldier;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Unit;
@@ -146,15 +147,18 @@ public class Factory {
 	public static void main(String[] args) throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ParserConfigurationException, SAXException, IOException {
 		Factory factory = new Factory();
 		UpgradeTree resultTree = factory.loadXMLFile("/Users/Sherry/Desktop/Academics/Compsci 308/Final VOOGA/GameDesign/src/vooga/rts/gamedesign/factories/XML_Sample");
-		List<InteractiveEntity> requester = new ArrayList<InteractiveEntity>();
-		InteractiveEntity temp = new Unit(resultTree);
-		temp.setAttackStrategy(new CanAttack());
-		//temp.getAttackStrategy().addWeapons(new Weapon(50, null, 10, new Location(0,0), 10));
-		//System.out.println(temp.getAttackStrategy().getCurrentWeapon().getDamage());
-		requester.add(temp);
-		UpgradeNode DamageTester = temp.getTree().getHead().getChildren().get(0).getChildren().get(0).getChildren().get(0);
-		System.out.println(DamageTester.getUpgradeType());
-		DamageTester.apply(requester);
-		//System.out.println(temp.getAttackStrategy().getCurrentWeapon().getDamage());
+		
+		List<InteractiveEntity> requesterList = new ArrayList<InteractiveEntity>();
+		InteractiveEntity oneUnit = new Unit(resultTree);
+		oneUnit.setAttackStrategy(new CanAttack());
+		for (Action a: oneUnit.getActions()) {
+			System.out.println("Action type: " + a.getName());
+		}
+		requesterList.add(oneUnit);
+		System.out.println(oneUnit.getMaxHealth());
+		
+		Action WorstArmorAction = oneUnit.findAction("WorstArmor"); //TODO: NOW ONLY UPGRADES ONE!!!!
+		WorstArmorAction.apply();
+		System.out.println(oneUnit.getMaxHealth());
 	}
 }

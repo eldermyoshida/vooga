@@ -11,8 +11,8 @@ public class HealthUpgradeNode extends UpgradeNode {
 	//public static final String HEALTH_UPGRADE_METHOD_NAME = "addMaxHealth";
 	//public static final Class[] HEALTH_UPGRADE_METHOD_PARAM = new Class[] {int.class};
 	
-	public HealthUpgradeNode(int id, String upgradeType, String upgradeObject, int upgradeValue){
-		super(id, upgradeType, upgradeObject, upgradeValue);
+	public HealthUpgradeNode(UpgradeTree upgradeTree, int id, String upgradeType, String upgradeObject, int upgradeValue){
+		super(upgradeTree, id, upgradeType, upgradeObject, upgradeValue);
 	}
 	
 	
