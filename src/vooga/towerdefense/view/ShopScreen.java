@@ -41,15 +41,6 @@ public class ShopScreen extends JPanel {
         addMouseListener(myMouseListener);
         setVisible(true);
         myShop = new Shop();    // TODO fix how ShopScreen gets the Shop instance
-        initShopItems();
-    }
-
-    // TODO this is just a place holder! Needs to be fixed later!
-    private void initShopItems () {
-        Pixmap myImage = new Pixmap("tower.gif");
-        BasicTower tower =
-                new BasicTower(myImage, new Location(20, 20), new Dimension(50, 50), null, null);
-        myShop.addShopItem("tower", tower);
     }
 
     @Override

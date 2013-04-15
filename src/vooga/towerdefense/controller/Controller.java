@@ -9,6 +9,7 @@ import vooga.towerdefense.controller.modes.SelectMode;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.GameModel;
+import vooga.towerdefense.model.Shop;
 import vooga.towerdefense.model.Tile;
 import vooga.towerdefense.util.Pixmap;
 import vooga.towerdefense.view.TDView;
@@ -28,8 +29,9 @@ public class Controller {
     private ControlMode myControlMode;
 
     //TODO: controller constructor should take waves & map in order to initialize GameModel?
+    //TODO: fix where the parameters come from
     public Controller () {
-        myModel = new GameModel(this, null, new GameMap(null, 800, 600, null), null);
+        myModel = new GameModel(this, null, new GameMap(null, 800, 600, null), new Shop());
         myView = new TDView(this);
         myControlMode = new SelectMode();
     }

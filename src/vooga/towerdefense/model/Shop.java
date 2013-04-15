@@ -1,11 +1,14 @@
 package vooga.towerdefense.model;
 
+import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import vooga.towerdefense.gameElements.BasicTower;
 import vooga.towerdefense.gameElements.GameElement;
+import vooga.towerdefense.util.Location;
 import vooga.towerdefense.util.Pixmap;
 
 /**
@@ -19,11 +22,20 @@ public class Shop {
     
     public Shop() {
        myShopItems = new HashMap<String, GameElement> (); 
+       initShopItems();
     }
     
     public Collection<GameElement> getShopItems() {
         return myShopItems.values();        
     }
+ 
+    // TODO this is just a place holder! Needs to be fixed later!
+    private void initShopItems () {
+        Pixmap myImage = new Pixmap("tower.gif");
+        BasicTower tower =
+                new BasicTower(myImage, new Location(20, 20), new Dimension(50, 50), null, null);
+        addShopItem("tower", tower); 
+    }    
     
     public String getShopItemName (GameElement e) {
         for (Map.Entry<String, GameElement> entry : myShopItems.entrySet()) {
