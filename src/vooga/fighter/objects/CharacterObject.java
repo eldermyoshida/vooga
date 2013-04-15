@@ -11,7 +11,6 @@ import vooga.fighter.input.InputClassTarget;
 import vooga.fighter.input.InputMethodTarget;
 import vooga.fighter.objects.utils.Effect;
 import vooga.fighter.objects.utils.Health;
-
 import util.Location;
 import util.Pixmap;
 import util.Vector;
@@ -30,12 +29,7 @@ public class CharacterObject extends GameObject {
     private Map<String, AttackObject> myAttacks;
     private List<Effect> myActiveEffects;
     private Health myHealth;
-    private int mySpeed;  
-    private long myInstanceId;
-    private Pixmap myImage;
-    private Location myCenter;
-    private Dimension mySize;
-    
+    private int mySpeed;
 
     /**
      * Constructs a new CharacterObject.
@@ -43,7 +37,7 @@ public class CharacterObject extends GameObject {
      * Note: Dayvid once the object loader is functional we will replace this
      * constructor to take in just an ID, then we will load parameters from XML.
      */
-    public CharacterObject (int objectId, UpdatableLocation center) {
+    public CharacterObject(int objectId, UpdatableLocation center) {
         super();
         myHealth = new Health();
         setLoader(new CharacterLoader(objectId, this));
@@ -55,7 +49,7 @@ public class CharacterObject extends GameObject {
      * forces acting on the character.
      */
 
-    public void update () {
+    public void update() {
         super.update();
         for (Effect effect : myActiveEffects) {
             effect.update();
@@ -65,7 +59,7 @@ public class CharacterObject extends GameObject {
     /**
      * Adds an effect to this character's list of active effects.
      */
-    public void addActiveEffect (Effect effect) {
+    public void addActiveEffect(Effect effect) {
         effect.setOwner(this);
         myActiveEffects.add(effect);
     }
@@ -73,14 +67,14 @@ public class CharacterObject extends GameObject {
     /**
      * Removes an effect from this character's list of active effects.
      */
-    public void removeActiveEffect (Effect effect) {
+    public void removeActiveEffect(Effect effect) {
         myActiveEffects.remove(effect);
     }
 
     /**
      * Returns list of currently active effects on this character.
      */
-    public List<Effect> getActiveEffects () {
+    public List<Effect> getActiveEffects() {
         return myActiveEffects;
     }
 
@@ -90,7 +84,7 @@ public class CharacterObject extends GameObject {
      * level, thus it will not update and should be used solely for generating
      * other attack objects as needed. Overwrites any existing attack.
      */
-    public void addAttack (String key, AttackObject object) {
+    public void addAttack(String key, AttackObject object) {
         myAttacks.put(key, object);
     }
 
@@ -101,7 +95,7 @@ public class CharacterObject extends GameObject {
      * Note: For now just using String to represent attack types, but this is obviously
      * subject to change.
      */
-    private AttackObject createAttack (String key) {
+    private AttackObject createAttack(String key) {
         if (myAttacks.containsKey(key)) {
             return myAttacks.get(key);
         }
@@ -113,59 +107,62 @@ public class CharacterObject extends GameObject {
     /**
      * Returns the health of the character.
      */
-    public Health getHealth () {
+    public Health getHealth() {
         return myHealth;
     }
 
     /**
      * Returns whether or not the character has remaining health.
      */
-    public boolean hasHealthRemaining () {
+    public boolean hasHealthRemaining() {
         return myHealth.hasHealthRemaining();
     }
 
-    public void setHealth (int amount) {
+    public void setHealth(int amount) {
         myHealth.setHealth(amount);
     }
-    
+
     /**
      * Changes the player's health by a given amount. Positive input raises it, and
      * negative input decreases it. Returns health remaining.
      */
-    public int changeHealth (int amount) {
+    public int changeHealth(int amount) {
         return myHealth.changeHealth(amount);
     }
-    
+
     /**
-     * Creates a new attack based on type of attack on current 
-     * @param attack
+     * Creates a new AttackObject by cloning the object identified by the given key
+     * in the attacks map.
      */
-    public void attack(String attack){
-    	if (myAttacks.containsKey(attack)){
-    		new AttackObject(myAttacks.get(attack), getLocation());
-    	}
-    }
-    
-    /**
-     * Moves in given direction at speed of character
-     * @param direction
-     */
-    public void move(int direction){
-    	getLocation().translate(new Vector(direction,mySpeed));
-    }
-    
-    /**
-     * Will add jump method 
-     */
-    public void jump(){
-    	
+    public void attack(String attack) {
+        if (myAttacks.containsKey(attack)) {
+            new AttackObject(myAttacks.get(attack), getLocation());
+        }
     }
 
-	@Override
-	public void applyCollideEffect(GameObject o) {
-		// TODO Auto-generated method stub
-		if (o instanceof AttackObject){
-			((AttackObject) o).endCounter();
-		}
-	}
+    /**
+     * Moves in given direction at speed of character
+     */
+    public void move(int direction) {
+        getLocation().translate(new Vector(direction, mySpeed));
+    }
+
+    /**
+     * Will add jump method
+     */
+    public void jump() {        
+
+    }
+    
+    public boolean shouldBeRemoved() {
+        return false;
+    }
+
+    @Override
+    public void applyCollideEffect(GameObject o) {
+        // TODO Auto-generated method stub
+        if (o instanceof AttackObject) {
+            ((AttackObject) o).endCounter();
+        }
+    }
 }

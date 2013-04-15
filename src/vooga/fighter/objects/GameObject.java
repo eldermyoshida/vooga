@@ -167,4 +167,9 @@ public abstract class GameObject {
      * Applies the effect of a collision with another game object.
      */    
     public abstract void applyCollideEffect(GameObject o);
+    
+    /**
+     * Indicates whether or not the object is ready to be removed.
+     */
+    public abstract boolean shouldBeRemoved();
 }

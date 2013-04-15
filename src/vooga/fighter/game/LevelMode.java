@@ -45,8 +45,13 @@ public class LevelMode extends Mode {
     public void update(double stepTime, Dimension bounds) {
         List<GameObject> myObjects = getMyObjects();
         handleCollisions();
-        for (GameObject object : myObjects) {
+        for (int i=0; i<myObjects.size(); i++) {
+            GameObject object = myObjects.get(i);
             object.update();
+            if (object.shouldBeRemoved()) {
+                myObjects.remove(object);
+                i--;
+            }
         }
         if (shouldModeEnd()) {
             super.signalTermination();
