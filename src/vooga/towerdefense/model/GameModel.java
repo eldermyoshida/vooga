@@ -57,7 +57,7 @@ public class GameModel {
         }
     }
     
-	public void paintMap(Graphics2D pen) {
+    public void paintMap(Graphics2D pen) {
         myGameMap.paint(pen);
     }
 

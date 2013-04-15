@@ -23,6 +23,7 @@ public class Controller {
     private TDView myView;
     private ControlMode myControlMode;
 
+    //TODO: controller constructor should take waves & map in order to initialize GameModel?
     public Controller () {
         myModel = new GameModel(this, null, new GameMap(800, 600, null));
         myView = new TDView(this);
