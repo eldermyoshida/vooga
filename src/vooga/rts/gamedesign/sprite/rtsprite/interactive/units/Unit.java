@@ -86,11 +86,6 @@ public class Unit extends InteractiveEntity {
     	return myUpgradeTree;
     }
     
-    @Override
-    public void setUpgradeTree(UpgradeTree upgradeTree) {
-    	myUpgradeTree = upgradeTree;
-    }
-    
     /**
      * Adds the list of available upgrades into the list of available actions.
      */

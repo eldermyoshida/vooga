@@ -60,6 +60,10 @@ public class Interval {
 	public void setMaxCooldown(int maxCooldown) {
 		myMaxCooldown = maxCooldown;
 	}
+	/**
+	 * Returns the current cooldown of the interval.
+	 * @return the cooldown of the interval
+	 */
 	public int getCooldown() {
 		return myCooldown;
 	}

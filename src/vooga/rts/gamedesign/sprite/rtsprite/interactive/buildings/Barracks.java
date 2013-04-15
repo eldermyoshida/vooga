@@ -2,6 +2,7 @@ package vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,7 +63,11 @@ public class Barracks extends ProductionBuilding {
         super.update(elapsedTime);
         PRODUCE_TIME -= 1/elapsedTime;
         if(PRODUCE_TIME <= 0) { 
-            getActions().get(3).apply();
+            try {
+				getActions().get(3).apply();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} 
             PRODUCE_TIME = 90;
         }
         for(InteractiveEntity ie : myBabies) {

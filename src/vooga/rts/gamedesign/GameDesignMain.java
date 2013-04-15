@@ -28,7 +28,6 @@ public class GameDesignMain {
      */
     public static void main(String[] args) {
 
-
         Pixmap p = new Pixmap(ResourceManager.instance().loadFile("images/soldier.png"));
         Location l1 = new Location(40,50);
         Location l2 = new Location(20,20);

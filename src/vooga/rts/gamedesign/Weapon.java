@@ -52,8 +52,7 @@ public class Weapon {
     }
 
     /**
-     * This method is used by the weapon to attack an RTSprite.
-     * 
+     * This method is used by the weapon to attack an InteractiveEntity.
      * 
      */
     public void fire (InteractiveEntity toBeShot) {
@@ -71,19 +70,34 @@ public class Weapon {
     }
     
     /**
+
      * NOTE: moving this method is gonna break DamageUpgradeNode.
      * @param damage
      */
     public void addDamage(int damage) {
     	myDamage += damage;
     }
+    
+    /**
+     * This method is used to upgrade a weapon either.
+     * 
+     * @param upgrade is the upgrade that has been selected for the weapon
+     */
 
+    //public void upgrade (Upgrade upgrade) {
+
+    //}
+    
+    /**
+     * Returns the list of projectiles.
+     * @return the list of projectiles that this weapon has
+     */
     public List<Projectile> getProjectiles () {
         return myProjectiles;
     }
 
     /**
-     * This method is used to change the projectile for the weapon
+     * This method is used to change the projectile for the weapon.
      * 
      * @param projectile is the projectile that will be used by the weapon
      */
@@ -105,10 +119,18 @@ public class Weapon {
         myRangeCircle = new Ellipse2D.Double(myCenter.getX(), myCenter.getY(), myRange, myRange);
         return myRangeCircle.contains(enemy.getCenter());
     }
+    /**
+     * Returns the range of the weapon.
+     * @return the range of the weapon
+     */
     public int getRange(){
         return myRange;
     }
-
+    /**
+     * Updates the weapon so that the cooldown between attacks is decremented
+     * and the projectiles are updated.
+     * @param elapsedTime is the time that has elapsed.
+     */
     public void update (double elapsedTime) {
         if(!interval.allowAction()){
             interval.decrementCooldown();
