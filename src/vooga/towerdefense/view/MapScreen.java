@@ -2,10 +2,12 @@ package vooga.towerdefense.view;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.awt.geom.Point2D;
 import javax.swing.JPanel;
 import vooga.towerdefense.controller.Controller;
 import vooga.towerdefense.util.Pixmap;
@@ -73,6 +75,8 @@ public class MapScreen extends JPanel {
         getGraphics().drawImage(image.getImage(), p.x, p.y,
                                 image.getImage().getWidth(null),
                                 image.getImage().getWidth(null), null);
+        image.paint((Graphics2D)getGraphics(), (Point2D) p, new Dimension(40, 50));
+        
     }
 
     /**

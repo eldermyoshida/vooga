@@ -26,32 +26,26 @@ import vooga.towerdefense.util.Pixmap;
  * @author Leonard K. Ng'eno
  * 
  */
-public class LevelsSelectorScreen extends JPanel {
+public class LevelsSelectorScreen extends SelectScreen {
     private static final String CHECKED_IMAGE = "checked.gif";
     private static final long serialVersionUID = 1L;
-    private static final int XCOORD = 0;
-    private static final int YCOORD = 0;
-    private Color myBackgroundColor = Color.WHITE;
-    private TDView myView;
     private static final Dimension SIZE = new Dimension(150, 150);
     private MouseAdapter myMouseListener;
     private Pixmap myEasyLevel;
     private Pixmap myMediumLevel;
     private Pixmap myHardLevel;
     private Map<Pixmap, Rectangle> myLevelsImages;
-    private JButton myNextScreen;
+    private JButton myNextScreenButton;
     private boolean myLevelSelected = false;
     private String myPrevName = "";
 
     public LevelsSelectorScreen (Dimension size, TDView view) {
-        setPreferredSize(size);
+        super(size, view);
         setInputListener();
-        myView = view;
-        add(nextScreenButton(), BorderLayout.SOUTH);
+        add(makeNextScreenButton(), BorderLayout.SOUTH);
         myLevelsImages = new HashMap<Pixmap, Rectangle>();
         initLevelsImages();
         addMouseListener(myMouseListener);
-        setVisible(true);
     }
 
     private void initLevelsImages () {
@@ -65,15 +59,12 @@ public class LevelsSelectorScreen extends JPanel {
     }
 
     @Override
-    public void paintComponent (Graphics pen) {
+    public void paint (Graphics pen) {
         super.paintComponent(pen);
-        pen.setColor(myBackgroundColor);
-        pen.fillRect(XCOORD, YCOORD, getSize().width, getSize().height);
-
-        displayLevels((Graphics2D) pen);
+        displayImages((Graphics2D) pen);
     }
-
-    private void displayLevels (Graphics2D pen) {
+    
+    public void displayImages (Graphics2D pen) {
         for (Map.Entry<Pixmap, Rectangle> entry : myLevelsImages.entrySet()) {
             entry.getKey().paint(pen,
                                  new Location(entry.getValue().getCenterX(), entry.getValue()
@@ -81,17 +72,17 @@ public class LevelsSelectorScreen extends JPanel {
         }
     }
 
-    private JButton nextScreenButton () {
-        myNextScreen = new JButton("NEXT");
-        myNextScreen.addActionListener(new ActionListener() {
+    private JButton makeNextScreenButton () {
+        myNextScreenButton = new JButton("NEXT");
+        myNextScreenButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {
                 if (myLevelSelected == true) {
-                    myView.assembleScreens();
+                    getView().assembleScreens();
                 }
             }
         });
-        return myNextScreen;
+        return myNextScreenButton;
     }
 
     private void setInputListener () {
@@ -103,8 +94,8 @@ public class LevelsSelectorScreen extends JPanel {
         };
     }
 
-    private void checkPositionClicked (Point point) {
-
+    @Override
+    public void checkPositionClicked (Point point) {
         if (!myPrevName.isEmpty()) {
             for (Map.Entry<Pixmap, Rectangle> entry1 : myLevelsImages.entrySet()) {
                 if (entry1.getKey().getFileName().equals(CHECKED_IMAGE)) {
@@ -122,8 +113,7 @@ public class LevelsSelectorScreen extends JPanel {
         }
     }
 
-    public void selectedImage (Pixmap myImage) {
-        // super (myImage);
+    private void selectedImage (Pixmap myImage) {
         myPrevName = myImage.getFileName();
         myImage.setImage(CHECKED_IMAGE);
         repaint();
