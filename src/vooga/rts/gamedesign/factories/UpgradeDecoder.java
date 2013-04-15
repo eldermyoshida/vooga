@@ -55,7 +55,7 @@ public class UpgradeDecoder extends Decoder {
 	 * 
 	 */
 
-	public void create(Document doc) {
+	public UpgradeTree create(Document doc) {
 
 		UpgradeTree upgradeTree = new UpgradeTree();
 		
@@ -101,6 +101,7 @@ public class UpgradeDecoder extends Decoder {
 		}
 		upgradeTree.updateTreeStatus();
 		printTree(upgradeTree);
+		return upgradeTree;
 	}
 	
 	/**

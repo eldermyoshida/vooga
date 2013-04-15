@@ -145,22 +145,8 @@ public class Factory {
 			DocumentBuilder db = dbf.newDocumentBuilder();
 			Document doc = db.parse(file);
 			doc.getDocumentElement().normalize();
-			System.out.println("Root element " + doc.getDocumentElement().getNodeName());
-			
-			NodeList head = doc.getChildNodes();
-			Node childNode = head.item(0);
-			NodeList children = childNode.getChildNodes();
-			for(int i = 0 ; i < children.getLength() ; i++){
-				Node tempNode = children.item(i);
-				
-				if(tempNode.getNodeType() == Node.ELEMENT_NODE){
-					myDecoders.get(tempNode.getNodeName()).create(doc);
-				}
-				
-				
-				
-			}
-				
+			System.out.println(doc.getDocumentElement().getNodeName());
+			result = myDecoders.get(doc.getDocumentElement().getNodeName()).create(doc);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

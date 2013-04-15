@@ -5,6 +5,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings.Building;
+
 public class BuildingDecoder extends Decoder{
 	
 	private static final String TYPE_TAG = "building";
@@ -18,7 +20,7 @@ public class BuildingDecoder extends Decoder{
 	}
 
 	@Override
-	public void create(Document doc) {
+	public Building create(Document doc) {
 		
 		NodeList nodeLst = doc.getElementsByTagName(TYPE_TAG);
 		
@@ -29,6 +31,7 @@ public class BuildingDecoder extends Decoder{
 			
 			
 		}
+		return null;
 		
 
 	}

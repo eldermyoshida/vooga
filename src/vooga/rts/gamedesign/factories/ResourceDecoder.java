@@ -57,7 +57,7 @@ public class ResourceDecoder extends Decoder{
 	 * @throws ParserConfigurationException
 	 * @throws SAXException
 	 */
-	public void create(Document doc) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+	public Resource create(Document doc) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		String path = doc.getElementsByTagName(HEAD_TAG).item(0).getAttributes().getNamedItem(SOURCE_TAG).getTextContent();
 		Class<?> headClass = null;
 		try {
@@ -86,7 +86,7 @@ public class ResourceDecoder extends Decoder{
 																			health);																	
 			myFactory.put(name, res);
 		}
-		
+		return null;
 		
 	}
 	
