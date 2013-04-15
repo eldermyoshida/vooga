@@ -66,13 +66,25 @@ public class Controller {
         myNewMode.setItemToBuild(itemToBuy);
         myControlMode = myNewMode;
     }
-
-    public void displayTileCoordinates (Point p) {
-        Tile t = myModel.getTile(p);
-        Point center = t.getCenter();
-        System.out.println(center);
-        myView.getTowerInfoScreen().displayInformation(center.toString());
+    
+    /**
+     * displays information about the GameElement on the tile.
+     * @param p is the point that was clicked.
+     */
+    public void displayElementInformation(Point p) {
+        Tile tile = myModel.getTile(p);
+        if (tile.containsElement()) {
+            myView.getTowerInfoScreen().displayInformation(tile.getElement().getAttributes().toString());
+        }
     }
+
+//    //testing method to check if displaying the correct info
+//    public void displayTileCoordinates (Point p) {
+//        Tile t = myModel.getTile(p);
+//        Point center = t.getCenter();
+//        System.out.println(center);
+//        myView.getTowerInfoScreen().displayInformation(center.toString());
+//    }
     
     /**
      * places the new item onto the map & changes the mode

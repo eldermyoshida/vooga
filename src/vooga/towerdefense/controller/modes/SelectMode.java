@@ -18,7 +18,8 @@ public class SelectMode extends ControlMode {
      */
     @Override
     public void handleMapClick (Point p, Controller controller) {
-        controller.displayTileCoordinates(p);
+        //controller.displayTileCoordinates(p);
+        controller.displayElementInformation(p);
     }
 
     /**
