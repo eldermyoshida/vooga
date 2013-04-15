@@ -77,7 +77,6 @@ public class ShopScreen extends JPanel {
             Rectangle rect =
                     new Rectangle((int) x, (int) y, (int) item.getWidth(), (int) item.getHeight());
             if (rect.contains(point)) {
-                System.out.println("clicked on");
                 myController.handleShopClickOnItem(myShop.getShopItemName(item));
             }
         }

@@ -1,11 +1,15 @@
 package vooga.towerdefense.view;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import vooga.towerdefense.controller.Controller;
 
 /**
@@ -19,6 +23,10 @@ public class GameElementInformationScreen extends InformationScreen {
     //TODO: load from resources
     private static final String UPGRADE_BUTTON_NAME = "Upgrade";
     /**
+     * text area for this screen.
+     */
+    private JTextArea myTextArea;
+    /**
      * button to click to upgrade a game element.
      */
     private JButton upgradeButton;
@@ -26,6 +34,10 @@ public class GameElementInformationScreen extends InformationScreen {
      * drop down list to show upgrade options.
      */
     private JComboBox upgradeOptionsBox;
+    /**
+     * holds the upgrade button & options box.
+     */
+    private JPanel myUpgradeSection;
     /**
      * mouselistener for click on a button.
      */
@@ -43,11 +55,9 @@ public class GameElementInformationScreen extends InformationScreen {
     public GameElementInformationScreen (String title, Dimension size, Controller controller) {
         super(title, size);
         myController = controller;
-        upgradeButton = new JButton(UPGRADE_BUTTON_NAME);
-        upgradeButton.setVisible(false);
+        add(getTextArea(), BorderLayout.CENTER);
         makeMouseAdapter();
-        upgradeButton.addMouseListener(myMouseAdapter);
-        add(upgradeButton);
+        setUpUpgradeSection();
     }
 
     /**
@@ -60,8 +70,11 @@ public class GameElementInformationScreen extends InformationScreen {
      *          and the upgrade button.
      */
     public void displayUpgradesAndButton(List<String> upgrades) {
-        upgradeButton.setVisible(true);
-        upgradeOptionsBox = new JComboBox(upgrades.toArray());
+        upgradeOptionsBox.removeAllItems();
+        for (String upgrade : upgrades) {
+            upgradeOptionsBox.addItem(upgrade);
+        }
+        myUpgradeSection.setVisible(true);
     }
     
     /**
@@ -87,6 +100,18 @@ public class GameElementInformationScreen extends InformationScreen {
                 }
             }
         };
+    }
+    
+    private void setUpUpgradeSection() {
+        myUpgradeSection = new JPanel();
+        upgradeButton = new JButton(UPGRADE_BUTTON_NAME);
+        upgradeButton.addMouseListener(myMouseAdapter);
+        upgradeOptionsBox = new JComboBox();
+        myUpgradeSection.setLayout(new BorderLayout());
+        myUpgradeSection.add(upgradeOptionsBox, BorderLayout.CENTER);
+        myUpgradeSection.add(upgradeButton, BorderLayout.SOUTH);
+        myUpgradeSection.setVisible(false);
+        add(myUpgradeSection, BorderLayout.SOUTH);
     }
 
 }

@@ -17,7 +17,7 @@ import javax.swing.JTextArea;
 public class InformationScreen extends JPanel {
 
     private static final long serialVersionUID = 1L;
-    private static final String INFO_LOCATION = BorderLayout.SOUTH;
+    private static final String INFO_LOCATION = BorderLayout.CENTER;
     private int myWidth;
     private int myHeight;
     private JTextArea myTextArea;
@@ -55,6 +55,14 @@ public class InformationScreen extends JPanel {
     public void clearScreen () {
         displayInformation("");
     }
+    
+    /**
+     * gets the text area for this screen.
+     * @return the text area
+     */
+    public JTextArea getTextArea() {
+        return myTextArea;
+    }
 
     /**
      * paints the InfoScreen.
@@ -68,12 +76,13 @@ public class InformationScreen extends JPanel {
     }
 
     /**
-     * helper method to create the text area.
+     * creates the text area.
      * 
      * @return the blank JTextArea
      */
     private JComponent makeInfoTextArea () {
-        myTextArea = new JTextArea(myWidth, myHeight);
+        myTextArea = new JTextArea();
+        myTextArea.setSize(myWidth, myHeight);
         myTextArea.setEditable(false);
         return myTextArea;
     }

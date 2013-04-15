@@ -89,7 +89,9 @@ public class Controller {
      */
     public void displayElementInformation(GameElement e) {
         if (e != null) {
-            myView.getTowerInfoScreen().displayInformation(e.getAttributes().toString());
+            //TODO: update this to reflect actual properties
+            myView.getTowerInfoScreen().displayInformation("Stuff about my clicked tower");
+            //myView.getTowerInfoScreen().displayInformation(e.getAttributes().toString());
             if (e instanceof Tower) {
                 myView.getTowerInfoScreen().displayUpgradesAndButton(((Tower) e).getUpgrades());
             }
@@ -104,7 +106,9 @@ public class Controller {
      * @param upgradeName
      */
     public void upgradeSelectedItemTo(String upgradeName) {
-        //TODO: implement upgrade stuff (ask unit team for tower upgrade info!)
+        Tower t = (Tower) ((SelectMode) myControlMode).getCurrentlySelectedItem();
+        t.upgrade(upgradeName);
+        //TODO: implement upgrade stuff on backend (ask unit team for tower upgrade info!)
     }
 
 //    //testing method to check if displaying the correct info
@@ -129,20 +133,32 @@ public class Controller {
         myControlMode = new SelectMode();
     }
     
+    /**
+     * updates the display on the MapScreen.
+     */
     public void displayMap() {
         myView.getMapScreen().update();
     }
     
+    /**
+     * updates the model.
+     * @param elapsedTime
+     */
     public void update(double elapsedTime) {
         myModel.update(elapsedTime);
     }
     
+    /**
+     * paints the map.
+     * @param pen
+     */
     public void paintMap(Graphics pen) {
         myModel.paintMap((Graphics2D) pen);
     }
     
     /**
-     * paints the ghost image of the item on the MapScreen.
+     * paints the ghost image of the item on the MapScreen
+     *          on the mouse's location.
      * @param p is the mouselocation
      * @param itemImage is the image
      */
