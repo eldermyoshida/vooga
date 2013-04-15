@@ -17,6 +17,14 @@ import vooga.rts.gamedesign.sprite.rtsprite.*;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
 
+
+/**
+ * Decodes an XML file that contains resource information and instantiates those reasources. 
+ * Once the resources and instantiated it puts them in the Sprite map that is found in the factory. 
+ * The resource "name" is used as the key. 
+ * @author agostif
+ *
+ */
 public class ResourceDecoder extends Decoder{
 	
 	private static final Dimension RESOURCE_SIZE = new Dimension(50,50);
@@ -36,6 +44,7 @@ public class ResourceDecoder extends Decoder{
 	}
 		
 	/**
+	 * Adds the resources defined in the XML file to the map of Sprites found in the factory. 
 	 * 
 	 * @Override
 	 * @throws ClassNotFoundException

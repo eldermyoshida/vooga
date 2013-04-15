@@ -12,6 +12,12 @@ import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
 import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
 import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
 
+/**
+ * Decodes all the strategies defined in the game element XML file, initializes them,
+ * and stores them in the Strategy map that is located in the factory. 
+ * @author agostif
+ *
+ */
 public class StrategyDecoder extends Decoder{
 
 	public static final String ATTACK_TAG = "attacks";
@@ -27,7 +33,8 @@ public class StrategyDecoder extends Decoder{
 	}
 	
 	/**
-	 * 
+	 * Takes in a list of ____Strategies (and their source files) initializes them, and puts them in
+	 * the Strategy map found in the factory. 
 	 * @param list
 	 * @throws InstantiationException
 	 * @throws IllegalAccessException
@@ -58,7 +65,8 @@ public class StrategyDecoder extends Decoder{
 	}
 	
 	/**
-	 * 
+	 * Parses through the XML file in order to generate the respective strategy NodeLists. Then calls getSources
+	 * which runs through the lists and makes the strategies. 
 	 */
 	@Override
 	public void create(Document doc) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
