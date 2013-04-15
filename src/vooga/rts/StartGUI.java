@@ -1,5 +1,6 @@
 package vooga.rts;
 
+import vooga.rts.state.MainState;
 import vooga.rts.controller.MainController;
 import vooga.rts.gui.Window;
 import vooga.rts.resourcemanager.ResourceManager;
@@ -14,6 +15,6 @@ public class StartGUI {
         ResourceManager.instance().queueFile("got4.jpg");
         ResourceManager.instance().queueFile("got5.jpg");
         
-        new MainController();
+        new MainState();
     }
 }
