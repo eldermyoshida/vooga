@@ -85,6 +85,8 @@ public class MapLoader extends ObjectLoader {
 			EnvironmentObject toAdd= new EnvironmentObject(new UpdatableLocation(xCoord, yCoord));
 			NodeList stateNodes = ((Element) environmentObject).getElementsByTagName("state");
 			addStates(stateNodes, toAdd);
+			toAdd.setCurrentState("brick");
+			toAdd.setImageData();
 		}
 	}
 

@@ -22,7 +22,6 @@ public class EnvironmentObject extends GameObject {
     public EnvironmentObject(UpdatableLocation startingLocation) {
         super();
         myStartingLocation = startingLocation;
-        setImageData();
         // setLoader(new EnvironmentObjectLoader(objectId));
     }
 
