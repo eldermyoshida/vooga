@@ -1,28 +1,37 @@
 package vooga.rts.player;
 
 import java.awt.Graphics2D;
+import java.util.Observable;
+import java.util.Observer;
 import vooga.rts.IGameLoop;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.Interactive;
+import vooga.rts.gamedesign.sprite.InteractiveEntity;
 import vooga.rts.manager.*;
+import vooga.rts.map.GameMap;
 
-
-public abstract class Player implements IGameLoop {
+public abstract class Player implements IGameLoop, Observer {    
 
     private ResourceManager myResourceManager;
     private UnitManager myUnitManager;
     private BuildingManager myBuildingManager;
     private int myTeamID;
+    private GameMap myMap;
+    
     
     public Player() {
         myResourceManager = new ResourceManager();
         myUnitManager= new UnitManager();
+    }
+    
+    public Player(GameMap map) {
+        this();
+        myMap = map;
     }
 
     public ResourceManager getResourceManager () {
         return myResourceManager;
     }
 
-    public ResourceManager removeResources (Interactive i) {
+    public ResourceManager removeResources (InteractiveEntity i) {
         return myResourceManager;
 
     }
@@ -62,5 +71,8 @@ public abstract class Player implements IGameLoop {
     public void paint (Graphics2D pen) {
         myUnitManager.paint(pen);
     }
-
+    
+    public GameMap getMap () {
+        return myMap;
+    }
 }
