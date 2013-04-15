@@ -48,11 +48,11 @@ public class ModelInputs {
      */
     @InputMethodTarget(name = "jump")
     public void jumpInput (AlertObject alObj) {
-        if(Math.abs(myPlayer.getVelocity().getComponentVector(Sprite.UP_DIRECTION).getMagnitude()) < 1) {
+        if(Math.abs(myPlayer.getVelocity().getComponentVector(Sprite.UP_DIRECTION).getMagnitude()) < .5) {
             
             System.out.println("jump!");
             
-            myPlayer.addVector(new Vector(Sprite.UP_DIRECTION, 200));
+            myPlayer.addVector(new Vector(Sprite.UP_DIRECTION, 300));
 
         }
 
@@ -65,6 +65,7 @@ public class ModelInputs {
      */
     @InputMethodTarget(name = "left")
     public void leftInput (AlertObject alObj) {
+        myPlayer.addVector(Player.LEFT_VELOCITY);
         myPlayer.translate(Player.LEFT_VELOCITY);
     }
 
@@ -75,6 +76,7 @@ public class ModelInputs {
      */
     @InputMethodTarget(name = "right")
     public void rightInput (AlertObject alObj) {
+        myPlayer.addVector(Player.RIGHT_VELOCITY);
         myPlayer.translate(Player.RIGHT_VELOCITY);
     }
 

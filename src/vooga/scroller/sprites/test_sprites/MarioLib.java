@@ -132,7 +132,7 @@ public class MarioLib implements ISpriteLibrary {
         }
 
         public Platform (Location center) {
-            super(new Pixmap(DEFAULT_IMG), center, new Dimension(1000,10));
+            super(new Pixmap(DEFAULT_IMG), center, new Dimension(200,10));
         }
 
         public void print () {

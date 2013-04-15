@@ -58,7 +58,24 @@ public class LevelFactory {
         
         myCurrLevel.addSprite(new MarioLib.Platform( 
                                     new Location(500, 600)
-                                    ));   
+                                    ));
+        myCurrLevel.addSprite(new MarioLib.Platform( 
+                                                    new Location(700, 600)
+                                                    ));
+        
+        myCurrLevel.addSprite(new MarioLib.Platform( 
+                                                    new Location(900, 500)
+                                                    ));
+        myCurrLevel.addSprite(new MarioLib.Platform( 
+                                                    new Location(1100, 500)
+                                                    ));
+        
+        myCurrLevel.addSprite(new MarioLib.Platform( 
+                                                    new Location(1300, 400)
+                                                    ));
+        myCurrLevel.addSprite(new MarioLib.Platform( 
+                                                    new Location(1500, 400)
+                                                    ));
 
         myCurrLevel.addSprite(new MarioLib.Turtle(
                                   new Location(view.getWidth() - 500, view.getHeight() - 75)

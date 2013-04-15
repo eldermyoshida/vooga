@@ -187,7 +187,7 @@ public class Vector {
     public Vector getComponentVector(double direction) {
         Vector projectionComp = new Vector(direction, myMagnitude);
         
-        double projectionMagnitude = getRelativeMagnitude(projectionComp);
+        double projectionMagnitude = -1*getRelativeMagnitude(projectionComp);
         
         return new Vector(direction, projectionMagnitude);
     }
