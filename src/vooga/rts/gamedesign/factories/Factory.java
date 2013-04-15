@@ -38,8 +38,8 @@ import vooga.rts.gamedesign.upgrades.UpgradeTree;
 
 public class Factory {
 	//BUGBUG: the file path will break code! :/ (two places: here and in main())
-	public static final String DECODER_MATCHING_FILE = "/Users/Sherry/Desktop/Academics/Compsci 308/Final VOOGA/GameDesign//src/vooga/rts/gamedesign/factories/DecodeMatchUp";
-	
+
+	public static final String DECODER_MATCHING_FILE = "DecodeMatchUp";
 	Map<String, Decoder> myDecoders = new HashMap<String, Decoder>();
 	
 	public Factory() throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ParserConfigurationException, SAXException, IOException {
@@ -67,7 +67,7 @@ public class Factory {
 	 * @throws IOException
 	 */
 	private void loadDecoder(String fileName) throws ClassNotFoundException, IllegalArgumentException, SecurityException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ParserConfigurationException, SAXException, IOException {
-		File file = new File(fileName);
+		File file = new File(getClass().getResource(fileName).getFile());
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		DocumentBuilder db = dbf.newDocumentBuilder();
 		Document doc = db.parse(file);
@@ -104,11 +104,12 @@ public class Factory {
 	public <T extends Object> T loadXMLFile(String fileName) {
 		Object result = new Object();
 		try {
-			File file = new File(fileName);
+			File file = new File(getClass().getResource(fileName).getFile());
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 			DocumentBuilder db = dbf.newDocumentBuilder();
 			Document doc = db.parse(file);
 			doc.getDocumentElement().normalize();
+			System.out.println(doc.getDocumentElement().getNodeName());
 			result = myDecoders.get(doc.getDocumentElement().getNodeName()).create(doc);
 		} catch (Exception e) {
 			e.printStackTrace();

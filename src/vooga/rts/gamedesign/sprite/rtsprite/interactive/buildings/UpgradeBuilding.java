@@ -36,6 +36,7 @@ public class UpgradeBuilding extends Building{
     	            @Override
     	            public void apply(int playerID) throws IllegalArgumentException, SecurityException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException{
     	                u.apply(playerID);
+
     	            }
     	        });
     	}

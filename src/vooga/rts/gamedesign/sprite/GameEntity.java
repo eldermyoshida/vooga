@@ -137,23 +137,27 @@ public class GameEntity extends GameSprite {
 		myVelocity = myOriginalVelocity;
 	}
 
+
 	/**
 	 * Updates the shape's location.
 	 */
 	// TODO: make Velocity three dimensional...
 	public void update (double elapsedTime) {
+
+		// TODO: Make this more accurate
+		if(this.intersects(myGoal)){
+			myEntityState.setMovementState(MovementState.STATIONARY);
+		}
+		stopMoving();
 		Vector v = new Vector(myVelocity);
 		v.scale(elapsedTime);
-		if(this.intersects(myGoal)){
-			//System.out.println("myGoal reached");
-			setVelocity(0,0);
-		}
-		else { 
-			//System.out.println("Veclocity " + v.getAngle() + " " + v.getMagnitude());
-			//this is kinda messed up right now
-			translate(v);
-		}
+		//this is kinda messed up right now
+		translate(v);
+
+		myEntityState.update();
 	}
+
+
 
 	public void changeHealth (int change) {
 		myCurrentHealth -= change;
