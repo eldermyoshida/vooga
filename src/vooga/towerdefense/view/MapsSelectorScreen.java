@@ -1,5 +1,6 @@
 package vooga.towerdefense.view;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -26,7 +27,7 @@ import vooga.towerdefense.util.Pixmap;
  * @author Leonard K. Ng'eno
  * 
  */
-public class MapsSelectorScreen extends JPanel {
+public class MapsSelectorScreen extends SelectScreen {
     private static final String CHECKED_IMAGE = "checked.gif";
     private static final long serialVersionUID = 1L;
     private static final Dimension SIZE = new Dimension(200, 200);
@@ -36,38 +37,30 @@ public class MapsSelectorScreen extends JPanel {
     private Pixmap myMap3;
     private Pixmap myMap4;
     private Map<Pixmap, Rectangle> myMapImages;
-    private JButton myNextScreen;
-    private static final int XCOORD = 0;
-    private static final int YCOORD = 0;
-    private Color myBackgroundColor = Color.WHITE;
-    private TDView myView;
+    private JButton myNextScreenButton;
     private boolean myMapSelected = false;
     private String myPrevName = "";
 
     public MapsSelectorScreen (Dimension size, TDView view) {
-        super();
-        myView = view;
-        setPreferredSize(size);
-        myMapImages = new HashMap<Pixmap, Rectangle>();
+        super(size, view);
         setInputListener();
+        myMapImages = new HashMap<Pixmap, Rectangle>();
         initMapImages();
         addMouseListener(myMouseListener);
-        add(makeNextScreenButton());
-
+        add(makeNextScreenButton(), BorderLayout.SOUTH);
     }
 
     private Component makeNextScreenButton () {
-        myNextScreen = new JButton("NEXT");
-        myNextScreen.setLocation(800, 800);
-        myNextScreen.addActionListener(new ActionListener() {
+        myNextScreenButton = new JButton("NEXT");
+        myNextScreenButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {
                 if (myMapSelected == true) {
-                    myView.showModesScreen();
+                    getView().showModesScreen();
                 }
             }
         });
-        return myNextScreen;
+        return myNextScreenButton;
     }
 
     private void initMapImages () {
@@ -82,13 +75,11 @@ public class MapsSelectorScreen extends JPanel {
         myMapImages.put(myMap4, new Rectangle(new Point(450, 350), SIZE));
 
     }
-
+    
     @Override
-    public void paintComponent (Graphics pen) {
+    public void paint (Graphics pen) {
         super.paintComponent(pen);
-        pen.setColor(myBackgroundColor);
-        pen.fillRect(XCOORD, YCOORD, getSize().width, getSize().height);
-        displayMaps((Graphics2D) pen);
+        displayImages((Graphics2D) pen);
     }
 
     private void setInputListener () {
@@ -100,7 +91,8 @@ public class MapsSelectorScreen extends JPanel {
         };
     }
 
-    private void checkPositionClicked (Point point) {
+    @Override
+    public void checkPositionClicked (Point point) {
 
         if (!myPrevName.isEmpty()) {
             for (Map.Entry<Pixmap, Rectangle> entry1 : myMapImages.entrySet()) {
@@ -119,14 +111,13 @@ public class MapsSelectorScreen extends JPanel {
         }
     }
 
-    public void selectedImage (Pixmap myImage) {
-        // super(myImage);
+    private void selectedImage (Pixmap myImage) {
         myPrevName = myImage.getFileName();
         myImage.setImage(CHECKED_IMAGE);
         repaint();
     }
 
-    private void displayMaps (Graphics2D pen) {
+    public void displayImages (Graphics2D pen) {
         for (Map.Entry<Pixmap, Rectangle> entry : myMapImages.entrySet()) {
             entry.getKey().paint(pen,
                                  new Location(entry.getValue().getCenterX(), entry.getValue()
@@ -134,7 +125,4 @@ public class MapsSelectorScreen extends JPanel {
         }
     }
 
-    private void sendMapImageClicked (String imageName) {
-        // TODO send the name of the type of map the user selected to the GameModel/Controller?
-    }
 }
