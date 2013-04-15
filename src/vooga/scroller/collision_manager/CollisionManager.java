@@ -104,11 +104,6 @@ public class CollisionManager {
         return (sprite1.getLeft() <= sprite2.getRight() && sprite1.getLeft() >= sprite2.getRight() - COLLISION_GRANULARITY);
     }
     
-    private void kill (Sprite sprite) {
-        
-        // TODO Auto-generated method stub
-        
-    }
     
     private void marioAndNonStaticEntityCollision (Mario mario, Sprite sprite) {
   

@@ -38,9 +38,7 @@ public class LevelFactory {
 
         // TODO: this will ideally read in levels from file and create instances of each level
         // This works for demos
-        
-<<<<<<< HEAD
-        
+                
         myCurrLevel.addSprite(new MarioLib.Coin( 
                                 new Location(view.getWidth() - 400, view.getHeight() - 250)
                                 ));   
@@ -86,9 +84,7 @@ public class LevelFactory {
         myCurrLevel.addSprite(new MarioLib.MovingPlatformTwo(
                                                              new Location(900, 500)
                 ));
-=======
         myCurrLevel.setBackground(new ImageIcon(getClass().getResource("/vooga/scroller/images/background_small.png")).getImage());
->>>>>>> 470d363806fc3890534023e98be66f2acb103a13
 
         myCurrLevel.addSprite(new MarioLib.LevelTwoBlockOne( 
                                                             new Location(64, 252)

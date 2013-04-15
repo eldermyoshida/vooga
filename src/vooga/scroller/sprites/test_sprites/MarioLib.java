@@ -214,10 +214,7 @@ public class MarioLib implements ISpriteLibrary {
         }
     }
     
-<<<<<<< HEAD
-    
 
-=======
     public static class LevelTwoBlockOne extends Platform {
 
         private static final String DEFAULT_IMG = "leveltwoblock1.png";
@@ -268,7 +265,6 @@ public class MarioLib implements ISpriteLibrary {
         public void print () {
         }
     }
->>>>>>> 470d363806fc3890534023e98be66f2acb103a13
 
     @SuppressWarnings("unchecked")
     @Override
