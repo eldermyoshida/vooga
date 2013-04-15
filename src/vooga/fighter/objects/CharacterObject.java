@@ -45,6 +45,7 @@ public class CharacterObject extends GameObject {
         setLoader(new CharacterLoader(objectId, this));
         setLocation(center);
         setCurrentState("stand");
+        setImageData();
     }
 
     /**

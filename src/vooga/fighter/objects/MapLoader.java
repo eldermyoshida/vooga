@@ -43,6 +43,7 @@ public class MapLoader extends ObjectLoader {
 			Element node = (Element) mapNodes.item(i);
 			int id = Integer.parseInt(getAttributeValue(node, "mapID"));
 			if (id == mapId) {
+			    // fix 1 to number of frames later
 				State mapState = new State(myMap, 1);
 				mapState.populateImage(new Pixmap(getAttributeValue(node, "enviroBackground")), 0);
 				Node mapSize = node.getElementsByTagName("size").item(0);

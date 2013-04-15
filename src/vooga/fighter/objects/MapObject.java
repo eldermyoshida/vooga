@@ -33,7 +33,7 @@ public class MapObject extends GameObject {
         myCurrentSound = null;
         setLoader(new MapLoader(mapId, this));
         setCurrentState("background");
-        
+        setImageData();
     }
 
     /**
@@ -41,6 +41,7 @@ public class MapObject extends GameObject {
      */
     public void addEnviroObject(EnvironmentObject object) {
         myEnviroObjects.add(object);
+        object.setImageData();
     }
 
     /**
