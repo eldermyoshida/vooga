@@ -2,6 +2,7 @@ package vooga.fighter.view;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import vooga.fighter.controller.ViewDataSource;
 
 public abstract class CanvasLayout {

@@ -2,16 +2,19 @@ package vooga.fighter.controller;
 
 
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.Timer;
 
+import util.Location;
 import vooga.fighter.game.LevelMode;
 import vooga.fighter.game.Mode;
 import vooga.fighter.input.Input;
 import vooga.fighter.input.InputClassTarget;
+import vooga.fighter.util.Paintable;
 import vooga.fighter.view.Canvas;
 
 
@@ -35,7 +38,8 @@ public class LevelController extends Controller {
     public LevelController(String name, Canvas frame, ControllerDelegate manager, 
     		GameInfo gameinfo) {
     	super(name, frame, manager, gameinfo);
-    	//loadMode();
+    	frame.setViewDataSource(this);
+    	loadMode();
     }
 
     
@@ -73,5 +77,29 @@ public class LevelController extends Controller {
 		// TODO Auto-generated method stub
 		
 	}
+
+    @Override
+    public int ObjectNumber () {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public Paintable getPaintable (int index) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Location getLocation (int index) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Dimension getSize (int index) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 }
