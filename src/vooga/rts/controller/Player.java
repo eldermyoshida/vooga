@@ -36,7 +36,7 @@ public class Player implements Controller {
         if (myDrag == null) {            
             sendCommand(new DragCommand("drag", myDrag));
         }
-        sendCommand(new LeftClickCommand("rightclick", o));
+        sendCommand(new LeftClickCommand("leftclick", o));
         myLeftMouse = null;
         myDrag = null;
     }
