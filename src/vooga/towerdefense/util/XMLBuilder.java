@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.List;
+import java.util.Map;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
@@ -43,7 +45,7 @@ public class XMLBuilder {
         makeDoc();
     }
     
-    //////////////////////////DOC Operations/////////////////////////////
+    // ////////////////////////DOC Operations/////////////////////////////
     
     /**
      * Creates a new document.
@@ -60,6 +62,7 @@ public class XMLBuilder {
     
     /**
      * Sets a new document from an XML file.
+     * 
      * @param file
      */
     public void setDoc (File file) {
@@ -77,19 +80,30 @@ public class XMLBuilder {
             throw new RuntimeException("XML document is corrupted.", e);
         }
     }
+    
     /**
      * Gets the document being written in this XML Builder.
+     * 
      * @return A document with an XML format.
      */
     public Document getDoc () {
         return myDoc;
     }
-    ////////////////////////ELEMENT OPERATIONS/////////////////////////////
     
+    // //////////////////////ELEMENT OPERATIONS/////////////////////////////
+    /*
+     * The element operations consist of creating element trees.
+     * The use of attributes is avoided because they are difficult to read
+     * and to maintain. (Reference: w3schools.com)
+     */
+    // /////////////////////////////////////////////////////////////////////
+    
+    // //Making////
     
     /**
      * Creates a new empty element in the Doc.
-     * @param tag The tag of the element 
+     * 
+     * @param tag The tag of the element
      * @param content The content of the element.
      * @return
      */
@@ -100,16 +114,53 @@ public class XMLBuilder {
     
     /**
      * Creates a new element in the Doc with a content.
-     * @param tag The tag of the element 
+     * 
+     * @param tag The tag of the element
      * @param content The content of the element.
      * @return
      */
     public Element makeElement (String tag, String content) {
-        Element element = myDoc.createElement(tag);
+        Element element = makeElement(tag);
         element.setTextContent(content);
         return element;
     }
-   
+    
+    /* Method not yet complete
+    public Element makeElementsFromList (String tag, List<String> elementValues) {
+        Element element = makeElement(tag);
+        for (String s: elementValues) {
+            
+        }
+    }
+    */
+    public Element makeElementsFromMap (String tag, Map<String, String> elementsMap) {
+        Element parent = makeElement(tag);
+        for (String name : elementsMap.keySet()) {
+            String value = elementsMap.get(name);
+            addChild(parent, name, value);
+        }
+        return parent;
+    }
+    
+    ////Adding////
+    
+    public Element addChild (Element parent, Element child) {
+        parent.appendChild(child);
+        return child;
+    }
+    
+    public Element addChild (Element parent, String tag) {
+        Element child = makeElement(tag);
+        return addChild(parent, child);
+    }
+    
+    public Element addChild (Element parent, String tag, String content) {
+        Element child = makeElement(tag, content);
+        return addChild(parent, child);
+    }
+    
+    ////Setting to position////
+    
     ////////////////////////WRITING TO FILE/////////////////////////////
     
     /**
