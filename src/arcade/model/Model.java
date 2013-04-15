@@ -66,6 +66,11 @@ public class Model implements ArcadeInteraction {
     public void rateGame (GameInfo g, int rating) {
 
     }
+    
+    public void playGame(GameInfo gameinfo) {
+        System.out.println(gameinfo.getName());
+        //TODO: instantiate the game.
+    }
 
     /**
      * TODO:
