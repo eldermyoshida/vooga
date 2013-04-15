@@ -148,5 +148,5 @@ public class MapObject {
             myCurrentState.update();
         }
     }
-
+    
 }

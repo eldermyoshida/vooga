@@ -40,21 +40,21 @@ public abstract class ObjectLoader {
 
 	public abstract void load(int id);
 	
-	public Document getDocument() {
+	protected Document getDocument() {
 		return myDocument;
 	}
 	
-	public String getAttributeValue(Node node, String tag) {
+	protected String getAttributeValue(Node node, String tag) {
 		return node.getAttributes().getNamedItem(tag).getTextContent();
 	}
 	
-	public String getChildValue(String tag, Element element) {
+	protected String getChildValue(String tag, Element element) {
 		NodeList nodes = element.getElementsByTagName(tag).item(0).getChildNodes();
 		Node node = (Node) nodes.item(0);
 		return node.getNodeValue();
 	}
 	
-	public void addStates(NodeList stateNodes, GameObject myObject) {
+	protected void addStates(NodeList stateNodes, GameObject myObject) {
 		for (int i = 0; i < stateNodes.getLength(); i++) {
 			Element state = (Element) stateNodes.item(i);
 			String stateName = getAttributeValue(stateNodes.item(i), "stateName");
