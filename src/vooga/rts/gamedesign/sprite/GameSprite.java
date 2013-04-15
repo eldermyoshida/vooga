@@ -82,7 +82,7 @@ public abstract class GameSprite extends Sprite {
 	 * Return shape's z-axis length in pixels. need to implement!
 	 */
 	public double getHeight() {
-		return 0;
+		return mySize.getHeight();
 	}
 
 	/**
@@ -188,6 +188,7 @@ public abstract class GameSprite extends Sprite {
 	 * @return the bounds of the world location
 	 */
 	public Rectangle getBounds() {
+		System.out.println("Bounds =" + myWorldBounds);
 		return myWorldBounds;
 	}
 

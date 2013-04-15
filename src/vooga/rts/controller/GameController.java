@@ -141,7 +141,7 @@ public class GameController extends AbstractController {
         building.paint(pen);
         
         if (myDrag != null) {
-            pen.draw(myDrag);
+            pen.draw(myDrag);      
         }
         pt.paint(pen);
     }
@@ -193,7 +193,7 @@ public class GameController extends AbstractController {
             width = Math.abs(o.getX() - myLeftMouse.getX());
             height = Math.abs(o.getY() - myLeftMouse.getY());
             myDrag = new Rectangle2D.Double(uX, uY, width, height);
-            System.out.println(worldDrag);
+            System.err.println(worldDrag);
             myHuman.getUnits().select(worldDrag);
         }
     }
