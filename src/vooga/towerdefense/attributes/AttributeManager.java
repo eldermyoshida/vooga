@@ -19,7 +19,7 @@ import java.util.List;
 public class AttributeManager {
     private HashMap<String,Attribute> myAttributes;
 
-    public AttributeManager (HashSet<Attribute> attributes) {
+    public AttributeManager (List<Attribute> attributes) {
         myAttributes = new HashMap<String, Attribute>();
         for (Attribute a : attributes) {
             myAttributes.put(a.getName(), a);
