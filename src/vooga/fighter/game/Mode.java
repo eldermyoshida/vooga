@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 import vooga.fighter.controller.ModelDelegate;
+import vooga.fighter.objects.CharacterObject;
 import vooga.fighter.objects.GameObject;
 
 /**
@@ -18,12 +19,14 @@ public abstract class Mode {
     private List<GameObject> myObjects;
     private long myId;
     private ModelDelegate myModelDelegate;
+    private List<CharacterObject> myCharacterObjects; 
 
     /**
      * Constructs a new Mode.
      */
     public Mode(ModelDelegate cd) {
         myObjects = new ArrayList<GameObject>();
+        myCharacterObjects= new ArrayList<CharacterObject>();
         setModelDelegate(cd);
     }
     
@@ -47,12 +50,22 @@ public abstract class Mode {
     public List<GameObject> getMyObjects() {
         return myObjects;
     }
+    
+    /**
+     * Returns the list of character objects for the mode
+     */
+    public List<CharacterObject>getMyCharacterObjects(){
+    	return myCharacterObjects; 
+    }
 
     /**
     * Add an object to the list of game objects.
     */
     public void addObject(GameObject object) {
         myObjects.add(object);
+        if (object instanceof CharacterObject){
+        	myCharacterObjects.add((CharacterObject)object);
+        }
     }
 
     /**
