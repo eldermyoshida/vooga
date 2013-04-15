@@ -77,7 +77,7 @@ public class Unit extends InteractiveEntity {
         if (upgradeTree != null) {
         	myUpgradeTree = upgradeTree;
         }
-        myUpgradeTree.addUser(this);
+        //myUpgradeTree.addUser(this);
     }
     
     @Override

@@ -29,153 +29,159 @@ import vooga.rts.util.Sound;
 
 public class GameController extends AbstractController {
 
-    private Map<Integer, Team> myTeams;
-    private List<Player> myPlayers;
-    private GameMap myMap; // This needs a dimension that describes the total size of the map. Not
-                           // made for now.
-    private Resource r; 
-    private Building building;
-    
-    public GameController () {
-        myTeams = new HashMap<Integer, Team>();
-        myPlayers = new ArrayList<Player>();
-    }
+	private Map<Integer, Team> myTeams;
+	private List<Player> myPlayers;
+	private GameMap myMap; // This needs a dimension that describes the total size of the map. Not
+	// made for now.
+	private Resource r; 
+	private Building building;
 
-    public void addPlayer (Player player, int teamID) {
-        myPlayers.add(player);
-        if (myTeams.get(teamID) == null) {
-            addTeam(teamID);
-        }
-        myTeams.get(teamID).addPlayer(player);
-    }
+	public GameController () {
+		myTeams = new HashMap<Integer, Team>();
+		myPlayers = new ArrayList<Player>();
+	}
 
-    public void addTeam (int teamID) {
-        myTeams.put(teamID, new Team(teamID));
-    }
+	public void addPlayer (Player player, int teamID) {
+		myPlayers.add(player);
+		if (myTeams.get(teamID) == null) {
+			addTeam(teamID);
+		}
+		myTeams.get(teamID).addPlayer(player);
+	}
 
-    public void connect (/* NetworkGameInfo n */) {
+	public void addTeam (int teamID) {
+		myTeams.put(teamID, new Team(teamID));
+	}
 
-    }
+	public void connect (/* NetworkGameInfo n */) {
 
-    @Override
-    public void update (double elapsedTime) {
-        for (Player f : myPlayers) {
-            f.update(elapsedTime);
-        }
-        /*
-         * Iterator<Team> it = myTeams.values().iterator();
-         * while (it.hasNext()) {
-         * 1Team t = it.next();
-         * 
-         * }
-         */
-        List<Unit> p1 = myTeams.get(1).getUnits();
-        List<Unit> p2 = myTeams.get(2).getUnits();
-        for (Unit u1 : p1) {
-            for (Unit u2 : p2) {
-                if (u1.inRange(u2)) {
-                    u2.getAttacked(u1);
-                }
-                if (u2.inRange(u1)) {
-                    u1.getAttacked(u2);
-                }
-                if (u1 instanceof Worker)
-                {
-                	((Worker)u1).gather(r);
-                }
-            }
-        }
-        building.update(elapsedTime);
-    }
+	}
 
-    @Override
-    public void paint (Graphics2D pen) {
-        for (Player p : myPlayers) {
-            p.paint(pen);
-        }
-        r.paint(pen);
-        building.paint(pen);
-    }
+	@Override
+	public void update (double elapsedTime) {
+		for (Player f : myPlayers) {
+			f.update(elapsedTime);
+		}
+		/*
+		 * Iterator<Team> it = myTeams.values().iterator();
+		 * while (it.hasNext()) {
+		 * 1Team t = it.next();
+		 * 
+		 * }
+		 */
+		List<Unit> p1 = myTeams.get(1).getUnits();
+		List<Unit> p2 = myTeams.get(2).getUnits();
+		for (Unit u1 : p1) {
+			for (Unit u2 : p2) {
+				if (u1.inRange(u2)) {
+					u2.getAttacked(u1);
+				}
+				if (u2.inRange(u1)) {
+					u1.getAttacked(u2);
+				}
+				if (u1 instanceof Worker)
+				{
+					((Worker)u1).gather(r);
+				}
+			}
+		}
+		building.update(elapsedTime);
 
-    @Override
-    public void onLeftMouseDown (PositionObject o) {
+	}
 
-    }
+	@Override
+	public void paint (Graphics2D pen) {
+		for (Player p : myPlayers) {
+			p.paint(pen);
+		}
+		r.paint(pen);
+		building.paint(pen);
 
-    @Override
-    public void onLeftMouseUp (PositionObject o) {
-        // if it's not a gui thing
-        HumanPlayer human = (HumanPlayer) myPlayers.get(0);
-        human.handleLeftClick((int) o.getX(), (int) o.getY());
-    }
+	}
 
-    @Override
-    public void onRightMouseDown (PositionObject o) {
+	@Override
+	public void onLeftMouseDown (PositionObject o) {
 
-    }
+	}
 
-    @Override
-    public void onRightMouseUp (PositionObject o) {
-        // If it's not a GUI thing
-        HumanPlayer human = (HumanPlayer) myPlayers.get(0);
-        human.handleRightClick((int) o.getX(), (int) o.getY());
-    }
+	@Override
+	public void onLeftMouseUp (PositionObject o) {
+		// if it's not a gui thing
+		HumanPlayer human = (HumanPlayer) myPlayers.get(0);
+		human.handleLeftClick((int) o.getX(), (int) o.getY());
+	}
 
-    @Override
-    public void activate (MainState gameState) {
-        setupGame();
-    }
+	@Override
+	public void onRightMouseDown (PositionObject o) {
 
-    private void setupGame () {
-        System.out.println("Game is setup");
+	}
 
-        Player p1 = new HumanPlayer();
-        Pixmap p = new Pixmap(ResourceManager.instance().loadFile("images/soldier.png"));
-        Dimension s = new Dimension(90, 90);
-        r = new Resource(new Pixmap(ResourceManager.instance().loadFile("images/mineral.gif")), new Location (300,300), new Dimension(60, 60), 0, 80);
-        Sound soun = null;// new Sound("/vooga/rts/sounds/pikachu.wav");
-        Unit a = null;
-        try {
-            a = new Soldier(p, new Location(100, 100), s, soun, 20, 100);
-            Projectile proj =
-                    new Projectile(new Pixmap(ResourceManager.instance()
-                            .loadFile("images/bullet.png")), a.getCenter(), new Dimension(30, 30),
-                                   1, 10, 1);
-            a.setAttackStrategy(new CanAttack());
-            a.getAttackStrategy().addWeapons(new Weapon(0, proj, 200, a.getCenter(), 25));
-        }
-        catch (Exception e) {
-            // trollolol
-        }
-        
-        Unit b = new Soldier(p, new Location(100, 300), s, soun, 20, 50);
-        Projectile proj2 =
-                new Projectile(
-                               new Pixmap(ResourceManager.instance().loadFile("images/bullet.png")),
-                               b.getCenter(), new Dimension(30, 30), 1, 10, 1);
-        b.setAttackStrategy(new CannotAttack());
-        b.getAttackStrategy().addWeapons(new Weapon(0, proj2, 200, b.getCenter(), 50));
+	@Override
+	public void onRightMouseUp (PositionObject o) {
+		// If it's not a GUI thing
+		HumanPlayer human = (HumanPlayer) myPlayers.get(0);
+		human.handleRightClick((int) o.getX(), (int) o.getY());
+	}
 
-        Unit c = new Soldier(p, new Location(500, 500), s, soun, 20, 1000);
-        Projectile proj3 =
-                new Projectile(
-                               new Pixmap(ResourceManager.instance().loadFile("images/bullet.png")),
-                               c.getCenter(), new Dimension(30, 30), 1, 10, 1);
-        c.setAttackStrategy(new CannotAttack());
-        Unit w = new Worker(new Pixmap(ResourceManager.instance().loadFile("images/scv.gif")), new Location(500, 200), s, soun, 20, 40, 40);
-        c.getAttackStrategy().addWeapons(new Weapon(0, proj3, 200, c.getCenter(), 50));
+	@Override
+	public void activate (MainState gameState) {
+		setupGame();
+	}
 
-        p1.getUnits().addUnit(a);
-        p1.getUnits().addUnit(b);
-        p1.getUnits().addUnit(w);
-        Player p2 = new HumanPlayer();
-        p2.getUnits().addUnit(c);
-        
-        addPlayer(p1, 1);
-        addPlayer(p2, 2);
-        
-        building = new Barracks(new Pixmap(ResourceManager.instance().loadFile("images/barracks.jpeg")), 
-                                new Location(800,500), new Dimension(150,150), null, 1,300);
-        
-    }
+	private void setupGame () {
+		System.out.println("Game is setup");
+
+		Player p1 = new HumanPlayer();
+		Pixmap p = new Pixmap(ResourceManager.instance().loadFile("images/soldier.png"));
+		Dimension s = new Dimension(90, 90);
+		r = new Resource(new Pixmap(ResourceManager.instance().loadFile("images/mineral.gif")), new Location (300,300), new Dimension(60, 60), 0, 80);
+		Sound soun = null;// new Sound("/vooga/rts/sounds/pikachu.wav");
+		Unit a = null;
+		try {
+			a = new Soldier(p, new Location(100, 100), s, soun, 20, 100);
+			Projectile proj =
+					new Projectile(new Pixmap(ResourceManager.instance()
+							.loadFile("images/bullet.png")), a.getCenter(), new Dimension(30, 30),
+							1, 10, 1);
+			a.setAttackStrategy(new CanAttack());
+			a.getAttackStrategy().addWeapons(new Weapon(0, proj, 200, a.getCenter(), 25));
+		}
+		catch (Exception e) {
+			// trollolol
+		}
+		
+		System.out.println("HIIIIII!!!!");
+		Unit b = new Soldier(p, new Location(100, 300), s, soun, 20, 50);
+		System.out.println("Game is setup 1");
+		Projectile proj2 =
+				new Projectile(
+						new Pixmap(ResourceManager.instance().loadFile("images/bullet.png")),
+						b.getCenter(), new Dimension(30, 30), 1, 10, 1);
+		b.setAttackStrategy(new CannotAttack());
+		b.getAttackStrategy().addWeapons(new Weapon(0, proj2, 200, b.getCenter(), 50));
+
+		Unit c = new Soldier(p, new Location(500, 500), s, soun, 20, 1000);
+		System.out.println("Game is setup 2");
+		Projectile proj3 =
+				new Projectile(
+						new Pixmap(ResourceManager.instance().loadFile("images/bullet.png")),
+						c.getCenter(), new Dimension(30, 30), 1, 10, 1);
+		c.setAttackStrategy(new CannotAttack());
+		Unit w = new Worker(new Pixmap(ResourceManager.instance().loadFile("images/scv.gif")), new Location(500, 200), s, soun, 20, 40, 40);
+		c.getAttackStrategy().addWeapons(new Weapon(0, proj3, 200, c.getCenter(), 50));
+		
+		p1.getUnits().addUnit(a);
+		p1.getUnits().addUnit(b);
+		p1.getUnits().addUnit(w);
+		Player p2 = new HumanPlayer();
+		p2.getUnits().addUnit(c);
+
+		addPlayer(p1, 1);
+		addPlayer(p2, 2);
+		
+		building = new Barracks(new Pixmap(ResourceManager.instance().loadFile("images/barracks.jpeg")), 
+				new Location(800,500), new Dimension(150,150), null, 1,300);
+
+		
+	}
 }
