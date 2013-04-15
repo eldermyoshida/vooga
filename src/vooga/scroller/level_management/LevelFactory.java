@@ -4,6 +4,7 @@ package vooga.scroller.level_management;
 import java.awt.Dimension;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.ImageIcon;
 import util.Location;
 import vooga.scroller.level_editor.Level;
 import vooga.scroller.scrollingmanager.ScrollingManager;
@@ -19,13 +20,13 @@ import vooga.scroller.view.View;
  *
  */
 public class LevelFactory {
-    
+
     private LevelManager myLevelManager;
-    
+
     public LevelFactory(LevelManager lm){
         myLevelManager = lm;
     }
-    
+
     /**
      * Generates levels to be displayed by the view and played by the model.
      * 
@@ -34,11 +35,10 @@ public class LevelFactory {
      */
     public Map<Integer,Level> generateLevels (ScrollingManager myScrollingManager, View view) {
         Level myCurrLevel = new Level(1, myScrollingManager, view);
-        
+
         // TODO: this will ideally read in levels from file and create instances of each level
         // This works for demos
-        
-        
+                
         myCurrLevel.addSprite(new MarioLib.Coin( 
                                 new Location(view.getWidth() - 400, view.getHeight() - 250)
                                 ));   
@@ -70,47 +70,52 @@ public class LevelFactory {
                                                     new Location(1100, 500)
                                                     ));
         
-        myCurrLevel.addSprite(new MarioLib.Platform( 
+        myCurrLevel.addSprite(new MarioLib.Platform(
                                                     new Location(1300, 400)
-                                                    ));
-        myCurrLevel.addSprite(new MarioLib.Platform( 
+                ));
+        myCurrLevel.addSprite(new MarioLib.Platform(
                                                     new Location(1500, 400)
-                                                    ));
-        
-        myCurrLevel.addSprite(new MarioLib.MovingPlatformTwo( 
-                                                    new Location(900, 500)
-                                                    )); 
+                ));
 
-        myCurrLevel.addSprite(new MarioLib.Turtle(
-                                  new Location(view.getWidth() - 500, view.getHeight() - 75)
-                                  ));   
-        
-        myCurrLevel.addSprite(new MovingPlatformOne( 
-                                                    new Location(view.getWidth() - 80, view.getHeight() - 20)
-                                                    )); 
-        
+        myCurrLevel.addSprite(new MarioLib.Plant(
+                                                 new Location(500, 400)
+                                                 ));
 
-        myCurrLevel.addSprite(new MarioLib.MovingPlatformOne( 
-                                                    new Location(400, 200)
-                                                    )); 
+        myCurrLevel.addSprite(new MarioLib.MovingPlatformTwo(
+                                                             new Location(900, 500)
+                ));
+        myCurrLevel.setBackground(new ImageIcon(getClass().getResource("/vooga/scroller/images/background_small.png")).getImage());
+
+        myCurrLevel.addSprite(new MarioLib.LevelTwoBlockOne( 
+                                                            new Location(64, 252)
+                ));   
+
+        myCurrLevel.addSprite(new MarioLib.LevelTwoBlockTwo( 
+                                                            new Location(272, 220)
+                ));   
+        myCurrLevel.addSprite(new MarioLib.LevelTwoBlockTwo( 
+                                                            new Location(464, 220)
+                ));   
+        myCurrLevel.addSprite(new MarioLib.LevelTwoBlockTwo( 
+                                                            new Location(656, 220)
+                )); 
         
-        myCurrLevel.addSprite(new MarioLib.MovingPlatformTwo( 
-                                                             new Location(200, 200)
-                                                             )); 
-        
+        myCurrLevel.addSprite(new MarioLib.LevelTwoBlockThree( 
+                                                            new Location(1216, 204)
+                )); 
         // adding levelportal --> acts as portal between levels.
-        
-        
+
+
         Level secondLevel = new Level(2, myScrollingManager, view);
-        
+
         StartPoint exit= new StaticStartPoint(myCurrLevel, new Location(900,500));
-        
-        
+
+
         LevelPortal portal = new LevelPortal(new Pixmap("brick9.gif"), new Location(900,900),
-                               new Dimension(50,50), exit, myLevelManager);
-        
+                                             new Dimension(50,50), exit, myLevelManager);
+
         myCurrLevel.addSprite(portal);
-        
+
         myCurrLevel.setSize(PlatformerConstants.DEFAULT_LEVEL_SIZE);
         Map<Integer,Level> l = new HashMap<Integer,Level>();
         l.put(myCurrLevel.getID(),myCurrLevel);

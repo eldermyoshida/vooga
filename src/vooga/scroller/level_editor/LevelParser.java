@@ -16,7 +16,7 @@ public class LevelParser {
     private static final String NEW_LINE = System.getProperty("line.seperator");
     private static final String BEGIN_LEVEL = "/level";
     private static final String BEGIN_KEY = "/key";
-    private static final char SPACE = '?';
+    private static final char SPACE = ' ';
     public Scanner myScanner;
     public Map<Character, String> myCharacterMap;
     public List<String> myLevelStrings;
@@ -46,7 +46,7 @@ public class LevelParser {
     }
 
     private void parseLevel () {
-        myScanner.findWithinHorizon(BEGIN_LEVEL, 0);
+        myScanner.findWithinHorizon(BEGIN_LEVEL+NEW_LINE, 0);
         String line = myScanner.nextLine();
         System.out.println(line);
         while (!line.equals(BEGIN_KEY)) {

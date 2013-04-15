@@ -102,6 +102,7 @@ public class MarioLib implements ISpriteLibrary {
     public static class Turtle extends NonStaticEntity {
 
         private static final String DEFAULT_IMG = "turtle.gif";
+        private int health = 1;
 
         public Turtle () {
             this(DEFAULT_LOC);
@@ -134,10 +135,26 @@ public class MarioLib implements ISpriteLibrary {
         public Platform (Location center) {
             super(new Pixmap(DEFAULT_IMG), center, new Dimension(200,50));
         }
+        public Platform (String img, Location center, Dimension size) {
+            super(new Pixmap(img), center, size);
+        }
 
         public void print () {
             System.out.println("Platform");
         }
+    }
+    
+    public static class Plant extends StaticEntity {
+        private static final String DEFAULT_IMG = "plant.png";
+        
+        public Plant () {
+            this(DEFAULT_LOC);
+        }
+
+        public Plant (Location center) {
+            super(new Pixmap(DEFAULT_IMG), center, new Dimension(32, 32));
+        }
+
     }
 
     /**
@@ -194,6 +211,58 @@ public class MarioLib implements ISpriteLibrary {
             LeftAndRight movement = new LeftAndRight(this);
             changeVelocity(movement.execute(500, 1000, DEFAULT_SPEED));
             super.update(elapsedTime, bounds);
+        }
+    }
+    
+
+    public static class LevelTwoBlockOne extends Platform {
+
+        private static final String DEFAULT_IMG = "leveltwoblock1.png";
+        private static final Dimension DEFAULT_SIZE = new Dimension(128, 96);
+
+        public LevelTwoBlockOne () {
+            this(DEFAULT_LOC);
+        }
+
+        public LevelTwoBlockOne (Location center) {
+            super(DEFAULT_IMG, center, DEFAULT_SIZE);
+        }
+
+        public void print () {
+        }
+    }
+    
+    public static class LevelTwoBlockTwo extends Platform {
+        
+        private static final String DEFAULT_IMG = "leveltwoblock2.png";
+        private static final Dimension DEFAULT_SIZE = new Dimension(96, 32);
+
+        public LevelTwoBlockTwo () {
+            this(DEFAULT_LOC);
+        }
+
+        public LevelTwoBlockTwo (Location center) {
+            super(DEFAULT_IMG, center, DEFAULT_SIZE);
+        }
+        
+        public void print () {
+        }
+    }
+    
+    public static class LevelTwoBlockThree extends Platform {
+        
+        private static final String DEFAULT_IMG = "leveltwoblock3.png";
+        private static final Dimension DEFAULT_SIZE = new Dimension(768, 192);
+
+        public LevelTwoBlockThree () {
+            this(DEFAULT_LOC);
+        }
+
+        public LevelTwoBlockThree (Location center) {
+            super(DEFAULT_IMG, center, DEFAULT_SIZE);
+        }
+        
+        public void print () {
         }
     }
 

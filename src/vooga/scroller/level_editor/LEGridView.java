@@ -16,17 +16,27 @@ import vooga.scroller.viewUtil.Renderable;
 import vooga.scroller.viewUtil.WindowComponent;
 
 
-public class LEGridView extends WindowComponent{
+public class LEGridView extends WindowComponent implements Scrollable{
     /**
      * 
      */
     private static final long serialVersionUID = 8266835201464623542L;
+    private static final double containerWidthRatio = .8;
+    private static final double ContainerHeightRatio = 1;
     private Dimension mySize;
-    private Renderable myGrid;
+    private LEGrid myGrid;
+    private double gridWidthRatio;
 
-    public LEGridView (IView parent, double d, double e) {
+    /**
+     * Specify a container parent and a width and height ratio.
+     * @param parent
+     * @param d
+     * @param e
+     */
+    public LEGridView (IView parent, Renderable r) {
         // TODO Auto-generated constructor stub
-        super(parent, d, e);
+        super(parent,((LEGrid) r).getPixelSize());
+        
     }
 
     @Override
@@ -45,7 +55,8 @@ public class LEGridView extends WindowComponent{
 
     @Override
     public void render (Renderable r) {
-        myGrid = r;
+        myGrid = (LEGrid) r;
+        setSize(myGrid.getPixelSize());
         repaint();
     }
 
@@ -115,6 +126,36 @@ public class LEGridView extends WindowComponent{
 
         }
 
+    }
+
+    @Override
+    public Dimension getPreferredScrollableViewportSize () {
+        // TODO Auto-generated method stub
+        Dimension d = this.getResponsible().getSize();
+        Dimension res = new Dimension(d.height, (int)(d.width*containerWidthRatio));
+        return res;
+    }
+
+    @Override
+    public int getScrollableUnitIncrement (Rectangle visibleRect, int orientation, int direction) {
+        return myGrid.getScrollableUnitIncrement(visibleRect, orientation, direction);
+    }
+
+    @Override
+    public int getScrollableBlockIncrement (Rectangle visibleRect, int orientation, int direction) {
+        return myGrid.getScrollableBlockIncrement(visibleRect, orientation, direction);
+    }
+
+    @Override
+    public boolean getScrollableTracksViewportWidth () {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean getScrollableTracksViewportHeight () {
+        // TODO Auto-generated method stub
+        return false;
     }
 
 }

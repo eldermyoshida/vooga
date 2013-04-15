@@ -2,9 +2,11 @@ package vooga.scroller.level_editor;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.Shape;
 import java.util.HashSet;
 import java.util.Set;
+import javax.swing.Scrollable;
 import util.Location;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.util.Editable;
@@ -12,19 +14,19 @@ import vooga.scroller.util.Sprite;
 import vooga.scroller.viewUtil.Renderable;
 
 
-public class LEGrid implements Editable, Renderable {
+public class LEGrid implements Editable, Renderable, Scrollable {
 
-    private static final int DEFAULT_SPRITE_SIZE = 32;
+    public static final int DEFAULT_SPRITE_SIZE = 32;
     private int mySpriteSize;
     private SpriteBox[][] myGrid;
     private Dimension mySize;
     private Set<SpriteBox> myPaintableBoxes;
     private ScrollingManager myScrollingManager;
 
-    public LEGrid (int x, int y) {
+    public LEGrid (int numWidthBlocks, int numHeightBlocks) {
         mySpriteSize = DEFAULT_SPRITE_SIZE;
-        mySize = new Dimension(x, y);
-        myGrid = new SpriteBox[x][y];
+        mySize = new Dimension(numWidthBlocks, numHeightBlocks);
+        myGrid = new SpriteBox[numWidthBlocks][numHeightBlocks];
         initializeGrid();
         myPaintableBoxes = new HashSet<SpriteBox>();
     }
@@ -147,5 +149,47 @@ public class LEGrid implements Editable, Renderable {
             }
         }
     }
+
+    @Override
+    public Dimension getPreferredScrollableViewportSize () {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public int getScrollableUnitIncrement (Rectangle visibleRect, int orientation, int direction) {
+        return DEFAULT_SPRITE_SIZE;
+    }
+
+    @Override
+    public int getScrollableBlockIncrement (Rectangle visibleRect, int orientation, int direction) {
+        return DEFAULT_SPRITE_SIZE;
+    }
+
+    @Override
+    public boolean getScrollableTracksViewportWidth () {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean getScrollableTracksViewportHeight () {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    /**
+     * Get the overall pixels size of this LEGrid.
+     * @return
+     */
+    public Dimension getPixelSize () {
+        Dimension res= new Dimension(
+                                     mySize.width*DEFAULT_SPRITE_SIZE,
+                                     mySize.height*DEFAULT_SPRITE_SIZE);
+        
+        return res;
+    }
+
+    
 
 }

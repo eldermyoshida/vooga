@@ -117,9 +117,29 @@ public class LEController {
     /**
      * Add a new workspace with id based on already existing workspaces.
      */
+    public void initializeWorkspace(int numWidthBlocks, int numHeightBlocks) {
+        int id = myWorkspace2Tab.size();
+        initializeWorkspace(id, numWidthBlocks, numHeightBlocks);
+    }
+    
+    /**
+     * Add a new workspace with id based on already existing workspaces.
+     */
     public void initializeWorkspace() {
         int id = myWorkspace2Tab.size();
-        initializeWorkspace(id);
+        int [] size = getNumBlocks();
+        initializeWorkspace(id, size[0], size[1]);
+    }
+
+    /**
+     * TODO - get info via dialog box
+     * @return
+     */
+    private int[] getNumBlocks () {
+        int[] res = new int[2];
+        res[0]= 60;
+        res[1]= 30;
+        return res;
     }
 
     /**
@@ -137,10 +157,16 @@ public class LEController {
      * @param m
      */
     private void createWorkspaceView (int id, Editable m) {
-        WorkspaceView associatedWorkspaceView = myView.initializeWorkspaceView(id);
+        WorkspaceView associatedWorkspaceView = 
+                myView.initializeWorkspaceView(id, (Renderable) m);
         myWorkspace2Tab.put(m, associatedWorkspaceView);
         myTab2Workspace.put(associatedWorkspaceView, m);
         myView.showWorkspace(associatedWorkspaceView, (Renderable) m);
+       }
+    
+    private void initializeWorkspace(int id, int numWidthBlocks, int numHeightBlocks) {
+        Editable m = new LEGrid(numWidthBlocks, numHeightBlocks);
+        createWorkspaceView(id, m);
     }
 
 }

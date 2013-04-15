@@ -16,7 +16,7 @@ public class LevelWriter {
     private static final String BEGIN_KEY = "/key";
     private static final String KEY_CREATOR = "abcdefghijklmnopqrstuvwxyz" +
     		"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()";
-    private static final char SPACE = '?';
+    private static final char SPACE = ' ';
     private int myKeyCounter;
     private Map<String, Character> myMap;
     private FileWriter myFileWriter;

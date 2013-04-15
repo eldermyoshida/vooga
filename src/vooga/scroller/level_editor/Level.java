@@ -56,7 +56,7 @@ public class Level implements Editable, Renderable {
         mySize = PlatformerConstants.DEFAULT_LEVEL_SIZE;
         initFrames();
         myView = view;
-        frameOfReferenceSize = myView.getSize();
+        frameOfReferenceSize = PlatformerConstants.REFERENCE_FRAME_SIZE;
         frameOfActionSize = calcActionFrameSize(myView.getSize());
         myScrollManager = sm;
         myBackground = DEFAULT_BACKGROUND;
@@ -122,8 +122,16 @@ public class Level implements Editable, Renderable {
 //            System.out.println(myPlayer.getPaintLocation());
             updateFrames(view);
             myPlayer.update(elapsedTime, bounds);
+            if (myPlayer.getHealth() <= 0) {
+                System.err.println("MARIO HAS DIED!!!!");
+                endGame();
+            }
+            
             for(Sprite s: myFrameOfActionSprites) {
                 s.update(elapsedTime, bounds);
+                if (s.getHealth() <= 0) {
+                    this.removeSprite(s);
+                }
             }
             intersectingSprites();
         }
@@ -132,7 +140,7 @@ public class Level implements Editable, Renderable {
     @Override
     public void paint (Graphics2D pen) {
         if(myPlayer != null) {
-            for(Sprite s: myFrameOfReferenceSprites) {
+            for(Sprite s: this.mySprites) {
                 s.paint(pen,myPlayer.getCenter(), myPlayer.getPaintLocation());
             }
             myPlayer.paint(pen);
@@ -171,7 +179,7 @@ public class Level implements Editable, Renderable {
     }
 
     private Dimension calcActionFrameSize(Dimension size) {
-        Dimension temp = new Dimension((int) size.getWidth() + 100, (int) size.getHeight() + 100);
+        Dimension temp = new Dimension((int) size.getWidth() + 200, (int) size.getHeight() + 200);
         return temp;
     }
     
@@ -257,5 +265,9 @@ public class Level implements Editable, Renderable {
     public void addSprite (Sprite s, int x, int y) {
         // TODO Auto-generated method stub
         
+    }
+    
+    private void endGame () {
+        this.getView().win();  //says you win but you really lost
     }
 }

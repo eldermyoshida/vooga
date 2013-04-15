@@ -5,6 +5,7 @@ import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import vooga.scroller.viewUtil.EasyGridFactory;
 import vooga.scroller.viewUtil.IView;
@@ -24,6 +25,7 @@ public class LEToolsView extends WindowComponent {
     private JTabbedPane myTabs;
     private JPanel spriteUI;
     private String selectedSprite;
+    
 
     public LEToolsView (IView parent, double d, double e) {
         super(parent, d, e);
