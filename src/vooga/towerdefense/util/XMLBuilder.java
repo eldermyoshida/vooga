@@ -13,6 +13,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
 
@@ -42,6 +43,8 @@ public class XMLBuilder {
         makeDoc();
     }
     
+    //////////////////////////DOC Operations/////////////////////////////
+    
     /**
      * Creates a new document.
      */
@@ -61,7 +64,6 @@ public class XMLBuilder {
      */
     public void setDoc (File file) {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-        Document doc = null;
         try {
             myDoc = dbFactory.newDocumentBuilder().parse(file);
         }
@@ -75,10 +77,40 @@ public class XMLBuilder {
             throw new RuntimeException("XML document is corrupted.", e);
         }
     }
-    
+    /**
+     * Gets the document being written in this XML Builder.
+     * @return A document with an XML format.
+     */
     public Document getDoc () {
         return myDoc;
     }
+    ////////////////////////ELEMENT OPERATIONS/////////////////////////////
+    
+    
+    /**
+     * Creates a new empty element in the Doc.
+     * @param tag The tag of the element 
+     * @param content The content of the element.
+     * @return
+     */
+    public Element makeElement (String tag) {
+        Element element = myDoc.createElement(tag);
+        return element;
+    }
+    
+    /**
+     * Creates a new element in the Doc with a content.
+     * @param tag The tag of the element 
+     * @param content The content of the element.
+     * @return
+     */
+    public Element makeElement (String tag, String content) {
+        Element element = myDoc.createElement(tag);
+        element.setTextContent(content);
+        return element;
+    }
+   
+    ////////////////////////WRITING TO FILE/////////////////////////////
     
     /**
      * Translates a document into an XML formatted String.
