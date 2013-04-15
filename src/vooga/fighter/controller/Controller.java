@@ -2,8 +2,8 @@ package vooga.fighter.controller;
 
 import vooga.fighter.input.Input;
 import vooga.fighter.input.InputClassTarget;
+import vooga.fighter.model.*;
 import vooga.fighter.view.Canvas;
-import vooga.fighter.game.*;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;

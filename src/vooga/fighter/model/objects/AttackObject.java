@@ -1,11 +1,11 @@
-package vooga.fighter.objects;
+package vooga.fighter.model.objects;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 
-import vooga.fighter.objects.utils.Counter;
-import vooga.fighter.objects.utils.Effect;
-import vooga.fighter.objects.utils.UpdatableLocation;
+import vooga.fighter.model.utils.Counter;
+import vooga.fighter.model.utils.Effect;
+import vooga.fighter.model.utils.UpdatableLocation;
 
 /**
  * Object that can inflict damage on other moveable game objects
