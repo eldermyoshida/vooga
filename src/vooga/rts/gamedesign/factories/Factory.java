@@ -16,6 +16,13 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+
+import vooga.rts.gamedesign.sprite.Sprite;
+import vooga.rts.gamedesign.sprite.rtsprite.Resource;
+import vooga.rts.gamedesign.strategy.Strategy;
+import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
+import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
+import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
 import vooga.rts.gamedesign.action.Action;
 import vooga.rts.gamedesign.sprite.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings.UpgradeBuilding;
@@ -23,7 +30,6 @@ import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Unit;
 import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;
 import vooga.rts.gamedesign.upgrades.UpgradeNode;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
-
 /** 
  *  This class is in charge of the loading of input XML files for different
  *  class types. It will figure out the class type this given file is in charge
@@ -41,10 +47,40 @@ public class Factory {
 
 	public static final String DECODER_MATCHING_FILE = "DecodeMatchUp";
 	Map<String, Decoder> myDecoders = new HashMap<String, Decoder>();
+	Map<String, Sprite> mySprites;
+	Map<String, Strategy> myStrategies;
+	
 	
 	public Factory() throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ParserConfigurationException, SAXException, IOException {
 		myDecoders = new HashMap<String, Decoder>();
 		loadDecoder(DECODER_MATCHING_FILE);
+		mySprites = new HashMap<String, Sprite>();
+		myStrategies = new HashMap<String, Strategy>();
+	}
+	
+	
+	public void put(String name, Sprite value){
+		mySprites.put(name, value);
+	}
+	
+	public void put(String name, Strategy value){
+		myStrategies.put(name, value);
+	}
+	
+	public AttackStrategy getAttackStrategy(String key){
+		return (AttackStrategy) myStrategies.get(key);
+	}
+	
+	public GatherStrategy getGatherStrategy(String key){
+		return (GatherStrategy) myStrategies.get(key);
+	}
+	
+	public OccupyStrategy getOccupyStrategy(String key){
+		return (OccupyStrategy) myStrategies.get(key);
+	}
+	
+	public Sprite getSprite(String key){
+		return mySprites.get(key);
 	}
 	
 	/**
@@ -140,8 +176,9 @@ public class Factory {
 	/**public static void main(String[] args) throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ParserConfigurationException, SAXException, IOException {
 		//loads Upgrade XML - creates tree - updates activate state
 		Factory factory = new Factory();
-		UpgradeTree resultTree = factory.loadXMLFile("/Users/Sherry/Desktop/Academics/Compsci 308/Final VOOGA/GameDesign/src/vooga/rts/gamedesign/factories/XML_Sample");
-		
+
+		factory.loadXMLFile("src/vooga/rts/gamedesign/factories/Factory.xml");
+
 		//creates an UpgradeBuilding
 		UpgradeBuilding upgradeBuilding = new UpgradeBuilding();
 		

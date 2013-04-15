@@ -4,6 +4,7 @@ import java.util.List;
 
 import vooga.rts.gamedesign.Weapon;
 import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
+import vooga.rts.gamedesign.strategy.Strategy;
 
 
 /**
@@ -25,6 +26,7 @@ import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
  * 
  * 
  */
+
 public interface AttackStrategy {
 	
 	/**

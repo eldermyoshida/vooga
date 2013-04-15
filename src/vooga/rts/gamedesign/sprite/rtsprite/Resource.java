@@ -17,6 +17,7 @@ import vooga.rts.util.Pixmap;
  * @author Wenshun Liu 
  *
  */
+
 public class Resource extends GameEntity implements IGatherable {
 
 	/**
