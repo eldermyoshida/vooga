@@ -39,11 +39,7 @@ public class Unit extends InteractiveEntity {
     private OccupyStrategy myOccupyStrategy;
 
     public Unit() {
-    	this(null);
-    }
-    
-    public Unit (UpgradeTree upgradeTree) { //TESTING PURPOSE. FEEL FREE TO DELETE
-    	this(null, new Location(0,0), new Dimension(30, 30), null, 0, 50, upgradeTree);
+    	this(null, new Location(0,0), new Dimension(0,0), null, 0, 100);
     }
     
     /**
@@ -57,25 +53,11 @@ public class Unit extends InteractiveEntity {
      * @param health is the max health of the unit
      */
     public Unit (Pixmap image, Location center, Dimension size, Sound sound, int playerID, int health) {
-        this(image, center, size, sound, playerID, health, null);
-    }
-    
-    /**
-     * Only be used when the first Unit under the same UpgradeTree is created.
-     * @param image
-     * @param center
-     * @param size
-     * @param sound
-     * @param playerID
-     * @param health
-     * @param upgradeTree
-     */
-    public Unit (Pixmap image, Location center, Dimension size, Sound sound, int playerID, int health, UpgradeTree upgradeTree) {
         super(image, center, size, sound, playerID, health);
         //myPather = new PathingHelper();
         myOccupyStrategy = new CannotOccupy();
-        if (upgradeTree != null) {
-        	myUpgradeTree = upgradeTree;
+        if (myUpgradeTree != null){
+        	myUpgradeTree.addUser(this);
         }
         //myUpgradeTree.addUser(this);
     }
@@ -83,6 +65,12 @@ public class Unit extends InteractiveEntity {
     @Override
     public UpgradeTree getUpgradeTree() {
     	return myUpgradeTree;
+    }
+    
+    @Override
+    public void setUpgradeTree(UpgradeTree upgradeTree) {
+    	myUpgradeTree = upgradeTree;
+    	myUpgradeTree.addUser(this);
     }
     
     /**

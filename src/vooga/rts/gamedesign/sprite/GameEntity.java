@@ -53,6 +53,7 @@ public class GameEntity extends GameSprite {
 		myOriginalVelocity = new Vector(0, 0);
 		myVelocity = new Vector(0, 0);
 		myGoal = new Location();
+		myEntityState = new EntityState();
 	}
 
 	/**
@@ -169,7 +170,7 @@ public class GameEntity extends GameSprite {
 	}
 
 	/**
-	 * Kills the GameEntity by setting its current health value to zero.	
+	 * Kills the GameEntity by setting its current health value to zero.  
 	 */
 	public void die () {
 		myCurrentHealth = 0;
