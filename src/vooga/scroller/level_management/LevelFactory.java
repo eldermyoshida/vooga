@@ -38,6 +38,11 @@ public class LevelFactory {
      * @return a List of all levels that will be played in the game.
      */
     public Map<Integer, Level> generateLevels (ScrollingManager myScrollingManager, View view) {
+        
+        SplashPage splash = new SplashPage(new Pixmap("MARIO SPLASH.png"),0,view, myScrollingManager);
+        // TODO: fix this
+        splash.addManager(myLevelManager);
+        
         Level myCurrLevel = new Level(1, myScrollingManager, view);
 
         // TODO: this will ideally read in levels from file and create instances of each level
@@ -133,7 +138,7 @@ public class LevelFactory {
                     ));
         }
         
-        StartPoint exit2 = new StaticStartPoint(myCurrLevel, new Location(100, 140));
+        StartPoint exit2 = new StaticStartPoint(splash, new Location(100, 140));
 
         LevelPortal portal2 = new LevelPortal(new Pixmap("portal.png"), new Location(1000, 140),
                                              new Dimension(50, 50), exit2, myLevelManager);
@@ -144,6 +149,7 @@ public class LevelFactory {
         Map<Integer, Level> l = new HashMap<Integer, Level>();
         l.put(myCurrLevel.getID(), myCurrLevel);
         l.put(secondLevel.getID(), secondLevel);
+        l.put(splash.getID(), splash);
         return l;
     }
 

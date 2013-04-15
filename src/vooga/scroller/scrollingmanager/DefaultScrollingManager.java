@@ -44,7 +44,7 @@ public class DefaultScrollingManager extends ScrollingManager {
     }
 
     public int leftpaintbound() {
-        if(myGame != null & myView != null) {
+        if(myGame != null && myView != null) {
             int horizontal = ((int) myGame.getRightBoundary() + myView.getWidth()*1000) % myView.getWidth();
             return 0 - horizontal;
         }

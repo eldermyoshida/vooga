@@ -65,7 +65,7 @@ public class NonStaticEntity extends Sprite {
     }
     
     public void takeHit() {
-        super.takeHit();
+        // TODO:
     }
     
     

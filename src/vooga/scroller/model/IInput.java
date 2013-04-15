@@ -13,4 +13,7 @@ public interface IInput {
      * @return
      */
     public boolean isValidInputClass();
+    
+    
+  
 }

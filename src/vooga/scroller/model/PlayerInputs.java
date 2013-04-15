@@ -25,7 +25,7 @@ public class PlayerInputs implements IInput{
 
     private Input myInput;
     private Player myPlayer;
-    private Model myModel;
+
 
     /**
      * Creates a new set of ModelInputs based on
@@ -33,11 +33,9 @@ public class PlayerInputs implements IInput{
      * @param player on which the controls will act
      * @param view from where the controls come from.
      */
-    public PlayerInputs (Model model, JComponent view) {
+    public PlayerInputs (Player player, JComponent view) {
         myInput = new Input(TEST_CONTROLS, view);
-        myModel = model;
-               
-        myPlayer = myModel.getPlayer();;
+        myPlayer = player;
         myInput.addListenerTo(this);
         
     }
@@ -62,7 +60,7 @@ public class PlayerInputs implements IInput{
             m.jump();
 
         }
-
+        System.out.println("hit w");
     }
 
     /**
@@ -109,5 +107,6 @@ public class PlayerInputs implements IInput{
         Class inputClass = this.getClass();
         return inputClass.getAnnotation(InputClassTarget.class) != null;
     }
+
 
 }

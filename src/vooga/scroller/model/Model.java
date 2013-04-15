@@ -31,8 +31,6 @@ public class Model {
     private View myView;
     private Player myPlayer;
 
-    // This is weird how it works. I think you just need to instantiate it(see constructor)
-    private IInput myInputs;
     private LevelManager myLevelManager;
     private ScrollingManager myScrollingManager;
     private Secretary mySecretary;
@@ -41,7 +39,6 @@ public class Model {
     private static final String PART_ONE = "public void visit (";
     private static final String PART_TWO = ") {}";
     private static final String COMMA = ", ";
-    private Pixmap mySplash;
     
     /**
      * Constructs a new Model based on the view and the scrolling manager used by the game.
@@ -52,12 +49,19 @@ public class Model {
     public Model (View view, ScrollingManager sm) {
         myScrollingManager = sm;
         myView = view;
-        myInputs = new SplashInputs(this, myView);
-        mySplash = new Pixmap("MARIO SPLASH.png"); 
+        //myInputs = new SplashInputs(this, myView);
+        //mySplash = new Pixmap("MARIO SPLASH.png"); 
         
         initPlayer();
+        
+        myScrollingManager.initGame(this);
+        myScrollingManager.initView(view);
+        
         myLevelManager = new LevelManager(myScrollingManager, myView);
+        
         myLevelManager.currentLevel().addPlayer(myPlayer);
+        mySecretary = new Secretary();
+        generateVisitMethods(spriteStrings);  
     }
 
 
@@ -79,13 +83,8 @@ public class Model {
      * Draw all elements of the game.
      */
     public void paint (Graphics2D pen) {
+        myLevelManager.currentLevel().paint(pen);
         
-        if(mySecretary == null) {
-            mySplash.paint(pen, new Location(myView.getSize().width/2,myView.getSize().height/2), myView.getSize());
-        }
-        else {
-            myLevelManager.currentLevel().paint(pen);
-        }
         
         
     }
@@ -96,15 +95,9 @@ public class Model {
      * @param elapsedTime is the elapsed time since the last update.
      */
     public void update (double elapsedTime) {
-        
-        // WTF
-        if(mySecretary == null) {
-            
-        }
-        else {
-            myLevelManager.currentLevel().update(elapsedTime, myView.getSize(), myView);
 
-        }
+        myLevelManager.currentLevel().update(elapsedTime, myView.getSize(), myView);
+
     }
 
     /**
@@ -159,12 +152,5 @@ public class Model {
                 mySecretary.write(PART_ONE + firstSpriteString + COMMA + secondSpriteString + PART_TWO);
             }
         }        
-    }
-
-    public void start () {
-        System.out.println("Let's play a game");
-        myInputs = new PlayerInputs(this, myView);
-        mySecretary = new Secretary();
-        generateVisitMethods(spriteStrings);      
     }
 }
