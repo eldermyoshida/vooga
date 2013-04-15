@@ -1,32 +1,38 @@
 package vooga.scroller.statistics;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.awt.Color;
+import java.awt.geom.Point2D;
+import util.Location;
 
-public class PlayerScore implements Statistic<Integer> {
+public class PlayerScore implements Statistic {
 
+    private static final String DEFAULT_STRING = "SCORE";
+    public static final Point2D DEFAULT_SCORE_LOCATION = new Location(50,20);
+    public static final Color DEFAULT_SCORE_COLOR = Color.black;
     private int myScore;
-    
-    public PlayerScore(int startScore) {
-        myScore = startScore;
-    }
-    
+
     @Override
-    public void addValue (Integer obj) {
-        myScore += obj;
+    public void addValue (int val) {
+        myScore += val;
         
     }
 
     @Override
-    public void removeValue (Integer obj) {
-        myScore -= obj;       
+    public void removeValue (int val) {
+        myScore -= val;
     }
 
     @Override
-    public Collection<Integer> getAllValues () {
-        Collection<Integer> res = new ArrayList<Integer>();
-        res.add(myScore);
-        return res;
+    public int getAggregateValue () {
+        return myScore;
     }
+
+    @Override
+    public String getName () {
+        return DEFAULT_STRING;
+    }
+    
+
+
 
 }

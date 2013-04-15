@@ -65,7 +65,7 @@ public class Model {
     private void initPlayer() {
         // TODO: this is implemented by the developer. 
         myPlayer = new Mario(
-                             new Location(64, 150),
+                             new Location(100, 140),
                              new Dimension(32, 32),
                              myView, myScrollingManager);
         myPlayer.setView(new Animation(myPlayer));

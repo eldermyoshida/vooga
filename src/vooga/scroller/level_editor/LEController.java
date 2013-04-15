@@ -32,6 +32,7 @@ public class LEController {
     private static final int DEFAULT_SPRITE_GRID_SIZE = 30;
     private ToolsManager myToolsManager;
     private LevelWriter myLevelWriter;
+    private LevelParser myLevelParser;
     
     /**
      * Constructor
@@ -46,6 +47,8 @@ public class LEController {
         myWorkspace2Tab = new HashMap<Editable, WorkspaceView>();
         myTab2Workspace = new HashMap<WorkspaceView, Editable>();
         myLevelWriter = new LevelWriter();
+        myLevelParser = new LevelParser();
+        myLevelParser.setNameMap(myToolsManager.getNameMap());
     }
 
     private String getLanguage () {
@@ -68,16 +71,6 @@ public class LEController {
 //        myView.pack();
 //        myView.setVisible(true);
     }
-   
-
-    /**
-     * Load a file in a specific tab - TODO
-     * @param f - File to be loaded.
-     * @param t - Tab where file is to be loaded.
-     */
-    public void loadFile (WorkspaceView t, File f) {
-
-    }
 
     /**
      * return the Room Object corresponding to the input TabView
@@ -96,6 +89,13 @@ public class LEController {
     public void saveFile (File file2save, WorkspaceView t) {
         LEGrid grid = (LEGrid) getModelForWorkspace(t);
         myLevelWriter.createFile(file2save,grid);
+    }
+
+    public void loadFile (File file2open) {
+        Editable m = myLevelParser.loadFileToGrid(file2open);
+        int id = myWorkspace2Tab.size();
+        createWorkspaceView(id, m);
+        
     }
 
     /**
@@ -148,15 +148,25 @@ public class LEController {
      * @param id
      */
     private void initializeWorkspace (int id) {
-        initializeWorkspace(id, DEFAULT_SPRITE_GRID_SIZE, DEFAULT_SPRITE_GRID_SIZE);
+        Editable m = new LEGrid(DEFAULT_SPRITE_GRID_SIZE,DEFAULT_SPRITE_GRID_SIZE);;
+        createWorkspaceView(id, m);
     }
-    
-    private void initializeWorkspace(int id, int numWidthBlocks, int numHeightBlocks) {
-        Editable m = new LEGrid(numWidthBlocks, numHeightBlocks);
-        WorkspaceView associatedWorkspaceView = myView.initializeWorkspaceView(id, (Renderable) m);
+
+    /**
+     * @param id
+     * @param m
+     */
+    private void createWorkspaceView (int id, Editable m) {
+        WorkspaceView associatedWorkspaceView = 
+                myView.initializeWorkspaceView(id, (Renderable) m);
         myWorkspace2Tab.put(m, associatedWorkspaceView);
         myTab2Workspace.put(associatedWorkspaceView, m);
         myView.showWorkspace(associatedWorkspaceView, (Renderable) m);
+       }
+    
+    private void initializeWorkspace(int id, int numWidthBlocks, int numHeightBlocks) {
+        Editable m = new LEGrid(numWidthBlocks, numHeightBlocks);
+        createWorkspaceView(id, m);
     }
 
 }

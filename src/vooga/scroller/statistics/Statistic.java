@@ -8,15 +8,15 @@ import java.util.Collection;
  * @author Scott Valentine
  *
  */
-public interface Statistic<T> {
+public interface Statistic {
 
     
-    public void addValue(T obj);
+    public void addValue(int val);
     
-    public void removeValue(T obj);
+    public void removeValue(int val);
     
-    public Collection<T> getAllValues();
+    public int getAggregateValue();
     
-    
+    public String getName();
     
 }
