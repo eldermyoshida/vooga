@@ -1,5 +1,6 @@
 package vooga.rts.map;
 
+import vooga.rts.util.Location;
 /**
  * Ramp nodes connect to every node touching them.
  * @author Challen Herzberg-Brovold
@@ -8,8 +9,8 @@ package vooga.rts.map;
 public class RampNode extends Node {
     
     
-    public RampNode (int x, int y) {
-        super(x, y, -1);
+    public RampNode (int x, int y, Location center) {
+        super(x, y, -1, center);
     }
     
     @Override

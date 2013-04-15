@@ -1,17 +1,14 @@
 package vooga.rts.gamedesign;
 
+import vooga.rts.gamedesign.sprite.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
 import vooga.rts.gamedesign.sprite.rtsprite.Projectile;
-import vooga.rts.gamedesign.sprite.rtsprite.RTSprite;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.Interactive;
-import vooga.rts.gamedesign.upgrades.Upgrade;
-import vooga.rts.gamedesign.upgrades.UpgradeTree;
+import vooga.rts.gamedesign.upgrades.*;
 import vooga.rts.util.Location;
 import java.awt.geom.Ellipse2D.Double;
 import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.List;
-
 
 /**
  * This class represents a weapon. The CanAttack class the implements
@@ -27,16 +24,16 @@ import java.util.List;
  * @author Wenshun Liu
  * 
  */
-public abstract class Weapon {
+public class Weapon {
 
     private int myDamage;
     private Projectile myProjectile;
     private UpgradeTree myUpgradeTree;
     private int myRange;
     private List<Projectile> myProjectiles;
-    private int maxCooldown;
-    private int cooldown; 
+    private Interval interval;
     private Ellipse2D myRangeCircle;
+    private Location myCenter;
 
     /**
      * Creates a new weapon with default damage and projectile.
@@ -48,38 +45,39 @@ public abstract class Weapon {
         myDamage = damage;
         myProjectile = projectile;
         myRange = range;
-        maxCooldown = cooldownTime;
-        myRangeCircle = new Ellipse2D.Double(center.getX(), center.getY(), range, range);
+        interval = new Interval(cooldownTime);
+        myCenter = center;
         myProjectiles = new ArrayList<Projectile>();
     }
 
     /**
      * This method is used by the weapon to attack an RTSprite.
-     * @throws CloneNotSupportedException 
+     * 
+     * 
      */
-    public void fire (RTSprite toBeShot) throws CloneNotSupportedException {
-        System.out.println(cooldown);
-        if(cooldown == 0) {
-            if (!toBeShot.isDead()) {
-                myProjectile.attack(toBeShot);
-                myProjectiles.add(myProjectile);
-                setCooldown(maxCooldown);
-            }
+    public void fire (InteractiveEntity toBeShot) {
+        if(interval.allowAction() && !toBeShot.isDead()){
+            Projectile fire = new Projectile(myProjectile, myCenter);
+            fire.setEnemy(toBeShot);
+            fire.move(toBeShot.getCenter());
+            myProjectiles.add(fire);
+            interval.resetCooldown();
         }
-        decrementCooldown();
     }
-
     /**
      * This method is used to upgrade a weapon either
      * 
      * @param upgrade
      */
-    public void upgrade (Upgrade upgrade) {
-    }
 
-    public List<Projectile> getProjectiles(){
+    //public void upgrade (Upgrade upgrade) {
+
+    //}
+
+    public List<Projectile> getProjectiles () {
         return myProjectiles;
     }
+
     /**
      * This method is used to change the projectile for the weapon
      * 
@@ -97,31 +95,22 @@ public abstract class Weapon {
      * @return true if the interactive is in the range of the weapon and false
      *         if the interactive is out of the range of the weapon
      */
-    public boolean inRange (Interactive interactive, Location center) {
+    public boolean inRange (InteractiveEntity enemy) {
         // add z axis
-        myRangeCircle = new Ellipse2D.Double(center.getX(), center.getY(), myRange, myRange);
-        return myRangeCircle.contains(interactive.getCenter());
+        //see if enemy is in adjacent node, better way. 
+        myRangeCircle = new Ellipse2D.Double(myCenter.getX(), myCenter.getY(), myRange, myRange);
+        return myRangeCircle.contains(enemy.getCenter());
+    }
+    public int getRange(){
+        return myRange;
     }
 
-    /**
-     * subtracts 1 from the cooldown counter
-     */
-    public void decrementCooldown() {
-        cooldown--;
-    }
-    /**
-     * Returns the cooldown time on the weapon
-     * @return the cooldown time on the weapon
-     */
-    public int getCooldown() {
-        return cooldown;
-    }
-    /**
-     * After the weapon fires, the cooldown is set to the max cooldown for the
-     * weapon. 
-     * @param time is the time that the cooldown is set to
-     */
-    private void setCooldown(int time) {
-        cooldown = time;
+    public void update (double elapsedTime) {
+        if(!interval.allowAction()){
+            interval.decrementCooldown();
+        }
+        for(Projectile p : myProjectiles){
+            p.update(elapsedTime);
+        }
     }
 }

@@ -1,5 +1,6 @@
 
 package vooga.rts.map;
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,7 @@ public class NodeMap {
     private int myHeight;
     private Node[][] myMap;
     
-    public NodeMap (List<Node> myNodeList, int width, int height) {
+    public NodeMap (int width, int height) {
         myMap = new Node[width][height];
         myWidth = width;
         myHeight = height;
@@ -38,5 +39,9 @@ public class NodeMap {
     
     public int getHeight () {
         return myHeight;
+    }
+    
+    public void put (Node node, int x, int y) {
+        myMap[x][y] = node;
     }
 }

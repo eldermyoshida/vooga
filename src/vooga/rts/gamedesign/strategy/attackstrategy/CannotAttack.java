@@ -1,7 +1,6 @@
 package vooga.rts.gamedesign.strategy.attackstrategy;
 
 import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Units;
 
 
 /**
@@ -15,9 +14,10 @@ import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Units;
  * @author Wenshun Liu
  * 
  */
+
 public class CannotAttack implements AttackStrategy {
-    
-    public void attack (IAttackable a) {
-        System.out.println("I am a nicene creed");
+
+    public boolean canAttack (IAttackable a) {
+        return false;
     }
 }

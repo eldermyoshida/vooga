@@ -14,6 +14,11 @@ public abstract class Button extends Observable implements IGameLoop {
     private BufferedImage myImage;
     protected Dimension mySize;
     protected Location myPos;
+    protected boolean isFocused;
+    
+    /*
+     * TODO: Add onFocus behavior for each button.
+     */
     
     public Button (String image, Dimension size, Location pos) {
         if (image != null) {
@@ -21,6 +26,7 @@ public abstract class Button extends Observable implements IGameLoop {
         }
         mySize = size;
         myPos = pos;
+        isFocused = false;
     }
 
     @Override
@@ -33,8 +39,33 @@ public abstract class Button extends Observable implements IGameLoop {
         }
     }
     
-    public boolean checkClick(int x, int y) {
+	
+	public void processClick () {}
+	
+	public void processHover() {}
+    
+    public boolean checkWithinBounds(int x, int y) {
         return (x > myPos.x && y > myPos.y && x < (myPos.x + mySize.width) && y < (myPos.y + mySize.height));
     }
+    
+    public Dimension getSize () {
+    	return mySize;
+    }
+    
+    public void setSize (Dimension s) {
+    	mySize = s;
+    }
+    
+    public Location getPos () {
+    	return myPos;
+    }
+
+    public void setPos (Location l) {
+    	myPos = l;
+    }
+    
+	public void setFocused(boolean b) {
+		isFocused = b;
+	}
 
 }

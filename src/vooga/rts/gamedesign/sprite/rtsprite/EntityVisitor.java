@@ -1,5 +1,6 @@
 package vooga.rts.gamedesign.sprite.rtsprite;
 
+import vooga.rts.gamedesign.sprite.rtsprite.interactive.IGatherable;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.IOccupiable;
 
 
@@ -11,15 +12,10 @@ import vooga.rts.gamedesign.sprite.rtsprite.interactive.IOccupiable;
  * @author Wenshun Liu 
  *
  */
-public interface RTSpriteVisitor {
+public interface EntityVisitor {
 
-    /**
-     * 
-     * @param rtSprite
-     * @throws CloneNotSupportedException 
-     */
-    public void visit(IAttackable a) throws CloneNotSupportedException;
-
+   
+    public void visit(IAttackable a);
     public void visit(IOccupiable o);
 
     public void visit(IGatherable g);
