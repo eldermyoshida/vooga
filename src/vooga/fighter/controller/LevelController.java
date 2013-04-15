@@ -121,7 +121,9 @@ public class LevelController extends Controller {
     }
     @Override
     public void notifyEndCondition () {
-        // TODO Auto-generated method stub
+        myGameInfo.setMapName(2);
+        myGameInfo.getCharacters().clear();
+        myManager.notifyEndCondition("GameOver");
         
     }
     

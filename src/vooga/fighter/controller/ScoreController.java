@@ -62,7 +62,10 @@ public class ScoreController extends Controller {
 
     @Override
     public void notifyEndCondition () {
-        myManager.notifyEndCondition("GameOver");
+        myGameInfo.setCharacter(0, 1);
+        myGameInfo.setCharacter(1, 2);
+        myGameInfo.setMapName(1);
+        myManager.notifyEndCondition("Test");
         
     }
    
