@@ -1,10 +1,13 @@
 package vooga.fighter.controller;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Timer;
+import util.Location;
 import vooga.fighter.game.Mode;
 import vooga.fighter.input.Input;
+import vooga.fighter.util.Paintable;
 import vooga.fighter.view.Canvas;
 
 public class ScoreController extends Controller {
@@ -71,8 +74,7 @@ public class ScoreController extends Controller {
     protected Input makeInput () {
         return new Input(INPUT_PATHWAY, super.getView());
     }
-    
-    
-    
+
+   
 
 }

@@ -22,7 +22,7 @@ import util.*;
  */
 
 public class GameLoopInfo extends Observable implements ViewDataSource{
-	private LevelMode myMode;
+    private LevelMode myMode;
     private Integer myNumObjects;
     private List<ImageDataObject> myImageData;
     private List<String> myCharacterNames;
@@ -77,14 +77,18 @@ public class GameLoopInfo extends Observable implements ViewDataSource{
     public void updateImages(){
     	mySpriteLocations.clear();
     	mySprites.clear();
-    	 myImageSizes.clear();
+    	myImageSizes.clear();
     	myImageData = myMode.getImageData();
     	myNumObjects = myImageData.size();
     	for(ImageDataObject data : myImageData){
     		mySprites.add(data.getMyImage());
-    	mySpriteLocations.add(data.getMyLocation());
-    	myImageSizes.add(data.getMySize());
+    		mySpriteLocations.add(data.getMyLocation());
+    		myImageSizes.add(data.getMySize());
     	}
+    }
+    
+    public void updateStats() {
+        
     }
 
     /**

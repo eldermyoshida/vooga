@@ -23,7 +23,7 @@ import javax.swing.Timer;
  *
  */
 
-public abstract class Controller implements ModelDelegate, ViewDataSource {
+public abstract class Controller implements ModelDelegate {
 
     private ControllerDelegate myManager;
     private String myName;
