@@ -66,6 +66,10 @@ public class MapScreen extends JPanel {
         }
     }
 
+    public void placeItem (Point point) {
+        
+    }
+    
     public void paintGridLines (Graphics pen) {
         for (int i = 0; i < mySize.width; i += 25) {
             pen.drawLine(i, 0, i, mySize.height);

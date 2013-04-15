@@ -11,7 +11,7 @@ public class ExampleWave extends Wave {
                         double duration) {
         super(gameMap, units, spawnDelay, duration);
 
-        List<Unit> units = new ArrayList<Unit>();
+        units = new ArrayList<Unit>();
         mySpawnDelay = 100;
         myDuration = 60000;
         Wave wave = new ExampleWave(myModel.getMap(), units, spawnDelay,

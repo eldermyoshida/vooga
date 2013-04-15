@@ -49,9 +49,10 @@ public class Controller {
     }
     
     private void fixItemOnMap (GameElement item, Point p) {
-        //item.setCenter(p.x, p.y);
         Tile myTile = myModel.getTile(p);
         myTile.setTower(item);
+        myModel.getMap().addToMap(item);
+        displayMap();
     }
     
     public void displayMap() {
