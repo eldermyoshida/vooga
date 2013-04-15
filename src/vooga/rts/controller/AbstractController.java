@@ -30,8 +30,6 @@ public abstract class AbstractController extends Observable implements IGameLoop
 
     public abstract MainState getGameState ();
 
-    public void onMouseMove (PositionObject o) {
-    }
 
 	
 }

@@ -48,10 +48,5 @@ public class InputController {
         myActiveController.onMouseMove(o);
     }
 
-    @InputMethodTarget(name = "onMouseMove")
-    public void onMouseMove (PositionObject o) {        
-        myActiveController.onMouseMove(o);
-    }
-
 
 }
