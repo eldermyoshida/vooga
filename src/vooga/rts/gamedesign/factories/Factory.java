@@ -1,12 +1,9 @@
 package vooga.rts.gamedesign.factories;
 
-import java.awt.Dimension;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -19,19 +16,13 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import vooga.rts.gamedesign.Weapon;
 import vooga.rts.gamedesign.action.Action;
 import vooga.rts.gamedesign.sprite.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings.UpgradeBuilding;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Soldier;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Unit;
 import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;
 import vooga.rts.gamedesign.upgrades.UpgradeNode;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
-import vooga.rts.resourcemanager.ResourceManager;
-import vooga.rts.util.Location;
-import vooga.rts.util.Pixmap;
-import vooga.rts.util.Sound;
 
 /** 
  *  This class is in charge of the loading of input XML files for different
@@ -155,7 +146,8 @@ public class Factory {
 		
 		//creates two Units - adds upgrade Actions to the UpgradeBuilding
 		//the first Unit needs to specify the UpgradeTree all Units will be using.
-		InteractiveEntity oneUnit = new Unit(resultTree);
+		InteractiveEntity oneUnit = new Unit();
+		oneUnit.setUpgradeTree(resultTree);
 		upgradeBuilding.addUpgradeActions(resultTree);
 		InteractiveEntity twoUnit = new Unit();
 		oneUnit.setAttackStrategy(new CanAttack());

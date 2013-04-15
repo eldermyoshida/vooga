@@ -2,20 +2,30 @@ package vooga.rts.controller;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
+
 import vooga.rts.gamedesign.Weapon;
+import vooga.rts.gamedesign.factories.Factory;
 import vooga.rts.gamedesign.sprite.rtsprite.Projectile;
 import vooga.rts.gamedesign.sprite.rtsprite.Resource;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings.Barracks;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings.Building;
+import vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings.UpgradeBuilding;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Soldier;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Unit;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Worker;
 import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;
 import vooga.rts.gamedesign.strategy.attackstrategy.CannotAttack;
+import vooga.rts.gamedesign.upgrades.UpgradeTree;
 import vooga.rts.input.PositionObject;
 import vooga.rts.map.GameMap;
 import vooga.rts.player.HumanPlayer;
@@ -35,6 +45,7 @@ public class GameController extends AbstractController {
                            // made for now.
     private Resource r; 
     private Building building;
+    private UpgradeBuilding upgradeBuilding;
     
     public GameController () {
         myTeams = new HashMap<Integer, Team>();
@@ -86,6 +97,7 @@ public class GameController extends AbstractController {
             }
         }
         building.update(elapsedTime);
+        upgradeBuilding.update(elapsedTime);
     }
 
     @Override
@@ -95,6 +107,7 @@ public class GameController extends AbstractController {
         }
         r.paint(pen);
         building.paint(pen);
+        upgradeBuilding.paint(pen);
     }
 
     @Override
@@ -122,13 +135,20 @@ public class GameController extends AbstractController {
     }
 
     @Override
-    public void activate (MainState gameState) {
+    public void activate (MainState gameState) throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ParserConfigurationException, SAXException, IOException {
         setupGame();
     }
 
-    private void setupGame () {
-        System.out.println("Game is setup");
+    private void setupGame () throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ParserConfigurationException, SAXException, IOException {
+    	System.out.println("Game is setup");
 
+    	//Test upgrade behavior
+        Factory factory = new Factory();
+		UpgradeTree resultTree = factory.loadXMLFile("/Users/Sherry/Desktop/Academics/Compsci 308/Final VOOGA/GameDesign/src/vooga/rts/gamedesign/factories/XML_Sample");
+        
+		upgradeBuilding = new UpgradeBuilding(new Pixmap(ResourceManager.instance().loadFile("images/barracks.jpeg")), 
+                new Location(500,500), new Dimension(150,150), null, 1,300);
+    	
         Player p1 = new HumanPlayer();
         Pixmap p = new Pixmap(ResourceManager.instance().loadFile("images/soldier.png"));
         Dimension s = new Dimension(90, 90);
@@ -137,6 +157,9 @@ public class GameController extends AbstractController {
         Unit a = null;
         try {
             a = new Soldier(p, new Location(100, 100), s, soun, 20, 100);
+            a.setUpgradeTree(resultTree);
+            upgradeBuilding.addUpgradeActions(resultTree);
+            
             Projectile proj =
                     new Projectile(new Pixmap(ResourceManager.instance()
                             .loadFile("images/bullet.png")), a.getCenter(), new Dimension(30, 30),

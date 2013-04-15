@@ -72,6 +72,10 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
 	public UpgradeTree getUpgradeTree() {
 		return myUpgradeTree;
 	}
+	
+	public void setUpgradeTree(UpgradeTree upgradeTree) {
+		myUpgradeTree = upgradeTree;
+	}
 
 	/**
 	 * This method specifies that the interactive entity is getting attacked
