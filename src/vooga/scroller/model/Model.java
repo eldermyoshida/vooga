@@ -11,6 +11,7 @@ import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.animation.Animation;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.sprites.test_sprites.mario.Mario;
+import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.Secretary;
 import vooga.scroller.view.View;
 
@@ -31,15 +32,16 @@ public class Model {
     private Player myPlayer;
 
     // This is weird how it works. I think you just need to instantiate it(see constructor)
-    private ModelInputs myInputs;
+    private IInput myInputs;
     private LevelManager myLevelManager;
     private ScrollingManager myScrollingManager;
     private Secretary mySecretary;
-    private List<String> spriteStrings = Arrays.asList("Mario mario", "Koopa koopa", "Coin coin",
+    private List<String> spriteStrings = Arrays.asList("Koopa koopa", "Coin coin",
                                                        "MarioLib.MovingPlatform movingPlatform"); 
     private static final String PART_ONE = "public void visit (";
     private static final String PART_TWO = ") {}";
     private static final String COMMA = ", ";
+    private Pixmap mySplash;
     
     /**
      * Constructs a new Model based on the view and the scrolling manager used by the game.
@@ -50,14 +52,15 @@ public class Model {
     public Model (View view, ScrollingManager sm) {
         myScrollingManager = sm;
         myView = view;
-        initPlayer();
-        myInputs = new ModelInputs(myPlayer, view);
-        myLevelManager = new LevelManager(myScrollingManager, view);
-        myLevelManager.currentLevel().addPlayer(myPlayer);
-        mySecretary = new Secretary();
-        generateVisitMethods(spriteStrings);
+        myInputs = new SplashInputs(this, myView);
+        mySplash = new Pixmap("plant.png"); 
         
+        initPlayer();
+        myLevelManager = new LevelManager(myScrollingManager, myView);
+        myLevelManager.currentLevel().addPlayer(myPlayer);
     }
+
+
 
     /**
      * User defined player initialization.
@@ -76,7 +79,14 @@ public class Model {
      * Draw all elements of the game.
      */
     public void paint (Graphics2D pen) {
-        myLevelManager.currentLevel().paint(pen);
+        
+        if(mySecretary == null) {
+            mySplash.paint(pen, myView.getLocation(), myView.getSize());
+        }
+        else {
+            myLevelManager.currentLevel().paint(pen);
+        }
+        
         
     }
 
@@ -86,7 +96,15 @@ public class Model {
      * @param elapsedTime is the elapsed time since the last update.
      */
     public void update (double elapsedTime) {
-        myLevelManager.currentLevel().update(elapsedTime, myView.getSize(), myView);
+        
+        // WTF
+        if(mySecretary == null) {
+            
+        }
+        else {
+            myLevelManager.currentLevel().update(elapsedTime, myView.getSize(), myView);
+
+        }
     }
 
     /**
@@ -118,6 +136,10 @@ public class Model {
         return myLevelManager.currentLevel().getBackground();
     }
     
+    public Player getPlayer(){
+        return myPlayer;
+    }
+    
     
     /**
      * This method is a helper I created to generate all the visit methods CollisionManager 
@@ -137,5 +159,12 @@ public class Model {
                 mySecretary.write(PART_ONE + firstSpriteString + COMMA + secondSpriteString + PART_TWO);
             }
         }        
+    }
+
+    public void start () {
+        System.out.println("Let's play a game");
+        myInputs = new PlayerInputs(this, myView);
+        mySecretary = new Secretary();
+        generateVisitMethods(spriteStrings);      
     }
 }

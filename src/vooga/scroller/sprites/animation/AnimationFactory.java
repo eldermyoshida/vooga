@@ -36,8 +36,8 @@ public class AnimationFactory {
         res.add(stand);
         res.add(right);
         res.add(left);
-        res.add(standRight);
-        res.add(standLeft);
+        //res.add(standRight);
+        //res.add(standLeft);
         
         return res;
     }

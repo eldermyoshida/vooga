@@ -19,8 +19,8 @@ public class RightStand extends AnimationState {
     public boolean validAnimation (Sprite unit) {
 
         
-        if(unit.getVelocity().getComponentVector(Sprite.RIGHT_DIRECTION).getMagnitude() >= 5|| 
-                unit.getVelocity().getComponentVector(Sprite.LEFT_DIRECTION).getMagnitude() >= 5){
+        if(unit.getVelocity().getComponentVector(Sprite.RIGHT_DIRECTION).getMagnitude() >= 10|| 
+                unit.getVelocity().getComponentVector(Sprite.LEFT_DIRECTION).getMagnitude() >= 10){
             myFacingLeft = false;
         }
         if (unit.lastLocation().x - unit.getCenter().x < -.3){ 
