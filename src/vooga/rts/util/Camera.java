@@ -108,6 +108,10 @@ public class Camera {
         // TODO
         return true;
     }
+    
+    public boolean isVisible(Point2D screen) {
+        return !(screen.getX() < 0 || screen.getY() < 0 || screen.getX() > myScreenSize.getWidth() || screen.getY() > myScreenSize.getHeight()); 
+    }
 
     public void paint (Graphics2D pen) {
         double x = myScreenSize.getWidth() / 2;

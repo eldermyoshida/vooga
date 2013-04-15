@@ -119,7 +119,6 @@ public class GameController extends AbstractController {
             pen.draw(myDrag);
         }
         pt.paint(pen);
-
     }
 
     @Override
