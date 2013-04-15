@@ -59,13 +59,6 @@ public class LevelController extends Controller {
     }
 
 
-    /**
-     * Checks special occurences of game state.
-     */
-    public void notifyEndCondition(String string) {
-        
-    }
-
 
     @Override
     public Controller getController (ControllerDelegate delegate, GameInfo gameinfo) {
@@ -99,17 +92,11 @@ public class LevelController extends Controller {
     public void downInput(AlertObject alObj) {
         
     }
-    
 
-	@Override
-	public void notifyEndCondition() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@InputMethodTarget(name="jump")
-	public void PlayerOneJump(){
-		//fill in the method here
-	}
+    @Override
+    public void notifyEndCondition () {
+        // TODO Auto-generated method stub
+        
+    }
     
 }
