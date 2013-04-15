@@ -15,6 +15,7 @@ import util.Pixmap;
  */
 public class State {
 
+	public static final int TICK_SPEED = 2;
     public int myNumFrames;
     public int myCurrentFrame;
     
@@ -35,6 +36,11 @@ public class State {
      * True if the animation for this state loops, false otherwise.
      */
     private boolean myLooping;
+    
+    /**
+     * Slows down pace of state animation
+     */
+    private int myCount;
     
     private Pixmap[] myImages;
     private Rectangle[] myRectangles;    
@@ -156,7 +162,11 @@ public class State {
      * Progresses this state to the next frame in its animation and hitbox.
      */
     public void update() {
-        myCurrentFrame++;
+    	myCount++;
+        if(myCount == TICK_SPEED) {
+        	myCurrentFrame++;
+        	myCount = 0;
+        }
         if (hasCompleted() && myLooping) {
             resetState();
         }
