@@ -13,19 +13,6 @@ public class DamageUpgradeNode extends UpgradeNode {
 		super(upgradeTree, id, upgradeType, upgradeObject, upgradeValue);
 	}
 	
-	/**
-	 * Applies the damage upgrade by the method that updates damage.
-	 */
-	@Override
-	public void apply(int playerID)
-			throws IllegalArgumentException, IllegalAccessException,
-			InvocationTargetException, InstantiationException,
-			SecurityException, NoSuchMethodException {
-		for (InteractiveEntity i: getUpgradeTree().getUsers().get(playerID)){
-			apply(i);
-		}
-	}
-	
 	@Override
 	public void apply(InteractiveEntity requester) {
 		if (requester.getAttackStrategy().getCanAttack() && !requester.getAttackStrategy().getWeapons().isEmpty()){

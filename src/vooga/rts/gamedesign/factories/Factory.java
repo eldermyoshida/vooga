@@ -137,7 +137,7 @@ public class Factory {
 	/**
 	 * TESTING PURPOSE
 	 */
-	public static void main(String[] args) throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ParserConfigurationException, SAXException, IOException {
+	/**public static void main(String[] args) throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ParserConfigurationException, SAXException, IOException {
 		//loads Upgrade XML - creates tree - updates activate state
 		Factory factory = new Factory();
 		UpgradeTree resultTree = factory.loadXMLFile("/Users/Sherry/Desktop/Academics/Compsci 308/Final VOOGA/GameDesign/src/vooga/rts/gamedesign/factories/XML_Sample");
@@ -164,5 +164,5 @@ public class Factory {
 		//WorstArmorAction.apply();
 		System.out.println(oneUnit.getMaxHealth());
 		System.out.println(twoUnit.getMaxHealth());
-	}
+	}*/
 }

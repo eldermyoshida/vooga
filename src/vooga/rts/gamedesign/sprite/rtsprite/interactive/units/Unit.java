@@ -56,6 +56,7 @@ public class Unit extends InteractiveEntity {
     public Unit (Pixmap image, Location center, Dimension size, Sound sound, int playerID, int health) {
         super(image, center, size, sound, playerID, health);
         //myPather = new PathingHelper();
+        System.out.println(playerID + " " + health);
         myOccupyStrategy = new CannotOccupy();
         if (myUpgradeTree != null){
         	if (myUpgradeTree.getUsers().get(playerID) == null) {
@@ -78,7 +79,15 @@ public class Unit extends InteractiveEntity {
     @Override
     public void setUpgradeTree(UpgradeTree upgradeTree, int playerID) {
     	myUpgradeTree = upgradeTree;
-    	myUpgradeTree.addUser(this, playerID);
+    	if (myUpgradeTree.getUsers().get(playerID) == null) {
+    		List<InteractiveEntity> entityGroup = new ArrayList<InteractiveEntity>();
+    		entityGroup.add(this);
+    		myUpgradeTree.getUsers().put(playerID, entityGroup);
+    	} else {
+    		List<InteractiveEntity> entityGroup = myUpgradeTree.getUsers().get(playerID);
+    		entityGroup.add(this);
+    		myUpgradeTree.getUsers().put(playerID, entityGroup);
+    	}
     }
     
     /**

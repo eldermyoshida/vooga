@@ -13,19 +13,20 @@ public class HealthUpgradeNode extends UpgradeNode {
 		super(upgradeTree, id, upgradeType, upgradeObject, upgradeValue);
 	}
 	
-	/**
-	 * Applies the health upgrade by the method that updates health.
-	 */
 	@Override
-	public void apply(int playerID)
-			throws IllegalArgumentException, IllegalAccessException,
-			InvocationTargetException, InstantiationException,
-			SecurityException, NoSuchMethodException {
-        for (InteractiveEntity i: getUpgradeTree().getUsers().get(playerID)){
-        	apply(i);
-        }
-	}
+	public void apply(int playerID) //TODO: figure out which one should actually be called under Action
+    		throws IllegalArgumentException, IllegalAccessException,
+    		InvocationTargetException, InstantiationException,
+    		SecurityException, NoSuchMethodException {
+		for (InteractiveEntity i: getUpgradeTree().getUsers().get(playerID)){
+	    	apply(i);
+	    }
+    }
 	
+	/**
+	 * Applies the upgrade to an individual InteractiveEntity by calling
+	 * related method.
+	 */
 	@Override
 	public void apply(InteractiveEntity requester) { //TODO: figure out which one should actually be called under Action
 		requester.addMaxHealth(getUpgradeValue());

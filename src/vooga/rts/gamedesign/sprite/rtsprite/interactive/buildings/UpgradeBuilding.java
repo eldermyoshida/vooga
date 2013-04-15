@@ -16,11 +16,6 @@ import vooga.rts.util.Sound;
 public class UpgradeBuilding extends Building{
 	public int PRODUCE_TIME = 90;
 	
-	//TESTING PURPOSE. FEEL FREE TO DELETE
-	public UpgradeBuilding(){
-		this(null, new Location(0,0), new Dimension(30,30), null, 0, 100);
-	}
-	
 	public UpgradeBuilding(Pixmap image, Location center, Dimension size,
 			Sound sound, int playerID, int health) {
 		super(image, center, size, sound, playerID, health, null);
@@ -36,7 +31,9 @@ public class UpgradeBuilding extends Building{
     	            @Override
     	            public void apply(int playerID) throws IllegalArgumentException, SecurityException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException{
     	                u.apply(playerID);
-
+    	                for (InteractiveEntity i: u.getUpgradeTree().getUsers().get(1)) {
+    	                	System.out.println("Health: " + i.getMaxHealth());
+    	                }
     	            }
     	        });
     	}
@@ -48,6 +45,9 @@ public class UpgradeBuilding extends Building{
 		
 	}
 
+	/**
+	 * Mimics player's click on action. Now invoke action after certain time. 
+	 */
 	@Override
 	public void update(double elapsedTime) {
 		super.update(elapsedTime);

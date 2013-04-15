@@ -158,14 +158,14 @@ public class GameController extends AbstractController {
 		Sound soun = null;// new Sound("/vooga/rts/sounds/pikachu.wav");
 		Unit a = null;
 		try {
-			a = new Soldier(p, new Location(100, 100), s, soun, 2, 100);
+			a = new Soldier(p, new Location(100, 100), s, soun, 1, 400);
 			System.out.println("Player ID for a: " + a.getPlayerID());
-			a.setUpgradeTree(resultTree,1);
+			a.setUpgradeTree(resultTree,a.getPlayerID());
 			upgradeBuilding.addUpgradeActions(resultTree);
 			Projectile proj =
 					new Projectile(new Pixmap(ResourceManager.instance()
 							.loadFile("images/bullet.png")), a.getCenter(), new Dimension(30, 30),
-							1, 10, 1);
+							2, 10, 1);
 			a.setAttackStrategy(new CanAttack());
 			a.getAttackStrategy().addWeapons(new Weapon(0, proj, 200, a.getCenter(), 25));
 		}
@@ -173,7 +173,7 @@ public class GameController extends AbstractController {
 			// trollolol
 		}
 		
-		Unit b = new Soldier(p, new Location(100, 300), s, soun, 2, 50);
+		Unit b = new Soldier(p, new Location(100, 300), s, soun, 1, 800);
 		System.out.println("Player ID for b: " + b.getPlayerID());
 
 		System.out.println("Game is setup 1");
@@ -184,7 +184,7 @@ public class GameController extends AbstractController {
 		b.setAttackStrategy(new CannotAttack());
 		b.getAttackStrategy().addWeapons(new Weapon(0, proj2, 200, b.getCenter(), 50));
 
-		Unit c = new Soldier(p, new Location(500, 500), s, soun, 1, 100);
+		Unit c = new Soldier(p, new Location(500, 500), s, soun, 2, 300);
 
 		Projectile proj3 =
 				new Projectile(

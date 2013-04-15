@@ -61,7 +61,6 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
      * Ze clone method
      */
     public InteractiveEntity copy() {
-        System.out.println("Interactive Entity clone method, should NOT be printing");
         return null;
     }
     
@@ -112,10 +111,8 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
 			getEntityState().attack();
 			//setVelocity(getVelocity().getAngle(), 0);
 			//getGameState().setMovementState(MovementState.STATIONARY);
-			System.out.println(getEntityState().canAttack());
 			if(getEntityState().canAttack()) {
 			
-				System.out.println("my strategy is attacking");
 				myAttackStrategy.attack(a, distance);
 				
 			}
