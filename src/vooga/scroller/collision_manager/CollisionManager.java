@@ -205,8 +205,26 @@ public class CollisionManager {
         System.out.println("Mario has just collided with Platform!");
         
     }
+
+    public void visit (Mario mario, MarioLib.LevelTwoBlockOne platform) {
+        marioAndNonStaticEntityCollision(mario, platform);
+        System.out.println("Mario has just collided with Platform!");
+        
+    }
     
-    public void visit (Mario mario, MarioLib.MovingPlatformTwo movingPlatform) {
+    public void visit (Mario mario, MarioLib.LevelTwoBlockTwo platform) {
+        marioAndNonStaticEntityCollision(mario, platform);
+        System.out.println("Mario has just collided with Platform!");
+        
+    }
+    
+    public void visit (Mario mario, MarioLib.LevelTwoBlockThree platform) {
+        marioAndNonStaticEntityCollision(mario, platform);
+        System.out.println("Mario has just collided with Platform!");
+        
+    }
+    
+    public void visit (Mario mario, MarioLib.MovingPlatformOne movingPlatform) {
         marioAndNonStaticEntityCollision(mario, movingPlatform);
         System.out.println("Mario has just collided with Platform!");
         
