@@ -1,5 +1,6 @@
 package vooga.fighter.objects;
 
+import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.io.File;
 
@@ -97,6 +98,8 @@ public abstract class ObjectLoader {
 				Node hitboxNode = frame.getElementsByTagName("hitbox").item(0);
 				newState.populateRectangle(new Rectangle(Integer.parseInt(getAttributeValue(hitboxNode, "cornerX")),
 						Integer.parseInt(getAttributeValue(hitboxNode, "cornerY")), Integer.parseInt(getAttributeValue(hitboxNode, "rectX")),
+						Integer.parseInt(getAttributeValue(hitboxNode, "rectY"))), j);
+				newState.populateSize(new Dimension(Integer.parseInt(getAttributeValue(hitboxNode, "rectX")),
 						Integer.parseInt(getAttributeValue(hitboxNode, "rectY"))), j);
 				myObject.addState(stateName, newState);
 			}
