@@ -36,10 +36,10 @@ public class UpgradeBuilding extends Building{
     	            @Override
     	            public void apply() throws IllegalArgumentException, SecurityException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException{
     	                u.apply();
-    	                System.out.println("Number of users: " + u.getUpgradeTree().getUsers().size());
-    	                for (InteractiveEntity i: u.getUpgradeTree().getUsers()) {
-    	                	System.out.println("health: " + i.getMaxHealth());
-    	                }
+//    	                System.out.println("Number of users: " + u.getUpgradeTree().getUsers().size());
+//    	                for (InteractiveEntity i: u.getUpgradeTree().getUsers()) {
+//    	                	System.out.println("health: " + i.getMaxHealth());
+//    	                }
     	            }
     	        });
     	}

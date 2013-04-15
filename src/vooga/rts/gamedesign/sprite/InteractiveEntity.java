@@ -108,12 +108,13 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
 	public void attack(IAttackable a) {
 		double distance = Math.sqrt(Math.pow(getCenter().x - ((InteractiveEntity) a).getX(), 2) + Math.pow(this.getY() - ((InteractiveEntity) a).getY(), 2)); 
 		if(!this.isDead()) {
-			getEntityState().setAttackingState(AttackingState.ATTACKING);
+			//getEntityState().setAttackingState(AttackingState.ATTACKING);
 			getEntityState().attack();
 			//setVelocity(getVelocity().getAngle(), 0);
 			//getGameState().setMovementState(MovementState.STATIONARY);
 			if(getEntityState().canAttack()) {
 				myAttackStrategy.attack(a, distance);
+				
 			}
 		}    
 	} 

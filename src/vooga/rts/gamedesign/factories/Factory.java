@@ -38,8 +38,7 @@ import vooga.rts.gamedesign.upgrades.UpgradeTree;
 
 public class Factory {
 	//BUGBUG: the file path will break code! :/ (two places: here and in main())
-	public static final String DECODER_MATCHING_FILE = "/Users/Sherry/Desktop/Academics/Compsci 308/Final VOOGA/GameDesign/src/vooga/rts/gamedesign/factories/DecodeMatchUp";
-	
+	public static final String DECODER_MATCHING_FILE = "DecodeMatchUp";
 	Map<String, Decoder> myDecoders = new HashMap<String, Decoder>();
 	
 	public Factory() throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ParserConfigurationException, SAXException, IOException {
@@ -67,7 +66,7 @@ public class Factory {
 	 * @throws IOException
 	 */
 	private void loadDecoder(String fileName) throws ClassNotFoundException, IllegalArgumentException, SecurityException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ParserConfigurationException, SAXException, IOException {
-		File file = new File(fileName);
+		File file = new File(getClass().getResource(fileName).getFile());
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		DocumentBuilder db = dbf.newDocumentBuilder();
 		Document doc = db.parse(file);
@@ -104,11 +103,12 @@ public class Factory {
 	public <T extends Object> T loadXMLFile(String fileName) {
 		Object result = new Object();
 		try {
-			File file = new File(fileName);
+			File file = new File(getClass().getResource(fileName).getFile());
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 			DocumentBuilder db = dbf.newDocumentBuilder();
 			Document doc = db.parse(file);
 			doc.getDocumentElement().normalize();
+			System.out.println(doc.getDocumentElement().getNodeName());
 			result = myDecoders.get(doc.getDocumentElement().getNodeName()).create(doc);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -136,32 +136,32 @@ public class Factory {
 	/**
 	 * TESTING PURPOSE
 	 */
-	public static void main(String[] args) throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ParserConfigurationException, SAXException, IOException {
-		//loads Upgrade XML - creates tree - updates activate state
-		Factory factory = new Factory();
-		UpgradeTree resultTree = factory.loadXMLFile("/Users/Sherry/Desktop/Academics/Compsci 308/Final VOOGA/GameDesign/src/vooga/rts/gamedesign/factories/XML_Sample");
-		
-		//creates an UpgradeBuilding
-		UpgradeBuilding upgradeBuilding = new UpgradeBuilding();
-		
-		//creates two Units - adds upgrade Actions to the UpgradeBuilding
-		//the first Unit needs to specify the UpgradeTree all Units will be using.
-		InteractiveEntity oneUnit = new Unit();
-		oneUnit.setUpgradeTree(resultTree);
-		upgradeBuilding.addUpgradeActions(resultTree);
-		InteractiveEntity twoUnit = new Unit();
-		oneUnit.setAttackStrategy(new CanAttack());
-		twoUnit.setAttackStrategy(new CanAttack());
-		for (Action a: upgradeBuilding.getActions()) {
-			System.out.println("Action type: " + a.getName());
-		}
-		System.out.println(oneUnit.getMaxHealth());
-		System.out.println(twoUnit.getMaxHealth());
-		
-		//finds Action  - 
-		Action WorstArmorAction = upgradeBuilding.findAction("Boost1");
-		WorstArmorAction.apply();
-		System.out.println(oneUnit.getMaxHealth());
-		System.out.println(twoUnit.getMaxHealth());
-	}
+//	public static void main(String[] args) throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ParserConfigurationException, SAXException, IOException {
+//		//loads Upgrade XML - creates tree - updates activate state
+//		Factory factory = new Factory();
+//		UpgradeTree resultTree = factory.loadXMLFile(DECODER_MATCHING_FILE);
+//		
+//		//creates an UpgradeBuilding
+//		UpgradeBuilding upgradeBuilding = new UpgradeBuilding();
+//		
+//		//creates two Units - adds upgrade Actions to the UpgradeBuilding
+//		//the first Unit needs to specify the UpgradeTree all Units will be using.
+//		InteractiveEntity oneUnit = new Unit();
+//		oneUnit.setUpgradeTree(resultTree);
+//		upgradeBuilding.addUpgradeActions(resultTree);
+//		InteractiveEntity twoUnit = new Unit();
+//		oneUnit.setAttackStrategy(new CanAttack());
+//		twoUnit.setAttackStrategy(new CanAttack());
+//		for (Action a: upgradeBuilding.getActions()) {
+//			System.out.println("Action type: " + a.getName());
+//		}
+//		System.out.println(oneUnit.getMaxHealth());
+//		System.out.println(twoUnit.getMaxHealth());
+//		
+//		//finds Action  - 
+//		Action WorstArmorAction = upgradeBuilding.findAction("Boost1");
+//		WorstArmorAction.apply();
+//		System.out.println(oneUnit.getMaxHealth());
+//		System.out.println(twoUnit.getMaxHealth());
+//	}
 }

@@ -89,6 +89,7 @@ public class GameController extends AbstractController {
 				}
 				if (u2.inRange(u1)) {
 					u1.getAttacked(u2);
+					
 				}
 				if (u1 instanceof Worker)
 				{
@@ -144,10 +145,10 @@ public class GameController extends AbstractController {
 		System.out.println("Game is setup");
 
 		Factory factory = new Factory();
-		UpgradeTree resultTree = factory.loadXMLFile("/Users/Sherry/Desktop/Academics/Compsci 308/Final VOOGA/GameDesign/src/vooga/rts/gamedesign/factories/XML_Sample");
+		UpgradeTree resultTree = factory.loadXMLFile("XML_Sample");
 		
 		upgradeBuilding = new UpgradeBuilding(new Pixmap(ResourceManager.instance().loadFile("images/barracks.jpeg")), 
-				new Location(500,500), new Dimension(150,150), null, 1,300);
+				new Location(700,700), new Dimension(150,150), null, 1,300);
 		
 		Player p1 = new HumanPlayer();
 		Pixmap p = new Pixmap(ResourceManager.instance().loadFile("images/soldier.png"));
@@ -170,7 +171,6 @@ public class GameController extends AbstractController {
 			// trollolol
 		}
 		
-		System.out.println("HIIIIII!!!!");
 		Unit b = new Soldier(p, new Location(100, 300), s, soun, 20, 50);
 		System.out.println("Game is setup 1");
 		Projectile proj2 =
@@ -180,8 +180,7 @@ public class GameController extends AbstractController {
 		b.setAttackStrategy(new CannotAttack());
 		b.getAttackStrategy().addWeapons(new Weapon(0, proj2, 200, b.getCenter(), 50));
 
-		Unit c = new Soldier(p, new Location(500, 500), s, soun, 20, 1000);
-		System.out.println("Game is setup 2");
+		Unit c = new Soldier(p, new Location(500, 500), s, soun, 2, 1000);
 		Projectile proj3 =
 				new Projectile(
 						new Pixmap(ResourceManager.instance().loadFile("images/bullet.png")),
