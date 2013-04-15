@@ -19,21 +19,20 @@ public class MapObject extends GameObject {
 
     private List<EnvironmentObject> myEnviroObjects;
     private List<UpdatableLocation> myStartingPositions;
-    private Map<String,State> myStates;
     private Map<String,Sound> mySounds;
-    private State myCurrentState;   
     private Sound myCurrentSound;
 
     /**
      * Constructor for a new Map object.
      */
     public MapObject(int mapId) {
+        super();
         myEnviroObjects = new ArrayList<EnvironmentObject>();
         myStartingPositions = new ArrayList<UpdatableLocation>();
-        myStates = new HashMap<String,State>();
         mySounds = new HashMap<String,Sound>();
-        myCurrentState = null;
         myCurrentSound = null;
+        setLoader(new MapLoader(mapId, this));
+        setCurrentState("background");
         
     }
 
@@ -70,37 +69,6 @@ public class MapObject extends GameObject {
      */
     public List<UpdatableLocation> getStartPositions() {
         return myStartingPositions;
-    }
-    
-    /**
-     * Adds a state to the map object. Overwrites any existing value.
-     */
-    public void addState(String key, State state) {
-        myStates.put(key, state);
-    }
-    
-    /**
-     * Clears all states from the map object.
-     */
-    public void clearStates() {
-        myStates.clear();
-    }
-    
-    /**
-     * Sets the current state of the map object. Does nothing if the given key is
-     * not found in the map.
-     */
-    public void setCurrentState(String key) {
-        if (myStates.containsKey(key)) {
-            myCurrentState = myStates.get(key);
-        }
-    }
-    
-    /**
-     * Returns the current state of the map object.
-     */
-    public State getCurrentState() {
-        return myCurrentState;
     }
     
     /**
@@ -144,12 +112,11 @@ public class MapObject extends GameObject {
     /**
      * Updates all environmental objects in the map object.
      */
-    public void update() {
-        if (myCurrentState != null) {
-            myCurrentState.update();
-            if (myCurrentState.hasCompleted()) {
-                myCurrentState.resetState();
-            }
+    public void update() {        
+        setCurrentState("background");
+        super.update();
+        if (getCurrentState().hasCompleted()) {
+            getCurrentState().resetState();
         }
         if (myCurrentSound != null) {
 

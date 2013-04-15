@@ -67,7 +67,6 @@ public class LevelMode extends Mode {
      */
     public void loadMap (int mapId) {
         myMap = new MapObject(mapId);
-    	MapLoader myMapLoader = new MapLoader(mapId, myMap);
     	myStartLocations = myMap.getStartPositions();
     	addObject(myMap);
     	List<EnvironmentObject> mapObjects = myMap.getEnviroObjects();

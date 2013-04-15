@@ -42,7 +42,7 @@ public class MapLoader extends ObjectLoader {
 			int id = Integer.parseInt(getAttributeValue(node, "mapID"));
 			if (id == mapId) {
 				State mapState = new State(myMap, 1);
-				mapState.populateImage(new Pixmap(getAttributeValue(node, "mapID")), 0);
+				mapState.populateImage(new Pixmap(getAttributeValue(node, "enviroBackground")), 0);
 				myMap.addState("background", mapState);
 				NodeList enviroObjectNodes = node.getElementsByTagName("enviroObject");
 				addEnviroObjects(enviroObjectNodes);

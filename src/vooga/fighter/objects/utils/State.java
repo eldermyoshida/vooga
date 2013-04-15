@@ -53,6 +53,7 @@ public class State {
         mySizes = new Dimension[myNumFrames];
         myRectangles = new Rectangle[myNumFrames];
         myImages = new Pixmap[myNumFrames];
+        myCurrentFrame = 0;
     }    
     
     /**
