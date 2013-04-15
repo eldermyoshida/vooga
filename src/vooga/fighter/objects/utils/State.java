@@ -3,6 +3,7 @@ package vooga.fighter.objects.utils;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 import vooga.fighter.objects.GameObject;
+import util.Location;
 import util.Pixmap;
 
 /**
@@ -30,6 +31,11 @@ public class State {
      */
     private int myDepth;
     
+    /**
+     * True if the animation for this state loops, false otherwise.
+     */
+    private boolean myLooping;
+    
     private Pixmap[] myImages;
     private Rectangle[] myRectangles;    
     private Dimension[] mySizes;
@@ -54,7 +60,15 @@ public class State {
         myRectangles = new Rectangle[myNumFrames];
         myImages = new Pixmap[myNumFrames];
         myCurrentFrame = 0;
+        myLooping = false;
     }    
+    
+    /**
+     * Sets looping boolean. If this method is not called, looping defaults to false.
+     */
+    public void setLooping(boolean looping) {
+        myLooping = looping;
+    }
     
     /**
      * Adds a rectangle this state's rectangle array.
@@ -81,7 +95,10 @@ public class State {
      * Returns the current active rectangle for this state.
      */
     public Rectangle getCurrentRectangle() {
-        return myRectangles[myCurrentFrame];
+        Rectangle result = myRectangles[myCurrentFrame];
+        Location location = myOwner.getLocation().getLocation();
+        result.setLocation((int) location.getX(), (int) location.getY());
+        return result;
     }
     
     /**
@@ -140,6 +157,9 @@ public class State {
      */
     public void update() {
         myCurrentFrame++;
+        if (hasCompleted() && myLooping) {
+            resetState();
+        }
     }
     
     /**
