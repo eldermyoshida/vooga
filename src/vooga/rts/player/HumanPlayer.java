@@ -22,14 +22,7 @@ public class HumanPlayer extends Player {
         for (Unit u : getUnits().getSelected()) {
             u.move(new Location(x, y));            
         }
-    }
-    // Duplicate method 
-    public void handlRightClick(int x, int y, int z) {
-        for (Unit u : getUnits().getSelected())
-        {            
-            u.move(new Location(x, y), getMap());            
-        }
-    }
+    }    
     
     public void handleLeftClick(int x, int y) {
         getUnits().deselectAll();
