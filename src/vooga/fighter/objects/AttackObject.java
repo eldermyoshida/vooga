@@ -33,14 +33,14 @@ public class AttackObject extends GameObject{
         myCounter = new Counter();
     }
     
-    public AttackObject (AttackObject attack, UpdatableLocation center){
+    public AttackObject (AttackObject other, UpdatableLocation center){
     	super();
-        try {
-            attack.clone();
-        }
-        catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
+        this.mySpeed= other.mySpeed;
+        this.myDirection= other.myDirection; 
+        this.myPower= other.myPower; 
+        this.myEffects= other.myEffects;
+        this.myOwner= other.myOwner;
+        this.myCounter= other.myCounter;   
     	setLocation(center);
     }
     
