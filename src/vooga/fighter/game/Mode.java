@@ -1,7 +1,9 @@
 package vooga.fighter.game;
 
 import java.awt.Dimension;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import vooga.fighter.controller.ModelDelegate;
 import vooga.fighter.objects.GameObject;
@@ -15,7 +17,7 @@ import vooga.fighter.objects.GameObject;
  */
 public abstract class Mode {
 
-    private Set<GameObject> myObjects;
+    private List<GameObject> myObjects;
     private long myId;
     private ModelDelegate myModelDelegate;
 
@@ -23,7 +25,7 @@ public abstract class Mode {
      * Constructs a new Mode.
      */
     public Mode(ModelDelegate cd) {
-        myObjects = new HashSet<GameObject>();
+        myObjects = new ArrayList<GameObject>();
         setModelDelegate(cd);
     }
     
@@ -44,7 +46,7 @@ public abstract class Mode {
     /**
     * Returns the list of objects for this mode.
     */
-    public Set<GameObject> getMyObjects() {
+    public List<GameObject> getMyObjects() {
         return myObjects;
     }
 

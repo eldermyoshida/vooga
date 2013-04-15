@@ -12,7 +12,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 
-import vooga.fighter.util.Pixmap;
+import util.Pixmap;
 import vooga.fighter.util.Text;
 import vooga.fighter.view.Canvas;
 import vooga.fighter.controller.ControllerManager;
@@ -27,7 +27,7 @@ import java.util.ResourceBundle;
 
 
 
-public class GameManager extends Game{
+public class GameManager { //extends Game{
 public static final Dimension SIZE = new Dimension(800, 600);
     public static final String TITLE = "Fighter!";
     private Canvas myCanvas;
@@ -37,13 +37,13 @@ public static final Dimension SIZE = new Dimension(800, 600);
 
     public GameManager() {
         myCanvas = new Canvas(SIZE); 
-        myGameInfo = new GameInfo();
+        myGameInfo = new GameInfo(1, 1);
         myControllerManager = new ControllerManager(myCanvas, myGameInfo);
 	}
     
-    public GameManager(ArcadeInteraction arcade){
-    	this();
-    }
+//    public GameManager(ArcadeInteraction arcade){
+//    	this();
+//    }
     
     public GameManager(String runindividually){
         this();
@@ -63,8 +63,8 @@ public static final Dimension SIZE = new Dimension(800, 600);
 		 myControllerManager.run();
 	    }
 	 
-	 public UserGameData generateNewProfile(){
-		 ;
-	 }
+//	 public UserGameData generateNewProfile(){
+//		 ;
+//	 }
 
 }

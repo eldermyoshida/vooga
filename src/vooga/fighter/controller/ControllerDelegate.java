@@ -7,6 +7,6 @@ package vooga.fighter.controller;
  */
 public interface ControllerDelegate {
 
-    public void notifyEndCondition();
+    public void notifyEndCondition(String string);
 
 }
