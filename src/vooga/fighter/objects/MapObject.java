@@ -1,11 +1,8 @@
 package vooga.fighter.objects;
 
-import util.Pixmap;
 import vooga.fighter.objects.utils.State;
 import vooga.fighter.objects.utils.UpdatableLocation;
 import vooga.fighter.util.*;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
 import java.util.*;
 
 
@@ -136,6 +133,13 @@ public class MapObject {
     public Sound getCurrentSound() {
         return myCurrentSound;
     }
+    
+    /**
+     * Begins playing the current sound.
+     */
+    public void playCurrentSound() {
+        myCurrentSound.play();
+    }
 
     /**
      * Updates all environmental objects in the map object.
@@ -147,6 +151,9 @@ public class MapObject {
         if (myCurrentState != null) {
             myCurrentState.update();
         }
-    }
+        if (myCurrentSound != null) {
 
+        }
+    }
+    
 }
