@@ -2,6 +2,7 @@ package vooga.rts.gui;
 
 import java.awt.BufferCapabilities;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GraphicsConfiguration;
@@ -19,6 +20,7 @@ public class Canvas extends JPanel{
         super();
         myStrategy = buffer;
         setBackground(Color.WHITE);
+        super.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
     }
     
     public Graphics2D getGraphics() {    
@@ -29,7 +31,9 @@ public class Canvas extends JPanel{
     }
 
     public void render() {
-        myGraphics.dispose();
-        myStrategy.show();
+        if (!myStrategy.contentsLost()) {
+            myGraphics.dispose();
+            myStrategy.show();
+        }
     }
 }

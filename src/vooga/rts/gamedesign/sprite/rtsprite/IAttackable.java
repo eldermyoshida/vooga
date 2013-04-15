@@ -1,7 +1,5 @@
 package vooga.rts.gamedesign.sprite.rtsprite;
 
-import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
-
 
 /**
  * This interface represents all things that can be attacked.  For example, 
