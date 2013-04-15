@@ -30,8 +30,8 @@ public class TDView {
     private JPanel myPanel;
     private EastWindow myEastWindow;
     private JFrame myFrame;
-    private InfoScreen myTowerInfoScreen;
-    private InfoScreen myPlayerInfoScreen;
+    private InformationScreen myTowerInfoScreen;
+    private InformationScreen myPlayerInfoScreen;
     private MapScreen myMapScreen;
     private ShopScreen myShopScreen;
     private LevelsSelectorScreen myEditorWindow;
@@ -119,11 +119,11 @@ public class TDView {
         return myMapScreen;
     }
 
-    public InfoScreen getTowerInfoScreen () {
+    public InformationScreen getTowerInfoScreen () {
         return myEastWindow.getTowerScreen();
     }
 
-    public InfoScreen getPlayerInfoScreen () {
+    public InformationScreen getPlayerInfoScreen () {
         return myEastWindow.getPlayerScreen();
     }
 }
