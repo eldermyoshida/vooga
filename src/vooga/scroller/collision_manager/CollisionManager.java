@@ -7,6 +7,7 @@ import vooga.scroller.level_editor.Level;
 import vooga.scroller.level_management.LevelPortal;
 import vooga.scroller.sprites.test_sprites.MarioLib;
 import vooga.scroller.sprites.test_sprites.MarioLib.Koopa;
+import vooga.scroller.sprites.test_sprites.MarioLib.Plant;
 import vooga.scroller.sprites.test_sprites.mario.Mario;
 import vooga.scroller.util.Direction;
 import vooga.scroller.util.Sprite;
@@ -181,6 +182,12 @@ public class CollisionManager {
         
     }
     
+    public void visit (Mario mario, Plant plant) {
+        System.out.println("Mario hits plant");
+        mario.takeHit(mario.getHealth());  //kill Mario
+        System.out.println(mario.getHealth());
+    }
+    
     public void visit (Mario mario, MarioLib.Coin coin) {
         System.out.println("Mario just collected a coin");
         
@@ -325,9 +332,7 @@ public class CollisionManager {
         
     }
      
-    private void endGame () {
-        myLevel.getView().win();        
-    }
+
     
     
 }
