@@ -1,4 +1,6 @@
 package vooga.towerdefense.arcadeinteraction;
+import vooga.towerdefense.controller.Controller;
+import vooga.towerdefense.model.GameController;
 import arcade.games.ArcadeInteraction;
 import arcade.games.Game;
 import arcade.games.UserGameData;
@@ -21,8 +23,8 @@ public class TowerDefenseGame extends Game {
 
     @Override
     public void run () {
-        // TODO Auto-generated method stub
-        
+        GameController game = new GameController(new Controller());
+        game.start();
     }
 
 }
