@@ -9,6 +9,7 @@ import java.util.List;
 import javax.swing.JPanel;
 import vooga.towerdefense.gameElements.BasicTower;
 import vooga.towerdefense.gameElements.GameElement;
+import vooga.towerdefense.model.Shop;
 import vooga.towerdefense.util.Location;
 import vooga.towerdefense.util.Pixmap;
 
@@ -24,14 +25,14 @@ public class ShopScreen extends JPanel {
     private static final int XCOORD = 0;
     private static final int YCOORD = 0;
     private Color myBackgroundColor = Color.WHITE;
-    private List<GameElement> myShopItems;
+    private Shop myShop;
 
     // TODO fix constructor so that it takes in several shop items
     public ShopScreen (Dimension size) {
         setPreferredSize(size);
         setFocusable(true);
         setVisible(true);
-        myShopItems = new ArrayList<GameElement> ();
+        myShop = new Shop();    // TODO fix how ShopScreen gets the Shop instance
         initShopItems();
     }
 
@@ -39,7 +40,7 @@ public class ShopScreen extends JPanel {
     private void initShopItems () {
         Pixmap myImage = new Pixmap("tower.gif");
         BasicTower tower = new BasicTower(myImage, new Location(20, 20), new Dimension(50, 50), null, null);
-        myShopItems.add(tower);
+        myShop.addShopItem("tower",tower);
     }
 
     @Override
@@ -52,7 +53,7 @@ public class ShopScreen extends JPanel {
     }
     
     private void displayShopItems (Graphics2D pen) {
-        for (GameElement item : myShopItems) {
+        for (GameElement item : myShop.getShopItems()) {
             item.getPixmap().paint(pen, item.getCenter(), new Dimension((int)item.getWidth(), (int)item.getHeight()));
         }
     }
