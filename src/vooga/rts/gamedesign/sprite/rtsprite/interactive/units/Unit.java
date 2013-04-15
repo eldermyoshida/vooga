@@ -18,6 +18,8 @@ import vooga.rts.gamedesign.upgrades.UpgradeTree;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
+
+
 /**
  * This class is an extension of InteractiveEntity, and represents shapes that
  * have the potential to gather resources (contains GatherStrategy) and the
@@ -28,15 +30,18 @@ import vooga.rts.util.Sound;
  * @author Kevin Oh
  * @author Francesco Agosti
  * @author Wenshun Liu
- *
+ * 
  */
 public class Unit extends InteractiveEntity {
-	
+
 	private static UpgradeTree myUpgradeTree;
     private List<GameSprite> myKills; //TODO: WHAT TYPE SHOULD IT BE??
     // private boolean myIsLeftSelected; // TODO: also need the same thing for Projectiles
     // private boolean myIsRightSelected; // TODO: should be observing the mouse action instead!!
     //private PathingHelper myPather;
+
+    private GatherStrategy myGatherStrategy;
+
     private OccupyStrategy myOccupyStrategy;
 
     public Unit() {
@@ -89,14 +94,16 @@ public class Unit extends InteractiveEntity {
     		myUpgradeTree.getUsers().put(playerID, entityGroup);
     	}
     }
-    
+
     /**
      * Occupies an IOccupiable object specified by occupy strategy.
+     * 
      * @param o
      */
-    public void occupy(IOccupiable o) {
-    	if(myOccupyStrategy.canOccupy(o)){
-    	    o.getOccupied(this);
-    	}
+    public void occupy (IOccupiable o) {
+        if (myOccupyStrategy.canOccupy(o)) {
+            o.getOccupied(this);
+        }
     }
+
 }

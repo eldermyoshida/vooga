@@ -4,45 +4,73 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import vooga.rts.networking.communications.Message;
+import vooga.rts.networking.communications.SystemMessage;
+import vooga.rts.networking.factory.Command;
+import vooga.rts.networking.factory.CommandFactory;
 
-public class GameContainer {
+public class GameContainer implements IMessageReceiver, IThreadContainer {
 
-    private String myGameName;
     private Map<Integer, ConnectionThread> myConnectionThreads = new HashMap<Integer, ConnectionThread>();
+    private Map<String, LobbyContainer> myLobbies = new HashMap<String, LobbyContainer>();
     private List<GameServer> myGameServers = new ArrayList<GameServer>();
-    private Map<String, List<ConnectionThread>> myServerLobbies = new HashMap<String, List<ConnectionThread>>();
+    private CommandFactory myFactory;
+    private int myGameNumber = 0;
     
-    public GameContainer(String gameName) {
-        myGameName = gameName;
+    public GameContainer (CommandFactory factory) {
+        myFactory = factory;
     }
     
-    public String getName() {
-        return myGameName;
-    }
-    
-    public void addConnection (ConnectionThread thread) {
+    protected void addConnection (ConnectionThread thread) {
         myConnectionThreads.put(thread.getID(), thread);
     }
     
-    private void initializeGame (int id) {
-        GameServer gameServer = new GameServer(id);
-        myGameServers.add(gameServer);
+    protected void addGameServer (GameServer server) {
+        myGameServers.add(server);
     }
     
+    protected void removeGameServer (GameServer server) {
+        
+    }
+    
+    @Override
+    public void sendMessage (Message message, ConnectionThread thread) {
+        if(message instanceof SystemMessage) {
+            SystemMessage systemMessage = (SystemMessage) message;
+            Command command = myFactory.getCommand(systemMessage.getMessage());
+            command.execute(thread, this, systemMessage.getParameters());
+        } else {
+            
+        }
+    }
+    
+    @Override
     public void removeConnection (ConnectionThread thread) {
         myConnectionThreads.remove(thread);
     }
-    
-    public ConnectionThread getConnectionThread (int id) {
-        return myConnectionThreads.get(id);
+
+    @Override
+    public void joinGame (ConnectionThread thread, String gameName) {
     }
-    
-    public void addConnectionToLobby (ConnectionThread thread, String lobbyName) {
-        
+
+    @Override
+    public void joinLobby (ConnectionThread thread, String lobbyName) {
+        LobbyContainer lobby;
+        if(!myLobbies.containsKey(lobbyName)) {
+            lobby = new LobbyContainer(myFactory, this);
+            myLobbies.put(lobbyName, lobby);
+        }
+        myConnectionThreads.remove(thread.getID());
+        lobby = myLobbies.get(lobbyName);
+        lobby.addConnection(thread);
     }
-    
-    public void startGame (String lobbyName) {
-        
+
+    @Override
+    public void leaveLobby (ConnectionThread thread) {
+    }
+
+    @Override
+    public void startGameServer () {
     }
 
 }

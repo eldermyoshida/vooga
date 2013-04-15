@@ -14,16 +14,14 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 
 import vooga.rts.Game;
-import vooga.rts.gui.Menu;
 import vooga.rts.gui.Window;
-import vooga.rts.gui.menus.MainMenu;
 import vooga.rts.input.Input;
-import vooga.rts.resourcemanager.ResourceManager;
+import vooga.rts.util.FrameCounter;
 
 
 public class MainController extends AbstractController implements Observer {
 
-    private final static String DEFAULT_INPUT_LOCATION = "vooga.rts.resources.Input";
+    private final static String DEFAULT_INPUT_LOCATION = "vooga.rts.resources.properties.Input";
     private GameController myGameController;
     private LoadingController myLoadingController;
     private MenuController myMenuController;
@@ -36,6 +34,8 @@ public class MainController extends AbstractController implements Observer {
 
     private Timer myTimer;
 
+    private FrameCounter myFrames;
+
     private MainState myGameState;
 
     private Input myInput;
@@ -43,24 +43,25 @@ public class MainController extends AbstractController implements Observer {
     public MainController () throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ParserConfigurationException, SAXException, IOException {
 
         myWindow = new Window();
+        
         myGameController = new GameController();
         myGameController.addObserver(this);
-
+        
         myLoadingController = new LoadingController();
         myLoadingController.addObserver(this);
-
+        
         myMenuController = new MenuController();
-        myMenuController.addObserver(this);
-        myMenuController.addMenu(0, new MainMenu());
-
+        myMenuController.addObserver(this);  
+        
         myInputController = new InputController(this);
         myInput = new Input(DEFAULT_INPUT_LOCATION, myWindow.getCanvas());
-        myInput.addListenerTo(myInputController);
-
+        myInput.addListenerTo(myInputController);  
+        
         myWindow.setFullscreen(true);
+        
+        setActiveController(myLoadingController);       
 
-        myGameState = MainState.Loading;
-        setActiveController(myLoadingController);
+        myFrames = new FrameCounter();
 
         myTimer = new Timer((int) Game.TIME_PER_FRAME(), new ActionListener() {
             @Override
@@ -74,10 +75,12 @@ public class MainController extends AbstractController implements Observer {
 
     public void update (double elapsedTime) {
         myActiveController.update(elapsedTime);
+        myFrames.update(elapsedTime);
     }
 
     public void paint (Graphics2D pen) {
         myActiveController.paint(pen);
+        myFrames.paint(pen);
     }
 
     private void render () {
@@ -90,7 +93,7 @@ public class MainController extends AbstractController implements Observer {
         // Paint stuff
         paint(graphics);
 
-        //
+        // Now, render the window
         myWindow.getCanvas().render();
     }
 
@@ -100,85 +103,29 @@ public class MainController extends AbstractController implements Observer {
 
     public void setActiveController (AbstractController myController) throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ParserConfigurationException, SAXException, IOException {
         myActiveController = myController;
-        myActiveController.activate(myGameState);
-        myInputController.setActiveController(myController);        
+
+        myGameState = myActiveController.getGameState();
+        myInputController.setActiveController(myController);
+        myActiveController.activate();        
     }
 
     @Override
     public void update (Observable myObservable, Object myObject) {
-        if (!(myObject instanceof MainState)) {
-            return;
-        }
-        myGameState = (MainState) myObject;
         switch (myGameState) {
             case Starting:
                 break;
             case Loading:
 			try {
 				setActiveController(myLoadingController);
-			} catch (IllegalArgumentException e) {
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} catch (SecurityException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InstantiationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InvocationTargetException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (NoSuchMethodException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ParserConfigurationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (SAXException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			} 
                 break;
             case Splash:
 			try {
 				setActiveController(myLoadingController);
-			} catch (IllegalArgumentException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (SecurityException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InstantiationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InvocationTargetException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (NoSuchMethodException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ParserConfigurationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (SAXException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -186,69 +133,15 @@ public class MainController extends AbstractController implements Observer {
             case Menu:
 			try {
 				setActiveController(myMenuController);
-			} catch (IllegalArgumentException e) {
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} catch (SecurityException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InstantiationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InvocationTargetException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (NoSuchMethodException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ParserConfigurationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (SAXException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			} 
                 break;
             case Game:
 			try {
 				setActiveController(myGameController);
-			} catch (IllegalArgumentException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (SecurityException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InstantiationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InvocationTargetException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (NoSuchMethodException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ParserConfigurationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (SAXException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -258,7 +151,10 @@ public class MainController extends AbstractController implements Observer {
         }
     }
 
-    @Override
-    public void activate (MainState gameState) {
+    public void activate () {
+    }
+
+    public MainState getGameState () {
+        return MainState.Main;
     }
 }

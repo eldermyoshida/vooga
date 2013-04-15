@@ -6,10 +6,8 @@ import java.awt.geom.Point2D;
 public class Vector3D {
 
     // Components of the Vector
-    private double myX;
-    private double myY;
-    private double myZ;
-    
+    private Location3D myComponents;
+
     private double myMagnitude;
 
     /**
@@ -20,9 +18,7 @@ public class Vector3D {
      * @param z Z position
      */
     public Vector3D (double x, double y, double z) {
-        myX = x;
-        myY = y;
-        myZ = z;
+        myComponents = new Location3D(x, y, z);
         calculateMagnitude();
     }
 
@@ -49,24 +45,13 @@ public class Vector3D {
     public double getMagnitude () {
         return myMagnitude;
     }
-    
-    public void setX(double x) {
-        myX = x;
-        calculateMagnitude();
+
+    public void setComponents(double x, double y, double z) {
+        myComponents.setLocation(x, y, z);
     }
     
-    public void setY(double y) {
-        myY = y;
-        calculateMagnitude();
-    }
-    
-    public void setZ(double z) {
-        myZ = z;
-        calculateMagnitude();
-    }
-    
-    private void calculateMagnitude() {
-        myMagnitude = Math.sqrt(myX * myX + myY * myY + myZ * myZ);
+    private void calculateMagnitude () {
+        myMagnitude = myComponents.getDistance(new Location3D(0,0,0));
     }
 
 }

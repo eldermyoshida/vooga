@@ -16,15 +16,15 @@ import vooga.rts.networking.communications.Message;
  * 
  */
 public class GameServer extends Thread implements IMessageReceiver {
-    private List<ConnectionThread> myClients;
+    private List<ConnectionThread> myClients = new ArrayList<ConnectionThread>();;
     private int myID;
     private boolean gameRunning = true;
-    private Queue<Message> myMessageQueue;
+    private Queue<Message> myMessageQueue= new LinkedList<Message>();
+    private GameContainer myGameContainer;
 
-    public GameServer (int ID) {
-        myClients = new ArrayList<ConnectionThread>();
+    public GameServer (int ID, GameContainer container) {
         myID = ID;
-        myMessageQueue = new LinkedList<Message>();
+        myGameContainer = container;
     }
 
     /**
@@ -73,6 +73,7 @@ public class GameServer extends Thread implements IMessageReceiver {
         }
         myClients.clear();
         gameRunning = false;
+        myGameContainer.removeGameServer(this);
     }
     
     protected boolean isGameRunning () {

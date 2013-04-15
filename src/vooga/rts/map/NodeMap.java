@@ -1,23 +1,24 @@
-
 package vooga.rts.map;
-import java.awt.Dimension;
+
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 
-// This class might extend sprite at some point to make it gameloop so that it can 
+
+// This class might extend sprite at some point to make it gameloop so that it can
 // be updated.
 public class NodeMap {
-    
+
     private int myWidth;
     private int myHeight;
     private Node[][] myMap;
-    
+
     public NodeMap (int width, int height) {
         myMap = new Node[width][height];
         myWidth = width;
         myHeight = height;
     }
-    
+
     public List<Node> getNeighbors (Node current) {
         List<Node> neighbors = new ArrayList<Node>();
         int x = current.getX();
@@ -28,20 +29,28 @@ public class NodeMap {
         }
         return neighbors;
     }
-    
+
     public Node get (int x, int y) {
         return myMap[x][y];
     }
-    
+
     public int getWidth () {
         return myWidth;
     }
-    
+
     public int getHeight () {
         return myHeight;
     }
-    
+
     public void put (Node node, int x, int y) {
         myMap[x][y] = node;
+    }
+    
+    public void paint(Graphics2D pen) {
+        for (int x = 0; x < myWidth; x++) {
+            for (int y = 0; y < myHeight; y++) {                
+                pen.drawRect(x * 10, y * 10, 10, 10);                
+            }
+        }        
     }
 }

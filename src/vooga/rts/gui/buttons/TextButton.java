@@ -12,32 +12,41 @@ import vooga.rts.util.Location;
 
 public class TextButton extends Button {
 
-    private String myText;
-    private Color myColor;
-    
-    public TextButton (String text, Color c, Dimension size, Location pos) {
-        super(null, size, pos);
-        myText = text;
-        myColor = c;        
-    }
+	private String myText;
+	private Color myBGColor;
+	private Color myTextColor;
+	private int fontSize;
+	private int myXPadding = 5;
+	private int myYPadding = 10;
 
-    @Override
-    public void update (double elapsedTime) {
-        System.out.println(myText);
-        setChanged();
-        notifyObservers();
-    }
-    
-    @Override
-    public void paint(Graphics2D pen) {
-        pen.setColor(myColor);        
-        pen.fill(new Rectangle2D.Double(myPos.x, myPos.y, mySize.width, mySize.height));
-        pen.setFont(new Font("Arial", Font.BOLD, 24));   
-        
-        int cX = (int) (myPos.x + 5);
-        int cY = (int) ((myPos.y + (mySize.height / 2)) + 12);
-        pen.setColor(Color.BLACK);
-        pen.drawString(myText, cX, cY);
-    }
+
+	public TextButton(String text, Color c, Color d, int f, Dimension size, Location pos) {
+		super(null, size, pos);
+		myText = text;
+		myBGColor = c;
+		myTextColor = d;
+		fontSize = f;
+	}
+
+	@Override
+	public void update(double elapsedTime) {
+		setChanged();
+		notifyObservers();
+	}
+
+	@Override
+	public void paint(Graphics2D pen) {
+		if (myBGColor != null) {
+			pen.setColor(myBGColor);
+			pen.fill(new Rectangle2D.Double(myPos.x, myPos.y, mySize.width,
+					mySize.height));
+		}
+		pen.setFont(new Font("Arial", Font.BOLD, fontSize));
+
+		int cX = (int) (myPos.x + myXPadding);
+		int cY = (int) ((myPos.y + (mySize.height / 2)) + myYPadding);
+		pen.setColor(myTextColor);
+		pen.drawString(myText, cX, cY);
+	}
 
 }

@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import vooga.rts.gamedesign.action.Action;
 import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
@@ -17,6 +18,7 @@ import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;
 import vooga.rts.gamedesign.strategy.attackstrategy.CannotAttack;
 import vooga.rts.gamedesign.upgrades.UpgradeNode;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
+import vooga.rts.resourcemanager.ResourceManager;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
@@ -34,11 +36,13 @@ import vooga.rts.util.Sound;
  */
 public abstract class InteractiveEntity extends GameEntity implements IAttackable{
 
+    private boolean isSelected;
     private UpgradeTree myUpgradeTree;
     private Sound mySound;
     private AttackStrategy myAttackStrategy;
     private int myArmor;
     private List<Action> myActions;
+
     /**
 	 * Creates a new interactive entity.
 	 * @param image is the image of the interactive entity
@@ -51,11 +55,12 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     public InteractiveEntity (Pixmap image, Location center, Dimension size, Sound sound, int playerID, int health) {
         super(image, center, size, playerID, health);
         //myMakers = new HashMap<String, Factory>(); //WHERE SHOULD THIS GO?
-
         mySound = sound;
         myAttackStrategy = new CannotAttack();
         myActions = new ArrayList<Action>();
-        initDefaultActions();
+
+        isSelected = false;
+
     }
     /*
      * Ze clone method
@@ -92,7 +97,15 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
 	public Sound getSound() {
 		return mySound;
 	}
+
     
+	/**
+     * Sets the isSelected boolean to the passed in bool value. 
+     */
+    public void select(boolean bool) {
+        isSelected = bool;
+    }
+
     public List<Action> getActions() {
         return myActions;
     }
@@ -149,32 +162,28 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
 		return myAttackStrategy;
 	}
 
+
 	public int calculateDamage(int damage) {
 		return damage * (1-(myArmor/(myArmor+100)));
 	}
 
-    private void initDefaultActions(){
-        myActions.add(new Action("Stop", null, "Action to stop InteractiveEntity"){
-            @Override
-            public void apply(int playerID){
-                //change the state of the entity to normal
-                setVelocity(0, 0);
-            }
-        });
-        myActions.add(new Action("Hold", null, "Sets the InteractiveEntity to hold position"){
-            @Override
-            public void apply(int playerID){
-                //does not change state
-                setVelocity(0,0);
-            }
-        });
-        myActions.add(new Action("Test2", null, "Action to stop InteractiveEntity"){
-            @Override
-            public void apply(int playerID){
-                setVelocity(0, 0);
-            }
-        });
+    /**
+     * upgrades the interactive based on the selected upgrade
+     * @param upgradeNode is the upgrade that the interactive will get
+     * @throws NoSuchMethodException 
+     * @throws InstantiationException 
+     * @throws InvocationTargetException 
+     * @throws IllegalAccessException 
+     * @throws SecurityException 
+     * @throws IllegalArgumentException 
+     */
+    public void upgrade (UpgradeNode upgradeNode) throws IllegalArgumentException, SecurityException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException { 	
+        //upgradeNode.apply(upgradeNode.getUpgradeTree().getUsers());
     }
+    public UpgradeTree getTree(){
+        return myUpgradeTree;
+    }
+
     
     public Action findAction(String name) {
     	for (Action a: myActions) {

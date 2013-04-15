@@ -12,6 +12,9 @@ import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
 import vooga.rts.util.Vector;
+import vooga.rts.map.GameMap;
+import vooga.rts.ai.Path;
+import vooga.rts.ai.PathFinder;
 
 
 /**
@@ -29,191 +32,168 @@ import vooga.rts.util.Vector;
  */
 public class GameEntity extends GameSprite {
 
-	private Vector myVelocity;
+    private Vector myVelocity;
+    private GameMap myMap;
+    private int myMaxHealth;
+    private int myCurrentHealth;
+    private PathFinder myFinder;
+    private int myPlayerID;
+    private Path myPath;
+    private Location myCurrentLocation;
+    private Location myGoal;
+    private Vector myOriginalVelocity;
+    private EntityState myEntityState;
 
-	private int myMaxHealth;
-	private int myCurrentHealth;
+    public GameEntity (Pixmap image, Location center, Dimension size, int playerID, int health) {
+        super(image, center, size);
+        myMaxHealth = health;
+        myCurrentHealth = myMaxHealth;
+        myPlayerID = playerID;
+        myCurrentLocation = new Location(center);
+        // ALERT THIS IS JUST FOR TESTING
+        myOriginalVelocity = new Vector(0, 0);
+        myVelocity = new Vector(0, 0);
+        myGoal = new Location();
+        myEntityState = new EntityState();
+    }
 
-	private int myPlayerID;
+    /**
+     * Returns shape's velocity.
+     */
+    public Vector getVelocity () {
+        return myVelocity;
+    }
+    public int getMaxHealth() {
+    	return myMaxHealth;
+    }
+    /**
+     * Resets shape's velocity.
+     */
+    public void setVelocity (double angle, double magnitude) {
+        myVelocity = new Vector(angle, magnitude);
+    }
 
-	private Location myCurrentLocation;
-	private Location myGoal;
-	private Vector myOriginalVelocity;
+    public int getHealth () {
+        return myCurrentHealth;
+    }
 
-	private EntityState myEntityState;
+    public void setHealth (int health) {
+        myCurrentHealth = health;
+    }
 
+    /**
+     * Returns the teamID the shape belongs to.
+     */
+    public int getPlayerID () {
+        return myPlayerID;
+    }
 
-	public GameEntity (Pixmap image, Location center, Dimension size, int playerID, int health) {
-		super(image, center, size);
-		myMaxHealth = health;
-		myCurrentHealth = myMaxHealth;
-		myPlayerID = playerID;
-		myCurrentLocation = new Location(center);
-		// ALERT THIS IS JUST FOR TESTING
-		myOriginalVelocity = new Vector(0, 0);
-		myVelocity = new Vector(0, 0);
-		myGoal = new Location();
-		myEntityState = new EntityState();
-	}
+    /**
+     * Rotates the Unit by the given angle.
+     * 
+     * @param angle
+     */
+    public void turn (double angle) {
+        myVelocity.turn(angle);
+    }
+    
+    public boolean collidesWith(GameEntity gameEntity) {
+    	return getBounds().intersects(gameEntity.getBounds());
+    }
+    /**
+     * Translates the current center by vector v
+     * 
+     * @param v
+     */
+    public void translate (Vector v) {
 
-	/**
-	 * Returns shape's velocity.
-	 */
-	public Vector getVelocity () {
-		return myVelocity;
-	}
+        getCenter().translate(v);
+        resetBounds();
+    }
 
-	/**
-	 * Resets shape's velocity.
-	 */
-	public void setVelocity (double angle, double magnitude) {
-		myVelocity = new Vector(angle, magnitude);
-	}
+    /**
+     * Reset shape back to its original values.
+     */
+    @Override
+    public void reset () {
+        super.reset();
+        myVelocity = myOriginalVelocity;
+    }
 
-	public int getHealth () {
-		return myCurrentHealth;
-	}
+    /**
+     * Moves the Unit only. Updates first the angle the Unit is facing,
+     * and then its location.
+     * Possible design choice error.
+     */
+    public void move (Location loc) {
+    	myEntityState.setMovementState(MovementState.MOVING);
+        myGoal = new Location(loc);
+        Vector v = getCenter().difference(myGoal);
+        // TODO: not static amount
+        setVelocity(v.getAngle(), 1);
+    }
 
-	public void setHealth (int health) {
-		myCurrentHealth = health;
-	}
+    public void move (Location loc, GameMap map) {
+        setPath(loc, map);
+    }
 
-	/**
-	 * NOTE: moving this method around is gonna affact HealthUpgradeNode
-	 * @param health
-	 */
-	public void addMaxHealth (int health) {
-		myMaxHealth += health;
-	}
+    public void setPath (Location location, GameMap map) {
+        myPath =
+                myFinder.calculatePath(map.getNode(getCenter()), map.getNode(location),
+                                       map.getMap());
+        myGoal = myPath.getNext();
+    }
 
-	public int getMaxHealth() {
-		return myMaxHealth;
-	}
+    /**
+     * Updates the shape's location.
+     */
+    // TODO: make Velocity three dimensional...
+    public void update (double elapsedTime) {
+        
+        if (this.intersects(myGoal)) {
+            myEntityState.setMovementState(MovementState.STATIONARY);
+        }
+        stopMoving();
+        Vector v = new Vector(myVelocity);
+        v.scale(elapsedTime);
+        translate(v);
+        myEntityState.update();
+    }
 
-	/**
-	 * Returns the teamID the shape belongs to.
-	 */
-	public int getPlayerID () {
-		return myPlayerID;
-	}
+    public void changeHealth (int change) {
+        myCurrentHealth -= change;
+    }
 
-	/**
-	 * Rotates the Unit by the given angle.
-	 * 
-	 * @param angle
-	 */
-	public void turn (double angle) {
-		System.out.println("turning by angle: " + angle);
-		myVelocity.turn(angle);
-	}
+    /**
+     * Checks to see if an GameEntity is dead.
+     * 
+     * @return true if the GameEntity has been killed and false if the GameEntity
+     *         is still alive.
+     */
+    public boolean isDead () {
+        return myCurrentHealth <= 0;
+    }
 
-	/**
-	 * Translates the current center by vector v
-	 * 
-	 * @param v
-	 */
-	public void translate (Vector v) {
-		getCenter().translate(v);
-		resetBounds();
-	}
+    /**
+     * Kills the GameEntity by setting its current health value to zero.
+     */
+    public void die () {
+        myCurrentHealth = 0;
+    }
 
-	/**
-	 * This would determine if two GameEntities collide.
-	 * @param gameEntity is an RTSprite that is being checked to see if it 
-	 * collides with the current RTSprite
-	 * @return true if the two RTsprites collided and false if the RTSprites
-	 * did not collide.
-	 */
-	public boolean collidesWith(GameEntity gameEntity) {
-		return getBounds().intersects(gameEntity.getBounds());
-	}
-
-	/**
-	 * Reset shape back to its original values.
-	 */
-	@Override
-	public void reset () {
-		super.reset();
-		myVelocity = myOriginalVelocity;
-	}
-
-
-	/**
-	 * Updates the shape's location.
-	 */
-	// TODO: make Velocity three dimensional...
-	public void update (double elapsedTime) {
-
-		// TODO: Make this more accurate
-		if(this.intersects(myGoal)){
-			myEntityState.setMovementState(MovementState.STATIONARY);
-		}
-		stopMoving();
-		Vector v = new Vector(myVelocity);
-		v.scale(elapsedTime);
-		//this is kinda messed up right now
-		translate(v);
-
-		myEntityState.update();
-	}
-
-
-
-	public void changeHealth (int change) {
-		myCurrentHealth -= change;
-	}
-
-	/**
-	 * Checks to see if an GameEntity is dead.
-	 * 
-	 * @return true if the GameEntity has been killed and false if the GameEntity
-	 *         is still alive.
-	 */
-	public boolean isDead () {
-		return myCurrentHealth <= 0;
-	}
-
-	/**
-	 * Kills the GameEntity by setting its current health value to zero.  
-	 */
-	public void die () {
-		myCurrentHealth = 0;
-	}
-
-	@Override
-	public void paint (Graphics2D pen) {
-		if (!isDead()) {
-			super.paint(pen);
-		}
-	}
-
-	/**
-	 * Moves the Unit only. Updates first the angle the Unit is facing,
-	 * and then its location.
-	 * Possible design choice error.
-	 */
-	public void move (Location loc) {
-		myEntityState.setMovementState(MovementState.MOVING);
-		myGoal = new Location(loc);
-		Vector v = getCenter().difference(myGoal);
-
-		turn(v.getAngle());
-		setVelocity(v.getAngle(),1);
-	}
-	/**
-	 * Returns the state of the entity
-	 * @return the state of the entity
-	 */
-	public EntityState getEntityState() {
-		return myEntityState;
-	}
-	/**
-	 * If the entity is set to stationary, set the velocity of the entity to
-	 * 0.
-	 */
-	public void stopMoving() {
-		if(!myEntityState.canMove()) {
-			setVelocity(getVelocity().getAngle(), 0);
-		}
-	}
+    @Override
+    public void paint (Graphics2D pen) {
+        if (!isDead()) {
+            super.paint(pen);
+        }
+    }
+    public EntityState getEntityState() { 
+    	return myEntityState;
+    }
+    public void stopMoving() {
+    	if(!myEntityState.canMove()) {
+    		setVelocity(getVelocity().getAngle(), 0);
+    	}
+    }
+    
 }
