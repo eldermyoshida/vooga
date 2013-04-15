@@ -31,6 +31,7 @@ public class LEController {
     private Map<WorkspaceView, Editable> myTab2Workspace;
     private static final int DEFAULT_SPRITE_GRID_SIZE = 30;
     private ToolsManager myToolsManager;
+    private LevelWriter myLevelWriter;
     
     /**
      * Constructor
@@ -44,6 +45,7 @@ public class LEController {
         myView.setDefaultWorkspaceTools(myToolsManager.getViewTools());
         myWorkspace2Tab = new HashMap<Editable, WorkspaceView>();
         myTab2Workspace = new HashMap<WorkspaceView, Editable>();
+        myLevelWriter = new LevelWriter();
     }
 
     private String getLanguage () {
@@ -90,6 +92,11 @@ public class LEController {
         return myWorkspace2Tab.get(m);
     }
 
+
+    public void saveFile (File file2save, WorkspaceView t) {
+        LEGrid grid = (LEGrid) getModelForWorkspace(t);
+        myLevelWriter.createFile(file2save,grid);
+    }
 
     /**
      * calls model to process the input string command
