@@ -36,5 +36,6 @@ public class UserGameData implements Serializable {
     public void setScore (double score) {
         myScores.add(score);
     }
-    
+
+  
 }

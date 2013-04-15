@@ -5,7 +5,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JComponent;
 import util.Location;
-import util.Pixmap;
 
 /**
  * JPicture is a Pixmap that is contained within a JComponent.  

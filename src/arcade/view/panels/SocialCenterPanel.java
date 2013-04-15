@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package arcade.view.panels;
 
 import java.awt.Color;
@@ -17,23 +16,3 @@ public class SocialCenterPanel extends JPanel {
 }
 
 }
-=======
-package arcade.view.panels;
-
-import java.awt.Color;
-
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
-public class SocialCenterPanel extends JPanel {
-    public SocialCenterPanel(){
-        setLayout(null);
-
-        setBackground(Color.WHITE);
-        JLabel title = new JLabel("Social Center");
-        title.setBounds(5,5,40,40);
-        add(title);
-}
-
-}
->>>>>>> d91774e3125c7e327839540ffd65a4d5a62eac1f

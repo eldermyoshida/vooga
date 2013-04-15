@@ -11,8 +11,9 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import arcade.games.GameInfo;
-import util.Pixmap;
+import arcade.model.Model;
 import arcade.util.JPicture;
+import arcade.util.Pixmap;
 
 
 public class SnapShot extends JPanel implements MouseListener {
@@ -29,8 +30,10 @@ public class SnapShot extends JPanel implements MouseListener {
     
     
     private String gameName;
+    private Model myModel;
 
-    public SnapShot (GameInfo info, ResourceBundle resources) {
+    public SnapShot (GameInfo info, ResourceBundle resources, Model model) {
+        myModel = model;
         myGameInfo = info;
         myResources = resources;
         gameName = info.getName();
@@ -64,7 +67,7 @@ public class SnapShot extends JPanel implements MouseListener {
             // JFrame des = new JFrame(myGameInfo.title());
             // des.setVisible(true);
             //openHelpPage();
-            DetailView dv = new DetailView(myGameInfo, myResources);
+            DetailView dv = new DetailView(myGameInfo, myResources, myModel);
             
             
         }

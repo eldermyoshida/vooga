@@ -2,7 +2,7 @@ package arcade.games;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import util.Pixmap;
+import arcade.util.Pixmap;
 
 
 public class GameInfo {
@@ -49,7 +49,7 @@ public class GameInfo {
     
     public List<String[]> getComments() {
         List<String[]> comments = new ArrayList<String[]>();
-        String[] comment1 = {"theCoolestGuy", "this game is awesome"};
+        String[] comment1 = {"subject", "theCoolestGuy", "5.0", "this game is awesome"};
         comments.add(comment1);
         return comments;
         
