@@ -33,6 +33,8 @@ public class ControllerFactory {
         myControllerNames = new ArrayList<String>();
         setupControllerConfiguration(myResources, myControllerNames);
         setupControllerMap(myCanvas, myControllerMap, myControllerNames);
+        
+        
     }
 
     public Map getMap(){

@@ -22,24 +22,28 @@ import vooga.fighter.view.Canvas;
  */
 @InputClassTarget
 public class LevelController extends Controller {
-    private static final String INPUT_PATHWAY = "PATHWAY";
-    private GameInfo myGameInfo;
+    private static final String INPUT_PATHWAY = "vooga.fighter.input.Game1Mapping_en_US";
+
 
     public LevelController (String name, Canvas frame) {
         super(name, frame);
+        System.out.println(getName());
     }
 	
     public LevelController(String name, Canvas frame, ControllerDelegate manager, 
     		GameInfo gameinfo) {
     	super(name, frame, manager, gameinfo);
+    	loadMode();
     }
     
 	
 
     
     public void loadMode() {
+        System.out.println("loading mode");
         List<Integer> characterNames = myGameInfo.getCharacters();
         int mapID = myGameInfo.getMapName();
+        System.out.println("size of character list" + characterNames.size());
         Mode temp = new LevelMode(this, characterNames, mapID);
         setMode(temp);
     }
