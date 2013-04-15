@@ -49,6 +49,7 @@ public class ControllerFactory {
     private void setupControllerMap(Canvas frame, Map<String, Controller> controllermap, 
                                     List<String> controllerName) {
         for(String name: controllerName) {
+            //We need to fix this!!!!!!!
             Controller controller = new LevelController(name, frame);
             controllermap.put(controller.getName(), controller);
         }

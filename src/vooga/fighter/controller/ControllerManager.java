@@ -37,7 +37,8 @@ public class ControllerManager implements ControllerDelegate{
 	public void switchController(String NextController) {
 		myCurrentController.stop();
 		myCurrentController = myControllerMap.get(NextController);
-		myCurrentController.displaySplash();
+		System.out.println("now the controller is: " + myCurrentController.getName() );
+		//myCurrentController.displaySplash();
 		myCurrentController = myCurrentController.getController(this, myGameInfo);
 		myCurrentController.start();	
 	}      
@@ -52,6 +53,7 @@ public class ControllerManager implements ControllerDelegate{
 	@Override
 	public void notifyEndCondition(String string) {
 		switchController(string);
+		System.out.println("switching controllers");
 		
 	}
 

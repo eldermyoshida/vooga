@@ -20,11 +20,13 @@ public class ScoreController extends Controller {
 
     public ScoreController (String name, Canvas frame) {
         super(name, frame);
+        System.out.println("score controller started");
     }
 
     public ScoreController (String name, Canvas frame, ControllerDelegate manager,
                             GameInfo gameinfo) {
         super(name, frame, manager, gameinfo);
+        System.out.println("score controller finished");
     }
     
     
