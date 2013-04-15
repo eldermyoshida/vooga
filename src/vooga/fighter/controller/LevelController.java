@@ -76,54 +76,46 @@ public class LevelController extends Controller {
     
     @InputMethodTarget(name = "player1_jump")
     public void playerOneJumpInput (AlertObject alObj)  {
-        System.out.println("jumping");
         myInputObjects.get(0).move(270);
     }
     
     @InputMethodTarget(name = "player1_left")
     public void playerOneLeftInput (AlertObject alObj) {
-        System.out.println("moving left");
         myInputObjects.get(0).move(180);
         
     }
     
     @InputMethodTarget(name = "player1_right")
     public void playerOneRightInput(AlertObject alObj) {
-        System.out.println("moving right");
         myInputObjects.get(0).move(0);
         
     }
     
     @InputMethodTarget(name = "player1_down")
     public void playerOneDownInput(AlertObject alObj) {
-        System.out.println("moving down");
         myInputObjects.get(0).move(90);
         
     }
     
     @InputMethodTarget(name = "player2_jump")
     public void playerTwoJumpInput (AlertObject alObj)  {
-        System.out.println("jumping");
         myInputObjects.get(1).move(270);
     }
     
     @InputMethodTarget(name = "player2_left")
     public void playerTwoLeftInput (AlertObject alObj) {
-        System.out.println("moving left");
         myInputObjects.get(1).move(180);
        
     }
     
     @InputMethodTarget(name = "player2_right")
     public void playerTwoRightInput(AlertObject alObj) {
-        System.out.println("moving right");
         myInputObjects.get(1).move(0);
         
     }
     
     @InputMethodTarget(name = "player2_down")
     public void playerTwoDownInput(AlertObject alObj) {
-        System.out.println("moving down");
         myInputObjects.get(1).move(90);
         
     }

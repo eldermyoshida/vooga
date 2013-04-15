@@ -40,7 +40,7 @@ public class ControllerManager implements ControllerDelegate{
 		myCurrentController.displaySplash();
 		myCurrentController = myCurrentController.getController(this, myGameInfo);
 		myCurrentController.start();	
-	}
+	}      
 
 
 	
@@ -51,7 +51,7 @@ public class ControllerManager implements ControllerDelegate{
 
 	@Override
 	public void notifyEndCondition(String string) {
-		// TODO Auto-generated method stub
+		switchController(string);
 		
 	}
 
