@@ -13,6 +13,7 @@ import java.awt.geom.Point2D;
  *   http://en.wikipedia.org/wiki/Sprite_(computer_graphics)
  *   
  * @author Robert C. Duvall
+ * @author Leonard K. Ng'eno
  */
 public abstract class Sprite {
     // canonical directions for a collision
