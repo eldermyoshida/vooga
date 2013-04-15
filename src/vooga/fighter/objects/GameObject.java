@@ -19,7 +19,6 @@ public abstract class GameObject {
     private long myInstanceId;
     private ObjectLoader myLoader;
     private UpdatableLocation myCenter;
-    private Dimension mySize;
     private State myCurrentState;
     private ImageDataObject myImageData;
     private Map<String,State> myStates;
@@ -33,7 +32,6 @@ public abstract class GameObject {
 //        myInstanceId = System.currentTimeMillis();
         myStates = new HashMap<String,State>();
         myProperties = new HashMap<String,Integer>();
-        mySize = null;
         myLoader = null;
         myCurrentState = null;
         myImageData = null;
@@ -147,28 +145,15 @@ public abstract class GameObject {
     }
     
     /**
-     * Sets the size for this object.
-     */
-    public void setSize(Dimension size) {
-        mySize = size;
-    }
-    
-    /**
-     * Returns the size for this object.
-     */
-    public Dimension getSize() {
-        return mySize;
-    }
-    
-    /**
      * Sets image data for this object. Size, Location, and Image must not be
      * null for this object before calling this method, otherwise, this method
      * returns null.
      */
     public void setImageData() {
         Pixmap myCurrentImage = myCurrentState.getCurrentImage();
-        if (mySize == null || myCurrentImage == null || myCenter == null) {
-            myImageData = new ImageDataObject(myCurrentImage, myCenter, mySize);
+        Dimension myCurrentSize = myCurrentState.getCurrentSize();
+        if (myCurrentSize == null || myCurrentImage == null || myCenter == null) {
+            myImageData = new ImageDataObject(myCurrentImage, myCenter, myCurrentSize);
         }
     }
     
