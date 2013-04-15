@@ -21,7 +21,7 @@ import vooga.towerdefense.util.Vector;
  * @author gouzhen-1
  * 
  */
-public class Unit extends GameElement implements Targetable {
+public class Unit extends GameElement implements Targetable{
     private static final double DISTANCE_OFFSET = 5;
     private Path myPath;
     private Location myDestination;
@@ -79,7 +79,7 @@ public class Unit extends GameElement implements Targetable {
 
     private void executeActions (double elapsedTime) {
         for (AbstractAction act : myActions) {
-            act.execute(this, elapsedTime);
+            act.execute(elapsedTime);
 
         }
     }

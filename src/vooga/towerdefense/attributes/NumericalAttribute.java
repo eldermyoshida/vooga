@@ -22,6 +22,11 @@ public class NumericalAttribute extends Attribute {
     public NumericalAttribute (String statName, Double statValue) {
         super(statName, statValue);
     }
+   
+    public Double applyAttribute(NumericalAttribute toApply) {
+        modifyValue(toApply.getValue());
+        return myValue;
+    }
 
     /**
      * Replaces stat value with new value
@@ -51,12 +56,8 @@ public class NumericalAttribute extends Attribute {
         myValue *= multiplierToApply;
     }
 
-    /**
-     * Formats a string for displaying the value
-     * 
-     * @return
-     */
-    public String getDisplayableInfo () {
+    @Override
+    public String toString() {
         String info = myName + ": " + String.valueOf(myValue);
         return info;
     }
@@ -70,5 +71,4 @@ public class NumericalAttribute extends Attribute {
     public String getName () {
         return myName;
     }
-
 }

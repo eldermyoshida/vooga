@@ -10,7 +10,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
 import vooga.towerdefense.controller.Controller;
-import vooga.towerdefense.gameElements.BasicTower;
+import vooga.towerdefense.gameElements.Tower;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.model.Shop;
 import vooga.towerdefense.util.Location;

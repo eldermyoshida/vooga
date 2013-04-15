@@ -1,6 +1,7 @@
 package vooga.towerdefense.attributes;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
@@ -10,15 +11,18 @@ import java.util.List;
  * It also provides info requested by view through controller.
  * Used by Towers, Units, Weapons and any Asset-based object.
  * 
- * @author XuRui
  * @author Matthew Roy
+ * @author XuRui
  * 
  */
 public abstract class AttributeManager {
-    private HashSet<Attribute> myAttributes;
+    private HashMap<String,Attribute> myAttributes;
 
     public AttributeManager (HashSet<Attribute> attributes) {
-        myAttributes = attributes;
+        myAttributes = new HashMap<String, Attribute>();
+        for (Attribute a : attributes) {
+            myAttributes.put(a.getName(), a);
+        }        
     }
 
     /**
@@ -28,7 +32,8 @@ public abstract class AttributeManager {
      */
     public List<String> getAttributesInfo () {
         List<String> info = new ArrayList<String>();
-        for (Attribute stat : myAttributes) {
+        for (String statName : myAttributes.keySet()) {
+            Attribute stat = myAttributes.get(statName);
             info.add(stat.getDisplayableInfo());
         }
         return info;
@@ -43,24 +48,19 @@ public abstract class AttributeManager {
     public abstract void updateAttribute (Attribute updatedStat);
     
     /**
-     * Gets a specific stat based on name
+     * Gets a specific attribute based on name
      * @param name
-     * @return stat if it exists, otherwise returns null
+     * @return attribute if it exists, otherwise returns null
      */
     public Attribute getAttribute(String name) {
-        for (Attribute s : myAttributes) {
-            if (s.getName().equalsIgnoreCase(name)) {
-                return s;
-            }
-        }
-        return null;
+        return myAttributes.get(name);
     }
 
     /**
      * Add stats attribute to game element
      */
-    public void addAttribute (Attribute newStat) {
-        myAttributes.add(newStat);
+    public void addAttribute (Attribute newAttribute) {
+        myAttributes.put(newAttribute.getName(), newAttribute);
     }
 
 }
