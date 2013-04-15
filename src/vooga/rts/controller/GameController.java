@@ -168,7 +168,7 @@ public class GameController extends AbstractController {
             width = Math.abs(o.getX() - myLeftMouse.getX());
             height = Math.abs(o.getY() - myLeftMouse.getY());
             myDrag = new Rectangle2D.Double(uX, uY, width, height);
-            
+            System.out.println(worldDrag);
             myHuman.getUnits().select(worldDrag);
         }
     }

@@ -2,9 +2,9 @@ package vooga.rts.util;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import vooga.rts.gui.Window;
 
 
@@ -12,17 +12,23 @@ public class Camera {
 
     private static final double ISO_WIDTH = 1.0;
     private static final double ISO_HEIGHT = 0.5;
-    public static final double MOVE_SPEED = 5.0;
+    public static final double MOVE_SPEED = 10.0;
 
     private static Camera myInstance;
 
     private Dimension myScreenSize;
+    private Dimension myWorldSize;
 
     private Location3D myWorldCenter;
 
     public Camera (Location3D playerLoc) {
         myWorldCenter = new Location3D(playerLoc);
         myScreenSize = Window.SCREEN_SIZE;
+        
+        double x = deltaviewtoWorld(new Location(myScreenSize.getWidth(), 0)).to2D().getX();
+        double y = deltaviewtoWorld(new Location(0, myScreenSize.getHeight())).to2D().getY();
+        myWorldSize = new Dimension((int)x, (int)y);
+        System.out.println(myWorldSize);
     }
 
     /**
@@ -104,13 +110,16 @@ public class Camera {
      * @param size The size of the object in the world
      * @return whether the object is visible
      */
-    public boolean isVisible (Location3D world, Dimension3D size) {
-        // TODO
-        return true;
+    public boolean isVisible (Location3D world) {
+        // TODO        
+        Rectangle2D intersect = new Rectangle2D.Double(myWorldCenter.getX(), myWorldCenter.getY(), myWorldSize.getWidth(), myWorldSize.getHeight());
+        //System.out.println("Rectangle: "  + intersect);
+        return intersect.contains(world.to2D());
     }
-    
-    public boolean isVisible(Point2D screen) {
-        return !(screen.getX() < 0 || screen.getY() < 0 || screen.getX() > myScreenSize.getWidth() || screen.getY() > myScreenSize.getHeight()); 
+
+    public boolean isVisible (Point2D screen) {
+        return !(screen.getX() < 0 || screen.getY() < 0 || screen.getX() > myScreenSize.getWidth() || screen
+                .getY() > myScreenSize.getHeight());
     }
 
     public void paint (Graphics2D pen) {
@@ -143,8 +152,8 @@ public class Camera {
         }
         return myInstance;
     }
-    
-    public void setWorldLocation(Location3D center) {
+
+    public void setWorldLocation (Location3D center) {
         myWorldCenter = center;
     }
 
@@ -160,3 +169,4 @@ public class Camera {
         myWorldCenter.add(temp);
     }
 }
+

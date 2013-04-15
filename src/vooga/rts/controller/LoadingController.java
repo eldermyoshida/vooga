@@ -42,7 +42,6 @@ public class LoadingController extends AbstractController {
         myTransform.scale(sx, sy);
         pen.drawImage(myBGImage, myTransform, null);
 
-        Rectangle screen = pen.getDeviceConfiguration().getBounds();
         pen.setColor(Color.white);
         pen.setFont(new Font("Georgia", Font.PLAIN, 72));
         pen.drawString("Game is Loading...", 200, 300);
