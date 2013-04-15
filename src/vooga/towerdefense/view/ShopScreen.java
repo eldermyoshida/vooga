@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -29,7 +31,7 @@ public class ShopScreen extends JPanel {
     private static final int XCOORD = 0;
     private static final int YCOORD = 0;
     private Color myBackgroundColor = Color.WHITE;
-    private MouseListener myMouseListener;
+    private MouseAdapter myMouseListener;
     private Controller myController;
     private Shop myShop;
 
@@ -68,24 +70,17 @@ public class ShopScreen extends JPanel {
     }
     
     private void makeMouseListener () {
-        myMouseListener = new MouseListener() {
+        myMouseListener = new MouseAdapter() {
             @Override
             public void mouseClicked (MouseEvent e) {
-                myController.handleShopClick(e.getPoint());
-            }
-            @Override
-            public void mouseEntered (MouseEvent e) {
-            }
-            @Override
-            public void mouseExited (MouseEvent e) {
-            }
-            @Override
-            public void mousePressed (MouseEvent e) {
-            }
-            @Override
-            public void mouseReleased (MouseEvent e) {
+                //myController.handleShopClick(e.getPoint());
+                checkIfItemClickedOn (e.getPoint());
             }
         };
+    }
+
+    protected void checkIfItemClickedOn (Point point) {
+        
     }
     
 }
