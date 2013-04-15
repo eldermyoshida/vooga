@@ -54,11 +54,16 @@ public class Controller {
     }
     
     /**
-     * handles a click on the ShopScreen.
-     * @param p
+     * changes the mode to BuildMode and gets the item the user
+     *          wants to build from the Shop.
+     * @param itemName is the name of the item the user wants to
+     *          buy
      */
-    public void handleShopClick(Point p) {
-        String name = myView.getShopScreen().getItemName();
+    public void handleShopClickOnItem(String itemName) {
+        GameElement itemToBuy = myModel.getShop().getShopItem(itemName);
+        BuildMode myNewMode = new BuildMode();
+        myNewMode.setItemToBuild(itemToBuy);
+        myControlMode = myNewMode;
     }
 
     public void displayTileCoordinates (Point p) {
@@ -96,18 +101,6 @@ public class Controller {
     
     public void paintGhostImage (Point p, Pixmap itemImage) {
         myView.getMapScreen().paintGhostImage(p, itemImage);
-    }
-    
-    /**
-     * changes the mode to BuildMode and gets the item the user
-     *          wants to build from the Shop.
-     * @param itemName
-     */
-    public void prepareToBuild (String itemName) {
-        GameElement itemToBuy = myModel.getShop().getShopItem(itemName);
-        BuildMode myNewMode = new BuildMode();
-        myNewMode.setItemToBuild(itemToBuy);
-        myControlMode = myNewMode;
     }
 
 }
