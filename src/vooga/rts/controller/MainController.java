@@ -100,8 +100,8 @@ public class MainController extends AbstractController implements Observer {
 	public void setActiveController(AbstractController myController) {
 		myActiveController = myController;
 		myGameState = myActiveController.getGameState();
-		myInputController.setActiveController(myController);
 		myActiveController.activate();
+		myInputController.setActiveController(myController);
 	}
 
 	@Override
