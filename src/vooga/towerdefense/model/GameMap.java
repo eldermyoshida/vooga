@@ -71,7 +71,7 @@ public class GameMap {
     }
     
     public void addToMap (GameElement e, Tile t) {
-        e.setLocation(new Location(t.getCenter().getX(), t.getCenter().getY()));
+        e.setCenter(t.getCenter().getX(), t.getCenter().getY());
         myGameElements.add(e);
     }
 
