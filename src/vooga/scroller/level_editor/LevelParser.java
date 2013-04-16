@@ -21,6 +21,15 @@ public class LevelParser {
     public Map<Character, String> myCharacterMap;
     public List<String> myLevelStrings;
     private Map<String, Sprite> myNameMap;
+    
+    /**
+     * Initialize instances variables.
+     */
+    public LevelParser() {
+        myLevelStrings = new ArrayList<String>();
+        myCharacterMap = new HashMap<Character, String>();
+        myNameMap = new HashMap<String, Sprite>();
+    }
 
     public void setNameMap (Map<String, Sprite> nameMap) {
         myNameMap = nameMap;
@@ -37,7 +46,7 @@ public class LevelParser {
             e.printStackTrace();
         }
         parseLevel();
-        parseKey();
+        myCharacterMap=parseKey();
         return createGrid();
     }
 
@@ -57,11 +66,13 @@ public class LevelParser {
         }
     }
 
-    private void parseKey () {
+    private Map<Character, String> parseKey () {
+        Map<Character, String> result = new HashMap<Character, String>();
         while (myScanner.hasNextLine()) {
             String line = myScanner.nextLine();
-            myCharacterMap.put(line.charAt(0), line.substring(2));
+            result.put(line.charAt(0), line.substring(2));
         }
+        return result;
     }
 
     private LEGrid createGrid () {

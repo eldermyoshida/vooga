@@ -2,6 +2,7 @@ package vooga.scroller.level_management;
 
 import java.awt.Dimension;
 import java.io.File;
+import java.io.FileReader;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.ImageIcon;
@@ -29,6 +30,7 @@ public class LevelFactory {
 
     public LevelFactory (LevelManager lm) {
         myLevelManager = lm;
+        myLevelParser = new LevelParser();
     }
 
     /**
@@ -43,11 +45,53 @@ public class LevelFactory {
         // TODO: fix this
         splash.addManager(myLevelManager);
         
-        Level myCurrLevel = new Level(1, myScrollingManager, view);
+//        Level level1 = hardcodeLevel1(view, myScrollingManager, 1);
+        Level level1 = getLevelFromFile("createdLevel.level", 1);
 
         // TODO: this will ideally read in levels from file and create instances of each level
-        // This works for demos
+        // This works for demo
+        
+        // adding levelportal --> acts as portal between levels.
+        Level secondLevel = new Level(2, myScrollingManager, view);
 
+        StartPoint exit = new StaticStartPoint(secondLevel, new Location(100, 140));
+
+        LevelPortal portal = new LevelPortal(new Pixmap("portal.png"), new Location(1540, 75),
+                                             new Dimension(50, 50), exit, myLevelManager);
+
+        level1.addSprite(portal);
+
+        
+        for(int i = 0; i < 20; ++ i){
+            secondLevel.addSprite(new MarioLib.Platform(
+                                                        new Location(50*i, 160)
+                    ));
+        }
+        
+        StartPoint exit2 = new StaticStartPoint(splash, new Location(100, 140));
+
+        LevelPortal portal2 = new LevelPortal(new Pixmap("portal.png"), new Location(1000, 140),
+                                             new Dimension(50, 50), exit2, myLevelManager);
+
+        secondLevel.addSprite(portal2);
+
+        level1.setSize(PlatformerConstants.DEFAULT_LEVEL_SIZE);
+        Map<Integer, Level> l = new HashMap<Integer, Level>();
+        l.put(level1.getID(), level1);
+        l.put(secondLevel.getID(), secondLevel);
+        l.put(splash.getID(), splash);
+        return l;
+    }
+
+    private Level getLevelFromFile (String filename, int levelID) {
+        String pre = "src/vooga/scroller/level_management/";
+        File f = (new File(pre+filename)).getAbsoluteFile();
+        Level result = myLevelParser.loadFileToLevel(f, levelID);
+        return result;
+    }
+
+    private Level hardcodeLevel1 (View view, ScrollingManager sm, int a) {
+        Level myCurrLevel = new Level(a, sm, view);
         myCurrLevel.addSprite(new MarioLib.Coin(
                                                 new Location(view.getWidth() - 400, view
                                                         .getHeight() - 250)
@@ -120,37 +164,7 @@ public class LevelFactory {
         myCurrLevel.addSprite(new MarioLib.LevelTwoBlockThree(
                                                               new Location(1216, 204)
                 ));
-        
-        // adding levelportal --> acts as portal between levels.
-        Level secondLevel = new Level(2, myScrollingManager, view);
-
-        StartPoint exit = new StaticStartPoint(secondLevel, new Location(100, 140));
-
-        LevelPortal portal = new LevelPortal(new Pixmap("portal.png"), new Location(1540, 75),
-                                             new Dimension(50, 50), exit, myLevelManager);
-
-        myCurrLevel.addSprite(portal);
-
-        
-        for(int i = 0; i < 20; ++ i){
-            secondLevel.addSprite(new MarioLib.Platform(
-                                                        new Location(50*i, 160)
-                    ));
-        }
-        
-        StartPoint exit2 = new StaticStartPoint(splash, new Location(100, 140));
-
-        LevelPortal portal2 = new LevelPortal(new Pixmap("portal.png"), new Location(1000, 140),
-                                             new Dimension(50, 50), exit2, myLevelManager);
-
-        secondLevel.addSprite(portal2);
-
-        myCurrLevel.setSize(PlatformerConstants.DEFAULT_LEVEL_SIZE);
-        Map<Integer, Level> l = new HashMap<Integer, Level>();
-        l.put(myCurrLevel.getID(), myCurrLevel);
-        l.put(secondLevel.getID(), secondLevel);
-        l.put(splash.getID(), splash);
-        return l;
+        return myCurrLevel;
     }
 
 }
