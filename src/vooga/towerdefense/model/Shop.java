@@ -29,7 +29,7 @@ public class Shop {
         return myShopItems.values();        
     }
  
-    // TODO this is just a place holder! Needs to be fixed later!
+    // TODO this is just a place holder! Needs to be fixed later! (read in from file)
     private void initShopItems () {
         Pixmap myImage = new Pixmap("tower.gif");
         Tower tower =
