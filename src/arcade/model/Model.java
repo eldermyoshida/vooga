@@ -4,6 +4,7 @@ import games.example.Example;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import arcade.database.Database;
 import arcade.games.ArcadeInteraction;
 import arcade.games.Game;
 import arcade.games.GameData;
@@ -24,6 +25,7 @@ public class Model implements ArcadeInteraction {
     private ResourceBundle myResources;
     private LoginView myLoginView;
     private String myLanguage;
+    private Database myDb = new Database();
 
     private List<GameInfo> mySnapshots;
 
