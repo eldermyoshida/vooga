@@ -19,7 +19,7 @@ public class MenuMode extends Mode {
 
 	@Override
 	public void initializeMode() {
-		// TODO Auto-generated method stub
+		
 
 	}
 
