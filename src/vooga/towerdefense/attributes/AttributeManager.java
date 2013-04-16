@@ -18,6 +18,14 @@ import java.util.List;
 public class AttributeManager {
     private HashMap<String,Attribute> myAttributes;
 
+    public AttributeManager () {
+        myAttributes = new HashMap<String,Attribute>();
+    }
+    
+    /**
+     * Creates an attribute manager based on a set of attributes
+     * @param attributes
+     */
     public AttributeManager (HashSet<Attribute> attributes) {
         myAttributes = new HashMap<String, Attribute>();
         for (Attribute a : attributes) {
