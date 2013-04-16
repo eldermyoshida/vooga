@@ -41,7 +41,7 @@ public class GameElement extends Sprite {
         }
     }
 
-    public AttributeManager getAttributes () {
+    public AttributeManager getAttributeManager () {
         return myAttributes;
     }
     
