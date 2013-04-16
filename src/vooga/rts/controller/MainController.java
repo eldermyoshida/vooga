@@ -6,10 +6,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
+
 import javax.swing.Timer;
-import util.input.Input;
+
 import vooga.rts.Game;
 import vooga.rts.gui.Window;
+import vooga.rts.input.Input;
 import vooga.rts.util.FrameCounter;
 
 public class MainController extends AbstractController implements Observer {

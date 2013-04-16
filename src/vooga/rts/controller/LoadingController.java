@@ -5,7 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
-import util.input.PositionObject;
+import vooga.rts.input.PositionObject;
 import vooga.rts.resourcemanager.ResourceManager;
 
 
