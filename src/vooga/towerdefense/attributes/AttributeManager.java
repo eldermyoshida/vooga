@@ -71,5 +71,21 @@ public class AttributeManager {
     public void addAttribute (Attribute newAttribute) {
         myAttributes.put(newAttribute.getName(), newAttribute);
     }
+    
+    /**
+     * Resets all attributes to default values
+     */
+    
+    public void resetAll(){
+    	
+    }
+    
+    /**
+     * Reset attribute to default value.
+     */
+    
+    public void reset(Attribute attribute){
+    	
+    }
 
 }

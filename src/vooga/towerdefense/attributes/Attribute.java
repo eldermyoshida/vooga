@@ -5,8 +5,9 @@ import java.awt.Graphics2D;
 import vooga.towerdefense.util.Location;
 
 /**
- * Shell of an attribute class
+ * Shell of an attribute class, allows for tracking and modification.
  * 
+ * @author Xu Rui
  * @author Matthew Roy
  * 
  */
@@ -75,13 +76,6 @@ public abstract class Attribute {
         myCurrentValue = newValue;
     }
 
-	/**
-	 * Replaces stat value with new value
-	 * @param value 
-	 */
-	public void updateStat (double value) {
-		myCurrentValue = value;
-	}
 
 	/**
 	 * Adds the given parameter to the value.
@@ -103,17 +97,7 @@ public abstract class Attribute {
 		myCurrentValue *= multiplierToApply;
 	}
 
-
-	public void increment (double value) {
-		myCurrentValue += value;
-	}
-	
-	public void decrement (double value) {
-		myCurrentValue -= value;
-	}
-
 	/**
-	 * 
 	 * paints a bar representing this stat
 	 */
 	public void paint (Graphics2D pen, Location where) {
