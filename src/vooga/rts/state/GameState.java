@@ -22,17 +22,16 @@ public class GameState extends SubState {
     private List<Player> myPlayers;
     private Map<Player, Manager> myManagers;
     
-    public GameState (Observer observer) {
+    public GameState (Observer observer, Dimension gameSize) {
         super(observer);
-        //myMap = new GameMap(DEFAULT_NODE_SIZE, gameSize);
+        myMap = new GameMap(DEFAULT_NODE_SIZE, gameSize);
         myPlayers = new ArrayList<Player>();
         myManagers = new HashMap<Player, Manager>();
     }
 
     @Override
     public void update (double elapsedTime) {
-        // TODO Auto-generated method stub
-        
+        // TODO Auto-generated method stub  
     }
 
     @Override

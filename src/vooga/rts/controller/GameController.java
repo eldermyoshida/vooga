@@ -1,4 +1,4 @@
-package vooga.rts.controller;
+ package vooga.rts.controller;
 
 import java.awt.AWTException;
 import java.awt.Dimension;

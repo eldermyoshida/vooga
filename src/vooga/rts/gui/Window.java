@@ -116,4 +116,8 @@ public class Window {
     public JFrame getJFrame () {
         return myFrame;
     }
+    
+    public Dimension getSize () {
+        return SCREEN_SIZE;
+    }
 }

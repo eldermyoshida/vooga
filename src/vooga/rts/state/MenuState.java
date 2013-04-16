@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import vooga.rts.controller.Command;
-import vooga.rts.controller.MainState;
 import vooga.rts.gui.Menu;
 import vooga.rts.gui.menus.MainMenu;
 import vooga.rts.input.PositionObject;
@@ -15,6 +14,7 @@ import vooga.rts.input.PositionObject;
 // Low priority in terms of functionality.
 // This is the same as the MenuController class
 public class MenuState extends SubState implements Observer {
+    
     private Map<Integer, Menu> myMenus;
     private int myCurrentMenu;
     
@@ -63,9 +63,10 @@ public class MenuState extends SubState implements Observer {
         setChanged();
         notifyObservers(arg1);
     }
-    
+
     @Override
-    public void receiveCommand (Command command) {
+    public void receiveInput (Command command) {
+        // TODO Auto-generated method stub
         
     }
 }

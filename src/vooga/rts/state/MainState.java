@@ -21,7 +21,7 @@ public class MainState implements State, Observer, IGameLoop {
 
     private final static String DEFAULT_INPUT_LOCATION = "vooga.rts.resources.properties.Input";
     private Window myWindow;
-    private Queue<SubState> myStates;
+    private Queue<SubState> myStates; // This isn't ideal, but for now it will do the trick
     private SubState myActiveState;
     private Timer myTimer;
     private InputController myController;
@@ -34,8 +34,7 @@ public class MainState implements State, Observer, IGameLoop {
         myController = new InputController(this);
         input.addListenerTo(myController);
         myStates.add(new LoadingState(this));
-        myStates.add(new GameState(this));
-        
+        myStates.add(new GameState(this, myWindow.getSize()));
         myTimer = new Timer((int) Game.TIME_PER_FRAME(), new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {
@@ -65,7 +64,6 @@ public class MainState implements State, Observer, IGameLoop {
     @Override
     public void update (Observable o, Object arg) {
         setActiveState();
-        System.out.println("updated observer");
     }
     
     private void setActiveState() {
