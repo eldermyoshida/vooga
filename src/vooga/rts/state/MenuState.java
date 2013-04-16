@@ -34,7 +34,10 @@ public class MenuState extends SubState implements Observer {
             myCurrentMenu = index;
         }        
     }
-    
+    @Override 
+    public void receiveCommand (Command command) {
+        
+    }
     @Override
     public void update (double elapsedTime) {        
         getCurrentMenu().update(elapsedTime);        
@@ -63,10 +66,6 @@ public class MenuState extends SubState implements Observer {
         setChanged();
         notifyObservers(arg1);
     }
-
-    @Override
-    public void receiveCommand (Command command) {
-        // TODO Auto-generated method stub
-        
-    }
+    
+    
 }
