@@ -1,8 +1,8 @@
 package vooga.rts.controller;
 
-import vooga.rts.input.InputClassTarget;
-import vooga.rts.input.InputMethodTarget;
-import vooga.rts.input.PositionObject;
+import util.input.InputClassTarget;
+import util.input.InputMethodTarget;
+import util.input.PositionObject;
 
 
 @InputClassTarget

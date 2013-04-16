@@ -1,15 +1,8 @@
 package vooga.rts.controller;
 
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Observable;
-
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.xml.sax.SAXException;
-
+import util.input.PositionObject;
 import vooga.rts.IGameLoop;
-import vooga.rts.input.PositionObject;
 
 public abstract class AbstractController extends Observable implements
 		IGameLoop {
