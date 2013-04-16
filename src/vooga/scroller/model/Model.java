@@ -6,15 +6,13 @@ import java.awt.Image;
 import java.util.Arrays;
 import java.util.List;
 import util.Location;
+import util.Secretary;
 import vooga.scroller.level_management.LevelManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.animation.Animation;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.sprites.test_sprites.mario.Mario;
-import vooga.scroller.util.Pixmap;
-import vooga.scroller.util.Secretary;
 import vooga.scroller.view.View;
-
 
 
 /**
