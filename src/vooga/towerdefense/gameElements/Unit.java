@@ -6,8 +6,9 @@ import java.util.List;
 import java.util.Map;
 import vooga.towerdefense.action.AbstractAction;
 import vooga.towerdefense.action.ComboAttackAction;
+import vooga.towerdefense.attributes.AttributeConstants;
+import vooga.towerdefense.attributes.AttributeManager;
 import vooga.towerdefense.attributes.Targetable;
-import vooga.towerdefense.attributes.TargetableAttributes;
 import vooga.towerdefense.model.Path;
 import vooga.towerdefense.util.Location;
 import vooga.towerdefense.util.Pixmap;
@@ -27,21 +28,22 @@ public class Unit extends GameElement implements Targetable{
     private Location myDestination;
     private Map<String, State> myStates;
     private State currentState;
-    private TargetableAttributes myTargetableAttributes;
     private List<AbstractAction> myActions;
     private StateManager myStateManager;
+    private AttributeManager myAttributeManager;
+    private AttributeConstants myAttributeConstants=new AttributeConstants();
 
     public Unit (Location destination,
                  Pixmap image,
                  Location center,
                  Dimension size,
                  Vector velocity,
-                 TargetableAttributes attributes,
+                 AttributeManager attributes,
                  List<AbstractAction> actions) {
         super(image, center, size, actions);
         setVelocity(velocity);
         myDestination = destination;
-        myTargetableAttributes = attributes;
+        myAttributeManager = attributes;
     }
 
     public void updatePath (Location destination) {
@@ -112,19 +114,15 @@ public class Unit extends GameElement implements Targetable{
 
     @Override
     public void takeDamage (double attack) {
-        myTargetableAttributes.getHealth().decrement(attack);
+        myAttributeManager.getAttribute(myAttributeConstants.HEALTH).decrement(attack);
 
     }
 
     @Override
     public boolean isAlive () {
-        return myTargetableAttributes.getHealth().getValue() > 0;
+        return myAttributeManager.getAttribute(myAttributeConstants.HEALTH).getValue() > 0;
     }
 
-    @Override
-    public TargetableAttributes getTargetableAttributes () {
-        return myTargetableAttributes;
-
-    }
+ 
 
 }
