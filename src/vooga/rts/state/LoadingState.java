@@ -47,7 +47,7 @@ public class LoadingState extends SubState {
     }
     
     @Override
-    public void receiveInput (Command command) {
+    public void receiveCommand (Command command) {
         setChanged();
         notifyObservers();
     }

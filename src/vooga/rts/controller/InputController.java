@@ -26,13 +26,12 @@ public class InputController implements Controller {
     
     @Override
     public void sendCommand (Command command) {
-        myState.receiveInput(command);   
+        myState.receiveCommand(command);   
     }
     
     @InputMethodTarget(name  = "leftMouseDown")
     public void leftMouseDown (PositionObject o) {
         myLeftMouse = o;
-        System.out.println("Left Down");
     }
     
     @InputMethodTarget(name  = "leftMouseDown")
@@ -41,7 +40,7 @@ public class InputController implements Controller {
             sendCommand(new DragCommand("drag", myDrag));
         }
         else{
-            sendCommand(new LeftClickCommand("leftclick", o));
+            sendCommand(new ClickCommand("leftclick", o));
         }
         myLeftMouse = null;
         myDrag = null;

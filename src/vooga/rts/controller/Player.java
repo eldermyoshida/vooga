@@ -1,53 +1,33 @@
 package vooga.rts.controller;
 
-import java.awt.geom.Rectangle2D;
-import javax.swing.JComponent;
-import vooga.rts.manager.Manager;
-import vooga.rts.input.ActionObject;
-import vooga.rts.input.AlertObject;
-import vooga.rts.input.Input;
-import vooga.rts.input.PositionObject;
+import java.util.Map;
+import vooga.rts.state.State;
+
 /**
- * At the moment, the player class is implementing the humanplayer. For network
- * player and ai player, some methods will be refactored into a super class
- * 
+ * The GController (GameController) needs to do make the following decisions:
+ * - does the command affect units or managers (eg. select units)?
+ *      - if so, does it need to be sent to server/be bounced back. If it affects
+ *      a manager, it can be executed immediately, but if it affects units, it
+ *      needs to be sent to the server. 
+ * - does the command affect the view or other non-gameplay related things?
+ *      
  * @author Challen Herzberg-Brovold
  *
  */
-public class Player implements Controller {
-
-    private PositionObject myLeftMouse;
-    private Rectangle2D myDrag;
-    private Manager myManager;
+public class Player implements Controller, Controllable {
     
-    public Player (Manager manager) {
-        myManager = manager;
+    private State myGame;
+    private Map<String, Controllable> myControlTargets;
+    
+    public Player (State game) {
+        myGame = game;
     }
-    
-    public void sendCommand(Command command) {
-        myManager.receiveCommand(command);
+    @Override
+    public void sendCommand (Command command) {
+        
     }
-    
-    public void leftMouseDown (PositionObject o) {
-        myLeftMouse = o;
-    }
-    
-    public void leftMouseUp (PositionObject o) {
-        if (myDrag == null) {            
-            sendCommand(new DragCommand("drag", myDrag));
-        }
-        sendCommand(new LeftClickCommand("leftclick", o));
-        myLeftMouse = null;
-        myDrag = null;
-    }
-    
-    public void mouseDrag (PositionObject o) {
-        if (myLeftMouse != null) {
-            double uX = o.getX() > myLeftMouse.getX() ? myLeftMouse.getX() : o.getX();
-            double uY = o.getY() > myLeftMouse.getY() ? myLeftMouse.getY() : o.getY();            
-            double width = Math.abs(o.getX() - myLeftMouse.getX());
-            double height = Math.abs(o.getY() - myLeftMouse.getY());
-            myDrag = new Rectangle2D.Double(uX, uY, width, height);
-        }
+ 
+    public void receiveCommand (Command command) {
+        
     }
 }

@@ -65,7 +65,7 @@ public class MenuState extends SubState implements Observer {
     }
 
     @Override
-    public void receiveInput (Command command) {
+    public void receiveCommand (Command command) {
         // TODO Auto-generated method stub
         
     }

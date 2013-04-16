@@ -19,14 +19,14 @@ public class GameState extends SubState {
     
     private final static int DEFAULT_NODE_SIZE = 8;
     private GameMap myMap;
-    private List<Player> myPlayers;
-    private Map<Player, Manager> myManagers;
+    private Player myPlayer;
+    private Manager myManager;
     
     public GameState (Observer observer, Dimension gameSize) {
         super(observer);
         myMap = new GameMap(DEFAULT_NODE_SIZE, gameSize);
-        myPlayers = new ArrayList<Player>();
-        myManagers = new HashMap<Player, Manager>();
+        myPlayer = new Player(this);
+        myManager = null;
     }
 
     @Override
@@ -41,7 +41,7 @@ public class GameState extends SubState {
     }
 
     @Override
-    public void receiveInput (Command command) {
+    public void receiveCommand (Command command) {
         // TODO Auto-generated method stub
         
     }

@@ -1,6 +1,6 @@
 package vooga.rts.controller;
 
-public abstract class Command {
+public class Command {
     
     private String myMethodCall;
     

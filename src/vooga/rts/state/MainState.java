@@ -17,7 +17,7 @@ import vooga.rts.input.Input;
 import vooga.rts.gui.Window;
 
 
-public class MainState implements State, Observer, IGameLoop {
+public class MainState implements State, Observer {
 
     private final static String DEFAULT_INPUT_LOCATION = "vooga.rts.resources.properties.Input";
     private Window myWindow;
@@ -47,8 +47,8 @@ public class MainState implements State, Observer, IGameLoop {
     }
 
     @Override
-    public void receiveInput (Command command) {
-        myActiveState.receiveInput(command);
+    public void receiveCommand (Command command) {
+        myActiveState.receiveCommand(command);
     }
     
     @Override
