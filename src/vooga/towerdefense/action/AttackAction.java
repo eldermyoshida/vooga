@@ -7,6 +7,7 @@ import vooga.towerdefense.attributes.Attacker;
 import vooga.towerdefense.attributes.AttributeConstants;
 import vooga.towerdefense.attributes.AttributeManager;
 import vooga.towerdefense.attributes.Targetable;
+import vooga.towerdefense.event.Event;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.gameElements.Projectile;
 
@@ -16,7 +17,7 @@ import vooga.towerdefense.gameElements.Projectile;
  * @author Matthew Roy
  *
  */
-public class AttackAction extends AbstractAction {
+public class AttackAction extends Action {
 	private static final AttributeConstants myAttributeConstants = new AttributeConstants();
 	GameElement myInitiator;
 	double myCoolDown;
@@ -35,7 +36,7 @@ public class AttackAction extends AbstractAction {
 	}*/
 
 	@Override
-	public void execute(double elapsedTime) {
+	public void executeAction() {
 		//check whether it's in cool down
 		if (isEnabled()) {
 			//get targets that we wanna shoot
@@ -51,7 +52,7 @@ public class AttackAction extends AbstractAction {
 						new Projectile(myInitiator, target,new ArrayList<AbstractAction>()));
 			}
 			
-			setCoolDown(myCoolDown,isOneTimeAction);
+			//setCoolDown(myCoolDown,isOneTimeAction);
 		}
 
 	}
