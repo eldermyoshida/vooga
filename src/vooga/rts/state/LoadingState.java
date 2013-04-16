@@ -18,10 +18,9 @@ public class LoadingState extends SubState {
     BufferedImage myBGImage;
     public static final String DEFAULT_BGIMAGE_LOCATION = "images/backgrounds/loading_bg.png";
     
-    public LoadingState (Observer observer, Input input) {
+    public LoadingState (Observer observer) {
         super(observer);
         myBGImage = ResourceManager.instance().loadFile(DEFAULT_BGIMAGE_LOCATION);
-        input.addListenerTo(new LController(this));
     }
     
     @Override
@@ -48,7 +47,7 @@ public class LoadingState extends SubState {
     }
     
     @Override
-    public void receiveCommand (Command command) {
+    public void receiveInput (Command command) {
         setChanged();
         notifyObservers();
     }

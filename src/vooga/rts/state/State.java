@@ -1,7 +1,9 @@
 package vooga.rts.state;
 
+import vooga.rts.IGameLoop;
+import vooga.rts.controller.Command;
 
-public interface State {
+public interface State extends IGameLoop {
     
-    public void manageState ();
+    public abstract void receiveInput (Command command);
 }

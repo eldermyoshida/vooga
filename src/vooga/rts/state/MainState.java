@@ -11,27 +11,31 @@ import java.util.Queue;
 import javax.swing.Timer;
 import vooga.rts.Game;
 import vooga.rts.IGameLoop;
+import vooga.rts.controller.Command;
+import vooga.rts.controller.InputController;
 import vooga.rts.input.Input;
 import vooga.rts.gui.Window;
-import vooga.rts.util.FrameCounter;
 
 
-public class MainState implements Observer, IGameLoop {
+public class MainState implements State, Observer, IGameLoop {
 
     private final static String DEFAULT_INPUT_LOCATION = "vooga.rts.resources.properties.Input";
     private Window myWindow;
-    private FrameCounter myFrames;
-    private Input myInput;
     private Queue<SubState> myStates;
     private SubState myActiveState;
     private Timer myTimer;
+    private InputController myController;
     
     public MainState () {
         myWindow = new Window();
         myWindow.setFullscreen(true);
         myStates = new LinkedList<SubState>();
-        myInput = new Input(DEFAULT_INPUT_LOCATION, myWindow.getCanvas());
-        myStates.add(new LoadingState(this, myInput));      
+        Input input = new Input(DEFAULT_INPUT_LOCATION, myWindow.getCanvas());
+        myController = new InputController(this);
+        input.addListenerTo(myController);
+        myStates.add(new LoadingState(this));
+        myStates.add(new GameState(this));
+        
         myTimer = new Timer((int) Game.TIME_PER_FRAME(), new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {
@@ -40,8 +44,14 @@ public class MainState implements Observer, IGameLoop {
             }
         });
         myTimer.start();
+        setActiveState();
     }
 
+    @Override
+    public void receiveInput (Command command) {
+        myActiveState.receiveInput(command);
+    }
+    
     @Override
     public void update (double elapsedTime) {
         myActiveState.update(elapsedTime);
@@ -55,6 +65,7 @@ public class MainState implements Observer, IGameLoop {
     @Override
     public void update (Observable o, Object arg) {
         setActiveState();
+        System.out.println("updated observer");
     }
     
     private void setActiveState() {
@@ -62,16 +73,11 @@ public class MainState implements Observer, IGameLoop {
     }
     
     private void render () { // At some point, might move this method in to its own view class
-        // Get graphics and clear frame
         Graphics2D graphics = myWindow.getCanvas().getGraphics();
         graphics.setColor(Color.WHITE);
         graphics.fillRect(0, 0, myWindow.getCanvas().getWidth(), myWindow.getCanvas().getHeight());
         graphics.setColor(Color.BLACK);
-
-        // Paint stuff
         paint(graphics);
-
-        // Now, render the window
         myWindow.getCanvas().render();
     }
 }

@@ -1,51 +1,59 @@
 package vooga.rts.controller;
 
+import java.awt.geom.Rectangle2D;
 import vooga.rts.input.InputClassTarget;
 import vooga.rts.input.InputMethodTarget;
 import vooga.rts.input.PositionObject;
+import vooga.rts.state.State;
 
-
+/** 
+ * After much thought, I've decided to only have one InputController. This controller
+ * sends the formatted inputs to the main state, which relays them to the appropriate 
+ * state.
+ * @author Challen Herzberg-Brovold
+ *
+ */
 @InputClassTarget
-public class InputController {
+public class InputController implements Controller {
 
-    public AbstractController myActiveController;
-
-    public InputController (AbstractController myController) {
-        myActiveController = myController;
-    }
-
-    public void setActiveController (AbstractController myController) {
-        myActiveController = myController;
-    }
-
-    @InputMethodTarget(name = "onLeftMouseDown")
-    public void onLeftMouseDown (PositionObject o) {        
-        myActiveController.onLeftMouseDown(o);
-    }
-
-    @InputMethodTarget(name = "onLeftMouseUp")
-    public void onLeftMouseUp (PositionObject o) {        
-        myActiveController.onLeftMouseUp(o);
-    }
-
-    @InputMethodTarget(name = "onRightMouseDown")
-    public void onRightMouseDown (PositionObject o) {
-        myActiveController.onRightMouseDown(o);
-    }
-
-    @InputMethodTarget(name = "onRightMouseUp")
-    public void onRightMouseUp (PositionObject o) {
-        myActiveController.onRightMouseUp(o);
-    }
-
-    @InputMethodTarget(name = "onMouseDrag")
-    public void onMouseDrag (PositionObject o) {        
-        myActiveController.onMouseDrag(o);
+    private State myState;
+    private PositionObject myLeftMouse;
+    private Rectangle2D myDrag;
+    
+    public InputController (State state) {
+        myState = state;
     }
     
-    @InputMethodTarget(name = "onMouseMove")
-    public void onMouseMove (PositionObject o) {        
-        myActiveController.onMouseMove(o);
+    @Override
+    public void sendCommand (Command command) {
+        myState.receiveInput(command);   
     }
-
+    
+    @InputMethodTarget(name  = "leftMouseDown")
+    public void leftMouseDown (PositionObject o) {
+        myLeftMouse = o;
+        System.out.println("Left Down");
+    }
+    
+    @InputMethodTarget(name  = "leftMouseDown")
+    public void leftMouseUp (PositionObject o) {
+        if (myDrag == null) {            
+            sendCommand(new DragCommand("drag", myDrag));
+        }
+        else{
+            sendCommand(new LeftClickCommand("leftclick", o));
+        }
+        myLeftMouse = null;
+        myDrag = null;
+    }
+    
+    public void mouseDrag (PositionObject o) {
+        if (myLeftMouse != null) {
+            double uX = o.getX() > myLeftMouse.getX() ? myLeftMouse.getX() : o.getX();
+            double uY = o.getY() > myLeftMouse.getY() ? myLeftMouse.getY() : o.getY();            
+            double width = Math.abs(o.getX() - myLeftMouse.getX());
+            double height = Math.abs(o.getY() - myLeftMouse.getY());
+            myDrag = new Rectangle2D.Double(uX, uY, width, height);
+        }
+    }
 }

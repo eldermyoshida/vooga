@@ -25,7 +25,7 @@ public class Player implements Controller {
     }
     
     public void sendCommand(Command command) {
-            myManager.receiveCommand(command);
+        myManager.receiveCommand(command);
     }
     
     public void leftMouseDown (PositionObject o) {
