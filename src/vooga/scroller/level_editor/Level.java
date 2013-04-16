@@ -96,11 +96,9 @@ public class Level implements Editable, Renderable {
     public void addPlayer(Player s) {
         myPlayer = s;
         for (Sprite sprite : mySprites) {
-
             if (sprite instanceof NonStaticEntity) {
                 addPlayerToSprite((NonStaticEntity) sprite);
-            }
-            
+            }            
         }
     }
     
@@ -126,7 +124,6 @@ public class Level implements Editable, Renderable {
     }
 
     public void update(double elapsedTime, Dimension bounds, View view) {
-        System.out.println(getInput());
         if(myPlayer != null) {
 //            System.out.println(myPlayer.getPaintLocation());
             updateFrames(view);
@@ -247,16 +244,14 @@ public class Level implements Editable, Renderable {
         CollisionManager CM = new CollisionManager(this);
 
        mySprites.add(myPlayer);
-        
         for (int i = 0; i < mySprites.size(); i++) {
             for (int j = i + 1; j < mySprites.size(); j++) {     
                 obj1 = mySprites.get(i);
                 obj2 = mySprites.get(j);
                 if (obj1.intersects(obj2)) {
+                    //System.out.println("Obj1: " + obj1.getClass() + " Obj2: " + obj2.getClass());
                     CM.handleCollision(obj1, obj2);
-                    CM.handleCollision(obj2, obj1);
                 }
-
             }
         }
         

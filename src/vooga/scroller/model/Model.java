@@ -6,15 +6,13 @@ import java.awt.Image;
 import java.util.Arrays;
 import java.util.List;
 import util.Location;
+import util.Secretary;
 import vooga.scroller.level_management.LevelManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.animation.Animation;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.sprites.test_sprites.mario.Mario;
-import vooga.scroller.util.Pixmap;
-import vooga.scroller.util.Secretary;
 import vooga.scroller.view.View;
-
 
 
 /**
@@ -34,7 +32,7 @@ public class Model {
     private LevelManager myLevelManager;
     private ScrollingManager myScrollingManager;
     private Secretary mySecretary;
-    private List<String> spriteStrings = Arrays.asList("Koopa koopa", "Coin coin",
+    private List<String> spriteStrings = Arrays.asList("Mario mario", "Koopa koopa", "Coin coin",
                                                        "MarioLib.MovingPlatform movingPlatform"); 
     private static final String PART_ONE = "public void visit (";
     private static final String PART_TWO = ") {}";
@@ -147,9 +145,10 @@ public class Model {
      * @author Jay Wang
      */
     private void generateVisitMethods (List<String> spriteStrings) {
-        for (String firstSpriteString : spriteStrings) {
-            for (String secondSpriteString : spriteStrings) {
-                mySecretary.write(PART_ONE + firstSpriteString + COMMA + secondSpriteString + PART_TWO);
+        for (int i = 0; i < spriteStrings.size(); i++) {
+            for (int j = i+1; j < spriteStrings.size(); j++) {
+                
+                mySecretary.write(PART_ONE + spriteStrings.get(i) + COMMA + spriteStrings.get(j) + PART_TWO);
             }
         }        
     }
