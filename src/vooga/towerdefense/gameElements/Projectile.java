@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import vooga.towerdefense.action.AbstractAction;
 import vooga.towerdefense.attributes.Attacker;
-import vooga.towerdefense.attributes.AttackerAttributes;
+import vooga.towerdefense.attributes.AttributeConstants;
 import vooga.towerdefense.attributes.AttributeManager;
 import vooga.towerdefense.attributes.Targetable;
 import vooga.towerdefense.util.Location;
@@ -17,32 +17,33 @@ import vooga.towerdefense.gameElements.GameElement;
  *
  */
 public class Projectile extends GameElement implements Attacker {
+	private static final AttributeConstants myAttributeConstants=new AttributeConstants();
     private static int DEFAULT_WIDTH;
     private static final Pixmap DEFAULT_IMAGE = new Pixmap("defined by designer");
     private static final Dimension DEFAULT_SIZE = new Dimension(DEFAULT_WIDTH, DEFAULT_WIDTH);
     private static final List<AbstractAction> DEFAULT_ACTIONS = new ArrayList<AbstractAction>();
-    private AttackerAttributes myAttackAttributes;
+    private AttributeManager myAttributeManager;
 
     
-    public Projectile (GameElement initiator, Targetable target, List<AbstractAction> actions, AttackerAttributes attributes) {
+    public Projectile (GameElement initiator, Targetable target, List<AbstractAction> actions, AttributeManager attributes) {
         super(DEFAULT_IMAGE, initiator.getCenter(), DEFAULT_SIZE, DEFAULT_ACTIONS);
-        myAttackAttributes = attributes;
+        myAttributeManager = attributes;
 
     }
 
     @Override
     public double getAttackRadius () {
-        return myAttackAttributes.getAttackRadius().getValue();
+        return myAttributeManager.getAttribute(myAttributeConstants.ATTACK_RADIUS).getValue();
     }
 
     @Override
     public int getNumberOfTargets () {
-        return (int) myAttackAttributes.getNumberOfTargets().getValue();
+    	return (int)(myAttributeManager.getAttribute(myAttributeConstants.NUM_OF_TARGETS).getValue());
     }
 
     @Override
     public double getAttackDamage () {
-        return myAttackAttributes.getAttackDamage().getValue();
+    	 return myAttributeManager.getAttribute(myAttributeConstants.ATTACK_DAMAGE).getValue();
     }
 
     @Override
@@ -58,7 +59,6 @@ public class Projectile extends GameElement implements Attacker {
 
     @Override
     public Location getAttackCenter () {
-        // TODO Auto-generated method stub
         return null;
     }
 

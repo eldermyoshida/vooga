@@ -23,6 +23,7 @@ import vooga.towerdefense.util.Vector;
  * 
  */
 public class Unit extends GameElement implements Targetable{
+	private static final AttributeConstants myAttributeConstants=new AttributeConstants();
     private static final double DISTANCE_OFFSET = 5;
     private Path myPath;
     private Location myDestination;
@@ -31,7 +32,7 @@ public class Unit extends GameElement implements Targetable{
     private List<AbstractAction> myActions;
     private StateManager myStateManager;
     private AttributeManager myAttributeManager;
-    private AttributeConstants myAttributeConstants=new AttributeConstants();
+    
 
     public Unit (Location destination,
                  Pixmap image,

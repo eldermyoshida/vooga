@@ -12,8 +12,8 @@ import vooga.towerdefense.util.Location;
  */
 public abstract class Attribute {
     private String myName;
-    private Double myOriginalValue;
-    private Double myCurrentValue;
+    private double myOriginalValue;
+    private double myCurrentValue;
 
     public Attribute (String attributeName, Double attributeValue) {
         myName = attributeName;
@@ -67,7 +67,7 @@ public abstract class Attribute {
      * 
      * @return
      */
-    public Double getValue () {
+    public double getValue () {
         return myCurrentValue;
     }
     
