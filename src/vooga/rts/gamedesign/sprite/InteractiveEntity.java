@@ -37,6 +37,9 @@ import vooga.rts.util.Sound;
  */
 public abstract class InteractiveEntity extends GameEntity implements IAttackable{
 
+	//Default speed 
+	private static int DEFAULT_INTERACTIVEENTITY_SPEED = 150;
+
     private boolean isSelected;
     private UpgradeTree myUpgradeTree;
     private Sound mySound;
@@ -81,6 +84,9 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
 		myUpgradeTree = upgradeTree;
 	}
 
+	public int getSpeed() {
+		return DEFAULT_INTERACTIVEENTITY_SPEED;
+	}
 	/**
 	 * This method specifies that the interactive entity is getting attacked
 	 * so it calls the attack method of the interactive entity on itself.

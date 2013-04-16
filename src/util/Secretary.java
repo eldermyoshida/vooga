@@ -30,9 +30,11 @@ public class Secretary {
     private FileWriter myFileWriter;
     private FileChannel sourceChannel;
     private FileChannel targetChannel;
+     /* YOU NEED TO CHANGE THESE THREE ENTITIES ESPESIALLY THE PATH
+     */
+    private static final String FILE_PATH = "src/vooga/scroller/collision_manager/files/"; //this is where your file gets created
+    private static final String SESSION_FILE = "visitMethods.txt"; //this is the name of the file you generate
 
-    private static final String FILE_PATH = "src/vooga/scroller/collision_manager/files/";
-    private static final String SESSION_FILE = "visitMethods.txt";
     private static final String TMP_FILE = "tmp.txt";
 
     public Secretary () {
