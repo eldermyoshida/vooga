@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import arcade.games.GameInfo;
+import arcade.model.Model;
 import arcade.util.JPicture;
 import arcade.util.Pixmap;
 
@@ -50,9 +51,11 @@ public class DetailView extends JFrame{
         private JTextArea myDescriptionContent;
         private JEditorPane myCommentsContent;
         private JButton myPlayButton;
+        private Model myModel;
 
 
-        public DetailView(GameInfo info, ResourceBundle resources){
+        public DetailView(GameInfo info, ResourceBundle resources, Model model){
+            myModel = model;
                 setBackground(Color.WHITE);
                 myGameInfo= info;
                 myResources = resources;
@@ -81,8 +84,7 @@ public class DetailView extends JFrame{
 
                     @Override
                     public void actionPerformed (ActionEvent e) {
-                       //TODO: LAUNCH the GAME! PLAY!
-                        
+                       myModel.playGame(myGameInfo);
                     }
                     
                 });
@@ -144,11 +146,12 @@ public class DetailView extends JFrame{
                 List<String[]> commentContents = myGameInfo.getComments();
                 StringBuilder sb = new StringBuilder();
                 for(String[] comment: commentContents){
-                        String subject = HTML_BOLD_HEADER+ comment[0] + NEWLINE +HTML_BOLD_TAIL;
+                        String subject = BOLD_HEADER+ comment[0] + NEWLINE +BOLD_TAIL;
                         sb.append(subject);
                         String user  = comment[1] + NEWLINE;
                         sb.append(user);
                         //TODO: rating
+                        sb.append(comment[2] + NEWLINE);
                         
                         String content = comment[3] + NEWLINE;
                         sb.append(content);
@@ -156,9 +159,9 @@ public class DetailView extends JFrame{
                 myCommentsContent.setText(sb.toString());
         }
         
-        public static void main(String[] args){
-                GameInfo in = new GameInfo("example","English");
-                DetailView main = new DetailView(in, null);
-        }
+//        public static void main(String[] args){
+//                GameInfo in = new GameInfo("example","English");
+//                DetailView main = new DetailView(in, null);
+//        }
 
 }
