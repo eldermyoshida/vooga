@@ -20,11 +20,13 @@ public class InputController {
 
     @InputMethodTarget(name = "onLeftMouseDown")
     public void onLeftMouseDown (PositionObject o) {
+        System.out.println("down");
         myActiveController.onLeftMouseDown(o);
     }
 
     @InputMethodTarget(name = "onLeftMouseUp")
-    public void onLeftMouseUp (PositionObject o) {        
+    public void onLeftMouseUp (PositionObject o) {
+        System.out.println("up");
         myActiveController.onLeftMouseUp(o);
     }
 
