@@ -1,5 +1,6 @@
 /level
                                                             
+                                                            
       aaaaaaaaaaaa                      b                   
       acccccccccca                                          
       acccccccccca                                          
@@ -20,14 +21,14 @@
                h  g        daa               cccf           
                           daaa               ccc            
     e    b                f                  ccc            
-                                         f   ccc            
-                                             ccc            
-                      f   f                  ccc            
-                                             cccf           
-                                             ccc            
-                  f   f   f                  ccc            
-                                         f   ccc            
-                                             ccc            
+a                                        f   ccc            
+a                                            ccc            
+a                     f   f                  ccc            
+a                                            cccf           
+a                                            ccc            
+a                 f   f   f                  ccc            
+a                                        f   ccc            
+a                                            ccc            
 aaaaaaag  g  g  g  g  g  g  aa               aaaaaaa        
 /key
 c=vooga.scroller.sprites.test_sprites.MarioLib.Coin
