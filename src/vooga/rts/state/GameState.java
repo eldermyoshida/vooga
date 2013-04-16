@@ -26,7 +26,7 @@ public class GameState extends SubState {
         super(observer);
         myMap = new GameMap(DEFAULT_NODE_SIZE, gameSize);
         myPlayer = new Player(this);
-        myManager = null;
+        myManager = new Manager();
     }
 
     @Override

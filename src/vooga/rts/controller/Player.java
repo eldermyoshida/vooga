@@ -22,11 +22,13 @@ public class Player implements Controller, Controllable {
     public Player (State game) {
         myGame = game;
     }
+    
     @Override
     public void sendCommand (Command command) {
         
     }
  
+    @Override
     public void receiveCommand (Command command) {
         
     }

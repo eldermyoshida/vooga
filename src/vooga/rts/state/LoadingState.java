@@ -8,8 +8,6 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.Observer;
 import vooga.rts.controller.Command;
-import vooga.rts.controller.LController;
-import vooga.rts.input.Input;
 import vooga.rts.resourcemanager.ResourceManager;
 
 public class LoadingState extends SubState {
