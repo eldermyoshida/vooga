@@ -1,4 +1,4 @@
-package vooga.towerdefense.action;
+package vooga.towerdefense.attributes;
 
 public interface Upgradable {
 
