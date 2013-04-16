@@ -1,6 +1,7 @@
 package vooga.rts.networking.client;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -20,6 +21,7 @@ import javax.swing.DefaultListSelectionModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -55,7 +57,7 @@ public class ServerBrowserView extends JFrame {
         //tabPanel.setPreferredSize(new Dimension(800,550));
         this.setPreferredSize(new Dimension(800,600));
         //this.setLayout(new GridLayout(2,1));
-        setToolBar();
+        //setToolBar();
         
         
         //add(createJoinPanel(),"Join a Game");
@@ -75,12 +77,16 @@ public class ServerBrowserView extends JFrame {
 
     }
     
-    private void setToolBar(){
+    private JComponent setToolBar(){
         myBar.add(Box.createGlue());
         myBar.add(Box.createGlue());
+        myBar.setOpaque(false);
         imageLoader.execute();
         myBar.setFloatable(false);
         myBar.setRollover(true);
+        JScrollPane scroll = new JScrollPane(myBar);
+        scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        return scroll;
     }
     
     private SwingWorker<Void,ThumbnailAction> imageLoader = new SwingWorker<Void,ThumbnailAction>() {
@@ -162,42 +168,27 @@ public class ServerBrowserView extends JFrame {
     }
 
     private void createJoinPanel () {
-        ServerBrowserPanel joinPanel = new ServerBrowserPanel();
+        BackgroundPanel joinPanel = new BackgroundPanel();
         joinPanel.setLayout(new BorderLayout(0, 0));
-        //JPanel joinPanel = new JPanel();
-        //joinPanel.setPreferredSize(this.getSize());
         JPanel workingPanel = new JPanel();
         joinPanel.add(workingPanel);
         //workingPanel.setPreferredSize(this.getSize());
         workingPanel.setLayout(new BorderLayout(10,10));
         //joinPanel.repaint();
-        //repaint();
+//        //repaint();
         joinPanel.setBorder(new EmptyBorder(50, 110, 50, 110) );
         //joinPanel.setLayout(new BoxLayout(joinPanel,BoxLayout.X_AXIS));
-        JScrollPane scroll = new JScrollPane(myBar);
-        //scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-        scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        workingPanel.add(scroll,BorderLayout.SOUTH);
-        //myBar.setOpaque(false);
         
-        
-        List<String> s = new ArrayList<String>();
-        for (int i = 0; i<100; i++){
-            s.add("server #"+i);
-        }
+        workingPanel.add(setToolBar(),BorderLayout.SOUTH);
+
         // TODO get the name of the game and display it here
-       
-        //JList serverList = new JList(s.toArray());
-        //serverList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        //serverList.setLayoutOrientation(JList.VERTICAL);
-        //JScrollPane scrollPane = new JScrollPane(serverList);
-        //scrollPane.setPreferredSize(new Dimension(200,350));
-        //serverList.setBackground(new Color(0xF5DEB3));
-        //joinPanel.add(scrollPane,BorderLayout.WEST);
-        
-        
-        workingPanel.add(createGeneralPanel(),BorderLayout.WEST);
-        workingPanel.add(createSpecificPanel(),BorderLayout.CENTER);
+        DescriptionCardFactory fac = new DescriptionCardFactory();
+        JPanel cardPanel = new JPanel();
+        cardPanel.setLayout(new CardLayout());
+        cardPanel.setOpaque(false);
+        cardPanel.add(fac.createCard(),"panel 1");
+        workingPanel.add(cardPanel,BorderLayout.CENTER);
+        //workingPanel.add(createSpecificPanel(),BorderLayout.CENTER);
         workingPanel.setOpaque(false);
         getContentPane().add(joinPanel);
         
@@ -205,44 +196,37 @@ public class ServerBrowserView extends JFrame {
         //return joinPanel;
     }
     
-    private JPanel createGeneralPanel(){
+    private JPanel createDescriptionPanel(){
+        CardLayout myCards = new CardLayout();
+        JPanel Cards = new JPanel(myCards);
         
-        JPanel generalInfo = new JPanel();
-        generalInfo.setLayout(new GridLayout(2,1,0,20));
-        generalInfo.setOpaque(false);
-        ImageIcon icon = new ImageIcon(this.getClass().getResource("../resources/Scroll.png"));
-        Image img = icon.getImage();
-        Image scaled = img.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
-        JLabel c = new JLabel("Map info: ososososso");
-        c.setHorizontalTextPosition(SwingConstants.CENTER);
-        c.setVerticalTextPosition(SwingConstants.TOP);
-        c.setAlignmentX(SwingConstants.TOP);
-        c.setIcon(new ImageIcon(scaled));
-        //new JLabel("Map: ",new ImageIcon(scaled),JLabel.TRAILING)
-        generalInfo.add(c);
-        JPanel description = new JPanel();
-        description.setOpaque(false);
-        generalInfo.add(description);
-        description.setLayout(new GridLayout(3,1));
-        description.add(new JLabel("Server: "),BorderLayout.SOUTH);
-        description.add(new JLabel("Host: "),BorderLayout.SOUTH);
-        description.add(new JLabel("Max Players: "),BorderLayout.SOUTH);
+        
+        
+//        JPanel generalInfo = new JPanel();
+//        generalInfo.setLayout(new GridLayout(2,1,0,20));
+//        generalInfo.setOpaque(false);
+//        ImageIcon icon = new ImageIcon(this.getClass().getResource("../resources/Scroll.png"));
+//        Image img = icon.getImage();
+//        Image scaled = img.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+//        JLabel c = new JLabel("Map info: ososososso");
+//        c.setHorizontalTextPosition(SwingConstants.CENTER);
+//        c.setVerticalTextPosition(SwingConstants.TOP);
+//        c.setAlignmentX(SwingConstants.TOP);
+//        c.setIcon(new ImageIcon(scaled));
+//        //new JLabel("Map: ",new ImageIcon(scaled),JLabel.TRAILING)
+//        generalInfo.add(c);
+//        JPanel description = new JPanel();
+//        description.setOpaque(false);
+//        generalInfo.add(description);
+//        description.setLayout(new GridLayout(3,1));
+//        description.add(new JLabel("Server: "),BorderLayout.SOUTH);
+//        description.add(new JLabel("Host: "),BorderLayout.SOUTH);
+//        description.add(new JLabel("Max Players: "),BorderLayout.SOUTH);
 
         return generalInfo;
     }
     
-    private JPanel createSpecificPanel(){
-        JPanel specific = new JPanel();
-        int numLabels = 10;
-        specific.setLayout(new GridLayout(0,1));
-        for(int i = 0 ; i<numLabels; i++){
-            JLabel label = new JLabel("label number "+i);
-            label.setHorizontalAlignment(SwingConstants.CENTER);
-            specific.add(label);
-        }
-        specific.setOpaque(false);
-        return specific;
-    }
+    
 
     private JPanel createHostPanel () {
         JPanel hostPanel = new JPanel();
