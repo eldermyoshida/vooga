@@ -8,6 +8,7 @@ import java.util.List;
  * Attributes object that helps to track all game element stats.
  * It also provides info requested by view through controller.
  * Used by Towers, Units, Weapons and any Asset-based object.
+ * 
  * @author XuRui
  *
  */

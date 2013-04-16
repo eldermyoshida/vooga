@@ -1,5 +1,7 @@
 package arcade.games;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This is the class a game uses for persistence of USER information.
@@ -8,27 +10,31 @@ import java.io.Serializable;
  * here in subclassed UserGameDatas.
  * @author Will Nance
  */
-public abstract class UserGameData implements Serializable {
+public class UserGameData implements Serializable {
 
     /**
      * 
      */
     private static final long serialVersionUID = 1L;
-    private double myStatistic;
+    private List<Double> myScores;
+    
+    public UserGameData() {
+        myScores = new ArrayList<Double>();
+    }
     
     /**
      * Represents something like a score or a win/loss ratio or any number
      * that is relevant to how a user is performing.
      */
-    protected double getStatistic () {
-        return myStatistic;
+    public List<Double> getScores () {
+        return myScores;
     }
 
     /**
      * Lets the game update the user's statistic.
      */
-    protected void setStatistic (double statistic) {
-        myStatistic = statistic;
+    public void setScore (double score) {
+        myScores.add(score);
     }
 
   

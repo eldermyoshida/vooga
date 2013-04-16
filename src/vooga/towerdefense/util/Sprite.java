@@ -168,6 +168,13 @@ public abstract class Sprite {
     public void setVelocity (double angle, double magnitude) {
         myVelocity = new Vector(angle, magnitude);
     }
+    
+    /**
+     * Resets shape's velocity.
+     */
+    public void setVelocity (Vector newVect) {
+        myVelocity = new Vector(newVect);
+    }
 
     /**
      * Resets shape's image.
@@ -248,6 +255,8 @@ public abstract class Sprite {
     }
     
     public void turnTo (Location loc) {
+
+		getVelocity().setDirection(getVelocity().getDirection()+Vector.angleBetween(myCenter, loc));
     	
     }
     

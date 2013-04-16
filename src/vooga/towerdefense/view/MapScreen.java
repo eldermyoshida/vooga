@@ -1,35 +1,83 @@
 package vooga.towerdefense.view;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.JPanel;
+import vooga.towerdefense.controller.Controller;
+import vooga.towerdefense.util.Location;
 
 /**
- * 
- * @author Leonard K. Ng'eno
+ * Displays the map and everything on the map.
+ * @author Angelica Schwartz
  *
  */
 public class MapScreen extends JPanel {
 
     private static final long serialVersionUID = 1L;
-    private static final int XCOORD = 0;
-    private static final int YCOORD = 0;
-    private Color myBackgroundColor = Color.WHITE;
+    private Controller myController;
+    private MouseListener myMouseListener;
+    private Dimension mySize;
 
-    public MapScreen (Dimension size) {
-        setPreferredSize(size);
+    /**
+     * Constructor.
+     * @param size
+     */
+    public MapScreen (Dimension size, Controller controller) {
+        mySize = size;
+        setPreferredSize(mySize);
         setFocusable(true);
         setVisible(true);
+        myController = controller;
+        makeMouseListener();
+        addMouseListener(myMouseListener);
+        repaint();
     }
     
-    @Override
-    public void paintComponent (Graphics pen) {
+    /**
+     * updates the mapscreen appropriately.
+     */
+    public void update() {
+        revalidate();
+        repaint();
+    }
+    
+    public void paintComponent(Graphics pen) {
         super.paintComponent(pen);
-        pen.setColor(myBackgroundColor);
-        pen.fillRect(XCOORD, YCOORD, getSize().width, getSize().height);
-        
-        //paint the map paths, units and towers
+        myController.paintMap();
+        paintGridLines(pen);
     }
     
+    public void paintGridLines(Graphics pen) {
+        for (int i = 0; i < mySize.width; i+=25)
+            pen.drawLine(i, 0, i, mySize.height);
+        for (int j = 0; j < mySize.height; j+=25)
+            pen.drawLine(0, j, mySize.width, j);
+    }
+    
+    /**
+     * helper method to create the listener for mouse input.
+     */
+    //TODO: integrate this with input team
+    private void makeMouseListener() {
+        myMouseListener = new MouseListener() {
+            @Override
+            public void mouseClicked (MouseEvent e) {
+                myController.handleMapClick(e.getPoint());
+            }
+            @Override
+            public void mouseEntered (MouseEvent e) {
+            }
+            @Override
+            public void mouseExited (MouseEvent e) {
+            }
+            @Override
+            public void mousePressed (MouseEvent e) {
+            }
+            @Override
+            public void mouseReleased (MouseEvent e) {
+            }
+        };
+    }
 }
