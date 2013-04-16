@@ -2,7 +2,6 @@ package vooga.towerdefense.attributes;
 
 import java.util.jar.Attributes;
 
-import vooga.towerdefense.attributes.TargetableAttributes;
 
 /**
  * Interface implemented to render a game element targetable. 
@@ -25,6 +24,5 @@ public interface Targetable {
 	 */
 	public boolean isAlive();
 
-	public TargetableAttributes getTargetableAttributes();
 
 }

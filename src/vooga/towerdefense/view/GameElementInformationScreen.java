@@ -2,6 +2,7 @@ package vooga.towerdefense.view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
@@ -102,6 +103,10 @@ public class GameElementInformationScreen extends InformationScreen {
         };
     }
     
+    /**
+     * helper method to set up the upgrade button
+     *          and drop down box with upgrade options.
+     */
     private void setUpUpgradeSection() {
         myUpgradeSection = new JPanel();
         upgradeButton = new JButton(UPGRADE_BUTTON_NAME);
