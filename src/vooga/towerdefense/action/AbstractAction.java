@@ -17,7 +17,7 @@ import vooga.towerdefense.util.CoolDownManager;
 public abstract class AbstractAction {
 	private GameElement myInitiator;
 	private InfoBridge myInfoBridge;
-	//private CoolDownManager myCDManager;
+	private CoolDownManager myCDManager;
 	private boolean enabled;
 	
 	public AbstractAction(GameElement initiator){
@@ -34,17 +34,13 @@ public abstract class AbstractAction {
 	public abstract void execute(double elapsedTime);
 	
 	
-	/*public void setCoolDown(double cd, boolean isOneTime){
+	public void setCoolDown(double cd, boolean isOneTime){
 		myCDManager.setCoolDown(cd, isOneTime);
 	}
 	
-	public boolean isReady(){
-		return myCDManager.isReady();
-		
-	}*/
 	
 	public boolean isEnabled(){
-		return enabled;
+		return myCDManager.isReady();
 	}
 
 }

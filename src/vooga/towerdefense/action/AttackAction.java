@@ -1,6 +1,11 @@
 package vooga.towerdefense.action;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import vooga.towerdefense.attributes.Attacker;
+import vooga.towerdefense.attributes.AttributeConstants;
+import vooga.towerdefense.attributes.AttributeManager;
 import vooga.towerdefense.attributes.Targetable;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.gameElements.Projectile;
@@ -12,7 +17,8 @@ import vooga.towerdefense.gameElements.Projectile;
  *
  */
 public class AttackAction extends AbstractAction {
-	Attacker myInitiator;
+	private static final AttributeConstants myAttributeConstants = new AttributeConstants();
+	GameElement myInitiator;
 	double myCoolDown;
 	boolean isOneTimeAction;
 
@@ -35,27 +41,23 @@ public class AttackAction extends AbstractAction {
 			//get targets that we wanna shoot
 			Targetable[] targets = getInfoBridge()
 					.getTargetsWithinRadiusOfGivenLocation(
-							myInitiator.getAttackCenter(),
-							myInitiator.getAttackRadius(),
-							myInitiator.getNumberOfTargets());
+							myInitiator.getCenter(),
+							myInitiator.getAttributeManager().getAttribute(myAttributeConstants.ATTACK_RADIUS).getValue(),
+							(int)(myInitiator.getAttributeManager().getAttribute(myAttributeConstants.NUM_OF_TARGETS).getValue()));
 			
 			//shoot a projectile towards each target
 			for (Targetable target : targets) {
 				getInfoBridge().addGameElement(
-						new Projectile(myInitiator, target));
+						new Projectile(myInitiator, target,new ArrayList<AbstractAction>()));
 			}
-		}
-		
-		//set cooldown
-		/*else{
+			
 			setCoolDown(myCoolDown,isOneTimeAction);
-		}*/
+		}
 
 	}
 
     @Override
     public void initAction () {
-        // TODO Auto-generated method stub
         
     }
 }

@@ -30,6 +30,12 @@ public class Projectile extends GameElement implements Attacker {
         myAttributeManager = attributes;
 
     }
+    public Projectile (GameElement initiator, Targetable target, List<AbstractAction> actions) {
+        super(DEFAULT_IMAGE, initiator.getCenter(), DEFAULT_SIZE, DEFAULT_ACTIONS);
+        myAttributeManager = initiator.getAttributeManager();
+
+    }
+
 
     @Override
     public double getAttackRadius () {
