@@ -7,8 +7,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.test_sprites.MarioLib;
 import vooga.scroller.util.Sprite;
+import vooga.scroller.view.View;
 
 
 public class LevelParser {
@@ -38,6 +40,8 @@ public class LevelParser {
     public LEGrid loadFileToGrid (File file) {
         myLevelStrings = new ArrayList<String>();
         myCharacterMap = new HashMap<Character, String>();
+        //TODO needs to be refactored. Design needs to be improved
+        setNameMap((new ToolsManager(new MarioLib())).getNameMap());
         try {
             myScanner = new Scanner(file);
         }
@@ -50,8 +54,8 @@ public class LevelParser {
         return createGrid();
     }
 
-    public Level loadFileToLevel (File file, int id) {
-        return loadFileToGrid(file).createLevel(id);
+    public Level loadFileToLevel (File file, int id, ScrollingManager sm, View v) {
+        return loadFileToGrid(file).createLevel(id, sm, v);
     }
 
     private void parseLevel () {

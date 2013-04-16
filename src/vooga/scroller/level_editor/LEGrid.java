@@ -11,6 +11,7 @@ import util.Location;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.util.Editable;
 import vooga.scroller.util.Sprite;
+import vooga.scroller.view.View;
 import vooga.scroller.viewUtil.Renderable;
 
 
@@ -87,9 +88,11 @@ public class LEGrid implements Editable, Renderable, Scrollable {
         //TODO
     }
     
-    public Level createLevel (int id) {
+    public Level createLevel (int id, 
+                              ScrollingManager sm,
+                              View v) {
         //TODO need to refactor. Editable Level.
-        Level lev = new Level(id);
+        Level lev = new Level(id, sm, v);
         for (SpriteBox box : myPaintableBoxes) {
             lev.addSprite(box.getSprite());
         }

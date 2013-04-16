@@ -39,20 +39,20 @@ public class LevelFactory {
      * @param view is the view used for level information.
      * @return a List of all levels that will be played in the game.
      */
-    public Map<Integer, Level> generateLevels (ScrollingManager myScrollingManager, View view) {
+    public Map<Integer, Level> generateLevels (ScrollingManager mySM, View view) {
         
-        SplashPage splash = new SplashPage(new Pixmap("MARIO SPLASH.png"),0,view, myScrollingManager);
+        SplashPage splash = new SplashPage(new Pixmap("MARIO SPLASH.png"),0,view, mySM);
         // TODO: fix this
         splash.addManager(myLevelManager);
         
 //        Level level1 = hardcodeLevel1(view, myScrollingManager, 1);
-        Level level1 = getLevelFromFile("createdLevel.level", 1);
+        Level level1 = getLevelFromFile("createdLevel.level", 1, mySM, view);
 
         // TODO: this will ideally read in levels from file and create instances of each level
         // This works for demo
         
         // adding levelportal --> acts as portal between levels.
-        Level secondLevel = new Level(2, myScrollingManager, view);
+        Level secondLevel = new Level(2, mySM, view);
 
         StartPoint exit = new StaticStartPoint(secondLevel, new Location(100, 140));
 
@@ -83,15 +83,17 @@ public class LevelFactory {
         return l;
     }
 
-    private Level getLevelFromFile (String filename, int levelID) {
+    private Level getLevelFromFile (String filename, int levelID, 
+                                    ScrollingManager sm,
+                                    View v) {
         String pre = "src/vooga/scroller/level_management/";
         File f = (new File(pre+filename)).getAbsoluteFile();
-        Level result = myLevelParser.loadFileToLevel(f, levelID);
+        Level result = myLevelParser.loadFileToLevel(f, levelID, sm, v);
         return result;
     }
 
-    private Level hardcodeLevel1 (View view, ScrollingManager sm, int a) {
-        Level myCurrLevel = new Level(a, sm, view);
+    private Level hardcodeLevel1 (View view, ScrollingManager sm, int id) {
+        Level myCurrLevel = new Level(id, sm, view);
         myCurrLevel.addSprite(new MarioLib.Coin(
                                                 new Location(view.getWidth() - 400, view
                                                         .getHeight() - 250)

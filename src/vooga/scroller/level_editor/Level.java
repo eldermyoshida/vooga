@@ -45,33 +45,37 @@ public class Level implements Editable, Renderable {
     public int getID () {
         return myID;
     }
+    
+    private Level() {
+        mySize = PlatformerConstants.DEFAULT_LEVEL_SIZE;
+        myBackground = DEFAULT_BACKGROUND;
+        frameOfReferenceSize = PlatformerConstants.REFERENCE_FRAME_SIZE;
+        myBackground = DEFAULT_BACKGROUND;
+        mySprites = new ArrayList<Sprite>();
+        initFrames();
+    }
 
     public Level(int id, ScrollingManager sm){
-        mySize = PlatformerConstants.DEFAULT_LEVEL_SIZE;
-        initFrames();
-        myBackground = DEFAULT_BACKGROUND;
+        this(); //TODO Incomplete. figure out SM constraints...
     }
     
     public Level(int id){
-        //this(id,new DefaultScrollingManager());
+        this();
+        myID = id;
     }
 
     public Level(int id, ScrollingManager sm, View view){
         //MIGHT WANT TO INITIALIZE THIS WITH A PLAYER AS WELL
-        mySize = PlatformerConstants.DEFAULT_LEVEL_SIZE;
-        initFrames();
+        this();
         myView = view;
-        frameOfReferenceSize = PlatformerConstants.REFERENCE_FRAME_SIZE;
         frameOfActionSize = calcActionFrameSize(myView.getSize());
         myScrollManager = sm;
-        myBackground = DEFAULT_BACKGROUND;
         myID = id;
     }
 
     private void initFrames() {
         myFrameOfActionSprites = new ArrayList<Sprite>();
-        myFrameOfReferenceSprites = new ArrayList<Sprite>();
-        mySprites = new ArrayList<Sprite>();       
+        myFrameOfReferenceSprites = new ArrayList<Sprite>();      
     }
 
     
