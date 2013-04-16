@@ -1,14 +1,13 @@
 package vooga.rts.controller;
 
 import java.awt.Graphics2D;
-import java.awt.MenuItem;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
+import util.input.PositionObject;
 import vooga.rts.gui.Menu;
 import vooga.rts.gui.menus.MainMenu;
-import vooga.rts.input.PositionObject;
 
 public class MenuController extends AbstractController implements Observer  {
 

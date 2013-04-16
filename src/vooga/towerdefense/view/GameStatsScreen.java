@@ -6,17 +6,17 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import javax.swing.JPanel;
-
 import vooga.towerdefense.util.ValueText;
+
 
 /**
  * 
  * @author Leonard K. Ng'eno
- *
+ * 
  */
 
 public class GameStatsScreen extends JPanel {
-    
+
     private static final long serialVersionUID = 1L;
     private static final String MONEY_LABEL = "$$";
     private static final String LIVES_LABEL = "Lives";
@@ -31,16 +31,16 @@ public class GameStatsScreen extends JPanel {
     private Color myBackgroundColor = Color.WHITE;
     private ValueText myMoney;
     private ValueText myLives;
-    
+
     public GameStatsScreen (Dimension size) {
         setPreferredSize(size);
         setFocusable(true);
-        
+
         initStatistics();
-        
+
         setVisible(true);
     }
-    
+
     @Override
     public void paintComponent (Graphics pen) {
         super.paintComponent(pen);
@@ -48,18 +48,18 @@ public class GameStatsScreen extends JPanel {
         pen.fillRect(XCOORD, YCOORD, getSize().width, getSize().height);
         paintStats((Graphics2D) pen);
     }
-    
-    public void update(){
-        //reset the values
+
+    public void update () {
+        // reset the values
     }
-    
+
     private void initStatistics () {
-        myMoney = new ValueText (MONEY_LABEL, myStartingMoney);
-        myLives = new ValueText (LIVES_LABEL, myStartingLives);
+        myMoney = new ValueText(MONEY_LABEL, myStartingMoney);
+        myLives = new ValueText(LIVES_LABEL, myStartingLives);
     }
-    
+
     private void paintStats (Graphics2D pen) {
         myMoney.paint(pen, new Point(LABELS_X_OFFSET, MONEY_LABEL_Y_OFFSET), LABEL_COLOR);
-        myLives.paint(pen, new Point(LABELS_X_OFFSET, LIVES_LABEL_Y_OFFSET), LABEL_COLOR);        
+        myLives.paint(pen, new Point(LABELS_X_OFFSET, LIVES_LABEL_Y_OFFSET), LABEL_COLOR);
     }
 }

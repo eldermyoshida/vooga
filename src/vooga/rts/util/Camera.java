@@ -4,7 +4,6 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 import vooga.rts.gui.Window;
 
 
@@ -17,18 +16,12 @@ public class Camera {
     private static Camera myInstance;
 
     private Dimension myScreenSize;
-    private Dimension myWorldSize;
 
     private Location3D myWorldCenter;
 
     public Camera (Location3D playerLoc) {
         myWorldCenter = new Location3D(playerLoc);
         myScreenSize = Window.SCREEN_SIZE;
-        
-        double x = deltaviewtoWorld(new Location(myScreenSize.getWidth(), 0)).to2D().getX();
-        double y = deltaviewtoWorld(new Location(0, myScreenSize.getHeight())).to2D().getY();
-        myWorldSize = new Dimension((int)x, (int)y);
-        System.out.println(myWorldSize);
     }
 
     /**
@@ -39,7 +32,7 @@ public class Camera {
      * @param world
      * @return
      */
-    public Point2D worldToView (Location3D world) {
+    public Point2D worldToView (Location3D world) {        
         double x = (world.getX() - myWorldCenter.getX()) * ISO_WIDTH;
         x += -(world.getY() - myWorldCenter.getY()) * ISO_WIDTH;
         x += myScreenSize.getWidth() / 2;
@@ -47,8 +40,7 @@ public class Camera {
         double y = (world.getX() - myWorldCenter.getX()) * ISO_HEIGHT;
         y += (world.getY() - myWorldCenter.getY()) * ISO_HEIGHT;
         y += -world.getZ();
-        y += myScreenSize.getHeight() / 2;
-
+        y += myScreenSize.getHeight() / 2;        
         return new Location(x, y);
     }
 
@@ -110,13 +102,24 @@ public class Camera {
      * @param size The size of the object in the world
      * @return whether the object is visible
      */
-    public boolean isVisible (Location3D world) {
-        // TODO        
-        Rectangle2D intersect = new Rectangle2D.Double(myWorldCenter.getX(), myWorldCenter.getY(), myWorldSize.getWidth(), myWorldSize.getHeight());
-        //System.out.println("Rectangle: "  + intersect);
-        return intersect.contains(world.to2D());
-    }
+    /*
+     * public boolean isVisible (Location3D world) {
+     * // TODO
+     * Rectangle2D intersect =
+     * new Rectangle2D.Double(myWorldCenter.getX(), myWorldCenter.getY(),
+     * myWorldSize.getWidth(), myWorldSize.getHeight());
+     * // System.out.println("Rectangle: " + intersect);
+     * return intersect.contains(world.to2D());
+     * }
+     */
 
+    /**
+     * Returns whether the specified location is visible by the camera or not.
+     * This location is in view coordinates.
+     * 
+     * @param screen The location in view coordinates.
+     * @return Whether it is visible or not.
+     */
     public boolean isVisible (Point2D screen) {
         return !(screen.getX() < 0 || screen.getY() < 0 || screen.getX() > myScreenSize.getWidth() || screen
                 .getY() > myScreenSize.getHeight());
@@ -143,6 +146,7 @@ public class Camera {
         p.addPoint((int) x, (int) y);
 
         pen.draw(p);
+        //System.out.println(myWorldCenter);
         // pen.fill(new Ellipse2D.Double(x - width / 2, y - width / 2, width, height));
     }
 
@@ -169,4 +173,3 @@ public class Camera {
         myWorldCenter.add(temp);
     }
 }
-
