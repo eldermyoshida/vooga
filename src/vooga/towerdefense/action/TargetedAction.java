@@ -22,10 +22,18 @@ public class TargetedAction extends Action implements TargetTracker {
         myTargets = new ArrayList<Targetable>();
     }
     
+    @Override 
+    public void executeAction(){
+    	super.executeAction();
+    	addTargetsInRange();
+    	aimAtTarget();
+    	actOnTarget();
+    	markComplete();
+    }
+    
 	@Override
-	public Targetable getTarget() {
-		// TODO Auto-generated method stub
-		return null;
+	public void addTargetsInRange() {
+		//How to find targets in range? 
 	}
 
 	@Override
@@ -37,19 +45,6 @@ public class TargetedAction extends Action implements TargetTracker {
 	@Override
 	public void actOnTarget() {
 		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void addTarget() {
-		myTargets.add(getTarget());
-		
-	}
-
-	@Override
-	public List<Targetable> getTargets() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 

@@ -20,20 +20,12 @@ import vooga.towerdefense.gameElements.Projectile;
 public class AttackAction extends Action {
 	private static final AttributeConstants myAttributeConstants = new AttributeConstants();
 	GameElement myInitiator;
-	double myCoolDown;
-	boolean isOneTimeAction;
+
 
 	public AttackAction(GameElement initiator){
 		super(initiator);
 		
 	}
-	
-	/*public AttackAction(InfoBridge info, Attacker source, double cooldown, boolean isOneTime) {
-		super(info);
-		myCoolDown=cooldown;
-		isOneTimeAction=isOneTime;
-
-	}*/
 
 	@Override
 	public void executeAction() {
