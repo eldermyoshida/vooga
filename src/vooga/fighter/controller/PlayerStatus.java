@@ -1,7 +1,8 @@
 package vooga.fighter.controller;
 
 
-import vooga.fighter.objects.utils.Health;
+
+import vooga.fighter.model.utils.Health;
 
 public class PlayerStatus {
     

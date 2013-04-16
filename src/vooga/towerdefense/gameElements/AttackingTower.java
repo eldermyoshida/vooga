@@ -2,7 +2,7 @@ package vooga.towerdefense.gameElements;
 
 import java.awt.Dimension;
 import java.util.List;
-import vooga.towerdefense.action.AbstractAction;
+import vooga.towerdefense.action.Action;
 import vooga.towerdefense.attributes.Attacker;
 import vooga.towerdefense.attributes.AttributeManager;
 import vooga.towerdefense.attributes.Targetable;
@@ -17,51 +17,17 @@ import vooga.towerdefense.util.Pixmap;
  * @author XuRui
  * 
  */
-public class AttackingTower extends GameElement implements Attacker {
+public class AttackingTower extends GameElement{
 
-    List<AbstractAction> myActions;
+    List<Action> myActions;
     AttributeManager myAttributes;
 
     public AttackingTower (Pixmap image, Location center, Dimension size,
-                       AttributeManager attributes, List<AbstractAction> actions) {
+                       AttributeManager attributes, List<Action> actions) {
         super(image, center, size, attributes, actions);
         // TODO Auto-generated constructor stub
     }
 
-    @Override
-    public double getAttackRadius () {
-        // TODO Auto-generated method stub
-        return 0;
-    }
 
-    @Override
-    public int getNumberOfTargets () {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    @Override
-    public double getAttackDamage () {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    @Override
-    public Targetable getTarget () {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public void addTarget () {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public Location getAttackCenter () {
-        // TODO Auto-generated method stub
-        return null;
-    }
 
 }

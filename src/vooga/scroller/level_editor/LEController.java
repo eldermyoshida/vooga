@@ -37,7 +37,7 @@ public class LEController {
     /**
      * Constructor
      */
-    public LEController(MarioLib lib) {
+    public LEController(ISpriteLibrary lib) {
         myToolsManager = new ToolsManager(lib);
         String language = getLanguage();
         myModel = new LevelEditor(language,lib);
@@ -95,7 +95,6 @@ public class LEController {
         Editable m = myLevelParser.loadFileToGrid(file2open);
         int id = myWorkspace2Tab.size();
         createWorkspaceView(id, m);
-        
     }
 
     /**

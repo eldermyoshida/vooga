@@ -15,9 +15,17 @@ import java.util.List;
  * @author XuRui
  * 
  */
-public abstract class AttributeManager {
+public class AttributeManager {
     private HashMap<String,Attribute> myAttributes;
 
+    public AttributeManager () {
+        myAttributes = new HashMap<String,Attribute>();
+    }
+    
+    /**
+     * Creates an attribute manager based on a set of attributes
+     * @param attributes
+     */
     public AttributeManager (HashSet<Attribute> attributes) {
         myAttributes = new HashMap<String, Attribute>();
         for (Attribute a : attributes) {
@@ -38,14 +46,15 @@ public abstract class AttributeManager {
         }
         return info;
     }
+    
+    public String toString() {
+        String returnValue = "";
+        for (String s : getAttributesInfo()) {
+            returnValue += s + "\n";
+        }
+        return returnValue;
+    }
 
-    /**
-     * Updates a stat whenever they're changed in the game element.
-     * 
-     * @param updatedStat
-     */
-    @Deprecated //This doesn't really serve a purpose
-    public abstract void updateAttribute (Attribute updatedStat);
     
     /**
      * Gets a specific attribute based on name
@@ -61,6 +70,22 @@ public abstract class AttributeManager {
      */
     public void addAttribute (Attribute newAttribute) {
         myAttributes.put(newAttribute.getName(), newAttribute);
+    }
+    
+    /**
+     * Resets all attributes to default values
+     */
+    
+    public void resetAll(){
+    	
+    }
+    
+    /**
+     * Reset attribute to default value.
+     */
+    
+    public void reset(Attribute attribute){
+    	
     }
 
 }
