@@ -17,7 +17,7 @@ import vooga.fighter.model.utils.UpdatableLocation;
 /**
  * Represents one level in the game, i.e. one matchup of two or more characters.
  * 
- * @author james
+ * @author James Wei
  * 
  */
 public class LevelMode extends Mode {

@@ -10,7 +10,7 @@ import util.Pixmap;
  * Holds a series of rectangles and images representing one state of an object.
  * Used for collision detection and handling, as well as animation.
  * 
- * @author james, David Le
+ * @author James Wei, David Le
  *
  */
 public class State {
