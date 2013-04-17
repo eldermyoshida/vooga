@@ -1,9 +1,7 @@
 package vooga.rts.networking.server;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 import vooga.rts.networking.communications.Message;
 
 
@@ -17,11 +15,10 @@ import vooga.rts.networking.communications.Message;
  * @author David Winegar
  * 
  */
-public class GameServer extends Thread implements IMessageReceiver {
-    private List<ConnectionThread> myClients = new ArrayList<ConnectionThread>();;
+public class GameServer extends AbstractThreadContainer implements IMessageReceiver {
+    private List<ConnectionThread> myClients = new ArrayList<ConnectionThread>();
     private int myID;
     private boolean gameRunning = true;
-    private Queue<Message> myMessageQueue= new LinkedList<Message>();
     private GameContainer myGameContainer;
 
     public GameServer (int ID, GameContainer container) {
@@ -40,31 +37,6 @@ public class GameServer extends Thread implements IMessageReceiver {
         thread.switchMessageServer(this);
     }
 
-    @Override
-    public void run () {
-        while (isGameRunning()) {
-            sendMessages();
-            // Sleep in order to cut CPU usage and go to another thread
-            // TODO not sure if this is actually a good idea - review
-            try {
-                Thread.sleep(1);
-            }
-            catch (InterruptedException e) {
-                // TODO add logger
-                e.printStackTrace();
-            }
-        }
-    }
-    
-    protected void sendMessages () {
-        while (!getMessageQueue().isEmpty()) {
-            Message message = getMessageQueue().poll();
-            for (ConnectionThread ct : myClients) {
-                ct.sendMessage(message);
-            }
-        }
-    }
-
     /**
      * Closes all streams of this server and related threads, clears the
      * list of threads as well
@@ -81,14 +53,12 @@ public class GameServer extends Thread implements IMessageReceiver {
     protected boolean isGameRunning () {
         return gameRunning;
     }
-    
-    protected Queue<Message> getMessageQueue() {
-        return myMessageQueue;
-    }
 
     @Override
     public void sendMessage (Message message, ConnectionThread thread) {
-        myMessageQueue.add(message);
+        for (ConnectionThread ct : myClients) {
+            ct.sendMessage(message);
+        }
     }
 
     public int getID () {
