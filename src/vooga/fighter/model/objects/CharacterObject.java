@@ -26,9 +26,6 @@ public class CharacterObject extends GameObject {
 
     /**
      * Constructs a new CharacterObject.
-     * 
-     * Note: Dayvid once the object loader is functional we will replace this
-     * constructor to take in just an ID, then we will load parameters from XML.
      */
     public CharacterObject(int objectId, UpdatableLocation center) {
         super();

@@ -17,8 +17,6 @@ public class EnvironmentObject extends GameObject {
      * Constructs a new EnvironmentObject with the given image, center, and size.
      * In the future this will use the object loader to read from XML.
      */
-    private UpdatableLocation myStartingLocation;
-
     public EnvironmentObject() {
         super();
         // setLoader(new EnvironmentObjectLoader(objectId));
@@ -27,14 +25,14 @@ public class EnvironmentObject extends GameObject {
     /**
      * Updates the environment object. Behavior to be added.
      */
-    public void update () {
-        // super.update();
+    public void update() {
+        super.update();
     }
 
     /**
      * Returns false for now.
      */
-    public boolean shouldBeRemoved () {
+    public boolean shouldBeRemoved() {
         return false;
     }
 

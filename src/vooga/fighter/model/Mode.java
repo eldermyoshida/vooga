@@ -24,17 +24,17 @@ public abstract class Mode {
     /**
      * Constructs a new Mode.
      */
-    public Mode(ModelDelegate cd) {
+    public Mode(ModelDelegate md) {
         myObjects = new ArrayList<GameObject>();
         myCharacterObjects= new ArrayList<CharacterObject>();
-        setModelDelegate(cd);
+        setModelDelegate(md);
     }
     
     /**
      * Sets the controller delegate for this mode.
      */
-    public void setModelDelegate(ModelDelegate cd) {
-        myModelDelegate = cd;
+    public void setModelDelegate(ModelDelegate md) {
+        myModelDelegate = md;
     }
     
     /**

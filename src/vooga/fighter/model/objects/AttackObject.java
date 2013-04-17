@@ -45,7 +45,7 @@ public class AttackObject extends GameObject{
     }
     
     /**
-     * Updates the attack object
+     * Updates the attack object.
      */
     public void update(){
     	super.update();
