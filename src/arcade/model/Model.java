@@ -143,10 +143,7 @@ public class Model implements ArcadeInteraction {
      * @param user ,game (whatever that identifies the user and the game)
      * @return
      */
-    public UserGameData getUserGameData (String user, String game) {
-        // Query database to get info specific to the user and the game (e.g. scores)
-        return null;
-    }
+    
 
     @Override
     public User getUser () {
