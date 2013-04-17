@@ -5,10 +5,10 @@ import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.util.Observable;
 import vooga.fighter.controller.PlayerStatus;
-import vooga.fighter.util.Text;
+import util.Text;
 
 public class HUDPlayerScoreAndHealth extends HUDPlayerValue {
-    Text myPlayerHealth = new Text("");
+    private Text myPlayerHealth = new Text("");
     
     @Override
     public void update (Observable o, Object arg) {

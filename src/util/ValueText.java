@@ -1,8 +1,6 @@
 
 package util;
 
-import vooga.scroller.util.Text;
-
 
 /**
  * This class represents text that is a labeled numeric value.

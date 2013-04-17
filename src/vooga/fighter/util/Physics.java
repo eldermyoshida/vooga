@@ -1,7 +1,13 @@
 package vooga.fighter.util;
 
-import util.Vector;
+import util.Velocity;
 
+/**
+ * Physics methods for dealing with various forces and collision.
+ * 
+ * @author Wayne You
+ *
+ */
 public class Physics {
     /**
      * Calculates an elastic collision given two objects of given masses and velocities.
@@ -13,9 +19,9 @@ public class Physics {
      * @return Two vectors in an array, the first is the new velocity of object A and the second is
      *         the new velocity of object B.
      */
-    public static Vector[] elasticCollision (Vector aVelocity,
+    public static Velocity[] elasticCollision (Velocity aVelocity,
                                              int aMass,
-                                             Vector bVelocity,
+                                             Velocity bVelocity,
                                              int bMass) {
         return partiallyInelasticCollision(1, aVelocity, aMass, bVelocity, bMass);
     }
@@ -30,9 +36,9 @@ public class Physics {
      * @return Two vectors in an array, the first is the new velocity of object A and the second is
      *         the new velocity of object B.
      */
-    public static Vector[] inelasticCollision (Vector aVelocity,
+    public static Velocity[] inelasticCollision (Velocity aVelocity,
                                                int aMass,
-                                               Vector bVelocity,
+                                               Velocity bVelocity,
                                                int bMass) {
         return partiallyInelasticCollision(0, aVelocity, aMass, bVelocity, bMass);
     }
@@ -49,19 +55,19 @@ public class Physics {
      * @return Two vectors in an array, the first is the new velocity of object A and the second is
      *         the new velocity of object B.
      */
-    public static Vector[] partiallyInelasticCollision (double restitution,
-                                                        Vector aVelocity,
+    public static Velocity[] partiallyInelasticCollision (double restitution,
+                                                        Velocity aVelocity,
                                                         int aMass,
-                                                        Vector bVelocity,
+                                                        Velocity bVelocity,
                                                         int bMass) {
 
         double referenceAngle = Math.toDegrees(Math.atan2(aVelocity.getY() - bVelocity.getY(),
                                                           aVelocity.getX() - bVelocity.getX()));
 
-        Vector aTurned = aVelocity.clone();
+        Velocity aTurned = aVelocity.clone();
         aTurned.turn(-referenceAngle);
 
-        Vector bTurned = bVelocity.clone();
+        Velocity bTurned = bVelocity.clone();
         bTurned.turn(-referenceAngle);
 
         double aVectorTurnedDX =
@@ -72,9 +78,9 @@ public class Physics {
                 (restitution * aMass * (aTurned.getXChange() - bTurned.getXChange()) +
                  aMass * aTurned.getXChange() + bMass * bTurned.getXChange()) / (aMass + bMass);
 
-        Vector[] newDirections = new Vector[2];
-        newDirections[0] = new Vector(aVelocity, aVectorTurnedDX, aVelocity.getYChange());
-        newDirections[1] = new Vector(bVelocity, bVectorTurnedDX, bVelocity.getYChange());
+        Velocity[] newDirections = new Velocity[2];
+        newDirections[0] = new Velocity(aVelocity.getX(), aVelocity.getY(), aVectorTurnedDX, aVelocity.getYChange());
+        newDirections[1] = new Velocity(bVelocity.getX(), bVelocity.getY(), bVectorTurnedDX, bVelocity.getYChange());
 
         return newDirections;
     }
@@ -87,7 +93,7 @@ public class Physics {
      * @param terminalSpeed The max speed an object can fall down.
      * @return A vector with gravity applied for one time period of acceleration.
      */
-    public static Vector gravity (Vector velocity,
+    public static Velocity gravity (Velocity velocity,
                                   double gravitationalAcceleration,
                                   double terminalSpeed) {
         double dY = velocity.getYChange() - gravitationalAcceleration;
@@ -95,7 +101,7 @@ public class Physics {
             dY = -terminalSpeed;
         }
 
-        return new Vector(velocity, velocity.getXChange(), dY);
+        return new Velocity(velocity.getX(), velocity.getY(), velocity.getXChange(), dY);
     }
 
     /**
@@ -106,8 +112,8 @@ public class Physics {
      * @param coefficientOfFriction The coefficient of friction (between 0 and 1)
      * @return A reduced velocity vector.
      */
-    public static Vector friction (Vector velocity, double coefficientOfFriction) {
-        Vector velocityClone = velocity.clone();
+    public static Velocity friction (Velocity velocity, double coefficientOfFriction) {
+        Velocity velocityClone = velocity.clone();
         velocityClone.scale(coefficientOfFriction);
 
         return velocityClone;
@@ -124,7 +130,7 @@ public class Physics {
      * @param coefficientOfFriction The coefficient of friction.
      * @return A modified velocity vector after applying gravity.
      */
-    public static Vector sliding (Vector velocity,
+    public static Velocity sliding (Velocity velocity,
                                   double gravitationalAcceleration,
                                   double terminalSpeed,
                                   double inclineAngle,
@@ -159,7 +165,7 @@ public class Physics {
             newYVelocity = terminalYVelocity;
         }
 
-        return new Vector(velocity, newXVelocity, newYVelocity);
+        return new Velocity(velocity.getX(), velocity.getY(), newXVelocity, newYVelocity);
     }
 
     /**
@@ -170,13 +176,13 @@ public class Physics {
      * @param inclineAngle The angle of the wall being hit. [0, 180)
      * @return A reflected velocity vector.
      */
-    public static Vector bounce (Vector velocity, double inclineAngle) {
-        Vector wall =
-                new Vector(velocity, Math.cos(Math.toRadians(inclineAngle)), Math.sin(Math
+    public static Velocity bounce (Velocity velocity, double inclineAngle) {
+        Velocity wall =
+                new Velocity(velocity.getX(), velocity.getY(), Math.cos(Math.toRadians(inclineAngle)), Math.sin(Math
                         .toRadians(inclineAngle)));
 
-        Vector reflectedVector = wall.clone();
-        reflectedVector.scale(2 * velocity.getDotProduct(wall) / wall.getDotProduct(wall));
+        Velocity reflectedVector = wall.clone();
+        reflectedVector.scale(2 * velocity.getLocationDotProduct(wall) / wall.getLocationDotProduct(wall));
         reflectedVector.difference(velocity);
 
         return reflectedVector;
@@ -190,10 +196,10 @@ public class Physics {
      * @param force The force applied to the object
      * @return The new velocity with force applied
      */
-    public static Vector applyForce (Vector velocity, double mass, Vector force) {
-        Vector modifiableForce = force.clone();
+    public static Velocity applyForce (Velocity velocity, double mass, Velocity force) {
+        Velocity modifiableForce = force.clone();
         modifiableForce.scale(1 / mass);
-        Vector newVelocity = velocity.clone();
+        Velocity newVelocity = velocity.clone();
         newVelocity.sum(modifiableForce);
 
         return newVelocity;
@@ -209,11 +215,11 @@ public class Physics {
      * @param terminalSpeed The maximum speed the object may have.
      * @return The new velocity with force applied
      */
-    public static Vector applyForce (Vector velocity,
+    public static Velocity applyForce (Velocity velocity,
                                      double mass,
-                                     Vector force,
+                                     Velocity force,
                                      double terminalSpeed) {
-        Vector newVelocity = applyForce(velocity, mass, force);
+        Velocity newVelocity = applyForce(velocity, mass, force);
         if (newVelocity.getMagnitude() > terminalSpeed) {
             newVelocity.scale(terminalSpeed / newVelocity.getMagnitude());
         }

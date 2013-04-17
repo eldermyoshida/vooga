@@ -1,6 +1,9 @@
 package vooga.fighter.view;
 
-import vooga.fighter.util.Pixmap;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
+import util.Pixmap;
 
 public class PaletteSwap {
     // palette swapping is a common practice in fighting games
