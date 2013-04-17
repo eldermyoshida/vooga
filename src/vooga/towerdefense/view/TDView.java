@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import vooga.towerdefense.controller.Controller;
+import vooga.towerdefense.model.GameController;
 
 
 /**
@@ -55,8 +56,11 @@ public class TDView {
         myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         mySplashScreen = new SplashScreen(SPLASH_SCREEN_SIZE, this);
-        myFrame.getContentPane().add(mySplashScreen, BorderLayout.NORTH);
+        myMapScreen = new MapScreen(MAP_WINDOW_SIZE, myController);
+        myEastWindow = new EastWindow(EAST_WINDOW_SIZE, myController);
+        mySouthWindow = new SouthWindow(SOUTH_WINDOW_SIZE, myController);
 
+        myFrame.getContentPane().add(mySplashScreen, BorderLayout.NORTH);
         myFrame.getContentPane().add(nextScreenButton());
 
         myFrame.pack();
@@ -99,17 +103,16 @@ public class TDView {
 
         myFrame.remove(myLevelSelector);
 
-        myMapScreen = new MapScreen(MAP_WINDOW_SIZE, myController);
         myFrame.getContentPane().add(myMapScreen, BorderLayout.CENTER);
-
-        myEastWindow = new EastWindow(EAST_WINDOW_SIZE, myController);
         myFrame.getContentPane().add(myEastWindow, BorderLayout.EAST);
-
-        mySouthWindow = new SouthWindow(SOUTH_WINDOW_SIZE, myController);
         myFrame.getContentPane().add(mySouthWindow, BorderLayout.SOUTH);
 
         myFrame.pack();
         myFrame.setVisible(true);
+        
+//        //start game here
+//        GameController game = new GameController(myController);
+//        game.start();
     }
 
     public MapScreen getMapScreen () {
