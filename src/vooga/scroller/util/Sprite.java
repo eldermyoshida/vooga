@@ -358,5 +358,9 @@ public abstract class Sprite {
         // TODO Auto-generated method stub
         return 1;
     }
+    
+    public void setHealth(int i){
+        //TODO: 
+    }
 }
 

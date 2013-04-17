@@ -104,10 +104,7 @@ public class Model implements ArcadeInteraction {
 
     public void playGame (GameInfo gameinfo) {
         System.out.println(gameinfo.getName());
-<<<<<<< HEAD
-=======
         // TODO: instantiate the game.
->>>>>>> cb9478041e7ea93e65093f5bb1d534a10b62c4ed
         Game game = new Example(this);
         game.run();
     }

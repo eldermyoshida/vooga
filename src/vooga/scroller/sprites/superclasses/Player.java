@@ -130,5 +130,10 @@ public abstract class Player extends Sprite implements IInputListener{
     public int getHealth() {
         return myHealth;
     }
+    
+    @Override
+    public void setHealth(int health) {
+        myHealth = health;
+    }
 
 }
