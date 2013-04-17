@@ -14,7 +14,7 @@ import java.net.Socket;
  */
 public class ConnectionServer extends Thread {
 
-    private static final int PORT = 2233;
+    private static final int PORT = 55308;
     private int myConnectionID = 0;
     private MatchmakerServer myMatchServer;
     private boolean myServerAcceptingConnections = false;
