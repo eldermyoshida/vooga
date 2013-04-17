@@ -55,12 +55,13 @@ public class InformationScreen extends JPanel {
     public void clearScreen () {
         displayInformation("");
     }
-    
+
     /**
      * gets the text area for this screen.
+     * 
      * @return the text area
      */
-    public JTextArea getTextArea() {
+    public JTextArea getTextArea () {
         return myTextArea;
     }
 

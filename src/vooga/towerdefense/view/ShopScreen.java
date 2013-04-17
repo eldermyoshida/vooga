@@ -8,19 +8,17 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.geom.Point2D;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JPanel;
 import vooga.towerdefense.controller.Controller;
-import vooga.towerdefense.gameElements.Tower;
-import vooga.towerdefense.gameElements.GameElement;
-import vooga.towerdefense.model.Shop;
 import vooga.towerdefense.util.Location;
 import vooga.towerdefense.util.Pixmap;
 
 
 /**
+ * This class enables the player to click on items on the ShopScreen section and buy these
+ * items and then drag them to the map screen.
  * 
  * @author Leonard K. Ng'eno
  * 
@@ -42,14 +40,14 @@ public class ShopScreen extends JPanel {
         makeMouseListener();
         addMouseListener(myMouseListener);
         setVisible(true);
-        myShopItems = new HashMap<String, Pixmap> ();
+        myShopItems = new HashMap<String, Pixmap>();
         initShopItems();
     }
 
-    public void initShopItems () {
+    private void initShopItems () {
         myShopItems = myController.getShopItemIcons();
     }
-    
+
     @Override
     public void paintComponent (Graphics pen) {
         super.paintComponent(pen);
@@ -63,8 +61,8 @@ public class ShopScreen extends JPanel {
         int totalX = 30;
         for (Pixmap item : myShopItems.values()) {
             // TODO Deal with the case where there are a lot of items on the screen
-            item.paint(pen, new Point(totalX,30), new Dimension(50, 50));
-            totalX +=50;
+            item.paint(pen, new Point(totalX, 30), new Dimension(50, 50));
+            totalX += 50;
         }
     }
 
@@ -80,14 +78,14 @@ public class ShopScreen extends JPanel {
 
     private void checkIfItemClickedOn (Point point) {
         for (Pixmap item : myShopItems.values()) {
-            Location center = new Location(item.getCenter().getX(),item.getCenter().getY());
+            Location center = new Location(item.getCenter().getX(), item.getCenter().getY());
             double x = item.getWidth() / 2 - center.x;
             double y = item.getHeight() / 2 - center.y;
             Rectangle rect =
                     new Rectangle((int) x, (int) y, item.getWidth(), item.getHeight());
             if (rect.contains(point)) {
                 System.out.println("Rect has point!");
-                for (Map.Entry<String, Pixmap> entry: myShopItems.entrySet()) {
+                for (Map.Entry<String, Pixmap> entry : myShopItems.entrySet()) {
                     if (entry.getValue().equals(item)) {
                         myController.handleShopClickOnItem(entry.getKey());
                     }
