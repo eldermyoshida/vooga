@@ -79,14 +79,7 @@ public class EditableMap implements Serializable {
     }
    
     public void addPlayer(int x, int y) {
-<<<<<<< HEAD
-        myPlayerNumber ++;
-        myPlayerLocations.put(myPlayerNumber, new Location(x,y));       
-=======
-        
         addPlayer(new Location(x,y));
-        
->>>>>>> 782b16e0825f8d2eddc296c59b6a90a1a4abffdb
     }
     
     public void addPlayer(Location loc) {
