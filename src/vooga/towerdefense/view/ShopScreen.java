@@ -60,10 +60,10 @@ public class ShopScreen extends JPanel {
     }
 
     private void displayShopItems (Graphics2D pen) {
-        int totalX = 50;
+        int totalX = 30;
         for (Pixmap item : myShopItems.values()) {
             // TODO Deal with the case where there are a lot of items on the screen
-            item.paint(pen, new Point(totalX,50), new Dimension(50, 50));
+            item.paint(pen, new Point(totalX,30), new Dimension(50, 50));
             totalX +=50;
         }
     }
@@ -73,18 +73,20 @@ public class ShopScreen extends JPanel {
             @Override
             public void mouseClicked (MouseEvent e) {
                 checkIfItemClickedOn(e.getPoint());
+                System.out.println("Clicked!");
             }
         };
     }
 
-    protected void checkIfItemClickedOn (Point point) {
+    private void checkIfItemClickedOn (Point point) {
         for (Pixmap item : myShopItems.values()) {
             Location center = new Location(item.getCenter().getX(),item.getCenter().getY());
-            double x = item.getImage().getWidth(null) / 2 - center.x;
-            double y = item.getImage().getHeight(null) / 2 - center.y;
+            double x = item.getWidth() / 2 - center.x;
+            double y = item.getHeight() / 2 - center.y;
             Rectangle rect =
-                    new Rectangle((int) x, (int) y, item.getImage().getWidth(null), item.getImage().getWidth(null));
+                    new Rectangle((int) x, (int) y, item.getWidth(), item.getHeight());
             if (rect.contains(point)) {
+                System.out.println("Rect has point!");
                 for (Map.Entry<String, Pixmap> entry: myShopItems.entrySet()) {
                     if (entry.getValue().equals(item)) {
                         myController.handleShopClickOnItem(entry.getKey());
