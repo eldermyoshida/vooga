@@ -1,4 +1,7 @@
 package arcade.database;
+import java.util.List;
+import arcade.games.GameData;
+import arcade.games.UserGameData;
 
 import java.util.List;
 
@@ -83,6 +86,14 @@ public class Database {
     
     public void retrieveGameFilePath(String filepath) {
         //TODO implement method
+    }
+    
+    public UserGameData getUserGameData(String gameName, String username) {
+        return null;
+    }
+    
+    public GameData getGameData(String gameName) {
+        return null;
     }
     
     public void printGameTable() {

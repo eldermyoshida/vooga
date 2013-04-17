@@ -29,6 +29,9 @@ public class GameTable extends Table {
     private PreparedStatement myPreparedStatement; 
     private ResultSet myResultSet;
     
+    /**
+     * GameTable constructor
+     */
     public GameTable() {
         createDatabase();
     }
@@ -42,9 +45,10 @@ public class GameTable extends Table {
             e.printStackTrace();
         }
 
-        String url = "jdbc:postgresql:mynewdatabase";
-        String user = "user1";
-        String password = "1234";
+        String url = "jdbc:postgresql://cgi.cs.duke.edu/nrc10";
+        String user = "nrc10";
+        String password = "aUsg5xj2f";
+        
 
         try {
             myConnection = DriverManager.getConnection(url, user, password);
@@ -57,6 +61,9 @@ public class GameTable extends Table {
 
     }
 
+    /**
+     * Closes Connection, ResultSet, and PreparedStatements once done with database
+     */
     public void closeConnection() {
         try {
             if (myPreparedStatement != null) {
@@ -74,6 +81,10 @@ public class GameTable extends Table {
         }
     }
 
+    /**
+     * Returns true if gameName already exists, false otherwise
+     * @param gameName is the name of game
+     */
 
     public boolean gameNameExists(String gameName) {
         String stm = "SELECT gamename FROM games WHERE gamename='" + gameName + "'";
@@ -90,6 +101,10 @@ public class GameTable extends Table {
         return false;
     }
     
+    /**
+     * Given a gameName, retrieves a gameID
+     * @param gameName is the game's name
+     */
     public String retrieveGameId(String gameName) {
         String stm = "SELECT * FROM " + TABLE_NAME + " WHERE " + GAMENAME_COLUMN_FIELD + "='" + gameName + "'";
         String gameid = "";
@@ -107,6 +122,8 @@ public class GameTable extends Table {
     }
     
     /**
+     * Given the gameName, adds a game
+     * @param gameName is the name of game
      * Adds a user to user table based on information
      * @param user is the username
      * @param pw is the password
@@ -130,7 +147,9 @@ public class GameTable extends Table {
         return true;
     }
     
-    public List<String> retrieveGameList() {
+    /**
+     * Returns a list of all the games
+     */    public List<String> retrieveGameList() {
         String stm = "SELECT " + GAMENAME_COLUMN_FIELD + " FROM "  + TABLE_NAME;
         List<String> myGameNames = new ArrayList<String>();
         try {

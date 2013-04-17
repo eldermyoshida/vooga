@@ -49,9 +49,10 @@ public class UserGameDataTable extends Table {
             e.printStackTrace();
         }
 
-        String url = "jdbc:postgresql:mynewdatabase";
-        String user = "user1";
-        String password = "1234";
+        String url = "jdbc:postgresql://cgi.cs.duke.edu/nrc10";
+        String user = "nrc10";
+        String password = "aUsg5xj2f";
+
 
         try {
             myConnection = DriverManager.getConnection(url, user, password);
@@ -64,6 +65,9 @@ public class UserGameDataTable extends Table {
 
     }
 
+    /**
+     * Closes Connection, ResultSet, and PreparedStatements once done with database
+     */
     public void closeConnection() {
         try {
             if (myPreparedStatement != null) {
@@ -85,6 +89,8 @@ public class UserGameDataTable extends Table {
      * Add new user game data to table 
      * @param gameid is game id
      * @param userid is user id
+     * @param highscore of the game
+=======
      */
     public void createNewUserGameData (String gameid, String userid, String highscore) {
         
@@ -102,6 +108,12 @@ public class UserGameDataTable extends Table {
         }
     }
     
+    /**
+     * Updates a high score given userid and gameid
+     * @param gameid is game id
+     * @param userid is user id
+     * @param highscore of the game
+     */
     public void updateHighScore(String userid, String gameid, String highscore) {
         String stm = "UPDATE usergamedata SET highscore = '" + highscore + "' WHERE userid = '" + userid + "' AND gameid = '" + gameid + "'" ;
         try {

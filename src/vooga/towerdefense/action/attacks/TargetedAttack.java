@@ -1,13 +1,16 @@
-package vooga.towerdefense.action;
+package vooga.towerdefense.action.attacks;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import vooga.towerdefense.action.Action;
+import vooga.towerdefense.action.TargetedAction;
 import vooga.towerdefense.attributes.Attacker;
 import vooga.towerdefense.attributes.AttributeConstants;
 import vooga.towerdefense.attributes.AttributeManager;
 import vooga.towerdefense.attributes.Targetable;
 import vooga.towerdefense.event.Event;
+import vooga.towerdefense.gameElements.AttackingTower;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.gameElements.Projectile;
 
@@ -17,12 +20,12 @@ import vooga.towerdefense.gameElements.Projectile;
  * @author Matthew Roy
  *
  */
-public class AttackAction extends Action {
+public class TargetedAttack extends TargetedAction {
 	private static final AttributeConstants myAttributeConstants = new AttributeConstants();
-	GameElement myInitiator;
+	AttackingTower myInitiator;
 
 
-	public AttackAction(GameElement initiator){
+	public TargetedAttack(GameElement initiator){
 		super(initiator);
 		
 	}
@@ -32,11 +35,7 @@ public class AttackAction extends Action {
 		//check whether it's in cool down
 		if (isEnabled()) {
 			//get targets that we wanna shoot
-			Targetable[] targets = getInfoBridge()
-					.getTargetsWithinRadiusOfGivenLocation(
-							myInitiator.getCenter(),
-							myInitiator.getAttributeManager().getAttribute(myAttributeConstants.ATTACK_RADIUS).getValue(),
-							(int)(myInitiator.getAttributeManager().getAttribute(myAttributeConstants.NUM_OF_TARGETS).getValue()));
+			List<Targetable> targets = myInitiator.getTargetsInRange();
 			
 			//shoot a projectile towards each target
 			for (Targetable target : targets) {
@@ -48,9 +47,11 @@ public class AttackAction extends Action {
 		}
 
 	}
+	
+	@Override
+	public void update(double elapsedTime){
+		
+	}
 
-    @Override
-    public void initAction () {
-        
-    }
+
 }

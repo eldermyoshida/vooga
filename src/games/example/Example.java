@@ -1,3 +1,37 @@
+<<<<<<< HEAD
+package games.example;
+
+import java.awt.Component;
+import arcade.games.ArcadeInteraction;
+import arcade.games.Game;
+import arcade.games.UserGameData;
+
+public class Example extends Game {
+
+    public Example (ArcadeInteraction arcade) {
+        super(arcade);
+    }
+
+    @Override
+    public UserGameData generateNewProfile () {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Component createView () {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void run () {
+        // TODO Auto-generated method stub
+
+    }
+
+}
+=======
 package games.example;
 
 import java.io.IOException;
@@ -42,3 +76,4 @@ public class Example extends Game {
     }
 
 }
+>>>>>>> e830ff7cf02523a31b34b15601fe4157b4e10774
