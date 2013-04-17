@@ -1,8 +1,8 @@
 package vooga.towerdefense.factories;
 
 import java.awt.Dimension;
-import util.Pixmap;
 import vooga.towerdefense.util.Location;
+import vooga.towerdefense.util.Pixmap;
 
 /**
  * Example unit class
