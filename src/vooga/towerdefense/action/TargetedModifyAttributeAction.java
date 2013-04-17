@@ -6,6 +6,9 @@ import vooga.towerdefense.attributes.Attribute;
  * 
  * Finds the attribute in the target object and sets it to the attribute given
  * If the target doesn't have the attribute, it places the new attribute in the target
+ * 
+ * e.g. replace a tower's missiles with pebbles 
+ * 
  * @author Matthew Roy
  *
  */
@@ -37,7 +40,7 @@ public class TargetedModifyAttributeAction extends TargetedAction {
 
     
     @Override
-    public void execute (double elapsedTime) {
+    public void update (double elapsedTime) {
         // TODO Auto-generated method stub
 
     }

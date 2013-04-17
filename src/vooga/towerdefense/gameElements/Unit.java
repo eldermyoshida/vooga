@@ -3,10 +3,9 @@ package vooga.towerdefense.gameElements;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.List;
-import vooga.towerdefense.action.AbstractAction;
+import vooga.towerdefense.action.Action;
 import vooga.towerdefense.attributes.AttributeConstants;
 import vooga.towerdefense.attributes.AttributeManager;
-import vooga.towerdefense.attributes.Targetable;
 import vooga.towerdefense.model.Path;
 import vooga.towerdefense.util.Location;
 import vooga.towerdefense.util.Pixmap;
@@ -18,17 +17,17 @@ import vooga.towerdefense.util.Vector;
  * @author gouzhen-1
  * 
  */
-public class Unit extends GameElement implements Targetable {
+public class Unit extends GameElement {
 	private static final AttributeConstants myAttributeConstants = new AttributeConstants();
 	private static final double DISTANCE_OFFSET = 5;
 	private Path myPath;
 	private Location myDestination;
-	private List<AbstractAction> myActions;
+	private List<Action> myActions;
 	private StateManager myStateManager;
 
 	public Unit(Location destination, Pixmap image, Location center,
 			Dimension size, Vector velocity, AttributeManager attributes,
-			List<AbstractAction> actions) {
+			List<Action> actions) {
 		super(image, center, size, attributes, actions);
 		setVelocity(velocity);
 		myDestination = destination;
@@ -54,7 +53,7 @@ public class Unit extends GameElement implements Targetable {
 										// used for both tower and unit
 		}
 		updateMove(elapsedTime);
-		executeActions(elapsedTime);
+		updateActions(elapsedTime);
 	}
 
 	/**
@@ -69,9 +68,9 @@ public class Unit extends GameElement implements Targetable {
 		this.translate(toMove);
 	}
 
-	private void executeActions(double elapsedTime) {
-		for (AbstractAction act : myActions) {
-			act.execute(elapsedTime);
+	private void updateActions(double elapsedTime) {
+		for (Action act : myActions) {
+			act.update(elapsedTime);
 
 		}
 	}
@@ -104,14 +103,14 @@ public class Unit extends GameElement implements Targetable {
 						// complicated task
 	}
 
-	@Override
+	
 	public void takeDamage(double attack) {
 		getAttributeManager().getAttribute(myAttributeConstants.HEALTH)
-				.decrement(attack);
+				.modifyValue(-attack);
 
 	}
 
-	@Override
+	
 	public boolean isAlive() {
 		return getAttributeManager().getAttribute(myAttributeConstants.HEALTH)
 				.getValue() > 0;

@@ -1,11 +1,11 @@
 package vooga.towerdefense.attributes;
 
 import java.awt.Graphics2D;
+
 import vooga.towerdefense.util.Location;
 
-
 /**
- * Shell of an attribute class
+ * Shell of an attribute class, allows for tracking and modification.
  * 
  * @author Matthew Roy
  * 
@@ -17,19 +17,17 @@ public abstract class Attribute {
 
     public Attribute (String attributeName, Double attributeValue) {
         myName = attributeName;
-        myOriginalValue = attributeValue;
         myCurrentValue = attributeValue;
     }
-
+    
     /**
      * Applies a new attribute to the current attribute.
      * This default behavior is defined by the attribute.
      * Default is to set value equal to attribute toApply's value
      * if they are of the same attribute type
-     * 
      * @return the new value
      */
-    public Object applyAttribute (Attribute toApply) {
+    public Object applyAttribute(Attribute toApply) {
         if (toApply.getClass().equals(this)) {
             myCurrentValue = toApply.getValue();
         }
@@ -45,12 +43,12 @@ public abstract class Attribute {
     public String getDisplayableInfo () {
         return toString();
     }
-
+    
     /**
      * Sets toString to be formatted nicely for attributes
      */
     @Override
-    public String toString () {
+    public String toString() {
         String info = myName + ": " + String.valueOf(myCurrentValue);
         return info;
     }
@@ -72,63 +70,47 @@ public abstract class Attribute {
     public double getValue () {
         return myCurrentValue;
     }
-
-    public void setValue (double newValue) {
+    
+    public void setValue(double newValue) {
         myCurrentValue = newValue;
     }
 
-    /**
-     * Replaces stat value with new value
-     * 
-     * @param value
-     */
-    public void updateStat (double value) {
-        myCurrentValue = value;
-    }
 
-    /**
-     * Adds the given parameter to the value.
-     * Negative values subtract
-     * 
-     * @param valueToAdd
-     */
-    public void modifyValue (double valueToAdd) {
-        myCurrentValue += valueToAdd;
-    }
+	/**
+	 * Adds the given parameter to the value.
+	 * Negative values subtract
+	 * 
+	 * @param valueToAdd 
+	 */
+	public void modifyValue (double valueToAdd) {
+		myCurrentValue += valueToAdd;
+	}
 
-    /**
-     * Multiplies the current value. Values over 1 increase it.
-     * Values < 1 decrease
-     * 
-     * @param multiplierToApply
-     */
-    public void applyMultiplier (double multiplierToApply) {
-        myCurrentValue *= multiplierToApply;
-    }
+	/**
+	 * Multiplies the current value. Values over 1 increase it.
+	 * Values < 1 decrease
+	 * 
+	 * @param multiplierToApply 
+	 */
+	public void applyMultiplier (double multiplierToApply) {
+		myCurrentValue *= multiplierToApply;
+	}
 
-    public void increment (double value) {
-        myCurrentValue += value;
-    }
+	/**
+	 * paints a bar representing this stat
+	 */
+	public void paint (Graphics2D pen, Location where) {
+		// paints a bar representing this stat
+	}
 
-    public void decrement (double value) {
-        myCurrentValue -= value;
-    }
-
-    /**
-     * 
-     * paints a bar representing this stat
-     */
-    public void paint (Graphics2D pen, Location where) {
-        // paints a bar representing this stat
-    }
-
-    /**
-     * check whether this stat is different from its original value
-     * 
-     * @return true if current value is different from the original value
-     */
-    public boolean isChanged () {
-        return myOriginalValue != myCurrentValue;
-    }
+	/**
+	 * check whether this stat is different from its original value
+	 * 
+	 * @return
+	 */
+	public boolean isChanged () {
+		return myOriginalValue != myCurrentValue;
+	}
+	
 
 }
