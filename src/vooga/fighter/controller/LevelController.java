@@ -28,7 +28,7 @@ import vooga.fighter.view.Canvas;
 @InputClassTarget
 
 public class LevelController extends Controller {
-    private static final String INPUT_PATHWAY = "vooga.fighter.input.Game1Mapping_en_US";
+    private static final String INPUT_PATHWAY = "vooga.fighter.config.leveldefault";
     private List<CharacterObject> myInputObjects;
 
     public LevelController (String name, Canvas frame) {

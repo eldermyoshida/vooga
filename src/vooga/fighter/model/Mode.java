@@ -6,6 +6,7 @@ import java.util.List;
 import vooga.fighter.controller.ModelDelegate;
 import vooga.fighter.model.objects.CharacterObject;
 import vooga.fighter.model.objects.GameObject;
+import vooga.fighter.model.utils.ImageDataObject;
 
 /**
  * Represents a mode in the game. Holds a list of all game objects in the mode,
@@ -81,6 +82,17 @@ public abstract class Mode {
     */
     public void signalTermination() {
         myModelDelegate.notifyEndCondition();
+    }
+    
+    /**
+     * Creates the list of image data objects and returns it.
+     */
+    public List<ImageDataObject> getImageData() {
+        List<ImageDataObject> result = new ArrayList<ImageDataObject>();
+        for (GameObject object : getMyObjects()) {
+            result.add(object.getImageData());
+        }
+        return result;
     }
     
     /**

@@ -1,7 +1,10 @@
 package vooga.fighter.controller;
 
 import util.Location;
+import util.input.AlertObject;
 import util.input.Input;
+import util.input.InputClassTarget;
+import util.input.InputMethodTarget;
 import vooga.fighter.controller.Controller;
 import vooga.fighter.controller.ControllerDelegate;
 import vooga.fighter.controller.GameInfo;
@@ -20,9 +23,12 @@ import java.util.ResourceBundle;
  * @author Jerry Li and Jack Matteucci
  * 
  */
+
+@InputClassTarget
 public class MenuController extends Controller {
 
-    private static final String INPUT_PATHWAY = "PATHWAY";
+	private static final String INPUT_PATHWAY = "vooga.fighter.config.menudefault";
+	private static final String INPUT_SETTING = "vooga.fighter.config.Settings";
     private GameInfo myGameInfo;
 
     public MenuController (String name, Canvas frame) {
@@ -32,13 +38,16 @@ public class MenuController extends Controller {
     public MenuController(String name, Canvas frame, ControllerDelegate manager, 
     		GameInfo gameinfo) {
     	super(name, frame, manager, gameinfo);
+    	loadMode();
+    	GameLoopInfo gameLoopInfo = new GameLoopInfo((LevelMode) super.getMode());
+    	setGameLoopInfo(gameLoopInfo);
+    	frame.setViewDataSource(gameLoopInfo);
     }
     
     public void loadMode() {
-        List<Integer> characterNames = myGameInfo.getCharacters();
-        int mapID = myGameInfo.getMapName();
-        Mode temp = new LevelMode(this, characterNames, mapID);
-        setMode(temp);
+        Mode mode = new MenuMode(this, super.getName());
+        mode.initializeMode();
+        
     }
 
 
@@ -62,10 +71,23 @@ public class MenuController extends Controller {
                                    delegate, gameinfo);
     }
 
+    @InputMethodTarget(name = "player1_jump")
+    public void playerOneJumpInput (AlertObject alObj)  {
+        myInputObjects.get(0).move(270);
+    }
+    
     @Override
     protected Input makeInput () {
-        return new Input(INPUT_PATHWAY, super.getView());
+        Input temp = new Input(INPUT_PATHWAY, super.getView());
+        temp.overrideSettings(INPUT_SETTING);
+    	return temp;
     }
+
+	@Override
+	public void notifyEndCondition(int endCondition) {
+		// TODO Auto-generated method stub
+		
+	}
 
     
 

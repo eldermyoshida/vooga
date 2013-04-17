@@ -9,6 +9,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import util.Pixmap;
+import vooga.fighter.controller.ModelDelegate;
 import vooga.fighter.model.MenuGrid;
 import vooga.fighter.model.objects.MapObject;
 import vooga.fighter.model.objects.MenuObject;
@@ -22,6 +23,7 @@ public class MenuGridLoader extends ObjectLoader {
 
 	private MenuGrid myGrid;
 	private List<MenuObject> myMenuObjects;
+	private ModelDelegate myDelegate;
 
 	public MenuGridLoader (String menuname, MenuGrid grid) {
 		super(MENUGRID_PATH);
@@ -44,7 +46,7 @@ public class MenuGridLoader extends ObjectLoader {
 				for(int j = 0; j < menuobjects.getLength(); i++){
 					Element node1 = (Element) menuobjects.item(j);
 					String MenuObjectName = getAttributeValue(node1, "menuobjectname");
-					myMenuObjects.add(new MenuObject(MenuObjectName));
+					myMenuObjects.add(new MenuObject(MenuObjectName, myDelegate));
 				}
 
 		}
