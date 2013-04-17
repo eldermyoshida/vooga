@@ -15,8 +15,7 @@ import vooga.rts.networking.communications.clientmessages.ClientInfoMessage;
  * @author David Winegar
  * 
  */
-public class MatchmakerServer extends AbstractThreadContainer implements IMessageReceiver, IThreadContainer {
-    private Map<Integer, ConnectionThread> myConnectionThreads = new HashMap<Integer, ConnectionThread>();
+public class MatchmakerServer extends AbstractThreadContainer {
     private Map<String, GameContainer> myGameContainers = new HashMap<String, GameContainer>();
     private ConnectionServer myConnectionServer = new ConnectionServer(this);
     private static final String DEFAULT_RESOURCE_PACKAGE = "vooga.rts.networking.resources.";
@@ -38,28 +37,18 @@ public class MatchmakerServer extends AbstractThreadContainer implements IMessag
     }
     
     @Override
-    public void sendMessage (Message message, ConnectionThread thread) {
+    public void receiveMessageFromClient (Message message, ConnectionThread thread) {
         if(message instanceof ClientInfoMessage) {
             ClientInfoMessage systemMessage = (ClientInfoMessage) message;
             systemMessage.execute(thread, this);
         }
-    }
-    
-    protected void addConnection (ConnectionThread thread) {
-        myConnectionThreads.put(thread.getID(), thread);
-        thread.switchMessageServer(this);
-    }
-
-    @Override
-    public void removeConnection (ConnectionThread thread) {
-        myConnectionThreads.remove(thread.getID());
     }
 
     @Override
     public void joinGame (ConnectionThread thread, String gameName) {
         if (myGameContainers.containsKey(gameName)) {
             myGameContainers.get(gameName).addConnection(thread);
-            myConnectionThreads.remove(thread.getID());
+            removeConnection(thread);
         }
     }
 

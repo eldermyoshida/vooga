@@ -1,17 +1,18 @@
 package vooga.rts.networking.server;
 
+import java.util.HashMap;
+import java.util.Map;
+import vooga.rts.networking.communications.Message;
+
 /**
- * Default class that does nothing with IThreadContainer. Used by classes with no behavior for these
- * methods.
+ * Default class that provides default behavior for IThreadContainer and provides other 
  * 
  * @author David Winegar
  * 
  */
-public abstract class AbstractThreadContainer implements IThreadContainer {
-
-    @Override
-    public void removeConnection (ConnectionThread thread) {
-    }
+public abstract class AbstractThreadContainer implements IThreadContainer, IMessageReceiver {
+    
+    private Map<Integer, ConnectionThread> myConnectionThreads = new HashMap<Integer, ConnectionThread>();
 
     @Override
     public void joinGame (ConnectionThread thread, String gameName) {
@@ -32,5 +33,28 @@ public abstract class AbstractThreadContainer implements IThreadContainer {
     @Override
     public void requestLobbies (ConnectionThread thread, int startNumber, int endNumber) {
     }
+    
+    @Override
+    public void removeConnection (ConnectionThread thread) {
+        myConnectionThreads.remove(thread.getID());
+    }
+    
+    protected void addConnection (ConnectionThread thread) {
+        myConnectionThreads.put(thread.getID(), thread);
+        thread.switchMessageServer(this);
+    }
+    
+    protected void sendMessageToAllConnections (Message message) {
+        for(ConnectionThread thread : myConnectionThreads.values()) {
+            thread.sendMessage(message);
+        }
+    }
 
+    protected void sendMessageToClient (ConnectionThread thread, Message message) {
+        thread.sendMessage(message);
+    }
+    
+    protected boolean haveNoConnections () {
+        return myConnectionThreads.isEmpty();
+    }
 }
