@@ -8,7 +8,7 @@ public class Game {
 	public static final int FPS = 60;
 	
 	public static double TIME_PER_FRAME() {
-		double persecond = 1/(double)FPS;
+		double persecond = 1.0/FPS;
 		return persecond;
 	}
 
