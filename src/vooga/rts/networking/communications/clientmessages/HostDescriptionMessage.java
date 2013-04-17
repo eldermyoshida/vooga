@@ -7,6 +7,7 @@ public class HostDescriptionMessage extends Message {
     String myMapDescription = "No Description";
     String myHostName = "Anonymous";
     String myServer = "No Name";
+    String myImagePath;
 
     /**
      * Constructor
@@ -14,7 +15,7 @@ public class HostDescriptionMessage extends Message {
      * @param args[1] Description of host map
      * @param args[2] Name of host
      * @param args[3] Name associated with the server
-     * 
+     * @param args[4] File path to map image
      */
     public HostDescriptionMessage(String...args) {
         super();
@@ -22,6 +23,7 @@ public class HostDescriptionMessage extends Message {
         myMapDescription = args[1];
         myHostName = args[2];
         myServer = args[3];
+        myImagePath = args[4];
     }
     
     public String getUsername(){
@@ -38,8 +40,9 @@ public class HostDescriptionMessage extends Message {
     
     public String getServerName(){
         return myServer;
-
     }
     
-
+    public String getImagePath(){
+        return myImagePath;
+    }
 }
