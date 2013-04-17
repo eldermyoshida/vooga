@@ -3,21 +3,23 @@ package vooga.rts.networking.communications.clientmessages;
 import vooga.rts.networking.communications.Message;
 
 public class HostDescriptionMessage extends Message {
-    String myUsername;
-    String myMapDescription;
-    String myServer;
-    String myImagePath;
+    private String myHostName;
+    private String myMapDescription;
+    private String myServer;
+    private String myImagePath;
+    private String myMaxPlayers;
 
     public HostDescriptionMessage(String...args) {
         super();
-        myUsername = args[0];
+        myHostName = args[0];
         myMapDescription = args[1];
-        myServer = args[2];
-        myImagePath = args[3];   
+        myMaxPlayers = args[2];
+        myServer = args[3];
+        myImagePath = args[4];   
     }
     
-    public String getUsername(){
-        return myUsername;
+    public String getHost(){
+        return myHostName;
     }
     
     public String getMapDescription(){
@@ -32,5 +34,8 @@ public class HostDescriptionMessage extends Message {
         return myImagePath;
     }
     
+    public int getMaxPlayers(){
+        return Integer.parseInt(myMaxPlayers);
+    }
 
 }

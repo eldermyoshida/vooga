@@ -5,15 +5,7 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics2D;
-import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -22,8 +14,6 @@ import java.util.Queue;
 import java.util.logging.Level;
 import javax.swing.AbstractAction;
 import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.DefaultListSelectionModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -94,15 +84,17 @@ public class ServerBrowser extends JFrame {
     
     public void removeConnection(String hostName){
         CardLayout card = (CardLayout) myCards.getLayout();
-        for (Component c : myCards.getComponents()){
-            
-            JPanel u = (JPanel) c;
-            System.out.println(u.getName());
-            if (u.getName().equals(hostName)){
+        for (JButton button : myCardMap.keySet()){        
+            if (button.getActionCommand().equals(hostName)){
+                myBar.remove(button);
                 System.out.println("removing "+hostName);
-                card.removeLayoutComponent(u);
+                card.removeLayoutComponent(myCardMap.get(button));
+                return;
             }
-        }    
+        } 
+        NetworkLogger n = NetworkLogger.getInstance();
+        n.addHandler(NetworkLogger.FORMAT_CONSOLE);
+        n.logMessage(Level.SEVERE,"Host does not exist");
     }
     
     public void addConnection(Message m) {
@@ -111,12 +103,13 @@ public class ServerBrowser extends JFrame {
         icon = ImageHelper.getImageIcon(host.getImagePath());
         ThumbnailAction thumbAction = null;      
         ImageIcon thumbnailIcon = new ImageIcon(ImageHelper.getScaledImage(icon.getImage(),80));
-        thumbAction = new ThumbnailAction("panel "+index, thumbnailIcon);
+        String hostName = host.getHost();
+        thumbAction = new ThumbnailAction(hostName, thumbnailIcon);
         
         JButton thumbButton = new JButton(thumbAction);
         thumbButton.setActionCommand(thumbAction.getAction());
-        JPanel card = DescriptionCardFactory.getInstance().createCard("../../resources/" + imageFileNames[index]);
-        myCards.add("panel "+index,card);
+        JPanel card = DescriptionCardFactory.getInstance().createCard(host);
+        myCards.add(hostName,card);
         myCardMap.put(thumbButton, card);
 
         myBar.add(thumbButton, myBar.getComponentCount() - 1); 
@@ -146,9 +139,7 @@ public class ServerBrowser extends JFrame {
          */
         public void actionPerformed(ActionEvent e) {
             CardLayout layout = (CardLayout) myCards.getLayout();
-            System.out.println("Action "+e.getActionCommand());
-            layout.show(myCards, e.getActionCommand());
-           
+            layout.show(myCards, e.getActionCommand());     
         }
     }
 

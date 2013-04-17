@@ -9,6 +9,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import vooga.rts.networking.communications.Message;
+import vooga.rts.networking.communications.clientmessages.HostDescriptionMessage;
 
 public class DescriptionCardFactory{
     private static final Font DEFAULT_FONT = new Font("Century Gothic", Font.PLAIN,18);
@@ -25,7 +27,8 @@ public class DescriptionCardFactory{
         return instance;
     }
     
-    public JPanel createCard(String imagePath){
+    public JPanel createCard(Message m){
+        HostDescriptionMessage host = (HostDescriptionMessage) m;
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout(10,10));
         
@@ -33,23 +36,23 @@ public class DescriptionCardFactory{
         generalInfo.setLayout(new GridLayout(2,1,0,20));
         generalInfo.setOpaque(false);
         
-        Image scaled = ImageHelper.getScaledImage(imagePath, 150);
+        Image scaled = ImageHelper.getScaledImage(host.getImagePath(), 150);
 
-        JLabel c = makeLabel("Map info: ososososso");
-        c.setHorizontalTextPosition(SwingConstants.CENTER);
-        c.setVerticalTextPosition(SwingConstants.TOP);
-        c.setAlignmentX(SwingConstants.TOP);
-        c.setIcon(new ImageIcon(scaled));
-        c.setFont(myFont);
+        JLabel mapLabel = makeLabel(host.getMapDescription());
+        mapLabel.setHorizontalTextPosition(SwingConstants.CENTER);
+        mapLabel.setVerticalTextPosition(SwingConstants.TOP);
+        mapLabel.setAlignmentX(SwingConstants.TOP);
+        mapLabel.setIcon(new ImageIcon(scaled));
+        mapLabel.setFont(myFont);
         
-        generalInfo.add(c);
+        generalInfo.add(mapLabel);
         JPanel description = new JPanel();
         description.setOpaque(false);
         generalInfo.add(description);
         description.setLayout(new GridLayout(0,1));
-        description.add(makeLabel("Server: "));
-        description.add(makeLabel("Host: "));
-        description.add(makeLabel("Max Players: "));
+        description.add(makeLabel(host.getServerName()));
+        description.add(makeLabel(host.getHost()));
+        description.add(makeLabel(host.getMaxPlayers()+""));
         
         mainPanel.add(generalInfo, BorderLayout.WEST);
         mainPanel.add(createSpecificPanel(), BorderLayout.CENTER);

@@ -14,9 +14,11 @@ public class TestMain {
                                             "Scroll2.jpg", "Scroll3.jpg"};
         ServerBrowser s = new ServerBrowser();
         for ( int i = 0 ; i < imageFileNames.length ; i++){
-            HostDescriptionMessage m = new HostDescriptionMessage("user "+i,"map "+i,"server "+i,
+            HostDescriptionMessage m = new HostDescriptionMessage("user "+i,"map "+i,""+i,"server "+i,
                                                                   "../../resources/" +imageFileNames[i]);
             s.addConnection(m);
         }
+        s.removeConnection("user 10");
+        s.removeConnection("user 5");
     }
 }
