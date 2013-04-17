@@ -3,7 +3,6 @@ package vooga.scroller.level_editor;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.awt.Shape;
 import java.util.HashSet;
 import java.util.Set;
 import javax.swing.Scrollable;
@@ -18,11 +17,12 @@ import vooga.scroller.viewUtil.Renderable;
 public class LEGrid implements Editable, Renderable, Scrollable {
 
     public static final int DEFAULT_SPRITE_SIZE = 32;
+    private static final Location DEFAULT_START_LOC = new Location(0,0);
     private int mySpriteSize;
     private SpriteBox[][] myGrid;
     private Dimension mySize;
     private Set<SpriteBox> myPaintableBoxes;
-    private ScrollingManager myScrollingManager;
+    private StartPoint myStartPoint;
 
     public LEGrid (int numWidthBlocks, int numHeightBlocks) {
         mySpriteSize = DEFAULT_SPRITE_SIZE;
@@ -198,6 +198,24 @@ public class LEGrid implements Editable, Renderable, Scrollable {
         return false;
     }
 
+    @Override
+    public void addStartPoint (int x, int y) {
+        if(myStartPoint == null){
+            myStartPoint = new StartPoint();
+        }
+        else{
+            deleteSprite((int) myStartPoint.getX(),(int) myStartPoint.getY());
+        }
+        addSprite(myStartPoint, x, y);
+    }
     
+    public Location removeStartPoint(){
+        if(myStartPoint == null){
+            return DEFAULT_START_LOC;
+        }
+        Location center = myStartPoint.getCenter();
+        deleteSprite((int) center.getX(),(int) center.getY());
+        return center;
+    }    
 
 }
