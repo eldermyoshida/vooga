@@ -15,7 +15,7 @@ import util.Vector;
  * Represents a character in the game, as well as the character's current state
  * in the given session.
  * 
- * @author alanni, james, David Le
+ * @author James Wei, alanni, David Le
  * 
  */
 public class CharacterObject extends GameObject {

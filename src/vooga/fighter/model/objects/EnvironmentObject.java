@@ -8,7 +8,7 @@ import vooga.fighter.model.utils.UpdatableLocation;
  * 
  * More behavior will be added.
  * 
- * @author james, alanni
+ * @author James Wei, alanni
  * 
  */
 public class EnvironmentObject extends GameObject {

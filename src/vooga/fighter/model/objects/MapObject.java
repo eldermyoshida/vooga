@@ -12,7 +12,7 @@ import java.util.*;
  * particular map. Also contains the background image, music, and player start
  * locations.
  * 
- * @author james, mp
+ * @author James Wei, mp
  * 
  */
 

@@ -14,7 +14,7 @@ import java.util.Map;
 /**
  * Represents a single object in the game.
  * 
- * @author james, alanni, David Le
+ * @author James Wei, alanni, David Le
  * 
  */
 public abstract class GameObject {

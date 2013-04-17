@@ -11,7 +11,7 @@ import vooga.fighter.model.objects.GameObject;
  * Represents a mode in the game. Holds a list of all game objects in the mode,
  * and updates those every update cycle.
  * 
- * @author james
+ * @author James Wei
  *
  */
 public abstract class Mode {

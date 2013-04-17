@@ -10,7 +10,7 @@ import vooga.fighter.model.objects.MapObject;
 /**
  * Detects collisions between all the game objects
  * 
- * @author alanni
+ * @author James Wei, alanni
  * 
  */
 public class CollisionManager {
