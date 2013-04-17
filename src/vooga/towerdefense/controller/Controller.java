@@ -38,6 +38,74 @@ public class Controller {
     }
 
     /**
+     * displays information about the GameElement on the tile.
+     * @param p is the point that was clicked.
+     */
+    public void displayElementInformation(GameElement e) {
+        if (e != null) {
+            //TODO: update this to reflect actual properties
+            myView.getTowerInfoScreen().displayInformation("Stuff about my clicked tower");
+            //myView.getTowerInfoScreen().displayInformation(e.getAttributes().toString());
+            if (e instanceof Tower) {
+                myView.getTowerInfoScreen().displayUpgradesAndButton(((Tower) e).getUpgrades());
+            }
+        }
+        else {
+            myView.getTowerInfoScreen().clearScreen();
+        }
+    }
+
+    //    //testing method to check if displaying the correct info
+    //    public void displayTileCoordinates (Point p) {
+    //        Tile t = myModel.getTile(p);
+    //        Point center = t.getCenter();
+    //        System.out.println(center);
+    //        myView.getTowerInfoScreen().displayInformation(center.toString());
+    //    }
+        
+        //    //testing method to check if displaying the correct info
+    //    public void displayTileCoordinates (Point p) {
+    //        Tile t = myModel.getTile(p);
+    //        Point center = t.getCenter();
+    //        System.out.println(center);
+    //        myView.getTowerInfoScreen().displayInformation(center.toString());
+    //    }
+        
+        /**
+         * updates the display on the MapScreen.
+         */
+        public void displayMap() {
+            myView.getMapScreen().update();
+        }
+
+        /**
+         * places the new item onto the map & changes the mode
+         *          back to SelectMode.
+         * @param item
+         * @param p
+         */
+        public void fixItemOnMap (GameElement item, Point p) {
+            Tile myTile = myModel.getTile(p);
+            myTile.setTower(item);
+            myModel.getMap().addToMap(item, myTile);
+            displayMap();
+            myControlMode = new SelectMode();
+        }
+
+    /**
+     * gets the associated game element at a point.
+     * @param p
+     * @return the game element
+     */
+    public GameElement getItemAt(Point p) {
+        Tile tile = myModel.getTile(p);
+        if (tile.containsElement()) {
+            return tile.getElement();
+        }
+        return null;
+    }
+
+    /**
      * handles a click to the map appropriately depending
      * on the mode.
      * 
@@ -70,37 +138,57 @@ public class Controller {
         myControlMode = myNewMode;
     }
     
-    /**
-     * gets the associated game element at a point.
-     * @param p
-     * @return the game element
-     */
-    public GameElement getItemAt(Point p) {
-        Tile tile = myModel.getTile(p);
-        if (tile.containsElement()) {
-            return tile.getElement();
+    //    //testing method to check if displaying the correct info
+    //    public void displayTileCoordinates (Point p) {
+    //        Tile t = myModel.getTile(p);
+    //        Point center = t.getCenter();
+    //        System.out.println(center);
+    //        myView.getTowerInfoScreen().displayInformation(center.toString());
+    //    }
+        
+        //    //testing method to check if displaying the correct info
+    //    public void displayTileCoordinates (Point p) {
+    //        Tile t = myModel.getTile(p);
+    //        Point center = t.getCenter();
+    //        System.out.println(center);
+    //        myView.getTowerInfoScreen().displayInformation(center.toString());
+    //    }
+        
+        //    //testing method to check if displaying the correct info
+    //    public void displayTileCoordinates (Point p) {
+    //        Tile t = myModel.getTile(p);
+    //        Point center = t.getCenter();
+    //        System.out.println(center);
+    //        myView.getTowerInfoScreen().displayInformation(center.toString());
+    //    }
+        
+        /**
+         * paints the ghost image of the item on the MapScreen
+         *          on the mouse's location.
+         * @param p is the mouselocation
+         * @param itemImage is the image
+         */
+        public void paintGhostImage (Point p, Pixmap itemImage) {
+            displayMap();
+            myView.getMapScreen().paintGhostImage(p, itemImage);
         }
-        return null;
-    }
-    
-    /**
-     * displays information about the GameElement on the tile.
-     * @param p is the point that was clicked.
-     */
-    public void displayElementInformation(GameElement e) {
-        if (e != null) {
-            //TODO: update this to reflect actual properties
-            myView.getTowerInfoScreen().displayInformation("Stuff about my clicked tower");
-            //myView.getTowerInfoScreen().displayInformation(e.getAttributes().toString());
-            if (e instanceof Tower) {
-                myView.getTowerInfoScreen().displayUpgradesAndButton(((Tower) e).getUpgrades());
-            }
+
+        /**
+         * paints the map.
+         * @param pen
+         */
+        public void paintMap(Graphics pen) {
+            myModel.paintMap((Graphics2D) pen);
         }
-        else {
-            myView.getTowerInfoScreen().clearScreen();
+
+        /**
+         * updates the model.
+         * @param elapsedTime
+         */
+        public void update(double elapsedTime) {
+            myModel.update(elapsedTime);
         }
-    }
-    
+
     /**
      * upgrades the item to the new type.
      * @param upgradeName
@@ -118,53 +206,6 @@ public class Controller {
 //        System.out.println(center);
 //        myView.getTowerInfoScreen().displayInformation(center.toString());
 //    }
-    
-    /**
-     * places the new item onto the map & changes the mode
-     *          back to SelectMode.
-     * @param item
-     * @param p
-     */
-    public void fixItemOnMap (GameElement item, Point p) {
-        Tile myTile = myModel.getTile(p);
-        myTile.setTower(item);
-        myModel.getMap().addToMap(item, myTile);
-        displayMap();
-        myControlMode = new SelectMode();
-    }
-    
-    /**
-     * updates the display on the MapScreen.
-     */
-    public void displayMap() {
-        myView.getMapScreen().update();
-    }
-    
-    /**
-     * updates the model.
-     * @param elapsedTime
-     */
-    public void update(double elapsedTime) {
-        myModel.update(elapsedTime);
-    }
-    
-    /**
-     * paints the map.
-     * @param pen
-     */
-    public void paintMap(Graphics pen) {
-        myModel.paintMap((Graphics2D) pen);
-    }
-    
-    /**
-     * paints the ghost image of the item on the MapScreen
-     *          on the mouse's location.
-     * @param p is the mouselocation
-     * @param itemImage is the image
-     */
-    public void paintGhostImage (Point p, Pixmap itemImage) {
-        displayMap();
-        myView.getMapScreen().paintGhostImage(p, itemImage);
-    }
+
 
 }

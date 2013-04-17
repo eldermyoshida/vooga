@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.util.List;
 import java.util.Map;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -125,14 +124,13 @@ public class XMLBuilder {
         return element;
     }
     
-    /* Method not yet complete
-    public Element makeElementsFromList (String tag, List<String> elementValues) {
-        Element element = makeElement(tag);
-        for (String s: elementValues) {
-            
-        }
-    }
-    */
+    /**
+     * Creates a new elements tree from a Map.
+     * 
+     * @param tag
+     * @param elementsMap
+     * @return the parent element
+     */
     public Element makeElementsFromMap (String tag, Map<String, String> elementsMap) {
         Element parent = makeElement(tag);
         for (String name : elementsMap.keySet()) {
@@ -142,26 +140,47 @@ public class XMLBuilder {
         return parent;
     }
     
-    ////Adding////
-    
+    // //Adding////
+    /**
+     * Adds a element child to an specific parent element
+     * 
+     * @param parent
+     * @param child
+     * @return child
+     */
     public Element addChild (Element parent, Element child) {
         parent.appendChild(child);
         return child;
     }
     
+    /**
+     * Creates a new child element from a tag and adds it to an specific parent element
+     * 
+     * @param parent
+     * @param tag
+     * @return the newly created child
+     */
     public Element addChild (Element parent, String tag) {
         Element child = makeElement(tag);
         return addChild(parent, child);
     }
     
+    /**
+     * Creates a new child element from a tag, adds a value to it and adds it to a parent element
+     * 
+     * @param parent
+     * @param tag
+     * @param content
+     * @return the newly created child
+     */
     public Element addChild (Element parent, String tag, String content) {
         Element child = makeElement(tag, content);
         return addChild(parent, child);
     }
     
-    ////Setting to position////
+    // //Setting to position////
     
-    ////////////////////////WRITING TO FILE/////////////////////////////
+    // //////////////////////WRITING TO FILE/////////////////////////////
     
     /**
      * Translates a document into an XML formatted String.

@@ -2,51 +2,32 @@ package vooga.towerdefense.action;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import vooga.towerdefense.attributes.TargetTracker;
+import vooga.towerdefense.attributes.Targetable;
 import vooga.towerdefense.gameElements.GameElement;
 
 /**
  * Action that targets a GameElement or multiple GameElements
- * @author Matthew Roy
+ * 
+ * @author Xu Rui
  *
  */
-public class TargetedAction extends AbstractAction {
+public class TargetedAction extends Action {
     
-    protected List<GameElement> myTargets;
+    protected List<Targetable> myTargets;
 
-    public TargetedAction (GameElement initiator, GameElement target) {
+    public TargetedAction (GameElement initiator) {
         super(initiator);
-        myTargets = new ArrayList<GameElement>();
-        myTargets.add(target);
+        myTargets = new ArrayList<Targetable>();
     }
     
-    /**
-     * Acts on the list of targets
-     * @param initiator
-     * @param targets list of the targets for this action
-     */
-    public TargetedAction (GameElement initiator, List<GameElement> targets) {
-        super(initiator);
-        // TODO Auto-generated constructor stub
-    }
+    @Override 
+    public void executeAction(){
+    	super.executeAction();
 
-    @Override
-    public void initAction () {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void execute (double elapsedTime) {
-        // TODO Auto-generated method stub
-
+    	markComplete();
     }
     
-    public List<GameElement> getTargets() {
-        return myTargets;
-    }
-    
-    public void addTarget(GameElement target) {
-        myTargets.add(target);
-    }
 
 }
