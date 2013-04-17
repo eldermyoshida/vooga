@@ -8,7 +8,7 @@ public class TestMain {
     }
 
     public static void main(String[] args) {
-        new ServerBrowserView();
+        new ServerBrowser();
         
     }
 }

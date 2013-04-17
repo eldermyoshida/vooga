@@ -11,7 +11,6 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 public class DescriptionCardFactory{
-    private static ImageHelper myHelper = new ImageHelper();
     private static final Font DEFAULT_FONT = new Font("Century Gothic", Font.PLAIN,18);
     private Font myFont = DEFAULT_FONT;
     private static DescriptionCardFactory instance;
@@ -34,7 +33,7 @@ public class DescriptionCardFactory{
         generalInfo.setLayout(new GridLayout(2,1,0,20));
         generalInfo.setOpaque(false);
         
-        Image scaled = myHelper.getScaledImage(imagePath, 150);
+        Image scaled = ImageHelper.getScaledImage(imagePath, 150);
 
         JLabel c = makeLabel("Map info: ososososso");
         c.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -48,9 +47,9 @@ public class DescriptionCardFactory{
         description.setOpaque(false);
         generalInfo.add(description);
         description.setLayout(new GridLayout(0,1));
-        description.add(makeLabel("Server: "),BorderLayout.SOUTH);
-        description.add(makeLabel("Host: "),BorderLayout.SOUTH);
-        description.add(makeLabel("Max Players: "),BorderLayout.SOUTH);
+        description.add(makeLabel("Server: "));
+        description.add(makeLabel("Host: "));
+        description.add(makeLabel("Max Players: "));
         
         mainPanel.add(generalInfo, BorderLayout.WEST);
         mainPanel.add(createSpecificPanel(), BorderLayout.CENTER);

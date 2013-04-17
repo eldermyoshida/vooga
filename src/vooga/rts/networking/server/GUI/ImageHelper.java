@@ -9,20 +9,16 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 public class ImageHelper {
-    private static final int THUMBNAIL_DIMENSION = 30;
-    public ImageHelper(){
-        
-    }
     
-    public Image getScaledImage(String path, int size){
+    public static Image getScaledImage(String path, int size){
         return getScaledImage(getImageIcon(path).getImage(),size);
     }
     
-    public ImageIcon getImageIcon(String path) {
-        return new ImageIcon(this.getClass().getResource(path));
+    public static ImageIcon getImageIcon(String path) {
+        return new ImageIcon(ImageHelper.class.getResource(path));
     }
             
-    public Image getScaledImage(Image image,int size){
+    public static Image getScaledImage(Image image,int size){
         BufferedImage buffer = new BufferedImage(size,size,BufferedImage.TYPE_INT_RGB);
         Graphics2D g2 = buffer.createGraphics();
         g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
