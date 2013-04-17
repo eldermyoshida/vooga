@@ -78,20 +78,22 @@ public class EditableMap {
     }
    
     public void addPlayer(int x, int y) {
-        
-        myPlayerLocations.put(myPlayerNumber, new Location(x,y));
         myPlayerNumber ++;
-        
+        myPlayerLocations.put(myPlayerNumber, new Location(x,y));       
     }
     
     public void addPlayer(Location loc) {
-        myPlayerLocations.put(myPlayerNumber, loc);
         myPlayerNumber ++;
+        myPlayerLocations.put(myPlayerNumber, loc);
     }
     
     public void removePlayer(int index) {
         myPlayerLocations.remove(index);
         myPlayerNumber --;
+    }
+    
+    public HashMap<Integer, Location> getLocationMap() {
+        return (HashMap<Integer, Location>) myPlayerLocations;
     }
     
     
@@ -103,6 +105,8 @@ public class EditableMap {
                 myNodeMatrix[i][j].reset();
             }
         }
+        myPlayerNumber = 0;
+        myPlayerLocations.clear();
     }
     
     

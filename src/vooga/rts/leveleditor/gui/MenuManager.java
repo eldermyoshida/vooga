@@ -45,13 +45,15 @@ public class MenuManager extends JMenuBar {
             @Override
             public void actionPerformed (ActionEvent e) {
                myCanvas.setMode(MapPanel.PLAYERMODE);
+               myCanvas.getMapPanel().setRemoveFlag(false);
             }
         });
-        
+
         menu.add(new AbstractAction("RemovePlayer") {
             @Override
             public void actionPerformed (ActionEvent e) {
-               //myCanvas.removePlayer();
+                myCanvas.setMode(MapPanel.PLAYERMODE);
+                myCanvas.getMapPanel().setRemoveFlag(true);
             }
         });
     }
