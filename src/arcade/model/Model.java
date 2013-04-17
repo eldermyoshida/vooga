@@ -61,6 +61,8 @@ public class Model implements ArcadeInteraction {
      * This information is eventually stored in the database.
      */
     public void createNewUserProfile () {
+     
+        
 
     }
 
