@@ -5,8 +5,10 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
-
+import vooga.rts.util.Vector;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.gameElements.Unit;
 import vooga.towerdefense.util.Location;
@@ -28,7 +30,7 @@ public class GameMap {
     private Location myDestination;
     private Dimension myDimension;
     private Path myPath;
-    
+
     /**
      * 
      * @param background a background image
@@ -41,21 +43,21 @@ public class GameMap {
         myUnits = new ArrayList<Unit>();
         myGameElements = new ArrayList<GameElement>();
         myDestination = destination;
-        myDimension = new Dimension(width, height);        
+        myDimension = new Dimension(width, height);
         initializeGrid();
     }
 
     /*
      * Initializes the grid so that each element in myGrid is a Tile object
      * containing it's center coordinates. Every tile is both walkable and
-     * buildable. 
+     * buildable.
      */
     private void initializeGrid () {
-        int horizontalTileCount = (int)(myDimension.getWidth() / TILE_SIZE);
-        int verticalTileCount = (int)(myDimension.getHeight() / TILE_SIZE);
-        
+        int horizontalTileCount = (int) (myDimension.getWidth() / TILE_SIZE);
+        int verticalTileCount = (int) (myDimension.getHeight() / TILE_SIZE);
+
         myGrid = new Tile[horizontalTileCount][verticalTileCount];
-        
+
         for (int i = 0; i < myGrid.length; i++) {
             for (int j = 0; j < myGrid[i].length; j++) {
                 int xCenter = (int) (i * TILE_SIZE + TILE_SIZE / 2);
@@ -63,7 +65,7 @@ public class GameMap {
                 // TODO: replace booleans with parsed values from file
                 myGrid[i][j] = new Tile(new Point(xCenter, yCenter),
                                         true, true);
-            }        
+            }
         }
     }
 
@@ -72,10 +74,10 @@ public class GameMap {
      * @param elapsedTime time elapsed since last game clock tick.
      */
     public void update (double elapsedTime) {
-        updateUnits(elapsedTime);
-        updateTiles(elapsedTime);
+        for (GameElement e : myGameElements) {
+            e.update(elapsedTime);
+        }
     }
-
 
     private void updateUnits (double elapsedTime) {
         for (Unit unit : myUnits) {
@@ -94,8 +96,7 @@ public class GameMap {
     public void spawnUnit (Unit u) {
         myUnits.add(u);
     }
-    
-    
+
     public void addToMap (GameElement e, Tile t) {
         e.setCenter(t.getCenter().getX(), t.getCenter().getY());
         myGameElements.add(e);
@@ -116,7 +117,7 @@ public class GameMap {
      * @param pen a pen used to draw elements on this map.
      */
     public void paint (Graphics2D pen) {
-        //TODO: draw background image on mapscreen
+        // TODO: draw background image on mapscreen
         for (Unit u : myUnits) {
             u.paint(pen);
         }
@@ -124,4 +125,46 @@ public class GameMap {
             e.paint(pen);
         }
     }
+
+    public List<GameElement> getAllGameElements () {
+        return myGameElements;
+    }
+
+    public List<Unit> getUnits () {
+        return myUnits;
+    }
+
+    public void addGameElement (GameElement gameElement) {
+        myGameElements.add(gameElement);
+    }
+
+    public List<GameElement> getTargetsWithinRadius (Location source,
+                                                                    double radius,
+                                                                    int howMany) {
+        List<GameElement> elementsWithinRadius = new ArrayList<GameElement>();
+
+        for (GameElement gameElement : myGameElements) {
+            if (Vector.distanceBetween(source, gameElement.getCenter()) <= radius) {
+                elementsWithinRadius.add(gameElement);
+            }
+        }
+
+        class GameElementComparator implements Comparator<GameElement> {
+            Location mySource;
+
+            public GameElementComparator (Location source) {
+                mySource = source;
+            }
+
+            @Override
+            public int compare (GameElement o1, GameElement o2) {
+                return Vector.distanceBetween(mySource, o1.getCenter()) -
+                       Vector.distanceBetween(mySource, o2.getCenter()) > 0 ? 1 : -1;
+            }
+        }
+        
+        Collections.sort(elementsWithinRadius, new GameElementComparator(source));
+        return elementsWithinRadius.subList(0, howMany);
+    }
+
 }
