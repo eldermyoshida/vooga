@@ -1,26 +1,25 @@
 package vooga.rts;
 
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import javax.xml.parsers.ParserConfigurationException;
-import org.xml.sax.SAXException;
 import vooga.rts.controller.MainController;
-import vooga.rts.resourcemanager.ImageResourceManager;
+import vooga.rts.resourcemanager.ResourceManager;
+import vooga.rts.resourcemanager.exceptions.FileNotSupportedException;
 
 
 public class StartGUI {
 
-    public static void main (String[] args) throws IllegalArgumentException, SecurityException,
-                                           ClassNotFoundException, InstantiationException,
-                                           IllegalAccessException, InvocationTargetException,
-                                           NoSuchMethodException, ParserConfigurationException,
-                                           SAXException, IOException {
-        ImageResourceManager.instance().queueFile("tree.jpg");
-        ImageResourceManager.instance().queueFile("got1.jpg");
-        ImageResourceManager.instance().queueFile("got2.jpg");
-        ImageResourceManager.instance().queueFile("got3.jpg");
-        ImageResourceManager.instance().queueFile("got4.jpg");
-        ImageResourceManager.instance().queueFile("got5.jpg");
+    public static void main (String[] args) {
+        try {
+            ResourceManager.getInstance().queueFile("tree.jpg");
+            ResourceManager.getInstance().queueFile("got1.jpg");
+            ResourceManager.getInstance().queueFile("got2.jpg");
+            ResourceManager.getInstance().queueFile("got3.jpg");
+            ResourceManager.getInstance().queueFile("got4.jpg");
+            ResourceManager.getInstance().queueFile("got5.jpg");
+        }
+        catch (FileNotSupportedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
         new MainController();
     }
