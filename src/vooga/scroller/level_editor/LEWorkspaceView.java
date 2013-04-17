@@ -67,16 +67,7 @@ public class LEWorkspaceView extends WorkspaceView {
         if (isn instanceof String) {
             String cmd = (String) isn;
             if (getCommand(cmd).equals(CommandConstants.CREATE_SPRITE)) {
-                switch (myToolsView.getSelectedTab()) {
-                    case 0:
-                        cmd = cmd + CommandConstants.SPACE + myToolsView.getSelectedSpriteID();
-                        break;
-                    case 1:
-                        cmd = CommandConstants.CHANGE_BACKGROUND +
-                              myToolsView.getSelectedSpriteID();
-                        break;
-                }
-
+                cmd = cmd + CommandConstants.SPACE + myToolsView.getSelectedSpriteID();
             }
             super.process(cmd);
         }
