@@ -1,15 +1,20 @@
 package vooga.towerdefense.action;
 
 import java.util.List;
-import vooga.towerdefense.attributes.NumericalAttribute;
+import vooga.towerdefense.attributes.Attribute;
 import vooga.towerdefense.gameElements.GameElement;
 
+/**
+ * 
+ * @author Matthew Roy
+ *
+ */
 public class TargetedModifyValueAction extends TargetedAction {
 
     private String myTargetAttribute;
     private double myAttributeChange;
     
-    public TargetedModifyValueAction (GameElement initiator, GameElement target, NumericalAttribute attributeToApply) {
+    public TargetedModifyValueAction (GameElement initiator, GameElement target, Attribute attributeToApply) {
         super(initiator, target);
         myTargetAttribute = attributeToApply.getName();
         myAttributeChange = attributeToApply.getValue();

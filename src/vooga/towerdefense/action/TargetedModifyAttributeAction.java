@@ -26,12 +26,12 @@ public class TargetedModifyAttributeAction extends TargetedAction {
    
     @Override
     public void initAction () {
-        Attribute targetsAttribute = myTarget.getAttributes().getAttribute(myTargetAttribute.getName());
+        Attribute targetsAttribute = myTarget.getAttributeManager().getAttribute(myTargetAttribute.getName());
         if(targetsAttribute != null) {
-            targetsAttribute.setValue(myTargetAttribute);
+            targetsAttribute.setValue(myTargetAttribute.getValue());
         }
         else {
-            myTarget.getAttributes().addAttribute(myTargetAttribute);
+            myTarget.getAttributeManager().addAttribute(myTargetAttribute);
         }
     }
 
