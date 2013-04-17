@@ -108,6 +108,9 @@ public class UniScrollingManager extends ScrollingManager {
             if(myMaxDirection > levelRightBoundary()) {
                 return levelRightBoundary();
             }
+            if(myMaxDirection - myView.getWidth() < levelLeftBoundary()) {
+                return levelLeftBoundary() + myView.getWidth();
+            }
             return myMaxDirection;
         }
         return levelRightBoundary();
@@ -119,6 +122,9 @@ public class UniScrollingManager extends ScrollingManager {
             if(myMaxDirection < levelLeftBoundary()){
                 return levelLeftBoundary();
             }
+            if(myMaxDirection + myView.getWidth() > levelRightBoundary()) {
+                return levelRightBoundary() - myView.getWidth();
+            }
             return myMaxDirection;
         }
         return levelLeftBoundary();
@@ -129,6 +135,9 @@ public class UniScrollingManager extends ScrollingManager {
             if(myMaxDirection < levelUpperBoundary()){
                 return levelUpperBoundary();
             }
+            if(myMaxDirection + myView.getHeight() > levelLowerBoundary()) {
+                return levelRightBoundary() - myView.getHeight();
+            }
             return myMaxDirection;
         }
         return levelUpperBoundary();
@@ -138,6 +147,9 @@ public class UniScrollingManager extends ScrollingManager {
         if(myDirection == 2){
             if(myMaxDirection > levelLowerBoundary()){
                 return levelLowerBoundary();
+            }
+            if(myMaxDirection - myView.getHeight() < levelUpperBoundary()) {
+                return levelUpperBoundary() + myView.getHeight();
             }
             return myMaxDirection;
         }
@@ -202,8 +214,7 @@ public class UniScrollingManager extends ScrollingManager {
         }
         if(playerlocy < (uniUpperBoundary(p) + halfheight)) {
             y =  halfheight - (halfheight - (Math.abs(uniUpperBoundary(p) - playerlocy)));
-        }        
-        System.out.println("Paint: " + x);
+        }
         return new Location(x, y);
 
     }
