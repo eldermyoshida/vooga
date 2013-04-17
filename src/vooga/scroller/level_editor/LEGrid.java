@@ -23,6 +23,7 @@ public class LEGrid implements Editable, Renderable, Scrollable {
     private Dimension mySize;
     private Set<SpriteBox> myPaintableBoxes;
     private ScrollingManager myScrollingManager;
+    private StartPoint myStartPoint;
 
     public LEGrid (int numWidthBlocks, int numHeightBlocks) {
         mySpriteSize = DEFAULT_SPRITE_SIZE;
@@ -196,6 +197,17 @@ public class LEGrid implements Editable, Renderable, Scrollable {
     public boolean isValidForSimulation () {
         // TODO Check for valid starting and exit points.
         return false;
+    }
+
+    @Override
+    public void addStartPoint (int x, int y) {
+        if(myStartPoint == null){
+            myStartPoint = new StartPoint();
+        }
+        else{
+            deleteSprite((int) myStartPoint.getX(),(int) myStartPoint.getY());
+        }
+        addSprite(myStartPoint, x, y);
     }
 
     

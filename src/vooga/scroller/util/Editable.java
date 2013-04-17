@@ -20,5 +20,7 @@ public interface Editable {
     public void addSprite (Sprite s, int x, int y);
 
     public void deleteSprite (int x, int y);
+
+    public void addStartPoint (int x, int y);
     
 }

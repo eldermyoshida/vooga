@@ -20,7 +20,7 @@ import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.PlatformerConstants;
 import vooga.scroller.view.View;
 
-public class Level implements Editable, Renderable {
+public class Level implements Renderable {
 
     private Dimension mySize;
     private Dimension frameOfReferenceSize;
@@ -228,19 +228,7 @@ public class Level implements Editable, Renderable {
     
     
 
-    //Methods from Editable Interface. Methods called by LevelEditor.
 
-    @Override
-    public void changeBackground () { //params need to be added
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void deleteSprite (int x, int y) {
-        // TODO Auto-generated method stub
-        
-    }
     
     private void intersectingSprites () {
         Sprite obj1;
@@ -264,13 +252,6 @@ public class Level implements Editable, Renderable {
     
     public View getView() {
         return myView;
-    }
-
-    @Override
-    public void addSprite (Sprite s, int x, int y) {
-        // TODO Not sure if needed
-        // not needed in current use
-        
     }
     
     
