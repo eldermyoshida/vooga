@@ -22,7 +22,7 @@ public class Pixmap {
     // underlying implementation
     private java.awt.Image myImage;
     private String myFileName;
-
+    private Point2D myCenter;
 
     /**
      * Create an image from the given filename.
@@ -57,6 +57,7 @@ public class Pixmap {
      * Describes how to draw the image rotated on the screen.
      */
     public void paint (Graphics2D pen, Point2D center, Dimension size, double angle) {
+        myCenter = center;
         // save current state of the graphics area
         AffineTransform old = new AffineTransform(pen.getTransform());
         // move graphics area to center of this shape
@@ -83,5 +84,13 @@ public class Pixmap {
      */
     public Image getImage(){
     	return myImage;
+    }
+    
+    /**
+     * 
+     * @return  the center location of where the Pixmap image is painted
+     */
+    public Point2D getCenter () {
+        return myCenter;
     }
 }
