@@ -115,6 +115,13 @@ public class State {
     }       
     
     /**
+     * 
+     */
+    
+    public int getCurrentState(){
+    	return myCurrentFrame; 
+    }
+    /**
      * Returns the current active size for this state.
      */
     public Dimension getCurrentSize() {
