@@ -31,7 +31,7 @@ public interface ArcadeInteraction {
      * Get data associated with a specific game and a user
      * @return UserGameData
      */
-    UserGameData getUserGameData();
+    UserGameData getUserGameData(String gameName);
     
     GameData getGameData();
 }
