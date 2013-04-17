@@ -1,9 +1,11 @@
 package vooga.rts.networking.server;
 
 /**
- * Default class that does nothing with IThreadContainer. Used by classes with no behavior for these methods.
+ * Default class that does nothing with IThreadContainer. Used by classes with no behavior for these
+ * methods.
+ * 
  * @author David Winegar
- *
+ * 
  */
 public abstract class AbstractThreadContainer implements IThreadContainer {
 
@@ -24,11 +26,11 @@ public abstract class AbstractThreadContainer implements IThreadContainer {
     }
 
     @Override
-    public void startGameServer () {
+    public void startGameServer (ConnectionThread thread) {
     }
-    
+
     @Override
-    public void getLobbies () {
+    public void requestLobbies (ConnectionThread thread, int startNumber, int endNumber) {
     }
 
 }

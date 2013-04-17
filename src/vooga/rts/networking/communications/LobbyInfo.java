@@ -2,7 +2,7 @@ package vooga.rts.networking.communications;
 
 import java.io.Serializable;
 
-public class ServerLobby implements Serializable {
+public class LobbyInfo implements Serializable {
 
     private static final long serialVersionUID = 8433220026468566119L;
     private String myServerName;
@@ -10,7 +10,7 @@ public class ServerLobby implements Serializable {
     private int myCurrentPlayers;
     private String myMapName;
     
-    ServerLobby (String serverName, int maxPlayers, int currentPlayers, String mapName) {
+    LobbyInfo (String serverName, int maxPlayers, int currentPlayers, String mapName) {
         myServerName = serverName;
         myMaxPlayers = maxPlayers;
         myCurrentPlayers = currentPlayers;

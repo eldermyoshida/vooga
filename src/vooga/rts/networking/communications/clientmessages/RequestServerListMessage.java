@@ -5,16 +5,23 @@ import vooga.rts.networking.server.IThreadContainer;
 
 /**
  * Requests a list of server messages.
- * @author David
+ * @author David Winegar
  *
  */
 public class RequestServerListMessage extends ClientInfoMessage {
 
     private static final long serialVersionUID = -2907131995149913098L;
+    private int myStartNumber;
+    private int myEndNumber;
+    
+    public RequestServerListMessage (int startNumber, int endNumber) {
+        myStartNumber = startNumber;
+        myEndNumber = endNumber;
+    }
 
     @Override
     public void execute (ConnectionThread thread, IThreadContainer server) {
-        server.getLobbies();
+        server.requestLobbies(thread, myStartNumber, myEndNumber);
     }
 
 }
