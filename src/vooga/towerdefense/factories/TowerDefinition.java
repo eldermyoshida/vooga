@@ -1,22 +1,29 @@
 package vooga.towerdefense.factories;
 
-/**
- * @author Matthew Roy
- *
- */
+import java.awt.Dimension;
+
+import util.Pixmap;
+import vooga.towerdefense.util.Location;
+
 public class TowerDefinition extends GameElementDefinition {
-    
-    /**
-     * Defaults for necessary tower statistics
-     */
-    public static final String DEFAULT_NAME = "Tower";    
-    public static final double DEFAULT_COST = 100;    
+	
+	private static final Pixmap TOWER_IMAGE = new Pixmap("tower.jif");
+	private static final Location DEFAULT_TOWER_LOCATION = new Location(200, 100);
+	private static final Dimension DEFAULT_TOWER_SIZE = new Dimension(50, 50);
+	
+	private Pixmap myImage;
+	private Location myCenter;
+	private Dimension mySize;
 
-    /**
-     * 
-     */
-    public TowerDefinition () {
-        // TODO Auto-generated constructor stub
-    }
+	public TowerDefinition() {
+		myImage = TOWER_IMAGE;
+		myCenter = DEFAULT_TOWER_LOCATION;
+		mySize = DEFAULT_TOWER_SIZE;
+	}
+	
+	
+	
 
+	
+	
 }
