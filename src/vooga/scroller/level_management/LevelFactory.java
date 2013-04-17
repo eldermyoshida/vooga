@@ -28,12 +28,12 @@ import vooga.scroller.view.View;
 public class LevelFactory {
 
     private LevelManager myLevelManager;
-    private LevelParser myLevelParser;
+    private LevelParser myLevelReader;
     private Map<Integer,Level> myLevels;
 
     public LevelFactory (LevelManager lm) {
         myLevelManager = lm;
-        myLevelParser = new LevelParser();
+        myLevelReader = new LevelParser();
         myLevels = new HashMap<Integer, Level>();
     }
     
@@ -52,9 +52,9 @@ public class LevelFactory {
         SplashPage splash = new SplashPage(new Pixmap("MARIO SPLASH.png"),0,view, mySM);
         // TODO: fix this
         splash.addManager(myLevelManager);
+        splash.setInputPath(SplashPage.CONTROLS_FILE_PATH);
 
         //TODO needs to be refactored. Design needs to be improved
-//        myLevelParser.setNameMap((new ToolsManager(new MarioLib())).getNameMap());
 //        Level level1 = hardcodeLevel1(view, mySM, 1);
         LEGrid level1Grid = loadGridFromFile("createdLevelupg.level");
         Level level1 = new Level(1, mySM, view, level1Grid);
@@ -97,7 +97,7 @@ public class LevelFactory {
     private LEGrid loadGridFromFile (String filename) {
         String pre = "src/vooga/scroller/level_management/";
         File f = (new File(pre+filename)).getAbsoluteFile();
-        LEGrid result = myLevelParser.makeGridFromFile(f);
+        LEGrid result = myLevelReader.makeGridFromFile(f);
         return result;
     }
 

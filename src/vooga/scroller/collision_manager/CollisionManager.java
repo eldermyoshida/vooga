@@ -35,7 +35,9 @@ public class CollisionManager {
         
     public void handleCollision (Sprite sprite1, Sprite sprite2) {
 
-        Class[] classArray = {sprite1.getClass(), sprite2.getClass()};
+        Class[] classArray = {sprite1.getClass(), sprite2.getClass()}; //old way of living 
+
+//        Class[] classArray = {sprite1.getClass().getInterfaces()[0], sprite2.getClass().getInterfaces()[0]};
         Object[] sprites = {sprite1, sprite2};
 
         try {
