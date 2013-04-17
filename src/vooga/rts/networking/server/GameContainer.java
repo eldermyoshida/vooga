@@ -14,9 +14,6 @@ public class GameContainer extends AbstractThreadContainer implements IMessageRe
     private List<GameServer> myGameServers = new ArrayList<GameServer>();
     private int myGameNumber = 0;
     
-    public GameContainer () {
-    }
-    
     protected void addConnection (ConnectionThread thread) {
         myConnectionThreads.put(thread.getID(), thread);
         thread.switchMessageServer(this);

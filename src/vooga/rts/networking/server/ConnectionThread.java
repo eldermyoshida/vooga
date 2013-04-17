@@ -65,6 +65,7 @@ public class ConnectionThread extends Thread {
                 myMessageServer.sendMessage(message, this);
             } else {
                 myConnectionActive = false;
+                myMessageServer.removeConnection(this);
                 return;
             }
         while (myConnectionActive) {
@@ -133,10 +134,6 @@ public class ConnectionThread extends Thread {
             e.printStackTrace();
 
         }
-    }
-    
-    public void sendErrorMessage (String error) {
-        // TODO
     }
 
     public int getID () {
