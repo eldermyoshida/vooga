@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import util.input.PositionObject;
 import vooga.rts.gamedesign.Weapon;
 import vooga.rts.gamedesign.sprite.rtsprite.Projectile;
 import vooga.rts.gamedesign.sprite.rtsprite.Resource;
@@ -23,11 +22,12 @@ import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Unit;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Worker;
 import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;
 import vooga.rts.gui.Window;
+import vooga.rts.input.PositionObject;
 import vooga.rts.map.GameMap;
 import vooga.rts.player.HumanPlayer;
 import vooga.rts.player.Player;
 import vooga.rts.player.Team;
-import vooga.rts.resourcemanager.ResourceManager;
+import vooga.rts.resourcemanager.ImageResourceManager;
 import vooga.rts.util.Camera;
 import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
@@ -42,14 +42,15 @@ public class GameController extends AbstractController {
     private List<Player> myPlayers;
     private HumanPlayer myHuman;
 
-    private GameMap myMap; // This needs a dimension that describes the total size of the map. Not
+    private GameMap myMap; // This needs a dimension that describes the total
+                           // size of the map. Not
                            // made for now.
-    private Resource r; 
-	private Building building;
-	private UpgradeBuilding upgradeBuilding;
+    private Resource r;
+    private Building building;
+    private UpgradeBuilding upgradeBuilding;
     private Location myLeftMouse;
     private Location myLeftMouseWorld;
-    
+
     private Rectangle2D myDrag;
 
     private PointTester pt;
@@ -94,32 +95,30 @@ public class GameController extends AbstractController {
             f.update(elapsedTime);
         }
         /*
-         * Iterator<Team> it = myTeams.values().iterator();
-         * while (it.hasNext()) {
-         * 1Team t = it.next();
+         * Iterator<Team> it = myTeams.values().iterator(); while (it.hasNext())
+         * { 1Team t = it.next();
          * 
          * }
          */
         List<Unit> p1 = myTeams.get(1).getUnits();
         List<Unit> p2 = myTeams.get(2).getUnits();
         for (Unit u1 : p1) {
-			for (Unit u2 : p2) {
-				if (u1.inRange(u2)) {
-					u2.getAttacked(u1);
-				}
-				if (u2.inRange(u1)) {
-					u1.getAttacked(u2);
-					
-				}
-				if (u1 instanceof Worker)
-				{
-					((Worker)u1).gather(r);
-				}
-			}
-		}
-		building.update(elapsedTime);
-		//upgradeBuilding.update(elapsedTime);
-        checkCameraMouse();
+            for (Unit u2 : p2) {
+                if (u1.inRange(u2)) {
+                    u2.getAttacked(u1);
+                }
+                if (u2.inRange(u1)) {
+                    u1.getAttacked(u2);
+
+                }
+                if (u1 instanceof Worker) {
+                    ((Worker) u1).gather(r);
+                }
+            }
+        }
+        building.update(elapsedTime);
+        // upgradeBuilding.update(elapsedTime);
+        checkCameraMouse(elapsedTime);
     }
 
     @Override
@@ -129,9 +128,9 @@ public class GameController extends AbstractController {
         }
         r.paint(pen);
         building.paint(pen);
-        
+
         if (myDrag != null) {
-            pen.draw(myDrag);      
+            pen.draw(myDrag);
         }
         pt.paint(pen);
     }
@@ -163,7 +162,7 @@ public class GameController extends AbstractController {
     public void onRightMouseUp (PositionObject o) {
 
         // If it's not a GUI thing
-        Location3D world = Camera.instance().viewtoWorld(o.getPoint2D()); 
+        Location3D world = Camera.instance().viewtoWorld(o.getPoint2D());
         myHuman.handleRightClick((int) world.getX(), (int) world.getY());
     }
 
@@ -171,13 +170,15 @@ public class GameController extends AbstractController {
     public void onMouseDrag (PositionObject o) {
         if (myLeftMouse != null) {
             Location3D world = Camera.instance().viewtoWorld(o.getPoint2D());
-            
-            double uX = world.getX() > myLeftMouseWorld.getX() ? myLeftMouseWorld.getX() : world.getX();
-            double uY = world.getY() > myLeftMouseWorld.getY() ? myLeftMouseWorld.getY() : world.getY();
+
+            double uX =
+                    world.getX() > myLeftMouseWorld.getX() ? myLeftMouseWorld.getX() : world.getX();
+            double uY =
+                    world.getY() > myLeftMouseWorld.getY() ? myLeftMouseWorld.getY() : world.getY();
             double width = Math.abs(world.getX() - myLeftMouseWorld.getX());
             double height = Math.abs(world.getY() - myLeftMouseWorld.getY());
             Rectangle2D worldDrag = new Rectangle2D.Double(uX, uY, width, height);
-            
+
             uX = o.getX() > myLeftMouse.getX() ? myLeftMouse.getX() : o.getX();
             uY = o.getY() > myLeftMouse.getY() ? myLeftMouse.getY() : o.getY();
             width = Math.abs(o.getX() - myLeftMouse.getX());
@@ -192,75 +193,84 @@ public class GameController extends AbstractController {
     }
 
     private void setupGame () {
-		System.out.println("Game is starting setup");
-		
-		try {
-			//Factory factory = new Factory();
+        System.out.println("Game is starting setup");
 
-			//UpgradeTree resultTree = factory.loadXMLFile("XML_Sample");
-			/*
-			upgradeBuilding = new UpgradeBuilding(new Pixmap(ResourceManager.instance().loadFile("images/barracks.jpeg")), 
-					new Location(700,700), new Dimension(150,150), null, 1,300);
-			*/
-			Player p1 = new HumanPlayer();
-			Pixmap p = new Pixmap(ResourceManager.instance().loadFile("images/sprites/soldier.png"));
-			Dimension s = new Dimension(90, 90);
-			r = new Resource(new Pixmap(ResourceManager.instance().loadFile("images/mineral.gif")), new Location3D (300,300,0), new Dimension(60, 60), 0, 400);
-			Sound soun = null;// new Sound("/vooga/rts/sounds/pikachu.wav");
-			Unit a = null;
-			a = new Soldier(p, new Location3D(200, 250 ,0), s, soun, 1, 400);
-			System.out.println("Player ID for a: " + a.getPlayerID());
-			//a.setUpgradeTree(resultTree,a.getPlayerID());
-			//upgradeBuilding.addUpgradeActions(resultTree);
-			Projectile proj =
-					new Projectile(new Pixmap(ResourceManager.instance()
-							.loadFile("images/bullet.png")), a.getWorldLocation(), new Dimension(30, 30),
-							2, 10, 1);
-			a.setAttackStrategy(new CanAttack());
-			a.getAttackStrategy().addWeapons(new Weapon(0, proj, 500, a.getWorldLocation(), 175));
-			Unit b = new Soldier(p, new Location3D(300, 150,0), s, soun, 1, 300);
-			System.out.println("Player ID for b: " + b.getPlayerID());
+        try {
+            // Factory factory = new Factory();
 
-			Projectile proj2 =
-					new Projectile(
-							new Pixmap(ResourceManager.instance().loadFile("images/bullet.png")),
-							b.getWorldLocation(), new Dimension(30, 30), 1, 10, 1);
-			b.setAttackStrategy(new CanAttack());
-			b.getAttackStrategy().addWeapons(new Weapon(0, proj2, 400, b.getWorldLocation(), 200));
+            // UpgradeTree resultTree = factory.loadXMLFile("XML_Sample");
+            /*
+             * upgradeBuilding = new UpgradeBuilding(new
+             * Pixmap(ResourceManager.instance
+             * ().loadFile("images/barracks.jpeg")), new Location(700,700), new
+             * Dimension(150,150), null, 1,300);
+             */
+            Player p1 = new HumanPlayer();
+            Pixmap p =
+                    new Pixmap(ImageResourceManager.instance().loadFile("images/sprites/soldier.png"));
+            Dimension s = new Dimension(90, 90);
+            r =
+                    new Resource(new Pixmap(ImageResourceManager.instance()
+                            .loadFile("images/mineral.gif")), new Location3D(300, 300, 0),
+                                 new Dimension(60, 60), 0, 400);
+            Sound soun = null;// new Sound("/vooga/rts/sounds/pikachu.wav");
+            Unit a = null;
+            a = new Soldier(p, new Location3D(200, 250, 0), s, soun, 1, 400);
+            System.out.println("Player ID for a: " + a.getPlayerID());
+            // a.setUpgradeTree(resultTree,a.getPlayerID());
+            // upgradeBuilding.addUpgradeActions(resultTree);
+            Projectile proj =
+                    new Projectile(new Pixmap(ImageResourceManager.instance()
+                            .loadFile("images/bullet.png")), a.getWorldLocation(),
+                                   new Dimension(30, 30), 2, 10, 1);
+            a.setAttackStrategy(new CanAttack());
+            a.getAttackStrategy().addWeapons(new Weapon(0, proj, 500, a.getWorldLocation(), 175));
+            Unit b = new Soldier(p, new Location3D(300, 150, 0), s, soun, 1, 300);
+            System.out.println("Player ID for b: " + b.getPlayerID());
 
-			Unit c = new Soldier(p, new Location3D(500, 800,0), s, soun, 2, 500);
+            Projectile proj2 =
+                    new Projectile(new Pixmap(ImageResourceManager.instance()
+                            .loadFile("images/bullet.png")), b.getWorldLocation(),
+                                   new Dimension(30, 30), 1, 10, 1);
+            b.setAttackStrategy(new CanAttack());
+            b.getAttackStrategy().addWeapons(new Weapon(0, proj2, 400, b.getWorldLocation(), 200));
 
-			Projectile proj3 =
-					new Projectile(
-							new Pixmap(ResourceManager.instance().loadFile("images/bullet.png")),
-							c.getWorldLocation(), new Dimension(30, 30), 1, 10, 1);
-			c.setAttackStrategy(new CanAttack());
-			Unit w = new Worker(new Pixmap(ResourceManager.instance().loadFile("images/scv.gif")), new Location3D(500, 200,0), s, soun, 20, 40, 40);
-			c.getAttackStrategy().addWeapons(new Weapon(0, proj3, 450, c.getWorldLocation(), 200));
-			
-			p1.getUnits().addUnit(a);
-			p1.getUnits().addUnit(b);
-			p1.getUnits().addUnit(w);
-			Player p2 = new HumanPlayer();
-			p2.getUnits().addUnit(c);
+            Unit c = new Soldier(p, new Location3D(500, 800, 0), s, soun, 2, 500);
 
-			addPlayer(p1, 1);
-			addPlayer(p2, 2);
-			
-			building = new Barracks(new Pixmap(ResourceManager.instance().loadFile("images/barracks.jpeg")), 
-					new Location3D(800,500,0), new Dimension(150,150), null, 1,300);
-			System.out.println("Setup Game");
-			myHuman = (HumanPlayer) p1;
+            Projectile proj3 =
+                    new Projectile(new Pixmap(ImageResourceManager.instance()
+                            .loadFile("images/bullet.png")), c.getWorldLocation(),
+                                   new Dimension(30, 30), 1, 10, 1);
+            c.setAttackStrategy(new CanAttack());
+            Unit w =
+                    new Worker(new Pixmap(ImageResourceManager.instance().loadFile("images/scv.gif")),
+                               new Location3D(500, 200, 0), s, soun, 20, 40, 40);
+            c.getAttackStrategy().addWeapons(new Weapon(0, proj3, 450, c.getWorldLocation(), 200));
 
-		}
-		catch (Exception e) {
-			// trollolol
-		}
-		
-		
+            p1.getUnits().addUnit(a);
+            p1.getUnits().addUnit(b);
+            p1.getUnits().addUnit(w);
+            Player p2 = new HumanPlayer();
+            p2.getUnits().addUnit(c);
+
+            addPlayer(p1, 1);
+            addPlayer(p2, 2);
+
+            building =
+                    new Barracks(new Pixmap(ImageResourceManager.instance()
+                            .loadFile("images/barracks.jpeg")), new Location3D(800, 500, 0),
+                                 new Dimension(150, 150), null, 1, 300);
+            System.out.println("Setup Game");
+            myHuman = (HumanPlayer) p1;
+
+        }
+        catch (Exception e) {
+            // trollolol
+        }
+
     }
 
-    private void checkCameraMouse () {
+    private void checkCameraMouse (double elapsedtime) {
         Point p = MouseInfo.getPointerInfo().getLocation();
 
         double x = 0;
@@ -286,7 +296,10 @@ public class GameController extends AbstractController {
             setY = Window.SCREEN_SIZE.getHeight() - 1;
         }
         if (x != 0 || y != 0) {
+            y *= elapsedtime;
+            x *= elapsedtime;
             Camera.instance().moveCamera(new Location(x, y));
+
             myMouseMover.mouseMove((int) setX, (int) setY);
         }
     }

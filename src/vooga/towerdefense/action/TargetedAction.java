@@ -13,7 +13,7 @@ import vooga.towerdefense.gameElements.GameElement;
  * @author Xu Rui
  *
  */
-public class TargetedAction extends Action implements TargetTracker {
+public class TargetedAction extends Action {
     
     protected List<Targetable> myTargets;
 
@@ -25,27 +25,9 @@ public class TargetedAction extends Action implements TargetTracker {
     @Override 
     public void executeAction(){
     	super.executeAction();
-    	addTargetsInRange();
-    	aimAtTarget();
-    	actOnTarget();
+
     	markComplete();
     }
     
-	@Override
-	public void addTargetsInRange() {
-		//How to find targets in range? 
-	}
-
-	@Override
-	public void aimAtTarget() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void actOnTarget() {
-		// TODO Auto-generated method stub
-	}
-
 
 }
