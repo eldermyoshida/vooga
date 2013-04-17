@@ -12,6 +12,7 @@ public interface ISpriteView extends IPaintable {
     void paint (Graphics2D pen, Point2D myCenter, Dimension mySize);
 
     Image getDefaultImg ();
+    public void setDefaultView(ISpriteView ispriteview);
 
     void paint (Graphics2D pen, Point2D center, Dimension size, double angle);
 

@@ -5,7 +5,6 @@ package vooga.fighter.controller;
 import util.input.Input;
 import vooga.fighter.model.*;
 import vooga.fighter.view.Canvas;
-
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -31,6 +30,7 @@ public abstract class Controller implements ModelDelegate {
     private String myPath;
     private Canvas myCanvas;
     protected GameInfo myGameInfo;
+
     protected Input myInput;
     public static final int FRAMES_PER_SECOND = 25;
     // better way to think about timed events (in milliseconds)

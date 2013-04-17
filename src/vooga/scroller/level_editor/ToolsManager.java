@@ -28,7 +28,7 @@ public class ToolsManager {
             try {
                 sprite = (Sprite) c.newInstance();
                 spriteMap.put(i, sprite);
-                nameMap.put(c.getCanonicalName(), sprite);
+                nameMap.put(c.getName(), sprite);
                 viewTools.addSpriteOption(sprite, i);
             }
             catch (InstantiationException e) {

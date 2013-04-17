@@ -7,8 +7,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.test_sprites.MarioLib;
 import vooga.scroller.util.Sprite;
+import vooga.scroller.view.View;
 
 
 public class LevelParser {
@@ -20,13 +22,16 @@ public class LevelParser {
     public Scanner myScanner;
     public Map<Character, String> myCharacterMap;
     public List<String> myLevelStrings;
-    private Map<String, Sprite> myNameMap;
-
-    public void setNameMap (Map<String, Sprite> nameMap) {
-        myNameMap = nameMap;
+    
+    /**
+     * Initialize instances variables.
+     */
+    public LevelParser() {
+        myLevelStrings = new ArrayList<String>();
+        myCharacterMap = new HashMap<Character, String>();
     }
 
-    public LEGrid loadFileToGrid (File file) {
+    public LEGrid makeGridFromFile (File file) {
         myLevelStrings = new ArrayList<String>();
         myCharacterMap = new HashMap<Character, String>();
         try {
@@ -37,13 +42,10 @@ public class LevelParser {
             e.printStackTrace();
         }
         parseLevel();
-        parseKey();
+        myCharacterMap=parseKey();
         return createGrid();
     }
 
-    public Level loadFileToLevel (File file, int id) {
-        return loadFileToGrid(file).createLevel(id);
-    }
 
     private void parseLevel () {
         myScanner.findWithinHorizon(BEGIN_LEVEL+NEW_LINE, 0);
@@ -57,11 +59,13 @@ public class LevelParser {
         }
     }
 
-    private void parseKey () {
+    private Map<Character, String> parseKey () {
+        Map<Character, String> result = new HashMap<Character, String>();
         while (myScanner.hasNextLine()) {
             String line = myScanner.nextLine();
-            myCharacterMap.put(line.charAt(0), line.substring(2));
+            result.put(line.charAt(0), line.substring(2));
         }
+        return result;
     }
 
     private LEGrid createGrid () {
@@ -74,10 +78,26 @@ public class LevelParser {
                 System.out.println(c);
                 if (c != SPACE) {
                     String name = myCharacterMap.get(c);
-                    Sprite spr = myNameMap.get(name).copy();
-                    System.out.println(name);
-                    System.out.println(spr);
-                    grid.addSpriteToBox(j, i, spr);
+                    
+                    Sprite spr;
+                    try {
+                        spr = (Sprite) Class.forName(name).newInstance();
+                        System.out.println(name);
+                        System.out.println(spr);
+                        grid.addSpriteToBox(j, i, spr);
+                    }
+                    catch (InstantiationException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                    catch (IllegalAccessException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                    catch (ClassNotFoundException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }//myNameMap.get(name).copy();
                 }
             }
         }

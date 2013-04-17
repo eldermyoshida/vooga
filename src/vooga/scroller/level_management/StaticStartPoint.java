@@ -31,4 +31,9 @@ public class StaticStartPoint implements StartPoint {
         return myLocation;
     }
 
+    @Override
+    public Level getLevel () {
+        return myLevel;
+    }
+
 }

@@ -104,7 +104,6 @@ public class Model implements ArcadeInteraction {
 
     public void playGame (GameInfo gameinfo) {
         System.out.println(gameinfo.getName());
-        // TODO: instantiate the game.
         Game game = new Example(this);
         game.run();
     }
@@ -160,7 +159,6 @@ public class Model implements ArcadeInteraction {
 
     @Override
     public void killGame () {
-        // save the usergamedata game data if applicable, and return to detail screen
 
     }
 

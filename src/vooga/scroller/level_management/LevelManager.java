@@ -1,13 +1,12 @@
-
 package vooga.scroller.level_management;
 
+import java.util.HashMap;
 import java.util.Map;
-import util.Location;
+import util.input.Input;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.view.View;
 import vooga.scroller.level_editor.Level;
-import vooga.scroller.model.IInput;
 
 /**
  * Manages the flow and order of levels in gameplay.
@@ -17,22 +16,25 @@ import vooga.scroller.model.IInput;
  */
 public class LevelManager {
 
-    private Map<Integer,Level> myLevels;
-    private int myLevelID;
-    private int myStartID = 0;
+    private static final String DEFAULT_INPUT_CONTROLS = "vooga/scroller/resources/controls/SplashMapping";
     
+    private Input myInput;
+    private Level myInitialLevel;
+    private Level myCurrentLevel;
+    private Map<IDoor, StartPoint> myWays;
+    
+        
     /**
      * Creates a new level manager based on the view used by individual levels.
      * @param view to be used in constructing individual levels.
      */
-    public LevelManager(ScrollingManager myScrollingManager, View view) {
-        
-        LevelFactory lf = new LevelFactory(this);
-        myLevels = lf.generateLevels(myScrollingManager, view);
-        
-        // UGLY but works
-        //myLevelID = myStartID;
-        setCurrentLevel(myStartID);
+    public LevelManager(ScrollingManager sm, View view) {        
+        LevelFactory lf = new LevelFactory(this, sm, view);
+        myWays = new HashMap<IDoor, StartPoint>();
+        myInitialLevel = lf.generateLevels();        
+        //myCurrentLevel = myLevels.get(DEFAULT_START_LEVEL_ID); 
+        myInput = new Input(DEFAULT_INPUT_CONTROLS, view);
+        setCurrentLevel(myInitialLevel);
     }
     
     /**
@@ -41,26 +43,40 @@ public class LevelManager {
      * @return The current level
      */
     public Level currentLevel() {
-        return myLevels.get(myLevelID);
+        return myCurrentLevel;
     }
     
-    public void setCurrentLevel(int id) {
-        Player p = myLevels.get(myLevelID).getPlayer();
-
-        myLevels.get(myLevelID).deactivate();
-        myLevelID = id;
-        myLevels.get(myLevelID).activate();
-        myLevels.get(myLevelID).addPlayer(p);
+    /**
+     * Sets the current level to the specified ID.
+     * 
+     * @param id of the level to become the current level.
+     */
+    public void setCurrentLevel(Level level) {
+        if(myCurrentLevel != null){
+            myCurrentLevel.removeInputListeners(myInput);
+            Player p = myCurrentLevel.getPlayer();
+            myCurrentLevel = level;
+            myCurrentLevel.addPlayer(p);
+        }
+        else{
+            myCurrentLevel = level;
+        }
+        myCurrentLevel.addInputListeners(myInput);
     }
     
-//    /**
-//     * Starts game-play in the current level.
-//     * 
-//     * @param player is the player that will play the current level.
-//     */
-//    public void startLevel(Player player, Location location){
-//        myLevels.get(myLevelID).activate();
-//        myLevels.get(myLevelID).addSprite(player);
-//    }
+    /**
+     * Map a door to a starting point. Bind door to this level manager.
+     */
+    public void put(IDoor door, StartPoint start) {
+        ((LevelPortal) door).setManager(this);
+        myWays.put(door, start);
+    }
+    
+    /**
+     * Map a door to a starting point
+     */
+    public StartPoint get(IDoor door) {
+        return myWays.get(door);
+    }
 }
 

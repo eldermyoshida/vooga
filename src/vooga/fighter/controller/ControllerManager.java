@@ -34,6 +34,7 @@ public class ControllerManager implements ControllerDelegate{
 	}
 
 	public void switchController(String NextController) {
+
 	        System.out.println("switching controllers");
 		myCurrentController.stop();
 		myCurrentController = myControllerMap.get(NextController);
@@ -46,6 +47,7 @@ public class ControllerManager implements ControllerDelegate{
 	@Override
 	public void notifyEndCondition(String string) {
 		switchController(string);
+
 		
 	}
 

@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import util.Location;
 import util.ValueText;
 import util.Vector;
+import vooga.scroller.level_management.IInputListener;
 import vooga.scroller.sprites.state.StateManager;
 import vooga.scroller.statistics.PlayerScore;
 import vooga.scroller.statistics.Statistic;
@@ -31,7 +32,7 @@ import vooga.scroller.view.View;
  * @author Jay Wang, Ross Cahoon
  * 
  */
-public abstract class Player extends Sprite {
+public abstract class Player extends Sprite implements IInputListener{
 
     // Graphics2D pen;
     private View myView;
@@ -41,6 +42,9 @@ public abstract class Player extends Sprite {
     private StateManager myStateManager;
     private ScrollingManager myScrollingManager;
     private Statistic myStatistic;
+    private int myHit = 1;
+    private int myHealth = 5;
+
 
     private Location myOriginalLocation;
 
@@ -55,9 +59,8 @@ public abstract class Player extends Sprite {
                    Location center,
                    Dimension size,
                    View view,
-                   ScrollingManager sm,
-                   int health) {
-        super(image, center, size, health);
+                   ScrollingManager sm) {
+        super(image, center, size);
         myView = view;
         myPaintCenter = new Location(myView.getWidth() / 2, myView.getHeight() / 2);
         mySize = size;
@@ -77,10 +80,10 @@ public abstract class Player extends Sprite {
         Gravity gravity = new Gravity(this);
         gravity.applyGravity();
 
-        
-        if (myView.getBounds().getMaxY() < this.getTop()) {
-            handleDeath();
-       }
+//        
+//        if (myView.getBounds().getMaxY() < this.getTop()) {
+//            handleDeath();
+//       }
     }
     
     public abstract void handleDeath();
@@ -111,4 +114,26 @@ public abstract class Player extends Sprite {
     public Location getOriginalLocation() {
         return myOriginalLocation;
     }
+    
+    public void incrementScore (int increment) {
+        myStatistic.addValue(increment);
+    }
+    
+    public int getHit() {
+        return myHit;
+    }
+
+    public void takeHit (int damage) {
+        myHealth -= damage;
+    }
+    
+    public int getHealth() {
+        return myHealth;
+    }
+    
+    @Override
+    public void setHealth(int health) {
+        myHealth = health;
+    }
+
 }
