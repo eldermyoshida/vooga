@@ -100,11 +100,6 @@ public class MapPanel extends JComponent {
         for(Location c : myMap.getLocationMap().values()) {
             g.drawImage(myPlayerImage, (int)(c.getX()), (int)(c.getY()),null);
         }
-//        for(int i=1; i<myMap.getMyPlayerNumber(); ++i) {
-//            g.drawImage(myPlayerImage, (int)(myMap.getPlayer(i).getX()), (int)(myMap.getPlayer(i).getY()),null);
-//        }
-//
-
     }
 
     public void setWidth(int w) {
@@ -215,7 +210,9 @@ public class MapPanel extends JComponent {
 
     @InputMethodTarget(name="onMouseDrag")
     public void testDrag (PositionObject p) {
-        placeResource((int)(p.getX()), (int)(p.getY()));
+        if(myMode == RESOURCEMODE) {
+            placeResource((int)(p.getX()), (int)(p.getY()));
+        }
     }
 
 
