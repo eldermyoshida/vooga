@@ -143,7 +143,7 @@ public class LevelFactory {
                                                              new Location(900, 500)
                 ));
         myCurrLevel.setBackground(new ImageIcon(getClass()
-                .getResource("/vooga/scroller/images/background_small.png")).getImage());
+                .getResource("/vooga/scroller/images/backgrounds/background_small.png")).getImage());
 
         myCurrLevel.addSprite(new MarioLib.LevelTwoBlockOne(
                                                             new Location(64, 252)
