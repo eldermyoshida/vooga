@@ -39,8 +39,8 @@ public class AttackAction extends Action {
 		//check whether it's in cool down
 		if (isEnabled()) {
 			//get targets that we wanna shoot
-			GameElement[] targets = myMap
-					.getTargetWithinRadiusOfGivenLocation(
+			List<GameElement> targets = myMap
+					.getTargetsWithinRadius(
 							myInitiator.getCenter(),
 							myInitiator.getAttributeManager().getAttribute(myAttributeConstants.ATTACK_RADIUS).getValue(),
 							(int)(myInitiator.getAttributeManager().getAttribute(myAttributeConstants.NUM_OF_TARGETS).getValue()));
