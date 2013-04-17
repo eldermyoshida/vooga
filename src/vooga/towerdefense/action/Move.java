@@ -28,6 +28,7 @@ public class Move extends Action {
         getInitiator().setVelocity(myDirection.getValue(), myMovespeed.getValue());
         getInitiator().getVelocity().scale(elapsedTime);
         getInitiator().translate(getInitiator().getVelocity());
+        System.out.println("hih");
     }
 
 }

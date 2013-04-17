@@ -31,8 +31,8 @@ public class GameElementFactory {
         return myDefinition;
     }
     
-    public AttributeFactory createAttributeFactory() {
-        AttributeFactory factory = new AttributeFactory();
+    public AttributeManagerFactory createAttributeFactory() {
+        AttributeManagerFactory factory = new AttributeManagerFactory();
         return factory;
     }
     
@@ -45,7 +45,7 @@ public class GameElementFactory {
 		return new GameElement(myDefinition.getImage(), 
 				myDefinition.getCenter(), 
 				myDefinition.getSize(), 
-				createAttributeFactory().makeAttributes(), 
+				createAttributeFactory().makeAttributeManager(), 
 				createActionFactory().createActions());
     	
     }
