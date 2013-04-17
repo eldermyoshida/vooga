@@ -2,14 +2,7 @@ package vooga.scroller.collision_manager;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import util.Vector;
 import vooga.scroller.level_editor.Level;
-import vooga.scroller.level_management.LevelPortal;
-import vooga.scroller.sprites.test_sprites.MarioLib;
-import vooga.scroller.sprites.test_sprites.MarioLib.Koopa;
-import vooga.scroller.sprites.test_sprites.MarioLib.Plant;
-import vooga.scroller.sprites.test_sprites.mario.Mario;
-import vooga.scroller.util.Direction;
 import vooga.scroller.util.Sprite;
 
 /**
@@ -30,13 +23,12 @@ public class CollisionManager {
        
     public CollisionManager (Level level) {
         myLevel = level;
-        visit = new VisitMethods(myLevel);
+        visit = new VisitMethods();
     }
         
     public void handleCollision (Sprite sprite1, Sprite sprite2) {
 
-//        Class[] classArray = {sprite1.getClass(), sprite2.getClass()}; //old way of living 
-
+        @SuppressWarnings("rawtypes")
         Class[] classArray = {sprite1.getClass().getInterfaces()[0], sprite2.getClass().getInterfaces()[0]};
         Object[] sprites = {sprite1, sprite2};
 
@@ -58,16 +50,13 @@ public class CollisionManager {
         }
         
         catch (IllegalArgumentException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         
         catch (IllegalAccessException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         catch (InvocationTargetException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }

@@ -42,8 +42,9 @@ public abstract class Player extends Sprite implements IInputListener{
     private StateManager myStateManager;
     private ScrollingManager myScrollingManager;
     private Statistic myStatistic;
-    private int myScore;
-    private int myHit;
+    private int myHit = 1;
+    private int myHealth = 5;
+
 
     private Location myOriginalLocation;
 
@@ -58,9 +59,8 @@ public abstract class Player extends Sprite implements IInputListener{
                    Location center,
                    Dimension size,
                    View view,
-                   ScrollingManager sm,
-                   int health) {
-        super(image, center, size, health);
+                   ScrollingManager sm) {
+        super(image, center, size);
         myView = view;
         myPaintCenter = new Location(myView.getWidth() / 2, myView.getHeight() / 2);
         mySize = size;
@@ -69,8 +69,6 @@ public abstract class Player extends Sprite implements IInputListener{
         myScrollingManager = sm;
         myStatistic = new PlayerScore();
         myOriginalLocation = center;
-        myScore = 0;
-        myHit = 1;
     }
 
     @Override
@@ -118,10 +116,19 @@ public abstract class Player extends Sprite implements IInputListener{
     }
     
     public void incrementScore (int increment) {
-        myScore += increment;
+        myStatistic.addValue(increment);
     }
     
     public int getHit() {
         return myHit;
     }
+
+    public void takeHit (int damage) {
+        myHealth -= damage;
+    }
+    
+    public int getHealth() {
+        return myHealth;
+    }
+
 }

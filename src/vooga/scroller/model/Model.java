@@ -40,6 +40,8 @@ public class Model {
     private Secretary mySecretary;
     private List<String> spriteStrings = Arrays.asList("Mario mario", "Koopa koopa", "Coin coin",
                                                        "MarioLib.MovingPlatform movingPlatform"); 
+    //If I could use reflection to look through the interfaces package and then generate the VisitMethods.java file, that would be BOMB! 
+    
     private static final String PART_ONE = "public void visit (";
     private static final String PART_TWO = ") {}";
     private static final String COMMA = ", ";

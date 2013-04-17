@@ -36,20 +36,19 @@ public abstract class Sprite {
     private Rectangle myBounds;
     private Location myLastLocation;
     private Location myLastLocation2;
-    private int health;
     //private ISpriteView myDefaultImage;// ??
     
     /**
      * Create a shape at the given position, with the given size.
      */
-    public Sprite (ISpriteView image, Location center, Dimension size, int health) {
-        this(image, center, size, new Vector(), health);
+    public Sprite (ISpriteView image, Location center, Dimension size) {
+        this(image, center, size, new Vector());
     }
 
     /**
      * Create a shape at the given position, with the given size, velocity, and color.
      */
-    public Sprite (ISpriteView image, Location center, Dimension size, Vector velocity, int health) {
+    public Sprite (ISpriteView image, Location center, Dimension size, Vector velocity) {
         // make copies just to be sure no one else has access
         
         mySize = size;
@@ -61,7 +60,6 @@ public abstract class Sprite {
         myOriginalVelocity = new Vector(velocity);
         reset();
         resetBounds();
-        this.health = health;
     }
     
     public Sprite copy(){

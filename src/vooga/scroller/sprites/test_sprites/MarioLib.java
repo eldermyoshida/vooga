@@ -102,6 +102,7 @@ public class MarioLib implements ISpriteLibrary {
         private static final Dimension KOOPA_SIZE = new Dimension(32, 64);
         
         private int myHealth = 1;
+        private int myDamage = 1;
 
         public Koopa () {
             this(DEFAULT_LOC);
@@ -126,8 +127,18 @@ public class MarioLib implements ISpriteLibrary {
             return myHealth;
         }
         
-        public void takeHit() {
-            myHealth = 0;
+        public void takeHit(int damage) {
+            myHealth -= damage;
+        }
+
+        @Override
+        public Sprite getEnemy () {
+            return this;
+        }
+
+        @Override
+        public int getHit () {
+            return myDamage;
         }
 
     }
@@ -135,8 +146,9 @@ public class MarioLib implements ISpriteLibrary {
     public static class Turtle extends NonStaticEntity implements IEnemy {
 
         private static final String DEFAULT_IMG = "turtle.gif";
-        private int health = 1;
-
+        private int myHealth = 1;
+        private int myDamage = 2;
+        
         public Turtle () {
             this(DEFAULT_LOC);
         }
@@ -154,6 +166,21 @@ public class MarioLib implements ISpriteLibrary {
             // changeVelocity(trackPlayer(70, 150)); //want to make this call every X seconds
             super.update(elapsedTime, bounds);
         }
+        
+        public void takeHit(int damage) {
+            myHealth -= damage;
+        }
+
+        @Override
+        public Sprite getEnemy () {
+            return this;
+        }
+
+        @Override
+        public int getHit () {
+            return myDamage;
+        }
+
 
     }
 
@@ -184,6 +211,8 @@ public class MarioLib implements ISpriteLibrary {
     
     public static class Plant extends StaticEntity implements IEnemy {
         private static final String DEFAULT_IMG = "plant.png";
+        private int myHealth = 2;
+        private int myDamage = 1;
         
         public Plant () {
             this(DEFAULT_LOC);
@@ -191,6 +220,20 @@ public class MarioLib implements ISpriteLibrary {
 
         public Plant (Location center) {
             super(new Pixmap(DEFAULT_IMG), center, new Dimension(32, 32));
+        }
+        
+        public void takeHit(int damage) {
+            myHealth -= damage;
+        }
+
+        @Override
+        public Sprite getEnemy () {
+            return this;
+        }
+
+        @Override
+        public int getHit () {
+            return myDamage;
         }
 
     }

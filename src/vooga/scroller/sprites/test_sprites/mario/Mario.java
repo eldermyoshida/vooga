@@ -8,7 +8,6 @@ import util.input.InputMethodTarget;
 import vooga.scroller.level_management.IInputListener;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.interfaces.IPlayer;
-import vooga.scroller.sprites.superclasses.NonStaticEntity;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.Sprite;
@@ -27,11 +26,10 @@ public class Mario extends Player implements IPlayer, IInputListener{
     private static final int DEATH_PENALTY = 1000;
 
    
-    private static int health = 5;
     private int myJumpCount;
 
     public Mario (Location center, Dimension size, View view, ScrollingManager sm) {
-        super(DEFAULT_IMAGE, center, size, view, sm, health);
+        super(DEFAULT_IMAGE, center, size, view, sm);
         myJumpCount = 0;
     }
 
@@ -39,14 +37,6 @@ public class Mario extends Player implements IPlayer, IInputListener{
         System.out.println("Mario");
     }
     
-    public void hit(NonStaticEntity nse){
-        int hit = nse.getHit();
-        takeHit(hit);
-    }
-
-    public int getHP () {
-        return health;
-    }
     
     public void scorePoints(int value) {
         this.getStatistic().addValue(value);
@@ -81,16 +71,6 @@ public class Mario extends Player implements IPlayer, IInputListener{
 
     private void takeDeathPenalty () {
         this.getStatistic().removeValue(DEATH_PENALTY);
-    }
-
-    public int getHealth () {
-        // TODO Auto-generated method stub
-        return 1;
-    }
-
-    public void takeHit (int health2) {
-        // TODO Auto-generated method stub
-        
     }
 
     @Override
@@ -130,6 +110,7 @@ public class Mario extends Player implements IPlayer, IInputListener{
     public String getInputFilePath () {
         return CONTROLS_FILE_PATH;
     } 
+   
 }
 
 
