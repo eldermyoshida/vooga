@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Observer;
 import vooga.rts.controller.Command;
+import vooga.rts.controller.Controller;
 import vooga.rts.controller.Player;
 import vooga.rts.manager.Manager;
 import vooga.rts.map.GameMap;
@@ -15,7 +16,7 @@ import vooga.rts.map.GameMap;
 //TODO: implement the game state with all unit managers that there needs to be. Muy importante.
 //TODO: think of how decisions are going to be made with the controllers.
 
-public class GameState extends SubState {
+public class GameState extends SubState implements Controller {
     
     private final static int DEFAULT_NODE_SIZE = 8;
     private GameMap myMap;
@@ -42,9 +43,12 @@ public class GameState extends SubState {
 
     @Override
     public void receiveCommand (Command command) {
-        // TODO Auto-generated method stub
         
     }
     
+    @Override
+    public void sendCommand (Command command) {
+        myPlayer.receiveCommand(command);
+    }
     
 }

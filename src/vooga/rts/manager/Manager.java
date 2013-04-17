@@ -58,7 +58,5 @@ public class Manager implements Controller, State  {
         for (InteractiveEntity u: myUnits) {
             u.paint(pen);
         }        
-    }
-    
-    
+    }    
 }

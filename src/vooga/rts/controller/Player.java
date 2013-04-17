@@ -1,6 +1,7 @@
 package vooga.rts.controller;
 
 import java.util.Map;
+import vooga.rts.manager.Manager;
 import vooga.rts.state.State;
 
 /**
@@ -14,7 +15,7 @@ import vooga.rts.state.State;
  * @author Challen Herzberg-Brovold
  *
  */
-public class Player implements Controller, Controllable {
+public class Player implements Controller {
     
     private State myGame;
     private Map<String, Controllable> myControlTargets;
@@ -28,8 +29,7 @@ public class Player implements Controller, Controllable {
         
     }
  
-    @Override
-    public void receiveCommand (Command command) {
+    public void getInfo (Controllable manager, Command command) {
         
     }
 }
