@@ -150,7 +150,7 @@ public class GameMap {
         }
 
         class GameElementComparator implements Comparator<GameElement> {
-            Location mySource;
+            private Location mySource;
 
             public GameElementComparator (Location source) {
                 mySource = source;
