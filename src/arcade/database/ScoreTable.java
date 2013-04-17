@@ -33,10 +33,10 @@ public class ScoreTable extends Table {
      * Constructor but eventually I want to make this part of the abstract class
      */
     public ScoreTable() {
-        createDatabase();
+        establishConnectionToDatabase();
     }
 
-    void createDatabase() {
+    void establishConnectionToDatabase() {
 
         try {
             Class.forName("org.postgresql.Driver");

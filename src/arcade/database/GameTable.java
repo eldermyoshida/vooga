@@ -33,10 +33,10 @@ public class GameTable extends Table {
      * GameTable constructor
      */
     public GameTable() {
-        createDatabase();
+        establishConnectionToDatabase();
     }
 
-    void createDatabase() {
+    void establishConnectionToDatabase() {
 
         try {
             Class.forName("org.postgresql.Driver");

@@ -35,10 +35,10 @@ public class UserGameDataTable extends Table {
      * Constructor, eventually want this to be in superclass
      */
     public UserGameDataTable() {
-        createDatabase();
+        establishConnectionToDatabase();
     }
 
-    void createDatabase() {
+    void establishConnectionToDatabase() {
 
         try {
             Class.forName("org.postgresql.Driver");
