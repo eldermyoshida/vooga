@@ -1,12 +1,15 @@
+
 package games.example;
 
 import java.io.IOException;
 import arcade.games.ArcadeInteraction;
 import arcade.games.Game;
+import arcade.games.GameData;
 import arcade.games.UserGameData;
 
 public class Example extends Game {
 
+    private static final String GAME_NAME = "example";
     public Example (ArcadeInteraction arcade) {
         super(arcade);
     }
@@ -31,14 +34,20 @@ public class Example extends Game {
             Thread.sleep(5000);
         }
         catch (InterruptedException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         
         // update the score before killing it 
-        getArcade().getUserGameData().setScore(42);
+        //getArcade().getUserGameData(GAME_NAME).setScore(42);
         getArcade().killGame();
 
     }
 
+    @Override
+    public GameData generateNewGameProfile () {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }
+
