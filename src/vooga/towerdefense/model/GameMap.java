@@ -11,9 +11,15 @@ import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.gameElements.Unit;
 import vooga.towerdefense.util.Location;
 
+
+/**
+ * 
+ * 
+ * @author Erick Gonzalez
+ */
 public class GameMap {
     // a normal computer screen will have
-    private final int TILE_SIZE = 25;
+    private static final int TILE_SIZE = 25;
 
     private Image myBackgroundImage;
     private List<Unit> myUnits;
@@ -23,29 +29,48 @@ public class GameMap {
     private Dimension myDimension;
     private Path myPath;
     
+    /**
+     * 
+     * @param background a background image
+     * @param width the width of the map, in pixels
+     * @param height the height of the map, in pixels
+     * @param destination the destination point of all units
+     */
     public GameMap (Image background, int width, int height, Location destination) {
         myBackgroundImage = background;
         myUnits = new ArrayList<Unit>();
-        myDimension = new Dimension(width, height);
-        initializeGrid();
-        myDestination = destination;
         myGameElements = new ArrayList<GameElement>();
+        myDestination = destination;
+        myDimension = new Dimension(width, height);        
+        initializeGrid();
     }
 
+    /*
+     * Initializes the grid so that each element in myGrid is a Tile object
+     * containing it's center coordinates. Every tile is both walkable and
+     * buildable. 
+     */
     private void initializeGrid () {
-        myGrid = new Tile[(int) (myDimension.getWidth() / TILE_SIZE)][(int) (myDimension
-                .getHeight() / TILE_SIZE)];
+        int horizontalTileCount = (int)(myDimension.getWidth() / TILE_SIZE);
+        int verticalTileCount = (int)(myDimension.getHeight() / TILE_SIZE);
+        
+        myGrid = new Tile[horizontalTileCount][verticalTileCount];
+        
         for (int i = 0; i < myGrid.length; i++) {
             for (int j = 0; j < myGrid[i].length; j++) {
-                int xLocation = (int) (i * TILE_SIZE + TILE_SIZE / 2);
-                int yLocation = (int) (j * TILE_SIZE + TILE_SIZE / 2);
+                int xCenter = (int) (i * TILE_SIZE + TILE_SIZE / 2);
+                int yCenter = (int) (j * TILE_SIZE + TILE_SIZE / 2);
                 // TODO: replace booleans with parsed values from file
-                myGrid[i][j] = new Tile(new Point(xLocation, yLocation),
+                myGrid[i][j] = new Tile(new Point(xCenter, yCenter),
                                         true, true);
             }        
         }
     }
 
+    /**
+     * 
+     * @param elapsedTime time elapsed since last game clock tick.
+     */
     public void update (double elapsedTime) {
         updateUnits(elapsedTime);
         updateTiles(elapsedTime);
@@ -70,29 +95,53 @@ public class GameMap {
         myUnits.add(u);
     }
     
+    
     public void addToMap (GameElement e, Tile t) {
         e.setCenter(t.getCenter().getX(), t.getCenter().getY());
         myGameElements.add(e);
     }
 
-    public void buildTower (int i, int j, GameElement t) {
-        myGrid[i][j].setTower(t);
+    /**
+     * 
+     * @param i horizontal tile index
+     * @param j vertical tile index
+     * @param gameElement the game element to be built 
+     */
+    public void buildGameElement (int i, int j, GameElement gameElement) {
+        myGrid[i][j].setTower(gameElement);
     }
 
-    public void sellTower (int i, int j) {
+    /**
+     * Sells the game element on Tile (i, j)
+     * 
+     * @param i horizontal tile index
+     * @param j vertical tile index
+     */
+    public void sellGameElement (int i, int j) {
         myGrid[i][j].deleteTower();
     }
 
+    /**
+     * Given a point on the map, returns the Tile enclosing that point.
+     * 
+     * @param point a point (x, y) on the game map, where x and y are measured in pixels.
+     * @return a Tile object containing this point (x, y)
+     */
     public Tile getTile (Point point) {
         return myGrid[(int) (point.getX() / TILE_SIZE)][(int) (point.getY() / TILE_SIZE)];
     }
 
+    /**
+     * 
+     * @param pen a pen used to draw elements on this map.
+     */
     public void paint (Graphics2D pen) {
         //TODO: draw background image on mapscreen
         for (Unit u : myUnits) {
             u.paint(pen);
         }
-        for (GameElement e : myGameElements)
+        for (GameElement e : myGameElements) {
             e.paint(pen);
+        }
     }
 }

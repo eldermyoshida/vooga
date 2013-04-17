@@ -29,8 +29,8 @@ public class Controller {
     private TDView myView;
     private ControlMode myControlMode;
 
-    //TODO: controller constructor should take waves & map in order to initialize GameModel?
-    //TODO: fix where the parameters come from
+    // TODO: controller constructor should take waves & map in order to initialize GameModel?
+    // TODO: fix where the parameters come from
     public Controller () {
         myModel = new GameModel(this, null, new GameMap(null, 800, 600, null), new Shop());
         myView = new TDView(this);
@@ -39,13 +39,14 @@ public class Controller {
 
     /**
      * displays information about the GameElement on the tile.
+     * 
      * @param p is the point that was clicked.
      */
-    public void displayElementInformation(GameElement e) {
+    public void displayElementInformation (GameElement e) {
         if (e != null) {
-            //TODO: update this to reflect actual properties
+            // TODO: update this to reflect actual properties
             myView.getTowerInfoScreen().displayInformation("Stuff about my clicked tower");
-            //myView.getTowerInfoScreen().displayInformation(e.getAttributes().toString());
+            // myView.getTowerInfoScreen().displayInformation(e.getAttributes().toString());
             if (e instanceof Tower) {
                 myView.getTowerInfoScreen().displayUpgradesAndButton(((Tower) e).getUpgrades());
             }
@@ -55,53 +56,53 @@ public class Controller {
         }
     }
 
-    //    //testing method to check if displaying the correct info
-    //    public void displayTileCoordinates (Point p) {
-    //        Tile t = myModel.getTile(p);
-    //        Point center = t.getCenter();
-    //        System.out.println(center);
-    //        myView.getTowerInfoScreen().displayInformation(center.toString());
-    //    }
-        
-        //    //testing method to check if displaying the correct info
-    //    public void displayTileCoordinates (Point p) {
-    //        Tile t = myModel.getTile(p);
-    //        Point center = t.getCenter();
-    //        System.out.println(center);
-    //        myView.getTowerInfoScreen().displayInformation(center.toString());
-    //    }
-        
-        /**
-         * updates the display on the MapScreen.
-         */
-        public void displayMap() {
-            myView.getMapScreen().update();
-        }
+    // //testing method to check if displaying the correct info
+    // public void displayTileCoordinates (Point p) {
+    // Tile t = myModel.getTile(p);
+    // Point center = t.getCenter();
+    // System.out.println(center);
+    // myView.getTowerInfoScreen().displayInformation(center.toString());
+    // }
 
-        /**
-         * places the new item onto the map & changes the mode
-         *          back to SelectMode.
-         * @param item
-         * @param p
-         */
-        public void fixItemOnMap (GameElement item, Point p) {
-            Tile myTile = myModel.getTile(p);
-            myTile.setTower(item);
-            myModel.getMap().addToMap(item, myTile);
-            displayMap();
-            myControlMode = new SelectMode();
-        }
+    // //testing method to check if displaying the correct info
+    // public void displayTileCoordinates (Point p) {
+    // Tile t = myModel.getTile(p);
+    // Point center = t.getCenter();
+    // System.out.println(center);
+    // myView.getTowerInfoScreen().displayInformation(center.toString());
+    // }
+
+    /**
+     * updates the display on the MapScreen.
+     */
+    public void displayMap () {
+        myView.getMapScreen().update();
+    }
+
+    /**
+     * places the new item onto the map & changes the mode
+     * back to SelectMode.
+     * 
+     * @param item
+     * @param p
+     */
+    public void fixItemOnMap (GameElement item, Point p) {
+        Tile myTile = myModel.getTile(p);
+        myTile.setTower(item);
+        myModel.getMap().addToMap(item, myTile);
+        displayMap();
+        myControlMode = new SelectMode();
+    }
 
     /**
      * gets the associated game element at a point.
+     * 
      * @param p
      * @return the game element
      */
-    public GameElement getItemAt(Point p) {
+    public GameElement getItemAt (Point p) {
         Tile tile = myModel.getTile(p);
-        if (tile.containsElement()) {
-            return tile.getElement();
-        }
+        if (tile.containsElement()) { return tile.getElement(); }
         return null;
     }
 
@@ -114,7 +115,7 @@ public class Controller {
     public void handleMapMouseDrag (Point p) {
         myControlMode.handleMapMouseDrag(p, this);
     }
-    
+
     /**
      * handles a mouse drag on the map appropriately depending
      * on the mode.
@@ -124,88 +125,92 @@ public class Controller {
     public void handleMapClick (Point p) {
         myControlMode.handleMapClick(p, this);
     }
-    
+
     /**
      * changes the mode to BuildMode and gets the item the user
-     *          wants to build from the Shop.
+     * wants to build from the Shop.
+     * 
      * @param itemName is the name of the item the user wants to
-     *          buy
+     *        buy
      */
-    public void handleShopClickOnItem(String itemName) {
+    public void handleShopClickOnItem (String itemName) {
         GameElement itemToBuy = myModel.getShop().getShopItem(itemName);
         BuildMode myNewMode = new BuildMode();
         myNewMode.setItemToBuild(itemToBuy);
         myControlMode = myNewMode;
     }
-    
-    //    //testing method to check if displaying the correct info
-    //    public void displayTileCoordinates (Point p) {
-    //        Tile t = myModel.getTile(p);
-    //        Point center = t.getCenter();
-    //        System.out.println(center);
-    //        myView.getTowerInfoScreen().displayInformation(center.toString());
-    //    }
-        
-        //    //testing method to check if displaying the correct info
-    //    public void displayTileCoordinates (Point p) {
-    //        Tile t = myModel.getTile(p);
-    //        Point center = t.getCenter();
-    //        System.out.println(center);
-    //        myView.getTowerInfoScreen().displayInformation(center.toString());
-    //    }
-        
-        //    //testing method to check if displaying the correct info
-    //    public void displayTileCoordinates (Point p) {
-    //        Tile t = myModel.getTile(p);
-    //        Point center = t.getCenter();
-    //        System.out.println(center);
-    //        myView.getTowerInfoScreen().displayInformation(center.toString());
-    //    }
-        
-        /**
-         * paints the ghost image of the item on the MapScreen
-         *          on the mouse's location.
-         * @param p is the mouselocation
-         * @param itemImage is the image
-         */
-        public void paintGhostImage (Point p, Pixmap itemImage) {
-            displayMap();
-            myView.getMapScreen().paintGhostImage(p, itemImage);
-        }
 
-        /**
-         * paints the map.
-         * @param pen
-         */
-        public void paintMap(Graphics pen) {
-            myModel.paintMap((Graphics2D) pen);
-        }
+    // //testing method to check if displaying the correct info
+    // public void displayTileCoordinates (Point p) {
+    // Tile t = myModel.getTile(p);
+    // Point center = t.getCenter();
+    // System.out.println(center);
+    // myView.getTowerInfoScreen().displayInformation(center.toString());
+    // }
 
-        /**
-         * updates the model.
-         * @param elapsedTime
-         */
-        public void update(double elapsedTime) {
-            myModel.update(elapsedTime);
-        }
+    // //testing method to check if displaying the correct info
+    // public void displayTileCoordinates (Point p) {
+    // Tile t = myModel.getTile(p);
+    // Point center = t.getCenter();
+    // System.out.println(center);
+    // myView.getTowerInfoScreen().displayInformation(center.toString());
+    // }
+
+    // //testing method to check if displaying the correct info
+    // public void displayTileCoordinates (Point p) {
+    // Tile t = myModel.getTile(p);
+    // Point center = t.getCenter();
+    // System.out.println(center);
+    // myView.getTowerInfoScreen().displayInformation(center.toString());
+    // }
+
+    /**
+     * paints the ghost image of the item on the MapScreen
+     * on the mouse's location.
+     * 
+     * @param p is the mouselocation
+     * @param itemImage is the image
+     */
+    public void paintGhostImage (Point p, Pixmap itemImage) {
+        displayMap();
+        myView.getMapScreen().paintGhostImage(p, itemImage);
+    }
+
+    /**
+     * paints the map.
+     * 
+     * @param pen
+     */
+    public void paintMap (Graphics pen) {
+        myModel.paintMap((Graphics2D) pen);
+    }
+
+    /**
+     * updates the model.
+     * 
+     * @param elapsedTime
+     */
+    public void update (double elapsedTime) {
+        myModel.update(elapsedTime);
+    }
 
     /**
      * upgrades the item to the new type.
+     * 
      * @param upgradeName
      */
-    public void upgradeSelectedItemTo(String upgradeName) {
+    public void upgradeSelectedItemTo (String upgradeName) {
         Tower t = (Tower) ((SelectMode) myControlMode).getCurrentlySelectedItem();
         t.upgrade(upgradeName);
-        //TODO: implement upgrade stuff on backend (ask unit team for tower upgrade info!)
+        // TODO: implement upgrade stuff on backend (ask unit team for tower upgrade info!)
     }
 
-//    //testing method to check if displaying the correct info
-//    public void displayTileCoordinates (Point p) {
-//        Tile t = myModel.getTile(p);
-//        Point center = t.getCenter();
-//        System.out.println(center);
-//        myView.getTowerInfoScreen().displayInformation(center.toString());
-//    }
-
+    // //testing method to check if displaying the correct info
+    // public void displayTileCoordinates (Point p) {
+    // Tile t = myModel.getTile(p);
+    // Point center = t.getCenter();
+    // System.out.println(center);
+    // myView.getTowerInfoScreen().displayInformation(center.toString());
+    // }
 
 }
