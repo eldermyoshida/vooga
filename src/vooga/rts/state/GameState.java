@@ -48,7 +48,7 @@ public class GameState extends SubState implements Controller {
     
     @Override
     public void sendCommand (Command command) {
-        myPlayer.receiveCommand(command);
+        myPlayer.getInfo(myManager, command);
     }
     
 }

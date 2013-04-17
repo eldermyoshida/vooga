@@ -18,7 +18,7 @@ import vooga.rts.state.State;
 public class Player implements Controller {
     
     private State myGame;
-    private Map<String, Controllable> myControlTargets;
+    private Map<String, Controllable> myControlTargets; //Figure out what this is going to do 
     
     public Player (State game) {
         myGame = game;
@@ -29,7 +29,8 @@ public class Player implements Controller {
         
     }
  
-    public void getInfo (Controllable manager, Command command) {
-        
+    public void getInfo (Controllable manager, Command command) { 
+        //At some point, will pass in list of controllables, and actually have to sort the command
+        manager.receiveCommand(command);
     }
 }
