@@ -96,6 +96,11 @@ public class Mario extends Player implements IPlayer {
     public void takeHit (int health2) {
         // TODO Auto-generated method stub
         
+    }
+
+    @Override
+    public Player getPlayer () {
+        return this;
     }   
 }
 

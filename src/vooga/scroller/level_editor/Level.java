@@ -136,6 +136,7 @@ public class Level implements Editable, Renderable {
             
             for(Sprite s: myFrameOfActionSprites) {
                 s.update(elapsedTime, bounds);
+                System.out.println(myFrameOfActionSprites.size());
                 if (s.getHealth() <= 0) {
                     this.removeSprite(s);
                 }
