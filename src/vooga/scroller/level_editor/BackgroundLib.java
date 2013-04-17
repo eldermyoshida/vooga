@@ -11,7 +11,7 @@ public class BackgroundLib implements IBackgroundLibrary {
     private static final String BACKGROUND_LOCATION = "/vooga/scroller/images/backgrounds";
     private Map<Integer, Icon> myBackgrounds;
 
-    public BackgroundLib (String ... fileNames) {
+    public BackgroundLib (String[] fileNames) {
         int i = 0;
         myBackgrounds = new HashMap<Integer, Icon>();
         for (String fn : fileNames) {

@@ -36,12 +36,14 @@ public class LEController {
     
     /**
      * Constructor
+     * @param backgroundLib 
      */
-    public LEController(ISpriteLibrary lib) {
-        myToolsManager = new ToolsManager(lib);
+    public LEController(ISpriteLibrary lib, IBackgroundLibrary bgLib) {
+        myToolsManager = new ToolsManager(lib,bgLib);
         String language = getLanguage();
-        myModel = new LevelEditor(language,lib);
+        myModel = new LevelEditor(language);
         myModel.setSpriteMap(myToolsManager.getSpriteMap());
+        myModel.setBackgroundMap(bgLib.getBackgrounds());
         myView = new LEView(language, this, lib);
         myView.setDefaultWorkspaceTools(myToolsManager.getViewTools());
         myWorkspace2Tab = new HashMap<Editable, WorkspaceView>();

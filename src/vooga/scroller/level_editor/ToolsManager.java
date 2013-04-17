@@ -8,13 +8,15 @@ import vooga.scroller.viewUtil.RadioGroup;
 
 public class ToolsManager {
 
-    ISpriteLibrary lib;
+    ISpriteLibrary spriteLib;
+    IBackgroundLibrary backgroundLib;
     Map<Integer, Sprite> spriteMap;
     Map<String, Sprite> nameMap;
     LETools viewTools;
     
-    public ToolsManager(ISpriteLibrary l) {
-        lib = l;
+    public ToolsManager(ISpriteLibrary l, IBackgroundLibrary bgLib) {
+        spriteLib = l;
+        backgroundLib = bgLib;
         setTools();
     }
     
@@ -23,7 +25,8 @@ public class ToolsManager {
         spriteMap = new HashMap<Integer, Sprite>();
         nameMap = new HashMap<String, Sprite>();
         viewTools = new LETools();
-        for (Class<? extends Sprite> c:lib.getSpritesClasses()) {
+        viewTools.addBackgrounds(backgroundLib.getBackgrounds());
+        for (Class<? extends Sprite> c:spriteLib.getSpritesClasses()) {
             Sprite sprite;
             try {
                 sprite = (Sprite) c.newInstance();

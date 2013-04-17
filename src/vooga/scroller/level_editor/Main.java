@@ -12,7 +12,10 @@ public class Main {
      */
     public static void main (String[] args) {
         
-        LEController con = new LEController(new MarioLib());
+        String[] filenames = new String[]{"background_small.png",
+                                          "background.png",
+                                          "forestbackground.jpg"};
+        LEController con = new LEController(new MarioLib(), new BackgroundLib(filenames));
         con.start(); 
     }
 }

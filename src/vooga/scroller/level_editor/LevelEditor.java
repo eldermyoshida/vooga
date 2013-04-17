@@ -5,6 +5,8 @@ package vooga.scroller.level_editor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import util.Location;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.superclasses.Player;
@@ -35,12 +37,12 @@ public class LevelEditor implements ILevelEditor {
     private Editable myGrid;
     private Map<Integer, Sprite> mySpriteMap;
 
-    public LevelEditor (ISpriteLibrary lib) {
+    public LevelEditor () {
         myGrid = new LEGrid(DEFAULT_GRID_SIZE,DEFAULT_GRID_SIZE);
     }
 
-    public LevelEditor (String language, ISpriteLibrary lib) {
-        this(lib);
+    public LevelEditor (String language) {
+        this();
     }
 
     @Override
@@ -134,6 +136,12 @@ public class LevelEditor implements ILevelEditor {
             params[i] = Integer.parseInt(splitCommand[i + 1]);
         }
         return params;
+    }
+
+    @Override
+    public void setBackgroundMap (Map<Integer, Icon> map) {
+        // TODO Auto-generated method stub
+        
     }
 
 }
