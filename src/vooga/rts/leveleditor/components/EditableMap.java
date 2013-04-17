@@ -4,9 +4,8 @@ package vooga.rts.leveleditor.components;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import vooga.rts.leveleditor.gui.MapPanel;
 import vooga.rts.util.Location;
@@ -21,9 +20,13 @@ import vooga.rts.util.Location;
  */
 
 
-public class EditableMap {
+public class EditableMap implements Serializable {
 
     
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 5848819056578981375L;
     private int myXSize;
     private int myYSize; 
     
@@ -32,7 +35,7 @@ public class EditableMap {
     private String myMapName = "CIEMAS";
     private String myDescription = " our RTS is the best one !";
     
-    EditableNode[][] myNodeMatrix;
+    private EditableNode[][] myNodeMatrix;
     
     private Map<Integer , Location> myPlayerLocations;
     private int myPlayerNumber;
@@ -49,9 +52,7 @@ public class EditableMap {
     }
     
     public EditableMap(int x , int y) {
-        myXSize = x;
-        myYSize = y;
-        initializeMap();
+        this(x,y,MapPanel.DEFAULT_TILE_WIDTH,MapPanel.DEFAULT_TILE_HEIGHT);
     }
     
     public EditableMap() {
@@ -78,8 +79,14 @@ public class EditableMap {
     }
    
     public void addPlayer(int x, int y) {
+<<<<<<< HEAD
         myPlayerNumber ++;
         myPlayerLocations.put(myPlayerNumber, new Location(x,y));       
+=======
+        
+        addPlayer(new Location(x,y));
+        
+>>>>>>> 782b16e0825f8d2eddc296c59b6a90a1a4abffdb
     }
     
     public void addPlayer(Location loc) {
