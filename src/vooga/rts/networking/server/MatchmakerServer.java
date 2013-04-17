@@ -3,8 +3,6 @@ package vooga.rts.networking.server;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
-import vooga.rts.networking.communications.Message;
-import vooga.rts.networking.communications.clientmessages.ClientInfoMessage;
 
 
 /**
@@ -33,14 +31,6 @@ public class MatchmakerServer extends AbstractThreadContainer {
         myGamesBundle = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "games");
         for(String game : myGamesBundle.keySet()) {
             myGameContainers.put(game, new GameContainer());
-        }
-    }
-    
-    @Override
-    public void receiveMessageFromClient (Message message, ConnectionThread thread) {
-        if(message instanceof ClientInfoMessage) {
-            ClientInfoMessage systemMessage = (ClientInfoMessage) message;
-            systemMessage.execute(thread, this);
         }
     }
 

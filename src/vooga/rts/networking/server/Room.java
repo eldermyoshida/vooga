@@ -5,15 +5,30 @@ package vooga.rts.networking.server;
  * @author David Winegar
  *
  */
-public abstract class Room extends AbstractThreadContainer {
+public class Room extends AbstractThreadContainer {
     private GameContainer myGameContainer;
+    private int myID;
 
-    public Room (GameContainer container) {
+    public Room (int id, GameContainer container) {
+        myID = id;
         myGameContainer = container;
+    }
+    
+    public Room (int id, GameContainer container, Room room) {
+        super(room);
+        myID = id;
+        myGameContainer = container;
+        room.removeAllConnections();
+        container.removeRoom(room);
+        container.addRoom(this);
     }
     
     protected GameContainer getGameContainer () {
         return myGameContainer;
+    }
+    
+    protected int getID () {
+        return myID;
     }
     
 }

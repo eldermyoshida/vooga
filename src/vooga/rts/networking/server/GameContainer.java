@@ -2,42 +2,28 @@ package vooga.rts.networking.server;
 
 import java.util.HashMap;
 import java.util.Map;
-import vooga.rts.networking.communications.Message;
-import vooga.rts.networking.communications.clientmessages.ClientInfoMessage;
 
 
 public class GameContainer extends AbstractThreadContainer {
 
-    private Map<String, Room> myRooms = new HashMap<String, Room>();
-
-    protected void addConnection (ConnectionThread thread) {
-        addConnection(thread);
-        thread.switchMessageServer(this);
-    }
+    private Map<Integer, Room> myRooms = new HashMap<Integer, Room>();
+    private int myNextRoomNumber = 0;
 
     protected void removeRoom (Room room) {
-        myRooms.remove(room);
+        myRooms.remove(room.getID());
     }
-
-    @Override
-    public void receiveMessageFromClient (Message message, ConnectionThread thread) {
-        if (message instanceof ClientInfoMessage) {
-            ClientInfoMessage systemMessage = (ClientInfoMessage) message;
-            systemMessage.execute(thread, this);
-        }
-    }
-
-    @Override
-    public void removeConnection (ConnectionThread thread) {
-        removeConnection(thread);
+    
+    protected void addRoom (Room room) {
+        myRooms.put(room.getID(), room);
     }
 
     @Override
     public void joinLobby (ConnectionThread thread, String lobbyName) {
         Room room;
         if (!myRooms.containsKey(lobbyName)) {
-            room = new Lobby(this);
-            myRooms.put(lobbyName, room);
+            room = new Lobby(myNextRoomNumber, this);
+            addRoom(room);
+            myNextRoomNumber++;
         }
         removeConnection(thread);
         room = myRooms.get(lobbyName);
