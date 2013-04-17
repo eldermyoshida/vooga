@@ -31,6 +31,8 @@ public class LevelEditor implements ILevelEditor {
     private static final String PARAM_COMMAND_ERROR = "Incorrect Parameters";
     private static final String DEFAULT_COMMAND_ERROR = "Incorrect Command";
     private static final String COPY_ERROR = "Cannot copy Sprite. Missing default constructor";
+    private static final Location DEFAULT_START_LOC = new Location(100,100);
+    private StartPoint myStartPoint;
     private ScrollingManager myScrollingManager;
     private Editable myGrid;
     private Map<Integer, Sprite> mySpriteMap;
@@ -57,18 +59,33 @@ public class LevelEditor implements ILevelEditor {
 
     @Command
     public void createSprite (int x, int y, int id) {
-        Sprite sprite = mySpriteMap.get(id);
-        sprite = sprite.copy();
-        try{
-            myGrid.addSprite(sprite, x, y);
+        if(id == -1){
+            createStartPoint(x,y);
         }
-        catch(NullPointerException e){
-            //TODO COPY_ERROR = "Cannot copy Sprite. Missing default constructor";
-            System.out.println(COPY_ERROR);
+        else{
+            Sprite sprite = mySpriteMap.get(id);
+            sprite = sprite.copy();
+                try{
+                    myGrid.addSprite(sprite, x, y);
+                }
+                catch(NullPointerException e){
+                    //TODO COPY_ERROR = "Cannot copy Sprite. Missing default constructor";
+                    System.out.println(COPY_ERROR);
+                }
         }
         
     }
     
+    private void createStartPoint (int x, int y) {
+        if(myStartPoint == null){
+            myStartPoint = new StartPoint();
+        }
+        else{
+            deleteSprite((int) myStartPoint.getX(),(int) myStartPoint.getY());
+        }
+        myGrid.addSprite(myStartPoint, x, y);
+    }
+
     @Command
     public void deleteSprite (int x, int y) {
         myGrid.deleteSprite(x,y);
