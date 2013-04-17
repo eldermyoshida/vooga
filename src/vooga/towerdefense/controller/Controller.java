@@ -164,6 +164,14 @@ public class Controller {
     // System.out.println(center);
     // myView.getTowerInfoScreen().displayInformation(center.toString());
     // }
+    
+    /**
+     * starts the next wave in the model.
+     */
+    public void startNextWave() {
+        //TODO: implement next wave
+        System.out.println("Wave Started");
+    }
 
     /**
      * paints the ghost image of the item on the MapScreen
