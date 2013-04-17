@@ -31,6 +31,10 @@ public class Action {
         enabled = true;
         // initialize resources
     }
+    
+    public GameElement getInitiator() {
+        return myInitiator;
+    }
 
     /**
      * executes action
