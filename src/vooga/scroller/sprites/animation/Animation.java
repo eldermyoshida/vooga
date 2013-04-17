@@ -36,7 +36,7 @@ public class Animation implements ISpriteView {
      * Initiates all of the animationStates used in this animation.
      */
     private void initAnimations () {
-        AnimationFactory af = new AnimationFactory();
+        AnimationFactory af = new MarioAnimationFactory();
         myAnimations = af.generateAnimations();
         myDefaultStateView = mySprite.getView();
     }

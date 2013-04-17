@@ -3,6 +3,7 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import arcade.games.ArcadeInteraction;
 import arcade.games.Game;
+import arcade.games.GameData;
 import arcade.games.UserGameData;
 import vooga.scroller.scrollingmanager.DefaultScrollingManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
@@ -78,5 +79,12 @@ public class Scroller extends Game
         // start animation
         display.start();
         
+    }
+
+
+    @Override
+    public GameData generateNewGameProfile () {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

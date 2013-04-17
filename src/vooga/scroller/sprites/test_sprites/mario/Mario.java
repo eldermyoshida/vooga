@@ -66,7 +66,10 @@ public class Mario extends Player implements IPlayer, IInputListener{
     @Override
     public void handleDeath () {
         this.setCenter(this.getOriginalLocation().x, this.getOriginalLocation().y);
-        takeDeathPenalty();
+        this.setHealth(1);
+        //this.reset();
+        //takeDeathPenalty();
+        
     }
 
     private void takeDeathPenalty () {
