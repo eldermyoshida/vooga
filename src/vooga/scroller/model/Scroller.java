@@ -6,6 +6,7 @@ import arcade.games.Game;
 import arcade.games.UserGameData;
 import vooga.scroller.scrollingmanager.OmniScrollingManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
+import vooga.scroller.scrollingmanager.UniScrollingManager;
 import vooga.scroller.util.PlatformerConstants;
 import vooga.scroller.view.View;
 
@@ -34,7 +35,7 @@ public class Scroller extends Game
     public static void main (String args[])
     {
         // view of user's content
-        ScrollingManager scrollManager = new OmniScrollingManager();
+        ScrollingManager scrollManager = new UniScrollingManager(3);
         View display = new View(PlatformerConstants.DEFAULT_WINDOW_SIZE, scrollManager);
         scrollManager.initView(display);
         

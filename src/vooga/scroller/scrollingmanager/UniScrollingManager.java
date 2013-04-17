@@ -18,8 +18,9 @@ import vooga.scroller.view.View;
 public class UniScrollingManager extends ScrollingManager {
     private Model myGame;
     private View myView;
-    private int myDirection;
-    
+    private int myDirection = -1;
+    private double myMaxDirection;
+
     public UniScrollingManager(int restrictiondirection){
         if(restrictiondirection != 1 & restrictiondirection != 2 & restrictiondirection != 3 & restrictiondirection != 4) {
             myDirection = 2;
@@ -28,7 +29,7 @@ public class UniScrollingManager extends ScrollingManager {
             myDirection = restrictiondirection;
         }
     }
-    
+
     public void initGame(Model game) {
         myGame = game;
     }
@@ -69,56 +70,71 @@ public class UniScrollingManager extends ScrollingManager {
         }
         return 0;
     }
-    
+
     public double getRightBoundary(Dimension frame, Location center) {
         return (center.getX() + frame.getWidth() / 2);
     }
-    
+
     public double getLeftBoundary(Dimension frame, Location center) {
         return (center.getX() - frame.getWidth() / 2);
     }
-    
+
     public double getUpperBoundary(Dimension frame, Location center) {
         return (center.getY() - frame.getHeight() / 2);
     }
-    
+
     public double getLowerBoundary(Dimension frame, Location center) { 
         return (center.getY() + frame.getHeight() / 2);
     }
 
     public double levelRightBoundary () {
-        if(myDirection == 1){
-            
-        }
         return myGame.getLevelBounds().getWidth();
     }
 
     public double levelLeftBoundary () {
-        if(myDirection == 3){
-            
-        }
         return 0;
     }
 
     public double levelUpperBoundary () {
-        if(myDirection == 4){
-            
-        }
         return 0;
     }
 
     public double levelLowerBoundary () { 
-        if(myDirection == 2){
-            
-        }
         return myGame.getLevelBounds().getHeight();
     }
-    
-    
+
+    private double uniRightBoundary (Player p) {
+        if(myDirection == 1){
+
+        }
+        return levelRightBoundary();
+    }
+
+    private double uniLeftBoundary (Player p) {
+        if(myDirection == 3){
+            return Math.abs(p.getX() - levelLeftBoundary()) - myView.getWidth() / 2;
+        }
+        return levelLeftBoundary();
+    }
+
+    private double uniUpperBoundary (Player p) {
+        if(myDirection == 4){
+
+        }
+        return levelUpperBoundary();
+    }
+
+    private double uniLowerBoundary (Player p) { 
+        if(myDirection == 2){
+
+        }
+        return levelLowerBoundary();
+    }
+
     public Image getBackground() {
         return myGame.getBackground();
     }
-    
+
     public void viewPaint(Graphics pen) {
         Image img = getBackground();
         int imgwidth = img.getWidth(null);
@@ -127,16 +143,16 @@ public class UniScrollingManager extends ScrollingManager {
         int upperpaintbound = upperpaintbound();
         int rightpaintbound = rightpaintbound();
         int lowerpaintbound = lowerpaintbound();
-        
+
         if(myGame.getLeftBoundary() < levelLeftBoundary()) {
             leftpaintbound = (int) levelLeftBoundary();
             rightpaintbound = (int) levelRightBoundary();
         }
-        
+
         if(myGame.getRightBoundary() > levelRightBoundary()) {
             leftpaintbound =  - ((int) levelRightBoundary() % myGame.getBackground().getWidth(null));
             rightpaintbound = myView.getWidth()  - ((int) levelRightBoundary() % myGame.getBackground().getWidth(null));
-            
+
         }
         if(myGame.getLowerBoundary() > levelLowerBoundary()) {
             upperpaintbound = - ((int) levelLowerBoundary() % myGame.getBackground().getHeight(null));
@@ -154,6 +170,7 @@ public class UniScrollingManager extends ScrollingManager {
     }
 
     public Location playerPaintLocation (Player p) {
+        updateLocation(p);
         double halfwidth = myView.getWidth() / 2;
         double halfheight = myView.getHeight() / 2;
         double x = halfwidth;
@@ -173,6 +190,39 @@ public class UniScrollingManager extends ScrollingManager {
             y =  halfheight - (halfheight - (levelUpperBoundary() + playerlocy));
         }        
         return new Location(x, y);
-        
+
     }
-}
+
+    private void updateLocation (Player p) {
+        if(myDirection == -1){
+            if(myDirection == 1 || myDirection == 3){
+                myMaxDirection = p.getX();
+
+            }
+            if(myDirection == 2 || myDirection == 4){
+                myMaxDirection = p.getY();
+
+            }
+        }
+            if(myDirection == 1){
+                if(p.getX() < myMaxDirection){
+                    myMaxDirection = p.getX();
+                }
+            }
+            if(myDirection == 2){
+                if(p.getY() < myMaxDirection){
+                    myMaxDirection = p.getY();
+                }
+            }
+            if(myDirection == 3){
+                if(p.getX() > myMaxDirection){
+                    myMaxDirection = p.getX();
+                }
+            }
+            if(myDirection == 4){
+                if(p.getY() > myMaxDirection){
+                    myMaxDirection = p.getY();
+                }
+            }
+        }
+    }
