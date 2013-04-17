@@ -12,7 +12,6 @@ public class MenuObject extends GameObject {
 	ModelDelegate myDelegate;
 	public MenuObject(String choice, ModelDelegate delegate) {
 		setLoader(new MenuLoader(choice, this));
-        setImageData();
         myDelegate = delegate;
         myChoice = choice;
 	}

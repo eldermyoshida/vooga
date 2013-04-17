@@ -1,6 +1,7 @@
 package vooga.fighter.model;
 
 import java.awt.Dimension;
+import java.awt.Rectangle;
 import java.util.List;
 
 import util.Location;
@@ -50,7 +51,7 @@ public class MenuGrid {
 	private void fillGrid(List<MenuObject> list, MenuObject [][] grid, int columns, int rows){
 		for(int i = 0; i < list.size(); i ++){
 			int RowNumber = 0;
-				int ColumnNumber = i*(RowNumber+1) -columns; 
+				int ColumnNumber = i*(RowNumber) -(columns-1); 
 				if(ColumnNumber <columns){
 				grid[RowNumber][ColumnNumber] = list.get(i);
 				int xloc =  (ColumnNumber)*GameManager.SIZE.width/(columns) + GameManager.SIZE.width/(2*columns);
@@ -61,8 +62,12 @@ public class MenuGrid {
 					State state = (State) s;
 					Dimension size = new Dimension(GameManager.SIZE.width/(2*columns), GameManager.SIZE.height/(2*rows));
 					state.populateSize(size, count);
+					Rectangle rect = new Rectangle(GameManager.SIZE.width/(2*columns), GameManager.SIZE.height/(2*rows));
+					state.populateRectangle(rect, count);
 					count ++;
+					
 				}
+				list.get(i).setImageData();
 				}
 				else{
 					RowNumber ++;

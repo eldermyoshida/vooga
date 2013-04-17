@@ -102,6 +102,7 @@ public class State {
      */
     public Rectangle getCurrentRectangle() {
         Rectangle result = myRectangles[myCurrentFrame];
+        System.out.println(myCurrentFrame + "hooray");
         Location location = myOwner.getLocation().getLocation();
         result.setLocation((int) location.getX(), (int) location.getY());
         return result;

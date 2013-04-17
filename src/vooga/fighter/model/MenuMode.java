@@ -33,15 +33,18 @@ public class MenuMode extends Mode {
                 i--;
             }
         }
-        if (shouldModeEnd()) {
-            super.signalTermination();
-        }
+//        if (shouldModeEnd()) {
+//            super.signalTermination();
+//        }
     }
 
 	@Override
 	public void initializeMode() {
 		myMenuGrid = new MenuGrid(myMenuId);	
 		myMenuObjects = myMenuGrid.getMenuObjects();
+		for(MenuObject menu : myMenuGrid.getMenuObjects()){
+			addObject(menu);
+		}
 	}
 	
 	private void handleCollisions(){

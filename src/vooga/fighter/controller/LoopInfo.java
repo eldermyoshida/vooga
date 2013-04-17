@@ -23,11 +23,15 @@ public class LoopInfo extends Observable implements ViewDataSource{
     private List<Dimension> myImageSizes;
 
 	public LoopInfo(Mode mode) {
+		myMode = mode;
     	myImageData = mode.getImageData();
         mySpriteLocations = new ArrayList<Location>();
         mySprites = new ArrayList<Pixmap>();
         myImageSizes = new ArrayList<Dimension>();
         updateImages();
+        System.out.println(mySpriteLocations.size());
+        System.out.println(mySprites.size());
+        System.out.println(myImageSizes.size());
 	}
 
     public void updateImages(){

@@ -1,10 +1,6 @@
 <?xml version="1.0"?>
 <menutype>
-    <menumode menuname="mainmenu" >
-        <menuobject menuobjectname="SinglePlayer"/>
-        <menuobject menuobjectname="TwoPlayer"/>
-    <menumode menuname="characterselect" >
-        <menuobject menuobjectname="1"/>
-        <menuobject menuobjectname="2"/>
+    <menumode menuname="MainMenu" >
+        <menuobject menuobjectname="SinglePlayer" />
     </menumode>
 </menutype>

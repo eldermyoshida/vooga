@@ -25,7 +25,7 @@ public class MenuLoader extends ObjectLoader {
 		for (int i = 0; i < menuNodes.getLength(); i++) {
 			Element node = (Element) menuNodes.item(i);
 			String name = getAttributeValue(node, "menuobjectname");
-			if (name == menuobjectname) {
+			if (name.equals(menuobjectname)) {
 				NodeList states = node.getElementsByTagName("state");
 				for(int j = 0; j < states.getLength(); j++){
 				Element state = (Element) states.item(j);

@@ -1,6 +1,7 @@
 package vooga.fighter.model.loaders;
 
 import java.awt.Dimension;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.w3c.dom.Document;
@@ -27,6 +28,7 @@ public class MenuGridLoader extends ObjectLoader {
 
 	public MenuGridLoader (String menuname, MenuGrid grid) {
 		super(MENUGRID_PATH);
+		myMenuObjects = new ArrayList<MenuObject>();
 		myGrid = grid;
 		load(menuname);
 	}
@@ -41,9 +43,9 @@ public class MenuGridLoader extends ObjectLoader {
 		for (int i = 0; i < menugridNodes.getLength(); i++) {
 			Element node = (Element) menugridNodes.item(i);
 			String name = getAttributeValue(node, "menuname");
-			if (name == menuname) {
+			if (name.equals(menuname)) {
 				NodeList menuobjects = node.getElementsByTagName("menuobject");
-				for(int j = 0; j < menuobjects.getLength(); i++){
+				for(int j = 0; j < menuobjects.getLength(); j++){
 					Element node1 = (Element) menuobjects.item(j);
 					String MenuObjectName = getAttributeValue(node1, "menuobjectname");
 					myMenuObjects.add(new MenuObject(MenuObjectName, myDelegate));

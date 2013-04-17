@@ -44,14 +44,15 @@ public class MenuController extends Controller {
     	super(name, frame, manager, gameinfo);
     	loadMode();
     	//Duplicated code below, see levelcontroller
-    	myLoopInfo =  new LoopInfo(super.getMode());
-    	frame.setViewDataSource(myLoopInfo);
+    	LoopInfo gameLoopInfo =  new LoopInfo(super.getMode());
+    	setGameLoopInfo(gameLoopInfo);
+    	frame.setViewDataSource(gameLoopInfo);
     }
     
     public void loadMode() {
         Mode mode = new MenuMode(this, super.getName());
         mode.initializeMode();
-        
+        super.setMode(mode);
     }
 
 
