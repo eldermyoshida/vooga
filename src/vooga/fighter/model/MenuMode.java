@@ -10,12 +10,12 @@ import vooga.fighter.model.objects.MenuObject;
 import vooga.fighter.model.objects.MouseClickObject;
 
 public class MenuMode extends Mode {
-	private int myMenuId;
+	private String myMenuId;
 	private List<MenuObject> myMenuObjects;
 	private MouseClickObject myMouseClick;
 	private MenuGrid myMenuGrid;
 
-	public MenuMode(ModelDelegate cd, int menuId) {
+	public MenuMode(ModelDelegate cd, String menuId) {
 		super(cd);
 		myMenuId = menuId;
 	}
@@ -27,7 +27,8 @@ public class MenuMode extends Mode {
 
 	@Override
 	public void initializeMode() {
-		myMenuGrid =new MenuGrid(myMenuObjects);	
+		myMenuGrid = new MenuGrid(myMenuId);	
+		myMenuObjects = myMenuGrid.getMenuObjects();
 	}
 
 	@Override
@@ -37,10 +38,6 @@ public class MenuMode extends Mode {
 	@Override
     public void addObject(GameObject object) {
         super.addObject(object);
-        if (object instanceof MenuObject){
-        	myMenuObjects.add((MenuObject)object);
-        	myMenuGrid = new MenuGrid(myMenuObjects);
-        }
         if (object instanceof MouseClickObject){
         	myMouseClick = (MouseClickObject)object;
         }

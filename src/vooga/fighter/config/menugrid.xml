@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<menutype>
+    <menumode menuname="mainmenu" >
+        <menuobject menuobjectname="SinglePlayer"/>
+    </menumode>
+</menutype>
