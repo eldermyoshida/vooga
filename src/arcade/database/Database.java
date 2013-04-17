@@ -146,4 +146,13 @@ public class Database {
     private String retrieveUserId(String username) {
         return myUserTable.retrieveUserId(username);
     }
+
+    public void updateRating (String userName, String gameName, double rating) {
+        
+    }
+
+    public double getAverageRating () {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 }

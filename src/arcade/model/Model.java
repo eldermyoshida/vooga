@@ -2,7 +2,10 @@ package arcade.model;
 
 import games.example.Example;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import arcade.database.Database;
 import arcade.games.ArcadeInteraction;
@@ -26,11 +29,9 @@ public class Model implements ArcadeInteraction {
     private LoginView myLoginView;
     private String myLanguage;
     private Database myDb = new Database();
-
+    private Map<String, GameInfo> myGameInfos = new HashMap<String, GameInfo>();
     private List<GameInfo> mySnapshots;
     private String myUser;
-    
-    
 
     public Model (ResourceBundle rb, String language) {
         myResources = rb;
@@ -42,18 +43,15 @@ public class Model implements ArcadeInteraction {
     }
 
     public void authenticate (String username, String password) {
-       if( myDb.authenticateUsernameAndPassword(username, password)){
-           myLoginView.destroy();
-           getGameList();
-           organizeSnapshots();
-           new MainView(this, myResources);
-       }else{
-           myLoginView.sendMessage(LOGIN_FAILURE_MESSAGE);
-       }
-        
-        // myLoginView.sendMessage(LOGIN_FAILURE_MESSAGE);
-        
-        
+        if (myDb.authenticateUsernameAndPassword(username, password)) {
+            myLoginView.destroy();
+            //getGameList();
+            organizeSnapshots();
+            new MainView(this, myResources);
+        }
+        else {
+            myLoginView.sendMessage(LOGIN_FAILURE_MESSAGE);
+        }
 
         // if (username.equals("ellango") && password.equals("password")) {
         // myLoginView.destroy();
@@ -62,7 +60,7 @@ public class Model implements ArcadeInteraction {
         // new MainView(this, myResources);
         // }
         // else {
-        // 
+        //
         // }
     }
 
@@ -70,22 +68,43 @@ public class Model implements ArcadeInteraction {
      * Create a new user profile by entering user-specific information.
      * This information is eventually stored in the database.
      */
-    public void createNewUserProfile () {
-     
-        
+    public void createNewUserProfile (String username,
+                                      String pw,
+                                      String firstname,
+                                      String lastname,
+                                      String dataOfBirth) {
+        myDb.createUser(username, pw, firstname, lastname, dataOfBirth);
+    }
 
+    public void createNewUserProfile (String username,
+                                      String pw,
+                                      String firstname,
+                                      String lastname,
+                                      String dataOfBirth,
+                                      String filepath) {
+        myDb.createUser(username, pw, firstname, lastname, dataOfBirth, filepath);
+    }
+
+    public void deleteUser (String username) {
+        myDb.deleteUser(username);
     }
 
     /**
      * Rate a specific game, store in user-game database
      */
-    public void rateGame (GameInfo g, int rating) {
+    public void rateGame (double rating, String gameName) {
+
+        myDb.updateRating(myUser , gameName , rating);
 
     }
-    
-    public void playGame(GameInfo gameinfo) {
+
+    public double getRating () {
+        return myDb.getAverageRating();
+    }
+
+    public void playGame (GameInfo gameinfo) {
         System.out.println(gameinfo.getName());
-        //TODO: instantiate the game.
+        // TODO: instantiate the game.
         Game game = new Example(this);
         game.run();
     }
@@ -96,14 +115,16 @@ public class Model implements ArcadeInteraction {
      * 
      * @return
      */
-    public List<GameInfo> getGameList () {
-        return mySnapshots;
+    public Collection<GameInfo> getGameList () {
+        return  myGameInfos.values();
     }
 
     private void organizeSnapshots () {
-        mySnapshots = new ArrayList<GameInfo>();
-        GameInfo myGameInfo = new GameInfo("example", myLanguage);
-        mySnapshots.add(myGameInfo);
+        List<String> gameNames = myDb.retrieveListOfGames();
+        for (String name : gameNames){
+            GameInfo info = new GameInfo(name , myLanguage);
+            myGameInfos.put(name, info);
+        }
     }
 
     /**
@@ -113,10 +134,7 @@ public class Model implements ArcadeInteraction {
      * @return
      */
     public GameInfo getGameDetail (String gameName) {
-        for (GameInfo g : mySnapshots) {
-            if (g.getName().equals(gameName)) { return g; }
-        }
-        return null;
+        return myGameInfos.get(gameName);
     }
 
     /**
@@ -151,14 +169,20 @@ public class Model implements ArcadeInteraction {
 
     @Override
     public UserGameData getUserGameData (String gameName) {
-        // TODO database stuff
-        return null;
+        UserGameData ugd = myDb.getUserGameData(gameName, myUser);
+        if (ugd == null) {
+            // use reflection to find the game class and call the generate user profile method
+        }
+        return ugd;
     }
 
     @Override
-    public GameData getGameData () {
-        // TODO database stuff
-        return null;
+    public GameData getGameData (String gameName) {
+        GameData gd = myDb.getGameData(gameName);
+        if (gd == null) {
+            // use reflection to find the game class and call the generate game method
+        }
+        return gd;
     }
 
 }
