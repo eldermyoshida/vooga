@@ -61,8 +61,8 @@ public class MapScreen extends JPanel {
     @Override
     public void paintComponent (Graphics pen) {
         super.paintComponent(pen);
-        myController.paintMap(pen);
         paintGridLines(pen);
+        myController.paintMap(pen);
     }
 
     /**
