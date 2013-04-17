@@ -110,7 +110,7 @@ public class UserTable extends Table {
     }
     
     /**
-     * Returns true if usernameExists, false othwerwise
+     * Returns true if usernameExists, false otherwise
      * @param username is the username
      */
     public boolean usernameExists(String username) {
