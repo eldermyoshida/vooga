@@ -7,7 +7,6 @@ import java.util.Arrays;
 import java.util.List;
 import util.Location;
 import util.Secretary;
-import util.input.Input;
 import vooga.scroller.level_management.LevelManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.animation.Animation;
@@ -62,6 +61,7 @@ public class Model {
         
         myLevelManager = new LevelManager(myScrollingManager, myView);
         myLevelManager.currentLevel().addPlayer(myPlayer);
+
 
         myLevelManager.setCurrentLevel(DEFAULT_START_LEVEL_ID);
         
