@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import util.Location;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.test_sprites.MarioLib;
 import vooga.scroller.util.Sprite;
@@ -18,16 +19,19 @@ public class LevelParser {
     private static final String NEW_LINE = System.getProperty("line.seperator");
     private static final String BEGIN_LEVEL = "/level";
     private static final String BEGIN_KEY = "/key";
+    private static final String BEGIN_SETTINGS = "/settings";
     private static final char SPACE = ' ';
-    public Scanner myScanner;
-    public Map<Character, String> myCharacterMap;
-    public List<String> myLevelStrings;
+    private static final String START_POINT = "StartPoint";
+    private Scanner myScanner;
+    private Map<Character, String> myCharacterMap;
+    private List<String> myLevelStrings;
     private Map<String, Sprite> myNameMap;
-    
+    private Location myStartPoint;
+
     /**
      * Initialize instances variables.
      */
-    public LevelParser() {
+    public LevelParser () {
         myLevelStrings = new ArrayList<String>();
         myCharacterMap = new HashMap<Character, String>();
         myNameMap = new HashMap<String, Sprite>();
@@ -40,7 +44,7 @@ public class LevelParser {
     public LEGrid loadFileToGrid (File file) {
         myLevelStrings = new ArrayList<String>();
         myCharacterMap = new HashMap<Character, String>();
-        //TODO needs to be refactored. Design needs to be improved
+        // TODO needs to be refactored. Design needs to be improved
         setNameMap((new ToolsManager(new MarioLib())).getNameMap());
         try {
             myScanner = new Scanner(file);
@@ -50,7 +54,8 @@ public class LevelParser {
             e.printStackTrace();
         }
         parseLevel();
-        myCharacterMap=parseKey();
+        myCharacterMap = parseKey();
+        myStartPoint = parseStartPoint();
         return createGrid();
     }
 
@@ -59,7 +64,7 @@ public class LevelParser {
     }
 
     private void parseLevel () {
-        myScanner.findWithinHorizon(BEGIN_LEVEL+NEW_LINE, 0);
+        myScanner.findWithinHorizon(BEGIN_LEVEL + NEW_LINE, 0);
         String line = myScanner.nextLine();
         System.out.println(line);
         while (!line.equals(BEGIN_KEY)) {
@@ -72,11 +77,20 @@ public class LevelParser {
 
     private Map<Character, String> parseKey () {
         Map<Character, String> result = new HashMap<Character, String>();
-        while (myScanner.hasNextLine()) {
-            String line = myScanner.nextLine();
+        String line = myScanner.nextLine();
+        while (!line.equals(BEGIN_SETTINGS)) {
             result.put(line.charAt(0), line.substring(2));
+            line = myScanner.nextLine();
         }
         return result;
+    }
+
+    private Location parseStartPoint () {
+        String line = myScanner.nextLine();
+        line = line.substring(START_POINT.length() + 1);
+        String[] splitLine = line.split(String.valueOf(SPACE));
+        return new Location(Integer.parseInt(splitLine[0]),
+                            Integer.parseInt(splitLine[1]));
     }
 
     private LEGrid createGrid () {
@@ -96,6 +110,7 @@ public class LevelParser {
                 }
             }
         }
+        grid.addStartPoint((int) myStartPoint.getX(), (int) myStartPoint.getY());
         return grid;
     }
 }
