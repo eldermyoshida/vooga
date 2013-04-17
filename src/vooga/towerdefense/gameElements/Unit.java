@@ -46,6 +46,16 @@ public class Unit extends GameElement {
      * @param image
      * @param center
      * @param size
+     * @param am
+     */
+    public Unit (Pixmap image, Location center, Dimension size, AttributeManager am) {
+        super(image, center, size, am);
+    }
+    
+    /**
+     * @param image
+     * @param center
+     * @param size
      */
     public Unit (Pixmap image, Location center, Dimension size) {
         super(image, center, size);
