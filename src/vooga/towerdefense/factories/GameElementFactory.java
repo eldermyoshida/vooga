@@ -27,11 +27,8 @@ public class GameElementFactory {
         myDefinition = definition;
     }
     
-    /**
-     * Adds an attribute to this element's factory
-     */
-    public void addAttribute() {
-    	
+    public GameElementDefinition getDefinition() {
+        return myDefinition;
     }
     
     public AttributeFactory createAttributeFactory() {
