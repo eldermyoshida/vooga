@@ -22,7 +22,6 @@ public class LevelParser {
     public Scanner myScanner;
     public Map<Character, String> myCharacterMap;
     public List<String> myLevelStrings;
-    private Map<String, Sprite> myNameMap;
     
     /**
      * Initialize instances variables.
@@ -30,18 +29,11 @@ public class LevelParser {
     public LevelParser() {
         myLevelStrings = new ArrayList<String>();
         myCharacterMap = new HashMap<Character, String>();
-        myNameMap = new HashMap<String, Sprite>();
     }
 
-    public void setNameMap (Map<String, Sprite> nameMap) {
-        myNameMap = nameMap;
-    }
-
-    public LEGrid loadFileToGrid (File file) {
+    public LEGrid makeGridFromFile (File file) {
         myLevelStrings = new ArrayList<String>();
         myCharacterMap = new HashMap<Character, String>();
-        //TODO needs to be refactored. Design needs to be improved
-        setNameMap((new ToolsManager(new MarioLib())).getNameMap());
         try {
             myScanner = new Scanner(file);
         }
@@ -54,9 +46,6 @@ public class LevelParser {
         return createGrid();
     }
 
-    public Level loadFileToLevel (File file, int id, ScrollingManager sm, View v) {
-        return loadFileToGrid(file).createLevel(id, sm, v);
-    }
 
     private void parseLevel () {
         myScanner.findWithinHorizon(BEGIN_LEVEL+NEW_LINE, 0);
@@ -89,10 +78,26 @@ public class LevelParser {
                 System.out.println(c);
                 if (c != SPACE) {
                     String name = myCharacterMap.get(c);
-                    Sprite spr = myNameMap.get(name).copy();
-                    System.out.println(name);
-                    System.out.println(spr);
-                    grid.addSpriteToBox(j, i, spr);
+                    
+                    Sprite spr;
+                    try {
+                        spr = (Sprite) Class.forName(name).newInstance();
+                        System.out.println(name);
+                        System.out.println(spr);
+                        grid.addSpriteToBox(j, i, spr);
+                    }
+                    catch (InstantiationException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                    catch (IllegalAccessException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                    catch (ClassNotFoundException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }//myNameMap.get(name).copy();
                 }
             }
         }

@@ -48,11 +48,11 @@ public class LevelWriter {
                         myFileWriter.write(SPACE);
                     }
                     else {
-                        if(!myMap.containsKey(s.getClass().getCanonicalName())){
-                            myMap.put(s.getClass().getCanonicalName(), KEY_CREATOR.charAt(myKeyCounter));
+                        if(!myMap.containsKey(s.getClass().getName())){
+                            myMap.put(s.getClass().getName(), KEY_CREATOR.charAt(myKeyCounter));
                             myKeyCounter++;
                         }
-                        myFileWriter.write(myMap.get(s.getClass().getCanonicalName()));
+                        myFileWriter.write(myMap.get(s.getClass().getName()));
                     }
                 }
             }

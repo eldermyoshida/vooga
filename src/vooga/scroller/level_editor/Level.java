@@ -72,6 +72,13 @@ public class Level implements Editable, Renderable {
         myScrollManager = sm;
         myID = id;
     }
+    
+    public Level(int id, ScrollingManager sm, View view, LEGrid grid) {
+        this (id, sm, view);
+        for (SpriteBox box : grid.getBoxes()) {
+            addSprite(box.getSprite());
+        }
+    }
 
     private void initFrames() {
         myFrameOfActionSprites = new ArrayList<Sprite>();

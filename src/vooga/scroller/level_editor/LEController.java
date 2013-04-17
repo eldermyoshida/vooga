@@ -92,7 +92,7 @@ public class LEController {
     }
 
     public void loadFile (File file2open) {
-        Editable m = myLevelParser.loadFileToGrid(file2open);
+        Editable m = myLevelParser.makeGridFromFile(file2open);
         int id = myWorkspace2Tab.size();
         createWorkspaceView(id, m);
     }

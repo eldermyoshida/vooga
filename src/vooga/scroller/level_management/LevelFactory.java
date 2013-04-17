@@ -7,8 +7,10 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.swing.ImageIcon;
 import util.Location;
+import vooga.scroller.level_editor.LEGrid;
 import vooga.scroller.level_editor.Level;
 import vooga.scroller.level_editor.LevelParser;
+import vooga.scroller.level_editor.ToolsManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.test_sprites.MarioLib;
 import vooga.scroller.sprites.test_sprites.MarioLib.MovingPlatformOne;
@@ -27,11 +29,17 @@ public class LevelFactory {
 
     private LevelManager myLevelManager;
     private LevelParser myLevelParser;
+    private Map<Integer,Level> myLevels;
 
     public LevelFactory (LevelManager lm) {
         myLevelManager = lm;
         myLevelParser = new LevelParser();
+        myLevels = new HashMap<Integer, Level>();
     }
+    
+//    private void buildAndAddLevel(LEGrid grid) {
+//        Level result = new Level(1, mySM, view, level1Grid);
+//    }
 
     /**
      * Generates levels to be displayed by the view and played by the model.
@@ -44,9 +52,12 @@ public class LevelFactory {
         SplashPage splash = new SplashPage(new Pixmap("MARIO SPLASH.png"),0,view, mySM);
         // TODO: fix this
         splash.addManager(myLevelManager);
-        
+
+        //TODO needs to be refactored. Design needs to be improved
+//        myLevelParser.setNameMap((new ToolsManager(new MarioLib())).getNameMap());
 //        Level level1 = hardcodeLevel1(view, mySM, 1);
-        Level level1 = getLevelFromFile("createdLevelupg.level", 1, mySM, view);
+        LEGrid level1Grid = loadGridFromFile("createdLevelupg.level");
+        Level level1 = new Level(1, mySM, view, level1Grid);
 
         // TODO: this will ideally read in levels from file and create instances of each level
         // This works for demo
@@ -83,12 +94,10 @@ public class LevelFactory {
         return l;
     }
 
-    private Level getLevelFromFile (String filename, int levelID, 
-                                    ScrollingManager sm,
-                                    View v) {
+    private LEGrid loadGridFromFile (String filename) {
         String pre = "src/vooga/scroller/level_management/";
         File f = (new File(pre+filename)).getAbsoluteFile();
-        Level result = myLevelParser.loadFileToLevel(f, levelID, sm, v);
+        LEGrid result = myLevelParser.makeGridFromFile(f);
         return result;
     }
 
