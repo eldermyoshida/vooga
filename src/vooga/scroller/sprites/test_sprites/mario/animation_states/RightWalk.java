@@ -6,6 +6,7 @@ import vooga.scroller.util.Sprite;
 
 public class RightWalk extends AnimationState {
     public static final Pixmap RIGHT = new Pixmap("runright.gif");
+    private static final Pixmap RIGHT_STAND = new Pixmap("standright.png");
 
     public RightWalk () {
         super(RIGHT);
@@ -13,7 +14,12 @@ public class RightWalk extends AnimationState {
 
     @Override
     public boolean validAnimation (Sprite unit) {
-        return unit.lastLocation().x - unit.getCenter().x < -1;
+        if(unit.lastLocation().x - unit.getCenter().x < -.5){
+            unit.getView().setDefaultView(RIGHT_STAND);
+            return true;
+        }
+        return false;
+        //return unit.lastLocation().x - unit.getCenter().x < -.5;
     }
 
 }

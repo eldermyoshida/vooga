@@ -33,7 +33,7 @@ public class AnimationFactory {
         AnimationState standRight = new RightStand();
         AnimationState standLeft = new LeftStand();
         
-        res.add(stand);
+        //res.add(stand);
         res.add(right);
         res.add(left);
         //res.add(standRight);

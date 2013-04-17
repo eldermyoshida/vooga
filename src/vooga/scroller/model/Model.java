@@ -64,7 +64,6 @@ public class Model {
         myLevelManager = new LevelManager(myScrollingManager, myView);
         myLevelManager.currentLevel().addPlayer(myPlayer);
 
-
         myLevelManager.setCurrentLevel(DEFAULT_START_LEVEL_ID);
         
         mySecretary = new Secretary();
