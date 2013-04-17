@@ -33,5 +33,5 @@ public interface ArcadeInteraction {
      */
     UserGameData getUserGameData(String gameName);
     
-    GameData getGameData();
+    GameData getGameData(String gameName);
 }
