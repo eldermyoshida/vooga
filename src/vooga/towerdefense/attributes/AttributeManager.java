@@ -98,9 +98,11 @@ public class AttributeManager {
     public void reset(Attribute attribute){
     	
     }
+
     public ProjectileFactory getProjectileFactory(){
     	return myProjectileFactory;
     }
+
 
 }
 
