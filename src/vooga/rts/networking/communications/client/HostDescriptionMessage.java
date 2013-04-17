@@ -32,12 +32,13 @@ public class HostDescriptionMessage extends Message {
         return myUsername;
     }
     
-    public String getUsername(){
-        return myUsername;
+    public String getHostName(){
+        return myHostName;
     }
     
-    public String getUsername(){
-        return myUsername;
+    public String getServerName(){
+        return myServer;
+
     }
     
 
