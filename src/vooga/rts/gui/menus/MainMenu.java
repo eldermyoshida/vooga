@@ -7,7 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import vooga.rts.gui.Menu;
 import vooga.rts.gui.buttons.ScreenButton;
-import vooga.rts.resourcemanager.ImageResourceManager;
+import vooga.rts.resourcemanager.ResourceManager;
 import vooga.rts.util.Location;
 
 
@@ -27,7 +27,7 @@ public class MainMenu extends Menu {
     public MainMenu () {
         super();
 
-        myBGImage = ImageResourceManager.instance().loadFile(DEFAULT_BGIMAGE_LOCATION);
+        myBGImage = ResourceManager.getInstance().<BufferedImage>getFile(DEFAULT_BGIMAGE_LOCATION, BufferedImage.class);
         setImage(myBGImage);
 
         myStartButton =

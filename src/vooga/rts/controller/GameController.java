@@ -1,5 +1,6 @@
 package vooga.rts.controller;
 
+import java.applet.AudioClip;
 import java.awt.AWTException;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
@@ -7,6 +8,7 @@ import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.Robot;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,7 +29,7 @@ import vooga.rts.map.GameMap;
 import vooga.rts.player.HumanPlayer;
 import vooga.rts.player.Player;
 import vooga.rts.player.Team;
-import vooga.rts.resourcemanager.ImageResourceManager;
+import vooga.rts.resourcemanager.ResourceManager;
 import vooga.rts.util.Camera;
 import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
@@ -207,21 +209,22 @@ public class GameController extends AbstractController {
              */
             Player p1 = new HumanPlayer();
             Pixmap p =
-                    new Pixmap(ImageResourceManager.instance().loadFile("images/sprites/soldier.png"));
+                    new Pixmap(ResourceManager.getInstance()
+                            .<BufferedImage> getFile("images/sprites/soldier.png", BufferedImage.class));
             Dimension s = new Dimension(90, 90);
             r =
-                    new Resource(new Pixmap(ImageResourceManager.instance()
-                            .loadFile("images/mineral.gif")), new Location3D(300, 300, 0),
-                                 new Dimension(60, 60), 0, 400);
-            Sound soun = null;// new Sound("/vooga/rts/sounds/pikachu.wav");
+                    new Resource(new Pixmap(ResourceManager.getInstance()
+                            .<BufferedImage> getFile("images/mineral.gif", BufferedImage.class)),
+                                 new Location3D(300, 300, 0), new Dimension(60, 60), 0, 400);
+            Sound soun = new Sound(ResourceManager.getInstance().getFile("sounds/pikachu.wav", AudioClip.class));
             Unit a = null;
             a = new Soldier(p, new Location3D(200, 250, 0), s, soun, 1, 400);
             System.out.println("Player ID for a: " + a.getPlayerID());
             // a.setUpgradeTree(resultTree,a.getPlayerID());
             // upgradeBuilding.addUpgradeActions(resultTree);
             Projectile proj =
-                    new Projectile(new Pixmap(ImageResourceManager.instance()
-                            .loadFile("images/bullet.png")), a.getWorldLocation(),
+                    new Projectile(new Pixmap(ResourceManager.getInstance()
+                            .<BufferedImage> getFile("images/bullet.png", BufferedImage.class)), a.getWorldLocation(),
                                    new Dimension(30, 30), 2, 10, 1);
             a.setAttackStrategy(new CanAttack());
             a.getAttackStrategy().addWeapons(new Weapon(0, proj, 500, a.getWorldLocation(), 175));
@@ -229,8 +232,7 @@ public class GameController extends AbstractController {
             System.out.println("Player ID for b: " + b.getPlayerID());
 
             Projectile proj2 =
-                    new Projectile(new Pixmap(ImageResourceManager.instance()
-                            .loadFile("images/bullet.png")), b.getWorldLocation(),
+                    new Projectile(new Pixmap(ResourceManager.getInstance().<BufferedImage>getFile("images/bullet.png", BufferedImage.class)), b.getWorldLocation(),
                                    new Dimension(30, 30), 1, 10, 1);
             b.setAttackStrategy(new CanAttack());
             b.getAttackStrategy().addWeapons(new Weapon(0, proj2, 400, b.getWorldLocation(), 200));
@@ -238,13 +240,12 @@ public class GameController extends AbstractController {
             Unit c = new Soldier(p, new Location3D(500, 800, 0), s, soun, 2, 500);
 
             Projectile proj3 =
-                    new Projectile(new Pixmap(ImageResourceManager.instance()
-                            .loadFile("images/bullet.png")), c.getWorldLocation(),
+                    new Projectile(new Pixmap(ResourceManager.getInstance().<BufferedImage>getFile("images/bullet.png", BufferedImage.class)), c.getWorldLocation(),
                                    new Dimension(30, 30), 1, 10, 1);
             c.setAttackStrategy(new CanAttack());
             Unit w =
-                    new Worker(new Pixmap(ImageResourceManager.instance().loadFile("images/scv.gif")),
-                               new Location3D(500, 200, 0), s, soun, 20, 40, 40);
+                    new Worker(new Pixmap(ResourceManager.getInstance().<BufferedImage>getFile("images/scv.gif", BufferedImage.class)), new Location3D(500, 200, 0), s, soun, 20,
+                               40, 40);
             c.getAttackStrategy().addWeapons(new Weapon(0, proj3, 450, c.getWorldLocation(), 200));
 
             p1.getUnits().addUnit(a);
@@ -257,8 +258,7 @@ public class GameController extends AbstractController {
             addPlayer(p2, 2);
 
             building =
-                    new Barracks(new Pixmap(ImageResourceManager.instance()
-                            .loadFile("images/barracks.jpeg")), new Location3D(800, 500, 0),
+                    new Barracks(new Pixmap(ResourceManager.getInstance().<BufferedImage>getFile("images/barracks.jpeg", BufferedImage.class)), new Location3D(800, 500, 0),
                                  new Dimension(150, 150), null, 1, 300);
             System.out.println("Setup Game");
             myHuman = (HumanPlayer) p1;

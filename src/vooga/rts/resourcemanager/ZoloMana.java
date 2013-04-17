@@ -19,7 +19,7 @@ import javax.imageio.ImageIO;
  * @author Jonathan Schmidt
  * 
  */
-public class ImageResourceManager {
+public class ZoloMana {
 
     private static final String RESOURCES = "../resources/";
 
@@ -29,12 +29,12 @@ public class ImageResourceManager {
 
     private Thread loadThread;
 
-    private static ImageResourceManager myInstance;
+    private static ZoloMana myInstance;
 
     /**
      * 
      */
-    private ImageResourceManager () {
+    private ZoloMana () {
         myResources = new HashMap<URL, BufferedImage>();
         myLoadQueue = new LinkedList<URL>();
         loadThread = new Thread();
@@ -106,9 +106,9 @@ public class ImageResourceManager {
         }
     }
 
-    public static ImageResourceManager instance () {
+    public static ZoloMana instance () {
         if (myInstance == null) {
-            myInstance = new ImageResourceManager();
+            myInstance = new ZoloMana();
         }
         synchronized (myInstance) {
             return myInstance;
