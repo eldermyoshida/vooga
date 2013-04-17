@@ -1,9 +1,11 @@
 package vooga.scroller.level_editor;
 
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Map;
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -58,7 +60,7 @@ public class LEToolsView extends WindowComponent {
     private JPanel initBackgroundButtons (Map<Object, String> backgrounds) {
         JPanel backgroundButtons = new JPanel();
         for (Object key : backgrounds.keySet()) {
-            JButton currentButton = new JButton((Icon) key);
+            JButton currentButton = new JButton((ImageIcon) key);
             currentButton.addActionListener(new BackgroundListener(backgrounds.get(key)));
             backgroundButtons.add(currentButton);
         }

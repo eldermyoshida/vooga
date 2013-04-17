@@ -45,7 +45,7 @@ public class LETools extends Tools {
 
     public void addBackgrounds (Map<Integer, Image> map) {
         for (Integer key : map.keySet()) {
-            myBackgroundImages.put(map.get(key).getScaledInstance(40, 40, Image.SCALE_SMOOTH), "" + key);
+            myBackgroundImages.put(new ImageIcon(map.get(key).getScaledInstance(40, 40, Image.SCALE_SMOOTH)), "" + key);
         }
     }
 
