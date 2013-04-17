@@ -94,6 +94,11 @@ public class Mario extends Player implements IPlayer, IInputListener{
         // TODO Auto-generated method stub
         
     }
+
+    @Override
+    public Player getPlayer () {
+        return this;
+    }   
     
     @InputMethodTarget(name = "left")
     public void walkLeft() {        

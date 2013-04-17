@@ -2,6 +2,9 @@ package vooga.scroller.collision_manager;
 
 import vooga.scroller.level_editor.Level;
 import vooga.scroller.level_management.LevelPortal;
+import vooga.scroller.sprites.interfaces.ICoin;
+import vooga.scroller.sprites.interfaces.IPlatform;
+import vooga.scroller.sprites.interfaces.IPlayer;
 import vooga.scroller.sprites.test_sprites.MarioLib;
 import vooga.scroller.sprites.test_sprites.MarioLib.Coin;
 import vooga.scroller.sprites.test_sprites.MarioLib.Plant;
@@ -29,9 +32,14 @@ public class VisitMethods {
     
     
     
+    public void visit (IPlayer mario, IPlatform platform) {
+        collisions.marioAndPlatformCollision(mario.getPlayer(), platform.getPlatform());
+    }
     
-    
-    
+    public void visit (IPlayer mario, ICoin coin) {
+        mario.getPlayer().incrementScore(coin.getValue());
+        coin.takeHit(mario.getPlayer().getHit());
+    }
     
     
     
@@ -72,35 +80,6 @@ public class VisitMethods {
 
 
 
-    public void visit (Mario mario, MarioLib.Platform platform) {
-        collisions.marioAndNonStaticEntityCollision(mario, platform);
-        System.out.println("********Mario has just collided with Platform!");
-        
-    }
-
-    public void visit (Mario mario, MarioLib.LevelTwoBlockOne platform) {
-        collisions.marioAndNonStaticEntityCollision(mario, platform);
-        System.out.println("Mario has just collided with Platform!");
-        
-    }
-    
-    public void visit (Mario mario, MarioLib.LevelTwoBlockTwo platform) {
-        collisions.marioAndNonStaticEntityCollision(mario, platform);
-        System.out.println("Mario has just collided with Platform!");
-        
-    }
-    
-    public void visit (Mario mario, MarioLib.LevelTwoBlockThree platform) {
-        collisions.marioAndNonStaticEntityCollision(mario, platform);
-        System.out.println("Mario has just collided with Platform!");
-        
-    }
-    
-    public void visit (Mario mario, MarioLib.MovingPlatformOne movingPlatform) {
-        collisions.marioAndNonStaticEntityCollision(mario, movingPlatform);
-        //System.out.println("Mario has just collided with Platform!");
-        
-    }
     
     public void visit (Mario mario, MarioLib.Turtle turtle) {
         //endGame();

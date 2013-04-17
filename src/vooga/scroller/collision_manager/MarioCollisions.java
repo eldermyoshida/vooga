@@ -1,6 +1,7 @@
 package vooga.scroller.collision_manager;
 
 import util.Vector;
+import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.sprites.test_sprites.mario.Mario;
 import vooga.scroller.util.Direction;
 import vooga.scroller.util.Sprite;
@@ -18,7 +19,7 @@ public class MarioCollisions {
     private static final double FRICTION = .5;
     private CollisionDirection direction = new CollisionDirection();
 
-    void marioAndNonStaticEntityCollision (Mario mario, Sprite sprite) {
+    void marioAndPlatformCollision (Player mario, Sprite sprite) {
 
         Direction collisionType = direction.collisionDirection(mario, sprite);
 

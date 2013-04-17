@@ -33,7 +33,8 @@ public class MarioLib implements ISpriteLibrary {
 
         private static final String DEFAULT_IMG = "coin.png";
         private static final int DEFAULT_COIN_VALUE = 900;
-
+        private int myHealth = 1;
+        
         public Coin () {
             this(DEFAULT_LOC);
         }
@@ -52,8 +53,16 @@ public class MarioLib implements ISpriteLibrary {
          * @return an integer that represents the 
          */
         public int getValue () {
-            
             return DEFAULT_COIN_VALUE;
+        }
+
+        @Override
+        public void takeHit (int hitValue) {
+            myHealth -= hitValue;
+        }
+        
+        public int getHealth() {
+            return myHealth;
         }
     }
     
@@ -166,6 +175,11 @@ public class MarioLib implements ISpriteLibrary {
         public void print () {
             System.out.println("Platform");
         }
+
+        @Override
+        public Platform getPlatform () {
+            return this;
+        }
     }
     
     public static class Plant extends StaticEntity implements IEnemy {
@@ -208,6 +222,11 @@ public class MarioLib implements ISpriteLibrary {
                                                                        // every X seconds
             super.update(elapsedTime, bounds);
         }
+
+        @Override
+        public MovingPlatformOne getPlatform () {
+            return this;
+        }
     }
 
     /**
@@ -235,6 +254,11 @@ public class MarioLib implements ISpriteLibrary {
             LeftAndRight movement = new LeftAndRight(this);
             changeVelocity(movement.execute(500, 1000, DEFAULT_SPEED));
             super.update(elapsedTime, bounds);
+        }
+        
+        @Override
+        public MovingPlatformTwo getPlatform () {
+            return this;
         }
     }
     
