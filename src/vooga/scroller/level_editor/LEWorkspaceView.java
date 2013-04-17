@@ -26,8 +26,8 @@ public class LEWorkspaceView extends WorkspaceView {
      */
     private static final long serialVersionUID = 1L;
     private Renderable myRenderable;
-    private LEGridView myLevelView;
-    private LEToolsView myEditorView;
+    private LEGridView myGridView;
+    private LEToolsView myToolsView;
     private JScrollPane myLevelGridScroller;
 
 
@@ -41,18 +41,18 @@ public class LEWorkspaceView extends WorkspaceView {
         // TODO Auto-generated constructor stub
         super(id, host);
         myRenderable = r;
-        myLevelView = new LEGridView(this, r);
-        myEditorView = new LEToolsView(this, .25, .9);
-        myLevelGridScroller = new JScrollPane(myLevelView, 
+        myGridView = new LEGridView(this, r);
+        myToolsView = new LEToolsView(this, .25, .9);
+        myLevelGridScroller = new JScrollPane(myGridView, 
                                   JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                                   JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        EasyGridFactory.layout(this, myLevelGridScroller, myEditorView);
+        EasyGridFactory.layout(this, myLevelGridScroller, myToolsView);
     }
     
     @Override
     public void render (Renderable r) {
         // TODO Auto-generated method stub !!!
-        myLevelView.render(r);
+        myGridView.render(r);
     }
 
     @Override
@@ -68,7 +68,7 @@ public class LEWorkspaceView extends WorkspaceView {
             String cmd = (String) isn;
             switch (getCommand(cmd)) {
                 case CommandConstants.CREATE_SPRITE:
-                    cmd = cmd + CommandConstants.SPACE + myEditorView.getSelectedSpriteID();
+                    cmd = cmd + CommandConstants.SPACE + myToolsView.getSelectedSpriteID();
                     break;
                 default: // TODO add more cases for other commands
                     break;
@@ -90,7 +90,7 @@ public class LEWorkspaceView extends WorkspaceView {
     }
 
     public boolean isValidForSimulation () {
-        return myLevelView.isValidForSimulation();
+        return myGridView.isValidForSimulation();
     }
 
 }

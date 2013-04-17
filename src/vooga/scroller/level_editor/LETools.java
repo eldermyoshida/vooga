@@ -26,9 +26,8 @@ public class LETools extends Tools {
     }
 
     public void addSpriteOption (Sprite s, int i) {
-        spriteIcons.put(new ImageIcon(s.getDefaultImg().getScaledInstance(40, 40,
-                                                                          Image.SCALE_SMOOTH)),
-                        i + "");
+        spriteIcons.put(new ImageIcon(s.getDefaultImg()
+                .getScaledInstance(40, 40, Image.SCALE_SMOOTH)), i + "");
     }
 
     public Map<Object, String> getOtherOptions () {
