@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ResourceBundle;
 import javax.swing.Timer;
 import vooga.rts.networking.communications.Message;
 import vooga.rts.networking.communications.clientmessages.ClientInfoMessage;
@@ -21,11 +22,18 @@ public class MatchmakerServer extends Thread implements IMessageReceiver, IThrea
     private Map<Integer, ConnectionThread> myConnectionThreads = new HashMap<Integer, ConnectionThread>();
     private Map<String, GameContainer> myGameContainers = new HashMap<String, GameContainer>();
     private ConnectionServer myConnectionServer = new ConnectionServer(this);
-    private static final int ONE_SECOND = 1000;
-    private static final int DEFAULT_TIMER_DELAY = ONE_SECOND * 2;
+    private static final String DEFAULT_RESOURCE_PACKAGE = "vooga.rts.networking.resources.";
+    private ResourceBundle myGamesBundle;
     
     public MatchmakerServer () {       
+        initializeGameContainers();
+    }
     
+    private void initializeGameContainers () {
+        myGamesBundle = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "games");
+        for(String game : myGamesBundle.keySet()) {
+            myGameContainers.put(game, new GameContainer());
+        }
     }
     
     @Override
