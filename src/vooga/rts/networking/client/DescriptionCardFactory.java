@@ -10,11 +10,12 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 public class DescriptionCardFactory{
+    private static ImageHelper myHelper = new ImageHelper();
     public DescriptionCardFactory(){
-        
+        //myHelper = new ImageHelper();
     }
     
-    public JPanel createCard(){
+    public static JPanel createCard(String imagePath){
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout(10,10));
         
@@ -22,16 +23,14 @@ public class DescriptionCardFactory{
         generalInfo.setLayout(new GridLayout(2,1,0,20));
         generalInfo.setOpaque(false);
         
-        ImageIcon icon = new ImageIcon(this.getClass().getResource("../resources/Scroll.png"));
-        Image img = icon.getImage();
-        Image scaled = img.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+        Image scaled = myHelper.getScaledImage(imagePath, 150);
         
         JLabel c = new JLabel("Map info: ososososso");
         c.setHorizontalTextPosition(SwingConstants.CENTER);
         c.setVerticalTextPosition(SwingConstants.TOP);
         c.setAlignmentX(SwingConstants.TOP);
         c.setIcon(new ImageIcon(scaled));
-        //new JLabel("Map: ",new ImageIcon(scaled),JLabel.TRAILING)
+        
         generalInfo.add(c);
         JPanel description = new JPanel();
         description.setOpaque(false);
@@ -47,7 +46,7 @@ public class DescriptionCardFactory{
         return mainPanel;
     }
     
-    private JPanel createSpecificPanel(){
+    private static JPanel createSpecificPanel(){
         JPanel specific = new JPanel();
         int numLabels = 10;
         specific.setLayout(new GridLayout(0,1));

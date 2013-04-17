@@ -41,34 +41,22 @@ public class ServerBrowserView extends JFrame {
     
     private static final long serialVersionUID = -4494998676210936451L;
     private JTable myServerListTable;
-    private JLabel myMapLabel = new JLabel();
     private String[] imageFileNames = { "Scroll.png", "Scroll1.jpg",
                                         "Scroll2.jpg", "Scroll3.jpg","Scroll.png", "Scroll1.jpg",
                                         "Scroll2.jpg", "Scroll3.jpg"};
     private JToolBar myBar = new JToolBar();
     private static final Font DEFAULT_FONT = new Font("Helvetica", Font.PLAIN,20);
+    private JPanel myCards = new JPanel();
 
     /**
      * Create the panel.
      */
     public ServerBrowserView () {
-        //setLayout(new BorderLayout(0, 0));
-        //JTabbedPane tabPanel = new JTabbedPane();
-        //tabPanel.setPreferredSize(new Dimension(800,550));
+
         this.setPreferredSize(new Dimension(800,600));
-        //this.setLayout(new GridLayout(2,1));
-        //setToolBar();
-        
-        
-        //add(createJoinPanel(),"Join a Game");
+
         createJoinPanel();
-        //tabPanel.add(createHostPanel(),"Host a Game");
-        //add(tabPanel);
-        
-        
-        //myBar.setPreferredSize(new Dimension(700,110));
-        //myBar.s
-        //add(myServerListTable, BorderLayout.CENTER);
+
         pack();
         setVisible(true);
         setResizable(false);
@@ -90,7 +78,7 @@ public class ServerBrowserView extends JFrame {
     }
     
     private SwingWorker<Void,ThumbnailAction> imageLoader = new SwingWorker<Void,ThumbnailAction>() {
-
+        
         @Override
         protected Void doInBackground () throws Exception {
             for (int i = 0; i < imageFileNames.length; i++) {
@@ -101,8 +89,9 @@ public class ServerBrowserView extends JFrame {
                 if(icon != null){
                      
                     ImageIcon thumbnailIcon = new ImageIcon(getScaledImage(icon.getImage(),80));
-                     
-                    thumbAction = new ThumbnailAction(icon, thumbnailIcon);
+                    thumbAction = new ThumbnailAction("panel "+i, thumbnailIcon);
+                    myCards.add("panel "+i,DescriptionCardFactory.createCard("../resources/" + imageFileNames[i]));
+                    
                 } 
 //                }else{
 //                     the image failed to load for some reason
@@ -118,6 +107,7 @@ public class ServerBrowserView extends JFrame {
         protected void process(List<ThumbnailAction> chunks) {
             for (ThumbnailAction thumbAction : chunks) {
                 JButton thumbButton = new JButton(thumbAction);
+                thumbButton.setActionCommand(thumbAction.getAction());
                 // add the new button BEFORE the last glue
                 // this centers the buttons in the toolbar
                 myBar.add(thumbButton, myBar.getComponentCount() - 1);
@@ -138,32 +128,28 @@ public class ServerBrowserView extends JFrame {
     
     private class ThumbnailAction extends AbstractAction{
         
-        /**
-         *The icon if the full image we want to display.
-         */
-        private Icon displayPhoto;
+        //private Icon
+        private String myAction;
          
         /**
-         * @param Icon - The full size photo to show in the button.
          * @param Icon - The thumbnail to show in the button.
          * @param String - The descriptioon of the icon.
          */
-        public ThumbnailAction(Icon photo, Icon thumb){
-            displayPhoto = photo;
-             
-            // The short description becomes the tooltip of a button.
-            //putValue(SHORT_DESCRIPTION, desc);
-             
-            // The LARGE_ICON_KEY is the key for setting the
-            // icon when an Action is applied to a button.
+        public ThumbnailAction(String action, Icon thumb){
+            myAction = action;
             putValue(LARGE_ICON_KEY, thumb);
+        }
+        
+        public String getAction(){
+            return myAction;
         }
          
         /**
          * Shows the full image in the main area and sets the application title.
          */
         public void actionPerformed(ActionEvent e) {
-            myMapLabel.setIcon(displayPhoto);
+            CardLayout layout = (CardLayout) myCards.getLayout();
+            layout.show(myCards, e.getActionCommand());
         }
     }
 
@@ -172,10 +158,7 @@ public class ServerBrowserView extends JFrame {
         joinPanel.setLayout(new BorderLayout(0, 0));
         JPanel workingPanel = new JPanel();
         joinPanel.add(workingPanel);
-        //workingPanel.setPreferredSize(this.getSize());
         workingPanel.setLayout(new BorderLayout(10,10));
-        //joinPanel.repaint();
-//        //repaint();
         joinPanel.setBorder(new EmptyBorder(50, 110, 50, 110) );
         //joinPanel.setLayout(new BoxLayout(joinPanel,BoxLayout.X_AXIS));
         
@@ -183,11 +166,10 @@ public class ServerBrowserView extends JFrame {
 
         // TODO get the name of the game and display it here
         DescriptionCardFactory fac = new DescriptionCardFactory();
-        JPanel cardPanel = new JPanel();
-        cardPanel.setLayout(new CardLayout());
-        cardPanel.setOpaque(false);
-        cardPanel.add(fac.createCard(),"panel 1");
-        workingPanel.add(cardPanel,BorderLayout.CENTER);
+        myCards.setLayout(new CardLayout());
+        myCards.setOpaque(false);
+        //myCards.add(fac.createCard(),"panel 1");
+        workingPanel.add(myCards,BorderLayout.CENTER);
         //workingPanel.add(createSpecificPanel(),BorderLayout.CENTER);
         workingPanel.setOpaque(false);
         getContentPane().add(joinPanel);
@@ -196,38 +178,6 @@ public class ServerBrowserView extends JFrame {
         //return joinPanel;
     }
     
-    private JPanel createDescriptionPanel(){
-        CardLayout myCards = new CardLayout();
-        JPanel Cards = new JPanel(myCards);
-        
-        
-        
-//        JPanel generalInfo = new JPanel();
-//        generalInfo.setLayout(new GridLayout(2,1,0,20));
-//        generalInfo.setOpaque(false);
-//        ImageIcon icon = new ImageIcon(this.getClass().getResource("../resources/Scroll.png"));
-//        Image img = icon.getImage();
-//        Image scaled = img.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
-//        JLabel c = new JLabel("Map info: ososososso");
-//        c.setHorizontalTextPosition(SwingConstants.CENTER);
-//        c.setVerticalTextPosition(SwingConstants.TOP);
-//        c.setAlignmentX(SwingConstants.TOP);
-//        c.setIcon(new ImageIcon(scaled));
-//        //new JLabel("Map: ",new ImageIcon(scaled),JLabel.TRAILING)
-//        generalInfo.add(c);
-//        JPanel description = new JPanel();
-//        description.setOpaque(false);
-//        generalInfo.add(description);
-//        description.setLayout(new GridLayout(3,1));
-//        description.add(new JLabel("Server: "),BorderLayout.SOUTH);
-//        description.add(new JLabel("Host: "),BorderLayout.SOUTH);
-//        description.add(new JLabel("Max Players: "),BorderLayout.SOUTH);
-
-        return generalInfo;
-    }
-    
-    
-
     private JPanel createHostPanel () {
         JPanel hostPanel = new JPanel();
         //add(hostPanel, BorderLayout.SOUTH);
