@@ -11,7 +11,7 @@ public class Tile {
     private boolean myIsWalkable;
     private boolean myIsBuildable;
     private Point myCenter;
-    private GameElement myTower;
+    private GameElement myElement;
 
     public Tile (Point center, boolean walkable, boolean buildable) {
         myIsWalkable = walkable;
@@ -20,13 +20,21 @@ public class Tile {
     }
 
     public void update (double elapsedTime) {
-        if (myTower != null) {
-            myTower.update(elapsedTime);
+        if (myElement != null) {
+            myElement.update(elapsedTime);
         }
     }
     
     public Point getCenter() {
         return myCenter;
+    }
+    
+    public boolean containsElement() {
+        return myElement != null;
+    }
+    
+    public GameElement getElement() {
+        return myElement;
     }
 
     public void setWalkable (boolean walkable) {
@@ -46,13 +54,13 @@ public class Tile {
     }
 
     public void setTower (GameElement t) {
-        myTower = t;
+        myElement = t;
         setBuildable(false);
         setWalkable(false);
     }
 
     public void deleteTower () {
-        myTower = null;
+        myElement = null;
         setBuildable(true);
     }
     

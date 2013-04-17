@@ -10,5 +10,8 @@ public interface IThreadContainer {
 
     public void leaveLobby (ConnectionThread thread);
 
-    public void startGameServer ();
+    public void startGameServer (ConnectionThread thread);
+
+    public void requestLobbies (ConnectionThread thread, int startNumber, int endNumber);
+
 }
