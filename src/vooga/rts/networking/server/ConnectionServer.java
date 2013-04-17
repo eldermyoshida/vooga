@@ -26,17 +26,7 @@ public class ConnectionServer extends Thread {
     @Override
     public void run () {
         myServerAcceptingConnections = true;
-        ServerSocket serverSocket = null;
-        // TODO remove comment marks after example
-        /**
-         * try {
-         * serverSocket = new ServerSocket(PORT);
-         * }
-         * catch (IOException e1) {
-         * // TODO log file
-         * e1.printStackTrace();
-         * }
-         **/
+        ServerSocket serverSocket = null;    
 
         while (myServerAcceptingConnections) {
             try {

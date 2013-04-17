@@ -62,15 +62,16 @@ public class ConnectionThread extends Thread {
             // TODO repeated/bad code
             if ((obj = myInput.readObject()) != null && obj instanceof InitialConnectionMessage) {
                 Message message = (Message) obj;
-                myMessageServer.sendMessage(message, this);
+                myMessageServer.receiveMessageFromClient(message, this);
             } else {
                 myConnectionActive = false;
+                myMessageServer.removeConnection(this);
                 return;
             }
         while (myConnectionActive) {
                 if ((obj = myInput.readObject()) != null && obj instanceof Message) {
                     Message message = (Message) obj;
-                    myMessageServer.sendMessage(message, this);
+                    myMessageServer.receiveMessageFromClient(message, this);
                 }
             }  
         }
@@ -133,10 +134,6 @@ public class ConnectionThread extends Thread {
             e.printStackTrace();
 
         }
-    }
-    
-    public void sendErrorMessage (String error) {
-        // TODO
     }
 
     public int getID () {
