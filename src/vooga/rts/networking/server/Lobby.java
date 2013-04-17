@@ -3,7 +3,7 @@ package vooga.rts.networking.server;
 import java.util.HashMap;
 import java.util.Map;
 import vooga.rts.networking.communications.Message;
-import vooga.rts.networking.communications.server.ServerSystemMessage;
+import vooga.rts.networking.communications.clientmessages.ClientInfoMessage;
 
 public class Lobby implements IThreadContainer, IMessageReceiver {
     
@@ -21,8 +21,8 @@ public class Lobby implements IThreadContainer, IMessageReceiver {
     
     @Override
     public void sendMessage (Message message, ConnectionThread thread) {
-        if(message instanceof ServerSystemMessage) {
-            ServerSystemMessage systemMessage = (ServerSystemMessage) message;
+        if(message instanceof ClientInfoMessage) {
+            ClientInfoMessage systemMessage = (ClientInfoMessage) message;
             systemMessage.execute(thread, this);
         }
     }

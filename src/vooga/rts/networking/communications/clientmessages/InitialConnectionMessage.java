@@ -1,9 +1,9 @@
-package vooga.rts.networking.communications.server;
+package vooga.rts.networking.communications.clientmessages;
 
 import vooga.rts.networking.server.ConnectionThread;
 import vooga.rts.networking.server.IThreadContainer;
 
-public class InitialConnectionMessage extends ServerSystemMessage {
+public class InitialConnectionMessage extends ClientInfoMessage {
 
     private static final long serialVersionUID = -3741469544179563398L;
     private String myGameName;

@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import vooga.rts.networking.communications.Message;
-import vooga.rts.networking.communications.server.ServerSystemMessage;
+import vooga.rts.networking.communications.clientmessages.ClientInfoMessage;
 
 public class GameContainer implements IMessageReceiver, IThreadContainer {
 
@@ -32,8 +32,8 @@ public class GameContainer implements IMessageReceiver, IThreadContainer {
     
     @Override
     public void sendMessage (Message message, ConnectionThread thread) {
-        if(message instanceof ServerSystemMessage) {
-            ServerSystemMessage systemMessage = (ServerSystemMessage) message;
+        if(message instanceof ClientInfoMessage) {
+            ClientInfoMessage systemMessage = (ClientInfoMessage) message;
             systemMessage.execute(thread, this);
         }
     }
