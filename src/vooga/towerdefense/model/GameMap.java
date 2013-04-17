@@ -79,20 +79,6 @@ public class GameMap {
         }
     }
 
-    private void updateUnits (double elapsedTime) {
-        for (Unit unit : myUnits) {
-            unit.update(elapsedTime, null);
-        }
-    }
-
-    private void updateTiles (double elapsedTime) {
-        for (int i = 0; i < myGrid.length; ++i) {
-            for (int j = 0; j < myGrid[i].length; ++j) {
-                myGrid[i][j].update(elapsedTime);
-            }
-        }
-    }
-
     public void spawnUnit (Unit u) {
         myUnits.add(u);
     }
