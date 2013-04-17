@@ -61,17 +61,25 @@ public class EditableMap implements Serializable {
     
     public void initializeMap(int width, int height) {
         myNodeMatrix = new EditableNode[myXSize][myYSize];
+        
         for(int i =0 ; i<myXSize ; i++) {
             for(int j =0 ; j<myYSize ; j++) {
                 myNodeMatrix[i][j] = new EditableNode(i,j,width, height, false);
             }
         }
+        
         myPlayerLocations = new HashMap<Integer , Location>();
         myPlayerNumber = 0;
-        mySaver = new MapSaver();
+        myLayers = new HashMap<Integer , MapLayer>();
+        try {
+            mySaver = new MapSaver(this);
+        }
+        catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         myLoader = new MapLoader();
         
-        myLayers = new HashMap<Integer , MapLayer>();
     }
     
     public void initializeMap() {
@@ -141,7 +149,7 @@ public class EditableMap implements Serializable {
     
     public void save(File objectiveFile) { 
         try {
-            mySaver.generateMapFile(this, objectiveFile);
+            mySaver.generateMapFile(objectiveFile);
         }
         catch (IOException e) {
             // TODO Auto-generated catch block
@@ -242,7 +250,7 @@ public class EditableMap implements Serializable {
     }
 
     
-    public void ZoomIn() {
+    public void zoomIn() {
         for(int i =0 ; i<myXSize ; i++) {
             for(int j =0 ; j<myYSize ; j++) {
                 myNodeMatrix[i][j].ZoomIn();
@@ -251,7 +259,7 @@ public class EditableMap implements Serializable {
         
     }
 
-    public void ZoomOut() {
+    public void zoomOut() {
         for(int i =0 ; i<myXSize ; i++) {
             for(int j =0 ; j<myYSize ; j++) {
                 myNodeMatrix[i][j].ZoomOut();

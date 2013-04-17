@@ -133,7 +133,7 @@ public class MapPanel extends JComponent {
     }
 
     public void ZoomIn() {
-        myMap.ZoomIn();
+        myMap.zoomIn();
         myTileWidth = (int) (myTileWidth * ZOOM_RATE);
         myTileHeight = (int) (myTileHeight * ZOOM_RATE);
         setPanelSize();
@@ -141,7 +141,7 @@ public class MapPanel extends JComponent {
     }
 
     public void ZoomOut() {
-        myMap.ZoomOut();
+        myMap.zoomOut();
         myTileWidth = (int) (myTileWidth / ZOOM_RATE);
         myTileHeight = (int) (myTileHeight / ZOOM_RATE);
         setPanelSize();
