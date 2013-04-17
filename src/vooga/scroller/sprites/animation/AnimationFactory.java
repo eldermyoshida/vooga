@@ -15,31 +15,31 @@ import vooga.scroller.util.Pixmap;
  * @author Scott Valentine
  *
  */
-public class AnimationFactory {
+public interface AnimationFactory {
 
     /**
      * Generates animation states that can be used by sprites.
      * 
      * @return A List of all possible animation states.
      */
-    public List<AnimationState> generateAnimations () {
+    public List<AnimationState> generateAnimations (); 
         
-        List<AnimationState> res = new ArrayList<AnimationState>();
-        // TODO find better way to do this (maybe reflection).
-        
-        AnimationState stand = new Stand();
-        AnimationState right = new RightWalk();
-        AnimationState left = new LeftWalk();
-        AnimationState standRight = new RightStand();
-        AnimationState standLeft = new LeftStand();
-        
-        //res.add(stand);
-        res.add(right);
-        res.add(left);
-        //res.add(standRight);
-        //res.add(standLeft);
-        
-        return res;
-    }
+//        List<AnimationState> res = new ArrayList<AnimationState>();
+//        // TODO find better way to do this (maybe reflection).
+//        
+//        AnimationState stand = new Stand();
+//        AnimationState right = new RightWalk();
+//        AnimationState left = new LeftWalk();
+//        AnimationState standRight = new RightStand();
+//        AnimationState standLeft = new LeftStand();
+//        
+//        //res.add(stand);
+//        res.add(right);
+//        res.add(left);
+//        //res.add(standRight);
+//        //res.add(standLeft);
+//        
+//        return res;
+//    }
 
 }

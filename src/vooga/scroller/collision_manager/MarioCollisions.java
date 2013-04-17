@@ -52,18 +52,28 @@ public class MarioCollisions {
                 break;
             case BOTTOM:
                 mario.setCenter(mario.getX(), sprite.getBottom() + (mario.getHeight() / 2));
-                // mario.addVector(force);
+                
+                
+                Vector up = mario.getVelocity().getComponentVector(Sprite.UP_DIRECTION);
+                up.negate();
+                mario.addVector(up);
+
+                
 
                 break;
             case LEFT:
                 mario.setCenter(sprite.getLeft() - (mario.getWidth() / 2), mario.getY());
-                // mario.addVector(force);
+                Vector l = mario.getVelocity().getComponentVector(Sprite.LEFT_DIRECTION);
+                l.negate();
+                mario.addVector(l);
 
                 break;
             case RIGHT:
                 mario.setCenter(sprite.getRight() + (mario.getWidth() / 2), mario.getY());
 
-                // mario.addVector(force);
+                Vector r = mario.getVelocity().getComponentVector(Sprite.RIGHT_DIRECTION);
+                r.negate();
+                mario.addVector(r);
 
                 break;
             default:
