@@ -1,4 +1,4 @@
-package vooga.rts.networking.client;
+package vooga.rts.networking.server.GUI;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -14,6 +14,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import javax.swing.AbstractAction;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -35,9 +36,10 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.SwingWorker;
 import javax.swing.border.EmptyBorder;
+import vooga.rts.networking.logger.NetworkLogger;
 
 
-public class ServerBrowserView extends JFrame {
+public class ServerBrowser extends JFrame {
     
     private static final long serialVersionUID = -4494998676210936451L;
     private JTable myServerListTable;
@@ -45,13 +47,13 @@ public class ServerBrowserView extends JFrame {
                                         "Scroll2.jpg", "Scroll3.jpg","Scroll.png", "Scroll1.jpg",
                                         "Scroll2.jpg", "Scroll3.jpg"};
     private JToolBar myBar = new JToolBar();
-    private static final Font DEFAULT_FONT = new Font("Helvetica", Font.PLAIN,20);
+    
     private JPanel myCards = new JPanel();
-
+    
     /**
      * Create the panel.
      */
-    public ServerBrowserView () {
+    public ServerBrowser () {
 
         this.setPreferredSize(new Dimension(800,600));
 
@@ -65,7 +67,7 @@ public class ServerBrowserView extends JFrame {
 
     }
     
-    private JComponent setToolBar(){
+    protected JComponent setToolBar(){
         myBar.add(Box.createGlue());
         myBar.add(Box.createGlue());
         myBar.setOpaque(false);
@@ -77,27 +79,19 @@ public class ServerBrowserView extends JFrame {
         return scroll;
     }
     
-    private SwingWorker<Void,ThumbnailAction> imageLoader = new SwingWorker<Void,ThumbnailAction>() {
-        
+    protected SwingWorker<Void,ThumbnailAction> imageLoader = new SwingWorker<Void,ThumbnailAction>() {
+
         @Override
         protected Void doInBackground () throws Exception {
             for (int i = 0; i < imageFileNames.length; i++) {
                 ImageIcon icon;
-                icon = new ImageIcon(this.getClass().getResource("../resources/" + imageFileNames[i]));
-                 
-                ThumbnailAction thumbAction = null;
-                if(icon != null){
-                     
-                    ImageIcon thumbnailIcon = new ImageIcon(getScaledImage(icon.getImage(),80));
-                    thumbAction = new ThumbnailAction("panel "+i, thumbnailIcon);
-                    myCards.add("panel "+i,DescriptionCardFactory.createCard("../resources/" + imageFileNames[i]));
-                    
-                } 
-//                }else{
-//                     the image failed to load for some reason
-//                     so load a placeholder instead
-//                    thumbAction = new ThumbnailAction(placeholderIcon, placeholderIcon);
-//                }
+
+                icon = new ImageIcon(this.getClass().getResource("../../resources/" + imageFileNames[i]));
+                ThumbnailAction thumbAction = null;      
+                ImageIcon thumbnailIcon = new ImageIcon(ImageHelper.getScaledImage(icon.getImage(),80));
+                thumbAction = new ThumbnailAction("panel "+i, thumbnailIcon);
+                myCards.add("panel "+i,DescriptionCardFactory.getInstance().createCard("../../resources/" + imageFileNames[i]));
+
                 publish(thumbAction);
             }
             return null;
@@ -116,15 +110,6 @@ public class ServerBrowserView extends JFrame {
         
         
     };
-    
-    public Image getScaledImage(Image image,int size){
-        BufferedImage buffer = new BufferedImage(size,size,BufferedImage.TYPE_INT_RGB);
-        Graphics2D g2 = buffer.createGraphics();
-        g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-        g2.drawImage(image, 0, 0, size, size, null);
-        g2.dispose();
-        return buffer;
-    }
     
     private class ThumbnailAction extends AbstractAction{
         
@@ -155,49 +140,18 @@ public class ServerBrowserView extends JFrame {
 
     private void createJoinPanel () {
         BackgroundPanel joinPanel = new BackgroundPanel();
-        joinPanel.setLayout(new BorderLayout(0, 0));
         JPanel workingPanel = new JPanel();
         joinPanel.add(workingPanel);
         workingPanel.setLayout(new BorderLayout(10,10));
-        joinPanel.setBorder(new EmptyBorder(50, 110, 50, 110) );
-        //joinPanel.setLayout(new BoxLayout(joinPanel,BoxLayout.X_AXIS));
         
         workingPanel.add(setToolBar(),BorderLayout.SOUTH);
 
         // TODO get the name of the game and display it here
-        DescriptionCardFactory fac = new DescriptionCardFactory();
         myCards.setLayout(new CardLayout());
         myCards.setOpaque(false);
-        //myCards.add(fac.createCard(),"panel 1");
         workingPanel.add(myCards,BorderLayout.CENTER);
-        //workingPanel.add(createSpecificPanel(),BorderLayout.CENTER);
         workingPanel.setOpaque(false);
         getContentPane().add(joinPanel);
-        
-        
-        //return joinPanel;
-    }
-    
-    private JPanel createHostPanel () {
-        JPanel hostPanel = new JPanel();
-        //add(hostPanel, BorderLayout.SOUTH);
-        hostPanel.setLayout(new BorderLayout(0, 0));
-
-        JButton btnCreateNewServer = new JButton("Create New Server");
-        btnCreateNewServer.addActionListener(new ActionListener() {
-            public void actionPerformed (ActionEvent arg0) {
-            }
-        });
-        hostPanel.add(btnCreateNewServer, BorderLayout.WEST);
-        
-        JButton btnJoinServer = new JButton("Join Server");
-
-        btnJoinServer.addActionListener(new ActionListener() {
-            public void actionPerformed (ActionEvent arg0) {
-            }
-        });
-        hostPanel.add(btnJoinServer, BorderLayout.EAST);
-        return hostPanel;
     }
 
 }
