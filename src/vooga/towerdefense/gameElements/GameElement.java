@@ -1,3 +1,4 @@
+
 package vooga.towerdefense.gameElements;
 
 import java.awt.Dimension;
@@ -71,3 +72,4 @@ public class GameElement extends Sprite {
     }
 
 }
+
