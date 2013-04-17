@@ -71,7 +71,6 @@ public class ShopScreen extends JPanel {
             @Override
             public void mouseClicked (MouseEvent e) {
                 checkIfItemClickedOn(e.getPoint());
-                System.out.println("Clicked!");
             }
         };
     }
@@ -84,7 +83,6 @@ public class ShopScreen extends JPanel {
             Rectangle rect =
                     new Rectangle((int) x, (int) y, item.getWidth(), item.getHeight());
             if (rect.contains(point)) {
-                System.out.println("Rect has point!");
                 for (Map.Entry<String, Pixmap> entry : myShopItems.entrySet()) {
                     if (entry.getValue().equals(item)) {
                         myController.handleShopClickOnItem(entry.getKey());

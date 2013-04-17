@@ -75,9 +75,10 @@ public class MapsSelectorScreen extends SelectScreen {
     }
 
     @Override
-    public void paint (Graphics pen) {
+    public void paintComponent (Graphics pen) {
         super.paintComponent(pen);
         displayImages((Graphics2D) pen);
+        myNextScreenButton.setVisible(true);
     }
 
     private void setInputListener () {
