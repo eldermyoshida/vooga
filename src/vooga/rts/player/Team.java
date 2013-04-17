@@ -2,7 +2,8 @@ package vooga.rts.player;
 
 import java.util.ArrayList;
 import java.util.List;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Units;
+
+import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Unit;
 
 public class Team {
 
@@ -19,8 +20,8 @@ public class Team {
         p.setTeamID(myID);
     }
     
-    public List<Units> getUnits() {
-        List<Units> res = new ArrayList<Units>();
+    public List<Unit> getUnits() {
+        List<Unit> res = new ArrayList<Unit>();
         for (Player p : myPlayers) {
             res.addAll(p.getUnits().getAllUnits());
         }

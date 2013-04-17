@@ -11,7 +11,15 @@ public class PositionObject extends ActionObject {
 		this(x, y, 0);
 	}
 	
-	public PositionObject(double x, double y, double z) {
+	/* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString () {
+        return "PositionObject [myX=" + myX + ", myY=" + myY + ", myZ=" + myZ + "]";
+    }
+
+    public PositionObject(double x, double y, double z) {
 		myX = x;
 		myY = y;
 		myZ = z;

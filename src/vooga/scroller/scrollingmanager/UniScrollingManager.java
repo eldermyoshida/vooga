@@ -8,7 +8,6 @@ import java.awt.Image;
 import util.Location;
 import vooga.scroller.model.Model;
 import vooga.scroller.sprites.superclasses.Player;
-import vooga.scroller.util.PlatformerConstants;
 import vooga.scroller.view.View;
 /**
  * This manager prevents players from scrolling in a directing but so far EX like Mario

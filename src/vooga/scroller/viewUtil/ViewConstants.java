@@ -13,7 +13,7 @@ public class ViewConstants {
     /**
      * The size for Window objects
      */
-    public static final Dimension DEFAULT_WINDOW_SIZE = new Dimension(1100, 760);
+    public static final Dimension DEFAULT_WINDOW_SIZE = new Dimension(1100, 700);
 
     /**
      * The size for TabView objects

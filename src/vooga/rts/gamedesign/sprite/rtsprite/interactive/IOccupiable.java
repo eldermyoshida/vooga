@@ -1,5 +1,7 @@
 package vooga.rts.gamedesign.sprite.rtsprite.interactive;
 
+import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Unit;
+
 /**
  * 
  * @author Ryan Fishel
@@ -9,4 +11,6 @@ package vooga.rts.gamedesign.sprite.rtsprite.interactive;
  *
  */
 public interface IOccupiable {
+	
+	public void getOccupied(Unit u);
 }

@@ -123,9 +123,14 @@ public class RadioGroup extends JPanel {
     private void applyLayout() {
 //        this.setPreferredSize(new Dimension(150, 100));
 //        this.setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
-        this.setLayout(new GridLayout(0, 4));//TODO - Generalize
+        this.setLayout(new GridLayout(0, getButtonsPerRow()));
     }
     
+    private int getButtonsPerRow () {
+        // TODO Auto-generated method stub
+        return 4;
+    }
+
     private void add (JToggleButton b) {
         super.add(b);
         myButtons.add(b);

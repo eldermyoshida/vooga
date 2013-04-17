@@ -6,14 +6,13 @@ import java.awt.Image;
 import java.util.Arrays;
 import java.util.List;
 import util.Location;
+import util.Secretary;
 import vooga.scroller.level_management.LevelManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.animation.Animation;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.sprites.test_sprites.mario.Mario;
-import vooga.scroller.util.Secretary;
 import vooga.scroller.view.View;
-
 
 
 /**
@@ -27,16 +26,22 @@ import vooga.scroller.view.View;
 
 public class Model {
 
+    //private static final String SPLASH_CONTROLS = "vooga/scroller/resources/controls/SplashMapping";
+    
+    
+    private static final int DEFAULT_START_LEVEL_ID = 0;
+
+    
     private View myView;
     private Player myPlayer;
 
-    // This is weird how it works. I think you just need to instantiate it(see constructor)
-    private ModelInputs myInputs;
     private LevelManager myLevelManager;
     private ScrollingManager myScrollingManager;
     private Secretary mySecretary;
     private List<String> spriteStrings = Arrays.asList("Mario mario", "Koopa koopa", "Coin coin",
                                                        "MarioLib.MovingPlatform movingPlatform"); 
+    //If I could use reflection to look through the interfaces package and then generate the VisitMethods.java file, that would be BOMB! 
+    
     private static final String PART_ONE = "public void visit (";
     private static final String PART_TWO = ") {}";
     private static final String COMMA = ", ";
@@ -50,14 +55,22 @@ public class Model {
     public Model (View view, ScrollingManager sm) {
         myScrollingManager = sm;
         myView = view;
-        initPlayer();
-        myInputs = new ModelInputs(myPlayer, view);
-        myLevelManager = new LevelManager(myScrollingManager, view);
-        myLevelManager.currentLevel().addPlayer(myPlayer);
-        mySecretary = new Secretary();
-        generateVisitMethods(spriteStrings);
         
+        initPlayer();
+        
+        myScrollingManager.initGame(this);
+        myScrollingManager.initView(view);
+        
+        myLevelManager = new LevelManager(myScrollingManager, myView);
+        myLevelManager.currentLevel().addPlayer(myPlayer);
+
+//        myLevelManager.setCurrentLevel(DEFAULT_START_LEVEL_ID);
+        
+        mySecretary = new Secretary();
+        generateVisitMethods(spriteStrings);  
     }
+
+
 
     /**
      * User defined player initialization.
@@ -78,6 +91,8 @@ public class Model {
     public void paint (Graphics2D pen) {
         myLevelManager.currentLevel().paint(pen);
         
+        
+        
     }
 
     /**
@@ -86,7 +101,9 @@ public class Model {
      * @param elapsedTime is the elapsed time since the last update.
      */
     public void update (double elapsedTime) {
+
         myLevelManager.currentLevel().update(elapsedTime, myView.getSize(), myView);
+
     }
 
     /**
@@ -118,6 +135,10 @@ public class Model {
         return myLevelManager.currentLevel().getBackground();
     }
     
+    public Player getPlayer(){
+        return myPlayer;
+    }
+    
     
     /**
      * This method is a helper I created to generate all the visit methods CollisionManager 
@@ -132,9 +153,10 @@ public class Model {
      * @author Jay Wang
      */
     private void generateVisitMethods (List<String> spriteStrings) {
-        for (String firstSpriteString : spriteStrings) {
-            for (String secondSpriteString : spriteStrings) {
-                mySecretary.write(PART_ONE + firstSpriteString + COMMA + secondSpriteString + PART_TWO);
+        for (int i = 0; i < spriteStrings.size(); i++) {
+            for (int j = i+1; j < spriteStrings.size(); j++) {
+                
+                mySecretary.write(PART_ONE + spriteStrings.get(i) + COMMA + spriteStrings.get(j) + PART_TWO);
             }
         }        
     }

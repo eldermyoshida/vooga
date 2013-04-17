@@ -36,20 +36,19 @@ public abstract class Sprite {
     private Rectangle myBounds;
     private Location myLastLocation;
     private Location myLastLocation2;
-    private int health;
     //private ISpriteView myDefaultImage;// ??
     
     /**
      * Create a shape at the given position, with the given size.
      */
-    public Sprite (ISpriteView image, Location center, Dimension size, int health) {
-        this(image, center, size, new Vector(), health);
+    public Sprite (ISpriteView image, Location center, Dimension size) {
+        this(image, center, size, new Vector());
     }
 
     /**
      * Create a shape at the given position, with the given size, velocity, and color.
      */
-    public Sprite (ISpriteView image, Location center, Dimension size, Vector velocity, int health) {
+    public Sprite (ISpriteView image, Location center, Dimension size, Vector velocity) {
         // make copies just to be sure no one else has access
         
         mySize = size;
@@ -61,7 +60,6 @@ public abstract class Sprite {
         myOriginalVelocity = new Vector(velocity);
         reset();
         resetBounds();
-        this.health = health;
     }
     
     public Sprite copy(){
@@ -173,23 +171,23 @@ public abstract class Sprite {
     /**
      * Returns the health of the sprite.
      */
-    public int getHealth () {
-        return health;
-    }
-    
-    /**
-     * Reduces the health of sprite by 1.
-     */
-    public void takeHit () {
-        health--;
-    }
-    
-    /**
-     * Reduces the health of the sprite by hit.
-     */
-    public void takeHit (int hit) {
-        health -= hit;
-    }
+//    public int getHealth () {
+//        return health;
+//    }
+//    
+//    /**
+//     * Reduces the health of sprite by 1.
+//     */
+//    public void takeHit () {
+//        health--;
+//    }
+//    
+//    /**
+//     * Reduces the health of the sprite by hit.
+//     */
+//    public void takeHit (int hit) {
+//        health -= hit;
+//    }
 
     /**
      * Scales shape's size by the given factors.
@@ -354,6 +352,15 @@ public abstract class Sprite {
     
     public void addVector(Vector force) {
         myVelocity.sum(force);
+    }
+
+    public int getHealth () {
+        // TODO Auto-generated method stub
+        return 1;
+    }
+    
+    public void setHealth(int i){
+        //TODO: 
     }
 }
 

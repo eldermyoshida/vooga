@@ -11,6 +11,7 @@ import util.Location;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.util.Editable;
 import vooga.scroller.util.Sprite;
+import vooga.scroller.view.View;
 import vooga.scroller.viewUtil.Renderable;
 
 
@@ -87,10 +88,23 @@ public class LEGrid implements Editable, Renderable, Scrollable {
         //TODO
     }
     
-    public Level createLevel (int id) {
+    public Set<SpriteBox> getBoxes() {
+        return myPaintableBoxes;
+    }
+    
+    /**
+     * TODO - Moving this responsibility to Level
+     * @param id
+     * @param sm
+     * @param v
+     * @return
+     */
+    public Level createLevel (int id, 
+                              ScrollingManager sm,
+                              View v) {
         //TODO need to refactor. Editable Level.
-        Level lev = new Level(id);
-        for (SpriteBox box : myPaintableBoxes) {
+        Level lev = new Level(id, sm, v);
+        for (SpriteBox box : getBoxes()) {
             lev.addSprite(box.getSprite());
         }
         return lev;
@@ -188,6 +202,11 @@ public class LEGrid implements Editable, Renderable, Scrollable {
                                      mySize.height*DEFAULT_SPRITE_SIZE);
         
         return res;
+    }
+
+    public boolean isValidForSimulation () {
+        // TODO Check for valid starting and exit points.
+        return false;
     }
 
     

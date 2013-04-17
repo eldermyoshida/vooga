@@ -1,4 +1,3 @@
-
 package util;
 
 import java.awt.Graphics2D;
@@ -8,7 +7,7 @@ import java.awt.geom.Point2D;
 import java.awt.geom.AffineTransform;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-
+import vooga.fighter.util.Paintable;
 
 /**
  * This class represents an image on the screen and 
@@ -19,10 +18,11 @@ import javax.swing.ImageIcon;
  * @author Robert C. Duvall, Dagbedji F
  * Added get icon
  */
-public class Pixmap {
+public class Pixmap implements Paintable {
     // OS-independent relative resource locations (like URLs)
-    private static final String RESOURCE_LOCATION = "/vooga/scroller/images/";
+    private static final String RESOURCE_LOCATION = "/vooga/";
     // underlying implementation
+
     private java.awt.Image myImage;
     private String myFileName;
 
@@ -69,10 +69,7 @@ public class Pixmap {
         // draw as usual (i.e., rotated)
         pen.drawImage(myImage, -size.width / 2, -size.height / 2, size.width, size.height, null);
         // restore graphics area to its old state, so our changes have no lasting effects
-        pen.setTransform(old);
-    }
-    
-    public Image getImg() {
-        return myImage;
-    }
+		pen.setTransform(old);
+	}
+
 }

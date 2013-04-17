@@ -21,13 +21,14 @@ public class LEMenuBar extends MenuBarView {
      */
     private static final long serialVersionUID = -2714084580594858599L;
 
+    private LEditorActionLibrary myLib;
     private List<JMenu> myMenus;
     
     /**
      * Attach the menu to the specified window
      * @param window - window which is accessible via this menu
      */
-    public LEMenuBar (Window window) {
+    public LEMenuBar (LEView window) {
         super(window);
     }
 
@@ -48,18 +49,26 @@ public class LEMenuBar extends MenuBarView {
         result.setEnabled(true);
         return result;
     }
+    
+    private JMenu makeSimulateMenu () {
+        JMenu result = new JMenu(Window.getResources().getString("SimulateMenu"));
+        result.setMnemonic(KeyEvent.VK_F2);
+        result.add(myLib.new SimulateAction());
+        result.setEnabled(false);
+        return result;
+    }
 
     @Override
     protected void addCustomMenus () {
         myMenus = new ArrayList<JMenu>();
         addCustomMenu(makePreferencesMenu());
         addCustomMenu(makeHelpMenu());
+        addCustomMenu(makeSimulateMenu());
     }
 
     private void addCustomMenu (JMenu cm) {
         myMenus.add(cm);
         this.add(cm);
-        
     }
 
     /**
@@ -68,6 +77,13 @@ public class LEMenuBar extends MenuBarView {
     @Override
     protected List<JMenu> getWorkspaceMenus () { 
         return myMenus;
+    }
+
+    @Override
+    protected void setSpecializedWindow (Window w) {
+        // TODO Auto-generated method stub
+        myLib = new LEditorActionLibrary((LEView)w);
+        
     }
 
 }
