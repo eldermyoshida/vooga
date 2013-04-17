@@ -111,4 +111,8 @@ public abstract class Player extends Sprite {
     public Location getOriginalLocation() {
         return myOriginalLocation;
     }
+    
+    public Dimension getSize() {
+        return mySize;
+    }
 }

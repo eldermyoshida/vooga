@@ -122,6 +122,7 @@ public class Level implements Editable, Renderable {
 //            System.out.println(myPlayer.getPaintLocation());
             updateFrames(view);
             myPlayer.update(elapsedTime, bounds);
+            checkPlayerOutOfBounds();
             if (myPlayer.getHealth() <= 0) {
                 System.err.println("MARIO HAS DIED!!!!");
                 endGame();
@@ -135,6 +136,31 @@ public class Level implements Editable, Renderable {
             }
             intersectingSprites();
         }
+    }
+
+    private void checkPlayerOutOfBounds () {
+        double xCoord = myPlayer.getX();
+        double yCoord = myPlayer.getY();
+        double rightLevelBounds = mySize.getWidth();
+        double leftLevelBounds = 0;
+        double upperLevelBounds = 0;
+        double lowerLevelBounds = mySize.getHeight();
+        if(xCoord >= rightLevelBounds){
+            xCoord = rightLevelBounds - (myPlayer.getSize().getWidth()/2);
+            myPlayer.setCenter(xCoord, yCoord);
+        }
+        if(xCoord <= leftLevelBounds){
+            xCoord = leftLevelBounds + (myPlayer.getSize().getWidth()/2);
+            myPlayer.setCenter(xCoord, yCoord);
+        }
+        if(yCoord <= upperLevelBounds){
+            yCoord = upperLevelBounds + (myPlayer.getSize().getHeight()/2);
+            myPlayer.setCenter(xCoord, yCoord);
+        }
+        if(yCoord >= lowerLevelBounds){
+            yCoord = upperLevelBounds - (myPlayer.getSize().getHeight()/2);
+            myPlayer.setCenter(xCoord, yCoord);
+        }        
     }
 
     @Override
