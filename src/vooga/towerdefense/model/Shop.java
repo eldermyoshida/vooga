@@ -54,4 +54,11 @@ public class Shop {
         return myShopItems.get(name);
     }
     
+    public Map<String, Pixmap> getAllShopItemIcons () {
+        Map<String, Pixmap> items = new HashMap<String, Pixmap> (); 
+        for (Map.Entry<String, GameElement> entry : myShopItems.entrySet()) {
+            items.put(entry.getKey(), entry.getValue().getPixmap());
+        }
+        return items;
+    }
 }

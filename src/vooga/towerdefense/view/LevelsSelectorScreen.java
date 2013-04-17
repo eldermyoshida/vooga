@@ -1,7 +1,6 @@
 package vooga.towerdefense.view;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -14,7 +13,6 @@ import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JButton;
-import javax.swing.JPanel;
 import vooga.towerdefense.util.Location;
 import vooga.towerdefense.util.Pixmap;
 
@@ -63,7 +61,8 @@ public class LevelsSelectorScreen extends SelectScreen {
         super.paintComponent(pen);
         displayImages((Graphics2D) pen);
     }
-    
+
+    @Override
     public void displayImages (Graphics2D pen) {
         for (Map.Entry<Pixmap, Rectangle> entry : myLevelsImages.entrySet()) {
             entry.getKey().paint(pen,
