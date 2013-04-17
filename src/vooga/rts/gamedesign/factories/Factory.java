@@ -43,7 +43,6 @@ import vooga.rts.gamedesign.upgrades.UpgradeTree;
  */
 
 public class Factory {
-	//BUGBUG: the file path will break code! :/ (two places: here and in main())
 
 	public static final String DECODER_MATCHING_FILE = "DecodeMatchUp";
 	Map<String, Decoder> myDecoders = new HashMap<String, Decoder>();
