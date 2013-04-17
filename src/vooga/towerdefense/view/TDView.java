@@ -111,7 +111,7 @@ public class TDView {
         myFrame.setVisible(true);
         
         //start game
-        myController.start();
+//        myController.start();
         
     }
 

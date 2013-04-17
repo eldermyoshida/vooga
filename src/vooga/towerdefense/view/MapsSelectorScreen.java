@@ -61,6 +61,7 @@ public class MapsSelectorScreen extends SelectScreen {
         return myNextScreenButton;
     }
 
+    // TODO placeholder! Creation of Pixmaps needs to be cleaned up
     private void initMapImages () {
         myMap1 = new Pixmap("map1.gif");
         myMap2 = new Pixmap("map2.gif");

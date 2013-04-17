@@ -46,6 +46,7 @@ public class LevelsSelectorScreen extends SelectScreen {
         addMouseListener(myMouseListener);
     }
 
+    // TODO Placeholder!! Need to fix how images are created
     private void initLevelsImages () {
         myEasyLevel = new Pixmap("easy.gif");
         myMediumLevel = new Pixmap("medium.gif");
