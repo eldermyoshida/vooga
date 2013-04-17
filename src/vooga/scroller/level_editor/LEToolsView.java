@@ -80,6 +80,10 @@ public class LEToolsView extends WindowComponent {
         return selectedSprite;
     }
     
+    public int getSelectedTab() {
+        return myTabs.getSelectedIndex();
+    }
+    
     public void setTools(LETools t) {
         myTools = t;
     }
