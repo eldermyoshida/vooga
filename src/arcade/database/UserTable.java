@@ -97,7 +97,6 @@ public class UserTable extends Table {
             myResultSet  = myPreparedStatement.executeQuery();
             if (myResultSet.next()) {
                 if (myResultSet.getString(PASSWORD_COLUMN_INDEX).equals(password)) {
-                    System.out.println("passwords match");
                     return true;
                 }
             }
