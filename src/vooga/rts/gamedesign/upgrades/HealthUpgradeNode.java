@@ -9,26 +9,16 @@ import vooga.rts.gamedesign.sprite.InteractiveEntity;
 
 public class HealthUpgradeNode extends UpgradeNode {
 	
-	public HealthUpgradeNode(UpgradeTree upgradeTree, int id, String upgradeType, String upgradeObject, int upgradeValue){
-		super(upgradeTree, id, upgradeType, upgradeObject, upgradeValue);
+	public HealthUpgradeNode(UpgradeTree upgradeTree, int id, String upgradeType, int upgradeValue){
+		super(upgradeTree, id, upgradeType, upgradeValue);
 	}
-	
-	@Override
-	public void apply(int playerID) //TODO: figure out which one should actually be called under Action
-    		throws IllegalArgumentException, IllegalAccessException,
-    		InvocationTargetException, InstantiationException,
-    		SecurityException, NoSuchMethodException {
-		for (InteractiveEntity i: getUpgradeTree().getUsers().get(playerID)){
-	    	apply(i);
-	    }
-    }
 	
 	/**
 	 * Applies the upgrade to an individual InteractiveEntity by calling
 	 * related method.
 	 */
 	@Override
-	public void apply(InteractiveEntity requester) { //TODO: figure out which one should actually be called under Action
+	public void apply(InteractiveEntity requester) {
 		requester.addMaxHealth(getUpgradeValue());
 	}
 

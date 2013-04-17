@@ -25,27 +25,24 @@ public class UpgradeNode {
 	private UpgradeTree myUpgradeTree;
 	private Map<Resource, Integer> myCost;
     private String myUpgradeType;
-    private String myUpgradeProperty;
     private int myUpgradeValue;
     private boolean myHasBeenUpgraded;
     private List<UpgradeNode> myChildren; //set to list for the Head.
     private int myID;
 
     public UpgradeNode(){
-        this(null, 0, null, null, 0);
+        this(null, 0, null, 0);
     }
 
-    public UpgradeNode(UpgradeTree upgradeTree, int id, String upgradeType, String upgradeObject, int upgradeValue){
+    public UpgradeNode(UpgradeTree upgradeTree, int id, String upgradeType, int upgradeValue){
         myUpgradeTree = upgradeTree;
     	myID = id;
     	myUpgradeType = upgradeType;
         myChildren = new ArrayList<UpgradeNode>();
         myHasBeenUpgraded = false;
-        myUpgradeProperty = upgradeObject;
         myUpgradeValue = upgradeValue;
     }
-
-    //TODO: can refactor some subclass methods to here!
+    
     /**
      * Applies the effect of this Upgrade type to the given interactive.
      * @param interactive
@@ -60,10 +57,12 @@ public class UpgradeNode {
 			throws IllegalArgumentException, IllegalAccessException,
 			InvocationTargetException, InstantiationException,
 			SecurityException, NoSuchMethodException {
-    	return;
+    	for (InteractiveEntity i: getUpgradeTree().getUsers().get(playerID)){
+	    	apply(i);
+	    }
 	}
     
-    public void apply(InteractiveEntity requester) //TODO: figure out which one should actually be called under Action
+    public void apply(InteractiveEntity requester) 
     		throws IllegalArgumentException, IllegalAccessException,
     		InvocationTargetException, InstantiationException,
     		SecurityException, NoSuchMethodException {
@@ -94,10 +93,6 @@ public class UpgradeNode {
 
     public boolean getHasBeenUpgraded(){
         return myHasBeenUpgraded;
-    }
-
-    public String getUpgradeObject(){
-        return myUpgradeProperty;
     }
 
     public int getUpgradeValue(){

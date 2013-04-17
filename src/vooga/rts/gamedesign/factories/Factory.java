@@ -36,15 +36,16 @@ import vooga.rts.gamedesign.upgrades.UpgradeTree;
  *  of, and pass the information to the corresponding decoder. All the decoders
  *  are loaded through an input file.
  *  
- * @author Ryan Fishel
- * @author Kevin Oh
  * @author Francesco Agosti
  * @author Wenshun Liu 
  */
 
 public class Factory {
-
 	public static final String DECODER_MATCHING_FILE = "DecodeMatchUp";
+	public static final String DECODER_MATCHING_PAIR_TAG = "pair";
+	public static final String DECODER_MATCHING_DECODETYPE_TAG = "type";
+	public static final String DECODER_MATCHING_PATH_TAG = "decoderPath";
+	
 	Map<String, Decoder> myDecoders = new HashMap<String, Decoder>();
 	Map<String, Sprite> mySprites;
 	Map<String, Strategy> myStrategies;
@@ -108,16 +109,16 @@ public class Factory {
 		Document doc = db.parse(file);
 		doc.getDocumentElement().normalize();
 		
-		NodeList nodeLst = doc.getElementsByTagName("pair");
+		NodeList nodeLst = doc.getElementsByTagName(DECODER_MATCHING_PAIR_TAG);
 		
 		for (int i = 0; i < nodeLst.getLength(); i++) {
 			Element pairElmnt = (Element) nodeLst.item(i);
 			
-			Element typeElmnt = (Element)pairElmnt.getElementsByTagName("type").item(0);
+			Element typeElmnt = (Element)pairElmnt.getElementsByTagName(DECODER_MATCHING_DECODETYPE_TAG).item(0);
 			NodeList typeList = typeElmnt.getChildNodes();
 			String type = ((Node) typeList.item(0)).getNodeValue();
 			
-			Element pathElmnt = (Element)pairElmnt.getElementsByTagName("decoderPath").item(0);
+			Element pathElmnt = (Element)pairElmnt.getElementsByTagName(DECODER_MATCHING_PATH_TAG).item(0);
 			NodeList pathList = pathElmnt.getChildNodes();
 			String path = ((Node) pathList.item(0)).getNodeValue();
 			
@@ -149,7 +150,7 @@ public class Factory {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		printTree((UpgradeTree) result);
+		printTree((UpgradeTree) result); //testing in case of loading UpgradeTree
 		return (T) result;
 	}
 	
@@ -172,13 +173,13 @@ public class Factory {
 	/**
 	 * TESTING PURPOSE
 	 */
-	/**public static void main(String[] args) throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ParserConfigurationException, SAXException, IOException {
+	public static void main(String[] args) throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ParserConfigurationException, SAXException, IOException {
 		//loads Upgrade XML - creates tree - updates activate state
 		Factory factory = new Factory();
 
-		factory.loadXMLFile("src/vooga/rts/gamedesign/factories/Factory.xml");
+		factory.loadXMLFile("XML_Sample");
 
-		//creates an UpgradeBuilding
+		/**creates an UpgradeBuilding
 		UpgradeBuilding upgradeBuilding = new UpgradeBuilding();
 		
 		//creates two Units - adds upgrade Actions to the UpgradeBuilding
@@ -199,6 +200,6 @@ public class Factory {
 		Action WorstArmorAction = upgradeBuilding.findAction("Boost1");
 		//WorstArmorAction.apply();
 		System.out.println(oneUnit.getMaxHealth());
-		System.out.println(twoUnit.getMaxHealth());
-	}*/
+		System.out.println(twoUnit.getMaxHealth());*/
+	}
 }

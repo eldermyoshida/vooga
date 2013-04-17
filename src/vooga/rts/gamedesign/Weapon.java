@@ -128,6 +128,15 @@ public class Weapon {
     public int getRange(){
         return myRange;
     }
+    
+    /**
+     * Increases the range of the weapon
+     * @param range the amount of range to be increased
+     */
+    public void addRange(int range) {
+    	myRange += range;
+    }
+    
     /**
      * Updates the weapon so that the cooldown between attacks is decremented
      * and the projectiles are updated.

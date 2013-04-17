@@ -76,7 +76,7 @@ public class UpgradeTree {
     }
 
     public UpgradeNode addBranch (int ID, String branchName) {
-        UpgradeNode branch = new UpgradeNode(this, ID, branchName, null, 0);
+        UpgradeNode branch = new UpgradeNode(this, ID, branchName, 0);
         myHead.addChild(branch);
         return branch;
     }

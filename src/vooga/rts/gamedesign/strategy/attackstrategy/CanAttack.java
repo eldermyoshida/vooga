@@ -20,7 +20,8 @@ import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
  * 
  */
 public class CanAttack implements AttackStrategy {
-    private List<Weapon> myWeapons;
+    //TODO: add default Weapon when initialize.
+	private List<Weapon> myWeapons;
     private int myWeaponIndex;
     private boolean myCanAttack = true;
 
