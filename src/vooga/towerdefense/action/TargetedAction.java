@@ -3,8 +3,6 @@ package vooga.towerdefense.action;
 import java.util.ArrayList;
 import java.util.List;
 
-import vooga.towerdefense.attributes.TargetTracker;
-import vooga.towerdefense.attributes.Targetable;
 import vooga.towerdefense.gameElements.GameElement;
 
 /**
@@ -13,41 +11,51 @@ import vooga.towerdefense.gameElements.GameElement;
  * @author Xu Rui
  *
  */
-public class TargetedAction extends Action implements TargetTracker {
+public class TargetedAction extends Action {
     
-    protected List<Targetable> myTargets;
+    protected List<GameElement> myTargets;
 
     public TargetedAction (GameElement initiator) {
         super(initiator);
-        myTargets = new ArrayList<Targetable>();
+        myTargets = new ArrayList<GameElement>();
     }
     
-	@Override
-	public Targetable getTarget() {
+    public TargetedAction (GameElement initiator, GameElement target) {
+        super(initiator);
+        myTargets = new ArrayList<GameElement>();
+        myTargets.add(target);
+    }
+    
+    public TargetedAction (GameElement initiator, List<GameElement> targets) {
+        super(initiator);
+        myTargets = targets;
+    }
+    
+	
+	public GameElement getTarget() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
-	public void aimAtTarget() {
+	
+	public void aimAtTarget(GameElement element) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void actOnTarget() {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
+	
 	public void addTarget() {
 		myTargets.add(getTarget());
 		
 	}
 
-	@Override
-	public List<Targetable> getTargets() {
+	
+	public List<GameElement> getTargets() {
 		// TODO Auto-generated method stub
 		return null;
 	}

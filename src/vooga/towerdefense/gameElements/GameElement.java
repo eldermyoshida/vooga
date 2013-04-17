@@ -1,6 +1,7 @@
 package vooga.towerdefense.gameElements;
 
 import java.awt.Dimension;
+import java.util.ArrayList;
 import java.util.List;
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.attributes.AttributeManager;
@@ -18,8 +19,8 @@ import vooga.towerdefense.util.Sprite;
  */
 public class GameElement extends Sprite{
 
-    AttributeManager myAttributeManager;
-    List<Action> myActions;
+    protected AttributeManager myAttributeManager;
+    protected List<Action> myActions;
     
 
     public GameElement (Pixmap image,
@@ -35,6 +36,13 @@ public class GameElement extends Sprite{
     public GameElement (Pixmap image, Location center, Dimension size, List<Action> actions) {
         super(image, center, size);
         myActions = actions;
+        myAttributeManager = new AttributeManager();
+    }
+    
+    public GameElement (Pixmap image, Location center, Dimension size) {
+        super(image, center, size);
+        myActions = new ArrayList<Action>();
+        myAttributeManager = new AttributeManager();
     }
 
     public void update (double elapsedTime) {
