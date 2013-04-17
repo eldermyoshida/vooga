@@ -1,10 +1,10 @@
 package vooga.scroller.level_editor;
 
-import java.awt.Image;
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Map;
-import javax.swing.Icon;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -50,8 +50,9 @@ public class LEToolsView extends WindowComponent {
         myOtherUI = new JPanel();
         JPanel miscButtons = new RadioGroup(new SelectSpriteListener(),
                                             myTools.getMiscOptions());
-        initBackgroundButtons(myTools.getBackgrounds());
         myOtherUI.add(miscButtons);
+        myOtherUI.add(initBackgroundButtons(myTools.getBackgrounds()),BorderLayout.SOUTH);
+        
         myTabs.add(mySpriteUI, "Sprites");
         myTabs.add(myOtherUI, "Other");
         EasyGridFactory.layout(this, myTabs);
@@ -59,12 +60,13 @@ public class LEToolsView extends WindowComponent {
 
     private JPanel initBackgroundButtons (Map<Object, String> backgrounds) {
         JPanel backgroundButtons = new JPanel();
+        backgroundButtons.setLayout(new BoxLayout(backgroundButtons,BoxLayout.Y_AXIS));
         for (Object key : backgrounds.keySet()) {
             JButton currentButton = new JButton((ImageIcon) key);
             currentButton.addActionListener(new BackgroundListener(backgrounds.get(key)));
             backgroundButtons.add(currentButton);
         }
-        return null;
+        return backgroundButtons;
     }
 
     // @Override
