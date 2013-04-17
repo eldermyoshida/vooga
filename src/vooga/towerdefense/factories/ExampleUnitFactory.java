@@ -1,3 +1,4 @@
+
 package vooga.towerdefense.factories;
 
 import java.util.ArrayList;
@@ -31,8 +32,8 @@ public class ExampleUnitFactory extends UnitFactory {
         // TODO Auto-generated constructor stub
     }
     
-    public Unit createUnit(Location putHere){
-        GameElementDefinition myDefinition = getDefinition();
+    public Unit createUnit(Location putHere, TrollUnitDefinition myDef){
+        TrollUnitDefinition myDefinition = myDef;
         
         AttributeManager AM = new AttributeManager();
         AM.addAttribute(new Attribute(AttributeConstants.MOVE_SPEED, 50.0));
@@ -40,7 +41,7 @@ public class ExampleUnitFactory extends UnitFactory {
         AM.addAttribute(new Attribute(AttributeConstants.ATTACK_INTERVAL, 50.0));
         Unit myUnit;
         if(putHere != null) {
-            myUnit = new Unit(myDefinition.getImage(), 
+            myUnit = new Unit(myDefinition.myImage, 
                                    putHere, 
                                    myDefinition.getSize(), AM);
         }
@@ -59,5 +60,4 @@ public class ExampleUnitFactory extends UnitFactory {
     }
 
 }
-
 

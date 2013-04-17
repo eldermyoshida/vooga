@@ -3,6 +3,7 @@ package vooga.towerdefense.controller;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.util.Map;
 import vooga.towerdefense.controller.modes.BuildMode;
 import vooga.towerdefense.controller.modes.ControlMode;
 import vooga.towerdefense.controller.modes.SelectMode;
@@ -163,6 +164,14 @@ public class Controller {
     // System.out.println(center);
     // myView.getTowerInfoScreen().displayInformation(center.toString());
     // }
+    
+    /**
+     * starts the next wave in the model.
+     */
+    public void startNextWave() {
+        //TODO: implement next wave
+        System.out.println("Wave Started");
+    }
 
     /**
      * paints the ghost image of the item on the MapScreen
@@ -213,4 +222,13 @@ public class Controller {
     // myView.getTowerInfoScreen().displayInformation(center.toString());
     // }
 
+    /**
+     * 
+     * @return  a map of the elements in the shop 
+     * with String as a key and a Pixmap as the value
+     */
+    public Map<String, Pixmap> getShopItemIcons () {
+        return myModel.getShop().getAllShopItemIcons();
+    }
+    
 }

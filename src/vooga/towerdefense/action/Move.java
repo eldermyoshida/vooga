@@ -1,3 +1,4 @@
+
 package vooga.towerdefense.action;
 
 import vooga.towerdefense.attributes.Attribute;
@@ -29,3 +30,4 @@ public class Move extends Action {
     }
 
 }
+

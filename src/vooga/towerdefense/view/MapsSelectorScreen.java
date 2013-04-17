@@ -1,7 +1,6 @@
 package vooga.towerdefense.view;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -15,7 +14,6 @@ import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JButton;
-import javax.swing.JPanel;
 import vooga.towerdefense.util.Location;
 import vooga.towerdefense.util.Pixmap;
 
@@ -75,7 +73,7 @@ public class MapsSelectorScreen extends SelectScreen {
         myMapImages.put(myMap4, new Rectangle(new Point(450, 350), SIZE));
 
     }
-    
+
     @Override
     public void paint (Graphics pen) {
         super.paintComponent(pen);
@@ -117,6 +115,7 @@ public class MapsSelectorScreen extends SelectScreen {
         repaint();
     }
 
+    @Override
     public void displayImages (Graphics2D pen) {
         for (Map.Entry<Pixmap, Rectangle> entry : myMapImages.entrySet()) {
             entry.getKey().paint(pen,

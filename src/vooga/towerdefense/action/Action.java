@@ -32,6 +32,11 @@ public class Action {
         // initialize resources
     }
 
+    public GameElement getInitiator() {
+        return myInitiator;
+    }
+
+
     /**
      * executes action
      */
@@ -48,6 +53,7 @@ public class Action {
     public void markComplete () {
         complete = true;
     }
+
 
     public boolean isEnabled () {
         return enabled;
