@@ -7,35 +7,32 @@ import vooga.scroller.util.Sprite;
 
 public class ToolsManager {
 
-    ISpriteLibrary spriteLib;
-    IBackgroundLibrary backgroundLib;
-    Map<Integer, Sprite> spriteMap;
-    Map<String, Sprite> nameMap;
-    LETools viewTools;
+    private ISpriteLibrary mySpriteLib;
+    private IBackgroundLibrary myBackgroundLib;
+    private Map<Integer, Sprite> mySpriteMap;
+    private LETools myViewTools;
 
     public ToolsManager (ISpriteLibrary l) {
         this(l, new BackgroundLib(new String[0]));
     }
 
     public ToolsManager (ISpriteLibrary l, IBackgroundLibrary bgLib) {
-        backgroundLib = bgLib;
-        spriteLib = l;
+        myBackgroundLib = bgLib;
+        mySpriteLib = l;
         setTools();
     }
 
     private void setTools () {
         int i = 0;
-        spriteMap = new HashMap<Integer, Sprite>();
-        nameMap = new HashMap<String, Sprite>();
-        viewTools = new LETools();
-        viewTools.addBackgrounds(backgroundLib.getBackgrounds());
-        for (Class<? extends Sprite> c : spriteLib.getSpritesClasses()) {
+        mySpriteMap = new HashMap<Integer, Sprite>();
+        myViewTools = new LETools();
+        myViewTools.addBackgrounds(myBackgroundLib.getBackgrounds());
+        for (Class<? extends Sprite> c : mySpriteLib.getSpritesClasses()) {
             Sprite sprite;
             try {
                 sprite = (Sprite) c.newInstance();
-                spriteMap.put(i, sprite);
-                nameMap.put(c.getName(), sprite);
-                viewTools.addSpriteOption(sprite, i);
+                mySpriteMap.put(i, sprite);
+                myViewTools.addSpriteOption(sprite, i);
             }
             catch (InstantiationException e) {
                 e.printStackTrace();
@@ -48,14 +45,10 @@ public class ToolsManager {
     }
 
     public LETools getViewTools () {
-        return viewTools;
+        return myViewTools;
     }
 
     public Map<Integer, Sprite> getSpriteMap () {
-        return spriteMap;
-    }
-
-    public Map<String, Sprite> getNameMap () {
-        return nameMap;
+        return mySpriteMap;
     }
 }
