@@ -61,4 +61,24 @@ public class Team {
     public int getSize() {
         return myPlayers.size();
     }
+    
+    /**
+     * Provided a player, checks if the team contains that player.
+     * @param player
+     * @return
+     */
+    public boolean contains(Player player) {
+        if (myPlayers.contains(player)) {
+            return true;
+        }
+        return false;
+    }
+    
+    /**
+     * Removes the provided player from the team
+     * @param player
+     */
+    public void removePlayer(Player player) {
+        myPlayers.remove(player);
+    }
 }
