@@ -6,6 +6,9 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -87,7 +90,6 @@ public class ServerBrowser extends JFrame {
         for (JButton button : myCardMap.keySet()){        
             if (button.getActionCommand().equals(hostName)){
                 myBar.remove(button);
-                System.out.println("removing "+hostName);
                 card.removeLayoutComponent(myCardMap.get(button));
                 return;
             }

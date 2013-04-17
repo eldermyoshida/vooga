@@ -19,7 +19,7 @@ public class TestCamera {
     @Test
     public void TestBasicWorldtoScreen () {
         Location3D loc = new Location3D(0, 0, 0);
-        Location res = myCamera.worldToView(loc);
+        Location res = (Location) myCamera.worldToView(loc);
         System.out.println(res);
         assertEquals(res, new Location(0, 0));
     }
@@ -27,7 +27,7 @@ public class TestCamera {
     @Test
     public void TestPositiveWorldtoScreen () {
         Location3D loc = new Location3D(100, 50, 0);
-        Location res = myCamera.worldToView(loc);
+        Location res = (Location) myCamera.worldToView(loc);
         System.out.println(res);
         //assertEquals(res, new Location(0, 0));
     }

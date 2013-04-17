@@ -5,8 +5,9 @@ import vooga.rts.networking.communications.clientmessages.HostDescriptionMessage
 
 public class TestMain {
 
-    public TestMain () {
-    }
+    private String[] imageFileNames = { "Scroll.png", "Scroll1.jpg",
+                                        "Scroll2.jpg", "Scroll3.jpg","Scroll.png", "Scroll1.jpg",
+                                        "Scroll2.jpg", "Scroll3.jpg"};
 
     public static void main(String[] args) {
         String[] imageFileNames = { "Scroll.png", "Scroll1.jpg",

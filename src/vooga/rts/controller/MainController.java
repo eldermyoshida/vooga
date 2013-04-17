@@ -17,6 +17,7 @@ import vooga.rts.resourcemanager.ResourceLoader;
 import vooga.rts.resourcemanager.ResourceManager;
 import vooga.rts.resourcemanager.SoundLoader;
 import vooga.rts.util.FrameCounter;
+import vooga.rts.util.Location;
 
 public class MainController extends AbstractController implements Observer {
 
@@ -63,7 +64,7 @@ public class MainController extends AbstractController implements Observer {
 
 		setActiveController(myLoadingController);
 
-		myFrames = new FrameCounter();
+		myFrames = new FrameCounter(new Location(100, 50));
 
 		myTimer = new Timer((int) Game.TIME_PER_FRAME(), new ActionListener() {
 			@Override
