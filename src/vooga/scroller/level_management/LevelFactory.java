@@ -45,8 +45,8 @@ public class LevelFactory {
         // TODO: fix this
         splash.addManager(myLevelManager);
         
-//        Level level1 = hardcodeLevel1(view, myScrollingManager, 1);
-        Level level1 = getLevelFromFile("createdLevel.level", 1, mySM, view);
+//        Level level1 = hardcodeLevel1(view, mySM, 1);
+        Level level1 = getLevelFromFile("createdLevelupg.level", 1, mySM, view);
 
         // TODO: this will ideally read in levels from file and create instances of each level
         // This works for demo

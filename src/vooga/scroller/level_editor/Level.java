@@ -249,7 +249,7 @@ public class Level implements Editable, Renderable {
 
        mySprites.add(myPlayer);
         for (int i = 0; i < mySprites.size(); i++) {
-            for (int j = i + 1; j < mySprites.size(); j++) {     
+            for (int j = 0; j < mySprites.size(); j++) {     
                 obj1 = mySprites.get(i);
                 obj2 = mySprites.get(j);
                 if (obj1.intersects(obj2)) {

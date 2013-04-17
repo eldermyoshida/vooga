@@ -60,7 +60,7 @@ public class VisitMethods {
 
     public void visit (Mario mario, MarioLib.Platform platform) {
         collisions.marioAndNonStaticEntityCollision(mario, platform);
-        System.out.println("Mario has just collided with Platform!");
+        System.out.println("********Mario has just collided with Platform!");
         
     }
 
