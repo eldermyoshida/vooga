@@ -30,6 +30,9 @@ public class Model {
     //private static final String SPLASH_CONTROLS = "vooga/scroller/resources/controls/SplashMapping";
     
     
+    private static final int DEFAULT_START_LEVEL_ID = 0;
+
+    
     private View myView;
     private Player myPlayer;
 
@@ -42,8 +45,6 @@ public class Model {
     private static final String PART_TWO = ") {}";
     private static final String COMMA = ", ";
     
-    private Input myInput;
-    
     /**
      * Constructs a new Model based on the view and the scrolling manager used by the game.
      * 
@@ -51,11 +52,8 @@ public class Model {
      * @param myScrollingManager used to control in-game scrolling.
      */
     public Model (View view, ScrollingManager sm) {
-       //myInput = new Input(SPLASH_CONTROLS, view); 
         myScrollingManager = sm;
         myView = view;
-        //myInputs = new SplashInputs(this, myView);
-        //mySplash = new Pixmap("MARIO SPLASH.png"); 
         
         initPlayer();
         
@@ -63,8 +61,10 @@ public class Model {
         myScrollingManager.initView(view);
         
         myLevelManager = new LevelManager(myScrollingManager, myView);
-        
         myLevelManager.currentLevel().addPlayer(myPlayer);
+
+        myLevelManager.setCurrentLevel(DEFAULT_START_LEVEL_ID);
+        
         mySecretary = new Secretary();
         generateVisitMethods(spriteStrings);  
     }

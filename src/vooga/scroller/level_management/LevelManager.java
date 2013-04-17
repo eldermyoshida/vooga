@@ -15,7 +15,7 @@ import vooga.scroller.level_editor.Level;
  */
 public class LevelManager {
 
-    private static final int DEFAULT_START_LEVEL_ID = 0;
+    private static final String DEFAULT_INPUT_CONTROLS = "vooga/scroller/resources/controls/SplashMapping";
     
     private Input myInput;
     private Map<Integer,Level> myLevels;
@@ -29,9 +29,9 @@ public class LevelManager {
     public LevelManager(ScrollingManager myScrollingManager, View view) {        
         LevelFactory lf = new LevelFactory(this);
         myLevels = lf.generateLevels(myScrollingManager, view);        
-        myCurrentLevel = myLevels.get(DEFAULT_START_LEVEL_ID);         
-        myInput = new Input(myCurrentLevel.getInputPath(), view);
-        myCurrentLevel.addInputListeners(myInput);
+        //myCurrentLevel = myLevels.get(DEFAULT_START_LEVEL_ID);         
+        myInput = new Input(DEFAULT_INPUT_CONTROLS, view);
+        myCurrentLevel = myLevels.get(1);
     }
     
     /**
@@ -49,11 +49,16 @@ public class LevelManager {
      * @param id of the level to become the current level.
      */
     public void setCurrentLevel(int id) {
-        myCurrentLevel.removeInputListeners(myInput);
-        Player p = myCurrentLevel.getPlayer();
-        myCurrentLevel = myLevels.get(id);
-        myCurrentLevel.addPlayer(p);
-        myInput.overrideSettings(myCurrentLevel.getInputPath());
+        if(myCurrentLevel != null){
+            myCurrentLevel.removeInputListeners(myInput);
+            Player p = myCurrentLevel.getPlayer();
+            myCurrentLevel = myLevels.get(id);
+            myCurrentLevel.addPlayer(p);
+        }
+        else{
+            myCurrentLevel = myLevels.get(id);
+        }
+        myCurrentLevel.addInputListeners(myInput);
     }
 }
 

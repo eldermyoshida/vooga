@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import util.Location;
 import util.ValueText;
 import util.Vector;
+import vooga.scroller.level_management.IInputListener;
 import vooga.scroller.sprites.state.StateManager;
 import vooga.scroller.statistics.PlayerScore;
 import vooga.scroller.statistics.Statistic;
@@ -31,7 +32,7 @@ import vooga.scroller.view.View;
  * @author Jay Wang, Ross Cahoon
  * 
  */
-public abstract class Player extends Sprite {
+public abstract class Player extends Sprite implements IInputListener{
 
     // Graphics2D pen;
     private View myView;

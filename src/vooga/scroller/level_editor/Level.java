@@ -16,6 +16,7 @@ import vooga.scroller.collision_manager.CollisionManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.superclasses.NonStaticEntity;
 import vooga.scroller.sprites.superclasses.Player;
+import vooga.scroller.sprites.test_sprites.mario.Mario;
 import vooga.scroller.util.PlatformerConstants;
 import vooga.scroller.view.View;
 
@@ -290,14 +291,6 @@ public class Level implements Editable, Renderable {
         return myPlayer;
     }
 
-    /**
-     * Gives the path to the input resource file specifying the inputs for this level.
-     * 
-     * @return file path for input mappings.
-     */
-    public String getInputPath () {
-        return myInputMapping;
-    }
 
     /**
      * adds listeners to all level elements that are controllable
@@ -305,18 +298,18 @@ public class Level implements Editable, Renderable {
      * @param myInput input that controls level elements.
      */
     public void addInputListeners (Input myInput) {
-        // TODO Auto-generated method stub
-        
+        myInput.replaceMappingResourcePath(myPlayer.getInputFilePath());
+        myInput.addListenerTo(myPlayer); 
     }
 
+    
     /**
      * removes listeners from all level elements that are controllable
      *
      * @param myInput input that controls level elements.
      */
     public void removeInputListeners (Input myInput) {
-        // TODO Auto-generated method stub
-        
+        myInput.removeListener(myPlayer);       
     }
 
 }
