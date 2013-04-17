@@ -22,20 +22,19 @@ public class TDView {
 
     private static final Dimension SIZE = new Dimension(1100, 800);
     private static final Dimension MAP_WINDOW_SIZE = new Dimension(800, 600);
-    private static final Dimension EAST_WINDOW_SIZE = new Dimension(200, 400);
-    private static final Dimension SHOP_WINDOW_SIZE = new Dimension(1000, 100);
+    private static final Dimension EAST_WINDOW_SIZE = new Dimension(200, 600);
+    private static final Dimension SOUTH_WINDOW_SIZE = new Dimension(1000, 200);
     private static final Dimension EDITOR_WINDOW_SIZE = new Dimension(800, 600);
     private static final Dimension SPLASH_SCREEN_SIZE = new Dimension(800, 600);
     private static final Dimension NEXT_WAVE_SCREEN_SIZE = new Dimension(200, 200);
     private static final String TITLE = "TOWER DEFENSE";
     private JPanel myPanel;
     private EastWindow myEastWindow;
+    private SouthWindow mySouthWindow;
     private JFrame myFrame;
     private InformationScreen myTowerInfoScreen;
     private InformationScreen myPlayerInfoScreen;
     private MapScreen myMapScreen;
-    private ShopScreen myShopScreen;
-    private NextWaveScreen myNextWaveScreen;
     private LevelsSelectorScreen myEditorWindow;
     private SplashScreen mySplashScreen;
     private Controller myController;
@@ -110,11 +109,8 @@ public class TDView {
         myEastWindow = new EastWindow(EAST_WINDOW_SIZE, myController);
         myFrame.getContentPane().add(myEastWindow, BorderLayout.EAST);
 
-        myShopScreen = new ShopScreen(SHOP_WINDOW_SIZE, myController);
-        myFrame.getContentPane().add(myShopScreen, BorderLayout.SOUTH);
-        
-        myNextWaveScreen = new NextWaveScreen(NEXT_WAVE_SCREEN_SIZE, myController);
-        myFrame.getContentPane().add(myNextWaveScreen, BorderLayout.SOUTH);
+        mySouthWindow = new SouthWindow(SOUTH_WINDOW_SIZE, myController);
+        myFrame.getContentPane().add(mySouthWindow, BorderLayout.SOUTH);
 
         myFrame.pack();
         myFrame.setVisible(true);
