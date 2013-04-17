@@ -5,13 +5,15 @@ import java.awt.Dimension;
 import util.Location;
 import util.Vector;
 import vooga.scroller.scrollingmanager.ScrollingManager;
+import vooga.scroller.sprites.interfaces.IPlatform;
+import vooga.scroller.sprites.interfaces.IPlayer;
 import vooga.scroller.sprites.superclasses.NonStaticEntity;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.Sprite;
 import vooga.scroller.view.View;
 
-public class Mario extends Player {
+public class Mario extends Player implements IPlayer {
 
     private static final int MAX_JUMPS = 2;
     private static final int MAX_HORIZONTAL_SPEED = 5;
