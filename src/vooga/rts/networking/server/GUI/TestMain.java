@@ -1,4 +1,4 @@
-package vooga.rts.networking.client;
+package vooga.rts.networking.server.GUI;
 
 import javax.swing.JFrame;
 
@@ -8,7 +8,7 @@ public class TestMain {
     }
 
     public static void main(String[] args) {
-        new ServerBrowserView();
+        new ServerBrowser();
         
     }
 }

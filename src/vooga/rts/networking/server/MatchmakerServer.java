@@ -1,11 +1,12 @@
 package vooga.rts.networking.server;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.Timer;
 import vooga.rts.networking.communications.Message;
-import vooga.rts.networking.communications.SystemMessage;
-import vooga.rts.networking.factory.Command;
-import vooga.rts.networking.factory.CommandFactory;
+import vooga.rts.networking.communications.clientmessages.ClientInfoMessage;
 
 
 /**
@@ -20,8 +21,13 @@ public class MatchmakerServer extends Thread implements IMessageReceiver, IThrea
     private Map<Integer, ConnectionThread> myConnectionThreads = new HashMap<Integer, ConnectionThread>();
     private Map<String, GameContainer> myGameContainers = new HashMap<String, GameContainer>();
     private ConnectionServer myConnectionServer = new ConnectionServer(this);
-    private CommandFactory myFactory = new CommandFactory();
-
+    private static final int ONE_SECOND = 1000;
+    private static final int DEFAULT_TIMER_DELAY = ONE_SECOND * 2;
+    
+    public MatchmakerServer () {       
+    
+    }
+    
     @Override
     public void run () {
         myConnectionServer.start();
@@ -30,17 +36,15 @@ public class MatchmakerServer extends Thread implements IMessageReceiver, IThrea
     
     @Override
     public void sendMessage (Message message, ConnectionThread thread) {
-        if(message instanceof SystemMessage) {
-            SystemMessage systemMessage = (SystemMessage) message;
-            Command command = myFactory.getCommand(systemMessage.getMessage());
-            command.execute(thread, this, systemMessage.getParameters());
-        } else {
-            
+        if(message instanceof ClientInfoMessage) {
+            ClientInfoMessage systemMessage = (ClientInfoMessage) message;
+            systemMessage.execute(thread, this);
         }
     }
     
     protected void addConnection (ConnectionThread thread) {
         myConnectionThreads.put(thread.getID(), thread);
+        thread.switchMessageServer(this);
     }
 
     @Override

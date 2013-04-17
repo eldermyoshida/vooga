@@ -3,33 +3,27 @@ package vooga.rts.networking.server;
 import java.util.HashMap;
 import java.util.Map;
 import vooga.rts.networking.communications.Message;
-import vooga.rts.networking.communications.SystemMessage;
-import vooga.rts.networking.factory.Command;
-import vooga.rts.networking.factory.CommandFactory;
+import vooga.rts.networking.communications.clientmessages.ClientInfoMessage;
 
-public class LobbyContainer implements IThreadContainer, IMessageReceiver {
+public class Lobby implements IThreadContainer, IMessageReceiver {
     
     private Map<Integer, ConnectionThread> myConnectionThreads = new HashMap<Integer, ConnectionThread>();
-    private CommandFactory myFactory;
     private GameContainer myGameContainer;
     
-    public LobbyContainer (CommandFactory factory, GameContainer container) {
-        myFactory = factory;
+    public Lobby (GameContainer container) {
         myGameContainer = container;
     }
     
     protected void addConnection (ConnectionThread thread) {
         myConnectionThreads.put(thread.getID(), thread);
+        thread.switchMessageServer(this);
     }
     
     @Override
     public void sendMessage (Message message, ConnectionThread thread) {
-        if(message instanceof SystemMessage) {
-            SystemMessage systemMessage = (SystemMessage) message;
-            Command command = myFactory.getCommand(systemMessage.getMessage());
-            command.execute(thread, this, systemMessage.getParameters());
-        } else {
-            
+        if(message instanceof ClientInfoMessage) {
+            ClientInfoMessage systemMessage = (ClientInfoMessage) message;
+            systemMessage.execute(thread, this);
         }
     }
     
@@ -39,7 +33,7 @@ public class LobbyContainer implements IThreadContainer, IMessageReceiver {
     }
     
     @Override
-    public void joinGame (ConnectionThread thread, String gameName) {        
+    public void joinGame (ConnectionThread thread, String gameName) {
     }
     
     @Override

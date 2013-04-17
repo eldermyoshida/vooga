@@ -14,19 +14,15 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-public class ServerBrowserPanel extends JPanel{
+public class BackgroundPanel extends JPanel{
     Image myImage;
     JPanel myInnerPanel;
     private static final String IMAGE_PATH = "../resources/Scroll1.jpg";
     
-    public ServerBrowserPanel() {
+    public BackgroundPanel() {
             ImageIcon icon = new ImageIcon(this.getClass().getResource(IMAGE_PATH));
             myImage = icon.getImage();
-            //myInnerPanel = new JPanel();
-            //myInnerPanel.setOpaque(false);
-            //add(myInnerPanel);
-            //myInnerPanel.setLayout(new BorderLayout());
-            //myInnerPanel.setPreferredSize(this.getSize());
+            setLayout(new BorderLayout(0, 0));
             repaint();      
     }
     

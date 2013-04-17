@@ -12,7 +12,9 @@ import vooga.rts.networking.communications.Message;
  * and AI and
  * sends pushes changes to all other clients
  * 
- * @author Henrique Moraes, Sean Wareham, David Winegar
+ * @author Henrique Moraes
+ * @author Sean Wareham
+ * @author David Winegar
  * 
  */
 public class GameServer extends Thread implements IMessageReceiver {
@@ -33,9 +35,9 @@ public class GameServer extends Thread implements IMessageReceiver {
      * 
      * @param c
      */
-    public void addClient (ConnectionThread thread) {
-        thread.switchMessageServer(this);
+    public void addConnection (ConnectionThread thread) {
         myClients.add(thread);
+        thread.switchMessageServer(this);
     }
 
     @Override
