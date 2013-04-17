@@ -33,6 +33,10 @@ public class Projectile extends GameElement {
         myAttributeManager = initiator.getAttributeManager();
 
     }
+    
+    public Projectile(Location spawn,GameElement target){
+    	super(DEFAULT_IMAGE,spawn,DEFAULT_SIZE,DEFAULT_ACTIONS);
+    }
 
 
     

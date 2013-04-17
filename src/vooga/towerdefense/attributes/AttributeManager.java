@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
+import vooga.towerdefense.factories.ProjectileFactory;
+
 
 /**
  * Attributes object that helps to track all game element stats.
@@ -17,9 +19,11 @@ import java.util.List;
  */
 public class AttributeManager {
     private HashMap<String,Attribute> myAttributes;
+    private ProjectileFactory myProjectileFactory;
 
     public AttributeManager () {
         myAttributes = new HashMap<String,Attribute>();
+        myProjectileFactory=new ProjectileFactory();
     }
     
     /**
@@ -86,6 +90,10 @@ public class AttributeManager {
     
     public void reset(Attribute attribute){
     	
+    }
+    
+    public ProjectileFactory getProjectileFactory(){
+    	return myProjectileFactory;
     }
 
 }

@@ -15,7 +15,7 @@ import vooga.towerdefense.util.Sprite;
  * 
  * @author Matthew Roy
  * @author Xu Rui
- * 
+ * @author Zhen Gou
  */
 public class GameElement extends Sprite{
 

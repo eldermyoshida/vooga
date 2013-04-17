@@ -39,18 +39,17 @@ public class AttackAction extends Action {
 		//check whether it's in cool down
 		if (isEnabled()) {
 			//get targets that we wanna shoot
-			/** GameElement[] targets = myMap
-					.get(
+			GameElement[] targets = myMap
+					.getTargetWithinRadiusOfGivenLocation(
 							myInitiator.getCenter(),
 							myInitiator.getAttributeManager().getAttribute(myAttributeConstants.ATTACK_RADIUS).getValue(),
 							(int)(myInitiator.getAttributeManager().getAttribute(myAttributeConstants.NUM_OF_TARGETS).getValue()));
 			
 			//shoot a projectile towards each target
 			for (GameElement target : targets) {
-				myMap.addToMap(e, t)
-						new Projectile(myInitiator, target,new ArrayList<Action>()));
+				myMap.addGameElement(myInitiator.getAttributeManager().getProjectileFactory().createProjectile(myInitiator.getCenter(),target));
 			}
-			*/
+			
 		}
 
 	}
