@@ -70,6 +70,7 @@ public class Level implements Editable, Renderable {
     
     public Level(int id, ScrollingManager sm, View view, LEGrid grid) {
         this (id, sm, view);
+        setSize(grid.getPixelSize());
         for (SpriteBox box : grid.getBoxes()) {
             addSprite(box.getSprite());
         }

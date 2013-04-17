@@ -26,9 +26,9 @@ public class LevelManager {
      * Creates a new level manager based on the view used by individual levels.
      * @param view to be used in constructing individual levels.
      */
-    public LevelManager(ScrollingManager myScrollingManager, View view) {        
-        LevelFactory lf = new LevelFactory(this);
-        myLevels = lf.generateLevels(myScrollingManager, view);        
+    public LevelManager(ScrollingManager sm, View view) {        
+        LevelFactory lf = new LevelFactory(this, sm, view);
+        myLevels = lf.generateLevels();        
         //myCurrentLevel = myLevels.get(DEFAULT_START_LEVEL_ID);         
         myInput = new Input(DEFAULT_INPUT_CONTROLS, view);
         myCurrentLevel = myLevels.get(1);

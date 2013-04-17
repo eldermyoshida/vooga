@@ -29,17 +29,20 @@ public class LevelFactory {
 
     private LevelManager myLevelManager;
     private LevelParser myLevelReader;
-    private Map<Integer,Level> myLevels;
+    private ScrollingManager mySM;
+    private View myView;
 
-    public LevelFactory (LevelManager lm) {
+    public LevelFactory (LevelManager lm, ScrollingManager sm, View view) {
         myLevelManager = lm;
         myLevelReader = new LevelParser();
-        myLevels = new HashMap<Integer, Level>();
+        mySM = sm;
+        myView = view;
     }
     
-//    private void buildAndAddLevel(LEGrid grid) {
-//        Level result = new Level(1, mySM, view, level1Grid);
-//    }
+    private Level buildLevel(int id, LEGrid grid) {
+        Level result = new Level(id, mySM, myView, grid);
+        return result;
+    }
 
     /**
      * Generates levels to be displayed by the view and played by the model.
@@ -47,46 +50,45 @@ public class LevelFactory {
      * @param view is the view used for level information.
      * @return a List of all levels that will be played in the game.
      */
-    public Map<Integer, Level> generateLevels (ScrollingManager mySM, View view) {
+    public Map<Integer, Level> generateLevels () {
         
-        SplashPage splash = new SplashPage(new Pixmap("MARIO SPLASH.png"),0,view, mySM);
+        SplashPage splash = new SplashPage(new Pixmap("MARIO SPLASH.png"),0,myView, mySM);
         // TODO: fix this
         splash.addManager(myLevelManager);
         splash.setInputPath(SplashPage.CONTROLS_FILE_PATH);
+        
+
+        Map<Integer, Level> levels = new HashMap<Integer, Level>();
 
         //TODO needs to be refactored. Design needs to be improved
 //        Level level1 = hardcodeLevel1(view, mySM, 1);
-        LEGrid level1Grid = loadGridFromFile("createdLevelupg.level");
-        Level level1 = new Level(1, mySM, view, level1Grid);
-
         // TODO: this will ideally read in levels from file and create instances of each level
         // This works for demo
+        Level level1 = buildLevel(1, loadGridFromFile("createdLevelupg.level"));
+        levels.put(level1.getID(),level1);
         
-        // adding levelportal --> acts as portal between levels.
-        Level secondLevel = new Level(2, mySM, view);
-
-        StartPoint exit = new StaticStartPoint(secondLevel, new Location(100, 140));
-
-        LevelPortal portal = new LevelPortal(new Pixmap("portal.png"), new Location(1540, 75),
-                                             new Dimension(50, 50), exit, myLevelManager);
-
-        level1.addSprite(portal);
-
         
+        Level secondLevel = new Level(2, mySM, myView);
         for(int i = 0; i < 20; ++ i){
             secondLevel.addSprite(new MarioLib.Platform(
                                                         new Location(50*i, 160)
                     ));
         }
-        
-        StartPoint exit2 = new StaticStartPoint(splash, new Location(100, 140));
+
+     // adding levelportal --> acts as portal between levels.
+        StartPoint level2Start = new StaticStartPoint(secondLevel, new Location(100, 140));
+
+        LevelPortal level1End = new LevelPortal(new Pixmap("portal.png"), new Location(1540, 75),
+                                             new Dimension(50, 50), level2Start, myLevelManager);
+
+        StartPoint finalSplashStart = new StaticStartPoint(splash, new Location(100, 140));
 
         LevelPortal portal2 = new LevelPortal(new Pixmap("portal.png"), new Location(1000, 140),
-                                             new Dimension(50, 50), exit2, myLevelManager);
-
+                                             new Dimension(50, 50), finalSplashStart, myLevelManager);
+        level1.addSprite(level1End);
         secondLevel.addSprite(portal2);
 
-        level1.setSize(PlatformerConstants.DEFAULT_LEVEL_SIZE);
+//        level1.setSize(PlatformerConstants.DEFAULT_LEVEL_SIZE);
         Map<Integer, Level> l = new HashMap<Integer, Level>();
         l.put(level1.getID(), level1);
         l.put(secondLevel.getID(), secondLevel);
