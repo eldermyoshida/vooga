@@ -1,4 +1,4 @@
-package vooga.fighter.controller;
+package util;
 
 import java.awt.Dimension;
 import util.Location;
@@ -9,7 +9,7 @@ import util.Paintable;
  *the View Element in charge of gathering the painting information.  Just have 
  *the View Element take this interface as a parameter in its constructor, pass 
  *in your Controller/Model class, implement these methods, and you have a fairly
- *extensible/detached View and Controller relationship.
+ *extensible/detached View and Controller systme
  *
  */
 	
