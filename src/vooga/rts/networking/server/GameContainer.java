@@ -7,7 +7,7 @@ import java.util.Map;
 import vooga.rts.networking.communications.Message;
 import vooga.rts.networking.communications.clientmessages.ClientInfoMessage;
 
-public class GameContainer implements IMessageReceiver, IThreadContainer {
+public class GameContainer extends AbstractThreadContainer implements IMessageReceiver {
 
     private Map<Integer, ConnectionThread> myConnectionThreads = new HashMap<Integer, ConnectionThread>();
     private Map<String, Lobby> myLobbies = new HashMap<String, Lobby>();
@@ -44,10 +44,6 @@ public class GameContainer implements IMessageReceiver, IThreadContainer {
     }
 
     @Override
-    public void joinGame (ConnectionThread thread, String gameName) {
-    }
-
-    @Override
     public void joinLobby (ConnectionThread thread, String lobbyName) {
         Lobby lobby;
         if(!myLobbies.containsKey(lobbyName)) {
@@ -57,14 +53,6 @@ public class GameContainer implements IMessageReceiver, IThreadContainer {
         myConnectionThreads.remove(thread.getID());
         lobby = myLobbies.get(lobbyName);
         lobby.addConnection(thread);
-    }
-
-    @Override
-    public void leaveLobby (ConnectionThread thread) {
-    }
-
-    @Override
-    public void startGameServer () {
     }
 
 }

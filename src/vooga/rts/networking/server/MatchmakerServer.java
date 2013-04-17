@@ -18,7 +18,7 @@ import vooga.rts.networking.communications.clientmessages.ClientInfoMessage;
  * @author David Winegar
  * 
  */
-public class MatchmakerServer extends Thread implements IMessageReceiver, IThreadContainer {
+public class MatchmakerServer extends AbstractThreadContainer implements IMessageReceiver, IThreadContainer {
     private Map<Integer, ConnectionThread> myConnectionThreads = new HashMap<Integer, ConnectionThread>();
     private Map<String, GameContainer> myGameContainers = new HashMap<String, GameContainer>();
     private ConnectionServer myConnectionServer = new ConnectionServer(this);
@@ -29,17 +29,15 @@ public class MatchmakerServer extends Thread implements IMessageReceiver, IThrea
         initializeGameContainers();
     }
     
+    public void start () {
+        myConnectionServer.start();
+    }
+    
     private void initializeGameContainers () {
         myGamesBundle = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "games");
         for(String game : myGamesBundle.keySet()) {
             myGameContainers.put(game, new GameContainer());
         }
-    }
-    
-    @Override
-    public void run () {
-        myConnectionServer.start();
-        // need to load game containers - games.properties - may want to do this in constructor
     }
     
     @Override
@@ -66,18 +64,6 @@ public class MatchmakerServer extends Thread implements IMessageReceiver, IThrea
             myGameContainers.get(gameName).addConnection(thread);
             myConnectionThreads.remove(thread.getID());
         }
-    }
-
-    @Override
-    public void joinLobby (ConnectionThread thread, String lobbyName) {        
-    }
-
-    @Override
-    public void leaveLobby (ConnectionThread thread) {
-    }
-
-    @Override
-    public void startGameServer () {
     }
 
 }
