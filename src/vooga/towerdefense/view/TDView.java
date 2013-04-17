@@ -39,7 +39,7 @@ public class TDView {
     private Controller myController;
     private MapsSelectorScreen myMapSelector;
     private LevelsSelectorScreen myLevelSelector;
-    private JButton myNextScreen;
+    private JButton myNextScreenButton;
 
     public TDView (Controller controller) {
         myController = controller;
@@ -63,22 +63,19 @@ public class TDView {
     }
 
     private Component nextScreenButton () {
-        myNextScreen = new JButton("NEXT");
-        myNextScreen.addActionListener(new ActionListener() {
+        myNextScreenButton = new JButton("NEXT");
+        myNextScreenButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {
                 showPredefinedMaps();
             }
         });
-        myNextScreen.setBounds(1000, 850, 50, 50);
-
-        return myNextScreen;
-
+        return myNextScreenButton;
     }
 
     private void showPredefinedMaps () {
         myFrame.remove(mySplashScreen);
-        myFrame.remove(myNextScreen);
+        myNextScreenButton.setVisible(false);
 
         myMapSelector = new MapsSelectorScreen(MAP_WINDOW_SIZE, this);
         myFrame.getContentPane().add(myMapSelector, BorderLayout.CENTER);
@@ -101,7 +98,6 @@ public class TDView {
 
         myFrame.remove(myLevelSelector);
 
-        // add view components to the BorderLayout manager
         myMapScreen = new MapScreen(MAP_WINDOW_SIZE, myController);
         myFrame.getContentPane().add(myMapScreen, BorderLayout.CENTER);
 
