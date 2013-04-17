@@ -15,7 +15,7 @@ import util.Vector;
  * Represents a character in the game, as well as the character's current state
  * in the given session.
  * 
- * @author alanni, james, David Le
+ * @author James Wei, alanni, David Le
  * 
  */
 public class CharacterObject extends GameObject {
@@ -23,21 +23,20 @@ public class CharacterObject extends GameObject {
     private Map<String, AttackObject> myAttacks;
     private List<Effect> myActiveEffects;
     private Health myHealth;
+    private int myLives;
+    private UpdatableLocation myOriginalLocation; 
+    private static final String DEFAULT_STATE="stand";
 
     /**
      * Constructs a new CharacterObject.
-     * 
-     * Note: Dayvid once the object loader is functional we will replace this
-     * constructor to take in just an ID, then we will load parameters from XML.
      */
     public CharacterObject(int objectId, UpdatableLocation center) {
         super();
         myAttacks = new HashMap<String, AttackObject>();
         myActiveEffects = new ArrayList<Effect>();
-        myHealth = new Health();
+        myOriginalLocation=center; 
         setLoader(new CharacterLoader(objectId, this));
-        setLocation(center);
-        setCurrentState("stand");
+        spawnCharacter(); 
         setImageData();
     }
 
@@ -54,6 +53,14 @@ public class CharacterObject extends GameObject {
         for (Effect effect : myActiveEffects) {
             effect.update();
         }
+        if (!hasHealthRemaining()){
+        	loseLife();
+        	spawnCharacter(); 
+        }
+        if (!hasLivesRemaining()){
+        	//to do remove character
+        }
+        
     }
 
     /**
@@ -118,6 +125,9 @@ public class CharacterObject extends GameObject {
         return myHealth.hasHealthRemaining();
     }
 
+    /**
+     * Sets the health of the character
+     */
     public void setHealth(int amount) {
         myHealth.setHealth(amount);
     }
@@ -154,6 +164,57 @@ public class CharacterObject extends GameObject {
      */
     public void jump() {        
 
+    }
+    
+    /**
+     * Increases the life count of the character by 1
+     */
+    public void addLife(){
+    	myLives++;
+    }
+    
+    /**
+     * Decreases the number of lives of the character by 1
+     */
+    public void loseLife(){
+    	myLives--; 
+    }
+    
+    /**
+     * Checks to see if character has more than one life left
+     */
+    public boolean hasLivesRemaining(){
+    	return myLives>=0; 
+    }
+    
+    /**
+     * Sets character to original location
+     */
+    public void resetLocation(){
+    	setLocation(myOriginalLocation);
+    }
+    
+    /**
+     * Sets the health to original amount
+     */
+    public void resetHealth(){
+    	myHealth=new Health(); 
+    }
+    
+    /**
+     * Sets the state to original state 
+     */
+    public void resetState(){
+        setCurrentState(DEFAULT_STATE); 
+    }
+    
+    /**
+     * Sets all of the properties to original settings
+     */
+    public void spawnCharacter(){
+    	resetLocation();
+    	resetHealth();
+    	resetState(); 
     }
     
     public boolean shouldBeRemoved() {

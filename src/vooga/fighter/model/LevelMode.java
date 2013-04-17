@@ -17,7 +17,7 @@ import vooga.fighter.model.utils.UpdatableLocation;
 /**
  * Represents one level in the game, i.e. one matchup of two or more characters.
  * 
- * @author james
+ * @author James Wei
  * 
  */
 public class LevelMode extends Mode {
@@ -51,7 +51,7 @@ public class LevelMode extends Mode {
         handleCollisions();
         for (int i=0; i<myObjects.size(); i++) {
             GameObject object = myObjects.get(i);
-            State state = object.getCurrentState();
+//            State state = object.getCurrentState();
 //            System.out.printf("Updating %s:\n", object.getClass().toString());
 //            System.out.printf("Object current state:\ncurrentFrame: %d\nnumFrames: %d\nNull checks:\nImage: %b\nRectangle: %b\nSize: %b\n",
 //                              state.myCurrentFrame, state.myNumFrames, (state.getCurrentImage()==null), (state.getCurrentRectangle()==null),
@@ -62,6 +62,10 @@ public class LevelMode extends Mode {
                 i--;
             }
         }
+        for (int i=0; i<myObjects.size(); i++) {
+            GameObject object = myObjects.get(i);
+            object.updateState();
+        }
         if (shouldModeEnd()) {
             super.signalTermination();
         }
@@ -70,7 +74,7 @@ public class LevelMode extends Mode {
     /**
      * Loads the environment objects for a map using the ObjectLoader.
      */
-    public void loadMap (int mapId) {
+    public void loadMap(int mapId) {
         myMap = new MapObject(mapId);
     	myStartLocations = myMap.getStartPositions();
     	addObject(myMap);
@@ -94,7 +98,7 @@ public class LevelMode extends Mode {
     /**
      * Detects and handles collisions between game objects.
      */
-    public void handleCollisions () {
+    public void handleCollisions() {
         CollisionManager.checkCollisions(getMyObjects());
     }
     

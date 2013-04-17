@@ -15,7 +15,7 @@ import java.util.Map;
 /**
  * Represents a single object in the game.
  * 
- * @author james, alanni, David Le
+ * @author James Wei, alanni, David Le
  * 
  */
 public abstract class GameObject {
@@ -173,13 +173,21 @@ public abstract class GameObject {
     
     /**
      * Updates the object for the game loop. Should be overridden by subclasses if
-     * necessary, but all overrides should call superclass method.
+     * necessary, but all overrides should first call superclass method.
      */
     public void update() {
     	setImageData();
         if (myCenter != null) {
             myCenter.update();
         }
+    }
+    
+    /**
+     * Updates the objects state for the game loop. States are updated separately
+     * because all states must be updated together, either before or after other
+     * update logic that depends on current states.
+     */
+    public void updateState() {
         if (myCurrentState != null) {
             myCurrentState.update();
         }
