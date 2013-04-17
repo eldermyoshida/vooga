@@ -72,6 +72,12 @@ public class AttributeManager {
         myAttributes.put(newAttribute.getName(), newAttribute);
     }
     
+    public void addAttributes(List<Attribute> newAttributes){
+    	for (Attribute a: newAttributes){
+    		addAttribute(a);
+    	}
+    }
+    
     /**
      * Resets all attributes to default values
      */
