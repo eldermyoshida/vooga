@@ -110,9 +110,9 @@ public class TDView {
         myFrame.pack();
         myFrame.setVisible(true);
         
-//        //start game here
-//        GameController game = new GameController(myController);
-//        game.start();
+        //start game
+        myController.start();
+        
     }
 
     public MapScreen getMapScreen () {

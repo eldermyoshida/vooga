@@ -9,6 +9,7 @@ import vooga.towerdefense.controller.modes.ControlMode;
 import vooga.towerdefense.controller.modes.SelectMode;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.gameElements.Tower;
+import vooga.towerdefense.model.GameController;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.GameModel;
 import vooga.towerdefense.model.Shop;
@@ -230,5 +231,11 @@ public class Controller {
     public Map<String, Pixmap> getShopItemIcons () {
         return myModel.getShop().getAllShopItemIcons();
     }
-    
+    /**
+     * Start the game controller
+     */
+    public void start () {
+        GameController game = new GameController(this);
+        game.start();
+    }
 }
