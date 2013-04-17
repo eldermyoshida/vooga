@@ -98,7 +98,6 @@ public abstract class Controller implements ModelDelegate {
                 myMode.update((double) stepTime / ONE_SECOND, myCanvas.getSize());
                 myLoopInfo.updateImages();
                 myCanvas.paint();
-
             }
         });
         // start animation

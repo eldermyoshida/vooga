@@ -29,13 +29,9 @@ public class LoopInfo extends Observable implements ViewDataSource{
         mySprites = new ArrayList<Pixmap>();
         myImageSizes = new ArrayList<Dimension>();
         updateImages();
-        System.out.println(mySpriteLocations.size());
-        System.out.println(mySprites.size());
-        System.out.println(myImageSizes.size());
 	}
 
     public void updateImages(){
-    	
     	mySpriteLocations.clear();
     	mySprites.clear();
     	myImageSizes.clear();

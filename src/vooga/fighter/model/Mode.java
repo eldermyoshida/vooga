@@ -89,7 +89,6 @@ public abstract class Mode {
      */
     public List<ImageDataObject> getImageData() {
         List<ImageDataObject> result = new ArrayList<ImageDataObject>();
-        System.out.println("HEre");
         for (GameObject object : getMyObjects()) {
             result.add(object.getImageData());
         }

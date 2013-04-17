@@ -14,6 +14,7 @@ public class MouseClickObject extends GameObject {
 	private int myTicks;
 
 	public MouseClickObject(Point2D loc) {
+		System.out.println("MOUSE");
 		State mouse = new State(this, 1);
 		mouse.populateImage(new Pixmap(IMAGE_LOC), 0);
 		mouse.populateSize(SIZE, 0);
@@ -27,7 +28,8 @@ public class MouseClickObject extends GameObject {
 	public boolean shouldBeRemoved() {
 		return(myTicks<20);
 	}
-
+	
+	@Override
 	public void update() {
 		myTicks ++;
 	}

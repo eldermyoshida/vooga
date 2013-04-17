@@ -16,8 +16,8 @@ public class MenuMode extends Mode {
 	private MouseClickObject myMouseClick;
 	private MenuGrid myMenuGrid;
 
-	public MenuMode(ModelDelegate cd, String menuId) {
-		super(cd);
+	public MenuMode(ModelDelegate delegate, String menuId) {
+		super(delegate);
 		myMenuId = menuId;
 	}
 

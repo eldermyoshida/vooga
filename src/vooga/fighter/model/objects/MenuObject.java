@@ -21,6 +21,9 @@ public class MenuObject extends GameObject {
 		return false;
 	}
 
+	@Override
+	public void update(){
+	}
 	
     public Collection getStates(){
     	return super.getStates();

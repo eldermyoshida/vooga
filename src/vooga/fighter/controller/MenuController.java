@@ -78,14 +78,17 @@ public class MenuController extends Controller {
     }
 
     @InputMethodTarget(name = "continue")
-    public void mouseclick (AlertObject alObj, PositionObject pos)  {
-        super.getMode().addObject(new MouseClickObject(pos.getPoint2D()));
+    public void mouseclick(PositionObject pos)  {
+        //super.getMode().addObject(new MouseClickObject(pos.getPoint2D()));
+    	//, PositionObject pos
+    	System.out.println("INPUT");
     }
     
     @Override
     protected Input makeInput () {
         Input temp = new Input(INPUT_PATHWAY, super.getView());
         temp.overrideSettings(INPUT_SETTING);
+        temp.addListenerTo(this);
     	return temp;
     }
 
