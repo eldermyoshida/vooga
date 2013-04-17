@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Map;
+import java.util.ResourceBundle;
 import vooga.rts.util.Location;
 
 /**
@@ -15,13 +16,16 @@ import vooga.rts.util.Location;
  */
 public class MapSaver {
     
+    private static final String RESOURCE_PATH = "vooga.rts.leveleditor.resource.";
+    
     private FileWriter myFileWriter;
     private EditableMap mySavingMap;
+    private ResourceBundle myTerrainResources;
     
     public MapSaver(EditableMap map) throws IOException {
         
-    
         mySavingMap = map;
+        myTerrainResources = ResourceBundle.getBundle(RESOURCE_PATH + "TerrainID" );
     }
     
     
@@ -43,11 +47,12 @@ public class MapSaver {
         writePlayers();
         writeSize();
         writeTiles();
+        writeTerrainIndex();
         
         myFileWriter.close();
     }
 
-    public void writeTitle() throws IOException {
+    private void writeTitle() throws IOException {
         String name = mySavingMap.getMyMapName();
         String description = mySavingMap.getMyDescription();
         myFileWriter.write("<map>\r\n");
@@ -56,7 +61,7 @@ public class MapSaver {
         myFileWriter.write("      <desc>"+ description + "</desc>\r\n");
     } 
 
-    public void writePlayers() throws IOException {
+    private void writePlayers() throws IOException {
         Map<Integer , Location> buffer = mySavingMap.getAllPlayers();
         myFileWriter.write("      <players number = "+ buffer.size() +">\r\n");
         for(Integer i : buffer.keySet()) {
@@ -67,7 +72,7 @@ public class MapSaver {
         myFileWriter.write("   </info>\r\n");
     }
     
-    public void writeSize() throws IOException {
+    private void writeSize() throws IOException {
         int width = mySavingMap.getMapNode(0, 0).getMyX();
         int height = mySavingMap.getMapNode(0, 0).getMyY();
         int x = mySavingMap.getMyXSize();
@@ -80,7 +85,7 @@ public class MapSaver {
         myFileWriter.write("      </info>\r\n");
     }
     
-    public void writeTiles() throws IOException {
+    private void writeTiles() throws IOException {
         int x = mySavingMap.getMyXSize();
         int y = mySavingMap.getMyYSize();
         myFileWriter.write("      <tiles>\r\n");
@@ -94,4 +99,18 @@ public class MapSaver {
         }
         myFileWriter.write("      </tiles>\r\n");
     }
+    
+    private void writeTerrainIndex() throws IOException {
+        
+        myFileWriter.write("      <terraintype>\r\n");
+        for(String str : myTerrainResources.keySet()) {
+            String content = myTerrainResources.getString(str);
+            String[] buffer = content.split("&");
+            String name = buffer[0];
+            int walkability = Integer.parseInt(buffer[1]);
+            myFileWriter.write("         <terrain ID=" + str + " name=\"" + name + "\"" + " walkability =" + walkability + " />\r\n");
+        }
+        myFileWriter.write("      </terraintype>\r\n");
+        myFileWriter.write("   </resources>\r\n");
+    } 
 }
