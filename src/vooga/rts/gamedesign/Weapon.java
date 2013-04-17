@@ -28,7 +28,7 @@ import java.util.List;
  * 
  */
 public class Weapon {
-
+//TODO: remove damage from weapon? 
     private int myDamage;
     private Projectile myProjectile;
     private UpgradeTree myUpgradeTree;
@@ -59,8 +59,7 @@ public class Weapon {
      */
     public void fire (InteractiveEntity toBeShot) {
         if(interval.allowAction() && !toBeShot.isDead()){
-        	System.out.println("is shooting");
-            Projectile fire = new Projectile(myProjectile, myCenter);
+            Projectile fire = myProjectile.copy(myProjectile, myCenter);
             fire.setEnemy(toBeShot);
             fire.move(toBeShot.getWorldLocation());
             myProjectiles.add(fire);

@@ -2,11 +2,8 @@
 package vooga.scroller.design_patterns;
 
 
-import vooga.scroller.test_sprites.Coin;
-import vooga.scroller.test_sprites.Koopa;
 import vooga.scroller.test_sprites.Mario;
-import vooga.scroller.test_sprites.Platform;
-import vooga.scroller.test_sprites.Turtle;
+import vooga.scroller.test_sprites.MarioLib;
 
 /** 
  * This is how we are going to handle collisions - through the Visitor 
@@ -22,10 +19,10 @@ import vooga.scroller.test_sprites.Turtle;
 public interface Visitor {
     
     public void visit (Mario mario); 
-    public void visit (Coin coin);
-    public void visit (Koopa koopa);
-    public void visit (Platform platform);
-    public void visit (Turtle turtle);
+    public void visit (MarioLib.Coin coin);
+    public void visit (MarioLib.Koopa koopa);
+    public void visit (MarioLib.Platform platform);
+    public void visit (MarioLib.Turtle turtle);
     
 
 }

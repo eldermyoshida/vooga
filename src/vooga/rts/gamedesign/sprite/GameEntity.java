@@ -33,7 +33,8 @@ import vooga.rts.ai.PathFinder;
  * 
  */
 public class GameEntity extends GameSprite {
-
+	//Default velocity magnitude
+	public static int DEFAULT_SPEED = 0; 
     private Vector myVelocity;
     private GameMap myMap;
     private int myMaxHealth;
@@ -133,9 +134,11 @@ public class GameEntity extends GameSprite {
         myGoal = new Location3D(loc);
         Vector v = getWorldLocation().difference(myGoal.to2D());
         // TODO: not static amount
-        setVelocity(v.getAngle(), 120);
+        setVelocity(v.getAngle(), getSpeed());
     }
-
+    public int getSpeed() {
+    	return DEFAULT_SPEED;
+    }
     public void move (Location3D loc, GameMap map) {
         setPath(loc.to2D(), map);
     }

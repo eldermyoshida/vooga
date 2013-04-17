@@ -24,8 +24,9 @@ public class Main {
      */
     public static void main (String[] args) {
         ResourceBundle rb = ResourceBundle.getBundle(RESOURCE_LOCATION + LANGUAGE);
-        Model model = new Model(rb);
+        Model model = new Model(rb, LANGUAGE);
         LoginView login = new LoginView(model, rb);
         model.setLoginView(login);
+        
     }
 }
