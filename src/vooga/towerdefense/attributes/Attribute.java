@@ -8,9 +8,10 @@ import vooga.towerdefense.util.Location;
  * Shell of an attribute class, allows for tracking and modification.
  * 
  * @author Matthew Roy
+ * @author XuRui
  * 
  */
-public abstract class Attribute {
+public class Attribute {
     private String myName;
     private double myOriginalValue;
     private double myCurrentValue;
