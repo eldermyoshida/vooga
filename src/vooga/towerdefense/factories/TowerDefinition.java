@@ -1,22 +1,18 @@
 package vooga.towerdefense.factories;
 
-/**
- * @author Matthew Roy
- *
- */
+import util.Pixmap;
+
 public class TowerDefinition extends GameElementDefinition {
-    
-    /**
-     * Defaults for necessary tower statistics
-     */
-    public static final String DEFAULT_NAME = "Tower";    
-    public static final double DEFAULT_COST = 100;    
+	
+	private static final Pixmap TOWER_IMAGE = new Pixmap("tower.jif");
+	
+	private Pixmap myImage;
 
-    /**
-     * 
-     */
-    public TowerDefinition () {
-        // TODO Auto-generated constructor stub
-    }
+	public TowerDefinition() {
+		myImage = TOWER_IMAGE;
+	}
+	
 
+	
+	
 }

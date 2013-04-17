@@ -1,5 +1,7 @@
 package vooga.towerdefense.factories;
 
+import vooga.towerdefense.gameElements.GameElement;
+
 /**
  * A factory that creates game elements based on preset data
  * Reads from an xmlfile (eventually)
@@ -28,7 +30,7 @@ public class GameElementFactory {
      * Adds an attribute to this element's factory
      */
     public void addAttribute() {
-        
+    	
     }
     
     
@@ -42,6 +44,11 @@ public class GameElementFactory {
         ActionFactory actFactory = new ActionFactory();
         
         return actFactory;
+    }
+    
+    public GameElement createGameElement(){
+		return new GameElement(myDefinition.getImage(), myDefinition.getCenter(), myDefinition.getSize(), createAttributeFactory().makeAttributes(), createActionFactory().createActions());
+    	
     }
 
 }

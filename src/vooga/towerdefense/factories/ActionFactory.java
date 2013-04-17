@@ -17,7 +17,6 @@ public class ActionFactory {
     
     public List<Action> createActions() {
         List<Action> myActions = new ArrayList<Action>();
-        
         return myActions;
     }
 
