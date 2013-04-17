@@ -23,6 +23,7 @@ public class LEToolsView extends WindowComponent {
     private LETools myTools;
     private JTabbedPane myTabs;
     private JPanel spriteUI;
+    private JPanel otherUI;
     private String selectedSprite;
     
 
@@ -39,8 +40,12 @@ public class LEToolsView extends WindowComponent {
         JPanel spriteButtons = new RadioGroup(new SelectSpriteListener(),
                                         myTools.getSpriteMakingOptions());
         spriteUI.add(spriteButtons);
+        otherUI = new JPanel();
+        JPanel otherButtons = new RadioGroup(new SelectSpriteListener(),
+                                             myTools.getOtherOptions());
+        otherUI.add(otherButtons);
         myTabs.add(spriteUI, "Sprites");
-        myTabs.add(null, "Other");
+        myTabs.add(otherUI, "Other");
         EasyGridFactory.layout(this, myTabs);
     }
 

@@ -3,7 +3,6 @@ package vooga.scroller.level_editor;
 import java.awt.Dimension;
 import util.Location;
 import vooga.scroller.sprites.superclasses.StaticEntity;
-import vooga.scroller.util.ISpriteView;
 import vooga.scroller.util.Pixmap;
 
 public class StartPoint extends StaticEntity{
@@ -18,8 +17,9 @@ public class StartPoint extends StaticEntity{
     
     public StartPoint (Pixmap image, Location center, Dimension size) {
         super(image, center, size);
-        // TODO Auto-generated constructor stub
     }
+    
+    
 
 
 }

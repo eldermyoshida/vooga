@@ -10,19 +10,32 @@ import vooga.scroller.viewUtil.Tools;
 
 public class LETools extends Tools {
     
-    Map<Object, String> icons;
+    Map<Object, String> spriteIcons;
+    Map<Object, String> otherIcons;
     
     
     public LETools() {
-        icons = new HashMap<Object, String>();
+        spriteIcons = new HashMap<Object, String>();
+        otherIcons = new HashMap<Object, String>();
+        initOtherIcons();
     }
 
     public Map<Object, String> getSpriteMakingOptions() {
-        return icons;
+        return spriteIcons;
     }
     
     public void addSpriteOption(Sprite s, int i) {
-        icons.put(new ImageIcon(s.getDefaultImg().getScaledInstance(40, 40, Image.SCALE_SMOOTH )), 
+        spriteIcons.put(new ImageIcon(s.getDefaultImg().getScaledInstance(40, 40, Image.SCALE_SMOOTH )), 
                   i+"");
     }
+    
+    public Map<Object, String> getOtherOptions() {
+        return otherIcons;
+    }
+    
+    private void initOtherIcons() {
+        otherIcons.put(new ImageIcon((new StartPoint().getDefaultImg().getScaledInstance(40, 40, Image.SCALE_SMOOTH))),-1+"");
+    }
+    
+    
 }
