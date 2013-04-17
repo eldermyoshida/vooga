@@ -36,18 +36,15 @@ public class MapSaver {
         }
         
         myFileWriter = new FileWriter(mySaveFile);
-            
-        mySavingMap.addPlayer(10, 10);
-        mySavingMap.addPlayer(20, 20);
-        mySavingMap.addPlayer(30, 30);
-        mySavingMap.addPlayer(40, 40);
-        mySavingMap.addPlayer(50, 50);
+         
         
         writeTitle();
         writePlayers();
         writeSize();
         writeTiles();
         writeTerrainIndex();
+        writeTerrains();
+        writeResources();
         
         myFileWriter.close();
     }
@@ -113,4 +110,34 @@ public class MapSaver {
         myFileWriter.write("      </terraintype>\r\n");
         myFileWriter.write("   </resources>\r\n");
     } 
+    
+    private void writeTerrains() throws IOException {
+        myFileWriter.write("   <terrain>\r\n");
+        int layers = mySavingMap.getLayerNumber();
+        for(int i = 1 ; i < layers + 1 ; i++) {
+            MapLayer bufferLayer = mySavingMap.getLayer(i);
+            
+            myFileWriter.write("      <layer level = " + i +">\r\n");
+            for(Terrain ter : bufferLayer.getTerrainSet()) {
+                int ID = ter.getMyID();
+                int x = (int)ter.getMyLocation().getX();
+                int y = (int)ter.getMyLocation().getY();
+                myFileWriter.write("         <terrain ID=" + ID + " X=" + x + " Y=" + y + " />\r\n");    
+            }
+            myFileWriter.write("      </layer>\r\n");
+        }
+        myFileWriter.write("   </terrain>\r\n");
+    }
+    
+    private void writeResources() throws IOException{
+        myFileWriter.write("   <resources>\r\n");
+        for(Resource res : mySavingMap.getResourceSet()) {
+            String name = res.getName();
+            int x = res.getMyX();
+            int y = res.getMyY();
+            myFileWriter.write("      <resource type=\"" + name + "\" X=" + x + " Y=" + y + " />\r\n");    
+        }
+        myFileWriter.write("   </resources>\r\n");
+        myFileWriter.write("</map>\r\n");
+    }
 }

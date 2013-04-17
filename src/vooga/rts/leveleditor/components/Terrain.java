@@ -17,7 +17,7 @@ import vooga.rts.util.Location;
 public class Terrain {
    
    private static final String BUNDLE_RELATIVE_PATH = "vooga.rts.leveleditor.resource.";
-   private static final String IMAGE_RELATIVE_PATH = "./src/vooga/rts/leveleditor/resources/";
+   private static final String IMAGE_RELATIVE_PATH = "./src/vooga/rts/leveleditor/resource/";
    
    private int myID; 
    private Location myLocation;
@@ -27,15 +27,17 @@ public class Terrain {
    
    private BufferedImage myImage;
    
-   private ResourceBundle myResources = ResourceBundle.getBundle(BUNDLE_RELATIVE_PATH + "ImageIndex");
+   private ResourceBundle myResources = ResourceBundle.getBundle(BUNDLE_RELATIVE_PATH + "TerrainID");
    
-   public Terrain(Location loc , int ID , int walkAbility) {
+   public Terrain(Location loc , int ID ) {
        myLocation = loc;
        myID = ID;
-       myName = myResources.getString(ID+"");
-       myWalkAbility = walkAbility;
+       String content = myResources.getString(ID+"");
+       String[] buffer = content.split("&");
+       myName = buffer[0];
+       myWalkAbility = Integer.parseInt(buffer[1]);
        try {
-        myImage = ImageIO.read(new File(System.getProperty("user.dir") + IMAGE_RELATIVE_PATH+ myName+".jpg"));
+        myImage = ImageIO.read(new File(System.getProperty("user.dir") + IMAGE_RELATIVE_PATH+ myName+".gif"));
     }
     catch (IOException e) {
         // TODO Auto-generated catch block
@@ -45,9 +47,9 @@ public class Terrain {
        
    }
    
-   public Terrain(int x , int y , int ID ,int walkAbility) {
+   public Terrain(int x , int y , int ID) {
        
-       this(new Location(x,y) , ID , walkAbility);
+       this(new Location(x,y) , ID );
    }
   
 
