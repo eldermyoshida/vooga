@@ -14,17 +14,20 @@ public class Database {
     private GameTable myGameTable;
     private UserTable myUserTable;
     private UserGameDataTable myUserGameDataTable;
+    private ScoreTable myScoreTable;
     
     public Database() {
         myGameTable = new GameTable();
         myUserTable = new UserTable();
         myUserGameDataTable = new UserGameDataTable();
+        myScoreTable = new ScoreTable();
     }
 
     public void closeDatabaseConnection() {
         myGameTable.closeConnection();
         myUserTable.closeConnection();
         myUserGameDataTable.closeConnection();
+        myScoreTable.closeConnection();
     }
     
     public boolean createUser(String username, String pw, String firstname, String lastname, String dataOfBirth) {
@@ -40,7 +43,7 @@ public class Database {
     }
     
     public void userPlaysGameFirst(String user, String gameName, String highscore) {
-        myUserGameDataTable.createNewUserGameData(retrieveGameId(gameName), retrieveUserId(user), highscore);
+        myUserGameDataTable.createNewUserGameData(retrieveGameId(gameName), retrieveUserId(user));
     }
     
     public void updateAvatar(String user, String filepath) {
@@ -76,14 +79,18 @@ public class Database {
         myUserGameDataTable.printEntireTable();
     }
     
-    public void updateHighScore(String username, String gameName, String newHighScore) {
-        myUserGameDataTable.updateHighScore(retrieveUserId(username), retrieveGameId(gameName), newHighScore);
+    public void addNewHighScore(String username, String gameName, String newHighScore) {
+        myScoreTable.addNewHighScore(retrieveUserId(username), retrieveGameId(gameName), newHighScore);
+    }
+    
+    public void getHighScores(int n) {
+        //TODO implement method
     }
     
     public void updateUserGameFilePath(String filepath) {
         //TODO implement method
     }
-    
+        
     public void retrieveGameFilePath(String filepath) {
         //TODO implement method
     }
