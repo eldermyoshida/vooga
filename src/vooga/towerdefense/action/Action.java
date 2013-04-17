@@ -14,6 +14,7 @@ import vooga.towerdefense.gameElements.GameElement;
  */
 
 public class Action implements evented{
+	
 	private EventHandler myEventHandler;
 	private GameElement myInitiator;
 	private boolean enabled;
@@ -31,10 +32,7 @@ public class Action implements evented{
 	public GameElement getInitiator(){
 		return myInitiator;
 	}
-	
-	/**
-	 * executes action
-	 */
+ 
 	public void executeAction(){
 		initAction();
 		//execute action
