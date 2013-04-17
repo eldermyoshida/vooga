@@ -102,26 +102,6 @@ public class GameMap {
     }
 
     /**
-     * 
-     * @param i horizontal tile index
-     * @param j vertical tile index
-     * @param gameElement the game element to be built 
-     */
-    public void buildGameElement (int i, int j, GameElement gameElement) {
-        myGrid[i][j].setTower(gameElement);
-    }
-
-    /**
-     * Sells the game element on Tile (i, j)
-     * 
-     * @param i horizontal tile index
-     * @param j vertical tile index
-     */
-    public void sellGameElement (int i, int j) {
-        myGrid[i][j].deleteTower();
-    }
-
-    /**
      * Given a point on the map, returns the Tile enclosing that point.
      * 
      * @param point a point (x, y) on the game map, where x and y are measured in pixels.
