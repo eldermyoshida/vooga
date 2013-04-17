@@ -5,7 +5,6 @@ import java.awt.Point;
 import java.util.List;
 
 import vooga.towerdefense.controller.Controller;
-import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.gameElements.Wave;
 
 
