@@ -215,9 +215,7 @@ public class LEGrid implements Editable, Renderable, Scrollable {
         }
         Location center = myStartPoint.getCenter();
         deleteSprite((int) center.getX(),(int) center.getY());
-        return myStartPoint.getCenter();
-    }
-
-    
+        return center;
+    }    
 
 }

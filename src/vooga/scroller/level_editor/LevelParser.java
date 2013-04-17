@@ -103,6 +103,7 @@ public class LevelParser {
                 System.out.println(c);
                 if (c != SPACE) {
                     String name = myCharacterMap.get(c);
+                    System.out.println(name);
                     Sprite spr = myNameMap.get(name).copy();
                     System.out.println(name);
                     System.out.println(spr);

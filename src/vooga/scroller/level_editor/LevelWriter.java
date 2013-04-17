@@ -42,6 +42,7 @@ public class LevelWriter {
         writeLevel();
         writeKey();
         writeSettings();
+        myGrid.addStartPoint((int) myStartPoint.getX(), (int) myStartPoint.getY());
     }
 
     private void writeLevel () {

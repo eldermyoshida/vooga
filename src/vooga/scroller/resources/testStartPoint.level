@@ -5,11 +5,11 @@
                                                             
                                                             
                                                             
-               a                                            
+                                                            
+     a       a                                              
                                                             
                                                             
-               a                                            
-                                                            
+      a    a                                                
                                                             
                                                             
                                                             
@@ -30,6 +30,6 @@
                                                             
                                                             
 /key
-a=vooga.scroller.sprites.test_sprites.MarioLib.Platform
+a=vooga.scroller.sprites.test_sprites.MarioLib.Plant
 /settings
-StartPoint=560 272
+StartPoint=272 272
