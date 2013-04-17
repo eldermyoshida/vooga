@@ -15,8 +15,8 @@ import vooga.rts.networking.communications.Message;
  */
 public class GameServer extends Room {
 
-    public GameServer (GameContainer container) {
-        super(container);
+    public GameServer (int id, GameContainer container, Lobby lobby) {
+        super(id, container, lobby);
     }
 
     @Override
