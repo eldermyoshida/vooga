@@ -55,42 +55,42 @@ public class LevelFactory {
         SplashPage splash = new SplashPage(new Pixmap("MARIO SPLASH.png"),0,myView, mySM);
         // TODO: fix this
         splash.addManager(myLevelManager);
-        
-
-        Map<Integer, Level> levels = new HashMap<Integer, Level>();
 
         //TODO needs to be refactored. Design needs to be improved
 //        Level level1 = hardcodeLevel1(view, mySM, 1);
         // TODO: this will ideally read in levels from file and create instances of each level
         // This works for demo
         Level level1 = buildLevel(1, loadGridFromFile("createdLevelupg.level"));
-        levels.put(level1.getID(),level1);
         
         
-        Level secondLevel = new Level(2, mySM, myView);
+        Level level2 = new Level(2, mySM, myView);
         for(int i = 0; i < 20; ++ i){
-            secondLevel.addSprite(new MarioLib.Platform(
+            level2.addSprite(new MarioLib.Platform(
                                                         new Location(50*i, 160)
                     ));
         }
 
      // adding levelportal --> acts as portal between levels.
-        StartPoint level2Start = new StaticStartPoint(secondLevel, new Location(100, 140));
+        StartPoint level2Start = new StaticStartPoint(
+                                     level2, new Location(100, 140));
 
-        LevelPortal level1End = new LevelPortal(new Pixmap("portal.png"), new Location(1540, 75),
-                                             new Dimension(50, 50), level2Start, myLevelManager);
+        LevelPortal level1End = new LevelPortal(
+                                new Pixmap("portal.png"), new Location(1540, 75),
+                                new Dimension(50, 50), level2Start, myLevelManager);
 
-        StartPoint finalSplashStart = new StaticStartPoint(splash, new Location(100, 140));
+        StartPoint finalSplashStart = new StaticStartPoint(
+                                          splash, new Location(100, 140));
 
-        LevelPortal portal2 = new LevelPortal(new Pixmap("portal.png"), new Location(1000, 140),
-                                             new Dimension(50, 50), finalSplashStart, myLevelManager);
+        LevelPortal level2End = new LevelPortal(
+                              new Pixmap("portal.png"), new Location(1000, 140),
+                              new Dimension(50, 50), finalSplashStart, myLevelManager);
+        
         level1.addSprite(level1End);
-        secondLevel.addSprite(portal2);
+        level2.addSprite(level2End);
 
-//        level1.setSize(PlatformerConstants.DEFAULT_LEVEL_SIZE);
         Map<Integer, Level> l = new HashMap<Integer, Level>();
         l.put(level1.getID(), level1);
-        l.put(secondLevel.getID(), secondLevel);
+        l.put(level2.getID(), level2);
         l.put(splash.getID(), splash);
         return l;
     }
