@@ -25,7 +25,7 @@ import vooga.rts.leveleditor.components.Resource;
 @InputClassTarget
 public class ResourceButton extends JToggleButton {
 
-    public static final String INPUT_DIR = "vooga.rts.resources.Input";
+    public static final String INPUT_DIR = "vooga.rts.resources.properties.Input";
 
     private Resource myResource;
     private ResourcePanel myOwner;

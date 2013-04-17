@@ -17,7 +17,7 @@ import vooga.rts.leveleditor.components.EditableNode;
 @InputClassTarget
 public class MapPanel extends JComponent {
 
-    public static final String INPUT_DIR = "vooga.rts.resources.Input";
+    public static final String INPUT_DIR = "vooga.rts.resources.properties.Input";
     public static final Dimension DEFAULT_MAP_SIZE  = new Dimension (600,600);
     public static final double ZOOM_RATE = 1.25;
     public static int DEFAULT_TILE_WIDTH = 50;
