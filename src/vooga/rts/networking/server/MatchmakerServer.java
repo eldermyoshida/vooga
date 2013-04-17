@@ -1,11 +1,8 @@
 package vooga.rts.networking.server;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
-import javax.swing.Timer;
 import vooga.rts.networking.communications.Message;
 import vooga.rts.networking.communications.clientmessages.ClientInfoMessage;
 
@@ -29,7 +26,7 @@ public class MatchmakerServer extends AbstractThreadContainer implements IMessag
         initializeGameContainers();
     }
     
-    public void start () {
+    public void startAcceptingConnections () {
         myConnectionServer.start();
     }
     

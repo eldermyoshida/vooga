@@ -26,5 +26,9 @@ public abstract class AbstractThreadContainer implements IThreadContainer {
     @Override
     public void startGameServer () {
     }
+    
+    @Override
+    public void getLobbies () {
+    }
 
 }

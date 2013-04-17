@@ -14,7 +14,7 @@ public class RequestServerListMessage extends ClientInfoMessage {
 
     @Override
     public void execute (ConnectionThread thread, IThreadContainer server) {
-        
+        server.getLobbies();
     }
 
 }
