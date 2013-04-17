@@ -32,7 +32,7 @@ public class LEController {
     private static final int DEFAULT_SPRITE_GRID_SIZE = 30;
     private ToolsManager myToolsManager;
     private LevelWriter myLevelWriter;
-    private LevelParser myLevelParser;
+    private LevelParser myLevelReader;
     
     /**
      * Constructor
@@ -49,8 +49,8 @@ public class LEController {
         myWorkspace2Tab = new HashMap<Editable, WorkspaceView>();
         myTab2Workspace = new HashMap<WorkspaceView, Editable>();
         myLevelWriter = new LevelWriter();
-        myLevelParser = new LevelParser();
-        myLevelParser.setNameMap(myToolsManager.getNameMap());
+        myLevelReader = new LevelParser();
+//        myLevelParser.setNameMap(myToolsManager.getNameMap());
     }
 
     private String getLanguage () {
@@ -94,7 +94,7 @@ public class LEController {
     }
 
     public void loadFile (File file2open) {
-        Editable m = myLevelParser.loadFileToGrid(file2open);
+        Editable m = myLevelReader.makeGridFromFile(file2open);
         int id = myWorkspace2Tab.size();
         createWorkspaceView(id, m);
     }

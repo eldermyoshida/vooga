@@ -80,10 +80,10 @@ public abstract class Player extends Sprite implements IInputListener{
         Gravity gravity = new Gravity(this);
         gravity.applyGravity();
 
-        
-        if (myView.getBounds().getMaxY() < this.getTop()) {
-            handleDeath();
-       }
+//        
+//        if (myView.getBounds().getMaxY() < this.getTop()) {
+//            handleDeath();
+//       }
     }
     
     public abstract void handleDeath();

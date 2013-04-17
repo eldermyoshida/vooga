@@ -3,12 +3,16 @@ package vooga.scroller.level_management;
 import java.awt.Dimension;
 import java.io.File;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.swing.ImageIcon;
 import util.Location;
+import vooga.scroller.level_editor.LEGrid;
 import vooga.scroller.level_editor.Level;
 import vooga.scroller.level_editor.LevelParser;
+import vooga.scroller.level_editor.ToolsManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.test_sprites.MarioLib;
 import vooga.scroller.sprites.test_sprites.MarioLib.MovingPlatformOne;
@@ -20,75 +24,93 @@ import vooga.scroller.view.View;
 /**
  * Instantiates all of the levels for gameplay.
  * 
- * @author Scott Valentine
+ * @author Scott Valentine, Dagbedji Fagnisse
  * 
  */
 public class LevelFactory {
 
     private LevelManager myLevelManager;
-    private LevelParser myLevelParser;
+    private LevelParser myLevelReader;
+    private ScrollingManager mySM;
+    private View myView;
 
-    public LevelFactory (LevelManager lm) {
+    public LevelFactory (LevelManager lm, ScrollingManager sm, View view) {
         myLevelManager = lm;
-        myLevelParser = new LevelParser();
+        myLevelReader = new LevelParser();
+        mySM = sm;
+        myView = view;
+    }
+    
+    private Level buildLevel(int id, LEGrid grid) {
+        Level result = new Level(id, mySM, myView, grid);
+        return result;
     }
 
     /**
      * Generates levels to be displayed by the view and played by the model.
      * 
      * @param view is the view used for level information.
-     * @return a List of all levels that will be played in the game.
+     * @return a the first of the List of all levels that will be played in the game.
      */
-    public Map<Integer, Level> generateLevels (ScrollingManager mySM, View view) {
-        
-        SplashPage splash = new SplashPage(new Pixmap("MARIO SPLASH.png"),0,view, mySM);
+    public Level generateLevels () {
+        List<Level> levels = new ArrayList<Level>();
+        SplashPage splash = new SplashPage(new Pixmap("MARIO SPLASH.png"),0,myView, mySM);
         // TODO: fix this
         splash.addManager(myLevelManager);
+        IDoor beginSplashDoor = new LevelPortal(splash, new Location(100, 100));
+        splash.addDoor(beginSplashDoor );
         
-//        Level level1 = hardcodeLevel1(view, mySM, 1);
-        Level level1 = hardcodeLevel1(view, mySM, 1);
-
         // TODO: this will ideally read in levels from file and create instances of each level
         // This works for demo
+        Level level1 = buildLevel(1, loadGridFromFile("createdLevelupg.level"));
+        hardCodeCompleteL1(level1);
         
-        // adding levelportal --> acts as portal between levels.
-        Level secondLevel = new Level(2, mySM, view);
-
-        StartPoint exit = new StaticStartPoint(secondLevel, new Location(100, 140));
-
-        LevelPortal portal = new LevelPortal(new Pixmap("portal.png"), new Location(1540, 75),
-                                             new Dimension(50, 50), exit, myLevelManager);
-
-        level1.addSprite(portal);
-
+        Level level2 = new Level(2, mySM, myView);
+        hardcodeLevel2(level2);
+        hardCodeCompleteL2(level2);
+        levels.add(splash); levels.add(level1); levels.add(level2);
         
-        for(int i = 0; i < 20; ++ i){
-            secondLevel.addSprite(new MarioLib.Platform(
-                                                        new Location(50*i, 160)
-                    ));
-        }
-        
-        StartPoint exit2 = new StaticStartPoint(splash, new Location(100, 140));
 
-        LevelPortal portal2 = new LevelPortal(new Pixmap("portal.png"), new Location(1000, 140),
-                                             new Dimension(50, 50), exit2, myLevelManager);
-
-        secondLevel.addSprite(portal2);
-
-        level1.setSize(PlatformerConstants.DEFAULT_LEVEL_SIZE);
-        Map<Integer, Level> l = new HashMap<Integer, Level>();
-        l.put(level1.getID(), level1);
-        l.put(secondLevel.getID(), secondLevel);
-        l.put(splash.getID(), splash);
-        return l;
+        StartPoint finalSplashStart = new StaticStartPoint(splash, new Location(100, 140));
+        linkLevels(levels, finalSplashStart);
+        return splash;
     }
 
-    private Level getLevelFromFile (String filename, int levelID, 
-                                    ScrollingManager sm,
-                                    View v) {
+    private void linkLevels (List<Level> levels, StartPoint endGame) {
+        for(int i=0; i<levels.size()-1; i++) {
+            myLevelManager.put(levels.get(i).getDoor(),  levels.get(i+1).getStartPoint());
+        }
+        myLevelManager.put(levels.get(levels.size()-1).getDoor(),  endGame);
+        //TODO - needs to add final splash...
+        
+    }
+
+    private void hardcodeLevel2 (Level level2) {
+        for(int i = 0; i < 20; ++ i){
+            level2.addSprite(new MarioLib.Platform(
+                     new Location(50*i, 160)
+             ));
+        }
+    }
+
+    private void hardCodeCompleteL2 (Level level2) {
+        StartPoint level2Start = new StaticStartPoint(level2, new Location(100, 140));
+        IDoor level2End = new LevelPortal(level2, new Location(1000, 140));
+        level2.addStartPoint(level2Start);
+        level2.addDoor(level2End);
+    }
+
+    private void hardCodeCompleteL1 (Level level1) {
+        StartPoint level1Start = new StaticStartPoint(level1, new Location(200, 140));;
+        IDoor level1End = new LevelPortal(level1, new Location(1540, 75));
+        level1.addStartPoint(level1Start);
+        level1.addDoor(level1End);
+    }
+
+    private LEGrid loadGridFromFile (String filename) {
         String pre = "src/vooga/scroller/level_management/";
         File f = (new File(pre+filename)).getAbsoluteFile();
-        Level result = myLevelParser.loadFileToLevel(f, levelID, sm, v);
+        LEGrid result = myLevelReader.makeGridFromFile(f);
         return result;
     }
 

@@ -88,12 +88,23 @@ public class LEGrid implements Editable, Renderable, Scrollable {
         //TODO
     }
     
+    public Set<SpriteBox> getBoxes() {
+        return myPaintableBoxes;
+    }
+    
+    /**
+     * TODO - Moving this responsibility to Level
+     * @param id
+     * @param sm
+     * @param v
+     * @return
+     */
     public Level createLevel (int id, 
                               ScrollingManager sm,
                               View v) {
         //TODO need to refactor. Editable Level.
         Level lev = new Level(id, sm, v);
-        for (SpriteBox box : myPaintableBoxes) {
+        for (SpriteBox box : getBoxes()) {
             lev.addSprite(box.getSprite());
         }
         return lev;
