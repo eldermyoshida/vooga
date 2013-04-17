@@ -44,9 +44,10 @@ public class LevelFactory {
         SplashPage splash = new SplashPage(new Pixmap("MARIO SPLASH.png"),0,view, mySM);
         // TODO: fix this
         splash.addManager(myLevelManager);
+        splash.setInputPath(SplashPage.CONTROLS_FILE_PATH);
         
 //        Level level1 = hardcodeLevel1(view, mySM, 1);
-        Level level1 = getLevelFromFile("createdLevelupg.level", 1, mySM, view);
+        Level level1 = hardcodeLevel1(view, mySM, 1);
 
         // TODO: this will ideally read in levels from file and create instances of each level
         // This works for demo

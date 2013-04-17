@@ -1,22 +1,21 @@
 package vooga.towerdefense.action;
 
-import java.util.List;
-
-import vooga.towerdefense.event.Event;
+import vooga.towerdefense.event.EventHandler;
 import vooga.towerdefense.event.evented;
 import vooga.towerdefense.gameElements.GameElement;
-import vooga.towerdefense.util.CoolDownManager;
 
 /**
- * An AbstractAction is superclassed to define specific Actions that can be taken by game elements. 
+ * An Action is superclassed to define specific Actions that can be taken by game elements. 
  * This includes attacks, upgrades, path creation and anything the developer may wish to implement. 
+ * Action is triggered by events handled by eventHandler.
  *  
  * @author XuRui
  *
  */
 
-public class Action implements evented {
-	private Event myTriggerEvent;
+public class Action implements evented{
+	
+	private EventHandler myEventHandler;
 	private GameElement myInitiator;
 	private boolean enabled;
 	private boolean complete;
@@ -30,9 +29,10 @@ public class Action implements evented {
 		//initialize resources
 	}
 	
-	/**
-	 * executes action
-	 */
+	public GameElement getInitiator(){
+		return myInitiator;
+	}
+ 
 	public void executeAction(){
 		initAction();
 		//execute action
@@ -45,6 +45,7 @@ public class Action implements evented {
 	
 	public void markComplete(){
 		complete = true;
+		enabled = false;
 	}
 	public boolean isEnabled(){
 		return enabled;
@@ -55,14 +56,14 @@ public class Action implements evented {
 	}
 
 	@Override
-	public boolean eventTriggered(Event event) {
-		return (event == myTriggerEvent);
+	public boolean eventTriggered() {
+		return (myEventHandler.hasEvent());
 		
 	}
 
 	@Override
-	public void update(double elapsedTime, Event e) {
-		if (eventTriggered(e)){
+	public void update(double elapsedTime) {
+		if (eventTriggered()){
 			executeAction();
 		}
 	}

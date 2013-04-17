@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 import util.Location;
 import util.Secretary;
+import util.input.Input;
 import vooga.scroller.level_management.LevelManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.animation.Animation;
@@ -26,6 +27,12 @@ import vooga.scroller.view.View;
 
 public class Model {
 
+    //private static final String SPLASH_CONTROLS = "vooga/scroller/resources/controls/SplashMapping";
+    
+    
+    private static final int DEFAULT_START_LEVEL_ID = 0;
+
+    
     private View myView;
     private Player myPlayer;
 
@@ -47,8 +54,6 @@ public class Model {
     public Model (View view, ScrollingManager sm) {
         myScrollingManager = sm;
         myView = view;
-        //myInputs = new SplashInputs(this, myView);
-        //mySplash = new Pixmap("MARIO SPLASH.png"); 
         
         initPlayer();
         
@@ -56,8 +61,10 @@ public class Model {
         myScrollingManager.initView(view);
         
         myLevelManager = new LevelManager(myScrollingManager, myView);
-        
         myLevelManager.currentLevel().addPlayer(myPlayer);
+
+        myLevelManager.setCurrentLevel(DEFAULT_START_LEVEL_ID);
+        
         mySecretary = new Secretary();
         generateVisitMethods(spriteStrings);  
     }
