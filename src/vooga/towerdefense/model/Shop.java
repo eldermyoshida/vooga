@@ -12,6 +12,9 @@ import vooga.towerdefense.util.Location;
 import vooga.towerdefense.util.Pixmap;
 
 /**
+ * This is the model class that holds the underlying data that updates the ShopScreen view.
+ * It holds the different items that the player might want to buy. It also provides methods
+ * for the manipulation of these items.
  * 
  * @author Leonard K. Ng'eno
  *

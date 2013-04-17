@@ -57,7 +57,7 @@ public class LevelsSelectorScreen extends SelectScreen {
     }
 
     @Override
-    public void paint (Graphics pen) {
+    public void paintComponent (Graphics pen) {
         super.paintComponent(pen);
         displayImages((Graphics2D) pen);
     }
