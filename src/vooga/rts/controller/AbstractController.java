@@ -1,8 +1,11 @@
 package vooga.rts.controller;
-
 import java.util.Observable;
-import util.input.PositionObject;
+
 import vooga.rts.IGameLoop;
+import vooga.rts.input.PositionObject;
+
+// The methods are INTENTIONALLY implemented as empty (null behavior)
+// This is to make it so that each controller only needs to implement relevant user events
 
 public abstract class AbstractController extends Observable implements
 		IGameLoop {
@@ -22,11 +25,11 @@ public abstract class AbstractController extends Observable implements
 	public void onMouseDrag(PositionObject o) {
 	};
 
+	public void onMouseMove(PositionObject o) {
+	};
+
 	public abstract void activate();
 
 	public abstract MainState getGameState();
-
-	public void onMouseMove(PositionObject o) {
-	}
 
 }

@@ -1,8 +1,8 @@
 package vooga.rts.controller;
 
-import util.input.InputClassTarget;
-import util.input.InputMethodTarget;
-import util.input.PositionObject;
+import vooga.rts.input.InputClassTarget;
+import vooga.rts.input.InputMethodTarget;
+import vooga.rts.input.PositionObject;
 
 
 @InputClassTarget
@@ -47,5 +47,6 @@ public class InputController {
     public void onMouseMove (PositionObject o) {        
         myActiveController.onMouseMove(o);
     }
+
 
 }
