@@ -12,7 +12,7 @@ import vooga.fighter.model.utils.ImageDataObject;
  * Represents a mode in the game. Holds a list of all game objects in the mode,
  * and updates those every update cycle.
  * 
- * @author james
+ * @author James Wei
  *
  */
 public abstract class Mode {
@@ -25,17 +25,17 @@ public abstract class Mode {
     /**
      * Constructs a new Mode.
      */
-    public Mode(ModelDelegate cd) {
+    public Mode(ModelDelegate md) {
         myObjects = new ArrayList<GameObject>();
         myCharacterObjects= new ArrayList<CharacterObject>();
-        setModelDelegate(cd);
+        setModelDelegate(md);
     }
     
     /**
      * Sets the controller delegate for this mode.
      */
-    public void setModelDelegate(ModelDelegate cd) {
-        myModelDelegate = cd;
+    public void setModelDelegate(ModelDelegate md) {
+        myModelDelegate = md;
     }
     
     /**

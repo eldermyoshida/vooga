@@ -10,7 +10,7 @@ import vooga.fighter.model.utils.UpdatableLocation;
 /**
  * Object that can inflict damage on other moveable game objects
  * 
- * @author james, alanni, David Le
+ * @author James Wei, alanni, David Le
  *  
  */
 public class AttackObject extends GameObject{
@@ -45,7 +45,7 @@ public class AttackObject extends GameObject{
     }
     
     /**
-     * Updates the attack object
+     * Updates the attack object.
      */
     public void update(){
     	super.update();
