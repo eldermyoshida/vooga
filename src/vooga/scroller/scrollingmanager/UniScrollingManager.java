@@ -168,6 +168,10 @@ public class UniScrollingManager extends ScrollingManager {
         int upperpaintbound = upperpaintbound();
         int rightpaintbound = rightpaintbound();
         int lowerpaintbound = lowerpaintbound();
+        double rightboundary = myGame.getRightBoundary();
+        double leftboundary = myGame.getLeftBoundary();
+        double upperboundary = myGame.getUpperBoundary();
+        double lowerboundary = myGame.getLowerBoundary();
 
         if(myGame.getLeftBoundary() < levelLeftBoundary()) {
             leftpaintbound = (int) levelLeftBoundary();
@@ -225,12 +229,12 @@ public class UniScrollingManager extends ScrollingManager {
                 myMaxDirection = (p.getX() + myView.getWidth() /2);
 
             }
-            if(myDirection == 3){
-                myMaxDirection = (p.getX() - myView.getWidth() / 2);
-
-            }
             if(myDirection == 2 ){
                 myMaxDirection = (p.getY() + myView.getHeight() / 2);
+
+            }
+            if(myDirection == 3){
+                myMaxDirection = (p.getX() - myView.getWidth() / 2);
 
             }
             if(myDirection == 4){
