@@ -26,6 +26,10 @@ public class Action {
 		myInitiator = initiator;
 	}
 	
+	public GameElement getInitiator() {
+	    return myInitiator;
+	}
+	
 	public void initAction(){
 		enabled = true;
 		//initialize resources
