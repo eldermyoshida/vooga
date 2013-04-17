@@ -19,7 +19,7 @@ import javax.imageio.ImageIO;
  * @author Jonathan Schmidt
  * 
  */
-public class ResourceManager {
+public class ImageResourceManager {
 
     private static final String RESOURCES = "../resources/";
 
@@ -29,12 +29,12 @@ public class ResourceManager {
 
     private Thread loadThread;
 
-    private static ResourceManager myInstance;
+    private static ImageResourceManager myInstance;
 
     /**
      * 
      */
-    private ResourceManager () {
+    private ImageResourceManager () {
         myResources = new HashMap<URL, BufferedImage>();
         myLoadQueue = new LinkedList<URL>();
         loadThread = new Thread();
@@ -106,9 +106,9 @@ public class ResourceManager {
         }
     }
 
-    public static ResourceManager instance () {
+    public static ImageResourceManager instance () {
         if (myInstance == null) {
-            myInstance = new ResourceManager();
+            myInstance = new ImageResourceManager();
         }
         synchronized (myInstance) {
             return myInstance;

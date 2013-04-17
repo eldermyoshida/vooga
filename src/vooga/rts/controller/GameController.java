@@ -27,7 +27,7 @@ import vooga.rts.map.GameMap;
 import vooga.rts.player.HumanPlayer;
 import vooga.rts.player.Player;
 import vooga.rts.player.Team;
-import vooga.rts.resourcemanager.ResourceManager;
+import vooga.rts.resourcemanager.ImageResourceManager;
 import vooga.rts.util.Camera;
 import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
@@ -207,10 +207,10 @@ public class GameController extends AbstractController {
              */
             Player p1 = new HumanPlayer();
             Pixmap p =
-                    new Pixmap(ResourceManager.instance().loadFile("images/sprites/soldier.png"));
+                    new Pixmap(ImageResourceManager.instance().loadFile("images/sprites/soldier.png"));
             Dimension s = new Dimension(90, 90);
             r =
-                    new Resource(new Pixmap(ResourceManager.instance()
+                    new Resource(new Pixmap(ImageResourceManager.instance()
                             .loadFile("images/mineral.gif")), new Location3D(300, 300, 0),
                                  new Dimension(60, 60), 0, 400);
             Sound soun = null;// new Sound("/vooga/rts/sounds/pikachu.wav");
@@ -220,7 +220,7 @@ public class GameController extends AbstractController {
             // a.setUpgradeTree(resultTree,a.getPlayerID());
             // upgradeBuilding.addUpgradeActions(resultTree);
             Projectile proj =
-                    new Projectile(new Pixmap(ResourceManager.instance()
+                    new Projectile(new Pixmap(ImageResourceManager.instance()
                             .loadFile("images/bullet.png")), a.getWorldLocation(),
                                    new Dimension(30, 30), 2, 10, 1);
             a.setAttackStrategy(new CanAttack());
@@ -229,7 +229,7 @@ public class GameController extends AbstractController {
             System.out.println("Player ID for b: " + b.getPlayerID());
 
             Projectile proj2 =
-                    new Projectile(new Pixmap(ResourceManager.instance()
+                    new Projectile(new Pixmap(ImageResourceManager.instance()
                             .loadFile("images/bullet.png")), b.getWorldLocation(),
                                    new Dimension(30, 30), 1, 10, 1);
             b.setAttackStrategy(new CanAttack());
@@ -238,12 +238,12 @@ public class GameController extends AbstractController {
             Unit c = new Soldier(p, new Location3D(500, 800, 0), s, soun, 2, 500);
 
             Projectile proj3 =
-                    new Projectile(new Pixmap(ResourceManager.instance()
+                    new Projectile(new Pixmap(ImageResourceManager.instance()
                             .loadFile("images/bullet.png")), c.getWorldLocation(),
                                    new Dimension(30, 30), 1, 10, 1);
             c.setAttackStrategy(new CanAttack());
             Unit w =
-                    new Worker(new Pixmap(ResourceManager.instance().loadFile("images/scv.gif")),
+                    new Worker(new Pixmap(ImageResourceManager.instance().loadFile("images/scv.gif")),
                                new Location3D(500, 200, 0), s, soun, 20, 40, 40);
             c.getAttackStrategy().addWeapons(new Weapon(0, proj3, 450, c.getWorldLocation(), 200));
 
@@ -257,7 +257,7 @@ public class GameController extends AbstractController {
             addPlayer(p2, 2);
 
             building =
-                    new Barracks(new Pixmap(ResourceManager.instance()
+                    new Barracks(new Pixmap(ImageResourceManager.instance()
                             .loadFile("images/barracks.jpeg")), new Location3D(800, 500, 0),
                                  new Dimension(150, 150), null, 1, 300);
             System.out.println("Setup Game");
