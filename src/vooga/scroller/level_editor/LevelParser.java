@@ -97,7 +97,7 @@ public class LevelParser {
                         spr = (Sprite) Class.forName(name).newInstance();
                         System.out.println(name);
                         System.out.println(spr);
-                        grid.addSpriteToBox(j, i, spr);
+                        grid.addSpriteToBox(j, i-1, spr);
                     }
                     catch (InstantiationException e) {
                         // TODO Auto-generated catch block
