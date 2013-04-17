@@ -15,6 +15,7 @@ import vooga.rts.input.InputMethodTarget;
 import vooga.rts.input.PositionObject;
 import vooga.rts.leveleditor.components.EditableMap;
 import vooga.rts.leveleditor.components.EditableNode;
+import vooga.rts.util.Location;
 
 @InputClassTarget
 public class MapPanel extends JComponent {
@@ -96,11 +97,9 @@ public class MapPanel extends JComponent {
         }
         
         //paint Player
-        for(int i=0; i<myMap.getMyPlayerNumber(); ++i) {
-            g.drawImage(myPlayerImage, (int)(myMap.getPlayer(i).getX()), (int)(myMap.getPlayer(i).getY()),null);
+        for(Location c : myMap.getLocationMap().values()) {
+            g.drawImage(myPlayerImage, (int)(c.getX()), (int)(c.getY()),null);
         }
-
-
     }
 
     public void setWidth(int w) {
@@ -163,9 +162,17 @@ public class MapPanel extends JComponent {
             repaint();
         }
     }
-    
+
     public void placePlayer(int x, int y) {
-        myMap.addPlayer(x, y);
+        int nodex=x/myTileWidth;
+        int nodey=y/myTileHeight;
+        EditableNode n = myMap.getMapNode(nodex, nodey);
+        if(!myRemoveFlag){
+            myMap.addPlayer(x, y);
+            n.setPlayerIndex(myMap.getMyPlayerNumber());
+        } else {
+            myMap.removePlayer(n.getPlayerIndex());
+        }
         repaint();
     }
     
@@ -203,7 +210,9 @@ public class MapPanel extends JComponent {
 
     @InputMethodTarget(name="onMouseDrag")
     public void testDrag (PositionObject p) {
-        placeResource((int)(p.getX()), (int)(p.getY()));
+        if(myMode == RESOURCEMODE) {
+            placeResource((int)(p.getX()), (int)(p.getY()));
+        }
     }
 
 
