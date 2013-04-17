@@ -2,6 +2,7 @@
 package vooga.scroller.level_editor;
 
 
+import java.awt.Image;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
@@ -139,7 +140,7 @@ public class LevelEditor implements ILevelEditor {
     }
 
     @Override
-    public void setBackgroundMap (Map<Integer, Icon> map) {
+    public void setBackgroundMap (Map<Integer, Image> map) {
         // TODO Auto-generated method stub
         
     }

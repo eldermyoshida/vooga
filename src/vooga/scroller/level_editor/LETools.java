@@ -37,12 +37,12 @@ public class LETools extends Tools {
 
     private void initOtherIcons () {
         otherIcons.put(new ImageIcon((new StartPoint().getDefaultImg()
-                               .getScaledInstance(40, 40, Image.SCALE_SMOOTH))), -1 + "");
+                .getScaledInstance(40, 40, Image.SCALE_SMOOTH))), -1 + "");
     }
 
-    public void addBackgrounds (Map<Integer, Icon> backgrounds) {
-        for (Integer key : backgrounds.keySet()) {
-            otherIcons.put(backgrounds.get(key), "" + key);
+    public void addBackgrounds (Map<Integer, Image> map) {
+        for (Integer key : map.keySet()) {
+            otherIcons.put(map.get(key).getScaledInstance(40, 40, Image.SCALE_SMOOTH), "" + key);
         }
     }
 
