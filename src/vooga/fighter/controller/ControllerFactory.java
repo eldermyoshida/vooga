@@ -50,6 +50,10 @@ public class ControllerFactory {
                 Controller controller = new ScoreController(resources.getString(key), frame);
                 controllermap.put(controller.getName(), controller);
             }
+            else if (key.equals("MenuController")) {
+                Controller controller = new MenuController(resources.getString(key), frame);
+                controllermap.put(controller.getName(), controller);
+            }
             
         }
     }

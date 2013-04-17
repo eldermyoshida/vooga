@@ -15,7 +15,7 @@ import vooga.fighter.util.Paintable;
 import vooga.fighter.view.Canvas;
 
 public class ScoreController extends Controller {
-    private static final String INPUT_PATHWAY = "vooga.fighter.input.Game1Mapping_en_US";
+    private static final String INPUT_PATHWAY = "vooga.fighter.config.leveldefault";
     
     private Mode myMode;
     private Canvas myCanvas;
@@ -88,6 +88,12 @@ public class ScoreController extends Controller {
 
 	@Override
 	public void notifyEndCondition(String endCondition) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void notifyEndCondition(int endCondition) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -114,15 +114,6 @@ public class LevelMode extends Mode {
         return false;
     }
 
-    /**
-     * Creates the list of image data objects and returns it.
-     */
-    public List<ImageDataObject> getImageData() {
-        List<ImageDataObject> result = new ArrayList<ImageDataObject>();
-        for (GameObject object : getMyObjects()) {
-            result.add(object.getImageData());
-        }
-        return result;
-    }
+
     
 }

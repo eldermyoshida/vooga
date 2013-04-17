@@ -8,6 +8,7 @@ import vooga.fighter.model.objects.CharacterObject;
 import vooga.fighter.model.objects.GameObject;
 import vooga.fighter.model.objects.MenuObject;
 import vooga.fighter.model.objects.MouseClickObject;
+import vooga.fighter.model.utils.State;
 
 public class MenuMode extends Mode {
 	private String myMenuId;
@@ -22,16 +23,32 @@ public class MenuMode extends Mode {
 
 	@Override
 	public void update(double stepTime, Dimension bounds) {
-		
-	}
+        List<GameObject> myObjects = getMyObjects();
+        handleCollisions();
+        for (int i=0; i<myObjects.size(); i++) {
+            GameObject object = myObjects.get(i);
+            object.update();
+            if (object.shouldBeRemoved()) {
+                myObjects.remove(object);
+                i--;
+            }
+        }
+        if (shouldModeEnd()) {
+            super.signalTermination();
+        }
+    }
 
 	@Override
 	public void initializeMode() {
 		myMenuGrid = new MenuGrid(myMenuId);	
 		myMenuObjects = myMenuGrid.getMenuObjects();
 	}
+	
+	private void handleCollisions(){
+		MenuCollisionManager.checkCollisions(getMyObjects());
+	}
 
-	@Override
+	@Deprecated
 	public boolean shouldModeEnd() {
 		return false;
 	}

@@ -5,11 +5,13 @@ import util.input.AlertObject;
 import util.input.Input;
 import util.input.InputClassTarget;
 import util.input.InputMethodTarget;
+import util.input.PositionObject;
 import vooga.fighter.controller.Controller;
 import vooga.fighter.controller.ControllerDelegate;
 import vooga.fighter.controller.GameInfo;
 import vooga.fighter.controller.LevelController;
 import vooga.fighter.model.*;
+import vooga.fighter.model.objects.MouseClickObject;
 import vooga.fighter.util.Paintable;
 import vooga.fighter.view.Canvas;
 
@@ -29,7 +31,9 @@ public class MenuController extends Controller {
 
 	private static final String INPUT_PATHWAY = "vooga.fighter.config.menudefault";
 	private static final String INPUT_SETTING = "vooga.fighter.config.Settings";
+	private static final String TEST = "Test";
     private GameInfo myGameInfo;
+    private LoopInfo myLoopInfo;
 
     public MenuController (String name, Canvas frame) {
         super(name, frame);
@@ -39,9 +43,9 @@ public class MenuController extends Controller {
     		GameInfo gameinfo) {
     	super(name, frame, manager, gameinfo);
     	loadMode();
-    	GameLoopInfo gameLoopInfo = new GameLoopInfo((LevelMode) super.getMode());
-    	setGameLoopInfo(gameLoopInfo);
-    	frame.setViewDataSource(gameLoopInfo);
+    	//Duplicated code below, see levelcontroller
+    	myLoopInfo =  new LoopInfo(super.getMode());
+    	frame.setViewDataSource(myLoopInfo);
     }
     
     public void loadMode() {
@@ -61,7 +65,8 @@ public class MenuController extends Controller {
      * Checks special occurences of game state.
      */
     public void notifyEndCondition(String string) {
-        
+        super.getGameInfo().setGameMode(string);
+        super.getManager().notifyEndCondition(TEST);
     }
 
 
@@ -71,9 +76,9 @@ public class MenuController extends Controller {
                                    delegate, gameinfo);
     }
 
-    @InputMethodTarget(name = "player1_jump")
-    public void playerOneJumpInput (AlertObject alObj)  {
-        myInputObjects.get(0).move(270);
+    @InputMethodTarget(name = "continue")
+    public void mouseclick (AlertObject alObj, PositionObject pos)  {
+        super.getMode().addObject(new MouseClickObject(pos.getPoint2D()));
     }
     
     @Override

@@ -26,7 +26,7 @@ public class ControllerManager implements ControllerDelegate{
 		myCanvas = frame;
 		myControllerMap = new ControllerFactory(frame).getMap();
 		myGameInfo = gameinfo;
-		myCurrentController = myControllerMap.get(TEST).getController(this, myGameInfo);
+		myCurrentController = myControllerMap.get(MAINMENU).getController(this, myGameInfo);
 	}
 	
 	public void run(){

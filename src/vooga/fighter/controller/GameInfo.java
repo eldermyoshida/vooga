@@ -151,5 +151,7 @@ public class GameInfo extends UserGameData{
     public void setNumCharacters (int myNumCharacters) {
         myNumCharacters = myNumCharacters;
     }
+    
+
 
 }
