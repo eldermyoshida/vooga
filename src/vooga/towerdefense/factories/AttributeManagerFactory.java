@@ -22,6 +22,10 @@ public class AttributeManagerFactory {
         
     }
     
+    public AttributeManagerFactory() {
+        
+    }
+    
     public AttributeManager makeAttributeManager() {
         AttributeManager manager = new AttributeManager();
         manager.addAttributes(inputAttributes);
