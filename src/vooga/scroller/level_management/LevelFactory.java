@@ -22,7 +22,7 @@ import vooga.scroller.view.View;
 /**
  * Instantiates all of the levels for gameplay.
  * 
- * @author Scott Valentine
+ * @author Scott Valentine, Dagbedji Fagnisse
  * 
  */
 public class LevelFactory {
@@ -48,51 +48,68 @@ public class LevelFactory {
      * Generates levels to be displayed by the view and played by the model.
      * 
      * @param view is the view used for level information.
-     * @return a List of all levels that will be played in the game.
+     * @return a the first of the List of all levels that will be played in the game.
      */
-    public Map<Integer, Level> generateLevels () {
+    public Level generateLevels () {
         
         SplashPage splash = new SplashPage(new Pixmap("MARIO SPLASH.png"),0,myView, mySM);
         // TODO: fix this
         splash.addManager(myLevelManager);
+        StartPoint finalSplashStart = new StaticStartPoint(splash, new Location(100, 140));
+        IDoor beginSplashDoor = new LevelPortal(splash, new Location(100, 100));
+        splash.addDoor(beginSplashDoor );
 
         //TODO needs to be refactored. Design needs to be improved
 //        Level level1 = hardcodeLevel1(view, mySM, 1);
         // TODO: this will ideally read in levels from file and create instances of each level
         // This works for demo
         Level level1 = buildLevel(1, loadGridFromFile("createdLevelupg.level"));
-        
+        hardCodeCompleteL1(level1);
         
         Level level2 = new Level(2, mySM, myView);
+        hardcodeLevel2(level2);
+        hardCodeCompleteL2(level2);
+
+//        linkLevels(splash, level1, level2);
+//        myLevelManager.put(splash.getDoor(), level1.getStartPoint());
+//        myLevelManager.put(level1.getDoor(), level2.getStartPoint());
+//        myLevelManager.put(level2.getDoor(), finalSplashStart);
+
+        linkLevels(splash, level2, level1);
+        return splash;
+    }
+
+    private Map<Integer, Level> linkLevels (Level ...levels) {
+        Map<Integer, Level> res = new HashMap<Integer, Level>();
+        for(int i=0; i<levels.length-1; i++) {
+            res.put(levels[i].getID(), levels[i+1]);
+            myLevelManager.put(levels[i].getDoor(),  levels[i+1].getStartPoint());
+        }
+        //TODO - what about final splash...
+        return res;
+        
+    }
+
+    private void hardcodeLevel2 (Level level2) {
         for(int i = 0; i < 20; ++ i){
             level2.addSprite(new MarioLib.Platform(
-                                                        new Location(50*i, 160)
-                    ));
+                     new Location(50*i, 160)
+             ));
         }
+    }
 
-     // adding levelportal --> acts as portal between levels.
-        StartPoint level2Start = new StaticStartPoint(
-                                     level2, new Location(100, 140));
+    private void hardCodeCompleteL2 (Level level2) {
+        StartPoint level2Start = new StaticStartPoint(level2, new Location(100, 140));
+        IDoor level2End = new LevelPortal(level2, new Location(1000, 140));
+        level2.addStartPoint(level2Start);
+        level2.addDoor(level2End);
+    }
 
-        LevelPortal level1End = new LevelPortal(
-                                new Pixmap("portal.png"), new Location(1540, 75),
-                                new Dimension(50, 50), level2Start, myLevelManager);
-
-        StartPoint finalSplashStart = new StaticStartPoint(
-                                          splash, new Location(100, 140));
-
-        LevelPortal level2End = new LevelPortal(
-                              new Pixmap("portal.png"), new Location(1000, 140),
-                              new Dimension(50, 50), finalSplashStart, myLevelManager);
-        
-        level1.addSprite(level1End);
-        level2.addSprite(level2End);
-
-        Map<Integer, Level> l = new HashMap<Integer, Level>();
-        l.put(level1.getID(), level1);
-        l.put(level2.getID(), level2);
-        l.put(splash.getID(), splash);
-        return l;
+    private void hardCodeCompleteL1 (Level level1) {
+        StartPoint level1Start = new StaticStartPoint(level1, new Location(200, 140));;
+        IDoor level1End = new LevelPortal(level1, new Location(1540, 75));
+        level1.addStartPoint(level1Start);
+        level1.addDoor(level1End);
     }
 
     private LEGrid loadGridFromFile (String filename) {

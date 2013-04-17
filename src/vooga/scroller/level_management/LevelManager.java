@@ -1,5 +1,6 @@
 package vooga.scroller.level_management;
 
+import java.util.HashMap;
 import java.util.Map;
 import util.input.Input;
 import vooga.scroller.scrollingmanager.ScrollingManager;
@@ -18,8 +19,9 @@ public class LevelManager {
     private static final String DEFAULT_INPUT_CONTROLS = "vooga/scroller/resources/controls/SplashMapping";
     
     private Input myInput;
-    private Map<Integer,Level> myLevels;
+    private Level myInitialLevel;
     private Level myCurrentLevel;
+    private Map<IDoor, StartPoint> myWays;
     
         
     /**
@@ -28,10 +30,12 @@ public class LevelManager {
      */
     public LevelManager(ScrollingManager sm, View view) {        
         LevelFactory lf = new LevelFactory(this, sm, view);
-        myLevels = lf.generateLevels();        
-        //myCurrentLevel = myLevels.get(DEFAULT_START_LEVEL_ID);         
+        myWays = new HashMap<IDoor, StartPoint>();
+        myInitialLevel = lf.generateLevels();        
+        //myCurrentLevel = myLevels.get(DEFAULT_START_LEVEL_ID); 
+
+        myCurrentLevel = myInitialLevel;
         myInput = new Input(DEFAULT_INPUT_CONTROLS, view);
-        myCurrentLevel = myLevels.get(1);
     }
     
     /**
@@ -48,17 +52,32 @@ public class LevelManager {
      * 
      * @param id of the level to become the current level.
      */
-    public void setCurrentLevel(int id) {
+    public void setCurrentLevel(Level level) {
         if(myCurrentLevel != null){
             myCurrentLevel.removeInputListeners(myInput);
             Player p = myCurrentLevel.getPlayer();
-            myCurrentLevel = myLevels.get(id);
+            myCurrentLevel = level;
             myCurrentLevel.addPlayer(p);
         }
         else{
-            myCurrentLevel = myLevels.get(id);
+            myCurrentLevel = level;
         }
         myCurrentLevel.addInputListeners(myInput);
+    }
+    
+    /**
+     * Map a door to a starting point. Bind door to this level manager.
+     */
+    public void put(IDoor door, StartPoint start) {
+        ((LevelPortal) door).setManager(this);
+        myWays.put(door, start);
+    }
+    
+    /**
+     * Map a door to a starting point
+     */
+    public StartPoint get(IDoor door) {
+        return myWays.get(door);
     }
 }
 

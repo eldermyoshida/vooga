@@ -6,7 +6,9 @@ import util.input.Input;
 import util.input.InputClassTarget;
 import util.input.InputMethodTarget;
 import vooga.scroller.level_editor.Level;
+import vooga.scroller.level_editor.exceptions.LevelEditorException;
 import vooga.scroller.scrollingmanager.ScrollingManager;
+import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.view.View;
 
@@ -60,7 +62,11 @@ public class SplashPage extends Level implements IInputListener{
     
     @InputMethodTarget(name = "space")
     public void nextLevel() {
-        myLevelManager.setCurrentLevel(myNextLevelID);
+        Player p = myLevelManager.currentLevel().getPlayer();
+        myLevelManager.setCurrentLevel(
+                      myLevelManager.get(this.getDoor()).getLevel());
+        myLevelManager.currentLevel().addPlayer(p);
+        System.out.println("here");
     }
     
     @Override

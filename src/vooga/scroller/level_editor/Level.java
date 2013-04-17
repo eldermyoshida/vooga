@@ -13,6 +13,9 @@ import vooga.scroller.util.Editable;
 import vooga.scroller.util.Sprite;
 import vooga.scroller.viewUtil.Renderable;
 import vooga.scroller.collision_manager.CollisionManager;
+import vooga.scroller.level_management.IDoor;
+import vooga.scroller.level_management.LevelPortal;
+import vooga.scroller.level_management.StartPoint;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.superclasses.NonStaticEntity;
 import vooga.scroller.sprites.superclasses.Player;
@@ -34,6 +37,8 @@ public class Level implements Editable, Renderable {
     private Image DEFAULT_BACKGROUND = new ImageIcon(getClass().getResource("/vooga/scroller/images/default_background.png")).getImage();
 
     private int myID;
+    private IDoor myDoor;
+    private StartPoint myDefaultStart;
     
     public int getID () {
         return myID;
@@ -308,6 +313,27 @@ public class Level implements Editable, Renderable {
      */
     public void removeInputListeners (Input myInput) {
         myInput.removeListener(myPlayer);
+    }
+
+    public void addDoor (IDoor door) {
+        // TODO Implement support for multiple doors
+        myDoor = door;   
+    }
+    
+    /**
+     * TODO - define default door or make it clear that door needs to be set.
+     * @return
+     */
+    public IDoor getDoor () {
+        return myDoor;
+    }
+
+    public void addStartPoint (StartPoint start) {
+        myDefaultStart = start;
+    }
+    
+    public StartPoint getStartPoint () {
+        return myDefaultStart;
     }
 
 }
