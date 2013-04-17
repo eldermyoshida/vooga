@@ -11,7 +11,7 @@ public class TestMain {
 	 */
 	public static void main(String[] args) {
 		TestTowerDefinition myTowerDef = new TestTowerDefinition();
-	    TestTowerFactory myTowerFactory = new TestTowerFactory("BoobieTower", myTowerDef);
+	    TestTowerFactory myTowerFactory = new TestTowerFactory("TestTower", myTowerDef);
 	    GameElement boobieTower = myTowerFactory.makeTower(new Location(100, 200));
 	    System.out.println(boobieTower.getAttributeManager().getAttribute("health").getName());
 	    
