@@ -16,7 +16,6 @@ import vooga.scroller.collision_manager.CollisionManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.superclasses.NonStaticEntity;
 import vooga.scroller.sprites.superclasses.Player;
-import vooga.scroller.sprites.test_sprites.mario.Mario;
 import vooga.scroller.util.PlatformerConstants;
 import vooga.scroller.view.View;
 
@@ -32,7 +31,6 @@ public class Level implements Editable, Renderable {
     private View myView;
     private ScrollingManager myScrollManager;
     private Image myBackground;
-    private String myInputMapping;
     private Image DEFAULT_BACKGROUND = new ImageIcon(getClass().getResource("/vooga/scroller/images/default_background.png")).getImage();
 
     private int myID;
@@ -79,15 +77,6 @@ public class Level implements Editable, Renderable {
     private void initFrames() {
         myFrameOfActionSprites = new ArrayList<Sprite>();
         myFrameOfReferenceSprites = new ArrayList<Sprite>();      
-    }
-
-    /**
-     * Sets the file path of the input mapping to use for this level.
-     * 
-     * @param inputPath is the file path of the input mapping for this level.
-     */
-    public void setInputPath(String inputPath) {
-       myInputMapping = inputPath;
     }
 
     
@@ -318,7 +307,7 @@ public class Level implements Editable, Renderable {
      * @param myInput input that controls level elements.
      */
     public void removeInputListeners (Input myInput) {
-        myInput.removeListener(myPlayer);       
+        myInput.removeListener(myPlayer);
     }
 
 }

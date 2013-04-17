@@ -7,7 +7,6 @@ import util.input.InputClassTarget;
 import util.input.InputMethodTarget;
 import vooga.scroller.level_management.IInputListener;
 import vooga.scroller.scrollingmanager.ScrollingManager;
-import vooga.scroller.sprites.interfaces.IPlatform;
 import vooga.scroller.sprites.interfaces.IPlayer;
 import vooga.scroller.sprites.superclasses.NonStaticEntity;
 import vooga.scroller.sprites.superclasses.Player;
@@ -20,8 +19,7 @@ public class Mario extends Player implements IPlayer, IInputListener{
 
 
     private static final String CONTROLS_FILE_PATH = "vooga/scroller/resources/controls/MarioMapping";
-    private static final String MULTIPLAYER_FILE_PATH ="vooga/scroller/resources/controls/MultiPlayerMapping";
-    
+   
     
     private static final int MAX_JUMPS = 2;
     private static final int MAX_HORIZONTAL_SPEED = 5;
@@ -130,7 +128,7 @@ public class Mario extends Player implements IPlayer, IInputListener{
 
     @Override
     public String getInputFilePath () {
-        return MULTIPLAYER_FILE_PATH;
+        return CONTROLS_FILE_PATH;
     } 
 }
 

@@ -55,7 +55,6 @@ public class LevelFactory {
         SplashPage splash = new SplashPage(new Pixmap("MARIO SPLASH.png"),0,myView, mySM);
         // TODO: fix this
         splash.addManager(myLevelManager);
-        splash.setInputPath(SplashPage.CONTROLS_FILE_PATH);
         
 
         Map<Integer, Level> levels = new HashMap<Integer, Level>();
