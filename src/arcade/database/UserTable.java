@@ -37,10 +37,10 @@ public class UserTable extends Table {
      * Constructor but eventually I want to make this part of the abstract class
      */
     public UserTable() {
-        createDatabase();
+        establishConnectionToDatabase();
     }
 
-    void createDatabase() {
+    void establishConnectionToDatabase() {
 
         try {
             Class.forName("org.postgresql.Driver");
@@ -96,7 +96,9 @@ public class UserTable extends Table {
             myPreparedStatement = myConnection.prepareStatement(stm);
             myResultSet  = myPreparedStatement.executeQuery();
             if (myResultSet.next()) {
-                return true;
+                if (myResultSet.getString(PASSWORD_COLUMN_INDEX).equals(password)) {
+                    return true;
+                }
             }
 
         }
@@ -108,7 +110,7 @@ public class UserTable extends Table {
     }
     
     /**
-     * Returns true if usernameExists, false othwerwise
+     * Returns true if usernameExists, false otherwise
      * @param username is the username
      */
     public boolean usernameExists(String username) {

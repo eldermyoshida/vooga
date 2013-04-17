@@ -14,33 +14,63 @@ public class Database {
     private GameTable myGameTable;
     private UserTable myUserTable;
     private UserGameDataTable myUserGameDataTable;
+    private ScoreTable myScoreTable;
     
+    /**
+     * Database constructor
+     */
     public Database() {
         myGameTable = new GameTable();
         myUserTable = new UserTable();
         myUserGameDataTable = new UserGameDataTable();
+        myScoreTable = new ScoreTable();
     }
 
+    /**
+     * Closes the database connection
+     */
     public void closeDatabaseConnection() {
         myGameTable.closeConnection();
         myUserTable.closeConnection();
         myUserGameDataTable.closeConnection();
+        myScoreTable.closeConnection();
     }
     
+    /**
+     * Creates a user when gien username, pw, firstname, lastname, and dataofbirth
+     * @param username is user
+     * @param pw is password
+     * @param firstname is first name
+     * @param lastname is last name
+     * @param date of birth is DOB
+     */
     public boolean createUser(String username, String pw, String firstname, String lastname, String dataOfBirth) {
         return myUserTable.createUser(username, pw, firstname, lastname, dataOfBirth);
     }
     
+    /**
+     * Creates a user when given username, pw, firstname, lastname, and dataofbirth and avatar
+     * @param username is user
+     * @param pw is password
+     * @param firstname is first name
+     * @param lastname is last name
+     * @param date of birth is DOB
+     * @avatar is the filepath for the avatar
+     */
     public boolean createUser(String username, String pw, String firstname, String lastname, String dataOfBirth, String filepath) {
         return myUserTable.createUser(username, pw, firstname, lastname, dataOfBirth, filepath);
     }
     
+    /**
+     * Creates a new game
+     * @param gameName is name of name
+     */
     public boolean createGame(String gameName) {
         return myGameTable.createGame(gameName);
     }
     
     public void userPlaysGameFirst(String user, String gameName, String highscore) {
-        myUserGameDataTable.createNewUserGameData(retrieveGameId(gameName), retrieveUserId(user), highscore);
+        myUserGameDataTable.createNewUserGameData(retrieveGameId(gameName), retrieveUserId(user));
     }
     
     public void updateAvatar(String user, String filepath) {
@@ -76,14 +106,18 @@ public class Database {
         myUserGameDataTable.printEntireTable();
     }
     
-    public void updateHighScore(String username, String gameName, String newHighScore) {
-        myUserGameDataTable.updateHighScore(retrieveUserId(username), retrieveGameId(gameName), newHighScore);
+    public void addNewHighScore(String username, String gameName, String newHighScore) {
+        myScoreTable.addNewHighScore(retrieveUserId(username), retrieveGameId(gameName), newHighScore);
+    }
+    
+    public void getHighScores(int n) {
+        //TODO implement method
     }
     
     public void updateUserGameFilePath(String filepath) {
         //TODO implement method
     }
-    
+        
     public void retrieveGameFilePath(String filepath) {
         //TODO implement method
     }
