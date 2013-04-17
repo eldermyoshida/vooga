@@ -20,11 +20,15 @@ public class Mario extends Player implements IPlayer, IInputListener{
 
 
     private static final String CONTROLS_FILE_PATH = "vooga/scroller/resources/controls/MarioMapping";
+    private static final String MULTIPLAYER_FILE_PATH ="vooga/scroller/resources/controls/MultiPlayerMapping";
+    
     
     private static final int MAX_JUMPS = 2;
     private static final int MAX_HORIZONTAL_SPEED = 5;
     private static final Pixmap DEFAULT_IMAGE = new Pixmap("standright.png");
     private static final int DEATH_PENALTY = 1000;
+
+   
     private static int health = 5;
     private int myJumpCount;
 
@@ -90,24 +94,29 @@ public class Mario extends Player implements IPlayer, IInputListener{
         // TODO Auto-generated method stub
         
     }
+
+    @Override
+    public Player getPlayer () {
+        return this;
+    }   
     
     @InputMethodTarget(name = "left")
     public void walkLeft() {        
-        //Vector force = this.getVelocity().getComponentVector(Player.RIGHT_DIRECTION);
-        //force.negate();
-        //this.addVector(force);       
+        Vector force = this.getVelocity().getComponentVector(Player.RIGHT_DIRECTION);
+        force.negate();
+        this.addVector(force);       
         this.addVector(Player.LEFT_VELOCITY);
-        //this.translate(Player.LEFT_VELOCITY);
+        this.translate(Player.LEFT_VELOCITY);
     }
     
     @InputMethodTarget(name = "right")
     public void walkRight() {
         // TODO: set max speed for player
-//        Vector force = this.getVelocity().getComponentVector(Player.LEFT_DIRECTION);
-//        force.negate();
-//        this.addVector(force);        
+        Vector force = this.getVelocity().getComponentVector(Player.LEFT_DIRECTION);
+        force.negate();
+        this.addVector(force);        
         this.addVector(Player.RIGHT_VELOCITY);
-        //this.translate(Player.RIGHT_VELOCITY);
+        this.translate(Player.RIGHT_VELOCITY);
     }
     
     @InputMethodTarget(name = "jump")
@@ -121,7 +130,7 @@ public class Mario extends Player implements IPlayer, IInputListener{
 
     @Override
     public String getInputFilePath () {
-        return CONTROLS_FILE_PATH;
+        return MULTIPLAYER_FILE_PATH;
     } 
 }
 

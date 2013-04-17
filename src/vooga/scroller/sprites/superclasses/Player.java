@@ -42,6 +42,8 @@ public abstract class Player extends Sprite implements IInputListener{
     private StateManager myStateManager;
     private ScrollingManager myScrollingManager;
     private Statistic myStatistic;
+    private int myScore;
+    private int myHit;
 
     private Location myOriginalLocation;
 
@@ -67,6 +69,8 @@ public abstract class Player extends Sprite implements IInputListener{
         myScrollingManager = sm;
         myStatistic = new PlayerScore();
         myOriginalLocation = center;
+        myScore = 0;
+        myHit = 1;
     }
 
     @Override
@@ -111,5 +115,13 @@ public abstract class Player extends Sprite implements IInputListener{
     
     public Location getOriginalLocation() {
         return myOriginalLocation;
+    }
+    
+    public void incrementScore (int increment) {
+        myScore += increment;
+    }
+    
+    public int getHit() {
+        return myHit;
     }
 }
