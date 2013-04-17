@@ -31,8 +31,6 @@ public class LevelEditor implements ILevelEditor {
     private static final String PARAM_COMMAND_ERROR = "Incorrect Parameters";
     private static final String DEFAULT_COMMAND_ERROR = "Incorrect Command";
     private static final String COPY_ERROR = "Cannot copy Sprite. Missing default constructor";
-    private static final Location DEFAULT_START_LOC = new Location(100,100);
-    private StartPoint myStartPoint;
     private ScrollingManager myScrollingManager;
     private Editable myGrid;
     private Map<Integer, Sprite> mySpriteMap;

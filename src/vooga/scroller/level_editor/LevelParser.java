@@ -106,7 +106,7 @@ public class LevelParser {
                     Sprite spr = myNameMap.get(name).copy();
                     System.out.println(name);
                     System.out.println(spr);
-                    grid.addSpriteToBox(j, i, spr);
+                    grid.addSpriteToBox(j, i - 1, spr);
                 }
             }
         }

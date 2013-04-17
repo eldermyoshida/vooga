@@ -81,7 +81,7 @@ public class LevelWriter {
                 myFileWriter.write(NEW_LINE);
                 myFileWriter.write("" + myMap.get(key) + EQUALS + key);
             }
-            myFileWriter.close();
+            myFileWriter.write(NEW_LINE);
         }
         catch (IOException e) {
             // TODO Auto-generated catch block
