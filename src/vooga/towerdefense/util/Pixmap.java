@@ -1,7 +1,8 @@
-package util;
+package vooga.towerdefense.util;
 
 import java.awt.Graphics2D;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.geom.Point2D;
 import java.awt.geom.AffineTransform;
 import javax.swing.ImageIcon;
@@ -17,7 +18,7 @@ import javax.swing.ImageIcon;
  */
 public class Pixmap {
     // OS-independent relative resource locations (like URLs)
-    private static final String RESOURCE_LOCATION = "/images/";
+    private static final String RESOURCE_LOCATION = "/vooga/towerdefense/images/";
     // underlying implementation
     private java.awt.Image myImage;
     private String myFileName;
@@ -66,5 +67,21 @@ public class Pixmap {
         pen.drawImage(myImage, -size.width / 2, -size.height / 2, size.width, size.height, null);
         // restore graphics area to its old state, so our changes have no lasting effects
         pen.setTransform(old);
+    }
+    
+    /**
+     * 
+     * @return  String. The name of the Pixmap's image
+     */
+    public String getFileName () {
+        return myFileName;
+    }
+    
+    /**
+     * 
+     * @return
+     */
+    public Image getImage(){
+    	return myImage;
     }
 }

@@ -1,12 +1,15 @@
 package arcade.games;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import arcade.util.Pixmap;
 
 
 public class GameInfo {
-    public static final String FILEPATH = "src/";
-    public static final String RESOURCE_DIR_NAME = ".resources";
-    public static final String FILE_NAME = ".test";
+    public static final String FILEPATH = "games.";
+    public static final String RESOURCE_DIR_NAME = ".resources.";
+
+    public static final String FILE_NAME = ".example";
     
     public static final String GAME_NAME = "name";
     public static final String THUMBNAIL_NAME = "thumbnail";
@@ -18,8 +21,8 @@ public class GameInfo {
     
     private ResourceBundle myResourceBundle;
 
-    public GameInfo (String gamename) {
-        String filepath = gamename + RESOURCE_DIR_NAME + FILE_NAME;
+    public GameInfo (String gamename, String language) {
+    	String filepath = FILEPATH + gamename + RESOURCE_DIR_NAME + language;
         myResourceBundle = ResourceBundle.getBundle(filepath);
     }
 
@@ -42,5 +45,13 @@ public class GameInfo {
     public double getRating () {
         // TODO
         return 0;
+    }
+    
+    public List<String[]> getComments() {
+        List<String[]> comments = new ArrayList<String[]>();
+        String[] comment1 = {"subject", "theCoolestGuy", "5.0", "this game is awesome"};
+        comments.add(comment1);
+        return comments;
+        
     }
 }

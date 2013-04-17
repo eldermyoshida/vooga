@@ -48,6 +48,7 @@ public class GameTable extends Table {
         String url = "jdbc:postgresql://cgi.cs.duke.edu/nrc10";
         String user = "nrc10";
         String password = "aUsg5xj2f";
+        
 
         try {
             myConnection = DriverManager.getConnection(url, user, password);
@@ -84,6 +85,7 @@ public class GameTable extends Table {
      * Returns true if gameName already exists, false otherwise
      * @param gameName is the name of game
      */
+
     public boolean gameNameExists(String gameName) {
         String stm = "SELECT gamename FROM games WHERE gamename='" + gameName + "'";
         try {
@@ -122,6 +124,12 @@ public class GameTable extends Table {
     /**
      * Given the gameName, adds a game
      * @param gameName is the name of game
+     * Adds a user to user table based on information
+     * @param user is the username
+     * @param pw is the password
+     * @param firstname is firstname
+     * @param lastname is lastname
+     * @param dateOfBirth is date of birth
      */
     public boolean createGame(String gameName) {
         if (gameNameExists(gameName)) {
@@ -141,8 +149,7 @@ public class GameTable extends Table {
     
     /**
      * Returns a list of all the games
-     */
-    public List<String> retrieveGameList() {
+     */    public List<String> retrieveGameList() {
         String stm = "SELECT " + GAMENAME_COLUMN_FIELD + " FROM "  + TABLE_NAME;
         List<String> myGameNames = new ArrayList<String>();
         try {

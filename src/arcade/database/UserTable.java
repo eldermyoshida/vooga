@@ -165,7 +165,7 @@ public class UserTable extends Table {
      * @param filepath is the filepath
      */
     public boolean createUser(String user, String pw, String firstname, 
-                        String lastname, String dob, String filepath) {
+                              String lastname, String dob, String filepath) {
         if (usernameExists(user)) {
             return false;
         }
@@ -203,14 +203,14 @@ public class UserTable extends Table {
      * @param username is the username
      * @param columnIndex is the index that we want the information for
      */
-    public String retrieveEntry(String username, int columnIndex) {
+    public String retrieveEntry(String username, int COLUMN_INDEX) {
         String stm = "SELECT * FROM " +TABLE_NAME + " WHERE " + USERNAME_COLUMN_FIELD + "='" + username + "'";
         String entry = "";
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
             myResultSet = myPreparedStatement.executeQuery();
             if (myResultSet.next()) {
-                entry = myResultSet.getString(columnIndex);
+                entry = myResultSet.getString(COLUMN_INDEX);
             }
         }
         catch (SQLException e) {
@@ -224,8 +224,7 @@ public class UserTable extends Table {
      * @param username is user
      */
     public void deleteUser(String username) {
-        String stm = "DELETE FROM " + TABLE_NAME + " WHERE " + 
-                USERNAME_COLUMN_FIELD + "='" + username + "'";
+        String stm = "DELETE FROM " + TABLE_NAME + " WHERE " + USERNAME_COLUMN_FIELD + "='" + username + "'";
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
             myPreparedStatement.executeUpdate();
@@ -243,7 +242,7 @@ public class UserTable extends Table {
     public void updateAvatar(String user, String filepath) {
         String userid = retrieveUserId(user);
         String stm = "UPDATE " + TABLE_NAME + " SET " + AVATAR_COLUMN_FIELD + "='" + 
-                "filepath" + "' WHERE " + USERID_COLUMN_FIELD + "='" + userid + "'";
+                "filepath" + "' WHERE " + USERID_COLUMN_FIELD + "='" + userid + "'";   
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
             myPreparedStatement.executeUpdate();

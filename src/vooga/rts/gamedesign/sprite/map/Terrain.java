@@ -1,6 +1,11 @@
-package gamedesign.sprite.map;
+package vooga.rts.gamedesign.sprite.map;
 
-import gamedesign.sprite.Sprite;
+import java.awt.Dimension;
+
+import vooga.rts.gamedesign.sprite.GameSprite;
+import vooga.rts.util.Location;
+import vooga.rts.util.Location3D;
+import vooga.rts.util.Pixmap;
 
 /**
  * An object that appears on the map such as a tree or rock.  This would also
@@ -12,10 +17,16 @@ import gamedesign.sprite.Sprite;
  * @author Wenshun Liu 
  *
  */
-public abstract class Terrain extends Sprite {
+public abstract class Terrain extends GameSprite {
 
-  public int traverseID;
+    public int myHeight;
+    public int myLevel;
 
-  public Integer level;
+    public Terrain(Pixmap image, Location3D center, Dimension size) {
+        super(image, center, size);
+    }
 
+    public int getLevel () {
+        return myLevel;
+    }
 }

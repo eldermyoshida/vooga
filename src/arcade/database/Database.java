@@ -1,6 +1,9 @@
 package arcade.database;
 import java.util.List;
+import arcade.games.GameData;
 import arcade.games.UserGameData;
+
+import java.util.List;
 
 /**
  * Creates overall database
@@ -89,9 +92,9 @@ public class Database {
         return null;
     }
     
-//    public GameData getGameData(String gameName) {
-//        return null;
-//    }
+    public GameData getGameData(String gameName) {
+        return null;
+    }
     
     public void printGameTable() {
         myGameTable.printEntireTable();

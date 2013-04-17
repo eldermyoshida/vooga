@@ -1,4 +1,4 @@
-package util;
+package vooga.rts.util;
 
 import java.awt.geom.Point2D;
 
@@ -11,6 +11,7 @@ import java.awt.geom.Point2D;
  * @author Robert C. Duvall
  */
 public class Vector {
+     
     // angle in degrees
     private double myAngle;
     // "speed" in pixels per second
@@ -39,8 +40,16 @@ public class Vector {
     public Vector (Point2D source, Point2D target) {
         double dx = target.getX() - source.getX();
         double dy = source.getY() - target.getY();
-        setDirection(angleBetween(dx, dy));
+        setDirection(angleBetween(dx, -dy));
         setMagnitude(distanceBetween(dx, dy));
+    }
+    
+    public static Vector CreateCoordinateVector(double X, double Y)
+    {
+    	Vector t = new Vector();    	
+    	t.setDirection(angleBetween(X, Y));
+    	t.setMagnitude(distanceBetween(X, Y));
+    	return t;
     }
 
     /**
@@ -103,6 +112,11 @@ public class Vector {
         double sign = (myAngle < 0) ? 1 : -1;
         return ((myAngle + sign * OFFSET) % 360) - sign * OFFSET;
     }
+    
+    public double getAngle()
+    {
+    	return myAngle;    			
+    }
 
     /**
      * Returns the angle between this vector and the given other vector.
@@ -138,23 +152,7 @@ public class Vector {
     public double getYChange () {
         return getMagnitude() * Math.sin(Math.toRadians(getDirection()));
     }
-    
-    
-    //new Code;
-    public Vector returnDirectionSum(Vector other){
-    	double a1 = getDirection();
-        double a2 = other.getDirection();
-        double m1 = getMagnitude();
-        double m2 = other.getMagnitude();
-        double speed = Math.sqrt(m1 * m1 + m2 * m2 + 2 * m1 * m2 *
-        Math.cos(Math.toRadians(a1 - a2)));
-        double angle = Math.toDegrees(Math.asin(m2 *
-        Math.sin(Math.toRadians(a2 - a1)) / speed)) + a1;
-        
-        return new Vector(angle, m1);
-    	
-    }
-    
+
     /**
      * Adds the given vector to this vector.
      */
@@ -272,5 +270,66 @@ public class Vector {
         else {
             return Math.abs(a / b - 1) < EPSILON;
         }
+    }
+   
+    
+    public void removeXComponent()
+    {
+    	double nAngle;
+    	double dy = this.getYChange();
+    	if (dy > 0)
+    	{
+    		nAngle = 90;    		
+    	}
+    	else
+    	{
+    		nAngle = -90;
+    	}
+    	this.setMagnitude(this.getYChange());
+    	this.setDirection(nAngle);
+    }
+    
+    public void removeComponent(double angle)
+    {
+    	double ang = Math.abs(this.getAngle());
+    	/*
+    	System.out.println(ang);
+    	// if already perpendicular
+    	if (Math.abs(ang - angle) == 90)
+    	{
+    		return;
+    	} */   	
+    	
+    	Vector remove;
+    	double amount = this.getRelativeMagnitude(new Vector(angle, 1));
+    	//System.out.println(amount);
+    	if (amount < 0)
+    	{
+    		remove = new Vector(angle, -amount);
+    		this.difference(remove);
+    	}
+    }
+    
+    
+    public void removeYComponent()
+    {
+    	double ang = Math.abs(this.getAngle());
+    	//System.out.println(ang);
+    	if (Math.abs(this.getAngle()) == 90)
+    	{
+    		return;
+    	}
+    	
+    	Vector remove;
+    	double dy = this.getYChange();
+    	if (dy > 0)
+    	{
+    		remove = new Vector(90, Math.abs(dy));
+    	}
+    	else
+    	{
+    		remove = new Vector(-90, Math.abs(dy));
+    	}
+    	this.difference(remove);
     }
 }

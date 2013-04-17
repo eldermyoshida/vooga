@@ -1,4 +1,4 @@
-package util;
+package vooga.towerdefense.util;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
@@ -13,6 +13,7 @@ import java.awt.geom.Point2D;
  *   http://en.wikipedia.org/wiki/Sprite_(computer_graphics)
  *   
  * @author Robert C. Duvall
+ * @author Leonard K. Ng'eno
  */
 public abstract class Sprite {
     // canonical directions for a collision
@@ -168,6 +169,13 @@ public abstract class Sprite {
     public void setVelocity (double angle, double magnitude) {
         myVelocity = new Vector(angle, magnitude);
     }
+    
+    /**
+     * Resets shape's velocity.
+     */
+    public void setVelocity (Vector newVect) {
+        myVelocity = new Vector(newVect);
+    }
 
     /**
      * Resets shape's image.
@@ -245,5 +253,19 @@ public abstract class Sprite {
         }
         return 0;
         //return Double.NaN;
+    }
+    
+    public void turnTo (Location loc) {
+
+		getVelocity().setDirection(getVelocity().getDirection()+Vector.angleBetween(myCenter, loc));
+    	
+    }
+    
+    public Location getCenter () {
+    	return myCenter;
+    }
+    
+    public Pixmap getPixmap(){
+    	return myView;
     }
 }

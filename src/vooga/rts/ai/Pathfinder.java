@@ -1,9 +1,15 @@
-package ai;
+package vooga.rts.ai;
 
-import java.util.List;
-import map.MapNode;
+import vooga.rts.map.NodeMap;
+import vooga.rts.map.Node;
 
-public abstract class Pathfinder {
+/**
+ * 
+ * @author Challen Herzberg-Brovold
+ * 
+ */
+public abstract class PathFinder {
     
-    public abstract List<MapNode> findPath(MapNode current, MapNode destination);
+    public abstract Path calculatePath(Node start, Node finish, 
+                                            NodeMap map);
 }

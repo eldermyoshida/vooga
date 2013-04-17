@@ -30,20 +30,9 @@ public abstract class Game{
      */
     public abstract UserGameData generateNewProfile();
     
-    /**
-     * Set up a view component that the Game will be displayed on and return 
-     * it to the arcade.  This view component should probably be very similar 
-     * to a Canvas in previous projects, but will be left to the Game writers 
-     * to create so they can customize it as they wish.
-     * 
-     * 
-     * @return your game's view
-     */
-    public abstract Component createView();
     
     /**
-     * starts the game (should probably start displaying the splash screen or
-     * title screen).
+     * starts the game (should probably start running the game loop)
      *
      */
     public abstract void run ();

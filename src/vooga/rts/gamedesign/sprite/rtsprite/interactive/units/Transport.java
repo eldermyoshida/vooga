@@ -1,9 +1,12 @@
-package gamedesign.sprite.rtsprite.interactive.units;
+package vooga.rts.gamedesign.sprite.rtsprite.interactive.units;
 
-import gamedesign.sprite.rtsprite.RTSprite;
-import gamedesign.sprite.rtsprite.RTSpriteVisitor;
-import gamedesign.sprite.rtsprite.interactive.IOccupiable;
-import util.Location;
+import java.awt.Dimension;
+
+import vooga.rts.gamedesign.sprite.rtsprite.interactive.IOccupiable;
+import vooga.rts.util.Location;
+import vooga.rts.util.Location3D;
+import vooga.rts.util.Pixmap;
+import vooga.rts.util.Sound;
 
 /**
  * 
@@ -13,35 +16,17 @@ import util.Location;
  * @author Wenshun Liu 
  *
  */
-public class Transport extends Units implements IOccupiable {
+public class Transport extends Unit implements IOccupiable {
+
+	public Transport(Pixmap image, Location3D center, Dimension size,
+			Sound sound, int playerID, int health) {
+		super(image, center, size, sound, playerID, health);
+	}
 
 	@Override
-	public void move(Location loc) {
+	public void getOccupied(Unit u) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
-	public void getAttacked(RTSpriteVisitor visitor) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public int calculateDamage() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void changeHealth() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void visit(RTSprite rtSprite) {
-		// TODO Auto-generated method stub
-		
-	}
 }

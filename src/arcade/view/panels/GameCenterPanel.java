@@ -1,14 +1,21 @@
 package arcade.view.panels;
 
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
+import arcade.games.GameInfo;
+import arcade.model.Model;
+import arcade.view.MainView;
+import arcade.view.SnapShot;
 
 
 public class GameCenterPanel extends JPanel {
@@ -21,48 +28,40 @@ public class GameCenterPanel extends JPanel {
     private static final int HEIGHT = 600;
     private static final int HORIZONTAL_GAP = 5;
     private static final int VERTICAL_GAP = 5;
+    private Model myModel;
 
     /**
-         * 
-         */
-    private JList myGameList;
-    private DefaultListModel gameListModel;
+     * 
+     */
+    private MainView myUpperLevel;
 
     /**
      * Constructor
      */
-    public GameCenterPanel () {
+    public GameCenterPanel (MainView mv, Model m) {
+        myUpperLevel = mv;
+        myModel = m;
+        setBackground(Color.WHITE);
         GridLayout gamePanelLayout = new GridLayout(0, 2);
         gamePanelLayout.setHgap(HORIZONTAL_GAP);
         gamePanelLayout.setVgap(VERTICAL_GAP);
         setLayout(gamePanelLayout);
-        // JList
-        createGameJList();
-        //
 
+        createGameJList();
     }
 
     /**
      * Create the JList for games.
      */
     private void createGameJList () {
-        
-
-    }
-
-    /**
-     * TODO:
-     * Return the list of games in the GameList.
-     */
-    public List gameListContent () {
-        return null;
-    }
-
-    /**
-     * TODO:
-     * Update the List of games
-     */
-    public void updateGameList (List inputList) {
+        for (int i = 0; i < 4; i++) {
+            for (GameInfo info : myUpperLevel.getGameList()) {
+                SnapShot temp = new SnapShot(info, myUpperLevel.getResources(), myModel);
+                add(temp);
+                SnapShot temp2 = new SnapShot(info, myUpperLevel.getResources(), myModel);
+                add(temp2);
+            }
+        }
 
     }
 }

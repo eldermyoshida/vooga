@@ -1,4 +1,8 @@
-package gamedesign.strategy.gatherstrategy;
+package vooga.rts.gamedesign.strategy.gatherstrategy;
+
+import vooga.rts.gamedesign.Interval;
+import vooga.rts.gamedesign.sprite.rtsprite.interactive.IGatherable;
+import vooga.rts.gamedesign.strategy.Strategy;
 
 /**
  * This interface is implemented by the classes CanGather and CannotGather that
@@ -17,5 +21,18 @@ package gamedesign.strategy.gatherstrategy;
  * @author Wenshun Liu 
  *
  */
-public interface GatherStrategy {
+public interface GatherStrategy extends Strategy{
+	
+	/**
+	 * Allows a worker to gather a resource
+	 * @param g is the resource being gathered
+	 */
+	public void gatherResource (IGatherable g);
+	
+	/**
+	 * Returns the gather delay interval
+	 * @return the gather delay interval
+	 */
+	public Interval getInterval();
+	
 }

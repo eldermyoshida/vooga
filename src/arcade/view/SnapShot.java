@@ -1,16 +1,19 @@
+
 package arcade.view;
 
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
+import java.util.ResourceBundle;
 import javax.swing.BoxLayout;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import arcade.games.GameInfo;
+import arcade.model.Model;
+import arcade.util.JPicture;
 import arcade.util.Pixmap;
-import arcade.util.Thumbnail;
 
 
 public class SnapShot extends JPanel implements MouseListener {
@@ -20,20 +23,30 @@ public class SnapShot extends JPanel implements MouseListener {
          */
     private static final long serialVersionUID = 1859238824934859448L;
     private GameInfo myGameInfo;
+    private ResourceBundle myResources;
     private JLabel myTitle;
     private JComponent myThumbnail;
     private JLabel myRating;
+    
+    
+    private String gameName;
+    private Model myModel;
 
-    public SnapShot (GameInfo info) {
+    public SnapShot (GameInfo info, ResourceBundle resources, Model model) {
+        myModel = model;
         myGameInfo = info;
-        myTitle = new JLabel("<html><b><font size = 6>" + myGameInfo.getName() +
+        myResources = resources;
+        gameName = info.getName();
+        myTitle = new JLabel("<html><b><font size = 4>" + myGameInfo.getName() +
                              "</font></html></b>");
         Pixmap p = myGameInfo.getThumbnail();
-        myThumbnail = new Thumbnail(p, new Dimension(50, 50));
+        myThumbnail = new JPicture(p, new Dimension(160, 160));
         myRating = new JLabel(myGameInfo.getRating() + "");
+        
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-        add(myTitle);
+        
         add(myThumbnail);
+        add(myTitle);
         add(myRating);
         myTitle.addMouseListener(this);
         myThumbnail.addMouseListener(this);
@@ -53,7 +66,10 @@ public class SnapShot extends JPanel implements MouseListener {
             // the database
             // JFrame des = new JFrame(myGameInfo.title());
             // des.setVisible(true);
-            openHelpPage();
+            //openHelpPage();
+            DetailView dv = new DetailView(myGameInfo, myResources, myModel);
+            
+            
         }
     }
 

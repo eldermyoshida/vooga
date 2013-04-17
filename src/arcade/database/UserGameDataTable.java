@@ -53,6 +53,7 @@ public class UserGameDataTable extends Table {
         String user = "nrc10";
         String password = "aUsg5xj2f";
 
+
         try {
             myConnection = DriverManager.getConnection(url, user, password);
         }
@@ -89,6 +90,7 @@ public class UserGameDataTable extends Table {
      * @param gameid is game id
      * @param userid is user id
      * @param highscore of the game
+=======
      */
     public void createNewUserGameData (String gameid, String userid, String highscore) {
         
