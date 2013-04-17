@@ -5,7 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.Observable;
 import vooga.rts.IGameLoop;
-import vooga.rts.resourcemanager.ResourceManager;
+import vooga.rts.resourcemanager.ImageResourceManager;
 import vooga.rts.util.Location;
 
 
@@ -22,7 +22,7 @@ public abstract class Button extends Observable implements IGameLoop {
 
     public Button (String image, Dimension size, Location pos) {
         if (image != null) {
-            myImage = ResourceManager.instance().loadFile(image);
+            myImage = ImageResourceManager.instance().loadFile(image);
         }
         mySize = size;
         myPos = pos;

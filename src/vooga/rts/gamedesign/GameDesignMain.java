@@ -8,7 +8,7 @@ import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Soldier;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Unit;
 import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;
 import vooga.rts.gamedesign.strategy.attackstrategy.CannotAttack;
-import vooga.rts.resourcemanager.ResourceManager;
+import vooga.rts.resourcemanager.ImageResourceManager;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
