@@ -26,6 +26,20 @@ public class VisitMethods {
         myLevel = level;
     }
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    // OLD VISIT METHODS 
+    
+    
     public void visit (Mario mario, Mario mario2) {
         //System.out.println("Mario has just collided with Mario!");
         

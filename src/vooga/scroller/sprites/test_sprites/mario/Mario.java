@@ -7,6 +7,8 @@ import util.input.InputClassTarget;
 import util.input.InputMethodTarget;
 import vooga.scroller.level_management.IInputListener;
 import vooga.scroller.scrollingmanager.ScrollingManager;
+import vooga.scroller.sprites.interfaces.IPlatform;
+import vooga.scroller.sprites.interfaces.IPlayer;
 import vooga.scroller.sprites.superclasses.NonStaticEntity;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.Pixmap;
@@ -14,7 +16,8 @@ import vooga.scroller.util.Sprite;
 import vooga.scroller.view.View;
 
 @InputClassTarget
-public class Mario extends Player implements IInputListener{
+public class Mario extends Player implements IPlayer, IInputListener{
+
 
     private static final String CONTROLS_FILE_PATH = "vooga/scroller/resources/controls/MarioMapping";
     
