@@ -28,6 +28,9 @@ public class Model implements ArcadeInteraction {
     private Database myDb = new Database();
 
     private List<GameInfo> mySnapshots;
+    private String myUser;
+    
+    
 
     public Model (ResourceBundle rb, String language) {
         myResources = rb;
@@ -39,11 +42,18 @@ public class Model implements ArcadeInteraction {
     }
 
     public void authenticate (String username, String password) {
+       if( myDb.authenticateUsernameAndPassword(username, password)){
+           myLoginView.destroy();
+           getGameList();
+           organizeSnapshots();
+           new MainView(this, myResources);
+       }else{
+           myLoginView.sendMessage(LOGIN_FAILURE_MESSAGE);
+       }
+        
         // myLoginView.sendMessage(LOGIN_FAILURE_MESSAGE);
-        myLoginView.destroy();
-        getGameList();
-        organizeSnapshots();
-        new MainView(this, myResources);
+        
+        
 
         // if (username.equals("ellango") && password.equals("password")) {
         // myLoginView.destroy();
@@ -52,7 +62,7 @@ public class Model implements ArcadeInteraction {
         // new MainView(this, myResources);
         // }
         // else {
-        // myLoginView.sendMessage(LOGIN_FAILURE_MESSAGE);
+        // 
         // }
     }
 
@@ -140,7 +150,7 @@ public class Model implements ArcadeInteraction {
     }
 
     @Override
-    public UserGameData getUserGameData () {
+    public UserGameData getUserGameData (String gameName) {
         // TODO database stuff
         return null;
     }
