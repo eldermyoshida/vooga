@@ -17,7 +17,8 @@ public class Main {
         myDatabase.createUser("natx13", "nataliapassword", "Natalia", "Carvalho", "04/26/1991", "blahblahblh");
         myDatabase.createUser("bob", "mypassword", "Joe", "Smith", "11/11/1911");        
         
-        myDatabase.createGame("Pacman");
+        myDatabase.deleteGame("Pacman");
+        myDatabase.createGame("example");
         
 //       myDatabase.addAvatarToUser("natx13", "C:/blahbalhblah");
         
@@ -36,6 +37,10 @@ public class Main {
         //myGameDatabase.registerGame("Pacman");
         
         List<String> myGameNames = myDatabase.retrieveListOfGames();
+        
+        for (String game : myGameNames) {
+            System.out.println(game);
+        }
         
         myDatabase.printUserTable();
         myDatabase.printGameTable();

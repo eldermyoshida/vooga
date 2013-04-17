@@ -149,7 +149,8 @@ public class GameTable extends Table {
     
     /**
      * Returns a list of all the games
-     */    public List<String> retrieveGameList() {
+     */    
+    public List<String> retrieveGameList() {
         String stm = "SELECT " + GAMENAME_COLUMN_FIELD + " FROM "  + TABLE_NAME;
         List<String> myGameNames = new ArrayList<String>();
         try {
@@ -165,6 +166,22 @@ public class GameTable extends Table {
         return myGameNames;
         
     }
+     
+    /**
+     * Given a game, deletes that game from gameTable
+     * @param gameName is gameName
+     */
+    public void deleteGame(String gameName) {
+        String stm = "DELETE FROM " + TABLE_NAME + " WHERE " + GAMENAME_COLUMN_FIELD + "='" + gameName + "'";
+        try {
+            myPreparedStatement = myConnection.prepareStatement(stm);
+            myPreparedStatement.executeUpdate();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+     
     
     void printEntireTable () {
         System.out.println();

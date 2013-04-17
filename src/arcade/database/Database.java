@@ -98,12 +98,9 @@ public class Database {
         myUserTable.deleteUser(username);
     }
     
-    public void printUserTable() {
-        myUserTable.printEntireTable();
-    }
-    
-    public void printUserGameDataTable() {
-        myUserGameDataTable.printEntireTable();
+    public void deleteGame(String gameName) {
+        myGameTable.deleteGame(gameName);
+        //TODO delete game from other tables as well
     }
     
     public void addNewHighScore(String username, String gameName, String newHighScore) {
@@ -132,6 +129,14 @@ public class Database {
     
     public void printGameTable() {
         myGameTable.printEntireTable();
+    }
+    
+    public void printUserTable() {
+        myUserTable.printEntireTable();
+    }
+    
+    public void printUserGameDataTable() {
+        myUserGameDataTable.printEntireTable();
     }
     
     private String retrieveGameId(String gameName) {
