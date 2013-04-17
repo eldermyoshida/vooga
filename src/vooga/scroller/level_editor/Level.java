@@ -8,12 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
 import util.Location;
+import util.input.Input;
 import vooga.scroller.util.Editable;
 import vooga.scroller.util.Sprite;
 import vooga.scroller.viewUtil.Renderable;
 import vooga.scroller.collision_manager.CollisionManager;
-import vooga.scroller.model.IInput;
-import vooga.scroller.model.PlayerInputs;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.superclasses.NonStaticEntity;
 import vooga.scroller.sprites.superclasses.Player;
@@ -32,12 +31,7 @@ public class Level implements Editable, Renderable {
     private View myView;
     private ScrollingManager myScrollManager;
     private Image myBackground;
-    
-    private IInput myInput;
-    
-    //not longer temp. This is useful.
-    // TODO: force dev to specify background.
-    // This background is all clear
+    private String myInputMapping;
     private Image DEFAULT_BACKGROUND = new ImageIcon(getClass().getResource("/vooga/scroller/images/default_background.png")).getImage();
 
     private int myID;
@@ -78,7 +72,14 @@ public class Level implements Editable, Renderable {
         myFrameOfReferenceSprites = new ArrayList<Sprite>();      
     }
 
-    
+    /**
+     * Sets the file path of the input mapping to use for this level.
+     * 
+     * @param inputPath is the file path of the input mapping for this level.
+     */
+    public void setInputPath(String inputPath) {
+       myInputMapping = inputPath;
+    }
 
     
     public void setSize(Dimension size) {
@@ -129,7 +130,6 @@ public class Level implements Editable, Renderable {
 
     public void update(double elapsedTime, Dimension bounds, View view) {
         if(myPlayer != null) {
-//            System.out.println(myPlayer.getPaintLocation());
             updateFrames(view);
             myPlayer.update(elapsedTime, bounds);
 
@@ -238,8 +238,13 @@ public class Level implements Editable, Renderable {
 
     @Override
     public void deleteSprite (int x, int y) {
-        // TODO Auto-generated method stub
-        
+        Location point = new Location(x,y);
+        for(int i = 0; i < mySprites.size(); ++i){
+            Sprite s = mySprites.get(i);
+            if (s.intersects(point)){
+                mySprites.remove(i);
+            }
+        }
     }
     
     private void intersectingSprites () {
@@ -253,7 +258,6 @@ public class Level implements Editable, Renderable {
                 obj1 = mySprites.get(i);
                 obj2 = mySprites.get(j);
                 if (obj1.intersects(obj2)) {
-                    //System.out.println("Obj1: " + obj1.getClass() + " Obj2: " + obj2.getClass());
                     CM.handleCollision(obj1, obj2);
                 }
             }
@@ -262,42 +266,57 @@ public class Level implements Editable, Renderable {
        mySprites.remove(mySprites.size()-1);
     }
     
+    /**
+     * Gives the view used by this Level
+     * @return This level's view.
+     */
     public View getView() {
         return myView;
     }
 
     @Override
     public void addSprite (Sprite s, int x, int y) {
-        // TODO Not sure if needed
-        // not needed in current use
-        
+        s.setCenter(x, y);
+        addSprite(s);
     }
-    
-    
+
     /**
-     * These two methods are quite something. Need to initialize input and delete it.
+     * Gives the player currently in the level. Returns null if
+     * player has never been added to the level.
+     * 
+     * @return This level's player.
      */
-    public void activate(){
-        myInput = new PlayerInputs(myPlayer, myView);
-    }
-    
-    public void deactivate() {
-        myInput = null;
-        // TODO: input maybe do soemthing about this. I don't want to have to rely
-        // on java garbage collection.
-    }
-    
-    // We never need getter because of how input is designed (only needs to be instantiated).
-    public void setInput(IInput input) {
-        myInput = input;
-    }
-    
-    public IInput getInput(){
-        return myInput;
-    }
-    
     public Player getPlayer() {
         return myPlayer;
+    }
+
+    /**
+     * Gives the path to the input resource file specifying the inputs for this level.
+     * 
+     * @return file path for input mappings.
+     */
+    public String getInputPath () {
+        return myInputMapping;
+    }
+
+    /**
+     * adds listeners to all level elements that are controllable
+     * 
+     * @param myInput input that controls level elements.
+     */
+    public void addInputListeners (Input myInput) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    /**
+     * removes listeners from all level elements that are controllable
+     *
+     * @param myInput input that controls level elements.
+     */
+    public void removeInputListeners (Input myInput) {
+        // TODO Auto-generated method stub
+        
     }
 
 }
