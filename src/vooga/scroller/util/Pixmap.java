@@ -101,4 +101,10 @@ public class Pixmap implements ISpriteView {
         return this;
     }
 
+    @Override
+    public void setDefaultView (ISpriteView ispriteview) {
+       // myImage = ispriteview
+        // TODO: 
+    }
+
 }

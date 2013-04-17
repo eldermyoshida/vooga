@@ -147,6 +147,7 @@ public class Level implements Editable, Renderable {
 
             if (myPlayer.getHealth() <= 0) {
                 myPlayer.handleDeath();
+                
             }
 
             intersectingSprites();
@@ -305,6 +306,7 @@ public class Level implements Editable, Renderable {
     public void addInputListeners (Input myInput) {
         myInput.replaceMappingResourcePath(myPlayer.getInputFilePath());
         myInput.addListenerTo(myPlayer);
+
     }
 
     /**

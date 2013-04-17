@@ -59,15 +59,10 @@ public class Animation implements ISpriteView {
         return myDefaultStateView;
     }
 
-    /**
-     * Gives the default image of this animation.
-     * 
-     * @return The default image of this animation.
-     */
-    public Image getDefaultImg () {
-        return getDefaultStateView().getDefaultImg();
+    public void setDefaultView (ISpriteView defaultImage) {
+        myDefaultStateView = defaultImage;
     }
-
+    
     @Override
     public void paint (Graphics2D pen, Point2D center, Dimension size, double angle) {
         ISpriteView currView = getStateView();
@@ -84,5 +79,11 @@ public class Animation implements ISpriteView {
     public void paint (Graphics2D pen, Point2D myCenter, Dimension mySize) {
       ISpriteView currView = getStateView();
       currView.paint(pen, myCenter, mySize);
+    }
+
+    @Override
+    public Image getDefaultImg () {
+        
+        return myDefaultStateView.getDefaultImg();
     }
 }
