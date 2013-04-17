@@ -3,7 +3,9 @@ package vooga.scroller.level_management;
 import java.awt.Dimension;
 import java.io.File;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.swing.ImageIcon;
 import util.Location;
@@ -51,16 +53,13 @@ public class LevelFactory {
      * @return a the first of the List of all levels that will be played in the game.
      */
     public Level generateLevels () {
-        
+        List<Level> levels = new ArrayList<Level>();
         SplashPage splash = new SplashPage(new Pixmap("MARIO SPLASH.png"),0,myView, mySM);
         // TODO: fix this
         splash.addManager(myLevelManager);
-        StartPoint finalSplashStart = new StaticStartPoint(splash, new Location(100, 140));
         IDoor beginSplashDoor = new LevelPortal(splash, new Location(100, 100));
         splash.addDoor(beginSplashDoor );
-
-        //TODO needs to be refactored. Design needs to be improved
-//        Level level1 = hardcodeLevel1(view, mySM, 1);
+        
         // TODO: this will ideally read in levels from file and create instances of each level
         // This works for demo
         Level level1 = buildLevel(1, loadGridFromFile("createdLevelupg.level"));
@@ -69,24 +68,20 @@ public class LevelFactory {
         Level level2 = new Level(2, mySM, myView);
         hardcodeLevel2(level2);
         hardCodeCompleteL2(level2);
+        levels.add(splash); levels.add(level1); levels.add(level2);
+        
 
-//        linkLevels(splash, level1, level2);
-//        myLevelManager.put(splash.getDoor(), level1.getStartPoint());
-//        myLevelManager.put(level1.getDoor(), level2.getStartPoint());
-//        myLevelManager.put(level2.getDoor(), finalSplashStart);
-
-        linkLevels(splash, level2, level1);
+        StartPoint finalSplashStart = new StaticStartPoint(splash, new Location(100, 140));
+        linkLevels(levels, finalSplashStart);
         return splash;
     }
 
-    private Map<Integer, Level> linkLevels (Level ...levels) {
-        Map<Integer, Level> res = new HashMap<Integer, Level>();
-        for(int i=0; i<levels.length-1; i++) {
-            res.put(levels[i].getID(), levels[i+1]);
-            myLevelManager.put(levels[i].getDoor(),  levels[i+1].getStartPoint());
+    private void linkLevels (List<Level> levels, StartPoint endGame) {
+        for(int i=0; i<levels.size()-1; i++) {
+            myLevelManager.put(levels.get(i).getDoor(),  levels.get(i+1).getStartPoint());
         }
-        //TODO - what about final splash...
-        return res;
+        myLevelManager.put(levels.get(levels.size()-1).getDoor(),  endGame);
+        //TODO - needs to add final splash...
         
     }
 

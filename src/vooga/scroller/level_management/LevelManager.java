@@ -33,9 +33,8 @@ public class LevelManager {
         myWays = new HashMap<IDoor, StartPoint>();
         myInitialLevel = lf.generateLevels();        
         //myCurrentLevel = myLevels.get(DEFAULT_START_LEVEL_ID); 
-
-        myCurrentLevel = myInitialLevel;
         myInput = new Input(DEFAULT_INPUT_CONTROLS, view);
+        setCurrentLevel(myInitialLevel);
     }
     
     /**
