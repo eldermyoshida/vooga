@@ -9,6 +9,7 @@ import vooga.scroller.sprites.superclasses.StaticEntity;
 import vooga.scroller.util.ISpriteView;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.Sprite;
+import vooga.scroller.sprites.interfaces.ILevelPortal;;
 
 /**
  * Acts as a portal between different levels and differnent positions. This can be used to change
@@ -17,14 +18,13 @@ import vooga.scroller.util.Sprite;
  * @author Scott Valentine
  *
  */
-public class LevelPortal extends Sprite implements IDoor {
+public class LevelPortal extends Sprite implements ILevelPortal, IDoor {
 
     private static Pixmap DEFAULT_IMG = 
             new Pixmap("portal.png");
     private StartPoint myExit;
     private Level myLevel;
     private LevelManager myLevelManager;
-    
     
     public LevelPortal (Level l, Location center, LevelManager lm) {
         this(l, center);
@@ -34,11 +34,15 @@ public class LevelPortal extends Sprite implements IDoor {
     public void setManager(LevelManager lm) {
         myLevelManager = lm;
     }
+    
+    public Level getLevel() {
+        return myLevel;
+    }
 
 
     public LevelPortal (Level l, Location center) {
         super(DEFAULT_IMG, center, 
-              new Dimension(50, 50), StaticEntity.INANIMATE_ENTITY_HEALTH);
+              new Dimension(50, 50));
         myLevel = l;
     }
 
@@ -70,6 +74,12 @@ public class LevelPortal extends Sprite implements IDoor {
         myLevelManager.currentLevel().addPlayer(player);
         
         player.setCenter(s.getStartLocation().x, s.getStartLocation().y);       
+    }
+
+
+    @Override
+    public LevelPortal getLevelPortal () {
+        return this;
     }
 
 }

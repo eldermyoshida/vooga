@@ -18,17 +18,17 @@ import vooga.scroller.util.Sprite;
  * @author Jay Wang
  *
  */
-public class NonStaticEntity extends Sprite {
+public abstract class NonStaticEntity extends Sprite {
     
     public static Vector DEFAULT_SPEED = new Vector(0, 45);
     private Player myPlayer;
     
     public NonStaticEntity (Pixmap image, Location center, Dimension size) {
-        super(image, center, size, DEFAULT_SPEED, StaticEntity.INANIMATE_ENTITY_HEALTH);  //health defaulted to 1
+        super(image, center, size, DEFAULT_SPEED);  //health defaulted to 1
     }
     
     public NonStaticEntity (Pixmap image, Location center, Dimension size, int health) {
-        super(image, center, size, DEFAULT_SPEED, health);
+        super(image, center, size, DEFAULT_SPEED);
     }
     
     public void changeVelocity(Vector vector) {
@@ -59,16 +59,6 @@ public class NonStaticEntity extends Sprite {
     public Player getPlayer() {
         return myPlayer;
     }
-
-    public int getHit () {
-        return 1;
-    }
-    
-    public void takeHit() {
-        // TODO:
-    }
-    
-    
 
 
 }
