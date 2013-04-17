@@ -16,6 +16,9 @@ public class Database {
     private UserGameDataTable myUserGameDataTable;
     private ScoreTable myScoreTable;
     
+    /**
+     * Database constructor
+     */
     public Database() {
         myGameTable = new GameTable();
         myUserTable = new UserTable();
@@ -23,6 +26,9 @@ public class Database {
         myScoreTable = new ScoreTable();
     }
 
+    /**
+     * Closes the database connection
+     */
     public void closeDatabaseConnection() {
         myGameTable.closeConnection();
         myUserTable.closeConnection();
@@ -30,14 +36,35 @@ public class Database {
         myScoreTable.closeConnection();
     }
     
+    /**
+     * Creates a user when gien username, pw, firstname, lastname, and dataofbirth
+     * @param username is user
+     * @param pw is password
+     * @param firstname is first name
+     * @param lastname is last name
+     * @param date of birth is DOB
+     */
     public boolean createUser(String username, String pw, String firstname, String lastname, String dataOfBirth) {
         return myUserTable.createUser(username, pw, firstname, lastname, dataOfBirth);
     }
     
+    /**
+     * Creates a user when given username, pw, firstname, lastname, and dataofbirth and avatar
+     * @param username is user
+     * @param pw is password
+     * @param firstname is first name
+     * @param lastname is last name
+     * @param date of birth is DOB
+     * @avatar is the filepath for the avatar
+     */
     public boolean createUser(String username, String pw, String firstname, String lastname, String dataOfBirth, String filepath) {
         return myUserTable.createUser(username, pw, firstname, lastname, dataOfBirth, filepath);
     }
     
+    /**
+     * Creates a new game
+     * @param gameName is name of name
+     */
     public boolean createGame(String gameName) {
         return myGameTable.createGame(gameName);
     }
