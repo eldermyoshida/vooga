@@ -1,8 +1,5 @@
 package vooga.rts.networking.server;
 
-import vooga.rts.networking.communications.Message;
-import vooga.rts.networking.communications.clientmessages.ClientInfoMessage;
-
 /**
  * This class represents a Lobby where users can change information.
  * @author David Winegar
@@ -10,16 +7,8 @@ import vooga.rts.networking.communications.clientmessages.ClientInfoMessage;
  */
 public class Lobby extends Room {
         
-    public Lobby (GameContainer container) {
-        super(container);
-    }
-    
-    @Override
-    public void receiveMessageFromClient (Message message, ConnectionThread thread) {
-        if(message instanceof ClientInfoMessage) {
-            ClientInfoMessage systemMessage = (ClientInfoMessage) message;
-            systemMessage.execute(thread, this);
-        }
+    public Lobby (int id, GameContainer container) {
+        super(id, container);
     }
     
     @Override
@@ -29,6 +18,11 @@ public class Lobby extends Room {
         if (haveNoConnections()) {
             getGameContainer().removeRoom(this);
         }
+    }
+    
+    @Override
+    public void startGameServer (ConnectionThread thread) {
+        new GameServer(getID(), getGameContainer(), this);
     }
     
 }
