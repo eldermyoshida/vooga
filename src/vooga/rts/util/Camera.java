@@ -186,15 +186,19 @@ public class Camera {
      * @param change The amount to move the camera by
      */
     public void moveCamera (Location change) {
-        Location3D temp = deltaviewtoWorld(change);
+        Location3D tochange = deltaviewtoWorld(change);
+        Location3D temp = new Location3D(tochange);
         temp.add(myWorldCenter);
+
         if (myMapSize == null) {
             return;
         }
-        if (temp.getX() < VISION || temp.getX() > myMapSize.getWidth() - VISION ||
-            temp.getY() < VISION || temp.getY() > myMapSize.getHeight() - VISION) {
-            return;
+        if (temp.getX() < VISION || temp.getX() > myMapSize.getWidth() - VISION) {
+            tochange.add(-tochange.getX(), 0, 0);
         }
-        myWorldCenter = temp;
+        if (temp.getY() < VISION || temp.getY() > myMapSize.getHeight() - VISION) {
+            tochange.add(0, -tochange.getY(), 0);
+        }
+        myWorldCenter.add(tochange);
     }
 }
