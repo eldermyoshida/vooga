@@ -44,13 +44,12 @@ public class ResourcePanel extends JPanel {
      */
     public void addResouceButton() {
         setImageRelative(IMAGE_PATH_1);
-        myPanel.add(new ResourceButton(new Resource(1,"Tree",myImage),this));
+        myPanel.add(new ResourceButton(new Resource(1),this));
         setImageRelative(IMAGE_PATH_2);
-        myPanel.add(new ResourceButton(new Resource(2,"Rock",myImage),this));
+        myPanel.add(new ResourceButton(new Resource(2),this));
         setImageRelative(IMAGE_PATH_3);
-        myPanel.add(new ResourceButton(new Resource(3,"River",myImage),this));
+        myPanel.add(new ResourceButton(new Resource(3),this));
         setImageRelative(IMAGE_PATH_4);
-        myPanel.add(new ResourceButton(new Resource(3,"Grass",myImage),this));
 
     }
 

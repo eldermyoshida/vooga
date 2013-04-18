@@ -1,7 +1,10 @@
 package vooga.rts.leveleditor.components;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ResourceBundle;
+import javax.imageio.ImageIO;
 import vooga.rts.util.Location;
 /**
  * This class represents the available resource types the designer can choose from
@@ -14,6 +17,7 @@ import vooga.rts.util.Location;
 public class Resource {
     
     private static final String BUNDLE_RELATIVE_PATH = "vooga.rts.leveleditor.resource.";
+    private static final String IMAGE_PATH = "./src/vooga/rts/leveleditor/resource/";
     
     private Location myLocation;
     
@@ -35,10 +39,21 @@ public class Resource {
         myID = id;
         myName = myResources.getString(myID+"");
         myLocation = loc;
+        try {
+            myImage = ImageIO.read(new File(System.getProperty("user.dir") + IMAGE_PATH + myName));
+        }
+        catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
     
     public Resource(int x , int y, int id ) {
         this( new Location(x,y), id);
+    }
+    
+    public Resource(int id) {
+        this(0,0,id);
     }
     
     public String getName() {

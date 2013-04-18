@@ -134,8 +134,8 @@
       </layer>
    </terrain>
    <resources>
-      <resource type="gold " X=7 Y=7 />
-      <resource type="gas " X=8 Y=8 />
-      <resource type="wood" X=9 Y=9 />
+      <resource type="gold.jpg" X=7 Y=7 />
+      <resource type="gas.jpg " X=8 Y=8 />
+      <resource type="wood.jpg" X=9 Y=9 />
    </resources>
 </map>
