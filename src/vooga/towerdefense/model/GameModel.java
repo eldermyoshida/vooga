@@ -39,7 +39,7 @@ public class GameModel {
     }
 
     public void update (double elapsedTime) {
-        //updateWave(elapsedTime);
+        updateWave(elapsedTime);
         myGameMap.update(elapsedTime);
     }
 
@@ -49,7 +49,7 @@ public class GameModel {
 			startNextWave();
     }
 
-    private void startNextWave () {
+    public void startNextWave () {
         if (myWaves.iterator().hasNext()) {
             myCurrentWave = myWaves.iterator().next();
         }

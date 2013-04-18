@@ -3,12 +3,18 @@ package vooga.towerdefense.controller;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+
 import vooga.towerdefense.controller.modes.BuildMode;
 import vooga.towerdefense.controller.modes.ControlMode;
 import vooga.towerdefense.controller.modes.SelectMode;
+import vooga.towerdefense.factories.ExampleUnitFactory;
+import vooga.towerdefense.factories.WaveFactory;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.gameElements.Tower;
+import vooga.towerdefense.gameElements.Wave;
 import vooga.towerdefense.model.GameController;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.GameModel;
@@ -34,7 +40,17 @@ public class Controller {
     // TODO: controller constructor should take waves & map in order to initialize GameModel?
     // TODO: fix where the parameters come from
     public Controller () {
-        myModel = new GameModel(this, null, new GameMap(null, 800, 600, null), new Shop());
+
+		List<Wave> waves = new ArrayList<Wave>();
+		
+		GameMap map = new GameMap(null, 800, 600, null);
+		waves.add(WaveFactory.createWave(
+				new ExampleUnitFactory(), 
+				10,
+				map, 
+				map.getTile(new Point(0, 0))));
+
+        myModel = new GameModel(this, waves, map, new Shop());
         myView = new TDView(this);
         myControlMode = new SelectMode();
     }
@@ -170,8 +186,7 @@ public class Controller {
      * starts the next wave in the model.
      */
     public void startNextWave() {
-        //TODO: implement next wave
-        System.out.println("Wave Started");
+    	myModel.startNextWave();
     }
 
     /**

@@ -29,8 +29,8 @@ public class GameController {
 
         int loops = 0;
         while (gameIsRunning) {
-            while (System.currentTimeMillis() > nextGameTick
-                   && loops < MAX_FRAMESKIP) {
+            while (System.currentTimeMillis() > nextGameTick) {
+            		// && loops < MAX_FRAMESKIP) {
                 myController.update(System.currentTimeMillis() - nextGameTick);
                 nextGameTick += SKIP_TICKS;
                 loops++;

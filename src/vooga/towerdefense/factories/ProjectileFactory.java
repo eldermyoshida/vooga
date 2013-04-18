@@ -14,12 +14,10 @@ import vooga.towerdefense.util.Pixmap;
 public class ProjectileFactory {
 	private static final AttributeConstants ATTRIBUTES_CONSTANTS=new AttributeConstants();
     private static int DEFAULT_WIDTH;
-    private static final Pixmap DEFAULT_IMAGE = new Pixmap("defined by designer");
+    private static final Pixmap DEFAULT_IMAGE = new Pixmap("fireball.gif");
     private static final Dimension DEFAULT_SIZE = new Dimension(DEFAULT_WIDTH, DEFAULT_WIDTH);
     private static final List<Action> DEFAULT_ACTIONS = new ArrayList<Action>();
     private static final AttributeManager DEFAULT_ATTRIBUTE_MANAGER=new AttributeManager();
-    
-    
     
 	public Projectile createProjectile(GameElement initiator, GameElement target){
 		return new Projectile(DEFAULT_IMAGE,DEFAULT_SIZE,initiator,target,DEFAULT_ACTIONS,DEFAULT_ATTRIBUTE_MANAGER);

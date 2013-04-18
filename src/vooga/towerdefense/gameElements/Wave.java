@@ -17,9 +17,7 @@ import vooga.towerdefense.model.Tile;
  * 
  */
 
-public abstract class Wave {
-
-	private final double MY_DURATION = 1000 * 90;
+public class Wave {
 
     protected List<Unit> myUnits;
     protected AttributeManager myAttributes;
@@ -48,6 +46,7 @@ public abstract class Wave {
             myLastSpawnTime = myTimer;
         }
         myTimer += timeElapsed;
+        System.out.println("MyTimer: " + myTimer);
     }
 
 	/**
@@ -56,7 +55,8 @@ public abstract class Wave {
 	 * @return whether or not the wave is completed.
 	 */
 	public boolean waveCompleted() {
-		return myTimer > MY_DURATION;
+		System.out.println("Wave completed? " + (myTimer > myDuration));
+		return myTimer > myDuration;
 		// return !hasNextUnit();
     }
 
