@@ -106,8 +106,8 @@ public class LevelFactory {
         IDoor level1End = new LevelPortal(level1, new Location(1540, 75));
         level1.addStartPoint(level1Start);
         level1.addDoor(level1End);
-        level1.setBackground(new ImageIcon(getClass()
-                                                .getResource("/vooga/scroller/images/background_small.png")).getImage());
+//        level1.setBackground(new ImageIcon(getClass()
+//                                                .getResource("/vooga/scroller/images/background_small.png")).getImage());
     }
 
     private LEGrid loadGridFromFile (String filename) {
