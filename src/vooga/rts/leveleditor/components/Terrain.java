@@ -23,6 +23,7 @@ public class Terrain {
    private Location myLocation;
     
    private String myName;
+   private String myImageName;
    private int myWalkAbility;
    
    private BufferedImage myImage;
@@ -35,9 +36,10 @@ public class Terrain {
        String content = myResources.getString(ID+"");
        String[] buffer = content.split("&");
        myName = buffer[0];
-       myWalkAbility = Integer.parseInt(buffer[1]);
+       myImageName = buffer[1];
+       myWalkAbility = Integer.parseInt(buffer[2]);
        try {
-        myImage = ImageIO.read(new File(System.getProperty("user.dir") + IMAGE_RELATIVE_PATH+ myName+".gif"));
+        myImage = ImageIO.read(new File(System.getProperty("user.dir") + IMAGE_RELATIVE_PATH+ myImageName));
     }
     catch (IOException e) {
         // TODO Auto-generated catch block

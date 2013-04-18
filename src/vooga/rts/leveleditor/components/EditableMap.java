@@ -131,7 +131,7 @@ public class EditableMap implements Serializable {
         
         for(int i =0 ; i<myXSize ; i++) {
             for(int j =0 ; j<myYSize ; j++) {
-                System.out.println(myNodeMatrix[i][j].getTileType());
+                System.out.println(myNodeMatrix[i][j].getMyTile().getMyID());
             }
             System.out.print("\n");
         }
@@ -181,8 +181,8 @@ public class EditableMap implements Serializable {
         }
     }
     
-    public void addTile(int x , int y , String tileType) {
-        myNodeMatrix[x][y].setTileType(tileType);
+    public void addTile(int x , int y , int tileType) {
+        myNodeMatrix[x][y].setTile(tileType);
     }
     
     public void addResource(int x, int y , int resourceID) {
@@ -299,9 +299,9 @@ public class EditableMap implements Serializable {
         test.addPlayer(2,3);
         test.addPlayer(3,4);
         test.addPlayer(5,7);
-        test.addTile(1, 1, "grass");
-        test.addTile(2, 2, "sand");
-        test.addTile(3, 3, "shit");
+        test.addTile(1, 1, 1);
+        test.addTile(2, 2, 2);
+        test.addTile(3, 3, 3);
         test.addTerrain(3, new Terrain(2,2,1));
         test.addTerrain(2, new Terrain(3,3,2));
         test.addTerrain(1, new Terrain(4,4,3));

@@ -1,11 +1,7 @@
 package vooga.rts.leveleditor.components;
 
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-import java.util.ResourceBundle;
-import javax.imageio.ImageIO;
 import vooga.rts.leveleditor.gui.MapPanel;
 
 
@@ -18,8 +14,6 @@ import vooga.rts.leveleditor.gui.MapPanel;
  */
 
 public class EditableNode {
-
-    private static final String RELATIVE_PATH = "vooga.rts.leveleditor.resource.";
     
     private int myX;
     private int myY;
@@ -30,9 +24,7 @@ public class EditableNode {
     private double myZoomRate;
     private boolean myOccupied;
     
-    private BufferedImage myImage;
-    private String myTileType;
-    private ResourceBundle myResources = ResourceBundle.getBundle(RELATIVE_PATH + "ImageIndex");
+    private Tile myTile;
     
     
     public EditableNode() {
@@ -45,6 +37,7 @@ public class EditableNode {
         myHeight = height;
         myOccupied = isOccupied;
         myPlayerIndex = 0;
+        myTile = new Tile();
     }
 
     public int getMyX () {
@@ -53,14 +46,6 @@ public class EditableNode {
 
     public int getMyY () {
         return myY;
-    }
-    
-    public String getTileType() {
-        return myTileType;
-    }
-    
-    public void setTileType(String type) {
-        myTileType = type;
     }
     
     public void setOccupied(boolean b) {
@@ -83,10 +68,9 @@ public class EditableNode {
         myZoomRate = rate;
     }
     
-    public void setImage(BufferedImage i) {
-        myImage = i;
+    public void setTile(int index) {
+        
     }
-    
     
     public int getMyWidth () {
         return myWidth;
@@ -94,19 +78,13 @@ public class EditableNode {
     public int getMyHeight () {
         return myHeight;
     }
-    public void refreshImage(int i) {
-        String imageName = myResources.getString(i+"");
-        try {
-            myImage = ImageIO.read(new File(System.getProperty("user.dir")+ "./src/vooga/rts/levelEditor/resource/" + imageName));
-        }
-        catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+    
+    public Tile getMyTile() {
+        return myTile;
     }
     
     public void paint(Graphics pen) throws IOException {
-        pen.drawImage(myImage, myX*myWidth, myY*myHeight, myWidth, myHeight,null);
+        pen.drawImage(myTile.getMyImage(), myX*myWidth, myY*myHeight, myWidth, myHeight,null);
     }
 
     public void ZoomIn() {
@@ -120,7 +98,13 @@ public class EditableNode {
     }
     public void reset() {
         myOccupied = false;
-        myTileType = "";
+        try {
+            myTile.setTile(0);
+        }
+        catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
     public void setPlayerIndex(int i) {
         myPlayerIndex = i;        
