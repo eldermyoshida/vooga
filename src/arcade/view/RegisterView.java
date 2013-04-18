@@ -2,10 +2,11 @@ package arcade.view;
 
 import java.awt.Component;
 import java.util.ResourceBundle;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import util.BackgroundPanel;
 import arcade.model.Model;
-import arcade.util.BackgroundPanel;
 
 @SuppressWarnings("serial")
 public class RegisterView extends JFrame {
@@ -21,7 +22,7 @@ public class RegisterView extends JFrame {
         //setBounds(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
         setLocationRelativeTo(null);
 
-        JPanel background = new BackgroundPanel(IMAGES_LOCATION + BACKGROUND_FILENAME);
+        JPanel background = new BackgroundPanel(BACKGROUND_FILENAME);
         getContentPane().add(background);
         background.add(createMainContents());
 
@@ -30,7 +31,7 @@ public class RegisterView extends JFrame {
         pack();
     }
 
-    private Component createMainContents () {
+    private JComponent createMainContents () {
         JPanel panel = new JPanel();
         
         panel.setOpaque(false);

@@ -1,6 +1,5 @@
 import java.util.ResourceBundle;
 import arcade.model.Model;
-import arcade.view.Login;
 import arcade.view.LoginView;
 
 /**

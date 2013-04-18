@@ -15,8 +15,6 @@ import arcade.games.GameInfo;
 import arcade.games.HighScores;
 import arcade.games.User;
 import arcade.games.UserGameData;
-import arcade.util.Pixmap;
-import arcade.view.Login;
 import arcade.view.LoginView;
 import arcade.view.MainView;
 

@@ -17,8 +17,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import util.BackgroundPanel;
 import arcade.model.Model;
-import arcade.util.BackgroundPanel;
 
 
 /**
@@ -30,9 +30,8 @@ import arcade.util.BackgroundPanel;
  */
 @SuppressWarnings("serial")
 public class LoginView extends JFrame {
-    private static final String IMAGES_LOCATION = "../resources/images/";
-    private static final String BACKGROUND_FILENAME = "LoginBackGround.jpg";
-    private static final String LOGO_FILENAME = "VoogaLogo.png";
+    private static final String BACKGROUND_FILENAME = "../arcade/resources/images/LoginBackGround.jpg";
+    private static final String LOGO_FILENAME = "../resources/images/VoogaLogo.png";
     public static final int WINDOW_WIDTH = 260;
     public static final int WINDOW_HEIGHT = 240;
     private static final int TEXT_FIELD_HEIGHT = 25;
@@ -63,7 +62,7 @@ public class LoginView extends JFrame {
         setBounds(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
         setLocationRelativeTo(null);
 
-        JPanel background = new BackgroundPanel(IMAGES_LOCATION + BACKGROUND_FILENAME);
+        BackgroundPanel background = new BackgroundPanel(BACKGROUND_FILENAME);
         getContentPane().add(background);
         background.add(createMainContents());
 
@@ -90,7 +89,7 @@ public class LoginView extends JFrame {
      * 
      * @return
      */
-    private Component createMainContents () {
+    private JComponent createMainContents () {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
@@ -100,7 +99,6 @@ public class LoginView extends JFrame {
         addTransparentComponent(panel, createMessageArea());
         addTransparentComponent(panel, createButtons());
 
-        panel.setOpaque(false);
         return panel;
     }
 
@@ -121,7 +119,7 @@ public class LoginView extends JFrame {
      */
     private JComponent createLogo () {
         JPanel panel = new JPanel();
-        ImageIcon headIcon = new ImageIcon(this.getClass().getResource(IMAGES_LOCATION + LOGO_FILENAME));
+        ImageIcon headIcon = new ImageIcon(this.getClass().getResource(LOGO_FILENAME));
         JLabel head = new JLabel(headIcon);
         panel.add(head);
         return panel;
