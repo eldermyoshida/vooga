@@ -146,7 +146,7 @@ public class Controller {
      * @return a map of the elements in the shop 
      * with String as a key and a Pixmap as the value
      */
-    public Map<String, Pixmap> getShopItemIcons () {
+    public Map<String, GameElement> getShopItemIcons () {
         return myModel.getShop().getAllShopItemIcons();
     }
 
