@@ -78,7 +78,6 @@ public abstract class Controller implements ModelDelegate {
 
     protected void setMode(Mode mode){
         myMode = mode;
-        mode.initializeMode();
     }
     
     protected void setGameLoopInfo(LoopInfo gameinfo){

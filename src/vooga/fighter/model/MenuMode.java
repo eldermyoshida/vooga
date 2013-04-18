@@ -15,9 +15,11 @@ public class MenuMode extends Mode {
 	private List<MenuObject> myMenuObjects;
 	private MouseClickObject myMouseClick;
 	private MenuGrid myMenuGrid;
+	private ModelDelegate myDelegate;
 
 	public MenuMode(ModelDelegate delegate, String menuId) {
 		super(delegate);
+		myDelegate = delegate;
 		myMenuId = menuId;
 	}
 
@@ -40,7 +42,7 @@ public class MenuMode extends Mode {
 
 	@Override
 	public void initializeMode() {
-		myMenuGrid = new MenuGrid(myMenuId);	
+		myMenuGrid = new MenuGrid(myMenuId, myDelegate);	
 		myMenuObjects = myMenuGrid.getMenuObjects();
 		for(MenuObject menu : myMenuGrid.getMenuObjects()){
 			addObject(menu);
@@ -60,6 +62,7 @@ public class MenuMode extends Mode {
         super.addObject(object);
         if (object instanceof MouseClickObject){
         	myMouseClick = (MouseClickObject)object;
+        	System.out.println("it is a mouseclick object");
         }
     }
 
