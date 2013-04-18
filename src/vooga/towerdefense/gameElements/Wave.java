@@ -1,21 +1,23 @@
 package vooga.towerdefense.gameElements;
 
 import java.util.List;
+
 import vooga.towerdefense.attributes.AttributeManager;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.Tile;
 
 
 /**
- * A wave of enemy units, allows developer to control the number and types of units as well as the
- * speed at which units are spawned.
+ * A wave of enemy units, allows developer to control the number and types of
+ * units as well as the speed at which units are spawned.
  * 
  * @author XuRui
  * @author Matthew Roy
+ * @author Jimmy Longley
  * 
  */
 
-public abstract class Wave {
+public class Wave {
 
     protected List<Unit> myUnits;
     protected AttributeManager myAttributes;
@@ -38,12 +40,24 @@ public abstract class Wave {
     }
 
     public void update (double timeElapsed) {
-        if(canSpawn()) {
+		if (canSpawn() && hasNextUnit()) {
             Unit unit = generateUnit(getNextUnit());
             myMap.addToMap(unit, mySpawnLocation);
             myLastSpawnTime = myTimer;
         }
         myTimer += timeElapsed;
+        System.out.println("MyTimer: " + myTimer);
+    }
+
+	/**
+	 * A method called by the model to determine if the wave has completed.
+	 * 
+	 * @return whether or not the wave is completed.
+	 */
+	public boolean waveCompleted() {
+		System.out.println("Wave completed? " + (myTimer > myDuration));
+		return myTimer > myDuration;
+		// return !hasNextUnit();
     }
 
     /**
@@ -63,6 +77,10 @@ public abstract class Wave {
         return myUnits.iterator().next();
     }
     
+	private boolean hasNextUnit() {
+		return myUnits.iterator().hasNext();
+	}
+
     /**
      * 
      * @return true at start of wave or if its been longer than spawn delay since last spawn

@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
 import vooga.rts.util.Vector;
 import vooga.towerdefense.factories.ExampleUnitFactory;
-import vooga.towerdefense.factories.GameElementFactory;
 import vooga.towerdefense.factories.TrollUnitDefinition;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.gameElements.Unit;
@@ -33,6 +33,7 @@ public class GameMap {
     private Location myDestination;
     private Dimension myDimension;
     private Path myPath;
+    private Pathfinder myPathfinder;
 
     /**
      * 
@@ -48,11 +49,12 @@ public class GameMap {
         myDestination = destination;
         myDimension = new Dimension(width, height);
         initializeGrid();
+        myPathfinder = new Pathfinder(myGrid);
         ExampleUnitFactory myTrollFactory = new ExampleUnitFactory("Troll", new TrollUnitDefinition());
-        //GameElement troll1 = myTrollFactory.createUnit(new Location(250, 250), new TrollUnitDefinition());
-        //GameElement troll2 = myTrollFactory.createUnit(new Location(350, 250), new TrollUnitDefinition());
-        //addGameElement(troll1);
-        //addGameElement(troll2);
+        GameElement troll1 = myTrollFactory.createUnit(new Location(250, 250), new TrollUnitDefinition());
+        GameElement troll2 = myTrollFactory.createUnit(new Location(350, 250), new TrollUnitDefinition());
+        addGameElement(troll1);
+        addGameElement(troll2);
     }
 
     /*
@@ -105,6 +107,19 @@ public class GameMap {
     public Tile getTile (Point point) {
         return myGrid[(int) (point.getX() / TILE_SIZE)][(int) (point.getY() / TILE_SIZE)];
     }
+
+	/**
+	 * Given a location on the map, returns the Tile enclosing that point.
+	 * 
+	 * @param location
+	 *            a location (x, y) on the game map, where x and y are measured
+	 *            in pixels.
+	 * @return a Tile object containing this point (x, y)
+	 */
+	public Tile getTile(Location location) {
+		return myGrid[(int) (location.getX() / TILE_SIZE)][(int) (location
+				.getY() / TILE_SIZE)];
+	}
 
     /**
      * 
@@ -160,5 +175,15 @@ public class GameMap {
         Collections.sort(elementsWithinRadius, new GameElementComparator(source));
         return elementsWithinRadius.subList(0, howMany);
     }
+
+	public Path getShortestPath(Location start, Location finish) {
+		int x1 = (int) (start.getX() / TILE_SIZE);
+		int x2 = (int) (finish.getX() / TILE_SIZE);
+		int y1 = (int) (start.getY() / TILE_SIZE);
+		int y2 = (int) (finish.getY() / TILE_SIZE);
+		Path thePath = myPathfinder.getShortestPath(x1, y1, x2, y2);
+		thePath.add(finish);
+		return thePath;
+	}
 
 }

@@ -5,6 +5,7 @@ import java.util.List;
 
 import vooga.towerdefense.attributes.AttributeConstants;
 import vooga.towerdefense.attributes.AttributeManager;
+import vooga.towerdefense.factories.ProjectileFactory;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.gameElements.Projectile;
 import vooga.towerdefense.model.GameMap;
@@ -18,13 +19,19 @@ import vooga.towerdefense.model.GameMap;
  */
 public class AttackAction extends Action {
 	private static final AttributeConstants myAttributeConstants = new AttributeConstants();
-	GameElement myInitiator;
+	private GameElement myInitiator;
 	private GameMap myMap;
+	private ProjectileFactory myProjectile;
 
 	public AttackAction(GameMap map, GameElement initiator){
 		super(initiator);
 		myMap = map;
 	}
+	
+	public AttackAction(GameMap map, GameElement initiator, ProjectileFactory projectileToCreate){
+            super(initiator);
+            myMap = map;
+    }
 	
 	/*public AttackAction(InfoBridge info, Attacker source, double cooldown, boolean isOneTime) {
 		super(info);
@@ -45,8 +52,9 @@ public class AttackAction extends Action {
 							(int)(myInitiator.getAttributeManager().getAttribute(myAttributeConstants.NUM_OF_TARGETS).getValue()));
 			
 			//shoot a projectile towards each target
+			
 			for (GameElement target : targets) {
-				myMap.addGameElement(myInitiator.getAttributeManager().getProjectileFactory().createProjectile(myInitiator,target));
+				myMap.addGameElement(myProjectile.createProjectile(myInitiator,target));
 			}
 			
 		}

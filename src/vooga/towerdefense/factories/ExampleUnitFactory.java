@@ -2,6 +2,7 @@
 package vooga.towerdefense.factories;
 
 import java.util.ArrayList;
+
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.Move;
 import vooga.towerdefense.attributes.Attribute;
@@ -30,6 +31,10 @@ public class ExampleUnitFactory extends UnitFactory {
     public ExampleUnitFactory (String elementName, GameElementDefinition definition) {
         super(elementName, definition);
         // TODO Auto-generated constructor stub
+    }
+    
+    public Unit createUnit(Location putHere) {
+    	return createUnit(putHere, new TrollUnitDefinition());
     }
     
     public Unit createUnit(Location putHere, TrollUnitDefinition myDef){

@@ -10,49 +10,92 @@ import vooga.towerdefense.util.Location;
 import vooga.towerdefense.util.Pixmap;
 import vooga.towerdefense.gameElements.GameElement;
 
+
 /**
  * GameElement projectile that can affect other game elements.
  * 
+ * @author Matthew Roy
+ * 
  */
 public class Projectile extends GameElement {
-	private GameElement myTarget;
-	private GameElement myInitiator;
+    private GameElement myTarget;
+    private Location myTargetLocation;
+    private GameElement myInitiator;
 
-	public Projectile(Pixmap image, Dimension size, GameElement initiator,
-			GameElement target, List<Action> actions,
-			AttributeManager attributes) {
-		super(image, initiator.getCenter(), size, attributes, actions);
-		myTarget = target;
-		myInitiator=initiator;
+    /**
+     * Creates a projectile GameElement that is homing onto a single element target, and will only
+     * attack that target
+     * 
+     * @param image
+     * @param size
+     * @param initiator
+     * @param targetElement
+     * @param actions
+     * @param attributes
+     */
+    public Projectile (Pixmap image, Dimension size, GameElement initiator,
+                       GameElement targetElement, List<Action> actions,
+                       AttributeManager attributes) {
+        super(image, initiator.getCenter(), size, attributes, actions);
+        myTargetLocation = targetElement.getCenter();
+        myInitiator = initiator;
+    }
 
-	}
+    /**
+     * Creates a projectile that travels towards a location.
+     * If the location given is the myCenter of a GameElement, it will follow that element
+     * @param image
+     * @param size
+     * @param initiator
+     * @param targetLocation
+     * @param actions
+     * @param attributes
+     */
+    public Projectile (Pixmap image, Dimension size, GameElement initiator,
+                       Location targetLocation, List<Action> actions,
+                       AttributeManager attributes) {
+        super(image, initiator.getCenter(), size, attributes, actions);
+        myTargetLocation = targetLocation;
+        myInitiator = initiator;
+    }
 
-	/*
-	 * public Projectile (GameElement initiator, GameElement target,
-	 * List<Action> actions) { super(DEFAULT_IMAGE, initiator.getCenter(),
-	 * DEFAULT_SIZE, DEFAULT_ACTIONS); myAttributeManager =
-	 * initiator.getAttributeManager();
-	 * 
-	 * }
-	 * 
-	 * public Projectile(Location spawn,GameElement target){
-	 * super(DEFAULT_IMAGE,spawn,DEFAULT_SIZE,DEFAULT_ACTIONS); }
-	 */
-	public void update(double elapsedTime) {
-		// to-do mostly needs to move towards target;
-	}
+    /*
+     * public Projectile (GameElement initiator, GameElement target,
+     * List<Action> actions) { super(DEFAULT_IMAGE, initiator.getCenter(),
+     * DEFAULT_SIZE, DEFAULT_ACTIONS); myAttributeManager =
+     * initiator.getAttributeManager();
+     * 
+     * }
+     * 
+     * public Projectile(Location spawn,GameElement target){
+     * super(DEFAULT_IMAGE,spawn,DEFAULT_SIZE,DEFAULT_ACTIONS); }
+     */
+    public void update (double elapsedTime) {
+        // to-do mostly needs to move towards target;
+    }
 
-	public GameElement getTarget() {
+    /**
+     * Returns a target element, or null if it is not tracking an element
+     * @return
+     */
+    public GameElement getTarget () {
+        return myTarget;
+    }
+    
+    /**
+     * Returns a the location the projectile is traveling to
+     * @return
+     */
+    public Location getTargetLocation () {
+        return myTargetLocation;
+    }
 
-		return myTarget;
-	}
+    public void addTarget () {
 
-	public void addTarget() {
+    }
 
-	}
-
-	public Location getAttackCenter() {
-		return super.getCenter();
-	}
+    public Location getAttackCenter () {
+        return getCenter();
+    }
 
 }

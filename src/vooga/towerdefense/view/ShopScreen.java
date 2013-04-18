@@ -10,7 +10,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.swing.JPanel;
+
 import vooga.towerdefense.controller.Controller;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.util.Location;
@@ -92,6 +94,7 @@ public class ShopScreen extends JPanel {
      * @param pen
      */
     private void displayShopItems (Graphics2D pen) {
+        
         for (Map.Entry<String, Rectangle> entry : myShopIcons.entrySet()) {
             if (myShopItems.containsKey(entry.getKey())) {
                 myShopItems.get(entry.getKey()).getPixmap().paint(pen, new Location (entry.getValue().getCenterX(), entry.getValue().getCenterY()), new Dimension(50, 50));
@@ -117,11 +120,11 @@ public class ShopScreen extends JPanel {
      * @param point
      */
     private void handleClick(Point point) {
+
         for (Map.Entry<String, Rectangle> entry : myShopIcons.entrySet()) {
             if (entry.getValue().contains(point)) {
                 myController.handleShopClickOnItem(entry.getKey());
             }
         }
     }
-
 }

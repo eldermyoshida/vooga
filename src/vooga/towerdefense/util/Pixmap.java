@@ -88,15 +88,6 @@ public class Pixmap {
         return myImage;
     }
 
-    // /**
-    // *
-    // * @return the center location of where the Pixmap image is painted
-    // */
-    // public Point2D getCenter () {
-    // System.out.println("returned center:" + myCenter);
-    // return myCenter;
-    // }
-
     /**
      * 
      * @return the width of the Pixmap image

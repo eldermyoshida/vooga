@@ -1,5 +1,6 @@
 package vooga.towerdefense.factories;
 
+import vooga.towerdefense.attributes.AttributeConstants;
 import vooga.towerdefense.gameElements.GameElement;
 
 /**
@@ -22,8 +23,13 @@ public class GameElementFactory {
      //Tower tower1 = myTowerFactory.make(Location);
     }
     
-    public GameElementFactory(String elementName, GameElementDefinition definition) {
-        myName = elementName;
+    public GameElementFactory(String name, GameElementDefinition definition) {
+        myName = name;
+        myDefinition = definition;
+    }
+    
+    public GameElementFactory(GameElementDefinition definition) {
+        myName = myDefinition.get(AttributeConstants.NAME);
         myDefinition = definition;
     }
     
@@ -42,12 +48,14 @@ public class GameElementFactory {
     }
     
     public GameElement createGameElement(){
+        if (myDefinition == null) {
+            return null;
+        }
 		return new GameElement(myDefinition.getImage(), 
 				myDefinition.getCenter(), 
 				myDefinition.getSize(), 
 				createAttributeFactory().makeAttributeManager(), 
 				createActionFactory().createActions());
-    	
     }
 
 }

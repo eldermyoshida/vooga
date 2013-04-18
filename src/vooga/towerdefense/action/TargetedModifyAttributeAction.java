@@ -40,7 +40,7 @@ public class TargetedModifyAttributeAction extends TargetedAction {
 
     
     @Override
-    public void update (double elapsedTime) {
+    public void executeAction(double elapsedTime) {
         // TODO Auto-generated method stub
 
     }
