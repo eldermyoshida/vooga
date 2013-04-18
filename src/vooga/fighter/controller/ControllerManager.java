@@ -26,7 +26,7 @@ public class ControllerManager implements ControllerDelegate{
 		myCanvas = frame;
 		myControllerMap = new ControllerFactory(frame).getMap();
 		myGameInfo = gameinfo;
-		myCurrentController = myControllerMap.get(TEST).getController(this, myGameInfo);
+		myCurrentController = myControllerMap.get(MAINMENU).getController(this, myGameInfo);
 		
 	}
 	
@@ -35,7 +35,7 @@ public class ControllerManager implements ControllerDelegate{
 	}
 
 	public void switchController(String NextController) {
-	        System.out.println("switching controllers");
+	        System.out.println("<controllermanager.java><switchcontroller> switching controllers");
 		myCurrentController.stop();
 		myCurrentController = myControllerMap.get(NextController);
 		System.out.println("now the controller is: " + myCurrentController.getName() );

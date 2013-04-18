@@ -33,7 +33,6 @@ public class GameInfo extends UserGameData{
     public GameInfo (List<Integer> characterIndexes, int mapID) {
         this();
         myCharacters = characterIndexes;
-        System.out.println("character size" + myCharacters.size());
         myMapID = mapID;
     }
     
