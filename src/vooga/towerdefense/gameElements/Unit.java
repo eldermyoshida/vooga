@@ -76,13 +76,13 @@ public class Unit extends GameElement {
     @Override
     public void update(double elapsedTime){
     	updateDirection();
-    	executeActions();
+    	executeActions(elapsedTime);
     	
     }
 
-	private void executeActions() {
+	private void executeActions(double elapsedTime) {
 		for (Action act: myActions){
-    		act.executeAction();
+    		act.executeAction(elapsedTime);
     	}
 	}
     

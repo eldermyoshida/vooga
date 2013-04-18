@@ -25,7 +25,7 @@ public class Move extends Action {
     }
     
     @Override
-    public void update(double elapsedTime) {
+    public void executeAction(double elapsedTime) {
         getInitiator().setVelocity(myDirection.getValue(), myMovespeed.getValue());
         getInitiator().getVelocity().scale(elapsedTime);
         getInitiator().translate(getInitiator().getVelocity());

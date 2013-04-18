@@ -13,6 +13,7 @@ import vooga.towerdefense.model.GameMap;
  * Single attack action launched by a GameElement.
  * @author XuRui
  * @author Matthew Roy
+ * @author Zhen Gou
  *
  */
 public class AttackAction extends Action {
@@ -33,7 +34,7 @@ public class AttackAction extends Action {
 	}*/
 
 	@Override
-	public void executeAction() {
+	public void executeAction(double elapsedTime) {
 		//check whether it's in cool down
 		if (isEnabled()) {
 			//get targets that we wanna shoot

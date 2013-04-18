@@ -14,10 +14,11 @@ import vooga.towerdefense.util.CoolDownManager;
  * 
  * @author Matthew Roy
  * @author XuRui
+ * @author Zhen Gou
  * 
  */
 
-public class Action {
+public abstract class Action {
     private Event myTriggerEvent;
     private GameElement myInitiator;
     private boolean enabled;
@@ -40,10 +41,7 @@ public class Action {
     /**
      * executes action
      */
-    public void executeAction () {
-        initAction();
-        // execute action
-    }
+    public abstract void executeAction (double elapseTime);
 
     public boolean isComplete () {
         enabled = false;
@@ -69,14 +67,11 @@ public class Action {
 
     }
 
-    public void update (double elapsedTime) {
-
-    }
 
     // @Override
     public void update (double elapsedTime, Event e) {
         if (eventTriggered(e)) {
-            executeAction();
+            executeAction(elapsedTime);
         }
     }
 }
