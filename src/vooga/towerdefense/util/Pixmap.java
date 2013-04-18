@@ -1,11 +1,12 @@
 package vooga.towerdefense.util;
 
-import java.awt.Graphics2D;
 import java.awt.Dimension;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
-import java.awt.geom.Point2D;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Point2D;
+
 import javax.swing.ImageIcon;
 
 
@@ -61,7 +62,6 @@ public class Pixmap {
      */
     public void paint (Graphics2D pen, Point2D center, Dimension size, double angle) {
        // myCenter = center;
-        System.out.println("paint center:" + center);
         myWidth = size.width;
         myHeight = size.height;
         // save current state of the graphics area
@@ -97,7 +97,6 @@ public class Pixmap {
      * @return  the center location of where the Pixmap image is painted
      */
     public Point2D getCenter () {
-        System.out.println("returned center:" + myCenter);
         return myCenter;
     }
     
