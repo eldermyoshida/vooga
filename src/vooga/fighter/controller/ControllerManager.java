@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import util.input.Input;
 import vooga.fighter.view.Canvas;
 /**
  * 
@@ -22,6 +23,7 @@ public class ControllerManager implements ControllerDelegate{
 	private Canvas myCanvas;
 	private GameInfo myGameInfo;
 	private ControlProgressionManager myProgressionManager;
+	private static final String INPUT_PATHWAY = "vooga.fighter.config.menudefault";
 	
 	public ControllerManager(Canvas frame, GameInfo gameinfo, ControllerFactory factory,
 			ControlProgressionManager progressionmanager) {
@@ -56,6 +58,10 @@ public class ControllerManager implements ControllerDelegate{
 		System.exit(0);
 	}
 	
+	public Input setInput() {
+	    Input menuinput = new Input(INPUT_PATHWAY, myCanvas);
+	    return menuinput;
+	}
 	
 
 }

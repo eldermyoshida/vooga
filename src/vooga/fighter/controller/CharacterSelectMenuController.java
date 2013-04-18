@@ -39,6 +39,8 @@ public class CharacterSelectMenuController extends MenuController {
     public CharacterSelectMenuController(String name, Canvas frame, ControllerDelegate manager, 
                 GameInfo gameinfo) {
         super(name, frame, manager, gameinfo);
+        myInput = manager.setInput();
+        myInput.addListenerTo(this);
         myGameInfo = gameinfo;
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "LevelConfig");
     }
@@ -50,20 +52,20 @@ public class CharacterSelectMenuController extends MenuController {
      * Checks this controller's end conditions
      */
     public void notifyEndCondition(String choice) {
-    	if(EXIT.equals(choice)) getManager().exit();
-    	if(BACK.equals(choice)) getManager().notifyEndCondition(BACK);
-    	else if (getMode().getMenuNames().contains(choice)){
-    		getGameInfo().setGameMode(choice);
-    		getGameInfo().setNumCharacters(Integer.parseInt(myResources.getString(choice)));
-    		getManager().notifyEndCondition(NEXT);
-    		}
-    	}
+    		getManager().notifyEndCondition(BACK);
+    }
 
 
+    
+    @InputMethodTarget(name = "continue")
+    public void mouseclick(PositionObject pos)  {
+        super.getMode().addObject(new MouseClickObject(pos.getPoint2D()));
+        notifyEndCondition("asdfdf");
+    }
 
     @Override
     public Controller getController (ControllerDelegate delegate, GameInfo gameinfo) {
-        return new MainMenuController(super.getName(), super.getView(),
+        return new CharacterSelectMenuController(super.getName(), super.getView(),
                                    delegate, gameinfo);
     }
 

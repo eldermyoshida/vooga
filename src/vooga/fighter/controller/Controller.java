@@ -55,7 +55,7 @@ public abstract class Controller implements ModelDelegate {
     public Controller(String name, Canvas frame){
         myName = name;
         myCanvas = frame;
-        myInput = makeInput();
+        //myInput = makeInput();
         mySplashResource = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + SPLASH);
         mySplashPath = DEFAULT_IMAGE_PACKAGE+ mySplashResource.getString(CONTROL);
     }
@@ -148,7 +148,7 @@ public abstract class Controller implements ModelDelegate {
 
     public abstract Controller getController(ControllerDelegate manager, GameInfo gameinfo);
 
-    protected abstract Input makeInput();
+//    protected abstract Input makeInput();
         
 
 

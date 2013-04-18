@@ -30,6 +30,7 @@ import java.util.ResourceBundle;
 public class MainMenuController extends MenuController {
 	
     private ResourceBundle myResources;
+    private Input myInput;
     
     public MainMenuController (String name, Canvas frame) {
         super(name, frame);
@@ -38,17 +39,23 @@ public class MainMenuController extends MenuController {
     public MainMenuController(String name, Canvas frame, ControllerDelegate manager, 
                 GameInfo gameinfo) {
         super(name, frame, manager, gameinfo);
+        myInput = manager.setInput();
+        myInput.addListenerTo(this);
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "LevelConfig");
     }
     /**
      * Checks this controller's end conditions
      */
     public void notifyEndCondition(String choice) {
-    	//To do
-        
+        //myInput = null;
+        getManager().notifyEndCondition(NEXT);
     }
 
-
+    @InputMethodTarget(name = "continue")
+    public void mouseclick(PositionObject pos)  {
+        super.getMode().addObject(new MouseClickObject(pos.getPoint2D()));
+        notifyEndCondition("asdfdf");
+    }
 
     @Override
     public Controller getController (ControllerDelegate delegate, GameInfo gameinfo) {
