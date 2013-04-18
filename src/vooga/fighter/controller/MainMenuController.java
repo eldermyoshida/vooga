@@ -29,7 +29,6 @@ import java.util.ResourceBundle;
 @InputClassTarget
 public class MainMenuController extends MenuController {
 	
-	 private static final String DEFAULT_RESOURCE_PACKAGE = "vooga.fighter.config.";
     private ResourceBundle myResources;
     
     public MainMenuController (String name, Canvas frame) {

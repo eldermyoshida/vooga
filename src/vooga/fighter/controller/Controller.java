@@ -33,6 +33,7 @@ public abstract class Controller implements ModelDelegate {
     public static final String BACK = "Back";
     public static final String EXIT = "EXIT";
     public static final String SPLASH = "Splash";
+    public static final String CONTROL = "Control";
     
     protected ControllerDelegate myManager;
     private String myName;
@@ -56,7 +57,7 @@ public abstract class Controller implements ModelDelegate {
         myCanvas = frame;
         myInput = makeInput();
         mySplashResource = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + SPLASH);
-        mySplashPath = DEFAULT_IMAGE_PACKAGE+mySplashResource.getString(SPLASH);
+        mySplashPath = DEFAULT_IMAGE_PACKAGE+ mySplashResource.getString(CONTROL);
     }
 
     public Controller(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo) {
