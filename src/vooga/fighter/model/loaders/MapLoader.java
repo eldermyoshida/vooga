@@ -27,6 +27,12 @@ public class MapLoader extends ObjectLoader {
 	private static final String MAP_PATH = "src/vooga/fighter/config/maps.xml";
 
 	private MapObject myMap;
+	/**
+	 * Dummy Constructor only to be used when getting map count
+	 */
+	public MapLoader(){
+		super(MAP_PATH);
+	}
 
 	public MapLoader (int mapId, MapObject map) {
 		super(MAP_PATH);
@@ -60,6 +66,12 @@ public class MapLoader extends ObjectLoader {
 				addStartingPositions(startingPosNodes);
 			}
 		}
+	}
+	
+	
+	public int MaxMapNumber(){
+		Document doc = getDocument();
+		return doc.getElementsByTagName("map").getLength();	
 	}
 
 	/**

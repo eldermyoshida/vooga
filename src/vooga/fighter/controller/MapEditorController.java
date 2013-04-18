@@ -101,6 +101,12 @@ public class MapEditorController extends Controller{
 	    public void notifyEndCondition (String endCondition) {
 	    	
 	    }
+
+		@Override
+		public void notifyEndCondition(int endCondition) {
+			// TODO Auto-generated method stub
+			
+		}
 	    
 }
 

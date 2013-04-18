@@ -16,6 +16,7 @@ import arcade.games.ArcadeInteraction;
 import arcade.games.Game;
 import arcade.games.UserGameData;
 import util.Pixmap;
+import vooga.fighter.model.loaders.MapLoader;
 import vooga.fighter.util.Text;
 import vooga.fighter.view.Canvas;
 import vooga.fighter.controller.ControllerManager;
@@ -39,8 +40,9 @@ public static final Dimension SIZE = new Dimension(800, 600);
 
     public GameManager() {
         myCanvas = new Canvas(SIZE); 
-        myGameInfo = new GameInfo();
-        myControllerManager = new ControllerManager(myCanvas, myGameInfo);
+        myGameInfo = new GameInfo(new MapLoader().MaxMapNumber());
+        ControllerFactory factory = makeFactory(myCanvas);
+        myControllerManager = new ControllerManager(myCanvas, myGameInfo, factory);
         JFrame frame = new JFrame(TITLE);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // add our user interface components
@@ -72,6 +74,9 @@ public static final Dimension SIZE = new Dimension(800, 600);
 		 myControllerManager.run();
 	    }
 	 
+	 public ControllerFactory makeFactory(Canvas canvas){
+		 return new ControllerFactory(canvas);
+	 }
 
 	 public UserGameData generateNewProfile(){
 		return myGameInfo;

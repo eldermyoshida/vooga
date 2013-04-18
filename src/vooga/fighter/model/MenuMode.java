@@ -51,7 +51,7 @@ public class MenuMode extends Mode {
     }
 
     public void handleCollisions() {
-        myCollisionManager.checkCollisions(getMyObjects());
+        //myCollisionManager.checkCollisions(getMyObjects());
     }
 
     @Deprecated

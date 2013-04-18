@@ -13,32 +13,32 @@ import arcade.games.UserGameData;
 public class GameInfo extends UserGameData{
     private String myGameMode;
     private int myMapID;
+    private int myMapCount;
     private List<Integer> myCharacters;
     private Integer myNumCharacters;
     private List<Integer> myScores;
+    private List<Integer> myMapsPlayed;
     
 
     /**
      * Constructor
      */
-    public GameInfo () {
+    public GameInfo (int mapcount) {
     	myCharacters = new ArrayList<Integer>();
     	myScores = new ArrayList<Integer>();
     	myGameMode = "Fighting Game";
+    	myMapCount = mapcount;
     }
     
     /**
      * Test constructor, automatically adds character index and map index to load. 
      */
-    public GameInfo (List<Integer> characterIndexes, int mapID) {
-        this();
+    public GameInfo (int mapcount, List<Integer> characterIndexes, int mapID) {
+        this(mapcount);
         myCharacters = characterIndexes;
         myMapID = mapID;
     }
     
-    public String getGameInfo() {
-        return myGameMode;
-    }
     /**
      * 
      */
@@ -159,5 +159,11 @@ public class GameInfo extends UserGameData{
     }
     
 
+    public int getMapCount(){
+    	return myMapCount;
+    }
 
+    public List<Integer> getMapsPlayed(){
+    	return myMapsPlayed;
+    }
 }

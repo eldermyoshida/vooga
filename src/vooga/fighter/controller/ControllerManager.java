@@ -22,9 +22,9 @@ public class ControllerManager implements ControllerDelegate{
 	private Canvas myCanvas;
 	private GameInfo myGameInfo;
 	
-	public ControllerManager(Canvas frame, GameInfo gameinfo) {
+	public ControllerManager(Canvas frame, GameInfo gameinfo, ControllerFactory factory) {
 		myCanvas = frame;
-		myControllerMap = new ControllerFactory(frame).getMap();
+		myControllerMap = factory.getMap();
 		myGameInfo = gameinfo;
 		myCurrentController = myControllerMap.get(MAINMENU).getController(this, myGameInfo);
 		
