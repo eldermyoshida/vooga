@@ -55,7 +55,6 @@ public class CharacterLoader extends ObjectLoader {
 				int speed= Integer.parseInt(getAttributeValue(node, "movespeed"));
 				myChar.addProperty("speed", speed);
 				myChar.setHealth(maxHealth);
-
 				NodeList stateNodes = ((Element) node).getElementsByTagName("state");
 				addStates(stateNodes, myChar);
 				NodeList attackNodes = ((Element) node).getElementsByTagName("attack");
@@ -77,16 +76,7 @@ public class CharacterLoader extends ObjectLoader {
 			AttackObject newAttack = new AttackObject();
 			State newState = new State(myChar, frameNodes.getLength());
 			newAttack.setPower(attackDmg);
-			for (int j = 0; j < frameNodes.getLength(); j++) {
-				if (frameNodes.item(j).getAttributes().getNamedItem("image") != null) {
-					newState.populateImage(new Pixmap(getAttributeValue(frameNodes.item(j), "image")), j);
-				}
-				Element frame = (Element) frameNodes.item(j);
-				Node attackboxNode = frame.getElementsByTagName("attackbox").item(0);
-				newState.populateRectangle(new Rectangle(Integer.parseInt(getAttributeValue(attackboxNode, "cornerX")),
-						Integer.parseInt(getAttributeValue(attackboxNode, "cornerY")), Integer.parseInt(getAttributeValue(attackboxNode, "rectX")),
-						Integer.parseInt(getAttributeValue(attackboxNode, "rectY"))), j);
-			}
+			getImageAndHitboxProperties(frameNodes, newState);
 			newAttack.addState(attackName, newState);
 			myChar.addAttack(attackName, newAttack);
 		}
