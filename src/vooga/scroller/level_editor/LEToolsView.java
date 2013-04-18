@@ -4,6 +4,8 @@ package vooga.scroller.level_editor;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Map;
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import vooga.scroller.viewUtil.EasyGridFactory;
@@ -23,7 +25,9 @@ public class LEToolsView extends WindowComponent {
     private LETools myTools;
     private JTabbedPane myTabs;
     private JPanel spriteUI;
+    private JPanel otherUI;
     private String selectedSprite;
+    private String selectedSpecialPoint;
     
 
     public LEToolsView (IView parent, double d, double e) {
@@ -36,21 +40,20 @@ public class LEToolsView extends WindowComponent {
         myTabs = new JTabbedPane();
         myTools = (LETools) ((LEWorkspaceView) getResponsible()).getTools();
         spriteUI = new JPanel();
-        JPanel spriteButtons = new RadioGroup(new SelectSpriteListener(),
-                                        myTools.getSpriteMakingOptions());
-        spriteUI.add(spriteButtons);
+        spriteUI.setLayout(new BoxLayout(spriteUI, BoxLayout.PAGE_AXIS));
+        for (Map<Object, String> m : myTools.getOptions()) {
+            JPanel spriteButtons = new RadioGroup(new SelectSpriteListener(), m);
+            spriteUI.add(spriteButtons);
+        }
+        
+        otherUI = new JPanel();
+        JPanel otherButtons = new RadioGroup(new SetSpecialPointListener(),
+                                             myTools.getOtherOptions());
+        otherUI.add(otherButtons);
         myTabs.add(spriteUI, "Sprites");
-        myTabs.add(null, "Other");
+        myTabs.add(otherUI, "Other");
         EasyGridFactory.layout(this, myTabs);
     }
-
-//    @Override
-//    protected void initializeVariables () {
-//        // TODO Auto-generated method stub
-////        this.setSize(120, 300);
-//        
-//    }
-
 
     @Override
     public void render (Renderable r) {
@@ -67,12 +70,31 @@ public class LEToolsView extends WindowComponent {
         
     }
     
+    private class SetSpecialPointListener implements ActionListener {
+
+        @Override
+        public void actionPerformed (ActionEvent e) {
+            setSpecialPoint(e.getActionCommand());
+        }
+        
+    }
+    
+    //TODO - decide if it is best to treat doors as sprite
+    private void setSpecialPoint (String type) {
+        selectedSpecialPoint = type;
+        selectedSprite = type;
+    }
+    
     private void setSelectedSprite(String spriteID) {
         selectedSprite = spriteID;
     }
     
     public String getSelectedSpriteID() {
         return selectedSprite;
+    }
+    
+    public String getSelectedSpecialPoint() {
+        return selectedSpecialPoint;
     }
     
     public void setTools(LETools t) {

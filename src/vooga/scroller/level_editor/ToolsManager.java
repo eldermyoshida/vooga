@@ -3,6 +3,7 @@ package vooga.scroller.level_editor;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
+import vooga.scroller.level_management.LevelPortal;
 import vooga.scroller.util.Sprite;
 import vooga.scroller.viewUtil.RadioGroup;
 
@@ -23,13 +24,12 @@ public class ToolsManager {
         spriteMap = new HashMap<Integer, Sprite>();
         nameMap = new HashMap<String, Sprite>();
         viewTools = new LETools();
+
+        Sprite sprite;
         for (Class<? extends Sprite> c:lib.getSpritesClasses()) {
-            Sprite sprite;
             try {
                 sprite = (Sprite) c.newInstance();
-                spriteMap.put(i, sprite);
-                nameMap.put(c.getName(), sprite);
-                viewTools.addSpriteOption(sprite, i);
+                setupTool(i, sprite);
             }
             catch (InstantiationException e) {
                 e.printStackTrace();
@@ -39,6 +39,16 @@ public class ToolsManager {
             }
             i++;
         }
+        sprite = new StartPoint();
+        setupTool(ILevelEditor.START_ID, sprite);
+        sprite = new LevelPortal();
+        setupTool(ILevelEditor.END_ID, sprite);
+    }
+
+    private void setupTool (int i, Sprite sprite) {
+        spriteMap.put(i, sprite);
+        nameMap.put(sprite.getClass().getName(), sprite);
+        viewTools.addSpriteOption(sprite, i);
     }
     
     public LETools getViewTools() {

@@ -15,6 +15,7 @@ import vooga.scroller.collision_manager.CollisionManager;
 import vooga.scroller.level_management.IDoor;
 import vooga.scroller.level_management.LevelPortal;
 import vooga.scroller.level_management.StartPoint;
+import vooga.scroller.level_management.StaticStartPoint;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.superclasses.NonStaticEntity;
 import vooga.scroller.sprites.superclasses.Player;
@@ -76,6 +77,8 @@ public class Level implements Editable, Renderable {
 
     public Level(int id, ScrollingManager sm, View view, LEGrid grid) {
         this (id, sm, view);
+        addStartPoint(new StaticStartPoint(this, grid.removeStartPoint()));
+        addPortal(new LevelPortal(this, grid.removePortal()));
         setSize(grid.getPixelSize());
         for (SpriteBox box : grid.getBoxes()) {
             addSprite(box.getSprite());
@@ -271,6 +274,7 @@ public class Level implements Editable, Renderable {
         return mySize;
     }
 
+
     // Methods from Editable Interface. Methods called by LevelEditor.
 
     @Override
@@ -290,10 +294,11 @@ public class Level implements Editable, Renderable {
         }
     }
 
+
     private void intersectingSprites () {
         Sprite obj1;
         Sprite obj2;
-        CollisionManager CM = new CollisionManager(this);
+        CollisionManager cm = new CollisionManager(this);
 
         mySprites.add(myPlayer);
         for (int i = 0; i < mySprites.size(); i++) {
@@ -301,7 +306,7 @@ public class Level implements Editable, Renderable {
                 obj1 = mySprites.get(i);
                 obj2 = mySprites.get(j);
                 if (obj1.intersects(obj2)) {
-                    CM.handleCollision(obj1, obj2);
+                    cm.handleCollision(obj1, obj2);
                 }
             }
         }
@@ -318,6 +323,9 @@ public class Level implements Editable, Renderable {
         return myView;
     }
 
+    /**
+     * TODO
+     */
     @Override
     public void addSprite (Sprite s, int x, int y) {
         s.setCenter(x, y);
@@ -354,9 +362,10 @@ public class Level implements Editable, Renderable {
         myInput.removeListener(myPlayer);
     }
 
-    public void addDoor (IDoor door) {
+    public void addPortal (LevelPortal door) {
         // TODO Implement support for multiple doors
-        myDoor = door;   
+        myDoor = door;
+        addSprite (door);
     }
 
     /**
@@ -369,10 +378,22 @@ public class Level implements Editable, Renderable {
 
     public void addStartPoint (StartPoint start) {
         myDefaultStart = start;
+        
     }
 
     public StartPoint getStartPoint () {
         return myDefaultStart;
+    }
+
+    @Override
+    public void addStartPoint (int x, int y) {
+       addStartPoint(new StaticStartPoint(this, new Location(x,y)));
+    }
+
+    @Override
+    public void addDoor (int x, int y) {
+        // TODO 
+        addPortal(new LevelPortal(this, new Location(x,y)));
     }
 
 }

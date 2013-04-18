@@ -47,6 +47,11 @@ public class LevelPortal extends Sprite implements ILevelPortal, IDoor {
     }
 
 
+    //TODO - make constants static
+    public LevelPortal () {
+       super(DEFAULT_IMG, new Location(50, 50), new Dimension(50, 50));
+    }
+
     @Override
     public void setNextStartPoint (StartPoint start) {
         myLevelManager.put(this, start);

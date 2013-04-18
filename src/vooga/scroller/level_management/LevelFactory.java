@@ -57,14 +57,14 @@ public class LevelFactory {
         SplashPage splash = new SplashPage(new Pixmap("MARIO SPLASH.png"),0,myView, mySM);
         // TODO: fix this
         splash.addManager(myLevelManager);
-        IDoor beginSplashDoor = new LevelPortal(splash, new Location(100, 100));
-        splash.addDoor(beginSplashDoor );
+        LevelPortal beginSplashDoor = new LevelPortal(splash, new Location(100, 100));
+        splash.addPortal(beginSplashDoor );
         
         // TODO: this will ideally read in levels from file and create instances of each level
         // This works for demo
 //        Level level1 = hardcodeLevel1(myView, mySM, 1);
-        Level level1 = buildLevel(1, loadGridFromFile("createdLevelupg.level"));
-        hardCodeCompleteL1(level1);
+        Level level1 = buildLevel(1, loadGridFromFile("simpleLevel.level"));
+//        hardCodeCompleteL1(level1);
         
         Level level2 = new Level(2, mySM, myView);
         hardcodeLevel2(level2);
@@ -96,16 +96,16 @@ public class LevelFactory {
 
     private void hardCodeCompleteL2 (Level level2) {
         StartPoint level2Start = new StaticStartPoint(level2, new Location(100, 140));
-        IDoor level2End = new LevelPortal(level2, new Location(1000, 140));
+        LevelPortal level2End = new LevelPortal(level2, new Location(1000, 140));
         level2.addStartPoint(level2Start);
-        level2.addDoor(level2End);
+        level2.addPortal(level2End);
     }
 
     private void hardCodeCompleteL1 (Level level1) {
         StartPoint level1Start = new StaticStartPoint(level1, new Location(200, 140));;
-        IDoor level1End = new LevelPortal(level1, new Location(1540, 75));
+        LevelPortal level1End = new LevelPortal(level1, new Location(1540, 75));
         level1.addStartPoint(level1Start);
-        level1.addDoor(level1End);
+        level1.addPortal(level1End);
 //        level1.setBackground(new ImageIcon(getClass()
 //                                                .getResource("/vooga/scroller/images/background_small.png")).getImage());
     }

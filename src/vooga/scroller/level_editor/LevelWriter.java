@@ -6,26 +6,35 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import util.Location;
 import vooga.scroller.util.Sprite;
 
 
 public class LevelWriter {
 
+    private static final char EQUALS = '=';
     private static final String NEW_LINE = System.getProperty("line.separator");
     private static final String BEGIN_LEVEL = "/level";
     private static final String BEGIN_KEY = "/key";
+    private static final String BEGIN_SETTINGS = "/settings";
     private static final String KEY_CREATOR = "abcdefghijklmnopqrstuvwxyz" +
-    		"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()";
+                                              "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()";
     private static final char SPACE = ' ';
+    public static final String START_POINT = "StartPoint";
+    public static final String END_POINT = "EndPoint";
     private int myKeyCounter;
     private Map<String, Character> myMap;
     private FileWriter myFileWriter;
     private LEGrid myGrid;
+    private Location myStartPoint;
+    private Location myPortal;
 
     public void createFile (File file, LEGrid levelGrid) {
         myGrid = levelGrid;
+        myStartPoint = myGrid.removeStartPoint();
+        myPortal = myGrid.removePortal();
         myKeyCounter = 0;
-        myMap = new HashMap<String,Character>();
+        myMap = new HashMap<String, Character>();
         try {
             myFileWriter = new FileWriter(file);
         }
@@ -35,6 +44,9 @@ public class LevelWriter {
         }
         writeLevel();
         writeKey();
+        writeSettings();
+        myGrid.addStartPoint((int) myStartPoint.getX(), (int) myStartPoint.getY());
+        myGrid.addDoor((int) myPortal.getX(), (int) myPortal.getY());
     }
 
     private void writeLevel () {
@@ -62,26 +74,40 @@ public class LevelWriter {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        
+
     }
 
     private void writeKey () {
         Set<String> keySet = myMap.keySet();
-        try{
+        try {
             myFileWriter.write(BEGIN_KEY);
-            for(String key:keySet){
+            for (String key : keySet) {
                 myFileWriter.write(NEW_LINE);
-                myFileWriter.write(""+myMap.get(key)+'='+key);
+                myFileWriter.write("" + myMap.get(key) + EQUALS + key);
             }
-            myFileWriter.close();
+            myFileWriter.write(NEW_LINE);
         }
-        catch(IOException e){
-         // TODO Auto-generated catch block
+        catch (IOException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        
-        
-    
+
     }
 
+    private void writeSettings () {
+        try {
+            myFileWriter.write(BEGIN_SETTINGS);
+            myFileWriter.write(NEW_LINE);
+            myFileWriter.write(START_POINT + EQUALS +
+                               (int) myStartPoint.getX() + SPACE + (int) myStartPoint.getY());
+            myFileWriter.write(NEW_LINE);
+            myFileWriter.write(END_POINT + EQUALS +
+                               (int) myPortal.getX() + SPACE + (int) myPortal.getY());
+            myFileWriter.close();
+        }
+        catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 }
