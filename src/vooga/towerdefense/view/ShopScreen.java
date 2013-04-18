@@ -8,6 +8,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Point2D;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JPanel;
@@ -59,10 +60,17 @@ public class ShopScreen extends JPanel {
 
     private void displayShopItems (Graphics2D pen) {
         int totalX = 30;
+        int totalY = 30;
         for (Pixmap item : myShopItems.values()) {
             // TODO Deal with the case where there are a lot of items on the screen
-            item.paint(pen, new Point(totalX, 30), new Dimension(50, 50));
-            totalX += 50;
+            if(item.getCenter().getX() == 0.0) {
+                item.paint(pen, new Point(totalX, totalY), new Dimension(50, 50));
+                System.out.println("new");
+            }
+            else {
+                item.paint(pen, item.getCenter(), new Dimension(50, 50));
+                System.out.println("old: "+ item.getCenter());
+            }
         }
     }
 
@@ -71,20 +79,26 @@ public class ShopScreen extends JPanel {
             @Override
             public void mouseClicked (MouseEvent e) {
                 checkIfItemClickedOn(e.getPoint());
+                System.out.println("Mouse Point:"+e.getPoint());
             }
         };
     }
 
     private void checkIfItemClickedOn (Point point) {
         for (Pixmap item : myShopItems.values()) {
-            Location center = new Location(item.getCenter().getX(), item.getCenter().getY());
-            double x = item.getWidth() / 2 - center.x;
-            double y = item.getHeight() / 2 - center.y;
+            //Point2D center = item.getCenter(); 
+            double x = item.getCenter().getX() - (double)(item.getWidth()/2); 
+            double y = item.getCenter().getY() - (double)(item.getHeight()/2); 
+            System.out.println("x:" + x + "y:" + y);
             Rectangle rect =
                     new Rectangle((int) x, (int) y, item.getWidth(), item.getHeight());
+            System.out.println("Rect:" + rect);
+            System.out.println("Point:" + point);
             if (rect.contains(point)) {
+                System.out.println("Contains point!!");
                 for (Map.Entry<String, Pixmap> entry : myShopItems.entrySet()) {
                     if (entry.getValue().equals(item)) {
+                        System.out.println("Send Stuff!!");
                         myController.handleShopClickOnItem(entry.getKey());
                     }
                 }
