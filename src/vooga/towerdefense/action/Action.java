@@ -66,8 +66,8 @@ public abstract class Action {
         return (event == myTriggerEvent);
 
     }
-
-
+    
+   
     // @Override
     public void update (double elapsedTime, Event e) {
         if (eventTriggered(e)) {

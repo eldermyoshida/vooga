@@ -34,6 +34,15 @@ public class GameElementDefinition {
 	public Dimension getSize(){
 		return mySize;
 	}
+
+    /**
+     * @param name
+     * @return 
+     */
+    public String get (String name) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 	
 
 }

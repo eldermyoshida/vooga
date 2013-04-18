@@ -49,10 +49,10 @@ public class GameMap {
         myDimension = new Dimension(width, height);
         initializeGrid();
         ExampleUnitFactory myTrollFactory = new ExampleUnitFactory("Troll", new TrollUnitDefinition());
-        //GameElement troll1 = myTrollFactory.createUnit(new Location(250, 250), new TrollUnitDefinition());
-        //GameElement troll2 = myTrollFactory.createUnit(new Location(350, 250), new TrollUnitDefinition());
-        //addGameElement(troll1);
-        //addGameElement(troll2);
+        GameElement troll1 = myTrollFactory.createUnit(new Location(250, 250), new TrollUnitDefinition());
+        GameElement troll2 = myTrollFactory.createUnit(new Location(350, 250), new TrollUnitDefinition());
+        addGameElement(troll1);
+        addGameElement(troll2);
     }
 
     /*

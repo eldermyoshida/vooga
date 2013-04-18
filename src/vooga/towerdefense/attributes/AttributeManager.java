@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
+import vooga.towerdefense.factories.GameElementFactory;
 import vooga.towerdefense.factories.ProjectileFactory;
 
 
@@ -20,11 +21,11 @@ import vooga.towerdefense.factories.ProjectileFactory;
  */
 public class AttributeManager {
     private HashMap<String,Attribute> myAttributes;
-    private ProjectileFactory myProjectileFactory;
+    private HashMap<String,GameElementFactory> myFactories;
 
     public AttributeManager () {
         myAttributes = new HashMap<String,Attribute>();
-        myProjectileFactory=new ProjectileFactory();
+        myFactories = new HashMap<String, GameElementFactory>();
     }
     
     /**
@@ -33,6 +34,7 @@ public class AttributeManager {
      */
     public AttributeManager (HashSet<Attribute> attributes) {
         myAttributes = new HashMap<String, Attribute>();
+        myFactories = new HashMap<String, GameElementFactory>();
         for (Attribute a : attributes) {
             myAttributes.put(a.getName(), a);
         }        
@@ -99,8 +101,8 @@ public class AttributeManager {
     	
     }
 
-    public ProjectileFactory getProjectileFactory(){
-    	return myProjectileFactory;
+    public HashMap<String, GameElementFactory> getFactories(){
+    	return myFactories;
     }
 
 
