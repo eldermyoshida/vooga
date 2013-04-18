@@ -20,7 +20,6 @@ public class MouseClickObject extends GameObject {
 		System.out.println();
 		myTicks = 0;
 		setImageData();
-
 	}
 
 	@Override

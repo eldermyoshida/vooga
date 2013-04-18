@@ -47,6 +47,7 @@ public class MenuController extends Controller {
     	LoopInfo gameLoopInfo =  new LoopInfo(super.getMode());
     	setGameLoopInfo(gameLoopInfo);
     	frame.setViewDataSource(gameLoopInfo);
+    	myGameInfo = gameinfo;
     }
     
     public void loadMode() {
@@ -67,7 +68,7 @@ public class MenuController extends Controller {
      */
     public void notifyEndCondition(String string) {
         super.getGameInfo().setGameMode(string);
-        super.getManager().notifyEndCondition(TEST);
+        super.getManager().notifyEndCondition(string);
     }
 
 
@@ -80,6 +81,8 @@ public class MenuController extends Controller {
     @InputMethodTarget(name = "continue")
     public void mouseclick(PositionObject pos)  {
         super.getMode().addObject(new MouseClickObject(pos.getPoint2D()));
+        System.out.println(myGameInfo.getGameInfo());
+        notifyEndCondition("Test");
     }
     
     @Override
