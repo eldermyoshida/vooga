@@ -179,4 +179,12 @@ public class TDView {
     public InformationScreen getPlayerInfoScreen () {
         return myStatsWindow;
     }
+    
+    /**
+     * Gets the shop screen for this view.
+     * @return the ShopScreen
+     */
+    public ShopScreen getShopScreen() {
+        return myShopScreen;
+    }
 }
