@@ -70,6 +70,8 @@ public class MapScreen extends JPanel {
 
     /**
      * paints the MapScreen component.
+     *
+     * @param pen is the graphics object
      */
     @Override
     public void paintComponent (Graphics pen) {
@@ -88,7 +90,8 @@ public class MapScreen extends JPanel {
         getGraphics().drawImage(image.getImage(), p.x, p.y,
                                 image.getImage().getWidth(null),
                                 image.getImage().getWidth(null), null);
-        image.paint((Graphics2D) getGraphics(), (Point2D) p, new Dimension(40, 50));
+        image.paint((Graphics2D) getGraphics(), (Point2D) p,
+                    new Dimension(image.getWidth(), image.getHeight()));
 
     }
 
