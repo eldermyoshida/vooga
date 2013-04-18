@@ -5,6 +5,8 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -21,16 +23,24 @@ import vooga.towerdefense.controller.Controller;
 public class TDView {
 
     //TODO: read these names from the file
-    private static final String TITLE = "TOWER DEFENSE";
-    private static final String NEXT_BUTTON_NAME = "NEXT";
+    private static final String TITLE_KEYWORD = "GameTitle";
+    private static final String NEXT_BUTTON_KEYWORD = "NextButtonName";
     private static final Dimension SIZE = new Dimension(1100, 800);
     private static final Dimension MAP_WINDOW_SIZE = new Dimension(800, 600);
     private static final Dimension EAST_WINDOW_SIZE = new Dimension(200, 600);
     private static final Dimension SOUTH_WINDOW_SIZE = new Dimension(1000, 200);
     private static final Dimension SPLASH_SCREEN_SIZE = new Dimension(800, 600);
+    private static final Dimension STATS_WINDOW_SIZE = new Dimension(200, 300);
+    private static final Dimension INFO_WINDOW_SIZE = new Dimension(200, 300);
+    private static final Dimension SHOP_WINDOW_SIZE = new Dimension(600, 100);
+    private static final Dimension WAVE_WINDOW_SIZE = new Dimension(200, 100);
     private JPanel myPanel;
-    private EastWindow myEastWindow;
-    private SouthWindow mySouthWindow;
+    private InformationScreen myStatsWindow;
+    private GameElementInformationScreen myInformationWindow;
+    private MultipleScreenPanel myEastWindow;
+    private ShopScreen myShopScreen;
+    private NextWaveScreen myNextWaveScreen;
+    private MultipleScreenPanel mySouthWindow;
     private JFrame myFrame;
     private MapScreen myMapScreen;
     private SplashScreen mySplashScreen;
@@ -53,7 +63,7 @@ public class TDView {
      * creates this view.
      */
     public void createGUI () {
-        myFrame = new JFrame(TITLE);
+        myFrame = new JFrame(myController.getStringFromResources(TITLE_KEYWORD));
         myPanel = new JPanel();
         myFrame.setContentPane(myPanel);
         myFrame.setPreferredSize(SIZE);
@@ -61,10 +71,24 @@ public class TDView {
 
         mySplashScreen = new SplashScreen(SPLASH_SCREEN_SIZE, this);
         myMapScreen = new MapScreen(MAP_WINDOW_SIZE, myController);
-        myEastWindow = new EastWindow(EAST_WINDOW_SIZE, myController);
-        mySouthWindow = new SouthWindow(SOUTH_WINDOW_SIZE, myController);
-        myFrame.getContentPane().add(nextScreenButton());
+        
 
+        myStatsWindow = new InformationScreen("Stats", STATS_WINDOW_SIZE);
+        myInformationWindow =
+                new GameElementInformationScreen("Info", INFO_WINDOW_SIZE, myController);
+        Map<JPanel, String> screens = new HashMap<JPanel, String>();
+        screens.put(myStatsWindow, BorderLayout.NORTH);
+        screens.put(myInformationWindow, BorderLayout.SOUTH);
+        myEastWindow = new MultipleScreenPanel(EAST_WINDOW_SIZE, screens);
+
+        myShopScreen = new ShopScreen(SHOP_WINDOW_SIZE, myController);
+        myNextWaveScreen = new NextWaveScreen(WAVE_WINDOW_SIZE, myController);
+        screens = new HashMap<JPanel, String>();
+        screens.put(myShopScreen, BorderLayout.CENTER);
+        screens.put(myNextWaveScreen, BorderLayout.EAST);
+        mySouthWindow = new MultipleScreenPanel(SOUTH_WINDOW_SIZE, screens);
+        
+        myFrame.getContentPane().add(nextScreenButton());
         addScreen(mySplashScreen);
     }
 
@@ -120,7 +144,7 @@ public class TDView {
      * @return the JButton
      */
     private Component nextScreenButton () {
-        myNextScreenButton = new JButton(NEXT_BUTTON_NAME);
+        myNextScreenButton = new JButton(myController.getStringFromResources(NEXT_BUTTON_KEYWORD));
         myNextScreenButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {
@@ -144,7 +168,7 @@ public class TDView {
      * @return the GameElementInformationScreen
      */
     public GameElementInformationScreen getGameElementInfoScreen () {
-        return myEastWindow.getGameElementScreen();
+        return myInformationWindow;
     }
 
     /**
@@ -153,6 +177,6 @@ public class TDView {
      * @return the InformationScreen
      */
     public InformationScreen getPlayerInfoScreen () {
-        return myEastWindow.getPlayerScreen();
+        return myStatsWindow;
     }
 }

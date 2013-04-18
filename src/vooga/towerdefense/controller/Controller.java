@@ -6,6 +6,8 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 
 import vooga.towerdefense.controller.modes.BuildMode;
 import vooga.towerdefense.controller.modes.ControlMode;
@@ -33,10 +35,15 @@ import vooga.towerdefense.view.TDView;
  * @author Angelica Schwartz
  */
 public class Controller {
+    
+    private static final String DEFAULT_RESOURCE_PACKAGE = "vooga/towerdefense/resources.";
+    
+    private ResourceBundle myResourceBundle;
     private GameModel myModel;
     private TDView myView;
     private ControlMode myControlMode;
-
+    private SelectMode mySelectMode = new SelectMode();
+    
     // TODO: controller constructor should take waves & map in order to initialize GameModel?
     // TODO: fix where the parameters come from
     public Controller () {
@@ -74,22 +81,6 @@ public class Controller {
         }
     }
 
-    // //testing method to check if displaying the correct info
-    // public void displayTileCoordinates (Point p) {
-    // Tile t = myModel.getTile(p);
-    // Point center = t.getCenter();
-    // System.out.println(center);
-    // myView.getTowerInfoScreen().displayInformation(center.toString());
-    // }
-
-    // //testing method to check if displaying the correct info
-    // public void displayTileCoordinates (Point p) {
-    // Tile t = myModel.getTile(p);
-    // Point center = t.getCenter();
-    // System.out.println(center);
-    // myView.getTowerInfoScreen().displayInformation(center.toString());
-    // }
-
     /**
      * updates the display on the MapScreen.
      */
@@ -123,6 +114,32 @@ public class Controller {
         if (tile.containsElement()) { return tile.getElement(); }
         return null;
     }
+    
+    /**
+     * gets the resource bundle for this controller.
+     * @return the resource bundle
+     */
+    public ResourceBundle getResourceBundle() {
+        return myResourceBundle;
+    }
+    
+    /**
+     * Get the matching string from the resource bundle.
+     * @param s is the string to match
+     * @return the appropriate string in the selected language
+     */
+    public String getStringFromResources(String s) {
+        return myResourceBundle.getString(s);
+    }
+
+    /**
+     * 
+     * @return a map of the elements in the shop 
+     * with String as a key and a Pixmap as the value
+     */
+    public Map<String, Pixmap> getShopItemIcons () {
+        return myModel.getShop().getAllShopItemIcons();
+    }
 
     /**
      * handles a click to the map appropriately depending
@@ -154,33 +171,9 @@ public class Controller {
     public void handleShopClickOnItem (String itemName) {
         GameElement itemToBuy = myModel.getShop().getShopItem(itemName);
         BuildMode myNewMode = new BuildMode();
-        myNewMode.setItemToBuild(itemToBuy);
+        myNewMode.setItemToBuild(itemToBuy);    
         myControlMode = myNewMode;
     }
-
-    // //testing method to check if displaying the correct info
-    // public void displayTileCoordinates (Point p) {
-    // Tile t = myModel.getTile(p);
-    // Point center = t.getCenter();
-    // System.out.println(center);
-    // myView.getTowerInfoScreen().displayInformation(center.toString());
-    // }
-
-    // //testing method to check if displaying the correct info
-    // public void displayTileCoordinates (Point p) {
-    // Tile t = myModel.getTile(p);
-    // Point center = t.getCenter();
-    // System.out.println(center);
-    // myView.getTowerInfoScreen().displayInformation(center.toString());
-    // }
-
-    // //testing method to check if displaying the correct info
-    // public void displayTileCoordinates (Point p) {
-    // Tile t = myModel.getTile(p);
-    // Point center = t.getCenter();
-    // System.out.println(center);
-    // myView.getTowerInfoScreen().displayInformation(center.toString());
-    // }
     
     /**
      * starts the next wave in the model.
@@ -229,25 +222,23 @@ public class Controller {
         t.upgrade(upgradeName);
         // TODO: implement upgrade stuff on backend (ask unit team for tower upgrade info!)
     }
-
-    // //testing method to check if displaying the correct info
-    // public void displayTileCoordinates (Point p) {
-    // Tile t = myModel.getTile(p);
-    // Point center = t.getCenter();
-    // System.out.println(center);
-    // myView.getTowerInfoScreen().displayInformation(center.toString());
-    // }
-
+    
     /**
-     * 
-     * @return  a map of the elements in the shop 
-     * with String as a key and a Pixmap as the value
+     * Sets the language
+     * @param language the language to set the controller to
      */
-    public Map<String, Pixmap> getShopItemIcons () {
-        return myModel.getShop().getAllShopItemIcons();
+    public void setLanguage (String language) {
+        try {
+            myResourceBundle = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE
+                                                       + language);
+        }
+        catch (MissingResourceException e) {
+            e.printStackTrace();
+        }
     }
+
     /**
-     * Start the game controller
+     * Start the game controller.
      */
     public void start () {
         GameController game = new GameController(this);

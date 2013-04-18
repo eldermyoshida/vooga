@@ -89,7 +89,7 @@ public class InformationScreen extends JPanel {
      * @param pen
      */
     @Override
-    public void paint (Graphics pen) {
+    public void paintComponent (Graphics pen) {
         super.paintComponent(pen);
         myTextArea.paint(pen);
     }

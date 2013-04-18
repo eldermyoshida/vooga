@@ -2,6 +2,7 @@
 package vooga.towerdefense.action;
 
 import vooga.towerdefense.attributes.Attribute;
+import vooga.towerdefense.attributes.AttributeConstants;
 import vooga.towerdefense.gameElements.GameElement;
 
 /**
@@ -10,26 +11,24 @@ import vooga.towerdefense.gameElements.GameElement;
  *
  */
 public class Move extends Action {
-    
+	private static final AttributeConstants ATTRIBUTE_CONSTANTS = new AttributeConstants();
     private Attribute myMovespeed;
     private Attribute myDirection;
 
     /**
      * @param initiator
      */
-    public Move (GameElement initiator, Attribute movespeed, Attribute direction) {
+    public Move (GameElement initiator) {
         super(initiator);
-        myMovespeed = movespeed;
-        myDirection = direction;
+        myMovespeed = initiator.getAttributeManager().getAttribute(ATTRIBUTE_CONSTANTS.MOVE_SPEED);
+        myDirection = initiator.getAttributeManager().getAttribute(ATTRIBUTE_CONSTANTS.DIRECTION);
     }
     
     @Override
-    public void update(double elapsedTime) {
-        myDirection.modifyValue(35);
+    public void executeAction(double elapsedTime) {
         getInitiator().setVelocity(myDirection.getValue(), myMovespeed.getValue());
         getInitiator().getVelocity().scale(elapsedTime);
         getInitiator().translate(getInitiator().getVelocity());
-        System.out.println(getInitiator().getCenter());
     }
 
 }
