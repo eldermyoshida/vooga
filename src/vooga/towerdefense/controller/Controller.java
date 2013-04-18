@@ -36,6 +36,8 @@ import vooga.towerdefense.view.TDView;
  *      the Model and the View.
  *
  * @author Angelica Schwartz
+ * @author Erick Gonzalez
+ * @author Leonard K. Ng'eno
  */
 public class Controller {
     

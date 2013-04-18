@@ -1,5 +1,6 @@
 package vooga.towerdefense.view;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -11,6 +12,7 @@ import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import vooga.towerdefense.controller.Controller;
@@ -32,12 +34,14 @@ public class ShopScreen extends JPanel {
     private static final int YCOORD = 0;
     private static final int ICON_WIDTH = 50;
     private static final int ICON_HEIGHT = 50;
+    private static final String CANCEL_BUTTON_KEYWORD = "CancelButtonName";
     private int myWidth;
     private Color myBackgroundColor = Color.WHITE;
     private MouseAdapter myMouseListener;
     private Controller myController;
     private Map<String, GameElement> myShopItems;
     private Map<String, Rectangle> myShopIcons;
+    private JButton myCancelButton;
     
     /**
      * constructor.
@@ -55,6 +59,7 @@ public class ShopScreen extends JPanel {
         myShopItems = new HashMap<String, GameElement>();
         myShopIcons = new HashMap<String, Rectangle>();
         initShopItems();
+        makeCancelButton();
     }
 
     /**
@@ -126,5 +131,12 @@ public class ShopScreen extends JPanel {
                 myController.handleShopClickOnItem(entry.getKey());
             }
         }
+    }
+    
+    private void makeCancelButton () {
+        myCancelButton = new JButton(myController.getStringFromResources(CANCEL_BUTTON_KEYWORD));
+        myCancelButton.addMouseListener(myMouseListener);
+        myCancelButton.setVisible(true);
+        this.add(myCancelButton, BorderLayout.SOUTH);
     }
 }
