@@ -15,6 +15,7 @@ import org.xml.sax.SAXException;
 
 import vooga.rts.gamedesign.sprite.gamesprites.*;
 import vooga.rts.util.Location;
+import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 
 
@@ -76,11 +77,11 @@ public class ResourceDecoder extends Decoder{
 			
 			
 			Resource res = (Resource) headClass.getConstructor(Pixmap.class, 
-													Location.class, 
+													Location3D.class, 
 													Dimension.class, 
 													int.class, 
 													int.class).newInstance(new Pixmap(img),
-																			new Location(0,0),
+																			new Location3D(0,0,0),
 																			RESOURCE_SIZE,
 																			0,
 																			health);																	

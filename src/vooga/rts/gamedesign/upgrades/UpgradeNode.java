@@ -2,6 +2,7 @@ package vooga.rts.gamedesign.upgrades;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -38,6 +39,7 @@ public class UpgradeNode {
         myChildren = new ArrayList<UpgradeNode>();
         myHasBeenUpgraded = false;
         myUpgradeValue = upgradeValue;
+        myCost = new HashMap<String, Integer>();
         myCost.put("resource", costedResourceAmount); //TODO: get different types of Resource
     }
     

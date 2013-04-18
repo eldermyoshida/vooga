@@ -54,7 +54,7 @@ public class StrategyDecoder extends Decoder{
 					strategy = Class.forName(path);
 					
 				} catch (ClassNotFoundException e) {
-					System.out.println("MERRR");
+					e.printStackTrace();
 				}
 				
 				Strategy strat = (Strategy) strategy.getConstructor().newInstance();
