@@ -11,7 +11,6 @@ import arcade.games.UserGameData;
  * 
  */
 public class GameInfo extends UserGameData{
-    private String myGameMode;
     private int myMapID;
     private List<Integer> myCharacters;
     private Integer myNumCharacters;
@@ -24,7 +23,6 @@ public class GameInfo extends UserGameData{
     public GameInfo () {
     	myCharacters = new ArrayList<Integer>();
     	myScores = new ArrayList<Integer>();
-    	myGameMode = "Fighting Game";
     }
     
     /**
@@ -36,9 +34,7 @@ public class GameInfo extends UserGameData{
         myMapID = mapID;
     }
     
-    public String getGameInfo() {
-        return myGameMode;
-    }
+   
     /**
      * 
      */
@@ -82,22 +78,6 @@ public class GameInfo extends UserGameData{
     }
    
     
-    /**
-     * 
-     * @return
-     */
-    public String getGameMode () {
-        return myGameMode;
-    }
-
-    /**
-     * 
-     * @param myGameMode
-     */
-    public void setGameMode (String gameMode) {
-        myGameMode = gameMode;
-    }
-
     /**
      * 
      * @return

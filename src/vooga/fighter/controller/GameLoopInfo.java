@@ -70,7 +70,7 @@ public class GameLoopInfo extends LoopInfo implements ViewDataSource{
     @Override
     public void update() {
         super.update();
-        updatePlayerStats();
+        //updatePlayerStats();
     }
     
     /**

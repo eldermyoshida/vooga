@@ -15,8 +15,15 @@ import vooga.fighter.view.Canvas;
  */
 
 public class ControllerManager implements ControllerDelegate{
-	private static final String MAINMENU = "CharacterSelectMenu";
+        
+        //For testing pruposes
+	private static final String MAINMENU = "MainMenu";
+	private static final String CHARACTER = "CharacterSelectMenu";
+	private static final String MODE = "ModeSelectMenu";
 	private static final String TEST = "Test";
+	
+	
+	
 	private Map<String, Controller> myControllerMap;
 	private Controller myCurrentController;
 	private Canvas myCanvas;
@@ -26,7 +33,7 @@ public class ControllerManager implements ControllerDelegate{
 		myCanvas = frame;
 		myControllerMap = new ControllerFactory(frame).getMap();
 		myGameInfo = gameinfo;
-		myCurrentController = myControllerMap.get(MAINMENU).getController(this, myGameInfo);
+		myCurrentController = myControllerMap.get(TEST).getController(this, myGameInfo);
 		
 	}
 	
