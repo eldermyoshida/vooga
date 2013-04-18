@@ -17,7 +17,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import arcade.model.Model;
 import arcade.util.BackgroundPanel;
 
@@ -34,16 +33,12 @@ public class LoginView extends JFrame {
     private static final String IMAGES_LOCATION = "../resources/images/";
     private static final String BACKGROUND_FILENAME = "LoginBackGround.jpg";
     private static final String LOGO_FILENAME = "VoogaLogo.png";
-    private static final String TITLE_KEYWORD = "title";
-    private static final String LOGIN_KEYWORD = "login";
-    private static final String REGISTER_KEYWORD = "new_account";
-    private static final String USERNAME_KEYWORD = "username";
-    private static final String PASSWORD_KEYWORD = "password";
-    public static final int WINDOW_WIDTH = 300;
+    public static final int WINDOW_WIDTH = 260;
     public static final int WINDOW_HEIGHT = 240;
     private static final int TEXT_FIELD_HEIGHT = 25;
     private static final int TEXT_FIELD_SIZE = 10;
     private static final int LABEL_WIDTH = 80;
+    private static final int MESSAGE_WIDTH = 140;
     //private static final int NO_KEY_PRESSED = -1;
 
     private Model myModel;
@@ -63,7 +58,7 @@ public class LoginView extends JFrame {
         myModel = model;
         myResources = resources;
 
-        setTitle(myResources.getString(TITLE_KEYWORD));
+        setTitle(myResources.getString(TextKeywords.TITLE));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
         setLocationRelativeTo(null);
@@ -72,7 +67,7 @@ public class LoginView extends JFrame {
         getContentPane().add(background);
         background.add(createMainContents());
 
-       // setResizable(false);
+        setResizable(false);
         setVisible(true);
     }
     
@@ -85,7 +80,8 @@ public class LoginView extends JFrame {
      * @param message
      */
     public void sendMessage (String message) {
-        myWarningMessage.setText("<html><font color = red>" + message + "</font></html>");
+        myWarningMessage.setText("<html><body style='width:" + MESSAGE_WIDTH + " px'>"
+        		+ "<center><font color = red>" + message);
     }
 
     /**
@@ -127,7 +123,6 @@ public class LoginView extends JFrame {
         JPanel panel = new JPanel();
         ImageIcon headIcon = new ImageIcon(this.getClass().getResource(IMAGES_LOCATION + LOGO_FILENAME));
         JLabel head = new JLabel(headIcon);
-        head.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(head);
         return panel;
     }
@@ -138,7 +133,7 @@ public class LoginView extends JFrame {
      */
     private JComponent createUsernameField () {
         myUserNameTextField = new JTextField();
-        return createTextPanel(USERNAME_KEYWORD, myUserNameTextField);
+        return createTextPanel(TextKeywords.USERNAME, myUserNameTextField);
     }
 
     /**
@@ -155,7 +150,7 @@ public class LoginView extends JFrame {
                 }
             }
         });
-        return createTextPanel(PASSWORD_KEYWORD, myPasswordTextField);
+        return createTextPanel(TextKeywords.PASSWORD, myPasswordTextField);
     }
 
     /**
@@ -168,7 +163,7 @@ public class LoginView extends JFrame {
         JPanel panel = new JPanel();
 
         String description = myResources.getString(descriptionKeyword);
-        JLabel label = new JLabel("<html><b>" + description + "</b></html>");
+        JLabel label = new JLabel("<html><b>" + description);
         label.setPreferredSize(new Dimension(LABEL_WIDTH, label.getPreferredSize().height));
         panel.add(label);
 
@@ -186,7 +181,6 @@ public class LoginView extends JFrame {
     private JComponent createMessageArea () {
         JPanel panel = new JPanel();
         myWarningMessage = new JLabel();
-        myWarningMessage.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(myWarningMessage);
         return panel;
     }
@@ -199,7 +193,7 @@ public class LoginView extends JFrame {
     private JComponent createButtons () {
         JPanel buttonPanel = new JPanel();
 
-        JButton login = new JButton(myResources.getString(LOGIN_KEYWORD));
+        JButton login = new JButton(myResources.getString(TextKeywords.LOGIN));
         login.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent arg0) {
@@ -208,11 +202,15 @@ public class LoginView extends JFrame {
         });
         buttonPanel.add(login);
 
-        JButton register = new JButton(myResources.getString(REGISTER_KEYWORD));
+        JButton register = new JButton(myResources.getString(TextKeywords.REGISTER));
         register.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent arg0) {
-                sendMessage("register message");
+                //TODO: would prefer to call model here to check if username/password okay.
+                //RegisterView register = new RegisterView(myModel, myResources);
+                //register.send(myUserNameTextField.getText(), new String(myPasswordTextField.getPassword()); )
+                
+                dispose();
             }
         });
         buttonPanel.add(register);
