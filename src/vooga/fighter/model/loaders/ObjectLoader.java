@@ -50,7 +50,7 @@ public abstract class ObjectLoader {
 	 * Loads object based on the id given
 	 * @param id
 	 */
-	public abstract void load(int id);
+	public abstract void load(String Name);
 	
 	/**
 	 * Returns the xml document which the loader points to

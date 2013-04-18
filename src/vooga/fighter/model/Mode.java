@@ -17,6 +17,7 @@ import vooga.fighter.model.utils.ImageDataObject;
  */
 public abstract class Mode {
 
+	private static final String NEXT = "Next";
     private List<GameObject> myObjects;
     private long myId;
     private ModelDelegate myModelDelegate;
@@ -69,11 +70,11 @@ public abstract class Mode {
     /**
     * Notifies the subcontroller that the mode should terminate. Specific rules
     * for when the mode should be terminated are implemented in subclasses.
-    */
-    public void signalTermination() {
-        myModelDelegate.notifyEndCondition();
+   */
+   public void signalTermination() {
+       myModelDelegate.notifyEndCondition(NEXT);
     }
-    
+   
     /**
      * Handles collisions between objects in this mode. Collision checking is
      * delegated to the CollisionManager, and the handling of individual collisions

@@ -26,13 +26,13 @@ public class MapObject extends GameObject {
     /**
      * Constructor for a new Map object.
      */
-    public MapObject(int mapId) {
+    public MapObject(String mapName) {
         super();
         myEnviroObjects = new ArrayList<EnvironmentObject>();
         myStartingPositions = new ArrayList<UpdatableLocation>();
         mySounds = new HashMap<String,Sound>();
         myCurrentSound = null;
-        setLoader(new MapLoader(mapId, this));
+        setLoader(new MapLoader(mapName, this));
         setCurrentState("background");
         setImageData();
     }

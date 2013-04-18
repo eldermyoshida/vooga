@@ -23,17 +23,17 @@ import vooga.fighter.model.utils.UpdatableLocation;
 public class LevelMode extends Mode {
 
     private List<UpdatableLocation> myStartLocations;
-    private List<Integer> myCharacterIds;
+    private List<String> myCharacterNames;
     private List<CharacterObject> myCharacterObjects;
-    private int myMapId;
+    private String myMapName;
     private MapObject myMap;
 
-    public LevelMode(ModelDelegate cd, List<Integer> charIds, int mapId) {
+    public LevelMode(ModelDelegate cd, List<String> charNames, String mapName) {
         super(cd);
         myStartLocations = new ArrayList<UpdatableLocation>();
         myCharacterObjects = new ArrayList<CharacterObject>();
-        myCharacterIds = charIds;
-        myMapId = mapId;
+        myCharacterNames = charNames;
+        myMapName = mapName;
         myMap = null;
     }
 
@@ -41,8 +41,8 @@ public class LevelMode extends Mode {
      * Overrides superclass initialize method by creating all objects in the level.
      */
     public void initializeMode() {
-        loadMap(myMapId);
-        loadCharacters(myCharacterIds, myStartLocations);
+        loadMap(myMapName);
+        loadCharacters(myCharacterNames, myStartLocations);
     }
 
     /**
@@ -66,15 +66,15 @@ public class LevelMode extends Mode {
         }
         
         if (shouldModeEnd()) {
-            super.signalTermination();
+            signalTermination();
         }
     }
 
     /**
      * Loads the environment objects for a map using the ObjectLoader.
      */
-    public void loadMap(int mapId) {
-        myMap = new MapObject(mapId);
+    public void loadMap(String mapName) {
+        myMap = new MapObject(mapName);
     	myStartLocations = myMap.getStartPositions();
     	addObject(myMap);
     	List<EnvironmentObject> mapObjects = myMap.getEnviroObjects();
@@ -86,11 +86,11 @@ public class LevelMode extends Mode {
     /**
      * Loads the character objects for the selected characters using the ObjectLoader.
      */
-    public void loadCharacters(List<Integer> characterIds, List<UpdatableLocation> startingPos) {
-        for (int i=0; i<characterIds.size(); i++) {
-            int charId = characterIds.get(i);
+    public void loadCharacters(List<String> characterNames, List<UpdatableLocation> startingPos) {
+        for (int i=0; i<characterNames.size(); i++) {
+            String charName = characterNames.get(i);
             UpdatableLocation start = startingPos.get(i);
-            CharacterObject newCharacter = new CharacterObject(charId, start);
+            CharacterObject newCharacter = new CharacterObject(charName, start);
             addObject(newCharacter);
             myCharacterObjects.add(newCharacter);
         }

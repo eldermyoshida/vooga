@@ -25,22 +25,22 @@ public class EnvironmentObjectLoader extends ObjectLoader {
 	 * Constructs the environment object loader with the id to be loaded and the environment object which the
 	 * loader will modify.
 	 */
-	public EnvironmentObjectLoader (int enviroObjectId, EnvironmentObject enviroObject) {
+	public EnvironmentObjectLoader (String enviroObjectName, EnvironmentObject enviroObject) {
 		super(ENVIRONMENT_OBJECT_PATH);
 		myEnvironmentObject = enviroObject;
-		load(enviroObjectId); 
+		load(enviroObjectName); 
 	}
 	
 	/**
 	 * Loads the environment object associated with the id
 	 */
-	public void load(int enviroObjectId) {
+	public void load(String enviroObjectName) {
 		Document doc = getDocument();
 		NodeList enviroObjectNodes = doc.getElementsByTagName("enviroObject");
 		for (int i = 0; i < enviroObjectNodes.getLength(); i++) {
 			Node node = enviroObjectNodes.item(i);
-			int id = Integer.parseInt(getAttributeValue(node, "enviroObjectID"));
-			if (id == enviroObjectId) {
+			String name = getAttributeValue(node, "enviroObjectID");
+			if (enviroObjectName.equals(name)) {
 				int xCoord= Integer.parseInt(getAttributeValue(node, "xCoord"));
 				int yCoord= Integer.parseInt(getAttributeValue(node, "yCoord"));
 				EnvironmentObject toAdd= new EnvironmentObject();

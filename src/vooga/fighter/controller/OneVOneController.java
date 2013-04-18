@@ -43,8 +43,8 @@ public class OneVOneController extends Controller {
     	super(name, frame, manager, gameinfo);
     	//frame.setViewDataSource(this);
     	loadMode();
-    	GameLoopInfo gameLoopInfo = new GameLoopInfo((LevelMode) super.getMode());
-    	setGameLoopInfo(gameLoopInfo);
+    	LoopInfo gameLoopInfo = new GameLoopInfo((LevelMode) super.getMode());
+    	setLoopInfo(gameLoopInfo);
     	frame.setViewDataSource(gameLoopInfo);
     	
     	
@@ -52,7 +52,7 @@ public class OneVOneController extends Controller {
 
     
     public void loadMode() {
-        List<Integer> characterNames = getGameInfo().getCharacters();
+        List<String> characterNames = getGameInfo().getCharacters();
         int mapID = getGameInfo().getMapName();
         Mode temp = new LevelMode(this, characterNames, mapID);
         setMode(temp);

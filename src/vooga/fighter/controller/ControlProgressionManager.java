@@ -53,14 +53,15 @@ public class ControlProgressionManager {
 
 	
 	private String selectTourneyLevel(GameInfo info){
-		List<Integer> mapsplayed = info.getMapsPlayed();
+		List<String> mapsplayed = info.getMapsPlayed();
 		if(mapsplayed.size() == info.getMapCount()) return MAINMENU;
 		boolean mapselected = false;
 		while(!mapselected){
 			int randomlevel = (int)(Math.random()*info.getMapCount()); 
-			if(!mapsplayed.contains(randomlevel)){
-				info.setMapName(randomlevel);
-				info.getMapsPlayed().add(randomlevel);
+			String map = info.getMapNames().get(randomlevel);
+			if(!mapsplayed.contains(map)){
+				info.setMapName(map);
+				info.getMapsPlayed().add(map);
 				return LEVELCONTROLLER;
 			}
 		}

@@ -2,6 +2,8 @@ package vooga.fighter.model.loaders;
 
 
 import java.awt.Dimension;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -34,23 +36,23 @@ public class MapLoader extends ObjectLoader {
 		super(MAP_PATH);
 	}
 
-	public MapLoader (int mapId, MapObject map) {
+	public MapLoader (String mapName, MapObject map) {
 		super(MAP_PATH);
 		myMap = map;
-		load(mapId);
+		load(mapName);
 	}
 
 	/**
 	 * Loads map from xml data
 	 */
-	public void load(int mapId) {
+	public void load(String mapName) {
 		Document doc = getDocument();
 		NodeList mapNodes = doc.getElementsByTagName("map");
 
 		for (int i = 0; i < mapNodes.getLength(); i++) {
 			Element node = (Element) mapNodes.item(i);
-			int id = Integer.parseInt(getAttributeValue(node, "mapID"));
-			if (id == mapId) {
+			String name = getAttributeValue(node, "mapID");
+			if (mapName.equals(name)) {
 			    // fix 1 to number of frames later
 				State mapState = new State(myMap, 1);
 				mapState.populateImage(new Pixmap(getAttributeValue(node, "enviroBackground")), 0);
@@ -69,9 +71,15 @@ public class MapLoader extends ObjectLoader {
 	}
 	
 	
-	public int MaxMapNumber(){
+	public List<String> getMapNames(){
+		List maps = new ArrayList<String>();
 		Document doc = getDocument();
-		return doc.getElementsByTagName("map").getLength();	
+		NodeList mapNodes = doc.getElementsByTagName("map");
+		for (int i = 0; i < mapNodes.getLength(); i++) {
+			Element node = (Element) mapNodes.item(i);
+			maps.add(getAttributeValue(node, "mapID"));
+		}
+		return maps;		
 	}
 
 	/**

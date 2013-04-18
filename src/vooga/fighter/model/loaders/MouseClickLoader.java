@@ -52,11 +52,10 @@ public class MouseClickLoader extends ObjectLoader {
 			}
 		}
 
-	
 	@Deprecated
-	public void load(int id) {
-		// TODO Auto-generated method stub
-
+	public void load(String Name) {
+		// :(  Don't need the string
+		
 	}
 
 }

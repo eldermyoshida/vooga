@@ -27,12 +27,12 @@ public class CharacterObject extends GameObject {
     /**
      * Constructs a new CharacterObject.
      */
-    public CharacterObject(int objectId, UpdatableLocation center) {
+    public CharacterObject(String charName, UpdatableLocation center) {
         super();
         myAttacks = new HashMap<String, AttackObject>();
         myActiveEffects = new ArrayList<Effect>();
         myHealth = new Health();
-        setLoader(new CharacterLoader(objectId, this));
+        setLoader(new CharacterLoader(charName, this));
         setCurrentState("stand");
         getCurrentState().setLooping(true);
         setLocation(center);

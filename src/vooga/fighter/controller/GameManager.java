@@ -40,7 +40,7 @@ public static final Dimension SIZE = new Dimension(800, 600);
 
     public GameManager() {
         myCanvas = new Canvas(SIZE); 
-        myGameInfo = new GameInfo(new MapLoader().MaxMapNumber());
+        myGameInfo = new GameInfo(new MapLoader().getMapNames());
         ControllerFactory factory = makeFactory(myCanvas);
         myControllerManager = new ControllerManager(myCanvas, myGameInfo, factory);
         JFrame frame = new JFrame(TITLE);

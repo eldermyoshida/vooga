@@ -12,31 +12,33 @@ import arcade.games.UserGameData;
  */
 public class GameInfo extends UserGameData{
     private String myGameMode;
-    private int myMapID;
+    private String myMapName;
     private int myMapCount;
-    private List<Integer> myCharacters;
+    private List<String> myCharacters;
     private Integer myNumCharacters;
     private List<Integer> myScores;
-    private List<Integer> myMapsPlayed;
+    private List<String> myMapsPlayed;
+    private List<String> myMapNames;
     
 
     /**
      * Constructor
      */
-    public GameInfo (int mapcount) {
-    	myCharacters = new ArrayList<Integer>();
+    public GameInfo (List<String> mapNames) {
+    	myCharacters = new ArrayList<String>();
+    	myMapsPlayed = new ArrayList<String>();
     	myScores = new ArrayList<Integer>();
     	myGameMode = "Fighting Game";
-    	myMapCount = mapcount;
+    	myMapNames = mapNames;
     }
     
     /**
      * Test constructor, automatically adds character index and map index to load. 
      */
-    public GameInfo (int mapcount, List<Integer> characterIndexes, int mapID) {
-        this(mapcount);
-        myCharacters = characterIndexes;
-        myMapID = mapID;
+    public GameInfo (List<String> mapNames, List<String> characters, String map) {
+        this(mapNames);
+        myCharacters = characters;
+        myMapName = map;
     }
     
     /**
@@ -102,27 +104,27 @@ public class GameInfo extends UserGameData{
      * 
      * @return
      */
-    public int getMapName () {
-        return myMapID;
+    public String getMapName () {
+        return myMapName;
     }
 
     /**
      * 
      * @param myMapName
      */
-    public void setMapName (int mapID) {
-        myMapID = mapID;
+    public void setMapName (String map) {
+        myMapName = map;
     }
 
     /**
      * 
      * @return
      */
-    public List<Integer> getCharacters () {
+    public List<String> getCharacters () {
         return myCharacters;
     }
     
-    public void addCharacters(int character) {
+    public void addCharacters(String character) {
         myCharacters.add(character);
     }
     /**
@@ -130,15 +132,15 @@ public class GameInfo extends UserGameData{
      * @param index
      * @param characterName
      */
-    public void setCharacter (int index, int characterID) {
-        myCharacters.set(index, characterID);
+    public void setCharacter (int index, String character) {
+        myCharacters.set(index, character);
     }
 
     /**
      * 
      * @param myCharacters
      */
-    public void setCharacters (List<Integer> characters) {
+    public void setCharacters (List<String> characters) {
         myCharacters = characters;
     }
 
@@ -160,10 +162,14 @@ public class GameInfo extends UserGameData{
     
 
     public int getMapCount(){
-    	return myMapCount;
+    	return myMapNames.size();
     }
 
-    public List<Integer> getMapsPlayed(){
+    public List<String> getMapsPlayed(){
     	return myMapsPlayed;
+    }
+    
+    public List<String> getMapNames(){
+    	return myMapNames;
     }
 }

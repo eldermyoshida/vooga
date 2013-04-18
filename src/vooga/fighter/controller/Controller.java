@@ -24,6 +24,9 @@ import javax.swing.Timer;
  */
 
 public abstract class Controller implements ModelDelegate {
+	
+    public static final String NEXT = "Next";
+    public static final String BACK = "Back";
 
     protected ControllerDelegate myManager;
     private String myName;

@@ -26,7 +26,7 @@ import java.util.ResourceBundle;
  */
 
 @InputClassTarget
-public class CharacterSelectController extends Controller {
+public class CharacterSelectController extends MenuController {
 
     private static final String INPUT_PATHWAY = "vooga.fighter.config.menudefault";
     private static final String INPUT_SETTING = "vooga.fighter.config.Settings";
@@ -41,63 +41,25 @@ public class CharacterSelectController extends Controller {
     public CharacterSelectController(String name, Canvas frame, ControllerDelegate manager, 
                 GameInfo gameinfo) {
         super(name, frame, manager, gameinfo);
-        loadMode();
-        //Duplicated code below, see levelcontroller
-        LoopInfo gameLoopInfo =  new LoopInfo(super.getMode());
-        setGameLoopInfo(gameLoopInfo);
-        frame.setViewDataSource(gameLoopInfo);
-        myGameInfo = gameinfo;
-    }
-    
-    public void loadMode() {
-        Mode mode = new MenuMode(this, super.getName());
-        mode.initializeMode();
-        super.setMode(mode);
-    }
 
-
-    /**
-     * Checks special occurences of game state.
-     */
-    public void notifyEndCondition () {
-       
     }
-    /**
-     * Checks special occurences of game state.
-     */
-    public void notifyEndCondition(String string) {
-        super.getGameInfo().setGameMode(string);
-        super.getManager().notifyEndCondition(string);
-    }
-
 
     @Override
     public Controller getController (ControllerDelegate delegate, GameInfo gameinfo) {
-        return new MenuController(super.getName(), super.getView(),
+        return new CharacterSelectController(super.getName(), super.getView(),
                                    delegate, gameinfo);
     }
 
-    @InputMethodTarget(name = "continue")
-    public void mouseclick(PositionObject pos)  {
-        super.getMode().addObject(new MouseClickObject(pos.getPoint2D()));
-        notifyEndCondition("Test");
-    }
-    
-    @Override
-    protected Input makeInput () {
-        Input temp = new Input(INPUT_PATHWAY, super.getView());
-        //temp.overrideSettings(INPUT_SETTING);
-        temp.addListenerTo(this);
-        return temp;
-    }
-
-        @Override
-        public void notifyEndCondition(int endCondition) {
-                // TODO Auto-generated method stub
-                
-        }
-
-    
+    /**
+     * Checks this controller's end conditions
+     */
+    public void notifyEndCondition(String choice) {
+    	if(BACK.equals(choice)) getManager().notifyEndCondition(BACK);
+    	else if (getMode().getMenuNames().contains(choice)){
+    		getGameInfo().setMapName(choice);
+    		getManager().notifyEndCondition(NEXT);
+    		}
+    	}
 
 }
 
