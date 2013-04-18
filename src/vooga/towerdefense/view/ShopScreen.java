@@ -114,7 +114,12 @@ public class ShopScreen extends JPanel {
         myMouseListener = new MouseAdapter() {
             @Override
             public void mouseClicked (MouseEvent e) {
-                handleClick(e.getPoint());
+                if (e.getSource().equals(myCancelButton)) {
+                    myController.cancelPurchaseFromShop();
+                }
+                else {
+                    handleClick(e.getPoint());
+                }
             }
         };
     }
@@ -128,6 +133,7 @@ public class ShopScreen extends JPanel {
 
         for (Map.Entry<String, Rectangle> entry : myShopIcons.entrySet()) {
             if (entry.getValue().contains(point)) {
+                setCancelButtonVisibility(true);
                 myController.handleShopClickOnItem(entry.getKey());
             }
         }
@@ -136,7 +142,11 @@ public class ShopScreen extends JPanel {
     private void makeCancelButton () {
         myCancelButton = new JButton(myController.getStringFromResources(CANCEL_BUTTON_KEYWORD));
         myCancelButton.addMouseListener(myMouseListener);
-        myCancelButton.setVisible(true);
         this.add(myCancelButton, BorderLayout.SOUTH);
+        setCancelButtonVisibility(false);
+    }
+    
+    public void setCancelButtonVisibility (boolean visibility) {
+        myCancelButton.setVisible(visibility);
     }
 }
