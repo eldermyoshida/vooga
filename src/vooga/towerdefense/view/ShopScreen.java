@@ -142,10 +142,14 @@ public class ShopScreen extends JPanel {
     private void makeCancelButton () {
         myCancelButton = new JButton(myController.getStringFromResources(CANCEL_BUTTON_KEYWORD));
         myCancelButton.addMouseListener(myMouseListener);
-        this.add(myCancelButton, BorderLayout.SOUTH);
+        this.add(myCancelButton, BorderLayout.PAGE_END);
         setCancelButtonVisibility(false);
     }
     
+    /**
+     * Sets the visibility of the Cancel Button to the value of the parameter
+     * @param visibility
+     */
     public void setCancelButtonVisibility (boolean visibility) {
         myCancelButton.setVisible(visibility);
     }

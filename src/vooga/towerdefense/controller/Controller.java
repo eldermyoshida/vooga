@@ -83,6 +83,11 @@ public class Controller {
      */
     public void cancelPurchaseFromShop() {
         myControlMode = new SelectMode();
+        setVisibilityOfShopCancelButton(false);
+    }
+    
+    private void setVisibilityOfShopCancelButton (boolean visibility) {
+        myView.getShopScreen().setCancelButtonVisibility(visibility);
     }
 
     /**
@@ -126,6 +131,7 @@ public class Controller {
         myModel.getMap().addToMap(newItem, myTile); 
         displayMap();
         myControlMode = new SelectMode();
+        setVisibilityOfShopCancelButton(false);
     }
     
     /**
