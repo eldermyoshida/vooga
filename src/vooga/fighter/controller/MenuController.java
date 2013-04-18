@@ -30,10 +30,6 @@ import java.util.ResourceBundle;
 public abstract class MenuController extends Controller {
 
     private static final String INPUT_PATHWAY = "vooga.fighter.config.menudefault";
-    private static final String INPUT_SETTING = "vooga.fighter.config.Settings";
-    private static final String TEST = "Test";
-    private GameInfo myGameInfo;
-    private LoopInfo myLoopInfo;
 
     public MenuController (String name, Canvas frame) {
         super(name, frame);
@@ -44,52 +40,28 @@ public abstract class MenuController extends Controller {
     	super(name, frame, manager, gameinfo);
     	loadMode();
     	LoopInfo LoopInfo =  new LoopInfo(super.getMode());
-    	setGameLoopInfo(LoopInfo);
-    	frame.setViewDataSource(gameLoopInfo);
-    	myGameInfo = gameinfo;
+    	setLoopInfo(LoopInfo);
     }
     
     public void loadMode() {
         Mode mode = new MenuMode(this, super.getName());
-        mode.initializeMode();
         super.setMode(mode);
     }
-
-
-    /**
-     * Checks special occurences of game state.
-     */
-    public void notifyEndCondition () {
-       
-    }
-    /**
-     * Checks special occurences of game state.
-     */
-    public void notifyEndCondition(String string) {
-        super.getGameInfo().setGameMode(string);
-        super.getManager().notifyEndCondition(string);
+    
+    public MenuMode getMode(){
+    	return (MenuMode) super.getMode();
     }
 
     @InputMethodTarget(name = "continue")
     public void mouseclick(PositionObject pos)  {
         super.getMode().addObject(new MouseClickObject(pos.getPoint2D()));
-        notifyEndCondition("ModeSelectMenu");
     }
     
     @Override
     protected Input makeInput () {
-        Input temp = new Input(INPUT_PATHWAY, super.getView());
-        //temp.overrideSettings(INPUT_SETTING);
-        temp.addListenerTo(this);
-    	return temp;
-    }
-
-	@Override
-	public void notifyEndCondition(int endCondition) {
-		// TODO Auto-generated method stub
-		
-	}
-
-    
+        Input menuinput = new Input(INPUT_PATHWAY, super.getView());
+        menuinput.addListenerTo(this);
+    	return menuinput;
+    }  
 
 }

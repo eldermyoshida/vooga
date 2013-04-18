@@ -9,11 +9,6 @@ package vooga.fighter.controller;
  */
 public interface ModelDelegate {
     
-    public void notifyEndCondition();
-    
     public void notifyEndCondition(String endCondition);
-    
-    public void notifyEndCondition(int endCondition);
-    
-    
+
 }

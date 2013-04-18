@@ -1,6 +1,7 @@
 package vooga.fighter.model;
 
 import java.awt.Dimension;
+import java.util.ArrayList;
 import java.util.List;
 import vooga.fighter.controller.ModelDelegate;
 import vooga.fighter.model.objects.CharacterObject;
@@ -36,9 +37,6 @@ public class MenuMode extends Mode {
                 i--;
             }
         }
-        // if (shouldModeEnd()) {
-        // super.signalTermination();
-        // }
     }
 
     @Override
@@ -57,6 +55,14 @@ public class MenuMode extends Mode {
     @Deprecated
     public boolean shouldModeEnd () {
         return false;
+    }
+    
+    public List<String> getMenuNames(){
+    	List list = new ArrayList<String>();
+    	for(MenuObject menu : myMenuObjects){
+    		list.add(menu.getChoice());
+    	}
+    	return list;
     }
 
     @Override

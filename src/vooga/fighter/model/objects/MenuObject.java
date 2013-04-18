@@ -25,6 +25,10 @@ public class MenuObject extends GameObject {
     @Override
     public void update () {
     }
+    
+    public String getChoice(){
+    	return myChoice;
+    }
 
     public Collection getStates () {
         return super.getStates();

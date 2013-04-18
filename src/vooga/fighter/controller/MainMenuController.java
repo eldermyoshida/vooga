@@ -22,19 +22,17 @@ import java.util.ResourceBundle;
 
 /**
  * 
- * @author Jerry Li and Jack Matteucci
+ * @author Jack Matteucci
  * 
  */
 
 @InputClassTarget
-public class MainMenuController extends Controller {
-
-    private static final String INPUT_PATHWAY = "vooga.fighter.config.menudefault";
-    private static final String INPUT_SETTING = "vooga.fighter.config.Settings";
-    private static final String TEST = "Test";
-    private GameInfo myGameInfo;
-    private LoopInfo myLoopInfo;
-
+public class MainMenuController extends MenuController {
+	
+    private static final String NEXT = "Next";
+    private static final String BACK = "Back";
+    private static final String EXIT = "EXIT";
+    
     public MainMenuController (String name, Canvas frame) {
         super(name, frame);
     }
@@ -42,62 +40,25 @@ public class MainMenuController extends Controller {
     public MainMenuController(String name, Canvas frame, ControllerDelegate manager, 
                 GameInfo gameinfo) {
         super(name, frame, manager, gameinfo);
-        loadMode();
-        //Duplicated code below, see levelcontroller
-        LoopInfo gameLoopInfo =  new LoopInfo(super.getMode());
-        setGameLoopInfo(gameLoopInfo);
-        frame.setViewDataSource(gameLoopInfo);
-        myGameInfo = gameinfo;
-    }
-    
-    public void loadMode() {
-        Mode mode = new MenuMode(this, super.getName());
-        mode.initializeMode();
-        super.setMode(mode);
-    }
-
-
-    /**
-     * Checks special occurences of game state.
-     */
-    public void notifyEndCondition () {
-       
     }
     /**
-     * Checks special occurences of game state.
+     * Checks this controller's end conditions
      */
-    public void notifyEndCondition(String string) {
-        super.getGameInfo().setGameMode(string);
-        super.getManager().notifyEndCondition(string);
-    }
+    public void notifyEndCondition(String choice) {
+    	if(EXIT.equals(choice)) getManager().exit();
+    	if(BACK.equals(choice)) getManager().notifyEndCondition(BACK);
+    	else if (getMode().getMenuNames().contains(choice)){
+    		getGameInfo().setGameMode(choice);
+    		getManager().notifyEndCondition(NEXT);
+    		}
+    	}
+
 
 
     @Override
     public Controller getController (ControllerDelegate delegate, GameInfo gameinfo) {
-        return new MenuController(super.getName(), super.getView(),
+        return new MainMenuController(super.getName(), super.getView(),
                                    delegate, gameinfo);
     }
-
-    @InputMethodTarget(name = "continue")
-    public void mouseclick(PositionObject pos)  {
-        super.getMode().addObject(new MouseClickObject(pos.getPoint2D()));
-        notifyEndCondition("CharacterSelectMenu");
-    }
-    
-    @Override
-    protected Input makeInput () {
-        Input temp = new Input(INPUT_PATHWAY, super.getView());
-        //temp.overrideSettings(INPUT_SETTING);
-        temp.addListenerTo(this);
-        return temp;
-    }
-
-        @Override
-        public void notifyEndCondition(int endCondition) {
-                // TODO Auto-generated method stub
-                
-        }
-
-    
 
 }

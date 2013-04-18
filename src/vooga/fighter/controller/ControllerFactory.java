@@ -43,7 +43,7 @@ public class ControllerFactory {
     protected void setupControllerConfiguration(Canvas frame,  Map<String, Controller> controllermap) {
                 Controller controller = new OneVOneController(ONE_V_ONE, frame);
                 controllermap.put(controller.getName(), controller);
-                controller = new MenuController(MAIN_MENU, frame);
+                controller = new MainMenuController(MAIN_MENU, frame);
                 controllermap.put(controller.getName(), controller);
                 controller = new CharacterSelectController(CHARACTER_SELECT, frame);
                 controllermap.put(controller.getName(), controller);

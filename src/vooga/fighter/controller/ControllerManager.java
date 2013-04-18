@@ -47,8 +47,12 @@ public class ControllerManager implements ControllerDelegate{
 	@Override
 	public void notifyEndCondition(String string) {
 		switchController(string);
-
-		
 	}
+	
+	public void exit(){
+		myCurrentController.stop();  //Bug Bug doesn't exit
+	}
+	
+	
 
 }
