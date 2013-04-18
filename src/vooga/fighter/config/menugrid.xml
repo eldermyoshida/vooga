@@ -12,4 +12,8 @@
     <menumode menuname="GameOver" >
         <menuobject menuobjectname="EndGame" />
     </menumode>
+    <menumode menuname="MapSelectMenu" >
+        <menuobject menuobjectname="SelectMap" />
+    </menumode>
+    
 </menutype>

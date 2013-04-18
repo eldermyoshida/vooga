@@ -16,14 +16,7 @@ import vooga.fighter.view.Canvas;
 
 public class ControllerManager implements ControllerDelegate{
         
-        //For testing pruposes
-	private static final String MAINMENU = "MainMenu";
-	private static final String CHARACTER = "CharacterSelectMenu";
-	private static final String MODE = "ModeSelectMenu";
-	private static final String TEST = "Test";
-	
-	
-	
+       
 	private Map<String, Controller> myControllerMap;
 	private Controller myCurrentController;
 	private Canvas myCanvas;
@@ -38,6 +31,7 @@ public class ControllerManager implements ControllerDelegate{
 		myProgressionManager = progressionmanager;
 		myCurrentController = myControllerMap.get(myProgressionManager.getFirstController())
 				.getController(this, myGameInfo);
+		
 	}
 	
 	public void run(){

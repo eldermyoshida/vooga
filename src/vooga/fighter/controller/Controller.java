@@ -149,6 +149,7 @@ public abstract class Controller implements ModelDelegate {
     public abstract Controller getController(ControllerDelegate manager, GameInfo gameinfo);
 
     protected abstract Input makeInput();
+        
 
 
 }

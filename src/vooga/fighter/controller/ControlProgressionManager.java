@@ -10,8 +10,8 @@ import java.util.Random;
 public class ControlProgressionManager {
 
 	private static final String MAINMENU = "MainMenu";
-	private static final String CHARACTERSELECT = "CharacterSelect";
-	private static final String MAPSELECT = "MapSelect";
+	private static final String CHARACTERSELECT = "CharacterSelectMenu";
+	private static final String MAPSELECT = "MapSelectMenu";
 	private static final String SCORECONTROLLER = "GameOver";
 	private static final String TOURNEY = "Tourney";
 	private static final String NEXT = "Next";

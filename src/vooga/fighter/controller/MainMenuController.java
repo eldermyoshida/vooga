@@ -44,14 +44,9 @@ public class MainMenuController extends MenuController {
      * Checks this controller's end conditions
      */
     public void notifyEndCondition(String choice) {
-    	if(EXIT.equals(choice)) getManager().exit();
-    	if(BACK.equals(choice)) getManager().notifyEndCondition(BACK);
-    	else if (getMode().getMenuNames().contains(choice)){
-    		getGameInfo().setGameMode(choice);
-    		getGameInfo().setNumCharacters(Integer.parseInt(myResources.getString(choice)));
-    		getManager().notifyEndCondition(NEXT);
-    		}
-    	}
+    	//To do
+        
+    }
 
 
 

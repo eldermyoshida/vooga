@@ -19,8 +19,9 @@ public class ControllerFactory {
 
     private static final String ONE_V_ONE = "test";
     private static final String MAIN_MENU = "MainMenu";
-    private static final String CHARACTER_SELECT = "CharacterSelect";
-    private static final String MAP_SELECT = "MapSelect";
+    private static final String CHARACTER_SELECT = "CharacterSelectMenu";
+    private static final String MAP_SELECT = "MapSelectMenu";
+    private static final String MODE_SELECT = "ModeSelectMenu";
     private static final String SCORE_CONTROLLER = "GameOver";
 
     private Map<String, Controller> myControllerMap;
@@ -34,8 +35,7 @@ public class ControllerFactory {
         myCanvas = frame;
         myControllerMap = new HashMap<String, Controller>();
         setupControllerConfiguration(frame, myControllerMap);
-        System.out.println("number of controllers: " + myControllerMap.size());
-    }
+    } 
 
     public Map getMap(){
         return myControllerMap;
@@ -54,5 +54,6 @@ public class ControllerFactory {
                 controllermap.put(controller.getName(), controller);
         }
     }
+
 
 
