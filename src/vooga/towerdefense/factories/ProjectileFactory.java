@@ -11,9 +11,13 @@ import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.gameElements.Projectile;
 import vooga.towerdefense.util.Pixmap;
 
+/**
+ * will need to be changed dramatically, now it's quick dirty for testing
+ *
+ */
 public class ProjectileFactory {
 	private static final AttributeConstants ATTRIBUTES_CONSTANTS=new AttributeConstants();
-    private static int DEFAULT_WIDTH;
+    private static final int DEFAULT_WIDTH=10;
     private static final Pixmap DEFAULT_IMAGE = new Pixmap("defined by designer");
     private static final Dimension DEFAULT_SIZE = new Dimension(DEFAULT_WIDTH, DEFAULT_WIDTH);
     private static final List<Action> DEFAULT_ACTIONS = new ArrayList<Action>();
