@@ -1,6 +1,5 @@
 package vooga.rts.leveleditor.components;
 
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -12,70 +11,80 @@ import java.util.Map;
 import vooga.rts.leveleditor.gui.MapPanel;
 import vooga.rts.util.Location;
 
+
 /**
- * a class of EditableMap, this editable map is used to generate a 
+ * a class of EditableMap, this editable map is used to generate a
  * map that can be used for game players. This class enables them to
  * generated their own map
  * 
  * @author Richard Yang
- *
+ * 
  */
-
 
 public class EditableMap implements Serializable {
 
-    
     /**
      * serial version UID
      */
     private static final long serialVersionUID = 5848819056578981375L;
     private int myXSize;
+<<<<<<< HEAD
     private int myYSize; 
     
     private Map<Integer , MapLayer> myLayers;
     
     private List<Resource> myResource;
     
+=======
+    private int myYSize;
+
+    private Map<Integer, MapLayer> myLayers;
+
+>>>>>>> c9760358d777a7028b16d77329c425ea39d5cb6e
     private String myMapName = "CIEMAS";
     private String myDescription = " our RTS is the best one !";
-    
+
     private EditableNode[][] myNodeMatrix;
-    
-    private Map<Integer , Location> myPlayerLocations;
+
+    private Map<Integer, Location> myPlayerLocations;
     private int myPlayerNumber;
-    
+
     private MapSaver mySaver;
     private MapLoader myLoader;
-    
-    public EditableMap(int x , int y, int nodeX, int nodeY) {
-        
+
+    public EditableMap (int x, int y, int nodeX, int nodeY) {
+
         myXSize = x;
         myYSize = y;
-        
-        initializeMap(nodeX,nodeY); 
+
+        initializeMap(nodeX, nodeY);
     }
-    
-    public EditableMap(int x , int y) {
-        this(x,y,MapPanel.DEFAULT_TILE_WIDTH,MapPanel.DEFAULT_TILE_HEIGHT);
+
+    public EditableMap (int x, int y) {
+        this(x, y, MapPanel.DEFAULT_TILE_WIDTH, MapPanel.DEFAULT_TILE_HEIGHT);
     }
-    
-    public EditableMap() {
-        this(0,0);
+
+    public EditableMap () {
+        this(0, 0);
     }
-    
-    public void initializeMap(int width, int height) {
+
+    public void initializeMap (int width, int height) {
         myNodeMatrix = new EditableNode[myXSize][myYSize];
-        
-        for(int i =0 ; i<myXSize ; i++) {
-            for(int j =0 ; j<myYSize ; j++) {
-                myNodeMatrix[i][j] = new EditableNode(i,j,width, height, false);
+
+        for (int i = 0; i < myXSize; i++) {
+            for (int j = 0; j < myYSize; j++) {
+                myNodeMatrix[i][j] = new EditableNode(i, j, width, height, false);
             }
         }
-        
-        myPlayerLocations = new HashMap<Integer , Location>();
+
+        myPlayerLocations = new HashMap<Integer, Location>();
         myPlayerNumber = 0;
+<<<<<<< HEAD
         myLayers = new HashMap<Integer , MapLayer>();
         myResource = new ArrayList<Resource>();
+=======
+        myLayers = new HashMap<Integer, MapLayer>();
+>>>>>>> c9760358d777a7028b16d77329c425ea39d5cb6e
         try {
             mySaver = new MapSaver(this);
         }
@@ -83,65 +92,72 @@ public class EditableMap implements Serializable {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+<<<<<<< HEAD
         //myLoader = new MapLoader();
         
+=======
+        myLoader = new MapLoader();
+
+>>>>>>> c9760358d777a7028b16d77329c425ea39d5cb6e
     }
-    
-    public void initializeMap() {
-        initializeMap(MapPanel.DEFAULT_TILE_WIDTH,MapPanel.DEFAULT_TILE_HEIGHT);
+
+    public void initializeMap () {
+        initializeMap(MapPanel.DEFAULT_TILE_WIDTH, MapPanel.DEFAULT_TILE_HEIGHT);
     }
-   
-    public void addPlayer(int x, int y) {
-        addPlayer(new Location(x,y));
+
+    public void addPlayer (int x, int y) {
+        addPlayer(new Location(x, y));
     }
-    
-    public void addPlayer(Location loc) {
-        myPlayerNumber ++;
+
+    public void addPlayer (Location loc) {
+        myPlayerNumber++;
         myPlayerLocations.put(myPlayerNumber, loc);
     }
-    
-    public void removePlayer(int index) {
+
+    public void removePlayer (int index) {
         myPlayerLocations.remove(index);
-        myPlayerNumber --;
+        myPlayerNumber--;
     }
-    
-    public HashMap<Integer, Location> getLocationMap() {
+
+    public HashMap<Integer, Location> getLocationMap () {
         return (HashMap<Integer, Location>) myPlayerLocations;
     }
-    
-    
-    
-    
-    public void clearMap() {
-        for( int i =0 ; i< myXSize ; i++) {
-            for( int j =0 ; j< myYSize ; j++) {
+
+    public void clearMap () {
+        for (int i = 0; i < myXSize; i++) {
+            for (int j = 0; j < myYSize; j++) {
                 myNodeMatrix[i][j].reset();
             }
         }
         myPlayerNumber = 0;
         myPlayerLocations.clear();
     }
-    
-    
-   
-    public void printMatrix() {
+
+    public void printMatrix () {
         System.out.println("printmatrix executed");
         System.out.println("X Size : " + myXSize);
         System.out.println("Y Size : " + myYSize);
+<<<<<<< HEAD
         
         for(int i =0 ; i<myXSize ; i++) {
             for(int j =0 ; j<myYSize ; j++) {
                 System.out.println(myNodeMatrix[i][j].getMyTile().getMyID());
+=======
+
+        for (int i = 0; i < myXSize; i++) {
+            for (int j = 0; j < myYSize; j++) {
+                System.out.println(myNodeMatrix[i][j].getTileType());
+>>>>>>> c9760358d777a7028b16d77329c425ea39d5cb6e
             }
             System.out.print("\n");
         }
-        for(int i = 0 ; i<10 ; i++) {
-           System.out.print("**");
+        for (int i = 0; i < 10; i++) {
+            System.out.print("**");
         }
         System.out.print("\n");
     }
-    
-    public void load(File resourceFile) {
+
+    public void load (File resourceFile) {
         try {
             myLoader.loadMapFile(resourceFile);
         }
@@ -150,13 +166,13 @@ public class EditableMap implements Serializable {
             e.printStackTrace();
         }
     }
-    
-    public void load(String filePath) {
+
+    public void load (String filePath) {
         File bufferFile = new File(filePath);
         load(bufferFile);
     }
-    
-    public void save(File objectiveFile) { 
+
+    public void save (File objectiveFile) {
         try {
             mySaver.generateMapFile(objectiveFile);
         }
@@ -165,21 +181,23 @@ public class EditableMap implements Serializable {
             e.printStackTrace();
         }
     }
-    
-    public void save(String filePath) {
+
+    public void save (String filePath) {
         File bufferFile = new File(filePath);
         save(bufferFile);
     }
-    
-    public void addTerrain(int layerIndex , Terrain ter) {
-        if(myLayers.containsKey(layerIndex)) {
+
+    public void addTerrain (int layerIndex, Terrain ter) {
+        if (myLayers.containsKey(layerIndex)) {
             myLayers.get(layerIndex).addTerrain(ter);
-        } else {
-           MapLayer bufferLayer = new MapLayer();
-           bufferLayer.addTerrain(ter);
-           myLayers.put(layerIndex, bufferLayer);
+        }
+        else {
+            MapLayer bufferLayer = new MapLayer();
+            bufferLayer.addTerrain(ter);
+            myLayers.put(layerIndex, bufferLayer);
         }
     }
+<<<<<<< HEAD
     
     public void addTile(int x , int y , Tile t) {
         myNodeMatrix[x][y].setTile(t);
@@ -208,6 +226,13 @@ public class EditableMap implements Serializable {
         return myResource;
     }
     
+=======
+
+    public void addTile (int x, int y, String tileType) {
+        myNodeMatrix[x][y].setTileType(tileType);
+    }
+
+>>>>>>> c9760358d777a7028b16d77329c425ea39d5cb6e
     public String getMyMapName () {
         return myMapName;
     }
@@ -224,25 +249,25 @@ public class EditableMap implements Serializable {
         this.myDescription = myDescription;
     }
 
-    public EditableNode getMapNode(int x, int y) {
+    public EditableNode getMapNode (int x, int y) {
         return myNodeMatrix[x][y];
     }
-   
-    public EditableNode[][] getMap() {
+
+    public EditableNode[][] getMap () {
         return myNodeMatrix;
     }
-    
+
     public int getMyPlayerNumber () {
         return myPlayerNumber;
     }
-    
+
     public int getMyXSize () {
         return myXSize;
     }
 
     public int getMyYSize () {
         return myYSize;
-    }  
+    }
 
     public void setMyXSize (int myXSize) {
         this.myXSize = myXSize;
@@ -252,52 +277,50 @@ public class EditableMap implements Serializable {
         this.myYSize = myYSize;
     }
 
-    public Location getPlayer(int index) {
-        return myPlayerLocations.get(index); 
+    public Location getPlayer (int index) {
+        return myPlayerLocations.get(index);
     }
-    
-    
 
     public Map<Integer, Location> getAllPlayers () {
         return myPlayerLocations;
     }
- 
-    public int getWidth() {
+
+    public int getWidth () {
         return myXSize;
     }
 
-    public int getHeight() {
+    public int getHeight () {
         return myYSize;
     }
 
-    public void setWidth(int w) {
+    public void setWidth (int w) {
         myXSize = w;
 
     }
 
-    public void setHeight(int h) {
+    public void setHeight (int h) {
         myXSize = h;
 
     }
 
-    
-    public void zoomIn() {
-        for(int i =0 ; i<myXSize ; i++) {
-            for(int j =0 ; j<myYSize ; j++) {
+    public void zoomIn () {
+        for (int i = 0; i < myXSize; i++) {
+            for (int j = 0; j < myYSize; j++) {
                 myNodeMatrix[i][j].ZoomIn();
             }
         }
-        
+
     }
 
-    public void zoomOut() {
-        for(int i =0 ; i<myXSize ; i++) {
-            for(int j =0 ; j<myYSize ; j++) {
+    public void zoomOut () {
+        for (int i = 0; i < myXSize; i++) {
+            for (int j = 0; j < myYSize; j++) {
                 myNodeMatrix[i][j].ZoomOut();
             }
         }
-        
+
     }
+<<<<<<< HEAD
     
     public static void main(String[] args) {
         EditableMap test = new EditableMap(10,10);
@@ -314,7 +337,15 @@ public class EditableMap implements Serializable {
         test.addResource(7, 7, 1);
         test.addResource(8, 8, 2);
         test.addResource(9, 9, 3);
+=======
+
+    public static void main (String[] args) {
+        EditableMap test = new EditableMap(10, 10);
+        test.addTile(1, 1, "grass");
+        test.addTile(2, 2, "sand");
+        test.addTile(3, 3, "shit");
+>>>>>>> c9760358d777a7028b16d77329c425ea39d5cb6e
         test.save(System.getProperty("user.dir") + "./src/test.xml");
     }
-   
+
 }
