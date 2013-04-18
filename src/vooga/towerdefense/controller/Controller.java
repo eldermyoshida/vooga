@@ -58,22 +58,6 @@ public class Controller {
         }
     }
 
-    // //testing method to check if displaying the correct info
-    // public void displayTileCoordinates (Point p) {
-    // Tile t = myModel.getTile(p);
-    // Point center = t.getCenter();
-    // System.out.println(center);
-    // myView.getTowerInfoScreen().displayInformation(center.toString());
-    // }
-
-    // //testing method to check if displaying the correct info
-    // public void displayTileCoordinates (Point p) {
-    // Tile t = myModel.getTile(p);
-    // Point center = t.getCenter();
-    // System.out.println(center);
-    // myView.getTowerInfoScreen().displayInformation(center.toString());
-    // }
-
     /**
      * updates the display on the MapScreen.
      */
@@ -106,6 +90,15 @@ public class Controller {
         Tile tile = myModel.getTile(p);
         if (tile.containsElement()) { return tile.getElement(); }
         return null;
+    }
+
+    /**
+     * 
+     * @return a map of the elements in the shop 
+     * with String as a key and a Pixmap as the value
+     */
+    public Map<String, Pixmap> getShopItemIcons () {
+        return myModel.getShop().getAllShopItemIcons();
     }
 
     /**
@@ -215,24 +208,8 @@ public class Controller {
         // TODO: implement upgrade stuff on backend (ask unit team for tower upgrade info!)
     }
 
-    // //testing method to check if displaying the correct info
-    // public void displayTileCoordinates (Point p) {
-    // Tile t = myModel.getTile(p);
-    // Point center = t.getCenter();
-    // System.out.println(center);
-    // myView.getTowerInfoScreen().displayInformation(center.toString());
-    // }
-
     /**
-     * 
-     * @return  a map of the elements in the shop 
-     * with String as a key and a Pixmap as the value
-     */
-    public Map<String, Pixmap> getShopItemIcons () {
-        return myModel.getShop().getAllShopItemIcons();
-    }
-    /**
-     * Start the game controller
+     * Start the game controller.
      */
     public void start () {
         GameController game = new GameController(this);
