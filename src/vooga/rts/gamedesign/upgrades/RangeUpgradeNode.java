@@ -3,8 +3,8 @@ package vooga.rts.gamedesign.upgrades;
 import vooga.rts.gamedesign.sprite.InteractiveEntity;
 
 public class RangeUpgradeNode extends UpgradeNode {
-	public RangeUpgradeNode(UpgradeTree upgradeTree, String upgradeType, int upgradeValue){
-		super(upgradeTree, upgradeType, upgradeValue);
+	public RangeUpgradeNode(UpgradeTree upgradeTree, String upgradeType, int upgradeValue, int costedResourceAmount){
+		super(upgradeTree, upgradeType, upgradeValue, costedResourceAmount);
 	}
 	
 	@Override
