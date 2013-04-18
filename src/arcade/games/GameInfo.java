@@ -122,7 +122,7 @@ public class GameInfo {
     }
     
     
-    
+    //TODO make sure this doesnt break if the game isnt multiplayer
     private Class getMultiplayerGameClass () {
         try {
             return Class.forName(myResourceBundle.getString(MULTIPLAYER_GAME_MAIN_CLASS_KEYWORD));
@@ -133,6 +133,7 @@ public class GameInfo {
         return null;
     }
     
+  //TODO make sure this doesnt break if the game isnt single player
     private Class getGameClass () {
         try {
             return Class.forName(myResourceBundle.getString(GAME_MAIN_CLASS_KEYWORD));
