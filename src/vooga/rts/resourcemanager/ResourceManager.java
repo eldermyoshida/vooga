@@ -1,5 +1,8 @@
 package vooga.rts.resourcemanager;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -47,11 +50,14 @@ public class ResourceManager {
 
     private TimeIt myTime;
 
+    private String myResourceBase;
+
     private ResourceManager () {
         myLoaderMap = new HashMap<String, ResourceLoader>();
         myResourceStorage = new HashMap<URL, Object>();
         myLoadQueue = new LinkedList<URL>();
         myLoadThread = new Thread();
+        myResourceBase = "";
     }
 
     /**
@@ -64,6 +70,16 @@ public class ResourceManager {
         for (String ext : loader.getSupportedExtensions()) {
             myLoaderMap.put(ext, loader);
         }
+    }
+
+    /**
+     * Sets the base resource folder if you want to specify one.
+     * This is where it will look for relative files first.
+     * 
+     * @param base The base resource folder.
+     */
+    public void setResourceBase (String base) {
+        myResourceBase = base;
     }
 
     /**
@@ -84,8 +100,10 @@ public class ResourceManager {
      * @param filename The file name of the file to load.
      * @return Whether it was able to queue the file or not.
      * @throws FileNotSupportedException
+     * @throws FileNotFoundException
      */
-    public boolean queueFile (String filename) throws FileNotSupportedException {
+    public boolean queueFile (String filename) throws FileNotSupportedException,
+                                              FileNotFoundException {
         URL file = getFileName(filename);
         return queueFile(file);
     }
@@ -177,9 +195,15 @@ public class ResourceManager {
      * @param resourceType The class type of resource that the file is of.
      * @return The object that was loaded.
      */
-    public <T> T getFile (String filename, Class<T> resourceType) { // throws
-                                                                    // FileNotSupportedException {
-        URL file = getFileName(filename);
+    public <T> T getFile (String filename, Class<T> resourceType) {
+        URL file;
+        try {
+            file = getFileName(filename);
+        }
+        catch (FileNotFoundException e1) {
+            return null;
+        }
+
         try {
             if (queueFile(file)) {
                 load();
@@ -193,8 +217,7 @@ public class ResourceManager {
             }
         }
         catch (FileNotSupportedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            return null;
         }
 
         Object loadedFile = myResourceStorage.get(file);
@@ -206,12 +229,33 @@ public class ResourceManager {
 
     /**
      * Converts the string filename to a URL.
+     * If the file is not relative to the resources folder
+     * then it needs to be an absolute path.
+     * To set the absolute path, call setResourceBase() with
+     * the resource folder location relative to the project.
+     * e.g. "/vooga/rts/resources/"
      * 
      * @param filename The filename of the file to convert
      * @return The converted URL
+     * @throws FileNotFoundException
      */
-    private URL getFileName (String filename) {
-        URL f = getClass().getResource("/vooga/rts/resources/" + filename);
+    private URL getFileName (String filename) throws FileNotFoundException {
+        URL f = getClass().getResource(myResourceBase + filename);
+        if (f == null) {
+            File file = new File(filename);
+            try {
+                return new URL(file.getPath());
+            }
+            catch (MalformedURLException e) {
+                file = new File(myResourceBase + filename);
+                try {
+                    return new URL(file.getPath());
+                }
+                catch (MalformedURLException e1) {
+                    throw new FileNotFoundException(filename);
+                }
+            }
+        }
         return f;
     }
 
@@ -237,4 +281,5 @@ public class ResourceManager {
         }
         return "";
     }
+
 }

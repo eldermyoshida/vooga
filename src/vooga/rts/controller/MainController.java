@@ -20,7 +20,7 @@ import vooga.rts.util.Location;
 
 public class MainController extends AbstractController implements Observer {
 
-	private final static String DEFAULT_INPUT_LOCATION = "vooga.rts.resources.properties.Input";
+	private final static String DEFAULT_INPUT_LOCATION = "vooga.rts.resources.properties.Input";	
 	private GameController myGameController;
 	private LoadingController myLoadingController;
 	private MenuController myMenuController;
@@ -42,9 +42,6 @@ public class MainController extends AbstractController implements Observer {
 	public MainController() {
 
 		myWindow = new Window();
-		
-		ResourceManager.getInstance().registerResourceLoader(new ImageLoader());
-		ResourceManager.getInstance().registerResourceLoader(new SoundLoader());
 
 		myGameController = new GameController();
 		myGameController.addObserver(this);
