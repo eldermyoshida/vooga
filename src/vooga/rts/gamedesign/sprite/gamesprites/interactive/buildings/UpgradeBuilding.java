@@ -22,7 +22,7 @@ import vooga.rts.util.Sound;
  *
  */
 public class UpgradeBuilding extends Building{
-	public int PRODUCE_TIME = 90;
+	private int PRODUCE_TIME = 90;
 	
 	public UpgradeBuilding(Pixmap image, Location3D center, Dimension size,
 			Sound sound, int playerID, int health) {

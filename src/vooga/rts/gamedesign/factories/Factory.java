@@ -147,7 +147,19 @@ public class Factory {
 			Document doc = db.parse(file);
 			doc.getDocumentElement().normalize();
 			System.out.println(doc.getDocumentElement().getNodeName());
-			myDecoders.get(doc.getDocumentElement().getNodeName()).create(doc);
+			
+			NodeList head = doc.getChildNodes();
+			Node childNode = head.item(0);
+			NodeList children = childNode.getChildNodes();
+			for(int i = 0 ; i < children.getLength() ; i++){
+				Node tempNode = children.item(i);
+
+				if(tempNode.getNodeType() == Node.ELEMENT_NODE){
+					myDecoders.get(tempNode.getNodeName()).create(doc);
+				}
+			}
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -160,7 +172,7 @@ public class Factory {
 		//loads Upgrade XML - creates tree - updates activate state
 		Factory factory = new Factory();
 
-		factory.loadXMLFile("XML_Sample");
+		factory.loadXMLFile("Factory.xml");
 
 		/**creates an UpgradeBuilding
 		UpgradeBuilding upgradeBuilding = new UpgradeBuilding();

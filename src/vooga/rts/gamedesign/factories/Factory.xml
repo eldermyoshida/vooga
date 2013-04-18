@@ -73,6 +73,11 @@
 				<wood>50</wood>
 			</cost>
 		</building>
+		<building>
+			<custom src = "vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings.Tower">
+				<name>tower</name>
+			</custom>
+		</building>
 	</buildings>
 	<units src = "vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Unit">
 		<unit>
