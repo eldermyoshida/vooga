@@ -41,7 +41,7 @@ public class ExampleUnitFactory extends UnitFactory {
         TrollUnitDefinition myDefinition = myDef;
         
         AttributeManager AM = new AttributeManager();
-        AM.addAttribute(new Attribute(AttributeConstants.MOVE_SPEED, 50.0));
+        AM.addAttribute(new Attribute(AttributeConstants.MOVE_SPEED, 150.0));
         AM.addAttribute(new Attribute(AttributeConstants.DIRECTION, 50.0));
         AM.addAttribute(new Attribute(AttributeConstants.ATTACK_INTERVAL, 50.0));
         Unit myUnit;

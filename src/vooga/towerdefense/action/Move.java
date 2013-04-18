@@ -4,6 +4,7 @@ package vooga.towerdefense.action;
 import vooga.towerdefense.attributes.Attribute;
 import vooga.towerdefense.attributes.AttributeConstants;
 import vooga.towerdefense.gameElements.GameElement;
+import vooga.towerdefense.util.Vector;
 
 /**
  * Uses the sprite move method
@@ -27,8 +28,11 @@ public class Move extends Action {
     @Override
     public void executeAction(double elapsedTime) {
         getInitiator().setVelocity(myDirection.getValue(), myMovespeed.getValue());
-        getInitiator().getVelocity().scale(elapsedTime);
-        getInitiator().translate(getInitiator().getVelocity());
+        Vector v = getInitiator().getVelocity();
+        v.scale(elapsedTime / 1000);
+        //System.out.print("moved from " + getInitiator().getCenter() + " ");
+        getInitiator().translate(v);
+        //System.out.println("to " + getInitiator().getCenter());
     }
 
 }

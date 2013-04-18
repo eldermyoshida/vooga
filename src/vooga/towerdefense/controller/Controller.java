@@ -63,7 +63,7 @@ public class Controller {
 		
 	GameMap map = new GameMap(null, 800, 600, null);
 	waves.add(WaveFactory.createWave(new ExampleUnitFactory(),
-				10, map, map.getTile(new Point(0, 0))));
+				1, map, map.getTile(new Point(0, 0))));
 	
 	setLanguage(language);
         myModel = new GameModel(this, waves, map, new Shop());

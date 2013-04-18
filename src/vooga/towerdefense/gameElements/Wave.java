@@ -43,10 +43,11 @@ public class Wave {
 		if (canSpawn() && hasNextUnit()) {
             Unit unit = generateUnit(getNextUnit());
             myMap.addToMap(unit, mySpawnLocation);
+            System.out.println("spawned a unit");
             myLastSpawnTime = myTimer;
         }
         myTimer += timeElapsed;
-        System.out.println("MyTimer: " + myTimer);
+        //System.out.println("MyTimer: " + myTimer);
     }
 
 	/**
@@ -55,7 +56,6 @@ public class Wave {
 	 * @return whether or not the wave is completed.
 	 */
 	public boolean waveCompleted() {
-		System.out.println("Wave completed? " + (myTimer > myDuration));
 		return myTimer > myDuration;
 		// return !hasNextUnit();
     }
@@ -74,7 +74,9 @@ public class Wave {
     }
 
     private Unit getNextUnit () {
-        return myUnits.iterator().next();
+    	Unit u = myUnits.iterator().next();
+    	myUnits.remove(0);
+        return u;
     }
     
 	private boolean hasNextUnit() {
