@@ -20,7 +20,8 @@ import vooga.rts.util.TimeIt;
  */
 public class ResourceManager {
 
-    private static final String EXTENSION_NOT_SUPPORTED = "The file %s has extension %s which is not supported by the Resource Manager.";
+    private static final String EXTENSION_NOT_SUPPORTED =
+            "The file %s has extension %s which is not supported by the Resource Manager.";
 
     private static ResourceManager myInstance = new ResourceManager();
 
@@ -43,7 +44,7 @@ public class ResourceManager {
      * Thread used to load all the files.
      */
     private Thread myLoadThread;
-    
+
     private TimeIt myTime;
 
     private ResourceManager () {
@@ -82,7 +83,7 @@ public class ResourceManager {
      * 
      * @param filename The file name of the file to load.
      * @return Whether it was able to queue the file or not.
-     * @throws FileNotSupportedException 
+     * @throws FileNotSupportedException
      */
     public boolean queueFile (String filename) throws FileNotSupportedException {
         URL file = getFileName(filename);
@@ -95,18 +96,19 @@ public class ResourceManager {
      * 
      * @param filename The file name of the file to load.
      * @return Whether it was able to queue the file or not.
-     * @throws FileNotSupportedException 
+     * @throws FileNotSupportedException
      */
     public boolean queueFile (URL filename) throws FileNotSupportedException {
         if (filename == null) {
             return false;
         }
-        
+
         String ext = getExtension(filename.getPath());
         if (!myLoaderMap.containsKey(ext)) {
-            throw new FileNotSupportedException(String.format(EXTENSION_NOT_SUPPORTED, filename.getPath(), ext));
+            throw new FileNotSupportedException(String.format(EXTENSION_NOT_SUPPORTED,
+                                                              filename.getPath(), ext));
         }
-        
+
         synchronized (myResourceStorage) {
             if (myResourceStorage.containsKey(filename)) {
                 System.out.println("Load Saved");
@@ -123,7 +125,7 @@ public class ResourceManager {
      * Starts loading the resources that have been queued.
      */
     public void load () {
-        System.out.println("Starting Load" );
+        System.out.println("Starting Load");
         myTime = new TimeIt();
         if (!isLoading()) {
             myLoadThread = new Thread(new Runnable() {
@@ -135,8 +137,11 @@ public class ResourceManager {
             myLoadThread.start();
         }
     }
-    
-    private void loadFiles() {
+
+    /**
+     * Loads all of the files in the queue.
+     */
+    private void loadFiles () {
         synchronized (myLoadQueue) {
             while (!myLoadQueue.isEmpty()) {
                 URL nextFile = myLoadQueue.poll();
@@ -146,8 +151,14 @@ public class ResourceManager {
             myTime.printTime();
         }
     }
-    
-    private void loadFile(URL filename) {
+
+    /**
+     * Loads a file with a specified filename.
+     * Passes it off to the correct resource loader.
+     * 
+     * @param filename
+     */
+    private void loadFile (URL filename) {
         String ext = getExtension(filename.getPath());
         ResourceLoader rl = myLoaderMap.get(ext);
         Object loaded = rl.loadFile(filename);
@@ -156,7 +167,18 @@ public class ResourceManager {
         }
     }
 
-    public <T> T getFile (String filename, Class<T> resourceType) { //  throws FileNotSupportedException {
+    /**
+     * Returns a file with the specified file name.
+     * If it's already loaded, then it returns the file.
+     * If not, it then loads the files from the disk using
+     * the correct loader and stores it before returning it.
+     * 
+     * @param filename The filename to load.
+     * @param resourceType The class type of resource that the file is of.
+     * @return The object that was loaded.
+     */
+    public <T> T getFile (String filename, Class<T> resourceType) { // throws
+                                                                    // FileNotSupportedException {
         URL file = getFileName(filename);
         try {
             if (queueFile(file)) {
@@ -174,7 +196,7 @@ public class ResourceManager {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        
+
         Object loadedFile = myResourceStorage.get(file);
         if (resourceType.isAssignableFrom(loadedFile.getClass())) {
             return resourceType.cast(loadedFile);
@@ -193,17 +215,22 @@ public class ResourceManager {
         return f;
     }
 
+    /**
+     * Returns the instance of the Resource Manager
+     * 
+     * @return Reference to the Resource Manager
+     */
     public static ResourceManager getInstance () {
         return myInstance;
     }
-    
+
     /**
      * Returns the extension of a particular filename.
      * 
      * @param filename The file name including the extension
      * @return The extension
      */
-    public static String getExtension(String filename) {
+    public static String getExtension (String filename) {
         int index = filename.lastIndexOf(".");
         if (index > 0) {
             return filename.substring(index + 1);

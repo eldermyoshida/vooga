@@ -3,6 +3,7 @@ package vooga.rts.networking.client.GUI;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -13,7 +14,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Queue;
 import java.util.logging.Level;
 import javax.swing.AbstractAction;
 import javax.swing.Box;
@@ -36,6 +41,8 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.SwingWorker;
 import javax.swing.border.EmptyBorder;
+import vooga.rts.networking.communications.Message;
+import vooga.rts.networking.communications.clientmessages.HostDescriptionMessage;
 import vooga.rts.networking.logger.NetworkLogger;
 
 
@@ -47,8 +54,13 @@ public class ServerBrowser extends JFrame {
                                         "Scroll2.jpg", "Scroll3.jpg","Scroll.png", "Scroll1.jpg",
                                         "Scroll2.jpg", "Scroll3.jpg"};
     private JToolBar myBar = new JToolBar();
+    private Map<JButton, JPanel> myCardMap;
     
     private JPanel myCards = new JPanel();
+    private Queue<Message> myMessageQueue;
+    
+    private int index = 0;
+    
     
     /**
      * Create the panel.
@@ -57,8 +69,10 @@ public class ServerBrowser extends JFrame {
 
         this.setPreferredSize(new Dimension(800,600));
 
+        myCardMap = new HashMap<JButton, JPanel>();
+        myMessageQueue = new LinkedList<Message>();
         createJoinPanel();
-
+        
         pack();
         setVisible(true);
         setResizable(false);
@@ -71,7 +85,6 @@ public class ServerBrowser extends JFrame {
         myBar.add(Box.createGlue());
         myBar.add(Box.createGlue());
         myBar.setOpaque(false);
-        imageLoader.execute();
         myBar.setFloatable(false);
         myBar.setRollover(true);
         JScrollPane scroll = new JScrollPane(myBar);
@@ -79,37 +92,84 @@ public class ServerBrowser extends JFrame {
         return scroll;
     }
     
-    protected SwingWorker<Void,ThumbnailAction> imageLoader = new SwingWorker<Void,ThumbnailAction>() {
-
-        @Override
-        protected Void doInBackground () throws Exception {
-            for (int i = 0; i < imageFileNames.length; i++) {
-                ImageIcon icon;
-
-                icon = new ImageIcon(this.getClass().getResource("../../resources/" + imageFileNames[i]));
-                ThumbnailAction thumbAction = null;      
-                ImageIcon thumbnailIcon = new ImageIcon(ImageHelper.getScaledImage(icon.getImage(),80));
-                thumbAction = new ThumbnailAction("panel "+i, thumbnailIcon);
-                myCards.add("panel "+i,DescriptionCardFactory.getInstance().createCard("../../resources/" + imageFileNames[i]));
-
-                publish(thumbAction);
+    public void removeConnection(String hostName){
+        CardLayout card = (CardLayout) myCards.getLayout();
+        for (Component c : myCards.getComponents()){
+            
+            JPanel u = (JPanel) c;
+            System.out.println(u.getName());
+            if (u.getName().equals(hostName)){
+                System.out.println("removing "+hostName);
+                card.removeLayoutComponent(u);
             }
-            return null;
-        }
+        }    
+    }
+    
+    public void addConnection(Message m) {
+        HostDescriptionMessage host = (HostDescriptionMessage) m;
+        ImageIcon icon;
+        icon = ImageHelper.getImageIcon(host.getImagePath());
+        ThumbnailAction thumbAction = null;      
+        ImageIcon thumbnailIcon = new ImageIcon(ImageHelper.getScaledImage(icon.getImage(),80));
+        thumbAction = new ThumbnailAction("panel "+index, thumbnailIcon);
         
-        @Override
-        protected void process(List<ThumbnailAction> chunks) {
-            for (ThumbnailAction thumbAction : chunks) {
-                JButton thumbButton = new JButton(thumbAction);
-                thumbButton.setActionCommand(thumbAction.getAction());
-                // add the new button BEFORE the last glue
-                // this centers the buttons in the toolbar
-                myBar.add(thumbButton, myBar.getComponentCount() - 1);
-            }
-        }
-        
-        
-    };
+        JButton thumbButton = new JButton(thumbAction);
+        thumbButton.setActionCommand(thumbAction.getAction());
+        JPanel card = DescriptionCardFactory.getInstance().createCard("../../resources/" + imageFileNames[index]);
+        myCards.add("panel "+index,card);
+        myCardMap.put(thumbButton, card);
+
+        myBar.add(thumbButton, myBar.getComponentCount() - 1); 
+        index++;
+    }
+    
+//    /**
+//     * Call this method once all messages have been loaded to the queue
+//     */
+//    public void loadInformation() {
+//        imageLoader.execute();
+//    }
+//    
+//    protected SwingWorker<Void,ThumbnailAction> imageLoader = new SwingWorker<Void,ThumbnailAction>() {
+//        private int index = 0;
+//        @Override
+//        protected Void doInBackground () throws Exception {
+//            for (int i = 0; i < imageFileNames.length; i++) {
+//                ImageIcon icon;
+//
+//                icon = new ImageIcon(this.getClass().getResource("../../resources/" + imageFileNames[i]));
+//                ThumbnailAction thumbAction = null;      
+//                ImageIcon thumbnailIcon = new ImageIcon(ImageHelper.getScaledImage(icon.getImage(),80));
+//                thumbAction = new ThumbnailAction("panel "+i, thumbnailIcon);
+//                
+//
+//                publish(thumbAction);
+//                index++;
+//            }
+//            return null;
+//        }
+//        
+//        @Override
+//        protected void process(List<ThumbnailAction> chunks) {
+//            for (ThumbnailAction thumbAction : chunks) {
+//                JButton thumbButton = new JButton(thumbAction);
+//                thumbButton.setActionCommand(thumbAction.getAction());
+//                JPanel card = DescriptionCardFactory.getInstance().createCard("../../resources/" + imageFileNames[index]);
+//                card.setName("panel "+index);
+//                System.out.println("adding panel "+index);
+//                myCards.add("panel "+index,card);
+//                myCardMap.put(thumbButton, card);
+//                // add the new button BEFORE the last glue
+//                // this centers the buttons in the toolbar
+//                myBar.add(thumbButton, myBar.getComponentCount() - 1);
+//                
+//            }
+//            removeConnection("panel "+0);
+//            removeConnection("panel "+1);
+//        }
+//        
+//        
+//    };
     
     private class ThumbnailAction extends AbstractAction{
         
@@ -134,7 +194,9 @@ public class ServerBrowser extends JFrame {
          */
         public void actionPerformed(ActionEvent e) {
             CardLayout layout = (CardLayout) myCards.getLayout();
+            System.out.println("Action "+e.getActionCommand());
             layout.show(myCards, e.getActionCommand());
+           
         }
     }
 
