@@ -28,19 +28,13 @@ public class EditableMap implements Serializable {
      */
     private static final long serialVersionUID = 5848819056578981375L;
     private int myXSize;
-<<<<<<< HEAD
+
     private int myYSize; 
     
     private Map<Integer , MapLayer> myLayers;
     
     private List<Resource> myResource;
     
-=======
-    private int myYSize;
-
-    private Map<Integer, MapLayer> myLayers;
-
->>>>>>> c9760358d777a7028b16d77329c425ea39d5cb6e
     private String myMapName = "CIEMAS";
     private String myDescription = " our RTS is the best one !";
 
@@ -79,12 +73,10 @@ public class EditableMap implements Serializable {
 
         myPlayerLocations = new HashMap<Integer, Location>();
         myPlayerNumber = 0;
-<<<<<<< HEAD
+
         myLayers = new HashMap<Integer , MapLayer>();
         myResource = new ArrayList<Resource>();
-=======
-        myLayers = new HashMap<Integer, MapLayer>();
->>>>>>> c9760358d777a7028b16d77329c425ea39d5cb6e
+
         try {
             mySaver = new MapSaver(this);
         }
@@ -92,13 +84,9 @@ public class EditableMap implements Serializable {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-<<<<<<< HEAD
-        //myLoader = new MapLoader();
-        
-=======
-        myLoader = new MapLoader();
 
->>>>>>> c9760358d777a7028b16d77329c425ea39d5cb6e
+        //myLoader = new MapLoader();
+
     }
 
     public void initializeMap () {
@@ -137,17 +125,11 @@ public class EditableMap implements Serializable {
         System.out.println("printmatrix executed");
         System.out.println("X Size : " + myXSize);
         System.out.println("Y Size : " + myYSize);
-<<<<<<< HEAD
         
         for(int i =0 ; i<myXSize ; i++) {
             for(int j =0 ; j<myYSize ; j++) {
                 System.out.println(myNodeMatrix[i][j].getMyTile().getMyID());
-=======
 
-        for (int i = 0; i < myXSize; i++) {
-            for (int j = 0; j < myYSize; j++) {
-                System.out.println(myNodeMatrix[i][j].getTileType());
->>>>>>> c9760358d777a7028b16d77329c425ea39d5cb6e
             }
             System.out.print("\n");
         }
@@ -197,7 +179,6 @@ public class EditableMap implements Serializable {
             myLayers.put(layerIndex, bufferLayer);
         }
     }
-<<<<<<< HEAD
     
     public void addTile(int x , int y , Tile t) {
         myNodeMatrix[x][y].setTile(t);
@@ -225,14 +206,7 @@ public class EditableMap implements Serializable {
     public List<Resource> getResourceSet() {
         return myResource;
     }
-    
-=======
 
-    public void addTile (int x, int y, String tileType) {
-        myNodeMatrix[x][y].setTileType(tileType);
-    }
-
->>>>>>> c9760358d777a7028b16d77329c425ea39d5cb6e
     public String getMyMapName () {
         return myMapName;
     }
@@ -320,7 +294,6 @@ public class EditableMap implements Serializable {
         }
 
     }
-<<<<<<< HEAD
     
     public static void main(String[] args) {
         EditableMap test = new EditableMap(10,10);
@@ -328,24 +301,12 @@ public class EditableMap implements Serializable {
         test.addPlayer(2,3);
         test.addPlayer(3,4);
         test.addPlayer(5,7);
-//        test.addTile(1, 1, 1);
-//        test.addTile(2, 2, 2);
-//        test.addTile(3, 3, 3);
         test.addTerrain(3, new Terrain(2,2,1));
         test.addTerrain(2, new Terrain(3,3,2));
         test.addTerrain(1, new Terrain(4,4,3));
         test.addResource(7, 7, 1);
         test.addResource(8, 8, 2);
         test.addResource(9, 9, 3);
-=======
-
-    public static void main (String[] args) {
-        EditableMap test = new EditableMap(10, 10);
-        test.addTile(1, 1, "grass");
-        test.addTile(2, 2, "sand");
-        test.addTile(3, 3, "shit");
->>>>>>> c9760358d777a7028b16d77329c425ea39d5cb6e
-        test.save(System.getProperty("user.dir") + "./src/test.xml");
     }
 
 }
