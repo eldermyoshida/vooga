@@ -36,6 +36,8 @@ import vooga.rts.gamedesign.upgrades.UpgradeTree;
  *  of, and pass the information to the corresponding decoder. All the decoders
  *  are loaded through an input file.
  *  
+ * @author Ryan Fishel
+ * @author Kevin Oh
  * @author Francesco Agosti
  * @author Wenshun Liu 
  */
@@ -138,7 +140,6 @@ public class Factory {
 	 * and to be loaded
 	 */
 	public void loadXMLFile(String fileName) {
-		Object result = new Object();
 		try {
 			File file = new File(getClass().getResource(fileName).getFile());
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -146,7 +147,7 @@ public class Factory {
 			Document doc = db.parse(file);
 			doc.getDocumentElement().normalize();
 			System.out.println(doc.getDocumentElement().getNodeName());
-			result = myDecoders.get(doc.getDocumentElement().getNodeName()).create(doc);
+			myDecoders.get(doc.getDocumentElement().getNodeName()).create(doc);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -67,7 +67,7 @@ public class UpgradeDecoder extends Decoder {
 	 * 
 	 */
 
-	public UpgradeTree create(Document doc) throws ClassNotFoundException, NumberFormatException, IllegalArgumentException, SecurityException, InstantiationException, IllegalAccessException, InvocationTargetException {
+	public void create(Document doc) throws ClassNotFoundException, NumberFormatException, IllegalArgumentException, SecurityException, InstantiationException, IllegalAccessException, InvocationTargetException {
 		//TODO: get all upgradeTrees into a same file. Return all results into a map
 		UpgradeTree upgradeTree = new UpgradeTree();
 		
@@ -97,7 +97,6 @@ public class UpgradeDecoder extends Decoder {
 		}
 		upgradeTree.updateTreeStatus();
 		printTree(upgradeTree);
-		return upgradeTree;
 	}
 	
 	private String loadSingleLine(Element element, String tag) {
@@ -125,9 +124,6 @@ public class UpgradeDecoder extends Decoder {
 		}
 		for (UpgradeNode u: upgradeTree.getCurrentUpgrades()) {
 			System.out.println("Current Upgradss: " + u.getUpgradeName());
-		}
-		for (UpgradeNode u: upgradeTree.getNextUpgrades()) {
-			System.out.println("Next Upgrades: " + u.getUpgradeName());
 		}
 	}
 }

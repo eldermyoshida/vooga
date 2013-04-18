@@ -33,15 +33,23 @@ public class UpgradeBuilding extends Building{
      * Adds the list of available upgrades into the list of available actions.
      */
     public void addUpgradeActions(UpgradeTree upgradeTree){
-        List<UpgradeNode> currentUpgrades = upgradeTree.getCurrentUpgrades();
-    	for (final UpgradeNode u: currentUpgrades) {
-    		 getActions().add(new Action(u.getUpgradeName(), null, "An upgrade action"){
-    	            @Override
-    	            public void apply(int playerID) throws IllegalArgumentException, SecurityException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException{
-    	                u.apply(playerID);
-    	            }
-    	        });
-    	}
+    	List<UpgradeNode> initialUpgrades = upgradeTree.getCurrentUpgrades();
+    	addUpgradeActions(initialUpgrades);
+    }
+    
+    public void addUpgradeActions(List<UpgradeNode> nodeList) {
+    	for (final UpgradeNode u: nodeList) {
+   		 getActions().add(new Action(u.getUpgradeName(), null, "An upgrade action"){
+   	            @Override
+   	            public void apply(int playerID) throws IllegalArgumentException, SecurityException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException{
+   	                u.apply(playerID);
+   	                getActions().remove(this);
+   	                if (!u.getChildren().isEmpty()) {
+   	                	addUpgradeActions(u.getChildren());
+   	                }
+   	            }
+   	        });
+   	}
     }
 
 	@Override

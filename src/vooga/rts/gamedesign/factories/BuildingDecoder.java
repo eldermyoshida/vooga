@@ -20,19 +20,12 @@ public class BuildingDecoder extends Decoder{
 	}
 
 	@Override
-	public Building create(Document doc) {
+	public void create(Document doc) {
 		
 		NodeList nodeLst = doc.getElementsByTagName(TYPE_TAG);
 		
 		for(int i = 0 ; i < nodeLst.getLength() ; i++){
-			Node nNode = nodeLst.item(i);
-			
-			
-			
-			
+			Node nNode = nodeLst.item(i);	
 		}
-		return null;
-		
-
 	}
 }

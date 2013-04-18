@@ -56,6 +56,7 @@ public class UpgradeNode {
 			SecurityException, NoSuchMethodException {
     	for (InteractiveEntity i: getUpgradeTree().getUsers().get(playerID)){
 	    	apply(i);
+	    	myUpgradeTree.activateNode(this);
 	    }
 	}
     
