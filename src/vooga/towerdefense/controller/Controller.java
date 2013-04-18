@@ -4,6 +4,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.Map;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 import vooga.towerdefense.controller.modes.BuildMode;
 import vooga.towerdefense.controller.modes.ControlMode;
 import vooga.towerdefense.controller.modes.SelectMode;
@@ -27,13 +29,18 @@ import vooga.towerdefense.view.TDView;
  * @author Angelica Schwartz
  */
 public class Controller {
+    
+    private static final String DEFAULT_RESOURCE_PACKAGE = "vooga/towerdefense/resources.";
+    
+    private ResourceBundle myResourceBundle;
     private GameModel myModel;
     private TDView myView;
     private ControlMode myControlMode;
 
     // TODO: controller constructor should take waves & map in order to initialize GameModel?
     // TODO: fix where the parameters come from
-    public Controller () {
+    public Controller (String language) {
+        setLanguage(language);
         myModel = new GameModel(this, null, new GameMap(null, 800, 600, null), new Shop());
         myView = new TDView(this);
         myControlMode = new SelectMode();
@@ -91,6 +98,23 @@ public class Controller {
         if (tile.containsElement()) { return tile.getElement(); }
         return null;
     }
+    
+    /**
+     * gets the resource bundle for this controller.
+     * @return the resource bundle
+     */
+    public ResourceBundle getResourceBundle() {
+        return myResourceBundle;
+    }
+    
+    /**
+     * Get the matching string from the resource bundle.
+     * @param s is the string to match
+     * @return the appropriate string in the selected language
+     */
+    public String getStringFromResources(String s) {
+        return myResourceBundle.getString(s);
+    }
 
     /**
      * 
@@ -134,30 +158,6 @@ public class Controller {
         myNewMode.setItemToBuild(itemToBuy);
         myControlMode = myNewMode;
     }
-
-    // //testing method to check if displaying the correct info
-    // public void displayTileCoordinates (Point p) {
-    // Tile t = myModel.getTile(p);
-    // Point center = t.getCenter();
-    // System.out.println(center);
-    // myView.getTowerInfoScreen().displayInformation(center.toString());
-    // }
-
-    // //testing method to check if displaying the correct info
-    // public void displayTileCoordinates (Point p) {
-    // Tile t = myModel.getTile(p);
-    // Point center = t.getCenter();
-    // System.out.println(center);
-    // myView.getTowerInfoScreen().displayInformation(center.toString());
-    // }
-
-    // //testing method to check if displaying the correct info
-    // public void displayTileCoordinates (Point p) {
-    // Tile t = myModel.getTile(p);
-    // Point center = t.getCenter();
-    // System.out.println(center);
-    // myView.getTowerInfoScreen().displayInformation(center.toString());
-    // }
     
     /**
      * starts the next wave in the model.
@@ -206,6 +206,20 @@ public class Controller {
         Tower t = (Tower) ((SelectMode) myControlMode).getCurrentlySelectedItem();
         t.upgrade(upgradeName);
         // TODO: implement upgrade stuff on backend (ask unit team for tower upgrade info!)
+    }
+    
+    /**
+     * Sets the language
+     * @param language the language to set the controller to
+     */
+    public void setLanguage (String language) {
+        try {
+            myResourceBundle = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE
+                                                       + language);
+        }
+        catch (MissingResourceException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

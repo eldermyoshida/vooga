@@ -23,8 +23,8 @@ import vooga.towerdefense.controller.Controller;
 public class TDView {
 
     //TODO: read these names from the file
-    private static final String TITLE = "TOWER DEFENSE";
-    private static final String NEXT_BUTTON_NAME = "NEXT";
+    private static final String TITLE_KEYWORD = "GameTitle";
+    private static final String NEXT_BUTTON_KEYWORD = "NextButtonName";
     private static final Dimension SIZE = new Dimension(1100, 800);
     private static final Dimension MAP_WINDOW_SIZE = new Dimension(800, 600);
     private static final Dimension EAST_WINDOW_SIZE = new Dimension(200, 600);
@@ -63,7 +63,7 @@ public class TDView {
      * creates this view.
      */
     public void createGUI () {
-        myFrame = new JFrame(TITLE);
+        myFrame = new JFrame(myController.getStringFromResources(TITLE_KEYWORD));
         myPanel = new JPanel();
         myFrame.setContentPane(myPanel);
         myFrame.setPreferredSize(SIZE);
@@ -144,7 +144,7 @@ public class TDView {
      * @return the JButton
      */
     private Component nextScreenButton () {
-        myNextScreenButton = new JButton(NEXT_BUTTON_NAME);
+        myNextScreenButton = new JButton(myController.getStringFromResources(NEXT_BUTTON_KEYWORD));
         myNextScreenButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {

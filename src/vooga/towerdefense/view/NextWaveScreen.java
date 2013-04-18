@@ -22,7 +22,7 @@ public class NextWaveScreen extends JPanel {
     /**
      * string to display on the button.
      */
-    public static final String WAVE_SCREEN_BUTTON_TEXT = "Start Next Wave";
+    public static final String WAVE_SCREEN_BUTTON_KEYWORD = "NextWaveButtonName";
     /**
      * controller associated with this screen.
      */
@@ -44,7 +44,7 @@ public class NextWaveScreen extends JPanel {
     public NextWaveScreen(Dimension size, Controller controller) {
         setPreferredSize(size);
         myController = controller;
-        nextWaveButton = new JButton(WAVE_SCREEN_BUTTON_TEXT);
+        nextWaveButton = new JButton(myController.getStringFromResources(WAVE_SCREEN_BUTTON_KEYWORD));
         add(nextWaveButton);
         makeMouseAdapter();
         nextWaveButton.addMouseListener(myMouseAdapter);

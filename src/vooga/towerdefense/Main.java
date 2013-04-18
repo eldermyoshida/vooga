@@ -1,7 +1,6 @@
 package vooga.towerdefense;
 
 import vooga.towerdefense.controller.Controller;
-import vooga.towerdefense.model.GameController;
 
 public class Main {
     
@@ -10,6 +9,6 @@ public class Main {
     }
     
     public static void main(String[] args) {
-        Controller controller = new Controller();        
+        Controller controller = new Controller("English");        
     }
 }
