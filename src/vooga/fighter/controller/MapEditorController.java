@@ -1,9 +1,9 @@
 package vooga.fighter.controller;
 
-import java.util.List;
+import java.util.List; 
 
+import util.input.src.input.Input;
 import vooga.fighter.input.AlertObject;
-import vooga.fighter.input.Input;
 import vooga.fighter.input.InputClassTarget;
 import vooga.fighter.input.InputMethodTarget;
 import vooga.fighter.input.PositionObject;
