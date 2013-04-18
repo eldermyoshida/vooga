@@ -12,7 +12,7 @@ import vooga.rts.leveleditor.components.Tile;
 
 public class TileButton extends JToggleButton {
     
-public static final String INPUT_DIR = "vooga.rts.resources.properties.Input";
+    public static final String INPUT_DIR = "vooga.rts.resources.properties.Input";
     
     private Tile myTile;
     private TilePanel myOwner;
@@ -27,6 +27,9 @@ public static final String INPUT_DIR = "vooga.rts.resources.properties.Input";
         myInput.addListenerTo(this);
 
         myIcon.getGraphics().drawImage(myIcon, 0, 0, 32, 32, null);
+        if(myIcon == null) {
+            System.out.println("null");
+        }
         setToolTipText(t.getMyName());
         setIcon(new ImageIcon(myIcon));
         setMargin(new Insets(2,2,2,2));

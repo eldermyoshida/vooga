@@ -20,10 +20,24 @@ public class Tile {
         myResource = ResourceBundle.getBundle(RELATIVE_PATH + "TileIndex");
     }
     
+    public Tile(int index) {
+        this();
+        try {
+            setTile(index);
+        }
+        catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+    
     public void refreshTile() throws IOException {
         if(myResource.containsKey(myID+"")) {
-            myName = myResource.getString(myID+"");
-            myImage = ImageIO.read(new File(System.getProperty("user.dir") + IMAGE_PATH + myName));            
+            String content = myResource.getString(myID+"");
+            String[] buffer = content.split("&");
+            myName = buffer[0];
+            String imageName = buffer[1];
+            myImage = ImageIO.read(new File(System.getProperty("user.dir") + IMAGE_PATH + imageName));            
         }
     }
     

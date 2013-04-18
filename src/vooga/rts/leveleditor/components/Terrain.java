@@ -28,7 +28,7 @@ public class Terrain {
    
    private BufferedImage myImage;
    
-   private ResourceBundle myResources = ResourceBundle.getBundle(BUNDLE_RELATIVE_PATH + "TerrainID");
+   private ResourceBundle myResources = ResourceBundle.getBundle(BUNDLE_RELATIVE_PATH + "TerrainIndex");
    
    public Terrain(Location loc , int ID ) {
        myLocation = loc;

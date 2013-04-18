@@ -26,7 +26,7 @@ public class MapSaver {
     public MapSaver(EditableMap map) throws IOException {
         
         mySavingMap = map;
-        myTerrainResources = ResourceBundle.getBundle(RESOURCE_PATH + "TerrainID" );
+        myTerrainResources = ResourceBundle.getBundle(RESOURCE_PATH + "TerrainIndex" );
         myTileResources = ResourceBundle.getBundle(RESOURCE_PATH+"TileIndex");
     }
     

@@ -83,7 +83,7 @@ public class EditableMap implements Serializable {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        myLoader = new MapLoader();
+        //myLoader = new MapLoader();
         
     }
     
@@ -143,7 +143,7 @@ public class EditableMap implements Serializable {
     
     public void load(File resourceFile) {
         try {
-            myLoader.loadMapFile(this, resourceFile);
+            myLoader.loadMapFile(resourceFile);
         }
         catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
