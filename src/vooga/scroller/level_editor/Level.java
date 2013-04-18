@@ -35,7 +35,10 @@ public class Level implements Editable, Renderable {
     private ScrollingManager myScrollManager;
     private Image myBackground;
     private Image DEFAULT_BACKGROUND = new ImageIcon(getClass()
-                                                     .getResource("/vooga/scroller/images/default_background.png")).getImage();
+             .getResource("/vooga/scroller/images/default_background.png")).getImage();
+    private Image CITY_BACKGROUND = new ImageIcon(getClass()
+            .getResource("/vooga/scroller/images/background_small.png")).getImage();
+
 
     private int myID;
     private IDoor myDoor;
@@ -47,9 +50,8 @@ public class Level implements Editable, Renderable {
 
     private Level () {
         mySize = PlatformerConstants.DEFAULT_LEVEL_SIZE;
-        myBackground = DEFAULT_BACKGROUND;
+        myBackground = CITY_BACKGROUND;
         frameOfReferenceSize = PlatformerConstants.REFERENCE_FRAME_SIZE;
-        myBackground = DEFAULT_BACKGROUND;
         mySprites = new ArrayList<Sprite>();
         initFrames();
     }

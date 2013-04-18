@@ -19,14 +19,23 @@ public class UniScrollingManager extends ScrollingManager {
     private View myView;
     private int myDirection = -1;
     private double myMaxDirection;
+    private Location myLastPlayerPaintLocation;
+    private int myLeftPaintBound;
+    private int myUpperPaintBound;
+    private int myRightPaintBound;
+    private int myLowerPaintBound;
 
     public UniScrollingManager(int restrictiondirection){
         if(restrictiondirection != 1 & restrictiondirection != 2 & restrictiondirection != 3 & restrictiondirection != 4) {
-            myDirection = 2;
+            myDirection = 3;
         }
         else {
             myDirection = restrictiondirection;
         }
+        myLeftPaintBound = leftpaintbound();
+        myUpperPaintBound = upperpaintbound();
+        myRightPaintBound = rightpaintbound();
+        myLowerPaintBound = lowerpaintbound();
     }
 
     public void initGame(Model game) {
@@ -117,7 +126,7 @@ public class UniScrollingManager extends ScrollingManager {
 
     private double uniLeftBoundary (Player p) {
         if(myDirection == 3){
-       
+
             if(myMaxDirection < levelLeftBoundary()){
                 return levelLeftBoundary();
             }
@@ -163,40 +172,40 @@ public class UniScrollingManager extends ScrollingManager {
         Image img = getBackground();
         int imgwidth = img.getWidth(null);
         int imgheight = img.getHeight(null);
-        int leftpaintbound = leftpaintbound();
-        int upperpaintbound = upperpaintbound();
-        int rightpaintbound = rightpaintbound();
-        int lowerpaintbound = lowerpaintbound();
-        double rightboundary = myGame.getRightBoundary();
-        double leftboundary = myGame.getLeftBoundary();
-        double upperboundary = myGame.getUpperBoundary();
-        double lowerboundary = myGame.getLowerBoundary();
+
+        //hardcoded for left restriction
+
+        myLeftPaintBound = leftpaintbound();
+        myUpperPaintBound = upperpaintbound();
+        myRightPaintBound = rightpaintbound();
+        myLowerPaintBound = lowerpaintbound();
 
         if(myGame.getLeftBoundary() < levelLeftBoundary()) {
-            leftpaintbound = (int) levelLeftBoundary();
-            rightpaintbound = (int) levelRightBoundary();
+            myLeftPaintBound = (int) levelLeftBoundary();
+            myRightPaintBound = (int) levelRightBoundary();
         }
 
         if(myGame.getRightBoundary() > levelRightBoundary()) {
-            leftpaintbound =  - ((int) levelRightBoundary() % myGame.getBackground().getWidth(null));
-            rightpaintbound = myView.getWidth()  - ((int) levelRightBoundary() % myGame.getBackground().getWidth(null));
+            myLeftPaintBound =  - ((int) levelRightBoundary() % myGame.getBackground().getWidth(null));
+            myRightPaintBound = myView.getWidth()  - ((int) levelRightBoundary() % myGame.getBackground().getWidth(null));
 
         }
         if(myGame.getLowerBoundary() > levelLowerBoundary()) {
-            upperpaintbound = - ((int) levelLowerBoundary() % myGame.getBackground().getHeight(null));
-            lowerpaintbound = myView.getHeight()  - ((int) levelLowerBoundary() % myGame.getBackground().getHeight(null));
+            myUpperPaintBound = - ((int) levelLowerBoundary() % myGame.getBackground().getHeight(null));
+            myLowerPaintBound = myView.getHeight()  - ((int) levelLowerBoundary() % myGame.getBackground().getHeight(null));
         }
         if(myGame.getUpperBoundary() < levelUpperBoundary()) {
-            upperpaintbound = (int) levelUpperBoundary();
-            lowerpaintbound = (int) levelLowerBoundary();
+            myUpperPaintBound = (int) levelUpperBoundary();
+            myLowerPaintBound = (int) levelLowerBoundary();
         }
-        pen.drawImage(img, leftpaintbound, upperpaintbound, imgwidth, imgheight, null);
-        pen.drawImage(img, rightpaintbound, upperpaintbound, imgwidth, imgheight, null);
-        pen.drawImage(img, leftpaintbound, lowerpaintbound, imgwidth, imgheight, null);
-        pen.drawImage(img, rightpaintbound, lowerpaintbound, imgwidth, imgheight, null);
+
+        pen.drawImage(img, myLeftPaintBound, myUpperPaintBound, imgwidth, imgheight, null);
+        pen.drawImage(img, myRightPaintBound, myUpperPaintBound, imgwidth, imgheight, null);
+        pen.drawImage(img, myLeftPaintBound, myLowerPaintBound, imgwidth, imgheight, null);
+        pen.drawImage(img, myRightPaintBound, myLowerPaintBound, imgwidth, imgheight, null);
         myGame.paint((Graphics2D) pen);
     }
-    
+
     @Override
     public double getHardBoundary (int i, double levelBounds) {
         if(i == myDirection){
@@ -216,7 +225,6 @@ public class UniScrollingManager extends ScrollingManager {
         if(playerlocx > (uniRightBoundary(p) - halfwidth)) {
             x =  halfwidth + (halfwidth - (Math.abs(uniRightBoundary(p) - playerlocx)));
         }
-
         if(playerlocx < (uniLeftBoundary(p) + halfwidth)) {
             x =  halfwidth - (halfwidth - (Math.abs(uniLeftBoundary(p) - playerlocx)));
         }
@@ -226,7 +234,8 @@ public class UniScrollingManager extends ScrollingManager {
         if(playerlocy < (uniUpperBoundary(p) + halfheight)) {
             y =  halfheight - (halfheight - (Math.abs(uniUpperBoundary(p) - playerlocy)));
         }
-        return new Location(x, y);
+        myLastPlayerPaintLocation = new Location(x, y);
+        return myLastPlayerPaintLocation;
 
     }
 
@@ -246,7 +255,6 @@ public class UniScrollingManager extends ScrollingManager {
             }
             if(myDirection == 4){
                 myMaxDirection = (p.getY() - myView.getHeight() / 2);
-
             }
         }
         if(myDirection == 1){

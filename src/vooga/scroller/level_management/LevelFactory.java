@@ -62,6 +62,7 @@ public class LevelFactory {
         
         // TODO: this will ideally read in levels from file and create instances of each level
         // This works for demo
+//        Level level1 = hardcodeLevel1(myView, mySM, 1);
         Level level1 = buildLevel(1, loadGridFromFile("createdLevelupg.level"));
         hardCodeCompleteL1(level1);
         
@@ -105,6 +106,8 @@ public class LevelFactory {
         IDoor level1End = new LevelPortal(level1, new Location(1540, 75));
         level1.addStartPoint(level1Start);
         level1.addDoor(level1End);
+//        level1.setBackground(new ImageIcon(getClass()
+//                                                .getResource("/vooga/scroller/images/background_small.png")).getImage());
     }
 
     private LEGrid loadGridFromFile (String filename) {
@@ -164,8 +167,7 @@ public class LevelFactory {
         myCurrLevel.addSprite(new MarioLib.MovingPlatformTwo(
                                                              new Location(900, 500)
                 ));
-        myCurrLevel.setBackground(new ImageIcon(getClass()
-                .getResource("/vooga/scroller/images/background_small.png")).getImage());
+        
 
         myCurrLevel.addSprite(new MarioLib.LevelTwoBlockOne(
                                                             new Location(64, 252)
