@@ -1,16 +1,32 @@
 package vooga.rts.networking.server;
 
 /**
- * Provides an interface between ClientInfoMessages coming in and the various thread container classses.
+ * Provides an interface between ClientInfoMessages coming in and the various thread container
+ * classses.
+ * 
  * @author David Winegar
- *
+ * 
  */
 public interface IThreadContainer {
 
+    /**
+     * Removes the connection.
+     * @param thread to remove
+     */
     public void removeConnection (ConnectionThread thread);
 
-    public void joinGame (ConnectionThread thread, String gameName);
+    /**
+     * Joins the specified GameContainer.
+     * @param thread that is joining
+     * @param gameName name of game to join
+     */
+    public void joinGameContainer (ConnectionThread thread, String gameName);
 
+    /**
+     * 
+     * @param thread
+     * @param lobbyNumber
+     */
     public void joinLobby (ConnectionThread thread, int lobbyNumber);
 
     public void leaveLobby (ConnectionThread thread);

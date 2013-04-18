@@ -36,7 +36,7 @@ public abstract class AbstractThreadContainer implements IThreadContainer, IMess
     }
 
     @Override
-    public void joinGame (ConnectionThread thread, String gameName) {
+    public void joinGameContainer (ConnectionThread thread, String gameName) {
     }
 
     @Override

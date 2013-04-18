@@ -17,7 +17,7 @@ public class InitialConnectionMessage extends ClientInfoMessage {
     public void execute (ConnectionThread thread, IThreadContainer server) {
         thread.setUserName(myUserName);
         thread.setGameName(myGameName);
-        server.joinGame(thread, myGameName);
+        server.joinGameContainer(thread, myGameName);
     }
 
 }
