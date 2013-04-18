@@ -9,8 +9,7 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Queue;
 import javax.swing.Timer;
-import vooga.rts.Game;
-import vooga.rts.IGameLoop;
+import vooga.rts.Game;  
 import vooga.rts.controller.Command;
 import vooga.rts.controller.InputController;
 import vooga.rts.input.Input;
@@ -39,6 +38,7 @@ public class MainState implements State, Observer {
         myController = new InputController(this);
         input.addListenerTo(myController);
         myStates.add(new LoadingState(this));
+        myStates.add(new MenuState(this));
         myStates.add(new GameState(this, myWindow.getSize()));
         myTimer = new Timer((int) Game.TIME_PER_FRAME(), new ActionListener() {
             @Override
@@ -69,6 +69,7 @@ public class MainState implements State, Observer {
     @Override
     public void update (Observable o, Object arg) {
         setActiveState();
+        System.out.println("I am changed :)");
     }
     
     private void setActiveState() {

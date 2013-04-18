@@ -5,14 +5,18 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
+import vooga.rts.controller.ClickCommand;
 import vooga.rts.controller.Command;
 import vooga.rts.gui.Menu;
 import vooga.rts.gui.menus.MainMenu;
 import vooga.rts.input.PositionObject;
 
-// I'm not really changing this class for now. 
-// Low priority in terms of functionality.
-// This is the same as the MenuController class
+/**
+ * This class hasn't really been refactored much. Will leave for later.
+ * 
+ * @author Challen Herzberg-Brovold, Jonno Schmidt
+ * 
+ */
 public class MenuState extends SubState implements Observer {
     
     private Map<Integer, Menu> myMenus;
@@ -36,8 +40,13 @@ public class MenuState extends SubState implements Observer {
     }
     @Override 
     public void receiveCommand (Command command) {
-        
+        if(command.getMethodName().equals("leftclick")){
+            ClickCommand left = (ClickCommand) command;
+            getCurrentMenu().handleMouseDown((int)left.getPosition().x, (int)left.getPosition().y);
+        }
+        // At some point, will need a menu controller and use actions to clean this up
     }
+    
     @Override
     public void update (double elapsedTime) {        
         getCurrentMenu().update(elapsedTime);        
@@ -60,15 +69,13 @@ public class MenuState extends SubState implements Observer {
         getCurrentMenu().handleMouseDown((int)o.getX(), (int)o.getY());
     }
     
-    @Override
     public void onMouseMove (PositionObject o) {        
         getCurrentMenu().handleMouseMovement((int)o.getX(), (int)o.getY());
     }
     
 
     @Override
-    public void update (Observable arg0, Object arg1) {
-        System.out.println("I am hereby notified.");  
+    public void update (Observable arg0, Object arg1) {  
         setChanged();
         notifyObservers(arg1);
     }
