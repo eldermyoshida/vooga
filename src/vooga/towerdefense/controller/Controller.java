@@ -27,22 +27,33 @@ import vooga.towerdefense.view.TDView;
 
 
 /**
- * As part of a MVC framework, the Controller controls how the view interacts
- * with the model.
- * 
- * @author Jimmy Longley
- * @author Erick Gonzalez
+ * Controller is the channel of communication between
+ *      the Model and the View.
+ *
  * @author Angelica Schwartz
  */
 public class Controller {
     
+    /**
+     * location of resource bundle.
+     */
     private static final String DEFAULT_RESOURCE_PACKAGE = "vooga/towerdefense/resources.";
-    
+    /**
+     * resource bundle for this controller.
+     */
     private ResourceBundle myResourceBundle;
+    /**
+     * model for this game.
+     */
     private GameModel myModel;
+    /**
+     * view for this game.
+     */
     private TDView myView;
+    /**
+     * control mode for the controller.
+     */
     private ControlMode myControlMode;
-    private SelectMode mySelectMode = new SelectMode();
     
     // TODO: controller constructor should take waves & map in order to initialize GameModel?
     // TODO: fix where the parameters come from
