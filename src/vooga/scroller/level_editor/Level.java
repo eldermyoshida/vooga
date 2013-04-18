@@ -166,6 +166,11 @@ public class Level implements Editable, Renderable {
         double leftLevelBounds = 0;
         double upperLevelBounds = 0;
         double lowerLevelBounds = mySize.getHeight();
+        rightLevelBounds = myScrollManager.getHardBoundary(1, rightLevelBounds);
+        lowerLevelBounds = myScrollManager.getHardBoundary(2, lowerLevelBounds);
+        leftLevelBounds = myScrollManager.getHardBoundary(3, leftLevelBounds);
+        upperLevelBounds = myScrollManager.getHardBoundary(4, upperLevelBounds);
+        
         if(xCoord >= rightLevelBounds){
             xCoord = rightLevelBounds - (myPlayer.getSize().getWidth()/2);
             myPlayer.setCenter(xCoord, yCoord);

@@ -196,6 +196,14 @@ public class UniScrollingManager extends ScrollingManager {
         pen.drawImage(img, rightpaintbound, lowerpaintbound, imgwidth, imgheight, null);
         myGame.paint((Graphics2D) pen);
     }
+    
+    @Override
+    public double getHardBoundary (int i, double levelBounds) {
+        if(i == myDirection){
+            return myMaxDirection;
+        }
+        return levelBounds;
+    }
 
     public Location playerPaintLocation (Player p) {
         updateLocation(p);
