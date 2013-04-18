@@ -56,6 +56,12 @@ public class Resource {
         this(0,0,id);
     }
     
+    public Resource (int ID, String name, BufferedImage image) {
+        myID = ID;
+        myName = name;
+        myImage = image;
+    }
+
     public String getName() {
         return myName;
     }

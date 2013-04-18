@@ -16,15 +16,9 @@ import vooga.rts.leveleditor.components.Resource;
  */
 
 public class ResourcePanel extends JPanel {
-
-    public static final String IMAGE_PATH_1 = "/vooga/rts/leveleditor/resource/tree1.jpg";
-    public static final String IMAGE_PATH_2 = "/vooga/rts/leveleditor/resource/rock.gif";
-    public static final String IMAGE_PATH_3 = "/vooga/rts/leveleditor/resource/river.png";
-    public static final String IMAGE_PATH_4 = "/vooga/rts/leveleditor/resource/grass.gif";
-
+    
     private Canvas myCanvas;
     private JPanel myPanel;
-    private BufferedImage myImage;
 
     /**
      * Constructor for this class
@@ -43,13 +37,10 @@ public class ResourcePanel extends JPanel {
      * Initialize the ResourceButton on this panel
      */
     public void addResouceButton() {
-        setImageRelative(IMAGE_PATH_1);
+        
         myPanel.add(new ResourceButton(new Resource(1),this));
-        setImageRelative(IMAGE_PATH_2);
         myPanel.add(new ResourceButton(new Resource(2),this));
-        setImageRelative(IMAGE_PATH_3);
         myPanel.add(new ResourceButton(new Resource(3),this));
-        setImageRelative(IMAGE_PATH_4);
 
     }
 
