@@ -6,7 +6,7 @@ package arcade.database;
  */
 public abstract class Table {
     
-    abstract void createDatabase();
+    abstract void establishConnectionToDatabase();
     
     abstract void closeConnection();
     

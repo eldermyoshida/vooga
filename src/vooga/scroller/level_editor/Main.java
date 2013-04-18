@@ -1,7 +1,7 @@
 
 package vooga.scroller.level_editor;
 
-import vooga.scroller.test_sprites.MarioLib;
+import vooga.scroller.sprites.test_sprites.MarioLib;
 import vooga.scroller.util.Sprite;
 
 

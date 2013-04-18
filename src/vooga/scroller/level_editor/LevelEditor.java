@@ -5,7 +5,9 @@ package vooga.scroller.level_editor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
+import util.Location;
 import vooga.scroller.scrollingmanager.ScrollingManager;
+import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.Sprite;
 import vooga.scroller.level_editor.commands.Command;
 import vooga.scroller.level_editor.commands.CommandLibrary;
@@ -54,14 +56,15 @@ public class LevelEditor implements ILevelEditor {
     }
 
     @Command
-    public void createSprite (int id, int x, int y) {
+    public void createSprite (int x, int y, int id) {
         Sprite sprite = mySpriteMap.get(id);
         sprite = sprite.copy();
         try{
-            myGrid.addNewSprite(sprite);
+            myGrid.addSprite(sprite, x, y);
         }
         catch(NullPointerException e){
             //TODO COPY_ERROR = "Cannot copy Sprite. Missing default constructor";
+            System.out.println(COPY_ERROR);
         }
         
     }
@@ -98,7 +101,7 @@ public class LevelEditor implements ILevelEditor {
         }
         catch (IllegalAccessException e) {
           //TODO DEFAULT_COMMAND_ERROR = "Incorrect Command";
-            System.out.println(DEFAULT_COMMAND_ERROR);
+            System.out.println("Illegal Access Exception");
         }
         catch (IllegalArgumentException e) {
           //TODO PARAM_COMMAND_ERROR = "Incorrect Parameters";
@@ -106,7 +109,7 @@ public class LevelEditor implements ILevelEditor {
         }
         catch (InvocationTargetException e) {
           //TODO DEFAULT_COMMAND_ERROR = "Incorrect Command";
-            System.out.println(DEFAULT_COMMAND_ERROR);
+            System.out.println("Invocation Target Exception");
         }
     }
 

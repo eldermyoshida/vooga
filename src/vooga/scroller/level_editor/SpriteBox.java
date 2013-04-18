@@ -1,6 +1,7 @@
 
 package vooga.scroller.level_editor;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.HashSet;
@@ -64,6 +65,8 @@ public class SpriteBox implements Renderable {
         if (mySprite != null) {
             mySprite.paint(pen);
         }
+        pen.setColor(Color.BLACK);
+        pen.drawRect(getX(), getY(), myBounds.width, myBounds.height);
     }
 
     public Rectangle getBounds () {

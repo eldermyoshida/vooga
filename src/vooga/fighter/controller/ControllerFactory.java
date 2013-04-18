@@ -29,9 +29,9 @@ public class ControllerFactory {
         myControllerMap = new HashMap<String, Controller>();
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "LevelConfig");
         myControllerNames = new ArrayList<String>();
+
         setupControllerConfiguration(frame, myResources, myControllerNames, myControllerMap);
-        
-        
+     
     }
 
     public Map getMap(){
@@ -58,7 +58,6 @@ public class ControllerFactory {
         }
     }
 
-   
 
 
 

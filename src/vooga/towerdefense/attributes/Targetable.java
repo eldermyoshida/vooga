@@ -2,6 +2,8 @@ package vooga.towerdefense.attributes;
 
 import java.util.jar.Attributes;
 
+import vooga.towerdefense.util.Location;
+
 
 /**
  * Interface implemented to render a game element targetable. 
@@ -23,6 +25,18 @@ public interface Targetable {
 	 * @return
 	 */
 	public boolean isAlive();
+	
+	/** 
+	 * Returns target location
+	 * @return
+	 */
+	public Location getLocation();
+	
+	/**
+	 * Returns whether Target is in range of attacker
+	 * @return
+	 */
+	public boolean isWithinRange(Attacker attacker);
 
 
 }

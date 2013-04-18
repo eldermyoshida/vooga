@@ -39,7 +39,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
 
 	//Default speed 
 	private static int DEFAULT_INTERACTIVEENTITY_SPEED = 150;
-	
+
     private boolean isSelected;
     private UpgradeTree myUpgradeTree;
     private Sound mySound;
@@ -83,6 +83,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
 	public void setUpgradeTree(UpgradeTree upgradeTree, int playerID) {
 		myUpgradeTree = upgradeTree;
 	}
+
 	public int getSpeed() {
 		return DEFAULT_INTERACTIVEENTITY_SPEED;
 	}
