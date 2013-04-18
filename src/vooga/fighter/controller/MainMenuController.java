@@ -27,7 +27,7 @@ import java.util.ResourceBundle;
  */
 
 @InputClassTarget
-public abstract class MenuController extends Controller {
+public class MainMenuController extends Controller {
 
     private static final String INPUT_PATHWAY = "vooga.fighter.config.menudefault";
     private static final String INPUT_SETTING = "vooga.fighter.config.Settings";
@@ -35,18 +35,19 @@ public abstract class MenuController extends Controller {
     private GameInfo myGameInfo;
     private LoopInfo myLoopInfo;
 
-    public MenuController (String name, Canvas frame) {
+    public MainMenuController (String name, Canvas frame) {
         super(name, frame);
     }
-	
-    public MenuController(String name, Canvas frame, ControllerDelegate manager, 
-    		GameInfo gameinfo) {
-    	super(name, frame, manager, gameinfo);
-    	loadMode();
-    	LoopInfo LoopInfo =  new LoopInfo(super.getMode());
-    	setGameLoopInfo(LoopInfo);
-    	frame.setViewDataSource(gameLoopInfo);
-    	myGameInfo = gameinfo;
+        
+    public MainMenuController(String name, Canvas frame, ControllerDelegate manager, 
+                GameInfo gameinfo) {
+        super(name, frame, manager, gameinfo);
+        loadMode();
+        //Duplicated code below, see levelcontroller
+        LoopInfo gameLoopInfo =  new LoopInfo(super.getMode());
+        setGameLoopInfo(gameLoopInfo);
+        frame.setViewDataSource(gameLoopInfo);
+        myGameInfo = gameinfo;
     }
     
     public void loadMode() {
@@ -70,10 +71,17 @@ public abstract class MenuController extends Controller {
         super.getManager().notifyEndCondition(string);
     }
 
+
+    @Override
+    public Controller getController (ControllerDelegate delegate, GameInfo gameinfo) {
+        return new MenuController(super.getName(), super.getView(),
+                                   delegate, gameinfo);
+    }
+
     @InputMethodTarget(name = "continue")
     public void mouseclick(PositionObject pos)  {
         super.getMode().addObject(new MouseClickObject(pos.getPoint2D()));
-        notifyEndCondition("ModeSelectMenu");
+        notifyEndCondition("CharacterSelectMenu");
     }
     
     @Override
@@ -81,14 +89,14 @@ public abstract class MenuController extends Controller {
         Input temp = new Input(INPUT_PATHWAY, super.getView());
         //temp.overrideSettings(INPUT_SETTING);
         temp.addListenerTo(this);
-    	return temp;
+        return temp;
     }
 
-	@Override
-	public void notifyEndCondition(int endCondition) {
-		// TODO Auto-generated method stub
-		
-	}
+        @Override
+        public void notifyEndCondition(int endCondition) {
+                // TODO Auto-generated method stub
+                
+        }
 
     
 

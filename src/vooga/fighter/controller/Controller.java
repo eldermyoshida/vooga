@@ -80,8 +80,9 @@ public abstract class Controller implements ModelDelegate {
         myMode = mode;
     }
     
-    protected void setGameLoopInfo(LoopInfo gameinfo){
-    	myLoopInfo = gameinfo;
+    protected void setLoopInfo(LoopInfo loopinfo){
+    	myLoopInfo = loopinfo;
+    	myCanvas.setViewDataSource(myLoopInfo);
     }
 
     public void displaySplash(){

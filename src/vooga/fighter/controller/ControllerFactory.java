@@ -16,11 +16,12 @@ import vooga.fighter.view.Canvas;
 
 
 public class ControllerFactory {
-    private static final String DEFAULT_RESOURCE_PACKAGE = "vooga.fighter.config.";
-    private static final String LEVEL = "LevelConfig";
-    private static final String MENU = "MenuConfig";
-    private static final String SCORE = "ScoreConfig";
-    private static final String ONE_V_ONE = "OneVOneController";
+
+    private static final String ONE_V_ONE = "test";
+    private static final String MAIN_MENU = "MainMenu";
+    private static final String CHARACTER_SELECT = "CharacterSelect";
+    private static final String MAP_SELECT = "MapSelect";
+    private static final String SCORE_CONTROLLER = "GameOver";
 
     private Map<String, Controller> myControllerMap;
     private Canvas myCanvas;
@@ -32,36 +33,25 @@ public class ControllerFactory {
     public ControllerFactory(Canvas frame) {
         myCanvas = frame;
         myControllerMap = new HashMap<String, Controller>();
-        myLevelResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + LEVEL);
-        myMenuResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + MENU);
-        myScoreResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + SCORE);
-        setupControllerConfiguration(frame, myLevelResources, myMenuResources,
-        		myScoreResources, myControllerMap);
+        setupControllerConfiguration(frame, myControllerMap);
     }
 
     public Map getMap(){
         return myControllerMap;
     }
 
-    private void setupControllerConfiguration(Canvas frame, ResourceBundle levelresources,  ResourceBundle menuresources,
-    		 ResourceBundle scoreresources, Map<String, Controller> controllermap) {
-        for(String key: levelresources.keySet()){
-        	if (key.equals(ONE_V_ONE)) {
-                Controller controller = new OneVOneController(levelresources.getString(key), frame);
+    protected void setupControllerConfiguration(Canvas frame,  Map<String, Controller> controllermap) {
+                Controller controller = new OneVOneController(ONE_V_ONE, frame);
                 controllermap.put(controller.getName(), controller);
-            }
-        }
-        for(String key: menuresources.keySet()){
-        	Controller controller = new MenuController(menuresources.getString(key), frame);
-            controllermap.put(controller.getName(), controller);
-        }
-        for(String key: scoreresources.keySet()){
-            Controller controller = new ScoreController(scoreresources.getString(key), frame);
-            controllermap.put(controller.getName(), controller);
+                controller = new MenuController(MAIN_MENU, frame);
+                controllermap.put(controller.getName(), controller);
+                controller = new CharacterSelectController(CHARACTER_SELECT, frame);
+                controllermap.put(controller.getName(), controller);
+                controller = new MapSelectController(MAP_SELECT, frame);
+                controllermap.put(controller.getName(), controller);
+                controller = new ScoreController(SCORE_CONTROLLER, frame);
+                controllermap.put(controller.getName(), controller);
         }
     }
 
 
-
-
-}
