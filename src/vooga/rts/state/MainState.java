@@ -14,6 +14,9 @@ import vooga.rts.IGameLoop;
 import vooga.rts.controller.Command;
 import vooga.rts.controller.InputController;
 import vooga.rts.input.Input;
+import vooga.rts.resourcemanager.ImageLoader;
+import vooga.rts.resourcemanager.ResourceManager;
+import vooga.rts.resourcemanager.SoundLoader;
 import vooga.rts.gui.Window;
 
 
@@ -28,6 +31,8 @@ public class MainState implements State, Observer {
     
     public MainState () {
         myWindow = new Window();
+        ResourceManager.getInstance().registerResourceLoader(new ImageLoader());
+        ResourceManager.getInstance().registerResourceLoader(new SoundLoader());
         myWindow.setFullscreen(true);
         myStates = new LinkedList<SubState>();
         Input input = new Input(DEFAULT_INPUT_LOCATION, myWindow.getCanvas());

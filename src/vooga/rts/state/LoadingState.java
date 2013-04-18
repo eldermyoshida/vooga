@@ -18,7 +18,7 @@ public class LoadingState extends SubState {
     
     public LoadingState (Observer observer) {
         super(observer);
-        myBGImage = ResourceManager.instance().loadFile(DEFAULT_BGIMAGE_LOCATION);
+        myBGImage = ResourceManager.getInstance().<BufferedImage>getFile(DEFAULT_BGIMAGE_LOCATION, BufferedImage.class);
     }
     
     @Override
@@ -38,7 +38,7 @@ public class LoadingState extends SubState {
         pen.setColor(Color.white);
         pen.setFont(new Font("Georgia", Font.PLAIN, 72));
         pen.drawString("Game is Loading...", 200, 300);
-        if (!ResourceManager.instance().isLoading()) {
+        if (!ResourceManager.getInstance().isLoading()) {
             pen.setFont(new Font("Georgia", Font.PLAIN, 30));
             pen.drawString("Click to start.", 200, 380);
         }
