@@ -5,7 +5,6 @@ package vooga.fighter.controller;
 import util.input.Input;
 import vooga.fighter.model.*;
 import vooga.fighter.view.Canvas;
-
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -30,7 +29,8 @@ public abstract class Controller implements ModelDelegate {
     private String myName;
     private String myPath;
     private Canvas myCanvas;
-    protected GameInfo myGameInfo;
+    private GameInfo myGameInfo;
+
     protected Input myInput;
     public static final int FRAMES_PER_SECOND = 25;
     // better way to think about timed events (in milliseconds)
@@ -38,7 +38,7 @@ public abstract class Controller implements ModelDelegate {
     public static final int DEFAULT_DELAY = ONE_SECOND / FRAMES_PER_SECOND;
     private Timer myTimer;
     private Mode myMode;
-    private GameLoopInfo myGameLoopInfo;
+    private LoopInfo myLoopInfo;
 
     public Controller(String name, Canvas frame){
         myName = name;
@@ -78,11 +78,10 @@ public abstract class Controller implements ModelDelegate {
 
     protected void setMode(Mode mode){
         myMode = mode;
-        mode.initializeMode();
     }
     
-    protected void setGameLoopInfo(GameLoopInfo gameinfo){
-    	myGameLoopInfo = gameinfo;
+    protected void setGameLoopInfo(LoopInfo gameinfo){
+    	myLoopInfo = gameinfo;
     }
 
     public void displaySplash(){
@@ -96,9 +95,8 @@ public abstract class Controller implements ModelDelegate {
                                new ActionListener() {
             public void actionPerformed (ActionEvent e) {
                 myMode.update((double) stepTime / ONE_SECOND, myCanvas.getSize());
-                myGameLoopInfo.updateImages();
+                myLoopInfo.updateImages();
                 myCanvas.paint();
-
             }
         });
         // start animation

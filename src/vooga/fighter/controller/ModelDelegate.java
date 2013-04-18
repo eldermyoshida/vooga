@@ -13,5 +13,7 @@ public interface ModelDelegate {
     
     public void notifyEndCondition(String endCondition);
     
+    public void notifyEndCondition(int endCondition);
+    
     
 }

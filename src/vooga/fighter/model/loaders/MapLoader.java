@@ -24,12 +24,12 @@ import vooga.fighter.model.utils.UpdatableLocation;
 public class MapLoader extends ObjectLoader {
 
 
-	private static final String CHARACTER_PATH = "src/vooga/fighter/config/maps.xml";
+	private static final String MAP_PATH = "src/vooga/fighter/config/maps.xml";
 
 	private MapObject myMap;
 
 	public MapLoader (int mapId, MapObject map) {
-		super(CHARACTER_PATH);
+		super(MAP_PATH);
 		myMap = map;
 		load(mapId);
 	}
@@ -74,7 +74,6 @@ public class MapLoader extends ObjectLoader {
 			int yCoord= Integer.parseInt(getAttributeValue(startingPosition, "yCoord"));
 			myMap.addStartPosition(new UpdatableLocation(xCoord,yCoord));
 		}
-
 	}
 
 	/**

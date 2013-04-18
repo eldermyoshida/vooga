@@ -14,6 +14,9 @@ import util.input.*;
 import vooga.fighter.model.LevelMode;
 import vooga.fighter.model.Mode;
 import vooga.fighter.model.objects.CharacterObject;
+import vooga.fighter.model.LevelMode;
+import vooga.fighter.model.Mode;
+import vooga.fighter.model.objects.CharacterObject;
 import vooga.fighter.util.Paintable;
 import vooga.fighter.view.Canvas;
 
@@ -28,7 +31,7 @@ import vooga.fighter.view.Canvas;
 @InputClassTarget
 
 public class LevelController extends Controller {
-    private static final String INPUT_PATHWAY = "vooga.fighter.input.Game1Mapping_en_US";
+    private static final String INPUT_PATHWAY = "vooga.fighter.config.leveldefault";
     private List<CharacterObject> myInputObjects;
 
     public LevelController (String name, Canvas frame) {
@@ -44,12 +47,13 @@ public class LevelController extends Controller {
     	setGameLoopInfo(gameLoopInfo);
     	frame.setViewDataSource(gameLoopInfo);
     	
+    	
     }
 
     
     public void loadMode() {
-        List<Integer> characterNames = myGameInfo.getCharacters();
-        int mapID = myGameInfo.getMapName();
+        List<Integer> characterNames = getGameInfo().getCharacters();
+        int mapID = getGameInfo().getMapName();
         LevelMode temp = new LevelMode(this, characterNames, mapID);
         setMode(temp);
         myInputObjects = temp.getMyCharacterObjects();
@@ -117,16 +121,23 @@ public class LevelController extends Controller {
     }
     @Override
     public void notifyEndCondition () {
-        myGameInfo.setMapName(2);
-        myGameInfo.getCharacters().clear();
+        getGameInfo().setMapName(2);
+        getGameInfo().getCharacters().clear();
         myManager.notifyEndCondition("GameOver");
         
     }
 
+
+
 	@Override
-	public void notifyEndCondition(String endCondition) {
+	public void notifyEndCondition(int endCondition) {
 		// TODO Auto-generated method stub
 		
 	}
+    
+    @Override
+    public void notifyEndCondition (String endCondition) {
+    	
+    }
     
 }

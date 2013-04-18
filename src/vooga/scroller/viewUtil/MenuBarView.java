@@ -37,6 +37,7 @@ public abstract class MenuBarView extends JMenuBar {
     public MenuBarView(Window window) {
         myWindow = window;
         myActionLibrary = new WindowActionLibrary(myWindow);
+        setSpecializedWindow(myWindow);
         addComponents();
         ActionListener prefListener =  new ActionListener() {
             public void actionPerformed (ActionEvent e) {
@@ -57,6 +58,8 @@ public abstract class MenuBarView extends JMenuBar {
             this.add(makeEditMenu());
             this.addCustomMenus();
     }
+    
+    protected abstract void setSpecializedWindow(Window w);
 
     protected abstract void addCustomMenus ();
 
@@ -96,31 +99,13 @@ public abstract class MenuBarView extends JMenuBar {
      * @return
      */
     protected abstract JMenu makePreferencesMenu();
-//        JMenu result = new JMenu(Window.getResources().getString("PreferencesMenu"));
-//        result.setMnemonic(KeyEvent.VK_P);
-////        result.add(myActionLibrary.new ChangeBackgroundAction());
-//        result.add(myActionLibrary.new ToggleGridAction());
-////        result.add(myActionLibrary.new ChangeTurtleAction());
-////        result.add(new JSeparator());
-////        result.add(myActionLibrary.new ChangePenColorAction());
-////        result.add(myActionLibrary.new ChangePenPropertiesAction());
-//        result.setEnabled(false);
-//        myPreferencesMenu = result;
-//        return myPreferencesMenu;
-//    }
     
     /**
      * This menu handles actions that provide help resources to the user. 
      * @return
      */
     protected abstract JMenu makeHelpMenu();
-//        JMenu result = new JMenu(Window.getResources().getString("HelpMenu"));
-//        result.setMnemonic(KeyEvent.VK_H);
-//        result.add(myActionLibrary.new WebInfoAction());
-//        myHelpMenu = result;
-//        return myHelpMenu;
-//    }
-//    
+    
     /**
      * Make the preferences menu active
      */

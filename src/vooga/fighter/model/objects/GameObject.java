@@ -7,6 +7,7 @@ import vooga.fighter.model.utils.ImageDataObject;
 import vooga.fighter.model.utils.State;
 import vooga.fighter.model.utils.UpdatableLocation;
 import java.awt.Dimension;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -206,7 +207,14 @@ public abstract class GameObject {
     public abstract void handleCollision(EnvironmentObject other);
     
     /**
+     * Returns collection of states
+     */
+    protected Collection getStates(){
+    	return myStates.values();
+    }
+    /**
      * Indicates whether or not the object is ready to be removed.
      */
     public abstract boolean shouldBeRemoved();
+    
 }

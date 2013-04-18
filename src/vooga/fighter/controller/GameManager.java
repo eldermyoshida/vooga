@@ -42,6 +42,7 @@ public static final Dimension SIZE = new Dimension(800, 600);
         List<Integer> myTwoCharacters = new ArrayList<Integer>();
         myTwoCharacters.add(1);
         myTwoCharacters.add(2);
+        
         myGameInfo = new GameInfo(myTwoCharacters, 1);
         myControllerManager = new ControllerManager(myCanvas, myGameInfo);
         JFrame frame = new JFrame(TITLE);

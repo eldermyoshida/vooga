@@ -24,6 +24,7 @@ public class GameInfo extends UserGameData{
     public GameInfo () {
     	myCharacters = new ArrayList<Integer>();
     	myScores = new ArrayList<Integer>();
+    	myGameMode = "Fighting Game";
     }
     
     /**
@@ -32,10 +33,12 @@ public class GameInfo extends UserGameData{
     public GameInfo (List<Integer> characterIndexes, int mapID) {
         this();
         myCharacters = characterIndexes;
-        System.out.println("character size" + myCharacters.size());
         myMapID = mapID;
     }
-
+    
+    public String getGameInfo() {
+        return myGameMode;
+    }
     /**
      * 
      */
@@ -91,8 +94,8 @@ public class GameInfo extends UserGameData{
      * 
      * @param myGameMode
      */
-    public void setGameMode (String myGameMode) {
-        myGameMode = myGameMode;
+    public void setGameMode (String gameMode) {
+        myGameMode = gameMode;
     }
 
     /**
@@ -118,7 +121,10 @@ public class GameInfo extends UserGameData{
     public List<Integer> getCharacters () {
         return myCharacters;
     }
-
+    
+    public void addCharacters(int character) {
+        myCharacters.add(character);
+    }
     /**
      * 
      * @param index
@@ -132,8 +138,8 @@ public class GameInfo extends UserGameData{
      * 
      * @param myCharacters
      */
-    public void setCharacters (List<String> myCharacters) {
-        myCharacters = myCharacters;
+    public void setCharacters (List<Integer> characters) {
+        myCharacters = characters;
     }
 
     /**
@@ -148,8 +154,10 @@ public class GameInfo extends UserGameData{
      * 
      * @param myNumCharacters
      */
-    public void setNumCharacters (int myNumCharacters) {
-        myNumCharacters = myNumCharacters;
+    public void setNumCharacters (int numCharacters) {
+        myNumCharacters = numCharacters;
     }
+    
+
 
 }
