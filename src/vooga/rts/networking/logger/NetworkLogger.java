@@ -52,6 +52,7 @@ public class NetworkLogger {
         mySetup = new LoggerSetup();
         LOGGER.setUseParentHandlers(false);
         LOGGER.setLevel(Level.ALL);
+        addHandler(FORMAT_CONSOLE);
     }
 
     /**

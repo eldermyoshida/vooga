@@ -38,8 +38,12 @@ import vooga.rts.networking.communications.Message;
 import vooga.rts.networking.communications.clientmessages.HostDescriptionMessage;
 import vooga.rts.networking.logger.NetworkLogger;
 
-
-public class ServerBrowser extends JFrame {
+/**
+ * This class manages the interface in which the user will join a game
+ * @author Henrique Moraes
+ *
+ */
+public class JoinLobby extends JFrame {
     
     private static final long serialVersionUID = -4494998676210936451L;
     private JTable myServerListTable;
@@ -51,20 +55,23 @@ public class ServerBrowser extends JFrame {
     
     private JPanel myCards = new JPanel();
     private Queue<Message> myMessageQueue;
+    NetworkLogger myLogger = NetworkLogger.getInstance();
     
     private int index = 0;
     
     
     /**
-     * Create the panel.
+     * Constructor for this class
      */
-    public ServerBrowser () {
+    public JoinLobby () {
 
         this.setPreferredSize(new Dimension(800,600));
 
         myCardMap = new HashMap<JButton, JPanel>();
         myMessageQueue = new LinkedList<Message>();
         createJoinPanel();
+        
+        myLogger.setLevel(Level.INFO);
         
         pack();
         setVisible(true);
@@ -74,6 +81,10 @@ public class ServerBrowser extends JFrame {
 
     }
     
+    /**
+     * manages the settings of the toolbar and returns a panel that contains it
+     * @return Scrollable panel that wraps the toolbar
+     */
     protected JComponent setToolBar(){
         myBar.add(Box.createGlue());
         myBar.add(Box.createGlue());
@@ -85,6 +96,10 @@ public class ServerBrowser extends JFrame {
         return scroll;
     }
     
+    /**
+     * Removes the visual attributes related to the given host
+     * @param hostName name of the host
+     */
     public void removeConnection(String hostName){
         CardLayout card = (CardLayout) myCards.getLayout();
         for (JButton button : myCardMap.keySet()){        
@@ -94,28 +109,36 @@ public class ServerBrowser extends JFrame {
                 return;
             }
         } 
-        NetworkLogger n = NetworkLogger.getInstance();
-        n.addHandler(NetworkLogger.FORMAT_CONSOLE);
-        n.logMessage(Level.SEVERE,"Host does not exist");
+        myLogger.logMessage(Level.WARNING,"Host does not exist");
     }
     
-    public void addConnection(Message m) {
-        HostDescriptionMessage host = (HostDescriptionMessage) m;
-        ImageIcon icon;
-        icon = ImageHelper.getImageIcon(host.getImagePath());
-        ThumbnailAction thumbAction = null;      
-        ImageIcon thumbnailIcon = new ImageIcon(ImageHelper.getScaledImage(icon.getImage(),80));
-        String hostName = host.getHost();
-        thumbAction = new ThumbnailAction(hostName, thumbnailIcon);
-        
-        JButton thumbButton = new JButton(thumbAction);
-        thumbButton.setActionCommand(thumbAction.getAction());
-        JPanel card = DescriptionCardFactory.getInstance().createCard(host);
-        myCards.add(hostName,card);
-        myCardMap.put(thumbButton, card);
+    /**
+     * Creates a new connection by asserting the properties in the message
+     * into the GUI
+     * @param message Message containing 
+     */
+    public void addConnection(Message message) {
+        try {
+            HostDescriptionMessage host = (HostDescriptionMessage) message;
+            ImageIcon icon;
+            icon = ImageHelper.getImageIcon(host.getImagePath());
+            ThumbnailAction thumbAction = null;      
+            ImageIcon thumbnailIcon = new ImageIcon(ImageHelper.getScaledImage(icon.getImage(),80));
+            String hostName = host.getHost();
+            thumbAction = new ThumbnailAction(hostName, thumbnailIcon);
 
-        myBar.add(thumbButton, myBar.getComponentCount() - 1); 
-        index++;
+            JButton thumbButton = new JButton(thumbAction);
+            thumbButton.setActionCommand(thumbAction.getAction());
+            JPanel card = ServerGUIFactory.getInstance().createJoinPanel(host);
+            myCards.add(hostName,card);
+            myCardMap.put(thumbButton, card);
+
+            myBar.add(thumbButton, myBar.getComponentCount() - 1); 
+            index++;
+        }
+        catch (Exception e){
+            myLogger.logMessage("Not a host description to add");
+        }
     }
     
     private class ThumbnailAction extends AbstractAction{
@@ -124,14 +147,18 @@ public class ServerBrowser extends JFrame {
         private String myAction;
          
         /**
+         * @param action - The action descriptioon of the button.
          * @param Icon - The thumbnail to show in the button.
-         * @param String - The descriptioon of the icon.
          */
         public ThumbnailAction(String action, Icon thumb){
             myAction = action;
             putValue(LARGE_ICON_KEY, thumb);
         }
         
+        /**
+         * 
+         * @return Action command string associated with this action
+         */
         public String getAction(){
             return myAction;
         }
@@ -145,6 +172,9 @@ public class ServerBrowser extends JFrame {
         }
     }
 
+    /**
+     * creates and sets the main panel of the GUI
+     */
     private void createJoinPanel () {
         BackgroundPanel joinPanel = new BackgroundPanel();
         JPanel workingPanel = new JPanel();
@@ -152,8 +182,6 @@ public class ServerBrowser extends JFrame {
         workingPanel.setLayout(new BorderLayout(10,10));
         
         workingPanel.add(setToolBar(),BorderLayout.SOUTH);
-
-        // TODO get the name of the game and display it here
         myCards.setLayout(new CardLayout());
         myCards.setOpaque(false);
         workingPanel.add(myCards,BorderLayout.CENTER);

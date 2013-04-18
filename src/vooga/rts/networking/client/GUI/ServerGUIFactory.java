@@ -12,23 +12,23 @@ import javax.swing.border.EmptyBorder;
 import vooga.rts.networking.communications.Message;
 import vooga.rts.networking.communications.clientmessages.HostDescriptionMessage;
 
-public class DescriptionCardFactory{
+public class ServerGUIFactory{
     private static final Font DEFAULT_FONT = new Font("Century Gothic", Font.PLAIN,18);
     private Font myFont = DEFAULT_FONT;
-    private static DescriptionCardFactory instance;
+    private static ServerGUIFactory instance;
     
-    private DescriptionCardFactory(){
+    private ServerGUIFactory(){
     }
     
-    public static DescriptionCardFactory getInstance(){
+    public static ServerGUIFactory getInstance(){
         if (instance == null) {
-            instance = new DescriptionCardFactory();
+            instance = new ServerGUIFactory();
         }
         return instance;
     }
     
-    public JPanel createCard(Message m){
-        HostDescriptionMessage host = (HostDescriptionMessage) m;
+    public JPanel createJoinPanel(Message message){
+        HostDescriptionMessage host = (HostDescriptionMessage) message;
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout(10,10));
         

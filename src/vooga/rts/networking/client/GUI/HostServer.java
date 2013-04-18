@@ -8,7 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class HostServer extends ServerBrowser {
+public class HostServer extends JoinLobby {
 
     public HostServer() {
         this.setPreferredSize(new Dimension(800,600));

@@ -1,6 +1,8 @@
 package vooga.rts.networking.communications.clientmessages;
 
-public class HostDisconnectedMessage {
+import vooga.rts.networking.communications.Message;
+
+public class HostDisconnectedMessage extends Message {
     private String myUsername;
     
     //public HostDisconnected 
