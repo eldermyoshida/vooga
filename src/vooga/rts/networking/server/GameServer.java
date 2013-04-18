@@ -23,5 +23,10 @@ public class GameServer extends Room {
     public void receiveMessageFromClient (Message message, ConnectionThread thread) {
         sendMessageToAllConnections(message);
     }
+    
+    @Override
+    public void stampMessage (Message message) {
+        
+    }
 
 }

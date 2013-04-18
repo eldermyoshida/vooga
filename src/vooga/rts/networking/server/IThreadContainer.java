@@ -11,7 +11,7 @@ public interface IThreadContainer {
 
     public void joinGame (ConnectionThread thread, String gameName);
 
-    public void joinLobby (ConnectionThread thread, String lobbyName);
+    public void joinLobby (ConnectionThread thread, int lobbyNumber);
 
     public void leaveLobby (ConnectionThread thread);
 
