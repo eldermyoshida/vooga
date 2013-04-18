@@ -40,13 +40,13 @@ public class Animation {
     
     public static void main (String args []) {
     	Animation a = new Animation("animation/crocy");
-    	URL url = Animation.class.getClassLoader().getResource("");
     	
-    	File directory = new File(url.getPath()+"/vooga/rts");
-    	System.out.println(directory);
-    	System.out.println(directory.getName());
+    	File directory = new File(System.getProperty("user.dir") + "\\bin\\vooga\\rts\\resources\\animation\\crocy\\");
     	File[] files = directory.listFiles();
-    	System.out.println(files);
+    	for(File f : files) {
+    		System.out.println(f.getName());
+    	}
+    	//System.out.println(files);
     	//a.listFilesForFolder(b);
     }
 }
