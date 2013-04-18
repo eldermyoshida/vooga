@@ -34,7 +34,7 @@ public class CannotAttack implements AttackStrategy {
 	 * Attacks the given IAttackbleable object. In the state of CannotAttack
 	 * does nothing to the IAttackable object.
 	 */
-	public void attack(IAttackable a, double distance) {
+	public void attack(IAttackable attackable, double distance) {
 		return;
 	}
 

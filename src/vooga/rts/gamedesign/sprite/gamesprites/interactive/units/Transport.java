@@ -24,7 +24,7 @@ public class Transport extends Unit implements IOccupiable {
 	}
 
 	@Override
-	public void getOccupied(Unit u) {
+	public void getOccupied(Unit unit) {
 		// TODO Auto-generated method stub
 		
 	}

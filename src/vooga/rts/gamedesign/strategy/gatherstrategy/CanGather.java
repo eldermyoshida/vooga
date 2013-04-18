@@ -25,9 +25,9 @@ public class CanGather implements GatherStrategy {
 		myGatherAmount = gatherAmount;
 	}
 
-	public void gatherResource(IGatherable g) {
+	public void gatherResource(IGatherable gatherable) {
 		if (interval.allowAction()) {
-			g.getGathered(myGatherAmount);
+			gatherable.getGathered(myGatherAmount);
 			interval.resetCooldown();
 		}
 	}

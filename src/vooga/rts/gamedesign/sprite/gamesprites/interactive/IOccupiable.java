@@ -12,5 +12,5 @@ import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
  */
 public interface IOccupiable {
 	
-	public void getOccupied(Unit u);
+	public void getOccupied(Unit unit);
 }

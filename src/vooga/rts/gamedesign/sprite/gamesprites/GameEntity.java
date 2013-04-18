@@ -107,11 +107,11 @@ public class GameEntity extends GameSprite {
     /**
      * Translates the current center by vector v
      * 
-     * @param v
+     * @param vector
      */
-    public void translate (Vector v) {
+    public void translate (Vector vector) {
 
-        getWorldLocation().translate(v);
+        getWorldLocation().translate(vector);
         resetBounds();
     }
 

@@ -23,6 +23,6 @@ import vooga.rts.gamedesign.strategy.Strategy;
  */
 public interface OccupyStrategy extends Strategy{
 
-  public boolean canOccupy(IOccupiable o);
+  public boolean canOccupy(IOccupiable occupiable);
 
 }

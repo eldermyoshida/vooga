@@ -22,7 +22,7 @@ public class CannotGather implements GatherStrategy {
 		interval = new Interval(cooldown);
 	}
 	@Override
-	public void gatherResource(IGatherable g) {
+	public void gatherResource(IGatherable gatherable) {
 	}
 
 	@Override

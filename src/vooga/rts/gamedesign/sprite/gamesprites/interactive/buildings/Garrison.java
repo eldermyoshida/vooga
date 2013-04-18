@@ -25,7 +25,7 @@ public class Garrison extends Building implements IOccupiable {
     }
 
     @Override
-    public void getOccupied (Unit u) {
+    public void getOccupied (Unit unit) {
         // TODO Auto-generated method stub
 
     }

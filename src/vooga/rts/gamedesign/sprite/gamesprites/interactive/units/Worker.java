@@ -50,12 +50,12 @@ public class Worker extends Unit {
 	/**
 	 * The worker gathers the resource if it can and then resets its gather
 	 * cooldown.
-	 * @param g is the resource being gathered.
+	 * @param gatherable is the resource being gathered.
 	 */
-	public void gather(IGatherable g) {
+	public void gather(IGatherable gatherable) {
 		
-		if(this.collidesWith((GameEntity)g)) {
-			myGatherStrategy.gatherResource(g);
+		if(this.collidesWith((GameEntity)gatherable)) {
+			myGatherStrategy.gatherResource(gatherable);
 		}
 	}
 	

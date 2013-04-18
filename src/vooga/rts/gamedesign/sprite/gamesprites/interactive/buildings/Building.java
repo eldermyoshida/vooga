@@ -52,7 +52,7 @@ public abstract class Building extends InteractiveEntity implements IOccupiable 
     	return myUpgradeTree;
     }
 
-    public void getOccupied (Unit u) {
+    public void getOccupied (Unit unit) {
         //u.occupy(this);
     }
 }

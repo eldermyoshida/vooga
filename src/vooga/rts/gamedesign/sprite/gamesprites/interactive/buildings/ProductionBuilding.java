@@ -32,7 +32,7 @@ public class ProductionBuilding extends Building {
     }
 
     @Override
-    public void getOccupied (Unit u) {
+    public void getOccupied (Unit unit) {
         // does nothing if building isnt occupied. 
     }
     

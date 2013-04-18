@@ -99,11 +99,11 @@ public class Unit extends InteractiveEntity {
     /**
      * Occupies an IOccupiable object specified by occupy strategy.
      * 
-     * @param o
+     * @param occupiable
      */
-    public void occupy (IOccupiable o) {
-        if (myOccupyStrategy.canOccupy(o)) {
-            o.getOccupied(this);
+    public void occupy (IOccupiable occupiable) {
+        if (myOccupyStrategy.canOccupy(occupiable)) {
+            occupiable.getOccupied(this);
         }
     }
 
