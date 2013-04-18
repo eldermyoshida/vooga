@@ -66,7 +66,7 @@ public class Model implements ArcadeInteraction {
 
     public void authenticate (String username, String password) {
         if (myDb.authenticateUsernameAndPassword(username, password)) {
-            myLoginView.destroy();
+            myLoginView.dispose();
             organizeSnapshots();
             new MainView(this, myResources);
         }

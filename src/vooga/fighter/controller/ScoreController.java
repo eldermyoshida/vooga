@@ -3,12 +3,13 @@ package vooga.fighter.controller;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import java.util.List;
 import javax.swing.Timer;
 import util.Location;
-import vooga.fighter.input.AlertObject;
-import vooga.fighter.input.Input;
-import vooga.fighter.input.InputMethodTarget;
+import util.input.AlertObject;
+import util.input.Input;
+import util.input.InputMethodTarget;
 import vooga.fighter.model.LevelMode;
 import vooga.fighter.model.Mode;
 import vooga.fighter.util.Paintable;
@@ -28,6 +29,7 @@ public class ScoreController extends Controller {
     public ScoreController (String name, Canvas frame, ControllerDelegate manager,
                             GameInfo gameinfo) {
         super(name, frame, manager, gameinfo);
+
         loadMode();
         GameLoopInfo gameLoopInfo = new GameLoopInfo((LevelMode) super.getMode());
         setGameLoopInfo(gameLoopInfo);
@@ -36,13 +38,14 @@ public class ScoreController extends Controller {
     }
     
     
+
     public void loadMode() {
         List<Integer> characterNames = myGameInfo.getCharacters();
         int mapID = myGameInfo.getMapName();
         Mode temp = new LevelMode(this, characterNames, mapID);
         setMode(temp);
     }
-    
+
     /**
      * Exits program.
      */
@@ -53,6 +56,7 @@ public class ScoreController extends Controller {
    
     @Override
     public Controller getController (ControllerDelegate delegate, GameInfo gameinfo) {
+
         return new ScoreController(super.getName(), super.getView(),
                                    delegate, gameinfo);
     }
@@ -85,6 +89,12 @@ public class ScoreController extends Controller {
         myManager.notifyEndCondition("Test");
         
     }
+
+	@Override
+	public void notifyEndCondition(String endCondition) {
+		// TODO Auto-generated method stub
+		
+	}
    
 
 }

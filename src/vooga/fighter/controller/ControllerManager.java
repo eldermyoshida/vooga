@@ -1,7 +1,6 @@
 package vooga.fighter.controller;
 
-import vooga.fighter.input.Input;
-import vooga.fighter.input.InputClassTarget;
+
 
 import java.awt.Dimension;
 import java.util.Collection;
@@ -35,6 +34,7 @@ public class ControllerManager implements ControllerDelegate{
 	}
 
 	public void switchController(String NextController) {
+
 	        System.out.println("switching controllers");
 		myCurrentController.stop();
 		myCurrentController = myControllerMap.get(NextController);
@@ -44,16 +44,10 @@ public class ControllerManager implements ControllerDelegate{
 		myCurrentController.start();	
 	}      
 
-
-	
-	private String pickController(String condition){
-		String NextController = ""; //ERROR LOGIC NEEDED!
-		return NextController;
-	}
-
 	@Override
 	public void notifyEndCondition(String string) {
 		switchController(string);
+
 		
 	}
 

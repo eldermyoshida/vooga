@@ -5,9 +5,9 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import util.Location;
 import vooga.scroller.model.Model;
-import vooga.scroller.sprite_superclasses.Player;
-import vooga.scroller.util.Location;
+import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.view.View;
 /**
  * The default scrolling manager
@@ -44,7 +44,7 @@ public class DefaultScrollingManager extends ScrollingManager {
     }
 
     public int leftpaintbound() {
-        if(myGame != null & myView != null) {
+        if(myGame != null && myView != null) {
             int horizontal = ((int) myGame.getRightBoundary() + myView.getWidth()*1000) % myView.getWidth();
             return 0 - horizontal;
         }
@@ -110,7 +110,6 @@ public class DefaultScrollingManager extends ScrollingManager {
         }
         
         if(myGame.getRightBoundary() > levelRightBoundary()) {
-            //Messy code
             leftpaintbound =  - ((int) levelRightBoundary() % myGame.getBackground().getWidth(null));
             rightpaintbound = myView.getWidth()  - ((int) levelRightBoundary() % myGame.getBackground().getWidth(null));
             
@@ -131,21 +130,24 @@ public class DefaultScrollingManager extends ScrollingManager {
     }
 
     public Location playerPaintLocation (Player p) {
-        double x = myView.getWidth() / 2;
-        double y = myView.getHeight() / 2;
-        if(p.getX() > (levelRightBoundary() - myView.getWidth() / 2)) {
-            x =  (myView.getWidth() / 2) + ((myView.getWidth() / 2) - (levelRightBoundary() - p.getX()));
+        double halfwidth = myView.getWidth() / 2;
+        double halfheight = myView.getHeight() / 2;
+        double x = halfwidth;
+        double y = halfheight;
+        double playerlocx = p.getX();
+        double playerlocy = p.getY();
+        if(playerlocx > (levelRightBoundary() - halfwidth)) {
+            x =  halfwidth + (halfwidth - (levelRightBoundary() - playerlocx));
         }
-        if(p.getX() < (levelLeftBoundary() + myView.getWidth() / 2)) {
-            x =  (myView.getWidth() / 2) - ((myView.getWidth() / 2) - (levelLeftBoundary() + p.getX()));
+        if(playerlocx < (levelLeftBoundary() + halfwidth)) {
+            x =  halfwidth - (halfwidth - (levelLeftBoundary() + playerlocx));
         }
-        if(p.getY() > (levelLowerBoundary() - myView.getHeight() / 2)) {
-            y =  (myView.getHeight() / 2) + ((myView.getHeight() / 2) - (levelLowerBoundary() - p.getY()));
+        if(playerlocy > (levelLowerBoundary() - halfheight)) {
+            y =  halfheight + (halfheight - (levelLowerBoundary() - playerlocy));
         }
-        if(p.getY() < (levelUpperBoundary() + myView.getHeight() / 2)) {
-            y =  (myView.getHeight() / 2) - ((myView.getHeight() / 2) - (levelUpperBoundary() + p.getY()));
-        }
-        
+        if(playerlocy < (levelUpperBoundary() + halfheight)) {
+            y =  halfheight - (halfheight - (levelUpperBoundary() + playerlocy));
+        }        
         return new Location(x, y);
         
     }

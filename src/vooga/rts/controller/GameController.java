@@ -38,12 +38,13 @@ import vooga.rts.player.HumanPlayer;
 import vooga.rts.player.Player;
 import vooga.rts.player.Team;
 import vooga.rts.resourcemanager.ResourceManager;
+import util.Location;
 import vooga.rts.util.Camera;
-import vooga.rts.util.Location;
+import vooga.rts.util.Location3D;
+import vooga.rts.util.Camera;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.PointTester;
-import vooga.rts.util.Sound;
 
 
 public class GameController extends AbstractController {

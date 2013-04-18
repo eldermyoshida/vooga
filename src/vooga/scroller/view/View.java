@@ -21,7 +21,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.Timer;
 import vooga.scroller.scrollingmanager.ScrollingManager;
-import vooga.scroller.sprite_superclasses.Player;
+import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.Sprite;
 import vooga.scroller.model.Model;
 
@@ -86,12 +86,6 @@ public class View extends JComponent {
         if (myGame != null & myScrollManager != null) {
                myScrollManager.viewPaint(pen);
         }      
-        
-        //only used for testing, please remove later
-        if (win == true) {
-            paintWin(pen);
-        }
-        
     }
 
     /**
@@ -172,15 +166,5 @@ public class View extends JComponent {
             }
         });
     }
-    
-  //only used for testing, please remove later
-    private void paintWin(Graphics pen) {
-        Image img = new ImageIcon(getClass().getResource("/vooga/scroller/images/win.gif")).getImage();
-        pen.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), null);
-    }
-    
-    //only used for testing, please remove later
-    public void win() {
-        win = true;
-    }
+
 }

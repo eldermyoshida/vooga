@@ -29,6 +29,7 @@ import java.util.List;
  */
 public class Weapon {
 //TODO: remove damage from weapon? 
+
     private int myDamage;
     private Projectile myProjectile;
     private UpgradeTree myUpgradeTree;
@@ -59,6 +60,7 @@ public class Weapon {
      */
     public void fire (InteractiveEntity toBeShot) {
         if(interval.allowAction() && !toBeShot.isDead()){
+
             Projectile fire = myProjectile.copy(myProjectile, myCenter);
             fire.setEnemy(toBeShot);
             fire.move(toBeShot.getWorldLocation());
@@ -120,6 +122,7 @@ public class Weapon {
         //see if enemy is in adjacent node, better way ? 
         myRangeCircle = new Ellipse2D.Double(myCenter.getX(), myCenter.getY(), myRange, myRange);
         return myRangeCircle.contains(enemy.getWorldLocation().to2D());
+
     }
     /**
      * Returns the range of the weapon.
