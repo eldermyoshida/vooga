@@ -153,4 +153,10 @@ public class UserGameDataTable extends Table {
             e.printStackTrace();
         }
     }
+
+    public double getAverageRating (String gameName) {
+        // TODO Auto-generated method stub
+        return 0;
+        
+    }
 }

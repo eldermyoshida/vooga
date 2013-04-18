@@ -154,8 +154,7 @@ public class Database {
         return myGameTable.getGenre(gameName);
     }
 
-    public double getAverageRating () {
-        // TODO Auto-generated method stub
-        return 0;
+    public double getAverageRating (String gameName) {
+        return myUserGameDataTable.getAverageRating(gameName);
     }
 }
