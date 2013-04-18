@@ -17,7 +17,7 @@ public class MenuMode extends Mode {
     private MouseClickObject myMouseClick;
     private MenuGrid myMenuGrid;
     private ModelDelegate myDelegate;
-    private MenuCollisionManager myCollisionManager;
+    private MenuCollisionManager myCollisionManager = new MenuCollisionManager();
 
     public MenuMode (ModelDelegate delegate, String menuId) {
         super(delegate);

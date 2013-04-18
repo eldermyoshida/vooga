@@ -11,7 +11,11 @@ import vooga.fighter.model.objects.MouseClickObject;
 
 
 public class MenuCollisionManager extends CollisionManager {
-
+    
+//    public MenuCollisionManager() {
+//        
+//    }
+//    
     public void handleCollisions(GameObject o1, GameObject o2) {
         super.handleCollisions(o1, o2);
         if (o1 instanceof MenuObject) {

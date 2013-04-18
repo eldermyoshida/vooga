@@ -11,6 +11,7 @@ import arcade.games.UserGameData;
  * 
  */
 public class GameInfo extends UserGameData{
+
     private String myGameMode;
     private String myMapName;
     private int myMapCount;
@@ -40,7 +41,6 @@ public class GameInfo extends UserGameData{
         myCharacters = characters;
         myMapName = map;
     }
-    
     /**
      * 
      */
