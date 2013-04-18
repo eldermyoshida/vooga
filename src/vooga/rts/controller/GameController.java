@@ -106,13 +106,9 @@ public class GameController extends AbstractController {
         List<Unit> p2 = myTeams.get(2).getUnits();
         for (Unit u1 : p1) {
             for (Unit u2 : p2) {
-                if (u1.inRange(u2)) {
-                    u2.getAttacked(u1);
-                }
-                if (u2.inRange(u1)) {
-                    u1.getAttacked(u2);
-
-                }
+            	u2.getAttacked(u1);
+            	u1.getAttacked(u2);
+            	
                 if (u1 instanceof Worker) {
                     ((Worker) u1).gather(r);
                 }

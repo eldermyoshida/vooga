@@ -129,16 +129,6 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
 			}
 		}    
 	} 
-	//TODO: THIS IS DUPLICATED CODE AS IN ATTACK STRATEGY!!! SHOULD DELETE IT!
-	public boolean inRange(InteractiveEntity enemy) {
-		//ellipse thing doesnt seem to be working very well. 
-		double distance = Math.sqrt(Math.pow(getWorldLocation().getX() - enemy.getWorldLocation().getX(), 2) + Math.pow(this.getWorldLocation().getY() - enemy.getWorldLocation().getY(), 2)); 
-		if(getAttackStrategy().getCanAttack() && !getAttackStrategy().getWeapons().isEmpty() && distance < getAttackStrategy().getWeapons().get(getAttackStrategy().getWeaponIndex()).getRange()){
-			return true;
-		}
-		//buggy :( myWeapons.get(myWeaponIndex).inRange(enemy)
-		return false;
-	}
 
 	/**
 	 * Sets the attack strategy for an interactive. Can set the interactive
