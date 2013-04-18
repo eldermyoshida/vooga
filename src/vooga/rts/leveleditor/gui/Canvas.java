@@ -8,6 +8,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import vooga.rts.leveleditor.components.Resource;
 import vooga.rts.leveleditor.components.Terrain;
+import vooga.rts.leveleditor.components.Tile;
 
 /**
  * 
@@ -33,6 +34,7 @@ public class Canvas extends JFrame {
     private MenuManager myMenuManager;
     private Resource myCurrentSelectResource;
     private Terrain myCurrentSelectTerrain;
+    private Tile myCurrentSelectTile;
     private JScrollPane  myMapScroll;
 
     public Canvas() {
@@ -83,6 +85,10 @@ public class Canvas extends JFrame {
     public Terrain getCurrentSelectTerrain() {
         return myCurrentSelectTerrain;
     }
+    
+    public void setCurrentSelectTile(Tile t) {
+        myCurrentSelectTile = t;       
+    }
 
     public void ZoomIn() {
         myMapPanel.ZoomIn();      
@@ -112,5 +118,6 @@ public class Canvas extends JFrame {
     public static void main(String[] argv) {
         new Canvas();
     }
+
 
 }

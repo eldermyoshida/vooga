@@ -17,7 +17,7 @@ public class TerrainPanel extends JPanel {
         myPanel = new JPanel();
         myPanel.setLayout(new GridLayout(0,4));
         add(myPanel, BorderLayout.NORTH);
-        addTerrainButton();
+        addTerrainButton();   
         
     }
 
