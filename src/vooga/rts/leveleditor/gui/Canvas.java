@@ -89,6 +89,10 @@ public class Canvas extends JFrame {
     public void setCurrentSelectTile(Tile t) {
         myCurrentSelectTile = t;       
     }
+    
+    public Tile getCurrentSelectTile() {
+        return myCurrentSelectTile;
+    }
 
     public void ZoomIn() {
         myMapPanel.ZoomIn();      
@@ -118,6 +122,7 @@ public class Canvas extends JFrame {
     public static void main(String[] argv) {
         new Canvas();
     }
+
 
 
 }

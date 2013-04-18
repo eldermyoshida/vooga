@@ -68,8 +68,8 @@ public class EditableNode {
         myZoomRate = rate;
     }
     
-    public void setTile(int index) {
-        
+    public void setTile(Tile tile) {
+        myTile = tile;
     }
     
     public int getMyWidth () {

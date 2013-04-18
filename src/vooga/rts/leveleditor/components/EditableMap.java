@@ -181,9 +181,11 @@ public class EditableMap implements Serializable {
         }
     }
     
-    public void addTile(int x , int y , int tileType) {
-        myNodeMatrix[x][y].setTile(tileType);
+    public void addTile(int x , int y , Tile t) {
+        myNodeMatrix[x][y].setTile(t);
     }
+    
+    
     
     public void addResource(int x, int y , int resourceID) {
         Resource buffer = new Resource(x,y,resourceID);
@@ -303,9 +305,9 @@ public class EditableMap implements Serializable {
         test.addPlayer(2,3);
         test.addPlayer(3,4);
         test.addPlayer(5,7);
-        test.addTile(1, 1, 1);
-        test.addTile(2, 2, 2);
-        test.addTile(3, 3, 3);
+//        test.addTile(1, 1, 1);
+//        test.addTile(2, 2, 2);
+//        test.addTile(3, 3, 3);
         test.addTerrain(3, new Terrain(2,2,1));
         test.addTerrain(2, new Terrain(3,3,2));
         test.addTerrain(1, new Terrain(4,4,3));

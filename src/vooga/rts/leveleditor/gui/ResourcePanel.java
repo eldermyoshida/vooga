@@ -17,44 +17,26 @@ import vooga.rts.leveleditor.components.Tile;
  *
  */
 
-public class ResourcePanel extends JPanel {
-    
-    private static final String RELATIVE_PATH = "vooga.rts.leveleditor.resource.";
-    
-    private Canvas myCanvas;
-    private JPanel myPanel;
-    
-    private ResourceBundle myResource;
-
+public class ResourcePanel extends MapComponentPanel {
     /**
      * Constructor for this class
      * @param canvas: the canvas which holds this panel;
      */
     public ResourcePanel(Canvas canvas) {
-        myCanvas = canvas;
-        myPanel = new JPanel();
-        myPanel.setLayout(new GridLayout(0,4));
-
-        add(myPanel, BorderLayout.NORTH);
-        myResource = ResourceBundle.getBundle(RELATIVE_PATH+"ResourceIndex");
-        addResouceButton();
+        super(canvas);
     }
 
-    /**
-     * Initialize the ResourceButton on this panel
-     */
-    public void addResouceButton() {
-        
+    @Override
+    public void setResourceBundle() {
+        myResource = ResourceBundle.getBundle(RELATIVE_PATH+"ResourceIndex");
        
+    }
+
+    @Override
+    public void addButton() {
         for(String str : myResource.keySet()) {
             myPanel.add(new ResourceButton(new Resource(Integer.parseInt(str)),this));
-        }
-
-    }
-
-
-    public Canvas getCanvas() {
-        return myCanvas;
+        }       
     }
 
     /**
@@ -64,7 +46,5 @@ public class ResourcePanel extends JPanel {
     public void setCurrentSelectResource(Resource r) {
         myCanvas.setCurrentSelectResource(r);
     }
-
-
 
 }
