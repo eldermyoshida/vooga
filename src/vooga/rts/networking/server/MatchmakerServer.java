@@ -35,7 +35,7 @@ public class MatchmakerServer extends AbstractThreadContainer {
     }
 
     @Override
-    public void joinGame (ConnectionThread thread, String gameName) {
+    public void joinGameContainer (ConnectionThread thread, String gameName) {
         if (myGameContainers.containsKey(gameName)) {
             myGameContainers.get(gameName).addConnection(thread);
             removeConnection(thread);
