@@ -136,4 +136,9 @@ public class LevelController extends Controller {
 		
 	}
     
+    @Override
+    public void notifyEndCondition (String endCondition) {
+    	
+    }
+    
 }
