@@ -2,12 +2,9 @@
 package vooga.towerdefense.factories;
 
 import java.util.ArrayList;
+
 import vooga.towerdefense.action.Action;
-import vooga.towerdefense.action.Move;
-import vooga.towerdefense.attributes.Attribute;
-import vooga.towerdefense.attributes.AttributeConstants;
 import vooga.towerdefense.attributes.AttributeManager;
-import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.gameElements.Unit;
 import vooga.towerdefense.util.Location;
 
@@ -15,7 +12,7 @@ import vooga.towerdefense.util.Location;
  * @author Matthew Roy
  *
  */
-public class UnitFactory extends GameElementFactory {
+public abstract class UnitFactory extends GameElementFactory {
 
     /**
      * 

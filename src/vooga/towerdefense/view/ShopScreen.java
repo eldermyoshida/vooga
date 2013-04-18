@@ -10,7 +10,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.swing.JPanel;
+
 import vooga.towerdefense.controller.Controller;
 import vooga.towerdefense.util.Pixmap;
 
@@ -81,11 +83,9 @@ public class ShopScreen extends JPanel {
             // TODO Deal with the case where there are a lot of items on the screen
             if(item.getCenter().getX() == 0.0) {
                 item.paint(pen, new Point(totalX, totalY), new Dimension(50, 50));
-                System.out.println("new");
             }
             else {
                 item.paint(pen, item.getCenter(), new Dimension(50, 50));
-                System.out.println("old: "+ item.getCenter());
             }
         }
     }
@@ -97,7 +97,6 @@ public class ShopScreen extends JPanel {
         myMouseListener = new MouseAdapter() {
             @Override
             public void mouseClicked (MouseEvent e) {
-                System.out.println("Mouse Point:"+e.getPoint());
                 handleClick(e.getPoint());
             }
         };
@@ -112,16 +111,11 @@ public class ShopScreen extends JPanel {
         for (Pixmap item : myShopItems.values()) {
             double x = item.getCenter().getX() - (double)(item.getWidth()/2); 
             double y = item.getCenter().getY() - (double)(item.getHeight()/2); 
-            System.out.println("x:" + x + "y:" + y);
             Rectangle rect =
                     new Rectangle((int) x, (int) y, item.getWidth(), item.getHeight());
-            System.out.println("Rect:" + rect);
-            System.out.println("Point:" + point);
             if (rect.contains(point)) {
-                System.out.println("Contains point!!");
                 for (Map.Entry<String, Pixmap> entry : myShopItems.entrySet()) {
                     if (entry.getValue().equals(item)) {
-                        System.out.println("Send Stuff!!");
                         myController.handleShopClickOnItem(entry.getKey());
                     }
                 }
