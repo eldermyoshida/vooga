@@ -176,7 +176,7 @@ public class MapPanel extends JComponent {
         if(x>=0 && x<myWidth && y>=0 && y<myHeight){
             EditableNode n = myMap.getMapNode(x, y);
             if(!myRemoveFlag){
-                n.setTile(myCanvas.getCurrentSelectTile());
+                n.setTile(myCanvas.getCurrentSelectTile().getMyID());
                 n.setOccupied(true);
             } else {
                 n.reset();
