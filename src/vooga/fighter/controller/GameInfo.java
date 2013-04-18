@@ -91,8 +91,8 @@ public class GameInfo extends UserGameData{
      * 
      * @param myGameMode
      */
-    public void setGameMode (String myGameMode) {
-        myGameMode = myGameMode;
+    public void setGameMode (String gameMode) {
+        myGameMode = gameMode;
     }
 
     /**
@@ -132,8 +132,8 @@ public class GameInfo extends UserGameData{
      * 
      * @param myCharacters
      */
-    public void setCharacters (List<String> myCharacters) {
-        myCharacters = myCharacters;
+    public void setCharacters (List<Integer> characters) {
+        myCharacters = characters;
     }
 
     /**
@@ -148,8 +148,8 @@ public class GameInfo extends UserGameData{
      * 
      * @param myNumCharacters
      */
-    public void setNumCharacters (int myNumCharacters) {
-        myNumCharacters = myNumCharacters;
+    public void setNumCharacters (int numCharacters) {
+        myNumCharacters = numCharacters;
     }
     
 
