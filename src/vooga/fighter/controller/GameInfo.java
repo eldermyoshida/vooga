@@ -124,7 +124,6 @@ public class GameInfo extends UserGameData{
     }
     
     public void addCharacters(int character) {
-        System.out.println("adding");
         myCharacters.add(character);
     }
     /**

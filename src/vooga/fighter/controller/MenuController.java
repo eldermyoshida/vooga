@@ -82,7 +82,7 @@ public class MenuController extends Controller {
     public void mouseclick(PositionObject pos)  {
         super.getMode().addObject(new MouseClickObject(pos.getPoint2D()));
         System.out.println(myGameInfo.getGameInfo());
-        notifyEndCondition("Test");
+        //notifyEndCondition("Test");
     }
     
     @Override

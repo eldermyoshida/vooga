@@ -8,7 +8,7 @@ import javax.swing.Timer;
 import util.Location;
 import util.input.AlertObject;
 import util.input.Input;
-import util.input.src.input.InputMethodTarget;
+import util.input.InputMethodTarget;
 
 import vooga.fighter.model.LevelMode;
 import vooga.fighter.model.Mode;
