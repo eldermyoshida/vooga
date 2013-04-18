@@ -13,13 +13,12 @@ import vooga.towerdefense.model.GameMap;
  * Single attack action launched by a GameElement.
  * @author XuRui
  * @author Matthew Roy
+ * @author Zhen Gou
  *
  */
 public class AttackAction extends Action {
 	private static final AttributeConstants myAttributeConstants = new AttributeConstants();
 	GameElement myInitiator;
-	double myCoolDown;
-	boolean isOneTimeAction;
 	private GameMap myMap;
 
 	public AttackAction(GameMap map, GameElement initiator){
@@ -35,7 +34,7 @@ public class AttackAction extends Action {
 	}*/
 
 	@Override
-	public void executeAction() {
+	public void executeAction(double elapsedTime) {
 		//check whether it's in cool down
 		if (isEnabled()) {
 			//get targets that we wanna shoot
@@ -47,7 +46,7 @@ public class AttackAction extends Action {
 			
 			//shoot a projectile towards each target
 			for (GameElement target : targets) {
-				myMap.addGameElement(myInitiator.getAttributeManager().getProjectileFactory().createProjectile(myInitiator.getCenter(),target));
+				myMap.addGameElement(myInitiator.getAttributeManager().getProjectileFactory().createProjectile(myInitiator,target));
 			}
 			
 		}

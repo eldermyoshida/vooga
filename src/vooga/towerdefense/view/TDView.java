@@ -5,11 +5,12 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import vooga.towerdefense.controller.Controller;
-import vooga.towerdefense.model.GameController;
 
 
 /**
@@ -21,33 +22,46 @@ import vooga.towerdefense.model.GameController;
  */
 public class TDView {
 
+    //TODO: read these names from the file
+    private static final String TITLE = "TOWER DEFENSE";
+    private static final String NEXT_BUTTON_NAME = "NEXT";
     private static final Dimension SIZE = new Dimension(1100, 800);
     private static final Dimension MAP_WINDOW_SIZE = new Dimension(800, 600);
     private static final Dimension EAST_WINDOW_SIZE = new Dimension(200, 600);
     private static final Dimension SOUTH_WINDOW_SIZE = new Dimension(1000, 200);
-    private static final Dimension EDITOR_WINDOW_SIZE = new Dimension(800, 600);
     private static final Dimension SPLASH_SCREEN_SIZE = new Dimension(800, 600);
-    private static final Dimension NEXT_WAVE_SCREEN_SIZE = new Dimension(200, 200);
-    private static final String TITLE = "TOWER DEFENSE";
+    private static final Dimension STATS_WINDOW_SIZE = new Dimension(200, 300);
+    private static final Dimension INFO_WINDOW_SIZE = new Dimension(200, 300);
+    private static final Dimension SHOP_WINDOW_SIZE = new Dimension(600, 100);
+    private static final Dimension WAVE_WINDOW_SIZE = new Dimension(200, 100);
     private JPanel myPanel;
-    private EastWindow myEastWindow;
-    private SouthWindow mySouthWindow;
+    private InformationScreen myStatsWindow;
+    private GameElementInformationScreen myInformationWindow;
+    private MultipleScreenPanel myEastWindow;
+    private ShopScreen myShopScreen;
+    private NextWaveScreen myNextWaveScreen;
+    private MultipleScreenPanel mySouthWindow;
     private JFrame myFrame;
-    private InformationScreen myTowerInfoScreen;
-    private InformationScreen myPlayerInfoScreen;
     private MapScreen myMapScreen;
-    private LevelsSelectorScreen myEditorWindow;
     private SplashScreen mySplashScreen;
     private Controller myController;
     private MapsSelectorScreen myMapSelector;
     private LevelsSelectorScreen myLevelSelector;
     private JButton myNextScreenButton;
 
+    /**
+     * constructor.
+     *
+     * @param controller
+     */
     public TDView (Controller controller) {
         myController = controller;
         createGUI();
     }
 
+    /**
+     * creates this view.
+     */
     public void createGUI () {
         myFrame = new JFrame(TITLE);
         myPanel = new JPanel();
@@ -57,73 +71,112 @@ public class TDView {
 
         mySplashScreen = new SplashScreen(SPLASH_SCREEN_SIZE, this);
         myMapScreen = new MapScreen(MAP_WINDOW_SIZE, myController);
-        myEastWindow = new EastWindow(EAST_WINDOW_SIZE, myController);
-        mySouthWindow = new SouthWindow(SOUTH_WINDOW_SIZE, myController);
+        
 
-        myFrame.getContentPane().add(mySplashScreen, BorderLayout.NORTH);
+        myStatsWindow = new InformationScreen("Stats", STATS_WINDOW_SIZE);
+        myInformationWindow =
+                new GameElementInformationScreen("Info", INFO_WINDOW_SIZE, myController);
+        Map<JPanel, String> screens = new HashMap<JPanel, String>();
+        screens.put(myStatsWindow, BorderLayout.NORTH);
+        screens.put(myInformationWindow, BorderLayout.SOUTH);
+        myEastWindow = new MultipleScreenPanel(EAST_WINDOW_SIZE, screens);
+
+        myShopScreen = new ShopScreen(SHOP_WINDOW_SIZE, myController);
+        myNextWaveScreen = new NextWaveScreen(WAVE_WINDOW_SIZE, myController);
+        screens = new HashMap<JPanel, String>();
+        screens.put(myShopScreen, BorderLayout.CENTER);
+        screens.put(myNextWaveScreen, BorderLayout.EAST);
+        mySouthWindow = new MultipleScreenPanel(SOUTH_WINDOW_SIZE, screens);
+        
         myFrame.getContentPane().add(nextScreenButton());
+        addScreen(mySplashScreen);
+    }
+
+    /**
+     * adds the new screens to the view.
+     */
+    public void assembleScreens() {
+        myFrame.remove(myLevelSelector);
+    
+        myFrame.getContentPane().add(myMapScreen, BorderLayout.CENTER);
+        myFrame.getContentPane().add(myEastWindow, BorderLayout.EAST);
+        myFrame.getContentPane().add(mySouthWindow, BorderLayout.SOUTH);
+    
+        myFrame.pack();
+        myFrame.setVisible(true);
+        
+    }
+
+    /**
+     * Removes the splash screen and displays the map choices.
+     */
+    public void showMapChoicesScreen() {
+        myFrame.remove(mySplashScreen);
+        myNextScreenButton.setVisible(false);
+        myMapSelector = new MapsSelectorScreen(MAP_WINDOW_SIZE, this);
+        addScreen(myMapSelector);
+    }
+
+    /**
+     * Removes the map choices screen and shows the level
+     *          difficulty choices screen.
+     */
+    public void showLevelDifficultyChoicesScreen() {
+        myFrame.remove(myMapSelector);
+        myLevelSelector = new LevelsSelectorScreen(MAP_WINDOW_SIZE, this);
+        addScreen(myLevelSelector);
+    }
+    
+    /**
+     * adds the parameter screen to the view.
+     * @param screen
+     */
+    private void addScreen(JPanel screen) {
+        myFrame.getContentPane().add(screen, BorderLayout.CENTER);
 
         myFrame.pack();
         myFrame.setVisible(true);
     }
 
+    /**
+     * helper method that creates the button to move to the
+     *          next screen.
+     * @return the JButton
+     */
     private Component nextScreenButton () {
-        myNextScreenButton = new JButton("NEXT");
+        myNextScreenButton = new JButton(NEXT_BUTTON_NAME);
         myNextScreenButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {
-                showPredefinedMaps();
+                showMapChoicesScreen();
             }
         });
         return myNextScreenButton;
     }
 
-    private void showPredefinedMaps () {
-        myFrame.remove(mySplashScreen);
-        myNextScreenButton.setVisible(false);
-
-        myMapSelector = new MapsSelectorScreen(MAP_WINDOW_SIZE, this);
-        myFrame.getContentPane().add(myMapSelector, BorderLayout.CENTER);
-
-        myFrame.pack();
-        myFrame.setVisible(true);
-    }
-
-    public void showModesScreen () {
-        myFrame.remove(myMapSelector);
-
-        myLevelSelector = new LevelsSelectorScreen(MAP_WINDOW_SIZE, this);
-        myFrame.getContentPane().add(myLevelSelector, BorderLayout.CENTER);
-
-        myFrame.pack();
-        myFrame.setVisible(true);
-    }
-
-    public void assembleScreens () {
-
-        myFrame.remove(myLevelSelector);
-
-        myFrame.getContentPane().add(myMapScreen, BorderLayout.CENTER);
-        myFrame.getContentPane().add(myEastWindow, BorderLayout.EAST);
-        myFrame.getContentPane().add(mySouthWindow, BorderLayout.SOUTH);
-
-        myFrame.pack();
-        myFrame.setVisible(true);
-        
-        //start game
-//        myController.start();
-        
-    }
-
+    /**
+     * gets the map screen for this view.
+     * @return the MapScreen
+     */
     public MapScreen getMapScreen () {
         return myMapScreen;
     }
 
-    public GameElementInformationScreen getTowerInfoScreen () {
-        return myEastWindow.getTowerScreen();
+    /**
+     * Gets the information screen that displays the
+     *          GameElement information for this view.
+     * @return the GameElementInformationScreen
+     */
+    public GameElementInformationScreen getGameElementInfoScreen () {
+        return myInformationWindow;
     }
 
+    /**
+     * Gets the information screen that displays the
+     *          player information for this view.
+     * @return the InformationScreen
+     */
     public InformationScreen getPlayerInfoScreen () {
-        return myEastWindow.getPlayerScreen();
+        return myStatsWindow;
     }
 }

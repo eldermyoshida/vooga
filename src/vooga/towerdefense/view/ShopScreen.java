@@ -8,18 +8,17 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.geom.Point2D;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JPanel;
 import vooga.towerdefense.controller.Controller;
-import vooga.towerdefense.util.Location;
 import vooga.towerdefense.util.Pixmap;
 
 
 /**
- * This class enables the player to click on items on the ShopScreen section and buy these
- * items and then drag them to the map screen.
+ * This class enables the player to click on items
+ *              on the ShopScreen section, buy these
+ *              items, and then place them on the map screen.
  * 
  * @author Leonard K. Ng'eno
  * 
@@ -34,6 +33,11 @@ public class ShopScreen extends JPanel {
     private Controller myController;
     private Map<String, Pixmap> myShopItems;
 
+    /**
+     * constructor.
+     * @param size
+     * @param controller
+     */
     public ShopScreen (Dimension size, Controller controller) {
         setPreferredSize(size);
         setFocusable(true);
@@ -45,19 +49,31 @@ public class ShopScreen extends JPanel {
         initShopItems();
     }
 
+    /**
+     * initializes the icons that will display
+     *          in the ShopScreen.
+     */
     private void initShopItems () {
         myShopItems = myController.getShopItemIcons();
     }
 
+    /**
+     * paints the ShopScreen.
+     * @param pen
+     */
     @Override
     public void paintComponent (Graphics pen) {
         super.paintComponent(pen);
         pen.setColor(myBackgroundColor);
         pen.fillRect(XCOORD, YCOORD, getSize().width, getSize().height);
-
         displayShopItems((Graphics2D) pen);
     }
 
+    /**
+     * helper method to display the shop items
+     *          in the shop. 
+     * @param pen
+     */
     private void displayShopItems (Graphics2D pen) {
         int totalX = 30;
         int totalY = 30;
@@ -74,17 +90,25 @@ public class ShopScreen extends JPanel {
         }
     }
 
-    private void makeMouseListener () {
+    /**
+     * helper method to make the mouse listener.
+     */
+    private void makeMouseListener() {
         myMouseListener = new MouseAdapter() {
             @Override
             public void mouseClicked (MouseEvent e) {
-                checkIfItemClickedOn(e.getPoint());
                 System.out.println("Mouse Point:"+e.getPoint());
+                handleClick(e.getPoint());
             }
         };
     }
 
-    private void checkIfItemClickedOn (Point point) {
+    /**
+     * helper method to determine if the mouse click was
+     *          on an item.
+     * @param point
+     */
+    private void handleClick(Point point) {
         for (Pixmap item : myShopItems.values()) {
             double x = item.getCenter().getX() - (double)(item.getWidth()/2); 
             double y = item.getCenter().getY() - (double)(item.getHeight()/2); 

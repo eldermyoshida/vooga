@@ -48,32 +48,16 @@ public class Controller {
     public void displayElementInformation (GameElement e) {
         if (e != null) {
             // TODO: update this to reflect actual properties
-            myView.getTowerInfoScreen().displayInformation("Stuff about my clicked tower");
+            myView.getGameElementInfoScreen().displayInformation("Stuff about my clicked tower");
             // myView.getTowerInfoScreen().displayInformation(e.getAttributes().toString());
             if (e instanceof Tower) {
-                myView.getTowerInfoScreen().displayUpgradesAndButton(((Tower) e).getUpgrades());
+                myView.getGameElementInfoScreen().displayUpgradesAndButton(((Tower) e).getUpgrades());
             }
         }
         else {
-            myView.getTowerInfoScreen().clearScreen();
+            myView.getGameElementInfoScreen().clearScreen();
         }
     }
-
-    // //testing method to check if displaying the correct info
-    // public void displayTileCoordinates (Point p) {
-    // Tile t = myModel.getTile(p);
-    // Point center = t.getCenter();
-    // System.out.println(center);
-    // myView.getTowerInfoScreen().displayInformation(center.toString());
-    // }
-
-    // //testing method to check if displaying the correct info
-    // public void displayTileCoordinates (Point p) {
-    // Tile t = myModel.getTile(p);
-    // Point center = t.getCenter();
-    // System.out.println(center);
-    // myView.getTowerInfoScreen().displayInformation(center.toString());
-    // }
 
     /**
      * updates the display on the MapScreen.
@@ -107,6 +91,15 @@ public class Controller {
         Tile tile = myModel.getTile(p);
         if (tile.containsElement()) { return tile.getElement(); }
         return null;
+    }
+
+    /**
+     * 
+     * @return a map of the elements in the shop 
+     * with String as a key and a Pixmap as the value
+     */
+    public Map<String, Pixmap> getShopItemIcons () {
+        return myModel.getShop().getAllShopItemIcons();
     }
 
     /**
@@ -217,24 +210,8 @@ public class Controller {
         // TODO: implement upgrade stuff on backend (ask unit team for tower upgrade info!)
     }
 
-    // //testing method to check if displaying the correct info
-    // public void displayTileCoordinates (Point p) {
-    // Tile t = myModel.getTile(p);
-    // Point center = t.getCenter();
-    // System.out.println(center);
-    // myView.getTowerInfoScreen().displayInformation(center.toString());
-    // }
-
     /**
-     * 
-     * @return  a map of the elements in the shop 
-     * with String as a key and a Pixmap as the value
-     */
-    public Map<String, Pixmap> getShopItemIcons () {
-        return myModel.getShop().getAllShopItemIcons();
-    }
-    /**
-     * Start the game controller
+     * Start the game controller.
      */
     public void start () {
         GameController game = new GameController(this);

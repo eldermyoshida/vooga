@@ -54,7 +54,7 @@ public class MapsSelectorScreen extends SelectScreen {
             @Override
             public void actionPerformed (ActionEvent e) {
                 if (myMapSelected == true) {
-                    getView().showModesScreen();
+                    getView().showLevelDifficultyChoicesScreen();
                 }
             }
         });
