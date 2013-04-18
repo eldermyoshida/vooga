@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import vooga.rts.gamedesign.sprite.gamesprites.Projectile;
 import vooga.rts.gamedesign.sprite.gamesprites.Resource;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Barracks;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building;
@@ -22,7 +21,6 @@ import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Soldier;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Worker;
 import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;
-import vooga.rts.gamedesign.weapon.Weapon;
 import vooga.rts.gui.Window;
 import vooga.rts.input.PositionObject;
 import vooga.rts.map.GameMap;
@@ -61,8 +59,7 @@ public class GameController extends AbstractController {
 
     public GameController () {
         myTeams = new HashMap<Integer, Team>();
-        myPlayers = new ArrayList<Player>();
-        myMap = new GameMap(8, new Dimension(512, 512));
+        myPlayers = new ArrayList<Player>();        
         pt = new PointTester();
         try {
             myMouseMover = new Robot();
@@ -106,9 +103,9 @@ public class GameController extends AbstractController {
         List<Unit> p2 = myTeams.get(2).getUnits();
         for (Unit u1 : p1) {
             for (Unit u2 : p2) {
-            	u2.getAttacked(u1);
-            	u1.getAttacked(u2);
-            	
+                u2.getAttacked(u1);
+                u1.getAttacked(u2);
+
                 if (u1 instanceof Worker) {
                     ((Worker) u1).gather(r);
                 }
@@ -121,6 +118,7 @@ public class GameController extends AbstractController {
 
     @Override
     public void paint (Graphics2D pen) {
+        myMap.paint(pen);
         for (Player p : myPlayers) {
             p.paint(pen);
         }
@@ -131,6 +129,7 @@ public class GameController extends AbstractController {
             pen.draw(myDrag);
         }
         pt.paint(pen);
+
     }
 
     @Override
@@ -188,6 +187,7 @@ public class GameController extends AbstractController {
 
     public void activate () {
         setupGame();
+        myMap = new GameMap(8, new Dimension(4096, 4096));
     }
 
     private void setupGame () {
@@ -206,14 +206,17 @@ public class GameController extends AbstractController {
             Player p1 = new HumanPlayer();
             Pixmap p =
                     new Pixmap(ResourceManager.getInstance()
-                            .<BufferedImage> getFile("images/sprites/soldier.png", BufferedImage.class));
+                            .<BufferedImage> getFile("images/sprites/soldier.png",
+                                                     BufferedImage.class));
             Dimension s = new Dimension(90, 90);
             r =
                     new Resource(new Pixmap(ResourceManager.getInstance()
                             .<BufferedImage> getFile("images/mineral.gif", BufferedImage.class)),
                                  new Location3D(300, 300, 0), new Dimension(60, 60), 0, 400);
-            Sound soun = new Sound(ResourceManager.getInstance().getFile("sounds/pikachu.wav", AudioClip.class));
-           
+            Sound soun =
+                    new Sound(ResourceManager.getInstance().getFile("sounds/pikachu.wav",
+                                                                    AudioClip.class));
+
             Unit a = null;
             a = new Soldier(p, new Location3D(200, 250, 0), s, soun, 1, 100);
             System.out.println("Player ID for a: " + a.getPlayerID());
@@ -227,10 +230,11 @@ public class GameController extends AbstractController {
 
             Unit c = new Soldier(p, new Location3D(500, 800, 0), s, soun, 2, 100);
             c.setAttackStrategy(new CanAttack(c.getWorldLocation(), c.getPlayerID()));
-            
+
             Unit w =
-                    new Worker(new Pixmap(ResourceManager.getInstance().<BufferedImage>getFile("images/scv.gif", BufferedImage.class)), new Location3D(500, 200, 0), s, soun, 20,
-                               40, 40);
+                    new Worker(new Pixmap(ResourceManager.getInstance()
+                            .<BufferedImage> getFile("images/scv.gif", BufferedImage.class)),
+                               new Location3D(500, 200, 0), s, soun, 20, 40, 40);
 
             p1.getUnits().addUnit(a);
             p1.getUnits().addUnit(b);
@@ -242,8 +246,9 @@ public class GameController extends AbstractController {
             addPlayer(p2, 2);
 
             building =
-                    new Barracks(new Pixmap(ResourceManager.getInstance().<BufferedImage>getFile("images/barracks.jpeg", BufferedImage.class)), new Location3D(800, 500, 0),
-                                 new Dimension(150, 150), null, 1, 300);
+                    new Barracks(new Pixmap(ResourceManager.getInstance()
+                            .<BufferedImage> getFile("images/factory.png", BufferedImage.class)),
+                                 new Location3D(800, 500, 0), new Dimension(368, 224), null, 1, 300);
             System.out.println("Setup Game");
             myHuman = (HumanPlayer) p1;
 

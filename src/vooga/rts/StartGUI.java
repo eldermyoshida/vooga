@@ -6,6 +6,7 @@ import vooga.rts.resourcemanager.ImageLoader;
 import vooga.rts.resourcemanager.ResourceManager;
 import vooga.rts.resourcemanager.SoundLoader;
 import vooga.rts.resourcemanager.exceptions.FileNotSupportedException;
+import vooga.rts.util.Camera;
 
 
 public class StartGUI {
@@ -15,7 +16,7 @@ public class StartGUI {
     public static void main (String[] args) {
         ResourceManager.getInstance().registerResourceLoader(new ImageLoader());
         ResourceManager.getInstance().registerResourceLoader(new SoundLoader());
-        ResourceManager.getInstance().setResourceBase(DEFAULT_RESOURCE_LOCATION);
+        ResourceManager.getInstance().setResourceBase(DEFAULT_RESOURCE_LOCATION);        
         
         try {
             ResourceManager.getInstance().queueFile("tree.jpg");
