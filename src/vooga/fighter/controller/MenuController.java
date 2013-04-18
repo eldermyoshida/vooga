@@ -30,7 +30,7 @@ import java.util.ResourceBundle;
 public class MenuController extends Controller {
 
 	private static final String INPUT_PATHWAY = "vooga.fighter.config.menudefault";
-	private static final String INPUT_SETTING = "vooga.fighter.config.Settings";
+	//private static final String INPUT_SETTING = "vooga.fighter.config.Settings";
 	private static final String TEST = "Test";
     private GameInfo myGameInfo;
     private LoopInfo myLoopInfo;
@@ -81,14 +81,14 @@ public class MenuController extends Controller {
     @InputMethodTarget(name = "continue")
     public void mouseclick(PositionObject pos)  {
         super.getMode().addObject(new MouseClickObject(pos.getPoint2D()));
-        System.out.println(myGameInfo.getGameInfo());
-        //notifyEndCondition("Test");
+        System.out.println(myGameInfo.getCharacters().size());
+        notifyEndCondition("Test");
     }
     
     @Override
     protected Input makeInput () {
         Input temp = new Input(INPUT_PATHWAY, super.getView());
-        temp.overrideSettings(INPUT_SETTING);
+        //temp.overrideSettings(INPUT_SETTING);
         temp.addListenerTo(this);
     	return temp;
     }

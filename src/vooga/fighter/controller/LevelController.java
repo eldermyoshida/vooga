@@ -14,6 +14,9 @@ import util.input.*;
 import vooga.fighter.model.LevelMode;
 import vooga.fighter.model.Mode;
 import vooga.fighter.model.objects.CharacterObject;
+import vooga.fighter.model.LevelMode;
+import vooga.fighter.model.Mode;
+import vooga.fighter.model.objects.CharacterObject;
 import vooga.fighter.util.Paintable;
 import vooga.fighter.view.Canvas;
 
