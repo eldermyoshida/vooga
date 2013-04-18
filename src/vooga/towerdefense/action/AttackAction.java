@@ -18,8 +18,6 @@ import vooga.towerdefense.model.GameMap;
 public class AttackAction extends Action {
 	private static final AttributeConstants myAttributeConstants = new AttributeConstants();
 	GameElement myInitiator;
-	double myCoolDown;
-	boolean isOneTimeAction;
 	private GameMap myMap;
 
 	public AttackAction(GameMap map, GameElement initiator){
@@ -47,7 +45,7 @@ public class AttackAction extends Action {
 			
 			//shoot a projectile towards each target
 			for (GameElement target : targets) {
-				myMap.addGameElement(myInitiator.getAttributeManager().getProjectileFactory().createProjectile(myInitiator.getCenter(),target));
+				myMap.addGameElement(myInitiator.getAttributeManager().getProjectileFactory().createProjectile(myInitiator,target));
 			}
 			
 		}
