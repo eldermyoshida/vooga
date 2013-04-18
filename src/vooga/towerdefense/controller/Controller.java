@@ -57,7 +57,7 @@ public class Controller {
     
     // TODO: controller constructor should take waves & map in order to initialize GameModel?
     // TODO: fix where the parameters come from
-    public Controller () {
+    public Controller (String language) {
 
 		List<Wave> waves = new ArrayList<Wave>();
 		
