@@ -23,7 +23,6 @@ public class ScoreController extends Controller {
 
     public ScoreController (String name, Canvas frame) {
         super(name, frame);
-        System.out.println("score controller started");
     }
 
     public ScoreController (String name, Canvas frame, ControllerDelegate manager,
@@ -40,8 +39,8 @@ public class ScoreController extends Controller {
     
 
     public void loadMode() {
-        List<Integer> characterNames = myGameInfo.getCharacters();
-        int mapID = myGameInfo.getMapName();
+        List<Integer> characterNames = getGameInfo().getCharacters();
+        int mapID = getGameInfo().getMapName();
         Mode temp = new LevelMode(this, characterNames, mapID);
         setMode(temp);
     }
@@ -83,9 +82,9 @@ public class ScoreController extends Controller {
     @Override
     public void notifyEndCondition () {
         System.out.println("score controller notify end is working");
-        myGameInfo.setCharacter(0, 1);
-        myGameInfo.setCharacter(1, 2);
-        myGameInfo.setMapName(1);
+        getGameInfo().setCharacter(0, 1);
+        getGameInfo().setCharacter(1, 2);
+        getGameInfo().setMapName(1);
         myManager.notifyEndCondition("Test");
         
     }

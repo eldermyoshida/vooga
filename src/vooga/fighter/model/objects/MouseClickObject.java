@@ -24,6 +24,7 @@ public class MouseClickObject extends GameObject {
 		addState("mouse", mouse);
 		setCurrentState("mouse");
 		myTicks = 0;
+		super.setImageData();
 	}
 
 	@Override

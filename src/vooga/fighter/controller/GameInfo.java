@@ -24,6 +24,7 @@ public class GameInfo extends UserGameData{
     public GameInfo () {
     	myCharacters = new ArrayList<Integer>();
     	myScores = new ArrayList<Integer>();
+    	myGameMode = "Fighting Game";
     }
     
     /**
@@ -35,7 +36,10 @@ public class GameInfo extends UserGameData{
         System.out.println("character size" + myCharacters.size());
         myMapID = mapID;
     }
-
+    
+    public String getGameInfo() {
+        return myGameMode;
+    }
     /**
      * 
      */
@@ -118,7 +122,11 @@ public class GameInfo extends UserGameData{
     public List<Integer> getCharacters () {
         return myCharacters;
     }
-
+    
+    public void addCharacters(int character) {
+        System.out.println("adding");
+        myCharacters.add(character);
+    }
     /**
      * 
      * @param index

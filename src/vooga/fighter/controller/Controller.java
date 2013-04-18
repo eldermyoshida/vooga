@@ -29,7 +29,7 @@ public abstract class Controller implements ModelDelegate {
     private String myName;
     private String myPath;
     private Canvas myCanvas;
-    protected GameInfo myGameInfo;
+    private GameInfo myGameInfo;
 
     protected Input myInput;
     public static final int FRAMES_PER_SECOND = 25;
