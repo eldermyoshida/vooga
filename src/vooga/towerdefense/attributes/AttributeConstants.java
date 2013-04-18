@@ -9,19 +9,19 @@ package vooga.towerdefense.attributes;
  *
  */
 public class AttributeConstants {
-        public static final String NAME="Name";
-	public static final String HEALTH="Health";
-	public static final String ATTACK_DAMAGE="Attack Damage";
-	public static final String ATTACK_RADIUS="Attack Range";
-	public static final String NUM_OF_TARGETS="Number of Targets";
+	public static final String NAME = "Name";
+	public static final String HEALTH = "Health";
+	public static final String ATTACK_DAMAGE = "Attack Damage";
+	public static final String ATTACK_RADIUS = "Attack Range";
+	public static final String NUM_OF_TARGETS = "Number of Targets";
 	/**
 	 * How many attacks per second
 	 */
-	public static final String ATTACK_INTERVAL="Attack Speed";
-	public static final String ARMOR="Armor";
-	public static final String MOVE_SPEED="Move Speed";
-	public static final String DIRECTION="Direction";
-	public static final String UPGRADES ="Upgrades";
-	public static final String COST="Cost";
+	public static final String ATTACK_INTERVAL = "Attack Speed";
+	public static final String ARMOR = "Armor";
+	public static final String MOVE_SPEED = "Move Speed";
+	public static final String DIRECTION = "Direction";
+	public static final String UPGRADES = "Upgrades";
+	public static final String COST = "Cost";
 
 }
