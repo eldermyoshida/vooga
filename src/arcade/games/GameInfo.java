@@ -78,6 +78,19 @@ public class GameInfo {
     
 
     // Here, there be shiny reflective dragons . . .
+    
+    /*
+     * but seriously, the reflection here is really fragile, we should add some exception handling when 
+     * we get a chance. I just want to make sure that it works for now. This whole class makes 
+     * me nervous cause we use a handwritten properties file and we're really relying on the game name 
+     * being the same as the class name, being the same as the game name thats stored in the database.
+     * 
+     * In the future, we should consider adding on to the publish procedure a way of generating the properties 
+     * file algorithmically, which would tighten this up a little and make it less error prone. Once we do that,
+     * then we should be able to preserve the game names across the class name, the database game name, the 
+     * properties file name , and the directory name. This is a later feature though. for now, the game
+     * developers will have to worry about getting things exactly right :(
+     */
 
     // untested . . . hope it works . . .
     @SuppressWarnings({ "rawtypes", "unchecked" })
@@ -126,16 +139,14 @@ public class GameInfo {
         catch (NoSuchMethodException e) {}
         return null;
     }
-
+    
     public Method getRunMethod (Class gameClass) {
         try {
             return gameClass.getDeclaredMethod("run", new Class[] { ArcadeInteraction.class });
         }
         catch (SecurityException e) {}
         catch (NoSuchMethodException e) {}
-
         return null;
-
     }
 
 }
