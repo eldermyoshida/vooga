@@ -32,7 +32,10 @@ public class ControlProgressionManager {
 				if(checkTourney(currentController, myGameInfo) && Condition.equals(NEXT)) 
 					return selectTourneyLevel(myGameInfo);
 				else if(Condition.equals(NEXT)) return myControllerList.get(i+1);
-				else if(Condition.equals(BACK)) return myControllerList.get(i -1);
+				else if(Condition.equals(BACK)) {
+				    System.out.println("going back");
+				    return myControllerList.get(i -1);
+				}
 			}
 		}
 		return MAINMENU; //Can't go wrong with MainMenu!

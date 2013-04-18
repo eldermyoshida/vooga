@@ -47,7 +47,7 @@ public class ControllerManager implements ControllerDelegate{
 	private void switchController(String condition) {
 		myCurrentController.stop();
 		myCurrentController = myControllerMap.get(myProgressionManager.getNextController(
-				myCurrentController.getName(),condition));
+				myCurrentController.getName(), condition));
 		System.out.println("now the controller is: " + myCurrentController.getName() );
 		myCurrentController.displaySplash();
 		myCurrentController = myCurrentController.getController(this, myGameInfo);

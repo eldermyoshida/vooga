@@ -38,6 +38,8 @@ public class CharacterSelectController extends MenuController {
     public CharacterSelectController(String name, Canvas frame, ControllerDelegate manager, 
                 GameInfo gameinfo) {
         super(name, frame, manager, gameinfo);
+        myInput = manager.setInput();
+        myInput.addListenerTo(this);
         myCharLimit = getGameInfo().getNumCharacters();
         myCharIndex = 0;
     }
@@ -51,15 +53,25 @@ public class CharacterSelectController extends MenuController {
     /**
      * Checks this controller's end conditions
      */
+    public void notifyCharacterSelection(String character) {
+        //myGameInfo.addCharacters(character);
+    }
+    /**
+     * Checks this controller's end conditions
+     */
     public void notifyEndCondition(String choice) {
-    	if(BACK.equals(choice)) getManager().notifyEndCondition(BACK);	
-    	else if (getMode().getMenuNames().contains(choice)){
-    		getGameInfo().setCharacter(myCharIndex, choice);
-    		myCharIndex++;
-    		if(myCharIndex >= myCharLimit)
-    		getManager().notifyEndCondition(NEXT);
-    		}
-    	}
+                getManager().notifyEndCondition(BACK);
+    }
+
+
+    
+    @InputMethodTarget(name = "continue")
+    public void mouseclick(PositionObject pos)  {
+        super.getMode().addObject(new MouseClickObject(pos.getPoint2D()));
+        notifyEndCondition("asdfdf");
+    }
+
+   
 
 }
 
