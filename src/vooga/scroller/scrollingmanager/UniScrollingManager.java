@@ -24,6 +24,8 @@ public class UniScrollingManager extends ScrollingManager {
     private int myUpperPaintBound;
     private int myRightPaintBound;
     private int myLowerPaintBound;
+    private boolean myHorizontalScrollActive = false;
+    private boolean myVerticalScrollActive = false;
 
     public UniScrollingManager(int restrictiondirection){
         if(restrictiondirection != 1 & restrictiondirection != 2 & restrictiondirection != 3 & restrictiondirection != 4) {
@@ -175,28 +177,36 @@ public class UniScrollingManager extends ScrollingManager {
 
         //hardcoded for left restriction
 
-        myLeftPaintBound = leftpaintbound();
-        myUpperPaintBound = upperpaintbound();
-        myRightPaintBound = rightpaintbound();
-        myLowerPaintBound = lowerpaintbound();
+        int leftPaintBound = leftpaintbound();
+        int upperPaintBound = upperpaintbound();
+        int rightPaintBound = rightpaintbound();
+        int lowerPaintBound = lowerpaintbound();
 
         if(myGame.getLeftBoundary() < levelLeftBoundary()) {
-            myLeftPaintBound = (int) levelLeftBoundary();
-            myRightPaintBound = (int) levelRightBoundary();
+            leftPaintBound = (int) levelLeftBoundary();
+            rightPaintBound = (int) levelRightBoundary();
         }
 
         if(myGame.getRightBoundary() > levelRightBoundary()) {
-            myLeftPaintBound =  - ((int) levelRightBoundary() % myGame.getBackground().getWidth(null));
-            myRightPaintBound = myView.getWidth()  - ((int) levelRightBoundary() % myGame.getBackground().getWidth(null));
+            leftPaintBound =  - ((int) levelRightBoundary() % myGame.getBackground().getWidth(null));
+            rightPaintBound = myView.getWidth()  - ((int) levelRightBoundary() % myGame.getBackground().getWidth(null));
 
         }
         if(myGame.getLowerBoundary() > levelLowerBoundary()) {
-            myUpperPaintBound = - ((int) levelLowerBoundary() % myGame.getBackground().getHeight(null));
-            myLowerPaintBound = myView.getHeight()  - ((int) levelLowerBoundary() % myGame.getBackground().getHeight(null));
+            upperPaintBound = - ((int) levelLowerBoundary() % myGame.getBackground().getHeight(null));
+            lowerPaintBound = myView.getHeight()  - ((int) levelLowerBoundary() % myGame.getBackground().getHeight(null));
         }
         if(myGame.getUpperBoundary() < levelUpperBoundary()) {
-            myUpperPaintBound = (int) levelUpperBoundary();
-            myLowerPaintBound = (int) levelLowerBoundary();
+            upperPaintBound = (int) levelUpperBoundary();
+            lowerPaintBound = (int) levelLowerBoundary();
+        }
+        if(!myHorizontalScrollActive) {
+            myLeftPaintBound = leftPaintBound;
+            myRightPaintBound = rightPaintBound;
+        }
+        if(!myVerticalScrollActive) {
+            myUpperPaintBound = upperPaintBound;
+            myLowerPaintBound = lowerPaintBound;
         }
 
         pen.drawImage(img, myLeftPaintBound, myUpperPaintBound, imgwidth, imgheight, null);
@@ -235,6 +245,31 @@ public class UniScrollingManager extends ScrollingManager {
             y =  halfheight - (halfheight - (Math.abs(uniUpperBoundary(p) - playerlocy)));
         }
         myLastPlayerPaintLocation = new Location(x, y);
+        if(myDirection == 1){
+            if(x > halfwidth){
+                myHorizontalScrollActive = false;
+            }
+            myHorizontalScrollActive = true;            
+        }
+        if(myDirection == 2 ){
+            if(x > halfheight){
+                myVerticalScrollActive = false;
+            }
+            myVerticalScrollActive = true;    
+        }
+        if(myDirection == 3){
+            if(x < halfwidth){
+                myHorizontalScrollActive = false;
+            }
+            myHorizontalScrollActive = true;    
+        }
+        if(myDirection == 4){
+            if(x < halfheight){
+                myVerticalScrollActive = false;
+            }
+            myVerticalScrollActive = true;    
+        }
+        
         return myLastPlayerPaintLocation;
 
     }
