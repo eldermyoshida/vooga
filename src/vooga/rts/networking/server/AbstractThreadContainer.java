@@ -72,7 +72,7 @@ public abstract class AbstractThreadContainer implements IThreadContainer, IMess
         stampMessage(message);
         if (message instanceof ClientInfoMessage) {
             ClientInfoMessage systemMessage = (ClientInfoMessage) message;
-            systemMessage.execute(thread, this);
+            systemMessage.affectServer(thread, this);
         }
     }
 

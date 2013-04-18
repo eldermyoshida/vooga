@@ -14,7 +14,7 @@ public class InitialConnectionMessage extends ClientInfoMessage {
         myUserName = userName;
     }
     @Override
-    public void execute (ConnectionThread thread, IThreadContainer server) {
+    public void affectServer (ConnectionThread thread, IThreadContainer server) {
         thread.setUserName(myUserName);
         thread.setGameName(myGameName);
         server.joinGameContainer(thread, myGameName);
