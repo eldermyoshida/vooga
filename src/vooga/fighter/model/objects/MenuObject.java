@@ -30,15 +30,11 @@ public class MenuObject extends GameObject {
         return super.getStates();
     }
 
-    public void tellDelegate () {
-        myDelegate.notifyEndCondition(myChoice);
-    }
     
-<<<<<<< HEAD
     public void tellDelegate(){
         System.out.println("<MenuObject.java><telldelegate> telling delegate");
     	myDelegate.notifyEndCondition(myChoice);
-=======
+    }
     @Override
     public void dispatchCollision (GameObject other) {
         // TODO Auto-generated method stub
@@ -61,6 +57,6 @@ public class MenuObject extends GameObject {
     public void handleCollision (EnvironmentObject other) {
         // TODO Auto-generated method stub
 
->>>>>>> aac58b9b3c5426cfc6cc2b12c59ae112193bed82
+
     }
 }
