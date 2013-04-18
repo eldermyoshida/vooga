@@ -13,6 +13,7 @@ import arcade.games.Game;
 import arcade.games.GameData;
 import arcade.games.GameInfo;
 import arcade.games.HighScores;
+import arcade.games.MultiplayerGame;
 import arcade.games.User;
 import arcade.games.UserGameData;
 import arcade.util.Pixmap;
@@ -108,7 +109,11 @@ public class Model implements ArcadeInteraction {
     public void playGame (GameInfo gameinfo) {
         System.out.println(gameinfo.getName());
         // TODO: instantiate the game.
-        Game game = new Example(this);
+        Game game = gameinfo.getGame(this);
+        game.run();
+    }
+    public void playMultiplayerGame(GameInfo gameinfo){
+        MultiplayerGame game = gameinfo.getMultiplayerGame(this);
         game.run();
     }
 
@@ -126,7 +131,7 @@ public class Model implements ArcadeInteraction {
         List<String> gameNames = myDb.retrieveListOfGames();
         for (String name : gameNames){
             String genre = myDb.getGenre(name);
-            GameInfo info = new GameInfo(name , genre, myLanguage);
+            GameInfo info = new GameInfo(name , genre, myLanguage, this);
             myGameInfos.put(name, info);
         }
     }
@@ -156,6 +161,9 @@ public class Model implements ArcadeInteraction {
     public User getUser () {
         // TODO get the user's avatar, figure out how we are implementing user infor for games
         return null;
+    }
+    public double getAverageRating(String gameName){
+        return myDb.getAverageRating();
     }
 
     @Override
