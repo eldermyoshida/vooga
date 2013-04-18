@@ -2,6 +2,13 @@ package vooga.rts.controller;
 
 import java.awt.geom.Rectangle2D;
 
+/**
+ * Extension of Command which contains the size of the area that is dragged over
+ * when the mouse is clicked and dragged
+ * 
+ * @author Challen Herzberg-Brovold
+ * 
+ */
 public class DragCommand extends Command {
     
     public Rectangle2D myRectangle;

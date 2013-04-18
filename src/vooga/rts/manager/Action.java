@@ -6,6 +6,7 @@ import vooga.rts.util.Location;
 
 public class Action {
     
+    // Example class
     private List<InteractiveEntity> myUnits;
     private Location myLocation;
     

@@ -9,7 +9,7 @@ import vooga.rts.controller.Controller;
 import vooga.rts.gamedesign.sprite.InteractiveEntity;
 import vooga.rts.state.State;
 
-public class Manager implements Controller, State  {
+public class Manager implements State  {
     
     private List<InteractiveEntity> myUnits;
     
@@ -18,18 +18,26 @@ public class Manager implements Controller, State  {
     }
     @Override
     public void receiveCommand (Command command){
-        
-    }
-
-    @Override
-    public void sendCommand (Command command) {
-        
+        // This will create an action and then use the .execute() method to invoke it 
     }
     
+    @Override
+    public void update (double elapsedTime) {
+        for (InteractiveEntity u: myUnits) {
+            u.update(elapsedTime);
+        }        
+    }
+    @Override
+    public void paint (Graphics2D pen) {
+        for (InteractiveEntity u: myUnits) {
+            u.paint(pen);
+        }        
+    }
     public void add (InteractiveEntity unit) {
         myUnits.add(unit);
     }
     
+    // All the of the following methods need to be turned in to commands!!!
     public void selectDrag (Rectangle2D area) {
       
     }
@@ -46,17 +54,5 @@ public class Manager implements Controller, State  {
         for (InteractiveEntity u: myUnits) {
             deselect(u);
         }
-    }
-    @Override
-    public void update (double elapsedTime) {
-        for (InteractiveEntity u: myUnits) {
-            u.update(elapsedTime);
-        }        
-    }
-    @Override
-    public void paint (Graphics2D pen) {
-        for (InteractiveEntity u: myUnits) {
-            u.paint(pen);
-        }        
     }    
 }

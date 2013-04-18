@@ -10,6 +10,6 @@ package vooga.rts.controller;
  */
 public interface Controller {
     
-    public void sendCommand(Command command);
+    public void sendCommand(Command command); // Should this not take a parameter?
     
 }
