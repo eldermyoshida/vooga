@@ -16,6 +16,7 @@ import arcade.games.HighScores;
 import arcade.games.User;
 import arcade.games.UserGameData;
 import arcade.util.Pixmap;
+import arcade.view.Login;
 import arcade.view.LoginView;
 import arcade.view.MainView;
 
@@ -44,7 +45,7 @@ public class Model implements ArcadeInteraction {
 
     public void authenticate (String username, String password) {
         if (myDb.authenticateUsernameAndPassword(username, password)) {
-            myLoginView.destroy();
+            myLoginView.dispose();
             //getGameList();
             organizeSnapshots();
             new MainView(this, myResources);
