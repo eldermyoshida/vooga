@@ -156,7 +156,6 @@ public class Controller {
     public void handleShopClickOnItem (String itemName) {
         GameElement itemToBuy = myModel.getShop().getShopItem(itemName);
         BuildMode myNewMode = new BuildMode();
-        System.out.println("Build!");
         myNewMode.setItemToBuild(itemToBuy);    
         myControlMode = myNewMode;
     }
