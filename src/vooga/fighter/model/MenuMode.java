@@ -42,7 +42,7 @@ public class MenuMode extends Mode {
 	public void initializeMode() {
 		myMenuGrid = new MenuGrid(myMenuId);	
 		myMenuObjects = myMenuGrid.getMenuObjects();
-		for(MenuObject menu : myMenuGrid.getMenuObjects()){
+		for(MenuObject menu : myMenuObjects){
 			addObject(menu);
 		}
 	}
