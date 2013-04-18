@@ -8,7 +8,6 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import vooga.towerdefense.controller.Controller;
 
 
@@ -53,6 +52,7 @@ public class GameElementInformationScreen extends InformationScreen {
      * 
      * @param title
      * @param size
+     * @param controller
      */
     public GameElementInformationScreen (String title, Dimension size, Controller controller) {
         super(title, size);
@@ -65,6 +65,8 @@ public class GameElementInformationScreen extends InformationScreen {
     /**
      * displays the upgrade options in a drop down menu
      * and the upgrade button.
+     *
+     * @param upgrades is the list of upgrades as strings
      */
     public void displayUpgradesAndButton (List<String> upgrades) {
         myUpgradeOptionsBox.removeAllItems();
