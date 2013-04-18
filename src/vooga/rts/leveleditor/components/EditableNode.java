@@ -98,13 +98,9 @@ public class EditableNode {
     }
     public void reset() {
         myOccupied = false;
-        try {
-            myTile.setTile(0);
-        }
-        catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        
+        myTile.setType(0);
+        
     }
     public void setPlayerIndex(int i) {
         myPlayerIndex = i;        

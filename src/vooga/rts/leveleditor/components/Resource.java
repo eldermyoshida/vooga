@@ -14,18 +14,13 @@ import vooga.rts.util.Location;
  *
  */
 
-public class Resource {
+public class Resource extends MapComponent{
     
-    private static final String BUNDLE_RELATIVE_PATH = "vooga.rts.leveleditor.resource.";
-    private static final String IMAGE_PATH = "./src/vooga/rts/leveleditor/resource/";
+    private static final String BUNDLE_NAME = "ResourceIndex";
     
     private Location myLocation;
-    
-    private int myID;
-    private String myName;
-    private BufferedImage myImage;
-    
-    private ResourceBundle myResources;
+    //further extension required
+    private int myAmount;
     
     /**
      * Constructor for this class
@@ -35,18 +30,9 @@ public class Resource {
      * @param image
      */
     public Resource(Location loc, int id) {
-        myResources = ResourceBundle.getBundle(BUNDLE_RELATIVE_PATH + "ResourceIndex");
-        myID = id;
-        myName = myResources.getString(myID+"");
-        myLocation = loc;
-        try {
-            myImage = ImageIO.read(new File(System.getProperty("user.dir") + IMAGE_PATH + myName));
-        }
-        catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
+        super(BUNDLE_NAME);
+        setType(id);
+        myLocation = loc;}
     
     public Resource(int x , int y, int id ) {
         this( new Location(x,y), id);
@@ -56,33 +42,33 @@ public class Resource {
         this(0,0,id);
     }
     
-    public Resource (int ID, String name, BufferedImage image) {
-        myID = ID;
-        myName = name;
-        myImage = image;
-    }
-
-    public String getName() {
-        return myName;
+    @Override
+    public void setType(int id) {
+        super.setType(id);
+        try {
+         refreshImage();
+     }
+     catch (IOException e) {
+         // TODO Auto-generated catch block
+         e.printStackTrace();
+     }
     }
     
-    public int getID() {
-        return myID;
-    }
-
-    public BufferedImage getImage() {
-        return myImage;
+    public void refreshImage() throws IOException {
+        if(myResource.containsKey(myID+"")) {
+            String content = myResource.getString(myID+"");
+            String[] buffer = content.split("&");
+            myName = buffer[0];
+            myImageName = buffer[1];
+            myImage = ImageIO.read(new File(System.getProperty("user.dir") + IMAGE_PATH + myImageName));            
+        }
     }
     
     public int getMyX() {
-        return (int)myLocation.getX();
+        return (int) myLocation.getX();
     }
     
     public int getMyY() {
-        return (int)myLocation.getY();
-    }
-    
-    public Location getMyLocation() {
-        return myLocation;
+        return (int) myLocation.getY();
     }
 }

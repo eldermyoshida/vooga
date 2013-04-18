@@ -22,7 +22,7 @@ public class TerrainButton extends JToggleButton {
 
     public TerrainButton(Terrain t, TerrainPanel owner) {
         myTerrain = t;
-        myIcon = t.getImage();
+        myIcon = t.getMyImage();
         myOwner = owner;
         myInput = new Input(INPUT_DIR, this);
         myInput.addListenerTo(this);

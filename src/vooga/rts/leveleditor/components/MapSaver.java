@@ -154,7 +154,7 @@ public class MapSaver {
     private void writeResources() throws IOException{
         myFileWriter.write("   <resources>\r\n");
         for(Resource res : mySavingMap.getResourceSet()) {
-            String name = res.getName();
+            String name = res.getMyName();
             int x = res.getMyX();
             int y = res.getMyY();
             myFileWriter.write("      <resource type=\"" + name + "\" X=" + x + " Y=" + y + " />\r\n");    

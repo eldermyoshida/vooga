@@ -14,40 +14,23 @@ import vooga.rts.util.Location;
  * @author Richard Yang
  *
  */
-public class Terrain {
+public class Terrain extends MapComponent{
    
-   private static final String BUNDLE_RELATIVE_PATH = "vooga.rts.leveleditor.resource.";
-   private static final String IMAGE_RELATIVE_PATH = "./src/vooga/rts/leveleditor/resource/";
-   
-   private int myID; 
-   private Location myLocation;
+   private static final String BUNDLE_NAME = "TerrainIndex";
     
-   private String myName;
-   private String myImageName;
+   protected Location myLocation;
+    
    private int myWalkAbility;
-   
-   private BufferedImage myImage;
-   
-   private ResourceBundle myResources = ResourceBundle.getBundle(BUNDLE_RELATIVE_PATH + "TerrainIndex");
-   
+  
+  
    public Terrain(Location loc , int ID ) {
+       super(BUNDLE_NAME);
+       setType(ID);
        myLocation = loc;
-       myID = ID;
-       String content = myResources.getString(ID+"");
-       String[] buffer = content.split("&");
-       myName = buffer[0];
-       myImageName = buffer[1];
-       myWalkAbility = Integer.parseInt(buffer[2]);
-       try {
-        myImage = ImageIO.read(new File(System.getProperty("user.dir") + IMAGE_RELATIVE_PATH+ myImageName));
-    }
-    catch (IOException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-    }
-       
-       
    }
+      
+       
+   
    
    public Terrain(int x , int y , int ID) {
        
@@ -58,30 +41,53 @@ public class Terrain {
    public Terrain(int i) {
        this(0,0,i);
    }
-
-public String getMyName () {
-    return myName;
+   
+   @Override
+   public void setType(int id) {
+       super.setType(id);
+       try {
+        refreshImage();
+    }
+    catch (IOException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+    }
+   } 
+   
+   public void refreshImage() throws IOException {
+       if(myResource.containsKey(myID+"")) {
+           String content = myResource.getString(myID+"");
+           String[] buffer = content.split("&");
+           myName = buffer[0];
+           myImageName = buffer[1];
+           myWalkAbility = Integer.parseInt(buffer[2]);
+           myImage = ImageIO.read(new File(System.getProperty("user.dir") + IMAGE_PATH + myImageName));            
+       }
    }
+
 
    public int getMyWalkAbility () {
     return myWalkAbility;
    }
    
-   public int getMyID() {
-       return myID;
-   }
    
    public Location getMyLocation() {
        return myLocation;
+   }
+   
+   public int getMyX() {
+       return (int)myLocation.getX();
+   }
+   
+   public int getMyY() {
+       return (int)myLocation.getY();
    }
    
    public void paint(Graphics pen) {
        pen.drawImage(myImage, (int)myLocation.getX(), (int)myLocation.getY(), null);
    }
 
-   public BufferedImage getImage() {
-       return myImage;
-   }
+   
 
    
    

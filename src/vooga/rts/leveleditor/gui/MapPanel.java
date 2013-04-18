@@ -109,7 +109,7 @@ public class MapPanel extends JComponent {
         //paint Terrain
         for(MapLayer m : myMap.getLayerMap().values()) {
             for(Terrain t : m.getTerrainSet()) {
-                g.drawImage(t.getImage(),(int)(t.getMyLocation().getX()),(int)(t.getMyLocation().getY()),null);
+                g.drawImage(t.getMyImage(),(int)(t.getMyLocation().getX()),(int)(t.getMyLocation().getY()),null);
             }
         }
     }
