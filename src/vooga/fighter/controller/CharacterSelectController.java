@@ -22,17 +22,14 @@ import java.util.ResourceBundle;
 
 /**
  * 
- * @author Jerry Li  
+ * @author Jerry Li and Jack Matteucci
  */
 
 @InputClassTarget
 public class CharacterSelectController extends MenuController {
 
-    private static final String INPUT_PATHWAY = "vooga.fighter.config.menudefault";
-    private static final String INPUT_SETTING = "vooga.fighter.config.Settings";
-    private static final String TEST = "Test";
-    private GameInfo myGameInfo;
-    private LoopInfo myLoopInfo;
+	private int myCharLimit;
+	private int myCharIndex;
 
     public CharacterSelectController (String name, Canvas frame) {
         super(name, frame);
@@ -41,7 +38,8 @@ public class CharacterSelectController extends MenuController {
     public CharacterSelectController(String name, Canvas frame, ControllerDelegate manager, 
                 GameInfo gameinfo) {
         super(name, frame, manager, gameinfo);
-
+        myCharLimit = getGameInfo().getNumCharacters();
+        myCharIndex = 0;
     }
 
     @Override
@@ -54,9 +52,11 @@ public class CharacterSelectController extends MenuController {
      * Checks this controller's end conditions
      */
     public void notifyEndCondition(String choice) {
-    	if(BACK.equals(choice)) getManager().notifyEndCondition(BACK);
+    	if(BACK.equals(choice)) getManager().notifyEndCondition(BACK);	
     	else if (getMode().getMenuNames().contains(choice)){
-    		getGameInfo().setMapName(choice);
+    		getGameInfo().setCharacter(myCharIndex, choice);
+    		myCharIndex++;
+    		if(myCharIndex >= myCharLimit)
     		getManager().notifyEndCondition(NEXT);
     		}
     	}

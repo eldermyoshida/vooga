@@ -21,36 +21,38 @@ public class ControllerManager implements ControllerDelegate{
 	private Controller myCurrentController;
 	private Canvas myCanvas;
 	private GameInfo myGameInfo;
+	private ControlProgressionManager myProgressionManager;
 	
-	public ControllerManager(Canvas frame, GameInfo gameinfo, ControllerFactory factory) {
+	public ControllerManager(Canvas frame, GameInfo gameinfo, ControllerFactory factory,
+			ControlProgressionManager progressionmanager) {
 		myCanvas = frame;
 		myControllerMap = factory.getMap();
 		myGameInfo = gameinfo;
-		myCurrentController = myControllerMap.get(MAINMENU).getController(this, myGameInfo);
-		
+		myProgressionManager = progressionmanager;
+		myCurrentController = myControllerMap.get(myProgressionManager.getFirstController())
+				.getController(this, myGameInfo);
 	}
 	
 	public void run(){
 		myCurrentController.start();
 	}
+	
+	public void notifyEndCondition(String string) {
+		switchController(string);
+	}
 
-	public void switchController(String NextController) {
-	        System.out.println("<controllermanager.java><switchcontroller> switching controllers");
+	private void switchController(String condition) {
 		myCurrentController.stop();
-		myCurrentController = myControllerMap.get(NextController);
+		myCurrentController = myControllerMap.get(myProgressionManager.getNextController(
+				myCurrentController.getName(),condition));
 		System.out.println("now the controller is: " + myCurrentController.getName() );
-		//myCurrentController.displaySplash();
+		myCurrentController.displaySplash();
 		myCurrentController = myCurrentController.getController(this, myGameInfo);
 		myCurrentController.start();	
 	}      
 
-	@Override
-	public void notifyEndCondition(String string) {
-		switchController(string);
-	}
-	
 	public void exit(){
-		myCurrentController.stop();  //Bug Bug doesn't exit
+		System.exit(0);
 	}
 	
 	

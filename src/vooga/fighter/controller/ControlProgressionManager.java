@@ -12,7 +12,6 @@ public class ControlProgressionManager {
 	private static final String MAINMENU = "MainMenu";
 	private static final String CHARACTERSELECT = "CharacterSelect";
 	private static final String MAPSELECT = "MapSelect";
-	private static final String LEVELCONTROLLER = "LevelController";
 	private static final String SCORECONTROLLER = "ScoreController";
 	private static final String TOURNEY = "Tourney";
 	private static final String NEXT = "Next";
@@ -23,19 +22,11 @@ public class ControlProgressionManager {
 	public ControlProgressionManager(GameInfo gameinfo) {
 		myGameInfo = gameinfo;
 		myControllerList = new ArrayList<String>();
-	}
-	
-	protected void setupMap(List<String> list){
-		list.clear();
-		list.add(MAINMENU);
-		list.add(MAINMENU);
-		list.add(CHARACTERSELECT);
-		list.add(MAPSELECT);
-		list.add(SCORECONTROLLER);
-		list.add(MAINMENU);
+		updateProgression(myControllerList, myGameInfo);
 	}
 	
 	public String getNextController(String currentController, String Condition){
+		updateProgression(myControllerList, myGameInfo);
 		for(int i=1; i<myControllerList.size(); i++ ){
 			if(currentController.equals(myControllerList.get(i))){
 				if(checkTourney(currentController, myGameInfo) && Condition.equals(NEXT)) 
@@ -45,6 +36,23 @@ public class ControlProgressionManager {
 			}
 		}
 		return MAINMENU; //Can't go wrong with MainMenu!
+	}
+	
+	public String getFirstController(){
+		return MAINMENU;
+	}
+	
+	private void updateProgression(List<String> list, GameInfo gameinfo){
+		list.clear();
+		list.add(MAINMENU);
+		list.add(MAINMENU);
+		list.add(CHARACTERSELECT);
+		list.add(MAPSELECT);
+		if(gameinfo.getGameMode() != null){
+		list.add(gameinfo.getGameMode());
+		list.add(SCORECONTROLLER);
+		list.add(MAINMENU);
+		}
 	}
 	
 	private boolean checkTourney(String currentController, GameInfo info){
@@ -62,7 +70,7 @@ public class ControlProgressionManager {
 			if(!mapsplayed.contains(map)){
 				info.setMapName(map);
 				info.getMapsPlayed().add(map);
-				return LEVELCONTROLLER;
+				return myGameInfo.getGameMode();
 			}
 		}
 		return MAINMENU; //Can't go wrong with MainMenu!

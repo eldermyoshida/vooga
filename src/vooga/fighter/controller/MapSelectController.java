@@ -27,10 +27,6 @@ import java.util.ResourceBundle;
 
 @InputClassTarget
 public class MapSelectController extends MenuController {
-	
-    private static final String NEXT = "Next";
-    private static final String BACK = "Back";
-    private static final String EXIT = "EXIT";
     
     public MapSelectController (String name, Canvas frame) {
         super(name, frame);

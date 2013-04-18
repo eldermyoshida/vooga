@@ -29,9 +29,8 @@ import java.util.ResourceBundle;
 @InputClassTarget
 public class MainMenuController extends MenuController {
 	
-    private static final String NEXT = "Next";
-    private static final String BACK = "Back";
-    private static final String EXIT = "EXIT";
+	 private static final String DEFAULT_RESOURCE_PACKAGE = "vooga.fighter.config.";
+    private ResourceBundle myResources;
     
     public MainMenuController (String name, Canvas frame) {
         super(name, frame);
@@ -40,6 +39,7 @@ public class MainMenuController extends MenuController {
     public MainMenuController(String name, Canvas frame, ControllerDelegate manager, 
                 GameInfo gameinfo) {
         super(name, frame, manager, gameinfo);
+        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "LevelConfig");
     }
     /**
      * Checks this controller's end conditions
@@ -49,6 +49,7 @@ public class MainMenuController extends MenuController {
     	if(BACK.equals(choice)) getManager().notifyEndCondition(BACK);
     	else if (getMode().getMenuNames().contains(choice)){
     		getGameInfo().setGameMode(choice);
+    		getGameInfo().setNumCharacters(Integer.parseInt(myResources.getString(choice)));
     		getManager().notifyEndCondition(NEXT);
     		}
     	}

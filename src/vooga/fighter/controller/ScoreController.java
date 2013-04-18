@@ -33,20 +33,16 @@ public class ScoreController extends Controller {
     public ScoreController (String name, Canvas frame, ControllerDelegate manager,
                             GameInfo gameinfo) {
         super(name, frame, manager, gameinfo);
-        loadMode();
-        GameLoopInfo gameLoopInfo = new GameLoopInfo((LevelMode) super.getMode());
-        setGameLoopInfo(gameLoopInfo);
-        frame.setViewDataSource(gameLoopInfo);
-        System.out.println("score controller finished");
     }
     
-    
+    //BUG BUG this is just copied from the Level Controller
     public void loadMode() {
-        List<Integer> characterNames = getGameInfo().getCharacters();
-        int mapID = getGameInfo().getMapName();
-        Mode temp = new LevelMode(this, characterNames, mapID);
+        List<String> characterNames = getGameInfo().getCharacters();
+        String mapID = getGameInfo().getMapName();
+        LevelMode temp = new LevelMode(this, characterNames, mapID);
         setMode(temp);
     }
+
     
     /**
      * Exits program.
@@ -77,31 +73,16 @@ public class ScoreController extends Controller {
     @InputMethodTarget(name = "Restart")
     public void playerOneLeftInput (AlertObject alObj) {
         System.out.println("restarting");
-        notifyEndCondition();
-        
-    }
-
-    @Override
-    public void notifyEndCondition () {
-        System.out.println("score controller notify end is working");
-        getGameInfo().setCharacter(0, 1);
-        getGameInfo().setCharacter(1, 2);
-        getGameInfo().setMapName(1);
-        myManager.notifyEndCondition("Test");
+        notifyEndCondition(NEXT);
         
     }
 
 	@Override
 	public void notifyEndCondition(String endCondition) {
-		// TODO Auto-generated method stub
+		myManager.notifyEndCondition(endCondition);
 		
 	}
 
-	@Override
-	public void notifyEndCondition(int endCondition) {
-		// TODO Auto-generated method stub
-		
-	}
    
 
 }

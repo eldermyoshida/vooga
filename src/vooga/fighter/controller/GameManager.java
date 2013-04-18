@@ -42,7 +42,8 @@ public static final Dimension SIZE = new Dimension(800, 600);
         myCanvas = new Canvas(SIZE); 
         myGameInfo = new GameInfo(new MapLoader().getMapNames());
         ControllerFactory factory = makeFactory(myCanvas);
-        myControllerManager = new ControllerManager(myCanvas, myGameInfo, factory);
+        ControlProgressionManager progressionmanager = new ControlProgressionManager(myGameInfo);
+        myControllerManager = new ControllerManager(myCanvas, myGameInfo, factory, progressionmanager);
         JFrame frame = new JFrame(TITLE);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // add our user interface components

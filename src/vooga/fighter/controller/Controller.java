@@ -9,6 +9,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.swing.Timer;
 
@@ -24,15 +25,20 @@ import javax.swing.Timer;
  */
 
 public abstract class Controller implements ModelDelegate {
-	
+	public static final String DEFAULT_RESOURCE_PACKAGE = "vooga.fighter.config.";
+	public static final String DEFAULT_IMAGE_PACKAGE = "vooga.fighter.images.";
     public static final String NEXT = "Next";
     public static final String BACK = "Back";
-
+    public static final String EXIT = "EXIT";
+    public static final String SPLASH = "Splash";
+    
     protected ControllerDelegate myManager;
     private String myName;
     private String myPath;
     private Canvas myCanvas;
     private GameInfo myGameInfo;
+    private ResourceBundle mySplashResource;
+    private String mySplashPath;
 
     protected Input myInput;
     public static final int FRAMES_PER_SECOND = 25;
@@ -47,12 +53,14 @@ public abstract class Controller implements ModelDelegate {
         myName = name;
         myCanvas = frame;
         myInput = makeInput();
+        mySplashResource = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + SPLASH);
     }
 
     public Controller(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo) {
         this(name, frame);
         myManager = manager;
         myGameInfo = gameinfo;
+        loadMode();
     }
 
     public String getName(){

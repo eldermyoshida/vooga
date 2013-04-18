@@ -38,7 +38,6 @@ public abstract class MenuController extends Controller {
     public MenuController(String name, Canvas frame, ControllerDelegate manager, 
     		GameInfo gameinfo) {
     	super(name, frame, manager, gameinfo);
-    	loadMode();
     	LoopInfo LoopInfo =  new LoopInfo(super.getMode());
     	setLoopInfo(LoopInfo);
     }

@@ -30,7 +30,7 @@ import vooga.fighter.view.Canvas;
  */
 @InputClassTarget
 
-public class OneVOneController extends Controller {
+public class OneVOneController extends LevelController {
     private static final String INPUT_PATHWAY = "vooga.fighter.config.leveldefault";
     private List<CharacterObject> myInputObjects;
 
@@ -41,25 +41,7 @@ public class OneVOneController extends Controller {
     public OneVOneController(String name, Canvas frame, ControllerDelegate manager, 
     		GameInfo gameinfo) {
     	super(name, frame, manager, gameinfo);
-    	//frame.setViewDataSource(this);
-    	loadMode();
-    	LoopInfo gameLoopInfo = new GameLoopInfo((LevelMode) super.getMode());
-    	setLoopInfo(gameLoopInfo);
-    	frame.setViewDataSource(gameLoopInfo);
-    	
-    	
     }
-
-    
-    public void loadMode() {
-        List<String> characterNames = getGameInfo().getCharacters();
-        int mapID = getGameInfo().getMapName();
-        Mode temp = new LevelMode(this, characterNames, mapID);
-        setMode(temp);
-        myInputObjects = temp.getMyCharacterObjects();
-    }
-
-
 
     @Override
     public Controller getController (ControllerDelegate delegate, GameInfo gameinfo) {
@@ -68,76 +50,8 @@ public class OneVOneController extends Controller {
     }
 
     @Override
-    protected Input makeInput () {
-        Input input = new Input(INPUT_PATHWAY, super.getView());
-        input.addListenerTo(this);
-    	return input;
-    }
-    
-    @InputMethodTarget(name = "player1_jump")
-    public void playerOneJumpInput (AlertObject alObj)  {
-        myInputObjects.get(0).move(270);
-    }
-    
-    @InputMethodTarget(name = "player1_left")
-    public void playerOneLeftInput (AlertObject alObj) {
-        myInputObjects.get(0).move(180);
-        
-    }
-    
-    @InputMethodTarget(name = "player1_right")
-    public void playerOneRightInput(AlertObject alObj) {
-        myInputObjects.get(0).move(0);
-        
-    }
-    
-    @InputMethodTarget(name = "player1_down")
-    public void playerOneDownInput(AlertObject alObj) {
-        myInputObjects.get(0).move(90);
-        
-    }
-    
-    @InputMethodTarget(name = "player2_jump")
-    public void playerTwoJumpInput (AlertObject alObj)  {
-        myInputObjects.get(1).move(270);
-    }
-    
-    @InputMethodTarget(name = "player2_left")
-    public void playerTwoLeftInput (AlertObject alObj) {
-        myInputObjects.get(1).move(180);
-       
-    }
-    
-    @InputMethodTarget(name = "player2_right")
-    public void playerTwoRightInput(AlertObject alObj) {
-        myInputObjects.get(1).move(0);
-        
-    }
-    
-    @InputMethodTarget(name = "player2_down")
-    public void playerTwoDownInput(AlertObject alObj) {
-        myInputObjects.get(1).move(90);
-        
-    }
-    @Override
-    public void notifyEndCondition () {
-        getGameInfo().setMapName(2);
-        getGameInfo().getCharacters().clear();
-        myManager.notifyEndCondition("GameOver");
-        
-    }
-
-
-
-	@Override
-	public void notifyEndCondition(int endCondition) {
-		// TODO Auto-generated method stub
-		
-	}
-    
-    @Override
     public void notifyEndCondition (String endCondition) {
-    	
+    	getManager().notifyEndCondition(NEXT);
     }
     
 }
