@@ -124,11 +124,7 @@ public class LevelController extends Controller {
         
     }
 
-	@Override
-	public void notifyEndCondition(String endCondition) {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 	@Override
 	public void notifyEndCondition(int endCondition) {

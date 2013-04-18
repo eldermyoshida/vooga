@@ -2,7 +2,7 @@ package vooga.fighter.controller;
 
 
 
-import util.input.src.input.Input;
+import util.input.Input;
 import vooga.fighter.model.*;
 import vooga.fighter.view.Canvas;
 import java.awt.Dimension;
