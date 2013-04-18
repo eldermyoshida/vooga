@@ -196,6 +196,7 @@ public class MapPanel extends JComponent {
     
     public void clear() {
         myMap.clearMap();
+        myMap.getLayerMap().clear();
         repaint();
     }
 
