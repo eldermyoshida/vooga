@@ -86,7 +86,6 @@ public class ShopScreen extends JPanel {
 
     private void checkIfItemClickedOn (Point point) {
         for (Pixmap item : myShopItems.values()) {
-            //Point2D center = item.getCenter(); 
             double x = item.getCenter().getX() - (double)(item.getWidth()/2); 
             double y = item.getCenter().getY() - (double)(item.getHeight()/2); 
             System.out.println("x:" + x + "y:" + y);
