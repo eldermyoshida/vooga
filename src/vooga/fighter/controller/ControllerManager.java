@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import util.input.Input;
 import vooga.fighter.view.Canvas;
 /**
  * 
@@ -16,19 +17,13 @@ import vooga.fighter.view.Canvas;
 
 public class ControllerManager implements ControllerDelegate{
         
-        //For testing pruposes
-	private static final String MAINMENU = "MainMenu";
-	private static final String CHARACTER = "CharacterSelectMenu";
-	private static final String MODE = "ModeSelectMenu";
-	private static final String TEST = "Test";
-	
-	
-	
+       
 	private Map<String, Controller> myControllerMap;
 	private Controller myCurrentController;
 	private Canvas myCanvas;
 	private GameInfo myGameInfo;
 	private ControlProgressionManager myProgressionManager;
+	private static final String INPUT_PATHWAY = "vooga.fighter.config.menudefault";
 	
 	public ControllerManager(Canvas frame, GameInfo gameinfo, ControllerFactory factory,
 			ControlProgressionManager progressionmanager) {
@@ -38,6 +33,7 @@ public class ControllerManager implements ControllerDelegate{
 		myProgressionManager = progressionmanager;
 		myCurrentController = myControllerMap.get(myProgressionManager.getFirstController())
 				.getController(this, myGameInfo);
+		
 	}
 	
 	public void run(){
@@ -51,7 +47,7 @@ public class ControllerManager implements ControllerDelegate{
 	private void switchController(String condition) {
 		myCurrentController.stop();
 		myCurrentController = myControllerMap.get(myProgressionManager.getNextController(
-				myCurrentController.getName(),condition));
+				myCurrentController.getName(), condition));
 		System.out.println("now the controller is: " + myCurrentController.getName() );
 		myCurrentController.displaySplash();
 		myCurrentController = myCurrentController.getController(this, myGameInfo);
@@ -62,6 +58,10 @@ public class ControllerManager implements ControllerDelegate{
 		System.exit(0);
 	}
 	
+	public Input setInput() {
+	    Input menuinput = new Input(INPUT_PATHWAY, myCanvas);
+	    return menuinput;
+	}
 	
 
 }

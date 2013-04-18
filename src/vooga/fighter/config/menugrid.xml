@@ -9,4 +9,11 @@
     <menumode menuname="CharacterSelectMenu" >
         <menuobject menuobjectname="Ryu" />
     </menumode>
+    <menumode menuname="GameOver" >
+        <menuobject menuobjectname="EndGame" />
+    </menumode>
+    <menumode menuname="MapSelectMenu" >
+        <menuobject menuobjectname="SelectMap" />
+    </menumode>
+    
 </menutype>

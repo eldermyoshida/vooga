@@ -37,12 +37,12 @@ public abstract class LevelController extends Controller {
     public LevelController (String name, Canvas frame) {
         super(name, frame);
     }
-	
+
     public LevelController(String name, Canvas frame, ControllerDelegate manager, 
-    		GameInfo gameinfo) {
-    	super(name, frame, manager, gameinfo);
-    	DisplayLoopInfo gameLoopInfo = new GameLoopInfo((LevelMode) getMode());
-    	setLoopInfo(gameLoopInfo);
+                GameInfo gameinfo) {
+        super(name, frame, manager, gameinfo);
+        DisplayLoopInfo gameLoopInfo = new GameLoopInfo((LevelMode) getMode());
+        setLoopInfo(gameLoopInfo);
     }
 
     
@@ -54,13 +54,13 @@ public abstract class LevelController extends Controller {
         myInputObjects = temp.getMyCharacterObjects();
     }
 
-    @Override
-    protected Input makeInput () {
-        Input input = new Input(INPUT_PATHWAY, super.getView());
-        input.addListenerTo(this);
-    	return input;
-    }
-    
+//    @Override
+//    protected Input makeInput () {
+//        Input input = new Input(INPUT_PATHWAY, super.getView());
+//        input.addListenerTo(this);
+//        return input;
+//    }
+//    
     @InputMethodTarget(name = "player1_jump")
     public void playerOneJumpInput (AlertObject alObj)  {
         myInputObjects.get(0).move(270);

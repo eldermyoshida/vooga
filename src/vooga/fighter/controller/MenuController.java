@@ -26,7 +26,6 @@ import java.util.ResourceBundle;
  * 
  */
 
-@InputClassTarget
 public abstract class MenuController extends Controller {
 
     private static final String INPUT_PATHWAY = "vooga.fighter.config.menudefault";
@@ -51,16 +50,15 @@ public abstract class MenuController extends Controller {
     	return (MenuMode) super.getMode();
     }
 
-    @InputMethodTarget(name = "continue")
-    public void mouseclick(PositionObject pos)  {
-        super.getMode().addObject(new MouseClickObject(pos.getPoint2D()));
-    }
-    
-    @Override
-    protected Input makeInput () {
-        Input menuinput = new Input(INPUT_PATHWAY, super.getView());
-        menuinput.addListenerTo(this);
-    	return menuinput;
-    }  
+//    public void mouseclick(PositionObject pos)  {
+//        super.getMode().addObject(new MouseClickObject(pos.getPoint2D()));
+//    }
+//    
+//    @Override
+//    protected Input makeInput () {
+//        Input menuinput = new Input(INPUT_PATHWAY, super.getView());
+//        menuinput.addListenerTo(this);
+//    	return menuinput;
+//    }  
 
 }

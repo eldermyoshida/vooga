@@ -10,9 +10,9 @@ import java.util.Random;
 public class ControlProgressionManager {
 
 	private static final String MAINMENU = "MainMenu";
-	private static final String CHARACTERSELECT = "CharacterSelect";
-	private static final String MAPSELECT = "MapSelect";
-	private static final String SCORECONTROLLER = "ScoreController";
+	private static final String CHARACTERSELECT = "CharacterSelectMenu";
+	private static final String MAPSELECT = "MapSelectMenu";
+	private static final String SCORECONTROLLER = "GameOver";
 	private static final String TOURNEY = "Tourney";
 	private static final String NEXT = "Next";
 	private static final String BACK = "Back";
@@ -32,7 +32,10 @@ public class ControlProgressionManager {
 				if(checkTourney(currentController, myGameInfo) && Condition.equals(NEXT)) 
 					return selectTourneyLevel(myGameInfo);
 				else if(Condition.equals(NEXT)) return myControllerList.get(i+1);
-				else if(Condition.equals(BACK)) return myControllerList.get(i -1);
+				else if(Condition.equals(BACK)) {
+				    System.out.println("going back");
+				    return myControllerList.get(i -1);
+				}
 			}
 		}
 		return MAINMENU; //Can't go wrong with MainMenu!

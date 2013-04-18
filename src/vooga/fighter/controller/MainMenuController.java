@@ -38,22 +38,22 @@ public class MainMenuController extends MenuController {
     public MainMenuController(String name, Canvas frame, ControllerDelegate manager, 
                 GameInfo gameinfo) {
         super(name, frame, manager, gameinfo);
+        Input input = manager.setInput();
+        input.addListenerTo(this);
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "LevelConfig");
     }
     /**
      * Checks this controller's end conditions
      */
     public void notifyEndCondition(String choice) {
-    	if(EXIT.equals(choice)) getManager().exit();
-    	if(BACK.equals(choice)) getManager().notifyEndCondition(BACK);
-    	else if (getMode().getMenuNames().contains(choice)){
-    		getGameInfo().setGameMode(choice);
-    		getGameInfo().setNumCharacters(Integer.parseInt(myResources.getString(choice)));
-    		getManager().notifyEndCondition(NEXT);
-    		}
-    	}
+        getManager().notifyEndCondition(NEXT);
+    }
 
-
+    @InputMethodTarget(name = "continue")
+    public void mouseclick(PositionObject pos)  {
+        super.getMode().addObject(new MouseClickObject(pos.getPoint2D()));
+        notifyEndCondition("asdfdf");
+    }
 
     @Override
     public Controller getController (ControllerDelegate delegate, GameInfo gameinfo) {
