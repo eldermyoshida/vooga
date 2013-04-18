@@ -73,9 +73,6 @@ public class EditableMap implements Serializable {
         myPlayerLocations = new HashMap<Integer, Location>();
         myPlayerNumber = 0;
 
-        myLayers = new HashMap<Integer , MapLayer>();
-        myResource = new ArrayList<Resource>();
-
         try {
             mySaver = new MapSaver(this);
         }
@@ -83,6 +80,7 @@ public class EditableMap implements Serializable {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+
     }
 
     public void initializeMap () {
