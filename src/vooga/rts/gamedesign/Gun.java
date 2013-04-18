@@ -7,7 +7,7 @@ import vooga.rts.util.Location3D;
 public class Gun extends Weapon{
 // YOLO
 
-	public Gun(int damage, Projectile projectile, int range, Location3D center, int cooldown) {
-		super(damage, projectile, range, center, cooldown);
+	public Gun(Projectile projectile, int range, Location3D center, int cooldown) {
+		super(projectile, range, center, cooldown);
 	}
 }

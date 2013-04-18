@@ -218,35 +218,35 @@ public class GameController extends AbstractController {
                                  new Location3D(300, 300, 0), new Dimension(60, 60), 0, 400);
             Sound soun = new Sound(ResourceManager.getInstance().getFile("sounds/pikachu.wav", AudioClip.class));
             Unit a = null;
-            a = new Soldier(p, new Location3D(200, 250, 0), s, soun, 1, 400);
+            a = new Soldier(p, new Location3D(200, 250, 0), s, soun, 1, 100);
             System.out.println("Player ID for a: " + a.getPlayerID());
             // a.setUpgradeTree(resultTree,a.getPlayerID());
             // upgradeBuilding.addUpgradeActions(resultTree);
-            Projectile proj =
-                    new Projectile(new Pixmap(ResourceManager.getInstance()
-                            .<BufferedImage> getFile("images/bullet.png", BufferedImage.class)), a.getWorldLocation(),
-                                   new Dimension(30, 30), 2, 10, 1);
-            a.setAttackStrategy(new CanAttack());
-            a.getAttackStrategy().addWeapons(new Weapon(0, proj, 500, a.getWorldLocation(), 175));
-            Unit b = new Soldier(p, new Location3D(300, 150, 0), s, soun, 1, 300);
+            //Projectile proj =
+            //        new Projectile(new Pixmap(ResourceManager.getInstance()
+            //                .<BufferedImage> getFile("images/bullet.png", BufferedImage.class)), a.getWorldLocation(),
+            //                       new Dimension(30, 30), 2, 10, 1);
+            a.setAttackStrategy(new CanAttack(a.getWorldLocation(), a.getPlayerID()));
+            //a.getAttackStrategy().addWeapons(new Weapon(0, proj, 500, a.getWorldLocation(), 175));
+            Unit b = new Soldier(p, new Location3D(300, 150, 0), s, soun, 1, 100);
             System.out.println("Player ID for b: " + b.getPlayerID());
 
-            Projectile proj2 =
-                    new Projectile(new Pixmap(ResourceManager.getInstance().<BufferedImage>getFile("images/bullet.png", BufferedImage.class)), b.getWorldLocation(),
-                                   new Dimension(30, 30), 1, 10, 1);
-            b.setAttackStrategy(new CanAttack());
-            b.getAttackStrategy().addWeapons(new Weapon(0, proj2, 400, b.getWorldLocation(), 200));
+            //Projectile proj2 =
+            //        new Projectile(new Pixmap(ResourceManager.getInstance().<BufferedImage>getFile("images/bullet.png", BufferedImage.class)), b.getWorldLocation(),
+            //                       new Dimension(30, 30), 1, 10, 1);
+            b.setAttackStrategy(new CanAttack(b.getWorldLocation(), b.getPlayerID()));
+            //b.getAttackStrategy().addWeapons(new Weapon(0, proj2, 400, b.getWorldLocation(), 200));
 
-            Unit c = new Soldier(p, new Location3D(500, 800, 0), s, soun, 2, 500);
+            Unit c = new Soldier(p, new Location3D(500, 800, 0), s, soun, 2, 100);
 
-            Projectile proj3 =
-                    new Projectile(new Pixmap(ResourceManager.getInstance().<BufferedImage>getFile("images/bullet.png", BufferedImage.class)), c.getWorldLocation(),
-                                   new Dimension(30, 30), 1, 10, 1);
-            c.setAttackStrategy(new CanAttack());
+            //Projectile proj3 =
+            //        new Projectile(new Pixmap(ResourceManager.getInstance().<BufferedImage>getFile("images/bullet.png", BufferedImage.class)), c.getWorldLocation(),
+            //                       new Dimension(30, 30), 1, 10, 1);
+            c.setAttackStrategy(new CanAttack(c.getWorldLocation(), c.getPlayerID()));
             Unit w =
                     new Worker(new Pixmap(ResourceManager.getInstance().<BufferedImage>getFile("images/scv.gif", BufferedImage.class)), new Location3D(500, 200, 0), s, soun, 20,
                                40, 40);
-            c.getAttackStrategy().addWeapons(new Weapon(0, proj3, 450, c.getWorldLocation(), 200));
+            //c.getAttackStrategy().addWeapons(new Weapon(0, proj3, 450, c.getWorldLocation(), 200));
 
             p1.getUnits().addUnit(a);
             p1.getUnits().addUnit(b);

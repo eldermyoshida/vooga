@@ -28,10 +28,10 @@ import java.util.List;
  * 
  */
 public class Weapon {
-//TODO: remove damage from weapon? 
-    private int myDamage;
+	public static int DEFAULT_RANGE = 500;
+	public static int DEFAULT_COOLDOWN_TIME = 175;
+	
     private Projectile myProjectile;
-    private UpgradeTree myUpgradeTree;
     private int myRange;
     private List<Projectile> myProjectiles;
     private Interval interval;
@@ -44,8 +44,7 @@ public class Weapon {
      * @param damage
      * @param projectile
      */
-    public Weapon (int damage, Projectile projectile, int range, Location3D center, int cooldownTime) {
-        myDamage = damage;
+    public Weapon (Projectile projectile, int range, Location3D center, int cooldownTime) {
         myProjectile = projectile;
         myRange = range;
         interval = new Interval(cooldownTime);
@@ -59,16 +58,12 @@ public class Weapon {
      */
     public void fire (InteractiveEntity toBeShot) {
         if(interval.allowAction() && !toBeShot.isDead()){
-            Projectile fire = myProjectile.copy(myProjectile, myCenter);
-            fire.setEnemy(toBeShot);
-            fire.move(toBeShot.getWorldLocation());
-            myProjectiles.add(fire);
+            Projectile firingProjectile = myProjectile.copy(myProjectile, myCenter);
+            firingProjectile.setEnemy(toBeShot);
+            firingProjectile.move(toBeShot.getWorldLocation());
+            myProjectiles.add(firingProjectile);
             interval.resetCooldown();
         }
-    }
-    
-    public int getDamage() {
-    	return myDamage;
     }
     
     /**
@@ -77,18 +72,8 @@ public class Weapon {
      * @param damage
      */
     public void addDamage(int damage) {
-    	myDamage += damage;
+    	myProjectile.addDamage(damage);
     }
-    
-    /**
-     * This method is used to upgrade a weapon either.
-     * 
-     * @param upgrade is the upgrade that has been selected for the weapon
-     */
-
-    //public void upgrade (Upgrade upgrade) {
-
-    //}
     
     /**
      * Returns the list of projectiles.

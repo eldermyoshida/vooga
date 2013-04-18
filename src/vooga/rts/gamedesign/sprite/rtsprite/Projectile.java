@@ -1,10 +1,12 @@
 package vooga.rts.gamedesign.sprite.rtsprite;
 
 import java.awt.Dimension;
+import java.awt.image.BufferedImage;
 
 
 import vooga.rts.gamedesign.sprite.GameEntity;
 import vooga.rts.gamedesign.sprite.InteractiveEntity;
+import vooga.rts.resourcemanager.ResourceManager;
 import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
@@ -26,6 +28,10 @@ import vooga.rts.util.Vector;
 public class Projectile extends GameEntity{
 	//Default speed
 	public static int DEFAULT_PROJECTILE_SPEED = 1600;
+	public static Pixmap DEFAULT_PIC = new Pixmap(ResourceManager.getInstance().<BufferedImage>getFile("images/bullet.png", BufferedImage.class));
+    public static Dimension DEFAULT_DIMENSION = new Dimension(30, 30);
+    public static int DEFAULT_DAMAGE = 10;
+    public static int DEFAULT_HEALTH = 1;
 	
     private int myDamage;
     private InteractiveEntity myTarget;
@@ -40,6 +46,11 @@ public class Projectile extends GameEntity{
     public int getDamage() {
         return myDamage;
     }
+    
+    public void addDamage(int damage) {
+    	myDamage += damage;
+    }
+    
     @Override
     public void update(double elapsedTime){
         super.update(elapsedTime);

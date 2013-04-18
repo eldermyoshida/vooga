@@ -26,7 +26,7 @@ public class AttackUpgradeNode extends UpgradeNode {
 	@Override
 	public void apply(InteractiveEntity requester) {
 		if (getUpgradeValue() == 1) {
-			requester.setAttackStrategy(new CanAttack());
+			requester.setAttackStrategy(new CanAttack(requester.getWorldLocation(), requester.getPlayerID()));
 		}else {
 			//TODO: now upgrades the range for all weapons. See if this is the case
 			for (Weapon w: requester.getAttackStrategy().getWeapons()) {
