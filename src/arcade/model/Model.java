@@ -1,6 +1,5 @@
 package arcade.model;
 
-import games.example.Example;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -16,7 +15,6 @@ import arcade.games.HighScores;
 import arcade.games.MultiplayerGame;
 import arcade.games.User;
 import arcade.games.UserGameData;
-import arcade.util.Pixmap;
 import arcade.view.LoginView;
 import arcade.view.MainView;
 
