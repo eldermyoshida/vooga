@@ -24,7 +24,7 @@ import vooga.scroller.view.View;
 public class Model {
 
     private View myView;
-    private Player myPlayer;
+    private PlayerController myPlayer;
 
     // This is weird how it works. I think you just need to instantiate it(see constructor)
     private ModelInputs myInputs;

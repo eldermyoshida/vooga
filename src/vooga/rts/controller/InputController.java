@@ -35,17 +35,18 @@ public class InputController implements Controller {
     }
     
     @InputMethodTarget(name  = "leftMouseDown")
-    public void leftMouseUp (PositionObject o) {
-        if (myDrag == null) {            
-            sendCommand(new DragCommand("drag", myDrag));
-        }
-        else{
-            sendCommand(new ClickCommand("leftclick", o));
-        }
+    public void leftMouseUp (PositionObject o) {          
+        sendCommand(new PositionCommand("leftclick", o));
         myLeftMouse = null;
         myDrag = null;
     }
     
+    @InputMethodTarget(name = "mouseMove")
+    public void mouseMove (PositionObject o) {
+        sendCommand(new PositionCommand("move", o));
+    }
+    
+    @InputMethodTarget(name = "mouseDrag")
     public void mouseDrag (PositionObject o) {
         if (myLeftMouse != null) {
             double uX = o.getX() > myLeftMouse.getX() ? myLeftMouse.getX() : o.getX();

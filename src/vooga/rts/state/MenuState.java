@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
-import vooga.rts.controller.ClickCommand;
+import vooga.rts.controller.PositionCommand;
 import vooga.rts.controller.Command;
 import vooga.rts.gui.Menu;
 import vooga.rts.gui.menus.MainMenu;
@@ -41,8 +41,12 @@ public class MenuState extends SubState implements Observer {
     @Override 
     public void receiveCommand (Command command) {
         if(command.getMethodName().equals("leftclick")){
-            ClickCommand left = (ClickCommand) command;
+            PositionCommand left = (PositionCommand) command;
             getCurrentMenu().handleMouseDown((int)left.getPosition().x, (int)left.getPosition().y);
+        }
+        else if (command.getMethodName().equals("move")) {
+            PositionCommand move = (PositionCommand) command;
+            getCurrentMenu().handleMouseMovement((int)move.getPosition().x, (int)move.getPosition().y);
         }
         // At some point, will need a menu controller and use actions to clean this up
     }
