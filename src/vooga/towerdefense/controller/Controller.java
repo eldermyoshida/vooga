@@ -47,14 +47,14 @@ public class Controller {
     public void displayElementInformation (GameElement e) {
         if (e != null) {
             // TODO: update this to reflect actual properties
-            myView.getTowerInfoScreen().displayInformation("Stuff about my clicked tower");
+            myView.getGameElementInfoScreen().displayInformation("Stuff about my clicked tower");
             // myView.getTowerInfoScreen().displayInformation(e.getAttributes().toString());
             if (e instanceof Tower) {
-                myView.getTowerInfoScreen().displayUpgradesAndButton(((Tower) e).getUpgrades());
+                myView.getGameElementInfoScreen().displayUpgradesAndButton(((Tower) e).getUpgrades());
             }
         }
         else {
-            myView.getTowerInfoScreen().clearScreen();
+            myView.getGameElementInfoScreen().clearScreen();
         }
     }
 

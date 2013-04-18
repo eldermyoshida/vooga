@@ -41,7 +41,7 @@ public class EastWindow extends JPanel {
         add(myInformationWindow, BorderLayout.SOUTH);
     }
 
-    public GameElementInformationScreen getTowerScreen () {
+    public GameElementInformationScreen getGameElementScreen () {
         return myInformationWindow;
     }
 
