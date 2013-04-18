@@ -27,9 +27,6 @@ public class TileButton extends JToggleButton {
         myInput.addListenerTo(this);
 
         myIcon.getGraphics().drawImage(myIcon, 0, 0, 32, 32, null);
-        if(myIcon == null) {
-            System.out.println("null");
-        }
         setToolTipText(t.getMyName());
         setIcon(new ImageIcon(myIcon));
         setMargin(new Insets(2,2,2,2));
