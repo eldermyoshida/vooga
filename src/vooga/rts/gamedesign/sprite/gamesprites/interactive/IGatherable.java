@@ -1,7 +1,5 @@
 package vooga.rts.gamedesign.sprite.gamesprites.interactive;
 
-import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
-
 public interface IGatherable {
 	
 	/**

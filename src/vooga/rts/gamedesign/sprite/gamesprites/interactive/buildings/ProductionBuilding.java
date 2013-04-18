@@ -18,7 +18,7 @@ import vooga.rts.util.Sound;
  */
 public class ProductionBuilding extends Building {
     private Location3D myRallyPoint;
-    private List<InteractiveEntity> myProducables; //for testing really, need to make it work with xml file
+    private List<Unit> myProducables; //for testing really, need to make it work with xml file
     
     public ProductionBuilding (Pixmap image,
                                Location3D center,
@@ -28,7 +28,7 @@ public class ProductionBuilding extends Building {
                                int health) {
         super(image, center, size, sound, playerID, health);
         myRallyPoint = new Location3D(getWorldLocation().getX(), getWorldLocation().getY() + 50, 0);
-        myProducables = new ArrayList<InteractiveEntity>();
+        myProducables = new ArrayList<Unit>();
     }
 
     @Override
@@ -39,7 +39,7 @@ public class ProductionBuilding extends Building {
     /*
      * returns the list of producables
      */
-    public List<InteractiveEntity> getProducables() {
+    public List<Unit> getProducables() {
         return myProducables;
     }
     
@@ -55,7 +55,7 @@ public class ProductionBuilding extends Building {
     /*
      * Test method to add an interactive entity to 
      */
-    public void addProducable(InteractiveEntity i) {
+    public void addProducable(Unit i) {
         myProducables.add(i);
     }
     

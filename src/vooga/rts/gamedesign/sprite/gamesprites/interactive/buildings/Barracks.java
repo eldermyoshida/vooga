@@ -9,6 +9,8 @@ import java.util.List;
 import vooga.rts.gamedesign.action.ProductionAction;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Soldier;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
+import vooga.rts.player.IProductionObserver;
 import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
@@ -19,14 +21,17 @@ import vooga.rts.util.Sound;
  * @author Kevin Oh
  *
  */
-public class Barracks extends ProductionBuilding {
+public class Barracks extends ProductionBuilding implements IObservable{
     public int PRODUCE_TIME = 90;
+    
+    private List<IProductionObserver> myObservers;
     private List<InteractiveEntity> myInteractiveEntities;
     
     public Barracks(Pixmap image, Location3D center, Dimension size, Sound sound,
                     int playerID, int health) {
         super(image, center, size, sound, playerID, health);
         myInteractiveEntities = new ArrayList<InteractiveEntity>();
+        myObservers = new ArrayList<IProductionObserver>();
         initProducables();
         addProductionActions(this);
         setRallyPoint(new Location3D(300,400,0));
@@ -42,13 +47,14 @@ public class Barracks extends ProductionBuilding {
         getActions().add(new ProductionAction("soldier",null,"I maketh un soldier", productionBuilding.getWorldLocation()){
             @Override
             public void apply(int playerID) {
-                InteractiveEntity ie = getProducables().get(0).copy();
-                Location3D ieLoc = new Location3D(getProducedFrom());                
-                ie.setWorldLocation(ieLoc.getX(), ieLoc.getY(), 0);
+                Unit newProduction = (Unit) getProducables().get(0).copy();
+                Location3D newProductionLoc = new Location3D(getProducedFrom());                
+                newProduction.setWorldLocation(newProductionLoc.getX(), newProductionLoc.getY(), 0);
                 //these below are for testing purposes 
-                ie.move(getRallyPoint());
+                newProduction.move(getRallyPoint());
                 //this part below will not be in actual implementation as I will notify player/unit manager that a new unit should be added to the player
-                myInteractiveEntities.add(ie);
+                myInteractiveEntities.add(newProduction);
+                notifyProductionObserver(newProduction);
             }
         });
     }
@@ -77,6 +83,23 @@ public class Barracks extends ProductionBuilding {
         }
         
     }
+	@Override
+	public void register(IProductionObserver newObserver) {
+		myObservers.add(newObserver);
+		
+	}
+	@Override
+	public void unregister(IProductionObserver deleteObserver) {
+		int observerIndex = myObservers.indexOf(deleteObserver);
+		myObservers.remove(observerIndex);
+		
+	}
+	@Override
+	public void notifyProductionObserver(Unit newProduction) {
+		for (IProductionObserver observer: myObservers) {
+			observer.addProduction(newProduction);
+		}
+	}
     
     
 }

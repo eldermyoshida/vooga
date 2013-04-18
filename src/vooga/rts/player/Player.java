@@ -5,10 +5,11 @@ import java.util.Observable;
 import java.util.Observer;
 import vooga.rts.IGameLoop;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
 import vooga.rts.manager.*;
 import vooga.rts.map.GameMap;
 
-public abstract class Player implements IGameLoop, Observer {    
+public abstract class Player implements IGameLoop, IProductionObserver {    
 
     private ResourceManager myResourceManager;
     private UnitManager myUnitManager;
@@ -25,6 +26,10 @@ public abstract class Player implements IGameLoop, Observer {
     public Player(GameMap map) {
         this();
         myMap = map;
+    }
+    
+    public void addProduction(Unit newProduction) {
+    	myUnitManager.addUnit(newProduction);
     }
 
     public ResourceManager getResourceManager () {
