@@ -1,35 +1,58 @@
 package vooga.fighter.model.objects;
 
 import java.awt.Dimension;
+import java.awt.Rectangle;
 import java.awt.geom.Point2D;
-
 import util.Location;
 import util.Pixmap;
+import vooga.fighter.model.loaders.MouseClickLoader;
 import vooga.fighter.model.utils.State;
 import vooga.fighter.model.utils.UpdatableLocation;
 
+
 public class MouseClickObject extends GameObject {
-	private static final String IMAGE_LOC = "fighter/images/fire.png";
-	private static final Dimension SIZE = new Dimension(30, 30);
-	private int myTicks;
 
-	public MouseClickObject(Point2D loc) {
-		setLocation(new UpdatableLocation(loc.getX(),loc.getY()));
-		State mouse = new State(this, 1);
-		mouse.populateImage(new Pixmap(IMAGE_LOC), 0);
-		mouse.populateSize(SIZE, 0);
-		addState("mouse", mouse);
-		setCurrentState("mouse");
-		myTicks = 0;
-	}
+    private int myTicks;
 
-	@Override
-	public boolean shouldBeRemoved() {
-		return(myTicks<100);
-	}
-	
-	@Override
-	public void update() {
-		myTicks ++;
-	}
+    public MouseClickObject (Point2D loc) {
+        setLocation(new UpdatableLocation(loc.getX(), loc.getY()));
+        setLoader(new MouseClickLoader(this));
+        System.out.println();
+        myTicks = 0;
+        setImageData();
+    }
+
+    @Override
+    public boolean shouldBeRemoved () {
+        return (myTicks > 100);
+    }
+
+    @Override
+    public void update () {
+        myTicks++;
+    }
+
+    @Override
+    public void dispatchCollision (GameObject other) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void handleCollision (CharacterObject other) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void handleCollision (AttackObject other) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void handleCollision (EnvironmentObject other) {
+        // TODO Auto-generated method stub
+
+    }
 }

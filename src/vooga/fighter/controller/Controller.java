@@ -2,6 +2,8 @@ package vooga.fighter.controller;
 
 
 
+import util.Location;
+import util.Pixmap;
 import util.input.Input;
 import vooga.fighter.model.*;
 import vooga.fighter.view.Canvas;
@@ -9,6 +11,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.swing.Timer;
 
@@ -24,12 +27,21 @@ import javax.swing.Timer;
  */
 
 public abstract class Controller implements ModelDelegate {
-
+    public static final String DEFAULT_RESOURCE_PACKAGE = "vooga.fighter.config.";
+	public static final String DEFAULT_IMAGE_PACKAGE = "vooga.fighter.images.";
+    public static final String NEXT = "Next";
+    public static final String BACK = "Back";
+    public static final String EXIT = "EXIT";
+    public static final String SPLASH = "Splash";
+    public static final String CONTROL = "Control";
+    
     protected ControllerDelegate myManager;
     private String myName;
     private String myPath;
     private Canvas myCanvas;
-    protected GameInfo myGameInfo;
+    private GameInfo myGameInfo;
+    private ResourceBundle mySplashResource;
+    private String mySplashPath;
 
     protected Input myInput;
     public static final int FRAMES_PER_SECOND = 25;
@@ -38,18 +50,21 @@ public abstract class Controller implements ModelDelegate {
     public static final int DEFAULT_DELAY = ONE_SECOND / FRAMES_PER_SECOND;
     private Timer myTimer;
     private Mode myMode;
-    private LoopInfo myLoopInfo;
+    private DisplayInfo myDisplayInfo;
 
     public Controller(String name, Canvas frame){
         myName = name;
         myCanvas = frame;
-        myInput = makeInput();
+        //myInput = makeInput();
+        mySplashResource = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + SPLASH);
+        mySplashPath = DEFAULT_IMAGE_PACKAGE+ mySplashResource.getString(CONTROL);
     }
 
     public Controller(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo) {
         this(name, frame);
         myManager = manager;
         myGameInfo = gameinfo;
+        loadMode();
     }
 
     public String getName(){
@@ -78,15 +93,26 @@ public abstract class Controller implements ModelDelegate {
 
     protected void setMode(Mode mode){
         myMode = mode;
-        mode.initializeMode();
+        myMode.initializeMode();
     }
     
-    protected void setGameLoopInfo(LoopInfo gameinfo){
-    	myLoopInfo = gameinfo;
+    protected void setLoopInfo(DisplayInfo loopinfo){
+    	myDisplayInfo = loopinfo;
+    	myCanvas.setViewDataSource(myDisplayInfo);
     }
 
     public void displaySplash(){
-        
+    	myCanvas.setViewDataSource(myDisplayInfo);
+    	myCanvas.paint();
+    }
+    
+    private void generateSplash(){
+    	myDisplayInfo = new DisplayInfo();
+    	myDisplayInfo.clear();
+    	
+        myDisplayInfo.setImageSize(0, GameManager.SIZE);
+        myDisplayInfo.setSpriteLocation(0, new Location(GameManager.SIZE.getWidth()/2, GameManager.SIZE.getHeight()/2));
+        myDisplayInfo.setSprite(0, new Pixmap(mySplashPath));
     }
 
     public void start() {
@@ -96,7 +122,7 @@ public abstract class Controller implements ModelDelegate {
                                new ActionListener() {
             public void actionPerformed (ActionEvent e) {
                 myMode.update((double) stepTime / ONE_SECOND, myCanvas.getSize());
-                myLoopInfo.updateImages();
+                myDisplayInfo.update();
                 myCanvas.paint();
             }
         });
@@ -122,7 +148,8 @@ public abstract class Controller implements ModelDelegate {
 
     public abstract Controller getController(ControllerDelegate manager, GameInfo gameinfo);
 
-    protected abstract Input makeInput();
+//    protected abstract Input makeInput();
+        
 
 
 }

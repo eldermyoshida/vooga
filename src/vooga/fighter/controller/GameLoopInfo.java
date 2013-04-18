@@ -21,7 +21,7 @@ import util.*;
  *
  */
 
-public class GameLoopInfo extends LoopInfo implements ViewDataSource{
+public class GameLoopInfo extends DisplayLoopInfo implements ViewDataSource{
 
     private LevelMode myMode;
     private List<String> myCharacterNames;
@@ -67,11 +67,12 @@ public class GameLoopInfo extends LoopInfo implements ViewDataSource{
         myPlayerStats.add(Player4Status);
     }
     
-    
-    public void updateStats() {
-        
+    @Override
+    public void update() {
+        super.update();
+        //updatePlayerStats();
     }
-
+    
     /**
      * Updates the information in the PlayerStatus objects to reflect the 
      * current data in this GameLoopInfo class.
@@ -90,7 +91,7 @@ public class GameLoopInfo extends LoopInfo implements ViewDataSource{
      * @return Health at list index
      */
     public Health getHealth(int index) {
-        return myHealthStats.get(index);
+        return myMode.getMyCharacterObjects().get(index).getHealth();
     }
 
 
@@ -110,8 +111,8 @@ public class GameLoopInfo extends LoopInfo implements ViewDataSource{
     /**
      * @param myHealthStats the myHealthStats to set
      */
-    public void setHealthStats(List<Health> myHealthStats) {
-        myHealthStats = myHealthStats;
+    public void setHealthStats(List<Health> healthStats) {
+        myHealthStats = healthStats;
     }
 
     public void setHealthStat(int index, Health heal) {
