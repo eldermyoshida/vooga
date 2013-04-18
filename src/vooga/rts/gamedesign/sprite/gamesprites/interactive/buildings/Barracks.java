@@ -24,14 +24,12 @@ import vooga.rts.util.Sound;
 public class Barracks extends ProductionBuilding implements IObservable{
     public int PRODUCE_TIME = 90;
     
-    private List<IProductionObserver> myObservers;
     private List<InteractiveEntity> myInteractiveEntities;
     
     public Barracks(Pixmap image, Location3D center, Dimension size, Sound sound,
                     int playerID, int health) {
         super(image, center, size, sound, playerID, health);
         myInteractiveEntities = new ArrayList<InteractiveEntity>();
-        myObservers = new ArrayList<IProductionObserver>();
         initProducables();
         addProductionActions(this);
         setRallyPoint(new Location3D(300,400,0));
@@ -83,23 +81,6 @@ public class Barracks extends ProductionBuilding implements IObservable{
         }
         
     }
-	@Override
-	public void register(IProductionObserver newObserver) {
-		myObservers.add(newObserver);
-		
-	}
-	@Override
-	public void unregister(IProductionObserver deleteObserver) {
-		int observerIndex = myObservers.indexOf(deleteObserver);
-		myObservers.remove(observerIndex);
-		
-	}
-	@Override
-	public void notifyProductionObserver(Unit newProduction) {
-		for (IProductionObserver observer: myObservers) {
-			observer.addProduction(newProduction);
-		}
-	}
     
     
 }

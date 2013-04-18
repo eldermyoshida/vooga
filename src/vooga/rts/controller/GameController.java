@@ -17,6 +17,7 @@ import vooga.rts.gamedesign.sprite.gamesprites.Projectile;
 import vooga.rts.gamedesign.sprite.gamesprites.Resource;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Barracks;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.ProductionBuilding;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.UpgradeBuilding;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Soldier;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
@@ -48,7 +49,7 @@ public class GameController extends AbstractController {
                            // size of the map. Not
                            // made for now.
     private Resource r;
-    private Building building;
+    private ProductionBuilding building;
     private UpgradeBuilding upgradeBuilding;
     private Location myLeftMouse;
     private Location myLeftMouseWorld;
@@ -115,6 +116,7 @@ public class GameController extends AbstractController {
             }
         }
         building.update(elapsedTime);
+        System.out.println("Numbers of units for player1: " + myPlayers.get(0).getUnits().getAllUnits().size());
         // upgradeBuilding.update(elapsedTime);
         checkCameraMouse(elapsedTime);
     }
@@ -246,6 +248,8 @@ public class GameController extends AbstractController {
                                  new Dimension(150, 150), null, 1, 300);
             System.out.println("Setup Game");
             myHuman = (HumanPlayer) p1;
+            //TODO: is there a better way to register the player based on building's playerID?
+            building.register(p1); //make p1 observing ProductionBuilding building.
 
         }
         catch (Exception e) {
