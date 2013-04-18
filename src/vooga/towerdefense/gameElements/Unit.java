@@ -1,8 +1,8 @@
 package vooga.towerdefense.gameElements;
 
 import java.awt.Dimension;
+import java.util.ArrayList;
 import java.util.List;
-
 
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.attributes.AttributeConstants;
@@ -75,7 +75,7 @@ public class Unit extends GameElement {
     
     @Override
     public void update(double elapsedTime){
-    	updateDirection();
+    	updateDirection(elapsedTime);
     	executeActions(elapsedTime);
     	
     }
@@ -90,8 +90,22 @@ public class Unit extends GameElement {
  * decides whether the unit has reached current Node, so to decide whether to change direction
  * @param elapsedTime
  */
-	private void updateDirection() {
-		if (getCenter().distance(myCurrentPathNode)<DISTANCE_OFFSET){
+	private void updateDirection(double elapsedTime) {
+		//TODO:remove this temporary code
+		if(myCurrentPathNode == null) {
+			//path is not being initialized
+	        List<Location> locations = new ArrayList<Location>();
+	        locations.add(new Location(500,250));
+	        locations.add(new Location(50, 50));
+	        locations.add(new Location(100, 0));
+	        locations.add(new Location(0, 100));
+	        locations.add(new Location(300, 450));
+	        myPath = new Path(locations);
+			
+			changeNode();
+		}
+		////
+		else if (getCenter().distance(myCurrentPathNode)<DISTANCE_OFFSET){
 			changeNode();
 		}	
 	}
@@ -102,7 +116,12 @@ public class Unit extends GameElement {
 	private void changeNode() {
 		if (myPath.hasNext()){
 			myCurrentPathNode=myPath.next();
-			Vector newDirection=getCenter().difference(myCurrentPathNode); //not sure the direction, may be the other way around
+			System.out.println("myCurrentPathNode: " + myCurrentPathNode);
+			System.out.println("my position: " + getCenter());
+			Vector newDirection= getCenter().difference(myCurrentPathNode);
+			//for some reason, this method gives the wrong sign on the angle
+			newDirection = new Vector(-1*newDirection.getDirection(), newDirection.getMagnitude());
+			System.out.println("set new direction to " + newDirection);
 			myAttributeManager.getAttribute(ATTRIBUTE_CONSTANTS.DIRECTION).setValue(newDirection.getDirection());
 		}
 		

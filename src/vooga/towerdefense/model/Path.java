@@ -22,7 +22,9 @@ public class Path implements Iterator<Location> {
     }
     @Override
     public Location next () {
-		return myLocations.iterator().next();
+    	Location next = myLocations.iterator().next();
+		myLocations.remove(0);
+    	return next;
     }
 
     @Override
