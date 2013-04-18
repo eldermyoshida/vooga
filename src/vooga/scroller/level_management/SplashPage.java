@@ -62,8 +62,6 @@ public class SplashPage extends Level implements IInputListener{
     
     @InputMethodTarget(name = "space")
     public void nextLevel() {
-
-        System.out.println("here");
         Player p = myLevelManager.currentLevel().getPlayer();
         myLevelManager.setCurrentLevel(
                       myLevelManager.get(this.getDoor()).getLevel());
