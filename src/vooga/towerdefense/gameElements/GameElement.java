@@ -16,7 +16,7 @@ import vooga.towerdefense.util.Sprite;
  * 
  * @author Matthew Roy
  * @author Xu Rui
- * 
+ * @author Zhen Gou
  */
 public class GameElement extends Sprite {
 
@@ -54,7 +54,7 @@ public class GameElement extends Sprite {
     public void update (double elapsedTime) {
         
           for (Action a : myActions) {
-              a.update(elapsedTime);
+              a.executeAction(elapsedTime);
           }
          
     }
