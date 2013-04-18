@@ -194,6 +194,10 @@ public class EditableMap implements Serializable {
         return myLayers.size();
     }
     
+    public Map<Integer , MapLayer> getLayerMap() {
+        return myLayers;
+    }
+    
     public MapLayer getLayer(int index) {
         return myLayers.get(index);
     } 

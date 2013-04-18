@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import vooga.rts.leveleditor.components.Resource;
+import vooga.rts.leveleditor.components.Terrain;
 
 /**
  * 
@@ -26,23 +27,32 @@ public class Canvas extends JFrame {
 
     private MapPanel myMapPanel;
     private ResourcePanel myResourcePanel;
+    private TilePanel myTilePanel;
+    private TerrainPanel myTerrainPanel;
     private ButtonPanel myButtonPanel;
     private MenuManager myMenuManager;
     private Resource myCurrentSelectResource;
+    private Terrain myCurrentSelectTerrain;
     private JScrollPane  myMapScroll;
 
     public Canvas() {
         setTitle("Level Editor");
         myMapPanel = new MapPanel(this);
         myResourcePanel = new ResourcePanel(this);
+        myTerrainPanel = new TerrainPanel(this);
+        myTilePanel = new TilePanel(this);
         myButtonPanel = new ButtonPanel(this);
         myMenuManager = new MenuManager(this);
 
         JPanel ChooserPanel = new JPanel(new BorderLayout());        
         JScrollPane resourceScroll = new JScrollPane(myResourcePanel);
-        JTabbedPane ResourceTabPane = new JTabbedPane();
-        ResourceTabPane.add("Resources", resourceScroll);
-        ChooserPanel.add(ResourceTabPane, BorderLayout.CENTER);
+        JScrollPane terrainScroll = new JScrollPane(myTerrainPanel);
+        JScrollPane tileScroll = new JScrollPane(myTilePanel);
+        JTabbedPane tabPane = new JTabbedPane();
+        tabPane.add("Resources", resourceScroll);
+        tabPane.add("Terrains", terrainScroll);
+        tabPane.add("Tiles", tileScroll);
+        ChooserPanel.add(tabPane, BorderLayout.CENTER);
         ChooserPanel.add(myButtonPanel, BorderLayout.SOUTH);
 
         myMapScroll = new JScrollPane(myMapPanel);
@@ -64,6 +74,14 @@ public class Canvas extends JFrame {
 
     public Resource getCurrentSelectResource() {
         return myCurrentSelectResource;
+    }
+    
+    public void setCurrentSelectTerrain(Terrain t) {
+        myCurrentSelectTerrain = t;        
+    }
+    
+    public Terrain getCurrentSelectTerrain() {
+        return myCurrentSelectTerrain;
     }
 
     public void ZoomIn() {
@@ -94,7 +112,5 @@ public class Canvas extends JFrame {
     public static void main(String[] argv) {
         new Canvas();
     }
-
-
 
 }

@@ -55,7 +55,11 @@ public class Terrain {
    }
   
 
-   public String getMyName () {
+   public Terrain(int i) {
+       this(0,0,i);
+   }
+
+public String getMyName () {
     return myName;
    }
 
@@ -74,7 +78,11 @@ public class Terrain {
    public void paint(Graphics pen) {
        pen.drawImage(myImage, (int)myLocation.getX(), (int)myLocation.getY(), null);
    }
-   
+
+   public BufferedImage getImage() {
+       return myImage;
+   }
+
    
    
    
