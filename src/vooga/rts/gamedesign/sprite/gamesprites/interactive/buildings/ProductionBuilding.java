@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.util.List;
 import java.util.ArrayList;
 
+import vooga.rts.IObservable;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
 import vooga.rts.player.IProductionObserver;

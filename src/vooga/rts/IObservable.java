@@ -1,4 +1,4 @@
-package vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings;
+package vooga.rts;
 
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;

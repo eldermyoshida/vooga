@@ -18,6 +18,8 @@ import vooga.rts.util.Pixmap;
 
 public class Resource extends GameEntity implements IGatherable {
 
+	private String myType;
+	
 	/**
 	 * Creates a new resource
 	 * @param image is the image of the resource
@@ -29,8 +31,9 @@ public class Resource extends GameEntity implements IGatherable {
 	 * becomes 0, the resource will disappear because it will not have any value
 	 * left
 	 */
-	public Resource(Pixmap image, Location3D center, Dimension size, int playerID, int health) {
+	public Resource(Pixmap image, Location3D center, Dimension size, int playerID, int health, String type) {
 		super(image, center, size, playerID, health);
+		myType = type;
 	}
 
 	@Override
@@ -40,5 +43,9 @@ public class Resource extends GameEntity implements IGatherable {
 		if(isDead()) {
 			setVisible(false);
 		}
+	}
+	
+	public String getType() {
+		return myType;
 	}
 }

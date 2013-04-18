@@ -1,6 +1,8 @@
 package vooga.rts.player;
 
 import java.awt.Graphics2D;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import vooga.rts.IGameLoop;
@@ -9,9 +11,9 @@ import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
 import vooga.rts.manager.*;
 import vooga.rts.map.GameMap;
 
-public abstract class Player implements IGameLoop, IProductionObserver {    
-
-    private ResourceManager myResourceManager;
+public abstract class Player implements IGameLoop, IProductionObserver, IGameManagerObserver {    
+	
+	private IndividualResourceManager myResourceManager;
     private UnitManager myUnitManager;
     private BuildingManager myBuildingManager;
     private int myTeamID;
@@ -19,8 +21,9 @@ public abstract class Player implements IGameLoop, IProductionObserver {
     
     
     public Player() {
-        myResourceManager = new ResourceManager();
+        myResourceManager = new IndividualResourceManager();
         myUnitManager= new UnitManager();
+        
     }
     
     public Player(GameMap map) {
@@ -31,14 +34,13 @@ public abstract class Player implements IGameLoop, IProductionObserver {
     public void addProduction(Unit newProduction) {
     	myUnitManager.addUnit(newProduction);
     }
-
-    public ResourceManager getResourceManager () {
-        return myResourceManager;
+    
+    public void updateResource(HashMap<String, Integer> updatedResources) {
+    	myResourceManager.setResources(updatedResources);
     }
 
-    public ResourceManager removeResources (InteractiveEntity i) {
+    public IndividualResourceManager getIndividualResourceManager () {
         return myResourceManager;
-
     }
 
     public UnitManager getUnits () {

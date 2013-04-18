@@ -213,7 +213,7 @@ public class GameController extends AbstractController {
             r =
                     new Resource(new Pixmap(ResourceManager.getInstance()
                             .<BufferedImage> getFile("images/mineral.gif", BufferedImage.class)),
-                                 new Location3D(300, 300, 0), new Dimension(60, 60), 0, 400);
+                                 new Location3D(300, 300, 0), new Dimension(60, 60), 0, 400, "resource");
             Sound soun = new Sound(ResourceManager.getInstance().getFile("sounds/pikachu.wav", AudioClip.class));
            
             Unit a = null;

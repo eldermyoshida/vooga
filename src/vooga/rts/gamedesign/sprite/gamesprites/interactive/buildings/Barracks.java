@@ -6,6 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
+import vooga.rts.IObservable;
 import vooga.rts.gamedesign.action.ProductionAction;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Soldier;
@@ -21,7 +22,7 @@ import vooga.rts.util.Sound;
  * @author Kevin Oh
  *
  */
-public class Barracks extends ProductionBuilding implements IObservable{
+public class Barracks extends ProductionBuilding {
     public int PRODUCE_TIME = 90;
     
     private List<InteractiveEntity> myInteractiveEntities;
