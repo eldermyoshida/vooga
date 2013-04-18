@@ -1,8 +1,11 @@
 package vooga.rts.gamedesign.sprite.gamesprites.interactive;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +18,7 @@ import vooga.rts.gamedesign.strategy.attackstrategy.CannotAttack;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building;
 import vooga.rts.gamedesign.upgrades.UpgradeNode;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
+import vooga.rts.util.Camera;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
@@ -31,6 +35,8 @@ import vooga.rts.util.Sound;
  *
  */
 public abstract class InteractiveEntity extends GameEntity implements IAttackable{
+
+	private static final int LOCATION_OFFSET = 20;
 
 	//Default speed 
 	private static int DEFAULT_INTERACTIVEENTITY_SPEED = 150;
@@ -227,8 +233,15 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
 	@Override
 	public void paint(Graphics2D pen) {
 		//pen.rotate(getVelocity().getAngle());
-		if(isSelected) { //lol what a failure... 
-			Ellipse2D.Double selectedCircle = new Ellipse2D.Double(getWorldLocation().getX(), getWorldLocation().getY(), 20, 20);
+
+		//should probably use the getBottom, getHeight etc...implement them
+		Point2D selectLocation = Camera.instance().worldToView(getWorldLocation());
+		Rectangle2D healthBar = new Rectangle2D.Double((int)selectLocation.getX()-LOCATION_OFFSET, (int)(selectLocation.getY()-3*LOCATION_OFFSET), getHealth()/2, 10);
+		pen.setColor(Color.GREEN);
+		pen.fill(healthBar);
+		pen.setColor(Color.black);
+		if(isSelected) { 
+			Ellipse2D.Double selectedCircle = new Ellipse2D.Double(selectLocation.getX()-LOCATION_OFFSET, selectLocation.getY()+LOCATION_OFFSET , 50, 30);
 			pen.fill(selectedCircle);
 		}
 		super.paint(pen);
