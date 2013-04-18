@@ -24,11 +24,12 @@ public class MouseClickObject extends GameObject {
 		addState("mouse", mouse);
 		setCurrentState("mouse");
 		myTicks = 0;
+		setImageData();
 	}
 
 	@Override
 	public boolean shouldBeRemoved() {
-		return(myTicks<100);
+		return(myTicks>100);
 	}
 	
 	@Override

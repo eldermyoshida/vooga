@@ -62,7 +62,6 @@ public class MenuMode extends Mode {
         super.addObject(object);
         if (object instanceof MouseClickObject){
         	myMouseClick = (MouseClickObject)object;
-        	System.out.println("it is a mouseclick object");
         }
     }
 
