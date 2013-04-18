@@ -21,6 +21,8 @@ import vooga.rts.util.Pixmap;
 
 public class Resource extends GameEntity implements IGatherable {
 
+	private String myType;
+	
 	/**
 	 * Creates a new resource
 	 * @param image is the image of the resource
@@ -43,5 +45,9 @@ public class Resource extends GameEntity implements IGatherable {
 		if(isDead()) {
 			setVisible(false);
 		}
+	}
+	
+	public String getType() {
+		return myType;
 	}
 }

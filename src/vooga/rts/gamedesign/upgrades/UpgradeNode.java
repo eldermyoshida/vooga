@@ -22,22 +22,23 @@ import vooga.rts.player.Player;
 public class UpgradeNode {
 
 	private UpgradeTree myUpgradeTree;
-	private Map<Resource, Integer> myCost;
+	private Map<String, Integer> myCost;
     private String myUpgradeName;
     private int myUpgradeValue;
     private boolean myHasBeenUpgraded;
     private List<UpgradeNode> myChildren; //set to list for the Head.
 
     public UpgradeNode(){
-        this(null, null, 0);
+        this(null, null, 0, 0);
     }
 
-    public UpgradeNode(UpgradeTree upgradeTree, String upgradeName, int upgradeValue){
+    public UpgradeNode(UpgradeTree upgradeTree, String upgradeName, int upgradeValue, int costedResourceAmount){
         myUpgradeTree = upgradeTree;
     	myUpgradeName = upgradeName;
         myChildren = new ArrayList<UpgradeNode>();
         myHasBeenUpgraded = false;
         myUpgradeValue = upgradeValue;
+        myCost.put("resource", costedResourceAmount); //TODO: get different types of Resource
     }
     
     /**
@@ -68,7 +69,11 @@ public class UpgradeNode {
     }
 
     public boolean validUpdate(Player player){
-    	//TODO check if play has enough resource to "buy the update"
+    	for (String resourceType: myCost.keySet()){
+    		if (player.getResourceManager().getAmount(resourceType) < myCost.get(resourceType)) {
+    			return false;
+    		}
+    	}
     	return true;
     }
 
@@ -94,5 +99,9 @@ public class UpgradeNode {
 
     public int getUpgradeValue(){
         return myUpgradeValue;
+    }
+    
+    public Map<String, Integer> getCost() {
+    	return myCost;
     }
 }
