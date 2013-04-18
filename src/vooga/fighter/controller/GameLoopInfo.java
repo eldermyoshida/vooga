@@ -67,11 +67,12 @@ public class GameLoopInfo extends LoopInfo implements ViewDataSource{
         myPlayerStats.add(Player4Status);
     }
     
-    
-    public void updateStats() {
-        
+    @Override
+    public void update() {
+        super.update();
+        updatePlayerStats();
     }
-
+    
     /**
      * Updates the information in the PlayerStatus objects to reflect the 
      * current data in this GameLoopInfo class.
@@ -90,7 +91,7 @@ public class GameLoopInfo extends LoopInfo implements ViewDataSource{
      * @return Health at list index
      */
     public Health getHealth(int index) {
-        return myHealthStats.get(index);
+        return myMode.getMyCharacterObjects().get(index).getHealth();
     }
 
 

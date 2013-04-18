@@ -95,7 +95,7 @@ public abstract class Controller implements ModelDelegate {
                                new ActionListener() {
             public void actionPerformed (ActionEvent e) {
                 myMode.update((double) stepTime / ONE_SECOND, myCanvas.getSize());
-                myLoopInfo.updateImages();
+                myLoopInfo.update();
                 myCanvas.paint();
             }
         });
