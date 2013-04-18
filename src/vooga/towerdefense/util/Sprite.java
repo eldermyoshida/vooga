@@ -156,6 +156,14 @@ public abstract class Sprite {
     }
 
     /**
+     * 
+     * @return  Sprite's size
+     */
+    public Dimension getSize () {
+        return new Dimension(mySize.width, mySize.height);
+    }
+    
+    /**
      * Returns shape's velocity.
      */
     public Vector getVelocity () {

@@ -1,14 +1,18 @@
 package vooga.towerdefense.controller;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+import vooga.towerdefense.attributes.AttributeManager;
 import vooga.towerdefense.controller.modes.BuildMode;
 import vooga.towerdefense.controller.modes.ControlMode;
 import vooga.towerdefense.controller.modes.SelectMode;
@@ -22,6 +26,7 @@ import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.GameModel;
 import vooga.towerdefense.model.Shop;
 import vooga.towerdefense.model.Tile;
+import vooga.towerdefense.util.Location;
 import vooga.towerdefense.util.Pixmap;
 import vooga.towerdefense.view.TDView;
 
@@ -104,14 +109,40 @@ public class Controller {
      * @param item
      * @param p
      */
+ // TODO The item that should be added should be a new instance of the one in the shop!!!
     public void fixItemOnMap (GameElement item, Point p) {
+        GameElement newItem = reflectAndCreateNew(item);
         Tile myTile = myModel.getTile(p);
-        myTile.setTower(item);
-        myModel.getMap().addToMap(item, myTile);
+        myTile.setTower(newItem);
+        myModel.getMap().addToMap(newItem, myTile); 
         displayMap();
         myControlMode = new SelectMode();
     }
-
+    
+    /**
+     * 
+     * @param item      Object to create new instance of
+     * @return  new instance of item
+     */
+    private GameElement reflectAndCreateNew(GameElement item) {
+        try {
+            Class myClass = item.getClass();
+            System.out.println("I AM: " + myClass.getName());       
+            Class[] types = {Pixmap.class, Location.class, Dimension.class, AttributeManager.class, List.class};
+            Constructor constructor = myClass.getConstructor(types);
+            Object[] parameters = {item.getPixmap(), item.getCenter(), item.getSize(), item.getAttributeManager(), item.getActions()};
+            Object myNewItem = constructor.newInstance(parameters); 
+            return (GameElement)myNewItem;
+        }
+        catch(InvocationTargetException e) {
+            //??
+        }
+        
+        catch(Exception e) {
+            //??
+        }
+        return null;
+    }
     /**
      * gets the associated game element at a point.
      * 

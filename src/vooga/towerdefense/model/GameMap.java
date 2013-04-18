@@ -57,7 +57,7 @@ public class GameMap {
         addGameElement(troll2);
     }
 
-    /*
+    /**
      * Initializes the grid so that each element in myGrid is a Tile object
      * containing it's center coordinates. Every tile is both walkable and
      * buildable.
