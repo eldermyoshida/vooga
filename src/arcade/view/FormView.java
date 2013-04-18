@@ -26,9 +26,11 @@ public abstract class FormView extends JFrame {
     private static final int TEXT_FIELD_HEIGHT = 25;
     private static final int TEXT_FIELD_SIZE = 10;
     private static final int LABEL_WIDTH = 80;
+    private static final int MESSAGE_WIDTH = 140;
 
     private Model myModel;
     private ResourceBundle myResources;
+    private JLabel myWarningMessage;
 
     /**
      * Constructs the form view with a Model and ResourceBundle. It adds a
@@ -54,6 +56,19 @@ public abstract class FormView extends JFrame {
         setTitle(myResources.getString(TextKeywords.TITLE));
         setResizable(false);
         setVisible(true);
+    }
+    
+    /**
+     * Display an error message in the view.
+     * 
+     * Called if user makes failed log in attempt or tries to register an account
+     * that has already been named.
+     * 
+     * @param message
+     */
+    public void sendMessage (String message) {
+        myWarningMessage.setText("<html><body style='width:" + MESSAGE_WIDTH + " px'>"
+                                 + "<center><font color = red>" + message);
     }
 
     /**
@@ -94,6 +109,18 @@ public abstract class FormView extends JFrame {
         inputField.setPreferredSize(new Dimension(getPreferredSize().width, TEXT_FIELD_HEIGHT));
         panel.add(inputField);
 
+        return panel;
+    }
+    
+    /**
+     * Create a label where an error message can be displayed.
+     * 
+     * @return
+     */
+    protected JComponent createMessageArea () {
+        JPanel panel = new JPanel();
+        myWarningMessage = new JLabel();
+        panel.add(myWarningMessage);
         return panel;
     }
 

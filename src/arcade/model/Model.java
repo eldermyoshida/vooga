@@ -40,6 +40,15 @@ public class Model implements ArcadeInteraction {
     public void setLoginView (LoginView login) {
         myLoginView = login;
     }
+    
+    /**
+     * 
+     * @param directoryPath
+     */
+    public void publishGame(String directoryPath) {
+        return;
+    }
+    
 
     public void authenticate (String username, String password) {
         if (myDb.authenticateUsernameAndPassword(username, password)) {
@@ -82,6 +91,7 @@ public class Model implements ArcadeInteraction {
                                       String dataOfBirth,
                                       String filepath) {
         myDb.createUser(username, pw, firstname, lastname, dataOfBirth, filepath);
+        authenticate(username, pw);
     }
 
     public void deleteUser (String username) {

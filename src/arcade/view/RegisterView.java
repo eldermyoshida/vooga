@@ -31,6 +31,8 @@ public class RegisterView extends FormView {
     private static final String DEFAULT_IMAGE =
             new File(System.getProperty("user.dir") + "/src/arcade/resources/images/rcd.jpg")
                     .getPath();
+    private static final int WINDOW_WIDTH = 240;
+    private static final int WINDOW_HEIGHT = 260;
     private JTextField myFirstNameTextField;
     private JTextField myLastNameTextField;
     private JTextField myDOBTextField;
@@ -48,7 +50,7 @@ public class RegisterView extends FormView {
     public RegisterView (Model model, ResourceBundle resources) {
         super(model, resources);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        pack();
+        setBounds(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
         setLocationRelativeTo(null);
     }
 
@@ -60,6 +62,7 @@ public class RegisterView extends FormView {
         components.add(createLastNameField());
         components.add(createDOBField());
         components.add(createImageSelector());
+        components.add(createMessageArea());
         components.add(createButton());
         return components;
     }
@@ -139,6 +142,7 @@ public class RegisterView extends FormView {
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     myImagePath = chooser.getSelectedFile().getPath();
                 }
+                sendMessage("This is a message right here.");
             }
         });
         panel.add(button);
@@ -161,6 +165,9 @@ public class RegisterView extends FormView {
                 String dateOfBirth = myDOBTextField.getText();
                 getModel().createNewUserProfile(myUsername, myPassword, firstName, lastName,
                                                 dateOfBirth, myImagePath);
+                //TODO: model should take care of disposing, in case any exceptions to throw,
+                // messages to send.
+                dispose();
             }
         });
         panel.add(register);
