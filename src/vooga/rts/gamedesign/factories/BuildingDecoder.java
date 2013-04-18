@@ -1,6 +1,7 @@
 package vooga.rts.gamedesign.factories;
 
 import java.awt.Dimension;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 import org.w3c.dom.Document;
@@ -18,6 +19,7 @@ public class BuildingDecoder extends Decoder{
 	
 	private static final String HEAD_TAG = "buildings";
 	private static final String TYPE_TAG = "building";
+	private static final String CUSTOM_TAG = "custom";
 	private static final String COST_TAG = "cost";
 	private static final String NAME_TAG = "name";
 	private static final String IMAGE_TAG = "img";
@@ -45,8 +47,9 @@ public class BuildingDecoder extends Decoder{
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		NodeList nodeLst = doc.getElementsByTagName(TYPE_TAG);
+
 		
+		NodeList nodeLst = doc.getElementsByTagName(TYPE_TAG);
 		for(int i = 0 ; i < nodeLst.getLength() ; i++){
 			Element nElement = (Element) nodeLst.item(i);
 			String name = nElement.getElementsByTagName(NAME_TAG).item(0).getTextContent();
@@ -69,5 +72,6 @@ public class BuildingDecoder extends Decoder{
 																									null);
 			myFactory.put(name, building);
 		}
+		
 	}
 }

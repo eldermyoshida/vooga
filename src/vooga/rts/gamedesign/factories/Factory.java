@@ -2,6 +2,7 @@ package vooga.rts.gamedesign.factories;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
@@ -85,6 +86,7 @@ public class Factory {
 		return mySprites.get(key);
 	}
 	
+	
 	/**
 	 * Creates decoders by loading the input file that specifies the path of
 	 * each Decoder and the type of class it is in charge of. Puts the decoders
@@ -153,7 +155,6 @@ public class Factory {
 			NodeList children = childNode.getChildNodes();
 			for(int i = 0 ; i < children.getLength() ; i++){
 				Node tempNode = children.item(i);
-
 				if(tempNode.getNodeType() == Node.ELEMENT_NODE){
 					System.out.println("CURRENT DECODER: " + tempNode.getNodeName());
 					myDecoders.get(tempNode.getNodeName()).create(doc);

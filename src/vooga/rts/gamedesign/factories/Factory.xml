@@ -88,10 +88,10 @@
 			<attack>cannotattack</attack>
 			<produce>worker soldier</produce>
 		</building>
+		<custom src = "vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Tower">
+			<name>tower</name>
+		</custom>
 	</buildings>
-	<custom src = "vooga.rts.gamedesign.sprite.gameprites.interactive.buildings.Tower">
-		<name>tower</name>
-	</custom>
 	<units src = "vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Unit">
 		<unit>
 			<name>soldier</name>
