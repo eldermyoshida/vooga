@@ -24,12 +24,14 @@ public class LevelMode extends Mode {
 
     private List<UpdatableLocation> myStartLocations;
     private List<Integer> myCharacterIds;
+    private List<CharacterObject> myCharacterObjects;
     private int myMapId;
     private MapObject myMap;
 
     public LevelMode(ModelDelegate cd, List<Integer> charIds, int mapId) {
         super(cd);
         myStartLocations = new ArrayList<UpdatableLocation>();
+        myCharacterObjects = new ArrayList<CharacterObject>();
         myCharacterIds = charIds;
         myMapId = mapId;
         myMap = null;
@@ -51,21 +53,18 @@ public class LevelMode extends Mode {
         handleCollisions();
         for (int i=0; i<myObjects.size(); i++) {
             GameObject object = myObjects.get(i);
-//            State state = object.getCurrentState();
-//            System.out.printf("Updating %s:\n", object.getClass().toString());
-//            System.out.printf("Object current state:\ncurrentFrame: %d\nnumFrames: %d\nNull checks:\nImage: %b\nRectangle: %b\nSize: %b\n",
-//                              state.myCurrentFrame, state.myNumFrames, (state.getCurrentImage()==null), (state.getCurrentRectangle()==null),
-//                              (state.getCurrentSize()==null));
             object.update();
             if (object.shouldBeRemoved()) {
                 myObjects.remove(object);
                 i--;
             }
         }
+
         for (int i=0; i<myObjects.size(); i++) {
             GameObject object = myObjects.get(i);
             object.updateState();
         }
+        
         if (shouldModeEnd()) {
             super.signalTermination();
         }
@@ -91,15 +90,10 @@ public class LevelMode extends Mode {
         for (int i=0; i<characterIds.size(); i++) {
             int charId = characterIds.get(i);
             UpdatableLocation start = startingPos.get(i);
-            addObject(new CharacterObject(charId, start));
+            CharacterObject newCharacter = new CharacterObject(charId, start);
+            addObject(newCharacter);
+            myCharacterObjects.add(newCharacter);
         }
-    }
-
-    /**
-     * Detects and handles collisions between game objects.
-     */
-    public void handleCollisions() {
-        CollisionManager.checkCollisions(getMyObjects());
     }
     
     /**
@@ -111,6 +105,7 @@ public class LevelMode extends Mode {
             if (object instanceof CharacterObject) {
                 CharacterObject currentChar = (CharacterObject) object;
                 if (!currentChar.hasHealthRemaining()) {
+                    System.out.println("LevelMode shouldModeEnd : character has no health");
                     return true;
                 }
             }
@@ -118,6 +113,22 @@ public class LevelMode extends Mode {
         return false;
     }
 
-
+    /**
+     * Returns the list of CharacterObjects.
+     */
+    public List<CharacterObject> getMyCharacterObjects() {
+        return myCharacterObjects;
+    }
+    
+    /**
+     * Creates the list of image data objects and returns it.
+     */
+    public List<ImageDataObject> getImageData() {
+        List<ImageDataObject> result = new ArrayList<ImageDataObject>();
+        for (GameObject object : getMyObjects()) {
+            result.add(object.getImageData());
+        }
+        return result;
+    }
     
 }

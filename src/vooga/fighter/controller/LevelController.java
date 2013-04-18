@@ -54,7 +54,7 @@ public class LevelController extends Controller {
     public void loadMode() {
         List<Integer> characterNames = getGameInfo().getCharacters();
         int mapID = getGameInfo().getMapName();
-        Mode temp = new LevelMode(this, characterNames, mapID);
+        LevelMode temp = new LevelMode(this, characterNames, mapID);
         setMode(temp);
         myInputObjects = temp.getMyCharacterObjects();
     }

@@ -20,14 +20,14 @@ public abstract class Mode {
     private List<GameObject> myObjects;
     private long myId;
     private ModelDelegate myModelDelegate;
-    private List<CharacterObject> myCharacterObjects; 
+    private CollisionManager myCollisionManager;
 
     /**
      * Constructs a new Mode.
      */
     public Mode(ModelDelegate md) {
         myObjects = new ArrayList<GameObject>();
-        myCharacterObjects= new ArrayList<CharacterObject>();
+        myCollisionManager = new CollisionManager();
         setModelDelegate(md);
     }
     
@@ -50,23 +50,13 @@ public abstract class Mode {
     */
     public List<GameObject> getMyObjects() {
         return myObjects;
-    }
-    
-    /**
-     * Returns the list of character objects for the mode
-     */
-    public List<CharacterObject>getMyCharacterObjects(){
-    	return myCharacterObjects; 
-    }
+    }    
 
     /**
     * Add an object to the list of game objects.
     */
     public void addObject(GameObject object) {
         myObjects.add(object);
-        if (object instanceof CharacterObject){
-        	myCharacterObjects.add((CharacterObject)object);
-        }
     }
 
     /**
@@ -84,6 +74,16 @@ public abstract class Mode {
         myModelDelegate.notifyEndCondition();
     }
     
+    /**
+     * Handles collisions between objects in this mode. Collision checking is
+     * delegated to the CollisionManager, and the handling of individual collisions
+     * is achieved by delegating to the objects themselves through double dispatch
+     * in the visitor design pattern.
+     */
+    public void handleCollisions() {
+        myCollisionManager.checkCollisions(myObjects);
+    }
+
     /**
      * Creates the list of image data objects and returns it.
      */

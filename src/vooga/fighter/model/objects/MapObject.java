@@ -138,5 +138,23 @@ public class MapObject extends GameObject {
     public boolean shouldBeRemoved() {
         return false;
     }
+
+
+    public void dispatchCollision (GameObject other) {
+        
+    }
+
+    public void handleCollision (CharacterObject other) {
+        
+    }
+
+
+    public void handleCollision (AttackObject other) {
+        
+    }
+
+    public void handleCollision (EnvironmentObject other) {
+        
+    }
     
 }

@@ -22,10 +22,7 @@ public class CharacterObject extends GameObject {
 
     private Map<String, AttackObject> myAttacks;
     private List<Effect> myActiveEffects;
-    private Health myHealth;
-    private int myLives;
-    private UpdatableLocation myOriginalLocation; 
-    private static final String DEFAULT_STATE="stand";
+    private Health myHealth; 
 
     /**
      * Constructs a new CharacterObject.
@@ -34,33 +31,31 @@ public class CharacterObject extends GameObject {
         super();
         myAttacks = new HashMap<String, AttackObject>();
         myActiveEffects = new ArrayList<Effect>();
-        myOriginalLocation=center; 
+        myHealth = new Health();
         setLoader(new CharacterLoader(objectId, this));
-        spawnCharacter(); 
+        setCurrentState("stand");
+        getCurrentState().setLooping(true);
+        setLocation(center);
         setImageData();
+        
     }
 
     /**
      * Updates the character for one game loop cycle. Applies movement from acceleration
      * forces acting on the character.
      */
-
     public void update() {
         super.update();
-        if (getCurrentState().hasCompleted()) {
-            setCurrentState("stand");
-        }
         for (Effect effect : myActiveEffects) {
             effect.update();
+        }       
+    }
+    
+    public void updateState() {
+        super.updateState();
+        if (getCurrentState().hasCompleted()) {
+            setCurrentState("stand");            
         }
-        if (!hasHealthRemaining()){
-        	loseLife();
-        	spawnCharacter(); 
-        }
-        if (!hasLivesRemaining()){
-        	//to do remove character
-        }
-        
     }
 
     /**
@@ -164,61 +159,42 @@ public class CharacterObject extends GameObject {
      */
     public void jump() {        
 
-    }
+    } 
     
     /**
-     * Increases the life count of the character by 1
+     * Characters should never be removed.
      */
-    public void addLife(){
-    	myLives++;
-    }
-    
-    /**
-     * Decreases the number of lives of the character by 1
-     */
-    public void loseLife(){
-    	myLives--; 
-    }
-    
-    /**
-     * Checks to see if character has more than one life left
-     */
-    public boolean hasLivesRemaining(){
-    	return myLives>=0; 
-    }
-    
-    /**
-     * Sets character to original location
-     */
-    public void resetLocation(){
-    	setLocation(myOriginalLocation);
-    }
-    
-    /**
-     * Sets the health to original amount
-     */
-    public void resetHealth(){
-    	myHealth=new Health(); 
-    }
-    
-    /**
-     * Sets the state to original state 
-     */
-    public void resetState(){
-        setCurrentState(DEFAULT_STATE); 
-    }
-    
-    /**
-     * Sets all of the properties to original settings
-     */
-    public void spawnCharacter(){
-    	resetLocation();
-    	resetHealth();
-    	resetState(); 
-    }
-    
     public boolean shouldBeRemoved() {
         return false;
     }
+    
+    /**
+     * Dispatches a colliding object to allow for proper collision handling. 
+     */
+    public void dispatchCollision(GameObject other) {
+        other.handleCollision(this);
+    }
+    
+    /**
+     * Collision with another CharacterObject.
+     */
+    public void handleCollision(CharacterObject other) {
+        System.out.println("CharacterObject handleCollision : Character collided with character");
+    }
+    
+    /**
+     * Collision with an AttackObject.
+     */
+    public void handleCollision(AttackObject other) {
+        System.out.println("CharacterObject handleCollision : Character collided with attack");
+    }
+    
+    /**
+     * Collision with an EnvironmentObject.
+     */
+    public void handleCollision(EnvironmentObject other) {
+        System.out.println("CharacterObject handleCollision : Character collided with environment");
+    }
+    
 
 }

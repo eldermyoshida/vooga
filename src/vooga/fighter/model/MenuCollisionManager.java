@@ -1,7 +1,7 @@
 package vooga.fighter.model;
 
-import java.util.List;
 
+import java.util.List;
 import vooga.fighter.model.objects.AttackObject;
 import vooga.fighter.model.objects.CharacterObject;
 import vooga.fighter.model.objects.EnvironmentObject;
@@ -9,10 +9,11 @@ import vooga.fighter.model.objects.GameObject;
 import vooga.fighter.model.objects.MenuObject;
 import vooga.fighter.model.objects.MouseClickObject;
 
+
 public class MenuCollisionManager extends CollisionManager {
 
-    public static void handleCollisions(GameObject o1, GameObject o2) {
-        CollisionManager.handleCollisions(o1,o2);
+    public void handleCollisions(GameObject o1, GameObject o2) {
+        super.handleCollisions(o1, o2);
         if (o1 instanceof MenuObject) {
             MenuObject obj1 = (MenuObject) o1;
             if (o2 instanceof MouseClickObject) {
@@ -33,8 +34,7 @@ public class MenuCollisionManager extends CollisionManager {
     /**
      * Applies collisions between a character and an attack.
      */
-    public static void handleCollisions(MenuObject o1, MouseClickObject o2) {
+    public void handleCollisions(MenuObject o1, MouseClickObject o2) {
         o1.tellDelegate();
     }
 }
-
