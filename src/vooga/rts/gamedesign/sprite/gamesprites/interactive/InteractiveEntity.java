@@ -2,6 +2,7 @@ package vooga.rts.gamedesign.sprite.gamesprites.interactive;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.geom.Ellipse2D;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,7 @@ import vooga.rts.gamedesign.sprite.gamesprites.IAttackable;
 import vooga.rts.gamedesign.sprite.gamesprites.Projectile;
 import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
 import vooga.rts.gamedesign.strategy.attackstrategy.CannotAttack;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building;
 import vooga.rts.gamedesign.upgrades.UpgradeNode;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
 import vooga.rts.util.Location3D;
@@ -129,7 +131,32 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
 			}
 		}    
 	} 
-
+	//below are the recognize methods to handle different input parameters from controller
+	/**
+	 * If the passed in parameter is type Location3D, moves the InteractiveEntity to that
+	 * location
+	 * @param location - the location to move to
+	 */
+	public void recognize (Location3D location) {
+		move(location);
+	}
+	/**
+	 * If the passed in parameter is another InteractiveEntity, checks to see if it is a 
+	 * Building and can be occupied, checks to see if it is an enemy, and if so, switches 
+	 * to attack state. 
+	 * Defaults to move to the center of the other InteractiveEntity 
+	 * @param other - the other InteractiveEntity 
+	 */
+	public void recognize (InteractiveEntity other) {
+		if(other instanceof Building) {
+			//occupy or do something
+		}
+		if(isEnemy(other)) {
+			//switch to attack state
+		}
+		move(other.getWorldLocation());
+	}
+	
 	/**
 	 * Sets the attack strategy for an interactive. Can set the interactive
 	 * to CanAttack or to CannotAttack and then can specify how it would
@@ -171,7 +198,15 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     public UpgradeTree getTree(){
         return myUpgradeTree;
     }
-
+    /**
+     * Sees whether the passed in InteractiveEntity is an enemy by checking if player IDs do
+     * not match
+     * @param InteractiveEntity other - the other InteractiveEntity to compare
+     * @return whether the other InteractiveEntity is an enemy
+     */
+    public boolean isEnemy(InteractiveEntity other) {
+    	return getPlayerID() != other.getPlayerID();
+    }
     
     public Action findAction(String name) {
     	for (Action a: myActions) {
@@ -192,12 +227,17 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
 	@Override
 	public void paint(Graphics2D pen) {
 		//pen.rotate(getVelocity().getAngle());
+		if(isSelected) { //lol what a failure... 
+			Ellipse2D.Double selectedCircle = new Ellipse2D.Double(getWorldLocation().getX(), getWorldLocation().getY(), 20, 20);
+			pen.fill(selectedCircle);
+		}
 		super.paint(pen);
 		if(myAttackStrategy.getCanAttack() && !getAttackStrategy().getWeapons().isEmpty()){
 			for(Projectile p : myAttackStrategy.getWeapons().get(myAttackStrategy.getWeaponIndex()).getProjectiles()) {
 				p.paint(pen);               
 			}
 		}
+		
 	}
 
 
