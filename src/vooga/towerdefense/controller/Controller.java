@@ -111,7 +111,7 @@ public class Controller {
      */
  // TODO The item that should be added should be a new instance of the one in the shop!!!
     public void fixItemOnMap (GameElement item, Point p) {
-        GameElement newItem = reflectAndCreateNew(item);
+        GameElement newItem = createNewElement(item);
         Tile myTile = myModel.getTile(p);
         myTile.setTower(newItem);
         myModel.getMap().addToMap(newItem, myTile); 
@@ -124,15 +124,16 @@ public class Controller {
      * @param item      Object to create new instance of
      * @return  new instance of item
      */
-    private GameElement reflectAndCreateNew(GameElement item) {
+    private GameElement createNewElement(GameElement item) {
         try {
-            Class myClass = item.getClass();
+            Class<? extends GameElement> myClass = item.getClass();
             System.out.println("I AM: " + myClass.getName());       
+            @SuppressWarnings("rawtypes")
             Class[] types = {Pixmap.class, Location.class, Dimension.class, AttributeManager.class, List.class};
-            Constructor constructor = myClass.getConstructor(types);
+            Constructor<? extends GameElement> constructor = myClass.getConstructor(types);
             Object[] parameters = {item.getPixmap(), item.getCenter(), item.getSize(), item.getAttributeManager(), item.getActions()};
             Object myNewItem = constructor.newInstance(parameters); 
-            return (GameElement)myNewItem;
+            return (GameElement) myNewItem;
         }
         catch(InvocationTargetException e) {
             //??
