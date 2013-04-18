@@ -39,7 +39,7 @@ public class GameModel {
     }
 
     public void update (double elapsedTime) {
-        updateWave(elapsedTime);
+        //updateWave(elapsedTime);
         myGameMap.update(elapsedTime);
     }
 

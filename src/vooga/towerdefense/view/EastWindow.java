@@ -33,14 +33,15 @@ public class EastWindow extends JPanel {
 
     private void initAndAddWindows () {
         myStatsWindow = new InformationScreen("Stats", STATS_WINDOW_SIZE);
-        myInformationWindow = new GameElementInformationScreen("Info", INFO_WINDOW_SIZE, myController);
+        myInformationWindow =
+                new GameElementInformationScreen("Info", INFO_WINDOW_SIZE, myController);
         // tests info screen
-        //myInformationWindow.displayInformation("Stuff about towers\nMore stuff about towers");
+        // myInformationWindow.displayInformation("Stuff about towers\nMore stuff about towers");
         add(myStatsWindow, BorderLayout.NORTH);
         add(myInformationWindow, BorderLayout.SOUTH);
     }
 
-    public GameElementInformationScreen getTowerScreen () {
+    public GameElementInformationScreen getGameElementScreen () {
         return myInformationWindow;
     }
 

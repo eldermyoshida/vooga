@@ -9,6 +9,7 @@ import vooga.towerdefense.controller.modes.ControlMode;
 import vooga.towerdefense.controller.modes.SelectMode;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.gameElements.Tower;
+import vooga.towerdefense.model.GameController;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.GameModel;
 import vooga.towerdefense.model.Shop;
@@ -46,14 +47,14 @@ public class Controller {
     public void displayElementInformation (GameElement e) {
         if (e != null) {
             // TODO: update this to reflect actual properties
-            myView.getTowerInfoScreen().displayInformation("Stuff about my clicked tower");
+            myView.getGameElementInfoScreen().displayInformation("Stuff about my clicked tower");
             // myView.getTowerInfoScreen().displayInformation(e.getAttributes().toString());
             if (e instanceof Tower) {
-                myView.getTowerInfoScreen().displayUpgradesAndButton(((Tower) e).getUpgrades());
+                myView.getGameElementInfoScreen().displayUpgradesAndButton(((Tower) e).getUpgrades());
             }
         }
         else {
-            myView.getTowerInfoScreen().clearScreen();
+            myView.getGameElementInfoScreen().clearScreen();
         }
     }
 
@@ -164,6 +165,14 @@ public class Controller {
     // System.out.println(center);
     // myView.getTowerInfoScreen().displayInformation(center.toString());
     // }
+    
+    /**
+     * starts the next wave in the model.
+     */
+    public void startNextWave() {
+        //TODO: implement next wave
+        System.out.println("Wave Started");
+    }
 
     /**
      * paints the ghost image of the item on the MapScreen
@@ -222,5 +231,11 @@ public class Controller {
     public Map<String, Pixmap> getShopItemIcons () {
         return myModel.getShop().getAllShopItemIcons();
     }
-    
+    /**
+     * Start the game controller
+     */
+    public void start () {
+        GameController game = new GameController(this);
+        game.start();
+    }
 }

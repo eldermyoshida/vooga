@@ -10,7 +10,7 @@ import vooga.towerdefense.util.Pixmap;
 
 public class TestTowerDefinition extends GameElementDefinition {
 	
-	private static final Pixmap TOWER_IMAGE = new Pixmap("orc.gif");
+	private static final Pixmap TOWER_IMAGE = new Pixmap("tower.gif");
 	private static final Dimension DEFAULT_TOWER_SIZE = new Dimension(50, 50);
 	private static final Location DEFAULT_TOWER_LOCATION = new Location(100,200);
 	private static final double DEFAULT_HEALTH = 50;

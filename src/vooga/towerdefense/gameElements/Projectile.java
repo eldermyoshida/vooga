@@ -12,58 +12,47 @@ import vooga.towerdefense.gameElements.GameElement;
 
 /**
  * GameElement projectile that can affect other game elements.
- *
+ * 
  */
 public class Projectile extends GameElement {
-	private static final AttributeConstants myAttributeConstants=new AttributeConstants();
-    private static int DEFAULT_WIDTH;
-    private static final Pixmap DEFAULT_IMAGE = new Pixmap("defined by designer");
-    private static final Dimension DEFAULT_SIZE = new Dimension(DEFAULT_WIDTH, DEFAULT_WIDTH);
-    private static final List<Action> DEFAULT_ACTIONS = new ArrayList<Action>();
-    private AttributeManager myAttributeManager;
+	private GameElement myTarget;
+	private GameElement myInitiator;
 
-    
-    public Projectile (GameElement initiator, GameElement target, List<Action> actions, AttributeManager attributes) {
-        super(DEFAULT_IMAGE, initiator.getCenter(), DEFAULT_SIZE, DEFAULT_ACTIONS);
-        myAttributeManager = attributes;
+	public Projectile(Pixmap image, Dimension size, GameElement initiator,
+			GameElement target, List<Action> actions,
+			AttributeManager attributes) {
+		super(image, initiator.getCenter(), size, attributes, actions);
+		myTarget = target;
+		myInitiator=initiator;
 
-    }
-    public Projectile (GameElement initiator, GameElement target, List<Action> actions) {
-        super(DEFAULT_IMAGE, initiator.getCenter(), DEFAULT_SIZE, DEFAULT_ACTIONS);
-        myAttributeManager = initiator.getAttributeManager();
+	}
 
-    }
+	/*
+	 * public Projectile (GameElement initiator, GameElement target,
+	 * List<Action> actions) { super(DEFAULT_IMAGE, initiator.getCenter(),
+	 * DEFAULT_SIZE, DEFAULT_ACTIONS); myAttributeManager =
+	 * initiator.getAttributeManager();
+	 * 
+	 * }
+	 * 
+	 * public Projectile(Location spawn,GameElement target){
+	 * super(DEFAULT_IMAGE,spawn,DEFAULT_SIZE,DEFAULT_ACTIONS); }
+	 */
+	public void update(double elapsedTime) {
+		// to-do mostly needs to move towards target;
+	}
 
+	public GameElement getTarget() {
 
-    
-    public double getAttackRadius () {
-        return myAttributeManager.getAttribute(myAttributeConstants.ATTACK_RADIUS).getValue();
-    }
+		return myTarget;
+	}
 
-    
-    public int getNumberOfTargets () {
-    	return (int)(myAttributeManager.getAttribute(myAttributeConstants.NUM_OF_TARGETS).getValue());
-    }
+	public void addTarget() {
 
-    
-    public double getAttackDamage () {
-    	 return myAttributeManager.getAttribute(myAttributeConstants.ATTACK_DAMAGE).getValue();
-    }
+	}
 
-    
-    public GameElement getTarget () {
-
-        return null;
-    }
-
-    
-    public void addTarget () {
-
-    }
-
-    
-    public Location getAttackCenter () {
-        return null;
-    }
+	public Location getAttackCenter() {
+		return super.getCenter();
+	}
 
 }

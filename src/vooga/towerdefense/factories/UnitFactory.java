@@ -1,3 +1,4 @@
+
 package vooga.towerdefense.factories;
 
 import java.util.ArrayList;
@@ -33,8 +34,8 @@ public class UnitFactory extends GameElementFactory {
     }
     
     
-    public AttributeFactory createAttributeFactory() {
-        AttributeFactory factory = new AttributeFactory();
+    public AttributeManagerFactory createAttributeFactory() {
+        AttributeManagerFactory factory = new AttributeManagerFactory();
         return factory;
     }
     

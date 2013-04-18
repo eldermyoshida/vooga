@@ -1,3 +1,4 @@
+
 package vooga.towerdefense.action;
 
 import vooga.towerdefense.attributes.Attribute;
@@ -24,8 +25,12 @@ public class Move extends Action {
     
     @Override
     public void update(double elapsedTime) {
+        myDirection.modifyValue(35);
         getInitiator().setVelocity(myDirection.getValue(), myMovespeed.getValue());
-        getInitiator().update(elapsedTime);
+        getInitiator().getVelocity().scale(elapsedTime);
+        getInitiator().translate(getInitiator().getVelocity());
+        System.out.println(getInitiator().getCenter());
     }
 
 }
+

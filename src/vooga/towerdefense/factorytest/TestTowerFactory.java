@@ -1,9 +1,7 @@
 package vooga.towerdefense.factorytest;
 
-import vooga.towerdefense.factories.AttributeManagerFactory;
 import vooga.towerdefense.factories.GameElementFactory;
 import vooga.towerdefense.gameElements.GameElement;
-import vooga.towerdefense.gameElements.Tower;
 import vooga.towerdefense.util.Location;
 
 /**

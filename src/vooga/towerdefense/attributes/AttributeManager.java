@@ -1,9 +1,12 @@
+
 package vooga.towerdefense.attributes;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+
+import vooga.towerdefense.factories.ProjectileFactory;
 
 
 /**
@@ -17,9 +20,11 @@ import java.util.List;
  */
 public class AttributeManager {
     private HashMap<String,Attribute> myAttributes;
+    private ProjectileFactory myProjectileFactory;
 
     public AttributeManager () {
         myAttributes = new HashMap<String,Attribute>();
+        myProjectileFactory=new ProjectileFactory();
     }
     
     /**
@@ -94,4 +99,10 @@ public class AttributeManager {
     	
     }
 
+    public ProjectileFactory getProjectileFactory(){
+    	return myProjectileFactory;
+    }
+
+
 }
+

@@ -16,11 +16,29 @@ import javax.swing.JTextArea;
  */
 public class InformationScreen extends JPanel {
 
+    /**
+     * location for the text area.
+     */
+    public static final String INFO_SCREEN_LOCATION = BorderLayout.CENTER;
+    /**
+     * default serialized id.
+     */
     private static final long serialVersionUID = 1L;
-    private static final String INFO_LOCATION = BorderLayout.CENTER;
+    /**
+     * width of the text area.
+     */
     private int myWidth;
+    /**
+     * height of the text area.
+     */
     private int myHeight;
+    /**
+     * text area for the info screen.
+     */
     private JTextArea myTextArea;
+    /**
+     * title of the screen.
+     */
     private String myTitle;
 
     /**
@@ -35,7 +53,7 @@ public class InformationScreen extends JPanel {
         myTitle = title + "\n";
         myWidth = size.width;
         myHeight = size.height;
-        add(makeInfoTextArea(), INFO_LOCATION);
+        add(makeInfoTextArea(), INFO_SCREEN_LOCATION);
         setVisible(true);
     }
 
@@ -55,12 +73,13 @@ public class InformationScreen extends JPanel {
     public void clearScreen () {
         displayInformation("");
     }
-    
+
     /**
      * gets the text area for this screen.
+     * 
      * @return the text area
      */
-    public JTextArea getTextArea() {
+    public JTextArea getTextArea () {
         return myTextArea;
     }
 
@@ -84,6 +103,7 @@ public class InformationScreen extends JPanel {
         myTextArea = new JTextArea();
         myTextArea.setSize(myWidth, myHeight);
         myTextArea.setEditable(false);
+        myTextArea.setText(myTitle);
         return myTextArea;
     }
 }
