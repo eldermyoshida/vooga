@@ -236,7 +236,8 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
 
 		//should probably use the getBottom, getHeight etc...implement them
 		Point2D selectLocation = Camera.instance().worldToView(getWorldLocation());
-		Rectangle2D healthBar = new Rectangle2D.Double((int)selectLocation.getX()-LOCATION_OFFSET, (int)(selectLocation.getY()-3*LOCATION_OFFSET), 50 * getHealth()/getMaxHealth(), 5);
+		pen.drawRect((int)selectLocation.getX()-LOCATION_OFFSET, (int)(selectLocation.getY()-5*LOCATION_OFFSET), 50, 5);
+		Rectangle2D healthBar = new Rectangle2D.Double((int)selectLocation.getX()-LOCATION_OFFSET, (int)(selectLocation.getY()-5*LOCATION_OFFSET), 50 * getHealth()/getMaxHealth(), 5);
 		pen.setColor(Color.GREEN);
 		pen.fill(healthBar);
 		pen.setColor(Color.black);
