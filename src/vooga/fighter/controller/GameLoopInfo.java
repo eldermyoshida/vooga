@@ -110,8 +110,8 @@ public class GameLoopInfo extends LoopInfo implements ViewDataSource{
     /**
      * @param myHealthStats the myHealthStats to set
      */
-    public void setHealthStats(List<Health> myHealthStats) {
-        myHealthStats = myHealthStats;
+    public void setHealthStats(List<Health> healthStats) {
+        myHealthStats = healthStats;
     }
 
     public void setHealthStat(int index, Health heal) {

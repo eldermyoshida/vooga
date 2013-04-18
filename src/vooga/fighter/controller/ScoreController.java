@@ -15,6 +15,11 @@ import vooga.fighter.model.Mode;
 import vooga.fighter.util.Paintable;
 import vooga.fighter.view.Canvas;
 
+/**
+ * 
+ * @author Jerry Li
+ *
+ */
 public class ScoreController extends Controller {
     private static final String INPUT_PATHWAY = "vooga.fighter.config.leveldefault";
     

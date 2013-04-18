@@ -39,11 +39,7 @@ public static final Dimension SIZE = new Dimension(800, 600);
 
     public GameManager() {
         myCanvas = new Canvas(SIZE); 
-        List<Integer> myTwoCharacters = new ArrayList<Integer>();
-        myTwoCharacters.add(1);
-        myTwoCharacters.add(2);
-        
-        myGameInfo = new GameInfo(myTwoCharacters, 1);
+        myGameInfo = new GameInfo();
         myControllerManager = new ControllerManager(myCanvas, myGameInfo);
         JFrame frame = new JFrame(TITLE);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

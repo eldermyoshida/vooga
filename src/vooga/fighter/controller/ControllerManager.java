@@ -15,7 +15,7 @@ import vooga.fighter.view.Canvas;
  */
 
 public class ControllerManager implements ControllerDelegate{
-	private static final String MAINMENU = "MainMenu";
+	private static final String MAINMENU = "CharacterSelectMenu";
 	private static final String TEST = "Test";
 	private Map<String, Controller> myControllerMap;
 	private Controller myCurrentController;

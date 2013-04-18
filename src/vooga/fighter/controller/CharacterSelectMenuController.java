@@ -22,12 +22,11 @@ import java.util.ResourceBundle;
 
 /**
  * 
- * @author Jerry Li and Jack Matteucci
- * 
+ * @author Jerry Li  
  */
 
 @InputClassTarget
-public class MenuController extends Controller {
+public class CharacterSelectMenuController extends Controller {
 
     private static final String INPUT_PATHWAY = "vooga.fighter.config.menudefault";
     private static final String INPUT_SETTING = "vooga.fighter.config.Settings";
@@ -35,19 +34,19 @@ public class MenuController extends Controller {
     private GameInfo myGameInfo;
     private LoopInfo myLoopInfo;
 
-    public MenuController (String name, Canvas frame) {
+    public CharacterSelectMenuController (String name, Canvas frame) {
         super(name, frame);
     }
-	
-    public MenuController(String name, Canvas frame, ControllerDelegate manager, 
-    		GameInfo gameinfo) {
-    	super(name, frame, manager, gameinfo);
-    	loadMode();
-    	//Duplicated code below, see levelcontroller
-    	LoopInfo gameLoopInfo =  new LoopInfo(super.getMode());
-    	setGameLoopInfo(gameLoopInfo);
-    	frame.setViewDataSource(gameLoopInfo);
-    	myGameInfo = gameinfo;
+        
+    public CharacterSelectMenuController(String name, Canvas frame, ControllerDelegate manager, 
+                GameInfo gameinfo) {
+        super(name, frame, manager, gameinfo);
+        loadMode();
+        //Duplicated code below, see levelcontroller
+        LoopInfo gameLoopInfo =  new LoopInfo(super.getMode());
+        setGameLoopInfo(gameLoopInfo);
+        frame.setViewDataSource(gameLoopInfo);
+        myGameInfo = gameinfo;
     }
     
     public void loadMode() {
@@ -81,7 +80,7 @@ public class MenuController extends Controller {
     @InputMethodTarget(name = "continue")
     public void mouseclick(PositionObject pos)  {
         super.getMode().addObject(new MouseClickObject(pos.getPoint2D()));
-        notifyEndCondition("ModeSelectMenu");
+        notifyEndCondition("Test");
     }
     
     @Override
@@ -89,15 +88,16 @@ public class MenuController extends Controller {
         Input temp = new Input(INPUT_PATHWAY, super.getView());
         //temp.overrideSettings(INPUT_SETTING);
         temp.addListenerTo(this);
-    	return temp;
+        return temp;
     }
 
-	@Override
-	public void notifyEndCondition(int endCondition) {
-		// TODO Auto-generated method stub
-		
-	}
+        @Override
+        public void notifyEndCondition(int endCondition) {
+                // TODO Auto-generated method stub
+                
+        }
 
     
 
 }
+

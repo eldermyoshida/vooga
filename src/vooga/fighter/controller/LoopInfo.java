@@ -76,8 +76,8 @@ public class LoopInfo extends Observable implements ViewDataSource{
     /**
      * @param mySpriteLocations the mySpriteLocations to set
      */
-    public void setSpriteLocations(List<Location> mySpriteLocations) {
-        mySpriteLocations = mySpriteLocations;
+    public void setSpriteLocations(List<Location> spriteLocations) {
+        mySpriteLocations = spriteLocations;
     }
 
     /**
@@ -98,8 +98,8 @@ public class LoopInfo extends Observable implements ViewDataSource{
     /**
      * @param mySprites the mySprites to set
      */
-    public void setSprites(List<Pixmap> mySprites) {
-        mySprites = mySprites;
+    public void setSprites(List<Pixmap> sprites) {
+        mySprites = sprites;
     }
 
     public void setSprite(int index, Pixmap pix) {
@@ -113,8 +113,8 @@ public class LoopInfo extends Observable implements ViewDataSource{
     /**
      * @param myImageSizes the myImageSizes to set
      */
-    public void setImageSizes(List<Dimension> myImageSizes) {
-        myImageSizes = myImageSizes;
+    public void setImageSizes(List<Dimension> imageSizes) {
+        myImageSizes = imageSizes;
     }
 
     /**

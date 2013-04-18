@@ -31,7 +31,6 @@ public class ControllerFactory {
         myControllerNames = new ArrayList<String>();
 
         setupControllerConfiguration(frame, myResources, myControllerNames, myControllerMap);
-     
     }
 
     public Map getMap(){
@@ -40,10 +39,12 @@ public class ControllerFactory {
 
     private void setupControllerConfiguration(Canvas frame, ResourceBundle resources, List<String> controllerName,
                                               Map<String, Controller> controllermap) {
+        
+        //We should probably try and find a way to get rid of these if elses. They work for now -Jerry
         for(String key: resources.keySet()){
             controllerName.add(key);
-            if (key.equals("LevelController")) {
-                Controller controller = new LevelController(resources.getString(key), frame);
+            if (key.equals("OneVOneController")) {
+                Controller controller = new OneVOneController(resources.getString(key), frame);
                 controllermap.put(controller.getName(), controller);
             }
             else if (key.equals("ScoreController")) {
@@ -54,7 +55,14 @@ public class ControllerFactory {
                 Controller controller = new MenuController(resources.getString(key), frame);
                 controllermap.put(controller.getName(), controller);
             }
-            
+            else if (key.equals("ModeSelectMenuController")) {
+                Controller controller = new ModeSelectMenuController(resources.getString(key), frame);
+                controllermap.put(controller.getName(), controller);
+            }
+            else if (key.equals("CharacterSelectMenuController")) {
+                Controller controller = new CharacterSelectMenuController(resources.getString(key), frame);
+                controllermap.put(controller.getName(), controller);
+            }
         }
     }
 

@@ -1,8 +1,19 @@
 <?xml version="1.0"?>
 <objects>
-    <menuobject menuobjectname="SinglePlayer">
-    	<state name="still">
+    <menuobject menuobjectname="ModeSelectMenu">
+    	<state name="Test">
+            <frame image="fighter/images/StartGame.gif" />
+        </state>
+    </menuobject>
+    <menuobject menuobjectname="1v1">
+    	<state name="1v1">
+            <frame image="fighter/images/1v1.jpg" />
+        </state>
+    </menuobject>
+    <menuobject menuobjectname="Ryu">
+    	<state name="1v1">
             <frame image="fighter/images/ryu_stand1.png" />
         </state>
     </menuobject>
+    
 </objects>
