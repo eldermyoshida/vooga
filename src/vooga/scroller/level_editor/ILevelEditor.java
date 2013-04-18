@@ -1,7 +1,9 @@
 
 package vooga.scroller.level_editor;
 
+import java.util.Map;
 import vooga.scroller.util.Editable;
+import vooga.scroller.util.Sprite;
 
 /**
  * Interface between a LevelEditor model and a Level Editor view.
@@ -18,5 +20,7 @@ public interface ILevelEditor {
 
     
     public void processCommand (Editable m, String cmd);
+
+    public void setSpriteMap (Map<Integer, Sprite> spriteMap);
     
 }

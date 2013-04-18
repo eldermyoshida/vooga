@@ -1,5 +1,6 @@
 package vooga.rts.gui;
 
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.DisplayMode;
 import java.awt.GraphicsDevice;

@@ -161,4 +161,8 @@ public class Location3D {
         myY *= -1;
         myZ *= -1;
     }
+    
+    public Location to2D() {
+        return new Location(getX(), getY());
+    }
 }

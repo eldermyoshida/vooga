@@ -4,8 +4,8 @@ package vooga.rts.leveleditor.components;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import vooga.rts.leveleditor.gui.MapPanel;
 import vooga.rts.util.Location;
@@ -20,18 +20,22 @@ import vooga.rts.util.Location;
  */
 
 
-public class EditableMap {
+public class EditableMap implements Serializable {
 
     
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 5848819056578981375L;
     private int myXSize;
     private int myYSize; 
     
-    private List<Terrain> myTerrains;
+    private Map<Integer , MapLayer> myLayers;
     
     private String myMapName = "CIEMAS";
     private String myDescription = " our RTS is the best one !";
     
-    EditableNode[][] myNodeMatrix;
+    private EditableNode[][] myNodeMatrix;
     
     private Map<Integer , Location> myPlayerLocations;
     private int myPlayerNumber;
@@ -48,9 +52,7 @@ public class EditableMap {
     }
     
     public EditableMap(int x , int y) {
-        myXSize = x;
-        myYSize = y;
-        initializeMap();
+        this(x,y,MapPanel.DEFAULT_TILE_WIDTH,MapPanel.DEFAULT_TILE_HEIGHT);
     }
     
     public EditableMap() {
@@ -59,15 +61,25 @@ public class EditableMap {
     
     public void initializeMap(int width, int height) {
         myNodeMatrix = new EditableNode[myXSize][myYSize];
+        
         for(int i =0 ; i<myXSize ; i++) {
             for(int j =0 ; j<myYSize ; j++) {
                 myNodeMatrix[i][j] = new EditableNode(i,j,width, height, false);
             }
         }
+        
         myPlayerLocations = new HashMap<Integer , Location>();
         myPlayerNumber = 0;
-        mySaver = new MapSaver();
+        myLayers = new HashMap<Integer , MapLayer>();
+        try {
+            mySaver = new MapSaver(this);
+        }
+        catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         myLoader = new MapLoader();
+        
     }
     
     public void initializeMap() {
@@ -75,21 +87,24 @@ public class EditableMap {
     }
    
     public void addPlayer(int x, int y) {
-        
-        myPlayerLocations.put(myPlayerNumber, new Location(x,y));
-        myPlayerNumber ++;
-        
+        addPlayer(new Location(x,y));
     }
     
     public void addPlayer(Location loc) {
-        myPlayerLocations.put(myPlayerNumber, loc);
         myPlayerNumber ++;
+        myPlayerLocations.put(myPlayerNumber, loc);
     }
     
     public void removePlayer(int index) {
         myPlayerLocations.remove(index);
         myPlayerNumber --;
     }
+    
+    public HashMap<Integer, Location> getLocationMap() {
+        return (HashMap<Integer, Location>) myPlayerLocations;
+    }
+    
+    
     
     
     public void clearMap() {
@@ -98,6 +113,8 @@ public class EditableMap {
                 myNodeMatrix[i][j].reset();
             }
         }
+        myPlayerNumber = 0;
+        myPlayerLocations.clear();
     }
     
     
@@ -136,7 +153,7 @@ public class EditableMap {
     
     public void save(File objectiveFile) { 
         try {
-            mySaver.generateMapFile(this, objectiveFile);
+            mySaver.generateMapFile(objectiveFile);
         }
         catch (IOException e) {
             // TODO Auto-generated catch block
@@ -149,8 +166,14 @@ public class EditableMap {
         save(bufferFile);
     }
     
-    public void addTerrain(Terrain ter) {
-        myTerrains.add(ter);
+    public void addTerrain(int layerIndex , Terrain ter) {
+        if(myLayers.containsKey(layerIndex)) {
+            myLayers.get(layerIndex).addTerrain(ter);
+        } else {
+           MapLayer bufferLayer = new MapLayer();
+           bufferLayer.addTerrain(ter);
+           myLayers.put(layerIndex, bufferLayer);
+        }
     }
     
     public void addTile(int x , int y , String tileType) {
@@ -231,7 +254,7 @@ public class EditableMap {
     }
 
     
-    public void ZoomIn() {
+    public void zoomIn() {
         for(int i =0 ; i<myXSize ; i++) {
             for(int j =0 ; j<myYSize ; j++) {
                 myNodeMatrix[i][j].ZoomIn();
@@ -240,7 +263,7 @@ public class EditableMap {
         
     }
 
-    public void ZoomOut() {
+    public void zoomOut() {
         for(int i =0 ; i<myXSize ; i++) {
             for(int j =0 ; j<myYSize ; j++) {
                 myNodeMatrix[i][j].ZoomOut();

@@ -3,8 +3,10 @@ package vooga.scroller.util;
 
 import java.awt.Graphics2D;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.geom.Point2D;
 import java.awt.geom.AffineTransform;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 
@@ -14,11 +16,12 @@ import javax.swing.ImageIcon;
  * 
  * Note, Java only supports the formats: png, jpg, gif.
  * 
- * @author Robert C. Duvall
+ * @author Robert C. Duvall, Dagbedji F
+ * Added get icon
  */
 public class Pixmap {
     // OS-independent relative resource locations (like URLs)
-    private static final String RESOURCE_LOCATION = "/images/";
+    private static final String RESOURCE_LOCATION = "/vooga/scroller/images/";
     // underlying implementation
     private java.awt.Image myImage;
     private String myFileName;
@@ -67,5 +70,9 @@ public class Pixmap {
         pen.drawImage(myImage, -size.width / 2, -size.height / 2, size.width, size.height, null);
         // restore graphics area to its old state, so our changes have no lasting effects
         pen.setTransform(old);
+    }
+    
+    public Image getImg() {
+        return myImage;
     }
 }
