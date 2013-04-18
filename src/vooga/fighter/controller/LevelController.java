@@ -50,7 +50,7 @@ public class LevelController extends Controller {
     public void loadMode() {
         List<Integer> characterNames = myGameInfo.getCharacters();
         int mapID = myGameInfo.getMapName();
-        Mode temp = new LevelMode(this, characterNames, mapID);
+        LevelMode temp = new LevelMode(this, characterNames, mapID);
         setMode(temp);
         myInputObjects = temp.getMyCharacterObjects();
     }
@@ -117,7 +117,6 @@ public class LevelController extends Controller {
     }
     @Override
     public void notifyEndCondition () {
-        System.out.println("level controller notify end is working");
         myGameInfo.setMapName(2);
         myGameInfo.getCharacters().clear();
         myManager.notifyEndCondition("GameOver");

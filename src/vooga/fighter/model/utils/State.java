@@ -2,6 +2,7 @@ package vooga.fighter.model.utils;
 
 import java.awt.Dimension;
 import java.awt.Rectangle;
+import vooga.fighter.model.objects.CharacterObject;
 import vooga.fighter.model.objects.GameObject;
 import util.Location;
 import util.Pixmap;
@@ -74,7 +75,9 @@ public class State {
         myImages = new Pixmap[myNumFrames];
         myFrameDelays = new Integer[myNumFrames];
         myCurrentFrame = 0;
+        myDelay = 0;
         myLooping = false;
+        populateAllDelays(0);
     }
 
     /**
@@ -215,7 +218,11 @@ public class State {
     
     /**
      * Progresses this state to the next frame in its animation and hitbox. If the
-     * state progresses past its final frame and is looping, it will reset.
+     * state progresses past its final frame and is looping, it will reset. Note
+     * that it is possible for a state to progress past its final frame--this is
+     * the moment when the state is considered "complete". It is incumbent on the
+     * developer to properly handle state switching when this occurs if the state
+     * is not looping, or exceptions will be encountered.
      */
     public void update() {
         if (myDelay == myFrameDelays[myCurrentFrame]) {
