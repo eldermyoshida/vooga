@@ -2,8 +2,14 @@ package vooga.rts.networking.communications.clientmessages;
 
 import vooga.rts.networking.communications.Message;
 
-public class HostDisconnectedMessage extends Message {
-    private String myUsername;
+/**
+ * Represents a disconnected user from the GUI
+ * @author Henrique Moraes
+ *
+ */
+public class HostDisconnectedMessage extends GUIMessage {
     
-    //public HostDisconnected 
+    public HostDisconnectedMessage(String host){
+        super(host);
+    }
 }

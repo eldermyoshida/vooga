@@ -1,16 +1,24 @@
 package vooga.rts.networking.client.GUI;
 
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.EtchedBorder;
 import vooga.rts.networking.communications.Message;
 import vooga.rts.networking.communications.clientmessages.HostDescriptionMessage;
+import vooga.rts.networking.communications.clientmessages.TeamDescriptionMessage;
 
 /**
  * Class that is responsible for creating some panels for the GUI
@@ -20,6 +28,7 @@ import vooga.rts.networking.communications.clientmessages.HostDescriptionMessage
  */
 public class ServerGUIFactory{
     private static final Font DEFAULT_FONT = new Font("Century Gothic", Font.PLAIN,18);
+    private static final Font DEFAULT_TEAM_FONT = new Font("Century Gothic", Font.PLAIN,14);
     private Font myFont = DEFAULT_FONT;
     private static ServerGUIFactory instance;
     
@@ -69,11 +78,10 @@ public class ServerGUIFactory{
         generalInfo.add(description);
         description.setLayout(new GridLayout(0,1));
         description.add(makeLabel(message.getServerName()));
-        description.add(makeLabel(message.getHost()));
+        description.add(makeLabel(message.getHostName()));
         description.add(makeLabel(message.getMaxPlayers()+""));
         
         mainPanel.add(generalInfo, BorderLayout.WEST);
-        mainPanel.add(createSpecificPanel(), BorderLayout.CENTER);
         mainPanel.setOpaque(false);
         return mainPanel;
     }
@@ -90,6 +98,18 @@ public class ServerGUIFactory{
     }
     
     /**
+     * 
+     * @param desc description of the label
+     * @param font to be used on the label
+     * @return a label set with this factory's font
+     */
+    private JLabel makeLabel(String desc, Font font) {
+        JLabel label = new JLabel(desc);
+        label.setFont(font);
+        return label;
+    }
+    
+    /**
      * Sets the font for this factory's labels
      * @param font the font to be used
      */
@@ -99,18 +119,32 @@ public class ServerGUIFactory{
     
     /**
      * 
-     * @return panel specific for host description
+     * @return panel with team player names
      */
-    private JPanel createSpecificPanel(){
-        JPanel specific = new JPanel();
-        int numLabels = 6;
-        specific.setLayout(new GridLayout(0,1));
-        for(int i = 0 ; i<numLabels; i++){
-            JLabel label = makeLabel("label number "+i);
-            label.setHorizontalAlignment(SwingConstants.CENTER);
-            specific.add(label);
+    public JPanel createTeamPanel(TeamDescriptionMessage message){
+        JPanel teamPanel = new JPanel();
+        int index = 1;
+        String[][] teams = message.getAllTeams();
+        teamPanel.setLayout(new GridLayout(0,2));
+         
+        for(int i = 0 ; i < teams.length ; i++){
+            JPanel names = new JPanel();
+            names.setOpaque(false);
+            names.setLayout(new BoxLayout(names,BoxLayout.PAGE_AXIS));
+            
+            names.add(makeLabel("Team "+index));
+            names.add(Box.createVerticalGlue());
+ 
+            for (int j = 0 ; j < teams[i].length; j++) {
+                names.add(makeLabel(teams[i][j],DEFAULT_TEAM_FONT));
+            }
+            names.add(Box.createVerticalGlue());
+            teamPanel.add(names);
+            index ++;
         }
-        specific.setOpaque(false);
-        return specific;
+        teamPanel.setOpaque(false);
+        teamPanel.setBorder(BorderFactory.createTitledBorder
+                            (BorderFactory.createEtchedBorder(EtchedBorder.LOWERED), "Teams"));
+        return teamPanel;
     }
 }

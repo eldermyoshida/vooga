@@ -6,9 +6,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -31,11 +28,11 @@ import javax.swing.JTable;
 import javax.swing.JToolBar;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.SwingConstants;
-import javax.swing.SwingWorker;
-import javax.swing.border.EmptyBorder;
 import vooga.rts.networking.communications.Message;
+import vooga.rts.networking.communications.clientmessages.GUIMessage;
 import vooga.rts.networking.communications.clientmessages.HostDescriptionMessage;
+import vooga.rts.networking.communications.clientmessages.HostDisconnectedMessage;
+import vooga.rts.networking.communications.clientmessages.TeamDescriptionMessage;
 import vooga.rts.networking.logger.NetworkLogger;
 
 /**
@@ -47,6 +44,7 @@ public class JoinLobby extends JFrame {
     
     private static final long serialVersionUID = -4494998676210936451L;
     private JTable myServerListTable;
+    private static final int TEAM_PANEL_INDEX = 1;
     private String[] imageFileNames = { "Scroll.png", "Scroll1.jpg",
                                         "Scroll2.jpg", "Scroll3.jpg","Scroll.png", "Scroll1.jpg",
                                         "Scroll2.jpg", "Scroll3.jpg"};
@@ -97,10 +95,29 @@ public class JoinLobby extends JFrame {
     }
     
     /**
-     * Removes the visual attributes related to the given host
-     * @param hostName name of the host
+     * takes appropriate action according to the type of message
+     * Maybe use a better approach using reflection but I don't know how
+     * to do it
+     * @param message message with GUI information
      */
-    public void removeConnection(String hostName){
+    public void readMessage(GUIMessage message) {
+        if (message instanceof HostDisconnectedMessage) {
+            removeConnection((HostDisconnectedMessage) message);
+        }
+        else if (message instanceof HostDescriptionMessage) {
+            addConnection((HostDescriptionMessage) message);
+        }
+        else if (message instanceof TeamDescriptionMessage) {
+            changeState((TeamDescriptionMessage) message);
+        }
+    }
+    
+    /**
+     * Removes the visual attributes related to the given host
+     * @param message Disconnected host message containing name of the host
+     */
+    private void removeConnection(HostDisconnectedMessage host){
+        String hostName = host.getHostName();
         CardLayout card = (CardLayout) myCards.getLayout();
         for (JButton button : myCardMap.keySet()){        
             if (button.getActionCommand().equals(hostName)){
@@ -109,22 +126,19 @@ public class JoinLobby extends JFrame {
                 return;
             }
         } 
-        myLogger.logMessage(Level.WARNING,"Host does not exist");
     }
-    
+
     /**
      * Creates a new connection by asserting the properties in the message
      * into the GUI
-     * @param message Message containing 
+     * @param message Message containing description of host 
      */
-    public void addConnection(Message message) {
-        try {
-            HostDescriptionMessage host = (HostDescriptionMessage) message;
+    private void addConnection(HostDescriptionMessage host) {
             ImageIcon icon;
             icon = ImageHelper.getImageIcon(host.getImagePath());
             ThumbnailAction thumbAction = null;      
             ImageIcon thumbnailIcon = new ImageIcon(ImageHelper.getScaledImage(icon.getImage(),80));
-            String hostName = host.getHost();
+            String hostName = host.getHostName();
             thumbAction = new ThumbnailAction(hostName, thumbnailIcon);
 
             JButton thumbButton = new JButton(thumbAction);
@@ -135,9 +149,22 @@ public class JoinLobby extends JFrame {
 
             myBar.add(thumbButton, myBar.getComponentCount() - 1); 
             index++;
-        }
-        catch (Exception e){
-            myLogger.logMessage("Not a host description to add");
+    }
+    
+    /**
+     * Updates the panel with the teams descriptions
+     * @param message Message containing description of teams
+     */
+    private void changeState(TeamDescriptionMessage message) {
+        String hostName = message.getHostName();
+        for (JButton button : myCardMap.keySet()){        
+            if (button.getActionCommand().equals(hostName)){
+                JPanel card = myCardMap.get(button);
+                ServerGUIFactory instance = ServerGUIFactory.getInstance();
+                if (card.getComponentCount() > 1 )
+                    card.remove(TEAM_PANEL_INDEX);                
+                card.add(instance.createTeamPanel(message), BorderLayout.CENTER);
+            }
         }
     }
     

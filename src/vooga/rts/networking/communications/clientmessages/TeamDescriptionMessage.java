@@ -2,14 +2,21 @@ package vooga.rts.networking.communications.clientmessages;
 
 import vooga.rts.networking.communications.Message;
 
-public class TeamDescriptionMessage extends Message{
+/**
+ * 
+ * @author Henrique Moraes
+ *
+ */
+public class TeamDescriptionMessage extends GUIMessage{
     String [][] myTeams;
     
-    public TeamDescriptionMessage(int teams, int playersPerTeam) {
+    public TeamDescriptionMessage(String host, int teams, int playersPerTeam) {
+        super(host);
         myTeams = new String [teams][playersPerTeam];
     }
     
-    public TeamDescriptionMessage(String[][] teams){
+    public TeamDescriptionMessage(String host, String[][] teams){
+        super(host);
         myTeams = teams;
     }
     
@@ -27,6 +34,16 @@ public class TeamDescriptionMessage extends Message{
             if (name == null || name.isEmpty()){
                 myTeams[teamIndex][i] = playerName;
                 break;
+            }
+        }
+    }
+    
+    public void removePlayer(String playerName) {
+        for (int i = 0; i< myTeams.length ; i++){
+            for (int j =0; j< myTeams[i].length ; j++) {
+                if (playerName.equals(myTeams[i][j])){
+                    myTeams[i][j] = "";
+                }
             }
         }
     }

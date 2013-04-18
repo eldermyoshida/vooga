@@ -3,12 +3,11 @@ package vooga.rts.networking.communications.clientmessages;
 import vooga.rts.networking.communications.Message;
 
 /**
- * 
+ * Contains the description of a host for the GUI
  * @author Henrique Moraes, Ellango Jothimurugesan
  *
  */
-public class HostDescriptionMessage extends Message {
-    private String myHostName;
+public class HostDescriptionMessage extends GUIMessage {
     private String myMapDescription;
     private String myServer;
     private String myImagePath;
@@ -23,16 +22,11 @@ public class HostDescriptionMessage extends Message {
      * @param args[4] File path to map image
      */
     public HostDescriptionMessage(String...args) {
-        super();
-        myHostName = args[0];
+        super(args[0]);
         myMapDescription = args[1];
         myMaxPlayers = args[2];
         myServer = args[3];
         myImagePath = args[4];   
-    }
-    
-    public String getHost(){
-        return myHostName;
     }
     
     public String getMapDescription(){
