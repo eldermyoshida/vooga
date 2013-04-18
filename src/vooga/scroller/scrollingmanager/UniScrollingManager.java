@@ -175,8 +175,6 @@ public class UniScrollingManager extends ScrollingManager {
         int imgwidth = img.getWidth(null);
         int imgheight = img.getHeight(null);
 
-        //hardcoded for left restriction
-
         int leftPaintBound = leftpaintbound();
         int upperPaintBound = upperpaintbound();
         int rightPaintBound = rightpaintbound();
@@ -200,6 +198,7 @@ public class UniScrollingManager extends ScrollingManager {
             upperPaintBound = (int) levelUpperBoundary();
             lowerPaintBound = (int) levelLowerBoundary();
         }
+
         if(!myHorizontalScrollActive) {
             myLeftPaintBound = leftPaintBound;
             myRightPaintBound = rightPaintBound;
@@ -226,90 +225,97 @@ public class UniScrollingManager extends ScrollingManager {
 
     public Location playerPaintLocation (Player p) {
         updateLocation(p);
-        double halfwidth = myView.getWidth() / 2;
-        double halfheight = myView.getHeight() / 2;
-        double x = halfwidth;
-        double y = halfheight;
+        double halfWidth = myView.getWidth() / 2;
+        double halfHeight = myView.getHeight() / 2;
+        double x = halfWidth;
+        double y = halfHeight;
         double playerlocx = p.getX();
         double playerlocy = p.getY();
-        if(playerlocx > (uniRightBoundary(p) - halfwidth)) {
-            x =  halfwidth + (halfwidth - (Math.abs(uniRightBoundary(p) - playerlocx)));
+        if(playerlocx > (uniRightBoundary(p) - halfWidth)) {
+            x =  halfWidth + (halfWidth - (Math.abs(uniRightBoundary(p) - playerlocx)));
         }
-        if(playerlocx < (uniLeftBoundary(p) + halfwidth)) {
-            x =  halfwidth - (halfwidth - (Math.abs(uniLeftBoundary(p) - playerlocx)));
+        if(playerlocx < (uniLeftBoundary(p) + halfWidth)) {
+            x =  halfWidth - (halfWidth - (Math.abs(uniLeftBoundary(p) - playerlocx)));
         }
-        if(playerlocy > (uniLowerBoundary(p) - halfheight)) {
-            y =  halfheight + (halfheight - (Math.abs(uniLowerBoundary(p) - playerlocy)));
+        if(playerlocy > (uniLowerBoundary(p) - halfHeight)) {
+            y =  halfHeight + (halfHeight - (Math.abs(uniLowerBoundary(p) - playerlocy)));
         }
-        if(playerlocy < (uniUpperBoundary(p) + halfheight)) {
-            y =  halfheight - (halfheight - (Math.abs(uniUpperBoundary(p) - playerlocy)));
+        if(playerlocy < (uniUpperBoundary(p) + halfHeight)) {
+            y =  halfHeight - (halfHeight - (Math.abs(uniUpperBoundary(p) - playerlocy)));
         }
         myLastPlayerPaintLocation = new Location(x, y);
         if(myDirection == 1){
-            if(x > halfwidth){
+            if(myLastPlayerPaintLocation.getX() > halfWidth){
                 myHorizontalScrollActive = false;
             }
             myHorizontalScrollActive = true;            
         }
         if(myDirection == 2 ){
-            if(x > halfheight){
+            if(myLastPlayerPaintLocation.getY() > halfHeight){
                 myVerticalScrollActive = false;
             }
             myVerticalScrollActive = true;    
         }
         if(myDirection == 3){
-            if(x < halfwidth){
+            if(myLastPlayerPaintLocation.getX() < halfWidth){
                 myHorizontalScrollActive = false;
             }
             myHorizontalScrollActive = true;    
         }
         if(myDirection == 4){
-            if(x < halfheight){
+            if(myLastPlayerPaintLocation.getY() < halfHeight){
                 myVerticalScrollActive = false;
             }
             myVerticalScrollActive = true;    
         }
-        
+
         return myLastPlayerPaintLocation;
 
     }
 
     private void updateLocation (Player p) {
+        double xCoord = p.getX();
+        double yCoord = p.getY();
+        int halfWidth = myView.getWidth() / 2;
+        int halfHeight = myView.getHeight() / 2;
+
+
+
         if(myDirection == -1){
             if(myDirection == 1){
-                myMaxDirection = (p.getX() + myView.getWidth() /2);
+                myMaxDirection = (xCoord + halfWidth);
 
             }
             if(myDirection == 2 ){
-                myMaxDirection = (p.getY() + myView.getHeight() / 2);
+                myMaxDirection = (yCoord + halfHeight);
 
             }
             if(myDirection == 3){
-                myMaxDirection = (p.getX() - myView.getWidth() / 2);
+                myMaxDirection = (xCoord - halfWidth);
 
             }
             if(myDirection == 4){
-                myMaxDirection = (p.getY() - myView.getHeight() / 2);
+                myMaxDirection = (yCoord - halfHeight);
             }
         }
         if(myDirection == 1){
-            if((p.getX() + myView.getWidth() /2) < myMaxDirection){
-                myMaxDirection = (p.getX() + myView.getWidth() /2);
+            if((xCoord + halfWidth) < myMaxDirection){
+                myMaxDirection = (xCoord + halfWidth);
             }
         }
         if(myDirection == 2){
-            if((p.getY() + myView.getHeight() / 2)  < myMaxDirection){
-                myMaxDirection = (p.getY() + myView.getHeight() / 2);
+            if((yCoord + halfHeight)  < myMaxDirection){
+                myMaxDirection = (yCoord + halfHeight);
             }
         }
         if(myDirection == 3){
-            if((p.getX() - myView.getWidth() / 2) > myMaxDirection){
-                myMaxDirection = (p.getX() - myView.getWidth() / 2);
+            if((xCoord - halfWidth) > myMaxDirection){
+                myMaxDirection = (xCoord - halfWidth);
             }
         }
         if(myDirection == 4){
-            if((p.getY() - myView.getHeight() / 2) > myMaxDirection){
-                myMaxDirection = (p.getY() - myView.getHeight() / 2);
+            if((yCoord - halfHeight) > myMaxDirection){
+                myMaxDirection = (yCoord - halfHeight);
             }
         }
     }
