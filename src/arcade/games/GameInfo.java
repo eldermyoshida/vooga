@@ -52,16 +52,7 @@ public class GameInfo {
         return new Pixmap(myResourceBundle.getString(AD_SCREEN));
     }
 
-    private Class getGameClass () {
-        try {
-            return Class.forName(myResourceBundle.getString(GAME_MAIN_CLASS_KEYWORD));
-        }
-        catch (ClassNotFoundException e) {
-            // add some additional tries for letter case, then throw an exception
-
-            return null;
-        }
-    }
+    
 
     public double getRating () {
         return myModel.getAverageRating(myResourceBundle.getString(GAME_NAME));
@@ -111,17 +102,7 @@ public class GameInfo {
         return null;
     }
 
-    private Class getMultiplayerGameClass () {
-        try {
-            return Class.forName(myResourceBundle.getString(MULTIPLAYER_GAME_MAIN_CLASS_KEYWORD));
-        }
-        catch (ClassNotFoundException e) {
-            // add some additional tries for letter case, then throw an exception
-        }
-        return null;
-    }
-
-    // I SAY I will add better exception handling here but . . . .
+ // I SAY I will add better exception handling here but . . . .
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public Game getGame (Model model) {
         Class gameClass = getGameClass();
@@ -140,13 +121,31 @@ public class GameInfo {
         return null;
     }
     
-    public Method getRunMethod (Class gameClass) {
+    
+    
+    private Class getMultiplayerGameClass () {
         try {
-            return gameClass.getDeclaredMethod("run", new Class[] { ArcadeInteraction.class });
+            return Class.forName(myResourceBundle.getString(MULTIPLAYER_GAME_MAIN_CLASS_KEYWORD));
         }
-        catch (SecurityException e) {}
-        catch (NoSuchMethodException e) {}
+        catch (ClassNotFoundException e) {
+            // add some additional tries for letter case, then throw an exception
+        }
         return null;
     }
+    
+    private Class getGameClass () {
+        try {
+            return Class.forName(myResourceBundle.getString(GAME_MAIN_CLASS_KEYWORD));
+        }
+        catch (ClassNotFoundException e) {
+            // add some additional tries for letter case, then throw an exception
+
+            return null;
+        }
+    }
+    
+
+    
+    
 
 }
