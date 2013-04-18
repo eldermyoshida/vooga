@@ -56,6 +56,7 @@ public class ModeSelectMenuController extends MenuController {
     	else if (getMode().getMenuNames().contains(choice)){
     		getGameInfo().setGameMode(choice);
     		getGameInfo().setNumCharacters(Integer.parseInt(myResources.getString(choice)));
+    		getInput().removeListener(this);
     		getManager().notifyEndCondition(NEXT);
     		}
     	}

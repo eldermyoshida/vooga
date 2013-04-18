@@ -51,6 +51,7 @@ public class MapSelectController extends MenuController {
     	if(BACK.equals(choice)) getManager().notifyEndCondition(BACK);
     	else if (getMode().getMenuNames().contains(choice)){
     		getGameInfo().setMapName(choice);
+    		getInput().removeListener(this);
     		getManager().notifyEndCondition(NEXT);
     		}
     	}
