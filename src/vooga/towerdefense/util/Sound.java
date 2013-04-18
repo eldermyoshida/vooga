@@ -1,10 +1,17 @@
 package vooga.towerdefense.util;
+
 import java.applet.Applet;
 import java.applet.AudioClip;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import javax.sound.sampled.*;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
+import javax.sound.sampled.Line;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 
 /**
@@ -24,14 +31,14 @@ public class Sound {
     private ArrayList<AudioInputStream> myAlbum = new ArrayList<>();
     private ArrayList<String> myFileNames = new ArrayList<>();
     private AudioClip myClip;
-    
+
     /**
      * Construct a sound with the data referred to by the given filename.
      */
     public Sound (String filename) {
         setSound(filename);
     }
-    
+
     /**
      * Construct a an album of songs with an array of filenames.
      * This could take a while.
@@ -41,7 +48,7 @@ public class Sound {
             setSound(s);
         }
     }
-    
+
     private AudioInputStream getAudio (String filename) {
         AudioInputStream audioIn = null;
         try {
@@ -58,7 +65,7 @@ public class Sound {
         }
         return audioIn;
     }
-    
+
     /**
      * Set this sound to the data referred to by the given filename.
      */
@@ -67,9 +74,9 @@ public class Sound {
 
         myAlbum.add(getAudio(filename));
         myFileNames.add(filename);
-        
+
     }
-    
+
     /**
      * Set this sound to the data referred to by the given filename at a desired position
      * in the <code>AudioInputStream</code> array.
@@ -79,62 +86,63 @@ public class Sound {
         myFileNames.add(i, filename);
 
     }
-    
+
     public String removeSound (String filename) {
         int index = myFileNames.indexOf(filename);
         String removedFileName = myFileNames.remove(index);
         myAlbum.remove(index);
         return removedFileName;
     }
-    
+
     /**
      * Play the sound at the first index (0).
      */
     public void play () {
         myClip.play();
         /*
-        Clip clip = null;
-        try {
-            clip.open(myAlbum.get(0));
-        }
-        catch (LineUnavailableException | IOException e) {
-            System.err.printf("The audio could not be played most likely because" +
-                              " a music file has not been loaded!");
-        }
-        clip.start();
-        */
+         * Clip clip = null;
+         * try {
+         * clip.open(myAlbum.get(0));
+         * }
+         * catch (LineUnavailableException | IOException e) {
+         * System.err.printf("The audio could not be played most likely because" +
+         * " a music file has not been loaded!");
+         * }
+         * clip.start();
+         */
     }
-    
+
     public void playStream (int[] stream) {
-        
+
     }
-    
+
     public void loop () {
         // myAlbum.get(0).loop();
     }
-    
+
     /**
      * Stop playing the given sound.
      */
     public void stop () {
-        
+
     }
-    
+
+    @Override
     public String toString () {
         return myFileNames.toString();
     }
-    
+
     class Playback extends Thread {
         private AudioInputStream myAudio;
         private volatile boolean loopOn = false;
         private Clip myClip;
-        
+
         public Playback (AudioInputStream audio, boolean loop) {
             setDaemon(false);
             myAudio = audio;
             loopOn = loop;
         }
-        
+
         // If loop is on then execute a while, if the loop is not on then execute only once
         @Override
         public void run () {
@@ -143,7 +151,7 @@ public class Sound {
                 play();
             }
         }
-        
+
         private void play () {
             try {
                 Line.Info linfo = new Line.Info(Clip.class);
@@ -156,7 +164,7 @@ public class Sound {
                                   " a music file has not been loaded!");
             }
             myClip.start();
-            
+
             /*
              * Line.Info linfo = new Line.Info(Clip.class);
              * Line line = AudioSystem.getLine(linfo);
@@ -168,19 +176,19 @@ public class Sound {
              * Line line = AudioSystem.getLine(linfo);
              * myClip = (Clip) line;
              */
-            
+
         }
-        
+
         public void update (float pan, float gain) {
             FloatControl gainControl =
                     (FloatControl) myClip.getControl(FloatControl.Type.MASTER_GAIN);
             gainControl.setValue(gain); // Reduce volume by 10 decibels.
         }
-        
+
         public void stopLoop () {
             loopOn = false;
         }
-        
+
     }
-    
+
 }

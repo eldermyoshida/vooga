@@ -29,10 +29,10 @@ import org.xml.sax.SAXException;
  * 
  */
 public class XMLBuilder {
-    
+
     private Document myDoc;
     private String myURL;
-    
+
     /**
      * The constructor of this XML file builder automatically creates a buffered
      * document with the destination of the argument path, ready to receive elements.
@@ -43,9 +43,9 @@ public class XMLBuilder {
         myURL = path;
         makeDoc();
     }
-    
+
     // ////////////////////////DOC Operations/////////////////////////////
-    
+
     /**
      * Creates a new document.
      */
@@ -58,7 +58,7 @@ public class XMLBuilder {
             throw new RuntimeException("Could not create a new instance of a Document.", e);
         }
     }
-    
+
     /**
      * Sets a new document from an XML file.
      * 
@@ -79,7 +79,7 @@ public class XMLBuilder {
             throw new RuntimeException("XML document is corrupted.", e);
         }
     }
-    
+
     /**
      * Gets the document being written in this XML Builder.
      * 
@@ -88,7 +88,7 @@ public class XMLBuilder {
     public Document getDoc () {
         return myDoc;
     }
-    
+
     // //////////////////////ELEMENT OPERATIONS/////////////////////////////
     /*
      * The element operations consist of creating element trees.
@@ -96,9 +96,9 @@ public class XMLBuilder {
      * and to maintain. (Reference: w3schools.com)
      */
     // /////////////////////////////////////////////////////////////////////
-    
+
     // //Making////
-    
+
     /**
      * Creates a new empty element in the Doc.
      * 
@@ -110,7 +110,7 @@ public class XMLBuilder {
         Element element = myDoc.createElement(tag);
         return element;
     }
-    
+
     /**
      * Creates a new element in the Doc with a content.
      * 
@@ -123,7 +123,7 @@ public class XMLBuilder {
         element.setTextContent(content);
         return element;
     }
-    
+
     /**
      * Creates a new elements tree from a Map.
      * 
@@ -139,7 +139,7 @@ public class XMLBuilder {
         }
         return parent;
     }
-    
+
     // //Adding////
     /**
      * Adds a element child to an specific parent element
@@ -152,7 +152,7 @@ public class XMLBuilder {
         parent.appendChild(child);
         return child;
     }
-    
+
     /**
      * Creates a new child element from a tag and adds it to an specific parent element
      * 
@@ -164,7 +164,7 @@ public class XMLBuilder {
         Element child = makeElement(tag);
         return addChild(parent, child);
     }
-    
+
     /**
      * Creates a new child element from a tag, adds a value to it and adds it to a parent element
      * 
@@ -177,11 +177,11 @@ public class XMLBuilder {
         Element child = makeElement(tag, content);
         return addChild(parent, child);
     }
-    
+
     // //Setting to position////
-    
+
     // //////////////////////WRITING TO FILE/////////////////////////////
-    
+
     /**
      * Translates a document into an XML formatted String.
      * 
@@ -191,19 +191,19 @@ public class XMLBuilder {
      */
     public String translateToXMLString (Document doc) throws TransformerException {
         DOMSource source = new DOMSource(doc);
-        
+
         TransformerFactory factory = TransformerFactory.newInstance();
         Transformer transformer = factory.newTransformer();
         transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-        
+
         StringWriter sw = new StringWriter();
         StreamResult result = new StreamResult(sw);
         transformer.transform(source, result);
         String xmlString = sw.toString();
         return xmlString;
     }
-    
+
     /**
      * This simple method makes it easy for the user to write the XML file.
      * 
@@ -216,7 +216,7 @@ public class XMLBuilder {
             throw new RuntimeException("The document could not be converted into a string", e);
         }
     }
-    
+
     /**
      * This <code>FileWriter</code> creates the document in an specific location,
      * form an String.

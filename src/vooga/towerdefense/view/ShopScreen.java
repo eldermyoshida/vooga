@@ -12,8 +12,8 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JPanel;
 import vooga.towerdefense.controller.Controller;
-import vooga.towerdefense.util.Pixmap;
-
+import vooga.towerdefense.gameElements.GameElement;
+import vooga.towerdefense.util.Location;
 
 /**
  * This class enables the player to click on items
@@ -28,11 +28,15 @@ public class ShopScreen extends JPanel {
     private static final long serialVersionUID = 1L;
     private static final int XCOORD = 0;
     private static final int YCOORD = 0;
+    private static final int ICON_WIDTH = 50;
+    private static final int ICON_HEIGHT = 50;
+    private int myWidth;
     private Color myBackgroundColor = Color.WHITE;
     private MouseAdapter myMouseListener;
     private Controller myController;
-    private Map<String, Pixmap> myShopItems;
-
+    private Map<String, GameElement> myShopItems;
+    private Map<String, Rectangle> myShopIcons;
+    
     /**
      * constructor.
      * @param size
@@ -40,12 +44,14 @@ public class ShopScreen extends JPanel {
      */
     public ShopScreen (Dimension size, Controller controller) {
         setPreferredSize(size);
+        myWidth = size.width;
         setFocusable(true);
         myController = controller;
         makeMouseListener();
         addMouseListener(myMouseListener);
         setVisible(true);
-        myShopItems = new HashMap<String, Pixmap>();
+        myShopItems = new HashMap<String, GameElement>();
+        myShopIcons = new HashMap<String, Rectangle>();
         initShopItems();
     }
 
@@ -55,6 +61,17 @@ public class ShopScreen extends JPanel {
      */
     private void initShopItems () {
         myShopItems = myController.getShopItemIcons();
+        int originX = 10 ; 
+        int originY = 10;
+        for(String item : myShopItems.keySet()) {
+            Rectangle rect = new Rectangle(originX, originY, ICON_WIDTH, ICON_HEIGHT);
+            myShopIcons.put(item, rect);
+            originX +=ICON_WIDTH;
+            if (originX >= myWidth) {
+                originX = 10;
+                originY += ICON_HEIGHT; 
+            }
+        }
     }
 
     /**
@@ -75,19 +92,11 @@ public class ShopScreen extends JPanel {
      * @param pen
      */
     private void displayShopItems (Graphics2D pen) {
-        int totalX = 30;
-        int totalY = 30;
-        for (Pixmap item : myShopItems.values()) {
-            // TODO Deal with the case where there are a lot of items on the screen
-            if(item.getCenter().getX() == 0.0) {
-                item.paint(pen, new Point(totalX, totalY), new Dimension(50, 50));
-                System.out.println("new");
+        for (Map.Entry<String, Rectangle> entry : myShopIcons.entrySet()) {
+            if (myShopItems.containsKey(entry.getKey())) {
+                myShopItems.get(entry.getKey()).getPixmap().paint(pen, new Location (entry.getValue().getCenterX(), entry.getValue().getCenterY()), new Dimension(50, 50));
             }
-            else {
-                item.paint(pen, item.getCenter(), new Dimension(50, 50));
-                System.out.println("old: "+ item.getCenter());
-            }
-        }
+       }
     }
 
     /**
@@ -97,7 +106,6 @@ public class ShopScreen extends JPanel {
         myMouseListener = new MouseAdapter() {
             @Override
             public void mouseClicked (MouseEvent e) {
-                System.out.println("Mouse Point:"+e.getPoint());
                 handleClick(e.getPoint());
             }
         };
@@ -109,22 +117,9 @@ public class ShopScreen extends JPanel {
      * @param point
      */
     private void handleClick(Point point) {
-        for (Pixmap item : myShopItems.values()) {
-            double x = item.getCenter().getX() - (double)(item.getWidth()/2); 
-            double y = item.getCenter().getY() - (double)(item.getHeight()/2); 
-            System.out.println("x:" + x + "y:" + y);
-            Rectangle rect =
-                    new Rectangle((int) x, (int) y, item.getWidth(), item.getHeight());
-            System.out.println("Rect:" + rect);
-            System.out.println("Point:" + point);
-            if (rect.contains(point)) {
-                System.out.println("Contains point!!");
-                for (Map.Entry<String, Pixmap> entry : myShopItems.entrySet()) {
-                    if (entry.getValue().equals(item)) {
-                        System.out.println("Send Stuff!!");
-                        myController.handleShopClickOnItem(entry.getKey());
-                    }
-                }
+        for (Map.Entry<String, Rectangle> entry : myShopIcons.entrySet()) {
+            if (entry.getValue().contains(point)) {
+                myController.handleShopClickOnItem(entry.getKey());
             }
         }
     }

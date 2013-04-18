@@ -36,9 +36,12 @@ public class Shop {
     private void initShopItems () {
         Pixmap myImage = new Pixmap("tower.gif");
         System.out.println("created pixmap");
-        Tower tower =
-                new Tower(myImage, new Location(20, 20), new Dimension(50, 50), null, null);
-        addShopItem("tower.gif", tower); 
+        Tower tower1 =
+                new Tower(myImage, new Location(30, 30), new Dimension(50, 50), null, null);
+        Tower tower2 =
+                new Tower(myImage, new Location(30, 30), new Dimension(50, 50), null, null);
+        addShopItem("tower1", tower1);
+        addShopItem("tower2", tower2);
     }    
     
     public String getShopItemName (GameElement e) {
@@ -58,11 +61,13 @@ public class Shop {
         return myShopItems.get(name);
     }
     
-    public Map<String, Pixmap> getAllShopItemIcons () {
-        Map<String, Pixmap> items = new HashMap<String, Pixmap> (); 
-        for (Map.Entry<String, GameElement> entry : myShopItems.entrySet()) {
-            items.put(entry.getKey(), entry.getValue().getPixmap());
-        }
+    public Map<String, GameElement> getAllShopItemIcons () {
+       // return myShopItems;
+        Map<String, GameElement> items = new HashMap<String, GameElement> (myShopItems); 
+        //items.putAll(myShopItems);
+//        for (Map.Entry<String, GameElement> entry : myShopItems.entrySet()) {
+//            items.put(entry.getKey(), entry.getValue());
+//        }
         return items;
     }
 }
