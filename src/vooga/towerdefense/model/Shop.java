@@ -35,9 +35,10 @@ public class Shop {
     // TODO this is just a place holder! Needs to be fixed later! (read in from file)
     private void initShopItems () {
         Pixmap myImage = new Pixmap("tower.gif");
+        System.out.println("created pixmap");
         Tower tower =
                 new Tower(myImage, new Location(20, 20), new Dimension(50, 50), null, null);
-        addShopItem("tower", tower); 
+        addShopItem("tower.gif", tower); 
     }    
     
     public String getShopItemName (GameElement e) {

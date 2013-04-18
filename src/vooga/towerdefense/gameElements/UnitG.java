@@ -70,7 +70,7 @@ public class UnitG extends GameElement {
 
 	private void updateActions(double elapsedTime) {
 		for (Action act : myActions) {
-			act.update(elapsedTime);
+			act.executeAction(elapsedTime);
 
 		}
 	}

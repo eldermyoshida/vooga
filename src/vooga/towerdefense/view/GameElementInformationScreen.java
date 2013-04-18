@@ -114,7 +114,7 @@ public class GameElementInformationScreen extends InformationScreen {
         myUpgradeSection.add(myUpgradeOptionsBox, BorderLayout.CENTER);
         myUpgradeSection.add(myUpgradeButton, BorderLayout.SOUTH);
         myUpgradeSection.setVisible(false);
-        add(myUpgradeSection, BorderLayout.SOUTH);
+        this.add(myUpgradeSection, BorderLayout.SOUTH); 
     }
 
 }

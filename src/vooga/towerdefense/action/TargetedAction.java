@@ -60,5 +60,11 @@ public class TargetedAction extends Action {
 		return null;
 	}
 
+	@Override
+	public void executeAction(double elapseTime) {
+		
+		
+	}
+
 
 }

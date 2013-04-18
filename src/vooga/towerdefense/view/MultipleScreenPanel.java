@@ -32,6 +32,7 @@ public class MultipleScreenPanel extends JPanel {
         setLayout(new BorderLayout());
         myScreens = screens;
         makePanel();
+        setVisible(true);
     }
     
     /**

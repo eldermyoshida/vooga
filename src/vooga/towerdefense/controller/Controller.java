@@ -36,7 +36,8 @@ public class Controller {
     private GameModel myModel;
     private TDView myView;
     private ControlMode myControlMode;
-
+    private SelectMode mySelectMode = new SelectMode();
+    
     // TODO: controller constructor should take waves & map in order to initialize GameModel?
     // TODO: fix where the parameters come from
     public Controller (String language) {
@@ -155,7 +156,8 @@ public class Controller {
     public void handleShopClickOnItem (String itemName) {
         GameElement itemToBuy = myModel.getShop().getShopItem(itemName);
         BuildMode myNewMode = new BuildMode();
-        myNewMode.setItemToBuild(itemToBuy);
+        System.out.println("Build!");
+        myNewMode.setItemToBuild(itemToBuy);    
         myControlMode = myNewMode;
     }
     
