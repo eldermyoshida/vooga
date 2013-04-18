@@ -27,10 +27,10 @@ public class GameController {
         // repaint the screen as fast as possible.
         long nextGameTick = System.currentTimeMillis();
 
-        int loops = 0;
         while (gameIsRunning) {
-            while (System.currentTimeMillis() > nextGameTick) {
-            		// && loops < MAX_FRAMESKIP) {
+        	int loops = 0;
+            while (System.currentTimeMillis() > nextGameTick
+            		&& loops < MAX_FRAMESKIP) {
                 myController.update(System.currentTimeMillis() - nextGameTick);
                 nextGameTick += SKIP_TICKS;
                 loops++;
