@@ -1,6 +1,6 @@
 package vooga.rts.gamedesign.upgrades;
 
-import vooga.rts.gamedesign.sprite.InteractiveEntity;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 
 public class HealthUpgradeNode extends UpgradeNode {
 	

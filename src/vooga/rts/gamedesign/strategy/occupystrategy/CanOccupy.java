@@ -1,6 +1,6 @@
 package vooga.rts.gamedesign.strategy.occupystrategy;
 
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.IOccupiable;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.IOccupiable;
 
 /**
  * 

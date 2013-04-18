@@ -13,7 +13,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import vooga.rts.gamedesign.sprite.rtsprite.*;
+import vooga.rts.gamedesign.sprite.gamesprites.*;
 import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
 

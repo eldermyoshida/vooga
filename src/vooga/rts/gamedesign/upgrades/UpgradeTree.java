@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import vooga.rts.gamedesign.sprite.InteractiveEntity;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings.UpgradeBuilding;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.UpgradeBuilding;
 
 
 /**

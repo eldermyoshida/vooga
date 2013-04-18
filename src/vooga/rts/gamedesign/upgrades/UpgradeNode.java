@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import vooga.rts.gamedesign.sprite.InteractiveEntity;
-import vooga.rts.gamedesign.sprite.rtsprite.Resource;
+import vooga.rts.gamedesign.sprite.gamesprites.Resource;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.player.Player;
 
 /**

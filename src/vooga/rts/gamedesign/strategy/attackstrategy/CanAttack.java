@@ -3,10 +3,10 @@ package vooga.rts.gamedesign.strategy.attackstrategy;
 import java.util.ArrayList;
 import java.util.List;
 
-import vooga.rts.gamedesign.Weapon;
-import vooga.rts.gamedesign.sprite.InteractiveEntity;
-import vooga.rts.gamedesign.sprite.rtsprite.IAttackable;
-import vooga.rts.gamedesign.sprite.rtsprite.Projectile;
+import vooga.rts.gamedesign.sprite.gamesprites.IAttackable;
+import vooga.rts.gamedesign.sprite.gamesprites.Projectile;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
+import vooga.rts.gamedesign.weapon.Weapon;
 import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
 

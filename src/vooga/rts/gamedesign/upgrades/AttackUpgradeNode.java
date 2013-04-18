@@ -1,6 +1,6 @@
 package vooga.rts.gamedesign.upgrades;
 
-import vooga.rts.gamedesign.sprite.InteractiveEntity;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;
 
 public class AttackUpgradeNode extends UpgradeNode {

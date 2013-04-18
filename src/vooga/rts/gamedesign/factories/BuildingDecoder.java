@@ -5,7 +5,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings.Building;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building;
 
 public class BuildingDecoder extends Decoder{
 	

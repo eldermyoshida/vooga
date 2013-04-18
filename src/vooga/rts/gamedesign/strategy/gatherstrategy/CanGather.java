@@ -1,7 +1,7 @@
 package vooga.rts.gamedesign.strategy.gatherstrategy;
 
 import vooga.rts.gamedesign.Interval;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.IGatherable;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.IGatherable;
 
 /**
  * This class implements GatherStrategy and is used as an instance in

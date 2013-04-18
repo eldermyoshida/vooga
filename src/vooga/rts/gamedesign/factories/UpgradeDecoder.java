@@ -13,7 +13,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import vooga.rts.gamedesign.sprite.InteractiveEntity;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.upgrades.DamageUpgradeNode;
 import vooga.rts.gamedesign.upgrades.HealthUpgradeNode;
 import vooga.rts.gamedesign.upgrades.UpgradeNode;
