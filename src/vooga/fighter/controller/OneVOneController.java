@@ -36,6 +36,7 @@ public class OneVOneController extends LevelController {
 
     public OneVOneController (String name, Canvas frame) {
         super(name, frame);
+        
     }
 	
     public OneVOneController(String name, Canvas frame, ControllerDelegate manager, 
@@ -53,5 +54,7 @@ public class OneVOneController extends LevelController {
     public void notifyEndCondition (String endCondition) {
     	getManager().notifyEndCondition(NEXT);
     }
+    
+    
     
 }

@@ -30,6 +30,7 @@ public class CharacterSelectController extends MenuController {
 
 	private int myCharLimit;
 	private int myCharIndex;
+	private Input myInput;
 
     public CharacterSelectController (String name, Canvas frame) {
         super(name, frame);
@@ -60,6 +61,7 @@ public class CharacterSelectController extends MenuController {
      * Checks this controller's end conditions
      */
     public void notifyEndCondition(String choice) {
+                myInput.removeListener(this);
                 getManager().notifyEndCondition(BACK);
     }
 
