@@ -34,6 +34,7 @@ public class ControllerFactory {
         myCanvas = frame;
         myControllerMap = new HashMap<String, Controller>();
         setupControllerConfiguration(frame, myControllerMap);
+        System.out.println("number of controllers: " + myControllerMap.size());
     }
 
     public Map getMap(){

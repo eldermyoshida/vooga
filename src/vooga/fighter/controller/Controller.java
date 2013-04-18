@@ -27,7 +27,7 @@ import javax.swing.Timer;
  */
 
 public abstract class Controller implements ModelDelegate {
-	public static final String DEFAULT_RESOURCE_PACKAGE = "vooga.fighter.config.";
+    public static final String DEFAULT_RESOURCE_PACKAGE = "vooga.fighter.config.";
 	public static final String DEFAULT_IMAGE_PACKAGE = "vooga.fighter.images.";
     public static final String NEXT = "Next";
     public static final String BACK = "Back";

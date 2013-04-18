@@ -15,5 +15,10 @@
             <frame image="fighter/images/ryu_stand1.png" />
         </state>
     </menuobject>
+    <menuobject menuobjectname="EndGame">
+    	<state name="1v1">
+            <frame image="fighter/images/GameOver.jpg" />
+        </state>
+    </menuobject>
     
 </objects>

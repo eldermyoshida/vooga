@@ -1,88 +1,65 @@
 package vooga.fighter.controller;
 
-import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.List;
-import javax.swing.Timer;
 import util.Location;
 import util.input.AlertObject;
 import util.input.Input;
+import util.input.InputClassTarget;
 import util.input.InputMethodTarget;
-
-import vooga.fighter.model.LevelMode;
-import vooga.fighter.model.Mode;
+import util.input.PositionObject;
+import vooga.fighter.controller.Controller;
+import vooga.fighter.controller.ControllerDelegate;
+import vooga.fighter.controller.GameInfo;
+import vooga.fighter.controller.OneVOneController;
+import vooga.fighter.model.*;
+import vooga.fighter.model.objects.MouseClickObject;
 import vooga.fighter.util.Paintable;
 import vooga.fighter.view.Canvas;
+
+import java.awt.Dimension;
+import java.util.List;
+import java.util.ResourceBundle;
+
 
 /**
  * 
  * @author Jerry Li
- *
+ * 
  */
-public class ScoreController extends Controller {
-    private static final String INPUT_PATHWAY = "vooga.fighter.config.leveldefault";
-    
-    private Mode myMode;
-    private Canvas myCanvas;
 
+@InputClassTarget
+public class ScoreController extends MenuController {
+        
+    private ResourceBundle myResources;
+    
     public ScoreController (String name, Canvas frame) {
         super(name, frame);
     }
-
-    public ScoreController (String name, Canvas frame, ControllerDelegate manager,
-                            GameInfo gameinfo) {
+        
+    public ScoreController(String name, Canvas frame, ControllerDelegate manager, 
+                GameInfo gameinfo) {
         super(name, frame, manager, gameinfo);
+        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "LevelConfig");
     }
-    
-    //BUG BUG this is just copied from the Level Controller
-    public void loadMode() {
-        List<String> characterNames = getGameInfo().getCharacters();
-        String mapID = getGameInfo().getMapName();
-        LevelMode temp = new LevelMode(this, characterNames, mapID);
-        setMode(temp);
-    }
-
     
     /**
-     * Exits program.
+     * Checks this controller's end conditions
      */
-    public void exit () {
-        System.exit(0);
-    }
+    public void notifyEndCondition(String choice) {
+        if(EXIT.equals(choice)) getManager().exit();
+        if(BACK.equals(choice)) getManager().notifyEndCondition(BACK);
+        else if (getMode().getMenuNames().contains(choice)){
+                getGameInfo().setGameMode(choice);
+                getGameInfo().setNumCharacters(Integer.parseInt(myResources.getString(choice)));
+                getManager().notifyEndCondition(NEXT);
+                }
+        }
 
-   
+
+
     @Override
     public Controller getController (ControllerDelegate delegate, GameInfo gameinfo) {
-        return new ScoreController(super.getName(), super.getView(),
+        return new MainMenuController(super.getName(), super.getView(),
                                    delegate, gameinfo);
     }
-
-    @Override
-    protected Input makeInput () {
-        Input input = new Input(INPUT_PATHWAY, super.getView());
-        input.addListenerTo(this);
-        return input;
-    }
-    
-    @InputMethodTarget(name = "Exit_Game")
-    public void playerOneJumpInput (AlertObject alObj)  {
-        System.exit(0);
-    }
-    
-    @InputMethodTarget(name = "Restart")
-    public void playerOneLeftInput (AlertObject alObj) {
-        System.out.println("restarting");
-        notifyEndCondition(NEXT);
-        
-    }
-
-	@Override
-	public void notifyEndCondition(String endCondition) {
-		myManager.notifyEndCondition(endCondition);
-		
-	}
-
-   
 
 }
