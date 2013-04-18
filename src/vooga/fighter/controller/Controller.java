@@ -2,6 +2,8 @@ package vooga.fighter.controller;
 
 
 
+import util.Location;
+import util.Pixmap;
 import util.input.Input;
 import vooga.fighter.model.*;
 import vooga.fighter.view.Canvas;
@@ -47,13 +49,14 @@ public abstract class Controller implements ModelDelegate {
     public static final int DEFAULT_DELAY = ONE_SECOND / FRAMES_PER_SECOND;
     private Timer myTimer;
     private Mode myMode;
-    private LoopInfo myLoopInfo;
+    private DisplayInfo myDisplayInfo;
 
     public Controller(String name, Canvas frame){
         myName = name;
         myCanvas = frame;
         myInput = makeInput();
         mySplashResource = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + SPLASH);
+        mySplashPath = DEFAULT_IMAGE_PACKAGE+mySplashResource.getString(SPLASH);
     }
 
     public Controller(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo) {
@@ -92,13 +95,23 @@ public abstract class Controller implements ModelDelegate {
         myMode.initializeMode();
     }
     
-    protected void setLoopInfo(LoopInfo loopinfo){
-    	myLoopInfo = loopinfo;
-    	myCanvas.setViewDataSource(myLoopInfo);
+    protected void setLoopInfo(DisplayInfo loopinfo){
+    	myDisplayInfo = loopinfo;
+    	myCanvas.setViewDataSource(myDisplayInfo);
     }
 
     public void displaySplash(){
-        
+    	myCanvas.setViewDataSource(myDisplayInfo);
+    	myCanvas.paint();
+    }
+    
+    private void generateSplash(){
+    	myDisplayInfo = new DisplayInfo();
+    	myDisplayInfo.clear();
+    	
+        myDisplayInfo.setImageSize(0, GameManager.SIZE);
+        myDisplayInfo.setSpriteLocation(0, new Location(GameManager.SIZE.getWidth()/2, GameManager.SIZE.getHeight()/2));
+        myDisplayInfo.setSprite(0, new Pixmap(mySplashPath));
     }
 
     public void start() {
@@ -108,7 +121,7 @@ public abstract class Controller implements ModelDelegate {
                                new ActionListener() {
             public void actionPerformed (ActionEvent e) {
                 myMode.update((double) stepTime / ONE_SECOND, myCanvas.getSize());
-                myLoopInfo.update();
+                myDisplayInfo.update();
                 myCanvas.paint();
             }
         });

@@ -41,7 +41,7 @@ public abstract class LevelController extends Controller {
     public LevelController(String name, Canvas frame, ControllerDelegate manager, 
     		GameInfo gameinfo) {
     	super(name, frame, manager, gameinfo);
-    	LoopInfo gameLoopInfo = new GameLoopInfo((LevelMode) getMode());
+    	DisplayLoopInfo gameLoopInfo = new GameLoopInfo((LevelMode) getMode());
     	setLoopInfo(gameLoopInfo);
     }
 

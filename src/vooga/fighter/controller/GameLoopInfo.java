@@ -21,7 +21,7 @@ import util.*;
  *
  */
 
-public class GameLoopInfo extends LoopInfo implements ViewDataSource{
+public class GameLoopInfo extends DisplayLoopInfo implements ViewDataSource{
 
     private LevelMode myMode;
     private List<String> myCharacterNames;
