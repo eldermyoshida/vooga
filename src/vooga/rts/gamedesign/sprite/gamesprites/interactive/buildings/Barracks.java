@@ -54,10 +54,10 @@ public class Barracks extends ProductionBuilding {
     }
     @Override
     public void paint(Graphics2D pen) {
-        super.paint(pen);
         for(int i = 0; i < myInteractiveEntities.size(); i++) {
             myInteractiveEntities.get(i).paint(pen);
         }
+        super.paint(pen);
     }
     
     @Override

@@ -11,7 +11,7 @@ public class Camera {
 
     private static final double ISO_WIDTH = 1.0;
     private static final double ISO_HEIGHT = 0.5;
-    public static final double MOVE_SPEED = 200.0;
+    public static final double MOVE_SPEED = Window.SCREEN_SIZE.getWidth() / 4;
     public static final double VISION = 100.0;
 
     private static Camera myInstance;
@@ -132,6 +132,16 @@ public class Camera {
                 .getHeight() + VISION);
     }
 
+    public boolean isVisible (Location3D world) {
+        Location3D temp = new Location3D(world);
+        temp.negate();
+        temp.add(myWorldCenter);
+        return !(temp.getX() < -myScreenSize.getWidth() ||
+                 temp.getY() < -myScreenSize.getHeight() ||
+                 temp.getX() > myScreenSize.getWidth() + VISION || temp.getY() > myScreenSize
+                .getHeight());
+    }
+
     public void paint (Graphics2D pen) {
         double x = myScreenSize.getWidth() / 2;
         double y = myScreenSize.getHeight() / 2;
@@ -159,7 +169,7 @@ public class Camera {
 
     public static Camera instance () {
         if (myInstance == null) {
-            myInstance = new Camera(new Location3D(0, 0, 0));
+            myInstance = new Camera(new Location3D(VISION, VISION, 0));
         }
         return myInstance;
     }
@@ -181,8 +191,8 @@ public class Camera {
         if (myMapSize == null) {
             return;
         }
-        if (temp.getX() < 0 || temp.getX() > myMapSize.getWidth() || temp.getY() < 0 ||
-            temp.getY() > myMapSize.getHeight()) {
+        if (temp.getX() < VISION || temp.getX() > myMapSize.getWidth() - VISION ||
+            temp.getY() < VISION || temp.getY() > myMapSize.getHeight() - VISION) {
             return;
         }
         myWorldCenter = temp;

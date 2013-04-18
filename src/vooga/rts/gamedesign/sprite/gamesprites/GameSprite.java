@@ -127,9 +127,11 @@ public abstract class GameSprite extends Sprite {
         // System.out.println(getCenter().x + " " + getCenter().y + " " +
         // mySize.height + " " + mySize.width);
 
-        Point2D screen = Camera.instance().worldToView(myWorldLocation);
-        if (Camera.instance().isVisible(screen)) {
-            getView().paint(pen, screen, mySize);
+        if (Camera.instance().isVisible(myWorldLocation)) {
+            Point2D screen = Camera.instance().worldToView(myWorldLocation);
+            if (Camera.instance().isVisible(screen)) {
+                getView().paint(pen, screen, mySize);
+            }
         }
     }
 

@@ -36,29 +36,9 @@ public class GameMap implements IGameLoop {
     public GameMap (int node, Dimension size) {
         NodeFactory factory = new NodeFactory();
         myNodeSize = node;
-        myMap = factory.makeMap(myNodeSize, size);  
+        myMap = factory.makeMap(myNodeSize, size);
         Camera.instance().setMapSize(size);
-        
-        BufferedImage banana =
-                ResourceManager.getInstance()
-                        .<BufferedImage> getFile("images/tiles/iso-64x64-outside.png",
-                                                 BufferedImage.class);
-        myTiles = new TileMap(new Dimension(64, 64), 64, 64);
-        
-        myTiles.addTileType(1, banana.getSubimage(0, 0, 64, 64));
-        myTiles.addTileType(2, banana.getSubimage(2 * 64, 0, 64, 64));
-        for (int i = 0; i < 64; i++){
-            for (int j = 0; j < 64; j++){
-                if (Math.random() < 0.1) {
-                    myTiles.createTile(2, i, j);
-                }
-                else
-                {
-                    myTiles.createTile(1, i, j);
-                }
-            }
-        }
-        
+        randomGenMap();
     }
 
     public Node getNode (Location location) {
@@ -78,11 +58,52 @@ public class GameMap implements IGameLoop {
     @Override
     public void update (double elapsedTime) {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
     public void paint (Graphics2D pen) {
         myTiles.paint(pen);
+    }
+
+    private void randomGenMap () {
+        int tilesX = 256;
+        int tilesY = 256;
+        int tileWidthX = 60;
+        int tileWidthY = 42;
+        myTiles = new TileMap(new Dimension(tileWidthX, tileWidthY), tilesX, tilesY);
+
+        /*
+         * BufferedImage banana =
+         * ResourceManager.getInstance()
+         * .<BufferedImage> getFile("images/tiles/iso-64x64-outside.png",
+         * BufferedImage.class);
+         * 
+         * 
+         * myTiles.addTileType(1, banana.getSubimage(0, 0, 64, 64));
+         * myTiles.addTileType(2, banana.getSubimage(2 * 64, 0, 64, 64));
+         */
+
+        BufferedImage banana =
+                ResourceManager
+                        .getInstance()
+                        .<BufferedImage> getFile("images/tiles/isometric_new_tiles_by_spasquini.png",
+                                                 BufferedImage.class);
+
+        myTiles.addTileType(1, banana.getSubimage(6 * tileWidthX, 0, tileWidthX, tileWidthY));
+        myTiles.addTileType(2, banana.getSubimage(7 * tileWidthX, 0, tileWidthX, tileWidthY));
+
+        for (int i = 0; i < tilesX; i++) {
+            for (int j = 0; j < tilesY; j++) {
+                if (Math.random() < 0.1) {
+                    myTiles.createTile(2, i, j);
+                }
+                else {
+                    myTiles.createTile(1, i, j);
+                }
+            }
+        }
+        System.out.println("Map Made");
+        Camera.instance().setMapSize(new  Dimension(tilesX * tileWidthX, tilesY * tileWidthY));
     }
 }

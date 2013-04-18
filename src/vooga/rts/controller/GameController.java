@@ -118,11 +118,12 @@ public class GameController extends AbstractController {
 
     @Override
     public void paint (Graphics2D pen) {
-        myMap.paint(pen);
+        myMap.paint(pen);        
         for (Player p : myPlayers) {
             p.paint(pen);
         }
         r.paint(pen);
+        
         building.paint(pen);
 
         if (myDrag != null) {
