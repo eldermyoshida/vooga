@@ -18,7 +18,7 @@ public class Main {
         myDatabase.createUser("bob", "mypassword", "Joe", "Smith", "11/11/1911");        
         
         myDatabase.deleteGame("Pacman");
-        myDatabase.createGame("example");
+        //myDatabase.createGame("example");
         
 //       myDatabase.addAvatarToUser("natx13", "C:/blahbalhblah");
         

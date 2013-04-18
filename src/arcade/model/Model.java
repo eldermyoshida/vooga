@@ -41,6 +41,19 @@ public class Model implements ArcadeInteraction {
     public void setLoginView (LoginView login) {
         myLoginView = login;
     }
+    
+    /**
+     * This should be called after a developer enters the information about
+     * his / her game. The method will add the game entry to the database and
+     * create a new GameInfo to display in the gamecenter 
+     * @param gameName
+     * @param genre
+     */
+    public void publish( String gameName, String genre ){
+        // add game name and genre to database
+        // add new gameinfo to myGameInfos
+        
+    }
 
     public void authenticate (String username, String password) {
         if (myDb.authenticateUsernameAndPassword(username, password)) {
@@ -52,16 +65,6 @@ public class Model implements ArcadeInteraction {
         else {
             myLoginView.sendMessage(LOGIN_FAILURE_MESSAGE);
         }
-
-        // if (username.equals("ellango") && password.equals("password")) {
-        // myLoginView.destroy();
-        // getGameList();
-        // organizeSnapshots();
-        // new MainView(this, myResources);
-        // }
-        // else {
-        //
-        // }
     }
 
     /**
@@ -122,7 +125,8 @@ public class Model implements ArcadeInteraction {
     private void organizeSnapshots () {
         List<String> gameNames = myDb.retrieveListOfGames();
         for (String name : gameNames){
-            GameInfo info = new GameInfo(name , myLanguage);
+            String genre = myDb.getGenre(name);
+            GameInfo info = new GameInfo(name , genre, myLanguage);
             myGameInfos.put(name, info);
         }
     }
