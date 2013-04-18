@@ -24,10 +24,12 @@ public class ControllerManager implements ControllerDelegate{
 	private GameInfo myGameInfo;
 	private ControlProgressionManager myProgressionManager;
 	private static final String INPUT_PATHWAY = "vooga.fighter.config.menudefault";
+	private Input myInput;
 	
 	public ControllerManager(Canvas frame, GameInfo gameinfo, ControllerFactory factory,
 			ControlProgressionManager progressionmanager) {
 		myCanvas = frame;
+		myInput = new Input(INPUT_PATHWAY, myCanvas);
 		myControllerMap = factory.getMap();
 		myGameInfo = gameinfo;
 		myProgressionManager = progressionmanager;
@@ -58,10 +60,7 @@ public class ControllerManager implements ControllerDelegate{
 		System.exit(0);
 	}
 	
-	public Input setInput() {
-	    Input menuinput = new Input(INPUT_PATHWAY, myCanvas);
-	    return menuinput;
+	public Input getInput() {
+	    return myInput;
 	}
-	
-
 }

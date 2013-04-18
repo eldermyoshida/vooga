@@ -13,6 +13,6 @@ public interface ControllerDelegate {
     
     public void exit();
     
-    public Input setInput();
+    public Input getInput();
 
 }

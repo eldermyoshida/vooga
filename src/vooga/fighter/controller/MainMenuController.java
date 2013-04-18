@@ -39,28 +39,32 @@ public class MainMenuController extends MenuController {
     public MainMenuController(String name, Canvas frame, ControllerDelegate manager, 
                 GameInfo gameinfo) {
         super(name, frame, manager, gameinfo);
+
         myInput = manager.setInput();
         myInput.addListenerTo(this);
+
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "LevelConfig");
     }
     /**
      * Checks this controller's end conditions
      */
     public void notifyEndCondition(String choice) {
-        myInput.removeListener(this);
-        getManager().notifyEndCondition(NEXT);
-    }
 
-    @InputMethodTarget(name = "continue")
-    public void mouseclick(PositionObject pos)  {
-        super.getMode().addObject(new MouseClickObject(pos.getPoint2D()));
-        notifyEndCondition("asdfdf");
+        myInput.removeListener(this);
+
+        getManager().notifyEndCondition(NEXT);
     }
 
     @Override
     public Controller getController (ControllerDelegate delegate, GameInfo gameinfo) {
         return new MainMenuController(super.getName(), super.getView(),
                                    delegate, gameinfo);
+    }
+    
+    @InputMethodTarget(name = "continue")
+    public void mouseclick(PositionObject pos)  {
+        super.getMode().addObject(new MouseClickObject(pos.getPoint2D()));
+        notifyEndCondition("asdfdf");
     }
 
 }

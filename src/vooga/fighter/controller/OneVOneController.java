@@ -52,6 +52,7 @@ public class OneVOneController extends LevelController {
 
     @Override
     public void notifyEndCondition (String endCondition) {
+    	getInput().removeListener(this);
     	getManager().notifyEndCondition(NEXT);
     }
     

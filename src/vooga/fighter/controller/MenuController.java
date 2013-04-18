@@ -37,6 +37,9 @@ public abstract class MenuController extends Controller {
     public MenuController(String name, Canvas frame, ControllerDelegate manager, 
     		GameInfo gameinfo) {
     	super(name, frame, manager, gameinfo);
+        setInput(manager.getInput());
+        getInput().replaceMappingResourcePath(INPUT_PATHWAY);
+        getInput().addListenerTo(this);
     	DisplayLoopInfo LoopInfo =  new DisplayLoopInfo(super.getMode());
     	setLoopInfo(LoopInfo);
     }
@@ -49,16 +52,5 @@ public abstract class MenuController extends Controller {
     public MenuMode getMode(){
     	return (MenuMode) super.getMode();
     }
-
-//    public void mouseclick(PositionObject pos)  {
-//        super.getMode().addObject(new MouseClickObject(pos.getPoint2D()));
-//    }
-//    
-//    @Override
-//    protected Input makeInput () {
-//        Input menuinput = new Input(INPUT_PATHWAY, super.getView());
-//        menuinput.addListenerTo(this);
-//    	return menuinput;
-//    }  
 
 }

@@ -43,7 +43,7 @@ public abstract class Controller implements ModelDelegate {
     private ResourceBundle mySplashResource;
     private String mySplashPath;
 
-    protected Input myInput;
+    private Input myInput;
     public static final int FRAMES_PER_SECOND = 25;
     // better way to think about timed events (in milliseconds)
     public static final int ONE_SECOND = 1000;
@@ -55,7 +55,6 @@ public abstract class Controller implements ModelDelegate {
     public Controller(String name, Canvas frame){
         myName = name;
         myCanvas = frame;
-        //myInput = makeInput();
         mySplashResource = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + SPLASH);
         mySplashPath = DEFAULT_IMAGE_PACKAGE+ mySplashResource.getString(CONTROL);
     }
@@ -66,9 +65,17 @@ public abstract class Controller implements ModelDelegate {
         myGameInfo = gameinfo;
         loadMode();
     }
+    
+    protected void setInput(Input input){
+    	myInput = input;
+    }
 
     public String getName(){
         return myName;
+    }
+    
+    protected Input getInput(){
+    	return myInput;
     }
 
     protected Canvas getView(){
