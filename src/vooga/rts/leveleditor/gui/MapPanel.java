@@ -15,6 +15,8 @@ import vooga.rts.input.InputMethodTarget;
 import vooga.rts.input.PositionObject;
 import vooga.rts.leveleditor.components.EditableMap;
 import vooga.rts.leveleditor.components.EditableNode;
+import vooga.rts.leveleditor.components.MapLayer;
+import vooga.rts.leveleditor.components.Terrain;
 import vooga.rts.util.Location;
 
 @InputClassTarget
@@ -28,6 +30,7 @@ public class MapPanel extends JComponent {
     public static final int DEFAULT_TILE_HEIGHT = 50;
     public static final int RESOURCEMODE = 1;
     public static final int PLAYERMODE = 2;
+    public static final int TERRAINMODE = 3;
 
     private Canvas myCanvas;
     private EditableMap myMap;
@@ -36,6 +39,7 @@ public class MapPanel extends JComponent {
     private int myHeight;
     private int myTileWidth;
     private int myTileHeight;
+    private int myCurrentLayer;
     private boolean myRemoveFlag;
     private int myMode;
     private BufferedImage myPlayerImage;
@@ -47,6 +51,7 @@ public class MapPanel extends JComponent {
         myInput.addListenerTo(this);
         myWidth = 0;
         myHeight = 0;
+        myCurrentLayer = 0;
         myTileWidth = DEFAULT_TILE_WIDTH;
         myTileHeight = DEFAULT_TILE_HEIGHT;
         try {
@@ -99,6 +104,13 @@ public class MapPanel extends JComponent {
         //paint Player
         for(Location c : myMap.getLocationMap().values()) {
             g.drawImage(myPlayerImage, (int)(c.getX()), (int)(c.getY()),null);
+        }
+        
+        //paint Terrain
+        for(MapLayer m : myMap.getLayerMap().values()) {
+            for(Terrain t : m.getTerrainSet()) {
+                g.drawImage(t.getImage(),(int)(t.getMyLocation().getX()),(int)(t.getMyLocation().getY()),null);
+            }
         }
     }
 
@@ -162,6 +174,12 @@ public class MapPanel extends JComponent {
             repaint();
         }
     }
+    
+    public void placeTerrain(int x, int y) {
+        Terrain t = new Terrain(new Location(x,y),myCanvas.getCurrentSelectTerrain().getMyID());
+        myMap.addTerrain(myCurrentLayer, t);
+        repaint();
+    }
 
     public void placePlayer(int x, int y) {
         int nodex=x/myTileWidth;
@@ -202,9 +220,12 @@ public class MapPanel extends JComponent {
             case PLAYERMODE:
                 placePlayer((int)(p.getX()), (int)(p.getY()));
                 break;
+            case TERRAINMODE:
+                placeTerrain((int)(p.getX()), (int)(p.getY()));
             default: break;  
         }
     }
+
 
 
 

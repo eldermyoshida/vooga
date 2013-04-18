@@ -44,18 +44,6 @@ public class ResourcePanel extends JPanel {
 
     }
 
-    /**
-     * Set the image of resource according to the path
-     * @param path
-     */
-    public void setImageRelative (String path) {
-        try {
-            myImage = ImageIO.read(this.getClass().getResource(path));
-        }
-        catch (Exception e) {
-
-        }
-    }
 
     public Canvas getCanvas() {
         return myCanvas;
