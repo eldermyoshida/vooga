@@ -21,18 +21,32 @@ import vooga.towerdefense.util.Pixmap;
  */
 public class MapScreen extends JPanel {
 
+    /**
+     * default serialized id.
+     */
     private static final long serialVersionUID = 1L;
-    private static final String RESOURCE = "/vooga/towerdefense/images/";
+    /**
+     * controller to pass information to the back-end.
+     */
     private Controller myController;
+    /**
+     * mouse listener for clicking.
+     */
     private MouseAdapter myMouseAdapter;
+    /**
+     * mouse listener for movement & dragging.
+     */
     private MouseMotionAdapter myMouseMotionAdapter;
+    /**
+     * size of the MapScreen.
+     */
     private Dimension mySize;
-    private Point mouseLocation;
 
     /**
      * Constructor.
      * 
      * @param size
+     * @param controller
      */
     public MapScreen (Dimension size, Controller controller) {
         mySize = size;
@@ -41,14 +55,13 @@ public class MapScreen extends JPanel {
         setVisible(true);
         myController = controller;
         makeMouseAdapters();
-        mouseLocation = new Point(0, 0);
         addMouseListener(myMouseAdapter);
         addMouseMotionListener(myMouseMotionAdapter);
         repaint();
     }
 
     /**
-     * updates the mapscreen appropriately.
+     * updates the MapScreen appropriately.
      */
     public void update () {
         revalidate();
@@ -108,10 +121,6 @@ public class MapScreen extends JPanel {
         myMouseMotionAdapter = new MouseMotionAdapter() {
             @Override
             public void mouseMoved (MouseEvent e) {
-                // TODO: remove these comments
-                // myController.handleMouseMovement(e.getPoint());
-                // mouseLocation = e.getPoint();
-                // update();
                 myController.handleMapMouseDrag(e.getPoint());
             }
         };
