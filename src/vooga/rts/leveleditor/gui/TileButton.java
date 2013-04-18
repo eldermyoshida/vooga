@@ -5,11 +5,13 @@ import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 import javax.swing.JToggleButton;
 import vooga.rts.input.Input;
+import vooga.rts.input.InputClassTarget;
 import vooga.rts.input.InputMethodTarget;
 import vooga.rts.input.PositionObject;
 import vooga.rts.leveleditor.components.Terrain;
 import vooga.rts.leveleditor.components.Tile;
 
+@InputClassTarget
 public class TileButton extends JToggleButton {
     
     public static final String INPUT_DIR = "vooga.rts.resources.properties.Input";
@@ -37,7 +39,7 @@ public class TileButton extends JToggleButton {
     public void getResource(PositionObject p) {
         myOwner.getCanvas().remove(false);
         myOwner.setCurrentSelectTile(myTile);
-        myOwner.getCanvas().setMode(MapPanel.TERRAINMODE);
+        myOwner.getCanvas().setMode(MapPanel.TILEMODE);
     }
 
 }

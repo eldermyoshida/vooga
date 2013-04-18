@@ -31,6 +31,7 @@ public class MapPanel extends JComponent {
     public static final int RESOURCEMODE = 1;
     public static final int PLAYERMODE = 2;
     public static final int TERRAINMODE = 3;
+    public static final int TILEMODE = 4;
 
     private Canvas myCanvas;
     private EditableMap myMap;
@@ -160,25 +161,29 @@ public class MapPanel extends JComponent {
     }
 
     public void placeResource(int x, int y) {
-        x=x/myTileWidth;
-        y=y/myTileHeight;
-        if(x>=0 && x<myWidth && y>=0 && y<myHeight){
-            EditableNode n = myMap.getMapNode(x, y);
-            if(!myRemoveFlag){
-                //n.setTileType(myCanvas.getCurrentSelectResource().getName());
-                //n.setImage(myCanvas.getCurrentSelectResource().getImage());
-                n.setOccupied(true);
-            } else {
-                n.reset();
-            }
-            repaint();
-        }
+
     }
     
     public void placeTerrain(int x, int y) {
         Terrain t = new Terrain(new Location(x,y),myCanvas.getCurrentSelectTerrain().getMyID());
         myMap.addTerrain(myCurrentLayer, t);
         repaint();
+    }
+    
+    private void placeTile(int x, int y) {
+        x=x/myTileWidth;
+        y=y/myTileHeight;
+        if(x>=0 && x<myWidth && y>=0 && y<myHeight){
+            EditableNode n = myMap.getMapNode(x, y);
+            if(!myRemoveFlag){
+                n.setTile(myCanvas.getCurrentSelectTile());
+                n.setOccupied(true);
+            } else {
+                n.reset();
+            }
+            repaint();
+        }
+        
     }
 
     public void placePlayer(int x, int y) {
@@ -223,10 +228,11 @@ public class MapPanel extends JComponent {
                 break;
             case TERRAINMODE:
                 placeTerrain((int)(p.getX()), (int)(p.getY()));
+            case TILEMODE:
+                placeTile((int)(p.getX()), (int)(p.getY()));
             default: break;  
         }
     }
-
 
 
 
