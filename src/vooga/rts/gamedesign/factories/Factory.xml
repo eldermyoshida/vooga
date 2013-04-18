@@ -81,22 +81,17 @@
 	<buildings src = "vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building">
 		<building>
 			<name>home</name>
-			<img>home.jpg</img>
+			<img>home.png</img>
+			<sound>pikachu.wav</sound>
 			<health>1000</health>
 			<buildtime>100</buildtime>
 			<attack>cannotattack</attack>
 			<produce>worker soldier</produce>
-			<cost>
-				<gold>50</gold>
-				<wood>50</wood>
-			</cost>
-		</building>
-		<building>
-			<custom src = "vooga.rts.gamedesign.sprite.gameprites.interactive.buildings.Tower">
-				<name>tower</name>
-			</custom>
 		</building>
 	</buildings>
+	<custom src = "vooga.rts.gamedesign.sprite.gameprites.interactive.buildings.Tower">
+		<name>tower</name>
+	</custom>
 	<units src = "vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Unit">
 		<unit>
 			<name>soldier</name>
@@ -106,9 +101,6 @@
 			<gather>cannotgather</gather>
 			<occupy>cannotoccupy</occupy>
 			<produce></produce>
-			<cost>
-				<gold>50</gold>
-			</cost>
 		</unit>
 		<unit>
 			<name>worker</name>
@@ -118,9 +110,6 @@
 			<gather>cangather</gather>
 			<occupy>cannotoccupy</occupy>
 			<produce>home</produce>
-			<cost>
-				<gold>50</gold>
-			</cost>
 		</unit>
 	</units>
 </GameElements>

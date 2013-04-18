@@ -47,7 +47,7 @@ public class Building extends InteractiveEntity implements IOccupiable {
         myRallyPoint = new Location3D(getWorldLocation().getX(), getWorldLocation().getY() + 50, 0);
         myProducables = new ArrayList<InteractiveEntity>();
         myInteractiveEntities = new ArrayList<InteractiveEntity>();
-        initProducables();
+        //initProducables();
         addProductionActions(this);
         setRallyPoint(new Location3D(300,400,0));
         if (upgradeTree != null) {

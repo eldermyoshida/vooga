@@ -155,6 +155,7 @@ public class Factory {
 				Node tempNode = children.item(i);
 
 				if(tempNode.getNodeType() == Node.ELEMENT_NODE){
+					System.out.println("CURRENT DECODER: " + tempNode.getNodeName());
 					myDecoders.get(tempNode.getNodeName()).create(doc);
 				}
 			}
