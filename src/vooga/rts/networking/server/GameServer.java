@@ -1,5 +1,6 @@
 package vooga.rts.networking.server;
 
+import vooga.rts.networking.communications.GameMessage;
 import vooga.rts.networking.communications.Message;
 
 
@@ -21,7 +22,10 @@ public class GameServer extends Room {
 
     @Override
     public void receiveMessageFromClient (Message message, ConnectionThread thread) {
-        sendMessageToAllConnections(message);
+        super.receiveMessageFromClient(message, thread);
+        if (message instanceof GameMessage) {
+            sendMessageToAllConnections(message);
+        }
     }
 
 }
