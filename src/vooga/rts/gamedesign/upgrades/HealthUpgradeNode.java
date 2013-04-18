@@ -4,8 +4,8 @@ import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 
 public class HealthUpgradeNode extends UpgradeNode {
 	
-	public HealthUpgradeNode(UpgradeTree upgradeTree, String upgradeType, int upgradeValue){
-		super(upgradeTree, upgradeType, upgradeValue);
+	public HealthUpgradeNode(UpgradeTree upgradeTree, String upgradeType, int upgradeValue, int costedResourceAmount){
+		super(upgradeTree, upgradeType, upgradeValue, costedResourceAmount);
 	}
 	
 	/**

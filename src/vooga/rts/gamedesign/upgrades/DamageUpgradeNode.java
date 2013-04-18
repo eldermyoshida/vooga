@@ -4,8 +4,8 @@ import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 
 public class DamageUpgradeNode extends UpgradeNode {
 
-	public DamageUpgradeNode(UpgradeTree upgradeTree, String upgradeType, int upgradeValue){
-		super(upgradeTree, upgradeType, upgradeValue);
+	public DamageUpgradeNode(UpgradeTree upgradeTree, String upgradeType, int upgradeValue, int costedResourceAmount){
+		super(upgradeTree, upgradeType, upgradeValue, costedResourceAmount);
 	}
 	
 	@Override

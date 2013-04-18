@@ -15,8 +15,8 @@ public class AttackUpgradeNode extends UpgradeNode {
 	 * @author Wenshun Liu
 	 */
 	//TODO: now upgradeValue is only Integer. See if need to be generic based on the need.
-	public AttackUpgradeNode(UpgradeTree upgradeTree, String upgradeType, int upgradeValue){
-		super(upgradeTree, upgradeType, upgradeValue);
+	public AttackUpgradeNode(UpgradeTree upgradeTree, String upgradeType, int upgradeValue,int costedResourceAmount){
+		super(upgradeTree, upgradeType, upgradeValue, costedResourceAmount);
 	}
 	
 	/**

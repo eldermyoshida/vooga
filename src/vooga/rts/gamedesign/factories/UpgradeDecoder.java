@@ -37,6 +37,8 @@ public class UpgradeDecoder extends Decoder {
 	public static final String TITLE_TAG = "nodeName";
 	public static final String AFFECTING_OBJECT_TAG = "object";
 	public static final String AFFECTING_VALUE_TAG = "value";
+	public static final String COSTING_RESOURCE_TYPE_TAG = "resourceCostType";
+	public static final String COSTING_RESOURCE_AMOUNT_TAG = "resourceAmount";
 	
 	private Factory myFactory;
 	private Map<String, String> myUpgradeNodeType;
@@ -88,9 +90,12 @@ public class UpgradeDecoder extends Decoder {
 				String nodeName = loadSingleLine(upgradeNodeElement, TITLE_TAG);
 				String object = loadSingleLine(upgradeNodeElement, AFFECTING_OBJECT_TAG);
 				String value = loadSingleLine(upgradeNodeElement, AFFECTING_VALUE_TAG);
+				String costedResource = loadSingleLine(upgradeNodeElement, COSTING_RESOURCE_TYPE_TAG);
+				String costedResourceAmount = loadSingleLine(upgradeNodeElement, COSTING_RESOURCE_AMOUNT_TAG);
 				
 				Class<?> headClass = Class.forName(myUpgradeNodeType.get(object));
-				UpgradeNode newUpgrade = (UpgradeNode) headClass.getConstructors()[0].newInstance(upgradeTree, nodeName, Integer.parseInt(value));	
+				UpgradeNode newUpgrade = (UpgradeNode) headClass.
+						getConstructors()[0].newInstance(upgradeTree, nodeName, Integer.parseInt(value), Integer.parseInt(costedResourceAmount));	
 				UpgradeNode current = upgradeTree.findNode(parent);
 				current.addChild(newUpgrade);
 			}
