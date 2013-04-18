@@ -14,6 +14,13 @@ import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
 
+/**
+ * This class is the extension of Building class and represents a building that
+ * is in charge of upgrades. 
+ * 
+ * @author Wenshun Liu
+ *
+ */
 public class UpgradeBuilding extends Building{
 	public int PRODUCE_TIME = 90;
 	
@@ -28,13 +35,10 @@ public class UpgradeBuilding extends Building{
     public void addUpgradeActions(UpgradeTree upgradeTree){
         List<UpgradeNode> currentUpgrades = upgradeTree.getCurrentUpgrades();
     	for (final UpgradeNode u: currentUpgrades) {
-    		 getActions().add(new Action(u.getUpgradeType(), null, "An upgrade action for soldier"){
+    		 getActions().add(new Action(u.getUpgradeName(), null, "An upgrade action"){
     	            @Override
     	            public void apply(int playerID) throws IllegalArgumentException, SecurityException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException{
     	                u.apply(playerID);
-    	                for (InteractiveEntity i: u.getUpgradeTree().getUsers().get(1)) {
-    	                	System.out.println("Health: " + i.getMaxHealth());
-    	                }
     	            }
     	        });
     	}
@@ -47,6 +51,7 @@ public class UpgradeBuilding extends Building{
 	}
 
 	/**
+	 * TESTING PURPOSE.
 	 * Mimics player's click on action. Now invoke action after certain time. 
 	 */
 	@Override

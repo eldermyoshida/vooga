@@ -1,7 +1,6 @@
 package vooga.rts.gamedesign.upgrades;
 
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -24,20 +23,18 @@ public class UpgradeNode {
 
 	private UpgradeTree myUpgradeTree;
 	private Map<Resource, Integer> myCost;
-    private String myUpgradeType;
+    private String myUpgradeName;
     private int myUpgradeValue;
     private boolean myHasBeenUpgraded;
     private List<UpgradeNode> myChildren; //set to list for the Head.
-    private int myID;
 
     public UpgradeNode(){
-        this(null, 0, null, 0);
+        this(null, null, 0);
     }
 
-    public UpgradeNode(UpgradeTree upgradeTree, int id, String upgradeType, int upgradeValue){
+    public UpgradeNode(UpgradeTree upgradeTree, String upgradeName, int upgradeValue){
         myUpgradeTree = upgradeTree;
-    	myID = id;
-    	myUpgradeType = upgradeType;
+    	myUpgradeName = upgradeName;
         myChildren = new ArrayList<UpgradeNode>();
         myHasBeenUpgraded = false;
         myUpgradeValue = upgradeValue;
@@ -78,17 +75,16 @@ public class UpgradeNode {
         return myChildren;
     }
     
-    public UpgradeNode addChild(UpgradeNode upgrade) {
+    public void addChild(UpgradeNode upgrade) {
 		myChildren.add(upgrade);
-		return upgrade;
 	}
 
     public UpgradeTree getUpgradeTree() {
     	return myUpgradeTree;
     }
     
-    public String getUpgradeType(){
-        return myUpgradeType;
+    public String getUpgradeName(){
+        return myUpgradeName;
     }
 
     public boolean getHasBeenUpgraded(){
@@ -97,9 +93,5 @@ public class UpgradeNode {
 
     public int getUpgradeValue(){
         return myUpgradeValue;
-    }
-    
-    public int getID(){
-    	return myID;
     }
 }

@@ -3,32 +3,38 @@
 
 <Upgrade>
 	<type>
-		<name>DamageKiller</name>
-		<upgradeNode>
-			<id>11</id> 
-			<nodeName>MiniDamage</nodeName>
-			<object>Damage</object>
-			<value>50</value>
-		</upgradeNode>
-		<upgradeNode>
-			<id>12</id>
-			<nodeName>BigDamage</nodeName>
-			<object>Damage</object>
-			<value>100</value>
-		</upgradeNode>
-	</type>
-	<type>
 		<name>Health</name>
 		<upgradeNode>
-			<id>21</id> 
+			<parent>Health</parent>
 			<nodeName>Boost1</nodeName>
 			<object>Health</object>
 			<value>50</value>
 		</upgradeNode>
 		<upgradeNode>
-			<id>22</id>
+			<parent>Health</parent>
 			<nodeName>Boost2</nodeName>
 			<object>Health</object>
+			<value>100</value>
+		</upgradeNode>
+	</type>
+	<type>
+		<name>Attack</name>
+		<upgradeNode>
+			<parent>Attack</parent>
+			<nodeName>CanAttack</nodeName>
+			<object>AttackStrategy</object>
+			<value>0</value>
+		</upgradeNode>
+		<upgradeNode>
+			<parent>Attack</parent>
+			<nodeName>RangeBoost1</nodeName>
+			<object>Range</object>
+			<value>100</value>
+		</upgradeNode>
+		<upgradeNode>
+			<parent>Attack</parent>
+			<nodeName>DamageBoost1</nodeName>
+			<object>Damage</object>
 			<value>100</value>
 		</upgradeNode>
 	</type>

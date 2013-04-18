@@ -1,6 +1,5 @@
 package vooga.rts.gamedesign.upgrades;
 
-import vooga.rts.gamedesign.Weapon;
 import vooga.rts.gamedesign.sprite.InteractiveEntity;
 import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;
 
@@ -11,12 +10,13 @@ public class AttackUpgradeNode extends UpgradeNode {
 	 * @param upgradeTree
 	 * @param id
 	 * @param upgradeType
-	 * @param upgradeValue 0 represents changing from Cannot to CanAttack; positive
-	 * values represent changing in range in Weapon that is belonged to CanAttack.
+	 * @param upgradeValue always set to 0.
+	 * 
+	 * @author Wenshun Liu
 	 */
 	//TODO: now upgradeValue is only Integer. See if need to be generic based on the need.
-	public AttackUpgradeNode(UpgradeTree upgradeTree, int id, String upgradeType, int upgradeValue){
-		super(upgradeTree, id, upgradeType, upgradeValue);
+	public AttackUpgradeNode(UpgradeTree upgradeTree, String upgradeType, int upgradeValue){
+		super(upgradeTree, upgradeType, upgradeValue);
 	}
 	
 	/**
@@ -25,14 +25,7 @@ public class AttackUpgradeNode extends UpgradeNode {
 	 */
 	@Override
 	public void apply(InteractiveEntity requester) {
-		if (getUpgradeValue() == 1) {
-			requester.setAttackStrategy(new CanAttack(requester.getWorldLocation(), requester.getPlayerID()));
-		}else {
-			//TODO: now upgrades the range for all weapons. See if this is the case
-			for (Weapon w: requester.getAttackStrategy().getWeapons()) {
-				w.addRange(getUpgradeValue());
-			}
-		}
+		requester.setAttackStrategy(new CanAttack(requester.getWorldLocation(), requester.getPlayerID()));
 	}
 
 }

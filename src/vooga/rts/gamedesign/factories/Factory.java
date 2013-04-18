@@ -137,7 +137,7 @@ public class Factory {
 	 * @param fileName the name of the XML file that provides class information
 	 * and to be loaded
 	 */
-	public <T extends Object> T loadXMLFile(String fileName) {
+	public void loadXMLFile(String fileName) {
 		Object result = new Object();
 		try {
 			File file = new File(getClass().getResource(fileName).getFile());
@@ -149,24 +149,6 @@ public class Factory {
 			result = myDecoders.get(doc.getDocumentElement().getNodeName()).create(doc);
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		printTree((UpgradeTree) result); //testing in case of loading UpgradeTree
-		return (T) result;
-	}
-	
-	/**
-	 * TESTING PURPOSE. PRINTS TREE.
-	 * @param upgradeTree
-	 */
-	private void printTree(UpgradeTree upgradeTree) {
-		for (UpgradeNode u: upgradeTree.getHead().getChildren()) {
-			UpgradeNode current = u;
-			while (!current.getChildren().isEmpty()) {
-				System.out.println("Type: " + current.getChildren().get(0).getUpgradeType() +
-						" Parent ID " + current.getID() + " ID " + 
-						current.getChildren().get(0).getID());
-				current = current.getChildren().get(0);
-			}
 		}
 	}
 	

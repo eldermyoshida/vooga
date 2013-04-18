@@ -1,16 +1,11 @@
 package vooga.rts.gamedesign.upgrades;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.List;
-
-import vooga.rts.gamedesign.sprite.GameEntity;
 import vooga.rts.gamedesign.sprite.InteractiveEntity;
 
 public class HealthUpgradeNode extends UpgradeNode {
 	
-	public HealthUpgradeNode(UpgradeTree upgradeTree, int id, String upgradeType, int upgradeValue){
-		super(upgradeTree, id, upgradeType, upgradeValue);
+	public HealthUpgradeNode(UpgradeTree upgradeTree, String upgradeType, int upgradeValue){
+		super(upgradeTree, upgradeType, upgradeValue);
 	}
 	
 	/**

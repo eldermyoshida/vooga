@@ -75,22 +75,35 @@ public class UpgradeTree {
         }
     }
 
-    public UpgradeNode addBranch (int ID, String branchName) {
-        UpgradeNode branch = new UpgradeNode(this, ID, branchName, 0);
+    public void addBranch (String branchName) {
+        UpgradeNode branch = new UpgradeNode(this, branchName, 0);
         myHead.addChild(branch);
-        return branch;
     }
 
+    public UpgradeNode findNode(String upgradeName) {
+    	UpgradeNode current = myHead;
+    	while (!current.getChildren().isEmpty()) {
+    		for (UpgradeNode u: current.getChildren()) {
+    			if (u.getUpgradeName().equals(upgradeName)) {
+    				return u;
+    			} else {
+    				current = u;
+    			}
+    		}
+    	}
+    	return null;
+    }
+    
     /**
      * Finds the most advanced upgrade has been made in the giving upgrade type.
      * 
      * @param upgradeType
      * @return
      */
-    public UpgradeNode findCurrent (String upgradeType) {
+    public UpgradeNode findCurrent(String upgradeType) {
         UpgradeNode current = new UpgradeNode();
         for (UpgradeNode n : myHead.getChildren()) {
-            if (n.getUpgradeType().equals(upgradeType)) {
+            if (n.getUpgradeName().equals(upgradeType)) {
                 current = n;
             }
         }
