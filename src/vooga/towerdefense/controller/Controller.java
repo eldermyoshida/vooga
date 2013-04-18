@@ -77,6 +77,13 @@ public class Controller {
         myView = new TDView(this);
         myControlMode = new SelectMode();
     }
+    
+    /**
+     * cancels the purchase and stops painting ghost image.
+     */
+    public void cancelPurchaseFromShop() {
+        myControlMode = new SelectMode();
+    }
 
     /**
      * displays information about the GameElement on the tile.
