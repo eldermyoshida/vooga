@@ -1,16 +1,16 @@
 /level
                                                             
                                                             
-              a                                             
                                                             
-          b     c                                           
-      a                                                     
-              b    d                                        
                                                             
-         a                                                  
                                                             
-                e                                           
-           a                                                
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+ a                                                          
                                                             
                                                             
                                                             
@@ -30,10 +30,7 @@
                                                             
                                                             
 /key
-a=vooga.scroller.sprites.test_sprites.MarioLib.Coin
-d=vooga.scroller.sprites.test_sprites.MarioLib.Turtle
-b=vooga.scroller.sprites.test_sprites.MarioLib.BigMario
-c=vooga.scroller.sprites.test_sprites.MarioLib.Koopa
-e=vooga.scroller.sprites.test_sprites.MarioLib.LevelTwoBlockTwo
+a=vooga.scroller.sprites.test_sprites.MarioLib$LevelTwoBlockThree
 /settings
-StartPoint=560 272
+StartPoint=144 240
+EndPoint=665 313
