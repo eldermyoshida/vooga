@@ -23,5 +23,7 @@ public class AttributeConstants {
 	public static final String DIRECTION = "Direction";
 	public static final String UPGRADES = "Upgrades";
 	public static final String COST = "Cost";
+	
+	public static final String PROJECTILE_FACTORY="projectile factory";
 
 }

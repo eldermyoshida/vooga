@@ -17,7 +17,7 @@ import vooga.towerdefense.util.Pixmap;
  * will need to be changed dramatically, now it's quick dirty for testing
  *
  */
-public class ProjectileFactory {
+public class ProjectileFactory extends GameElementFactory{
     private static final AttributeConstants ATTRIBUTES_CONSTANTS=new AttributeConstants();
     private static final int DEFAULT_WIDTH=10;
     private static final Pixmap DEFAULT_IMAGE = new Pixmap("defined by designer");
@@ -30,8 +30,8 @@ public class ProjectileFactory {
 	public Projectile createProjectile(GameElement initiator, GameElement target){
 		return new Projectile(DEFAULT_IMAGE,DEFAULT_SIZE,initiator,target,DEFAULT_ACTIONS,DEFAULT_ATTRIBUTE_MANAGER);
 	}
-	
-	public Projectile createProjectile(GameElement initiator, Location targetLocation){
+
+	public Projectile createGameElement(GameElement initiator, Location targetLocation){
             return new Projectile(DEFAULT_IMAGE,DEFAULT_SIZE,initiator,targetLocation,DEFAULT_ACTIONS,DEFAULT_ATTRIBUTE_MANAGER);
     }
 
