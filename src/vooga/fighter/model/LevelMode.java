@@ -161,7 +161,7 @@ public class LevelMode extends Mode {
 //    }
     private void winningConditions(){
     	for (int i = 0; i < myCharacterObjects.size(); i++) {
-    		if(!myCharacterObjects.get(i).getHealth().hasHealthRemaining()){
+    		if(myCharacterObjects.get(i).getLocation().getLocation().getX()<0){
     			signalTermination("Ryu");
     		}
     	}
