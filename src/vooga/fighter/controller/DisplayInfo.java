@@ -14,13 +14,13 @@ public class DisplayInfo extends Observable implements ViewDataSource{
     
     
     private List<Location> mySpriteLocations;
-    private List<Pixmap> mySprites;
+    private List<Paintable> mySprites;
     private List<Dimension> myImageSizes;
     private Integer myNumObjects;
 
 	public DisplayInfo() {
         mySpriteLocations = new ArrayList<Location>();
-        mySprites = new ArrayList<Pixmap>();
+        mySprites = new ArrayList<Paintable>();
         myImageSizes = new ArrayList<Dimension>();
 	}
 	
@@ -61,18 +61,18 @@ public class DisplayInfo extends Observable implements ViewDataSource{
     /**
      * @return the mySprites
      */
-    public List<Pixmap> getSprites() {
+    public List<Paintable> getSprites() {
         return mySprites;
     }
 
     /**
      * @param mySprites the mySprites to set
      */
-    public void setSprites(List<Pixmap> sprites) {
+    public void setSprites(List<Paintable> sprites) {
         mySprites = sprites;
     }
 
-    public void setSprite(int index, Pixmap pix) {
+    public void setSprite(int index, Paintable pix) {
         mySprites.set(index, pix);
     }
     

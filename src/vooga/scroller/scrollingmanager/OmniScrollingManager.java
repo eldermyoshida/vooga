@@ -14,7 +14,7 @@ import vooga.scroller.view.View;
  * @author Ross
  *
  */
-public class DefaultScrollingManager extends ScrollingManager {
+public class OmniScrollingManager extends ScrollingManager {
     private Model myGame;
     private View myView;
     

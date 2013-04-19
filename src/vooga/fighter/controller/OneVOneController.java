@@ -101,14 +101,14 @@ public class OneVOneController extends LevelController {
         
     }
     
-    @InputMethodTarget(name = "player2_attack")
-    public void playerTwoAttackInput(AlertObject alObj) {
-        //test attacks here
+    @InputMethodTarget(name = "player1_attack")
+    public void playerOneAttackInput(AlertObject alObj) {
+        getInputObjects().get(0).attack("weakPunch");
     }
     
     @InputMethodTarget(name = "player2_attack")
     public void playerTwoAttacknput(AlertObject alObj) {
-        //test attacks here
+    	getInputObjects().get(1).attack("weakPunch");
     }
     
     public void removeListener(){

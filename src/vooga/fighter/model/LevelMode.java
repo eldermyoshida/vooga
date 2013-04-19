@@ -78,10 +78,7 @@ public class LevelMode extends Mode {
             GameObject object = myObjects.get(i);
             object.updateState();
         }
-        
-        if (shouldModeEnd()) {
-            signalTermination();
-        }
+        winningConditions();
     }
 
     /**
@@ -114,18 +111,6 @@ public class LevelMode extends Mode {
      * Checks if the level has ended. Does so by checking if any player has no health
      * remaining.
      */
-    public boolean shouldModeEnd() {
-        for (GameObject object : getMyObjects()) {
-            if (object instanceof CharacterObject) {
-                CharacterObject currentChar = (CharacterObject) object;
-                if (!currentChar.hasHealthRemaining()) {
-                    System.out.println("LevelMode shouldModeEnd : character has no health");
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
 
     /**
      * Returns the list of CharacterObjects.
@@ -174,6 +159,13 @@ public class LevelMode extends Mode {
 //        return myScores;
 //       
 //    }
+    private void winningConditions(){
+    	for (int i = 0; i < myCharacterObjects.size(); i++) {
+    		if(myCharacterObjects.get(i).getLocation().getLocation().getX()<0){
+    			signalTermination("Ryu");
+    		}
+    	}
+    }
     
     
 
