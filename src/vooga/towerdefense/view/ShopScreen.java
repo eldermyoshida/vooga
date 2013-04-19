@@ -4,25 +4,17 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Point;
-import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.swing.JButton;
 import javax.swing.JPanel;
-
 import vooga.towerdefense.controller.Controller;
-import vooga.towerdefense.gameElements.GameElement;
-import vooga.towerdefense.util.Location;
+
 
 /**
  * This class enables the player to click on items
- *              on the ShopScreen section, buy these
- *              items, and then place them on the map screen.
+ * on the ShopScreen section, buy these
+ * items, and then place them on the map screen.
  * 
  * @author Leonard K. Ng'eno
  * 
@@ -37,9 +29,10 @@ public class ShopScreen extends JPanel {
     private MouseAdapter myMouseListener;
     private Controller myController;
     private JButton myCancelButton;
-    
+
     /**
      * constructor.
+     * 
      * @param size
      * @param controller
      */
@@ -55,6 +48,7 @@ public class ShopScreen extends JPanel {
 
     /**
      * paints the ShopScreen.
+     * 
      * @param pen
      */
     @Override
@@ -65,11 +59,10 @@ public class ShopScreen extends JPanel {
         myController.paintShop(pen);
     }
 
-
     /**
      * helper method to make the mouse listener.
      */
-    private void makeMouseListener() {
+    private void makeMouseListener () {
         myMouseListener = new MouseAdapter() {
             @Override
             public void mouseClicked (MouseEvent e) {
@@ -77,22 +70,23 @@ public class ShopScreen extends JPanel {
                     myController.cancelPurchaseFromShop();
                 }
                 else {
-                    setCancelButtonVisibility(false);
+                    setCancelButtonVisibility(true);
                     myController.handleShopClickOnItem(e.getPoint());
                 }
             }
         };
     }
-    
+
     private void makeCancelButton () {
         myCancelButton = new JButton(myController.getStringFromResources(CANCEL_BUTTON_KEYWORD));
         myCancelButton.addMouseListener(myMouseListener);
         this.add(myCancelButton, BorderLayout.PAGE_END);
         setCancelButtonVisibility(false);
     }
-    
+
     /**
      * Sets the visibility of the Cancel Button to the value of the parameter
+     * 
      * @param visibility
      */
     public void setCancelButtonVisibility (boolean visibility) {

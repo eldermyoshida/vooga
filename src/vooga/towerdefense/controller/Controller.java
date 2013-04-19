@@ -144,7 +144,6 @@ public class Controller {
     private GameElement createNewElement(GameElement item) {
         try {
             Class<? extends GameElement> myClass = item.getClass();
-            System.out.println("I AM: " + myClass.getName());       
             @SuppressWarnings("rawtypes")
             Class[] types = {Pixmap.class, Location.class, Dimension.class, AttributeManager.class, List.class};
             Constructor<? extends GameElement> constructor = myClass.getConstructor(types);
@@ -212,10 +211,10 @@ public class Controller {
 
 
     public void handleShopClickOnItem (Point p) {
-        System.out.println("lol");
-        ShopItem itemToBuy = myModel.getShopItem(p);
+       // System.out.println("lol");
+       // ShopItem itemToBuy = myModel.getShopItem(p);
         List<Action> actions = new ArrayList<Action>();
-        Tower t = new Tower(new Pixmap("shopicons/redtower.png"), new Location(p.getX(), p.getY()), new Dimension(50, 50), null, actions);
+        Tower t = new Tower(new Pixmap("tower.gif"), new Location(p.getX(), p.getY()), new Dimension(50, 50), null, actions);
         BuildMode myNewMode = new BuildMode();
         myNewMode.setItemToBuild(t);    
         myControlMode = myNewMode;

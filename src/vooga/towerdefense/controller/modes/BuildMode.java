@@ -45,6 +45,5 @@ public class BuildMode extends ControlMode {
     @Override
     public void handleMapMouseDrag (Point p, Controller controller) {
         controller.paintGhostImage(p, myItemToBuild.getPixmap());
-        System.out.println("asjdgujsajd");
     }
 }
