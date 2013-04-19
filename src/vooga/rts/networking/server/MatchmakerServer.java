@@ -18,18 +18,24 @@ public class MatchmakerServer extends AbstractThreadContainer {
     private Map<String, GameContainer> myGameContainers = new HashMap<String, GameContainer>();
     private ConnectionServer myConnectionServer = new ConnectionServer(this);
     private ResourceBundle myGamesBundle;
-    
-    public MatchmakerServer () {       
+
+    /**
+     * Initializes overall server hierarchy, reads in game names and creates containers.
+     */
+    public MatchmakerServer () {
         initializeGameContainers();
     }
-    
+
+    /**
+     * Starts the ConnectionServer so that this server can start accepting connections.
+     */
     public void startAcceptingConnections () {
         myConnectionServer.start();
     }
-    
+
     private void initializeGameContainers () {
         myGamesBundle = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "games");
-        for(String game : myGamesBundle.keySet()) {
+        for (String game : myGamesBundle.keySet()) {
             myGameContainers.put(game, new GameContainer());
         }
     }
