@@ -16,7 +16,6 @@ public class GameEditor extends JFrame {
         setSize(mySize);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
-        makeMouseAdapter();
         addMouseListener(myMouseAdapter);
         createGUI();
     }
