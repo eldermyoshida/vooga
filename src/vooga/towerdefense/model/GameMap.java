@@ -118,9 +118,9 @@ public class GameMap {
      * 
      * @param pen a pen used to draw elements on this map.
      */
-    public void paint (Graphics2D pen) {    	
-        paintGameElements(pen);
+    public void paint (Graphics2D pen) {
         paintTiles(pen);
+        paintGameElements(pen);        
     }
     
     private void paintTiles(Graphics2D pen) {
