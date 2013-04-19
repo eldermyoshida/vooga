@@ -16,7 +16,8 @@ public class LoadingController extends AbstractController {
     public static final String DEFAULT_BGIMAGE_LOCATION = "images/backgrounds/loading_bg.png";
 
     public LoadingController () {
-        myBGImage = ResourceManager.instance().loadFile(DEFAULT_BGIMAGE_LOCATION);
+        myBGImage = ResourceManager.getInstance().<BufferedImage> getFile(DEFAULT_BGIMAGE_LOCATION, BufferedImage.class);
+
     }
 
     @Override
@@ -26,7 +27,8 @@ public class LoadingController extends AbstractController {
 
     @Override
     public void onLeftMouseUp (PositionObject o) {
-        if (!ResourceManager.instance().isLoading()) {
+
+        if (!ResourceManager.getInstance().isLoading()) {
             setChanged();
             notifyObservers();
         }
@@ -45,7 +47,7 @@ public class LoadingController extends AbstractController {
         pen.setColor(Color.white);
         pen.setFont(new Font("Georgia", Font.PLAIN, 72));
         pen.drawString("Game is Loading...", 200, 300);
-        if (!ResourceManager.instance().isLoading()) {
+        if (!ResourceManager.getInstance().isLoading()) {
             pen.setFont(new Font("Georgia", Font.PLAIN, 30));
             pen.drawString("Click to start.", 200, 380);
         }
@@ -53,7 +55,7 @@ public class LoadingController extends AbstractController {
 
     @Override
     public void activate () {
-        ResourceManager.instance().load();
+        ResourceManager.getInstance().load();
     }
 
     @Override

@@ -10,7 +10,12 @@ import javax.swing.Timer;
 import vooga.rts.Game;
 import vooga.rts.gui.Window;
 import vooga.rts.input.Input;
+import vooga.rts.resourcemanager.ImageLoader;
+import vooga.rts.resourcemanager.ResourceManager;
+import vooga.rts.resourcemanager.SoundLoader;
 import vooga.rts.util.FrameCounter;
+import vooga.rts.util.Location;
+
 
 
 public class MainController extends AbstractController implements Observer {
@@ -55,13 +60,16 @@ public class MainController extends AbstractController implements Observer {
 
         setActiveController(myLoadingController);
 
-        myFrames = new FrameCounter();
+        myFrames = new FrameCounter(new Location(100, 50));
 
         myTimer = new Timer((int) Game.TIME_PER_FRAME(), new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {
                 update(Game.TIME_PER_FRAME());
-                render();
+
+                if (myWindow.hasFocus()) {
+                    render();
+                }
             }
         });
         myTimer.start();
@@ -81,8 +89,8 @@ public class MainController extends AbstractController implements Observer {
         // Get graphics and clear frame
         Graphics2D graphics = myWindow.getCanvas().getGraphics();
         graphics.setColor(Color.WHITE);
-        graphics.fillRect(0, 0, myWindow.getCanvas().getWidth(), myWindow
-                .getCanvas().getHeight());
+
+        graphics.fillRect(0, 0, myWindow.getCanvas().getWidth(), myWindow.getCanvas().getHeight());
         graphics.setColor(Color.BLACK);
 
         // Paint stuff
