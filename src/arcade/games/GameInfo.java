@@ -29,10 +29,10 @@ public class GameInfo {
     private Model myModel;
 
     public GameInfo (String gamename, String genre, String language, Model model) {
-        // String filepath = FILEPATH + gamename + "." + genre + RESOURCE_DIR_NAME + language;
-        
+        String filepath = FILEPATH + genre + "." + gamename + RESOURCE_DIR_NAME + language;
+
         myModel = model;
-        String filepath = FILEPATH + gamename + RESOURCE_DIR_NAME + language;
+        // String filepath = FILEPATH + gamename + RESOURCE_DIR_NAME + language;
         myResourceBundle = ResourceBundle.getBundle(filepath);
     }
 
@@ -52,8 +52,6 @@ public class GameInfo {
         return new Pixmap(myResourceBundle.getString(AD_SCREEN));
     }
 
-    
-
     public double getRating () {
         return myModel.getAverageRating(myResourceBundle.getString(GAME_NAME));
     }
@@ -64,22 +62,26 @@ public class GameInfo {
         comments.add(comment1);
         return comments;
     }
-    
-    
-    
 
     // Here, there be shiny reflective dragons . . .
-    
+
     /*
-     * but seriously, the reflection here is really fragile, we should add some exception handling when 
-     * we get a chance. I just want to make sure that it works for now. This whole class makes 
-     * me nervous cause we use a handwritten properties file and we're really relying on the game name 
-     * being the same as the class name, being the same as the game name thats stored in the database.
+     * but seriously, the reflection here is really fragile, we should add some exception handling
+     * when
+     * we get a chance. I just want to make sure that it works for now. This whole class makes
+     * me nervous cause we use a handwritten properties file and we're really relying on the game
+     * name
+     * being the same as the class name, being the same as the game name thats stored in the
+     * database.
      * 
-     * In the future, we should consider adding on to the publish procedure a way of generating the properties 
-     * file algorithmically, which would tighten this up a little and make it less error prone. Once we do that,
-     * then we should be able to preserve the game names across the class name, the database game name, the 
-     * properties file name , and the directory name. This is a later feature though. for now, the game
+     * In the future, we should consider adding on to the publish procedure a way of generating the
+     * properties
+     * file algorithmically, which would tighten this up a little and make it less error prone. Once
+     * we do that,
+     * then we should be able to preserve the game names across the class name, the database game
+     * name, the
+     * properties file name , and the directory name. This is a later feature though. for now, the
+     * game
      * developers will have to worry about getting things exactly right :(
      */
 
@@ -92,17 +94,23 @@ public class GameInfo {
             try {
                 return (MultiplayerGame) con.newInstance(model);
             }
-            catch (IllegalArgumentException e) {}
-            catch (InstantiationException e) {}
-            catch (IllegalAccessException e) {}
-            catch (InvocationTargetException e) {}
+            catch (IllegalArgumentException e) {
+            }
+            catch (InstantiationException e) {
+            }
+            catch (IllegalAccessException e) {
+            }
+            catch (InvocationTargetException e) {
+            }
         }
-        catch (SecurityException e) {}
-        catch (NoSuchMethodException e) {}
+        catch (SecurityException e) {
+        }
+        catch (NoSuchMethodException e) {
+        }
         return null;
     }
 
- // I SAY I will add better exception handling here but . . . .
+    // I SAY I will add better exception handling here but . . . .
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public Game getGame (Model model) {
         Class gameClass = getGameClass();
@@ -111,18 +119,23 @@ public class GameInfo {
             try {
                 return (Game) con.newInstance(model);
             }
-            catch (IllegalArgumentException e) {}
-            catch (InstantiationException e) {}
-            catch (IllegalAccessException e) {}
-            catch (InvocationTargetException e){}
+            catch (IllegalArgumentException e) {
+            }
+            catch (InstantiationException e) {
+            }
+            catch (IllegalAccessException e) {
+            }
+            catch (InvocationTargetException e) {
+            }
         }
-        catch (SecurityException e) {}
-        catch (NoSuchMethodException e) {}
+        catch (SecurityException e) {
+        }
+        catch (NoSuchMethodException e) {
+        }
         return null;
     }
-    
-    
-    //TODO make sure this doesnt break if the game isnt multiplayer
+
+    // TODO make sure this doesnt break if the game isnt multiplayer
     @SuppressWarnings("rawtypes")
     private Class getMultiplayerGameClass () {
         try {
@@ -133,8 +146,8 @@ public class GameInfo {
         }
         return null;
     }
-    
-  //TODO make sure this doesnt break if the game isnt single player
+
+    // TODO make sure this doesnt break if the game isnt single player
     @SuppressWarnings("rawtypes")
     private Class getGameClass () {
         try {
@@ -146,9 +159,5 @@ public class GameInfo {
             return null;
         }
     }
-    
-
-    
-    
 
 }
