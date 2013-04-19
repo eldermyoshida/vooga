@@ -15,7 +15,7 @@ public class CommentTable extends Table {
     private static final String TABLE_SEPARATOR = ": ";
     private static final String GAMEID_COLUMN_FIELD = "gameid";  
     private static final String USERID_COLUMN_FIELD = "userid";
-    private static final String COMMENT_COLUMN_FIELD = "comment";
+    private static final String COMMENT_COLUMN_FIELD = "commentfield";
     private static final String COMMENTID_COLUMN_FIELD = "commentid";  
 
     
