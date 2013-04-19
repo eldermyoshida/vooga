@@ -74,7 +74,7 @@ public class MapLoader {
        String line = myScanner.nextLine();  
        line = myScanner.nextLine();
        while(line.contains("player") && line.contains("ID")) {
-           String[] content = myXMLParser.splitByBlanks(myXMLParser.splitContent(line));
+           String[] content = myXMLParser.splitByBlanks(myXMLParser.splitSlash(line));
            if(content.length != 4) throw new MapNotMatchException();
            String x = myXMLParser.cutKeyAndValue(content[2])[1];
            String y = myXMLParser.cutKeyAndValue(content[3])[1];
@@ -90,12 +90,12 @@ public class MapLoader {
         while( !line.contains("tilesize")) {
             line = myScanner.nextLine();
         }
-        String[] sizeContent = myXMLParser.splitByBlanks(myXMLParser.splitContent(line));
+        String[] sizeContent = myXMLParser.splitByBlanks(myXMLParser.splitSlash(line));
         if(sizeContent.length != 3) throw new MapNotMatchException();
         String tileWidth = myXMLParser.cutKeyAndValue(sizeContent[1])[1];
         String tileHeight = myXMLParser.cutKeyAndValue(sizeContent[1])[1];
         line = myScanner.nextLine();
-        String[] amountContent = myXMLParser.splitByBlanks(myXMLParser.splitContent(line));
+        String[] amountContent = myXMLParser.splitByBlanks(myXMLParser.splitSlash(line));
         if(sizeContent.length != 3) throw new MapNotMatchException();
         String xCount = myXMLParser.cutKeyAndValue(amountContent[1])[1];
         String yCount = myXMLParser.cutKeyAndValue(amountContent[2])[1];
@@ -113,14 +113,14 @@ public class MapLoader {
             line = myScanner.nextLine();
         }
         while(line.contains("tile") && line.contains("ID")) {
-            String[] tileContent = myXMLParser.splitByBlanks(myXMLParser.splitContent(line));
+            
+            String[] tileContent = myXMLParser.splitByBlanks(myXMLParser.splitSlash(line));
             if(tileContent.length != 4) throw new MapNotMatchException();
             String tileID = myXMLParser.cutKeyAndValue(tileContent[1])[1];
             String tileImagePath = myXMLParser.cutKeyAndValue(tileContent[2])[1];
             String tileName = myXMLParser.cutKeyAndValue(tileContent[3])[1];
             myTileInformation.put(Integer.parseInt(tileID), tileName + "&" + tileImagePath);
-            line = myScanner.nextLine();
-                
+            line = myScanner.nextLine();            
         }
     }
     

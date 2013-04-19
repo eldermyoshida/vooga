@@ -15,30 +15,25 @@ import vooga.rts.leveleditor.Exceptions.MapNotMatchException;
 
 public class XMLParser {
    
-    private Pattern myContentPattern ;
-    private Pattern myTitlePattern ;
+    ;
+    private Pattern myBracketPattern ;
     private Pattern mySpacePattern ;
     private Pattern myEqualPattern ;
     
     public XMLParser() {
-        myContentPattern = Pattern.compile("[<(/>)]");
-        myTitlePattern = Pattern.compile("[<>]");
+        
+        myBracketPattern = Pattern.compile("[<>]");
         mySpacePattern = Pattern.compile("[\\s]+");
         myEqualPattern = Pattern.compile("[=]");
     }
+   
     
-    public String splitContent(String str) throws MapNotMatchException {
-        String[] buffer = cutBlanks(myContentPattern.split(str));
+    public String splitSlash(String str) throws MapNotMatchException {
+        String[] buffer = cutBlanks(myBracketPattern.split(str));
         if(buffer.length == 1) {
-            return buffer[0];
-        } else {
-            throw new MapNotMatchException("map file not match");
-        }
-    }
-    
-    public String splitIndex(String str) throws MapNotMatchException {
-        String[] buffer = cutBlanks(myTitlePattern.split(str));
-        if(buffer.length == 1) {
+            if(buffer[0].charAt(buffer[0].length()-1) == '/') {
+                return buffer[0].substring(0,buffer[0].lastIndexOf("/"));
+            }
             return buffer[0];
         } else {
             throw new MapNotMatchException("map file not match");
@@ -80,15 +75,9 @@ public class XMLParser {
     public String[] cutKeyAndValue(String str) {
         return cutBlanks(myEqualPattern.split(str));
     }
-    
-    public Pattern getMyContentPattern () {
-        return myContentPattern;
-    }
-
-
 
     public Pattern getMyTitlePattern () {
-        return myTitlePattern;
+        return myBracketPattern;
     }
 
 
