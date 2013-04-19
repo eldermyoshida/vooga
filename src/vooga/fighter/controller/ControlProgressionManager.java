@@ -8,13 +8,16 @@ import java.util.Random;
 
 
 public class ControlProgressionManager {
-
+        
+        //for testing purposes
 	private static final String MAINMENU = "MainMenu";
 	private static final String MODESELECT = "ModeSelectMenu";
 	private static final String CHARACTERSELECT = "CharacterSelectMenu";
 	private static final String MAPSELECT = "MapSelectMenu";
 	private static final String SCORECONTROLLER = "GameOver";
 	private static final String TOURNEY = "Tourney";
+	private static final String TEST = "test";
+	
 	private static final String NEXT = "Next";
 	private static final String BACK = "Back";
 	private GameInfo myGameInfo;
