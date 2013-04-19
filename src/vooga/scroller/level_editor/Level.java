@@ -8,18 +8,16 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import util.Location;
 import util.input.Input;
-import vooga.scroller.util.Editable;
 import vooga.scroller.util.Sprite;
 import vooga.scroller.viewUtil.Renderable;
 import vooga.scroller.collision_manager.CollisionManager;
 import vooga.scroller.level_management.IDoor;
-import vooga.scroller.level_management.LevelPortal;
-import vooga.scroller.level_management.StartPoint;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.superclasses.NonStaticEntity;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.PlatformerConstants;
 import vooga.scroller.view.View;
+
 
 public class Level implements Renderable {
 
@@ -39,7 +37,8 @@ public class Level implements Renderable {
     private int myID;
     private IDoor myDoor;
     private StartPoint myDefaultStart;
-    
+    private Location myStartPoint;
+
     public int getID () {
         return myID;
     }
@@ -50,6 +49,7 @@ public class Level implements Renderable {
         frameOfReferenceSize = PlatformerConstants.REFERENCE_FRAME_SIZE;
         myBackground = DEFAULT_BACKGROUND;
         mySprites = new ArrayList<Sprite>();
+        myStartPoint = new Location();
         initFrames();
     }
 
@@ -70,9 +70,9 @@ public class Level implements Renderable {
         myScrollManager = sm;
         myID = id;
     }
-    
-    public Level(int id, ScrollingManager sm, View view, LEGrid grid) {
-        this (id, sm, view);
+
+    public Level (int id, ScrollingManager sm, View view, LEGrid grid) {
+        this(id, sm, view);
         setSize(grid.getPixelSize());
         for (SpriteBox box : grid.getBoxes()) {
             addSprite(box.getSprite());
@@ -95,7 +95,12 @@ public class Level implements Renderable {
      */
 
     public void addSprite (Sprite s) {
-        mySprites.add(s);
+        if (s instanceof StartPoint) {
+            myStartPoint = s.getCenter();
+        }
+        else {
+            mySprites.add(s);
+        }
     }
 
     public void removeSprite (Sprite s) {
@@ -104,6 +109,7 @@ public class Level implements Renderable {
 
     public void addPlayer (Player s) {
         myPlayer = s;
+        myPlayer.setCenter(myStartPoint.getX(), myStartPoint.getY());
         for (Sprite sprite : mySprites) {
             if (sprite instanceof NonStaticEntity) {
                 addPlayerToSprite((NonStaticEntity) sprite);
@@ -146,7 +152,7 @@ public class Level implements Renderable {
 
             if (myPlayer.getHealth() <= 0) {
                 myPlayer.handleDeath();
-                
+
             }
 
             intersectingSprites();
@@ -294,23 +300,24 @@ public class Level implements Renderable {
 
     public void addDoor (IDoor door) {
         // TODO Implement support for multiple doors
-        myDoor = door;   
+        myDoor = door;
     }
-    
+
     /**
      * TODO - define default door or make it clear that door needs to be set.
+     * 
      * @return
      */
     public IDoor getDoor () {
         return myDoor;
     }
 
-    public void addStartPoint (StartPoint start) {
-        myDefaultStart = start;
+    public void addStartPoint (Location start) {
+        myStartPoint = start;
     }
-    
-    public StartPoint getStartPoint () {
-        return myDefaultStart;
+
+    public Location getStartPoint () {
+        return myStartPoint;
     }
 
 }

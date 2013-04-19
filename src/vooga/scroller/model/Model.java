@@ -62,7 +62,7 @@ public class Model {
         myScrollingManager.initView(view);
         
         myLevelManager = new LevelManager(myScrollingManager, myView);
-        myLevelManager.currentLevel().addPlayer(myPlayer);
+        myLevelManager.getCurrentLevel().addPlayer(myPlayer);
 
 //        myLevelManager.setCurrentLevel(DEFAULT_START_LEVEL_ID);
         
@@ -89,7 +89,7 @@ public class Model {
      * Draw all elements of the game.
      */
     public void paint (Graphics2D pen) {
-        myLevelManager.currentLevel().paint(pen);
+        myLevelManager.getCurrentLevel().paint(pen);
         
         
         
@@ -102,7 +102,7 @@ public class Model {
      */
     public void update (double elapsedTime) {
 
-        myLevelManager.currentLevel().update(elapsedTime, myView.getSize(), myView);
+        myLevelManager.getCurrentLevel().update(elapsedTime, myView.getSize(), myView);
 
     }
 
@@ -112,27 +112,27 @@ public class Model {
      * @return
      */
     public double getRightBoundary () {
-        return myLevelManager.currentLevel().getRightBoundary();
+        return myLevelManager.getCurrentLevel().getRightBoundary();
     }
 
     public double getLeftBoundary () {
-        return myLevelManager.currentLevel().getLeftBoundary();
+        return myLevelManager.getCurrentLevel().getLeftBoundary();
     }
 
     public double getUpperBoundary () {
-        return myLevelManager.currentLevel().getUpperBoundary();
+        return myLevelManager.getCurrentLevel().getUpperBoundary();
     }
 
     public double getLowerBoundary () {
-        return myLevelManager.currentLevel().getLowerBoundary();
+        return myLevelManager.getCurrentLevel().getLowerBoundary();
     }
 
     public Dimension getLevelBounds () {
-        return myLevelManager.currentLevel().getLevelBounds();
+        return myLevelManager.getCurrentLevel().getLevelBounds();
     }
     
     public Image getBackground() {
-        return myLevelManager.currentLevel().getBackground();
+        return myLevelManager.getCurrentLevel().getBackground();
     }
     
     public Player getPlayer(){
