@@ -41,15 +41,15 @@ public class LEToolsView extends WindowComponent {
         myTools = (LETools) ((LEWorkspaceView) getResponsible()).getTools();
         spriteUI = new JPanel();
         spriteUI.setLayout(new BoxLayout(spriteUI, BoxLayout.PAGE_AXIS));
-        for (Map<Object, String> m : myTools.getOptions()) {
+        for (Map<Object, String> m : myTools.getAllSprites()) {
             JPanel spriteButtons = new RadioGroup(new SelectSpriteListener(), m);
             spriteUI.add(spriteButtons);
         }
         
         otherUI = new JPanel();
-        JPanel otherButtons = new RadioGroup(new SetSpecialPointListener(),
-                                             myTools.getOtherOptions());
-        otherUI.add(otherButtons);
+//        JPanel otherButtons = new RadioGroup(new SetSpecialPointListener(),
+//                                             myTools.getOtherOptions());
+//        otherUI.add(otherButtons);
         myTabs.add(spriteUI, "Sprites");
         myTabs.add(otherUI, "Other");
         EasyGridFactory.layout(this, myTabs);

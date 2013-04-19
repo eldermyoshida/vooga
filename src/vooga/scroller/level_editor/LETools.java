@@ -7,80 +7,95 @@ import java.util.List;
 import java.util.Map;
 import javax.swing.ImageIcon;
 import vooga.scroller.level_management.IDoor;
-import vooga.scroller.level_management.LevelPortal;
 import vooga.scroller.sprites.interfaces.ICoin;
 import vooga.scroller.sprites.interfaces.IEnemy;
-import vooga.scroller.sprites.test_sprites.MarioLib.Platform;
-import vooga.scroller.util.Pixmap;
+import vooga.scroller.sprites.interfaces.IPlatform;
 import vooga.scroller.util.Sprite;
 import vooga.scroller.viewUtil.Tools;
 
+/**
+ * Toolbox specific to a level Editor.
+ * This object contains all the necessary information to generate GUI items 
+ * specific to a LevelEditor
+ * @author Dagbedji Fagnisse
+ *
+ */
 public class LETools extends Tools {
+
+    private static final int DEFAULT_SIZE = 40;
+    private static final int PLATFORMS = 0;
+    private static final int ENEMIES = 1;
+    private static final int COLLECTIBLES = 2;
+    private static final int SPECIALPOINTS = 3;
+    private static final int OTHERS = 4;
+    private Map<Object, String> mySpriteIcons;
+    private Map<Object, String> myOtherIcons;
+    private List<HashMap<Object, String>> mySpritesOptions;
     
-    private Map<Object, String> spriteIcons;
-    private Map<Object, String> otherIcons;
-    private List<HashMap<Object, String>> myOptions;
-    
-    
+    /**
+     * Initialize state of this LETools.
+     */
     public LETools() {
-        myOptions = new ArrayList<HashMap<Object, String>>();
+        mySpritesOptions = new ArrayList<HashMap<Object, String>>();
         Map<Object, String> platforms = new HashMap<Object, String>();
         Map<Object, String> ennemis = new HashMap<Object, String>();
         Map<Object, String> collectibles = new HashMap<Object, String>();
         Map<Object, String> specialpoints = new HashMap<Object, String>();
-        myOptions.add((HashMap<Object, String>)platforms);
-        myOptions.add((HashMap<Object, String>)ennemis);
-        myOptions.add((HashMap<Object, String>)collectibles);
-        myOptions.add((HashMap<Object, String>)specialpoints);
-        spriteIcons = new HashMap<Object, String>();
-        otherIcons = new HashMap<Object, String>();
-        initOtherIcons();
+        Map<Object, String> others = new HashMap<Object, String>();
+        mySpritesOptions.add(PLATFORMS, (HashMap<Object, String>)platforms);
+        mySpritesOptions.add(ENEMIES, (HashMap<Object, String>)ennemis);
+        mySpritesOptions.add(COLLECTIBLES, (HashMap<Object, String>)collectibles);
+        mySpritesOptions.add(SPECIALPOINTS, (HashMap<Object, String>)specialpoints);
+        mySpritesOptions.add(OTHERS, (HashMap<Object, String>)others);
+        mySpriteIcons = new HashMap<Object, String>();
+        myOtherIcons = new HashMap<Object, String>();
+//        initOtherIcons();
     }
-
-    public Map<Object, String> getSpriteMakingOptions() {
-        return spriteIcons;
+//
+//    public Map<Object, String> getSpriteMakingOptions() {
+//        return spriteIcons;
+//    }
+    
+    private ImageIcon getIcon(Sprite s) {
+        return new ImageIcon(s.getDefaultImg().getScaledInstance(
+                            DEFAULT_SIZE, DEFAULT_SIZE, Image.SCALE_SMOOTH));
     }
     
-    public void addSpriteOption(Sprite s, int i) {
-        if (s instanceof Platform) {
-            //TODO - generalize sorting
-            myOptions.get(0).put(new ImageIcon(s.getDefaultImg().getScaledInstance(40, 40, Image.SCALE_SMOOTH )), 
-                  i+"");
+    /**
+     * Add a Sprite option, and organize the sprites based off their behavior.
+     * This particular implementation is (manually) coupled with the interfaces
+     * available in the interfaces package.
+     * @param s - sample sprite
+     * @param spriteID - id for communication with the model
+     */
+    public void addSpriteOption(Sprite s, int spriteID) {
+        if (s instanceof IPlatform) {
+            mySpritesOptions.get(PLATFORMS).put(getIcon(s), spriteID + "");
         }
-        if (s instanceof IEnemy) {
-            //TODO - generalize sorting
-            myOptions.get(1).put(new ImageIcon(s.getDefaultImg().getScaledInstance(40, 40, Image.SCALE_SMOOTH )), 
-                  i+"");
+        else if (s instanceof IEnemy) {
+            mySpritesOptions.get(ENEMIES).put(getIcon(s), spriteID + "");
         }
-        if (s instanceof ICoin) {
-            //TODO - generalize sorting
-            myOptions.get(2).put(new ImageIcon(s.getDefaultImg().getScaledInstance(40, 40, Image.SCALE_SMOOTH )), 
-                  i+"");
+        else if (s instanceof ICoin) {
+            mySpritesOptions.get(COLLECTIBLES).put(getIcon(s), spriteID + "");
         }
-        if (s instanceof StartPoint || s instanceof IDoor) {
-            //TODO - generalize sorting
-            myOptions.get(3).put(new ImageIcon(s.getDefaultImg().getScaledInstance(40, 40, Image.SCALE_SMOOTH )), 
-                  i+"");
+        else if (s instanceof StartPoint || s instanceof IDoor) {
+            mySpritesOptions.get(SPECIALPOINTS).put(getIcon(s), spriteID + "");
         }
-        //TODO -remove
-        spriteIcons.put(new ImageIcon(s.getDefaultImg().getScaledInstance(40, 40, Image.SCALE_SMOOTH )), 
-                  i+"");
+        else {
+            mySpritesOptions.get(OTHERS).put(getIcon(s), spriteID + "");
+        }
     }
     
-    public Map<Object, String> getOtherOptions() {
-        return otherIcons;
-    }
+//    public Map<Object, String> getOtherOptions() {
+//        return myOtherIcons;
+//    }
     
-    //TODO - Decide if other icons should be instance vars too.
-    private void initOtherIcons() {
-        otherIcons.put(new ImageIcon((new StartPoint().getDefaultImg().getScaledInstance(40, 40, Image.SCALE_SMOOTH))),
-                       ILevelEditor.START_ID+"");
-        otherIcons.put(new ImageIcon((new LevelPortal().getDefaultImg().getScaledInstance(40, 40, Image.SCALE_SMOOTH))),
-                       ILevelEditor.END_ID+"");
-    }
-    
-    public List<? extends Map<Object, String>> getOptions(){
-        return myOptions;
+    /**
+     * 
+     * @return
+     */
+    public List<? extends Map<Object, String>> getAllSprites(){
+        return mySpritesOptions;
     }
     
     
