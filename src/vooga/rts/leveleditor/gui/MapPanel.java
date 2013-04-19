@@ -178,8 +178,8 @@ public class MapPanel extends JComponent {
     
     //test printing matrix bug switch x and y
     private void placeTile(int x, int y) {
-        x=x/myTileWidth;
-        y=y/myTileHeight;
+        x=x/myTileHeight;
+        y=y/myTileWidth;
         if(x>=0 && x<myWidth && y>=0 && y<myHeight){
             EditableNode n = myMap.getMapNode(y, x);
             if(!myRemoveFlag){
@@ -188,6 +188,7 @@ public class MapPanel extends JComponent {
             } else {
                 n.reset();
             }
+            myMap.printMatrix();
             repaint();
         }
         
