@@ -3,7 +3,9 @@ package vooga.towerdefense.gameElements;
 import java.awt.Dimension;
 import java.util.List;
 import vooga.towerdefense.action.Action;
+import vooga.towerdefense.attributes.AttributeConstants;
 import vooga.towerdefense.attributes.AttributeManager;
+import vooga.towerdefense.model.Path;
 import vooga.towerdefense.util.Location;
 import vooga.towerdefense.util.Pixmap;
 import vooga.towerdefense.util.Vector;
@@ -23,7 +25,9 @@ import vooga.towerdefense.util.Vector;
  * 
  */
 public class Unit extends GameElement {
-
+    private static final AttributeConstants ATTRIBUTE_CONSTANTS = null;
+    private Path myPath;
+    private Location myCurrentPathNode;
     /**
      * @param image
      * @param center
@@ -63,7 +67,7 @@ public class Unit extends GameElement {
      * if not, stop moving
      */
     private void changeNode() {
-		if (myPath.hasNext()){
+        if (myPath.hasNext()){
 			myCurrentPathNode=myPath.next();
 			Vector newDirection= getCenter().difference(myCurrentPathNode);
 			//for some reason, this method gives the wrong sign on the angle
@@ -73,7 +77,7 @@ public class Unit extends GameElement {
 		else{
 			getAttributeManager().getAttribute(ATTRIBUTE_CONSTANTS.MOVE_SPEED).setValue(0);
 		}
-
+    }
     /**
      * @param image
      * @param center
