@@ -19,8 +19,8 @@ import vooga.fighter.model.utils.UpdatableLocation;
 
 /**
  * 
- * @author alanni
- * Loads the data to the map
+ * @author alanni, David Le
+ * Loads the data to the map object
  */
 
 public class MapLoader extends ObjectLoader {
@@ -51,20 +51,17 @@ public class MapLoader extends ObjectLoader {
 
 		for (int i = 0; i < mapNodes.getLength(); i++) {
 			Element node = (Element) mapNodes.item(i);
-			String name = getAttributeValue(node, "mapID");
+			String name = getAttributeValue(node, "mapName");
 			if (mapName.equals(name)) {
 			    // fix 1 to number of frames later
 				State mapState = new State(myMap, 1);
-				mapState.populateImage(new Pixmap(getAttributeValue(node, "enviroBackground")), 0);
-				Node mapSize = node.getElementsByTagName("size").item(0);
-				mapState.populateSize(new Dimension(Integer.parseInt(getAttributeValue(mapSize, "xSize")),
-						Integer.parseInt(getAttributeValue(mapSize, "ySize"))), 0);
+				mapState.populateImage(new Pixmap(getAttributeValue(node, "mapBackground")), 0);
+				mapState.populateSize(new Dimension(Integer.parseInt(getAttributeValue(node, "xSize")),
+						Integer.parseInt(getAttributeValue(node, "ySize"))), 0);
 				myMap.addState("background", mapState);
-				myMap.setLocation(new UpdatableLocation(Integer.parseInt(getAttributeValue(mapSize, "xSize"))/2,
-						Integer.parseInt(getAttributeValue(mapSize, "ySize"))/2));
-				NodeList enviroObjectNodes = node.getElementsByTagName("enviroObject");
-				addEnviroObjects(enviroObjectNodes);
-				NodeList startingPosNodes= node.getElementsByTagName("startingPos");
+				myMap.setLocation(new UpdatableLocation(Integer.parseInt(getAttributeValue(node, "xSize"))/2,
+						Integer.parseInt(getAttributeValue(node, "ySize"))/2));
+				NodeList startingPosNodes= node.getElementsByTagName("startingPositions");
 				addStartingPositions(startingPosNodes);
 			}
 		}
@@ -77,7 +74,7 @@ public class MapLoader extends ObjectLoader {
 		NodeList mapNodes = doc.getElementsByTagName("map");
 		for (int i = 0; i < mapNodes.getLength(); i++) {
 			Element node = (Element) mapNodes.item(i);
-			maps.add(getAttributeValue(node, "mapID"));
+			maps.add(getAttributeValue(node, "mapName"));
 		}
 		return maps;		
 	}

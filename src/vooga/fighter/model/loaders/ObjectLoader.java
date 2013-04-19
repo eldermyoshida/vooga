@@ -3,6 +3,7 @@ package vooga.fighter.model.loaders;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.io.File;
+import java.util.ResourceBundle;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -24,8 +25,11 @@ import vooga.fighter.model.utils.State;
  */
 public abstract class ObjectLoader {
 		
+	private static final String RESOURCE_PATH = "vooga.fighter.config.objects";
+	
 	private File myObjectFile;
 	private Document myDocument;
+	private ResourceBundle myResources;
 	
 	/**
 	 * Points to the xml file that the loader will be parsing
@@ -33,6 +37,7 @@ public abstract class ObjectLoader {
 	 * @param objectPath
 	 */
 	public ObjectLoader (String objectPath) {
+		myResources = ResourceBundle.getBundle(RESOURCE_PATH);
 		myObjectFile = new File(objectPath);
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder;
@@ -47,10 +52,10 @@ public abstract class ObjectLoader {
 	}
 
 	/**
-	 * Loads object based on the id given
-	 * @param id
+	 * Loads object based on the name given
+	 * @param name
 	 */
-	public abstract void load(String Name);
+	public abstract void load(String name);
 	
 	/**
 	 * Returns the xml document which the loader points to
@@ -58,6 +63,13 @@ public abstract class ObjectLoader {
 	 */
 	protected Document getDocument() {
 		return myDocument;
+	}
+	
+	/**
+	 * Returns resource bundle which contains what the names of nodes in the xml files should be.
+	 */
+	protected ResourceBundle getResourceBundle() {
+		return myResources;
 	}
 	
 	/**
