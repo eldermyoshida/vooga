@@ -15,12 +15,14 @@ public class Main {
         
         myDatabase.createUser("kayzooo", "mypassword", "Kevin", "Zhu", "11/12/1990");
         myDatabase.createUser("natx13", "nataliapassword", "Natalia", "Carvalho", "04/26/1991", "blahblahblh");
-        myDatabase.createUser("bob", "mypassword", "Joe", "Smith", "11/11/1911");        
+        myDatabase.createUser("bob", "mypassword", "Joe", "Smith", "11/11/1911");   
+        myDatabase.createUser("test", "test", "test", "test", "01/01/1901");
         
         myDatabase.deleteGame("example");
-        //myDatabase.createGame("example");
         
 //       myDatabase.addAvatarToUser("natx13", "C:/blahbalhblah");
+        
+        //myDatabase.createGame("example", "examplegenre");
         
         myDatabase.authenticateUsernameAndPassword("kayzooo", "mypassword");
         
