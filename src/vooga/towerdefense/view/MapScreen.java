@@ -87,6 +87,10 @@ public class MapScreen extends JPanel {
      * @param image is the pixmap image to paint
      */
     public void paintGhostImage (Point p, Pixmap image) {
+        if(image == null) {
+            System.out.println("nulll");
+        }
+        System.out.println("Paint ghost!!");
         image.paint((Graphics2D) getGraphics(), (Point2D) p,
                     new Dimension(image.getWidth(), image.getHeight()));
 

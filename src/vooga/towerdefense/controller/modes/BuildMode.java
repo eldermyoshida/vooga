@@ -3,6 +3,7 @@ package vooga.towerdefense.controller.modes;
 import java.awt.Point;
 import vooga.towerdefense.controller.Controller;
 import vooga.towerdefense.gameElements.GameElement;
+import vooga.towerdefense.shop.ShopItem;
 
 
 /**
@@ -44,5 +45,6 @@ public class BuildMode extends ControlMode {
     @Override
     public void handleMapMouseDrag (Point p, Controller controller) {
         controller.paintGhostImage(p, myItemToBuild.getPixmap());
+        System.out.println("asjdgujsajd");
     }
 }
