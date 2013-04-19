@@ -15,6 +15,7 @@ public class Database {
     private UserTable myUserTable;
     private UserGameDataTable myUserGameDataTable;
     private ScoreTable myScoreTable;
+    private CommentTable myCommentTable;
     
     /**
      * Database constructor
@@ -24,6 +25,7 @@ public class Database {
         myUserTable = new UserTable();
         myUserGameDataTable = new UserGameDataTable();
         myScoreTable = new ScoreTable();
+        myCommentTable = new CommentTable();
     }
 
     /**
@@ -34,6 +36,7 @@ public class Database {
         myUserTable.closeConnection();
         myUserGameDataTable.closeConnection();
         myScoreTable.closeConnection();
+        myCommentTable.closeConnection();
     }
     
     /**
@@ -126,6 +129,14 @@ public class Database {
     public void userServer(UserGameData usd) {
         //use http method to send bits of information to send it to a script running on cgi
         //php, or write in java
+    }
+    
+    public void insertComment(String username, String gameName, String comment) {
+        myCommentTable.addNewComment(retrieveGameId(gameName), retrieveUserId(username), comment);
+    }
+    
+    public List<String> retrieveCommentFromUsername(String username, String gameName) {
+        return myCommentTable.getCommentByUsername(retrieveGameId(gameName), retrieveUserId(username));
     }
     
     public GameData getGameData(String gameName) {

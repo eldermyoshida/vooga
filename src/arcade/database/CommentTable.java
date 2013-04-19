@@ -102,7 +102,7 @@ public class CommentTable extends Table {
         }
     }
     
-    public String getCommentByUsername(String gameid, String userid) {
+    public List<String> getCommentByUsername(String gameid, String userid) {
         //TODO implement method
         return null;
     }
