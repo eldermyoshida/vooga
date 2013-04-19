@@ -1,6 +1,3 @@
-package vooga.fighter.util;
-
-import util.Vector;
 
 public class Physics {
     /**
