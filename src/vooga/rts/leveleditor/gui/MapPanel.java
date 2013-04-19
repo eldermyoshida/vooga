@@ -16,6 +16,7 @@ import vooga.rts.input.PositionObject;
 import vooga.rts.leveleditor.components.EditableMap;
 import vooga.rts.leveleditor.components.EditableNode;
 import vooga.rts.leveleditor.components.MapLayer;
+import vooga.rts.leveleditor.components.Resource;
 import vooga.rts.leveleditor.components.Terrain;
 import vooga.rts.util.Location;
 
@@ -23,7 +24,7 @@ import vooga.rts.util.Location;
 public class MapPanel extends JComponent {
 
     public static final String INPUT_DIR = "vooga.rts.resources.properties.Input";
-    public static final String PLAYER_IMAGE_PATH = "/vooga/rts/leveleditor/resource/PlayerSign.gif";
+    public static final String PLAYER_IMAGE_PATH = "/vooga/rts/leveleditor/resource/Player1.png";
     public static final Dimension DEFAULT_MAP_SIZE  = new Dimension (600,600);
     public static final double ZOOM_RATE = 1.25;
     public static final int DEFAULT_TILE_WIDTH = 50;
@@ -106,12 +107,17 @@ public class MapPanel extends JComponent {
         for(Location c : myMap.getLocationMap().values()) {
             g.drawImage(myPlayerImage, (int)(c.getX()), (int)(c.getY()),null);
         }
-        
+
         //paint Terrain
         for(MapLayer m : myMap.getLayerMap().values()) {
             for(Terrain t : m.getTerrainSet()) {
                 g.drawImage(t.getMyImage(),(int)(t.getMyLocation().getX()),(int)(t.getMyLocation().getY()),null);
             }
+        }
+
+        //paint Resource
+        for(Resource r : myMap.getResourceSet()) {
+            g.drawImage(r.getMyImage(),r.getMyX(),r.getMyY(),null);
         }
     }
 
@@ -161,7 +167,8 @@ public class MapPanel extends JComponent {
     }
 
     public void placeResource(int x, int y) {
-
+        myMap.addResource(x, y, myCanvas.getCurrentSelectResource().getMyID());
+        repaint();
     }
     
     public void placeTerrain(int x, int y) {
@@ -202,6 +209,7 @@ public class MapPanel extends JComponent {
     public void clear() {
         myMap.clearMap();
         myMap.getLayerMap().clear();
+        myMap.getResourceSet().clear();
         repaint();
     }
 
@@ -228,8 +236,10 @@ public class MapPanel extends JComponent {
                 break;
             case TERRAINMODE:
                 placeTerrain((int)(p.getX()), (int)(p.getY()));
+                break;
             case TILEMODE:
                 placeTile((int)(p.getX()), (int)(p.getY()));
+                break;
             default: break;  
         }
     }
@@ -238,8 +248,8 @@ public class MapPanel extends JComponent {
 
     @InputMethodTarget(name="onMouseDrag")
     public void testDrag (PositionObject p) {
-        if(myMode == RESOURCEMODE) {
-            placeResource((int)(p.getX()), (int)(p.getY()));
+        if(myMode == TILEMODE) {
+            placeTile((int)(p.getX()), (int)(p.getY()));
         }
     }
 

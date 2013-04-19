@@ -74,6 +74,8 @@ public class EditableMap implements Serializable {
         myPlayerNumber = 0;
         myLayers = new HashMap<Integer , MapLayer>();
         myResource = new ArrayList<Resource>();
+
+
         try {
             mySaver = new MapSaver(this);
         }
@@ -81,8 +83,7 @@ public class EditableMap implements Serializable {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        //myLoader = new MapLoader();
-        
+
     }
 
     public void initializeMap () {
@@ -120,10 +121,12 @@ public class EditableMap implements Serializable {
     public void printMatrix () {
         System.out.println("printmatrix executed");
         System.out.println("X Size : " + myXSize);
-        System.out.println("Y Size : " + myYSize);        
+        System.out.println("Y Size : " + myYSize);
+        
         for(int i =0 ; i<myXSize ; i++) {
             for(int j =0 ; j<myYSize ; j++) {
                 System.out.println(myNodeMatrix[i][j].getMyTile().getMyID());
+
             }
             System.out.print("\n");
         }
