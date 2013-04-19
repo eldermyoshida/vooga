@@ -102,4 +102,14 @@ public abstract class LevelController extends Controller {
         myInputObjects.get(1).move(90);
         
     }
+    
+    @InputMethodTarget(name = "player2_attack")
+    public void playerTwoAttackInput(AlertObject alObj) {
+        //test attacks here
+    }
+    
+    @InputMethodTarget(name = "player2_attack")
+    public void playerTwoAttacknput(AlertObject alObj) {
+        //test attacks here
+    }
 }

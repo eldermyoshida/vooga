@@ -48,9 +48,7 @@ public class MainMenuController extends MenuController {
      * Checks this controller's end conditions
      */
     public void notifyEndCondition(String choice) {
-
         getInput().removeListener(this);
-
         getManager().notifyEndCondition(NEXT);
     }
 
