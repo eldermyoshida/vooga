@@ -20,7 +20,7 @@ import arcade.model.Model;
  * @author Ellango
  */
 @SuppressWarnings("serial")
-public abstract class FormView extends JFrame {
+public abstract class Form extends JFrame {
     public static final String BACKGROUND_FILENAME =
             "../arcade/resources/images/LoginBackGround.jpg";
     private static final int TEXT_FIELD_HEIGHT = 25;
@@ -39,7 +39,7 @@ public abstract class FormView extends JFrame {
      * @param model
      * @param resources
      */
-    public FormView (Model model, ResourceBundle resources) {
+    public Form (Model model, ResourceBundle resources) {
         myModel = model;
         myResources = resources;
 

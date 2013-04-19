@@ -27,18 +27,16 @@ import arcade.model.Model;
  * 
  */
 @SuppressWarnings("serial")
-public class RegisterView extends FormView {
+public class RegisterView extends Account {
     private static final String DEFAULT_IMAGE =
             new File(System.getProperty("user.dir") + "/src/arcade/resources/images/rcd.jpg")
                     .getPath();
     private static final int WINDOW_WIDTH = 240;
-    private static final int WINDOW_HEIGHT = 260;
+    private static final int WINDOW_HEIGHT = 330;
     private JTextField myFirstNameTextField;
     private JTextField myLastNameTextField;
     private JTextField myDOBTextField;
     private String myImagePath = DEFAULT_IMAGE;
-    private String myUsername;
-    private String myPassword;
 
     /**
      * Constructs the register view with a Model and Resource Bundle
@@ -49,15 +47,35 @@ public class RegisterView extends FormView {
      */
     public RegisterView (Model model, ResourceBundle resources) {
         super(model, resources);
-        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
         setLocationRelativeTo(null);
+    }
+    
+    /**
+     * Lets the user know that the username has already been taken and prompts
+     * them to choose a different one.
+     */
+    public void sendUsernameTakenError() {
+        clearUsername();
+        sendMessage(getResources().getString(TextKeywords.USERNAME_ERROR));
+    }
+    
+    /**
+     * Lets the user know that they formatted the date of birth field 
+     * incorrectly and prompts them to try reentering.
+     */
+    public void sendDOBError() {
+        myDOBTextField.setText(TextKeywords.BIRTHDATE_MESSAGE);
+        sendMessage(getResources().getString(TextKeywords.BIRTHDATE_ERROR));
     }
 
     @Override
     protected List<JComponent> makeComponents () {
         List<JComponent> components = new ArrayList<JComponent>();
         components.add(createInstructions());
+        components.add(createUsernameField());
+        components.add(createPasswordField());
         components.add(createFirstNameField());
         components.add(createLastNameField());
         components.add(createDOBField());
@@ -142,7 +160,6 @@ public class RegisterView extends FormView {
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     myImagePath = chooser.getSelectedFile().getPath();
                 }
-                sendMessage("This is a message right here.");
             }
         });
         panel.add(button);
@@ -160,13 +177,14 @@ public class RegisterView extends FormView {
         register.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent arg0) {
-                String firstName = myFirstNameTextField.getText();
-                String lastName = myLastNameTextField.getText();
-                String dateOfBirth = myDOBTextField.getText();
-                getModel().createNewUserProfile(myUsername, myPassword, firstName, lastName,
-                                                dateOfBirth, myImagePath);
-                //TODO: model should take care of disposing, in case any exceptions to throw,
-                // messages to send.
+                sendUsernameTakenError();
+                getModel().createNewUserProfile(getUsername(), 
+                                                getPassword(), 
+                                                myFirstNameTextField.getText(),
+                                                myLastNameTextField.getText(),
+                                                myDOBTextField.getText(),
+                                                myImagePath);
+                // maybe.
                 dispose();
             }
         });
@@ -174,20 +192,4 @@ public class RegisterView extends FormView {
         return panel;
     }
 
-    /**
-     * The username/password associated with the account are sent from the login
-     * view to here.
-     * 
-     * THIS IS ONLY A TEMPORARY SOLUTION.
-     * 
-     * Ideally, the model will hold on to this information instead and the
-     * RegisterView should not know.
-     * 
-     * @param username
-     * @param password
-     */
-    public void send (String username, String password) {
-        myUsername = username;
-        myPassword = password;
-    }
 }

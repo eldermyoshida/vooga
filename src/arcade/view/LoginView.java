@@ -16,8 +16,6 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
 import arcade.model.Model;
 
 
@@ -29,15 +27,11 @@ import arcade.model.Model;
  * 
  */
 @SuppressWarnings("serial")
-public class LoginView extends FormView {
+public class LoginView extends Account {
     private static final String LOGO_FILENAME = "../resources/images/VoogaLogo.png";
     private static final int WINDOW_WIDTH = 260;
     private static final int WINDOW_HEIGHT = 240;
     // private static final int NO_KEY_PRESSED = -1;
-
-    private JTextField myUserNameTextField;
-    private JPasswordField myPasswordTextField;
-
     // private int myLastKeyPressed;
 
     /**
@@ -48,6 +42,16 @@ public class LoginView extends FormView {
      */
     public LoginView (Model model, ResourceBundle resources) {
         super(model, resources);
+        
+        setPasswordFieldListener(new KeyAdapter() {
+            @Override
+            public void keyPressed (KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    tryLogin();
+                }
+            }
+        });
+        
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
         setLocationRelativeTo(null);
@@ -76,34 +80,6 @@ public class LoginView extends FormView {
     }
 
     /**
-     * Create the label and text field for the username entry
-     * 
-     * @return
-     */
-    private JComponent createUsernameField () {
-        myUserNameTextField = new JTextField();
-        return createTextPanel(TextKeywords.USERNAME, myUserNameTextField);
-    }
-
-    /**
-     * Create the label and text field for the password entry.
-     * 
-     * @return
-     */
-    private JComponent createPasswordField () {
-        myPasswordTextField = new JPasswordField();
-        myPasswordTextField.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed (KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    tryLogin();
-                }
-            }
-        });
-        return createTextPanel(TextKeywords.PASSWORD, myPasswordTextField);
-    }
-
-    /**
      * Create the login and register buttons.
      * 
      * @return
@@ -124,10 +100,8 @@ public class LoginView extends FormView {
         register.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent arg0) {
-                // TODO: would prefer to call model here to check if username/password okay.
-                RegisterView register = new RegisterView(getModel(), getResources());
-                register.send(myUserNameTextField.getText(),
-                              new String(myPasswordTextField.getPassword()));
+                new RegisterView(getModel(), getResources());
+                // getModel().startRegister(); to instantiate the register view
                 dispose();
             }
         });
@@ -161,18 +135,11 @@ public class LoginView extends FormView {
      * Sends the inputs to the model to try logging in.
      */
     private void tryLogin () {
-        String usernameInput = myUserNameTextField.getText();
-        String passwordInput = new String(myPasswordTextField.getPassword());
-        resetTextFields();
+        String usernameInput = getUsername();
+        String passwordInput = getPassword();
+        clearUsername();
+        clearPassword();
         getModel().authenticate(usernameInput, passwordInput);
-    }
-
-    /**
-     * Clears the input text fields.
-     */
-    private void resetTextFields () {
-        myUserNameTextField.setText("");
-        myPasswordTextField.setText("");
     }
 
     // /**
