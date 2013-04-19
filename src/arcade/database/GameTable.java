@@ -131,7 +131,8 @@ public class GameTable extends Table {
      * @param lastname is lastname
      * @param dateOfBirth is date of birth
      */
-    public boolean createGame(String gameName) {
+    public boolean createGame(String gameName , String genre) {
+        //TODO add genre
         if (gameNameExists(gameName)) {
             return false;
         }
@@ -197,5 +198,11 @@ public class GameTable extends Table {
         catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public String getGenre (String gameName) {
+        
+        // TODO Auto-generated method stub
+        return "examplegenre";
     }
 }

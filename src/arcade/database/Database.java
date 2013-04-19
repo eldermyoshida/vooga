@@ -65,8 +65,8 @@ public class Database {
      * Creates a new game
      * @param gameName is name of name
      */
-    public boolean createGame(String gameName) {
-        return myGameTable.createGame(gameName);
+    public boolean createGame(String gameName , String genre) {
+        return myGameTable.createGame(gameName , genre);
     }
     
     public void userPlaysGameFirst(String user, String gameName, String highscore) {
@@ -155,9 +155,11 @@ public class Database {
     public void updateRating (String userName, String gameName, double rating) {
         
     }
+    public String getGenre(String gameName){
+        return myGameTable.getGenre(gameName);
+    }
 
-    public double getAverageRating () {
-        // TODO Auto-generated method stub
-        return 0;
+    public double getAverageRating (String gameName) {
+        return myUserGameDataTable.getAverageRating(gameName);
     }
 }

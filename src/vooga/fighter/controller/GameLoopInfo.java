@@ -3,7 +3,6 @@ import java.awt.Dimension;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Observable;
-
 import util.Location;
 import vooga.fighter.model.LevelMode;
 import vooga.fighter.model.utils.Health;
