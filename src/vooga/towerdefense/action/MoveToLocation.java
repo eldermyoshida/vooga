@@ -26,4 +26,14 @@ public class MoveToLocation extends Action {
 
     }
 
+    /**
+     * Overrides from superclasses
+     * @param elapsedTime 
+     */
+    @Override
+    public void update (double elapsedTime) {
+        // TODO Auto-generated method stub
+        
+    }
+
 }

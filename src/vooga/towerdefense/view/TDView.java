@@ -69,7 +69,7 @@ public class TDView {
         myFrame.setPreferredSize(SIZE);
         myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        mySplashScreen = new SplashScreen(SPLASH_SCREEN_SIZE, this);
+        mySplashScreen = new SplashScreen(SPLASH_SCREEN_SIZE);
         myMapScreen = new MapScreen(MAP_WINDOW_SIZE, myController);
         
 

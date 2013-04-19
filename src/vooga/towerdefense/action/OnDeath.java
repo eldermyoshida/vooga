@@ -38,4 +38,14 @@ public class OnDeath extends Action {
             a.executeAction(2);
         }
     }
+
+    /**
+     * Overrides from superclasses
+     * @param elapsedTime 
+     */
+    @Override
+    public void update (double elapsedTime) {
+        // TODO Auto-generated method stub
+        
+    }
 }

@@ -23,9 +23,7 @@ import vooga.towerdefense.util.Location;
  */
 public class GameMap {
     // a normal computer screen will have
-    private static final int TILE_SIZE = 25;
 
-    private Image myBackgroundImage;
     private List<GameElement> myGameElements;
     private Tile[][] myGrid;
     private Location myDestination;
@@ -41,11 +39,11 @@ public class GameMap {
      * @param destination the destination point of all units
      */
     public GameMap (Image background, int width, int height, Location destination) {
-        myBackgroundImage = background;
         myGameElements = new ArrayList<GameElement>();
         myDestination = destination;
         myDimension = new Dimension(width, height);
-        initializeGrid();
+        MapLoader loader = new MapLoader();
+        myGrid = loader.loadTiles(width, height);
         myPathfinder = new Pathfinder(myGrid);
         
         ExampleUnitFactory myTrollFactory = new ExampleUnitFactory("Troll", new TrollUnitDefinition());
@@ -53,28 +51,6 @@ public class GameMap {
         GameElement troll2 = myTrollFactory.createUnit(new Location(350, 250), new TrollUnitDefinition());
         addGameElement(troll1);
         addGameElement(troll2);
-    }
-
-    /**
-     * Initializes the grid so that each element in myGrid is a Tile object
-     * containing it's center coordinates. Every tile is both walkable and
-     * buildable.
-     */
-    private void initializeGrid () {
-        int horizontalTileCount = (int) (myDimension.getWidth() / TILE_SIZE);
-        int verticalTileCount = (int) (myDimension.getHeight() / TILE_SIZE);
-
-        myGrid = new Tile[horizontalTileCount][verticalTileCount];
-
-        for (int i = 0; i < myGrid.length; i++) {
-            for (int j = 0; j < myGrid[i].length; j++) {
-                int xCenter = (int) (i * TILE_SIZE + TILE_SIZE / 2);
-                int yCenter = (int) (j * TILE_SIZE + TILE_SIZE / 2);
-                // TODO: replace booleans with parsed values from file
-                myGrid[i][j] = new Tile(new Point(xCenter, yCenter),
-                                        true, true);
-            }
-        }
     }
 
     /**
@@ -99,7 +75,7 @@ public class GameMap {
      * @return a Tile object containing this point (x, y)
      */
     public Tile getTile (Point point) {
-        return myGrid[(int) (point.getX() / TILE_SIZE)][(int) (point.getY() / TILE_SIZE)];
+        return myGrid[(int) (point.getX() / Tile.TILE_SIZE)][(int) (point.getY() / Tile.TILE_SIZE)];
     }
 
 	/**
@@ -111,8 +87,8 @@ public class GameMap {
 	 * @return a Tile object containing this point (x, y)
 	 */
 	public Tile getTile(Location location) {
-		return myGrid[(int) (location.getX() / TILE_SIZE)][(int) (location
-				.getY() / TILE_SIZE)];
+		return myGrid[(int) (location.getX() / Tile.TILE_SIZE)][(int) (location
+				.getY() / Tile.TILE_SIZE)];
 	}
 
     /**
@@ -120,7 +96,19 @@ public class GameMap {
      * @param pen a pen used to draw elements on this map.
      */
     public void paint (Graphics2D pen) {
-    	
+        paintTiles(pen);
+        paintGameElements(pen);        
+    }
+    
+    private void paintTiles(Graphics2D pen) {
+        for (int i = 0; i < myGrid.length; ++i) {
+            for (int j = 0; j < myGrid[i].length; ++j) {
+                myGrid[i][j].paint(pen);
+            }
+        }
+    }
+    
+    private void paintGameElements(Graphics2D pen) {
         for (GameElement e : myGameElements) {
             e.paint(pen);
         }
@@ -164,10 +152,10 @@ public class GameMap {
     }
 
 	public Path getShortestPath(Location start, Location finish) {
-		int x1 = (int) (start.getX() / TILE_SIZE);
-		int x2 = (int) (finish.getX() / TILE_SIZE);
-		int y1 = (int) (start.getY() / TILE_SIZE);
-		int y2 = (int) (finish.getY() / TILE_SIZE);
+		int x1 = (int) (start.getX() / Tile.TILE_SIZE);
+		int x2 = (int) (finish.getX() / Tile.TILE_SIZE);
+		int y1 = (int) (start.getY() / Tile.TILE_SIZE);
+		int y2 = (int) (finish.getY() / Tile.TILE_SIZE);
 		Path thePath = myPathfinder.getShortestPath(x1, y1, x2, y2);
 		thePath.add(finish);
 		return thePath;
