@@ -10,6 +10,7 @@ public class ToolsManager {
 
     ISpriteLibrary lib;
     Map<Integer, Sprite> spriteMap;
+    Map<String, Sprite> nameMap;
     LETools viewTools;
     
     public ToolsManager(ISpriteLibrary l) {
@@ -20,12 +21,14 @@ public class ToolsManager {
     private void setTools () {
         int i=0;
         spriteMap = new HashMap<Integer, Sprite>();
+        nameMap = new HashMap<String, Sprite>();
         viewTools = new LETools();
         for (Class<? extends Sprite> c:lib.getSpritesClasses()) {
             Sprite sprite;
             try {
                 sprite = (Sprite) c.newInstance();
                 spriteMap.put(i, sprite);
+                nameMap.put(c.getName(), sprite);
                 viewTools.addSpriteOption(sprite, i);
             }
             catch (InstantiationException e) {
@@ -44,5 +47,9 @@ public class ToolsManager {
     
     public Map<Integer, Sprite> getSpriteMap() {
         return spriteMap;
+    }
+    
+    public Map<String,Sprite> getNameMap() {
+        return nameMap;
     }
 }

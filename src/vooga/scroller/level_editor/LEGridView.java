@@ -1,49 +1,123 @@
-
 package vooga.scroller.level_editor;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import javax.swing.JScrollPane;
+import javax.swing.Scrollable;
+import vooga.scroller.level_editor.commands.CommandConstants;
 import vooga.scroller.viewUtil.IView;
 import vooga.scroller.viewUtil.Renderable;
 import vooga.scroller.viewUtil.WindowComponent;
 
-public class LEGridView extends WindowComponent{
+
+public class LEGridView extends WindowComponent implements Scrollable{
+    private class GridPositionListener implements MouseListener {
+
+        @Override
+        public void mouseClicked (MouseEvent e) {
+            if (e.getButton() == 3) { //Right Click
+                deleteSprite(e.getX(), e.getY());
+            }
+            else if(e.getButton() == 1){ //Left Click
+                createSprite(e.getX(), e.getY());
+            }
+        }
+
+        @Override
+        public void mouseEntered (MouseEvent e) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void mouseExited (MouseEvent e) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void mousePressed (MouseEvent e) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void mouseReleased (MouseEvent e) {
+            // TODO Auto-generated method stub
+
+        }
+
+    }
+    private static final double DEFAULT_HEIGHT_RATIO = .95;
+    private static final double DEFAULT_WIDTH_RATIO = .70;
     /**
      * 
      */
     private static final long serialVersionUID = 8266835201464623542L;
-    private Dimension mySize;
-    private Renderable myGrid;
+    private LEGrid myGrid;
 
-    public LEGridView (IView parent, double d, double e) {
+    /**
+     * Specify a container parent and a width and height ratio.
+     * @param parent
+     * @param d
+     * @param e
+     */
+    public LEGridView (IView parent, Renderable r) {
         // TODO Auto-generated constructor stub
-        super(parent, d, e);
-    }
-
-    @Override
-    protected void initializeVariables () {
-        // TODO Auto-generated method stub
-//        mySize = ViewConstants.DEFAULT_ROOM_SIZE;
-//        this.setPreferredSize(mySize);
-//        this.setMinimumSize(mySize);
+        super(parent,((LEGrid) r).getPixelSize());
+        this.addMouseListener(new GridPositionListener());
         
     }
 
-    @Override
-    protected void addComponents () {
-        this.addMouseListener(new GridPositionListener());
+    private void createSprite (int x, int y) {
+        String cmd = CommandConstants.CREATE_SPRITE + CommandConstants.SPACE
+                     + x + CommandConstants.SPACE + y;
+        process(cmd);
+    }
+
+    private void deleteSprite (int x, int y) {
+        String cmd = CommandConstants.DELETE_SPRITE + CommandConstants.SPACE
+                + x + CommandConstants.SPACE + y;
+        process(cmd);  
     }
 
     @Override
-    public void render (Renderable r) {
-        myGrid = r;
-        repaint();
+    public Dimension getPreferredScrollableViewportSize () {
+        // TODO Auto-generated method stub
+        Dimension d = this.getResponsible().getSize();
+        Dimension res = new Dimension((int)(d.width*DEFAULT_WIDTH_RATIO), 
+                                      (int)(d.height*DEFAULT_HEIGHT_RATIO));
+        return res;
     }
-    
+
+    @Override
+    public int getScrollableBlockIncrement (Rectangle visibleRect, int orientation, int direction) {
+        return myGrid.getScrollableBlockIncrement(visibleRect, orientation, direction);
+    }
+
+    @Override
+    public boolean getScrollableTracksViewportHeight () {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean getScrollableTracksViewportWidth () {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public int getScrollableUnitIncrement (Rectangle visibleRect, int orientation, int direction) {
+        return myGrid.getScrollableUnitIncrement(visibleRect, orientation, direction);
+    }
+
     /**
      * Paint the contents of the canvas.
      * 
@@ -61,46 +135,16 @@ public class LEGridView extends WindowComponent{
             myGrid.paint((Graphics2D) pen);
         }
     }
-    
-    private void createSprite (Point loc) {
-        // TODO Auto-generated method stub
-        process(loc);
+
+    @Override
+    public void render (Renderable r) {
+        myGrid = (LEGrid) r;
+        setSize(myGrid.getPixelSize());
+        repaint();
     }
-    
-    private class GridPositionListener implements MouseListener {
 
-
-        @Override
-        public void mouseClicked (MouseEvent e) {
-            // TODO Auto-generated method stub
-            createSprite(e.getLocationOnScreen());
-            System.out.println(e.getLocationOnScreen());
-        }
-
-        @Override
-        public void mousePressed (MouseEvent e) {
-            // TODO Auto-generated method stub
-            
-        }
-
-        @Override
-        public void mouseReleased (MouseEvent e) {
-            // TODO Auto-generated method stub
-            
-        }
-
-        @Override
-        public void mouseEntered (MouseEvent e) {
-            // TODO Auto-generated method stub
-            
-        }
-
-        @Override
-        public void mouseExited (MouseEvent e) {
-            // TODO Auto-generated method stub
-            
-        }
-        
+    public boolean isValidForSimulation () {
+        return myGrid.isValidForSimulation();
     }
 
 }
