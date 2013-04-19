@@ -2,9 +2,12 @@
 package vooga.scroller.level_editor;
 
 
+import java.awt.Image;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import util.Location;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.superclasses.Player;
@@ -35,12 +38,12 @@ public class LevelEditor implements ILevelEditor {
     private Editable myGrid;
     private Map<Integer, Sprite> mySpriteMap;
 
-    public LevelEditor (ISpriteLibrary lib) {
+    public LevelEditor () {
         myGrid = new LEGrid(DEFAULT_GRID_SIZE,DEFAULT_GRID_SIZE);
     }
 
-    public LevelEditor (String language, ISpriteLibrary lib) {
-        this(lib);
+    public LevelEditor (String language) {
+        this();
     }
 
     @Override
@@ -57,18 +60,33 @@ public class LevelEditor implements ILevelEditor {
 
     @Command
     public void createSprite (int x, int y, int id) {
-        Sprite sprite = mySpriteMap.get(id);
-        sprite = sprite.copy();
-        try{
-            myGrid.addSprite(sprite, x, y);
+        if(id == START_ID){
+            addStartPoint(x,y);
         }
-        catch(NullPointerException e){
-            //TODO COPY_ERROR = "Cannot copy Sprite. Missing default constructor";
-            System.out.println(COPY_ERROR);
+        if(id == END_ID) {
+            addDoor(x,y);
         }
-        
+        else{
+            Sprite sprite = mySpriteMap.get(id);
+            sprite = sprite.copy();
+                try{
+                    myGrid.addSprite(sprite, x, y);
+                }
+                catch(NullPointerException e){
+                    //TODO COPY_ERROR = "Cannot copy Sprite. Missing default constructor";
+                    System.out.println(COPY_ERROR);
+                }
+        }
     }
     
+    private void addStartPoint (int x, int y) {
+        myGrid.addStartPoint(x,y);
+    }
+    
+    private void addDoor (int x, int y) {
+        myGrid.addDoor(x,y);
+    }
+
     @Command
     public void deleteSprite (int x, int y) {
         myGrid.deleteSprite(x,y);
@@ -125,6 +143,12 @@ public class LevelEditor implements ILevelEditor {
             params[i] = Integer.parseInt(splitCommand[i + 1]);
         }
         return params;
+    }
+
+    @Override
+    public void setBackgroundMap (Map<Integer, Image> map) {
+        // TODO Auto-generated method stub
+        
     }
 
 }

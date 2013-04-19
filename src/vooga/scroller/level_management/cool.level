@@ -29,7 +29,6 @@ b    ac  bb  b                                             b
 b   aaaaabb  b                                            bb
 b   aaaaabb  b                               fff     ff    b
 c  c  c  c  c  c  c  c  c  c  c  c  c  c  c  c  c  c  b    b
-                                                            
 /key
 b=vooga.scroller.sprites.test_sprites.MarioLib.Platform
 a=vooga.scroller.sprites.test_sprites.MarioLib.Coin
@@ -40,4 +39,4 @@ f=vooga.scroller.sprites.test_sprites.MarioLib.Plant
 c=vooga.scroller.sprites.test_sprites.MarioLib.LevelTwoBlockTwo
 d=vooga.scroller.sprites.test_sprites.MarioLib.MovingPlatformOne
 /settings
-StartPoint=80 336
+StartPoint=100 100

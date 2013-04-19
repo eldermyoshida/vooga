@@ -10,6 +10,7 @@ import util.Secretary;
 import vooga.scroller.level_management.LevelManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.animation.Animation;
+import vooga.scroller.sprites.animation.MovingSpriteAnimationFactory;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.sprites.test_sprites.mario.Mario;
 import vooga.scroller.view.View;
@@ -45,6 +46,9 @@ public class Model {
     private static final String PART_ONE = "public void visit (";
     private static final String PART_TWO = ") {}";
     private static final String COMMA = ", ";
+
+
+    private static final String PLAYER_IMAGES = "mario.gif";
     
     /**
      * Constructs a new Model based on the view and the scrolling manager used by the game.
@@ -62,7 +66,7 @@ public class Model {
         myScrollingManager.initView(view);
         
         myLevelManager = new LevelManager(myScrollingManager, myView);
-        myLevelManager.currentLevel().addPlayer(myPlayer);
+        myLevelManager.getCurrentLevel().addPlayer(myPlayer);
 
 //        myLevelManager.setCurrentLevel(DEFAULT_START_LEVEL_ID);
         
@@ -77,11 +81,16 @@ public class Model {
      */
     private void initPlayer() {
         // TODO: this is implemented by the developer. 
+        
         myPlayer = new Mario(
                              new Location(100, 140),
                              new Dimension(32, 32),
                              myView, myScrollingManager);
-        myPlayer.setView(new Animation(myPlayer));
+        
+        MovingSpriteAnimationFactory msaf = new MovingSpriteAnimationFactory(PLAYER_IMAGES);
+        Animation playerAnimation = msaf.generateAnimation(myPlayer);
+        
+        myPlayer.setView(playerAnimation);
 
     }
 
@@ -89,7 +98,7 @@ public class Model {
      * Draw all elements of the game.
      */
     public void paint (Graphics2D pen) {
-        myLevelManager.currentLevel().paint(pen);
+        myLevelManager.getCurrentLevel().paint(pen);
         
         
         
@@ -102,7 +111,7 @@ public class Model {
      */
     public void update (double elapsedTime) {
 
-        myLevelManager.currentLevel().update(elapsedTime, myView.getSize(), myView);
+        myLevelManager.getCurrentLevel().update(elapsedTime, myView.getSize(), myView);
 
     }
 
@@ -112,27 +121,27 @@ public class Model {
      * @return
      */
     public double getRightBoundary () {
-        return myLevelManager.currentLevel().getRightBoundary();
+        return myLevelManager.getCurrentLevel().getRightBoundary();
     }
 
     public double getLeftBoundary () {
-        return myLevelManager.currentLevel().getLeftBoundary();
+        return myLevelManager.getCurrentLevel().getLeftBoundary();
     }
 
     public double getUpperBoundary () {
-        return myLevelManager.currentLevel().getUpperBoundary();
+        return myLevelManager.getCurrentLevel().getUpperBoundary();
     }
 
     public double getLowerBoundary () {
-        return myLevelManager.currentLevel().getLowerBoundary();
+        return myLevelManager.getCurrentLevel().getLowerBoundary();
     }
 
     public Dimension getLevelBounds () {
-        return myLevelManager.currentLevel().getLevelBounds();
+        return myLevelManager.getCurrentLevel().getLevelBounds();
     }
     
     public Image getBackground() {
-        return myLevelManager.currentLevel().getBackground();
+        return myLevelManager.getCurrentLevel().getBackground();
     }
     
     public Player getPlayer(){
