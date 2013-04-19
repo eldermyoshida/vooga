@@ -1,16 +1,6 @@
 package vooga.rts.leveleditor.components;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.regex.Pattern;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 import vooga.rts.leveleditor.Exceptions.MapNotMatchException;
 
 public class XMLParser {
@@ -19,12 +9,14 @@ public class XMLParser {
     private Pattern myBracketPattern ;
     private Pattern mySpacePattern ;
     private Pattern myEqualPattern ;
+    private Pattern myNumPattern ;
     
     public XMLParser() {
         
         myBracketPattern = Pattern.compile("[<>]");
         mySpacePattern = Pattern.compile("[\\s]+");
         myEqualPattern = Pattern.compile("[=]");
+        myNumPattern = Pattern.compile("[0-9]");
     }
    
     
@@ -88,5 +80,9 @@ public class XMLParser {
 
     public Pattern getMyEqualPattern() {
         return myEqualPattern;
+    }
+    
+    public Pattern getMyNumPattern() {
+        return myNumPattern;
     }
 }

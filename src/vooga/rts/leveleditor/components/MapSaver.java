@@ -109,7 +109,7 @@ public class MapSaver {
             String name = buffer[0];
             String imageName = "terrain/" + buffer[1];
             int walkability = Integer.parseInt(buffer[2]);
-            myFileWriter.write("         <terrain ID=" + str  + " image=\"" + imageName + "\""+ " name=\"" + name + "\"" + " walkability =" + walkability + " />\r\n");
+            myFileWriter.write("         <terrain ID=" + str  + " image=\"" + imageName + "\""+ " name=\"" + name + "\"" + " walkability=" + walkability + " />\r\n");
         }
         myFileWriter.write("      </terraintype>\r\n");
         myFileWriter.write("   </resources>\r\n");
@@ -123,8 +123,9 @@ public class MapSaver {
             myFileWriter.write("      ");
             for(int j = 0 ; j < y ; j++) {
                 EditableNode node = mySavingMap.getMapNode(i, j);
-                char c = (char)(node.getMyTile().getMyID());
-                myFileWriter.write(c);
+                
+                myFileWriter.write(node.getMyTile().getMyID()+"");
+                myFileWriter.write(" ");
             }
             myFileWriter.write("\r\n");
             
