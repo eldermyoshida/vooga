@@ -1,3 +1,4 @@
+
 package vooga.towerdefense.action;
 
 import java.util.ArrayList;
@@ -21,7 +22,6 @@ public class AttackAction extends Action {
 	private static final AttributeConstants ATTRIBUTE_CONSTANTS = new AttributeConstants();
 	private GameElement myInitiator;
 	private GameMap myMap;
-	private ProjectileFactory myProjectile;
 
 	public AttackAction(GameMap map, GameElement initiator){
 		super(initiator);
@@ -66,3 +66,4 @@ public class AttackAction extends Action {
         
     }
 }
+
