@@ -39,6 +39,7 @@ public class ModeSelectMenuController extends MenuController {
     public ModeSelectMenuController(String name, Canvas frame, ControllerDelegate manager, 
                 GameInfo gameinfo) {
         super(name, frame, manager, gameinfo);
+        System.out.println("marker");
         myGameInfo = gameinfo;
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "LevelConfig");
     }

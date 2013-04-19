@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import vooga.fighter.controller.ModelDelegate;
 import vooga.fighter.model.loaders.MapLoader;
+import vooga.fighter.model.objects.AttackObject;
 import vooga.fighter.model.objects.CharacterObject;
 import vooga.fighter.model.objects.EnvironmentObject;
 import vooga.fighter.model.objects.GameObject;
@@ -17,7 +18,7 @@ import vooga.fighter.model.utils.UpdatableLocation;
 /**
  * Represents one level in the game, i.e. one matchup of two or more characters.
  * 
- * @author James Wei
+ * @author James Wei, alanni
  * 
  */
 public class LevelMode extends Mode {
@@ -49,6 +50,8 @@ public class LevelMode extends Mode {
      * Updates level mode by calling update in all of its objects.
      */
     public void update(double stepTime, Dimension bounds) {
+    	loadAttacks(); 
+    	removeAppropriateObjects(); 
         List<GameObject> myObjects = getMyObjects();
         handleCollisions();
         for (int i=0; i<myObjects.size(); i++) {
@@ -131,4 +134,18 @@ public class LevelMode extends Mode {
         return result;
     }
     
+    /**
+     * loads attacks from characters if they are new and aren't timed out
+     */
+    public void loadAttacks(){
+    	for (CharacterObject ch: myCharacterObjects){
+    		for (AttackObject attack: ch.getAttackObjects()){
+    			if (!(getMyObjects().contains(attack)||attack.shouldBeRemoved())){
+    				addObject(attack);
+    			}
+    		}
+    	}
+    }
+    
+
 }
