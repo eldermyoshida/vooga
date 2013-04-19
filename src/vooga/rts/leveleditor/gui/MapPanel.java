@@ -204,6 +204,7 @@ public class MapPanel extends JComponent {
     }
     
     public void clear() {
+        myCurrentLayer = 0;
         myMap.clearMap();
         myMap.getLayerMap().clear();
         myMap.getResourceSet().clear();

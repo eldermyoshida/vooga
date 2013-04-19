@@ -112,6 +112,7 @@ public class Canvas extends JFrame {
 
     public void clear() {
         myMapPanel.clear();
+        myLayerPanel.clear();
 
     }
 
