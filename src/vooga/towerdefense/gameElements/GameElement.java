@@ -1,4 +1,3 @@
-
 package vooga.towerdefense.gameElements;
 
 import java.awt.Dimension;
@@ -33,36 +32,37 @@ public class GameElement extends Sprite {
         myActions = actions;
     }
 
-    //NEEDS TO BE REFACTORED: need to figure out a way to remove duplicated code without double constructor
+    // NEEDS TO BE REFACTORED: need to figure out a way to remove duplicated code without double
+    // constructor
     public GameElement (Pixmap image, Location center, Dimension size, List<Action> actions) {
-    	super(image,center, size);
-    	myAttributeManager = new AttributeManager();
-    	myActions = actions;
-    	//new GameElement(image, center, size, new AttributeManager(), actions);
+        super(image, center, size);
+        myAttributeManager = new AttributeManager();
+        myActions = actions;
+        // new GameElement(image, center, size, new AttributeManager(), actions);
     }
-    
+
     public GameElement (Pixmap image, Location center, Dimension size, AttributeManager am) {
         super(image, center, size);
         myAttributeManager = am;
         myActions = new ArrayList<Action>();
-    //	new GameElement(image, center, size, am, new ArrayList<Action>());
+        // new GameElement(image, center, size, am, new ArrayList<Action>());
     }
 
     public GameElement (Pixmap image, Location center, Dimension size) {
         super(image, center, size);
         myAttributeManager = new AttributeManager();
         myActions = new ArrayList<Action>();
-    //	new GameElement(image, center, size, new AttributeManager(), new ArrayList<Action>());
+        // new GameElement(image, center, size, new AttributeManager(), new ArrayList<Action>());
     }
 
     public void update (double elapsedTime) {
-          for (Action a : myActions) {
-              a.executeAction(elapsedTime);
-          }
-         
+        for (Action a : myActions) {
+            a.executeAction(elapsedTime);
+        }
+
     }
-    
-    public void addActions(List<Action> actions) {
+
+    public void addActions (List<Action> actions) {
         myActions.addAll(actions);
     }
 
@@ -75,4 +75,3 @@ public class GameElement extends Sprite {
     }
 
 }
-

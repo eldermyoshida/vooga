@@ -124,7 +124,6 @@ public class Unit extends GameElement {
 			System.out.println("set new direction to " + newDirection);
 			getAttributeManager().getAttribute(ATTRIBUTE_CONSTANTS.DIRECTION).setValue(newDirection.getDirection());
 		}
-		
 		else{
 			getAttributeManager().getAttribute(ATTRIBUTE_CONSTANTS.MOVE_SPEED).setValue(0);
 		}

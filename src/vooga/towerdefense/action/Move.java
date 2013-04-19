@@ -29,7 +29,7 @@ public class Move extends Action {
     public void executeAction(double elapsedTime) {
         getInitiator().setVelocity(myDirection.getValue(), myMovespeed.getValue());
         Vector v = getInitiator().getVelocity();
-        v.scale(elapsedTime / 1000);
+        v.scale(elapsedTime);
         //System.out.print("moved from " + getInitiator().getCenter() + " ");
         getInitiator().translate(v);
         //System.out.println("to " + getInitiator().getCenter());
