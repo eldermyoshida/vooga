@@ -21,7 +21,7 @@ public class AttackAction extends Action {
 	private static final AttributeConstants myAttributeConstants = new AttributeConstants();
 	private GameElement myInitiator;
 	private GameMap myMap;
-	private ProjectileFactory myProjectile;
+	private ProjectileFactory myProjectileFactory;
 
 	public AttackAction(GameMap map, GameElement initiator){
 		super(initiator);
@@ -54,7 +54,7 @@ public class AttackAction extends Action {
 			//shoot a projectile towards each target
 			
 			for (GameElement target : targets) {
-				myMap.addGameElement(myProjectile.createProjectile(myInitiator,target));
+				myMap.addGameElement(myProjectileFactory.createProjectile(myInitiator,target));
 			}
 			
 		}
