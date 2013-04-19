@@ -26,11 +26,8 @@ import vooga.scroller.view.View;
  */
 
 public class Model {
-
-    //private static final String SPLASH_CONTROLS = "vooga/scroller/resources/controls/SplashMapping";
-    
-    
-    private static final int DEFAULT_START_LEVEL_ID = 0;
+      
+    //private static final int DEFAULT_START_LEVEL_ID = 0;
 
     
     private View myView;
@@ -48,7 +45,10 @@ public class Model {
     private static final String COMMA = ", ";
 
 
-    private static final String PLAYER_IMAGES = "mario.gif";
+    private static final String PLAYER_IMAGES = "walama.gif";
+    // "mario.gif"
+    //"transparent_wolf.gif" -- not yet added.
+    //"walama.gif"
     
     /**
      * Constructs a new Model based on the view and the scrolling manager used by the game.
@@ -84,7 +84,7 @@ public class Model {
         
         myPlayer = new Mario(
                              new Location(100, 140),
-                             new Dimension(32, 32),
+                             new Dimension(138/6, 276/6),
                              myView, myScrollingManager);
         
         MovingSpriteAnimationFactory msaf = new MovingSpriteAnimationFactory(PLAYER_IMAGES);

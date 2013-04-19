@@ -2,11 +2,6 @@ package vooga.scroller.sprites.animation;
 
 import java.util.ArrayList;
 import java.util.List;
-import vooga.scroller.sprites.test_sprites.mario.animation_states.LeftStand;
-import vooga.scroller.sprites.test_sprites.mario.animation_states.LeftWalk;
-import vooga.scroller.sprites.test_sprites.mario.animation_states.RightStand;
-import vooga.scroller.sprites.test_sprites.mario.animation_states.RightWalk;
-import vooga.scroller.sprites.test_sprites.mario.animation_states.Stand;
 import vooga.scroller.util.Pixmap;
 
 /**
