@@ -2,21 +2,22 @@ package vooga.rts;
 
 import vooga.rts.state.MainState;
 
+
 public class Game {
-	MainState myState;
+    MainState myState;
 
-	public static final int FPS = 60;
-	
-	public static double TIME_PER_FRAME() {
-		double persecond = 1/(double)FPS;
-		return persecond;
-	}
+    public static final int FPS = 60;
 
-	public Game() {
-		myState = new MainState();
-	}
+    public static double TIME_PER_FRAME () {
+        double persecond = 1 / (double) FPS;
+        return persecond;
+    }
 
-	public static void main(String[] args) {
-		Game game = new Game();
-	}
+    public Game () {
+        myState = new MainState();
+    }
+
+    public static void main (String[] args) {
+        Game game = new Game();
+    }
 }

@@ -2,31 +2,32 @@ package vooga.rts.player;
 
 import java.util.ArrayList;
 import java.util.List;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Unit;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
+
 
 public class Team {
 
     private int myID;
     private List<Player> myPlayers;
-    
+
     public Team (int id) {
         myID = id;
         myPlayers = new ArrayList<Player>();
     }
-    
-    public void addPlayer(Player p) {
+
+    public void addPlayer (Player p) {
         myPlayers.add(p);
     }
-    
-    public List<Unit> getUnits() {
+
+    public List<Unit> getUnits () {
         List<Unit> res = new ArrayList<Unit>();
         for (Player p : myPlayers) {
-            res.addAll(p.getUnits().getAllUnits());
+            // res.addAll(p.getUnits().getAllUnits());
         }
         return res;
     }
-    
-    public int getID() {
+
+    public int getID () {
         return myID;
     }
 
