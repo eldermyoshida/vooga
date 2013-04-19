@@ -67,13 +67,8 @@ public abstract class Action {
 
     }
     
-   
     // @Override
-    public void update (double elapsedTime, Event e) {
-        if (eventTriggered(e)) {
-            executeAction(elapsedTime);
-        }
-    }
+    public abstract void update (double elapsedTime);
 }
 
 

@@ -65,5 +65,11 @@ public class AttackAction extends Action {
     public void initAction () {
         
     }
+
+	@Override
+	public void update(double elapsedTime) {
+		// TODO Auto-generated method stub
+		
+	}
 }
 

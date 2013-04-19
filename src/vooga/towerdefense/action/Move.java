@@ -35,5 +35,11 @@ public class Move extends Action {
         //System.out.println("to " + getInitiator().getCenter());
     }
 
+	@Override
+	public void update(double elapsedTime) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
 
