@@ -6,22 +6,20 @@ import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.util.Location;
 import vooga.towerdefense.util.Vector;
 
-public class TrackTarget extends Action{
+public class MoveToDestination extends Action{
 	
 	private Vector myHeading;
 	private Location myStart;
 	private Location myTarget;
-	private Attribute myMoveSpeed;
+	private Attribute mySpeed;
 	private boolean following;
 
-	public TrackTarget(GameElement initiator, Location destination, Attribute movespeed){
-		super(initiator);
-		myMoveSpeed = movespeed;
+	public MoveToDestination(Location destination, Location start, Attribute movespeed){
+		mySpeed = movespeed;
 		following = true;
-		myStart = initiator.getCenter();
+		myStart = start;
 		myTarget = destination;
-		myHeading = new Vector(Vector.angleBetween(myStart, destination), 
-				initiator.getAttributeManager().getAttribute(AttributeConstants.MOVE_SPEED).getValue());
+		myHeading = new Vector(Vector.angleBetween(myStart, destination), movespeed.getValue());
 	}
 	
 	public void update(double elapsedTime) {
@@ -33,7 +31,7 @@ public class TrackTarget extends Action{
 	@Override
 	public void executeAction(double elapsedTime) {
 		myHeading = new Vector(myStart, myTarget);
-		myHeading.scale(myHeading.getMagnitude()/myMoveSpeed.getValue());
+		myHeading.scale(myHeading.getMagnitude()/mySpeed.getValue());
 		myHeading.scale(elapsedTime);
 		if (myStart.distance(myTarget) < myHeading.getMagnitude()) {
 			following = false;
