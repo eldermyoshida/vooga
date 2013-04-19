@@ -225,6 +225,14 @@ public class MapPanel extends JComponent {
         myMode = mode;       
     }
     
+    public int getCurrentLayer () {
+        return myCurrentLayer;
+    }
+    
+    public void addLayer() {
+        myCurrentLayer++;       
+    }
+    
     @InputMethodTarget(name="onLeftMouseDown")
     public void testClick (PositionObject p) {
         switch (myMode) {
@@ -252,6 +260,7 @@ public class MapPanel extends JComponent {
             placeTile((int)(p.getX()), (int)(p.getY()));
         }
     }
+
 
 
 
