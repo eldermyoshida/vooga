@@ -42,7 +42,8 @@ public class GameMap {
         myGameElements = new ArrayList<GameElement>();
         myDestination = destination;
         myDimension = new Dimension(width, height);
-        myGrid = MapLoader.loadTiles(width, height);
+        MapLoader loader = new MapLoader();
+        myGrid = loader.loadTiles(width, height);
         myPathfinder = new Pathfinder(myGrid);
         
         ExampleUnitFactory myTrollFactory = new ExampleUnitFactory("Troll", new TrollUnitDefinition());
