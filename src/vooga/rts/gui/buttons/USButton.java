@@ -14,7 +14,7 @@ public class USButton extends Button {
     @Override
     public void update (double elapsedTime) {        
         setChanged();
-        notifyObservers(MainState.Game);
+        
     }
 
 }
