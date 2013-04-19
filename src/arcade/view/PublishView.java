@@ -36,8 +36,9 @@ public class PublishView extends Form {
         List<JComponent> components = new ArrayList<JComponent>();
         components.add(createNameField());
         components.add(createGenreField());
+        
+        
         components.add(createButton());
-
         return components;
     }
 
@@ -57,6 +58,11 @@ public class PublishView extends Form {
     private JComponent createGenreField () {
         myGenreTextField = new JTextField();
         return createTextPanel(TextKeywords.GENRE, myGenreTextField);
+    }
+    
+    
+    private JComponent createAuthorField() {
+        return null;
     }
 
     /**
