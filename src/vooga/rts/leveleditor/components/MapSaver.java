@@ -50,6 +50,7 @@ public class MapSaver {
         writeResources();
         
         myFileWriter.close();
+        System.out.println("Map Saved");
     }
 
     private void writeTitle() throws IOException {
@@ -59,6 +60,7 @@ public class MapSaver {
         myFileWriter.write("   <info>\r\n");
         myFileWriter.write("      <name>"+ name + "</name>\r\n");
         myFileWriter.write("      <desc>"+ description + "</desc>\r\n");
+        System.out.println("Title saved");
     } 
 
     private void writePlayers() throws IOException {
@@ -70,11 +72,12 @@ public class MapSaver {
         }
         myFileWriter.write("      </players>\r\n");
         myFileWriter.write("   </info>\r\n");
+        System.out.println("Players saved");
     }
     
     private void writeSize() throws IOException {
-        int width = mySavingMap.getMapNode(0, 0).getMyX();
-        int height = mySavingMap.getMapNode(0, 0).getMyY();
+        int width = mySavingMap.getMapNode(0, 0).getMyWidth();
+        int height = mySavingMap.getMapNode(0, 0).getMyHeight();
         int x = mySavingMap.getMyXSize();
         int y = mySavingMap.getMyYSize();
         
@@ -83,6 +86,7 @@ public class MapSaver {
         myFileWriter.write("         <tilesize width=" + width + " height=" + height + " />\r\n");
         myFileWriter.write("         <tileamount X=" + x + " Y=" + y + " />\r\n");
         myFileWriter.write("      </info>\r\n");
+        System.out.println("Size saved");
     }
     
     private void writeTileIndex() throws IOException {
@@ -96,7 +100,7 @@ public class MapSaver {
         }
         
         myFileWriter.write("      </tiles>\r\n");
-                
+        System.out.println("Tile Index saved");        
     }
     
     
@@ -113,6 +117,7 @@ public class MapSaver {
         }
         myFileWriter.write("      </terraintype>\r\n");
         myFileWriter.write("   </resources>\r\n");
+        System.out.println("Terrain Index saved");
     }
     
     private void writeTiles() throws IOException {
@@ -132,6 +137,7 @@ public class MapSaver {
         }
     
         myFileWriter.write("   </graphic>\r\n");
+        System.out.println("Tiles saved");
     }
     
     private void writeTerrains() throws IOException {
@@ -150,6 +156,7 @@ public class MapSaver {
             myFileWriter.write("      </layer>\r\n");
         }
         myFileWriter.write("   </terrain>\r\n");
+        System.out.println("Terrain saved");
     }
     
     private void writeResources() throws IOException{
@@ -162,5 +169,6 @@ public class MapSaver {
         }
         myFileWriter.write("   </resources>\r\n");
         myFileWriter.write("</map>\r\n");
+        System.out.println("Resource saved");
     }
 }
