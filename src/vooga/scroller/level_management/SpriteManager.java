@@ -18,13 +18,13 @@ public class SpriteManager {
     private List<Sprite> myFrameOfReferenceSprites;
     private Player myPlayer;
     private Dimension frameOfReferenceSize;
-    private Dimension frameOfActionSize;
+    //private Dimension frameOfActionSize;
     private Level myLevel;
 
 
     public SpriteManager(Level level, View view){
         myLevel = level;
-        frameOfActionSize = calcActionFrameSize(view.getSize());
+        //frameOfActionSize = calcActionFrameSize(view.getSize());
         mySprites = new ArrayList<Sprite>();
         initFrames();
     }
@@ -116,19 +116,19 @@ public class SpriteManager {
         myFrameOfActionSprites.clear();
         myFrameOfReferenceSprites.clear();
         frameOfReferenceSize = view.getSize();
-        frameOfActionSize = calcActionFrameSize(view.getSize());
+        //frameOfActionSize = calcActionFrameSize(view.getSize());
         if (mySprites.size() > 0) {
             for (Sprite s : mySprites) {
-                checkRange(s,frameOfReferenceSize);
+                updateFrameOfActionSprites(s,frameOfReferenceSize);
             }
         }
     }
 
 
-    private Dimension calcActionFrameSize (Dimension size) {
-        Dimension temp = new Dimension((int) size.getWidth() + 200, (int) size.getHeight() + 200);
-        return temp;
-    }
+//    private Dimension calcActionFrameSize (Dimension size) {
+//        Dimension temp = new Dimension((int) size.getWidth() + 200, (int) size.getHeight() + 200);
+//        return temp;
+//    }
 
     private void intersectingSprites () {
         Sprite obj1;
@@ -148,12 +148,12 @@ public class SpriteManager {
         mySprites.remove(mySprites.size() - 1);
     }
 
-    private void checkRange (Sprite sprite, Dimension frame) {            
-        boolean condition = (myPlayer != null ||
+    private void updateFrameOfActionSprites (Sprite sprite, Dimension frame) {            
+        boolean condition = (myPlayer != null &&
                 myLevel.getLeftBoundary(frame) <= sprite.getX()
-                || myLevel.getRightBoundary(frame) >= sprite.getX()
-                || myLevel.getLowerBoundary(frame) >= sprite.getY()
-                || myLevel.getUpperBoundary(frame) <+ sprite.getY());
+                && myLevel.getRightBoundary(frame) >= sprite.getX()
+                && myLevel.getLowerBoundary(frame) >= sprite.getY()
+                && myLevel.getUpperBoundary(frame) <+ sprite.getY());
         if(!myFrameOfActionSprites.contains(sprite) && condition) {
             myFrameOfActionSprites.add(sprite);
         }       
