@@ -22,10 +22,8 @@ public class MapLoader {
                 int yCenter = (int) (i * Tile.TILE_SIZE + Tile.TILE_SIZE / 2);
                 // TODO: replace booleans with parsed values from file
                 int tileId = reader.nextInt();
-                System.out.print(tileId + " ");
                 grid[j][i] = new Tile(Tile.getTileImage(tileId), new Location(xCenter, yCenter), Tile.TILE_DIMENSIONS);
             }
-            System.out.println();
         }
         return grid;
     }
