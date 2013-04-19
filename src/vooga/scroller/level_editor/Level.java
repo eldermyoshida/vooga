@@ -41,9 +41,7 @@ public class Level implements Renderable {
         mySize = PlatformerConstants.DEFAULT_LEVEL_SIZE;
         myBackground = CITY_BACKGROUND;
         frameOfReferenceSize = PlatformerConstants.REFERENCE_FRAME_SIZE;
-        //mySprites = new ArrayList<Sprite>();
         myStartPoint = new Location();
-        //initFrames();
     }
 
     public Level (int id, ScrollingManager sm) {
@@ -191,8 +189,7 @@ public class Level implements Renderable {
      * 
      * @param myInput input that controls level elements.
      */
-    public void addInputListeners (Input myInput) {
-        
+    public void addInputListeners (Input myInput) {       
         // TODO: sprite manager?
         myInput.replaceMappingResourcePath(getPlayer().getInputFilePath());
         myInput.addListenerTo(getPlayer());
@@ -228,7 +225,6 @@ public class Level implements Renderable {
 
     public Location getStartPoint () {
         return myStartPoint;
-
     }
 
 }

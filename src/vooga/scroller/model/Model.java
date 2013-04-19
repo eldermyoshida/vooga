@@ -45,10 +45,10 @@ public class Model {
     private static final String COMMA = ", ";
 
 
-    private static final String PLAYER_IMAGES = "walama.gif";
+    private static final String PLAYER_IMAGES = "mario.gif";
     // "mario.gif"
     //"transparent_wolf.gif" -- not yet added.
-    //"walama.gif"
+    //"llama.gif"
     
     /**
      * Constructs a new Model based on the view and the scrolling manager used by the game.
