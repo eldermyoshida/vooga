@@ -9,25 +9,34 @@ import vooga.towerdefense.gameElements.GameElement;
  * @author Matthew Roy
  *
  */
-public class TargetedModifyValueAction extends TargetedAction {
+public class TargetedModifyValueAction extends Action {
 
     private String myTargetAttribute;
     private double myAttributeChange;
     
     public TargetedModifyValueAction (GameElement initiator, GameElement target, Attribute attributeToApply) {
-        super(initiator, target);
         myTargetAttribute = attributeToApply.getName();
         myAttributeChange = attributeToApply.getValue();
     }
     
     public TargetedModifyValueAction (GameElement initiator, GameElement target, String valueName, double valueToAddToAttribute) {
-        super(initiator, target);
         // TODO Auto-generated constructor stub
     }
     
     public TargetedModifyValueAction (GameElement initiator, List<GameElement> target) {
-        super(initiator, target);
         // TODO Auto-generated constructor stub
     }
+
+	@Override
+	public void executeAction(double elapseTime) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void update(double elapsedTime) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

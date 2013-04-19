@@ -1,19 +1,21 @@
 package vooga.towerdefense.action;
 
+import vooga.towerdefense.attributes.Attribute;
 import vooga.towerdefense.gameElements.GameElement;
 
 /**
  * @author Matthew Roy
  *
  */
-public class MoveToLocation extends Action {
+public class OnAttributeValue extends Action {
+    
+    Attribute myMonitoredAttribute;
 
     /**
      * @param initiator
      */
-    public MoveToLocation (GameElement initiator) {
-        super(initiator);
-        // TODO Auto-generated constructor stub
+    public OnAttributeValue (Attribute attributeWatched) {
+        myMonitoredAttribute = attributeWatched;
     }
 
     /**
@@ -23,6 +25,7 @@ public class MoveToLocation extends Action {
     @Override
     public void executeAction (double elapseTime) {
         // TODO Auto-generated method stub
+        myMonitoredAttribute.getValue();
 
     }
 
@@ -33,7 +36,7 @@ public class MoveToLocation extends Action {
     @Override
     public void update (double elapsedTime) {
         // TODO Auto-generated method stub
-        
+
     }
 
 }
