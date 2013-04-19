@@ -101,20 +101,30 @@ public class GameController extends AbstractController {
          */
         List<Unit> p1 = myTeams.get(1).getUnits();
         List<Unit> p2 = myTeams.get(2).getUnits();
-        for (Unit u1 : p1) {
-            for (Unit u2 : p2) {
-                u2.getAttacked(u1);
-                u1.getAttacked(u2);
+        List<Unit> p3 = myTeams.get(3).getUnits();
 
-                if (u1 instanceof Worker) {
-                    ((Worker) u1).gather(r);
-                }
-            }
-        }
-        building.update(elapsedTime);
+        fight(p1, p2);
+        fight(p2, p3);
+        fight(p1, p3);
+          
+      
+        //building.update(elapsedTime);
         // upgradeBuilding.update(elapsedTime);
         checkCameraMouse(elapsedTime);
     }
+    
+    public void fight(List<Unit> p1, List<Unit> p2) {
+        for (Unit u1 : p1) {
+        for (Unit u2 : p2) {
+        u2.getAttacked(u1);
+        u1.getAttacked(u2);
+
+        if (u1 instanceof Worker) {
+        ((Worker) u1).gather(r);
+        }
+        }
+        }
+        }
 
     @Override
     public void paint (Graphics2D pen) {
@@ -122,14 +132,14 @@ public class GameController extends AbstractController {
         for (Player p : myPlayers) {
             p.paint(pen);
         }
-        r.paint(pen);
+       // r.paint(pen);
 
-        building.paint(pen);
+       //building.paint(pen);
 
         if (myDrag != null) {
             pen.draw(myDrag);
         }
-        pt.paint(pen);
+       // pt.paint(pen);
 
     }
 
@@ -205,9 +215,11 @@ public class GameController extends AbstractController {
              * Dimension(150,150), null, 1,300);
              */
             Player p1 = new HumanPlayer();
+            Player p2 = new HumanPlayer();
+
             Pixmap p =
                     new Pixmap(ResourceManager.getInstance()
-                            .<BufferedImage> getFile("images/sprites/soldier.png",
+                            .<BufferedImage> getFile("images/sprites/chess-soldier.png",
                                                      BufferedImage.class));
             Dimension s = new Dimension(90, 90);
             r =
@@ -218,46 +230,72 @@ public class GameController extends AbstractController {
                     new Sound(ResourceManager.getInstance().getFile("sounds/pikachu.wav",
                                                                     AudioClip.class));
 
+            for (int i = 0;i<8;i++) {
             Unit a = null;
-            a = new Soldier(p, new Location3D(200, 250, 0), s, soun, 1, 100);
+            a = new Soldier(p, new Location3D(200+i*30, 250, 0), s, soun, 1, 100);
             System.out.println("Player ID for a: " + a.getPlayerID());
             // a.setUpgradeTree(resultTree,a.getPlayerID());
             // upgradeBuilding.addUpgradeActions(resultTree);
 
             a.setAttackStrategy(new CanAttack(a.getWorldLocation(), a.getPlayerID()));
+            p1.getUnits().addUnit(a);
 
-            Unit b = new Soldier(p, new Location3D(300, 150, 0), s, soun, 1, 100);
-            System.out.println("Player ID for b: " + b.getPlayerID());
-            b.setAttackStrategy(new CanAttack(b.getWorldLocation(), b.getPlayerID()));
+            }
+            
+            for (int i = 0;i<8;i++) {
+            Unit a = null;
+            a = new Soldier(p, new Location3D(200+i*30, 500, 0), s, soun, 1, 100);
+            System.out.println("Player ID for a: " + a.getPlayerID());
+            // a.setUpgradeTree(resultTree,a.getPlayerID());
+            // upgradeBuilding.addUpgradeActions(resultTree);
 
-            Unit c = new Soldier(p, new Location3D(500, 800, 0), s, soun, 2, 100);
-            c.setAttackStrategy(new CanAttack(c.getWorldLocation(), c.getPlayerID()));
+            a.setAttackStrategy(new CanAttack(a.getWorldLocation(), a.getPlayerID()));
+            p2.getUnits().addUnit(a);
 
+            }
+            Player p3 = new HumanPlayer();
+
+            Pixmap p_p =
+                    new Pixmap(ResourceManager.getInstance()
+                            .<BufferedImage> getFile("images/sprites/zombie.png",
+                                                     BufferedImage.class));
+            
+            for (int i = 0;i<5;i++) {
+            Unit a = null;
+            int x = (int) (2*(Math.random()*100))+300;
+            int y = (int) (2*(Math.random()*100))+300;
+            a = new Soldier(p_p, new Location3D(x, y, 0), s, soun, 1, 100);
+            System.out.println("Player ID for a: " + a.getPlayerID());
+            // a.setUpgradeTree(resultTree,a.getPlayerID());
+            // upgradeBuilding.addUpgradeActions(resultTree);
+
+            a.setAttackStrategy(new CanAttack(a.getWorldLocation(), a.getPlayerID()));
+            p3.getUnits().addUnit(a);
+
+            }
+            
             Unit w =
                     new Worker(new Pixmap(ResourceManager.getInstance()
                             .<BufferedImage> getFile("images/scv.gif", BufferedImage.class)),
                                new Location3D(500, 200, 0), s, soun, 20, 40, 40);
 
-            p1.getUnits().addUnit(a);
-            p1.getUnits().addUnit(b);
-            p1.getUnits().addUnit(w);
-            Player p2 = new HumanPlayer();
-            p2.getUnits().addUnit(c);
+           // p1.getUnits().addUnit(w);
 
             addPlayer(p1, 1);
             addPlayer(p2, 2);
+            addPlayer(p3, 3);
 
-            building =
 
-                    new Barracks(new Pixmap(ResourceManager.getInstance()
-                            .<BufferedImage> getFile("images/factory.png", BufferedImage.class)),
-                                 new Location3D(800, 500, 0), new Dimension(368, 224), null, 1, 300);
-            System.out.println("Setup Game");
+//            building =
+//
+//                    new Barracks(new Pixmap(ResourceManager.getInstance()
+//                            .<BufferedImage> getFile("images/factory.png", BufferedImage.class)),
+//                                 new Location3D(800, 500, 0), new Dimension(368, 224), null, 1, 300);
+//            System.out.println("Setup Game");
             myHuman = (HumanPlayer) p1;
 
         }
         catch (Exception e) {
-            // trollolol
         }
 
     }
