@@ -83,7 +83,7 @@ public class GameState extends SubState implements Controller {
 
     @Override
     public void sendCommand (Command command) {
-        myHumanPlayer.sendCommand (command);
+        myHumanPlayer.sendCommand(command);
     }
 
     private void setupGame () {
@@ -168,11 +168,11 @@ public class GameState extends SubState implements Controller {
         }
 
     }
-    
+
     public void addPlayer (int id) {
         if (myPlayers.size() == 0) {
-           myHumanPlayer = new HumanPlayer(id);
-           myPlayers.add(myHumanPlayer);
+            myHumanPlayer = new HumanPlayer(id);
+            myPlayers.add(myHumanPlayer);
         }
         else {
             myPlayers.add(new Player(id));
