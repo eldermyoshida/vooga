@@ -51,9 +51,9 @@ public class Canvas extends JFrame {
         JScrollPane terrainScroll = new JScrollPane(myTerrainPanel);
         JScrollPane tileScroll = new JScrollPane(myTilePanel);
         JTabbedPane tabPane = new JTabbedPane();
-        tabPane.add("Resources", resourceScroll);
-        tabPane.add("Terrains", terrainScroll);
         tabPane.add("Tiles", tileScroll);
+        tabPane.add("Terrains", terrainScroll);
+        tabPane.add("Resources", resourceScroll);
         ChooserPanel.add(tabPane, BorderLayout.CENTER);
         ChooserPanel.add(myButtonPanel, BorderLayout.SOUTH);
 
