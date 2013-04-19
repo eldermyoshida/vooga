@@ -31,6 +31,8 @@ public class Model implements ArcadeInteraction {
     private Map<String, GameInfo> myGameInfos = new HashMap<String, GameInfo>();
     private List<GameInfo> mySnapshots;
     private String myUser;
+    
+    // These will be null until you try to play a game 
     Game myCurrentGame = null;
     MultiplayerGame myCurrentMultiplayerGame = null;
 
@@ -55,12 +57,17 @@ public class Model implements ArcadeInteraction {
     /**
      * This should be called after a developer enters the information about
      * his / her game. The method will add the game entry to the database and
-     * create a new GameInfo to display in the gamecenter
+     * create a new GameInfo to display in the gamecenter.
+     * 
+     * This sanitizes all the input so we guarantee that all names an genres are 
+     * lowercase on the backend.
      * 
      * @param gameName
      * @param genre
      */
     public void publish (String gameName, String genre) {
+        gameName = gameName.toLowerCase();
+        genre = genre.toLowerCase();
         myDb.createGame(gameName, genre);
         addGameInfo(newGameInfo(gameName, genre));
     }

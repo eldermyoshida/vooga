@@ -69,8 +69,8 @@ public class PublishView extends Form {
         publish.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent arg0) {
-                //getModel().publish(myNameTextField.getText(),
-                //                   myGenreTextField.getText());
+                getModel().publish(myNameTextField.getText(),
+                                   myGenreTextField.getText());
                 
                 dispose();
             }
