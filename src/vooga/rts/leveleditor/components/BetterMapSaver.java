@@ -84,7 +84,7 @@ public class BetterMapSaver {
         info.appendChild(description);
         
         Element players = myDocument.createElement("Players");
-        players.setAttribute("number", mySavingMap.getAllPlayers().size()+"");
+        players.setAttribute("number", mySavingMap.getMyPlayerNumber()+"");
         for(Integer i : mySavingMap.getAllPlayers().keySet()) {
             Location loc = mySavingMap.getAllPlayers().get(i);
             int x = (int)loc.getX();
@@ -102,6 +102,52 @@ public class BetterMapSaver {
     }
     
     private void appendResourceInfo(Element root) {
+        Element resourceInfo = myDocument.createElement("Resourceinfo");
+        Element sizeInfo = myDocument.createElement("Info");
+        Element tileIndex = myDocument.createElement("tiletype");
+        Element terrainIndex = myDocument.createElement("terraintype");
+        
+        Element tileSize = myDocument.createElement("tilesize");
+        tileSize.setAttribute("width", mySavingMap.getMapNode(0, 0).getMyWidth()+"");
+        tileSize.setAttribute("height", mySavingMap.getMapNode(0, 0).getMyHeight()+"");
+        sizeInfo.appendChild(tileSize);
+        
+        Element tileAmount = myDocument.createElement("tileamount");
+        tileSize.setAttribute("X", mySavingMap.getMyXSize()+"");
+        tileSize.setAttribute("Y", mySavingMap.getMyYSize()+"");
+        sizeInfo.appendChild(tileAmount);
+        
+        for(String str : myTileResources.keySet()) {
+            String value = myTileResources.getString(str);
+            String[] content = value.split("&");
+            String name = content[0];
+            String imagePath = content[1];
+            Element newTile =  myDocument.createElement("tile");
+            newTile.setAttribute("ID", str);
+            newTile.setAttribute("iamge", imagePath);
+            newTile.setAttribute("name", name);
+            tileIndex.appendChild(newTile);
+        }
+        
+        for(String str : myTerrainResources.keySet()) {
+            String value = myTerrainResources.getString(str);
+            String[] content = value.split("&");
+            String name = content[0];
+            String imagePath = content[1];
+            String walkAbility = content[2];
+            Element newTerrain =  myDocument.createElement("terrain");
+            newTerrain.setAttribute("ID", str);
+            newTerrain.setAttribute("iamge", imagePath);
+            newTerrain.setAttribute("name", name);
+            newTerrain.setAttribute("walkAbility", walkAbility);
+            terrainIndex.appendChild(newTerrain);
+        }
+        
+        resourceInfo.appendChild(sizeInfo);
+        resourceInfo.appendChild(tileIndex);
+        resourceInfo.appendChild(terrainIndex);
+        
+        root.appendChild(resourceInfo);
         
     }
     

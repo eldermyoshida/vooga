@@ -10,4 +10,24 @@
 <Player ID="4" X="5" Y="7"/>
 </Players>
 </Info>
+<Resourceinfo>
+<Info>
+<tilesize X="10" Y="10" height="50" width="50"/>
+<tileamount/>
+</Info>
+<tiletype>
+<tile ID="3" iamge="Concrete1.jpg" name="Concrete1"/>
+<tile ID="2" iamge="Bricks1.jpg" name="Bricks1"/>
+<tile ID="1" iamge="Brush1.jpg" name="Brush1"/>
+<tile ID="7" iamge="Metal1.jpg" name="Metal1"/>
+<tile ID="6" iamge="Mesh1.jpg" name="Mesh1"/>
+<tile ID="5" iamge="Etiles1.jpg" name="Etiles1"/>
+<tile ID="4" iamge="Crops1.jpg" name="Crops1"/>
+<tile ID="8" iamge="rock1.jpg" name="Rock1"/>
+</tiletype>
+<terraintype>
+<terrain ID="2" iamge="Terrain2.jpg" name="Terrain2" walkAbility="2"/>
+<terrain ID="1" iamge="Terrain1.jpg" name="Terrain1" walkAbility="4"/>
+</terraintype>
+</Resourceinfo>
 </Map>
