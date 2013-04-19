@@ -3,6 +3,8 @@ package vooga.rts.manager;
 import vooga.rts.action.ManagerAction;
 import vooga.rts.commands.ClickCommand;
 import vooga.rts.commands.Command;
+import vooga.rts.controller.PositionCommand;
+import vooga.rts.util.Camera;
 import vooga.rts.util.Location3D;
 
 public class LeftClickAction extends ManagerAction {
@@ -20,13 +22,13 @@ public class LeftClickAction extends ManagerAction {
 
     @Override
     public void update (Command command) {
-        if (getManager().getSelected().size() != 0) {
+        if (getManager().getSelected().size() > 0) {
             getManager().applyAction(command);
         }
         else{
-            //ClickCommand click = (ClickCommand) command;
-            // for some reason codes stops running after casting...???? but doesn't crash
-            myLocation = new Location3D();//click.getPosition();
+            PositionCommand click = (PositionCommand) command;
+            System.out.println("leftclick");
+            myLocation = Camera.instance().viewtoWorld(click.getPosition());
             apply();
         }
     }

@@ -22,6 +22,7 @@ public class DragSelectAction extends ManagerAction {
     public void update (Command command) {
        DragCommand drag = (DragCommand) command;
        myRectangle = drag.getRectangle();
+       apply();
     }
 
 }

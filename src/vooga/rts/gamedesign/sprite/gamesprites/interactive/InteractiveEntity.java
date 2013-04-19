@@ -72,7 +72,8 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     @Override
     public void updateAction(Command command) {    
         if (myActions.containsKey(command.getMethodName())) {
-            myActions.get(command.getMethodName()).update(command);
+            Action action = myActions.get(command.getMethodName());
+            action.update(command);
         }        
     }
 
@@ -270,6 +271,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     }
 
     public Action getAction (Command command) {
+        System.out.println("getting");
         return myActions.get(command.getMethodName());
     }
 

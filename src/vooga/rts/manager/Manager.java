@@ -16,8 +16,6 @@ import vooga.rts.state.State;
 import vooga.rts.util.Camera;
 import vooga.rts.util.Location3D;
 
-
-
 public class Manager implements State, IActOn {
     
     private List<InteractiveEntity> myEntities;

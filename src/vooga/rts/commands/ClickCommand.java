@@ -14,7 +14,7 @@ import vooga.rts.util.Location3D;
  */
 public class ClickCommand extends Command {
     
-    public Location3D myPosition;
+    public Location myPosition;
     
     /**
      * 
@@ -23,14 +23,14 @@ public class ClickCommand extends Command {
      */
     public ClickCommand (String inputName, PositionObject position) {
         super(inputName);
-        myPosition = Camera.instance().viewtoWorld(position.getPoint2D());
+        myPosition = new Location(position.getX(), position.getY());
     }
     
     /**
      * 
      * @return the position of the click.
      */
-    public Location3D getPosition () {
+    public Location getPosition () {
         return myPosition;
     }
 }

@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import vooga.rts.commands.ClickCommand;
 import vooga.rts.commands.Command;
+import vooga.rts.commands.DragCommand;
+import vooga.rts.controller.PositionCommand;
 import vooga.rts.action.Action;
 import vooga.rts.action.InteractiveAction;
 import vooga.rts.gamedesign.sprite.gamesprites.GameSprite;
@@ -18,6 +20,7 @@ import vooga.rts.gamedesign.strategy.occupystrategy.CannotOccupy;
 import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
 import vooga.rts.gamedesign.upgrades.UpgradeNode;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
+import vooga.rts.util.Camera;
 import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
@@ -122,12 +125,10 @@ public class Unit extends InteractiveEntity {
           }
           
           @Override
-          public void update(Command command) {
-//              ClickCommand click = (ClickCommand) command;
-              myLocation = new Location3D(100, 100, 0);
-              
+          public void update(Command command) {          
+              PositionCommand click = (PositionCommand) command;
+              myLocation = Camera.instance().viewtoWorld(click.getPosition());
           }
        });  
     }
-
 }

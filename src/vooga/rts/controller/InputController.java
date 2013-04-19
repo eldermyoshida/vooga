@@ -8,7 +8,9 @@ import vooga.rts.input.InputMethodTarget;
 import vooga.rts.input.PositionObject;
 import vooga.rts.state.State;
 import vooga.rts.util.Camera;
+import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
+
 
 /** 
  * After much thought, I've decided to only have one InputController. This controller
@@ -21,7 +23,7 @@ import vooga.rts.util.Location3D;
 public class InputController implements Controller {
 
     private State myState;
-    private PositionObject myLeftMouse;
+    private Location myLeftMouse;
     private Rectangle2D myDrag;
     
     public InputController (State state) {
@@ -35,13 +37,16 @@ public class InputController implements Controller {
     
     @InputMethodTarget(name  = "leftMouseDown")
     public void leftMouseDown (PositionObject o) {
-        myLeftMouse = o;
+        myLeftMouse = new Location(o.getPoint2D());
     }
     
-    @InputMethodTarget(name  = "leftMouseDown")
-    public void leftMouseUp (PositionObject o) {          
+    @InputMethodTarget(name  = "leftMouseUp")
+    public void leftMouseUp (PositionObject o) {
         if (myDrag == null) {
             sendCommand(new PositionCommand("leftclick", o));
+        }
+        else{
+            sendCommand(new DragCommand("drag", myDrag));
         }
         myLeftMouse = null;
         myDrag = null;
@@ -54,16 +59,14 @@ public class InputController implements Controller {
     
     @InputMethodTarget(name = "mouseDrag")
     public void mouseDrag (PositionObject o) {
-      
-//
-//        if (myLeftMouse != null) {
-        double uX = o.getX() > myLeftMouse.getX() ? myLeftMouse.getX() : o.getX();
-        double uY = o.getY() > myLeftMouse.getY() ? myLeftMouse.getY() : o.getY();            
-        double width = Math.abs(o.getX() - myLeftMouse.getX());
-        double height = Math.abs(o.getY() - myLeftMouse.getY());
-        myDrag = new Rectangle2D.Double(uX, uY, width, height);
-        sendCommand(new DragCommand("drag", myDrag));
-
-//        }
+        if (!myLeftMouse.equals(null)) {
+            Location3D world = Camera.instance().viewtoWorld(o.getPoint2D());
+            Location3D leftWorldMouse = Camera.instance().viewtoWorld(myLeftMouse);
+            double uX = world.getX() > leftWorldMouse.getX() ? leftWorldMouse.getX() : world.getX();
+            double uY = world.getY() > leftWorldMouse.getY() ? leftWorldMouse.getY() : world.getY();            
+            double width = Math.abs(o.getX() - myLeftMouse.getX());
+            double height = Math.abs(o.getY() - myLeftMouse.getY());
+            myDrag = new Rectangle2D.Double(uX, uY, width, height);
+        }
     }
 }
