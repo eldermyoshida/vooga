@@ -41,6 +41,9 @@ public static final Dimension SIZE = new Dimension(800, 600);
     public GameManager() {
         myCanvas = new Canvas(SIZE); 
         myGameInfo = new GameInfo(new MapLoader().getMapNames());
+        myGameInfo.addCharacters("1");
+        myGameInfo.addCharacters("2");
+        myGameInfo.setMapName("1");
         ControllerFactory factory = makeFactory(myCanvas);
         ControlProgressionManager progressionmanager = new ControlProgressionManager(myGameInfo);
         myControllerManager = new ControllerManager(myCanvas, myGameInfo, factory, progressionmanager);

@@ -30,6 +30,7 @@ public class CharacterSelectController extends MenuController {
 
 	private int myCharLimit;
 	private int myCharIndex;
+	private Input myInput;
 
     public CharacterSelectController (String name, Canvas frame) {
         super(name, frame);

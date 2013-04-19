@@ -38,13 +38,19 @@ public class MainMenuController extends MenuController {
     public MainMenuController(String name, Canvas frame, ControllerDelegate manager, 
                 GameInfo gameinfo) {
         super(name, frame, manager, gameinfo);
+
+        setInput(manager.getInput());
+        getInput().addListenerTo(this);
+
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "LevelConfig");
     }
     /**
      * Checks this controller's end conditions
      */
     public void notifyEndCondition(String choice) {
-    	getInput().removeListener(this);
+
+        getInput().removeListener(this);
+
         getManager().notifyEndCondition(NEXT);
     }
 

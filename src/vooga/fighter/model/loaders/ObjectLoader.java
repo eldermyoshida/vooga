@@ -104,7 +104,9 @@ public abstract class ObjectLoader {
 	 */
 	protected void getImageAndHitboxProperties(NodeList frameNodes, State newState){
 		for (int j = 0; j < frameNodes.getLength(); j++) {
-			newState.populateImage(new Pixmap(getAttributeValue(frameNodes.item(j), "image")), j);
+			if (frameNodes.item(j).getAttributes().getNamedItem("image") != null) {
+				newState.populateImage(new Pixmap(getAttributeValue(frameNodes.item(j), "image")), j);
+			}
 			Element frame = (Element) frameNodes.item(j);
 			NodeList hitboxNodes = frame.getElementsByTagName("hitbox"); 
 			for (int k=0; k<hitboxNodes.getLength(); k++){

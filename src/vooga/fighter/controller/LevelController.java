@@ -42,8 +42,8 @@ public abstract class LevelController extends Controller {
                 GameInfo gameinfo) {
         super(name, frame, manager, gameinfo);
         setInput(manager.getInput());
-        getInput().replaceMappingResourcePath(INPUT_PATHWAY);
         getInput().addListenerTo(this);
+
         DisplayLoopInfo gameLoopInfo = new GameLoopInfo((LevelMode) getMode());
         setLoopInfo(gameLoopInfo);
     }

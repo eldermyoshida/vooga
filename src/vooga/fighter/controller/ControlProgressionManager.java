@@ -44,7 +44,7 @@ public class ControlProgressionManager {
 	}
 	
 	public String getFirstController(){
-		return MAINMENU;
+		return "test";
 	}
 	
 	private void updateProgression(List<String> list, GameInfo gameinfo){
