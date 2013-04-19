@@ -52,14 +52,14 @@ public class MenuManager extends JMenuBar {
         menu.add(new AbstractAction("AddLayer") {
             @Override
             public void actionPerformed (ActionEvent e) {
-                //TODO
+                myCanvas.addLayer();
             }
         });
         
         menu.add(new AbstractAction("Remove") {
             @Override
             public void actionPerformed (ActionEvent e) {
-                //TODO
+                myCanvas.removeLayer();
             }
         });
 
