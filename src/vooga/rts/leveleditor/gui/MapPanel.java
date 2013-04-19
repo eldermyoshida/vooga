@@ -43,6 +43,7 @@ public class MapPanel extends JComponent {
     private int myTileWidth;
     private int myTileHeight;
     private int myCurrentLayer;
+    private int myMaxLayer;
     private boolean myRemoveFlag;
     private int myMode;
     private BufferedImage myPlayerImage;
@@ -55,6 +56,7 @@ public class MapPanel extends JComponent {
         myWidth = 0;
         myHeight = 0;
         myCurrentLayer = 0;
+        myMaxLayer = 0;
         myTileWidth = DEFAULT_TILE_WIDTH;
         myTileHeight = DEFAULT_TILE_HEIGHT;
         myPlayerImage = ResourceManager.getInstance().<BufferedImage>getFile(PLAYER_IMAGE_PATH, BufferedImage.class);
@@ -205,6 +207,7 @@ public class MapPanel extends JComponent {
     
     public void clear() {
         myCurrentLayer = 0;
+        myMaxLayer = 0;
         myMap.clearMap();
         myMap.getLayerMap().clear();
         myMap.getResourceSet().clear();
@@ -232,13 +235,18 @@ public class MapPanel extends JComponent {
         return myCurrentLayer;
     }
     
+    public int getMaxLayer() {
+        return myMaxLayer;
+    }
+    
     public void addLayer() {
-        myCurrentLayer++;       
+        myMaxLayer++;
+        myMap.getLayerMap().put(myMaxLayer, new MapLayer());
     }
     
     public void removeLayer() {
-        myCurrentLayer--;
-        
+        myMap.getLayerMap().remove(myMaxLayer);
+        myMaxLayer--;
     }
     
     @InputMethodTarget(name="onLeftMouseDown")
