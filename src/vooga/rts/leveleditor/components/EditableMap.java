@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 import vooga.rts.leveleditor.gui.MapPanel;
 import vooga.rts.util.Location;
 
@@ -311,6 +313,25 @@ public class EditableMap implements Serializable {
         test.addResource(7, 7, 1);
         test.addResource(8, 8, 2);
         test.addResource(9, 9, 3);
-        test.save(System.getProperty("user.dir")+"./src/test.xml");
+        BetterMapSaver saver = null;
+        try {
+            saver = new BetterMapSaver(test);
+        }
+        catch (ParserConfigurationException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        try {
+            saver.generateMapFile(new File(System.getProperty("user.dir") + "./src/test.xml"));
+        }
+        catch (TransformerException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    
     }
 }
