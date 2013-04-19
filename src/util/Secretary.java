@@ -8,6 +8,8 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.nio.channels.FileChannel;
 
 
@@ -49,7 +51,7 @@ public class Secretary {
         SESSION_FILE = fileName;
         
         try {
-            myFileWriter = new FileWriter(directory + fileName);
+            myFileWriter = new FileWriter(FILE_PATH + SESSION_FILE);
         }
         catch (IOException e) {
             System.err.println("IOException: " + e.getMessage() + " in secretary() constructor");
@@ -74,19 +76,37 @@ public class Secretary {
     }
 
     /**
-     * This will load the fileName file from src/Files and churn its output line 
-     * by line. The user can decide what to do which each line of the file: 
+     * This will load the File fileName and iterate through each line of the file
+     * allowing the user to do whatever operation he/she chooses based on what 
+     * method he/she sends over. 
+     * 
+     * NOTE - this method must take a String as a parameter 
+     * 
+     * The user can decide what to do which each line of the file: 
      * parse it, print it to console, etc... 
      * 
      * @param String fileName - name of the file (i.e. Example1.txt)
+     * @param Method method - the method you want to invoke on the line 
+     * @param Object object - the class that has the method you want to invoke 
      */
-    public void loadSession (String fileName) {
+    public void loadSession (String fileName, Method method, Object object) {
 
         BufferedReader reader = getReader(fileName);
         String line;
         try {
             while ((line = reader.readLine()) != null) {
-                System.out.println(line); // should be modified to developer's use case 
+                try {
+                    method.invoke(object, line);
+                }
+                catch (IllegalArgumentException e) {
+                    e.printStackTrace();
+                }
+                catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+                catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                }
             }
             reader.close();
         }
