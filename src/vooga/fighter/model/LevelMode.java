@@ -46,12 +46,9 @@ public class LevelMode extends Mode {
      * Overrides superclass initialize method by creating all objects in the level.
      */
     public void initializeMode() {
-    	System.out.println("Map");
         loadMap(myMapName);
-        System.out.println("Char");
         loadCharacters(myCharacterNames, myStartLocations);
-        System.out.println("HEalth");
-        //loadHealth();
+        loadHealth();
     }
     
     public void loadHealth() {
@@ -81,10 +78,7 @@ public class LevelMode extends Mode {
             GameObject object = myObjects.get(i);
             object.updateState();
         }
-        
-        if (shouldModeEnd()) {
-            signalTermination();
-        }
+        winningConditions();
     }
 
     /**
@@ -117,18 +111,6 @@ public class LevelMode extends Mode {
      * Checks if the level has ended. Does so by checking if any player has no health
      * remaining.
      */
-    public boolean shouldModeEnd() {
-        for (GameObject object : getMyObjects()) {
-            if (object instanceof CharacterObject) {
-                CharacterObject currentChar = (CharacterObject) object;
-                if (!currentChar.hasHealthRemaining()) {
-                    System.out.println("LevelMode shouldModeEnd : character has no health");
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
 
     /**
      * Returns the list of CharacterObjects.
@@ -177,6 +159,13 @@ public class LevelMode extends Mode {
 //        return myScores;
 //       
 //    }
+    private void winningConditions(){
+    	for (int i = 0; i < myCharacterObjects.size(); i++) {
+    		if(!myCharacterObjects.get(i).getHealth().hasHealthRemaining()){
+    			signalTermination("Ryu");
+    		}
+    	}
+    }
     
     
 

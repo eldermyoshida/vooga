@@ -70,8 +70,8 @@ public abstract class Mode {
     * Notifies the subcontroller that the mode should terminate. Specific rules
     * for when the mode should be terminated are implemented in subclasses.
    */
-   public void signalTermination() {
-       myModelDelegate.notifyEndCondition(NEXT);
+   public void signalTermination(String Winner) {
+       myModelDelegate.notifyEndCondition(Winner);
     }
    
     /**
@@ -119,9 +119,5 @@ public abstract class Mode {
     */
     public abstract void initializeMode();
     
-    /**
-     * Returns true if the mode should end. Implemented by subclasses.
-     */
-    public abstract boolean shouldModeEnd();
 
 }
