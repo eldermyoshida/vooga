@@ -3,6 +3,7 @@ package vooga.rts.gamedesign.sprite.gamesprites.interactive.units;
 import java.awt.Dimension;
 
 import vooga.rts.gamedesign.sprite.gamesprites.GameEntity;
+import vooga.rts.gamedesign.sprite.gamesprites.Resource;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.IGatherable;
 import vooga.rts.gamedesign.strategy.gatherstrategy.CanGather;
 import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
@@ -45,14 +46,22 @@ public class Worker extends Unit {
 		myGatherStrategy.getInterval().decrementCooldown();
 		super.update(elapsedTime);
 	}
-
+	
+	/**
+	 * Another recognize method specific for workers as they can gather resources which are not
+	 * InteractiveEntities
+	 */
+	public void recognize (Resource resource) {
+		gather(resource);
+	}
+	
 	/**
 	 * The worker gathers the resource if it can and then resets its gather
 	 * cooldown.
 	 * @param gatherable is the resource being gathered.
 	 */
 	public void gather(IGatherable gatherable) {
-		
+		//shouldnt the cast be to a type Resource? 
 		if(this.collidesWith((GameEntity)gatherable)) {
 			myGatherStrategy.gatherResource(getPlayerID(),gatherable);
 		}

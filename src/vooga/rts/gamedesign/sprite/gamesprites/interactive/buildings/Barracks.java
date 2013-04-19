@@ -60,16 +60,16 @@ public class Barracks extends ProductionBuilding {
     }
     @Override
     public void paint(Graphics2D pen) {
-        super.paint(pen);
         for(int i = 0; i < myInteractiveEntities.size(); i++) {
             myInteractiveEntities.get(i).paint(pen);
         }
+        super.paint(pen);
     }
     
     @Override
     public void update(double elapsedTime) {
         super.update(elapsedTime);
-        PRODUCE_TIME -= 1;
+        PRODUCE_TIME -= elapsedTime;
         if(PRODUCE_TIME <= 0) { 
             try {
 				getActions().get(0).apply(2); //2: for testing. make Barrack create new Units of different team.
