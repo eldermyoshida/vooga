@@ -37,12 +37,13 @@ public class MapLoader {
         loadTitle();
         try {
             loadPlayers();
+            loadSize();
         }
         catch (MapNotMatchException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        loadSize();
+
         loadTileIndex();
         loadTerrainIndex();
         loadTiles();
@@ -84,8 +85,27 @@ public class MapLoader {
     
     
     
-    private void loadSize() {
-        
+    private void loadSize() throws MapNotMatchException {
+        String line = myScanner.nextLine();
+        while( !line.contains("tilesize")) {
+            line = myScanner.nextLine();
+        }
+        String[] sizeContent = myXMLParser.splitByBlanks(myXMLParser.splitContent(line));
+        if(sizeContent.length != 3) throw new MapNotMatchException();
+        String tileWidth = myXMLParser.cutKeyAndValue(sizeContent[1])[1];
+        String tileHeight = myXMLParser.cutKeyAndValue(sizeContent[1])[1];
+        line = myScanner.nextLine();
+        String[] amountContent = myXMLParser.splitByBlanks(myXMLParser.splitContent(line));
+        if(sizeContent.length != 3) throw new MapNotMatchException();
+        String xCount = myXMLParser.cutKeyAndValue(amountContent[1])[1];
+        String yCount = myXMLParser.cutKeyAndValue(amountContent[1])[1];
+        myMap.setMyXSize(Integer.parseInt(xCount));
+        myMap.setMyYSize(Integer.parseInt(yCount));
+        myMap.initializeMap(Integer.parseInt(tileWidth), Integer.parseInt(tileHeight));
+        System.out.println(myMap.getMyXSize());
+        System.out.println(myMap.getMyYSize());
+        System.out.println(myMap.getMapNode(0, 0).getMyWidth());
+        System.out.println(myMap.getMapNode(0, 0).getMyHeight());
     }
     
     
