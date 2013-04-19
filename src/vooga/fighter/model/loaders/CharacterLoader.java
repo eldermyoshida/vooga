@@ -35,6 +35,7 @@ public class CharacterLoader extends ObjectLoader {
 	 */
 	public CharacterLoader (String charName, CharacterObject character) {
 		super(CHARACTER_PATH);
+		System.out.println("?!");
 		myChar = character;
 		load(charName);
 	}

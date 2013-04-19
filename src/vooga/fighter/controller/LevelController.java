@@ -52,7 +52,7 @@ public abstract class LevelController extends Controller {
         List<String> characterNames = getGameInfo().getCharacters();
         String mapID = getGameInfo().getMapName();
         LevelMode temp = new LevelMode(this, characterNames, mapID);
-        setMode(temp);
+        setMode((Mode) temp);
         myInputObjects = temp.getMyCharacterObjects();
     }
     

@@ -28,7 +28,6 @@ import java.util.ResourceBundle;
 @InputClassTarget
 public class MapSelectController extends MenuController {
     
-    private GameInfo myGameInfo;
     
     public MapSelectController (String name, Canvas frame) {
         super(name, frame);
@@ -37,11 +36,6 @@ public class MapSelectController extends MenuController {
     public MapSelectController(String name, Canvas frame, ControllerDelegate manager, 
                 GameInfo gameinfo) {
         super(name, frame, manager, gameinfo);
-        myGameInfo = gameinfo;
-    }
-    
-    public void notifyModeSelection(String mapName) {
-        myGameInfo.setMapName(mapName);
     }
     
     /**

@@ -46,8 +46,11 @@ public class LevelMode extends Mode {
      * Overrides superclass initialize method by creating all objects in the level.
      */
     public void initializeMode() {
+    	System.out.println("Map");
         loadMap(myMapName);
+        System.out.println("Char");
         loadCharacters(myCharacterNames, myStartLocations);
+        System.out.println("HEalth");
         loadHealth();
     }
     

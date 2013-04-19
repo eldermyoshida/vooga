@@ -1,3 +1,5 @@
+package vooga.fighter.util;
+
 
 public class Physics {
     /**
