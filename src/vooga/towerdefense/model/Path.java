@@ -6,28 +6,34 @@ import vooga.towerdefense.util.Location;
 
 
 public class Path implements Iterator<Location> {    
-    private List<Location> myPoints;
+	private List<Location> myLocations;
 
-    public Path(List<Location> points) {
-        myPoints = points;
+	public Path(List<Location> locations) {
+		myLocations = locations;
     }
     
-    @Override
+	public void add(Location location) {
+		myLocations.add(location);
+	}
+
+	@Override
     public boolean hasNext() {
-        return myPoints.iterator().hasNext(); 
+		return myLocations.iterator().hasNext();
     }
     @Override
     public Location next () {
-        return myPoints.iterator().next();
+    	Location next = myLocations.iterator().next();
+		myLocations.remove(0);
+    	return next;
     }
 
     @Override
     public void remove () {
-        myPoints.iterator().remove();
+		myLocations.iterator().remove();
     }
     
     public void paint () {
-        for (Location loc: myPoints) {
+		for (Location loc : myLocations) {
             
         }
     }
