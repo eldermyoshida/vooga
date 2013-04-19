@@ -12,10 +12,13 @@ import vooga.rts.state.State;
 public class Manager implements State  {
     
     private List<InteractiveEntity> myUnits;
+    private List<InteractiveEntity> mySelectedUnits;
     
     public Manager () {
         myUnits = new ArrayList<InteractiveEntity>();
+        mySelectedUnits = new ArrayList<InteractiveEntity>();
     }
+    
     @Override
     public void receiveCommand (Command command){
         // This will create an action and then use the .execute() method to invoke it 
@@ -27,12 +30,14 @@ public class Manager implements State  {
             u.update(elapsedTime);
         }        
     }
+    
     @Override
     public void paint (Graphics2D pen) {
         for (InteractiveEntity u: myUnits) {
             u.paint(pen);
         }        
     }
+    
     public void add (InteractiveEntity unit) {
         myUnits.add(unit);
     }

@@ -42,8 +42,16 @@ public class GameState extends SubState implements Controller {
     
     public GameState (Observer observer, Dimension gameSize) {
         super(observer);
-        myMap = new GameMap(DEFAULT_NODE_SIZE, gameSize);
-        myPlayer = new PlayerController(this);
+        myTeams = new HashMap<Interger, Team>();
+        myPlayers = new ArrayList<HumanPlayer>();
+        myMap = new GameMap(8, new Dimension(512, 512));
+        pt = new PointTester();
+        try {
+            myMouseMover = new Robot();
+        }
+        catch (AWTException e) {
+            // Cannot move the camera
+        }
     }
 
     @Override
