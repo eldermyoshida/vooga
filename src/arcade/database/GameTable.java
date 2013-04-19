@@ -9,6 +9,7 @@ import java.util.List;
 
 /**
  * Creates and updates game table
+ * this clearly needs to be refactored because there is duplicate code.
  * @author Natalia Carvalho
  */
 public class GameTable extends Table {
@@ -137,11 +138,14 @@ public class GameTable extends Table {
         if (gameNameExists(gameName)) {
             return false;
         }
-        String stm = "INSERT INTO " + TABLE_NAME + "(" + GAMENAME_COLUMN_FIELD + ") VALUES(?)";
+        String stm = "INSERT INTO " + TABLE_NAME + "(gamename, gamefilepath, genre) VALUES(?,?,?)";
+        //String stm = "INSERT INTO " + TABLE_NAME + "(" + GAMENAME_COLUMN_FIELD + ") VALUES(?)";
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
             myPreparedStatement.setString(GAMENAME_COLUMN_INDEX, gameName);
+            myPreparedStatement.setString(GAMEFILEPATH_COLUMN_INDEX, "null");
             myPreparedStatement.setString(GENRE_COLUMN_INDEX, genre);
+           // myPreparedStatement.setString(GAMEID_COLUMN_INDEX, "null");
             myPreparedStatement.executeUpdate();
         }
         catch (SQLException e) {

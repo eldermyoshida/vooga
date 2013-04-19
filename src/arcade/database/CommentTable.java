@@ -8,6 +8,7 @@ import java.util.List;
 
 /**
  * Creates and updates user table
+ * this clearly needs to be refactored because there is duplicate code
  * @author Natalia Carvalho
  */
 public class CommentTable extends Table {
@@ -15,7 +16,7 @@ public class CommentTable extends Table {
     private static final String TABLE_SEPARATOR = ": ";
     private static final String GAMEID_COLUMN_FIELD = "gameid";  
     private static final String USERID_COLUMN_FIELD = "userid";
-    private static final String COMMENT_COLUMN_FIELD = "comment";
+    private static final String COMMENT_COLUMN_FIELD = "commentfield";
     private static final String COMMENTID_COLUMN_FIELD = "commentid";  
 
     
@@ -102,7 +103,7 @@ public class CommentTable extends Table {
         }
     }
     
-    public String getCommentByUsername(String gameid, String userid) {
+    public List<String> getCommentByUsername(String gameid, String userid) {
         //TODO implement method
         return null;
     }
