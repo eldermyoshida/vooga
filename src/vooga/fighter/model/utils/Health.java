@@ -11,7 +11,7 @@ public class Health {
     /**
      * Representation of the current level of health.
      */
-    private int myHealth;
+    private int myHealth = 0;
 
     /**
      * Returns the current value of the object's health.

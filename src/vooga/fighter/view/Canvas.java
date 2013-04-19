@@ -77,7 +77,7 @@ public class Canvas extends JComponent {
     public void paintComponent (Graphics pen) {
         pen.setColor(Color.WHITE);
         pen.fillRect(0, 0, getSize().width, getSize().height);
-        // first time needs to be special cased :(
+        // If there is no defined layout, simply paint things at the locations they are given.
         if (myLayout == null) {
             for (int i = 0; i < myViewDataSource.ObjectNumber(); i++) {
                 myViewDataSource.getPaintable(i).paint((Graphics2D) pen,
