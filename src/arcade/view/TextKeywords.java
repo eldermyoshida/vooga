@@ -23,4 +23,7 @@ public interface TextKeywords {
     static final String IMAGE = "images";
     static final String IMAGE_MESSAGE = "image_instructions";
     static final String IMAGE_BUTON = "image_button";
+    static final String GAME_NAME = "game_name";
+    static final String GENRE = "genre";
+    static final String PUBLISH = "publish";
 }
