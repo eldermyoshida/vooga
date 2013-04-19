@@ -176,11 +176,12 @@ public class MapPanel extends JComponent {
         repaint();
     }
     
+    //test printing matrix bug switch x and y
     private void placeTile(int x, int y) {
         x=x/myTileWidth;
         y=y/myTileHeight;
         if(x>=0 && x<myWidth && y>=0 && y<myHeight){
-            EditableNode n = myMap.getMapNode(x, y);
+            EditableNode n = myMap.getMapNode(y, x);
             if(!myRemoveFlag){
                 n.setTile(myCanvas.getCurrentSelectTile().getMyID());
                 n.setOccupied(true);
