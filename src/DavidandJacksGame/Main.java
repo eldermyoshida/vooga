@@ -1,11 +1,10 @@
 package DavidandJacksGame;
-import java.awt.*;
-import java.awt.event.KeyEvent;
+import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
 import vooga.fighter.controller.GameManager;
-import vooga.fighter.view.Canvas;
+import DavidandJacksGame.Game.SubGameManager;
 
 
 /**
@@ -29,7 +28,7 @@ public class Main extends JFrame
         // view of user's content
 
         // start animation
-        GameManager control = new GameManager();
+        GameManager control = new SubGameManager();
         control.run();
         // Stopping the game is handled in the MarioTime Class, as it can implement methods that update 
         // as the game updates

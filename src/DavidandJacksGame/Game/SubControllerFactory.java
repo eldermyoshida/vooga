@@ -17,7 +17,9 @@ public class SubControllerFactory extends ControllerFactory {
 	public SubControllerFactory(Canvas frame) {
 		super(frame);
 	}
+	
     protected void setupControllerConfiguration(Canvas frame,  Map<String, Controller> controllermap) {
+    	
         Controller controller = new OneVOneController(ONE_V_ONE, frame);
         controllermap.put(controller.getName(), controller);
         controller = new MainMenuController(MAIN_MENU, frame);

@@ -8,7 +8,4 @@ public class SubControlProgession extends ControlProgressionManager {
 	public SubControlProgession(GameInfo gameinfo) {
 		super(gameinfo);
 	}
-	
-	
-
 }
