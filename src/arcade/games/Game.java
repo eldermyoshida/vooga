@@ -30,20 +30,17 @@ public abstract class Game{
      */
     public abstract UserGameData generateNewProfile();
     
-    /**
-     * Set up a view component that the Game will be displayed on and return 
-     * it to the arcade.  This view component should probably be very similar 
-     * to a Canvas in previous projects, but will be left to the Game writers 
-     * to create so they can customize it as they wish.
-     * 
-     * 
-     * @return your game's view
-     */
-    public abstract Component createView();
     
     /**
-     * starts the game (should probably start displaying the splash screen or
-     * title screen).
+     * This method will be called by the arcade if no one has ever played this game 
+     * and we need to generate a gamedata object. If you dont plan on using gameData objects
+     * then you dont need to implement this method, but if you don't then you cant 
+     *  call getGameData from ArcadeInteraction
+     * @return the specific subclass of UserGameData for each game.
+     */
+    public abstract GameData generateNewGameProfile();
+    /**
+     * starts the game (should probably start running the game loop)
      *
      */
     public abstract void run ();

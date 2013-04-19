@@ -1,13 +1,11 @@
-
 package vooga.scroller.util;
-
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
-
+import util.Location;
+import util.Vector;
 
 /**
  * This class represents a shape that moves on its own.
@@ -28,33 +26,52 @@ public abstract class Sprite {
     private Location myCenter;
     private Vector myVelocity;
     private Dimension mySize;
-    private Pixmap myView;
+    private ISpriteView myView;
     // keep copies of the original state so shape can be reset as needed
     private Location myOriginalCenter;
     private Vector myOriginalVelocity;
     private Dimension myOriginalSize;
-    private Pixmap myOriginalView;
+    private ISpriteView myOriginalView;
     // cached for efficiency
     private Rectangle myBounds;
+    private Location myLastLocation;
+    private Location myLastLocation2;
+    //private ISpriteView myDefaultImage;// ??
     
     /**
      * Create a shape at the given position, with the given size.
      */
-    public Sprite (Pixmap image, Location center, Dimension size) {
+    public Sprite (ISpriteView image, Location center, Dimension size) {
         this(image, center, size, new Vector());
     }
 
     /**
      * Create a shape at the given position, with the given size, velocity, and color.
      */
-    public Sprite (Pixmap image, Location center, Dimension size, Vector velocity) {
+    public Sprite (ISpriteView image, Location center, Dimension size, Vector velocity) {
         // make copies just to be sure no one else has access
+        
+        mySize = size;
+        myOriginalView = image;
         myOriginalCenter = new Location(center);
+        myLastLocation = new Location(myOriginalCenter.x, myOriginalCenter.y);
+        myLastLocation2 = new Location(myOriginalCenter.x, myOriginalCenter.y);
         myOriginalSize = new Dimension(size);
         myOriginalVelocity = new Vector(velocity);
-        myOriginalView = new Pixmap(image);
         reset();
         resetBounds();
+    }
+    
+    public Sprite copy(){
+        try {
+            return this.getClass().newInstance();
+        }
+        catch (InstantiationException e) {
+            return null;
+        }
+        catch (IllegalAccessException e) {
+            return null;
+        }
     }
 
     /**
@@ -63,6 +80,9 @@ public abstract class Sprite {
      * Currently, moves by the current velocity.
      */
     public void update (double elapsedTime, Dimension bounds) {
+        myLastLocation2 = new Location(myLastLocation.x, myLastLocation.y);
+        myLastLocation = new Location(myCenter.x, myCenter.y);
+
         // do not change original velocity
         Vector v = new Vector(myVelocity);
         v.scale(elapsedTime);
@@ -147,6 +167,27 @@ public abstract class Sprite {
     public double getHeight () {
         return mySize.getHeight();
     }
+    
+    /**
+     * Returns the health of the sprite.
+     */
+//    public int getHealth () {
+//        return health;
+//    }
+//    
+//    /**
+//     * Reduces the health of sprite by 1.
+//     */
+//    public void takeHit () {
+//        health--;
+//    }
+//    
+//    /**
+//     * Reduces the health of the sprite by hit.
+//     */
+//    public void takeHit (int hit) {
+//        health -= hit;
+//    }
 
     /**
      * Scales shape's size by the given factors.
@@ -181,7 +222,7 @@ public abstract class Sprite {
     /**
      * Resets shape's image.
      */
-    public void setView (Pixmap image) {
+    public void setView (ISpriteView image) {
         if (image != null) {
             myView = image;
         }
@@ -221,7 +262,8 @@ public abstract class Sprite {
         myCenter = new Location(myOriginalCenter);
         mySize = new Dimension(myOriginalSize);
         myVelocity = new Vector(myOriginalVelocity);
-        myView = new Pixmap(myOriginalView);
+        myView = myOriginalView.reset();
+        // TODO: reset paintable?
     }
 
     /**
@@ -229,14 +271,14 @@ public abstract class Sprite {
      */
     public void paint (Graphics2D pen)
     {
-        myView.paint(pen, myCenter, mySize);
+        myView.paint(pen, myCenter, mySize, 0);
     }
     
     /**
      * Display this shape translated on the screen, used for all Sprites besides Player
      */
     public void paint (Graphics2D pen, Location loc, Location origLoc) {
-        myView.paint(pen, translate(loc, origLoc), mySize);
+        myView.paint(pen, translate(loc, origLoc), mySize, 0);
         
     }
     
@@ -281,5 +323,44 @@ public abstract class Sprite {
         return 0;
         //return Double.NaN;
     }
+    
+    /**
+     * Returns a view of this sprite -TODO: Maybe should be specified in an interface(?)
+     */
+    public ISpriteView getView() {
+        return myView;
+    }
+    
+    /**
+     * Gives the last location of this sprite.
+     * 
+     * @return The locaiton of the sprite at the previous update.
+     */
+    public Location lastLocation() {
+        return myLastLocation2;
+    }
+    
+    /**
+     * Returns the default image for this sprite.
+     * 
+     * @return
+     */
+    public Image getDefaultImg () {
+        
+        return myOriginalView.getDefaultImg();
+    }
+    
+    public void addVector(Vector force) {
+        myVelocity.sum(force);
+    }
 
+    public int getHealth () {
+        // TODO Auto-generated method stub
+        return 1;
+    }
+    
+    public void setHealth(int i){
+        //TODO: 
+    }
 }
+

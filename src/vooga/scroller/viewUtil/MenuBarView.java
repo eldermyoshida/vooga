@@ -5,6 +5,7 @@ package vooga.scroller.viewUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -24,10 +25,7 @@ public abstract class MenuBarView extends JMenuBar {
     private Window myWindow;
     private WindowActionLibrary myActionLibrary;
     private LEditorActionLibrary myWSActionLibrary;
-    private List<JMenu> myMenus;
     private JMenu myFileMenu;
-    private JMenu myPreferencesMenu;
-    private JMenu myHelpMenu;
     private JMenu myEditMenu;
     private Timer myTimer;
     
@@ -39,11 +37,12 @@ public abstract class MenuBarView extends JMenuBar {
     public MenuBarView(Window window) {
         myWindow = window;
         myActionLibrary = new WindowActionLibrary(myWindow);
+        setSpecializedWindow(myWindow);
         addComponents();
         ActionListener prefListener =  new ActionListener() {
             public void actionPerformed (ActionEvent e) {
                 if (myWindow.getTabCount() > 0) {
-                    enableTabDependentsMenus();
+                    enableWorkspaceDependentsMenus();
                 }
             }
         };
@@ -51,12 +50,18 @@ public abstract class MenuBarView extends JMenuBar {
         myTimer.start();
     }
 
-    private void addComponents () {
-        this.add(makeFileMenu());
-        this.add(makePreferencesMenu());
-        this.add(makeEditMenu());
-        this.add(makeHelpMenu());
+    /**
+     * Any 
+     */
+    protected void addComponents () {
+            this.add(makeFileMenu());
+            this.add(makeEditMenu());
+            this.addCustomMenus();
     }
+    
+    protected abstract void setSpecializedWindow(Window w);
+
+    protected abstract void addCustomMenus ();
 
     /**
      * This menu is a generalized menu that handles all File actions.
@@ -94,37 +99,24 @@ public abstract class MenuBarView extends JMenuBar {
      * @return
      */
     protected abstract JMenu makePreferencesMenu();
-//        JMenu result = new JMenu(Window.getResources().getString("PreferencesMenu"));
-//        result.setMnemonic(KeyEvent.VK_P);
-////        result.add(myActionLibrary.new ChangeBackgroundAction());
-//        result.add(myActionLibrary.new ToggleGridAction());
-////        result.add(myActionLibrary.new ChangeTurtleAction());
-////        result.add(new JSeparator());
-////        result.add(myActionLibrary.new ChangePenColorAction());
-////        result.add(myActionLibrary.new ChangePenPropertiesAction());
-//        result.setEnabled(false);
-//        myPreferencesMenu = result;
-//        return myPreferencesMenu;
-//    }
     
     /**
      * This menu handles actions that provide help resources to the user. 
      * @return
      */
     protected abstract JMenu makeHelpMenu();
-//        JMenu result = new JMenu(Window.getResources().getString("HelpMenu"));
-//        result.setMnemonic(KeyEvent.VK_H);
-//        result.add(myActionLibrary.new WebInfoAction());
-//        myHelpMenu = result;
-//        return myHelpMenu;
-//    }
-//    
+    
     /**
      * Make the preferences menu active
      */
-    private void enableTabDependentsMenus() {
-        myPreferencesMenu.setEnabled(true);
+    private void enableWorkspaceDependentsMenus() {
+        for (JMenu c: getWorkspaceMenus()) {
+            c.setEnabled(true);
+        }
         myEditMenu.setEnabled(true);
     }
+
+protected abstract List<JMenu> getWorkspaceMenus ();
+
     
 }

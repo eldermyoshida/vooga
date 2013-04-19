@@ -3,13 +3,19 @@ package vooga.rts.gamedesign.sprite.rtsprite;
 import java.awt.Dimension;
 
 
+import vooga.rts.gamedesign.sprite.GameEntity;
+import vooga.rts.gamedesign.sprite.InteractiveEntity;
 import vooga.rts.util.Location;
+import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
-import vooga.rts.util.Sound;
-
+import vooga.rts.util.Vector;
 
 
 /**
+ * This class is the generic abstract class for all types of projectiles that
+ * can be fired from a weapon by an InteractiveEntity. The Projectile’s health
+ * is the time the projectile can exist on the map before it vanishes. It also
+ * vanishes after it collides with a GameEntity. 
  * 
  * @author Ryan Fishel
  * @author Kevin Oh
@@ -17,38 +23,44 @@ import vooga.rts.util.Sound;
  * @author Wenshun Liu 
  *
  */
-public abstract class Projectile extends RTSprite implements IMovable {
+public class Projectile extends GameEntity{
 
+	//Default speed
+	public static int DEFAULT_PROJECTILE_SPEED = 1600;
 	
-	private Integer myDamage;
-	
-	private boolean isSelected;
-	
-	
-	public Projectile(Pixmap pixmap, Location loc, Dimension size, Sound sound, int damage, int health){
-		super(pixmap, loc, size, sound, damage, health);
-		myDamage = damage;
-		setVelocity(0, 10);
-	}
-	
-	
-	public void attack(RTSprite other) throws CloneNotSupportedException{
-		
-		other.accept(this);
-		move(other.getCenter());
-	}
-	
-	/**
-	 * Creates a copy of the projectile so that we can keep shooting a new
-	 * instance of the projectile every time we shoot. 
-	 * @param toClone is the projectile that we are making a copy of
-	 * @return the cloned copy of the projectile
-	 * @throws CloneNotSupportedException 
-	 */
-	public Projectile clone(Projectile toClone) throws CloneNotSupportedException{
-			return (Projectile) toClone.clone();
+    private int myDamage;
+    private InteractiveEntity myTarget;
 
-	}
-	
 
+    public Projectile(Pixmap pixmap, Location3D loc, Dimension size, int playerID, int damage, int health){
+        super(pixmap, loc, size, playerID, health);
+        myDamage = damage;
+    }
+    public void setEnemy(InteractiveEntity enemy){
+        myTarget = enemy;
+    }
+    public int getDamage() {
+        return myDamage;
+    }
+    @Override
+    public void update(double elapsedTime){
+        super.update(elapsedTime);
+        this.move(myTarget.getWorldLocation());
+        if(this.intersects(myTarget.getWorldLocation())){
+            attack(myTarget);
+            this.die();
+        }
+    }
+    public void attack(InteractiveEntity interactiveEntity) {
+        interactiveEntity.changeHealth(myDamage);
+    }
+
+    @Override
+    public int getSpeed() {
+    	return DEFAULT_PROJECTILE_SPEED;
+    }
+
+    public Projectile copy(Projectile other, Location3D shootFrom) {
+        return new Projectile(new Pixmap(other.getImage()), new Location3D(shootFrom), new Dimension(other.getSize()), other.getPlayerID(), other.getDamage(), other.getHealth());
+    }
 }

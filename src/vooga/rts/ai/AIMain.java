@@ -2,7 +2,7 @@ package vooga.rts.ai;
 
 import java.awt.Dimension;
 import vooga.rts.map.*;
-import vooga.rts.util.Location;
+import util.Location;
 
 public class AIMain {
 

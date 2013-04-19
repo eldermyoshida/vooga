@@ -3,8 +3,10 @@ package vooga.scroller.util;
 
 import java.awt.Graphics2D;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.geom.Point2D;
 import java.awt.geom.AffineTransform;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 
@@ -15,8 +17,10 @@ import javax.swing.ImageIcon;
  * Note, Java only supports the formats: png, jpg, gif.
  * 
  * @author Robert C. Duvall
+ * Added getter for view @author DF
  */
-public class Pixmap {
+
+public class Pixmap implements ISpriteView {
     // OS-independent relative resource locations (like URLs)
     private static final String RESOURCE_LOCATION = "/vooga/scroller/images/";
     // underlying implementation
@@ -49,6 +53,7 @@ public class Pixmap {
     /**
      * Describes how to draw the image on the screen.
      */
+    @Override
     public void paint (Graphics2D pen, Point2D center, Dimension size) {
         paint(pen, center, size, 0);
     }
@@ -56,6 +61,7 @@ public class Pixmap {
     /**
      * Describes how to draw the image rotated on the screen.
      */
+    @Override
     public void paint (Graphics2D pen, Point2D center, Dimension size, double angle) {
         // save current state of the graphics area
         AffineTransform old = new AffineTransform(pen.getTransform());
@@ -68,4 +74,37 @@ public class Pixmap {
         // restore graphics area to its old state, so our changes have no lasting effects
         pen.setTransform(old);
     }
+    
+    /**
+     * TODO - Get Version Control approval
+     * @return the default image for this Pixmap
+     */
+    @Override
+    public Image getDefaultImg() {
+        return myImage;
+    }
+    
+    /**
+     * TODO - Changing the picture should be a function of the state,
+     * not changing the image itself. A sprite should hold a collection
+     * of its images and paint it.
+     * TODO - Get Version Control approval
+     * @param im
+     */
+    private void setImg(Image im) {
+        myImage = im;
+    }
+
+    @Override
+    public ISpriteView reset () {
+        // TODO Auto-generated method stub
+        return this;
+    }
+
+    @Override
+    public void setDefaultView (ISpriteView ispriteview) {
+       // myImage = ispriteview
+        // TODO: 
+    }
+
 }

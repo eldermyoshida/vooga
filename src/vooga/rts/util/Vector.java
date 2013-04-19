@@ -11,6 +11,7 @@ import java.awt.geom.Point2D;
  * @author Robert C. Duvall
  */
 public class Vector {
+     
     // angle in degrees
     private double myAngle;
     // "speed" in pixels per second

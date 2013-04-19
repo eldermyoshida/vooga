@@ -13,13 +13,16 @@ public class ViewConstants {
     /**
      * The size for Window objects
      */
-    public static final Dimension DEFAULT_WINDOW_SIZE = new Dimension(1200, 800);
+    public static final Dimension DEFAULT_WINDOW_SIZE = new Dimension(1100, 700);
 
     /**
      * The size for TabView objects
      */
-    public static final Dimension DEFAULT_TAB_SIZE = new Dimension(800, 800);
-
+    public static final double REL_TAB_WIDTH = 1;
+    public static final double REL_TAB_HEIGHT  = .5;
+    public static final Dimension DEFAULT_TAB_SIZE = 
+            new Dimension(((int)(DEFAULT_WINDOW_SIZE.getWidth()*REL_TAB_WIDTH)), 
+                          ((int)(DEFAULT_WINDOW_SIZE.getHeight()*REL_TAB_HEIGHT)));
     /**
      * The size for FeedBackView objects
      */

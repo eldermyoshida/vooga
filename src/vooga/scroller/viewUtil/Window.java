@@ -27,7 +27,7 @@ import vooga.scroller.viewUtil.Renderable;
 public abstract class Window extends JFrame implements IWindow, IView {
 
     private static ResourceBundle ourResources;
-    private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
+    private static final String DEFAULT_RESOURCE_PACKAGE = "vooga.scroller.resources.";
     private static final String USER_DIR = "user.dir";
     private LEController myController;
     private JTabbedPane myTabbedPane;
@@ -95,14 +95,6 @@ public abstract class Window extends JFrame implements IWindow, IView {
     }
 
     /**
-     * Load the specified file in a new tab - TODO
-     * @param file2open
-     */
-    private void loadFile (File file2open) {
-        return;
-    }
-
-    /**
      * Close the window
      */
     public void quit () {
@@ -114,7 +106,24 @@ public abstract class Window extends JFrame implements IWindow, IView {
      * Save the active workspace - TODO
      */
     public void saveFile () {
+        int response = myChooser.showSaveDialog(null);
+        if (response == JFileChooser.APPROVE_OPTION) {
+            File file2save = myChooser.getSelectedFile();
+            saveFile(file2save);
+        }
         return;
+    }
+
+    private void saveFile (File file2save){
+        myController.saveFile(file2save, getActiveTab());
+    }
+
+    /**
+     * Load the specified file in a new tab - TODO
+     * @param file2open
+     */
+    private void loadFile (File file2open){
+        myController.loadFile(file2open);
     }
 
     /**
@@ -122,8 +131,8 @@ public abstract class Window extends JFrame implements IWindow, IView {
      * @param tabView The Tabview that is requesting the string to be processed
      * @param s The string to be processed
      */
-    public void processCommand (WorkspaceView tabView, String s) {
-        myController.processCommand(tabView, s);
+    public void process (WorkspaceView tabView, Object o) {
+        myController.process(tabView, o);
     }
     
     /**
@@ -131,8 +140,8 @@ public abstract class Window extends JFrame implements IWindow, IView {
      * Uses the active tab
      * @param s The string to be processed
      */
-    public void processCommand (String s) {
-        processCommand(getActiveTab(), s);
+    public void process (Object o) {
+        process(getActiveTab(), o);
     }
     
     protected WorkspaceView getActiveTab() {
@@ -226,5 +235,10 @@ public abstract class Window extends JFrame implements IWindow, IView {
      */
     public void redo () {
         getActiveTab().redo();
+    }
+
+    public WorkspaceView initializeWorkspaceView (int id, Renderable r) {
+        // TODO Auto-generated method stub
+        return null;
     }
 }
