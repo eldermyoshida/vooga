@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <maps>
-    <map mapName="BlueBackground" mapBackground="fighter/images/BlueBackground.jpeg" xSize="1024" ySize="871">
+    <map mapName="BlueBackgroundOld" mapBackground="fighter/images/BlueBackground.jpeg" xSize="1024" ySize="871">
     	<startingPositions>
     		<startingPos xCoord="140" yCoord="300"/>
     		<startingPos xCoord="200" yCoord="300"/>
@@ -18,4 +18,5 @@
     		<environmentObject objectName="platform" xCoord="300" yCoord="300"/>
         </environmentObjects>
     </map>
+
 </maps>

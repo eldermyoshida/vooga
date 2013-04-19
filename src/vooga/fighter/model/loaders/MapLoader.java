@@ -47,22 +47,24 @@ public class MapLoader extends ObjectLoader {
 	 */
 	public void load(String mapName) {
 		Document doc = getDocument();
-		NodeList mapNodes = doc.getElementsByTagName("map");
+		NodeList mapNodes = doc.getElementsByTagName(getResourceBundle().getString("Map"));
 
 		for (int i = 0; i < mapNodes.getLength(); i++) {
 			Element node = (Element) mapNodes.item(i);
-			String name = getAttributeValue(node, "mapName");
+			String name = getAttributeValue(node, getResourceBundle().getString("MapName"));
 			if (mapName.equals(name)) {
 			    // fix 1 to number of frames later
 				State mapState = new State(myMap, 1);
-				mapState.populateImage(new Pixmap(getAttributeValue(node, "mapBackground")), 0);
-				mapState.populateSize(new Dimension(Integer.parseInt(getAttributeValue(node, "xSize")),
-						Integer.parseInt(getAttributeValue(node, "ySize"))), 0);
-				myMap.addState("background", mapState);
-				myMap.setLocation(new UpdatableLocation(Integer.parseInt(getAttributeValue(node, "xSize"))/2,
-						Integer.parseInt(getAttributeValue(node, "ySize"))/2));
-				NodeList startingPosNodes= node.getElementsByTagName("startingPositions");
+				mapState.populateImage(new Pixmap(getAttributeValue(node, getResourceBundle().getString("MapBackground"))), 0);
+				mapState.populateSize(new Dimension(Integer.parseInt(getAttributeValue(node, getResourceBundle().getString("XSize"))),
+						Integer.parseInt(getAttributeValue(node, getResourceBundle().getString("YSize")))), 0);
+				myMap.addState(getResourceBundle().getString("BackgroundState"), mapState);
+				myMap.setLocation(new UpdatableLocation(Integer.parseInt(getAttributeValue(node, getResourceBundle().getString("XSize")))/2,
+						Integer.parseInt(getAttributeValue(node, getResourceBundle().getString("YSize")))/2));
+				NodeList startingPosNodes= node.getElementsByTagName(getResourceBundle().getString("StartingPositions"));
 				addStartingPositions(startingPosNodes);
+				NodeList enviroObjectNodes = node.getElementsByTagName("environmentObject");
+				addEnviroObjects(enviroObjectNodes);
 			}
 		}
 	}
@@ -71,10 +73,10 @@ public class MapLoader extends ObjectLoader {
 	public List<String> getMapNames(){
 		List maps = new ArrayList<String>();
 		Document doc = getDocument();
-		NodeList mapNodes = doc.getElementsByTagName("map");
+		NodeList mapNodes = doc.getElementsByTagName(getResourceBundle().getString("Map"));
 		for (int i = 0; i < mapNodes.getLength(); i++) {
 			Element node = (Element) mapNodes.item(i);
-			maps.add(getAttributeValue(node, "mapName"));
+			maps.add(getAttributeValue(node, getResourceBundle().getString("MapName")));
 		}
 		return maps;		
 	}
@@ -87,8 +89,8 @@ public class MapLoader extends ObjectLoader {
 	private void addStartingPositions(NodeList startingPosNodes) {
 		for (int i=0; i<startingPosNodes.getLength(); i++){
 			Node startingPosition= startingPosNodes.item(i);
-			int xCoord= Integer.parseInt(getAttributeValue(startingPosition, "xCoord"));
-			int yCoord= Integer.parseInt(getAttributeValue(startingPosition, "yCoord"));
+			int xCoord= Integer.parseInt(getAttributeValue(startingPosition, getResourceBundle().getString("XCoordinate")));
+			int yCoord= Integer.parseInt(getAttributeValue(startingPosition, getResourceBundle().getString("YCoordinate")));
 			myMap.addStartPosition(new UpdatableLocation(xCoord,yCoord));
 		}
 	}
