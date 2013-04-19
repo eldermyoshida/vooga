@@ -40,9 +40,8 @@ public class Resource extends MapComponent{
         this(0,0,id);
     }
     
-    @Override
     public void setType(int id) {
-        super.setType(id);
+        super.setID(id);
         try {
          refreshImage();
      }

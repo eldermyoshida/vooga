@@ -40,9 +40,8 @@ public class Terrain extends MapComponent{
        this(0,0,i);
    }
    
-   @Override
    public void setType(int id) {
-       super.setType(id);
+       super.setID(id);
        try {
         refreshImage();
     }
