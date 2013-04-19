@@ -71,8 +71,6 @@ public class GameLoopInfo extends DisplayLoopInfo implements ViewDataSource{
         myPlayerStats.add(Player2Status);
         myPlayerStats.add(Player3Status);
         myPlayerStats.add(Player4Status);
-        System.out.println(Player1Status.getPlayerName());
-        System.out.println(Player2Status.getPlayerName());
     }
     
     @Override
