@@ -2,23 +2,11 @@ package vooga.fighter.controller;
 
 
 
-import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
-
-import javax.swing.Timer;
-
-import util.Location;
 import util.input.*;
-import vooga.fighter.model.LevelMode;
-import vooga.fighter.model.Mode;
 import vooga.fighter.model.objects.CharacterObject;
-import vooga.fighter.model.LevelMode;
-import vooga.fighter.model.Mode;
-import vooga.fighter.model.objects.CharacterObject;
-import vooga.fighter.util.Paintable;
 import vooga.fighter.view.Canvas;
+import vooga.fighter.view.FourPlayerMatchGameLayout;
 
 
 /**
@@ -35,7 +23,7 @@ public class OneVOneController extends LevelController {
 
     public OneVOneController (String name, Canvas frame) {
         super(name, frame);
-        
+        frame.setLayout(new FourPlayerMatchGameLayout());
     }
 	
     public OneVOneController(String name, Canvas frame, ControllerDelegate manager, 

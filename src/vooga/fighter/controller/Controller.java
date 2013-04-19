@@ -117,9 +117,9 @@ public abstract class Controller implements ModelDelegate {
     	myDisplayInfo = new DisplayInfo();
     	myDisplayInfo.clear();
     	
-        myDisplayInfo.setImageSize(0, GameManager.SIZE);
-        myDisplayInfo.setSpriteLocation(0, new Location(GameManager.SIZE.getWidth()/2, GameManager.SIZE.getHeight()/2));
-        myDisplayInfo.setSprite(0, new Pixmap(mySplashPath));
+        myDisplayInfo.setSize(0, GameManager.SIZE);
+        myDisplayInfo.setGameObjectLocation(0, new Location(GameManager.SIZE.getWidth()/2, GameManager.SIZE.getHeight()/2));
+        myDisplayInfo.setGamePaintable(0, new Pixmap(mySplashPath));
     }
 
     public void start() {
