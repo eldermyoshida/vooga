@@ -98,20 +98,30 @@ public class MapLoader {
         String[] amountContent = myXMLParser.splitByBlanks(myXMLParser.splitContent(line));
         if(sizeContent.length != 3) throw new MapNotMatchException();
         String xCount = myXMLParser.cutKeyAndValue(amountContent[1])[1];
-        String yCount = myXMLParser.cutKeyAndValue(amountContent[1])[1];
+        String yCount = myXMLParser.cutKeyAndValue(amountContent[2])[1];
         myMap.setMyXSize(Integer.parseInt(xCount));
         myMap.setMyYSize(Integer.parseInt(yCount));
         myMap.initializeMap(Integer.parseInt(tileWidth), Integer.parseInt(tileHeight));
-        System.out.println(myMap.getMyXSize());
-        System.out.println(myMap.getMyYSize());
-        System.out.println(myMap.getMapNode(0, 0).getMyWidth());
-        System.out.println(myMap.getMapNode(0, 0).getMyHeight());
+        
     }
     
     
     
-    private void loadTileIndex() {
-    
+    private void loadTileIndex() throws MapNotMatchException {
+        String line = myScanner.nextLine();
+        while (!(line.contains("tile") && line.contains("ID"))) {
+            line = myScanner.nextLine();
+        }
+        while(line.contains("tile") && line.contains("ID")) {
+            String[] tileContent = myXMLParser.splitByBlanks(myXMLParser.splitContent(line));
+            if(tileContent.length != 4) throw new MapNotMatchException();
+            String tileID = myXMLParser.cutKeyAndValue(tileContent[1])[1];
+            String tileImagePath = myXMLParser.cutKeyAndValue(tileContent[2])[1];
+            String tileName = myXMLParser.cutKeyAndValue(tileContent[3])[1];
+            myTileInformation.put(Integer.parseInt(tileID), tileName + "&" + tileImagePath);
+            line = myScanner.nextLine();
+                
+        }
     }
     
     

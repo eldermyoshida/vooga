@@ -92,7 +92,7 @@ public class MapSaver {
             String[] buffer = content.split("&");
             String name = buffer[0];
             String imageName = "tiles/" + buffer[1];
-            myFileWriter.write("         <terrain ID=" + str + " image=\"" + imageName+"\""+  " name=\"" + name  + "\" />\r\n");
+            myFileWriter.write("         <tile ID=" + str + " image=\"" + imageName+"\""+  " name=\"" + name  + "\" />\r\n");
         }
         
         myFileWriter.write("      </tiles>\r\n");
