@@ -6,6 +6,8 @@ import java.util.List;
 
 import vooga.towerdefense.controller.Controller;
 import vooga.towerdefense.gameElements.Wave;
+import vooga.towerdefense.shop.Shop;
+import vooga.towerdefense.shop.ShopItem;
 
 
 /**
@@ -32,10 +34,6 @@ public class GameModel {
     
     public Tile getTile(Point p) {
         return myGameMap.getTile(p);
-    }
-    
-    public Shop getShop() {
-        return myShop;
     }
 
     public void update (double elapsedTime) {
@@ -65,5 +63,13 @@ public class GameModel {
 
     public GameMap getMap () {
         return myGameMap;
+    }
+    
+    public void paintShop(Graphics2D pen) { 
+        myShop.paint(pen);
+    }
+    
+    public ShopItem getShopItem(Point p) {
+        return myShop.getShopItem(p);
     }
 }

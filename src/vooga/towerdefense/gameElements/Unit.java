@@ -116,12 +116,9 @@ public class Unit extends GameElement {
 	private void changeNode() {
 		if (myPath.hasNext()){
 			myCurrentPathNode=myPath.next();
-			System.out.println("myCurrentPathNode: " + myCurrentPathNode);
-			System.out.println("my position: " + getCenter());
 			Vector newDirection= getCenter().difference(myCurrentPathNode);
 			//for some reason, this method gives the wrong sign on the angle
 			newDirection = new Vector(-1*newDirection.getDirection(), newDirection.getMagnitude());
-			System.out.println("set new direction to " + newDirection);
 			getAttributeManager().getAttribute(ATTRIBUTE_CONSTANTS.DIRECTION).setValue(newDirection.getDirection());
 		}
 		else{

@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+import vooga.towerdefense.action.Action;
 import vooga.towerdefense.attributes.AttributeManager;
 import vooga.towerdefense.controller.modes.BuildMode;
 import vooga.towerdefense.controller.modes.ControlMode;
@@ -24,8 +25,9 @@ import vooga.towerdefense.gameElements.Wave;
 import vooga.towerdefense.model.GameController;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.GameModel;
-import vooga.towerdefense.model.Shop;
 import vooga.towerdefense.model.Tile;
+import vooga.towerdefense.shop.Shop;
+import vooga.towerdefense.shop.ShopItem;
 import vooga.towerdefense.util.Location;
 import vooga.towerdefense.util.Pixmap;
 import vooga.towerdefense.view.TDView;
@@ -127,8 +129,8 @@ public class Controller {
     public void fixItemOnMap (GameElement item, Point p) {
         GameElement newItem = createNewElement(item);
         Tile myTile = myModel.getTile(p);
-        myTile.setTower(newItem);
-        myModel.getMap().addToMap(newItem, myTile); 
+        myTile.setTower(item);
+        myModel.getMap().addToMap(item, myTile); 
         displayMap();
         myControlMode = new SelectMode();
         setVisibilityOfShopCancelButton(false);
@@ -142,7 +144,6 @@ public class Controller {
     private GameElement createNewElement(GameElement item) {
         try {
             Class<? extends GameElement> myClass = item.getClass();
-            System.out.println("I AM: " + myClass.getName());       
             @SuppressWarnings("rawtypes")
             Class[] types = {Pixmap.class, Location.class, Dimension.class, AttributeManager.class, List.class};
             Constructor<? extends GameElement> constructor = myClass.getConstructor(types);
@@ -189,15 +190,6 @@ public class Controller {
     }
 
     /**
-     * 
-     * @return a map of the elements in the shop 
-     * with String as a key and a Pixmap as the value
-     */
-    public Map<String, GameElement> getShopItemIcons () {
-        return myModel.getShop().getAllShopItemIcons();
-    }
-
-    /**
      * handles a click to the map appropriately depending
      * on the mode.
      * 
@@ -217,17 +209,14 @@ public class Controller {
         myControlMode.handleMapClick(p, this);
     }
 
-    /**
-     * changes the mode to BuildMode and gets the item the user
-     * wants to build from the Shop.
-     * 
-     * @param itemName is the name of the item the user wants to
-     *        buy
-     */
-    public void handleShopClickOnItem (String itemName) {
-        GameElement itemToBuy = myModel.getShop().getShopItem(itemName);
+
+    public void handleShopClickOnItem (Point p) {
+       // System.out.println("lol");
+       // ShopItem itemToBuy = myModel.getShopItem(p);
+        List<Action> actions = new ArrayList<Action>();
+        Tower t = new Tower(new Pixmap("tower.gif"), new Location(p.getX(), p.getY()), new Dimension(50, 50), null, actions);
         BuildMode myNewMode = new BuildMode();
-        myNewMode.setItemToBuild(itemToBuy);    
+        myNewMode.setItemToBuild(t);    
         myControlMode = myNewMode;
     }
     
@@ -300,4 +289,9 @@ public class Controller {
         GameController game = new GameController(this);
         game.start();
     }
+    
+    public void paintShop(Graphics pen) {
+        myModel.paintShop((Graphics2D) pen);
+    }
+    
 }
