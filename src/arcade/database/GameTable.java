@@ -16,11 +16,13 @@ public class GameTable extends Table {
     private static final String TABLE_SEPARATOR = ": ";
     private static final String GAMENAME_COLUMN_FIELD = "gamename";  
     private static final String GAMEFILEPATH_COLUMN_FIELD = "gamefilepath";
+    private static final String GENRE_COLUMN_FIELD = "genre";
     private static final String GAMEID_COLUMN_FIELD = "gameid";  
     
     private static final int GAMENAME_COLUMN_INDEX = 1;
     private static final int GAMEFILEPATH_COLUMN_INDEX = 2;
-    private static final int GAMEID_COLUMN_INDEX = 3;
+    private static final int GENRE_COLUMN_INDEX = 3;
+    private static final int GAMEID_COLUMN_INDEX = 4;
     
     private static final String TABLE_NAME = "games";  
 
@@ -132,7 +134,6 @@ public class GameTable extends Table {
      * @param dateOfBirth is date of birth
      */
     public boolean createGame(String gameName , String genre) {
-        //TODO add genre
         if (gameNameExists(gameName)) {
             return false;
         }
@@ -140,6 +141,7 @@ public class GameTable extends Table {
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
             myPreparedStatement.setString(GAMENAME_COLUMN_INDEX, gameName);
+            myPreparedStatement.setString(GENRE_COLUMN_INDEX, genre);
             myPreparedStatement.executeUpdate();
         }
         catch (SQLException e) {
@@ -192,6 +194,7 @@ public class GameTable extends Table {
             while (myResultSet.next()) {
                 System.out.print(myResultSet.getString(GAMENAME_COLUMN_INDEX) + TABLE_SEPARATOR);
                 System.out.print(myResultSet.getString(GAMEFILEPATH_COLUMN_INDEX) + TABLE_SEPARATOR);
+                System.out.print(myResultSet.getString(GENRE_COLUMN_INDEX) + TABLE_SEPARATOR);
                 System.out.println(myResultSet.getString(GAMEID_COLUMN_INDEX));
             }
         }
@@ -199,10 +202,33 @@ public class GameTable extends Table {
             e.printStackTrace();
         }
     }
-
-    public String getGenre (String gameName) {
-        
-        // TODO Auto-generated method stub
-        return "examplegenre";
+    
+    /**
+     * Given a username, retrieves avatar filepath
+     * @param username is the username
+     */
+    public String getGenre(String gameName) {
+        return retrieveEntry(gameName, GENRE_COLUMN_INDEX);
+    }
+    
+    /**
+     * Given a gamename and a column_index, returns that entire row entry
+     * @param gameName is the gamename
+     * @param columnIndex is the index that we want the information for
+     */
+    public String retrieveEntry(String gameName, int COLUMN_INDEX) {
+        String stm = "SELECT * FROM " +TABLE_NAME + " WHERE " + GAMENAME_COLUMN_FIELD + "='" + gameName + "'";
+        String entry = "";
+        try {
+            myPreparedStatement = myConnection.prepareStatement(stm);
+            myResultSet = myPreparedStatement.executeQuery();
+            if (myResultSet.next()) {
+                entry = myResultSet.getString(COLUMN_INDEX);
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return entry;
     }
 }
