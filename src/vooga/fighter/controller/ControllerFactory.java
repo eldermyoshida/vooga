@@ -17,12 +17,12 @@ import vooga.fighter.view.Canvas;
 
 public class ControllerFactory {
 
-    private static final String ONE_V_ONE = "test";
-    private static final String MAIN_MENU = "MainMenu";
-    private static final String CHARACTER_SELECT = "CharacterSelectMenu";
-    private static final String MAP_SELECT = "MapSelectMenu";
-    private static final String MODE_SELECT = "ModeSelectMenu";
-    private static final String SCORE_CONTROLLER = "GameOver";
+    public static final String ONE_V_ONE = "test";
+    public static final String MAIN_MENU = "MainMenu";
+    public static final String CHARACTER_SELECT = "CharacterSelectMenu";
+    public static final String MAP_SELECT = "MapSelectMenu";
+    public static final String MODE_SELECT = "ModeSelectMenu";
+    public static final String SCORE_CONTROLLER = "GameOver";
 
     private Map<String, Controller> myControllerMap;
     private Canvas myCanvas;

@@ -46,7 +46,7 @@ public class ControllerManager implements ControllerDelegate{
 		switchController(string);
 	}
 
-	private void switchController(String condition) {
+	protected void switchController(String condition) {
 		myCurrentController.stop();
 		myCurrentController = myControllerMap.get(myProgressionManager.getNextController(
 				myCurrentController.getName(), condition));
