@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import vooga.scroller.collision_manager.CollisionManager;
 import vooga.scroller.level_editor.Level;
-import vooga.scroller.sprites.state.State;
 import vooga.scroller.sprites.superclasses.NonStaticEntity;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.Sprite;
@@ -21,25 +20,14 @@ public class SpriteManager {
     private Dimension frameOfReferenceSize;
     private Dimension frameOfActionSize;
     private Level myLevel;
-    private View myView;
-
-    //private List<State> myLevelStates;
-
 
 
     public SpriteManager(Level level, View view){
-        myView = view;
         myLevel = level;
         frameOfActionSize = calcActionFrameSize(view.getSize());
         mySprites = new ArrayList<Sprite>();
-        //        initStates();
         initFrames();
     }
-
-    //    private void initStates () {
-    //        myLevelStates = new ArrayList<State>();
-    //        
-    //    }
 
     private void initFrames () {
         myFrameOfActionSprites = new ArrayList<Sprite>();
@@ -81,19 +69,15 @@ public class SpriteManager {
             if (myPlayer.getHealth() <= 0) {
                 myPlayer.handleDeath();
             }
-
             for (Sprite s : myFrameOfActionSprites) {
                 s.update(elapsedTime, bounds);
                 if (s.getHealth() <= 0) {
                     this.removeSprite(s);
                 }
             }
-
             if (myPlayer.getHealth() <= 0) {
                 myPlayer.handleDeath();
-
             }
-
             intersectingSprites();
         }
     }
@@ -135,16 +119,9 @@ public class SpriteManager {
         frameOfActionSize = calcActionFrameSize(view.getSize());
         if (mySprites.size() > 0) {
             for (Sprite s : mySprites) {
-                if (checkRange(s, frameOfReferenceSize)) {
-                    myFrameOfReferenceSprites.add(s);
-                    myFrameOfActionSprites.add(s);
-                }
-                if (!myFrameOfActionSprites.contains(s) & checkRange(s, frameOfActionSize)) {
-                    myFrameOfActionSprites.add(s);
-                }
+                checkRange(s,frameOfReferenceSize);
             }
         }
-
     }
 
 
@@ -168,18 +145,18 @@ public class SpriteManager {
                 }
             }
         }
-
         mySprites.remove(mySprites.size() - 1);
     }
 
-    private boolean checkRange (Sprite sprite, Dimension frame) {
-        // This is pretty hacky, I am trying to think of a more elegant way
-        if (myPlayer == null ||
-                myLevel.getLeftBoundary(frame) > sprite.getX()
-                || myLevel.getRightBoundary(frame) < sprite.getX()
-                || myLevel.getLowerBoundary(frame) < sprite.getY()
-                || myLevel.getUpperBoundary(frame) > sprite.getY()) { return false; }
-        return true;
+    private void checkRange (Sprite sprite, Dimension frame) {            
+        boolean condition = (myPlayer != null ||
+                myLevel.getLeftBoundary(frame) <= sprite.getX()
+                || myLevel.getRightBoundary(frame) >= sprite.getX()
+                || myLevel.getLowerBoundary(frame) >= sprite.getY()
+                || myLevel.getUpperBoundary(frame) <+ sprite.getY());
+        if(!myFrameOfActionSprites.contains(sprite) && condition) {
+            myFrameOfActionSprites.add(sprite);
+        }       
     }
 
     public void paint (Graphics2D pen) {
@@ -190,6 +167,4 @@ public class SpriteManager {
             myPlayer.paint(pen);
         }
     }
-
-
 }
