@@ -15,11 +15,11 @@ public class MarioAnimationFactory implements AnimationFactory {
       List<AnimationState> res = new ArrayList<AnimationState>();
       // TODO find better way to do this (maybe reflection).
       
-      AnimationState stand = new Stand();
+      //AnimationState stand = new Stand();
       AnimationState right = new RightWalk();
       AnimationState left = new LeftWalk();
-      AnimationState standRight = new RightStand();
-      AnimationState standLeft = new LeftStand();
+      //AnimationState standRight = new RightStand();
+      //AnimationState standLeft = new LeftStand();
       
       //res.add(stand);
       res.add(right);
