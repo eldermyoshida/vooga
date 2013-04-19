@@ -3,118 +3,107 @@ package vooga.towerdefense.gameElements;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.List;
-import vooga.towerdefense.action.AbstractAction;
+import vooga.towerdefense.action.Action;
 import vooga.towerdefense.attributes.AttributeConstants;
 import vooga.towerdefense.attributes.AttributeManager;
-import vooga.towerdefense.attributes.Targetable;
 import vooga.towerdefense.model.Path;
 import vooga.towerdefense.util.Location;
 import vooga.towerdefense.util.Pixmap;
 import vooga.towerdefense.util.Vector;
 
+
 /**
- * used for creating enemy, boss in a tower defense game
  * 
- * @author gouzhen-1
+ * unit e.g. an enemy. It will have a state manager to display different
+ * animations under different situations/ **but for testing purpose now, it's
+ * not added yet!**
+ * 
+ * also, needs to have a move action in its actions in order to move according
+ * to path;
+ * 
+ * @author Matthew Roy
+ * @author Zhen Gou
  * 
  */
-public class Unit extends GameElement implements Targetable {
-	private static final AttributeConstants myAttributeConstants = new AttributeConstants();
-	private static final double DISTANCE_OFFSET = 5;
-	private Path myPath;
-	private Location myDestination;
-	private List<AbstractAction> myActions;
-	private StateManager myStateManager;
+public class Unit extends GameElement {
+    private static final AttributeConstants ATTRIBUTE_CONSTANTS = null;
+    private Path myPath;
+    private Location myCurrentPathNode;
+    /**
+     * @param image
+     * @param center
+     * @param size
+     * @param attributes
+     * @param actions
+     */
+    public Unit (Pixmap image, Location center, Dimension size,
+                 AttributeManager attributes, List<Action> actions) {
+        super(image, center, size, attributes, actions);
+    }
 
-	public Unit(Location destination, Pixmap image, Location center,
-			Dimension size, Vector velocity, AttributeManager attributes,
-			List<AbstractAction> actions) {
-		super(image, center, size, attributes, actions);
-		setVelocity(velocity);
-		myDestination = destination;
+    /**
+     * @param image
+     * @param center
+     * @param size
+     * @param actions
+     */
+    public Unit (Pixmap image, Location center, Dimension size,
+                 List<Action> actions) {
+        super(image, center, size, actions);
+    }
 
-	}
+    /**
+     * @param image
+     * @param center
+     * @param size
+     * @param am
+     */
+    public Unit (Pixmap image, Location center, Dimension size,
+                 AttributeManager am) {
+        super(image, center, size, am);
+    }
 
-	public void updatePath(Location destination) {
-		myDestination = destination;
-
-	}
-
-	@Override
-	public void paint(Graphics2D pen) {
-		myStateManager.updateAndPaint(pen);
-	}
-
-	@Override
-	public void update(double elapsedTime, Dimension bounds) {
-		if (this.hasArrived(myDestination)) {
-			updatePath(myPath.next());
-			this.turnTo(myDestination); // turnTo should be implemented in
-										// Sprite and thus can be
-										// used for both tower and unit
+    /**
+     * this follow path logic has been transferred to a followPath action which will do exactly the same thing
+     */
+    @Deprecated
+    private void changeNode() {
+        if (myPath.hasNext()){
+			myCurrentPathNode=myPath.next();
+			Vector newDirection= getCenter().difference(myCurrentPathNode);
+			//for some reason, this method gives the wrong sign on the angle
+			newDirection = new Vector(-1*newDirection.getDirection(), newDirection.getMagnitude());
+			getAttributeManager().getAttribute(ATTRIBUTE_CONSTANTS.DIRECTION).setValue(newDirection.getDirection());
 		}
-		updateMove(elapsedTime);
-		executeActions(elapsedTime);
-	}
-
-	/**
-	 * move the unit by its velocity
-	 * 
-	 * @param elapsedTime
-	 */
-
-	private void updateMove(double elapsedTime) {
-		Vector toMove = new Vector(getVelocity());
-		toMove.scale(elapsedTime);
-		this.translate(toMove);
-	}
-
-	private void executeActions(double elapsedTime) {
-		for (AbstractAction act : myActions) {
-			act.execute(elapsedTime);
-
+		else{
+			getAttributeManager().getAttribute(ATTRIBUTE_CONSTANTS.MOVE_SPEED).setValue(0);
 		}
-	}
+    }
+    /**
+     * @param image
+     * @param center
+     * @param size
+     */
+    public Unit (Pixmap image, Location center, Dimension size) {
+        super(image, center, size);
+    }
 
-	/**
-	 * check whether this unit has arrived at the location specified (within
-	 * some radius of the location)
-	 * 
-	 * @param destination
-	 * @return
-	 */
-	private boolean hasArrived(Location destination) {
-		return destination.distance(getCenter()) < DISTANCE_OFFSET;
+    @Override
+    public void update (double elapsedTime) {
+        executeActions(elapsedTime);
+       
 
-	}
+    }
+    @Override
+    public void paint(Graphics2D pen){
+    	super.paint(pen);
+    	getAttributeManager().getAttribute(AttributeConstants.MOVE_SPEED).paint(pen, getCenter(),new Dimension((int)getWidth(),(int)getHeight()));
+    	
+    }
 
-	public void setPath(Path path) {
-		myPath = path;
-	}
-
-	/**
-	 * for model/menu to get info about this unit e.g. descriptions to show to
-	 * the player
-	 * 
-	 * @return
-	 */
-	public String getInfo() {
-		return "TO-DO"; // temporarily using String, maybe need a info class to
-						// handle more
-						// complicated task
-	}
-
-	@Override
-	public void takeDamage(double attack) {
-		getAttributeManager().getAttribute(myAttributeConstants.HEALTH)
-				.decrement(attack);
-
-	}
-
-	@Override
-	public boolean isAlive() {
-		return getAttributeManager().getAttribute(myAttributeConstants.HEALTH)
-				.getValue() > 0;
-	}
-
+    private void executeActions (double elapsedTime) {
+        for (Action act : getActions()) {
+            act.executeAction(elapsedTime);
+        }
+    }
 }

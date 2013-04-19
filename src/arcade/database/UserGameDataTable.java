@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 /**
  * Creates and updates game table
+ * this clearly needs to be refactored because there is duplicate code
  * @author Natalia Carvalho
  */
 public class UserGameDataTable extends Table {
@@ -152,5 +153,11 @@ public class UserGameDataTable extends Table {
         catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public double getAverageRating (String gameName) {
+        // TODO Auto-generated method stub
+        return 0;
+        
     }
 }
