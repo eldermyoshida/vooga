@@ -20,8 +20,8 @@ import vooga.towerdefense.util.Sprite;
  */
 public class GameElement extends Sprite {
 
-    protected AttributeManager myAttributeManager;
-    protected List<Action> myActions;
+    private AttributeManager myAttributeManager;
+    private List<Action> myActions;
 
     public GameElement (Pixmap image,
                         Location center,

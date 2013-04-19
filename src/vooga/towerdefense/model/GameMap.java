@@ -10,6 +10,8 @@ import java.util.Comparator;
 import java.util.List;
 
 import vooga.rts.util.Vector;
+import vooga.towerdefense.factories.ExampleUnitFactory;
+import vooga.towerdefense.factories.TrollUnitDefinition;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.gameElements.Unit;
 import vooga.towerdefense.util.Location;
@@ -49,11 +51,11 @@ public class GameMap {
         initializeGrid();
         myPathfinder = new Pathfinder(myGrid);
         
-        //ExampleUnitFactory myTrollFactory = new ExampleUnitFactory("Troll", new TrollUnitDefinition());
-        //GameElement troll1 = myTrollFactory.createUnit(new Location(500, 500), new TrollUnitDefinition());
-        //GameElement troll2 = myTrollFactory.createUnit(new Location(350, 250), new TrollUnitDefinition());
-        //addGameElement(troll1);
-        //addGameElement(troll2);
+        ExampleUnitFactory myTrollFactory = new ExampleUnitFactory("Troll", new TrollUnitDefinition());
+        GameElement troll1 = myTrollFactory.createUnit(new Location(500, 500), new TrollUnitDefinition());
+        GameElement troll2 = myTrollFactory.createUnit(new Location(350, 250), new TrollUnitDefinition());
+        addGameElement(troll1);
+        addGameElement(troll2);
     }
 
     /**
