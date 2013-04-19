@@ -16,6 +16,7 @@ import arcade.games.ArcadeInteraction;
 import arcade.games.Game;
 import arcade.games.UserGameData;
 import util.Pixmap;
+import vooga.fighter.model.loaders.MapLoader;
 import vooga.fighter.util.Text;
 import vooga.fighter.view.Canvas;
 import vooga.fighter.controller.ControllerManager;
@@ -39,11 +40,13 @@ public static final Dimension SIZE = new Dimension(800, 600);
 
     public GameManager() {
         myCanvas = new Canvas(SIZE); 
-        List<Integer> myTwoCharacters = new ArrayList<Integer>();
-        myTwoCharacters.add(1);
-        myTwoCharacters.add(2);
-        myGameInfo = new GameInfo(myTwoCharacters, 1);
-        myControllerManager = new ControllerManager(myCanvas, myGameInfo);
+        myGameInfo = new GameInfo(new MapLoader().getMapNames());
+        myGameInfo.addCharacters("1");
+        myGameInfo.addCharacters("2");
+        myGameInfo.setMapName("1");
+        ControllerFactory factory = makeFactory(myCanvas);
+        ControlProgressionManager progressionmanager = new ControlProgressionManager(myGameInfo);
+        myControllerManager = new ControllerManager(myCanvas, myGameInfo, factory, progressionmanager);
         JFrame frame = new JFrame(TITLE);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // add our user interface components
@@ -75,6 +78,9 @@ public static final Dimension SIZE = new Dimension(800, 600);
 		 myControllerManager.run();
 	    }
 	 
+	 public ControllerFactory makeFactory(Canvas canvas){
+		 return new ControllerFactory(canvas);
+	 }
 
 	 public UserGameData generateNewProfile(){
 		return myGameInfo;

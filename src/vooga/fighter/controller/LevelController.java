@@ -14,6 +14,9 @@ import util.input.*;
 import vooga.fighter.model.LevelMode;
 import vooga.fighter.model.Mode;
 import vooga.fighter.model.objects.CharacterObject;
+import vooga.fighter.model.LevelMode;
+import vooga.fighter.model.Mode;
+import vooga.fighter.model.objects.CharacterObject;
 import vooga.fighter.util.Paintable;
 import vooga.fighter.view.Canvas;
 
@@ -27,49 +30,33 @@ import vooga.fighter.view.Canvas;
  */
 @InputClassTarget
 
-public class LevelController extends Controller {
+public abstract class LevelController extends Controller {
     private static final String INPUT_PATHWAY = "vooga.fighter.config.leveldefault";
     private List<CharacterObject> myInputObjects;
 
     public LevelController (String name, Canvas frame) {
         super(name, frame);
     }
-	
+
     public LevelController(String name, Canvas frame, ControllerDelegate manager, 
-    		GameInfo gameinfo) {
-    	super(name, frame, manager, gameinfo);
-    	//frame.setViewDataSource(this);
-    	loadMode();
-    	GameLoopInfo gameLoopInfo = new GameLoopInfo((LevelMode) super.getMode());
-    	setGameLoopInfo(gameLoopInfo);
-    	frame.setViewDataSource(gameLoopInfo);
-    	
+                GameInfo gameinfo) {
+        super(name, frame, manager, gameinfo);
+        setInput(manager.getInput());
+        getInput().addListenerTo(this);
+
+        DisplayLoopInfo gameLoopInfo = new GameLoopInfo((LevelMode) getMode());
+        setLoopInfo(gameLoopInfo);
     }
 
     
     public void loadMode() {
-        List<Integer> characterNames = myGameInfo.getCharacters();
-        int mapID = myGameInfo.getMapName();
-        Mode temp = new LevelMode(this, characterNames, mapID);
+        List<String> characterNames = getGameInfo().getCharacters();
+        String mapID = getGameInfo().getMapName();
+        LevelMode temp = new LevelMode(this, characterNames, mapID);
         setMode(temp);
         myInputObjects = temp.getMyCharacterObjects();
     }
-
-
-
-    @Override
-    public Controller getController (ControllerDelegate delegate, GameInfo gameinfo) {
-        return new LevelController(super.getName(), super.getView(),
-                                   delegate, gameinfo);
-    }
-
-    @Override
-    protected Input makeInput () {
-        Input input = new Input(INPUT_PATHWAY, super.getView());
-        input.addListenerTo(this);
-    	return input;
-    }
-    
+   
     @InputMethodTarget(name = "player1_jump")
     public void playerOneJumpInput (AlertObject alObj)  {
         myInputObjects.get(0).move(270);
@@ -115,25 +102,14 @@ public class LevelController extends Controller {
         myInputObjects.get(1).move(90);
         
     }
-    @Override
-    public void notifyEndCondition () {
-        System.out.println("level controller notify end is working");
-        myGameInfo.setMapName(2);
-        myGameInfo.getCharacters().clear();
-        myManager.notifyEndCondition("GameOver");
-        
-    }
-
-	@Override
-	public void notifyEndCondition(String endCondition) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void notifyEndCondition(int endCondition) {
-		// TODO Auto-generated method stub
-		
-	}
     
+    @InputMethodTarget(name = "player2_attack")
+    public void playerTwoAttackInput(AlertObject alObj) {
+        //test attacks here
+    }
+    
+    @InputMethodTarget(name = "player2_attack")
+    public void playerTwoAttacknput(AlertObject alObj) {
+        //test attacks here
+    }
 }

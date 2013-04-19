@@ -50,7 +50,7 @@ public abstract class ObjectLoader {
 	 * Loads object based on the id given
 	 * @param id
 	 */
-	public abstract void load(int id);
+	public abstract void load(String Name);
 	
 	/**
 	 * Returns the xml document which the loader points to
@@ -93,18 +93,30 @@ public abstract class ObjectLoader {
 			String stateName = getAttributeValue(stateNodes.item(i), "stateName");
 			NodeList frameNodes = state.getElementsByTagName("frame");
 			State newState = new State(myObject, frameNodes.getLength());
-			for (int j = 0; j < frameNodes.getLength(); j++) {
-				newState.populateImage(new Pixmap(getAttributeValue(frameNodes.item(j), "image")), j);
-				Element frame = (Element) frameNodes.item(j);
-				Node hitboxNode = frame.getElementsByTagName("hitbox").item(0);
-				
-				newState.populateRectangle(new Rectangle(Integer.parseInt(getAttributeValue(hitboxNode, "cornerX")),
-						Integer.parseInt(getAttributeValue(hitboxNode, "cornerY")), Integer.parseInt(getAttributeValue(hitboxNode, "rectX")),
-						Integer.parseInt(getAttributeValue(hitboxNode, "rectY"))), j);
-				newState.populateSize(new Dimension(Integer.parseInt(getAttributeValue(hitboxNode, "rectX")),
-						Integer.parseInt(getAttributeValue(hitboxNode, "rectY"))), j);
-			}
+			getImageAndHitboxProperties(frameNodes, newState);
 			myObject.addState(stateName, newState);
+			}
+			
+	}
+	
+	/**
+	 * Loads frames and states for the objects 
+	 */
+	protected void getImageAndHitboxProperties(NodeList frameNodes, State newState){
+		for (int j = 0; j < frameNodes.getLength(); j++) {
+			if (frameNodes.item(j).getAttributes().getNamedItem("image") != null) {
+				newState.populateImage(new Pixmap(getAttributeValue(frameNodes.item(j), "image")), j);
+			}
+			Element frame = (Element) frameNodes.item(j);
+			NodeList hitboxNodes = frame.getElementsByTagName("hitbox"); 
+			for (int k=0; k<hitboxNodes.getLength(); k++){
+				newState.populateRectangle(new Rectangle(Integer.parseInt(getAttributeValue(hitboxNodes.item(k), "cornerX")),
+					Integer.parseInt(getAttributeValue(hitboxNodes.item(k), "cornerY")), Integer.parseInt(getAttributeValue(hitboxNodes.item(k), "rectX")),
+					Integer.parseInt(getAttributeValue(hitboxNodes.item(k), "rectY"))), j);
+				newState.populateSize(new Dimension(Integer.parseInt(getAttributeValue(hitboxNodes.item(k), "rectX")),
+					Integer.parseInt(getAttributeValue(hitboxNodes.item(k), "rectY"))), j);
+			}
 		}
 	}
 }
+

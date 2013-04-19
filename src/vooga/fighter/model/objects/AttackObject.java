@@ -110,5 +110,33 @@ public class AttackObject extends GameObject{
     public boolean shouldBeRemoved() {
         return !myCounter.hasCountRemaining();
     }
+    
+    /**
+     * Dispatches a colliding object to allow for proper collision handling. 
+     */
+    public void dispatchCollision(GameObject other) {
+        other.handleCollision(this);
+    }
+    
+    /**
+     * Collision with another CharacterObject.
+     */
+    public void handleCollision(CharacterObject other) {
+        System.out.println("AttackObject handleCollision : Attack collided with character");
+    }
+    
+    /**
+     * Collision with an AttackObject.
+     */
+    public void handleCollision(AttackObject other) {
+        System.out.println("AttackObject handleCollision : Attack collided with attack");
+    }
+    
+    /**
+     * Collision with an EnvironmentObject.
+     */
+    public void handleCollision(EnvironmentObject other) {
+        System.out.println("AttackObject handleCollision : Attack collided with environment");
+    }
 
 }

@@ -42,13 +42,13 @@
         </state>
         <attack attackName="weakPunch" damage="5">
             <frame>
-                <attackbox cornerX="35" cornerY="14" rectX="10" rectY="10"/>
+                <hitbox cornerX="35" cornerY="14" rectX="10" rectY="10"/>
             </frame>
             <frame>
-                <attackbox cornerX="35" cornerY="14" rectX="26" rectY="10"/>
+                <hitbox cornerX="35" cornerY="14" rectX="26" rectY="10"/>
             </frame>
             <frame>
-                <attackbox cornerX="35" cornerY="14" rectX="10" rectY="10"/>
+                <hitbox cornerX="35" cornerY="14" rectX="10" rectY="10"/>
             </frame>
         </attack>
     </character>
@@ -93,14 +93,14 @@
             </frame>
         </state>
         <attack attackName="weakPunch" damage="5">
-            <frame>
-                <attackbox cornerX="35" cornerY="14" rectX="10" rectY="10"/>
+            <frame image="fighter/images/ken_punch1.png">
+                <hitbox cornerX="35" cornerY="14" rectX="10" rectY="10"/>
             </frame>
             <frame>
-                <attackbox cornerX="35" cornerY="14" rectX="26" rectY="10"/>
+                <hitbox cornerX="35" cornerY="14" rectX="26" rectY="10"/>
             </frame>
             <frame>
-                <attackbox cornerX="35" cornerY="14" rectX="10" rectY="10"/>
+                <hitbox cornerX="35" cornerY="14" rectX="10" rectY="10"/>
             </frame>
         </attack>
     </character>
