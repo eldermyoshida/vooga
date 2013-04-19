@@ -100,7 +100,12 @@ public class Model implements ArcadeInteraction {
                                       String firstname,
                                       String lastname,
                                       String dataOfBirth) {
-        myDb.createUser(username, pw, firstname, lastname, dataOfBirth);
+        if(myDb.createUser(username, pw, firstname, lastname, dataOfBirth)){
+            new LoginView(this , myResources);
+        }
+
+        
+        
     }
 
     public void createNewUserProfile (String username,
@@ -109,7 +114,7 @@ public class Model implements ArcadeInteraction {
                                       String lastname,
                                       String dataOfBirth,
                                       String filepath) {
-        myDb.createUser(username, pw, firstname, lastname, dataOfBirth, filepath);
+       System.out.println(myDb.createUser(username, pw, firstname, lastname, dataOfBirth, filepath));
         authenticate(username, pw);
     }
 
