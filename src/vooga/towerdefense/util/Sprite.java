@@ -63,7 +63,7 @@ public abstract class Sprite {
     public void update (double elapsedTime, Dimension bounds) {
         // do not change original velocity
         Vector v = new Vector(myVelocity);
-        v.scale(elapsedTime);
+        //v.scale(elapsedTime);
         //translate(v);
     }
 

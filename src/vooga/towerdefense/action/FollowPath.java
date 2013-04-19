@@ -11,11 +11,17 @@ public class FollowPath extends Action {
 	private static final double DISTANCE_OFFSET = 5;
 	private Path myPath;
 	private Location myCurrentPathNode;
-	
+
 	public FollowPath(GameElement initiator, Path path) {
 		super(initiator);
 		myPath = path;
 		changeNode();
+	}
+
+	@Override
+	public void update(double elapsedTime) {
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
@@ -25,7 +31,7 @@ public class FollowPath extends Action {
 			changeNode();
 		}
 	}
-	
+
 	/**
 	 * movement logic, if path has next, change movement direction towards next
 	 * node, if not, stop moving
@@ -33,19 +39,21 @@ public class FollowPath extends Action {
 	private void changeNode() {
 		if (myPath.hasNext()) {
 			myCurrentPathNode = myPath.next();
-			Vector newDirection = myInitiator.getCenter().difference(myCurrentPathNode);
-			
+			Vector newDirection = myInitiator.getCenter().difference(
+					myCurrentPathNode);
+
 			// for some reason, this method gives the wrong sign on the angle
 			newDirection = new Vector(-1 * newDirection.getDirection(),
 					newDirection.getMagnitude());
 
-			myInitiator.getAttributeManager().getAttribute(AttributeConstants.DIRECTION)
+			myInitiator.getAttributeManager()
+					.getAttribute(AttributeConstants.DIRECTION)
 					.setValue(newDirection.getDirection());
 		}
 
 		else {
-			myInitiator.getAttributeManager().getAttribute(AttributeConstants.MOVE_SPEED)
-					.setValue(0);
+			myInitiator.getAttributeManager()
+					.getAttribute(AttributeConstants.MOVE_SPEED).setValue(0);
 		}
 
 	}

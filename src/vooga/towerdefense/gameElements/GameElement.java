@@ -57,9 +57,8 @@ public class GameElement extends Sprite {
 
     public void update (double elapsedTime) {
           for (Action a : myActions) {
-              a.executeAction(elapsedTime);
-          }
-         
+              a.update(elapsedTime);
+          }        
     }
     
     public void addActions(List<Action> actions) {

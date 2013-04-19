@@ -66,5 +66,11 @@ public class TargetedAction extends Action {
 		
 	}
 
+	@Override
+	public void update(double elapsedTime) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

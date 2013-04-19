@@ -1,9 +1,12 @@
 package vooga.towerdefense.model;
 
 import java.awt.Dimension;
+import java.awt.List;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import vooga.towerdefense.action.Action;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.gameElements.Tower;
 import vooga.towerdefense.util.Location;
@@ -34,10 +37,11 @@ public class Shop {
     // TODO this is just a place holder! Creation of items need to be read in from a file
     private void initShopItems () {
         Pixmap myImage = new Pixmap("tower.gif");
+        ArrayList<Action> myList = new ArrayList<Action>();
         Tower tower1 =
-                new Tower(myImage, new Location(30, 30), new Dimension(50, 50), null, null);
+                new Tower(myImage, new Location(30, 30), new Dimension(50, 50), null, myList);
         Tower tower2 =
-                new Tower(myImage, new Location(30, 30), new Dimension(50, 50), null, null);
+                new Tower(myImage, new Location(30, 30), new Dimension(50, 50), null, myList);
         addShopItem("tower1", tower1);
         addShopItem("tower2", tower2);
     }

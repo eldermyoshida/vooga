@@ -70,8 +70,8 @@ public class Controller {
 
 		GameMap map = new GameMap(null, 800, 600, null);
 		waves.add(WaveFactory.createWave(new ExampleUnitFactory("Troll",
-				new TrollUnitDefinition(), map), 1, map, map
-				.getTile(new Point(0, 0))));
+				new TrollUnitDefinition(), map), 25, map, map
+				.getTile(new Point(25, 275))));
 
 		setLanguage(language);
 		myModel = new GameModel(this, waves, map, new Shop());

@@ -31,10 +31,16 @@ public class Move extends Action {
         getInitiator().setVelocity(myDirection.getValue(), myMovespeed.getValue());
         Vector v = getInitiator().getVelocity();
         v.scale(elapsedTime / 1000);
-        //System.out.print("moved from " + getInitiator().getCenter() + " ");
+        //System.out.print(myMovespeed.getValue() + " " + elapsedTime + " ");
+        //System.out.println("translating by " + v.getMagnitude());
         getInitiator().translate(v);
-        //System.out.println("to " + getInitiator().getCenter());
     }
+
+	@Override
+	public void update(double elapsedTime) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
 

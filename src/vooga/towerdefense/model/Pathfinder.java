@@ -38,25 +38,42 @@ public class Pathfinder {
 		}
 	}
 
-	public Path getShortestPath(int x1, int y1, int x2, int y2, Location finish) {
+	public Path getShortestPath(int x1, int y1, int x2, int y2) {
 
-//TODO: implement dijkrstra's algoritm to make smart pathfinding
-//		int[][] dist = new int[myGrid.length][myGrid[0].length];
-//
-//		PriorityQueue<ArrayIndex> Q = new PriorityQueue<ArrayIndex>();
-//
-//		for (int i = 0; i < myGrid.length; i++)
-//			for (int j = 0; j < myGrid[0].length; j++) {
-//				ArrayIndex a = new ArrayIndex(i, j, Integer.MAX_VALUE);
-//				Q.add(a);
-//			}
-		
+		// TODO: implement dijkrstra's algoritm to make smart pathfinding
+		// int[][] dist = new int[myGrid.length][myGrid[0].length];
+		//
+		// PriorityQueue<ArrayIndex> Q = new PriorityQueue<ArrayIndex>();
+		//
+		// for (int i = 0; i < myGrid.length; i++)
+		// for (int j = 0; j < myGrid[0].length; j++) {
+		// ArrayIndex a = new ArrayIndex(i, j, Integer.MAX_VALUE);
+		// Q.add(a);
+		// }
+
 		List<Location> locations = new ArrayList<Location>();
-		locations.add(new Location(100, 0));
-		locations.add(new Location(100, 200));
-		locations.add(new Location(400, 200));
-		locations.add(finish);
-		
+
+		locations.add(new Location(25, 275));
+		locations.add(new Location(175, 275));
+		if (Math.random() > .5) {
+			locations.add(new Location(175, 125));
+			locations.add(new Location(375, 125));
+		} else {
+			locations.add(new Location(175, 425));
+			locations.add(new Location(375, 425));
+		}
+		locations.add(new Location(375, 275));
+		locations.add(new Location(575, 275));
+		if (Math.random() > .5) {
+			locations.add(new Location(575, 175));
+			locations.add(new Location(675, 175));
+		} else {
+			locations.add(new Location(575, 375));
+			locations.add(new Location(675, 375));
+		}
+		locations.add(new Location(675, 275));
+		locations.add(new Location(775, 275));
+
 		return new Path(locations);
 
 	}

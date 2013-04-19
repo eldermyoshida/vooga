@@ -22,10 +22,12 @@ import vooga.towerdefense.factories.ProjectileFactory;
 public class AttributeManager {
     private HashMap<String,Attribute> myAttributes;
     private HashMap<String,GameElementFactory> myFactories;
+    private ProjectileFactory myProjectileFactory;
 
     public AttributeManager () {
         myAttributes = new HashMap<String,Attribute>();
         myFactories = new HashMap<String, GameElementFactory>();
+//        myProjectileFactory=new ProjectileFactory();
     }
     
     /**
@@ -101,8 +103,12 @@ public class AttributeManager {
     	
     }
 
-    public HashMap<String, GameElementFactory> getFactories(){
-    	return myFactories;
+    public GameElementFactory getGameElementFactories(String name){
+    	return myFactories.get(name);
+    }
+    
+    public ProjectileFactory getProjectileFactory(){
+    	return myProjectileFactory;
     }
 
 
