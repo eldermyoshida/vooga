@@ -52,6 +52,8 @@ public class GameCenterPanel extends JPanel {
 
     /**
      * Create the JList for games.
+     * Fixed so that it tiles dynamically as games are added instead of repeating instances of games
+     * @author Josh Waldman
      */
     private void createGameJList () {
             for (GameInfo info : myUpperLevel.getGameList()) {
