@@ -1,12 +1,11 @@
-package vooga.rts;
 
+package vooga.rts;
 import java.io.FileNotFoundException;
 import vooga.rts.controller.MainController;
 import vooga.rts.resourcemanager.ImageLoader;
 import vooga.rts.resourcemanager.ResourceManager;
 import vooga.rts.resourcemanager.SoundLoader;
 import vooga.rts.resourcemanager.exceptions.FileNotSupportedException;
-import vooga.rts.util.Camera;
 
 
 public class StartGUI {
