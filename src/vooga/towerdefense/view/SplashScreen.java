@@ -1,6 +1,5 @@
 package vooga.towerdefense.view;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import javax.swing.ImageIcon;
@@ -13,7 +12,7 @@ public class SplashScreen extends JPanel {
     private static final long serialVersionUID = 1L;
     private java.awt.Image myBackgroundImage;
 
-    public SplashScreen (Dimension size, TDView view) {
+    public SplashScreen (Dimension size) {
         setPreferredSize(size);
         myBackgroundImage =
                 new ImageIcon(getClass().getResource(RESOURCE + "splashscreen.gif")).getImage();
