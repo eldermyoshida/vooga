@@ -4,6 +4,9 @@ import java.applet.AudioClip;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Observer;
 import vooga.rts.controller.Command;
@@ -20,12 +23,14 @@ import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Unit;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Worker;
 import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;
 import vooga.rts.map.GameMap;
-import vooga.rts.player.HumanPlayer;
 import vooga.rts.resourcemanager.ResourceManager;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
+import vooga.rts.player.HumanPlayer;
+import vooga.rts.player.Player;
 import vooga.rts.player.Team;
+
 
 //TODO: implement the game state with all unit managers that there needs to be. Muy importante.
 //TODO: think of how decisions are going to be made with the controllers.
@@ -35,15 +40,16 @@ public class GameState extends SubState implements Controller {
     private final static int DEFAULT_NODE_SIZE = 8;
     private Map<Integer, Team> myTeams;
     private GameMap myMap;
-    private PlayerController myPlayer;
+    private HumanPlayer myHumanPlayer;
+    private List<Player> myPlayers;
     private Resource r;
     private Building building;
     private UpgradeBuilding upgradeBuilding;
     
     public GameState (Observer observer, Dimension gameSize) {
         super(observer);
-        myTeams = new HashMap<Interger, Team>();
-        myPlayers = new ArrayList<HumanPlayer>();
+        myTeams = new HashMap<Integer, Team>();
+        myPlayers = new ArrayList<Player>();
         myMap = new GameMap(8, new Dimension(512, 512));
         pt = new PointTester();
         try {
@@ -72,7 +78,7 @@ public class GameState extends SubState implements Controller {
     
     @Override
     public void sendCommand (Command command) {
-        myPlayer.receiveCommand(command);
+        myHumanPlayer.sendCommand (command);
     }
     
     private void setupGame () {
@@ -150,6 +156,14 @@ public class GameState extends SubState implements Controller {
         }
 
     }
-
+    
+    public void addPlayer (int id) {
+        if (myPlayers.size() == 0) {
+           myHumanPlayer = new HumanPlayer(id);
+           myPlayers.add(myHumanPlayer);
+        }
+        else {
+            myPlayers.add(new Player(id));
+        }
     
 }

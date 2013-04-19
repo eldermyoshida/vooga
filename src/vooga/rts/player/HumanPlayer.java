@@ -1,8 +1,10 @@
-package vooga.rts.controller;
+package vooga.rts.player;
 
 import java.util.Map;
-import vooga.rts.manager.Manager;
-import vooga.rts.state.State;
+import vooga.rts.controller.Command;
+import vooga.rts.controller.Controllable;
+import vooga.rts.controller.Controller;
+
 
 /**
  * The Player needs to do make the following decisions:
@@ -18,12 +20,15 @@ import vooga.rts.state.State;
  * @author Challen Herzberg-Brovold
  *
  */
-public class Player implements Controller {
+public class HumanPlayer extends Player implements Controller {
     
-    private int myId;
-    
-    public Player (int id) {
-        myId = id;
+
+    private Map<String, Controllable> myInputMap; // Maps the command to the appropriate controllable
+
+    public HumanPlayer (int id) {
+        super(id);
+        // method which adds all the inputs from controllables to them.
+        // Maybe look for design pattern that can implement filtering the inputs
     }
     
     @Override
@@ -33,11 +38,10 @@ public class Player implements Controller {
  
     /**
      * 
-     * @param manager
      * @param command
      */
-    public void getInfo (Controllable manager, Command command) { 
+    public void getInfo (Command command) { 
         //At some point, will pass in list of controllables, and actually have to sort the command
-        manager.receiveCommand(command);
+        getManager().receiveCommand(command);
     }
 }
