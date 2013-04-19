@@ -8,8 +8,9 @@ import vooga.towerdefense.util.Pixmap;
 import vooga.towerdefense.util.Sprite;
 
 public class Tile extends Sprite {
+    public static final int TILE_SIZE = 50;
     public static final Pixmap TILE_IMAGE = new Pixmap("map/grass_tile.png");
-    public static final Dimension TILE_DIMENSIONS = new Dimension(52, 52);
+    public static final Dimension TILE_DIMENSIONS = new Dimension(TILE_SIZE, TILE_SIZE);
     
     private Point myCenter;
     private GameElement myElement;
