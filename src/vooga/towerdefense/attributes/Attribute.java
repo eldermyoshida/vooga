@@ -1,5 +1,7 @@
 package vooga.towerdefense.attributes;
 
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 
 import vooga.towerdefense.util.Location;
@@ -7,18 +9,20 @@ import vooga.towerdefense.util.Location;
 /**
  * Shell of an attribute class, allows for tracking and modification.
  * 
- * @author Xu Rui
  * @author Matthew Roy
+ * @author XuRui
+ * @author Zhen Gou
  * 
  */
-public abstract class Attribute {
+public class Attribute {
     private String myName;
     private double myOriginalValue;
     private double myCurrentValue;
 
     public Attribute (String attributeName, Double attributeValue) {
         myName = attributeName;
-        myCurrentValue = attributeValue;
+        myOriginalValue=attributeValue;
+        myCurrentValue = myOriginalValue;
     }
     
     /**
@@ -100,8 +104,10 @@ public abstract class Attribute {
 	/**
 	 * paints a bar representing this stat
 	 */
-	public void paint (Graphics2D pen, Location where) {
-		// paints a bar representing this stat
+	public void paint (Graphics2D pen, Location where, Dimension size) {
+		pen.setColor(Color.green);
+		//THIS IS VERY SPECIFIC FOR TESTING, WE WILL FIGURE OUT BETTER WAY TO FIT THE BAR
+		pen.fillRect((int)where.getX(), (int)where.getY()-size.height/2, (int)(size.getWidth()/2.5), (int)size.getHeight()/10);
 	}
 
 	/**
@@ -111,6 +117,14 @@ public abstract class Attribute {
 	 */
 	public boolean isChanged () {
 		return myOriginalValue != myCurrentValue;
+	}
+	/**
+	 * reset current value to original value;
+	 */
+
+	public void reset() {
+		myCurrentValue=myOriginalValue;
+		
 	}
 	
 

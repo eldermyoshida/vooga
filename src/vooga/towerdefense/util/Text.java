@@ -1,6 +1,4 @@
-
 package vooga.towerdefense.util;
-
 
 import java.awt.Color;
 import java.awt.Font;
@@ -24,7 +22,6 @@ public class Text {
     // underlying implementation
     private String myText;
     private Font myFont;
-
 
     /**
      * Construct a shape at the given position, with the given velocity,

@@ -21,18 +21,32 @@ import vooga.towerdefense.util.Pixmap;
  */
 public class MapScreen extends JPanel {
 
+    /**
+     * default serialized id.
+     */
     private static final long serialVersionUID = 1L;
-    private static final String RESOURCE = "/vooga/towerdefense/images/";
+    /**
+     * controller to pass information to the back-end.
+     */
     private Controller myController;
+    /**
+     * mouse listener for clicking.
+     */
     private MouseAdapter myMouseAdapter;
+    /**
+     * mouse listener for movement & dragging.
+     */
     private MouseMotionAdapter myMouseMotionAdapter;
+    /**
+     * size of the MapScreen.
+     */
     private Dimension mySize;
-    private Point mouseLocation;
 
     /**
      * Constructor.
      * 
      * @param size
+     * @param controller
      */
     public MapScreen (Dimension size, Controller controller) {
         mySize = size;
@@ -41,14 +55,13 @@ public class MapScreen extends JPanel {
         setVisible(true);
         myController = controller;
         makeMouseAdapters();
-        mouseLocation = new Point(0, 0);
         addMouseListener(myMouseAdapter);
         addMouseMotionListener(myMouseMotionAdapter);
         repaint();
     }
 
     /**
-     * updates the mapscreen appropriately.
+     * updates the MapScreen appropriately.
      */
     public void update () {
         revalidate();
@@ -57,12 +70,14 @@ public class MapScreen extends JPanel {
 
     /**
      * paints the MapScreen component.
+     * 
+     * @param pen is the graphics object
      */
     @Override
     public void paintComponent (Graphics pen) {
         super.paintComponent(pen);
+        // paintGridLines(pen);
         myController.paintMap(pen);
-        paintGridLines(pen);
     }
 
     /**
@@ -72,27 +87,23 @@ public class MapScreen extends JPanel {
      * @param image is the pixmap image to paint
      */
     public void paintGhostImage (Point p, Pixmap image) {
-        getGraphics().drawImage(image.getImage(), p.x, p.y,
-                                image.getImage().getWidth(null),
-                                image.getImage().getWidth(null), null);
-        image.paint((Graphics2D)getGraphics(), (Point2D) p, new Dimension(40, 50));
-        
+        image.paint((Graphics2D) getGraphics(), (Point2D) p, new Dimension(50, 50));
     }
 
-    /**
-     * used for testing to paint a grid.
-     * TODO: remove this method
-     * 
-     * @param pen
-     */
-    public void paintGridLines (Graphics pen) {
-        for (int i = 0; i < mySize.width; i += 25) {
-            pen.drawLine(i, 0, i, mySize.height);
-        }
-        for (int j = 0; j < mySize.height; j += 25) {
-            pen.drawLine(0, j, mySize.width, j);
-        }
-    }
+    // /**
+    // * used for testing to paint a grid.
+    // * TODO: remove this method
+    // *
+    // * @param pen
+    // */
+    // public void paintGridLines (Graphics pen) {
+    // for (int i = 0; i < mySize.width; i += 25) {
+    // pen.drawLine(i, 0, i, mySize.height);
+    // }
+    // for (int j = 0; j < mySize.height; j += 25) {
+    // pen.drawLine(0, j, mySize.width, j);
+    // }
+    // }
 
     /**
      * helper method to create the listener for mouse input.
@@ -108,11 +119,8 @@ public class MapScreen extends JPanel {
         myMouseMotionAdapter = new MouseMotionAdapter() {
             @Override
             public void mouseMoved (MouseEvent e) {
-                // TODO: remove these comments
-                // myController.handleMouseMovement(e.getPoint());
-                // mouseLocation = e.getPoint();
-                // update();
                 myController.handleMapMouseDrag(e.getPoint());
+
             }
         };
     }
