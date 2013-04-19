@@ -35,8 +35,18 @@ public interface IThreadContainer {
      */
     public void leaveLobby (ConnectionThread thread);
 
+    /**
+     * Starts a gameserver if the thread is in a lobby.
+     * @param thread thread that starts it
+     */
     public void startGameServer (ConnectionThread thread);
 
+    /**
+     * Requests information about a set number of lobbies
+     * @param thread sends lobby info to this thread
+     * @param startNumber start number of lobbies
+     * @param endNumber end number of lobbies
+     */
     public void requestLobbies (ConnectionThread thread, int startNumber, int endNumber);
 
 }
