@@ -28,7 +28,9 @@ public class LayerPanel extends JPanel {
         list.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked (MouseEvent e) {
-                //TODO
+                String s = (String) myLayers.getSelectedValue();
+                int n = Integer.parseInt(s.substring(s.length()-1));
+                myCanvas.getMapPanel().setCurrentLayer(n);
             }
         });
        
@@ -36,6 +38,11 @@ public class LayerPanel extends JPanel {
     
     public void addLayer (int layerNum) {
         myLayerVector.add("Layer" + layerNum);
+        myLayers.setListData(myLayerVector);
+    }
+    
+    public void removeLayer (int layerNum) {
+        myLayerVector.remove("Layer" + layerNum);
         myLayers.setListData(myLayerVector);
     }
 

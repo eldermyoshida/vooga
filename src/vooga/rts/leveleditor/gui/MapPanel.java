@@ -225,12 +225,22 @@ public class MapPanel extends JComponent {
         myMode = mode;       
     }
     
+    public void setCurrentLayer(int n) {
+        myCurrentLayer = n;
+        
+    }
+    
     public int getCurrentLayer () {
         return myCurrentLayer;
     }
     
     public void addLayer() {
         myCurrentLayer++;       
+    }
+    
+    public void removeLayer() {
+        myCurrentLayer--;
+        
     }
     
     @InputMethodTarget(name="onLeftMouseDown")
