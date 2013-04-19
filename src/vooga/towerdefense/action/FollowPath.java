@@ -11,9 +11,11 @@ public class FollowPath extends Action {
 	private static final double DISTANCE_OFFSET = 5;
 	private Path myPath;
 	private Location myCurrentPathNode;
-
+	private GameElement myInitiator;
+	
 	public FollowPath(GameElement initiator, Path path) {
-		super(initiator);
+		super();
+		myInitiator = initiator;
 		myPath = path;
 		changeNode();
 	}

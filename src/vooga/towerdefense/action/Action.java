@@ -1,9 +1,6 @@
 
 package vooga.towerdefense.action;
 
-import vooga.towerdefense.event.Event;
-import vooga.towerdefense.gameElements.GameElement;
-
 
 /**
  * An AbstractAction is superclassed to define specific Actions that can be taken by game elements.
@@ -16,30 +13,28 @@ import vooga.towerdefense.gameElements.GameElement;
  */
 
 public abstract class Action {
-    private Event myTriggerEvent;
-    protected GameElement myInitiator;
     private boolean enabled;
     private boolean complete;
 
-    public Action (GameElement initiator) {
-        myInitiator = initiator;
+    public Action () {
     }
 
     public void initAction () {
         enabled = true;
         // initialize resources
     }
-
-    public GameElement getInitiator() {
-        return myInitiator;
-    }
-
-
+    
     /**
-     * executes action
+     * Executes action after update clears the execute condition.
      */
     public abstract void executeAction (double elapseTime);
 
+    /**
+     * Update action status
+     * @param elapsedTime
+     */
+    public abstract void update (double elapsedTime);
+    
     public boolean isComplete () {
         enabled = false;
         return complete;
@@ -57,15 +52,6 @@ public abstract class Action {
     public void setEnabled (boolean isEnabled) {
         enabled = isEnabled;
     }
-
-    // @Override
-    public boolean eventTriggered (Event event) {
-        return (event == myTriggerEvent);
-
-    }
-    
-    // @Override
-    public abstract void update (double elapsedTime);
 }
 
 
