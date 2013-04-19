@@ -1,5 +1,7 @@
 package vooga.towerdefense.attributes;
 
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 
 import vooga.towerdefense.util.Location;
@@ -102,8 +104,10 @@ public class Attribute {
 	/**
 	 * paints a bar representing this stat
 	 */
-	public void paint (Graphics2D pen, Location where) {
-		// paints a bar representing this stat
+	public void paint (Graphics2D pen, Location where, Dimension size) {
+		pen.setColor(Color.green);
+		//THIS IS VERY SPECIFIC FOR TESTING, WE WILL FIGURE OUT BETTER WAY TO FIT THE BAR
+		pen.fillRect((int)where.getX(), (int)where.getY()-size.height/2, (int)(size.getWidth()/2.5), (int)size.getHeight()/10);
 	}
 
 	/**

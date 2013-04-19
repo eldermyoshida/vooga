@@ -1,6 +1,7 @@
 package vooga.towerdefense.gameElements;
 
 import java.awt.Dimension;
+import java.awt.Graphics2D;
 import java.util.List;
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.attributes.AttributeConstants;
@@ -90,7 +91,14 @@ public class Unit extends GameElement {
     @Override
     public void update (double elapsedTime) {
         executeActions(elapsedTime);
+       
 
+    }
+    @Override
+    public void paint(Graphics2D pen){
+    	super.paint(pen);
+    	getAttributeManager().getAttribute(AttributeConstants.MOVE_SPEED).paint(pen, getCenter(),new Dimension((int)getWidth(),(int)getHeight()));
+    	
     }
 
     private void executeActions (double elapsedTime) {

@@ -19,14 +19,13 @@ import vooga.towerdefense.model.GameMap;
  *
  */
 public class AttackAction extends PeriodicAction {
-	private static final AttributeConstants ATTRIBUTE_CONSTANTS = new AttributeConstants();
 	private GameElement myInitiator;
 	private GameMap myMap;
 
 	public AttackAction(GameMap map, GameElement initiator, ProjectileFactory projectileToCreate){
         myMap = map;
         myInitiator=initiator;
-        setCoolDown(initiator.getAttributeManager().getAttribute(ATTRIBUTE_CONSTANTS.ATTACK_INTERVAL).getValue());
+        setCoolDown(initiator.getAttributeManager().getAttribute(AttributeConstants.ATTACK_INTERVAL).getValue());
     }
 	
 
@@ -39,8 +38,8 @@ public class AttackAction extends PeriodicAction {
 			List<GameElement> targets = myMap
 					.getTargetsWithinRadius(
 							myInitiator.getCenter(),
-							myInitiator.getAttributeManager().getAttribute(ATTRIBUTE_CONSTANTS.ATTACK_RADIUS).getValue(),
-							(int)(myInitiator.getAttributeManager().getAttribute(ATTRIBUTE_CONSTANTS.NUM_OF_TARGETS).getValue()));
+							myInitiator.getAttributeManager().getAttribute(AttributeConstants.ATTACK_RADIUS).getValue(),
+							(int)(myInitiator.getAttributeManager().getAttribute(AttributeConstants.NUM_OF_TARGETS).getValue()));
 			
 			//shoot a projectile towards each target
 			
