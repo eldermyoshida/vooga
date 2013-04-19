@@ -21,15 +21,18 @@ public class LevelWriter {
                                               "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()";
     private static final char SPACE = ' ';
     private static final String START_POINT = "StartPoint";
+    private static final String END_POINT = "EndPoint";
     private int myKeyCounter;
     private Map<String, Character> myMap;
     private FileWriter myFileWriter;
     private LEGrid myGrid;
     private Location myStartPoint;
+    private Location myPortal;
 
     public void createFile (File file, LEGrid levelGrid) {
         myGrid = levelGrid;
         myStartPoint = myGrid.removeStartPoint();
+        myPortal = myGrid.removePortal();
         myKeyCounter = 0;
         myMap = new HashMap<String, Character>();
         try {
@@ -43,6 +46,7 @@ public class LevelWriter {
         writeKey();
         writeSettings();
         myGrid.addStartPoint((int) myStartPoint.getX(), (int) myStartPoint.getY());
+        myGrid.addDoor((int) myPortal.getX(), (int) myPortal.getY());
     }
 
     private void writeLevel () {
@@ -96,6 +100,9 @@ public class LevelWriter {
             myFileWriter.write(NEW_LINE);
             myFileWriter.write(START_POINT + EQUALS +
                                (int) myStartPoint.getX() + SPACE + (int) myStartPoint.getY());
+            myFileWriter.write(NEW_LINE);
+            myFileWriter.write(END_POINT + EQUALS +
+                               (int) myPortal.getX() + SPACE + (int) myPortal.getY());
             myFileWriter.close();
         }
         catch (IOException e) {

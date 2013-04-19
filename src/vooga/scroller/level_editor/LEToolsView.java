@@ -1,12 +1,9 @@
 package vooga.scroller.level_editor;
 
-import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Map;
 import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import vooga.scroller.level_editor.commands.CommandConstants;
@@ -33,6 +30,7 @@ public class LEToolsView extends WindowComponent {
     private JPanel mySpriteUI;
     private JPanel myOtherUI;
     private String mySelectedSprite;
+    private String mySelectedSpecialPoint;
     
     public LEToolsView (IView parent, double d, double e) {
         super(parent, d, e);
@@ -44,37 +42,20 @@ public class LEToolsView extends WindowComponent {
         myTabs = new JTabbedPane();
         myTools = (LETools) ((LEWorkspaceView) getResponsible()).getTools();
         mySpriteUI = new JPanel();
-        JPanel spriteButtons = new RadioGroup(new SelectSpriteListener(),
-                                              myTools.getSpriteMakingOptions());
-        mySpriteUI.add(spriteButtons);
-        myOtherUI = new JPanel();
-        JPanel miscButtons = new RadioGroup(new SelectSpriteListener(),
-                                            myTools.getMiscOptions());
-        myOtherUI.add(miscButtons);
-        myOtherUI.add(initBackgroundButtons(myTools.getBackgrounds()),BorderLayout.SOUTH);
+        mySpriteUI.setLayout(new BoxLayout(mySpriteUI, BoxLayout.PAGE_AXIS));
+        for (Map<Object, String> m : myTools.getOptions()) {
+            JPanel spriteButtons = new RadioGroup(new SelectSpriteListener(), m);
+            mySpriteUI.add(spriteButtons);
+        }
         
+        myOtherUI = new JPanel();
+        JPanel otherButtons = new RadioGroup(new SetSpecialPointListener(),
+                                             myTools.getOtherOptions());
+        myOtherUI.add(otherButtons);
         myTabs.add(mySpriteUI, "Sprites");
         myTabs.add(myOtherUI, "Other");
         EasyGridFactory.layout(this, myTabs);
     }
-
-    private JPanel initBackgroundButtons (Map<Object, String> backgrounds) {
-        JPanel backgroundButtons = new JPanel();
-        backgroundButtons.setLayout(new BoxLayout(backgroundButtons,BoxLayout.Y_AXIS));
-        for (Object key : backgrounds.keySet()) {
-            JButton currentButton = new JButton((ImageIcon) key);
-            currentButton.addActionListener(new BackgroundListener(backgrounds.get(key)));
-            backgroundButtons.add(currentButton);
-        }
-        return backgroundButtons;
-    }
-
-    // @Override
-    // protected void initializeVariables () {
-    // // TODO Auto-generated method stub
-    // // this.setSize(120, 300);
-    //
-    // }
 
     @Override
     public void render (Renderable r) {
@@ -90,26 +71,26 @@ public class LEToolsView extends WindowComponent {
         }
 
     }
-
-    private class BackgroundListener implements ActionListener {
-
-        private String myID;
-
-        BackgroundListener (String id) {
-            myID = id;
-        }
+    
+    private class SetSpecialPointListener implements ActionListener {
 
         @Override
         public void actionPerformed (ActionEvent e) {
-            sendBackground(myID);
+            setSpecialPoint(e.getActionCommand());
         }
-
+        
+    }
+    
+    //TODO - decide if it is best to treat doors as sprite
+    private void setSpecialPoint (String type) {
+        mySelectedSpecialPoint = type;
+        mySelectedSprite = type;
     }
 
     private void setSelectedSprite (String spriteID) {
         mySelectedSprite = spriteID;
     }
-
+    
     private void sendBackground (String id) {
         process(CommandConstants.CHANGE_BACKGROUND + CommandConstants.SPACE + id);
     }
@@ -121,7 +102,11 @@ public class LEToolsView extends WindowComponent {
     public int getSelectedTab () {
         return myTabs.getSelectedIndex();
     }
-
+    
+    public String getSelectedSpecialPoint() {
+        return mySelectedSpecialPoint;
+    }
+    
     public void setTools (LETools t) {
         myTools = t;
     }

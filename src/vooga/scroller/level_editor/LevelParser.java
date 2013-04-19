@@ -26,6 +26,8 @@ public class LevelParser {
     private Map<Character, String> myCharacterMap;
     private List<String> myLevelStrings;
     private Location myStartPoint;
+    private static final String END_POINT = "EndPoint";
+    private Location myEndPoint;
     /**
      * Initialize instances variables.
      */
@@ -47,6 +49,7 @@ public class LevelParser {
         parseLevel();
         myCharacterMap = parseKey();
         myStartPoint = parseStartPoint();
+        myEndPoint = parseEndPoint();
         return createGrid();
     }
 
@@ -76,6 +79,14 @@ public class LevelParser {
     private Location parseStartPoint () {
         String line = myScanner.nextLine();
         line = line.substring(START_POINT.length() + 1);
+        String[] splitLine = line.split(String.valueOf(SPACE));
+        return new Location(Integer.parseInt(splitLine[0]),
+                            Integer.parseInt(splitLine[1]));
+    }
+    
+    private Location parseEndPoint () {
+        String line = myScanner.nextLine();
+        line = line.substring(END_POINT.length() + 1);
         String[] splitLine = line.split(String.valueOf(SPACE));
         return new Location(Integer.parseInt(splitLine[0]),
                             Integer.parseInt(splitLine[1]));
@@ -115,6 +126,7 @@ public class LevelParser {
             }
         }
         grid.addStartPoint((int) myStartPoint.getX(), (int) myStartPoint.getY());
+        grid.addDoor((int) myEndPoint.getX(), (int) myEndPoint.getY());
         return grid;
     }
 }

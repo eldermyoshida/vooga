@@ -60,8 +60,11 @@ public class LevelEditor implements ILevelEditor {
 
     @Command
     public void createSprite (int x, int y, int id) {
-        if(id == -1){
+        if(id == START_ID){
             addStartPoint(x,y);
+        }
+        if(id == END_ID) {
+            addDoor(x,y);
         }
         else{
             Sprite sprite = mySpriteMap.get(id);
@@ -79,6 +82,10 @@ public class LevelEditor implements ILevelEditor {
     
     private void addStartPoint (int x, int y) {
         myGrid.addStartPoint(x,y);
+    }
+    
+    private void addDoor (int x, int y) {
+        myGrid.addDoor(x,y);
     }
 
     @Command

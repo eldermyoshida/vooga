@@ -52,9 +52,8 @@ public class LevelFactory {
 
         // TODO: this will ideally read in levels from file and create instances of each level
         // This works for demo
-        Level level1 = buildLevel(1, loadGridFromFile("new.level"));
+        Level level1 = buildLevel(1, loadGridFromFile("simpleLevel.level"));
         hardCodeCompleteL1(level1);
-
         Level level2 = new Level(2, mySM, myView);
         hardcodeLevel2(level2);
         hardCodeCompleteL2(level2);
@@ -75,26 +74,28 @@ public class LevelFactory {
 
     private void hardcodeLevel2 (Level level2) {
         for (int i = 0; i < 20; ++i) {
-            level2.addSprite(new MarioLib.Platform(
-                                                   new Location(50 * i, 160)
-                    ));
+            level2.addSprite(new MarioLib.Platform(new Location(50 * i, 160)));
         }
     }
 
     private void hardCodeCompleteL2 (Level level2) {
         Location level2Start = new Location(100, 140);
-        IDoor level2End = new LevelPortal(new Location(1000, 140));
+        LevelPortal level2End = new LevelPortal(new Location(1000, 140));
         level2.addStartPoint(level2Start);
-        level2.addDoor(level2End);
+        level2.addSprite(level2End);
+        level2.setBackground(new ImageIcon(getClass().getResource(
+                "/vooga/scroller/images/backgrounds/forestbackground.jpg"))
+.getImage());
     }
 
     private void hardCodeCompleteL1 (Level level1) {
-        IDoor level1End = new LevelPortal(new Location(800,500));
-        level1.addDoor(level1End);
+        level1.setBackground(new ImageIcon(getClass().getResource(
+                                           "/vooga/scroller/images/backgrounds/background_small.png"))
+                .getImage());
     }
 
     private LEGrid loadGridFromFile (String filename) {
-        //TODO: Factor this out. make editable.
+        // TODO: Factor this out. make editable.
         String pre = "src/vooga/scroller/level_management/";
         File f = (new File(pre + filename)).getAbsoluteFile();
         LEGrid result = myLevelReader.makeGridFromFile(f);
@@ -153,7 +154,7 @@ public class LevelFactory {
                 ));
         myCurrLevel
                 .setBackground(new ImageIcon(getClass()
-                        .getResource("/vooga/scroller/images/backgrounds/background_small.png"))
+                        .getResource("/vooga/scroller/images/backgrounds/background.png"))
                         .getImage());
 
         myCurrLevel.addSprite(new MarioLib.LevelTwoBlockOne(

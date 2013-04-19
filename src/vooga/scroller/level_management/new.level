@@ -29,6 +29,7 @@ accacaaaab  b  b                                      b   aa
 accacaaaab  b  b  b  b  b  b  b  b  b  b  b  b  b  b  b   aa
 acccccccccccccccccccccccccccccccccccccccccccccccccccccccc aa
 aaaaaab  b  b  b  b  b  b  b  b  b  b  b  b  b  b  b  b  b  
+                                                            
 /key
 c=vooga.scroller.sprites.test_sprites.MarioLib$Coin
 a=vooga.scroller.sprites.test_sprites.MarioLib$Platform
@@ -36,3 +37,4 @@ d=vooga.scroller.sprites.test_sprites.MarioLib$LevelTwoBlockOne
 b=vooga.scroller.sprites.test_sprites.MarioLib$LevelTwoBlockTwo
 /settings
 StartPoint=48 496
+EndPoint=1817 761

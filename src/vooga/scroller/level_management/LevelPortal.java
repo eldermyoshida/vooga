@@ -35,10 +35,6 @@ public class LevelPortal extends Sprite implements ILevelPortal, IDoor {
               DEFAULT_SIZE);
     }
 
-    public void setManager(LevelManager lm) {
-        myLevelManager = lm;
-    }
-
 
     @Override
     public void goToNextLevel (Player player) {      
@@ -63,6 +59,11 @@ public class LevelPortal extends Sprite implements ILevelPortal, IDoor {
     @Override
     public Level getNextLevel () {
         return myNextLevel;
+    }
+
+    @Override
+    public void setManager (LevelManager lm) {
+        myLevelManager = lm;
     }
 
 }
