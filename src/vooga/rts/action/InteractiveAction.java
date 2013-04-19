@@ -1,6 +1,5 @@
-package vooga.rts.gamedesign.action;
+package vooga.rts.action;
 
-import vooga.rts.controller.Command;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 
 public abstract class InteractiveAction implements Action {
@@ -9,8 +8,6 @@ public abstract class InteractiveAction implements Action {
     public InteractiveAction(InteractiveEntity ie) {
         myEntity = ie;
     }
-
-    public abstract void update(Command command);
     
     public InteractiveEntity getEntity() {
         return myEntity;

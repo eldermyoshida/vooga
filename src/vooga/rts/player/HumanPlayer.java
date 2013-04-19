@@ -1,7 +1,7 @@
 package vooga.rts.player;
 
 import java.util.Map;
-import vooga.rts.controller.Command;
+import vooga.rts.commands.Command;
 import vooga.rts.controller.Controllable;
 import vooga.rts.controller.Controller;
 

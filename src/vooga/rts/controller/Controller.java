@@ -1,5 +1,7 @@
 package vooga.rts.controller;
 
+import vooga.rts.commands.Command;
+
 
 /**
  * The controller will be responsible for reading the input, and applying it to 

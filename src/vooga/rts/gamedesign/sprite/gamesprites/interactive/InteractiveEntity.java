@@ -8,13 +8,11 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.List;
-import vooga.rts.controller.Command;
-import vooga.rts.gamedesign.action.Action;
-import vooga.rts.gamedesign.action.InteractiveAction;
+import vooga.rts.commands.Command;
+import vooga.rts.action.Action;
+import vooga.rts.action.IActOn;
 import vooga.rts.gamedesign.sprite.gamesprites.GameEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.IAttackable;
 import vooga.rts.gamedesign.sprite.gamesprites.Projectile;
@@ -39,7 +37,7 @@ import vooga.rts.util.Sound;
  * @author Wenshun Liu
  *
  */
-public abstract class InteractiveEntity extends GameEntity implements IAttackable{
+public abstract class InteractiveEntity extends GameEntity implements IAttackable, IActOn {
 
     private static final int LOCATION_OFFSET = 20;
     private static int DEFAULT_INTERACTIVEENTITY_SPEED = 150;	
@@ -48,7 +46,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     private Sound mySound;
     private AttackStrategy myAttackStrategy;
     private int myArmor;
-    private Map<String, InteractiveAction> myActions;
+    private Map<String,Action> myActions;
 
     /**
      * Creates a new interactive entity.
@@ -64,24 +62,20 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
         //myMakers = new HashMap<String, Factory>(); //WHERE SHOULD THIS GO?
         mySound = sound;
         myAttackStrategy = new CannotAttack();
-        myActions = new HashMap<String, InteractiveAction>();
+        myActions = new HashMap<String, Action>();
         isSelected = false;
 
     }
 
     public abstract void addActions(); 
     
-    public void updateAction(Command command) {
-        for (String s: myActions.keySet()) {
-            System.out.println(s);
-            System.out.println(command.getMethodName());
-        }     
+    @Override
+    public void updateAction(Command command) {    
         if (myActions.containsKey(command.getMethodName())) {
-            InteractiveAction current = myActions.get(command.getMethodName());
+            Action current = myActions.get(command.getMethodName());
             current.update(command);
             current.apply();
-        }
-        
+        }        
     }
 
     /*
@@ -130,8 +124,8 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
         isSelected = selected;
     }
 
-    public Map<String, InteractiveAction> getActions() { // Might just use a putter method here instead
-        return myActions;
+    public void put (String name, Action action) { // Might just use a putter method here instead
+        myActions.put(name, action);
     }
     /**
      * This method specifies that the interactive entity is attacking an 

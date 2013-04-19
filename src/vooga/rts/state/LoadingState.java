@@ -7,7 +7,7 @@ import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.Observer;
-import vooga.rts.controller.Command;
+import vooga.rts.commands.Command;
 import vooga.rts.resourcemanager.ResourceManager;
 
 public class LoadingState extends SubState {
@@ -46,7 +46,6 @@ public class LoadingState extends SubState {
     
     @Override
     public void receiveCommand (Command command) {
-        System.out.println(command.getMethodName());
         if (command.getMethodName().equals("leftclick")){
             setChanged();
             notifyObservers();

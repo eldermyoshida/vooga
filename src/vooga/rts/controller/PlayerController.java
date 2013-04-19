@@ -1,6 +1,7 @@
 package vooga.rts.controller;
 
 import java.util.Map;
+import vooga.rts.commands.Command;
 
 /**
  * The Player needs to do make the following decisions:

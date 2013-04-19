@@ -10,7 +10,7 @@ import java.util.Observer;
 import java.util.Queue;
 import javax.swing.Timer;
 import vooga.rts.Game;
-import vooga.rts.controller.Command;
+import vooga.rts.commands.Command;
 import vooga.rts.controller.InputController;
 import vooga.rts.input.Input;
 import vooga.rts.resourcemanager.ImageLoader;

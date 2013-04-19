@@ -4,10 +4,10 @@ import java.awt.Dimension;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
-import vooga.rts.controller.ClickCommand;
-import vooga.rts.controller.Command;
-import vooga.rts.gamedesign.action.Action;
-import vooga.rts.gamedesign.action.InteractiveAction;
+import vooga.rts.commands.ClickCommand;
+import vooga.rts.commands.Command;
+import vooga.rts.action.Action;
+import vooga.rts.action.InteractiveAction;
 import vooga.rts.gamedesign.sprite.gamesprites.GameSprite;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.IGatherable;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.IOccupiable;
@@ -113,7 +113,7 @@ public class Unit extends InteractiveEntity {
 
     @Override
     public void addActions () {
-       getActions().put("leftclick", new InteractiveAction(this) {
+       put("leftclick", new InteractiveAction(this) {
           private Location3D myLocation;
           
           @Override

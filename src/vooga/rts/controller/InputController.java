@@ -1,10 +1,14 @@
 package vooga.rts.controller;
 
 import java.awt.geom.Rectangle2D;
+import vooga.rts.commands.Command;
+import vooga.rts.commands.DragCommand;
 import vooga.rts.input.InputClassTarget;
 import vooga.rts.input.InputMethodTarget;
 import vooga.rts.input.PositionObject;
 import vooga.rts.state.State;
+import vooga.rts.util.Camera;
+import vooga.rts.util.Location3D;
 
 /** 
  * After much thought, I've decided to only have one InputController. This controller
@@ -36,7 +40,9 @@ public class InputController implements Controller {
     
     @InputMethodTarget(name  = "leftMouseDown")
     public void leftMouseUp (PositionObject o) {          
-        sendCommand(new PositionCommand("leftclick", o));
+        if (myDrag == null) {
+            sendCommand(new PositionCommand("leftclick", o));
+        }
         myLeftMouse = null;
         myDrag = null;
     }
@@ -48,12 +54,16 @@ public class InputController implements Controller {
     
     @InputMethodTarget(name = "mouseDrag")
     public void mouseDrag (PositionObject o) {
-        if (myLeftMouse != null) {
-            double uX = o.getX() > myLeftMouse.getX() ? myLeftMouse.getX() : o.getX();
-            double uY = o.getY() > myLeftMouse.getY() ? myLeftMouse.getY() : o.getY();            
-            double width = Math.abs(o.getX() - myLeftMouse.getX());
-            double height = Math.abs(o.getY() - myLeftMouse.getY());
-            myDrag = new Rectangle2D.Double(uX, uY, width, height);
-        }
+      
+//
+//        if (myLeftMouse != null) {
+        double uX = o.getX() > myLeftMouse.getX() ? myLeftMouse.getX() : o.getX();
+        double uY = o.getY() > myLeftMouse.getY() ? myLeftMouse.getY() : o.getY();            
+        double width = Math.abs(o.getX() - myLeftMouse.getX());
+        double height = Math.abs(o.getY() - myLeftMouse.getY());
+        myDrag = new Rectangle2D.Double(uX, uY, width, height);
+        sendCommand(new DragCommand("drag", myDrag));
+
+//        }
     }
 }

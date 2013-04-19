@@ -1,7 +1,8 @@
-package vooga.rts.gamedesign.action;
+package vooga.rts.action;
 
 import java.lang.reflect.InvocationTargetException;
 
+import vooga.rts.commands.Command;
 import vooga.rts.util.Pixmap;
 /*
  * This is the abstract super class for Actions
@@ -14,4 +15,6 @@ import vooga.rts.util.Pixmap;
 public interface Action {
    
     public void apply();
+    
+    public void update(Command command);
 }

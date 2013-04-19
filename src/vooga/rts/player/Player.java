@@ -3,7 +3,7 @@ package vooga.rts.player;
 
 import java.awt.Graphics2D;
 import vooga.rts.IGameLoop;
-import vooga.rts.controller.Command;
+import vooga.rts.commands.Command;
 import vooga.rts.controller.Controllable;
 import vooga.rts.controller.Controller;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;

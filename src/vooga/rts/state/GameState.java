@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Observer;
-import vooga.rts.controller.Command;
+import vooga.rts.commands.Command;
 import vooga.rts.controller.Controller;
 import vooga.rts.controller.PlayerController;
 import vooga.rts.gamedesign.sprite.gamesprites.Projectile;
@@ -185,6 +185,7 @@ public class GameState extends SubState implements Controller {
     
     public void setupGame(){
         addPlayer(1);
-        myHumanPlayer.add((Unit) new Soldier());
+        myHumanPlayer.add(new Soldier());
+        myHumanPlayer.add(new Soldier(new Location3D(200, 200, 0)));
     }
 }
