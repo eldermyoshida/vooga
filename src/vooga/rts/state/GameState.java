@@ -4,6 +4,7 @@ import java.applet.AudioClip;
 import java.awt.AWTException;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.Robot;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,26 +14,25 @@ import java.util.Observer;
 import vooga.rts.controller.Command;
 import vooga.rts.controller.Controller;
 import vooga.rts.controller.PlayerController;
-import vooga.rts.gamedesign.Weapon;
-import vooga.rts.gamedesign.sprite.rtsprite.Projectile;
-import vooga.rts.gamedesign.sprite.rtsprite.Resource;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings.Barracks;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings.Building;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings.UpgradeBuilding;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Soldier;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Unit;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Worker;
+import vooga.rts.gamedesign.sprite.gamesprites.Projectile;
+import vooga.rts.gamedesign.sprite.gamesprites.Resource;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Barracks;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.UpgradeBuilding;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Soldier;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Worker;
 import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;
 import vooga.rts.gamedesign.weapon.Weapon;
 import vooga.rts.map.GameMap;
+import vooga.rts.player.HumanPlayer;
+import vooga.rts.player.Player;
+import vooga.rts.player.Team;
 import vooga.rts.resourcemanager.ResourceManager;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.PointTester;
 import vooga.rts.util.Sound;
-import vooga.rts.player.HumanPlayer;
-import vooga.rts.player.Player;
-import vooga.rts.player.Team;
 
 
 // TODO: implement the game state with all unit managers that there needs to be. Muy importante.
@@ -48,6 +48,8 @@ public class GameState extends SubState implements Controller {
     private Resource r;
     private Building building;
     private UpgradeBuilding upgradeBuilding;
+    private PointTester pt;
+    private Robot myMouseMover;
 
     public GameState (Observer observer, Dimension gameSize) {
         super(observer);
@@ -175,5 +177,5 @@ public class GameState extends SubState implements Controller {
         else {
             myPlayers.add(new Player(id));
         }
-    
+    }
 }
