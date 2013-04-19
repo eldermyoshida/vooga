@@ -1,10 +1,8 @@
 package vooga.rts.leveleditor.components;
 
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ResourceBundle;
 import javax.imageio.ImageIO;
 import vooga.rts.util.Location;
 

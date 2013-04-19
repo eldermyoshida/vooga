@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import vooga.rts.leveleditor.Exceptions.MapNotMatchException;
 
 /**
  * this class is responsible for generating a XML format map file
@@ -20,7 +21,7 @@ public class MapLoader {
     private Map<Integer, String> myTileInformation;
     private Map<Integer, String> myTerrainInformation;
     private XMLParser myXMLParser;
-   
+  
     
     public MapLoader() {
         myMap = new EditableMap();
@@ -31,10 +32,16 @@ public class MapLoader {
     
     public void loadMapFile(File resourceFile) throws FileNotFoundException {
         
-        Scanner myScanner = new Scanner(resourceFile);
+        myScanner = new Scanner(resourceFile);
         
         loadTitle();
-        loadPlayers();
+        try {
+            loadPlayers();
+        }
+        catch (MapNotMatchException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         loadSize();
         loadTileIndex();
         loadTerrainIndex();
@@ -43,25 +50,42 @@ public class MapLoader {
         loadResources();
         
         myScanner.close(); 
-
+    }
+    
+    public void loadMapFile(String filePath) throws FileNotFoundException {
+        File bufferFile = new File(filePath);
+        loadMapFile(bufferFile);
     }
     
     private void loadTitle() {
         String line = myScanner.nextLine();
         line = myScanner.nextLine();
         line = myScanner.nextLine();
+        myMap.setMyMapName(myXMLParser.getTitle(line));
+        line = myScanner.nextLine();
+        myMap.setMyDescription(myXMLParser.getTitle(line));
+    
     }
     
     
     
-    private void loadPlayers() {
-        
+    private void loadPlayers() throws MapNotMatchException {
+       String line = myScanner.nextLine();  
+       line = myScanner.nextLine();
+       while(line.contains("player") && line.contains("ID")) {
+           String[] content = myXMLParser.splitByBlanks(myXMLParser.splitContent(line));
+           if(content.length != 4) throw new MapNotMatchException();
+           String x = myXMLParser.cutKeyAndValue(content[2])[1];
+           String y = myXMLParser.cutKeyAndValue(content[3])[1];
+           myMap.addPlayer(Integer.parseInt(x),Integer.parseInt(y));
+           line = myScanner.nextLine();
+       }
     }
     
     
     
     private void loadSize() {
-    
+        
     }
     
     
@@ -90,5 +114,16 @@ public class MapLoader {
     
     private void loadResources() {
         
+    }
+    
+    public static void main(String[] args) {
+        MapLoader myLoader = new MapLoader();
+        try {
+            myLoader.loadMapFile(System.getProperty("user.dir") + "./src/test.xml");
+        }
+        catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 }
