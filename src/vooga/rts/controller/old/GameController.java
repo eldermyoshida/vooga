@@ -1,3 +1,4 @@
+package vooga.rts.controller.old;
 //package vooga.rts.controller;
 //
 //import java.applet.AudioClip;
