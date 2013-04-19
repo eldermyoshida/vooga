@@ -123,10 +123,9 @@ public class Unit extends InteractiveEntity {
           
           @Override
           public void update(Command command) {
-//              System.out.println(1);
 //              ClickCommand click = (ClickCommand) command;
-//              System.out.println(2);
               myLocation = new Location3D(100, 100, 0);
+              
           }
        });  
     }

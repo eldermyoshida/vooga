@@ -8,6 +8,7 @@ import vooga.rts.util.Location3D;
 public class LeftClickAction extends ManagerAction {
 
     private Location3D myLocation;
+    
     public LeftClickAction (Manager manager) {
         super(manager);
     }
@@ -21,7 +22,6 @@ public class LeftClickAction extends ManagerAction {
     public void update (Command command) {
         if (getManager().getSelected().size() != 0) {
             getManager().applyAction(command);
-            System.out.println("working");
         }
         else{
             //ClickCommand click = (ClickCommand) command;

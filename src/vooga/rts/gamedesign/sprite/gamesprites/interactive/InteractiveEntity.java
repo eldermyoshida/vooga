@@ -72,12 +72,13 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     @Override
     public void updateAction(Command command) {    
         if (myActions.containsKey(command.getMethodName())) {
-            Action current = myActions.get(command.getMethodName());
-            current.update(command);
-            current.apply();
+            myActions.get(command.getMethodName()).update(command);
         }        
     }
 
+    public boolean containsInput(Command command) {
+        return myActions.containsKey(command.getMethodName());
+    }
     /*
      * Ze clone method
      */
@@ -266,9 +267,10 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
                 p.paint(pen);               
             }
         }
-
     }
 
-
+    public Action getAction (Command command) {
+        return myActions.get(command.getMethodName());
+    }
 
 }

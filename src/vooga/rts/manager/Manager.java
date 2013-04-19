@@ -71,7 +71,10 @@ public class Manager implements State, IActOn {
     
     public void applyAction (Command command) {
         for (InteractiveEntity u: mySelectedEntities) {
-            u.updateAction(command);
+            if(u.containsInput(command)) {
+                u.updateAction(command);
+                u.getAction(command).apply();
+            }
         }
     }
 
@@ -85,6 +88,16 @@ public class Manager implements State, IActOn {
         myEntities.add(unit);
     }
 
+    public void deselect (Location3D location) {
+        for (int i = getAllEntities().size() - 1; i >= 0; i--) {
+            InteractiveEntity ie = getAllEntities().get(i);
+            if (ie.intersects(location)) {
+                deselect(ie);
+                return;
+            }
+        }
+        deselectAll();
+    }
     /**
      * Deselects the specified entity.
      * 
