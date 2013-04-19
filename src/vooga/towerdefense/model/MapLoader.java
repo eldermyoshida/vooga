@@ -32,6 +32,7 @@ public class MapLoader {
         String path = getClass().getResource(MAPTILES_FILENAME).getFile();
         
         Scanner s = null;
+        path.replace("%20", " " );
         try {
             s = new Scanner(new File(path));
         }
