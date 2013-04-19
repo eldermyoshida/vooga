@@ -10,6 +10,7 @@ import java.util.Random;
 public class ControlProgressionManager {
 
 	private static final String MAINMENU = "MainMenu";
+	private static final String MODESELECT = "ModeSelectMenu";
 	private static final String CHARACTERSELECT = "CharacterSelectMenu";
 	private static final String MAPSELECT = "MapSelectMenu";
 	private static final String SCORECONTROLLER = "GameOver";
@@ -31,9 +32,10 @@ public class ControlProgressionManager {
 			if(currentController.equals(myControllerList.get(i))){
 				if(checkTourney(currentController, myGameInfo) && Condition.equals(NEXT)) 
 					return selectTourneyLevel(myGameInfo);
-				else if(Condition.equals(NEXT)) return myControllerList.get(i+1);
+				else if(Condition.equals(NEXT)){
+					return myControllerList.get(i+1);
+				}
 				else if(Condition.equals(BACK)) {
-				    System.out.println("going back");
 				    return myControllerList.get(i -1);
 				}
 			}
@@ -49,6 +51,7 @@ public class ControlProgressionManager {
 		list.clear();
 		list.add(MAINMENU);
 		list.add(MAINMENU);
+		list.add(MODESELECT);
 		list.add(CHARACTERSELECT);
 		list.add(MAPSELECT);
 		if(gameinfo.getGameMode() != null){

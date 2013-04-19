@@ -51,8 +51,15 @@ public class ModeSelectMenuController extends MenuController {
     }
     
     public void notifyEndCondition(String choice) {
-    	if(EXIT.equals(choice)) getManager().exit();
-    	if(BACK.equals(choice)) getManager().notifyEndCondition(BACK);
+    	choice = "CharacterSelectMenu";
+    	if(EXIT.equals(choice)){
+    		getInput().removeListener(this);
+    		getManager().exit();
+    	}
+    	if(BACK.equals(choice)){
+    		getInput().removeListener(this);
+    		getManager().notifyEndCondition(BACK);
+    	}
     	else if (getMode().getMenuNames().contains(choice)){
     		getGameInfo().setGameMode(choice);
     		getGameInfo().setNumCharacters(Integer.parseInt(myResources.getString(choice)));

@@ -58,7 +58,7 @@ public class CharacterSelectController extends MenuController {
      * Checks this controller's end conditions
      */
     public void notifyEndCondition(String choice) {
-        getInput().removeListener(this);
+    	super.removeListener();
         getManager().notifyEndCondition(NEXT);
     } 
     

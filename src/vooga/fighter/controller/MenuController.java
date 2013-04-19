@@ -52,5 +52,13 @@ public abstract class MenuController extends Controller {
     public MenuMode getMode(){
     	return (MenuMode) super.getMode();
     }
+    
+    protected void removeListener(){
+    	getInput().removeListener(this);
+    }
+    
+    protected void addListener(){
+    	getInput().addListenerTo(this);
+    }
 
 }

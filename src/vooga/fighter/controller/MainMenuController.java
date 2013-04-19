@@ -59,5 +59,4 @@ public class MainMenuController extends MenuController {
         super.getMode().addObject(new MouseClickObject(pos.getPoint2D()));
         notifyEndCondition("asdfdf");
     }
-
 }

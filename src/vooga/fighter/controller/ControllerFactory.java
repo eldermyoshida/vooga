@@ -52,6 +52,8 @@ public class ControllerFactory {
                 controllermap.put(controller.getName(), controller);
                 controller = new ScoreController(SCORE_CONTROLLER, frame);
                 controllermap.put(controller.getName(), controller);
+                controller = new ModeSelectMenuController(MODE_SELECT, frame);
+                controllermap.put(controller.getName(), controller);
         }
     }
 

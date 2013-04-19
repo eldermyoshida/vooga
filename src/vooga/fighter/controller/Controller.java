@@ -152,6 +152,10 @@ public abstract class Controller implements ModelDelegate {
     public void loadMode() {
 
     }
+    
+    protected void removeListener(){
+    	getInput().removeListener(this);
+    }
 
     public abstract Controller getController(ControllerDelegate manager, GameInfo gameinfo);
 
