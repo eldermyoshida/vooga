@@ -63,7 +63,7 @@ public class MapSaver {
 
     private void writePlayers() throws IOException {
         Map<Integer , Location> buffer = mySavingMap.getAllPlayers();
-        myFileWriter.write("      <players number = "+ buffer.size() +">\r\n");
+        myFileWriter.write("      <players number="+ buffer.size() +">\r\n");
         for(Integer i : buffer.keySet()) {
             Location loc = buffer.get(i);
             myFileWriter.write("         <player ID="+ i +" X=" + (int)loc.getX() + " Y=" + (int)loc.getY() + " />\r\n");
@@ -80,8 +80,8 @@ public class MapSaver {
         
         myFileWriter.write("   <resources>\r\n");
         myFileWriter.write("      <info>\r\n");
-        myFileWriter.write("         tilesize width=" + width + " height=" + height + " />\r\n");
-        myFileWriter.write("         tileamount X=" + x + " Y=" + y + " />\r\n");
+        myFileWriter.write("         <tilesize width=" + width + " height=" + height + " />\r\n");
+        myFileWriter.write("         <tileamount X=" + x + " Y=" + y + " />\r\n");
         myFileWriter.write("      </info>\r\n");
     }
     
@@ -139,7 +139,7 @@ public class MapSaver {
         for(int i = 1 ; i < layers + 1 ; i++) {
             MapLayer bufferLayer = mySavingMap.getLayer(i);
             
-            myFileWriter.write("      <layer level = " + i +">\r\n");
+            myFileWriter.write("      <layer level=" + i +">\r\n");
             for(Terrain ter : bufferLayer.getTerrainSet()) {
                 int ID = ter.getMyID();
                 int x = (int)ter.getMyLocation().getX();

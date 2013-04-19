@@ -1,7 +1,6 @@
 package vooga.rts.leveleditor.components;
 
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.ResourceBundle;
 
 public abstract class MapComponent {
