@@ -1,5 +1,6 @@
 package vooga.scroller.level_management;
 
+import java.awt.Dimension;
 import java.util.HashMap;
 import java.util.Map;
 import util.Location;
@@ -22,13 +23,15 @@ public class LevelManager {
     private Input myInput;
     private Level myInitialLevel;
     private Level myCurrentLevel;
+    private View myView;
     
         
     /**
      * Creates a new level manager based on the view used by individual levels.
      * @param view to be used in constructing individual levels.
      */
-    public LevelManager(ScrollingManager sm, View view) {        
+    public LevelManager(ScrollingManager sm, View view) {   
+        myView = view;
         LevelFactory lf = new LevelFactory(this, sm, view);
         myInitialLevel = lf.generateLevels();        
         //myCurrentLevel = myLevels.get(DEFAULT_START_LEVEL_ID); 
@@ -69,6 +72,10 @@ public class LevelManager {
     public void put(IDoor door, Level nextLevel) {
         door.setNextLevel(nextLevel);
         door.setManager(this);
+    }
+    
+    public void updateLevel(double elapsedTime, Dimension bounds) {        
+        myCurrentLevel.update(elapsedTime, bounds, myView);
     }
 }
 

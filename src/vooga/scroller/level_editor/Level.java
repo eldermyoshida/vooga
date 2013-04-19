@@ -8,6 +8,7 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import util.Location;
 import util.input.Input;
+
 import vooga.scroller.util.Sprite;
 import vooga.scroller.viewUtil.Renderable;
 import vooga.scroller.collision_manager.CollisionManager;
@@ -18,7 +19,6 @@ import vooga.scroller.sprites.superclasses.NonStaticEntity;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.PlatformerConstants;
 import vooga.scroller.view.View;
-
 
 public class Level implements Renderable {
 
@@ -356,7 +356,9 @@ public class Level implements Renderable {
         return myStartPoint;
 
     }
+    
 
+    
     // @Override
     // public void addStartPoint (int x, int y) {
     // addStartPoint(new Location(x,y));
