@@ -23,7 +23,8 @@ public class CharacterObject extends GameObject {
     private Map<String, AttackObject> myAttacks;
     private List<Effect> myActiveEffects;
     private Health myHealth; 
-
+    private List<AttackObject> currentAttacks; 
+    
     /**
      * Constructs a new CharacterObject.
      */
@@ -32,6 +33,7 @@ public class CharacterObject extends GameObject {
         myAttacks = new HashMap<String, AttackObject>();
         myActiveEffects = new ArrayList<Effect>();
         myHealth = new Health();
+        currentAttacks= new ArrayList<AttackObject>();
         setLoader(new CharacterLoader(charName, this));
         setCurrentState("stand");
         getCurrentState().setLooping(true);
@@ -142,7 +144,7 @@ public class CharacterObject extends GameObject {
     public void attack(String attack) {
         setCurrentState("weakPunch");
         if (myAttacks.containsKey(attack)) {
-            new AttackObject(myAttacks.get(attack), getLocation());
+            currentAttacks.add(new AttackObject(myAttacks.get(attack), getLocation()));
         }
     }
 
@@ -168,6 +170,14 @@ public class CharacterObject extends GameObject {
         return false;
     }
     
+    /**
+     * returns list of all attackObjects
+     */
+    public List<AttackObject> getAttackObjects(){
+    	return currentAttacks; 
+    }
+    
+
     /**
      * Dispatches a colliding object to allow for proper collision handling. 
      */

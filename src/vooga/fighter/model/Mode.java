@@ -12,7 +12,7 @@ import vooga.fighter.model.utils.ImageDataObject;
  * Represents a mode in the game. Holds a list of all game objects in the mode,
  * and updates those every update cycle.
  * 
- * @author James Wei
+ * @author James Wei, alanni
  *
  */
 public abstract class Mode {
@@ -30,8 +30,7 @@ public abstract class Mode {
         myObjects = new ArrayList<GameObject>();
         myCollisionManager = new CollisionManager();
         setModelDelegate(md);
-    }
-    
+    }    
     /**
      * Sets the controller delegate for this mode.
      */
@@ -96,6 +95,17 @@ public abstract class Mode {
         return result;
     }
     
+    /**
+     *  Removes objects that have been destroyed or have timed out
+     */
+    public void removeAppropriateObjects(){
+    	ArrayList<GameObject> objectsCopy= new ArrayList<GameObject>(myObjects);
+    	for (GameObject o: objectsCopy){
+    		if (o.shouldBeRemoved()){
+    			myObjects.remove(o);
+    		}
+    	}
+    }
     /**
      * Updates the mode for one game loop. Implemented by subclasses.
      */
