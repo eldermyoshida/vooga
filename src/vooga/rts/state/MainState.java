@@ -40,6 +40,7 @@ public class MainState implements State, Observer {
         myStates.add(new LoadingState(this));
         myStates.add(new MenuState(this));
         myStates.add(new GameState(this, Window.SCREEN_SIZE));
+        setActiveState();
         myTimer = new Timer((int) Game.TIME_PER_FRAME(), new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {
@@ -48,7 +49,6 @@ public class MainState implements State, Observer {
             }
         });
         myTimer.start();
-        setActiveState();
     }
 
     @Override
@@ -69,7 +69,6 @@ public class MainState implements State, Observer {
     @Override
     public void update (Observable o, Object arg) {
         setActiveState();
-        System.out.println("I am changed :)");
     }
     
     private void setActiveState() {

@@ -6,25 +6,34 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import vooga.rts.controller.ClickCommand;
 import vooga.rts.controller.Command;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Soldier;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
 import vooga.rts.state.State;
+import vooga.rts.util.Camera;
 import vooga.rts.util.Location3D;
 
 
-public class Manager implements State {
 
+public class Manager implements State {
+    
+    private List<Unit> myUnits;
     private List<InteractiveEntity> myEntities;
     private List<InteractiveEntity> mySelectedEntities;
-
     private Map<Integer, List<InteractiveEntity>> myGroups;
     private boolean myMultiSelect;
+    private Map<String, Action> myInputs;
 
     public Manager () {
         myEntities = new ArrayList<InteractiveEntity>();
         mySelectedEntities = new ArrayList<InteractiveEntity>();
         myGroups = new HashMap<Integer, List<InteractiveEntity>>();
         myMultiSelect = false;
+        myInputs = new HashMap<String, Action>();
+        myUnits = new ArrayList<Unit>();
+        myInputs.put("leftclick", new Action());
     }
 
     /**
@@ -103,14 +112,23 @@ public class Manager implements State {
 
     @Override
     public void paint (Graphics2D pen) {
-        for (InteractiveEntity u : myEntities) {
+        for (InteractiveEntity u : myUnits) {
             u.paint(pen);
         }
     }
 
     @Override
     public void receiveCommand (Command command) {
-        // This will create an action and then use the .execute() method to invoke it
+        for (Unit u: myUnits) {
+            u.updateAction(command);
+        }
+//        if(myInputs.containsKey(command.getMethodName())) {
+// //       Camera.instance().viewtoWorld(click.getPosition())
+//           myInputs.get(command.getMethodName()).update(command, myUnits);
+//           for(Unit u: myUnits) {
+//               u.move(new Location3D(100, 100, 0));
+//           }         
+//       }
     }
 
     /**
@@ -173,8 +191,12 @@ public class Manager implements State {
 
     @Override
     public void update (double elapsedTime) {
-        for (InteractiveEntity u : myEntities) {
+        for (Unit u : myUnits) {
             u.update(elapsedTime);
         }
+    }
+    
+    public void add (Unit unit) {
+        myUnits.add(unit);
     }
 }

@@ -141,7 +141,7 @@ public class GameEntity extends GameSprite {
         // TODO: not static amount
         setVelocity(v.getAngle(), getSpeed());
     }
-
+    
     public int getSpeed () {
         return DEFAULT_SPEED;
     }

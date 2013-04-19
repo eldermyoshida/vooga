@@ -28,7 +28,7 @@ public class Barracks extends ProductionBuilding {
         super(image, center, size, sound, playerID, health);
         myInteractiveEntities = new ArrayList<InteractiveEntity>();
         initProducables();
-        addProductionActions(this);
+//        addProductionActions(this);
         setRallyPoint(new Location3D(300,400,0));
     }
     /*
@@ -38,20 +38,20 @@ public class Barracks extends ProductionBuilding {
         addProducable(new Soldier());
     }
     
-    public void addProductionActions(ProductionBuilding productionBuilding) {
-        getActions().add(new ProductionAction("soldier",null,"I maketh un soldier", productionBuilding.getWorldLocation()){
-            @Override
-            public void apply(int playerID) {
-                InteractiveEntity ie = getProducables().get(0).copy();
-                Location3D ieLoc = new Location3D(getProducedFrom());                
-                ie.setWorldLocation(ieLoc.getX(), ieLoc.getY(), 0);
-                //these below are for testing purposes 
-                ie.move(getRallyPoint());
-                //this part below will not be in actual implementation as I will notify player/unit manager that a new unit should be added to the player
-                myInteractiveEntities.add(ie);
-            }
-        });
-    }
+//    public void addProductionActions(ProductionBuilding productionBuilding) {
+//        getActions().add(new ProductionAction("soldier",null,"I maketh un soldier", productionBuilding.getWorldLocation()){
+//            @Override
+//            public void apply(int playerID) {
+//                InteractiveEntity ie = getProducables().get(0).copy();
+//                Location3D ieLoc = new Location3D(getProducedFrom());                
+//                ie.setWorldLocation(ieLoc.getX(), ieLoc.getY(), 0);
+//                //these below are for testing purposes 
+//                ie.move(getRallyPoint());
+//                //this part below will not be in actual implementation as I will notify player/unit manager that a new unit should be added to the player
+//                myInteractiveEntities.add(ie);
+//            }
+//        });
+//    }
     @Override
     public void paint(Graphics2D pen) {
         for(int i = 0; i < myInteractiveEntities.size(); i++) {

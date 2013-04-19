@@ -24,7 +24,7 @@ public class HumanPlayer extends Player implements Controller {
     
 
     private Map<String, Controllable> myInputMap; // Maps the command to the appropriate controllable
-
+    
     public HumanPlayer (int id) {
         super(id);
         // method which adds all the inputs from controllables to them.
@@ -33,15 +33,6 @@ public class HumanPlayer extends Player implements Controller {
     
     @Override
     public void sendCommand (Command command) {
-        
-    }
- 
-    /**
-     * 
-     * @param command
-     */
-    public void getInfo (Command command) { 
-        //At some point, will pass in list of controllables, and actually have to sort the command
         getManager().receiveCommand(command);
     }
 }

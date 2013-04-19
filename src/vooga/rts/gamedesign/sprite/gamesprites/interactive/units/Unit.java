@@ -4,7 +4,10 @@ import java.awt.Dimension;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import vooga.rts.controller.ClickCommand;
+import vooga.rts.controller.Command;
 import vooga.rts.gamedesign.action.Action;
+import vooga.rts.gamedesign.action.InteractiveAction;
 import vooga.rts.gamedesign.sprite.gamesprites.GameSprite;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.IGatherable;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.IOccupiable;
@@ -35,7 +38,7 @@ import vooga.rts.util.Sound;
  */
 public class Unit extends InteractiveEntity {
 
-	private static UpgradeTree myUpgradeTree;
+    private static UpgradeTree myUpgradeTree;
     private List<GameSprite> myKills; //TODO: WHAT TYPE SHOULD IT BE??
     // private boolean myIsLeftSelected; // TODO: also need the same thing for Projectiles
     // private boolean myIsRightSelected; // TODO: should be observing the mouse action instead!!
@@ -75,6 +78,7 @@ public class Unit extends InteractiveEntity {
         		myUpgradeTree.getUsers().put(playerID, entityGroup);
         	}
         }
+        addActions();
     }
     
     @Override
@@ -105,6 +109,26 @@ public class Unit extends InteractiveEntity {
         if (myOccupyStrategy.canOccupy(occupiable)) {
             occupiable.getOccupied(this);
         }
+    }
+
+    @Override
+    public void addActions () {
+       getActions().put("leftclick", new InteractiveAction(this) {
+          private Location3D myLocation;
+          
+          @Override
+          public void apply() {
+              getEntity().move(myLocation);
+          }
+          
+          @Override
+          public void update(Command command) {
+//              System.out.println(1);
+//              ClickCommand click = (ClickCommand) command;
+//              System.out.println(2);
+              myLocation = new Location3D(100, 100, 0);
+          }
+       });  
     }
 
 }
