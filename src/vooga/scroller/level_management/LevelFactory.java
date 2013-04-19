@@ -52,7 +52,7 @@ public class LevelFactory {
 
         // TODO: this will ideally read in levels from file and create instances of each level
         // This works for demo
-        Level level1 = buildLevel(1, loadGridFromFile("simpleLevel.level"));
+        Level level1 = buildLevel(1, loadGridFromFile("example.level"));
         hardCodeCompleteL1(level1);
         Level level2 = new Level(2, mySM, myView);
         hardcodeLevel2(level2);
@@ -90,7 +90,7 @@ public class LevelFactory {
 
     private void hardCodeCompleteL1 (Level level1) {
         level1.setBackground(new ImageIcon(getClass().getResource(
-                                           "/vooga/scroller/images/backgrounds/background_small.png"))
+                                           "/vooga/scroller/images/backgrounds/background.png"))
                 .getImage());
     }
 
