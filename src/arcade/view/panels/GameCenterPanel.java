@@ -54,14 +54,9 @@ public class GameCenterPanel extends JPanel {
      * Create the JList for games.
      */
     private void createGameJList () {
-        for (int i = 0; i < 4; i++) {
             for (GameInfo info : myUpperLevel.getGameList()) {
                 SnapShot temp = new SnapShot(info, myUpperLevel.getResources(), myModel);
                 add(temp);
-                SnapShot temp2 = new SnapShot(info, myUpperLevel.getResources(), myModel);
-                add(temp2);
             }
-        }
-
     }
 }
