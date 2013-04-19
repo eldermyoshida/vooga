@@ -52,7 +52,6 @@ public class MapSelectController extends MenuController {
     	if(BACK.equals(choice)) getManager().notifyEndCondition(BACK);
     	else if (getMode().getMenuNames().contains(choice)){
     		getGameInfo().setMapName(choice);
-    		getInput().removeListener(this);
     		getManager().notifyEndCondition(NEXT);
     		}
     	}
@@ -65,6 +64,12 @@ public class MapSelectController extends MenuController {
                                    delegate, gameinfo);
     }
     
+    
+    @InputMethodTarget(name = "continue")
+    public void mouseclick(PositionObject pos)  {
+        super.getMode().addObject(new MouseClickObject(pos.getPoint2D()));
+        notifyEndCondition(getMode().getMenuNames().get(0));
+    }
     public void removeListener(){
     	super.removeListener();
     	getInput().removeListener(this);

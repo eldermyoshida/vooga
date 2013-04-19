@@ -13,7 +13,7 @@
         <menuobject menuobjectname="EndGame" />
     </menumode>
     <menumode menuname="MapSelectMenu" >
-        <menuobject menuobjectname="SelectMap" />
+        <menuobject menuobjectname="BlueMap" />
     </menumode>
     
 </menutype>

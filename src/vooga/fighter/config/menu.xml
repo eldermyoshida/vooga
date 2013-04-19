@@ -20,7 +20,7 @@
             <frame image="fighter/images/GameOver.jpg" />
         </state>
     </menuobject>
-    <menuobject menuobjectname = "SelectMap">
+    <menuobject menuobjectname = "BlueMap">
     	<state name = "Test">
     		<frame image = "fighter/images/FinalDestination.jpg" />
     	</state>

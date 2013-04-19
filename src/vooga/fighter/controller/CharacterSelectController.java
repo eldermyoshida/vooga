@@ -59,14 +59,19 @@ public class CharacterSelectController extends MenuController {
      * Checks this controller's end conditions
      */
     public void notifyEndCondition(String choice) {
+
+    	getGameInfo().addCharacters(choice);
+    	myCharIndex ++;
+    	if(myCharIndex >= myCharLimit){
     	removeListener();
         getManager().notifyEndCondition(NEXT);
+    	}
     } 
     
     @InputMethodTarget(name = "continue")
     public void mouseclick(PositionObject pos)  {
         super.getMode().addObject(new MouseClickObject(pos.getPoint2D()));
-        notifyEndCondition("asdfdf");
+        notifyEndCondition(getMode().getMenuNames().get(0));
     }
     public void removeListener(){
     	super.removeListener();

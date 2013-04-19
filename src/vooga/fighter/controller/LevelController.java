@@ -28,7 +28,6 @@ import vooga.fighter.view.Canvas;
  * @Modified by Jack Matteucci
  * 
  */
-@InputClassTarget
 
 public abstract class LevelController extends Controller {
     private static final String INPUT_PATHWAY = "vooga.fighter.config.leveldefault";
@@ -42,8 +41,8 @@ public abstract class LevelController extends Controller {
                 GameInfo gameinfo) {
         super(name, frame, manager, gameinfo);
         setInput(manager.getInput());
+        getInput().replaceMappingResourcePath(INPUT_PATHWAY);
         getInput().addListenerTo(this);
-
         DisplayLoopInfo gameLoopInfo = new GameLoopInfo((LevelMode) getMode());
         setLoopInfo(gameLoopInfo);
     }
@@ -56,60 +55,14 @@ public abstract class LevelController extends Controller {
         setMode(temp);
         myInputObjects = temp.getMyCharacterObjects();
     }
+    
+    protected List<CharacterObject> getInputObjects(){
+    	return myInputObjects;
+    }
    
-    @InputMethodTarget(name = "player1_jump")
-    public void playerOneJumpInput (AlertObject alObj)  {
-        myInputObjects.get(0).move(270);
-    }
-    
-    @InputMethodTarget(name = "player1_left")
-    public void playerOneLeftInput (AlertObject alObj) {
-        myInputObjects.get(0).move(180);
-        
-    }
-    
-    @InputMethodTarget(name = "player1_right")
-    public void playerOneRightInput(AlertObject alObj) {
-        myInputObjects.get(0).move(0);
-        
-    }
-    
-    @InputMethodTarget(name = "player1_down")
-    public void playerOneDownInput(AlertObject alObj) {
-        myInputObjects.get(0).move(90);
-        
-    }
-    
-    @InputMethodTarget(name = "player2_jump")
-    public void playerTwoJumpInput (AlertObject alObj)  {
-        myInputObjects.get(1).move(270);
-    }
-    
-    @InputMethodTarget(name = "player2_left")
-    public void playerTwoLeftInput (AlertObject alObj) {
-        myInputObjects.get(1).move(180);
-       
-    }
-    
-    @InputMethodTarget(name = "player2_right")
-    public void playerTwoRightInput(AlertObject alObj) {
-        myInputObjects.get(1).move(0);
-        
-    }
-    
-    @InputMethodTarget(name = "player2_down")
-    public void playerTwoDownInput(AlertObject alObj) {
-        myInputObjects.get(1).move(90);
-        
-    }
-    
-    @InputMethodTarget(name = "player2_attack")
-    public void playerTwoAttackInput(AlertObject alObj) {
-        //test attacks here
-    }
-    
-    @InputMethodTarget(name = "player2_attack")
-    public void playerTwoAttacknput(AlertObject alObj) {
-        //test attacks here
+   
+    public void removeListener(){
+    	super.removeListener();
+    	getInput().removeListener(this);
     }
 }
