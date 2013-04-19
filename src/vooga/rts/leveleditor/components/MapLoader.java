@@ -38,13 +38,13 @@ public class MapLoader {
         try {
             loadPlayers();
             loadSize();
+            loadTileIndex();
         }
         catch (MapNotMatchException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
-        loadTileIndex();
         loadTerrainIndex();
         loadTiles();
         loadTerrains();
