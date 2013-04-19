@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import java.util.List;
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.attributes.AttributeManager;
+import vooga.towerdefense.event.Event;
+import vooga.towerdefense.event.EventHandler;
 import vooga.towerdefense.util.Location;
 import vooga.towerdefense.util.Pixmap;
 import vooga.towerdefense.util.Sprite;
@@ -16,7 +18,7 @@ import vooga.towerdefense.util.Sprite;
  * @author Xu Rui
  * 
  */
-public class GameElement extends Sprite{
+public class GameElement extends Sprite {
 
     AttributeManager myAttributeManager;
     List<Action> myActions;
@@ -45,11 +47,7 @@ public class GameElement extends Sprite{
 
     public AttributeManager getAttributeManager () {
         return myAttributeManager;
-    }
-    
-    public List<Action> getActions() {
-        return myActions;
-    }
+    }    
 
 }
 

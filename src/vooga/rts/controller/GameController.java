@@ -7,16 +7,11 @@ import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.Robot;
 import java.awt.geom.Rectangle2D;
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.xml.parsers.ParserConfigurationException;
-import org.xml.sax.SAXException;
 import vooga.rts.gamedesign.Weapon;
-import vooga.rts.gamedesign.factories.Factory;
 import vooga.rts.gamedesign.sprite.rtsprite.Projectile;
 import vooga.rts.gamedesign.sprite.rtsprite.Resource;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings.Barracks;
@@ -26,8 +21,6 @@ import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Soldier;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Unit;
 import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Worker;
 import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;
-import vooga.rts.gamedesign.strategy.attackstrategy.CannotAttack;
-import vooga.rts.gamedesign.upgrades.UpgradeTree;
 import vooga.rts.gui.Window;
 import vooga.rts.input.PositionObject;
 import vooga.rts.map.GameMap;
@@ -125,7 +118,7 @@ public class GameController extends AbstractController {
         }
         building.update(elapsedTime);
         // upgradeBuilding.update(elapsedTime);
-        checkCameraMouse();
+        checkCameraMouse(elapsedTime);
     }
 
     @Override
@@ -153,10 +146,8 @@ public class GameController extends AbstractController {
         // if it's not a gui thing
 
         if (myDrag == null) {
-            Location3D worldClick = Camera.instance().viewtoWorld(
-                                                                  o.getPoint2D());
-            myHuman.handleLeftClick((int) worldClick.getX(),
-                                    (int) worldClick.getY());
+            Location3D worldClick = Camera.instance().viewtoWorld(o.getPoint2D());
+            myHuman.handleLeftClick((int) worldClick.getX(), (int) worldClick.getY());
         }
         myLeftMouse = null;
         myDrag = null;
@@ -180,14 +171,13 @@ public class GameController extends AbstractController {
         if (myLeftMouse != null) {
             Location3D world = Camera.instance().viewtoWorld(o.getPoint2D());
 
-            double uX = world.getX() > myLeftMouseWorld.getX() ? myLeftMouseWorld
-                    .getX() : world.getX();
-            double uY = world.getY() > myLeftMouseWorld.getY() ? myLeftMouseWorld
-                    .getY() : world.getY();
+            double uX =
+                    world.getX() > myLeftMouseWorld.getX() ? myLeftMouseWorld.getX() : world.getX();
+            double uY =
+                    world.getY() > myLeftMouseWorld.getY() ? myLeftMouseWorld.getY() : world.getY();
             double width = Math.abs(world.getX() - myLeftMouseWorld.getX());
             double height = Math.abs(world.getY() - myLeftMouseWorld.getY());
-            Rectangle2D worldDrag = new Rectangle2D.Double(uX, uY, width,
-                                                           height);
+            Rectangle2D worldDrag = new Rectangle2D.Double(uX, uY, width, height);
 
             uX = o.getX() > myLeftMouse.getX() ? myLeftMouse.getX() : o.getX();
             uY = o.getY() > myLeftMouse.getY() ? myLeftMouse.getY() : o.getY();
@@ -217,13 +207,12 @@ public class GameController extends AbstractController {
              */
             Player p1 = new HumanPlayer();
             Pixmap p =
-                    new Pixmap(ResourceManager.instance().loadFile(
-                                                                   "images/sprites/soldier.png"));
+
+                    new Pixmap(ResourceManager.instance().loadFile("images/sprites/soldier.png"));
             Dimension s = new Dimension(90, 90);
             r =
                     new Resource(new Pixmap(ResourceManager.instance()
-                            .loadFile(
-                                      "images/mineral.gif")), new Location3D(300, 300, 0),
+                            .loadFile("images/mineral.gif")), new Location3D(300, 300, 0),
                                  new Dimension(60, 60), 0, 400);
             Sound soun = null;// new Sound("/vooga/rts/sounds/pikachu.wav");
             Unit a = null;
@@ -231,39 +220,34 @@ public class GameController extends AbstractController {
             System.out.println("Player ID for a: " + a.getPlayerID());
             // a.setUpgradeTree(resultTree,a.getPlayerID());
             // upgradeBuilding.addUpgradeActions(resultTree);
-            Projectile proj = new Projectile(new Pixmap(ResourceManager
-                    .instance().loadFile("images/bullet.png")),
-                                             a.getWorldLocation(), new Dimension(30, 30), 2, 10, 1);
+
+            Projectile proj =
+                    new Projectile(new Pixmap(ResourceManager.instance()
+                            .loadFile("images/bullet.png")), a.getWorldLocation(),
+                                   new Dimension(30, 30), 2, 10, 1);
             a.setAttackStrategy(new CanAttack());
-            a.getAttackStrategy().addWeapons(
-                                             new Weapon(0, proj, 500, a.getWorldLocation(), 175));
-            Unit b = new Soldier(p, new Location3D(300, 150, 0), s, soun, 1,
-                                 300);
+            a.getAttackStrategy().addWeapons(new Weapon(0, proj, 500, a.getWorldLocation(), 175));
+            Unit b = new Soldier(p, new Location3D(300, 150, 0), s, soun, 1, 300);
             System.out.println("Player ID for b: " + b.getPlayerID());
 
             Projectile proj2 =
-                    new Projectile(new Pixmap(ResourceManager
-                            .instance().loadFile("images/bullet.png")),
-                                   b.getWorldLocation(), new Dimension(30, 30), 1, 10, 1);
+                    new Projectile(new Pixmap(ResourceManager.instance()
+                            .loadFile("images/bullet.png")), b.getWorldLocation(),
+                                   new Dimension(30, 30), 1, 10, 1);
             b.setAttackStrategy(new CanAttack());
-            b.getAttackStrategy().addWeapons(
-                                             new Weapon(0, proj2, 400, b.getWorldLocation(), 200));
+            b.getAttackStrategy().addWeapons(new Weapon(0, proj2, 400, b.getWorldLocation(), 200));
 
-            Unit c = new Soldier(p, new Location3D(500, 800, 0), s, soun, 2,
-                                 500);
+            Unit c = new Soldier(p, new Location3D(500, 800, 0), s, soun, 2, 500);
 
             Projectile proj3 =
-                    new Projectile(new Pixmap(ResourceManager
-                            .instance().loadFile("images/bullet.png")),
-                                   c.getWorldLocation(), new Dimension(30, 30), 1, 10, 1);
+                    new Projectile(new Pixmap(ResourceManager.instance()
+                            .loadFile("images/bullet.png")), c.getWorldLocation(),
+                                   new Dimension(30, 30), 1, 10, 1);
             c.setAttackStrategy(new CanAttack());
             Unit w =
-                    new Worker(new Pixmap(ResourceManager.instance().loadFile(
-                                                                              "images/scv.gif")),
-                               new Location3D(500, 200, 0), s, soun,
-                               20, 40, 40);
-            c.getAttackStrategy().addWeapons(
-                                             new Weapon(0, proj3, 450, c.getWorldLocation(), 200));
+                    new Worker(new Pixmap(ResourceManager.instance().loadFile("images/scv.gif")),
+                               new Location3D(500, 200, 0), s, soun, 20, 40, 40);
+            c.getAttackStrategy().addWeapons(new Weapon(0, proj3, 450, c.getWorldLocation(), 200));
 
             p1.getUnits().addUnit(a);
             p1.getUnits().addUnit(b);
@@ -276,8 +260,8 @@ public class GameController extends AbstractController {
 
             building =
                     new Barracks(new Pixmap(ResourceManager.instance()
-                            .loadFile("images/barracks.jpeg")), new Location3D(800,
-                                                                               500, 0),
+
+                            .loadFile("images/barracks.jpeg")), new Location3D(800, 500, 0),
                                  new Dimension(150, 150), null, 1, 300);
             System.out.println("Setup Game");
             myHuman = (HumanPlayer) p1;
@@ -289,7 +273,8 @@ public class GameController extends AbstractController {
 
     }
 
-    private void checkCameraMouse () {
+
+    private void checkCameraMouse (double elapsedtime) {
         Point p = MouseInfo.getPointerInfo().getLocation();
 
         double x = 0;
@@ -315,6 +300,9 @@ public class GameController extends AbstractController {
             setY = Window.SCREEN_SIZE.getHeight() - 1;
         }
         if (x != 0 || y != 0) {
+
+            y *= elapsedtime;
+            x *= elapsedtime;
             Camera.instance().moveCamera(new Location(x, y));
             myMouseMover.mouseMove((int) setX, (int) setY);
         }

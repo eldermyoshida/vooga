@@ -25,7 +25,7 @@ public class LoadingController extends AbstractController {
     }
 
     @Override
-    public void onLeftMouseUp (PositionObject o) {        
+    public void onLeftMouseUp (PositionObject o) {
         if (!ResourceManager.instance().isLoading()) {
             setChanged();
             notifyObservers();
