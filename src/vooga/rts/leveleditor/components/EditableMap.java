@@ -73,11 +73,13 @@ public class EditableMap implements Serializable {
         myPlayerLocations = new HashMap<Integer, Location>();
         myPlayerNumber = 0;
         myLayers = new HashMap<Integer , MapLayer>();
+        myLayers.put(1,new MapLayer());
         myResource = new ArrayList<Resource>();
 
 
         try {
             mySaver = new MapSaver(this);
+            myLoader = new MapLoader(this);
         }
         catch (IOException e) {
             // TODO Auto-generated catch block
@@ -105,6 +107,15 @@ public class EditableMap implements Serializable {
         myPlayerNumber--;
     }
 
+    public void addLayer() {
+        int count = myLayers.size();
+        count ++;
+        myLayers.put(count, new MapLayer());
+    }
+    
+    public void removeLayer() {
+        
+    }
 
     public HashMap<Integer, Location> getLocationMap () {
         return (HashMap<Integer, Location>) myPlayerLocations;
@@ -141,7 +152,9 @@ public class EditableMap implements Serializable {
 
     public void load (File resourceFile) {
         try {
+            System.out.println("LOAD MAP IN THE FILE");
             myLoader.loadMapFile(resourceFile);
+            
         }
         catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
@@ -311,5 +324,6 @@ public class EditableMap implements Serializable {
         test.addResource(7, 7, 1);
         test.addResource(8, 8, 2);
         test.addResource(9, 9, 3);
+        test.save(System.getProperty("user.dir")+"./src/test.xml");
     }
 }
