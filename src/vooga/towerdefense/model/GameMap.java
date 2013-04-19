@@ -71,8 +71,7 @@ public class GameMap {
                 int xCenter = (int) (i * TILE_SIZE + TILE_SIZE / 2);
                 int yCenter = (int) (j * TILE_SIZE + TILE_SIZE / 2);
                 // TODO: replace booleans with parsed values from file
-                myGrid[i][j] = new Tile(new Point(xCenter, yCenter),
-                                        true, true);
+                myGrid[i][j] = new Tile(Tile.TILE_IMAGE, new Location(xCenter, yCenter), Tile.TILE_DIMENSIONS);
             }
         }
     }
@@ -119,8 +118,20 @@ public class GameMap {
      * 
      * @param pen a pen used to draw elements on this map.
      */
-    public void paint (Graphics2D pen) {
-    	
+    public void paint (Graphics2D pen) {    	
+        paintGameElements(pen);
+        paintTiles(pen);
+    }
+    
+    private void paintTiles(Graphics2D pen) {
+        for (int i = 0; i < myGrid.length; ++i) {
+            for (int j = 0; j < myGrid[i].length; ++j) {
+                myGrid[i][j].paint(pen);
+            }
+        }
+    }
+    
+    private void paintGameElements(Graphics2D pen) {
         for (GameElement e : myGameElements) {
             e.paint(pen);
         }
