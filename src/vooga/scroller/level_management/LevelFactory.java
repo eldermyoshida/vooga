@@ -52,14 +52,16 @@ public class LevelFactory {
 
         // TODO: this will ideally read in levels from file and create instances of each level
         // This works for demo
-        Level level1 = buildLevel(1, loadGridFromFile("example.level"));
+        Level level1 = buildLevel(1, loadGridFromFile("01.level"));
         hardCodeCompleteL1(level1);
         Level level2 = new Level(2, mySM, myView);
         hardcodeLevel2(level2);
+        Level level3 = buildLevel(3, loadGridFromFile("02.level"));
         hardCodeCompleteL2(level2);
         levels.add(splash);
         levels.add(level1);
         levels.add(level2);
+        levels.add(level3);
         levels.add(splash);
 
         linkLevels(levels);

@@ -1,0 +1,43 @@
+/level
+       aaa           a a        a                           
+       a             a a aaa    a                           
+       aaa aa aa aaa a a a a aa a                           
+         a a  a  a a a a aaa a  a                           
+       aaa aa a  aaa a a a   a  a       b  c                
+aa                       aaa            a  a                
+b                               a       a   ad              
+   a                                    a    ac             
+    a                                   a     a             
+    aa                                  a      ad           
+b  aaaa                                 a       ac          
+b  b  aa                  d             a        a          
+b  b  aaaccc dcc ddc   daaaaccc         a        a cddcddc  
+e                          aaaa         a       f   f   f   
+                               a       a                    
+                        f       a     a     f               
+                                 addda          f   f   f   
+                            b  b  b  b  b  a                
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+/key
+d=vooga.scroller.sprites.test_sprites.MarioLib$Plant
+e=vooga.scroller.sprites.test_sprites.MarioLib$LevelTwoBlockThree
+c=vooga.scroller.sprites.test_sprites.MarioLib$Bowser
+a=vooga.scroller.sprites.test_sprites.MarioLib$Platform
+f=vooga.scroller.sprites.test_sprites.MarioLib$LevelTwoBlockOne
+b=vooga.scroller.sprites.test_sprites.MarioLib$LevelTwoBlockTwo
+/settings
+StartPoint=1904 400
+EndPoint=25 121

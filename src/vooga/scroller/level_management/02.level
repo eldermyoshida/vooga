@@ -1,0 +1,38 @@
+/level
+                                                            
+                                                            
+                                                            
+   aab  b  b  b                                             
+   a            a                                           
+   a   cccccccc a                                           
+   a   aaaaaaa ca                                           
+   ac  a     ac a                                           
+   aa  a     a ca                                           
+   a   ac    ac a                                           
+   a  ca caaaa ca                                           
+   a  aac     c a                                           
+   a   a ccccc  a                                           
+   ac  b  b  b  a                                           
+    a                                                       
+    accccccccccccc                                          
+    b  b  b  b  b                                           
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+/key
+c=vooga.scroller.sprites.test_sprites.MarioLib$Coin
+a=vooga.scroller.sprites.test_sprites.MarioLib$Platform
+b=vooga.scroller.sprites.test_sprites.MarioLib$LevelTwoBlockTwo
+/settings
+StartPoint=592 496
+EndPoint=377 281

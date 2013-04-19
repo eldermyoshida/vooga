@@ -28,6 +28,33 @@ import util.Vector;
 public class MarioLib implements ISpriteLibrary {
     private static final Dimension DEFAULT_SIZE = new Dimension(32, 32);
     private static final Location DEFAULT_LOC = new Location(32, 32);
+    
+    public static class Bowser extends NonStaticEntity implements IEnemy {
+
+		public Bowser() {
+			super (new Pixmap("Bowser.jpg"), DEFAULT_LOC, DEFAULT_SIZE);
+		}
+		
+		private int myHealth = 1;
+		private int myDamage = 1;
+
+		@Override
+		public Sprite getEnemy() {
+			return this;
+		}
+
+		@Override
+		public void takeHit(int damage) {
+			myHealth -= damage;
+			
+		}
+
+		@Override
+		public int getHit() {
+			return myDamage;
+		}
+    	
+    }
 
     public static class Coin extends StaticEntity implements ICoin {
 
