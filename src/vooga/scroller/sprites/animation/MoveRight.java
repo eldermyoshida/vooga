@@ -14,7 +14,7 @@ public class MoveRight extends AnimationState {
 
     @Override
     public boolean validAnimation (Sprite unit) {
-        if(unit.getCenter().x - unit.lastLocation().x > 0){            
+        if(unit.getCenter().x - unit.lastLocation().x > .2){            
             unit.getView().setDefaultView(myStand);
             return true;
         }
