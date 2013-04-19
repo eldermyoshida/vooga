@@ -11,7 +11,7 @@ import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
 import vooga.rts.manager.*;
 import vooga.rts.map.GameMap;
 
-public abstract class Player implements IGameLoop, IProductionObserver, IGameManagerObserver {    
+public abstract class Player implements IGameLoop, IProductionObserver {    
 	
 	private IndividualResourceManager myResourceManager;
     private UnitManager myUnitManager;

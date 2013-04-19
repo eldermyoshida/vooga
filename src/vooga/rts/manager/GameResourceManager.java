@@ -5,11 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import vooga.rts.IObservable;
 import vooga.rts.gamedesign.sprite.gamesprites.Resource;
-import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
-import vooga.rts.player.IGameManagerObserver;
-import vooga.rts.player.IProductionObserver;
+import vooga.rts.player.Player;
 
 /**
  * This class stores all the resources in the game and manages their 
@@ -18,24 +15,25 @@ import vooga.rts.player.IProductionObserver;
  * purchase something and it also provides methods to use a resource
  * and add to a resource.
  * 
- * @author Jonathan Schmidt
+ * @author Wenshun Liu
  * 
  */
-public class GameResourceManager implements IManagerObservable{
+public class GameResourceManager {
     
-	private List<IGameManagerObserver> myObservers;
+	private List<Player> myPlayers;
 	private List<Resource> myUnassignedResources;
 	private Map<Integer, HashMap<String, Integer>> myPlayerResources;
     //private Map<String, Integer> myResources;
     
     public GameResourceManager() {
-    	myObservers = new ArrayList<IGameManagerObserver>();
+    	myPlayers = new ArrayList<Player>();
     	myUnassignedResources = new ArrayList<Resource>();
         myPlayerResources = new HashMap<Integer, HashMap<String, Integer>>();
     	//myResources = new HashMap<String, Integer>();        
     }
     
-    public void addPlayer(int playerID) {
+    public void addPlayer(Player player, int playerID) {
+    	myPlayers.add(player);
     	myPlayerResources.put(playerID, new HashMap<String, Integer>());
     }
     
@@ -79,6 +77,7 @@ public class GameResourceManager implements IManagerObservable{
     	}
     	int resourceIndex = myUnassignedResources.indexOf(resource);
     	myUnassignedResources.remove(resourceIndex);
+    	
     	notifyGameManagerObserver(playerID, myPlayerResources.get(playerID));
     }
     
@@ -90,22 +89,10 @@ public class GameResourceManager implements IManagerObservable{
     public void removeResource(String resource, int playerID) {
     	int oldAmount = myPlayerResources.get(playerID).get(resource);
     	myPlayerResources.get(playerID).put(resource, oldAmount+1);
-    	notifyGameManagerObserver(playerID, myPlayerResources.get(playerID));
+    	myPlayers.get(playerID-1).updateResource(myPlayerResources.get(playerID));
     }
 
-	@Override
-	public void register(IGameManagerObserver o) {
-		myObservers.add(o);
-	}
-
-	@Override
-	public void unregister(IGameManagerObserver o) {
-		int observerIndex = myObservers.indexOf(o);
-		myObservers.remove(observerIndex);
-	}
-
-	@Override
 	public void notifyGameManagerObserver(int playerID, HashMap<String, Integer> updatedResources) {
-		myObservers.get(playerID-1).updateResource(updatedResources);
+		myPlayers.get(playerID-1).updateResource(updatedResources);
 	}
 }

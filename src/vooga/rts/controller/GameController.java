@@ -230,8 +230,7 @@ public class GameController extends AbstractController {
         	
         	
         	Player p1 = new HumanPlayer();
-        	myGameResourceManager.register(p1);
-        	myGameResourceManager.addPlayer(1);
+        	myGameResourceManager.addPlayer(p1, 1);
 
         	Pixmap p =
         			new Pixmap(ResourceManager.getInstance()
