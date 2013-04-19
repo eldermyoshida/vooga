@@ -1,6 +1,9 @@
 package vooga.rts.networking.communications.clientmessages;
 
 import vooga.rts.networking.communications.Message;
+import vooga.rts.networking.server.ConnectionThread;
+import vooga.rts.networking.server.GUIThreadContainer;
+import vooga.rts.networking.server.IThreadContainer;
 
 /**
  * 
@@ -46,5 +49,11 @@ public class TeamDescriptionMessage extends GUIMessage{
                 }
             }
         }
+    }
+    
+    @Override
+    public void affectServer (ConnectionThread thread, IThreadContainer server) {
+        GUIThreadContainer gui = (GUIThreadContainer) server;
+        gui.readMessage(this);    
     }
 }
