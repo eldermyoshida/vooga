@@ -9,6 +9,7 @@ import vooga.towerdefense.util.Vector;
 /**
  * Uses the sprite move method
  * @author Matthew Roy
+ * @author Jimmy Longley
  *
  */
 public class Move extends Action {

@@ -1,11 +1,8 @@
 
 package vooga.towerdefense.action;
 
-import java.util.List;
 import vooga.towerdefense.event.Event;
-import vooga.towerdefense.event.evented;
 import vooga.towerdefense.gameElements.GameElement;
-import vooga.towerdefense.util.CoolDownManager;
 
 
 /**
@@ -20,7 +17,7 @@ import vooga.towerdefense.util.CoolDownManager;
 
 public abstract class Action {
     private Event myTriggerEvent;
-    private GameElement myInitiator;
+    protected GameElement myInitiator;
     private boolean enabled;
     private boolean complete;
 
