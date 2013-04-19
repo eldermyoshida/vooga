@@ -20,10 +20,10 @@ import vooga.rts.state.State;
  */
 public class Player implements Controller {
     
-    private State myGame;
+    private int myId;
     
-    public Player (State game) {
-        myGame = game;
+    public Player (int id) {
+        myId = id;
     }
     
     @Override

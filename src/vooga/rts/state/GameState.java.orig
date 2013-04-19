@@ -4,39 +4,54 @@ import java.applet.AudioClip;
 import java.awt.AWTException;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.Robot;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
+<<<<<<< HEAD
 import java.util.List;
+=======
+>>>>>>> 2006515065a99920b8d59fd67417bab49b409905
 import java.util.Map;
 import java.util.Observer;
 import vooga.rts.controller.Command;
 import vooga.rts.controller.Controller;
+import vooga.rts.controller.HumanPlayer;
 import vooga.rts.controller.PlayerController;
-import vooga.rts.gamedesign.Weapon;
-import vooga.rts.gamedesign.sprite.rtsprite.Projectile;
-import vooga.rts.gamedesign.sprite.rtsprite.Resource;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings.Barracks;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings.Building;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings.UpgradeBuilding;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Soldier;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Unit;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Worker;
+import vooga.rts.gamedesign.sprite.gamesprites.Projectile;
+import vooga.rts.gamedesign.sprite.gamesprites.Resource;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Barracks;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.UpgradeBuilding;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Soldier;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Worker;
 import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;
 import vooga.rts.gamedesign.weapon.Weapon;
 import vooga.rts.map.GameMap;
+<<<<<<< HEAD
+=======
+import vooga.rts.player.Team;
+>>>>>>> 2006515065a99920b8d59fd67417bab49b409905
 import vooga.rts.resourcemanager.ResourceManager;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.PointTester;
 import vooga.rts.util.Sound;
+<<<<<<< HEAD
 import vooga.rts.player.HumanPlayer;
 import vooga.rts.player.Player;
 import vooga.rts.player.Team;
 
 
+//TODO: implement the game state with all unit managers that there needs to be. Muy importante.
+//TODO: think of how decisions are going to be made with the controllers.
+=======
+
+
 // TODO: implement the game state with all unit managers that there needs to be. Muy importante.
 // TODO: think of how decisions are going to be made with the controllers.
+>>>>>>> 2006515065a99920b8d59fd67417bab49b409905
 
 public class GameState extends SubState implements Controller {
 
@@ -166,6 +181,7 @@ public class GameState extends SubState implements Controller {
         }
 
     }
+<<<<<<< HEAD
     
     public void addPlayer (int id) {
         if (myPlayers.size() == 0) {
@@ -176,4 +192,7 @@ public class GameState extends SubState implements Controller {
             myPlayers.add(new Player(id));
         }
     
+=======
+
+>>>>>>> 2006515065a99920b8d59fd67417bab49b409905
 }
