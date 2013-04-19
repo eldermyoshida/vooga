@@ -51,26 +51,36 @@ public class ModeSelectMenuController extends MenuController {
     }
     
     public void notifyEndCondition(String choice) {
+    	removeListener();
     	choice = "test";
     	if(EXIT.equals(choice)){
-    		getInput().removeListener(this);
     		getManager().exit();
     	}
-    	if(BACK.equals(choice)){
-    		getInput().removeListener(this);
+    	else if(BACK.equals(choice)){
     		getManager().notifyEndCondition(BACK);
     	}
-    	else if (getMode().getMenuNames().contains(choice)){
+    	else{ //(getMode().getMenuNames().contains(choice)){
     		getGameInfo().setGameMode(choice);
+    		System.out.println("mode");
     		getGameInfo().setNumCharacters(Integer.parseInt(myResources.getString(choice)));
-    		getInput().removeListener(this);
     		getManager().notifyEndCondition(NEXT);
     		}
     	}
     
     @Override
     public Controller getController (ControllerDelegate delegate, GameInfo gameinfo) {
-        return new MainMenuController(super.getName(), super.getView(),
+        return new ModeSelectMenuController(super.getName(), super.getView(),
                                    delegate, gameinfo);
+    }
+    
+    @InputMethodTarget(name = "continue")
+    public void mouseclick(PositionObject pos)  {
+        super.getMode().addObject(new MouseClickObject(pos.getPoint2D()));
+        notifyEndCondition("asdfdf");
+    }
+    
+    public void removeListener(){
+    	super.removeListener();
+    	getInput().removeListener(this);
     }
 }

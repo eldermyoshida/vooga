@@ -48,6 +48,7 @@ public class MapSelectController extends MenuController {
      * Checks this controller's end conditions
      */
     public void notifyEndCondition(String choice) {
+    	removeListener();
     	if(BACK.equals(choice)) getManager().notifyEndCondition(BACK);
     	else if (getMode().getMenuNames().contains(choice)){
     		getGameInfo().setMapName(choice);
@@ -62,6 +63,11 @@ public class MapSelectController extends MenuController {
     public Controller getController (ControllerDelegate delegate, GameInfo gameinfo) {
         return new MapSelectController(super.getName(), super.getView(),
                                    delegate, gameinfo);
+    }
+    
+    public void removeListener(){
+    	super.removeListener();
+    	getInput().removeListener(this);
     }
 
 }

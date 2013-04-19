@@ -39,7 +39,7 @@ public class CharacterSelectController extends MenuController {
     public CharacterSelectController(String name, Canvas frame, ControllerDelegate manager, 
                 GameInfo gameinfo) {
         super(name, frame, manager, gameinfo);
-       // myCharLimit = getGameInfo().getNumCharacters();
+        myCharLimit = getGameInfo().getNumCharacters();
         myCharIndex = 0;
     }
 
@@ -59,7 +59,7 @@ public class CharacterSelectController extends MenuController {
      * Checks this controller's end conditions
      */
     public void notifyEndCondition(String choice) {
-    	super.removeListener();
+    	removeListener();
         getManager().notifyEndCondition(NEXT);
     } 
     
@@ -67,6 +67,10 @@ public class CharacterSelectController extends MenuController {
     public void mouseclick(PositionObject pos)  {
         super.getMode().addObject(new MouseClickObject(pos.getPoint2D()));
         notifyEndCondition("asdfdf");
+    }
+    public void removeListener(){
+    	super.removeListener();
+    	getInput().removeListener(this);
     }
 
 }

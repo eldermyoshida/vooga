@@ -53,12 +53,10 @@ public abstract class MenuController extends Controller {
     	return (MenuMode) super.getMode();
     }
     
-    protected void removeListener(){
+    public void removeListener(){
+    	super.removeListener();
     	getInput().removeListener(this);
     }
     
-    protected void addListener(){
-    	getInput().addListenerTo(this);
-    }
 
 }

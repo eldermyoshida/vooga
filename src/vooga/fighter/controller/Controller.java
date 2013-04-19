@@ -152,8 +152,7 @@ public abstract class Controller implements ModelDelegate {
     public void loadMode() {
 
     }
-    
-    protected void removeListener(){
+    public void removeListener(){
     	getInput().removeListener(this);
     }
 

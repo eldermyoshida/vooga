@@ -25,7 +25,6 @@ import java.util.ResourceBundle;
  * @author Jack Matteucci
  * 
  */
-
 @InputClassTarget
 public class MainMenuController extends MenuController {
 	
@@ -48,9 +47,7 @@ public class MainMenuController extends MenuController {
      * Checks this controller's end conditions
      */
     public void notifyEndCondition(String choice) {
-
-        getInput().removeListener(this);
-
+        removeListener();
         getManager().notifyEndCondition(NEXT);
     }
 
@@ -64,5 +61,9 @@ public class MainMenuController extends MenuController {
     public void mouseclick(PositionObject pos)  {
         super.getMode().addObject(new MouseClickObject(pos.getPoint2D()));
         notifyEndCondition("asdfdf");
+    }
+    public void removeListener(){
+    	super.removeListener();
+    	getInput().removeListener(this);
     }
 }
