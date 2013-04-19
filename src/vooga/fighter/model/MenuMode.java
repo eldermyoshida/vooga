@@ -52,11 +52,6 @@ public class MenuMode extends Mode {
         //myCollisionManager.checkCollisions(getMyObjects());
     }
 
-    @Deprecated
-    public boolean shouldModeEnd () {
-        return false;
-    }
-    
     public List<String> getMenuNames(){
     	List list = new ArrayList<String>();
     	for(MenuObject menu : myMenuObjects){

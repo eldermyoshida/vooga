@@ -48,8 +48,10 @@ public class MouseLoader extends ObjectLoader {
 	
 	@Deprecated
 	public void load(int id) {
-		// TODO Auto-generated method stub
+	}
 
+	@Deprecated
+	public void load(String name) {
 	}
 
 }

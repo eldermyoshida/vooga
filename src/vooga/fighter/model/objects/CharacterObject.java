@@ -196,7 +196,7 @@ public class CharacterObject extends GameObject {
      * Collision with an AttackObject.
      */
     public void handleCollision(AttackObject other) {
-        System.out.println("CharacterObject handleCollision : Character collided with attack");
+        changeHealth(-1);
     }
     
     /**
