@@ -34,25 +34,21 @@ public class GameElement extends Sprite {
     }
 
     public GameElement (Pixmap image, Location center, Dimension size, List<Action> actions) {
-        super(image, center, size);
-        myActions = actions;
-        myAttributeManager = new AttributeManager();
+    	super(image,center, size);
+    	new GameElement(image, center, size, new AttributeManager(), actions);
     }
     
     public GameElement (Pixmap image, Location center, Dimension size, AttributeManager am) {
         super(image, center, size);
-        myActions = new ArrayList<Action>();
-        myAttributeManager = am;
+    	new GameElement(image, center, size, am, new ArrayList<Action>());
     }
 
     public GameElement (Pixmap image, Location center, Dimension size) {
         super(image, center, size);
-        myActions = new ArrayList<Action>();
-        myAttributeManager = new AttributeManager();
+    	new GameElement(image, center, size, new AttributeManager(), new ArrayList<Action>());
     }
 
     public void update (double elapsedTime) {
-        
           for (Action a : myActions) {
               a.executeAction(elapsedTime);
           }
