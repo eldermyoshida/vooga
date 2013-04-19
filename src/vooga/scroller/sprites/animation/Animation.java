@@ -49,7 +49,7 @@ public class Animation implements ISpriteView {
     private ISpriteView getStateView() {
         for (AnimationState as: myAnimations) {
             if (as.validAnimation(mySprite)) {
-                return as.getImage();
+                return as.getView();
             }
         }
         return this.getDefaultStateView();
