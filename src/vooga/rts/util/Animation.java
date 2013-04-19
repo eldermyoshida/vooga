@@ -3,6 +3,8 @@ package vooga.rts.util;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import vooga.rts.resourcemanager.ResourceManager;
 
@@ -37,15 +39,24 @@ public class Animation {
             }
         }
     }
-    
+    public void sortByName(File[] files) {
+    	List<ArrayList<String>> toReturn = new ArrayList<ArrayList<String>>(); 
+    	for(int i=0;i<files.length-1;i++) {
+    		String poseName = files[i].getName().substring(0, 8);
+    		ArrayList<String> pose = new ArrayList<String>();
+    		while(poseName.equals(files[i+1].getName().substring(0, 8)) && i<files.length) {
+    			pose.add(files[i].getName());
+    			i++;
+    		}
+    		toReturn.add(pose);
+    	}
+    }
     public static void main (String args []) {
     	Animation a = new Animation("animation/crocy");
     	
     	File directory = new File(System.getProperty("user.dir") + "\\bin\\vooga\\rts\\resources\\animation\\crocy\\");
     	File[] files = directory.listFiles();
-    	for(File f : files) {
-    		System.out.println(f.getName());
-    	}
+    	
     	//System.out.println(files);
     	//a.listFilesForFolder(b);
     }
