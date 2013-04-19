@@ -27,7 +27,7 @@ public class AttributeManager {
     public AttributeManager () {
         myAttributes = new HashMap<String,Attribute>();
         myFactories = new HashMap<String, GameElementFactory>();
-        myProjectileFactory=new ProjectileFactory();
+//        myProjectileFactory=new ProjectileFactory();
     }
     
     /**
