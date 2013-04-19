@@ -1,18 +1,14 @@
 <?xml version="1.0"?>
 <maps>
-    <map mapID="1" mapName="BlueBackground" enviroBackground="fighter/images/BlueBackground.jpeg">
-        <size xSize="1024" ySize="871"/>
-    	<startingPos xCoord="140" yCoord="300"/>
-    	<startingPos xCoord="200" yCoord="300"/>
-        <enviroObject enviroId="1" objectName="platform" xCoord="300" yCoord="300">
-        	<state stateName = "brick">
-        		<frame image="fighter/images/brick1.gif">
-                	<hitbox cornerX="0" cornerY="0" rectX="70" rectY="20"/>
-            	</frame>
-        	</state>
-        </enviroObject>
+    <map mapID="1" mapName="BlueBackground" enviroBackground="fighter/images/BlueBackground.jpeg" size xSize="1024" ySize="871">
+    	<startingPositions>
+    		<startingPos xCoord="140" yCoord="300"/>
+    		<startingPos xCoord="200" yCoord="300"/>
+    	</startingPositions>
+    	<environmentObjects>
+    		<enviro
+    	</environmentObjects>
     </map>
-    
     <map mapID="2" mapName="RainbowBackground" enviroBackground="fighter/images/RainbowBackground.jpeg">
         <size xSize="1024" ySize="871"/>
     	<startingPos xCoord="140" yCoord="300"/>
@@ -26,3 +22,13 @@
         </enviroObject>
     </map>
 </maps>
+
+<environmentObjects>
+	<enviroObject enviroID="1" objectName="platform" xCoord="300" yCoord="300">
+        <state stateName = "brick">
+        	<frame image="fighter/images/brick1.gif">
+                <hitbox cornerX="0" cornerY="0" rectX="70" rectY="20"/>
+            </frame>
+        </state>
+    </enviroObject>
+</environmentObjects>
