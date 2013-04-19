@@ -63,9 +63,9 @@ public class Unit extends GameElement {
     }
 
     /**
-     * movement logic, if path has next, change movement direction towards next node,
-     * if not, stop moving
+     * this follow path logic has been transferred to a followPath action which will do exactly the same thing
      */
+    @Deprecated
     private void changeNode() {
         if (myPath.hasNext()){
 			myCurrentPathNode=myPath.next();

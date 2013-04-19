@@ -5,7 +5,7 @@ package vooga.towerdefense.attributes;
  * 
  * Should this be an Enum?
  * 
- * @author Matthew Roy, ?
+ * @author Matthew Roy, Zhen Gou
  *
  */
 public class AttributeConstants {

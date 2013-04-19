@@ -22,8 +22,7 @@ public class FollowPath extends Action {
 
 	@Override
 	public void update(double elapsedTime) {
-		// TODO Auto-generated method stub
-
+		//to-do
 	}
 
 	@Override
@@ -41,12 +40,12 @@ public class FollowPath extends Action {
 	private void changeNode() {
 		if (myPath.hasNext()) {
 			myCurrentPathNode = myPath.next();
-			Vector newDirection = myInitiator.getCenter().difference(
-					myCurrentPathNode);
+			Vector newDirection = myInitiator
+					.getCenter().difference(myCurrentPathNode);
 
-			// for some reason, this method gives the wrong sign on the angle
-			newDirection = new Vector(-1 * newDirection.getDirection(),
-					newDirection.getMagnitude());
+			// for some reason, the above method gives the wrong sign on the
+			// angle. so have to manually reverse its direction. tried negate(), doesn't work
+			newDirection=new Vector(-1*newDirection.getDirection(),newDirection.getMagnitude());
 
 			myInitiator.getAttributeManager()
 					.getAttribute(AttributeConstants.DIRECTION)
@@ -60,8 +59,8 @@ public class FollowPath extends Action {
 
 	}
 
-	public void setPath(Path p) {
-		myPath = p;
+	public void setPath(Path path) {
+		myPath = path;
 	}
 
 }

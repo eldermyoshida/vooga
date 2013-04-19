@@ -9,6 +9,7 @@ import vooga.towerdefense.util.Location;
  * 
  * @author Matthew Roy
  * @author XuRui
+ * @author Zhen Gou
  * 
  */
 public class Attribute {
@@ -18,7 +19,8 @@ public class Attribute {
 
     public Attribute (String attributeName, Double attributeValue) {
         myName = attributeName;
-        myCurrentValue = attributeValue;
+        myOriginalValue=attributeValue;
+        myCurrentValue = myOriginalValue;
     }
     
     /**
@@ -111,6 +113,14 @@ public class Attribute {
 	 */
 	public boolean isChanged () {
 		return myOriginalValue != myCurrentValue;
+	}
+	/**
+	 * reset current value to original value;
+	 */
+
+	public void reset() {
+		myCurrentValue=myOriginalValue;
+		
 	}
 	
 
