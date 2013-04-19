@@ -26,13 +26,13 @@ public class LEWorkspaceView extends WorkspaceView {
      */
     private static final long serialVersionUID = 1L;
     private Renderable myRenderable;
-    private LEGridView myLevelView;
-    private LEToolsView myEditorView;
+    private LEGridView myGridView;
+    private LEToolsView myToolsView;
     private JScrollPane myLevelGridScroller;
-
 
     /**
      * Create a Workspace with the specified host, id, and renderable
+     * 
      * @param host - parent containing this workspace, typically a Window
      * @param id - containing tab
      * @param r - Renderable to be loaded in this workspace.
@@ -41,18 +41,18 @@ public class LEWorkspaceView extends WorkspaceView {
         // TODO Auto-generated constructor stub
         super(id, host);
         myRenderable = r;
-        myLevelView = new LEGridView(this, r);
-        myEditorView = new LEToolsView(this, .25, .9);
-        myLevelGridScroller = new JScrollPane(myLevelView, 
-                                  JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-                                  JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        EasyGridFactory.layout(this, myLevelGridScroller, myEditorView);
+        myGridView = new LEGridView(this, r);
+        myToolsView = new LEToolsView(this, .25, .9);
+        myLevelGridScroller = new JScrollPane(myGridView,
+                                              JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                                              JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        EasyGridFactory.layout(this, myLevelGridScroller, myToolsView);
     }
-    
+
     @Override
     public void render (Renderable r) {
         // TODO Auto-generated method stub !!!
-        myLevelView.render(r);
+        myGridView.render(r);
     }
 
     @Override
@@ -66,12 +66,8 @@ public class LEWorkspaceView extends WorkspaceView {
     public void process (Object isn) {
         if (isn instanceof String) {
             String cmd = (String) isn;
-            switch (getCommand(cmd)) {
-                case CommandConstants.CREATE_SPRITE:
-                    cmd = cmd + CommandConstants.SPACE + myEditorView.getSelectedSpriteID();
-                    break;
-                default: // TODO add more cases for other commands
-                    break;
+            if (getCommand(cmd).equals(CommandConstants.CREATE_SPRITE)) {
+                cmd = cmd + CommandConstants.SPACE + myToolsView.getSelectedSpriteID();
             }
             super.process(cmd);
         }
@@ -90,7 +86,7 @@ public class LEWorkspaceView extends WorkspaceView {
     }
 
     public boolean isValidForSimulation () {
-        return myLevelView.isValidForSimulation();
+        return myGridView.isValidForSimulation();
     }
 
 }

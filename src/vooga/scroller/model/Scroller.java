@@ -36,7 +36,7 @@ public class Scroller extends Game
     public static void main (String args[])
     {
         // view of user's content
-        ScrollingManager scrollManager = new UniScrollingManager(3);
+        ScrollingManager scrollManager = new OmniScrollingManager();
         View display = new View(PlatformerConstants.DEFAULT_WINDOW_SIZE, scrollManager);
         scrollManager.initView(display);
         

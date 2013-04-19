@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 import java.util.List;
 import vooga.scroller.util.ISpriteView;
 import vooga.scroller.util.Sprite;
@@ -29,16 +30,15 @@ public class Animation implements ISpriteView {
      */
     public Animation (Sprite sp) {
         mySprite = sp;
-        initAnimations();
+        myAnimations = new ArrayList<AnimationState>();
+        //initAnimations();
     }
     
     /**
      * Initiates all of the animationStates used in this animation.
      */
     private void initAnimations () {
-        AnimationFactory af = new MarioAnimationFactory();
-        myAnimations = af.generateAnimations();
-        myDefaultStateView = mySprite.getView();
+
     }
 
     /**
@@ -49,7 +49,7 @@ public class Animation implements ISpriteView {
     private ISpriteView getStateView() {
         for (AnimationState as: myAnimations) {
             if (as.validAnimation(mySprite)) {
-                return as.getImage();
+                return as.getView();
             }
         }
         return this.getDefaultStateView();
@@ -85,5 +85,14 @@ public class Animation implements ISpriteView {
     public Image getDefaultImg () {
         
         return myDefaultStateView.getDefaultImg();
+    }
+    
+    /**
+     * Adds an animation state to this animation.
+     * 
+     * @param animation is the animation state to add.
+     */
+    public void addAnimationState(AnimationState animation) {
+        myAnimations.add(animation);
     }
 }
