@@ -23,7 +23,7 @@ public class ControllerManager implements ControllerDelegate{
 	private Canvas myCanvas;
 	private GameInfo myGameInfo;
 	private ControlProgressionManager myProgressionManager;
-	private static final String INPUT_PATHWAY = "vooga.fighter.config.menudefault";
+	private static final String INPUT_PATHWAY = "vooga.fighter.config.leveldefault";
 	private Input myInput;
 	
 	public ControllerManager(Canvas frame, GameInfo gameinfo, ControllerFactory factory,

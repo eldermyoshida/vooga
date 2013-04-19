@@ -51,7 +51,7 @@ public class ModeSelectMenuController extends MenuController {
     }
     
     public void notifyEndCondition(String choice) {
-    	choice = "CharacterSelectMenu";
+    	choice = "test";
     	if(EXIT.equals(choice)){
     		getInput().removeListener(this);
     		getManager().exit();

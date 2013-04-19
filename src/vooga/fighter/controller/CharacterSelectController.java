@@ -39,7 +39,7 @@ public class CharacterSelectController extends MenuController {
     public CharacterSelectController(String name, Canvas frame, ControllerDelegate manager, 
                 GameInfo gameinfo) {
         super(name, frame, manager, gameinfo);
-        myCharLimit = getGameInfo().getNumCharacters();
+       // myCharLimit = getGameInfo().getNumCharacters();
         myCharIndex = 0;
     }
 
