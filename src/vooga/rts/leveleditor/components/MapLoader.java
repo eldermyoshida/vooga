@@ -39,16 +39,17 @@ public class MapLoader {
             loadPlayers();
             loadSize();
             loadTileIndex();
+            loadTerrainIndex();
+            loadTiles();
+            loadTerrains();
+            loadResources();
         }
         catch (MapNotMatchException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
-        loadTerrainIndex();
-        loadTiles();
-        loadTerrains();
-        loadResources();
+        
         
         myScanner.close(); 
     }
@@ -124,16 +125,47 @@ public class MapLoader {
         }
     }
     
-    
-    
-    private void loadTerrainIndex() {
-    
+    private void loadTerrainIndex() throws MapNotMatchException {
+        String line = myScanner.nextLine();
+        while (!(line.contains("terrain") && line.contains("ID"))) {
+            line = myScanner.nextLine();
+        }
+        while(line.contains("terrain") && line.contains("ID")) {
+            
+            String[] terrainContent = myXMLParser.splitByBlanks(myXMLParser.splitSlash(line));
+            
+            if(terrainContent.length != 5) throw new MapNotMatchException();
+            String terrainID = myXMLParser.cutKeyAndValue(terrainContent[1])[1];
+            String terrainImagePath = myXMLParser.cutKeyAndValue(terrainContent[2])[1];
+            String terrainName = myXMLParser.cutKeyAndValue(terrainContent[3])[1];
+            String terrainWalkability = myXMLParser.cutKeyAndValue(terrainContent[4])[1];
+            myTerrainInformation.put(Integer.parseInt(terrainID), terrainName + "&" + terrainImagePath + "&" + terrainWalkability);
+            line = myScanner.nextLine();            
+        }
+        System.out.println(myTerrainInformation.size());
+        for(int i = 1 ; i<myTerrainInformation.size() + 1 ; i++) {
+            System.out.println(myTerrainInformation.get(i));
+        }
     }
     
     
     
     private void loadTiles() {
-    
+        String line = myScanner.nextLine();
+        while( !line.contains("<graphic>")) {
+            line = myScanner.nextLine();
+        }
+        line = myScanner.nextLine();
+        for(int i= 0 ; i < myMap.getMyXSize() ; i++) {
+            String[] tileIndex = myXMLParser.splitByBlanks(line);
+            for(int j = 0; j < myMap.getMyYSize() ; j++) {
+                String tileID = tileIndex[j];
+                if( !tileID.equals("0")) {
+                    myMap.getMapNode(i, j).setTile(Integer.parseInt(tileID));
+                }
+            }
+            line = myScanner.nextLine();
+        }
     }
     
     

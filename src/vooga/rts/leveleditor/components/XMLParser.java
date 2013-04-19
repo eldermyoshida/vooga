@@ -5,16 +5,18 @@ import vooga.rts.leveleditor.Exceptions.MapNotMatchException;
 
 
 public class XMLParser {
-
     private Pattern myBracketPattern;
     private Pattern mySpacePattern;
     private Pattern myEqualPattern;
+    private Pattern myNumPattern;
 
     public XMLParser () {
+
 
         myBracketPattern = Pattern.compile("[<>]");
         mySpacePattern = Pattern.compile("[\\s]+");
         myEqualPattern = Pattern.compile("[=]");
+        myNumPattern = Pattern.compile("[0-9]");
     }
 
     public String splitSlash (String str) throws MapNotMatchException {
@@ -74,5 +76,9 @@ public class XMLParser {
 
     public Pattern getMyEqualPattern () {
         return myEqualPattern;
+    }
+    
+    public Pattern getMyNumPattern() {
+        return myNumPattern;
     }
 }
