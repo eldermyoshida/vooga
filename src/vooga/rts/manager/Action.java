@@ -1,7 +1,7 @@
 package vooga.rts.manager;
 
 import java.util.List;
-import vooga.rts.gamedesign.sprite.InteractiveEntity;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.util.Location;
 
 public class Action {

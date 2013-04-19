@@ -1,7 +1,6 @@
 package vooga.rts.gui.buttons;
 
 import java.awt.Dimension;
-import vooga.rts.controller.MainState;
 import vooga.rts.gui.Button;
 import vooga.rts.util.Location;
 

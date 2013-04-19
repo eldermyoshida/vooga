@@ -74,6 +74,7 @@ public class UpgradeNode {
 
     public boolean validUpdate (Player player) {
         for (String resourceType : myCost.keySet()) {
+            // TODO: player is being changed drastically - will need to figure this out.
             if (player.getResourceManager().getAmount(resourceType) < myCost.get(resourceType)) {
                 return false;
             }
