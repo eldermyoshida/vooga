@@ -62,7 +62,9 @@ public class MapLoader extends ObjectLoader {
 				myMap.setLocation(new UpdatableLocation(Integer.parseInt(getAttributeValue(node, "xSize"))/2,
 						Integer.parseInt(getAttributeValue(node, "ySize"))/2));
 				NodeList startingPosNodes= node.getElementsByTagName("startingPositions");
-				addStartingPositions(startingPosNodes);
+				Element firststartingposition = (Element) startingPosNodes.item(0);
+				NodeList startingPos1 = firststartingposition.getElementsByTagName("startingPos");
+				addStartingPositions(startingPos1);
 			}
 		}
 	}
@@ -87,6 +89,7 @@ public class MapLoader extends ObjectLoader {
 	private void addStartingPositions(NodeList startingPosNodes) {
 		for (int i=0; i<startingPosNodes.getLength(); i++){
 			Node startingPosition= startingPosNodes.item(i);
+			System.out.println(getAttributeValue(startingPosition, "xCoord"));
 			int xCoord= Integer.parseInt(getAttributeValue(startingPosition, "xCoord"));
 			int yCoord= Integer.parseInt(getAttributeValue(startingPosition, "yCoord"));
 			myMap.addStartPosition(new UpdatableLocation(xCoord,yCoord));

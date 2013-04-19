@@ -51,7 +51,7 @@ public class LevelMode extends Mode {
         System.out.println("Char");
         loadCharacters(myCharacterNames, myStartLocations);
         System.out.println("HEalth");
-        loadHealth();
+        //loadHealth();
     }
     
     public void loadHealth() {
