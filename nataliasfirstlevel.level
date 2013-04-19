@@ -1,0 +1,39 @@
+/level
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                          a                                 
+                         b                                  
+                   c                                        
+                     aaa                                    
+                   b  b                                     
+                c                                           
+              a                                             
+              b                                             
+                                                            
+                                                            
+                                                            
+  a a a a a a     a                                         
+d   d   d   d   d   d   d   d   d   d   d   d               
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+/key
+d=vooga.scroller.sprites.test_sprites.PokemonLib$LevelTwoBlockOne
+b=vooga.scroller.sprites.test_sprites.PokemonLib$LevelTwoBlockTwo
+c=vooga.scroller.sprites.test_sprites.PokemonLib$Charizard
+a=vooga.scroller.sprites.test_sprites.PokemonLib$Pokeball
+/settings
+StartPoint=16 720
+EndPoint=100 100
