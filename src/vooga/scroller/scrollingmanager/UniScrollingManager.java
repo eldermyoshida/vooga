@@ -10,8 +10,8 @@ import vooga.scroller.model.Model;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.view.View;
 /**
- * This manager prevents players from scrolling in a directing but so far EX like Mario
- * @author Ross
+ * This manager prevents players from scrolling in a direction but so far EX like Mario
+ * @author Ross Cahoon
  *
  */
 public class UniScrollingManager extends ScrollingManager {
@@ -282,28 +282,16 @@ public class UniScrollingManager extends ScrollingManager {
         double yCoord = p.getY();
         int halfWidth = myView.getWidth() / 2;
         int halfHeight = myView.getHeight() / 2;
-        
-//        switch (myRestrictiveDirection) {
-//            case RIGHT: myMaxDirection = ((xCoord + halfWidth) < myMaxDirection) ? (xCoord + halfWidth) : myMaxDirection;
-//                
-//            case DOWN: myMaxDirection = ((yCoord + halfHeight)  < myMaxDirection) ? (yCoord + halfHeight) : myMaxDirection;
-//            
-//            case LEFT: myMaxDirection = ((xCoord - halfWidth) > myMaxDirection) ? (xCoord - halfWidth) : myMaxDirection;
-//                
-//            case UP: myMaxDirection = ((yCoord - halfHeight) > myMaxDirection) ? (yCoord - halfHeight) : myMaxDirection;
-//        }
-//
-        if(myRestrictiveDirection == RIGHT){            
-            myMaxDirection = ((xCoord + halfWidth) < myMaxDirection) ? (xCoord + halfWidth) : myMaxDirection;
-        }
-        if(myRestrictiveDirection == DOWN){
-            myMaxDirection = ((yCoord + halfHeight)  < myMaxDirection) ? (yCoord + halfHeight) : myMaxDirection;
-        }
-        if(myRestrictiveDirection == LEFT){
-            myMaxDirection = ((xCoord - halfWidth) > myMaxDirection) ? (xCoord - halfWidth) : myMaxDirection;
-        }
-        if(myRestrictiveDirection == UP){
-            myMaxDirection = ((yCoord - halfHeight) > myMaxDirection) ? (yCoord - halfHeight) : myMaxDirection;
+
+        switch (myRestrictiveDirection) {
+            case RIGHT: myMaxDirection = ((xCoord + halfWidth) < myMaxDirection) ? (xCoord + halfWidth) : myMaxDirection;
+            break;
+            case DOWN: myMaxDirection = ((yCoord + halfHeight)  < myMaxDirection) ? (yCoord + halfHeight) : myMaxDirection;
+            break;
+            case LEFT: myMaxDirection = ((xCoord - halfWidth) > myMaxDirection) ? (xCoord - halfWidth) : myMaxDirection;
+            break;
+            case UP: myMaxDirection = ((yCoord - halfHeight) > myMaxDirection) ? (yCoord - halfHeight) : myMaxDirection;
+            break;
         }
     }
 }
