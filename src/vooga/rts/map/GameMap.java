@@ -14,9 +14,10 @@ import vooga.rts.util.Location;
 
 
 /**
- * The GameMap will be responsible for taking in the location of
+ * This class is responsible for the map of the game in its entirety.
  * 
  * @author Challen Herzberg-Brovold
+ * @author Jonathan Schmidt
  * 
  */
 
@@ -104,6 +105,6 @@ public class GameMap implements IGameLoop {
             }
         }
         System.out.println("Map Made");
-        Camera.instance().setMapSize(new  Dimension(tilesX * tileWidthX, tilesY * tileWidthY));
+        Camera.instance().setMapSize(new Dimension(tilesX * tileWidthX, tilesY * tileWidthY));
     }
 }
