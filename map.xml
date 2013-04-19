@@ -1,0 +1,61 @@
+<map>
+   <info>
+      <name>CIEMAS</name>
+      <desc> our RTS is the best one !</desc>
+      <players number=2>
+         <player ID=1 X=105 Y=220 />
+         <player ID=2 X=415 Y=224 />
+      </players>
+   </info>
+   <resources>
+      <info>
+         <tilesize width=50 height=50 />
+         <tileamount X=10 Y=10 />
+      </info>
+      <tiles>
+         <tile ID=3 image="tiles/Concrete1.jpg" name="Concrete1" />
+         <tile ID=2 image="tiles/Bricks1.jpg" name="Bricks1" />
+         <tile ID=1 image="tiles/Brush1.jpg" name="Brush1" />
+         <tile ID=7 image="tiles/Metal1.jpg" name="Metal1" />
+         <tile ID=6 image="tiles/Mesh1.jpg" name="Mesh1" />
+         <tile ID=5 image="tiles/Etiles1.jpg" name="Etiles1" />
+         <tile ID=4 image="tiles/Crops1.jpg" name="Crops1" />
+         <tile ID=8 image="tiles/Rock1.jpg" name="Rock1" />
+      </tiles>
+      <terraintype>
+         <terrain ID=2 image="terrain/Terrain2.jpg" name="Terrain2" walkability=2 />
+         <terrain ID=1 image="terrain/Terrain1.jpg" name="Terrain1" walkability=4 />
+      </terraintype>
+   </resources>
+   <graphic>
+      1 1 6 6 6 6 6 6 6 3 
+      4 4 1 1 4 4 4 4 4 4 
+      4 4 4 4 4 4 4 4 4 4 
+      4 4 1 2 2 3 3 2 2 3 
+      4 4 4 6 6 2 3 3 2 2 
+      4 4 4 6 6 2 2 3 2 2 
+      4 4 6 6 1 2 2 2 2 7 
+      6 6 6 2 1 2 2 2 7 7 
+      6 6 2 2 7 7 7 7 7 7 
+      3 2 1 1 1 7 7 7 7 7 
+   </graphic>
+   <terrain>
+      <layer level=1>
+         <terrain ID=1 X=139 Y=135 />
+         <terrain ID=2 X=352 Y=147 />
+         <terrain ID=2 X=373 Y=354 />
+         <terrain ID=1 X=155 Y=363 />
+      </layer>
+      <layer level=2>
+         <terrain ID=1 X=236 Y=252 />
+         <terrain ID=1 X=251 Y=117 />
+         <terrain ID=1 X=261 Y=391 />
+      </layer>
+   </terrain>
+   <resources>
+      <resource type="gas1" X=383 Y=66 />
+      <resource type="gas1" X=78 Y=311 />
+      <resource type="mineral1" X=89 Y=84 />
+      <resource type="mineral1" X=386 Y=423 />
+   </resources>
+</map>
