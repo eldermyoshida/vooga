@@ -1,6 +1,5 @@
 package vooga.rts.gui;
 
-import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.DisplayMode;
 import java.awt.GraphicsDevice;
@@ -117,8 +116,8 @@ public class Window {
     public JFrame getJFrame () {
         return myFrame;
     }
-    
-    public Dimension getSize () {
-        return SCREEN_SIZE;
+
+    public boolean hasFocus () {
+        return myFrame.hasFocus();
     }
 }
