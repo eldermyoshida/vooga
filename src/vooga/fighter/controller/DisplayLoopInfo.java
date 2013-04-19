@@ -22,10 +22,10 @@ public class DisplayLoopInfo extends DisplayInfo implements ViewDataSource{
 		super();
 		myMode = mode;
     	myImageData = mode.getImageData();
-        update();
+        updateInfo();
 	}
 
-    public void update(){
+    public void updateInfo(){
     	getSpriteLocations().clear();
     	getSprites().clear();
     	getImageSizes().clear();
@@ -38,11 +38,17 @@ public class DisplayLoopInfo extends DisplayInfo implements ViewDataSource{
     	}
     }
     
+    public void update() {
+        updateInfo();
+    }
+    
     public void clear(){
     	super.clear();
         myImageData.clear();
     }
 
-    
+    public Mode getMode() {
+        return myMode;
+    }
 
 }

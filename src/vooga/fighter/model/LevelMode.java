@@ -10,6 +10,7 @@ import vooga.fighter.model.objects.CharacterObject;
 import vooga.fighter.model.objects.EnvironmentObject;
 import vooga.fighter.model.objects.GameObject;
 import vooga.fighter.model.objects.MapObject;
+import vooga.fighter.model.utils.Health;
 import vooga.fighter.model.utils.ImageDataObject;
 import vooga.fighter.model.utils.State;
 import vooga.fighter.model.utils.UpdatableLocation;
@@ -26,6 +27,8 @@ public class LevelMode extends Mode {
     private List<UpdatableLocation> myStartLocations;
     private List<String> myCharacterNames;
     private List<CharacterObject> myCharacterObjects;
+    private List<Health> myHealthStats;
+    private List<Double> myScores;
     private String myMapName;
     private MapObject myMap;
 
@@ -33,6 +36,7 @@ public class LevelMode extends Mode {
         super(cd);
         myStartLocations = new ArrayList<UpdatableLocation>();
         myCharacterObjects = new ArrayList<CharacterObject>();
+        myHealthStats = new ArrayList<Health>();
         myCharacterNames = charNames;
         myMapName = mapName;
         myMap = null;
@@ -44,6 +48,13 @@ public class LevelMode extends Mode {
     public void initializeMode() {
         loadMap(myMapName);
         loadCharacters(myCharacterNames, myStartLocations);
+        loadHealth();
+    }
+    
+    public void loadHealth() {
+        for (int i = 0; i < myCharacterObjects.size(); i++) {
+            myHealthStats.add(myCharacterObjects.get(i).getHealth());
+        }
     }
 
     /**
@@ -146,6 +157,24 @@ public class LevelMode extends Mode {
     		}
     	}
     }
+    
+    public List<Health> getHealth() {
+        myHealthStats.clear();
+        for (int i = 0; i < myCharacterObjects.size(); i++) {
+            myHealthStats.add(myCharacterObjects.get(i).getHealth());
+        }
+        return myHealthStats;
+    }
+    
+//    public List<Double> getScores() {
+//        myScores.clear();
+//        for (int i = 0; i < myCharacterObjects.size(); i++) {
+//            myHealthStats.add(myCharacterObjects.get(i).getScore());
+//        }
+//        return myScores;
+//       
+//    }
+    
     
 
 }
