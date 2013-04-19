@@ -14,6 +14,7 @@ import javax.swing.Timer;
 
 import arcade.games.ArcadeInteraction;
 import arcade.games.Game;
+import arcade.games.GameData;
 import arcade.games.UserGameData;
 import util.Pixmap;
 import vooga.fighter.model.loaders.MapLoader;
@@ -31,19 +32,19 @@ import java.util.ResourceBundle;
 
 
 
-public class GameManager { //extends Game{
+public class GameManager {//extends Game{
 public static final Dimension SIZE = new Dimension(800, 600);
     public static final String TITLE = "Fighter!";
+    public static final int THREE_TOP_HIGH_SCORES = 3;
     private Canvas myCanvas;
     private ControllerManager myControllerManager;
     private GameInfo myGameInfo;
 
-    public GameManager() {
+    public GameManager(){//ArcadeInteraction arcade) {
+    	//super(arcade);
         myCanvas = new Canvas(SIZE); 
         myGameInfo = new GameInfo(new MapLoader().getMapNames());
-        myGameInfo.addCharacters("1");
-        myGameInfo.addCharacters("2");
-        myGameInfo.setMapName("1");
+        //myGameInfo.setHighScores(getArcade().getHighScores(THREE_TOP_HIGH_SCORES));
         ControllerFactory factory = makeFactory(myCanvas);
         ControlProgressionManager progressionmanager = new ControlProgressionManager(myGameInfo);
         myControllerManager = new ControllerManager(myCanvas, myGameInfo, factory, progressionmanager);
@@ -55,23 +56,6 @@ public static final Dimension SIZE = new Dimension(800, 600);
         frame.pack();
         frame.setVisible(true);
 	}
-    
-//    public GameManager(ArcadeInteraction arcade){
-//    	this();
-//    }
-    
-    public GameManager(String runindividually){
-        this();
-    	//DisplayMode dm = new DisplayMode(SIZE.width,SIZE.height, 16, DisplayMode.REFRESH_RATE_UNKNOWN);
-        // container that will work with user's OS
-        JFrame frame = new JFrame(TITLE);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        // add our user interface components
-        frame.getContentPane().add(myCanvas, BorderLayout.CENTER);
-        // display them
-        frame.pack();
-        frame.setVisible(true);
-    }
     
     
 	 public void run (){
@@ -85,5 +69,6 @@ public static final Dimension SIZE = new Dimension(800, 600);
 	 public UserGameData generateNewProfile(){
 		return myGameInfo;
 	 }
+
 
 }

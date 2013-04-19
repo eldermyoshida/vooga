@@ -30,7 +30,6 @@ import java.util.ResourceBundle;
 public class ModeSelectMenuController extends MenuController {
 	
     private ResourceBundle myResources;
-    private GameInfo myGameInfo;
     
     public ModeSelectMenuController (String name, Canvas frame) {
         super(name, frame);
@@ -40,30 +39,23 @@ public class ModeSelectMenuController extends MenuController {
                 GameInfo gameinfo) {
         super(name, frame, manager, gameinfo);
         System.out.println("marker");
-        myGameInfo = gameinfo;
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "LevelConfig");
     }
     /**
      * Checks this controller's end conditions
      */
     
-    public void notifyModeSelection(String modeName) {
-        myGameInfo.setGameMode(modeName);
-    }
-    
     public void notifyEndCondition(String choice) {
     	removeListener();
-    	choice = "test";
     	if(EXIT.equals(choice)){
     		getManager().exit();
     	}
     	else if(BACK.equals(choice)){
     		getManager().notifyEndCondition(BACK);
     	}
-    	else{ //(getMode().getMenuNames().contains(choice)){
+    	else { //if(getMode().getMenuNames().contains(choice)){
     		getGameInfo().setGameMode(choice);
-    		System.out.println("mode");
-    		getGameInfo().setNumCharacters(Integer.parseInt(myResources.getString(choice)));
+    		getGameInfo().setNumCharacters(2);//Integer.parseInt(myResources.getString(choice)));
     		getManager().notifyEndCondition(NEXT);
     		}
     	}
@@ -77,7 +69,7 @@ public class ModeSelectMenuController extends MenuController {
     @InputMethodTarget(name = "continue")
     public void mouseclick(PositionObject pos)  {
         super.getMode().addObject(new MouseClickObject(pos.getPoint2D()));
-        notifyEndCondition("asdfdf");
+        notifyEndCondition("test");
     }
     
     public void removeListener(){

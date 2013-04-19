@@ -23,7 +23,6 @@ import util.*;
 
 public class GameLoopInfo extends DisplayLoopInfo implements ViewDataSource{
 
-    private LevelMode myMode;
     private List<String> myCharacterNames;
     private List<Health> myHealthStats;
     private List<Dimension> myImageSizes;
@@ -56,42 +55,48 @@ public class GameLoopInfo extends DisplayLoopInfo implements ViewDataSource{
 
     public GameLoopInfo(Mode mode) {
     	super(mode);
-    	myMode = (LevelMode) mode;
+    	myPlayerStats = new ArrayList<PlayerStatus>();
+    	initializePlayers();
         myHealthStats = new ArrayList<Health>();
         myScores = new ArrayList<Double>();
         myCharacterNames = new ArrayList<String>();
-        myPlayerStats = new ArrayList<PlayerStatus>();
+    }
+    
+    public void initializePlayers() {
+        Player1Status = new PlayerStatus();
+        Player2Status = new PlayerStatus();
+        Player3Status = new PlayerStatus();
+        Player4Status = new PlayerStatus();
         myPlayerStats.add(Player1Status);
         myPlayerStats.add(Player2Status);
         myPlayerStats.add(Player3Status);
         myPlayerStats.add(Player4Status);
+        System.out.println(Player1Status.getPlayerName());
+        System.out.println(Player2Status.getPlayerName());
     }
     
     @Override
     public void update() {
         super.update();
-        //updatePlayerStats();
+        updateStats();
+       
     }
     
-    /**
-     * Updates the information in the PlayerStatus objects to reflect the 
-     * current data in this GameLoopInfo class.
-     */
-    public void updatePlayerStats() {
-        for(int i = 0; i < 4; i++) {
-            myPlayerStats.get(i).setName(myCharacterNames.get(i));
-            myPlayerStats.get(i).setScore(myScores.get(i));
+    
+    
+    public void updateStats() {
+        LevelMode currentMode = (LevelMode) getMode();
+        myHealthStats = currentMode.getHealth();
+        for (int i = 0; i < myHealthStats.size(); i++) {
             myPlayerStats.get(i).setHealth(myHealthStats.get(i));
         }
     }
-
-
-
+    
     /**
      * @return Health at list index
      */
     public Health getHealth(int index) {
-        return myMode.getMyCharacterObjects().get(index).getHealth();
+        return myHealthStats.get(index);
     }
 
 

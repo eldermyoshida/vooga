@@ -7,10 +7,12 @@ import java.util.Observable;
 
 import util.Location;
 import util.Pixmap;
+import vooga.fighter.model.utils.Health;
 import vooga.fighter.util.Paintable;
 
 public class DisplayInfo extends Observable implements ViewDataSource{
-	
+    
+    
     private List<Location> mySpriteLocations;
     private List<Pixmap> mySprites;
     private List<Dimension> myImageSizes;

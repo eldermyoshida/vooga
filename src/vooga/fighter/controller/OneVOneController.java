@@ -29,7 +29,6 @@ import vooga.fighter.view.Canvas;
  * 
  */
 @InputClassTarget
-
 public class OneVOneController extends LevelController {
     private static final String INPUT_PATHWAY = "vooga.fighter.config.leveldefault";
     private List<CharacterObject> myInputObjects;
@@ -52,12 +51,70 @@ public class OneVOneController extends LevelController {
 
     @Override
     public void notifyEndCondition (String endCondition) {
-    	getInput().removeListener(this);
+    	removeListener();
     	getManager().notifyEndCondition(NEXT);
     }
     
+    @InputMethodTarget(name = "player1_jump")
+    public void playerOneJumpInput (AlertObject alObj)  {
+        getInputObjects().get(0).move(270);
+    }
     
+    @InputMethodTarget(name = "player1_left")
+    public void playerOneLeftInput (AlertObject alObj) {
+        getInputObjects().get(0).move(180);
+        
+    }
     
+    @InputMethodTarget(name = "player1_right")
+    public void playerOneRightInput(AlertObject alObj) {
+        getInputObjects().get(0).move(0);
+        
+    }
+    
+    @InputMethodTarget(name = "player1_down")
+    public void playerOneDownInput(AlertObject alObj) {
+        getInputObjects().get(0).move(90);
+        
+    }
+    
+    @InputMethodTarget(name = "player2_jump")
+    public void playerTwoJumpInput (AlertObject alObj)  {
+        getInputObjects().get(1).move(270);
+    }
+    
+    @InputMethodTarget(name = "player2_left")
+    public void playerTwoLeftInput (AlertObject alObj) {
+        getInputObjects().get(1).move(180);
+       
+    }
+    
+    @InputMethodTarget(name = "player2_right")
+    public void playerTwoRightInput(AlertObject alObj) {
+        getInputObjects().get(1).move(0);
+        
+    }
+    
+    @InputMethodTarget(name = "player2_down")
+    public void playerTwoDownInput(AlertObject alObj) {
+        getInputObjects().get(1).move(90);
+        
+    }
+    
+    @InputMethodTarget(name = "player2_attack")
+    public void playerTwoAttackInput(AlertObject alObj) {
+        //test attacks here
+    }
+    
+    @InputMethodTarget(name = "player2_attack")
+    public void playerTwoAttacknput(AlertObject alObj) {
+        //test attacks here
+    }
+    
+    public void removeListener(){
+    	super.removeListener();
+    	getInput().removeListener(this);
+    }
     
     
 }

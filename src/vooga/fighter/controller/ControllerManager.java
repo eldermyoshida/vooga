@@ -23,7 +23,7 @@ public class ControllerManager implements ControllerDelegate{
 	private Canvas myCanvas;
 	private GameInfo myGameInfo;
 	private ControlProgressionManager myProgressionManager;
-	private static final String INPUT_PATHWAY = "vooga.fighter.config.leveldefault";
+	private static final String INPUT_PATHWAY = "vooga.fighter.config.menudefault";
 	private Input myInput;
 	
 	public ControllerManager(Canvas frame, GameInfo gameinfo, ControllerFactory factory,
@@ -51,7 +51,7 @@ public class ControllerManager implements ControllerDelegate{
 		myCurrentController = myControllerMap.get(myProgressionManager.getNextController(
 				myCurrentController.getName(), condition));
 		System.out.println("now the controller is: " + myCurrentController.getName() );
-		myCurrentController.displaySplash();
+		//myCurrentController.displaySplash();
 		myCurrentController = myCurrentController.getController(this, myGameInfo);
 		myCurrentController.start();	
 	}      

@@ -95,6 +95,8 @@ public abstract class Mode {
         return result;
     }
     
+    
+    
     /**
      *  Removes objects that have been destroyed or have timed out
      */
