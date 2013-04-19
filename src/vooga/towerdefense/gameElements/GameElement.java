@@ -32,8 +32,6 @@ public class GameElement extends Sprite {
         myActions = actions;
     }
 
-    // NEEDS TO BE REFACTORED: need to figure out a way to remove duplicated code without double
-    // constructor
     public GameElement (Pixmap image, Location center, Dimension size, List<Action> actions) {
         this(image, center, size, new AttributeManager(), actions);
     }

@@ -29,7 +29,7 @@ public class GameElementFactory {
     }
     
     public GameElementFactory(GameElementDefinition definition) {
-        new GameElementFactory(definition.get(AttributeConstants.NAME), definition);
+        this(definition.get(AttributeConstants.NAME), definition);
     }
     
     public GameElementDefinition getDefinition() {
