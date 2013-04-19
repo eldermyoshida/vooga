@@ -9,6 +9,8 @@ import javax.swing.JTabbedPane;
 import vooga.rts.leveleditor.components.Resource;
 import vooga.rts.leveleditor.components.Terrain;
 import vooga.rts.leveleditor.components.Tile;
+import vooga.rts.resourcemanager.ImageLoader;
+import vooga.rts.resourcemanager.ResourceManager;
 
 /**
  * 
@@ -138,6 +140,9 @@ public class Canvas extends JFrame {
 
     
     public static void main(String[] argv) {
+        ResourceManager.getInstance().registerResourceLoader(new ImageLoader());
+        ResourceManager.getInstance().setResourceBase("/vooga/rts/leveleditor/resource/");
+        
         new Canvas();
     }
 

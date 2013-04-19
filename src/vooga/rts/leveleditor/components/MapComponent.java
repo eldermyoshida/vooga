@@ -5,7 +5,6 @@ import java.util.ResourceBundle;
 
 public abstract class MapComponent {
     protected static final String RELATIVE_PATH = "vooga.rts.leveleditor.resource.";
-    protected static final String IMAGE_PATH = "./src/vooga/rts/leveleditor/resource/";
     
     protected int myID;
     protected String myName;

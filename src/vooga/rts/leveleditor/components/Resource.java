@@ -1,8 +1,10 @@
 package vooga.rts.leveleditor.components;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import vooga.rts.resourcemanager.ResourceManager;
 import vooga.rts.util.Location;
 /**
  * This class represents the available resource types the designer can choose from
@@ -57,7 +59,7 @@ public class Resource extends MapComponent{
             String[] buffer = content.split("&");
             myName = buffer[0];
             myImageName = buffer[1];
-            myImage = ImageIO.read(new File(System.getProperty("user.dir") + IMAGE_PATH + myImageName));            
+            myImage = ResourceManager.getInstance().<BufferedImage>getFile(myImageName, BufferedImage.class);            
         }
     }
     
