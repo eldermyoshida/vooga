@@ -106,6 +106,10 @@ public class Database {
         //TODO delete game from other tables as well
     }
     
+    public boolean usernameExists(String username) {
+        return myUserTable.usernameExists(username);
+    }
+    
     public void addNewHighScore(String username, String gameName, String newHighScore) {
         myScoreTable.addNewHighScore(retrieveUserId(username), retrieveGameId(gameName), newHighScore);
     }
