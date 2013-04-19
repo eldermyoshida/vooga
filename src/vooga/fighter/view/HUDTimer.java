@@ -37,6 +37,7 @@ public class HUDTimer extends HUDElement {
         myTimerDisplay.setText(String.format("%03d", minutes) + ":" + String.format("%03d", seconds));
     }
 
+    @Override
     public void paint (Graphics2D pen, Point2D center, Dimension size) {
         myTimerDisplay.paint(pen, center, java.awt.Color.BLACK);
     }

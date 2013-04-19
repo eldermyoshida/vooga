@@ -31,11 +31,12 @@ public class HUDPlayerScoreAndHealth extends HUDPlayerValue {
             return;
         }
         
-        myPlayerNameText.setText(newStatus.getName());
+        myPlayerNameText.setText(newStatus.getPlayerName());
         myPlayerValue.setText("Score: " + newStatus.getScore());
         myPlayerHealth.setText("Health: " + newStatus.getHealth().getHealth());
     }
     
+    @Override
     public void paint (Graphics2D pen, Point2D center, Dimension size) {
         super.paint(pen, center, size);
         center.setLocation(center.getX(), center.getY() + HUDElement.DEFAULT_TEXT_HEIGHT);

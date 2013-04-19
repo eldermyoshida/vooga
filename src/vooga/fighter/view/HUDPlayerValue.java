@@ -53,6 +53,7 @@ public class HUDPlayerValue extends HUDElement {
         myPlayerValue.setText(myName + ": " + newStats.myValue);
     }
     
+    @Override
     public void paint (Graphics2D pen, Point2D center, Dimension size) {
         myPlayerNameText.paint(pen, center, java.awt.Color.BLACK);
         center.setLocation(center.getX(), center.getY() + HUDElement.DEFAULT_TEXT_HEIGHT);
