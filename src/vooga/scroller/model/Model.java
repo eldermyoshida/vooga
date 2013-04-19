@@ -45,6 +45,8 @@ public class Model {
     private static final String PART_ONE = "public void visit (";
     private static final String PART_TWO = ") {}";
     private static final String COMMA = ", ";
+    private static final String DIRECTORY_LOCATION = "src/vooga/scroller/collision_manager/files/";
+    private static final String FILE_NAME = "visitMethods.txt";
     
     /**
      * Constructs a new Model based on the view and the scrolling manager used by the game.
@@ -65,7 +67,7 @@ public class Model {
         myLevelManager.currentLevel().addPlayer(myPlayer);
 
 //        myLevelManager.setCurrentLevel(DEFAULT_START_LEVEL_ID);
-        mySecretary = new Secretary("src/vooga/scroller/collision_manager/files/", "visitMethods.txt");
+        mySecretary = new Secretary(DIRECTORY_LOCATION, FILE_NAME);
         generateVisitMethods(spriteStrings);  
     }
 

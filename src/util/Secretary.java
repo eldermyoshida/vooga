@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.nio.channels.FileChannel;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 /**
@@ -18,11 +20,11 @@ import java.nio.channels.FileChannel;
  * Also has other functionality such as writing to a file, counting lines in a file, removing lines from a file
  * Functions:
  * write(String value) --> allows you to write value to a session file
- * count(String fileName, String search) --> allows you to count how many instances of search are in
- * a file
+ * count(String fileName, String patternToMatch) --> allows you to count how many lines match a given regex pattern
  * remove(String fileName, String remove) --> allows you to remove String remove from a file
  * saveSession(String fileName) --> allows you to save a session file onto your disk
- * loadSession(String filename) --> allows you to load a file from your disk into your machine
+ * loadSession(String filename, Method method, Object object) --> allows you to load a file from your disk into your machine and perform 
+ * whatever method you want on it (that method must take a String as parameter). 
  * 
  * @author Jay Wang
  */
@@ -58,9 +60,6 @@ public class Secretary {
         }
     }
     
-    
-    
-
     /*
      * PUBLIC METHODS
      */
@@ -125,21 +124,25 @@ public class Secretary {
     }
     
     /**
-     * This method will count of the number of occurrences of a given line 
-     * in a file. 
+     * This method will count of the number of occurrences of a given line pattern
+     * in a file. The user needs to send a patternToMatch (regular expression). This method 
+     * will return the number of occurrences of lines in the file that match the given 
+     * pattern. 
      * 
      * @param String fileName - name of the file (i.e. Example1.txt)
-     * @param String search - the line that is to be searched for in the file
+     * @param String patternToMatch - the pattern that you want a line to match to
      * @return An integer of the number of occurrences of search in the file. 
      */
-    public int count (String fileName, String search) {
+    public int count (String fileName, String patternToMatch) {
+        String line;
         int count = 0;
         BufferedReader reader = getReader(fileName);
-
-        String line;
+        Pattern pattern = Pattern.compile(patternToMatch);
+        
         try {
             while ((line = reader.readLine()) != null) {
-                if (line.equals(search)) count++;
+                Matcher match = pattern.matcher(line); 
+                if (match.find()) count++;
             }
             reader.close();
         }
