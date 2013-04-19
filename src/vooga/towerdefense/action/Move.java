@@ -7,12 +7,12 @@ import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.util.Vector;
 
 /**
- * Uses the sprite move method
+ * Moves a Location
  * @author Matthew Roy
  *
  */
 public class Move extends Action {
-	private static final AttributeConstants ATTRIBUTE_CONSTANTS = new AttributeConstants();
+    private static final AttributeConstants ATTRIBUTE_CONSTANTS = new AttributeConstants();
     private Attribute myMovespeed;
     private Attribute myDirection;
 
