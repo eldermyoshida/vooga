@@ -29,8 +29,7 @@ public class GameElementFactory {
     }
     
     public GameElementFactory(GameElementDefinition definition) {
-        myName = myDefinition.get(AttributeConstants.NAME);
-        myDefinition = definition;
+        new GameElementFactory(definition.get(AttributeConstants.NAME), definition);
     }
     
     public GameElementDefinition getDefinition() {

@@ -10,8 +10,9 @@ import java.util.Comparator;
 import java.util.List;
 
 import vooga.rts.util.Vector;
+import vooga.towerdefense.factories.ExampleUnitFactory;
+import vooga.towerdefense.factories.TrollUnitDefinition;
 import vooga.towerdefense.gameElements.GameElement;
-import vooga.towerdefense.gameElements.Unit;
 import vooga.towerdefense.util.Location;
 
 
@@ -25,7 +26,6 @@ public class GameMap {
     private static final int TILE_SIZE = 25;
 
     private Image myBackgroundImage;
-    private List<Unit> myUnits;
     private List<GameElement> myGameElements;
     private Tile[][] myGrid;
     private Location myDestination;
@@ -42,18 +42,17 @@ public class GameMap {
      */
     public GameMap (Image background, int width, int height, Location destination) {
         myBackgroundImage = background;
-        myUnits = new ArrayList<Unit>();
         myGameElements = new ArrayList<GameElement>();
         myDestination = destination;
         myDimension = new Dimension(width, height);
         initializeGrid();
         myPathfinder = new Pathfinder(myGrid);
         
-        //ExampleUnitFactory myTrollFactory = new ExampleUnitFactory("Troll", new TrollUnitDefinition());
-        //GameElement troll1 = myTrollFactory.createUnit(new Location(500, 500), new TrollUnitDefinition());
-        //GameElement troll2 = myTrollFactory.createUnit(new Location(350, 250), new TrollUnitDefinition());
-        //addGameElement(troll1);
-        //addGameElement(troll2);
+        ExampleUnitFactory myTrollFactory = new ExampleUnitFactory("Troll", new TrollUnitDefinition());
+        GameElement troll1 = myTrollFactory.createUnit(new Location(500, 500), new TrollUnitDefinition());
+        GameElement troll2 = myTrollFactory.createUnit(new Location(350, 250), new TrollUnitDefinition());
+        addGameElement(troll1);
+        addGameElement(troll2);
     }
 
     /**
@@ -86,10 +85,6 @@ public class GameMap {
         for (GameElement e : myGameElements) {
             e.update(elapsedTime);
         }
-    }
-
-    public void spawnUnit (Unit u) {
-        myUnits.add(u);
     }
 
     public void addToMap (GameElement e, Tile t) {
@@ -125,10 +120,7 @@ public class GameMap {
      * @param pen a pen used to draw elements on this map.
      */
     public void paint (Graphics2D pen) {
-        // TODO: draw background image on mapscreen
-        for (Unit u : myUnits) {
-            u.paint(pen);
-        }
+    	
         for (GameElement e : myGameElements) {
             e.paint(pen);
         }
@@ -136,10 +128,6 @@ public class GameMap {
 
     public List<GameElement> getAllGameElements () {
         return myGameElements;
-    }
-
-    public List<Unit> getUnits () {
-        return myUnits;
     }
 
     public void addGameElement (GameElement gameElement) {

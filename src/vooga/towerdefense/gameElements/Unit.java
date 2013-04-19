@@ -81,7 +81,7 @@ public class Unit extends GameElement {
     }
 
 	private void executeActions(double elapsedTime) {
-		for (Action act: myActions){
+		for (Action act: getActions()){
     		act.executeAction(elapsedTime);
     	}
 	}
@@ -122,11 +122,11 @@ public class Unit extends GameElement {
 			//for some reason, this method gives the wrong sign on the angle
 			newDirection = new Vector(-1*newDirection.getDirection(), newDirection.getMagnitude());
 			System.out.println("set new direction to " + newDirection);
-			myAttributeManager.getAttribute(ATTRIBUTE_CONSTANTS.DIRECTION).setValue(newDirection.getDirection());
+			getAttributeManager().getAttribute(ATTRIBUTE_CONSTANTS.DIRECTION).setValue(newDirection.getDirection());
 		}
 		
 		else{
-			myAttributeManager.getAttribute(ATTRIBUTE_CONSTANTS.MOVE_SPEED).setValue(0);
+			getAttributeManager().getAttribute(ATTRIBUTE_CONSTANTS.MOVE_SPEED).setValue(0);
 		}
 		
 	}

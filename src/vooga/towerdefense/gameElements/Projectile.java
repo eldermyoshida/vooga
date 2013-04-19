@@ -8,6 +8,7 @@ import vooga.towerdefense.attributes.AttributeConstants;
 import vooga.towerdefense.attributes.AttributeManager;
 import vooga.towerdefense.util.Location;
 import vooga.towerdefense.util.Pixmap;
+import vooga.towerdefense.util.Vector;
 import vooga.towerdefense.gameElements.GameElement;
 
 
@@ -21,6 +22,7 @@ public class Projectile extends GameElement {
     private GameElement myTarget;
     private Location myTargetLocation;
     private GameElement myInitiator;
+    private Vector myHeading;
 
     /**
      * Creates a projectile GameElement that is homing onto a single element target, and will only
@@ -39,6 +41,7 @@ public class Projectile extends GameElement {
         super(image, initiator.getCenter(), size, attributes, actions);
         myTargetLocation = targetElement.getCenter();
         myInitiator = initiator;
+        myHeading = new Vector(Vector.angleBetween(myInitiator.getCenter(), myTargetLocation),attributes.getAttribute("speed").getValue());
     }
 
     /**
@@ -57,6 +60,8 @@ public class Projectile extends GameElement {
         super(image, initiator.getCenter(), size, attributes, actions);
         myTargetLocation = targetLocation;
         myInitiator = initiator;
+        myHeading = new Vector(Vector.angleBetween(myInitiator.getCenter(), myTargetLocation),0);
+
     }
 
     /*
@@ -70,7 +75,7 @@ public class Projectile extends GameElement {
      * public Projectile(Location spawn,GameElement target){
      * super(DEFAULT_IMAGE,spawn,DEFAULT_SIZE,DEFAULT_ACTIONS); }
      */
-    public void update (double elapsedTime) {
+    public void update (double elapsedTime) { 
         // to-do mostly needs to move towards target;
     }
 

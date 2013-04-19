@@ -33,13 +33,6 @@ public class TestTowerDefinition extends GameElementDefinition {
 		return new Attribute("health", DEFAULT_HEALTH);
 	}
 	
-	@Override 
-	public List<Attribute> getAllAttributes(){
-		List<Attribute> inputAttributes = super.getAllAttributes();
-		inputAttributes.add(makeHealthAttribute());
-		return inputAttributes;
-	}
-	
 	public Pixmap getImage(){
 		return myImage;
 	}
