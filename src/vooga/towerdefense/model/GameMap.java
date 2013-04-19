@@ -23,7 +23,7 @@ import vooga.towerdefense.util.Location;
  */
 public class GameMap {
     // a normal computer screen will have
-    private static final int TILE_SIZE = 25;
+    private static final int TILE_SIZE = 52;
 
     private Image myBackgroundImage;
     private List<GameElement> myGameElements;
