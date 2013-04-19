@@ -42,6 +42,15 @@ public class Model implements ArcadeInteraction {
     public void setLoginView (LoginView login) {
         myLoginView = login;
     }
+    
+    /**
+     * 
+     * @param directoryPath
+     */
+    public void publishGame(String directoryPath) {
+        return;
+    }
+    
 
     /**
      * This should be called after a developer enters the information about
@@ -94,6 +103,7 @@ public class Model implements ArcadeInteraction {
                                       String dataOfBirth,
                                       String filepath) {
         myDb.createUser(username, pw, firstname, lastname, dataOfBirth, filepath);
+        authenticate(username, pw);
     }
 
     public void deleteUser (String username) {

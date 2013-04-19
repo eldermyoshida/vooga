@@ -33,12 +33,10 @@ public class LoginView extends FormView {
     private static final String LOGO_FILENAME = "../resources/images/VoogaLogo.png";
     private static final int WINDOW_WIDTH = 260;
     private static final int WINDOW_HEIGHT = 240;
-    private static final int MESSAGE_WIDTH = 140;
     // private static final int NO_KEY_PRESSED = -1;
 
     private JTextField myUserNameTextField;
     private JPasswordField myPasswordTextField;
-    private JLabel myWarningMessage;
 
     // private int myLastKeyPressed;
 
@@ -53,19 +51,6 @@ public class LoginView extends FormView {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
         setLocationRelativeTo(null);
-    }
-
-    /**
-     * Display an error message in the view.
-     * 
-     * Called if user makes failed log in attempt or tries to register an account
-     * that has already been named.
-     * 
-     * @param message
-     */
-    public void sendMessage (String message) {
-        myWarningMessage.setText("<html><body style='width:" + MESSAGE_WIDTH + " px'>"
-                                 + "<center><font color = red>" + message);
     }
 
     @Override
@@ -116,18 +101,6 @@ public class LoginView extends FormView {
             }
         });
         return createTextPanel(TextKeywords.PASSWORD, myPasswordTextField);
-    }
-
-    /**
-     * Create a label where an error message can be displayed.
-     * 
-     * @return
-     */
-    private JComponent createMessageArea () {
-        JPanel panel = new JPanel();
-        myWarningMessage = new JLabel();
-        panel.add(myWarningMessage);
-        return panel;
     }
 
     /**
