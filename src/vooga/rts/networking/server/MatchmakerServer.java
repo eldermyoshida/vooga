@@ -14,9 +14,9 @@ import java.util.ResourceBundle;
  * 
  */
 public class MatchmakerServer extends AbstractThreadContainer {
+    private static final String DEFAULT_RESOURCE_PACKAGE = "vooga.rts.networking.resources.";
     private Map<String, GameContainer> myGameContainers = new HashMap<String, GameContainer>();
     private ConnectionServer myConnectionServer = new ConnectionServer(this);
-    private static final String DEFAULT_RESOURCE_PACKAGE = "vooga.rts.networking.resources.";
     private ResourceBundle myGamesBundle;
     
     public MatchmakerServer () {       

@@ -16,6 +16,12 @@ import vooga.rts.networking.communications.Message;
  */
 public class GameServer extends Room {
 
+    /**
+     * Instantiates the gameServer with all the connections passed in by a lobby.
+     * @param id id of the gameserver
+     * @param container gamecontainer of the gameserver
+     * @param lobby lobby to get connections from
+     */
     public GameServer (int id, GameContainer container, Lobby lobby) {
         super(id, container, lobby);
     }
@@ -30,7 +36,7 @@ public class GameServer extends Room {
     
     @Override
     public void stampMessage (Message message) {
-        
+        // TODO timer
     }
 
 }

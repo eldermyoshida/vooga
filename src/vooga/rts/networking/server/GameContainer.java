@@ -32,6 +32,7 @@ public class GameContainer extends AbstractThreadContainer {
 
     /**
      * Joins the lobby if the lobby exists.
+     * @param lobbyNumber number of lobby
      */
     @Override
     public void joinLobby (ConnectionThread thread, int lobbyNumber) {

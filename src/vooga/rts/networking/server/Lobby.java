@@ -7,6 +7,11 @@ package vooga.rts.networking.server;
  */
 public class Lobby extends Room {
         
+    /**
+     * Instantiates a lobby.
+     * @param id id of lobby
+     * @param container gamecontainer of lobby
+     */
     public Lobby (int id, GameContainer container) {
         super(id, container);
     }
