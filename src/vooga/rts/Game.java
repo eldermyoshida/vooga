@@ -2,7 +2,7 @@ package vooga.rts;
 
 import vooga.rts.controller.MainController;
 
-// Ignore me
+// Ignore me again
 
 public class Game {
     MainController myMainController;
