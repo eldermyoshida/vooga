@@ -53,7 +53,8 @@ public class Barracks extends ProductionBuilding {
                 newProduction.move(getRallyPoint());
                 //this part below will not be in actual implementation as I will notify player/unit manager that a new unit should be added to the player
                 myInteractiveEntities.add(newProduction);
-                notifyProductionObserver(newProduction);
+                getGameBuildingManager().distributeProduct(newProduction, playerID);
+                //notifyProductionObserver(newProduction);
             }
         });
     }

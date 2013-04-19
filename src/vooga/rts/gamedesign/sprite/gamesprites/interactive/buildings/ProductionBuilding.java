@@ -81,6 +81,8 @@ public class ProductionBuilding extends Building implements IObservable{
 	//TODO: this should work together with Occupy! When another player occupies
 	// the building, it should unregister the current player and register the
 	// new one.
+    
+    //NOTE:this can now be done in GameBuildingManager.
 	/**
 	 * Unregisters an IProductionObserver (a player) so that it will not be
 	 * notified anymore when ProductionBuilding updates.
@@ -99,5 +101,5 @@ public class ProductionBuilding extends Building implements IObservable{
 		for (IProductionObserver observer: myObservers) {
 			observer.addProduction(newProduction);
 		}
-	}  
+	}
 }

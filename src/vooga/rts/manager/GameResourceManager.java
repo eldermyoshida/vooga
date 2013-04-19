@@ -23,13 +23,11 @@ public class GameResourceManager {
 	private List<Player> myPlayers;
 	private List<Resource> myUnassignedResources;
 	private Map<Integer, HashMap<String, Integer>> myPlayerResources;
-    //private Map<String, Integer> myResources;
     
     public GameResourceManager() {
     	myPlayers = new ArrayList<Player>();
     	myUnassignedResources = new ArrayList<Resource>();
-        myPlayerResources = new HashMap<Integer, HashMap<String, Integer>>();
-    	//myResources = new HashMap<String, Integer>();        
+        myPlayerResources = new HashMap<Integer, HashMap<String, Integer>>(); 
     }
     
     public void addPlayer(Player player, int playerID) {

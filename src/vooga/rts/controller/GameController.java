@@ -26,6 +26,7 @@ import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;
 import vooga.rts.gamedesign.weapon.Weapon;
 import vooga.rts.gui.Window;
 import vooga.rts.input.PositionObject;
+import vooga.rts.manager.GameBuildingManager;
 import vooga.rts.manager.GameResourceManager;
 import vooga.rts.map.GameMap;
 import vooga.rts.player.HumanPlayer;
@@ -50,8 +51,8 @@ public class GameController extends AbstractController {
                            // size of the map. Not
                            // made for now.
     private GameResourceManager myGameResourceManager;
+    private GameBuildingManager myGameBuildingManager;
     
-    private ProductionBuilding building;
     private UpgradeBuilding upgradeBuilding;
     private Location myLeftMouse;
     private Location myLeftMouseWorld;
@@ -124,7 +125,11 @@ public class GameController extends AbstractController {
             	u1.getAttacked(u2);
             }
         }
-        building.update(elapsedTime);
+        //TODO: also need to update buildings with owners.
+        for (Building building: myGameBuildingManager.getUnassignedBuilding()) {
+        	building.update(elapsedTime);
+        }
+        
         //System.out.println("Numbers of units for player1: " + myPlayers.get(0).getUnits().getAllUnits().size());
         // upgradeBuilding.update(elapsedTime);
         checkCameraMouse(elapsedTime);
@@ -142,7 +147,11 @@ public class GameController extends AbstractController {
     	for (Resource r: copyResource) {
     		r.paint(pen);
     	}
-        building.paint(pen);
+    	
+    	//TODO: also need to paint buildings with owners.
+        for (Building building: myGameBuildingManager.getUnassignedBuilding()) {
+        	building.paint(pen);
+        }
 
         if (myDrag != null) {
             pen.draw(myDrag);
@@ -221,6 +230,7 @@ public class GameController extends AbstractController {
              * Dimension(150,150), null, 1,300);
              */
             
+        	myGameBuildingManager = new GameBuildingManager();
         	myGameResourceManager = new GameResourceManager();
         	Resource r = new Resource(new Pixmap(ResourceManager.getInstance()
         			.<BufferedImage> getFile("images/mineral.gif", BufferedImage.class)),
@@ -231,6 +241,7 @@ public class GameController extends AbstractController {
         	
         	Player p1 = new HumanPlayer();
         	myGameResourceManager.addPlayer(p1, 1);
+        	myGameBuildingManager.addPlayer(p1, 1);
 
         	Pixmap p =
         			new Pixmap(ResourceManager.getInstance()
@@ -260,18 +271,22 @@ public class GameController extends AbstractController {
             p1.getUnits().addUnit(b);
             p1.getUnits().addUnit(w);
             Player p2 = new HumanPlayer();
+            myGameResourceManager.addPlayer(p2, 2);
+        	myGameBuildingManager.addPlayer(p2, 2);
             p2.getUnits().addUnit(c);
 
             addPlayer(p1, 1);
             addPlayer(p2, 2);
 
-            building =
-                    new Barracks(new Pixmap(ResourceManager.getInstance().<BufferedImage>getFile("images/barracks.jpeg", BufferedImage.class)), new Location3D(800, 500, 0),
-                                 new Dimension(150, 150), null, 1, 300);
+            ProductionBuilding building = new Barracks(new Pixmap(ResourceManager.getInstance().<BufferedImage>getFile("images/barracks.jpeg", BufferedImage.class)), new Location3D(800, 500, 0),
+                                 new Dimension(150, 150), null, 0, 300);
+            building.setGameBuildingManager(myGameBuildingManager);
+            myGameBuildingManager.addUnassignedBuilding(building);
+            
             System.out.println("Setup Game");
             myHuman = (HumanPlayer) p1;
-            //TODO: is there a better way to register the player based on building's playerID?
-            building.register(p1); //make p1 observing ProductionBuilding building.
+            
+            //building.register(p1); //make p1 observing ProductionBuilding building.
 
         }
         catch (Exception e) {

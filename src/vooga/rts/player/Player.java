@@ -33,11 +33,12 @@ public abstract class Player implements IGameLoop, IProductionObserver {
     
     public void addProduction(Unit newProduction) {
     	myUnitManager.addUnit(newProduction);
+    	System.out.println("player adds new unit!");
     }
     
     public void updateResource(HashMap<String, Integer> updatedResources) {
     	myResourceManager.setResources(updatedResources);
-    	System.out.println("gets resource!");
+    	System.out.println("player gets resource!");
     }
 
     public IndividualResourceManager getIndividualResourceManager () {
