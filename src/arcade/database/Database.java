@@ -139,6 +139,10 @@ public class Database {
         return myCommentTable.getCommentByUsername(retrieveGameId(gameName), retrieveUserId(username));
     }
     
+    public List<String> retrieveCommentsForGame(String gameName) {
+        return myCommentTable.getAllCommentsForGame(retrieveGameId(gameName));
+    }
+    
     public GameData getGameData(String gameName) {
         return null;
     }
