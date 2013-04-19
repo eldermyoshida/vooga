@@ -2,6 +2,7 @@
 package vooga.scroller.level_editor;
 
 import vooga.scroller.sprites.test_sprites.MarioLib;
+import vooga.scroller.sprites.test_sprites.PokemonLib;
 
 
 public class Main {
@@ -15,7 +16,7 @@ public class Main {
                                           "background.png",
                                           "forestbackground.jpg"};
         
-        LEController con = new LEController(new MarioLib(), new BackgroundLib(filenames));
+        LEController con = new LEController(new PokemonLib(), new BackgroundLib(filenames));
         con.start();
         
     }

@@ -13,6 +13,7 @@ import vooga.scroller.sprites.animation.Animation;
 import vooga.scroller.sprites.animation.MovingSpriteAnimationFactory;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.sprites.test_sprites.mario.Mario;
+import vooga.scroller.sprites.test_sprites.pikachu.Pikachu;
 import vooga.scroller.view.View;
 
 
@@ -39,8 +40,8 @@ public class Model {
     private LevelManager myLevelManager;
     private ScrollingManager myScrollingManager;
     private Secretary mySecretary;
-    private List<String> spriteStrings = Arrays.asList("Mario mario", "Koopa koopa", "Coin coin",
-                                                       "MarioLib.MovingPlatform movingPlatform"); 
+    //private List<String> spriteStrings = Arrays.asList("Mario mario", "Koopa koopa", "Coin coin",
+    //                                                   "MarioLib.MovingPlatform movingPlatform"); 
     //If I could use reflection to look through the interfaces package and then generate the VisitMethods.java file, that would be BOMB! 
     
     private static final String PART_ONE = "public void visit (";
@@ -48,7 +49,7 @@ public class Model {
     private static final String COMMA = ", ";
 
 
-    private static final String PLAYER_IMAGES = "mario.gif";
+//    private static final String PLAYER_IMAGES = "mario.gif";
     
     /**
      * Constructs a new Model based on the view and the scrolling manager used by the game.
@@ -71,7 +72,7 @@ public class Model {
 //        myLevelManager.setCurrentLevel(DEFAULT_START_LEVEL_ID);
         
         mySecretary = new Secretary();
-        generateVisitMethods(spriteStrings);  
+//        generateVisitMethods(spriteStrings);  
     }
 
 
@@ -82,15 +83,15 @@ public class Model {
     private void initPlayer() {
         // TODO: this is implemented by the developer. 
         
-        myPlayer = new Mario(
+        myPlayer = new Pikachu(
                              new Location(100, 140),
                              new Dimension(32, 32),
                              myView, myScrollingManager);
         
-        MovingSpriteAnimationFactory msaf = new MovingSpriteAnimationFactory(PLAYER_IMAGES);
-        Animation playerAnimation = msaf.generateAnimation(myPlayer);
+//        MovingSpriteAnimationFactory msaf = new MovingSpriteAnimationFactory(PLAYER_IMAGES);
+//        Animation playerAnimation = msaf.generateAnimation(myPlayer);
         
-        myPlayer.setView(playerAnimation);
+//        myPlayer.setView(playerAnimation);
 
     }
 

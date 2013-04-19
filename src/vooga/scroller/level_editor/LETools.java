@@ -10,6 +10,7 @@ import vooga.scroller.level_management.IDoor;
 import vooga.scroller.level_management.LevelPortal;
 import vooga.scroller.sprites.interfaces.ICoin;
 import vooga.scroller.sprites.interfaces.IEnemy;
+import vooga.scroller.sprites.interfaces.IPlatform;
 import vooga.scroller.sprites.test_sprites.MarioLib.Platform;
 import vooga.scroller.util.Sprite;
 import vooga.scroller.viewUtil.Tools;
@@ -44,7 +45,7 @@ public class LETools extends Tools {
     }
 
     public void addSpriteOption (Sprite s, int i) {
-        if (s instanceof Platform) {
+        if (s instanceof IPlatform) {
             // TODO - generalize sorting
             myOptions.get(0).put(new ImageIcon(s.getDefaultImg()
                     .getScaledInstance(40, 40, Image.SCALE_SMOOTH)),
