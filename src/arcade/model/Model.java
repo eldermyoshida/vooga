@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import arcade.database.Database;
 import arcade.games.ArcadeInteraction;
@@ -72,7 +73,7 @@ public class Model implements ArcadeInteraction {
         addGameInfo(newGameInfo(gameName, genre));
     }
 
-    private GameInfo newGameInfo (String name, String genre) {
+    private GameInfo newGameInfo  (String name, String genre) throws MissingResourceException{
         return new GameInfo(name, genre, myLanguage, this);
     }
 
@@ -152,7 +153,11 @@ public class Model implements ArcadeInteraction {
     private void organizeSnapshots () {
         List<String> gameNames = myDb.retrieveListOfGames();
         for (String name : gameNames) {
+            try{
             addGameInfo(newGameInfo(name, myDb.getGenre(name)));
+            }catch(MissingResourceException e ){
+                continue;
+            }
         }
     }
 
