@@ -16,7 +16,9 @@ public class LoadingController extends AbstractController {
     public static final String DEFAULT_BGIMAGE_LOCATION = "images/backgrounds/loading_bg.png";
 
     public LoadingController () {
-        myBGImage = ResourceManager.getInstance().<BufferedImage> getFile(DEFAULT_BGIMAGE_LOCATION, BufferedImage.class);
+        myBGImage =
+                ResourceManager.getInstance().<BufferedImage> getFile(DEFAULT_BGIMAGE_LOCATION,
+                                                                      BufferedImage.class);
 
     }
 

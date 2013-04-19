@@ -59,7 +59,7 @@ public class GameController extends AbstractController {
 
     public GameController () {
         myTeams = new HashMap<Integer, Team>();
-        myPlayers = new ArrayList<Player>();        
+        myPlayers = new ArrayList<Player>();
         pt = new PointTester();
         try {
             myMouseMover = new Robot();
@@ -118,12 +118,12 @@ public class GameController extends AbstractController {
 
     @Override
     public void paint (Graphics2D pen) {
-        myMap.paint(pen);        
+        myMap.paint(pen);
         for (Player p : myPlayers) {
             p.paint(pen);
         }
         r.paint(pen);
-        
+
         building.paint(pen);
 
         if (myDrag != null) {
@@ -261,7 +261,6 @@ public class GameController extends AbstractController {
         }
 
     }
-
 
     private void checkCameraMouse (double elapsedtime) {
         Point p = MouseInfo.getPointerInfo().getLocation();

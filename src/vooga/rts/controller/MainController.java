@@ -17,7 +17,6 @@ import vooga.rts.util.FrameCounter;
 import vooga.rts.util.Location;
 
 
-
 public class MainController extends AbstractController implements Observer {
 
     private final static String DEFAULT_INPUT_LOCATION = "vooga.rts.resources.properties.Input";
