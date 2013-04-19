@@ -1,7 +1,7 @@
 package vooga.towerdefense.levelEditor.model;
 
 import vooga.towerdefense.levelEditor.controller.LEController;
-import vooga.towerdefense.util.XMLBuilder;
+import vooga.towerdefense.util.XMLTool;
 
 
 /**
@@ -13,7 +13,7 @@ import vooga.towerdefense.util.XMLBuilder;
  */
 public class LEModel {
     private LEController myController;
-    private XMLBuilder myFile;
+    private XMLTool myFile;
     
     public LEModel (LEController controller) {
         myController = controller;
