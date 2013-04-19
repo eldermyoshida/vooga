@@ -57,7 +57,7 @@ public class ExampleUnitFactory extends UnitFactory {
         }
         
         ArrayList<Action> actions = new ArrayList<Action>();
-        actions.add(new Move(myUnit));
+        actions.add(new Move(myUnit.getCenter(), myUnit.getAttributeManager().getAttribute(AttributeConstants.MOVE_SPEED), myUnit.getAttributeManager().getAttribute(AttributeConstants.DIRECTION)));
         myUnit.addActions(actions);
         
         return myUnit;

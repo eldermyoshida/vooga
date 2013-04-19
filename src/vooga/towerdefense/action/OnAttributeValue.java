@@ -8,13 +8,14 @@ import vooga.towerdefense.gameElements.GameElement;
  *
  */
 public class OnAttributeValue extends Action {
+    
+    Attribute myMonitoredAttribute;
 
     /**
      * @param initiator
      */
-    public OnAttributeValue (GameElement initiator, Attribute attributeWatched) {
-        super(initiator);
-        // TODO Auto-generated constructor stub
+    public OnAttributeValue (Attribute attributeWatched) {
+        myMonitoredAttribute = attributeWatched;
     }
 
     /**
@@ -24,7 +25,7 @@ public class OnAttributeValue extends Action {
     @Override
     public void executeAction (double elapseTime) {
         // TODO Auto-generated method stub
-        getInitiator().getAttributeManager().getAttribute("Health");
+        myMonitoredAttribute.getValue();
 
     }
 

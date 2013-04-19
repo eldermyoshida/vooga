@@ -15,7 +15,6 @@ public class LaunchProjectile extends Action {
      * @param initiator
      */
     public LaunchProjectile (GameElement initiator, Location startLocation) {
-        super(initiator);
         
     }
     

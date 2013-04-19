@@ -23,14 +23,12 @@ public class AttackAction extends Action {
 	private GameElement myInitiator;
 	private GameMap myMap;
 
-	public AttackAction(GameMap map, GameElement initiator){
-		super(initiator);
+	public AttackAction(GameMap map){
 		myMap = map;
 	}
 	
 	public AttackAction(GameMap map, GameElement initiator, ProjectileFactory projectileToCreate){
-            super(initiator);
-            myMap = map;
+        myMap = map;
     }
 	
 	/*public AttackAction(InfoBridge info, Attacker source, double cooldown, boolean isOneTime) {
