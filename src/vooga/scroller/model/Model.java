@@ -66,7 +66,7 @@ public class Model {
 
 //        myLevelManager.setCurrentLevel(DEFAULT_START_LEVEL_ID);
         
-        mySecretary = new Secretary();
+        mySecretary = new Secretary("src/vooga/scroller/collision_manager/files/", "visitMethods.txt");
         generateVisitMethods(spriteStrings);  
     }
 

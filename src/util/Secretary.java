@@ -32,19 +32,32 @@ public class Secretary {
     private FileChannel targetChannel;
      /* YOU NEED TO CHANGE THESE THREE ENTITIES ESPESIALLY THE PATH
      */
-    private static final String FILE_PATH = "src/vooga/scroller/collision_manager/files/"; //this is where your file gets created
-    private static final String SESSION_FILE = "visitMethods.txt"; //this is the name of the file you generate
-
+    private static String FILE_PATH;
+    private static String SESSION_FILE;
     private static final String TMP_FILE = "tmp.txt";
 
-    public Secretary () {
+    /**
+     * To instantiate a Secretary, you need to feed the constructor two strings
+     * String directory - the path of the directory where you want the generated file to be saved
+     * String fileName - the name you want your file to be
+     * @param directory
+     * @param fileName
+     */
+    public Secretary (String directory, String fileName) {
+        
+        FILE_PATH = directory;
+        SESSION_FILE = fileName;
+        
         try {
-            myFileWriter = new FileWriter(FILE_PATH + SESSION_FILE);
+            myFileWriter = new FileWriter(directory + fileName);
         }
         catch (IOException e) {
             System.err.println("IOException: " + e.getMessage() + " in secretary() constructor");
         }
     }
+    
+    
+    
 
     /*
      * PUBLIC METHODS
@@ -133,7 +146,7 @@ public class Secretary {
                 if (!line.equals(remove)) write(writer, line);
             }
             reader.close();
-            save("tmp.txt", fileName);
+            save(TMP_FILE, fileName);
             new File(FILE_PATH + TMP_FILE).delete();
         }
         catch (IOException e) {
