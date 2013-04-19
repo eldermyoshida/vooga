@@ -19,6 +19,11 @@ public class ModifyAttributeValue extends Action {
         myTargetAttribute = targetAttributeName;
         myAppliedAttribute = attributeToApply;
     }
+    
+    
+    public void setTargets() {
+        
+    }
 
     @Override
     public void executeAction (double elapseTime) {

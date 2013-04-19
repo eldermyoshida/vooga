@@ -17,6 +17,20 @@ import vooga.towerdefense.util.Pixmap;
  */
 public class Tower extends GameElement {
 
+    
+    /**
+     * @param image
+     * @param center
+     * @param size
+     */
+    public Tower (Pixmap image,
+                  Location center,
+                  Dimension size,
+                  AttributeManager attributes) {
+        super(image, center, size, attributes);
+    }
+    
+    
     /**
      * @param image
      * @param center
