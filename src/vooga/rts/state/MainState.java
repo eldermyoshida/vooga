@@ -39,7 +39,7 @@ public class MainState implements State, Observer {
         input.addListenerTo(myController);
         myStates.add(new LoadingState(this));
         myStates.add(new MenuState(this));
-        myStates.add(new GameState(this, myWindow.getSize()));
+        myStates.add(new GameState(this, Window.SCREEN_SIZE));
         myTimer = new Timer((int) Game.TIME_PER_FRAME(), new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {
