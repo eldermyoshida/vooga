@@ -37,6 +37,7 @@ public abstract class Player implements IGameLoop, IProductionObserver, IGameMan
     
     public void updateResource(HashMap<String, Integer> updatedResources) {
     	myResourceManager.setResources(updatedResources);
+    	System.out.println("gets resource!");
     }
 
     public IndividualResourceManager getIndividualResourceManager () {

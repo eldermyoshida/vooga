@@ -54,7 +54,7 @@ public class Worker extends Unit {
 	public void gather(IGatherable gatherable) {
 		
 		if(this.collidesWith((GameEntity)gatherable)) {
-			myGatherStrategy.gatherResource(gatherable);
+			myGatherStrategy.gatherResource(getPlayerID(),gatherable);
 		}
 	}
 	

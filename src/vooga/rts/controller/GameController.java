@@ -26,6 +26,7 @@ import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;
 import vooga.rts.gamedesign.weapon.Weapon;
 import vooga.rts.gui.Window;
 import vooga.rts.input.PositionObject;
+import vooga.rts.manager.GameResourceManager;
 import vooga.rts.map.GameMap;
 import vooga.rts.player.HumanPlayer;
 import vooga.rts.player.Player;
@@ -48,7 +49,8 @@ public class GameController extends AbstractController {
     private GameMap myMap; // This needs a dimension that describes the total
                            // size of the map. Not
                            // made for now.
-    private Resource r;
+    private GameResourceManager myGameResourceManager;
+    
     private ProductionBuilding building;
     private UpgradeBuilding upgradeBuilding;
     private Location myLeftMouse;
@@ -106,17 +108,24 @@ public class GameController extends AbstractController {
         List<Unit> p1 = myTeams.get(1).getUnits();
         List<Unit> p2 = myTeams.get(2).getUnits();
         for (Unit u1 : p1) {
-            for (Unit u2 : p2) {
+        	//TODO: need a better way to differentiate
+            if (u1 instanceof Worker) {
+            	List<Resource> copyResource = new ArrayList<Resource>();
+            	for (Resource r: myGameResourceManager.getUnassignedResources()) {
+            		copyResource.add(r);
+            	}
+            	for (Resource r: copyResource) {
+            		((Worker) u1).gather(r);
+            	}
+            }
+        	
+        	for (Unit u2 : p2) {
             	u2.getAttacked(u1);
             	u1.getAttacked(u2);
-            	
-                if (u1 instanceof Worker) {
-                    ((Worker) u1).gather(r);
-                }
             }
         }
         building.update(elapsedTime);
-        System.out.println("Numbers of units for player1: " + myPlayers.get(0).getUnits().getAllUnits().size());
+        //System.out.println("Numbers of units for player1: " + myPlayers.get(0).getUnits().getAllUnits().size());
         // upgradeBuilding.update(elapsedTime);
         checkCameraMouse(elapsedTime);
     }
@@ -126,7 +135,13 @@ public class GameController extends AbstractController {
         for (Player p : myPlayers) {
             p.paint(pen);
         }
-        r.paint(pen);
+        List<Resource> copyResource = new ArrayList<Resource>();
+    	for (Resource r: myGameResourceManager.getUnassignedResources()) {
+    		copyResource.add(r);
+    	}
+    	for (Resource r: copyResource) {
+    		r.paint(pen);
+    	}
         building.paint(pen);
 
         if (myDrag != null) {
@@ -205,15 +220,23 @@ public class GameController extends AbstractController {
              * ().loadFile("images/barracks.jpeg")), new Location(700,700), new
              * Dimension(150,150), null, 1,300);
              */
-            Player p1 = new HumanPlayer();
-            Pixmap p =
-                    new Pixmap(ResourceManager.getInstance()
-                            .<BufferedImage> getFile("images/sprites/soldier.png", BufferedImage.class));
+            
+        	myGameResourceManager = new GameResourceManager();
+        	Resource r = new Resource(new Pixmap(ResourceManager.getInstance()
+        			.<BufferedImage> getFile("images/mineral.gif", BufferedImage.class)),
+        			new Location3D(300, 300, 0), new Dimension(60, 60), 0, 100, "resource");
+        	r.setGameResourceManager(myGameResourceManager);
+        	myGameResourceManager.addUnassignedResource(r);
+        	
+        	
+        	Player p1 = new HumanPlayer();
+        	myGameResourceManager.register(p1);
+        	myGameResourceManager.addPlayer(1);
+
+        	Pixmap p =
+        			new Pixmap(ResourceManager.getInstance()
+        					.<BufferedImage> getFile("images/sprites/soldier.png", BufferedImage.class));
             Dimension s = new Dimension(90, 90);
-            r =
-                    new Resource(new Pixmap(ResourceManager.getInstance()
-                            .<BufferedImage> getFile("images/mineral.gif", BufferedImage.class)),
-                                 new Location3D(300, 300, 0), new Dimension(60, 60), 0, 400, "resource");
             Sound soun = new Sound(ResourceManager.getInstance().getFile("sounds/pikachu.wav", AudioClip.class));
            
             Unit a = null;
@@ -231,7 +254,7 @@ public class GameController extends AbstractController {
             c.setAttackStrategy(new CanAttack(c.getWorldLocation(), c.getPlayerID()));
             
             Unit w =
-                    new Worker(new Pixmap(ResourceManager.getInstance().<BufferedImage>getFile("images/scv.gif", BufferedImage.class)), new Location3D(500, 200, 0), s, soun, 20,
+                    new Worker(new Pixmap(ResourceManager.getInstance().<BufferedImage>getFile("images/scv.gif", BufferedImage.class)), new Location3D(500, 200, 0), s, soun, 1,
                                40, 40);
 
             p1.getUnits().addUnit(a);
