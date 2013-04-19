@@ -2,11 +2,12 @@ package vooga.towerdefense.gameElements;
 
 import java.awt.Dimension;
 import java.util.List;
-
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.attributes.AttributeManager;
 import vooga.towerdefense.util.Location;
 import vooga.towerdefense.util.Pixmap;
+import vooga.towerdefense.util.Vector;
+
 
 /**
  * 
@@ -23,45 +24,45 @@ import vooga.towerdefense.util.Pixmap;
  */
 public class Unit extends GameElement {
 
-	/**
-	 * @param image
-	 * @param center
-	 * @param size
-	 * @param attributes
-	 * @param actions
-	 */
-	public Unit(Pixmap image, Location center, Dimension size,
-			AttributeManager attributes, List<Action> actions) {
-		super(image, center, size, attributes, actions);
-	}
+    /**
+     * @param image
+     * @param center
+     * @param size
+     * @param attributes
+     * @param actions
+     */
+    public Unit (Pixmap image, Location center, Dimension size,
+                 AttributeManager attributes, List<Action> actions) {
+        super(image, center, size, attributes, actions);
+    }
 
-	/**
-	 * @param image
-	 * @param center
-	 * @param size
-	 * @param actions
-	 */
-	public Unit(Pixmap image, Location center, Dimension size,
-			List<Action> actions) {
-		super(image, center, size, actions);
-	}
+    /**
+     * @param image
+     * @param center
+     * @param size
+     * @param actions
+     */
+    public Unit (Pixmap image, Location center, Dimension size,
+                 List<Action> actions) {
+        super(image, center, size, actions);
+    }
 
-	/**
-	 * @param image
-	 * @param center
-	 * @param size
-	 * @param am
-	 */
-	public Unit(Pixmap image, Location center, Dimension size,
-			AttributeManager am) {
-		super(image, center, size, am);
-	}
-	
-/**
- * movement logic, if path has next, change movement direction towards next node, 
- * if not, stop moving
- */
-	private void changeNode() {
+    /**
+     * @param image
+     * @param center
+     * @param size
+     * @param am
+     */
+    public Unit (Pixmap image, Location center, Dimension size,
+                 AttributeManager am) {
+        super(image, center, size, am);
+    }
+
+    /**
+     * movement logic, if path has next, change movement direction towards next node,
+     * if not, stop moving
+     */
+    private void changeNode() {
 		if (myPath.hasNext()){
 			myCurrentPathNode=myPath.next();
 			Vector newDirection= getCenter().difference(myCurrentPathNode);
@@ -73,24 +74,24 @@ public class Unit extends GameElement {
 			getAttributeManager().getAttribute(ATTRIBUTE_CONSTANTS.MOVE_SPEED).setValue(0);
 		}
 
-	/**
-	 * @param image
-	 * @param center
-	 * @param size
-	 */
-	public Unit(Pixmap image, Location center, Dimension size) {
-		super(image, center, size);
-	}
+    /**
+     * @param image
+     * @param center
+     * @param size
+     */
+    public Unit (Pixmap image, Location center, Dimension size) {
+        super(image, center, size);
+    }
 
-	@Override
-	public void update(double elapsedTime) {
-		executeActions(elapsedTime);
+    @Override
+    public void update (double elapsedTime) {
+        executeActions(elapsedTime);
 
-	}
+    }
 
-	private void executeActions(double elapsedTime) {
-		for (Action act : getActions()) {
-			act.executeAction(elapsedTime);
-		}
-	}
+    private void executeActions (double elapsedTime) {
+        for (Action act : getActions()) {
+            act.executeAction(elapsedTime);
+        }
+    }
 }
