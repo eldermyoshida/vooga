@@ -123,6 +123,11 @@ public class Database {
         return null;
     }
     
+    public void userServer(UserGameData usd) {
+        //use http method to send bits of information to send it to a script running on cgi
+        //php, or write in java
+    }
+    
     public GameData getGameData(String gameName) {
         return null;
     }
