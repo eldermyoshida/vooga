@@ -15,9 +15,8 @@ import vooga.scroller.view.GameView;
 
 
 /**
- * Creates window that can be moved, resized, and closed by the user.
- *
- * @author Ross Cahoon
+ * A sample scroller game. By implementing the methods required by ScrollerGame,
+ * the designer defines the components of the game. Most important, is the get LevelFileNames method.
  */
 public class Scroller extends ScrollerGame
 {
