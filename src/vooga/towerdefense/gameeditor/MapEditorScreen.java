@@ -32,8 +32,9 @@ public class MapEditorScreen extends GameEditorScreen {
     private JTextField myTextField;
     private final int FIELD_SIZE = 10;
     private ActionListener myActionListener;
-    private MouseAdapter myMouseListener;
+    private MouseAdapter myTilePainterMouseListener;
     private int myTileSize;
+    private JPanel myTilePainter;
     
     /**
      * Constructor.
@@ -47,13 +48,13 @@ public class MapEditorScreen extends GameEditorScreen {
         this.add(makeMapBox(myMapMakerSize), BorderLayout.NORTH);
         this.add(makeLabelText("TILE SIZE"), BorderLayout.EAST);
         this.add(makeTextField(), BorderLayout.EAST);
-        this.add(makeLabelText("PATH TILE"), BorderLayout.EAST);
+        this.add(makeLabelText("PATH PAINTER"), BorderLayout.EAST);
         this.add(makePathTilePainter(), BorderLayout.SOUTH);
         setVisible(true);
     }
 
     private JPanel makeMapBox (Dimension size) {
-        myMapBox = new MapMaker(size, 25);        
+        myMapBox = new MapMaker(size, this);        
         return myMapBox;
     }
     
@@ -74,10 +75,12 @@ public class MapEditorScreen extends GameEditorScreen {
             }
         };
         
-        myMouseListener = new MouseAdapter () {
+        myTilePainterMouseListener = new MouseAdapter () {
             @Override
             public void mouseClicked (MouseEvent e) {
-
+                System.out.println("Box clicked");
+                setTilePainterColor(Color.GREEN);
+                myMapBox.setPaintingMode(true);
             }
         };
     }
@@ -106,11 +109,15 @@ public class MapEditorScreen extends GameEditorScreen {
     }
     
     private JPanel makePathTilePainter () {
-        JPanel myJ = new JPanel();
-        myJ.setPreferredSize(new Dimension(50,50));
-        myJ.setBackground(Color.BLUE);
-        myJ.setVisible(true);  
-        
-        return myJ;
+        myTilePainter = new JPanel();
+        myTilePainter.setPreferredSize(new Dimension(50,50));
+        myTilePainter.setBackground(Color.BLUE);
+        myTilePainter.setVisible(true);  
+        myTilePainter.addMouseListener(myTilePainterMouseListener); 
+        return myTilePainter;
+    }
+    
+    public void setTilePainterColor (Color color) {
+        myTilePainter.setBackground(color);
     }
 }
