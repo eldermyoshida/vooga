@@ -90,10 +90,8 @@ public class MapScreen extends JPanel {
         if(image == null) {
             System.out.println("nulll");
         }
-        System.out.println(image.getImage().getWidth(null));
         image.paint((Graphics2D) getGraphics(), (Point2D) p,
                     new Dimension(image.getImage().getWidth(null), image.getImage().getHeight(null)));
-
     }
 
     /**
