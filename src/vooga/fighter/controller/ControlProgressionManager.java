@@ -20,6 +20,7 @@ public class ControlProgressionManager {
 	private static final String BACK = "Back";
 	private GameInfo myGameInfo;
 	private List<Controller> myControllerList;
+	private Map<String, Controller> myControllerMap;
 	private ResourceBundle myResources;
 	
 	public ControlProgressionManager(GameInfo gameinfo) {
@@ -29,6 +30,7 @@ public class ControlProgressionManager {
 	}
 	
 	public void setControllerProgression(Map<String, Controller> controllerMap) {
+	    myControllerMap = controllerMap;
 	    ArrayList<Controller> sortedProgression = new ArrayList<Controller>(myResources.keySet().size());
 	    for (int i =0; i < myResources.keySet().size(); i++) {
 	        sortedProgression.add(null);
@@ -41,21 +43,31 @@ public class ControlProgressionManager {
 	    
 	}
 	
-	public Controller getNextController(Controller currentController, String Condition){
-		for(int i=0; i < myControllerList.size(); i++ ){
-			if(currentController.equals(myControllerList.get(i))){
-//				if(checkTourney(currentController, myGameInfo) && Condition.equals(NEXT)) 
-//					return selectTourneyLevel(myGameInfo);
-				if(Condition.equals(NEXT)){
-					return myControllerList.get(i+1);
-				}
-				else if(Condition.equals(BACK)) {
-				    return myControllerList.get(i -1);
-				}
-			}
-		}
-		return myControllerList.get(0); //Can't go wrong with MainMenu!
+	
+	public Controller getNextController(Controller currentController, String condition) {
+	    try {
+	        return myControllerMap.get(condition);
+	    }
+	    catch (Exception e) {
+	        throw new NullPointerException("No such level"); 
+	    }
 	}
+	
+//	public Controller getNextController(Controller currentController, String Condition){
+//		for(int i=0; i < myControllerList.size(); i++ ){
+//			if(currentController.equals(myControllerList.get(i))){
+////				if(checkTourney(currentController, myGameInfo) && Condition.equals(NEXT)) 
+////					return selectTourneyLevel(myGameInfo);
+//				if(Condition.equals(NEXT)){
+//					return myControllerList.get(i+1);
+//				}
+//				else if(Condition.equals(BACK)) {
+//				    return myControllerList.get(i -1);
+//				}
+//			}
+//		}
+//		return myControllerList.get(0); //Can't go wrong with MainMenu!
+//	}
 	
 	public Controller getController(int index) {
 	    return myControllerList.get(index);
@@ -89,3 +101,4 @@ public class ControlProgressionManager {
 //
 //	}
 }
+

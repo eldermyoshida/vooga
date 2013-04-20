@@ -1,4 +1,4 @@
-package games.mario;
+package games.scroller.mario;
 
 import java.awt.BorderLayout;
 import javax.swing.JFrame;

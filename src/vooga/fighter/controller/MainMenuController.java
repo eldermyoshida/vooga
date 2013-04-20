@@ -46,19 +46,26 @@ public class MainMenuController extends MenuController {
     /**
      * Checks this controller's end conditions
      */
+    @Override
     public void notifyEndCondition(String choice) {
+    	System.out.println("MainMenuNotify");
         removeListener();
-        getManager().notifyEndCondition(NEXT);
+        getManager().notifyEndCondition(choice);
     }
 
   
     @InputMethodTarget(name = "continue")
     public void mouseclick(PositionObject pos)  {
         super.getMode().addObject(new MouseClickObject(pos.getPoint2D()));
-        notifyEndCondition("asdfdf");
     }
     public void removeListener(){
     	super.removeListener();
     	getInput().removeListener(this);
     }
+    
+    public void checkConditions(){
+    	String choice = getMode().getChoice();
+    	if(!choice.equals("")) notifyEndCondition(getMode().getMenusNext(choice));
+    }
+
 }

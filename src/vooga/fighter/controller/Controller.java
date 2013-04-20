@@ -26,7 +26,7 @@ import javax.swing.Timer;
  *
  */
 
-public abstract class Controller implements ModelDelegate {
+public abstract class Controller{
     public static final String DEFAULT_RESOURCE_PACKAGE = "vooga.fighter.config.";
 	public static final String DEFAULT_IMAGE_PACKAGE = "vooga.fighter.images.";
     public static final String NEXT = "Next";
@@ -132,6 +132,7 @@ public abstract class Controller implements ModelDelegate {
          myTimer = new Timer(stepTime, 
                                new ActionListener() {
             public void actionPerformed (ActionEvent e) {
+            	checkConditions();
                 myMode.update((double) stepTime / ONE_SECOND, myCanvas.getSize());
                 myDisplayInfo.update();
                 myCanvas.paint();
@@ -159,10 +160,12 @@ public abstract class Controller implements ModelDelegate {
     public void removeListener(){
     	getInput().removeListener(this);
     }
-
+    
+    public abstract void checkConditions();
+ 
+    public abstract void notifyEndCondition(String choice);
     public abstract Controller getController();
 
-//    protected abstract Input makeInput();
         
 
 

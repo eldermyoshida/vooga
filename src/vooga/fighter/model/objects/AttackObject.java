@@ -3,6 +3,8 @@ package vooga.fighter.model.objects;
 import java.util.ArrayList;
 import java.util.List;
 
+import util.Location;
+import vooga.fighter.model.ModelConstants;
 import vooga.fighter.model.utils.Counter;
 import vooga.fighter.model.utils.Effect;
 import vooga.fighter.model.utils.UpdatableLocation;
@@ -18,9 +20,6 @@ public class AttackObject extends GameObject{
     private Counter myCounter;
     private GameObject myOwner;
     private List<Effect> myEffects;
-    private int myPower;   
-    private int mySpeed;
-    private int myDirection;   
     
     /**
      * Constructs an AttackObject with the given owner.
@@ -35,13 +34,23 @@ public class AttackObject extends GameObject{
     
     public AttackObject (AttackObject other, UpdatableLocation center){
     	super();
-        this.mySpeed= other.mySpeed;
-        this.myDirection= other.myDirection; 
-        this.myPower= other.myPower; 
-        this.myEffects= other.myEffects;
-        this.myOwner= other.myOwner;
-        this.myCounter= other.myCounter;   
+    	addProperty(ModelConstants.ATTACK_PROPERTY_SPEED, other.getProperty(ModelConstants.ATTACK_PROPERTY_SPEED));
+    	addProperty(ModelConstants.ATTACK_PROPERTY_DIRECTION, other.getProperty(ModelConstants.ATTACK_PROPERTY_DIRECTION));
+    	addProperty(ModelConstants.ATTACK_PROPERTY_POWER, other.getProperty(ModelConstants.ATTACK_PROPERTY_POWER));
+        this.myEffects = other.myEffects;
+        this.myOwner = other.myOwner;
+        this.myCounter = new Counter(other.myCounter);   
     	setLocation(center);
+    }
+    
+    /**
+     * Move the attack object to the position of its owner.
+     */
+    public void moveToOwner() {
+        UpdatableLocation copyLocation = myOwner.getLocation();
+        UpdatableLocation myLocation = getLocation();
+        Location newLocation = new Location(copyLocation.getLocation());
+        myLocation.setLocation(newLocation);
     }
     
     /**
@@ -59,8 +68,7 @@ public class AttackObject extends GameObject{
     }
     
     /**
-     * 
-     * @return list of effects
+     * Returns the list of effects carried by this object.
      */
     public List<Effect> getEffects(){
     	return myEffects;
@@ -74,17 +82,11 @@ public class AttackObject extends GameObject{
     }
     
     /**
-     * Sets the damage done by the attack
-     */
-    public void setPower(int power) {
-    	myPower = power;
-    }
-    
-    /**
      * Inflicts damage upon a target player.
      */
     public int inflictDamage(CharacterObject target){
-    	return target.changeHealth(-myPower);
+        int damage = getProperty(ModelConstants.ATTACK_PROPERTY_POWER);
+    	return target.changeHealth(-damage);
     }
     
     /**

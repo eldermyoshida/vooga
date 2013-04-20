@@ -7,8 +7,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import vooga.fighter.controller.ModelDelegate;
 import vooga.fighter.model.MenuGrid;
+import vooga.fighter.model.MenuMode;
 import vooga.fighter.model.objects.MenuObject;
 
 public class MenuGridLoader extends ObjectLoader {
@@ -17,9 +17,9 @@ public class MenuGridLoader extends ObjectLoader {
 	private static final String MENUGRID_PATH = "src/vooga/fighter/config/menugrid.xml";
 
 	private List<MenuObject> myMenuObjects;
-	private ModelDelegate myDelegate;
+	private MenuMode myDelegate;
 
-	public MenuGridLoader (String menuname, MenuGrid grid, ModelDelegate delegate) {
+	public MenuGridLoader (String menuname, MenuGrid grid, MenuMode delegate) {
 		super(MENUGRID_PATH);
 		myDelegate = delegate;
 		myMenuObjects = new ArrayList<MenuObject>();

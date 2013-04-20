@@ -9,11 +9,8 @@ import vooga.towerdefense.util.Vector;
 /**
  * Uses the sprite move method
  * @author Matthew Roy
-<<<<<<< HEAD
  * @author Jimmy Longley
-=======
  * @author Xu Rui
->>>>>>> 423695dc7180c83e17b66a26a08ab0123f8f0ad8
  *
  */
 public class Move extends Action {

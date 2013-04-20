@@ -43,24 +43,23 @@ public class MapSelectController extends MenuController {
      */
     public void notifyEndCondition(String choice) {
     	removeListener();
-    	if(BACK.equals(choice)) getManager().notifyEndCondition(BACK);
-    	else if (getMode().getMenuNames().contains(choice)){
-    		getGameInfo().setMapName(choice);
-    		getManager().notifyEndCondition(NEXT);
-    		}
+		getGameInfo().setMapName(choice);
+		getManager().notifyEndCondition(getMode().getMenusNext(choice));
     	}
-
-
 
 
     @InputMethodTarget(name = "continue")
     public void mouseclick(PositionObject pos)  {
         super.getMode().addObject(new MouseClickObject(pos.getPoint2D()));
-        notifyEndCondition(getMode().getMenuNames().get(0));
     }
     public void removeListener(){
     	super.removeListener();
     	getInput().removeListener(this);
+    }
+   
+    public void checkConditions(){
+    	String choice = getMode().getChoice();
+    	if(!choice.equals("")) notifyEndCondition(choice);
     }
 
 }

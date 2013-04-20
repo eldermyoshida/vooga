@@ -6,7 +6,6 @@ import java.util.List;
 
 import util.Location;
 import vooga.fighter.controller.GameManager;
-import vooga.fighter.controller.ModelDelegate;
 import vooga.fighter.model.loaders.MapLoader;
 import vooga.fighter.model.loaders.MenuGridLoader;
 import vooga.fighter.model.objects.MenuObject;
@@ -18,9 +17,9 @@ public class MenuGrid {
 	private int myRows;
 	private MenuObject [][] myGrid;
 	private List<MenuObject> myMenuObjects;
-	private ModelDelegate myDelegate;
+	private MenuMode myDelegate;
 	
-	public MenuGrid(String Id, ModelDelegate delegate) {
+	public MenuGrid(String Id, MenuMode delegate) {
 	        myDelegate = delegate;
 		myMenuObjects = new MenuGridLoader(Id, this, delegate).getMenuObjects();
 		myGrid = createEmptyGrid(myMenuObjects.size());

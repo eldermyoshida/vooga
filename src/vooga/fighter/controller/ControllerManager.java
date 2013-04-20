@@ -1,3 +1,4 @@
+
 package vooga.fighter.controller;
 
 
@@ -56,6 +57,7 @@ public class ControllerManager implements ControllerDelegate{
 		//myCurrentController.displaySplash();
 		myCurrentController = myCurrentController.getController();
 		myCurrentController.initializeRest(myCanvas, this, myGameInfo);
+		System.out.println("marker, controllermanager");
 		myCurrentController.start();	
 	}      
 

@@ -29,7 +29,11 @@ public class MenuLoader extends ObjectLoader {
 				NodeList states = node.getElementsByTagName("state");
 				for(int j = 0; j < states.getLength(); j++){
 				Element state = (Element) states.item(j);
-				String  Statename = getAttributeValue(state, "name");
+				String  stateName = getAttributeValue(state, "name");
+				myMenuObject.setValue(stateName);
+				String nextStateName = getAttributeValue(state, "nextState");
+				myMenuObject.setNext(nextStateName);
+				System.out.println("<menuloader>: " + nextStateName);
 				NodeList frames = node.getElementsByTagName("frame");
 				State newState = new State(myMenuObject, frames.getLength());
 				for(int k = 0; k < frames.getLength(); k++){
@@ -37,8 +41,8 @@ public class MenuLoader extends ObjectLoader {
 					String imagepathway = getAttributeValue(node1, "image");
 					newState.populateImage(new Pixmap(imagepathway), k);
 				}
-				myMenuObject.addState(Statename, newState);
-				if(j == 0) myMenuObject.setCurrentState(Statename);
+				myMenuObject.addState(stateName, newState);
+				if(j == 0) myMenuObject.setCurrentState(stateName);
 				}
 			}
 
