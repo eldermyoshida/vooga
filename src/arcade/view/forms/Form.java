@@ -1,4 +1,4 @@
-package arcade.view;
+package arcade.view.forms;
 
 import java.awt.Container;
 import java.awt.Dimension;
@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import util.BackgroundPanel;
 import arcade.model.Model;
+import arcade.view.TextKeywords;
 
 
 /**

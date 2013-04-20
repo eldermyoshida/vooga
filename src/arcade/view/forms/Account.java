@@ -1,4 +1,4 @@
-package arcade.view;
+package arcade.view.forms;
 
 import java.awt.event.KeyListener;
 import java.util.ResourceBundle;
@@ -6,6 +6,7 @@ import javax.swing.JComponent;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import arcade.model.Model;
+import arcade.view.TextKeywords;
 
 @SuppressWarnings("serial")
 /**
