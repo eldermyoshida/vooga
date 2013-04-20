@@ -178,20 +178,52 @@ public class Database {
         
     }
     
-    public String getGenre(String gameName){
+    public String getGenre(String gameName) {
         return myGameTable.getGenre(gameName);
     }
     
-    public String getAuthor(String gameName){
+    public String getAuthor(String gameName) {
         return myGameTable.getAuthor(gameName);
     }
     
-    public String getDescription(String gameName){
+    public String getThumbnailPath(String gameName) {
+        return myGameTable.getThumbnailPath(gameName);
+    }
+    
+    public String getAdScreenPath(String gameName) {
+        return myGameTable.getAdScreenPath(gameName);
+    }
+    
+    public int getAgePermission(String gameName) {
+        return myGameTable.getAgePermission(gameName);
+    }
+    
+    public double getPrice(String gameName) {
+        return myGameTable.getPrice(gameName);
+    }
+    
+    public String getExtendsGame(String gameName) {
+        return myGameTable.getExtendsGame(gameName);
+    }
+    
+    public String getExtendsGameMultiplayer(String gameName) {
+        return myGameTable.getExtendsGameMultiplayer(gameName);
+    }
+    
+    public boolean getIsSinglePlayer(String gameName) {
+        return myGameTable.getIsSinglePlayer(gameName);
+    }
+    
+    public boolean getIsMultiplayer(String gameName) {
+        return myGameTable.getIsMultiplayer(gameName);
+    }
+    
+    public String getDescription(String gameName) {
         return myGameTable.getDescription(gameName);
     }
     
-    public int getAgePermission(String gameName){
-        return myGameTable.getAgePermission(gameName);
+    public String getGameFilePath(String gameName) {
+        return myGameTable.getGameFilePath(gameName);
     }
 
     public double getAverageRating (String gameName) {
