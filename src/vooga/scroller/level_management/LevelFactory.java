@@ -11,7 +11,7 @@ import vooga.scroller.level_editor.model.LevelParser;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.test_sprites.MarioLib;
 import vooga.scroller.util.Pixmap;
-import vooga.scroller.view.View;
+import vooga.scroller.view.GameView;
 
 
 /**
@@ -25,17 +25,17 @@ public class LevelFactory {
     private LevelManager myLevelManager;
     private LevelParser myLevelReader;
     private ScrollingManager mySM;
-    private View myView;
+    private GameView myView;
 
-    public LevelFactory (LevelManager lm, ScrollingManager sm, View view) {
+    public LevelFactory (LevelManager lm, ScrollingManager sm, GameView gameView) {
         myLevelManager = lm;
         myLevelReader = new LevelParser();
         mySM = sm;
-        myView = view;
+        myView = gameView;
     }
 
     private Level buildLevel (int id, LEGrid grid) {
-        Level result = new Level(id, mySM, myView, grid);
+        Level result = new Level(id, mySM, grid);
         return result;
     }
 
@@ -45,31 +45,30 @@ public class LevelFactory {
      * @param view is the view used for level information.
      * @return a the first of the List of all levels that will be played in the game.
      */
-    public Level generateLevels () {
+    public List<Level> generateLevels () {
         List<Level> levels = new ArrayList<Level>();
-        SplashPage splash = new SplashPage(new Pixmap("MARIO SPLASH.png"), 0, myView, mySM);
-        splash.addDoor(new LevelPortal());
-
         // TODO: this will ideally read in levels from file and create instances of each level
         // This works for demo
         Level level1 = buildLevel(1, loadGridFromFile("example.level"));
         hardCodeCompleteL1(level1);
-        Level level2 = new Level(2, mySM, myView);
+        Level level2 = new Level(2, mySM);
         hardcodeLevel2(level2);
         hardCodeCompleteL2(level2);
-        levels.add(splash);
         levels.add(level1);
         levels.add(level2);
-        levels.add(splash);
-
-        linkLevels(levels);
-        return splash;
+        return levels;
     }
 
-    private void linkLevels (List<Level> levels) {
+    protected Level linkLevels (List<Level> levels) {
+        SplashPage splash = new SplashPage(new Pixmap("MARIO SPLASH.png"), 0, myView, mySM);
+        splash.addDoor(new LevelPortal());
+        myLevelManager.put(splash.getDoor(), levels.get(0));
         for (int i = 0; i < levels.size() - 1; i++) {
             myLevelManager.put(levels.get(i).getDoor(), levels.get(i + 1));
         }
+        myLevelManager.put(levels.get(levels.size()-1).getDoor(), splash);
+        
+        return splash;
     }
 
     private void hardcodeLevel2 (Level level2) {
@@ -102,25 +101,25 @@ public class LevelFactory {
         return result;
     }
 
-    private Level hardcodeLevel1 (View view, ScrollingManager sm, int id) {
-        Level myCurrLevel = new Level(id, sm, view);
+    private Level hardcodeLevel1 (GameView gameView, ScrollingManager sm, int id) {
+        Level myCurrLevel = new Level(id, sm);
         myCurrLevel.addSprite(new MarioLib.Coin(
-                                                new Location(view.getWidth() - 400, view
+                                                new Location(gameView.getWidth() - 400, gameView
                                                         .getHeight() - 250)
                 ));
 
         myCurrLevel.addSprite(new MarioLib.Coin(
-                                                new Location(view.getWidth() - 400, view
+                                                new Location(gameView.getWidth() - 400, gameView
                                                         .getHeight() - 350)
                 ));
 
         myCurrLevel.addSprite(new MarioLib.Koopa(
-                                                 new Location(view.getWidth() - 300, view
+                                                 new Location(gameView.getWidth() - 300, gameView
                                                          .getHeight() - 275)
                 ));
 
         myCurrLevel.addSprite(new MarioLib.Koopa(
-                                                 new Location(view.getWidth() - 200, view
+                                                 new Location(gameView.getWidth() - 200, gameView
                                                          .getHeight() - 350)
                 ));
 
@@ -179,6 +178,24 @@ public class LevelFactory {
                                                               new Location(1216, 204)
                 ));
         return myCurrLevel;
+    }
+
+    public Level generateLevels (String[] levelFileNames) {
+        List<Level> levels = new ArrayList<Level>();
+        SplashPage splash = new SplashPage(new Pixmap("MARIO SPLASH.png"), 0, myView, mySM);
+        splash.addDoor(new LevelPortal());
+        levels.add(splash);
+
+        // TODO: this will ideally read in levels from file and create instances of each level
+        // This works for demo
+        for (int i=0; i<levelFileNames.length; i++) {
+             Level curr = buildLevel(i+1, loadGridFromFile(levelFileNames[i]));
+             levels.add(curr);
+        }
+        levels.add(splash);
+
+        linkLevels(levels);
+        return splash;
     }
 
 }

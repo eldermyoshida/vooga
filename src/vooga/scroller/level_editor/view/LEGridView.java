@@ -12,12 +12,14 @@ import javax.swing.JScrollPane;
 import javax.swing.Scrollable;
 import vooga.scroller.level_editor.commands.CommandConstants;
 import vooga.scroller.level_editor.controllerSuite.LEGrid;
+import vooga.scroller.level_editor.exceptions.LevelEditorException;
+import vooga.scroller.util.Renderable;
+import vooga.scroller.util.Renderer;
 import vooga.scroller.util.mvc.IView;
-import vooga.scroller.util.mvc.vcFramework.Renderable;
 import vooga.scroller.util.mvc.vcFramework.WindowComponent;
 
 
-public class LEGridView extends WindowComponent implements Scrollable{
+public class LEGridView extends WindowComponent implements Scrollable, Renderer<LEGrid>{
     private class GridPositionListener implements MouseListener {
 
         @Override
@@ -71,7 +73,7 @@ public class LEGridView extends WindowComponent implements Scrollable{
      * @param d
      * @param e
      */
-    public LEGridView (IView parent, Renderable r) {
+    public LEGridView (IView parent, Renderable<LEGridView> r) {
         // TODO Auto-generated constructor stub
         super(parent,((LEGrid) r).getPixelSize());
         this.addMouseListener(new GridPositionListener());
@@ -143,11 +145,36 @@ public class LEGridView extends WindowComponent implements Scrollable{
         }
     }
 
+
+    @Override //TODO - explicit the difference between render & set Renderable
+    public void render (LEGrid r) {
+        setRenderable(r);
+    }
+
     @Override
-    public void render (Renderable r) {
-        myGrid = (LEGrid) r;
+    public void setRenderable (LEGrid r) {
+        myGrid = r;
         setSize(myGrid.getPixelSize());
         repaint();
+    }
+
+    @Override
+    public void render (Renderable<?> r) {
+       if (r instanceof LEGrid) {
+           render((LEGrid) r);
+       }
+    else try {
+        throw new LevelEditorException("LEGridView cannot render" + r.getClass().getName());
+    }
+    catch (LevelEditorException e) {
+        e.printStackTrace();
+    }
+           
+    }
+
+    @Override
+    public LEGrid getRenderable () {
+        return myGrid;
     }
 
 }

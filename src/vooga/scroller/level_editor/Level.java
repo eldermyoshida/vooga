@@ -1,29 +1,34 @@
 package vooga.scroller.level_editor;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import util.Location;
 import util.input.Input;
+import vooga.scroller.util.Renderable;
 import vooga.scroller.util.Sprite;
 import vooga.scroller.level_editor.controllerSuite.LEGrid;
 import vooga.scroller.level_editor.model.SpriteBox;
 import vooga.scroller.level_management.IDoor;
 import vooga.scroller.level_management.LevelPortal;
 import vooga.scroller.level_management.SpriteManager;
+import vooga.scroller.model.Model;
+import vooga.scroller.scrollingmanager.OmniScrollingManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.PlatformerConstants;
-import vooga.scroller.util.mvc.vcFramework.Renderable;
-import vooga.scroller.view.View;
+import vooga.scroller.util.mvc.IView;
+import vooga.scroller.view.GameView;
 
-public class Level implements Renderable {
+public class Level implements Renderable<GameView> {
 
     private Dimension mySize;
     private Dimension frameOfReferenceSize;
     private SpriteManager mySpriteManager;
-    private View myView;
+//    private GameView myView;
     private ScrollingManager myScrollingManager;
     private Image myBackground;
     private Image DEFAULT_BACKGROUND = new ImageIcon(getClass()
@@ -48,26 +53,25 @@ public class Level implements Renderable {
         //initFrames();
     }
 
-    public Level (int id, ScrollingManager sm) {
-        this(); // TODO Incomplete. figure out SM constraints...
-    }
+//    public Level (int id, ScrollingManager sm) {
+//        this(); // TODO Incomplete. figure out SM constraints...
+//    }
 
     public Level (int id) {
         this();
         myID = id;
     }
 
-    public Level (int id, ScrollingManager sm, View view) {
+    public Level (int id, ScrollingManager sm) {
         // MIGHT WANT TO INITIALIZE THIS WITH A PLAYER AS WELL
         this();
-        myView = view;
-        mySpriteManager = new SpriteManager(this, myView);
+        mySpriteManager = new SpriteManager(this);
         myScrollingManager = sm;
         myID = id;
     }
 
-    public Level (int id, ScrollingManager sm, View view, LEGrid grid) {
-        this(id, sm, view);
+    public Level (int id, ScrollingManager sm, LEGrid grid) {
+        this(id, sm);
         setSize(grid.getPixelSize());
         for (SpriteBox box : grid.getBoxes()) {
             addSprite(box.getSprite());
@@ -123,8 +127,8 @@ public class Level implements Renderable {
         return null;
     }
 
-    public void update (double elapsedTime, Dimension bounds, View view) {
-        mySpriteManager.updateSprites(elapsedTime, bounds, view);
+    public void update (double elapsedTime, Dimension bounds, GameView gameView) {
+        mySpriteManager.updateSprites(elapsedTime, bounds, gameView);
     }
 
     @Override
@@ -169,14 +173,6 @@ public class Level implements Renderable {
     }
 
 
-    /**
-     * Gives the view used by this Level
-     * 
-     * @return This level's view.
-     */
-    public View getView () {
-        return myView;
-    }
 
     /**
      * Gives the player currently in the level. Returns null if
@@ -231,6 +227,16 @@ public class Level implements Renderable {
     public Location getStartPoint () {
         return myStartPoint;
 
+    }
+
+    @Override //TODO - incomplete
+    public GameView initializeRenderer (IView parent) {
+     // view of user's content
+        ScrollingManager sm = new OmniScrollingManager();
+        GameView display = new GameView(PlatformerConstants.DEFAULT_WINDOW_SIZE, sm);
+        sm.initView(display);
+        display.setModel(new Model(display, sm, this));
+        return display;
     }
 
 }

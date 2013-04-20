@@ -6,8 +6,8 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.Image;
 import java.util.Stack;
+import vooga.scroller.util.Renderable;
 import vooga.scroller.util.mvc.IView;
-import vooga.scroller.util.mvc.vcFramework.Renderable;
 import vooga.scroller.util.mvc.vcFramework.ViewConstants;
 import vooga.scroller.util.mvc.vcFramework.Window;
 
@@ -46,8 +46,6 @@ public abstract class WorkspaceView extends WindowComponent {
         myID = id; 
     }
     
-
-    public abstract void setRenderable(Renderable r);
     
     /**
      * Get the ID for this component
@@ -103,4 +101,5 @@ public abstract class WorkspaceView extends WindowComponent {
         return myTools;
     }
 
+    public abstract void setRenderable (Renderable<?> m);
 }

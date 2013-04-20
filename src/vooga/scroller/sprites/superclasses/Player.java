@@ -13,7 +13,7 @@ import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.util.Gravity;
 import vooga.scroller.util.ISpriteView;
 import vooga.scroller.util.Sprite;
-import vooga.scroller.view.View;
+import vooga.scroller.view.GameView;
 
 
 /**
@@ -35,7 +35,7 @@ import vooga.scroller.view.View;
 public abstract class Player extends Sprite implements IInputListener{
 
     // Graphics2D pen;
-    private View myView;
+    private GameView myView;
     private Location myPaintCenter;
     private Dimension mySize;
     // private Pixmap myImage;
@@ -58,10 +58,10 @@ public abstract class Player extends Sprite implements IInputListener{
     public Player (ISpriteView image,
                    Location center,
                    Dimension size,
-                   View view,
+                   GameView gameView,
                    ScrollingManager sm) {
         super(image, center, size);
-        myView = view;
+        myView = gameView;
         myPaintCenter = new Location(myView.getWidth() / 2, myView.getHeight() / 2);
         mySize = size;
         // myImage = image;

@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import vooga.scroller.level_editor.controllerSuite.LEController;
 import vooga.scroller.level_editor.library.ISpriteLibrary;
-import vooga.scroller.util.mvc.vcFramework.Renderable;
+import vooga.scroller.util.Renderable;
 import vooga.scroller.util.mvc.vcFramework.Tools;
 import vooga.scroller.util.mvc.vcFramework.Window;
 import vooga.scroller.util.mvc.vcFramework.WorkspaceView;
@@ -49,12 +49,6 @@ public class LEView extends Window {
         // TODO Auto-generated method stub
         super.addTab(associatedWorkspaceView, r);
     }
-
-    @Override
-    public void render (Renderable r) {
-        getActiveTab().setRenderable(r);
-        
-    }
     
     public void setDefaultWorkspaceTools(Tools t) {
         LEWorkspaceView.setTools(t);
@@ -65,8 +59,8 @@ public class LEView extends Window {
      * @param tab
      */
     private void simulate (LEWorkspaceView tab) {
-        if (tab.isValidForSimulation()) {
-            //TODO
+        if (tab.isValidForSimulation()) { //TODO
+            tab.getRenderable().simulate();
         }
         else 
             JOptionPane.showMessageDialog(this, 
@@ -80,6 +74,12 @@ public class LEView extends Window {
         if (super.getActiveTab() instanceof LEWorkspaceView) {
             simulate((LEWorkspaceView)super.getActiveTab());
         }
+    }
+
+    @Override
+    public void render (Renderable<?> r) {
+        // TODO Auto-generated method stub
+        
     }
 
 }

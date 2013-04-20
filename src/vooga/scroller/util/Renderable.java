@@ -1,26 +1,26 @@
 
-package vooga.scroller.util.mvc.vcFramework;
+package vooga.scroller.util;
 
 import java.awt.Graphics2D;
+import vooga.scroller.util.mvc.IView;
+import vooga.scroller.view.IPaintable;
 
 /**
  * Interface for renderable objects. Renderables have an object that holds 
  * their current state, and a paint method.
- * @author mp
+ * T is the type of Renderer to use preferably with this renderable.
+ * @author mp, df
  *
  */
-public interface Renderable {
+public interface Renderable<T> extends IPaintable {
 
     /**
      * returns the current state of the Renderable object
      * @return state-holding object
      */
     public Object getState();
-
-    /**
-     * paints everything in the Renderable object
-     * @param pen - used to paint
-     */
-    public void paint(Graphics2D pen);
+    
+    
+    public T initializeRenderer(IView parent);
 }
 

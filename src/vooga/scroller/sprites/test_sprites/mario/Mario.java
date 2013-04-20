@@ -11,7 +11,7 @@ import vooga.scroller.sprites.interfaces.IPlayer;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.Sprite;
-import vooga.scroller.view.View;
+import vooga.scroller.view.GameView;
 
 @InputClassTarget
 public class Mario extends Player implements IPlayer, IInputListener{
@@ -28,8 +28,8 @@ public class Mario extends Player implements IPlayer, IInputListener{
    
     private int myJumpCount;
 
-    public Mario (Location center, Dimension size, View view, ScrollingManager sm) {
-        super(DEFAULT_IMAGE, center, size, view, sm);
+    public Mario (Location center, Dimension size, GameView gameView, ScrollingManager sm) {
+        super(DEFAULT_IMAGE, center, size, gameView, sm);
         myJumpCount = 0;
     }
 

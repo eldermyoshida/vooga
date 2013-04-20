@@ -2,7 +2,7 @@
 package vooga.scroller.util.mvc;
 
 import java.awt.Dimension;
-import vooga.scroller.util.mvc.vcFramework.Renderable;
+import vooga.scroller.util.Renderable;
 
 
 /**
@@ -29,7 +29,7 @@ public interface IView {
      * 
      * @param r - an qualified object that can render itself (eg. paint itself, display some text...)
      */
-    public void render(Renderable r);
+    public void render(Renderable<?> r);
     
     /**
      * Provides the size of this view entity. All views are supposed to occupy

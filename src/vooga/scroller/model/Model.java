@@ -7,13 +7,14 @@ import java.util.Arrays;
 import java.util.List;
 import util.Location;
 import util.Secretary;
+import vooga.scroller.level_editor.Level;
 import vooga.scroller.level_management.LevelManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.animation.Animation;
 import vooga.scroller.sprites.animation.MovingSpriteAnimationFactory;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.sprites.test_sprites.mario.Mario;
-import vooga.scroller.view.View;
+import vooga.scroller.view.GameView;
 
 
 /**
@@ -30,7 +31,7 @@ public class Model {
     //private static final int DEFAULT_START_LEVEL_ID = 0;
 
     
-    private View myView;
+    private GameView myView;
     private Player myPlayer;
 
     private LevelManager myLevelManager;
@@ -53,19 +54,38 @@ public class Model {
     /**
      * Constructs a new Model based on the view and the scrolling manager used by the game.
      * 
-     * @param view which is used to display/control game.
+     * @param gameView which is used to display/control game.
      * @param myScrollingManager used to control in-game scrolling.
      */
-    public Model (View view, ScrollingManager sm) {
+    public Model (GameView gameView, ScrollingManager sm, Level ...levels) {
         myScrollingManager = sm;
-        myView = view;
+        myView = gameView;
         
         initPlayer();
         
         myScrollingManager.initModel(this);
-        myScrollingManager.initView(view);
+        myScrollingManager.initView(gameView);
         
-        myLevelManager = new LevelManager(myScrollingManager, myView);
+        myLevelManager = new LevelManager(myScrollingManager, myView, levels);
+        myLevelManager.getCurrentLevel().addPlayer(myPlayer);
+
+//        myLevelManager.setCurrentLevel(DEFAULT_START_LEVEL_ID);
+        
+        mySecretary = new Secretary();
+        generateVisitMethods(spriteStrings);  
+    }
+    
+    //TODO - refactor
+    public Model (GameView gameView, ScrollingManager sm, String... levelFileNames) {
+        myScrollingManager = sm;
+        myView = gameView;
+        
+        initPlayer();
+        
+        myScrollingManager.initModel(this);
+        myScrollingManager.initView(gameView);
+        
+        myLevelManager = new LevelManager(myScrollingManager, myView, levelFileNames);
         myLevelManager.getCurrentLevel().addPlayer(myPlayer);
 
 //        myLevelManager.setCurrentLevel(DEFAULT_START_LEVEL_ID);

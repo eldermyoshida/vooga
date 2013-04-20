@@ -5,7 +5,7 @@ import javax.swing.JFrame;
 import vooga.scroller.scrollingmanager.OmniScrollingManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.util.PlatformerConstants;
-import vooga.scroller.view.View;
+import vooga.scroller.view.GameView;
 import arcade.games.ArcadeInteraction;
 import arcade.games.Game;
 import arcade.games.GameData;
@@ -34,7 +34,7 @@ public class Mario extends Game {
     public void run () {
      // view of user's content
         ScrollingManager scrollManager = new OmniScrollingManager();
-        View display = new View(PlatformerConstants.DEFAULT_WINDOW_SIZE, scrollManager);
+        GameView display = new GameView(PlatformerConstants.DEFAULT_WINDOW_SIZE, scrollManager);
         scrollManager.initView(display);
         
         // container that will work with user's OS

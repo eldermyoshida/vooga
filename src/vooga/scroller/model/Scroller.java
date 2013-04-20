@@ -10,7 +10,7 @@ import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.scrollingmanager.UniScrollingManager;
 import vooga.scroller.util.Direction;
 import vooga.scroller.util.PlatformerConstants;
-import vooga.scroller.view.View;
+import vooga.scroller.view.GameView;
 
 
 /**
@@ -38,7 +38,7 @@ public class Scroller extends Game
     {
         // view of user's content
         ScrollingManager scrollManager = new OmniScrollingManager();
-        View display = new View(PlatformerConstants.DEFAULT_WINDOW_SIZE, scrollManager);
+        GameView display = new GameView(PlatformerConstants.DEFAULT_WINDOW_SIZE, scrollManager);
         scrollManager.initView(display);
         
         // container that will work with user's OS
@@ -64,7 +64,7 @@ public class Scroller extends Game
     public void run () {
         // view of user's content
         ScrollingManager scrollManager = new OmniScrollingManager();
-        View display = new View(PlatformerConstants.DEFAULT_WINDOW_SIZE, scrollManager);
+        GameView display = new GameView(PlatformerConstants.DEFAULT_WINDOW_SIZE, scrollManager);
         scrollManager.initView(display);
         
         // container that will work with user's OS

@@ -14,9 +14,9 @@ import vooga.scroller.level_editor.model.LevelWriter;
 import vooga.scroller.level_editor.view.LEView;
 import vooga.scroller.sprites.test_sprites.MarioLib;
 import vooga.scroller.util.Editable;
+import vooga.scroller.util.Renderable;
 import vooga.scroller.util.mvc.IController;
 import vooga.scroller.util.mvc.IWindow;
-import vooga.scroller.util.mvc.vcFramework.Renderable;
 import vooga.scroller.util.mvc.vcFramework.WorkspaceView;
 
 /**
@@ -126,7 +126,7 @@ public class LEController implements IController {
         if(cmd instanceof String) {
             myModel.processCommand(m, (String)cmd);
         }
-        t.setRenderable((Renderable) m);
+        t.setRenderable((Renderable<?>) m);
     }
 
     

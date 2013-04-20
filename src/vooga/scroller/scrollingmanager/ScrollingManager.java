@@ -7,7 +7,7 @@ import util.Location;
 import vooga.scroller.model.Model;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.Direction;
-import vooga.scroller.view.View;
+import vooga.scroller.view.GameView;
 
 /**
  * Abstract class for all ScrollingManagers to extend
@@ -17,7 +17,7 @@ import vooga.scroller.view.View;
 
 public abstract class ScrollingManager {
     private Model myModel;
-    private View myView;
+    private GameView myView;
 
     /**
      * Used to initialize the a reference to the Model the ScrollingManager will be using.
@@ -30,10 +30,10 @@ public abstract class ScrollingManager {
     /**
      * Used to initialize the a reference to the View the ScrollingManager 
      * will be using.
-     * @param view The instance of the View that the ScrollingManager will be controlling
+     * @param gameView The instance of the View that the ScrollingManager will be controlling
      */
-    public void initView(View view) {
-        myView = view;
+    public void initView(GameView gameView) {
+        myView = gameView;
     }
 
     protected abstract int upperpaintbound();
@@ -135,7 +135,7 @@ public abstract class ScrollingManager {
      * Gets the View that was initialized for this ScrollingManager
      * @return the View 
      */
-    protected View getView () {
+    protected GameView getView () {
         return myView;
     }
 

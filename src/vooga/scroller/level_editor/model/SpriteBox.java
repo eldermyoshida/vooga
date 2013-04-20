@@ -7,18 +7,19 @@ import java.awt.Rectangle;
 import java.util.HashSet;
 import java.util.Set;
 import vooga.scroller.level_editor.controllerSuite.LEGrid;
+import vooga.scroller.util.Renderable;
 import vooga.scroller.util.Sprite;
-import vooga.scroller.util.mvc.vcFramework.Renderable;
+import vooga.scroller.view.IPaintable;
 
 
-public class SpriteBox implements Renderable {
+public class SpriteBox implements IPaintable {
 
-    private Sprite mySprite;
-    private LEGrid myParent;
-    private int mySize;
+    private boolean isAvailable;
     private Rectangle myBounds;
     private Set<SpriteBox> myCombinedBoxes;
-    private boolean isAvailable;
+    private LEGrid myParent;
+    private int mySize;
+    private Sprite mySprite;
 
     public SpriteBox (LEGrid parent, int x, int y) {
         myParent = parent;
@@ -35,6 +36,12 @@ public class SpriteBox implements Renderable {
         setUnavailable();
     }
 
+    public void combineWith (SpriteBox nearestBox) {
+        myCombinedBoxes.add(nearestBox);
+        nearestBox.myCombinedBoxes.add(this);
+        nearestBox.setUnavailable();
+    }
+
     public void deleteSprite () {
         mySprite = null;
         setAvailable();
@@ -45,33 +52,13 @@ public class SpriteBox implements Renderable {
         myCombinedBoxes = new HashSet<SpriteBox>();
     }
 
-    public Sprite getSprite () {
-        return mySprite;
-    }
-
-    public void combineWith (SpriteBox nearestBox) {
-        myCombinedBoxes.add(nearestBox);
-        nearestBox.myCombinedBoxes.add(this);
-        nearestBox.setUnavailable();
-    }
-
-    @Override
-    public Object getState () {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public void paint (Graphics2D pen) {
-        if (mySprite != null) {
-            mySprite.paint(pen);
-        }
-        pen.setColor(Color.BLACK);
-        pen.drawRect(getX(), getY(), myBounds.width, myBounds.height);
-    }
-
     public Rectangle getBounds () {
         return myBounds;
+    }
+
+
+    public Sprite getSprite () {
+        return mySprite;
     }
 
     public int getX () {
@@ -86,8 +73,13 @@ public class SpriteBox implements Renderable {
         return isAvailable;
     }
 
-    private void setUnavailable () {
-        isAvailable = false;
+    @Override
+    public void paint (Graphics2D pen) {
+        if (mySprite != null) {
+            mySprite.paint(pen);
+        }
+        pen.setColor(Color.BLACK);
+        pen.drawRect(getX(), getY(), myBounds.width, myBounds.height);
     }
 
     private void setAvailable () {
@@ -96,6 +88,10 @@ public class SpriteBox implements Renderable {
 
     private void setBounds (int x, int y) {
         myBounds = new Rectangle(x * mySize, y * mySize, mySize, mySize);
+    }
+
+    private void setUnavailable () {
+        isAvailable = false;
     }
 
 }

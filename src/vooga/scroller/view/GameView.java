@@ -23,6 +23,7 @@ import javax.swing.Timer;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.Sprite;
+import vooga.scroller.level_editor.Level;
 import vooga.scroller.model.Model;
 
 
@@ -30,7 +31,7 @@ import vooga.scroller.model.Model;
  *
  * @author Ross Cahoon
  */
-public class View extends JComponent {
+public class GameView extends JComponent {
     // default serialization ID
     private static final long serialVersionUID = 1L;
     // animate 25 times per second if possible
@@ -59,7 +60,7 @@ public class View extends JComponent {
     /**
      * Create a panel so that it knows its size
      */
-    public View (Dimension size, ScrollingManager sm) {
+    public GameView (Dimension size, ScrollingManager sm) {
         // set size (a bit of a pain)
         setPreferredSize(size);
         setSize(size);
@@ -124,9 +125,15 @@ public class View extends JComponent {
             }
         });
         // start animation
-        myGame = new Model(this, myScrollManager);
+        if (myGame==null) {
+            myGame = new Model(this, myScrollManager, "simpleLevel");//TODO
+        }
         myScrollManager.initModel(myGame);
         timer.start();
+    }
+    
+    public void setModel (Model m) {
+        myGame = m;
     }
 
     /**

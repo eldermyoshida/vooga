@@ -1,25 +1,32 @@
 package vooga.scroller.level_editor.controllerSuite;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.HashSet;
 import java.util.Set;
+import javax.swing.JFrame;
 import javax.swing.Scrollable;
 import util.Location;
 import vooga.scroller.level_editor.Level;
 import vooga.scroller.level_editor.StartPoint;
 import vooga.scroller.level_editor.model.SpriteBox;
+import vooga.scroller.level_editor.view.LEGridView;
 import vooga.scroller.level_management.IDoor;
 import vooga.scroller.level_management.LevelPortal;
+import vooga.scroller.scrollingmanager.OmniScrollingManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.util.Editable;
+import vooga.scroller.util.PlatformerConstants;
+import vooga.scroller.util.Renderable;
 import vooga.scroller.util.Sprite;
-import vooga.scroller.util.mvc.vcFramework.Renderable;
-import vooga.scroller.view.View;
+import vooga.scroller.util.mvc.IView;
+import vooga.scroller.util.mvc.SimpleView;
+import vooga.scroller.view.GameView;
 
 
-public class LEGrid implements Editable, Renderable, Scrollable {
+public class LEGrid implements Editable, Renderable<LEGridView>, Scrollable {
 
     public static final int DEFAULT_SPRITE_SIZE = 32;
     private static final Location DEFAULT_START_LOC = new Location(0,0);
@@ -107,10 +114,9 @@ public class LEGrid implements Editable, Renderable, Scrollable {
      * @return
      */
     public Level createLevel (int id, 
-                              ScrollingManager sm,
-                              View v) {
+                              ScrollingManager sm) {
         //TODO need to refactor. Editable Level.
-        Level lev = new Level(id, sm, v);
+        Level lev = new Level(id, sm);
         for (SpriteBox box : getBoxes()) {
             lev.addSprite(box.getSprite());
         }
@@ -213,7 +219,7 @@ public class LEGrid implements Editable, Renderable, Scrollable {
 
     public boolean isValidForSimulation () {
         // TODO Check for valid starting and exit points.
-        return false;
+        return (myStartPoint!=null && myMainDoor!=null);
     }
 
     @Override
@@ -255,6 +261,30 @@ public class LEGrid implements Editable, Renderable, Scrollable {
         Location center = myMainDoor.getCenter();
         deleteSprite((int) center.getX(),(int) center.getY());
         return center;
+    }
+
+    @Override
+    public LEGridView initializeRenderer (IView parent) {
+        return new LEGridView(parent, this);
+    }
+
+    public void simulate () {
+//        // TODO Auto-generated method stub
+//        ScrollingManager sm = new OmniScrollingManager();
+//        GameView display = new GameView(PlatformerConstants.DEFAULT_WINDOW_SIZE, sm);
+        IView simContainer = new SimpleView("Level Simulation");
+        ScrollingManager sm = new OmniScrollingManager();
+        Level sim = new Level(1, sm, this);
+        GameView display = sim.initializeRenderer(simContainer);
+        // container that will work with user's OS
+        JFrame frame = new JFrame("Level Simulation");
+        // add our user interface components
+        frame.getContentPane().add(display, BorderLayout.CENTER);
+        // display them
+        frame.pack();
+        frame.setVisible(true);
+        // start animation
+        display.start();
     }    
 
 }

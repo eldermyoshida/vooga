@@ -1,7 +1,7 @@
 
 package vooga.scroller.util.mvc;
 
-import vooga.scroller.util.mvc.vcFramework.Renderable;
+import vooga.scroller.util.Renderable;
 import vooga.scroller.util.mvc.vcFramework.Tools;
 import vooga.scroller.util.mvc.vcFramework.WorkspaceView;
 

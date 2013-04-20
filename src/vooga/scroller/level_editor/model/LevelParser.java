@@ -12,7 +12,7 @@ import vooga.scroller.level_editor.controllerSuite.LEGrid;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.test_sprites.MarioLib;
 import vooga.scroller.util.Sprite;
-import vooga.scroller.view.View;
+import vooga.scroller.view.GameView;
 
 
 public class LevelParser {

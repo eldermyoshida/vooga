@@ -15,9 +15,9 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JTabbedPane;
+import vooga.scroller.util.Renderable;
 import vooga.scroller.util.mvc.IController;
 import vooga.scroller.util.mvc.IWindow;
-import vooga.scroller.util.mvc.vcFramework.Renderable;
 import vooga.scroller.viewUtil.EasyGridFactory;
 
 /**

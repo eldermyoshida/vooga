@@ -10,7 +10,7 @@ import vooga.scroller.sprites.superclasses.NonStaticEntity;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.Direction;
 import vooga.scroller.util.Sprite;
-import vooga.scroller.view.View;
+import vooga.scroller.view.GameView;
 
 public class SpriteManager {
 
@@ -23,7 +23,7 @@ public class SpriteManager {
     private Level myLevel;
 
 
-    public SpriteManager(Level level, View view){
+    public SpriteManager(Level level){
         myLevel = level;
         //frameOfActionSize = calcActionFrameSize(view.getSize());
         mySprites = new ArrayList<Sprite>();
@@ -61,10 +61,10 @@ public class SpriteManager {
         return myPlayer;
     }
 
-    public void updateSprites(double elapsedTime, Dimension bounds, View view) {
+    public void updateSprites(double elapsedTime, Dimension bounds, GameView gameView) {
 
         if (myPlayer != null) {
-            updateFrames(view);
+            updateFrames(gameView);
             myPlayer.update(elapsedTime, bounds);
             checkPlayerOutOfBounds();
             if (myPlayer.getHealth() <= 0) {
@@ -113,10 +113,10 @@ public class SpriteManager {
         }
     }
 
-    private void updateFrames (View view) {
+    private void updateFrames (GameView gameView) {
         myFrameOfActionSprites.clear();
         myFrameOfReferenceSprites.clear();
-        frameOfReferenceSize = view.getSize();
+        frameOfReferenceSize = gameView.getSize();
         //frameOfActionSize = calcActionFrameSize(view.getSize());
         if (mySprites.size() > 0) {
             for (Sprite s : mySprites) {
