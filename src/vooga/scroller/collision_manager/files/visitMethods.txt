@@ -1,6 +1,10 @@
-public void visit (Mario mario, Koopa koopa) {}
-public void visit (Mario mario, Coin coin) {}
-public void visit (Mario mario, MarioLib.MovingPlatform movingPlatform) {}
-public void visit (Koopa koopa, Coin coin) {}
-public void visit (Koopa koopa, MarioLib.MovingPlatform movingPlatform) {}
-public void visit (Coin coin, MarioLib.MovingPlatform movingPlatform) {}
+public void visit (IPlayer, ILevelPortal) {}
+public void visit (IPlayer, IPlatform) {}
+public void visit (IPlayer, ICollectible) {}
+public void visit (IPlayer, IEnemy) {}
+public void visit (ILevelPortal, IPlatform) {}
+public void visit (ILevelPortal, ICollectible) {}
+public void visit (ILevelPortal, IEnemy) {}
+public void visit (IPlatform, ICollectible) {}
+public void visit (IPlatform, IEnemy) {}
+public void visit (ICollectible, IEnemy) {}

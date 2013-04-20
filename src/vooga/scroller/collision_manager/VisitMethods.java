@@ -1,7 +1,7 @@
 package vooga.scroller.collision_manager;
 
 
-import vooga.scroller.sprites.interfaces.ICoin;
+import vooga.scroller.sprites.interfaces.ICollectible;
 import vooga.scroller.sprites.interfaces.IEnemy;
 import vooga.scroller.sprites.interfaces.ILevelPortal;
 import vooga.scroller.sprites.interfaces.IPlatform;
@@ -23,7 +23,7 @@ public class VisitMethods {
         collisions.marioAndPlatformCollision(player.getPlayer(), platform.getPlatform());
     }
     
-    public void visit (IPlayer player, ICoin coin) {
+    public void visit (IPlayer player, ICollectible coin) {
         player.incrementScore(coin.getValue());
         coin.takeHit(player.getPlayer().getHit());
     }

@@ -8,7 +8,7 @@ import java.util.Map;
 import javax.swing.ImageIcon;
 import vooga.scroller.level_management.IDoor;
 import vooga.scroller.level_management.LevelPortal;
-import vooga.scroller.sprites.interfaces.ICoin;
+import vooga.scroller.sprites.interfaces.ICollectible;
 import vooga.scroller.sprites.interfaces.IEnemy;
 import vooga.scroller.sprites.test_sprites.MarioLib.Platform;
 import vooga.scroller.util.Sprite;
@@ -56,7 +56,7 @@ public class LETools extends Tools {
                     .getScaledInstance(40, 40, Image.SCALE_SMOOTH)),
                                  i + "");
         }
-        if (s instanceof ICoin) {
+        if (s instanceof ICollectible) {
             // TODO - generalize sorting
             myOptions.get(2).put(new ImageIcon(s.getDefaultImg()
                     .getScaledInstance(40, 40, Image.SCALE_SMOOTH)),

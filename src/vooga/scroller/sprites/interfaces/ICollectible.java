@@ -1,6 +1,6 @@
 package vooga.scroller.sprites.interfaces;
 
-public interface ICoin {
+public interface ICollectible {
     
     public int getValue();
     public void takeHit(int hitValue);

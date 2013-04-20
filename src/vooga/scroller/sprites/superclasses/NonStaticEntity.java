@@ -22,6 +22,7 @@ public abstract class NonStaticEntity extends Sprite {
     
     public static Vector DEFAULT_SPEED = new Vector(0, 45);
     private Player myPlayer;
+
     
     public NonStaticEntity (Pixmap image, Location center, Dimension size) {
         super(image, center, size, DEFAULT_SPEED);  //health defaulted to 1
