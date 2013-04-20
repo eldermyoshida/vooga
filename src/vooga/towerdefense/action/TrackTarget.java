@@ -1,5 +1,6 @@
 package vooga.towerdefense.action;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import vooga.towerdefense.attributes.Attribute;
@@ -20,14 +21,17 @@ public class TrackTarget extends Action{
 	
 
 	public TrackTarget(Location source, Attribute attackRadius, GameMap myMap){
-		myScanningRadius = attackRadius;
+		myScanningRadius = new Attribute("a",300.0);
 		mySource = source;
-		myTargets = myMap.getTargetsWithinRadius(source, myScanningRadius.getValue(), 10);
+		myTargets=new ArrayList<GameElement>();
+		this.setEnabled(true);
 		//hard coded to add in CreateProjectile action
 	}
 
 	public void update(double elapsedTime) {
+		
 		if (isEnabled()){
+			myTargets=myMap.getTargetsWithinRadius(mySource, myScanningRadius.getValue(), 1);
 			executeAction(elapsedTime);
 		}
 
@@ -35,11 +39,13 @@ public class TrackTarget extends Action{
 
 	@Override
 	public void executeAction(double elapsedTime) {
+		System.out.print("track action executed");
 		if(!myTargets.isEmpty()){
 			for (GameElement t: myTargets){
 				addFollowUpAction(new LaunchProjectile(mySource, new ExampleProjectileFactory(), t, myMap));
-				getFollowUpAction().update(elapsedTime);
-
+				for (Action a: getFollowUpAction()){
+					a.update(elapsedTime);
+				}
 			}
 		}
 

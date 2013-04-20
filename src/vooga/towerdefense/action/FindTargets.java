@@ -24,14 +24,17 @@ public class FindTargets extends Action {
     private Location mySource;
     private GameMap myMap;
 
-    public FindTargets (GameMap myMap, Location source, Attribute attackRadius) {
+    public FindTargets (GameMap map, Location source, Attribute attackRadius) {
         myScanningRadius = attackRadius;
         mySource = source;
-        myTargets = myMap.getTargetsWithinRadius(source, myScanningRadius.getValue(), 10);
+        myMap = map;
+        myTargets = myMap.getTargetsWithinRadius(source, myScanningRadius.getValue());
+        initAction();
     }
 
     public void update (double elapsedTime) {
         if (isEnabled()) {
+            myTargets = myMap.getTargetsWithinRadius(mySource, myScanningRadius.getValue());
             executeAction(elapsedTime);
         }
     }
@@ -39,11 +42,10 @@ public class FindTargets extends Action {
     @Override
     public void executeAction (double elapsedTime) {
         if (!myTargets.isEmpty()) {
-            for (GameElement t : myTargets) {
-                addFollowUpAction(new LaunchProjectile(mySource, new ExampleProjectileFactory(), t,
-                                                       myMap));
-                getFollowUpAction().update(elapsedTime);
-
+            List<Action> actions = getFollowUpAction();
+            for (Action a : actions) {
+                a.setTargets(myTargets);
+                a.executeAction(elapsedTime);
             }
         }
 

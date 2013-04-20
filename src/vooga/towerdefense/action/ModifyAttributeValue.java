@@ -21,6 +21,7 @@ public class ModifyAttributeValue extends Action {
         myTargetAttribute = targetAttributeName;
         myAppliedAttribute = attributeToApply;
         myTargets = new ArrayList<GameElement>();
+        initAction();
     }
     
     
@@ -31,7 +32,9 @@ public class ModifyAttributeValue extends Action {
     @Override
     public void executeAction (double elapseTime) {
         for (GameElement e : myTargets) {
+            System.out.println(e.getCenter());
             Attribute toChange = e.getAttributeManager().getAttribute(myTargetAttribute);
+            System.out.println(toChange);
             if (toChange != null) {
                 toChange.modifyValue(myAppliedAttribute.getValue());
             }
