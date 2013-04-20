@@ -210,6 +210,7 @@ public class Manager implements State, IActOn {
     public void addAction () {
         put("drag", new DragSelectAction(this));
         put("leftclick", new LeftClickAction(this));
+        put("rightclick", new RightClickAction(this));
     }
 
     /**

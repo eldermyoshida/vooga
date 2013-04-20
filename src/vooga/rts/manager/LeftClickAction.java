@@ -7,14 +7,15 @@ import vooga.rts.controller.PositionCommand;
 import vooga.rts.util.Camera;
 import vooga.rts.util.Location3D;
 
+
 public class LeftClickAction extends ManagerAction {
 
     private Location3D myLocation;
-    
+
     public LeftClickAction (Manager manager) {
         super(manager);
     }
-    
+
     @Override
     public void apply () {
         getManager().select(myLocation);
@@ -25,13 +26,12 @@ public class LeftClickAction extends ManagerAction {
         if (getManager().getSelected().size() > 0) {
             getManager().applyAction(command);
         }
-        else{
+        else {
             PositionCommand click = (PositionCommand) command;
             System.out.println("leftclick");
             myLocation = Camera.instance().viewtoWorld(click.getPosition());
             apply();
         }
     }
-
 
 }
