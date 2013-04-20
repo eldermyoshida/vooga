@@ -210,5 +210,15 @@ public class Database {
 		return null;
 	}
 
+	public String getSingleplayerGameClassKeyword(String gameName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getMultiplayerGameClassKeyword(String gameName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 }
