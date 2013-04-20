@@ -43,7 +43,7 @@ public class Projectile extends GameElement {
         myInitiator = initiator;
         myHeading =
                 new Vector(Vector.angleBetween(myInitiator.getCenter(), myTargetLocation),
-                           initiator.getAttributeManager().getAttribute(AttributeConstants.MOVE_SPEED).getValue());
+                           attributes.getAttribute("speed").getValue());
     }
 
     /**
@@ -57,12 +57,11 @@ public class Projectile extends GameElement {
      * @param actions
      * @param attributes
      */
-    public Projectile (Pixmap image, Dimension size, GameElement initiator,
+    public Projectile (Pixmap image, Dimension size, Location startLocation,
                        Location targetLocation, List<Action> actions,
                        AttributeManager attributes) {
-        super(image, initiator.getCenter(), size, attributes, actions);
+        super(image, startLocation , size, attributes, actions);
         myTargetLocation = targetLocation;
-        myInitiator = initiator;
         myHeading = new Vector(Vector.angleBetween(myInitiator.getCenter(), myTargetLocation), 0);
 
     }
