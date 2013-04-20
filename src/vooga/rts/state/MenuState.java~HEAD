@@ -5,11 +5,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
+import util.input.PositionObject;
 import vooga.rts.commands.Command;
 import vooga.rts.controller.PositionCommand;
 import vooga.rts.gui.Menu;
 import vooga.rts.gui.menus.MainMenu;
-import vooga.rts.input.PositionObject;
 
 
 /**
@@ -74,15 +74,6 @@ public class MenuState extends SubState implements Observer {
         setMenu(0);
     }
 
-<<<<<<< HEAD:src/vooga/rts/state/MenuState.java
-=======
-    /*
-     * (non-Javadoc)
-     * 
-     * @see vooga.rts.controller.AbstractController#onLeftMouseUp(vooga.rts.input.PositionObject)
-     */
-    @Override
->>>>>>> master:src/vooga/rts/controller/MenuController.java
     public void onLeftMouseUp (PositionObject o) {
         getCurrentMenu().handleMouseDown((int) o.getX(), (int) o.getY());
     }

@@ -21,7 +21,7 @@ import vooga.rts.util.Location;
  * needs to be sent to the server.
  * - does the command affect the view or other non-gameplay related things?
  * 
- * This versin of Player will eventually be called HumanPlayer, and Player will
+ * This version of Player will eventually be called HumanPlayer, and Player will
  * also be used with AI and the network to control other sets of managers.
  * 
  * @author Challen Herzberg-Brovold

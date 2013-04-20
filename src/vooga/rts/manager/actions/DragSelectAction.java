@@ -1,10 +1,11 @@
-package vooga.rts.manager;
+package vooga.rts.manager.actions;
 
 import java.awt.Shape;
 import java.awt.geom.Rectangle2D;
 import vooga.rts.action.ManagerAction;
 import vooga.rts.commands.Command;
 import vooga.rts.commands.DragCommand;
+import vooga.rts.manager.Manager;
 
 public class DragSelectAction extends ManagerAction {
     

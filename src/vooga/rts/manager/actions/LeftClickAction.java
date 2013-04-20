@@ -1,33 +1,39 @@
-package vooga.rts.manager;
+package vooga.rts.manager.actions;
 
 import vooga.rts.action.ManagerAction;
 import vooga.rts.commands.Command;
 import vooga.rts.controller.PositionCommand;
-import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
+import vooga.rts.manager.Manager;
 import vooga.rts.util.Camera;
 import vooga.rts.util.Location3D;
 
 
-public class RightClickAction extends ManagerAction {
+public class LeftClickAction extends ManagerAction {
 
     private Location3D myLocation;
 
-    public RightClickAction (Manager manager) {
+    public LeftClickAction (Manager manager) {
         super(manager);
     }
 
     @Override
     public void apply () {
-        for (InteractiveEntity ie : getManager().getSelected()) {
-            ie.move(myLocation);
-        }
+        getManager().select(myLocation);
     }
 
     @Override
     public void update (Command command) {
+        /*
+         * if (getManager().getSelected().size() > 0) {
+         * getManager().applyAction(command);
+         * }
+         * else {
+         */
         PositionCommand click = (PositionCommand) command;
+        System.out.println("leftclick");
         myLocation = Camera.instance().viewtoWorld(click.getPosition());
         apply();
+        // }
     }
 
 }
