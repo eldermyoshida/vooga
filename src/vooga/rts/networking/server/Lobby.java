@@ -1,6 +1,6 @@
 package vooga.rts.networking.server;
 
-import vooga.rts.networking.client.lobby.LobbyModel;
+import vooga.rts.networking.communications.LobbyInfo;
 
 /**
  * This class represents a Lobby where users can change information.
@@ -9,7 +9,7 @@ import vooga.rts.networking.client.lobby.LobbyModel;
  */
 public class Lobby extends Room {
     
-    private LobbyModel myLobbyModel;
+    private LobbyInfo myLobbyModel;
         
     /**
      * Instantiates a lobby.
