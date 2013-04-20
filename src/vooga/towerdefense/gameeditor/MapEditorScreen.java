@@ -11,7 +11,6 @@ import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import vooga.towerdefense.view.MapMaker;
 
 /**
  * MapEditorScreen is responsible for helping
@@ -81,7 +80,6 @@ public class MapEditorScreen extends GameEditorScreen {
         myTilePainterListener = new MouseAdapter () {
             @Override
             public void mouseClicked (MouseEvent e) {
-                System.out.println("Painter");
                 setTilePainterColor(Color.GREEN);
                 myMapBox.setPaintingMode(true);
             }
@@ -90,7 +88,6 @@ public class MapEditorScreen extends GameEditorScreen {
         myTileEraserListener = new MouseAdapter () {
             @Override
             public void mouseClicked (MouseEvent e) {  
-                System.out.println("Eraser");
                 myMapBox.setEraseMode(true);
             }
         };
