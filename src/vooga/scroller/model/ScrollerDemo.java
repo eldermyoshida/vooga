@@ -18,7 +18,7 @@ import vooga.scroller.view.GameView;
  * A sample scroller game. By implementing the methods required by ScrollerGame,
  * the designer defines the components of the game. Most important, is the get LevelFileNames method.
  */
-public class Scroller extends ScrollerGame
+public class ScrollerDemo extends ScrollerGame
 {
 
 
@@ -32,7 +32,7 @@ public class Scroller extends ScrollerGame
      */
     public static void main (String args[]) {
         // view of user's content
-        ScrollerGame test = new Scroller();
+        ScrollerGame test = new ScrollerDemo();
         test.start();
     }
 
