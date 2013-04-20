@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import arcade.model.Model;
-import arcade.view.PublishView;
+import arcade.view.forms.PublishView;
 
 
 @SuppressWarnings("serial")

@@ -1,4 +1,4 @@
-package arcade.view;
+package arcade.view.forms;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,6 +18,7 @@ import javax.swing.JTextField;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import arcade.model.Model;
+import arcade.view.TextKeywords;
 
 
 /**
@@ -46,10 +47,28 @@ public class RegisterView extends Account {
      * @param resources
      */
     public RegisterView (Model model, ResourceBundle resources) {
+        this(model, resources, "", "");
+    }
+    
+    /**
+     * Constructs the register view with a Model, ResourceBundle, and also
+     * fills in the username and password fields with some initial values.
+     * This might be useful if the user already typed in these values at a 
+     * previous point such as the login view.
+     * 
+     * @param model
+     * @param resources
+     * @param initialUsername
+     * @param initialPassword
+     */
+    public RegisterView (Model model, ResourceBundle resources, String initialUsername, String initialPassword) {
         super(model, resources);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
         setLocationRelativeTo(null);
+        
+        setUsername(initialUsername);
+        setPassword(initialPassword);
     }
     
     /**

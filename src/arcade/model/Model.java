@@ -16,8 +16,8 @@ import arcade.games.HighScores;
 import arcade.games.MultiplayerGame;
 import arcade.games.User;
 import arcade.games.UserGameData;
-import arcade.view.LoginView;
 import arcade.view.MainView;
+import arcade.view.forms.LoginView;
 
 
 public class Model implements ArcadeInteraction {

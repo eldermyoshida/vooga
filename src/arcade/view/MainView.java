@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import arcade.games.GameInfo;
 import arcade.model.Model;
@@ -107,6 +108,10 @@ public class MainView extends JFrame {
 	
 	public ResourceBundle getResources() {
 	    return myResources;
+	}
+	
+	public void showEndGameView(double score) {
+	    JOptionPane.showConfirmDialog(null, "Your score was" + score);
 	}
 
 }
