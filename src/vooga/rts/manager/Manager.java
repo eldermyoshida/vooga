@@ -2,7 +2,6 @@ package vooga.rts.manager;
 
 import java.awt.Graphics2D;
 import java.awt.Shape;
-import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,6 +10,9 @@ import vooga.rts.action.Action;
 import vooga.rts.action.IActOn;
 import vooga.rts.commands.Command;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
+import vooga.rts.manager.actions.DragSelectAction;
+import vooga.rts.manager.actions.LeftClickAction;
+import vooga.rts.manager.actions.RightClickAction;
 import vooga.rts.state.State;
 import vooga.rts.util.Location3D;
 
