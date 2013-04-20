@@ -44,11 +44,11 @@ public class MapSelectController extends MenuController {
     public void notifyEndCondition(String choice) {
     	removeListener();
 		getGameInfo().setMapName(choice);
-		getManager().notifyEndCondition(NEXT);
+		getManager().notifyEndCondition("1v1");
     	if(BACK.equals(choice)) getManager().notifyEndCondition(BACK);
     	else if (getMode().getMenuNames().contains(choice)){
     		getGameInfo().setMapName(choice);
-    		getManager().notifyEndCondition(NEXT);
+    		getManager().notifyEndCondition("MapSelectMenu");
     		}
     	}
 
@@ -67,11 +67,11 @@ public class MapSelectController extends MenuController {
     public void checkConditions(){
     	String choice = getMode().getChoice();
     	if(!choice.equals("")){
-    		notifyEndCondition("1v1");
+    		notifyEndCondition("BlueMap");
     	}
     	for(String other: getMode().getMenuNames()){
         	if(other.equals(choice)){
-        		notifyEndCondition("1v1");
+        		notifyEndCondition("BlueMap");
         	}
     	}
     }

@@ -5,6 +5,7 @@ package vooga.fighter.controller;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.Timer;
@@ -47,6 +48,8 @@ public abstract class LevelController extends Controller {
         getInput().addListenerTo(this);
         DisplayLoopInfo gameLoopInfo = new GameLoopInfo((LevelMode) getMode());
         setLoopInfo(gameLoopInfo);
+        myWinConditions =new ArrayList<ModeCondition>();
+        myUniqueConditions =new ArrayList<ModeCondition>();
         setupConditions();
     }
 
@@ -93,12 +96,24 @@ public abstract class LevelController extends Controller {
     }
     
     public void setupConditions(){
-    	addWinCondition(wincondition);
-    	addWinCondition(lowhealthcondition);
-    }
-    
-    public void passUniquesConditions(){
-    	getMode().addConditions(lowhealthcondition);
+    	addWinCondition(new ModeCondition() {
+        	public boolean checkCondition(Mode mode) {
+        		LevelMode levelmode = (LevelMode) mode;
+    			for(CharacterObject character: levelmode.getMyCharacterObjects()){
+    				if(!character.hasHealthRemaining()) return true;
+    			}
+    			return false;
+    		}
+        });
+    	addWinCondition(new ModeCondition() {
+        	public boolean checkCondition(Mode mode) {
+        		LevelMode levelmode = (LevelMode) mode;
+    			for(CharacterObject character: levelmode.getMyCharacterObjects()){
+    				if(!character.hasHealthRemaining()) return true;
+    			}
+    			return false;
+    		}
+        });
     }
     
     public void checkConditions(){

@@ -51,11 +51,13 @@ public class ControllerManager implements ControllerDelegate{
 
 	private void switchController(String condition) {
 		myCurrentController.stop();
+		System.out.println(condition);
 		myCurrentController = myProgressionManager.getNextController(myCurrentController, condition);
 		System.out.println("<controllermanager> now the controller is: " + myCurrentController.getName() );
 		//myCurrentController.displaySplash();
 		myCurrentController = myCurrentController.getController();
 		myCurrentController.initializeRest(myCanvas, this, myGameInfo);
+		System.out.println("marker, controllermanager");
 		myCurrentController.start();	
 	}      
 

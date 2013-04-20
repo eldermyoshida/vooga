@@ -51,7 +51,7 @@ public class CharacterSelectController extends MenuController {
     	myCharIndex ++;
     	if(myCharIndex >= myCharLimit){
     	removeListener();
-        getManager().notifyEndCondition(NEXT);
+        getManager().notifyEndCondition("MapSelectMenu");
     	}
     } 
     
@@ -66,7 +66,7 @@ public class CharacterSelectController extends MenuController {
     
     public void checkConditions(){
     	String choice = getMode().getChoice();
-    	if(!choice.equals("")) notifyEndCondition("1v1");
+    	if(!choice.equals("")) notifyEndCondition(choice);
     	for(String other: getMode().getMenuNames()){
         	if(other.equals(choice)){
         		notifyEndCondition(choice);

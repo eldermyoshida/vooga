@@ -50,7 +50,7 @@ public class MainMenuController extends MenuController {
     public void notifyEndCondition(String choice) {
     	System.out.println("MainMenuNotify");
         removeListener();
-        getManager().notifyEndCondition(NEXT);
+        getManager().notifyEndCondition(choice);
     }
 
   
