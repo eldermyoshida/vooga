@@ -255,7 +255,97 @@ public class GameTable extends Table {
      * @param gameName is the gamename
      */
     public String getGenre(String gameName) {
-        return retrieveEntry(gameName, GENRE_COLUMN_INDEX);
+        return retrieveEntryString(gameName, GENRE_COLUMN_INDEX);
+    }
+    
+    /**
+     * Given a gamename, retrieves author
+     * @param gameName is the gamename
+     */
+    public String getAuthor(String gameName) {
+        return retrieveEntryString(gameName, AUTHOR_COLUMN_INDEX);
+    }
+    
+    /**
+     * Given a gamename, retrieves thumbnail path
+     * @param gameName is the gamename
+     */
+    public String getThumbnailPath(String gameName) {
+        return retrieveEntryString(gameName, THUMBNAIL_COLUMN_INDEX);
+    }
+    
+    /**
+     * Given a gamename, retrieves adscreen path
+     * @param gameName is the gamename
+     */
+    public String getAdScreenPath(String gameName) {
+        return retrieveEntryString(gameName, ADSCREEN_COLUMN_INDEX);
+    }
+    
+    /**
+     * Given a gamename, retrieves author
+     * @param gameName is the gamename
+     */
+    public int getAgePermission(String gameName) {
+        return retrieveEntryInt(gameName, AUTHOR_COLUMN_INDEX);
+    }
+    
+    
+    /**
+     * Given a gamename, retrieves price
+     * @param gameName is the gamename
+     */
+    public double getPrice(String gameName) {
+        return retrieveEntryDouble(gameName, PRICE_COLUMN_INDEX);
+    }
+    
+    /**
+     * Given a gamename, retrieves extendsgame
+     * @param gameName is the gamename
+     */
+    public String getExtendsGame(String gameName) {
+        return retrieveEntryString(gameName, EXTENDSGAME_COLUMN_INDEX);
+    }
+    
+    /**
+     * Given a gamename, retrieves extendsgamemultiplayer
+     * @param gameName is the gamename
+     */
+    public String getExtendsGameMultiplayer(String gameName) {
+        return retrieveEntryString(gameName, EXTENDSMULTIPLAYER_COLUMN_INDEX);
+    }
+    
+    /**
+     * Given a gamename, retrieves extendsgamemultiplayer
+     * @param gameName is the gamename
+     */
+    public boolean getIsSinglePlayer(String gameName) {
+        return retrieveEntryBoolean(gameName, SINGLEPLAYER_COLUMN_INDEX);
+    }
+    
+    /**
+     * Given a gamename, retrieves extendsgamemultiplayer
+     * @param gameName is the gamename
+     */
+    public boolean getIsMultiplayer(String gameName) {
+        return retrieveEntryBoolean(gameName, MULTIPLAYER_COLUMN_INDEX);
+    }
+    
+    
+    /**
+     * Given a gamename, retrieves description
+     * @param gameName is the gamename
+     */
+    public String getDescription(String gameName) {
+        return retrieveEntryString(gameName, DESCRIPTION_COLUMN_INDEX);
+    }
+    
+    /**
+     * Given a gamename, retrieves description
+     * @param gameName is the gamename
+     */
+    public String getGameFilePath(String gameName) {
+        return retrieveEntryString(gameName, GAMEFILEPATH_COLUMN_INDEX);
     }
     
     /**
@@ -263,7 +353,7 @@ public class GameTable extends Table {
      * @param gameName is the gamename
      * @param columnIndex is the index that we want the information for
      */
-    public String retrieveEntry(String gameName, int COLUMN_INDEX) {
+    public String retrieveEntryString(String gameName, int COLUMN_INDEX) {
         String stm = "SELECT * FROM " +TABLE_NAME + " WHERE " + GAMENAME_COLUMN_FIELD + "='" + gameName + "'";
         String entry = "";
         try {
@@ -271,6 +361,70 @@ public class GameTable extends Table {
             myResultSet = myPreparedStatement.executeQuery();
             if (myResultSet.next()) {
                 entry = myResultSet.getString(COLUMN_INDEX);
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return entry;
+    }
+    
+    
+    /**
+     * Given a gamename and a column_index, returns that entire row entry
+     * @param gameName is the gamename
+     * @param columnIndex is the index that we want the information for
+     */
+    public int retrieveEntryInt(String gameName, int COLUMN_INDEX) {
+        String stm = "SELECT * FROM " +TABLE_NAME + " WHERE " + GAMENAME_COLUMN_FIELD + "='" + gameName + "'";
+        int entry = 0;
+        try {
+            myPreparedStatement = myConnection.prepareStatement(stm);
+            myResultSet = myPreparedStatement.executeQuery();
+            if (myResultSet.next()) {
+                entry = myResultSet.getInt(COLUMN_INDEX);
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return entry;
+    }
+    
+    /**
+     * Given a gamename and a column_index, returns that entire row entry
+     * @param gameName is the gamename
+     * @param columnIndex is the index that we want the information for
+     */
+    public double retrieveEntryDouble(String gameName, int COLUMN_INDEX) {
+        String stm = "SELECT * FROM " +TABLE_NAME + " WHERE " + GAMENAME_COLUMN_FIELD + "='" + gameName + "'";
+        double entry = 0;
+        try {
+            myPreparedStatement = myConnection.prepareStatement(stm);
+            myResultSet = myPreparedStatement.executeQuery();
+            if (myResultSet.next()) {
+                entry = myResultSet.getDouble(COLUMN_INDEX);
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return entry;
+    }
+    
+    /**
+     * Given a gamename and a column_index, returns that entire row entry
+     * @param gameName is the gamename
+     * @param columnIndex is the index that we want the information for
+     */
+    public boolean retrieveEntryBoolean(String gameName, int COLUMN_INDEX) {
+        String stm = "SELECT * FROM " +TABLE_NAME + " WHERE " + GAMENAME_COLUMN_FIELD + "='" + gameName + "'";
+        boolean entry = false;
+        try {
+            myPreparedStatement = myConnection.prepareStatement(stm);
+            myResultSet = myPreparedStatement.executeQuery();
+            if (myResultSet.next()) {
+                entry = myResultSet.getBoolean(COLUMN_INDEX);
             }
         }
         catch (SQLException e) {

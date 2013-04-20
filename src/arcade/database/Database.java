@@ -177,8 +177,21 @@ public class Database {
     public void updateRating (String userName, String gameName, double rating) {
         
     }
+    
     public String getGenre(String gameName){
         return myGameTable.getGenre(gameName);
+    }
+    
+    public String getAuthor(String gameName){
+        return myGameTable.getAuthor(gameName);
+    }
+    
+    public String getDescription(String gameName){
+        return myGameTable.getDescription(gameName);
+    }
+    
+    public int getAgePermission(String gameName){
+        return myGameTable.getAgePermission(gameName);
     }
 
     public double getAverageRating (String gameName) {
