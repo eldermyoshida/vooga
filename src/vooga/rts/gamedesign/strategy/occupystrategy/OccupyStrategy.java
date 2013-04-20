@@ -1,5 +1,7 @@
 package vooga.rts.gamedesign.strategy.occupystrategy;
 
+import java.util.List;
+
 import vooga.rts.gamedesign.sprite.gamesprites.GameEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
@@ -23,5 +25,13 @@ public interface OccupyStrategy extends Strategy{
 	public void getOccupied(GameEntity entity, Unit u);
 	
 	public void addValidClassType(Unit u);
+	
+	public void setOccupierID(int id);
+	
+	public List<Unit> getOccupiers();
+	
+	public int getMaxOccupiers();
+	
+	public int getOccupierID();
 
 }

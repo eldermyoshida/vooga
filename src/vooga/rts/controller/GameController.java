@@ -268,20 +268,18 @@ public class GameController extends AbstractController {
 			Unit a = new Soldier(pic1, new Location3D(200, 250, 0), s, soun, 1, 100);
 			a.setGameUnitManager(myGameUnitManager);
 			a.getGameUnitManager().addPlayerUnit(a);
-			System.out.println("Player ID for a: " + a.getPlayerID());
-			System.out.println("player1's unit size: " + myGameUnitManager.getPlayerUnits().get(1).size());
 			// a.setUpgradeTree(resultTree,a.getPlayerID());
 			// upgradeBuilding.addUpgradeActions(resultTree);
 			a.setAttackStrategy(new CanAttack(a.getWorldLocation(), a.getPlayerID()));
 
-			Unit b = new Soldier(pic1, new Location3D(300, 150, 0), s, soun, 1, 100);
-			System.out.println("Player ID for b: " + b.getPlayerID());
-			b.setAttackStrategy(new CanAttack(b.getWorldLocation(), b.getPlayerID()));
-			System.out.println("player1's unit size: " + myGameUnitManager.getPlayerUnits().get(1).size());
+			
+			for (int i = 0; i<10 ; ++i) {
+				Unit b = new Soldier(pic1, new Location3D(300+i*10, 150, 0), s, soun, 1, 100);
+				b.setAttackStrategy(new CanAttack(b.getWorldLocation(), b.getPlayerID()));
+			}
 
 			Unit c = new Soldier(pic2, new Location3D(500, 800, 0), s, soun, 2, 100);
 			c.setAttackStrategy(new CanAttack(c.getWorldLocation(), c.getPlayerID()));
-			System.out.println("player2's unit size: " + myGameUnitManager.getPlayerUnits().get(2).size());
 
 			Unit w = new Worker(new Pixmap(ResourceManager.getInstance().<BufferedImage>getFile("images/scv.gif", BufferedImage.class)), new Location3D(500, 200, 0), s, soun, 1,
 					40, 40);

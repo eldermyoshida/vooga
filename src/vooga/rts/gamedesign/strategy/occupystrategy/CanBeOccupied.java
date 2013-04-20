@@ -70,6 +70,22 @@ public class CanBeOccupied implements OccupyStrategy{
 		return false;
 	}
 	
+	public void setOccupierID(int id) {
+		myOccupierID = id;
+	}
+	
+	public int getOccupierID() {
+		return myOccupierID;
+	}
+	
+	public List<Unit> getOccupiers() {
+		return myOccupiers;
+	}
+	
+	public int getMaxOccupiers() {
+		return myMaxOccupiers;
+	}
+	
 	/**
 	 * TESTING FOR VERIFYING VALID OCCUPIER
 	 * @param argus

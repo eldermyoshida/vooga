@@ -61,6 +61,18 @@ public class GameUnitManager {
 		removePlayerUnit(u);
 	}
 	
+	public void removeEntityUnit(GameEntity entity) {
+		ArrayList<Unit> entityUnitList = myEntityUnits.get(entity);
+		myEntityUnits.put(entity, new ArrayList<Unit>());
+		int playerID = entityUnitList.get(0).getPlayerID();
+		ArrayList<Unit> oldPlayerUnitList = myPlayerUnits.get(playerID);
+		for (Unit u: entityUnitList) {
+			u.setVisible(true);
+			oldPlayerUnitList.add(u);
+		}
+		myPlayerUnits.put(playerID, oldPlayerUnitList);
+	}
+	
 	public Map<Integer, ArrayList<Unit>> getPlayerUnits() {
 		return myPlayerUnits;
 	}
