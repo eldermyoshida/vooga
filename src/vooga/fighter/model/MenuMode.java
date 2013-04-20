@@ -52,12 +52,20 @@ public class MenuMode extends Mode {
         //myCollisionManager.checkCollisions(getMyObjects());
     }
 
-    public List<String> getMenuNames(){
+    public List<String> getMenuValue(){
     	List list = new ArrayList<String>();
     	for(MenuObject menu : myMenuObjects){
-    		list.add(menu.getChoice());
+    		list.add(menu.getValue());
     	}
     	return list;
+    }
+    
+    public List<String> getMenuNext() {
+        List list = new ArrayList<String>();
+        for(MenuObject menu : myMenuObjects){
+                list.add(menu.getNext());
+        }
+        return list;
     }
 
     @Override

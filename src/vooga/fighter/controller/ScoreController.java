@@ -51,7 +51,7 @@ public class ScoreController extends MenuController {
         if(BACK.equals(choice)) {
         	getManager().notifyEndCondition(BACK);
         }
-        else if (getMode().getMenuNames().contains(choice)){
+        else if (getMode().getMenuNext().contains(choice)){
                 getGameInfo().setGameMode(choice);
                 getGameInfo().setNumCharacters(Integer.parseInt(myResources.getString(choice)));
                 getManager().notifyEndCondition(NEXT);

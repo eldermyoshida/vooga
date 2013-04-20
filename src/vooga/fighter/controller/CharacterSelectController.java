@@ -54,18 +54,20 @@ public class CharacterSelectController extends MenuController {
      */
     public void notifyEndCondition(String choice) {
 
-    	getGameInfo().addCharacters(choice);
+    	getGameInfo().addCharacters(getMode().getMenuValue().get(0));
     	myCharIndex ++;
     	if(myCharIndex >= myCharLimit){
     	removeListener();
-        getManager().notifyEndCondition(NEXT);
+        getManager().notifyEndCondition(choice);
     	}
     } 
     
     @InputMethodTarget(name = "continue")
     public void mouseclick(PositionObject pos)  {
         super.getMode().addObject(new MouseClickObject(pos.getPoint2D()));
-        notifyEndCondition(getMode().getMenuNames().get(0));
+        System.out.println("character select" + getMode().getMenuNext().get(0));
+        notifyEndCondition(getMode().getMenuNext().get(0));
+        //notifyEndCondition();
     }
     public void removeListener(){
     	super.removeListener();
