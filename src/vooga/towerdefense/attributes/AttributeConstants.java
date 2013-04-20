@@ -25,5 +25,5 @@ public class AttributeConstants {
 	public static final String COST = "Cost";
 	
 	public static final String PROJECTILE_FACTORY="projectile factory";
-
+	public static final String AURA_EFFECT = "Aura";
 }

@@ -92,7 +92,6 @@ public class MapScreen extends JPanel {
         }
         image.paint((Graphics2D) getGraphics(), (Point2D) p,
                     new Dimension(image.getImage().getWidth(null), image.getImage().getHeight(null)));
-
     }
 
     /**
