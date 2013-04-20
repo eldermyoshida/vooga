@@ -174,7 +174,6 @@ public class UserTable extends Table {
         }
         createUser(user, pw, firstname, lastname, dob);
         updateAvatar(user, filepath);
-
         return true;
     }
     
@@ -207,10 +206,6 @@ public class UserTable extends Table {
      * @param username is the username
      * @param columnIndex is the index that we want the information for
      */
-<<<<<<< HEAD
-    public String retrieveEntry(String username, int columnIndex) {
-=======
->>>>>>> f3973a681317c1e23279e05df71f78679c90b756
     public String retrieveEntry(String username, int COLUMN_INDEX) {
         String stm = "SELECT * FROM " +TABLE_NAME + " WHERE " + USERNAME_COLUMN_FIELD + "='" + username + "'";
         String entry = "";
@@ -218,10 +213,6 @@ public class UserTable extends Table {
             myPreparedStatement = myConnection.prepareStatement(stm);
             myResultSet = myPreparedStatement.executeQuery();
             if (myResultSet.next()) {
-<<<<<<< HEAD
-                entry = myResultSet.getString(columnIndex);
-=======
->>>>>>> f3973a681317c1e23279e05df71f78679c90b756
                 entry = myResultSet.getString(COLUMN_INDEX);
             }
         }
@@ -236,11 +227,6 @@ public class UserTable extends Table {
      * @param username is user
      */
     public void deleteUser(String username) {
-<<<<<<< HEAD
-        String stm = "DELETE FROM " + TABLE_NAME + " WHERE " + 
-                USERNAME_COLUMN_FIELD + "='" + username + "'";
-=======
->>>>>>> f3973a681317c1e23279e05df71f78679c90b756
         String stm = "DELETE FROM " + TABLE_NAME + " WHERE " + USERNAME_COLUMN_FIELD + "='" + username + "'";
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
@@ -259,16 +245,7 @@ public class UserTable extends Table {
     public void updateAvatar(String user, String filepath) {
         String userid = retrieveUserId(user);
         String stm = "UPDATE " + TABLE_NAME + " SET " + AVATAR_COLUMN_FIELD + "='" + 
-<<<<<<< HEAD
-                "filepath" + "' WHERE " + USERID_COLUMN_FIELD + "='" + userid + "'";
-=======
-    public void updateAvatar(String user, String filepath) {
-        String userid = retrieveUserId(user);
-        String stm = "UPDATE users SET avatarfilepath = '" + filepath + "' WHERE userid = '" + userid + "'";
->>>>>>> db33675460551d990c9a9f53b90108bfded60ff7
-=======
                 "filepath" + "' WHERE " + USERID_COLUMN_FIELD + "='" + userid + "'";   
->>>>>>> f3973a681317c1e23279e05df71f78679c90b756
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
             myPreparedStatement.executeUpdate();
