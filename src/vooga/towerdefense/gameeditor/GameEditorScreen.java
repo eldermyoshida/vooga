@@ -26,6 +26,7 @@ public abstract class GameEditorScreen extends JPanel {
     private static final String FINISH_BUTTON_TEXT = "Next section";
     private String myNextScreenName = "vooga.towerdefense.gameeditor.";
     private String myTitle = " MAKING SCREEN";
+    private MouseAdapter myMouseAdapter;
     private JButton myAddButton;
     private JButton myFinishButton;
     private Dimension mySize;
@@ -45,6 +46,8 @@ public abstract class GameEditorScreen extends JPanel {
         myTitle = title + myTitle;
         addTitle();
         myNextScreenName += nextScreenName;
+        myMouseAdapter = makeMouseAdapter();
+        addMouseListener(myMouseAdapter);
         addButtons();
     }
     
@@ -71,10 +74,10 @@ public abstract class GameEditorScreen extends JPanel {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new BorderLayout());
         myAddButton = new JButton(ADD_BUTTON_TEXT);
-        myAddButton.addMouseListener(makeMouseAdapter());
+        myAddButton.addMouseListener(myMouseAdapter);
         myAddButton.setVisible(true);
         myFinishButton = new JButton(FINISH_BUTTON_TEXT);
-        myFinishButton.addMouseListener(makeMouseAdapter());
+        myFinishButton.addMouseListener(myMouseAdapter);
         myFinishButton.setVisible(true);
         buttonPanel.add(myAddButton, BorderLayout.NORTH);
         buttonPanel.add(myFinishButton, BorderLayout.SOUTH);
