@@ -1,10 +1,9 @@
 package vooga.towerdefense.gameElements;
 
 import java.util.List;
-
 import vooga.towerdefense.attributes.AttributeManager;
 import vooga.towerdefense.model.GameMap;
-import vooga.towerdefense.model.Tile;
+import vooga.towerdefense.model.tiles.Tile;
 
 
 /**
@@ -40,32 +39,33 @@ public class Wave {
     }
 
     public void update (double timeElapsed) {
-		if (canSpawn() && hasNextUnit()) {
+        if (canSpawn() && hasNextUnit()) {
             Unit unit = generateUnit(getNextUnit());
             myMap.addToMap(unit, mySpawnLocation);
             System.out.println("spawned a unit");
             myLastSpawnTime = myTimer;
         }
         myTimer += timeElapsed;
-        //System.out.println("MyTimer: " + myTimer);
+        // System.out.println("MyTimer: " + myTimer);
     }
 
-	/**
-	 * A method called by the model to determine if the wave has completed.
-	 * 
-	 * @return whether or not the wave is completed.
-	 */
-	public boolean waveCompleted() {
-		return myTimer > myDuration;
-		// return !hasNextUnit();
+    /**
+     * A method called by the model to determine if the wave has completed.
+     * 
+     * @return whether or not the wave is completed.
+     */
+    public boolean waveCompleted () {
+        return myTimer > myDuration;
+        // return !hasNextUnit();
     }
 
     /**
      * Creates a unit based on given type and location using the wave attributes
+     * 
      * @return unit created
      */
-    private Unit generateUnit(Unit u) {
-        //TODO: should really be a unit generator class given, not an actual unit
+    private Unit generateUnit (Unit u) {
+        // TODO: should really be a unit generator class given, not an actual unit
         return u;
     }
 
@@ -74,21 +74,21 @@ public class Wave {
     }
 
     private Unit getNextUnit () {
-    	Unit u = myUnits.iterator().next();
-    	myUnits.remove(0);
+        Unit u = myUnits.iterator().next();
+        myUnits.remove(0);
         return u;
     }
-    
-	private boolean hasNextUnit() {
-		return myUnits.iterator().hasNext();
-	}
+
+    private boolean hasNextUnit () {
+        return myUnits.iterator().hasNext();
+    }
 
     /**
      * 
      * @return true at start of wave or if its been longer than spawn delay since last spawn
      */
-    private boolean canSpawn() {
-        return myTimer == 0 || (myTimer-myLastSpawnTime) > mySpawnDelay;
+    private boolean canSpawn () {
+        return myTimer == 0 || (myTimer - myLastSpawnTime) > mySpawnDelay;
     }
 
     private void addUnit (Unit unit) {

@@ -15,17 +15,15 @@ import vooga.towerdefense.util.Pixmap;
  * @author XuRui
  * 
  */
-public class AttackingTower extends GameElement{
+public class AttackingTower extends GameElement {
 
     List<Action> myActions;
     AttributeManager myAttributes;
 
     public AttackingTower (Pixmap image, Location center, Dimension size,
-                       AttributeManager attributes, List<Action> actions) {
+                           AttributeManager attributes, List<Action> actions) {
         super(image, center, size, attributes, actions);
         // TODO Auto-generated constructor stub
     }
-
-
 
 }

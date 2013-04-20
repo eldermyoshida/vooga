@@ -1,5 +1,7 @@
 package vooga.towerdefense.attributes;
 
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 
 import vooga.towerdefense.util.Location;
@@ -9,16 +11,19 @@ import vooga.towerdefense.util.Location;
  * 
  * @author Matthew Roy
  * @author XuRui
+ * @author Zhen Gou
  * 
  */
 public class Attribute {
     private String myName;
     private double myOriginalValue;
     private double myCurrentValue;
+    private double myTemporaryBuffValue;
 
     public Attribute (String attributeName, Double attributeValue) {
         myName = attributeName;
-        myCurrentValue = attributeValue;
+        myOriginalValue=attributeValue;
+        myCurrentValue = myOriginalValue;
     }
     
     /**
@@ -33,6 +38,12 @@ public class Attribute {
             myCurrentValue = toApply.getValue();
         }
         return myCurrentValue;
+    }
+    /**
+     * should be called by update in attributeManager
+     */
+    public void update(){
+    	resetBuffValue();
     }
 
     /**
@@ -69,7 +80,7 @@ public class Attribute {
      * @return
      */
     public double getValue () {
-        return myCurrentValue;
+        return myCurrentValue+myTemporaryBuffValue;
     }
     
     public void setValue(double newValue) {
@@ -98,10 +109,16 @@ public class Attribute {
 	}
 
 	/**
-	 * paints a bar representing this stat
+	 * paints a bar representing this attribute
 	 */
-	public void paint (Graphics2D pen, Location where) {
-		// paints a bar representing this stat
+	public void paint (Graphics2D pen, Location where, Dimension size) {
+		pen.setColor(Color.red);
+		//THIS IS VERY SPECIFIC FOR TESTING, WE WILL FIGURE OUT BETTER WAY TO FIT THE BAR
+		pen.fillRect((int)where.getX(), (int)where.getY()-size.height/2, (int)(size.getWidth()*(getValue()/getOriginalValue())), (int)size.getHeight()/10);
+	}
+	
+	public double getOriginalValue() {
+	    return myOriginalValue;
 	}
 
 	/**
@@ -111,6 +128,27 @@ public class Attribute {
 	 */
 	public boolean isChanged () {
 		return myOriginalValue != myCurrentValue;
+	}
+	/**
+	 * reset current value to original value;
+	 */
+
+	public void reset() {
+		myCurrentValue=myOriginalValue;
+		resetBuffValue();
+	}
+	/**
+	 * reset buff value to 0;
+	 */
+	public void resetBuffValue(){
+		myTemporaryBuffValue=0;
+	}
+	/**
+	 * increase the current buff of this attribute
+	 * @param buff
+	 */
+	public void addToBuffValue(double buff){
+		myTemporaryBuffValue+=buff;
 	}
 	
 

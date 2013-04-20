@@ -12,7 +12,7 @@ import vooga.towerdefense.attributes.Attribute;
  * @author Matthew Roy
  *
  */
-public class TargetedModifyAttributeAction extends TargetedAction {
+public class TargetedModifyAttributeAction extends Action{
 
     GameElement myTarget;
     Attribute myTargetAttribute;
@@ -20,13 +20,12 @@ public class TargetedModifyAttributeAction extends TargetedAction {
     /**
      * @param initiator 
      */
-    public TargetedModifyAttributeAction (GameElement initiator, GameElement target, Attribute toModify) {
-        super(initiator, target);
+    public TargetedModifyAttributeAction (GameElement target, Attribute toModify) {
         myTarget = target;
         myTargetAttribute = toModify;
     }
 
-   
+    
     @Override
     public void initAction () {
         Attribute targetsAttribute = myTarget.getAttributeManager().getAttribute(myTargetAttribute.getName());
@@ -44,5 +43,12 @@ public class TargetedModifyAttributeAction extends TargetedAction {
         // TODO Auto-generated method stub
 
     }
+
+
+	@Override
+	public void update(double elapsedTime) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
