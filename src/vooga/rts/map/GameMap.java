@@ -3,30 +3,41 @@ package vooga.rts.map;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.awt.image.TileObserver;
-import java.awt.image.WritableRenderedImage;
+import java.util.List;
 import vooga.rts.IGameLoop;
 import vooga.rts.ai.Path;
 import vooga.rts.ai.PathFinder;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.resourcemanager.ResourceManager;
 import vooga.rts.util.Camera;
 import vooga.rts.util.Location;
+import vooga.rts.util.Location3D;
 
 
 /**
- * The GameMap will be responsible for taking in the location of
+<<<<<<< HEAD
+ * This class is responsible for the map of the game in its entirety.
+=======
+ * The GameMap manages all aspects of the map on the screen.
+ * This includes the underlying tiles, the terrain objects on
+ * the map and the nodes used for pathfinding.
+ * 
+ * In addition to this, the map will be responsible for painting
+ * everything that is in the world. This is to ensure that objects
+ * are painted in the correct order.
+>>>>>>> master
  * 
  * @author Challen Herzberg-Brovold
+ * @author Jonathan Schmidt
  * 
  */
 
-// Still need to figure how to read in terrain. Also need to figure out how to
-// add obstructions to the nodes. Possibly use the GameMap to implement vision.
 public class GameMap implements IGameLoop {
 
     private int myNodeSize;
-    private NodeMap myMap;
+    private NodeMap myNodeMap;
     private TileMap myTiles;
+    private TerrainManager myTerrain;
 
     /**
      * calculates how many nodes there are
@@ -35,30 +46,56 @@ public class GameMap implements IGameLoop {
      */
     public GameMap (int node, Dimension size) {
         NodeFactory factory = new NodeFactory();
+        myTerrain = new TerrainManager();
         myNodeSize = node;
-        myMap = factory.makeMap(myNodeSize, size);
+        myNodeMap = factory.makeMap(myNodeSize, size);
         Camera.instance().setMapSize(size);
         randomGenMap();
+    }
+
+    /**
+     * @return the terrain
+     */
+    public TerrainManager getTerrain () {
+        return myTerrain;
+    }
+
+    /**
+     * @param terrain the terrain to set
+     */
+    public void setTerrain (TerrainManager terrain) {
+        myTerrain = terrain;
     }
 
     public Node getNode (Location location) {
         int x = (int) location.x / myNodeSize;
         int y = (int) location.y / myNodeSize;
-        return myMap.get(x, y);
+        return myNodeMap.get(x, y);
     }
 
     public Path getPath (PathFinder finder, Location start, Location finish) {
-        return finder.calculatePath(getNode(start), getNode(finish), myMap);
+        return finder.calculatePath(getNode(start), getNode(finish), myNodeMap);
     }
 
     public NodeMap getMap () {
-        return myMap;
+        return myNodeMap;
+    }
+
+    /**
+     * Returns a list of Interactive Entities that are within a specified radius of
+     * a central point. This can be used by the units to find targets in the area.
+     * 
+     * @param loc The Location to search from
+     * @param radius The radius of the circle to search in
+     * @return
+     */
+    public List<InteractiveEntity> getUnitsInArea (Location3D loc, double radius) {
+        return null;
     }
 
     @Override
     public void update (double elapsedTime) {
-        // TODO Auto-generated method stub
-
+        myTiles.update(elapsedTime);
     }
 
     @Override
@@ -67,8 +104,8 @@ public class GameMap implements IGameLoop {
     }
 
     private void randomGenMap () {
-        int tilesX = 256;
-        int tilesY = 256;
+        int tilesX = 2048;
+        int tilesY = 2048;
         int tileWidthX = 60;
         int tileWidthY = 42;
         myTiles = new TileMap(new Dimension(tileWidthX, tileWidthY), tilesX, tilesY);
@@ -104,6 +141,6 @@ public class GameMap implements IGameLoop {
             }
         }
         System.out.println("Map Made");
-        Camera.instance().setMapSize(new  Dimension(tilesX * tileWidthX, tilesY * tileWidthY));
+        Camera.instance().setMapSize(new Dimension(tilesX * tileWidthX, tilesY * tileWidthY));
     }
 }

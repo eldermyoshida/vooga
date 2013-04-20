@@ -48,7 +48,7 @@ public class LevelManager {
      * 
      * @param player is the player that will play the current level.
      */
-    public void startLevel(Player player, Location location){
+    public void startLevel(PlayerController player, Location location){
         myLevels.get(myIndex).addSprite(player);
     }
 }

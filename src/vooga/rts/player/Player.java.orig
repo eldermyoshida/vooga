@@ -1,0 +1,96 @@
+package vooga.rts.player;
+
+
+import java.awt.Graphics2D;
+<<<<<<< HEAD
+=======
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
+>>>>>>> master
+import vooga.rts.IGameLoop;
+import vooga.rts.commands.Command;
+import vooga.rts.controller.Controllable;
+import vooga.rts.controller.Controller;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
+<<<<<<< HEAD
+import vooga.rts.manager.Manager;
+import vooga.rts.manager.ResourceManager;
+
+
+public class Player implements Controller, IGameLoop {
+
+    private Manager myManager;
+    private ResourceManager myResources;
+=======
+import vooga.rts.manager.*;
+import vooga.rts.map.GameMap;
+
+public abstract class Player implements IGameLoop, IProductionObserver {    
+	
+	private IndividualResourceManager myResourceManager;
+    private UnitManager myUnitManager;
+    private BuildingManager myBuildingManager;
+>>>>>>> master
+    private int myTeamID;
+    
+<<<<<<< HEAD
+    public Player (int id) {
+        myManager = new Manager();
+        myResources = new ResourceManager();
+        myTeamID = id;
+    }
+    
+    @Override
+    public void sendCommand (Command command) {
+        // TODO Auto-generated method stub
+=======
+    public Player() {
+        myResourceManager = new IndividualResourceManager();
+        myUnitManager= new UnitManager();
+        
+    }
+    
+    public Player(GameMap map) {
+        this();
+        myMap = map;
+    }
+    
+    public void addProduction(Unit newProduction) {
+    	myUnitManager.addUnit(newProduction);
+    	System.out.println("player adds new unit!");
+    }
+    
+    public void updateResource(HashMap<String, Integer> updatedResources) {
+    	myResourceManager.setResources(updatedResources);
+    	System.out.println("player gets resource!");
+    }
+
+    public IndividualResourceManager getIndividualResourceManager () {
+        return myResourceManager;
+    }
+>>>>>>> master
+
+    }
+    
+    public Controllable getManager () {
+        return myManager;
+    }
+
+    public void add (Unit unit) {
+        myManager.add(unit);
+    }
+    
+    @Override
+    public void paint (Graphics2D pen) {
+        myManager.paint(pen);
+    }
+
+    @Override
+    public void update (double elapsedTime) {
+        myManager.update(elapsedTime);
+        
+    }
+}
