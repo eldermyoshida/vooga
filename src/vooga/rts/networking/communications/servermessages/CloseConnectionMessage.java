@@ -13,7 +13,7 @@ public class CloseConnectionMessage extends ServerInfoMessage {
 
     @Override
     public void affectClient (IClientModel model) {
-        // TODO
+        model.closeConnection();
     }
 
 }

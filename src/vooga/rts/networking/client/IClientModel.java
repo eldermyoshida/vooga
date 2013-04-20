@@ -7,4 +7,6 @@ package vooga.rts.networking.client;
  */
 public interface IClientModel {
 
+    public void closeConnection ();
+
 }
