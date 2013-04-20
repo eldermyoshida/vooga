@@ -2,8 +2,12 @@ package vooga.towerdefense.model;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Map;
 import java.util.Scanner;
 import vooga.towerdefense.model.tiles.Tile;
+import vooga.towerdefense.model.tiles.factories.GrassTileFactory;
+import vooga.towerdefense.model.tiles.factories.PathTileFactory;
+import vooga.towerdefense.model.tiles.factories.TileFactory;
 import vooga.towerdefense.util.Location;
 
 /**
@@ -21,6 +25,9 @@ import vooga.towerdefense.util.Location;
  * In this text file, there will be a grid of numbers. Each number
  * corresponds to a tile id. In order to create a new map, all you need
  * to do is create this text file, and make tiles with appropriate ids.
+ * For example, if we let the id of grass tiles be 0, and the id of 
+ * path tiles be 1. The 1s on the above grid outline the path on the map
+ * that will be created.
  * 
  * @author Erick Gonzalez
  */
@@ -29,6 +36,17 @@ public class MapLoader {
      * Relative path to the map file.
      */
     public static final String MAPTILES_FILENAME = "/vooga/towerdefense/resources/map.txt";
+    
+    private Map<Integer, TileFactory> myTileIdMap;
+    
+    public MapLoader() {
+        initTileIdMap();
+    }
+    
+    private void initTileIdMap() {
+        myTileIdMap.put(0, new GrassTileFactory());
+        myTileIdMap.put(1, new PathTileFactory());
+    }
     
     /**
      * 
@@ -52,8 +70,7 @@ public class MapLoader {
                         Tile.TILE_DIMENSIONS.getHeight() / 2);
                 // TODO: replace booleans with parsed values from file
                 int tileId = reader.nextInt();
-                grid[j][i] = new Tile(Tile.getTileImage(tileId), new Location(xCenter, yCenter), 
-                                      Tile.TILE_DIMENSIONS);
+                grid[j][i] = myTileIdMap.get(tileId).createTile(tileId, image, center, size)
             }
         }
         return grid;
