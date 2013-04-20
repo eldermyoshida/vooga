@@ -87,23 +87,14 @@ public class MapScreen extends JPanel {
      * @param image is the pixmap image to paint
      */
     public void paintGhostImage (Point p, Pixmap image) {
-        image.paint((Graphics2D) getGraphics(), (Point2D) p, new Dimension(50, 50));
-    }
+        if(image == null) {
+            System.out.println("nulll");
+        }
+        System.out.println(image.getImage().getWidth(null));
+        image.paint((Graphics2D) getGraphics(), (Point2D) p,
+                    new Dimension(image.getImage().getWidth(null), image.getImage().getHeight(null)));
 
-    // /**
-    // * used for testing to paint a grid.
-    // * TODO: remove this method
-    // *
-    // * @param pen
-    // */
-    // public void paintGridLines (Graphics pen) {
-    // for (int i = 0; i < mySize.width; i += 25) {
-    // pen.drawLine(i, 0, i, mySize.height);
-    // }
-    // for (int j = 0; j < mySize.height; j += 25) {
-    // pen.drawLine(0, j, mySize.width, j);
-    // }
-    // }
+    }
 
     /**
      * helper method to create the listener for mouse input.

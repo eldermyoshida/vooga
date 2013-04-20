@@ -226,8 +226,7 @@ public class Controller {
 	 *            is the name of the item the user wants to buy
 	 */
     public void handleShopClickOnItem (Point p) {
-       // System.out.println("lol");
-       // ShopItem itemToBuy = myModel.getShopItem(p);
+        ShopItem itemToBuy = myModel.getShopItem(p);
         List<Action> actions = new ArrayList<Action>();
         Tower t = new Tower(new Pixmap("tower.gif"), new Location(p.getX(), p.getY()), new Dimension(50, 50), null, actions);
         BuildMode myNewMode = new BuildMode();
