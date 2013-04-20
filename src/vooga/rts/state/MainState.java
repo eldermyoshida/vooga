@@ -2,8 +2,6 @@ package vooga.rts.state;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.LinkedList;
 import java.util.Observable;
 import java.util.Observer;
@@ -15,9 +13,6 @@ import vooga.rts.Game;
 import vooga.rts.commands.Command;
 import vooga.rts.controller.InputController;
 import vooga.rts.gui.Window;
-import vooga.rts.resourcemanager.ImageLoader;
-import vooga.rts.resourcemanager.ResourceManager;
-import vooga.rts.resourcemanager.SoundLoader;
 
 
 public class MainState implements State, Observer {
@@ -28,37 +23,43 @@ public class MainState implements State, Observer {
     private SubState myActiveState;
     private Timer myTimer;
     private InputController myController;
+    private boolean myReady;
 
     public MainState () {
+        myReady = false;
+
         myWindow = new Window();
-        ResourceManager.getInstance().registerResourceLoader(new ImageLoader());
-        ResourceManager.getInstance().registerResourceLoader(new SoundLoader());
         myWindow.setFullscreen(true);
         myStates = new LinkedList<SubState>();
+        myStates.add(new LoadingState(this));
+        setActiveState();
+        render();
+
         Input input = new Input(DEFAULT_INPUT_LOCATION, myWindow.getCanvas());
         myController = new InputController(this);
         input.addListenerTo(myController);
-        myStates.add(new LoadingState(this));
         myStates.add(new MenuState(this));
         myStates.add(new GameState(this));
-        setActiveState();
+
         myTimer = new Timer();
         myTimer.scheduleAtFixedRate(new TimerTask() {
-            private long lastMillis = System.currentTimeMillis();
+            private long lastNano = System.nanoTime();
 
             @Override
             public void run () {
-                long curMillis = System.currentTimeMillis();
-                double change = curMillis - lastMillis;
-                change /= 1000;
+                long curNano = System.nanoTime();
+                double change = curNano - lastNano;
+                change /= 1000000000;
                 System.out.println(change);
                 update(change);
                 if (myWindow.hasFocus()) {
                     render();
                 }
-                lastMillis = curMillis;
+                lastNano = curNano;
+
             }
-        }, 0, (long) (Game.TIME_PER_FRAME() * 1000));
+        }, 500, (long) (Game.TIME_PER_FRAME() * 1000));
+        myReady = true;
     }
 
     @Override
@@ -68,7 +69,9 @@ public class MainState implements State, Observer {
 
     @Override
     public void update (double elapsedTime) {
+        long preUpdate = System.nanoTime();
         myActiveState.update(elapsedTime);
+        System.out.println("Update Time = " + (System.nanoTime() - preUpdate) / 1000000 + " ms.");
     }
 
     @Override
@@ -85,12 +88,33 @@ public class MainState implements State, Observer {
         myActiveState = myStates.poll();
     }
 
-    private void render () { // At some point, might move this method in to its own view class
+    private void render () {
+
         Graphics2D graphics = myWindow.getCanvas().getGraphics();
         graphics.setColor(Color.WHITE);
         graphics.fillRect(0, 0, myWindow.getCanvas().getWidth(), myWindow.getCanvas().getHeight());
         graphics.setColor(Color.BLACK);
+        long preRender = System.nanoTime();
         paint(graphics);
+        System.out.println("Render Time = " + (System.nanoTime() - preRender) / 1000000 + " ms.");
         myWindow.getCanvas().render();
+    }
+
+    /**
+     * Returns whether the Main State is ready yet.
+     * This means that all the sub states have been created
+     * and the timer is ticking.
+     * 
+     * @return the ready state
+     */
+    public boolean isReady () {
+        return myReady;
+    }
+
+    /**
+     * @return the window
+     */
+    public Window getWindow () {
+        return myWindow;
     }
 }

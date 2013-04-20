@@ -95,8 +95,7 @@ public class GameMap implements IGameLoop {
 
     @Override
     public void update (double elapsedTime) {
-        // TODO Auto-generated method stub
-
+        myTiles.update(elapsedTime);
     }
 
     @Override
@@ -105,8 +104,8 @@ public class GameMap implements IGameLoop {
     }
 
     private void randomGenMap () {
-        int tilesX = 256;
-        int tilesY = 256;
+        int tilesX = 2048;
+        int tilesY = 2048;
         int tileWidthX = 60;
         int tileWidthY = 42;
         myTiles = new TileMap(new Dimension(tileWidthX, tileWidthY), tilesX, tilesY);

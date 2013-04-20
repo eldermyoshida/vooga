@@ -9,14 +9,10 @@ import vooga.rts.util.Camera;
 import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
+import vooga.rts.util.TimeIt;
 
 
 public abstract class GameSprite extends Sprite {
-    // canonical directions for a collision
-    public static final int RIGHT_DIRECTION = 0;
-    public static final int UP_DIRECTION = 270;
-    public static final int LEFT_DIRECTION = 180;
-    public static final int DOWN_DIRECTION = 90;
 
     // private ThreeDimension mySize;
     private Dimension mySize;
@@ -26,6 +22,7 @@ public abstract class GameSprite extends Sprite {
     private Dimension myOriginalSize;
 
     private Location3D myWorldLocation;
+    private Point2D myScreenLocation;
     private Rectangle myWorldBounds;
 
     public GameSprite (Pixmap image, Location3D center, Dimension size) {
@@ -124,14 +121,12 @@ public abstract class GameSprite extends Sprite {
     public void paint (Graphics2D pen) {
         if (!isVisible())
             return;
-        // System.out.println(getCenter().x + " " + getCenter().y + " " +
-        // mySize.height + " " + mySize.width);
 
-        if (Camera.instance().isVisible(myWorldLocation)) {
-            Point2D screen = Camera.instance().worldToView(myWorldLocation);
-            if (Camera.instance().isVisible(screen)) {
-                getView().paint(pen, screen, mySize);
-            }
+        if (Camera.instance().issVisible(getWorldLocation())) {
+            myScreenLocation = Camera.instance().worldToView(myWorldLocation);
+            // if (Camera.instance().isVisible(myScreenLocation)) {
+            getView().paint(pen, myScreenLocation, mySize);
+            // }
         }
     }
 
@@ -208,4 +203,7 @@ public abstract class GameSprite extends Sprite {
         myWorldLocation.setLocation(x, y, z);
     }
 
+    public void update (double elapsedTime) {
+
+    }
 }

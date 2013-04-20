@@ -179,6 +179,7 @@ public class GameEntity extends GameSprite {
         v.scale(elapsedTime);
         translate(v);
         myEntityState.update();
+        super.update(elapsedTime);
     }
 
     public void changeHealth (int change) {

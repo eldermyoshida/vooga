@@ -29,8 +29,8 @@ import vooga.rts.gui.Window;
  */
 public class Camera {
 
-    private static final double ISO_WIDTH = 1.0;
-    private static final double ISO_HEIGHT = 0.5;
+    public static final double ISO_WIDTH = 1.0;
+    public static final double ISO_HEIGHT = 0.5;
     public static final double MOVE_SPEED = Window.SCREEN_SIZE.getWidth() / 4;
     public static final double VISION = 100.0;
 
@@ -235,5 +235,9 @@ public class Camera {
                         (bigger.getHeight() / 2) - (bigger.getHeight() * zoom / 2));
         scale.scale(zoom, zoom);
         myWorldVision = viewtoWorld(scale.createTransformedShape(bigger));
+    }
+    
+    public Shape getWorldVision() {
+        return myWorldVision;
     }
 }
