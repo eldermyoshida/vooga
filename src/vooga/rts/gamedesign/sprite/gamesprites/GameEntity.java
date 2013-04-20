@@ -19,6 +19,7 @@ import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
 import vooga.rts.util.Vector;
+import vooga.rts.manager.GameUnitManager;
 import vooga.rts.map.GameMap;
 import vooga.rts.ai.Path;
 import vooga.rts.ai.PathFinder;
@@ -51,6 +52,7 @@ public class GameEntity extends GameSprite {
     private Vector myOriginalVelocity;
     private EntityState myEntityState;
     private OccupyStrategy myOccupyStrategy;
+    private static GameUnitManager myGameUnitManager;
 
     public GameEntity (Pixmap image, Location3D center, Dimension size, int playerID, int health) {
         super(image, center, size);
@@ -71,8 +73,16 @@ public class GameEntity extends GameSprite {
     public GameEntity() {
 		this(null,null,null,1,10);
 	}
-
-	/**
+    
+	public void setGameUnitManager(GameUnitManager gameUnitManager) {
+		myGameUnitManager = gameUnitManager;
+	}
+	
+	public GameUnitManager getGameUnitManager() {
+		return myGameUnitManager;
+	}
+    
+    /**
      * Returns shape's velocity.
      */
     public Vector getVelocity () {
@@ -200,7 +210,7 @@ public class GameEntity extends GameSprite {
     
     public void getOccupied(Unit occupier) {
     	if (occupier.collidesWith(this)) {
-    		myOccupyStrategy.getOccupied(occupier);
+    		myOccupyStrategy.getOccupied(this, occupier);
     	}
     }
 
@@ -222,9 +232,9 @@ public class GameEntity extends GameSprite {
     }
 
     @Override
-    public void paint (Graphics2D pen) {
+    public void paintHelper (Graphics2D pen) {
         if (!isDead()) {
-            super.paint(pen);
+            super.paintHelper(pen);
         }
     }
 

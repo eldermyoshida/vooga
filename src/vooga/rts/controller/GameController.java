@@ -27,6 +27,7 @@ import vooga.rts.gui.Window;
 import vooga.rts.input.PositionObject;
 import vooga.rts.manager.GameBuildingManager;
 import vooga.rts.manager.GameResourceManager;
+import vooga.rts.manager.GameUnitManager;
 import vooga.rts.map.GameMap;
 import vooga.rts.player.HumanPlayer;
 import vooga.rts.player.Player;
@@ -51,6 +52,7 @@ public class GameController extends AbstractController {
 	// made for now.
 	private GameResourceManager myGameResourceManager;
 	private GameBuildingManager myGameBuildingManager;
+	private GameUnitManager myGameUnitManager;
 
 	private UpgradeBuilding upgradeBuilding;
 	private Location myLeftMouse;
@@ -98,12 +100,7 @@ public class GameController extends AbstractController {
 		for (Player f : myPlayers) {
 			f.update(elapsedTime);
 		}
-		/*
-		 * Iterator<Team> it = myTeams.values().iterator(); while (it.hasNext())
-		 * { 1Team t = it.next();
-		 * 
-		 * }
-		 */
+		
 		List<Unit> p1 = myTeams.get(1).getUnits();
 		List<Unit> p2 = myTeams.get(2).getUnits();
 		for (Unit u1 : p1) {
@@ -121,11 +118,12 @@ public class GameController extends AbstractController {
 				u2.getAttacked(u1);
 				u1.getAttacked(u2);
 			}
-			
+
 			for (Building building: myGameBuildingManager.getUnassignedBuilding()) {
 				u1.occupy(building);
 			}
 		}
+		
 		//TODO: also need to update buildings with owners.
 		for (Building building: myGameBuildingManager.getUnassignedBuilding()) {
 			building.update(elapsedTime);
@@ -139,9 +137,11 @@ public class GameController extends AbstractController {
 	@Override
 	public void paint (Graphics2D pen) {
 		myMap.paint(pen);        
+		
 		for (Player p : myPlayers) {
 			p.paint(pen);
 		}
+
 		List<Resource> copyResource = new ArrayList<Resource>();
 		for (Resource r: myGameResourceManager.getUnassignedResources()) {
 			copyResource.add(r);
@@ -234,13 +234,14 @@ public class GameController extends AbstractController {
 			 * Dimension(150,150), null, 1,300);
 			 */
 
+			myGameUnitManager = new GameUnitManager();
 			myGameBuildingManager = new GameBuildingManager();
 			myGameResourceManager = new GameResourceManager();
 			Resource r = new Resource(new Pixmap(ResourceManager.getInstance()
 					.<BufferedImage> getFile("images/mineral.gif", BufferedImage.class)),
 					new Location3D(300, 300, 0), new Dimension(60, 60), 0, 100, "resource");
 			r.setGameResourceManager(myGameResourceManager);
-			myGameResourceManager.addUnassignedResource(r);
+			myGameResourceManager.addUnassignedResource(r); //TODO: should be done in setup
 
 
 			Player p1 = new HumanPlayer();
@@ -249,45 +250,54 @@ public class GameController extends AbstractController {
 			addPlayer(p2, 2);
 			myGameResourceManager.addPlayer(p1, 1);
 			myGameBuildingManager.addPlayer(p1, 1);
+			myGameUnitManager.addPlayer(p1, 1);
+			myGameUnitManager.addPlayer(p2, 2);
 			myGameResourceManager.addPlayer(p2, 2);
 			myGameBuildingManager.addPlayer(p2, 2);
 
-			Pixmap p =
+			Pixmap pic1 =
+					new Pixmap(ResourceManager.getInstance()
+							.<BufferedImage> getFile("images/sprites/halo_soldier.png", BufferedImage.class));
+			Pixmap pic2 =
 					new Pixmap(ResourceManager.getInstance()
 							.<BufferedImage> getFile("images/sprites/soldier.png", BufferedImage.class));
+			
 			Dimension s = new Dimension(90, 90);
 			Sound soun = new Sound(ResourceManager.getInstance().getFile("sounds/pikachu.wav", AudioClip.class));
 
-
-			Unit a = null;
-			a = new Soldier(p, new Location3D(200, 250, 0), s, soun, 1, 100);
+			Unit a = new Soldier(pic1, new Location3D(200, 250, 0), s, soun, 1, 100);
+			a.setGameUnitManager(myGameUnitManager);
+			a.getGameUnitManager().addPlayerUnit(a);
 			System.out.println("Player ID for a: " + a.getPlayerID());
+			System.out.println("player1's unit size: " + myGameUnitManager.getPlayerUnits().get(1).size());
 			// a.setUpgradeTree(resultTree,a.getPlayerID());
 			// upgradeBuilding.addUpgradeActions(resultTree);
-
 			a.setAttackStrategy(new CanAttack(a.getWorldLocation(), a.getPlayerID()));
 
-			Unit b = new Soldier(p, new Location3D(300, 150, 0), s, soun, 1, 100);
+			Unit b = new Soldier(pic1, new Location3D(300, 150, 0), s, soun, 1, 100);
 			System.out.println("Player ID for b: " + b.getPlayerID());
 			b.setAttackStrategy(new CanAttack(b.getWorldLocation(), b.getPlayerID()));
+			System.out.println("player1's unit size: " + myGameUnitManager.getPlayerUnits().get(1).size());
 
-			Unit c = new Soldier(p, new Location3D(500, 800, 0), s, soun, 2, 100);
+			Unit c = new Soldier(pic2, new Location3D(500, 800, 0), s, soun, 2, 100);
 			c.setAttackStrategy(new CanAttack(c.getWorldLocation(), c.getPlayerID()));
+			System.out.println("player2's unit size: " + myGameUnitManager.getPlayerUnits().get(2).size());
 
 			Unit w = new Worker(new Pixmap(ResourceManager.getInstance().<BufferedImage>getFile("images/scv.gif", BufferedImage.class)), new Location3D(500, 200, 0), s, soun, 1,
 					40, 40);
 
-			p1.getUnits().addUnit(a);
-			p1.getUnits().addUnit(b);
-			p1.getUnits().addUnit(w);
-			p2.getUnits().addUnit(c);
+			//p1.getUnits().addUnit(a);
+			//p1.getUnits().addUnit(b);
+			//p1.getUnits().addUnit(w);
+			//p2.getUnits().addUnit(c);
 
 			ProductionBuilding building = new Barracks(new Pixmap(ResourceManager.getInstance().<BufferedImage>getFile("images/factory.png", BufferedImage.class)), new Location3D(800, 500, 0),
 					new Dimension(150, 150), null, 0, 300);
 			building.setGameBuildingManager(myGameBuildingManager);
 
-			Garrison garrison = new Garrison(new Pixmap(ResourceManager.getInstance().<BufferedImage>getFile("images/factory.png", BufferedImage.class)), new Location3D(300, 300, 0),
+			Garrison garrison = new Garrison(new Pixmap(ResourceManager.getInstance().<BufferedImage>getFile("images/factory.png", BufferedImage.class)), new Location3D(400, 400, 0),
 					new Dimension(100, 100), null, 0, 300);
+			myGameUnitManager.addEntity(garrison);
 			garrison.getOccupyStrategy().addValidClassType(new Soldier());
 			
 			System.out.println("Setup Game");

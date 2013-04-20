@@ -121,12 +121,7 @@ public abstract class GameSprite extends Sprite {
      * Display this shape on the screen.
      */
     @Override
-    public void paint (Graphics2D pen) {
-        if (!isVisible())
-            return;
-        // System.out.println(getCenter().x + " " + getCenter().y + " " +
-        // mySize.height + " " + mySize.width);
-
+    public void paintHelper (Graphics2D pen) {
         if (Camera.instance().isVisible(myWorldLocation)) {
             Point2D screen = Camera.instance().worldToView(myWorldLocation);
             if (Camera.instance().isVisible(screen)) {

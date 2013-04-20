@@ -1,5 +1,7 @@
 package vooga.rts.gamedesign.strategy.occupystrategy;
 
+import vooga.rts.gamedesign.sprite.gamesprites.GameEntity;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
 
 
@@ -17,7 +19,7 @@ import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
 public class CannotBeOccupied implements OccupyStrategy{
 
 	
-	public void getOccupied(Unit u) {
+	public void getOccupied(GameEntity entity, Unit u) {
 		return;
 	}
 

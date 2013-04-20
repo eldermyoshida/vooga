@@ -14,7 +14,7 @@ import vooga.rts.map.GameMap;
 public abstract class Player implements IGameLoop, IProductionObserver {    
 	
 	private IndividualResourceManager myResourceManager;
-    private UnitManager myUnitManager;
+    private IndividualUnitManager myUnitManager;
     private IndividualBuildingManager myBuildingManager;
     private int myTeamID;
     private GameMap myMap;
@@ -22,7 +22,7 @@ public abstract class Player implements IGameLoop, IProductionObserver {
     
     public Player() {
         myResourceManager = new IndividualResourceManager();
-        myUnitManager= new UnitManager();
+        myUnitManager= new IndividualUnitManager();
         
     }
     
@@ -33,19 +33,17 @@ public abstract class Player implements IGameLoop, IProductionObserver {
     
     public void addProduction(Unit newProduction) {
     	myUnitManager.addUnit(newProduction);
-    	System.out.println("player adds new unit!");
     }
     
     public void updateResource(HashMap<String, Integer> updatedResources) {
     	myResourceManager.setResources(updatedResources);
-    	System.out.println("player gets resource!");
     }
 
     public IndividualResourceManager getIndividualResourceManager () {
         return myResourceManager;
     }
 
-    public UnitManager getUnits () {
+    public IndividualUnitManager getUnits () {
         return myUnitManager;
     }
 

@@ -41,15 +41,15 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
 
 	//Default speed 
 	private static int DEFAULT_INTERACTIVEENTITY_SPEED = 150;
-	
-    private boolean isSelected;
-    private UpgradeTree myUpgradeTree;
-    private Sound mySound;
-    private AttackStrategy myAttackStrategy;
-    private int myArmor;
-    private List<Action> myActions;
 
-    /**
+	private boolean isSelected;
+	private UpgradeTree myUpgradeTree;
+	private Sound mySound;
+	private AttackStrategy myAttackStrategy;
+	private int myArmor;
+	private List<Action> myActions;
+
+	/**
 	 * Creates a new interactive entity.
 	 * @param image is the image of the interactive entity
 	 * @param center is the location of the interactive entity
@@ -58,22 +58,22 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
 	 * @param teamID is the ID of the team that the interactive entity is on
 	 * @param health is the health of the interactive entity
 	 */
-    public InteractiveEntity (Pixmap image, Location3D center, Dimension size, Sound sound, int playerID, int health) {
-        super(image, center, size, playerID, health);
-        //myMakers = new HashMap<String, Factory>(); //WHERE SHOULD THIS GO?
-        mySound = sound;
-        myAttackStrategy = new CannotAttack();
-        myActions = new ArrayList<Action>();
-        isSelected = false;
+	public InteractiveEntity (Pixmap image, Location3D center, Dimension size, Sound sound, int playerID, int health) {
+		super(image, center, size, playerID, health);
+		//myMakers = new HashMap<String, Factory>(); //WHERE SHOULD THIS GO?
+		mySound = sound;
+		myAttackStrategy = new CannotAttack();
+		myActions = new ArrayList<Action>();
+		isSelected = false;
 
-    }
-    /*
-     * Ze clone method
-     */
-    //TODO: Make abstract
-    public InteractiveEntity copy(){
-    	return null;
-    }
+	}
+	/*
+	 * Ze clone method
+	 */
+	//TODO: Make abstract
+	public InteractiveEntity copy(){
+		return null;
+	}
 	/**
 	 * Returns the upgrade tree for the interactive entity.
 	 * @return the upgrade tree for the interactive entity
@@ -81,7 +81,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
 	public UpgradeTree getUpgradeTree() {
 		return myUpgradeTree;
 	}
-	
+
 	public void setUpgradeTree(UpgradeTree upgradeTree, int playerID) {
 		myUpgradeTree = upgradeTree;
 	}
@@ -105,17 +105,17 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
 		return mySound;
 	}
 
-    
-	/**
-     * Sets the isSelected boolean to the passed in bool value. 
-     */
-    public void select(boolean selected) {
-        isSelected = selected;
-    }
 
-    public List<Action> getActions() {
-        return myActions;
-    }
+	/**
+	 * Sets the isSelected boolean to the passed in bool value. 
+	 */
+	public void select(boolean selected) {
+		isSelected = selected;
+	}
+
+	public List<Action> getActions() {
+		return myActions;
+	}
 	/**
 	 * This method specifies that the interactive entity is attacking an 
 	 * IAttackable. It checks to see if the IAttackable is in its range, it 
@@ -132,9 +132,9 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
 			//setVelocity(getVelocity().getAngle(), 0);
 			//getGameState().setMovementState(MovementState.STATIONARY);
 			if(getEntityState().canAttack()) {
-			
+
 				myAttackStrategy.attack(attackable, distance);
-				
+
 			}
 		}    
 	} 
@@ -163,7 +163,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
 		}
 		move(other.getWorldLocation());
 	}
-	
+
 	/**
 	 * Sets the attack strategy for an interactive. Can set the interactive
 	 * to CanAttack or to CannotAttack and then can specify how it would
@@ -189,40 +189,40 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
 		return damage * (1-(myArmor/(myArmor+100)));
 	}
 
-    /**
-     * upgrades the interactive based on the selected upgrade
-     * @param upgradeNode is the upgrade that the interactive will get
-     * @throws NoSuchMethodException 
-     * @throws InstantiationException 
-     * @throws InvocationTargetException 
-     * @throws IllegalAccessException 
-     * @throws SecurityException 
-     * @throws IllegalArgumentException 
-     */
-    public void upgrade (UpgradeNode upgradeNode) throws IllegalArgumentException, SecurityException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException { 	
-        //upgradeNode.apply(upgradeNode.getUpgradeTree().getUsers());
-    }
-    public UpgradeTree getTree(){
-        return myUpgradeTree;
-    }
-    /**
-     * Sees whether the passed in InteractiveEntity is an enemy by checking if player IDs do
-     * not match
-     * @param InteractiveEntity other - the other InteractiveEntity to compare
-     * @return whether the other InteractiveEntity is an enemy
-     */
-    public boolean isEnemy(InteractiveEntity other) {
-    	return getPlayerID() != other.getPlayerID();
-    }
-    
-    public Action findAction(String name) {
-    	for (Action a: myActions) {
-    		if (a.getName().equals(name)) {
-    			return a;
-    		}
-    	}
-    	return null;
-    }
+	/**
+	 * upgrades the interactive based on the selected upgrade
+	 * @param upgradeNode is the upgrade that the interactive will get
+	 * @throws NoSuchMethodException 
+	 * @throws InstantiationException 
+	 * @throws InvocationTargetException 
+	 * @throws IllegalAccessException 
+	 * @throws SecurityException 
+	 * @throws IllegalArgumentException 
+	 */
+	public void upgrade (UpgradeNode upgradeNode) throws IllegalArgumentException, SecurityException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException { 	
+		//upgradeNode.apply(upgradeNode.getUpgradeTree().getUsers());
+	}
+	public UpgradeTree getTree(){
+		return myUpgradeTree;
+	}
+	/**
+	 * Sees whether the passed in InteractiveEntity is an enemy by checking if player IDs do
+	 * not match
+	 * @param InteractiveEntity other - the other InteractiveEntity to compare
+	 * @return whether the other InteractiveEntity is an enemy
+	 */
+	public boolean isEnemy(InteractiveEntity other) {
+		return getPlayerID() != other.getPlayerID();
+	}
+
+	public Action findAction(String name) {
+		for (Action a: myActions) {
+			if (a.getName().equals(name)) {
+				return a;
+			}
+		}
+		return null;
+	}
 
 	@Override
 	public void update(double elapsedTime){
@@ -232,26 +232,24 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
 		}
 	}
 	@Override
-	public void paint(Graphics2D pen) {
-		if (isVisible()) {//TODO: make check appear at top of the hierarchy
-			Point2D selectLocation = Camera.instance().worldToView(getWorldLocation());		
-			
-			pen.drawRect((int)selectLocation.getX()-LOCATION_OFFSET, (int)(selectLocation.getY()-5*LOCATION_OFFSET), 50, 5);
-			Rectangle2D healthBar = new Rectangle2D.Double((int)selectLocation.getX()-LOCATION_OFFSET, (int)(selectLocation.getY()-5*LOCATION_OFFSET), 50 * getHealth()/getMaxHealth(), 5);
-			float width = (float)(healthBar.getWidth() * (getHealth() / getMaxHealth()));
-			pen.setPaint(new GradientPaint((float)healthBar.getX() - width, (float)healthBar.getMaxY(), Color.RED, (float)healthBar.getMaxX(), (float)healthBar.getMaxY(), Color.GREEN));
-			pen.fill(healthBar);
-			pen.setColor(Color.black);
-			
-			if(isSelected) { 
-				Ellipse2D.Double selectedCircle = new Ellipse2D.Double(selectLocation.getX()-LOCATION_OFFSET, selectLocation.getY()+LOCATION_OFFSET , 50, 30);
-				pen.fill(selectedCircle);
-			}
-			super.paint(pen);
-			if(myAttackStrategy.getCanAttack() && !getAttackStrategy().getWeapons().isEmpty()){
-				for(Projectile p : myAttackStrategy.getWeapons().get(myAttackStrategy.getWeaponIndex()).getProjectiles()) {
-					p.paint(pen);               
-				}
+	public void paintHelper(Graphics2D pen) {
+		Point2D selectLocation = Camera.instance().worldToView(getWorldLocation());		
+
+		pen.drawRect((int)selectLocation.getX()-LOCATION_OFFSET, (int)(selectLocation.getY()-5*LOCATION_OFFSET), 50, 5);
+		Rectangle2D healthBar = new Rectangle2D.Double((int)selectLocation.getX()-LOCATION_OFFSET, (int)(selectLocation.getY()-5*LOCATION_OFFSET), 50 * getHealth()/getMaxHealth(), 5);
+		float width = (float)(healthBar.getWidth() * (getHealth() / getMaxHealth()));
+		pen.setPaint(new GradientPaint((float)healthBar.getX() - width, (float)healthBar.getMaxY(), Color.RED, (float)healthBar.getMaxX(), (float)healthBar.getMaxY(), Color.GREEN));
+		pen.fill(healthBar);
+		pen.setColor(Color.black);
+
+		if(isSelected) { 
+			Ellipse2D.Double selectedCircle = new Ellipse2D.Double(selectLocation.getX()-LOCATION_OFFSET, selectLocation.getY()+LOCATION_OFFSET , 50, 30);
+			pen.fill(selectedCircle);
+		}
+		super.paintHelper(pen);
+		if(myAttackStrategy.getCanAttack() && !getAttackStrategy().getWeapons().isEmpty()){
+			for(Projectile p : myAttackStrategy.getWeapons().get(myAttackStrategy.getWeaponIndex()).getProjectiles()) {
+				p.paintHelper(pen);               
 			}
 		}
 	}

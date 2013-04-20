@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vooga.rts.gamedesign.sprite.gamesprites.GameEntity;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Soldier;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
 
@@ -31,10 +32,11 @@ public class CanBeOccupied implements OccupyStrategy{
 		myMaxOccupiers = DEFAULT_MAX_OCCUPIERS;
 	}
 	
-	public void getOccupied(Unit u) {
+	public void getOccupied(GameEntity entity, Unit u) {
 		if (myOccupiers.size() < myMaxOccupiers && verifyOccupier(u)) {
 			System.out.println("verified valid!");
 			u.setVisible(false);
+			u.getGameUnitManager().addEntityUnit(entity, u);
 			//TODO: make the unit not detectable. Consider move out of player's unit list.
 			myOccupiers.add(u);
 		}

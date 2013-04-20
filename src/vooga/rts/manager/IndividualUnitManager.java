@@ -21,7 +21,7 @@ import vooga.rts.util.Location3D;
  * @author Jonathan Schmidt
  * 
  */
-public class UnitManager implements IGameLoop {
+public class IndividualUnitManager implements IGameLoop {
     private List<Unit> myUnits;
     private List<Unit> mySelectedUnits;
 
@@ -31,7 +31,7 @@ public class UnitManager implements IGameLoop {
     /**
      * Creates a new Unit Manager
      */
-    public UnitManager () {
+    public IndividualUnitManager () {
         myUnits = new ArrayList<Unit>();
         mySelectedUnits = new ArrayList<Unit>();
         myGroups = new HashMap<Integer, List<Unit>>();
@@ -149,6 +149,10 @@ public class UnitManager implements IGameLoop {
      */
     public List<Unit> getAllUnits () {
         return myUnits;
+    }
+    
+    public void setAllUnits(List<Unit> uList) {
+    	myUnits = uList;
     }
 
     @Override
