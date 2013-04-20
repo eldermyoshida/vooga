@@ -46,7 +46,7 @@ public class AttackAction extends PeriodicAction {
 			
 			for (GameElement target : targets) {
 				System.out.println("shooted!!!!!!!!!!!!");
-				myMap.addGameElement(myInitiator.getAttributeManager().getProjectileFactory().createGameElement(myInitiator,target.getCenter()));
+				myMap.addGameElement(myInitiator.getAttributeManager().getProjectileFactory().createProjectile(myInitiator,target.getCenter()));
 				
 			}
 
