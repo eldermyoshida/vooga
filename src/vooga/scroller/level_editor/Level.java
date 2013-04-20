@@ -7,13 +7,15 @@ import javax.swing.ImageIcon;
 import util.Location;
 import util.input.Input;
 import vooga.scroller.util.Sprite;
-import vooga.scroller.viewUtil.Renderable;
+import vooga.scroller.level_editor.controllerSuite.LEGrid;
+import vooga.scroller.level_editor.model.SpriteBox;
 import vooga.scroller.level_management.IDoor;
 import vooga.scroller.level_management.LevelPortal;
 import vooga.scroller.level_management.SpriteManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.PlatformerConstants;
+import vooga.scroller.util.mvc.vcFramework.Renderable;
 import vooga.scroller.view.View;
 
 public class Level implements Renderable {

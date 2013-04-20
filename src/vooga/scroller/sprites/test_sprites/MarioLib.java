@@ -2,7 +2,7 @@ package vooga.scroller.sprites.test_sprites;
 
 import java.awt.Dimension;
 import util.Location;
-import vooga.scroller.level_editor.ISpriteLibrary;
+import vooga.scroller.level_editor.library.ISpriteLibrary;
 import vooga.scroller.sprites.interfaces.ICoin;
 import vooga.scroller.sprites.interfaces.IEnemy;
 import vooga.scroller.sprites.interfaces.IPlatform;
