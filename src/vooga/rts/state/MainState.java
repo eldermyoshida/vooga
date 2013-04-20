@@ -8,7 +8,8 @@ import java.util.LinkedList;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Queue;
-import javax.swing.Timer;
+import java.util.Timer;
+import java.util.TimerTask;
 import util.input.Input;
 import vooga.rts.Game;
 import vooga.rts.commands.Command;
@@ -41,16 +42,23 @@ public class MainState implements State, Observer {
         myStates.add(new MenuState(this));
         myStates.add(new GameState(this));
         setActiveState();
-        myTimer = new Timer((int) Game.TIME_PER_FRAME(), new ActionListener() {
+        myTimer = new Timer();
+        myTimer.scheduleAtFixedRate(new TimerTask() {
+            private long lastMillis = System.currentTimeMillis();
+
             @Override
-            public void actionPerformed (ActionEvent e) {
-                update(Game.TIME_PER_FRAME());
+            public void run () {
+                long curMillis = System.currentTimeMillis();
+                double change = curMillis - lastMillis;
+                change /= 1000;
+                System.out.println(change);
+                update(change);
                 if (myWindow.hasFocus()) {
                     render();
                 }
+                lastMillis = curMillis;
             }
-        });
-        myTimer.start();
+        }, 0, (long) (Game.TIME_PER_FRAME() * 1000));
     }
 
     @Override

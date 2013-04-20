@@ -133,9 +133,12 @@ public class Camera {
      * @return Whether it is visible or not.
      */
     public boolean isVisible (Point2D screen) {
-        return !(screen.getX() < -VISION || screen.getY() < -VISION ||
-                 screen.getX() > myScreenSize.getWidth() + VISION || screen.getY() > myScreenSize
-                .getHeight() + VISION);
+        return true;
+        /*
+         * return !(screen.getX() < -VISION || screen.getY() < -VISION ||
+         * screen.getX() > myScreenSize.getWidth() + VISION || screen.getY() > myScreenSize
+         * .getHeight() + VISION);
+         */
     }
 
     /**
@@ -225,10 +228,11 @@ public class Camera {
 
     private void updateWorldSize () {
         Rectangle2D bigger = new Rectangle(myScreenSize);
+        // Scale to stop shearing
         double zoom = 1.1;
         AffineTransform scale = new AffineTransform();
-        scale.translate((bigger.getWidth() / 2) - (bigger.getWidth()*zoom/2), 
-                        (bigger.getHeight() / 2) - (bigger.getHeight()*zoom/2));
+        scale.translate((bigger.getWidth() / 2) - (bigger.getWidth() * zoom / 2),
+                        (bigger.getHeight() / 2) - (bigger.getHeight() * zoom / 2));
         scale.scale(zoom, zoom);
         myWorldVision = viewtoWorld(scale.createTransformedShape(bigger));
     }
