@@ -125,7 +125,7 @@ public class View extends JComponent {
         });
         // start animation
         myGame = new Model(this, myScrollManager);
-        myScrollManager.initGame(myGame);
+        myScrollManager.initModel(myGame);
         timer.start();
     }
 

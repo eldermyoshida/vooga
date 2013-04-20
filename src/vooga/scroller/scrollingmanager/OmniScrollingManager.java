@@ -18,7 +18,7 @@ public class OmniScrollingManager extends ScrollingManager {
     private Model myGame;
     private View myView;
     
-    public void initGame(Model game) {
+    public void initModel(Model game) {
         myGame = game;
     }
 

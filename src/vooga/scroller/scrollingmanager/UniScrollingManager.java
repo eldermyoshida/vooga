@@ -16,7 +16,7 @@ import vooga.scroller.view.View;
  *
  */
 public class UniScrollingManager extends ScrollingManager {
-    private Model myGame;
+    private Model myModel;
     private View myView;
     private Direction myRestrictiveDirection;
     private double myMaxDirection;
@@ -36,8 +36,8 @@ public class UniScrollingManager extends ScrollingManager {
         myLowerPaintBound = lowerpaintbound();
     }
 
-    public void initGame(Model game) {
-        myGame = game;
+    public void initModel(Model game) {
+        myModel = game;
     }
 
     public void initView(View view) {
@@ -45,16 +45,16 @@ public class UniScrollingManager extends ScrollingManager {
     }
 
     public int upperpaintbound() {
-        if(myGame != null & myView != null) {
-            int vertical = ((int) myGame.getLowerBoundary() + myView.getHeight()*1000) % myView.getHeight();
+        if(myModel != null & myView != null) {
+            int vertical = ((int) myModel.getLowerBoundary() + myView.getHeight()*1000) % myView.getHeight();
             return 0 - vertical;
         }
         return 0;
     }
 
     public int lowerpaintbound() { 
-        if(myGame != null & myView != null) {
-            int vertical = ((int) myGame.getLowerBoundary() + myView.getHeight()*1000) % myView.getHeight();
+        if(myModel != null & myView != null) {
+            int vertical = ((int) myModel.getLowerBoundary() + myView.getHeight()*1000) % myView.getHeight();
             return myView.getHeight() - vertical;
         }
         return 0;
@@ -62,16 +62,16 @@ public class UniScrollingManager extends ScrollingManager {
     }
 
     public int leftpaintbound() {
-        if(myGame != null & myView != null) {
-            int horizontal = ((int) myGame.getRightBoundary() + myView.getWidth()*1000) % myView.getWidth();
+        if(myModel != null & myView != null) {
+            int horizontal = ((int) myModel.getRightBoundary() + myView.getWidth()*1000) % myView.getWidth();
             return 0 - horizontal;
         }
         return 0;
     }
 
     public int rightpaintbound() {
-        if(myGame != null & myView != null) {
-            int horizontal = ((int) myGame.getRightBoundary() + myView.getWidth()*1000) % myView.getWidth();
+        if(myModel != null & myView != null) {
+            int horizontal = ((int) myModel.getRightBoundary() + myView.getWidth()*1000) % myView.getWidth();
             return myView.getWidth() - horizontal;
         }
         return 0;
@@ -94,7 +94,7 @@ public class UniScrollingManager extends ScrollingManager {
     }
 
     public double levelRightBoundary () {
-        return myGame.getLevelBounds().getWidth();
+        return myModel.getLevelBounds().getWidth();
     }
 
     public double levelLeftBoundary () {
@@ -106,7 +106,7 @@ public class UniScrollingManager extends ScrollingManager {
     }
 
     public double levelLowerBoundary () { 
-        return myGame.getLevelBounds().getHeight();
+        return myModel.getLevelBounds().getHeight();
     }
 
     private double uniRightBoundary (Player p) {
@@ -163,7 +163,7 @@ public class UniScrollingManager extends ScrollingManager {
     }
 
     public Image getBackground() {
-        return myGame.getBackground();
+        return myModel.getBackground();
     }
 
     public void viewPaint(Graphics pen) {
@@ -176,21 +176,21 @@ public class UniScrollingManager extends ScrollingManager {
         int rightPaintBound = rightpaintbound();
         int lowerPaintBound = lowerpaintbound();
 
-        if(myGame.getLeftBoundary() < levelLeftBoundary()) {
+        if(myModel.getLeftBoundary() < levelLeftBoundary()) {
             leftPaintBound = (int) levelLeftBoundary();
             rightPaintBound = (int) levelRightBoundary();
         }
 
-        if(myGame.getRightBoundary() > levelRightBoundary()) {
-            leftPaintBound =  - ((int) levelRightBoundary() % myGame.getBackground().getWidth(null));
-            rightPaintBound = myView.getWidth()  - ((int) levelRightBoundary() % myGame.getBackground().getWidth(null));
+        if(myModel.getRightBoundary() > levelRightBoundary()) {
+            leftPaintBound =  - ((int) levelRightBoundary() % myModel.getBackground().getWidth(null));
+            rightPaintBound = myView.getWidth()  - ((int) levelRightBoundary() % myModel.getBackground().getWidth(null));
 
         }
-        if(myGame.getLowerBoundary() > levelLowerBoundary()) {
-            upperPaintBound = - ((int) levelLowerBoundary() % myGame.getBackground().getHeight(null));
-            lowerPaintBound = myView.getHeight()  - ((int) levelLowerBoundary() % myGame.getBackground().getHeight(null));
+        if(myModel.getLowerBoundary() > levelLowerBoundary()) {
+            upperPaintBound = - ((int) levelLowerBoundary() % myModel.getBackground().getHeight(null));
+            lowerPaintBound = myView.getHeight()  - ((int) levelLowerBoundary() % myModel.getBackground().getHeight(null));
         }
-        if(myGame.getUpperBoundary() < levelUpperBoundary()) {
+        if(myModel.getUpperBoundary() < levelUpperBoundary()) {
             upperPaintBound = (int) levelUpperBoundary();
             lowerPaintBound = (int) levelLowerBoundary();
         }
@@ -208,7 +208,7 @@ public class UniScrollingManager extends ScrollingManager {
         pen.drawImage(img, myRightPaintBound, myUpperPaintBound, imgwidth, imgheight, null);
         pen.drawImage(img, myLeftPaintBound, myLowerPaintBound, imgwidth, imgheight, null);
         pen.drawImage(img, myRightPaintBound, myLowerPaintBound, imgwidth, imgheight, null);
-        myGame.paint((Graphics2D) pen);
+        myModel.paint((Graphics2D) pen);
     }
 
     @Override

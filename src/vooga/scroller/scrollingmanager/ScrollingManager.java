@@ -16,8 +16,14 @@ import vooga.scroller.model.Model;
  */
 
 public abstract class ScrollingManager {
+    
+    /**
+     * Used to initialize the a reference to the Model the ScrollingManager 
+     * will be using.
+     * @param game The instance of the M
+     */
 
-    public abstract void initGame(Model game);
+    public abstract void initModel(Model game);
 
     public abstract void initView(View view);
 
