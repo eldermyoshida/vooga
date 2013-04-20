@@ -60,6 +60,25 @@ public abstract class Building extends InteractiveEntity implements IOccupiable 
     }
     
     @Override
+	public void getOccupied(
+			vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit unit) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addActions() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int getSpeed() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
     public UpgradeTree getUpgradeTree() {
     	return myUpgradeTree;
     }

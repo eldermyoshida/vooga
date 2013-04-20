@@ -1,6 +1,7 @@
 package vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings;
 
 import java.awt.Dimension;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 import vooga.rts.IObservable;
@@ -110,5 +111,10 @@ public class ProductionBuilding extends Building implements IObservable {
     public void addActions () {
         // TODO Auto-generated method stub
         
+    }
+    
+    @Override
+    public void paint(Graphics2D pen) {
+    	super.paint(pen);
     }
 }

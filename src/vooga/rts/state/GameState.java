@@ -211,6 +211,7 @@ public class GameState extends SubState implements Controller {
         addPlayer(1);
         myHumanPlayer.add(new Soldier());
         myHumanPlayer.add(new Soldier(new Location3D(200, 200, 0)));
+        myHumanPlayer.add(new Barracks(new Pixmap(ResourceManager.getInstance().<BufferedImage>getFile("images/factory.png", BufferedImage.class)), new Location3D(1000, 500, 0), new Dimension(200,  200), null, 1, 100, 100));
         myMap = new GameMap(8, new Dimension(512, 512));
     }
 }

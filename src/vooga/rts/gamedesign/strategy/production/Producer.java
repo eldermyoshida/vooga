@@ -28,27 +28,42 @@ public class Producer implements IProducer {
 
     public void produce() {
     	myProducables = new ArrayList<InteractiveEntity>();
+    	myBuildTime = new Interval();
     }
     
+    /**
+     * Sets the time it takes to produce an InteractiveEntity.
+     * @param time
+     */
     public void setBuildTime(int time) {
     	myBuildTime = new Interval(time);
     	myBuildTime.resetCooldown();
     }
 
+    /**
+     * Returns the amount of time left to produce an InteractiveEntity.
+     * @return the amount of time left to produce an InteractiveEntity
+     */
 	public int getBuildTime() {
 		return myBuildTime.getCooldown();
 	}
     
+	/**
+	 * Adds an InteractiveEntity that this Producer can produce to the list of
+	 * what can be produced.
+	 * @param producable is the InteractiveEntity that can be produced by this
+	 * producer
+	 */
 	public void addProducables(InteractiveEntity producable) {
 		myProducables.add(producable);
 	}
 
 	@Override
 	public void produce(InteractiveEntity produced) {
-		setBuildTime(produced.getBuildTime());
+		if(myProducables.contains(produced)) {
+			setBuildTime(produced.getBuildTime());
+		}
 		
 	}
-	
-	
 
 }

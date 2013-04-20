@@ -10,6 +10,7 @@ import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building;
 import vooga.rts.gamedesign.strategy.gatherstrategy.CanGather;
 import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
 import vooga.rts.gamedesign.strategy.production.IProducer;
+import vooga.rts.gamedesign.strategy.production.Producer;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
@@ -42,6 +43,7 @@ public class Worker extends Unit {
 		super(image, center, size, sound, playerID, health, buildTime);
 		myGatherAmount = gatherAmount;
 		myGatherStrategy = new CanGather(DEFUALT_GATHER_INTERVAL, gatherAmount);
+		myProducer = new Producer();
 
 	}
 

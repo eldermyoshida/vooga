@@ -100,6 +100,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     public void setUpgradeTree(UpgradeTree upgradeTree, int playerID) {
         myUpgradeTree = upgradeTree;
     }
+    
     public int getSpeed() {
         return DEFAULT_INTERACTIVEENTITY_SPEED;
     }
