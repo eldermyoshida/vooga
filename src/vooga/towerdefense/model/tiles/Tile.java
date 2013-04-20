@@ -12,7 +12,7 @@ import vooga.towerdefense.util.Sprite;
  * 
  * @author Erick Gonzalez
  */
-public class Tile extends Sprite {
+public abstract class Tile extends Sprite {
     
     /**
      * Image for a grass tile
@@ -26,19 +26,24 @@ public class Tile extends Sprite {
      * The size of a tile
      */
     public static final Dimension TILE_DIMENSIONS = new Dimension(50, 50);
-    
-    private Point myCenter;
-    private GameElement myElement;
+
+    private boolean myIsWalkable;
+    private boolean myIsBuildable;
+    private int myId;
 
     /**
      * 
+     * @param id a tile id
      * @param image an image
      * @param center the center of this tile
      * @param size the size of the tile
      */
-    public Tile (Pixmap image, Location center, Dimension size) {
+    public Tile (int id, Pixmap image, Location center, Dimension size) {
         super(image, center, size);
+        myId = id;
     }
+    
+    
     
     public static Pixmap getTileImage(int tileId) {
         if (tileId == 0) {
@@ -48,27 +53,36 @@ public class Tile extends Sprite {
         }
         return null;
     }
-    
-    public boolean containsElement() {
-        return myElement != null;
-    }
-    
-    public GameElement getElement() {
-        return myElement;
-    }
 
-    public void setTower (GameElement t) {
-        myElement = t;
-    }
-
-    public void deleteTower () {
-        myElement = null;
+    /**
+     * 
+     * @return true if you can build things on this tile.
+     */
+    public boolean isBuildable() {
+        return myIsBuildable;
     }
     
-    
-    
-    public String toString() {
-        return "(" + myCenter.getX() + ", " + myCenter.getY() + ")";
+    /**
+     * 
+     * @return the tile id
+     */
+    public int getTileId() {
+        return myId;
     }
-
+    
+    /**
+     * 
+     * @return true if units can walk on this tile
+     */
+    public boolean isWalkable() {
+        return myIsWalkable;
+    }
+    
+    protected void setBuildable(boolean isBuildable) {
+        myIsBuildable = isBuildable;
+    }
+    
+    protected void setWalkable(boolean isWalkable) {
+        myIsWalkable = isWalkable;
+    }
 }

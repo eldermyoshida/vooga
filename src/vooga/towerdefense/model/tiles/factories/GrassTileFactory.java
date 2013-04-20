@@ -1,10 +1,10 @@
 package vooga.towerdefense.model.tiles.factories;
 
 import java.awt.Dimension;
-import arcade.util.Pixmap;
-import util.Location;
 import vooga.towerdefense.model.tiles.GrassTile;
 import vooga.towerdefense.model.tiles.Tile;
+import vooga.towerdefense.util.Location;
+import vooga.towerdefense.util.Pixmap;
 
 /**
  * A tile factory that creates GrassTile objects.
@@ -18,9 +18,12 @@ public class GrassTileFactory extends TileFactory {
     public GrassTileFactory() {
         
     }
-    
-    public Tile createTile(int id, Pixmap image, Location center,
-                           Dimension size) {
+
+    @Override
+    public Tile createTile (int id,
+                            Pixmap image,
+                            Location center,
+                            Dimension size) {
         return new GrassTile(id, image, center, size);
     }
     
