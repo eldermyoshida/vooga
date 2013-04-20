@@ -214,10 +214,9 @@ public abstract class GameElementEditorScreen extends GameEditorScreen {
         JPanel westSide = new JPanel(new BorderLayout());
         westSide.add(new JLabel(ACTION_TITLE), BorderLayout.NORTH);
         myActionsBox = new JComboBox();
-        List<Class> actions = getController().getClassesInPackage(ACTION_PACKAGE_PATH); 
-        for (Class c : actions) {
-            myActionsBox.addItem(c.toString().substring(ACTION_PACKAGE_PATH.length(),
-               c.toString().length()-GameEditorController.CLASS_INDICATOR_STRING.length()));
+        List<String> actions = getController().getClassNamesInPackage(ACTION_PACKAGE_PATH); 
+        for (String a : actions) {
+            myActionsBox.addItem(a);
         }
         westSide.add(myActionsBox, BorderLayout.CENTER);
         actionSection.add(westSide, BorderLayout.WEST);
@@ -246,10 +245,9 @@ public abstract class GameElementEditorScreen extends GameEditorScreen {
         JPanel optionsSubPanel1 = new JPanel(new BorderLayout());
         optionsSubPanel1.add(new JLabel(ATTRIBUTE_TITLE), BorderLayout.NORTH);
         myAttributesBox = new JComboBox();
-        Class attributesClass = Class.forName(ATTRIBUTES_CLASS_PATH);
-        Field fieldList[] = attributesClass.getDeclaredFields();
-        for (Field field : fieldList) {
-            myAttributesBox.addItem(field.getName());
+        List<String> attributes = getController().getFieldsInClass(ATTRIBUTES_CLASS_PATH);
+        for (String a: attributes) {
+            myAttributesBox.addItem(a);
         }
         optionsSubPanel1.add(myAttributesBox, BorderLayout.CENTER);
         myAttributeValue = new JTextField();
