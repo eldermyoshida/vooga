@@ -1,3 +1,4 @@
+
 package vooga.towerdefense.factories;
 
 import java.awt.Dimension;
@@ -15,8 +16,9 @@ import vooga.towerdefense.util.Pixmap;
 
 /**
  * will need to be changed dramatically, now it's quick dirty for testing
- * 
+ *
  */
+
 public class ProjectileFactory extends GameElementFactory {
 	private static final AttributeConstants ATTRIBUTES_CONSTANTS = new AttributeConstants();
 	private static final int DEFAULT_WIDTH = 10;
@@ -36,7 +38,7 @@ public class ProjectileFactory extends GameElementFactory {
 	public Projectile createGameElement(GameElement initiator,
 			Location targetLocation) {
 		Projectile projectile = new Projectile(DEFAULT_IMAGE, DEFAULT_SIZE,
-				initiator, targetLocation, DEFAULT_ACTIONS,
+				initiator.getCenter(), targetLocation, DEFAULT_ACTIONS,
 				DEFAULT_ATTRIBUTE_MANAGER);
 		System.out.println("fireball created!+++++++++++++");
 		
@@ -47,5 +49,6 @@ public class ProjectileFactory extends GameElementFactory {
 		projectile.addActions(actions);
 		return projectile;
 	}
+
 
 }

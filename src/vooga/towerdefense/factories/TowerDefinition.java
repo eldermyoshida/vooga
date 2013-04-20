@@ -11,9 +11,9 @@ public class TowerDefinition extends GameElementDefinition {
 	private static final Location DEFAULT_TOWER_LOCATION = new Location(200, 100);
 	private static final Dimension DEFAULT_TOWER_SIZE = new Dimension(50, 50);
 	
-	public Pixmap myImage;
-	public Location myCenter;
-	public Dimension mySize;
+	Pixmap myImage;
+	Location myCenter;
+	Dimension mySize;
 
 	public TowerDefinition() {
 		myImage = TOWER_IMAGE;

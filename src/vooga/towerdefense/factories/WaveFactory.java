@@ -6,7 +6,7 @@ import java.util.List;
 import vooga.towerdefense.gameElements.Unit;
 import vooga.towerdefense.gameElements.Wave;
 import vooga.towerdefense.model.GameMap;
-import vooga.towerdefense.model.Tile;
+import vooga.towerdefense.model.tiles.Tile;
 import vooga.towerdefense.util.Location;
 
 public class WaveFactory {
@@ -21,7 +21,7 @@ public class WaveFactory {
 				spawnTile.getCenter().getY());
 		List<Unit> units = new ArrayList<Unit>();
 		for (int i = 0; i < numUnits; i++) {
-			//System.out.println("added another unit to spawn");
+			System.out.println("added another unit to spawn");
 			units.add(unitFactory.createUnit(spawnLocation));
 		}
 		return new Wave(gameMap, units, spawnTile, spawnDelay, duration);

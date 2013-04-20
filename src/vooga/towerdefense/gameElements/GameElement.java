@@ -50,6 +50,10 @@ public class GameElement extends Sprite {
             a.update(elapsedTime);
         }
     }
+    
+    public void addAction(Action a){
+    	myActions.add(a);
+    }
 
     public void addActions (List<Action> actions) {
         myActions.addAll(actions);

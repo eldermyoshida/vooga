@@ -1,45 +1,48 @@
 package vooga.towerdefense.action;
 
+import java.util.List;
+
 import vooga.towerdefense.attributes.Attribute;
 import vooga.towerdefense.attributes.AttributeConstants;
+import vooga.towerdefense.factories.ExampleProjectileFactory;
+import vooga.towerdefense.factories.ProjectileFactory;
 import vooga.towerdefense.gameElements.GameElement;
+import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.util.Location;
 import vooga.towerdefense.util.Vector;
 
 public class TrackTarget extends Action{
 	
-	private Vector myHeading;
-	private Location myStart;
-	private Location myTarget;
-	private Attribute myMoveSpeed;
-	private boolean following;
-
-	public TrackTarget(Location start, Location destination, Attribute movespeed){
-		myMoveSpeed = movespeed;
-		following = true;
-		myStart = start;
-		myTarget = destination;
-		myHeading = new Vector(Vector.angleBetween(myStart, destination), myMoveSpeed.getValue());
-	}
+	private Attribute myScanningRadius;
+	private List<GameElement> myTargets;
+	private Location mySource;
+	private GameMap myMap;
 	
+
+	public TrackTarget(Location source, Attribute attackRadius, GameMap myMap){
+		myScanningRadius = attackRadius;
+		mySource = source;
+		myTargets = myMap.getTargetsWithinRadius(source, myScanningRadius.getValue(), 10);
+		//hard coded to add in CreateProjectile action
+	}
+
 	public void update(double elapsedTime) {
-		if(following) {
+		if (isEnabled()){
 			executeAction(elapsedTime);
 		}
+
 	}
 
 	@Override
 	public void executeAction(double elapsedTime) {
-		myHeading = new Vector(myStart, myTarget);
-		myHeading.scale(myHeading.getMagnitude()/myMoveSpeed.getValue());
-		myHeading.scale(elapsedTime);
-		if (myStart.distance(myTarget) < myHeading.getMagnitude()) {
-			following = false;
-			myStart.setLocation(myTarget);
+		if(!myTargets.isEmpty()){
+			for (GameElement t: myTargets){
+				addFollowUpAction(new LaunchProjectile(mySource, new ExampleProjectileFactory(), t, myMap));
+				getFollowUpAction().update(elapsedTime);
+
+			}
 		}
-		else {
-			myStart.translate(myHeading);
-		}
+
 	}
 	
 

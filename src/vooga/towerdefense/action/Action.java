@@ -1,6 +1,9 @@
 
 package vooga.towerdefense.action;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * An AbstractAction is superclassed to define specific Actions that can be taken by game elements.
@@ -15,12 +18,14 @@ package vooga.towerdefense.action;
 public abstract class Action {
     private boolean enabled;
     private boolean complete;
-
+    private List<Action> myFollowUpAction;
+    	
     public Action () {
     }
 
     public void initAction () {
         enabled = true;
+        myFollowUpAction = new ArrayList<Action>();
         // initialize resources
     }
     
@@ -35,6 +40,14 @@ public abstract class Action {
      */
     public abstract void update (double elapsedTime);
     
+    
+    public void addFollowUpAction(Action action){
+    	myFollowUpAction.add(action);
+    }
+    
+    public Action getFollowUpAction(){
+    	return myFollowUpAction.get(0);
+    }
     public boolean isComplete () {
         enabled = false;
         return complete;

@@ -3,6 +3,7 @@ package vooga.towerdefense.model;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import vooga.towerdefense.model.tiles.Tile;
 import vooga.towerdefense.util.Location;
 
 /**
@@ -38,15 +39,17 @@ public class MapLoader {
     public Tile[][] loadTiles(int mapWidth, int mapHeight) {
         Scanner reader = getScanner();
         
-        int horizontalTileCount = (int) (mapWidth / Tile.TILE_SIZE);
-        int verticalTileCount = (int) (mapHeight / Tile.TILE_SIZE);
+        int horizontalTileCount = (int) (mapWidth / Tile.TILE_DIMENSIONS.getWidth());
+        int verticalTileCount = (int) (mapHeight / Tile.TILE_DIMENSIONS.getHeight());
 
         Tile[][] grid = new Tile[horizontalTileCount][verticalTileCount];
 
         for (int i = 0; i < grid[0].length; i++) {
             for (int j = 0; j < grid.length; j++) {
-                int xCenter = (int) (j * Tile.TILE_SIZE + Tile.TILE_SIZE / 2);
-                int yCenter = (int) (i * Tile.TILE_SIZE + Tile.TILE_SIZE / 2);
+                int xCenter = (int) (j * Tile.TILE_DIMENSIONS.getWidth() + 
+                        Tile.TILE_DIMENSIONS.getWidth() / 2);
+                int yCenter = (int) (i * Tile.TILE_DIMENSIONS.getHeight() + 
+                        Tile.TILE_DIMENSIONS.getHeight() / 2);
                 // TODO: replace booleans with parsed values from file
                 int tileId = reader.nextInt();
                 grid[j][i] = new Tile(Tile.getTileImage(tileId), new Location(xCenter, yCenter), 
