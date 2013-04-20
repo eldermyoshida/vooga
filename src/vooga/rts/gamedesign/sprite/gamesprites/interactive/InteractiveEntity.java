@@ -47,6 +47,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     private AttackStrategy myAttackStrategy;
     private int myArmor;
     private Map<String,Action> myActions;
+    private int myBuildTime;
 
     /**
      * Creates a new interactive entity.
@@ -57,13 +58,14 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
      * @param teamID is the ID of the team that the interactive entity is on
      * @param health is the health of the interactive entity
      */
-    public InteractiveEntity (Pixmap image, Location3D center, Dimension size, Sound sound, int playerID, int health) {
+    public InteractiveEntity (Pixmap image, Location3D center, Dimension size, Sound sound, int playerID, int health, int buildTime) {
         super(image, center, size, playerID, health);
         //myMakers = new HashMap<String, Factory>(); //WHERE SHOULD THIS GO?
         mySound = sound;
         myAttackStrategy = new CannotAttack();
         myActions = new HashMap<String, Action>();
         isSelected = false;
+        myBuildTime = buildTime;
 
     }
 
@@ -273,6 +275,14 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     public Action getAction (Command command) {
         System.out.println("getting");
         return myActions.get(command.getMethodName());
+    }
+    
+    /**
+     * Returns the time it takes to build the entity.
+     * @return how long it takes to build the entity
+     */
+    public int getBuildTime() {
+    	return myBuildTime;
     }
 
 }

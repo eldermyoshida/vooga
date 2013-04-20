@@ -52,7 +52,7 @@ public class Unit extends InteractiveEntity {
     private OccupyStrategy myOccupyStrategy;
 
     public Unit() {
-    	this(null, new Location3D(), new Dimension(0,0), null, 0, 100);
+    	this(null, new Location3D(), new Dimension(0,0), null, 0, 100, 100);
     }
     
     /**
@@ -65,8 +65,8 @@ public class Unit extends InteractiveEntity {
      * @param playerID is the ID for the team that the unit is on
      * @param health is the max health of the unit
      */
-    public Unit (Pixmap image, Location3D center, Dimension size, Sound sound, int playerID, int health) {
-        super(image, center, size, sound, playerID, health);
+    public Unit (Pixmap image, Location3D center, Dimension size, Sound sound, int playerID, int health, int buildTime) {
+        super(image, center, size, sound, playerID, health, buildTime);
         //myPather = new PathingHelper();
         System.out.println(playerID + " " + health);
         myOccupyStrategy = new CannotOccupy();

@@ -1,8 +1,10 @@
 package vooga.rts.gamedesign.strategy.production;
 
+import vooga.rts.gamedesign.Interval;
 import vooga.rts.gamedesign.factories.Factory;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -20,17 +22,33 @@ import java.util.List;
  */
 public class Producer implements IProducer {
 
-    public List<InteractiveEntity> myProducables;
+    private List<InteractiveEntity> myProducables;
 
-    public Integer cooldown;
+    private Interval myBuildTime;
 
-    public Factory myFactory;
-
-    public void produce () {
+    public void produce() {
+    	myProducables = new ArrayList<InteractiveEntity>();
+    }
+    
+    public void setBuildTime(int time) {
+    	myBuildTime = new Interval(time);
+    	myBuildTime.resetCooldown();
     }
 
-    @Override
-    public void produce (String str) {
-        // TODO Auto-generated method stub
-    }
+	public int getBuildTime() {
+		return myBuildTime.getCooldown();
+	}
+    
+	public void addProducables(InteractiveEntity producable) {
+		myProducables.add(producable);
+	}
+
+	@Override
+	public void produce(InteractiveEntity produced) {
+		setBuildTime(produced.getBuildTime());
+		
+	}
+	
+	
+
 }

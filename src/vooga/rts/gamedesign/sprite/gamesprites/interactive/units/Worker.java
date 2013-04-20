@@ -9,6 +9,7 @@ import vooga.rts.gamedesign.sprite.gamesprites.interactive.IGatherable;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building;
 import vooga.rts.gamedesign.strategy.gatherstrategy.CanGather;
 import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
+import vooga.rts.gamedesign.strategy.production.IProducer;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
@@ -23,10 +24,10 @@ import vooga.rts.util.Sound;
 public class Worker extends Unit {
 
 	private GatherStrategy myGatherStrategy;
+	private IProducer myProducer;
 	private static final int DEFUALT_GATHER_INTERVAL = 75;
 	private int myGatherAmount;
-	private Interval myCurrentBuildTime;
-	
+
 	/**
 	 * Creates a new worker
 	 * @param image is the image of the worker
@@ -37,20 +38,19 @@ public class Worker extends Unit {
 	 * @param health is the health of the worker
 	 */
 	public Worker(Pixmap image, Location3D center, Dimension size, Sound sound,
-			int playerID, int health, int gatherAmount) {
-		super(image, center, size, sound, playerID, health);
+			int playerID, int health, int gatherAmount, int buildTime) {
+		super(image, center, size, sound, playerID, health, buildTime);
 		myGatherAmount = gatherAmount;
 		myGatherStrategy = new CanGather(DEFUALT_GATHER_INTERVAL, gatherAmount);
-	
+
 	}
 
 	@Override
 	public void update(double elapsedTime) {
 		myGatherStrategy.getInterval().decrementCooldown();
-		myCurrentBuildTime.decrementCooldown();
 		super.update(elapsedTime);
 	}
-	
+
 	/**
 	 * Another recognize method specific for workers as they can gather resources which are not
 	 * InteractiveEntities
@@ -58,7 +58,7 @@ public class Worker extends Unit {
 	public void recognize (Resource resource) {
 		gather(resource);
 	}
-	
+
 	/**
 	 * The worker gathers the resource if it can and then resets its gather
 	 * cooldown.
@@ -70,7 +70,7 @@ public class Worker extends Unit {
 			myGatherStrategy.gatherResource(getPlayerID(),gatherable);
 		}
 	}
-	
+
 	/**
 	 * Sets the amount that the worker can gather at a time.
 	 * @param gatherAmount is the amount that the worker can gather
@@ -79,18 +79,6 @@ public class Worker extends Unit {
 		myGatherAmount = gatherAmount;
 		myGatherStrategy = new CanGather(DEFUALT_GATHER_INTERVAL, myGatherAmount);
 	}
-	
-	public void setBuildTime(int time) {
-		myCurrentBuildTime = new Interval(time);
-		myCurrentBuildTime.resetCooldown();
-	}
-	
-	public void build(Building building) {
-		setBuildTime(building.getBuildTime());
-		if(myCurrentBuildTime.allowAction()) {
-			
-		}
-	}
-	
-	
+
 }
+
