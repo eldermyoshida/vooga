@@ -1,4 +1,4 @@
-package vooga.rts.manager.old;
+package vooga.rts.manager;
 
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;

@@ -15,9 +15,6 @@ import vooga.rts.util.Location3D;
 
 
 /**
-<<<<<<< HEAD
- * This class is responsible for the map of the game in its entirety.
-=======
  * The GameMap manages all aspects of the map on the screen.
  * This includes the underlying tiles, the terrain objects on
  * the map and the nodes used for pathfinding.
@@ -25,10 +22,8 @@ import vooga.rts.util.Location3D;
  * In addition to this, the map will be responsible for painting
  * everything that is in the world. This is to ensure that objects
  * are painted in the correct order.
->>>>>>> master
  * 
  * @author Challen Herzberg-Brovold
- * @author Jonathan Schmidt
  * 
  */
 
@@ -95,7 +90,8 @@ public class GameMap implements IGameLoop {
 
     @Override
     public void update (double elapsedTime) {
-        myTiles.update(elapsedTime);
+        // TODO Auto-generated method stub
+
     }
 
     @Override
@@ -104,8 +100,8 @@ public class GameMap implements IGameLoop {
     }
 
     private void randomGenMap () {
-        int tilesX = 2048;
-        int tilesY = 2048;
+        int tilesX = 256;
+        int tilesY = 256;
         int tileWidthX = 60;
         int tileWidthY = 42;
         myTiles = new TileMap(new Dimension(tileWidthX, tileWidthY), tilesX, tilesY);

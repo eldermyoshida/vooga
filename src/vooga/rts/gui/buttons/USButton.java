@@ -1,6 +1,7 @@
 package vooga.rts.gui.buttons;
 
 import java.awt.Dimension;
+import vooga.rts.controller.MainState;
 import vooga.rts.gui.Button;
 import vooga.rts.util.Location;
 
@@ -13,7 +14,7 @@ public class USButton extends Button {
     @Override
     public void update (double elapsedTime) {        
         setChanged();
-        
+        notifyObservers(MainState.Game);
     }
 
 }

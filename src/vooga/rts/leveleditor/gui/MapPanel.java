@@ -7,11 +7,12 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.JComponent;
-import util.input.Input;
-import util.input.InputClassTarget;
-import util.input.InputMethodTarget;
-import util.input.PositionObject;
+import vooga.rts.input.Input;
+import vooga.rts.input.InputClassTarget;
+import vooga.rts.input.InputMethodTarget;
+import vooga.rts.input.PositionObject;
 import vooga.rts.leveleditor.components.EditableMap;
 import vooga.rts.leveleditor.components.EditableNode;
 import vooga.rts.leveleditor.components.MapLayer;
@@ -20,13 +21,12 @@ import vooga.rts.leveleditor.components.Terrain;
 import vooga.rts.resourcemanager.ResourceManager;
 import vooga.rts.util.Location;
 
-
 @InputClassTarget
 public class MapPanel extends JComponent {
 
     public static final String INPUT_DIR = "vooga.rts.resources.properties.Input";
     public static final String PLAYER_IMAGE_PATH = "Player1.png";
-    public static final Dimension DEFAULT_MAP_SIZE = new Dimension(600, 600);
+    public static final Dimension DEFAULT_MAP_SIZE  = new Dimension (600,600);
     public static final double ZOOM_RATE = 1.25;
     public static final int DEFAULT_TILE_WIDTH = 50;
     public static final int DEFAULT_TILE_HEIGHT = 50;
@@ -48,7 +48,7 @@ public class MapPanel extends JComponent {
     private int myMode;
     private BufferedImage myPlayerImage;
 
-    public MapPanel (Canvas canvas) {
+    public MapPanel(Canvas canvas) {
         myCanvas = canvas;
         myMap = new EditableMap();
         myInput = new Input(INPUT_DIR, this);
@@ -59,100 +59,97 @@ public class MapPanel extends JComponent {
         myMaxLayer = 0;
         myTileWidth = DEFAULT_TILE_WIDTH;
         myTileHeight = DEFAULT_TILE_HEIGHT;
-        myPlayerImage =
-                ResourceManager.getInstance().<BufferedImage> getFile(PLAYER_IMAGE_PATH,
-                                                                      BufferedImage.class);
+        myPlayerImage = ResourceManager.getInstance().<BufferedImage>getFile(PLAYER_IMAGE_PATH, BufferedImage.class);
         setPanelSize();
     }
 
-    private void setPanelSize () {
-        setPreferredSize(new Dimension(myTileWidth * myWidth, myTileHeight * myHeight));
+    private void setPanelSize() {
+        setPreferredSize(new Dimension(myTileWidth*myWidth, myTileHeight*myHeight));       
     }
 
     @Override
     public void paintComponent (Graphics g) {
         g.setColor(Color.white);
-        g.fillRect(0, 0, myWidth * myTileWidth, myHeight * myTileHeight);
+        g.fillRect(0,0,myWidth*myTileWidth, myHeight*myTileHeight);
+
 
         g.setColor(Color.gray);
-        for (int i = 0; i < myWidth; i++) {
-            g.drawLine(i * myTileWidth, 0, i * myTileWidth, myHeight * myTileHeight);
+        for(int i=0; i<myWidth; i++) {
+            g.drawLine(i*myTileWidth, 0, i*myTileWidth, myHeight*myTileHeight);
         }
 
-        for (int j = 0; j < myHeight; j++) {
-            g.drawLine(0, j * myTileHeight, myWidth * myTileWidth, j * myTileHeight);
+        for(int j=0; j<myHeight; j++) {
+            g.drawLine(0,j*myTileHeight, myWidth*myTileWidth, j*myTileHeight);
         }
 
-        ((Graphics2D) g).setStroke(new BasicStroke(2));
+        ((Graphics2D)g).setStroke(new BasicStroke(2));
         g.setColor(Color.black);
         g.drawLine(0, 0, myWidth * myTileWidth, 0);
         g.drawLine(0, 0, 0, myHeight * myTileHeight);
         g.drawLine(myWidth * myTileWidth, 0, myWidth * myTileWidth, myHeight * myTileHeight);
         g.drawLine(0, myHeight * myTileHeight, myWidth * myTileWidth, myHeight * myTileHeight);
 
-        // paint Node
-        for (int i = 0; i < myMap.getWidth(); ++i) {
-            for (int j = 0; j < myMap.getHeight(); ++j) {
-                if (myMap.getMapNode(i, j).getOccupied()) {
+        //paint Node
+        for(int i=0; i<myMap.getWidth(); ++i) {
+            for(int j=0; j<myMap.getHeight(); ++j) {
+                if(myMap.getMapNode(i, j).getOccupied()){
                     try {
                         myMap.getMapNode(i, j).paint(g);
-                    }
-                    catch (IOException e) {
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
-                }
+                }              
+            }
+        }
+        
+        //paint Player
+        for(Location c : myMap.getLocationMap().values()) {
+            g.drawImage(myPlayerImage, (int)(c.getX()), (int)(c.getY()),null);
+        }
+
+        //paint Terrain
+        for(MapLayer m : myMap.getLayerMap().values()) {
+            for(Terrain t : m.getTerrainSet()) {
+                g.drawImage(t.getMyImage(),(int)(t.getMyLocation().getX()),(int)(t.getMyLocation().getY()),null);
             }
         }
 
-        // paint Player
-        for (Location c : myMap.getLocationMap().values()) {
-            g.drawImage(myPlayerImage, (int) (c.getX()), (int) (c.getY()), null);
-        }
-
-        // paint Terrain
-        for (MapLayer m : myMap.getLayerMap().values()) {
-            for (Terrain t : m.getTerrainSet()) {
-                g.drawImage(t.getMyImage(), (int) (t.getMyLocation().getX()),
-                            (int) (t.getMyLocation().getY()), null);
-            }
-        }
-
-        // paint Resource
-        for (Resource r : myMap.getResourceSet()) {
-            g.drawImage(r.getMyImage(), r.getMyX(), r.getMyY(), null);
+        //paint Resource
+        for(Resource r : myMap.getResourceSet()) {
+            g.drawImage(r.getMyImage(),r.getMyX(),r.getMyY(),null);
         }
     }
 
-    public void setWidth (int w) {
+    public void setWidth(int w) {
         myWidth = w;
         setPanelSize();
         repaint();
     }
 
-    public void setHeight (int h) {
+    public void setHeight(int h) {
         myHeight = h;
         setPanelSize();
         repaint();
     }
 
-    public void setTileWidth (int w) {
+    public void setTileWidth(int w) {
         myTileWidth = w;
         setPanelSize();
         repaint();
     }
 
-    public void setTileHeight (int h) {
+    public void setTileHeight(int h) {
         myTileHeight = h;
         setPanelSize();
         repaint();
     }
 
-    public void initializeMap (int w, int h) {
-        myMap = new EditableMap(w, h);
+    public void initializeMap(int w, int h) {
+        myMap = new EditableMap(w,h);
 
     }
 
-    public void ZoomIn () {
+    public void ZoomIn() {
         myMap.zoomIn();
         myTileWidth = (int) (myTileWidth * ZOOM_RATE);
         myTileHeight = (int) (myTileHeight * ZOOM_RATE);
@@ -160,59 +157,57 @@ public class MapPanel extends JComponent {
         repaint();
     }
 
-    public void ZoomOut () {
+    public void ZoomOut() {
         myMap.zoomOut();
         myTileWidth = (int) (myTileWidth / ZOOM_RATE);
         myTileHeight = (int) (myTileHeight / ZOOM_RATE);
         setPanelSize();
-        repaint();
+        repaint();        
     }
 
-    public void placeResource (int x, int y) {
+    public void placeResource(int x, int y) {
         myMap.addResource(x, y, myCanvas.getCurrentSelectResource().getMyID());
         repaint();
     }
-
-    public void placeTerrain (int x, int y) {
-        Terrain t = new Terrain(new Location(x, y), myCanvas.getCurrentSelectTerrain().getMyID());
+    
+    public void placeTerrain(int x, int y) {
+        Terrain t = new Terrain(new Location(x,y),myCanvas.getCurrentSelectTerrain().getMyID());
         myMap.addTerrain(myCurrentLayer, t);
         repaint();
     }
-
-    // test printing matrix bug switch x and y
-    private void placeTile (int x, int y) {
-        x = x / myTileHeight;
-        y = y / myTileWidth;
-        if (x >= 0 && x < myWidth && y >= 0 && y < myHeight) {
+    
+    //test printing matrix bug switch x and y
+    private void placeTile(int x, int y) {
+        x=x/myTileHeight;
+        y=y/myTileWidth;
+        if(x>=0 && x<myWidth && y>=0 && y<myHeight){
             EditableNode n = myMap.getMapNode(y, x);
-            if (!myRemoveFlag) {
+            if(!myRemoveFlag){
                 n.setTile(myCanvas.getCurrentSelectTile().getMyID());
                 n.setOccupied(true);
-            }
-            else {
+            } else {
                 n.reset();
             }
             myMap.printMatrix();
             repaint();
         }
-
+        
     }
 
-    public void placePlayer (int x, int y) {
-        int nodex = x / myTileWidth;
-        int nodey = y / myTileHeight;
+    public void placePlayer(int x, int y) {
+        int nodex=x/myTileWidth;
+        int nodey=y/myTileHeight;
         EditableNode n = myMap.getMapNode(nodex, nodey);
-        if (!myRemoveFlag) {
+        if(!myRemoveFlag){
             myMap.addPlayer(x, y);
             n.setPlayerIndex(myMap.getMyPlayerNumber());
-        }
-        else {
+        } else {
             myMap.removePlayer(n.getPlayerIndex());
         }
         repaint();
     }
-
-    public void clear () {
+    
+    public void clear() {
         myCurrentLayer = 0;
         myMaxLayer = 0;
         myMap.clearMap();
@@ -221,66 +216,70 @@ public class MapPanel extends JComponent {
         repaint();
     }
 
-    public void setRemoveFlag (boolean b) {
-        myRemoveFlag = b;
+    public void setRemoveFlag(boolean b) {
+        myRemoveFlag = b; 
     }
 
-    public EditableMap getMyMap () {
+    public EditableMap getMyMap() {
         return myMap;
     }
-
-    public void setMode (int mode) {
-        myMode = mode;
+    
+    public void setMode(int mode) {
+        myMode = mode;       
     }
-
-    public void setCurrentLayer (int n) {
+    
+    public void setCurrentLayer(int n) {
         myCurrentLayer = n;
-
+        
     }
-
+    
     public int getCurrentLayer () {
         return myCurrentLayer;
     }
-
-    public int getMaxLayer () {
+    
+    public int getMaxLayer() {
         return myMaxLayer;
     }
-
-    public void addLayer () {
+    
+    public void addLayer() {
         myMaxLayer++;
         myMap.getLayerMap().put(myMaxLayer, new MapLayer());
     }
-
-    public void removeLayer () {
+    
+    public void removeLayer() {
         myMap.getLayerMap().remove(myMaxLayer);
         myMaxLayer--;
     }
-
-    @InputMethodTarget(name = "onLeftMouseDown")
+    
+    @InputMethodTarget(name="onLeftMouseDown")
     public void testClick (PositionObject p) {
         switch (myMode) {
             case RESOURCEMODE:
-                placeResource((int) (p.getX()), (int) (p.getY()));
+                placeResource((int)(p.getX()), (int)(p.getY()));
                 break;
             case PLAYERMODE:
-                placePlayer((int) (p.getX()), (int) (p.getY()));
+                placePlayer((int)(p.getX()), (int)(p.getY()));
                 break;
             case TERRAINMODE:
-                placeTerrain((int) (p.getX()), (int) (p.getY()));
+                placeTerrain((int)(p.getX()), (int)(p.getY()));
                 break;
             case TILEMODE:
-                placeTile((int) (p.getX()), (int) (p.getY()));
+                placeTile((int)(p.getX()), (int)(p.getY()));
                 break;
-            default:
-                break;
+            default: break;  
         }
     }
 
-    @InputMethodTarget(name = "onMouseDrag")
+
+
+    @InputMethodTarget(name="onMouseDrag")
     public void testDrag (PositionObject p) {
-        if (myMode == TILEMODE) {
-            placeTile((int) (p.getX()), (int) (p.getY()));
+        if(myMode == TILEMODE) {
+            placeTile((int)(p.getX()), (int)(p.getY()));
         }
     }
+
+
+
 
 }

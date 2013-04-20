@@ -16,15 +16,14 @@ public class TimeIt {
      * Creates a new TimeIt and marks the current time as the start time.
      */
     public TimeIt () {
-        myTime = System.nanoTime();
+        myTime = System.currentTimeMillis();
     }
     
     /**
      * @return The time that has elapsed since this Time It was created.
      */
-    public double getTime() {
-        double d = System.nanoTime() - myTime;
-        return d / 1000000;
+    public long getTime() {
+        return System.currentTimeMillis() - myTime;                
     }
     
     /**

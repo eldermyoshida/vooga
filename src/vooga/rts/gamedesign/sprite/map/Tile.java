@@ -17,7 +17,12 @@ import vooga.rts.util.Pixmap;
  * 
  */
 public class Tile extends GameSprite {
+
     public Tile (Pixmap image, Location3D center, Dimension size) {
         super(image, center, size);
     }
+
+    @Override
+    public void update (double elapsedTime) {
+    }    
 }

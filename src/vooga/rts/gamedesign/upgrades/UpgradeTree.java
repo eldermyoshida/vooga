@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.UpgradeBuilding;
 
@@ -46,9 +47,9 @@ public class UpgradeTree {
     public void activateNode (UpgradeNode u) {
         myCurrentUpgrades.remove(u);
         if (!u.getChildren().isEmpty()) {
-            for (UpgradeNode node : u.getChildren()) {
-                myCurrentUpgrades.add(node);
-            }
+        	for (UpgradeNode node: u.getChildren()) {
+        		myCurrentUpgrades.add(node);
+        	}
         }
     }
 
@@ -57,15 +58,15 @@ public class UpgradeTree {
      * upgradeTree is first created.
      */
     public void updateTreeStatus () {
-        for (UpgradeNode u : myHead.getChildren()) {
-            UpgradeNode current = u;
-            while (!u.getChildren().isEmpty() && u.getChildren().get(0).getHasBeenUpgraded()) {
-                current = current.getChildren().get(0);
-            }
-            if (!current.getChildren().isEmpty()) {
-                current = current.getChildren().get(0);
-                myCurrentUpgrades.add(current);
-            }
+        for (UpgradeNode u: myHead.getChildren()) {
+        	UpgradeNode current = u;
+        	while(!u.getChildren().isEmpty() && u.getChildren().get(0).getHasBeenUpgraded()) {
+        		current = current.getChildren().get(0);
+        	}
+        	if (!current.getChildren().isEmpty()) {
+        		current = current.getChildren().get(0);
+        		myCurrentUpgrades.add(current);
+        	}
         }
     }
 
@@ -74,28 +75,27 @@ public class UpgradeTree {
         myHead.addChild(branch);
     }
 
-    public UpgradeNode findNode (String upgradeName) {
-        UpgradeNode current = myHead;
-        while (!current.getChildren().isEmpty()) {
-            for (UpgradeNode u : current.getChildren()) {
-                if (u.getUpgradeName().equals(upgradeName)) {
-                    return u;
-                }
-                else {
-                    current = u;
-                }
-            }
-        }
-        return null;
+    public UpgradeNode findNode(String upgradeName) {
+    	UpgradeNode current = myHead;
+    	while (!current.getChildren().isEmpty()) {
+    		for (UpgradeNode u: current.getChildren()) {
+    			if (u.getUpgradeName().equals(upgradeName)) {
+    				return u;
+    			} else {
+    				current = u;
+    			}
+    		}
+    	}
+    	return null;
     }
-
+    
     /**
      * Finds the most advanced upgrade has been made in the giving upgrade type.
      * 
      * @param upgradeType
      * @return
      */
-    public UpgradeNode findCurrent (String upgradeType) {
+    public UpgradeNode findCurrent(String upgradeType) {
         UpgradeNode current = new UpgradeNode();
         for (UpgradeNode n : myHead.getChildren()) {
             if (n.getUpgradeName().equals(upgradeType)) {
@@ -114,34 +114,33 @@ public class UpgradeTree {
         return current;
     }
 
-    public Map<Integer, List<InteractiveEntity>> getUsers () {
-        return myUsers;
+    public Map<Integer, List<InteractiveEntity>> getUsers() {
+    	return myUsers;
     }
-
-    public List<InteractiveEntity> getPlayerUsers (int playerID) {
+    
+    public List<InteractiveEntity> getPlayerUsers(int playerID) {
         return myUsers.get(playerID);
     }
-
-    public void addUser (InteractiveEntity i, int playerID) {
-        if (myUsers.get(playerID) == null) {
-            List<InteractiveEntity> entityGroup = new ArrayList<InteractiveEntity>();
-            entityGroup.add(i);
-            myUsers.put(playerID, entityGroup);
-        }
-        else {
-            List<InteractiveEntity> entityGroup = myUsers.get(playerID);
-            entityGroup.add(i);
-            myUsers.put(playerID, entityGroup);
-        }
-
-        myUsers.get(playerID).add(i);
+    
+    public void addUser(InteractiveEntity i, int playerID) {
+    	if (myUsers.get(playerID) == null) {
+    		List<InteractiveEntity> entityGroup = new ArrayList<InteractiveEntity>();
+    		entityGroup.add(i);
+    		myUsers.put(playerID, entityGroup);
+    	} else {
+    		List<InteractiveEntity> entityGroup = myUsers.get(playerID);
+    		entityGroup.add(i);
+    		myUsers.put(playerID, entityGroup);
+    	}
+    	
+    	myUsers.get(playerID).add(i);
     }
 
-    public List<UpgradeNode> getCurrentUpgrades () {
+    public List<UpgradeNode> getCurrentUpgrades() {
         return myCurrentUpgrades;
     }
-
-    public UpgradeNode getHead () {
-        return myHead;
+    
+    public UpgradeNode getHead() {
+    	return myHead;
     }
 }

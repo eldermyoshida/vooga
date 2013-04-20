@@ -1,11 +1,11 @@
 package vooga.rts;
 
-import vooga.rts.state.MainState;
+import vooga.rts.controller.MainController;
 
 // Ignore me again
 
 public class Game {
-    MainState myState;
+    MainController myMainController;
 
     public static final int FPS = 60;
     
@@ -15,7 +15,7 @@ public class Game {
     }
 
     public Game () {
-        myState = new MainState();
+        myMainController = new MainController();
     }
 
     public static void main (String[] args) {
