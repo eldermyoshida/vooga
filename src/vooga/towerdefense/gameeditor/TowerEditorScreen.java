@@ -43,6 +43,10 @@ public class TowerEditorScreen extends GameEditorScreen {
      */
     private static final String ATTRIBUTES_CLASS_PATH = "vooga.towerdefense.attributes.AttributeConstants";
     /**
+     * constant for the attribute selector button
+     */
+    private static final String ATTRIBUTES_ADD_BUTTON_TEXT = "Add attribute";
+    /**
      * title constant.
      */
     private static final String TITLE_NAME = "TOWER ";
@@ -51,21 +55,17 @@ public class TowerEditorScreen extends GameEditorScreen {
      */
     private static final String IMAGE_SELECTOR_KEYWORD = "Select Image From File";
     /**
-     * constant for text field width.
-     */
-    private static final int TEXT_FIELD_WIDTH = 50;
-    /**
      * constant for text field height.
      */
-    private static final int TEXT_AREA_HEIGHT = 15;
+    private static final int TEXT_FIELD_HEIGHT = 15;
     /**
-     * constant for text field width.
+     * constant for text area height.
      */
-    private static final int TEXT_AREA_WIDTH = 50;
+    private static final int TEXT_AREA_HEIGHT = 25;
     /**
-     * constant for text field height.
+     * constant for text field & area width.
      */
-    private static final int TEXT_FIELD_HEIGHT = 50;
+    private static final int TEXT_WIDTH = 25;
     /**
      * used to choose file in the directory.
      */
@@ -91,9 +91,18 @@ public class TowerEditorScreen extends GameEditorScreen {
      */
     private JComboBox myAttributesBox;
     /**
+     * button to add attributes to this tower.
+     */
+    private JButton myAddAttributeButton;
+    /**
      * area where attributes the user has selected are displayed.
      */
     private JTextArea myAttributesSelected;
+    /**
+     * area where the game developer can enter the
+     *          attributes value.
+     */
+    private JTextField myAttributeValue;
     
     /**
      * Constructor.
@@ -127,17 +136,22 @@ public class TowerEditorScreen extends GameEditorScreen {
      * @throws ClassNotFoundException 
      */
     private void addAttributesSection() throws ClassNotFoundException {
-        JPanel attributesSection = new JPanel(new BorderLayout());
+        JPanel attributesSection = new JPanel();
         myAttributesBox = new JComboBox();
         Class attributesClass = Class.forName(ATTRIBUTES_CLASS_PATH);
         Field fieldList[] = attributesClass.getDeclaredFields();
         for (Field field : fieldList) {
             myAttributesBox.addItem(field.getName());
         }
-        attributesSection.add(myAttributesBox, BorderLayout.NORTH);
-        myAttributesSelected = new JTextArea();
-        attributesSection.add(new JScrollPane(myAttributesSelected), BorderLayout.WEST);
-        add(attributesSection, BorderLayout.SOUTH);
+        attributesSection.add(myAttributesBox);
+        myAttributeValue = new JTextField();
+        attributesSection.add(myAttributeValue);
+        myAttributesSelected = new JTextArea(TEXT_WIDTH, TEXT_AREA_HEIGHT);
+        attributesSection.add(new JScrollPane(myAttributesSelected));
+        myAddAttributeButton = new JButton(ATTRIBUTES_ADD_BUTTON_TEXT);
+        myAddAttributeButton.addMouseListener(myMouseAdapter);
+        attributesSection.add(myAddAttributeButton);
+        add(attributesSection);
     }
     
     /**
@@ -153,7 +167,16 @@ public class TowerEditorScreen extends GameEditorScreen {
         characteristicsPanel.add(myNameBox, BorderLayout.NORTH);
         characteristicsPanel.add(myImageBox, BorderLayout.CENTER);
         characteristicsPanel.add(myImageSelector, BorderLayout.SOUTH);
-        add(characteristicsPanel, BorderLayout.CENTER); 
+        add(characteristicsPanel, BorderLayout.NORTH); 
+    }
+    
+    /**
+     * clears all fields in the TowerEditorScreen.
+     */
+    public void clearScreen() {
+        myNameBox.setText("");
+        myImageBox.setText("");
+        myAttributesSelected.setText("");
     }
     
     /**
@@ -171,6 +194,11 @@ public class TowerEditorScreen extends GameEditorScreen {
                         String path = file.getPath().replace("%20", " ");
                         myImageBox.setText(path);
                     }
+                }
+                else if (e.getSource().equals(myAddAttributeButton)) {
+                    myAttributesSelected.setText(myAttributesSelected.getText() + "\n"
+                                                 + myAttributesBox.getSelectedItem().toString()
+                                                 + " = " + myAttributeValue.getText());
                 }
             }
         };
