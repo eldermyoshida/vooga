@@ -1,11 +1,13 @@
 package vooga.towerdefense.gameeditor;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -28,7 +30,11 @@ public class MapEditorScreen extends GameEditorScreen {
     private JTextField myTextField;
     private final int FIELD_SIZE = 10;
     private ActionListener myActionListener;
+    private MouseAdapter myTilePainterListener;
+    private MouseAdapter myTileEraserListener;
     private int myTileSize;
+    private JPanel myTilePainter;
+    private JPanel myPathEraser;
     
     /**
      * Constructor.
@@ -37,16 +43,21 @@ public class MapEditorScreen extends GameEditorScreen {
      */
     public MapEditorScreen(Dimension size, GameEditorController controller) {
         super(size, controller, TITLE_NAME, NEXT_SCREEN_NAME);
-        makeListener();
+        makeListeners();
         myMapMakerSize = getController().getMapSize();
-        this.add(makeMapBox(myMapMakerSize), BorderLayout.SOUTH);
+        this.add(makeMapBox(myMapMakerSize), BorderLayout.NORTH);
         this.add(makeLabelText("TILE SIZE"), BorderLayout.EAST);
         this.add(makeTextField(), BorderLayout.EAST);
+        this.add(makeLabelText("PATH PAINTER"), BorderLayout.EAST);
+        this.add(makePathTilePainter(), BorderLayout.SOUTH);
+        this.add(makeLabelText("PATH ERASER"), BorderLayout.EAST);
+        this.add(makePathEraser(), BorderLayout.WEST);
+
         setVisible(true);
     }
 
     private JPanel makeMapBox (Dimension size) {
-        myMapBox = new MapMaker(size, 25);        
+        myMapBox = new MapMaker(size, this);        
         return myMapBox;
     }
     
@@ -59,13 +70,29 @@ public class MapEditorScreen extends GameEditorScreen {
         return myTextField;
     }
     
-    public void makeListener () {
+    public void makeListeners () {
         myActionListener = new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {
                 repaintGrids();
             }
-
+        };
+        
+        myTilePainterListener = new MouseAdapter () {
+            @Override
+            public void mouseClicked (MouseEvent e) {
+                System.out.println("Painter");
+                setTilePainterColor(Color.GREEN);
+                myMapBox.setPaintingMode(true);
+            }
+        };
+        
+        myTileEraserListener = new MouseAdapter () {
+            @Override
+            public void mouseClicked (MouseEvent e) {  
+                System.out.println("Eraser");
+                myMapBox.setEraseMode(true);
+            }
         };
     }
     
@@ -90,5 +117,29 @@ public class MapEditorScreen extends GameEditorScreen {
     public void addElementToGame () {
         System.out.println("add to game MapEditorScreen");
         getController().addMapToGame();
+    }
+    
+    private JPanel makePathTilePainter () {
+        myTilePainter = new JPanel();
+        myTilePainter.setPreferredSize(new Dimension(50,50));
+        myTilePainter.setBackground(Color.BLUE);
+        myTilePainter.setVisible(true);  
+        myTilePainter.addMouseListener(myTilePainterListener); 
+        
+        return myTilePainter;
+    }
+    
+    private JPanel makePathEraser () {
+        myPathEraser = new JPanel ();
+        myPathEraser.setPreferredSize(new Dimension(50,50));
+        myPathEraser.setBackground(Color.RED);
+        myPathEraser.setVisible(true);
+        myPathEraser.addMouseListener(myTileEraserListener);
+        
+        return myPathEraser;
+    }
+    
+    public void setTilePainterColor (Color color) {
+        myTilePainter.setBackground(color);
     }
 }
