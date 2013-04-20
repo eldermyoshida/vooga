@@ -58,7 +58,6 @@ public class ExampleTowerFactory extends TowerFactory {
        
         //actions.add(new AttackAction(myTower, ));
         myTower.addActions(actions);
-        
         return myTower;
 
         
