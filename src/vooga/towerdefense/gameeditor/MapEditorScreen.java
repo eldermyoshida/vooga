@@ -1,6 +1,10 @@
 package vooga.towerdefense.gameeditor;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import javax.swing.JPanel;
 
 /**
  * MapEditorScreen is responsible for helping
@@ -11,14 +15,10 @@ import java.awt.Dimension;
 public class MapEditorScreen extends GameEditorScreen {
 
     private static final long serialVersionUID = 1L;
-    /**
-     * next screen constant.
-     */
     private static final String NEXT_SCREEN_NAME = "ViewEditorScreen";
-    /**
-     * title constant.
-     */
     private static final String TITLE_NAME = "MAP ";
+    private JPanel myMapBox;
+    private Dimension myMapMakerSize;
     
     /**
      * Constructor.
@@ -27,6 +27,31 @@ public class MapEditorScreen extends GameEditorScreen {
      */
     public MapEditorScreen(Dimension size, GameEditorController controller) {
         super(size, controller, TITLE_NAME, NEXT_SCREEN_NAME);
+        myMapMakerSize = getController().getMapSize();
+        this.add(makeMapBox(new Dimension(500, 500)), BorderLayout.WEST);
+    }
+
+    private JPanel makeMapBox (Dimension size) {
+        myMapBox = new JPanel();
+        myMapBox.setPreferredSize(size);
+        
+        return myMapBox;
+    }
+    
+    @Override
+    public void paintComponent(Graphics pen) {
+        super.paintComponent(pen);
+        paintMapBox(pen);
+    }
+    
+    private void paintMapBox (Graphics pen) {
+        myMapBox.setBackground(Color.RED);  
+          for (int i = 0; i < myMapBox.getWidth(); i += 25) {
+              pen.drawLine(i, 0, i, myMapBox.getHeight());
+          }
+          for (int j = 0; j < myMapBox.getHeight(); j += 25) {
+              pen.drawLine(0, j, myMapBox.getWidth(), j);
+          }
     }
 
     /**
