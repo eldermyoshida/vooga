@@ -6,6 +6,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import arcade.database.Database;
 import arcade.model.Model;
 import arcade.util.Pixmap;
 
@@ -33,6 +34,10 @@ public class GameInfo {
         myModel = model;
         // String filepath = FILEPATH + gamename + RESOURCE_DIR_NAME + language;
         myResourceBundle = ResourceBundle.getBundle(filepath);
+    }
+
+    public GameInfo (String name, String myLanguage, Database myDb) {
+        // TODO Auto-generated constructor stub
     }
 
     public Pixmap getThumbnail () {
