@@ -37,7 +37,6 @@ public class OneVOneController extends LevelController {
                                    delegate, gameinfo);
     }
 
-    @Override
     public void notifyEndCondition (String endCondition) {
     	removeListener();
     	getManager().notifyEndCondition(NEXT);

@@ -8,6 +8,8 @@ import vooga.fighter.model.objects.CharacterObject;
 import vooga.fighter.model.objects.EnvironmentObject;
 import vooga.fighter.model.objects.GameObject;
 import vooga.fighter.model.objects.MapObject;
+import vooga.fighter.model.objects.MenuObject;
+import vooga.fighter.model.objects.MouseClickObject;
 
 /**
  * Detects collisions between all the game objects. Collision handling is achieved
@@ -130,5 +132,24 @@ public class CollisionManager {
      */
     public void collide(EnvironmentObject o1, CharacterObject o2) {
         System.out.println("CollisionManager: EnvironmentObject and CharacterObject collided!");
+    }
+    
+    /**
+     * Handles collisions between a Menu object and an MouseClick object.
+     */
+    public void collide(MenuObject o1, MouseClickObject o2) {
+        o1.tellDelegate();
+    }
+    
+    /**
+     * Handles collisions between an MouseClick object and a Menu object.
+     */
+    public void collide(MouseClickObject o1, MenuObject o2) {
+        o2.tellDelegate();
+    }
+    /**
+     * Handles collisions between an MouseClick object and MouseClick object...
+     */
+    public void collide(MouseClickObject o1, MouseClickObject o2) {
     }
 }

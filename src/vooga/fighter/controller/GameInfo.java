@@ -22,8 +22,9 @@ public class GameInfo extends UserGameData{
     private List<String> myMapsPlayed;
     private List<String> myMapNames;
     private HighScores myHighScores;
+    private List<String> myWinners;
 
-    /**
+	/**
      * Constructor
      */
     public GameInfo (List<String> mapNames) {
@@ -181,4 +182,12 @@ public class GameInfo extends UserGameData{
     public HighScores getHighScores(){
     	return myHighScores;
     }
+    
+    public List<String> getWinners() {
+		return myWinners;
+	}
+
+	public void setWinners(List<String> myWinners) {
+		myWinners = myWinners;
+	}
 }

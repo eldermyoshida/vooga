@@ -3,7 +3,6 @@ package vooga.fighter.model;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
-import vooga.fighter.controller.ModelDelegate;
 import vooga.fighter.model.objects.CharacterObject;
 import vooga.fighter.model.objects.GameObject;
 import vooga.fighter.model.utils.ImageDataObject;
@@ -20,23 +19,18 @@ public abstract class Mode {
 	private static final String NEXT = "Next";
     private List<GameObject> myObjects;
     private long myId;
-    private ModelDelegate myModelDelegate;
     private CollisionManager myCollisionManager;
 
     /**
      * Constructs a new Mode.
      */
-    public Mode(ModelDelegate md) {
+    public Mode() {
         myObjects = new ArrayList<GameObject>();
         myCollisionManager = new CollisionManager();
-        setModelDelegate(md);
     }    
     /**
      * Sets the controller delegate for this mode.
      */
-    public void setModelDelegate(ModelDelegate md) {
-        myModelDelegate = md;
-    }
     
     /**
     * Returns the id of the mode.
@@ -66,13 +60,6 @@ public abstract class Mode {
         myObjects.remove(object);
     }
 
-    /**
-    * Notifies the subcontroller that the mode should terminate. Specific rules
-    * for when the mode should be terminated are implemented in subclasses.
-   */
-   public void signalTermination(String Winner) {
-       myModelDelegate.notifyEndCondition(Winner);
-    }
    
     /**
      * Handles collisions between objects in this mode. Collision checking is

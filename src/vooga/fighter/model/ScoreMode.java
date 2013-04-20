@@ -41,7 +41,7 @@ public class ScoreMode extends Mode {
 
     @Override
     public void initializeMode () {
-        myMenuGrid = new MenuGrid(myMenuId, myDelegate);
+        myMenuGrid = new MenuGrid(myMenuId, this);
         myMenuObjects = myMenuGrid.getMenuObjects();
         for (MenuObject menu : myMenuObjects) {
             addObject(menu);

@@ -68,6 +68,15 @@ public class MapSelectController extends MenuController {
     	super.removeListener();
     	getInput().removeListener(this);
     }
+   
+    public void checkConditions(){
+    	String choice = getMode().getChoice();
+    	for(String other: getMode().getMenuNames()){
+        	if(other.equals(choice)){
+        		notifyEndCondition(choice);
+        	}
+    	}
+    }
 
 }
 

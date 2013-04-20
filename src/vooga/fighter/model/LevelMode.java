@@ -3,7 +3,8 @@ package vooga.fighter.model;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
-import vooga.fighter.controller.ModelDelegate;
+
+import vooga.fighter.controller.ModeCondition;
 import vooga.fighter.model.loaders.MapLoader;
 import vooga.fighter.model.objects.AttackObject;
 import vooga.fighter.model.objects.CharacterObject;
@@ -31,9 +32,10 @@ public class LevelMode extends Mode {
     private List<Double> myScores;
     private String myMapName;
     private MapObject myMap;
+    private List<ModeCondition> myModeConditions;
 
-    public LevelMode(ModelDelegate cd, List<String> charNames, String mapName) {
-        super(cd);
+    public LevelMode(List<String> charNames, String mapName) {
+        super();
         myStartLocations = new ArrayList<UpdatableLocation>();
         myCharacterObjects = new ArrayList<CharacterObject>();
         myHealthStats = new ArrayList<Health>();
@@ -78,7 +80,6 @@ public class LevelMode extends Mode {
             GameObject object = myObjects.get(i);
             object.updateState();
         }
-        winningConditions();
     }
 
     /**
@@ -159,14 +160,11 @@ public class LevelMode extends Mode {
 //        return myScores;
 //       
 //    }
-    private void winningConditions(){
-    	for (int i = 0; i < myCharacterObjects.size(); i++) {
-    		if(myCharacterObjects.get(i).getLocation().getLocation().getX()<0){
-    			signalTermination("Ryu");
-    		}
+    
+    public void addConditions(ModeCondition ... conditions){
+    	for(ModeCondition condition: conditions){
+    		myModeConditions.add(condition);
     	}
     }
-    
-    
 
 }

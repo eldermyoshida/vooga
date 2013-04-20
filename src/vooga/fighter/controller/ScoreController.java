@@ -63,7 +63,7 @@ public class ScoreController extends MenuController {
 
     @Override
     public Controller getController (ControllerDelegate delegate, GameInfo gameinfo) {
-        return new MainMenuController(super.getName(), super.getView(),
+        return new ScoreController(super.getName(), super.getView(),
                                    delegate, gameinfo);
     }
 

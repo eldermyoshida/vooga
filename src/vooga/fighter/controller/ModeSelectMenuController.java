@@ -54,7 +54,7 @@ public class ModeSelectMenuController extends MenuController {
     	}
     	else { //if(getMode().getMenuNames().contains(choice)){
     		getGameInfo().setGameMode(choice);
-    		getGameInfo().setNumCharacters(2);//Integer.parseInt(myResources.getString(choice)));
+    		getGameInfo().setNumCharacters(Integer.parseInt(myResources.getString(choice)));
     		getManager().notifyEndCondition(NEXT);
     		}
     	}
@@ -75,4 +75,14 @@ public class ModeSelectMenuController extends MenuController {
     	super.removeListener();
     	getInput().removeListener(this);
     }
+    
+    public void checkConditions(){
+    	String choice = getMode().getChoice();
+    	for(String other: getMode().getMenuNames()){
+        	if(other.equals(choice)){
+        		notifyEndCondition(choice);
+        	}
+    	}
+    }
+    
 }

@@ -1,7 +1,7 @@
 package vooga.fighter.model.objects;
 
 import java.util.Collection;
-import vooga.fighter.controller.ModelDelegate;
+import vooga.fighter.model.MenuMode;
 import vooga.fighter.model.loaders.MenuLoader;
 import vooga.fighter.model.utils.State;
 
@@ -9,9 +9,9 @@ import vooga.fighter.model.utils.State;
 public class MenuObject extends GameObject {
 
     private String myChoice;
-    ModelDelegate myDelegate;
+    MenuMode myDelegate;
 
-    public MenuObject (String choice, ModelDelegate delegate) {
+    public MenuObject (String choice, MenuMode delegate) {
         setLoader(new MenuLoader(choice, this));
         myDelegate = delegate;
         myChoice = choice;
@@ -37,7 +37,7 @@ public class MenuObject extends GameObject {
     
     public void tellDelegate(){
         System.out.println("<MenuObject.java><telldelegate> telling delegate");
-    	myDelegate.notifyEndCondition(myChoice);
+    	myDelegate.setChoice(myChoice);
     }
     @Override
     public void dispatchCollision (GameObject other) {
