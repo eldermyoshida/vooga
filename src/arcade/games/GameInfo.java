@@ -63,27 +63,13 @@ public class GameInfo {
     	return myDb.getgetGameDescription(gameID);
     }
     
-    /*
-	public Pixmap getThumbnail () {
-        return new Pixmap(myResourceBundle.getString(THUMBNAIL_NAME));
+    public Pixmap getAdScren() {
+    	return new Pixmap(myDb.getGameAdScreen(gameID));
     }
-
-    public String getName () {
-        return myResourceBundle.getString(GAME_NAME);
+    
+    public double getRating() {
+    	return myModel.getAverageRating(getName());
     }
-
-    public String getDescription () {
-        return myResourceBundle.getString(DESCRIPTION_KEYWORD);
-    }
-
-    public Pixmap getAdScreen () {
-        return new Pixmap(myResourceBundle.getString(AD_SCREEN));
-    }
-
-    public double getRating () {
-        return myModel.getAverageRating(myResourceBundle.getString(GAME_NAME));
-    }
-    */
 
     public List<String[]> getComments () {
         List<String[]> comments = new ArrayList<String[]>();
