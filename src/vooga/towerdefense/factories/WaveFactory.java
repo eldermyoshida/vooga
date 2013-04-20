@@ -6,24 +6,24 @@ import java.util.List;
 import vooga.towerdefense.gameElements.Unit;
 import vooga.towerdefense.gameElements.Wave;
 import vooga.towerdefense.model.GameMap;
-import vooga.towerdefense.model.Tile;
+import vooga.towerdefense.model.tiles.Tile;
 import vooga.towerdefense.util.Location;
 
 public class WaveFactory {
 
-	private final static double DEFAULT_SPAWN_DELAY = 500;
+	private final static double DEFAULT_SPAWN_DELAY = 300;
 	private final static double DEFAULT_DURATION = 1000 * 90;
 
 	public static Wave createWave(UnitFactory unitFactory, int numUnits,
-			GameMap gameMap, Tile spawnTile, double spawnDelay,
-			double duration) {
+			GameMap gameMap, Tile spawnTile, double spawnDelay, double duration) {
 
 		Location spawnLocation = new Location(spawnTile.getCenter().getX(),
 				spawnTile.getCenter().getY());
 		List<Unit> units = new ArrayList<Unit>();
-		for (int i = 0; i < numUnits; i++)
+		for (int i = 0; i < numUnits; i++) {
+			System.out.println("added another unit to spawn");
 			units.add(unitFactory.createUnit(spawnLocation));
-
+		}
 		return new Wave(gameMap, units, spawnTile, spawnDelay, duration);
 
 	}

@@ -17,7 +17,7 @@ import vooga.towerdefense.factories.ProjectileFactory;
  * 
  * @author Matthew Roy
  * @author XuRui
- * 
+ * @author Zhen Gou
  */
 public class AttributeManager {
     private HashMap<String,Attribute> myAttributes;
@@ -35,12 +35,19 @@ public class AttributeManager {
      * @param attributes
      */
     public AttributeManager (HashSet<Attribute> attributes) {
-        myAttributes = new HashMap<String, Attribute>();
-        myFactories = new HashMap<String, GameElementFactory>();
+    	new AttributeManager();
         for (Attribute a : attributes) {
             myAttributes.put(a.getName(), a);
         }        
     }
+    /**
+     * currently the update will reset all attribute's temporary buff. So this method should
+     * be called before executing actions.
+     */
+    public void update(){
+    	resetAllAttributesTemporaryBuff();
+    }
+    
 
     /**
      * Returns stats information requested by View components.
@@ -91,17 +98,21 @@ public class AttributeManager {
      * Resets all attributes to default values
      */
     
-    public void resetAll(){
-    	
+    public void resetAllAttributes(){
+    	for (Attribute attr:myAttributes.values()){
+    		attr.reset();
+    	}
     }
     
     /**
-     * Reset attribute to default value.
+     * reset buff value of all attributes
      */
-    
-    public void reset(Attribute attribute){
-    	
+    public void resetAllAttributesTemporaryBuff(){
+    	for (Attribute attr: myAttributes.values()){
+    		attr.resetBuffValue();
+    	}
     }
+    
 
     public GameElementFactory getGameElementFactories(String name){
     	return myFactories.get(name);
@@ -110,7 +121,10 @@ public class AttributeManager {
     public ProjectileFactory getProjectileFactory(){
     	return myProjectileFactory;
     }
-
+    
+    public void setProjectileFactory(ProjectileFactory projectileFactory){
+    	myProjectileFactory=projectileFactory;
+    }
 
 }
 
