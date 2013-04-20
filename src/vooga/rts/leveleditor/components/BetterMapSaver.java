@@ -54,7 +54,7 @@ public class BetterMapSaver {
         
         appendInfo(root);
         appendResourceInfo(root);
-        appendGraphic(root);
+        appendTile(root);
         appendTerrain(root);
         appendResource(root);
         
@@ -151,16 +151,70 @@ public class BetterMapSaver {
         
     }
     
-    private void appendGraphic(Element root) {
+    private void appendTile(Element root) {
+        Element tile = myDocument.createElement("tiles");
+        
+        int x = mySavingMap.getMyXSize();
+        int y = mySavingMap.getMyYSize();
+        
+        for(int i= 0 ; i < x ; i++) {
+            for(int j = 0; j<y ; j++) {
+                Tile bufferTile = mySavingMap.getMapNode(i, j).getMyTile();
+                Element currentTile = myDocument.createElement("tile"); 
+                currentTile.setAttribute("ID", bufferTile.getMyID()+"");
+                tile.appendChild(currentTile);
+            }
+        }
+        
+        root.appendChild(tile);
         
     }
 
     private void appendTerrain(Element root) {
+        Element terrains = myDocument.createElement("terrains");
+        
+        int layerCount = mySavingMap.getLayerNumber();
+        
+        for(int i = 1 ; i < layerCount+1 ; i++) {
+            
+            Element layer = myDocument.createElement("layer");
+            layer.setAttribute("level", i+"");
+            
+            
+            for(Terrain ter : mySavingMap.getLayer(i).getTerrainSet()) {
+                
+                int ID = ter.getMyID();
+                int x = ter.getMyX();
+                int y = ter.getMyY();
+                Element newTerrain =  myDocument.createElement("terrain");
+                newTerrain.setAttribute("ID", ID+"");
+                newTerrain.setAttribute("X", x+"");
+                newTerrain.setAttribute("Y", y+"");
+                layer.appendChild(newTerrain);
+            }
+            terrains.appendChild(layer);
+        }
+        
+        root.appendChild(terrains);
         
     }
    
     private void appendResource(Element root) {
+        Element resources = myDocument.createElement("Resources");
         
+        for(Resource res : mySavingMap.getResourceSet()) {
+            
+            int ID = res.getMyID();
+            int x = res.getMyX();
+            int y = res.getMyY();
+            Element newTerrain =  myDocument.createElement("resource");
+            newTerrain.setAttribute("ID", ID+"");
+            newTerrain.setAttribute("X", x+"");
+            newTerrain.setAttribute("Y", y+"");
+            resources.appendChild(newTerrain);
+        }
+        
+        root.appendChild(resources);
     }
 
 

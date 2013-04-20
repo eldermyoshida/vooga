@@ -30,4 +30,122 @@
 <terrain ID="1" iamge="Terrain1.jpg" name="Terrain1" walkAbility="4"/>
 </terraintype>
 </Resourceinfo>
+<tiles>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="1"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="2"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="3"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+</tiles>
+<terrains>
+<layer level="1">
+<terrain ID="3" X="4" Y="4"/>
+</layer>
+<layer level="2">
+<terrain ID="2" X="3" Y="3"/>
+</layer>
+<layer level="3">
+<terrain ID="1" X="2" Y="2"/>
+</layer>
+</terrains>
+<Resources>
+<resource ID="1" X="7" Y="7"/>
+<resource ID="2" X="8" Y="8"/>
+<resource ID="3" X="9" Y="9"/>
+</Resources>
 </Map>
