@@ -112,9 +112,13 @@ public class Attribute {
 	 * paints a bar representing this attribute
 	 */
 	public void paint (Graphics2D pen, Location where, Dimension size) {
-		pen.setColor(Color.green);
+		pen.setColor(Color.red);
 		//THIS IS VERY SPECIFIC FOR TESTING, WE WILL FIGURE OUT BETTER WAY TO FIT THE BAR
-		pen.fillRect((int)where.getX(), (int)where.getY()-size.height/2, (int)(size.getWidth()/2.5), (int)size.getHeight()/10);
+		pen.fillRect((int)where.getX(), (int)where.getY()-size.height/2, (int)(size.getWidth()*(getValue()/getOriginalValue())), (int)size.getHeight()/10);
+	}
+	
+	public double getOriginalValue() {
+	    return myOriginalValue;
 	}
 
 	/**
@@ -132,7 +136,6 @@ public class Attribute {
 	public void reset() {
 		myCurrentValue=myOriginalValue;
 		resetBuffValue();
-		
 	}
 	/**
 	 * reset buff value to 0;

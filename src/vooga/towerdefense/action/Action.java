@@ -25,12 +25,10 @@ public abstract class Action {
     public Action () {
         myFollowUpActions = new ArrayList<Action>();
         myTargets = new ArrayList<GameElement>();
+        enabled = true;
     }
 
     public void initAction () {
-        enabled = true;
-        myFollowUpActions = new ArrayList<Action>();
-        // initialize resources
     }
     
     /**
@@ -53,6 +51,10 @@ public abstract class Action {
     	myFollowUpActions.add(action);
     }
     
+    public void addFollowUpActions(List<Action> action){
+        myFollowUpActions.addAll(action);
+    }
+    
     public List<Action> getFollowUpAction(){
     	return myFollowUpActions;
     }
@@ -63,6 +65,11 @@ public abstract class Action {
 
     public void markComplete () {
         complete = true;
+    }
+    
+    public boolean toggleEnabled () {
+        enabled = !enabled;
+        return enabled;
     }
 
 
