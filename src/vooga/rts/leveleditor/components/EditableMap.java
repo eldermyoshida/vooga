@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
+import org.xml.sax.SAXException;
 import vooga.rts.leveleditor.gui.MapPanel;
 import vooga.rts.util.Location;
 
@@ -45,8 +46,8 @@ public class EditableMap implements Serializable {
     private Map<Integer, Location> myPlayerLocations;
     private int myPlayerNumber;
 
-    private MapSaver mySaver;
-    private MapLoader myLoader;
+    private BetterMapSaver mySaver;
+    private BetterMapLoader myLoader;
 
     public EditableMap (int x, int y, int nodeX, int nodeY) {
 
@@ -78,13 +79,15 @@ public class EditableMap implements Serializable {
         myResource = new ArrayList<Resource>();
 
 
-        try {
-            mySaver = new MapSaver(this);
-        }
-        catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+            try {
+                mySaver = new BetterMapSaver(this);
+                myLoader = new BetterMapLoader(this);
+            }
+            catch (ParserConfigurationException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            
 
     }
 
@@ -142,13 +145,19 @@ public class EditableMap implements Serializable {
     }
 
     public void load (File resourceFile) {
+        
         try {
             myLoader.loadMapFile(resourceFile);
         }
-        catch (FileNotFoundException e) {
+        catch (SAXException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        catch (IOException e) {
+           // TODO Auto-generated catch block
+           e.printStackTrace();
+        }
+          
     }
 
     public void load (String filePath) {
@@ -160,10 +169,15 @@ public class EditableMap implements Serializable {
         try {
             mySaver.generateMapFile(objectiveFile);
         }
+        catch (TransformerException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        
     }
 
     public void save (String filePath) {

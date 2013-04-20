@@ -1,7 +1,7 @@
 package vooga.rts.leveleditor.components;
 
 import java.io.File;
-import java.io.FileNotFoundException;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ResourceBundle;
@@ -74,7 +74,7 @@ public class BetterMapSaver {
     }
 
     private void appendInfo(Element root) {
-        Element info = myDocument.createElement("Info");
+        Element info = myDocument.createElement("MapInfo");
         Element name = myDocument.createElement("Name");
         name.appendChild(myDocument.createTextNode(mySavingMap.getMyMapName()));
         info.appendChild(name);
@@ -103,9 +103,9 @@ public class BetterMapSaver {
     
     private void appendResourceInfo(Element root) {
         Element resourceInfo = myDocument.createElement("Resourceinfo");
-        Element sizeInfo = myDocument.createElement("Info");
-        Element tileIndex = myDocument.createElement("tiletype");
-        Element terrainIndex = myDocument.createElement("terraintype");
+        Element sizeInfo = myDocument.createElement("SizeInfo");
+        Element tileIndex = myDocument.createElement("tileindex");
+        Element terrainIndex = myDocument.createElement("terrainindex");
         
         Element tileSize = myDocument.createElement("tilesize");
         tileSize.setAttribute("width", mySavingMap.getMapNode(0, 0).getMyWidth()+"");
@@ -113,8 +113,8 @@ public class BetterMapSaver {
         sizeInfo.appendChild(tileSize);
         
         Element tileAmount = myDocument.createElement("tileamount");
-        tileSize.setAttribute("X", mySavingMap.getMyXSize()+"");
-        tileSize.setAttribute("Y", mySavingMap.getMyYSize()+"");
+        tileAmount.setAttribute("X", mySavingMap.getMyXSize()+"");
+        tileAmount.setAttribute("Y", mySavingMap.getMyYSize()+"");
         sizeInfo.appendChild(tileAmount);
         
         for(String str : myTileResources.keySet()) {
@@ -122,9 +122,9 @@ public class BetterMapSaver {
             String[] content = value.split("&");
             String name = content[0];
             String imagePath = content[1];
-            Element newTile =  myDocument.createElement("tile");
+            Element newTile =  myDocument.createElement("tiletype");
             newTile.setAttribute("ID", str);
-            newTile.setAttribute("iamge", imagePath);
+            newTile.setAttribute("image", imagePath);
             newTile.setAttribute("name", name);
             tileIndex.appendChild(newTile);
         }
@@ -135,9 +135,9 @@ public class BetterMapSaver {
             String name = content[0];
             String imagePath = content[1];
             String walkAbility = content[2];
-            Element newTerrain =  myDocument.createElement("terrain");
+            Element newTerrain =  myDocument.createElement("terraintype");
             newTerrain.setAttribute("ID", str);
-            newTerrain.setAttribute("iamge", imagePath);
+            newTerrain.setAttribute("image", imagePath);
             newTerrain.setAttribute("name", name);
             newTerrain.setAttribute("walkAbility", walkAbility);
             terrainIndex.appendChild(newTerrain);
