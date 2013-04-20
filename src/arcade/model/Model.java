@@ -91,8 +91,13 @@ public class Model implements ArcadeInteraction {
     private String formatClassFilePath (String path) {
         //split on file extension 
         String[] split = path.split(".");
-        // take everything before file extension
-        path = split[0];
+        // take everything before file extension and after src to get java relative filepath.
+        List<String> list = Arrays.asList(split);
+        if (list.contains("src")){
+            // this means you got the absolute file path, so you need to 
+            // get java relative file path (i.e. after src/ )
+            path = split[0].split("src")[1];
+        }
         split = path.split("/");
         String ret = "";
         for (String str : split) {
@@ -209,7 +214,7 @@ public class Model implements ArcadeInteraction {
 
     @Override
     public User getUser () {
-        // TODO get the user's avatar, figure out how we are implementing user infor for games
+        // TODO get the user's avatar, figure out how we are implementing user info for games
         return null;
     }
 
@@ -226,7 +231,7 @@ public class Model implements ArcadeInteraction {
 
     @Override
     public void killGame () {
-        // save the usergamedata and game data if applicable, and return to detail screen
+         // save the usergamedata and game data if applicable, and return to detail screen
 
     }
 
