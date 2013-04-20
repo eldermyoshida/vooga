@@ -1,6 +1,7 @@
 package vooga.towerdefense.gameeditor;
 
 import java.awt.Dimension;
+import java.awt.event.MouseEvent;
 
 /**
  * ViewEditorScreen is responsible for helping
@@ -41,5 +42,16 @@ public class ViewEditorScreen extends GameEditorScreen {
         // TODO: get rid of this magic number 
         getController().setMapSize(new Dimension (500, 600));
         getController().addViewToGame();
+    }
+
+    /**
+     * adds additional mouse behavior specific
+     *          to the ViewEditorScreen.
+     * @param e is the MouseEvent
+     */
+    @Override
+    public void addAdditionalMouseBehavior (MouseEvent e) {
+        // TODO Auto-generated method stub
+        
     }
 }

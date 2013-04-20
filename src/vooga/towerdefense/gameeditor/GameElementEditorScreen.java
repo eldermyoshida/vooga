@@ -66,7 +66,7 @@ public abstract class GameElementEditorScreen extends GameEditorScreen {
     /**
      * constant for the attributes delete button.
      */
-    private static final String ATTRIBUTE_DELETE_BUTTON_TEXT = "Clear selected action";
+    private static final String ATTRIBUTE_DELETE_BUTTON_TEXT = "Clear selected attribute";
     /**
      * constant for the action section title.
      */
@@ -87,10 +87,6 @@ public abstract class GameElementEditorScreen extends GameEditorScreen {
      * used to choose file in the directory.
      */
     private JFileChooser myFileChooser;
-    /**
-     * mouse listener for this screen.
-     */
-    private MouseAdapter myMouseAdapter;
     /**
      * box to enter the name of the tower.
      */
@@ -149,7 +145,6 @@ public abstract class GameElementEditorScreen extends GameEditorScreen {
     public GameElementEditorScreen(Dimension size, GameEditorController controller, String title, String nextScreen) {
         super(size, controller, title, nextScreen);
         myFileChooser = new JFileChooser(System.getProperties().getProperty(USER_DIR));
-        myMouseAdapter = makeSpecificMouseAdapter();
         makeScreen();
     }
     
@@ -200,7 +195,7 @@ public abstract class GameElementEditorScreen extends GameEditorScreen {
         myNameBox = new JTextField(TEXT_AREA_WIDTH);
         myImageBox = new JTextField(TEXT_AREA_WIDTH);
         myImageSelector = new JButton(IMAGE_SELECTOR_KEYWORD);
-        myImageSelector.addMouseListener(myMouseAdapter);
+        myImageSelector.addMouseListener(getMouseAdapter());
         characteristicsPanel.add(new JLabel("Name: "));
         characteristicsPanel.add(myNameBox);
         characteristicsPanel.add(new JLabel("Image: "));
@@ -228,11 +223,11 @@ public abstract class GameElementEditorScreen extends GameEditorScreen {
         myActionsSelected = new JTextArea(TEXT_AREA_WIDTH, TEXT_AREA_HEIGHT);
         actionSection.add(new JScrollPane(myActionsSelected), BorderLayout.CENTER);
         myAddActionButton = new JButton(ACTION_ADD_BUTTON_TEXT);
-        myAddActionButton.addMouseListener(myMouseAdapter);
+        myAddActionButton.addMouseListener(getMouseAdapter());
         JPanel optionsSubPanel = new JPanel(new BorderLayout());
         optionsSubPanel.add(myAddActionButton, BorderLayout.NORTH);
         myDeleteActionButton = new JButton(ACTION_DELETE_BUTTON_TEXT);
-        myDeleteActionButton.addMouseListener(myMouseAdapter);
+        myDeleteActionButton.addMouseListener(getMouseAdapter());
         optionsSubPanel.add(myDeleteActionButton, BorderLayout.SOUTH);
         JPanel eastSide = new JPanel(new BorderLayout());
         eastSide.add(optionsSubPanel, BorderLayout.NORTH);
@@ -263,10 +258,10 @@ public abstract class GameElementEditorScreen extends GameEditorScreen {
         attributesSection.add(new JScrollPane(myAttributesSelected), BorderLayout.CENTER);
         JPanel optionsSubPanel2 = new JPanel(new BorderLayout());
         myAddAttributeButton = new JButton(ATTRIBUTES_ADD_BUTTON_TEXT);
-        myAddAttributeButton.addMouseListener(myMouseAdapter);
+        myAddAttributeButton.addMouseListener(getMouseAdapter());
         optionsSubPanel2.add(myAddAttributeButton, BorderLayout.NORTH);
         myDeleteAttributeButton = new JButton(ATTRIBUTE_DELETE_BUTTON_TEXT);
-        myDeleteAttributeButton.addMouseListener(myMouseAdapter);
+        myDeleteAttributeButton.addMouseListener(getMouseAdapter());
         optionsSubPanel2.add(myDeleteAttributeButton, BorderLayout.SOUTH);
         JPanel eastSide = new JPanel(new BorderLayout());
         eastSide.add(optionsSubPanel2, BorderLayout.NORTH);
@@ -309,38 +304,34 @@ public abstract class GameElementEditorScreen extends GameEditorScreen {
     }
 
     /**
-     * helper method to create the mouse listener.
+     * adds additional mouse behavior specific to this screen.
      * @return mouse adapter
      */
-    private MouseAdapter makeSpecificMouseAdapter() {
-        MouseAdapter mouseAdapter = new MouseAdapter() {
-            @Override
-            public void mouseClicked (MouseEvent e) {
-                if (e.getSource().equals(myImageSelector)) {
-                    int response = myFileChooser.showOpenDialog(null);
-                    if (response == JFileChooser.APPROVE_OPTION) {
-                        File file =  myFileChooser.getSelectedFile();
-                        String path = file.getPath().replace("%20", " ");
-                        myImageBox.setText(path);
-                    }
-                }
-                else if (e.getSource().equals(myAddAttributeButton)) {
-                    myAttributesSelected.setText(myAttributesSelected.getText() + "\n"
-                                                 + myAttributesBox.getSelectedItem().toString()
-                                                 + " = " + myAttributeValue.getText());
-                }
-                else if (e.getSource().equals(myAddActionButton)) {
-                    myActionsSelected.setText(myActionsSelected.getText() + "\n"
-                            + myActionsBox.getSelectedItem().toString());   
-                }
-                else if (e.getSource().equals(myDeleteAttributeButton)) {
-                    myAttributesSelected.replaceSelection("");
-                }
-                else if (e.getSource().equals(myDeleteActionButton)) {
-                    myActionsSelected.replaceSelection("");
-                }
+    @Override
+    public void addAdditionalMouseBehavior(MouseEvent e) {
+        if (e.getSource().equals(myImageSelector)) {
+            int response = myFileChooser.showOpenDialog(null);
+            if (response == JFileChooser.APPROVE_OPTION) {
+                File file =  myFileChooser.getSelectedFile();
+                String path = file.getPath().replace("%20", " ");
+                myImageBox.setText(path);
             }
-        };
-        return mouseAdapter;
+        }
+        else if (e.getSource().equals(myAddAttributeButton)) {
+            myAttributesSelected.setText(myAttributesSelected.getText() + "\n"
+                    + myAttributesBox.getSelectedItem().toString()
+                    + " = " + myAttributeValue.getText());
+        }
+        else if (e.getSource().equals(myAddActionButton)) {
+            myActionsSelected.setText(myActionsSelected.getText() + "\n"
+                    + myActionsBox.getSelectedItem().toString());   
+        }
+        else if (e.getSource().equals(myDeleteAttributeButton)) {
+            myAttributesSelected.replaceSelection("");
+        }
+        else if (e.getSource().equals(myDeleteActionButton)) {
+            myActionsSelected.replaceSelection("");
+        }
     }
 }
+

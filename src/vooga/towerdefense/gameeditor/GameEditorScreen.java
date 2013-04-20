@@ -77,6 +77,14 @@ public abstract class GameEditorScreen extends JPanel {
     }
     
     /**
+     * gets the associated mouse listener.
+     * @return the MouseAdapter
+     */
+    public MouseAdapter getMouseAdapter() {
+        return myMouseAdapter;
+    }
+    
+    /**
      * helper method to make common buttons.
      */
     private void addButtons() {
@@ -141,6 +149,7 @@ public abstract class GameEditorScreen extends JPanel {
                         e1.printStackTrace();
                     }
                 }
+                addAdditionalMouseBehavior(e);
             }
         };
         return myMouseAdapter;
@@ -151,4 +160,10 @@ public abstract class GameEditorScreen extends JPanel {
      * will be implemented by the sub-classes
      */
     public abstract void addElementToGame();
+    
+    /**
+     * adds any additional mouse behavior.
+     * will be implemented by the sub-classes
+     */
+    public abstract void addAdditionalMouseBehavior(MouseEvent e);
 }

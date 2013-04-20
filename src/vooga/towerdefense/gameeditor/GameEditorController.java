@@ -4,7 +4,11 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JFrame;
+import vooga.towerdefense.gameElements.Unit;
+import vooga.towerdefense.gameElements.Wave;
 
 /**
  * Controls the game editor.
@@ -21,6 +25,8 @@ public class GameEditorController extends JFrame {
     private static final Dimension SIZE = new Dimension(700, 700);
     private Dimension mySize;
     private Dimension myMapSize;
+    private List<Unit> myCreatedUnits;
+    private List<Wave> myCreatedWaves;
     
     /**
      * Constructor.
@@ -28,6 +34,8 @@ public class GameEditorController extends JFrame {
      */
     public GameEditorController(Dimension size) {
         this.setTitle(TITLE_KEYWORD);
+        myCreatedUnits = new ArrayList<Unit>();
+        myCreatedWaves = new ArrayList<Wave>();
         mySize = size;
         setSize(mySize);
         setPreferredSize(mySize);
@@ -75,7 +83,24 @@ public class GameEditorController extends JFrame {
      */
     public void addUnitToGame() {
         //TODO: implement
-        System.out.println("added unit to game");         
+        System.out.println("added unit to game");
+        //update myCreatedUnits to contain the new unit
+    }
+    
+    /**
+     * gets the list of already created units.
+     * @return a list of units
+     */
+    public List<Unit> getUnits() {
+        return myCreatedUnits;
+    }
+    
+    /**
+     * gets the list of already created waves.
+     * @return a list of units
+     */
+    public List<Wave> getWaves() {
+        return myCreatedWaves;
     }
     
     /**
