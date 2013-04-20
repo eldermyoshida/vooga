@@ -12,6 +12,7 @@ import vooga.scroller.level_management.LevelManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.animation.Animation;
 import vooga.scroller.sprites.animation.MovingSpriteAnimationFactory;
+import vooga.scroller.sprites.interfaces.IPlayer;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.sprites.test_sprites.mario.Mario;
 import vooga.scroller.view.GameView;
@@ -58,40 +59,45 @@ public class Model {
      * @param myScrollingManager used to control in-game scrolling.
      */
     public Model (GameView gameView, ScrollingManager sm, Level ...levels) {
-        myScrollingManager = sm;
         myView = gameView;
-        
-        initPlayer();
-        
-        myScrollingManager.initModel(this);
-        myScrollingManager.initView(gameView);
-        
-        myLevelManager = new LevelManager(myScrollingManager, myView, levels);
+        setScrollingManager(sm);
+        myPlayer = initPlayer();
+        myLevelManager = initializeLevelManager(levels);
         myLevelManager.getCurrentLevel().addPlayer(myPlayer);
-
-//        myLevelManager.setCurrentLevel(DEFAULT_START_LEVEL_ID);
         
-        mySecretary = new Secretary();
-        generateVisitMethods(spriteStrings);  
+//        mySecretary = new Secretary();
+//        generateVisitMethods(spriteStrings);  
     }
     
+    
+    private LevelManager initializeLevelManager (Level[] levels) {
+        return new LevelManager(myScrollingManager, myView, levels);
+    }
+
+
     //TODO - refactor
     public Model (GameView gameView, ScrollingManager sm, String... levelFileNames) {
-        myScrollingManager = sm;
         myView = gameView;
-        
-        initPlayer();
-        
-        myScrollingManager.initModel(this);
-        myScrollingManager.initView(gameView);
-        
-        myLevelManager = new LevelManager(myScrollingManager, myView, levelFileNames);
+        setScrollingManager(sm);
+        myPlayer = initPlayer();
+        myLevelManager = initializeLevelManager(levelFileNames);
         myLevelManager.getCurrentLevel().addPlayer(myPlayer);
 
 //        myLevelManager.setCurrentLevel(DEFAULT_START_LEVEL_ID);
         
-        mySecretary = new Secretary();
-        generateVisitMethods(spriteStrings);  
+//        mySecretary = new Secretary();
+//        generateVisitMethods(spriteStrings);  
+    }
+    
+    private LevelManager initializeLevelManager (String[] levelFileNames) {
+        return new LevelManager(myScrollingManager, myView, levelFileNames);
+    }
+
+
+    private void setScrollingManager(ScrollingManager sm) {
+        myScrollingManager = sm;
+        myScrollingManager.initModel(this);
+        myScrollingManager.initView(myView);
     }
 
 
@@ -99,19 +105,20 @@ public class Model {
     /**
      * User defined player initialization.
      */
-    private void initPlayer() {
+    private Player initPlayer() {
         // TODO: this is implemented by the developer. 
         
-        myPlayer = new Mario(
+        Player player = new Mario(
                              new Location(100, 140),
                              new Dimension(138/6, 276/6),
                              myView, myScrollingManager);
         
         MovingSpriteAnimationFactory msaf = new MovingSpriteAnimationFactory(PLAYER_IMAGES);
-        Animation playerAnimation = msaf.generateAnimation(myPlayer);
+        Animation playerAnimation = msaf.generateAnimation(player);
         
-        myPlayer.setView(playerAnimation);
+        player.setView(playerAnimation);
 
+        return player;
     }
 
     /**
