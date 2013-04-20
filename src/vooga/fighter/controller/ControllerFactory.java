@@ -4,6 +4,7 @@ package vooga.fighter.controller;
 
 
 
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Enumeration;
@@ -17,45 +18,61 @@ import vooga.fighter.view.Canvas;
 
 public class ControllerFactory {
 
-    private static final String ONE_V_ONE = "test";
-    private static final String MAIN_MENU = "MainMenu";
-    private static final String CHARACTER_SELECT = "CharacterSelectMenu";
-    private static final String MAP_SELECT = "MapSelectMenu";
-    private static final String MODE_SELECT = "ModeSelectMenu";
-    private static final String SCORE_CONTROLLER = "GameOver";
-
+    private static final String DEFAULT_RESOURCE_PACKAGE = "vooga.fighter.config.FightingManifesto";
+    private static final String PACKAGE_NAME = "vooga.fighter.controller.";
+    
     private Map<String, Controller> myControllerMap;
+    private List<Controller> myControllerList;
     private Canvas myCanvas;
-    private ResourceBundle myLevelResources;
-    private ResourceBundle myMenuResources;
-    private ResourceBundle myScoreResources;
+    private ResourceBundle myResources;
 
 
     public ControllerFactory(Canvas frame) {
-        myCanvas = frame;
         myControllerMap = new HashMap<String, Controller>();
-        setupControllerConfiguration(frame, myControllerMap);
+        myControllerList = new ArrayList<Controller>();
+        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE);
+        constructControllerList();
     } 
-
-    public Map getMap(){
-        return myControllerMap;
-    }
-
-    protected void setupControllerConfiguration(Canvas frame,  Map<String, Controller> controllermap) {
-                Controller controller = new OneVOneController(ONE_V_ONE, frame);
-                controllermap.put(controller.getName(), controller);
-                controller = new MainMenuController(MAIN_MENU, frame);
-                controllermap.put(controller.getName(), controller);
-                controller = new CharacterSelectController(CHARACTER_SELECT, frame);
-                controllermap.put(controller.getName(), controller);
-                controller = new MapSelectController(MAP_SELECT, frame);
-                controllermap.put(controller.getName(), controller);
-                controller = new ScoreController(SCORE_CONTROLLER, frame);
-                controllermap.put(controller.getName(), controller);
-                controller = new ModeSelectMenuController(MODE_SELECT, frame);
-                controllermap.put(controller.getName(), controller);
+    
+    public void constructControllerList() {
+        for (String controllerName : myResources.keySet()) {
+            myControllerList.add(createController(controllerName));
         }
     }
+    public Controller createController(String controllerName) {
+            Object controllerObject = null;
+            Controller controller = null;
+            try {
+                Class<?> controllerClass = null;
+                String filePath = PACKAGE_NAME + controllerName;
+                System.out.println(filePath);
+                controllerClass = Class.forName(filePath);
+                System.out.println("marker");
+                controllerObject = controllerClass.newInstance();
+                System.out.println("create object");
+                controller = (Controller) controllerObject;
+                System.out.println("create contorler");
+                controller.initializeName(myResources.getString(controllerName));
+                System.out.println(myResources.getString(controllerName));
+                controller.initializeName("MainMenu");
+                System.out.println(controller.getName());
+            }
+            catch (Exception e){
+                throw new NullPointerException("No such class");
+            }
+        return controller;
+    }
+    
+    public Map getMap() {
+        return myControllerMap;
+    }
+    
+    public List getList() {
+        return myControllerList;
+    }
+
+}    
+   
 
 
 

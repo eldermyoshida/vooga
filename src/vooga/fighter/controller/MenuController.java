@@ -30,13 +30,15 @@ public abstract class MenuController extends Controller {
 
     private static final String INPUT_PATHWAY = "vooga.fighter.config.menudefault";
 
-    public MenuController (String name, Canvas frame) {
-        super(name, frame);
+    public MenuController () {
+        super();
     }
-	
-    public MenuController(String name, Canvas frame, ControllerDelegate manager, 
+    
+    
+    @Override
+    public void initializeRest(Canvas frame, ControllerDelegate manager, 
     		GameInfo gameinfo) {
-    	super(name, frame, manager, gameinfo);
+    	super.initializeRest(frame, manager, gameinfo);
         setInput(manager.getInput());
         getInput().replaceMappingResourcePath(INPUT_PATHWAY);
         getInput().addListenerTo(this);

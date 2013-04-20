@@ -30,18 +30,18 @@ public class MainMenuController extends MenuController {
 	
     private ResourceBundle myResources;
     
-    public MainMenuController (String name, Canvas frame) {
-        super(name, frame);
+    public MainMenuController () {
+        super();
     }
-        
-    public MainMenuController(String name, Canvas frame, ControllerDelegate manager, 
-                GameInfo gameinfo) {
-        super(name, frame, manager, gameinfo);
+    
+    @Override
+    public void initializeRest(Canvas frame, ControllerDelegate manager, 
+                           GameInfo gameinfo) {
+        super.initializeRest(frame, manager, gameinfo);
 
         setInput(manager.getInput());
         getInput().addListenerTo(this);
 
-        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "LevelConfig");
     }
     /**
      * Checks this controller's end conditions
@@ -51,10 +51,8 @@ public class MainMenuController extends MenuController {
         getManager().notifyEndCondition(NEXT);
     }
 
-    @Override
-    public Controller getController (ControllerDelegate delegate, GameInfo gameinfo) {
-        return new MainMenuController(super.getName(), super.getView(),
-                                   delegate, gameinfo);
+    public Controller getController () {
+        return this;
     }
     
     @InputMethodTarget(name = "continue")

@@ -5,6 +5,7 @@ package vooga.fighter.controller;
 import java.awt.Dimension;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import util.input.Input;
@@ -19,6 +20,7 @@ public class ControllerManager implements ControllerDelegate{
         
        
 	private Map<String, Controller> myControllerMap;
+	private List<Controller> myControllerList;
 	private Controller myCurrentController;
 	private Canvas myCanvas;
 	private GameInfo myGameInfo;
@@ -30,12 +32,13 @@ public class ControllerManager implements ControllerDelegate{
 			ControlProgressionManager progressionmanager) {
 		myCanvas = frame;
 		myInput = new Input(INPUT_PATHWAY, myCanvas);
-		myControllerMap = factory.getMap();
+		//myControllerMap = factory.getMap();
+		myControllerList = factory.getList();
 		myGameInfo = gameinfo;
 		myProgressionManager = progressionmanager;
-		myCurrentController = myControllerMap.get(myProgressionManager.getFirstController())
-				.getController(this, myGameInfo);
-		
+		myProgressionManager.setControllerProgression(myControllerList);
+		myCurrentController = myProgressionManager.getController(0);
+		myCurrentController.initializeRest(frame, this, gameinfo);
 	}
 	
 	public void run(){
@@ -48,11 +51,10 @@ public class ControllerManager implements ControllerDelegate{
 
 	private void switchController(String condition) {
 		myCurrentController.stop();
-		myCurrentController = myControllerMap.get(myProgressionManager.getNextController(
-				myCurrentController.getName(), condition));
+		myCurrentController = myProgressionManager.getNextController(myCurrentController, condition);
 		System.out.println("now the controller is: " + myCurrentController.getName() );
 		//myCurrentController.displaySplash();
-		myCurrentController = myCurrentController.getController(this, myGameInfo);
+		myCurrentController = myCurrentController.getController();
 		myCurrentController.start();	
 	}      
 

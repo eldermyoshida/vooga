@@ -60,6 +60,7 @@ public class GameLoopInfo extends DisplayLoopInfo implements ViewDataSource{
         myHealthStats = new ArrayList<Health>();
         myScores = new ArrayList<Double>();
         myCharacterNames = new ArrayList<String>();
+        
     }
     
     public void initializePlayers() {

@@ -12,7 +12,9 @@ import vooga.fighter.model.MenuMode;
 import vooga.fighter.model.Mode;
 import vooga.fighter.model.utils.Health;
 import vooga.fighter.model.utils.ImageDataObject;
+import vooga.fighter.util.HUDFactory;
 import vooga.fighter.util.Paintable;
+import vooga.fighter.view.HUDElement;
 
 public class DisplayLoopInfo extends DisplayInfo implements ViewDataSource{
 	private Mode myMode;
@@ -21,8 +23,19 @@ public class DisplayLoopInfo extends DisplayInfo implements ViewDataSource{
 	public DisplayLoopInfo(Mode mode) {
 		super();
 		myMode = mode;
-    	myImageData = mode.getImageData();
-        updateInfo();
+    	    myImageData = mode.getImageData();
+    	    updateInfo();
+//            try {
+//                for(HUDElement e : HUDFactory.getHUDElements(this)) {
+//                    getSpriteLocations().add(new Location(0,0));
+//                    getSprites().add(e);
+//                    getImageSizes().add(new Dimension(0,0));
+//                    setObjectNumber(ObjectNumber()+1);
+//                }
+//            }
+//            catch (Exception e) {
+//                throw new NullPointerException("HUDFactory broke.");
+//            }
 	}
 
     public void updateInfo(){

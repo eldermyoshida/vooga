@@ -15,6 +15,7 @@ public class DisplayInfo extends Observable implements ViewDataSource{
     
     private List<Location> mySpriteLocations;
     private List<Paintable> mySprites;
+    private List<Paintable> myHUD;
     private List<Dimension> myImageSizes;
     private Integer myNumObjects;
 
@@ -29,6 +30,9 @@ public class DisplayInfo extends Observable implements ViewDataSource{
      */
 
     public Paintable getPaintable (int index) {
+        if(index >= mySprites.size()) {
+            return myHUD.get(index - mySprites.size());
+        }
         return mySprites.get(index);
     }
 
@@ -117,6 +121,11 @@ public class DisplayInfo extends Observable implements ViewDataSource{
     
     protected void setObjectNumber(int number){
     	myNumObjects = number;
+    }
+    
+    public void setHUD (List<Paintable> paintables) {
+        myHUD = paintables;
+        myNumObjects = mySprites.size()+myHUD.size();
     }
 
 }

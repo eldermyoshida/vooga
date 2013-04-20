@@ -52,19 +52,23 @@ public abstract class Controller implements ModelDelegate {
     private Mode myMode;
     private DisplayInfo myDisplayInfo;
 
-    public Controller(String name, Canvas frame){
+    public Controller(){
+    
+    }
+    
+    public void initializeName(String name) {
         myName = name;
+    }
+
+    public void initializeRest(Canvas frame, ControllerDelegate manager, GameInfo gameinfo) {
         myCanvas = frame;
         mySplashResource = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + SPLASH);
         mySplashPath = DEFAULT_IMAGE_PACKAGE+ mySplashResource.getString(CONTROL);
-    }
-
-    public Controller(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo) {
-        this(name, frame);
         myManager = manager;
         myGameInfo = gameinfo;
         loadMode();
     }
+    
     
     protected void setInput(Input input){
     	myInput = input;
@@ -156,7 +160,7 @@ public abstract class Controller implements ModelDelegate {
     	getInput().removeListener(this);
     }
 
-    public abstract Controller getController(ControllerDelegate manager, GameInfo gameinfo);
+    public abstract Controller getController();
 
 //    protected abstract Input makeInput();
         
