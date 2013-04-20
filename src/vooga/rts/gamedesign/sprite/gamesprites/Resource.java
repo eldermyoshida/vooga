@@ -19,7 +19,9 @@ import vooga.rts.util.Pixmap;
 
 public class Resource extends GameEntity implements IGatherable {
 
-<<<<<<< HEAD
+    private static GameResourceManager myGameResourceManager;
+    private String myType;
+
     /**
      * Creates a new resource
      * 
@@ -32,56 +34,32 @@ public class Resource extends GameEntity implements IGatherable {
      *        becomes 0, the resource will disappear because it will not have any value
      *        left
      */
-    public Resource (Pixmap image, Location3D center, Dimension size, int playerID, int health) {
+    public Resource (Pixmap image,
+                     Location3D center,
+                     Dimension size,
+                     int playerID,
+                     int health,
+                     String type) {
         super(image, center, size, playerID, health);
+        myType = type;
+    }
+
+    public void setGameResourceManager (GameResourceManager gameResourceManager) {
+        myGameResourceManager = gameResourceManager;
     }
 
     @Override
-    public void getGathered (int gatherAmount) {
+    public void getGathered (int playerID, int gatherAmount) {
         changeHealth(gatherAmount);
+        System.out.println("resource health: " + getHealth());
         // TODO: Remove resource properly
         if (isDead()) {
             setVisible(false);
+            myGameResourceManager.assignResoure(this, playerID);
         }
     }
-}
-=======
-	private static GameResourceManager myGameResourceManager;
-	private String myType;
-	
-	/**
-	 * Creates a new resource
-	 * @param image is the image of the resource
-	 * @param center is the location of the resource
-	 * @param size is the size of the resource
-	 * @param playerID is the team the resource is on.  Will be set to 0 to 
-	 * signify that the resource is not on anyone's team
-	 * @param health is the value contained in the resource.  When this value
-	 * becomes 0, the resource will disappear because it will not have any value
-	 * left
-	 */
-	public Resource(Pixmap image, Location3D center, Dimension size, int playerID, int health, String type) {
-		super(image, center, size, playerID, health);
-		myType = type;
-	}
-	
-	public void setGameResourceManager(GameResourceManager gameResourceManager) {
-		myGameResourceManager = gameResourceManager;
-	}
 
-	@Override
-	public void getGathered(int playerID, int gatherAmount) {
-		changeHealth(gatherAmount);
-		System.out.println("resource health: " + getHealth());
-		//TODO: Remove resource properly
-		if(isDead()) {
-			setVisible(false);
-			myGameResourceManager.assignResoure(this, playerID);
-		}
-	}
-	
-	public String getType() {
-		return myType;
-	}
+    public String getType () {
+        return myType;
+    }
 }
->>>>>>> master
