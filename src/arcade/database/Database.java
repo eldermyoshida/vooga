@@ -272,7 +272,7 @@ public class Database {
         return null;
     }
 
-    public String getgetGameDescription (String gameID) {
+    public String getGameDescription (String gameID) {
         // TODO Auto-generated method stub
         return null;
     }

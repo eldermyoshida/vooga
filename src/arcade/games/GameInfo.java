@@ -62,7 +62,7 @@ public class GameInfo {
     }
     
     public String getDescription() {
-    	return myDb.getgetGameDescription(gameName);
+    	return myDb.getGameDescription(gameName);
     }
     
     public Pixmap getAdScren() {
