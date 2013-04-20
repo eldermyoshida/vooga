@@ -1,23 +1,16 @@
 package vooga.scroller.level_management;
 
-import java.awt.Dimension;
 import java.io.File;
-import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.swing.ImageIcon;
 import util.Location;
 import vooga.scroller.level_editor.LEGrid;
 import vooga.scroller.level_editor.Level;
 import vooga.scroller.level_editor.LevelParser;
-import vooga.scroller.level_editor.ToolsManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.test_sprites.MarioLib;
-import vooga.scroller.sprites.test_sprites.MarioLib.MovingPlatformOne;
 import vooga.scroller.util.Pixmap;
-import vooga.scroller.util.PlatformerConstants;
 import vooga.scroller.view.View;
 
 
@@ -40,8 +33,8 @@ public class LevelFactory {
         mySM = sm;
         myView = view;
     }
-    
-    private Level buildLevel(int id, LEGrid grid) {
+
+    private Level buildLevel (int id, LEGrid grid) {
         Level result = new Level(id, mySM, myView, grid);
         return result;
     }
@@ -54,65 +47,57 @@ public class LevelFactory {
      */
     public Level generateLevels () {
         List<Level> levels = new ArrayList<Level>();
-        SplashPage splash = new SplashPage(new Pixmap("MARIO SPLASH.png"),0,myView, mySM);
-        // TODO: fix this
-        splash.addManager(myLevelManager);
-        LevelPortal beginSplashDoor = new LevelPortal(splash, new Location(100, 100));
-        splash.addPortal(beginSplashDoor );
-        
+        SplashPage splash = new SplashPage(new Pixmap("MARIO SPLASH.png"), 0, myView, mySM);
+        splash.addDoor(new LevelPortal());
+
         // TODO: this will ideally read in levels from file and create instances of each level
         // This works for demo
-//        Level level1 = hardcodeLevel1(myView, mySM, 1);
-        Level level1 = buildLevel(1, loadGridFromFile("simpleLevel.level"));
-//        hardCodeCompleteL1(level1);
-        
+        Level level1 = buildLevel(1, loadGridFromFile("example.level"));
+        hardCodeCompleteL1(level1);
         Level level2 = new Level(2, mySM, myView);
         hardcodeLevel2(level2);
         hardCodeCompleteL2(level2);
-        levels.add(splash); levels.add(level1); levels.add(level2);
-        
+        levels.add(splash);
+        levels.add(level1);
+        levels.add(level2);
+        levels.add(splash);
 
-        StartPoint finalSplashStart = new StaticStartPoint(splash, new Location(100, 140));
-        linkLevels(levels, finalSplashStart);
+        linkLevels(levels);
         return splash;
     }
 
-    private void linkLevels (List<Level> levels, StartPoint endGame) {
-        for(int i=0; i<levels.size()-1; i++) {
-            myLevelManager.put(levels.get(i).getDoor(),  levels.get(i+1).getStartPoint());
+    private void linkLevels (List<Level> levels) {
+        for (int i = 0; i < levels.size() - 1; i++) {
+            myLevelManager.put(levels.get(i).getDoor(), levels.get(i + 1));
         }
-        myLevelManager.put(levels.get(levels.size()-1).getDoor(),  endGame);
-        //TODO - needs to add final splash...
-        
     }
 
     private void hardcodeLevel2 (Level level2) {
-        for(int i = 0; i < 20; ++ i){
-            level2.addSprite(new MarioLib.Platform(
-                     new Location(50*i, 160)
-             ));
+        for (int i = 0; i < 20; ++i) {
+            level2.addSprite(new MarioLib.Platform(new Location(50 * i, 160)));
         }
     }
 
     private void hardCodeCompleteL2 (Level level2) {
-        StartPoint level2Start = new StaticStartPoint(level2, new Location(100, 140));
-        LevelPortal level2End = new LevelPortal(level2, new Location(1000, 140));
+        Location level2Start = new Location(100, 140);
+        LevelPortal level2End = new LevelPortal(new Location(1000, 140));
         level2.addStartPoint(level2Start);
-        level2.addPortal(level2End);
+        level2.addSprite(level2End);
+        level2.setBackground(new ImageIcon(getClass().getResource(
+                "/vooga/scroller/images/backgrounds/forestbackground.jpg"))
+.getImage());
     }
 
     private void hardCodeCompleteL1 (Level level1) {
-        StartPoint level1Start = new StaticStartPoint(level1, new Location(200, 140));;
-        LevelPortal level1End = new LevelPortal(level1, new Location(1540, 75));
-        level1.addStartPoint(level1Start);
-        level1.addPortal(level1End);
-//        level1.setBackground(new ImageIcon(getClass()
-//                                                .getResource("/vooga/scroller/images/background_small.png")).getImage());
+        level1.setBackground(new ImageIcon(getClass().getResource(
+                                           "/vooga/scroller/images/backgrounds/background.png"))
+                .getImage());
     }
 
     private LEGrid loadGridFromFile (String filename) {
+        // TODO: Factor this out. make editable.
         String pre = "src/vooga/scroller/level_management/";
-        File f = (new File(pre+filename)).getAbsoluteFile();
+        File f = (new File(pre + filename)).getAbsoluteFile();
         LEGrid result = myLevelReader.makeGridFromFile(f);
         return result;
     }
@@ -167,7 +152,10 @@ public class LevelFactory {
         myCurrLevel.addSprite(new MarioLib.MovingPlatformTwo(
                                                              new Location(900, 500)
                 ));
-        
+        myCurrLevel
+                .setBackground(new ImageIcon(getClass()
+                        .getResource("/vooga/scroller/images/backgrounds/background.png"))
+                        .getImage());
 
         myCurrLevel.addSprite(new MarioLib.LevelTwoBlockOne(
                                                             new Location(64, 252)

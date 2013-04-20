@@ -21,13 +21,12 @@ public class LevelParser {
     private static final String BEGIN_KEY = "/key";
     private static final String BEGIN_SETTINGS = "/settings";
     private static final char SPACE = ' ';
-
-    public Scanner myScanner;
-    public Map<Character, String> myCharacterMap;
-    public List<String> myLevelStrings;
-    private static final String START_POINT = LevelWriter.START_POINT;
-    private static final String END_POINT = LevelWriter.END_POINT;
+    private static final String START_POINT = "StartPoint";
+    private Scanner myScanner;
+    private Map<Character, String> myCharacterMap;
+    private List<String> myLevelStrings;
     private Location myStartPoint;
+    private static final String END_POINT = "EndPoint";
     private Location myEndPoint;
     /**
      * Initialize instances variables.
@@ -40,7 +39,6 @@ public class LevelParser {
     public LEGrid makeGridFromFile (File file) {
         myLevelStrings = new ArrayList<String>();
         myCharacterMap = new HashMap<Character, String>();
-        
         try {
             myScanner = new Scanner(file);
         }
@@ -110,7 +108,7 @@ public class LevelParser {
                         spr = (Sprite) Class.forName(name).newInstance();
                         System.out.println(name);
                         System.out.println(spr);
-                        grid.addSpriteToBox(j, i, spr);
+                        grid.addSpriteToBox(j, i-1, spr);
                     }
                     catch (InstantiationException e) {
                         // TODO Auto-generated catch block

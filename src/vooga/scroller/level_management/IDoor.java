@@ -1,5 +1,7 @@
 package vooga.scroller.level_management;
 
+import util.Location;
+import vooga.scroller.level_editor.Level;
 import vooga.scroller.level_editor.exceptions.LevelEditorException;
 import vooga.scroller.sprites.superclasses.Player;
 
@@ -14,23 +16,17 @@ public interface IDoor {
     //TODO: find way to handle all error strings
     public static final String UNDEFINED_EXIT_POINT_MESSAGE = "Flag's exit point is undefined";
 
-    /**
-     * Sets the start position that this door will point to.
-     * 
-     * @param start is the StartPoint sprite where the player will start playing.
-     */
-    public void setNextStartPoint(StartPoint start) ;
+
+    public void setNextLevel (Level level);
+
+
+    public Level getNextLevel();
     
-    /**
-     * Gives the current StartPoint that this IDoor points to.
-     * 
-     * @return The StartPoint to which this will take the player.
-     */
-    public StartPoint getNextStartPoint() throws LevelEditorException;
+    public void setManager(LevelManager lm);
         
     /**
      * Takes the player to the next start point. 
      */
-    public void goToNextStartPoint(Player player);
+    public void goToNextLevel(Player player);
     
 }

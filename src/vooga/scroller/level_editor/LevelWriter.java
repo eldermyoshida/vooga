@@ -20,8 +20,8 @@ public class LevelWriter {
     private static final String KEY_CREATOR = "abcdefghijklmnopqrstuvwxyz" +
                                               "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()";
     private static final char SPACE = ' ';
-    public static final String START_POINT = "StartPoint";
-    public static final String END_POINT = "EndPoint";
+    private static final String START_POINT = "StartPoint";
+    private static final String END_POINT = "EndPoint";
     private int myKeyCounter;
     private Map<String, Character> myMap;
     private FileWriter myFileWriter;

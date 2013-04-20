@@ -20,71 +20,50 @@ import vooga.scroller.sprites.interfaces.ILevelPortal;;
  */
 public class LevelPortal extends Sprite implements ILevelPortal, IDoor {
 
-    private static Pixmap DEFAULT_IMG = 
-            new Pixmap("portal.png");
-    private StartPoint myExit;
-    private Level myLevel;
+    private static final Dimension DEFAULT_SIZE = new Dimension(50, 50);
+    private static final Location DEFAULT_LOCATION = new Location (0,0);
+    private static Pixmap DEFAULT_IMG = new Pixmap("portal.png");
+    private Level myNextLevel;
     private LevelManager myLevelManager;
     
-    public LevelPortal (Level l, Location center, LevelManager lm) {
-        this(l, center);
-        setManager(lm);
-    }
-    
-    public void setManager(LevelManager lm) {
-        myLevelManager = lm;
-    }
-    
-    public Level getLevel() {
-        return myLevel;
-    }
-
-
-    public LevelPortal (Level l, Location center) {
-        super(DEFAULT_IMG, center, 
-              new Dimension(50, 50));
-        myLevel = l;
-    }
-
-
-    //TODO - make constants static
     public LevelPortal () {
-       super(DEFAULT_IMG, new Location(50, 50), new Dimension(50, 50));
+        this(DEFAULT_LOCATION);
+    }
+    
+    public LevelPortal (Location center) {
+        super(DEFAULT_IMG, center, 
+              DEFAULT_SIZE);
     }
 
-    @Override
-    public void setNextStartPoint (StartPoint start) {
-        myLevelManager.put(this, start);
-        myExit = myLevelManager.get(this);
-    }
 
     @Override
-    public StartPoint getNextStartPoint () throws LevelEditorException { 
-        myExit = myLevelManager.get(this);
-        if( myExit == null) {
-            throw new LevelEditorException(IDoor.UNDEFINED_EXIT_POINT_MESSAGE);
-        }        
-        return myExit;
-    }
-
-    @Override
-    public void goToNextStartPoint (Player player) {      
-        
+    public void goToNextLevel (Player player) {      
         // TODO: this can be where animations or cutscreens are played?
         // This could also be done in the level manager.
-               
-        StartPoint s = myLevelManager.get(this);
         
-        myLevelManager.setCurrentLevel(s.getLevel());
-        myLevelManager.currentLevel().addPlayer(player);
-        
-        player.setCenter(s.getStartLocation().x, s.getStartLocation().y);       
+        myLevelManager.setCurrentLevel(myNextLevel);
+        myLevelManager.getCurrentLevel().addPlayer(player);     
     }
 
 
     @Override
     public LevelPortal getLevelPortal () {
         return this;
+    }
+
+    @Override
+    public void setNextLevel (Level level) {
+        myNextLevel = level;
+    }
+
+    @Override
+    public Level getNextLevel () {
+        return myNextLevel;
+    }
+
+    @Override
+    public void setManager (LevelManager lm) {
+        myLevelManager = lm;
     }
 
 }

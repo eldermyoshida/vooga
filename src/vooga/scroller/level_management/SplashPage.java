@@ -15,7 +15,6 @@ import vooga.scroller.view.View;
 @InputClassTarget
 public class SplashPage extends Level implements IInputListener{
 
-    //private static final ScrollingManager DEFAULT_SCROLLING = new StaticScrollingManager();
     
     public static final String CONTROLS_FILE_PATH = "vooga/scroller/resources/controls/SplashMapping";
 
@@ -27,7 +26,7 @@ public class SplashPage extends Level implements IInputListener{
     public SplashPage (Pixmap backgroundImage, int splashID, View view, ScrollingManager sm) {
         super(splashID, sm, view);
         this.setBackground(backgroundImage.getDefaultImg());
-        myNextLevelID = 1;
+        setNextLevelID(1);
     }
 
     /**
@@ -62,10 +61,7 @@ public class SplashPage extends Level implements IInputListener{
     
     @InputMethodTarget(name = "space")
     public void nextLevel() {
-        Player p = myLevelManager.currentLevel().getPlayer();
-        myLevelManager.setCurrentLevel(
-                      myLevelManager.get(this.getDoor()).getLevel());
-        myLevelManager.currentLevel().addPlayer(p);
+        getDoor().goToNextLevel(getPlayer());
     }
     
     @Override

@@ -1,6 +1,7 @@
 package vooga.scroller.sprites.test_sprites.mario.states;
 
 import java.awt.Dimension;
+import java.awt.Graphics2D;
 import vooga.scroller.sprites.state.State;
 import vooga.scroller.util.ISpriteView;
 import vooga.scroller.util.Pixmap;
@@ -44,6 +45,11 @@ public class InvisibleState implements State{
     public void deactivate () {
         mySprite.setView(myDefaultView);   
         myTime = 0.0;
+    }
+
+    @Override
+    public void paint (Graphics2D pen) {
+        DEFAULT_IMAGE.paint(pen, mySprite.getCenter(), new Dimension((int)mySprite.getWidth(),(int) mySprite.getHeight()));
     }
 
 

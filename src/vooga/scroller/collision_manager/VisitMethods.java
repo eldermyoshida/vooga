@@ -38,6 +38,6 @@ public class VisitMethods {
     }
     
     public void visit (IPlayer player, ILevelPortal levelPortal) {
-        levelPortal.getLevelPortal().goToNextStartPoint(player.getPlayer());
+        levelPortal.getLevelPortal().goToNextLevel(player.getPlayer());
     }
 }

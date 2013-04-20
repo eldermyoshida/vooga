@@ -38,3 +38,5 @@ e=vooga.scroller.sprites.test_sprites.MarioLib.Koopa
 f=vooga.scroller.sprites.test_sprites.MarioLib.Plant
 c=vooga.scroller.sprites.test_sprites.MarioLib.LevelTwoBlockTwo
 d=vooga.scroller.sprites.test_sprites.MarioLib.MovingPlatformOne
+/settings
+StartPoint=100 100

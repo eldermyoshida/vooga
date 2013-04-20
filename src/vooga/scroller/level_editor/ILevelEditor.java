@@ -1,7 +1,9 @@
 
 package vooga.scroller.level_editor;
 
+import java.awt.Image;
 import java.util.Map;
+import javax.swing.Icon;
 import vooga.scroller.util.Editable;
 import vooga.scroller.util.Sprite;
 
@@ -36,5 +38,7 @@ public interface ILevelEditor {
      * @param spriteMap - a map of sprites to be used when decoding instructions to be processed.
      */
     public void setSpriteMap (Map<Integer, Sprite> spriteMap);
+
+    void setBackgroundMap (Map<Integer, Image> map);
     
 }

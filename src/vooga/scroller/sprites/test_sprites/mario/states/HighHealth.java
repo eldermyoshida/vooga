@@ -1,6 +1,7 @@
 package vooga.scroller.sprites.test_sprites.mario.states;
 
 import java.awt.Dimension;
+import java.awt.Graphics2D;
 import vooga.scroller.sprites.state.State;
 
 public class HighHealth implements State{
@@ -19,6 +20,12 @@ public class HighHealth implements State{
 
     @Override
     public void deactivate () {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void paint (Graphics2D pen) {
         // TODO Auto-generated method stub
         
     }

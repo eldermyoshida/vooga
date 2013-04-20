@@ -31,11 +31,17 @@ public class LETools extends Tools {
     private Map<Object, String> mySpriteIcons;
     private Map<Object, String> myOtherIcons;
     private List<HashMap<Object, String>> mySpritesOptions;
-    
+
+    private Map<Object, String> mySpriteImages;
+    private Map<Object, String> myBackgroundImages;
+    private Map<Object, String> myOtherImages;
+
+    private List<HashMap<Object, String>> myOptions;
+
     /**
      * Initialize state of this LETools.
      */
-    public LETools() {
+    public LETools () {
         mySpritesOptions = new ArrayList<HashMap<Object, String>>();
         Map<Object, String> platforms = new HashMap<Object, String>();
         Map<Object, String> ennemis = new HashMap<Object, String>();
@@ -97,6 +103,22 @@ public class LETools extends Tools {
     public List<? extends Map<Object, String>> getAllSprites(){
         return mySpritesOptions;
     }
-    
-    
+
+    public Map<Object, String> getOtherOptions () {
+        return myOtherImages;
+    }
+
+    public Map<Object, String> getBackgrounds () {
+        return myBackgroundImages;
+    }
+
+
+//    public void addBackgrounds (Map<Integer, Image> map) {
+//        for (Integer key : map.keySet()) {
+//            myBackgroundImages
+//                    .put(new ImageIcon(map.get(key).getScaledInstance(100, 100, Image.SCALE_SMOOTH)),
+//                         "" + key);
+//        }
+//    }
+
 }
