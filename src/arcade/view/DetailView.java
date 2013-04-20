@@ -20,6 +20,12 @@ import arcade.model.Model;
 import arcade.util.JPicture;
 import arcade.util.Pixmap;
 
+
+/**
+ * 
+ * @author David Liu
+ *
+ */
 public class DetailView extends JFrame{
         private static final int WINDOW_WIDTH = 600;
         private static final int WINDOW_HEIGHT = 600;

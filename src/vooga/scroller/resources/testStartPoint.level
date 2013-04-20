@@ -1,21 +1,21 @@
 /level
                                                             
                                                             
+              a                                             
+        a                                                   
+                                                            
+     a            a                                         
+             a                                              
                                                             
                                                             
+     a     a                                                
+                  a                                         
+                                                            
+          a                                                 
+       a        a                                           
                                                             
                                                             
-                                                            
-     a       a                                              
-                                                            
-                                                            
-      a    a                                                
-                                                            
-                                                            
-                                                            
-                                                            
-                                                            
-                                                            
+           a                                                
                                                             
                                                             
                                                             
@@ -30,6 +30,6 @@
                                                             
                                                             
 /key
-a=vooga.scroller.sprites.test_sprites.MarioLib.Plant
+a=vooga.scroller.sprites.test_sprites.MarioLib$Platform
 /settings
-StartPoint=272 272
+StartPoint=368 272

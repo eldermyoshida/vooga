@@ -1,73 +1,39 @@
 /level
-                               
-         a                     
-              b                
-  c      d  b      e           
-                               
-            dd    a            
-       d           f           
-            d  d               
-                               
-         d                     
-             d                 
-    g     h d                  
-                 i             
-                               
-     j   h                     
-            f                  
-                               
- k                             
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
+                                                            
+                                                            
+              a                                             
+                                                            
+          b     c                                           
+      a                                                     
+              b    d                                        
+                                                            
+         a                                                  
+                                                            
+                e                                           
+           a                                                
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
 /key
-f=vooga.scroller.sprites.test_sprites.MarioLib.Platform
-d=vooga.scroller.sprites.test_sprites.MarioLib.Coin
-k=vooga.scroller.sprites.test_sprites.MarioLib.LevelTwoBlockThree
-g=vooga.scroller.sprites.test_sprites.MarioLib.MovingPlatformTwo
-e=vooga.scroller.sprites.test_sprites.MarioLib.BigMario
-h=vooga.scroller.sprites.test_sprites.MarioLib.Koopa
-c=vooga.scroller.sprites.test_sprites.MarioLib.LevelTwoBlockOne
-a=vooga.scroller.sprites.test_sprites.MarioLib.LilMario
-j=vooga.scroller.sprites.test_sprites.MarioLib.LevelTwoBlockTwo
-b=vooga.scroller.sprites.test_sprites.MarioLib.Plant
-i=vooga.scroller.sprites.test_sprites.MarioLib.MovingPlatformOne
+a=vooga.scroller.sprites.test_sprites.MarioLib.Coin
+d=vooga.scroller.sprites.test_sprites.MarioLib.Turtle
+b=vooga.scroller.sprites.test_sprites.MarioLib.BigMario
+c=vooga.scroller.sprites.test_sprites.MarioLib.Koopa
+e=vooga.scroller.sprites.test_sprites.MarioLib.LevelTwoBlockTwo
+/settings
+StartPoint=560 272

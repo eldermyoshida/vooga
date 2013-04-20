@@ -177,13 +177,12 @@ public class RegisterView extends Account {
         register.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent arg0) {
-                sendUsernameTakenError();
                 getModel().createNewUserProfile(getUsername(), 
                                                 getPassword(), 
                                                 myFirstNameTextField.getText(),
                                                 myLastNameTextField.getText(),
-                                                myDOBTextField.getText(),
-                                                myImagePath);
+                                                myDOBTextField.getText());//,
+                                                //myImagePath);
                 // maybe.
                 dispose();
             }
