@@ -30,7 +30,6 @@ public class ViewEditorScreen extends GameEditorScreen {
      */
     public ViewEditorScreen(Dimension size, GameEditorController controller) {
         super(size, controller, TITLE_NAME, NEXT_SCREEN_NAME);
-        System.out.println("made view screen");
     }
 
     /**

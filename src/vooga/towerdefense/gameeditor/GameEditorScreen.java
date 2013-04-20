@@ -105,7 +105,7 @@ public abstract class GameEditorScreen extends JPanel {
                 }
                 else if (e.getSource().equals(myFinishButton)) {
                     try {
-                        System.out.println("click on finish button");
+                        setVisible(false);
                         myController.displayNextScreen(myNextScreenName);
                     }
                     catch (SecurityException e1) {
