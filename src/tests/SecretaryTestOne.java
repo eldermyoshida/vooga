@@ -7,13 +7,18 @@ import util.Secretary;
 
 public class SecretaryTestOne {
 
-    private Secretary mySecretary = new Secretary("src/tests/", "Example1.txt");
+    private Secretary mySecretary;
+    
+    public SecretaryTestOne () throws IOException {
+        new Secretary("src/tests/", "Example1.txt");
 
-    public void permutation (String str) {
+    }
+
+    public void permutation (String str) throws IOException {
         permutation("", str);
     }
 
-    private void permutation (String prefix, String str) {
+    private void permutation (String prefix, String str) throws IOException {
         int n = str.length();
 
         if (n == 0) {
@@ -26,7 +31,7 @@ public class SecretaryTestOne {
         }
     }
 
-    private void saveSession () {
+    private void saveSession () throws IOException {
         mySecretary.saveSession("Example1.txt");
     }
 
