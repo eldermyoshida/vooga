@@ -17,7 +17,9 @@ import vooga.towerdefense.attributes.AttributeManager;
 import vooga.towerdefense.controller.modes.BuildMode;
 import vooga.towerdefense.controller.modes.ControlMode;
 import vooga.towerdefense.controller.modes.SelectMode;
+import vooga.towerdefense.factories.ExampleTowerFactory;
 import vooga.towerdefense.factories.ExampleUnitFactory;
+import vooga.towerdefense.factories.TowerDefinition;
 import vooga.towerdefense.factories.TrollUnitDefinition;
 import vooga.towerdefense.factories.WaveFactory;
 import vooga.towerdefense.gameElements.GameElement;
@@ -228,7 +230,9 @@ public class Controller {
     public void handleShopClickOnItem (Point p) {
         ShopItem itemToBuy = myModel.getShopItem(p);
         List<Action> actions = new ArrayList<Action>();
-        Tower t = new Tower(new Pixmap("tower.gif"), new Location(p.getX(), p.getY()), new Dimension(50, 50), null, actions);
+//        ExampleTowerFactory factory = new ExampleTowerFactory("Tower", new TowerDefinition(), myModel.getMap());
+//        factory.createGameElement();
+        Tower t = new Tower(new Pixmap("shopicons/redtower.png"), new Location(p.getX(), p.getY()), new Dimension(50, 50), null, actions);
         BuildMode myNewMode = new BuildMode();
         myNewMode.setItemToBuild(t);    
         myControlMode = myNewMode;

@@ -18,12 +18,12 @@ public class ShopItem extends Rectangle {
     }
 
     public void paint (Graphics2D pen) {
-        pen.setColor(new Color(0, 100, 0));
-        Pixmap image = new Pixmap("tower.gif");
-        pen.drawImage(image.getImage(), (int) myLocation.getX(), (int) myLocation.getY(),
-                      (int) SHOP_ITEM_DIMENSIONS.getWidth(), (int) SHOP_ITEM_DIMENSIONS.getHeight(), null);
+        pen.setColor(new Color(0, 0, 0));
+//        Pixmap image = new Pixmap("tower.gif");
+//        pen.drawImage(image.getImage(), (int) myLocation.getX(), (int) myLocation.getY(),
+//                      (int) SHOP_ITEM_DIMENSIONS.getWidth(), (int) SHOP_ITEM_DIMENSIONS.getHeight(), null);
 
-//        pen.fillRect((int) myLocation.getX(), (int) myLocation.getY(),
-//                     (int) SHOP_ITEM_DIMENSIONS.getWidth(), (int) SHOP_ITEM_DIMENSIONS.getHeight());
+        pen.fillRect((int) myLocation.getX(), (int) myLocation.getY(),
+                     (int) SHOP_ITEM_DIMENSIONS.getWidth(), (int) SHOP_ITEM_DIMENSIONS.getHeight());
     }
 }
