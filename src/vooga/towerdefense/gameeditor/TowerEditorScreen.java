@@ -52,13 +52,21 @@ public class TowerEditorScreen extends GameEditorScreen {
      */
     private static final String ACTION_PACKAGE_PATH = "vooga.towerdefense.action";
     /**
-     * constant for the attribute selector button
+     * constant for the attribute selector button.
      */
     private static final String ATTRIBUTES_ADD_BUTTON_TEXT = "Add attribute";
     /**
-     * constant for the action selector button
+     * constant for the action selector button.
      */
     private static final String ACTION_ADD_BUTTON_TEXT = "Add action";
+    /**
+     * constant for the action delete button.
+     */
+    private static final String ACTION_DELETE_BUTTON_TEXT = "Clear selected action";
+    /**
+     * constant for the attributes delete button.
+     */
+    private static final String ATTRIBUTE_DELETE_BUTTON_TEXT = "Clear selected action";
     /**
      * string ending that indicates this file is a class.
      */
@@ -68,7 +76,7 @@ public class TowerEditorScreen extends GameEditorScreen {
      */
     private static final String TITLE_NAME = "TOWER ";
     /**
-     * constant for the image selector button
+     * constant for the image selector button.
      */
     private static final String IMAGE_SELECTOR_KEYWORD = "Select Image From File";
     /**
@@ -112,6 +120,10 @@ public class TowerEditorScreen extends GameEditorScreen {
      */
     private JButton myAddAttributeButton;
     /**
+     * button to delete attributes from this tower.
+     */
+    private JButton myDeleteAttributeButton;
+    /**
      * area where attributes the user has selected are displayed.
      */
     private JTextArea myAttributesSelected;
@@ -128,6 +140,10 @@ public class TowerEditorScreen extends GameEditorScreen {
      * button to add actions to this tower.
      */
     private JButton myAddActionButton;
+    /**
+     * button to delete actions from this tower.
+     */
+    private JButton myDeleteActionButton;
     /**
      * area where actions the user has selected are displayed.
      */
@@ -198,6 +214,9 @@ public class TowerEditorScreen extends GameEditorScreen {
         myAddAttributeButton = new JButton(ATTRIBUTES_ADD_BUTTON_TEXT);
         myAddAttributeButton.addMouseListener(myMouseAdapter);
         attributesSection.add(myAddAttributeButton);
+        myDeleteAttributeButton = new JButton(ATTRIBUTE_DELETE_BUTTON_TEXT);
+        myDeleteAttributeButton.addMouseListener(myMouseAdapter);
+        attributesSection.add(myDeleteAttributeButton);
         add(attributesSection);
     }
     
@@ -235,6 +254,9 @@ public class TowerEditorScreen extends GameEditorScreen {
         myAddActionButton = new JButton(ACTION_ADD_BUTTON_TEXT);
         myAddActionButton.addMouseListener(myMouseAdapter);
         actionSection.add(myAddActionButton);
+        myDeleteActionButton = new JButton(ACTION_DELETE_BUTTON_TEXT);
+        myDeleteActionButton.addMouseListener(myMouseAdapter);
+        actionSection.add(myDeleteActionButton);
         add(actionSection);
     }
     
@@ -245,6 +267,7 @@ public class TowerEditorScreen extends GameEditorScreen {
         myNameBox.setText("");
         myImageBox.setText("");
         myAttributesSelected.setText("");
+        myActionsSelected.setText("");
     }
     
     /**
@@ -271,6 +294,12 @@ public class TowerEditorScreen extends GameEditorScreen {
                 else if (e.getSource().equals(myAddActionButton)) {
                     myActionsSelected.setText(myActionsSelected.getText() + "\n"
                             + myActionsBox.getSelectedItem().toString());   
+                }
+                else if (e.getSource().equals(myDeleteAttributeButton)) {
+                    myAttributesSelected.replaceSelection("");
+                }
+                else if (e.getSource().equals(myDeleteActionButton)) {
+                    myActionsSelected.replaceSelection("");
                 }
             }
         };
@@ -304,6 +333,9 @@ public class TowerEditorScreen extends GameEditorScreen {
         }
         for (Class c : classes) {
             classNames.add(c.getName().substring(packageName.length()+1, c.getName().length()));
+        }
+        if (classNames.contains("Action")) {
+            classNames.remove("Action");
         }
         return classNames;
     }

@@ -115,7 +115,6 @@ public class MapEditorScreen extends GameEditorScreen {
      */
     @Override
     public void addElementToGame () {
-        System.out.println("add to game MapEditorScreen");
         getController().addMapToGame();
     }
     

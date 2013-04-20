@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import java.lang.reflect.InvocationTargetException;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -60,6 +61,14 @@ public abstract class GameEditorScreen extends JPanel {
     }
     
     /**
+     * clears the screen.
+     */
+    public void clearScreen() {
+        //does nothing for game editor screen,
+        //but can be overriden by subclass screens.
+    }
+    
+    /**
      * gets the associated controller.
      * @return the GameEditorController
      */
@@ -101,8 +110,9 @@ public abstract class GameEditorScreen extends JPanel {
             @Override
             public void mouseClicked (MouseEvent e) {
                 if (e.getSource().equals(myAddButton)) {
-                    System.out.println("add to game");
                     addElementToGame();
+                    clearScreen();
+                    JOptionPane.showMessageDialog(null, "Element Added to Your Game");
                 }
                 else if (e.getSource().equals(myFinishButton)) {
                     try {
