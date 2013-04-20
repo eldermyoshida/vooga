@@ -76,6 +76,7 @@ public class CollisionManager {
      * Handles collisions between two character objects.
      */
     public void collide(CharacterObject o1, CharacterObject o2) {
+    	o1.changeHealth(-10);
         System.out.println("CollisionManager: Two CharacterObjects collided!");
     }
     

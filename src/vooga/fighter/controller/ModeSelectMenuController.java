@@ -29,11 +29,13 @@ import java.util.ResourceBundle;
 @InputClassTarget
 public class ModeSelectMenuController extends MenuController {
 	
+    private static final String FILE_NAME = "vooga.fighter.config.ModeCharacterNumbers";
     private ResourceBundle myResources;
     
     public ModeSelectMenuController () {
         super();
-       // myResources = 
+        myResources = ResourceBundle.getBundle(FILE_NAME);
+
     }
         
     public void initializeRest(Canvas frame, ControllerDelegate manager, 
@@ -47,9 +49,8 @@ public class ModeSelectMenuController extends MenuController {
     public void notifyEndCondition(String choice) {
     	removeListener();
     		getGameInfo().setGameMode(choice);
-    		getGameInfo().setNumCharacters(2);//Integer.parseInt(myResources.getString(choice)));
+    		getGameInfo().setNumCharacters(Integer.parseInt(myResources.getString(choice)));    		
     		getManager().notifyEndCondition(getMode().getMenusNext(choice));
-
     		
     }
     @InputMethodTarget(name = "continue")

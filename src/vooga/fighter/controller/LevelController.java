@@ -118,7 +118,7 @@ public abstract class LevelController extends Controller {
     
     public void checkConditions(){
     	for(ModeCondition condition : getWinConditions()){
-    		if(condition.checkCondition(getMode())) getManager().notifyEndCondition(NEXT);
+    		if(condition.checkCondition(getMode())) getManager().notifyEndCondition("ScoreScreen");
     	}
     }
     
