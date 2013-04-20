@@ -1,8 +1,6 @@
 package vooga.towerdefense.model.tiles;
 
 import java.awt.Dimension;
-import java.awt.Point;
-import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.util.Location;
 import vooga.towerdefense.util.Pixmap;
 import vooga.towerdefense.util.Sprite;
@@ -14,19 +12,6 @@ import vooga.towerdefense.util.Sprite;
  */
 public abstract class Tile extends Sprite {
     
-    /**
-     * Image for a grass tile
-     */
-    public static final Pixmap GRASS_TILE_IMAGE = new Pixmap("map/grass_tile.png");
-    /**
-     * Image for a path tile
-     */
-    public static final Pixmap PATH_TILE_IMAGE = new Pixmap("map/path_tile.png");
-    /**
-     * The size of a tile
-     */
-    public static final Dimension TILE_DIMENSIONS = new Dimension(50, 50);
-
     private boolean myIsWalkable;
     private boolean myIsBuildable;
     private int myId;
@@ -42,17 +27,7 @@ public abstract class Tile extends Sprite {
         super(image, center, size);
         myId = id;
     }
-    
-    
-    
-    public static Pixmap getTileImage(int tileId) {
-        if (tileId == 0) {
-            return GRASS_TILE_IMAGE;
-        } else if (tileId == 1) {
-            return PATH_TILE_IMAGE;
-        }
-        return null;
-    }
+
 
     /**
      * 

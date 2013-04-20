@@ -39,6 +39,9 @@ public class MapLoader {
     
     private Map<Integer, TileFactory> myTileIdMap;
     
+    /**
+     * Initializes map from tile ids to tile factories.
+     */
     public MapLoader() {
         initTileIdMap();
     }
@@ -57,24 +60,26 @@ public class MapLoader {
     public Tile[][] loadTiles(int mapWidth, int mapHeight) {
         Scanner reader = getScanner();
         
-        int horizontalTileCount = (int) (mapWidth / Tile.TILE_DIMENSIONS.getWidth());
-        int verticalTileCount = (int) (mapHeight / Tile.TILE_DIMENSIONS.getHeight());
+        int horizontalTileCount = (int) (mapWidth / TileFactory.TILE_DIMENSIONS.getWidth());
+        int verticalTileCount = (int) (mapHeight / TileFactory.TILE_DIMENSIONS.getHeight());
 
         Tile[][] grid = new Tile[horizontalTileCount][verticalTileCount];
 
         for (int i = 0; i < grid[0].length; i++) {
             for (int j = 0; j < grid.length; j++) {
-                int xCenter = (int) (j * Tile.TILE_DIMENSIONS.getWidth() + 
-                        Tile.TILE_DIMENSIONS.getWidth() / 2);
-                int yCenter = (int) (i * Tile.TILE_DIMENSIONS.getHeight() + 
-                        Tile.TILE_DIMENSIONS.getHeight() / 2);
+                int xCenter = (int) (j * TileFactory.TILE_DIMENSIONS.getWidth() + 
+                        TileFactory.TILE_DIMENSIONS.getWidth() / 2);
+                int yCenter = (int) (i * TileFactory.TILE_DIMENSIONS.getHeight() + 
+                        TileFactory.TILE_DIMENSIONS.getHeight() / 2);
                 // TODO: replace booleans with parsed values from file
                 int tileId = reader.nextInt();
-                grid[j][i] = myTileIdMap.get(tileId).createTile(tileId, image, center, size)
+                grid[j][i] = getTileFactory(tileId).createTile(tileId, 
+                                                               new Location(xCenter, yCenter));
             }
         }
         return grid;
     }
+    
     
     
     private Scanner getScanner() {
@@ -90,5 +95,9 @@ public class MapLoader {
             e.printStackTrace();
         }
         return s;
+    }
+    
+    private TileFactory getTileFactory(int tileId) {
+        return myTileIdMap.get(tileId);
     }
 }
