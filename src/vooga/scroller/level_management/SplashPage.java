@@ -2,6 +2,7 @@ package vooga.scroller.level_management;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import util.Location;
 import util.input.Input;
 import util.input.InputClassTarget;
 import util.input.InputMethodTarget;
@@ -9,11 +10,12 @@ import vooga.scroller.level_editor.Level;
 import vooga.scroller.level_editor.exceptions.LevelEditorException;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.superclasses.Player;
+import vooga.scroller.util.IGameComponent;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.view.View;
 
 @InputClassTarget
-public class SplashPage extends Level implements IInputListener{
+public class SplashPage implements IGameComponent {
 
     
     public static final String CONTROLS_FILE_PATH = "vooga/scroller/resources/controls/SplashMapping";
@@ -22,11 +24,15 @@ public class SplashPage extends Level implements IInputListener{
     
     private LevelManager myLevelManager;
     private int myNextLevelID;
+    private Pixmap myBackground;
+    private View myView;
     
     public SplashPage (Pixmap backgroundImage, int splashID, View view, ScrollingManager sm) {
-        super(splashID, sm, view);
-        this.setBackground(backgroundImage.getDefaultImg());
+        //super(splashID, sm, view);
+        //this.setBackground(backgroundImage.getDefaultImg());
         setNextLevelID(1);
+        myBackground = backgroundImage;
+        myView = view;
     }
 
     /**
@@ -47,7 +53,8 @@ public class SplashPage extends Level implements IInputListener{
 
     @Override
     public void paint (Graphics2D pen) {
-        // nothing to paint here (we could always add buttons)
+        myBackground.paint(pen, new Location (myView.getHeight()/2, myView.getWidth()/2), 
+                           myView.getSize());
     }
 
     public void addManager (LevelManager lm) {
@@ -61,7 +68,7 @@ public class SplashPage extends Level implements IInputListener{
     
     @InputMethodTarget(name = "space")
     public void nextLevel() {
-        getDoor().goToNextLevel(getPlayer());
+        myLevelManager.setCurrentLevel(myNextLevelID);
     }
     
     @Override

@@ -6,11 +6,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.swing.ImageIcon;
+import vooga.scroller.example.sprites.MarioLib.Platform;
 import vooga.scroller.level_management.IDoor;
 import vooga.scroller.level_management.LevelPortal;
 import vooga.scroller.sprites.interfaces.ICoin;
 import vooga.scroller.sprites.interfaces.IEnemy;
-import vooga.scroller.sprites.test_sprites.MarioLib.Platform;
 import vooga.scroller.util.Sprite;
 import vooga.scroller.viewUtil.Tools;
 

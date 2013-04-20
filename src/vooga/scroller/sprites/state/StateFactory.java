@@ -2,9 +2,15 @@ package vooga.scroller.sprites.state;
 
 import java.util.HashMap;
 import java.util.Map;
-import vooga.scroller.sprites.test_sprites.mario.states.InvisibleState;
+import vooga.scroller.example.sprites.state.InvisibleState;
 import vooga.scroller.util.Sprite;
 
+/**
+ * 
+ * 
+ * @author Scott Valentine
+ *
+ */
 public class StateFactory {
 
     private Sprite mySprite;

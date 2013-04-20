@@ -8,6 +8,7 @@ import util.input.Input;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.view.View;
+import vooga.scroller.example.LevelFactory;
 import vooga.scroller.level_editor.Level;
 
 /**

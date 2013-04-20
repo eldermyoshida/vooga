@@ -5,7 +5,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
-import vooga.scroller.sprites.test_sprites.MarioLib;
+import vooga.scroller.example.sprites.MarioLib;
 import vooga.scroller.util.Editable;
 import vooga.scroller.viewUtil.IWindow;
 import vooga.scroller.viewUtil.Renderable;

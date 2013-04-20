@@ -51,6 +51,10 @@ public class MovingSpriteAnimationFactory {
         myMoveRight = moveRight;
     }
 
+    public MovingSpriteAnimationFactory () {
+        // TODO Auto-generated constructor stub
+    }
+
     private String getBaseName (String spriteFilePath) {
         StringBuilder sb = new StringBuilder();
         String[] fileNameParts = spriteFilePath.split(DEFAULT_SEPARATOR);

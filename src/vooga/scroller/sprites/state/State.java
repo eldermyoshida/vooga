@@ -44,6 +44,11 @@ public interface State {
      */
     public void deactivate();
     
+    /**
+     * Paints the state.
+     * 
+     * @param pen is the Graphics2D which paints.
+     */
     public void paint(Graphics2D pen);
       
 }

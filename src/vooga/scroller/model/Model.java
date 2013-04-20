@@ -7,12 +7,12 @@ import java.util.Arrays;
 import java.util.List;
 import util.Location;
 import util.Secretary;
+import vooga.scroller.example.sprites.Mario;
 import vooga.scroller.level_management.LevelManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.animation.Animation;
 import vooga.scroller.sprites.animation.MovingSpriteAnimationFactory;
 import vooga.scroller.sprites.superclasses.Player;
-import vooga.scroller.sprites.test_sprites.mario.Mario;
 import vooga.scroller.view.View;
 
 
@@ -87,8 +87,8 @@ public class Model {
                              new Dimension(138/6, 276/6),
                              myView, myScrollingManager);
         
-        MovingSpriteAnimationFactory msaf = new MovingSpriteAnimationFactory(PLAYER_IMAGES);
-        Animation playerAnimation = msaf.generateAnimation(myPlayer);
+        MovingSpriteAnimationFactory msaf = new MovingSpriteAnimationFactory();
+        Animation playerAnimation = msaf.generateAnimation(myPlayer, PLAYER_IMAGES);
         
         myPlayer.setView(playerAnimation);
 
@@ -144,9 +144,9 @@ public class Model {
         return myLevelManager.getCurrentLevel().getBackground();
     }
     
-    public Player getPlayer(){
-        return myPlayer;
-    }
+//    public Player getPlayer(){
+//        return myPlayer;
+//    }
     
     
     /**

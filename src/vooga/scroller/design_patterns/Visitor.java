@@ -2,8 +2,8 @@
 package vooga.scroller.design_patterns;
 
 
-import vooga.scroller.sprites.test_sprites.MarioLib;
-import vooga.scroller.sprites.test_sprites.mario.Mario;
+import vooga.scroller.example.sprites.Mario;
+import vooga.scroller.example.sprites.MarioLib;
 
 /** 
  * This is how we are going to handle collisions - through the Visitor 
