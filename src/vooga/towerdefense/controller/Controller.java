@@ -25,7 +25,7 @@ import vooga.towerdefense.factories.WaveFactory;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.gameElements.Tower;
 import vooga.towerdefense.gameElements.Wave;
-import vooga.towerdefense.model.GameController;
+import vooga.towerdefense.model.GameLoop;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.GameModel;
 import vooga.towerdefense.model.Tile;
@@ -309,7 +309,7 @@ public class Controller {
      * Start the game controller.
      */
     public void start () {
-        GameController game = new GameController(this);
+        GameLoop game = new GameLoop(this);
         game.start();
     }
     
