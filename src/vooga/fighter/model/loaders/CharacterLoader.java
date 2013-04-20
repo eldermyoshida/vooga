@@ -5,6 +5,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import vooga.fighter.model.ModelConstants;
 import vooga.fighter.model.objects.AttackObject;
 import vooga.fighter.model.objects.CharacterObject;
 import vooga.fighter.model.utils.State;
@@ -69,7 +70,7 @@ public class CharacterLoader extends ObjectLoader {
 			NodeList frameNodes = attack.getElementsByTagName("frame");
 			AttackObject newAttack = new AttackObject();
 			State newState = new State(myChar, frameNodes.getLength());
-			newAttack.setPower(attackDmg);
+			newAttack.addProperty(ModelConstants.ATTACK_PROPERTY_POWER, attackDmg);
 			newAttack.setCounter(5);//hardcoded 5 as test case, will remove
 			getImageAndHitboxProperties(frameNodes, newState);
 			newAttack.addState(attackName, newState);
