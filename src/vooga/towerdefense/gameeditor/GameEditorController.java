@@ -20,6 +20,7 @@ public class GameEditorController extends JFrame {
     private static final String TITLE_KEYWORD = "GAME EDITOR";
     private static final Dimension SIZE = new Dimension(700, 700);
     private Dimension mySize;
+    private Dimension myMapSize;
     
     /**
      * Constructor.
@@ -101,18 +102,23 @@ public class GameEditorController extends JFrame {
         System.out.println("add wave to game");        
     }
     
+    public void setMapSize (Dimension mapSize) {
+        myMapSize = mapSize;
+    }
+    
+    public Dimension getMapSize () {
+        return myMapSize;
+    }
+    
     /**
      * uses reflection to display the next screen in the sequence.
      * @param nextScreenName is the next screen
      */
     @SuppressWarnings("rawtypes")
     public void displayNextScreen(String nextScreenName) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SecurityException, NoSuchMethodException, IllegalArgumentException, InvocationTargetException {
-        System.out.println("Next Screen = " + nextScreenName);
         Class[] args = {Dimension.class, GameEditorController.class};
         Class theClass = Class.forName(nextScreenName);
-        System.out.println("class is " + theClass);
         Constructor cons = theClass.getConstructor(args);
-        System.out.println("Constructor is " + cons);
         GameEditorScreen screen = (GameEditorScreen) cons.newInstance(mySize, this);
         this.getContentPane().add(screen);
         screen.display();   

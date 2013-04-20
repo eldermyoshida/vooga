@@ -17,7 +17,7 @@ public class ViewEditorScreen extends GameEditorScreen {
     /**
      * next screen constant.
      */
-    private static final String NEXT_SCREEN_NAME = "ProjectileEditorScreen";
+    private static final String NEXT_SCREEN_NAME = "MapEditorScreen";
     /**
      * title constant.
      */
@@ -30,7 +30,6 @@ public class ViewEditorScreen extends GameEditorScreen {
      */
     public ViewEditorScreen(Dimension size, GameEditorController controller) {
         super(size, controller, TITLE_NAME, NEXT_SCREEN_NAME);
-        System.out.println("made view screen");
     }
 
     /**
@@ -39,6 +38,8 @@ public class ViewEditorScreen extends GameEditorScreen {
     @Override
     public void addElementToGame () {
         // TODO Auto-generated method stub
+        // TODO: get rid of this magic number 
+        getController().setMapSize(new Dimension (500, 600));
         getController().addViewToGame();
     }
 }

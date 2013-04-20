@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 public class MapEditorScreen extends GameEditorScreen {
 
     private static final long serialVersionUID = 1L;
-    private static final String NEXT_SCREEN_NAME = "ViewEditorScreen";
+    private static final String NEXT_SCREEN_NAME = "ProjectileEditorScreen";
     private static final String TITLE_NAME = "MAP ";
     private JPanel myMapBox;
     private Dimension myMapMakerSize;
