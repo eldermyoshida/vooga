@@ -32,7 +32,7 @@ public class OneVOneController extends LevelController {
     @Override
     public void notifyEndCondition (String endCondition) {
     	removeListener();
-    	getManager().notifyEndCondition(NEXT);
+    	getManager().notifyEndCondition("ScoreScreen");
     }
     
     @InputMethodTarget(name = "player1_jump")
