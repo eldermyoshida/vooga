@@ -46,8 +46,6 @@ public class Tile extends Sprite {
         myElement = null;
     }
     
-    
-    
     public String toString() {
         return "(" + myCenter.getX() + ", " + myCenter.getY() + ")";
     }

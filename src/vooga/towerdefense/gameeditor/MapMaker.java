@@ -1,16 +1,15 @@
-package vooga.towerdefense.view;
+package vooga.towerdefense.gameeditor;
 
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JPanel;
-import vooga.towerdefense.gameeditor.MapEditorScreen;
 
 /**
  * This class enables map paths building on a tile by tile basis
@@ -24,7 +23,7 @@ public class MapMaker extends JPanel {
     private Dimension mySize;
     private int myTileSize;
     private MouseAdapter myMouseListener;
-    List<Rectangle> myGrids;
+    List<Grid> myGrids;
     private boolean myPaintingMode; 
     private boolean myEraseMode;
     private MapEditorScreen myParent;
@@ -34,8 +33,8 @@ public class MapMaker extends JPanel {
         setSize(size);
         setPreferredSize(size);
         mySize = size;
-        myTileSize = 0;
-        myGrids = new ArrayList<Rectangle>();
+        myTileSize = 50;
+        myGrids = new ArrayList<Grid>();
         makeListener();
         this.addMouseListener(myMouseListener);
         myPaintingMode = false;
@@ -45,8 +44,15 @@ public class MapMaker extends JPanel {
     @Override
     public void paintComponent(Graphics pen) {
         super.paintComponent(pen);
-        setBackground(Color.CYAN); 
-        paintGrids(pen);
+        setBackground(Color.CYAN);
+        paintGridLines(pen);
+        paintGrid(pen);
+    }
+
+    private void paintGrid (Graphics pen) {
+        for (Grid g: myGrids) {
+            g.paint((Graphics2D) pen);
+        }  
     }
 
     public void setTileSizes(int size) {
@@ -54,38 +60,41 @@ public class MapMaker extends JPanel {
         repaint();
     }
     
-    private void paintGrids (Graphics pen) {
+    private void paintGridLines (Graphics pen) {
         myGrids.removeAll(myGrids);
-        if (myTileSize != 0 ) {
+        if (myTileSize > 1 ) {
             for (int i = 0; i < mySize.width; i += myTileSize) {
                 for (int j = 0; j < mySize.height; j += myTileSize) {
                     pen.drawLine(i, 0, i, mySize.height);
                     pen.drawLine(0, j, mySize.width, j);
-                    Rectangle rect = new Rectangle(i,j,myTileSize,myTileSize);
-                    myGrids.add(rect);
+                    Grid rect = new Grid(i,j,myTileSize,myTileSize);
+                    myGrids.add(rect);   
                 }   
             }
         }
+        
     }
     
     private void makeListener() {
         myMouseListener = new MouseAdapter () {
             @Override
             public void mouseClicked (MouseEvent e) {
-                paintTileClicked(e.getPoint());
+                setTileClicked(e.getPoint());
             }
         };
     }
     
-    private void paintTileClicked (Point point){
-        for (Rectangle tile : myGrids) {
+    private void setTileClicked (Point point){
+        for (Grid tile : myGrids) {
             if (tile.contains(point) && myPaintingMode == true) {
-                getGraphics().fillRect(tile.x, tile.y, tile.width, tile.height);
+                tile.setPath(true);
                 resetPaintingMode();
+                paintGrid(this.getGraphics());
             }
             else if (tile.contains(point) && myEraseMode == true) {
-                getGraphics().fillRect(tile.x, tile.y, tile.width, tile.height);
-                setEraseMode(false);
+                tile.setPath(false);
+                resetEraseMode();
+                paintGrid(this.getGraphics());
             }
         }
     }
@@ -100,6 +109,12 @@ public class MapMaker extends JPanel {
     
     private void resetPaintingMode () {
         setPaintingMode(false);
-        myParent.setTilePainterColor(Color.BLUE);
+        myParent.setPainterColor(myParent.getTilePainter(), Color.BLUE);
     }
+    
+    private void resetEraseMode () {
+        setEraseMode(false);
+        myParent.setPainterColor(myParent.getPathEraser(), Color.RED);
+    }
+    
 }
