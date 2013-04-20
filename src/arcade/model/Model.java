@@ -65,14 +65,7 @@ public class Model implements ArcadeInteraction {
      * @param gameName
      * @param genre
      */
-    public void publish (String gameName, String genre) {
-        gameName = gameName.toLowerCase();
-        genre = genre.toLowerCase();
-        myDb.createGame(gameName, genre);
-        addGameInfo(newGameInfo(gameName, genre));
-    }
-
-    public void publish (String name,
+     public void publish (String name,
                          String genre,
                          String author,
                          double price,
