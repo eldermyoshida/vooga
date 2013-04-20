@@ -4,8 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Rectangle;
-import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -32,9 +30,11 @@ public class MapEditorScreen extends GameEditorScreen {
     private JTextField myTextField;
     private final int FIELD_SIZE = 10;
     private ActionListener myActionListener;
-    private MouseAdapter myTilePainterMouseListener;
+    private MouseAdapter myTilePainterListener;
+    private MouseAdapter myTileEraserListener;
     private int myTileSize;
     private JPanel myTilePainter;
+    private JPanel myPathEraser;
     
     /**
      * Constructor.
@@ -50,6 +50,9 @@ public class MapEditorScreen extends GameEditorScreen {
         this.add(makeTextField(), BorderLayout.EAST);
         this.add(makeLabelText("PATH PAINTER"), BorderLayout.EAST);
         this.add(makePathTilePainter(), BorderLayout.SOUTH);
+        this.add(makeLabelText("PATH ERASER"), BorderLayout.EAST);
+        this.add(makePathEraser(), BorderLayout.WEST);
+
         setVisible(true);
     }
 
@@ -75,12 +78,20 @@ public class MapEditorScreen extends GameEditorScreen {
             }
         };
         
-        myTilePainterMouseListener = new MouseAdapter () {
+        myTilePainterListener = new MouseAdapter () {
             @Override
             public void mouseClicked (MouseEvent e) {
-                System.out.println("Box clicked");
+                System.out.println("Painter");
                 setTilePainterColor(Color.GREEN);
                 myMapBox.setPaintingMode(true);
+            }
+        };
+        
+        myTileEraserListener = new MouseAdapter () {
+            @Override
+            public void mouseClicked (MouseEvent e) {  
+                System.out.println("Eraser");
+                myMapBox.setEraseMode(true);
             }
         };
     }
@@ -113,8 +124,19 @@ public class MapEditorScreen extends GameEditorScreen {
         myTilePainter.setPreferredSize(new Dimension(50,50));
         myTilePainter.setBackground(Color.BLUE);
         myTilePainter.setVisible(true);  
-        myTilePainter.addMouseListener(myTilePainterMouseListener); 
+        myTilePainter.addMouseListener(myTilePainterListener); 
+        
         return myTilePainter;
+    }
+    
+    private JPanel makePathEraser () {
+        myPathEraser = new JPanel ();
+        myPathEraser.setPreferredSize(new Dimension(50,50));
+        myPathEraser.setBackground(Color.RED);
+        myPathEraser.setVisible(true);
+        myPathEraser.addMouseListener(myTileEraserListener);
+        
+        return myPathEraser;
     }
     
     public void setTilePainterColor (Color color) {

@@ -10,11 +10,10 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JPanel;
-import vooga.towerdefense.gameeditor.GameEditorController;
-import vooga.towerdefense.gameeditor.GameEditorScreen;
 import vooga.towerdefense.gameeditor.MapEditorScreen;
 
 /**
+ * This class enables map paths building on a tile by tile basis
  * 
  * @author Leonard K. Ng'eno
  *
@@ -27,6 +26,7 @@ public class MapMaker extends JPanel {
     private MouseAdapter myMouseListener;
     List<Rectangle> myGrids;
     private boolean myPaintingMode; 
+    private boolean myEraseMode;
     private MapEditorScreen myParent;
 
     public MapMaker (Dimension size, MapEditorScreen parent){
@@ -39,13 +39,13 @@ public class MapMaker extends JPanel {
         makeListener();
         this.addMouseListener(myMouseListener);
         myPaintingMode = false;
+        myEraseMode = false;
     }
     
     @Override
     public void paintComponent(Graphics pen) {
         super.paintComponent(pen);
-        setBackground(Color.CYAN);
-        
+        setBackground(Color.CYAN); 
         paintGrids(pen);
     }
 
@@ -72,7 +72,6 @@ public class MapMaker extends JPanel {
         myMouseListener = new MouseAdapter () {
             @Override
             public void mouseClicked (MouseEvent e) {
-                System.out.println("Map clicked");
                 paintTileClicked(e.getPoint());
             }
         };
@@ -82,8 +81,11 @@ public class MapMaker extends JPanel {
         for (Rectangle tile : myGrids) {
             if (tile.contains(point) && myPaintingMode == true) {
                 getGraphics().fillRect(tile.x, tile.y, tile.width, tile.height);
-                setPaintingMode(false);
-                myParent.setTilePainterColor(Color.BLUE);
+                resetPaintingMode();
+            }
+            else if (tile.contains(point) && myEraseMode == true) {
+                getGraphics().fillRect(tile.x, tile.y, tile.width, tile.height);
+                setEraseMode(false);
             }
         }
     }
@@ -92,4 +94,12 @@ public class MapMaker extends JPanel {
         myPaintingMode = mode;
     }
     
+    public void setEraseMode (boolean mode) {
+        myEraseMode = mode;
+    }
+    
+    private void resetPaintingMode () {
+        setPaintingMode(false);
+        myParent.setTilePainterColor(Color.BLUE);
+    }
 }
