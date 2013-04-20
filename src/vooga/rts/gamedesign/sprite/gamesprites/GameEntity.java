@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
+
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
 import vooga.rts.gamedesign.state.AttackingState;
 import vooga.rts.gamedesign.state.EntityState;
 import vooga.rts.gamedesign.state.MovementState;
@@ -195,6 +197,12 @@ public class GameEntity extends GameSprite {
     public void changeHealth (int change) {
         myCurrentHealth -= change;
     }
+    
+    public void getOccupied(Unit occupier) {
+    	if (occupier.collidesWith(this)) {
+    		myOccupyStrategy.getOccupied(occupier);
+    	}
+    }
 
     /**
      * Checks to see if an GameEntity is dead.
@@ -234,7 +242,7 @@ public class GameEntity extends GameSprite {
     	return myOccupyStrategy;
     }
     
-    public void setOccpyStrategy(OccupyStrategy occupyStrategy) {
+    public void setOccupyStrategy(OccupyStrategy occupyStrategy) {
     	myOccupyStrategy = occupyStrategy;
     }
 

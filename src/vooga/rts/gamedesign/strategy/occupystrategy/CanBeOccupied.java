@@ -10,9 +10,7 @@ import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
 /**
  * 
  * This class implements OccupyStrategy and is used as an instance in 
- * interactives for objects that are able to occupy IOccupiables. The occupy 
- * method in this class will specify how the interactive will occupy the 
- * IOccupiable.
+ * interactives for objects that can be occupied by types of Units specified.
  * 
  * @author Ryan Fishel
  * @author Kevin Oh
@@ -30,10 +28,12 @@ public class CanBeOccupied implements OccupyStrategy{
 	public CanBeOccupied() {
 		myOccupiers = new ArrayList<Unit>();
 		myValidOccupierType = new ArrayList<String>();
+		myMaxOccupiers = DEFAULT_MAX_OCCUPIERS;
 	}
 	
 	public void getOccupied(Unit u) {
-		if (myOccupiers.size() < myMaxOccupiers) {
+		if (myOccupiers.size() < myMaxOccupiers && verifyOccupier(u)) {
+			System.out.println("verified valid!");
 			u.setVisible(false);
 			//TODO: make the unit not detectable. Consider move out of player's unit list.
 			myOccupiers.add(u);

@@ -233,31 +233,26 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
 	}
 	@Override
 	public void paint(Graphics2D pen) {
-		//pen.rotate(getVelocity().getAngle());
-
-		//should probably use the getBottom, getHeight etc...implement them
-		Point2D selectLocation = Camera.instance().worldToView(getWorldLocation());		
-		
-		pen.drawRect((int)selectLocation.getX()-LOCATION_OFFSET, (int)(selectLocation.getY()-5*LOCATION_OFFSET), 50, 5);
-		Rectangle2D healthBar = new Rectangle2D.Double((int)selectLocation.getX()-LOCATION_OFFSET, (int)(selectLocation.getY()-5*LOCATION_OFFSET), 50 * getHealth()/getMaxHealth(), 5);
-		float width = (float)(healthBar.getWidth() * (getHealth() / getMaxHealth()));
-		pen.setPaint(new GradientPaint((float)healthBar.getX() - width, (float)healthBar.getMaxY(), Color.RED, (float)healthBar.getMaxX(), (float)healthBar.getMaxY(), Color.GREEN));
-		pen.fill(healthBar);
-		pen.setColor(Color.black);
-		
-		if(isSelected) { 
-			Ellipse2D.Double selectedCircle = new Ellipse2D.Double(selectLocation.getX()-LOCATION_OFFSET, selectLocation.getY()+LOCATION_OFFSET , 50, 30);
-			pen.fill(selectedCircle);
-		}
-		super.paint(pen);
-		if(myAttackStrategy.getCanAttack() && !getAttackStrategy().getWeapons().isEmpty()){
-			for(Projectile p : myAttackStrategy.getWeapons().get(myAttackStrategy.getWeaponIndex()).getProjectiles()) {
-				p.paint(pen);               
+		if (isVisible()) {//TODO: make check appear at top of the hierarchy
+			Point2D selectLocation = Camera.instance().worldToView(getWorldLocation());		
+			
+			pen.drawRect((int)selectLocation.getX()-LOCATION_OFFSET, (int)(selectLocation.getY()-5*LOCATION_OFFSET), 50, 5);
+			Rectangle2D healthBar = new Rectangle2D.Double((int)selectLocation.getX()-LOCATION_OFFSET, (int)(selectLocation.getY()-5*LOCATION_OFFSET), 50 * getHealth()/getMaxHealth(), 5);
+			float width = (float)(healthBar.getWidth() * (getHealth() / getMaxHealth()));
+			pen.setPaint(new GradientPaint((float)healthBar.getX() - width, (float)healthBar.getMaxY(), Color.RED, (float)healthBar.getMaxX(), (float)healthBar.getMaxY(), Color.GREEN));
+			pen.fill(healthBar);
+			pen.setColor(Color.black);
+			
+			if(isSelected) { 
+				Ellipse2D.Double selectedCircle = new Ellipse2D.Double(selectLocation.getX()-LOCATION_OFFSET, selectLocation.getY()+LOCATION_OFFSET , 50, 30);
+				pen.fill(selectedCircle);
+			}
+			super.paint(pen);
+			if(myAttackStrategy.getCanAttack() && !getAttackStrategy().getWeapons().isEmpty()){
+				for(Projectile p : myAttackStrategy.getWeapons().get(myAttackStrategy.getWeaponIndex()).getProjectiles()) {
+					p.paint(pen);               
+				}
 			}
 		}
-		
 	}
-
-
-
 }

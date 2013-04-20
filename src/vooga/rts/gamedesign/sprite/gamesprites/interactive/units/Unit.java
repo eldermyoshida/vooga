@@ -82,7 +82,7 @@ public class Unit extends InteractiveEntity {
      * @param occupiable
      */
     public void occupy (GameEntity i) {
-        i.getOccupyStrategy().getOccupied(this);
+        i.getOccupied(this);
     }
     
     private void addUserToUpgradeTree(int playerID) {

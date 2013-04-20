@@ -2,8 +2,8 @@ package vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings;
 
 import java.awt.Dimension;
 
-import vooga.rts.gamedesign.sprite.gamesprites.interactive.IOccupiable;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
+import vooga.rts.gamedesign.strategy.occupystrategy.CanBeOccupied;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
 import vooga.rts.manager.IndividualBuildingManager;
 import vooga.rts.manager.GameBuildingManager;
@@ -24,7 +24,7 @@ import vooga.towerdefense.gameElements.Unit;
  * @author Wenshun Liu
  * 
  */
-public abstract class Building extends InteractiveEntity implements IOccupiable {
+public abstract class Building extends InteractiveEntity {
     public static final int MAXHEALTH = 100;
     private static UpgradeTree myUpgradeTree;
     //TODO: probably shouldn't be stored in Building. Should try Observer pattern later?
@@ -36,7 +36,7 @@ public abstract class Building extends InteractiveEntity implements IOccupiable 
             Sound sound,
             int playerID,
             int health) {
-    	super(image, center, size, sound, playerID, health);
+    	this(image, center, size, sound, playerID, health, null);
     }
     
     public Building (Pixmap image,
@@ -49,10 +49,15 @@ public abstract class Building extends InteractiveEntity implements IOccupiable 
         if (upgradeTree != null) {
         	myUpgradeTree = upgradeTree;
         }
+        if (myGameBuildingManager != null) {
+        	System.out.println("yay has GameBuildingManager!");
+        	myGameBuildingManager.addBuilding(this);
+        }
     }
     
     public void setGameBuildingManager(GameBuildingManager gameBuildingManager) {
     	myGameBuildingManager = gameBuildingManager;
+    	myGameBuildingManager.addBuilding(this);
     }
     
     public GameBuildingManager getGameBuildingManager() {
@@ -62,9 +67,5 @@ public abstract class Building extends InteractiveEntity implements IOccupiable 
     @Override
     public UpgradeTree getUpgradeTree() {
     	return myUpgradeTree;
-    }
-
-    public void getOccupied (Unit unit) {
-        //u.occupy(this);
     }
 }
