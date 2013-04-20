@@ -147,5 +147,10 @@ public class MapEditorScreen extends GameEditorScreen {
     public JPanel getPathEraser () {
         return myPathEraser;
     }
+
+    @Override
+    public void addAdditionalMouseBehavior (MouseEvent e) {
+        // TODO Auto-generated method stub
+    }
     
 }
