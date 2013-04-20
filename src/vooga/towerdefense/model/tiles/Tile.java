@@ -1,6 +1,7 @@
 package vooga.towerdefense.model.tiles;
 
 import java.awt.Dimension;
+import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.util.Location;
 import vooga.towerdefense.util.Pixmap;
 import vooga.towerdefense.util.Sprite;
@@ -12,6 +13,7 @@ import vooga.towerdefense.util.Sprite;
  */
 public abstract class Tile extends Sprite {
     
+    private GameElement myElement;
     private boolean myIsWalkable;
     private boolean myIsBuildable;
     private int myId;
@@ -59,5 +61,21 @@ public abstract class Tile extends Sprite {
     
     protected void setWalkable(boolean isWalkable) {
         myIsWalkable = isWalkable;
+    }
+    
+    public boolean containsElement() {
+        return myElement != null;
+    }
+    
+    public GameElement getElement() {
+        return myElement;
+    }
+    
+    public void setTower(GameElement t) {
+        myElement = t;
+    }
+    
+    public void deleteTower() {
+        myElement = null;
     }
 }
