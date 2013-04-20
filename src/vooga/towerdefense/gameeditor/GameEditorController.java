@@ -17,9 +17,8 @@ public class GameEditorController extends JFrame {
      * default serialized id.
      */
     private static final long serialVersionUID = 1L;
-    /**
-     * size of the screen.
-     */
+    private static final String TITLE_KEYWORD = "GAME EDITOR";
+    private static final Dimension SIZE = new Dimension(700, 700);
     private Dimension mySize;
     
     /**
@@ -27,6 +26,7 @@ public class GameEditorController extends JFrame {
      * @param size
      */
     public GameEditorController(Dimension size) {
+        this.setTitle(TITLE_KEYWORD);
         mySize = size;
         setSize(mySize);
         setPreferredSize(mySize);
@@ -38,7 +38,7 @@ public class GameEditorController extends JFrame {
      * starts the visual for the game editor.
      */
     public void initializeGUI() {
-        StartUpScreen screen = new StartUpScreen(mySize, this);
+        StartUpScreen screen = new StartUpScreen(SIZE, this);
         this.getContentPane().add(screen, BorderLayout.CENTER);
         
         this.pack();
