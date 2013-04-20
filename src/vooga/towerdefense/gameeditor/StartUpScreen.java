@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 
 public class StartUpScreen extends JPanel {
 
+    private static final long serialVersionUID = 1L;
     private static final String WELCOME_KEYWORD = "WELCOME TO GAME EDITOR";
     private static final String START_KEYWORD = "START";
     private static final String NEXT_SCREEN_NAME = "vooga.towerdefense.gameeditor.MapEditorScreen";
@@ -23,6 +24,7 @@ public class StartUpScreen extends JPanel {
     
     public StartUpScreen(Dimension size, GameEditorController controller) {
         myController = controller;
+        setSize(size);
         setPreferredSize(size);
         setVisible(true);
         makeMouseAdapter();

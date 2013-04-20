@@ -4,9 +4,6 @@ import java.awt.Dimension;
 
 public class MapEditorScreen extends GameEditorScreen {
 
-    /**
-     * default serialized id.
-     */
     private static final long serialVersionUID = 1L;
     private static final String NEXT_SCREEN_NAME = "vooga.towerdefense.gameeditor.ViewEditorScreen";
     

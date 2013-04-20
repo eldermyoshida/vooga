@@ -2,19 +2,19 @@ package vooga.towerdefense.gameeditor;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 public class GameEditorController extends JFrame {
     private static final long serialVersionUID = 1L;
+    private static final String TITLE_KEYWORD = "GAME EDITOR";
+    private static final Dimension SIZE = new Dimension(700, 700);
+    
     private Dimension mySize;
     
     public GameEditorController(Dimension size) {
+        this.setTitle(TITLE_KEYWORD);
         mySize = size;
         setSize(mySize);
         setPreferredSize(mySize);
@@ -23,7 +23,7 @@ public class GameEditorController extends JFrame {
     }
     
     public void initializeGUI() {
-        StartUpScreen screen = new StartUpScreen(mySize, this);
+        StartUpScreen screen = new StartUpScreen(SIZE, this);
         this.getContentPane().add(screen, BorderLayout.CENTER);
         
         this.pack();
