@@ -32,7 +32,6 @@ public class CanGather implements GatherStrategy {
 		}
 	}
 
-	@Override
 	public Interval getInterval() {
 		return myInterval;
 	}

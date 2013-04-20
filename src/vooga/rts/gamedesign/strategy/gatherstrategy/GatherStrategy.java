@@ -29,10 +29,6 @@ public interface GatherStrategy extends Strategy{
 	 */
 	public void gatherResource (int playerID, IGatherable gatherable);
 	
-	/**
-	 * Returns the gather delay interval
-	 * @return the gather delay interval
-	 */
-	public Interval getInterval();
+
 	
 }

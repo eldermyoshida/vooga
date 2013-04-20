@@ -27,8 +27,6 @@ import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
  * of, and pass the information to the corresponding decoder. All the decoders
  * are loaded through an input file.
  * 
- * @author Ryan Fishel
- * @author Kevin Oh
  * @author Francesco Agosti
  * @author Wenshun Liu
  */
