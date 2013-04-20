@@ -5,27 +5,41 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.ResourceBundle;
 
 
 public class ControlProgressionManager {
         
+        private static final String DEFAULT_RESOURCE_PACKAGE = "vooga.fighter.config.FighterProgression";
         
 	private static final String NEXT = "Next";
 	private static final String BACK = "Back";
 	private GameInfo myGameInfo;
 	private List<Controller> myControllerList;
+	private ResourceBundle myResources;
 	
 	public ControlProgressionManager(GameInfo gameinfo) {
 		myGameInfo = gameinfo;
+		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE);
 		
 	}
 	
-	public void setControllerProgression(List<Controller> controllerProgression) {
-	    myControllerList = controllerProgression;
+	public void setControllerProgression(Map<String, Controller> controllerMap) {
+	    ArrayList<Controller> sortedProgression = new ArrayList<Controller>(myResources.keySet().size());
+	    for (int i =0; i < myResources.keySet().size(); i++) {
+	        sortedProgression.add(null);
+	    }
+	    System.out.println("<controllerprogression> size: " + sortedProgression.size());
+	    for (String key : myResources.keySet()) {
+	        int index = Integer.parseInt(myResources.getString(key));
+	        sortedProgression.set(index, controllerMap.get(key));
+	    }
+	    myControllerList = sortedProgression;
+	    
 	}
 	
 	public Controller getNextController(Controller currentController, String Condition){
-		for(int i=1; i<myControllerList.size(); i++ ){
+		for(int i=0; i < myControllerList.size(); i++ ){
 			if(currentController.equals(myControllerList.get(i))){
 //				if(checkTourney(currentController, myGameInfo) && Condition.equals(NEXT)) 
 //					return selectTourneyLevel(myGameInfo);

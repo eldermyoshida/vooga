@@ -31,10 +31,10 @@ import vooga.fighter.view.Canvas;
 @InputClassTarget
 public class OneVOneController extends LevelController {
     private static final String INPUT_PATHWAY = "vooga.fighter.config.leveldefault";
-    private List<CharacterObject> myInputObjects;
 
     public OneVOneController () {
         super();
+        System.out.println("1v1 ready");
         
     }
 	

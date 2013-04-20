@@ -33,10 +33,10 @@ public class ControllerManager implements ControllerDelegate{
 		myCanvas = frame;
 		myInput = new Input(INPUT_PATHWAY, myCanvas);
 		//myControllerMap = factory.getMap();
-		myControllerList = factory.getList();
+		myControllerMap = factory.getMap();
 		myGameInfo = gameinfo;
 		myProgressionManager = progressionmanager;
-		myProgressionManager.setControllerProgression(myControllerList);
+		myProgressionManager.setControllerProgression(myControllerMap);
 		myCurrentController = myProgressionManager.getController(0);
 		myCurrentController.initializeRest(frame, this, gameinfo);
 	}
@@ -53,8 +53,10 @@ public class ControllerManager implements ControllerDelegate{
 		myCurrentController.stop();
 		myCurrentController = myProgressionManager.getNextController(myCurrentController, condition);
 		System.out.println("now the controller is: " + myCurrentController.getName() );
+		System.out.println("swithing?");
 		//myCurrentController.displaySplash();
 		myCurrentController = myCurrentController.getController();
+		myCurrentController.initializeRest(myCanvas, this, myGameInfo);
 		myCurrentController.start();	
 	}      
 

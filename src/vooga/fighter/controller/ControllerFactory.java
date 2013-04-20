@@ -31,12 +31,13 @@ public class ControllerFactory {
         myControllerMap = new HashMap<String, Controller>();
         myControllerList = new ArrayList<Controller>();
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE);
-        constructControllerList();
+        constructControllerMap();
     } 
     
-    public void constructControllerList() {
+    public void constructControllerMap() {
         for (String controllerName : myResources.keySet()) {
-            myControllerList.add(createController(controllerName));
+            Controller current = createController(controllerName);
+            myControllerMap.put(current.getName(), current);
         }
     }
     public Controller createController(String controllerName) {
@@ -50,7 +51,7 @@ public class ControllerFactory {
                 controller = (Controller) controllerObject;
                 controller.initializeName(myResources.getString(controllerName));
                 controller.initializeName(myResources.getString(controllerName));
-                System.out.println(controller.getName());
+                System.out.println("<controller factory>: " + controller.getName() + " created");
                 
             }
             catch (Exception e){
