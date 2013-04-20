@@ -23,11 +23,15 @@ public class MapLoader {
     private XMLParser myXMLParser;
   
     
-    public MapLoader() {
-        myMap = new EditableMap();
+    public MapLoader(EditableMap map) {
+        
+        //need further modification, only for testing now
+        myMap = map;
+        
         myTileInformation = new HashMap<Integer, String>();
         myTerrainInformation = new HashMap<Integer, String>();
         myXMLParser = new XMLParser();
+        System.out.println("INITIALIZED");
     }
     
     public void loadMapFile(File resourceFile) throws FileNotFoundException {
@@ -66,7 +70,7 @@ public class MapLoader {
         myMap.setMyMapName(myXMLParser.getTitle(line));
         line = myScanner.nextLine();
         myMap.setMyDescription(myXMLParser.getTitle(line));
-    
+        System.out.println("Title loaded");
     }
     
     
@@ -82,6 +86,8 @@ public class MapLoader {
            myMap.addPlayer(Integer.parseInt(x),Integer.parseInt(y));
            line = myScanner.nextLine();
        }
+       System.out.println("Players loaded");
+       
     }
     
     
@@ -103,6 +109,7 @@ public class MapLoader {
         myMap.setMyXSize(Integer.parseInt(xCount));
         myMap.setMyYSize(Integer.parseInt(yCount));
         myMap.initializeMap(Integer.parseInt(tileWidth), Integer.parseInt(tileHeight));
+        System.out.println("Map Size loaded");
         
     }
     
@@ -123,6 +130,8 @@ public class MapLoader {
             myTileInformation.put(Integer.parseInt(tileID), tileName + "&" + tileImagePath);
             line = myScanner.nextLine();            
         }
+        System.out.println("Tile Index loaded");
+        
     }
     
     private void loadTerrainIndex() throws MapNotMatchException {
@@ -146,6 +155,7 @@ public class MapLoader {
         for(int i = 1 ; i<myTerrainInformation.size() + 1 ; i++) {
             System.out.println(myTerrainInformation.get(i));
         }
+        System.out.println("Terrain Index loaded");
     }
     
     
@@ -166,6 +176,7 @@ public class MapLoader {
             }
             line = myScanner.nextLine();
         }
+        System.out.println("Tile loaded");
     }
     
     
@@ -176,16 +187,5 @@ public class MapLoader {
     
     private void loadResources() {
         
-    }
-    
-    public static void main(String[] args) {
-        MapLoader myLoader = new MapLoader();
-        try {
-            myLoader.loadMapFile(System.getProperty("user.dir") + "./src/test.xml");
-        }
-        catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
     }
 }

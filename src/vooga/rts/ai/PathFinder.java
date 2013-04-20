@@ -8,7 +8,7 @@ import vooga.rts.map.Node;
  * @author Challen Herzberg-Brovold
  * 
  */
-public abstract class PathFinder {
+public interface PathFinder {
     
     public abstract Path calculatePath(Node start, Node finish, 
                                             NodeMap map);
