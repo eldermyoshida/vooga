@@ -4,7 +4,10 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -16,6 +19,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
@@ -204,9 +208,17 @@ public class XMLTool {
      * get value of a leaf element tag as: String, integer, double, ?... sound?, Sprite?
      * Get values of parent elements as a map, arrays of tags
      */
-    
-    public Element getElement (String tag) {
+    public Element getElementFromTag (String tag) {
         return (Element) myDoc.getElementsByTagName(tag).item(0);
+    }
+    
+    public List<Element> getElementListByTagName (String tag) {
+        List<Element> nodeList = new ArrayList<Element>();
+        NodeList nodes = myDoc.getElementsByTagName(tag);
+        for (int i = 0; i < nodes.getLength(); i++) {
+            nodeList.add((Element) myDoc.getElementsByTagName(tag).item(i));
+        }
+        return nodeList;
     }
     
     public String getTagName (Element element) {
@@ -217,10 +229,31 @@ public class XMLTool {
         return element.getTextContent();
     }
     
-    public String getContent (String tag) {
-        return getContent(getElement(tag));
+    public String getContentFromTag (String tag) {
+        return getContent(getElementFromTag(tag));
     }
     
+    public Map<String, String> getMapFromParentElement (Element parent) {
+        Map<String, String> map = new HashMap<String, String>();
+        NodeList nodes = parent.getChildNodes();
+        for (int i = 0; i < nodes.getLength(); i++) {
+            Element node = (Element) nodes.item(i);
+            if (node.getNodeType() == Node.ELEMENT_NODE) {
+                Element paramElement = (Element) node;
+                map.put(paramElement.getTagName(), getContent(node));
+            }
+        }       
+        return map;
+    }
+    
+    public List<Map<String, String>> getMapListFromTag (String parentsTag) {
+        List<Element> nodeList = getElementListByTagName (parentsTag);
+        List<Map<String, String>> listOfMaps = new ArrayList<Map<String, String>>(nodeList.size());
+        for(int i=0; i<nodeList.size(); i++) {
+            listOfMaps.add(getMapFromParentElement(nodeList.get(i)));
+        }
+        return listOfMaps;
+    }
     
     
     /*
