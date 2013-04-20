@@ -6,6 +6,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import vooga.rts.networking.communications.Message;
 import vooga.rts.networking.communications.clientmessages.InitialConnectionMessage;
+import vooga.rts.networking.communications.servermessages.CloseConnectionMessage;
 
 
 /**
@@ -108,6 +109,7 @@ public class ConnectionThread extends Thread {
      */
     public void close () {
         myConnectionActive = false;
+        sendMessage(new CloseConnectionMessage());
         try {
             if (myOutput != null) {
                 myOutput.close();

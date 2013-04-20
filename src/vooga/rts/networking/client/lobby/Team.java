@@ -3,7 +3,7 @@ package vooga.rts.networking.client.lobby;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Team {
+public class Team implements Comparable<Team> {
     private int myNumber;
     private int myMaxSize;
     private String myName;
@@ -80,5 +80,14 @@ public class Team {
      */
     public void removePlayer(Player player) {
         myPlayers.remove(player);
+    }
+    
+    @Override
+    public int compareTo (Team arg0) {
+     // TODO Auto-generated method stub 1 <2 -> -1
+        if (getSize() == arg0.getSize()) {
+            return getNumber() - arg0.getNumber(); //TODO: confirm this is not backwards sorting
+        }
+        return getSize() - arg0.getSize();
     }
 }

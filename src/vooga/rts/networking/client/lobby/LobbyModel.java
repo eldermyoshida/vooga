@@ -27,8 +27,7 @@ public class LobbyModel {
         myMapName= mapName;
         
         int numTeams = maxPlayers/ playersPerTeam;
-        Comparator<Team> comparator = new LobbyTeamComparator();
-        myTeams = new PriorityQueue<Team>(numTeams, comparator);
+        myTeams = new PriorityQueue<Team>(numTeams);
     }
     
     
