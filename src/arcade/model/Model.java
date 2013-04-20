@@ -89,15 +89,17 @@ public class Model implements ArcadeInteraction {
      * so replace slashes with periods and remove the file extension
      */
     private String formatClassFilePath (String path) {
+        //split on file extension 
         String[] split = path.split(".");
-        path = split[1];
+        // take everything before file extension
+        path = split[0];
         split = path.split("/");
         String ret = "";
         for (String str : split) {
             ret += str;
             ret += ".";
         }
-        // remove the period
+        // remove the hanging period
         ret = ret.substring(0, ret.length() - 1);
         return ret;
     }
@@ -181,7 +183,7 @@ public class Model implements ArcadeInteraction {
     private void organizeSnapshots () {
         List<String> gameNames = myDb.retrieveListOfGames();
         for (String name : gameNames) {
-            addGameInfo(newGameInfo(name, myDb.getGenre(name)));
+            addGameInfo(newGameInfo(name));
         }
     }
 
