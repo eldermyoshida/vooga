@@ -17,11 +17,11 @@ import arcade.games.HighScores;
 import arcade.games.MultiplayerGame;
 import arcade.games.User;
 import arcade.games.UserGameData;
-import arcade.view.LoginView;
 import arcade.view.MainView;
-
+import arcade.view.forms.LoginView;
 
 public class Model implements ArcadeInteraction {
+
     public static final String DEFAULT_LOGIN_MESSAGE = "";
     private static final String LOGIN_FAILURE_MESSAGE =
             "The username or password you entered is incorrect";
@@ -79,11 +79,11 @@ public class Model implements ArcadeInteraction {
                          String adScreenPath,
                          String description) {
         
-        myDb.createGame(name.toLowerCase() ,  genre.toLowerCase() , author , price, formatClassFilePath(extendsGame), formatClassFilePath(extendsMultiplayerGame), ageRating , singlePlayer, multiplayer , adScreenPath , description);
+        myDb.createGame(name.toLowerCase() ,  genre.toLowerCase() , author , price, formatClassFilePath(extendsGame), formatClassFilePath(extendsMultiplayerGame), ageRating , singlePlayer, multiplayer , thumbnailPath, adScreenPath , description);
         addGameInfo(newGameInfo(name));
     }
 
-<<<<<<< HEAD
+
     /**
      * Tedious Java string manipulation to change something like:
      * games/rts/ageOfEmpires/game.java
@@ -113,7 +113,7 @@ public class Model implements ArcadeInteraction {
 
 
     private GameInfo newGameInfo  (String name) throws MissingResourceException{
-        return new GameInfo(name, myLanguage, myDb);
+        return new GameInfo(myDb, name);
     }
 
     private void addGameInfo (GameInfo game) {
@@ -190,15 +190,12 @@ public class Model implements ArcadeInteraction {
     private void organizeSnapshots () {
         List<String> gameNames = myDb.retrieveListOfGames();
         for (String name : gameNames) {
-<<<<<<< HEAD
-            addGameInfo(newGameInfo(name));
-=======
             try{
-            addGameInfo(newGameInfo(name, myDb.getGenre(name)));
+                addGameInfo(newGameInfo(name));
             }catch(MissingResourceException e ){
                 continue;
             }
->>>>>>> f3973a681317c1e23279e05df71f78679c90b756
+
         }
     }
 
@@ -263,5 +260,4 @@ public class Model implements ArcadeInteraction {
         }
         return gd;
     }
-
 }

@@ -1,4 +1,4 @@
-package arcade.view;
+package arcade.view.forms;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import arcade.model.Model;
+import arcade.view.TextKeywords;
 
 
 @SuppressWarnings("serial")
@@ -36,8 +37,9 @@ public class PublishView extends Form {
         List<JComponent> components = new ArrayList<JComponent>();
         components.add(createNameField());
         components.add(createGenreField());
+        
+        
         components.add(createButton());
-
         return components;
     }
 
@@ -57,6 +59,11 @@ public class PublishView extends Form {
     private JComponent createGenreField () {
         myGenreTextField = new JTextField();
         return createTextPanel(TextKeywords.GENRE, myGenreTextField);
+    }
+    
+    
+    private JComponent createAuthorField() {
+        return null;
     }
 
     /**

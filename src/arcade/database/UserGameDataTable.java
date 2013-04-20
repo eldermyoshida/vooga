@@ -88,7 +88,11 @@ public class UserGameDataTable extends Table {
      * Add new user game data to table 
      * @param gameid is game id
      * @param userid is user id
+
      * @param highscore of the game
+
+     * @param highscore of the game
+
      */
     public void createNewUserGameData (String gameid, String userid) {
         
@@ -105,12 +109,14 @@ public class UserGameDataTable extends Table {
         }
     }
     
+
     /**
      * Updates a high score given userid and gameid
      * @param gameid is game id
      * @param userid is user id
      * @param highscore of the game
      */
+
     public void updateHighScore(String userid, String gameid, String highscore) {
         String stm = "UPDATE usergamedata SET highscore = '" + highscore + "' WHERE userid = '" + userid + "' AND gameid = '" + gameid + "'" ;
         try {

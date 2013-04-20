@@ -1,4 +1,4 @@
-package arcade.view;
+package arcade.view.forms;
 
 import java.awt.event.KeyListener;
 import java.util.ResourceBundle;
@@ -6,6 +6,7 @@ import javax.swing.JComponent;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import arcade.model.Model;
+import arcade.view.TextKeywords;
 
 @SuppressWarnings("serial")
 /**
@@ -67,19 +68,34 @@ public abstract class Account extends Form {
     protected String getPassword() {
         return new String(myPasswordTextField.getPassword());
     }
+    
+    /**
+     * Sets provided text into the username field.
+     */
+    protected void setUsername(String text) {
+        myUserNameTextField.setText(text);
+    }
+    
+    /**
+     * Sets the provided text into the password field.
+     * @param text
+     */
+    protected void setPassword(String text) {
+        myPasswordTextField.setText(text);
+    }
 
     /**
      * Clears the text in the username field.
      */
     protected void clearUsername() {
-        myUserNameTextField.setText("");
+        setUsername("");
     }
     
     /**
      * Clears the text in the password field.
      */
     protected void clearPassword() {
-        myPasswordTextField.setText("");
+        setPassword("");
     }
     
     /**
