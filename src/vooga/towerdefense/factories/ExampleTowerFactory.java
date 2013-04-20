@@ -25,7 +25,7 @@ public class ExampleTowerFactory extends TowerFactory {
      * @param def
      */
     public ExampleTowerFactory (String name, GameMap map) {
-        super();
+        super(name, null);
         myGameMap=map;
     }
     
@@ -43,15 +43,15 @@ public class ExampleTowerFactory extends TowerFactory {
         AM.setProjectileFactory(new ProjectileFactory());
         Tower myTower;
         if (putHere != null) {
-                myTower = new Tower(def.myImage, def.myCenter,
-                                def.mySize, AM);
+                myTower = new Tower(def.getImage(), def.getCenter(),
+                                def.getSize(), AM);
         } else {
                 myTower = new Tower(def.getImage(),
                                 def.getCenter(), def.getSize(), AM);
         }
 
         ArrayList<Action> actions = new ArrayList<Action>();
-        actions.add(new AttackAction(myGameMap,myTower,myTower.getAttributeManager().getProjectileFactory()));
+        actions.add(new AttackAction(myGameMap, myTower, myTower.getAttributeManager().getProjectileFactory()));
         
         
        
