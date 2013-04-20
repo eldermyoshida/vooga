@@ -8,6 +8,7 @@ import java.awt.Image;
 import util.Location;
 import vooga.scroller.model.Model;
 import vooga.scroller.sprites.superclasses.Player;
+import vooga.scroller.util.Direction;
 import vooga.scroller.view.View;
 /**
  * This manager prevents players from scrolling in a direction but so far EX like Mario
@@ -17,7 +18,7 @@ import vooga.scroller.view.View;
 public class UniScrollingManager extends ScrollingManager {
     private Model myGame;
     private View myView;
-    private int myRestrictiveDirection;
+    private Direction myRestrictiveDirection;
     private double myMaxDirection;
     private Location myLastPlayerPaintLocation;
     private int myLeftPaintBound;
@@ -26,18 +27,9 @@ public class UniScrollingManager extends ScrollingManager {
     private int myLowerPaintBound;
     private boolean myHorizontalScrollActive = false;
     private boolean myVerticalScrollActive = false;
-    private final int RIGHT = 1;
-    private final int DOWN = 2;
-    private final int LEFT = 3;
-    private final int UP = 4;
 
-    public UniScrollingManager(int restrictiondirection){
-        if(restrictiondirection != RIGHT & restrictiondirection != DOWN & restrictiondirection != LEFT & restrictiondirection != UP) {
-            myRestrictiveDirection = LEFT;
-        }
-        else {
-            myRestrictiveDirection = restrictiondirection;
-        }
+    public UniScrollingManager(Direction restrictiondirection){
+        myRestrictiveDirection = restrictiondirection;
         myLeftPaintBound = leftpaintbound();
         myUpperPaintBound = upperpaintbound();
         myRightPaintBound = rightpaintbound();
@@ -118,7 +110,7 @@ public class UniScrollingManager extends ScrollingManager {
     }
 
     private double uniRightBoundary (Player p) {
-        if(myRestrictiveDirection == RIGHT){
+        if(myRestrictiveDirection == Direction.RIGHT){
             if(myMaxDirection > levelRightBoundary()) {
                 return levelRightBoundary();
             }
@@ -131,7 +123,7 @@ public class UniScrollingManager extends ScrollingManager {
     }
 
     private double uniLeftBoundary (Player p) {
-        if(myRestrictiveDirection == LEFT){
+        if(myRestrictiveDirection == Direction.LEFT){
 
             if(myMaxDirection < levelLeftBoundary()){
                 return levelLeftBoundary();
@@ -145,7 +137,7 @@ public class UniScrollingManager extends ScrollingManager {
     }
 
     private double uniUpperBoundary (Player p) {
-        if(myRestrictiveDirection == UP){
+        if(myRestrictiveDirection == Direction.TOP){
             if(myMaxDirection < levelUpperBoundary()){
                 return levelUpperBoundary();
             }
@@ -158,7 +150,7 @@ public class UniScrollingManager extends ScrollingManager {
     }
 
     private double uniLowerBoundary (Player p) { 
-        if(myRestrictiveDirection == DOWN){
+        if(myRestrictiveDirection == Direction.BOTTOM){
             if(myMaxDirection > levelLowerBoundary()){
                 return levelLowerBoundary();
             }
@@ -220,8 +212,8 @@ public class UniScrollingManager extends ScrollingManager {
     }
 
     @Override
-    public double getHardBoundary (int i, double levelBounds) {
-        if(i == myRestrictiveDirection){
+    public double getHardBoundary (Direction d, double levelBounds) {
+        if(d == myRestrictiveDirection){
             return myMaxDirection;
         }
         return levelBounds;
@@ -248,25 +240,25 @@ public class UniScrollingManager extends ScrollingManager {
             y =  halfHeight - (halfHeight - (Math.abs(uniUpperBoundary(p) - playerlocy)));
         }
         myLastPlayerPaintLocation = new Location(x, y);
-        if(myRestrictiveDirection == RIGHT){
+        if(myRestrictiveDirection == Direction.RIGHT){
             if(myLastPlayerPaintLocation.getX() > halfWidth){
                 myHorizontalScrollActive = false;
             }
             myHorizontalScrollActive = true;            
         }
-        if(myRestrictiveDirection == DOWN ){
+        if(myRestrictiveDirection == Direction.BOTTOM ){
             if(myLastPlayerPaintLocation.getY() > halfHeight){
                 myVerticalScrollActive = false;
             }
             myVerticalScrollActive = true;    
         }
-        if(myRestrictiveDirection == LEFT){
+        if(myRestrictiveDirection == Direction.LEFT){
             if(myLastPlayerPaintLocation.getX() < halfWidth){
                 myHorizontalScrollActive = false;
             }
             myHorizontalScrollActive = true;    
         }
-        if(myRestrictiveDirection == UP){
+        if(myRestrictiveDirection == Direction.TOP){
             if(myLastPlayerPaintLocation.getY() < halfHeight){
                 myVerticalScrollActive = false;
             }
@@ -286,11 +278,11 @@ public class UniScrollingManager extends ScrollingManager {
         switch (myRestrictiveDirection) {
             case RIGHT: myMaxDirection = ((xCoord + halfWidth) < myMaxDirection) ? (xCoord + halfWidth) : myMaxDirection;
             break;
-            case DOWN: myMaxDirection = ((yCoord + halfHeight)  < myMaxDirection) ? (yCoord + halfHeight) : myMaxDirection;
+            case BOTTOM: myMaxDirection = ((yCoord + halfHeight)  < myMaxDirection) ? (yCoord + halfHeight) : myMaxDirection;
             break;
             case LEFT: myMaxDirection = ((xCoord - halfWidth) > myMaxDirection) ? (xCoord - halfWidth) : myMaxDirection;
             break;
-            case UP: myMaxDirection = ((yCoord - halfHeight) > myMaxDirection) ? (yCoord - halfHeight) : myMaxDirection;
+            case TOP: myMaxDirection = ((yCoord - halfHeight) > myMaxDirection) ? (yCoord - halfHeight) : myMaxDirection;
             break;
         }
     }

@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import util.Location;
 import vooga.scroller.sprites.superclasses.Player;
+import vooga.scroller.util.Direction;
 import vooga.scroller.view.View;
 import vooga.scroller.model.Model;
 
@@ -50,7 +51,7 @@ public abstract class ScrollingManager {
     
     public abstract Location playerPaintLocation(Player player);
 
-    public double getHardBoundary (int i, double levelBounds) {
+    public double getHardBoundary (Direction d, double levelBounds) {
         return levelBounds;
     }
     
