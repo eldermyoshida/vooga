@@ -12,8 +12,6 @@ import vooga.fighter.model.utils.UpdatableLocation;
  * 
  */
 public class EnvironmentObject extends GameObject {
-
-	private static final String MAP_PATH = "src/vooga/fighter/config/environmentobjects.xml";
 	
     /**
      * Constructs a new EnvironmentObject with the given image, center, and size.

@@ -11,10 +11,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import util.Pixmap;
 import vooga.fighter.model.objects.EnvironmentObject;
 import vooga.fighter.model.objects.MapObject;
-import vooga.fighter.model.utils.State;
 import vooga.fighter.model.utils.UpdatableLocation;
 
 
@@ -61,7 +59,7 @@ public class MapLoader extends ObjectLoader {
 			Element node = (Element) mapNodes.item(i);
 			String name = getAttributeValue(node, getResourceBundle().getString("MapName"));
 			if (mapName.equals(name)) {
-				NodeList stateNodes = ((Element) node).getElementsByTagName("state");
+				NodeList stateNodes = ((Element) node).getElementsByTagName(getResourceBundle().getString("State"));
 				addStates(stateNodes, myMap);
 				myMap.setLocation(new UpdatableLocation(Integer.parseInt(getAttributeValue(node, getResourceBundle().getString("XSize")))/2,
 						Integer.parseInt(getAttributeValue(node, getResourceBundle().getString("YSize")))/2));

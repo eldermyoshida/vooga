@@ -6,12 +6,11 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import vooga.fighter.model.objects.EnvironmentObject;
-import vooga.fighter.model.utils.UpdatableLocation;
 
 /**
  * Loads data associated with a environment object to be passed to EnvironmentObject.
  * 
- * @author alanni
+ * @author alanni, David Le
  *
  *
  */
@@ -36,12 +35,12 @@ public class EnvironmentObjectLoader extends ObjectLoader {
 	 */
 	public void load(String enviroObjectName) {
 		Document doc = getDocument();
-		NodeList enviroObjectNodes = doc.getElementsByTagName("environmentObject");
+		NodeList enviroObjectNodes = doc.getElementsByTagName(getResourceBundle().getString("EnvironmentObject"));
 		for (int i = 0; i < enviroObjectNodes.getLength(); i++) {
 			Node enviroObjectNode = enviroObjectNodes.item(i);
-			String name = getAttributeValue(enviroObjectNode, "objectName");
+			String name = getAttributeValue(enviroObjectNode, getResourceBundle().getString("EnvironmentObjectName"));
 			if (enviroObjectName.equals(name)) {
-				NodeList stateNodes = ((Element) enviroObjectNode).getElementsByTagName("state");
+				NodeList stateNodes = ((Element) enviroObjectNode).getElementsByTagName(getResourceBundle().getString("State"));
 				addStates(stateNodes, myEnvironmentObject);
 			}
 		}
