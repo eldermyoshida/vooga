@@ -67,8 +67,8 @@ public class MapLoader extends ObjectLoader {
 						Integer.parseInt(getAttributeValue(node, getResourceBundle().getString("YSize")))/2));
 				NodeList startingPosNodes= node.getElementsByTagName(getResourceBundle().getString("StartingPosition"));
 				addStartingPositions(startingPosNodes);
-				//NodeList enviroObjectNodes = node.getElementsByTagName("environmentObject");
-				//addEnviroObjects(enviroObjectNodes);
+				NodeList enviroObjectNodes = node.getElementsByTagName(getResourceBundle().getString("EnvironmentObject"));
+				addEnviroObjects(enviroObjectNodes);
 			}
 		}
 	}
@@ -104,16 +104,11 @@ public class MapLoader extends ObjectLoader {
 	 */
 	private void addEnviroObjects(NodeList enviroObjectNodes) {
 		for (int i = 0; i < enviroObjectNodes.getLength(); i++) {
-			Node environmentObject = enviroObjectNodes.item(i);
-			//String imagePath= getAttributeValue(environmentObject, "image");
-			int xCoord= Integer.parseInt(getAttributeValue(environmentObject, "xCoord"));
-			int yCoord= Integer.parseInt(getAttributeValue(environmentObject, "yCoord"));
-			EnvironmentObject toAdd= new EnvironmentObject();
-			toAdd.setLocation(new UpdatableLocation(xCoord, yCoord));
-			NodeList stateNodes = ((Element) environmentObject).getElementsByTagName("state");
-			addStates(stateNodes, toAdd);
-			toAdd.setCurrentState("brick");
-			toAdd.setImageData();
+			Node enviroObjectNode = enviroObjectNodes.item(i);
+			int xCoord= Integer.parseInt(getAttributeValue(enviroObjectNode, getResourceBundle().getString("XCoordinate")));
+			int yCoord= Integer.parseInt(getAttributeValue(enviroObjectNode, getResourceBundle().getString("YCoordinate")));
+			EnvironmentObject newEnvironmentObject= new EnvironmentObject(getAttributeValue(enviroObjectNode,
+					getResourceBundle().getString("EnvironmentObjectName")), new UpdatableLocation(xCoord, yCoord));
 		}
 	}
 }
