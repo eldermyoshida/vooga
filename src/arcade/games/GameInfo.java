@@ -51,7 +51,7 @@ public class GameInfo {
 
     
     public Pixmap getThumbnail() {
-    	return new Pixmap(myDb.getGameThumbnail());
+    	return new Pixmap(myDb.getGameThumbnail(gameID));
     }
     
     public String getName(){

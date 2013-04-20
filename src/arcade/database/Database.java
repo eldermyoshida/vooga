@@ -183,4 +183,24 @@ public class Database {
     public double getAverageRating (String gameName) {
         return myUserGameDataTable.getAverageRating(gameName);
     }
+
+	public String getGameThumbnail(String gameID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getGameName(String gameID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getgetGameDescription(String gameID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getGameAdScreen(String gameID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -77,8 +77,8 @@ public class Model implements ArcadeInteraction {
         return new GameInfo(name, genre, myLanguage, this);
     }
     
-    private GameInfo newGameInfo(){
-    	return new GameInfo(myDb);
+    private GameInfo newGameInfo(String id){
+    	return new GameInfo(myDb, id);
     }
 
     private void addGameInfo (GameInfo game) {
