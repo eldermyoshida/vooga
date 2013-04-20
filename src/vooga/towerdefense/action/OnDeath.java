@@ -1,5 +1,6 @@
 package vooga.towerdefense.action;
 
+import java.util.ArrayList;
 import java.util.List;
 import vooga.towerdefense.attributes.Attribute;
 import vooga.towerdefense.gameElements.GameElement;
@@ -17,9 +18,9 @@ public class OnDeath extends Action {
     /**
      * @param initiator
      */
-    public OnDeath (Attribute health, List<Action> actionsToDo) {
+    public OnDeath (Attribute health) {
         myHealth = health;
-        myActions = actionsToDo;
+        myActions = new ArrayList<Action>();
     }
 
     /**

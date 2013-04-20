@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.FollowPath;
 import vooga.towerdefense.action.Move;
+import vooga.towerdefense.action.OnDeath;
+import vooga.towerdefense.action.RemoveGameElement;
 import vooga.towerdefense.attributes.Attribute;
 import vooga.towerdefense.attributes.AttributeConstants;
 import vooga.towerdefense.attributes.AttributeManager;
@@ -60,6 +62,9 @@ public class ExampleUnitFactory extends UnitFactory {
 		Path path = myGameMap.getShortestPath(putHere,
 				myGameMap.default_end_location);
 		actions.add(new FollowPath(myUnit, path));
+		Action myDeath = new OnDeath(AM.getAttribute(AttributeConstants.HEALTH));
+		myDeath.addFollowUpAction(new RemoveGameElement(myGameMap, myUnit));
+		actions.add(myDeath);
 		myUnit.addActions(actions);
 
 		return myUnit;
