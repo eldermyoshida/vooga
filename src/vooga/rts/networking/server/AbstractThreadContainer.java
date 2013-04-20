@@ -52,7 +52,11 @@ public abstract class AbstractThreadContainer implements IThreadContainer, IMess
     }
 
     @Override
-    public void requestLobbies (ConnectionThread thread, int startNumber, int endNumber) {
+    public void requestLobbies (ConnectionThread thread) {
+    }
+    
+    @Override
+    public void startLobby (String mapName, String serverName){
     }
 
     @Override

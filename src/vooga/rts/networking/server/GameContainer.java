@@ -42,5 +42,10 @@ public class GameContainer extends AbstractThreadContainer {
             myRooms.get(lobbyNumber).addConnection(thread);
         }
     }
+    
+    @Override
+    public void startLobby (String mapName, String serverName) {
+    // TODO
+    }
 
 }

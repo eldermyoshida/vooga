@@ -44,9 +44,14 @@ public interface IThreadContainer {
     /**
      * Requests information about a set number of lobbies
      * @param thread sends lobby info to this thread
-     * @param startNumber start number of lobbies
-     * @param endNumber end number of lobbies
      */
-    public void requestLobbies (ConnectionThread thread, int startNumber, int endNumber);
+    public void requestLobbies (ConnectionThread thread);
+
+    /**
+     * Starts a new lobby.
+     * @param mapName name of the map being played
+     * @param serverName name of the server
+     */
+    public void startLobby (String mapName, String serverName);
 
 }

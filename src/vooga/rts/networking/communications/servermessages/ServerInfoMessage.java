@@ -1,5 +1,6 @@
 package vooga.rts.networking.communications.servermessages;
 
+import vooga.rts.networking.client.IClientModel;
 import vooga.rts.networking.communications.Message;
 
 /**
@@ -7,10 +8,10 @@ import vooga.rts.networking.communications.Message;
  * @author David Winegar
  *
  */
-public class ServerInfoMessage extends Message {
+public abstract class ServerInfoMessage extends Message {
 
     private static final long serialVersionUID = 1155598288906476729L;
     
-    
+    public abstract void affectClient (IClientModel model);
 
 }
