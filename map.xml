@@ -4,8 +4,8 @@
 <Name>CIEMAS</Name>
 <Desc> our RTS is the best one !</Desc>
 <Players number="2">
-<Player ID="1" X="85" Y="150"/>
-<Player ID="2" X="381" Y="347"/>
+<Player ID="1" X="65" Y="111"/>
+<Player ID="2" X="368" Y="425"/>
 </Players>
 </MapInfo>
 <Resourceinfo>
@@ -38,6 +38,7 @@
 <tile ID="0"/>
 <tile ID="0"/>
 <tile ID="0"/>
+<tile ID="5"/>
 <tile ID="0"/>
 <tile ID="0"/>
 <tile ID="0"/>
@@ -47,16 +48,7 @@
 <tile ID="0"/>
 <tile ID="0"/>
 <tile ID="0"/>
-<tile ID="3"/>
-<tile ID="0"/>
-<tile ID="0"/>
-<tile ID="0"/>
-<tile ID="0"/>
-<tile ID="0"/>
-<tile ID="0"/>
-<tile ID="0"/>
-<tile ID="0"/>
-<tile ID="0"/>
+<tile ID="5"/>
 <tile ID="0"/>
 <tile ID="0"/>
 <tile ID="0"/>
@@ -126,20 +118,29 @@
 <tile ID="0"/>
 <tile ID="0"/>
 <tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
+<tile ID="0"/>
 <tile ID="5"/>
+<tile ID="5"/>
+<tile ID="5"/>
+<tile ID="0"/>
+<tile ID="0"/>
 <tile ID="0"/>
 <tile ID="0"/>
 </tiles>
 <terrains>
 <layer level="1">
-<terrain ID="1" X="191" Y="155"/>
-<terrain ID="1" X="290" Y="234"/>
-<terrain ID="1" X="141" Y="296"/>
-<terrain ID="1" X="82" Y="193"/>
+<terrain ID="1" X="201" Y="149"/>
+<terrain ID="1" X="313" Y="258"/>
+<terrain ID="1" X="405" Y="317"/>
+<terrain ID="2" X="40" Y="338"/>
+<terrain ID="2" X="329" Y="151"/>
 </layer>
 </terrains>
 <Resources>
-<resource ID="1" X="193" Y="100"/>
-<resource ID="2" X="100" Y="49"/>
+<resource ID="1" X="254" Y="78"/>
+<resource ID="2" X="200" Y="277"/>
 </Resources>
 </Map>

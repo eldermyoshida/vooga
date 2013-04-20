@@ -1,7 +1,6 @@
 package vooga.rts.leveleditor.components;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -79,9 +78,7 @@ public class EditableMap implements Serializable {
         myLayers.put(1,new MapLayer());
         myResource = new ArrayList<Resource>();
 
-
-<<<<<<< HEAD
-            try {
+        try {
                 mySaver = new BetterMapSaver(this);
                 myLoader = new BetterMapLoader(this);
             }
@@ -89,18 +86,6 @@ public class EditableMap implements Serializable {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            
-=======
-        try {
-            mySaver = new MapSaver(this);
-            myLoader = new MapLoader(this);
-        }
-        catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
->>>>>>> 337f008a53251f6809989dd7210b7ec811823904
-
     }
 
     public void initializeMap () {
