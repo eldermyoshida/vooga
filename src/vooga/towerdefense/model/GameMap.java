@@ -153,6 +153,14 @@ public class GameMap {
     }
     
     /**
+     * 
+     * @param gameElement game element to be removed
+     */
+    public void removeGameElement (GameElement gameElement) {
+        myGameElements.remove(gameElement);
+    }
+    
+    /**
      * Gets howMany number of the closest targets within a radius of a circle centered at
      * source.
      * 
