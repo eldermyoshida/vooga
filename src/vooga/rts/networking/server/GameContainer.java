@@ -15,6 +15,7 @@ import java.util.Map;
 public class GameContainer extends AbstractThreadContainer {
 
     private Map<Integer, Room> myRooms = new HashMap<Integer, Room>();
+    private int myRoomNumber = 0;
 
     /**
      * Removes the room from the game container.
@@ -44,8 +45,10 @@ public class GameContainer extends AbstractThreadContainer {
     }
     
     @Override
-    public void startLobby (String mapName, String serverName) {
-    // TODO
+    public void startLobby (ConnectionThread thread, String mapName, String serverName) {
+        Room lobby = new Lobby(myRoomNumber, this, mapName, serverName);
+        myRoomNumber++;
+        lobby.addConnection(thread);
     }
 
 }

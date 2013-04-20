@@ -1,18 +1,22 @@
 package vooga.rts.networking.server;
 
+import vooga.rts.networking.client.lobby.LobbyModel;
+
 /**
  * This class represents a Lobby where users can change information.
  * @author David Winegar
  *
  */
 public class Lobby extends Room {
+    
+    private LobbyModel myLobbyModel;
         
     /**
      * Instantiates a lobby.
      * @param id id of lobby
      * @param container gamecontainer of lobby
      */
-    public Lobby (int id, GameContainer container) {
+    public Lobby (int id, GameContainer container, String mapName, String serverName) {
         super(id, container);
     }
     
@@ -30,4 +34,9 @@ public class Lobby extends Room {
         new GameServer(getID(), getGameContainer(), this);
     }
     
+    @Override
+    public void addConnection (ConnectionThread thread) {
+        super.addConnection(thread);
+        
+    }
 }

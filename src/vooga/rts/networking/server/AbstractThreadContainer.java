@@ -56,7 +56,7 @@ public abstract class AbstractThreadContainer implements IThreadContainer, IMess
     }
     
     @Override
-    public void startLobby (String mapName, String serverName){
+    public void startLobby (ConnectionThread thread, String mapName, String serverName){
     }
 
     @Override

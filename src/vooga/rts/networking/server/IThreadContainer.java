@@ -52,6 +52,6 @@ public interface IThreadContainer {
      * @param mapName name of the map being played
      * @param serverName name of the server
      */
-    public void startLobby (String mapName, String serverName);
+    public void startLobby (ConnectionThread thread, String mapName, String serverName);
 
 }

@@ -15,7 +15,7 @@ public class StartLobbyMessage extends ClientInfoMessage {
 
     @Override
     public void affectServer (ConnectionThread thread, IThreadContainer server) {
-        server.startLobby (myMapName, myServerName);
+        server.startLobby(thread, myMapName, myServerName);
     }
 
 }
