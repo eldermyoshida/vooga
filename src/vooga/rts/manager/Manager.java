@@ -9,6 +9,7 @@ import java.util.Map;
 import vooga.rts.action.Action;
 import vooga.rts.action.IActOn;
 import vooga.rts.commands.Command;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.IObserver;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.manager.actions.DragSelectAction;
 import vooga.rts.manager.actions.LeftClickAction;
@@ -27,7 +28,7 @@ import vooga.rts.util.Location3D;
  * @author Challen Herzberg-Brovold
  * 
  */
-public class Manager implements State, IActOn {
+public class Manager implements State, IActOn, IObserver {
 
     private List<InteractiveEntity> myEntities;
     private List<InteractiveEntity> mySelectedEntities;
@@ -237,6 +238,12 @@ public class Manager implements State, IActOn {
         if (myGroups.containsKey(groupID)) {
             mySelectedEntities = new ArrayList<InteractiveEntity>(myGroups.get(groupID));
         }
+    }
+
+    public void addProduction (InteractiveEntity u) {
+        // add the passed in InteractiveEntity into the list. 
+        myEntities.add(u);
+        
     }
 
 }

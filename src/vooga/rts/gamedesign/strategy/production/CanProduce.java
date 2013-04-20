@@ -2,6 +2,7 @@ package vooga.rts.gamedesign.strategy.production;
 
 import vooga.rts.gamedesign.factories.Factory;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.ProductionBuilding;
 
 import java.util.List;
 
@@ -18,19 +19,22 @@ import java.util.List;
  * @author Wenshun Liu
  * 
  */
-public class Producer implements IProducer {
+public class CanProduce implements IProducer {
 
     public List<InteractiveEntity> myProducables;
 
     public Integer cooldown;
 
     public Factory myFactory;
-
-    public void produce () {
-    }
-
+    
     @Override
-    public void produce (String str) {
-        // TODO Auto-generated method stub
+    public void produce (InteractiveEntity producer) {
+        if(producer instanceof ProductionBuilding) {
+            for(InteractiveEntity producable : ((ProductionBuilding) producer).getProducables()) {
+                //producer.addAction
+            }
+        }
     }
+
+
 }
