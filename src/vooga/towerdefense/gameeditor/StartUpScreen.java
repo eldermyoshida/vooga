@@ -1,11 +1,14 @@
 package vooga.towerdefense.gameeditor;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.lang.reflect.InvocationTargetException;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -23,22 +26,24 @@ public class StartUpScreen extends GameEditorScreen {
         setPreferredSize(size);
         setVisible(false);
         makeMouseAdapter();
-        add(makeLabel());
-        makeButton();
-        add(myStartButton);
+        add(makeLabel(), BorderLayout.NORTH);
+        add(makeButton(), BorderLayout.SOUTH);
     }
-    
+    @Override
     public void paintComponent(Graphics pen) {
-        super.paintComponent(pen);
+        super.paintComponents(pen);
+        pen.setColor(Color.WHITE);
+        pen.fillRect(0, 0, getSize().width, getSize().height);
     }
     
     private JLabel makeLabel() {
         return new JLabel(WELCOME_KEYWORD);
     }
     
-    private void makeButton() {
+    private JComponent makeButton() {
         myStartButton = new JButton(START_KEYWORD);
         myStartButton.addMouseListener(myMouseAdapter);
+        return myStartButton;
     }
     
     private void makeMouseAdapter() {

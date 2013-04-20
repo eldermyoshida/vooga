@@ -1,6 +1,7 @@
 package vooga.towerdefense.gameeditor;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
@@ -12,6 +13,7 @@ import javax.swing.JPanel;
 
 public class MapEditorScreen extends GameEditorScreen {
 
+    private static final long serialVersionUID = 1L;
     private static final String MAP_CHOOSER_KEYWORD = "Add map to game";
     private static final String NEXT_SCREEN_NAME = "vooga.towerdefense.gameeditor.ViewEditorScreen";
     private JButton myMapChooserButton;
@@ -21,15 +23,19 @@ public class MapEditorScreen extends GameEditorScreen {
     public MapEditorScreen(Dimension size, GameEditorController controller) {
         System.out.println("makeMapScreen");
         myController = controller;
-        setLayout(new BorderLayout());
+        setSize(size);
         setPreferredSize(size);
         makeMouseAdapter();
         makeButton();
         add(myMapChooserButton, BorderLayout.EAST);
+        
+        setVisible(true);
     }
     
+    @Override
     public void paintComponent(Graphics pen) {
         super.paintComponent(pen);
+        pen.setColor(Color.WHITE);
         myMapChooserButton.paint(pen);
     }
     
