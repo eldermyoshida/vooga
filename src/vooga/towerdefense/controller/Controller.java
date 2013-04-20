@@ -231,7 +231,7 @@ public class Controller {
         ShopItem itemToBuy = myModel.getShopItem(p);
         List<Action> actions = new ArrayList<Action>();
        ExampleTowerFactory factory = new ExampleTowerFactory("Tower", myModel.getMap());
-       factory.createGameElement();
+//       factory.createGameElement();
        Tower t=factory.createTower(new Location(p.getX(),p.getY()));
         //Tower t = new Tower(new Pixmap("shopicons/redtower.png"), new Location(p.getX(), p.getY()), new Dimension(50, 50), null, actions);
         BuildMode myNewMode = new BuildMode();

@@ -68,8 +68,8 @@ public class GameMap {
      *        time elapsed since last game clock tick.
      */
     public void update (double elapsedTime) {
-        for (GameElement e : myGameElements) {
-            e.update(elapsedTime);
+        for (int i = 0; i < myGameElements.size(); ++i) {
+            myGameElements.get(i).update(elapsedTime);
         }
     }
 
@@ -128,8 +128,8 @@ public class GameMap {
     }
 
     private void paintGameElements (Graphics2D pen) {
-        for (GameElement e : myGameElements) {
-            e.paint(pen);
+        for (int i = 0; i < myGameElements.size(); ++i) {
+            myGameElements.get(i).paint(pen);
         }
     }
 
