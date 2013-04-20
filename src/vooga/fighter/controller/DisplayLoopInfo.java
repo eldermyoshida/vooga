@@ -1,39 +1,48 @@
 package vooga.fighter.controller;
 
-import java.awt.Dimension;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
 
-import util.Location;
-import util.Pixmap;
-import vooga.fighter.model.LevelMode;
-import vooga.fighter.model.MenuMode;
 import vooga.fighter.model.Mode;
-import vooga.fighter.model.utils.Health;
 import vooga.fighter.model.utils.ImageDataObject;
-import vooga.fighter.util.Paintable;
+import vooga.fighter.util.HUDFactory;
+import vooga.fighter.view.HUDElement;
 
 public class DisplayLoopInfo extends DisplayInfo implements ViewDataSource{
-	private Mode myMode;
+    private Mode myMode;
     private List<ImageDataObject> myImageData;
 
-	public DisplayLoopInfo(Mode mode) {
-		super();
-		myMode = mode;
+    public DisplayLoopInfo(Mode mode) {
+        super();
+        myMode = mode;
     	myImageData = mode.getImageData();
         updateInfo();
-	}
+    }
+
+    protected void addHUDElements () {
+        try {
+            for (HUDElement e : HUDFactory.getHUDElements(this)) {
+                addHUDDisplay(e);
+            }
+        }
+        catch (InstantiationException e) {
+            throw new NullPointerException("Could not instantiate HUDElement: " + e.getMessage());
+        }
+        catch (IllegalAccessException e) {
+            throw new NullPointerException("Could not access member variable: " + e.getMessage());
+        }
+        catch (ClassNotFoundException e) {
+            throw new NullPointerException("Could not find class: " + e.getMessage());
+        }
+    }
 
     public void updateInfo(){
-    	getSpriteLocations().clear();
-    	getSprites().clear();
+    	getLocations().clear();
+    	getGameObjects().clear();
     	getImageSizes().clear();
     	myImageData = myMode.getImageData();
-    	setObjectNumber(myImageData.size());
     	for(ImageDataObject data : myImageData){
-    		getSprites().add(data.getMyImage());
-    		getSpriteLocations().add(data.getMyLocation());
+    		getGameObjects().add(data.getMyImage());
+    		getLocations().add(data.getMyLocation());
     		getImageSizes().add(data.getMySize());
     	}
     }

@@ -5,7 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.util.Observable;
 import vooga.fighter.view.HUDElement;
-import vooga.fighter.util.Text;
+import util.Text;
 
 /**
  * Displays a specific player's statistic. Displays one statistic given the Name
@@ -25,8 +25,8 @@ public class HUDPlayerValue extends HUDElement {
         }
     }
     
-    Text myPlayerNameText = new Text("");
-    Text myPlayerValue = new Text("");
+    protected Text myPlayerNameText = new Text("");
+    protected Text myPlayerValue = new Text("");
     
     @Override
     public void update (Observable o, Object arg) {
@@ -53,6 +53,7 @@ public class HUDPlayerValue extends HUDElement {
         myPlayerValue.setText(myName + ": " + newStats.myValue);
     }
     
+    @Override
     public void paint (Graphics2D pen, Point2D center, Dimension size) {
         myPlayerNameText.paint(pen, center, java.awt.Color.BLACK);
         center.setLocation(center.getX(), center.getY() + HUDElement.DEFAULT_TEXT_HEIGHT);

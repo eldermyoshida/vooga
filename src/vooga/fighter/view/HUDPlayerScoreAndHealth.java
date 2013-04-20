@@ -5,10 +5,10 @@ import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.util.Observable;
 import vooga.fighter.controller.PlayerStatus;
-import vooga.fighter.util.Text;
+import util.Text;
 
 public class HUDPlayerScoreAndHealth extends HUDPlayerValue {
-    Text myPlayerHealth = new Text("");
+    private Text myPlayerHealth = new Text("");
     
     @Override
     public void update (Observable o, Object arg) {
@@ -31,11 +31,12 @@ public class HUDPlayerScoreAndHealth extends HUDPlayerValue {
             return;
         }
         
-        myPlayerNameText.setText(newStatus.getName());
+        myPlayerNameText.setText(newStatus.getPlayerName());
         myPlayerValue.setText("Score: " + newStatus.getScore());
         myPlayerHealth.setText("Health: " + newStatus.getHealth().getHealth());
     }
     
+    @Override
     public void paint (Graphics2D pen, Point2D center, Dimension size) {
         super.paint(pen, center, size);
         center.setLocation(center.getX(), center.getY() + HUDElement.DEFAULT_TEXT_HEIGHT);
