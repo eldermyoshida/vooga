@@ -48,12 +48,12 @@ public class MapLoader extends ObjectLoader {
 	public void load(String mapName) {
 		Document doc = getDocument();
 		NodeList mapNodes = doc.getElementsByTagName(getResourceBundle().getString("Map"));
-
+		
 		for (int i = 0; i < mapNodes.getLength(); i++) {
 			Element node = (Element) mapNodes.item(i);
 			String name = getAttributeValue(node, getResourceBundle().getString("MapName"));
 			if (mapName.equals(name)) {
-			    // fix 1 to number of frames later
+			    //TODO: fix 1 to number of frames later
 				State mapState = new State(myMap, 1);
 				mapState.populateImage(new Pixmap(getAttributeValue(node, getResourceBundle().getString("MapBackground"))), 0);
 				mapState.populateSize(new Dimension(Integer.parseInt(getAttributeValue(node, getResourceBundle().getString("XSize"))),
@@ -61,10 +61,10 @@ public class MapLoader extends ObjectLoader {
 				myMap.addState(getResourceBundle().getString("BackgroundState"), mapState);
 				myMap.setLocation(new UpdatableLocation(Integer.parseInt(getAttributeValue(node, getResourceBundle().getString("XSize")))/2,
 						Integer.parseInt(getAttributeValue(node, getResourceBundle().getString("YSize")))/2));
-				NodeList startingPosNodes= node.getElementsByTagName(getResourceBundle().getString("StartingPositions"));
+				NodeList startingPosNodes= node.getElementsByTagName(getResourceBundle().getString("StartingPosition"));
 				addStartingPositions(startingPosNodes);
-				NodeList enviroObjectNodes = node.getElementsByTagName("environmentObject");
-				addEnviroObjects(enviroObjectNodes);
+				//NodeList enviroObjectNodes = node.getElementsByTagName("environmentObject");
+				//addEnviroObjects(enviroObjectNodes);
 			}
 		}
 	}
