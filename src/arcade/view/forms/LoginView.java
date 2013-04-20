@@ -101,7 +101,7 @@ public class LoginView extends Account {
         register.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent arg0) {
-                new RegisterView(getModel(), getResources());
+                new RegisterView(getModel(), getResources(), getUsername(), getPassword());
                 // getModel().startRegister(); to instantiate the register view
                 dispose();
             }
