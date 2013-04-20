@@ -1,16 +1,15 @@
 package vooga.towerdefense.factories;
 
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import vooga.towerdefense.action.Action;
-import vooga.towerdefense.action.FollowPath;
-import vooga.towerdefense.action.Move;
+import vooga.towerdefense.action.AttackAction;
 import vooga.towerdefense.attributes.Attribute;
 import vooga.towerdefense.attributes.AttributeConstants;
 import vooga.towerdefense.attributes.AttributeManager;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.gameElements.Tower;
 import vooga.towerdefense.gameElements.Unit;
+import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.Path;
 import vooga.towerdefense.util.Location;
 
@@ -19,40 +18,40 @@ import vooga.towerdefense.util.Location;
  *
  */
 public class ExampleTowerFactory extends TowerFactory {
+	private GameMap myGameMap;
 
     /**
      * @param name
      * @param def
      */
-    public ExampleTowerFactory (String name, TowerDefinition def) {
-        super(name, def);
+    public ExampleTowerFactory (String name, GameMap map) {
+        super();
+        myGameMap=map;
     }
     
     
     
-    public GameElement createGameElement(Location putHere){
-        GameElementDefinition def = getDefinition();
-        if (def == null) {
-            return null;
-        }
+    public Tower createTower(Location putHere){
+        TowerDefinition def=new TowerDefinition();
+       
         AttributeManager AM = new AttributeManager();
-        AM.addAttribute(new Attribute(AttributeConstants.MOVE_SPEED, 150.0));
+        AM.addAttribute(new Attribute(AttributeConstants.ATTACK_RADIUS, 300.0));
         AM.addAttribute(new Attribute(AttributeConstants.DIRECTION, 50.0));
-        AM.addAttribute(new Attribute(AttributeConstants.ATTACK_INTERVAL, 50.0));
+        AM.addAttribute(new Attribute(AttributeConstants.ATTACK_INTERVAL, 30.0));
+        AM.addAttribute(new Attribute(AttributeConstants.NUM_OF_TARGETS, 1.0));
+        AM.addAttribute(new Attribute(AttributeConstants.MOVE_SPEED,10.0));
+        AM.setProjectileFactory(new ProjectileFactory());
         Tower myTower;
         if (putHere != null) {
-                myTower = new Tower(def.getImage(), putHere,
-                                def.getSize(), AM);
+                myTower = new Tower(def.myImage, def.myCenter,
+                                def.mySize, AM);
         } else {
                 myTower = new Tower(def.getImage(),
                                 def.getCenter(), def.getSize(), AM);
         }
 
         ArrayList<Action> actions = new ArrayList<Action>();
-        actions.add(new Move(myTower.getCenter(), myTower.getAttributeManager()
-                        .getAttribute(AttributeConstants.MOVE_SPEED), myTower
-                        .getAttributeManager().getAttribute(
-                                        AttributeConstants.DIRECTION)));
+        actions.add(new AttackAction(myGameMap,myTower,myTower.getAttributeManager().getProjectileFactory()));
         
         
        
