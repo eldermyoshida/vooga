@@ -2,6 +2,7 @@ package vooga.fighter.model.loaders;
 
 
 import java.awt.Dimension;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +30,7 @@ public class MapLoader extends ObjectLoader {
 	private static final String MAP_PATH = "src/vooga/fighter/config/maps.xml";
 
 	private MapObject myMap;
+	
 	/**
 	 * Dummy Constructor only to be used when getting map count
 	 */
@@ -36,6 +38,11 @@ public class MapLoader extends ObjectLoader {
 		super(MAP_PATH);
 	}
 
+	/**
+	 * Constructs MapLoader, sets file path using the super constructor, and loads map
+	 * @param mapName to be loaded
+	 * @param map object which is loaded into
+	 */
 	public MapLoader (String mapName, MapObject map) {
 		super(MAP_PATH);
 		myMap = map;
@@ -44,6 +51,7 @@ public class MapLoader extends ObjectLoader {
 
 	/**
 	 * Loads map from xml data
+	 * @param mapName to be loaded
 	 */
 	public void load(String mapName) {
 		Document doc = getDocument();
@@ -53,12 +61,8 @@ public class MapLoader extends ObjectLoader {
 			Element node = (Element) mapNodes.item(i);
 			String name = getAttributeValue(node, getResourceBundle().getString("MapName"));
 			if (mapName.equals(name)) {
-			    //TODO: fix 1 to number of frames later
-				State mapState = new State(myMap, 1);
-				mapState.populateImage(new Pixmap(getAttributeValue(node, getResourceBundle().getString("MapBackground"))), 0);
-				mapState.populateSize(new Dimension(Integer.parseInt(getAttributeValue(node, getResourceBundle().getString("XSize"))),
-						Integer.parseInt(getAttributeValue(node, getResourceBundle().getString("YSize")))), 0);
-				myMap.addState(getResourceBundle().getString("BackgroundState"), mapState);
+				NodeList stateNodes = ((Element) node).getElementsByTagName("state");
+				addStates(stateNodes, myMap);
 				myMap.setLocation(new UpdatableLocation(Integer.parseInt(getAttributeValue(node, getResourceBundle().getString("XSize")))/2,
 						Integer.parseInt(getAttributeValue(node, getResourceBundle().getString("YSize")))/2));
 				NodeList startingPosNodes= node.getElementsByTagName(getResourceBundle().getString("StartingPosition"));
@@ -71,7 +75,7 @@ public class MapLoader extends ObjectLoader {
 	
 	
 	public List<String> getMapNames(){
-		List maps = new ArrayList<String>();
+		List<String> maps = new ArrayList<String>();
 		Document doc = getDocument();
 		NodeList mapNodes = doc.getElementsByTagName(getResourceBundle().getString("Map"));
 		for (int i = 0; i < mapNodes.getLength(); i++) {
@@ -84,8 +88,8 @@ public class MapLoader extends ObjectLoader {
 	/**
 	 * 
 	 * Adds starting position for the characters
+	 * @param startingPosNodes NodeList of all starting positions available on a map
 	 */
-
 	private void addStartingPositions(NodeList startingPosNodes) {
 		for (int i=0; i<startingPosNodes.getLength(); i++){
 			Node startingPosition= startingPosNodes.item(i);
@@ -112,8 +116,4 @@ public class MapLoader extends ObjectLoader {
 			toAdd.setImageData();
 		}
 	}
-
-
-
-
 }
