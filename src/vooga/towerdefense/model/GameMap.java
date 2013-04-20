@@ -159,12 +159,29 @@ public class GameMap {
      * @param source the center of the circle 
      * @param radius the radius of the circle
      * @param howMany the number of units closest to source, within radius
-     * @return
+     * @return howMany number of elements within radius sorted by distance from source
      */
     public List<GameElement> getTargetsWithinRadius (Location source,
                                                      double radius, int howMany) {
+        List<GameElement> elementsWithinRadius = getTargetsWithinRadius(source, radius);
+        return elementsWithinRadius.subList(0, howMany);
+    }
+    
+    /**
+     * Gets the number of closest targets within a radius of a circle centered at source.
+     * 
+     * @param source the center of the circle 
+     * @param radius the radius of the circle 
+     * @return all elements within radius sorted by distance from source
+     */
+    public List<GameElement> getTargetsWithinRadius(Location source, double radius) {
         List<GameElement> elementsWithinRadius = getElementsWithinRadius(source, radius);
-
+        sortGameElementsByDistanceToSource(elementsWithinRadius, source);
+        return elementsWithinRadius;
+    }
+    
+    private void sortGameElementsByDistanceToSource(List<GameElement> elementsWithinRadius, 
+                                                    Location source) {
         class GameElementComparator implements Comparator<GameElement> {
             private Location mySource;
 
@@ -182,7 +199,6 @@ public class GameMap {
 
         Collections.sort(elementsWithinRadius,
                          new GameElementComparator(source));
-        return elementsWithinRadius.subList(0, howMany);
     }
 
     private List<GameElement> getElementsWithinRadius (Location source, double radius) {
