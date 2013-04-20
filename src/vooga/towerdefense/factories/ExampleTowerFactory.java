@@ -33,7 +33,7 @@ public class ExampleTowerFactory extends TowerFactory {
     
     
     
-    public GameElement createGameElement(Location putHere){
+    public Tower createTower(Location putHere){
         GameElementDefinition def = getDefinition();
         if (def == null) {
             return null;
@@ -41,7 +41,7 @@ public class ExampleTowerFactory extends TowerFactory {
         AttributeManager AM = new AttributeManager();
         AM.addAttribute(new Attribute(AttributeConstants.ATTACK_RADIUS, 300.0));
         AM.addAttribute(new Attribute(AttributeConstants.DIRECTION, 50.0));
-        AM.addAttribute(new Attribute(AttributeConstants.ATTACK_INTERVAL, 50.0));
+        AM.addAttribute(new Attribute(AttributeConstants.ATTACK_INTERVAL, 30.0));
         AM.addAttribute(new Attribute(AttributeConstants.NUM_OF_TARGETS, 1.0));
         AM.setProjectileFactory(new ProjectileFactory());
         Tower myTower;
