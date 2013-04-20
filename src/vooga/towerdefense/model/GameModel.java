@@ -5,8 +5,9 @@ import java.awt.Point;
 import java.util.List;
 
 import vooga.towerdefense.controller.Controller;
-import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.gameElements.Wave;
+import vooga.towerdefense.shop.Shop;
+import vooga.towerdefense.shop.ShopItem;
 
 
 /**
@@ -20,7 +21,6 @@ public class GameModel {
     private Controller myController;
     private List<Wave> myWaves;
     private GameMap myGameMap;
-    private double myWaveTimeElapsed;
     private Wave myCurrentWave;
     private Shop myShop;
 
@@ -28,17 +28,12 @@ public class GameModel {
         myController = controller;
         myWaves = waves;
         myGameMap = gameMap;
-        myWaveTimeElapsed = 0;
         myShop = shop;
-        // startNextWave();
+		myCurrentWave = waves.get(0);
     }
     
     public Tile getTile(Point p) {
         return myGameMap.getTile(p);
-    }
-    
-    public Shop getShop() {
-        return myShop;
     }
 
     public void update (double elapsedTime) {
@@ -47,14 +42,12 @@ public class GameModel {
     }
 
     public void updateWave (double elapsedTime) {
-        myWaveTimeElapsed += elapsedTime;
-        if (myWaveTimeElapsed > myCurrentWave.getDuration()) {
-            myWaveTimeElapsed = 0;
-            startNextWave();
-        }
+		myCurrentWave.update(elapsedTime);
+		if (myCurrentWave.waveCompleted())
+			startNextWave();
     }
 
-    private void startNextWave () {
+    public void startNextWave () {
         if (myWaves.iterator().hasNext()) {
             myCurrentWave = myWaves.iterator().next();
         }
@@ -70,5 +63,13 @@ public class GameModel {
 
     public GameMap getMap () {
         return myGameMap;
+    }
+    
+    public void paintShop(Graphics2D pen) { 
+        myShop.paint(pen);
+    }
+    
+    public ShopItem getShopItem(Point p) {
+        return myShop.getShopItem(p);
     }
 }
