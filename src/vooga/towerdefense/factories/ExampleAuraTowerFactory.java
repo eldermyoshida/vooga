@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.AttackAction;
+import vooga.towerdefense.action.FindTargets;
 import vooga.towerdefense.action.ModifyAttributeValue;
 import vooga.towerdefense.action.TrackTarget;
 import vooga.towerdefense.attributes.Attribute;
@@ -57,12 +58,13 @@ public class ExampleAuraTowerFactory extends TowerFactory {
         }
 
         ArrayList<Action> actions = new ArrayList<Action>();
-        TrackTarget findTargets =
-                new TrackTarget(putHere, AM.getAttribute(AttributeConstants.ATTACK_RADIUS), myMap);
+        FindTargets findTargets =
+                new FindTargets(myMap, putHere, AM.getAttribute(AttributeConstants.ATTACK_RADIUS));
+        findTargets.initAction();
         findTargets.addFollowUpAction(new ModifyAttributeValue(AM
-                .getAttribute(AttributeConstants.AURA_EFFECT), AttributeConstants.HEALTH));
+                                                               .getAttribute(AttributeConstants.AURA_EFFECT), AttributeConstants.MOVE_SPEED));
         actions.add(findTargets);
-        
+
         myTower.addActions(actions);
         return myTower;
     }

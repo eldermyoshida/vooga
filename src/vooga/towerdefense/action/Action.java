@@ -3,6 +3,7 @@ package vooga.towerdefense.action;
 
 import java.util.ArrayList;
 import java.util.List;
+import vooga.towerdefense.gameElements.GameElement;
 
 
 /**
@@ -18,14 +19,17 @@ import java.util.List;
 public abstract class Action {
     private boolean enabled;
     private boolean complete;
-    private List<Action> myFollowUpAction;
+    private List<Action> myFollowUpActions;
+    private List<GameElement> myTargets;
     	
     public Action () {
+        myFollowUpActions = new ArrayList<Action>();
+        myTargets = new ArrayList<GameElement>();
     }
 
     public void initAction () {
         enabled = true;
-        myFollowUpAction = new ArrayList<Action>();
+        myFollowUpActions = new ArrayList<Action>();
         // initialize resources
     }
     
@@ -40,13 +44,17 @@ public abstract class Action {
      */
     public abstract void update (double elapsedTime);
     
-    
-    public void addFollowUpAction(Action action){
-    	myFollowUpAction.add(action);
+    public void setTargets(List<GameElement> targets) {
+        myTargets = targets;
     }
     
-    public Action getFollowUpAction(){
-    	return myFollowUpAction.get(0);
+    
+    public void addFollowUpAction(Action action){
+    	myFollowUpActions.add(action);
+    }
+    
+    public List<Action> getFollowUpAction(){
+    	return myFollowUpActions;
     }
     public boolean isComplete () {
         enabled = false;
