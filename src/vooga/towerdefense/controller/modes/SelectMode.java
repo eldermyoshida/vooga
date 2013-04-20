@@ -21,7 +21,7 @@ public class SelectMode extends ControlMode {
      */
     @Override
     public void handleMapClick (Point p, Controller controller) {
-        currentlySelectedItem = controller.getItemAt(p);
+//        currentlySelectedItem = controller.getItemAt(p);
         controller.displayElementInformation(currentlySelectedItem);
     }
 

@@ -141,19 +141,19 @@ public class Controller {
 		setVisibilityOfShopCancelButton(false);
 	}
 
-	/**
-	 * gets the associated game element at a point.
-	 * 
-	 * @param p
-	 * @return the game element
-	 */
-	public GameElement getItemAt(Point p) {
-		Tile tile = myModel.getTile(p);
-		if (tile.containsElement()) {
-			return tile.getElement();
-		}
-		return null;
-	}
+//	/**
+//	 * gets the associated game element at a point.
+//	 * 
+//	 * @param p
+//	 * @return the game element
+//	 */
+//	public GameElement getItemAt(Point p) {
+//		Tile tile = myModel.getTile(p);
+//		if (tile.containsElement()) {
+//			return tile.getElement();
+//		}
+//		return null;
+//	}
 
 	/**
 	 * gets the resource bundle for this controller.
