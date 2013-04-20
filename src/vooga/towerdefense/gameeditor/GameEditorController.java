@@ -107,9 +107,12 @@ public class GameEditorController extends JFrame {
      */
     @SuppressWarnings("rawtypes")
     public void displayNextScreen(String nextScreenName) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SecurityException, NoSuchMethodException, IllegalArgumentException, InvocationTargetException {
+        System.out.println("Next Screen = " + nextScreenName);
         Class[] args = {Dimension.class, GameEditorController.class};
         Class theClass = Class.forName(nextScreenName);
+        System.out.println("class is " + theClass);
         Constructor cons = theClass.getConstructor(args);
+        System.out.println("Constructor is " + cons);
         GameEditorScreen screen = (GameEditorScreen) cons.newInstance(mySize, this);
         this.getContentPane().add(screen);
         screen.display();   

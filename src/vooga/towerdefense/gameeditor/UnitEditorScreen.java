@@ -17,7 +17,7 @@ public class UnitEditorScreen extends GameEditorScreen {
     /**
      * next screen constant.
      */
-    private static final String NEXT_SCREEN_NAME = "vooga.towerdefense.gameeditor.WaveEditorScreen";
+    private static final String NEXT_SCREEN_NAME = "WaveEditorScreen";
     /**
      * title constant.
      */

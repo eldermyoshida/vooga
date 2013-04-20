@@ -103,8 +103,10 @@ public abstract class GameEditorScreen extends JPanel {
                 if (e.getSource().equals(myAddButton)) {
                     System.out.println("add to game");
                     addElementToGame();
-                if (e.getSource().equals(myFinishButton))
+                }
+                else if (e.getSource().equals(myFinishButton)) {
                     try {
+                        System.out.println("click on finish button");
                         myController.displayNextScreen(myNextScreenName);
                     }
                     catch (SecurityException e1) {
