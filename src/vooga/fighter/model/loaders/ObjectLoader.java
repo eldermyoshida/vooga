@@ -1,6 +1,5 @@
 package vooga.fighter.model.loaders;
 
-import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.io.File;
 import java.util.ResourceBundle;
