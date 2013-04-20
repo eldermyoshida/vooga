@@ -2,13 +2,9 @@ package vooga.towerdefense.gameeditor;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Field;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -75,10 +71,6 @@ public abstract class GameElementEditorScreen extends GameEditorScreen {
      * constant for the attribute section title.
      */
     private static final String ATTRIBUTE_TITLE = "Attributes";
-    /**
-     * string ending that indicates this file is a class.
-     */
-    private static final String CLASS_INDICATOR_STRING = ".class";
     /**
      * constant for the image selector button.
      */

@@ -1,6 +1,7 @@
 package vooga.towerdefense.gameeditor;
 
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 
 /**
@@ -23,6 +24,10 @@ public class WaveEditorScreen extends GameEditorScreen {
      * title constant.
      */
     private static final String TITLE_NAME = "WAVE ";
+    /**
+     * unit catalog for this screen.
+     */
+    private Catalog myUnitCatalog;
     
     /**
      * Constructor.
@@ -31,7 +36,9 @@ public class WaveEditorScreen extends GameEditorScreen {
      */
     public WaveEditorScreen(Dimension size, GameEditorController controller) {
         super(size, controller, TITLE_NAME, NEXT_SCREEN_NAME);
-        add(new UnitCatalog(new Dimension(200, 200), getController().getUnits()));
+        myUnitCatalog = new Catalog(new Dimension(300, 300), 
+                                    getController().getIconsForUnits());
+        add(myUnitCatalog);
     }
 
     /**

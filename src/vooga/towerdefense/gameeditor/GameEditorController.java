@@ -2,6 +2,7 @@ package vooga.towerdefense.gameeditor;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -11,8 +12,11 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
+import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.gameElements.Unit;
 import vooga.towerdefense.gameElements.Wave;
+import vooga.towerdefense.util.Location;
+import vooga.towerdefense.util.Pixmap;
 
 /**
  * Controls the game editor.
@@ -46,6 +50,86 @@ public class GameEditorController extends JFrame {
         setPreferredSize(mySize);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         initializeGUI();
+        
+        //TODO: remove, this is just for testing
+        Unit temp = new Unit(new Pixmap("tower.gif"), new Location(0,0), new Dimension(0,0), null, null, null);
+        Unit temp2 = new Unit(new Pixmap("tower.gif"), new Location(0,0), new Dimension(0,0), null, null, null);
+        Unit temp3 = new Unit(new Pixmap("tower.gif"), new Location(0,0), new Dimension(0,0), null, null, null);
+        Unit temp4 = new Unit(new Pixmap("tower.gif"), new Location(0,0), new Dimension(0,0), null, null, null);
+        Unit temp5 = new Unit(new Pixmap("tower.gif"), new Location(0,0), new Dimension(0,0), null, null, null);
+        Unit temp6 = new Unit(new Pixmap("tower.gif"), new Location(0,0), new Dimension(0,0), null, null, null);
+        myCreatedUnits.add(temp);
+        myCreatedUnits.add(temp2);
+        myCreatedUnits.add(temp3);
+        myCreatedUnits.add(temp4);
+        myCreatedUnits.add(temp5);
+        myCreatedUnits.add(temp6);
+        myCreatedUnits.add(temp);
+        myCreatedUnits.add(temp2);
+        myCreatedUnits.add(temp3);
+        myCreatedUnits.add(temp4);
+        myCreatedUnits.add(temp5);
+        myCreatedUnits.add(temp6);
+        myCreatedUnits.add(temp);
+        myCreatedUnits.add(temp2);
+        myCreatedUnits.add(temp3);
+        myCreatedUnits.add(temp4);
+        myCreatedUnits.add(temp5);
+        myCreatedUnits.add(temp6);
+        myCreatedUnits.add(temp);
+        myCreatedUnits.add(temp2);
+        myCreatedUnits.add(temp3);
+        myCreatedUnits.add(temp4);
+        myCreatedUnits.add(temp5);
+        myCreatedUnits.add(temp6);
+        myCreatedUnits.add(temp);
+        myCreatedUnits.add(temp2);
+        myCreatedUnits.add(temp3);
+        myCreatedUnits.add(temp4);
+        myCreatedUnits.add(temp5);
+        myCreatedUnits.add(temp6);
+        myCreatedUnits.add(temp);
+        myCreatedUnits.add(temp2);
+        myCreatedUnits.add(temp3);
+        myCreatedUnits.add(temp4);
+        myCreatedUnits.add(temp5);
+        myCreatedUnits.add(temp6);
+        myCreatedUnits.add(temp);
+        myCreatedUnits.add(temp2);
+        myCreatedUnits.add(temp3);
+        myCreatedUnits.add(temp4);
+        myCreatedUnits.add(temp5);
+        myCreatedUnits.add(temp6);
+        myCreatedUnits.add(temp);
+        myCreatedUnits.add(temp2);
+        myCreatedUnits.add(temp3);
+        myCreatedUnits.add(temp4);
+        myCreatedUnits.add(temp5);
+        myCreatedUnits.add(temp6);
+        myCreatedUnits.add(temp);
+        myCreatedUnits.add(temp2);
+        myCreatedUnits.add(temp3);
+        myCreatedUnits.add(temp4);
+        myCreatedUnits.add(temp5);
+        myCreatedUnits.add(temp6);
+        myCreatedUnits.add(temp);
+        myCreatedUnits.add(temp2);
+        myCreatedUnits.add(temp3);
+        myCreatedUnits.add(temp4);
+        myCreatedUnits.add(temp5);
+        myCreatedUnits.add(temp6);
+        myCreatedUnits.add(temp);
+        myCreatedUnits.add(temp2);
+        myCreatedUnits.add(temp3);
+        myCreatedUnits.add(temp4);
+        myCreatedUnits.add(temp5);
+        myCreatedUnits.add(temp6);
+        myCreatedUnits.add(temp);
+        myCreatedUnits.add(temp2);
+        myCreatedUnits.add(temp3);
+        myCreatedUnits.add(temp4);
+        myCreatedUnits.add(temp5);
+        myCreatedUnits.add(temp6);
     }
     
     /**
@@ -94,10 +178,14 @@ public class GameEditorController extends JFrame {
     
     /**
      * gets the list of already created units.
-     * @return a list of units
+     * @return a list of gameelements
      */
-    public List<Unit> getUnits() {
-        return myCreatedUnits;
+    public List<GameElement> getUnits() {
+        List<GameElement> g = new ArrayList<GameElement>();
+        for (Unit u : myCreatedUnits) {
+            g.add(u);
+        }
+        return g;
     }
     
     /**
@@ -142,10 +230,23 @@ public class GameEditorController extends JFrame {
     }
     
     /**
+     * Get icons for the game elements in the list.
+     * @param gameElementsCreated
+     * @return a list of images
+     */
+    public List<Image> getIconsForUnits() {
+        List<Image> images = new ArrayList<Image>();
+        for (Unit u : myCreatedUnits) {
+            images.add(u.getPixmap().getImage());
+        }
+        return images;
+    }
+    
+    /**
      * uses reflection to display the next screen in the sequence.
      * @param nextScreenName is the next screen
      */
-    @SuppressWarnings("rawtypes")
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     public void displayNextScreen(String nextScreenName) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SecurityException, NoSuchMethodException, IllegalArgumentException, InvocationTargetException {
         Class[] args = {Dimension.class, GameEditorController.class};
         Class theClass = Class.forName(nextScreenName);
