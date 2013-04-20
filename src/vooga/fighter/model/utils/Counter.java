@@ -23,7 +23,7 @@ public class Counter {
     /**
      * Construct counter with initial count set to my count
      */
-    public Counter (int count) {
+    public Counter(int count) {
         myCount = count;
         myStatus = true;
     }
@@ -31,8 +31,15 @@ public class Counter {
     /**
      * Construct counter with no initial count. The counter will be inactive.
      */
-    public Counter () {
+    public Counter() {
         myStatus = false;
+    }
+    
+    /**
+     * Construct counter with identical count to another counter.
+     */
+    public Counter(Counter other) {
+        this(other.getCount());
     }
 
     /**
