@@ -41,12 +41,15 @@ public class Projectile extends GameElement {
         super(image, initiator.getCenter(), size, attributes, actions);
         myTargetLocation = targetElement.getCenter();
         myInitiator = initiator;
-        myHeading = new Vector(Vector.angleBetween(myInitiator.getCenter(), myTargetLocation),attributes.getAttribute("speed").getValue());
+        myHeading =
+                new Vector(Vector.angleBetween(myInitiator.getCenter(), myTargetLocation),
+                           attributes.getAttribute("speed").getValue());
     }
 
     /**
      * Creates a projectile that travels towards a location.
      * If the location given is the myCenter of a GameElement, it will follow that element
+     * 
      * @param image
      * @param size
      * @param initiator
@@ -60,7 +63,7 @@ public class Projectile extends GameElement {
         super(image, initiator.getCenter(), size, attributes, actions);
         myTargetLocation = targetLocation;
         myInitiator = initiator;
-        myHeading = new Vector(Vector.angleBetween(myInitiator.getCenter(), myTargetLocation),0);
+        myHeading = new Vector(Vector.angleBetween(myInitiator.getCenter(), myTargetLocation), 0);
 
     }
 
@@ -75,20 +78,22 @@ public class Projectile extends GameElement {
      * public Projectile(Location spawn,GameElement target){
      * super(DEFAULT_IMAGE,spawn,DEFAULT_SIZE,DEFAULT_ACTIONS); }
      */
-    public void update (double elapsedTime) { 
+    public void update (double elapsedTime) {
         // to-do mostly needs to move towards target;
     }
 
     /**
      * Returns a target element, or null if it is not tracking an element
+     * 
      * @return
      */
     public GameElement getTarget () {
         return myTarget;
     }
-    
+
     /**
      * Returns a the location the projectile is traveling to
+     * 
      * @return
      */
     public Location getTargetLocation () {

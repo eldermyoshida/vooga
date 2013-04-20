@@ -18,38 +18,28 @@ import vooga.towerdefense.model.GameMap;
  * @author Zhen Gou
  *
  */
-public class AttackAction extends Action {
-	private static final AttributeConstants ATTRIBUTE_CONSTANTS = new AttributeConstants();
+public class AttackAction extends PeriodicAction {
 	private GameElement myInitiator;
 	private GameMap myMap;
 
-	public AttackAction(GameMap map, GameElement initiator){
-		super(initiator);
-		myMap = map;
-	}
-	
 	public AttackAction(GameMap map, GameElement initiator, ProjectileFactory projectileToCreate){
-            super(initiator);
-            myMap = map;
+        myMap = map;
+        myInitiator=initiator;
+        setCoolDown(initiator.getAttributeManager().getAttribute(AttributeConstants.ATTACK_INTERVAL).getValue());
     }
 	
-	/*public AttackAction(InfoBridge info, Attacker source, double cooldown, boolean isOneTime) {
-		super(info);
-		myCoolDown=cooldown;
-		isOneTimeAction=isOneTime;
-
-	}*/
 
 	@Override
 	public void executeAction(double elapsedTime) {
+		updateTimer(elapsedTime);
 		//check whether it's in cool down
-		if (isEnabled()) {
+		if (isReady()) {
 			//get targets that we wanna shoot
 			List<GameElement> targets = myMap
 					.getTargetsWithinRadius(
 							myInitiator.getCenter(),
-							myInitiator.getAttributeManager().getAttribute(ATTRIBUTE_CONSTANTS.ATTACK_RADIUS).getValue(),
-							(int)(myInitiator.getAttributeManager().getAttribute(ATTRIBUTE_CONSTANTS.NUM_OF_TARGETS).getValue()));
+							myInitiator.getAttributeManager().getAttribute(AttributeConstants.ATTACK_RADIUS).getValue(),
+							(int)(myInitiator.getAttributeManager().getAttribute(AttributeConstants.NUM_OF_TARGETS).getValue()));
 			
 			//shoot a projectile towards each target
 			
@@ -57,6 +47,7 @@ public class AttackAction extends Action {
 				myMap.addGameElement(myInitiator.getAttributeManager().getProjectileFactory().createProjectile(myInitiator,target));
 			}
 			
+			resetTimer();
 		}
 
 	}
@@ -65,5 +56,11 @@ public class AttackAction extends Action {
     public void initAction () {
         
     }
+
+	@Override
+	public void update(double elapsedTime) {
+		// TODO
+		
+	}
 }
 

@@ -4,7 +4,7 @@ import vooga.towerdefense.controller.Controller;
 
 
 public class GameController {
-    private final int TICKS_PER_SECOND = 50;
+    private final int TICKS_PER_SECOND = 25;
     private final int SKIP_TICKS = 1000 / TICKS_PER_SECOND;
     private final int MAX_FRAMESKIP = 10;
 
@@ -31,7 +31,8 @@ public class GameController {
         	int loops = 0;
             while (System.currentTimeMillis() > nextGameTick
             		&& loops < MAX_FRAMESKIP) {
-                myController.update(System.currentTimeMillis() - nextGameTick);
+            	//myController.update(System.currentTimeMillis() - nextGameTick);
+                myController.update(10);
                 nextGameTick += SKIP_TICKS;
                 loops++;
             }

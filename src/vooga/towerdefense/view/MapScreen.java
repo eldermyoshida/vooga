@@ -70,13 +70,13 @@ public class MapScreen extends JPanel {
 
     /**
      * paints the MapScreen component.
-     *
+     * 
      * @param pen is the graphics object
      */
     @Override
     public void paintComponent (Graphics pen) {
         super.paintComponent(pen);
-//        paintGridLines(pen);
+        // paintGridLines(pen);
         myController.paintMap(pen);
     }
 
@@ -111,6 +111,7 @@ public class MapScreen extends JPanel {
             @Override
             public void mouseMoved (MouseEvent e) {
                 myController.handleMapMouseDrag(e.getPoint());
+
             }
         };
     }

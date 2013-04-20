@@ -17,7 +17,7 @@ import vooga.towerdefense.factories.ProjectileFactory;
  * 
  * @author Matthew Roy
  * @author XuRui
- * 
+ * @author Zhen Gou
  */
 public class AttributeManager {
     private HashMap<String,Attribute> myAttributes;
@@ -35,12 +35,12 @@ public class AttributeManager {
      * @param attributes
      */
     public AttributeManager (HashSet<Attribute> attributes) {
-        myAttributes = new HashMap<String, Attribute>();
-        myFactories = new HashMap<String, GameElementFactory>();
+    	new AttributeManager();
         for (Attribute a : attributes) {
             myAttributes.put(a.getName(), a);
         }        
     }
+    
 
     /**
      * Returns stats information requested by View components.
@@ -91,17 +91,12 @@ public class AttributeManager {
      * Resets all attributes to default values
      */
     
-    public void resetAll(){
-    	
+    public void resetAllAttributes(){
+    	for (Attribute attr:myAttributes.values()){
+    		attr.reset();
+    	}
     }
     
-    /**
-     * Reset attribute to default value.
-     */
-    
-    public void reset(Attribute attribute){
-    	
-    }
 
     public GameElementFactory getGameElementFactories(String name){
     	return myFactories.get(name);
