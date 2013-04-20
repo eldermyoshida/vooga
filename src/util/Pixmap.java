@@ -68,6 +68,7 @@ public class Pixmap implements Paintable {
     public void paint (Graphics2D pen, Point2D center, Dimension size, double angle) {
         // save current state of the graphics area
         AffineTransform old = new AffineTransform(pen.getTransform());
+    	//AffineTransform old = new AffineTransform(AffineTransform.getScaleInstance(-1, 1));
         // move graphics area to center of this shape
         pen.translate(center.getX(), center.getY());
         // rotate area about this shape
@@ -77,5 +78,11 @@ public class Pixmap implements Paintable {
         // restore graphics area to its old state, so our changes have no lasting effects
 		pen.setTransform(old);
 	}
+    
+    //Not yet tested.
+    public void paintReverse (Graphics2D pen, Point2D center, Dimension size, double angle) {
+    	pen.setTransform(AffineTransform.getScaleInstance(-1, 1));
+    	paint(pen, center, size, angle);
+    }
 
 }
