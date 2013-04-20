@@ -164,7 +164,9 @@ public class GameMap {
     public List<GameElement> getTargetsWithinRadius (Location source,
                                                      double radius, int howMany) {
         List<GameElement> elementsWithinRadius = getTargetsWithinRadius(source, radius);
-        return elementsWithinRadius.subList(0, howMany);
+        int lastIndex = howMany > elementsWithinRadius.size()
+                ? elementsWithinRadius.size() : howMany;
+        return elementsWithinRadius.subList(0, lastIndex);
     }
     
     /**
