@@ -1,11 +1,15 @@
 package vooga.towerdefense.gameeditor;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -28,6 +32,7 @@ public class MapEditorScreen extends GameEditorScreen {
     private JTextField myTextField;
     private final int FIELD_SIZE = 10;
     private ActionListener myActionListener;
+    private MouseAdapter myMouseListener;
     private int myTileSize;
     
     /**
@@ -37,11 +42,13 @@ public class MapEditorScreen extends GameEditorScreen {
      */
     public MapEditorScreen(Dimension size, GameEditorController controller) {
         super(size, controller, TITLE_NAME, NEXT_SCREEN_NAME);
-        makeListener();
+        makeListeners();
         myMapMakerSize = getController().getMapSize();
-        this.add(makeMapBox(myMapMakerSize), BorderLayout.SOUTH);
+        this.add(makeMapBox(myMapMakerSize), BorderLayout.NORTH);
         this.add(makeLabelText("TILE SIZE"), BorderLayout.EAST);
         this.add(makeTextField(), BorderLayout.EAST);
+        this.add(makeLabelText("PATH TILE"), BorderLayout.EAST);
+        this.add(makePathTilePainter(), BorderLayout.SOUTH);
         setVisible(true);
     }
 
@@ -59,13 +66,19 @@ public class MapEditorScreen extends GameEditorScreen {
         return myTextField;
     }
     
-    public void makeListener () {
+    public void makeListeners () {
         myActionListener = new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {
                 repaintGrids();
             }
+        };
+        
+        myMouseListener = new MouseAdapter () {
+            @Override
+            public void mouseClicked (MouseEvent e) {
 
+            }
         };
     }
     
@@ -90,5 +103,14 @@ public class MapEditorScreen extends GameEditorScreen {
     public void addElementToGame () {
         System.out.println("add to game MapEditorScreen");
         getController().addMapToGame();
+    }
+    
+    private JPanel makePathTilePainter () {
+        JPanel myJ = new JPanel();
+        myJ.setPreferredSize(new Dimension(50,50));
+        myJ.setBackground(Color.BLUE);
+        myJ.setVisible(true);  
+        
+        return myJ;
     }
 }
