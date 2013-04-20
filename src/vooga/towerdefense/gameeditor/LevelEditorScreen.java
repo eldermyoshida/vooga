@@ -17,7 +17,7 @@ public class LevelEditorScreen extends GameEditorScreen {
     /**
      * next screen constant.
      */
-    private static final String NEXT_SCREEN_NAME = "FinishedScreen";
+    private static final String NEXT_SCREEN_NAME = "FinishScreen";
     /**
      * title constant.
      */
