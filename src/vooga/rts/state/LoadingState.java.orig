@@ -3,10 +3,11 @@ package vooga.rts.state;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.Observer;
-import vooga.rts.controller.Command;
+import vooga.rts.commands.Command;
 import vooga.rts.resourcemanager.ResourceManager;
 
 public class LoadingState extends SubState {
@@ -18,31 +19,35 @@ public class LoadingState extends SubState {
     
     public LoadingState (Observer observer) {
         super(observer);
-        myBGImage = ResourceManager.instance().loadFile(DEFAULT_BGIMAGE_LOCATION);
+        myBGImage = ResourceManager.getInstance().<BufferedImage>getFile(DEFAULT_BGIMAGE_LOCATION, BufferedImage.class);
 =======
 
     public LoadingController () {
-        myBGImage = ResourceManager.getInstance().<BufferedImage> getFile(DEFAULT_BGIMAGE_LOCATION, BufferedImage.class);
+        myBGImage =
+                ResourceManager.getInstance().<BufferedImage> getFile(DEFAULT_BGIMAGE_LOCATION,
+                                                                      BufferedImage.class);
 
 >>>>>>> master:src/vooga/rts/controller/LoadingController.java
     }
     
     @Override
-    public void update(double elapsedTime) {        
-    }
 <<<<<<< HEAD:src/vooga/rts/state/LoadingState.java
-    
+    public void update(double elapsedTime) {        
 =======
+    public void update (double elapsedTime) {
+
+    }
 
     @Override
     public void onLeftMouseUp (PositionObject o) {
+
         if (!ResourceManager.getInstance().isLoading()) {
             setChanged();
             notifyObservers();
         }
-    }
-
 >>>>>>> master:src/vooga/rts/controller/LoadingController.java
+    }
+    
     @Override
     public void paint (Graphics2D pen) {
         myTransform = new AffineTransform();
@@ -52,11 +57,7 @@ public class LoadingState extends SubState {
         sy /= myBGImage.getHeight();
         myTransform.scale(sx, sy);
         pen.drawImage(myBGImage, myTransform, null);
-<<<<<<< HEAD:src/vooga/rts/state/LoadingState.java
         Rectangle screen = pen.getDeviceConfiguration().getBounds();
-=======
-
->>>>>>> master:src/vooga/rts/controller/LoadingController.java
         pen.setColor(Color.white);
         pen.setFont(new Font("Georgia", Font.PLAIN, 72));
         pen.drawString("Game is Loading...", 200, 300);
@@ -67,20 +68,10 @@ public class LoadingState extends SubState {
     }
     
     @Override
-<<<<<<< HEAD:src/vooga/rts/state/LoadingState.java
     public void receiveCommand (Command command) {
-        setChanged();
-        notifyObservers();
-=======
-    public void activate () {
-        ResourceManager.getInstance().load();
+        if (command.getMethodName().equals("leftclick")){
+            setChanged();
+            notifyObservers();
+        }
     }
-
-    @Override
-    public MainState getGameState () {
-        return MainState.Loading;
->>>>>>> master:src/vooga/rts/controller/LoadingController.java
-    }
-    
-   
 }

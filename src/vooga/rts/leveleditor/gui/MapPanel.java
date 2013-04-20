@@ -18,13 +18,14 @@ import vooga.rts.leveleditor.components.EditableNode;
 import vooga.rts.leveleditor.components.MapLayer;
 import vooga.rts.leveleditor.components.Resource;
 import vooga.rts.leveleditor.components.Terrain;
+import vooga.rts.resourcemanager.ResourceManager;
 import vooga.rts.util.Location;
 
 @InputClassTarget
 public class MapPanel extends JComponent {
 
     public static final String INPUT_DIR = "vooga.rts.resources.properties.Input";
-    public static final String PLAYER_IMAGE_PATH = "/vooga/rts/leveleditor/resource/PlayerSign.gif";
+    public static final String PLAYER_IMAGE_PATH = "Player1.png";
     public static final Dimension DEFAULT_MAP_SIZE  = new Dimension (600,600);
     public static final double ZOOM_RATE = 1.25;
     public static final int DEFAULT_TILE_WIDTH = 50;
@@ -42,6 +43,7 @@ public class MapPanel extends JComponent {
     private int myTileWidth;
     private int myTileHeight;
     private int myCurrentLayer;
+    private int myMaxLayer;
     private boolean myRemoveFlag;
     private int myMode;
     private BufferedImage myPlayerImage;
@@ -54,13 +56,10 @@ public class MapPanel extends JComponent {
         myWidth = 0;
         myHeight = 0;
         myCurrentLayer = 0;
+        myMaxLayer = 0;
         myTileWidth = DEFAULT_TILE_WIDTH;
         myTileHeight = DEFAULT_TILE_HEIGHT;
-        try {
-            myPlayerImage = ImageIO.read(this.getClass().getResource(PLAYER_IMAGE_PATH));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        myPlayerImage = ResourceManager.getInstance().<BufferedImage>getFile(PLAYER_IMAGE_PATH, BufferedImage.class);
         setPanelSize();
     }
 
@@ -177,17 +176,19 @@ public class MapPanel extends JComponent {
         repaint();
     }
     
+    //test printing matrix bug switch x and y
     private void placeTile(int x, int y) {
-        x=x/myTileWidth;
-        y=y/myTileHeight;
+        x=x/myTileHeight;
+        y=y/myTileWidth;
         if(x>=0 && x<myWidth && y>=0 && y<myHeight){
-            EditableNode n = myMap.getMapNode(x, y);
+            EditableNode n = myMap.getMapNode(y, x);
             if(!myRemoveFlag){
                 n.setTile(myCanvas.getCurrentSelectTile().getMyID());
                 n.setOccupied(true);
             } else {
                 n.reset();
             }
+            myMap.printMatrix();
             repaint();
         }
         
@@ -207,6 +208,8 @@ public class MapPanel extends JComponent {
     }
     
     public void clear() {
+        myCurrentLayer = 0;
+        myMaxLayer = 0;
         myMap.clearMap();
         myMap.getLayerMap().clear();
         myMap.getResourceSet().clear();
@@ -223,6 +226,29 @@ public class MapPanel extends JComponent {
     
     public void setMode(int mode) {
         myMode = mode;       
+    }
+    
+    public void setCurrentLayer(int n) {
+        myCurrentLayer = n;
+        
+    }
+    
+    public int getCurrentLayer () {
+        return myCurrentLayer;
+    }
+    
+    public int getMaxLayer() {
+        return myMaxLayer;
+    }
+    
+    public void addLayer() {
+        myMaxLayer++;
+        myMap.getLayerMap().put(myMaxLayer, new MapLayer());
+    }
+    
+    public void removeLayer() {
+        myMap.getLayerMap().remove(myMaxLayer);
+        myMaxLayer--;
     }
     
     @InputMethodTarget(name="onLeftMouseDown")
@@ -252,6 +278,7 @@ public class MapPanel extends JComponent {
             placeTile((int)(p.getX()), (int)(p.getY()));
         }
     }
+
 
 
 
