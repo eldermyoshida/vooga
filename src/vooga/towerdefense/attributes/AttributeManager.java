@@ -1,9 +1,13 @@
+
 package vooga.towerdefense.attributes;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+
+import vooga.towerdefense.factories.GameElementFactory;
+import vooga.towerdefense.factories.ProjectileFactory;
 
 
 /**
@@ -13,17 +17,30 @@ import java.util.List;
  * 
  * @author Matthew Roy
  * @author XuRui
- * 
+ * @author Zhen Gou
  */
-public abstract class AttributeManager {
+public class AttributeManager {
     private HashMap<String,Attribute> myAttributes;
+    private HashMap<String,GameElementFactory> myFactories;
+    private ProjectileFactory myProjectileFactory;
 
+    public AttributeManager () {
+        myAttributes = new HashMap<String,Attribute>();
+        myFactories = new HashMap<String, GameElementFactory>();
+//        myProjectileFactory=new ProjectileFactory();
+    }
+    
+    /**
+     * Creates an attribute manager based on a set of attributes
+     * @param attributes
+     */
     public AttributeManager (HashSet<Attribute> attributes) {
-        myAttributes = new HashMap<String, Attribute>();
+    	new AttributeManager();
         for (Attribute a : attributes) {
             myAttributes.put(a.getName(), a);
         }        
     }
+    
 
     /**
      * Returns stats information requested by View components.
@@ -38,14 +55,15 @@ public abstract class AttributeManager {
         }
         return info;
     }
+    
+    public String toString() {
+        String returnValue = "";
+        for (String s : getAttributesInfo()) {
+            returnValue += s + "\n";
+        }
+        return returnValue;
+    }
 
-    /**
-     * Updates a stat whenever they're changed in the game element.
-     * 
-     * @param updatedStat
-     */
-    @Deprecated //This doesn't really serve a purpose
-    public abstract void updateAttribute (Attribute updatedStat);
     
     /**
      * Gets a specific attribute based on name
@@ -62,5 +80,32 @@ public abstract class AttributeManager {
     public void addAttribute (Attribute newAttribute) {
         myAttributes.put(newAttribute.getName(), newAttribute);
     }
+    
+    public void addAttributes(List<Attribute> newAttributes){
+    	for (Attribute a: newAttributes){
+    		addAttribute(a);
+    	}
+    }
+    
+    /**
+     * Resets all attributes to default values
+     */
+    
+    public void resetAllAttributes(){
+    	for (Attribute attr:myAttributes.values()){
+    		attr.reset();
+    	}
+    }
+    
+
+    public GameElementFactory getGameElementFactories(String name){
+    	return myFactories.get(name);
+    }
+    
+    public ProjectileFactory getProjectileFactory(){
+    	return myProjectileFactory;
+    }
+
 
 }
+

@@ -2,10 +2,9 @@ package vooga.scroller.scrollingmanager;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
-import vooga.scroller.sprite_superclasses.Player;
-import vooga.scroller.util.Location;
+import util.Location;
+import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.view.View;
 import vooga.scroller.model.Model;
 
@@ -50,6 +49,10 @@ public abstract class ScrollingManager {
     public abstract void viewPaint(Graphics pen);
     
     public abstract Location playerPaintLocation(Player player);
+
+    public double getHardBoundary (int i, double levelBounds) {
+        return levelBounds;
+    }
     
     
 }

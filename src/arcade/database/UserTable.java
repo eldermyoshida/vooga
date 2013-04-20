@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 /**
  * Creates and updates user table
+ * this clearly needs to be refactored because there is duplicate code
  * @author Natalia Carvalho
  */
 public class UserTable extends Table {
@@ -37,10 +38,10 @@ public class UserTable extends Table {
      * Constructor but eventually I want to make this part of the abstract class
      */
     public UserTable() {
-        createDatabase();
+        establishConnectionToDatabase();
     }
 
-    void createDatabase() {
+    void establishConnectionToDatabase() {
 
         try {
             Class.forName("org.postgresql.Driver");
@@ -49,9 +50,9 @@ public class UserTable extends Table {
             e.printStackTrace();
         }
 
-        String url = "jdbc:postgresql:mynewdatabase";
-        String user = "user1";
-        String password = "1234";
+        String url = "jdbc:postgresql://cgi.cs.duke.edu/nrc10";
+        String user = "nrc10";
+        String password = "aUsg5xj2f";
 
         try {
             myConnection = DriverManager.getConnection(url, user, password);
@@ -96,7 +97,9 @@ public class UserTable extends Table {
             myPreparedStatement = myConnection.prepareStatement(stm);
             myResultSet  = myPreparedStatement.executeQuery();
             if (myResultSet.next()) {
-                return true;
+                if (myResultSet.getString(PASSWORD_COLUMN_INDEX).equals(password)) {
+                    return true;
+                }
             }
 
         }
@@ -108,7 +111,7 @@ public class UserTable extends Table {
     }
     
     /**
-     * Returns true if usernameExists, false othwerwise
+     * Returns true if usernameExists, false otherwise
      * @param username is the username
      */
     public boolean usernameExists(String username) {
@@ -165,14 +168,13 @@ public class UserTable extends Table {
      * @param filepath is the filepath
      */
     public boolean createUser(String user, String pw, String firstname, 
-                        String lastname, String dob, String filepath) {
+                              String lastname, String dob, String filepath) {
         if (usernameExists(user)) {
             return false;
         }
         createUser(user, pw, firstname, lastname, dob);
         updateAvatar(user, filepath);
-            createUser(user, pw, firstname, lastname, dob);
-            updateAvatar(user, filepath);
+
         return true;
     }
     
@@ -205,7 +207,10 @@ public class UserTable extends Table {
      * @param username is the username
      * @param columnIndex is the index that we want the information for
      */
+<<<<<<< HEAD
     public String retrieveEntry(String username, int columnIndex) {
+=======
+>>>>>>> f3973a681317c1e23279e05df71f78679c90b756
     public String retrieveEntry(String username, int COLUMN_INDEX) {
         String stm = "SELECT * FROM " +TABLE_NAME + " WHERE " + USERNAME_COLUMN_FIELD + "='" + username + "'";
         String entry = "";
@@ -213,7 +218,10 @@ public class UserTable extends Table {
             myPreparedStatement = myConnection.prepareStatement(stm);
             myResultSet = myPreparedStatement.executeQuery();
             if (myResultSet.next()) {
+<<<<<<< HEAD
                 entry = myResultSet.getString(columnIndex);
+=======
+>>>>>>> f3973a681317c1e23279e05df71f78679c90b756
                 entry = myResultSet.getString(COLUMN_INDEX);
             }
         }
@@ -228,8 +236,11 @@ public class UserTable extends Table {
      * @param username is user
      */
     public void deleteUser(String username) {
+<<<<<<< HEAD
         String stm = "DELETE FROM " + TABLE_NAME + " WHERE " + 
                 USERNAME_COLUMN_FIELD + "='" + username + "'";
+=======
+>>>>>>> f3973a681317c1e23279e05df71f78679c90b756
         String stm = "DELETE FROM " + TABLE_NAME + " WHERE " + USERNAME_COLUMN_FIELD + "='" + username + "'";
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
@@ -248,12 +259,16 @@ public class UserTable extends Table {
     public void updateAvatar(String user, String filepath) {
         String userid = retrieveUserId(user);
         String stm = "UPDATE " + TABLE_NAME + " SET " + AVATAR_COLUMN_FIELD + "='" + 
+<<<<<<< HEAD
                 "filepath" + "' WHERE " + USERID_COLUMN_FIELD + "='" + userid + "'";
 =======
     public void updateAvatar(String user, String filepath) {
         String userid = retrieveUserId(user);
         String stm = "UPDATE users SET avatarfilepath = '" + filepath + "' WHERE userid = '" + userid + "'";
 >>>>>>> db33675460551d990c9a9f53b90108bfded60ff7
+=======
+                "filepath" + "' WHERE " + USERID_COLUMN_FIELD + "='" + userid + "'";   
+>>>>>>> f3973a681317c1e23279e05df71f78679c90b756
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
             myPreparedStatement.executeUpdate();

@@ -2,28 +2,36 @@ package vooga.scroller.level_editor;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.util.HashSet;
 import java.util.Set;
+import javax.swing.Scrollable;
+import util.Location;
+import vooga.scroller.level_management.IDoor;
+import vooga.scroller.level_management.LevelPortal;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.util.Editable;
-import vooga.scroller.util.Location;
 import vooga.scroller.util.Sprite;
+import vooga.scroller.view.View;
 import vooga.scroller.viewUtil.Renderable;
 
 
-public class LEGrid implements Editable, Renderable {
+public class LEGrid implements Editable, Renderable, Scrollable {
 
-    private static final int DEFAULT_SPRITE_SIZE = 25;
+    public static final int DEFAULT_SPRITE_SIZE = 32;
+    private static final Location DEFAULT_START_LOC = new Location(0,0);
+    private static final Location DEFAULT_END_LOC = new Location(100,100);
     private int mySpriteSize;
     private SpriteBox[][] myGrid;
     private Dimension mySize;
     private Set<SpriteBox> myPaintableBoxes;
-    private ScrollingManager myScrollingManager;
+    private StartPoint myStartPoint;
+    private LevelPortal myMainDoor; //TODO - eventually support multiple doors
 
-    public LEGrid (int x, int y) {
+    public LEGrid (int numWidthBlocks, int numHeightBlocks) {
         mySpriteSize = DEFAULT_SPRITE_SIZE;
-        mySize = new Dimension(x, y);
-        myGrid = new SpriteBox[x][y];
+        mySize = new Dimension(numWidthBlocks, numHeightBlocks);
+        myGrid = new SpriteBox[numWidthBlocks][numHeightBlocks];
         initializeGrid();
         myPaintableBoxes = new HashSet<SpriteBox>();
     }
@@ -40,13 +48,28 @@ public class LEGrid implements Editable, Renderable {
 
     @Override
     public void paint (Graphics2D pen) {
-        for (SpriteBox box : myPaintableBoxes) {
-            box.paint(pen);
+        for(int i = 0; i < mySize.width; i++){
+            for( int j = 0; j < mySize.height; j++){
+                myGrid[i][j].paint(pen);
+            }
         }
     }
 
+    @Override
     public void addSprite (Sprite spr, int x, int y) {
-        SpriteBox currentBox = nearestBox(x, y);
+        SpriteBox currentBox = getBox(x, y);
+        addToBox(spr, currentBox);
+    }
+
+    public void addSpriteToBox(int xcoor, int ycoor, Sprite sprite){
+        addToBox(sprite,getBoxFromCoor(xcoor,ycoor));
+    }
+
+    /**
+     * @param spr
+     * @param currentBox
+     */
+    private void addToBox (Sprite spr, SpriteBox currentBox) {
         if (checkAvailable(currentBox, spr.getWidth(), spr.getHeight())) {
             currentBox.addSprite(spr);
             myPaintableBoxes.add(currentBox);
@@ -59,17 +82,48 @@ public class LEGrid implements Editable, Renderable {
 
     @Override
     public void deleteSprite (int x, int y) {
-        SpriteBox currentBox = nearestBox(x, y);
+        SpriteBox currentBox = getBox(x, y);
         currentBox.deleteSprite();
         myPaintableBoxes.remove(currentBox);
     }
 
-    public Level createLevel (int id) {
-        Level lev = new Level(id);
-        for (SpriteBox box : myPaintableBoxes) {
-            lev.addNewSprite(box.getSprite());
+    @Override
+    public void changeBackground () {
+        //TODO
+    }
+    
+    public Set<SpriteBox> getBoxes() {
+        return myPaintableBoxes;
+    }
+    
+    /**
+     * TODO - Moving this responsibility to Level
+     * @param id
+     * @param sm
+     * @param v
+     * @return
+     */
+    public Level createLevel (int id, 
+                              ScrollingManager sm,
+                              View v) {
+        //TODO need to refactor. Editable Level.
+        Level lev = new Level(id, sm, v);
+        for (SpriteBox box : getBoxes()) {
+            lev.addSprite(box.getSprite());
         }
         return lev;
+    }
+    
+    public SpriteBox getBoxFromCoor(int xcoor, int ycoor){
+        return myGrid[xcoor][ycoor];
+    }
+    
+    public Sprite getSprite(int xcoor, int ycoor){
+        return getBoxFromCoor(xcoor,ycoor).getSprite();
+    }
+    
+    public Dimension getSize(){
+        return mySize;
     }
 
     private boolean checkAvailable (SpriteBox current, double width, double height) {
@@ -77,11 +131,11 @@ public class LEGrid implements Editable, Renderable {
         boolean bool1 = true;
         boolean bool2 = true;
         if (width > mySpriteSize) {
-            SpriteBox next = nearestBox(current.getX() + mySpriteSize, current.getY());
+            SpriteBox next = getBox(current.getX() + mySpriteSize, current.getY());
             bool1 = checkAvailable(next, width - mySpriteSize, height);
         }
         if (height > mySpriteSize && bool1) {
-            SpriteBox nextBox = nearestBox(current.getX(), current.getY() + mySpriteSize);
+            SpriteBox nextBox = getBox(current.getX(), current.getY() + mySpriteSize);
             bool2 = checkAvailable(nextBox, width, height - mySpriteSize);
         }
         return bool1 && bool2;
@@ -89,20 +143,20 @@ public class LEGrid implements Editable, Renderable {
 
     private void combineBoxes (SpriteBox initial, SpriteBox current, double width, double height) {
         if (width > mySpriteSize) {
-            SpriteBox next = nearestBox(current.getX() + mySpriteSize, current.getY());
+            SpriteBox next = getBox(current.getX() + mySpriteSize, current.getY());
             initial.combineWith(next);
             combineBoxes(initial, next, width - mySpriteSize, height);
         }
         if (height > mySpriteSize) {
-            SpriteBox next = nearestBox(current.getX(), current.getY() + mySpriteSize);
+            SpriteBox next = getBox(current.getX(), current.getY() + mySpriteSize);
             initial.combineWith(next);
             combineBoxes(initial, next, width, height - mySpriteSize);
         }
     }
 
-    private SpriteBox nearestBox (double x, double y) {
-        int xCoord = (int) Math.round(x / mySpriteSize);
-        int yCoord = (int) Math.round(y / mySpriteSize);
+    private SpriteBox getBox (double x, double y) {
+        int xCoord = (int) Math.floor(x / mySpriteSize);
+        int yCoord = (int) Math.floor(y / mySpriteSize);
         return myGrid[xCoord][yCoord];
     }
 
@@ -115,13 +169,89 @@ public class LEGrid implements Editable, Renderable {
     }
 
     @Override
-    public void changeBackground () {
-
+    public Dimension getPreferredScrollableViewportSize () {
+        // TODO Auto-generated method stub
+        return null;
     }
 
     @Override
-    public void addNewSprite (Sprite s) {
-        addSprite(s, (int) s.getLeft(), (int) s.getRight());
+    public int getScrollableUnitIncrement (Rectangle visibleRect, int orientation, int direction) {
+        return DEFAULT_SPRITE_SIZE;
     }
+
+    @Override
+    public int getScrollableBlockIncrement (Rectangle visibleRect, int orientation, int direction) {
+        return DEFAULT_SPRITE_SIZE;
+    }
+
+    @Override
+    public boolean getScrollableTracksViewportWidth () {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean getScrollableTracksViewportHeight () {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    /**
+     * Get the overall pixels size of this LEGrid.
+     * @return
+     */
+    public Dimension getPixelSize () {
+        Dimension res= new Dimension(
+                                     mySize.width*DEFAULT_SPRITE_SIZE,
+                                     mySize.height*DEFAULT_SPRITE_SIZE);
+        
+        return res;
+    }
+
+    public boolean isValidForSimulation () {
+        // TODO Check for valid starting and exit points.
+        return false;
+    }
+
+    @Override
+    public void addStartPoint (int x, int y) {
+        if(myStartPoint == null){
+            myStartPoint = new StartPoint();
+        }
+        else{
+            deleteSprite((int) myStartPoint.getX(),(int) myStartPoint.getY());
+        }
+        addSprite(myStartPoint, x, y);
+    }
+    
+    public Location removeStartPoint(){
+        if(myStartPoint == null){
+            return DEFAULT_START_LOC;
+        }
+        Location center = myStartPoint.getCenter();
+        deleteSprite((int) center.getX(),(int) center.getY());
+        return center;
+    }
+
+    @Override
+    public void addDoor (int x, int y) {
+        // TODO Auto-generated method stub
+        if(myMainDoor == null){
+            myMainDoor = new LevelPortal();
+        }
+        else{
+            deleteSprite((int) myMainDoor.getX(),(int) myMainDoor.getY());
+        }
+        addSprite(myMainDoor, x, y);
+    }
+
+    public Location removePortal () {
+        if(myMainDoor == null){
+            return DEFAULT_END_LOC;
+        }
+        Location center = myMainDoor.getCenter();
+        deleteSprite((int) center.getX(),(int) center.getY());
+        return center;
+    }    
 
 }

@@ -14,6 +14,6 @@ import vooga.towerdefense.levelEditor.controller.LEController;
 public class Main {
     public static void main (String[] args) {
         @SuppressWarnings("unused")
-        LEController myController = new LEController();
+        LEController myController = new LEController("English");
     }
 }

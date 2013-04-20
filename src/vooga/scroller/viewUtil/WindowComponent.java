@@ -1,9 +1,7 @@
 
 package vooga.scroller.viewUtil;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import javax.swing.JPanel;
 
 /**
@@ -20,7 +18,7 @@ import javax.swing.JPanel;
 public abstract class WindowComponent extends JPanel implements IView {
 
     private GridBagConstraints myConstraints;
-    private IView myBoss;
+    private IView myResponsible;
 
     
     
@@ -29,68 +27,36 @@ public abstract class WindowComponent extends JPanel implements IView {
      * @param parent the parent of the View being created
      */
     private WindowComponent (IView parent) {
-        myBoss = parent;
+        myResponsible = parent;
         this.setBorder(ViewConstants.DEFAULT_BORDER);
     }
     
-    private Dimension getDefaultSize (double w, double h) {
-        // TODO Auto-generated method stub
-        Dimension base = myBoss.getSize();
-        int width = (int) (base.getWidth()*w);
-        int height = (int) (base.getHeight()*h);
-        Dimension rel = new Dimension (width, height);
-        return rel;
-    }
-    
-    //TODO - renamed getParent() getResponsible to avoid conflict w/ container's class
-    protected IView getResponsible() {
-        return myBoss;
-    }
-
-
-    public WindowComponent (IView parent, double relativeWidth, double relativeHeight) {
-        this(parent);
-        Dimension rel = getDefaultSize(relativeWidth, relativeHeight);
-        setDefaultSize(rel);
-        initializeVariables(); 
-        addComponents();
-
-        
-    }
-    
+    /**
+     * Construct a WindowComponent with the specified parent and a 
+     * size given in pixels.
+     * @param parent - container responsible for this WindowComponent
+     * @param size - pixels width and height for the component being created
+     */
     public WindowComponent (IView parent, Dimension size) {
         this(parent);
         setDefaultSize(size);
-        initializeVariables(); 
-        addComponents();
-
-        this.setBorder(ViewConstants.DEFAULT_BORDER);
     }
     
-    private void setDefaultSize(Dimension d) {
-        this.setSize(d);
-        this.setPreferredSize(d);
-        this.setMinimumSize(d);
-    }
-    
-//    /**
-//     * Returns the parent component of this component
-//     */    
-//    public IModel getParent() {
-//        return myParent;
-//    }
-    
-    public void process(Object cmd) {
-        getResponsible().process(cmd);
+    /**
+     * Construct a WindowComponent with the specified parent and the relative 
+     * dimensions specified.
+     * @param parent - to be responsible for this component
+     * @param relativeWidth - 1 is same value as the parent.
+     * @param relativeHeight - 1 is same size as the parent.
+     * TODO - if size is greater than 1, automatically enable scrolling (?)
+     */
+    public WindowComponent (IView parent, double relativeWidth, double relativeHeight) {
+        this(parent);
+        Dimension rel = getDefaultSize(relativeWidth, relativeHeight);
+        setDefaultSize(rel);   
     }
 
-    
-//    private void setLayoutManager() {
-//        this.setLayout(new GridBagLayout());
-//        myConstraints = new GridBagConstraints();
-//        this.setBorder(ViewConstants.DEFAULT_BORDER);
-//    }
-    
+
     /**
      * 
      * @return the constraints for this Layout
@@ -98,18 +64,44 @@ public abstract class WindowComponent extends JPanel implements IView {
     protected GridBagConstraints getConstraints() {
         return myConstraints;
     }
-
+    
     /**
-     * Initialize components variables instances variables 
-     * - Template step used in the constructor
+     * Compute the absolute dimension based on the relative width and height 
+     * provided.
+     * @param w
+     * @param h
+     * @return
      */
-    protected abstract void initializeVariables ();
-
+    private Dimension getDefaultSize (double w, double h) {
+        Dimension base = myResponsible.getSize();
+        int width = (int) (base.getWidth() * w);
+        int height = (int) (base.getHeight() * h);
+        Dimension rel = new Dimension(width, height);
+        return rel;
+    }
+    
     /**
-     * Add the components previously initialized according to layout rules
-     * - Template step used in the constructor
+     * Identify the ViewComponent responsible for this one.
+     * @return - responsible ViewComponent.
      */
-    protected abstract void addComponents ();
+    protected IView getResponsible() {
+        return myResponsible;
+    }
+    
+    @Override
+    public void process(Object cmd) {
+        getResponsible().process(cmd);
+    }
+    
+    /**
+     * Ensure that the size is consistently specified.
+     * @param d
+     */
+    private void setDefaultSize(Dimension d) {
+        this.setSize(d);
+        this.setPreferredSize(d);
+        this.setMinimumSize(d);
+    }
 }
 
 

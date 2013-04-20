@@ -1,17 +1,21 @@
 package arcade.model;
 
-import games.example.Example;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
+import arcade.database.Database;
 import arcade.games.ArcadeInteraction;
 import arcade.games.Game;
 import arcade.games.GameData;
 import arcade.games.GameInfo;
 import arcade.games.HighScores;
+import arcade.games.MultiplayerGame;
 import arcade.games.User;
 import arcade.games.UserGameData;
-import arcade.util.Pixmap;
 import arcade.view.LoginView;
 import arcade.view.MainView;
 
@@ -24,8 +28,14 @@ public class Model implements ArcadeInteraction {
     private ResourceBundle myResources;
     private LoginView myLoginView;
     private String myLanguage;
-
+    private Database myDb = new Database();
+    private Map<String, GameInfo> myGameInfos = new HashMap<String, GameInfo>();
     private List<GameInfo> mySnapshots;
+    private String myUser;
+    
+    // These will be null until you try to play a game 
+    Game myCurrentGame = null;
+    MultiplayerGame myCurrentMultiplayerGame = null;
 
     public Model (ResourceBundle rb, String language) {
         myResources = rb;
@@ -35,44 +45,98 @@ public class Model implements ArcadeInteraction {
     public void setLoginView (LoginView login) {
         myLoginView = login;
     }
+    
+    /**
+     * 
+     * @param directoryPath
+     */
+    public void publishGame(String directoryPath) {
+        return;
+    }
+    
+
+    /**
+     * This should be called after a developer enters the information about
+     * his / her game. The method will add the game entry to the database and
+     * create a new GameInfo to display in the gamecenter.
+     * 
+     * This sanitizes all the input so we guarantee that all names an genres are 
+     * lowercase on the backend.
+     * 
+     * @param gameName
+     * @param genre
+     */
+    public void publish (String gameName, String genre) {
+        gameName = gameName.toLowerCase();
+        genre = genre.toLowerCase();
+        myDb.createGame(gameName, genre);
+        addGameInfo(newGameInfo(gameName, genre));
+    }
+
+    private GameInfo newGameInfo  (String name, String genre) throws MissingResourceException{
+        return new GameInfo(name, genre, myLanguage, this);
+    }
+
+    private void addGameInfo (GameInfo game) {
+        myGameInfos.put(game.getName(), game);
+    }
 
     public void authenticate (String username, String password) {
-        // myLoginView.sendMessage(LOGIN_FAILURE_MESSAGE);
-        myLoginView.destroy();
-        getGameList();
-        organizeSnapshots();
-        new MainView(this, myResources);
-
-        // if (username.equals("ellango") && password.equals("password")) {
-        // myLoginView.destroy();
-        // getGameList();
-        // organizeSnapshots();
-        // new MainView(this, myResources);
-        // }
-        // else {
-        // myLoginView.sendMessage(LOGIN_FAILURE_MESSAGE);
-        // }
+        if (myDb.authenticateUsernameAndPassword(username, password)) {
+            myLoginView.dispose();
+            organizeSnapshots();
+            new MainView(this, myResources);
+        }
+        else {
+            myLoginView.sendMessage(LOGIN_FAILURE_MESSAGE);
+        }
     }
 
     /**
      * Create a new user profile by entering user-specific information.
      * This information is eventually stored in the database.
      */
-    public void createNewUserProfile () {
+    public void createNewUserProfile (String username,
+                                      String pw,
+                                      String firstname,
+                                      String lastname,
+                                      String dataOfBirth) {
+        if(myDb.createUser(username, pw, firstname, lastname, dataOfBirth)){
+            new LoginView(this , myResources);
+        }
 
+        
+        
+    }
+
+    public void createNewUserProfile (String username,
+                                      String pw,
+                                      String firstname,
+                                      String lastname,
+                                      String dataOfBirth,
+                                      String filepath) {
+       System.out.println(myDb.createUser(username, pw, firstname, lastname, dataOfBirth, filepath));
+        authenticate(username, pw);
+    }
+
+    public void deleteUser (String username) {
+        myDb.deleteUser(username);
     }
 
     /**
      * Rate a specific game, store in user-game database
      */
-    public void rateGame (GameInfo g, int rating) {
-
+    public void rateGame (double rating, String gameName) {
+        myDb.updateRating(myUser, gameName, rating);
     }
-    
-    public void playGame(GameInfo gameinfo) {
-        System.out.println(gameinfo.getName());
-        //TODO: instantiate the game.
-        Game game = new Example(this);
+
+    public void playGame (GameInfo gameinfo) {
+        myCurrentGame = gameinfo.getGame(this);
+        myCurrentGame.run();
+    }
+
+    public void playMultiplayerGame (GameInfo gameinfo) {
+        MultiplayerGame game = gameinfo.getMultiplayerGame(this);
         game.run();
     }
 
@@ -82,14 +146,19 @@ public class Model implements ArcadeInteraction {
      * 
      * @return
      */
-    public List<GameInfo> getGameList () {
-        return mySnapshots;
+    public Collection<GameInfo> getGameList () {
+        return myGameInfos.values();
     }
 
     private void organizeSnapshots () {
-        mySnapshots = new ArrayList<GameInfo>();
-        GameInfo myGameInfo = new GameInfo("example", myLanguage);
-        mySnapshots.add(myGameInfo);
+        List<String> gameNames = myDb.retrieveListOfGames();
+        for (String name : gameNames) {
+            try{
+            addGameInfo(newGameInfo(name, myDb.getGenre(name)));
+            }catch(MissingResourceException e ){
+                continue;
+            }
+        }
     }
 
     /**
@@ -99,10 +168,7 @@ public class Model implements ArcadeInteraction {
      * @return
      */
     public GameInfo getGameDetail (String gameName) {
-        for (GameInfo g : mySnapshots) {
-            if (g.getName().equals(gameName)) { return g; }
-        }
-        return null;
+        return myGameInfos.get(gameName);
     }
 
     /**
@@ -122,6 +188,10 @@ public class Model implements ArcadeInteraction {
         return null;
     }
 
+    public double getAverageRating (String gameName) {
+        return myDb.getAverageRating(gameName);
+    }
+
     @Override
     public HighScores getHighScores (int n) {
         // TODO I wish I understood how we are planning on implementing high scores . . .
@@ -136,15 +206,21 @@ public class Model implements ArcadeInteraction {
     }
 
     @Override
-    public UserGameData getUserGameData () {
-        // TODO database stuff
-        return null;
+    public UserGameData getUserGameData (String gameName) {
+        UserGameData ugd = myDb.getUserGameData(gameName, myUser);
+        if (ugd == null) {
+            // use reflection to find the game class and call the generate user profile method
+        }
+        return ugd;
     }
 
     @Override
-    public GameData getGameData () {
-        // TODO database stuff
-        return null;
+    public GameData getGameData (String gameName) {
+        GameData gd = myDb.getGameData(gameName);
+        if (gd == null) {
+            // use reflection to find the game class and call the generate game method
+        }
+        return gd;
     }
 
 }

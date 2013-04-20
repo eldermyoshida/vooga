@@ -1,6 +1,7 @@
 package vooga.towerdefense.gameElements;
 
 import java.awt.Graphics2D;
+import vooga.towerdefense.attributes.AttributeConstants;
 
 
 /**
@@ -12,6 +13,7 @@ import java.awt.Graphics2D;
  */
 
 public class BasicStateManager extends StateManager {
+    private static final AttributeConstants myAttributeConstants = new AttributeConstants();
     private final State myNormalState;
     private final State myBuffedState;
     private State myCurrentState;
@@ -31,7 +33,7 @@ public class BasicStateManager extends StateManager {
     @Override
     public void updateAndPaint (Graphics2D pen) {
         myCurrentState = myNormalState;
-        if (getUnit().getTargetableAttributes().getArmor().isChanged()) {
+        if (getUnit().getAttributeManager().getAttribute(myAttributeConstants.ARMOR).isChanged()) {
             myCurrentState = myBuffedState;
         }
 

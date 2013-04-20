@@ -1,61 +1,66 @@
+
 package vooga.towerdefense.action;
 
-import vooga.towerdefense.attributes.Attacker;
-import vooga.towerdefense.attributes.Targetable;
+import java.util.ArrayList;
+import java.util.List;
+
+import vooga.towerdefense.attributes.AttributeConstants;
+import vooga.towerdefense.attributes.AttributeManager;
+import vooga.towerdefense.factories.ProjectileFactory;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.gameElements.Projectile;
+import vooga.towerdefense.model.GameMap;
 
 /**
- * Single attack action launched by a GameElement at Targetable object.
+ * Single attack action launched by a GameElement.
  * @author XuRui
  * @author Matthew Roy
+ * @author Zhen Gou
  *
  */
-public class AttackAction extends AbstractAction {
-	Attacker myInitiator;
-	double myCoolDown;
-	boolean isOneTimeAction;
+public class AttackAction extends PeriodicAction {
+	private GameElement myInitiator;
+	private GameMap myMap;
 
-	public AttackAction(GameElement initiator){
-		super(initiator);
-		
-	}
+	public AttackAction(GameMap map, GameElement initiator, ProjectileFactory projectileToCreate){
+        myMap = map;
+        myInitiator=initiator;
+        setCoolDown(initiator.getAttributeManager().getAttribute(AttributeConstants.ATTACK_INTERVAL).getValue());
+    }
 	
-	/*public AttackAction(InfoBridge info, Attacker source, double cooldown, boolean isOneTime) {
-		super(info);
-		myCoolDown=cooldown;
-		isOneTimeAction=isOneTime;
-
-	}*/
 
 	@Override
-	public void execute(double elapsedTime) {
+	public void executeAction(double elapsedTime) {
+		updateTimer(elapsedTime);
 		//check whether it's in cool down
-		if (isEnabled()) {
+		if (isReady()) {
 			//get targets that we wanna shoot
-			Targetable[] targets = getInfoBridge()
-					.getTargetsWithinRadiusOfGivenLocation(
-							myInitiator.getAttackCenter(),
-							myInitiator.getAttackRadius(),
-							myInitiator.getNumberOfTargets());
+			List<GameElement> targets = myMap
+					.getTargetsWithinRadius(
+							myInitiator.getCenter(),
+							myInitiator.getAttributeManager().getAttribute(AttributeConstants.ATTACK_RADIUS).getValue(),
+							(int)(myInitiator.getAttributeManager().getAttribute(AttributeConstants.NUM_OF_TARGETS).getValue()));
 			
 			//shoot a projectile towards each target
-			for (Targetable target : targets) {
-				getInfoBridge().addGameElement(
-						new Projectile(myInitiator, target));
+			
+			for (GameElement target : targets) {
+				myMap.addGameElement(myInitiator.getAttributeManager().getProjectileFactory().createProjectile(myInitiator,target));
 			}
+			
+			resetTimer();
 		}
-		
-		//set cooldown
-		/*else{
-			setCoolDown(myCoolDown,isOneTimeAction);
-		}*/
 
 	}
 
     @Override
     public void initAction () {
-        // TODO Auto-generated method stub
         
     }
+
+	@Override
+	public void update(double elapsedTime) {
+		// TODO
+		
+	}
 }
+

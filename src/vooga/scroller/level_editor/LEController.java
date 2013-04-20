@@ -5,12 +5,8 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
-import vooga.scroller.sprite_superclasses.NonStaticEntity;
-import vooga.scroller.sprite_superclasses.StaticEntity;
-import vooga.scroller.test_sprites.MarioLib;
+import vooga.scroller.sprites.test_sprites.MarioLib;
 import vooga.scroller.util.Editable;
-import vooga.scroller.util.Location;
-import vooga.scroller.util.Sprite;
 import vooga.scroller.viewUtil.IWindow;
 import vooga.scroller.viewUtil.Renderable;
 import vooga.scroller.viewUtil.WorkspaceView;
@@ -18,10 +14,10 @@ import vooga.scroller.viewUtil.WorkspaceView;
 /**
  * The controller is responsible for interfacing between an IView and an IModel.
  * Among other things, it is responsible for 
- * <LI> Instantiating a generic model and a view
- * <LI> Keeping track of multiple high-level domain-specific objects (eg. Room, Level...)
- * <LI> Send Renderable versions to the adequate IView workspace
- * <LI> Send Editable versions to the Model
+ * <LI> Instantiating a generic model and a view </LI>
+ * <LI> Keeping track of multiple high-level domain-specific objects (eg. Room, Level...)</LI>
+ * <LI> Send Renderable versions to the adequate IView workspace</LI>
+ * <LI> Send Editable versions to the Model</LI>
  * <LI> Ensuring that all high-level domain instances are kept in sync.
  * @author SLogo team 3, Dagbedji F.
  *
@@ -33,21 +29,28 @@ public class LEController {
     private ILevelEditor myModel;
     private Map<Editable, WorkspaceView> myWorkspace2Tab;
     private Map<WorkspaceView, Editable> myTab2Workspace;
-    private static final int DEFAULT_SPRITE_GRID_SIZE = 10;
+    private static final int DEFAULT_SPRITE_GRID_SIZE = 30;
     private ToolsManager myToolsManager;
+    private LevelWriter myLevelWriter;
+    private LevelParser myLevelReader;
     
     /**
      * Constructor
+     * @param backgroundLib 
      */
-    public LEController(MarioLib lib) {
-        myToolsManager = new ToolsManager(lib);
+    public LEController(ISpriteLibrary lib, IBackgroundLibrary bgLib) {
+        myToolsManager = new ToolsManager(lib,bgLib);
         String language = getLanguage();
-        myModel = new LevelEditor(language,lib);
+        myModel = new LevelEditor(language);
         myModel.setSpriteMap(myToolsManager.getSpriteMap());
+        myModel.setBackgroundMap(bgLib.getBackgrounds());
         myView = new LEView(language, this, lib);
         myView.setDefaultWorkspaceTools(myToolsManager.getViewTools());
         myWorkspace2Tab = new HashMap<Editable, WorkspaceView>();
         myTab2Workspace = new HashMap<WorkspaceView, Editable>();
+        myLevelWriter = new LevelWriter();
+        myLevelReader = new LevelParser();
+//        myLevelParser.setNameMap(myToolsManager.getNameMap());
     }
 
     private String getLanguage () {
@@ -70,16 +73,6 @@ public class LEController {
 //        myView.pack();
 //        myView.setVisible(true);
     }
-   
-
-    /**
-     * Load a file in a specific tab - TODO
-     * @param f - File to be loaded.
-     * @param t - Tab where file is to be loaded.
-     */
-    public void loadFile (WorkspaceView t, File f) {
-
-    }
 
     /**
      * return the Room Object corresponding to the input TabView
@@ -94,6 +87,17 @@ public class LEController {
         return myWorkspace2Tab.get(m);
     }
 
+
+    public void saveFile (File file2save, WorkspaceView t) {
+        LEGrid grid = (LEGrid) getModelForWorkspace(t);
+        myLevelWriter.createFile(file2save,grid);
+    }
+
+    public void loadFile (File file2open) {
+        Editable m = myLevelReader.makeGridFromFile(file2open);
+        int id = myWorkspace2Tab.size();
+        createWorkspaceView(id, m);
+    }
 
     /**
      * calls model to process the input string command
@@ -114,9 +118,29 @@ public class LEController {
     /**
      * Add a new workspace with id based on already existing workspaces.
      */
+    public void initializeWorkspace(int numWidthBlocks, int numHeightBlocks) {
+        int id = myWorkspace2Tab.size();
+        initializeWorkspace(id, numWidthBlocks, numHeightBlocks);
+    }
+    
+    /**
+     * Add a new workspace with id based on already existing workspaces.
+     */
     public void initializeWorkspace() {
         int id = myWorkspace2Tab.size();
-        initializeWorkspace(id);
+        int [] size = getNumBlocks();
+        initializeWorkspace(id, size[0], size[1]);
+    }
+
+    /**
+     * TODO - get info via dialog box
+     * @return
+     */
+    private int[] getNumBlocks () {
+        int[] res = new int[2];
+        res[0]= 60;
+        res[1]= 30;
+        return res;
     }
 
     /**
@@ -126,10 +150,24 @@ public class LEController {
      */
     private void initializeWorkspace (int id) {
         Editable m = new LEGrid(DEFAULT_SPRITE_GRID_SIZE,DEFAULT_SPRITE_GRID_SIZE);;
-        WorkspaceView associatedWorkspaceView = myView.initializeWorkspaceView(id);
+        createWorkspaceView(id, m);
+    }
+
+    /**
+     * @param id
+     * @param m
+     */
+    private void createWorkspaceView (int id, Editable m) {
+        WorkspaceView associatedWorkspaceView = 
+                myView.initializeWorkspaceView(id, (Renderable) m);
         myWorkspace2Tab.put(m, associatedWorkspaceView);
         myTab2Workspace.put(associatedWorkspaceView, m);
         myView.showWorkspace(associatedWorkspaceView, (Renderable) m);
+       }
+    
+    private void initializeWorkspace(int id, int numWidthBlocks, int numHeightBlocks) {
+        Editable m = new LEGrid(numWidthBlocks, numHeightBlocks);
+        createWorkspaceView(id, m);
     }
 
 }
