@@ -81,7 +81,7 @@ public abstract class GameEditorScreen extends JPanel {
         myFinishButton.setVisible(true);
         buttonPanel.add(myAddButton, BorderLayout.NORTH);
         buttonPanel.add(myFinishButton, BorderLayout.SOUTH);
-        add(buttonPanel, BorderLayout.NORTH);
+        add(buttonPanel);
     }
     
     /**
@@ -89,7 +89,7 @@ public abstract class GameEditorScreen extends JPanel {
      */
     private void addTitle() {
         JLabel titleLabel = new JLabel(myTitle);
-        add(titleLabel, BorderLayout.NORTH);
+        add(titleLabel);
     }
     
     /**

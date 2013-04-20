@@ -8,7 +8,12 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Field;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
@@ -43,9 +48,21 @@ public class TowerEditorScreen extends GameEditorScreen {
      */
     private static final String ATTRIBUTES_CLASS_PATH = "vooga.towerdefense.attributes.AttributeConstants";
     /**
+     * package path for actions package.
+     */
+    private static final String ACTION_PACKAGE_PATH = "vooga.towerdefense.action";
+    /**
      * constant for the attribute selector button
      */
     private static final String ATTRIBUTES_ADD_BUTTON_TEXT = "Add attribute";
+    /**
+     * constant for the action selector button
+     */
+    private static final String ACTION_ADD_BUTTON_TEXT = "Add action";
+    /**
+     * string ending that indicates this file is a class.
+     */
+    private static final String CLASS_INDICATOR_STRING = ".class";
     /**
      * title constant.
      */
@@ -103,6 +120,18 @@ public class TowerEditorScreen extends GameEditorScreen {
      *          attributes value.
      */
     private JTextField myAttributeValue;
+    /**
+     * drop down menu with the actions available.
+     */
+    private JComboBox myActionsBox;
+    /**
+     * button to add actions to this tower.
+     */
+    private JButton myAddActionButton;
+    /**
+     * area where actions the user has selected are displayed.
+     */
+    private JTextArea myActionsSelected;
     
     /**
      * Constructor.
@@ -113,11 +142,28 @@ public class TowerEditorScreen extends GameEditorScreen {
         super(size, controller, TITLE_NAME, NEXT_SCREEN_NAME);
         myFileChooser = new JFileChooser(System.getProperties().getProperty(USER_DIR));
         myMouseAdapter = makeSpecificMouseAdapter();
+        makeScreen();
+    }
+    
+    /**
+     * helper method to create all the parts of
+     *          the TowerEditorScreen.
+     */
+    private void makeScreen() {
         addCharacteristicsPanel();
         try {
             addAttributesSection();
         }
         catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            addActionsSection();
+        }
+        catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -132,7 +178,8 @@ public class TowerEditorScreen extends GameEditorScreen {
     }
     
     /**
-     * helper method to make the actions drop down box.
+     * helper method to make the attributes drop down box,
+     *          button, and text field.
      * @throws ClassNotFoundException 
      */
     private void addAttributesSection() throws ClassNotFoundException {
@@ -155,8 +202,8 @@ public class TowerEditorScreen extends GameEditorScreen {
     }
     
     /**
-     * helper method to make the text boxes
-     *          and image button.
+     * helper method to make the text boxes for
+     *          name and image + image button.
      */
     private void addCharacteristicsPanel() {
         JPanel characteristicsPanel = new JPanel(new BorderLayout());
@@ -168,6 +215,27 @@ public class TowerEditorScreen extends GameEditorScreen {
         characteristicsPanel.add(myImageBox, BorderLayout.CENTER);
         characteristicsPanel.add(myImageSelector, BorderLayout.SOUTH);
         add(characteristicsPanel, BorderLayout.NORTH); 
+    }
+    
+    /**
+     * helper method to make the actions section of this screen.
+     * @throws ClassNotFoundException
+     * @throws IOException 
+     */
+    private void addActionsSection() throws ClassNotFoundException, IOException {
+        JPanel actionSection = new JPanel();
+        myActionsBox = new JComboBox();
+        List<String> actions = getAvailableActions(ACTION_PACKAGE_PATH); 
+        for (String s : actions) {
+            myActionsBox.addItem(s);
+        }
+        actionSection.add(myActionsBox);
+        myActionsSelected = new JTextArea(TEXT_WIDTH, TEXT_AREA_HEIGHT);
+        actionSection.add(new JScrollPane(myActionsSelected));
+        myAddActionButton = new JButton(ACTION_ADD_BUTTON_TEXT);
+        myAddActionButton.addMouseListener(myMouseAdapter);
+        actionSection.add(myAddActionButton);
+        add(actionSection);
     }
     
     /**
@@ -200,8 +268,43 @@ public class TowerEditorScreen extends GameEditorScreen {
                                                  + myAttributesBox.getSelectedItem().toString()
                                                  + " = " + myAttributeValue.getText());
                 }
+                else if (e.getSource().equals(myAddActionButton)) {
+                    myActionsSelected.setText(myActionsSelected.getText() + "\n"
+                            + myActionsBox.getSelectedItem().toString());   
+                }
             }
         };
         return mouseAdapter;
+    }
+    
+    /**
+     * helper method to get the classes in this package.
+     * @param packageName
+     * @return list of classes in the package
+     * @throws IOException 
+     * @throws ClassNotFoundException 
+     */
+    @SuppressWarnings("rawtypes")
+    private List<String> getAvailableActions(String packageName) throws IOException, ClassNotFoundException {
+        List<String> classNames = new ArrayList<String>();
+        List<Class> classes = new ArrayList<Class>();
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        String path = packageName.replace(".", "/");
+        URL resource = classLoader.getResource(path);
+        File directory = new File(resource.getFile());
+        if (directory.exists()) {
+            File[] files = directory.listFiles();
+            for (File file : files) {
+                if (file.getName().endsWith(CLASS_INDICATOR_STRING)) {
+                    classes.add(Class.forName(packageName + "." +
+                            file.getName().subSequence(0, file.getName().length()
+                                 - CLASS_INDICATOR_STRING.length())));
+                }
+            }
+        }
+        for (Class c : classes) {
+            classNames.add(c.getName().substring(packageName.length()+1, c.getName().length()));
+        }
+        return classNames;
     }
 }
