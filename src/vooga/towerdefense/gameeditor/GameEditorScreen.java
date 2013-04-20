@@ -6,6 +6,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.lang.reflect.InvocationTargetException;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public abstract class GameEditorScreen extends JPanel {
@@ -17,15 +18,18 @@ public abstract class GameEditorScreen extends JPanel {
     private static final String ADD_BUTTON_TEXT = "Add to game";
     private static final String FINISH_BUTTON_TEXT = "Next section";
     private String myNextScreenName = "vooga.towerdefense.gameeditor.";
+    private String myTitle = " MAKING SCREEN";
     private JButton myAddButton;
     private JButton myFinishButton;
     private Dimension mySize;
     private GameEditorController myController;
     
-    public GameEditorScreen(Dimension size, GameEditorController controller, String nextScreenName) {
+    public GameEditorScreen(Dimension size, GameEditorController controller, String title, String nextScreenName) {
         mySize = size;
         setPreferredSize(mySize);
         myController = controller;
+        myTitle = title + myTitle;
+        addTitle();
         myNextScreenName += nextScreenName;
         addButtons();
     }
@@ -33,6 +37,10 @@ public abstract class GameEditorScreen extends JPanel {
     public void display() {
         setVisible(true);
         repaint();
+    }
+    
+    public GameEditorController getController() {
+        return myController;
     }
     
     private void addButtons() {
@@ -47,6 +55,11 @@ public abstract class GameEditorScreen extends JPanel {
         buttonPanel.add(myAddButton, BorderLayout.NORTH);
         buttonPanel.add(myFinishButton, BorderLayout.SOUTH);
         add(buttonPanel, BorderLayout.EAST);
+    }
+    
+    private void addTitle() {
+        JLabel titleLabel = new JLabel(myTitle);
+        add(titleLabel, BorderLayout.NORTH);
     }
     
     public MouseAdapter makeMouseAdapter() {
