@@ -105,6 +105,7 @@ public class MapLoader extends ObjectLoader {
 			int yCoord= Integer.parseInt(getAttributeValue(enviroObjectNode, getResourceBundle().getString("YCoordinate")));
 			EnvironmentObject newEnvironmentObject= new EnvironmentObject(getAttributeValue(enviroObjectNode,
 					getResourceBundle().getString("EnvironmentObjectName")), new UpdatableLocation(xCoord, yCoord));
+			myMap.addEnviroObject(newEnvironmentObject);
 		}
 	}
 }

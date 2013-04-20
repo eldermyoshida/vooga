@@ -136,7 +136,7 @@ public class LevelMode extends Mode {
     public void loadAttacks(){
     	for (CharacterObject ch: myCharacterObjects){
     		for (AttackObject attack: ch.getAttackObjects()){
-    			if (!(getMyObjects().contains(attack)||attack.shouldBeRemoved())){
+    			if (!(getMyObjects().contains(attack)|| attack.shouldBeRemoved())){
     				addObject(attack);
     			}
     		}
