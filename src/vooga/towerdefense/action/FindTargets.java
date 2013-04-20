@@ -27,11 +27,12 @@ public class FindTargets extends Action {
     public FindTargets (GameMap myMap, Location source, Attribute attackRadius) {
         myScanningRadius = attackRadius;
         mySource = source;
-        myTargets = myMap.getTargetsWithinRadius(source, myScanningRadius.getValue(), 10);
+        myTargets = myMap.getTargetsWithinRadius(source, myScanningRadius.getValue());
     }
 
     public void update (double elapsedTime) {
         if (isEnabled()) {
+            myTargets = myMap.getTargetsWithinRadius(mySource, myScanningRadius.getValue());
             executeAction(elapsedTime);
         }
     }

@@ -1,5 +1,6 @@
 package vooga.towerdefense.factories;
 
+import java.awt.Dimension;
 import java.util.ArrayList;
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.AttackAction;
@@ -11,6 +12,7 @@ import vooga.towerdefense.attributes.AttributeManager;
 import vooga.towerdefense.gameElements.Tower;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.util.Location;
+import vooga.towerdefense.util.Pixmap;
 
 
 /**
@@ -32,6 +34,8 @@ public class ExampleAuraTowerFactory extends TowerFactory {
 
     public Tower createTower (Location putHere) {
         TowerDefinition def = new TowerDefinition();
+        
+        Pixmap tImage = new Pixmap("palmtree.png");
 
         AttributeManager AM = new AttributeManager();
         AM.addAttribute(new Attribute(AttributeConstants.ATTACK_RADIUS, 300.0));
@@ -44,8 +48,8 @@ public class ExampleAuraTowerFactory extends TowerFactory {
         AM.setProjectileFactory(new ProjectileFactory());
         Tower myTower;
         if (putHere != null) {
-            myTower = new Tower(def.getImage(), def.getCenter(),
-                                def.getSize(), AM);
+            myTower = new Tower(tImage, putHere,
+                                new Dimension(100,100), AM);
         }
         else {
             myTower = new Tower(def.getImage(),
@@ -58,8 +62,7 @@ public class ExampleAuraTowerFactory extends TowerFactory {
         findTargets.addFollowUpAction(new ModifyAttributeValue(AM
                 .getAttribute(AttributeConstants.AURA_EFFECT), AttributeConstants.HEALTH));
         actions.add(findTargets);
-
-        // actions.add(new AttackAction(myTower, ));
+        
         myTower.addActions(actions);
         return myTower;
     }

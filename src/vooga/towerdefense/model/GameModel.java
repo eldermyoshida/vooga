@@ -4,10 +4,15 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.List;
 import vooga.towerdefense.controller.Controller;
+import vooga.towerdefense.factories.ExampleAuraTowerFactory;
+import vooga.towerdefense.factories.TowerFactory;
+import vooga.towerdefense.gameElements.GameElement;
+import vooga.towerdefense.gameElements.Tower;
 import vooga.towerdefense.gameElements.Wave;
 import vooga.towerdefense.model.tiles.Tile;
 import vooga.towerdefense.shop.Shop;
 import vooga.towerdefense.shop.ShopItem;
+import vooga.towerdefense.util.Location;
 
 
 /**
@@ -37,6 +42,10 @@ public class GameModel {
         myGameMap = gameMap;
         myShop = shop;
         myCurrentWave = waves.get(0);
+        
+        ExampleAuraTowerFactory auraT = new ExampleAuraTowerFactory(gameMap, "Aura Tower", null);
+        Tower t = auraT.createTower(new Location(400, 400));
+        gameMap.addGameElement(t);
     }
 
     /**
