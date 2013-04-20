@@ -23,7 +23,8 @@ import vooga.rts.util.Location3D;
 public class InputController implements Controller {
 
     private State myState;
-    private Location myLeftMouse;
+    
+    private Location myLeftMouse;    
     private Rectangle2D myDrag;
     
     public InputController (State state) {

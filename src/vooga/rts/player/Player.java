@@ -41,6 +41,5 @@ public class Player implements Controller, IGameLoop {
     @Override
     public void update (double elapsedTime) {
         myManager.update(elapsedTime);
-
     }
 }
