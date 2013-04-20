@@ -118,10 +118,12 @@ public class MapEditorScreen extends GameEditorScreen {
     
     private JPanel makePathTilePainter () {
         myTilePainter = new JPanel();
-        myTilePainter.setPreferredSize(new Dimension(50,50));
+        myTilePainter.setPreferredSize(new Dimension(400,200));
         myTilePainter.setBackground(Color.BLUE);
         myTilePainter.setVisible(true);  
         myTilePainter.addMouseListener(myTilePainterListener); 
+        
+        makeTileImages ();
         
         return myTilePainter;
     }
@@ -134,6 +136,10 @@ public class MapEditorScreen extends GameEditorScreen {
         myPathEraser.addMouseListener(myTileEraserListener);
         
         return myPathEraser;
+    }
+    
+    private void makeTileImages() {
+        
     }
     
     public void setPainterColor (JPanel panel, Color color) {
