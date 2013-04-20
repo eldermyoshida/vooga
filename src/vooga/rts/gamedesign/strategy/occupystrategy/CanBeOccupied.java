@@ -24,7 +24,7 @@ public class CanBeOccupied implements OccupyStrategy{
 	public static final int DEFAULT_MAX_OCCUPIERS = 10;
 	
 	private List<Unit> myOccupiers;
-	private static List<String> myValidOccupierType;
+	private List<String> myValidOccupierType;
 	private int myMaxOccupiers;
 	
 	public CanBeOccupied() {
@@ -40,20 +40,23 @@ public class CanBeOccupied implements OccupyStrategy{
 		}
 	}
 	
-	public void addValidClassType(Unit u) {
-		Class cls = u.getClass();
+	public void addValidClassType(Unit validOccupier) {
+		Class cls = validOccupier.getClass();
 		String className = cls.getName();
-		System.out.println("class name that's added: " + className);
+		//System.out.println("class name that's added: " + className);
 		myValidOccupierType.add(className);
 	}
 	
-	public static boolean verifyOccupier(Unit u) {
+	private boolean verifyOccupier(Unit u) {
 		Class cls = u.getClass();
-		String className = cls.getName();
-		System.out.println("class name to be compared: "+ className);
 		for (String s: myValidOccupierType) {
-			if (className.equals(s)) {
-				return true;
+			while (cls != null) {
+				String className = cls.getName();
+				//System.out.println("class name to be compared: "+ className);
+				if (className.equals(s)) {
+					return true;
+				}
+				cls = cls.getSuperclass();
 			}
 		}
 		return false;
@@ -65,11 +68,11 @@ public class CanBeOccupied implements OccupyStrategy{
 	 */
 	public static void main(String[] argus) {
 		OccupyStrategy o = new CanBeOccupied();
-		o.addValidClassType(new Soldier());
+		o.addValidClassType(new Unit());
 		Soldier s = new Soldier();
 		Unit u = new Unit();
-		System.out.println("Soldier: " + verifyOccupier(s));
-		System.out.println("Unit: " + verifyOccupier(u));
+		//System.out.println("Soldier: " + verifyOccupier(s));
+		//System.out.println("Unit: " + verifyOccupier(u));
 	}
 
 }
