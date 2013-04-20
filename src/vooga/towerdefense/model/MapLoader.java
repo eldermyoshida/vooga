@@ -2,6 +2,7 @@ package vooga.towerdefense.model;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 import vooga.towerdefense.model.tiles.Tile;
@@ -47,6 +48,7 @@ public class MapLoader {
     }
     
     private void initTileIdMap() {
+        myTileIdMap = new HashMap<Integer, TileFactory>();
         myTileIdMap.put(0, new GrassTileFactory());
         myTileIdMap.put(1, new PathTileFactory());
     }
