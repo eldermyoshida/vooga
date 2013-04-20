@@ -18,7 +18,7 @@ import vooga.rts.map.NodeMap;
  * @author Challen Herzberg-Brovold, Jonno Schmidt
  *
  */
-public class AstarFinder extends PathFinder {
+public class AstarFinder implements PathFinder {
     
     @Override
     public Path calculatePath (Node start, Node finish, NodeMap map) {

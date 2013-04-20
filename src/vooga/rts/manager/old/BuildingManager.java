@@ -1,4 +1,4 @@
-package vooga.rts.manager;
+package vooga.rts.manager.old;
 
 public class BuildingManager {
 	
