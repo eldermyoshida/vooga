@@ -6,7 +6,7 @@ import java.util.List;
 import vooga.towerdefense.gameElements.Unit;
 import vooga.towerdefense.gameElements.Wave;
 import vooga.towerdefense.model.GameMap;
-import vooga.towerdefense.model.Tile;
+import vooga.towerdefense.model.tiles.Tile;
 import vooga.towerdefense.util.Location;
 
 public class WaveFactory {

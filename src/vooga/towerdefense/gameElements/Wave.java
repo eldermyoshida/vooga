@@ -3,7 +3,7 @@ package vooga.towerdefense.gameElements;
 import java.util.List;
 import vooga.towerdefense.attributes.AttributeManager;
 import vooga.towerdefense.model.GameMap;
-import vooga.towerdefense.model.Tile;
+import vooga.towerdefense.model.tiles.Tile;
 
 
 /**

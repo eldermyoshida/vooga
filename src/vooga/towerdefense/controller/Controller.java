@@ -28,7 +28,7 @@ import vooga.towerdefense.gameElements.Wave;
 import vooga.towerdefense.model.GameLoop;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.GameModel;
-import vooga.towerdefense.model.Tile;
+import vooga.towerdefense.model.tiles.Tile;
 import vooga.towerdefense.shop.Shop;
 import vooga.towerdefense.shop.ShopItem;
 import vooga.towerdefense.util.Location;

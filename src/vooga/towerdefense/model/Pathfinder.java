@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import vooga.towerdefense.model.tiles.Tile;
 import vooga.towerdefense.util.Location;
 
 public class Pathfinder {

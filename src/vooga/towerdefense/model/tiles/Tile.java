@@ -1,4 +1,4 @@
-package vooga.towerdefense.model;
+package vooga.towerdefense.model.tiles;
 
 import java.awt.Dimension;
 import java.awt.Point;
@@ -7,16 +7,35 @@ import vooga.towerdefense.util.Location;
 import vooga.towerdefense.util.Pixmap;
 import vooga.towerdefense.util.Sprite;
 
+/**
+ * This class represents a Tile object.
+ * 
+ * @author Erick Gonzalez
+ */
 public class Tile extends Sprite {
-    public static final int TILE_SIZE = 50;
+    
+    /**
+     * Image for a grass tile
+     */
     public static final Pixmap GRASS_TILE_IMAGE = new Pixmap("map/grass_tile.png");
+    /**
+     * Image for a path tile
+     */
     public static final Pixmap PATH_TILE_IMAGE = new Pixmap("map/path_tile.png");
-    public static final Dimension TILE_DIMENSIONS = new Dimension(TILE_SIZE, TILE_SIZE);
+    /**
+     * The size of a tile
+     */
+    public static final Dimension TILE_DIMENSIONS = new Dimension(50, 50);
     
     private Point myCenter;
     private GameElement myElement;
 
-    
+    /**
+     * 
+     * @param image an image
+     * @param center the center of this tile
+     * @param size the size of the tile
+     */
     public Tile (Pixmap image, Location center, Dimension size) {
         super(image, center, size);
     }
