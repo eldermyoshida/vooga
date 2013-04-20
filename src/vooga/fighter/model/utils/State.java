@@ -148,7 +148,7 @@ public class State {
     public Rectangle getCurrentRectangle() {
         Rectangle result = myRectangles[myCurrentFrame];
         Location location = myOwner.getLocation().getLocation();
-        result.setLocation((int) location.getX(), (int) location.getY());
+        result.setLocation((int) location.getX() - getCurrentSize().width/2, (int) location.getY()  - getCurrentSize().height/2);
         return result;
     }
 
