@@ -5,13 +5,12 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import vooga.rts.gamedesign.action.Action;
+import vooga.rts.gamedesign.sprite.gamesprites.GameEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.GameSprite;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.IGatherable;
-import vooga.rts.gamedesign.sprite.gamesprites.interactive.IOccupiable;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.strategy.gatherstrategy.CannotGather;
 import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
-import vooga.rts.gamedesign.strategy.occupystrategy.CannotOccupy;
 import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
 import vooga.rts.gamedesign.upgrades.UpgradeNode;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
@@ -43,8 +42,6 @@ public class Unit extends InteractiveEntity {
 
     private GatherStrategy myGatherStrategy;
 
-    private OccupyStrategy myOccupyStrategy;
-
     public Unit() {
     	this(null, new Location3D(), new Dimension(0,0), null, 0, 100);
     }
@@ -63,17 +60,8 @@ public class Unit extends InteractiveEntity {
         super(image, center, size, sound, playerID, health);
         //myPather = new PathingHelper();
         System.out.println(playerID + " " + health);
-        myOccupyStrategy = new CannotOccupy();
         if (myUpgradeTree != null){
-        	if (myUpgradeTree.getUsers().get(playerID) == null) {
-        		List<InteractiveEntity> entityGroup = new ArrayList<InteractiveEntity>();
-        		entityGroup.add(this);
-        		myUpgradeTree.getUsers().put(playerID, entityGroup);
-        	} else {
-        		List<InteractiveEntity> entityGroup = myUpgradeTree.getUsers().get(playerID);
-        		entityGroup.add(this);
-        		myUpgradeTree.getUsers().put(playerID, entityGroup);
-        	}
+        	addUserToUpgradeTree(playerID);
         }
     }
     
@@ -85,6 +73,19 @@ public class Unit extends InteractiveEntity {
     @Override
     public void setUpgradeTree(UpgradeTree upgradeTree, int playerID) {
     	myUpgradeTree = upgradeTree;
+    	addUserToUpgradeTree(playerID);
+    }
+
+    /**
+     * Occupies an IOccupiable object specified by occupy strategy.
+     * 
+     * @param occupiable
+     */
+    public void occupy (GameEntity i) {
+        i.getOccupyStrategy().getOccupied(this);
+    }
+    
+    private void addUserToUpgradeTree(int playerID) {
     	if (myUpgradeTree.getUsers().get(playerID) == null) {
     		List<InteractiveEntity> entityGroup = new ArrayList<InteractiveEntity>();
     		entityGroup.add(this);
@@ -94,17 +95,6 @@ public class Unit extends InteractiveEntity {
     		entityGroup.add(this);
     		myUpgradeTree.getUsers().put(playerID, entityGroup);
     	}
-    }
-
-    /**
-     * Occupies an IOccupiable object specified by occupy strategy.
-     * 
-     * @param occupiable
-     */
-    public void occupy (IOccupiable occupiable) {
-        if (myOccupyStrategy.canOccupy(occupiable)) {
-            occupiable.getOccupied(this);
-        }
     }
 
 }

@@ -9,6 +9,8 @@ import vooga.rts.gamedesign.state.EntityState;
 import vooga.rts.gamedesign.state.MovementState;
 import vooga.rts.gamedesign.state.OccupyState;
 import vooga.rts.gamedesign.state.ProducingState;
+import vooga.rts.gamedesign.strategy.occupystrategy.CannotBeOccupied;
+import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
 import vooga.rts.util.Camera;
 import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
@@ -46,6 +48,7 @@ public class GameEntity extends GameSprite {
     private Location3D myGoal;
     private Vector myOriginalVelocity;
     private EntityState myEntityState;
+    private OccupyStrategy myOccupyStrategy;
 
     public GameEntity (Pixmap image, Location3D center, Dimension size, int playerID, int health) {
         super(image, center, size);
@@ -57,9 +60,17 @@ public class GameEntity extends GameSprite {
         myVelocity = new Vector(0, 0);
         myGoal = new Location3D();
         myEntityState = new EntityState();
+        myOccupyStrategy = new CannotBeOccupied();
     }
 
     /**
+     * CONSTRUCTOR FOR TESTIGN PURPOSE
+     */
+    public GameEntity() {
+		this(null,null,null,1,10);
+	}
+
+	/**
      * Returns shape's velocity.
      */
     public Vector getVelocity () {
@@ -217,6 +228,14 @@ public class GameEntity extends GameSprite {
      */
     public EntityState getEntityState () {
         return myEntityState;
+    }
+    
+    public OccupyStrategy getOccupyStrategy() {
+    	return myOccupyStrategy;
+    }
+    
+    public void setOccpyStrategy(OccupyStrategy occupyStrategy) {
+    	myOccupyStrategy = occupyStrategy;
     }
 
     /**

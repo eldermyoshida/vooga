@@ -5,7 +5,7 @@ import java.awt.Dimension;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.IOccupiable;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
-import vooga.rts.manager.BuildingManager;
+import vooga.rts.manager.IndividualBuildingManager;
 import vooga.rts.manager.GameBuildingManager;
 import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;

@@ -15,7 +15,7 @@ public abstract class Player implements IGameLoop, IProductionObserver {
 	
 	private IndividualResourceManager myResourceManager;
     private UnitManager myUnitManager;
-    private BuildingManager myBuildingManager;
+    private IndividualBuildingManager myBuildingManager;
     private int myTeamID;
     private GameMap myMap;
     
@@ -49,7 +49,7 @@ public abstract class Player implements IGameLoop, IProductionObserver {
         return myUnitManager;
     }
 
-    public BuildingManager getBuildings () {
+    public IndividualBuildingManager getBuildings () {
         return myBuildingManager;
     }
 
