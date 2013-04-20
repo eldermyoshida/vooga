@@ -144,8 +144,7 @@ public class Model implements ArcadeInteraction {
                                       String lastname,
                                       String dataOfBirth,
                                       String filepath) {
-        System.out.println(myDb
-                .createUser(username, pw, firstname, lastname, dataOfBirth, filepath));
+        myDb.createUser(username, pw, firstname, lastname, dataOfBirth, filepath);
         authenticate(username, pw);
     }
 
