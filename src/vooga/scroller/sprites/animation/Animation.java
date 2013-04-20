@@ -25,21 +25,13 @@ public class Animation implements ISpriteView {
     /**
      * Creates a new animation that acts on a sprite.
      * 
-     * @param defaultImageFile is the file path of the default image for this animation.
      * @param sp is the sprite on that this animation animates.
      */
     public Animation (Sprite sp) {
         mySprite = sp;
         myAnimations = new ArrayList<AnimationState>();
-        //initAnimations();
     }
     
-    /**
-     * Initiates all of the animationStates used in this animation.
-     */
-    private void initAnimations () {
-
-    }
 
     /**
      * Gives the current image that this animation should display
@@ -47,6 +39,10 @@ public class Animation implements ISpriteView {
      * @return
      */
     private ISpriteView getStateView() {
+        for (AnimationState as: myAnimations) {
+            as.update();
+        }
+        
         for (AnimationState as: myAnimations) {
             if (as.validAnimation(mySprite)) {
                 return as.getView();
@@ -59,6 +55,11 @@ public class Animation implements ISpriteView {
         return myDefaultStateView;
     }
 
+    /**
+     * Sets the default view of this animation.
+     * 
+     * @param defaultImage is the image to display as the default view of this animation.
+     */
     public void setDefaultView (ISpriteView defaultImage) {
         myDefaultStateView = defaultImage;
     }
@@ -77,15 +78,15 @@ public class Animation implements ISpriteView {
 
     @Override
     public void paint (Graphics2D pen, Point2D myCenter, Dimension mySize) {
-      ISpriteView currView = getStateView();
-      currView.paint(pen, myCenter, mySize);
+        ISpriteView currView = getStateView();
+        currView.paint(pen, myCenter, mySize);
     }
 
     @Override
-    public Image getDefaultImg () {
-        
+    public Image getDefaultImg () {       
         return myDefaultStateView.getDefaultImg();
     }
+    
     
     /**
      * Adds an animation state to this animation.

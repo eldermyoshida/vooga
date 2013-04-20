@@ -40,4 +40,9 @@ public abstract class AnimationState {
         return myImage;
     }
     
+    /**
+     * updates the Animation State. Useful for applying counters to animations.
+     */
+    public abstract void update();
+    
 }
