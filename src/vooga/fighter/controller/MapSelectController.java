@@ -29,13 +29,13 @@ import java.util.ResourceBundle;
 public class MapSelectController extends MenuController {
     
     
-    public MapSelectController (String name, Canvas frame) {
-        super(name, frame);
+    public MapSelectController () {
+        super();
     }
         
-    public MapSelectController(String name, Canvas frame, ControllerDelegate manager, 
+    public void initializeRest(Canvas frame, ControllerDelegate manager, 
                 GameInfo gameinfo) {
-        super(name, frame, manager, gameinfo);
+        super.initializeRest(frame, manager, gameinfo);
     }
     
     /**
@@ -52,13 +52,7 @@ public class MapSelectController extends MenuController {
 
 
 
-    @Override
-    public Controller getController (ControllerDelegate delegate, GameInfo gameinfo) {
-        return new MapSelectController(super.getName(), super.getView(),
-                                   delegate, gameinfo);
-    }
-    
-    
+
     @InputMethodTarget(name = "continue")
     public void mouseclick(PositionObject pos)  {
         super.getMode().addObject(new MouseClickObject(pos.getPoint2D()));

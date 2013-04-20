@@ -5,6 +5,7 @@ import java.util.List;
 import vooga.fighter.model.Mode;
 import vooga.fighter.model.utils.ImageDataObject;
 import vooga.fighter.util.HUDFactory;
+
 import vooga.fighter.view.HUDElement;
 
 public class DisplayLoopInfo extends DisplayInfo implements ViewDataSource{

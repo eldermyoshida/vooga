@@ -35,13 +35,13 @@ public abstract class LevelController extends Controller {
     private List<ModeCondition> myWinConditions;
     private List<ModeCondition> myUniqueConditions;
 
-    public LevelController (String name, Canvas frame) {
-        super(name, frame);
+    public LevelController () {
+        super();
     }
 
-    public LevelController(String name, Canvas frame, ControllerDelegate manager, 
+    public void initializeRest(Canvas frame, ControllerDelegate manager, 
                 GameInfo gameinfo) {
-        super(name, frame, manager, gameinfo);
+        super.initializeRest(frame, manager, gameinfo);
         setInput(manager.getInput());
         getInput().replaceMappingResourcePath(INPUT_PATHWAY);
         getInput().addListenerTo(this);
@@ -65,6 +65,10 @@ public abstract class LevelController extends Controller {
    
     public LevelMode getMode(){
     	return (LevelMode) super.getMode();
+    }
+    
+    public Controller getController() {
+        return this;
     }
    
     public void removeListener(){
