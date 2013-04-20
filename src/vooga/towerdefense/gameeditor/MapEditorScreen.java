@@ -14,7 +14,7 @@ public class MapEditorScreen extends GameEditorScreen {
     /**
      * next screen constant.
      */
-    private static final String NEXT_SCREEN_NAME = "ViewEditorScreen";
+    private static final String NEXT_SCREEN_NAME = "ProjectileEditorScreen";
     /**
      * title constant.
      */

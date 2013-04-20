@@ -20,6 +20,7 @@ public class GameEditorController extends JFrame {
     private static final String TITLE_KEYWORD = "GAME EDITOR";
     private static final Dimension SIZE = new Dimension(700, 700);
     private Dimension mySize;
+    private Dimension myMapSize;
     
     /**
      * Constructor.
@@ -99,6 +100,14 @@ public class GameEditorController extends JFrame {
     public void addWaveToGame() {
         //TODO: implement
         System.out.println("add wave to game");        
+    }
+    
+    public void setMapSize (Dimension mapSize) {
+        myMapSize = mapSize;
+    }
+    
+    public Dimension getMapSize () {
+        return myMapSize;
     }
     
     /**
