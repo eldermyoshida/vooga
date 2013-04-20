@@ -118,6 +118,7 @@ public abstract class Player extends Sprite implements IInputListener{
     public Dimension getSize() {
         return mySize;
     }
+
     public void incrementScore (int increment) {
         myStatistic.addValue(increment);
     }

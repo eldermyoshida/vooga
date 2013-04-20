@@ -9,7 +9,8 @@ import vooga.scroller.util.Sprite;
 /**
  * This class is specific to our game and is not intended to be a part of the
  * framework. It is meant to handle certain collisions specific to our Mario
- * game.
+ * game. If the game designer wants to implement specific collision helper methods
+ * this is the place where those methods should go. 
  * 
  * @author Jay Wang
  */
@@ -19,7 +20,8 @@ public class MarioCollisions {
     private CollisionDirection direction = new CollisionDirection();
 
     void marioAndPlatformCollision (Player mario, Sprite sprite) {
-
+        
+        
         Direction collisionType = direction.collisionDirection(mario, sprite);
 
         if (collisionType == null) return;
