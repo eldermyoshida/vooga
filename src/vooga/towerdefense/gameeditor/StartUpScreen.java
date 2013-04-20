@@ -12,6 +12,12 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * StartUpScreen starts the GameEditor for the
+ *      game developer.
+ *
+ * @author Angelica Schwartz
+ */
 public class StartUpScreen extends JPanel {
 
     private static final long serialVersionUID = 1L;
@@ -22,6 +28,11 @@ public class StartUpScreen extends JPanel {
     private MouseAdapter myMouseAdapter;
     private GameEditorController myController;
     
+    /**
+     * Constructor.
+     * @param size
+     * @param controller
+     */
     public StartUpScreen(Dimension size, GameEditorController controller) {
         myController = controller;
         setSize(size);
@@ -32,6 +43,10 @@ public class StartUpScreen extends JPanel {
         add(makeButton(), BorderLayout.SOUTH);
     }
     
+    /**
+     * paints the screen.
+     * @param pen
+     */
     @Override
     public void paintComponent(Graphics pen) {
         super.paintComponents(pen);
@@ -39,10 +54,18 @@ public class StartUpScreen extends JPanel {
         pen.fillRect(0, 0, getSize().width, getSize().height);
     }
     
+    /**
+     * Helper method to make a welcome title label.
+     * @return the JLabel created
+     */
     private JLabel makeLabel() {
         return new JLabel(WELCOME_KEYWORD);
     }
     
+    /**
+     * helper method to make the buttons.
+     * @return the JButton created
+     */
     private JComponent makeButton() {
         myStartButton = new JButton(START_KEYWORD);
         myStartButton.addMouseListener(myMouseAdapter);
