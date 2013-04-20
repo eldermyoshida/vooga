@@ -73,6 +73,12 @@ public class GameMap {
         }
     }
 
+    /**
+     * Adds a game element to the given tile t.
+     * 
+     * @param e a game element
+     * @param t the tile in which to add the game element
+     */
     public void addToMap (GameElement e, Tile t) {
         e.setCenter(t.getCenter().getX(), t.getCenter().getY());
         myGameElements.add(e);
@@ -87,8 +93,7 @@ public class GameMap {
      * @return a Tile object containing this point (x, y)
      */
     public Tile getTile (Point point) {
-        return myGrid[(int) (point.getX() / Tile.TILE_SIZE)][(int) (point
-                .getY() / Tile.TILE_SIZE)];
+        return myGrid[(int) (point.getX() / Tile.TILE_SIZE)][(int) (point.getY() / Tile.TILE_SIZE)];
     }
 
     /**
@@ -100,8 +105,8 @@ public class GameMap {
      * @return a Tile object containing this point (x, y)
      */
     public Tile getTile (Location location) {
-        return myGrid[(int) (location.getX() / Tile.TILE_SIZE)][(int) (location
-                .getY() / Tile.TILE_SIZE)];
+        return myGrid[(int) (location.getX() / Tile.TILE_SIZE)]
+                [(int) (location.getY() / Tile.TILE_SIZE)];
     }
 
     /**
@@ -128,23 +133,34 @@ public class GameMap {
         }
     }
 
+    /**
+     * 
+     * @return a list of all available game elements.
+     */
     public List<GameElement> getAllGameElements () {
         return myGameElements;
     }
 
+    /**
+     * 
+     * @param gameElement simply adds a game element to the map.
+     */
     public void addGameElement (GameElement gameElement) {
         myGameElements.add(gameElement);
     }
-
+    
+    /**
+     * Gets howMany number of the closest targets within a radius of a circle centered at
+     * source.
+     * 
+     * @param source the center of the circle 
+     * @param radius the radius of the circle
+     * @param howMany the number of units closest to source, within radius
+     * @return
+     */
     public List<GameElement> getTargetsWithinRadius (Location source,
                                                      double radius, int howMany) {
-        List<GameElement> elementsWithinRadius = new ArrayList<GameElement>();
-
-        for (GameElement gameElement : myGameElements) {
-            if (Vector.distanceBetween(source, gameElement.getCenter()) <= radius) {
-                elementsWithinRadius.add(gameElement);
-            }
-        }
+        List<GameElement> elementsWithinRadius = getElementsWithinRadius(source, radius);
 
         class GameElementComparator implements Comparator<GameElement> {
             private Location mySource;
@@ -166,6 +182,26 @@ public class GameMap {
         return elementsWithinRadius.subList(0, howMany);
     }
 
+    private List<GameElement> getElementsWithinRadius (Location source, double radius) {
+        List<GameElement> elementsWithinRadius = new ArrayList<GameElement>();
+
+        for (GameElement gameElement : myGameElements) {
+            if (Vector.distanceBetween(source, gameElement.getCenter()) <= radius) {
+                elementsWithinRadius.add(gameElement);
+            }
+        }
+        return elementsWithinRadius;
+    }
+    
+
+    /**
+     * Returns a Path object representing the shortest path between
+     * two locations.
+     * 
+     * @param start the start location
+     * @param finish the end location
+     * @return the shortest path between these two locations
+     */
     public Path getShortestPath (Location start, Location finish) {
         int x1 = (int) (start.getX() / Tile.TILE_SIZE);
         int x2 = (int) (finish.getX() / Tile.TILE_SIZE);
