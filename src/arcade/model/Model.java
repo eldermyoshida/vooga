@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import arcade.database.Database;
 import arcade.games.ArcadeInteraction;
@@ -82,6 +83,7 @@ public class Model implements ArcadeInteraction {
         addGameInfo(newGameInfo(name));
     }
 
+<<<<<<< HEAD
     /**
      * Tedious Java string manipulation to change something like:
      * games/rts/ageOfEmpires/game.java
@@ -109,7 +111,8 @@ public class Model implements ArcadeInteraction {
         return ret;
     }
 
-    private GameInfo newGameInfo (String name) {
+
+    private GameInfo newGameInfo  (String name) throws MissingResourceException{
         return new GameInfo(name, myLanguage, myDb);
     }
 
@@ -187,7 +190,15 @@ public class Model implements ArcadeInteraction {
     private void organizeSnapshots () {
         List<String> gameNames = myDb.retrieveListOfGames();
         for (String name : gameNames) {
+<<<<<<< HEAD
             addGameInfo(newGameInfo(name));
+=======
+            try{
+            addGameInfo(newGameInfo(name, myDb.getGenre(name)));
+            }catch(MissingResourceException e ){
+                continue;
+            }
+>>>>>>> f3973a681317c1e23279e05df71f78679c90b756
         }
     }
 

@@ -2,7 +2,7 @@ package vooga.towerdefense.factories;
 
 import java.util.ArrayList;
 import java.util.List;
-import vooga.towerdefense.action.AbstractAction;
+import vooga.towerdefense.action.Action;
 
 /**
  * Creates actions based on definitions of the ActionFactory
@@ -15,9 +15,8 @@ public class ActionFactory {
         
     }
     
-    public List<AbstractAction> createActions() {
-        List<AbstractAction> myActions = new ArrayList<AbstractAction>();
-        
+    public List<Action> createActions() {
+        List<Action> myActions = new ArrayList<Action>();
         return myActions;
     }
 

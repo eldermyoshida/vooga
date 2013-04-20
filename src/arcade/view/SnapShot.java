@@ -15,12 +15,16 @@ import arcade.model.Model;
 import arcade.util.JPicture;
 import arcade.util.Pixmap;
 
-
+/**
+ * 
+ * @author David Liu
+ *
+ */
 public class SnapShot extends JPanel implements MouseListener {
 
     /**
-         * 
-         */
+     * 
+     */
     private static final long serialVersionUID = 1859238824934859448L;
     private GameInfo myGameInfo;
     private ResourceBundle myResources;

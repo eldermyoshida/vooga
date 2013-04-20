@@ -42,4 +42,5 @@ public class SelectMode extends ControlMode {
     public GameElement getCurrentlySelectedItem() {
         return currentlySelectedItem;
     }
+
 }

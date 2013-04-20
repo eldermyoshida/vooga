@@ -15,7 +15,11 @@ import arcade.view.panels.ButtonPanel;
 import arcade.view.panels.GameCenterPanel;
 import arcade.view.panels.SocialCenterPanel;
 import arcade.view.panels.StorePanel;
-
+/**
+ * 
+ * @author David Liu
+ *
+ */
 @SuppressWarnings("serial")
 
 public class MainView extends JFrame {

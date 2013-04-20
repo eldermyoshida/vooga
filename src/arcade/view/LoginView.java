@@ -23,7 +23,7 @@ import arcade.model.Model;
  * The initial view when the arcade is launched. Allows a user to login
  * or create a new account.
  * 
- * @author Luzhuo, Ellango
+ * @author David Liu, Ellango
  * 
  */
 @SuppressWarnings("serial")

@@ -2,6 +2,7 @@ package vooga.scroller.level_management;
 
 import java.util.HashMap;
 import java.util.Map;
+import util.Location;
 import util.input.Input;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.superclasses.Player;
@@ -21,7 +22,6 @@ public class LevelManager {
     private Input myInput;
     private Level myInitialLevel;
     private Level myCurrentLevel;
-    private Map<IDoor, StartPoint> myWays;
     
         
     /**
@@ -30,7 +30,6 @@ public class LevelManager {
      */
     public LevelManager(ScrollingManager sm, View view) {        
         LevelFactory lf = new LevelFactory(this, sm, view);
-        myWays = new HashMap<IDoor, StartPoint>();
         myInitialLevel = lf.generateLevels();        
         //myCurrentLevel = myLevels.get(DEFAULT_START_LEVEL_ID); 
         myInput = new Input(DEFAULT_INPUT_CONTROLS, view);
@@ -42,7 +41,7 @@ public class LevelManager {
      * 
      * @return The current level
      */
-    public Level currentLevel() {
+    public Level getCurrentLevel() {
         return myCurrentLevel;
     }
     
@@ -67,16 +66,9 @@ public class LevelManager {
     /**
      * Map a door to a starting point. Bind door to this level manager.
      */
-    public void put(IDoor door, StartPoint start) {
-        ((LevelPortal) door).setManager(this);
-        myWays.put(door, start);
-    }
-    
-    /**
-     * Map a door to a starting point
-     */
-    public StartPoint get(IDoor door) {
-        return myWays.get(door);
+    public void put(IDoor door, Level nextLevel) {
+        door.setNextLevel(nextLevel);
+        door.setManager(this);
     }
 }
 

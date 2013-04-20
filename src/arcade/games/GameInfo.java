@@ -5,6 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import arcade.database.Database;
 import arcade.model.Model;
@@ -29,11 +30,13 @@ public class GameInfo {
     private ResourceBundle myResourceBundle;
     private Model myModel;
 
-    public GameInfo (String gamename, String genre, String language, Model model) {
+    public GameInfo (String gamename, String genre, String language, Model model) throws MissingResourceException {
         String filepath = FILEPATH + genre + "." + gamename + RESOURCE_DIR_NAME + language;
         myModel = model;
         // String filepath = FILEPATH + gamename + RESOURCE_DIR_NAME + language;
+        
         myResourceBundle = ResourceBundle.getBundle(filepath);
+        
     }
 
     public GameInfo (String name, String myLanguage, Database myDb) {
