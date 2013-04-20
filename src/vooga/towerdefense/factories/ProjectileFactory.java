@@ -35,7 +35,7 @@ public class ProjectileFactory extends GameElementFactory {
 	
 	}
 
-	public Projectile createGameElement(GameElement initiator,
+	public Projectile createProjectile(GameElement initiator,
 			Location targetLocation) {
 		Projectile projectile = new Projectile(DEFAULT_IMAGE, DEFAULT_SIZE,
 				initiator.getCenter(), targetLocation, DEFAULT_ACTIONS,
