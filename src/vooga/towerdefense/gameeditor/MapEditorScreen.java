@@ -4,10 +4,13 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.util.Collection;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -24,7 +27,7 @@ public class MapEditorScreen extends GameEditorScreen {
     private static final long serialVersionUID = 1L;
     private static final String NEXT_SCREEN_NAME = "ProjectileEditorScreen";
     private static final String TITLE_NAME = "MAP ";
-    private static final String TILES_CLASS_PATH = "vooga.towerdefense.models";
+    private static final String TILES_CLASS_PATH = "vooga.towerdefense.model.tiles";
     private MapMaker myMapBox;
     private Dimension myMapMakerSize;
     private JTextField myTextField;
@@ -139,8 +142,16 @@ public class MapEditorScreen extends GameEditorScreen {
         return myPathEraser;
     }
     
-    private void makeTileImages() {
-        
+    private void makeTileImages()  {
+        Collection<Class> myClass;
+        try {
+            myClass = getController().getClassesInPackage(TILES_CLASS_PATH);
+            //myClass.remove(class vooga.towerdefense.model.tiles.Tile);
+            System.out.println("Classes: " + myClass);
+        }
+        catch (ClassNotFoundException | IOException e) {
+            e.printStackTrace();
+        }
     }
     
     public void setPainterColor (JPanel panel, Color color) {
