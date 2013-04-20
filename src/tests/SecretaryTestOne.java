@@ -1,5 +1,7 @@
 package tests;
 
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import util.Secretary;
 
 
@@ -28,11 +30,9 @@ public class SecretaryTestOne {
         mySecretary.saveSession("Example1.txt");
     }
 
-    private void loadSession () {
+    private void loadSession () throws IllegalArgumentException, IOException, IllegalAccessException, InvocationTargetException {
         try {
-            @SuppressWarnings("rawtypes")
-            Class[] parameterTypes = {String.class};
-            mySecretary.loadSession("Example1.txt", this.getClass().getMethod("printLine", parameterTypes), this);
+            mySecretary.loadSession("Example1.txt", "printLine", this);
         }
         catch (SecurityException e) {
             e.printStackTrace();
@@ -49,7 +49,7 @@ public class SecretaryTestOne {
     
     
 
-    public static void main (String[] args) {
+    public static void main (String[] args) throws IllegalArgumentException, IOException, IllegalAccessException, InvocationTargetException {
         SecretaryTestOne test = new SecretaryTestOne();
         test.permutation("hello");
 //        test.saveSession();

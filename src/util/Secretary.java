@@ -85,33 +85,34 @@ public class Secretary {
      * parse it, print it to console, etc... 
      * 
      * @param String fileName - name of the file (i.e. Example1.txt)
-     * @param Method method - the method you want to invoke on the line 
+     * @param String methodName - the name of the method you want to invoke on the line 
      * @param Object object - the class that has the method you want to invoke 
+     * @throws NoSuchMethodException 
+     * @throws SecurityException 
+     * @throws InvocationTargetException 
+     * @throws IllegalAccessException 
+     * @throws IOException 
+     * @throws IllegalArgumentException 
      */
-    public void loadSession (String fileName, Method method, Object object) {
+    public void loadSession (String fileName, String methodName, Object object)
+                                                                               throws SecurityException,
+                                                                               NoSuchMethodException,
+                                                                               IllegalArgumentException,
+                                                                               IOException,
+                                                                               IllegalAccessException,
+                                                                               InvocationTargetException {
 
         BufferedReader reader = getReader(fileName);
         String line;
-        try {
-            while ((line = reader.readLine()) != null) {
-                try {
-                    method.invoke(object, line);
-                }
-                catch (IllegalArgumentException e) {
-                    e.printStackTrace();
-                }
-                catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-                catch (InvocationTargetException e) {
-                    e.printStackTrace();
-                }
-            }
-            reader.close();
+        @SuppressWarnings("rawtypes")
+        Class[] parameterTypes = { String.class };
+        Method method = object.getClass().getMethod(methodName, parameterTypes);
+
+        while ((line = reader.readLine()) != null) {
+            method.invoke(object, line);
+
         }
-        catch (IOException e) {
-            System.err.println("IOException: " + e.getMessage() + " in loadSession()");
-        }
+        reader.close();
     }
     
     /**

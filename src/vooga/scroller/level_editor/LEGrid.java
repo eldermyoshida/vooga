@@ -3,11 +3,12 @@ package vooga.scroller.level_editor;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.awt.Shape;
 import java.util.HashSet;
 import java.util.Set;
 import javax.swing.Scrollable;
 import util.Location;
+import vooga.scroller.level_management.IDoor;
+import vooga.scroller.level_management.LevelPortal;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.util.Editable;
 import vooga.scroller.util.Sprite;
@@ -18,11 +19,14 @@ import vooga.scroller.viewUtil.Renderable;
 public class LEGrid implements Editable, Renderable, Scrollable {
 
     public static final int DEFAULT_SPRITE_SIZE = 32;
+    private static final Location DEFAULT_START_LOC = new Location(0,0);
+    private static final Location DEFAULT_END_LOC = new Location(100,100);
     private int mySpriteSize;
     private SpriteBox[][] myGrid;
     private Dimension mySize;
     private Set<SpriteBox> myPaintableBoxes;
-    private ScrollingManager myScrollingManager;
+    private StartPoint myStartPoint;
+    private LevelPortal myMainDoor; //TODO - eventually support multiple doors
 
     public LEGrid (int numWidthBlocks, int numHeightBlocks) {
         mySpriteSize = DEFAULT_SPRITE_SIZE;
@@ -209,6 +213,45 @@ public class LEGrid implements Editable, Renderable, Scrollable {
         return false;
     }
 
+    @Override
+    public void addStartPoint (int x, int y) {
+        if(myStartPoint == null){
+            myStartPoint = new StartPoint();
+        }
+        else{
+            deleteSprite((int) myStartPoint.getX(),(int) myStartPoint.getY());
+        }
+        addSprite(myStartPoint, x, y);
+    }
     
+    public Location removeStartPoint(){
+        if(myStartPoint == null){
+            return DEFAULT_START_LOC;
+        }
+        Location center = myStartPoint.getCenter();
+        deleteSprite((int) center.getX(),(int) center.getY());
+        return center;
+    }
+
+    @Override
+    public void addDoor (int x, int y) {
+        // TODO Auto-generated method stub
+        if(myMainDoor == null){
+            myMainDoor = new LevelPortal();
+        }
+        else{
+            deleteSprite((int) myMainDoor.getX(),(int) myMainDoor.getY());
+        }
+        addSprite(myMainDoor, x, y);
+    }
+
+    public Location removePortal () {
+        if(myMainDoor == null){
+            return DEFAULT_END_LOC;
+        }
+        Location center = myMainDoor.getCenter();
+        deleteSprite((int) center.getX(),(int) center.getY());
+        return center;
+    }    
 
 }

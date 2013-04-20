@@ -8,13 +8,11 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import util.Location;
 import util.input.Input;
-import vooga.scroller.util.Editable;
 import vooga.scroller.util.Sprite;
 import vooga.scroller.viewUtil.Renderable;
 import vooga.scroller.collision_manager.CollisionManager;
 import vooga.scroller.level_management.IDoor;
 import vooga.scroller.level_management.LevelPortal;
-import vooga.scroller.level_management.StartPoint;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.superclasses.NonStaticEntity;
 import vooga.scroller.sprites.superclasses.Player;
@@ -22,7 +20,7 @@ import vooga.scroller.util.PlatformerConstants;
 import vooga.scroller.view.View;
 
 
-public class Level implements Editable, Renderable {
+public class Level implements Renderable {
 
     private Dimension mySize;
     private Dimension frameOfReferenceSize;
@@ -36,21 +34,23 @@ public class Level implements Editable, Renderable {
     private Image myBackground;
     private Image DEFAULT_BACKGROUND = new ImageIcon(getClass()
             .getResource("/vooga/scroller/images/default_background.png")).getImage();
+    private Image CITY_BACKGROUND = new ImageIcon("/vooga/scroller/images/background_small.png")
+            .getImage();
 
     private int myID;
     private IDoor myDoor;
-    private StartPoint myDefaultStart;
-    
+    private Location myStartPoint;
+
     public int getID () {
         return myID;
     }
 
     private Level () {
         mySize = PlatformerConstants.DEFAULT_LEVEL_SIZE;
-        myBackground = DEFAULT_BACKGROUND;
+        myBackground = CITY_BACKGROUND;
         frameOfReferenceSize = PlatformerConstants.REFERENCE_FRAME_SIZE;
-        myBackground = DEFAULT_BACKGROUND;
         mySprites = new ArrayList<Sprite>();
+        myStartPoint = new Location();
         initFrames();
     }
 
@@ -71,9 +71,9 @@ public class Level implements Editable, Renderable {
         myScrollManager = sm;
         myID = id;
     }
-    
-    public Level(int id, ScrollingManager sm, View view, LEGrid grid) {
-        this (id, sm, view);
+
+    public Level (int id, ScrollingManager sm, View view, LEGrid grid) {
+        this(id, sm, view);
         setSize(grid.getPixelSize());
         for (SpriteBox box : grid.getBoxes()) {
             addSprite(box.getSprite());
@@ -96,6 +96,13 @@ public class Level implements Editable, Renderable {
      */
 
     public void addSprite (Sprite s) {
+        if (s instanceof StartPoint) {
+            myStartPoint = s.getCenter();
+            return;
+        }
+        if (s instanceof LevelPortal) {
+            addDoor((LevelPortal) s);
+        }
         mySprites.add(s);
     }
 
@@ -105,6 +112,7 @@ public class Level implements Editable, Renderable {
 
     public void addPlayer (Player s) {
         myPlayer = s;
+        myPlayer.setCenter(myStartPoint.getX(), myStartPoint.getY());
         for (Sprite sprite : mySprites) {
             if (sprite instanceof NonStaticEntity) {
                 addPlayerToSprite((NonStaticEntity) sprite);
@@ -137,6 +145,10 @@ public class Level implements Editable, Renderable {
         if (myPlayer != null) {
             updateFrames(view);
             myPlayer.update(elapsedTime, bounds);
+            checkPlayerOutOfBounds();
+            if (myPlayer.getHealth() <= 0) {
+                myPlayer.handleDeath();
+            }
 
             for (Sprite s : myFrameOfActionSprites) {
                 s.update(elapsedTime, bounds);
@@ -147,11 +159,41 @@ public class Level implements Editable, Renderable {
 
             if (myPlayer.getHealth() <= 0) {
                 myPlayer.handleDeath();
-                
+
             }
 
             intersectingSprites();
 
+        }
+    }
+
+    private void checkPlayerOutOfBounds () {
+        double xCoord = myPlayer.getX();
+        double yCoord = myPlayer.getY();
+        double rightLevelBounds = mySize.getWidth();
+        double leftLevelBounds = 0;
+        double upperLevelBounds = 0;
+        double lowerLevelBounds = mySize.getHeight();
+        rightLevelBounds = myScrollManager.getHardBoundary(1, rightLevelBounds);
+        lowerLevelBounds = myScrollManager.getHardBoundary(2, lowerLevelBounds);
+        leftLevelBounds = myScrollManager.getHardBoundary(3, leftLevelBounds);
+        upperLevelBounds = myScrollManager.getHardBoundary(4, upperLevelBounds);
+
+        if (xCoord >= rightLevelBounds) {
+            xCoord = rightLevelBounds - (myPlayer.getSize().getWidth() / 2);
+            myPlayer.setCenter(xCoord, yCoord);
+        }
+        if (xCoord <= leftLevelBounds) {
+            xCoord = leftLevelBounds + (myPlayer.getSize().getWidth() / 2);
+            myPlayer.setCenter(xCoord, yCoord);
+        }
+        if (yCoord <= upperLevelBounds) {
+            yCoord = upperLevelBounds + (myPlayer.getSize().getHeight() / 2);
+            myPlayer.setCenter(xCoord, yCoord);
+        }
+        if (yCoord >= lowerLevelBounds) {
+            yCoord = upperLevelBounds - (myPlayer.getSize().getHeight() / 2);
+            myPlayer.setCenter(xCoord, yCoord);
         }
     }
 
@@ -235,29 +277,10 @@ public class Level implements Editable, Renderable {
         return mySize;
     }
 
-    // Methods from Editable Interface. Methods called by LevelEditor.
-
-    @Override
-    public void changeBackground () { // params need to be added
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void deleteSprite (int x, int y) {
-        Location point = new Location(x, y);
-        for (int i = 0; i < mySprites.size(); ++i) {
-            Sprite s = mySprites.get(i);
-            if (s.intersects(point)) {
-                mySprites.remove(i);
-            }
-        }
-    }
-
     private void intersectingSprites () {
         Sprite obj1;
         Sprite obj2;
-        CollisionManager CM = new CollisionManager(this);
+        CollisionManager cm = new CollisionManager(this);
 
         mySprites.add(myPlayer);
         for (int i = 0; i < mySprites.size(); i++) {
@@ -265,7 +288,7 @@ public class Level implements Editable, Renderable {
                 obj1 = mySprites.get(i);
                 obj2 = mySprites.get(j);
                 if (obj1.intersects(obj2)) {
-                    CM.handleCollision(obj1, obj2);
+                    cm.handleCollision(obj1, obj2);
                 }
             }
         }
@@ -280,12 +303,6 @@ public class Level implements Editable, Renderable {
      */
     public View getView () {
         return myView;
-    }
-
-    @Override
-    public void addSprite (Sprite s, int x, int y) {
-        s.setCenter(x, y);
-        addSprite(s);
     }
 
     /**
@@ -318,25 +335,37 @@ public class Level implements Editable, Renderable {
         myInput.removeListener(myPlayer);
     }
 
-    public void addDoor (IDoor door) {
-        // TODO Implement support for multiple doors
-        myDoor = door;   
-    }
-    
     /**
      * TODO - define default door or make it clear that door needs to be set.
+     * 
      * @return
      */
     public IDoor getDoor () {
         return myDoor;
     }
 
-    public void addStartPoint (StartPoint start) {
-        myDefaultStart = start;
+    public void addDoor (IDoor door) {
+        myDoor = door;
     }
-    
-    public StartPoint getStartPoint () {
-        return myDefaultStart;
+
+    public void addStartPoint (Location start) {
+        myStartPoint = start;
     }
+
+    public Location getStartPoint () {
+        return myStartPoint;
+
+    }
+
+    // @Override
+    // public void addStartPoint (int x, int y) {
+    // addStartPoint(new Location(x,y));
+    // }
+    //
+    // @Override
+    // public void addDoor (int x, int y) {
+    // // TODO
+    // addPortal(new LevelPortal(this, new Location(x,y)));
+    // }
 
 }
