@@ -48,14 +48,15 @@ public class MainMenuController extends MenuController {
      */
     public void notifyEndCondition(String choice) {
         removeListener();
-        getManager().notifyEndCondition(NEXT);
+        getManager().notifyEndCondition(choice);
     }
 
   
     @InputMethodTarget(name = "continue")
     public void mouseclick(PositionObject pos)  {
         super.getMode().addObject(new MouseClickObject(pos.getPoint2D()));
-        notifyEndCondition("asdfdf");
+        //Hard coded for now, but implementing getting the condition from the menu object
+        notifyEndCondition(getMode().getMenuNext().get(0));
     }
     public void removeListener(){
     	super.removeListener();

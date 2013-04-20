@@ -5,16 +5,21 @@ import vooga.fighter.controller.ModelDelegate;
 import vooga.fighter.model.loaders.MenuLoader;
 import vooga.fighter.model.utils.State;
 
-
+/**
+ * 
+ * @author Jerry and Jack
+ *
+ */
 public class MenuObject extends GameObject {
 
-    private String myChoice;
+    private String myNext;
+    private String myValue;
     ModelDelegate myDelegate;
 
     public MenuObject (String choice, ModelDelegate delegate) {
         setLoader(new MenuLoader(choice, this));
         myDelegate = delegate;
-        myChoice = choice;
+        //myChoice = choice;
     }
 
     @Override
@@ -26,8 +31,20 @@ public class MenuObject extends GameObject {
     public void update () {
     }
     
-    public String getChoice(){
-    	return myChoice;
+    public String getValue() {
+        return myValue;
+    }
+    
+    public void setValue(String value) {
+        myValue = value;
+    }
+    
+    public void setNext(String next) {
+        myNext = next;
+    }
+    
+    public String getNext(){
+    	return myNext;
     }
 
     public Collection<State> getStates () {
@@ -37,7 +54,7 @@ public class MenuObject extends GameObject {
     
     public void tellDelegate(){
         System.out.println("<MenuObject.java><telldelegate> telling delegate");
-    	myDelegate.notifyEndCondition(myChoice);
+    	myDelegate.notifyEndCondition(myNext);
     }
     @Override
     public void dispatchCollision (GameObject other) {
