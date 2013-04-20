@@ -1,4 +1,4 @@
-package vooga.towerdefense.shop;
+package vooga.towerdefense.model.shop;
 
 import java.awt.Color;
 import java.awt.Dimension;
