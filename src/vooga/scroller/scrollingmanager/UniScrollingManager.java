@@ -10,14 +10,14 @@ import vooga.scroller.model.Model;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.view.View;
 /**
- * This manager prevents players from scrolling in a directing but so far EX like Mario
- * @author Ross
+ * This manager prevents players from scrolling in a direction but so far EX like Mario
+ * @author Ross Cahoon
  *
  */
 public class UniScrollingManager extends ScrollingManager {
     private Model myGame;
     private View myView;
-    private int myDirection = -1;
+    private int myRestrictiveDirection;
     private double myMaxDirection;
     private Location myLastPlayerPaintLocation;
     private int myLeftPaintBound;
@@ -26,13 +26,17 @@ public class UniScrollingManager extends ScrollingManager {
     private int myLowerPaintBound;
     private boolean myHorizontalScrollActive = false;
     private boolean myVerticalScrollActive = false;
+    private final int RIGHT = 1;
+    private final int DOWN = 2;
+    private final int LEFT = 3;
+    private final int UP = 4;
 
     public UniScrollingManager(int restrictiondirection){
-        if(restrictiondirection != 1 & restrictiondirection != 2 & restrictiondirection != 3 & restrictiondirection != 4) {
-            myDirection = 3;
+        if(restrictiondirection != RIGHT & restrictiondirection != DOWN & restrictiondirection != LEFT & restrictiondirection != UP) {
+            myRestrictiveDirection = LEFT;
         }
         else {
-            myDirection = restrictiondirection;
+            myRestrictiveDirection = restrictiondirection;
         }
         myLeftPaintBound = leftpaintbound();
         myUpperPaintBound = upperpaintbound();
@@ -114,7 +118,7 @@ public class UniScrollingManager extends ScrollingManager {
     }
 
     private double uniRightBoundary (Player p) {
-        if(myDirection == 1){
+        if(myRestrictiveDirection == RIGHT){
             if(myMaxDirection > levelRightBoundary()) {
                 return levelRightBoundary();
             }
@@ -127,7 +131,7 @@ public class UniScrollingManager extends ScrollingManager {
     }
 
     private double uniLeftBoundary (Player p) {
-        if(myDirection == 3){
+        if(myRestrictiveDirection == LEFT){
 
             if(myMaxDirection < levelLeftBoundary()){
                 return levelLeftBoundary();
@@ -141,7 +145,7 @@ public class UniScrollingManager extends ScrollingManager {
     }
 
     private double uniUpperBoundary (Player p) {
-        if(myDirection == 4){
+        if(myRestrictiveDirection == UP){
             if(myMaxDirection < levelUpperBoundary()){
                 return levelUpperBoundary();
             }
@@ -154,7 +158,7 @@ public class UniScrollingManager extends ScrollingManager {
     }
 
     private double uniLowerBoundary (Player p) { 
-        if(myDirection == 2){
+        if(myRestrictiveDirection == DOWN){
             if(myMaxDirection > levelLowerBoundary()){
                 return levelLowerBoundary();
             }
@@ -217,7 +221,7 @@ public class UniScrollingManager extends ScrollingManager {
 
     @Override
     public double getHardBoundary (int i, double levelBounds) {
-        if(i == myDirection){
+        if(i == myRestrictiveDirection){
             return myMaxDirection;
         }
         return levelBounds;
@@ -244,25 +248,25 @@ public class UniScrollingManager extends ScrollingManager {
             y =  halfHeight - (halfHeight - (Math.abs(uniUpperBoundary(p) - playerlocy)));
         }
         myLastPlayerPaintLocation = new Location(x, y);
-        if(myDirection == 1){
+        if(myRestrictiveDirection == RIGHT){
             if(myLastPlayerPaintLocation.getX() > halfWidth){
                 myHorizontalScrollActive = false;
             }
             myHorizontalScrollActive = true;            
         }
-        if(myDirection == 2 ){
+        if(myRestrictiveDirection == DOWN ){
             if(myLastPlayerPaintLocation.getY() > halfHeight){
                 myVerticalScrollActive = false;
             }
             myVerticalScrollActive = true;    
         }
-        if(myDirection == 3){
+        if(myRestrictiveDirection == LEFT){
             if(myLastPlayerPaintLocation.getX() < halfWidth){
                 myHorizontalScrollActive = false;
             }
             myHorizontalScrollActive = true;    
         }
-        if(myDirection == 4){
+        if(myRestrictiveDirection == UP){
             if(myLastPlayerPaintLocation.getY() < halfHeight){
                 myVerticalScrollActive = false;
             }
@@ -279,44 +283,15 @@ public class UniScrollingManager extends ScrollingManager {
         int halfWidth = myView.getWidth() / 2;
         int halfHeight = myView.getHeight() / 2;
 
-
-
-        if(myDirection == -1){
-            if(myDirection == 1){
-                myMaxDirection = (xCoord + halfWidth);
-
-            }
-            if(myDirection == 2 ){
-                myMaxDirection = (yCoord + halfHeight);
-
-            }
-            if(myDirection == 3){
-                myMaxDirection = (xCoord - halfWidth);
-
-            }
-            if(myDirection == 4){
-                myMaxDirection = (yCoord - halfHeight);
-            }
-        }
-        if(myDirection == 1){
-            if((xCoord + halfWidth) < myMaxDirection){
-                myMaxDirection = (xCoord + halfWidth);
-            }
-        }
-        if(myDirection == 2){
-            if((yCoord + halfHeight)  < myMaxDirection){
-                myMaxDirection = (yCoord + halfHeight);
-            }
-        }
-        if(myDirection == 3){
-            if((xCoord - halfWidth) > myMaxDirection){
-                myMaxDirection = (xCoord - halfWidth);
-            }
-        }
-        if(myDirection == 4){
-            if((yCoord - halfHeight) > myMaxDirection){
-                myMaxDirection = (yCoord - halfHeight);
-            }
+        switch (myRestrictiveDirection) {
+            case RIGHT: myMaxDirection = ((xCoord + halfWidth) < myMaxDirection) ? (xCoord + halfWidth) : myMaxDirection;
+            break;
+            case DOWN: myMaxDirection = ((yCoord + halfHeight)  < myMaxDirection) ? (yCoord + halfHeight) : myMaxDirection;
+            break;
+            case LEFT: myMaxDirection = ((xCoord - halfWidth) > myMaxDirection) ? (xCoord - halfWidth) : myMaxDirection;
+            break;
+            case UP: myMaxDirection = ((yCoord - halfHeight) > myMaxDirection) ? (yCoord - halfHeight) : myMaxDirection;
+            break;
         }
     }
 }
