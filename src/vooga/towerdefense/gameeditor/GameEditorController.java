@@ -1,5 +1,6 @@
 package vooga.towerdefense.gameeditor;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -10,21 +11,23 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class GameEditorController extends JFrame {
-
+    private static final long serialVersionUID = 1L;
     private Dimension mySize;
     
     public GameEditorController(Dimension size) {
         mySize = size;
         setSize(mySize);
+        setPreferredSize(mySize);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);
         initializeGUI();
     }
     
     public void initializeGUI() {
         StartUpScreen screen = new StartUpScreen(mySize, this);
-        add(screen);
-        screen.display();
+        this.getContentPane().add(screen, BorderLayout.CENTER);
+        
+        this.pack();
+        setVisible(true);
     }
     
     public void addLevelToGame() {
@@ -67,7 +70,10 @@ public class GameEditorController extends JFrame {
         Class theClass = Class.forName(nextScreenName);
         Constructor cons = theClass.getConstructor(args);
         GameEditorScreen screen = (GameEditorScreen) cons.newInstance(mySize, this);
-        screen.display();
+        this.getContentPane().add(screen);
+        screen.display();   
         
+        this.pack();
+        setVisible(true);
     }
 }
