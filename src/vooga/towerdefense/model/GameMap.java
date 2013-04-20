@@ -178,7 +178,7 @@ public class GameMap {
     }
     
     /**
-     * Gets the number of closest targets within a radius of a circle centered at source.
+     * Gets the targets within a radius of a circle centered at source.
      * 
      * @param source the center of the circle 
      * @param radius the radius of the circle 

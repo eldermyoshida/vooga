@@ -15,13 +15,6 @@ public class GrassTileFactory extends TileFactory {
      * Image for a grass tile
      */
     public static final Pixmap GRASS_TILE_IMAGE = new Pixmap("map/grass_tile.png");
-    
-    /**
-     * Default constructor.
-     */
-    public GrassTileFactory() {
-        
-    }
 
     @Override
     public Tile createTile (int id, Location center) {
