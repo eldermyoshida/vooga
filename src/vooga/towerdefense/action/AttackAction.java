@@ -34,6 +34,7 @@ public class AttackAction extends PeriodicAction {
 		updateTimer(elapsedTime);
 		//check whether it's in cool down
 		if (isReady()) {
+			System.out.println("shooted!!!!!!!!!!!!");
 			//get targets that we wanna shoot
 			List<GameElement> targets = myMap
 					.getTargetsWithinRadius(
@@ -45,6 +46,7 @@ public class AttackAction extends PeriodicAction {
 			
 			for (GameElement target : targets) {
 				myMap.addGameElement(myInitiator.getAttributeManager().getProjectileFactory().createProjectile(myInitiator,target));
+				
 			}
 			
 			resetTimer();
@@ -59,7 +61,7 @@ public class AttackAction extends PeriodicAction {
 
 	@Override
 	public void update(double elapsedTime) {
-		// TODO
+		executeAction(elapsedTime);
 		
 	}
 }

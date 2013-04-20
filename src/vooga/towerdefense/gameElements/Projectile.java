@@ -43,7 +43,7 @@ public class Projectile extends GameElement {
         myInitiator = initiator;
         myHeading =
                 new Vector(Vector.angleBetween(myInitiator.getCenter(), myTargetLocation),
-                           attributes.getAttribute("speed").getValue());
+                           initiator.getAttributeManager().getAttribute(AttributeConstants.MOVE_SPEED).getValue());
     }
 
     /**
