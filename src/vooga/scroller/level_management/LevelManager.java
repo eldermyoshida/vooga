@@ -35,7 +35,7 @@ public class LevelManager {
     public LevelManager(ScrollingManager sm, GameView gameView, String ...levelFileNames) {   
         myView = gameView;
         LevelFactory lf = new LevelFactory(this, sm, gameView);
-        myInitialLevel = lf.generateLevels(levelFileNames);        
+        myInitialLevel = lf.linkLevels(lf.generateLevels(levelFileNames));        
         //myCurrentLevel = myLevels.get(DEFAULT_START_LEVEL_ID); 
         myInput = new Input(DEFAULT_INPUT_CONTROLS, gameView);
         setCurrentLevel(myInitialLevel);

@@ -62,6 +62,7 @@ public class LevelFactory {
     protected Level linkLevels (List<Level> levels) {
         SplashPage splash = new SplashPage(new Pixmap("MARIO SPLASH.png"), 0, myView, mySM);
         splash.addDoor(new LevelPortal());
+        splash.addManager(myLevelManager);
         myLevelManager.put(splash.getDoor(), levels.get(0));
         for (int i = 0; i < levels.size() - 1; i++) {
             myLevelManager.put(levels.get(i).getDoor(), levels.get(i + 1));
@@ -180,11 +181,8 @@ public class LevelFactory {
         return myCurrLevel;
     }
 
-    public Level generateLevels (String[] levelFileNames) {
+    public List<Level> generateLevels (String[] levelFileNames) {
         List<Level> levels = new ArrayList<Level>();
-        SplashPage splash = new SplashPage(new Pixmap("MARIO SPLASH.png"), 0, myView, mySM);
-        splash.addDoor(new LevelPortal());
-        levels.add(splash);
 
         // TODO: this will ideally read in levels from file and create instances of each level
         // This works for demo
@@ -192,10 +190,8 @@ public class LevelFactory {
              Level curr = buildLevel(i+1, loadGridFromFile(levelFileNames[i]));
              levels.add(curr);
         }
-        levels.add(splash);
 
-        linkLevels(levels);
-        return splash;
+        return levels;
     }
 
 }

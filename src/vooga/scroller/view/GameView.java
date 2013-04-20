@@ -126,7 +126,7 @@ public class GameView extends JComponent {
         });
         // start animation
         if (myGame==null) {
-            myGame = new Model(this, myScrollManager, "simpleLevel");//TODO
+            setModel(new Model(this, myScrollManager, "example.level"));//TODO
         }
         myScrollManager.initModel(myGame);
         timer.start();
