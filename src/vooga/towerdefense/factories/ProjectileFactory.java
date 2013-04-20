@@ -44,7 +44,7 @@ public class ProjectileFactory extends GameElementFactory {
 		
 		List<Action> actions = new ArrayList<Action>();
 		actions.add(new MoveToDestination(targetLocation,
-				initiator.getCenter(), initiator.getAttributeManager()
+				projectile.getCenter(), initiator.getAttributeManager()
 						.getAttribute(AttributeConstants.MOVE_SPEED)));
 		projectile.addActions(actions);
 		return projectile;

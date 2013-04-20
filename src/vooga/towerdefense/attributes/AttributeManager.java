@@ -40,6 +40,13 @@ public class AttributeManager {
             myAttributes.put(a.getName(), a);
         }        
     }
+    /**
+     * currently the update will reset all attribute's temporary buff. So this method should
+     * be called before executing actions.
+     */
+    public void update(){
+    	resetAllAttributesTemporaryBuff();
+    }
     
 
     /**
@@ -94,6 +101,15 @@ public class AttributeManager {
     public void resetAllAttributes(){
     	for (Attribute attr:myAttributes.values()){
     		attr.reset();
+    	}
+    }
+    
+    /**
+     * reset buff value of all attributes
+     */
+    public void resetAllAttributesTemporaryBuff(){
+    	for (Attribute attr: myAttributes.values()){
+    		attr.resetBuffValue();
     	}
     }
     
