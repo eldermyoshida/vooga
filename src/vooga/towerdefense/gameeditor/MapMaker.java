@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -94,7 +93,7 @@ public class MapMaker extends JPanel {
             }
             else if (tile.contains(point) && myEraseMode == true) {
                 tile.setPath(false);
-                setEraseMode(false);
+                resetEraseMode();
                 paintGrid(this.getGraphics());
             }
         }
@@ -110,6 +109,12 @@ public class MapMaker extends JPanel {
     
     private void resetPaintingMode () {
         setPaintingMode(false);
-        myParent.setTilePainterColor(Color.BLUE);
+        myParent.setPainterColor(myParent.getTilePainter(), Color.BLUE);
     }
+    
+    private void resetEraseMode () {
+        setEraseMode(false);
+        myParent.setPainterColor(myParent.getPathEraser(), Color.RED);
+    }
+    
 }

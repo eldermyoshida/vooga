@@ -80,14 +80,15 @@ public class MapEditorScreen extends GameEditorScreen {
         myTilePainterListener = new MouseAdapter () {
             @Override
             public void mouseClicked (MouseEvent e) {
-                setTilePainterColor(Color.GREEN);
+                setPainterColor(myTilePainter, Color.GREEN);
                 myMapBox.setPaintingMode(true);
             }
         };
         
         myTileEraserListener = new MouseAdapter () {
             @Override
-            public void mouseClicked (MouseEvent e) {  
+            public void mouseClicked (MouseEvent e) { 
+                setPainterColor(myPathEraser, Color.GREEN);
                 myMapBox.setEraseMode(true);
             }
         };
@@ -112,7 +113,6 @@ public class MapEditorScreen extends GameEditorScreen {
      */
     @Override
     public void addElementToGame () {
-        System.out.println("add to game MapEditorScreen");
         getController().addMapToGame();
     }
     
@@ -136,7 +136,16 @@ public class MapEditorScreen extends GameEditorScreen {
         return myPathEraser;
     }
     
-    public void setTilePainterColor (Color color) {
-        myTilePainter.setBackground(color);
+    public void setPainterColor (JPanel panel, Color color) {
+        panel.setBackground(color);
     }
+    
+    public JPanel getTilePainter() {
+        return myTilePainter;
+    }
+    
+    public JPanel getPathEraser () {
+        return myPathEraser;
+    }
+    
 }

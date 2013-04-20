@@ -5,6 +5,13 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
+/**
+ * This class is a representation of one tile on the MapMaker screen. Enables the 
+ * creation of paths.
+ * 
+ * @author Leonard K. Ng'eno
+ *
+ */
 public class Grid extends Rectangle {
     private static final long serialVersionUID = 1L;
     private static final Color PAINT_COLOR = Color.BLUE;
