@@ -20,6 +20,7 @@ import java.util.TreeSet;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.Timer;
+import vooga.scroller.scrollingmanager.OmniScrollingManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.Sprite;
@@ -68,7 +69,13 @@ public class GameView extends JComponent {
         setFocusable(true);
         requestFocus();
         setInputListeners();
+        setScrollManager(sm);
+    }
+
+    private void setScrollManager (ScrollingManager sm) {
         myScrollManager = sm;
+        myScrollManager.initView(this);
+        
     }
 
     /**

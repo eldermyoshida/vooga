@@ -1,5 +1,6 @@
 package vooga.scroller.model;
 import java.awt.BorderLayout;
+import java.awt.GraphicsConfiguration;
 import javax.swing.JFrame;
 import arcade.games.ArcadeInteraction;
 import arcade.games.Game;
@@ -18,72 +19,36 @@ import vooga.scroller.view.GameView;
  *
  * @author Ross Cahoon
  */
-public class Scroller extends Game
+public class Scroller extends ScrollerGame
 {
-    public Scroller (ArcadeInteraction arcade) {
-        super(arcade);
-        // TODO Auto-generated constructor stub
-    }
 
 
     // constants
-    public static final String TITLE = "Scrolling Demo";
+    public static final String TITLE = "Scroller Demo";
 
 
     /**
      * main --- where the program starts
      * @param args
      */
-    public static void main (String args[])
-    {
+    public static void main (String args[]) {
         // view of user's content
-        ScrollingManager scrollManager = new OmniScrollingManager();
-        GameView display = new GameView(PlatformerConstants.DEFAULT_WINDOW_SIZE, scrollManager);
-        scrollManager.initView(display);
-        
-        // container that will work with user's OS
-        JFrame frame = new JFrame(TITLE);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        // add our user interface components
-        frame.getContentPane().add(display, BorderLayout.CENTER);
-        // display them
-        frame.pack();
-        frame.setVisible(true);
-        // start animation
-        display.start();
+        ScrollerGame test = new Scroller();
+        test.start();
     }
 
 
+
     @Override
-    public UserGameData generateNewProfile () {
-        return null;
+    protected String[] getLevelFileNames () {
+        String[] levelsFiles = {"verySimpleLevel.level", "new.level"};
+        return levelsFiles;
     }
 
 
-    @Override
-    public void run () {
-        // view of user's content
-        ScrollingManager scrollManager = new OmniScrollingManager();
-        GameView display = new GameView(PlatformerConstants.DEFAULT_WINDOW_SIZE, scrollManager);
-        scrollManager.initView(display);
-        
-        // container that will work with user's OS
-        JFrame frame = new JFrame(TITLE);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        // add our user interface components
-        frame.getContentPane().add(display, BorderLayout.CENTER);
-        // display them
-        frame.pack();
-        frame.setVisible(true);
-        // start animation
-        display.start();
-        
-    }
-
 
     @Override
-    public GameData generateNewGameProfile () {
-        // TODO Auto-generated method stub
-        return null;
+    protected String getTitle () {
+        return TITLE;
     }
 }
