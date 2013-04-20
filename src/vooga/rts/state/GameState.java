@@ -1,14 +1,8 @@
 package vooga.rts.state;
 
-import java.applet.AudioClip;
-import java.awt.AWTException;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.Robot;
-import java.awt.Shape;
 import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,32 +11,16 @@ import java.util.Observer;
 import vooga.rts.commands.Command;
 import vooga.rts.commands.DragCommand;
 import vooga.rts.controller.Controller;
-import vooga.rts.controller.PlayerController;
-import vooga.rts.gamedesign.sprite.gamesprites.Projectile;
-import vooga.rts.gamedesign.sprite.gamesprites.Resource;
-import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
-import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Barracks;
-import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building;
-import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.UpgradeBuilding;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Soldier;
-import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
-import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Worker;
-import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;
-import vooga.rts.gamedesign.weapon.Weapon;
 import vooga.rts.map.GameMap;
 import vooga.rts.player.HumanPlayer;
 import vooga.rts.player.Player;
 import vooga.rts.player.Team;
-import vooga.rts.resourcemanager.ResourceManager;
 import vooga.rts.util.Camera;
-import vooga.rts.util.DelayedTask;
 import vooga.rts.util.FrameCounter;
 import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
-import vooga.rts.util.Pixmap;
 import vooga.rts.util.PointTester;
-import vooga.rts.util.Sound;
-import vooga.rts.util.TimeIt;
 
 
 // TODO: implement the game state with all unit managers that there needs to be. Muy importante.
@@ -63,8 +41,6 @@ public class GameState extends SubState implements Controller {
     private FrameCounter myFrames;
 
     private Rectangle2D myDrag;
-    private Shape worldShape;
-    private DelayedTask dt;
 
     public GameState (Observer observer) {
         super(observer);
@@ -81,7 +57,6 @@ public class GameState extends SubState implements Controller {
         myMap.update(elapsedTime);
         myHumanPlayer.update(elapsedTime);
         myFrames.update(elapsedTime);
-        dt.update(elapsedTime);
     }
 
     @Override
@@ -104,7 +79,6 @@ public class GameState extends SubState implements Controller {
         // If it's a drag, we need to do some extra checking.
         if (command instanceof DragCommand) {
             myDrag = ((DragCommand) command).getScreenRectangle();
-            worldShape = ((DragCommand) command).getWorldRectangle();
             if (myDrag == null) {
                 return;
             }
@@ -215,12 +189,5 @@ public class GameState extends SubState implements Controller {
         myHumanPlayer.add(new Soldier());
         myHumanPlayer.add(new Soldier(new Location3D(200, 200, 0)));
         myMap = new GameMap(8, new Dimension(512, 512));
-        
-        dt = new DelayedTask(10, new Runnable() {            
-            @Override
-            public void run () {
-                System.out.println("YOLOMIR");                
-            }
-        });
     }
 }

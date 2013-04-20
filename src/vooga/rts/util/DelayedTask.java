@@ -36,7 +36,7 @@ public class DelayedTask {
      * If the total elapsed time is greater than the time required
      * before the task is run, it will run the task.
      * 
-     * @param elapsedTime
+     * @param elapsedTime The time that has occurred since the last update.
      */
     public void update (double elapsedTime) {
         if (isActive()) {
@@ -47,18 +47,32 @@ public class DelayedTask {
         }
     }
 
+    /**
+     * @return Whether the DelayedTask is still active. This means
+     *         that the elapsed time is stll less than the total time.
+     */
     public boolean isActive () {
         return myElapsedTime < myTotalTime;
     }
 
+    /**
+     * Stops the DelayedTask from running.
+     */
     public void cancel () {
         myElapsedTime = myTotalTime;
     }
 
+    /**
+     * Restarts the delayed task.
+     */
     public void restart () {
         myElapsedTime = 0;
     }
 
+    /**
+     * @return The percentage of completion that the Delayed Task is at.
+     *         This is the elapsed time divided by the total time.
+     */
     public double getPercentCompleted () {
         if (myTotalTime != 0) {
             return (myElapsedTime / myTotalTime) * 100;
