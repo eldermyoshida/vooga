@@ -76,6 +76,10 @@ public class Model implements ArcadeInteraction {
     private GameInfo newGameInfo  (String name, String genre) throws MissingResourceException{
         return new GameInfo(name, genre, myLanguage, this);
     }
+    
+    private GameInfo newGameInfo(){
+    	return new GameInfo(myDb);
+    }
 
     private void addGameInfo (GameInfo game) {
         myGameInfos.put(game.getName(), game);

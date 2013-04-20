@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
+
+import arcade.database.Database;
 import arcade.model.Model;
 import arcade.util.Pixmap;
 
@@ -28,7 +30,11 @@ public class GameInfo {
 
     private ResourceBundle myResourceBundle;
     private Model myModel;
-
+    
+    private Database myDb;
+    private String gameID; //Anything that identifies the game. Can be game name.
+    
+    
     public GameInfo (String gamename, String genre, String language, Model model) throws MissingResourceException {
         String filepath = FILEPATH + genre + "." + gamename + RESOURCE_DIR_NAME + language;
         myModel = model;
@@ -38,7 +44,27 @@ public class GameInfo {
         
     }
 
-    public Pixmap getThumbnail () {
+    public GameInfo(Database database, String id) {
+		myDb = database;
+		gameID = id;
+	}
+
+    
+    public Pixmap getThumbnail() {
+    	return new Pixmap(myDb.getGameThumbnail());
+    }
+    
+    public String getName(){
+    	return myDb.getGameName(gameID);
+    	// return gameID;
+    }
+    
+    public String getDescription() {
+    	return myDb.getgetGameDescription(gameID);
+    }
+    
+    /*
+	public Pixmap getThumbnail () {
         return new Pixmap(myResourceBundle.getString(THUMBNAIL_NAME));
     }
 
@@ -57,6 +83,7 @@ public class GameInfo {
     public double getRating () {
         return myModel.getAverageRating(myResourceBundle.getString(GAME_NAME));
     }
+    */
 
     public List<String[]> getComments () {
         List<String[]> comments = new ArrayList<String[]>();
