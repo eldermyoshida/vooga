@@ -1,4 +1,4 @@
-package vooga.towerdefense.shop;
+package vooga.towerdefense.model.shop;
 
 import java.awt.Graphics2D;
 import java.awt.Point;

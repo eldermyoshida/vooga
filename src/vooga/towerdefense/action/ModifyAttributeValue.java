@@ -1,5 +1,6 @@
 package vooga.towerdefense.action;
 
+import java.util.ArrayList;
 import java.util.List;
 import vooga.towerdefense.attributes.Attribute;
 import vooga.towerdefense.gameElements.GameElement;
@@ -14,21 +15,27 @@ public class ModifyAttributeValue extends Action {
 
     private Attribute myAppliedAttribute;
     private String myTargetAttribute;
+    List<GameElement> myTargets;
 
     public ModifyAttributeValue (Attribute attributeToApply, String targetAttributeName) {
         myTargetAttribute = targetAttributeName;
         myAppliedAttribute = attributeToApply;
+        myTargets = new ArrayList<GameElement>();
     }
     
     
-    public void setTargets() {
-        
+    public void setTargets(List<GameElement> elements) {
+        myTargets = elements;
     }
 
     @Override
     public void executeAction (double elapseTime) {
-        // TODO Auto-generated method stub
-
+        for (GameElement e : myTargets) {
+            Attribute toChange = e.getAttributeManager().getAttribute(myTargetAttribute);
+            if (toChange != null) {
+                toChange.modifyValue(myAppliedAttribute.getValue());
+            }
+        }
     }
 
     @Override

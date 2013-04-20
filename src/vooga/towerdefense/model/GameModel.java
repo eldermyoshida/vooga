@@ -5,9 +5,9 @@ import java.awt.Point;
 import java.util.List;
 import vooga.towerdefense.controller.Controller;
 import vooga.towerdefense.gameElements.Wave;
+import vooga.towerdefense.model.shop.Shop;
+import vooga.towerdefense.model.shop.ShopItem;
 import vooga.towerdefense.model.tiles.Tile;
-import vooga.towerdefense.shop.Shop;
-import vooga.towerdefense.shop.ShopItem;
 
 
 /**
