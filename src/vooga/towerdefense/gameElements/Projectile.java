@@ -62,7 +62,7 @@ public class Projectile extends GameElement {
                        AttributeManager attributes) {
         super(image, startLocation , size, attributes, actions);
         myTargetLocation = targetLocation;
-        myHeading = new Vector(Vector.angleBetween(myInitiator.getCenter(), myTargetLocation), 0);
+        myHeading = new Vector(Vector.angleBetween(startLocation, myTargetLocation), 0);
 
     }
 
