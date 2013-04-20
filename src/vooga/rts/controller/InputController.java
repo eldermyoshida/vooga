@@ -15,7 +15,16 @@ import vooga.rts.util.Location3D;
  * sends the formatted inputs to the main state, which relays them to the appropriate
  * state.
  * 
+ * The Input Controller is responsible for routing Input Events to the correct place.
+ * It turns input events into Commands that can be processed by the respective states
+ * in order to turn them into actions.
+ * 
+ * It also manages the dragging input of a mouse. This will need to be passed in and
+ * painted by the game state.
+ * 
+ * 
  * @author Challen Herzberg-Brovold
+ * @author Jonathan Schmidt
  * 
  */
 @InputClassTarget
@@ -24,6 +33,7 @@ public class InputController implements Controller {
     private State myState;
 
     private Location myLeftMouse;
+
     private Rectangle2D myDrag;
 
     public InputController (State state) {
@@ -46,10 +56,12 @@ public class InputController implements Controller {
             sendCommand(new PositionCommand("leftclick", o));
         }
         else {
-            sendCommand(new DragCommand("drag", myDrag));
+            myLeftMouse = null;
+            myDrag = null;
+            if (myDrag == null) {
+                sendCommand(new DragCommand("drag", null, null));
+            }
         }
-        myLeftMouse = null;
-        myDrag = null;
     }
 
     @InputMethodTarget(name = "onRightMouseUp")
@@ -65,13 +77,12 @@ public class InputController implements Controller {
     @InputMethodTarget(name = "onMouseDrag")
     public void onMouseDrag (PositionObject o) {
         if (!myLeftMouse.equals(null)) {
-            Location3D world = Camera.instance().viewtoWorld(o.getPoint2D());
-            Location3D leftWorldMouse = Camera.instance().viewtoWorld(myLeftMouse);
-            double uX = world.getX() > leftWorldMouse.getX() ? leftWorldMouse.getX() : world.getX();
-            double uY = world.getY() > leftWorldMouse.getY() ? leftWorldMouse.getY() : world.getY();
+            double uX = o.getX() > myLeftMouse.getX() ? myLeftMouse.getX() : o.getX();
+            double uY = o.getY() > myLeftMouse.getY() ? myLeftMouse.getY() : o.getY();
             double width = Math.abs(o.getX() - myLeftMouse.getX());
             double height = Math.abs(o.getY() - myLeftMouse.getY());
             myDrag = new Rectangle2D.Double(uX, uY, width, height);
+            sendCommand(new DragCommand("drag", Camera.instance().viewtoWorld(myDrag), myDrag));
         }
     }
 }

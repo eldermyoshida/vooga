@@ -1,6 +1,7 @@
 package vooga.rts.manager;
 
 import java.awt.Graphics2D;
+import java.awt.Shape;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,16 +9,24 @@ import java.util.List;
 import java.util.Map;
 import vooga.rts.action.Action;
 import vooga.rts.action.IActOn;
-import vooga.rts.action.ManagerAction;
 import vooga.rts.commands.Command;
-import vooga.rts.commands.DragCommand;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.state.State;
-import vooga.rts.util.Camera;
 import vooga.rts.util.Location3D;
 
+
+/**
+ * The Manager class is responsible for managing all of the units and buildings
+ * that each player has control of.
+ * Commands are passed through to the Manager and the appropriate actions are
+ * executed on the selected units or even the manager.
+ * 
+ * @author Jonathan Schmidt
+ * @author Challen Herzberg-Brovold
+ * 
+ */
 public class Manager implements State, IActOn {
-    
+
     private List<InteractiveEntity> myEntities;
     private List<InteractiveEntity> mySelectedEntities;
     private Map<Integer, List<InteractiveEntity>> myGroups;
@@ -64,12 +73,12 @@ public class Manager implements State, IActOn {
     @Override
     public void put (String input, Action action) {
         myActions.put(input, action);
-        
+
     }
-    
+
     public void applyAction (Command command) {
-        for (InteractiveEntity u: mySelectedEntities) {
-            if(u.containsInput(command)) {
+        for (InteractiveEntity u : mySelectedEntities) {
+            if (u.containsInput(command)) {
                 u.updateAction(command);
                 u.getAction(command).apply();
             }
@@ -96,6 +105,7 @@ public class Manager implements State, IActOn {
         }
         deselectAll();
     }
+
     /**
      * Deselects the specified entity.
      * 
@@ -188,13 +198,16 @@ public class Manager implements State, IActOn {
      * 
      * @param area The area to select the entities in.
      */
-    public void select (Rectangle2D area) {
+    public void select (Shape area) {
         deselectAll();
+        boolean multi = myMultiSelect;
+        setMultiSelect(true);
         for (InteractiveEntity ie : myEntities) {
-            if (area.intersects(ie.getBounds())) {
+            if (area.intersects(ie.getBounds()) || area.contains(ie.getBounds())) {
                 select(ie);
             }
         }
+        setMultiSelect(multi);
     }
 
     /**
@@ -223,7 +236,5 @@ public class Manager implements State, IActOn {
             mySelectedEntities = new ArrayList<InteractiveEntity>(myGroups.get(groupID));
         }
     }
-
-
 
 }

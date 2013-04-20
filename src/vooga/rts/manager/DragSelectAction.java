@@ -1,5 +1,6 @@
 package vooga.rts.manager;
 
+import java.awt.Shape;
 import java.awt.geom.Rectangle2D;
 import vooga.rts.action.ManagerAction;
 import vooga.rts.commands.Command;
@@ -7,7 +8,7 @@ import vooga.rts.commands.DragCommand;
 
 public class DragSelectAction extends ManagerAction {
     
-    private Rectangle2D myRectangle;
+    private Shape myRectangle;
 
     public DragSelectAction (Manager manager) {
         super(manager);
@@ -21,7 +22,7 @@ public class DragSelectAction extends ManagerAction {
     @Override
     public void update (Command command) {
        DragCommand drag = (DragCommand) command;
-       myRectangle = drag.getRectangle();
+       myRectangle = drag.getWorldRectangle();
        apply();
     }
 

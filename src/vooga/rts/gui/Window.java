@@ -19,7 +19,7 @@ public class Window {
     private Canvas myCanvas;
     private JFrame myFrame;
 
-    public static Dimension SCREEN_SIZE;
+    public static Dimension SCREEN_SIZE = new Dimension();
 
     private boolean myFullscreen = false;
 

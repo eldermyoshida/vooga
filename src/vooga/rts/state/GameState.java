@@ -4,7 +4,10 @@ import java.applet.AudioClip;
 import java.awt.AWTException;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.Robot;
+import java.awt.Shape;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Observer;
 import vooga.rts.commands.Command;
+import vooga.rts.commands.DragCommand;
 import vooga.rts.controller.Controller;
 import vooga.rts.controller.PlayerController;
 import vooga.rts.gamedesign.sprite.gamesprites.Projectile;
@@ -30,6 +34,9 @@ import vooga.rts.player.HumanPlayer;
 import vooga.rts.player.Player;
 import vooga.rts.player.Team;
 import vooga.rts.resourcemanager.ResourceManager;
+import vooga.rts.util.Camera;
+import vooga.rts.util.FrameCounter;
+import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.PointTester;
@@ -51,13 +58,18 @@ public class GameState extends SubState implements Controller {
     // private UpgradeBuilding upgradeBuilding;
     private PointTester pt;
 
+    private FrameCounter myFrames;
+
+    private Rectangle2D myDrag;
+    private Shape worldShape;
+
     public GameState (Observer observer) {
         super(observer);
         myTeams = new HashMap<Integer, Team>();
         myPlayers = new ArrayList<Player>();
         // myMap = new GameMap(8, new Dimension(512, 512));
         pt = new PointTester();
-
+        myFrames = new FrameCounter(new Location(100, 20));
         setupGame();
     }
 
@@ -65,6 +77,7 @@ public class GameState extends SubState implements Controller {
     public void update (double elapsedTime) {
         myMap.update(elapsedTime);
         myHumanPlayer.update(elapsedTime);
+        myFrames.update(elapsedTime);
     }
 
     @Override
@@ -73,10 +86,25 @@ public class GameState extends SubState implements Controller {
         for (Player p : myPlayers) {
             p.paint(pen);
         }
+        if (myDrag != null) {
+            pen.draw(myDrag);
+            pen.draw(worldShape);
+        }
+        Camera.instance().paint(pen);
+        myFrames.paint(pen);
     }
 
     @Override
     public void receiveCommand (Command command) {
+
+        // If it's a drag, we need to do some extra checking.
+        if (command instanceof DragCommand) {
+            myDrag = ((DragCommand) command).getScreenRectangle();
+            worldShape = ((DragCommand) command).getWorldRectangle();
+            if (myDrag == null) {
+                return;
+            }
+        }
         sendCommand(command);
     }
 

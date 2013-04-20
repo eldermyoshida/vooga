@@ -1,7 +1,6 @@
 package vooga.rts.manager;
 
 import vooga.rts.action.ManagerAction;
-import vooga.rts.commands.ClickCommand;
 import vooga.rts.commands.Command;
 import vooga.rts.controller.PositionCommand;
 import vooga.rts.util.Camera;
@@ -23,15 +22,17 @@ public class LeftClickAction extends ManagerAction {
 
     @Override
     public void update (Command command) {
-        if (getManager().getSelected().size() > 0) {
-            getManager().applyAction(command);
-        }
-        else {
-            PositionCommand click = (PositionCommand) command;
-            System.out.println("leftclick");
-            myLocation = Camera.instance().viewtoWorld(click.getPosition());
-            apply();
-        }
+        /*
+         * if (getManager().getSelected().size() > 0) {
+         * getManager().applyAction(command);
+         * }
+         * else {
+         */
+        PositionCommand click = (PositionCommand) command;
+        System.out.println("leftclick");
+        myLocation = Camera.instance().viewtoWorld(click.getPosition());
+        apply();
+        // }
     }
 
 }
