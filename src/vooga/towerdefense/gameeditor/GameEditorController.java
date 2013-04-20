@@ -4,7 +4,10 @@ import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class GameEditorController extends JFrame {
 
@@ -19,13 +22,27 @@ public class GameEditorController extends JFrame {
     }
     
     public void initializeGUI() {
-        StartUpScreen screen = new StartUpScreen(mySize);
+        StartUpScreen screen = new StartUpScreen(mySize, this);
         add(screen);
         screen.display();
+    }
+    
+    public void addMapToGame() {
+        //TODO: implement
+        System.out.println("add map to game");        
     }
     
     public void addTowerToGame() {
         //TODO: implement
         System.out.println("add tower to game");
+    }
+    
+    public void displayNextScreen(String nextScreenName) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SecurityException, NoSuchMethodException, IllegalArgumentException, InvocationTargetException {
+        Class[] args = {Dimension.class, GameEditorController.class};
+        Class theClass = Class.forName(nextScreenName);
+        Constructor cons = theClass.getConstructor(args);
+        GameEditorScreen screen = (GameEditorScreen) cons.newInstance(mySize, this);
+        screen.display();
+        
     }
 }
