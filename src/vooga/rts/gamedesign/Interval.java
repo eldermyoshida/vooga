@@ -10,6 +10,7 @@ package vooga.rts.gamedesign;
  * @author Ryan Fishel
  *
  */
+@Deprecated
 public class Interval {
 	
 	private int myMaxCooldown;

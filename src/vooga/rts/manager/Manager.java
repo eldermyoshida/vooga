@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 import vooga.rts.action.Action;
 import vooga.rts.action.IActOn;
 import vooga.rts.commands.Command;
@@ -27,7 +29,7 @@ import vooga.rts.util.Location3D;
  * @author Challen Herzberg-Brovold
  * 
  */
-public class Manager implements State, IActOn {
+public class Manager implements State, IActOn, Observer {
 
     private List<InteractiveEntity> myEntities;
     private List<InteractiveEntity> mySelectedEntities;
@@ -94,6 +96,7 @@ public class Manager implements State, IActOn {
      * @param u The entity that is to be added.
      */
     public void add (InteractiveEntity unit) {
+        // unit.
         myEntities.add(unit);
     }
 
@@ -237,6 +240,11 @@ public class Manager implements State, IActOn {
         if (myGroups.containsKey(groupID)) {
             mySelectedEntities = new ArrayList<InteractiveEntity>(myGroups.get(groupID));
         }
+    }
+
+    @Override
+    public void update (Observable arg0, Object arg1) {
+
     }
 
 }

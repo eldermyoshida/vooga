@@ -85,4 +85,6 @@ public class InputController implements Controller {
             sendCommand(new DragCommand("drag", Camera.instance().viewtoWorld(myDrag), myDrag));
         }
     }
+    
+    
 }
