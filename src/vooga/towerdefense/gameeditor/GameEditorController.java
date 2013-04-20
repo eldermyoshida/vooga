@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -182,5 +183,44 @@ public class GameEditorController extends JFrame {
             }
         }
         return classes;
+    }
+    
+    /**
+     * gets the list of class names in the desired package.
+     * @param packageName
+     * @return a list of strings
+     * @throws ClassNotFoundException 
+     * @throws IOException 
+     */
+    @SuppressWarnings("rawtypes")
+    public List<String> getClassNamesInPackage(String packageName) throws IOException, ClassNotFoundException {
+        List<String> names = new ArrayList<String>();
+        List<Class> classes = getClassesInPackage(packageName);
+        for (Class c : classes) {
+            names.add(c.getName().substring(packageName.length()+1,
+                        c.getName().length()));
+        }
+        //TODO: get rid of this general term
+        if (names.contains("Action")) {
+            names.remove("Action");
+        }
+        return names;
+    }
+    
+    /**
+     * gets the list of field names in the desired class.
+     * @param packageName
+     * @return
+     * @throws ClassNotFoundException
+     */
+    @SuppressWarnings("rawtypes")
+    public List<String> getFieldsInClass(String className) throws ClassNotFoundException {
+        List<String> fields = new ArrayList<String>();
+        Class attributesClass = Class.forName(className);
+        Field fieldList[] = attributesClass.getDeclaredFields();
+        for (Field field : fieldList) {
+            fields.add(field.getName());
+        }
+        return fields;
     }
 }
