@@ -32,7 +32,7 @@ public class GameInfo {
     private Model myModel;
     
     private Database myDb;
-    private String gameID; //Anything that identifies the game. Can be game name.
+    private String gameName;
     
     
     public GameInfo (String gamename, String genre, String language, Model model) throws MissingResourceException {
@@ -46,25 +46,24 @@ public class GameInfo {
 
     public GameInfo(Database database, String id) {
 		myDb = database;
-		gameID = id;
+		gameName = id;
 	}
 
     
     public Pixmap getThumbnail() {
-    	return new Pixmap(myDb.getGameThumbnail(gameID));
+    	return new Pixmap(myDb.getGameThumbnail(gameName));
     }
     
     public String getName(){
-    	return myDb.getGameName(gameID);
-    	// return gameID;
+    	return gameName;
     }
     
     public String getDescription() {
-    	return myDb.getgetGameDescription(gameID);
+    	return myDb.getgetGameDescription(gameName);
     }
     
     public Pixmap getAdScren() {
-    	return new Pixmap(myDb.getGameAdScreen(gameID));
+    	return new Pixmap(myDb.getGameAdScreen(gameName));
     }
     
     public double getRating() {
