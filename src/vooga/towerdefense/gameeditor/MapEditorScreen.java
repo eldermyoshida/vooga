@@ -24,6 +24,7 @@ public class MapEditorScreen extends GameEditorScreen {
     private static final long serialVersionUID = 1L;
     private static final String NEXT_SCREEN_NAME = "ProjectileEditorScreen";
     private static final String TITLE_NAME = "MAP ";
+    private static final String TILES_CLASS_PATH = "vooga.towerdefense.models";
     private MapMaker myMapBox;
     private Dimension myMapMakerSize;
     private JTextField myTextField;
