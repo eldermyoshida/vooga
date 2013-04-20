@@ -34,7 +34,7 @@ public class MapEditorScreen extends GameEditorScreen {
      */
     @Override
     public void addElementToGame () {
-        // TODO Auto-generated method stub
+        System.out.println("add to game MapEditorScreen");
         getController().addMapToGame();
     }
 }
