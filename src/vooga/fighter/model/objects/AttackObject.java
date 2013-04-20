@@ -97,11 +97,12 @@ public class AttackObject extends GameObject{
         }
     }    
     
+    
     /**
-     * Sets the amount of time left in attack to zero
+     * Sets the counter to the current amount 
      */
-    public void endCounter(){
-    	myCounter.setCounter(0); 
+    public void setCounter(int amount){
+    	myCounter.setCounter(amount); 
     }
     
     /**

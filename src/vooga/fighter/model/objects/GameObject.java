@@ -186,6 +186,7 @@ public abstract class GameObject {
         }
     }
     
+ 
     /**
      * Second dispatch for collision management. Key part of the visitor pattern.
      */
@@ -205,6 +206,7 @@ public abstract class GameObject {
      * Handles a collision with another game object. Key part of the visitor pattern.
      */
     public abstract void handleCollision(EnvironmentObject other);
+    
     
     /**
      * Returns collection of states

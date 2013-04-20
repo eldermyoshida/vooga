@@ -175,6 +175,13 @@ public class State {
     }
 
     /**
+     * Sets priority
+     */
+    
+    public void setPriority(int num){
+    	myPriority=2; 
+    }
+    /**
      * Returns the depth of this state. Lower numbers are considered lower depth,
      * i.e. an image with a lower depth will be drawn first (and thus other
      * images will be drawn on top of it).

@@ -25,6 +25,7 @@ public class CharacterObject extends GameObject {
     private Health myHealth; 
     private List<AttackObject> currentAttacks; 
     private boolean facingRight;  
+    private int movingDirection; 
     
     /**
      * Constructs a new CharacterObject.
@@ -52,7 +53,7 @@ public class CharacterObject extends GameObject {
         super.update();
         for (Effect effect : myActiveEffects) {
             effect.update();
-        }       
+        } 
     }
     
     public void updateState() {
@@ -158,6 +159,13 @@ public class CharacterObject extends GameObject {
         getLocation().translate(new Vector(direction, getProperty("speed")));
     }
 
+
+    /**
+     * Gets the direction the character is moving
+     */
+    public int getMovingDirection(){
+    	return movingDirection;
+    }
     /**
      * Will add jump method
      */

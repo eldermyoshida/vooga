@@ -70,6 +70,7 @@ public class CharacterLoader extends ObjectLoader {
 			AttackObject newAttack = new AttackObject();
 			State newState = new State(myChar, frameNodes.getLength());
 			newAttack.setPower(attackDmg);
+			newAttack.setCounter(5);//hardcoded 5 as test case, will remove
 			getImageAndHitboxProperties(frameNodes, newState);
 			newAttack.addState(attackName, newState);
 			myChar.addAttack(attackName, newAttack);
