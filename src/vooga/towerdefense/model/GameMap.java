@@ -13,6 +13,7 @@ import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.FollowPath;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.model.tiles.Tile;
+import vooga.towerdefense.model.tiles.factories.TileFactory;
 import vooga.towerdefense.util.Location;
 
 
@@ -94,8 +95,8 @@ public class GameMap {
      * @return a Tile object containing this point (x, y)
      */
     public Tile getTile (Point point) {
-        return myGrid[(int) (point.getX() / Tile.TILE_DIMENSIONS.getWidth())]
-                [(int) (point.getY() / Tile.TILE_DIMENSIONS.getHeight())];
+        return myGrid[(int) (point.getX() / TileFactory.TILE_DIMENSIONS.getWidth())]
+                [(int) (point.getY() / TileFactory.TILE_DIMENSIONS.getHeight())];
     }
 
     /**
@@ -107,8 +108,8 @@ public class GameMap {
      * @return a Tile object containing this point (x, y)
      */
     public Tile getTile (Location location) {
-        return myGrid[(int) (location.getX() / Tile.TILE_DIMENSIONS.getWidth())]
-                [(int) (location.getY() / Tile.TILE_DIMENSIONS.getHeight())];
+        return myGrid[(int) (location.getX() / TileFactory.TILE_DIMENSIONS.getWidth())]
+                [(int) (location.getY() / TileFactory.TILE_DIMENSIONS.getHeight())];
     }
 
     /**
@@ -205,10 +206,10 @@ public class GameMap {
      * @return the shortest path between these two locations
      */
     public Path getShortestPath (Location start, Location finish) {
-        int x1 = (int) (start.getX() / Tile.TILE_DIMENSIONS.getWidth());
-        int x2 = (int) (finish.getX() / Tile.TILE_DIMENSIONS.getWidth());
-        int y1 = (int) (start.getY() / Tile.TILE_DIMENSIONS.getHeight());
-        int y2 = (int) (finish.getY() / Tile.TILE_DIMENSIONS.getHeight());
+        int x1 = (int) (start.getX() / TileFactory.TILE_DIMENSIONS.getWidth());
+        int x2 = (int) (finish.getX() / TileFactory.TILE_DIMENSIONS.getWidth());
+        int y1 = (int) (start.getY() / TileFactory.TILE_DIMENSIONS.getHeight());
+        int y2 = (int) (finish.getY() / TileFactory.TILE_DIMENSIONS.getHeight());
         Path thePath = myPathfinder.getShortestPath(x1, y1, x2, y2);
         // thePath.add(finish);
         return thePath;
