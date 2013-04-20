@@ -45,29 +45,23 @@ public class ScoreController extends MenuController {
      */
     public void notifyEndCondition(String choice) {
     	removeListener();
-        if(EXIT.equals(choice)){
-        	getManager().exit();
-        }
-        if(BACK.equals(choice)) {
-        	getManager().notifyEndCondition(BACK);
-        }
-        else if (getMode().getMenuNext().contains(choice)){
-                getGameInfo().setGameMode(choice);
-                getGameInfo().setNumCharacters(Integer.parseInt(myResources.getString(choice)));
-                getManager().notifyEndCondition(NEXT);
-                }
+    	getManager().notifyEndCondition(getMode().getMenusNext(choice));
         }
 
-
+    
+    @InputMethodTarget(name = "continue")
+    public void mouseclick(PositionObject pos)  {
+        super.getMode().addObject(new MouseClickObject(pos.getPoint2D()));
+    }
+    
 
     public void removeListener(){
     	super.removeListener();
     	getInput().removeListener(this);
     }
 
-	@Override
-	public void checkConditions() {
-		// TODO Auto-generated method stub
-		
-	}
+    public void checkConditions(){
+    	String choice = getMode().getChoice();
+    	if(!choice.equals("")) notifyEndCondition(choice);
+    }
 }

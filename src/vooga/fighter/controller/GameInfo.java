@@ -62,6 +62,13 @@ public class GameInfo extends UserGameData{
     	return myScores.get(index);
     }
     
+    public void reset(){
+    	myCharacters.clear();
+    	myMapName = null;
+    	myNumCharacters = 0;
+    	myModeName = null;
+    }
+    
     /**
      * 
      */

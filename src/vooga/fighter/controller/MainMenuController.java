@@ -38,7 +38,7 @@ public class MainMenuController extends MenuController {
     public void initializeRest(Canvas frame, ControllerDelegate manager, 
                            GameInfo gameinfo) {
         super.initializeRest(frame, manager, gameinfo);
-
+        getGameInfo().reset();
         setInput(manager.getInput());
         getInput().addListenerTo(this);
 
@@ -48,9 +48,8 @@ public class MainMenuController extends MenuController {
      */
     @Override
     public void notifyEndCondition(String choice) {
-    	System.out.println("MainMenuNotify");
         removeListener();
-        getManager().notifyEndCondition(choice);
+        getManager().notifyEndCondition(getMode().getMenusNext(choice));
     }
 
   
@@ -58,6 +57,7 @@ public class MainMenuController extends MenuController {
     public void mouseclick(PositionObject pos)  {
         super.getMode().addObject(new MouseClickObject(pos.getPoint2D()));
     }
+    
     public void removeListener(){
     	super.removeListener();
     	getInput().removeListener(this);
@@ -65,7 +65,7 @@ public class MainMenuController extends MenuController {
     
     public void checkConditions(){
     	String choice = getMode().getChoice();
-    	if(!choice.equals("")) notifyEndCondition(getMode().getMenusNext(choice));
+    	if(!choice.equals("")) notifyEndCondition(choice);
     }
 
 }
