@@ -74,6 +74,12 @@ public class Database {
         return myGameTable.createGame(gameName , genre);
     }
     
+    public void createGame(String name, String thumbnailPath,
+			String adscreenPath, int agePermission, double price,
+			String description, boolean isMP, boolean isSP) {
+		// TODO Auto-generated method stub
+	}
+    
     public void userPlaysGameFirst(String user, String gameName, String highscore) {
         myUserGameDataTable.createNewUserGameData(retrieveGameId(gameName), retrieveUserId(user));
     }
@@ -203,4 +209,6 @@ public class Database {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
 }
