@@ -113,7 +113,7 @@ public class Database {
         return myUserTable.usernameExists(username);
     }
     
-    public void addNewHighScore(String username, String gameName, String newHighScore) {
+    public void addNewHighScore(String username, String gameName, int newHighScore) {
         myScoreTable.addNewHighScore(retrieveUserId(username), retrieveGameId(gameName), newHighScore);
     }
     
