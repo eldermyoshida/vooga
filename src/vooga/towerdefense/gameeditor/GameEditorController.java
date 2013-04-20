@@ -2,18 +2,30 @@ package vooga.towerdefense.gameeditor;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
+/**
+ * Controls the game editor.
+ *
+ * @author Angelica Schwartz
+ */
 public class GameEditorController extends JFrame {
+    
+    /**
+     * default serialized id.
+     */
     private static final long serialVersionUID = 1L;
+    /**
+     * size of the screen.
+     */
     private Dimension mySize;
     
+    /**
+     * Constructor.
+     * @param size
+     */
     public GameEditorController(Dimension size) {
         mySize = size;
         setSize(mySize);
@@ -22,6 +34,9 @@ public class GameEditorController extends JFrame {
         initializeGUI();
     }
     
+    /**
+     * starts the visual for the game editor.
+     */
     public void initializeGUI() {
         StartUpScreen screen = new StartUpScreen(mySize, this);
         this.getContentPane().add(screen, BorderLayout.CENTER);
@@ -30,41 +45,67 @@ public class GameEditorController extends JFrame {
         setVisible(true);
     }
     
+    /**
+     * adds a level to the XML file.
+     */
     public void addLevelToGame() {
         //TODO: implement
         System.out.println("added level to game");         
     }
     
+    /**
+     * adds a map to the XML file.
+     */
     public void addMapToGame() {
         //TODO: implement
         System.out.println("added map to game");        
     }
     
+    /**
+     * adds a projectile to the XML file.
+     */
     public void addProjectileToGame() {
         //TODO: implement
         System.out.println("added projectile to game");            
     }
     
+    /**
+     * adds a unit to the XML file.
+     */
     public void addUnitToGame() {
         //TODO: implement
         System.out.println("added unit to game");         
     }
     
+    /**
+     * adds a tower to the XML file.
+     */
     public void addTowerToGame() {
         //TODO: implement
         System.out.println("added tower to game");
     }
     
+    /**
+     * adds a view to the XML file.
+     */
     public void addViewToGame() {
         //TODO: implement
         System.out.println("add this view to game");        
     }
     
+    /**
+     * adds a wave to the XML file.
+     */
     public void addWaveToGame() {
         //TODO: implement
         System.out.println("add wave to game");        
     }
     
+    /**
+     * uses reflection to display the next screen in the sequence.
+     * @param nextScreenName is the next screen
+     */
+    @SuppressWarnings("rawtypes")
     public void displayNextScreen(String nextScreenName) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SecurityException, NoSuchMethodException, IllegalArgumentException, InvocationTargetException {
         Class[] args = {Dimension.class, GameEditorController.class};
         Class theClass = Class.forName(nextScreenName);

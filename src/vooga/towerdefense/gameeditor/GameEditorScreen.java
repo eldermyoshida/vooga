@@ -9,6 +9,13 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * Super class that makes common behavior for each of
+ *      the editor screens.
+ *
+ * @author Angelica Schwartz
+ *
+ */
 public abstract class GameEditorScreen extends JPanel {
 
     /**
@@ -24,6 +31,13 @@ public abstract class GameEditorScreen extends JPanel {
     private Dimension mySize;
     private GameEditorController myController;
     
+    /**
+     * Constructor.
+     * @param size
+     * @param controller
+     * @param title
+     * @param nextScreenName
+     */
     public GameEditorScreen(Dimension size, GameEditorController controller, String title, String nextScreenName) {
         mySize = size;
         setPreferredSize(mySize);
@@ -34,15 +48,25 @@ public abstract class GameEditorScreen extends JPanel {
         addButtons();
     }
     
+    /**
+     * displays this screen.
+     */
     public void display() {
         setVisible(true);
         repaint();
     }
     
+    /**
+     * gets the associated controller.
+     * @return the GameEditorController
+     */
     public GameEditorController getController() {
         return myController;
     }
     
+    /**
+     * helper method to make common buttons.
+     */
     private void addButtons() {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new BorderLayout());
@@ -57,11 +81,18 @@ public abstract class GameEditorScreen extends JPanel {
         add(buttonPanel, BorderLayout.EAST);
     }
     
+    /**
+     * helper method to make the title label.
+     */
     private void addTitle() {
         JLabel titleLabel = new JLabel(myTitle);
         add(titleLabel, BorderLayout.NORTH);
     }
     
+    /**
+     * makes the mouse adapters for the screen.
+     * @return the mouse adapter created
+     */
     public MouseAdapter makeMouseAdapter() {
         MouseAdapter myMouseAdapter = new MouseAdapter() {
             @Override
@@ -99,5 +130,9 @@ public abstract class GameEditorScreen extends JPanel {
         return myMouseAdapter;
     }
     
+    /**
+     * adds the specific element to the XML file.
+     * will be implemented by the sub-classes
+     */
     public abstract void addElementToGame();
 }
