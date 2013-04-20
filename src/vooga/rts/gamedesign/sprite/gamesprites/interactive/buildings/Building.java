@@ -1,6 +1,8 @@
 package vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings;
 
 import java.awt.Dimension;
+
+import vooga.rts.gamedesign.Interval;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.IOccupiable;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
@@ -26,14 +28,17 @@ public abstract class Building extends InteractiveEntity implements IOccupiable 
     private static UpgradeTree myUpgradeTree;
     //TODO: probably shouldn't be stored in Building. Should try Observer pattern later?
     private static GameBuildingManager myGameBuildingManager;
+    private int myBuildTime;
     
     public Building (Pixmap image,
             Location3D center,
             Dimension size,
             Sound sound,
             int playerID,
-            int health) {
+            int health,
+            int buildTime) {
     	super(image, center, size, sound, playerID, health);
+    	myBuildTime = buildTime;
     }
     
     public Building (Pixmap image,
@@ -63,5 +68,13 @@ public abstract class Building extends InteractiveEntity implements IOccupiable 
 
     public void getOccupied (Unit unit) {
         //u.occupy(this);
+    }
+    
+    /**
+     * Returns how long it takes to create this building.
+     * @return the the time it takes to create the building
+     */
+    public int getBuildTime() {
+    	return myBuildTime;
     }
 }

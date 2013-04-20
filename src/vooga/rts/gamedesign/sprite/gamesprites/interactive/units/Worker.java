@@ -2,9 +2,11 @@ package vooga.rts.gamedesign.sprite.gamesprites.interactive.units;
 
 import java.awt.Dimension;
 
+import vooga.rts.gamedesign.Interval;
 import vooga.rts.gamedesign.sprite.gamesprites.GameEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.Resource;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.IGatherable;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building;
 import vooga.rts.gamedesign.strategy.gatherstrategy.CanGather;
 import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
 import vooga.rts.util.Location3D;
@@ -23,6 +25,7 @@ public class Worker extends Unit {
 	private GatherStrategy myGatherStrategy;
 	private static final int DEFUALT_GATHER_INTERVAL = 75;
 	private int myGatherAmount;
+	private Interval myCurrentBuildTime;
 	
 	/**
 	 * Creates a new worker
@@ -44,6 +47,7 @@ public class Worker extends Unit {
 	@Override
 	public void update(double elapsedTime) {
 		myGatherStrategy.getInterval().decrementCooldown();
+		myCurrentBuildTime.decrementCooldown();
 		super.update(elapsedTime);
 	}
 	
@@ -75,4 +79,18 @@ public class Worker extends Unit {
 		myGatherAmount = gatherAmount;
 		myGatherStrategy = new CanGather(DEFUALT_GATHER_INTERVAL, myGatherAmount);
 	}
+	
+	public void setBuildTime(int time) {
+		myCurrentBuildTime = new Interval(time);
+		myCurrentBuildTime.resetCooldown();
+	}
+	
+	public void build(Building building) {
+		setBuildTime(building.getBuildTime());
+		if(myCurrentBuildTime.allowAction()) {
+			
+		}
+	}
+	
+	
 }
