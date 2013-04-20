@@ -66,6 +66,7 @@ public class CharacterSelectController extends MenuController {
     
     public void checkConditions(){
     	String choice = getMode().getChoice();
+    	if(!choice.equals("")) notifyEndCondition("1v1");
     	for(String other: getMode().getMenuNames()){
         	if(other.equals(choice)){
         		notifyEndCondition(choice);
