@@ -5,6 +5,9 @@ import java.awt.Point;
 import java.util.List;
 
 import vooga.towerdefense.controller.Controller;
+import vooga.towerdefense.factories.ExampleUnitFactory;
+import vooga.towerdefense.factories.TrollUnitDefinition;
+import vooga.towerdefense.factories.WaveFactory;
 import vooga.towerdefense.gameElements.Wave;
 import vooga.towerdefense.shop.Shop;
 import vooga.towerdefense.shop.ShopItem;

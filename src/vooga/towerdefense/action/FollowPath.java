@@ -28,7 +28,7 @@ public class FollowPath extends Action {
 	@Override
 	public void executeAction(double elapseTime) {
 		if (myInitiator.getCenter().distance(myCurrentPathNode) < DISTANCE_OFFSET) {
-			System.out.println("changed node to " + myCurrentPathNode);
+			//System.out.println("changed node to " + myCurrentPathNode);
 			changeNode();
 		}
 	}
