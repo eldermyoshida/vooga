@@ -100,6 +100,10 @@ public class GameMap {
         paintGameElements(pen);        
     }
     
+    private void paintGhostImage(Graphics2D pen) {
+        
+    }
+    
     private void paintTiles(Graphics2D pen) {
         for (int i = 0; i < myGrid.length; ++i) {
             for (int j = 0; j < myGrid[i].length; ++j) {

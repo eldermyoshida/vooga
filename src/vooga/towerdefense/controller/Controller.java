@@ -212,7 +212,6 @@ public class Controller {
 
 
     public void handleShopClickOnItem (Point p) {
-        System.out.println("lol");
         ShopItem itemToBuy = myModel.getShopItem(p);
         List<Action> actions = new ArrayList<Action>();
         Tower t = new Tower(new Pixmap("shopicons/redtower.png"), new Location(p.getX(), p.getY()), new Dimension(50, 50), null, actions);
