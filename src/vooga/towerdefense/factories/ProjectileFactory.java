@@ -27,8 +27,10 @@ public class ProjectileFactory extends GameElementFactory {
 	private static final AttributeManager DEFAULT_ATTRIBUTE_MANAGER = new AttributeManager();
 
 	public Projectile createProjectile(GameElement initiator, GameElement target) {
+
 		return new Projectile(DEFAULT_IMAGE, DEFAULT_SIZE, initiator, target,
 				DEFAULT_ACTIONS, DEFAULT_ATTRIBUTE_MANAGER);
+	
 	}
 
 	public Projectile createGameElement(GameElement initiator,
@@ -36,6 +38,8 @@ public class ProjectileFactory extends GameElementFactory {
 		Projectile projectile = new Projectile(DEFAULT_IMAGE, DEFAULT_SIZE,
 				initiator, targetLocation, DEFAULT_ACTIONS,
 				DEFAULT_ATTRIBUTE_MANAGER);
+		System.out.println("fireball created!+++++++++++++");
+		
 		List<Action> actions = new ArrayList<Action>();
 		actions.add(new MoveToDestination(targetLocation,
 				initiator.getCenter(), initiator.getAttributeManager()
