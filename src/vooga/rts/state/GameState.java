@@ -89,7 +89,7 @@ public class GameState extends SubState implements Controller {
         }
         if (myDrag != null) {
             pen.draw(myDrag);
-            pen.draw(worldShape);
+            // pen.draw(worldShape);
         }
         Camera.instance().paint(pen);
         myFrames.paint(pen);

@@ -164,8 +164,7 @@ public class Camera {
         return myWorldVision.contains(world.to2D());
     }
 
-    public void paint (Graphics2D pen) {
-        pen.draw(myWorldVision);
+    public void paint (Graphics2D pen) {        
         double x = myScreenSize.getWidth() / 2;
         double y = myScreenSize.getHeight() / 2;
         double height = 10;
