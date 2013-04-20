@@ -16,19 +16,25 @@ import vooga.scroller.view.View;
  */
 
 public abstract class ScrollingManager {
-    
+    private Model myModel;
+    private View myView;
+
     /**
      * Used to initialize the a reference to the Model the ScrollingManager will be using.
      * @param model The instance of the Model that the ScrollingManager will be controlling
      */
-    public abstract void initModel(Model model);
-        
+    public void initModel(Model model) {
+        myModel = model;
+    }
+
     /**
      * Used to initialize the a reference to the View the ScrollingManager 
      * will be using.
      * @param view The instance of the View that the ScrollingManager will be controlling
      */
-    public abstract void initView(View view);
+    public void initView(View view) {
+        myView = view;
+    }
 
     protected abstract int upperpaintbound();
 
@@ -37,55 +43,74 @@ public abstract class ScrollingManager {
     protected abstract int leftpaintbound();
 
     protected abstract int rightpaintbound();
-    
+
     /**
      * Given a frame, gives the right boundary around the specified center point
      * @param frame The frame being considered.
      * @param center The center of the frame.
      * @return The right boundary
      */
-    public abstract double getRightBoundary(Dimension frame, Location center);
-    
+    public double getRightBoundary(Dimension frame, Location center) {
+        return center.getX() + frame.getWidth() / 2;
+    }
+
     /**
      * Given a frame, gives the left boundary around the specified center point
      * @param frame The frame being considered.
      * @param center The center of the frame.
      * @return The left boundary
      */
-    public abstract double getLeftBoundary(Dimension frame, Location center);
-    
+    public double getLeftBoundary(Dimension frame, Location center) {
+        return center.getX() - frame.getWidth() / 2;
+    }
+
     /**
      * Given a frame, gives the upper boundary around the specified center point
      * @param frame The frame being considered.
      * @param center The center of the frame.
      * @return The upper boundary
      */
-    public abstract double getUpperBoundary(Dimension frame, Location center);
-    
+    public double getUpperBoundary(Dimension frame, Location center) {
+        return center.getY() - frame.getHeight() / 2;
+    }
+
     /**
      * Given a frame, gives the lower boundary around the specified center point
      * @param frame The frame being considered.
      * @param center The center of the frame.
      * @return The lower boundary
      */
-    public abstract double getLowerBoundary(Dimension frame, Location center);
-    
-    protected abstract double levelRightBoundary();
-    
-    protected abstract double levelLeftBoundary();
-    
-    protected abstract double levelUpperBoundary();
-    
-    protected abstract double levelLowerBoundary();
-    
-    protected abstract Image getBackground();
-    
+    public double getLowerBoundary(Dimension frame, Location center) { 
+        return center.getY() + frame.getHeight() / 2;
+    }
+
+    protected double levelRightBoundary() {
+        return getModel().getLevelBounds().getWidth();
+    }
+
+    protected double levelLeftBoundary() {
+        return 0;
+    }
+
+    protected double levelUpperBoundary() {
+        return 0;
+    }
+
+    protected double levelLowerBoundary() { 
+        return getModel().getLevelBounds().getHeight();
+    }
+
+
+    protected  Image getBackground() {
+        return getModel().getBackground();
+    }
+
     /**
      * Paints the View for the game, given the constraints of the ScrollingManger.
      * @param pen The Graphics object that will be doing the painting.
      */
     public abstract void viewPaint(Graphics pen);
-    
+
     /**
      * Given a player, returns the Location given the current state of the Model 
      * that the Player needs to be painted. 
@@ -105,6 +130,22 @@ public abstract class ScrollingManager {
     public double getHardBoundary (Direction d, double levelBounds) {
         return levelBounds;
     }
-    
-    
+
+    /**
+     * Gets the View that was initialized for this ScrollingManager
+     * @return the View 
+     */
+    protected View getView () {
+        return myView;
+    }
+
+    /**
+     * Gets the Model that was initialized for this ScrollingManager
+     * @return the Model 
+     */
+    protected Model getModel () {
+        return myModel;
+    }
+
+
 }

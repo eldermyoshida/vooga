@@ -26,7 +26,7 @@ public class OmniScrollingManager extends ScrollingManager {
         myView = view;
     }
 
-    public int upperpaintbound() {
+    protected int upperpaintbound() {
         if(myGame != null & myView != null) {
             int vertical = ((int) myGame.getLowerBoundary() + myView.getHeight()*1000) % myView.getHeight();
             return 0 - vertical;
@@ -34,7 +34,7 @@ public class OmniScrollingManager extends ScrollingManager {
         return 0;
     }
 
-    public int lowerpaintbound() { 
+    protected int lowerpaintbound() { 
         if(myGame != null & myView != null) {
             int vertical = ((int) myGame.getLowerBoundary() + myView.getHeight()*1000) % myView.getHeight();
             return myView.getHeight() - vertical;
@@ -43,7 +43,7 @@ public class OmniScrollingManager extends ScrollingManager {
 
     }
 
-    public int leftpaintbound() {
+    protected int leftpaintbound() {
         if(myGame != null && myView != null) {
             int horizontal = ((int) myGame.getRightBoundary() + myView.getWidth()*1000) % myView.getWidth();
             return 0 - horizontal;
@@ -51,7 +51,7 @@ public class OmniScrollingManager extends ScrollingManager {
         return 0;
     }
 
-    public int rightpaintbound() {
+    protected int rightpaintbound() {
         if(myGame != null & myView != null) {
             int horizontal = ((int) myGame.getRightBoundary() + myView.getWidth()*1000) % myView.getWidth();
             return myView.getWidth() - horizontal;
@@ -59,22 +59,6 @@ public class OmniScrollingManager extends ScrollingManager {
         return 0;
     }
     
-    public double getRightBoundary(Dimension frame, Location center) {
-        return (center.getX() + frame.getWidth() / 2);
-    }
-    
-    public double getLeftBoundary(Dimension frame, Location center) {
-        return (center.getX() - frame.getWidth() / 2);
-    }
-    
-    public double getUpperBoundary(Dimension frame, Location center) {
-        return (center.getY() - frame.getHeight() / 2);
-    }
-    
-    public double getLowerBoundary(Dimension frame, Location center) { 
-        return (center.getY() + frame.getHeight() / 2);
-    }
-
     public double levelRightBoundary () {
         return myGame.getLevelBounds().getWidth();
     }
