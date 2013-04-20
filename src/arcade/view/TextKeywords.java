@@ -22,12 +22,14 @@ public interface TextKeywords {
     static final String BIRTHDATE_ERROR = "birthdate_error";
     static final String IMAGE = "images";
     static final String IMAGE_MESSAGE = "image_instructions";
-    static final String IMAGE_BUTON = "image_button";
+    static final String IMAGE_BUTTON = "image_button";
     static final String GAME_NAME = "game_name";
     static final String GENRE = "genre";
     static final String AUTHOR = "author";
-    static final String SINGLE_PLAYER = "singleplayer?";
-    static final String MULTIPLAYER = "multiplayer?";
+    static final String PRICE = "price";
+    static final String AGE_RATING = "age_rating";
+    static final String SINGLE_PLAYER = "singleplayer";
+    static final String MULTIPLAYER = "multiplayer";
     static final String SMALL_PICTURE = "smallpicture";
     static final String LARGE_PICTURE = "largepicture";
     static final String DESCRIPTION = "description";

@@ -2,14 +2,20 @@ package arcade.view.forms;
 
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import util.BackgroundPanel;
 import arcade.model.Model;
 import arcade.view.TextKeywords;
@@ -23,7 +29,7 @@ import arcade.view.TextKeywords;
 @SuppressWarnings("serial")
 public abstract class Form extends JFrame {
     public static final String BACKGROUND_FILENAME =
-            "../arcade/resources/images/LoginBackGround.jpg";
+            "arcade/resources/images/LoginBackGround.jpg";
     private static final int TEXT_FIELD_HEIGHT = 25;
     private static final int TEXT_FIELD_SIZE = 10;
     private static final int LABEL_WIDTH = 80;
@@ -112,6 +118,39 @@ public abstract class Form extends JFrame {
 
         return panel;
     }
+    
+    /**
+     * Create a panel with a description of an instruction, and a button to 
+     * select an image.
+     * 
+     * @param descriptionKeyword is the ResourceBundle keyword for the description
+     * @param buttonKeyword is the ResourceBundle keyword for the button label
+     * @param action is the FileChooserAction with the method defined for what
+     * to do on approval
+     */
+    protected JComponent createImageSelector (String descriptionKeyword, String buttonKeyword, final FileChooserAction action) {
+        JPanel panel = new JPanel();
+        JLabel description = new JLabel(getResources().getString(descriptionKeyword));
+        panel.add(description);
+        JButton button = new JButton(getResources().getString(buttonKeyword));
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed (ActionEvent arg0) {
+                JFileChooser chooser = new JFileChooser();
+                FileFilter filter =
+                        new FileNameExtensionFilter(getResources().getString(TextKeywords.IMAGE),
+                                                    "jpg", "gif", "png");
+                chooser.setFileFilter(filter);
+
+                int returnVal = chooser.showOpenDialog(null);
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    action.approve(chooser);
+                }
+            }
+        });
+        panel.add(button);
+        return panel;
+    }    
     
     /**
      * Create a label where an error message can be displayed.

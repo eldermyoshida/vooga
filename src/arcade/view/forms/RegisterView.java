@@ -15,8 +15,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import arcade.model.Model;
 import arcade.view.TextKeywords;
 
@@ -49,11 +47,11 @@ public class RegisterView extends Account {
     public RegisterView (Model model, ResourceBundle resources) {
         this(model, resources, "", "");
     }
-    
+
     /**
      * Constructs the register view with a Model, ResourceBundle, and also
      * fills in the username and password fields with some initial values.
-     * This might be useful if the user already typed in these values at a 
+     * This might be useful if the user already typed in these values at a
      * previous point such as the login view.
      * 
      * @param model
@@ -61,30 +59,33 @@ public class RegisterView extends Account {
      * @param initialUsername
      * @param initialPassword
      */
-    public RegisterView (Model model, ResourceBundle resources, String initialUsername, String initialPassword) {
+    public RegisterView (Model model,
+                         ResourceBundle resources,
+                         String initialUsername,
+                         String initialPassword) {
         super(model, resources);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
         setLocationRelativeTo(null);
-        
+
         setUsername(initialUsername);
         setPassword(initialPassword);
     }
-    
+
     /**
      * Lets the user know that the username has already been taken and prompts
      * them to choose a different one.
      */
-    public void sendUsernameTakenError() {
+    public void sendUsernameTakenError () {
         clearUsername();
         sendMessage(getResources().getString(TextKeywords.USERNAME_ERROR));
     }
-    
+
     /**
-     * Lets the user know that they formatted the date of birth field 
+     * Lets the user know that they formatted the date of birth field
      * incorrectly and prompts them to try reentering.
      */
-    public void sendDOBError() {
+    public void sendDOBError () {
         myDOBTextField.setText(TextKeywords.BIRTHDATE_MESSAGE);
         sendMessage(getResources().getString(TextKeywords.BIRTHDATE_ERROR));
     }
@@ -98,7 +99,7 @@ public class RegisterView extends Account {
         components.add(createFirstNameField());
         components.add(createLastNameField());
         components.add(createDOBField());
-        components.add(createImageSelector());
+        components.add(createProfilePictureSelector());
         components.add(createMessageArea());
         components.add(createButton());
         return components;
@@ -157,32 +158,20 @@ public class RegisterView extends Account {
         });
         return createTextPanel(TextKeywords.BIRTHDATE, myDOBTextField);
     }
-
+    
     /**
-     * Creates the field to select the user's image
+     * Creates the panel where the user can select his/her profile picture
+     * @return
      */
-    private JComponent createImageSelector () {
-        JPanel panel = new JPanel();
-        JLabel description = new JLabel(getResources().getString(TextKeywords.IMAGE_MESSAGE));
-        panel.add(description);
-        JButton button = new JButton(getResources().getString(TextKeywords.IMAGE_BUTON));
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed (ActionEvent arg0) {
-                JFileChooser chooser = new JFileChooser();
-                FileFilter filter =
-                        new FileNameExtensionFilter(getResources().getString(TextKeywords.IMAGE),
-                                                    "jpg", "gif", "png");
-                chooser.setFileFilter(filter);
-
-                int returnVal = chooser.showOpenDialog(null);
-                if (returnVal == JFileChooser.APPROVE_OPTION) {
-                    myImagePath = chooser.getSelectedFile().getPath();
-                }
-            }
-        });
-        panel.add(button);
-        return panel;
+    private JComponent createProfilePictureSelector () {
+        return createImageSelector(TextKeywords.IMAGE_MESSAGE,
+                                   TextKeywords.IMAGE_BUTTON,
+                                   new FileChooserAction() {
+                                       @Override
+                                       public void approve (JFileChooser chooser) {
+                                           myImagePath = chooser.getSelectedFile().getPath();
+                                       }
+                                   });
     }
 
     /**
@@ -196,12 +185,12 @@ public class RegisterView extends Account {
         register.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent arg0) {
-                getModel().createNewUserProfile(getUsername(), 
-                                                getPassword(), 
+                getModel().createNewUserProfile(getUsername(),
+                                                getPassword(),
                                                 myFirstNameTextField.getText(),
                                                 myLastNameTextField.getText(),
-                                                myDOBTextField.getText());//,
-                                                //myImagePath);
+                                                myDOBTextField.getText());// ,
+                // myImagePath);
                 // maybe.
                 dispose();
             }

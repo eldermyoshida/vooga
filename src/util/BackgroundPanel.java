@@ -26,6 +26,8 @@ public class BackgroundPanel extends JPanel{
     * Constructs the background panel with the filepath for the image, and 
     * zero margins.
     * 
+    * The filepath should be with respect to the src folder.
+    * 
     * @param filepath for the image to set as the background
     */
     public BackgroundPanel(String filepath) {
@@ -43,7 +45,7 @@ public class BackgroundPanel extends JPanel{
      * filled by added content.
      */
     public BackgroundPanel(String filepath, int hgap, int vgap) {
-        ImageIcon icon = new ImageIcon(this.getClass().getResource(filepath));
+        ImageIcon icon = new ImageIcon(this.getClass().getResource("../" + filepath));
         setBackgroundImage(icon);
         defineMargin(hgap, vgap);
         repaint();  
