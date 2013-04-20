@@ -1,7 +1,7 @@
 package vooga.rts.controller;
 
+import util.input.PositionObject;
 import vooga.rts.commands.Command;
-import vooga.rts.input.PositionObject;
 import vooga.rts.util.Location;
 
 /**

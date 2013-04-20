@@ -9,14 +9,14 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Queue;
 import javax.swing.Timer;
+import util.input.Input;
 import vooga.rts.Game;
 import vooga.rts.commands.Command;
 import vooga.rts.controller.InputController;
-import vooga.rts.input.Input;
+import vooga.rts.gui.Window;
 import vooga.rts.resourcemanager.ImageLoader;
 import vooga.rts.resourcemanager.ResourceManager;
 import vooga.rts.resourcemanager.SoundLoader;
-import vooga.rts.gui.Window;
 
 
 public class MainState implements State, Observer {

@@ -1,11 +1,9 @@
 package vooga.rts.controller;
 
 import java.awt.geom.Rectangle2D;
+import util.input.*;
 import vooga.rts.commands.Command;
 import vooga.rts.commands.DragCommand;
-import vooga.rts.input.InputClassTarget;
-import vooga.rts.input.InputMethodTarget;
-import vooga.rts.input.PositionObject;
 import vooga.rts.state.State;
 import vooga.rts.util.Camera;
 import vooga.rts.util.Location;
@@ -36,13 +34,13 @@ public class InputController implements Controller {
         myState.receiveCommand(command);   
     }
     
-    @InputMethodTarget(name  = "leftMouseDown")
-    public void leftMouseDown (PositionObject o) {
+    @InputMethodTarget(name  = "onLeftMouseDown")
+    public void onLeftMouseDown (PositionObject o) {
         myLeftMouse = new Location(o.getPoint2D());
     }
     
-    @InputMethodTarget(name  = "leftMouseUp")
-    public void leftMouseUp (PositionObject o) {
+    @InputMethodTarget(name  = "onLeftMouseUp")
+    public void onLeftMouseUp (PositionObject o) {
         if (myDrag == null) {
             sendCommand(new PositionCommand("leftclick", o));
         }
@@ -58,8 +56,8 @@ public class InputController implements Controller {
         sendCommand(new PositionCommand("move", o));
     }
     
-    @InputMethodTarget(name = "mouseDrag")
-    public void mouseDrag (PositionObject o) {
+    @InputMethodTarget(name = "onMouseDrag")
+    public void onMouseDrag (PositionObject o) {
         if (!myLeftMouse.equals(null)) {
             Location3D world = Camera.instance().viewtoWorld(o.getPoint2D());
             Location3D leftWorldMouse = Camera.instance().viewtoWorld(myLeftMouse);
