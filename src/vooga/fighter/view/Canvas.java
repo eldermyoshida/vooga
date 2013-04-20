@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
+
 import javax.swing.JComponent;
 import vooga.fighter.controller.ViewDataSource;
 import vooga.fighter.view.CanvasLayout;
@@ -86,7 +88,7 @@ public class Canvas extends JComponent {
             }
         }
         else {
-            myLayout.paintComponents((Graphics2D) pen, myViewDataSource, this.getSize());
+            myLayout.paintComponents((Graphics2D)pen, myViewDataSource, this.getSize());
         }
     }
 

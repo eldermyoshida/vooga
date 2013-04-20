@@ -3,6 +3,7 @@ package vooga.fighter.view;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.awt.image.RescaleOp;
 
 import util.Pixmap;
 
@@ -20,10 +21,20 @@ public class PaletteSwap {
 	}
 
 	public void applyGreyscale(Image colorImage, int width, int height) {
-		BufferedImage image = new BufferedImage(width, height,
+		BufferedImage bufferedImage = new BufferedImage(width, height,
 				BufferedImage.TYPE_BYTE_GRAY);
-		Graphics g = image.getGraphics();
-		g.drawImage(colorImage, 0, 0, null);
-		g.dispose();
+		//Graphics g = image.getGraphics();
+		//g.drawImage(colorImage, 0, 0, null);
+		//g.dispose();
+		RescaleOp op = new RescaleOp(.9f, 0, null);
+	    bufferedImage = op.filter(bufferedImage, null);
+	}
+	
+	public void applyDarken(Image colorImage, int width, int height) throws Exception {
+	    BufferedImage bufferedImage = new BufferedImage(width, height,
+	        BufferedImage.TYPE_BYTE_INDEXED);
+
+	    RescaleOp op = new RescaleOp(.9f, 0, null);
+	    bufferedImage = op.filter(bufferedImage, null);
 	}
 }
