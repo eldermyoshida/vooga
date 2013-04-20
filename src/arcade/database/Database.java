@@ -181,4 +181,19 @@ public class Database {
     public double getAverageRating (String gameName) {
         return myUserGameDataTable.getAverageRating(gameName);
     }
+
+    public void createGame (String name,
+                            String genre,
+                            String author,
+                            double price,
+                            String formatClassFilePath,
+                            String formatClassFilePath2,
+                            int ageRating,
+                            boolean singlePlayer,
+                            boolean multiplayer,
+                            String adScreenPath,
+                            String description) {
+        // TODO Auto-generated method stub
+        
+    }
 }

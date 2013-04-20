@@ -1,6 +1,7 @@
 package arcade.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -31,8 +32,8 @@ public class Model implements ArcadeInteraction {
     private Map<String, GameInfo> myGameInfos = new HashMap<String, GameInfo>();
     private List<GameInfo> mySnapshots;
     private String myUser;
-    
-    // These will be null until you try to play a game 
+
+    // These will be null until you try to play a game
     Game myCurrentGame = null;
     MultiplayerGame myCurrentMultiplayerGame = null;
 
@@ -44,22 +45,21 @@ public class Model implements ArcadeInteraction {
     public void setLoginView (LoginView login) {
         myLoginView = login;
     }
-    
+
     /**
      * 
      * @param directoryPath
      */
-    public void publishGame(String directoryPath) {
+    public void publishGame (String directoryPath) {
         return;
     }
-    
 
     /**
      * This should be called after a developer enters the information about
      * his / her game. The method will add the game entry to the database and
      * create a new GameInfo to display in the gamecenter.
      * 
-     * This sanitizes all the input so we guarantee that all names an genres are 
+     * This sanitizes all the input so we guarantee that all names an genres are
      * lowercase on the backend.
      * 
      * @param gameName
@@ -72,8 +72,45 @@ public class Model implements ArcadeInteraction {
         addGameInfo(newGameInfo(gameName, genre));
     }
 
-    private GameInfo newGameInfo (String name, String genre) {
-        return new GameInfo(name, genre, myLanguage, this);
+    public void publish (String name,
+                         String genre,
+                         String author,
+                         double price,
+                         String extendsGame,
+                         String extendsMultiplayerGame,
+                         int ageRating,
+                         boolean singlePlayer,
+                         boolean multiplayer,
+                         String thumbnailPath,
+                         String adScreenPath,
+                         String description) {
+        
+        myDb.createGame(name.toLowerCase() ,  genre.toLowerCase() , author , price, formatClassFilePath(extendsGame), formatClassFilePath(extendsMultiplayerGame), ageRating , singlePlayer, multiplayer , adScreenPath , description);
+        addGameInfo(newGameInfo(name));
+    }
+
+    /**
+     * Tedious Java string manipulation to change something like:
+     * games/rts/ageOfEmpires/game.java
+     * to games.rts.ageOfEmpires.game
+     * so replace slashes with periods and remove the file extension
+     */
+    private String formatClassFilePath (String path) {
+        String[] split = path.split(".");
+        path = split[1];
+        split = path.split("/");
+        String ret = "";
+        for (String str : split) {
+            ret += str;
+            ret += ".";
+        }
+        // remove the period
+        ret = ret.substring(0, ret.length() - 1);
+        return ret;
+    }
+
+    private GameInfo newGameInfo (String name) {
+        return new GameInfo(name, myLanguage, myDb);
     }
 
     private void addGameInfo (GameInfo game) {
@@ -100,12 +137,10 @@ public class Model implements ArcadeInteraction {
                                       String firstname,
                                       String lastname,
                                       String dataOfBirth) {
-        if(myDb.createUser(username, pw, firstname, lastname, dataOfBirth)){
-            new LoginView(this , myResources);
+        if (myDb.createUser(username, pw, firstname, lastname, dataOfBirth)) {
+            new LoginView(this, myResources);
         }
 
-        
-        
     }
 
     public void createNewUserProfile (String username,
@@ -114,7 +149,8 @@ public class Model implements ArcadeInteraction {
                                       String lastname,
                                       String dataOfBirth,
                                       String filepath) {
-       System.out.println(myDb.createUser(username, pw, firstname, lastname, dataOfBirth, filepath));
+        System.out.println(myDb
+                .createUser(username, pw, firstname, lastname, dataOfBirth, filepath));
         authenticate(username, pw);
     }
 
