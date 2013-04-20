@@ -2,9 +2,6 @@ package vooga.towerdefense.gameeditor;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -12,16 +9,15 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import com.sun.org.apache.xalan.internal.xsltc.runtime.Attributes;
 
 /**
  * TowerEditorScreen is responsible for helping
@@ -43,6 +39,14 @@ public class TowerEditorScreen extends GameEditorScreen {
      * next screen constant.
      */
     private static final String NEXT_SCREEN_NAME = "UnitEditorScreen";
+    /**
+     * constant for text area width.
+     */
+    private static final int TEXT_AREA_WIDTH = 10;
+    /**
+     * constant for text area height.
+     */
+    private static final int TEXT_AREA_HEIGHT = 25;
     /**
      * class path for the attribute constants interface.
      */
@@ -68,6 +72,14 @@ public class TowerEditorScreen extends GameEditorScreen {
      */
     private static final String ATTRIBUTE_DELETE_BUTTON_TEXT = "Clear selected action";
     /**
+     * constant for the action section title.
+     */
+    private static final String ACTION_TITLE = "Actions";
+    /**
+     * constant for the attribute section title.
+     */
+    private static final String ATTRIBUTE_TITLE = "Attributes";
+    /**
      * string ending that indicates this file is a class.
      */
     private static final String CLASS_INDICATOR_STRING = ".class";
@@ -79,18 +91,6 @@ public class TowerEditorScreen extends GameEditorScreen {
      * constant for the image selector button.
      */
     private static final String IMAGE_SELECTOR_KEYWORD = "Select Image From File";
-    /**
-     * constant for text field height.
-     */
-    private static final int TEXT_FIELD_HEIGHT = 15;
-    /**
-     * constant for text area height.
-     */
-    private static final int TEXT_AREA_HEIGHT = 25;
-    /**
-     * constant for text field & area width.
-     */
-    private static final int TEXT_WIDTH = 25;
     /**
      * used to choose file in the directory.
      */
@@ -165,16 +165,15 @@ public class TowerEditorScreen extends GameEditorScreen {
      * helper method to create all the parts of
      *          the TowerEditorScreen.
      */
-    private void makeScreen() {
+    private void makeScreen() {   
         addCharacteristicsPanel();
         try {
-            addAttributesSection();
-        }
-        catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        try {
-            addActionsSection();
+            JPanel attributes = makeAttributesSection();
+            JPanel actions = makeActionsSection();
+            JPanel bottomScreen = new JPanel(new BorderLayout());
+            bottomScreen.add(attributes, BorderLayout.NORTH);
+            bottomScreen.add(actions, BorderLayout.SOUTH);
+            add(bottomScreen, BorderLayout.SOUTH);
         }
         catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -194,73 +193,6 @@ public class TowerEditorScreen extends GameEditorScreen {
     }
     
     /**
-     * helper method to make the attributes drop down box,
-     *          button, and text field.
-     * @throws ClassNotFoundException 
-     */
-    private void addAttributesSection() throws ClassNotFoundException {
-        JPanel attributesSection = new JPanel();
-        myAttributesBox = new JComboBox();
-        Class attributesClass = Class.forName(ATTRIBUTES_CLASS_PATH);
-        Field fieldList[] = attributesClass.getDeclaredFields();
-        for (Field field : fieldList) {
-            myAttributesBox.addItem(field.getName());
-        }
-        attributesSection.add(myAttributesBox);
-        myAttributeValue = new JTextField();
-        attributesSection.add(myAttributeValue);
-        myAttributesSelected = new JTextArea(TEXT_WIDTH, TEXT_AREA_HEIGHT);
-        attributesSection.add(new JScrollPane(myAttributesSelected));
-        myAddAttributeButton = new JButton(ATTRIBUTES_ADD_BUTTON_TEXT);
-        myAddAttributeButton.addMouseListener(myMouseAdapter);
-        attributesSection.add(myAddAttributeButton);
-        myDeleteAttributeButton = new JButton(ATTRIBUTE_DELETE_BUTTON_TEXT);
-        myDeleteAttributeButton.addMouseListener(myMouseAdapter);
-        attributesSection.add(myDeleteAttributeButton);
-        add(attributesSection);
-    }
-    
-    /**
-     * helper method to make the text boxes for
-     *          name and image + image button.
-     */
-    private void addCharacteristicsPanel() {
-        JPanel characteristicsPanel = new JPanel(new BorderLayout());
-        myNameBox = new JTextField();
-        myImageBox = new JTextField();
-        myImageSelector = new JButton(IMAGE_SELECTOR_KEYWORD);
-        myImageSelector.addMouseListener(myMouseAdapter);
-        characteristicsPanel.add(myNameBox, BorderLayout.NORTH);
-        characteristicsPanel.add(myImageBox, BorderLayout.CENTER);
-        characteristicsPanel.add(myImageSelector, BorderLayout.SOUTH);
-        add(characteristicsPanel, BorderLayout.NORTH); 
-    }
-    
-    /**
-     * helper method to make the actions section of this screen.
-     * @throws ClassNotFoundException
-     * @throws IOException 
-     */
-    private void addActionsSection() throws ClassNotFoundException, IOException {
-        JPanel actionSection = new JPanel();
-        myActionsBox = new JComboBox();
-        List<String> actions = getAvailableActions(ACTION_PACKAGE_PATH); 
-        for (String s : actions) {
-            myActionsBox.addItem(s);
-        }
-        actionSection.add(myActionsBox);
-        myActionsSelected = new JTextArea(TEXT_WIDTH, TEXT_AREA_HEIGHT);
-        actionSection.add(new JScrollPane(myActionsSelected));
-        myAddActionButton = new JButton(ACTION_ADD_BUTTON_TEXT);
-        myAddActionButton.addMouseListener(myMouseAdapter);
-        actionSection.add(myAddActionButton);
-        myDeleteActionButton = new JButton(ACTION_DELETE_BUTTON_TEXT);
-        myDeleteActionButton.addMouseListener(myMouseAdapter);
-        actionSection.add(myDeleteActionButton);
-        add(actionSection);
-    }
-    
-    /**
      * clears all fields in the TowerEditorScreen.
      */
     public void clearScreen() {
@@ -269,7 +201,124 @@ public class TowerEditorScreen extends GameEditorScreen {
         myAttributesSelected.setText("");
         myActionsSelected.setText("");
     }
+
+    /**
+     * helper method to make the text boxes for
+     *          name and image + image button.
+     */
+    private void addCharacteristicsPanel() {
+        JPanel characteristicsPanel = new JPanel();
+        myNameBox = new JTextField(TEXT_AREA_WIDTH);
+        myImageBox = new JTextField(TEXT_AREA_WIDTH);
+        myImageSelector = new JButton(IMAGE_SELECTOR_KEYWORD);
+        myImageSelector.addMouseListener(myMouseAdapter);
+        characteristicsPanel.add(new JLabel("Name: "));
+        characteristicsPanel.add(myNameBox);
+        characteristicsPanel.add(new JLabel("Image: "));
+        characteristicsPanel.add(myImageBox);
+        characteristicsPanel.add(myImageSelector);
+        add(characteristicsPanel, BorderLayout.NORTH); 
+    }
     
+    /**
+     * helper method to make the actions section of this screen.
+     * @throws ClassNotFoundException
+     * @throws IOException 
+     */
+    private JPanel makeActionsSection() throws ClassNotFoundException, IOException {
+        JPanel actionSection = new JPanel(new BorderLayout());
+        JPanel westSide = new JPanel(new BorderLayout());
+        westSide.add(new JLabel(ACTION_TITLE), BorderLayout.NORTH);
+        myActionsBox = new JComboBox();
+        List<String> actions = getAvailableActions(ACTION_PACKAGE_PATH); 
+        for (String s : actions) {
+            myActionsBox.addItem(s);
+        }
+        westSide.add(myActionsBox, BorderLayout.CENTER);
+        actionSection.add(westSide, BorderLayout.WEST);
+        myActionsSelected = new JTextArea(TEXT_AREA_WIDTH, TEXT_AREA_HEIGHT);
+        actionSection.add(new JScrollPane(myActionsSelected), BorderLayout.CENTER);
+        myAddActionButton = new JButton(ACTION_ADD_BUTTON_TEXT);
+        myAddActionButton.addMouseListener(myMouseAdapter);
+        JPanel optionsSubPanel = new JPanel(new BorderLayout());
+        optionsSubPanel.add(myAddActionButton, BorderLayout.NORTH);
+        myDeleteActionButton = new JButton(ACTION_DELETE_BUTTON_TEXT);
+        myDeleteActionButton.addMouseListener(myMouseAdapter);
+        optionsSubPanel.add(myDeleteActionButton, BorderLayout.SOUTH);
+        JPanel eastSide = new JPanel(new BorderLayout());
+        eastSide.add(optionsSubPanel, BorderLayout.NORTH);
+        actionSection.add(eastSide, BorderLayout.EAST);
+        return actionSection;
+    }
+    
+    /**
+     * helper method to make the attributes drop down box,
+     *          button, and text field.
+     * @throws ClassNotFoundException 
+     */
+    private JPanel makeAttributesSection() throws ClassNotFoundException {
+        JPanel attributesSection = new JPanel(new BorderLayout());
+        JPanel optionsSubPanel1 = new JPanel(new BorderLayout());
+        optionsSubPanel1.add(new JLabel(ATTRIBUTE_TITLE), BorderLayout.NORTH);
+        myAttributesBox = new JComboBox();
+        Class attributesClass = Class.forName(ATTRIBUTES_CLASS_PATH);
+        Field fieldList[] = attributesClass.getDeclaredFields();
+        for (Field field : fieldList) {
+            myAttributesBox.addItem(field.getName());
+        }
+        optionsSubPanel1.add(myAttributesBox, BorderLayout.CENTER);
+        myAttributeValue = new JTextField();
+        optionsSubPanel1.add(myAttributeValue, BorderLayout.SOUTH);
+        attributesSection.add(optionsSubPanel1, BorderLayout.WEST);
+        myAttributesSelected = new JTextArea(TEXT_AREA_WIDTH, TEXT_AREA_HEIGHT);
+        attributesSection.add(new JScrollPane(myAttributesSelected), BorderLayout.CENTER);
+        JPanel optionsSubPanel2 = new JPanel(new BorderLayout());
+        myAddAttributeButton = new JButton(ATTRIBUTES_ADD_BUTTON_TEXT);
+        myAddAttributeButton.addMouseListener(myMouseAdapter);
+        optionsSubPanel2.add(myAddAttributeButton, BorderLayout.NORTH);
+        myDeleteAttributeButton = new JButton(ATTRIBUTE_DELETE_BUTTON_TEXT);
+        myDeleteAttributeButton.addMouseListener(myMouseAdapter);
+        optionsSubPanel2.add(myDeleteAttributeButton, BorderLayout.SOUTH);
+        JPanel eastSide = new JPanel(new BorderLayout());
+        eastSide.add(optionsSubPanel2, BorderLayout.NORTH);
+        attributesSection.add(eastSide, BorderLayout.EAST);
+        return attributesSection;
+    }
+
+    /**
+     * helper method to get the classes in this package.
+     * @param packageName
+     * @return list of classes in the package
+     * @throws IOException 
+     * @throws ClassNotFoundException 
+     */
+    @SuppressWarnings("rawtypes")
+    private List<String> getAvailableActions(String packageName) throws IOException, ClassNotFoundException {
+        List<String> classNames = new ArrayList<String>();
+        List<Class> classes = new ArrayList<Class>();
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        String path = packageName.replace(".", "/");
+        URL resource = classLoader.getResource(path);
+        File directory = new File(resource.getFile());
+        if (directory.exists()) {
+            File[] files = directory.listFiles();
+            for (File file : files) {
+                if (file.getName().endsWith(CLASS_INDICATOR_STRING)) {
+                    classes.add(Class.forName(packageName + "." +
+                            file.getName().subSequence(0, file.getName().length()
+                                 - CLASS_INDICATOR_STRING.length())));
+                }
+            }
+        }
+        for (Class c : classes) {
+            classNames.add(c.getName().substring(packageName.length()+1, c.getName().length()));
+        }
+        if (classNames.contains("Action")) {
+            classNames.remove("Action");
+        }
+        return classNames;
+    }
+
     /**
      * helper method to create the mouse listener.
      * @return mouse adapter
@@ -304,39 +353,5 @@ public class TowerEditorScreen extends GameEditorScreen {
             }
         };
         return mouseAdapter;
-    }
-    
-    /**
-     * helper method to get the classes in this package.
-     * @param packageName
-     * @return list of classes in the package
-     * @throws IOException 
-     * @throws ClassNotFoundException 
-     */
-    @SuppressWarnings("rawtypes")
-    private List<String> getAvailableActions(String packageName) throws IOException, ClassNotFoundException {
-        List<String> classNames = new ArrayList<String>();
-        List<Class> classes = new ArrayList<Class>();
-        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        String path = packageName.replace(".", "/");
-        URL resource = classLoader.getResource(path);
-        File directory = new File(resource.getFile());
-        if (directory.exists()) {
-            File[] files = directory.listFiles();
-            for (File file : files) {
-                if (file.getName().endsWith(CLASS_INDICATOR_STRING)) {
-                    classes.add(Class.forName(packageName + "." +
-                            file.getName().subSequence(0, file.getName().length()
-                                 - CLASS_INDICATOR_STRING.length())));
-                }
-            }
-        }
-        for (Class c : classes) {
-            classNames.add(c.getName().substring(packageName.length()+1, c.getName().length()));
-        }
-        if (classNames.contains("Action")) {
-            classNames.remove("Action");
-        }
-        return classNames;
     }
 }
