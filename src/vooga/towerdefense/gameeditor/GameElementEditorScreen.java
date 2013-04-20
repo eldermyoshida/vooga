@@ -214,9 +214,10 @@ public abstract class GameElementEditorScreen extends GameEditorScreen {
         JPanel westSide = new JPanel(new BorderLayout());
         westSide.add(new JLabel(ACTION_TITLE), BorderLayout.NORTH);
         myActionsBox = new JComboBox();
-        List<String> actions = getAvailableActions(ACTION_PACKAGE_PATH); 
-        for (String s : actions) {
-            myActionsBox.addItem(s);
+        List<Class> actions = getController().getClassesInPackage(ACTION_PACKAGE_PATH); 
+        for (Class c : actions) {
+            myActionsBox.addItem(c.toString().substring(ACTION_PACKAGE_PATH.length(),
+               c.toString().length()-GameEditorController.CLASS_INDICATOR_STRING.length()));
         }
         westSide.add(myActionsBox, BorderLayout.CENTER);
         actionSection.add(westSide, BorderLayout.WEST);
@@ -267,40 +268,6 @@ public abstract class GameElementEditorScreen extends GameEditorScreen {
         eastSide.add(optionsSubPanel2, BorderLayout.NORTH);
         attributesSection.add(eastSide, BorderLayout.EAST);
         return attributesSection;
-    }
-
-    /**
-     * helper method to get the classes in this package.
-     * @param packageName
-     * @return list of classes in the package
-     * @throws IOException 
-     * @throws ClassNotFoundException 
-     */
-    @SuppressWarnings("rawtypes")
-    private List<String> getAvailableActions(String packageName) throws IOException, ClassNotFoundException {
-        List<String> classNames = new ArrayList<String>();
-        List<Class> classes = new ArrayList<Class>();
-        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        String path = packageName.replace(".", "/");
-        URL resource = classLoader.getResource(path);
-        File directory = new File(resource.getFile());
-        if (directory.exists()) {
-            File[] files = directory.listFiles();
-            for (File file : files) {
-                if (file.getName().endsWith(CLASS_INDICATOR_STRING)) {
-                    classes.add(Class.forName(packageName + "." +
-                            file.getName().subSequence(0, file.getName().length()
-                                 - CLASS_INDICATOR_STRING.length())));
-                }
-            }
-        }
-        for (Class c : classes) {
-            classNames.add(c.getName().substring(packageName.length()+1, c.getName().length()));
-        }
-        if (classNames.contains("Action")) {
-            classNames.remove("Action");
-        }
-        return classNames;
     }
 
     /**

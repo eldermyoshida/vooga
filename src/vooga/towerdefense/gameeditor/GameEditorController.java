@@ -2,8 +2,11 @@ package vooga.towerdefense.gameeditor;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
@@ -17,6 +20,7 @@ import vooga.towerdefense.gameElements.Wave;
  */
 public class GameEditorController extends JFrame {
     
+    public static final String CLASS_INDICATOR_STRING = ".class";
     /**
      * default serialized id.
      */
@@ -151,5 +155,32 @@ public class GameEditorController extends JFrame {
         
         this.pack();
         setVisible(true);
+    }
+    
+    /**
+     * Get the classes in this package.
+     * @param packageName
+     * @return list of classes in the package
+     * @throws IOException 
+     * @throws ClassNotFoundException 
+     */
+    @SuppressWarnings("rawtypes")
+    public List<Class> getClassesInPackage(String packageName) throws IOException, ClassNotFoundException {
+        List<Class> classes = new ArrayList<Class>();
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        String path = packageName.replace(".", "/");
+        URL resource = classLoader.getResource(path);
+        File directory = new File(resource.getFile());
+        if (directory.exists()) {
+            File[] files = directory.listFiles();
+            for (File file : files) {
+                if (file.getName().endsWith(CLASS_INDICATOR_STRING)) {
+                    classes.add(Class.forName(packageName + "." +
+                            file.getName().subSequence(0, file.getName().length()
+                                 - CLASS_INDICATOR_STRING.length())));
+                }
+            }
+        }
+        return classes;
     }
 }
