@@ -20,16 +20,12 @@ public class MapEditorScreen extends GameEditorScreen {
     
     public MapEditorScreen(Dimension size, GameEditorController controller) {
         System.out.println("makeMapScreen");
+        myController = controller;
         setLayout(new BorderLayout());
         setPreferredSize(size);
         makeMouseAdapter();
         makeButton();
         add(myMapChooserButton, BorderLayout.EAST);
-    }
-    
-    public void display() {
-        setVisible(true);        
-        repaint();
     }
     
     public void paintComponent(Graphics pen) {

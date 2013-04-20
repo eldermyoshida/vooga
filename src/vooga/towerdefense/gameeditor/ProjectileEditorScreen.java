@@ -7,34 +7,42 @@ import java.awt.event.MouseEvent;
 import java.lang.reflect.InvocationTargetException;
 import javax.swing.JButton;
 
-public class ViewEditorScreen extends GameEditorScreen {
+public class ProjectileEditorScreen extends GameEditorScreen {
 
-    private static final String VIEW_CHOOSER_KEYWORD = "Add this view to game";
-    private static final String NEXT_SCREEN_NAME = "vooga.towerdefense.gameeditor.ProjectileEditorScreen";
-    private JButton myViewChooserButton;
+    private static final String PROJECTILE_CHOOSER_KEYWORD = "Add this projectile to game";
+    private static final String PROJECTILE_FINISH_KEYWORD = "Finish with projectiles";
+    private static final String NEXT_SCREEN_NAME = "vooga.towerdefense.gameeditor.UnitEditorScreen";
+    private JButton myProjectileChooserButton;
+    private JButton myProjectileFinishButton;
     private MouseAdapter myMouseAdapter;
     private GameEditorController myController;
     
-    public ViewEditorScreen(Dimension size, GameEditorController controller) {
+    public ProjectileEditorScreen(Dimension size, GameEditorController controller) {
         myController = controller;
         setLayout(new BorderLayout());
         setPreferredSize(size);
         makeMouseAdapter();
-        makeButton();
+        makeButtons();
+        add(myProjectileChooserButton);
+        add(myProjectileFinishButton);
     }
     
-    private void makeButton() {
-        myViewChooserButton = new JButton(VIEW_CHOOSER_KEYWORD);
-        myViewChooserButton.addMouseListener(myMouseAdapter);
-        myViewChooserButton.setVisible(true);
+    private void makeButtons() {
+        myProjectileChooserButton = new JButton(PROJECTILE_CHOOSER_KEYWORD);
+        myProjectileChooserButton.addMouseListener(myMouseAdapter);
+        myProjectileChooserButton.setVisible(true);
+        myProjectileFinishButton = new JButton(PROJECTILE_FINISH_KEYWORD);
+        myProjectileFinishButton.addMouseListener(myMouseAdapter);
+        myProjectileFinishButton.setVisible(true);
     }
     
     private void makeMouseAdapter() {
         myMouseAdapter = new MouseAdapter() {
             @Override
             public void mouseClicked (MouseEvent e) {
-                if (e.getSource().equals(myViewChooserButton)) {
-                    myController.addViewToGame();
+                if (e.getSource().equals(myProjectileChooserButton)) {
+                    myController.addProjectileToGame();
+                if (e.getSource().equals(myProjectileFinishButton))
                     try {
                         myController.displayNextScreen(NEXT_SCREEN_NAME);
                     }

@@ -29,12 +29,27 @@ public class GameEditorController extends JFrame {
     
     public void addMapToGame() {
         //TODO: implement
-        System.out.println("add map to game");        
+        System.out.println("added map to game");        
+    }
+    
+    public void addProjectileToGame() {
+        //TODO: implement
+        System.out.println("added projectile to game");            
+    }
+    
+    public void addUnitToGame() {
+        //TODO: implement
+        System.out.println("added unit to game");         
     }
     
     public void addTowerToGame() {
         //TODO: implement
-        System.out.println("add tower to game");
+        System.out.println("added tower to game");
+    }
+    
+    public void addViewToGame() {
+        //TODO: implement
+        System.out.println("add this view to game");        
     }
     
     public void displayNextScreen(String nextScreenName) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SecurityException, NoSuchMethodException, IllegalArgumentException, InvocationTargetException {

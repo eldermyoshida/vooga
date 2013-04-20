@@ -28,11 +28,6 @@ public class StartUpScreen extends GameEditorScreen {
         add(myStartButton);
     }
     
-    public void display() {
-        setVisible(true);        
-        repaint();
-    }
-    
     public void paintComponent(Graphics pen) {
         super.paintComponent(pen);
     }
