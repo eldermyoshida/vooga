@@ -24,7 +24,7 @@ public class VisitMethods {
     }
     
     public void visit (IPlayer player, ICoin coin) {
-        player.getPlayer().incrementScore(coin.getValue());
+        player.incrementScore(coin.getValue());
         coin.takeHit(player.getPlayer().getHit());
     }
     
@@ -33,11 +33,11 @@ public class VisitMethods {
             enemy.takeHit(player.getPlayer().getHit());
         }
         else {
-            player.getPlayer().takeHit(enemy.getHit());
+            player.takeHit(enemy.getHit());
         }        
     }
     
     public void visit (IPlayer player, ILevelPortal levelPortal) {
-        levelPortal.getLevelPortal().goToNextLevel(player.getPlayer());
+        levelPortal.goToNextLevel(player.getPlayer());
     }
 }
