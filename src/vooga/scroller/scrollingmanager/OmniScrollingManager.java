@@ -1,135 +1,129 @@
 
 package vooga.scroller.scrollingmanager;
 
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import util.Location;
-import vooga.scroller.model.Model;
 import vooga.scroller.sprites.superclasses.Player;
-import vooga.scroller.view.View;
 /**
  * The default scrolling manager
  * @author Ross
  *
  */
 public class OmniScrollingManager extends ScrollingManager {
-    private Model myGame;
-    private View myView;
-    
-    public void initModel(Model game) {
-        myGame = game;
-    }
-
-    public void initView(View view) {
-        myView = view;
-    }
 
     protected int upperpaintbound() {
-        if(myGame != null & myView != null) {
-            int vertical = ((int) myGame.getLowerBoundary() + myView.getHeight()*1000) % myView.getHeight();
+        if (getModel() != null & getView() != null) {
+            int vertical = (int) (((int) getModel().getLowerBoundary() 
+                    + getView().getHeight() * levelLowerBoundary()) % getView().getHeight());
             return 0 - vertical;
         }
         return 0;
     }
 
     protected int lowerpaintbound() { 
-        if(myGame != null & myView != null) {
-            int vertical = ((int) myGame.getLowerBoundary() + myView.getHeight()*1000) % myView.getHeight();
-            return myView.getHeight() - vertical;
+        if (getModel() != null & getView() != null) {
+            int vertical = (int) (((int) getModel().getLowerBoundary() 
+                    + getView().getHeight() * levelLowerBoundary()) % getView().getHeight());
+            return getView().getHeight() - vertical;
         }
         return 0;
 
     }
 
     protected int leftpaintbound() {
-        if(myGame != null && myView != null) {
-            int horizontal = ((int) myGame.getRightBoundary() + myView.getWidth()*1000) % myView.getWidth();
+        if (getModel() != null && getView() != null) {
+            int horizontal = (int) (((int) getModel().getRightBoundary() 
+                    + getView().getWidth() * levelRightBoundary()) % getView().getWidth());
             return 0 - horizontal;
         }
         return 0;
     }
 
     protected int rightpaintbound() {
-        if(myGame != null & myView != null) {
-            int horizontal = ((int) myGame.getRightBoundary() + myView.getWidth()*1000) % myView.getWidth();
-            return myView.getWidth() - horizontal;
+        if (getModel() != null & getView() != null) {
+            int horizontal = (int) (((int) getModel().getRightBoundary() 
+                    + getView().getWidth() * levelRightBoundary()) % getView().getWidth());
+            return getView().getWidth() - horizontal;
         }
         return 0;
     }
     
-    public double levelRightBoundary () {
-        return myGame.getLevelBounds().getWidth();
-    }
-
-    public double levelLeftBoundary () {
-        return 0;
-    }
-
-    public double levelUpperBoundary () {
-        return 0;
-    }
-
-    public double levelLowerBoundary () {        
-        return myGame.getLevelBounds().getHeight();
-    }
-    
-    public Image getBackground() {
-        return myGame.getBackground();
-    }
-    
+    /**
+     * Paints the View for the game, given the constraints of the ScrollingManger.
+     * @param pen The Graphics object that will be doing the painting.
+     */  
     public void viewPaint(Graphics pen) {
-        Image img = getBackground();
-        int imgwidth = img.getWidth(null);
-        int imgheight = img.getHeight(null);
         int leftpaintbound = leftpaintbound();
         int upperpaintbound = upperpaintbound();
         int rightpaintbound = rightpaintbound();
         int lowerpaintbound = lowerpaintbound();
         
-        if(myGame.getLeftBoundary() < levelLeftBoundary()) {
+        if (getModel().getLeftBoundary() < levelLeftBoundary()) {
             leftpaintbound = (int) levelLeftBoundary();
             rightpaintbound = (int) levelRightBoundary();
         }
         
-        if(myGame.getRightBoundary() > levelRightBoundary()) {
-            leftpaintbound =  - ((int) levelRightBoundary() % myGame.getBackground().getWidth(null));
-            rightpaintbound = myView.getWidth()  - ((int) levelRightBoundary() % myGame.getBackground().getWidth(null));
+        if (getModel().getRightBoundary() > levelRightBoundary()) {
+            leftpaintbound =  -((int) levelRightBoundary() 
+                    % getModel().getBackground().getWidth(null));
+            rightpaintbound = getView().getWidth()  - ((int) levelRightBoundary() 
+                    % getModel().getBackground().getWidth(null));
             
         }
-        if(myGame.getLowerBoundary() > levelLowerBoundary()) {
-            upperpaintbound = - ((int) levelLowerBoundary() % myGame.getBackground().getHeight(null));
-            lowerpaintbound = myView.getHeight()  - ((int) levelLowerBoundary() % myGame.getBackground().getHeight(null));
+        if (getModel().getLowerBoundary() > levelLowerBoundary()) {
+            upperpaintbound = -((int) levelLowerBoundary() 
+                    % getModel().getBackground().getHeight(null));
+            lowerpaintbound = getView().getHeight()  - ((int) levelLowerBoundary() 
+                    % getModel().getBackground().getHeight(null));
         }
-        if(myGame.getUpperBoundary() < levelUpperBoundary()) {
+        if (getModel().getUpperBoundary() < levelUpperBoundary()) {
             upperpaintbound = (int) levelUpperBoundary();
             lowerpaintbound = (int) levelLowerBoundary();
         }
+        scrollerDrawImage(pen, leftpaintbound, upperpaintbound, rightpaintbound, lowerpaintbound);
+
+    }
+    
+
+    private void scrollerDrawImage (Graphics pen, 
+                                    int leftpaintbound, int upperpaintbound, 
+                                    int rightpaintbound, int lowerpaintbound) {
+        Image img = getBackground();
+        int imgwidth = img.getWidth(null);
+        int imgheight = img.getHeight(null);
+        
         pen.drawImage(img, leftpaintbound, upperpaintbound, imgwidth, imgheight, null);
         pen.drawImage(img, rightpaintbound, upperpaintbound, imgwidth, imgheight, null);
         pen.drawImage(img, leftpaintbound, lowerpaintbound, imgwidth, imgheight, null);
         pen.drawImage(img, rightpaintbound, lowerpaintbound, imgwidth, imgheight, null);
-        myGame.paint((Graphics2D) pen);
+        getModel().paint((Graphics2D) pen);
     }
 
+    /**
+     * Given a player, returns the Location given the current state of the Model 
+     * that the Player needs to be painted. 
+     * @param p The Player for which the paint Location is being updated.
+     * @return The Location that the player should be painted.
+     */  
     public Location playerPaintLocation (Player p) {
-        double halfwidth = myView.getWidth() / 2;
-        double halfheight = myView.getHeight() / 2;
+        double halfwidth = getView().getWidth() / 2;
+        double halfheight = getView().getHeight() / 2;
         double x = halfwidth;
         double y = halfheight;
         double playerlocx = p.getX();
         double playerlocy = p.getY();
-        if(playerlocx > (levelRightBoundary() - halfwidth)) {
+        if (playerlocx > (levelRightBoundary() - halfwidth)) {
             x =  halfwidth + (halfwidth - (levelRightBoundary() - playerlocx));
         }
-        if(playerlocx < (levelLeftBoundary() + halfwidth)) {
+        if (playerlocx < (levelLeftBoundary() + halfwidth)) {
             x =  halfwidth - (halfwidth - (levelLeftBoundary() + playerlocx));
         }
-        if(playerlocy > (levelLowerBoundary() - halfheight)) {
+        if (playerlocy > (levelLowerBoundary() - halfheight)) {
             y =  halfheight + (halfheight - (levelLowerBoundary() - playerlocy));
         }
-        if(playerlocy < (levelUpperBoundary() + halfheight)) {
+        if (playerlocy < (levelUpperBoundary() + halfheight)) {
             y =  halfheight - (halfheight - (levelUpperBoundary() + playerlocy));
         }        
         return new Location(x, y);
