@@ -101,6 +101,7 @@ public abstract class GameEditorScreen extends JPanel {
             @Override
             public void mouseClicked (MouseEvent e) {
                 if (e.getSource().equals(myAddButton)) {
+                    System.out.println("add to game");
                     addElementToGame();
                 if (e.getSource().equals(myFinishButton))
                     try {
