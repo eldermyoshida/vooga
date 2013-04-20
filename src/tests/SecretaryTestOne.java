@@ -3,6 +3,7 @@ package tests;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import util.Secretary;
+import util.Secretary.Invokeable;
 
 
 public class SecretaryTestOne {
@@ -10,7 +11,7 @@ public class SecretaryTestOne {
     private Secretary mySecretary;
     
     public SecretaryTestOne () throws IOException {
-        new Secretary("src/tests/", "Example1.txt");
+        mySecretary = new Secretary("src/tests/", "Example1.txt");
 
     }
 
@@ -35,7 +36,7 @@ public class SecretaryTestOne {
         mySecretary.saveSession("Example1.txt");
     }
 
-    private void loadSession () throws IllegalArgumentException, IOException, IllegalAccessException, InvocationTargetException {
+    private void loadSession1 () throws IllegalArgumentException, IOException, IllegalAccessException, InvocationTargetException {
         try {
             mySecretary.loadSession("Example1.txt", "printLine", this);
         }
@@ -47,6 +48,14 @@ public class SecretaryTestOne {
         }
     }
     
+    private void loadSession2() throws IOException, SecurityException, NoSuchMethodException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
+        mySecretary.loadSession("Example1.txt", new Invokeable() {
+            public void invoke(String line) {
+                System.out.println(line);
+            }
+        });
+    }
+    
     
     public void printLine (String string) {
         System.out.println(string);
@@ -54,10 +63,10 @@ public class SecretaryTestOne {
     
     
 
-    public static void main (String[] args) throws IllegalArgumentException, IOException, IllegalAccessException, InvocationTargetException {
+    public static void main (String[] args) throws IllegalArgumentException, IOException, IllegalAccessException, InvocationTargetException, SecurityException, NoSuchMethodException {
         SecretaryTestOne test = new SecretaryTestOne();
         test.permutation("hello");
 //        test.saveSession();
-        test.loadSession();
+        test.loadSession1();
     }
 }

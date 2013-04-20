@@ -27,6 +27,8 @@ import java.util.regex.Pattern;
  * saveSession(String fileName) --> allows you to save a session file onto your disk
  * loadSession(String filename, String methodName, Object object) --> allows you to load a file from
  * your disk into your machine and perform
+ * loadSession(String fileName, Invokeable object) --> allows you to pass in an anonymous function that 
+ * implements invoke however you like 
  * whatever method you want on it (that method must take a String as parameter).
  * 
  * @author Jay Wang
@@ -37,11 +39,8 @@ public class Secretary {
     private FileWriter myFileWriter;
     private FileChannel sourceChannel;
     private FileChannel targetChannel;
-    /*
-     * YOU NEED TO CHANGE THESE THREE ENTITIES ESPESIALLY THE PATH
-     */
-    private static String FILE_PATH;
-    private static String SESSION_FILE;
+    private final String FILE_PATH;
+    private final String SESSION_FILE;
     private static final String TMP_FILE = "tmp.txt";
 
     /**
@@ -70,7 +69,7 @@ public class Secretary {
      * that file in src/Files.
      * 
      * @param String fileName - name of the file (i.e. Example1.txt)
-     * @throws IOException 
+     * @throws IOException
      */
     public void saveSession (String fileName) throws IOException {
         save(SESSION_FILE, fileName);
@@ -104,24 +103,54 @@ public class Secretary {
                                                                                IllegalAccessException,
                                                                                InvocationTargetException {
 
-        BufferedReader reader = getReader(fileName);
-        String line;
         @SuppressWarnings("rawtypes")
         Class[] parameterTypes = { String.class };
         Method method = object.getClass().getMethod(methodName, parameterTypes);
+        load(fileName, method, object);
+    }
 
+    /**
+     * This will load the File fileName and iterate through each line of the file
+     * allowing the user to do whatever operation he/she chooses based on what
+     * method he/she sends over.
+     * 
+     * NOTE - this method must an Invokeable Object as a parameter
+     * 
+     * The user can decide what to do which each line of the file:
+     * parse it, print it to console, etc...
+     * 
+     * @param String fileName - name of the file (i.e. Example1.txt)
+     * @param Invokeable object - the anonymous class (of type Invokeable) that you create
+     * @throws NoSuchMethodException
+     * @throws SecurityException
+     * @throws InvocationTargetException
+     * @throws IllegalAccessException
+     * @throws IOException
+     * @throws IllegalArgumentException
+     */
+    public void loadSession (String fileName, Invokeable object)
+                                                                throws IOException,
+                                                                SecurityException,
+                                                                NoSuchMethodException,
+                                                                IllegalArgumentException,
+                                                                IllegalAccessException,
+                                                                InvocationTargetException {
+
+        BufferedReader reader = getReader(fileName);
+        String line;
         while ((line = reader.readLine()) != null) {
-            method.invoke(object, line);
+            object.invoke(line);
 
         }
         reader.close();
+
     }
 
     /**
      * This will write the string parameter to the session.txt file.
      * 
      * @param String string - the string that is going to be written to the file
-     * @throws IOException 
+     * @throws IOException
      */
     public void write (String string) throws IOException {
         write(myFileWriter, string);
@@ -205,5 +234,23 @@ public class Secretary {
         BufferedReader reader = null;
         reader = new BufferedReader(new FileReader(FILE_PATH + fileName));
         return reader;
+    }
+
+    private void load (String fileName, Method method, Object object)
+                                                                     throws IllegalArgumentException,
+                                                                     IOException,
+                                                                     IllegalAccessException,
+                                                                     InvocationTargetException {
+        BufferedReader reader = getReader(fileName);
+        String line;
+        while ((line = reader.readLine()) != null) {
+            method.invoke(object, line);
+
+        }
+        reader.close();
+    }
+
+    public static interface Invokeable {
+        public void invoke (String line);
     }
 }
