@@ -25,6 +25,6 @@ public interface IProducer {
   /** 
    *  requires a timer for cooldown for production 
    */
-  public void produce(InteractiveEntity producer);
+  public void createProductionActions(InteractiveEntity producer);
 
 }

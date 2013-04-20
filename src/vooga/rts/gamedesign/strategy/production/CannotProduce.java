@@ -16,7 +16,7 @@ public class CannotProduce implements IProducer{
 
 
     @Override
-    public void produce (InteractiveEntity producer) {
+    public void createProductionActions (InteractiveEntity producer) {
         //this will do nothing. 
     }
 
