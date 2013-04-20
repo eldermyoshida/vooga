@@ -51,12 +51,11 @@ public class MenuMode extends Mode {
         myCollisionManager.checkCollisions(getMyObjects());
     }
 
-    public List<String> getMenuNames(){
-    	List list = new ArrayList<String>();
+    public String getMenusNext(String value){
     	for(MenuObject menu : myMenuObjects){
-    		list.add(menu.getChoice());
+    		if(menu.getValue().equals(value)) return menu.getNext(); 
     	}
-    	return list;
+    	return "";
     }
 
     @Override

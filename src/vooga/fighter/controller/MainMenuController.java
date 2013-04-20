@@ -65,11 +65,7 @@ public class MainMenuController extends MenuController {
     
     public void checkConditions(){
     	String choice = getMode().getChoice();
-    	for(String other: getMode().getMenuNames()){
-        	if(other.equals(choice)){
-        		notifyEndCondition(choice);
-        	}
-    	}
+    	if(!choice.equals("")) notifyEndCondition(getMode().getMenusNext(choice));
     }
 
 }

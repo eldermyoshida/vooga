@@ -1,3 +1,4 @@
+
 package vooga.fighter.controller;
 
 
@@ -51,7 +52,6 @@ public class ControllerManager implements ControllerDelegate{
 
 	private void switchController(String condition) {
 		myCurrentController.stop();
-		System.out.println(condition);
 		myCurrentController = myProgressionManager.getNextController(myCurrentController, condition);
 		System.out.println("<controllermanager> now the controller is: " + myCurrentController.getName() );
 		//myCurrentController.displaySplash();

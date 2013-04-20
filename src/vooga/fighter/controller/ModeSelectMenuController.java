@@ -46,20 +46,12 @@ public class ModeSelectMenuController extends MenuController {
     
     public void notifyEndCondition(String choice) {
     	removeListener();
-    	if(EXIT.equals(choice)){
-    		getManager().exit();
-    	}
-    	else if(BACK.equals(choice)){
-    		getManager().notifyEndCondition(BACK);
-    	}
-    	else { //if(getMode().getMenuNames().contains(choice)){
     		getGameInfo().setGameMode(choice);
     		getGameInfo().setNumCharacters(2);//Integer.parseInt(myResources.getString(choice)));
-    		getManager().notifyEndCondition("CharacterSelectMenu");
-    		}
-    	}
-    
-    
+    		getManager().notifyEndCondition(getMode().getMenusNext(choice));
+
+    		
+    }
     @InputMethodTarget(name = "continue")
     public void mouseclick(PositionObject pos)  {
         super.getMode().addObject(new MouseClickObject(pos.getPoint2D()));
@@ -72,12 +64,7 @@ public class ModeSelectMenuController extends MenuController {
     
     public void checkConditions(){
     	String choice = getMode().getChoice();
-    	if(!choice.equals("")) notifyEndCondition("1v1");
-    	for(String other: getMode().getMenuNames()){
-        	if(other.equals(choice)){
-        		notifyEndCondition(choice);
-        	}
-    	}
+    	if(!choice.equals("")) notifyEndCondition(choice);
     }
 
 }

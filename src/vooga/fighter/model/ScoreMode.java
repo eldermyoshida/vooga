@@ -57,13 +57,13 @@ public class ScoreMode extends Mode {
         return false;
     }
     
-    public List<String> getMenuNames(){
-        List list = new ArrayList<String>();
-        for(MenuObject menu : myMenuObjects){
-                list.add(menu.getChoice());
-        }
-        return list;
-    }
+//    public List<String> getMenuNames(){
+//        List list = new ArrayList<String>();
+//        for(MenuObject menu : myMenuObjects){
+//                list.add(menu.getNext());
+//        }
+//        return list;
+//    }
 
     @Override
     public void addObject (GameObject object) {

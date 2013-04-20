@@ -16,6 +16,7 @@ public class GameInfo extends UserGameData{
     private String myGameMode;
     private String myMapName;
     private int myMapCount;
+    private String myModeName;
     private List<String> myCharacters;
     private Integer myNumCharacters;
     private List<Integer> myScores;
@@ -42,6 +43,10 @@ public class GameInfo extends UserGameData{
         this(mapNames);
         myCharacters = characters;
         myMapName = map;
+    }
+    
+    public void setModeName(String name) {
+        myModeName = name;
     }
     /**
      * 
