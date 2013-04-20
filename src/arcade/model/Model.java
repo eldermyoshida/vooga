@@ -20,6 +20,7 @@ import arcade.games.UserGameData;
 import arcade.view.MainView;
 import arcade.view.forms.LoginView;
 
+
 public class Model implements ArcadeInteraction {
 
     public static final String DEFAULT_LOGIN_MESSAGE = "";
@@ -66,7 +67,7 @@ public class Model implements ArcadeInteraction {
      * @param gameName
      * @param genre
      */
-     public void publish (String name,
+    public void publish (String name,
                          String genre,
                          String author,
                          double price,
@@ -78,11 +79,22 @@ public class Model implements ArcadeInteraction {
                          String thumbnailPath,
                          String adScreenPath,
                          String description) {
-        
-        myDb.createGame(name.toLowerCase() ,  genre.toLowerCase() , author , price, formatClassFilePath(extendsGame), formatClassFilePath(extendsMultiplayerGame), ageRating , singlePlayer, multiplayer , thumbnailPath, adScreenPath , description);
+        System.out.println(extendsGame);
+        System.out.println(extendsMultiplayerGame);
+        myDb.createGame(name.toLowerCase(), 
+                        genre.toLowerCase(), 
+                        author, 
+                        price,
+                        formatClassFilePath(extendsGame),
+                        formatClassFilePath(extendsMultiplayerGame), 
+                        ageRating, 
+                        singlePlayer,
+                        multiplayer, 
+                        thumbnailPath, 
+                        adScreenPath, 
+                        description);
         addGameInfo(newGameInfo(name));
     }
-
 
     /**
      * Tedious Java string manipulation to change something like:
@@ -91,12 +103,12 @@ public class Model implements ArcadeInteraction {
      * so replace slashes with periods and remove the file extension
      */
     private String formatClassFilePath (String path) {
-        //split on file extension 
+        // split on file extension
         String[] split = path.split(".");
         // take everything before file extension and after src to get java relative filepath.
         List<String> list = Arrays.asList(split);
-        if (list.contains("src")){
-            // this means you got the absolute file path, so you need to 
+        if (list.contains("src")) {
+            // this means you got the absolute file path, so you need to
             // get java relative file path (i.e. after src/ )
             path = split[0].split("src")[1];
         }
@@ -111,8 +123,7 @@ public class Model implements ArcadeInteraction {
         return ret;
     }
 
-
-    private GameInfo newGameInfo  (String name) throws MissingResourceException{
+    private GameInfo newGameInfo (String name) throws MissingResourceException {
         return new GameInfo(myDb, name);
     }
 
@@ -190,9 +201,10 @@ public class Model implements ArcadeInteraction {
     private void organizeSnapshots () {
         List<String> gameNames = myDb.retrieveListOfGames();
         for (String name : gameNames) {
-            try{
+            try {
                 addGameInfo(newGameInfo(name));
-            }catch(MissingResourceException e ){
+            }
+            catch (MissingResourceException e) {
                 continue;
             }
 
@@ -239,7 +251,7 @@ public class Model implements ArcadeInteraction {
 
     @Override
     public void killGame () {
-         // save the usergamedata and game data if applicable, and return to detail screen
+        // save the usergamedata and game data if applicable, and return to detail screen
 
     }
 
