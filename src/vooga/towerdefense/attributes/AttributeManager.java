@@ -105,7 +105,10 @@ public class AttributeManager {
     public ProjectileFactory getProjectileFactory(){
     	return myProjectileFactory;
     }
-
+    
+    public void setProjectileFactory(ProjectileFactory projectileFactory){
+    	myProjectileFactory=projectileFactory;
+    }
 
 }
 

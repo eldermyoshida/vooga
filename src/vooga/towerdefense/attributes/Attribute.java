@@ -102,7 +102,7 @@ public class Attribute {
 	}
 
 	/**
-	 * paints a bar representing this stat
+	 * paints a bar representing this attribute
 	 */
 	public void paint (Graphics2D pen, Location where, Dimension size) {
 		pen.setColor(Color.green);
