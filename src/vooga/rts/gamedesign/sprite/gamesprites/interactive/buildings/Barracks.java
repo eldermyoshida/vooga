@@ -46,6 +46,7 @@ public class Barracks extends ProductionBuilding {
         getActions().add(new ProductionAction("soldier",null,"I maketh un soldier", productionBuilding.getWorldLocation()){
             @Override
             public void apply(int playerID) {
+            	//TODO: Unit produced should specify playerID
                 Unit newProduction = (Unit) getProducables().get(0).copy();
                 Location3D newProductionLoc = new Location3D(getProducedFrom());                
                 newProduction.setWorldLocation(newProductionLoc.getX(), newProductionLoc.getY(), 0);

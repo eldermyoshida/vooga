@@ -25,19 +25,23 @@ public class CanBeOccupied implements OccupyStrategy{
 	private List<Unit> myOccupiers;
 	private List<String> myValidOccupierType;
 	private int myMaxOccupiers;
+	private int myOccupierID;
 	
 	public CanBeOccupied() {
 		myOccupiers = new ArrayList<Unit>();
 		myValidOccupierType = new ArrayList<String>();
 		myMaxOccupiers = DEFAULT_MAX_OCCUPIERS;
+		myOccupierID = 0;
 	}
 	
 	public void getOccupied(GameEntity entity, Unit u) {
-		if (myOccupiers.size() < myMaxOccupiers && verifyOccupier(u)) {
-			System.out.println("verified valid!");
+		System.out.println("current occupier ID: " + myOccupierID);
+		if (myOccupiers.size() < myMaxOccupiers && verifyOccupier(entity, u)) {
 			u.setVisible(false);
+			if (myOccupierID == 0) {
+				myOccupierID = u.getPlayerID();
+			}
 			u.getGameUnitManager().addEntityUnit(entity, u);
-			//TODO: make the unit not detectable. Consider move out of player's unit list.
 			myOccupiers.add(u);
 		}
 	}
@@ -45,12 +49,14 @@ public class CanBeOccupied implements OccupyStrategy{
 	public void addValidClassType(Unit validOccupier) {
 		Class cls = validOccupier.getClass();
 		String className = cls.getName();
-		//System.out.println("class name that's added: " + className);
 		myValidOccupierType.add(className);
 	}
 	
-	private boolean verifyOccupier(Unit u) {
+	private boolean verifyOccupier(GameEntity entity, Unit u) {
 		Class cls = u.getClass();
+		if (myOccupierID != 0 && myOccupierID != u.getPlayerID()) {
+			return false;
+		}
 		for (String s: myValidOccupierType) {
 			while (cls != null) {
 				String className = cls.getName();

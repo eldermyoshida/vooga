@@ -40,7 +40,6 @@ public class GameUnitManager {
     }
 	
 	public void addPlayerUnit(Unit u) {
-		System.out.println("adds player Unit!");
 		ArrayList<Unit> newUnitList = myPlayerUnits.get(u.getPlayerID());
 		newUnitList.add(u);
 		myPlayerUnits.put(u.getPlayerID(), newUnitList);
