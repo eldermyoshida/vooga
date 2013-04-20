@@ -59,32 +59,9 @@ public class GameTable extends Table {
      * GameTable constructor
      */
     public GameTable() {
-        establishConnectionToDatabase();
-    }
-
-    void establishConnectionToDatabase() {
-
-        try {
-            Class.forName("org.postgresql.Driver");
-        }
-        catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        String url = "jdbc:postgresql://cgi.cs.duke.edu/nrc10";
-        String user = "nrc10";
-        String password = "aUsg5xj2f";
-        
-
-        try {
-            myConnection = DriverManager.getConnection(url, user, password);
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
-        myPreparedStatement = null; 
-        myResultSet = null;
-
+        myConnection=establishConnectionToDatabase();
+        myPreparedStatement=null;
+        myResultSet=null;
     }
 
     /**
