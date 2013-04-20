@@ -68,8 +68,11 @@ public class Database {
      * Creates a new game
      * @param gameName is name of name
      */
-    public boolean createGame(String gameName , String genre) {
-        return myGameTable.createGame(gameName , genre);
+    public boolean createGame(String gameName, String author, String genre, double price, 
+                              String extendsGame, String extendsMultiplayerGame, int ageRating, 
+                              boolean singlePlayer, boolean multiplayer, String thumbnailPath, 
+                              String adscreenPath, String description) {
+        return myGameTable.createGame(gameName, author, genre, price, extendsGame, extendsMultiplayerGame, ageRating, singlePlayer, multiplayer, thumbnailPath, adscreenPath, description);
     }
     
     public void userPlaysGameFirst(String user, String gameName, String highscore) {
@@ -174,8 +177,53 @@ public class Database {
     public void updateRating (String userName, String gameName, double rating) {
         
     }
-    public String getGenre(String gameName){
+    
+    public String getGenre(String gameName) {
         return myGameTable.getGenre(gameName);
+    }
+    
+    public String getAuthor(String gameName) {
+        return myGameTable.getAuthor(gameName);
+    }
+    
+    public String getThumbnailPath(String gameName) {
+        return myGameTable.getThumbnailPath(gameName);
+    }
+    
+    public String getAdScreenPath(String gameName) {
+        return myGameTable.getAdScreenPath(gameName);
+    }
+    
+    public int getAgePermission(String gameName) {
+        return myGameTable.getAgePermission(gameName);
+    }
+    
+    public double getPrice(String gameName) {
+        return myGameTable.getPrice(gameName);
+    }
+    
+    public String getExtendsGame(String gameName) {
+        return myGameTable.getExtendsGame(gameName);
+    }
+    
+    public String getExtendsGameMultiplayer(String gameName) {
+        return myGameTable.getExtendsGameMultiplayer(gameName);
+    }
+    
+    public boolean getIsSinglePlayer(String gameName) {
+        return myGameTable.getIsSinglePlayer(gameName);
+    }
+    
+    public boolean getIsMultiplayer(String gameName) {
+        return myGameTable.getIsMultiplayer(gameName);
+    }
+    
+    public String getDescription(String gameName) {
+        return myGameTable.getDescription(gameName);
+    }
+    
+    public String getGameFilePath(String gameName) {
+        return myGameTable.getGameFilePath(gameName);
     }
 
     public double getAverageRating (String gameName) {
