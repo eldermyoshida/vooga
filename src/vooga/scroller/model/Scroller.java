@@ -8,6 +8,7 @@ import arcade.games.UserGameData;
 import vooga.scroller.scrollingmanager.OmniScrollingManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.scrollingmanager.UniScrollingManager;
+import vooga.scroller.util.Direction;
 import vooga.scroller.util.PlatformerConstants;
 import vooga.scroller.view.View;
 

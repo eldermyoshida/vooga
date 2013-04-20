@@ -8,6 +8,7 @@ import vooga.scroller.collision_manager.CollisionManager;
 import vooga.scroller.level_editor.Level;
 import vooga.scroller.sprites.superclasses.NonStaticEntity;
 import vooga.scroller.sprites.superclasses.Player;
+import vooga.scroller.util.Direction;
 import vooga.scroller.util.Sprite;
 import vooga.scroller.view.View;
 
@@ -89,10 +90,10 @@ public class SpriteManager {
         double leftLevelBounds = 0;
         double upperLevelBounds = 0;
         double lowerLevelBounds = myLevel.getLevelBounds().getHeight();
-        rightLevelBounds = myLevel.getScrollManager().getHardBoundary(1, rightLevelBounds);
-        lowerLevelBounds = myLevel.getScrollManager().getHardBoundary(2, lowerLevelBounds);
-        leftLevelBounds = myLevel.getScrollManager().getHardBoundary(3, leftLevelBounds);
-        upperLevelBounds = myLevel.getScrollManager().getHardBoundary(4, upperLevelBounds);
+        rightLevelBounds = myLevel.getScrollManager().getHardBoundary(Direction.RIGHT, rightLevelBounds);
+        lowerLevelBounds = myLevel.getScrollManager().getHardBoundary(Direction.BOTTOM, lowerLevelBounds);
+        leftLevelBounds = myLevel.getScrollManager().getHardBoundary(Direction.LEFT, leftLevelBounds);
+        upperLevelBounds = myLevel.getScrollManager().getHardBoundary(Direction.TOP, upperLevelBounds);
 
         if (xCoord >= rightLevelBounds) {
             xCoord = rightLevelBounds - (myPlayer.getSize().getWidth() / 2);

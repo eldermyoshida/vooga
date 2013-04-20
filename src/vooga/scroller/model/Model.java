@@ -62,7 +62,7 @@ public class Model {
         
         initPlayer();
         
-        myScrollingManager.initGame(this);
+        myScrollingManager.initModel(this);
         myScrollingManager.initView(view);
         
         myLevelManager = new LevelManager(myScrollingManager, myView);
