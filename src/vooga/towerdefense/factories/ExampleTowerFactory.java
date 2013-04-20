@@ -3,6 +3,7 @@ package vooga.towerdefense.factories;
 import java.util.ArrayList;
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.AttackAction;
+import vooga.towerdefense.action.TrackTarget;
 import vooga.towerdefense.attributes.Attribute;
 import vooga.towerdefense.attributes.AttributeConstants;
 import vooga.towerdefense.attributes.AttributeManager;
@@ -51,8 +52,8 @@ public class ExampleTowerFactory extends TowerFactory {
         }
 
         ArrayList<Action> actions = new ArrayList<Action>();
-        actions.add(new AttackAction(myGameMap,myTower,myTower.getAttributeManager().getProjectileFactory()));
-        
+        //actions.add(new AttackAction(myGameMap,myTower,myTower.getAttributeManager().getProjectileFactory()));
+        actions.add(new TrackTarget(putHere, myTower.getAttributeManager().getAttribute(AttributeConstants.ATTACK_RADIUS), myGameMap));
         
        
         //actions.add(new AttackAction(myTower, ));
