@@ -40,7 +40,7 @@ public class DelayedTask {
      */
     public void update (double elapsedTime) {
         if (isActive()) {
-            myTotalTime += elapsedTime;
+            myElapsedTime += elapsedTime;
             if (myTotalTime <= myElapsedTime) {
                 myTask.run();
             }
@@ -57,5 +57,12 @@ public class DelayedTask {
 
     public void restart () {
         myElapsedTime = 0;
+    }
+
+    public double getPercentCompleted () {
+        if (myTotalTime != 0) {
+            return (myElapsedTime / myTotalTime) * 100;
+        }
+        return 0;
     }
 }

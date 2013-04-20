@@ -35,6 +35,7 @@ import vooga.rts.player.Player;
 import vooga.rts.player.Team;
 import vooga.rts.resourcemanager.ResourceManager;
 import vooga.rts.util.Camera;
+import vooga.rts.util.DelayedTask;
 import vooga.rts.util.FrameCounter;
 import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
@@ -63,6 +64,7 @@ public class GameState extends SubState implements Controller {
 
     private Rectangle2D myDrag;
     private Shape worldShape;
+    private DelayedTask dt;
 
     public GameState (Observer observer) {
         super(observer);
@@ -79,6 +81,7 @@ public class GameState extends SubState implements Controller {
         myMap.update(elapsedTime);
         myHumanPlayer.update(elapsedTime);
         myFrames.update(elapsedTime);
+        dt.update(elapsedTime);
     }
 
     @Override
@@ -212,5 +215,12 @@ public class GameState extends SubState implements Controller {
         myHumanPlayer.add(new Soldier());
         myHumanPlayer.add(new Soldier(new Location3D(200, 200, 0)));
         myMap = new GameMap(8, new Dimension(512, 512));
+        
+        dt = new DelayedTask(10, new Runnable() {            
+            @Override
+            public void run () {
+                System.out.println("YOLOMIR");                
+            }
+        });
     }
 }
