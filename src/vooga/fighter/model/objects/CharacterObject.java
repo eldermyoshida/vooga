@@ -24,6 +24,7 @@ public class CharacterObject extends GameObject {
     private List<Effect> myActiveEffects;
     private Health myHealth; 
     private List<AttackObject> currentAttacks; 
+    private boolean facingRight;  
     
     /**
      * Constructs a new CharacterObject.
@@ -33,6 +34,7 @@ public class CharacterObject extends GameObject {
         myAttacks = new HashMap<String, AttackObject>();
         myActiveEffects = new ArrayList<Effect>();
         myHealth = new Health();
+        facingRight= true;  
         currentAttacks= new ArrayList<AttackObject>();
         setLoader(new CharacterLoader(charName, this));
         setCurrentState("stand");
@@ -160,7 +162,7 @@ public class CharacterObject extends GameObject {
      * Will add jump method
      */
     public void jump() {        
-
+    	//TODO: Add acceleration 
     } 
     
     /**
@@ -168,6 +170,27 @@ public class CharacterObject extends GameObject {
      */
     public boolean shouldBeRemoved() {
         return false;
+    }
+    
+    /**
+     * Checks to see if character is facing right
+     */
+    public boolean isFacingRight(){
+    	return facingRight; 
+    }
+    
+    /**
+     * sets the character to face left 
+     */
+    public void faceLeft(){
+    	facingRight=false; 
+    }
+    
+    /**
+     * sets the character to face right 
+     */
+    public void faceRight(){
+    	facingRight=true; 
     }
     
     /**
