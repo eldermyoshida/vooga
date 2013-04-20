@@ -32,7 +32,7 @@ public class FourPlayerMatchGameLayout extends CanvasLayout {
             }
             else if (playerCount < MAX_PLAYER && data.getPaintable(n) instanceof HUDPlayerValue) {
                 Point2D.Double location = 
-                        new Point2D.Double(screenSize.width / (MAX_PLAYER + PLAYER_STATS_PADDING_BLOCKS) * playerCount + 1,
+                        new Point2D.Double((screenSize.width / (MAX_PLAYER + PLAYER_STATS_PADDING_BLOCKS)) * (playerCount + 1),
                                                              screenSize.height / SCREEN_ROWS * VALUE_ROW);
                 data.getPaintable(n).paint(pen, location, data.getSize(n));
                 playerCount++;

@@ -2,8 +2,8 @@ package vooga.fighter.model.objects;
 
 import java.util.Collection;
 import vooga.fighter.controller.ModelDelegate;
-import vooga.fighter.model.loaders.CharacterLoader;
 import vooga.fighter.model.loaders.MenuLoader;
+import vooga.fighter.model.utils.State;
 
 
 public class MenuObject extends GameObject {
@@ -30,7 +30,7 @@ public class MenuObject extends GameObject {
     	return myChoice;
     }
 
-    public Collection getStates () {
+    public Collection<State> getStates () {
         return super.getStates();
     }
 

@@ -1,12 +1,7 @@
 package vooga.fighter.model.objects;
 
-import java.awt.Dimension;
-import java.awt.Rectangle;
 import java.awt.geom.Point2D;
-import util.Location;
-import util.Pixmap;
 import vooga.fighter.model.loaders.MouseClickLoader;
-import vooga.fighter.model.utils.State;
 import vooga.fighter.model.utils.UpdatableLocation;
 
 

@@ -1,7 +1,6 @@
 package vooga.fighter.model.loaders;
 
 
-import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,10 +9,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import util.Pixmap;
 import vooga.fighter.model.objects.EnvironmentObject;
 import vooga.fighter.model.objects.MapObject;
-import vooga.fighter.model.utils.State;
 import vooga.fighter.model.utils.UpdatableLocation;
 
 
@@ -29,6 +26,7 @@ public class MapLoader extends ObjectLoader {
 	private static final String MAP_PATH = "src/vooga/fighter/config/maps.xml";
 
 	private MapObject myMap;
+	
 	/**
 	 * Dummy Constructor only to be used when getting map count
 	 */
@@ -36,6 +34,11 @@ public class MapLoader extends ObjectLoader {
 		super(MAP_PATH);
 	}
 
+	/**
+	 * Constructs MapLoader, sets file path using the super constructor, and loads map
+	 * @param mapName to be loaded
+	 * @param map object which is loaded into
+	 */
 	public MapLoader (String mapName, MapObject map) {
 		super(MAP_PATH);
 		myMap = map;
@@ -44,39 +47,36 @@ public class MapLoader extends ObjectLoader {
 
 	/**
 	 * Loads map from xml data
+	 * @param mapName to be loaded
 	 */
 	public void load(String mapName) {
 		Document doc = getDocument();
-		NodeList mapNodes = doc.getElementsByTagName("map");
-
+		NodeList mapNodes = doc.getElementsByTagName(getResourceBundle().getString("Map"));
+		
 		for (int i = 0; i < mapNodes.getLength(); i++) {
 			Element node = (Element) mapNodes.item(i);
-			String name = getAttributeValue(node, "mapName");
+			String name = getAttributeValue(node, getResourceBundle().getString("MapName"));
 			if (mapName.equals(name)) {
-			    // fix 1 to number of frames later
-				State mapState = new State(myMap, 1);
-				mapState.populateImage(new Pixmap(getAttributeValue(node, "mapBackground")), 0);
-				mapState.populateSize(new Dimension(Integer.parseInt(getAttributeValue(node, "xSize")),
-						Integer.parseInt(getAttributeValue(node, "ySize"))), 0);
-				myMap.addState("background", mapState);
-				myMap.setLocation(new UpdatableLocation(Integer.parseInt(getAttributeValue(node, "xSize"))/2,
-						Integer.parseInt(getAttributeValue(node, "ySize"))/2));
-				NodeList startingPosNodes= node.getElementsByTagName("startingPositions");
-				Element firststartingposition = (Element) startingPosNodes.item(0);
-				NodeList startingPos1 = firststartingposition.getElementsByTagName("startingPos");
-				addStartingPositions(startingPos1);
+				NodeList stateNodes = ((Element) node).getElementsByTagName(getResourceBundle().getString("State"));
+				addStates(stateNodes, myMap);
+				myMap.setLocation(new UpdatableLocation(Integer.parseInt(getAttributeValue(node, getResourceBundle().getString("XSize")))/2,
+						Integer.parseInt(getAttributeValue(node, getResourceBundle().getString("YSize")))/2));
+				NodeList startingPosNodes= node.getElementsByTagName(getResourceBundle().getString("StartingPosition"));
+				addStartingPositions(startingPosNodes);
+				NodeList enviroObjectNodes = node.getElementsByTagName(getResourceBundle().getString("EnvironmentObject"));
+				addEnviroObjects(enviroObjectNodes);
 			}
 		}
 	}
 	
 	
 	public List<String> getMapNames(){
-		List maps = new ArrayList<String>();
+		List<String> maps = new ArrayList<String>();
 		Document doc = getDocument();
-		NodeList mapNodes = doc.getElementsByTagName("map");
+		NodeList mapNodes = doc.getElementsByTagName(getResourceBundle().getString("Map"));
 		for (int i = 0; i < mapNodes.getLength(); i++) {
 			Element node = (Element) mapNodes.item(i);
-			maps.add(getAttributeValue(node, "mapName"));
+			maps.add(getAttributeValue(node, getResourceBundle().getString("MapName")));
 		}
 		return maps;		
 	}
@@ -84,14 +84,13 @@ public class MapLoader extends ObjectLoader {
 	/**
 	 * 
 	 * Adds starting position for the characters
+	 * @param startingPosNodes NodeList of all starting positions available on a map
 	 */
-
 	private void addStartingPositions(NodeList startingPosNodes) {
 		for (int i=0; i<startingPosNodes.getLength(); i++){
 			Node startingPosition= startingPosNodes.item(i);
-			System.out.println(getAttributeValue(startingPosition, "xCoord"));
-			int xCoord= Integer.parseInt(getAttributeValue(startingPosition, "xCoord"));
-			int yCoord= Integer.parseInt(getAttributeValue(startingPosition, "yCoord"));
+			int xCoord= Integer.parseInt(getAttributeValue(startingPosition, getResourceBundle().getString("XCoordinate")));
+			int yCoord= Integer.parseInt(getAttributeValue(startingPosition, getResourceBundle().getString("YCoordinate")));
 			myMap.addStartPosition(new UpdatableLocation(xCoord,yCoord));
 		}
 	}
@@ -101,20 +100,11 @@ public class MapLoader extends ObjectLoader {
 	 */
 	private void addEnviroObjects(NodeList enviroObjectNodes) {
 		for (int i = 0; i < enviroObjectNodes.getLength(); i++) {
-			Node environmentObject = enviroObjectNodes.item(i);
-			//String imagePath= getAttributeValue(environmentObject, "image");
-			int xCoord= Integer.parseInt(getAttributeValue(environmentObject, "xCoord"));
-			int yCoord= Integer.parseInt(getAttributeValue(environmentObject, "yCoord"));
-			EnvironmentObject toAdd= new EnvironmentObject();
-			toAdd.setLocation(new UpdatableLocation(xCoord, yCoord));
-			NodeList stateNodes = ((Element) environmentObject).getElementsByTagName("state");
-			addStates(stateNodes, toAdd);
-			toAdd.setCurrentState("brick");
-			toAdd.setImageData();
+			Node enviroObjectNode = enviroObjectNodes.item(i);
+			int xCoord= Integer.parseInt(getAttributeValue(enviroObjectNode, getResourceBundle().getString("XCoordinate")));
+			int yCoord= Integer.parseInt(getAttributeValue(enviroObjectNode, getResourceBundle().getString("YCoordinate")));
+			EnvironmentObject newEnvironmentObject= new EnvironmentObject(getAttributeValue(enviroObjectNode,
+					getResourceBundle().getString("EnvironmentObjectName")), new UpdatableLocation(xCoord, yCoord));
 		}
 	}
-
-
-
-
 }

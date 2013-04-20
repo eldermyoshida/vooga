@@ -1,7 +1,6 @@
 package vooga.fighter.model.objects;
 
 import vooga.fighter.model.loaders.MapLoader;
-import vooga.fighter.model.utils.State;
 import vooga.fighter.model.utils.UpdatableLocation;
 import vooga.fighter.util.*;
 import java.util.*;

@@ -47,6 +47,13 @@ public class Pixmap implements Paintable {
         myImage = new ImageIcon(getClass().getResource(RESOURCE_LOCATION + fileName)).getImage();
         myFileName = fileName;
     }
+    
+    /**
+     * Returns the size of the image
+     */
+    public Dimension getSize () {
+    	return new Dimension(myImage.getWidth(null), myImage.getHeight(null));
+    }
 
     /**
      * Describes how to draw the image on the screen.

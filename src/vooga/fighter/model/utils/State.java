@@ -99,6 +99,7 @@ public class State {
      */
     public void populateImage(Pixmap image, int index) {
         myImages[index] = image;
+        mySizes[index] = image.getSize();
     }
 
     /**

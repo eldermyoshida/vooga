@@ -1,6 +1,5 @@
 package vooga.fighter.model.loaders;
 
-import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.io.File;
 import java.util.ResourceBundle;
@@ -24,13 +23,13 @@ import vooga.fighter.model.utils.State;
  *
  */
 public abstract class ObjectLoader {
-		
+
 	private static final String RESOURCE_PATH = "vooga.fighter.config.objects";
-	
+
 	private File myObjectFile;
 	private Document myDocument;
 	private ResourceBundle myResources;
-	
+
 	/**
 	 * Points to the xml file that the loader will be parsing
 	 * 
@@ -56,7 +55,7 @@ public abstract class ObjectLoader {
 	 * @param name
 	 */
 	public abstract void load(String name);
-	
+
 	/**
 	 * Returns the xml document which the loader points to
 	 * @return
@@ -64,14 +63,14 @@ public abstract class ObjectLoader {
 	protected Document getDocument() {
 		return myDocument;
 	}
-	
+
 	/**
 	 * Returns resource bundle which contains what the names of nodes in the xml files should be.
 	 */
 	protected ResourceBundle getResourceBundle() {
 		return myResources;
 	}
-	
+
 	/**
 	 * Returns the string attribute value of the specified tag for the specified mode.
 	 * @param node
@@ -81,7 +80,7 @@ public abstract class ObjectLoader {
 	protected String getAttributeValue(Node node, String tag) {
 		return node.getAttributes().getNamedItem(tag).getTextContent();
 	}
-	
+
 	/**
 	 * Returns the value of the child node with the specified tag for the element.
 	 * @param tag
@@ -93,7 +92,7 @@ public abstract class ObjectLoader {
 		Node node = (Node) nodes.item(0);
 		return node.getNodeValue();
 	}
-	
+
 	/**
 	 * Loads and adds states for the GameObject.
 	 * @param stateNodes
@@ -107,26 +106,22 @@ public abstract class ObjectLoader {
 			State newState = new State(myObject, frameNodes.getLength());
 			getImageAndHitboxProperties(frameNodes, newState);
 			myObject.addState(stateName, newState);
-			}
-			
+		}
 	}
-	
+
 	/**
 	 * Loads frames and states for the objects 
 	 */
 	protected void getImageAndHitboxProperties(NodeList frameNodes, State newState){
 		for (int j = 0; j < frameNodes.getLength(); j++) {
-			if (frameNodes.item(j).getAttributes().getNamedItem("image") != null) {
-				newState.populateImage(new Pixmap(getAttributeValue(frameNodes.item(j), "image")), j);
-			}
 			Element frame = (Element) frameNodes.item(j);
+			if (frame.getAttributes().getNamedItem("image") != null)
+				newState.populateImage(new Pixmap(getAttributeValue(frame, "image")), j);
 			NodeList hitboxNodes = frame.getElementsByTagName("hitbox"); 
 			for (int k=0; k<hitboxNodes.getLength(); k++){
 				newState.populateRectangle(new Rectangle(Integer.parseInt(getAttributeValue(hitboxNodes.item(k), "cornerX")),
-					Integer.parseInt(getAttributeValue(hitboxNodes.item(k), "cornerY")), Integer.parseInt(getAttributeValue(hitboxNodes.item(k), "rectX")),
-					Integer.parseInt(getAttributeValue(hitboxNodes.item(k), "rectY"))), j);
-				newState.populateSize(new Dimension(Integer.parseInt(getAttributeValue(hitboxNodes.item(k), "rectX")),
-					Integer.parseInt(getAttributeValue(hitboxNodes.item(k), "rectY"))), j);
+						Integer.parseInt(getAttributeValue(hitboxNodes.item(k), "cornerY")), Integer.parseInt(getAttributeValue(hitboxNodes.item(k), "rectX")),
+						Integer.parseInt(getAttributeValue(hitboxNodes.item(k), "rectY"))), j);
 			}
 		}
 	}

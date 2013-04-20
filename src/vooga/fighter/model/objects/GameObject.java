@@ -209,7 +209,7 @@ public abstract class GameObject {
     /**
      * Returns collection of states
      */
-    protected Collection getStates(){
+    protected Collection<State> getStates(){
     	return myStates.values();
     }
     /**

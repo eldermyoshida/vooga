@@ -32,15 +32,17 @@ public class HUDFactory {
             for (Annotation a : member.getAnnotations()) {
                 if (a instanceof HUDVariable) {
                     HUDVariable varAnnotation = (HUDVariable) a;
+                    member.setAccessible(true);
                     if (member.get(gameObject) == null) {
                         continue;
                     }
-                    String subclass = "HUD" + varAnnotation.HUDElementClass();
+                    String subclass = "vooga.fighter.view.HUD" + varAnnotation.HUDElementClass();
                     HUDElement newElement = (HUDElement) Class.forName(subclass).newInstance();
                     newElement.setName(varAnnotation.name());
                     newElement.setObservedValue(member.getName());
                     gameObject.addObserver(newElement);
                     elements.add(newElement);
+                    newElement.update(gameObject, null);
                 }
             }
         }

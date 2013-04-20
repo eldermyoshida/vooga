@@ -1,28 +1,21 @@
 package vooga.fighter.model.loaders;
 
-import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import util.Pixmap;
 import vooga.fighter.controller.ModelDelegate;
 import vooga.fighter.model.MenuGrid;
-import vooga.fighter.model.objects.MapObject;
 import vooga.fighter.model.objects.MenuObject;
-import vooga.fighter.model.utils.State;
-import vooga.fighter.model.utils.UpdatableLocation;
 
 public class MenuGridLoader extends ObjectLoader {
 
 
 	private static final String MENUGRID_PATH = "src/vooga/fighter/config/menugrid.xml";
 
-	private MenuGrid myGrid;
 	private List<MenuObject> myMenuObjects;
 	private ModelDelegate myDelegate;
 
@@ -30,7 +23,6 @@ public class MenuGridLoader extends ObjectLoader {
 		super(MENUGRID_PATH);
 		myDelegate = delegate;
 		myMenuObjects = new ArrayList<MenuObject>();
-		myGrid = grid;
 		System.out.println("<menugridloader.java><menugridloader> "+menuname);
 		load(menuname);
 		
