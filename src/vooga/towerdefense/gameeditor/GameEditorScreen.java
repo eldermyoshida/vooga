@@ -102,8 +102,10 @@ public abstract class GameEditorScreen extends JPanel {
             public void mouseClicked (MouseEvent e) {
                 if (e.getSource().equals(myAddButton)) {
                     addElementToGame();
-                if (e.getSource().equals(myFinishButton))
+                }
+                else if (e.getSource().equals(myFinishButton)) {
                     try {
+                        System.out.println("click on finish button");
                         myController.displayNextScreen(myNextScreenName);
                     }
                     catch (SecurityException e1) {

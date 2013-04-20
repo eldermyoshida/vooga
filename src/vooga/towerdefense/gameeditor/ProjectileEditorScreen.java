@@ -17,7 +17,7 @@ public class ProjectileEditorScreen extends GameEditorScreen {
     /**
      * next screen constant.
      */
-    private static final String NEXT_SCREEN_NAME = "vooga.towerdefense.gameeditor.TowerEditorScreen";
+    private static final String NEXT_SCREEN_NAME = "TowerEditorScreen";
     /**
      * title constant.
      */

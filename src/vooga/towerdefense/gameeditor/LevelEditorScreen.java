@@ -17,7 +17,7 @@ public class LevelEditorScreen extends GameEditorScreen {
     /**
      * next screen constant.
      */
-    private static final String NEXT_SCREEN_NAME = "vooga.towerdefense.gameeditor.FinishedScreen";
+    private static final String NEXT_SCREEN_NAME = "FinishedScreen";
     /**
      * title constant.
      */
