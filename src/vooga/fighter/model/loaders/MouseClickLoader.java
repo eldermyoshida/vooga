@@ -8,14 +8,13 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import util.Pixmap;
-import vooga.fighter.model.objects.MenuObject;
 import vooga.fighter.model.objects.MouseClickObject;
 import vooga.fighter.model.utils.State;
 
 public class MouseClickLoader extends ObjectLoader {
 
 	private static final String MOUSE_PATH = "src/vooga/fighter/config/mouseclick.xml";
-	
+
 	MouseClickObject myMouseClick;
 	public MouseClickLoader(MouseClickObject mouseclick) {
 		super(MOUSE_PATH);
@@ -23,14 +22,14 @@ public class MouseClickLoader extends ObjectLoader {
 		load();
 	}
 
-	
+
 	public void load() {
 		Document doc = getDocument();
 		NodeList menuNodes = doc.getElementsByTagName("mouseclickobject");
 		for (int i = 0; i < menuNodes.getLength(); i++) {
 			Element node = (Element) menuNodes.item(i);
-				NodeList states = node.getElementsByTagName("state");
-				for(int j = 0; j < states.getLength(); j++){
+			NodeList states = node.getElementsByTagName("state");
+			for(int j = 0; j < states.getLength(); j++){
 				Element state = (Element) states.item(j);
 				String  Statename = getAttributeValue(state, "name");
 				NodeList frames = state.getElementsByTagName("frame");
@@ -48,14 +47,14 @@ public class MouseClickLoader extends ObjectLoader {
 					myMouseClick.addState(Statename, newState);
 				}
 				if(j == 0) myMouseClick.setCurrentState(Statename);
-				}
 			}
 		}
+	}
 
 	@Deprecated
 	public void load(String Name) {
 		// :(  Don't need the string
-		
+
 	}
 
 }

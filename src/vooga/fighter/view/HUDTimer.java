@@ -5,7 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.util.Observable;
 import vooga.fighter.view.HUDElement;
-import vooga.fighter.util.Text;
+import util.Text;
 
 /**
  * Displays an integer number of seconds as a time in minutes and seconds.
@@ -14,7 +14,7 @@ import vooga.fighter.util.Text;
  *
  */
 public class HUDTimer extends HUDElement {
-    Text myTimerDisplay = new Text("");
+    protected Text myTimerDisplay = new Text("");
 
     @Override
     public void update (Observable o, Object arg) {
@@ -37,6 +37,7 @@ public class HUDTimer extends HUDElement {
         myTimerDisplay.setText(String.format("%03d", minutes) + ":" + String.format("%03d", seconds));
     }
 
+    @Override
     public void paint (Graphics2D pen, Point2D center, Dimension size) {
         myTimerDisplay.paint(pen, center, java.awt.Color.BLACK);
     }

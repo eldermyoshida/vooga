@@ -15,7 +15,11 @@ import java.util.ResourceBundle;
 
 import vooga.fighter.view.Canvas;
 
-
+/**
+ * 
+ * @author Jack and Jerry
+ *
+ */
 public class ControllerFactory {
 
     private static final String DEFAULT_RESOURCE_PACKAGE = "vooga.fighter.config.FightingManifesto";
@@ -51,7 +55,6 @@ public class ControllerFactory {
                 controller = (Controller) controllerObject;
                 controller.initializeName(myResources.getString(controllerName));
                 controller.initializeName(myResources.getString(controllerName));
-                System.out.println("<controller factory>: " + controller.getName() + " created");
                 
             }
             catch (Exception e){

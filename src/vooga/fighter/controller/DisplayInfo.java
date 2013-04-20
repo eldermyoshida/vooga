@@ -6,78 +6,83 @@ import java.util.List;
 import java.util.Observable;
 
 import util.Location;
-import util.Pixmap;
-import vooga.fighter.model.utils.Health;
 import vooga.fighter.util.Paintable;
 
 public class DisplayInfo extends Observable implements ViewDataSource{
     
     
-    private List<Location> mySpriteLocations;
-    private List<Paintable> mySprites;
-    private List<Paintable> myHUD;
-    private List<Dimension> myImageSizes;
-    private Integer myNumObjects;
 
-	public DisplayInfo() {
-        mySpriteLocations = new ArrayList<Location>();
-        mySprites = new ArrayList<Paintable>();
+    private List<Location> myLocations;
+    private List<Paintable> myGamePaintables;
+    private List<Paintable> myHUDPaintables;
+    private List<Dimension> myImageSizes;
+
+    public DisplayInfo() {
+        myLocations = new ArrayList<Location>();
+        myGamePaintables = new ArrayList<Paintable>();
+        myHUDPaintables = new ArrayList<Paintable>();
         myImageSizes = new ArrayList<Dimension>();
-	}
+    }
 	
     /**
      * @return object location at list index
      */
 
     public Paintable getPaintable (int index) {
-        if(index >= mySprites.size()) {
-            return myHUD.get(index - mySprites.size());
+        if (index >= myGamePaintables.size()) {
+            return myHUDPaintables.get(index - myGamePaintables.size());
         }
-        return mySprites.get(index);
+        return myGamePaintables.get(index);
     }
 
     public Location getLocation(int index) {
-        return mySpriteLocations.get(index);
+        if (index >= myGamePaintables.size()) {
+            return new Location(0,0);
+        }
+        return myLocations.get(index);
     }
 
     /**
      * @return size of sprite at list index
      */
     public Dimension getSize (int index) {
+        if (index >= myGamePaintables.size()) {
+            return new Dimension(0,0);
+        }
         return myImageSizes.get(index);
     }
     
     /**
-     * @param mySpriteLocations the mySpriteLocations to set
+     * @param myLocations the mySpriteLocations to set
      */
-    public void setSpriteLocations(List<Location> spriteLocations) {
-        mySpriteLocations = spriteLocations;
+    public void setGameObjectLocations(List<Location> spriteLocations) {
+        myLocations = spriteLocations;
     }
 
     /**
      * 
      * @param index
      */
-    public void setSpriteLocation(int index, Location loc) {
-        mySpriteLocations.set(index, loc);
+    public void setGameObjectLocation(int index, Location loc) {
+        myLocations.set(index, loc);
     }
 
     /**
      * @return the mySprites
      */
-    public List<Paintable> getSprites() {
-        return mySprites;
+    public List<Paintable> getGameObjects() {
+        return myGamePaintables;
     }
 
     /**
-     * @param mySprites the mySprites to set
+     * @param myGamePaintables the mySprites to set
      */
-    public void setSprites(List<Paintable> sprites) {
-        mySprites = sprites;
+    public void setGamePaintables(List<Paintable> gamePaintables) {
+        myGamePaintables = gamePaintables;
     }
 
-    public void setSprite(int index, Paintable pix) {
-        mySprites.set(index, pix);
+    public void setGamePaintable(int index, Paintable p) {
+        myGamePaintables.set(index, p);
     }
     
     public List<Dimension> getImageSizes() {
@@ -87,45 +92,46 @@ public class DisplayInfo extends Observable implements ViewDataSource{
     /**
      * @param myImageSizes the myImageSizes to set
      */
-    public void setImageSizes(List<Dimension> imageSizes) {
-        myImageSizes = imageSizes;
+    public void setSizes(List<Dimension> sizes) {
+        myImageSizes = sizes;
     }
 
     /**
      * 
      */
-    public void setImageSize(int index, Dimension dim) {
+    public void setSize(int index, Dimension dim) {
         myImageSizes.set(index, dim);
     }
 
     /**
      * @return the mySpriteLocations
      */
-    protected List<Location> getSpriteLocations() {
-        return mySpriteLocations;
+    protected List<Location> getLocations() {
+        return myLocations;
     }
     
     public void clear(){
-        mySprites.clear();
+        myGamePaintables.clear();
         myImageSizes.clear();
-        mySpriteLocations.clear();
-        myNumObjects = 0;
+        myLocations.clear();
     }
     
     public int ObjectNumber (){
-    	return myNumObjects;
+    	return myGamePaintables.size() + myHUDPaintables.size();
     }
     
     public void update(){
     }
-    
-    protected void setObjectNumber(int number){
-    	myNumObjects = number;
+   
+
+    public void addHUDDisplay (Paintable element) {
+        myHUDPaintables.add(element);
     }
     
-    public void setHUD (List<Paintable> paintables) {
-        myHUD = paintables;
-        myNumObjects = mySprites.size()+myHUD.size();
+    public void clearHUD () {
+        myHUDPaintables.clear();
     }
+
+   
 
 }

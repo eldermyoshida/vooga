@@ -18,7 +18,7 @@ import arcade.games.GameData;
 import arcade.games.UserGameData;
 import util.Pixmap;
 import vooga.fighter.model.loaders.MapLoader;
-import vooga.fighter.util.Text;
+import util.Text;
 import vooga.fighter.view.Canvas;
 import vooga.fighter.controller.ControllerManager;
 import vooga.fighter.controller.GameInfo;

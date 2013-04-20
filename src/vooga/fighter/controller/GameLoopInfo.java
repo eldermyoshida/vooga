@@ -25,7 +25,6 @@ public class GameLoopInfo extends DisplayLoopInfo implements ViewDataSource{
 
     private List<String> myCharacterNames;
     private List<Health> myHealthStats;
-    private List<Dimension> myImageSizes;
     private List<Double> myScores;
     private List<PlayerStatus> myPlayerStats;
 
@@ -72,6 +71,7 @@ public class GameLoopInfo extends DisplayLoopInfo implements ViewDataSource{
         myPlayerStats.add(Player2Status);
         myPlayerStats.add(Player3Status);
         myPlayerStats.add(Player4Status);
+        addHUDElements();
     }
     
     @Override

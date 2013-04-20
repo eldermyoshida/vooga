@@ -7,7 +7,11 @@ import java.util.Map;
 import java.util.Random;
 import java.util.ResourceBundle;
 
-
+/**
+ * 
+ * @author Jack, edited by Jerry
+ *
+ */
 public class ControlProgressionManager {
         
         private static final String DEFAULT_RESOURCE_PACKAGE = "vooga.fighter.config.FighterProgression";
@@ -29,7 +33,6 @@ public class ControlProgressionManager {
 	    for (int i =0; i < myResources.keySet().size(); i++) {
 	        sortedProgression.add(null);
 	    }
-	    System.out.println("<controllerprogression> size: " + sortedProgression.size());
 	    for (String key : myResources.keySet()) {
 	        int index = Integer.parseInt(myResources.getString(key));
 	        sortedProgression.set(index, controllerMap.get(key));

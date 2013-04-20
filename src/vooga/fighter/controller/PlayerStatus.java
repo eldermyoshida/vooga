@@ -16,7 +16,7 @@ public class PlayerStatus {
         myPlayerID++;
         myCharacterName = "";
         myPlayerName = "Player " + myPlayerID;
-        myHealth = null;
+        myHealth = new Health();
         myScore = (double) 0;
     }
     

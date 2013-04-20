@@ -1,5 +1,5 @@
 package vooga.fighter.model.objects;
-import java.awt.Dimension;
+
 import java.util.ArrayList;
 import java.util.List;
 

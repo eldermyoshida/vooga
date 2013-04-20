@@ -93,9 +93,7 @@ public abstract class Mode {
             result.add(object.getImageData());
         }
         return result;
-    }
-    
-    
+    }        
     
     /**
      *  Removes objects that have been destroyed or have timed out
@@ -108,6 +106,7 @@ public abstract class Mode {
     		}
     	}
     }
+    
     /**
      * Updates the mode for one game loop. Implemented by subclasses.
      */

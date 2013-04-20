@@ -6,12 +6,11 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import vooga.fighter.model.objects.EnvironmentObject;
-import vooga.fighter.model.utils.UpdatableLocation;
 
 /**
  * Loads data associated with a environment object to be passed to EnvironmentObject.
  * 
- * @author alanni
+ * @author alanni, David Le
  *
  *
  */
@@ -36,19 +35,13 @@ public class EnvironmentObjectLoader extends ObjectLoader {
 	 */
 	public void load(String enviroObjectName) {
 		Document doc = getDocument();
-		NodeList enviroObjectNodes = doc.getElementsByTagName("enviroObject");
+		NodeList enviroObjectNodes = doc.getElementsByTagName(getResourceBundle().getString("EnvironmentObject"));
 		for (int i = 0; i < enviroObjectNodes.getLength(); i++) {
-			Node node = enviroObjectNodes.item(i);
-			String name = getAttributeValue(node, "enviroObjectID");
+			Node enviroObjectNode = enviroObjectNodes.item(i);
+			String name = getAttributeValue(enviroObjectNode, getResourceBundle().getString("EnvironmentObjectName"));
 			if (enviroObjectName.equals(name)) {
-				int xCoord= Integer.parseInt(getAttributeValue(node, "xCoord"));
-				int yCoord= Integer.parseInt(getAttributeValue(node, "yCoord"));
-				EnvironmentObject toAdd= new EnvironmentObject();
-				toAdd.setLocation(new UpdatableLocation(xCoord, yCoord));
-				NodeList stateNodes = ((Element) node).getElementsByTagName("state");
-				addStates(stateNodes, toAdd);
-				toAdd.setCurrentState("brick");
-				toAdd.setImageData();
+				NodeList stateNodes = ((Element) enviroObjectNode).getElementsByTagName(getResourceBundle().getString("State"));
+				addStates(stateNodes, myEnvironmentObject);
 			}
 		}
 	}

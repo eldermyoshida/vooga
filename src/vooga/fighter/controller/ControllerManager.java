@@ -12,7 +12,7 @@ import util.input.Input;
 import vooga.fighter.view.Canvas;
 /**
  * 
- * @author Jack Matteucci
+ * @author Jack Matteucci, edited by Jerry Li
  *
  */
 
@@ -52,8 +52,7 @@ public class ControllerManager implements ControllerDelegate{
 	private void switchController(String condition) {
 		myCurrentController.stop();
 		myCurrentController = myProgressionManager.getNextController(myCurrentController, condition);
-		System.out.println("now the controller is: " + myCurrentController.getName() );
-		System.out.println("swithing?");
+		System.out.println("<controllermanager> now the controller is: " + myCurrentController.getName() );
 		//myCurrentController.displaySplash();
 		myCurrentController = myCurrentController.getController();
 		myCurrentController.initializeRest(myCanvas, this, myGameInfo);
