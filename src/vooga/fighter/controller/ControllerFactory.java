@@ -45,17 +45,13 @@ public class ControllerFactory {
             try {
                 Class<?> controllerClass = null;
                 String filePath = PACKAGE_NAME + controllerName;
-                System.out.println(filePath);
                 controllerClass = Class.forName(filePath);
-                System.out.println("marker");
                 controllerObject = controllerClass.newInstance();
-                System.out.println("create object");
                 controller = (Controller) controllerObject;
-                System.out.println("create contorler");
                 controller.initializeName(myResources.getString(controllerName));
-                System.out.println(myResources.getString(controllerName));
-                controller.initializeName("MainMenu");
+                controller.initializeName(myResources.getString(controllerName));
                 System.out.println(controller.getName());
+                
             }
             catch (Exception e){
                 throw new NullPointerException("No such class");

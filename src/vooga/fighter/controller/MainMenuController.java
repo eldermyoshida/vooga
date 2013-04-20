@@ -51,10 +51,7 @@ public class MainMenuController extends MenuController {
         getManager().notifyEndCondition(NEXT);
     }
 
-    public Controller getController () {
-        return this;
-    }
-    
+  
     @InputMethodTarget(name = "continue")
     public void mouseclick(PositionObject pos)  {
         super.getMode().addObject(new MouseClickObject(pos.getPoint2D()));

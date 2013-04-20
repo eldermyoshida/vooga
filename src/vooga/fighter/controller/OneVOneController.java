@@ -33,20 +33,14 @@ public class OneVOneController extends LevelController {
     private static final String INPUT_PATHWAY = "vooga.fighter.config.leveldefault";
     private List<CharacterObject> myInputObjects;
 
-    public OneVOneController (String name, Canvas frame) {
-        super(name, frame);
+    public OneVOneController () {
+        super();
         
     }
 	
-    public OneVOneController(String name, Canvas frame, ControllerDelegate manager, 
+    public void initializeRest(Canvas frame, ControllerDelegate manager, 
     		GameInfo gameinfo) {
-    	super(name, frame, manager, gameinfo);
-    }
-
-    @Override
-    public Controller getController (ControllerDelegate delegate, GameInfo gameinfo) {
-        return new OneVOneController(super.getName(), super.getView(),
-                                   delegate, gameinfo);
+    	super.initializeRest(frame, manager, gameinfo);
     }
 
     @Override

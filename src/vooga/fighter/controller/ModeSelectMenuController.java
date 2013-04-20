@@ -31,14 +31,13 @@ public class ModeSelectMenuController extends MenuController {
 	
     private ResourceBundle myResources;
     
-    public ModeSelectMenuController (String name, Canvas frame) {
-        super(name, frame);
+    public ModeSelectMenuController () {
+        super();
     }
         
-    public ModeSelectMenuController(String name, Canvas frame, ControllerDelegate manager, 
+    public void initializeRest(Canvas frame, ControllerDelegate manager, 
                 GameInfo gameinfo) {
-        super(name, frame, manager, gameinfo);
-        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "LevelConfig");
+        super.initializeRest(frame, manager, gameinfo);
     }
     /**
      * Checks this controller's end conditions
@@ -59,11 +58,6 @@ public class ModeSelectMenuController extends MenuController {
     		}
     	}
     
-    @Override
-    public Controller getController (ControllerDelegate delegate, GameInfo gameinfo) {
-        return new ModeSelectMenuController(super.getName(), super.getView(),
-                                   delegate, gameinfo);
-    }
     
     @InputMethodTarget(name = "continue")
     public void mouseclick(PositionObject pos)  {
@@ -75,4 +69,6 @@ public class ModeSelectMenuController extends MenuController {
     	super.removeListener();
     	getInput().removeListener(this);
     }
+
+   
 }

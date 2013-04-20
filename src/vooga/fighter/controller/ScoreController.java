@@ -31,14 +31,13 @@ public class ScoreController extends MenuController {
         
     private ResourceBundle myResources;
     
-    public ScoreController (String name, Canvas frame) {
-        super(name, frame);
+    public ScoreController () {
+        super();
     }
         
-    public ScoreController(String name, Canvas frame, ControllerDelegate manager, 
+    public void initializeRest(Canvas frame, ControllerDelegate manager, 
                 GameInfo gameinfo) {
-        super(name, frame, manager, gameinfo);
-        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "LevelConfig");
+        super.initializeRest(frame, manager, gameinfo);
     }
     
     /**
@@ -60,12 +59,6 @@ public class ScoreController extends MenuController {
         }
 
 
-
-    @Override
-    public Controller getController (ControllerDelegate delegate, GameInfo gameinfo) {
-        return new MainMenuController(super.getName(), super.getView(),
-                                   delegate, gameinfo);
-    }
 
     public void removeListener(){
     	super.removeListener();
