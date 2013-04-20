@@ -68,8 +68,11 @@ public class Database {
      * Creates a new game
      * @param gameName is name of name
      */
-    public boolean createGame(String gameName , String genre) {
-        return myGameTable.createGame(gameName , genre);
+    public boolean createGame(String gameName, String author, String genre, double price, 
+                              String extendsGame, String extendsMultiplayerGame, int ageRating, 
+                              boolean singlePlayer, boolean multiplayer, String thumbnailPath, 
+                              String adscreenPath, String description) {
+        return myGameTable.createGame(gameName, author, genre, price, extendsGame, extendsMultiplayerGame, ageRating, singlePlayer, multiplayer, thumbnailPath, adscreenPath, description);
     }
     
     public void userPlaysGameFirst(String user, String gameName, String highscore) {
