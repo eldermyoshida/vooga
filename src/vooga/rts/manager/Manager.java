@@ -5,10 +5,12 @@ import java.awt.Shape;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Queue;
 import vooga.rts.action.Action;
 import vooga.rts.action.IActOn;
 import vooga.rts.commands.Command;
@@ -19,6 +21,7 @@ import vooga.rts.manager.actions.LeftClickAction;
 import vooga.rts.manager.actions.RightClickAction;
 import vooga.rts.state.State;
 import vooga.rts.util.Location3D;
+
 
 /**
  * The Manager class is responsible for managing all of the units and buildings
@@ -33,257 +36,261 @@ import vooga.rts.util.Location3D;
 
 public class Manager implements State, IActOn, Observer {
 
-	private List<InteractiveEntity> myEntities;
-	private List<InteractiveEntity> mySelectedEntities;
-	private Map<Integer, List<InteractiveEntity>> myGroups;
-	private boolean myMultiSelect;
-	private Map<String, Action> myActions;
+    private List<InteractiveEntity> myEntities;
+    private List<InteractiveEntity> mySelectedEntities;
+    private Map<Integer, List<InteractiveEntity>> myGroups;
+    private boolean myMultiSelect;
+    private Map<String, Action> myActions;
 
-	Iterator<InteractiveEntity> myUpdateIterator;
+    private Queue<InteractiveEntity> myAddQueue;
 
-	public Manager() {
-		myEntities = new ArrayList<InteractiveEntity>();
-		mySelectedEntities = new ArrayList<InteractiveEntity>();
-		myGroups = new HashMap<Integer, List<InteractiveEntity>>();
-		myMultiSelect = false;
-		myActions = new HashMap<String, Action>();
-		addActions();
-	}
+    Iterator<InteractiveEntity> myUpdateIterator;
 
-	@Override
-	public void paint(Graphics2D pen) {
-		for (InteractiveEntity u : myEntities) {
-			u.paint(pen);
-		}
-	}
+    public Manager () {
+        myEntities = new ArrayList<InteractiveEntity>();
+        mySelectedEntities = new ArrayList<InteractiveEntity>();
+        myGroups = new HashMap<Integer, List<InteractiveEntity>>();
+        myMultiSelect = false;
+        myActions = new HashMap<String, Action>();
+        myAddQueue = new LinkedList<InteractiveEntity>();
+        addActions();
 
-	@Override
-	public void update(double elapsedTime) {
-		myUpdateIterator = myEntities.iterator();
-		while (myUpdateIterator.hasNext()) {
-			InteractiveEntity u = myUpdateIterator.next();
-			u.update(elapsedTime);
-		}
-		myUpdateIterator = null;
-	}
+    }
 
-	@Override
-	public void receiveCommand(Command command) {
-		updateAction(command);
-	}
+    @Override
+    public void paint (Graphics2D pen) {
+        for (InteractiveEntity u : myEntities) {
+            u.paint(pen);
+        }
+    }
 
-	@Override
-	public void updateAction(Command command) {
-		if (myActions.containsKey(command.getMethodName())) {
-			Action current = myActions.get(command.getMethodName());
-			current.update(command);
-			current.apply();
-		} else {
-			applyAction(command);
-		}
-	}
+    @Override
+    public void update (double elapsedTime) {
+        myEntities.addAll(myAddQueue);
+        myUpdateIterator = myEntities.iterator();
+        while (myUpdateIterator.hasNext()) {
+            InteractiveEntity u = myUpdateIterator.next();
+            u.update(elapsedTime);
+        }
+        myUpdateIterator = null;
+    }
 
-	@Override
-	public void put(String input, Action action) {
-		myActions.put(input, action);
+    @Override
+    public void receiveCommand (Command command) {
+        updateAction(command);
+    }
 
-	}
+    @Override
+    public void updateAction (Command command) {
+        if (myActions.containsKey(command.getMethodName())) {
+            Action current = myActions.get(command.getMethodName());
+            current.update(command);
+            current.apply();
+        }
+        else {
+            applyAction(command);
+        }
+    }
 
-	public void applyAction(Command command) {
-		Iterator<InteractiveEntity> it = mySelectedEntities.iterator();
-		while (it.hasNext()) {
-			InteractiveEntity u = it.next();
-			if (u.containsInput(command)) {
-				u.updateAction(command);
-				u.getAction(command).apply();
-			}
-		}
-	}
+    @Override
+    public void put (String input, Action action) {
+        myActions.put(input, action);
 
-	/**
-	 * Adds an entity to the manager. This will be done when a new entity is
-	 * created.
-	 * 
-	 * @param u
-	 *            The entity that is to be added.
-	 */
-	public void add(InteractiveEntity entity) {
-		entity.addObserver(this);		
-		myEntities.add(entity);
-	}
+    }
 
-	public void remove(InteractiveEntity entity) {
-		if (myUpdateIterator != null) {
-			myUpdateIterator.remove();
-		} else {
-			myEntities.remove(entity);
-		}
-		entity.deleteObserver(this);
-		mySelectedEntities.remove(entity);
-	}
+    public void applyAction (Command command) {
+        Iterator<InteractiveEntity> it = mySelectedEntities.iterator();
+        while (it.hasNext()) {
+            InteractiveEntity u = it.next();
+            if (u.containsInput(command)) {
+                u.updateAction(command);
+                u.getAction(command).apply();
+            }
+        }
+    }
 
-	public void deselect(Location3D location) {
-		for (int i = getAllEntities().size() - 1; i >= 0; i--) {
-			InteractiveEntity ie = getAllEntities().get(i);
-			if (ie.intersects(location)) {
-				deselect(ie);
-				return;
-			}
-		}
-		deselectAll();
-	}
+    /**
+     * Adds an entity to the manager. This will be done when a new entity is
+     * created.
+     * 
+     * @param u
+     *        The entity that is to be added.
+     */
+    public void add (InteractiveEntity entity) {
+        entity.addObserver(this);
+        myAddQueue.add(entity);
+    }
 
-	/**
-	 * Deselects the specified entity.
-	 * 
-	 * @param u
-	 *            The entity to deselect
-	 */
-	public void deselect(InteractiveEntity ie) {
-		if (mySelectedEntities.contains(ie)) {
-			mySelectedEntities.remove(ie);
-			ie.select(false);
-		}
-	}
+    public void remove (InteractiveEntity entity) {
+        if (myUpdateIterator != null) {
+            myUpdateIterator.remove();
+        }
+        else {
+            myEntities.remove(entity);
+        }
+        entity.deleteObserver(this);
+        mySelectedEntities.remove(entity);
+    }
 
-	/**
-	 * Deselects all the selected entities.
-	 */
-	public void deselectAll() {
-		if (myMultiSelect) {
-			return;
-		}
-		for (InteractiveEntity ie : mySelectedEntities) {
-			ie.select(false);
-		}
-		mySelectedEntities.clear();
-	}
+    public void deselect (Location3D location) {
+        for (int i = getAllEntities().size() - 1; i >= 0; i--) {
+            InteractiveEntity ie = getAllEntities().get(i);
+            if (ie.intersects(location)) {
+                deselect(ie);
+                return;
+            }
+        }
+        deselectAll();
+    }
 
-	/**
-	 * Returns the list of all the entities in the manager.
-	 * 
-	 * @return List of all entities
-	 */
-	public List<InteractiveEntity> getAllEntities() {
-		return myEntities;
-	}
+    /**
+     * Deselects the specified entity.
+     * 
+     * @param u
+     *        The entity to deselect
+     */
+    public void deselect (InteractiveEntity ie) {
+        if (mySelectedEntities.contains(ie)) {
+            mySelectedEntities.remove(ie);
+            ie.select(false);
+        }
+    }
 
-	/**
-	 * Returns the list of selected entities.
-	 * 
-	 * @return The selected entities
-	 */
-	public List<InteractiveEntity> getSelected() {
-		return mySelectedEntities;
-	}
+    /**
+     * Deselects all the selected entities.
+     */
+    public void deselectAll () {
+        if (myMultiSelect) {
+            return;
+        }
+        for (InteractiveEntity ie : mySelectedEntities) {
+            ie.select(false);
+        }
+        mySelectedEntities.clear();
+    }
 
-	/**
-	 * Groups the currently selected entities together with a specified group ID
-	 * 
-	 * @param groupID
-	 *            The ID of the group
-	 */
-	public void group(int groupID) {
-		myGroups.put(groupID, new ArrayList<InteractiveEntity>(
-				mySelectedEntities));
-	}
+    /**
+     * Returns the list of all the entities in the manager.
+     * 
+     * @return List of all entities
+     */
+    public List<InteractiveEntity> getAllEntities () {
+        return myEntities;
+    }
 
-	/**
-	 * Selects a specific entity and marks it as selected.
-	 * 
-	 * @param entity
-	 */
-	public void select(InteractiveEntity entity) {
-		deselectAll();
-		if (!mySelectedEntities.contains(entity)) {
-			if (myEntities.contains(entity)) {
-				mySelectedEntities.add(entity);
-				entity.select(true);
-			}
-		}
-	}
+    /**
+     * Returns the list of selected entities.
+     * 
+     * @return The selected entities
+     */
+    public List<InteractiveEntity> getSelected () {
+        return mySelectedEntities;
+    }
 
-	/**
-	 * Selects the top most interactive entity that is underneath the provided
-	 * Point location. This is used for selecting entities by mouse click.
-	 * 
-	 * @param loc
-	 */
-	public void select(Location3D loc) {
-		deselectAll();
-		for (int i = getAllEntities().size() - 1; i >= 0; i--) {
-			InteractiveEntity ie = getAllEntities().get(i);
-			if (ie.intersects(loc)) {
-				select(ie);
-				return;
-			}
-		}
-	}
+    /**
+     * Groups the currently selected entities together with a specified group ID
+     * 
+     * @param groupID
+     *        The ID of the group
+     */
+    public void group (int groupID) {
+        myGroups.put(groupID, new ArrayList<InteractiveEntity>(mySelectedEntities));
+    }
 
-	/**
-	 * Selects all the entities in provided rectangle. Allows a user to drag
-	 * around the desired entities.
-	 * 
-	 * @param area
-	 *            The area to select the entities in.
-	 */
-	public void select(Shape area) {
-		deselectAll();
-		boolean multi = myMultiSelect;
-		setMultiSelect(true);
-		for (InteractiveEntity ie : myEntities) {
-			if (area.intersects(ie.getBounds())
-					|| area.contains(ie.getBounds())) {
-				select(ie);
-			}
-		}
-		setMultiSelect(multi);
-	}
+    /**
+     * Selects a specific entity and marks it as selected.
+     * 
+     * @param entity
+     */
+    public void select (InteractiveEntity entity) {
+        deselectAll();
+        if (!mySelectedEntities.contains(entity)) {
+            if (myEntities.contains(entity)) {
+                mySelectedEntities.add(entity);
+                entity.select(true);
+            }
+        }
+    }
 
-	/**
-	 * Sets the Manager into multi select mode which allows the user to select
-	 * more than one entity at a time.
-	 * 
-	 * @param val
-	 *            whether it is multi select or not
-	 */
-	public void setMultiSelect(boolean val) {
-		myMultiSelect = val;
-	}
+    /**
+     * Selects the top most interactive entity that is underneath the provided
+     * Point location. This is used for selecting entities by mouse click.
+     * 
+     * @param loc
+     */
+    public void select (Location3D loc) {
+        deselectAll();
+        for (int i = getAllEntities().size() - 1; i >= 0; i--) {
+            InteractiveEntity ie = getAllEntities().get(i);
+            if (ie.intersects(loc)) {
+                select(ie);
+                return;
+            }
+        }
+    }
 
-	public void addActions() {
-		put("drag", new DragSelectAction(this));
-		put("leftclick", new LeftClickAction(this));
-		put("rightclick", new RightClickAction(this));
-	}
+    /**
+     * Selects all the entities in provided rectangle. Allows a user to drag
+     * around the desired entities.
+     * 
+     * @param area
+     *        The area to select the entities in.
+     */
+    public void select (Shape area) {
+        deselectAll();
+        boolean multi = myMultiSelect;
+        setMultiSelect(true);
+        for (InteractiveEntity ie : myEntities) {
+            if (area.intersects(ie.getBounds()) || area.contains(ie.getBounds())) {
+                select(ie);
+            }
+        }
+        setMultiSelect(multi);
+    }
 
-	/**
-	 * Activates a previously create group of entities.
-	 * 
-	 * @param groupID
-	 *            The ID of the group to select
-	 */
-	public void activateGroup(int groupID) {
-		if (myGroups.containsKey(groupID)) {
-			mySelectedEntities = new ArrayList<InteractiveEntity>(
-					myGroups.get(groupID));
-		}
-	}
+    /**
+     * Sets the Manager into multi select mode which allows the user to select
+     * more than one entity at a time.
+     * 
+     * @param val
+     *        whether it is multi select or not
+     */
+    public void setMultiSelect (boolean val) {
+        myMultiSelect = val;
+    }
 
-	@Override
-	public void update(Observable entity, Object state) {
-		if (entity instanceof InteractiveEntity) {
-			InteractiveEntity ie = (InteractiveEntity) entity;
-			if (ie.isDead()) {
-				remove(ie);
-			}
-		}
+    public void addActions () {
+        put("drag", new DragSelectAction(this));
+        put("leftclick", new LeftClickAction(this));
+        put("rightclick", new RightClickAction(this));
+    }
 
-		// While Shepherds watch their flocks by night.
-		if (state instanceof InteractiveEntity) {
-			add((InteractiveEntity) state);
-		}
+    /**
+     * Activates a previously create group of entities.
+     * 
+     * @param groupID
+     *        The ID of the group to select
+     */
+    public void activateGroup (int groupID) {
+        if (myGroups.containsKey(groupID)) {
+            mySelectedEntities = new ArrayList<InteractiveEntity>(myGroups.get(groupID));
+        }
+    }
 
-	}
+    @Override
+    public void update (Observable entity, Object state) {
+        if (entity instanceof InteractiveEntity) {
+            InteractiveEntity ie = (InteractiveEntity) entity;
+            if (ie.isDead()) {
+                remove(ie);
+            }
+        }
+
+        // While Shepherds watch their flocks by night.
+        if (state instanceof InteractiveEntity) {
+            add((InteractiveEntity) state);
+        }
+
+    }
 
 }
