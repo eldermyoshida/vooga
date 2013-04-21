@@ -16,12 +16,12 @@
         </state>
     </menuobject>
     <menuobject menuobjectname="MainMenu">
-    	<state name = "restart" nextState ="MainMenu">
+    	<state name = "MainMenu" nextState ="MainMenu">
             <frame image="fighter/images/MainMenu.jpg" />
         </state>
     </menuobject>
     <menuobject menuobjectname="CharacterSelectMenu">
-    	<state name = "restart" nextState ="CharacterSelectMenu">
+    	<state name = "CharacterSelectMenu" nextState ="CharacterSelectMenu">
     		<frame image="fighter/images/CharacterSelect.png" />
     	</state>
     </menuobject>

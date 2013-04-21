@@ -45,7 +45,10 @@ public class ScoreController extends MenuController {
      */
     public void notifyEndCondition(String choice) {
     	removeListener();
-    	getManager().notifyEndCondition(getMode().getMenusNext(choice));
+    	getGameInfo().getCharacters().clear();
+    	System.out.println("<scorecontroller> " + choice);
+    	getManager().notifyEndCondition(choice);
+    	//getManager().notifyEndCondition(getMode().getMenusNext(choice));
         }
 
     
