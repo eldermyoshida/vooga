@@ -42,7 +42,6 @@ public class Catalog extends JPanel {
     @Override
     public void paint(Graphics pen) {
         super.paintComponent(pen);
-        System.out.println("painting catalog");
         pen.setColor(BACKGROUND_COLOR);
         pen.fillRect(0, 0, mySize.width, mySize.height);
         displayUnits(pen);
@@ -65,7 +64,4 @@ public class Catalog extends JPanel {
             x += SIDE_LENGTH;
         }
     }
-    
-    
-
 }
