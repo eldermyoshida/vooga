@@ -65,8 +65,8 @@ public class CharacterSelectController extends MenuController {
     }
     
     public void checkConditions(){
-    	String choice = getMode().getChoice();
-    	if(!choice.equals("")) notifyEndCondition(choice);
+    	for(ModeCondition condition: getConditions())
+    		if(condition.checkCondition(getMode())) notifyEndCondition(getMode().getChoice());
     }
 
 }

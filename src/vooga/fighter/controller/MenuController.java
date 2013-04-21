@@ -46,6 +46,7 @@ public abstract class MenuController extends Controller {
         getInput().addListenerTo(this);
     	DisplayLoopInfo LoopInfo =  new DisplayLoopInfo(super.getMode());
     	setLoopInfo(LoopInfo);
+    	setupConditions();
     }
     
     public void loadMode() {
@@ -70,6 +71,10 @@ public abstract class MenuController extends Controller {
     	myEndConditions.add(condition);
     }
     
+    protected List<ModeCondition> getConditions(){
+    	return myEndConditions;
+    }
+    
     
     public void setupConditions(){
     	addEndCondition(endcondition);
@@ -77,9 +82,10 @@ public abstract class MenuController extends Controller {
     
     ModeCondition endcondition = new ModeCondition() {
     	public boolean checkCondition(Mode mode) {
-			return false;
+			return !"".equals(getMode().getChoice());
     	}
     };
+    
     
     
 

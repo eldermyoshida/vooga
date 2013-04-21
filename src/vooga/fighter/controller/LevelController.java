@@ -96,24 +96,7 @@ public abstract class LevelController extends Controller {
     }
     
     public void setupConditions(){
-    	addWinCondition(new ModeCondition() {
-        	public boolean checkCondition(Mode mode) {
-        		LevelMode levelmode = (LevelMode) mode;
-    			for(CharacterObject character: levelmode.getMyCharacterObjects()){
-    				if(!character.hasHealthRemaining()) return true;
-    			}
-    			return false;
-    		}
-        });
-    	addWinCondition(new ModeCondition() {
-        	public boolean checkCondition(Mode mode) {
-        		LevelMode levelmode = (LevelMode) mode;
-    			for(CharacterObject character: levelmode.getMyCharacterObjects()){
-    				if(!character.hasHealthRemaining()) return true;
-    			}
-    			return false;
-    		}
-        });
+    	addWinCondition(wincondition);
     }
     
     public void checkConditions(){
