@@ -62,9 +62,6 @@ public interface IThreadContainer {
      * @param playersPerTeam players per team
      */
     public void startLobby (ConnectionThread thread,
-                            String mapName,
-                            String serverName,
-                            int maxPlayers,
-                            int playersPerTeam);
+                            String lobbyName, String mapName, int maxPlayers, int playersPerTeam);
 
 }

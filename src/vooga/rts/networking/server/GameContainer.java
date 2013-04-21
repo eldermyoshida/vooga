@@ -50,5 +50,10 @@ public class GameContainer extends AbstractThreadContainer {
         myRoomNumber++;
         lobby.addConnection(thread);
     }
+    
+    @Override
+    public void requestLobbies (ConnectionThread thread) {
+        
+    }
 
 }
