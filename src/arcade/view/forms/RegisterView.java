@@ -198,14 +198,17 @@ public class RegisterView extends Account {
         }
         catch (UsernameFormatException e) {
             sendMessage(getResources().getString(e.getLocalizedMessage()));
+            return;
         }
         catch (DOBFormatException e) {
             sendMessage(getResources().getString(e.getLocalizedMessage()));
             myDOBTextField.setText(TextKeywords.BIRTHDATE_MESSAGE);
+            return;
         }
         catch (UsernameTakenException e) {
             sendMessage(getResources().getString(e.getLocalizedMessage()));
             clearUsername();
+            return;
         }
     }
 

@@ -16,10 +16,18 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import arcade.exceptions.AgeException;
+import arcade.exceptions.InvalidPriceException;
 import arcade.model.Model;
 import arcade.view.TextKeywords;
 
 
+/**
+ * This view allows a user to publish a new game.
+ * 
+ * @author Ellango
+ * 
+ */
 @SuppressWarnings("serial")
 public class PublishView extends Form {
     private static final int DESCRIPTION_HEIGHT = 300;
@@ -152,6 +160,12 @@ public class PublishView extends Form {
                                    });
     }
 
+    /**
+     * Creates the field to check if the game is single player, and if so,
+     * select the file that extends Game.
+     * 
+     * @return
+     */
     private JComponent createSinglePlayerCheckBox () {
         return createCheckBox(TextKeywords.SINGLE_PLAYER,
                               TextKeywords.SINGLE_PLAYER_INSTRUCTION,
@@ -159,12 +173,19 @@ public class PublishView extends Form {
                               new FileChooserAction() {
                                   @Override
                                   public void approve (JFileChooser chooser) {
+                                      isSinglePlayer = true;
                                       mySinglePlayerPath = chooser.getSelectedFile().getPath();
                                   }
                               });
 
     }
 
+    /**
+     * Creates the field to check if the game is multiplayer, and if so,
+     * select the file that extends MultiPlayerGame.
+     * 
+     * @return
+     */
     private JComponent createMultiPlayerCheckBox () {
         return createCheckBox(TextKeywords.MULTIPLAYER,
                               TextKeywords.MULTIPLAYER_INSTRUCTION,
@@ -172,6 +193,7 @@ public class PublishView extends Form {
                               new FileChooserAction() {
                                   @Override
                                   public void approve (JFileChooser chooser) {
+                                      isMultiPlayer = true;
                                       myMultiPlayerPath = chooser.getSelectedFile().getPath();
                                   }
                               });
@@ -233,23 +255,68 @@ public class PublishView extends Form {
             }
         });
     }
+
+    /**
+     * Try telling model to publish a new game.  Inform the user if invalid 
+     * inputs.
+     */
+    private void publish () {
+        try {
+            getModel().publish(myNameTextField.getText(),
+                               myGenreTextField.getText(),
+                               myAuthorTextField.getText(),
+                               getPrice(),
+                               mySinglePlayerPath,
+                               myMultiPlayerPath,
+                               getAgeRating(),
+                               isSinglePlayer,
+                               isMultiPlayer,
+                               mySmallImagePath,
+                               myLargeImagePath,
+                               myDescriptionTextField.getText());
+            dispose();
+        }
+        catch (InvalidPriceException e) {
+            sendMessage(getResources().getString(TextKeywords.PRICE_ERROR));
+            myPriceTextField.setText("");
+            return;
+        }
+        catch (AgeException e) {
+            sendMessage(getResources().getString(TextKeywords.AGE_ERROR));
+            myAgeTextField.setText("");
+            return;
+        }
+    }
     
     /**
-     * Try telling model to publish a new game.
+     * Gets the price entered by the user.
+     * @return
+     * @throws InvalidPriceException if not valid.
      */
-    private void publish() {
-        getModel().publish(myNameTextField.getText(),
-                           myGenreTextField.getText(),
-                           myAuthorTextField.getText(),
-                           Double.parseDouble(myPriceTextField.getText()),
-                           mySinglePlayerPath,
-                           myMultiPlayerPath,
-                           Integer.parseInt(myAgeTextField.getText()),
-                           isSinglePlayer,
-                           isMultiPlayer,
-                           mySmallImagePath,
-                           myLargeImagePath,
-                           myDescriptionTextField.getText());
-        dispose();
+    private double getPrice() throws InvalidPriceException {
+        try {
+            double price = Double.parseDouble(myPriceTextField.getText());
+            if (price < 0) throw new InvalidPriceException();
+            return price;
+        }
+        catch (NumberFormatException e) {
+            throw new InvalidPriceException();
+        }
+    }
+    
+    /**
+     * Gets the age rating entered by the user. 
+     * @return
+     * @throws AgeException
+     */
+    private int getAgeRating() throws AgeException {
+        try {
+            int age = Integer.parseInt(myAgeTextField.getText());
+            if (age < 0) throw new AgeException();
+            return age;
+        }
+        catch (NumberFormatException e) {
+            throw new AgeException();
+        }
     }
 }

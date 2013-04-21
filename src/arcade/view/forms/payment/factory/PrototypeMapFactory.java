@@ -1,4 +1,4 @@
-package arcade.view.forms.payment;
+package arcade.view.forms.payment.factory;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.Reader;

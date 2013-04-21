@@ -17,6 +17,7 @@ import arcade.games.GameInfo;
 import arcade.model.Model;
 import arcade.view.TextKeywords;
 import arcade.view.forms.Form;
+import arcade.view.forms.payment.factory.PaymentViewMapFactory;
 
 /**
  * A view for choosing which payment method to use for buying a game.
@@ -117,8 +118,8 @@ public class PaymentSelection extends Form {
         return factory.buildStringMap();
     }
     
-    public static void main (String[] args) {
-        new PaymentSelection(null, ResourceBundle.getBundle("arcade.resources.English"), null);
-    }
+//    public static void main (String[] args) {
+//        new PaymentSelection(null, ResourceBundle.getBundle("arcade.resources.English"), null);
+//    }
 
 }
