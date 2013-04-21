@@ -17,6 +17,7 @@ import vooga.rts.gamedesign.sprite.gamesprites.*;
 import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
+import vooga.rts.util.ReflectionHelper;
 
 
 /**
@@ -75,17 +76,14 @@ public class ResourceDecoder extends Decoder{
 			int health = Integer.parseInt((nElement.getElementsByTagName(HEALTH_TAG).item(0).getTextContent()));
 			
 			
-			
-			Resource res = (Resource) headClass.getConstructor(Pixmap.class, 
-													Location3D.class, 
-													Dimension.class, 
-													int.class, 
-													int.class).newInstance(new Pixmap(img),
-																			new Location3D(0,0,0),
-																			RESOURCE_SIZE,
-																			0,
-																			health);																	
-			myFactory.put(name, res);
+			Resource resource = (Resource) ReflectionHelper.makeInstance(headClass, new Pixmap(img),
+																		new Location3D(0,0,0),
+																		RESOURCE_SIZE,
+																		0,
+																		health);
+					
+																
+			myFactory.put(name, resource);
 		}
 	}
 }

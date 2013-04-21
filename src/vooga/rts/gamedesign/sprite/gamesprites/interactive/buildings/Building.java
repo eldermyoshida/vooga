@@ -16,9 +16,6 @@ import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Soldier;
 import vooga.rts.gamedesign.upgrades.UpgradeNode;
 
-
-
-
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
 import vooga.rts.gamedesign.strategy.occupystrategy.CanBeOccupied;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
@@ -66,6 +63,7 @@ public class Building extends InteractiveEntity{
         myRallyPoint = new Location3D(getWorldLocation().getX(), getWorldLocation().getY() + 50, 0);
         myProducables = new ArrayList<Unit>();
         myInteractiveEntities = new ArrayList<InteractiveEntity>();
+        
         myObservers = new ArrayList<IObserver>();
         if (upgradeTree != null) {
         	myUpgradeTree = upgradeTree;

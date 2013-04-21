@@ -43,7 +43,7 @@ public class ReflectionHelper {
      * @param params
      * @return
      */
-    public Object getInstance(Class<?> c, Object ... params){
+    public static Object makeInstance(Class<?> c, Object ... params){
     	try {
 			return findConstructor(c,params).newInstance(params);
 		} catch (Exception e) {

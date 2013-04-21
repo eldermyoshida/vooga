@@ -13,12 +13,14 @@ import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
+import vooga.rts.util.ReflectionHelper;
 import vooga.rts.util.Sound;
 
 public class BuildingDecoder extends Decoder{
 	
 	private static final String HEAD_TAG = "buildings";
 	private static final String TYPE_TAG = "building";
+	private static final String TIME_TAG = "buildtime";
 	private static final String CUSTOM_TAG = "custom";
 	private static final String COST_TAG = "cost";
 	private static final String NAME_TAG = "name";
@@ -56,20 +58,16 @@ public class BuildingDecoder extends Decoder{
 			String img = nElement.getElementsByTagName(IMAGE_TAG).item(0).getTextContent();
 			String sound = nElement.getElementsByTagName(SOUND_TAG).item(0).getTextContent();
 			int health = Integer.parseInt(nElement.getElementsByTagName(HEALTH_TAG).item(0).getTextContent());
+			int buildTime = Integer.parseInt(nElement.getElementsByTagName(TIME_TAG).item(0).getTextContent());
+			Building building = (Building) ReflectionHelper.makeInstance(headClass, new Pixmap(img),
+																  			new Location3D(0,0,0),
+																			  new Dimension(50,50),
+																			  new Sound(sound),
+																			  0,
+																			  health,
+																			  buildTime,
+																			  null);
 			
-			Building building = (Building) headClass.getConstructor(Pixmap.class,
-																	Location3D.class, 
-																	Dimension.class, 
-																	Sound.class, 
-																	int.class, 
-																	int.class, 
-																	UpgradeTree.class).newInstance(new Pixmap(img),
-																									new Location3D(0,0,0),
-																									new Dimension(50,50),
-																									new Sound(sound),
-																									0,
-																									health,
-																									null);
 			myFactory.put(name, building);
 		}
 		
