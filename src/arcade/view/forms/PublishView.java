@@ -200,6 +200,11 @@ public class PublishView extends Form {
                                    });
     }
 
+    /**
+     * Creates the button that pops up the description area.
+     * 
+     * @return
+     */
     private JComponent createDescriptionButton () {
         JPanel panel = new JPanel();
         JButton button = new JButton(getResources().getString(TextKeywords.DESCRIPTION_MESSAGE));
