@@ -18,10 +18,8 @@ import vooga.rts.util.Sound;
 public class Garrison extends Building {
 
     public Garrison(Pixmap image, Location3D center, Dimension size, Sound sound,
-                    int playerID, int health, int ID) {
-        super(image, center, size, sound, playerID, health, ID);
-        setOccupyStrategy(new CanBeOccupied()); 
-        //addOccupyActions(this);
+                    int playerID, int health, double buildTime) {
+        super(image, center, size, sound, playerID, health, buildTime);
     }
     
     /*public void addOccupyActions(final Building building) {

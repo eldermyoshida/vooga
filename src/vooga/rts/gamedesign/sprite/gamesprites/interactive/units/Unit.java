@@ -27,12 +27,11 @@ import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
 
-
 /**
  * This class is an extension of InteractiveEntity, and represents shapes that
  * have the potential to gather resources (contains GatherStrategy) and the
- * potential to be occupied (contains OccupyStrategy). The movement of Units
- * are defined by the AI Engine.
+ * potential to be occupied (contains OccupyStrategy). The movement of Units are
+ * defined by the AI Engine.
  * 
  * @author Ryan Fishel
  * @author Kevin Oh
@@ -42,32 +41,45 @@ import vooga.rts.util.Sound;
  */
 public class Unit extends InteractiveEntity {
 
-    private static UpgradeTree myUpgradeTree;
-    private List<GameSprite> myKills; //TODO: WHAT TYPE SHOULD IT BE??
-    // private boolean myIsLeftSelected; // TODO: also need the same thing for Projectiles
-    // private boolean myIsRightSelected; // TODO: should be observing the mouse action instead!!
-    //private PathingHelper myPather;
+	private static UpgradeTree myUpgradeTree;
+	private List<GameSprite> myKills; // TODO: WHAT TYPE SHOULD IT BE??
+	// private boolean myIsLeftSelected; // TODO: also need the same thing for
+	// Projectiles
+	// private boolean myIsRightSelected; // TODO: should be observing the mouse
+	// action instead!!
+	// private PathingHelper myPather;
 
-    private GatherStrategy myGatherStrategy;
+	private GatherStrategy myGatherStrategy;
 
-    public Unit() {
-    	this(null, new Location3D(), new Dimension(0,0), null, 0, 100);
-    }
-    
-    /**
-     * Creates a new unit with an image, location, size, sound, teamID and health
-     * 
-     * @param image is the image of the unit
-     * @param center is the position of the unit on the map
-     * @param size is the size of the unit
-     * @param sound is the sound the unit makes
-     * @param playerID is the ID for the team that the unit is on
-     * @param health is the max health of the unit
-     */
-    public Unit (Pixmap image, Location3D center, Dimension size, Sound sound, int playerID, int health) {
-        super(image, center, size, sound, playerID, health);
-        //myPather = new PathingHelper();
-        System.out.println(playerID + " " + health);
+	private OccupyStrategy myOccupyStrategy;
+
+	public Unit() {
+		this(null, new Location3D(), new Dimension(0, 0), null, 0, 100, InteractiveEntity.DEFAULT_BUILD_TIME);
+	}
+
+	/**
+	 * Creates a new unit with an image, location, size, sound, teamID and
+	 * health
+	 * 
+	 * @param image
+	 *            is the image of the unit
+	 * @param center
+	 *            is the position of the unit on the map
+	 * @param size
+	 *            is the size of the unit
+	 * @param sound
+	 *            is the sound the unit makes
+	 * @param playerID
+	 *            is the ID for the team that the unit is on
+	 * @param health
+	 *            is the max health of the unit
+	 */
+	public Unit(Pixmap image, Location3D center, Dimension size, Sound sound,
+			int playerID, int health, double buildTime) {
+		super(image, center, size, sound, playerID, health, buildTime);
+		// myPather = new PathingHelper();
+		System.out.println(playerID + " " + health);
+		System.out.println(playerID + " " + health);
         if (myUpgradeTree != null){
         	addUserToUpgradeTree(playerID);
         }
@@ -75,8 +87,32 @@ public class Unit extends InteractiveEntity {
         	getGameUnitManager().addPlayerUnit(this);
         }
         addActions();
-    }
-    
+        }
+
+	@Override
+	public void addActions() {
+		put("leftclick", new InteractiveAction(this) {
+			private Location3D myLocation;
+
+			@Override
+			public void apply() {
+				getEntity().move(myLocation);
+			}
+
+			@Override
+			public void update(Command command) {
+				PositionCommand click = (PositionCommand) command;
+				myLocation = Camera.instance().viewtoWorld(click.getPosition());
+			}
+		});
+	}
+
+	@Override
+	public InteractiveEntity copy() {
+		return new Unit(getImage(), getWorldLocation(), getSize(), getSound(),
+				getPlayerID(), getHealth(), getBuildTime());
+	}
+	
     public void addGameUnitManager(GameUnitManager gameUnitManager) {
     	setGameUnitManager(gameUnitManager);
     }
@@ -111,23 +147,5 @@ public class Unit extends InteractiveEntity {
     		entityGroup.add(this);
     		myUpgradeTree.getUsers().put(playerID, entityGroup);
     	}
-    }
-
-    @Override
-    public void addActions () {
-       put("leftclick", new InteractiveAction(this) {
-          private Location3D myLocation;
-          
-          @Override
-          public void apply() {
-              getEntity().move(myLocation);
-          }
-          
-          @Override
-          public void update(Command command) {          
-              PositionCommand click = (PositionCommand) command;
-              myLocation = Camera.instance().viewtoWorld(click.getPosition());
-          }
-       });  
     }
 }

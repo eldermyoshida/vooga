@@ -2,6 +2,9 @@ package vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings;
 
 import java.awt.Dimension;
 
+
+import vooga.rts.gamedesign.Interval;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.IOccupiable;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
 import vooga.rts.gamedesign.strategy.occupystrategy.CanBeOccupied;
@@ -23,7 +26,7 @@ import vooga.rts.util.Sound;
  * @author Wenshun Liu
  * 
  */
-public abstract class Building extends InteractiveEntity {
+public class Building extends InteractiveEntity {
     public static final int MAXHEALTH = 100;
     private static UpgradeTree myUpgradeTree;
     //TODO: probably shouldn't be stored in Building. Should try Observer pattern later?
@@ -35,18 +38,18 @@ public abstract class Building extends InteractiveEntity {
             Dimension size,
             Sound sound,
             int playerID,
-            int health, int ID) {
-    	this(image, center, size, sound, playerID, health, null, ID);
-    }
+            int health,
+            double buildTime) {
+    	this(image, center, size, sound, playerID, health, null, buildTime);
+    	}
     
     public Building (Pixmap image,
                      Location3D center,
                      Dimension size,
                      Sound sound,
                      int playerID,
-                     int health, UpgradeTree upgradeTree, int ID) {
-        super(image, center, size, sound, playerID, MAXHEALTH);
-        myBuildingID = ID;
+                     int health, UpgradeTree upgradeTree, double buildTime) {
+        super(image, center, size, sound, playerID, MAXHEALTH, buildTime);
         if (upgradeTree != null) {
         	myUpgradeTree = upgradeTree;
         }
@@ -69,6 +72,12 @@ public abstract class Building extends InteractiveEntity {
     	return myBuildingID;
     }
     
+	@Override
+	public InteractiveEntity copy() {
+		return new Building(getImage(), getWorldLocation(), getSize(), getSound(),
+				getPlayerID(), getHealth(), getBuildTime());
+	}
+	
     public void setGameBuildingManager(GameBuildingManager gameBuildingManager) {
     	myGameBuildingManager = gameBuildingManager;
     	myGameBuildingManager.addBuilding(this);
@@ -77,8 +86,20 @@ public abstract class Building extends InteractiveEntity {
     public GameBuildingManager getGameBuildingManager() {
     	return myGameBuildingManager;
     }
-    
-    @Override
+
+	@Override
+	public void addActions() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int getSpeed() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
     public UpgradeTree getUpgradeTree() {
     	return myUpgradeTree;
     }

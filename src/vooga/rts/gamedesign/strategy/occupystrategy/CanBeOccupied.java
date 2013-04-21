@@ -34,14 +34,14 @@ public class CanBeOccupied implements OccupyStrategy{
 		myOccupierID = 0;
 	}
 	
-	public void getOccupied(Building building, Unit u) {
+	public void getOccupied(GameEntity entity, Unit u) {
 		System.out.println("current occupier ID: " + myOccupierID);
-		if (myOccupiers.size() < myMaxOccupiers && verifyOccupier(building, u)) {
+		if (myOccupiers.size() < myMaxOccupiers && verifyOccupier(entity, u)) {
 			u.setVisible(false);
 			if (myOccupierID == 0) {
 				myOccupierID = u.getPlayerID();
 			}
-			u.getGameUnitManager().addEntityUnit(building, u);
+			u.getGameUnitManager().addEntityUnit(entity, u);
 			myOccupiers.add(u);
 		}
 	}

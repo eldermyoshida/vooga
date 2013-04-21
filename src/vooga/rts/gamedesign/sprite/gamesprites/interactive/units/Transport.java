@@ -19,9 +19,15 @@ import vooga.rts.util.Sound;
 public class Transport extends Unit {
 
 	public Transport(Pixmap image, Location3D center, Dimension size,
-			Sound sound, int playerID, int health) {
-		super(image, center, size, sound, playerID, health);
+
+			Sound sound, int playerID, int health, double buildTime) {
+		super(image, center, size, sound, playerID, health, buildTime);
 		setOccupyStrategy(new CanBeOccupied());
+	}
+
+	@Override
+	public void getOccupied(Unit unit) {
+		// TODO Auto-generated method stub
 	}
 
 }

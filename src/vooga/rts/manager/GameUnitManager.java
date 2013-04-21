@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Random;
 
 import vooga.rts.gamedesign.sprite.gamesprites.GameEntity;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
 import vooga.rts.gamedesign.state.MovementState;
@@ -23,12 +24,12 @@ import vooga.rts.player.Player;
 public class GameUnitManager {
 	private List<Player> myPlayers;
 	private Map<Integer, ArrayList<Unit>> myPlayerUnits;
-	private Map<Integer, ArrayList<Unit>> myBuildingUnits;
+	private Map<InteractiveEntity, ArrayList<Unit>> myEntityUnits;
 	
 	public GameUnitManager() {
 		myPlayers = new ArrayList<Player>();
 		myPlayerUnits = new HashMap<Integer, ArrayList<Unit>>();
-		myBuildingUnits = new HashMap<Integer, ArrayList<Unit>>();
+		myEntityUnits = new HashMap<InteractiveEntity, ArrayList<Unit>>();
 	}
 	
 	public void addPlayer(Player player, int playerID) { //TODO: superclass for common methods
@@ -37,8 +38,8 @@ public class GameUnitManager {
     	myPlayerUnits.put(playerID, new ArrayList<Unit>());
     }
 	
-	public void addEntity(Building building) {
-    	myBuildingUnits.put(building.getBuildingID(), new ArrayList<Unit>());
+	public void addEntity(InteractiveEntity entity) {
+    	myEntityUnits.put(entity, new ArrayList<Unit>());
     }
 	
 	public void addPlayerUnit(Unit u) {
@@ -56,17 +57,17 @@ public class GameUnitManager {
 		//myPlayers.get(u.getPlayerID()-1).getUnits().setAllUnits(newUnitList);
 	}
 	
-	public void addEntityUnit(Building building, Unit u) {
-		ArrayList<Unit> newUnitList = myBuildingUnits.get(building.getBuildingID());
+	public void addEntityUnit(InteractiveEntity entity, Unit u) {
+		ArrayList<Unit> newUnitList = myEntityUnits.get(entity);
 		newUnitList.add(u);
-		myBuildingUnits.put(building.getBuildingID(), newUnitList);
+		myEntityUnits.put(entity, newUnitList);
 		removePlayerUnit(u);
 	}
 	
-	public void removeEntityUnit(Building building) {
-		ArrayList<Unit> entityUnitList = myBuildingUnits.get(building.getBuildingID());
-		myBuildingUnits.put(building.getBuildingID(), new ArrayList<Unit>());
-		int playerID = building.getOccupyStrategy().getOccupierID();
+	public void removeEntityUnit(InteractiveEntity entity) {
+		ArrayList<Unit> entityUnitList = myEntityUnits.get(entity);
+		myEntityUnits.put(entity, new ArrayList<Unit>());
+		int playerID = entity.getOccupyStrategy().getOccupierID();
 		ArrayList<Unit> oldPlayerUnitList = myPlayerUnits.get(playerID);
 		Random r = new Random();
 		for (Unit u: entityUnitList) {

@@ -18,8 +18,8 @@ import java.awt.Dimension;
 public class AttackTower extends Building {
 
 	public AttackTower(Pixmap image, Location3D center, Dimension size,
-			Sound sound, int playerID, int health, int ID) {
-		super(image, center, size, sound, playerID, health, ID);
+			Sound sound, int playerID, int health, double buildTime) {
+		super(image, center, size, sound, playerID, health, buildTime);
 		// TODO Auto-generated constructor stub
 	}
 
