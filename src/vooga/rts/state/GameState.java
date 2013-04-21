@@ -199,7 +199,7 @@ public class GameState extends SubState implements Controller {
     }
 
     private void yuckyUnitUpdate (double elapsedTime) {
-        List<InteractiveEntity> p1 = myTeams.get(1).getUnits();  //getDetectableUnits(myTeams.get(1).getUnits());
+        List<InteractiveEntity> p1 = getDetectableUnits(myTeams.get(1).getUnits());
         List<InteractiveEntity> p2 = myTeams.get(2).getUnits();
         for (InteractiveEntity u1 : p1) {
             for (InteractiveEntity u2 : p2) {
@@ -212,13 +212,12 @@ public class GameState extends SubState implements Controller {
         for (int i = 0; i < p1.size(); ++i) {
             for (int j = i + 1; j < p1.size(); ++j) {
                 if (p1.get(i) instanceof Unit) {
-                    // ((InteractiveAction)p1.get(i).getAction(new
-                    // Command("occupy"))).apply(p1.get(j));
+                     ((InteractiveAction)p1.get(i).getAction(new
+                    		 Command("occupy"))).apply(p1.get(j));
                 }
             }
         }
-        // test.update(elapsedTime);
-        //occupyPukingTest.update(elapsedTime);
+        occupyPukingTest.update(elapsedTime);
     }
 
     private List<InteractiveEntity> getDetectableUnits (List<InteractiveEntity> list) {

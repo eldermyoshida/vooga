@@ -58,17 +58,16 @@ public class CanBeOccupied implements OccupyStrategy {
 
             @Override
             // TODO : Cannot pass objects into apply
-            public void apply () {
+            public void apply (InteractiveEntity i) {
                 System.out.println("Goes here!");
                 if (myOccupierHashCodes.size() < myMaxOccupiers && verifyOccupier(entity, (Unit) i)) {
                     System.out.println("Verified!!");
-                    // i.setVisible(false);
-                    // i.getEntityState().setDetectableState(DetectableState.NOTDETECTABLE);
                     if (myOccupierID == 0) {
                         myOccupierID = i.getPlayerID();
                     }
                     myOccupierHashCodes.add(i.hashCode());
                     entity.setChanged();
+                    i.getEntityState().setDetectableState(DetectableState.NOTDETECTABLE);
                     entity.notifyObservers(i);
                 }
             }
@@ -98,8 +97,6 @@ public class CanBeOccupied implements OccupyStrategy {
                 myOccupierID = 0;
                 myOccupierHashCodes = new ArrayList<Integer>();
                 for (int hashCode : occupiers) {
-                    // u.setVisible(true);
-                    // u.setWorldLocation(new Location3D());
                     entity.setChanged();
                     entity.notifyObservers(hashCode);
                 }

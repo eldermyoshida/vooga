@@ -301,34 +301,30 @@ public class Manager implements State, IActOn, Observer {
         if (entity instanceof InteractiveEntity) {
             InteractiveEntity ie = (InteractiveEntity) entity;
             if (ie.isDead()) {
-                remove(ie);
+            	remove(ie);
             }
         }
 
         // While Shepherds watch their flocks by night.
         if (state instanceof InteractiveEntity) {
-            // int index = myEntities.indexOf(state);
-            add((InteractiveEntity) state);
+        	add((InteractiveEntity) state);
 
-            /**
-             * if (((InteractiveEntity) state).getEntityState().getDetectableState()
-             * .equals(DetectableState.DETECTABLE)) {
-             * myEntities.get(index).setVisible(false);
-             * myEntities.get(index).getEntityState()
-             * .setDetectableState(DetectableState.NOTDETECTABLE);
-             * }
-             **/
+        	if (((InteractiveEntity) state).getEntityState().getDetectableState()
+        			.equals(DetectableState.NOTDETECTABLE)) {
+        		int index = myEntities.indexOf(state);
+        		myEntities.get(index).setVisible(false);
+        		//myEntities.get(index).getEntityState()
+        		//.setDetectableState(DetectableState.NOTDETECTABLE);
+        	}
+
         }
-        /*
-         * else
-         * if (state instanceof Integer) {
-         * 
-         * int index = findEntityWithHashCode((Integer) state);
-         * myEntities.get(index).getEntityState()
-         * .setDetectableState(DetectableState.DETECTABLE);
-         * myEntities.get(index).setVisible(true);
-         * myEntities.get(index).setWorldLocation(new Location3D());
-         * }
-         */
+
+        else if (state instanceof Integer) {
+        	int index = findEntityWithHashCode((Integer) state);
+        	myEntities.get(index).getEntityState()
+        	.setDetectableState(DetectableState.DETECTABLE);
+        	myEntities.get(index).setVisible(true);
+        	myEntities.get(index).setWorldLocation(new Location3D());
+        }
     }
 }
