@@ -55,7 +55,9 @@ public class GameState extends SubState implements Controller {
     @Override
     public void update (double elapsedTime) {
         myMap.update(elapsedTime);
-        myHumanPlayer.update(elapsedTime);
+        for (Player p : myPlayers) {
+            p.update(elapsedTime);
+        }
         myFrames.update(elapsedTime);
     }
 
