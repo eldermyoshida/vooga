@@ -8,25 +8,21 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import vooga.rts.commands.Command;
 import vooga.rts.action.Action;
 import vooga.rts.action.IActOn;
-import vooga.rts.action.InteractiveAction;
 import vooga.rts.gamedesign.sprite.gamesprites.GameEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.IAttackable;
 import vooga.rts.gamedesign.sprite.gamesprites.Projectile;
+import vooga.rts.gamedesign.state.AttackingState;
 import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
 import vooga.rts.gamedesign.strategy.attackstrategy.CannotAttack;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building;
 import vooga.rts.gamedesign.upgrades.UpgradeNode;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
 import vooga.rts.util.Camera;
-import vooga.rts.util.DelayedTask;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
@@ -53,7 +49,6 @@ public abstract class InteractiveEntity extends GameEntity implements
 	private AttackStrategy myAttackStrategy;
 	private int myArmor;
 	private Map<String, Action> myActions;
-	private List<DelayedTask> myTasks;
 
 	/**
 	 * Creates a new interactive entity.
@@ -79,17 +74,79 @@ public abstract class InteractiveEntity extends GameEntity implements
 		myAttackStrategy = new CannotAttack();
 		myActions = new HashMap<String, Action>();
 		isSelected = false;
-		myTasks = new ArrayList<DelayedTask>();
-	}
 
-	public void addAction(String command, Action action) {
-		myActions.put(command, action);
 	}
 
 	public abstract void addActions();
 
-	public void addTask(DelayedTask dt) {
-		myTasks.add(dt);
+	@Override
+	public void updateAction(Command command) {
+		if (myActions.containsKey(command.getMethodName())) {
+			Action action = myActions.get(command.getMethodName());
+			action.update(command);
+		}
+	}
+
+	public boolean containsInput(Command command) {
+		return myActions.containsKey(command.getMethodName());
+	}
+
+	/*
+	 * Ze clone method
+	 */
+	// TODO: Make abstract
+	public InteractiveEntity copy() {
+		return null;
+	}
+
+	/**
+	 * Returns the upgrade tree for the interactive entity.
+	 * 
+	 * @return the upgrade tree for the interactive entity
+	 */
+	public UpgradeTree getUpgradeTree() {
+		return myUpgradeTree;
+	}
+
+	public void setUpgradeTree(UpgradeTree upgradeTree, int playerID) {
+		myUpgradeTree = upgradeTree;
+	}
+
+	public int getSpeed() {
+		return DEFAULT_INTERACTIVEENTITY_SPEED;
+	}
+
+	/**
+	 * This method specifies that the interactive entity is getting attacked so
+	 * it calls the attack method of the interactive entity on itself.
+	 * 
+	 * @param interactiveEntity
+	 *            is the interactive entity that is attacking this interactive
+	 *            entity
+	 */
+	public void getAttacked(InteractiveEntity interactiveEntity) {
+		interactiveEntity.attack(this);
+	}
+
+	/**
+	 * Returns the sound that the interactive entity makes.
+	 * 
+	 * @return the sound of the interactive entity
+	 */
+	public Sound getSound() {
+		return mySound;
+	}
+
+	/**
+	 * Sets the isSelected boolean to the passed in bool value.
+	 */
+	public void select(boolean selected) {
+		isSelected = selected;
+	}
+
+	public void put(String name, Action action) { // Might just use a putter
+													// method here instead
+		myActions.put(name, action);
 	}
 
 	/**
@@ -111,46 +168,59 @@ public abstract class InteractiveEntity extends GameEntity implements
 								.getY(), 2));
 		if (!this.isDead()) {
 			// getEntityState().setAttackingState(AttackingState.ATTACKING);
-			getEntityState().attack();
-			// setVelocity(getVelocity().getAngle(), 0);
-			// getGameState().setMovementState(MovementState.STATIONARY);
-			if (getEntityState().canAttack()) {
-
+				getEntityState().setAttackingState(AttackingState.ATTACKING);
+				if (getEntityState().canAttack()) {
+				getEntityState().attack();
+				// setVelocity(getVelocity().getAngle(), 0);
+				// getGameState().setMovementState(MovementState.STATIONARY);
+				
 				myAttackStrategy.attack(attackable, distance);
 
 			}
 		}
 	}
 
-	public int calculateDamage(int damage) {
-		return damage * (1 - (myArmor / (myArmor + 100)));
-	}
-
-	public boolean containsInput(Command command) {
-		return myActions.containsKey(command.getMethodName());
-	}
-
-	/*
-	 * Ze clone method
+	// below are the recognize methods to handle different input parameters from
+	// controller
+	/**
+	 * If the passed in parameter is type Location3D, moves the
+	 * InteractiveEntity to that location
+	 * 
+	 * @param location
+	 *            - the location to move to
 	 */
-	// TODO: Make abstract
-	public abstract InteractiveEntity copy();
-
-	public Action getAction(Command command) {
-		System.out.println("getting");
-		return myActions.get(command.getMethodName());
+	public void recognize(Location3D location) {
+		move(location);
 	}
 
 	/**
-	 * This method specifies that the interactive entity is getting attacked so
-	 * it calls the attack method of the interactive entity on itself.
+	 * If the passed in parameter is another InteractiveEntity, checks to see if
+	 * it is a Building and can be occupied, checks to see if it is an enemy,
+	 * and if so, switches to attack state. Defaults to move to the center of
+	 * the other InteractiveEntity
 	 * 
-	 * @param interactiveEntity
-	 *            is the interactive entity that is attacking this interactive
-	 *            entity
+	 * @param other
+	 *            - the other InteractiveEntity
 	 */
-	public void getAttacked(InteractiveEntity interactiveEntity) {
-		interactiveEntity.attack(this);
+	public void recognize(InteractiveEntity other) {
+		if (other instanceof Building) {
+			// occupy or do something
+		}
+		if (isEnemy(other)) {
+			// switch to attack state
+		}
+		move(other.getWorldLocation());
+	}
+
+	/**
+	 * Sets the attack strategy for an interactive. Can set the interactive to
+	 * CanAttack or to CannotAttack and then can specify how it would attack.
+	 * 
+	 * @param newStrategy
+	 *            is the new attack strategy that the interactive will have
+	 */
+	public void setAttackStrategy(AttackStrategy newStrategy) {
+		myAttackStrategy = newStrategy;
 	}
 
 	/**
@@ -162,29 +232,30 @@ public abstract class InteractiveEntity extends GameEntity implements
 		return myAttackStrategy;
 	}
 
-	/**
-	 * Returns the sound that the interactive entity makes.
-	 * 
-	 * @return the sound of the interactive entity
-	 */
-	public Sound getSound() {
-		return mySound;
+	public int calculateDamage(int damage) {
+		return damage * (1 - (myArmor / (myArmor + 100)));
 	}
 
-	public int getSpeed() {
-		return DEFAULT_INTERACTIVEENTITY_SPEED;
+	/**
+	 * upgrades the interactive based on the selected upgrade
+	 * 
+	 * @param upgradeNode
+	 *            is the upgrade that the interactive will get
+	 * @throws NoSuchMethodException
+	 * @throws InstantiationException
+	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException
+	 * @throws SecurityException
+	 * @throws IllegalArgumentException
+	 */
+	public void upgrade(UpgradeNode upgradeNode)
+			throws IllegalArgumentException, SecurityException,
+			IllegalAccessException, InvocationTargetException,
+			InstantiationException, NoSuchMethodException {
+		// upgradeNode.apply(upgradeNode.getUpgradeTree().getUsers());
 	}
 
 	public UpgradeTree getTree() {
-		return myUpgradeTree;
-	}
-
-	/**
-	 * Returns the upgrade tree for the interactive entity.
-	 * 
-	 * @return the upgrade tree for the interactive entity
-	 */
-	public UpgradeTree getUpgradeTree() {
 		return myUpgradeTree;
 	}
 
@@ -198,6 +269,26 @@ public abstract class InteractiveEntity extends GameEntity implements
 	 */
 	public boolean isEnemy(InteractiveEntity other) {
 		return getPlayerID() != other.getPlayerID();
+	}
+
+	//
+	// public Action findAction(String name) {
+	// for (Action a: myActions) {
+	// if (a.getName().equals(name)) {
+	// return a;
+	// }
+	// }
+	// return null;
+	// }
+
+	@Override
+	public void update(double elapsedTime) {
+		super.update(elapsedTime);
+		if (myAttackStrategy.getCanAttack()
+				&& !getAttackStrategy().getWeapons().isEmpty()) {
+			myAttackStrategy.getWeapons()
+					.get(myAttackStrategy.getWeaponIndex()).update(elapsedTime);
+		}
 	}
 
 	@Override
@@ -237,126 +328,9 @@ public abstract class InteractiveEntity extends GameEntity implements
 		}
 	}
 
-	public void put(String name, Action action) { // Might just use a putter
-													// method here instead
-		myActions.put(name, action);
-	}
-
-	/**
-	 * If the passed in parameter is another InteractiveEntity, checks to see if
-	 * it is a Building and can be occupied, checks to see if it is an enemy,
-	 * and if so, switches to attack state. Defaults to move to the center of
-	 * the other InteractiveEntity
-	 * 
-	 * @param other
-	 *            - the other InteractiveEntity
-	 */
-	public void recognize(InteractiveEntity other) {
-		if (other instanceof Building) {
-			// occupy or do something
-		}
-		if (isEnemy(other)) {
-			// switch to attack state
-		}
-		move(other.getWorldLocation());
-	}
-
-	// below are the recognize methods to handle different input parameters from
-	// controller
-	/**
-	 * If the passed in parameter is type Location3D, moves the
-	 * InteractiveEntity to that location
-	 * 
-	 * @param location
-	 *            - the location to move to
-	 */
-	public void recognize(Location3D location) {
-		move(location);
-	}
-
-	/**
-	 * Sets the isSelected boolean to the passed in bool value.
-	 */
-	public boolean select(boolean selected) {
-		if(selected && getState().canSelect()) {
-			isSelected = selected;
-		}
-		if(!selected) {
-			isSelected = selected;
-		}
-		return isSelected;
-	}
-
-	/**
-	 * Sets the attack strategy for an interactive. Can set the interactive to
-	 * CanAttack or to CannotAttack and then can specify how it would attack.
-	 * 
-	 * @param newStrategy
-	 *            is the new attack strategy that the interactive will have
-	 */
-	public void setAttackStrategy(AttackStrategy newStrategy) {
-		myAttackStrategy = newStrategy;
-	}
-
-	public void setUpgradeTree(UpgradeTree upgradeTree, int playerID) {
-		myUpgradeTree = upgradeTree;
-	}
-
-	//
-	// public Action findAction(String name) {
-	// for (Action a: myActions) {
-	// if (a.getName().equals(name)) {
-	// return a;
-	// }
-	// }
-	// return null;
-	// }
-
-	@Override
-	public void update(double elapsedTime) {
-		super.update(elapsedTime);
-		Iterator<DelayedTask> it = myTasks.iterator();
-
-		while (it.hasNext()) {
-			DelayedTask dt = it.next();
-			dt.update(elapsedTime);
-			if (!dt.isActive()) {
-				it.remove();
-			}
-		}
-
-		if (myAttackStrategy.getCanAttack()
-				&& !getAttackStrategy().getWeapons().isEmpty()) {
-			myAttackStrategy.getWeapons()
-					.get(myAttackStrategy.getWeaponIndex()).update(elapsedTime);
-		}
-	}
-
-	@Override
-	public void updateAction(Command command) {
-		if (myActions.containsKey(command.getMethodName())) {
-			Action action = myActions.get(command.getMethodName());
-			action.update(command);
-		}
-	}
-
-	/**
-	 * upgrades the interactive based on the selected upgrade
-	 * 
-	 * @param upgradeNode
-	 *            is the upgrade that the interactive will get
-	 * @throws NoSuchMethodException
-	 * @throws InstantiationException
-	 * @throws InvocationTargetException
-	 * @throws IllegalAccessException
-	 * @throws SecurityException
-	 * @throws IllegalArgumentException
-	 */
-	public void upgrade(UpgradeNode upgradeNode)
-			throws IllegalArgumentException, SecurityException,
-			IllegalAccessException, InvocationTargetException,
-			InstantiationException, NoSuchMethodException {
-		// upgradeNode.apply(upgradeNode.getUpgradeTree().getUsers());
+	public Action getAction(Command command) {
+		System.out.println("getting");
+		return myActions.get(command.getMethodName());
 	}
 
 }
