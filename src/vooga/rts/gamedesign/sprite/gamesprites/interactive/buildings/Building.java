@@ -2,6 +2,7 @@ package vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings;
 
 import java.awt.Dimension;
 
+
 import java.awt.Graphics2D;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -22,7 +23,6 @@ import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
 import vooga.rts.gamedesign.strategy.occupystrategy.CanBeOccupied;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
-import vooga.rts.manager.GameBuildingManager;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;

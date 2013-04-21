@@ -93,7 +93,7 @@ public class Manager implements State, IActOn, Observer {
     }
 
     @Override
-    public void put (String input, Action action) {
+    public void addAction (String input, Action action) {
         myActions.put(input, action);
 
     }
@@ -177,9 +177,9 @@ public class Manager implements State, IActOn, Observer {
     public List<InteractiveEntity> getAllEntities () {
         return myEntities;
     }
-    
-    public void setAllEntities(List<InteractiveEntity> entityList) {
-    	myEntities = entityList;
+
+    public void setAllEntities (List<InteractiveEntity> entityList) {
+        myEntities = entityList;
     }
 
     /**
@@ -264,9 +264,9 @@ public class Manager implements State, IActOn, Observer {
     }
 
     public void addActions () {
-        put("drag", new DragSelectAction(this));
-        put("leftclick", new LeftClickAction(this));
-        put("rightclick", new RightClickAction(this));
+        addAction("drag", new DragSelectAction(this));
+        addAction("leftclick", new LeftClickAction(this));
+        addAction("rightclick", new RightClickAction(this));
     }
 
     /**
@@ -280,19 +280,20 @@ public class Manager implements State, IActOn, Observer {
             mySelectedEntities = new ArrayList<InteractiveEntity>(myGroups.get(groupID));
         }
     }
-    
+
     /**
      * Finds the InteractiveEntity in myEntities based on its hash code.
+     * 
      * @param hashCode the hash code of the entity that is looking for
      * @return the index of the entity with the hashCode
      */
-    private int findEntityWithHashCode(int hashCode) {
-    	for (int i = 0; i<myEntities.size(); ++i) {
-    		if (myEntities.get(i).hashCode() == hashCode) {
-    			return i;
-    		}
-    	}
-    	return -1;
+    private int findEntityWithHashCode (int hashCode) {
+        for (int i = 0; i < myEntities.size(); ++i) {
+            if (myEntities.get(i).hashCode() == hashCode) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     @Override
@@ -307,19 +308,21 @@ public class Manager implements State, IActOn, Observer {
         // While Shepherds watch their flocks by night.
         if (state instanceof InteractiveEntity) {
             int index = myEntities.indexOf(state);
-            
-        	if (((InteractiveEntity) state).getEntityState().
-            		getDetectableState().equals(DetectableState.
-            				DETECTABLE)) {
-        		myEntities.get(index).setVisible(false);
-            	myEntities.get(index).getEntityState().setDetectableState(DetectableState.NOTDETECTABLE);
+
+            if (((InteractiveEntity) state).getEntityState().getDetectableState()
+                    .equals(DetectableState.DETECTABLE)) {
+                myEntities.get(index).setVisible(false);
+                myEntities.get(index).getEntityState()
+                        .setDetectableState(DetectableState.NOTDETECTABLE);
             }
         }
-        else if (state instanceof Integer) {
-        	int index = findEntityWithHashCode((Integer)state);
-        	myEntities.get(index).getEntityState().setDetectableState(DetectableState.DETECTABLE);
-        	myEntities.get(index).setVisible(true);
-        	myEntities.get(index).setWorldLocation(new Location3D());
-        }
+        else
+            if (state instanceof Integer) {
+                int index = findEntityWithHashCode((Integer) state);
+                myEntities.get(index).getEntityState()
+                        .setDetectableState(DetectableState.DETECTABLE);
+                myEntities.get(index).setVisible(true);
+                myEntities.get(index).setWorldLocation(new Location3D());
+            }
     }
 }
