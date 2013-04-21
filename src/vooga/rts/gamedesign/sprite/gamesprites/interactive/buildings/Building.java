@@ -1,10 +1,8 @@
 package vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings;
 
 import java.awt.Dimension;
-
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
-import vooga.rts.manager.GameBuildingManager;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;

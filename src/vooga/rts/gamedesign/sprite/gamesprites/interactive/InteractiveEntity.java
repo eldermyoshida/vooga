@@ -65,6 +65,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     private double myBuildTime;
 
     public static final double DEFAULT_BUILD_TIME = 5;
+
     /**
      * Creates a new interactive entity.
      * 
@@ -158,16 +159,16 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
         return myActions.get(command.getMethodName());
     }
 
-	public void getOccupied(Unit occupier) {
-		if (occupier.collidesWith(this)) {
-			//TODO: this if check is because action is not initialized in Occupy Strategy.
-			if (this.getAction(new Command("be occupied!")) != null) {
-				((InteractiveAction)this.getAction(new Command("be occupied!"))).apply(occupier);
-				//getOccupyStrategy().getOccupied(this, occupier);
-			}
-		}
-	}
-    
+    public void getOccupied (Unit occupier) {
+        if (occupier.collidesWith(this)) {
+            // TODO: this if check is because action is not initialized in Occupy Strategy.
+            if (this.getAction(new Command("be occupied!")) != null) {
+                // ((InteractiveAction)this.getAction(new Command("be occupied!"))).apply(occupier);
+                // getOccupyStrategy().getOccupied(this, occupier);
+            }
+        }
+    }
+
     /**
      * This method specifies that the interactive entity is getting attacked so
      * it calls the attack method of the interactive entity on itself.
@@ -402,31 +403,31 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     public void setChanged () {
         super.setChanged();
     }
-    
 
-    
-    public OccupyStrategy getOccupyStrategy() {
-    	return myOccupyStrategy;
+    public OccupyStrategy getOccupyStrategy () {
+        return myOccupyStrategy;
     }
-    
-    public void setOccupyStrategy(OccupyStrategy occupyStrategy) {
-    	myOccupyStrategy = occupyStrategy;
+
+    public void setOccupyStrategy (OccupyStrategy occupyStrategy) {
+        myOccupyStrategy = occupyStrategy;
     }
-    
+
     /**
      * Returns the time it takes to create the entity.
+     * 
      * @return how long it takes to make the entity
      */
-    public double getBuildTime() {
-    	return myBuildTime;
+    public double getBuildTime () {
+        return myBuildTime;
     }
-    
+
     /**
      * Sets how long the build time is for the entity.
+     * 
      * @param time is the amount of time it will take to create the entity
      */
-    public void setBuildTime(double time) {
-    	myBuildTime = time;
+    public void setBuildTime (double time) {
+        myBuildTime = time;
     }
 
 }
