@@ -1,15 +1,15 @@
 package vooga.rts.networking.communications.servermessages;
 
 import vooga.rts.networking.client.IClientModel;
-import vooga.rts.networking.communications.LobbyInfo;
+import vooga.rts.networking.communications.ExpandedLobbyInfo;
 
 public class LobbyInfoMessage extends ServerInfoMessage {
     
     private static final long serialVersionUID = 6729477946727355957L;
 
-    private LobbyInfo myLobbyInfo;
+    private ExpandedLobbyInfo myLobbyInfo;
 
-    public LobbyInfoMessage (LobbyInfo info) {
+    public LobbyInfoMessage (ExpandedLobbyInfo info) {
         myLobbyInfo = info;
     }
 

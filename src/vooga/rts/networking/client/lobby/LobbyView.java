@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
-import vooga.rts.networking.communications.LobbyInfo;
+import vooga.rts.networking.communications.ExpandedLobbyInfo;
 import vooga.rts.player.RTSPlayer;
 
 public class LobbyView extends JFrame{
@@ -18,10 +18,10 @@ public class LobbyView extends JFrame{
      */
     private static final long serialVersionUID = 740756183302788979L;
     private Player myPlayer;//TODO: change to id system perhaps
-    private LobbyInfo myLobbyInfo;
+    private ExpandedLobbyInfo myLobbyInfo;
     
     
-    public LobbyView(LobbyInfo info) {
+    public LobbyView(ExpandedLobbyInfo info) {
         myLobbyInfo = info;
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         
@@ -56,7 +56,7 @@ public class LobbyView extends JFrame{
     
     
     public static void main( String[] args) {
-        LobbyView view = new LobbyView(new LobbyInfo("lobbyname", "mapName", 4, 2, 0));
+        LobbyView view = new LobbyView(new ExpandedLobbyInfo("lobbyname", "mapName", 4, 2, 0));
         view.pack();
         view.setVisible(true);
     }

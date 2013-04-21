@@ -1,7 +1,7 @@
 package vooga.rts.networking.communications.servermessages;
 
 import vooga.rts.networking.client.IClientModel;
-import vooga.rts.networking.communications.LobbyInfo;
+import vooga.rts.networking.communications.ExpandedLobbyInfo;
 
 /**
  * This sends the 
@@ -10,9 +10,9 @@ import vooga.rts.networking.communications.LobbyInfo;
  */
 public class FinalizeLobbyInfoMessage extends ServerInfoMessage {
 
-    private LobbyInfo myLobbyInfo;
+    private ExpandedLobbyInfo myLobbyInfo;
     
-    public FinalizeLobbyInfoMessage (LobbyInfo info) {
+    public FinalizeLobbyInfoMessage (ExpandedLobbyInfo info) {
         myLobbyInfo = info;
     }
 

@@ -2,10 +2,10 @@ package vooga.rts.networking.client.lobby;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;
-import vooga.rts.networking.communications.LobbyInfo;
+import vooga.rts.networking.communications.ExpandedLobbyInfo;
 
 public class LobbyModel {
-    private LobbyInfo myInfo;
+    private ExpandedLobbyInfo myInfo;
     private PriorityQueue<Team> myTeams;
     private String myLobbyName;
     private String myMapName;
@@ -36,7 +36,7 @@ public class LobbyModel {
      * so that connected clients can have an object sent to them containing relevant on-screen information.
      * @return
      */
-    public LobbyInfo getLobbyInfo() {
+    public ExpandedLobbyInfo getLobbyInfo() {
         return myInfo;
         
     }
@@ -45,7 +45,7 @@ public class LobbyModel {
      * Note :This will only be used if we decide to implement the LobbyModel in both the server and Client
      * @param info
      */
-    public void updateLobbyInfo(LobbyInfo info) {
+    public void updateLobbyInfo(ExpandedLobbyInfo info) {
         myInfo = info;
     }
     
