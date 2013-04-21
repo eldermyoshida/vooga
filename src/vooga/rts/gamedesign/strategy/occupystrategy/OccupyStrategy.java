@@ -1,5 +1,6 @@
 package vooga.rts.gamedesign.strategy.occupystrategy;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import vooga.rts.gamedesign.sprite.gamesprites.GameEntity;
@@ -29,6 +30,8 @@ public interface OccupyStrategy extends Strategy{
 	public void setOccupierID(int id);
 	
 	public List<Unit> getOccupiers();
+	
+	public void setOccupiers(ArrayList<Unit> u);
 	
 	public int getMaxOccupiers();
 	

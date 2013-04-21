@@ -1,5 +1,6 @@
 package vooga.rts.gamedesign.strategy.occupystrategy;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import vooga.rts.gamedesign.sprite.gamesprites.GameEntity;
@@ -51,6 +52,12 @@ public class CannotBeOccupied implements OccupyStrategy{
 	public int getOccupierID() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public void setOccupiers(ArrayList<Unit> u) {
+		// TODO Auto-generated method stub
+		
 	}
 
 

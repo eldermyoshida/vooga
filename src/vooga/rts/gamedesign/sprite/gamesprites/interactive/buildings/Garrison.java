@@ -10,6 +10,7 @@ import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
 import java.awt.Dimension;
+import java.util.ArrayList;
 
 /**
  * 
@@ -33,7 +34,8 @@ public class Garrison extends Building {
             @Override
             public void apply(int playerID) {
             	getGameUnitManager().removeEntityUnit(building);
-            	//getOccupyStrategy().setOccupierID(0);
+            	getOccupyStrategy().setOccupierID(0);
+            	getOccupyStrategy().setOccupiers(new ArrayList<Unit>());
             }
     	});
     }

@@ -82,6 +82,10 @@ public class CanBeOccupied implements OccupyStrategy{
 		return myOccupiers;
 	}
 	
+	public void setOccupiers(ArrayList<Unit> u) {
+		myOccupiers = u;
+	}
+	
 	public int getMaxOccupiers() {
 		return myMaxOccupiers;
 	}
