@@ -5,6 +5,7 @@ import java.io.File;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import vooga.scroller.level_editor.controllerSuite.LEController;
+import vooga.scroller.level_editor.controllerSuite.LETools;
 import vooga.scroller.level_editor.library.ISpriteLibrary;
 import vooga.scroller.util.Renderable;
 import vooga.scroller.util.mvc.vcFramework.Tools;
@@ -12,7 +13,7 @@ import vooga.scroller.util.mvc.vcFramework.Window;
 import vooga.scroller.util.mvc.vcFramework.WorkspaceView;
 
 
-public class LEView extends Window {
+public class LEView extends Window<LEWorkspaceView, LevelEditing, LEGridView, LETools> {
     
 
     private static final long serialVersionUID = 1L;
@@ -34,24 +35,14 @@ public class LEView extends Window {
     }
 
     @Override
-    public WorkspaceView initializeWorkspaceView (int id, Renderable r) {
-        LEWorkspaceView res = new LEWorkspaceView(this, id, r);
+    public LEWorkspaceView initializeWorkspaceView (int id, Renderable<?> r) {
+        LEWorkspaceView res = new LEWorkspaceView(this, id, (Renderable<LEGridView>) r);
         return res;
     }
 
     @Override
     protected void setMenu () {
         super.setMenu(new LEMenuBar(this));
-    }
-
-    @Override
-    public void showWorkspace (WorkspaceView associatedWorkspaceView, Renderable r) {
-        // TODO Auto-generated method stub
-        super.addTab(associatedWorkspaceView, r);
-    }
-    
-    public void setDefaultWorkspaceTools(Tools t) {
-        LEWorkspaceView.setTools(t);
     }
     
     /**
@@ -76,10 +67,16 @@ public class LEView extends Window {
         }
     }
 
+
     @Override
-    public void render (Renderable<?> r) {
-        // TODO Auto-generated method stub
-        
+    public void setDefaultWorkspaceTools (LETools t) {
+        LEWorkspaceView.setTools(t); //TODO
     }
+
+    @Override
+    public void render (Renderable r) {
+        //TODO ---->
+    }
+
 
 }

@@ -11,7 +11,10 @@ import vooga.scroller.level_editor.library.ISpriteLibrary;
 import vooga.scroller.level_editor.model.LevelEditor;
 import vooga.scroller.level_editor.model.LevelParser;
 import vooga.scroller.level_editor.model.LevelWriter;
+import vooga.scroller.level_editor.view.LEGridView;
 import vooga.scroller.level_editor.view.LEView;
+import vooga.scroller.level_editor.view.LEWorkspaceView;
+import vooga.scroller.level_editor.view.LevelEditing;
 import vooga.scroller.sprites.test_sprites.MarioLib;
 import vooga.scroller.util.Editable;
 import vooga.scroller.util.Renderable;
@@ -25,22 +28,23 @@ import vooga.scroller.util.mvc.vcFramework.WorkspaceView;
  * <LI> Instantiating a generic model and a view </LI>
  * <LI> Keeping track of multiple high-level domain-specific objects (eg. Room, Level...)</LI>
  * <LI> Send Renderable versions to the adequate IView workspace</LI>
- * <LI> Send Editable versions to the Model</LI>
+ * <LI> Send an "Editable" versions to the Model</LI>
  * <LI> Ensuring that all high-level domain instances are kept in sync.
  * @author SLogo team 3, Dagbedji F.
  *
  */
 
-public class LEController implements IController {
+public class LEController implements IController<LevelEditing> {
 
-    private IWindow myView;
+    private IWindow<LEWorkspaceView, LevelEditing, LEGridView, LETools> myView;
     private ILevelEditor myModel;
-    private Map<Editable, WorkspaceView> myWorkspace2Tab;
-    private Map<WorkspaceView, Editable> myTab2Workspace;
+    private Map<Editable, WorkspaceView<LevelEditing>> myWorkspace2Tab;
+    private Map<WorkspaceView<LevelEditing>, Editable> myTab2Workspace;
     private static final int DEFAULT_SPRITE_GRID_SIZE = 30;
     private ToolsManager myToolsManager;
     private LevelWriter myLevelWriter;
     private LevelParser myLevelReader;
+    private LevelEditing myDomainInfo;
     
     /**
      * Constructor
@@ -48,17 +52,17 @@ public class LEController implements IController {
      */
     public LEController(ISpriteLibrary lib, IBackgroundLibrary bgLib) {
         myToolsManager = new ToolsManager(lib,bgLib);
+        myDomainInfo = new LevelEditing();
         String language = getLanguage();
         myModel = new LevelEditor(language);
         myModel.setSpriteMap(myToolsManager.getSpriteMap());
         myModel.setBackgroundMap(bgLib.getBackgrounds());
         myView = new LEView(language, this, lib);
         myView.setDefaultWorkspaceTools(myToolsManager.getViewTools());
-        myWorkspace2Tab = new HashMap<Editable, WorkspaceView>();
-        myTab2Workspace = new HashMap<WorkspaceView, Editable>();
+        myWorkspace2Tab = new HashMap<Editable, WorkspaceView<LevelEditing>>();
+        myTab2Workspace = new HashMap<WorkspaceView<LevelEditing>, Editable>();
         myLevelWriter = new LevelWriter();
         myLevelReader = new LevelParser();
-//        myLevelParser.setNameMap(myToolsManager.getNameMap());
     }
 
     private String getLanguage () {
@@ -96,44 +100,10 @@ public class LEController implements IController {
         return myWorkspace2Tab.get(m);
     }
 
-
-    /* (non-Javadoc)
-     * @see vooga.scroller.level_editor.controllerSuite.IController#saveFile(java.io.File, vooga.scroller.viewUtil.WorkspaceView)
-     */
-    @Override
-    public void saveFile (File file2save, WorkspaceView t) {
-        LEGrid grid = (LEGrid) getModelForWorkspace(t);
-        myLevelWriter.createFile(file2save,grid);
-    }
-
-    /* (non-Javadoc)
-     * @see vooga.scroller.level_editor.controllerSuite.IController#loadFile(java.io.File)
-     */
-    @Override
-    public void loadFile (File file2open) {
-        Editable m = myLevelReader.makeGridFromFile(file2open);
-        int id = myWorkspace2Tab.size();
-        createWorkspaceView(id, m);
-    }
-
-    /* (non-Javadoc)
-     * @see vooga.scroller.level_editor.controllerSuite.IController#process(vooga.scroller.viewUtil.WorkspaceView, java.lang.Object)
-     */
-    @Override
-    public void process (WorkspaceView t, Object cmd) {
-        Editable m = getModelForWorkspace(t);
-        System.out.println("Controller got "+ cmd);
-        if(cmd instanceof String) {
-            myModel.processCommand(m, (String)cmd);
-        }
-        t.setRenderable((Renderable<?>) m);
-    }
-
     
     /* (non-Javadoc)
      * @see vooga.scroller.level_editor.controllerSuite.IController#initializeWorkspace(int, int)
      */
-    @Override
     public void initializeWorkspace(int numWidthBlocks, int numHeightBlocks) {
         int id = myWorkspace2Tab.size();
         initializeWorkspace(id, numWidthBlocks, numHeightBlocks);
@@ -166,7 +136,7 @@ public class LEController implements IController {
      * @param id
      */
     private void initializeWorkspace (int id) {
-        Editable m = new LEGrid(DEFAULT_SPRITE_GRID_SIZE,DEFAULT_SPRITE_GRID_SIZE);;
+        LEGrid m = new LEGrid(DEFAULT_SPRITE_GRID_SIZE,DEFAULT_SPRITE_GRID_SIZE);;
         createWorkspaceView(id, m);
     }
 
@@ -174,17 +144,46 @@ public class LEController implements IController {
      * @param id
      * @param m
      */
-    private void createWorkspaceView (int id, Editable m) {
-        WorkspaceView associatedWorkspaceView = 
-                myView.initializeWorkspaceView(id, (Renderable) m);
+    private void createWorkspaceView (int id, LEGrid m) {
+        LEWorkspaceView associatedWorkspaceView = 
+                myView.initializeWorkspaceView(id, (Renderable<LEGridView>) m);
         myWorkspace2Tab.put(m, associatedWorkspaceView);
         myTab2Workspace.put(associatedWorkspaceView, m);
-        myView.showWorkspace(associatedWorkspaceView, (Renderable) m);
+        myView.showWorkspace(associatedWorkspaceView, (Renderable<LEGridView>) m);
        }
     
     private void initializeWorkspace(int id, int numWidthBlocks, int numHeightBlocks) {
-        Editable m = new LEGrid(numWidthBlocks, numHeightBlocks);
+        LEGrid m = new LEGrid(numWidthBlocks, numHeightBlocks);
         createWorkspaceView(id, m);
+    }
+
+    @Override
+    public void saveFile (File file2save, WorkspaceView<LevelEditing> t) {
+        LEGrid grid = (LEGrid) getModelForWorkspace(t);
+        myLevelWriter.createFile(file2save,grid);
+        
+    }
+
+    @Override
+    public LevelEditing getDomainInfo () {
+        return myDomainInfo;
+    }
+
+    @Override
+    public void loadFile (File file2open) {
+        LEGrid m = myLevelReader.makeGridFromFile(file2open);
+        int id = myWorkspace2Tab.size();
+        createWorkspaceView(id, m);
+    }
+
+    @Override
+    public void process (WorkspaceView<LevelEditing> t, Object cmd) {
+        LEGrid m = (LEGrid) getModelForWorkspace(t);
+        System.out.println("Controller got "+ cmd);
+        if(cmd instanceof String) {
+            myModel.processCommand(m, (String)cmd);
+        }
+        t.setRenderable((Renderable<?>) m);
     }
 
 }

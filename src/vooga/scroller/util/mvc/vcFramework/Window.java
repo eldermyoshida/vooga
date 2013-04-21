@@ -15,6 +15,9 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JTabbedPane;
+import vooga.scroller.level_editor.view.LEGridView;
+import vooga.scroller.level_editor.view.LEWorkspaceView;
+import vooga.scroller.level_editor.view.LevelEditing;
 import vooga.scroller.util.Renderable;
 import vooga.scroller.util.mvc.IController;
 import vooga.scroller.util.mvc.IWindow;
@@ -25,16 +28,19 @@ import vooga.scroller.viewUtil.EasyGridFactory;
  * the other view components of the application. It also has support 
  * (or enforces implementation) for common non-domain specific actions available in most GUIs.
  * Among other things, file-opening, multiple tabs, undoing and redoing...
+ * 
  * @author Ross Cahoon, Dagbedji Fagnisse
  *
  */
 @SuppressWarnings("serial")
-public abstract class Window extends JFrame implements IWindow {
+public abstract class Window<W extends WorkspaceView<D>, D extends IDomainDescriptor,
+R extends WindowComponent, T extends Tools> extends JFrame 
+implements IWindow<W, D, R, T> {
 
     private static ResourceBundle ourResources;
     private static final String DEFAULT_RESOURCE_PACKAGE = "vooga.scroller.resources.";
     private static final String USER_DIR = "user.dir";
-    private IController myController;
+    private IController<D> myController;
     private JTabbedPane myTabbedPane;
     private JMenuBar myMenuBar;
     private JFileChooser myChooser;
@@ -46,7 +52,7 @@ public abstract class Window extends JFrame implements IWindow {
      * @param language The display language for the window
      * @param lEController The Controller responsible for this view
      */
-    public Window (String title, String language, IController lEController) {
+    public Window (String title, String language, IController<D> lEController) {
         super(title);
         this.setResizable(false);
         setPreferredSize(mySize);
@@ -87,7 +93,7 @@ public abstract class Window extends JFrame implements IWindow {
      * @param tab The tab to be added
      * @param p The Renderable that it is associated with
      */
-    public void addTab (WorkspaceView tab, Renderable p) {
+    public void addTab (W tab, Renderable<R> p) {
         myTabbedPane.addTab(getLiteral("TabTitle") + " " + (tab.getID() + 1), tab);
         tab.setRenderable(p);
     }
@@ -136,7 +142,7 @@ public abstract class Window extends JFrame implements IWindow {
      * @param tabView The Tabview that is requesting the string to be processed
      * @param s The string to be processed
      */
-    public void process (WorkspaceView tabView, Object o) {
+    public void process (W tabView, Object o) {
         myController.process(tabView, o);
     }
     
@@ -149,8 +155,9 @@ public abstract class Window extends JFrame implements IWindow {
         process(getActiveTab(), o);
     }
     
-    protected WorkspaceView getActiveTab() {
-        return (WorkspaceView) myTabbedPane.getSelectedComponent();
+    @SuppressWarnings("unchecked")
+    protected W getActiveTab() {
+        return (W) myTabbedPane.getSelectedComponent();
     }
 
     /**
@@ -189,35 +196,6 @@ public abstract class Window extends JFrame implements IWindow {
         }
     }
 
-    /**
-     * Initiate the change of background
-     */
-    public void changeBackground() {
-        int response = myChooser.showOpenDialog(null);
-        if (response == JFileChooser.APPROVE_OPTION) {
-            Image img;
-            try {
-                img = ImageIO.read(myChooser.getSelectedFile());
-                WorkspaceView temp = getActiveTab();
-                if (temp != null) {
-                    temp.setBackground(img);
-                }
-            }
-            catch (java.io.IOException er) {
-//                System.out.println(er.getMessage());
-            }
-        }
-    }
-    
-    /**
-     * Toggle the grid off or on
-     */
-    public void toggleGrid() {
-        WorkspaceView temp = getActiveTab();
-        if (temp != null) {
-            temp.toggleGrid();
-        }
-    }
     
     
     /**
@@ -241,9 +219,9 @@ public abstract class Window extends JFrame implements IWindow {
     public void redo () {
         getActiveTab().redo();
     }
-
-    public WorkspaceView initializeWorkspaceView (int id, Renderable r) {
-        // TODO Auto-generated method stub
-        return null;
+    
+    @Override
+    public void showWorkspace (W associatedWorkspaceView, Renderable<R> r) {
+        addTab(associatedWorkspaceView, r);
     }
 }

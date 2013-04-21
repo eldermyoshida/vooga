@@ -23,7 +23,7 @@ import vooga.scroller.viewUtil.EasyGridFactory;
  * @author Dagbedji Fagnisse
  * 
  */
-public class LEWorkspaceView extends WorkspaceView implements Renderer<LEGrid>{
+public class LEWorkspaceView extends WorkspaceView<LevelEditing> implements Renderer<LEGrid>{
     /**
      * 
      */

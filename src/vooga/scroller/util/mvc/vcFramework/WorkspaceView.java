@@ -14,10 +14,11 @@ import vooga.scroller.util.mvc.vcFramework.Window;
 /**
  * A workspace is an entity with at least a space for a Renderable 
  * and a set of tools for interacting with that Renderable.
+ * T is the Domain Descriptor. A domain descriptor
  * @author Dagbedji Fagnisse
  *
  */
-public abstract class WorkspaceView extends WindowComponent {
+public abstract class WorkspaceView<D extends IDomainDescriptor> extends WindowComponent {
 
     /**
      * 
@@ -55,19 +56,7 @@ public abstract class WorkspaceView extends WindowComponent {
         return myID;
     }
     
-    
-    
-//TODO : Maybe not (maybe remove this one)
-    public void setBackground (Image img) {
-        // TODO Auto-generated method stub
-        
-    }
 
-    //TODO: think about this one too
-    public void toggleGrid () {
-        // TODO Auto-generated method stub
-        
-    }
 
     public void undo () {
         // TODO Auto-generated method stub

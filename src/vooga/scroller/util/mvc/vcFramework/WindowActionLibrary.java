@@ -28,30 +28,6 @@ public class WindowActionLibrary {
         return Window.getLiteral(string);
     }
 
-    /**
-     * Action to select a background (image)
-     * @author Ross Cahoon
-     *
-     */
-    public class ChangeBackgroundAction extends AbstractAction {
-        /**
-         * 
-         */
-        private static final long serialVersionUID = 4028591576025206764L;
-
-        /**
-         * 
-         */
-        public ChangeBackgroundAction () {
-            super(getLiteral("ChangeBackground"));
-            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_B, ActionEvent.ALT_MASK));
-        }
-
-        @Override
-        public void actionPerformed (ActionEvent e) {
-            myWindow.changeBackground();
-        }
-    }
     
 //    /**
 //     * Change the color of the pen
@@ -290,29 +266,6 @@ public class WindowActionLibrary {
         }
     }
 
-    /**
-     * Action to toggle Grid
-     * @author Ross Cahoon
-     *
-     */
-    public class ToggleGridAction extends AbstractAction {
-        /**
-         * 
-         */
-        private static final long serialVersionUID = -273639836177381910L;
-        /**
-         * 
-         */
-        public ToggleGridAction () {
-            super(getLiteral("ReferenceCommand"));
-            putValue(ACCELERATOR_KEY, 
-                     KeyStroke.getKeyStroke(KeyEvent.VK_G, ActionEvent.ALT_MASK));
-        }
-        @Override
-        public void actionPerformed (ActionEvent e) {
-            myWindow.toggleGrid();
-        }
-    }
 
     /**
      * TODO
