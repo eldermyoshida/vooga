@@ -11,7 +11,9 @@ import java.util.Observer;
 import vooga.rts.commands.Command;
 import vooga.rts.commands.DragCommand;
 import vooga.rts.controller.Controller;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Soldier;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Worker;
 import vooga.rts.map.GameMap;
 import vooga.rts.player.HumanPlayer;
 import vooga.rts.player.Player;
@@ -55,7 +57,13 @@ public class GameState extends SubState implements Controller {
     @Override
     public void update (double elapsedTime) {
         myMap.update(elapsedTime);
-        myHumanPlayer.update(elapsedTime);
+
+        for (Player p : myPlayers) {
+            p.update(elapsedTime);
+        }
+
+        yuckyUnitUpdate(elapsedTime);
+
         myFrames.update(elapsedTime);
     }
 
@@ -174,14 +182,28 @@ public class GameState extends SubState implements Controller {
 
     // }
 
-    public void addPlayer (int id) {
+    public void addPlayer (Player player, int teamID) {
+        myPlayers.add(player);
+        if (myTeams.get(teamID) == null) {
+            addTeam(teamID);
+        }
+        myTeams.get(teamID).addPlayer(player);
+    }
+
+    public void addTeam (int teamID) {
+        myTeams.put(teamID, new Team(teamID));
+    }
+
+    public void addPlayer (int teamID) {
+        Player result;
         if (myPlayers.size() == 0) {
-            myHumanPlayer = new HumanPlayer(id);
-            myPlayers.add(myHumanPlayer);
+            myHumanPlayer = new HumanPlayer(teamID);
+            result = myHumanPlayer;
         }
         else {
-            myPlayers.add(new Player(id));
+            result = new Player(teamID);
         }
+        addPlayer(result, teamID);
     }
 
     public void setupGame () {
@@ -190,5 +212,16 @@ public class GameState extends SubState implements Controller {
         addPlayer(2);
         myPlayers.get(1).add(new Soldier(new Location3D(200, 200, 0), 2));
         myMap = new GameMap(8, new Dimension(512, 512));
+    }
+
+    private void yuckyUnitUpdate (double elapsedTime) {
+        List<InteractiveEntity> p1 = myTeams.get(1).getUnits();
+        List<InteractiveEntity> p2 = myTeams.get(2).getUnits();
+        for (InteractiveEntity u1 : p1) {
+            for (InteractiveEntity u2 : p2) {
+                u2.getAttacked(u1);
+                u1.getAttacked(u2);
+            }
+        }
     }
 }

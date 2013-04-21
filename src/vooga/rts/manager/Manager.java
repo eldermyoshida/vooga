@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
@@ -81,7 +82,9 @@ public class Manager implements State, IActOn, Observer {
     }
 
     public void applyAction (Command command) {
-        for (InteractiveEntity u : mySelectedEntities) {
+        Iterator<InteractiveEntity> it = mySelectedEntities.iterator();
+        while (it.hasNext()) {
+            InteractiveEntity u = it.next();
             if (u.containsInput(command)) {
                 u.updateAction(command);
                 u.getAction(command).apply();
@@ -103,6 +106,7 @@ public class Manager implements State, IActOn, Observer {
     public void remove (InteractiveEntity entity) {
         entity.deleteObserver(this);
         myEntities.remove(entity);
+        mySelectedEntities.remove(entity);
     }
 
     public void deselect (Location3D location) {
