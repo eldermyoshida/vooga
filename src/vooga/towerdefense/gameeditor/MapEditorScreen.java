@@ -4,13 +4,23 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.util.List;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Point2D;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collection;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import vooga.towerdefense.util.Pixmap;
 
 /**
  * MapEditorScreen is responsible for helping
@@ -22,8 +32,11 @@ import javax.swing.JTextField;
 public class MapEditorScreen extends GameEditorScreen {
 
     private static final long serialVersionUID = 1L;
+    public static final String CLASS_INDICATOR_STRING = ".png";
     private static final String NEXT_SCREEN_NAME = "ProjectileEditorScreen";
     private static final String TITLE_NAME = "MAP ";
+    private static final String TILE_IMAGES_CLASS_PATH = "vooga.towerdefense.images.map";
+    
     private MapMaker myMapBox;
     private Dimension myMapMakerSize;
     private JTextField myTextField;
@@ -32,8 +45,10 @@ public class MapEditorScreen extends GameEditorScreen {
     private MouseAdapter myTilePainterListener;
     private MouseAdapter myTileEraserListener;
     private int myTileSize;
-    private JPanel myTilePainter;
+    private TilesScreen myTilePainter;
     private JPanel myPathEraser;
+    private Pixmap myGrassTile;
+    private Pixmap myPathTile;
     
     /**
      * Constructor.
@@ -47,10 +62,10 @@ public class MapEditorScreen extends GameEditorScreen {
         this.add(makeMapBox(myMapMakerSize), BorderLayout.NORTH);
         this.add(makeLabelText("TILE SIZE"), BorderLayout.EAST);
         this.add(makeTextField(), BorderLayout.EAST);
-        this.add(makeLabelText("PATH PAINTER"), BorderLayout.EAST);
+        this.add(makeLabelText("MAP TILES"), BorderLayout.SOUTH);
         this.add(makePathTilePainter(), BorderLayout.SOUTH);
-        this.add(makeLabelText("PATH ERASER"), BorderLayout.EAST);
-        this.add(makePathEraser(), BorderLayout.WEST);
+//        this.add(makeLabelText("PATH ERASER"), BorderLayout.EAST);
+//        this.add(makePathEraser(), BorderLayout.WEST);
 
         setVisible(true);
     }
@@ -117,12 +132,12 @@ public class MapEditorScreen extends GameEditorScreen {
     }
     
     private JPanel makePathTilePainter () {
-        myTilePainter = new JPanel();
-        myTilePainter.setPreferredSize(new Dimension(50,50));
-        myTilePainter.setBackground(Color.BLUE);
-        myTilePainter.setVisible(true);  
-        myTilePainter.addMouseListener(myTilePainterListener); 
-        
+        File[] images = getImages(TILE_IMAGES_CLASS_PATH);
+        List<Pixmap> myImages = new ArrayList<Pixmap>();
+        myImages = makeTileImages(images);
+
+        myTilePainter = new TilesScreen(new Dimension(200,70), myImages);
+
         return myTilePainter;
     }
     
@@ -134,6 +149,30 @@ public class MapEditorScreen extends GameEditorScreen {
         myPathEraser.addMouseListener(myTileEraserListener);
         
         return myPathEraser;
+    }
+    
+    private List<Pixmap> makeTileImages(File[] file)  {
+        List<Pixmap> images = new ArrayList<Pixmap>();
+        for (File f: file) {
+            System.out.println("String: " + f.getName());
+            images.add(new Pixmap(f.getName()));
+        }
+        return images;
+    }
+    
+    private File[] getImages (String packageName) {
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        String path = packageName.replace(".", "/");
+        URL resource = classLoader.getResource(path);
+        File directory = new File(resource.getFile());
+        if (directory.exists()) {
+            File[] files = directory.listFiles();
+            for (File file : files) {
+                System.out.println("file: " + file);
+            }
+            return files;
+        }
+        return null;
     }
     
     public void setPainterColor (JPanel panel, Color color) {

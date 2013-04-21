@@ -31,7 +31,7 @@ import vooga.towerdefense.view.introscreens.SplashScreen;
  */
 public class TDView {
 
-    //TODO: read these names from the file
+    // TODO: read these names from the file
     private static final String TITLE_KEYWORD = "GameTitle";
     private static final String NEXT_BUTTON_KEYWORD = "NextButtonName";
     private static final Dimension SIZE = new Dimension(1100, 800);
@@ -60,7 +60,7 @@ public class TDView {
 
     /**
      * constructor.
-     *
+     * 
      * @param controller
      */
     public TDView (Controller controller) {
@@ -80,7 +80,6 @@ public class TDView {
 
         mySplashScreen = new SplashScreen(SPLASH_SCREEN_SIZE);
         myMapScreen = new MapScreen(MAP_WINDOW_SIZE, myController);
-        
 
         myStatsWindow = new InformationScreen("Stats", STATS_WINDOW_SIZE);
         myInformationWindow =
@@ -96,7 +95,7 @@ public class TDView {
         screens.put(myShopScreen, BorderLayout.CENTER);
         screens.put(myNextWaveScreen, BorderLayout.EAST);
         mySouthWindow = new MultipleScreenPanel(SOUTH_WINDOW_SIZE, screens);
-        
+
         myFrame.getContentPane().add(nextScreenButton());
         addScreen(mySplashScreen);
     }
@@ -104,22 +103,22 @@ public class TDView {
     /**
      * adds the new screens to the view.
      */
-    public void assembleScreens() {
+    public void assembleScreens () {
         myFrame.remove(myLevelSelector);
-    
+
         myFrame.getContentPane().add(myMapScreen, BorderLayout.CENTER);
         myFrame.getContentPane().add(myEastWindow, BorderLayout.EAST);
         myFrame.getContentPane().add(mySouthWindow, BorderLayout.SOUTH);
-    
+
         myFrame.pack();
         myFrame.setVisible(true);
-        
+
     }
 
     /**
      * Removes the splash screen and displays the map choices.
      */
-    public void showMapChoicesScreen() {
+    public void showMapChoicesScreen () {
         myFrame.remove(mySplashScreen);
         myNextScreenButton.setVisible(false);
         myMapSelector = new MapsSelectorScreen(MAP_WINDOW_SIZE, this);
@@ -128,19 +127,20 @@ public class TDView {
 
     /**
      * Removes the map choices screen and shows the level
-     *          difficulty choices screen.
+     * difficulty choices screen.
      */
-    public void showLevelDifficultyChoicesScreen() {
+    public void showLevelDifficultyChoicesScreen () {
         myFrame.remove(myMapSelector);
         myLevelSelector = new LevelsSelectorScreen(MAP_WINDOW_SIZE, this);
         addScreen(myLevelSelector);
     }
-    
+
     /**
      * adds the parameter screen to the view.
+     * 
      * @param screen
      */
-    private void addScreen(JPanel screen) {
+    private void addScreen (JPanel screen) {
         myFrame.getContentPane().add(screen, BorderLayout.CENTER);
 
         myFrame.pack();
@@ -149,7 +149,8 @@ public class TDView {
 
     /**
      * helper method that creates the button to move to the
-     *          next screen.
+     * next screen.
+     * 
      * @return the JButton
      */
     private Component nextScreenButton () {
@@ -165,6 +166,7 @@ public class TDView {
 
     /**
      * gets the map screen for this view.
+     * 
      * @return the MapScreen
      */
     public MapScreen getMapScreen () {
@@ -173,7 +175,8 @@ public class TDView {
 
     /**
      * Gets the information screen that displays the
-     *          GameElement information for this view.
+     * GameElement information for this view.
+     * 
      * @return the GameElementInformationScreen
      */
     public GameElementInformationScreen getGameElementInfoScreen () {
@@ -182,18 +185,20 @@ public class TDView {
 
     /**
      * Gets the information screen that displays the
-     *          player information for this view.
+     * player information for this view.
+     * 
      * @return the InformationScreen
      */
     public InformationScreen getPlayerInfoScreen () {
         return myStatsWindow;
     }
-    
+
     /**
      * Gets the shop screen for this view.
+     * 
      * @return the ShopScreen
      */
-    public ShopScreen getShopScreen() {
+    public ShopScreen getShopScreen () {
         return myShopScreen;
     }
 }

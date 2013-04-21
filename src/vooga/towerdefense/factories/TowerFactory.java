@@ -12,5 +12,9 @@ public class TowerFactory extends GameElementFactory {
 	public TowerFactory(String name, TowerDefinition def){
 		super(name, def);
 	}
+	
+	public TowerFactory(){
+		super();
+	}
 
 }

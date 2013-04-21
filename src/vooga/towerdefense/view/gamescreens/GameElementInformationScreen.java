@@ -65,7 +65,7 @@ public class GameElementInformationScreen extends InformationScreen {
     /**
      * displays the upgrade options in a drop down menu
      * and the upgrade button.
-     *
+     * 
      * @param upgrades is the list of upgrades as strings
      */
     public void displayUpgradesAndButton (List<String> upgrades) {
@@ -114,7 +114,7 @@ public class GameElementInformationScreen extends InformationScreen {
         myUpgradeSection.add(myUpgradeOptionsBox, BorderLayout.CENTER);
         myUpgradeSection.add(myUpgradeButton, BorderLayout.SOUTH);
         myUpgradeSection.setVisible(false);
-        this.add(myUpgradeSection, BorderLayout.SOUTH); 
+        this.add(myUpgradeSection, BorderLayout.SOUTH);
     }
 
 }

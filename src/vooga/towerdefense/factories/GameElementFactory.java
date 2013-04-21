@@ -15,7 +15,7 @@ public class GameElementFactory {
      * Name of the element that is defined in this class. For convenience.
      */
     private String myName;
-    private GameElementDefinition myDefinition; 
+    private GameElementDefinition def; 
     //private AttributeFactory myFactory;
     
     public GameElementFactory() {
@@ -25,15 +25,15 @@ public class GameElementFactory {
     
     public GameElementFactory(String name, GameElementDefinition definition) {
         myName = name;
-        myDefinition = definition;
+        def = definition;
     }
     
     public GameElementFactory(GameElementDefinition definition) {
-        new GameElementFactory(definition.get(AttributeConstants.NAME), definition);
+        this(definition.get(AttributeConstants.NAME), definition);
     }
     
     public GameElementDefinition getDefinition() {
-        return myDefinition;
+        return def;
     }
     
     public AttributeManagerFactory createAttributeFactory() {
@@ -47,12 +47,12 @@ public class GameElementFactory {
     }
     
     public GameElement createGameElement(){
-        if (myDefinition == null) {
+        if (def == null) {
             return null;
         }
-		return new GameElement(myDefinition.getImage(), 
-				myDefinition.getCenter(), 
-				myDefinition.getSize(), 
+		return new GameElement(def.getImage(), 
+				def.getCenter(), 
+				def.getSize(), 
 				createAttributeFactory().makeAttributeManager(), 
 				createActionFactory().createActions());
     }

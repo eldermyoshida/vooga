@@ -7,18 +7,19 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import vooga.towerdefense.controller.Controller;
 
+
 /**
  * Next Wave Screen holds the button to start the next wave.
  * 
  * @author Angelica Schwartz
  */
 public class NextWaveScreen extends JPanel {
-    
+
     /**
      * default serialized id.
      */
     private static final long serialVersionUID = 1L;
-    //TODO: get this name from resources
+    // TODO: get this name from resources
     /**
      * string to display on the button.
      */
@@ -35,26 +36,28 @@ public class NextWaveScreen extends JPanel {
      * mouse listener for the button.
      */
     private MouseAdapter myMouseAdapter;
-    
+
     /**
      * Constructor.
+     * 
      * @param size
      * @param controller
      */
-    public NextWaveScreen(Dimension size, Controller controller) {
+    public NextWaveScreen (Dimension size, Controller controller) {
         setPreferredSize(size);
         myController = controller;
-        nextWaveButton = new JButton(myController.getStringFromResources(WAVE_SCREEN_BUTTON_KEYWORD));
+        nextWaveButton =
+                new JButton(myController.getStringFromResources(WAVE_SCREEN_BUTTON_KEYWORD));
         add(nextWaveButton);
         makeMouseAdapter();
         nextWaveButton.addMouseListener(myMouseAdapter);
         setVisible(true);
     }
-    
+
     /**
      * helper method to create the mouse adapter.
      */
-    private void makeMouseAdapter() {
+    private void makeMouseAdapter () {
         myMouseAdapter = new MouseAdapter() {
             @Override
             public void mouseClicked (MouseEvent e) {
