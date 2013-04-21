@@ -23,6 +23,7 @@ public class LobbyInfo implements Serializable {
      * @param playersPerTeam
      * @param ID
      */
+
     public LobbyInfo (String lobbyName, String mapName, int maxPlayers, int playersPerTeam, int ID) {
         myLobbyName = lobbyName;
         myMaxPlayers = maxPlayers;

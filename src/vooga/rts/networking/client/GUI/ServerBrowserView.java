@@ -52,10 +52,12 @@ public class ServerBrowserView extends JPanel {
         JPanel innerPanel = new JPanel();
         FlowLayout innerLayout = new FlowLayout();
         innerPanel.setLayout(innerLayout);
-        innerPanel.add(new JLabel(gameName));
+        //TODO resources file
+        innerPanel.add(new JLabel(gameName + " Lobby Browser"));
 
         panel.add(innerPanel, BorderLayout.CENTER);
 
+        //TODO resources file
         JButton hostGame = new JButton("Host Game");
         hostGame.addActionListener(new ActionListener() {
             @Override

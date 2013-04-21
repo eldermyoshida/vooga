@@ -45,8 +45,8 @@ public class GameContainer extends AbstractThreadContainer {
     }
     
     @Override
-    public void startLobby (ConnectionThread thread, String mapName, String serverName) {
-        Room lobby = new Lobby(myRoomNumber, this, mapName, serverName);
+    public void startLobby (ConnectionThread thread, String mapName, String serverName, int maxPlayers, int playersPerTeam) {
+        Room lobby = new Lobby(myRoomNumber, this, mapName, serverName, maxPlayers, playersPerTeam);
         myRoomNumber++;
         lobby.addConnection(thread);
     }
