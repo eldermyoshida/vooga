@@ -1,6 +1,7 @@
 package arcade.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +22,7 @@ import arcade.view.forms.LoginView;
 
 
 public class Model implements ArcadeInteraction {
+
     public static final String DEFAULT_LOGIN_MESSAGE = "";
     private static final String LOGIN_FAILURE_MESSAGE =
             "The username or password you entered is incorrect";
@@ -32,8 +34,8 @@ public class Model implements ArcadeInteraction {
     private Map<String, GameInfo> myGameInfos = new HashMap<String, GameInfo>();
     private List<GameInfo> mySnapshots;
     private String myUser;
-    
-    // These will be null until you try to play a game 
+
+    // These will be null until you try to play a game
     Game myCurrentGame = null;
     MultiplayerGame myCurrentMultiplayerGame = null;
 
@@ -45,36 +47,84 @@ public class Model implements ArcadeInteraction {
     public void setLoginView (LoginView login) {
         myLoginView = login;
     }
-    
+
     /**
      * 
      * @param directoryPath
      */
-    public void publishGame(String directoryPath) {
+    public void publishGame (String directoryPath) {
         return;
     }
-    
 
     /**
      * This should be called after a developer enters the information about
      * his / her game. The method will add the game entry to the database and
      * create a new GameInfo to display in the gamecenter.
      * 
-     * This sanitizes all the input so we guarantee that all names an genres are 
+     * This sanitizes all the input so we guarantee that all names an genres are
      * lowercase on the backend.
      * 
      * @param gameName
      * @param genre
      */
-    public void publish (String gameName, String genre) {
-        gameName = gameName.toLowerCase();
-        genre = genre.toLowerCase();
-        myDb.createGame(gameName, genre);
-        addGameInfo(newGameInfo(gameName, genre));
+    public void publish (String name,
+                         String genre,
+                         String author,
+                         double price,
+                         String extendsGame,
+                         String extendsMultiplayerGame,
+                         int ageRating,
+                         boolean singlePlayer,
+                         boolean multiplayer,
+                         String thumbnailPath,
+                         String adScreenPath,
+                         String description) {
+        System.out.println(extendsGame);
+        System.out.println(extendsMultiplayerGame);
+        myDb.createGame(name.toLowerCase(), 
+                        genre.toLowerCase(), 
+                        author, 
+                        price,
+                        formatClassFilePath(extendsGame),
+                        formatClassFilePath(extendsMultiplayerGame), 
+                        ageRating, 
+                        singlePlayer,
+                        multiplayer, 
+                        thumbnailPath, 
+                        adScreenPath, 
+                        description);
+        addGameInfo(newGameInfo(name));
     }
 
-    private GameInfo newGameInfo  (String name, String genre) throws MissingResourceException{
-        return new GameInfo(name, genre, myLanguage, this);
+    /**
+     * Tedious Java string manipulation to change something like:
+     * games/rts/ageOfEmpires/game.java
+     * to games.rts.ageOfEmpires.game
+     * so replace slashes with periods and remove the file extension
+     */
+    private String formatClassFilePath (String path) {
+        // split on file extension
+        String[] split = path.split(".");
+        // take everything before file extension and after src to get java relative filepath.
+        List<String> list = Arrays.asList(split);
+        if (list.contains("src")) {
+            // this means you got the absolute file path, so you need to
+            // get java relative file path (i.e. after src/ )
+            path = split[0].split("src")[1];
+        }
+        split = path.split("/");
+        String ret = "";
+        for (String str : split) {
+            ret += str;
+            ret += ".";
+        }
+        // remove the hanging period
+        ret = ret.substring(0, ret.length() - 1);
+        return ret;
+    }
+
+    private GameInfo newGameInfo (String name) throws MissingResourceException {
+        return new GameInfo(myDb, name);
     }
 
     private void addGameInfo (GameInfo game) {
@@ -101,12 +151,10 @@ public class Model implements ArcadeInteraction {
                                       String firstname,
                                       String lastname,
                                       String dataOfBirth) {
-        if(myDb.createUser(username, pw, firstname, lastname, dataOfBirth)){
-            new LoginView(this , myResources);
+        if (myDb.createUser(username, pw, firstname, lastname, dataOfBirth)) {
+            new LoginView(this, myResources);
         }
 
-        
-        
     }
 
     public void createNewUserProfile (String username,
@@ -115,7 +163,7 @@ public class Model implements ArcadeInteraction {
                                       String lastname,
                                       String dataOfBirth,
                                       String filepath) {
-       System.out.println(myDb.createUser(username, pw, firstname, lastname, dataOfBirth, filepath));
+        myDb.createUser(username, pw, firstname, lastname, dataOfBirth, filepath);
         authenticate(username, pw);
     }
 
@@ -153,11 +201,13 @@ public class Model implements ArcadeInteraction {
     private void organizeSnapshots () {
         List<String> gameNames = myDb.retrieveListOfGames();
         for (String name : gameNames) {
-            try{
-            addGameInfo(newGameInfo(name, myDb.getGenre(name)));
-            }catch(MissingResourceException e ){
+            try {
+                addGameInfo(newGameInfo(name));
+            }
+            catch (MissingResourceException e) {
                 continue;
             }
+
         }
     }
 
@@ -184,7 +234,7 @@ public class Model implements ArcadeInteraction {
 
     @Override
     public User getUser () {
-        // TODO get the user's avatar, figure out how we are implementing user infor for games
+        // TODO get the user's avatar, figure out how we are implementing user info for games
         return null;
     }
 
@@ -222,5 +272,4 @@ public class Model implements ArcadeInteraction {
         }
         return gd;
     }
-
 }
