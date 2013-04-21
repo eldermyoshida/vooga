@@ -231,7 +231,7 @@ public class GameState extends SubState implements Controller {
         a.getAttackStrategy().addWeapons(new Weapon(proj, 400, a.getWorldLocation(), 1));
         myHumanPlayer.add(a);
         addPlayer(2);
-        Unit c = new Soldier(new Location3D(200, 200, 0), 2);
+        Unit c = new Soldier(new Location3D(1000, 500, 0), 2);
         c.setHealth(150);
         myPlayers.get(1).add(c);
         Building b =
@@ -246,10 +246,11 @@ public class GameState extends SubState implements Controller {
         myHumanPlayer.add(b);
         myMap = new GameMap(8, new Dimension(512, 512));
         final Building f = b;
-        test = new DelayedTask(5, new Runnable() {
+        test = new DelayedTask(1, new Runnable() {
             @Override
             public void run () {
                 f.getAction((new Command("I am a pony"))).apply();
+                test.restart();
             }
         });
     }
