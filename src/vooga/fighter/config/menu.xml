@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <objects>
-    <menuobject menuobjectname="MainChoice">
+    <menuobject menuobjectname="StartGame">
     	<state name = "FightingGame" nextState = "ModeSelectMenu">
             <frame image="fighter/images/StartGame.gif" />
         </state>
@@ -15,10 +15,15 @@
             <frame image="fighter/images/ryu_stand1.png" />
         </state>
     </menuobject>
-    <menuobject menuobjectname="EndChoice">
+    <menuobject menuobjectname="MainMenu">
     	<state name = "restart" nextState ="MainMenu">
-            <frame image="fighter/images/GameOver.jpg" />
+            <frame image="fighter/images/MainMenu.jpg" />
         </state>
+    </menuobject>
+    <menuobject menuobjectname="CharacterSelectMenu">
+    	<state name = "restart" nextState ="CharacterSelectMenu">
+    		<frame image="fighter/images/CharacterSelect.png" />
+    	</state>
     </menuobject>
     <menuobject menuobjectname = "MapChoice">
     	<state name = "BlueMap" nextState = "1v1">
