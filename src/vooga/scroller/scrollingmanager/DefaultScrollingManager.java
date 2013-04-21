@@ -130,7 +130,7 @@ public class DefaultScrollingManager extends ScrollingManager {
         myGame.paint((Graphics2D) pen);
     }
 
-    public Location playerPaintLocation (Player p) {
+    public Location playerPaintLocation (PlayerController p) {
         double x = myView.getWidth() / 2;
         double y = myView.getHeight() / 2;
         if(p.getX() > (levelRightBoundary() - myView.getWidth() / 2)) {

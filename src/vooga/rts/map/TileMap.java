@@ -2,13 +2,17 @@ package vooga.rts.map;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.Shape;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
 import vooga.rts.IGameLoop;
 import vooga.rts.gamedesign.sprite.map.Tile;
+import vooga.rts.util.Camera;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
+import vooga.rts.util.TimeIt;
 
 
 /**
@@ -77,9 +81,9 @@ public class TileMap implements IGameLoop {
         Pixmap image = new Pixmap(pic);
 
         Location3D position =
-                new Location3D(x * myTileSize.width / 2 /*+ myTileSize.width / 2*/, y * myTileSize.height / 2 
-                               /*+ myTileSize.height / 2 */,
-                               0);
+                new Location3D(x * myTileSize.width / 2 /* + myTileSize.width / 2 */,
+                               y * myTileSize.height / 2
+                               /* + myTileSize.height / 2 */, 0);
 
         Tile newTile = new Tile(image, position, myTileSize);
         setTile(x, y, newTile);
@@ -119,15 +123,38 @@ public class TileMap implements IGameLoop {
 
     @Override
     public void update (double elapsedTime) {
-        
+        for (int x = 0; x < myWidth; x++) {
+            for (int y = 0; y < myHeight; y++) {
+                Tile cur = myTiles[x][y];
+                if (cur != null) {
+                    cur.update(elapsedTime);
+                }
+            }
+        }
     }
 
     @Override
     public void paint (Graphics2D pen) {
-        // Order of painting doesn't matter for the TileMap coz it's lowest level.
-        // Need to cull objects earlier.
-        for (int x = 0; x < myWidth; x++) {
-            for (int y = 0; y < myHeight; y++) {
+        Rectangle view = Camera.instance().getWorldVision().getBounds();
+
+        // Get the start index of what is visible by the cameras.
+        int startX = (int) (view.getMinX() > 0 ? view.getMinX() : 0);
+        startX /= myTileSize.getWidth();
+        startX /= Camera.ISO_HEIGHT;
+
+        int startY = (int) (view.getMinY() > 0 ? view.getMinY() : 0);
+        startY /= myTileSize.getHeight();
+        startY /= Camera.ISO_HEIGHT;
+
+        // Get the end index of what is visible
+        int endX = (int) (view.getMaxX() / myTileSize.getWidth() + 1);
+        endX /= Camera.ISO_HEIGHT;
+
+        int endY = (int) (view.getMaxY() / myTileSize.getHeight() + 1);
+        endY /= Camera.ISO_HEIGHT;
+
+        for (int x = startX; x < endX; x++) {
+            for (int y = startY; y < endY; y++) {
                 Tile cur = myTiles[x][y];
                 if (cur != null) {
                     cur.paint(pen);
