@@ -22,7 +22,9 @@ public class MainMenu extends Menu {
     private double myX;
     private double myY;
 
-    private ScreenButton myStartButton;
+    private ScreenButton mySingleButton;
+    private ScreenButton myMultiButton;
+
 
     public MainMenu () {
         super();
@@ -30,10 +32,16 @@ public class MainMenu extends Menu {
         myBGImage = ResourceManager.getInstance().<BufferedImage>getFile(DEFAULT_BGIMAGE_LOCATION, BufferedImage.class);
         setImage(myBGImage);
 
-        myStartButton =
-                new ScreenButton("Start Game", myDefaultButtonDimension, myDefaultButtonLocation);
+        mySingleButton =
+                new ScreenButton("Single Player", myDefaultButtonDimension, myDefaultButtonLocation);
 
-        addButton(myStartButton);
+        addButton(mySingleButton);
+        
+        Location multiLocation = new Location(myDefaultButtonLocation.getX(), myDefaultButtonLocation.getY()+160);
+        myMultiButton =
+                new ScreenButton("Multiplayer", myDefaultButtonDimension, multiLocation);
+
+        addButton(myMultiButton);
     }
 
     public void setScaledButton (Graphics2D pen, ScreenButton b) {
@@ -57,6 +65,8 @@ public class MainMenu extends Menu {
         pen.setColor(Color.white);
         pen.drawString("The Vooga RTS Game", 150, 150);
 
-        setScaledButton(pen, myStartButton);
+        setScaledButton(pen, mySingleButton);
+        setScaledButton(pen, myMultiButton);
+
     }
 }
