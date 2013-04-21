@@ -13,6 +13,12 @@ import vooga.fighter.model.utils.Health;
 import vooga.fighter.model.utils.ImageDataObject;
 import vooga.fighter.util.Paintable;
 
+
+/**
+ * 
+ * @author Jack Matteucci
+ *
+ */
 public class MenuLoopInfo implements ViewDataSource{
 	private Mode myMode;
     private Integer myNumObjects;

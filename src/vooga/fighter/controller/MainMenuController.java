@@ -23,6 +23,7 @@ import java.util.ResourceBundle;
 /**
  * 
  * @author Jack Matteucci
+ * @author Jerry Li
  * 
  * This is a great class to reference when trying to understand how to extend the
  * menu controller hierarchy

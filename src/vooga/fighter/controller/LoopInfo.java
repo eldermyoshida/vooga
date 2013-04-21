@@ -14,6 +14,12 @@ import vooga.fighter.model.utils.Health;
 import vooga.fighter.model.utils.ImageDataObject;
 import vooga.fighter.util.Paintable;
 
+/**
+ * 
+ * @author Jack Matteucci
+ * @author Jerry Li
+ *
+ */
 public class LoopInfo extends Observable implements ViewDataSource{
 	private Mode myMode;
     private Integer myNumObjects;

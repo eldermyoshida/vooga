@@ -17,7 +17,8 @@ import vooga.fighter.view.Canvas;
 
 /**
  * 
- * @author Jack and Jerry
+ * @author Jack Matteucci
+ * @author Jerry Li
  *
  */
 public class ControllerFactory {

@@ -12,7 +12,11 @@ import vooga.fighter.util.HUDVariable;
 import vooga.fighter.util.Paintable;
 import util.*;
 
-
+/**
+ * 
+ * @author Jerry Li
+ *
+ */
 public class ScoreInfo implements ViewDataSource{
 
     @Override

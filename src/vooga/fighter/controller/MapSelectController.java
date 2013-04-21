@@ -22,7 +22,8 @@ import java.util.ResourceBundle;
 
 /**
  * 
- * @author Jack Matteucci edited by Jerry Li
+ * @author Jack Matteucci 
+ * @author Jerry Li
  */
 
 @InputClassTarget
