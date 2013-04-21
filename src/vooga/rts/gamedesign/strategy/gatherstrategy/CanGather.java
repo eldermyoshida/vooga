@@ -38,12 +38,11 @@ public class CanGather implements GatherStrategy {
 			}
 		});
 
-
 	}
 
-	public DelayedTask getCooldown() {
-		return myGatherDelay;
-		
+	@Override
+	public void update(double elapsedTime) {
+		myGatherDelay.update(elapsedTime);
 	}
 
 }

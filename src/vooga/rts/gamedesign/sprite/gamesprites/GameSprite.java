@@ -218,7 +218,11 @@ public abstract class GameSprite implements IGameLoop {
     public void update (double elapsedTime) {
 
     }
-
+    
+    /**
+     * Returns the image of the sprite.
+     * @return the image of the sprite
+     */
     public Pixmap getImage () {
         return myPixmap;
     }

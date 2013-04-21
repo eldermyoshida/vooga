@@ -115,7 +115,7 @@ public class CanAttack implements AttackStrategy {
 	public boolean getCanAttack() {
 		return myCanAttack;
 	}
-
+	
 	public Weapon getCurrentWeapon() {
 		return myWeapons.get(myWeaponIndex);
 	}
