@@ -36,7 +36,7 @@ public class CannotBeOccupied implements OccupyStrategy{
 	}
 
 	@Override
-	public List<Unit> getOccupiers() {
+	public List<Integer> getOccupiers() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -54,7 +54,7 @@ public class CannotBeOccupied implements OccupyStrategy{
 	}
 
 	@Override
-	public void setOccupiers(ArrayList<Unit> u) {
+	public void setOccupiers(ArrayList<Integer> u) {
 		// TODO Auto-generated method stub
 		
 	}

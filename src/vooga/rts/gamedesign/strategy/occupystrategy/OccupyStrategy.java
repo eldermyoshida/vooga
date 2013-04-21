@@ -31,9 +31,9 @@ public interface OccupyStrategy extends Strategy{
 	
 	public void setOccupierID(int id);
 	
-	public List<Unit> getOccupiers();
+	public List<Integer> getOccupiers();
 	
-	public void setOccupiers(ArrayList<Unit> u);
+	public void setOccupiers(ArrayList<Integer> u);
 	
 	public int getMaxOccupiers();
 	

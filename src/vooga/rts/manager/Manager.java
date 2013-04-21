@@ -280,6 +280,16 @@ public class Manager implements State, IActOn, Observer {
             mySelectedEntities = new ArrayList<InteractiveEntity>(myGroups.get(groupID));
         }
     }
+    
+    private int findEntityWithHashCode(int hashCode) {
+    	for (int i = 0; i<myEntities.size(); ++i) {
+    		if (myEntities.get(i).hashCode() == hashCode) {
+    			System.out.println("FINDS UNIT!!");
+    			return i;
+    		}
+    	}
+    	return -1;
+    }
 
     @Override
     public void update (Observable entity, Object state) {
@@ -296,20 +306,21 @@ public class Manager implements State, IActOn, Observer {
             
         	if (((InteractiveEntity) state).getEntityState().
             		getDetectableState().equals(DetectableState.
-            				NOTDETECTABLE)) {
-            	myEntities.get(index).getEntityState().setDetectableState(DetectableState.DETECTABLE);
-            	myEntities.get(index).setVisible(true);
-            	myEntities.get(index).setWorldLocation(new Location3D());
-            	
-            	add((InteractiveEntity) state);
-            } else {
-            	myEntities.get(index).setVisible(false);
+            				DETECTABLE)) {
+        		myEntities.get(index).setVisible(false);
             	myEntities.get(index).getEntityState().setDetectableState(DetectableState.NOTDETECTABLE);
             	
-            	remove((InteractiveEntity)state);
+            	//remove((InteractiveEntity)state);
+        		
+            	//add((InteractiveEntity) state);
             }
         }
-
+        else if (state instanceof Integer) {
+        	System.out.println("integer!");
+        	int index = findEntityWithHashCode((Integer)state);
+        	myEntities.get(index).getEntityState().setDetectableState(DetectableState.DETECTABLE);
+        	myEntities.get(index).setVisible(true);
+        	myEntities.get(index).setWorldLocation(new Location3D());
+        }
     }
-
 }

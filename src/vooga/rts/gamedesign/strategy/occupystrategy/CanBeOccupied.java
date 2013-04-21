@@ -27,13 +27,13 @@ import vooga.rts.util.Location3D;
 public class CanBeOccupied implements OccupyStrategy{
 	public static final int DEFAULT_MAX_OCCUPIERS = 10;
 	
-	private List<Unit> myOccupiers;
+	private List<Integer> myOccupierHashCodes;
 	private List<String> myValidOccupierType;
 	private int myMaxOccupiers;
 	private int myOccupierID;
 	
 	public CanBeOccupied() {
-		myOccupiers = new ArrayList<Unit>();
+		myOccupierHashCodes = new ArrayList<Integer>();
 		myValidOccupierType = new ArrayList<String>();
 		myMaxOccupiers = DEFAULT_MAX_OCCUPIERS;
 		myOccupierID = 0;
@@ -48,19 +48,19 @@ public class CanBeOccupied implements OccupyStrategy{
 			@Override
 			public void apply(InteractiveEntity i) {
 				System.out.println("Goes here!");
-				if (myOccupiers.size() < myMaxOccupiers && verifyOccupier(entity, (Unit)i)) {
+				if (myOccupierHashCodes.size() < myMaxOccupiers && verifyOccupier(entity, (Unit)i)) {
 					System.out.println("Verified!!");
 					//i.setVisible(false);
 					//i.getEntityState().setDetectableState(DetectableState.NOTDETECTABLE);
 					if (myOccupierID == 0) {
 						myOccupierID = i.getPlayerID();
 					}
-					myOccupiers.add((Unit)i);
+					myOccupierHashCodes.add(i.hashCode());
 					entity.setChanged();
 					entity.notifyObservers(i);
 				}
 			}
-
+			
 			@Override
 			public void apply() {
 				return;
@@ -74,16 +74,14 @@ public class CanBeOccupied implements OccupyStrategy{
 
 			@Override
 			public void apply() {
-				List<Unit> occupiers = myOccupiers;
+				List<Integer> occupiers = myOccupierHashCodes;
 				myOccupierID = 0;
-				myOccupiers = new ArrayList<Unit>();
-				for (Unit u: occupiers) {
-					u.getEntityState().setDetectableState(DetectableState.NOTDETECTABLE);
-					u.setVisible(false);
+				myOccupierHashCodes = new ArrayList<Integer>();
+				for (int hashCode: occupiers) {
 					//u.setVisible(true);
 					//u.setWorldLocation(new Location3D());
 					entity.setChanged();
-					entity.notifyObservers(u);
+					entity.notifyObservers(hashCode);
 				}
 			}
 		});
@@ -121,12 +119,12 @@ public class CanBeOccupied implements OccupyStrategy{
 		return myOccupierID;
 	}
 	
-	public List<Unit> getOccupiers() {
-		return myOccupiers;
+	public List<Integer> getOccupiers() {
+		return myOccupierHashCodes;
 	}
 	
-	public void setOccupiers(ArrayList<Unit> u) {
-		myOccupiers = u;
+	public void setOccupiers(ArrayList<Integer> u) {
+		myOccupierHashCodes = u;
 	}
 	
 	public int getMaxOccupiers() {
