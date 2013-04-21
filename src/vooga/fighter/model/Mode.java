@@ -7,17 +7,18 @@ import vooga.fighter.model.objects.CharacterObject;
 import vooga.fighter.model.objects.GameObject;
 import vooga.fighter.model.utils.ImageDataObject;
 
+
 /**
  * Represents a mode in the game. Holds a list of all game objects in the mode,
  * and updates those every update cycle.
  * 
  * @author James Wei, alanni
- *
+ * 
  */
 public abstract class Mode {
 
-	private static final String NEXT = "Next";
     private List<GameObject> myObjects;
+    private List<ImageDataObject> myImageDataObjects;
     private long myId;
     private CollisionManager myCollisionManager;
 
@@ -26,41 +27,40 @@ public abstract class Mode {
      */
     public Mode() {
         myObjects = new ArrayList<GameObject>();
+        myImageDataObjects = new ArrayList<ImageDataObject>();
         myCollisionManager = new CollisionManager();
-    }    
+    }
+
     /**
-     * Sets the controller delegate for this mode.
+     * Returns the id of the mode.
      */
-    
-    /**
-    * Returns the id of the mode.
-    */
     public long getMyId() {
         return myId;
     }
 
     /**
-    * Returns the list of objects for this mode.
-    */
+     * Returns the list of objects for this mode.
+     */
     public List<GameObject> getMyObjects() {
         return myObjects;
-    }    
+    }
 
     /**
-    * Add an object to the list of game objects.
-    */
+     * Add an object to the list of game objects.
+     */
     public void addObject(GameObject object) {
         myObjects.add(object);
+        myImageDataObjects.add(object.getImageData());
     }
 
     /**
-    * Remove an object from the list of game objects.
-    */
+     * Remove an object from the list of game objects.
+     */
     public void removeObject(GameObject object) {
         myObjects.remove(object);
+        myImageDataObjects.remove(object.getImageData());
     }
 
-   
     /**
      * Handles collisions between objects in this mode. Collision checking is
      * delegated to the CollisionManager, and the handling of individual collisions
@@ -80,30 +80,32 @@ public abstract class Mode {
             result.add(object.getImageData());
         }
         return result;
-    }        
-    
-    /**
-     *  Removes objects that have been destroyed or have timed out
-     */
-    public void removeAppropriateObjects(){
-    	ArrayList<GameObject> objectsCopy= new ArrayList<GameObject>(myObjects);
-    	for (GameObject o: objectsCopy){
-    		if (o.shouldBeRemoved()){
-    			myObjects.remove(o);
-    		}
-    	}
+        
+        // why doesn't below work? look at later.
+        // return myImageDataObjects;
     }
-    
+
+    /**
+     * Removes objects that have been destroyed or have timed out
+     */
+    public void removeAppropriateObjects() {
+        ArrayList<GameObject> objectsCopy = new ArrayList<GameObject>(myObjects);
+        for (GameObject o : objectsCopy) {
+            if (o.shouldBeRemoved()) {
+                removeObject(o);
+            }
+        }
+    }
+
     /**
      * Updates the mode for one game loop. Implemented by subclasses.
      */
     public abstract void update(double stepTime, Dimension bounds);
-    
+
     /**
-    * Handles all initialization details when the mode is loaded by the appropriate
-    * subcontroller. This method should be called first by the subcontroller.
-    */
+     * Handles all initialization details when the mode is loaded by the appropriate
+     * subcontroller. This method should be called first by the subcontroller.
+     */
     public abstract void initializeMode();
-    
 
 }

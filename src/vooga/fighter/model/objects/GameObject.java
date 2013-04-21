@@ -7,6 +7,7 @@ import vooga.fighter.model.utils.ImageDataObject;
 import vooga.fighter.model.utils.State;
 import vooga.fighter.model.utils.UpdatableLocation;
 import java.awt.Dimension;
+import java.awt.Rectangle;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -190,8 +191,23 @@ public abstract class GameObject {
         if (myCurrentState != null) {
             myCurrentState.update();
         }
+    }    
+    
+    /**
+     * Returns true if this object is colliding with another.
+     */
+    public boolean checkCollision(GameObject other) {
+        Rectangle thisRect = getCurrentState().getCurrentRectangle(); 
+        Rectangle otherRect = other.getCurrentState().getCurrentRectangle();
+        return thisRect.intersects(otherRect);
     }
     
+    /**
+     * Returns the map of states for this object.
+     */
+    public Map<String,State> getStates(){
+        return myStates;
+    }
  
     /**
      * Second dispatch for collision management. Key part of the visitor pattern.
@@ -213,13 +229,6 @@ public abstract class GameObject {
      */
     public abstract void handleCollision(EnvironmentObject other);
     
-    
-    /**
-     * Returns collection of states
-     */
-    protected Collection<State> getStates(){
-    	return myStates.values();
-    }
     /**
      * Indicates whether or not the object is ready to be removed.
      */

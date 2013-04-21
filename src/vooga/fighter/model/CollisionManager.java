@@ -32,8 +32,7 @@ public class CollisionManager {
                 if (o1 instanceof MapObject || o2 instanceof MapObject|| o1 instanceof AttackObject || o2 instanceof AttackObject) {
                     continue;
                 }
-                if (o1.getCurrentState().getCurrentRectangle()
-                        .intersects(o2.getCurrentState().getCurrentRectangle())) {
+                if (o1.checkCollision(o2)) {
                     handleCollisions(o1, o2);
                 }
             }

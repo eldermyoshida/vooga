@@ -1,6 +1,7 @@
 package vooga.fighter.model.objects;
 
 import java.util.Collection;
+import java.util.Map;
 import vooga.fighter.model.MenuMode;
 import vooga.fighter.model.loaders.MenuLoader;
 import vooga.fighter.model.utils.State;
@@ -48,11 +49,6 @@ public class MenuObject extends GameObject {
     public String getNext(){
     	return myNext;
     }
-
-    public Collection<State> getStates () {
-        return super.getStates();
-    }
-
     
     public void tellDelegate(){
         System.out.println("<MenuObject.java><telldelegate> telling delegate");
