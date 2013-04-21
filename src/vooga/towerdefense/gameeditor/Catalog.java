@@ -3,31 +3,36 @@ package vooga.towerdefense.gameeditor;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.geom.Point2D;
+import java.awt.geom.Point2D.Double;
 import java.util.List;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import vooga.towerdefense.gameElements.Unit;
 
 /**
- * The UnitCatalog displays the units that the
+ * The Catalog displays the images that the
  *      game developer has already made for this game.
  *
  * @author Angelica Schwartz
  */
-public class UnitCatalog extends JScrollPane {
+public class Catalog extends JPanel {
     
     private static final Color BACKGROUND_COLOR = Color.WHITE;
-    private List<Unit> myUnitList;
+    private static final int SIDE_LENGTH = 50;
+    private List<Image> myIconList;
     private Dimension mySize;
     
     /**
      * constructor.
      * @param units
      */
-    public UnitCatalog(Dimension size, List<Unit> units) {
+    public Catalog(Dimension size, List<Image> images) {
         mySize = size;
         setPreferredSize(size);
-        myUnitList = units;
+        myIconList = images;
         repaint();
     }
     
@@ -35,7 +40,7 @@ public class UnitCatalog extends JScrollPane {
      * paints the unit catalog.
      */
     @Override
-    public void paintComponent(Graphics pen) {
+    public void paint(Graphics pen) {
         super.paintComponent(pen);
         pen.setColor(BACKGROUND_COLOR);
         pen.fillRect(0, 0, mySize.width, mySize.height);
@@ -46,20 +51,17 @@ public class UnitCatalog extends JScrollPane {
      * draws the units on the catalog.
      * @param pen
      */
+    //TODO: figure out what to do if there are more units than can show
     private void displayUnits(Graphics pen) {
         int x = 0;
         int y = 0;
-        for (Unit unit : myUnitList) {
-            Image unitImage = unit.getPixmap().getImage();
-            if (x + unitImage.getWidth(null) > mySize.width) {
-                y += unitImage.getHeight(null);
+        for (Image image : myIconList) {
+            if (x + SIDE_LENGTH > mySize.width) {
+                y += SIDE_LENGTH;
                 x = 0;
             }
-            pen.drawImage(unitImage, x, y, unitImage.getWidth(null), unitImage.getHeight(null), null);
-            x += unitImage.getWidth(null);
+            pen.drawImage(image, x, y, SIDE_LENGTH, SIDE_LENGTH, null);
+            x += SIDE_LENGTH;
         }
     }
-    
-    
-
 }

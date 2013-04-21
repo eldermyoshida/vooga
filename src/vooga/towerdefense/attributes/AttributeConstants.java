@@ -8,7 +8,7 @@ package vooga.towerdefense.attributes;
  * @author Matthew Roy, Zhen Gou
  *
  */
-public interface  AttributeConstants {
+public class AttributeConstants {
     
 	public static final String NAME = "Name";
 	public static final String HEALTH = "Health";
