@@ -69,4 +69,8 @@ public class ToolsManager {
     public Map<Integer, Sprite> getSpriteMap () {
         return mySpriteMap;
     }
+
+    public String getSpriteLibPath () {
+        return mySpriteLib.getClass().getName();
+    }
 }

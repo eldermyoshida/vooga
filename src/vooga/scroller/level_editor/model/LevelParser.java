@@ -20,6 +20,7 @@ public class LevelParser {
     private static final String NEW_LINE = System.getProperty("line.seperator");
     private static final String BEGIN_LEVEL = "/level";
     private static final String BEGIN_KEY = "/key";
+    private static final String BEGIN_LIB_PATH = "/lib";
     private static final String BEGIN_SETTINGS = "/settings";
     private static final char SPACE = ' ';
     private static final String START_POINT = "StartPoint";
@@ -29,6 +30,7 @@ public class LevelParser {
     private Location myStartPoint;
     private static final String END_POINT = "EndPoint";
     private Location myEndPoint;
+    private String myLibPath;
     /**
      * Initialize instances variables.
      */
@@ -48,6 +50,7 @@ public class LevelParser {
             e.printStackTrace();
         }
         parseLevel();
+        myLibPath = parseLibPath();
         myCharacterMap = parseKey();
         myStartPoint = parseStartPoint();
         myEndPoint = parseEndPoint();
@@ -55,11 +58,21 @@ public class LevelParser {
     }
 
 
+    private String parseLibPath () {
+        String result="";
+        String line = myScanner.nextLine();
+        while (!line.equals(BEGIN_KEY)) {
+            result=line;
+            line = myScanner.nextLine();
+        }
+        return result;
+    }
+
     private void parseLevel () {
         myScanner.findWithinHorizon(BEGIN_LEVEL + NEW_LINE, 0);
         String line = myScanner.nextLine();
         System.out.println(line);
-        while (!line.equals(BEGIN_KEY)) {
+        while (!line.equals(BEGIN_LIB_PATH)) {
             myLevelStrings.add(line);
             System.out.println("----------------");
             line = myScanner.nextLine();
@@ -106,7 +119,7 @@ public class LevelParser {
                     
                     Sprite spr;
                     try {
-                        spr = (Sprite) Class.forName(name).newInstance();
+                        spr = (Sprite) Class.forName(myLibPath+"$"+name).newInstance();
                         System.out.println(name);
                         System.out.println(spr);
                         grid.addSpriteToBox(j, i-1, spr);

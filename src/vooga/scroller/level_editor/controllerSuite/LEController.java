@@ -162,7 +162,7 @@ public class LEController implements IController<LevelEditing> {
     @Override
     public void saveFile (File file2save, WorkspaceView<LevelEditing> t) {
         LEGrid grid = (LEGrid) getModelForWorkspace(t);
-        myLevelWriter.createFile(file2save,grid);
+        myLevelWriter.createFile(file2save, grid, myToolsManager.getSpriteLibPath());
         
     }
 

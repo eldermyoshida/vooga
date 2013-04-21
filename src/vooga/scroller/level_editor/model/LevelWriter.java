@@ -16,6 +16,7 @@ public class LevelWriter {
     private static final char EQUALS = '=';
     private static final String NEW_LINE = System.getProperty("line.separator");
     private static final String BEGIN_LEVEL = "/level";
+    private static final String BEGIN_LIB_PATH = "/lib";
     private static final String BEGIN_KEY = "/key";
     private static final String BEGIN_SETTINGS = "/settings";
     private static final String KEY_CREATOR = "abcdefghijklmnopqrstuvwxyz" +
@@ -30,7 +31,7 @@ public class LevelWriter {
     private Location myStartPoint;
     private Location myPortal;
 
-    public void createFile (File file, LEGrid levelGrid) {
+    public void createFile (File file, LEGrid levelGrid, String libPath) {
         myGrid = levelGrid;
         myStartPoint = myGrid.removeStartPoint();
         myPortal = myGrid.removePortal();
@@ -44,6 +45,7 @@ public class LevelWriter {
             e.printStackTrace();
         }
         writeLevel();
+        writeLib(libPath);
         writeKey();
         writeSettings();
         myGrid.addStartPoint((int) myStartPoint.getX(), (int) myStartPoint.getY());
@@ -61,11 +63,12 @@ public class LevelWriter {
                         myFileWriter.write(SPACE);
                     }
                     else {
-                        if(!myMap.containsKey(s.getClass().getName())){
-                            myMap.put(s.getClass().getName(), KEY_CREATOR.charAt(myKeyCounter));
+                        String spriteName = s.getClass().getSimpleName();
+                        if(!myMap.containsKey(spriteName)){
+                            myMap.put(spriteName, KEY_CREATOR.charAt(myKeyCounter));
                             myKeyCounter++;
                         }
-                        myFileWriter.write(myMap.get(s.getClass().getName()));
+                        myFileWriter.write(myMap.get(spriteName));
                     }
                 }
             }
@@ -76,6 +79,19 @@ public class LevelWriter {
             e.printStackTrace();
         }
 
+    }
+    
+    private void writeLib (String libPath) {
+        try {
+            myFileWriter.write(BEGIN_LIB_PATH);
+            myFileWriter.write(NEW_LINE);
+            myFileWriter.write(libPath);
+            myFileWriter.write(NEW_LINE);
+        }
+        catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     private void writeKey () {
