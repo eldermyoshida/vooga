@@ -7,8 +7,11 @@ import vooga.scroller.level_editor.StartPoint;
 import vooga.scroller.level_editor.library.BackgroundLib;
 import vooga.scroller.level_editor.library.IBackgroundLibrary;
 import vooga.scroller.level_editor.library.ISpriteLibrary;
+import vooga.scroller.level_editor.view.LEView;
 import vooga.scroller.level_management.LevelPortal;
 import vooga.scroller.util.Sprite;
+import vooga.scroller.util.mvc.IWindow;
+import vooga.scroller.util.mvc.vcFramework.Window;
 
 
 public class ToolsManager {
@@ -18,21 +21,21 @@ public class ToolsManager {
     private Map<Integer, Sprite> mySpriteMap;
     private LETools myViewTools;
 
-    public ToolsManager (ISpriteLibrary l) {
-        this(l, new BackgroundLib(new String[0]));
-    }
+//    public ToolsManager (ISpriteLibrary l) {
+//        this(l, new BackgroundLib(new String[0]));
+//    }
 
-    public ToolsManager (ISpriteLibrary l, IBackgroundLibrary bgLib) {
+    public ToolsManager (ISpriteLibrary l, IBackgroundLibrary bgLib, IWindow w) {
         myBackgroundLib = bgLib;
         mySpriteLib = l;
-        setTools();
+        setTools(w);
     }
 
-    private void setTools () {
+    private void setTools ( IWindow w) {
 
         int i = 0;
         mySpriteMap = new HashMap<Integer, Sprite>();
-        myViewTools = new LETools();
+        myViewTools = new LETools((LEView)w);
 //        myViewTools.addBackgrounds(myBackgroundLib.getBackgrounds());
         Sprite sprite;
         for (Class<? extends Sprite> c : mySpriteLib.getSpritesClasses()) {

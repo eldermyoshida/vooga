@@ -15,5 +15,12 @@ public class LevelEditing implements IDomainDescriptor {
         // TODO Auto-generated method stub
         return null;
     }
+    
+    public static class VIEW_CONSTANTS {
+        static final double DEFAULT_GRIDVIEW_HEIGHT_RATIO = .95;
+        static final double DEFAULT_GRIDVIEW_WIDTH_RATIO = .7;
+        static final double DEFAULT_TOOLSVIEW_HEIGHT_RATIO = .9;
+        static final double DEFAULT_TOOLSVIEW_WIDTH_RATIO = .25;
+    }
 
 }

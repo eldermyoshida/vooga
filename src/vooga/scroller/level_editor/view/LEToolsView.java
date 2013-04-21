@@ -9,6 +9,7 @@ import javax.swing.JTabbedPane;
 import vooga.scroller.level_editor.commands.CommandConstants;
 import vooga.scroller.level_editor.controllerSuite.LETools;
 import vooga.scroller.util.Renderable;
+import vooga.scroller.util.Renderer;
 import vooga.scroller.util.mvc.IView;
 import vooga.scroller.util.mvc.vcFramework.WindowComponent;
 import vooga.scroller.viewUtil.EasyGridFactory;
@@ -23,47 +24,7 @@ import vooga.scroller.viewUtil.RadioGroup;
  * @author Dagbedji Fagnisse
  * 
  */
-public class LEToolsView extends WindowComponent {
-    
-    private static final double DEFAULT_HEIGHT_RATIO = 
-            LEView.CONSTANTS.DEFAULT_TOOLSVIEW_HEIGHT_RATIO;
-    private static final double DEFAULT_WIDTH_RATIO = 
-            LEView.CONSTANTS.DEFAULT_TOOLSVIEW_WIDTH_RATIO;
-
-    private static final long serialVersionUID = 1L;
-    private LETools myTools;
-    private JTabbedPane myTabs;
-    private JPanel mySpriteUI;
-    private JPanel myOtherUI;
-    private String mySelectedSprite;
-    private String mySelectedSpecialPoint;
-    
-
-    public LEToolsView (LEWorkspaceView parent) {
-        super(parent, DEFAULT_WIDTH_RATIO, DEFAULT_HEIGHT_RATIO);
-        myTabs = new JTabbedPane();
-        myTools = (LETools) ((LEWorkspaceView) getResponsible()).getTools();
-        mySpriteUI = new JPanel();
-        mySpriteUI.setLayout(new BoxLayout(mySpriteUI, BoxLayout.PAGE_AXIS));
-        for (Map<Object, String> m : myTools.getAllSprites()) {
-            JPanel spriteButtons = new RadioGroup(this.getSize(), new SelectSpriteListener(), m);
-            mySpriteUI.add(spriteButtons);
-        }
-
-        myOtherUI = new JPanel();
-//        JPanel otherButtons = new RadioGroup(new SetSpecialPointListener(),
-//                                             myTools.getOtherOptions());
-//        myOtherUI.add(otherButtons);
-        myTabs.add(mySpriteUI, "Sprites");
-        myTabs.add(myOtherUI, "Other");
-        EasyGridFactory.layout(this, myTabs);
-    }
-
-    @Override
-    public void render (Renderable r) {
-        // TODO Auto-generated method stub
-
-    }
+public class LEToolsView extends WindowComponent implements Renderer<LETools> {
 
     private class SelectSpriteListener implements ActionListener {
 
@@ -73,28 +34,50 @@ public class LEToolsView extends WindowComponent {
         }
 
     }
-    
-    private class SetSpecialPointListener implements ActionListener {
+    private static final long serialVersionUID = 1L;
+    public static double getDefaultHeightRatio() {
+        return LevelEditing.VIEW_CONSTANTS.DEFAULT_TOOLSVIEW_HEIGHT_RATIO;
+    }
+    public static double getDefaultWidthRatio() {
+        return LevelEditing.VIEW_CONSTANTS.DEFAULT_TOOLSVIEW_WIDTH_RATIO;
+    }
+    private JPanel myOtherUI;
+    private String mySelectedSpecialPoint;
+    private String mySelectedSprite;
 
-        @Override
-        public void actionPerformed (ActionEvent e) {
-            setSpecialPoint(e.getActionCommand());
+
+    private JPanel mySpriteUI;
+
+    private JTabbedPane myTabs;
+
+
+    private LETools myTools;
+
+    public LEToolsView (LETools leTools, IView parent) {
+        super(parent, getDefaultWidthRatio() , getDefaultHeightRatio());
+        myTabs = new JTabbedPane();
+        myTools = leTools;
+        mySpriteUI = new JPanel();
+        mySpriteUI.setLayout(new BoxLayout(mySpriteUI, BoxLayout.PAGE_AXIS));
+        for (Map<Object, String> m : myTools.getAllSprites()) {
+            JPanel spriteButtons = new RadioGroup(this.getSize(), new SelectSpriteListener(), m);
+            mySpriteUI.add(spriteButtons);
         }
-        
-    }
-    
-    //TODO - decide if it is best to treat doors as sprite
-    private void setSpecialPoint (String type) {
-        mySelectedSpecialPoint = type;
-        mySelectedSprite = type;
+
+        myOtherUI = new JPanel();
+        myTabs.add(mySpriteUI, "Sprites");
+        myTabs.add(myOtherUI, "Other");
+        EasyGridFactory.layout(this, myTabs);
     }
 
-    private void setSelectedSprite (String spriteID) {
-        mySelectedSprite = spriteID;
+    @Override
+    public LETools getRenderable () {
+        // TODO Auto-generated method stub
+        return null;
     }
-    
-    private void sendBackground (String id) {
-        process(CommandConstants.CHANGE_BACKGROUND + CommandConstants.SPACE + id);
+
+    public String getSelectedSpecialPoint() {
+        return mySelectedSpecialPoint;
     }
 
     public String getSelectedSpriteID () {
@@ -104,11 +87,36 @@ public class LEToolsView extends WindowComponent {
     public int getSelectedTab () {
         return myTabs.getSelectedIndex();
     }
-    
-    public String getSelectedSpecialPoint() {
-        return mySelectedSpecialPoint;
+
+    @Override
+    public void render (LETools renderable) {
+        // TODO Auto-generated method stub
+
     }
-    
+
+    @Override
+    public void render (Renderable r) { //TODO - Should not really be used/needed
+        if (r instanceof LETools) {
+            LETools t = (LETools) r;
+            myTools = t;
+            t.initializeRenderer(getResponsible());
+        }
+    }
+
+    private void sendBackground (String id) {
+        process(CommandConstants.CHANGE_BACKGROUND + CommandConstants.SPACE + id);
+    }
+
+
+    @Override
+    public void setRenderable (LETools tools) {
+        myTools = tools;
+    }
+
+    private void setSelectedSprite (String spriteID) {
+        mySelectedSprite = spriteID;
+    }
+
     public void setTools (LETools t) {
         myTools = t;
     }

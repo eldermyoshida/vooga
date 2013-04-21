@@ -42,6 +42,7 @@ public class LEController implements IController<LevelEditing> {
     private Map<WorkspaceView<LevelEditing>, Editable> myTab2Workspace;
     private static final int DEFAULT_SPRITE_GRID_SIZE = 30;
     private ToolsManager myToolsManager;
+    private LETools myTools;
     private LevelWriter myLevelWriter;
     private LevelParser myLevelReader;
     private LevelEditing myDomainInfo;
@@ -51,14 +52,15 @@ public class LEController implements IController<LevelEditing> {
      * @param backgroundLib 
      */
     public LEController(ISpriteLibrary lib, IBackgroundLibrary bgLib) {
-        myToolsManager = new ToolsManager(lib,bgLib);
         myDomainInfo = new LevelEditing();
         String language = getLanguage();
         myModel = new LevelEditor(language);
+        myView = new LEView(language, this);
+        myToolsManager = new ToolsManager(lib,bgLib, myView);
         myModel.setSpriteMap(myToolsManager.getSpriteMap());
         myModel.setBackgroundMap(bgLib.getBackgrounds());
-        myView = new LEView(language, this, lib);
-        myView.setDefaultWorkspaceTools(myToolsManager.getViewTools());
+        myTools = myToolsManager.getViewTools();
+        myView.setDefaultWorkspaceTools(myTools);
         myWorkspace2Tab = new HashMap<Editable, WorkspaceView<LevelEditing>>();
         myTab2Workspace = new HashMap<WorkspaceView<LevelEditing>, Editable>();
         myLevelWriter = new LevelWriter();

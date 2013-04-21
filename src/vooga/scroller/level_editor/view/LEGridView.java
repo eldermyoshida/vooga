@@ -34,33 +34,33 @@ public class LEGridView extends WindowComponent implements Scrollable, Renderer<
 
         @Override
         public void mouseEntered (MouseEvent e) {
-            // TODO Auto-generated method stub
-
         }
 
         @Override
         public void mouseExited (MouseEvent e) {
-            // TODO Auto-generated method stub
-
         }
 
         @Override
         public void mousePressed (MouseEvent e) {
-            // TODO Auto-generated method stub
-
         }
 
         @Override
         public void mouseReleased (MouseEvent e) {
-            // TODO Auto-generated method stub
-
         }
 
     }
-    private static final double DEFAULT_HEIGHT_RATIO = 
-            LEView.CONSTANTS.DEFAULT_GRIDVIEW_HEIGHT_RATIO;
-    private static final double DEFAULT_WIDTH_RATIO = 
-            LEView.CONSTANTS.DEFAULT_GRIDVIEW_WIDTH_RATIO;
+    
+    
+    public static double getDefaultHeightRatio() {
+        return LevelEditing.VIEW_CONSTANTS.DEFAULT_GRIDVIEW_HEIGHT_RATIO;
+    }
+    
+    
+    public static double getDefaultWidthRatio() {
+        return LevelEditing.VIEW_CONSTANTS.DEFAULT_GRIDVIEW_WIDTH_RATIO;
+    }
+    
+            
     /**
      * 
      */
@@ -96,8 +96,8 @@ public class LEGridView extends WindowComponent implements Scrollable, Renderer<
     public Dimension getPreferredScrollableViewportSize () {
         // TODO Auto-generated method stub
         Dimension d = this.getResponsible().getSize();
-        Dimension res = new Dimension((int)(d.width*DEFAULT_WIDTH_RATIO), 
-                                      (int)(d.height*DEFAULT_HEIGHT_RATIO));
+        Dimension res = new Dimension((int)(d.width*getDefaultWidthRatio()), 
+                                      (int)(d.height*getDefaultHeightRatio()));
         return res;
     }
 

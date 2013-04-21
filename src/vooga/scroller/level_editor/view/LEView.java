@@ -19,14 +19,7 @@ public class LEView extends Window<LEWorkspaceView, LevelEditing, LEGridView, LE
     private static final long serialVersionUID = 1L;
     private static final String TITLE = "Level Editor";
     
-    public static class CONSTANTS {
-        static final double DEFAULT_GRIDVIEW_HEIGHT_RATIO = .95;
-        static final double DEFAULT_GRIDVIEW_WIDTH_RATIO = .7;
-        static final double DEFAULT_TOOLSVIEW_HEIGHT_RATIO = .9;
-        static final double DEFAULT_TOOLSVIEW_WIDTH_RATIO = .25;
-    }
-    
-    public LEView (String language, LEController lEController, ISpriteLibrary lib) {
+    public LEView (String language, LEController lEController) {
         super(TITLE, language, lEController);
         // TODO Auto-generated constructor stub
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

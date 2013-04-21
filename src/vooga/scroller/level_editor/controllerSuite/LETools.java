@@ -1,5 +1,6 @@
 package vooga.scroller.level_editor.controllerSuite;
 
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,11 +8,16 @@ import java.util.List;
 import java.util.Map;
 import javax.swing.ImageIcon;
 import vooga.scroller.level_editor.StartPoint;
+import vooga.scroller.level_editor.view.LEActionLibrary;
+import vooga.scroller.level_editor.view.LEToolsView;
+import vooga.scroller.level_editor.view.LEView;
 import vooga.scroller.level_management.IDoor;
 import vooga.scroller.sprites.interfaces.ICoin;
 import vooga.scroller.sprites.interfaces.IEnemy;
 import vooga.scroller.sprites.interfaces.IPlatform;
+import vooga.scroller.util.Renderable;
 import vooga.scroller.util.Sprite;
+import vooga.scroller.util.mvc.IView;
 import vooga.scroller.util.mvc.vcFramework.Tools;
 
 /**
@@ -21,7 +27,7 @@ import vooga.scroller.util.mvc.vcFramework.Tools;
  * @author Dagbedji Fagnisse
  *
  */
-public class LETools extends Tools {
+public class LETools extends Tools implements Renderable<LEToolsView> {
 
     private static final int DEFAULT_SIZE = 40;
     private static final int PLATFORMS = 0;
@@ -29,6 +35,8 @@ public class LETools extends Tools {
     private static final int COLLECTIBLES = 2;
     private static final int SPECIALPOINTS = 3;
     private static final int OTHERS = 4;
+    private LEView myView;
+    private LEActionLibrary myActionLibrary;
     private Map<Object, String> mySpriteIcons;
     private Map<Object, String> myOtherIcons;
     private List<HashMap<Object, String>> mySpritesOptions;
@@ -42,7 +50,9 @@ public class LETools extends Tools {
     /**
      * Initialize state of this LETools.
      */
-    public LETools () {
+    public LETools (LEView v) {
+        myView = v;
+        myActionLibrary = new LEActionLibrary(v);
         mySpritesOptions = new ArrayList<HashMap<Object, String>>();
         Map<Object, String> platforms = new HashMap<Object, String>();
         Map<Object, String> ennemis = new HashMap<Object, String>();
@@ -111,6 +121,28 @@ public class LETools extends Tools {
 
     public Map<Object, String> getBackgrounds () {
         return myBackgroundImages;
+    }
+
+    @Override
+    public void paint (Graphics2D pen) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public Object getState () {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public LEToolsView initializeRenderer (IView parent) {
+        return new LEToolsView(this, parent);
+    }
+
+    @Override
+    public Object getActionLibrary () {
+        return myActionLibrary;
     }
 
 

@@ -6,6 +6,8 @@ package vooga.scroller.util.mvc.vcFramework;
  * @author Dagbedji Fagnisse
  *
  */
-public class Tools {
+public abstract class Tools {
+    
+    public abstract Object getActionLibrary();
 
 }

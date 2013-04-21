@@ -17,7 +17,6 @@ import vooga.scroller.util.mvc.IView;
 @SuppressWarnings("serial")
 public abstract class WindowComponent extends JPanel implements IView {
 
-    private GridBagConstraints myConstraints;
     private IView myResponsible;
 
     
@@ -56,14 +55,6 @@ public abstract class WindowComponent extends JPanel implements IView {
         setDefaultSize(rel);   
     }
 
-
-    /**
-     * 
-     * @return the constraints for this Layout
-     */
-    protected GridBagConstraints getConstraints() {
-        return myConstraints;
-    }
     
     /**
      * Compute the absolute dimension based on the relative width and height 

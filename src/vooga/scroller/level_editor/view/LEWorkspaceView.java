@@ -7,6 +7,7 @@ import javax.swing.JScrollPane;
 import vooga.scroller.level_editor.Level;
 import vooga.scroller.level_editor.commands.CommandConstants;
 import vooga.scroller.level_editor.controllerSuite.LEGrid;
+import vooga.scroller.level_editor.controllerSuite.LETools;
 import vooga.scroller.util.Editable;
 import vooga.scroller.util.Renderable;
 import vooga.scroller.util.Renderer;
@@ -31,6 +32,8 @@ public class LEWorkspaceView extends WorkspaceView<LevelEditing> implements Rend
     private LEGridView myGridView;
     private LEToolsView myToolsView;
     private JScrollPane myLevelGridScroller;
+    private JScrollPane myToolsScroller;
+    private static LETools ourTools;
 
     /**
      * Create a Workspace with the specified host, id, and renderable
@@ -39,18 +42,19 @@ public class LEWorkspaceView extends WorkspaceView<LevelEditing> implements Rend
      * @param id - containing tab
      * @param r - Renderable to be loaded in this workspace.
      */
-    public LEWorkspaceView (LEView host, int id, Renderable<LEGridView> grid) {
-        // TODO Auto-generated constructor stub
+    public LEWorkspaceView (LEView host, int id, 
+                            Renderable<LEGridView> grid) {
         super(id, host);
         myGridView = grid.initializeRenderer(this);
-        myToolsView = new LEToolsView(this);
+        myToolsView = ourTools.initializeRenderer(this);
         myLevelGridScroller = new JScrollPane(myGridView,
                                               JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                                               JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        EasyGridFactory.layout(this, myLevelGridScroller, myToolsView);
+        myToolsScroller = new JScrollPane(myToolsView,
+                                              JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+                                              JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        EasyGridFactory.layout(this, myLevelGridScroller, myToolsScroller);
     }
-
-
 
     @Override
     public void process (Object isn) {
@@ -72,7 +76,7 @@ public class LEWorkspaceView extends WorkspaceView<LevelEditing> implements Rend
 
     // TODO - Good design choice??
     public static void setTools (Tools t) {
-        WorkspaceView.setTools(t);
+        ourTools = (LETools) t;
     }
 
     public boolean isValidForSimulation () {
