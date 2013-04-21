@@ -23,7 +23,7 @@ public class StartUpScreen extends JPanel {
     private static final long serialVersionUID = 1L;
     private static final String WELCOME_KEYWORD = "WELCOME TO GAME EDITOR";
     private static final String START_KEYWORD = "START";
-    private static final String NEXT_SCREEN_NAME = "vooga.towerdefense.gameeditor.MapEditorScreen";
+    private static final String NEXT_SCREEN_NAME = "vooga.towerdefense.gameeditor.ViewEditorScreen";
     private JButton myStartButton;
     private MouseAdapter myMouseAdapter;
     private GameEditorController myController;
