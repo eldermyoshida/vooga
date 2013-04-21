@@ -11,7 +11,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import arcade.view.MainView;
 
-
+/**
+ * 
+ * @author David Liu
+ *
+ */
 public class ButtonPanel extends JPanel {
     /**
      * Constants.

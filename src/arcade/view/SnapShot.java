@@ -3,7 +3,6 @@ package arcade.view;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.IOException;
 import java.util.ResourceBundle;
 import javax.swing.BoxLayout;
 import javax.swing.JComponent;
@@ -20,7 +19,7 @@ import arcade.util.Pixmap;
  * @author David Liu
  * 
  */
-public class SnapShot extends JPanel implements MouseListener {
+public class SnapShot extends JPanel {
 
     /**
      * 
@@ -39,7 +38,7 @@ public class SnapShot extends JPanel implements MouseListener {
         myModel = model;
         myGameInfo = info;
         myResources = resources;
-        gameName = info.getName();
+
         myTitle = new JLabel("<html><b><font size = 4>" + myGameInfo.getName() +
                              "</font></html></b>");
         Pixmap p = myGameInfo.getThumbnail();
@@ -51,53 +50,26 @@ public class SnapShot extends JPanel implements MouseListener {
         add(myThumbnail);
         add(myTitle);
         add(myRating);
-        myTitle.addMouseListener(this);
-        myThumbnail.addMouseListener(this);
-        myRating.addMouseListener(this);
 
-    }
+        this.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked (MouseEvent arg0) {
+                if (arg0.getClickCount() == 2) {
+                    System.out.println("Clicked!!");
+                    new DetailView(myGameInfo, myResources, myModel);
+                }
+            }
 
-    @Override
-    public void mouseClicked (MouseEvent arg0) {
-        // TODO Auto-generated method stub
-        if (arg0.getClickCount() == 2) {
-            System.out.println("Clicked!!");
-            new DetailView(myGameInfo, myResources, myModel);
+            // these actions don't trigger any events.
+            @Override
+            public void mouseReleased (MouseEvent arg0) {}
+            @Override
+            public void mousePressed (MouseEvent arg0) {}
+            @Override
+            public void mouseExited (MouseEvent arg0) {}
+            @Override
+            public void mouseEntered (MouseEvent arg0) {}
 
-        }
-    }
-
-    @Override
-    public void mouseEntered (MouseEvent arg0) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void mouseExited (MouseEvent arg0) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void mousePressed (MouseEvent arg0) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void mouseReleased (MouseEvent arg0) {
-        // TODO Auto-generated method stub
-
-    }
-
-    public void openHelpPage () {
-        String url = "http://breadfish.de/";
-        try {
-            java.awt.Desktop.getDesktop().browse(java.net.URI.create(url));
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+        });
     }
 }

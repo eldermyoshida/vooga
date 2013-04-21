@@ -1,23 +1,19 @@
 package arcade.view.panels;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.List;
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JList;
+import java.util.ResourceBundle;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.ListSelectionModel;
 import arcade.games.GameInfo;
 import arcade.model.Model;
 import arcade.view.MainView;
 import arcade.view.SnapShot;
 
-
+/**
+ * 
+ * @author David Liu
+ *
+ */
 public class GameCenterPanel extends JPanel {
 
     /**
@@ -29,6 +25,7 @@ public class GameCenterPanel extends JPanel {
     private static final int HORIZONTAL_GAP = 5;
     private static final int VERTICAL_GAP = 5;
     private Model myModel;
+    private ResourceBundle myResources;
 
     /**
      * 
@@ -38,8 +35,9 @@ public class GameCenterPanel extends JPanel {
     /**
      * Constructor
      */
-    public GameCenterPanel (MainView mv, Model m) {
+    public GameCenterPanel (MainView mv, Model m, ResourceBundle resources) {
         myUpperLevel = mv;
+        myResources = resources;
         myModel = m;
         setBackground(Color.WHITE);
         GridLayout gamePanelLayout = new GridLayout(0, 2);
@@ -60,6 +58,7 @@ public class GameCenterPanel extends JPanel {
         for (GameInfo info : myUpperLevel.getGameList()) {
             SnapShot temp = new SnapShot(info, myUpperLevel.getResources(), myModel);
             add(temp);
+            
         }
     }
 }
