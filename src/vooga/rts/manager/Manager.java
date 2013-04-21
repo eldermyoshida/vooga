@@ -54,7 +54,6 @@ public class Manager implements State, IActOn, Observer {
         myActions = new HashMap<String, Action>();
         myAddQueue = new LinkedList<InteractiveEntity>();
         addActions();
-
     }
 
     @Override

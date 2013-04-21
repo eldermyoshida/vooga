@@ -14,6 +14,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import vooga.rts.action.Action;
+import vooga.rts.action.InteractiveAction;
 import vooga.rts.action.IActOn;
 import vooga.rts.commands.Command;
 import vooga.rts.gamedesign.sprite.gamesprites.GameEntity;
@@ -160,7 +161,11 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
 
 	public void getOccupied(Unit occupier) {
 		if (occupier.collidesWith(this)) {
-			getOccupyStrategy().getOccupied(this, occupier);
+			//TODO: this if check is because action is not initialized in Occupy Strategy.
+			if (this.getAction(new Command("be occupied!")) != null) {
+				((InteractiveAction)this.getAction(new Command("be occupied!"))).apply(occupier);
+				//getOccupyStrategy().getOccupied(this, occupier);
+			}
 		}
 	}
     

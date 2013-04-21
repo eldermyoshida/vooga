@@ -105,6 +105,27 @@ public class Unit extends InteractiveEntity {
 				myLocation = Camera.instance().viewtoWorld(click.getPosition());
 			}
 		});
+		addOccupyAction(this);
+	}
+	
+	private void addOccupyAction(final Unit u) {
+		put("occupy", new InteractiveAction(this) {
+
+			@Override
+			public void apply() {
+				return;
+			}
+
+			@Override
+			public void update(Command command) {
+				return;
+			}
+			
+			public void apply(InteractiveEntity i) {
+				//((InteractiveAction)i.getAction(new Command("be occupied!"))).apply(u);
+				i.getOccupied(u);
+			}
+		});
 	}
 
 	@Override
@@ -126,15 +147,6 @@ public class Unit extends InteractiveEntity {
     public void setUpgradeTree(UpgradeTree upgradeTree, int playerID) {
     	myUpgradeTree = upgradeTree;
     	addUserToUpgradeTree(playerID);
-    }
-
-    /**
-     * Occupies an IOccupiable object specified by occupy strategy.
-     * 
-     * @param occupiable
-     */
-    public void occupy (Building building) {
-        building.getOccupied(this);
     }
     
     private void addUserToUpgradeTree(int playerID) {

@@ -31,7 +31,6 @@ public class Building extends InteractiveEntity {
     private static UpgradeTree myUpgradeTree;
     //TODO: probably shouldn't be stored in Building. Should try Observer pattern later?
     private static GameBuildingManager myGameBuildingManager;
-    private int myBuildingID;
     
     public Building (Pixmap image,
             Location3D center,
@@ -53,23 +52,6 @@ public class Building extends InteractiveEntity {
         if (upgradeTree != null) {
         	myUpgradeTree = upgradeTree;
         }
-        if (myGameBuildingManager != null) {
-        	myGameBuildingManager.addBuilding(this);
-        }
-    }
-    
-    public void getOccupied(Unit occupier) {
-    	if (occupier.collidesWith(this)) {
-    		getOccupyStrategy().getOccupied(this, occupier);
-    	}
-    }
-    
-    public void setBuildingID (int id) {
-    	myBuildingID = id;
-    }
-    
-    public int getBuildingID() {
-    	return myBuildingID;
     }
     
 	@Override
@@ -77,15 +59,6 @@ public class Building extends InteractiveEntity {
 		return new Building(getImage(), getWorldLocation(), getSize(), getSound(),
 				getPlayerID(), getHealth(), getBuildTime());
 	}
-	
-    public void setGameBuildingManager(GameBuildingManager gameBuildingManager) {
-    	myGameBuildingManager = gameBuildingManager;
-    	myGameBuildingManager.addBuilding(this);
-    }
-    
-    public GameBuildingManager getGameBuildingManager() {
-    	return myGameBuildingManager;
-    }
 
 	@Override
 	public void addActions() {

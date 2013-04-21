@@ -20,6 +20,7 @@ public class Garrison extends Building {
     public Garrison(Pixmap image, Location3D center, Dimension size, Sound sound,
                     int playerID, int health, double buildTime) {
         super(image, center, size, sound, playerID, health, buildTime);
+        setOccupyStrategy(new CanBeOccupied());
     }
     
     /*public void addOccupyActions(final Building building) {
@@ -46,11 +47,5 @@ public class Garrison extends Building {
 				e.printStackTrace();
 			}
         }
-    }
-
-    @Override
-    public void addActions () {
-        // TODO Auto-generated method stub
-        
     }
 }

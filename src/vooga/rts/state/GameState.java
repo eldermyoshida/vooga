@@ -9,12 +9,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Observer;
+
+import vooga.rts.action.InteractiveAction;
 import vooga.rts.commands.Command;
 import vooga.rts.commands.DragCommand;
 import vooga.rts.controller.Controller;
 import vooga.rts.gamedesign.sprite.gamesprites.Projectile;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Garrison;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Soldier;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Worker;
@@ -230,6 +233,7 @@ public class GameState extends SubState implements Controller {
                                a.getWorldLocation(), new Dimension(30, 30), 2, 10, 6);
         a.getAttackStrategy().addWeapons(new Weapon(proj, 400, a.getWorldLocation(), 1));
         myHumanPlayer.add(a);
+        
         addPlayer(2);
         Unit c = new Soldier(new Location3D(1000, 500, 0), 2);
         c.setHealth(150);
@@ -242,8 +246,16 @@ public class GameState extends SubState implements Controller {
         ((CanProduce) b.getProductionStrategy()).addProducable(new Soldier());
         ((CanProduce) b.getProductionStrategy()).createProductionActions(b);
         ((CanProduce) b.getProductionStrategy()).setRallyPoint(new Location3D(400, 500, 0));
-
         myHumanPlayer.add(b);
+        
+        Garrison garrison =
+                new Garrison((new Pixmap(ResourceManager.getInstance()
+                        .<BufferedImage> getFile("images/factory.png", BufferedImage.class))),
+                             new Location3D(200, 200, 0), new Dimension(100, 100), null, 1, 300, InteractiveEntity.DEFAULT_BUILD_TIME);
+        garrison.getOccupyStrategy().addValidClassType(new Soldier());
+        garrison.getOccupyStrategy().createOccupyActions(garrison);
+        myHumanPlayer.add(garrison);
+        
         myMap = new GameMap(8, new Dimension(512, 512));
         final Building f = b;
         test = new DelayedTask(1, new Runnable() {
@@ -263,6 +275,14 @@ public class GameState extends SubState implements Controller {
                 u2.getAttacked(u1);
                 u1.getAttacked(u2);
             }
+        }
+        //now even yuckier
+        for (int i = 0; i<p1.size(); ++i) {
+        	for (int j = i+1; j<p1.size(); ++j) {
+        		if (p1.get(i) instanceof Unit) {
+        			((InteractiveAction)p1.get(i).getAction(new Command("occupy"))).apply(p1.get(j));
+        		}
+        	}
         }
         test.update(elapsedTime);
     }
