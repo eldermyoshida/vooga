@@ -49,7 +49,7 @@ public class MapLoader extends ObjectLoader {
 	 * Loads map from xml data
 	 * @param mapName to be loaded
 	 */
-	public void load(String mapName) {
+	protected void load(String mapName) {
 		Document doc = getDocument();
 		NodeList mapNodes = doc.getElementsByTagName(getResourceBundle().getString("Map"));
 		

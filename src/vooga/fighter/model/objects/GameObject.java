@@ -99,7 +99,7 @@ public abstract class GameObject {
     /**
      * Returns a state for this object. Returns null if it doesn't exist.
      */
-    public State getState(String key) {
+    protected State getState(String key) {
         if (myStates.containsKey(key)) {
             return myStates.get(key);
         } else {
@@ -119,28 +119,28 @@ public abstract class GameObject {
     /**
      * Gets the current state for this object.
      */
-    public State getCurrentState() {
+    protected State getCurrentState() {
         return myCurrentState;
     }
 
     /**
      * Clears all states.
      */
-    public void clearStates() {
+    protected void clearStates() {
         myStates.clear();
     }
     
     /**
      * Sets the object loader for this object.
      */
-    public void setLoader(ObjectLoader loader) {
+    protected void setLoader(ObjectLoader loader) {
         myLoader = loader;
     }
     
     /**
      * Returns the object loader for this object.
      */
-    public ObjectLoader getLoader() {
+    protected ObjectLoader getLoader() {
         return myLoader;
     }
     
@@ -164,6 +164,7 @@ public abstract class GameObject {
     public void setImageData(ImageDataObject image){
     	myImageData= new ImageDataObject(image.getMyImage(), image.getMyLocation(),image.getMySize() );
     }
+    
     /**
      * Returns image data for this object.
      */
