@@ -29,10 +29,14 @@ public interface TextKeywords {
     static final String PRICE = "price";
     static final String AGE_RATING = "age_rating";
     static final String SINGLE_PLAYER = "singleplayer";
+    static final String SINGLE_PLAYER_INSTRUCTION = "singleplayer_instruction";
     static final String MULTIPLAYER = "multiplayer";
+    static final String MULTIPLAYER_INSTRUCTION = "multiplayer_instruction";
     static final String SMALL_PICTURE = "smallpicture";
     static final String LARGE_PICTURE = "largepicture";
+    static final String DESCRIPTION_MESSAGE = "description_instructions";
     static final String DESCRIPTION = "description";
     static final String FILE_SELECT = "selectfile";
     static final String PUBLISH = "publish";
+    static final String POPUP_TITLE = "instruction";
 }

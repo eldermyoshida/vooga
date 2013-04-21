@@ -5,7 +5,8 @@ import javax.swing.JFileChooser;
 /**
  * An interface representing what can be done on a file chooser action.
  * 
- * This interface is expected to be implemented by an anonymous class.
+ * This interface is a single-function object, likely to be implemented by a 
+ * anonymous class.
  * 
  * @author Ellango
  *
