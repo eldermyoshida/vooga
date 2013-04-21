@@ -57,6 +57,8 @@ public class LoadingState extends SubState {
         pen.setColor(Color.white);
         pen.setFont(new Font("Georgia", Font.PLAIN, 72));
         pen.drawString("Game is Loading...", 200, 300);
+        pen.setFont(new Font("Georgia", Font.PLAIN, 30));
+        pen.drawString("Please Wait..", 200, 380);
         if (!isLoading()) {
             pen.setFont(new Font("Georgia", Font.PLAIN, 30));
             pen.drawString("Click to start.", 200, 380);
@@ -66,8 +68,7 @@ public class LoadingState extends SubState {
     @Override
     public void receiveCommand (Command command) {
         if (command.getMethodName().equals("leftclick")) {
-            setChanged();
-            notifyObservers();
+            update(0);
         }
     }
 

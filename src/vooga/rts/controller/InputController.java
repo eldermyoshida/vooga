@@ -58,15 +58,17 @@ public class InputController implements Controller {
         else {
             myLeftMouse = null;
             myDrag = null;
-            if (myDrag == null) {
-                sendCommand(new DragCommand("drag", null, null));
-            }
+            sendCommand(new DragCommand("drag", null, null));
+
         }
     }
 
     @InputMethodTarget(name = "onRightMouseUp")
     public void onRightMouseUp (PositionObject o) {
         sendCommand(new PositionCommand("rightclick", o));
+        myLeftMouse = null;
+        myDrag = null;
+        sendCommand(new DragCommand("drag", null, null));
     }
 
     @InputMethodTarget(name = "onMouseMove")
@@ -85,4 +87,5 @@ public class InputController implements Controller {
             sendCommand(new DragCommand("drag", Camera.instance().viewtoWorld(myDrag), myDrag));
         }
     }
+
 }

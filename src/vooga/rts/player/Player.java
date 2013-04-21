@@ -26,7 +26,7 @@ public class Player implements Controller, IGameLoop {
 
     }
 
-    public Controllable getManager () {
+    public Manager getManager () {
         return myManager;
     }
 

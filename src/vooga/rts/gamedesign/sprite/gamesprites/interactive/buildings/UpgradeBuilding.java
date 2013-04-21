@@ -28,9 +28,8 @@ public class UpgradeBuilding extends Building {
                             Dimension size,
                             Sound sound,
                             int playerID,
-                            int health,
-                            int buildTime) {
-        super(image, center, size, sound, playerID, health, null, buildTime);
+                            int health) {
+        super(image, center, size, sound, playerID, health, null);
     }
 
     /**

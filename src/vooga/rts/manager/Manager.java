@@ -4,11 +4,15 @@ import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 import vooga.rts.action.Action;
 import vooga.rts.action.IActOn;
 import vooga.rts.commands.Command;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.IObserver;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.manager.actions.DragSelectAction;
 import vooga.rts.manager.actions.LeftClickAction;
@@ -27,7 +31,8 @@ import vooga.rts.util.Location3D;
  * @author Challen Herzberg-Brovold
  * 
  */
-public class Manager implements State, IActOn {
+
+public class Manager implements State, IActOn, Observer {
 
     private List<InteractiveEntity> myEntities;
     private List<InteractiveEntity> mySelectedEntities;
@@ -35,13 +40,15 @@ public class Manager implements State, IActOn {
     private boolean myMultiSelect;
     private Map<String, Action> myActions;
 
+    Iterator<InteractiveEntity> myUpdateIterator;
+
     public Manager () {
         myEntities = new ArrayList<InteractiveEntity>();
         mySelectedEntities = new ArrayList<InteractiveEntity>();
         myGroups = new HashMap<Integer, List<InteractiveEntity>>();
         myMultiSelect = false;
         myActions = new HashMap<String, Action>();
-        addAction();
+        addActions();
     }
 
     @Override
@@ -53,9 +60,12 @@ public class Manager implements State, IActOn {
 
     @Override
     public void update (double elapsedTime) {
-        for (InteractiveEntity u : myEntities) {
+        myUpdateIterator = myEntities.iterator();
+        while (myUpdateIterator.hasNext()) {
+            InteractiveEntity u = myUpdateIterator.next();
             u.update(elapsedTime);
         }
+        myUpdateIterator = null;
     }
 
     @Override
@@ -79,7 +89,9 @@ public class Manager implements State, IActOn {
     }
 
     public void applyAction (Command command) {
-        for (InteractiveEntity u : mySelectedEntities) {
+        Iterator<InteractiveEntity> it = mySelectedEntities.iterator();
+        while (it.hasNext()) {
+            InteractiveEntity u = it.next();
             if (u.containsInput(command)) {
                 u.updateAction(command);
                 u.getAction(command).apply();
@@ -93,8 +105,20 @@ public class Manager implements State, IActOn {
      * 
      * @param u The entity that is to be added.
      */
-    public void add (InteractiveEntity unit) {
-        myEntities.add(unit);
+    public void add (InteractiveEntity entity) {
+        entity.addObserver(this);
+        myEntities.add(entity);
+    }
+
+    public void remove (InteractiveEntity entity) {
+        if (myUpdateIterator != null) {
+            myUpdateIterator.remove();
+        }
+        else {
+            myEntities.remove(entity);
+        }
+        entity.deleteObserver(this);
+        mySelectedEntities.remove(entity);
     }
 
     public void deselect (Location3D location) {
@@ -222,7 +246,7 @@ public class Manager implements State, IActOn {
         myMultiSelect = val;
     }
 
-    public void addAction () {
+    public void addActions () {
         put("drag", new DragSelectAction(this));
         put("leftclick", new LeftClickAction(this));
         put("rightclick", new RightClickAction(this));
@@ -237,6 +261,22 @@ public class Manager implements State, IActOn {
         if (myGroups.containsKey(groupID)) {
             mySelectedEntities = new ArrayList<InteractiveEntity>(myGroups.get(groupID));
         }
+    }
+
+    @Override
+    public void update (Observable entity, Object state) {
+        if (entity instanceof InteractiveEntity) {
+            InteractiveEntity ie = (InteractiveEntity) entity;
+            if (ie.isDead()) {
+                remove(ie);
+            }
+        }
+
+        // While Shepherds watch their flocks by night.
+        if (state instanceof InteractiveEntity) {
+            add((InteractiveEntity) state);
+        }
+
     }
 
 }

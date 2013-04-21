@@ -23,7 +23,7 @@ import vooga.towerdefense.gameElements.Unit;
  * @author Wenshun Liu
  * 
  */
-public abstract class Building extends InteractiveEntity implements IOccupiable {
+public class Building extends InteractiveEntity implements IOccupiable {
     public static final int MAXHEALTH = 100;
     private static UpgradeTree myUpgradeTree;
     //TODO: probably shouldn't be stored in Building. Should try Observer pattern later?
@@ -34,9 +34,8 @@ public abstract class Building extends InteractiveEntity implements IOccupiable 
             Dimension size,
             Sound sound,
             int playerID,
-            int health,
-            int buildTime) {
-    	super(image, center, size, sound, playerID, health, buildTime);
+            int health) {
+    	super(image, center, size, sound, playerID, health);
     	}
     
     public Building (Pixmap image,
@@ -44,13 +43,19 @@ public abstract class Building extends InteractiveEntity implements IOccupiable 
                      Dimension size,
                      Sound sound,
                      int playerID,
-                     int health, UpgradeTree upgradeTree, int buildTime) {
-        super(image, center, size, sound, playerID, MAXHEALTH, buildTime);
+                     int health, UpgradeTree upgradeTree) {
+        super(image, center, size, sound, playerID, MAXHEALTH);
         if (upgradeTree != null) {
         	myUpgradeTree = upgradeTree;
         }
     }
     
+	@Override
+	public InteractiveEntity copy() {
+		return new Building(getImage(), getWorldLocation(), getSize(), getSound(),
+				getPlayerID(), getHealth());
+	}
+	
     public void setGameBuildingManager(GameBuildingManager gameBuildingManager) {
     	myGameBuildingManager = gameBuildingManager;
     }
@@ -86,4 +91,5 @@ public abstract class Building extends InteractiveEntity implements IOccupiable 
     public void getOccupied (Unit unit) {
         //u.occupy(this);
     }
+
 }
