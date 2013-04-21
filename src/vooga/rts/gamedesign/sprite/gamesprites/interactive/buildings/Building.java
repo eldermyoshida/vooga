@@ -2,6 +2,7 @@ package vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings;
 
 import java.awt.Dimension;
 
+
 import java.awt.Graphics2D;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -10,17 +11,23 @@ import java.util.List;
 import vooga.rts.action.Action;
 import vooga.rts.action.ProductionAction;
 
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.IObserver;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.IOccupiable;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Soldier;
 import vooga.rts.gamedesign.upgrades.UpgradeNode;
+
+
+
+
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
+import vooga.rts.gamedesign.strategy.occupystrategy.CanBeOccupied;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
+import vooga.rts.manager.IndividualBuildingManager;
 import vooga.rts.manager.GameBuildingManager;
-import vooga.rts.player.IProductionObserver;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
-import vooga.towerdefense.gameElements.Unit;
 
 
 /**
@@ -33,37 +40,64 @@ import vooga.towerdefense.gameElements.Unit;
  * @author Wenshun Liu
  * 
  */
+
 public class Building extends InteractiveEntity implements IOccupiable {
 	private static int PRODUCE_TIME = 90;
+
+    public static final int MAXHEALTH = 100;
     private static UpgradeTree myUpgradeTree;
 
     private Location3D myRallyPoint;
     private List<Unit> myProducables;
     private List<InteractiveEntity> myInteractiveEntities;
-    private List<IProductionObserver> myObservers;
+    private List<IObserver> myObservers;
 
     private static GameBuildingManager myGameBuildingManager;
+    private int myBuildingID;
+    
     
     public Building (Pixmap image,
-            Location3D center,
-            Dimension size,
-            Sound sound,
-            int playerID,
-            int health, UpgradeTree upgradeTree) {
-    	super(image, center, size, sound, playerID, health);
+                     Location3D center,
+                     Dimension size,
+                     Sound sound,
+                     int playerID,
+                     int health, double buildTime, UpgradeTree upgradeTree) {
+        super(image, center, size, sound, playerID, MAXHEALTH, buildTime);
         myRallyPoint = new Location3D(getWorldLocation().getX(), getWorldLocation().getY() + 50, 0);
         myProducables = new ArrayList<Unit>();
         myInteractiveEntities = new ArrayList<InteractiveEntity>();
-        myObservers = new ArrayList<IProductionObserver>();
-
- 
+        myObservers = new ArrayList<IObserver>();
         if (upgradeTree != null) {
         	myUpgradeTree = upgradeTree;
         }
+        if (myGameBuildingManager != null) {
+        	myGameBuildingManager.addBuilding(this);
+        }
     }
     
+    public void getOccupied(Unit occupier) {
+    	if (occupier.collidesWith(this)) {
+    		getOccupyStrategy().getOccupied(this, occupier);
+    	}
+    }
+    
+    public void setBuildingID (int id) {
+    	myBuildingID = id;
+    }
+    
+    public int getBuildingID() {
+    	return myBuildingID;
+    }
+    
+	@Override
+	public InteractiveEntity copy() {
+		return new Building(getImage(), getWorldLocation(), getSize(), getSound(),
+				getPlayerID(), getHealth(), getBuildTime(), getUpgradeTree());
+	}
+	
     public void setGameBuildingManager(GameBuildingManager gameBuildingManager) {
     	myGameBuildingManager = gameBuildingManager;
+    	myGameBuildingManager.addBuilding(this);
     }
     
     public GameBuildingManager getGameBuildingManager() {
@@ -75,13 +109,6 @@ public class Building extends InteractiveEntity implements IOccupiable {
     	return myUpgradeTree;
     }
     
-    @Override
-    public void getOccupied(Unit unit) {
-        //u.occupy(this);
-    }
-    
-    
-
     
     
     @Override
@@ -174,7 +201,7 @@ public class Building extends InteractiveEntity implements IOccupiable {
     /**
      * Registers an IProductionObserver (a player) as its Observer.
      */
-    public void register (IProductionObserver newObserver) {
+    public void register (IObserver newObserver) {
         myObservers.add(newObserver);
     }
     
@@ -188,7 +215,7 @@ public class Building extends InteractiveEntity implements IOccupiable {
      * Unregisters an IProductionObserver (a player) so that it will not be
      * notified anymore when ProductionBuilding updates.
      */
-    public void unregister (IProductionObserver deleteObserver) {
+    public void unregister (IObserver deleteObserver) {
         int observerIndex = myObservers.indexOf(deleteObserver);
         myObservers.remove(observerIndex);
 
@@ -199,24 +226,16 @@ public class Building extends InteractiveEntity implements IOccupiable {
      * the change.
      */
     public void notifyProductionObserver (Unit newProduction) {
-        for (IProductionObserver observer : myObservers) {
+        for (IObserver observer : myObservers) {
             observer.addProduction(newProduction);
         }
     }
 
-    
-
-	@Override
-	public void getOccupied(
-			vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit unit) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	@Override
 	public void addActions() {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
+    
 }

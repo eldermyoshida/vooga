@@ -1,12 +1,7 @@
 package vooga.rts.state;
 
-import java.applet.AudioClip;
-import java.awt.AWTException;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.Robot;
-import java.awt.Shape;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -17,17 +12,13 @@ import java.util.Observer;
 import vooga.rts.commands.Command;
 import vooga.rts.commands.DragCommand;
 import vooga.rts.controller.Controller;
-import vooga.rts.controller.PlayerController;
 import vooga.rts.gamedesign.sprite.gamesprites.Projectile;
-import vooga.rts.gamedesign.sprite.gamesprites.Resource;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
-import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Barracks;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building;
-import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.UpgradeBuilding;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Soldier;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Worker;
-import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;
+import vooga.rts.gamedesign.strategy.production.CanProduce;
 import vooga.rts.gamedesign.weapon.Weapon;
 import vooga.rts.map.GameMap;
 import vooga.rts.player.HumanPlayer;
@@ -35,13 +26,12 @@ import vooga.rts.player.Player;
 import vooga.rts.player.Team;
 import vooga.rts.resourcemanager.ResourceManager;
 import vooga.rts.util.Camera;
+import vooga.rts.util.DelayedTask;
 import vooga.rts.util.FrameCounter;
 import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.PointTester;
-import vooga.rts.util.Sound;
-import vooga.rts.util.TimeIt;
 
 
 // TODO: implement the game state with all unit managers that there needs to be. Muy importante.
@@ -51,7 +41,7 @@ public class GameState extends SubState implements Controller {
 
     private final static int DEFAULT_NODE_SIZE = 8;
     private Map<Integer, Team> myTeams;
-    private GameMap myMap;
+    private static GameMap myMap;
     private HumanPlayer myHumanPlayer;
     private List<Player> myPlayers;
     // private Resource r;
@@ -62,7 +52,6 @@ public class GameState extends SubState implements Controller {
     private FrameCounter myFrames;
 
     private Rectangle2D myDrag;
-    private Shape worldShape;
 
     public GameState (Observer observer) {
         super(observer);
@@ -77,7 +66,13 @@ public class GameState extends SubState implements Controller {
     @Override
     public void update (double elapsedTime) {
         myMap.update(elapsedTime);
-        myHumanPlayer.update(elapsedTime);
+
+        for (Player p : myPlayers) {
+            p.update(elapsedTime);
+        }
+
+        yuckyUnitUpdate(elapsedTime);
+
         myFrames.update(elapsedTime);
     }
 
@@ -101,7 +96,6 @@ public class GameState extends SubState implements Controller {
         // If it's a drag, we need to do some extra checking.
         if (command instanceof DragCommand) {
             myDrag = ((DragCommand) command).getScreenRectangle();
-            worldShape = ((DragCommand) command).getWorldRectangle();
             if (myDrag == null) {
                 return;
             }
@@ -150,7 +144,8 @@ public class GameState extends SubState implements Controller {
     // .<BufferedImage> getFile("images/bullet.png", BufferedImage.class)),
     // a.getWorldLocation(), new Dimension(30, 30), 2, 10, 1);
     // a.setAttackStrategy(new CanAttack());
-    // a.getAttackStrategy().addWeapons(new Weapon(0, proj, 500, a.getWorldLocation(), 175));
+    // a.getAttackStrategy().addWeapons(new Weapon(0, proj, 500,
+    // a.getWorldLocation(), 175));
     // Unit b = new Soldier(p, new Location3D(300, 150, 0), s, soun, 1, 300);
     // System.out.println("Player ID for b: " + b.getPlayerID());
     //
@@ -159,7 +154,8 @@ public class GameState extends SubState implements Controller {
     // .<BufferedImage> getFile("images/bullet.png", BufferedImage.class)),
     // b.getWorldLocation(), new Dimension(30, 30), 1, 10, 1);
     // b.setAttackStrategy(new CanAttack());
-    // b.getAttackStrategy().addWeapons(new Weapon(0, proj2, 400, b.getWorldLocation(), 200));
+    // b.getAttackStrategy().addWeapons(new Weapon(0, proj2, 400,
+    // b.getWorldLocation(), 200));
     //
     // Unit c = new Soldier(p, new Location3D(500, 800, 0), s, soun, 2, 500);
     //
@@ -172,7 +168,8 @@ public class GameState extends SubState implements Controller {
     // new Worker(new Pixmap(ResourceManager.getInstance()
     // .<BufferedImage> getFile("images/scv.gif", BufferedImage.class)),
     // new Location3D(500, 200, 0), s, soun, 20, 40, 40);
-    // c.getAttackStrategy().addWeapons(new Weapon(0, proj3, 450, c.getWorldLocation(), 200));
+    // c.getAttackStrategy().addWeapons(new Weapon(0, proj3, 450,
+    // c.getWorldLocation(), 200));
     //
     // p1.getUnits().addUnit(a);
     // p1.getUnits().addUnit(b);
@@ -197,20 +194,80 @@ public class GameState extends SubState implements Controller {
 
     // }
 
-    public void addPlayer (int id) {
+    public void addPlayer (Player player, int teamID) {
+        myPlayers.add(player);
+        if (myTeams.get(teamID) == null) {
+            addTeam(teamID);
+        }
+        myTeams.get(teamID).addPlayer(player);
+    }
+
+    public void addTeam (int teamID) {
+        myTeams.put(teamID, new Team(teamID));
+    }
+
+    public void addPlayer (int teamID) {
+        Player result;
         if (myPlayers.size() == 0) {
-            myHumanPlayer = new HumanPlayer(id);
-            myPlayers.add(myHumanPlayer);
+            myHumanPlayer = new HumanPlayer(teamID);
+            result = myHumanPlayer;
         }
         else {
-            myPlayers.add(new Player(id));
+            result = new Player(teamID);
         }
+        addPlayer(result, teamID);
     }
+
+    private DelayedTask test;
 
     public void setupGame () {
         addPlayer(1);
-        myHumanPlayer.add(new Soldier());
-        myHumanPlayer.add(new Soldier(new Location3D(200, 200, 0)));
+        Unit a = new Soldier();
+
+        Projectile proj =
+                new Projectile(new Pixmap(ResourceManager.getInstance()
+                        .<BufferedImage> getFile("images/bullet.png", BufferedImage.class)),
+                               a.getWorldLocation(), new Dimension(30, 30), 2, 10, 6);
+        a.getAttackStrategy().addWeapons(new Weapon(proj, 400, a.getWorldLocation(), 1));
+        myHumanPlayer.add(a);
+        addPlayer(2);
+        Unit c = new Soldier(new Location3D(1000, 500, 0), 2);
+        c.setHealth(150);
+        myPlayers.get(1).add(c);
+        Building b =
+                new Building((new Pixmap(ResourceManager.getInstance()
+                        .<BufferedImage> getFile("images/factory.png", BufferedImage.class))),
+                             new Location3D(400, 300, 0), new Dimension(100, 100), null, 1, 300, InteractiveEntity.DEFAULT_BUILD_TIME);
+        b.setProductionStrategy(new CanProduce());
+        ((CanProduce) b.getProductionStrategy()).addProducable(new Soldier());
+        ((CanProduce) b.getProductionStrategy()).createProductionActions(b);
+        ((CanProduce) b.getProductionStrategy()).setRallyPoint(new Location3D(400, 500, 0));
+
+        myHumanPlayer.add(b);
         myMap = new GameMap(8, new Dimension(512, 512));
+        final Building f = b;
+        test = new DelayedTask(1, new Runnable() {
+            @Override
+            public void run () {
+                f.getAction((new Command("I am a pony"))).apply();
+                test.restart();
+            }
+        });
+    }
+
+    private void yuckyUnitUpdate (double elapsedTime) {
+        List<InteractiveEntity> p1 = myTeams.get(1).getUnits();
+        List<InteractiveEntity> p2 = myTeams.get(2).getUnits();
+        for (InteractiveEntity u1 : p1) {
+            for (InteractiveEntity u2 : p2) {
+                u2.getAttacked(u1);
+                u1.getAttacked(u2);
+            }
+        }
+        test.update(elapsedTime);
+    }
+
+    public static GameMap getMap () {
+        return myMap;
     }
 }
