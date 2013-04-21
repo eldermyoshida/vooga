@@ -175,6 +175,7 @@ public class GameState extends SubState implements Controller {
         myHumanPlayer.add(garrison);
 
         myMap = new GameMap(8, new Dimension(512, 512));
+        
         final Building f = b;
         test = new DelayedTask(1, new Runnable() {
             @Override
@@ -198,7 +199,7 @@ public class GameState extends SubState implements Controller {
     }
 
     private void yuckyUnitUpdate (double elapsedTime) {
-        List<InteractiveEntity> p1 = getDetectableUnits(myTeams.get(1).getUnits());
+        List<InteractiveEntity> p1 = myTeams.get(1).getUnits();  //getDetectableUnits(myTeams.get(1).getUnits());
         List<InteractiveEntity> p2 = myTeams.get(2).getUnits();
         for (InteractiveEntity u1 : p1) {
             for (InteractiveEntity u2 : p2) {
@@ -206,6 +207,7 @@ public class GameState extends SubState implements Controller {
                 u1.getAttacked(u2);
             }
         }
+        test.update(elapsedTime);
         // now even yuckier
         for (int i = 0; i < p1.size(); ++i) {
             for (int j = i + 1; j < p1.size(); ++j) {
