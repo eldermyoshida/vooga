@@ -60,7 +60,8 @@ public class AttackObject extends GameObject{
     
     
     /**
-     * Updates the attack object.
+     * Updates the attack object by calling GameObject's update and by decreasing it's time
+     * remaining so that it can expire if its time is up.
      */
     public void update(){
     	super.update();
@@ -69,7 +70,7 @@ public class AttackObject extends GameObject{
     }
     
     /**
-     * 
+     * Move attack object by its designated velocity
      */
     public void move(){
     	getLocation().translate(new Vector(getProperty(ModelConstants.ATTACK_PROPERTY_DIRECTION), getProperty(ModelConstants.ATTACK_PROPERTY_SPEED)));

@@ -57,6 +57,10 @@ public class CharacterObject extends GameObject {
         } 
     }
     
+    /**
+     * Calls GameObject's updateState() method as well as sets the default state to stand
+     * if no other state actions are going on.
+     */
     public void updateState() {
         super.updateState();
         if (getCurrentState().hasCompleted()) {
@@ -172,6 +176,7 @@ public class CharacterObject extends GameObject {
     public int getMovingDirection(){
     	return movingDirection;
     }
+    
     /**
      * Will add jump method
      */
@@ -194,21 +199,21 @@ public class CharacterObject extends GameObject {
     }
     
     /**
-     * sets the character to face left 
+     * Sets the character to face left 
      */
     public void faceLeft(){
     	facingRight=false; 
     }
     
     /**
-     * sets the character to face right 
+     * Sets the character to face right 
      */
     public void faceRight(){
     	facingRight=true; 
     }
     
     /**
-     * returns list of all attackObjects
+     * Returns list of all attackObjects
      */
     public List<AttackObject> getAttackObjects(){
     	return currentAttacks; 

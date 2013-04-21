@@ -31,7 +31,7 @@ public class MenuGridLoader extends ObjectLoader {
 	/**
 	 * Loads map from xml data
 	 */
-	public void load(String menuname) {
+	protected void load(String menuname) {
 		Document doc = getDocument();
 		NodeList menugridNodes = doc.getElementsByTagName("menumode");
 

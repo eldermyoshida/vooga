@@ -19,7 +19,7 @@ public class MenuLoader extends ObjectLoader {
 		load(menuobjectname);
 	}
 
-	public void load(String menuobjectname) {
+	protected void load(String menuobjectname) {
 		Document doc = getDocument();
 		NodeList menuNodes = doc.getElementsByTagName("menuobject");
 		for (int i = 0; i < menuNodes.getLength(); i++) {

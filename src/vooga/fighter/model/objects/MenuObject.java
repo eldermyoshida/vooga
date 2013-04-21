@@ -1,10 +1,7 @@
 package vooga.fighter.model.objects;
 
-import java.util.Collection;
-import java.util.Map;
 import vooga.fighter.model.MenuMode;
 import vooga.fighter.model.loaders.MenuLoader;
-import vooga.fighter.model.utils.State;
 
 /**
  * 
