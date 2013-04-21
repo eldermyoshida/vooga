@@ -68,8 +68,7 @@ public class LoadingState extends SubState {
     @Override
     public void receiveCommand (Command command) {
         if (command.getMethodName().equals("leftclick")) {
-            setChanged();
-            notifyObservers();
+            update(0);
         }
     }
 
