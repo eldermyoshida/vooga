@@ -52,10 +52,7 @@ public class LEController implements IController<LevelEditing> {
      * @param backgroundLib 
      */
     public LEController(ISpriteLibrary lib, IBackgroundLibrary bgLib) {
-        myDomainInfo = new LevelEditing();
-        String language = getLanguage();
-        myModel = new LevelEditor(language);
-        myView = new LEView(language, this);
+        initLevelEditor();
         myToolsManager = new ToolsManager(lib,bgLib, myView);
         myModel.setSpriteMap(myToolsManager.getSpriteMap());
         myModel.setBackgroundMap(bgLib.getBackgrounds());
@@ -65,6 +62,13 @@ public class LEController implements IController<LevelEditing> {
         myTab2Workspace = new HashMap<WorkspaceView<LevelEditing>, Editable>();
         myLevelWriter = new LevelWriter();
         myLevelReader = new LevelParser();
+    }
+
+    private void initLevelEditor () {
+        myDomainInfo = new LevelEditing();
+        String language = getLanguage();
+        myModel = new LevelEditor(language);
+        myView = new LEView(language, this);
     }
 
     private String getLanguage () {

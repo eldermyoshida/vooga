@@ -1,9 +1,14 @@
 package vooga.scroller.level_editor.view;
 
+import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Map;
 import javax.swing.BoxLayout;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import vooga.scroller.level_editor.commands.CommandConstants;
@@ -34,27 +39,29 @@ public class LEToolsView extends WindowComponent implements Renderer<LETools> {
         }
 
     }
+
     private static final long serialVersionUID = 1L;
-    public static double getDefaultHeightRatio() {
+
+    public static double getDefaultHeightRatio () {
         return LevelEditing.VIEW_CONSTANTS.DEFAULT_TOOLSVIEW_HEIGHT_RATIO;
     }
-    public static double getDefaultWidthRatio() {
+
+    public static double getDefaultWidthRatio () {
         return LevelEditing.VIEW_CONSTANTS.DEFAULT_TOOLSVIEW_WIDTH_RATIO;
     }
+
     private JPanel myOtherUI;
     private String mySelectedSpecialPoint;
     private String mySelectedSprite;
-
 
     private JPanel mySpriteUI;
 
     private JTabbedPane myTabs;
 
-
     private LETools myTools;
 
     public LEToolsView (LETools leTools, IView parent) {
-        super(parent, getDefaultWidthRatio() , getDefaultHeightRatio());
+        super(parent, getDefaultWidthRatio(), getDefaultHeightRatio());
         myTabs = new JTabbedPane();
         myTools = leTools;
         mySpriteUI = new JPanel();
@@ -65,6 +72,12 @@ public class LEToolsView extends WindowComponent implements Renderer<LETools> {
         }
 
         myOtherUI = new JPanel();
+        JPanel backgroundView = new JPanel();
+        backgroundView.setLayout(new GridLayout());
+        for (Object key : myTools.getBackgrounds().keySet()) {
+            backgroundView.add(new JButton(new ImageIcon((Image) key)));
+        }
+        myOtherUI.add(backgroundView);
         myTabs.add(mySpriteUI, "Sprites");
         myTabs.add(myOtherUI, "Other");
         EasyGridFactory.layout(this, myTabs);
@@ -76,7 +89,7 @@ public class LEToolsView extends WindowComponent implements Renderer<LETools> {
         return null;
     }
 
-    public String getSelectedSpecialPoint() {
+    public String getSelectedSpecialPoint () {
         return mySelectedSpecialPoint;
     }
 
@@ -95,7 +108,7 @@ public class LEToolsView extends WindowComponent implements Renderer<LETools> {
     }
 
     @Override
-    public void render (Renderable r) { //TODO - Should not really be used/needed
+    public void render (Renderable r) { // TODO - Should not really be used/needed
         if (r instanceof LETools) {
             LETools t = (LETools) r;
             myTools = t;
@@ -106,7 +119,6 @@ public class LEToolsView extends WindowComponent implements Renderer<LETools> {
     private void sendBackground (String id) {
         process(CommandConstants.CHANGE_BACKGROUND + CommandConstants.SPACE + id);
     }
-
 
     @Override
     public void setRenderable (LETools tools) {

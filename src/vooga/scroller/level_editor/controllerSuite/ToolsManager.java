@@ -36,7 +36,7 @@ public class ToolsManager {
         int i = 0;
         mySpriteMap = new HashMap<Integer, Sprite>();
         myViewTools = new LETools((LEView)w);
-//        myViewTools.addBackgrounds(myBackgroundLib.getBackgrounds());
+        myViewTools.addBackgrounds(myBackgroundLib.getBackgrounds());
         Sprite sprite;
         for (Class<? extends Sprite> c : mySpriteLib.getSpritesClasses()) {
             try {

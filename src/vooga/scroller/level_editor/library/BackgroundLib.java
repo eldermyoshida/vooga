@@ -9,7 +9,7 @@ import javax.swing.ImageIcon;
 
 public class BackgroundLib implements IBackgroundLibrary {
 
-    private static final String BACKGROUND_LOCATION = "/vooga/scroller/images/backgrounds";
+    private static final String BACKGROUND_LOCATION = "vooga/scroller/images/backgrounds";
     private Map<Integer, Image> myBackgrounds;
 
     public BackgroundLib (String[] fileNames) {
