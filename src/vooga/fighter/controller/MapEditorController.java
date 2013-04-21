@@ -1,5 +1,6 @@
 package vooga.fighter.controller;
 
+import java.util.ArrayList;
 import java.util.List; 
 
 import util.input.src.input.Input;
@@ -20,39 +21,50 @@ public class MapEditorController extends Controller{
 	    private static final String INPUT_PATHWAY = "vooga.fighter.input.MapEditorMapping_en_US";
 	    private MapEditorMode myEditTarget;
 
-	    public MapEditorController (String name, Canvas frame) {
-	        super(name, frame);
-	    }
+	    public MapEditorController () {
+	        super();
+	    }   
 		
-	    public MapEditorController(String name, Canvas frame, ControllerDelegate manager, 
-	    		GameInfo gameinfo) {
-	    	super(name, frame, manager, gameinfo);
-	    	//frame.setViewDataSource(this);
-	    	loadMode();
-	    	GameLoopInfo gameLoopInfo = new GameLoopInfo((LevelMode) super.getMode());
-	    	setGameLoopInfo(gameLoopInfo);
-	    	frame.setViewDataSource(gameLoopInfo);
-	    	
+	    public void initializeRest(Canvas frame, ControllerDelegate manager, 
+                GameInfo gameinfo) {
+        super.initializeRest(frame, manager, gameinfo);
+        setInput(manager.getInput());
+        getInput().replaceMappingResourcePath(INPUT_PATHWAY);
+        getInput().addListenerTo(this);
+        GameLoopInfo gameLoopInfo = new GameLoopInfo((LevelMode) getMode());
+        setLoopInfo(gameLoopInfo);
+        gameinfo.setGameLoopInfo(gameLoopInfo);
+    }
+
+	    public void notifyEndCondition (String endCondition) {
+	    	removeListener();
+	    	getManager().notifyEndCondition("ScoreScreen");
 	    }
 	    
 
 	    
 	    public void loadMode() {
-	        List<Integer> characterNames = myGameInfo.getCharacters();
-	        int mapID = myGameInfo.getMapName();
-	        Mode temp = new LevelMode(this, characterNames, mapID);
-	        setMode(temp);
+	       // List<Integer> characterNames = myGameInfo.getCharacters();
+	        String mapID = getGameInfo().getMapName();
+	   //     Mode temp = new LevelMode(this, mapID);
+	   //     setMode(temp);
+	    }
+	    
+	    public Controller getController() {
+	    	return this;
 	    }
 
 	    public void setEditTarget(MapEditorMode map) {
 	    	myEditTarget = map;
 	    }
 
+	    /*
 	    @Override
 	    public Controller getController (ControllerDelegate delegate, GameInfo gameinfo) {
 	        return new MapEditorController(super.getName(), super.getView(),
 	                                   delegate, gameinfo);
 	    }
+	    
 
 	    @Override
 	    protected Input makeInput () {
@@ -60,6 +72,7 @@ public class MapEditorController extends Controller{
 	        input.addListenerTo(this);
 	    	return input;
 	    }
+	    */
 	    
 	    @InputMethodTarget(name = "load")
 	    public void loadMap (AlertObject alObj)  {
@@ -86,27 +99,19 @@ public class MapEditorController extends Controller{
 	    	myEditTarget.prevObject();
 	    }
 	    
+	    public void checkConditions() {
+	    	
+	    }   
 	    
-	    
+	   /* 
 	    @Override
 	    public void notifyEndCondition () {
 	        System.out.println(" controller notify end is working");
-	        myGameInfo.setMapName(2);
-	        myGameInfo.getCharacters().clear();
+	        getGameInfo().setMapName(2);
+	        getGameInfo().getCharacters().clear();
 	        myManager.notifyEndCondition("GameOver");
 	        
 	    }
-	    
-	    @Override
-	    public void notifyEndCondition (String endCondition) {
-	    	
-	    }
-
-		@Override
-		public void notifyEndCondition(int endCondition) {
-			// TODO Auto-generated method stub
-			
-		}
-	    
+	    */
 }
 

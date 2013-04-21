@@ -21,6 +21,7 @@ public class MapObject extends GameObject {
     private List<UpdatableLocation> myStartingPositions;
     private Map<String,Sound> mySounds;
     private Sound myCurrentSound;
+    private String myName;
 
     /**
      * Constructor for a new Map object.
@@ -31,6 +32,7 @@ public class MapObject extends GameObject {
         myStartingPositions = new ArrayList<UpdatableLocation>();
         mySounds = new HashMap<String,Sound>();
         myCurrentSound = null;
+        myName = mapName;
         setLoader(new MapLoader(mapName, this));
         setCurrentState("background");
         setImageData();
@@ -42,6 +44,14 @@ public class MapObject extends GameObject {
     public void addEnviroObject(EnvironmentObject object) {
         myEnviroObjects.add(object);
         object.setImageData();
+    }
+    
+    /**
+     * returns the name of this map.
+     * @return myName - this map's name.
+     */
+    public String getName() {
+    	return myName;
     }
 
     /**
