@@ -4,6 +4,7 @@ import java.awt.geom.Rectangle2D;
 import util.input.*;
 import vooga.rts.commands.Command;
 import vooga.rts.commands.DragCommand;
+import vooga.rts.commands.PositionCommand;
 import vooga.rts.state.State;
 import vooga.rts.util.Camera;
 import vooga.rts.util.Location;

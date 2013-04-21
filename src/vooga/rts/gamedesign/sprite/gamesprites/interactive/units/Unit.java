@@ -8,7 +8,7 @@ import java.util.List;
 import vooga.rts.commands.ClickCommand;
 import vooga.rts.commands.Command;
 import vooga.rts.commands.DragCommand;
-import vooga.rts.controller.PositionCommand;
+import vooga.rts.commands.PositionCommand;
 import vooga.rts.action.Action;
 import vooga.rts.action.InteractiveAction;
 import vooga.rts.gamedesign.sprite.gamesprites.GameSprite;

@@ -7,7 +7,7 @@ import java.util.Observable;
 import java.util.Observer;
 import util.input.PositionObject;
 import vooga.rts.commands.Command;
-import vooga.rts.controller.PositionCommand;
+import vooga.rts.commands.PositionCommand;
 import vooga.rts.gui.Menu;
 import vooga.rts.gui.menus.MainMenu;
 

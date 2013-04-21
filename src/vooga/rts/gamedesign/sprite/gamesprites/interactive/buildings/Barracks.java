@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import vooga.rts.action.InteractiveAction;
 import vooga.rts.commands.Command;
-import vooga.rts.controller.PositionCommand;
+import vooga.rts.commands.PositionCommand;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Soldier;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;

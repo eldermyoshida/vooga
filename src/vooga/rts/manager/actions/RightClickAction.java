@@ -2,7 +2,7 @@ package vooga.rts.manager.actions;
 
 import vooga.rts.action.ManagerAction;
 import vooga.rts.commands.Command;
-import vooga.rts.controller.PositionCommand;
+import vooga.rts.commands.PositionCommand;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.manager.Manager;
 import vooga.rts.state.GameState;
