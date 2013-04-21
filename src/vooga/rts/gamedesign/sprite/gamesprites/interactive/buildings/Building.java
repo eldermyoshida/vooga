@@ -2,14 +2,8 @@ package vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings;
 
 import java.awt.Dimension;
 
-
-import vooga.rts.gamedesign.Interval;
-import vooga.rts.gamedesign.sprite.gamesprites.interactive.IOccupiable;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
-import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
-import vooga.rts.gamedesign.strategy.occupystrategy.CanBeOccupied;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
-import vooga.rts.manager.IndividualBuildingManager;
 import vooga.rts.manager.GameBuildingManager;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
@@ -29,8 +23,6 @@ import vooga.rts.util.Sound;
 public class Building extends InteractiveEntity {
     public static final int MAXHEALTH = 100;
     private static UpgradeTree myUpgradeTree;
-    //TODO: probably shouldn't be stored in Building. Should try Observer pattern later?
-    private static GameBuildingManager myGameBuildingManager;
     
     public Building (Pixmap image,
             Location3D center,

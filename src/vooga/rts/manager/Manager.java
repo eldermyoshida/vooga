@@ -15,6 +15,7 @@ import vooga.rts.action.Action;
 import vooga.rts.action.IActOn;
 import vooga.rts.commands.Command;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
+import vooga.rts.gamedesign.state.DetectableState;
 import vooga.rts.manager.actions.DragSelectAction;
 import vooga.rts.manager.actions.LeftClickAction;
 import vooga.rts.manager.actions.RightClickAction;
@@ -291,11 +292,21 @@ public class Manager implements State, IActOn, Observer {
 
         // While Shepherds watch their flocks by night.
         if (state instanceof InteractiveEntity) {
-            if (!((InteractiveEntity) state).getVisible()) { //TODO: check for undetectable state
-            	System.out.println("WILL BE REMOVED!!");
-            	remove((InteractiveEntity)state);
-            } else {
+            int index = myEntities.indexOf(state);
+            
+        	if (((InteractiveEntity) state).getEntityState().
+            		getDetectableState().equals(DetectableState.
+            				NOTDETECTABLE)) {
+            	myEntities.get(index).getEntityState().setDetectableState(DetectableState.DETECTABLE);
+            	myEntities.get(index).setVisible(true);
+            	myEntities.get(index).setWorldLocation(new Location3D());
+            	
             	add((InteractiveEntity) state);
+            } else {
+            	myEntities.get(index).setVisible(false);
+            	myEntities.get(index).getEntityState().setDetectableState(DetectableState.NOTDETECTABLE);
+            	
+            	remove((InteractiveEntity)state);
             }
         }
 

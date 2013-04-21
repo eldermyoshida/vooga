@@ -10,6 +10,8 @@ import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Soldier;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
+import vooga.rts.gamedesign.state.DetectableState;
+import vooga.rts.util.Location3D;
 
 /**
  * 
@@ -45,13 +47,14 @@ public class CanBeOccupied implements OccupyStrategy{
 			
 			@Override
 			public void apply(InteractiveEntity i) {
+				System.out.println("Goes here!");
 				if (myOccupiers.size() < myMaxOccupiers && verifyOccupier(entity, (Unit)i)) {
-					i.setVisible(false);
+					System.out.println("Verified!!");
+					//i.setVisible(false);
+					//i.getEntityState().setDetectableState(DetectableState.NOTDETECTABLE);
 					if (myOccupierID == 0) {
 						myOccupierID = i.getPlayerID();
 					}
-					//TODO: make u undetectable
-					//u.getGameUnitManager().addEntityUnit(entity, u);
 					myOccupiers.add((Unit)i);
 					entity.setChanged();
 					entity.notifyObservers(i);
@@ -61,6 +64,27 @@ public class CanBeOccupied implements OccupyStrategy{
 			@Override
 			public void apply() {
 				return;
+			}
+		});
+		
+		entity.addAction("puke all I have", new InteractiveAction(entity) {
+			@Override
+			public void update(Command command) {
+			}
+
+			@Override
+			public void apply() {
+				List<Unit> occupiers = myOccupiers;
+				myOccupierID = 0;
+				myOccupiers = new ArrayList<Unit>();
+				for (Unit u: occupiers) {
+					u.getEntityState().setDetectableState(DetectableState.NOTDETECTABLE);
+					u.setVisible(false);
+					//u.setVisible(true);
+					//u.setWorldLocation(new Location3D());
+					entity.setChanged();
+					entity.notifyObservers(u);
+				}
 			}
 		});
 	}

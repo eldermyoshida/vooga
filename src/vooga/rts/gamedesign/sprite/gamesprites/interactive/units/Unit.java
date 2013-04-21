@@ -20,7 +20,6 @@ import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
 import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
 import vooga.rts.gamedesign.upgrades.UpgradeNode;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
-import vooga.rts.manager.GameUnitManager;
 import vooga.rts.util.Camera;
 import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
@@ -83,9 +82,6 @@ public class Unit extends InteractiveEntity {
         if (myUpgradeTree != null){
         	addUserToUpgradeTree(playerID);
         }
-        if (getGameUnitManager() != null) {
-        	getGameUnitManager().addPlayerUnit(this);
-        }
         addActions();
         }
 
@@ -133,10 +129,6 @@ public class Unit extends InteractiveEntity {
 		return new Unit(getImage(), getWorldLocation(), getSize(), getSound(),
 				getPlayerID(), getHealth(), getBuildTime());
 	}
-	
-    public void addGameUnitManager(GameUnitManager gameUnitManager) {
-    	setGameUnitManager(gameUnitManager);
-    }
     
     @Override
     public UpgradeTree getUpgradeTree() {

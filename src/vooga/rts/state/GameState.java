@@ -222,6 +222,7 @@ public class GameState extends SubState implements Controller {
 	}
 
 	private DelayedTask test;
+	private DelayedTask occupyPukingTest;
 
 	public void setupGame () {
 		addPlayer(1);
@@ -237,8 +238,8 @@ public class GameState extends SubState implements Controller {
 		addPlayer(2);
 		Unit c = new Soldier(new Location3D(1000, 500, 0), 2);
 		c.setHealth(150);
-		//myHumanPlayer.add(c);
-		myPlayers.get(1).add(c);
+		myHumanPlayer.add(c);
+		//myPlayers.get(1).add(c);
 		Building b =
 				new Building((new Pixmap(ResourceManager.getInstance()
 						.<BufferedImage> getFile("images/factory.png", BufferedImage.class))),
@@ -266,6 +267,18 @@ public class GameState extends SubState implements Controller {
 				test.restart();
 			}
 		});
+		
+		final Garrison testGarrison = garrison;
+		occupyPukingTest = new DelayedTask(1, new Runnable() {
+			@Override
+			public void run () {
+				if (testGarrison.getOccupyStrategy().getOccupiers().size() > 0) {
+					System.out.println("will puke!");
+					testGarrison.getAction(new Command("puke all I have")).apply();
+				}
+				occupyPukingTest.restart();
+			}
+		});
 	}
 
 	private void yuckyUnitUpdate (double elapsedTime) {
@@ -285,7 +298,8 @@ public class GameState extends SubState implements Controller {
 				}
 			}
 		}
-		test.update(elapsedTime);
+		//test.update(elapsedTime);
+		occupyPukingTest.update(elapsedTime);
 	}
 
 	public static GameMap getMap () {
