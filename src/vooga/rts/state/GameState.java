@@ -241,12 +241,12 @@ public class GameState extends SubState implements Controller {
         b.setProductionStrategy(new CanProduce());
         ((CanProduce) b.getProductionStrategy()).addProducable(new Soldier());
         ((CanProduce) b.getProductionStrategy()).createProductionActions(b);
+        ((CanProduce) b.getProductionStrategy()).setRallyPoint(new Location3D(400, 500, 0));
 
         myHumanPlayer.add(b);
         myMap = new GameMap(8, new Dimension(512, 512));
         final Building f = b;
         test = new DelayedTask(5, new Runnable() {
-
             @Override
             public void run () {
                 f.getAction((new Command("I am a pony"))).apply();
