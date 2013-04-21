@@ -180,18 +180,18 @@ public class GameEntity extends GameSprite {
      * Moves the Unit only. Updates first the angle the Unit is facing, and then
      * its location. Possible design choice error.
      */
-    public void move (Location3D loc) {
-
-        myEntityState.setMovementState(MovementState.MOVING);
+    public void move (Location3D loc) {       
         myGoal = new Location3D(loc);
         Vector v = getWorldLocation().difference(myGoal.to2D());
 
         // magic numero
         if (v.getMagnitude() < Location3D.APPROX_EQUAL) {
             setVelocity(v.getAngle(), 0);
+            myEntityState.setMovementState(MovementState.STATIONARY);
         }
         else {
             setVelocity(v.getAngle(), getSpeed());
+            myEntityState.setMovementState(MovementState.MOVING);
         }
     }
 
@@ -294,8 +294,7 @@ public class GameEntity extends GameSprite {
      */
     public void stopMoving () {
         if (!myEntityState.canMove()) {
-            // setVelocity(getVelocity().getAngle(), 0);
-            setVelocity(0, 0);
+            setVelocity(getVelocity().getAngle(), 0);
         }
     }
 
