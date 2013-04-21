@@ -34,12 +34,13 @@ import vooga.rts.util.Location3D;
 
 public class Manager implements State, IActOn, Observer {
 
-
     private List<InteractiveEntity> myEntities;
     private List<InteractiveEntity> mySelectedEntities;
     private Map<Integer, List<InteractiveEntity>> myGroups;
     private boolean myMultiSelect;
     private Map<String, Action> myActions;
+
+    Iterator<InteractiveEntity> myUpdateIterator;
 
     public Manager () {
         myEntities = new ArrayList<InteractiveEntity>();
@@ -59,9 +60,12 @@ public class Manager implements State, IActOn, Observer {
 
     @Override
     public void update (double elapsedTime) {
-        for (InteractiveEntity u : myEntities) {
+        myUpdateIterator = myEntities.iterator();
+        while (myUpdateIterator.hasNext()) {
+            InteractiveEntity u = myUpdateIterator.next();
             u.update(elapsedTime);
         }
+        myUpdateIterator = null;
     }
 
     @Override
@@ -107,8 +111,13 @@ public class Manager implements State, IActOn, Observer {
     }
 
     public void remove (InteractiveEntity entity) {
+        if (myUpdateIterator != null) {
+            myUpdateIterator.remove();
+        }
+        else {
+            myEntities.remove(entity);
+        }
         entity.deleteObserver(this);
-        myEntities.remove(entity);
         mySelectedEntities.remove(entity);
     }
 

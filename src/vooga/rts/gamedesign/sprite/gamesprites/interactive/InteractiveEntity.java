@@ -8,6 +8,7 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -82,7 +83,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
         myAttackStrategy = new CannotAttack();
         myActions = new HashMap<String, Action>();
         isSelected = false;
-
+        myTasks = new ArrayList<DelayedTask>();
     }
 
     public void addAction (String command, Action action) {
@@ -315,7 +316,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     @Override
     public void update (double elapsedTime) {
         super.update(elapsedTime);
-        
+
         Iterator<DelayedTask> it = myTasks.iterator();
         while (it.hasNext()) {
             DelayedTask dt = it.next();
@@ -329,6 +330,9 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
             myAttackStrategy.getWeapons().get(myAttackStrategy.getWeaponIndex())
                     .update(elapsedTime);
         }
+
+        setChanged();
+        notifyObservers();
     }
 
     @Override
