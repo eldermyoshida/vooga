@@ -63,6 +63,7 @@ public abstract class GameObject {
         return myCenter;
     }
 
+    
     /**
      * Adds a property for this object. Overwrites any existing value.
      */
@@ -116,6 +117,14 @@ public abstract class GameObject {
     }
     
     /**
+     * Sets the current state for an object based on another state
+     */
+    
+    public void setCurrentState(State st){
+    	myCurrentState= st;
+    	myCurrentState.resetState(); 
+    }
+    /**
      * Gets the current state for this object.
      */
     public State getCurrentState() {
@@ -153,7 +162,7 @@ public abstract class GameObject {
         Dimension myCurrentSize = myCurrentState.getCurrentSize();
         Location myCurrentLocation = myCenter.getLocation();
         if (!(myCurrentSize == null || myCurrentImage == null || myCenter == null)) {
-            myImageData = new ImageDataObject(myCurrentImage, myCurrentLocation, myCurrentSize);
+        	myImageData = new ImageDataObject(myCurrentImage, myCurrentLocation, myCurrentSize);
         }
     }
     

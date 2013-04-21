@@ -2,11 +2,13 @@ package vooga.fighter.model.objects;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import util.Location;
 import vooga.fighter.model.ModelConstants;
 import vooga.fighter.model.utils.Counter;
 import vooga.fighter.model.utils.Effect;
+import vooga.fighter.model.utils.State;
 import vooga.fighter.model.utils.UpdatableLocation;
 import util.Vector;
 
@@ -43,11 +45,30 @@ public class AttackObject extends GameObject{
         this.myOwner = other.myOwner;
         this.myCounter = new Counter(getProperty(ModelConstants.ATTACK_PROPERTY_DURATION));   
     	setLocation(center);
+    	copyStates(other);
+    	setCurrentState(other.getCurrentState());
         setImageData(); 
-    	
-
     }
-    
+
+    	/**
+    	  * Creates a deep copy of another AttackObject's state map and sets it as this
+          * object's state map.
+          */
+    public void copyStates(AttackObject other) {
+    	Map<String,State> otherStates = other.getStates();
+    	for (String key : otherStates.keySet()) {
+    		State otherState = otherStates.get(key);
+    		State newState = new State(otherState);
+    		addState(key, newState);
+    		}
+    }
+        
+    /**
+     * Currently empty because of a bug in state, will change later 
+     */
+    public void updateState(){
+    	
+    }
     /**
      * Move the attack object to the position of its owner.
      */
@@ -68,6 +89,10 @@ public class AttackObject extends GameObject{
     	// move(); 
     }
     
+    public void update(){
+    	super.update();
+    	move();
+    }
     /**
      * Move attack object by its designated velocity
      */

@@ -68,8 +68,6 @@ public class LevelMode extends Mode {
         List<GameObject> myObjects = getMyObjects();
         for (GameObject object : myObjects) {
             object.update();
-        }
-        for (GameObject object : myObjects) {
             object.updateState();
         }
     }

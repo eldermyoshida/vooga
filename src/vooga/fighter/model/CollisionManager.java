@@ -3,6 +3,7 @@ package vooga.fighter.model;
 import java.awt.Rectangle;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Collections;
 import java.util.List;
 import vooga.fighter.model.objects.AttackObject;
 import vooga.fighter.model.objects.CharacterObject;
@@ -24,7 +25,7 @@ public class CollisionManager {
     /**
      * Checks for collisions between the game objects.
      */
-    public void checkCollisions(List<GameObject> myObjects) {
+    public void checkCollisions(List<GameObject> myObjects) { 
         for (int i = 0; i < myObjects.size() - 1; i++) {
             for (int j = i + 1; j < myObjects.size(); j++) {
                 GameObject o1 = myObjects.get(i);
@@ -116,7 +117,7 @@ public class CollisionManager {
      * Handles collisions between an attack object and a character object.
      */
     public void collide(AttackObject o1, CharacterObject o2) {
-    	if (o1.getCurrentState().hasPriority(o2.getCurrentState())){
+    	if (o1.getCurrentState().hasPriority(o2.getCurrentState())&&o1.getOwner()!=o2){
     		o1.inflictDamage(o2);
     	}
         System.out.println("CollisionManager: AttackObject and CharacterObject collided!");

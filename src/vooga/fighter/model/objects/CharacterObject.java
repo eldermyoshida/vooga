@@ -26,6 +26,7 @@ public class CharacterObject extends GameObject {
     private List<AttackObject> currentAttacks; 
     private boolean facingRight;  
     private int movingDirection; 
+    private int myDirection;  
     private static final int MOVE_BACK_AMOUNT=-2; 
     
     /**
@@ -150,7 +151,15 @@ public class CharacterObject extends GameObject {
      */
     public void attack(String attack) {
         setCurrentState("weakPunch");
-        currentAttacks.add(new AttackObject(myAttacks.get(attack), getLocation()));
+        if (facingRight){
+        	myDirection=0;
+        }
+        else{
+        	myDirection=180;  
+        }
+        UpdatableLocation characterLocation= getLocation(); 
+        currentAttacks.add(new AttackObject(myAttacks.get(attack), new UpdatableLocation(characterLocation.getLocation().getX(), characterLocation.getLocation().getY())));
+      
     }
 
     /**
