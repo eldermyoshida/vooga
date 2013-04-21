@@ -1,6 +1,7 @@
 package vooga.rts.gamedesign.strategy.gatherstrategy;
 
 import vooga.rts.gamedesign.Interval;
+import vooga.rts.gamedesign.sprite.gamesprites.Resource;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.IGatherable;
 import vooga.rts.gamedesign.state.GatherState;
 import vooga.rts.util.DelayedTask;
@@ -31,6 +32,9 @@ public class CanGather implements GatherStrategy {
 	}
 
 	public void gatherResource(int playerID, IGatherable gatherable) {
+		if(((Resource)gatherable).isDead()) {
+			return;
+		}
 		final IGatherable toBeGathered = gatherable;
 		final int id = playerID;
 		if(myGatherState == GatherState.WAITING) {

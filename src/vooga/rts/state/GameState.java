@@ -210,10 +210,10 @@ public class GameState extends SubState implements Controller {
 		List<InteractiveEntity> p1 = myTeams.get(1).getUnits();  //getDetectableUnits(myTeams.get(1).getUnits());
 		List<InteractiveEntity> p2 = myTeams.get(2).getUnits();		
 		for (InteractiveEntity u1 : p1) {
-			for (InteractiveEntity u2 : p2) {
-				if(u1 instanceof Worker && r != null) {
-					((Worker) u1).gather(r);
-				}
+			if(u1 instanceof Worker && r != null) {
+				((Worker) u1).gather(r);
+			}
+			for (InteractiveEntity u2 : p2) {	
 				u2.getAttacked(u1);
 				u1.getAttacked(u2);
 			}
