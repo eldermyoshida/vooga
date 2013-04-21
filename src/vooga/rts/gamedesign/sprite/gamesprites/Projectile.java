@@ -28,7 +28,7 @@ public class Projectile extends GameEntity {
 			.<BufferedImage> getFile("images/bullet.png", BufferedImage.class));
 	public static Dimension DEFAULT_DIMENSION = new Dimension(20, 20);
 	public static int DEFAULT_DAMAGE = 10;
-	public static int DEFAULT_HEALTH = 1;
+	public static int DEFAULT_HEALTH = 6;
 
 	private int myDamage;
 	private InteractiveEntity myTarget;

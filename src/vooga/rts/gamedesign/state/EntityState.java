@@ -24,7 +24,7 @@ public class EntityState {
 	private double myAttackingCooldown;
 	private DelayedTask myAttackingDelay;
 
-	private static final int DEFAULT_ATTAKING_INTERVAL = 25;
+	private static final double DEFAULT_ATTAKING_INTERVAL = .25;
 
 	/**
 	 * Creates a new state for the entity with that is set to not attacking, not
@@ -37,12 +37,6 @@ public class EntityState {
 		myProducingState = ProducingState.NOT_PRODUCING;
 		myMovementState = MovementState.STATIONARY;
 		myAttackingCooldown = DEFAULT_ATTAKING_INTERVAL;
-		myAttackingDelay = new DelayedTask(myAttackingCooldown, new Runnable() {
-			@Override
-			public void run() {
-				myAttackingState = AttackingState.ATTACKING;
-			}
-		});
 	}
 
 	/**
@@ -132,6 +126,12 @@ public class EntityState {
 	 */
 	public void attack() {
 		myAttackingState = AttackingState.WAITING;
+		myAttackingDelay = new DelayedTask(myAttackingCooldown, new Runnable() {
+			@Override
+			public void run() {
+				myAttackingState = AttackingState.ATTACKING;
+			}
+		});
 	}
 
 	/**
@@ -142,10 +142,12 @@ public class EntityState {
 	 * entity is not moving the cooldown gets decremented.
 	 */
 	public void update(double elapsedTime) {
-		if (myMovementState == MovementState.MOVING) {
-			myAttackingDelay.restart();
-		} else {
-			myAttackingDelay.update(elapsedTime);
+		if(myAttackingDelay != null) {
+			if (myMovementState == MovementState.MOVING) {
+				myAttackingDelay.restart();
+			} else {
+				myAttackingDelay.update(elapsedTime);
+			}
 		}
 	}
 }
