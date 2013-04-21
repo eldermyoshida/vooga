@@ -218,7 +218,7 @@ public class GameState extends SubState implements Controller {
             }
         }
         // test.update(elapsedTime);
-        occupyPukingTest.update(elapsedTime);
+        //occupyPukingTest.update(elapsedTime);
     }
 
     private List<InteractiveEntity> getDetectableUnits (List<InteractiveEntity> list) {
