@@ -30,8 +30,9 @@ public class Barracks extends ProductionBuilding {
                      Dimension size,
                      Sound sound,
                      int playerID,
-                     int health) {
-        super(image, center, size, sound, playerID, health);
+                     int health,
+                     double buildTime) {
+        super(image, center, size, sound, playerID, health, buildTime);
         myInteractiveEntities = new ArrayList<InteractiveEntity>();
         initProducables();
         setRallyPoint(new Location3D(300, 400, 0));
