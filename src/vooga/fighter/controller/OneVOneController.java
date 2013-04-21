@@ -14,7 +14,7 @@ import vooga.fighter.view.FourPlayerMatchGameLayout;
  * 
  * @author Jerry Li
  * 
- * @Modified by Jack Matteucci
+ * @author by Jack Matteucci
  * 
  */
 @InputClassTarget

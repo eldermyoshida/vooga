@@ -20,7 +20,8 @@ import javax.swing.Timer;
 
 /**
  * 
- * @author Jerry Li and Jack Matteucci
+ * @author Jerry Li
+ * @author Jack Matteucci
  *
  * This class is the basic controller from which all subclasses extend.  Only should
  * you subclass this controller if there are major changes to be made to the actual

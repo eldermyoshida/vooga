@@ -9,7 +9,8 @@ import java.util.ResourceBundle;
 
 /**
  * 
- * @author Jack, edited by Jerry
+ * @author Jack Matteucci
+ * @author Jerry Li
  *
  */
 public class ControlProgressionManager {

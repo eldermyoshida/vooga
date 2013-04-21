@@ -4,7 +4,7 @@ import util.input.Input;
 
 /**
  * 
- * @author matthewparides
+ * @author Matt Parides
  *
  */
 public interface ControllerDelegate {

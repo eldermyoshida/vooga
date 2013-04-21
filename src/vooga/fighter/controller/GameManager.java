@@ -30,7 +30,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-
+/**
+ * 
+ * @author Jack Matteucci
+ *
+ */
 
 public class GameManager {//extends Game{
 public static final Dimension SIZE = new Dimension(800, 600);

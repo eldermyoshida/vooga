@@ -17,7 +17,10 @@ import util.*;
  * Contains all information required by the view about game objects in a game loop.
  * List indices line up between lists (i.e. index 0 of all lists is player 1 information,
  * index 1 is player 2 info)
- * @author matthewparides
+ * @author Matt Parides
+ * @author Jerry Li 
+ * @author Jack Matteucci 
+ * @author Wayne You
  *
  */
 

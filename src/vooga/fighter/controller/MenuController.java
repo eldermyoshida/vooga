@@ -24,7 +24,8 @@ import java.util.ResourceBundle;
 
 /**
  * 
- * @author Jerry Li and Jack Matteucci
+ * @author Jerry Li 
+ * @author Jack Matteucci
  * 
  */
 

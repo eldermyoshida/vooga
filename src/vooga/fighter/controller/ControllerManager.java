@@ -13,8 +13,8 @@ import util.input.Input;
 import vooga.fighter.view.Canvas;
 /**
  * 
- * @author Jack Matteucci, edited by Jerry Li
- *
+ * @author Jack Matteucci
+ * @author Jerry Li
  */
 
 public class ControllerManager implements ControllerDelegate{

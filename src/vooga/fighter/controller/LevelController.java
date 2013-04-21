@@ -26,7 +26,7 @@ import vooga.fighter.view.Canvas;
  * 
  * @author Jerry Li
  * 
- * @Modified by Jack Matteucci
+ * @author Jack Matteucci
  * 
  * This is the basic controller used for levels.  It is attached to the LevelMode, so
  * one may see how the LevelMode is intantiated within this hierarchy if he/she may

@@ -4,6 +4,12 @@ package vooga.fighter.controller;
 
 import vooga.fighter.model.utils.Health;
 
+/**
+ * 
+ * @author Jerry Li
+ * @author Jack Matteucci
+ *
+ */
 public class PlayerStatus {
     
     private static int myPlayerID = 0;
