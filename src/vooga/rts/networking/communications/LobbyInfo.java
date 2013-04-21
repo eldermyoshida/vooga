@@ -2,11 +2,14 @@ package vooga.rts.networking.communications;
 
 import java.io.Serializable;
 
+
 /**
- * Basic lobby information used for the server browser.
+ * Basic lobby information used for sending across the network to the server browser. Lightweight so
+ * we can send many of these very quickly.
+ * 
  * @author David Winegar
  * @author Sean Wareham
- *
+ * 
  */
 public class LobbyInfo implements Serializable {
 
@@ -24,6 +27,7 @@ public class LobbyInfo implements Serializable {
 
     /**
      * Returns the name of the lobby
+     * 
      * @return
      */
     public String getLobbyName () {
@@ -32,15 +36,16 @@ public class LobbyInfo implements Serializable {
 
     /**
      * Returns the maximum number of players this lobby can hold.
+     * 
      * @return
      */
     public int getMaxPlayers () {
         return myMaxPlayers;
     }
 
-
     /**
      * Returns name of the Map of the current lobby.
+     * 
      * @return
      */
     public String getMapName () {
@@ -49,12 +54,13 @@ public class LobbyInfo implements Serializable {
 
     /**
      * Returns true if Lobby is full.
+     * 
      * @return
      */
     public boolean isLobbyFull () {
         return (myPlayersCount == myMaxPlayers);
     }
-    
+
     protected void removePlayer () {
         myPlayersCount--;
     }
