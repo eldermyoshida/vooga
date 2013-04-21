@@ -62,6 +62,21 @@ public class State {
     }
 
     /**
+     * Creates a new state that is a deep copy of another.
+     */
+    public State(State other) {
+        this(other.getOwner(), other.getNumFrames(), other.getPriority(), other.getDepth());
+        for (int i=0; i<myNumFrames; i++) {
+            Rectangle newRectangle = new Rectangle(other.getRectangle(i));
+            Pixmap newPixmap = new Pixmap(other.getImage(i));
+            Dimension newSize = new Dimension(other.getSize(i));
+            populateRectangle(newRectangle, i);
+            populateImage(newPixmap, i);
+            populateSize(newSize, i);
+        }
+    }
+    
+    /**
      * Creates a state with the given owner, number of frames, priority, and depth.
      * State has default frame delays of zero.
      */
@@ -87,6 +102,13 @@ public class State {
         myLooping = looping;
     }
 
+    /**
+     * Returns the number of frames in this state.
+     */
+    public int getNumFrames() {
+        return myNumFrames;
+    }
+    
     /**
      * Adds a rectangle this state's rectangle array.
      */
@@ -165,6 +187,27 @@ public class State {
     public Dimension getCurrentSize() {
         return mySizes[myCurrentFrame];
     }
+    
+    /**
+     * Returns the current active rectangle for this state.
+     */
+    public Rectangle getRectangle(int index) {
+        return myRectangles[index];
+    }
+
+    /**
+     * Returns the current active image for this state.
+     */
+    public Pixmap getImage(int index) {
+        return myImages[index];
+    }
+
+    /**
+     * Returns the current active size for this state.
+     */
+    public Dimension getSize(int index) {
+        return mySizes[index];
+    }
 
     /**
      * Returns the priority of this state. Lower numbers are considered higher
@@ -175,12 +218,12 @@ public class State {
     }
 
     /**
-     * Sets priority
-     */
-    
+     * Sets priority for this state.
+     */    
     public void setPriority(int num){
-    	myPriority=2; 
+    	myPriority = num; 
     }
+    
     /**
      * Returns the depth of this state. Lower numbers are considered lower depth,
      * i.e. an image with a lower depth will be drawn first (and thus other
@@ -188,6 +231,13 @@ public class State {
      */
     public int getDepth() {
         return myDepth;
+    }
+    
+    /**
+     * Returns the owner of this state.
+     */
+    public GameObject getOwner() {
+        return myOwner;
     }
 
     /**

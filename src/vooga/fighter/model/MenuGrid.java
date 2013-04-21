@@ -51,16 +51,16 @@ public class MenuGrid {
 	}
 	
 	private void fillGrid(List<MenuObject> list, MenuObject [][] grid, int columns, int rows){
+		int RowNumber = 0;
+		int ColumnNumber = 0;
 		for(int i = 0; i < list.size(); i ++){
-			int RowNumber = 0;
-				int ColumnNumber = i*(RowNumber) -(columns-1); 
 				if(ColumnNumber <columns){
 				grid[RowNumber][ColumnNumber] = list.get(i);
 				int xloc =  (ColumnNumber)*GameManager.SIZE.width/(columns) + GameManager.SIZE.width/(2*columns);
 				int yloc =  (RowNumber)*GameManager.SIZE.height/(rows) + GameManager.SIZE.height/(2*rows);
 				list.get(i).setLocation(new UpdatableLocation(xloc,yloc));
 				int count  = 0;
-				for(Object s : list.get(i).getStates()){
+				for(Object s : list.get(i).getStates().values()){
 					State state = (State) s;
 					Dimension size = new Dimension(GameManager.SIZE.width/(2*columns), GameManager.SIZE.height/(2*rows));
 					state.populateSize(size, count);
@@ -70,9 +70,11 @@ public class MenuGrid {
 					
 				}
 				list.get(i).setImageData();
+				ColumnNumber ++;
 				}
 				else{
 					RowNumber ++;
+					ColumnNumber =0;
 				}
 			
 		}
