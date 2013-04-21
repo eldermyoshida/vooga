@@ -100,6 +100,19 @@ public abstract class Form extends JFrame {
         component.setOpaque(false);
         container.add(component);
     }
+    
+    /**
+     * Create an instruction for the user.  The instruction is chosen from the
+     * ResourceBundle with instructionKeyword
+     * 
+     * The result is wrapped in a panel so box layout behaves.
+     * @return
+     */
+    protected JComponent createInstruction(String instructionKeyword) {
+        JPanel panel = new JPanel();
+        panel.add(new JLabel(getResources().getString(instructionKeyword)));
+        return panel;
+    }
 
     /**
      * Create a panel with a description and a corresponding text field.

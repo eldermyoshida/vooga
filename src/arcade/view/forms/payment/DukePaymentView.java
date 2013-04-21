@@ -46,7 +46,7 @@ public class DukePaymentView extends PaymentView {
     @Override
     protected List<JComponent> makeComponents () {
         List<JComponent> components = new ArrayList<JComponent>();
-        components.add(createInstruction());
+        components.add(createDukeInstruction());
         components.add(createNameField());
         components.add(createDukeCardField());
         components.add(createMessageArea());
@@ -55,13 +55,11 @@ public class DukePaymentView extends PaymentView {
     }
     
     /**
-     * Create an instruction for the user.
+     * Create an instruction for the user for how to pay with Duke card.
      * @return
      */
-    private JComponent createInstruction() {
-        JPanel panel = new JPanel();
-        panel.add(new JLabel(getResources().getString(TextKeywords.DUKE_CARD_INSTRUCTION)));
-        return panel;
+    private JComponent createDukeInstruction() {
+        return createInstruction(TextKeywords.DUKE_CARD_INSTRUCTION);
     }
     
     /**
@@ -98,10 +96,6 @@ public class DukePaymentView extends PaymentView {
             sendMessage(getResources().getString(TextKeywords.PAYMENT_ERROR));
         }
         dispose();        
-    }
-
-    public static void main (String[] args) {
-        new DukePaymentView(null, ResourceBundle.getBundle("arcade.resources.English"), null);
     }
 
 }

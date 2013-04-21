@@ -46,4 +46,5 @@ public interface TextKeywords {
     static final String DUKE_CARD_NUMBER = "duke_card_number";
     static final String BUY = "buy";
     static final String DUKE_CARD_INSTRUCTION = "duke_card_instruction";
+    static final String PAYMENT_INSTRUCTION = "payment_instruction";
 }
