@@ -76,7 +76,9 @@ public class GameEntity extends GameSprite {
     public int getHealth () {
         return myCurrentHealth;
     }
-
+    public EntityState getState() {
+    	return myEntityState;
+    }
     public void setHealth (int health) {
         myCurrentHealth = health;
     }

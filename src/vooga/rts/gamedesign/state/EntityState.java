@@ -85,6 +85,10 @@ public class EntityState {
 		return myMovementState == MovementState.MOVING;
 	}
 	
+	public boolean canSelect() {
+		return myOccupyState == OccupyState.NOT_OCCUPYING;
+	}
+	
 	/**
 	 * Returns whether the entity can attack.  In order to attack, the entity
 	 * must be in the attacking state and have its attacking interval cooldown
