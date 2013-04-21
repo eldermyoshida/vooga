@@ -84,16 +84,6 @@ public class CollisionManager {
      * Handles collisions between two attack objects.
      */
     public void collide(AttackObject o1, AttackObject o2) {
-    	if (o1.getCurrentState().hasPriority(o2.getCurrentState())){
-    		o2.endCounter();
-    	}
-    	else if(o2.getCurrentState().hasPriority(o1.getCurrentState())){
-    		o1.endCounter();
-    	}
-    	else{
-    		o1.endCounter();
-    		o2.endCounter(); 
-    	}
         System.out.println("CollisionManager: Two AttackObjects collided!");
     }
     
