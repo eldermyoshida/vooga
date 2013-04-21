@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vooga.rts.gamedesign.sprite.gamesprites.GameEntity;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
 import vooga.rts.gamedesign.strategy.Strategy;
@@ -23,15 +24,14 @@ import vooga.rts.gamedesign.strategy.Strategy;
  *
  */
 public interface OccupyStrategy extends Strategy{
-	public void getOccupied(GameEntity entity, Unit u);
+	public void createOccupyActions(final InteractiveEntity entity);
+	//public void getOccupied(InteractiveEntity entity, Unit u);
 	
 	public void addValidClassType(Unit u);
 	
 	public void setOccupierID(int id);
 	
-	public List<Unit> getOccupiers();
-	
-	public void setOccupiers(ArrayList<Unit> u);
+	public List<Integer> getOccupiers();
 	
 	public int getMaxOccupiers();
 	

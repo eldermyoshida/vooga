@@ -19,7 +19,6 @@ import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
 import vooga.rts.util.Vector;
-import vooga.rts.manager.GameUnitManager;
 import vooga.rts.map.GameMap;
 import vooga.rts.ai.Path;
 import vooga.rts.ai.PathFinder;
@@ -50,7 +49,6 @@ public class GameEntity extends GameSprite {
     private Location3D myGoal;
     private Vector myOriginalVelocity;
     private EntityState myEntityState;
-    private static GameUnitManager myGameUnitManager;
 
     public GameEntity (Pixmap image, Location3D center, Dimension size, int playerID, int health) {
         super(image, center, size);
@@ -63,16 +61,7 @@ public class GameEntity extends GameSprite {
         myGoal = new Location3D();
         myEntityState = new EntityState();
     }
-
     
-	public void setGameUnitManager(GameUnitManager gameUnitManager) {
-		myGameUnitManager = gameUnitManager;
-	}
-	
-	public GameUnitManager getGameUnitManager() {
-		return myGameUnitManager;
-	}
-
 	/**
 	 * Returns shape's velocity.
 	 */

@@ -8,7 +8,7 @@ import java.util.List;
 import vooga.rts.commands.ClickCommand;
 import vooga.rts.commands.Command;
 import vooga.rts.commands.DragCommand;
-import vooga.rts.controller.PositionCommand;
+import vooga.rts.commands.PositionCommand;
 import vooga.rts.action.Action;
 import vooga.rts.action.InteractiveAction;
 import vooga.rts.gamedesign.sprite.gamesprites.GameSprite;
@@ -20,7 +20,6 @@ import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
 import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
 import vooga.rts.gamedesign.upgrades.UpgradeNode;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
-import vooga.rts.manager.GameUnitManager;
 import vooga.rts.util.Camera;
 import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
@@ -83,9 +82,6 @@ public class Unit extends InteractiveEntity {
         if (myUpgradeTree != null){
         	addUserToUpgradeTree(playerID);
         }
-        if (getGameUnitManager() != null) {
-        	getGameUnitManager().addPlayerUnit(this);
-        }
         addActions();
         }
 
@@ -105,6 +101,27 @@ public class Unit extends InteractiveEntity {
 				myLocation = Camera.instance().viewtoWorld(click.getPosition());
 			}
 		});
+		addOccupyAction(this);
+	}
+	
+	private void addOccupyAction(final Unit u) {
+		put("occupy", new InteractiveAction(this) {
+
+			@Override
+			public void apply() {
+				return;
+			}
+
+			@Override
+			public void update(Command command) {
+				return;
+			}
+			
+			public void apply(InteractiveEntity i) {
+				//((InteractiveAction)i.getAction(new Command("be occupied!"))).apply(u);
+				i.getOccupied(u);
+			}
+		});
 	}
 
 	@Override
@@ -112,10 +129,6 @@ public class Unit extends InteractiveEntity {
 		return new Unit(getImage(), getWorldLocation(), getSize(), getSound(),
 				getPlayerID(), getHealth(), getBuildTime());
 	}
-	
-    public void addGameUnitManager(GameUnitManager gameUnitManager) {
-    	setGameUnitManager(gameUnitManager);
-    }
     
     @Override
     public UpgradeTree getUpgradeTree() {
@@ -126,15 +139,6 @@ public class Unit extends InteractiveEntity {
     public void setUpgradeTree(UpgradeTree upgradeTree, int playerID) {
     	myUpgradeTree = upgradeTree;
     	addUserToUpgradeTree(playerID);
-    }
-
-    /**
-     * Occupies an IOccupiable object specified by occupy strategy.
-     * 
-     * @param occupiable
-     */
-    public void occupy (Building building) {
-        building.getOccupied(this);
     }
     
     private void addUserToUpgradeTree(int playerID) {
