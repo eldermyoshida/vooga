@@ -20,7 +20,8 @@ import javax.swing.Timer;
 
 /**
  * 
- * @author Jerry Li and Jack Matteucci
+ * @author Jerry Li
+ * @author Jack Matteucci
  *
  * This class is the basic controller from which all subclasses extend.  Only should
  * you subclass this controller if there are major changes to be made to the actual
@@ -64,7 +65,8 @@ public abstract class Controller{
         myName = name;
     }
 
-    public void initializeRest(Canvas frame, ControllerDelegate manager, GameInfo gameinfo) {
+    public Controller(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo) {
+        myName = name;
         myCanvas = frame;
         mySplashResource = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + SPLASH);
         mySplashPath = DEFAULT_IMAGE_PACKAGE+ mySplashResource.getString(CONTROL);
@@ -73,6 +75,7 @@ public abstract class Controller{
         loadMode();
     }
     
+    public abstract Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo);
     
     protected void setInput(Input input){
     	myInput = input;
@@ -80,6 +83,10 @@ public abstract class Controller{
 
     public String getName(){
         return myName;
+    }
+    
+    public void setName(String name) {
+        myName = name;
     }
     
     protected Input getInput(){

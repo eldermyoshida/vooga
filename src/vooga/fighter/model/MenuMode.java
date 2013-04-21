@@ -9,7 +9,12 @@ import vooga.fighter.model.objects.MenuObject;
 import vooga.fighter.model.objects.MouseClickObject;
 import vooga.fighter.model.utils.State;
 
-
+/**
+ * 
+ * @author Jack Matteucci
+ * @modified Jerry Li
+ *
+ */
 public class MenuMode extends Mode {
     private String myMenuId;
     private List<MenuObject> myMenuObjects;

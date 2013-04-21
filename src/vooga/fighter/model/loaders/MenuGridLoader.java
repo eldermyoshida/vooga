@@ -23,7 +23,6 @@ public class MenuGridLoader extends ObjectLoader {
 		super(MENUGRID_PATH);
 		myDelegate = delegate;
 		myMenuObjects = new ArrayList<MenuObject>();
-		System.out.println("<menugridloader.java><menugridloader> "+menuname);
 		load(menuname);
 		
 	}

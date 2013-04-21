@@ -14,7 +14,7 @@ import vooga.fighter.view.FourPlayerMatchGameLayout;
  * 
  * @author Jerry Li
  * 
- * @Modified by Jack Matteucci
+ * @author by Jack Matteucci
  * 
  */
 @InputClassTarget
@@ -25,10 +25,15 @@ public class OneVOneController extends LevelController {
         super();
     }   
 	
-    public void initializeRest(Canvas frame, ControllerDelegate manager, 
+    public OneVOneController(String name, Canvas frame, ControllerDelegate manager, 
     		GameInfo gameinfo) {
-    	super.initializeRest(frame, manager, gameinfo);
-
+    	super(name, frame, manager, gameinfo);
+    	frame.setLayout(new FourPlayerMatchGameLayout());
+    }
+    
+    public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo) {
+        Controller controller = new OneVOneController(name, frame, manager, gameinfo);
+        return controller;
     }
 
     public void notifyEndCondition (String endCondition) {

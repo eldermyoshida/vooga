@@ -8,6 +8,14 @@ import java.util.Observable;
 import util.Location;
 import vooga.fighter.util.Paintable;
 
+
+/**
+ * 
+ * @author Jack Matteucci
+ * @author Jerry Li
+ * @author Wayne You
+ *
+ */
 public class DisplayInfo extends Observable implements ViewDataSource{
     
     

@@ -33,7 +33,6 @@ public class MenuLoader extends ObjectLoader {
 				myMenuObject.setValue(stateName);
 				String nextStateName = getAttributeValue(state, "nextState");
 				myMenuObject.setNext(nextStateName);
-				System.out.println("<menuloader>: " + nextStateName);
 				NodeList frames = node.getElementsByTagName("frame");
 				State newState = new State(myMenuObject, frames.getLength());
 				for(int k = 0; k < frames.getLength(); k++){

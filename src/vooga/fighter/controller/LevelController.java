@@ -26,7 +26,7 @@ import vooga.fighter.view.Canvas;
  * 
  * @author Jerry Li
  * 
- * @Modified by Jack Matteucci
+ * @author Jack Matteucci
  * 
  * This is the basic controller used for levels.  It is attached to the LevelMode, so
  * one may see how the LevelMode is intantiated within this hierarchy if he/she may
@@ -46,9 +46,9 @@ public abstract class LevelController extends Controller {
         super();
     }
 
-    public void initializeRest(Canvas frame, ControllerDelegate manager, 
+    public LevelController(String name, Canvas frame, ControllerDelegate manager, 
                 GameInfo gameinfo) {
-        super.initializeRest(frame, manager, gameinfo);
+        super(name, frame, manager, gameinfo);
         setInput(manager.getInput());
         getInput().replaceMappingResourcePath(INPUT_PATHWAY);
         getInput().addListenerTo(this);

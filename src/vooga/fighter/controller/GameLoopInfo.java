@@ -17,7 +17,10 @@ import util.*;
  * Contains all information required by the view about game objects in a game loop.
  * List indices line up between lists (i.e. index 0 of all lists is player 1 information,
  * index 1 is player 2 info)
- * @author matthewparides
+ * @author Matt Parides
+ * @author Jerry Li 
+ * @author Jack Matteucci 
+ * @author Wayne You
  *
  */
 
@@ -27,6 +30,7 @@ public class GameLoopInfo extends DisplayLoopInfo implements ViewDataSource{
     private List<Health> myHealthStats;
     private List<Double> myScores;
     private List<PlayerStatus> myPlayerStats;
+    private int myNumberPlayers;
 
     @HUDVariable(
                  name = "Player1",
@@ -52,33 +56,54 @@ public class GameLoopInfo extends DisplayLoopInfo implements ViewDataSource{
             )
     private PlayerStatus Player4Status;
 
-    public GameLoopInfo(Mode mode) {
+    public GameLoopInfo(LevelMode mode) {
     	super(mode);
     	myPlayerStats = new ArrayList<PlayerStatus>();
-    	initializePlayers();
         myHealthStats = new ArrayList<Health>();
         myScores = new ArrayList<Double>();
         myCharacterNames = new ArrayList<String>();
-        
+        myNumberPlayers = mode.getMyCharacterObjects().size();
+        initializePlayers();
     }
     
     public void initializePlayers() {
-        Player1Status = new PlayerStatus();
-        Player2Status = new PlayerStatus();
-        Player3Status = new PlayerStatus();
-        Player4Status = new PlayerStatus();
-        myPlayerStats.add(Player1Status);
-        myPlayerStats.add(Player2Status);
-        myPlayerStats.add(Player3Status);
-        myPlayerStats.add(Player4Status);
-        addHUDElements();
+          if (myNumberPlayers == 1) {
+              Player1Status = new PlayerStatus();
+              myPlayerStats.add(Player1Status);
+          }
+          else if (myNumberPlayers == 2) {
+              Player1Status = new PlayerStatus();
+              Player2Status = new PlayerStatus();
+              myPlayerStats.add(Player1Status);
+              myPlayerStats.add(Player2Status);
+          }
+          else if (myNumberPlayers == 3) {
+              Player1Status = new PlayerStatus();
+              Player2Status = new PlayerStatus();
+              Player3Status = new PlayerStatus();
+              myPlayerStats.add(Player1Status);
+              myPlayerStats.add(Player2Status);
+              myPlayerStats.add(Player3Status);
+          }
+          else if (myNumberPlayers == 4) {
+              Player1Status = new PlayerStatus();
+              Player2Status = new PlayerStatus();
+              Player3Status = new PlayerStatus();
+              Player4Status = new PlayerStatus();
+              myPlayerStats.add(Player1Status);
+              myPlayerStats.add(Player2Status);
+              myPlayerStats.add(Player3Status);
+              myPlayerStats.add(Player4Status);
+          }
+          addHUDElements();
     }
     
     @Override
     public void update() {
         super.update();
         updateStats();
-       
+       setChanged();
+       notifyObservers();
     }
     
     
@@ -86,7 +111,7 @@ public class GameLoopInfo extends DisplayLoopInfo implements ViewDataSource{
     public void updateStats() {
         LevelMode currentMode = (LevelMode) getMode();
         myHealthStats = currentMode.getHealth();
-        for (int i = 0; i < myHealthStats.size(); i++) {
+        for (int i = 0; i < myNumberPlayers; i++) {
             myPlayerStats.get(i).setHealth(myHealthStats.get(i));
         }
     }

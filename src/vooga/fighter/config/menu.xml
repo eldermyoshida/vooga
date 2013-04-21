@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <objects>
     <menuobject menuobjectname="StartGame">
-    	<state name = "FightingGame" nextState = "ModeSelectMenu">
+    	<state name = "FightingGame" nextState = "ModeSelectMenu" >
             <frame image="fighter/images/StartGame.gif" />
         </state>
     </menuobject>
@@ -12,7 +12,7 @@
     </menuobject>
     <menuobject menuobjectname="Ryu">
     	<state name = "Ryu" nextState ="MapSelectMenu">
-            <frame image="fighter/images/ryu_stand1.png" />
+            <frame image="fighter/images/ryu_stand1.gif" />
         </state>
     </menuobject>
     <menuobject menuobjectname="Ken">
@@ -33,6 +33,11 @@
     <menuobject menuobjectname = "MapChoice">
     	<state name = "BlueMap" nextState = "1v1">
     		<frame image = "fighter/images/FinalDestination.jpg" />
+    	</state>
+   	</menuobject>
+   	 <menuobject menuobjectname = "BacktoCharacter">
+    	<state name = "MainMenu" nextState = "MainMenu">
+    		<frame image = "fighter/images/back.png" />
     	</state>
    	</menuobject>
 </objects>
