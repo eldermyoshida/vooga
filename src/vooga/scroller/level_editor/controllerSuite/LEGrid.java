@@ -3,6 +3,7 @@ package vooga.scroller.level_editor.controllerSuite;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Rectangle;
 import java.util.HashSet;
 import java.util.Set;
@@ -37,6 +38,7 @@ public class LEGrid implements Editable, Renderable<LEGridView>, Scrollable {
     private Set<SpriteBox> myPaintableBoxes;
     private StartPoint myStartPoint;
     private LevelPortal myMainDoor; //TODO - eventually support multiple doors
+    private Image myBackground;
 
     public LEGrid (int numWidthBlocks, int numHeightBlocks) {
         mySpriteSize = DEFAULT_SPRITE_SIZE;
@@ -95,11 +97,6 @@ public class LEGrid implements Editable, Renderable<LEGridView>, Scrollable {
         SpriteBox currentBox = getBox(x, y);
         currentBox.deleteSprite();
         myPaintableBoxes.remove(currentBox);
-    }
-
-    @Override
-    public void changeBackground () {
-        //TODO
     }
     
     public Set<SpriteBox> getBoxes() {
@@ -285,6 +282,11 @@ public class LEGrid implements Editable, Renderable<LEGridView>, Scrollable {
         frame.setVisible(true);
         // start animation
         display.start();
+    }
+
+    @Override
+    public void changeBackground (Image i) {
+        myBackground = i;
     }    
 
 }
