@@ -7,15 +7,12 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -26,7 +23,6 @@ import arcade.view.TextKeywords;
 
 @SuppressWarnings("serial")
 public class PublishView extends Form {
-    private static final int CHECKBOX_TRAILING_WIDTH = 35;
     private static final int DESCRIPTION_HEIGHT = 300;
     private static final int DESCRIPTION_WIDTH = 280;
     private static final int SINGLEPLAYER_WIDTH = 43;
@@ -45,6 +41,7 @@ public class PublishView extends Form {
     private String myLargeImagePath = DEFAULT_IMAGE;
     private String mySinglePlayerPath;
     private boolean isSinglePlayer;
+    private String myMultiPlayerPath;
     private boolean isMultiPlayer;
 
     /**
@@ -70,9 +67,9 @@ public class PublishView extends Form {
         components.add(createPriceField());
         components.add(createAgeTextField());
         components.add(createSmallImageSelector());
-        components.add(createLargePictureSelector());
-        components.add(createPlayerCheckBox(TextKeywords.SINGLE_PLAYER, TextKeywords.SINGLE_PLAYER_INSTRUCTION, SINGLEPLAYER_WIDTH));
-        components.add(createPlayerCheckBox(TextKeywords.MULTIPLAYER, TextKeywords.MULTIPLAYER_INSTRUCTION, MULTIPLAYER_WIDTH));
+        components.add(createLargeImageSelector());
+        components.add(createSinglePlayerCheckBox());
+        components.add(createMultiPlayerCheckBox());
         components.add(createDescriptionButton());
         components.add(createPublishButton());
         return components;
@@ -127,50 +124,6 @@ public class PublishView extends Form {
         myAgeTextField = new JTextField();
         return createTextPanel(TextKeywords.AGE_RATING, myAgeTextField);
     }
-    
-    /**
-     * Creates the checkbox for the user to enter if the checkBoxMessage is true,
-     * and if so, pops up a file chooser to select what is specified by 
-     * instructionKeyword.  
-     * 
-     * There is the specified width between the checkbox and the checkbox message.
-     * @return
-     */
-    private JComponent createPlayerCheckBox(String checkBoxMessageKeyword, 
-                                            final String instructionKeyword,
-                                            int width) {
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
-        
-        JLabel label = new JLabel(getResources().getString(checkBoxMessageKeyword));
-        panel.add(label);
-        
-        panel.add(Box.createHorizontalStrut(width));
-        
-        JCheckBox box = new JCheckBox();
-        box.addActionListener(new ActionListener() {
-            
-            @Override
-            public void actionPerformed (ActionEvent arg0) {
-                JOptionPane.showMessageDialog(null, 
-                                              getResources().getString(instructionKeyword),
-                                              getResources().getString(TextKeywords.POPUP_TITLE),
-                                              JOptionPane.INFORMATION_MESSAGE);
-                JFileChooser chooser = new JFileChooser();
-                int returnVal = chooser.showOpenDialog(null);
-                if (returnVal == JFileChooser.APPROVE_OPTION) {
-                    isSinglePlayer = true;
-                    mySinglePlayerPath = chooser.getSelectedFile().getPath();
-                }
-            }
-        });
-        box.setOpaque(false);
-        panel.add(box);
-        
-        panel.add(Box.createHorizontalStrut(CHECKBOX_TRAILING_WIDTH));
-        
-        return panel;
-    }
 
     /**
      * Creates the field to select the game's small picture
@@ -189,7 +142,7 @@ public class PublishView extends Form {
     /**
      * Creates the field to select the game's large picture
      */
-    private JComponent createLargePictureSelector () {
+    private JComponent createLargeImageSelector () {
         return createImageSelector(TextKeywords.LARGE_PICTURE,
                                    TextKeywords.FILE_SELECT,
                                    new FileChooserAction() {
@@ -198,6 +151,31 @@ public class PublishView extends Form {
                                            myLargeImagePath = chooser.getSelectedFile().getPath();
                                        }
                                    });
+    }
+    
+    private JComponent createSinglePlayerCheckBox() {
+        return createCheckBox(TextKeywords.SINGLE_PLAYER,
+                              TextKeywords.SINGLE_PLAYER_INSTRUCTION,
+                              SINGLEPLAYER_WIDTH,
+                              new FileChooserAction() {
+                                @Override
+                                public void approve (JFileChooser chooser) {
+                                    mySinglePlayerPath = chooser.getSelectedFile().getPath();
+                                }
+                            });
+                
+    }
+    
+    private JComponent createMultiPlayerCheckBox() {
+        return createCheckBox(TextKeywords.MULTIPLAYER,
+                              TextKeywords.MULTIPLAYER_INSTRUCTION,
+                              MULTIPLAYER_WIDTH,
+                              new FileChooserAction() {
+                                @Override
+                                public void approve (JFileChooser chooser) {
+                                    myMultiPlayerPath = chooser.getSelectedFile().getPath();
+                                }
+                            });
     }
 
     /**
@@ -218,28 +196,7 @@ public class PublishView extends Form {
         panel.add(button);
         return panel;
     }
-
-    /**
-     * Creates the button to publish and tell the Model
-     * 
-     * @return
-     */
-    private JComponent createPublishButton () {
-        JPanel panel = new JPanel();
-        JButton publish = new JButton(getResources().getString(TextKeywords.PUBLISH));
-        publish.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed (ActionEvent arg0) {
-                getModel().publish(myNameTextField.getText(),
-                                   myGenreTextField.getText());
-
-                dispose();
-            }
-        });
-        panel.add(publish);
-        return panel;
-    }
-
+    
     /**
      * Adds a scrollable description text entry field where the user can enter
      * a description for the game.
@@ -268,6 +225,36 @@ public class PublishView extends Form {
             pack();
             setLocationRelativeTo(null);
         }
+    }
+
+    /**
+     * Creates the button to publish and tell the Model
+     * 
+     * @return
+     */
+    private JComponent createPublishButton () {
+        JPanel panel = new JPanel();
+        JButton publish = new JButton(getResources().getString(TextKeywords.PUBLISH));
+        publish.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed (ActionEvent arg0) {
+                getModel().publish(myNameTextField.getText(),
+                                   myGenreTextField.getText(),
+                                   myAuthorTextField.getText(),
+                                   Double.parseDouble(myPriceTextField.getText()),
+                                   mySinglePlayerPath,
+                                   myMultiPlayerPath,
+                                   Integer.parseInt(myAgeTextField.getText()),
+                                   isSinglePlayer,
+                                   isMultiPlayer,
+                                   mySmallImagePath,
+                                   myLargeImagePath,
+                                   myDescriptionTextField.getText());
+                dispose();
+            }
+        });
+        panel.add(publish);
+        return panel;
     }
 
     public static void main (String[] args) {

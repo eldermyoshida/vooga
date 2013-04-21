@@ -9,10 +9,12 @@ import java.util.ResourceBundle;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileFilter;
@@ -35,6 +37,7 @@ public abstract class Form extends JFrame {
     private static final int TEXT_FIELD_SIZE = 10;
     private static final int LABEL_WIDTH = 80;
     private static final int MESSAGE_WIDTH = 140;
+    private static final int CHECKBOX_TRAILING_WIDTH = 35;
 
     private Model myModel;
     private ResourceBundle myResources;
@@ -65,7 +68,7 @@ public abstract class Form extends JFrame {
         setResizable(false);
         setVisible(true);
     }
-    
+
     /**
      * Display an error message in the view.
      * 
@@ -80,7 +83,7 @@ public abstract class Form extends JFrame {
     }
 
     /**
-     * Create all the components to be dislayed in the form.
+     * Create all the components to be displayed in the form.
      * 
      * @return
      */
@@ -119,17 +122,19 @@ public abstract class Form extends JFrame {
 
         return panel;
     }
-    
+
     /**
-     * Create a panel with a description of an instruction, and a button to 
+     * Create a panel with a description of an instruction, and a button to
      * select an image.
      * 
      * @param descriptionKeyword is the ResourceBundle keyword for the description
      * @param buttonKeyword is the ResourceBundle keyword for the button label
      * @param action is the FileChooserAction with the method defined for what
-     * to do on approval
+     *        to do on approval
      */
-    protected JComponent createImageSelector (String descriptionKeyword, String buttonKeyword, final FileChooserAction action) {
+    protected JComponent createImageSelector (String descriptionKeyword,
+                                              String buttonKeyword,
+                                              final FileChooserAction action) {
         JPanel panel = new JPanel();
         JLabel description = new JLabel(getResources().getString(descriptionKeyword));
         panel.add(description);
@@ -151,8 +156,48 @@ public abstract class Form extends JFrame {
         });
         panel.add(button);
         return panel;
-    }    
-    
+    }
+
+    /**
+     * Creates the checkbox for the user to enter if the checkBoxMessage is true,
+     * and if so, pops up a file chooser to select what is specified by
+     * instructionKeyword. The result from the file chooser is dealt with by
+     * the provided FileChooserAction.
+     * 
+     * There will be the specified width between the checkbox and the checkbox message.
+     * 
+     * @return
+     */
+    protected JComponent createCheckBox (String checkBoxMessageKeyword,
+                                         final String instructionKeyword,
+                                         int width,
+                                         final FileChooserAction action) {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+        JLabel label = new JLabel(getResources().getString(checkBoxMessageKeyword));
+        panel.add(label);
+        panel.add(Box.createHorizontalStrut(width));
+        JCheckBox box = new JCheckBox();
+        box.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed (ActionEvent arg0) {
+                JOptionPane.showMessageDialog(null,
+                                              getResources().getString(instructionKeyword),
+                                              getResources().getString(TextKeywords.POPUP_TITLE),
+                                              JOptionPane.INFORMATION_MESSAGE);
+                JFileChooser chooser = new JFileChooser();
+                int returnVal = chooser.showOpenDialog(null);
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    action.approve(chooser);
+                }
+            }
+        });
+        box.setOpaque(false);
+        panel.add(box);
+        panel.add(Box.createHorizontalStrut(CHECKBOX_TRAILING_WIDTH));
+        return panel;
+    }
+
     /**
      * Create a label where an error message can be displayed.
      * 
@@ -182,5 +227,5 @@ public abstract class Form extends JFrame {
     protected ResourceBundle getResources () {
         return myResources;
     }
-   
+
 }
