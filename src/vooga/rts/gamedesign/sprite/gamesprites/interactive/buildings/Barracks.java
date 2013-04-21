@@ -4,8 +4,12 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
+import vooga.rts.action.InteractiveAction;
+import vooga.rts.commands.Command;
+import vooga.rts.controller.PositionCommand;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Soldier;
+import vooga.rts.util.Camera;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
@@ -30,9 +34,9 @@ public class Barracks extends ProductionBuilding {
         super(image, center, size, sound, playerID, health);
         myInteractiveEntities = new ArrayList<InteractiveEntity>();
         initProducables();
-        //addProductionActionsActions(this);
-        setRallyPoint(new Location3D(300,400,0));
 
+        setRallyPoint(new Location3D(300, 400, 0));
+        //myProductionStrategy = new CanProduce(this);
     }
 
     /*
@@ -41,7 +45,8 @@ public class Barracks extends ProductionBuilding {
     private void initProducables () {
         addProducable(new Soldier());
     }
-    public void addProductionActions (ProductionBuilding productionBuilding) {
+
+    //public void addProductionActions (ProductionBuilding productionBuilding) {
         /*
          * getActions().add(new ProductionAction("soldier",null,"I maketh un soldier",
          * productionBuilding.getWorldLocation()){
@@ -61,6 +66,23 @@ public class Barracks extends ProductionBuilding {
          * }
          * });
          */
+
+    @Override
+    public void addActions () {
+       put("s", new InteractiveAction(this) {
+          private Location3D myLocation;
+          
+          @Override
+          public void apply() {
+              getEntity().move(myLocation);
+          }
+          
+          @Override
+          public void update(Command command) {          
+              PositionCommand click = (PositionCommand) command;
+              myLocation = Camera.instance().viewtoWorld(click.getPosition());
+          }
+       });  
     }
 
     @Override
