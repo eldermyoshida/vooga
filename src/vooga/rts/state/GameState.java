@@ -93,9 +93,7 @@ public class GameState extends SubState implements Controller {
         // If it's a drag, we need to do some extra checking.
         if (command instanceof DragCommand) {
             myDrag = ((DragCommand) command).getScreenRectangle();
-            if (myDrag == null) {
-                return;
-            }
+            if (myDrag == null) { return; }
         }
         sendCommand(command);
     }
@@ -216,18 +214,18 @@ public class GameState extends SubState implements Controller {
         addPlayer(1);
         Unit a = new Soldier();
         Projectile proj =
-        	    new Projectile(new Pixmap(ResourceManager.getInstance()
-        	     .<BufferedImage> getFile("images/bullet.png", BufferedImage.class)),
-        	     a.getWorldLocation(), new Dimension(30, 30), 2, 10, 6);
+                new Projectile(new Pixmap(ResourceManager.getInstance()
+                        .<BufferedImage> getFile("images/bullet.png", BufferedImage.class)),
+                               a.getWorldLocation(), new Dimension(30, 30), 2, 10, 6);
         a.getAttackStrategy().addWeapons(new Weapon(proj, 400, a.getWorldLocation(), 1));
-        myHumanPlayer.add(a); 
+        myHumanPlayer.add(a);
         addPlayer(2);
         myPlayers.get(1).add(new Soldier(new Location3D(200, 200, 0), 2));
         myMap = new GameMap(8, new Dimension(512, 512));
     }
 
     private void yuckyUnitUpdate (double elapsedTime) {
-		List<InteractiveEntity> p1 = myTeams.get(1).getUnits();
+        List<InteractiveEntity> p1 = myTeams.get(1).getUnits();
         List<InteractiveEntity> p2 = myTeams.get(2).getUnits();
         for (InteractiveEntity u1 : p1) {
             for (InteractiveEntity u2 : p2) {

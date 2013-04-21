@@ -1,4 +1,4 @@
-package vooga.rts.gamedesign.action;
+package vooga.rts.action;
 
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
 import vooga.rts.util.Pixmap;

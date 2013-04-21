@@ -1,4 +1,4 @@
-package vooga.rts.gamedesign.action;
+package vooga.rts.action;
 
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
