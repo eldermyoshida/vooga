@@ -43,7 +43,7 @@ public class Worker extends Unit {
 
 	@Override
 	public void update(double elapsedTime) {
-		myGatherStrategy.getInterval().decrementCooldown();
+		myGatherStrategy.getCooldown().update(elapsedTime);
 		super.update(elapsedTime);
 	}
 	

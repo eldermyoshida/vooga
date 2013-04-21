@@ -3,6 +3,7 @@ package vooga.rts.gamedesign.strategy.gatherstrategy;
 import vooga.rts.gamedesign.Interval;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.IGatherable;
 import vooga.rts.gamedesign.strategy.Strategy;
+import vooga.rts.util.DelayedTask;
 
 /**
  * This interface is implemented by the classes CanGather and CannotGather that
@@ -28,11 +29,6 @@ public interface GatherStrategy extends Strategy{
 	 * @param gatherable is the resource being gathered
 	 */
 	public void gatherResource (int playerID, IGatherable gatherable);
-	
-	/**
-	 * Returns the gather delay interval
-	 * @return the gather delay interval
-	 */
-	public Interval getInterval();
+	public DelayedTask getCooldown();
 	
 }

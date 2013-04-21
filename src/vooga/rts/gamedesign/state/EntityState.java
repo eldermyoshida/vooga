@@ -1,6 +1,6 @@
 package vooga.rts.gamedesign.state;
 
-import vooga.rts.gamedesign.Interval;
+import vooga.rts.util.DelayedTask;
 
 /**
  * This class represents the state of the entity in the game.  For example,
@@ -21,7 +21,8 @@ public class EntityState {
 	private ProducingState myProducingState;
 	private MovementState myMovementState;
 	
-	private Interval myAttackingInterval;
+	private double myAttackingCooldown;
+	private DelayedTask myAttackingDelay;
 	
 	private static final int DEFAULT_ATTAKING_INTERVAL = 25;
 	
@@ -36,8 +37,8 @@ public class EntityState {
 		myOccupyState = OccupyState.NOT_OCCUPYING;
 		myProducingState = ProducingState.NOT_PRODUCING;
 		myMovementState = MovementState.STATIONARY;
-		myAttackingInterval = new Interval(DEFAULT_ATTAKING_INTERVAL);
-		myAttackingInterval.resetCooldown();
+		myAttackingCooldown = DEFAULT_ATTAKING_INTERVAL;
+		myAttackingDelay = new DelayedTask(myAttackingCooldown, null);
 	}
 	
 	/**
@@ -96,7 +97,7 @@ public class EntityState {
 	 * if the entity cannot attack
 	 */
 	public boolean canAttack() {
-		return myAttackingState == AttackingState.ATTACKING && myAttackingInterval.allowAction();
+		return myAttackingState == AttackingState.ATTACKING && myAttackingDelay.isActive();
 	}
 	
 	/**
@@ -129,12 +130,12 @@ public class EntityState {
 	 * entity is moving, its cooldown is reset to the max cooldwow.  If the
 	 * entity is not moving the cooldown gets decremented.
 	 */
-	public void update() {
+	public void update(double elapsedTime) {
 		if(myMovementState == MovementState.MOVING) {
-			myAttackingInterval.resetCooldown();
+			myAttackingDelay.restart();
 		}
 		if(myAttackingState == AttackingState.ATTACKING) {
-			myAttackingInterval.decrementCooldown();
+			myAttackingDelay.update(elapsedTime);
 		}
 	}
 }

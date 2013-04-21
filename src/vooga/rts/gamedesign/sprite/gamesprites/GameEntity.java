@@ -178,7 +178,7 @@ public class GameEntity extends GameSprite {
         Vector v = new Vector(myVelocity);
         v.scale(elapsedTime);
         translate(v);
-        myEntityState.update();
+        myEntityState.update(elapsedTime);
         super.update(elapsedTime);
     }
 
