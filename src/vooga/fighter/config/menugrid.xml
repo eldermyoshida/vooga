@@ -9,6 +9,9 @@
     <menumode menuname="CharacterSelectMenu" >
         <menuobject menuobjectname="Ryu" />
     </menumode>
+     <menumode menuname="CharacterSelectMenu" >
+        <menuobject menuobjectname="Ken" />
+    </menumode>
     <menumode menuname="ScoreScreen" >
         <menuobject menuobjectname="MainMenu" />
     </menumode>

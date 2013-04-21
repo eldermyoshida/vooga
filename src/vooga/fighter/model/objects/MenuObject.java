@@ -13,12 +13,16 @@ public class MenuObject extends GameObject {
 
     private String myNext;
     private String myValue;
+    private boolean myCollideState;
+    
     MenuMode myDelegate;
+    
 
 
     public MenuObject (String choice, MenuMode delegate) {
         setLoader(new MenuLoader(choice, this));
         myDelegate = delegate;
+        myCollideState = false;
         //myChoice = choice;
     }
 
@@ -50,6 +54,7 @@ public class MenuObject extends GameObject {
     
     public void tellDelegate(){
         System.out.println("<MenuObject.java><telldelegate> telling delegate");
+        myCollideState = true;
     	myDelegate.setChoice(myValue);
 
     }

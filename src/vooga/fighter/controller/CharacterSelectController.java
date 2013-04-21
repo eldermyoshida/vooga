@@ -50,6 +50,7 @@ public class CharacterSelectController extends MenuController {
     	getGameInfo().addCharacters(choice);
     	getMode().resetChoice();
     	myCharIndex ++;
+    	System.out.println("character selected");
     	if(myCharIndex >= myCharLimit){
     	removeListener();
         getManager().notifyEndCondition(getMode().getMenusNext(choice));
@@ -59,6 +60,7 @@ public class CharacterSelectController extends MenuController {
     @InputMethodTarget(name = "continue")
     public void mouseclick(PositionObject pos)  {
         super.getMode().addObject(new MouseClickObject(pos.getPoint2D()));
+        
     }
     public void removeListener(){
     	super.removeListener();

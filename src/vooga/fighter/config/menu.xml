@@ -15,6 +15,11 @@
             <frame image="fighter/images/ryu_stand1.png" />
         </state>
     </menuobject>
+    <menuobject menuobjectname="Ken">
+    	<state name = "Ken" nextState ="MapSelectMenu">
+            <frame image="fighter/images/ken_stand1.gif" />
+        </state>
+    </menuobject>
     <menuobject menuobjectname="MainMenu">
     	<state name = "MainMenu" nextState ="MainMenu">
             <frame image="fighter/images/MainMenu.jpg" />
