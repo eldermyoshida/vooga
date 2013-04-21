@@ -63,7 +63,7 @@ public class MenuGrid {
 				for(Object s : list.get(i).getStates().values()){
 					State state = (State) s;
 					Dimension size = new Dimension(GameManager.SIZE.width/(2*columns), GameManager.SIZE.height/(2*rows));
-					state.populateSize(size, count);
+					// state.populateSize(size, count);
 					Rectangle rect = new Rectangle(GameManager.SIZE.width/(2*columns), GameManager.SIZE.height/(2*rows));
 					state.populateRectangle(rect, count);
 					count ++;

@@ -27,6 +27,7 @@ public class OneVOneController extends LevelController {
     public void initializeRest(Canvas frame, ControllerDelegate manager, 
     		GameInfo gameinfo) {
     	super.initializeRest(frame, manager, gameinfo);
+
     }
 
     public void notifyEndCondition (String endCondition) {
