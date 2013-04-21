@@ -1,5 +1,6 @@
 package vooga.scroller.level_editor.view;
 
+import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -17,6 +18,7 @@ import vooga.scroller.util.Renderable;
 import vooga.scroller.util.Renderer;
 import vooga.scroller.util.mvc.IView;
 import vooga.scroller.util.mvc.vcFramework.WindowComponent;
+import vooga.scroller.viewUtil.BackgroundButton;
 import vooga.scroller.viewUtil.EasyGridFactory;
 import vooga.scroller.viewUtil.RadioGroup;
 
@@ -75,12 +77,26 @@ public class LEToolsView extends WindowComponent implements Renderer<LETools> {
         JPanel backgroundView = new JPanel();
         backgroundView.setLayout(new GridLayout());
         for (Object key : myTools.getBackgrounds().keySet()) {
-            backgroundView.add(new JButton(new ImageIcon((Image) key)));
+            backgroundView.add(makeBackgroundButton((Image) key, 
+                               myTools.getBackgrounds().get(key)));
         }
         myOtherUI.add(backgroundView);
         myTabs.add(mySpriteUI, "Sprites");
         myTabs.add(myOtherUI, "Other");
         EasyGridFactory.layout(this, myTabs);
+    }
+
+    private JButton makeBackgroundButton (Image background, String id) {
+        final BackgroundButton button = new BackgroundButton(new ImageIcon(background), id);
+        button.addActionListener(new ActionListener(){
+
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                sendBackground(button.getID());
+            }
+            
+        });
+        return button;
     }
 
     @Override
