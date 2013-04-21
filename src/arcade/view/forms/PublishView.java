@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -27,10 +26,10 @@ public class PublishView extends Form {
     private static final int DESCRIPTION_WIDTH = 280;
     private static final int SINGLEPLAYER_WIDTH = 43;
     private static final int MULTIPLAYER_WIDTH = 54;
-    private static final String DEFAULT_IMAGE = 
+    private static final String DEFAULT_IMAGE =
             new File(System.getProperty("user.dir") + "/src/arcade/resources/images/NoImage.jpg")
                     .getPath();
-    
+
     private JTextField myNameTextField;
     private JTextField myGenreTextField;
     private JTextField myAuthorTextField;
@@ -152,30 +151,30 @@ public class PublishView extends Form {
                                        }
                                    });
     }
-    
-    private JComponent createSinglePlayerCheckBox() {
+
+    private JComponent createSinglePlayerCheckBox () {
         return createCheckBox(TextKeywords.SINGLE_PLAYER,
                               TextKeywords.SINGLE_PLAYER_INSTRUCTION,
                               SINGLEPLAYER_WIDTH,
                               new FileChooserAction() {
-                                @Override
-                                public void approve (JFileChooser chooser) {
-                                    mySinglePlayerPath = chooser.getSelectedFile().getPath();
-                                }
-                            });
-                
+                                  @Override
+                                  public void approve (JFileChooser chooser) {
+                                      mySinglePlayerPath = chooser.getSelectedFile().getPath();
+                                  }
+                              });
+
     }
-    
-    private JComponent createMultiPlayerCheckBox() {
+
+    private JComponent createMultiPlayerCheckBox () {
         return createCheckBox(TextKeywords.MULTIPLAYER,
                               TextKeywords.MULTIPLAYER_INSTRUCTION,
                               MULTIPLAYER_WIDTH,
                               new FileChooserAction() {
-                                @Override
-                                public void approve (JFileChooser chooser) {
-                                    myMultiPlayerPath = chooser.getSelectedFile().getPath();
-                                }
-                            });
+                                  @Override
+                                  public void approve (JFileChooser chooser) {
+                                      myMultiPlayerPath = chooser.getSelectedFile().getPath();
+                                  }
+                              });
     }
 
     /**
@@ -184,19 +183,15 @@ public class PublishView extends Form {
      * @return
      */
     private JComponent createDescriptionButton () {
-        JPanel panel = new JPanel();
-        JButton button = new JButton(getResources().getString(TextKeywords.DESCRIPTION_MESSAGE));
-        button.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed (ActionEvent arg0) {
-                createDescriptionArea();
-            }
-        });
-        panel.add(button);
-        return panel;
+        return createButton(TextKeywords.DESCRIPTION_MESSAGE,
+                            new ActionListener() {
+                                @Override
+                                public void actionPerformed (ActionEvent arg0) {
+                                    createDescriptionArea();
+                                }
+                            });
     }
-    
+
     /**
      * Adds a scrollable description text entry field where the user can enter
      * a description for the game.
@@ -211,16 +206,14 @@ public class PublishView extends Form {
             descriptionPanel.setLayout(new BoxLayout(descriptionPanel, BoxLayout.Y_AXIS));
             descriptionPanel.add(new JLabel(getResources().getString(TextKeywords.DESCRIPTION)));
 
-
             myDescriptionTextField.setWrapStyleWord(true);
             myDescriptionTextField.setLineWrap(true);
             JScrollPane scrollPane = new JScrollPane(myDescriptionTextField);
             scrollPane.setVerticalScrollBarPolicy(
-                            JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+                    JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
             scrollPane.setPreferredSize(new Dimension(DESCRIPTION_WIDTH, DESCRIPTION_HEIGHT));
             descriptionPanel.add(scrollPane);
-            
-            
+
             backgroundPanel.add(descriptionPanel);
             pack();
             setLocationRelativeTo(null);
@@ -233,27 +226,30 @@ public class PublishView extends Form {
      * @return
      */
     private JComponent createPublishButton () {
-        JPanel panel = new JPanel();
-        JButton publish = new JButton(getResources().getString(TextKeywords.PUBLISH));
-        publish.addActionListener(new ActionListener() {
+        return createButton(TextKeywords.PUBLISH, new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent arg0) {
-                getModel().publish(myNameTextField.getText(),
-                                   myGenreTextField.getText(),
-                                   myAuthorTextField.getText(),
-                                   Double.parseDouble(myPriceTextField.getText()),
-                                   mySinglePlayerPath,
-                                   myMultiPlayerPath,
-                                   Integer.parseInt(myAgeTextField.getText()),
-                                   isSinglePlayer,
-                                   isMultiPlayer,
-                                   mySmallImagePath,
-                                   myLargeImagePath,
-                                   myDescriptionTextField.getText());
-                dispose();
+                publish();
             }
         });
-        panel.add(publish);
-        return panel;
+    }
+    
+    /**
+     * Try telling model to publish a new game.
+     */
+    private void publish() {
+        getModel().publish(myNameTextField.getText(),
+                           myGenreTextField.getText(),
+                           myAuthorTextField.getText(),
+                           Double.parseDouble(myPriceTextField.getText()),
+                           mySinglePlayerPath,
+                           myMultiPlayerPath,
+                           Integer.parseInt(myAgeTextField.getText()),
+                           isSinglePlayer,
+                           isMultiPlayer,
+                           mySmallImagePath,
+                           myLargeImagePath,
+                           myDescriptionTextField.getText());
+        dispose();
     }
 }

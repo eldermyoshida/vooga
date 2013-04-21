@@ -8,7 +8,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -86,7 +85,7 @@ public class RegisterView extends Account {
         components.add(createDOBField());
         components.add(createProfilePictureSelector());
         components.add(createMessageArea());
-        components.add(createButton());
+        components.add(createRegisterButton());
         return components;
     }
 
@@ -165,21 +164,18 @@ public class RegisterView extends Account {
      * 
      * @return
      */
-    private JComponent createButton () {
-        JPanel panel = new JPanel();
-        JButton register = new JButton(getResources().getString(TextKeywords.REGISTER));
-        register.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed (ActionEvent arg0) {
-                registerNewUser();
-            }
-        });
-        panel.add(register);
-        return panel;
+    private JComponent createRegisterButton () {
+        return createButton(TextKeywords.REGISTER,
+                            new ActionListener() {
+                                @Override
+                                public void actionPerformed (ActionEvent arg0) {
+                                    registerNewUser();
+                                }
+                            });
     }
 
     /**
-     * Tries to register a new user in the database.  Checks if username and
+     * Tries to register a new user in the database. Checks if username and
      * date of birth are in the correct format.
      * 
      * If register successful, logs in to the arcade.
@@ -190,7 +186,7 @@ public class RegisterView extends Account {
             if (!isUsernameCorrectFormat(getUsername())) { throw new UsernameFormatException(); }
 
             if (!isDOBCorrectFormat(myDOBTextField.getText())) { throw new DOBFormatException(); }
-            
+
             getModel().createNewUserProfile(getUsername(),
                                             getPassword(),
                                             myFirstNameTextField.getText(),
@@ -198,7 +194,7 @@ public class RegisterView extends Account {
                                             myDOBTextField.getText());// ,
             // myImagePath);
             dispose();
-            
+
         }
         catch (UsernameFormatException e) {
             sendMessage(getResources().getString(e.getLocalizedMessage()));

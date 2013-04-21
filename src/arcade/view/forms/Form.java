@@ -208,6 +208,22 @@ public abstract class Form extends JFrame {
         panel.add(myWarningMessage);
         return panel;
     }
+    
+    /**
+     * Create a button to submit results.  The text on the button is from the 
+     * ResourceBundle for buttonKeyword.  On hitting the button, the performed
+     * action is taken.
+     * 
+     * Button is wrapped in a panel so BoxLayout works correctly.
+     * 
+     */
+    protected JComponent createButton(String buttonKeyword, ActionListener action) {
+        JPanel panel = new JPanel();
+        JButton button = new JButton(getResources().getString(buttonKeyword));
+        button.addActionListener(action);
+        panel.add(button);
+        return panel;
+    }
 
     /**
      * Access to the model for subclasses.
