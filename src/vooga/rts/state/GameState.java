@@ -186,8 +186,9 @@ public class GameState extends SubState implements Controller {
 
     public void setupGame () {
         addPlayer(1);
-        myHumanPlayer.add(new Soldier());
-        myHumanPlayer.add(new Soldier(new Location3D(200, 200, 0)));
+        myHumanPlayer.add(new Soldier()); 
+        addPlayer(2);
+        myPlayers.get(1).add(new Soldier(new Location3D(200, 200, 0), 2));
         myMap = new GameMap(8, new Dimension(512, 512));
     }
 }

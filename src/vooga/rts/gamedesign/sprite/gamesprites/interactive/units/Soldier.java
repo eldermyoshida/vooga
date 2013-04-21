@@ -33,8 +33,8 @@ public class Soldier extends Unit {
         this(DEFAULT_IMAGE, DEFAULT_LOCATION, DEFAULT_SIZE, DEFAULT_SOUND, DEFAULT_PLAYERID, DEFAULT_HEALTH);
     }
     
-    public Soldier(Location3D location) {
-        this(DEFAULT_IMAGE, location, DEFAULT_SIZE, DEFAULT_SOUND, DEFAULT_PLAYERID, DEFAULT_HEALTH);
+    public Soldier(Location3D location, int teamID) {
+        this(DEFAULT_IMAGE, location, DEFAULT_SIZE, DEFAULT_SOUND, teamID, DEFAULT_HEALTH);
     }
     
     public Soldier(Pixmap image, Location3D center, Dimension size, Sound sound, int playerID, int health) {

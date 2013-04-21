@@ -4,6 +4,7 @@ import vooga.rts.gamedesign.Interval;
 import vooga.rts.gamedesign.sprite.gamesprites.Projectile;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.upgrades.*;
+import vooga.rts.util.DelayedTask;
 import vooga.rts.util.Location3D;
 import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
@@ -31,9 +32,12 @@ public class Weapon {
     private Projectile myProjectile;
     private int myRange;
     private List<Projectile> myProjectiles;
-    private Interval interval;
+    private double myCooldownTime;
+    //private Interval interval;
     private Ellipse2D myRangeCircle;
     private Location3D myCenter;
+    
+    private DelayedTask cooldownTime;
 
     /**
      * Creates a new weapon with default damage and projectile.
@@ -41,10 +45,11 @@ public class Weapon {
      * @param damage
      * @param projectile
      */
-    public Weapon (Projectile projectile, int range, Location3D center, int cooldownTime) {
+    public Weapon (Projectile projectile, int range, Location3D center, double cooldownTime) {
         myProjectile = projectile;
         myRange = range;
-        interval = new Interval(cooldownTime);
+        //interval = new Interval(cooldownTime);
+        myCooldownTime = cooldownTime;
         myCenter = center;
         myProjectiles = new ArrayList<Projectile>();
     }
@@ -53,14 +58,21 @@ public class Weapon {
      * This method is used by the weapon to attack an InteractiveEntity.
      * 
      */
-    public void fire (InteractiveEntity toBeShot) {
-        if(interval.allowAction() && !toBeShot.isDead()){
-            Projectile firingProjectile = myProjectile.copy(myProjectile, myCenter);
-            firingProjectile.setEnemy(toBeShot);
-            firingProjectile.move(toBeShot.getWorldLocation());
-            myProjectiles.add(firingProjectile);
-            interval.resetCooldown();
-        }
+    public void fire (InteractiveEntity interactiveEntity) {
+    	final InteractiveEntity toBeShot = interactiveEntity;
+        if(!toBeShot.isDead()){
+        	cooldownTime = new DelayedTask(myCooldownTime, new Runnable() {
+				
+				@Override
+				public void run() {
+					  Projectile firingProjectile = myProjectile.copy(myProjectile, myCenter);
+			            firingProjectile.setEnemy(toBeShot);
+			            firingProjectile.move(toBeShot.getWorldLocation());
+			            myProjectiles.add(firingProjectile);
+				}
+			});
+          
+            }
     }
     
     /**
@@ -125,9 +137,10 @@ public class Weapon {
      * @param elapsedTime is the time that has elapsed.
      */
     public void update (double elapsedTime) {
-        if(!interval.allowAction()){
-            interval.decrementCooldown();
-        }
+//        if(!interval.allowAction()){
+//            interval.decrementCooldown();
+//        }
+    	cooldownTime.update(elapsedTime);
         Iterator<Projectile> it = myProjectiles.iterator();
         while (it.hasNext()) {
         	Projectile p = it.next();
