@@ -15,6 +15,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import arcade.exceptions.DOBFormatException;
+import arcade.exceptions.UsernameFormatException;
+import arcade.exceptions.UsernameTakenException;
 import arcade.model.Model;
 import arcade.view.TextKeywords;
 
@@ -70,24 +73,6 @@ public class RegisterView extends Account {
 
         setUsername(initialUsername);
         setPassword(initialPassword);
-    }
-
-    /**
-     * Lets the user know that the username has already been taken and prompts
-     * them to choose a different one.
-     */
-    public void sendUsernameTakenError () {
-        clearUsername();
-        sendMessage(getResources().getString(TextKeywords.USERNAME_ERROR));
-    }
-
-    /**
-     * Lets the user know that they formatted the date of birth field
-     * incorrectly and prompts them to try reentering.
-     */
-    public void sendDOBError () {
-        myDOBTextField.setText(TextKeywords.BIRTHDATE_MESSAGE);
-        sendMessage(getResources().getString(TextKeywords.BIRTHDATE_ERROR));
     }
 
     @Override
@@ -158,9 +143,10 @@ public class RegisterView extends Account {
         });
         return createTextPanel(TextKeywords.BIRTHDATE, myDOBTextField);
     }
-    
+
     /**
      * Creates the panel where the user can select his/her profile picture
+     * 
      * @return
      */
     private JComponent createProfilePictureSelector () {
@@ -185,18 +171,69 @@ public class RegisterView extends Account {
         register.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent arg0) {
-                getModel().createNewUserProfile(getUsername(),
-                                                getPassword(),
-                                                myFirstNameTextField.getText(),
-                                                myLastNameTextField.getText(),
-                                                myDOBTextField.getText());// ,
-                // myImagePath);
-                // maybe.
-                dispose();
+                registerNewUser();
             }
         });
         panel.add(register);
         return panel;
+    }
+
+    /**
+     * Tries to register a new user in the database.  Checks if username and
+     * date of birth are in the correct format.
+     * 
+     * If register successful, logs in to the arcade.
+     * 
+     */
+    private void registerNewUser () {
+        try {
+            if (!isUsernameCorrectFormat(getUsername())) { throw new UsernameFormatException(); }
+
+            if (!isDOBCorrectFormat(myDOBTextField.getText())) { throw new DOBFormatException(); }
+            
+            getModel().createNewUserProfile(getUsername(),
+                                            getPassword(),
+                                            myFirstNameTextField.getText(),
+                                            myLastNameTextField.getText(),
+                                            myDOBTextField.getText());// ,
+            // myImagePath);
+            dispose();
+            
+        }
+        catch (UsernameFormatException e) {
+            sendMessage(getResources().getString(e.getLocalizedMessage()));
+        }
+        catch (DOBFormatException e) {
+            sendMessage(getResources().getString(e.getLocalizedMessage()));
+            myDOBTextField.setText(TextKeywords.BIRTHDATE_MESSAGE);
+        }
+        catch (UsernameTakenException e) {
+            sendMessage(getResources().getString(e.getLocalizedMessage()));
+            clearUsername();
+        }
+    }
+
+    /**
+     * Checks if the username is in an okay format. This implementation only
+     * requires that it contains some characters, but this method can be overriden
+     * if more checks are desired (e.g. a minimum length, no profanity)
+     * 
+     * @param username
+     * @return
+     */
+    private boolean isUsernameCorrectFormat (String username) {
+        return !(username.isEmpty());
+    }
+
+    /**
+     * Checks if the date of birth is in the correct format.
+     * 
+     * @param text
+     * @return
+     */
+    private boolean isDOBCorrectFormat (String dob) {
+        // TODO: USE REGULAR EXPRESSIONS
+        return true;
     }
 
 }

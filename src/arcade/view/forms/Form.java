@@ -41,7 +41,7 @@ public abstract class Form extends JFrame {
 
     private Model myModel;
     private ResourceBundle myResources;
-    private JLabel myWarningMessage;
+    private JLabel myWarningMessage = new JLabel();
 
     /**
      * Constructs the form view with a Model and ResourceBundle. It adds a
@@ -205,7 +205,6 @@ public abstract class Form extends JFrame {
      */
     protected JComponent createMessageArea () {
         JPanel panel = new JPanel();
-        myWarningMessage = new JLabel();
         panel.add(myWarningMessage);
         return panel;
     }

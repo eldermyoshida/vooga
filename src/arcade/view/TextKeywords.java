@@ -12,7 +12,6 @@ public interface TextKeywords {
     static final String LOGIN = "login";
     static final String REGISTER = "new_account";
     static final String USERNAME = "username";
-    static final String USERNAME_ERROR = "username_error";
     static final String PASSWORD = "password";
     static final String REGISTER_MESSAGE = "new_account_instructions";
     static final String FIRSTNAME = "firstname";
@@ -39,4 +38,7 @@ public interface TextKeywords {
     static final String FILE_SELECT = "selectfile";
     static final String PUBLISH = "publish";
     static final String POPUP_TITLE = "instruction";
+    static final String USERNAME_FORMAT_ERROR = "username_format_error";
+    static final String USERNAME_TAKEN_ERROR = "username_taken_error";
+    static final String LOGIN_ERROR = "login_failure";
 }

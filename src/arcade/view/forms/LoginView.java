@@ -16,6 +16,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import arcade.exceptions.LoginErrorException;
 import arcade.model.Model;
 import arcade.view.TextKeywords;
 
@@ -32,6 +33,7 @@ public class LoginView extends Account {
     private static final String LOGO_FILENAME = "../../resources/images/VoogaLogo.png";
     private static final int WINDOW_WIDTH = 260;
     private static final int WINDOW_HEIGHT = 240;
+
     // private static final int NO_KEY_PRESSED = -1;
     // private int myLastKeyPressed;
 
@@ -43,16 +45,16 @@ public class LoginView extends Account {
      */
     public LoginView (Model model, ResourceBundle resources) {
         super(model, resources);
-        
+
         setPasswordFieldListener(new KeyAdapter() {
             @Override
             public void keyPressed (KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    tryLogin();
+                    login();
                 }
             }
         });
-        
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
         setLocationRelativeTo(null);
@@ -92,7 +94,7 @@ public class LoginView extends Account {
         login.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent arg0) {
-                tryLogin();
+                login();
             }
         });
         buttonPanel.add(login);
@@ -102,7 +104,6 @@ public class LoginView extends Account {
             @Override
             public void actionPerformed (ActionEvent arg0) {
                 new RegisterView(getModel(), getResources(), getUsername(), getPassword());
-                // getModel().startRegister(); to instantiate the register view
                 dispose();
             }
         });
@@ -135,12 +136,19 @@ public class LoginView extends Account {
     /**
      * Sends the inputs to the model to try logging in.
      */
-    private void tryLogin () {
+    private void login () {
         String usernameInput = getUsername();
         String passwordInput = getPassword();
         clearUsername();
         clearPassword();
-        getModel().authenticate(usernameInput, passwordInput);
+        try
+        {
+            getModel().authenticate(usernameInput, passwordInput);
+        }
+        catch (LoginErrorException e)
+        {
+            sendMessage(getResources().getString(e.getLocalizedMessage()));
+        }
     }
 
     // /**

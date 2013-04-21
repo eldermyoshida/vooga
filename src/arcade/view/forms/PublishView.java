@@ -257,7 +257,7 @@ public class PublishView extends Form {
         return panel;
     }
 
-    public static void main (String[] args) {
-        new PublishView(null, ResourceBundle.getBundle("arcade.resources.English"));
-    }
+//    public static void main (String[] args) {
+//        new PublishView(null, ResourceBundle.getBundle("arcade.resources.English"));
+//    }
 }

@@ -9,6 +9,9 @@ import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import arcade.database.Database;
+import arcade.exceptions.CorruptedDatabaseException;
+import arcade.exceptions.LoginErrorException;
+import arcade.exceptions.UsernameTakenException;
 import arcade.games.ArcadeInteraction;
 import arcade.games.Game;
 import arcade.games.GameData;
@@ -131,28 +134,35 @@ public class Model implements ArcadeInteraction {
         myGameInfos.put(game.getName(), game);
     }
 
-    public void authenticate (String username, String password) {
-        if (myDb.authenticateUsernameAndPassword(username, password)) {
-            myLoginView.dispose();
-            organizeSnapshots();
-            new MainView(this, myResources);
+    public void authenticate (String username, String password) throws LoginErrorException {
+        if (!myDb.authenticateUsernameAndPassword(username, password)) {
+            throw new LoginErrorException();
         }
-        else {
-            myLoginView.sendMessage(LOGIN_FAILURE_MESSAGE);
-        }
+        myLoginView.dispose();
+        organizeSnapshots();
+        new MainView(this, myResources);
     }
 
     /**
      * Create a new user profile by entering user-specific information.
      * This information is eventually stored in the database.
+     * @throws UsernameTakenException 
      */
     public void createNewUserProfile (String username,
                                       String pw,
                                       String firstname,
                                       String lastname,
-                                      String dataOfBirth) {
-        if (myDb.createUser(username, pw, firstname, lastname, dataOfBirth)) {
-            new LoginView(this, myResources);
+                                      String dataOfBirth) throws UsernameTakenException {
+        if (myDb.usernameExists(username)) {
+            throw new UsernameTakenException();
+        }
+        myDb.createUser(username, pw, firstname, lastname, dataOfBirth);
+        try {
+            authenticate(username, pw);
+        }
+        catch (LoginErrorException e) {
+            // this can't happen because just added to db.
+            throw new CorruptedDatabaseException();
         }
 
     }
@@ -162,9 +172,19 @@ public class Model implements ArcadeInteraction {
                                       String firstname,
                                       String lastname,
                                       String dataOfBirth,
-                                      String filepath) {
+                                      String filepath) throws UsernameTakenException {
+        
+        if (myDb.usernameExists(username)) {
+            throw new UsernameTakenException();
+        }
         myDb.createUser(username, pw, firstname, lastname, dataOfBirth, filepath);
-        authenticate(username, pw);
+        try {
+            authenticate(username, pw);
+        }
+        catch (LoginErrorException e) {
+            // this can't happen because just added to db.
+            throw new CorruptedDatabaseException();
+        }
     }
 
     public void deleteUser (String username) {
