@@ -31,14 +31,16 @@ g                          c   c   c   c       c   c   c   f
 b  b  b  b  b  ff  b  b  b  b    a  a  a  a                 
 b  b  b  b  b  ff  b  b  b  b    f  f  f  f                 
                                                             
+/lib
+vooga.scroller.sprites.test_sprites.MarioLib
 /key
-d=vooga.scroller.sprites.test_sprites.MarioLib$Koopa
-e=vooga.scroller.sprites.test_sprites.MarioLib$Plant
-a=vooga.scroller.sprites.test_sprites.MarioLib$Coin
-g=vooga.scroller.sprites.test_sprites.MarioLib$LevelTwoBlockThree
-f=vooga.scroller.sprites.test_sprites.MarioLib$Platform
-c=vooga.scroller.sprites.test_sprites.MarioLib$LevelTwoBlockOne
-b=vooga.scroller.sprites.test_sprites.MarioLib$LevelTwoBlockTwo
+d=Koopa
+e=Plant
+a=Coin
+g=LevelTwoBlockThree
+f=Platform
+c=LevelTwoBlockOne
+b=LevelTwoBlockTwo
 /settings
 StartPoint=16 624
 EndPoint=25 889

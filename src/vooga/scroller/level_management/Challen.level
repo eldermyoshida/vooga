@@ -30,15 +30,17 @@
                                                             
                                                             
                                                             
+/lib
+games.coolscroller.Library
 /key
-g=games.coolscroller.Library$Llama
-f=games.coolscroller.Library$MovingPlatformTwo
-d=games.coolscroller.Library$MovingPlatformOne
-b=games.coolscroller.Library$Platform
-a=games.coolscroller.Library$Coin
-e=games.coolscroller.Library$LevelTwoBlockTwo
-c=games.coolscroller.Library$Sun
-h=games.coolscroller.Library$LevelTwoBlockThree
+g=Llama
+f=MovingPlatformTwo
+d=MovingPlatformOne
+b=Platform
+a=Coin
+e=LevelTwoBlockTwo
+c=Sun
+h=LevelTwoBlockThree
 /settings
 StartPoint=80 496
 EndPoint=1433 409

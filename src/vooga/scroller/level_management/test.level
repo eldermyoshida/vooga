@@ -5,13 +5,13 @@
                                                             
                                                             
                                                             
+         a                                                  
                                                             
                                                             
+ b                                                          
                                                             
                                                             
-                                                            
-                                                            
-                                                            
+           c                                                
                                                             
                                                             
                                                             
@@ -32,6 +32,9 @@
 /lib
 vooga.scroller.sprites.test_sprites.MarioLib
 /key
+b=MovingPlatformTwo
+a=Platform
+c=LevelTwoBlockOne
 /settings
-StartPoint=368 48
-EndPoint=377 505
+StartPoint=0 0
+EndPoint=100 100

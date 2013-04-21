@@ -31,14 +31,17 @@ aaaaaaaa ccccccaaccc
                                          f   ccc            
                                              ccc            
 aaaaaaag  g  g  g  g  g  g  aa               aaaaaaa        
+/lib
+vooga.scroller.sprites.test_sprites.MarioLib
 /key
-c=vooga.scroller.sprites.test_sprites.MarioLib$Coin
-a=vooga.scroller.sprites.test_sprites.MarioLib$Platform
-b=vooga.scroller.sprites.test_sprites.MarioLib$MovingPlatformTwo
-h=vooga.scroller.sprites.test_sprites.MarioLib$Koopa
-f=vooga.scroller.sprites.test_sprites.MarioLib$LevelTwoBlockOne
-g=vooga.scroller.sprites.test_sprites.MarioLib$LevelTwoBlockTwo
-d=vooga.scroller.sprites.test_sprites.MarioLib$Plant
-e=vooga.scroller.sprites.test_sprites.MarioLib$MovingPlatformOne
+c=Coin
+a=Platform
+b=MovingPlatformTwo
+h=Koopa
+f=LevelTwoBlockOne
+g=LevelTwoBlockTwo
+d=Plant
+e=MovingPlatformOne
 /settings
 StartPoint=100 100
+EndPoint=25 889

@@ -29,8 +29,10 @@
                                                             
                                                             
                                                             
+/lib
+vooga.scroller.sprites.test_sprites.MarioLib
 /key
-a=vooga.scroller.sprites.test_sprites.MarioLib$LevelTwoBlockThree
+a=LevelTwoBlockThree
 /settings
 StartPoint=144 240
 EndPoint=665 313
