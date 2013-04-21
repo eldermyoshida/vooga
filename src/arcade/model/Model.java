@@ -10,6 +10,7 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import arcade.database.Database;
 import arcade.exceptions.CorruptedDatabaseException;
+import arcade.exceptions.InvalidPaymentException;
 import arcade.exceptions.LoginErrorException;
 import arcade.exceptions.UsernameTakenException;
 import arcade.games.ArcadeInteraction;
@@ -20,12 +21,15 @@ import arcade.games.HighScores;
 import arcade.games.MultiplayerGame;
 import arcade.games.User;
 import arcade.games.UserGameData;
+import arcade.model.payment.DukePaymentManager;
+import arcade.model.payment.PaymentManager;
 import arcade.view.MainView;
 import arcade.view.forms.LoginView;
 
 
 public class Model implements ArcadeInteraction {
 
+    private static final String PAYMENT_MANAGER_LOCATION = "arcade.model.payment.";
     public static final String DEFAULT_LOGIN_MESSAGE = "";
     private static final String LOGIN_FAILURE_MESSAGE =
             "The username or password you entered is incorrect";
@@ -37,6 +41,7 @@ public class Model implements ArcadeInteraction {
     private Map<String, GameInfo> myGameInfos = new HashMap<String, GameInfo>();
     private List<GameInfo> mySnapshots;
     private String myUser;
+    private PaymentManager myPaymentManager;
 
     // These will be null until you try to play a game
     Game myCurrentGame = null;
@@ -190,6 +195,38 @@ public class Model implements ArcadeInteraction {
     public void deleteUser (String username) {
         myDb.deleteUser(username);
     }
+    
+    
+    /**
+     * First creates the appropriate PaymentManager for the transactionType
+     * if the transactionType is Duke, then the DukePaymentManager is created.
+     * 
+     * Then tries to complete the transaction with the paymentInfo.  If the 
+     * transaction is unsuccessful, the InvalidPaymentExecption is thrown.
+     * 
+     * @param transactionType
+     * @param paymentInfo
+     * @throws InvalidPaymentException
+     */
+    public void performTransaction(GameInfo game, String transactionType, String ... paymentInfo) throws InvalidPaymentException {
+        try {
+            Class<?> paymentManagerClass = Class.forName(PAYMENT_MANAGER_LOCATION + transactionType);
+            myPaymentManager = (PaymentManager) paymentManagerClass.newInstance();
+        }
+        catch (ClassNotFoundException e) {
+            throw new InvalidPaymentException();
+        }
+        catch (InstantiationException e) {
+            throw new InvalidPaymentException();
+        }
+        catch (IllegalAccessException e) {
+            throw new InvalidPaymentException();
+        }
+        
+        myPaymentManager.doTransaction(paymentInfo);
+        // TODO: write code here for moving game from Store to GameCenter
+    }
+    
 
     /**
      * Rate a specific game, store in user-game database

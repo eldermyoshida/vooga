@@ -41,4 +41,8 @@ public interface TextKeywords {
     static final String USERNAME_FORMAT_ERROR = "username_format_error";
     static final String USERNAME_TAKEN_ERROR = "username_taken_error";
     static final String LOGIN_ERROR = "login_failure";
+    static final String PAYMENT_ERROR = "payment_error";
+    static final String FULLNAME = "full_name";
+    static final String DUKE_CARD_NUMBER = "duke_card_number";
+    static final String BUY = "buy";
 }
