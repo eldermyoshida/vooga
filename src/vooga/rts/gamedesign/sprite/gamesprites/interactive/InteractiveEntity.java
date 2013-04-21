@@ -388,8 +388,20 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
         super.setChanged();
     }
     
+    /**
+     * Returns the time it takes to create the entity.
+     * @return how long it takes to make the entity
+     */
     public double getBuildTime() {
     	return myBuildTime;
+    }
+    
+    /**
+     * Sets how long the build time is for the entity.
+     * @param time is the amount of time it will take to create the entity
+     */
+    public void setBuildTime(double time) {
+    	myBuildTime = time;
     }
 
 }

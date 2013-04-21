@@ -21,7 +21,6 @@ import vooga.rts.util.Sound;
  * 
  */
 public class Barracks extends ProductionBuilding {
-    public int PRODUCE_TIME = 90;
 
     private List<InteractiveEntity> myInteractiveEntities;
 
@@ -75,8 +74,6 @@ public class Barracks extends ProductionBuilding {
     @Override
     public void update (double elapsedTime) {
         super.update(elapsedTime);
-        PRODUCE_TIME -= elapsedTime;
-        if (PRODUCE_TIME <= 0) {
             try {
                 // getActions().get(0).apply(2); //2: for testing. make Barrack create new Units of
                 // different team.
@@ -84,8 +81,6 @@ public class Barracks extends ProductionBuilding {
             catch (Exception e) {
                 e.printStackTrace();
             }
-            PRODUCE_TIME = 90;
-        }
         for (InteractiveEntity ie : myInteractiveEntities) {
             ie.update(elapsedTime);
         }
