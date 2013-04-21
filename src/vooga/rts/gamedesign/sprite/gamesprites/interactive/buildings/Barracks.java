@@ -28,8 +28,8 @@ public class Barracks extends ProductionBuilding {
     private List<InteractiveEntity> myInteractiveEntities;
     
     public Barracks(Pixmap image, Location3D center, Dimension size, Sound sound,
-                    int playerID, int health) {
-        super(image, center, size, sound, playerID, health);
+                    int playerID, int health, int ID) {
+        super(image, center, size, sound, playerID, health, ID);
         myInteractiveEntities = new ArrayList<InteractiveEntity>();
         initProducables();
         addProductionActions(this);

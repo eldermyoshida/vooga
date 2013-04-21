@@ -9,6 +9,7 @@ import vooga.rts.gamedesign.sprite.gamesprites.GameEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.GameSprite;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.IGatherable;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building;
 import vooga.rts.gamedesign.strategy.gatherstrategy.CannotGather;
 import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
 import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
@@ -89,8 +90,8 @@ public class Unit extends InteractiveEntity {
      * 
      * @param occupiable
      */
-    public void occupy (GameEntity i) {
-        i.getOccupied(this);
+    public void occupy (Building building) {
+        building.getOccupied(this);
     }
     
     private void addUserToUpgradeTree(int playerID) {

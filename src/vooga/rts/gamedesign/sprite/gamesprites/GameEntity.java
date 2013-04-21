@@ -207,12 +207,6 @@ public class GameEntity extends GameSprite {
     public void changeHealth (int change) {
         myCurrentHealth -= change;
     }
-    
-    public void getOccupied(Unit occupier) {
-    	if (occupier.collidesWith(this)) {
-    		myOccupyStrategy.getOccupied(this, occupier);
-    	}
-    }
 
     /**
      * Checks to see if an GameEntity is dead.

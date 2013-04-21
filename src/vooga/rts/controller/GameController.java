@@ -284,17 +284,12 @@ public class GameController extends AbstractController {
 			Unit w = new Worker(new Pixmap(ResourceManager.getInstance().<BufferedImage>getFile("images/scv.gif", BufferedImage.class)), new Location3D(500, 200, 0), s, soun, 1,
 					40, 40);
 
-			//p1.getUnits().addUnit(a);
-			//p1.getUnits().addUnit(b);
-			//p1.getUnits().addUnit(w);
-			//p2.getUnits().addUnit(c);
-
 			ProductionBuilding building = new Barracks(new Pixmap(ResourceManager.getInstance().<BufferedImage>getFile("images/factory.png", BufferedImage.class)), new Location3D(800, 500, 0),
-					new Dimension(150, 150), null, 0, 300);
+					new Dimension(150, 150), null, 0, 300, 1);
 			building.setGameBuildingManager(myGameBuildingManager);
 
 			Garrison garrison = new Garrison(new Pixmap(ResourceManager.getInstance().<BufferedImage>getFile("images/factory.png", BufferedImage.class)), new Location3D(400, 400, 0),
-					new Dimension(100, 100), null, 0, 300);
+					new Dimension(100, 100), null, 0, 300, 2);
 			myGameUnitManager.addEntity(garrison);
 			garrison.getOccupyStrategy().addValidClassType(new Soldier());
 			

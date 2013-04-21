@@ -22,8 +22,8 @@ import java.awt.Dimension;
 public class Garrison extends Building {
 
     public Garrison(Pixmap image, Location3D center, Dimension size, Sound sound,
-                    int playerID, int health) {
-        super(image, center, size, sound, playerID, health);
+                    int playerID, int health, int ID) {
+        super(image, center, size, sound, playerID, health, ID);
         setOccupyStrategy(new CanBeOccupied()); 
         addOccupyActions(this);
     }
@@ -32,18 +32,21 @@ public class Garrison extends Building {
     	getActions().add(new OccupyAction("puke",null,"I puke out all I have"){
             @Override
             public void apply(int playerID) {
-            	getOccupyStrategy().setOccupierID(0);
             	getGameUnitManager().removeEntityUnit(building);
+            	//getOccupyStrategy().setOccupierID(0);
             }
     	});
     }
     
+    /**
+     * TESTING PURPOSE
+     */
     @Override
     public void update(double elapsedTime) {
         super.update(elapsedTime);
-        if(getOccupyStrategy().getOccupiers().size() == getOccupyStrategy().getMaxOccupiers()) { 
+        if(getOccupyStrategy().getOccupiers().size() == 5) { 
             try {
-				getActions().get(0).apply(getOccupyStrategy().getOccupierID()); //2: for testing. make Barrack create new Units of different team.
+				getActions().get(0).apply(getOccupyStrategy().getOccupierID());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

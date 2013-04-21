@@ -25,8 +25,8 @@ public class UpgradeBuilding extends Building{
 	public int PRODUCE_TIME = 90;
 	
 	public UpgradeBuilding(Pixmap image, Location3D center, Dimension size,
-			Sound sound, int playerID, int health) {
-		super(image, center, size, sound, playerID, health, null);
+			Sound sound, int playerID, int health, int ID) {
+		super(image, center, size, sound, playerID, health, null, ID);
 	}
 	
 	/**
@@ -49,14 +49,8 @@ public class UpgradeBuilding extends Building{
    	                }
    	            }
    	        });
-   	}
+    	}
     }
-
-	@Override
-	public void getOccupied(Unit u) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	/**
 	 * TESTING PURPOSE.

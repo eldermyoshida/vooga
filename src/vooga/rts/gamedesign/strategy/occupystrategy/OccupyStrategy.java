@@ -22,7 +22,7 @@ import vooga.rts.gamedesign.strategy.Strategy;
  *
  */
 public interface OccupyStrategy extends Strategy{
-	public void getOccupied(GameEntity entity, Unit u);
+	public void getOccupied(Building building, Unit u);
 	
 	public void addValidClassType(Unit u);
 	

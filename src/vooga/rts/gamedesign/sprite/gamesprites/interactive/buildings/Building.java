@@ -3,6 +3,7 @@ package vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings;
 import java.awt.Dimension;
 
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
 import vooga.rts.gamedesign.strategy.occupystrategy.CanBeOccupied;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
 import vooga.rts.manager.IndividualBuildingManager;
@@ -11,7 +12,6 @@ import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
-import vooga.towerdefense.gameElements.Unit;
 
 
 /**
@@ -29,14 +29,15 @@ public abstract class Building extends InteractiveEntity {
     private static UpgradeTree myUpgradeTree;
     //TODO: probably shouldn't be stored in Building. Should try Observer pattern later?
     private static GameBuildingManager myGameBuildingManager;
+    private int myBuildingID;
     
     public Building (Pixmap image,
             Location3D center,
             Dimension size,
             Sound sound,
             int playerID,
-            int health) {
-    	this(image, center, size, sound, playerID, health, null);
+            int health, int ID) {
+    	this(image, center, size, sound, playerID, health, null, ID);
     }
     
     public Building (Pixmap image,
@@ -44,15 +45,29 @@ public abstract class Building extends InteractiveEntity {
                      Dimension size,
                      Sound sound,
                      int playerID,
-                     int health, UpgradeTree upgradeTree) {
+                     int health, UpgradeTree upgradeTree, int ID) {
         super(image, center, size, sound, playerID, MAXHEALTH);
+        myBuildingID = ID;
         if (upgradeTree != null) {
         	myUpgradeTree = upgradeTree;
         }
         if (myGameBuildingManager != null) {
-        	System.out.println("yay has GameBuildingManager!");
         	myGameBuildingManager.addBuilding(this);
         }
+    }
+    
+    public void getOccupied(Unit occupier) {
+    	if (occupier.collidesWith(this)) {
+    		getOccupyStrategy().getOccupied(this, occupier);
+    	}
+    }
+    
+    public void setBuildingID (int id) {
+    	myBuildingID = id;
+    }
+    
+    public int getBuildingID() {
+    	return myBuildingID;
     }
     
     public void setGameBuildingManager(GameBuildingManager gameBuildingManager) {
