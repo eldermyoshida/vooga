@@ -1,6 +1,7 @@
 package vooga.rts.networking.server;
 
 import vooga.rts.networking.communications.LobbyInfo;
+import vooga.rts.networking.communications.servermessages.LobbyInfoMessage;
 
 /**
  * This class represents a Lobby where users can change information.
@@ -38,6 +39,6 @@ public class Lobby extends Room {
     @Override
     public void addConnection (ConnectionThread thread) {
         super.addConnection(thread);
-        
+        thread.sendMessage(new LobbyInfoMessage(myLobbyModel));
     }
 }
