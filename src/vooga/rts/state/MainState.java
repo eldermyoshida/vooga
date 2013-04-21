@@ -50,7 +50,7 @@ public class MainState implements State, Observer {
                 long curNano = System.nanoTime();
                 double change = curNano - lastNano;
                 change /= 1000000000;
-                System.out.println(change);
+                // System.out.println(change);
                 update(change);
                 if (myWindow.hasFocus()) {
                     render();
@@ -69,9 +69,10 @@ public class MainState implements State, Observer {
 
     @Override
     public void update (double elapsedTime) {
-        long preUpdate = System.nanoTime();
+        // long preUpdate = System.nanoTime();
         myActiveState.update(elapsedTime);
-        System.out.println("Update Time = " + (System.nanoTime() - preUpdate) / 1000000 + " ms.");
+        // System.out.println("Update Time = " + (System.nanoTime() - preUpdate) / 1000000 +
+        // " ms.");
     }
 
     @Override
@@ -94,9 +95,10 @@ public class MainState implements State, Observer {
         graphics.setColor(Color.WHITE);
         graphics.fillRect(0, 0, myWindow.getCanvas().getWidth(), myWindow.getCanvas().getHeight());
         graphics.setColor(Color.BLACK);
-        long preRender = System.nanoTime();
+        // long preRender = System.nanoTime();
         paint(graphics);
-        System.out.println("Render Time = " + (System.nanoTime() - preRender) / 1000000 + " ms.");
+        // System.out.println("Render Time = " + (System.nanoTime() - preRender) / 1000000 +
+        // " ms.");
         myWindow.getCanvas().render();
     }
 

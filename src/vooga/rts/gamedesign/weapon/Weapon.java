@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+
 /**
  * This class represents a weapon. The CanAttack class the implements
  * AttackStrategy contains a list of weapons so that every interactive that can attack
@@ -25,9 +26,9 @@ import java.util.List;
  * 
  */
 public class Weapon {
-	public static int DEFAULT_RANGE = 500;
-	public static int DEFAULT_COOLDOWN_TIME = 175;
-	
+    public static int DEFAULT_RANGE = 500;
+    public static int DEFAULT_COOLDOWN_TIME = 175;
+
     private Projectile myProjectile;
     private int myRange;
     private List<Projectile> myProjectiles;
@@ -54,7 +55,7 @@ public class Weapon {
      * 
      */
     public void fire (InteractiveEntity toBeShot) {
-        if(interval.allowAction() && !toBeShot.isDead()){
+        if (interval.allowAction() && !toBeShot.isDead()) {
             Projectile firingProjectile = myProjectile.copy(myProjectile, myCenter);
             firingProjectile.setEnemy(toBeShot);
             firingProjectile.move(toBeShot.getWorldLocation());
@@ -62,18 +63,20 @@ public class Weapon {
             interval.resetCooldown();
         }
     }
-    
-    /**
 
+    /**
+     * 
      * NOTE: moving this method is gonna break DamageUpgradeNode.
+     * 
      * @param damage
      */
-    public void addDamage(int damage) {
-    	myProjectile.addDamage(damage);
+    public void addDamage (int damage) {
+        myProjectile.addDamage(damage);
     }
-    
+
     /**
      * Returns the list of projectiles.
+     * 
      * @return the list of projectiles that this weapon has
      */
     public List<Projectile> getProjectiles () {
@@ -99,45 +102,49 @@ public class Weapon {
      */
     public boolean inRange (InteractiveEntity enemy) {
         // add z axis
-        //see if enemy is in adjacent node, better way ? 
+        // see if enemy is in adjacent node, better way ?
         myRangeCircle = new Ellipse2D.Double(myCenter.getX(), myCenter.getY(), myRange, myRange);
         return myRangeCircle.contains(enemy.getWorldLocation().to2D());
     }
+
     /**
      * Returns the range of the weapon.
+     * 
      * @return the range of the weapon
      */
-    public int getRange(){
+    public int getRange () {
         return myRange;
     }
-    
+
     /**
      * Increases the range of the weapon
+     * 
      * @param range the amount of range to be increased
      */
-    public void addRange(int range) {
-    	myRange += range;
+    public void addRange (int range) {
+        myRange += range;
     }
-    
+
     /**
      * Updates the weapon so that the cooldown between attacks is decremented
      * and the projectiles are updated.
+     * 
      * @param elapsedTime is the time that has elapsed.
      */
     public void update (double elapsedTime) {
-        if(!interval.allowAction()){
+        if (!interval.allowAction()) {
             interval.decrementCooldown();
         }
         Iterator<Projectile> it = myProjectiles.iterator();
         while (it.hasNext()) {
-        	Projectile p = it.next();
-        	if (!p.isDead()) {
-        		p.update(elapsedTime);
-        	}
-        	else {
-        		it.remove();
-        	}
+            Projectile p = it.next();
+            if (!p.isDead()) {
+                p.update(elapsedTime);
+            }
+            else {
+                it.remove();
+            }
         }
-        
+
     }
 }

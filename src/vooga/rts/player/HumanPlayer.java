@@ -48,6 +48,7 @@ public class HumanPlayer extends Player implements Controller {
 
     @Override
     public void sendCommand (Command command) {
+        // Check for camera movement
         getManager().receiveCommand(command);
     }
 

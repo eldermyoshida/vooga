@@ -4,8 +4,11 @@ import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 import vooga.rts.action.Action;
 import vooga.rts.action.IActOn;
 import vooga.rts.commands.Command;
@@ -28,7 +31,9 @@ import vooga.rts.util.Location3D;
  * @author Challen Herzberg-Brovold
  * 
  */
-public class Manager implements State, IActOn, IObserver {
+
+public class Manager implements State, IActOn, Observer {
+
 
     private List<InteractiveEntity> myEntities;
     private List<InteractiveEntity> mySelectedEntities;
@@ -42,7 +47,7 @@ public class Manager implements State, IActOn, IObserver {
         myGroups = new HashMap<Integer, List<InteractiveEntity>>();
         myMultiSelect = false;
         myActions = new HashMap<String, Action>();
-        addAction();
+        addActions();
     }
 
     @Override
@@ -80,7 +85,9 @@ public class Manager implements State, IActOn, IObserver {
     }
 
     public void applyAction (Command command) {
-        for (InteractiveEntity u : mySelectedEntities) {
+        Iterator<InteractiveEntity> it = mySelectedEntities.iterator();
+        while (it.hasNext()) {
+            InteractiveEntity u = it.next();
             if (u.containsInput(command)) {
                 u.updateAction(command);
                 u.getAction(command).apply();
@@ -94,8 +101,15 @@ public class Manager implements State, IActOn, IObserver {
      * 
      * @param u The entity that is to be added.
      */
-    public void add (InteractiveEntity unit) {
-        myEntities.add(unit);
+    public void add (InteractiveEntity entity) {
+        entity.addObserver(this);
+        myEntities.add(entity);
+    }
+
+    public void remove (InteractiveEntity entity) {
+        entity.deleteObserver(this);
+        myEntities.remove(entity);
+        mySelectedEntities.remove(entity);
     }
 
     public void deselect (Location3D location) {
@@ -223,7 +237,7 @@ public class Manager implements State, IActOn, IObserver {
         myMultiSelect = val;
     }
 
-    public void addAction () {
+    public void addActions () {
         put("drag", new DragSelectAction(this));
         put("leftclick", new LeftClickAction(this));
         put("rightclick", new RightClickAction(this));
@@ -240,10 +254,20 @@ public class Manager implements State, IActOn, IObserver {
         }
     }
 
-    public void addProduction (InteractiveEntity u) {
-        // add the passed in InteractiveEntity into the list. 
-        myEntities.add(u);
-        
+    @Override
+    public void update (Observable entity, Object state) {
+        if (entity instanceof InteractiveEntity) {
+            InteractiveEntity ie = (InteractiveEntity) entity;
+            if (ie.isDead()) {
+                remove(ie);
+            }
+        }
+
+        // While Shepherds watch their flocks by night.
+        if (state instanceof InteractiveEntity) {
+            add((InteractiveEntity) state);
+        }
+
     }
 
 }

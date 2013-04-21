@@ -4,15 +4,14 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
-import vooga.rts.gamedesign.sprite.Sprite;
+import java.util.Observable;
+import vooga.rts.IGameLoop;
 import vooga.rts.util.Camera;
-import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
-import vooga.rts.util.TimeIt;
 
 
-public abstract class GameSprite extends Sprite {
+public abstract class GameSprite extends Observable implements IGameLoop {
 
     // private ThreeDimension mySize;
     private Dimension mySize;
@@ -25,12 +24,17 @@ public abstract class GameSprite extends Sprite {
     private Point2D myScreenLocation;
     private Rectangle myWorldBounds;
 
+    private Pixmap myPixmap;
+
+    private boolean myVisible;
+
     public GameSprite (Pixmap image, Location3D center, Dimension size) {
-        super(image, new Location());
+        myPixmap = new Pixmap(image);
         mySize = size;
         myOriginalSize = size;
         myWorldLocation = new Location3D(center);
         resetBounds();
+        myVisible = true;
     }
 
     /**
@@ -105,19 +109,10 @@ public abstract class GameSprite extends Sprite {
         resetBounds();
     }
 
-    /**
-     * Reset shape back to its original values.
-     */
-    @Override
     public void reset () {
-        super.reset();
         mySize = myOriginalSize;
     }
 
-    /**
-     * Display this shape on the screen.
-     */
-    @Override
     public void paint (Graphics2D pen) {
         if (!isVisible())
             return;
@@ -125,9 +120,27 @@ public abstract class GameSprite extends Sprite {
         if (Camera.instance().issVisible(getWorldLocation())) {
             myScreenLocation = Camera.instance().worldToView(myWorldLocation);
             // if (Camera.instance().isVisible(myScreenLocation)) {
-            getView().paint(pen, myScreenLocation, mySize);
+            myPixmap.paint(pen, myScreenLocation, mySize);
             // }
         }
+    }
+
+    /**
+     * Returns whether a Game Sprite is visible or not.
+     * 
+     * @return
+     */
+    private boolean isVisible () {
+        return myVisible;
+    }
+
+    /**
+     * Sets the visibility of the sprite.
+     * 
+     * @param visible Whether the sprite is visible.
+     */
+    public void setVisible (boolean visible) {
+        myVisible = visible;
     }
 
     /**
@@ -205,5 +218,9 @@ public abstract class GameSprite extends Sprite {
 
     public void update (double elapsedTime) {
 
+    }
+
+    public Pixmap getImage () {
+        return myPixmap;
     }
 }
