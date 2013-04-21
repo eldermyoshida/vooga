@@ -81,7 +81,8 @@ public class GameLoopInfo extends DisplayLoopInfo implements ViewDataSource{
     public void update() {
         super.update();
         updateStats();
-       
+       setChanged();
+       notifyObservers();
     }
     
     
