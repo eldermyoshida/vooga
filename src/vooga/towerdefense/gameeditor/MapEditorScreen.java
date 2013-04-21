@@ -32,13 +32,10 @@ import vooga.towerdefense.util.Pixmap;
 public class MapEditorScreen extends GameEditorScreen {
 
     private static final long serialVersionUID = 1L;
-    public static final String CLASS_INDICATOR_STRING = ".gif";
-    private static final String RESOURCE_LOCATION = "/vooga/towerdefense/images/map/";
+    public static final String CLASS_INDICATOR_STRING = ".png";
     private static final String NEXT_SCREEN_NAME = "ProjectileEditorScreen";
     private static final String TITLE_NAME = "MAP ";
-    private static final String TILES_CLASS_PATH = "vooga.towerdefense.model.tiles";
     private static final String TILE_IMAGES_CLASS_PATH = "vooga.towerdefense.images.map";
-    private static final String REGEX = "/";
     
     private MapMaker myMapBox;
     private Dimension myMapMakerSize;

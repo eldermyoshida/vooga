@@ -52,7 +52,7 @@ public class GameEditorController extends JFrame {
         initializeGUI();
         
         //TODO: remove, this is just for testing
-        Unit temp = new Unit(new Pixmap("tower.gif"), new Location(0,0), new Dimension(0,0), null, null, null);
+        Unit temp = new Unit(new Pixmap("tower.gif"), new Location(0,0), new Dimension(0,0), null, null);
         myCreatedUnits.add(temp);
         myCreatedUnits.add(temp);
         myCreatedUnits.add(temp);
