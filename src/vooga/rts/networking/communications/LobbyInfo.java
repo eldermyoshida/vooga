@@ -16,7 +16,7 @@ public class LobbyInfo implements Serializable {
     //This variable exists in case we decide to switch the constructor parameters.
     private int myNumTeams;
     
-    LobbyInfo (String lobbyName, String mapName, int maxPlayers, int playersPerTeam, int ID) {
+    public LobbyInfo (String lobbyName, String mapName, int maxPlayers, int playersPerTeam, int ID) {
         myLobbyName = lobbyName;
         myMaxPlayers = maxPlayers;
         myMapName = mapName;

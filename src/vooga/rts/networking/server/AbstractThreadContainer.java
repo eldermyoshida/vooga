@@ -54,9 +54,13 @@ public abstract class AbstractThreadContainer implements IThreadContainer, IMess
     @Override
     public void requestLobbies (ConnectionThread thread) {
     }
-    
+
     @Override
-    public void startLobby (ConnectionThread thread, String mapName, String serverName){
+    public void startLobby (ConnectionThread thread,
+                            String mapName,
+                            String serverName,
+                            int maxPlayers,
+                            int playersPerTeam) {
     }
 
     @Override

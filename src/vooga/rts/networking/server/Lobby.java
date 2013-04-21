@@ -16,8 +16,9 @@ public class Lobby extends Room {
      * @param id id of lobby
      * @param container gamecontainer of lobby
      */
-    public Lobby (int id, GameContainer container, String mapName, String serverName) {
+    public Lobby (int id, GameContainer container, String mapName, String serverName, int maxPlayers, int playersPerTeam) {
         super(id, container);
+        myLobbyModel = new LobbyInfo(mapName, serverName, maxPlayers, playersPerTeam, getID());
     }
     
     @Override
