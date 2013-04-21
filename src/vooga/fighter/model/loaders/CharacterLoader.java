@@ -67,11 +67,12 @@ public class CharacterLoader extends ObjectLoader {
 			Element attack = (Element) attackNodes.item(i);
 			String attackName = getAttributeValue(attackNodes.item(i), "attackName");
 			int attackDmg = Integer.parseInt(getAttributeValue(attackNodes.item(i), "damage"));
+			int attackDuration = Integer.parseInt(getAttributeValue(attackNodes.item(i), "duration"));
 			NodeList frameNodes = attack.getElementsByTagName("frame");
 			AttackObject newAttack = new AttackObject();
 			State newState = new State(myChar, frameNodes.getLength());
 			newAttack.addProperty(ModelConstants.ATTACK_PROPERTY_POWER, attackDmg);
-			newAttack.setCounter(5);//hardcoded 5 as test case, will remove
+			newAttack.addProperty(ModelConstants.ATTACK_PROPERTY_DURATION, attackDuration);
 			getImageAndHitboxProperties(frameNodes, newState);
 			newAttack.addState(attackName, newState);
 			myChar.addAttack(attackName, newAttack);

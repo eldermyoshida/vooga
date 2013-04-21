@@ -29,7 +29,7 @@ public class CollisionManager {
             for (int j = i + 1; j < myObjects.size(); j++) {
                 GameObject o1 = myObjects.get(i);
                 GameObject o2 = myObjects.get(j);
-                if (o1 instanceof MapObject || o2 instanceof MapObject) {
+                if (o1 instanceof MapObject || o2 instanceof MapObject|| o1 instanceof AttackObject || o2 instanceof AttackObject) {
                     continue;
                 }
                 if (o1.getCurrentState().getCurrentRectangle()
@@ -84,16 +84,6 @@ public class CollisionManager {
      * Handles collisions between two attack objects.
      */
     public void collide(AttackObject o1, AttackObject o2) {
-    	if (o1.getCurrentState().hasPriority(o2.getCurrentState())){
-    		o2.endCounter();
-    	}
-    	else if(o2.getCurrentState().hasPriority(o1.getCurrentState())){
-    		o1.endCounter();
-    	}
-    	else{
-    		o1.endCounter();
-    		o2.endCounter(); 
-    	}
         System.out.println("CollisionManager: Two AttackObjects collided!");
     }
     

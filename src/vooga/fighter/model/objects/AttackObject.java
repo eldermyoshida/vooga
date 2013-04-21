@@ -8,6 +8,7 @@ import vooga.fighter.model.ModelConstants;
 import vooga.fighter.model.utils.Counter;
 import vooga.fighter.model.utils.Effect;
 import vooga.fighter.model.utils.UpdatableLocation;
+import util.Vector;
 
 /**
  * Object that can inflict damage on other moveable game objects
@@ -37,10 +38,14 @@ public class AttackObject extends GameObject{
     	addProperty(ModelConstants.ATTACK_PROPERTY_SPEED, other.getProperty(ModelConstants.ATTACK_PROPERTY_SPEED));
     	addProperty(ModelConstants.ATTACK_PROPERTY_DIRECTION, other.getProperty(ModelConstants.ATTACK_PROPERTY_DIRECTION));
     	addProperty(ModelConstants.ATTACK_PROPERTY_POWER, other.getProperty(ModelConstants.ATTACK_PROPERTY_POWER));
-        this.myEffects = other.myEffects;
+    	addProperty(ModelConstants.ATTACK_PROPERTY_DURATION, other.getProperty(ModelConstants.ATTACK_PROPERTY_DURATION));
+    	this.myEffects = other.myEffects;
         this.myOwner = other.myOwner;
-        this.myCounter = new Counter(other.myCounter);   
+        this.myCounter = new Counter(getProperty(ModelConstants.ATTACK_PROPERTY_DURATION));   
     	setLocation(center);
+        setImageData(); 
+    	
+
     }
     
     /**
@@ -53,13 +58,23 @@ public class AttackObject extends GameObject{
         myLocation.setLocation(newLocation);
     }
     
+    
     /**
      * Updates the attack object.
      */
     public void update(){
     	super.update();
     	myCounter.decrementCounter();
+    	move(); 
     }
+    
+    /**
+     * 
+     */
+    public void move(){
+    	getLocation().translate(new Vector(getProperty(ModelConstants.ATTACK_PROPERTY_DIRECTION), getProperty(ModelConstants.ATTACK_PROPERTY_SPEED)));
+    }
+    
     /**
      * Adds an effect to myEffects
      */

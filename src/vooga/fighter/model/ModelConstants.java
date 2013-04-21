@@ -12,5 +12,6 @@ public class ModelConstants {
     public static final String ATTACK_PROPERTY_POWER = "power";
     public static final String ATTACK_PROPERTY_SPEED = "speed";
     public static final String ATTACK_PROPERTY_DIRECTION = "direction";
+    public static final String ATTACK_PROPERTY_DURATION = "duration";
     
 }
