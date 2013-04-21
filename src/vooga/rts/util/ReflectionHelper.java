@@ -158,6 +158,18 @@ public class ReflectionHelper {
         return setValue(toSet, object, value);
     }
 
+    /**
+     * Changes the value of a property by a certain amount. This makes it easier to increase
+     * or decrease values by a certain amount. <br />
+     * 
+     * Right now it supports only Integers and Doubles <br />
+     * It basically replaces setValue with a getValue and a modification.
+     * 
+     * @param property The property to change
+     * @param object The object to change the value of
+     * @param value How much to change the value by.
+     * @return Whether it was able to change the value.
+     */
     public static <T extends Number> boolean changeValue (String property, Object object, T value) {
         Field toSet = getField(property, object);
         Number val = (Number) getValue(toSet, object);
