@@ -1,7 +1,6 @@
 package vooga.rts.gamedesign.sprite.gamesprites.interactive.units;
 
 import java.awt.Dimension;
-
 import vooga.rts.gamedesign.sprite.gamesprites.GameEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.Resource;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.IGatherable;
@@ -10,6 +9,7 @@ import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
+
 
 /**
  * This class represents a worker who will be able to gather resources
@@ -87,4 +87,5 @@ public class Worker extends Unit {
 		myGatherStrategy = new CanGather(DEFUALT_GATHER_INTERVAL,
 				myGatherAmount);
 	}
+
 }
