@@ -71,10 +71,12 @@ public class MenuMode extends Mode {
     	myChoice = choice;
     }
     
-    public String getChoice(){
-    	String choice = myChoice;
+    public void resetChoice(){
     	myChoice = "";
-    	return choice;
+    }
+    
+    public String peekChoice (){
+    	return myChoice;
     }
 
 }

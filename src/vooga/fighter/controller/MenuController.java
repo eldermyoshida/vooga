@@ -17,6 +17,7 @@ import vooga.fighter.util.Paintable;
 import vooga.fighter.view.Canvas;
 
 import java.awt.Dimension;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -47,6 +48,7 @@ public abstract class MenuController extends Controller {
        
     	DisplayLoopInfo LoopInfo =  new DisplayLoopInfo(super.getMode());
     	setLoopInfo(LoopInfo);
+    	myEndConditions = new ArrayList<ModeCondition>();
     	setupConditions();
     }
     
@@ -83,7 +85,7 @@ public abstract class MenuController extends Controller {
     
     ModeCondition endcondition = new ModeCondition() {
     	public boolean checkCondition(Mode mode) {
-			return !"".equals(getMode().getChoice());
+			return !("".equals(getMode().peekChoice()));
     	}
     };
     

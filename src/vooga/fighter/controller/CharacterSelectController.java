@@ -48,6 +48,7 @@ public class CharacterSelectController extends MenuController {
      */
     public void notifyEndCondition(String choice) {
     	getGameInfo().addCharacters(choice);
+    	getMode().resetChoice();
     	myCharIndex ++;
     	if(myCharIndex >= myCharLimit){
     	removeListener();
@@ -66,7 +67,7 @@ public class CharacterSelectController extends MenuController {
     
     public void checkConditions(){
     	for(ModeCondition condition: getConditions())
-    		if(condition.checkCondition(getMode())) notifyEndCondition(getMode().getChoice());
+    		if(condition.checkCondition(getMode())) notifyEndCondition(getMode().peekChoice());
     }
 
 }

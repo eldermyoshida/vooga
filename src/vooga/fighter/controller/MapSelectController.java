@@ -43,6 +43,7 @@ public class MapSelectController extends MenuController {
      */
     public void notifyEndCondition(String choice) {
     	removeListener();
+    	getMode().resetChoice();
 		getGameInfo().setMapName(choice);
 		getManager().notifyEndCondition(getMode().getMenusNext(choice));
     	}
@@ -59,7 +60,7 @@ public class MapSelectController extends MenuController {
    
     public void checkConditions(){
     	for(ModeCondition condition: getConditions())
-    		if(condition.checkCondition(getMode())) notifyEndCondition(getMode().getChoice());
+    		if(condition.checkCondition(getMode())) notifyEndCondition(getMode().peekChoice());
     }
 
 }

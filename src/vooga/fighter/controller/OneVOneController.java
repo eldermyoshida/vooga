@@ -5,6 +5,7 @@ package vooga.fighter.controller;
 import java.util.List;
 import util.input.*;
 import vooga.fighter.model.objects.CharacterObject;
+import vooga.fighter.model.objects.MouseClickObject;
 import vooga.fighter.view.Canvas;
 import vooga.fighter.view.FourPlayerMatchGameLayout;
 
@@ -89,6 +90,12 @@ public class OneVOneController extends LevelController {
     @InputMethodTarget(name = "player2_attack")
     public void playerTwoAttacknput(AlertObject alObj) {
     	getInputObjects().get(1).attack("weakPunch");
+    }
+    
+    @InputMethodTarget(name = "continue")
+    public void mouseclick(PositionObject pos)  {
+    	//This is a test
+    	getInputObjects().get(1).changeHealth(-10);
     }
     
     public void removeListener(){

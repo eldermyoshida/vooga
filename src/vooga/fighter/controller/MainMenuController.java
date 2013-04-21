@@ -24,6 +24,9 @@ import java.util.ResourceBundle;
  * 
  * @author Jack Matteucci
  * 
+ * This is a great class to reference when trying to understand how to extend the
+ * menu controller hierarchy
+ * 
  */
 @InputClassTarget
 public class MainMenuController extends MenuController {
@@ -49,6 +52,7 @@ public class MainMenuController extends MenuController {
     @Override
     public void notifyEndCondition(String choice) {
         removeListener();
+        getMode().resetChoice();
         getManager().notifyEndCondition(getMode().getMenusNext(choice));
     }
 
@@ -64,8 +68,9 @@ public class MainMenuController extends MenuController {
     }
     
     public void checkConditions(){
-    	for(ModeCondition condition: getConditions())
-    		if(condition.checkCondition(getMode())) notifyEndCondition(getMode().getChoice());
+    	for(ModeCondition condition: getConditions()){
+    		if(condition.checkCondition(getMode())) notifyEndCondition(getMode().peekChoice());
+    }
     }
 
 }

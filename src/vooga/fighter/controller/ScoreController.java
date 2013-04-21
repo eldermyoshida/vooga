@@ -45,10 +45,10 @@ public class ScoreController extends MenuController {
      */
     public void notifyEndCondition(String choice) {
     	removeListener();
+    	getMode().resetChoice();
     	getGameInfo().getCharacters().clear();
     	System.out.println("<scorecontroller> " + choice);
-    	getManager().notifyEndCondition(choice);
-    	//getManager().notifyEndCondition(getMode().getMenusNext(choice));
+    	getManager().notifyEndCondition(getMode().getMenusNext(choice));
         }
 
     
@@ -64,7 +64,8 @@ public class ScoreController extends MenuController {
     }
 
     public void checkConditions(){
-    	String choice = getMode().getChoice();
-    	if(!choice.equals("")) notifyEndCondition(choice);
+    	for(ModeCondition condition: getConditions()){
+    		if(condition.checkCondition(getMode())) notifyEndCondition(getMode().peekChoice());
+    }
     }
 }
