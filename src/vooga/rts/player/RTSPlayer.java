@@ -1,7 +1,9 @@
-package vooga.rts.networking.client.lobby;
+package vooga.rts.player;
+
+import vooga.rts.networking.client.lobby.Player;
 
 public class RTSPlayer extends Player {
-    
+    //TODO: get this up to sync with new player type
     private String myFaction;
     
     public RTSPlayer (String name, String faction) {
