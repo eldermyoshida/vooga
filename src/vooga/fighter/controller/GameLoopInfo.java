@@ -91,6 +91,7 @@ public class GameLoopInfo extends DisplayLoopInfo implements ViewDataSource{
         myHealthStats = currentMode.getHealth();
         for (int i = 0; i < myHealthStats.size(); i++) {
             myPlayerStats.get(i).setHealth(myHealthStats.get(i));
+            System.out.println(myPlayerStats.get(i).getHealth().getHealth());
         }
     }
     

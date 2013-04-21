@@ -65,12 +65,19 @@ public class LevelMode extends Mode {
         loadAttacks();
         removeAppropriateObjects();
         handleCollisions();
+        updateHealth();
         List<GameObject> myObjects = getMyObjects();
         for (GameObject object : myObjects) {
             object.update();
         }
         for (GameObject object : myObjects) {
             object.updateState();
+        }
+    }
+    
+    public void updateHealth() {
+        for (int i =0; i < myCharacterObjects.size(); i++) {
+            myHealthStats.set(i, myCharacterObjects.get(i).getHealth());
         }
     }
 
