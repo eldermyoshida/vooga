@@ -5,6 +5,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import vooga.fighter.model.ModelConstants;
 import vooga.fighter.model.objects.AttackObject;
 import vooga.fighter.model.objects.CharacterObject;
 import vooga.fighter.model.utils.State;
@@ -37,7 +38,7 @@ public class CharacterLoader extends ObjectLoader {
 	 * Loads the character associated with the id
 	 * @param charId is the id of the character to be loaded
 	 */
-	public void load(String charName) {
+	protected void load(String charName) {
 		Document doc = getDocument();
 		NodeList charNodes = doc.getElementsByTagName("character");
 
@@ -66,10 +67,12 @@ public class CharacterLoader extends ObjectLoader {
 			Element attack = (Element) attackNodes.item(i);
 			String attackName = getAttributeValue(attackNodes.item(i), "attackName");
 			int attackDmg = Integer.parseInt(getAttributeValue(attackNodes.item(i), "damage"));
+			int attackDuration = Integer.parseInt(getAttributeValue(attackNodes.item(i), "duration"));
 			NodeList frameNodes = attack.getElementsByTagName("frame");
 			AttackObject newAttack = new AttackObject();
 			State newState = new State(myChar, frameNodes.getLength());
-			newAttack.setPower(attackDmg);
+			newAttack.addProperty(ModelConstants.ATTACK_PROPERTY_POWER, attackDmg);
+			newAttack.addProperty(ModelConstants.ATTACK_PROPERTY_DURATION, attackDuration);
 			getImageAndHitboxProperties(frameNodes, newState);
 			newAttack.addState(attackName, newState);
 			myChar.addAttack(attackName, newAttack);

@@ -24,6 +24,9 @@ public class CharacterObject extends GameObject {
     private List<Effect> myActiveEffects;
     private Health myHealth; 
     private List<AttackObject> currentAttacks; 
+    private boolean facingRight;  
+    private int movingDirection; 
+    private static final int MOVE_BACK_AMOUNT=-2; 
     
     /**
      * Constructs a new CharacterObject.
@@ -33,6 +36,7 @@ public class CharacterObject extends GameObject {
         myAttacks = new HashMap<String, AttackObject>();
         myActiveEffects = new ArrayList<Effect>();
         myHealth = new Health();
+        facingRight= true;  
         currentAttacks= new ArrayList<AttackObject>();
         setLoader(new CharacterLoader(charName, this));
         setCurrentState("stand");
@@ -50,9 +54,13 @@ public class CharacterObject extends GameObject {
         super.update();
         for (Effect effect : myActiveEffects) {
             effect.update();
-        }       
+        } 
     }
     
+    /**
+     * Calls GameObject's updateState() method as well as sets the default state to stand
+     * if no other state actions are going on.
+     */
     public void updateState() {
         super.updateState();
         if (getCurrentState().hasCompleted()) {
@@ -143,9 +151,7 @@ public class CharacterObject extends GameObject {
      */
     public void attack(String attack) {
         setCurrentState("weakPunch");
-        if (myAttacks.containsKey(attack)) {
-            currentAttacks.add(new AttackObject(myAttacks.get(attack), getLocation()));
-        }
+        currentAttacks.add(new AttackObject(myAttacks.get(attack), getLocation()));
     }
 
     /**
@@ -153,14 +159,29 @@ public class CharacterObject extends GameObject {
      */
     public void move(int direction) {
         setCurrentState("moveRight");
+        movingDirection=direction;
         getLocation().translate(new Vector(direction, getProperty("speed")));
     }
 
     /**
+     * Makes the character move back if it runs into another character or environmentobject
+     */
+    public void moveBack(){
+    	getLocation().translate(new Vector(movingDirection, MOVE_BACK_AMOUNT*getProperty("speed")));
+    }
+
+    /**
+     * Gets the direction the character is moving
+     */
+    public int getMovingDirection(){
+    	return movingDirection;
+    }
+    
+    /**
      * Will add jump method
      */
     public void jump() {        
-
+    	//TODO: Add acceleration 
     } 
     
     /**
@@ -171,7 +192,28 @@ public class CharacterObject extends GameObject {
     }
     
     /**
-     * returns list of all attackObjects
+     * Checks to see if character is facing right
+     */
+    public boolean isFacingRight(){
+    	return facingRight; 
+    }
+    
+    /**
+     * Sets the character to face left 
+     */
+    public void faceLeft(){
+    	facingRight=false; 
+    }
+    
+    /**
+     * Sets the character to face right 
+     */
+    public void faceRight(){
+    	facingRight=true; 
+    }
+    
+    /**
+     * Returns list of all attackObjects
      */
     public List<AttackObject> getAttackObjects(){
     	return currentAttacks; 
@@ -208,5 +250,4 @@ public class CharacterObject extends GameObject {
         System.out.println("CharacterObject handleCollision : Character collided with environment");
     }
     
-
 }

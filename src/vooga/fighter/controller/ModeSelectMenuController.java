@@ -29,16 +29,18 @@ import java.util.ResourceBundle;
 @InputClassTarget
 public class ModeSelectMenuController extends MenuController {
 	
+    private static final String FILE_NAME = "vooga.fighter.config.ModeCharacterNumbers";
     private ResourceBundle myResources;
     
-    public ModeSelectMenuController (String name, Canvas frame) {
-        super(name, frame);
+    public ModeSelectMenuController () {
+        super();
+        myResources = ResourceBundle.getBundle(FILE_NAME);
+
     }
         
-    public ModeSelectMenuController(String name, Canvas frame, ControllerDelegate manager, 
+    public void initializeRest(Canvas frame, ControllerDelegate manager, 
                 GameInfo gameinfo) {
-        super(name, frame, manager, gameinfo);
-        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "LevelConfig");
+        super.initializeRest(frame, manager, gameinfo);
     }
     /**
      * Checks this controller's end conditions
@@ -46,33 +48,24 @@ public class ModeSelectMenuController extends MenuController {
     
     public void notifyEndCondition(String choice) {
     	removeListener();
-    	if(EXIT.equals(choice)){
-    		getManager().exit();
-    	}
-    	else if(BACK.equals(choice)){
-    		getManager().notifyEndCondition(BACK);
-    	}
-    	else { //if(getMode().getMenuNames().contains(choice)){
     		getGameInfo().setGameMode(choice);
-    		getGameInfo().setNumCharacters(2);//Integer.parseInt(myResources.getString(choice)));
-    		getManager().notifyEndCondition(NEXT);
-    		}
-    	}
-    
-    @Override
-    public Controller getController (ControllerDelegate delegate, GameInfo gameinfo) {
-        return new ModeSelectMenuController(super.getName(), super.getView(),
-                                   delegate, gameinfo);
+    		getGameInfo().setNumCharacters(Integer.parseInt(myResources.getString(choice)));    		
+    		getManager().notifyEndCondition(getMode().getMenusNext(choice));
+    		
     }
-    
     @InputMethodTarget(name = "continue")
     public void mouseclick(PositionObject pos)  {
         super.getMode().addObject(new MouseClickObject(pos.getPoint2D()));
-        notifyEndCondition("test");
     }
     
     public void removeListener(){
     	super.removeListener();
     	getInput().removeListener(this);
     }
+    
+    public void checkConditions(){
+    	String choice = getMode().getChoice();
+    	if(!choice.equals("")) notifyEndCondition(choice);
+    }
+
 }

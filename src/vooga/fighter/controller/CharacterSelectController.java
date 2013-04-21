@@ -32,50 +32,41 @@ public class CharacterSelectController extends MenuController {
 	private int myCharIndex;
 	private Input myInput;
 
-    public CharacterSelectController (String name, Canvas frame) {
-        super(name, frame);
+    public CharacterSelectController () {
+        super();
     }
         
-    public CharacterSelectController(String name, Canvas frame, ControllerDelegate manager, 
+    public void initializeRest(Canvas frame, ControllerDelegate manager, 
                 GameInfo gameinfo) {
-        super(name, frame, manager, gameinfo);
+        super.initializeRest(frame, manager, gameinfo);
         myCharLimit = getGameInfo().getNumCharacters();
         myCharIndex = 0;
     }
 
-    @Override
-    public Controller getController (ControllerDelegate delegate, GameInfo gameinfo) {
-        return new CharacterSelectController(super.getName(), super.getView(),
-                                   delegate, gameinfo);
-    }
-
-    /**
-     * Checks this controller's end conditions
-     */
-    public void notifyCharacterSelection(String character) {
-        //myGameInfo.addCharacters(character);
-    }
     /**
      * Checks this controller's end conditions
      */
     public void notifyEndCondition(String choice) {
-
     	getGameInfo().addCharacters(choice);
     	myCharIndex ++;
     	if(myCharIndex >= myCharLimit){
     	removeListener();
-        getManager().notifyEndCondition(NEXT);
+        getManager().notifyEndCondition(getMode().getMenusNext(choice));
     	}
     } 
     
     @InputMethodTarget(name = "continue")
     public void mouseclick(PositionObject pos)  {
         super.getMode().addObject(new MouseClickObject(pos.getPoint2D()));
-        notifyEndCondition(getMode().getMenuNames().get(0));
     }
     public void removeListener(){
     	super.removeListener();
     	getInput().removeListener(this);
+    }
+    
+    public void checkConditions(){
+    	String choice = getMode().getChoice();
+    	if(!choice.equals("")) notifyEndCondition(choice);
     }
 
 }

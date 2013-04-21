@@ -3,7 +3,6 @@ package vooga.fighter.model;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
-import vooga.fighter.controller.ModelDelegate;
 import vooga.fighter.model.objects.CharacterObject;
 import vooga.fighter.model.objects.GameObject;
 import vooga.fighter.model.objects.MenuObject;
@@ -16,13 +15,13 @@ public class MenuMode extends Mode {
     private List<MenuObject> myMenuObjects;
     private MouseClickObject myMouseClick;
     private MenuGrid myMenuGrid;
-    private ModelDelegate myDelegate;
-    private MenuCollisionManager myCollisionManager = new MenuCollisionManager();
+    private CollisionManager myCollisionManager = new CollisionManager();
+    private String myChoice;
 
-    public MenuMode (ModelDelegate delegate, String menuId) {
-        super(delegate);
-        myDelegate = delegate;
+    public MenuMode (String menuId) {
+        super();
         myMenuId = menuId;
+        myChoice = "";
     }
 
     @Override
@@ -41,7 +40,7 @@ public class MenuMode extends Mode {
 
     @Override
     public void initializeMode () {
-        myMenuGrid = new MenuGrid(myMenuId, myDelegate);
+        myMenuGrid = new MenuGrid(myMenuId, this);
         myMenuObjects = myMenuGrid.getMenuObjects();
         for (MenuObject menu : myMenuObjects) {
             addObject(menu);
@@ -49,16 +48,16 @@ public class MenuMode extends Mode {
     }
 
     public void handleCollisions() {
-        //myCollisionManager.checkCollisions(getMyObjects());
+        myCollisionManager.checkCollisions(getMyObjects());
     }
 
-    public List<String> getMenuNames(){
-    	List list = new ArrayList<String>();
+    public String getMenusNext(String value){
     	for(MenuObject menu : myMenuObjects){
-    		list.add(menu.getChoice());
+    		if(menu.getValue().equals(value)) return menu.getNext(); 
     	}
-    	return list;
+    	return "";
     }
+    
 
     @Override
     public void addObject (GameObject object) {
@@ -66,6 +65,16 @@ public class MenuMode extends Mode {
         if (object instanceof MouseClickObject) {
             myMouseClick = (MouseClickObject) object;
         }
+    }
+    
+    public void setChoice (String choice){
+    	myChoice = choice;
+    }
+    
+    public String getChoice(){
+    	String choice = myChoice;
+    	myChoice = "";
+    	return choice;
     }
 
 }

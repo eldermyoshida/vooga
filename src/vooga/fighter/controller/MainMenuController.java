@@ -30,40 +30,42 @@ public class MainMenuController extends MenuController {
 	
     private ResourceBundle myResources;
     
-    public MainMenuController (String name, Canvas frame) {
-        super(name, frame);
+    public MainMenuController () {
+        super();
     }
-        
-    public MainMenuController(String name, Canvas frame, ControllerDelegate manager, 
-                GameInfo gameinfo) {
-        super(name, frame, manager, gameinfo);
-
+    
+    @Override
+    public void initializeRest(Canvas frame, ControllerDelegate manager, 
+                           GameInfo gameinfo) {
+        super.initializeRest(frame, manager, gameinfo);
+        getGameInfo().reset();
         setInput(manager.getInput());
         getInput().addListenerTo(this);
 
-        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "LevelConfig");
     }
     /**
      * Checks this controller's end conditions
      */
+    @Override
     public void notifyEndCondition(String choice) {
         removeListener();
-        getManager().notifyEndCondition(NEXT);
+        getManager().notifyEndCondition(getMode().getMenusNext(choice));
     }
 
-    @Override
-    public Controller getController (ControllerDelegate delegate, GameInfo gameinfo) {
-        return new MainMenuController(super.getName(), super.getView(),
-                                   delegate, gameinfo);
-    }
-    
+  
     @InputMethodTarget(name = "continue")
     public void mouseclick(PositionObject pos)  {
         super.getMode().addObject(new MouseClickObject(pos.getPoint2D()));
-        notifyEndCondition("asdfdf");
     }
+    
     public void removeListener(){
     	super.removeListener();
     	getInput().removeListener(this);
     }
+    
+    public void checkConditions(){
+    	String choice = getMode().getChoice();
+    	if(!choice.equals("")) notifyEndCondition(choice);
+    }
+
 }

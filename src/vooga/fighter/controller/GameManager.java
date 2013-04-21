@@ -46,7 +46,7 @@ public static final Dimension SIZE = new Dimension(800, 600);
         myGameInfo = new GameInfo(new MapLoader().getMapNames());
         //myGameInfo.setHighScores(getArcade().getHighScores(THREE_TOP_HIGH_SCORES));
         ControllerFactory factory = makeFactory(myCanvas);
-        ControlProgressionManager progressionmanager = new ControlProgressionManager(myGameInfo);
+        ControlProgressionManager progressionmanager = new ControlProgressionManager(factory.getMap());
         myControllerManager = new ControllerManager(myCanvas, myGameInfo, factory, progressionmanager);
         JFrame frame = new JFrame(TITLE);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

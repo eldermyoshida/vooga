@@ -11,6 +11,7 @@ import vooga.fighter.controller.ControllerDelegate;
 import vooga.fighter.controller.GameInfo;
 import vooga.fighter.controller.OneVOneController;
 import vooga.fighter.model.*;
+import vooga.fighter.model.objects.CharacterObject;
 import vooga.fighter.model.objects.MouseClickObject;
 import vooga.fighter.util.Paintable;
 import vooga.fighter.view.Canvas;
@@ -29,14 +30,17 @@ import java.util.ResourceBundle;
 public abstract class MenuController extends Controller {
 
     private static final String INPUT_PATHWAY = "vooga.fighter.config.menudefault";
+    private List<ModeCondition> myEndConditions;
 
-    public MenuController (String name, Canvas frame) {
-        super(name, frame);
+    public MenuController () {
+        super();
     }
-	
-    public MenuController(String name, Canvas frame, ControllerDelegate manager, 
+    
+    
+    @Override
+    public void initializeRest(Canvas frame, ControllerDelegate manager, 
     		GameInfo gameinfo) {
-    	super(name, frame, manager, gameinfo);
+    	super.initializeRest(frame, manager, gameinfo);
         setInput(manager.getInput());
         getInput().replaceMappingResourcePath(INPUT_PATHWAY);
         getInput().addListenerTo(this);
@@ -45,7 +49,7 @@ public abstract class MenuController extends Controller {
     }
     
     public void loadMode() {
-        Mode mode = new MenuMode(this, super.getName());
+        Mode mode = new MenuMode(super.getName());
         super.setMode(mode);
     }
     
@@ -53,10 +57,30 @@ public abstract class MenuController extends Controller {
     	return (MenuMode) super.getMode();
     }
     
+    public Controller getController() {
+        return this;
+    }
+    
     public void removeListener(){
     	super.removeListener();
     	getInput().removeListener(this);
     }
+    
+    protected void addEndCondition(ModeCondition condition){
+    	myEndConditions.add(condition);
+    }
+    
+    
+    public void setupConditions(){
+    	addEndCondition(endcondition);
+    }
+    
+    ModeCondition endcondition = new ModeCondition() {
+    	public boolean checkCondition(Mode mode) {
+			return false;
+    	}
+    };
+    
     
 
 }

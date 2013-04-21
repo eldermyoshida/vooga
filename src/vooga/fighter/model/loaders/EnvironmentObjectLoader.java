@@ -33,7 +33,7 @@ public class EnvironmentObjectLoader extends ObjectLoader {
 	/**
 	 * Loads the environment object associated with the id
 	 */
-	public void load(String enviroObjectName) {
+	protected void load(String enviroObjectName) {
 		Document doc = getDocument();
 		NodeList enviroObjectNodes = doc.getElementsByTagName(getResourceBundle().getString("EnvironmentObject"));
 		for (int i = 0; i < enviroObjectNodes.getLength(); i++) {

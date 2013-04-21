@@ -31,14 +31,13 @@ public class ScoreController extends MenuController {
         
     private ResourceBundle myResources;
     
-    public ScoreController (String name, Canvas frame) {
-        super(name, frame);
+    public ScoreController () {
+        super();
     }
         
-    public ScoreController(String name, Canvas frame, ControllerDelegate manager, 
+    public void initializeRest(Canvas frame, ControllerDelegate manager, 
                 GameInfo gameinfo) {
-        super(name, frame, manager, gameinfo);
-        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "LevelConfig");
+        super.initializeRest(frame, manager, gameinfo);
     }
     
     /**
@@ -46,29 +45,26 @@ public class ScoreController extends MenuController {
      */
     public void notifyEndCondition(String choice) {
     	removeListener();
-        if(EXIT.equals(choice)){
-        	getManager().exit();
-        }
-        if(BACK.equals(choice)) {
-        	getManager().notifyEndCondition(BACK);
-        }
-        else if (getMode().getMenuNames().contains(choice)){
-                getGameInfo().setGameMode(choice);
-                getGameInfo().setNumCharacters(Integer.parseInt(myResources.getString(choice)));
-                getManager().notifyEndCondition(NEXT);
-                }
+    	getGameInfo().getCharacters().clear();
+    	System.out.println("<scorecontroller> " + choice);
+    	getManager().notifyEndCondition(choice);
+    	//getManager().notifyEndCondition(getMode().getMenusNext(choice));
         }
 
-
-
-    @Override
-    public Controller getController (ControllerDelegate delegate, GameInfo gameinfo) {
-        return new MainMenuController(super.getName(), super.getView(),
-                                   delegate, gameinfo);
+    
+    @InputMethodTarget(name = "continue")
+    public void mouseclick(PositionObject pos)  {
+        super.getMode().addObject(new MouseClickObject(pos.getPoint2D()));
     }
+    
 
     public void removeListener(){
     	super.removeListener();
     	getInput().removeListener(this);
+    }
+
+    public void checkConditions(){
+    	String choice = getMode().getChoice();
+    	if(!choice.equals("")) notifyEndCondition(choice);
     }
 }

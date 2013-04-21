@@ -53,20 +53,25 @@ public abstract class Effect {
     }
     
     /**
-     * Creates a clone of this effect. The clone should be a deep copy.
-     */
-    public abstract Effect getCloneOfEffect();    
-    
-    /**
-     * Applies the effect to its targets for one game loop cycle. This method should
-     * be overridden by subclasses, and should call the superclass method after
-     * handling its own updates.   
+     * Updates the counter of the effect and calls applyEffect().
      */
     public void update() {
+        applyEffect();
         myCounter.decrementCounter();
         if (!myCounter.hasCountRemaining()) {
             myOwner.removeActiveEffect(this);
         }
     }
+    
+    /**
+     * Applies the effect to its target. Overridden in subclasses.
+     */
+    public abstract void applyEffect();
 
+    
+    /**
+     * Creates a clone of this effect. The clone should be a deep copy.
+     */
+    public abstract Effect getCloneOfEffect();    
+    
 }

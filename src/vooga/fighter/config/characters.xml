@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <objects>
-    <character charID="Ken" charName="Ken" charIcon="ryuicon.png" maxHealth="100" movespeed="15">
+    <character charID="Ryu" charName="Ryu" charIcon="ryuicon.png" maxHealth="100" movespeed="15">
         <state stateName="stand">
             <frame image="fighter/images/ryu_stand1.png">
                 <hitbox cornerX="10" cornerY="3" rectX="28" rectY="78"/>
@@ -40,19 +40,19 @@
                 <hitbox cornerX="10" cornerY="3" rectX="35" rectY="78"/>
             </frame>
         </state>
-        <attack attackName="weakPunch" damage="5">
-            <frame>
+        <attack attackName="weakPunch" damage="5" duration="20">
+            <frame image="fighter/images/ken_punch1.png">
                 <hitbox cornerX="35" cornerY="14" rectX="10" rectY="10"/>
             </frame>
-            <frame>
+            <frame image="fighter/images/ken_punch1.png">
                 <hitbox cornerX="35" cornerY="14" rectX="26" rectY="10"/>
             </frame>
-            <frame>
+            <frame image="fighter/images/ken_punch1.png">
                 <hitbox cornerX="35" cornerY="14" rectX="10" rectY="10"/>
             </frame>
         </attack>
     </character>
-    <character charID="Ryu" charName="Ryu" charIcon="kenicon.png" maxHealth="100" movespeed="15">
+    <character charID="Ken" charName="Ken" charIcon="kenicon.png" maxHealth="100" movespeed="15">
         <state stateName="stand">
             <frame image="fighter/images/ken_stand1.png">
                 <hitbox cornerX="10" cornerY="3" rectX="28" rectY="78"/>
@@ -92,14 +92,14 @@
                 <hitbox cornerX="10" cornerY="3" rectX="35" rectY="78"/>
             </frame>
         </state>
-        <attack attackName="weakPunch" damage="5">
+        <attack attackName="weakPunch" damage="5" duration="20">
             <frame image="fighter/images/ken_punch1.png">
                 <hitbox cornerX="35" cornerY="14" rectX="10" rectY="10"/>
             </frame>
-            <frame>
+            <frame image="fighter/images/ken_punch1.png">
                 <hitbox cornerX="35" cornerY="14" rectX="26" rectY="10"/>
             </frame>
-            <frame>
+            <frame image="fighter/images/ken_punch1.png">
                 <hitbox cornerX="35" cornerY="14" rectX="10" rectY="10"/>
             </frame>
         </attack>

@@ -49,7 +49,7 @@ public class MapLoader extends ObjectLoader {
 	 * Loads map from xml data
 	 * @param mapName to be loaded
 	 */
-	public void load(String mapName) {
+	protected void load(String mapName) {
 		Document doc = getDocument();
 		NodeList mapNodes = doc.getElementsByTagName(getResourceBundle().getString("Map"));
 		
@@ -105,6 +105,7 @@ public class MapLoader extends ObjectLoader {
 			int yCoord= Integer.parseInt(getAttributeValue(enviroObjectNode, getResourceBundle().getString("YCoordinate")));
 			EnvironmentObject newEnvironmentObject= new EnvironmentObject(getAttributeValue(enviroObjectNode,
 					getResourceBundle().getString("EnvironmentObjectName")), new UpdatableLocation(xCoord, yCoord));
+			myMap.addEnviroObject(newEnvironmentObject);
 		}
 	}
 }

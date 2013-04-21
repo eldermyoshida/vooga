@@ -26,7 +26,7 @@ import javax.swing.Timer;
  *
  */
 
-public abstract class Controller implements ModelDelegate {
+public abstract class Controller{
     public static final String DEFAULT_RESOURCE_PACKAGE = "vooga.fighter.config.";
 	public static final String DEFAULT_IMAGE_PACKAGE = "vooga.fighter.images.";
     public static final String NEXT = "Next";
@@ -52,19 +52,23 @@ public abstract class Controller implements ModelDelegate {
     private Mode myMode;
     private DisplayInfo myDisplayInfo;
 
-    public Controller(String name, Canvas frame){
+    public Controller(){
+    
+    }
+    
+    public void initializeName(String name) {
         myName = name;
+    }
+
+    public void initializeRest(Canvas frame, ControllerDelegate manager, GameInfo gameinfo) {
         myCanvas = frame;
         mySplashResource = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + SPLASH);
         mySplashPath = DEFAULT_IMAGE_PACKAGE+ mySplashResource.getString(CONTROL);
-    }
-
-    public Controller(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo) {
-        this(name, frame);
         myManager = manager;
         myGameInfo = gameinfo;
         loadMode();
     }
+    
     
     protected void setInput(Input input){
     	myInput = input;
@@ -128,6 +132,7 @@ public abstract class Controller implements ModelDelegate {
          myTimer = new Timer(stepTime, 
                                new ActionListener() {
             public void actionPerformed (ActionEvent e) {
+            	checkConditions();
                 myMode.update((double) stepTime / ONE_SECOND, myCanvas.getSize());
                 myDisplayInfo.update();
                 myCanvas.paint();
@@ -155,10 +160,12 @@ public abstract class Controller implements ModelDelegate {
     public void removeListener(){
     	getInput().removeListener(this);
     }
+    
+    public abstract void checkConditions();
+ 
+    public abstract void notifyEndCondition(String choice);
+    public abstract Controller getController();
 
-    public abstract Controller getController(ControllerDelegate manager, GameInfo gameinfo);
-
-//    protected abstract Input makeInput();
         
 
 

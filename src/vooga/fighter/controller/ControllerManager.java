@@ -1,3 +1,4 @@
+
 package vooga.fighter.controller;
 
 
@@ -5,13 +6,14 @@ package vooga.fighter.controller;
 import java.awt.Dimension;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import util.input.Input;
 import vooga.fighter.view.Canvas;
 /**
  * 
- * @author Jack Matteucci
+ * @author Jack Matteucci, edited by Jerry Li
  *
  */
 
@@ -19,6 +21,7 @@ public class ControllerManager implements ControllerDelegate{
         
        
 	private Map<String, Controller> myControllerMap;
+	private List<Controller> myControllerList;
 	private Controller myCurrentController;
 	private Canvas myCanvas;
 	private GameInfo myGameInfo;
@@ -33,9 +36,9 @@ public class ControllerManager implements ControllerDelegate{
 		myControllerMap = factory.getMap();
 		myGameInfo = gameinfo;
 		myProgressionManager = progressionmanager;
-		myCurrentController = myControllerMap.get(myProgressionManager.getFirstController())
-				.getController(this, myGameInfo);
-		
+		//myProgressionManager.setControllerProgression(myControllerMap);
+		myCurrentController = myProgressionManager.getNextController("MainMenu");
+		myCurrentController.initializeRest(frame, this, gameinfo);
 	}
 	
 	public void run(){
@@ -48,11 +51,12 @@ public class ControllerManager implements ControllerDelegate{
 
 	private void switchController(String condition) {
 		myCurrentController.stop();
-		myCurrentController = myControllerMap.get(myProgressionManager.getNextController(
-				myCurrentController.getName(), condition));
-		System.out.println("now the controller is: " + myCurrentController.getName() );
+		myCurrentController = myProgressionManager.getNextController(condition);
+		System.out.println("<controllermanager> now the controller is: " + myCurrentController.getName() );
 		//myCurrentController.displaySplash();
-		myCurrentController = myCurrentController.getController(this, myGameInfo);
+		myCurrentController = myCurrentController.getController();
+		myCurrentController.initializeRest(myCanvas, this, myGameInfo);
+		System.out.println("marker, controllermanager");
 		myCurrentController.start();	
 	}      
 

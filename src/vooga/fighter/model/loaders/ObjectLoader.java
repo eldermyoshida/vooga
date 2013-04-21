@@ -54,7 +54,7 @@ public abstract class ObjectLoader {
 	 * Loads object based on the name given
 	 * @param name
 	 */
-	public abstract void load(String name);
+	protected abstract void load(String name);
 
 	/**
 	 * Returns the xml document which the loader points to

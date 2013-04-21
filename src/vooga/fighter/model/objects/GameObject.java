@@ -7,7 +7,7 @@ import vooga.fighter.model.utils.ImageDataObject;
 import vooga.fighter.model.utils.State;
 import vooga.fighter.model.utils.UpdatableLocation;
 import java.awt.Dimension;
-import java.util.Collection;
+import java.awt.Rectangle;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -98,7 +98,7 @@ public abstract class GameObject {
     /**
      * Returns a state for this object. Returns null if it doesn't exist.
      */
-    public State getState(String key) {
+    protected State getState(String key) {
         if (myStates.containsKey(key)) {
             return myStates.get(key);
         } else {
@@ -118,28 +118,28 @@ public abstract class GameObject {
     /**
      * Gets the current state for this object.
      */
-    public State getCurrentState() {
+    protected State getCurrentState() {
         return myCurrentState;
     }
 
     /**
      * Clears all states.
      */
-    public void clearStates() {
+    protected void clearStates() {
         myStates.clear();
     }
     
     /**
      * Sets the object loader for this object.
      */
-    public void setLoader(ObjectLoader loader) {
+    protected void setLoader(ObjectLoader loader) {
         myLoader = loader;
     }
     
     /**
      * Returns the object loader for this object.
      */
-    public ObjectLoader getLoader() {
+    protected ObjectLoader getLoader() {
         return myLoader;
     }
     
@@ -155,6 +155,13 @@ public abstract class GameObject {
         if (!(myCurrentSize == null || myCurrentImage == null || myCenter == null)) {
             myImageData = new ImageDataObject(myCurrentImage, myCurrentLocation, myCurrentSize);
         }
+    }
+    
+    /**
+     * Sets image data to the information from an ImageDataObject
+     */
+    public void setImageData(ImageDataObject image){
+    	myImageData= new ImageDataObject(image.getMyImage(), image.getMyLocation(),image.getMySize() );
     }
     
     /**
@@ -184,8 +191,24 @@ public abstract class GameObject {
         if (myCurrentState != null) {
             myCurrentState.update();
         }
+    }    
+    
+    /**
+     * Returns true if this object is colliding with another.
+     */
+    public boolean checkCollision(GameObject other) {
+        Rectangle thisRect = getCurrentState().getCurrentRectangle(); 
+        Rectangle otherRect = other.getCurrentState().getCurrentRectangle();
+        return thisRect.intersects(otherRect);
     }
     
+    /**
+     * Returns the map of states for this object.
+     */
+    public Map<String,State> getStates(){
+        return myStates;
+    }
+ 
     /**
      * Second dispatch for collision management. Key part of the visitor pattern.
      */
@@ -206,12 +229,6 @@ public abstract class GameObject {
      */
     public abstract void handleCollision(EnvironmentObject other);
     
-    /**
-     * Returns collection of states
-     */
-    protected Collection<State> getStates(){
-    	return myStates.values();
-    }
     /**
      * Indicates whether or not the object is ready to be removed.
      */

@@ -16,14 +16,17 @@ public class GameInfo extends UserGameData{
     private String myGameMode;
     private String myMapName;
     private int myMapCount;
+    private String myModeName;
     private List<String> myCharacters;
     private Integer myNumCharacters;
     private List<Integer> myScores;
     private List<String> myMapsPlayed;
     private List<String> myMapNames;
     private HighScores myHighScores;
+    private List<String> myWinners;
+    private GameLoopInfo myGameLoopInfo;
 
-    /**
+	/**
      * Constructor
      */
     public GameInfo (List<String> mapNames) {
@@ -42,6 +45,14 @@ public class GameInfo extends UserGameData{
         myCharacters = characters;
         myMapName = map;
     }
+    
+    public void setGameLoopInfo(GameLoopInfo info) {
+        myGameLoopInfo = info;
+    }
+    
+    public void setModeName(String name) {
+        myModeName = name;
+    }
     /**
      * 
      */
@@ -54,6 +65,13 @@ public class GameInfo extends UserGameData{
      */
     public int getScore(int index) {
     	return myScores.get(index);
+    }
+    
+    public void reset(){
+    	myCharacters.clear();
+    	myMapName = null;
+    	myNumCharacters = 0;
+    	myModeName = null;
     }
     
     /**
@@ -181,4 +199,12 @@ public class GameInfo extends UserGameData{
     public HighScores getHighScores(){
     	return myHighScores;
     }
+    
+    public List<String> getWinners() {
+		return myWinners;
+	}
+
+	public void setWinners(List<String> myWinners) {
+		myWinners = myWinners;
+	}
 }

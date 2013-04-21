@@ -11,6 +11,7 @@ import vooga.fighter.util.Paintable;
 public class DisplayInfo extends Observable implements ViewDataSource{
     
     
+
     private List<Location> myLocations;
     private List<Paintable> myGamePaintables;
     private List<Paintable> myHUDPaintables;
@@ -130,4 +131,7 @@ public class DisplayInfo extends Observable implements ViewDataSource{
     public void clearHUD () {
         myHUDPaintables.clear();
     }
+
+   
+
 }

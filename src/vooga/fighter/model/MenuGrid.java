@@ -6,7 +6,6 @@ import java.util.List;
 
 import util.Location;
 import vooga.fighter.controller.GameManager;
-import vooga.fighter.controller.ModelDelegate;
 import vooga.fighter.model.loaders.MapLoader;
 import vooga.fighter.model.loaders.MenuGridLoader;
 import vooga.fighter.model.objects.MenuObject;
@@ -18,9 +17,9 @@ public class MenuGrid {
 	private int myRows;
 	private MenuObject [][] myGrid;
 	private List<MenuObject> myMenuObjects;
-	private ModelDelegate myDelegate;
+	private MenuMode myDelegate;
 	
-	public MenuGrid(String Id, ModelDelegate delegate) {
+	public MenuGrid(String Id, MenuMode delegate) {
 	        myDelegate = delegate;
 		myMenuObjects = new MenuGridLoader(Id, this, delegate).getMenuObjects();
 		myGrid = createEmptyGrid(myMenuObjects.size());
@@ -52,28 +51,30 @@ public class MenuGrid {
 	}
 	
 	private void fillGrid(List<MenuObject> list, MenuObject [][] grid, int columns, int rows){
+		int RowNumber = 0;
+		int ColumnNumber = 0;
 		for(int i = 0; i < list.size(); i ++){
-			int RowNumber = 0;
-				int ColumnNumber = i*(RowNumber) -(columns-1); 
 				if(ColumnNumber <columns){
 				grid[RowNumber][ColumnNumber] = list.get(i);
 				int xloc =  (ColumnNumber)*GameManager.SIZE.width/(columns) + GameManager.SIZE.width/(2*columns);
 				int yloc =  (RowNumber)*GameManager.SIZE.height/(rows) + GameManager.SIZE.height/(2*rows);
 				list.get(i).setLocation(new UpdatableLocation(xloc,yloc));
 				int count  = 0;
-				for(Object s : list.get(i).getStates()){
+				for(Object s : list.get(i).getStates().values()){
 					State state = (State) s;
 					Dimension size = new Dimension(GameManager.SIZE.width/(2*columns), GameManager.SIZE.height/(2*rows));
-					state.populateSize(size, count);
+					// state.populateSize(size, count);
 					Rectangle rect = new Rectangle(GameManager.SIZE.width/(2*columns), GameManager.SIZE.height/(2*rows));
 					state.populateRectangle(rect, count);
 					count ++;
 					
 				}
 				list.get(i).setImageData();
+				ColumnNumber ++;
 				}
 				else{
 					RowNumber ++;
+					ColumnNumber =0;
 				}
 			
 		}

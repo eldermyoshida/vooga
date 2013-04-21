@@ -3,9 +3,12 @@ package vooga.fighter.model.objects;
 import java.util.ArrayList;
 import java.util.List;
 
+import util.Location;
+import vooga.fighter.model.ModelConstants;
 import vooga.fighter.model.utils.Counter;
 import vooga.fighter.model.utils.Effect;
 import vooga.fighter.model.utils.UpdatableLocation;
+import util.Vector;
 
 /**
  * Object that can inflict damage on other moveable game objects
@@ -18,9 +21,6 @@ public class AttackObject extends GameObject{
     private Counter myCounter;
     private GameObject myOwner;
     private List<Effect> myEffects;
-    private int myPower;   
-    private int mySpeed;
-    private int myDirection;   
     
     /**
      * Constructs an AttackObject with the given owner.
@@ -35,22 +35,47 @@ public class AttackObject extends GameObject{
     
     public AttackObject (AttackObject other, UpdatableLocation center){
     	super();
-        this.mySpeed= other.mySpeed;
-        this.myDirection= other.myDirection; 
-        this.myPower= other.myPower; 
-        this.myEffects= other.myEffects;
-        this.myOwner= other.myOwner;
-        this.myCounter= other.myCounter;   
+    	addProperty(ModelConstants.ATTACK_PROPERTY_SPEED, other.getProperty(ModelConstants.ATTACK_PROPERTY_SPEED));
+    	addProperty(ModelConstants.ATTACK_PROPERTY_DIRECTION, other.getProperty(ModelConstants.ATTACK_PROPERTY_DIRECTION));
+    	addProperty(ModelConstants.ATTACK_PROPERTY_POWER, other.getProperty(ModelConstants.ATTACK_PROPERTY_POWER));
+    	addProperty(ModelConstants.ATTACK_PROPERTY_DURATION, other.getProperty(ModelConstants.ATTACK_PROPERTY_DURATION));
+    	this.myEffects = other.myEffects;
+        this.myOwner = other.myOwner;
+        this.myCounter = new Counter(getProperty(ModelConstants.ATTACK_PROPERTY_DURATION));   
     	setLocation(center);
+        setImageData(); 
+    	
+
     }
     
     /**
-     * Updates the attack object.
+     * Move the attack object to the position of its owner.
+     */
+    public void moveToOwner() {
+        UpdatableLocation copyLocation = myOwner.getLocation();
+        UpdatableLocation myLocation = getLocation();
+        Location newLocation = new Location(copyLocation.getLocation());
+        myLocation.setLocation(newLocation);
+    }
+    
+    
+    /**
+     * Updates the attack object by calling GameObject's update and by decreasing it's time
+     * remaining so that it can expire if its time is up.
      */
     public void update(){
     	super.update();
     	myCounter.decrementCounter();
+    	move(); 
     }
+    
+    /**
+     * Move attack object by its designated velocity
+     */
+    public void move(){
+    	getLocation().translate(new Vector(getProperty(ModelConstants.ATTACK_PROPERTY_DIRECTION), getProperty(ModelConstants.ATTACK_PROPERTY_SPEED)));
+    }
+    
     /**
      * Adds an effect to myEffects
      */
@@ -59,8 +84,7 @@ public class AttackObject extends GameObject{
     }
     
     /**
-     * 
-     * @return list of effects
+     * Returns the list of effects carried by this object.
      */
     public List<Effect> getEffects(){
     	return myEffects;
@@ -74,17 +98,11 @@ public class AttackObject extends GameObject{
     }
     
     /**
-     * Sets the damage done by the attack
-     */
-    public void setPower(int power) {
-    	myPower = power;
-    }
-    
-    /**
      * Inflicts damage upon a target player.
      */
     public int inflictDamage(CharacterObject target){
-    	return target.changeHealth(-myPower);
+        int damage = getProperty(ModelConstants.ATTACK_PROPERTY_POWER);
+    	return target.changeHealth(-damage);
     }
     
     /**
@@ -97,11 +115,12 @@ public class AttackObject extends GameObject{
         }
     }    
     
+    
     /**
-     * Sets the amount of time left in attack to zero
+     * Sets the counter to the current amount 
      */
-    public void endCounter(){
-    	myCounter.setCounter(0); 
+    public void setCounter(int amount){
+    	myCounter.setCounter(amount); 
     }
     
     /**

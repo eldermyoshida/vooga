@@ -5,6 +5,7 @@ package vooga.fighter.controller;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.Timer;
@@ -32,26 +33,32 @@ import vooga.fighter.view.Canvas;
 public abstract class LevelController extends Controller {
     private static final String INPUT_PATHWAY = "vooga.fighter.config.leveldefault";
     private List<CharacterObject> myInputObjects;
+    private List<ModeCondition> myWinConditions;
+    private List<ModeCondition> myUniqueConditions;
 
-    public LevelController (String name, Canvas frame) {
-        super(name, frame);
+    public LevelController () {
+        super();
     }
 
-    public LevelController(String name, Canvas frame, ControllerDelegate manager, 
+    public void initializeRest(Canvas frame, ControllerDelegate manager, 
                 GameInfo gameinfo) {
-        super(name, frame, manager, gameinfo);
+        super.initializeRest(frame, manager, gameinfo);
         setInput(manager.getInput());
         getInput().replaceMappingResourcePath(INPUT_PATHWAY);
         getInput().addListenerTo(this);
-        DisplayLoopInfo gameLoopInfo = new GameLoopInfo((LevelMode) getMode());
+        GameLoopInfo gameLoopInfo = new GameLoopInfo((LevelMode) getMode());
         setLoopInfo(gameLoopInfo);
+        myWinConditions =new ArrayList<ModeCondition>();
+        myUniqueConditions =new ArrayList<ModeCondition>();
+        setupConditions();
+        gameinfo.setGameLoopInfo(gameLoopInfo);
     }
 
     
     public void loadMode() {
         List<String> characterNames = getGameInfo().getCharacters();
         String mapID = getGameInfo().getMapName();
-        LevelMode temp = new LevelMode(this, characterNames, mapID);
+        LevelMode temp = new LevelMode(characterNames, mapID);
         setMode((Mode) temp);
         myInputObjects = temp.getMyCharacterObjects();
     }
@@ -60,9 +67,81 @@ public abstract class LevelController extends Controller {
     	return myInputObjects;
     }
    
+    public LevelMode getMode(){
+    	return (LevelMode) super.getMode();
+    }
+    
+    public Controller getController() {
+        return this;
+    }
    
     public void removeListener(){
     	super.removeListener();
     	getInput().removeListener(this);
     }
+    
+    protected void addWinCondition(ModeCondition condition){
+    	myWinConditions.add(condition);
+    }
+    
+    protected void addUniqueCondition(ModeCondition condition){
+    	myUniqueConditions.add(condition);
+    }
+    
+    protected List<ModeCondition> getWinConditions(){
+    	return myWinConditions;
+    }
+    
+    protected List<ModeCondition> getUniqueConditions(){
+    	return myUniqueConditions;
+    }
+    
+    public void setupConditions(){
+    	addWinCondition(new ModeCondition() {
+        	public boolean checkCondition(Mode mode) {
+        		LevelMode levelmode = (LevelMode) mode;
+    			for(CharacterObject character: levelmode.getMyCharacterObjects()){
+    				if(!character.hasHealthRemaining()) return true;
+    			}
+    			return false;
+    		}
+        });
+    	addWinCondition(new ModeCondition() {
+        	public boolean checkCondition(Mode mode) {
+        		LevelMode levelmode = (LevelMode) mode;
+    			for(CharacterObject character: levelmode.getMyCharacterObjects()){
+    				if(!character.hasHealthRemaining()) return true;
+    			}
+    			return false;
+    		}
+        });
+    }
+    
+    public void checkConditions(){
+    	for(ModeCondition condition : getWinConditions()){
+    		if(condition.checkCondition(getMode())) getManager().notifyEndCondition("ScoreScreen");
+    	}
+    }
+    
+    ModeCondition wincondition = new ModeCondition() {
+    	public boolean checkCondition(Mode mode) {
+    		LevelMode levelmode = (LevelMode) mode;
+			for(CharacterObject character: levelmode.getMyCharacterObjects()){
+				if(!character.hasHealthRemaining()) return true;
+			}
+			return false;
+		}
+    };
+    
+    ModeCondition lowhealthcondition = new ModeCondition() {
+    	public boolean checkCondition(Mode mode) {
+    		LevelMode levelmode = (LevelMode) mode;
+			for(CharacterObject character: levelmode.getMyCharacterObjects()){
+				if(!character.hasHealthRemaining()) return true;
+			}
+			return false;
+		}
+    };
+    
+    
 }
