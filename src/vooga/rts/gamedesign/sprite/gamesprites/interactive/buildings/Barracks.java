@@ -28,7 +28,7 @@ public class Barracks extends ProductionBuilding {
         super(image, center, size, sound, playerID, health);
         myInteractiveEntities = new ArrayList<InteractiveEntity>();
         initProducables();
-        addProductionActions(this);
+        addActions(this);
         setRallyPoint(new Location3D(300,400,0));
     }
     /*
@@ -38,7 +38,7 @@ public class Barracks extends ProductionBuilding {
         addProducable(new Soldier());
     }
     
-    public void addProductionActions(ProductionBuilding productionBuilding) {
+    public void addActions(ProductionBuilding productionBuilding) {
         getActions().add(new ProductionAction("soldier",null,"I maketh un soldier", productionBuilding.getWorldLocation()){
             @Override
             public void apply(int playerID) {
