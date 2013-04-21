@@ -54,12 +54,6 @@ public class CannotBeOccupied implements OccupyStrategy{
 	}
 
 	@Override
-	public void setOccupiers(ArrayList<Integer> u) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void createOccupyActions(InteractiveEntity entity) {
 		entity.addAction("be occupied!", new InteractiveAction(entity) {
 			@Override

@@ -33,8 +33,6 @@ public interface OccupyStrategy extends Strategy{
 	
 	public List<Integer> getOccupiers();
 	
-	public void setOccupiers(ArrayList<Integer> u);
-	
 	public int getMaxOccupiers();
 	
 	public int getOccupierID();

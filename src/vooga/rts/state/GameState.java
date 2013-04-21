@@ -21,6 +21,7 @@ import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Garrison;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Soldier;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Worker;
+import vooga.rts.gamedesign.state.DetectableState;
 import vooga.rts.gamedesign.strategy.production.CanProduce;
 import vooga.rts.gamedesign.weapon.Weapon;
 import vooga.rts.map.GameMap;
@@ -181,7 +182,7 @@ public class GameState extends SubState implements Controller {
 				test.restart();
 			}
 		});
-		
+
 		final Garrison testGarrison = garrison;
 		occupyPukingTest = new DelayedTask(1, new Runnable() {
 			@Override
@@ -196,7 +197,7 @@ public class GameState extends SubState implements Controller {
 	}
 
 	private void yuckyUnitUpdate (double elapsedTime) {
-		List<InteractiveEntity> p1 = myTeams.get(1).getUnits();
+		List<InteractiveEntity> p1 = getDetectableUnits(myTeams.get(1).getUnits());
 		List<InteractiveEntity> p2 = myTeams.get(2).getUnits();
 		for (InteractiveEntity u1 : p1) {
 			for (InteractiveEntity u2 : p2) {
@@ -214,6 +215,16 @@ public class GameState extends SubState implements Controller {
 		}
 		//test.update(elapsedTime);
 		occupyPukingTest.update(elapsedTime);
+	}
+
+	private List<InteractiveEntity> getDetectableUnits(List<InteractiveEntity> list) {
+		List<InteractiveEntity> result = new ArrayList<InteractiveEntity>();
+		for (InteractiveEntity i: list) {
+			if (i.getEntityState().getDetectableState().equals(DetectableState.DETECTABLE)) {
+				result.add(i);
+			}
+		}
+		return result;
 	}
 
 	public static GameMap getMap () {

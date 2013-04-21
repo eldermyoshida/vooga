@@ -281,6 +281,11 @@ public class Manager implements State, IActOn, Observer {
         }
     }
     
+    /**
+     * Finds the InteractiveEntity in myEntities based on its hash code.
+     * @param hashCode the hash code of the entity that is looking for
+     * @return the index of the entity with the hashCode
+     */
     private int findEntityWithHashCode(int hashCode) {
     	for (int i = 0; i<myEntities.size(); ++i) {
     		if (myEntities.get(i).hashCode() == hashCode) {
@@ -308,14 +313,9 @@ public class Manager implements State, IActOn, Observer {
             				DETECTABLE)) {
         		myEntities.get(index).setVisible(false);
             	myEntities.get(index).getEntityState().setDetectableState(DetectableState.NOTDETECTABLE);
-            	
-            	//remove((InteractiveEntity)state);
-        		
-            	//add((InteractiveEntity) state);
             }
         }
         else if (state instanceof Integer) {
-        	System.out.println("integer!");
         	int index = findEntityWithHashCode((Integer)state);
         	myEntities.get(index).getEntityState().setDetectableState(DetectableState.DETECTABLE);
         	myEntities.get(index).setVisible(true);

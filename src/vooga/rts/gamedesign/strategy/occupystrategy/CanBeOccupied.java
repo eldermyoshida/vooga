@@ -16,11 +16,8 @@ import vooga.rts.util.Location3D;
 /**
  * 
  * This class implements OccupyStrategy and is used as an instance in 
- * interactives for objects that can be occupied by types of Units specified.
+ * InteractiveEntity for objects that can be occupied by types of Units specified.
  * 
- * @author Ryan Fishel
- * @author Kevin Oh
- * @author Francesco Agosti
  * @author Wenshun Liu 
  *
  */
@@ -39,7 +36,19 @@ public class CanBeOccupied implements OccupyStrategy{
 		myOccupierID = 0;
 	}
 
+	/**
+	 * Creates and adds occupy strategy specific actions to entity
+	 */
 	public void createOccupyActions(final InteractiveEntity entity) {
+		addOccupyAction(entity);
+		addPukeAction(entity);
+	}
+	
+	/**
+	 * Creates and adds occupy Action.
+	 * @param entity the object that will be occupied.
+	 */
+	private void addOccupyAction(final InteractiveEntity entity) {
 		entity.addAction("be occupied!", new InteractiveAction(entity) {
 			@Override
 			public void update(Command command) {
@@ -66,7 +75,15 @@ public class CanBeOccupied implements OccupyStrategy{
 				return;
 			}
 		});
-		
+	}
+	
+	/**
+	 * Creates and adds the action, in which the occupied entity will remove
+	 * and return all its occupiers back to the original player.
+	 * 
+	 * @param entity the object that is occupied.
+	 */
+	private void addPukeAction(final InteractiveEntity entity) {
 		entity.addAction("puke all I have", new InteractiveAction(entity) {
 			@Override
 			public void update(Command command) {
@@ -87,12 +104,21 @@ public class CanBeOccupied implements OccupyStrategy{
 		});
 	}
 	
+	/**
+	 * Adds a new type of object as a valid type of occupier.
+	 */
 	public void addValidClassType(Unit validOccupier) {
 		Class cls = validOccupier.getClass();
 		String className = cls.getName();
 		myValidOccupierType.add(className);
 	}
 	
+	/**
+	 * Verifies if the occupier is able to occupy the entity.
+	 * @param entity the entity that will be occupied
+	 * @param occupier the occupier that wants to perform occupy action
+	 * @return whether the occupier can perform occupy action
+	 */
 	private boolean verifyOccupier(GameEntity entity, InteractiveEntity occupier) {
 		Class cls = occupier.getClass();
 		if (myOccupierID != 0 && myOccupierID != occupier.getPlayerID()) {
@@ -111,22 +137,32 @@ public class CanBeOccupied implements OccupyStrategy{
 		return false;
 	}
 	
+	/**
+	 * Sets the entity's current occupier id, which represents the player id
+	 * that is currently occupying the entity.
+	 */
 	public void setOccupierID(int id) {
 		myOccupierID = id;
 	}
 	
+	/**
+	 * Returns the entity's current occupier id, which represents the player id
+	 * that is currently occupying the entity.
+	 */
 	public int getOccupierID() {
 		return myOccupierID;
 	}
 	
+	/**
+	 * Returns the hash code of the list of occupiers.
+	 */
 	public List<Integer> getOccupiers() {
 		return myOccupierHashCodes;
 	}
 	
-	public void setOccupiers(ArrayList<Integer> u) {
-		myOccupierHashCodes = u;
-	}
-	
+	/**
+	 * Returns the max number of occupiers this entity can take.
+	 */
 	public int getMaxOccupiers() {
 		return myMaxOccupiers;
 	}
