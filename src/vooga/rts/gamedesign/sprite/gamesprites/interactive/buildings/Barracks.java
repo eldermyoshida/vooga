@@ -35,6 +35,7 @@ public class Barracks extends ProductionBuilding {
         myInteractiveEntities = new ArrayList<InteractiveEntity>();
         initProducables();
         setRallyPoint(new Location3D(300, 400, 0));
+        //myProductionStrategy = new CanProduce(this);
     }
 
     /*

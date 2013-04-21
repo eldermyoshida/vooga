@@ -13,6 +13,7 @@ import java.util.Map;
 import vooga.rts.commands.Command;
 import vooga.rts.action.Action;
 import vooga.rts.action.IActOn;
+import vooga.rts.action.InteractiveAction;
 import vooga.rts.gamedesign.sprite.gamesprites.GameEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.IAttackable;
 import vooga.rts.gamedesign.sprite.gamesprites.Projectile;
@@ -76,7 +77,9 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
             action.update(command);
         }        
     }
-
+    public void addAction(String command, InteractiveAction action){
+    	myActions.put(command, action);
+    }
     public boolean containsInput(Command command) {
         return myActions.containsKey(command.getMethodName());
     }
