@@ -53,7 +53,6 @@ public class MenuObject extends GameObject {
     }
     
     public void tellDelegate(){
-        System.out.println("<MenuObject.java><telldelegate> telling delegate");
         myCollideState = true;
     	myDelegate.setChoice(myValue);
 

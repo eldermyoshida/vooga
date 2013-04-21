@@ -38,10 +38,9 @@ public abstract class MenuController extends Controller {
     }
     
     
-    @Override
-    public void initializeRest(Canvas frame, ControllerDelegate manager, 
+    public MenuController(String name, Canvas frame, ControllerDelegate manager, 
     		GameInfo gameinfo) {
-    	super.initializeRest(frame, manager, gameinfo);
+    	super(name, frame, manager, gameinfo);
         setInput(manager.getInput());
         getInput().replaceMappingResourcePath(INPUT_PATHWAY);
         getInput().addListenerTo(this);

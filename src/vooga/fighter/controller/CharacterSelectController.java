@@ -36,11 +36,16 @@ public class CharacterSelectController extends MenuController {
         super();
     }
         
-    public void initializeRest(Canvas frame, ControllerDelegate manager, 
+    public CharacterSelectController(String name, Canvas frame, ControllerDelegate manager, 
                 GameInfo gameinfo) {
-        super.initializeRest(frame, manager, gameinfo);
+        super(name, frame, manager, gameinfo);
         myCharLimit = getGameInfo().getNumCharacters();
         myCharIndex = 0;
+    }
+    
+    public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo) {
+        Controller controller = new CharacterSelectController(name, frame, manager, gameinfo);
+        return controller;
     }
 
     /**

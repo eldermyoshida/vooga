@@ -35,9 +35,14 @@ public class ScoreController extends MenuController {
         super();
     }
         
-    public void initializeRest(Canvas frame, ControllerDelegate manager, 
+    public ScoreController(String name, Canvas frame, ControllerDelegate manager, 
                 GameInfo gameinfo) {
-        super.initializeRest(frame, manager, gameinfo);
+        super(name, frame, manager, gameinfo);
+    }
+    
+    public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo) {
+        Controller controller = new ScoreController(name, frame, manager, gameinfo);
+        return controller;
     }
     
     /**

@@ -37,14 +37,18 @@ public class MainMenuController extends MenuController {
         super();
     }
     
-    @Override
-    public void initializeRest(Canvas frame, ControllerDelegate manager, 
+    public MainMenuController(String name, Canvas frame, ControllerDelegate manager, 
                            GameInfo gameinfo) {
-        super.initializeRest(frame, manager, gameinfo);
+        super(name, frame, manager, gameinfo);
         getGameInfo().reset();
         setInput(manager.getInput());
         getInput().addListenerTo(this);
 
+    }
+    
+    public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo) {
+        Controller controller = new MainMenuController(name, frame, manager, gameinfo);
+        return controller;
     }
     /**
      * Checks this controller's end conditions

@@ -21,5 +21,8 @@
     <menumode menuname="MapSelectMenu" >
         <menuobject menuobjectname="MapChoice" />
     </menumode>
+    <menumode menuname="MapSelectMenu" >
+        <menuobject menuobjectname="BacktoCharacter" />
+    </menumode>
     
 </menutype>

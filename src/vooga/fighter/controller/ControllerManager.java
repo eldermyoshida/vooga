@@ -38,7 +38,8 @@ public class ControllerManager implements ControllerDelegate{
 		myProgressionManager = progressionmanager;
 		//myProgressionManager.setControllerProgression(myControllerMap);
 		myCurrentController = myProgressionManager.getNextController("MainMenu");
-		myCurrentController.initializeRest(frame, this, gameinfo);
+		String name = myCurrentController.getName();
+		myCurrentController = myCurrentController.getController(name, frame, this, gameinfo);
 	}
 	
 	public void run(){
@@ -53,10 +54,9 @@ public class ControllerManager implements ControllerDelegate{
 		myCurrentController.stop();
 		myCurrentController = myProgressionManager.getNextController(condition);
 		System.out.println("<controllermanager> now the controller is: " + myCurrentController.getName() );
-		//myCurrentController.displaySplash();
 		myCurrentController = myCurrentController.getController();
-		myCurrentController.initializeRest(myCanvas, this, myGameInfo);
-		System.out.println("marker, controllermanager");
+		String name = myCurrentController.getName();
+		myCurrentController = myCurrentController.getController(name, myCanvas, this, myGameInfo);
 		myCurrentController.start();	
 	}      
 

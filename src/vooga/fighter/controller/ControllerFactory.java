@@ -54,7 +54,7 @@ public class ControllerFactory {
                 controllerObject = controllerClass.newInstance();
                 controller = (Controller) controllerObject;
                 controller.initializeName(myResources.getString(controllerName));
-                controller.initializeName(myResources.getString(controllerName));
+                //controller.initializeName(myResources.getString(controllerName));
                 
             }
             catch (Exception e){
