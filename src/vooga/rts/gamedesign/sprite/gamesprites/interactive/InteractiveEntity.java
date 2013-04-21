@@ -167,13 +167,12 @@ public abstract class InteractiveEntity extends GameEntity implements
 						- ((InteractiveEntity) attackable).getWorldLocation()
 								.getY(), 2));
 		if (!this.isDead()) {
-			// getEntityState().setAttackingState(AttackingState.ATTACKING);
-				getEntityState().setAttackingState(AttackingState.ATTACKING);
-				if (getEntityState().canAttack()) {
+				//getEntityState().setAttackingState(AttackingState.ATTACKING);
+				
 				getEntityState().attack();
 				// setVelocity(getVelocity().getAngle(), 0);
 				// getGameState().setMovementState(MovementState.STATIONARY);
-				
+				if (getEntityState().canAttack()) {
 				myAttackStrategy.attack(attackable, distance);
 
 			}
