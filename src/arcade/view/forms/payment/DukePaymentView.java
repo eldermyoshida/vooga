@@ -1,7 +1,5 @@
 package arcade.view.forms.payment;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 import javax.swing.JComponent;
 import javax.swing.JTextField;
@@ -18,7 +16,7 @@ import arcade.view.TextKeywords;
  * @author Ellango
  * 
  */
-@SuppressWarnings("serial")
+@SuppressWarnings({"serial", "unused"})
 public class DukePaymentView extends PaymentView {
     private static final String PAYMENT_MANAGER_CLASS = "DukePaymentManager";
     private JTextField myNameTextField;
@@ -34,17 +32,6 @@ public class DukePaymentView extends PaymentView {
      */
     public DukePaymentView (Model model, ResourceBundle resources, GameInfo info) {
        super(model, resources, info);
-    }
-
-    @Override
-    protected List<JComponent> makeComponents () {
-        List<JComponent> components = new ArrayList<JComponent>();
-        components.add(createDukeInstruction());
-        components.add(createNameField());
-        components.add(createDukeCardField());
-        components.add(createMessageArea());
-        components.add(createBuyButton());
-        return components;
     }
     
     /**
@@ -84,11 +71,11 @@ public class DukePaymentView extends PaymentView {
                                           PAYMENT_MANAGER_CLASS,
                                           myNameTextField.getText(),
                                           myDukeCardTextField.getText());
+            dispose();  
         }
         catch (InvalidPaymentException e) {
             sendMessage(getResources().getString(TextKeywords.PAYMENT_ERROR));
-        }
-        dispose();        
+        }      
     }
 
 }

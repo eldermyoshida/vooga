@@ -1,0 +1,11 @@
+createNameField
+createGenreField
+createAuthorField
+createPriceField
+createAgeTextField
+createSmallImageSelector
+createLargeImageSelector
+createSinglePlayerCheckBox
+createMultiPlayerCheckBox
+createDescriptionButton
+createPublishButton

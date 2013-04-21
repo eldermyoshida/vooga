@@ -4,8 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import javax.swing.JComponent;
@@ -32,8 +30,9 @@ import arcade.view.forms.payment.factory.PaymentViewMapFactory;
  * @author Ellango
  *
  */
-@SuppressWarnings("serial")
+@SuppressWarnings({"serial", "unused"})
 public class PaymentSelection extends Form {
+    private static final String FILE_PATH = "/src/arcade/resources/PaymentOptions";
     private GameInfo myGame;
     private Map<String, Constructor<?>> myPaymentOptions;
     
@@ -49,14 +48,6 @@ public class PaymentSelection extends Form {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         pack();
         setLocationRelativeTo(null);
-    }
-
-    @Override
-    protected List<JComponent> makeComponents () {
-        List<JComponent> components = new ArrayList<JComponent>();
-        components.add(createPaymentInstruction());
-        components.add(createPaymentOptions());
-        return components;
     }
     
     /**
@@ -107,19 +98,14 @@ public class PaymentSelection extends Form {
     
     /**
      * Creates the map of payment options to the payment View constructor to be
-     * called if that payment option chosen.
-     * 
-     * Uses some cool reflection.
+     * called if that payment option chosen.  These options are stored in the
+     * file /src/arcade/resources/PaymentOptions
      * 
      * @return
      */
     private Map<String, Constructor<?>> initializePaymentOptions() {
-        PaymentViewMapFactory<Constructor<?>> factory = new PaymentViewMapFactory<Constructor<?>>(getResources(), "/src/arcade/resources/PaymentOptions");
+        PaymentViewMapFactory<Constructor<?>> factory = new PaymentViewMapFactory<Constructor<?>>(getResources(), FILE_PATH);
         return factory.buildStringMap();
     }
-    
-//    public static void main (String[] args) {
-//        new PaymentSelection(null, ResourceBundle.getBundle("arcade.resources.English"), null);
-//    }
 
 }

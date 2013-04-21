@@ -7,8 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -28,7 +26,7 @@ import arcade.view.TextKeywords;
  * @author David Liu, Ellango
  * 
  */
-@SuppressWarnings("serial")
+@SuppressWarnings({ "unused", "serial" })
 public class LoginView extends Account {
     private static final String LOGO_FILENAME = "../../resources/images/VoogaLogo.png";
     private static final int WINDOW_WIDTH = 260;
@@ -58,17 +56,6 @@ public class LoginView extends Account {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
         setLocationRelativeTo(null);
-    }
-
-    @Override
-    protected List<JComponent> makeComponents () {
-        List<JComponent> components = new ArrayList<JComponent>();
-        components.add(createLogo());
-        components.add(createUsernameField());
-        components.add(createPasswordField());
-        components.add(createMessageArea());
-        components.add(createButtons());
-        return components;
     }
 
     /**

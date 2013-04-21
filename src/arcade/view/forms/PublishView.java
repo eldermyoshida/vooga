@@ -4,8 +4,6 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 import javax.swing.BoxLayout;
 import javax.swing.JComponent;
@@ -28,7 +26,7 @@ import arcade.view.TextKeywords;
  * @author Ellango
  * 
  */
-@SuppressWarnings("serial")
+@SuppressWarnings({"serial", "unused"})
 public class PublishView extends Form {
     private static final int DESCRIPTION_HEIGHT = 300;
     private static final int DESCRIPTION_WIDTH = 280;
@@ -63,23 +61,6 @@ public class PublishView extends Form {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         pack();
         setLocationRelativeTo(null);
-    }
-
-    @Override
-    protected List<JComponent> makeComponents () {
-        List<JComponent> components = new ArrayList<JComponent>();
-        components.add(createNameField());
-        components.add(createGenreField());
-        components.add(createAuthorField());
-        components.add(createPriceField());
-        components.add(createAgeTextField());
-        components.add(createSmallImageSelector());
-        components.add(createLargeImageSelector());
-        components.add(createSinglePlayerCheckBox());
-        components.add(createMultiPlayerCheckBox());
-        components.add(createDescriptionButton());
-        components.add(createPublishButton());
-        return components;
     }
 
     /**
@@ -279,12 +260,10 @@ public class PublishView extends Form {
         catch (InvalidPriceException e) {
             sendMessage(getResources().getString(TextKeywords.PRICE_ERROR));
             myPriceTextField.setText("");
-            return;
         }
         catch (AgeException e) {
             sendMessage(getResources().getString(TextKeywords.AGE_ERROR));
             myAgeTextField.setText("");
-            return;
         }
     }
     

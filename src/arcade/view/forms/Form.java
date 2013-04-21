@@ -4,8 +4,14 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -20,6 +26,7 @@ import javax.swing.JTextField;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import util.BackgroundPanel;
+import arcade.exceptions.UndefinedFormException;
 import arcade.model.Model;
 import arcade.view.TextKeywords;
 
@@ -31,6 +38,7 @@ import arcade.view.TextKeywords;
  */
 @SuppressWarnings("serial")
 public abstract class Form extends JFrame {
+    private static final String FORMS_DIRECTORY = System.getProperty("user.dir") + "/src/arcade/resources/forms/";
     public static final String BACKGROUND_FILENAME =
             "arcade/resources/images/LoginBackGround.jpg";
     private static final int TEXT_FIELD_HEIGHT = 25;
@@ -85,9 +93,68 @@ public abstract class Form extends JFrame {
     /**
      * Create all the components to be displayed in the form.
      * 
+     * This is done by reading from the file in the arcade/resources/forms
+     * directory that has the same name as this class.  That file contains
+     * a list of which components should be added in a specified order.
+     * 
      * @return
      */
-    protected abstract List<JComponent> makeComponents ();
+    private List<JComponent> makeComponents () {
+        List<JComponent> components = new ArrayList<JComponent>();
+        Class<?> thisClass = getClass();
+        try {
+            Scanner scanner = new Scanner(new File(FORMS_DIRECTORY + thisClass.getSimpleName()));
+            while (scanner.hasNextLine()) {
+                String methodName = scanner.nextLine();
+                Method createComponent = getMethod(thisClass, methodName);
+                createComponent.setAccessible(true);
+                JComponent component = (JComponent) createComponent.invoke(this, new Object[0]);
+                components.add(component);
+            }
+            scanner.close();
+            return components;
+        }
+        catch (FileNotFoundException e) {
+           throw new UndefinedFormException();
+        }
+        catch (NoSuchMethodException e) {
+            throw new UndefinedFormException();
+        }
+        catch (SecurityException e) {
+            throw new UndefinedFormException();
+        }
+        catch (IllegalAccessException e) {
+            throw new UndefinedFormException();
+        }
+        catch (IllegalArgumentException e) {
+            throw new UndefinedFormException();
+        }
+        catch (InvocationTargetException e) {
+            throw new UndefinedFormException();
+        }
+    }
+    
+    /**
+     * A helper to find the method named methodName for the provided clazz.
+     * Looks through clazz and every superclass of clazz until the method is found.
+     * 
+     * @param clazz
+     * @param methodName
+     * @return
+     * @throws NoSuchMethodException
+     */
+    private Method getMethod(Class<?> clazz, String methodName) throws NoSuchMethodException {
+        try {
+            return clazz.getDeclaredMethod(methodName);
+        }
+        catch (NoSuchMethodException e) {
+            // base case
+            if (clazz.equals(Object.class)) {
+                throw e;
+            }
+            return getMethod(clazz.getSuperclass(), methodName);
+        }
+    }
 
     /**
      * Makes the provided component transparent, and then adds it to the provided

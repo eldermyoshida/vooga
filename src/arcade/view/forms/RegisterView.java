@@ -5,8 +5,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
@@ -27,7 +25,7 @@ import arcade.view.TextKeywords;
  * @author Ellango
  * 
  */
-@SuppressWarnings("serial")
+@SuppressWarnings({ "unused", "serial" })
 public class RegisterView extends Account {
     private static final String DEFAULT_IMAGE =
             new File(System.getProperty("user.dir") + "/src/arcade/resources/images/rcd.jpg")
@@ -72,21 +70,6 @@ public class RegisterView extends Account {
 
         setUsername(initialUsername);
         setPassword(initialPassword);
-    }
-
-    @Override
-    protected List<JComponent> makeComponents () {
-        List<JComponent> components = new ArrayList<JComponent>();
-        components.add(createInstructions());
-        components.add(createUsernameField());
-        components.add(createPasswordField());
-        components.add(createFirstNameField());
-        components.add(createLastNameField());
-        components.add(createDOBField());
-        components.add(createProfilePictureSelector());
-        components.add(createMessageArea());
-        components.add(createRegisterButton());
-        return components;
     }
 
     /**
@@ -198,17 +181,14 @@ public class RegisterView extends Account {
         }
         catch (UsernameFormatException e) {
             sendMessage(getResources().getString(e.getLocalizedMessage()));
-            return;
         }
         catch (DOBFormatException e) {
             sendMessage(getResources().getString(e.getLocalizedMessage()));
             myDOBTextField.setText(TextKeywords.BIRTHDATE_MESSAGE);
-            return;
         }
         catch (UsernameTakenException e) {
             sendMessage(getResources().getString(e.getLocalizedMessage()));
             clearUsername();
-            return;
         }
     }
 
