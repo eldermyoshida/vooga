@@ -1,21 +1,14 @@
 package arcade.view.forms.payment;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import javax.swing.JButton;
 import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 import arcade.exceptions.InvalidPaymentException;
 import arcade.games.GameInfo;
 import arcade.model.Model;
 import arcade.view.TextKeywords;
-import arcade.view.forms.Form;
 
 
 /**

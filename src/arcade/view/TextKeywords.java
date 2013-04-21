@@ -1,11 +1,11 @@
 package arcade.view;
 
 /**
- * This class contains all the constants for keys in the arcade's 
+ * This class contains all the constants for keys in the arcade's
  * resource bundle
  * 
  * @author Ellango
- *
+ * 
  */
 public interface TextKeywords {
     static final String TITLE = "title";

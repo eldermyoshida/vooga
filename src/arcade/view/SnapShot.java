@@ -1,4 +1,3 @@
-
 package arcade.view;
 
 import java.awt.Dimension;
@@ -15,10 +14,11 @@ import arcade.model.Model;
 import arcade.util.JPicture;
 import arcade.util.Pixmap;
 
+
 /**
  * 
  * @author David Liu
- *
+ * 
  */
 public class SnapShot extends JPanel implements MouseListener {
 
@@ -31,8 +31,7 @@ public class SnapShot extends JPanel implements MouseListener {
     private JLabel myTitle;
     private JComponent myThumbnail;
     private JLabel myRating;
-    
-    
+
     private String gameName;
     private Model myModel;
 
@@ -46,9 +45,9 @@ public class SnapShot extends JPanel implements MouseListener {
         Pixmap p = myGameInfo.getThumbnail();
         myThumbnail = new JPicture(p, new Dimension(160, 160));
         myRating = new JLabel(myGameInfo.getRating() + "");
-        
+
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-        
+
         add(myThumbnail);
         add(myTitle);
         add(myRating);
@@ -63,17 +62,8 @@ public class SnapShot extends JPanel implements MouseListener {
         // TODO Auto-generated method stub
         if (arg0.getClickCount() == 2) {
             System.out.println("Clicked!!");
-            // TODO:
-            // Put the String(or whatever) to the database and then
-            // get the JComponent+model from the database
-            // Create a JFrame and fill the Frame with the feedback from
-            // the database
-            // JFrame des = new JFrame(myGameInfo.title());
-            // des.setVisible(true);
-            //openHelpPage();
-            DetailView dv = new DetailView(myGameInfo, myResources, myModel);
-            
-            
+            new DetailView(myGameInfo, myResources, myModel);
+
         }
     }
 
