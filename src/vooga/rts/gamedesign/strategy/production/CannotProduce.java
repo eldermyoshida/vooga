@@ -14,7 +14,6 @@ import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
  */
 public class CannotProduce implements ProductionStrategy{
 
-
     @Override
     public void createProductionActions (InteractiveEntity producer) {
         //this will do nothing. 
