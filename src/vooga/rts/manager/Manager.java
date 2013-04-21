@@ -284,7 +284,6 @@ public class Manager implements State, IActOn, Observer {
     private int findEntityWithHashCode(int hashCode) {
     	for (int i = 0; i<myEntities.size(); ++i) {
     		if (myEntities.get(i).hashCode() == hashCode) {
-    			System.out.println("FINDS UNIT!!");
     			return i;
     		}
     	}
