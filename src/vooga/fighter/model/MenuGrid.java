@@ -51,9 +51,9 @@ public class MenuGrid {
 	}
 	
 	private void fillGrid(List<MenuObject> list, MenuObject [][] grid, int columns, int rows){
+		int RowNumber = 0;
+		int ColumnNumber = 0;
 		for(int i = 0; i < list.size(); i ++){
-			int RowNumber = 0;
-				int ColumnNumber = i*(RowNumber) -(columns-1); 
 				if(ColumnNumber <columns){
 				grid[RowNumber][ColumnNumber] = list.get(i);
 				int xloc =  (ColumnNumber)*GameManager.SIZE.width/(columns) + GameManager.SIZE.width/(2*columns);
@@ -70,9 +70,11 @@ public class MenuGrid {
 					
 				}
 				list.get(i).setImageData();
+				ColumnNumber ++;
 				}
 				else{
 					RowNumber ++;
+					ColumnNumber =0;
 				}
 			
 		}
