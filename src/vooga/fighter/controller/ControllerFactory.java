@@ -63,7 +63,7 @@ public class ControllerFactory {
         return controller;
     }
     
-    public Map getMap() {
+    public Map<String, Controller> getMap() {
         return myControllerMap;
     }
     

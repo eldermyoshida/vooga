@@ -159,6 +159,12 @@ public abstract class GameObject {
     }
     
     /**
+     * Sets image data to the information from an ImageDataObject
+     */
+    public void setImageData(ImageDataObject image){
+    	myImageData= new ImageDataObject(image.getMyImage(), image.getMyLocation(),image.getMySize() );
+    }
+    /**
      * Returns image data for this object.
      */
     public ImageDataObject getImageData() {

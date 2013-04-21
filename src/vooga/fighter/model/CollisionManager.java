@@ -29,7 +29,7 @@ public class CollisionManager {
             for (int j = i + 1; j < myObjects.size(); j++) {
                 GameObject o1 = myObjects.get(i);
                 GameObject o2 = myObjects.get(j);
-                if (o1 instanceof MapObject || o2 instanceof MapObject) {
+                if (o1 instanceof MapObject || o2 instanceof MapObject|| o1 instanceof AttackObject || o2 instanceof AttackObject) {
                     continue;
                 }
                 if (o1.checkCollision(o2)) {

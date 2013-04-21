@@ -146,9 +146,7 @@ public class CharacterObject extends GameObject {
      */
     public void attack(String attack) {
         setCurrentState("weakPunch");
-        if (myAttacks.containsKey(attack)) {
-            currentAttacks.add(new AttackObject(myAttacks.get(attack), getLocation()));
-        }
+        currentAttacks.add(new AttackObject(myAttacks.get(attack), getLocation()));
     }
 
     /**
