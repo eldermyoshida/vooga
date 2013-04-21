@@ -29,7 +29,6 @@ public class OneVOneController extends LevelController {
     		GameInfo gameinfo) {
     	super(name, frame, manager, gameinfo);
     	frame.setLayout(new FourPlayerMatchGameLayout());
-
     }
     
     public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo) {
