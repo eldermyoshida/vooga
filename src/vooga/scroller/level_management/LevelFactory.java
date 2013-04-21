@@ -22,6 +22,7 @@ import vooga.scroller.view.GameView;
  */
 public class LevelFactory {
 
+    private static String DEFAULT_LEVEL_FOLDER = "src/vooga/scroller/resources/sampleLevels/";
     private LevelManager myLevelManager;
     private LevelParser myLevelReader;
     private ScrollingManager mySM;
@@ -96,8 +97,8 @@ public class LevelFactory {
 
     private LEGrid loadGridFromFile (String filename) {
         // TODO: Factor this out. make editable.
-        String pre = "src/vooga/scroller/level_management/";
-        File f = (new File(pre + filename)).getAbsoluteFile();
+        
+        File f = (new File(DEFAULT_LEVEL_FOLDER + filename)).getAbsoluteFile();
         LEGrid result = myLevelReader.makeGridFromFile(f);
         return result;
     }

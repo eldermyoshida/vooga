@@ -36,7 +36,7 @@ vooga.scroller.sprites.test_sprites.MarioLib
 c=Coin
 a=Platform
 d=LevelTwoBlockOne
-b=$LevelTwoBlockTwo
+b=LevelTwoBlockTwo
 /settings
 StartPoint=48 496
 EndPoint=1817 761
