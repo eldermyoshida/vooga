@@ -74,6 +74,7 @@ public class Level implements Renderable<GameView> {
         for (SpriteBox box : grid.getBoxes()) {
             addSprite(box.getSprite());
         }
+        setBackground(grid.getBackground());
     }
 
     public void setSize (Dimension size) {
