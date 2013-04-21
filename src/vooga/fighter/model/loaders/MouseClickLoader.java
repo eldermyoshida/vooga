@@ -23,7 +23,7 @@ public class MouseClickLoader extends ObjectLoader {
 	}
 
 
-	public void load() {
+	protected void load() {
 		Document doc = getDocument();
 		NodeList menuNodes = doc.getElementsByTagName("mouseclickobject");
 		for (int i = 0; i < menuNodes.getLength(); i++) {

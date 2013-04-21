@@ -23,7 +23,7 @@ public class MouseClickObject extends GameObject {
     }
 
     @Override
-    public void update () {
+    public void completeUpdate () {
         myTicks++;
     }
 

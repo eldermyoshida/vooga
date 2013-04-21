@@ -1,10 +1,7 @@
 package vooga.fighter.model.objects;
 
-import java.util.Collection;
-import java.util.Map;
 import vooga.fighter.model.MenuMode;
 import vooga.fighter.model.loaders.MenuLoader;
-import vooga.fighter.model.utils.State;
 
 /**
  * 
@@ -31,7 +28,8 @@ public class MenuObject extends GameObject {
     }
 
     @Override
-    public void update () {
+    public void completeUpdate () {
+        
     }
     
     public String getValue() {
@@ -76,7 +74,5 @@ public class MenuObject extends GameObject {
     @Override
     public void handleCollision (EnvironmentObject other) {
         // TODO Auto-generated method stub
-
-
     }
 }

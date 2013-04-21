@@ -38,7 +38,7 @@ public class CharacterLoader extends ObjectLoader {
 	 * Loads the character associated with the id
 	 * @param charId is the id of the character to be loaded
 	 */
-	public void load(String charName) {
+	protected void load(String charName) {
 		Document doc = getDocument();
 		NodeList charNodes = doc.getElementsByTagName("character");
 

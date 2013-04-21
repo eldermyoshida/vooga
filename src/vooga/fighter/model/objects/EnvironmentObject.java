@@ -29,8 +29,8 @@ public class EnvironmentObject extends GameObject {
     /**
      * Updates the environment object. Behavior to be added.
      */
-    public void update() {
-        super.update();
+    public void completeUpdate() {
+        
     }
 
     /**

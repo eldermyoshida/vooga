@@ -57,6 +57,7 @@ public class MenuMode extends Mode {
     	}
     	return "";
     }
+    
 
     @Override
     public void addObject (GameObject object) {

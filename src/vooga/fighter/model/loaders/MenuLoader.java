@@ -19,7 +19,7 @@ public class MenuLoader extends ObjectLoader {
 		load(menuobjectname);
 	}
 
-	public void load(String menuobjectname) {
+	protected void load(String menuobjectname) {
 		Document doc = getDocument();
 		NodeList menuNodes = doc.getElementsByTagName("menuobject");
 		for (int i = 0; i < menuNodes.getLength(); i++) {
@@ -39,7 +39,8 @@ public class MenuLoader extends ObjectLoader {
 				for(int k = 0; k < frames.getLength(); k++){
 					Element node1 = (Element) frames.item(k);
 					String imagepathway = getAttributeValue(node1, "image");
-					newState.populateImage(new Pixmap(imagepathway), k);
+					Pixmap image= new Pixmap(imagepathway);
+					newState.populateImage(image, k);
 				}
 				myMenuObject.addState(stateName, newState);
 				if(j == 0) myMenuObject.setCurrentState(stateName);

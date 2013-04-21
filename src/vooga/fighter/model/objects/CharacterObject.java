@@ -26,6 +26,7 @@ public class CharacterObject extends GameObject {
     private List<AttackObject> currentAttacks; 
     private boolean facingRight;  
     private int movingDirection; 
+    private static final int MOVE_BACK_AMOUNT=-2; 
     
     /**
      * Constructs a new CharacterObject.
@@ -46,16 +47,19 @@ public class CharacterObject extends GameObject {
     }
 
     /**
-     * Updates the character for one game loop cycle. Applies movement from acceleration
-     * forces acting on the character.
+     * Updates the character for one game loop cycle. Applies effects currently
+     * active on the character.
      */
-    public void update() {
-        super.update();
+    public void completeUpdate() {
         for (Effect effect : myActiveEffects) {
             effect.update();
         } 
     }
     
+    /**
+     * Calls GameObject's updateState() method as well as sets the default state to stand
+     * if no other state actions are going on.
+     */
     public void updateState() {
         super.updateState();
         if (getCurrentState().hasCompleted()) {
@@ -154,9 +158,16 @@ public class CharacterObject extends GameObject {
      */
     public void move(int direction) {
         setCurrentState("moveRight");
+        movingDirection=direction;
         getLocation().translate(new Vector(direction, getProperty("speed")));
     }
 
+    /**
+     * Makes the character move back if it runs into another character or environmentobject
+     */
+    public void moveBack(){
+    	getLocation().translate(new Vector(movingDirection, MOVE_BACK_AMOUNT*getProperty("speed")));
+    }
 
     /**
      * Gets the direction the character is moving
@@ -164,6 +175,7 @@ public class CharacterObject extends GameObject {
     public int getMovingDirection(){
     	return movingDirection;
     }
+    
     /**
      * Will add jump method
      */
@@ -186,21 +198,21 @@ public class CharacterObject extends GameObject {
     }
     
     /**
-     * sets the character to face left 
+     * Sets the character to face left 
      */
     public void faceLeft(){
     	facingRight=false; 
     }
     
     /**
-     * sets the character to face right 
+     * Sets the character to face right 
      */
     public void faceRight(){
     	facingRight=true; 
     }
     
     /**
-     * returns list of all attackObjects
+     * Returns list of all attackObjects
      */
     public List<AttackObject> getAttackObjects(){
     	return currentAttacks; 
@@ -237,5 +249,4 @@ public class CharacterObject extends GameObject {
         System.out.println("CharacterObject handleCollision : Character collided with environment");
     }
     
-
 }

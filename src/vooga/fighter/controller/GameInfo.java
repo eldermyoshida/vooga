@@ -24,6 +24,7 @@ public class GameInfo extends UserGameData{
     private List<String> myMapNames;
     private HighScores myHighScores;
     private List<String> myWinners;
+    private GameLoopInfo myGameLoopInfo;
 
 	/**
      * Constructor
@@ -43,6 +44,10 @@ public class GameInfo extends UserGameData{
         this(mapNames);
         myCharacters = characters;
         myMapName = map;
+    }
+    
+    public void setGameLoopInfo(GameLoopInfo info) {
+        myGameLoopInfo = info;
     }
     
     public void setModeName(String name) {

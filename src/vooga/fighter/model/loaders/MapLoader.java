@@ -43,13 +43,15 @@ public class MapLoader extends ObjectLoader {
 		super(MAP_PATH);
 		myMap = map;
 		load(mapName);
+		myMap.setCurrentState("background");
+		myMap.getCurrentState().setLooping(true);
 	}
 
 	/**
 	 * Loads map from xml data
 	 * @param mapName to be loaded
 	 */
-	public void load(String mapName) {
+	protected void load(String mapName) {
 		Document doc = getDocument();
 		NodeList mapNodes = doc.getElementsByTagName(getResourceBundle().getString("Map"));
 		

@@ -11,7 +11,7 @@ import java.util.*;
  * particular map. Also contains the background image, music, and player start
  * locations.
  * 
- * @author James Wei, mp
+ * @author James Wei, mp, David Le
  * 
  */
 
@@ -109,13 +109,11 @@ public class MapObject extends GameObject {
     public void playCurrentSound() {
         myCurrentSound.play();
     }
-
+    
     /**
      * Updates all environmental objects in the map object.
      */
-    public void update() {        
-        setCurrentState("background");
-        super.update();
+    public void completeUpdate() {                        
         if (getCurrentState().hasCompleted()) {
             getCurrentState().resetState();
         }

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <menutype>
     <menumode menuname="MainMenu" >
-        <menuobject menuobjectname="MainChoice" />
+        <menuobject menuobjectname="StartGame" />
     </menumode>
     <menumode menuname="ModeSelectMenu" >
         <menuobject menuobjectname="1v1" />
@@ -10,8 +10,11 @@
         <menuobject menuobjectname="Ryu" />
     </menumode>
     <menumode menuname="ScoreScreen" >
-        <menuobject menuobjectname="EndChoice" />
+        <menuobject menuobjectname="MainMenu" />
     </menumode>
+    <menumode menuname="ScoreScreen">
+    	<menuobject menuobjectname="CharacterSelectMenu" />
+   	</menumode>
     <menumode menuname="MapSelectMenu" >
         <menuobject menuobjectname="MapChoice" />
     </menumode>

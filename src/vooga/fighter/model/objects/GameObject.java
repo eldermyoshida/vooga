@@ -8,7 +8,6 @@ import vooga.fighter.model.utils.State;
 import vooga.fighter.model.utils.UpdatableLocation;
 import java.awt.Dimension;
 import java.awt.Rectangle;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -164,6 +163,7 @@ public abstract class GameObject {
     public void setImageData(ImageDataObject image){
     	myImageData= new ImageDataObject(image.getMyImage(), image.getMyLocation(),image.getMySize() );
     }
+    
     /**
      * Returns image data for this object.
      */
@@ -180,6 +180,7 @@ public abstract class GameObject {
         if (myCenter != null) {
             myCenter.update();
         }
+        completeUpdate();
     }
     
     /**
@@ -209,6 +210,12 @@ public abstract class GameObject {
         return myStates;
     }
  
+    /**
+     * Handles additional update logic outside of resolving movement on the object
+     * and setting image data.
+     */
+    public abstract void completeUpdate();
+    
     /**
      * Second dispatch for collision management. Key part of the visitor pattern.
      */
