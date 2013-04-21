@@ -344,6 +344,8 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
 
         if (myAttackStrategy.getCanAttack() && !getAttackStrategy().getWeapons().isEmpty()) {
             myAttackStrategy.getWeapons().get(myAttackStrategy.getWeaponIndex())
+                    .setCenter(getWorldLocation());
+            myAttackStrategy.getWeapons().get(myAttackStrategy.getWeaponIndex())
                     .update(elapsedTime);
         }
 
