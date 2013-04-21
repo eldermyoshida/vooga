@@ -1,9 +1,13 @@
+
 package vooga.towerdefense.attributes;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+
+import vooga.towerdefense.factories.GameElementFactory;
+import vooga.towerdefense.factories.ProjectileFactory;
 
 
 /**
@@ -13,13 +17,17 @@ import java.util.List;
  * 
  * @author Matthew Roy
  * @author XuRui
- * 
+ * @author Zhen Gou
  */
 public class AttributeManager {
     private HashMap<String,Attribute> myAttributes;
+    private HashMap<String,GameElementFactory> myFactories;
+    private ProjectileFactory myProjectileFactory;
 
     public AttributeManager () {
         myAttributes = new HashMap<String,Attribute>();
+        myFactories = new HashMap<String, GameElementFactory>();
+//        myProjectileFactory=new ProjectileFactory();
     }
     
     /**
@@ -27,11 +35,12 @@ public class AttributeManager {
      * @param attributes
      */
     public AttributeManager (HashSet<Attribute> attributes) {
-        myAttributes = new HashMap<String, Attribute>();
+    	new AttributeManager();
         for (Attribute a : attributes) {
             myAttributes.put(a.getName(), a);
         }        
     }
+    
 
     /**
      * Returns stats information requested by View components.
@@ -72,20 +81,31 @@ public class AttributeManager {
         myAttributes.put(newAttribute.getName(), newAttribute);
     }
     
+    public void addAttributes(List<Attribute> newAttributes){
+    	for (Attribute a: newAttributes){
+    		addAttribute(a);
+    	}
+    }
+    
     /**
      * Resets all attributes to default values
      */
     
-    public void resetAll(){
-    	
+    public void resetAllAttributes(){
+    	for (Attribute attr:myAttributes.values()){
+    		attr.reset();
+    	}
     }
     
-    /**
-     * Reset attribute to default value.
-     */
+
+    public GameElementFactory getGameElementFactories(String name){
+    	return myFactories.get(name);
+    }
     
-    public void reset(Attribute attribute){
-    	
+    public ProjectileFactory getProjectileFactory(){
+    	return myProjectileFactory;
     }
 
+
 }
+
