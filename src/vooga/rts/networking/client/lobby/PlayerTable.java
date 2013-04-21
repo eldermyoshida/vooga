@@ -8,7 +8,7 @@ import javax.swing.table.*;
 import vooga.rts.player.RTSPlayer;
 
 
-public class PlayerPane extends JScrollPane {
+public class PlayerTable extends JScrollPane {
 
    
 
@@ -16,9 +16,11 @@ public class PlayerPane extends JScrollPane {
      * 
      */
     private static final long serialVersionUID = -1671059744815042087L;
+    public JTable myTable;
 
-    public PlayerPane (String[] factions, List<RTSPlayer> players, String[] columnTitles) {
-        this.add(playerTable(players, factions, columnTitles));
+    public PlayerTable (String[] factions, List<RTSPlayer> players, String[] columnTitles) {
+//        this.add(playerTable(players, factions, columnTitles));
+        myTable = playerTable(players, factions, columnTitles);
     }
     
     private JTable playerTable(List<RTSPlayer> players, String [] factions, String [] columnTitles) {

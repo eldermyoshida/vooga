@@ -36,11 +36,11 @@ public class LobbyView extends JFrame{
         myPlayers.add(null);
         myPlayers.add(new RTSPlayer("bob"));
         myPlayers.add(null);
-//        PlayerPane p = (new PlayerPane(factions, myPlayers, columnTitles));
+        PlayerTable p = (new PlayerTable(factions, myPlayers, columnTitles));
 //        p.setVisible(true);
 //        p.setEnabled(true);
-        TestPlayerFrame p = new TestPlayerFrame();
-        this.add(p);
+//        TestPlayerFrame p = new TestPlayerFrame();
+        this.add(p.myTable);
     }
     
     

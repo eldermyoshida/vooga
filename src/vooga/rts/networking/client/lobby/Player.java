@@ -8,7 +8,7 @@ package vooga.rts.networking.client.lobby;
  *
  */
 public class Player {
-    private String myName;
+    protected String myName;
     public Player (String name) {
         myName = name;
     }

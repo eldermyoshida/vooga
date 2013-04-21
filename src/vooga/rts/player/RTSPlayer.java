@@ -24,4 +24,8 @@ public class RTSPlayer extends Player {
     public void setFaction(String faction) {
         myFaction = faction;
     }
+    
+    public String toString() {
+        return myName;
+    }
 }
