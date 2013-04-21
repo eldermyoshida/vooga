@@ -8,7 +8,6 @@ import vooga.fighter.model.utils.State;
 import vooga.fighter.model.utils.UpdatableLocation;
 import java.awt.Dimension;
 import java.awt.Rectangle;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
