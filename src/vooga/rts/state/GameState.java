@@ -32,7 +32,7 @@ public class GameState extends SubState implements Controller {
 
     private final static int DEFAULT_NODE_SIZE = 8;
     private Map<Integer, Team> myTeams;
-    private GameMap myMap;
+    private static GameMap myMap;
     private HumanPlayer myHumanPlayer;
     private List<Player> myPlayers;
     // private Resource r;
@@ -223,5 +223,9 @@ public class GameState extends SubState implements Controller {
                 u1.getAttacked(u2);
             }
         }
+    }
+
+    public static GameMap getMap () {
+        return myMap;
     }
 }

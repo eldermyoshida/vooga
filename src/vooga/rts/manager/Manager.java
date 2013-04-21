@@ -259,6 +259,11 @@ public class Manager implements State, IActOn, Observer {
                 remove(ie);
             }
         }
+
+        // While Shepherds watch their flocks by night.
+        if (state instanceof InteractiveEntity) {
+            add((InteractiveEntity) state);
+        }
     }
 
 }
