@@ -34,16 +34,15 @@ public class Soldier extends Unit {
     // private int myHealth; //TESTING PURPOSE
     public Soldier() {
         this(DEFAULT_IMAGE, DEFAULT_LOCATION, DEFAULT_SIZE, DEFAULT_SOUND, DEFAULT_PLAYERID, DEFAULT_HEALTH, InteractiveEntity.DEFAULT_BUILD_TIME);
-        setAttackStrategy(new CanAttack(getWorldLocation(), DEFAULT_PLAYERID));
     }
     
     public Soldier(Location3D location, int teamID) {
         this(DEFAULT_IMAGE, location, DEFAULT_SIZE, DEFAULT_SOUND, teamID, DEFAULT_HEALTH, InteractiveEntity.DEFAULT_BUILD_TIME);
-        setAttackStrategy(new CanAttack(getWorldLocation(), teamID));
     }
     
     public Soldier(Pixmap image, Location3D center, Dimension size, Sound sound, int playerID, int health, double buildTime) {
         super(image, center, size, sound, playerID, health, buildTime);
+        setAttackStrategy(new CanAttack(getWorldLocation(), DEFAULT_PLAYERID));
     }
 
     public void upgradeHealth (int armor) { // TESTING PURPOSE

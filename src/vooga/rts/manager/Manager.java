@@ -14,7 +14,6 @@ import java.util.Queue;
 import vooga.rts.action.Action;
 import vooga.rts.action.IActOn;
 import vooga.rts.commands.Command;
-import vooga.rts.gamedesign.sprite.gamesprites.interactive.IObserver;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.manager.actions.DragSelectAction;
 import vooga.rts.manager.actions.LeftClickAction;
@@ -292,7 +291,12 @@ public class Manager implements State, IActOn, Observer {
 
         // While Shepherds watch their flocks by night.
         if (state instanceof InteractiveEntity) {
-            add((InteractiveEntity) state);
+            if (!((InteractiveEntity) state).getVisible()) { //TODO: check for undetectable state
+            	System.out.println("WILL BE REMOVED!!");
+            	remove((InteractiveEntity)state);
+            } else {
+            	add((InteractiveEntity) state);
+            }
         }
 
     }

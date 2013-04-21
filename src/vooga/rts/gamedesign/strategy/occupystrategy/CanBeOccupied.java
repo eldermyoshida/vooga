@@ -43,15 +43,18 @@ public class CanBeOccupied implements OccupyStrategy{
 			public void update(Command command) {
 			}
 			
-			public void apply(Unit u) {
-				if (myOccupiers.size() < myMaxOccupiers && verifyOccupier(entity, u)) {
-					u.setVisible(false);
+			@Override
+			public void apply(InteractiveEntity i) {
+				if (myOccupiers.size() < myMaxOccupiers && verifyOccupier(entity, (Unit)i)) {
+					i.setVisible(false);
 					if (myOccupierID == 0) {
-						myOccupierID = u.getPlayerID();
+						myOccupierID = i.getPlayerID();
 					}
 					//TODO: make u undetectable
 					//u.getGameUnitManager().addEntityUnit(entity, u);
-					myOccupiers.add(u);
+					myOccupiers.add((Unit)i);
+					entity.setChanged();
+					entity.notifyObservers(i);
 				}
 			}
 
@@ -68,9 +71,9 @@ public class CanBeOccupied implements OccupyStrategy{
 		myValidOccupierType.add(className);
 	}
 	
-	private boolean verifyOccupier(GameEntity entity, Unit u) {
-		Class cls = u.getClass();
-		if (myOccupierID != 0 && myOccupierID != u.getPlayerID()) {
+	private boolean verifyOccupier(GameEntity entity, InteractiveEntity occupier) {
+		Class cls = occupier.getClass();
+		if (myOccupierID != 0 && myOccupierID != occupier.getPlayerID()) {
 			return false;
 		}
 		for (String s: myValidOccupierType) {

@@ -155,7 +155,6 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     public abstract InteractiveEntity copy ();
 
     public Action getAction (Command command) {
-        System.out.println("getting");
         return myActions.get(command.getMethodName());
     }
 
