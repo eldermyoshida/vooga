@@ -39,7 +39,8 @@ public class MenuLoader extends ObjectLoader {
 				for(int k = 0; k < frames.getLength(); k++){
 					Element node1 = (Element) frames.item(k);
 					String imagepathway = getAttributeValue(node1, "image");
-					newState.populateImage(new Pixmap(imagepathway), k);
+					Pixmap image= new Pixmap(imagepathway);
+					newState.populateImage(image, k);
 				}
 				myMenuObject.addState(stateName, newState);
 				if(j == 0) myMenuObject.setCurrentState(stateName);

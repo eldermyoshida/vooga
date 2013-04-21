@@ -26,6 +26,7 @@ public class CharacterObject extends GameObject {
     private List<AttackObject> currentAttacks; 
     private boolean facingRight;  
     private int movingDirection; 
+    private static final int MOVE_BACK_AMOUNT=-2; 
     
     /**
      * Constructs a new CharacterObject.
@@ -154,9 +155,16 @@ public class CharacterObject extends GameObject {
      */
     public void move(int direction) {
         setCurrentState("moveRight");
+        movingDirection=direction;
         getLocation().translate(new Vector(direction, getProperty("speed")));
     }
 
+    /**
+     * Makes the character move back if it runs into another character or environmentobject
+     */
+    public void moveBack(){
+    	getLocation().translate(new Vector(movingDirection, MOVE_BACK_AMOUNT*getProperty("speed")));
+    }
 
     /**
      * Gets the direction the character is moving
@@ -237,5 +245,4 @@ public class CharacterObject extends GameObject {
         System.out.println("CharacterObject handleCollision : Character collided with environment");
     }
     
-
 }

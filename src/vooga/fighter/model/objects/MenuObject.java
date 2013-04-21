@@ -76,7 +76,5 @@ public class MenuObject extends GameObject {
     @Override
     public void handleCollision (EnvironmentObject other) {
         // TODO Auto-generated method stub
-
-
     }
 }

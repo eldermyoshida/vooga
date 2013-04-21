@@ -76,13 +76,23 @@ public class CollisionManager {
      */
     public void collide(CharacterObject o1, CharacterObject o2) {
     	o1.changeHealth(-10);
+    	if (o1.getCurrentState().hasPriority(o2.getCurrentState())){
+    		o1.moveBack();
+    	}
+    	else{
+    		o2.moveBack(); 
+    	}
         System.out.println("CollisionManager: Two CharacterObjects collided!");
     }
     
     /**
      * Handles collisions between two attack objects.
+     * 
      */
     public void collide(AttackObject o1, AttackObject o2) {
+    	if (o1.getCurrentState().hasPriority(o2.getCurrentState())){
+    		
+    	}
         System.out.println("CollisionManager: Two AttackObjects collided!");
     }
     
@@ -95,8 +105,10 @@ public class CollisionManager {
     
     /**
      * Handles collisions between a character object and an attack object.
+     * Destroys object on collision with character object 
      */
     public void collide(CharacterObject o1, AttackObject o2) {
+    	//o2.setCounter(0); 
         System.out.println("CollisionManager: CharacterObject and AttackObject collided!");
     }
     
@@ -104,6 +116,9 @@ public class CollisionManager {
      * Handles collisions between an attack object and a character object.
      */
     public void collide(AttackObject o1, CharacterObject o2) {
+    	if (o1.getCurrentState().hasPriority(o2.getCurrentState())){
+    		o1.inflictDamage(o2);
+    	}
         System.out.println("CollisionManager: AttackObject and CharacterObject collided!");
     }
     
@@ -118,6 +133,7 @@ public class CollisionManager {
      * Handles collisions between an attack object and an environment object.
      */
     public void collide(AttackObject o1, EnvironmentObject o2) {
+    	
         System.out.println("CollisionManager: Attackobject and EnvironmentObject collided!");
     }
     
@@ -125,6 +141,7 @@ public class CollisionManager {
      * Handles collisions between a character object and an environment object.
      */
     public void collide(CharacterObject o1, EnvironmentObject o2) {
+    	
         System.out.println("CollisionManager: CharacterObject and EnvironmentObject collided!");
     }
     
@@ -132,6 +149,7 @@ public class CollisionManager {
      * Handles collisions between an environment object and a character object.
      */
     public void collide(EnvironmentObject o1, CharacterObject o2) {
+    	o2.moveBack(); 
         System.out.println("CollisionManager: EnvironmentObject and CharacterObject collided!");
     }
     

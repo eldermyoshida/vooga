@@ -2,13 +2,11 @@ package vooga.fighter.model.objects;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import util.Location;
 import vooga.fighter.model.ModelConstants;
 import vooga.fighter.model.utils.Counter;
 import vooga.fighter.model.utils.Effect;
-import vooga.fighter.model.utils.State;
 import vooga.fighter.model.utils.UpdatableLocation;
 import util.Vector;
 
@@ -35,7 +33,7 @@ public class AttackObject extends GameObject{
         myCounter = new Counter();
     }
     
-    public AttackObject(AttackObject other, UpdatableLocation center){
+    public AttackObject (AttackObject other, UpdatableLocation center){
     	super();
     	addProperty(ModelConstants.ATTACK_PROPERTY_SPEED, other.getProperty(ModelConstants.ATTACK_PROPERTY_SPEED));
     	addProperty(ModelConstants.ATTACK_PROPERTY_DIRECTION, other.getProperty(ModelConstants.ATTACK_PROPERTY_DIRECTION));
@@ -43,22 +41,11 @@ public class AttackObject extends GameObject{
     	addProperty(ModelConstants.ATTACK_PROPERTY_DURATION, other.getProperty(ModelConstants.ATTACK_PROPERTY_DURATION));
     	this.myEffects = other.myEffects;
         this.myOwner = other.myOwner;
-        this.myCounter = new Counter(other.myCounter);           
+        this.myCounter = new Counter(getProperty(ModelConstants.ATTACK_PROPERTY_DURATION));   
     	setLocation(center);
-    	copyStates(other);
-    }
-    
-    /**
-     * Creates a deep copy of another AttackObject's state map and sets it as this
-     * object's state map.
-     */
-    public void copyStates(AttackObject other) {
-        Map<String,State> otherStates = other.getStates();
-        for (String key : otherStates.keySet()) {
-            State otherState = otherStates.get(key);
-            State newState = new State(otherState);
-            addState(key, newState);
-        }
+        setImageData(); 
+    	
+
     }
     
     /**
