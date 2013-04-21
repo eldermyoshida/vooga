@@ -28,6 +28,12 @@ import vooga.fighter.view.Canvas;
  * 
  * @Modified by Jack Matteucci
  * 
+ * This is the basic controller used for levels.  It is attached to the LevelMode, so
+ * one may see how the LevelMode is intantiated within this hierarchy if he/she may
+ * need to extend controller.  Most extensions should just  subclass this class, as 
+ * it provides the functionality to change winning conditions/ special conditions/
+ * inputs.
+ * 
  */
 
 public abstract class LevelController extends Controller {
