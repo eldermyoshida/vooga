@@ -29,6 +29,12 @@ public class AttackTower extends Building {
         
     }
 
+    @Override
+    public void addActions () {
+        // TODO Auto-generated method stub
+        
+    }
+
 
 	
 }

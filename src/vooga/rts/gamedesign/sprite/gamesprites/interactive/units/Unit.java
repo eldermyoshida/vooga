@@ -4,8 +4,13 @@ import java.awt.Dimension;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
-import vooga.rts.gamedesign.action.Action;
-import vooga.rts.gamedesign.sprite.gamesprites.GameEntity;
+
+import vooga.rts.commands.ClickCommand;
+import vooga.rts.commands.Command;
+import vooga.rts.commands.DragCommand;
+import vooga.rts.controller.PositionCommand;
+import vooga.rts.action.Action;
+import vooga.rts.action.InteractiveAction;
 import vooga.rts.gamedesign.sprite.gamesprites.GameSprite;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.IGatherable;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
@@ -16,6 +21,7 @@ import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
 import vooga.rts.gamedesign.upgrades.UpgradeNode;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
 import vooga.rts.manager.GameUnitManager;
+import vooga.rts.util.Camera;
 import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
@@ -36,7 +42,7 @@ import vooga.rts.util.Sound;
  */
 public class Unit extends InteractiveEntity {
 
-	private static UpgradeTree myUpgradeTree;
+    private static UpgradeTree myUpgradeTree;
     private List<GameSprite> myKills; //TODO: WHAT TYPE SHOULD IT BE??
     // private boolean myIsLeftSelected; // TODO: also need the same thing for Projectiles
     // private boolean myIsRightSelected; // TODO: should be observing the mouse action instead!!
@@ -68,6 +74,7 @@ public class Unit extends InteractiveEntity {
         if (getGameUnitManager() != null) {
         	getGameUnitManager().addPlayerUnit(this);
         }
+        addActions();
     }
     
     public void addGameUnitManager(GameUnitManager gameUnitManager) {
@@ -106,4 +113,21 @@ public class Unit extends InteractiveEntity {
     	}
     }
 
+    @Override
+    public void addActions () {
+       put("leftclick", new InteractiveAction(this) {
+          private Location3D myLocation;
+          
+          @Override
+          public void apply() {
+              getEntity().move(myLocation);
+          }
+          
+          @Override
+          public void update(Command command) {          
+              PositionCommand click = (PositionCommand) command;
+              myLocation = Camera.instance().viewtoWorld(click.getPosition());
+          }
+       });  
+    }
 }

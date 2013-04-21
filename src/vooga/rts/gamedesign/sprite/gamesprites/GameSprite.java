@@ -4,19 +4,13 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
-import vooga.rts.gamedesign.sprite.Sprite;
+import vooga.rts.IGameLoop;
 import vooga.rts.util.Camera;
-import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 
 
-public abstract class GameSprite extends Sprite {
-    // canonical directions for a collision
-    public static final int RIGHT_DIRECTION = 0;
-    public static final int UP_DIRECTION = 270;
-    public static final int LEFT_DIRECTION = 180;
-    public static final int DOWN_DIRECTION = 90;
+public abstract class GameSprite implements IGameLoop {
 
     // private ThreeDimension mySize;
     private Dimension mySize;
@@ -26,14 +20,20 @@ public abstract class GameSprite extends Sprite {
     private Dimension myOriginalSize;
 
     private Location3D myWorldLocation;
+    private Point2D myScreenLocation;
     private Rectangle myWorldBounds;
 
+    private Pixmap myPixmap;
+
+    private boolean myVisible;
+
     public GameSprite (Pixmap image, Location3D center, Dimension size) {
-        super(image, new Location());
+        myPixmap = new Pixmap(image);
         mySize = size;
         myOriginalSize = size;
         myWorldLocation = new Location3D(center);
         resetBounds();
+        myVisible = true;
     }
 
     /**
@@ -108,26 +108,38 @@ public abstract class GameSprite extends Sprite {
         resetBounds();
     }
 
-    /**
-     * Reset shape back to its original values.
-     */
-    @Override
     public void reset () {
-        super.reset();
         mySize = myOriginalSize;
     }
 
-    /**
-     * Display this shape on the screen.
-     */
-    @Override
-    public void paintHelper (Graphics2D pen) {
-        if (Camera.instance().isVisible(myWorldLocation)) {
-            Point2D screen = Camera.instance().worldToView(myWorldLocation);
-            if (Camera.instance().isVisible(screen)) {
-                getView().paint(pen, screen, mySize);
-            }
+    public void paint (Graphics2D pen) {
+        if (!isVisible())
+            return;
+
+        if (Camera.instance().issVisible(getWorldLocation())) {
+            myScreenLocation = Camera.instance().worldToView(myWorldLocation);
+            // if (Camera.instance().isVisible(myScreenLocation)) {
+            myPixmap.paint(pen, myScreenLocation, mySize);
+            // }
         }
+    }
+
+    /**
+     * Returns whether a Game Sprite is visible or not.
+     * 
+     * @return
+     */
+    private boolean isVisible () {
+        return myVisible;
+    }
+
+    /**
+     * Sets the visibility of the sprite.
+     * 
+     * @param visible Whether the sprite is visible.
+     */
+    public void setVisible (boolean visible) {
+        myVisible = visible;
     }
 
     /**
@@ -203,4 +215,11 @@ public abstract class GameSprite extends Sprite {
         myWorldLocation.setLocation(x, y, z);
     }
 
+    public void update (double elapsedTime) {
+
+    }
+
+    public Pixmap getImage () {
+        return myPixmap;
+    }
 }

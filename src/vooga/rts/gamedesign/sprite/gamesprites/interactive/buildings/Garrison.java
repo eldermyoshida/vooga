@@ -1,16 +1,11 @@
 package vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings;
-import vooga.rts.gamedesign.action.OccupyAction;
-import vooga.rts.gamedesign.action.ProductionAction;
-import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
-import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
-import vooga.rts.gamedesign.strategy.occupystrategy.CanBeOccupied;
 
-import vooga.rts.util.Location;
+import java.awt.Dimension;
+
+import vooga.rts.gamedesign.strategy.occupystrategy.CanBeOccupied;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
-import java.awt.Dimension;
-import java.util.ArrayList;
 
 /**
  * 
@@ -26,10 +21,10 @@ public class Garrison extends Building {
                     int playerID, int health, int ID) {
         super(image, center, size, sound, playerID, health, ID);
         setOccupyStrategy(new CanBeOccupied()); 
-        addOccupyActions(this);
+        //addOccupyActions(this);
     }
     
-    public void addOccupyActions(final Building building) {
+    /*public void addOccupyActions(final Building building) {
     	getActions().add(new OccupyAction("puke",null,"I puke out all I have"){
             @Override
             public void apply(int playerID) {
@@ -38,7 +33,7 @@ public class Garrison extends Building {
             	getOccupyStrategy().setOccupiers(new ArrayList<Unit>());
             }
     	});
-    }
+    }*/
     
     /**
      * TESTING PURPOSE
@@ -48,10 +43,16 @@ public class Garrison extends Building {
         super.update(elapsedTime);
         if(getOccupyStrategy().getOccupiers().size() == 5) { 
             try {
-				getActions().get(0).apply(getOccupyStrategy().getOccupierID());
+				//getActions().get(0).apply(getOccupyStrategy().getOccupierID());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
         }
+    }
+
+    @Override
+    public void addActions () {
+        // TODO Auto-generated method stub
+        
     }
 }

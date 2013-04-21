@@ -24,7 +24,6 @@ import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Worker;
 import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;
 import vooga.rts.gui.Window;
-import vooga.rts.input.PositionObject;
 import vooga.rts.manager.GameBuildingManager;
 import vooga.rts.manager.GameResourceManager;
 import vooga.rts.manager.GameUnitManager;
@@ -41,7 +40,7 @@ import vooga.rts.util.PointTester;
 import vooga.rts.util.Sound;
 
 
-public class GameController extends AbstractController {
+public class GameController {
 
 	private Map<Integer, Team> myTeams;
 	private List<Player> myPlayers;
@@ -95,7 +94,6 @@ public class GameController extends AbstractController {
 
 	}
 
-	@Override
 	public void update (double elapsedTime) {
 		for (Player f : myPlayers) {
 			f.update(elapsedTime);
@@ -134,7 +132,6 @@ public class GameController extends AbstractController {
 		checkCameraMouse(elapsedTime);
 	}
 
-	@Override
 	public void paint (Graphics2D pen) {
 		myMap.paint(pen);        
 		

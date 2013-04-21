@@ -168,7 +168,7 @@ public class GameEntity extends GameSprite {
         // TODO: not static amount
         setVelocity(v.getAngle(), getSpeed());
     }
-
+    
     public int getSpeed () {
         return DEFAULT_SPEED;
     }
@@ -202,6 +202,7 @@ public class GameEntity extends GameSprite {
         v.scale(elapsedTime);
         translate(v);
         myEntityState.update();
+        super.update(elapsedTime);
     }
 
     public void changeHealth (int change) {
@@ -223,13 +224,6 @@ public class GameEntity extends GameSprite {
      */
     public void die () {
         myCurrentHealth = 0;
-    }
-
-    @Override
-    public void paintHelper (Graphics2D pen) {
-        if (!isDead()) {
-            super.paintHelper(pen);
-        }
     }
 
     /**

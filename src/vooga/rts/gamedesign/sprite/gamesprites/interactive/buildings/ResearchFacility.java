@@ -1,19 +1,19 @@
 package vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings;
 
+import java.awt.Dimension;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
-import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
-import java.awt.Dimension;
+
 
 /**
  * 
  * @author Ryan Fishel
  * @author Kevin Oh
  * @author Francesco Agosti
- * @author Wenshun Liu 
- *
+ * @author Wenshun Liu
+ * 
  */
 public class ResearchFacility extends Building {
 
@@ -28,5 +28,10 @@ public class ResearchFacility extends Building {
 
     }
 
+    @Override
+    public void addActions () {
+        // TODO Auto-generated method stub
+        
+    }
 
 }

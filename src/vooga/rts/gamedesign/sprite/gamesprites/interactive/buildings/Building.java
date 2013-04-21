@@ -8,7 +8,6 @@ import vooga.rts.gamedesign.strategy.occupystrategy.CanBeOccupied;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
 import vooga.rts.manager.IndividualBuildingManager;
 import vooga.rts.manager.GameBuildingManager;
-import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;

@@ -1,85 +1,43 @@
 package vooga.rts.player;
 
 import java.awt.Graphics2D;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Observable;
-import java.util.Observer;
 import vooga.rts.IGameLoop;
-import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
+import vooga.rts.commands.Command;
+import vooga.rts.controller.Controllable;
+import vooga.rts.controller.Controller;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
-import vooga.rts.manager.*;
-import vooga.rts.map.GameMap;
+import vooga.rts.manager.Manager;
 
-public abstract class Player implements IGameLoop, IProductionObserver {    
-	
-	private IndividualResourceManager myResourceManager;
-    private IndividualUnitManager myUnitManager;
-    private IndividualBuildingManager myBuildingManager;
+public class Player implements Controller, IGameLoop {
+
+    private Manager myManager;
     private int myTeamID;
-    private GameMap myMap;
-    
-    
-    public Player() {
-        myResourceManager = new IndividualResourceManager();
-        myUnitManager= new IndividualUnitManager();
-        
-    }
-    
-    public Player(GameMap map) {
-        this();
-        myMap = map;
-    }
-    
-    public void addProduction(Unit newProduction) {
-    	myUnitManager.addUnit(newProduction);
-    }
-    
-    public void updateResource(HashMap<String, Integer> updatedResources) {
-    	myResourceManager.setResources(updatedResources);
-    }
 
-    public IndividualResourceManager getIndividualResourceManager () {
-        return myResourceManager;
-    }
-
-    public IndividualUnitManager getUnits () {
-        return myUnitManager;
-    }
-
-    public IndividualBuildingManager getBuildings () {
-        return myBuildingManager;
-    }
-
-    public int getTeamID () {
-        return myTeamID;
-    }
-    
-    public void setTeamID (int id) {
+    public Player (int id) {
+        myManager = new Manager();
         myTeamID = id;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see vooga.rts.IGameLoop#update(double)
-     */
     @Override
-    public void update (double elapsedTime) {
-        myUnitManager.update(elapsedTime);
+    public void sendCommand (Command command) {
+        // TODO Auto-generated method stub
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see vooga.rts.IGameLoop#paint(java.awt.Graphics2D)
-     */
+    public Controllable getManager () {
+        return myManager;
+    }
+
+    public void add (Unit unit) {
+        myManager.add(unit);
+    }
+
     @Override
     public void paint (Graphics2D pen) {
-        myUnitManager.paint(pen);
+        myManager.paint(pen);
     }
-    
-    public GameMap getMap () {
-        return myMap;
+
+    @Override
+    public void update (double elapsedTime) {
+        myManager.update(elapsedTime);
     }
 }

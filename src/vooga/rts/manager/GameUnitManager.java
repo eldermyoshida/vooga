@@ -45,7 +45,7 @@ public class GameUnitManager {
 		ArrayList<Unit> newUnitList = myPlayerUnits.get(u.getPlayerID());
 		newUnitList.add(u);
 		myPlayerUnits.put(u.getPlayerID(), newUnitList);
-		myPlayers.get(u.getPlayerID()-1).getUnits().setAllUnits(newUnitList);
+		//myPlayers.get(u.getPlayerID()-1).getManager().setAllEntities(newUnitList);
 	}
 	
 	public void removePlayerUnit(Unit u) { //TODO: check if removed when Unit's dead
@@ -53,7 +53,7 @@ public class GameUnitManager {
 		int removeIndex = newUnitList.indexOf(u);
 		newUnitList.remove(removeIndex);
 		myPlayerUnits.put(u.getPlayerID(), newUnitList);
-		myPlayers.get(u.getPlayerID()-1).getUnits().setAllUnits(newUnitList);
+		//myPlayers.get(u.getPlayerID()-1).getUnits().setAllUnits(newUnitList);
 	}
 	
 	public void addEntityUnit(Building building, Unit u) {
@@ -77,7 +77,7 @@ public class GameUnitManager {
 			//TODO: can't select. Not add to player properly.
 		}
 		myPlayerUnits.put(playerID, oldPlayerUnitList);
-		myPlayers.get(playerID-1).getUnits().setAllUnits(oldPlayerUnitList);
+		//myPlayers.get(playerID-1).getUnits().setAllUnits(oldPlayerUnitList);
 	}
 	
 	public Map<Integer, ArrayList<Unit>> getPlayerUnits() {
