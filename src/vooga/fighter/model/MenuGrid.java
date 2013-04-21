@@ -60,7 +60,7 @@ public class MenuGrid {
 				int yloc =  (RowNumber)*GameManager.SIZE.height/(rows) + GameManager.SIZE.height/(2*rows);
 				list.get(i).setLocation(new UpdatableLocation(xloc,yloc));
 				int count  = 0;
-				for(Object s : list.get(i).getStates()){
+				for(Object s : list.get(i).getStates().values()){
 					State state = (State) s;
 					Dimension size = new Dimension(GameManager.SIZE.width/(2*columns), GameManager.SIZE.height/(2*rows));
 					state.populateSize(size, count);
