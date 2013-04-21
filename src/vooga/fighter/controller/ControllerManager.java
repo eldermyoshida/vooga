@@ -33,12 +33,11 @@ public class ControllerManager implements ControllerDelegate{
 			ControlProgressionManager progressionmanager) {
 		myCanvas = frame;
 		myInput = new Input(INPUT_PATHWAY, myCanvas);
-		//myControllerMap = factory.getMap();
 		myControllerMap = factory.getMap();
 		myGameInfo = gameinfo;
 		myProgressionManager = progressionmanager;
-		myProgressionManager.setControllerProgression(myControllerMap);
-		myCurrentController = myProgressionManager.getController(0);
+		//myProgressionManager.setControllerProgression(myControllerMap);
+		myCurrentController = myProgressionManager.getNextController("MainMenu");
 		myCurrentController.initializeRest(frame, this, gameinfo);
 	}
 	
@@ -52,7 +51,7 @@ public class ControllerManager implements ControllerDelegate{
 
 	private void switchController(String condition) {
 		myCurrentController.stop();
-		myCurrentController = myProgressionManager.getNextController(myCurrentController, condition);
+		myCurrentController = myProgressionManager.getNextController(condition);
 		System.out.println("<controllermanager> now the controller is: " + myCurrentController.getName() );
 		//myCurrentController.displaySplash();
 		myCurrentController = myCurrentController.getController();
