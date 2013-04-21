@@ -43,7 +43,7 @@ public class Manager implements State, IActOn, Observer {
         myGroups = new HashMap<Integer, List<InteractiveEntity>>();
         myMultiSelect = false;
         myActions = new HashMap<String, Action>();
-        addAction();
+        addActions();
     }
 
     @Override
@@ -95,9 +95,14 @@ public class Manager implements State, IActOn, Observer {
      * 
      * @param u The entity that is to be added.
      */
-    public void add (InteractiveEntity unit) {
-        // unit.
-        myEntities.add(unit);
+    public void add (InteractiveEntity entity) {
+        entity.addObserver(this);
+        myEntities.add(entity);
+    }
+
+    public void remove (InteractiveEntity entity) {
+        entity.deleteObserver(this);
+        myEntities.remove(entity);
     }
 
     public void deselect (Location3D location) {
@@ -225,7 +230,7 @@ public class Manager implements State, IActOn, Observer {
         myMultiSelect = val;
     }
 
-    public void addAction () {
+    public void addActions () {
         put("drag", new DragSelectAction(this));
         put("leftclick", new LeftClickAction(this));
         put("rightclick", new RightClickAction(this));
@@ -243,8 +248,13 @@ public class Manager implements State, IActOn, Observer {
     }
 
     @Override
-    public void update (Observable arg0, Object arg1) {
-
+    public void update (Observable entity, Object state) {
+        if (entity instanceof InteractiveEntity) {
+            InteractiveEntity ie = (InteractiveEntity) entity;
+            if (ie.isDead()) {
+                remove(ie);
+            }
+        }
     }
 
 }

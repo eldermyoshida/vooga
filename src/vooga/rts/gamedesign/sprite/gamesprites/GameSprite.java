@@ -4,13 +4,14 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
+import java.util.Observable;
 import vooga.rts.IGameLoop;
 import vooga.rts.util.Camera;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 
 
-public abstract class GameSprite implements IGameLoop {
+public abstract class GameSprite extends Observable implements IGameLoop {
 
     // private ThreeDimension mySize;
     private Dimension mySize;
