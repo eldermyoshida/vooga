@@ -44,6 +44,7 @@ public abstract class MenuController extends Controller {
         setInput(manager.getInput());
         getInput().replaceMappingResourcePath(INPUT_PATHWAY);
         getInput().addListenerTo(this);
+       
     	DisplayLoopInfo LoopInfo =  new DisplayLoopInfo(super.getMode());
     	setLoopInfo(LoopInfo);
     }

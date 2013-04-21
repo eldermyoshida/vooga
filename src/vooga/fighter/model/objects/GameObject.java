@@ -118,7 +118,9 @@ public abstract class GameObject {
     /**
      * Gets the current state for this object.
      */
-    protected State getCurrentState() {
+    //Alan, collision manager was bugging with this as protected so I changed it back to public
+    //-Jerry
+    public State getCurrentState() {
         return myCurrentState;
     }
 
