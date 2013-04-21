@@ -21,10 +21,7 @@ public class LEView extends Window<LEWorkspaceView, LevelEditing, LEGridView, LE
     
     public LEView (String language, LEController lEController) {
         super(TITLE, language, lEController);
-        // TODO Auto-generated constructor stub
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        pack();
-        setVisible(true);
     }
 
     @Override

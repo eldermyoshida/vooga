@@ -65,8 +65,6 @@ implements IWindow<W, D, R, T> {
         getContentPane().setLayout(new GridBagLayout());
         setMenu();
         addComponents();
-        pack();
-        setVisible(true);
     }    
 
     protected abstract void setMenu ();
@@ -223,5 +221,11 @@ implements IWindow<W, D, R, T> {
     @Override
     public void showWorkspace (W associatedWorkspaceView, Renderable<R> r) {
         addTab(associatedWorkspaceView, r);
+    }
+    
+    @Override
+    public void start() {
+        pack();
+        setVisible(true);
     }
 }

@@ -35,13 +35,7 @@ public class LETools extends Tools implements Renderable<LEToolsView> {
     private static final int COLLECTIBLES = 2;
     private static final int SPECIALPOINTS = 3;
     private static final int OTHERS = 4;
-    private LEView myView;
-    private LEActionLibrary myActionLibrary;
-    private Map<Object, String> mySpriteIcons;
-    private Map<Object, String> myOtherIcons;
     private List<HashMap<Object, String>> mySpritesOptions;
-
-    private Map<Object, String> mySpriteImages;
     private Map<Object, String> myBackgroundImages;
     private Map<Object, String> myOtherImages;
 
@@ -50,9 +44,7 @@ public class LETools extends Tools implements Renderable<LEToolsView> {
     /**
      * Initialize state of this LETools.
      */
-    public LETools (LEView v) {
-        myView = v;
-        myActionLibrary = new LEActionLibrary(v);
+    public LETools () {
         mySpritesOptions = new ArrayList<HashMap<Object, String>>();
         Map<Object, String> platforms = new HashMap<Object, String>();
         Map<Object, String> ennemis = new HashMap<Object, String>();
@@ -64,8 +56,6 @@ public class LETools extends Tools implements Renderable<LEToolsView> {
         mySpritesOptions.add(COLLECTIBLES, (HashMap<Object, String>)collectibles);
         mySpritesOptions.add(SPECIALPOINTS, (HashMap<Object, String>)specialpoints);
         mySpritesOptions.add(OTHERS, (HashMap<Object, String>)others);
-        mySpriteIcons = new HashMap<Object, String>();
-        myOtherIcons = new HashMap<Object, String>();
 //        initOtherIcons();
     }
 //
@@ -140,10 +130,6 @@ public class LETools extends Tools implements Renderable<LEToolsView> {
         return new LEToolsView(this, parent);
     }
 
-    @Override
-    public Object getActionLibrary () {
-        return myActionLibrary;
-    }
 
 
 //    public void addBackgrounds (Map<Integer, Image> map) {

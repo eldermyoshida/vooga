@@ -15,7 +15,6 @@ import vooga.scroller.level_editor.view.LEGridView;
 import vooga.scroller.level_editor.view.LEView;
 import vooga.scroller.level_editor.view.LEWorkspaceView;
 import vooga.scroller.level_editor.view.LevelEditing;
-import vooga.scroller.sprites.test_sprites.MarioLib;
 import vooga.scroller.util.Editable;
 import vooga.scroller.util.Renderable;
 import vooga.scroller.util.mvc.IController;
@@ -36,27 +35,29 @@ import vooga.scroller.util.mvc.vcFramework.WorkspaceView;
 
 public class LEController implements IController<LevelEditing> {
 
-    private IWindow<LEWorkspaceView, LevelEditing, LEGridView, LETools> myView;
-    private ILevelEditor myModel;
-    private Map<Editable, WorkspaceView<LevelEditing>> myWorkspace2Tab;
-    private Map<WorkspaceView<LevelEditing>, Editable> myTab2Workspace;
     private static final int DEFAULT_SPRITE_GRID_SIZE = 30;
-    private ToolsManager myToolsManager;
-    private LETools myTools;
-    private LevelWriter myLevelWriter;
-    private LevelParser myLevelReader;
     private LevelEditing myDomainInfo;
-    
+    private LevelParser myLevelReader;
+    private LevelWriter myLevelWriter;
+    private ILevelEditor myModel;
+    private Map<WorkspaceView<LevelEditing>, Editable> myTab2Workspace;
+    private LETools myTools;
+    private ToolsManager myToolsManager;
+    private IWindow<LEWorkspaceView, LevelEditing, LEGridView, LETools> myView;
+    private Map<Editable, WorkspaceView<LevelEditing>> myWorkspace2Tab;
+
     /**
-     * Constructor
-     * @param backgroundLib 
+     * Preferred constructor, specifies sprites and background to be availed in the 
+     * Level Editor.
+     * @param lib - A sprite Library for the editor
+     * @param bgLib - A background Library to be used in the editor
      */
     public LEController(ISpriteLibrary lib, IBackgroundLibrary bgLib) {
         myDomainInfo = new LevelEditing();
         String language = getLanguage();
         myModel = new LevelEditor(language);
         myView = new LEView(language, this);
-        myToolsManager = new ToolsManager(lib,bgLib, myView);
+        myToolsManager = new ToolsManager(lib, bgLib);
         myModel.setSpriteMap(myToolsManager.getSpriteMap());
         myModel.setBackgroundMap(bgLib.getBackgrounds());
         myTools = myToolsManager.getViewTools();
@@ -65,81 +66,6 @@ public class LEController implements IController<LevelEditing> {
         myTab2Workspace = new HashMap<WorkspaceView<LevelEditing>, Editable>();
         myLevelWriter = new LevelWriter();
         myLevelReader = new LevelParser();
-    }
-
-    private String getLanguage () {
-        String[] languages = {"English", "French"};
-        int n = JOptionPane.showOptionDialog(null,
-                            "Choose a language", "Language Selection",
-                            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
-                            null, languages, languages[0]);
-        String language = languages[n];
-        return language;
-    }
-    
-    /* (non-Javadoc)
-     * @see vooga.scroller.level_editor.controllerSuite.IController#start()
-     */
-
-    @Override
-    public void start() {
-        //Welcome message
-//        myView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        myView.pack();
-//        myView.setVisible(true);
-    }
-
-    /**
-     * return the Room Object corresponding to the input TabView
-     * @param t
-     * @return
-     */
-    private Editable getModelForWorkspace (WorkspaceView v) {
-        return myTab2Workspace.get(v);
-    }
-
-    private WorkspaceView getViewForWorkspace (Editable m) {
-        return myWorkspace2Tab.get(m);
-    }
-
-    
-    /* (non-Javadoc)
-     * @see vooga.scroller.level_editor.controllerSuite.IController#initializeWorkspace(int, int)
-     */
-    public void initializeWorkspace(int numWidthBlocks, int numHeightBlocks) {
-        int id = myWorkspace2Tab.size();
-        initializeWorkspace(id, numWidthBlocks, numHeightBlocks);
-    }
-    
-    /* (non-Javadoc)
-     * @see vooga.scroller.level_editor.controllerSuite.IController#initializeWorkspace()
-     */
-    @Override
-    public void initializeWorkspace() {
-        int id = myWorkspace2Tab.size();
-        int [] size = getNumBlocks();
-        initializeWorkspace(id, size[0], size[1]);
-    }
-
-    /**
-     * TODO - get info via dialog box
-     * @return
-     */
-    private int[] getNumBlocks () {
-        int[] res = new int[2];
-        res[0]= 60;
-        res[1]= 30;
-        return res;
-    }
-
-    /**
-     * Initialize a room with the ID provided
-     * also initialize a corresponding Tab in the view.
-     * @param id
-     */
-    private void initializeWorkspace (int id) {
-        LEGrid m = new LEGrid(DEFAULT_SPRITE_GRID_SIZE,DEFAULT_SPRITE_GRID_SIZE);;
-        createWorkspaceView(id, m);
     }
 
     /**
@@ -152,23 +78,83 @@ public class LEController implements IController<LevelEditing> {
         myWorkspace2Tab.put(m, associatedWorkspaceView);
         myTab2Workspace.put(associatedWorkspaceView, m);
         myView.showWorkspace(associatedWorkspaceView, (Renderable<LEGridView>) m);
-       }
-    
-    private void initializeWorkspace(int id, int numWidthBlocks, int numHeightBlocks) {
-        LEGrid m = new LEGrid(numWidthBlocks, numHeightBlocks);
-        createWorkspaceView(id, m);
-    }
-
-    @Override
-    public void saveFile (File file2save, WorkspaceView<LevelEditing> t) {
-        LEGrid grid = (LEGrid) getModelForWorkspace(t);
-        myLevelWriter.createFile(file2save, grid, myToolsManager.getSpriteLibPath());
-        
     }
 
     @Override
     public LevelEditing getDomainInfo () {
         return myDomainInfo;
+    }
+
+    private String getLanguage () {
+        String[] languages = {"English", "French"};
+        int n = JOptionPane.showOptionDialog(null,
+                                             "Choose a language", "Language Selection",
+                                             JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
+                                             null, languages, languages[0]);
+        String language = languages[n];
+        return language;
+    }
+
+    /**
+     * return the Room Object corresponding to the input TabView
+     * @param t
+     * @return
+     */
+    private Editable getModelForWorkspace (WorkspaceView<LevelEditing> v) {
+        return myTab2Workspace.get(v);
+    }
+
+
+    /**
+     * This allows the user to specify the number of blocks needed for the level.
+     * @return [width, height] in blocks
+     */
+    private int[] getNumBlocks () {
+        int[] res = new int[2];
+        String s = (String)JOptionPane.showInputDialog(
+                                                       null,
+                                                       "How many blocks:\n"
+                                                               + "width, height",
+                                                               "New Level Size",
+                                                               JOptionPane.PLAIN_MESSAGE,
+                                                               null,
+                                                               null,
+                "" + DEFAULT_SPRITE_GRID_SIZE + ", " + DEFAULT_SPRITE_GRID_SIZE);
+        if (!s.isEmpty()) {
+            int splitter = s.indexOf(",");
+            String s1 = s.substring(0, splitter).trim();
+            String s2 = s.substring(splitter + 1).trim();
+            res[0] = Integer.parseInt(s1);
+            res[1] = Integer.parseInt(s2);
+        }
+        else {
+            res[0] = DEFAULT_SPRITE_GRID_SIZE; 
+            res[1] = DEFAULT_SPRITE_GRID_SIZE;
+        }
+        return res;
+    }
+
+    
+    @Override
+    public void initializeWorkspace() {
+        int id = myWorkspace2Tab.size();
+        int [] size = getNumBlocks();
+        initializeWorkspace(id, size[0], size[1]);
+    }
+
+    /**
+     * Initialize an LE workspace
+     * @param numWidthBlocks - blocks per width (row)
+     * @param numHeightBlocks - block per height (columns)
+     */
+    public void initializeWorkspace(int numWidthBlocks, int numHeightBlocks) {
+        int id = myWorkspace2Tab.size();
+        initializeWorkspace(id, numWidthBlocks, numHeightBlocks);
+    }
+
+    private void initializeWorkspace(int id, int numWidthBlocks, int numHeightBlocks) {
+        LEGrid m = new LEGrid(numWidthBlocks, numHeightBlocks);
+        createWorkspaceView(id, m);
     }
 
     @Override
@@ -181,11 +167,24 @@ public class LEController implements IController<LevelEditing> {
     @Override
     public void process (WorkspaceView<LevelEditing> t, Object cmd) {
         LEGrid m = (LEGrid) getModelForWorkspace(t);
-        System.out.println("Controller got "+ cmd);
-        if(cmd instanceof String) {
+        System.out.println("Controller got " + cmd);
+        if (cmd instanceof String) {
             myModel.processCommand(m, (String)cmd);
         }
         t.setRenderable((Renderable<?>) m);
+    }
+
+    @Override
+    public void saveFile (File file2save, WorkspaceView<LevelEditing> t) {
+        LEGrid grid = (LEGrid) getModelForWorkspace(t);
+        myLevelWriter.createFile(file2save, grid, myToolsManager.getSpriteLibPath());
+
+    }
+
+    @Override
+    public void start() {
+        //Welcome message
+        myView.start();
     }
 
 }

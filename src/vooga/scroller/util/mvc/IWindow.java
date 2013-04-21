@@ -20,10 +20,17 @@ import vooga.scroller.util.mvc.vcFramework.WorkspaceView;
 public interface IWindow<W extends WorkspaceView<D>, D extends IDomainDescriptor,
 R extends WindowComponent, T extends Tools> extends IView {
 
-    W initializeWorkspaceView (int id, Renderable<?> m);
+    public W initializeWorkspaceView (int id, Renderable<?> m);
 
-    void showWorkspace (W associatedWorkspaceView, Renderable<R> m);
+    public void showWorkspace (W associatedWorkspaceView, Renderable<R> m);
     
-    void setDefaultWorkspaceTools(T t);
+    public void setDefaultWorkspaceTools(T t);
+    
+    /**
+     * This is most likely to act as an initial "show." This method is intended
+     * to start the window by making it visible. It is designed to be primarily used by
+     * some kind of controller.
+     */
+    public void start();
 
 }
