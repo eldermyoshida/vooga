@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
+import javax.swing.ImageIcon;
 
 
 import arcade.database.Database;
@@ -54,7 +55,9 @@ public class GameInfo {
 
     
     public Pixmap getThumbnail() {
-    	return new Pixmap(myDb.getGameThumbnail(gameName));
+        return new Pixmap("arcade/resources/images/NoImage.gif");
+        //TODO: revert this back to getting from db.
+    	//return new Pixmap(myDb.getGameThumbnail(gameName));
     }
     
     public String getName(){
@@ -70,7 +73,9 @@ public class GameInfo {
     }
     
     public double getRating() {
-    	return myModel.getAverageRating(getName());
+        return 5;
+        //TODO: revert this back to getting from db.
+    	//return myModel.getAverageRating(getName());
     }
     
     private String getSingleplayerGameClassKeyword() {

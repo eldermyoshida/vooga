@@ -139,6 +139,7 @@ public class DetailView extends JFrame {
         myContentPanel.add(myComments);
         myContentPanel.add(commentPane);
 
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setVisible(true);
     }
 

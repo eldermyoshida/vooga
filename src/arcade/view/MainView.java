@@ -66,7 +66,7 @@ public class MainView extends JFrame {
 	 */
     private void createViewPanel () {
         myViewPanelList = new JPanel[3];
-        myViewPanelList[0] = new GameCenterPanel(this, myModel);
+        myViewPanelList[0] = new GameCenterPanel(this, myModel, myResources);
         myViewPanelList[1] = new SocialCenterPanel();
         myViewPanelList[2] = new StorePanel(myModel, myResources);
 
@@ -105,7 +105,7 @@ public class MainView extends JFrame {
     }
 
     public void showEndGameView (double score) {
-        JOptionPane.showConfirmDialog(null, "Your score was" + score);
+        JOptionPane.showMessageDialog(null, "Your score was" + score);
     }
 
 }
