@@ -23,7 +23,7 @@ import arcade.model.Model;
 /**
  * The view that allows a new user to register an account.
  * 
- * @author David Liu, Ellango
+ * @author Ellango
  * 
  */
 @SuppressWarnings("serial")
