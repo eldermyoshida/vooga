@@ -67,6 +67,7 @@ public class Manager implements State, IActOn, Observer {
     @Override
     public void update (double elapsedTime) {
         myEntities.addAll(myAddQueue);
+        myAddQueue.clear();
         myUpdateIterator = myEntities.iterator();
         while (myUpdateIterator.hasNext()) {
             InteractiveEntity u = myUpdateIterator.next();
