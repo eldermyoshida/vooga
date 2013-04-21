@@ -28,7 +28,8 @@ public class MenuObject extends GameObject {
     }
 
     @Override
-    public void update () {
+    public void completeUpdate () {
+        
     }
     
     public String getValue() {

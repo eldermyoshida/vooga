@@ -98,7 +98,7 @@ public abstract class GameObject {
     /**
      * Returns a state for this object. Returns null if it doesn't exist.
      */
-    protected State getState(String key) {
+    public State getState(String key) {
         if (myStates.containsKey(key)) {
             return myStates.get(key);
         } else {
@@ -118,8 +118,6 @@ public abstract class GameObject {
     /**
      * Gets the current state for this object.
      */
-    //Alan, collision manager was bugging with this as protected so I changed it back to public
-    //-Jerry
     public State getCurrentState() {
         return myCurrentState;
     }
@@ -127,21 +125,21 @@ public abstract class GameObject {
     /**
      * Clears all states.
      */
-    protected void clearStates() {
+    public void clearStates() {
         myStates.clear();
     }
     
     /**
      * Sets the object loader for this object.
      */
-    protected void setLoader(ObjectLoader loader) {
+    public void setLoader(ObjectLoader loader) {
         myLoader = loader;
     }
     
     /**
      * Returns the object loader for this object.
      */
-    protected ObjectLoader getLoader() {
+    public ObjectLoader getLoader() {
         return myLoader;
     }
     
@@ -182,6 +180,7 @@ public abstract class GameObject {
         if (myCenter != null) {
             myCenter.update();
         }
+        completeUpdate();
     }
     
     /**
@@ -211,6 +210,12 @@ public abstract class GameObject {
         return myStates;
     }
  
+    /**
+     * Handles additional update logic outside of resolving movement on the object
+     * and setting image data.
+     */
+    public abstract void completeUpdate();
+    
     /**
      * Second dispatch for collision management. Key part of the visitor pattern.
      */

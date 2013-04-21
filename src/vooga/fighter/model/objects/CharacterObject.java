@@ -47,11 +47,10 @@ public class CharacterObject extends GameObject {
     }
 
     /**
-     * Updates the character for one game loop cycle. Applies movement from acceleration
-     * forces acting on the character.
+     * Updates the character for one game loop cycle. Applies effects currently
+     * active on the character.
      */
-    public void update() {
-        super.update();
+    public void completeUpdate() {
         for (Effect effect : myActiveEffects) {
             effect.update();
         } 

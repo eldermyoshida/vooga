@@ -43,6 +43,8 @@ public class MapLoader extends ObjectLoader {
 		super(MAP_PATH);
 		myMap = map;
 		load(mapName);
+		myMap.setCurrentState("background");
+		myMap.getCurrentState().setLooping(true);
 	}
 
 	/**

@@ -60,13 +60,12 @@ public class AttackObject extends GameObject{
     
     
     /**
-     * Updates the attack object by calling GameObject's update and by decreasing it's time
-     * remaining so that it can expire if its time is up.
+     * Updates the attack object by decreasing its counter.
      */
-    public void update(){
-    	super.update();
+    public void completeUpdate(){
     	myCounter.decrementCounter();
-    	move(); 
+    	// whoever added this here, movement should be handled in superclass update
+    	// move(); 
     }
     
     /**
