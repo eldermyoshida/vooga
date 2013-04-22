@@ -2,6 +2,7 @@
 package vooga.scroller.marioGame;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import arcade.games.ArcadeInteraction;
 import java.awt.GraphicsConfiguration;
 import javax.swing.JFrame;
 import arcade.games.ArcadeInteraction;
@@ -21,9 +22,9 @@ import vooga.scroller.view.GameView;
  * A sample scroller game. By implementing the methods required by ScrollerGame,
  * the designer defines the components of the game. Most important, is the get LevelFileNames method.
  */
+
 public class MarioGame extends ScrollerGame
 {
-
 
     // constants
     public static final String TITLE = "Mario Demo";
@@ -36,11 +37,14 @@ public class MarioGame extends ScrollerGame
      */
     public static void main (String args[]) {
         // view of user's content
-        ScrollerGame test = new MarioGame();
-        test.start();
+        ScrollerGame test = new MarioGame(null);
+        test.run();
     }
 
 
+    public MarioGame (ArcadeInteraction arcade) {
+        super(arcade);
+    } 
 
     @Override
     protected String[] setLevelFileNames () {
@@ -74,5 +78,19 @@ public class MarioGame extends ScrollerGame
     @Override
     protected String setLevelsDirPath () {
         return LEVELS_DIR;
+
     }
+
+    @Override
+    public UserGameData generateNewProfile () {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public GameData generateNewGameProfile () {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }

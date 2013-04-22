@@ -22,8 +22,7 @@ import arcade.games.UserGameData;
  * @author Scrolling Platformer Team
  *
  */
-public abstract class ScrollerGame  {
-    private static ScrollingManager DEFAULT_SM = new OmniScrollingManager();
+public abstract class ScrollerGame extends Game {
     private Model myModel;
     private GameView myDisplay;
     private ScrollingManager myScrollingManager;
@@ -31,7 +30,8 @@ public abstract class ScrollerGame  {
     private String myTitle;
     private String[] myLevels;
 
-    public ScrollerGame () {
+    public ScrollerGame (ArcadeInteraction arcade) {
+        super(arcade);
         intializeInstanceVariables();
         makeModel();
     }
@@ -68,7 +68,8 @@ public abstract class ScrollerGame  {
         myDisplay.setModel(myModel);
     }
 
-    public void start() {
+    @Override
+    public void run() {
      // container that will work with user's OS
         JFrame frame = new JFrame(myTitle);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

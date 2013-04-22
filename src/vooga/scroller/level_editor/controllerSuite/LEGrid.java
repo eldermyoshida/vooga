@@ -6,10 +6,10 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
+import java.io.File;
+import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.Scrollable;
@@ -18,12 +18,10 @@ import vooga.scroller.level_editor.Level;
 import vooga.scroller.level_editor.StartPoint;
 import vooga.scroller.level_editor.model.SpriteBox;
 import vooga.scroller.level_editor.view.LEGridView;
-import vooga.scroller.level_management.IDoor;
 import vooga.scroller.level_management.LevelPortal;
 import vooga.scroller.scrollingmanager.OmniScrollingManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.util.Editable;
-import vooga.scroller.util.PlatformerConstants;
 import vooga.scroller.util.Renderable;
 import vooga.scroller.util.Sprite;
 import vooga.scroller.util.mvc.IView;
@@ -64,6 +62,7 @@ public class LEGrid implements Editable, Renderable<LEGridView>, Scrollable {
 
     @Override
     public void paint (Graphics2D pen) {
+        pen.drawImage(myBackground, 0, 0, null);
         for(int i = 0; i < mySize.width; i++){
             for( int j = 0; j < mySize.height; j++){
                 myGrid[i][j].paint(pen);
@@ -196,12 +195,12 @@ public class LEGrid implements Editable, Renderable<LEGridView>, Scrollable {
 
     @Override
     public int getScrollableUnitIncrement (Rectangle visibleRect, int orientation, int direction) {
-        return DEFAULT_SPRITE_SIZE;
+        return mySpriteSize;
     }
 
     @Override
     public int getScrollableBlockIncrement (Rectangle visibleRect, int orientation, int direction) {
-        return DEFAULT_SPRITE_SIZE;
+        return mySpriteSize;
     }
 
     @Override
@@ -222,8 +221,8 @@ public class LEGrid implements Editable, Renderable<LEGridView>, Scrollable {
      */
     public Dimension getPixelSize () {
         Dimension res= new Dimension(
-                                     mySize.width*DEFAULT_SPRITE_SIZE,
-                                     mySize.height*DEFAULT_SPRITE_SIZE);
+                                     mySize.width*mySpriteSize,
+                                     mySize.height*mySpriteSize);
         
         return res;
     }
