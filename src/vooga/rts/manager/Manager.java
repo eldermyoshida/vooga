@@ -16,6 +16,7 @@ import vooga.rts.action.IActOn;
 import vooga.rts.commands.Command;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.state.DetectableState;
+import vooga.rts.gamedesign.state.MovementState;
 import vooga.rts.manager.actions.DragSelectAction;
 import vooga.rts.manager.actions.LeftClickAction;
 import vooga.rts.manager.actions.RightClickAction;
@@ -313,8 +314,7 @@ public class Manager implements State, IActOn, Observer {
         			.equals(DetectableState.NOTDETECTABLE)) {
         		int index = myEntities.indexOf(state);
         		myEntities.get(index).setVisible(false);
-        		//myEntities.get(index).getEntityState()
-        		//.setDetectableState(DetectableState.NOTDETECTABLE);
+        		deselect(myEntities.get(index));
         	}
 
         }
@@ -325,6 +325,10 @@ public class Manager implements State, IActOn, Observer {
         	.setDetectableState(DetectableState.DETECTABLE);
         	myEntities.get(index).setVisible(true);
         	myEntities.get(index).setWorldLocation(new Location3D());
+        	
+        	//BELOW are all attempts to stop the Unit from moving. Yet not working : /
+        	myEntities.get(index).getEntityState().setMovementState(MovementState.STATIONARY);
+        	myEntities.get(index).stopMoving();
         }
     }
 }

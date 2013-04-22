@@ -189,9 +189,9 @@ public class GameState extends SubState implements Controller {
         occupyPukingTest = new DelayedTask(1, new Runnable() {
             @Override
             public void run () {
-                if (testGarrison.getOccupyStrategy().getOccupiers().size() > 5) {
+                if (testGarrison.getOccupyStrategy().getOccupiers().size() > 0) {
                     System.out.println("will puke!");
-                    testGarrison.getAction(new Command("puke all I have")).apply();
+                    testGarrison.getAction(new Command("deoccupy")).apply();
                 }
                 occupyPukingTest.restart();
             }
@@ -210,10 +210,9 @@ public class GameState extends SubState implements Controller {
         test.update(elapsedTime);
         // now even yuckier
         for (int i = 0; i < p1.size(); ++i) {
-            for (int j = i + 1; j < p1.size(); ++j) {
-                if (p1.get(i) instanceof Unit) {
-                     ((InteractiveAction)p1.get(i).getAction(new
-                    		 Command("occupy"))).apply(p1.get(j));
+        	if (p1.get(i) instanceof Unit) {
+        		for (int j = i + 1; j < p1.size(); ++j) {
+                    ((Unit)p1.get(i)).occupy(p1.get(j));
                 }
             }
         }

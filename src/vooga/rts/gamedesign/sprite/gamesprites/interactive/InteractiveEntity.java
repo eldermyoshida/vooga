@@ -164,10 +164,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
 
     public void getOccupied (Unit occupier) {
         if (occupier.collidesWith(this)) {
-            // TODO: this if check is because action is not initialized in Occupy Strategy.
-            if (this.getAction(new Command("be occupied!")) != null) {
-                 ((InteractiveAction)this.getAction(new Command("be occupied!"))).apply(occupier);
-            }
+            myOccupyStrategy.getOccupied(this, occupier);
         }
     }
 
