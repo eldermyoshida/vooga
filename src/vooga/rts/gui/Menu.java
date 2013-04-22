@@ -10,7 +10,7 @@ import java.util.Observer;
 import vooga.rts.IGameLoop;
 
 
-public abstract class Menu extends Observable implements IGameLoop, Observer{
+public abstract class Menu extends Observable implements IGameLoop, Observer {
 
     private List<Button> myButtons;
     private Image myImage;
@@ -18,15 +18,14 @@ public abstract class Menu extends Observable implements IGameLoop, Observer{
 
     public Menu () {
         myButtons = new ArrayList<Button>();
-    }    
-
-    @Override
-    public void update (double elapsedTime) {
-        
     }
 
     @Override
-    public void paint (Graphics2D pen) {
+    public void update (double elapsedTime) {
+
+    }
+
+    private void paintBG (Graphics2D pen) {
         if (myImage != null) {
             if (myTransform == null) {
                 myTransform = new AffineTransform();
@@ -38,6 +37,12 @@ public abstract class Menu extends Observable implements IGameLoop, Observer{
             }
             pen.drawImage(myImage, myTransform, null);
         }
+    }
+
+    @Override
+    public void paint (Graphics2D pen) {
+        paintBG(pen);
+        pen.drawImage(myImage, 0, 0, null);
 
         for (Button b : myButtons) {
             b.paint(pen);
@@ -53,29 +58,30 @@ public abstract class Menu extends Observable implements IGameLoop, Observer{
         myButtons.add(b);
         b.addObserver(this);
     }
-    
-    public void handleMouseDown(int x, int y) {
-        for (Button b: myButtons) {
+
+    public void handleMouseDown (int x, int y) {
+        for (Button b : myButtons) {
             if (b.checkWithinBounds(x, y)) {
                 b.processClick();
             }
         }
     }
-    
-    public void handleMouseMovement(int x, int y) {
-        for (Button b: myButtons) {
+
+    public void handleMouseMovement (int x, int y) {
+        for (Button b : myButtons) {
             if (b.checkWithinBounds(x, y)) {
                 b.setFocused(true);
-            } else {
+            }
+            else {
                 b.setFocused(false);
             }
         }
     }
-    
+
     @Override
     public void update (Observable o, Object arg) {
         setChanged();
-        notifyObservers(arg);        
+        notifyObservers(arg);
     }
 
 }
