@@ -27,6 +27,17 @@ public class ImageHelper {
     
     /**
      * 
+     * @param path path of the image to scale
+     * @param width The new width of the scaled image
+     * @param height The new height of the scaled image
+     * @return Image scale to the user parameter
+     */
+    public static Image getScaledImage(String path, int width, int height){
+        return getScaledImage(getImageIcon(path).getImage(),width, height);
+    }
+    
+    /**
+     * 
      * @param path path of the image
      * @return The image icon for this image
      */
@@ -41,10 +52,21 @@ public class ImageHelper {
      * @return Image scale to the user parameter
      */
     public static Image getScaledImage(Image image,int size){
-        BufferedImage buffer = new BufferedImage(size,size,BufferedImage.TYPE_INT_RGB);
+        return getScaledImage(image, size, size);
+    }
+    
+    /**
+     * 
+     * @param image the image to scale
+     * @param width The new width of the scaled image
+     * @param height The new height of the scaled image
+     * @return Image scale to the user parameter
+     */
+    public static Image getScaledImage(Image image,int width, int height){
+        BufferedImage buffer = new BufferedImage(width,height,BufferedImage.TYPE_INT_RGB);
         Graphics2D g2 = buffer.createGraphics();
         g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-        g2.drawImage(image, 0, 0, size, size, null);
+        g2.drawImage(image, 0, 0, width, height, null);
         g2.dispose();
         return buffer;
     }
