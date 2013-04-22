@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import vooga.rts.IGameLoop;
+import vooga.rts.util.Location;
 
 
 public abstract class Menu extends Observable implements IGameLoop, Observer {
@@ -49,7 +50,7 @@ public abstract class Menu extends Observable implements IGameLoop, Observer {
         }
     }
 
-    public void setImage (Image i) {
+    public void setBGImage (Image i) {
         myImage = i;
         myTransform = null;
     }
@@ -66,6 +67,10 @@ public abstract class Menu extends Observable implements IGameLoop, Observer {
             }
         }
     }
+    
+    public void handleMouseDown (Location l) {
+        handleMouseDown((int) l.getX(), (int) l.getY());
+    }
 
     public void handleMouseMovement (int x, int y) {
         for (Button b : myButtons) {
@@ -76,6 +81,10 @@ public abstract class Menu extends Observable implements IGameLoop, Observer {
                 b.setFocused(false);
             }
         }
+    }
+    
+    public void handleMouseMovement (Location l) {
+        handleMouseMovement((int) l.getX(), (int) l.getY());
     }
 
     @Override
