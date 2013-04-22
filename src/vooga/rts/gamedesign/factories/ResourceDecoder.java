@@ -80,7 +80,8 @@ public class ResourceDecoder extends Decoder{
 																		new Location3D(0,0,0),
 																		RESOURCE_SIZE,
 																		0,
-																		health);
+																		health,
+																		name);
 					
 																
 			myFactory.put(name, resource);

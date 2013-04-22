@@ -2,6 +2,7 @@
 
 
 <GameElements>
+<!--
 <Upgrade>
 	<type>
 		<name>Health</name>
@@ -50,6 +51,7 @@
 		</upgradeNode>
 	</type>
 </Upgrade>
+-->
 	<resources src = "vooga.rts.gamedesign.sprite.gamesprites.Resource">
 		<resource>
 			<name>gold</name>
