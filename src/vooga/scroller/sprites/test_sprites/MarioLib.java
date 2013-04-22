@@ -2,7 +2,7 @@ package vooga.scroller.sprites.test_sprites;
 
 import java.awt.Dimension;
 import util.Location;
-import vooga.scroller.level_editor.library.ISpriteLibrary;
+import vooga.scroller.level_editor.library.EncapsulatedSpriteLibrary;
 import vooga.scroller.sprites.interfaces.ICoin;
 import vooga.scroller.sprites.interfaces.IEnemy;
 import vooga.scroller.sprites.interfaces.IPlatform;
@@ -25,7 +25,7 @@ import util.Vector;
  * Moreover, it is an example of the sprite-specification file the game designer
  * will need to provide.
  */
-public class MarioLib implements ISpriteLibrary {
+public class MarioLib extends EncapsulatedSpriteLibrary {
     private static final Dimension DEFAULT_SIZE = new Dimension(32, 32);
     private static final Location DEFAULT_LOC = new Location(32, 32);
 
@@ -357,10 +357,6 @@ public class MarioLib implements ISpriteLibrary {
         }
     }
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public Class<? extends Sprite>[] getSpritesClasses () {
-        return (Class<? extends Sprite>[]) this.getClass().getClasses();
-    }
+    
 
 }
