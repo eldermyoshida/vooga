@@ -6,14 +6,17 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Observable;
 import javax.imageio.ImageIO;
+import vooga.rts.commands.ClickCommand;
 import vooga.rts.commands.Command;
 import vooga.rts.commands.PositionCommand;
 import vooga.rts.gui.Button;
 import vooga.rts.gui.Menu;
+import vooga.rts.gui.Window;
 import vooga.rts.gui.buttons.ImageButton;
-import vooga.rts.gui.buttons.ScreenButton;
+import vooga.rts.gui.buttons.MainMenuButton;
 import vooga.rts.resourcemanager.ResourceManager;
 import vooga.rts.util.Location;
 
@@ -24,10 +27,19 @@ public class GameMenu extends Menu {
             "images/gamemenu/menu_bg.png";
     private static final String EXIT_IMAGE_LOCATION =
             "images/gamemenu/menu_button.png";
+    private static final String ACTION_IMAGE_LOCATION =
+            "images/gamemenu/action_button.png";
     private BufferedImage myBGImage;
+    private static final Dimension ACTION_BUTTON_DIMENSION = new Dimension(50, 50);
+
     private static final Dimension EXIT_BUTTON_DIMENSION = new Dimension(200, 40);
-    private static final Location EXIT_BUTTON_LOCATION = new Location(150, 0);
+    private static final Location EXIT_BUTTON_LOCATION =
+            new Location(Window.SCREEN_SIZE.getWidth() - EXIT_BUTTON_DIMENSION.getWidth(), 0);
+    private static final int ACTION_MENU_WIDTH = 350;
+    private static final int ACTION_MENU_HEIGHT = 180;
+
     private Button myExitButton;
+    private ArrayList<Button> myActionButtons;
 
     public GameMenu () {
         File bgImage = new File(BG_IMAGE_LOCATION);
@@ -41,10 +53,38 @@ public class GameMenu extends Menu {
                 new ImageButton(EXIT_IMAGE_LOCATION, EXIT_BUTTON_DIMENSION, EXIT_BUTTON_LOCATION);
         addButton(myExitButton);
 
+        myActionButtons = new ArrayList<Button>();
+        createActionButtons();
     }
 
-    public void setMiniMap () {
+    private void createActionButtons () {
+        int iy = (int) (Window.SCREEN_SIZE.getHeight() - ACTION_MENU_HEIGHT);
+        int ix = (int) (Window.SCREEN_SIZE.getWidth() - ACTION_MENU_WIDTH);
+        int xPadding = 30;
+        int yPadding = 30;
+        int numPerRow = 4;
 
+        int ly = iy + yPadding;
+
+        for (int i = 1; i <= numPerRow; i++) {
+            int lx = ix + 
+                    (int) (ACTION_BUTTON_DIMENSION.getWidth() * (i - 1) + xPadding * i);
+            Button b =
+                    new ImageButton(ACTION_IMAGE_LOCATION, ACTION_BUTTON_DIMENSION,
+                                    new Location(lx, ly));
+            myActionButtons.add(b);
+            addButton(b);
+        }
+        ly += yPadding + ACTION_BUTTON_DIMENSION.getHeight();
+        for (int i = 1; i <= numPerRow; i++) {
+            int lx = ix + 
+                    (int) (ACTION_BUTTON_DIMENSION.getWidth() * (i - 1) + xPadding * i);
+            Button b =
+                    new ImageButton(ACTION_IMAGE_LOCATION, ACTION_BUTTON_DIMENSION,
+                                    new Location(lx, ly));
+            myActionButtons.add(b);
+            addButton(b);
+        }
     }
 
     public void setResources () {
@@ -57,13 +97,13 @@ public class GameMenu extends Menu {
 
     @Override
     protected void paintBG (Graphics2D pen) {
-        
-        int screenX = (int) pen.getDeviceConfiguration().getBounds().getWidth();
-        int screenY = (int) pen.getDeviceConfiguration().getBounds().getHeight();
-        
+
+        int screenX = (int) Window.SCREEN_SIZE.getWidth();
+        int screenY = (int) Window.SCREEN_SIZE.getHeight();
+
         int bgImgHeight = myBGImage.getHeight();
         int bgImgWidth = myBGImage.getWidth();
-        
+
         int x = 0;
         int y = screenY - bgImgHeight;
 
@@ -76,6 +116,7 @@ public class GameMenu extends Menu {
 
     @Override
     public void update (Observable o, Object arg) {
+
         if (o.equals(myExitButton)) {
             System.exit(0);
         }
@@ -84,12 +125,5 @@ public class GameMenu extends Menu {
         notifyObservers(arg);
     }
 
-    public void receiveCommand (Command command) {
-        if (!(command instanceof PositionCommand)) return;
 
-        PositionCommand p = (PositionCommand) command;
-        handleMouseDown(p.getPosition());
-        handleMouseMovement(p.getPosition());
-
-    }
 }
