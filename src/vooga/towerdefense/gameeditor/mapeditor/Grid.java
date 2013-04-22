@@ -52,4 +52,20 @@ public class Grid extends Rectangle {
                                  new Dimension(width, height));
     }
 
+    /**
+     * 
+     * @return  top left corner of the grid
+     */
+    public Point getTopLeftCorner() {
+        return new Point(x, y);
+    }
+    
+    /** 
+     * 
+     * @return  tile's id
+     */
+    public int getTileId() {
+        return myTile.getTileId();
+    }
+    
 }

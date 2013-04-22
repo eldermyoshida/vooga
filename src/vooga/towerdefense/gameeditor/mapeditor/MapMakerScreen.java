@@ -8,7 +8,9 @@ import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JPanel;
 import vooga.towerdefense.model.tiles.GrassTile;
 import vooga.towerdefense.model.tiles.Tile;
@@ -30,13 +32,14 @@ public class MapMakerScreen extends JPanel {
     private static final Pixmap DEFAULT_PIXMAP = new Pixmap(DEFAULT_TILE_STRING);
     private static final Dimension DEFAULT_TILE_SIZE = new Dimension(50, 50);
     private static final Location DEFAULT_LOCATION = new Location (0,0);
-    private static final GrassTile DEFAULT_TILE = new GrassTile(1, DEFAULT_PIXMAP, DEFAULT_LOCATION, DEFAULT_TILE_SIZE);
+    private static final GrassTile DEFAULT_TILE = new GrassTile(0, DEFAULT_PIXMAP, DEFAULT_LOCATION, DEFAULT_TILE_SIZE);
     private static final int MINIMUM_TILE_SIZE = 10;
     private Dimension mySize;
-    private int myTileSize;
+    private Integer myTileSize;
     private MouseAdapter myMouseListener;
     private List<Grid> myGrids;
     private Tile myTileToBuild;
+    private Map<Point, Integer> myMapRepresentation;
 
     public MapMakerScreen (Dimension size) {
         setSize(size);
@@ -45,7 +48,8 @@ public class MapMakerScreen extends JPanel {
         myTileSize = 50;
         myGrids = new ArrayList<Grid>();
         myTileToBuild = DEFAULT_TILE;
-                
+        myMapRepresentation = new HashMap<Point,Integer>();
+        
         makeListener();
         addMouseListener(myMouseListener);
     }
@@ -61,7 +65,9 @@ public class MapMakerScreen extends JPanel {
     private void paintTilesOnGrid (Graphics pen) {
         for (Grid g : myGrids) {
             g.paint((Graphics2D) pen);
+            myMapRepresentation.put(g.getTopLeftCorner(), g.getTileId());
         }
+        System.out.println("MAP: " + getMapRepresentation());
     }
 
     /**
@@ -116,5 +122,30 @@ public class MapMakerScreen extends JPanel {
      */
     public void setTile (Tile t) {
         myTileToBuild = t;
+    }
+    
+    /** 
+     * 
+     * @return  a mapping of the tile's position and the tile's id as strings
+     */
+    public Map<String, String> getMapRepresentation() {
+        Map<String, String> map = new HashMap<String, String>();
+        for (Map.Entry<Point, Integer> p: myMapRepresentation.entrySet()){
+            Integer x = p.getKey().x;
+            Integer y = p.getKey().y;
+            String xS, yS, tileNum;
+            if (x != 0){
+                x = x/myTileSize;
+            }
+            xS = x.toString();
+            if (y != 0){
+                y = y/myTileSize;
+            }
+            yS = y.toString();
+            tileNum = xS + "," + yS;
+            map.put(tileNum, p.getValue().toString());
+        }
+        
+        return map;
     }
 }

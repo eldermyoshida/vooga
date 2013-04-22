@@ -11,6 +11,7 @@ import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -44,6 +45,7 @@ public class MapEditorScreen extends GameEditorScreen {
     private static final String PATH_TILE_NAME = "path_tile.png";
     private static final Location DEFAULT_LOCATION = new Location(0,0);
     private static final Dimension DEFAULT_SIZE = new Dimension(50,50);
+    private static final Dimension TILE_PANEL_SIZE = new Dimension (200, 70);
     private static final Pixmap GRASS_PIXMAP = new Pixmap(GRASS_TILE_NAME);
     private static final Pixmap PATH_PIXMAP = new Pixmap (PATH_TILE_NAME);
     
@@ -103,7 +105,6 @@ public class MapEditorScreen extends GameEditorScreen {
         return new JLabel(text);
     }
 
-    // TODO make sure myTileSize is an int!! or appropriate int!!
     private void repaintGrids () {
         myTileSize = Integer.parseInt(myTextField.getText());
         myMapMakerBox.setTileSizes(myTileSize);
@@ -120,16 +121,19 @@ public class MapEditorScreen extends GameEditorScreen {
      */
     @Override
     public void addElementToGame () {
-        getController().addMapToGame();
+       // getController().addMapToGame(int TileSize, Map<String, String> tileInfo);
+       // Element mapParent = makeElement ("Map");
+       // myXMLDoc.addChildElement(myRoot, myParent);
+       // Element tileInfo = myXMLDoc.addElementFromMap ("TitleInfo", tileInfo)
+       // myXMLDoc.addChildElement(mapParent, tileInfo)
+        
     }
 
     private JPanel makePathTilePainter () {
         File[] images = getImages(TILE_IMAGES_CLASS_PATH);
         List<Pixmap> myImages = new ArrayList<Pixmap>();
         myImages = makeTileImages(images);
-
-        myTilePainter = new TilePanel(new Dimension(200, 70), myImages, this);
-
+        myTilePainter = new TilePanel(TILE_PANEL_SIZE, myImages, this);
         return myTilePainter;
     }
 
@@ -139,14 +143,13 @@ public class MapEditorScreen extends GameEditorScreen {
      * 
      * @param s string representing the tile that the developer clicked on.
      */
-    
     // TODO Fix this so that the tiles are not hard-coded!
     public void makeTileInstances (String s) {
-        if (s.equals("grass_tile.png")) {
-            myTileToBuild = new GrassTile(1, GRASS_PIXMAP, DEFAULT_LOCATION, DEFAULT_SIZE);
+        if (s.equals(GRASS_TILE_NAME)) {
+            myTileToBuild = new GrassTile(0, GRASS_PIXMAP, DEFAULT_LOCATION, DEFAULT_SIZE);
         }
-        else if (s.equals("path_tile.png")) {
-            myTileToBuild = new PathTile(2, PATH_PIXMAP, DEFAULT_LOCATION, DEFAULT_SIZE);
+        else if (s.equals(PATH_TILE_NAME)) {
+            myTileToBuild = new PathTile(1, PATH_PIXMAP, DEFAULT_LOCATION, DEFAULT_SIZE);
         }
         myMapMakerBox.setTile(myTileToBuild);
     }
@@ -176,4 +179,19 @@ public class MapEditorScreen extends GameEditorScreen {
         // TODO Auto-generated method stub
     }
 
+    /**
+     * 
+     * @return  a mapping of the tile's position and the tile's id as strings
+     */
+    public Map<String, String> getMapRepresentation () {
+        return myMapMakerBox.getMapRepresentation();
+    }
+    
+    /**
+     * 
+     * @return  the size of each tile in the map
+     */
+    public int getTileSize () {
+        return myTileSize;
+    }
 }

@@ -203,7 +203,7 @@ public class XMLTool {
         return parent;
     }
     
-    /*
+    /**
      * Getters: tag to tag operations
      * get value of a leaf element tag as: String, integer, double, ?... sound?, Sprite?
      * Get values of parent elements as a map, arrays of tags
