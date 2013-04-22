@@ -96,9 +96,7 @@ public class ButtonPanel extends JPanel {
      * @return
      */
     private JLabel makeButtonLabel(String text) {
-        JLabel label = new JLabel("<html><b><font size = 5><font face = champion>" + text);
-        label.setOpaque(false);
-        return label;
+        return new JLabel("<html><b><font size = 5><font face = champion>" + text);
     }
     
     /**

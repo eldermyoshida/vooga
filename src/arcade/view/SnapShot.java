@@ -55,7 +55,6 @@ public class SnapShot extends JPanel {
             @Override
             public void mouseClicked (MouseEvent arg0) {
                 if (arg0.getClickCount() == 2) {
-                    System.out.println("Clicked!!");
                     new DetailView(myGameInfo, myResources, myModel);
                 }
             }

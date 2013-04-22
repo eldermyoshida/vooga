@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+<head>
+</head>
+<body bgcolor="white">
+<p>
+This package is part of the CompSci 308 VOOGA Game Engine Project.
+
+
+<p>
+This package contains all of the views for the arcade.  High-level design is explained here.
+
+
+<!-- Fill this in with your high-level design and API examples -->
+
+<p>
+<b> public class MainView extends JFrame </b> <br>
+This represents the main view of the arcade.  The functionality of this class is
+ to switch between which mode is being displayed (Game Center, Social Center, 
+ Game Store, etc.).  These modes are organized using the CardLayout LayoutManager.
+   If we wished to add more modes to the arcade (such as an administration interface),
+   then additional classes that extend JPanel can be created and added to this object.
+<ul>
+<li> public void changeViewPanel(ArcadeMode mode)
+<ul><li> sets the current mode being displayed on the screen.</ul>
+</ul>
+
+<br>
+
+<b> public Enum ArcadeMode </b> <br>
+Used for switching which mode is currently being displayed in MainView
+<ul>
+<li>GAMECENTER
+<li>SOCIALCENTER
+<li>STORE
+</ul>
+
+<br>
+
+<b> public class ButtonPanel extends JPanel </b> <br>
+Contains buttons for switching which mode is being shown in the main view.
+
+<br><br>
+
+<b> public class GameCenterPanel extends JPanel </b> <br>
+Displays all the SnapShots on the screen for which games have been purchased by 
+the user.
+
+<br><br>
+
+<b> public class SnapShot extends JPanel </b> <br>
+Represents the name, rating, and thumbnail picture of a game. When a SnapShot is
+ clicked, launches a DetailView of the game.
+
+<br><br>
+
+<img src = http://people.duke.edu/~ej48/files/MainView.png> <br>
+This entire window is the MainView.  The left pane is the ButtonPanel, and the
+center-right pane contains the current mode being displayed, which is the 
+GameCenter in this picture.  This GameCenter is currently displaying two SnapShots.
+(SnapShots will later be refactored to look nicer)
+
+<br> <br>
+
+<b> public class DetailView extends JFrame </b> <br>
+After clicking on a Snapshot, this DetailView is displayed.  The DetailView 
+displays information about the game such as its name, author, a bigger picture,
+the average rating, a description for the game, and comments for the game.  
+There is also the option for users to add ratings and comments here.  By clicking
+on the Play button, the game represented by this DetailView will be launched.
+
+<br><br>
+
+<img src = http://people.duke.edu/~ej48/files/DetailView.png> <br>
+
+
+</body>
+</html>
+
