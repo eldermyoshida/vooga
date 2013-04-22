@@ -1,13 +1,17 @@
 package vooga.rts.manager.actions;
 
 import vooga.rts.action.ManagerAction;
+import vooga.rts.commands.ClickCommand;
 import vooga.rts.commands.Command;
-import vooga.rts.commands.PositionCommand;
 import vooga.rts.manager.Manager;
 import vooga.rts.util.Camera;
 import vooga.rts.util.Location3D;
 
-
+/**
+ * A left click action, which selects the units at the location.
+ * @author Challen Herzberg-Brovold
+ * 
+ */
 public class LeftClickAction extends ManagerAction {
 
     private Location3D myLocation;
@@ -29,10 +33,10 @@ public class LeftClickAction extends ManagerAction {
          * }
          * else {
          */
-        PositionCommand click = (PositionCommand) command;
+        ClickCommand click = (ClickCommand) command;
         System.out.println("leftclick");
         myLocation = Camera.instance().viewtoWorld(click.getPosition());
-        apply();
+        apply(); // should the action apply itself? (CHB)
         // }
     }
 

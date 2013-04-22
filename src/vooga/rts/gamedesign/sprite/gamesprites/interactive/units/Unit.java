@@ -57,8 +57,8 @@ public class Unit extends InteractiveEntity {
     }
 
     /**
-     * Creates a new unit with an image, location, size, sound, teamID and
-     * health
+     * Creates a new unit with an image, location, size, sound, teamID,
+     * health, and upgrade tree
      * 
      * @param image
      *        is the image of the unit
@@ -82,8 +82,8 @@ public class Unit extends InteractiveEntity {
                  double buildTime) {
         super(image, center, size, sound, playerID, health, buildTime);
         // myPather = new PathingHelper();
-       // System.out.println(playerID + " " + health);
-        //System.out.println(playerID + " " + health);
+        // System.out.println(playerID + " " + health);
+        // System.out.println(playerID + " " + health);
         if (myUpgradeTree != null) {
             addUserToUpgradeTree(playerID);
         }
@@ -102,7 +102,7 @@ public class Unit extends InteractiveEntity {
 
             @Override
             public void update (Command command) {
-                PositionCommand click = (PositionCommand) command;
+                ClickCommand click = (ClickCommand) command;
                 myLocation = Camera.instance().viewtoWorld(click.getPosition());
             }
         });

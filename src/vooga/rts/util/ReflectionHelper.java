@@ -39,20 +39,38 @@ public class ReflectionHelper {
     
     /**
      * Retuns a new instance of your class given your parameters. 
-     * @param c
-     * @param params
+     * @param Class object
+     * @param Parameters of constructor
      * @return
      */
     public static Object makeInstance(Class<?> c, Object ... params){
     	try {
-    		System.out.println(findConstructor(c,params));
 			return findConstructor(c,params).newInstance(params);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
     }
-
+    
+    /**
+     * Returns a new instance of the class defined by your path and your parameters
+     */
+    public static Object makeInstance(String path, Object ... params){
+    	return makeInstance(makeClass(path), params);
+    }
+    
+    /**
+     * Returns the class object that is located at path.
+     */
+    private static Class<?> makeClass(String path){
+    	Class<?> thisClass = null;
+		try {
+			thisClass = Class.forName(path);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+    	return thisClass;
+    }
     /**
      * Finds and returns the requested method.
      * 
@@ -100,7 +118,6 @@ public class ReflectionHelper {
     private static Class<?>[] toClassArray (Object ... params) {
         Class<?>[] types = new Class<?>[params.length];
         for (int i = 0; i < params.length; i++) {
-        	//System.out.println(params[i]);
             types[i] = params[i].getClass();
             // Override Primitive Types
             if (types[i] == Integer.class) {
@@ -108,6 +125,9 @@ public class ReflectionHelper {
             }
             if (types[i] == Boolean.class) {
                 types[i] = boolean.class;
+            }
+            if(types[i] == Double.class) {
+            	types[i] = double.class;
             }
         }
         return types;

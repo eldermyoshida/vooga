@@ -38,8 +38,13 @@ import vooga.rts.util.Pixmap;
 import vooga.rts.util.PointTester;
 
 
-// TODO: implement the game state with all unit managers that there needs to be. Muy importante.
-// TODO: think of how decisions are going to be made with the controllers.
+/**
+ * The main model of the game. This keeps track of all the players, the humanplayer 
+ * associated with the local game, plus the map.
+ * 
+ * @author Challen Herzberg-Brovold
+ *
+ */
 
 public class GameState extends SubState implements Controller {
 
@@ -114,6 +119,11 @@ public class GameState extends SubState implements Controller {
         myHumanPlayer.sendCommand(command);
     }
 
+    /**
+     * Adds a player to the game
+     * @param player to add 
+     * @param teamID of the player.
+     */
     public void addPlayer (Player player, int teamID) {
         myPlayers.add(player);
         if (myTeams.get(teamID) == null) {
@@ -165,7 +175,7 @@ public class GameState extends SubState implements Controller {
                 new Building((new Pixmap(ResourceManager.getInstance()
                         .<BufferedImage> getFile("images/factory.png", BufferedImage.class))),
                              new Location3D(700, 700, 0), new Dimension(100, 100), null, 1, 300,
-                             InteractiveEntity.DEFAULT_BUILD_TIME, null);
+                             InteractiveEntity.DEFAULT_BUILD_TIME);
         b.setProductionStrategy(new CanProduce());
         ((CanProduce) b.getProductionStrategy()).addProducable(new Soldier());
         ((CanProduce) b.getProductionStrategy()).createProductionActions(b);
