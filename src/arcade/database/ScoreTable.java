@@ -61,6 +61,18 @@ public class ScoreTable extends Table {
             e.printStackTrace();
         }
     }
+    
+    public void getHighScoresGameUser(String gameid, String userid) {
+        
+    }
+    
+    public void getHighScoresForGame(String gameid) {
+        
+    }
+    
+    public void getHighScoresForUser(String userid) {
+        
+    }
 
     @Override
     void printEntireTable () {
