@@ -14,7 +14,7 @@ public class Main {
         //myDatabase.printGameTable();
         
         //myDatabase.insertAvatar("natx13", "/Users/nataliacarvalho/Desktop/testing2.png");
-        myDatabase.getAvatar("natx13");
+ //       myDatabase.getAvatar("natx13");
         
      //   myDatabase.createUser("natx13", "mypassword", "Natalia", "Carvalho", "04/26/1991");
      //   myDatabase.authenticateUsernameAndPassword("natx13", "password");
@@ -26,6 +26,7 @@ public class Main {
   //      myDatabase.createUser("test", "test", "test", "test", "01/01/1901");
         
         //myDatabase.deleteGame("example");
+        myDatabase.deleteGame("example");
         
 //       myDatabase.addAvatarToUser("natx13", "C:/blahbalhblah");
         

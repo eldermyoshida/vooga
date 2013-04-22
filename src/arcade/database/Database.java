@@ -283,6 +283,10 @@ public class Database {
     public void insertGameThumbnail (String gameName, String filepath) {
         myS3Instance.putGameThumbnailIntoBucket(gameName, filepath);
     }
+    
+    public void insertAdScreenPath (String gameName, String filepath) {
+        myS3Instance.putAdScreenIntoBucket(gameName, filepath);
+    }
 
     public Pixmap getGameThumbnail (String gameName) {
         return new Pixmap(myS3Instance.getThumbnail(gameName));
@@ -298,9 +302,8 @@ public class Database {
         return null;
     }
 
-    public String getGameAdScreen (String gameName) {
-        // TODO Auto-generated method stub
-        return null;
+    public Pixmap getGameAdScreen (String gameName) {
+        return new Pixmap(myS3Instance.getAdScreen(gameName));
     }
 
     public String getSingleplayerGameClassKeyword (String gameName) {
