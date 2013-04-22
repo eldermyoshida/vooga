@@ -45,11 +45,8 @@ public class GameTable extends Table {
     private static final int DESCRIPTION_COLUMN_INDEX = 12;
     private static final int GAMEFILEPATH_COLUMN_INDEX = 13;
     private static final int GAMEID_COLUMN_INDEX = 14;
-    
-    
-    
-    private static final String TABLE_NAME = "games";  
 
+    private static final String TABLE_NAME = "games";  
 
     private Connection myConnection;
     private PreparedStatement myPreparedStatement; 
@@ -59,29 +56,10 @@ public class GameTable extends Table {
      * GameTable constructor
      */
     public GameTable() {
-        myConnection=establishConnectionToDatabase();
-        myPreparedStatement=null;
-        myResultSet=null;
-    }
-
-    /**
-     * Closes Connection, ResultSet, and PreparedStatements once done with database
-     */
-    public void closeConnection() {
-        try {
-            if (myPreparedStatement != null) {
-                myPreparedStatement.close();
-            }
-            if (myResultSet != null) {
-                myResultSet.close();
-            }
-            if (myConnection != null) {
-                myConnection.close();
-            }
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
+        super();
+        myConnection = this.getConnection();
+        myPreparedStatement = this.getPreparedStatement();
+        myResultSet = this.getResultSet();
     }
 
     /**
@@ -399,7 +377,7 @@ public class GameTable extends Table {
      * @param columnIndex is the index that we want the information for
      */
     public boolean retrieveEntryBoolean(String gameName, int COLUMN_INDEX) {
-        String stm = "SELECT * FROM " +TABLE_NAME + " WHERE " + GAMENAME_COLUMN_FIELD + "='" + gameName + "'";
+        String stm = "SELECT * FROM " + TABLE_NAME + " WHERE " + GAMENAME_COLUMN_FIELD + "='" + gameName + "'";
         boolean entry = false;
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);

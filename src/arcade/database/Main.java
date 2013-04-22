@@ -9,6 +9,8 @@ public class Main {
     public static void main(String[] args) throws SQLException {
         
         Database myDatabase = new Database();
+        
+        myDatabase.createUser("natx13", "password", "Natalia", "Carvalho", "04/26/1991");
 
         //myDatabase.printUserTable();
         //myDatabase.printGameTable();
@@ -26,7 +28,7 @@ public class Main {
   //      myDatabase.createUser("test", "test", "test", "test", "01/01/1901");
         
         //myDatabase.deleteGame("example");
-        myDatabase.deleteGame("example");
+  //      myDatabase.deleteGame("example");
         
 //       myDatabase.addAvatarToUser("natx13", "C:/blahbalhblah");
         

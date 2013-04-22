@@ -12,33 +12,33 @@ import java.sql.SQLException;
  */
 public abstract class Table {
     
-    protected PreparedStatement myPreparedStatement;
-    protected Connection myConnection;
-    protected ResultSet myResultSet;
+    private PreparedStatement myPreparedStatement;
+    private Connection myConnection;
+    private ResultSet myResultSet;
+    private DatabaseConnection myDatabaseConnection;
     
-    Connection establishConnectionToDatabase() {
-
-        try {
-            Class.forName("org.postgresql.Driver");
-        }
-        catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        String url = "jdbc:postgresql://cgi.cs.duke.edu/nrc10";
-        String user = "nrc10";
-        String password = "aUsg5xj2f";
-        Connection connection=null;
-        try {
-           connection = DriverManager.getConnection(url, user, password);
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return connection;
-    }    
+    public Table() {
+        myDatabaseConnection = new DatabaseConnection();
+        myPreparedStatement = myDatabaseConnection.getPreparedStatement();
+        myConnection = myDatabaseConnection.getConnection();
+        myResultSet = myDatabaseConnection.getResultSet();
+    }  
     
-    abstract void closeConnection();
+    public void closeConnection() {
+        myDatabaseConnection.closeConnection();
+    }
+    
+    public Connection getConnection() {
+        return myConnection;
+    }
+    
+    public ResultSet getResultSet() {
+        return myResultSet;
+    }
+    
+    public PreparedStatement getPreparedStatement() {
+        return myPreparedStatement;
+    }
     
     abstract void printEntireTable();
 

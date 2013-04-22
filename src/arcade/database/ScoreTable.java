@@ -34,28 +34,10 @@ public class ScoreTable extends Table {
      * Constructor but eventually I want to make this part of the abstract class
      */
     public ScoreTable() {
-        myConnection=establishConnectionToDatabase();
-        myPreparedStatement=null;
-        myResultSet=null;
-    }
-    /**
-     * Closes Connection, ResultSet, and PreparedStatements once done with database
-     */
-    public void closeConnection() {
-        try {
-            if (myPreparedStatement != null) {
-                myPreparedStatement.close();
-            }
-            if (myResultSet != null) {
-                myResultSet.close();
-            }
-            if (myConnection != null) {
-                myConnection.close();
-            }
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
+        super();
+        myConnection = this.getConnection();
+        myPreparedStatement = this.getPreparedStatement();
+        myResultSet = this.getResultSet();
     }
     
     /**
