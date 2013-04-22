@@ -8,6 +8,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.Observer;
 import javax.swing.ImageIcon;
+import vooga.rts.commands.ClickCommand;
 import vooga.rts.commands.Command;
 import vooga.rts.resourcemanager.ResourceManager;
 
@@ -73,7 +74,7 @@ public class LoadingState extends SubState {
 
     @Override
     public void receiveCommand (Command command) {
-        if (command.getMethodName().equals("leftclick")) {
+        if (command.getMethodName().equals(ClickCommand.LEFT_CLICK)) {
             update(0);
         }
     }
