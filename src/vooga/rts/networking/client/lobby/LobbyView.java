@@ -22,6 +22,7 @@ public class LobbyView extends JFrame{
     
     
     public LobbyView(ExpandedLobbyInfo info) {
+    	info.
         myLobbyInfo = info;
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         

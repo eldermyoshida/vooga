@@ -11,12 +11,16 @@ import vooga.rts.networking.client.lobby.Player;
  * 
  * @author Sean Wareham
  * @author David Winegar
+ * @author Henrique Moraes
  * 
  */
 public class ExpandedLobbyInfo extends LobbyInfo {
 
     private static final long serialVersionUID = 8433220026468566119L;
-    List<ArrayList<Player>> myPlayerMap = new ArrayList<ArrayList<Player>>();
+    /**
+     * Inner list represents a team, outer list represents all the teams
+     */
+    List<ArrayList<Player>> myPlayerList = new ArrayList<ArrayList<Player>>();
     private int myMaxTeams;
 
     /**
@@ -56,26 +60,53 @@ public class ExpandedLobbyInfo extends LobbyInfo {
     }
 
     /**
-     * This method is used to add a new player to the next available slot. It operates under the
-     * assumption
-     * that teams for game will not be astronomically large.
+     * This method is used to add a new player to the next available slot. It distributes players
+     * evenly among teams
      * 
      * @param player player to add
      */
     public int addPlayer (Player player) {
         addPlayer();
-        for (int i = 0; i < myMaxTeams; i++) {
-            ArrayList<Player> team = myPlayerMap.get(i);
-            if (team == null) {
-                team = new ArrayList<Player>();
-                team.add(player);
-                myPlayerMap.add(i, team);
-                return i + 1;
+        extendTeams(myPlayerList.size() + 1);
+        int oldPlayerCount = 0;
+        for (int i = 0; i < myPlayerList.size(); i++) {
+            ArrayList<Player> team = myPlayerList.get(i);
+            if (oldPlayerCount > team.size()) {
+            	team.add(player);
+            	return i + 1;
             }
+            oldPlayerCount = team.size();
         }
         // should never trigger
-        myPlayerMap.get(0).add(player);
+        myPlayerList.get(0).add(player);
         return 1;
+    }
+    
+    /**
+     * This method is used to add a new player to the specified team.
+     * 
+     * @param player player to add
+     */
+    public void addPlayer (Player player, int teamNumber) {
+    	if (myMaxTeams < teamNumber) return;
+
+    	addPlayer();
+    	extendTeams(teamNumber);
+    	ArrayList<Player> team = myPlayerList.get(teamNumber);
+    	team.add(player);
+
+    }
+
+    /**
+     * Extends the player list to the desired number of teams
+     * @param numOfTeams
+     */
+    private void extendTeams(int numOfTeams){
+    	if (numOfTeams > myMaxTeams || myPlayerList.size() >= numOfTeams) return;
+    	
+    	while (myPlayerList.size() < numOfTeams) {
+    		myPlayerList.add(new ArrayList<Player>());
+    	}
     }
 
     /**
@@ -85,7 +116,7 @@ public class ExpandedLobbyInfo extends LobbyInfo {
      */
     public void removePlayer (Player player) {
         removePlayer();
-        for (ArrayList<Player> team : myPlayerMap) {
+        for (ArrayList<Player> team : myPlayerList) {
             team.remove(player);
         }
     }
@@ -101,7 +132,7 @@ public class ExpandedLobbyInfo extends LobbyInfo {
             removePlayer(player);
             // Keep the player count correct
             addPlayer();
-            myPlayerMap.get(team - 1).add(player);
+            myPlayerList.get(team - 1).add(player);
         }
     }
 
