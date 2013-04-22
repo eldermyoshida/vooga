@@ -116,7 +116,7 @@ public class MenuManager extends JMenuBar {
                     int response = myChooser.showOpenDialog(null);
                     if (response == JFileChooser.APPROVE_OPTION) {
                         myCanvas.getMapPanel().getMyMap().load(myChooser.getSelectedFile());
-                        //myCanvas.getMapPanel().getMyMap().printMatrix();
+                        myCanvas.getMapPanel().getMyMap().printMatrix();
                         myCanvas.getMapPanel().repaint();    
                     }
                 }

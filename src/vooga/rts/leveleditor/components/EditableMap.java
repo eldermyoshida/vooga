@@ -45,8 +45,8 @@ public class EditableMap implements Serializable {
     private Map<Integer, Location> myPlayerLocations;
     private int myPlayerNumber;
 
-    private BetterMapSaver mySaver;
-    private BetterMapLoader myLoader;
+    private MapSaver mySaver;
+    private MapLoader myLoader;
 
     public EditableMap (int x, int y, int nodeX, int nodeY) {
 
@@ -79,8 +79,8 @@ public class EditableMap implements Serializable {
         myResource = new ArrayList<Resource>();
 
         try {
-                mySaver = new BetterMapSaver(this);
-                myLoader = new BetterMapLoader(this);
+                mySaver = new MapSaver(this);
+                myLoader = new MapLoader(this);
             }
             catch (ParserConfigurationException e) {
                 // TODO Auto-generated catch block
@@ -335,9 +335,9 @@ public class EditableMap implements Serializable {
         test.addResource(7, 7, 1);
         test.addResource(8, 8, 2);
         test.addResource(9, 9, 3);
-        BetterMapSaver saver = null;
+        MapSaver saver = null;
         try {
-            saver = new BetterMapSaver(test);
+            saver = new MapSaver(test);
         }
         catch (ParserConfigurationException e) {
             // TODO Auto-generated catch block
