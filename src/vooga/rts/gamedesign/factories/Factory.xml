@@ -64,22 +64,20 @@
 			<health>100</health>
 		</resource>
 	</resources>
-	<!--
 	<strategies>
 		<attacks>
 			<canattack src = "vooga.rts.gamedesign.strategy.attackstrategy.CanAttack"/>
 			<cannotattack src = "vooga.rts.gamedesign.strategy.attackstrategy.CannotAttack"/>
 		</attacks>
 		<occupys>
-			<canoccupy src = "vooga.rts.gamedesign.strategy.occupystrategy.CanOccupy"/>
-			<cannotoccupy src = "vooga.rts.gamedesign.strategy.occupystrategy.CannotOccupy"/>
+			<canbeoccupied src = "vooga.rts.gamedesign.strategy.occupystrategy.CanBeOccupied"/>
+			<cannotbeoccupied src = "vooga.rts.gamedesign.strategy.occupystrategy.CannotBeOccupied"/>
 		</occupys>
 		<gathers>
 			<cangather src = "vooga.rts.gamedesign.strategy.gatherstrategy.CanGather"/>
 			<cannotgather src = "vooga.rts.gamedesign.strategy.gatherstrategy.CannotGather"/>
 		</gathers>
 	</strategies>
-	-->
 	<buildings src = "vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building">
 		<building>
 			<name>home</name>
