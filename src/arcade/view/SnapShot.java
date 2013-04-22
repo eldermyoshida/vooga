@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import arcade.games.GameInfo;
 import arcade.model.Model;
 import arcade.util.JPicture;
-import arcade.util.Pixmap;
+import util.Pixmap;
 
 /**
  * 
