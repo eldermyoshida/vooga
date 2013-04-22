@@ -24,6 +24,7 @@ import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Worker;
 import vooga.rts.gamedesign.state.DetectableState;
 import vooga.rts.gamedesign.strategy.production.CanProduce;
 import vooga.rts.gamedesign.weapon.Weapon;
+import vooga.rts.gui.menus.GameMenu;
 import vooga.rts.map.GameMap;
 import vooga.rts.player.HumanPlayer;
 import vooga.rts.player.Player;
@@ -57,6 +58,8 @@ public class GameState extends SubState implements Controller {
 
     private Rectangle2D myDrag;
     private Resource r;
+    
+   private GameMenu myGameMenu;
 
     public GameState (Observer observer) {
         super(observer);
@@ -65,6 +68,7 @@ public class GameState extends SubState implements Controller {
         // myMap = new GameMap(8, new Dimension(512, 512));
         pt = new PointTester();
         myFrames = new FrameCounter(new Location(100, 20));
+        myGameMenu = new GameMenu();
         setupGame();
     }
 
@@ -94,6 +98,7 @@ public class GameState extends SubState implements Controller {
         Camera.instance().paint(pen);
         myFrames.paint(pen);
         r.paint(pen);
+        myGameMenu.paint(pen);
     }
 
     @Override
