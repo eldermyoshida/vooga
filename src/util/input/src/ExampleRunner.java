@@ -5,7 +5,7 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
-import util.input.src.examples.*;
+import util.inputExample.*;
 
 public class ExampleRunner {
 	public static final Dimension SIZE = new Dimension(800, 600);
@@ -19,6 +19,7 @@ public class ExampleRunner {
         frame.setMinimumSize(new Dimension(800,650));
         frame.pack();
         frame.setVisible(true);
-        display.run();
+        // display.run(); --Could not find run() in canvas.
+        // not sure if this is old code. - Scroller Team
 	}
 }
