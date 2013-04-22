@@ -34,7 +34,7 @@ public class LeftClickAction extends ManagerAction {
          * else {
          */
         ClickCommand click = (ClickCommand) command;
-        System.out.println("leftclick");
+        System.out.println(ClickCommand.LEFT_CLICK);
         myLocation = Camera.instance().viewtoWorld(click.getPosition());
         apply(); // should the action apply itself? (CHB)
         // }
