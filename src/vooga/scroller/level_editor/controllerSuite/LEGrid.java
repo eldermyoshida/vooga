@@ -5,8 +5,11 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
 import java.util.HashSet;
 import java.util.Set;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.Scrollable;
 import util.Location;
@@ -60,6 +63,7 @@ public class LEGrid implements Editable, Renderable<LEGridView>, Scrollable {
 
     @Override
     public void paint (Graphics2D pen) {
+        pen.drawImage(myBackground, 0, 0, null);
         for(int i = 0; i < mySize.width; i++){
             for( int j = 0; j < mySize.height; j++){
                 myGrid[i][j].paint(pen);
@@ -182,12 +186,12 @@ public class LEGrid implements Editable, Renderable<LEGridView>, Scrollable {
 
     @Override
     public int getScrollableUnitIncrement (Rectangle visibleRect, int orientation, int direction) {
-        return DEFAULT_SPRITE_SIZE;
+        return mySpriteSize;
     }
 
     @Override
     public int getScrollableBlockIncrement (Rectangle visibleRect, int orientation, int direction) {
-        return DEFAULT_SPRITE_SIZE;
+        return mySpriteSize;
     }
 
     @Override
@@ -208,8 +212,8 @@ public class LEGrid implements Editable, Renderable<LEGridView>, Scrollable {
      */
     public Dimension getPixelSize () {
         Dimension res= new Dimension(
-                                     mySize.width*DEFAULT_SPRITE_SIZE,
-                                     mySize.height*DEFAULT_SPRITE_SIZE);
+                                     mySize.width*mySpriteSize,
+                                     mySize.height*mySpriteSize);
         
         return res;
     }
