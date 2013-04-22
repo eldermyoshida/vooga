@@ -2,44 +2,34 @@ package vooga.rts.gamedesign.factories;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-
-
-import vooga.rts.gamedesign.sprite.Sprite;
+import vooga.rts.gamedesign.sprite.gamesprites.GameSprite;
 import vooga.rts.gamedesign.sprite.gamesprites.Resource;
-import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
-import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.UpgradeBuilding;
-import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
 import vooga.rts.gamedesign.strategy.Strategy;
 import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
 import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
 import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
-import vooga.rts.gamedesign.action.Action;
-import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;
-import vooga.rts.gamedesign.upgrades.UpgradeNode;
-import vooga.rts.gamedesign.upgrades.UpgradeTree;
-/** 
- *  This class is in charge of the loading of input XML files for different
- *  class types. It will figure out the class type this given file is in charge
- *  of, and pass the information to the corresponding decoder. All the decoders
- *  are loaded through an input file.
- *  
- * @author Ryan Fishel
- * @author Kevin Oh
+
+
+/**
+ * This class is in charge of the loading of input XML files for different
+ * class types. It will figure out the class type this given file is in charge
+ * of, and pass the information to the corresponding decoder. All the decoders
+ * are loaded through an input file.
+ * 
  * @author Francesco Agosti
- * @author Wenshun Liu 
+ * @author Wenshun Liu
  */
 
 public class Factory {
@@ -49,19 +39,19 @@ public class Factory {
 	public static final String DECODER_MATCHING_PATH_TAG = "decoderPath";
 	
 	Map<String, Decoder> myDecoders = new HashMap<String, Decoder>();
-	Map<String, Sprite> mySprites;
+	Map<String, GameSprite> mySprites;
 	Map<String, Strategy> myStrategies;
 	
 	
 	public Factory() throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ParserConfigurationException, SAXException, IOException {
 		myDecoders = new HashMap<String, Decoder>();
 		loadDecoder(DECODER_MATCHING_FILE);
-		mySprites = new HashMap<String, Sprite>();
+		mySprites = new HashMap<String, GameSprite>();
 		myStrategies = new HashMap<String, Strategy>();
 	}
 	
 	
-	public void put(String name, Sprite value){
+	public void put(String name, GameSprite value){
 		mySprites.put(name, value);
 	}
 	
@@ -81,9 +71,10 @@ public class Factory {
 		return (OccupyStrategy) myStrategies.get(key);
 	}
 	
-	public Sprite getSprite(String key){
+	public GameSprite getSprite(String key){
 		return mySprites.get(key);
 	}
+	
 	
 	/**
 	 * Creates decoders by loading the input file that specifies the path of
@@ -147,7 +138,19 @@ public class Factory {
 			Document doc = db.parse(file);
 			doc.getDocumentElement().normalize();
 			System.out.println(doc.getDocumentElement().getNodeName());
-			myDecoders.get(doc.getDocumentElement().getNodeName()).create(doc);
+			
+			NodeList head = doc.getChildNodes();
+			Node childNode = head.item(0);
+			NodeList children = childNode.getChildNodes();
+			for(int i = 0 ; i < children.getLength() ; i++){
+				Node tempNode = children.item(i);
+				if(tempNode.getNodeType() == Node.ELEMENT_NODE){
+					System.out.println("CURRENT DECODER: " + tempNode.getNodeName());
+					myDecoders.get(tempNode.getNodeName()).create(doc);
+				}
+			}
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -160,7 +163,7 @@ public class Factory {
 		//loads Upgrade XML - creates tree - updates activate state
 		Factory factory = new Factory();
 
-		factory.loadXMLFile("XML_Sample");
+		factory.loadXMLFile("Factory.xml");
 
 		/**creates an UpgradeBuilding
 		UpgradeBuilding upgradeBuilding = new UpgradeBuilding();
@@ -185,4 +188,6 @@ public class Factory {
 		System.out.println(oneUnit.getMaxHealth());
 		System.out.println(twoUnit.getMaxHealth());*/
 	}
+
 }
+

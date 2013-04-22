@@ -22,7 +22,7 @@ import vooga.scroller.util.Vector;
 public class NonStaticEntity extends Sprite {
     
     private static Vector DEFAULT_SPEED = new Vector(0, 45);
-    private Player myPlayer;
+    private PlayerController myPlayer;
     
     public NonStaticEntity (Pixmap image, Location center, Dimension size) {
         super(image, center, size, DEFAULT_SPEED);
@@ -50,7 +50,7 @@ public class NonStaticEntity extends Sprite {
         return new Vector(Vector.angleBetween(player, this.getCenter()), speed);
     }
     
-    public void addPlayer(Player player) {
+    public void addPlayer(PlayerController player) {
         myPlayer = player;
     }
     

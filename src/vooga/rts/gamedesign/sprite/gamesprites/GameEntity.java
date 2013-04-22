@@ -4,11 +4,14 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
 import vooga.rts.gamedesign.state.AttackingState;
 import vooga.rts.gamedesign.state.EntityState;
 import vooga.rts.gamedesign.state.MovementState;
 import vooga.rts.gamedesign.state.OccupyState;
 import vooga.rts.gamedesign.state.ProducingState;
+import vooga.rts.gamedesign.strategy.occupystrategy.CannotBeOccupied;
+import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
 import vooga.rts.util.Camera;
 import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
@@ -55,7 +58,7 @@ public class GameEntity extends GameSprite {
         // ALERT THIS IS JUST FOR TESTING
         myOriginalVelocity = new Vector(0, 0);
         myVelocity = new Vector(0, 0);
-        myGoal = new Location3D();
+        myGoal = new Location3D(center);
         myEntityState = new EntityState();
     }
 
@@ -73,18 +76,44 @@ public class GameEntity extends GameSprite {
         myVelocity = new Vector(angle, magnitude);
     }
 
+    /**
+     * Returns the current health of the entity.
+     * 
+     * @return the current health of the entity
+     */
     public int getHealth () {
         return myCurrentHealth;
     }
 
+    public EntityState getState () {
+        return myEntityState;
+    }
+
+    /**
+     * Sets the health of the entity.
+     * 
+     * @param health
+     *        is the amount of health the entity will have
+     */
     public void setHealth (int health) {
         myCurrentHealth = health;
     }
 
+    /**
+     * Increases the max health of the entity.
+     * 
+     * @param health
+     *        is the amount of additional health the entity will get
+     */
     public void addMaxHealth (int health) {
         myMaxHealth += health;
     }
 
+    /**
+     * Returns the max health of the entity.
+     * 
+     * @return the max health of the entity
+     */
     public int getMaxHealth () {
         return myMaxHealth;
     }
@@ -97,6 +126,16 @@ public class GameEntity extends GameSprite {
     }
 
     /**
+     * Sets which team the entity will be on.
+     * 
+     * @param playerID
+     *        is the ID for the team that the entity is on
+     */
+    public void setPlayerID (int playerID) {
+        myPlayerID = playerID;
+    }
+
+    /**
      * Rotates the Unit by the given angle.
      * 
      * @param angle
@@ -105,6 +144,14 @@ public class GameEntity extends GameSprite {
         myVelocity.turn(angle);
     }
 
+    /**
+     * Specifies whether or not two entities collide.
+     * 
+     * @param gameEntity
+     *        is the entity that is being checked for a collision
+     * @return true if the bounds of the two entites intersect and false if the
+     *         bounds of the entities do not interesct
+     */
     public boolean collidesWith (GameEntity gameEntity) {
         return getBounds().intersects(gameEntity.getBounds());
     }
@@ -130,26 +177,53 @@ public class GameEntity extends GameSprite {
     }
 
     /**
-     * Moves the Unit only. Updates first the angle the Unit is facing,
-     * and then its location.
-     * Possible design choice error.
+     * Moves the Unit only. Updates first the angle the Unit is facing, and then
+     * its location. Possible design choice error.
      */
-    public void move (Location3D loc) {
-        myEntityState.setMovementState(MovementState.MOVING);
+    public void move (Location3D loc) {       
         myGoal = new Location3D(loc);
         Vector v = getWorldLocation().difference(myGoal.to2D());
-        // TODO: not static amount
-        setVelocity(v.getAngle(), getSpeed());
+
+        // magic numero
+        if (v.getMagnitude() < Location3D.APPROX_EQUAL) {
+            setVelocity(v.getAngle(), 0);
+            myEntityState.setMovementState(MovementState.STATIONARY);
+        }
+        else {
+            setVelocity(v.getAngle(), getSpeed());
+            myEntityState.setMovementState(MovementState.MOVING);
+        }
     }
 
+    /**
+     * Returns the speed of the entity.
+     * 
+     * @return the speed of the entity
+     */
     public int getSpeed () {
         return DEFAULT_SPEED;
     }
 
+    /**
+     * This method is called to move the entity to a certain location.
+     * 
+     * @param loc
+     *        is the location where the entity will move to
+     * @param map
+     *        is the map that the game is being played on
+     */
     public void move (Location3D loc, GameMap map) {
         setPath(loc.to2D(), map);
     }
 
+    /**
+     * Sets the path that the entity will move on.
+     * 
+     * @param location
+     *        is the location where the entity will move to
+     * @param map
+     *        is the map that the game is being played on
+     */
     public void setPath (Location location, GameMap map) {
         myPath =
                 myFinder.calculatePath(map.getNode(getWorldLocation().to2D()),
@@ -165,16 +239,16 @@ public class GameEntity extends GameSprite {
 
         if (getWorldLocation().near(myGoal)) {
             myEntityState.setMovementState(MovementState.STATIONARY);
-            
+
         }
-        //move(myGoal);
-        
+        move(myGoal);
         stopMoving();
-        
+
         Vector v = new Vector(myVelocity);
         v.scale(elapsedTime);
         translate(v);
-        myEntityState.update();
+        myEntityState.update(elapsedTime);
+        super.update(elapsedTime);
     }
 
     public void changeHealth (int change) {
@@ -184,8 +258,8 @@ public class GameEntity extends GameSprite {
     /**
      * Checks to see if an GameEntity is dead.
      * 
-     * @return true if the GameEntity has been killed and false if the GameEntity
-     *         is still alive.
+     * @return true if the GameEntity has been killed and false if the
+     *         GameEntity is still alive.
      */
     public boolean isDead () {
         return myCurrentHealth <= 0;

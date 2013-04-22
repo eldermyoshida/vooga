@@ -1,12 +1,10 @@
 package vooga.rts.leveleditor.components;
 
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.ResourceBundle;
 
 public abstract class MapComponent {
     protected static final String RELATIVE_PATH = "vooga.rts.leveleditor.resource.";
-    protected static final String IMAGE_PATH = "./src/vooga/rts/leveleditor/resource/";
     
     protected int myID;
     protected String myName;
@@ -20,13 +18,34 @@ public abstract class MapComponent {
     }
     
     public MapComponent(String bundleName, int id) {
-        
+        this(bundleName);
+        setID(id);
+    }
+    
+    public MapComponent(int id , String name , String imageName) {
+        myID = id;
+        myName = name;
+        myImageName = imageName;
     }
 
-    public void setType(int id) {
+    public void setID(int id) {
         myID = id;
     }
     
+    
+    
+    public void setMyName (String myName) {
+        this.myName = myName;
+    }
+
+    public void setMyImageName (String myImageName) {
+        this.myImageName = myImageName;
+    }
+
+    public void setMyImage (BufferedImage myImage) {
+        this.myImage = myImage;
+    }
+
     public int getMyID () {
         return myID;
     }

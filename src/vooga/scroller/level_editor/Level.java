@@ -23,7 +23,7 @@ public class Level implements Editable, Renderable {
     private Dimension mySize;
     private Dimension frameOfReferenceSize;
     private Dimension frameOfActionSize;
-    private Player myPlayer;
+    private PlayerController myPlayer;
     private List<Sprite> mySprites;
     private List<Sprite> myFrameOfActionSprites;
     private List<Sprite> myFrameOfReferenceSprites;
@@ -78,7 +78,7 @@ public class Level implements Editable, Renderable {
         mySprites.remove(s);
     }
     
-    public void addPlayer(Player s) {
+    public void addPlayer(PlayerController s) {
         myPlayer = s;
         for (Sprite sprite : mySprites) {
 

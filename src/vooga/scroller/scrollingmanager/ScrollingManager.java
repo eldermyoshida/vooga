@@ -49,7 +49,7 @@ public abstract class ScrollingManager {
     
     public abstract void viewPaint(Graphics pen);
     
-    public abstract Location playerPaintLocation(Player player);
+    public abstract Location playerPaintLocation(PlayerController player);
     
     
 }
