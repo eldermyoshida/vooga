@@ -63,7 +63,6 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     private Map<String, Action> myActions;
     private List<DelayedTask> myTasks;
     private double myBuildTime;
-    private List<IObserver> myObservers;
     private List<InteractiveEntity> myProducables;
 
     public static final double DEFAULT_BUILD_TIME = 5;
@@ -102,7 +101,6 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
         myBuildTime = buildTime;
         myOccupyStrategy = new CannotBeOccupied();
         myProducables = new ArrayList<InteractiveEntity>();
-        myObservers = new ArrayList<IObserver>();
     }
 
     public void addAction (String command, Action action) {
@@ -398,38 +396,9 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
         myProducables.add(i);
     }
     
-    /**
-     * Registers an IProductionObserver (a player) as its Observer.
-     */
-    public void register (IObserver newObserver) {
-        myObservers.add(newObserver);
-    }
+ 
 
-    // TODO: this should work together with Occupy! When another player occupies
-    // the building, it should unregister the current player and register the
-    // new one.
 
-    // NOTE:this can now be done in GameBuildingManager.
-    /**
-     * Unregisters an IProductionObserver (a player) so that it will not be
-     * notified anymore when ProductionBuilding updates.
-     */
-    public void unregister (IObserver deleteObserver) {
-        int observerIndex = myObservers.indexOf(deleteObserver);
-        myObservers.remove(observerIndex);
-
-    }
-
-    /**
-     * Notifies all the IProductionObserver that are currently observing of
-     * the change.
-     */
-    public void notifyProductionObserver (Unit newProduction) {
-        for (IObserver observer : myObservers) {
-            observer.addProduction(newProduction);
-        }
-    }
-    
     
     @Override
     public void updateAction (Command command) {
