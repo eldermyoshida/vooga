@@ -10,7 +10,6 @@ import vooga.scroller.level_editor.controllerSuite.LEGrid;
 import vooga.scroller.level_editor.model.LevelParser;
 import vooga.scroller.marioGame.spritesDefinitions.MarioLib;
 import vooga.scroller.scrollingmanager.ScrollingManager;
-import vooga.scroller.util.Pixmap;
 import vooga.scroller.view.GameView;
 
 

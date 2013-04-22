@@ -23,8 +23,7 @@ import vooga.scroller.view.GameView;
  * the designer defines the components of the game. Most important, is the get LevelFileNames method.
  */
 
-public class MarioGame extends ScrollerGame
-{
+public class MarioGame extends ScrollerGame {
 
     // constants
     public static final String TITLE = "Mario Demo";

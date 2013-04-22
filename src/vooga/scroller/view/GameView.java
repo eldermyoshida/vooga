@@ -51,7 +51,7 @@ public class GameView extends JComponent {
     // MULTIPLE KEY SUPPORT
     private Set<Integer> myKeys;
     // Player
-    private HumanPlayer myPlayer;
+    private Player myPlayer;
     private ScrollingManager myScrollManager;
     private boolean win = false;
 
