@@ -21,7 +21,6 @@ public class Database {
     private CommentTable myCommentTable;
 
     private S3Connections myS3Instance;
-    
 
     /**
      * Database constructor
@@ -87,17 +86,17 @@ public class Database {
      * 
      * @param gameName is name of name
      */
-    public boolean createGame (String gameName, 
-                               String author, 
-                               String genre, 
+    public boolean createGame (String gameName,
+                               String author,
+                               String genre,
                                double price,
                                String extendsGame,
-                               String extendsMultiplayerGame, 
+                               String extendsMultiplayerGame,
                                int ageRating,
-                               boolean singlePlayer, 
-                               boolean multiplayer, 
+                               boolean singlePlayer,
+                               boolean multiplayer,
                                String thumbnailPath,
-                               String adscreenPath, 
+                               String adscreenPath,
                                String description) {
         return myGameTable.createGame(gameName, author, genre, price, extendsGame,
                                       extendsMultiplayerGame, ageRating, singlePlayer, multiplayer,
@@ -153,25 +152,27 @@ public class Database {
                                      newHighScore);
     }
 
-    
-    public void storeUserGameData(String gameName, String username, String tempFilePath, UserGameData usd) {
+    public void storeUserGameData (String gameName,
+                                   String username,
+                                   String tempFilePath,
+                                   UserGameData usd) {
         myS3Instance.putUserGameDataIntoBucket(username, gameName, usd);
     }
-    
-    public UserGameData getUserGameData(String gameName, String username) {
+
+    public UserGameData getUserGameData (String gameName, String username) {
         return myS3Instance.getUserGameDataFromBucket(username, gameName);
     }
-    
-    public void storeGameData(String gameName, GameData gd) {
+
+    public void storeGameData (String gameName, GameData gd) {
         myS3Instance.putGameDataIntoBucket(gameName, gd);
     }
-    
-    public GameData getGameData(String gameName) {
+
+    public GameData getGameData (String gameName) {
         return myS3Instance.getGameDataFromBucket(gameName);
     }
-    
-    public void getHighScores(int n) {
-        //TODO implement method
+
+    public void getHighScores (int n) {
+        // TODO implement method
 
     }
 
@@ -179,16 +180,9 @@ public class Database {
         // TODO implement method
     }
 
-
     public void retrieveGameFilePath (String filepath) {
         // TODO implement method
     }
-
-    
-
-
-
-
 
     public void insertComment (String username, String gameName, String comment) {
 
@@ -203,8 +197,6 @@ public class Database {
     public List<String> retrieveCommentsForGame (String gameName) {
         return myCommentTable.getAllCommentsForGame(retrieveGameId(gameName));
     }
-
-
 
     public void printGameTable () {
 
@@ -283,46 +275,33 @@ public class Database {
         return myUserGameDataTable.getAverageRating(gameName);
     }
 
-    
-    public void listAllBuckets() {
+    public void listAllBuckets () {
         myS3Instance.listAllBuckets();
     }
-    
-    public void insertAvatar(String username, String filepath) {
+
+    public void insertAvatar (String username, String filepath) {
         myS3Instance.putAvatarIntoBucket(username, filepath);
     }
-    
-    public void insertGameThumbnail(String gameName, String filepath) {
+
+    public void insertGameThumbnail (String gameName, String filepath) {
         myS3Instance.putGameThumbnailIntoBucket(gameName, filepath);
     }
-    
-    public Pixmap getGameThumbnail(String gameName) {
+
+    public Pixmap getGameThumbnail (String gameName) {
         return new Pixmap(myS3Instance.getThumbnail(gameName));
     }
-    
-    public Pixmap getAvatar(String username) {
+
+    public Pixmap getAvatar (String username) {
         return new Pixmap(myS3Instance.getAvatar(username));
     }
+
     
-
-
-
-    public String getGameThumbnail (String gameID) {
+    public String getGameDescription (String gameName) {
         // TODO Auto-generated method stub
         return null;
     }
 
-    public String getGameName (String gameID) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    public String getGameDescription (String gameID) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    public String getGameAdScreen (String gameID) {
+    public String getGameAdScreen (String gameName) {
         // TODO Auto-generated method stub
         return null;
     }
@@ -338,4 +317,3 @@ public class Database {
     }
 
 }
-

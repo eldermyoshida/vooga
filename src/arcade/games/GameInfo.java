@@ -11,7 +11,7 @@ import java.util.ResourceBundle;
 
 import arcade.database.Database;
 import arcade.model.Model;
-import arcade.util.Pixmap;
+import util.Pixmap;
 
 
 public class GameInfo {
@@ -54,7 +54,7 @@ public class GameInfo {
 
     
     public Pixmap getThumbnail() {
-    	return new Pixmap(myDb.getGameThumbnail(gameName));
+    	return myDb.getGameThumbnail(gameName);
     }
     
     public String getName(){
@@ -62,7 +62,7 @@ public class GameInfo {
     }
     
     public String getDescription() {
-    	return myDb.getGameDescription(gameName);
+    	return myDb.getDescription(gameName);
     }
     
     public Pixmap getAdScren() {
@@ -74,11 +74,11 @@ public class GameInfo {
     }
     
     private String getSingleplayerGameClassKeyword() {
-    	return myDb.getSingleplayerGameClassKeyword(gameName);
+    	return myDb.getExtendsGame(gameName);
     }
     
     private String getMultiplayerGameClassKeyword() {
-    	return myDb.getMultiplayerGameClassKeyword(gameName);
+    	return myDb.getExtendsGameMultiplayer(gameName);
     }
     
 
