@@ -1,4 +1,4 @@
-package arcade.view.panels;
+package arcade.view.modes;
 
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -56,7 +56,7 @@ public class GameCenterPanel extends JPanel {
     private void createGameJList () {
 
         for (GameInfo info : myUpperLevel.getGameList()) {
-            SnapShot temp = new SnapShot(info, myUpperLevel.getResources(), myModel);
+            SnapShot temp = new SnapShot(info, myResources, myModel);
             add(temp);
             
         }
