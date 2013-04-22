@@ -329,7 +329,7 @@ public class Manager implements State, IActOn, Observer {
 
         // While Shepherds watch their flocks by night.
         if (state instanceof InteractiveEntity) {
-        	add((InteractiveEntity) state);
+        	add((InteractiveEntity) state);        	
 
         	if (((InteractiveEntity) state).getEntityState().getDetectableState()
         			.equals(DetectableState.NOTDETECTABLE)) {

@@ -26,7 +26,7 @@ public class EntityState {
     private double myAttackingCooldown;
     private DelayedTask myAttackingDelay;
 
-    private static final double DEFAULT_ATTAKING_INTERVAL = .25;
+    private static final double DEFAULT_ATTACKING_INTERVAL = .25;
 
     /**
      * Creates a new state for the entity with that is set to not attacking, not
@@ -39,7 +39,7 @@ public class EntityState {
         myProducingState = ProducingState.NOT_PRODUCING;
         myMovementState = MovementState.STATIONARY;
         myDetectableState = DetectableState.DETECTABLE;
-        myAttackingCooldown = DEFAULT_ATTAKING_INTERVAL;
+        myAttackingCooldown = DEFAULT_ATTACKING_INTERVAL;
     }
 
     public AttackingState getAttackingState () {
@@ -78,27 +78,6 @@ public class EntityState {
      */
     public void setProducingState (ProducingState producingState) {
         myProducingState = producingState;
-    }
-
-    /**
-     * This method returns the detectable state (either detectable or not
-     * detectable) of the game entity.
-     * 
-     * @return the detectable state of the game entity
-     */
-    public DetectableState getDetectableState () {
-        return myDetectableState;
-    }
-
-    /**
-     * This method is used to set the detectable state (either detectable or not
-     * detectable) for the game entity.
-     * 
-     * @param detectableState
-     *        is the detectable state that the game entity will be set to
-     */
-    public void setDetectableState (DetectableState detectableState) {
-        myDetectableState = detectableState;
     }
 
     /**
