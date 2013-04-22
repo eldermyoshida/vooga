@@ -8,4 +8,5 @@ createLargeImageSelector
 createSinglePlayerCheckBox
 createMultiPlayerCheckBox
 createDescriptionButton
+createMessageArea
 createPublishButton

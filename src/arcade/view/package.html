@@ -69,6 +69,10 @@ displays information about the game such as its name, author, a bigger picture,
 the average rating, a description for the game, and comments for the game.  
 There is also the option for users to add ratings and comments here.  By clicking
 on the Play button, the game represented by this DetailView will be launched.
+If more game specific view stuff should be added (e.g. a network parlor, 
+level editors), launching those capabilities should go into this View.
+  (This will be made more apparent how to do, as an inheritance hierarchy 
+  for DetailView will likely be created soon)
 
 <br><br>
 
@@ -213,7 +217,7 @@ Some exception handling is dealt with: UsernameFormatException if username is no
 a valid format, DOBFormatException if date of birth formatted incorrectly, 
 UsernameTakenException if the desired username has already been taken.  
 If successful, then logs in and MainView is displayed. </ul> 
-<br>
+</ul>
 
 <img src = http://people.duke.edu/~ej48/files/Register.png> <br>
 Trying to register a new account for myself.
@@ -221,22 +225,111 @@ Trying to register a new account for myself.
 <br><br><br>
 
 <img src = http://people.duke.edu/~ej48/files/RegisterFailureInvalidName.png> <br>
-If I try to register with an invalid username such as an empty string, I get
-this error message.
+If I try to register with an invalid username such as an empty string, the 
+UsernameFormatException gets thrown, and I get this error message.
 
 <br><br><br>
 
 <img src = http://people.duke.edu/~ej48/files/RegisterFailureTaken.png> <br>
-If I try to register with a username that's already taken, I get this error message.
+If I try to register with a username that's already taken, the UsernameTakenException
+is thrown and I get this error message.
 
 <br><br><br>
 
 <img src = http://people.duke.edu/~ej48/files/RegisterFailureInvalidDOB.png> <br>
-If I try to register with a improperly formatted date of birth, I get the error
-message and a reminder of how to format that field.
+If I try to register with a improperly formatted date of birth, the DOBFormatException
+is thrown and I get the error message and a reminder of how to format that field.
 
 <br><br>
  
+<b>public class PublishView extends Form </b><br>
+This view is created by clicking the publish button in the game store. 
+ Allows a game programmer to graphically enter all the required fields to 
+ publish a game and display it in the arcade game store.
+ 
+<ul>
+<li>void publish
+<ul><li>Try to publish a new game.  Invalid inputs are dealt with through
+exception handling </ul>
+</ul>
+
+<img src = http://people.duke.edu/~ej48/files/Publish.png> <br>
+Filling out the publish view.
+
+<br><br><br>
+
+<img src = http://people.duke.edu/~ej48/files/PublishDescription.png> <br>
+Clicking on the enter a description button expands the window to include a new
+text field.
+
+<br><br><br>
+
+<img src = http://people.duke.edu/~ej48/files/PublishAboutToFail.png>
+<img src = http://people.duke.edu/~ej48/files/PublishFail.png>
+<br>
+If I try to publish a game with an invalid price, an InvalidPriceException is thrown,
+and I get this error message, asking me to try it again.
+
+<br><br><br>
+
+<img src = http://people.duke.edu/~ej48/files/PublishAboutToFail1.png>
+<img src = http://people.duke.edu/~ej48/files/PublishFail1.png>
+<br>
+If I try to publish a game with an invalid age rating, an AgeException is thrown,
+and I get this error message.
+
+<br><br>
+
+<b>public class PaymentSelection extends Form</b><br>
+A view for choosing which payment method to use for buying a game. This view
+is created upon clicking the buy button from the GameStore. Choosing an option 
+will create the appropriate PaymentView to fill in the corresponding 
+payment information. To add additional options, write the classpath of the 
+PaymentView to create in the arcade/resources/PaymentOptions file, and in the 
+ResourceBundle, enter a key as the PaymentView class name, and as the 
+locale-specific translation for that payment option as its value.
+
+<br><br>
+<img src = http://people.duke.edu/~ej48/files/PaymentSelection.png><br>
+Currently, only the Duke Card payment option has been added to the arcade.
+
+<br><br>
+
+<b> public abstract class PaymentView extends Form </b> <br>
+This is where a user can enter his/her payment
+ information to buy a game.  Different types of payment systems (e.g. 
+ credit card, PayPal, Bitcoin) should 
+ subclass this view to tailor which fields they need.  This view defines 
+ only a Buy button which calls the abstract performTransaction() method
+
+<ul>
+<li>abstract void performTransaction()
+<ul><li>gets all of the payment information entered by the user and submits it 
+to be processed</ul>
+</ul>
+
+<b>public class DukePaymentView extends PaymentView</b><br>
+The view where a user can enter his/her payment information to buy a game, 
+tailored for the DukePaymentManager.  This does not actually do anything.
+
+<br><br>
+<img src = http://people.duke.edu/~ej48/files/DukePaymentView.png><br>
+The view to enter the Duke FLEX payment information.
+
+
+<br><br><br><br>
+
+<b> Payment design </b> <br>
+<img src = http://people.duke.edu/~ej48/files/Payment.png>
+A PaymentView represents a form of payment information to be filled out.
+The DukePaymentView is a specific implementation of PaymentView, requiring
+payment information of name and Duke Card number.  After filling out the 
+PaymentView, the Model is given sufficient information to instantiate the appropriate
+PaymentManager to deal with the request and hands the request off to its 
+PaymentManager.  The PaymentManager then attempts to do the transaction.  If it
+fails to go through, an InvalidPaymentException is thrown back to the PaymentView
+so that it can inform the user. Otherwise, the game is successfully purchased
+and added to the Game Center.
 
 
 </body>

@@ -208,7 +208,7 @@ public class Model implements ArcadeInteraction {
      * @param paymentInfo
      * @throws InvalidPaymentException
      */
-    public void performTransaction(GameInfo game, String transactionType, String ... paymentInfo) throws InvalidPaymentException {
+    public void performTransaction(GameInfo game, String transactionType, String[] paymentInfo) throws InvalidPaymentException {
         try {
             Class<?> paymentManagerClass = Class.forName(PAYMENT_MANAGER_LOCATION + transactionType);
             myPaymentManager = (PaymentManager) paymentManagerClass.newInstance();
