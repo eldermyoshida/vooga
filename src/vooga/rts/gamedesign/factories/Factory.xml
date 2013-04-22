@@ -94,11 +94,13 @@
 			<name>tower</name>
 		</custom>
 	</buildings>
-	<units src = "vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Unit">
+	<units src = "vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit">
 		<unit>
 			<name>soldier</name>
 			<img>soldier.jpg</img>
+			<sound>pikachu.wav</sound>
 			<health>100</health>
+			<buildtime>100</buildtime>
 			<attack>canattack</attack>
 			<gather>cannotgather</gather>
 			<occupy>cannotoccupy</occupy>
@@ -107,7 +109,9 @@
 		<unit>
 			<name>worker</name>
 			<img>worker.jpg</img>
+			<sound>pikachu.wav</sound>
 			<health>100</health>
+			<buildtime>100</buildtime>
 			<attack>cannotattack</attack>
 			<gather>cangather</gather>
 			<occupy>cannotoccupy</occupy>
