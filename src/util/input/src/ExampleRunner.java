@@ -19,6 +19,6 @@ public class ExampleRunner {
         frame.setMinimumSize(new Dimension(800,650));
         frame.pack();
         frame.setVisible(true);
-        display.start();
+        display.run();
 	}
 }
