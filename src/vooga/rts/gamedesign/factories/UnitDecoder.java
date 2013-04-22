@@ -22,6 +22,7 @@ public class UnitDecoder extends Decoder {
 	private static final String SOUND_TAG = "sound";
 	private static final String HEALTH_TAG = "health";
 	private static final String PRODUCE_TAG = "produce";
+	private static final String OCCUPY_TAG = "occupy";
 	private static final String SOURCE_TAG = "src";
 	private static final String TIME_TAG = "buildtime";
 	
@@ -62,6 +63,10 @@ public class UnitDecoder extends Decoder {
 			if(nameCanProduce[0] != ""){
 				myFactory.putProductionDependency(name, nameCanProduce);
 			}
+			//Load Strategy Dependencies now
+			String[] strategies = new String[3];
+			strategies[1] = nElement.getElementsByTagName(OCCUPY_TAG).item(0).getTextContent();
+			myFactory.putStrategyDependency(name, strategies);
 			
 		}
 

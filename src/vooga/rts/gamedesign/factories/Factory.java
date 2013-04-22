@@ -45,7 +45,7 @@ public class Factory {
 	Map<String, Resource> myResources;
 	Map<String, Strategy> myStrategies;
 	Map<String, String[]> myProductionDependencies;
-	Map<String, String> myStrategyDependencies;
+	Map<String, String[]> myStrategyDependencies;
 	
 	
 	public Factory() throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ParserConfigurationException, SAXException, IOException {
@@ -55,6 +55,7 @@ public class Factory {
 		myResources = new HashMap<String, Resource>();
 		myStrategies = new HashMap<String, Strategy>();
 		myProductionDependencies = new HashMap<String, String[]>();
+		myStrategyDependencies = new HashMap<String, String[]>();
 	}
 	
 	
@@ -94,6 +95,9 @@ public class Factory {
 		myProductionDependencies.put(name, itProduces);
 	}
 	
+	public void putStrategyDependency(String name, String[] strategies){
+		myStrategyDependencies.put(name, strategies);
+	}
 	
 	/**
 	 * Creates decoders by loading the input file that specifies the path of
@@ -174,7 +178,7 @@ public class Factory {
 			e.printStackTrace();
 		}
 		initializeProducables();
-		//Testing
+		initializeStrategies();
 	}
 	
 	
@@ -188,7 +192,15 @@ public class Factory {
 				father.addProducable(producable);
 			}
 		}
-		
+	}
+	
+	private void initializeStrategies(){
+		for(String key: myStrategyDependencies.keySet()){
+			String[] strategies = myStrategyDependencies.get(key);
+			//Do the same for other strategies
+			OccupyStrategy occupy = (OccupyStrategy) myStrategies.get(strategies[1]);
+			mySprites.get(key).setOccupyStrategy(occupy);
+		}
 	}
 	
 	/**
