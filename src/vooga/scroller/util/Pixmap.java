@@ -107,4 +107,9 @@ public class Pixmap implements ISpriteView {
         // TODO: 
     }
 
+    @Override
+    public Image getImage () {
+        return myImage;
+    }
+
 }

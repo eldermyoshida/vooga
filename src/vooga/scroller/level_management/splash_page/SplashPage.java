@@ -29,10 +29,12 @@ public class SplashPage implements IInputListener, IGameComponent{
     private IDoor myDoor;
     private ISpriteView myBackground;
     private int myID;
+    private GameView myGameView;
     
     public SplashPage (ISpriteView backgroundImage, int splashID, GameView gameView, ScrollingManager sm) {
         myBackground = backgroundImage;
         myID = splashID;
+        myGameView = gameView;
     }
 
     /**
@@ -104,8 +106,8 @@ public class SplashPage implements IInputListener, IGameComponent{
 
     @Override
     public double getRightBoundary () {
-        // TODO Auto-generated method stub
-        return 0;
+        //return 0;
+        return (double)myGameView.getWidth();
     }
 
     @Override
@@ -129,7 +131,9 @@ public class SplashPage implements IInputListener, IGameComponent{
     @Override
     public double getLowerBoundary () {
         // TODO Auto-generated method stub
-        return 0;
+        
+        return (double)myGameView.getHeight();
+
     }
 
     @Override

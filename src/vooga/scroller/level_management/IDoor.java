@@ -21,7 +21,7 @@ public interface IDoor {
     public void setNextLevel (IGameComponent level);
 
 
-    public Level getNextLevel();
+    public IGameComponent getNextLevel();
     
     public void setManager(LevelManager lm);
         
