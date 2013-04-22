@@ -8,11 +8,13 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import util.Location;
 import util.input.Input;
+import vooga.scroller.util.IGameComponent;
 import vooga.scroller.util.Renderable;
 import vooga.scroller.util.Sprite;
 import vooga.scroller.level_editor.controllerSuite.LEGrid;
 import vooga.scroller.level_editor.model.SpriteBox;
 import vooga.scroller.level_management.IDoor;
+import vooga.scroller.level_management.LevelManager;
 import vooga.scroller.level_management.LevelPortal;
 import vooga.scroller.level_management.SpriteManager;
 import vooga.scroller.model.Model;
@@ -23,7 +25,7 @@ import vooga.scroller.util.PlatformerConstants;
 import vooga.scroller.util.mvc.IView;
 import vooga.scroller.view.GameView;
 
-public class Level implements Renderable<GameView> {
+public class Level implements Renderable<GameView>, IGameComponent{
 
     private Dimension mySize;
     private Dimension frameOfReferenceSize;
@@ -237,6 +239,18 @@ public class Level implements Renderable<GameView> {
         sm.initView(display);
         display.setModel(new Model(display, sm, this));
         return display;
+    }
+
+    @Override
+    public void addManager (LevelManager lm) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public String getInputFilePath () {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }
