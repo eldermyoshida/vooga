@@ -12,6 +12,7 @@ import vooga.fighter.model.objects.GameObject;
 import vooga.fighter.model.objects.MapObject;
 import vooga.fighter.model.objects.MenuObject;
 import vooga.fighter.model.objects.MouseClickObject;
+import vooga.fighter.model.objects.MouseObject;
 
 /**
  * Detects collisions between all the game objects. Collision handling is achieved
@@ -168,6 +169,15 @@ public class CollisionManager {
      * Handles collisions between an MouseClick object and MouseClick object...
      */
     public void collide(MouseClickObject o1, MouseClickObject o2) {
+    }
+    
+    public void collide(MenuObject o1, MouseObject o2) {
+    }
+    
+    public void collide(MouseObject o1, MenuObject o2) {
+    }
+    
+    public void collide(MouseObject o1, MouseObject o2) {
     }
     
     public void collide(MenuObject o1, MenuObject o2) {

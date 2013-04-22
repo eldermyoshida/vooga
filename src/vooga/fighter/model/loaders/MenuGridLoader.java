@@ -9,6 +9,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import util.Location;
 import vooga.fighter.controller.GameManager;
 import vooga.fighter.model.MenuGrid;
 import vooga.fighter.model.MenuMode;
@@ -64,6 +65,7 @@ public class MenuGridLoader extends ObjectLoader {
 						state.populateSize(size, k);
 						Rectangle rect = new Rectangle(xSize,ySize);
 						state.populateRectangle(rect, k);
+						state.resetBounds(new Location(xCoord,yCoord));
 						state.populateAllDelays(FOUR_TICKS);
 						}
 					}
@@ -77,7 +79,6 @@ public class MenuGridLoader extends ObjectLoader {
 					menuobject.setLeft(left);
 					int right = Integer.parseInt(getAttributeValue(node1, "right"));
 					menuobject.setRight(right);
-					menuobject.resetBounds();
 					myMenuObjects.add(menuobject);
 				}
 		}

@@ -132,5 +132,9 @@ public abstract class LevelController extends Controller {
 		}
     };
     
+    public void developerUpdate(){
+    	;
+    }
+    
     
 }

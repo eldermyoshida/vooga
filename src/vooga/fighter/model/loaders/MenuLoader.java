@@ -33,7 +33,6 @@ public class MenuLoader extends ObjectLoader {
 				Element state = (Element) states.item(j);
 				String blinking = getAttributeValue(state, "blink");
 				String  stateName = getAttributeValue(state, "name");
-				System.out.println(stateName);
 				NodeList frames = node.getElementsByTagName("frame");
 				State newState = new State(myMenuObject, frames.getLength());
 				for(int k = 0; k < frames.getLength(); k++){

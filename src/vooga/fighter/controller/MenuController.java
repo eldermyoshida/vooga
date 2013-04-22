@@ -13,6 +13,7 @@ import vooga.fighter.controller.OneVOneController;
 import vooga.fighter.model.*;
 import vooga.fighter.model.objects.CharacterObject;
 import vooga.fighter.model.objects.MouseClickObject;
+import vooga.fighter.model.objects.MouseObject;
 import vooga.fighter.util.Paintable;
 import vooga.fighter.view.Canvas;
 
@@ -56,6 +57,14 @@ public abstract class MenuController extends Controller {
     @InputMethodTarget(name = "continue")
     public void mouseclick(PositionObject pos)  {
         getMode().addObject(new MouseClickObject(pos.getPoint2D()));
+    }
+    
+    @InputMethodTarget(name = "move")
+    public void mousemove(PositionObject pos)  {
+        getMode().addObject(new MouseObject(pos.getPoint2D()));
+    }
+    
+    public void developerUpdate(){
     }
     
     @InputMethodTarget(name = "left")

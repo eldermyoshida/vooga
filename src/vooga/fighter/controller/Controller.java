@@ -147,6 +147,7 @@ public abstract class Controller{
                 myDisplayInfo.update();
                 myCanvas.paint();
                 checkConditions();
+                
             }
         });
         // start animation
@@ -176,6 +177,8 @@ public abstract class Controller{
  
     public abstract void notifyEndCondition(String choice);
     public abstract Controller getController();
+    
+    public abstract void developerUpdate();
 
         
 

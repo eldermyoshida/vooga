@@ -7,6 +7,7 @@ import vooga.fighter.model.objects.CharacterObject;
 import vooga.fighter.model.objects.GameObject;
 import vooga.fighter.model.objects.MenuObject;
 import vooga.fighter.model.objects.MouseClickObject;
+import vooga.fighter.model.objects.MouseObject;
 import vooga.fighter.model.utils.State;
 
 /**
@@ -19,6 +20,7 @@ public class MenuMode extends Mode {
     private String myMenuId;
     private List<MenuObject> myMenuObjects;
     private MouseClickObject myMouseClick;
+    private MouseObject myMouse;
     private MenuGrid myMenuGrid;
     private CollisionManager myCollisionManager = new CollisionManager();
     private String myChoice;
@@ -78,6 +80,9 @@ public class MenuMode extends Mode {
         if (object instanceof MouseClickObject) {
             myMouseClick = (MouseClickObject) object;
         }
+        else if (object instanceof MouseObject) {
+            myMouse = (MouseObject) object;
+        }
     }
     
     public void setChoice (String choice){
@@ -113,7 +118,7 @@ public class MenuMode extends Mode {
     }
     
     public boolean inputReady(){
-    	if(myInputTicks>6){ myInputTicks = 0;
+    	if(myInputTicks>2){ myInputTicks = 0;
     	return true;
     	}
     	return false;

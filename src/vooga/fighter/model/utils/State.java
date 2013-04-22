@@ -313,4 +313,17 @@ public class State {
     public boolean hasCompleted() {
         return (myCurrentFrame >= myNumFrames);
     }
+    
+    /**
+     * Resets bounds of rectangle based on given center location of rectangle
+     */
+    public void resetBounds (Location loc) {
+    	if(null!= myRectangles[myCurrentFrame]){
+        myRectangles[myCurrentFrame] = new Rectangle(
+        		(int) myRectangles[myCurrentFrame].getWidth(), 
+        		(int) myRectangles[myCurrentFrame].getHeight(),
+        		(int) loc.getX() - (int) myRectangles[myCurrentFrame].getWidth()/2, 
+        		(int) loc.getY() - (int) myRectangles[myCurrentFrame].getHeight()/2);
+    }
+    }
 }

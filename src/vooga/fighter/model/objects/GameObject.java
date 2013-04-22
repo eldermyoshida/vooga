@@ -222,11 +222,7 @@ public abstract class GameObject {
     }
     
     public void resetBounds () {
-        getCurrentState().setCurrentRectangle(new Rectangle(
-        		(int) getCurrentState().getCurrentSize().getWidth(), 
-        		(int) getCurrentState().getCurrentSize().getHeight(),
-        		(int) myCenter.getLocation().getX() - (int) getCurrentState().getCurrentSize().getWidth()/2, 
-        		(int) myCenter.getLocation().getY() - (int) getCurrentState().getCurrentSize().getHeight()/2));
+        getCurrentState().resetBounds(myCenter.getLocation());
     }
  
     /**

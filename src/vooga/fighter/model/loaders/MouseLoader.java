@@ -8,31 +8,31 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import util.Pixmap;
-import vooga.fighter.model.objects.MouseClickObject;
+import vooga.fighter.model.objects.MouseObject;
 import vooga.fighter.model.utils.State;
 
 public class MouseLoader extends ObjectLoader {
 
 	private static final String MOUSE_PATH = "src/vooga/fighter/config/mouse.xml";
 
-	MouseClickObject myMouseClick;
-	public MouseLoader(MouseClickObject mouseclick) {
+	MouseObject myMouse;
+	public MouseLoader(MouseObject Mouse) {
 		super(MOUSE_PATH);
-		myMouseClick = mouseclick;
+		myMouse = Mouse;
 		load();
 	}
 
 	protected void load() {
 		Document doc = getDocument();
-		NodeList menuNodes = doc.getElementsByTagName("menuclickobject");
+		NodeList menuNodes = doc.getElementsByTagName("mouseobject");
 		Element node = (Element) menuNodes.item(0);
 		NodeList states = node.getElementsByTagName("state");
 		Element state = (Element) states.item(0);
-		String  Statename = getAttributeValue(state, "name");
+		String Statename = getAttributeValue(state, "name");
 		NodeList frames = node.getElementsByTagName("frame");
-		State newState = new State(myMouseClick, frames.getLength());
+		State newState = new State(myMouse, frames.getLength());
 		Element node1 = (Element) frames.item(0);
-		String imagepathway = getAttributeValue(node1, "image");
+		String imagepathway = getAttributeValue(node1, myMouse.getImageTag()+"image");
 		newState.populateImage(new Pixmap(imagepathway), 0);
 		int width = Integer.parseInt((getAttributeValue(node1, "width")));
 		int height = Integer.parseInt((getAttributeValue(node1, "height")));
@@ -40,9 +40,9 @@ public class MouseLoader extends ObjectLoader {
 		Rectangle rect = new Rectangle(width,height);
 		newState.populateAllSizes(dim);
 		newState.populateRectangle(rect, 0);
-		myMouseClick.addState(Statename, newState);
-		myMouseClick.setCurrentState(Statename);
-		myMouseClick.resetBounds();
+		myMouse.addState(Statename, newState);
+		myMouse.setCurrentState(Statename);
+		myMouse.resetBounds();
 	}
 
 
