@@ -23,6 +23,12 @@ public class HUDBar extends HUDElement {
         public Dimension mySize;
     }
 
+    public HUDBar () {
+        myCurrentValue = 0;
+        myMaxValue = 0;
+        myBarSize = new Dimension();
+    }
+    
     @Override
     public void update (Observable o, Object arg) {
         HUDBarValues values = null;
@@ -52,8 +58,16 @@ public class HUDBar extends HUDElement {
                      (int)(center.getY() + myBarSize.height));
         pen.setColor(java.awt.Color.BLUE);
         pen.fillRect((int)center.getX() + OUTLINE_WIDTH, (int)center.getY() + OUTLINE_WIDTH,
-                     (int)(center.getX() - OUTLINE_WIDTH + myBarSize.width * myCurrentValue / myMaxValue),
-                     (int)(center.getY() - OUTLINE_WIDTH + myBarSize.height));
+                     (int)(center.getX() - OUTLINE_WIDTH * 2 + myBarSize.width * myCurrentValue / myMaxValue),
+                     (int)(center.getY() - OUTLINE_WIDTH * 2 + myBarSize.height));
+    }
+    
+    /**
+     * Sets the dimensions of the bar.
+     * @param size
+     */
+    public void setSize (Dimension size) {
+        myBarSize = size;
     }
 
 }
