@@ -43,37 +43,20 @@ public class UpgradeNode {
         myHasBeenUpgraded = false;
         myUpgradeValue = upgradeValue;
         myCost = new HashMap<String, Integer>();
-        myCost.put("resource", costedResourceAmount); // TODO: get different types of Resource
+        myCost.put("resource", costedResourceAmount); // TODO: Deal with cost
     }
 
-    /**
-     * Applies the effect of this Upgrade type to the given interactive.
-     * 
-     * @param interactive
-     * @throws InvocationTargetException
-     * @throws IllegalAccessException
-     * @throws IllegalArgumentException
-     * @throws InstantiationException
-     * @throws NoSuchMethodException
-     * @throws SecurityException
-     */
-    public void apply (int playerID) throws IllegalArgumentException, IllegalAccessException,
-                                    InvocationTargetException, InstantiationException,
-                                    SecurityException, NoSuchMethodException {
-        for (InteractiveEntity i : getUpgradeTree().getUsers().get(playerID)) {
-            apply(i);
-            myUpgradeTree.activateNode(this);
-        }
+    public void apply (InteractiveEntity requester) {
+    	upgrade(requester);
+    	myUpgradeTree.activateNode(this, requester);
+    	return;
     }
 
-    public void apply (InteractiveEntity requester) throws IllegalArgumentException,
-                                                   IllegalAccessException,
-                                                   InvocationTargetException,
-                                                   InstantiationException, SecurityException,
-                                                   NoSuchMethodException {
-        return;
+    public void upgrade(InteractiveEntity requester) {
+    	return;
+    	//TODO: add to subclasses
     }
-
+    
     public boolean validUpdate (Player player) {
         /*
          * for (String resourceType : myCost.keySet()) {

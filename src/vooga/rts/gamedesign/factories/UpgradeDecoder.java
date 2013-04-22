@@ -71,6 +71,7 @@ public class UpgradeDecoder extends Decoder {
 
 	public void create(Document doc) throws ClassNotFoundException, NumberFormatException, IllegalArgumentException, SecurityException, InstantiationException, IllegalAccessException, InvocationTargetException {
 		//TODO: get all upgradeTrees into a same file. Return all results into a map
+		System.out.println("GOES HERE!!");
 		UpgradeTree upgradeTree = new UpgradeTree();
 		
 		NodeList nodeLst = doc.getElementsByTagName(UPGRADE_CATEGORY_TAG);
@@ -101,7 +102,8 @@ public class UpgradeDecoder extends Decoder {
 			}
 		}
 		upgradeTree.updateTreeStatus();
-		printTree(upgradeTree);
+		//printTree(upgradeTree);
+		myFactory.put("", upgradeTree);
 	}
 	
 	private String loadSingleLine(Element element, String tag) {
@@ -116,6 +118,7 @@ public class UpgradeDecoder extends Decoder {
 	 * @param upgradeTree
 	 */
 	private void printTree(UpgradeTree upgradeTree) {
+		System.out.println("Also Goes Here");
 		for (UpgradeNode u: upgradeTree.getHead().getChildren()) {
 			UpgradeNode current = u;
 			while (!current.getChildren().isEmpty()) {
@@ -123,7 +126,7 @@ public class UpgradeDecoder extends Decoder {
 					System.out.println("Name: " + node.getUpgradeName() +
 							" Parent Name " + current.getUpgradeName());
 				}
-				current = current.getChildren().get(1);
+				current = current.getChildren().get(0);
 						//should recurse if really want to print the whole tree
 			}
 		}

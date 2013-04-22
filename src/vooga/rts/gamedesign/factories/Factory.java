@@ -22,6 +22,7 @@ import vooga.rts.gamedesign.strategy.Strategy;
 import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
 import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
 import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
+import vooga.rts.gamedesign.upgrades.UpgradeTree;
 
 
 /**
@@ -46,6 +47,7 @@ public class Factory {
 	Map<String, Strategy> myStrategies;
 	Map<String, String[]> myProductionDependencies;
 	Map<String, String[]> myStrategyDependencies;
+	Map<String, UpgradeTree> myUpgradeTrees;
 	
 	
 	public Factory() throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ParserConfigurationException, SAXException, IOException {
@@ -56,6 +58,7 @@ public class Factory {
 		myStrategies = new HashMap<String, Strategy>();
 		myProductionDependencies = new HashMap<String, String[]>();
 		myStrategyDependencies = new HashMap<String, String[]>();
+		myUpgradeTrees = new HashMap<String, UpgradeTree>();
 	}
 	
 	/**
@@ -74,6 +77,10 @@ public class Factory {
 	
 	public void put(String name, Strategy value){
 		myStrategies.put(name, value);
+	}
+	
+	public void put(String name, UpgradeTree upgradeTree){
+		myUpgradeTrees.put(name, upgradeTree);
 	}
 	
 	/**
@@ -205,6 +212,8 @@ public class Factory {
 			Document doc = db.parse(file);
 			doc.getDocumentElement().normalize();
 			System.out.println(doc.getDocumentElement().getNodeName());
+			
+			//myDecoders.get(doc.getDocumentElement().getNodeName()).create(doc);
 			
 			NodeList head = doc.getChildNodes();
 			Node childNode = head.item(0);

@@ -4,8 +4,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import vooga.rts.action.Action;
+import vooga.rts.gamedesign.sprite.gamesprites.GameEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.UpgradeBuilding;
+import vooga.rts.gamedesign.state.MovementState;
 
 
 /**
@@ -29,12 +33,16 @@ import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.UpgradeBuil
 public class UpgradeTree {
     private UpgradeNode myHead;
     private List<UpgradeNode> myCurrentUpgrades;
-    private Map<Integer, List<InteractiveEntity>> myUsers;
+    private List<InteractiveEntity> myUsers;
+    private List<String> myUserTypes;
+    private List<Action> myActions;
 
     public UpgradeTree () {
         myHead = new UpgradeNode();
         myCurrentUpgrades = new ArrayList<UpgradeNode>();
-        myUsers = new HashMap<Integer, List<InteractiveEntity>>();
+        myUsers = new ArrayList<InteractiveEntity>();
+        myUserTypes = new ArrayList<String>();
+        myActions = new ArrayList<Action>();
     }
 
     /**
@@ -67,6 +75,13 @@ public class UpgradeTree {
                 myCurrentUpgrades.add(current);
             }
         }
+        updateActions();
+    }
+    
+    private void updateActions() {
+    	for (UpgradeNode currentUpgrade: myCurrentUpgrades) {
+    		
+    	}
     }
 
     public void addBranch (String branchName) {
@@ -114,27 +129,32 @@ public class UpgradeTree {
         return current;
     }
 
-    public Map<Integer, List<InteractiveEntity>> getUsers () {
+    public void addUserType(Object newUserType) {
+    	myUserTypes.add(newUserType.getClass().getName());
+    }
+    
+    public List<InteractiveEntity> getUsers () {
         return myUsers;
     }
 
-    public List<InteractiveEntity> getPlayerUsers (int playerID) {
-        return myUsers.get(playerID);
+    public void verifyAndAddUser (InteractiveEntity i) {
+        if (validUser(i)){
+        	myUsers.add(i);
+        }
     }
-
-    public void addUser (InteractiveEntity i, int playerID) {
-        if (myUsers.get(playerID) == null) {
-            List<InteractiveEntity> entityGroup = new ArrayList<InteractiveEntity>();
-            entityGroup.add(i);
-            myUsers.put(playerID, entityGroup);
+    
+    private boolean validUser(InteractiveEntity potentialUser) { //TODO: could have put this into util
+    	Class cls = potentialUser.getClass();
+        for (String s : myUserTypes) {
+            while (cls != GameEntity.class) {
+                String className = cls.getName();
+                if (className.equals(s)) {
+                    return true;
+                }
+                cls = cls.getSuperclass();
+            }
         }
-        else {
-            List<InteractiveEntity> entityGroup = myUsers.get(playerID);
-            entityGroup.add(i);
-            myUsers.put(playerID, entityGroup);
-        }
-
-        myUsers.get(playerID).add(i);
+        return false;
     }
 
     public List<UpgradeNode> getCurrentUpgrades () {
