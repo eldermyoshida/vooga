@@ -172,14 +172,14 @@ public class GameState extends SubState implements Controller {
         ((CanProduce) b.getProductionStrategy()).setRallyPoint(new Location3D(600, 500, 0));
         myHumanPlayer.add(b);
 
-        Garrison garrison =
-                new Garrison((new Pixmap(ResourceManager.getInstance()
-                        .<BufferedImage> getFile("images/factory.png", BufferedImage.class))),
-                             new Location3D(300, 300, 0), new Dimension(100, 100), null, 1, 300,
-                             InteractiveEntity.DEFAULT_BUILD_TIME);
-        garrison.getOccupyStrategy().addValidClassType(new Soldier());
-        garrison.getOccupyStrategy().createOccupyActions(garrison);
-        myHumanPlayer.add(garrison);
+//        Garrison garrison =
+//                new Garrison((new Pixmap(ResourceManager.getInstance()
+//                        .<BufferedImage> getFile("images/factory.png", BufferedImage.class))),
+//                             new Location3D(300, 300, 0), new Dimension(100, 100), null, 1, 300,
+//                             InteractiveEntity.DEFAULT_BUILD_TIME);
+//        garrison.getOccupyStrategy().addValidClassType(new Soldier());
+//        garrison.getOccupyStrategy().createOccupyActions(garrison);
+//        myHumanPlayer.add(garrison);
 
         myMap = new GameMap(8, new Dimension(512, 512));
 
@@ -197,17 +197,17 @@ public class GameState extends SubState implements Controller {
             }
         });
 
-        final Garrison testGarrison = garrison;
-        occupyPukingTest = new DelayedTask(1, new Runnable() {
-            @Override
-            public void run () {
-                if (testGarrison.getOccupyStrategy().getOccupiers().size() > 5) {
-                    System.out.println("will puke!");
-                    testGarrison.getAction(new Command("puke all I have")).apply();
-                }
-                occupyPukingTest.restart();
-            }
-        });
+//        final Garrison testGarrison = garrison;
+//        occupyPukingTest = new DelayedTask(1, new Runnable() {
+//            @Override
+//            public void run () {
+//               if (testGarrison.getOccupyStrategy().getOccupiers().size() > 5) {
+//                    System.out.println("will puke!");
+//                    testGarrison.getAction(new Command("puke all I have")).apply();
+//                }
+//                occupyPukingTest.restart();
+//            }
+//        });
     }
 
     private void yuckyUnitUpdate (double elapsedTime) {
