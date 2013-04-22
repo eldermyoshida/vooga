@@ -64,8 +64,8 @@ public class MainView extends JFrame {
     public void changeViewPanel (JPanel panel) {
         myViewPanel.removeAll();
         myViewPanel.add(panel);
-        revalidate();
-        repaint();
+        myViewPanel.revalidate();
+        myViewPanel.repaint();
     }
 
     /**
