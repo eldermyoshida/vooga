@@ -21,6 +21,7 @@ public class UnitDecoder extends Decoder {
 	private static final String IMAGE_TAG = "img";
 	private static final String SOUND_TAG = "sound";
 	private static final String HEALTH_TAG = "health";
+	private static final String PRODUCE_TAG = "produce";
 	private static final String SOURCE_TAG = "src";
 	private static final String TIME_TAG = "buildtime";
 	
@@ -56,6 +57,11 @@ public class UnitDecoder extends Decoder {
 																		buildTime);
 			
 			myFactory.put(name, unit);
+			//Load Production Dependencies now
+			String [] nameCanProduce = nElement.getElementsByTagName(PRODUCE_TAG).item(0).getTextContent().split("\\s+");
+			if(nameCanProduce[0] != ""){
+				myFactory.putProductionDependency(name, nameCanProduce);
+			}
 			
 		}
 

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -15,7 +16,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import vooga.rts.gamedesign.sprite.gamesprites.GameSprite;
-import vooga.rts.gamedesign.sprite.gamesprites.Resource;
 import vooga.rts.gamedesign.strategy.Strategy;
 import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
 import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
@@ -41,6 +41,7 @@ public class Factory {
 	Map<String, Decoder> myDecoders = new HashMap<String, Decoder>();
 	Map<String, GameSprite> mySprites;
 	Map<String, Strategy> myStrategies;
+	Map<String, String[]> myProductionDependencies;
 	
 	
 	public Factory() throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ParserConfigurationException, SAXException, IOException {
@@ -48,6 +49,7 @@ public class Factory {
 		loadDecoder(DECODER_MATCHING_FILE);
 		mySprites = new HashMap<String, GameSprite>();
 		myStrategies = new HashMap<String, Strategy>();
+		myProductionDependencies = new HashMap<String, String[]>();
 	}
 	
 	
@@ -73,6 +75,11 @@ public class Factory {
 	
 	public GameSprite getSprite(String key){
 		return mySprites.get(key);
+	}
+	
+	public void putProductionDependency(String name, String[] itProduces){
+		System.out.println("name: " + name + "produces: " + itProduces[0]);
+		myProductionDependencies.put(name, itProduces);
 	}
 	
 	
@@ -154,6 +161,12 @@ public class Factory {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	
+	private void initializeProducable(){
+		
+		
 	}
 	
 	/**

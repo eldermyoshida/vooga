@@ -61,7 +61,14 @@ public class BuildingDecoder extends Decoder{
 																			  buildTime);
 			
 			myFactory.put(name, building);
+			//Load Production Dependencies now
+			String [] nameCanProduce = nElement.getElementsByTagName(PRODUCE_TAG).item(0).getTextContent().split("\\s+");
+			if(nameCanProduce[0] != ""){
+				myFactory.putProductionDependency(name, nameCanProduce);
+			}
+			
 		}
+		
 		
 	}
 }
