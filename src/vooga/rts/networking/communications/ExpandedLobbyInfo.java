@@ -92,9 +92,7 @@ public class ExpandedLobbyInfo extends LobbyInfo {
 
     	addPlayer();
     	extendTeams(teamNumber);
-    	ArrayList<Player> team = myPlayerList.get(teamNumber);
-    	team.add(player);
-
+    	myPlayerList.get(teamNumber).add(player);
     }
 
     /**
@@ -115,9 +113,11 @@ public class ExpandedLobbyInfo extends LobbyInfo {
      * @param player to remove
      */
     public void removePlayer (Player player) {
-        removePlayer();
         for (ArrayList<Player> team : myPlayerList) {
-            team.remove(player);
+        	if(team.contains(player)){
+        		team.remove(player);
+        		removePlayer();
+        	}
         }
     }
 
@@ -130,9 +130,7 @@ public class ExpandedLobbyInfo extends LobbyInfo {
     public void movePlayer (Player player, int team) {
         if (team <= myMaxTeams) {
             removePlayer(player);
-            // Keep the player count correct
-            addPlayer();
-            myPlayerList.get(team - 1).add(player);
+            addPlayer(player, team);
         }
     }
 
