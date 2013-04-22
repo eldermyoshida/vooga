@@ -309,7 +309,7 @@ public class XMLTool {
      * @return a map with the tag (as a map key) and the content (as a map value) of all the
      *         children elements of a particular node.
      */
-    public Map<String, String> getMapFromParentElement (String parentTag) {
+    public Map<String, String> getMapFromParentTag (String parentTag) {
         Element parent = getElementFromTag(parentTag);
         return getMapFromParentElement(parent);
     }
