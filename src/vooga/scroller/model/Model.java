@@ -59,13 +59,21 @@ public class Model {
         myLevelManager = initializeLevelManager(levelFileNames);
     }
 
+    public Model (GameView gameView, ScrollingManager sm, Level level) {
+        this(gameView, sm, initTestPlayer(gameView, sm), level);
+    }
+
     private Model (GameView gameView, ScrollingManager sm, Player player) {
         myView = gameView;
         setScrollingManager(sm);
         myPlayer = player;
     }
-    
-    public void addPlayerToLevel(){
+
+    private static Player initTestPlayer (GameView gameView, ScrollingManager sm) {
+        return new Mario(new Location(), new Dimension(32, 32), gameView, sm);
+    }
+
+    public void addPlayerToLevel () {
         myLevelManager.getCurrentLevel().addPlayer(myPlayer);
     }
 
