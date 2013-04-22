@@ -14,7 +14,7 @@ import java.awt.geom.Rectangle2D;
  */
 public class DragCommand extends Command {
 
-    private static final String DRAG = "drag";
+    public static final String DRAG = "drag";
     public Shape myWorldRectangle;
     public Rectangle2D myScreenRectangle;
 

@@ -13,9 +13,10 @@ import java.util.Observer;
 import java.util.Queue;
 import vooga.rts.action.Action;
 import vooga.rts.action.IActOn;
+import vooga.rts.commands.ClickCommand;
 import vooga.rts.commands.Command;
+import vooga.rts.commands.DragCommand;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
-import vooga.rts.gamedesign.state.DetectableState;
 import vooga.rts.manager.actions.DragSelectAction;
 import vooga.rts.manager.actions.LeftClickAction;
 import vooga.rts.manager.actions.RightClickAction;
@@ -81,7 +82,7 @@ public class Manager implements State, IActOn, Observer {
     }
 
     /**
-     * Checks to see if the manager can handle the command, if not sends it to 
+     * Checks to see if the manager can handle the command, if not sends it to
      * the selected entities.
      */
     @Override
@@ -144,6 +145,7 @@ public class Manager implements State, IActOn, Observer {
 
     /**
      * Deselects the topmost unit at the given location.s
+     * 
      * @param location at which to deselect the unit.
      */
     public void deselect (Location3D location) {
@@ -282,9 +284,9 @@ public class Manager implements State, IActOn, Observer {
     }
 
     public void addActions () {
-        addAction("drag", new DragSelectAction(this));
-        addAction("leftclick", new LeftClickAction(this));
-        addAction("rightclick", new RightClickAction(this));
+        addAction(DragCommand.DRAG, new DragSelectAction(this));
+        addAction(ClickCommand.LEFT_CLICK, new LeftClickAction(this));
+        addAction(ClickCommand.RIGHT_CLICK, new RightClickAction(this));
     }
 
     /**

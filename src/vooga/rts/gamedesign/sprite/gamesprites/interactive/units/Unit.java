@@ -92,7 +92,7 @@ public class Unit extends InteractiveEntity {
 
     @Override
     public void addActions () {
-        put("leftclick", new InteractiveAction(this) {
+        put(ClickCommand.LEFT_CLICK, new InteractiveAction(this) {
             private Location3D myLocation;
 
             @Override
