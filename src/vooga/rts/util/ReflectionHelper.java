@@ -45,7 +45,6 @@ public class ReflectionHelper {
      */
     public static Object makeInstance(Class<?> c, Object ... params){
     	try {
-    		System.out.println(findConstructor(c,params));
 			return findConstructor(c,params).newInstance(params);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -119,7 +118,6 @@ public class ReflectionHelper {
     private static Class<?>[] toClassArray (Object ... params) {
         Class<?>[] types = new Class<?>[params.length];
         for (int i = 0; i < params.length; i++) {
-        	//System.out.println(params[i]);
             types[i] = params[i].getClass();
             // Override Primitive Types
             if (types[i] == Integer.class) {
