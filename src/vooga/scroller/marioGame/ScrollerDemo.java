@@ -1,17 +1,18 @@
+
 package vooga.scroller.marioGame;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GraphicsConfiguration;
 import javax.swing.JFrame;
 import arcade.games.ArcadeInteraction;
 import arcade.games.Game;
 import arcade.games.GameData;
 import arcade.games.UserGameData;
+import util.Location;
 import vooga.scroller.model.ScrollerGame;
 import vooga.scroller.scrollingmanager.OmniScrollingManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
-import vooga.scroller.scrollingmanager.UniScrollingManager;
-import vooga.scroller.util.Direction;
-import vooga.scroller.util.PlatformerConstants;
+import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.view.GameView;
 
 
@@ -40,7 +41,7 @@ public class ScrollerDemo extends ScrollerGame
 
 
     @Override
-    protected String[] getLevelFileNames () {
+    protected String[] setLevelFileNames () {
         String[] levelsFiles = {"verySimpleLevel.level", "new.level"};
         return levelsFiles;
     }
@@ -48,7 +49,21 @@ public class ScrollerDemo extends ScrollerGame
 
 
     @Override
-    protected String getTitle () {
+    protected String setTitle () {
         return TITLE;
+    }
+
+
+
+    @Override
+    protected ScrollingManager setScrollingManager () {
+        return new OmniScrollingManager();
+    }
+
+
+
+    @Override
+    protected Player setPlayer (ScrollingManager sm, GameView gameView) {
+        return new Mario(new Location(), new Dimension(32, 32), gameView, sm);
     }
 }

@@ -234,7 +234,9 @@ public class Level implements Renderable<GameView> {
         ScrollingManager sm = new OmniScrollingManager();
         GameView display = new GameView(PlatformerConstants.DEFAULT_WINDOW_SIZE, sm);
         sm.initView(display);
-        display.setModel(new Model(display, sm, this));
+        Model m = new Model(display, sm, this);
+        m.addPlayerToLevel();
+        display.setModel(m);
         return display;
     }
 

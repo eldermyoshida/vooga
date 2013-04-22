@@ -49,28 +49,47 @@ public class Model {
      * @throws IOException 
      */
 
-    public Model (GameView gameView, ScrollingManager sm, Level ...levels) {
-        myView = gameView;
-        setScrollingManager(sm);
-        myPlayer = initPlayer();
+    public Model (GameView gameView, ScrollingManager sm, Player player, Level ...levels) {
+        this(gameView, sm, player);
         myLevelManager = initializeLevelManager(levels);
-        myLevelManager.getCurrentLevel().addPlayer(myPlayer);
     }
     
     
+    public Model (GameView gameView, ScrollingManager sm, Player player, String... levelFileNames) {
+        this(gameView, sm, player);
+        myLevelManager = initializeLevelManager(levelFileNames);
+    }
+
+    public Model (GameView gameView, ScrollingManager sm, Level level) {
+        this(gameView, sm, initTestPlayer(gameView, sm), level);
+    }
+
+
+    private Model (GameView gameView, ScrollingManager sm, Player player) {
+        myView = gameView;
+        setScrollingManager(sm);
+        myPlayer = player;
+    }
+
+
+    private static Player initTestPlayer (GameView gameView, ScrollingManager sm) {
+        Player player = new Mario(new Location(), new Dimension(32, 32), gameView, sm);
+        MovingSpriteAnimationFactory msaf = new MovingSpriteAnimationFactory(PLAYER_IMAGES);
+        Animation playerAnimation = msaf.generateAnimation(player);
+        
+        player.setView(playerAnimation);
+        return player;
+    }
+
+    public void addPlayerToLevel () {
+        myLevelManager.getCurrentLevel().addPlayer(myPlayer);
+    }
+
     private LevelManager initializeLevelManager (Level[] levels) {
         return new LevelManager(myScrollingManager, myView, levels);
     }
 
 
-    public Model (GameView gameView, ScrollingManager sm, String... levelFileNames) {
-        myView = gameView;
-        setScrollingManager(sm);
-        myPlayer = initPlayer();
-        myLevelManager = initializeLevelManager(levelFileNames);
-        myLevelManager.getCurrentLevel().addPlayer(myPlayer);  
-    }
-    
     private LevelManager initializeLevelManager (String[] levelFileNames) {
         return new LevelManager(myScrollingManager, myView, levelFileNames);
     }
@@ -84,24 +103,24 @@ public class Model {
 
 
 
-    /**
-     * User defined player initialization.
-     */
-    private Player initPlayer() {
-        // TODO: this is implemented by the developer. 
-        
-        Player player = new Mario(
-                             new Location(100, 140),
-                             new Dimension(138/6, 276/6),
-                             myView, myScrollingManager);
-        
-        MovingSpriteAnimationFactory msaf = new MovingSpriteAnimationFactory(PLAYER_IMAGES);
-        Animation playerAnimation = msaf.generateAnimation(player);
-        
-        player.setView(playerAnimation);
-
-        return player;
-    }
+//    /**
+//     * User defined player initialization.
+//     */
+//    private Player initPlayer() {
+//        // TODO: this is implemented by the developer. 
+//        
+//        Player player = new Mario(
+//                             new Location(100, 140),
+//                             new Dimension(138/6, 276/6),
+//                             myView, myScrollingManager);
+//        
+//        MovingSpriteAnimationFactory msaf = new MovingSpriteAnimationFactory(PLAYER_IMAGES);
+//        Animation playerAnimation = msaf.generateAnimation(player);
+//        
+//        player.setView(playerAnimation);
+//
+//        return player;
+//    }
 
     /**
      * Draw all elements of the game.
