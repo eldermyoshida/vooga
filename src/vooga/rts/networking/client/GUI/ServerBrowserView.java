@@ -3,6 +3,7 @@ package vooga.rts.networking.client.GUI;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.TableModel;
 
 
 /**
@@ -22,7 +23,7 @@ public class ServerBrowserView extends JPanel {
      * @param adapter adapter for server browser table
      * @param gameName name of the game
      */
-    public ServerBrowserView (ServerBrowserTableAdapter adapter) {
+    public ServerBrowserView (TableModel adapter) {
         myTable = new JTable(adapter);
         myTable.setFillsViewportHeight(true);
         JScrollPane pane = new JScrollPane(myTable);
