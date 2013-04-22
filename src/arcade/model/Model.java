@@ -254,13 +254,7 @@ public class Model implements ArcadeInteraction {
      * @return
      */
     public Collection<GameInfo> getGameList () {
-        //return myGameInfos.values();
-        List<GameInfo> games = new ArrayList<GameInfo>();
-      for (int i = 0; i < 13; i++) 
-      {
-          games.add(new GameInfo("example", "examplegenre", "English", this));
-      }
-      return games;
+        return myGameInfos.values();
     }
 
     private void organizeSnapshots () {
