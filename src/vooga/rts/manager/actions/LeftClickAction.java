@@ -1,8 +1,8 @@
 package vooga.rts.manager.actions;
 
 import vooga.rts.action.ManagerAction;
+import vooga.rts.commands.ClickCommand;
 import vooga.rts.commands.Command;
-import vooga.rts.commands.PositionCommand;
 import vooga.rts.manager.Manager;
 import vooga.rts.util.Camera;
 import vooga.rts.util.Location3D;
@@ -33,7 +33,7 @@ public class LeftClickAction extends ManagerAction {
          * }
          * else {
          */
-        PositionCommand click = (PositionCommand) command;
+        ClickCommand click = (ClickCommand) command;
         System.out.println("leftclick");
         myLocation = Camera.instance().viewtoWorld(click.getPosition());
         apply(); // should the action apply itself? (CHB)

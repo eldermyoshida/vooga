@@ -2,6 +2,7 @@ package vooga.rts.controller;
 
 import java.awt.geom.Rectangle2D;
 import util.input.*;
+import vooga.rts.commands.ClickCommand;
 import vooga.rts.commands.Command;
 import vooga.rts.commands.DragCommand;
 import vooga.rts.commands.PositionCommand;
@@ -58,7 +59,7 @@ public class InputController implements Controller {
     @InputMethodTarget(name = "onLeftMouseUp")
     public void onLeftMouseUp (PositionObject o) {
         if (myDrag == null) {
-            sendCommand(new PositionCommand("leftclick", o));
+            sendCommand(new ClickCommand("leftclick", o));
         }
         else {
             myLeftMouse = null;
@@ -70,7 +71,7 @@ public class InputController implements Controller {
 
     @InputMethodTarget(name = "onRightMouseUp")
     public void onRightMouseUp (PositionObject o) {
-        sendCommand(new PositionCommand("rightclick", o));
+        sendCommand(new ClickCommand("rightclick", o));
         myLeftMouse = null;
         myDrag = null;
         sendCommand(new DragCommand("drag", null, null));
