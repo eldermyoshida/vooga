@@ -1,6 +1,5 @@
 package arcade.database;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,7 +13,7 @@ import java.util.List;
  */
 public class GameTable extends Table {
 
-    private static final String TABLE_SEPARATOR = ": ";
+    private static final String SEPARATOR = ": ";
     
     private static final String GAMENAME_COLUMN_FIELD = "gamename";
     private static final String AUTHOR_COLUMN_FIELD = "author";
@@ -103,15 +102,19 @@ public class GameTable extends Table {
     
     /**
 
-     * Given the gameName, adds a game
-     * @param gameName is the name of game
-     * Adds a user to user table based on information
-     * @param user is the username
-     * @param pw is the password
-     * @param firstname is firstname
-     * @param lastname is lastname
-     * @param dateOfBirth is date of birth
-
+     * Given the gameName, adds a game with needed information to database
+     * @param gameName of game
+     * @param author of game
+     * @param genre of game
+     * @param price of game
+     * @param extendsGame string
+     * @param extendsGameMultiplayerGame string
+     * @param ageRating permissions
+     * @param singlePlayer is true if game is for singleplayer
+     * @param multiplayer is true if game is a multiplayer game
+     * @param thumbnailPath is where game thumbnail resides
+     * @param adscreenPath is where adscreen resides
+     * @param description of game
      */
     public boolean createGame(String gameName, String author, String genre, double price, 
                               String extendsGame, String extendsMultiplayerGame, int ageRating, 
@@ -188,19 +191,19 @@ public class GameTable extends Table {
             myPreparedStatement = myConnection.prepareStatement("SELECT * FROM " + TABLE_NAME);
             myResultSet = myPreparedStatement.executeQuery();
             while (myResultSet.next()) {
-                System.out.print(myResultSet.getString(GAMENAME_COLUMN_INDEX) + TABLE_SEPARATOR);
-                System.out.print(myResultSet.getString(AUTHOR_COLUMN_INDEX) + TABLE_SEPARATOR);
-                System.out.print(myResultSet.getString(GENRE_COLUMN_INDEX) + TABLE_SEPARATOR);
-                System.out.print(myResultSet.getString(THUMBNAIL_COLUMN_INDEX) + TABLE_SEPARATOR);
-                System.out.print(myResultSet.getString(ADSCREEN_COLUMN_INDEX) + TABLE_SEPARATOR);
-                System.out.print(myResultSet.getInt(AGEPERMISSION_COLUMN_INDEX) + TABLE_SEPARATOR);
-                System.out.print(myResultSet.getDouble(PRICE_COLUMN_INDEX) + TABLE_SEPARATOR);
-                System.out.print(myResultSet.getString(EXTENDSGAME_COLUMN_INDEX) + TABLE_SEPARATOR);
-                System.out.print(myResultSet.getString(EXTENDSMULTIPLAYER_COLUMN_INDEX) + TABLE_SEPARATOR);
-                System.out.print(myResultSet.getBoolean(SINGLEPLAYER_COLUMN_INDEX) + TABLE_SEPARATOR);
-                System.out.print(myResultSet.getBoolean(MULTIPLAYER_COLUMN_INDEX) + TABLE_SEPARATOR);
-                System.out.print(myResultSet.getString(DESCRIPTION_COLUMN_INDEX) + TABLE_SEPARATOR);
-                System.out.print(myResultSet.getString(GAMEFILEPATH_COLUMN_INDEX) + TABLE_SEPARATOR);
+                System.out.print(myResultSet.getString(GAMENAME_COLUMN_INDEX) + SEPARATOR);
+                System.out.print(myResultSet.getString(AUTHOR_COLUMN_INDEX) + SEPARATOR);
+                System.out.print(myResultSet.getString(GENRE_COLUMN_INDEX) + SEPARATOR);
+                System.out.print(myResultSet.getString(THUMBNAIL_COLUMN_INDEX) + SEPARATOR);
+                System.out.print(myResultSet.getString(ADSCREEN_COLUMN_INDEX) + SEPARATOR);
+                System.out.print(myResultSet.getInt(AGEPERMISSION_COLUMN_INDEX) + SEPARATOR);
+                System.out.print(myResultSet.getDouble(PRICE_COLUMN_INDEX) + SEPARATOR);
+                System.out.print(myResultSet.getString(EXTENDSGAME_COLUMN_INDEX) + SEPARATOR);
+                System.out.print(myResultSet.getString(EXTENDSMULTIPLAYER_COLUMN_INDEX) + SEPARATOR);
+                System.out.print(myResultSet.getBoolean(SINGLEPLAYER_COLUMN_INDEX) + SEPARATOR);
+                System.out.print(myResultSet.getBoolean(MULTIPLAYER_COLUMN_INDEX) + SEPARATOR);
+                System.out.print(myResultSet.getString(DESCRIPTION_COLUMN_INDEX) + SEPARATOR);
+                System.out.print(myResultSet.getString(GAMEFILEPATH_COLUMN_INDEX) + SEPARATOR);
                 System.out.println(myResultSet.getString(GAMEID_COLUMN_INDEX));
             }
         }
@@ -310,7 +313,7 @@ public class GameTable extends Table {
     /**
      * Given a gamename and a column_index, returns that entire row entry
      * @param gameName is the gamename
-     * @param columnIndex is the index that we want the information for
+     * @param COLUMN_INDEX is the index that we want the information for
      */
     public String retrieveEntryString(String gameName, int COLUMN_INDEX) {
         String stm = "SELECT * FROM " +TABLE_NAME + " WHERE " + GAMENAME_COLUMN_FIELD + "='" + gameName + "'";

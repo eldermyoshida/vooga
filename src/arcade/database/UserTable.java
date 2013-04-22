@@ -1,6 +1,5 @@
 package arcade.database;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -163,7 +162,7 @@ public class UserTable extends Table {
     /**
      * Given a username and a column_index, returns that entire row entry
      * @param username is the username
-     * @param columnIndex is the index that we want the information for
+     * @param COLUMN_INDEX is the index that we want the information for
      */
     public String retrieveEntry(String username, int COLUMN_INDEX) {
         String stm = "SELECT * FROM " +TABLE_NAME + " WHERE " + USERNAME_COLUMN_FIELD + "='" + username + "'";
