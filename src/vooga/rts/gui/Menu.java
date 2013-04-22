@@ -12,9 +12,9 @@ import vooga.rts.IGameLoop;
 
 public abstract class Menu extends Observable implements IGameLoop, Observer {
 
-    private List<Button> myButtons;
-    private Image myImage;
-    private AffineTransform myTransform;
+    protected List<Button> myButtons;
+    protected Image myImage;
+    protected AffineTransform myTransform;
 
     public Menu () {
         myButtons = new ArrayList<Button>();
@@ -25,7 +25,7 @@ public abstract class Menu extends Observable implements IGameLoop, Observer {
 
     }
 
-    private void paintBG (Graphics2D pen) {
+    protected void paintBG (Graphics2D pen) {
         if (myImage != null) {
             if (myTransform == null) {
                 myTransform = new AffineTransform();
@@ -42,7 +42,7 @@ public abstract class Menu extends Observable implements IGameLoop, Observer {
     @Override
     public void paint (Graphics2D pen) {
         paintBG(pen);
-        pen.drawImage(myImage, 0, 0, null);
+        
 
         for (Button b : myButtons) {
             b.paint(pen);
