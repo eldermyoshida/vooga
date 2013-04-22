@@ -1,6 +1,9 @@
 package vooga.rts.map;
 
 import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.List;
+import vooga.rts.gamedesign.sprite.gamesprites.GameSprite;
 import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
 
@@ -23,6 +26,8 @@ public class Node {
     private int myY;
     private Rectangle myBounds;
 
+    private List<GameSprite> myContents;
+
     /**
      * Creates a Node at the specified index and in the specified tier.
      * 
@@ -35,6 +40,7 @@ public class Node {
         myY = y;
         myTier = tier;
         myBounds = new Rectangle(myX * NODE_SIZE, myY * NODE_SIZE, NODE_SIZE, NODE_SIZE);
+        myContents = new ArrayList<GameSprite>();
     }
 
     /**
@@ -87,4 +93,12 @@ public class Node {
     public boolean isInside (Location3D world) {
         return myBounds.contains(world.to2D());
     }
+    
+    public void addSprite(GameSprite sprite) {
+        if (!myContents.contains(sprite)) {
+            myContents.add(sprite);
+        }
+    }
+    
+    public boolean containsSprite(GameSprite sprite )
 }
