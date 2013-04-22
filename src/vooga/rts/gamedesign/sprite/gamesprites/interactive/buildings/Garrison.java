@@ -19,7 +19,7 @@ public class Garrison extends Building {
 
     public Garrison(Pixmap image, Location3D center, Dimension size, Sound sound,
                     int playerID, int health, double buildTime) {
-        super(image, center, size, sound, playerID, health, buildTime, null);
+        super(image, center, size, sound, playerID, health, buildTime);
     }
     
     /*public void addOccupyActions(final Building building) {

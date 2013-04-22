@@ -27,7 +27,7 @@ public class Tower extends Building {
 	private static int NOTEAM = 0;
 	
 	public Tower(int playerID) {
-		super(DEFAULTPIX, DEFAULTLOC, DEFAULTSIZE, DEFAULTSOUND, playerID, DEFAULTHEALTH, DEFAULTBUILDTIME, DEFAULTTREE );
+		super(DEFAULTPIX, DEFAULTLOC, DEFAULTSIZE, DEFAULTSOUND, playerID, DEFAULTHEALTH, DEFAULTBUILDTIME);
 		
 	}
 	

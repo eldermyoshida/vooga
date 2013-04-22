@@ -44,23 +44,19 @@ public class Building extends InteractiveEntity {
                      Sound sound,
                      int playerID,
                      int health,
-                     double buildTime,
-                     UpgradeTree upgradeTree) {
+                     double buildTime) {
         super(image, center, size, sound, playerID, MAXHEALTH, buildTime);
         myRallyPoint = new Location3D(getWorldLocation().getX(), getWorldLocation().getY() + 50, 0);
         myProducables = new ArrayList<Unit>();
         myInteractiveEntities = new ArrayList<InteractiveEntity>();
 
         myObservers = new ArrayList<IObserver>();
-        if (upgradeTree != null) {
-            myUpgradeTree = upgradeTree;
-        }
     }
 
     @Override
     public InteractiveEntity copy () {
         return new Building(getImage(), getWorldLocation(), getSize(), getSound(), getPlayerID(),
-                            getHealth(), getBuildTime(), getUpgradeTree());
+                            getHealth(), getBuildTime());
     }
 
     @Override
