@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
-import vooga.rts.networking.client.lobby.Player;
+import vooga.rts.networking.client.Player;
 import vooga.rts.networking.communications.ExpandedLobbyInfo;
 
 public class WaitingLobby implements Observer{

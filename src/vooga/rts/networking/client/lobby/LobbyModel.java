@@ -2,6 +2,8 @@ package vooga.rts.networking.client.lobby;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;
+
+import vooga.rts.networking.client.Player;
 import vooga.rts.networking.communications.ExpandedLobbyInfo;
 
 public class LobbyModel {

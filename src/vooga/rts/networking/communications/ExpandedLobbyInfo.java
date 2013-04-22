@@ -3,7 +3,8 @@ package vooga.rts.networking.communications;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import vooga.rts.networking.client.lobby.Player;
+
+import vooga.rts.networking.client.Player;
 
 
 /**

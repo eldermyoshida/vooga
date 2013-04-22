@@ -1,6 +1,6 @@
 package vooga.rts.player;
 
-import vooga.rts.networking.client.lobby.Player;
+import vooga.rts.networking.client.Player;
 
 public class RTSPlayer extends Player {
     //TODO: get this up to sync with new player type

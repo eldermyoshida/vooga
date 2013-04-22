@@ -9,6 +9,8 @@ import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
+
+import vooga.rts.networking.client.Player;
 import vooga.rts.networking.communications.ExpandedLobbyInfo;
 import vooga.rts.player.RTSPlayer;
 

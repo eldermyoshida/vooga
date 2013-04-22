@@ -3,6 +3,8 @@ package vooga.rts.networking.client.lobby;
 import java.util.ArrayList;
 import java.util.List;
 
+import vooga.rts.networking.client.Player;
+
 public class Team implements Comparable<Team> {
     private int myNumber;
     private int myMaxSize;
