@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import util.Location;
 import util.Text;
+import vooga.scroller.level_editor.LevelState;
 import vooga.scroller.sprites.state.State;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.view.GameView;
@@ -15,47 +16,36 @@ import vooga.scroller.view.GameView;
  * @author Scott Valentine
  *
  */
-public class PausedState implements State {
+public class PausedState implements LevelState {
 
     
     
     private static final String DEFAULT_PAUSED_MESSAGE = "PAUSED";
     private static final Color DEFAULT_COLOR = Color.BLACK;
+    private static final Location DEFAULT_LOCATION = new Location(100,100);
     
     private Text myMessage;
-    private GameView myGameView;
+    private Location myTextLocation;
     
     
-    public PausedState(GameView gameView){
+    public PausedState(){
         myMessage = new Text(DEFAULT_PAUSED_MESSAGE);
-        myGameView = gameView;
-    }
-    
-    
-    @Override
-    public void update (double elapsedTime, Dimension bounds) {
-        // does nothing since the game is paused.
-        // if you wanted, you could do something more interesting here.
-
+        myTextLocation = DEFAULT_LOCATION;
     }
 
-    @Override
-    public void activate () {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void deactivate () {
-        // TODO Auto-generated method stub
-
-    }
 
     @Override
     public void paint (Graphics2D pen) {
         // paints only the paused header so the user knows that the game is paused
-        Location screenCenter = new Location(myGameView.getWidth()/2, myGameView.getHeight()/2);
-        myMessage.paint(pen, screenCenter, DEFAULT_COLOR);
+        myMessage.paint(pen, myTextLocation, DEFAULT_COLOR);
+    }
+
+
+    @Override
+    public void update (double elapsedTime, Dimension bounds, GameView gameView) {
+        // TODO Auto-generated method stub
+        myTextLocation = new Location(gameView.getWidth()/2, gameView.getHeight()/2);
+        
     }
 
 }

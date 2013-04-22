@@ -33,6 +33,7 @@ public class Level implements Renderable<GameView>, IGameComponent{
     private Dimension mySize;
     private Dimension frameOfReferenceSize;
     private SpriteManager mySpriteManager;
+    private LevelStateManager myStateManager;
 //    private GameView myView;
     private ScrollingManager myScrollingManager;
     private Image myBackground;
@@ -69,6 +70,7 @@ public class Level implements Renderable<GameView>, IGameComponent{
         // MIGHT WANT TO INITIALIZE THIS WITH A PLAYER AS WELL
         this();
         mySpriteManager = new SpriteManager(this);
+        myStateManager = new LevelStateManager(mySpriteManager);
         myScrollingManager = sm;
         myID = id;
     }
@@ -132,12 +134,14 @@ public class Level implements Renderable<GameView>, IGameComponent{
     }
 
     public void update (double elapsedTime, Dimension bounds, GameView gameView) {
-        mySpriteManager.updateSprites(elapsedTime, bounds, gameView);
+        myStateManager.update(elapsedTime, bounds, gameView);
+        //mySpriteManager.updateSprites(elapsedTime, bounds, gameView);
     }
 
     @Override
     public void paint (Graphics2D pen) {
-        mySpriteManager.paint(pen);
+        myStateManager.paint(pen);
+        //mySpriteManager.paint(pen);
     }
 
     public double getRightBoundary (Dimension frame) {
@@ -258,7 +262,7 @@ public class Level implements Renderable<GameView>, IGameComponent{
      */
     @InputMethodTarget(name = "pause")
     public void pauseGame() {
-        // TODO: needs level State to work
+        myStateManager.changeState(LevelStateManager.PAUSED_ID);
     }
     
 

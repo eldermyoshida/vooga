@@ -7,7 +7,6 @@ import java.util.Map;
 import vooga.scroller.level_editor.level_state.DefaultState;
 import vooga.scroller.level_editor.level_state.PausedState;
 import vooga.scroller.level_management.SpriteManager;
-import vooga.scroller.sprites.state.State;
 import vooga.scroller.view.GameView;
 
 public class LevelStateManager {
@@ -15,20 +14,20 @@ public class LevelStateManager {
     public static final int PAUSED_ID = 1;
     public static final int DEFAULT_ID = 0;
     
-    private Map<Integer,State> myLevelStates;
-    private State myCurrentState;
+    private Map<Integer,LevelState> myLevelStates;
+    private LevelState myCurrentState;
     
     
-    public LevelStateManager(GameView gameView, SpriteManager spriteManager) {
-        initLevelStates(gameView, spriteManager);
+    public LevelStateManager(SpriteManager spriteManager) {
+        initLevelStates(spriteManager);
         myCurrentState = myLevelStates.get(DEFAULT_ID);
     }
 
-    private void initLevelStates (GameView gameView, SpriteManager spriteManager) {
-        myLevelStates = new HashMap<Integer, State>();
+    private void initLevelStates (SpriteManager spriteManager) {
+        myLevelStates = new HashMap<Integer, LevelState>();
         
-        PausedState paused = new PausedState(gameView);
-        DefaultState normal = new DefaultState(spriteManager, gameView);
+        PausedState paused = new PausedState();
+        DefaultState normal = new DefaultState(spriteManager);
         
         myLevelStates.put(PAUSED_ID, paused);
         myLevelStates.put(DEFAULT_ID, normal);       
@@ -38,11 +37,12 @@ public class LevelStateManager {
         myCurrentState = myLevelStates.get(stateID);
     }
     
-    public void update (double elapsedTime, Dimension bounds) {
-        myCurrentState.update(elapsedTime, bounds);
+    public void update (double elapsedTime, Dimension bounds, GameView gameView) {
+        myCurrentState.update(elapsedTime, bounds, gameView);
     }
     
     public void paint(Graphics2D pen){
         myCurrentState.paint(pen);
     }
+
 }
