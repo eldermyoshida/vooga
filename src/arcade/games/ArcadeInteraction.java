@@ -20,7 +20,7 @@ public interface ArcadeInteraction {
      * 
      * @param n is the number of high scores the game wants
      */
-    HighScores getHighScores(int n);
+    Score getHighScores(int n);
 
     /**
      * Closes the window containing the game
