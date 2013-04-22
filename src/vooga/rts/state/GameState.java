@@ -198,7 +198,7 @@ public class GameState extends SubState implements Controller {
                              new Location3D(200, 300, 0), new Dimension(50, 50), 0, 200, "mineral");
 
         final Building f = b;
-        test = new DelayedTask(1, new Runnable() {
+        test = new DelayedTask(3, new Runnable() {
             @Override
             public void run () {
                 f.getAction((new Command("I am a pony"))).apply();
