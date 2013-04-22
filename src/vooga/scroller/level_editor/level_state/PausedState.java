@@ -6,8 +6,15 @@ import java.awt.Graphics2D;
 import util.Location;
 import util.Text;
 import vooga.scroller.sprites.state.State;
+import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.view.GameView;
-
+/**
+ * Represents the state where a level is paused. This turns off updates and paints of sprites
+ * and turns off player-controlling inputs.
+ * 
+ * @author Scott Valentine
+ *
+ */
 public class PausedState implements State {
 
     
