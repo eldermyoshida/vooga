@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.util.Random;
 import util.Location;
 import util.Vector;
+import vooga.scroller.sprites.movement.Movement;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.Sprite;
 
@@ -22,20 +23,17 @@ public abstract class NonStaticEntity extends Sprite {
     
     public static Vector DEFAULT_SPEED = new Vector(0, 45);
     private Player myPlayer;
-    
-    public NonStaticEntity (Pixmap image, Location center, Dimension size) {
-        super(image, center, size, DEFAULT_SPEED);  //health defaulted to 1
+
+    public NonStaticEntity (Pixmap image, Location center, Dimension size, int health, int damage) {
+        super(image, center, size, DEFAULT_SPEED, health, damage);
     }
     
-    public NonStaticEntity (Pixmap image, Location center, Dimension size, int health) {
-        super(image, center, size, DEFAULT_SPEED);
-    }
+    public abstract Vector getMovement(Movement movement);
     
     public void changeVelocity(Vector vector) {
         super.setVelocity(vector.getDirection(), vector.getMagnitude());
     }
    
-    
     public void changeVelocity(double direction, double magnitude) {
         super.setVelocity(direction, magnitude);
     }
@@ -48,17 +46,8 @@ public abstract class NonStaticEntity extends Sprite {
     public void addPlayer(Player player) {
         myPlayer = player;
     }
-
-    public Vector upAndDown(int top, int bottom, int speed) {       
-        if (this.getTop() > top) {
-            return new Vector(Sprite.UP_DIRECTION, speed);
-        }
-        return new Vector(Sprite.DOWN_DIRECTION, speed);
-    }
     
     public Player getPlayer() {
         return myPlayer;
     }
-
-
 }

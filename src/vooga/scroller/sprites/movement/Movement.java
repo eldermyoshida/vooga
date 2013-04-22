@@ -21,9 +21,15 @@ public abstract class Movement {
         myEntity = nse;
     }
     
-    public abstract Vector execute ();
-    public abstract Vector execute (int bounds1, int bounds2, int speed);
-    public abstract Vector execute (int speed, int radius, Player myPlayer);
+    public Vector execute () {
+        return null;
+    }
+    public Vector execute (int bounds1, int bounds2, int speed) {
+        return null;
+    }
+    public Vector execute (int speed, int radius, Player myPlayer) {
+        return null;
+    }
 
     
     /*

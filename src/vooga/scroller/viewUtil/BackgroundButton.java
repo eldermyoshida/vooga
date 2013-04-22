@@ -16,5 +16,4 @@ public class BackgroundButton extends JButton {
     public String getID(){
         return myID;
     }
-
 }

@@ -3,10 +3,11 @@ package vooga.scroller.sprites.test_sprites;
 import java.awt.Dimension;
 import util.Location;
 import vooga.scroller.level_editor.library.EncapsulatedSpriteLibrary;
-import vooga.scroller.sprites.interfaces.ICoin;
+import vooga.scroller.sprites.interfaces.ICollectible;
 import vooga.scroller.sprites.interfaces.IEnemy;
 import vooga.scroller.sprites.interfaces.IPlatform;
 import vooga.scroller.sprites.movement.LeftAndRight;
+import vooga.scroller.sprites.movement.Movement;
 import vooga.scroller.sprites.movement.TrackPlayer;
 import vooga.scroller.sprites.movement.UpAndDown;
 import vooga.scroller.sprites.superclasses.NonStaticEntity;
@@ -28,159 +29,75 @@ import util.Vector;
 public class MarioLib extends EncapsulatedSpriteLibrary {
     private static final Dimension DEFAULT_SIZE = new Dimension(32, 32);
     private static final Location DEFAULT_LOC = new Location(32, 32);
+    private static final int DEFAULT_HEALTH = 1;
+    private static final int DEFAULT_DAMAGE = 0;
 
-    public static class Coin extends StaticEntity implements ICoin {
+    public static class Coin extends StaticEntity implements ICollectible {
 
         private static final String DEFAULT_IMG = "coin.png";
         private static final int DEFAULT_COIN_VALUE = 900;
-        private int myHealth = 1;
-        
+
         public Coin () {
             this(DEFAULT_LOC);
         }
 
         public Coin (Location center) {
-            super(new Pixmap(DEFAULT_IMG), center, DEFAULT_SIZE);
-        }
-
-        public void print () {
-            System.out.println("Coin");
-        }
-
-        /**
-         * Gives a value of the coin
-         * 
-         * @return an integer that represents the 
-         */
-        public int getValue () {
-            return DEFAULT_COIN_VALUE;
+            super(new Pixmap(DEFAULT_IMG), center, DEFAULT_SIZE, DEFAULT_HEALTH, DEFAULT_DAMAGE);
         }
 
         @Override
-        public void takeHit (int hitValue) {
-            myHealth -= hitValue;
-        }
-        
-        public int getHealth() {
-            return myHealth;
-        }
-    }
-    
-    public static class LilMario extends NonStaticEntity {
-        
-        private static final String DEFAULT_IMG = "lilMario.png";
-        private static final Dimension LILMARIO_SIZE = new Dimension(32, 32);
-
-        public LilMario () {
-            this(DEFAULT_LOC);
-            
-        }
-        
-        public LilMario (Location center) {
-            super(new Pixmap(DEFAULT_IMG), center, LILMARIO_SIZE);
-        }
-    }
-    
- public static class BigMario extends NonStaticEntity {
-        
-        private static final String DEFAULT_IMG = "bigMario.png";
-        private static final Dimension BIGMARIO_SIZE = new Dimension(32, 64);
-
-        public BigMario () {
-            this(DEFAULT_LOC);
-            
-        }
-        
-        public BigMario (Location center) {
-            super(new Pixmap(DEFAULT_IMG), center, BIGMARIO_SIZE);
+        public int getValue () {
+            return DEFAULT_COIN_VALUE;
         }
     }
 
     public static class Koopa extends NonStaticEntity implements IEnemy {
-
         private static final String DEFAULT_IMG = "koopa.png";
         private static final Dimension KOOPA_SIZE = new Dimension(32, 64);
-        
-        private int myHealth = 1;
-        private int myDamage = 1;
+        private Movement movement = new TrackPlayer(this);
 
+        
         public Koopa () {
             this(DEFAULT_LOC);
         }
 
         public Koopa (Location center) {
-            super(new Pixmap(DEFAULT_IMG), center, KOOPA_SIZE);
-        }
-
-        public void print () {
-            System.out.println("Koopa");
+            super(new Pixmap(DEFAULT_IMG), center, KOOPA_SIZE, new Integer(1), new Integer(1));
         }
 
         public void update (double elapsedTime, Dimension bounds) {
-            TrackPlayer movement = new TrackPlayer(this);
-            changeVelocity(movement.execute(45, 100, getPlayer())); // want to make this call every
-                                                                    // X seconds
+            changeVelocity(getMovement(movement)); // want to make this call every
             super.update(elapsedTime, bounds);
         }
-        @Override
-        public int getHealth() {
-            return myHealth;
-        }
-        
-        public void takeHit(int damage) {
-            myHealth -= damage;
-        }
 
         @Override
-        public Sprite getEnemy () {
-            return this;
+        public Vector getMovement (Movement movement) {
+            return movement.execute(450, 1000000, getPlayer());
         }
-
-        @Override
-        public int getHit () {
-            return myDamage;
-        }
-
     }
 
     public static class Turtle extends NonStaticEntity implements IEnemy {
 
         private static final String DEFAULT_IMG = "turtle.gif";
-        private int myHealth = 1;
-        private int myDamage = 2;
-        
+        private Movement movement = new TrackPlayer(this);
+
         public Turtle () {
             this(DEFAULT_LOC);
         }
 
         public Turtle (Location center) {
-            super(new Pixmap(DEFAULT_IMG), center, DEFAULT_SIZE);
-            // TODO Auto-generated constructor stub
-        }
-
-        public void print () {
-            System.out.println("Turtle");
+            super(new Pixmap(DEFAULT_IMG), center, DEFAULT_SIZE, new Integer(1), new Integer(2));
         }
 
         public void update (double elapsedTime, Dimension bounds) {
-            // changeVelocity(trackPlayer(70, 150)); //want to make this call every X seconds
+            changeVelocity(getMovement(movement)); 
             super.update(elapsedTime, bounds);
         }
-        
-        public void takeHit(int damage) {
-            myHealth -= damage;
-        }
 
         @Override
-        public Sprite getEnemy () {
-            return this;
+        public Vector getMovement (Movement movement) {
+            return movement.execute(450, 1000000, getPlayer());
         }
-
-        @Override
-        public int getHit () {
-            return myDamage;
-        }
-
 
     }
 
@@ -193,118 +110,85 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
         }
 
         public Platform (Location center) {
-            super(new Pixmap(DEFAULT_IMG), center, DEFAULT_SIZE);
+            this(DEFAULT_IMG, center, DEFAULT_SIZE);
         }
+
         public Platform (String img, Location center, Dimension size) {
-            super(new Pixmap(img), center, size);
-        }
-
-        public void print () {
-            System.out.println("Platform");
-        }
-
-        @Override
-        public Platform getPlatform () {
-            return this;
+            super(new Pixmap(img), center, size, DEFAULT_HEALTH, DEFAULT_DAMAGE);
         }
     }
-    
+
     public static class Plant extends StaticEntity implements IEnemy {
         private static final String DEFAULT_IMG = "plant.png";
-        private int myHealth = 2;
-        private int myDamage = 1;
-        
+
         public Plant () {
             this(DEFAULT_LOC);
         }
 
         public Plant (Location center) {
-            super(new Pixmap(DEFAULT_IMG), center, new Dimension(32, 32));
+            super(new Pixmap(DEFAULT_IMG), center, new Dimension(32, 32), DEFAULT_HEALTH, new Integer(2));
         }
-        
-        public void takeHit(int damage) {
-            myHealth -= damage;
-        }
-
-        @Override
-        public Sprite getEnemy () {
-            return this;
-        }
-
-        @Override
-        public int getHit () {
-            return myDamage;
-        }
-
     }
 
-    /**
-     * Represents a moving platform that moves in the up/down direction
-     * 
-     * @author Jay Wang
-     */
     public static class MovingPlatformOne extends NonStaticEntity implements IPlatform {
 
         private static final String DEFAULT_IMG = "platform.gif";
         private static final int DEFAULT_SPEED = 60;
         private static final Vector DEFAULT_VELOCITY = new Vector(Sprite.DOWN_DIRECTION,
                                                                   DEFAULT_SPEED);
+        private Movement movement = new UpAndDown(this);
+
 
         public MovingPlatformOne () {
             this(DEFAULT_LOC);
         }
 
         public MovingPlatformOne (Location center) {
-            super(new Pixmap(DEFAULT_IMG), center, new Dimension(96, 32));
+            super(new Pixmap(DEFAULT_IMG), center, new Dimension(96, 32), DEFAULT_HEALTH, DEFAULT_DAMAGE);
             this.changeVelocity(DEFAULT_VELOCITY);
         }
 
         public void update (double elapsedTime, Dimension bounds) {
-            UpAndDown movement = new UpAndDown(this);
-            changeVelocity(movement.execute(100, 250, DEFAULT_SPEED)); // want to make this call
-                                                                       // every X seconds
+            changeVelocity(getMovement(movement)); // want to make this call
             super.update(elapsedTime, bounds);
         }
 
         @Override
-        public MovingPlatformOne getPlatform () {
-            return this;
+        public Vector getMovement (Movement movement) {
+            return movement.execute(100, 250, DEFAULT_SPEED);
         }
+
     }
 
-    /**
-     * Represents a moving platform that moves in the left/right direction
-     * 
-     * @author Jay Wang
-     */
     public static class MovingPlatformTwo extends NonStaticEntity implements IPlatform {
 
         private static final String DEFAULT_IMG = "platform.gif";
         private static final int DEFAULT_SPEED = 60;
         private static final Vector DEFAULT_VELOCITY = new Vector(Sprite.RIGHT_DIRECTION,
                                                                   DEFAULT_SPEED);
+        private Movement movement = new LeftAndRight(this);
+
 
         public MovingPlatformTwo () {
             this(DEFAULT_LOC);
         }
 
         public MovingPlatformTwo (Location center) {
-            super(new Pixmap(DEFAULT_IMG), center, new Dimension(96, 32));
+            super(new Pixmap(DEFAULT_IMG), center, new Dimension(96, 32), DEFAULT_HEALTH, DEFAULT_DAMAGE);
             this.changeVelocity(DEFAULT_VELOCITY);
         }
 
         public void update (double elapsedTime, Dimension bounds) {
-            LeftAndRight movement = new LeftAndRight(this);
-            changeVelocity(movement.execute(500, 1000, DEFAULT_SPEED));
+            changeVelocity(getMovement(movement));
             super.update(elapsedTime, bounds);
         }
-        
+
         @Override
-        public MovingPlatformTwo getPlatform () {
-            return this;
+        public Vector getMovement (Movement movement) {
+            return movement.execute(500, 1000, DEFAULT_SPEED);
         }
+
     }
-    
 
     public static class LevelTwoBlockOne extends Platform implements IPlatform {
 
@@ -322,9 +206,9 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
         public void print () {
         }
     }
-    
+
     public static class LevelTwoBlockTwo extends Platform implements IPlatform {
-        
+
         private static final String DEFAULT_IMG = "leveltwoblock2.png";
         private static final Dimension DEFAULT_SIZE = new Dimension(96, 32);
 
@@ -335,13 +219,13 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
         public LevelTwoBlockTwo (Location center) {
             super(DEFAULT_IMG, center, DEFAULT_SIZE);
         }
-        
+
         public void print () {
         }
     }
-    
+
     public static class LevelTwoBlockThree extends Platform implements IPlatform {
-        
+
         private static final String DEFAULT_IMG = "leveltwoblock3.png";
         private static final Dimension DEFAULT_SIZE = new Dimension(768, 192);
 
@@ -352,7 +236,7 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
         public LevelTwoBlockThree (Location center) {
             super(DEFAULT_IMG, center, DEFAULT_SIZE);
         }
-        
+
         public void print () {
         }
     }

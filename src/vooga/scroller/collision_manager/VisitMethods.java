@@ -1,7 +1,7 @@
 package vooga.scroller.collision_manager;
 
 
-import vooga.scroller.sprites.interfaces.ICoin;
+import vooga.scroller.sprites.interfaces.ICollectible;
 import vooga.scroller.sprites.interfaces.IEnemy;
 import vooga.scroller.sprites.interfaces.ILevelPortal;
 import vooga.scroller.sprites.interfaces.IPlatform;
@@ -20,17 +20,17 @@ public class VisitMethods {
     private MarioCollisions collisions = new MarioCollisions();
 
     public void visit (IPlayer player, IPlatform platform) {
-        collisions.marioAndPlatformCollision(player.getPlayer(), platform.getPlatform());
+        collisions.marioAndPlatformCollision(player, platform);
     }
     
-    public void visit (IPlayer player, ICoin coin) {
+    public void visit (IPlayer player, ICollectible coin) {
         player.incrementScore(coin.getValue());
-        coin.takeHit(player.getPlayer().getHit());
+        coin.takeHit(player.getHit());
     }
-    
+        
     public void visit (IPlayer player, IEnemy enemy) {
-        if (direction.collisionDirection(player.getPlayer(), enemy.getEnemy()).equals(Direction.TOP)) {
-            enemy.takeHit(player.getPlayer().getHit());
+        if (direction.collisionDirection(player, enemy).equals(Direction.TOP)) {
+            enemy.takeHit(player.getHit());
         }
         else {
             player.takeHit(enemy.getHit());

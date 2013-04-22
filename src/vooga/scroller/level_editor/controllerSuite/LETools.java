@@ -12,7 +12,7 @@ import vooga.scroller.level_editor.view.LEActionLibrary;
 import vooga.scroller.level_editor.view.LEToolsView;
 import vooga.scroller.level_editor.view.LEView;
 import vooga.scroller.level_management.IDoor;
-import vooga.scroller.sprites.interfaces.ICoin;
+import vooga.scroller.sprites.interfaces.ICollectible;
 import vooga.scroller.sprites.interfaces.IEnemy;
 import vooga.scroller.sprites.interfaces.IPlatform;
 import vooga.scroller.util.Renderable;
@@ -91,7 +91,7 @@ public class LETools extends Tools implements Renderable<LEToolsView> {
         else if (s instanceof IEnemy) {
             mySpritesOptions.get(ENEMIES).put(getIcon(s), spriteID + "");
         }
-        else if (s instanceof ICoin) {
+        else if (s instanceof ICollectible) {
             mySpritesOptions.get(COLLECTIBLES).put(getIcon(s), spriteID + "");
         }
         else if (s instanceof StartPoint || s instanceof IDoor) {

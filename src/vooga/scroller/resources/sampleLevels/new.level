@@ -1,6 +1,6 @@
 /level
 aaa            ab                                        cca
-a              ab                                        cca
+a         e    ab                                        cca
 a                                                       acca
 a  aaaaaaaad       d               a                   aacca
 aa a           a                                     aaaa  a
@@ -37,6 +37,7 @@ c=Coin
 a=Platform
 d=LevelTwoBlockOne
 b=LevelTwoBlockTwo
+e=Koopa
 /settings
 StartPoint=48 496
 EndPoint=1817 761
