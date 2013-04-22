@@ -5,9 +5,7 @@ import vooga.rts.util.Location;
 
 
 /**
- * A ClickCommand is different from a Command in that in addition the name of
- * the action (right or left click) it also holds the position of the click
- * 
+ * This class and the position command are the same thing, so this one can be deleted to avoid confusion
  * @author Challen Herzberg-Brovold
  * 
  */

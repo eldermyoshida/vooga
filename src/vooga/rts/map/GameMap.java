@@ -102,8 +102,9 @@ public class GameMap implements IGameLoop {
 
     private void randomGenMap () {
 
-        int tilesX = 90;
-        int tilesY = 100;
+        int tilesX = 256;
+        int tilesY = 256;
+
         int tileWidthX = 60;
         int tileWidthY = 42;
         myTiles = new TileMap(new Dimension(tileWidthX, tileWidthY), tilesX, tilesY);

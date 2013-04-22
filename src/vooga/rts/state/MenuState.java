@@ -13,7 +13,7 @@ import vooga.rts.gui.menus.MainMenu;
 
 
 /**
- * This class hasn't really been refactored much. Will leave for later.
+ * The menu state. Still hasn't been subject to refactor.
  * 
  * @author Challen Herzberg-Brovold, Jonno Schmidt
  * 

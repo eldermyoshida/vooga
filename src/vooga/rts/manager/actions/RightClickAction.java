@@ -9,7 +9,13 @@ import vooga.rts.state.GameState;
 import vooga.rts.util.Camera;
 import vooga.rts.util.Location3D;
 
-
+/**
+ * This class needs to be pushed into any classes that can be moved, and be mapped 
+ * to the right click there.
+ * 
+ * @author Challen Herzberg-Brovold.
+ *
+ */
 public class RightClickAction extends ManagerAction {
 
     private Location3D myLocation;
@@ -22,7 +28,7 @@ public class RightClickAction extends ManagerAction {
     public void apply () {
         if (myLocation != null) {
             for (InteractiveEntity ie : getManager().getSelected()) {
-                ie.move(myLocation);
+                ie.move(myLocation); // This should be handled by the units move action.
             }
         }
     }

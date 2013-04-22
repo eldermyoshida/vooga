@@ -11,6 +11,12 @@ import javax.swing.ImageIcon;
 import vooga.rts.commands.Command;
 import vooga.rts.resourcemanager.ResourceManager;
 
+/**
+ * The state of the game while its loading. Once it is done, a simple click will 
+ * advance to the menu state.
+ * @author challenherzberg-brovold
+ *
+ */
 
 public class LoadingState extends SubState {
 
@@ -72,6 +78,10 @@ public class LoadingState extends SubState {
         }
     }
 
+    /**
+     * 
+     * @return whether or not the game is finished loadings
+     */
     private boolean isLoading () {
         return ResourceManager.getInstance().isLoading() || !myMain.isReady();
     }
