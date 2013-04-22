@@ -1,4 +1,4 @@
-package vooga.scroller.marioGame;
+package vooga.scroller.marioGame.spritesDefinitions.players;
 
 import java.awt.Dimension;
 import util.Location;
@@ -6,6 +6,7 @@ import util.Vector;
 import util.input.InputClassTarget;
 import util.input.InputMethodTarget;
 import vooga.scroller.level_management.IInputListener;
+import vooga.scroller.marioGame.spritesDefinitions.MarioLib;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.interfaces.IPlayer;
 import vooga.scroller.sprites.superclasses.Player;
@@ -22,7 +23,7 @@ public class Mario extends Player implements IPlayer, IInputListener{
     
     private static final int MAX_JUMPS = 2;
     private static final int MAX_HORIZONTAL_SPEED = 5;
-    private static final Pixmap DEFAULT_IMAGE = new Pixmap("standright.png");
+    private static final Pixmap DEFAULT_IMAGE = MarioLib.makePixmap("standright.png");
     private static final int DEATH_PENALTY = 1000;
 
    

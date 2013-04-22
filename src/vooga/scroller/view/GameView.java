@@ -133,7 +133,7 @@ public class GameView extends JComponent {
         });
         // start animation
         if (myGame==null) {
-            setModel(new Model(this, myScrollManager, "example.level"));//TODO
+//            setModel(new Model(this, myScrollManager));//TODO - make a default model?
         }
         myScrollManager.initModel(myGame);
         timer.start();

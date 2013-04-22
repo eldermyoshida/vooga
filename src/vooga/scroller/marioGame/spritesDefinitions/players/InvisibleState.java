@@ -1,4 +1,4 @@
-package vooga.scroller.marioGame;
+package vooga.scroller.marioGame.spritesDefinitions.players;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
