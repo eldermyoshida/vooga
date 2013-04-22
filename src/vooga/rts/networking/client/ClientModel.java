@@ -3,14 +3,17 @@ package vooga.rts.networking.client;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import vooga.rts.networking.client.GUI.CreateLobbyView;
 import vooga.rts.networking.client.GUI.ServerBrowserTableAdapter;
 import vooga.rts.networking.client.GUI.ServerBrowserView;
 import vooga.rts.networking.client.GUI.ViewContainerPanel;
+import vooga.rts.networking.communications.LobbyInfo;
 import vooga.rts.networking.communications.Message;
 import vooga.rts.networking.communications.clientmessages.InitialConnectionMessage;
+import vooga.rts.networking.communications.clientmessages.RequestServerListMessage;
 import vooga.rts.networking.communications.servermessages.ServerInfoMessage;
 
 /**
@@ -24,18 +27,24 @@ public class ClientModel implements IMessageReceiver, IClientModel {
     private ViewContainerPanel myContainerPanel;
     private ServerBrowserView myServerBrowserView;
     private CreateLobbyView myCreateLobbyView;
+    private ServerBrowserTableAdapter myAdapter;
     
     public ClientModel (String gameName, String userName) {
         //Message initialConnection = new InitialConnectionMessage(gameName, userName);
         //myClient.sendData(initialConnection);
         myContainerPanel = new ViewContainerPanel(gameName);
-        myServerBrowserView = new ServerBrowserView(new ServerBrowserTableAdapter());
+        myAdapter = new ServerBrowserTableAdapter();
+        myServerBrowserView = new ServerBrowserView(myAdapter);
         myCreateLobbyView = new CreateLobbyView();
         switchToServerBrowserView();
     }
     
-    public JPanel getPanel () {
+    private JPanel getPanel () {
         return myContainerPanel;
+    }
+    
+    private void requestLobbies () {
+        //myClient.sendData(new RequestServerListMessage());
     }
 
     @Override
@@ -86,5 +95,10 @@ public class ClientModel implements IMessageReceiver, IClientModel {
         frame.setPreferredSize(new Dimension(600, 500));
         frame.setVisible(true);
         frame.pack();
+    }
+
+    @Override
+    public void addLobbies (LobbyInfo[] lobbies) {
+        myAdapter.addLobbies(lobbies);
     }
 }

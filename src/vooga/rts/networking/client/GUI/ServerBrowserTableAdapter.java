@@ -1,6 +1,9 @@
 package vooga.rts.networking.client.GUI;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.table.AbstractTableModel;
+import vooga.rts.networking.communications.LobbyInfo;
 
 
 /**
@@ -17,7 +20,7 @@ public class ServerBrowserTableAdapter extends AbstractTableModel {
                                       "Map",
                                       "Players" };
 
-    private int[][] myTest = { { 3, 3, 3 }, { 4, 4, 4 }, { 5, 5, 5 } };
+    private LobbyInfo[] myLobbies = new LobbyInfo[1];
 
     @Override
     public int getColumnCount () {
@@ -26,7 +29,7 @@ public class ServerBrowserTableAdapter extends AbstractTableModel {
 
     @Override
     public int getRowCount () {
-        return myTest.length;
+        return myLobbies.length;
     }
 
     @Override
@@ -36,7 +39,19 @@ public class ServerBrowserTableAdapter extends AbstractTableModel {
 
     @Override
     public Object getValueAt (int arg0, int arg1) {
-        return myTest[arg0][arg1];
+        if(myLobbies[arg0] == null) {
+            return null;
+        }
+        switch(arg1) {
+            case 0: return myLobbies[arg0].getLobbyName();
+            case 1: return myLobbies[arg0].getMapName();
+            case 2: return myLobbies[arg0].getMaxPlayers() + " / " + myLobbies[arg0].getCurrentPlayers();
+            default: return null;
+        }
+    }
+
+    public void addLobbies (LobbyInfo[] lobbies) {
+        myLobbies = lobbies;
     }
 
 }

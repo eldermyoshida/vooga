@@ -23,9 +23,7 @@ public class Room extends AbstractThreadContainer {
      */
     public Room (int id, GameContainer container, LobbyInfo lobbyInfo) {
         setIDandContainer(id, container);
-        myLobbyModel =
-                new ExpandedLobbyInfo(lobbyInfo.getLobbyName(), lobbyInfo.getMapName(),
-                                      lobbyInfo.getMaxPlayers(), 1, id);
+        myLobbyModel = new ExpandedLobbyInfo(lobbyInfo, id);
     }
 
     /**

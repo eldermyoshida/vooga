@@ -79,5 +79,9 @@ public class LobbyInfo implements Serializable {
     public int getID () {
         return myID;
     }
+    
+    public int getCurrentPlayers () {
+        return myPlayersCount;
+    }
 
 }
