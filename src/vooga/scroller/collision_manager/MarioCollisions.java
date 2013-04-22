@@ -11,7 +11,7 @@ import vooga.scroller.util.Sprite;
  * This class is specific to our game and is not intended to be a part of the
  * framework. It is meant to handle certain collisions specific to our Mario
  * game. If the game designer wants to implement specific collision helper methods
- * this is the place where those methods should go. 
+ * this is the place where those methods should go.
  * 
  * @author Jay Wang
  */
@@ -20,9 +20,8 @@ public class MarioCollisions {
     private static final double FRICTION = .5;
     private CollisionDirection direction = new CollisionDirection();
 
-    void marioAndPlatformCollision (IPlayer player, IPlatform platform) {
-        
-        
+    public void marioAndPlatformCollision (IPlayer player, IPlatform platform) {
+
         Direction collisionType = direction.collisionDirection(player, platform);
 
         if (collisionType == null) return;
@@ -55,13 +54,10 @@ public class MarioCollisions {
                 break;
             case BOTTOM:
                 player.setCenter(player.getX(), platform.getBottom() + (player.getHeight() / 2));
-                
-                
+
                 Vector up = player.getVelocity().getComponentVector(Sprite.UP_DIRECTION);
                 up.negate();
                 player.addVector(up);
-
-                
 
                 break;
             case LEFT:
