@@ -54,8 +54,8 @@ public class Client extends Thread implements IClient {
         myRunning = true;
         while(myRunning){
             try {
-                Object object;
-                if ((object = myInput.readObject()) != null && object instanceof Message) { 
+                Object object = myInput.readObject();
+                if (object instanceof Message) { 
                     myReceiver.getMessage((Message) object); 
                 }
             }

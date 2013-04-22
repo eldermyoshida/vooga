@@ -44,9 +44,11 @@ public class ViewContainerPanel extends JPanel {
      * @param additionalTitleText text to append to title
      */
     public void changeView (JPanel panel, String additionalTitleText) {
-        panel.remove(myLayout.getLayoutComponent(BorderLayout.CENTER));
+        remove(myLayout.getLayoutComponent(BorderLayout.CENTER));
         add(panel, BorderLayout.CENTER);
         myLabel.setText(myGameName + additionalTitleText);
+        validate();
+        repaint();
     }
 
     /**
