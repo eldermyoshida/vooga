@@ -15,9 +15,10 @@ import javax.swing.JPanel;
 import arcade.games.GameInfo;
 import arcade.model.Model;
 
+
 /**
  * A SnapShot is a small clickable panel that represents a Game in the GameCenter
- * and Store.  Clicking a SnapShot opens up a more detailed view.
+ * and Store. Clicking a SnapShot opens up a more detailed view.
  * 
  * @author David Liu, Ellango Jothimurugesan
  * 
@@ -26,26 +27,41 @@ import arcade.model.Model;
 public class SnapShot extends JPanel {
 
     public static final int THUMBNAIL_SIZE = 190;
+    private static final String IMAGES_LOCATION = System.getProperty("user.dir")
+                                                  + "/src/arcade/resources/images/";
+    private static final String IMAGES_NAME = "Stars.png";
     private GameInfo myGameInfo;
     private ResourceBundle myResources;
     private Model myModel;
+    private ImageIcon[] myRatingIcons;
 
     public SnapShot (GameInfo info, ResourceBundle resources, Model model) {
         myModel = model;
         myGameInfo = info;
         myResources = resources;
-        
+        myRatingIcons = initializeRatingIcons();
+
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         add(createThumbnail());
         add(createTitle());
         add(createRating());
-        
+
         this.addMouseListener(createListener());
+    }
+
+    private ImageIcon[] initializeRatingIcons() {
+        ImageIcon[] icons = new ImageIcon[6];
+        for (int i = 0; i <= 5; i++) {
+            ImageIcon icon = new ImageIcon(IMAGES_LOCATION + i + IMAGES_NAME); 
+            icons[i] = icon;
+        }
+        return icons;
     }
 
     /**
      * Creates the thumbnail to be displayed in the SnapShot
+     * 
      * @return
      */
     private Component createThumbnail () {
@@ -53,25 +69,28 @@ public class SnapShot extends JPanel {
         ImageIcon scaledIcon = createScaledIcon(icon, THUMBNAIL_SIZE);
         return new JLabel(scaledIcon);
     }
-    
+
     /**
      * Creates the title to be displayed. The title is the game's name.
+     * 
      * @return
      */
-    private Component createTitle() {
+    private Component createTitle () {
         return new JLabel("<html><b><font size = 4>" + myGameInfo.getName());
     }
-    
+
     /**
      * Creates the label for the rating of the game.
+     * 
      * @return
      */
-    private Component createRating() {
-        return new JLabel(myGameInfo.getRating() + "");
+    private Component createRating () {
+        int rating = (int) myGameInfo.getRating();
+        return new JLabel(myRatingIcons[rating]);
     }
-    
+
     /**
-     * Creates a mouse listener so that upon clicking a SnapShot, the 
+     * Creates a mouse listener so that upon clicking a SnapShot, the
      * DetailView is launched.
      * 
      * @return
@@ -87,28 +106,37 @@ public class SnapShot extends JPanel {
 
             // these actions don't trigger any events.
             @Override
-            public void mouseReleased (MouseEvent arg0) {}
+            public void mouseReleased (MouseEvent arg0) {
+            }
+
             @Override
-            public void mousePressed (MouseEvent arg0) {}
+            public void mousePressed (MouseEvent arg0) {
+            }
+
             @Override
-            public void mouseExited (MouseEvent arg0) {}
+            public void mouseExited (MouseEvent arg0) {
+            }
+
             @Override
-            public void mouseEntered (MouseEvent arg0) {}
+            public void mouseEntered (MouseEvent arg0) {
+            }
 
         };
     }
 
     /**
      * TODO: REMOVE THE DUPLICATED CODE FROM HERE AND ButtonPanel
+     * 
      * @param icon
      * @param size
      * @return
      */
-    private ImageIcon createScaledIcon(ImageIcon icon, int size){
+    private ImageIcon createScaledIcon (ImageIcon icon, int size) {
         Image image = icon.getImage();
-        BufferedImage buffer = new BufferedImage(size,size,BufferedImage.TYPE_INT_RGB);
+        BufferedImage buffer = new BufferedImage(size, size, BufferedImage.TYPE_INT_RGB);
         Graphics2D g2 = buffer.createGraphics();
-        g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+                            RenderingHints.VALUE_INTERPOLATION_BILINEAR);
         g2.drawImage(image, 0, 0, size, size, null);
         g2.dispose();
         return new ImageIcon(buffer);
