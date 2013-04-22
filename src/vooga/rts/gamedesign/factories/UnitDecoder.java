@@ -13,6 +13,14 @@ import vooga.rts.util.Pixmap;
 import vooga.rts.util.ReflectionHelper;
 import vooga.rts.util.Sound;
 
+
+/**
+ * This class takes care of parsing the XML file for custom Unit information and 
+ * instantiating this custom Unit. 
+ * 
+ * @author Francesco Agosti
+ *
+ */
 public class UnitDecoder extends Decoder {
 
 	private static String HEAD_TAG = "units";

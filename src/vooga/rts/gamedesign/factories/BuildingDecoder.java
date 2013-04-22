@@ -16,6 +16,14 @@ import vooga.rts.util.Pixmap;
 import vooga.rts.util.ReflectionHelper;
 import vooga.rts.util.Sound;
 
+
+/**
+ * This class takes care of parsing the XML file for custom Building information and 
+ * instantiating this custom building. 
+ * 
+ * @author Francesco Agosti
+ *
+ */
 public class BuildingDecoder extends Decoder{
 	
 	private static final String HEAD_TAG = "buildings";

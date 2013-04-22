@@ -24,7 +24,7 @@ import vooga.rts.util.ReflectionHelper;
  * Decodes an XML file that contains resource information and instantiates those reasources. 
  * Once the resources and instantiated it puts them in the Sprite map that is found in the factory. 
  * The resource "name" is used as the key. 
- * @author agostif
+ * @author Francesco Agosti
  *
  */
 public class ResourceDecoder extends Decoder{

@@ -58,7 +58,12 @@ public class Factory {
 		myStrategyDependencies = new HashMap<String, String[]>();
 	}
 	
-	
+	/**
+	 * all put methods add a key, game element pair to the appropriate Map instance variable. 
+	 * (The method is overloaded a few times since there are several maps).
+	 * @param name
+	 * @param value
+	 */
 	public void put(String name, InteractiveEntity value){
 		mySprites.put(name, value);
 	}
@@ -71,30 +76,69 @@ public class Factory {
 		myStrategies.put(name, value);
 	}
 	
+	/**
+	 * Returns an Attack Strategy from a map of strategies. 
+	 * (this format is used so that you do not have to cast later on). 
+	 * @param key
+	 * @return AttackStrategy
+	 */
 	public AttackStrategy getAttackStrategy(String key){
 		return (AttackStrategy) myStrategies.get(key);
 	}
 	
+	/**
+	 * Returns a Gather Strategy from a map of strategies. 
+	 * @param key
+	 * @return GatherStrategy
+	 */
 	public GatherStrategy getGatherStrategy(String key){
 		return (GatherStrategy) myStrategies.get(key);
 	}
 	
+	/**
+	 * Returns an Occupy Strategy from a map of strategies. 
+	 * @param key
+	 * @return OccupyStrategy
+	 */
 	public OccupyStrategy getOccupyStrategy(String key){
 		return (OccupyStrategy) myStrategies.get(key);
 	}
 	
+	/**
+	 * Returns an Interactive Entity from a map of InteractiveEntities
+	 * @param key
+	 * @return InteractiveEntity
+	 */
 	public InteractiveEntity getInteractiveEntity(String key){
 		return mySprites.get(key);
 	}
 	
+	/**
+	 * Returns an Resource from a map of Resources
+	 * @param key
+	 * @return InteractiveEntity
+	 */
 	public Resource getResource(String key){
 		return myResources.get(key);
 	}
 	
+	/**
+	 * Puts a production dependency (tells the factory what "name" can produce) in
+	 * a dependency map. 
+	 * 
+	 * @param name
+	 * @param itProduces
+	 */
 	public void putProductionDependency(String name, String[] itProduces){
 		myProductionDependencies.put(name, itProduces);
 	}
 	
+	/**
+	 * Puts a strategy dependency (tells the factory what strategies "name" uses) in
+	 * a dependency map. 
+	 * @param name
+	 * @param strategies
+	 */
 	public void putStrategyDependency(String name, String[] strategies){
 		myStrategyDependencies.put(name, strategies);
 	}
@@ -181,7 +225,10 @@ public class Factory {
 		initializeStrategies();
 	}
 	
-	
+	/**
+	 * Once instances of game elements are loaded into their maps this method adds the
+	 * producables (specified from the XML file) to their respective entities. 
+	 */
 	private void initializeProducables(){
 		for(String key :myProductionDependencies.keySet()){
 			InteractiveEntity father;
@@ -193,7 +240,11 @@ public class Factory {
 			}
 		}
 	}
-	
+	/**
+	 * Once strategies defined by the XML file are loaded into their maps this method uses
+	 * the strategy dependency map
+	 * 
+	 */
 	private void initializeStrategies(){
 		for(String key: myStrategyDependencies.keySet()){
 			String[] strategies = myStrategyDependencies.get(key);
