@@ -3,10 +3,7 @@ package vooga.scroller.level_management;
 import java.awt.Dimension;
 import util.Location;
 import vooga.scroller.level_editor.Level;
-import vooga.scroller.level_editor.exceptions.LevelEditorException;
 import vooga.scroller.sprites.superclasses.Player;
-import vooga.scroller.sprites.superclasses.StaticEntity;
-import vooga.scroller.util.ISpriteView;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.Sprite;
 import vooga.scroller.sprites.interfaces.ILevelPortal;;
@@ -31,8 +28,7 @@ public class LevelPortal extends Sprite implements ILevelPortal, IDoor {
     }
     
     public LevelPortal (Location center) {
-        super(DEFAULT_IMG, center, 
-              DEFAULT_SIZE);
+        super(DEFAULT_IMG, center, DEFAULT_SIZE, new Integer(1), new Integer(0));
     }
 
 
@@ -43,12 +39,6 @@ public class LevelPortal extends Sprite implements ILevelPortal, IDoor {
         
         myLevelManager.setCurrentLevel(myNextLevel);
         myLevelManager.getCurrentLevel().addPlayer(player);     
-    }
-
-
-    @Override
-    public LevelPortal getLevelPortal () {
-        return this;
     }
 
     @Override

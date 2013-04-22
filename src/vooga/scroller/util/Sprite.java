@@ -37,22 +37,26 @@ public abstract class Sprite {
     private Location myLastLocation;
     private Location myLastLocation2;
     //private ISpriteView myDefaultImage;// ??
+    private int myHealth; 
+    private int myDamage;
     
     /**
      * Create a shape at the given position, with the given size.
      */
-    public Sprite (ISpriteView image, Location center, Dimension size) {
-        this(image, center, size, new Vector());
+    public Sprite (ISpriteView image, Location center, Dimension size, int health, int damage) {
+        this(image, center, size, new Vector(), health, damage);
     }
 
     /**
      * Create a shape at the given position, with the given size, velocity, and color.
      */
-    public Sprite (ISpriteView image, Location center, Dimension size, Vector velocity) {
+    public Sprite (ISpriteView image, Location center, Dimension size, Vector velocity, int health, int damage) {
         // make copies just to be sure no one else has access
         
         mySize = size;
         myOriginalView = image;
+        myHealth = health;
+        myDamage = damage;
         myOriginalCenter = new Location(center);
         myLastLocation = new Location(myOriginalCenter.x, myOriginalCenter.y);
         myLastLocation2 = new Location(myOriginalCenter.x, myOriginalCenter.y);
@@ -353,14 +357,21 @@ public abstract class Sprite {
     public void addVector(Vector force) {
         myVelocity.sum(force);
     }
+    
+    public void takeHit(int damage) {
+        myHealth -= damage;
+    }
 
-    public int getHealth () {
-        // TODO Auto-generated method stub
-        return 1;
+    public int getHit () {
+        return myDamage;
     }
     
-    public void setHealth(int i){
-        //TODO: 
+    public int getHealth() {
+        return myHealth;
+    }
+    
+    public void setHealth(int health) {
+        myHealth = health;
     }
 }
 
