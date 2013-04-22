@@ -21,7 +21,7 @@ import vooga.rts.util.Sound;
  * @author Kevin Oh
  * 
  */
-public class Barracks extends ProductionBuilding {
+public class Barracks extends Building {
 
     private List<InteractiveEntity> myInteractiveEntities;
 

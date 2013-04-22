@@ -33,10 +33,20 @@ public class Building extends InteractiveEntity {
     private Location3D myRallyPoint;
     private List<Unit> myProducables;
     private List<InteractiveEntity> myInteractiveEntities;
-    private List<IObserver> myObservers;
-
+    
     private int myBuildingID;
-
+    /**
+     * Creates a new building with a rally point, a list of what can be 
+     * produced, a list of what can observe the building, and an upgrade tree.
+     * @param image is the picture of the building
+     * @param center is the location of the building
+     * @param size is the dimensions of the building
+     * @param sound is the sound that the building makes
+     * @param playerID is the team that the building is on
+     * @param health is how much health the building has
+     * @param buildTime is the time it takes to create a building
+     * @param upgradeTree is the upgrade tree for the building
+     */
     public Building (Pixmap image,
                      Location3D center,
                      Dimension size,
@@ -49,8 +59,7 @@ public class Building extends InteractiveEntity {
         myRallyPoint = new Location3D(getWorldLocation().getX(), getWorldLocation().getY() + 50, 0);
         myProducables = new ArrayList<Unit>();
         myInteractiveEntities = new ArrayList<InteractiveEntity>();
-
-        myObservers = new ArrayList<IObserver>();
+        
         if (upgradeTree != null) {
             myUpgradeTree = upgradeTree;
         }
@@ -104,9 +113,10 @@ public class Building extends InteractiveEntity {
          */
     }
 
-    /*
-     * returns the list of producables
-     */
+    /**
+     * returns the list of producables.
+     * @return a list of producables
+     **/
     public List<Unit> getProducables () {
         return myProducables;
     }
@@ -159,38 +169,6 @@ public class Building extends InteractiveEntity {
             ie.update(elapsedTime);
         }
 
-    }
-
-    /**
-     * Registers an IProductionObserver (a player) as its Observer.
-     */
-    public void register (IObserver newObserver) {
-        myObservers.add(newObserver);
-    }
-
-    // TODO: this should work together with Occupy! When another player occupies
-    // the building, it should unregister the current player and register the
-    // new one.
-
-    // NOTE:this can now be done in GameBuildingManager.
-    /**
-     * Unregisters an IProductionObserver (a player) so that it will not be
-     * notified anymore when ProductionBuilding updates.
-     */
-    public void unregister (IObserver deleteObserver) {
-        int observerIndex = myObservers.indexOf(deleteObserver);
-        myObservers.remove(observerIndex);
-
-    }
-
-    /**
-     * Notifies all the IProductionObserver that are currently observing of
-     * the change.
-     */
-    public void notifyProductionObserver (Unit newProduction) {
-        for (IObserver observer : myObservers) {
-            observer.addProduction(newProduction);
-        }
     }
 
     @Override
