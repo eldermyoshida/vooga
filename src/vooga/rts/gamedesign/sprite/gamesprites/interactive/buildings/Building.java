@@ -148,5 +148,9 @@ public class Building extends InteractiveEntity {
     public void addActions () {
 
     }
-
+    
+    @Override
+    public int getSpeed() {
+    	return 0;
+    }
 }

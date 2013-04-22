@@ -14,6 +14,12 @@ import vooga.rts.commands.Command;
 import vooga.rts.controller.InputController;
 import vooga.rts.gui.Window;
 
+/**
+ * The main state of the game. It keeps track of which sub-state the game is in 
+ * (Loading, menu or game state), and switches between them as needed. 
+ * @author challenherzberg-brovold
+ *
+ */
 
 public class MainState implements State, Observer {
 
@@ -85,6 +91,9 @@ public class MainState implements State, Observer {
         setActiveState();
     }
 
+    /**
+     * Sets the substate of the game to the next one.
+     */
     private void setActiveState () {
         myActiveState = myStates.poll();
     }

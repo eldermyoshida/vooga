@@ -42,12 +42,7 @@ public class ProductionBuilding extends Building implements IObservable {
 		// does nothing if building isnt occupied.
 	}
 
-	/*
-	 * returns the list of producables
-	 */
-	 public List<Unit> getProducables () {
-		return myProducables;
-	}
+
 
 	/**
 	 * Returns the rally point of the production building.
@@ -74,33 +69,6 @@ public class ProductionBuilding extends Building implements IObservable {
 	  */
 	 public void setRallyPoint (Location3D rallyPoint) {
 		 myRallyPoint = rallyPoint;
-	 }
-
-	 /**
-	  * Registers an IProductionObserver (a player) as its Observer.
-	  */
-	 public void register (IObserver newObserver) {
-		 myObservers.add(newObserver);
-	 }
-
-	 /**
-	  * Unregisters an IProductionObserver (a player) so that it will not be
-	  * notified anymore when ProductionBuilding updates.
-	  */
-	 public void unregister (IObserver deleteObserver) {
-		 int observerIndex = myObservers.indexOf(deleteObserver);
-		 myObservers.remove(observerIndex);
-
-	 }
-
-	 /**
-	  * Notifies all the IProductionObserver that are currently observing of
-	  * the change.
-	  */
-	 public void notifyProductionObserver (InteractiveEntity newProduction) {
-		 for (IObserver observer : myObservers) {
-			 observer.addProduction(newProduction);
-		 }
 	 }
 
 	 @Override
