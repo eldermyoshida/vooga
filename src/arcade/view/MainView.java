@@ -3,11 +3,9 @@ package arcade.view;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.util.Collection;
 import java.util.ResourceBundle;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import arcade.games.GameInfo;
 import arcade.model.Model;
 import arcade.view.modes.ArcadeMode;
 import arcade.view.modes.GameCenterPanel;
@@ -59,9 +57,9 @@ public class MainView extends JFrame {
     private JPanel makeViewPanel () {
         myViewPanel = new JPanel(new CardLayout());
         
-        myViewPanel.add(new GameCenterPanel(this, myModel, myResources), ArcadeMode.GAMECENTER.name());
+        myViewPanel.add(new GameCenterPanel(myModel, myResources), ArcadeMode.GAMECENTER.name());
         myViewPanel.add(new SocialCenterPanel(), ArcadeMode.SOCIALCENTER.name());
-        myViewPanel.add(new StorePanel(myModel, myResources, this), ArcadeMode.STORE.name());
+        myViewPanel.add(new StorePanel(myModel, myResources), ArcadeMode.STORE.name());
         
         changeViewPanel(ArcadeMode.GAMECENTER);
         return myViewPanel;
@@ -76,16 +74,6 @@ public class MainView extends JFrame {
     }
 
     /**
-     * Gets the list of games from the model.  This is here for access by 
-     * other views who have an instance of this but not the model.
-     * 
-     * @return
-     */
-    public Collection<GameInfo> getGameList () {
-        return myModel.getGameList();
-    }
-
-    /**
      * When a game is done being played, pop up a dialog box with their score,
      * high scores, and an option to share on social networks.
      * 
@@ -93,5 +81,18 @@ public class MainView extends JFrame {
     public void showEndGameView () {
         
     }
+    
+//    public static void main (String[] args) {
+//        ResourceBundle resources = ResourceBundle.getBundle("arcade.resources.English");
+//        
+//        new MainView(new Model(resources, "English"),resources);
+//        
+////      List<GameInfo> games = new ArrayList<GameInfo>();
+////      for (int i = 0; i < 13; i++) 
+////      {
+////          games.add(new GameInfo("example", "examplegenre", "English", this));
+////      }
+////      return games;
+//    }
 
 }

@@ -1,5 +1,6 @@
 package arcade.view;
 
+import java.awt.Component;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
@@ -16,14 +17,16 @@ import arcade.model.Model;
 
 
 /**
+ * A SnapShot is a small clickable panel that represents a Game in the GameCenter
+ * and Store.  Clicking a SnapShot opens up a more detailed view.
  * 
- * @author David Liu
+ * @author David Liu, Ellango Jothimurugesan
  * 
  */
 @SuppressWarnings("serial")
 public class SnapShot extends JPanel {
 
-    private static final int THUMBNAIL_SIZE = 160;
+    public static final int THUMBNAIL_SIZE = 190;
     private GameInfo myGameInfo;
     private ResourceBundle myResources;
     private Model myModel;
@@ -33,19 +36,49 @@ public class SnapShot extends JPanel {
         myGameInfo = info;
         myResources = resources;
         
-        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
+        add(createThumbnail());
+        add(createTitle());
+        add(createRating());
+        
+        this.addMouseListener(createListener());
+    }
+
+    /**
+     * Creates the thumbnail to be displayed in the SnapShot
+     * @return
+     */
+    private Component createThumbnail () {
         ImageIcon icon = myGameInfo.getThumbnail();
         ImageIcon scaledIcon = createScaledIcon(icon, THUMBNAIL_SIZE);
-        JLabel thumbnail = new JLabel(scaledIcon);
-        JLabel title = new JLabel("<html><b><font size = 4>" + myGameInfo.getName());
-        JLabel rating = new JLabel(myGameInfo.getRating() + "");
-
-        add(thumbnail);
-        add(title);
-        add(rating);
-
-        this.addMouseListener(new MouseListener() {
+        return new JLabel(scaledIcon);
+    }
+    
+    /**
+     * Creates the title to be displayed. The title is the game's name.
+     * @return
+     */
+    private Component createTitle() {
+        return new JLabel("<html><b><font size = 4>" + myGameInfo.getName());
+    }
+    
+    /**
+     * Creates the label for the rating of the game.
+     * @return
+     */
+    private Component createRating() {
+        return new JLabel(myGameInfo.getRating() + "");
+    }
+    
+    /**
+     * Creates a mouse listener so that upon clicking a SnapShot, the 
+     * DetailView is launched.
+     * 
+     * @return
+     */
+    private MouseListener createListener () {
+        return new MouseListener() {
             @Override
             public void mouseClicked (MouseEvent arg0) {
                 if (arg0.getClickCount() == 2) {
@@ -63,9 +96,9 @@ public class SnapShot extends JPanel {
             @Override
             public void mouseEntered (MouseEvent arg0) {}
 
-        });
+        };
     }
-    
+
     /**
      * TODO: REMOVE THE DUPLICATED CODE FROM HERE AND ButtonPanel
      * @param icon
