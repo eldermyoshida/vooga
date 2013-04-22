@@ -8,6 +8,14 @@ import vooga.fighter.util.HUDFactory;
 
 import vooga.fighter.view.HUDElement;
 
+/**
+ * 
+ * @author Jack Matteucci
+ * @author Wayne You
+ * @author Jerry Li
+ *
+ */
+
 public class DisplayLoopInfo extends DisplayInfo implements ViewDataSource{
     private Mode myMode;
     private List<ImageDataObject> myImageData;

@@ -22,11 +22,12 @@ import java.util.ResourceBundle;
 
 /**
  * 
- * @author Jerry Li & Jack Matteucci
+ * @author Jerry Li 
+ * @author Jack Matteucci
  * 
  */
 
-@InputClassTarget
+
 public class ModeSelectMenuController extends MenuController {
 	
     private static final String FILE_NAME = "vooga.fighter.config.ModeCharacterNumbers";
@@ -34,13 +35,18 @@ public class ModeSelectMenuController extends MenuController {
     
     public ModeSelectMenuController () {
         super();
-        myResources = ResourceBundle.getBundle(FILE_NAME);
 
     }
         
-    public void initializeRest(Canvas frame, ControllerDelegate manager, 
+    public ModeSelectMenuController(String name, Canvas frame, ControllerDelegate manager, 
                 GameInfo gameinfo) {
-        super.initializeRest(frame, manager, gameinfo);
+        super(name, frame, manager, gameinfo);
+        myResources = ResourceBundle.getBundle(FILE_NAME);
+    }
+    
+    public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo) {
+        Controller controller = new ModeSelectMenuController(name, frame, manager, gameinfo);
+        return controller;
     }
     /**
      * Checks this controller's end conditions
@@ -50,15 +56,12 @@ public class ModeSelectMenuController extends MenuController {
     	removeListener();
     	getMode().resetChoice();
     		getGameInfo().setGameMode(choice);
+    		System.out.println(choice);
     		getGameInfo().setNumCharacters(Integer.parseInt(myResources.getString(choice)));    		
     		getManager().notifyEndCondition(getMode().getMenusNext(choice));
     		
     }
-    @InputMethodTarget(name = "continue")
-    public void mouseclick(PositionObject pos)  {
-        super.getMode().addObject(new MouseClickObject(pos.getPoint2D()));
-    }
-    
+
     public void removeListener(){
     	super.removeListener();
     	getInput().removeListener(this);

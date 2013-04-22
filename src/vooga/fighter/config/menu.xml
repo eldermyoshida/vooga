@@ -45,12 +45,21 @@
             <frame image="fighter/images/fire.png" />   
         </state>
     </menuobject>
-    <menuobject menuobjectname = "MapChoice">
+    <menuobject menuobjectname = "BlueMap">
     	<state name = "Unselected" blink="no" >
     		<frame image = "fighter/images/FinalDestination.jpg" />
     	</state>
     	<state name = "Selected" blink="yes" >
             <frame image="fighter/images/FinalDestination.jpg" />
+            <frame image="fighter/images/fire.png" />   
+        </state>
+   	</menuobject>
+   	 <menuobject menuobjectname = "BacktoCharacter">
+    	<state name = "Unselected" blink="no">
+    		<frame image = "fighter/images/back.png" />
+    	</state>
+    	 <state name = "Selected" blink="yes" >
+            <frame image="fighter/images/back.png" />
             <frame image="fighter/images/fire.png" />   
         </state>
    	</menuobject>

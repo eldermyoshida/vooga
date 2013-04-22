@@ -68,13 +68,16 @@ public class CharacterLoader extends ObjectLoader {
 			String attackName = getAttributeValue(attackNodes.item(i), "attackName");
 			int attackDmg = Integer.parseInt(getAttributeValue(attackNodes.item(i), "damage"));
 			int attackDuration = Integer.parseInt(getAttributeValue(attackNodes.item(i), "duration"));
+			int attackSpeed = Integer.parseInt(getAttributeValue(attackNodes.item(i), "speed"));
 			NodeList frameNodes = attack.getElementsByTagName("frame");
 			AttackObject newAttack = new AttackObject();
 			State newState = new State(myChar, frameNodes.getLength());
+			newAttack.addProperty(ModelConstants.ATTACK_PROPERTY_SPEED, attackSpeed);
 			newAttack.addProperty(ModelConstants.ATTACK_PROPERTY_POWER, attackDmg);
 			newAttack.addProperty(ModelConstants.ATTACK_PROPERTY_DURATION, attackDuration);
 			getImageAndHitboxProperties(frameNodes, newState);
 			newAttack.addState(attackName, newState);
+			newAttack.setCurrentState(attackName);
 			myChar.addAttack(attackName, newAttack);
 		}
 	}

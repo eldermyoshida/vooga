@@ -35,9 +35,14 @@ public class ScoreController extends MenuController {
         super();
     }
         
-    public void initializeRest(Canvas frame, ControllerDelegate manager, 
+    public ScoreController(String name, Canvas frame, ControllerDelegate manager, 
                 GameInfo gameinfo) {
-        super.initializeRest(frame, manager, gameinfo);
+        super(name, frame, manager, gameinfo);
+    }
+    
+    public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo) {
+        Controller controller = new ScoreController(name, frame, manager, gameinfo);
+        return controller;
     }
     
     /**
@@ -50,7 +55,6 @@ public class ScoreController extends MenuController {
     	System.out.println("<scorecontroller> " + choice);
     	getManager().notifyEndCondition(getMode().getMenusNext(choice));
         }
-
     
     @InputMethodTarget(name = "continue")
     public void mouseclick(PositionObject pos)  {

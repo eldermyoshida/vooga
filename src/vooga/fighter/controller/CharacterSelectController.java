@@ -22,10 +22,11 @@ import java.util.ResourceBundle;
 
 /**
  * 
- * @author Jerry Li and Jack Matteucci
+ * @author Jerry Li
+ * @author Jack Matteucci
  */
 
-@InputClassTarget
+
 public class CharacterSelectController extends MenuController {
 
 	private int myCharLimit;
@@ -36,11 +37,16 @@ public class CharacterSelectController extends MenuController {
         super();
     }
         
-    public void initializeRest(Canvas frame, ControllerDelegate manager, 
+    public CharacterSelectController(String name, Canvas frame, ControllerDelegate manager, 
                 GameInfo gameinfo) {
-        super.initializeRest(frame, manager, gameinfo);
+        super(name, frame, manager, gameinfo);
         myCharLimit = getGameInfo().getNumCharacters();
         myCharIndex = 0;
+    }
+    
+    public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo) {
+        Controller controller = new CharacterSelectController(name, frame, manager, gameinfo);
+        return controller;
     }
 
     /**
@@ -50,16 +56,13 @@ public class CharacterSelectController extends MenuController {
     	getGameInfo().addCharacters(choice);
     	getMode().resetChoice();
     	myCharIndex ++;
+    	System.out.println("character selected");
     	if(myCharIndex >= myCharLimit){
     	removeListener();
         getManager().notifyEndCondition(getMode().getMenusNext(choice));
     	}
     } 
-    
-    @InputMethodTarget(name = "continue")
-    public void mouseclick(PositionObject pos)  {
-        super.getMode().addObject(new MouseClickObject(pos.getPoint2D()));
-    }
+
     public void removeListener(){
     	super.removeListener();
     	getInput().removeListener(this);

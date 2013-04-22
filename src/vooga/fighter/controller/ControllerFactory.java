@@ -17,7 +17,8 @@ import vooga.fighter.view.Canvas;
 
 /**
  * 
- * @author Jack and Jerry
+ * @author Jack Matteucci
+ * @author Jerry Li
  *
  */
 public class ControllerFactory {
@@ -54,7 +55,7 @@ public class ControllerFactory {
                 controllerObject = controllerClass.newInstance();
                 controller = (Controller) controllerObject;
                 controller.initializeName(myResources.getString(controllerName));
-                controller.initializeName(myResources.getString(controllerName));
+                //controller.initializeName(myResources.getString(controllerName));
                 
             }
             catch (Exception e){

@@ -9,7 +9,12 @@ import vooga.fighter.model.objects.MenuObject;
 import vooga.fighter.model.objects.MouseClickObject;
 import vooga.fighter.model.utils.State;
 
-
+/**
+ * 
+ * @author Jack Matteucci
+ * @modified Jerry Li
+ *
+ */
 public class MenuMode extends Mode {
     private String myMenuId;
     private List<MenuObject> myMenuObjects;
@@ -17,11 +22,13 @@ public class MenuMode extends Mode {
     private MenuGrid myMenuGrid;
     private CollisionManager myCollisionManager = new CollisionManager();
     private String myChoice;
+    private int myInputTicks;
 
     public MenuMode (String menuId) {
         super();
         myMenuId = menuId;
         myChoice = "";
+        myInputTicks = 0;
     }
 
     @Override
@@ -50,6 +57,7 @@ public class MenuMode extends Mode {
         object.updateState();
     }
     handleCollisions();
+    myInputTicks++;
 }
 
     public void handleCollisions() {
@@ -62,7 +70,7 @@ public class MenuMode extends Mode {
     	}
     	return "";
     }
-    
+
 
     @Override
     public void addObject (GameObject object) {
@@ -102,6 +110,10 @@ public class MenuMode extends Mode {
     
     public MenuObject getCurrentMode(){
     	return myMenuGrid.getCurrentObject();
+    }
+    
+    public boolean inputReady(){
+    	return myInputTicks>6;
     }
 
 }

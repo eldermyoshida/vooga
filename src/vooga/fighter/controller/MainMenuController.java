@@ -23,12 +23,12 @@ import java.util.ResourceBundle;
 /**
  * 
  * @author Jack Matteucci
+ * @author Jerry Li
  * 
  * This is a great class to reference when trying to understand how to extend the
  * menu controller hierarchy
  * 
  */
-@InputClassTarget
 public class MainMenuController extends MenuController {
 	
     private ResourceBundle myResources;
@@ -37,14 +37,18 @@ public class MainMenuController extends MenuController {
         super();
     }
     
-    @Override
-    public void initializeRest(Canvas frame, ControllerDelegate manager, 
+    public MainMenuController(String name, Canvas frame, ControllerDelegate manager, 
                            GameInfo gameinfo) {
-        super.initializeRest(frame, manager, gameinfo);
+        super(name, frame, manager, gameinfo);
         getGameInfo().reset();
         setInput(manager.getInput());
         getInput().addListenerTo(this);
 
+    }
+    
+    public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo) {
+        Controller controller = new MainMenuController(name, frame, manager, gameinfo);
+        return controller;
     }
     /**
      * Checks this controller's end conditions
@@ -56,36 +60,6 @@ public class MainMenuController extends MenuController {
         getManager().notifyEndCondition(getMode().getMenusNext(choice));
     }
 
-  
-    @InputMethodTarget(name = "continue")
-    public void mouseclick(PositionObject pos)  {
-        super.getMode().addObject(new MouseClickObject(pos.getPoint2D()));
-    }
-    
-    @InputMethodTarget(name = "left")
-    public void left(AlertObject alObj)  {
-        super.getMode().left();
-    }
-    
-    @InputMethodTarget(name = "right")
-    public void right(AlertObject alObj)  {
-        super.getMode().right();
-    }
-    
-    @InputMethodTarget(name = "up")
-    public void up(AlertObject alObj)  {
-        super.getMode().up();
-    }
-    
-    @InputMethodTarget(name = "down")
-    public void down(AlertObject alObj)  {
-        super.getMode().down();
-    }
-    
-    @InputMethodTarget(name = "enter")
-    public void enter(AlertObject alObj)  {
-        super.getMode().setChoice(getMode().getCurrentMode().getValue());
-    }
     
     public void removeListener(){
     	super.removeListener();

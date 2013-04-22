@@ -20,6 +20,7 @@ public class MenuGridLoader extends ObjectLoader {
 
 
 	private static final String MENUGRID_PATH = "src/vooga/fighter/config/menugrid.xml";
+	private static final int FOUR_TICKS = 4;
 
 	private List<MenuObject> myMenuObjects;
 	private MenuMode myDelegate;
@@ -63,6 +64,7 @@ public class MenuGridLoader extends ObjectLoader {
 						state.populateSize(size, k);
 						Rectangle rect = new Rectangle(xSize,ySize);
 						state.populateRectangle(rect, k);
+						state.populateAllDelays(FOUR_TICKS);
 						}
 					}
 					int gridnum = Integer.parseInt(getAttributeValue(node1, "gridnum"));
@@ -75,6 +77,7 @@ public class MenuGridLoader extends ObjectLoader {
 					menuobject.setLeft(left);
 					int right = Integer.parseInt(getAttributeValue(node1, "right"));
 					menuobject.setRight(right);
+					menuobject.resetBounds();
 					myMenuObjects.add(menuobject);
 				}
 		}

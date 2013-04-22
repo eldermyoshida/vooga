@@ -42,6 +42,7 @@ public class MouseLoader extends ObjectLoader {
 		newState.populateRectangle(rect, 0);
 		myMouseClick.addState(Statename, newState);
 		myMouseClick.setCurrentState(Statename);
+		myMouseClick.resetBounds();
 	}
 
 

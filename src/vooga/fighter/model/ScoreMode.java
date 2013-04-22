@@ -16,12 +16,9 @@ public class ScoreMode extends Mode {
     private List<MenuObject> myMenuObjects;
     private MouseClickObject myMouseClick;
     private MenuGrid myMenuGrid;
-    private ModelDelegate myDelegate;
-    private MenuCollisionManager myCollisionManager = new MenuCollisionManager();
+    private CollisionManager myCollisionManager = new CollisionManager();
 
-    public ScoreMode (ModelDelegate delegate, String menuId) {
-        super(delegate);
-        myDelegate = delegate;
+    public ScoreMode (String menuId) {
         myMenuId = menuId;
     }
 

@@ -24,7 +24,7 @@ public class MenuGrid {
 		MenuGridLoader menuGrid = new MenuGridLoader(Id, this, delegate);
 		myMenuObjects = menuGrid.getMenuObjects();
 		myCurrentMenuObject = menuGrid.getFirstMenuObject();
-		myCurrentMenuObject.getState(SELECTED);
+		myCurrentMenuObject.setCurrentState(SELECTED);
 	}
 	
 	public List<MenuObject> getMenuObjects(){
@@ -36,41 +36,45 @@ public class MenuGrid {
 	}
 	
 	public void left(){
-		myCurrentMenuObject.setCurrentState(UNSELECTED);
 		for(MenuObject menu: myMenuObjects){
 			if(myCurrentMenuObject.getLeft() == menu.getNum()){
+				myCurrentMenuObject.setCurrentState(UNSELECTED);
 				myCurrentMenuObject = menu;
 				myCurrentMenuObject.setCurrentState(SELECTED);
+				return;
 			}
 		}
 	}
 	
 	public void right(){
-		myCurrentMenuObject.setCurrentState(UNSELECTED);
 		for(MenuObject menu: myMenuObjects){
 			if(myCurrentMenuObject.getRight() == menu.getNum()){
+				myCurrentMenuObject.setCurrentState(UNSELECTED);
 				myCurrentMenuObject = menu;
 				myCurrentMenuObject.setCurrentState(SELECTED);
+				return;
 			}
 		}
 	}
 	
 	public void up(){
-		myCurrentMenuObject.setCurrentState(UNSELECTED);
 		for(MenuObject menu: myMenuObjects){
 			if(myCurrentMenuObject.getUp() == menu.getNum()){
+				myCurrentMenuObject.setCurrentState(UNSELECTED);
 				myCurrentMenuObject = menu;
 				myCurrentMenuObject.setCurrentState(SELECTED);
+				return;
 			}
 		}
 	}
 	
 	public void down(){
-		myCurrentMenuObject.setCurrentState(UNSELECTED);
 		for(MenuObject menu: myMenuObjects){
 			if(myCurrentMenuObject.getDown() == menu.getNum()){
+				myCurrentMenuObject.setCurrentState(UNSELECTED);
 				myCurrentMenuObject = menu;
 				myCurrentMenuObject.setCurrentState(SELECTED);
+				return;
 			}
 		}
 	}

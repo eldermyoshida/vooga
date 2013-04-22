@@ -24,10 +24,11 @@ import java.util.ResourceBundle;
 
 /**
  * 
- * @author Jerry Li and Jack Matteucci
+ * @author Jerry Li 
+ * @author Jack Matteucci
  * 
  */
-
+@InputClassTarget
 public abstract class MenuController extends Controller {
 
     private static final String INPUT_PATHWAY = "vooga.fighter.config.menudefault";
@@ -38,10 +39,9 @@ public abstract class MenuController extends Controller {
     }
     
     
-    @Override
-    public void initializeRest(Canvas frame, ControllerDelegate manager, 
+    public MenuController(String name, Canvas frame, ControllerDelegate manager, 
     		GameInfo gameinfo) {
-    	super.initializeRest(frame, manager, gameinfo);
+    	super(name, frame, manager, gameinfo);
         setInput(manager.getInput());
         getInput().replaceMappingResourcePath(INPUT_PATHWAY);
         getInput().addListenerTo(this);
@@ -50,6 +50,37 @@ public abstract class MenuController extends Controller {
     	setLoopInfo(LoopInfo);
     	myEndConditions = new ArrayList<ModeCondition>();
     	setupConditions();
+    }
+    
+    
+    @InputMethodTarget(name = "continue")
+    public void mouseclick(PositionObject pos)  {
+        getMode().addObject(new MouseClickObject(pos.getPoint2D()));
+    }
+    
+    @InputMethodTarget(name = "left")
+    public void left(AlertObject alObj)  {
+        getMode().left();
+    }
+    
+    @InputMethodTarget(name = "right")
+    public void right(AlertObject alObj)  {
+        getMode().right();
+    }
+    
+    @InputMethodTarget(name = "up")
+    public void up(AlertObject alObj)  {
+        getMode().up();
+    }
+    
+    @InputMethodTarget(name = "down")
+    public void down(AlertObject alObj)  {
+        getMode().down();
+    }
+    
+    @InputMethodTarget(name = "enter")
+    public void enter(AlertObject alObj)  {
+        getMode().setChoice(getMode().getCurrentMode().getValue());
     }
     
     public void loadMode() {
@@ -88,8 +119,6 @@ public abstract class MenuController extends Controller {
 			return !("".equals(getMode().peekChoice()));
     	}
     };
-    
-    
-    
+
 
 }

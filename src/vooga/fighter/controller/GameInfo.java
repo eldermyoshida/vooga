@@ -8,7 +8,9 @@ import arcade.games.UserGameData;
 
 /**
  * Information about the broader game state. includes game mode, selected map and characters.
- * @author matthewparides
+ * @author Matt Parides
+ * @author Jerry Li
+ * @author Jack Matteucci
  * 
  */
 public class GameInfo extends UserGameData{

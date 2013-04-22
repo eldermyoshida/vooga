@@ -3,6 +3,7 @@ package vooga.fighter.model;
 import java.awt.Rectangle;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Collections;
 import java.util.List;
 import vooga.fighter.model.objects.AttackObject;
 import vooga.fighter.model.objects.CharacterObject;
@@ -20,16 +21,16 @@ import vooga.fighter.model.objects.MouseClickObject;
  * 
  */
 public class CollisionManager {
-
+	
     /**
      * Checks for collisions between the game objects.
      */
-    public void checkCollisions(List<GameObject> myObjects) {
+    public void checkCollisions(List<GameObject> myObjects) { 
         for (int i = 0; i < myObjects.size() - 1; i++) {
             for (int j = i + 1; j < myObjects.size(); j++) {
                 GameObject o1 = myObjects.get(i);
                 GameObject o2 = myObjects.get(j);
-                if (o1 instanceof MapObject || o2 instanceof MapObject|| o1 instanceof AttackObject || o2 instanceof AttackObject) {
+                if (o1 instanceof MapObject || o2 instanceof MapObject) {
                     continue;
                 }
                 if (o1.checkCollision(o2)) {
@@ -75,14 +76,12 @@ public class CollisionManager {
      * Handles collisions between two character objects.
      */
     public void collide(CharacterObject o1, CharacterObject o2) {
-    	o1.changeHealth(-10);
     	if (o1.getCurrentState().hasPriority(o2.getCurrentState())){
-    		o1.moveBack();
+    		o2.pushBack(o1.getMovingDirection());
     	}
     	else{
-    		o2.moveBack(); 
+    		o1.pushBack(o2.getMovingDirection()); 
     	}
-        System.out.println("CollisionManager: Two CharacterObjects collided!");
     }
     
     /**
@@ -91,9 +90,8 @@ public class CollisionManager {
      */
     public void collide(AttackObject o1, AttackObject o2) {
     	if (o1.getCurrentState().hasPriority(o2.getCurrentState())){
-    		
+    		o1.endCounter();
     	}
-        System.out.println("CollisionManager: Two AttackObjects collided!");
     }
     
     /**
@@ -108,41 +106,38 @@ public class CollisionManager {
      * Destroys object on collision with character object 
      */
     public void collide(CharacterObject o1, AttackObject o2) {
-    	//o2.setCounter(0); 
-        System.out.println("CollisionManager: CharacterObject and AttackObject collided!");
+    	collide(o2,o1);
     }
     
     /**
      * Handles collisions between an attack object and a character object.
      */
     public void collide(AttackObject o1, CharacterObject o2) {
-    	if (o1.getCurrentState().hasPriority(o2.getCurrentState())){
+    	if (o1.getOwner()!=o2){
     		o1.inflictDamage(o2);
     	}
-        System.out.println("CollisionManager: AttackObject and CharacterObject collided!");
+    	o1.endCounter();
     }
     
     /**
      * Handles collisions between an environment object and an attack object.
      */
     public void collide(EnvironmentObject o1, AttackObject o2) {
-        System.out.println("CollisionManager: EnvironmentObject and AttackObject collided!");
+    	collide(o2, o1);
     }
     
     /**
      * Handles collisions between an attack object and an environment object.
      */
     public void collide(AttackObject o1, EnvironmentObject o2) {
-    	
-        System.out.println("CollisionManager: Attackobject and EnvironmentObject collided!");
+    	o1.endCounter();
     }
     
     /**
      * Handles collisions between a character object and an environment object.
      */
     public void collide(CharacterObject o1, EnvironmentObject o2) {
-    	
-        System.out.println("CollisionManager: CharacterObject and EnvironmentObject collided!");
+    	collide(o2, o1);
     }
     
     /**
@@ -150,21 +145,24 @@ public class CollisionManager {
      */
     public void collide(EnvironmentObject o1, CharacterObject o2) {
     	o2.moveBack(); 
-        System.out.println("CollisionManager: EnvironmentObject and CharacterObject collided!");
     }
     
     /**
      * Handles collisions between a Menu object and an MouseClick object.
      */
     public void collide(MenuObject o1, MouseClickObject o2) {
-        o1.tellDelegate();
+    	System.out.println(o1.getLocation().getLocation().getX());
+    	System.out.println(o1.getLocation().getLocation().getY());
+    	System.out.println(o2.getLocation().getLocation().getX());
+    	System.out.println(o2.getLocation().getLocation().getY());
+    	o1.tellDelegate();
     }
     
     /**
      * Handles collisions between an MouseClick object and a Menu object.
      */
     public void collide(MouseClickObject o1, MenuObject o2) {
-        o2.tellDelegate();
+    	o2.tellDelegate();
     }
     /**
      * Handles collisions between an MouseClick object and MouseClick object...

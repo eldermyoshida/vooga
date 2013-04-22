@@ -12,6 +12,7 @@ import vooga.fighter.model.utils.UpdatableLocation;
  * 
  */
 public class EnvironmentObject extends GameObject {
+	private String myName;
 	
     /**
      * Constructs a new EnvironmentObject with the given image, center, and size.
@@ -19,11 +20,20 @@ public class EnvironmentObject extends GameObject {
      */
     public EnvironmentObject(String name, UpdatableLocation center) {
         super();
+        myName = name;
         setLoader(new EnvironmentObjectLoader(name, this));
         setCurrentState("default");
         getCurrentState().setLooping(true);
         setLocation(center);
         setImageData();
+    }
+    
+    /**
+     * return the name of this type of environment object.
+     * @return myName
+     */
+    public String getName() {
+    	return myName;
     }
 
     /**

@@ -299,6 +299,10 @@ public class State {
     public void resetState() {
         myCurrentFrame = 0;
     }
+    
+    public void setCurrentRectangle(Rectangle rect){
+    	myRectangles[myCurrentFrame] = rect;
+    }
 
     /**
      * Returns true if the state's animation has concluded, false otherwise.

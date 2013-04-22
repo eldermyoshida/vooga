@@ -22,10 +22,11 @@ import java.util.ResourceBundle;
 
 /**
  * 
- * @author Jack Matteucci edited by Jerry Li
+ * @author Jack Matteucci 
+ * @author Jerry Li
  */
 
-@InputClassTarget
+
 public class MapSelectController extends MenuController {
     
     
@@ -33,9 +34,14 @@ public class MapSelectController extends MenuController {
         super();
     }
         
-    public void initializeRest(Canvas frame, ControllerDelegate manager, 
+    public MapSelectController(String name, Canvas frame, ControllerDelegate manager, 
                 GameInfo gameinfo) {
-        super.initializeRest(frame, manager, gameinfo);
+        super(name, frame, manager, gameinfo);
+    }
+    
+    public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo) {
+        Controller controller = new MapSelectController(name, frame, manager, gameinfo);
+        return controller;
     }
     
     /**
@@ -49,10 +55,6 @@ public class MapSelectController extends MenuController {
     	}
 
 
-    @InputMethodTarget(name = "continue")
-    public void mouseclick(PositionObject pos)  {
-        super.getMode().addObject(new MouseClickObject(pos.getPoint2D()));
-    }
     public void removeListener(){
     	super.removeListener();
     	getInput().removeListener(this);

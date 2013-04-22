@@ -19,7 +19,7 @@ public class MouseClickObject extends GameObject {
 
     @Override
     public boolean shouldBeRemoved () {
-        return (myTicks > 30);
+        return (myTicks > 0);
     }
 
     @Override
