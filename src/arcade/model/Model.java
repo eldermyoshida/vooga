@@ -87,8 +87,6 @@ public class Model implements ArcadeInteraction {
                          String thumbnailPath,
                          String adScreenPath,
                          String description) {
-        System.out.println(extendsGame);
-        System.out.println(extendsMultiplayerGame);
         myDb.createGame(name.toLowerCase(), 
                         genre.toLowerCase(), 
                         author, 
@@ -111,26 +109,16 @@ public class Model implements ArcadeInteraction {
      * so replace slashes with periods and remove the file extension
      */
     private String formatClassFilePath (String path) {
-        if (path == null) return null;
-        // split on file extension
-        String[] split = path.split(".");
-        // take everything before file extension and after src to get java relative filepath.
-        List<String> list = Arrays.asList(split);
-        if (list.contains("src")) {
-            // this means you got the absolute file path, so you need to
-            // get java relative file path (i.e. after src/ )
-            path = split[0].split("src")[1];
+     // this  should be someone else's problem. deal with your own null pointer exceptions
+        if (path == null) return null; 
+        String source = "src/";
+        path = path.substring(0 , path.indexOf("."));
+        if(path.indexOf(source) == -1){/*bad*/}
+        while(path.indexOf(source) != -1){
+            path= path.substring(path.indexOf(source) + source.length() , path.length());
         }
-        split = path.split("/");
-        String ret = "";
-        for (String str : split) {
-            ret += str;
-            ret += ".";
-        }
-        // remove the hanging period
-        ret = ret.substring(0, ret.length() - 1);
-        System.out.println("this is ret" + ret);
-        return ret;
+        path.replace("/", ".");
+        return path;
     }
 
     private GameInfo newGameInfo (String name) throws MissingResourceException {
