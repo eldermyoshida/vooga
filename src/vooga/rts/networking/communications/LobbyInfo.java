@@ -2,6 +2,7 @@ package vooga.rts.networking.communications;
 
 import java.io.Serializable;
 
+
 /**
  * Basic lobby information used for sending across the network to the server browser. Lightweight so
  * we can send many of these very quickly.
@@ -17,11 +18,13 @@ public class LobbyInfo implements Serializable {
     private int myMaxPlayers;
     private String myMapName;
     private int myPlayersCount = 0;
+    private int myID;
 
     public LobbyInfo (String lobbyName, String mapName, int maxPlayers, int ID) {
         myLobbyName = lobbyName;
         myMaxPlayers = maxPlayers;
         myMapName = mapName;
+        myID = ID;
     }
 
     /**
@@ -63,9 +66,18 @@ public class LobbyInfo implements Serializable {
     public void removePlayer () {
         myPlayersCount--;
     }
-    
+
     public void addPlayer () {
         myPlayersCount++;
+    }
+
+    /**
+     * Returns the id.
+     * 
+     * @return id number
+     */
+    public int getID () {
+        return myID;
     }
 
 }
