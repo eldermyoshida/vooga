@@ -1,9 +1,9 @@
 package vooga.rts.leveleditor.components;
 
 
-import java.io.File;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
-import javax.imageio.ImageIO;
+import vooga.rts.resourcemanager.ResourceManager;
 
 public class Tile extends MapComponent {
     
@@ -18,18 +18,22 @@ public class Tile extends MapComponent {
         setType(index);
     }
     
+    public Tile(int ID, String name, String imageName) {
+        super(ID,name,imageName);
+    }
+    
     public void refreshImage() throws IOException {
         if(myResource.containsKey(myID+"")) {
             String content = myResource.getString(myID+"");
             String[] buffer = content.split("&");
             myName = buffer[0];
             myImageName = buffer[1];
-            myImage = ImageIO.read(new File(System.getProperty("user.dir") + IMAGE_PATH + myImageName));            
+            myImage = ResourceManager.getInstance().<BufferedImage>getFile(myImageName, BufferedImage.class);            
         }
     }
     
     public void setType(int id) {
-        super.setType(id);
+        super.setID(id);
         try {
             refreshImage();
         }
@@ -38,5 +42,6 @@ public class Tile extends MapComponent {
             e.printStackTrace();
         }
     }
+   
     
 }
