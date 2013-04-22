@@ -1,9 +1,11 @@
 package vooga.rts.leveleditor.components;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import javax.imageio.ImageIO;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -23,6 +25,9 @@ public class MapLoader {
     private Map<Integer, String> myTileImageName;
     private Map<Integer, String> myTerrainImageName;
    
+    private Map<Integer,BufferedImage> myTileImage;
+    private Map<Integer,BufferedImage> myTerrainImage;
+    
     private Map<Integer, String> myTerrainWalkAbility;
     
     private DocumentBuilderFactory myFactory ;
@@ -40,6 +45,9 @@ public class MapLoader {
         myTerrainName = new HashMap<Integer,String>();
         myTileImageName = new HashMap<Integer,String>();
         myTerrainImageName = new HashMap<Integer,String>();
+        myTileImage = new HashMap<Integer,BufferedImage>();
+        myTerrainImage = new HashMap<Integer,BufferedImage>();
+        
         myTerrainWalkAbility = new HashMap<Integer,String>();
         
         
@@ -51,15 +59,20 @@ public class MapLoader {
 
     public void loadMapFile(File resourceFile) throws SAXException, IOException {
         
+        String XMLpath = resourceFile.getPath();
+        String XMLFileName = resourceFile.getName();
+        String path = XMLpath.substring(0, XMLpath.indexOf(XMLFileName));
+        
+        
         myDocument = myBuilder.parse(resourceFile);
         Element root = myDocument.getDocumentElement();
         
         loadInfo(root);
         loadSizeInfo(root);
-        loadTypeInfo(root);
+        loadTypeInfo(root,path);
         loadTiles(root);
         loadTerrains(root);
-        loadResources(root);
+        loadResources(root,path);
 
     }
 
@@ -88,6 +101,7 @@ public class MapLoader {
         
         Node tileSizeNode = tileSizeList.item(0);
         Node tileAmountNode = tileAmountList.item(0);
+       
         
         String x = tileAmountNode.getAttributes().item(0).getNodeValue();
         String y = tileAmountNode.getAttributes().item(1).getNodeValue();
@@ -100,9 +114,12 @@ public class MapLoader {
         
     }
     
-    public void loadTypeInfo(Element root) {
+    public void loadTypeInfo(Element root, String path) throws IOException {
         NodeList tileTypeList = root.getElementsByTagName("tiletype");
         NodeList terrainTypeList = root.getElementsByTagName("terraintype");
+        
+        String tileImagePath = path + "images/tiles/";
+        String terrainImagePath = path + "images/terrains/";
         
         for(int i = 0 ; i < tileTypeList.getLength() ; i++ ) {
             Node tileTypeNode = tileTypeList.item(i);
@@ -110,8 +127,11 @@ public class MapLoader {
             String tileID = attributes.item(0).getNodeValue();
             String tileImageName = attributes.item(1).getNodeValue();
             String tileName = attributes.item(2).getNodeValue();
+            BufferedImage tileImage = ImageIO.read(new File(tileImagePath + tileImageName));
             myTileName.put(Integer.parseInt(tileID), tileName);
             myTileImageName.put(Integer.parseInt(tileID), tileImageName);
+            myTileImage.put(Integer.parseInt(tileID), tileImage);
+            
         }
         
         for(int i = 0 ; i < terrainTypeList.getLength() ; i++ ) {
@@ -121,9 +141,11 @@ public class MapLoader {
             String terrainImageName = attributes.item(1).getNodeValue();
             String terrainName = attributes.item(2).getNodeValue();
             String terrainWalkAbility = attributes.item(3).getNodeValue();
+            BufferedImage terrainImage = ImageIO.read(new File(tileImagePath + terrainImageName));
             myTerrainName.put(Integer.parseInt(terrainID), terrainName);
             myTerrainImageName.put(Integer.parseInt(terrainID), terrainImageName);
             myTerrainWalkAbility.put(Integer.parseInt(terrainID), terrainWalkAbility);
+            myTerrainImage.put(Integer.parseInt(terrainID), terrainImage);
         }
     
     
@@ -154,23 +176,23 @@ public class MapLoader {
 
         for(int i = 0 ; i < layerList.getLength() ; i++) {
             Node layerNode = layerList.item(i); 
-            String layerIndex = layerNode.getAttributes().item(0).getNodeValue();
+            int layerIndex = Integer.parseInt(layerNode.getAttributes().item(0).getNodeValue());
             NodeList terrainList = layerNode.getChildNodes();
             
             for(int j = 0 ; j < terrainList.getLength() ; j++) {
                 Node terrainNode = terrainList.item(j);
                 if(terrainNode.hasAttributes()) {
                     NamedNodeMap attributes = terrainNode.getAttributes();
-                    String id = attributes.item(0).getNodeValue();
-                    String x = attributes.item(1).getNodeValue();
-                    String y = attributes.item(2).getNodeValue();
-                    myMap.addTerrain(Integer.parseInt(layerIndex), new Terrain(Integer.parseInt(x),Integer.parseInt(y),Integer.parseInt(id)));
+                    int id = Integer.parseInt(attributes.item(0).getNodeValue());
+                    int x = Integer.parseInt(attributes.item(1).getNodeValue());
+                    int y = Integer.parseInt(attributes.item(2).getNodeValue());
+                    myMap.addTerrain(layerIndex, new Terrain(Integer.parseInt(x),Integer.parseInt(y),Integer.parseInt(id)));
                 }
             }
         }
     }
 
-    public void loadResources(Element root) {
+    public void loadResources(Element root, String path) {
         NodeList resourceList = root.getElementsByTagName("resource");
         for(int i = 0 ; i < resourceList.getLength() ; i++) {
             Node resourceNode = resourceList.item(i);

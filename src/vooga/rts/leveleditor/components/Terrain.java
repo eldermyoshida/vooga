@@ -38,7 +38,7 @@ public class Terrain extends MapComponent {
         this(new Location(x, y), ID);
     }
     
-    public Terrain(int x, int y , int ID, String name, String imageName) {
+    public Terrain(int x, int y , int ID, String name, String imageName, int myWalkAbility) {
         super(ID,name,imageName);
         myLocation = new Location(x,y);
     }
