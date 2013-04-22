@@ -62,7 +62,7 @@ public class GameLoopInfo extends DisplayLoopInfo implements ViewDataSource{
         myHealthStats = new ArrayList<Health>();
         myScores = new ArrayList<Double>();
         myCharacterNames = new ArrayList<String>();
-        myNumberPlayers = mode.getMyCharacterObjects().size();
+        myNumberPlayers = mode.getCharacterObjects().size();
         initializePlayers();
     }
     
@@ -110,7 +110,7 @@ public class GameLoopInfo extends DisplayLoopInfo implements ViewDataSource{
     
     public void updateStats() {
         LevelMode currentMode = (LevelMode) getMode();
-        myHealthStats = currentMode.getHealth();
+        myHealthStats = currentMode.getHealthStats();
         for (int i = 0; i < myNumberPlayers; i++) {
             myPlayerStats.get(i).setHealth(myHealthStats.get(i));
         }
