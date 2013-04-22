@@ -102,8 +102,8 @@ public class GameMap implements IGameLoop {
 
     private void randomGenMap () {
 
-        int tilesX = 512;
-        int tilesY = 512;
+        int tilesX = 90;
+        int tilesY = 100;
         int tileWidthX = 60;
         int tileWidthY = 42;
         myTiles = new TileMap(new Dimension(tileWidthX, tileWidthY), tilesX, tilesY);
@@ -130,7 +130,7 @@ public class GameMap implements IGameLoop {
 
         for (int i = 0; i < tilesX; i++) {
             for (int j = 0; j < tilesY; j++) {
-                if (Math.random() < 0.1) {
+                if (Math.random() < 0.2) {
                     myTiles.createTile(2, i, j);
                 }
                 else {
