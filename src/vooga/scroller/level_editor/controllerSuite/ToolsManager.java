@@ -25,18 +25,18 @@ public class ToolsManager {
 //        this(l, new BackgroundLib(new String[0]));
 //    }
 
-    public ToolsManager (ISpriteLibrary l, IBackgroundLibrary bgLib, IWindow w) {
+    public ToolsManager (ISpriteLibrary l, IBackgroundLibrary bgLib) {
         myBackgroundLib = bgLib;
         mySpriteLib = l;
-        setTools(w);
+        setTools();
     }
 
-    private void setTools ( IWindow w) {
+    private void setTools () {
 
         int i = 0;
         mySpriteMap = new HashMap<Integer, Sprite>();
-        myViewTools = new LETools((LEView)w);
-//        myViewTools.addBackgrounds(myBackgroundLib.getBackgrounds());
+        myViewTools = new LETools();
+        myViewTools.addBackgrounds(myBackgroundLib.getBackgrounds());
         Sprite sprite;
         for (Class<? extends Sprite> c : mySpriteLib.getSpritesClasses()) {
             try {

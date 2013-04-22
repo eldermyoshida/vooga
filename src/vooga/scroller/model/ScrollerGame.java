@@ -3,8 +3,13 @@ package vooga.scroller.model;
 import java.awt.BorderLayout;
 import java.awt.GraphicsConfiguration;
 import javax.swing.JFrame;
+import vooga.scroller.level_editor.Level;
+import vooga.scroller.level_editor.controllerSuite.LEController;
+import vooga.scroller.level_editor.library.BackgroundLib;
+import vooga.scroller.level_editor.library.ISpriteLibrary;
 import vooga.scroller.scrollingmanager.OmniScrollingManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
+import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.PlatformerConstants;
 import vooga.scroller.view.GameView;
 import arcade.games.ArcadeInteraction;
@@ -21,23 +26,41 @@ public abstract class ScrollerGame  {
     private static ScrollingManager DEFAULT_SM = new OmniScrollingManager();
     private Model myModel;
     private GameView myDisplay;
+    private ScrollingManager myScrollingManager;
+    private Player myPlayer;
+    private String myTitle;
+    private String[] myLevels;
 
     public ScrollerGame () {
-        myDisplay = new GameView(PlatformerConstants.DEFAULT_WINDOW_SIZE, DEFAULT_SM);
-        Model myModel = makeModel(getLevelFileNames());
+        intializeInstanceVariables();
+        makeModel();
+    }
+    
+    private void intializeInstanceVariables() {
+        myScrollingManager = setScrollingManager();
+        myDisplay = new GameView(PlatformerConstants.DEFAULT_WINDOW_SIZE, myScrollingManager);
+        myPlayer = setPlayer(myScrollingManager,myDisplay);
+        myLevels = setLevelFileNames();
+        myTitle = setTitle();
+    }
+
+    protected abstract ScrollingManager setScrollingManager ();
+    
+    protected abstract Player setPlayer (ScrollingManager sm, GameView gameView);
+    
+    protected abstract String setTitle ();
+
+    protected abstract String[] setLevelFileNames();
+    
+    private void makeModel() {
+        myModel = new Model(myDisplay, myScrollingManager, myPlayer, myLevels);
+        myModel.addPlayerToLevel();
         myDisplay.setModel(myModel);
     }
-    
 
-    private Model makeModel(String ... levelFileNames) {
-        return new Model(myDisplay, DEFAULT_SM, levelFileNames);
-    }
-    
-    protected abstract String[] getLevelFileNames();
-    
     public void start() {
      // container that will work with user's OS
-        JFrame frame = new JFrame(getTitle());
+        JFrame frame = new JFrame(myTitle);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // add our user interface components
         frame.getContentPane().add(myDisplay, BorderLayout.CENTER);
@@ -47,9 +70,12 @@ public abstract class ScrollerGame  {
         // start animation
         myDisplay.start();
     }
-
-
-    protected abstract String getTitle ();
+    
+    public static void runLevelEditor(ISpriteLibrary lib, String...filenames){
+        BackgroundLib bgLib = new BackgroundLib(filenames);
+        LEController con = new LEController(lib,bgLib);
+        con.start();
+    }
     
 
     

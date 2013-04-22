@@ -36,8 +36,6 @@ public class Level implements Renderable<GameView>, IGameComponent{
 //    private GameView myView;
     private ScrollingManager myScrollingManager;
     private Image myBackground;
-    private Image DEFAULT_BACKGROUND = new ImageIcon(getClass()
-            .getResource("/vooga/scroller/images/default_background.png")).getImage();
     private Image CITY_BACKGROUND = new ImageIcon("/vooga/scroller/images/background_small.png")
             .getImage();
 
@@ -81,6 +79,7 @@ public class Level implements Renderable<GameView>, IGameComponent{
         for (SpriteBox box : grid.getBoxes()) {
             addSprite(box.getSprite());
         }
+        setBackground(grid.getBackground());
     }
 
     public void setSize (Dimension size) {
@@ -242,7 +241,9 @@ public class Level implements Renderable<GameView>, IGameComponent{
         ScrollingManager sm = new OmniScrollingManager();
         GameView display = new GameView(PlatformerConstants.DEFAULT_WINDOW_SIZE, sm);
         sm.initView(display);
-        display.setModel(new Model(display, sm, this));
+        Model m = new Model(display, sm, this);
+        m.addPlayerToLevel();
+        display.setModel(m);
         return display;
     }
 

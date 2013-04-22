@@ -39,6 +39,7 @@ public class LevelEditor implements ILevelEditor {
     private ScrollingManager myScrollingManager;
     private Editable myGrid;
     private Map<Integer, Sprite> mySpriteMap;
+    private Map<Integer, Image> myBackgrounds;
 
     public LevelEditor () {
         myGrid = new LEGrid(DEFAULT_GRID_SIZE,DEFAULT_GRID_SIZE);
@@ -96,7 +97,7 @@ public class LevelEditor implements ILevelEditor {
 
     @Command
     public void changeBackground (int id) {
-        //TODO change Background based on id
+        myGrid.changeBackground(myBackgrounds.get(id));
     }
 
     /**
@@ -149,7 +150,7 @@ public class LevelEditor implements ILevelEditor {
 
     @Override
     public void setBackgroundMap (Map<Integer, Image> map) {
-        // TODO Auto-generated method stub
+        myBackgrounds = map;
         
     }
 

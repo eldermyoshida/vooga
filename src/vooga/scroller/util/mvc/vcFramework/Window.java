@@ -65,8 +65,6 @@ implements IWindow<W, D, R, T> {
         getContentPane().setLayout(new GridBagLayout());
         setMenu();
         addComponents();
-        pack();
-        setVisible(true);
     }    
 
     protected abstract void setMenu ();
@@ -176,14 +174,7 @@ implements IWindow<W, D, R, T> {
     public static String getLiteral(String s) {
         return Window.ourResources.getString(s);
     }
-    
-    /**
-     * To be refactored, used to delegate logic for retrieving current pen color
-     * @return
-     */
-    public Color getCurrentPenColor() {
-        return Color.BLACK;
-    }
+
 
     /**
      * Initiate the opening of a file
@@ -214,7 +205,7 @@ implements IWindow<W, D, R, T> {
     }
     
     /**
-     * redo last (undone) action for active worspace
+     * redo last (undone) action for active workspace
      */
     public void redo () {
         getActiveTab().redo();
@@ -223,5 +214,20 @@ implements IWindow<W, D, R, T> {
     @Override
     public void showWorkspace (W associatedWorkspaceView, Renderable<R> r) {
         addTab(associatedWorkspaceView, r);
+    }
+    
+    @Override
+    public void start() {
+        pack();
+        setVisible(true);
+    }
+    
+    /**
+     * This method might not be thread safe under the current implementation.
+     * @param r - object to render
+     */
+    @Override
+    public void render(Renderable<R> r) {
+        showWorkspace (getActiveTab(), r);
     }
 }

@@ -1,5 +1,6 @@
 package vooga.scroller.level_editor.library;
 
+
 import vooga.scroller.util.Sprite;
 
 
@@ -16,5 +17,6 @@ public interface ISpriteLibrary {
      * @return
      */
     Class<? extends Sprite>[] getSpritesClasses();
+    
     
 }

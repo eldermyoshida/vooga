@@ -22,7 +22,7 @@ import javax.swing.ImageIcon;
 
 public class Pixmap implements ISpriteView {
     // OS-independent relative resource locations (like URLs)
-    private static final String RESOURCE_LOCATION = "/vooga/scroller/images/";
+    private static final String DEFAULT_RESOURCE_LOCATION = "/vooga/scroller/images/";
     // underlying implementation
     private java.awt.Image myImage;
     private String myFileName;
@@ -32,7 +32,14 @@ public class Pixmap implements ISpriteView {
      * Create an image from the given filename.
      */
     public Pixmap (String fileName) {
-        setImage(fileName);
+        this(DEFAULT_RESOURCE_LOCATION, fileName);
+    }
+    
+    /**
+     * Create an image from the given filename.
+     */
+    public Pixmap (String directory, String fileName) {
+        setImage(directory+fileName);
     }
 
     /**
@@ -46,9 +53,10 @@ public class Pixmap implements ISpriteView {
      * Set this image to the image referred to by the given filename.
      */
     public void setImage (String fileName) {
-        myImage = new ImageIcon(getClass().getResource(RESOURCE_LOCATION + fileName)).getImage();
+        myImage = new ImageIcon(getClass().getResource(fileName)).getImage();
         myFileName = fileName;
     }
+    
 
     /**
      * Describes how to draw the image on the screen.

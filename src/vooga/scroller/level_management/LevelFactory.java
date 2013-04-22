@@ -10,8 +10,8 @@ import vooga.scroller.level_editor.controllerSuite.LEGrid;
 import vooga.scroller.level_editor.model.LevelParser;
 import vooga.scroller.level_management.splash_page.SplashPage;
 import vooga.scroller.scrollingmanager.ScrollingManager;
-import vooga.scroller.sprites.test_sprites.MarioLib;
 import vooga.scroller.util.IGameComponent;
+import vooga.scroller.marioGame.MarioLib;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.view.GameView;
 
@@ -53,7 +53,7 @@ public class LevelFactory {
         // TODO: this will ideally read in levels from file and create instances of each level
         // This works for demo
         Level level1 = buildLevel(1, loadGridFromFile("example.level"));
-        hardCodeCompleteL1(level1);
+        hardCodeCompleteL1(level1);        
         Level level2 = new Level(2, mySM);
         hardcodeLevel2(level2);
         hardCodeCompleteL2(level2);

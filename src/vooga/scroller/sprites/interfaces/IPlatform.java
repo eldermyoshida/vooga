@@ -5,9 +5,5 @@ import util.Vector;
 public interface IPlatform extends ISprite {
 
     public Vector getVelocity ();
-
-
-
-    
    
 }
