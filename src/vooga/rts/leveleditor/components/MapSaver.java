@@ -1,10 +1,14 @@
 package vooga.rts.leveleditor.components;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
+import javax.imageio.ImageIO;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -48,16 +52,18 @@ public class MapSaver {
         String fileName = objectiveFile.getName();
         
         String relativePath = filePath.substring(0,filePath.indexOf(fileName));
+        String XMLPath = relativePath + fileName + "/" + fileName +".xml";
+        String imagePath = relativePath + fileName + "/images";
+         
+        File mapFolder = new File(relativePath + fileName);       
+        mapFolder.mkdirs();
         
-        File mapFile = new File(relativePath + fileName);
+        File mapXMLFile = new File(XMLPath);
         
-        if( !mapFile.exists()) {
-            mapFile.mkdirs();
-        }
+        File imageFolder = new File(imagePath);
+        imageFolder.mkdirs();
         
-        File mapXMLFile = new File(relativePath + fileName + "/" + fileName + ".xml");
-        
-        
+        storeImages(imagePath);
         
         Element root = myDocument.createElement("Map");
         myDocument.appendChild(root);
@@ -83,7 +89,119 @@ public class MapSaver {
         transformer.transform( new DOMSource(myDocument), result);
         
     }
+    
+    private void storeImages(String path) {
+        
+        storeTileImages(path);
+        storeTerrainImages(path);
+        storeResourceImages(path);
+    }
+    
+    private void storeTileImages(String path) {
+        File tileFolder = new File(path + "/tiles");
+        tileFolder.mkdirs();
+        
+        String tileImagePath = path + "/tiles/";
+        
+        Map<String,BufferedImage> tileInformation = new HashMap<String,BufferedImage>();
+        
+        for(int i = 0 ; i < mySavingMap.getMyXSize() ; i++) {
+            for(int j = 0 ; j < mySavingMap.getMyYSize() ; j++) {
+                if(mySavingMap.getMapNode(i, j).getMyTile().getMyID() != 0) {
+                    String imageName = mySavingMap.getMapNode(i, j).getMyTile().getMyImageName();
+                    if( !tileInformation.containsKey(imageName) ) {
+                        BufferedImage currentImage = mySavingMap.getMapNode(i, j).getMyTile().getMyImage();
+                        tileInformation.put(imageName, currentImage);
+                    }
+                }
+            }
+        }
+        
+        for(String str : tileInformation.keySet()) {
+            File bufferFile = new File(tileImagePath + str);
+            String format = getFileFormat(str);
+            try {
+                ImageIO.write(tileInformation.get(str), format, bufferFile);
+            }
+            catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            
+        }
+    }
+    
+    private void storeTerrainImages(String path) {
+        File tileFolder = new File(path + "/terrains");
+        tileFolder.mkdirs();
+        
+        String tileImagePath = path + "/terrains/";
+        
+        Map<String,BufferedImage> terrainInformation = new HashMap<String,BufferedImage>();
+        
+        for(Integer i : mySavingMap.getLayerMap().keySet()) {
+            MapLayer myLayer = mySavingMap.getLayer(i);
+            for(Terrain ter : myLayer.getTerrainSet()) {
+                
+                String myImageName = ter.getMyImageName();
+                BufferedImage myImage = ter.getMyImage();
+                if( !terrainInformation.containsKey(myImageName)) {
+                    terrainInformation.put(myImageName, myImage);
+                }
+            }
+        }
+        
+        for(String str : terrainInformation.keySet()) {
+            File bufferFile = new File(tileImagePath + str);
+            String format = getFileFormat(str);
+            try {
+                ImageIO.write(terrainInformation.get(str), format, bufferFile);
+            }
+            catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            
+        }
+    }
 
+    
+    private void storeResourceImages(String path) {
+        File tileFolder = new File(path + "/resources");
+        tileFolder.mkdirs();
+        
+        String tileImagePath = path + "/resources/";
+        
+        Map<String,BufferedImage> resourceInformation = new HashMap<String,BufferedImage>();
+        
+        for(Resource res : mySavingMap.getResourceSet()) {
+            String myImageName = res.getMyImageName();
+            BufferedImage myImage = res.getMyImage();
+            if( !resourceInformation.containsKey(myImageName)) {
+                resourceInformation.put(myImageName, myImage);
+            }
+            
+        }
+        
+        for(String str : resourceInformation.keySet()) {
+            File bufferFile = new File(tileImagePath + str);
+            String format = getFileFormat(str);
+            try {
+                ImageIO.write(resourceInformation.get(str), format, bufferFile);
+            }
+            catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            
+        }
+    
+    }
+    
+    private String getFileFormat(String fileName) {
+        
+        return fileName.substring(fileName.indexOf(".")+1);
+    }
     private void appendInfo(Element root) {
         Element info = myDocument.createElement("MapInfo");
         Element name = myDocument.createElement("Name");

@@ -331,10 +331,8 @@ public class EditableMap implements Serializable {
         test.addTile(3, 3, 3);
         test.addTerrain(3, new Terrain(2,2,1));
         test.addTerrain(2, new Terrain(3,3,2));
-        test.addTerrain(1, new Terrain(4,4,3));
         test.addResource(7, 7, 1);
         test.addResource(8, 8, 2);
-        test.addResource(9, 9, 3);
         MapSaver saver = null;
         try {
             saver = new MapSaver(test);
@@ -344,7 +342,7 @@ public class EditableMap implements Serializable {
             e.printStackTrace();
         }
         try {
-            saver.generateMapFile(new File(System.getProperty("user.dir") + "./src/test.xml"));
+            saver.generateMapFile(new File(System.getProperty("user.dir") + "./turtleRock"));
         }
         catch (TransformerException e) {
             // TODO Auto-generated catch block
