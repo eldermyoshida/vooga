@@ -10,17 +10,7 @@ public class MapsAccessor {
     private static final String DEFAULT_PACKAGE = "vooga.rts.";
     private static final String DEFAULT_RESOURCE = ".resources.maps";
     
-    private MapsAccessor() {
-        
-    }
-    
-    
-    private String getPathOfMap(String localName) {
-        return "map directory path" + localName;//TODO: establish default maps directory location in reference to user.dir
-    }
-    
-    public static void main(String args[]){
-    	MapsAccessor.getMaps("networking");
+    private MapsAccessor() {    
     }
     
     /**
