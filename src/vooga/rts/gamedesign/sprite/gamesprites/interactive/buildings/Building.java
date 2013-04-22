@@ -4,7 +4,6 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
-import vooga.rts.gamedesign.sprite.gamesprites.interactive.IObserver;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
 import vooga.rts.gamedesign.upgrades.UpgradeNode;
@@ -32,35 +31,39 @@ public class Building extends InteractiveEntity {
     private static UpgradeTree myUpgradeTree;
 
     private Location3D myRallyPoint;
-    private List<Unit> myProducables;
     private List<InteractiveEntity> myInteractiveEntities;
-    private List<IObserver> myObservers;
-
+    
     private int myBuildingID;
-
+    /**
+     * Creates a new building with a rally point, a list of what can be 
+     * produced, a list of what can observe the building, and an upgrade tree.
+     * @param image is the picture of the building
+     * @param center is the location of the building
+     * @param size is the dimensions of the building
+     * @param sound is the sound that the building makes
+     * @param playerID is the team that the building is on
+     * @param health is how much health the building has
+     * @param buildTime is the time it takes to create a building
+     * @param upgradeTree is the upgrade tree for the building
+     */
     public Building (Pixmap image,
                      Location3D center,
                      Dimension size,
                      Sound sound,
                      int playerID,
                      int health,
-                     double buildTime,
-                     UpgradeTree upgradeTree) {
+                     double buildTime) {
         super(image, center, size, sound, playerID, MAXHEALTH, buildTime);
         myRallyPoint = new Location3D(getWorldLocation().getX(), getWorldLocation().getY() + 50, 0);
-        myProducables = new ArrayList<Unit>();
+        
         myInteractiveEntities = new ArrayList<InteractiveEntity>();
 
-        myObservers = new ArrayList<IObserver>();
-        if (upgradeTree != null) {
-            myUpgradeTree = upgradeTree;
-        }
     }
 
     @Override
     public InteractiveEntity copy () {
         return new Building(getImage(), getWorldLocation(), getSize(), getSound(), getPlayerID(),
-                            getHealth(), getBuildTime(), getUpgradeTree());
+                            getHealth(), getBuildTime());
     }
 
     @Override
@@ -105,12 +108,6 @@ public class Building extends InteractiveEntity {
          */
     }
 
-    /*
-     * returns the list of producables
-     */
-    public List<Unit> getProducables () {
-        return myProducables;
-    }
 
     /**
      * Returns the rally point of the production building.
@@ -123,12 +120,6 @@ public class Building extends InteractiveEntity {
         return myRallyPoint;
     }
 
-    /*
-     * Test method to add an interactive entity to
-     */
-    public void addProducable (Unit i) {
-        myProducables.add(i);
-    }
 
     /**
      * Sets the rally point of the production building
@@ -162,45 +153,15 @@ public class Building extends InteractiveEntity {
 
     }
 
-    /**
-     * Registers an IProductionObserver (a player) as its Observer.
-     */
-    public void register (IObserver newObserver) {
-        myObservers.add(newObserver);
-    }
 
-    // TODO: this should work together with Occupy! When another player occupies
-    // the building, it should unregister the current player and register the
-    // new one.
-
-    // NOTE:this can now be done in GameBuildingManager.
-    /**
-     * Unregisters an IProductionObserver (a player) so that it will not be
-     * notified anymore when ProductionBuilding updates.
-     */
-    public void unregister (IObserver deleteObserver) {
-        int observerIndex = myObservers.indexOf(deleteObserver);
-        myObservers.remove(observerIndex);
-
-    }
-
-    /**
-     * Notifies all the IProductionObserver that are currently observing of
-     * the change.
-     */
-    public void notifyProductionObserver (Unit newProduction) {
-        for (IObserver observer : myObservers) {
-            observer.addProduction(newProduction);
-        }
-    }
-
-    @Override
-    public void addActions () {
-
-    }
-    
     @Override
     public int getSpeed() {
     	return 0;
     }
+
+	@Override
+	public void addActions() {
+		// TODO Auto-generated method stub
+		
+	}
 }

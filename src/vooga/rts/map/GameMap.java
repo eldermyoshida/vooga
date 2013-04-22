@@ -7,7 +7,6 @@ import java.util.List;
 import vooga.rts.IGameLoop;
 import vooga.rts.ai.Path;
 import vooga.rts.ai.PathFinder;
-import vooga.rts.gamedesign.Interval;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.resourcemanager.ResourceManager;
 import vooga.rts.util.Camera;
@@ -102,8 +101,9 @@ public class GameMap implements IGameLoop {
 
     private void randomGenMap () {
 
-        int tilesX = 512;
-        int tilesY = 512;
+        int tilesX = 256;
+        int tilesY = 256;
+
         int tileWidthX = 60;
         int tileWidthY = 42;
         myTiles = new TileMap(new Dimension(tileWidthX, tileWidthY), tilesX, tilesY);
@@ -130,7 +130,7 @@ public class GameMap implements IGameLoop {
 
         for (int i = 0; i < tilesX; i++) {
             for (int j = 0; j < tilesY; j++) {
-                if (Math.random() < 0.1) {
+                if (Math.random() < 0.2) {
                     myTiles.createTile(2, i, j);
                 }
                 else {
