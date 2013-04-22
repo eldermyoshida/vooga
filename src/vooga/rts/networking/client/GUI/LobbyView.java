@@ -80,7 +80,7 @@ public class LobbyView extends JPanel {
                 myAdapter.setColumnUnEditable(i);
                 continue;
             }
-            final JComboBox<String> choiceSelector = new JComboBox<String>(choices);
+            final JComboBox choiceSelector = new JComboBox(choices);
             choiceSelector.addActionListener(new ActionListener(){
                 @Override
                 public void actionPerformed (ActionEvent e) {
