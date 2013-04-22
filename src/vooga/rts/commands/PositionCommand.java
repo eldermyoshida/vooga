@@ -13,6 +13,8 @@ import vooga.rts.util.Location;
  */
 public class PositionCommand extends Command {
 
+    public static String MOUSE_MOVE = "mousemove";
+
     public Location myPosition;
 
     /**

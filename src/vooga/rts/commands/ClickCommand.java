@@ -11,6 +11,9 @@ import util.input.PositionObject;
  * 
  */
 public class ClickCommand extends PositionCommand {
+    
+    public static String LEFT_CLICK = "leftclick";
+    public static String RIGHT_CLICK = "rightclick";
 
     public ClickCommand (String inputName, PositionObject position) {
         super(inputName, position);
