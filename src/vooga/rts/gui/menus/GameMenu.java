@@ -42,8 +42,7 @@ public class GameMenu extends Menu {
     private ArrayList<Button> myActionButtons;
 
     public GameMenu () {
-        File bgImage = new File(BG_IMAGE_LOCATION);
-
+        
         myBGImage =
                 ResourceManager.getInstance().<BufferedImage> getFile(BG_IMAGE_LOCATION,
                                                                       BufferedImage.class);
@@ -107,7 +106,7 @@ public class GameMenu extends Menu {
         int x = 0;
         int y = screenY - bgImgHeight;
 
-        double xFactor = screenX / bgImgWidth;
+        double xFactor = (double)screenX / (double)bgImgWidth;
         int newHeight = (int) (xFactor * bgImgHeight);
 
         pen.drawImage(myImage, x, y, screenX, newHeight, null);
