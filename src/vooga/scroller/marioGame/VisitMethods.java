@@ -1,6 +1,7 @@
-package vooga.scroller.collision_manager;
+package vooga.scroller.marioGame;
 
 
+import vooga.scroller.collision_manager.CollisionDirection;
 import vooga.scroller.sprites.interfaces.ICollectible;
 import vooga.scroller.sprites.interfaces.IEnemy;
 import vooga.scroller.sprites.interfaces.ILevelPortal;

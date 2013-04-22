@@ -8,8 +8,8 @@ import util.Location;
 import vooga.scroller.level_editor.Level;
 import vooga.scroller.level_editor.controllerSuite.LEGrid;
 import vooga.scroller.level_editor.model.LevelParser;
+import vooga.scroller.marioGame.MarioLib;
 import vooga.scroller.scrollingmanager.ScrollingManager;
-import vooga.scroller.sprites.test_sprites.MarioLib;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.view.GameView;
 

@@ -3,7 +3,7 @@ package games.scroller.framework;
 
 import vooga.scroller.level_editor.controllerSuite.LEController;
 import vooga.scroller.level_editor.library.BackgroundLib;
-import vooga.scroller.sprites.test_sprites.MarioLib;
+import vooga.scroller.marioGame.MarioLib;
 
 
 public class LevelEditor {

@@ -1,4 +1,4 @@
-package vooga.scroller.sprites.test_sprites;
+package vooga.scroller.marioGame;
 
 import java.awt.Dimension;
 import util.Location;
