@@ -98,6 +98,10 @@ public class S3Connections {
          return downloadObjectToFile("avatar" + username);
     }
     
+    public String getThumbnail(String gameName) {
+        return downloadObjectToFile("thumbnail" + gameName);
+    }
+    
     public void putUserGameDataIntoBucket(String username, String gameName, UserGameData usd) {
         putFileIntoBucket("usergamedata" + username + gameName, createFileFromByteArray(serializeObject(usd)));
     }

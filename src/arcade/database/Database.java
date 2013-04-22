@@ -148,11 +148,6 @@ public class Database {
         //TODO implement method
     }
     
-    public void userServer(UserGameData usd) {
-        //use http method to send bits of information to send it to a script running on cgi
-        //php, or write in java
-    }
-    
     public void insertComment(String username, String gameName, String comment) {
         myCommentTable.addNewComment(retrieveGameId(gameName), retrieveUserId(username), comment);
     }
@@ -251,6 +246,10 @@ public class Database {
     
     public void insertGameThumbnail(String gameName, String filepath) {
         myS3Instance.putGameThumbnailIntoBucket(gameName, filepath);
+    }
+    
+    public Pixmap getGameThumbnail(String gameName) {
+        return new Pixmap(myS3Instance.getThumbnail(gameName));
     }
     
     public Pixmap getAvatar(String username) {
