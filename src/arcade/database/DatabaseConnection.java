@@ -16,7 +16,6 @@ public class DatabaseConnection {
     private static final String URL = "jdbc:postgresql://cgi.cs.duke.edu/nrc10";
     private static final String USER = "nrc10";
     private static final String PASSWORD = "aUsg5xj2f";
-    
     private Connection myConnection;
     private PreparedStatement myPreparedStatement; 
     private ResultSet myResultSet;

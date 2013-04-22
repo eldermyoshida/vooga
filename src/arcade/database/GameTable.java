@@ -316,7 +316,7 @@ public class GameTable extends Table {
      * @param COLUMN_INDEX is the index that we want the information for
      */
     public String retrieveEntryString(String gameName, int COLUMN_INDEX) {
-        String stm = "SELECT * FROM " +TABLE_NAME + " WHERE " + GAMENAME_COLUMN_FIELD + "='" + gameName + "'";
+        String stm = "SELECT * FROM " + TABLE_NAME + " WHERE " + GAMENAME_COLUMN_FIELD + "='" + gameName + "'";
         String entry = "";
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
@@ -379,14 +379,14 @@ public class GameTable extends Table {
      * @param gameName is the gamename
      * @param columnIndex is the index that we want the information for
      */
-    public boolean retrieveEntryBoolean(String gameName, int COLUMN_INDEX) {
+    public boolean retrieveEntryBoolean(String gameName, int columnIndex) {
         String stm = "SELECT * FROM " + TABLE_NAME + " WHERE " + GAMENAME_COLUMN_FIELD + "='" + gameName + "'";
         boolean entry = false;
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
             myResultSet = myPreparedStatement.executeQuery();
             if (myResultSet.next()) {
-                entry = myResultSet.getBoolean(COLUMN_INDEX);
+                entry = myResultSet.getBoolean(columnIndex);
             }
         }
         catch (SQLException e) {
