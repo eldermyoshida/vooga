@@ -8,13 +8,15 @@ import java.util.Arrays;
 import java.util.List;
 import util.Location;
 import util.Secretary;
+import vooga.scroller.level_editor.Level;
 import vooga.scroller.level_management.LevelManager;
+import vooga.scroller.marioGame.spritesDefinitions.players.Mario;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.animation.Animation;
 import vooga.scroller.sprites.animation.MovingSpriteAnimationFactory;
+import vooga.scroller.sprites.interfaces.IPlayer;
 import vooga.scroller.sprites.superclasses.Player;
-import vooga.scroller.sprites.test_sprites.mario.Mario;
-import vooga.scroller.view.View;
+import vooga.scroller.view.GameView;
 
 
 /**
@@ -27,75 +29,98 @@ import vooga.scroller.view.View;
  */
 
 public class Model {
-
-    //private static final String SPLASH_CONTROLS = "vooga/scroller/resources/controls/SplashMapping";
-    
-    
-    private static final int DEFAULT_START_LEVEL_ID = 0;
-
-    
-    private View myView;
+         
+    private GameView myView;
     private Player myPlayer;
-
     private LevelManager myLevelManager;
     private ScrollingManager myScrollingManager;
-    private Secretary mySecretary;
-    private List<String> spriteStrings = Arrays.asList("Mario mario", "Koopa koopa", "Coin coin",
-                                                       "MarioLib.MovingPlatform movingPlatform"); 
-    //If I could use reflection to look through the interfaces package and then generate the VisitMethods.java file, that would be BOMB! 
-    
-    private static final String PART_ONE = "public void visit (";
-    private static final String PART_TWO = ") {}";
-    private static final String COMMA = ", ";
-    private static final String DIRECTORY_LOCATION = "src/vooga/scroller/collision_manager/files/";
-    private static final String FILE_NAME = "visitMethods.txt";
 
 
-    private static final String PLAYER_IMAGES = "mario.gif";
+    private static final String PLAYER_IMAGES = "walama.gif";
+    // "mario.gif"
+    //"transparent_wolf.gif" -- not yet added.
+    //"walama.gif"
     
     /**
      * Constructs a new Model based on the view and the scrolling manager used by the game.
      * 
-     * @param view which is used to display/control game.
+     * @param gameView which is used to display/control game.
      * @param myScrollingManager used to control in-game scrolling.
      * @throws IOException 
      */
-    public Model (View view, ScrollingManager sm) throws IOException {
-        myScrollingManager = sm;
-        myView = view;
-        
-        initPlayer();
-        
-        myScrollingManager.initGame(this);
-        myScrollingManager.initView(view);
-        
-        myLevelManager = new LevelManager(myScrollingManager, myView);
-        myLevelManager.getCurrentLevel().addPlayer(myPlayer);
 
-//        myLevelManager.setCurrentLevel(DEFAULT_START_LEVEL_ID);
-        mySecretary = new Secretary(DIRECTORY_LOCATION, FILE_NAME);
-        generateVisitMethods(spriteStrings);  
+    public Model (GameView gameView, ScrollingManager sm, Player player, Level ...levels) {
+        this(gameView, sm, player);
+        myLevelManager = initializeLevelManager(levels);
+    }
+    
+    
+    public Model (GameView gameView, ScrollingManager sm, Player player, String... levelFileNames) {
+        this(gameView, sm, player);
+        myLevelManager = initializeLevelManager(levelFileNames);
+    }
+
+    public Model (GameView gameView, ScrollingManager sm, Level level) {
+        this(gameView, sm, initTestPlayer(gameView, sm), level);
     }
 
 
+    private Model (GameView gameView, ScrollingManager sm, Player player) {
+        myView = gameView;
+        setScrollingManager(sm);
+        myPlayer = player;
+    }
 
-    /**
-     * User defined player initialization.
-     */
-    private void initPlayer() {
-        // TODO: this is implemented by the developer. 
-        
-        myPlayer = new Mario(
-                             new Location(100, 140),
-                             new Dimension(32, 32),
-                             myView, myScrollingManager);
-        
+
+    private static Player initTestPlayer (GameView gameView, ScrollingManager sm) {
+        Player player = new Mario(new Location(), new Dimension(32, 32), gameView, sm);
         MovingSpriteAnimationFactory msaf = new MovingSpriteAnimationFactory(PLAYER_IMAGES);
-        Animation playerAnimation = msaf.generateAnimation(myPlayer);
+        Animation playerAnimation = msaf.generateAnimation(player);
         
-        myPlayer.setView(playerAnimation);
-
+        player.setView(playerAnimation);
+        return player;
     }
+
+    public void addPlayerToLevel () {
+        myLevelManager.getCurrentLevel().addPlayer(myPlayer);
+    }
+
+    private LevelManager initializeLevelManager (Level[] levels) {
+        return new LevelManager(myScrollingManager, myView, levels);
+    }
+
+
+    private LevelManager initializeLevelManager (String[] levelFileNames) {
+        return new LevelManager(myScrollingManager, myView, levelFileNames);
+    }
+
+
+    private void setScrollingManager(ScrollingManager sm) {
+        myScrollingManager = sm;
+        myScrollingManager.initModel(this);
+        myScrollingManager.initView(myView); 
+    }
+
+
+
+//    /**
+//     * User defined player initialization.
+//     */
+//    private Player initPlayer() {
+//        // TODO: this is implemented by the developer. 
+//        
+//        Player player = new Mario(
+//                             new Location(100, 140),
+//                             new Dimension(138/6, 276/6),
+//                             myView, myScrollingManager);
+//        
+//        MovingSpriteAnimationFactory msaf = new MovingSpriteAnimationFactory(PLAYER_IMAGES);
+//        Animation playerAnimation = msaf.generateAnimation(player);
+//        
+//        player.setView(playerAnimation);
+//
+//        return player;
+//    }
 
     /**
      * Draw all elements of the game.
@@ -151,26 +176,4 @@ public class Model {
         return myPlayer;
     }
     
-    
-    /**
-     * This method is a helper I created to generate all the visit methods CollisionManager 
-     * uses. It can be a real pain typing out all those visit methods. This method merely 
-     * takes a list of Strings - you need a unique String for each sprite type you have - 
-     * and it writes all combinations of sprite combinations to calculate all visit method 
-     * combinations. 
-     * 
-     * The result is stored in a file called visitMethods.txt under the files package of 
-     * collision_manager. 
-     * @param List<Strings> spriteStrings
-     * @author Jay Wang
-     * @throws IOException 
-     */
-    private void generateVisitMethods (List<String> spriteStrings) throws IOException {
-        for (int i = 0; i < spriteStrings.size(); i++) {
-            for (int j = i+1; j < spriteStrings.size(); j++) {
-                
-                mySecretary.write(PART_ONE + spriteStrings.get(i) + COMMA + spriteStrings.get(j) + PART_TWO);
-            }
-        }        
-    }
 }
