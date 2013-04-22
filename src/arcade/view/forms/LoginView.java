@@ -32,9 +32,6 @@ public class LoginView extends Account {
     private static final int WINDOW_WIDTH = 260;
     private static final int WINDOW_HEIGHT = 240;
 
-    // private static final int NO_KEY_PRESSED = -1;
-    // private int myLastKeyPressed;
-
     /**
      * Constructs the LoginView with a Model and ResourceBundle
      * 
@@ -137,28 +134,4 @@ public class LoginView extends Account {
             sendMessage(getResources().getString(e.getLocalizedMessage()));
         }
     }
-
-    // /**
-    // * create KeyListener: listen to "Enter" key
-    // * Reset the myLastKeyPressed to -1 after the key is released
-    // *
-    // * @return
-    // */
-    // private KeyAdapter createKeyAdapter () {
-    // KeyAdapter keyAdapter = new KeyAdapter() {
-    // @Override
-    // public void keyPressed (KeyEvent e) {
-    // myLastKeyPressed = e.getKeyCode();
-    // if (myLastKeyPressed == KeyEvent.VK_ENTER) {
-    // tryLogin();
-    // }
-    // }
-    //
-    // @Override
-    // public void keyReleased (KeyEvent e) {
-    // myLastKeyPressed = NO_KEY_PRESSED;
-    // }
-    // };
-    // return keyAdapter;
-    // }
 }

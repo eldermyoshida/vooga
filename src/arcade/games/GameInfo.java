@@ -12,10 +12,10 @@ import javax.swing.ImageIcon;
 
 import arcade.database.Database;
 import arcade.model.Model;
-import arcade.util.Pixmap;
 
 
 public class GameInfo {
+    private static final String USER_DIRECTORY = System.getProperty("user.dir");
     public static final String FILEPATH = "games.";
     public static final String RESOURCE_DIR_NAME = ".resources.";
 
@@ -54,10 +54,10 @@ public class GameInfo {
 
 
     
-    public Pixmap getThumbnail() {
-        return new Pixmap("arcade/resources/images/NoImage.gif");
+    public ImageIcon getThumbnail() {
+        return new ImageIcon(USER_DIRECTORY + "/src/arcade/resources/images/NoImage.gif");
         //TODO: revert this back to getting from db.
-    	//return new Pixmap(myDb.getGameThumbnail(gameName));
+    	//return new ImageIcon(USER_DIRECTORY + myDb.getGameThumbnail(gameName));
     }
     
     public String getName(){
@@ -68,8 +68,8 @@ public class GameInfo {
     	return myDb.getGameDescription(gameName);
     }
     
-    public Pixmap getAdScren() {
-    	return new Pixmap(myDb.getGameAdScreen(gameName));
+    public ImageIcon getAdScreen() {
+    	return new ImageIcon(USER_DIRECTORY + myDb.getGameAdScreen(gameName));
     }
     
     public double getRating() {

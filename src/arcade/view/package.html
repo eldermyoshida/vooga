@@ -55,6 +55,7 @@ Represents the name, rating, and thumbnail picture of a game. When a SnapShot is
 <br><br>
 
 <img src = http://people.duke.edu/~ej48/files/MainView.png> <br>
+
 This entire window is the MainView.  The left pane is the ButtonPanel, and the
 center-right pane contains the current mode being displayed, which is the 
 GameCenter in this picture.  This GameCenter is currently displaying two SnapShots.
@@ -72,6 +73,170 @@ on the Play button, the game represented by this DetailView will be launched.
 <br><br>
 
 <img src = http://people.duke.edu/~ej48/files/DetailView.png> <br>
+The DetailView in this picture is not completely developed.  The label for 
+the rating will later be a picture of how many stars instead of just a number.
+The comment section here is currently just placeholders for values to be pulled
+in when the database is ready.  Also, the ability to add new comments is not 
+present yet.
+
+<br><br>
+
+<b> public class SocialCenterPanel extends JPanel </b> <br>
+This is not implemented yet.
+
+<br><br>
+
+<b> public class StorePanel extends JPanel </b> <br>
+This view is very similar to that of the GameCenterPanel, except SnapShots for
+all games available are visible here, instead of only those purchased.  Clicking
+on these SnapShots will show a DetailView with an option to buy the game.  The
+StorePanel also has a Publish button for adding new games.  This view is not 
+developed enough to show a screenshot of yet.
+
+<br><br>
+
+<br><br>
+
+<br><br>
+
+<b> Forms subpackage </b> <br>
+It turns out there are a lot of forms to fill out in the Vooga arcade.  These are the login,
+register new user, publish new game, select payment option for buying a game,
+and filling in payment details for the selected payment option.  
+
+<br><br>
+
+<img src = http://people.duke.edu/~ej48/files/FormHierarchy.png> <br>
+The inheritance hierarchy for forms.
+
+<br><br>
+
+<b> public abstract class Form extends JFrame </b> <br>
+This class represents a form that a user can fill out. Defines some useful 
+utility methods that can be used by subclasses for creating common fields in forms.
+
+<ul>
+<li>
+List &lt;JComponent&gt; makeComponents () <br>
+<ul><li>Looks up the file src/arcade/resources/forms/ThisClassName and reads out 
+which components are to be created in what order.  The form then adds those 
+components onto the window.  If an additional subclass of Form is to be created, 
+then an additional resource file needs to be added as well so Form can fill the 
+correct components.
+<li> an example resource file for LoginView: <br>
+createLogo <br>
+createUsernameField <br>
+createPasswordField <br>
+createMessageArea <br>
+createButtons</ul>
+
+<li>
+JComponent createMessageArea()
+<ul><li> Create a message area in the form where an error message can be 
+displayed if the user puts in an invalid input.</ul>
+
+<li>
+void sendMessage(String message)
+<ul><li>Display the provided message as an error to the user.</ul>
+
+
+<li>
+JComponent createInstruction(String instructionKeyword)
+<ul><li>Creates an instruction message in the form.  The parameter is a keyword 
+in the resource bundle corresponding to the message to be displayed. </ul>
+
+<li>
+JPanel createTextPanel(String descriptionKeyword, JTextField inputField)
+<ul><li>Create a description defined by a descriptionKeyword in the resource
+ bundle, and this description labels the provided input text field.</ul>
+
+<li>
+JComponent createImageSelector(String descriptionKeyword, String buttonKeyword, 
+final FileChooserAction action)
+<ul><li>Create a description defined by a descriptionKeyword in the resource
+ bundle, and a button with a label defined by the buttonKeyword in the resource 
+ bundle.  Clicking this button pops up a FileChooser dialog box.  The result of
+ this dialog box is dealt with by the provided FileChooserAction. 
+  A FileChooserAction is a single function interface that has a method for 
+  approve(FileChooser chooser).</ul>
+
+<li>
+JComponent createCheckBox (String checkBoxMessageKeyword, final String instructionKeyword, 
+int width, final FileChooserAction action)
+<ul><li> Create a check box with the label defined by checkBoxMessageKeyword in
+ the resource bundle.  The provided width is used to separate the box and the 
+ label.  Upon checking the box, a dialog box pops up displaying an instruction 
+ defined by instructionKeyword in the resource bundle and prompts the user to 
+ select a file in the FileChooser.  The file chosen is dealt with appropriately 
+ by the provided FileChooserAction.</ul>
+
+<li>
+JComponent createButton(String buttonKeyword, ActionListener action)
+<ul><li>Create a button with a label defined by a buttonKeyword in the resource 
+bundle and an action to be performed if the button is clicked.</ul>
+
+</ul>
+
+<b> public abstract class Account extends Form </b> <br>
+has creation of fields for username and password.  Any form that represents an 
+account with a username and password should extend this class.
+
+<br><br>
+
+<b>public class LoginView extends Account </b> <br>
+The initial view when the arcade is launched.  Gives the user the option to 
+login or create a new account.  
+<ul>
+<li>void login()
+<ul><li>sends username and password to be authenticated.  If a LoginErrorException 
+is thrown, then displays an error message on the screen.  If successful,
+then the MainView of the arcade is opened. </ul>
+</ul>
+
+<img src = http://people.duke.edu/~ej48/files/Login.png> <br>
+Trying to login in
+
+<br><br><br>
+
+<img src = http://people.duke.edu/~ej48/files/LoginFailure.png> <br>
+Was not a valid account, so got an error message
+
+<br><br>
+
+<b> public class RegisterView extends Account </b> <br>
+This view is created when the register button is hit in the LoginView.  The 
+RegisterView is a form allowing a new user to create an account.
+<ul>
+<li> void registerNewUser()
+<ul><li> is called upon hitting register button.  Tries to register a new user.  
+Some exception handling is dealt with: UsernameFormatException if username is not 
+a valid format, DOBFormatException if date of birth formatted incorrectly, 
+UsernameTakenException if the desired username has already been taken.  
+If successful, then logs in and MainView is displayed. </ul> 
+<br>
+
+<img src = http://people.duke.edu/~ej48/files/Register.png> <br>
+Trying to register a new account for myself.
+
+<br><br><br>
+
+<img src = http://people.duke.edu/~ej48/files/RegisterFailureInvalidName.png> <br>
+If I try to register with an invalid username such as an empty string, I get
+this error message.
+
+<br><br><br>
+
+<img src = http://people.duke.edu/~ej48/files/RegisterFailureTaken.png> <br>
+If I try to register with a username that's already taken, I get this error message.
+
+<br><br><br>
+
+<img src = http://people.duke.edu/~ej48/files/RegisterFailureInvalidDOB.png> <br>
+If I try to register with a improperly formatted date of birth, I get the error
+message and a reminder of how to format that field.
+
+<br><br>
+ 
 
 
 </body>

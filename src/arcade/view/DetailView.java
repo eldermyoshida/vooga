@@ -2,8 +2,12 @@ package arcade.view;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.swing.ImageIcon;
@@ -17,8 +21,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import arcade.games.GameInfo;
 import arcade.model.Model;
-import arcade.util.JPicture;
-import arcade.util.Pixmap;
 
 
 /**
@@ -43,8 +45,8 @@ public class DetailView extends JFrame {
     private ResourceBundle myResources;
     private GameInfo myGameInfo;
     private JPanel myContentPanel;
-    private JComponent myPicture;
     private JLabel myTitle,
+            myPicture,
             myRating,
             myGenre,
             myDescription,
@@ -63,12 +65,13 @@ public class DetailView extends JFrame {
         myResources = resources;
         setLayout(null);
         setTitle(myGameInfo.getName());
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, WINDOW_WIDTH, WINDOW_HEIGHT);
 
         myContentPanel = (JPanel) getContentPane();
-        Pixmap pic = myGameInfo.getThumbnail();
-        myPicture = new JPicture(pic, new Dimension(160, 160));
+        ImageIcon icon = myGameInfo.getThumbnail();
+        ImageIcon scaledIcon = createScaledIcon(icon, 160);
+        myPicture = new JLabel(scaledIcon);
         myPicture.setBounds(ORIGIN_X, 5, 160, 160);
 
         myTitle = new JLabel("<html><b><font color = gray>" + "Name" + "</font></b></html>");
@@ -158,6 +161,22 @@ public class DetailView extends JFrame {
             sb.append(content);
         }
         myCommentsContent.setText(sb.toString());
+    }
+    
+    /**
+     * TODO: REMOVE THE DUPLICATED CODE FROM HERE AND ButtonPanel
+     * @param icon
+     * @param size
+     * @return
+     */
+    private ImageIcon createScaledIcon(ImageIcon icon, int size){
+        Image image = icon.getImage();
+        BufferedImage buffer = new BufferedImage(size,size,BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2 = buffer.createGraphics();
+        g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        g2.drawImage(image, 0, 0, size, size, null);
+        g2.dispose();
+        return new ImageIcon(buffer);
     }
 
     // public static void main(String[] args){
