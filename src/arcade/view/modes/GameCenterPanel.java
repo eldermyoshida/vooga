@@ -3,11 +3,10 @@ package arcade.view.modes;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ResourceBundle;
-import javax.swing.BoxLayout;
 import javax.swing.JPanel;
-import arcade.games.GameInfo;
+import javax.swing.JScrollPane;
 import arcade.model.Model;
-import arcade.view.SnapShot;
+import arcade.view.AllSnapShots;
 
 /**
  * 
@@ -17,59 +16,15 @@ import arcade.view.SnapShot;
 @SuppressWarnings("serial")
 public class GameCenterPanel extends JPanel {
 
-    private static final int SNAPSHOTS_PER_ROW = 3;
-    private Model myModel;
-    private ResourceBundle myResources;
+    private static final int PANEL_HEIGHT = 530;
+    private static final int PANEL_WIDTH = 590;
 
     /**
-     * Constructor
+     * 
      */
-    public GameCenterPanel (Model model, ResourceBundle resources) {
-        myModel = model;
-        myResources = resources;
-        
+    public GameCenterPanel (Model model, ResourceBundle resources) {      
         setBackground(Color.WHITE);
-        JPanel allSnapShots = new JPanel();
-        allSnapShots.setBackground(Color.WHITE);
-        allSnapShots.setLayout(new BoxLayout(allSnapShots, BoxLayout.Y_AXIS));
-        createSnapShots(allSnapShots);
-        add(allSnapShots);
-        //add(new JScrollPane(allSnapShots));
-    }
-
-    /**
-     * Create the snapshots for the games
-     * Fixed so that it tiles dynamically as games are added instead of repeating instances of games
-     * @author Josh Waldman
-     */
-    private void createSnapShots (JPanel panel) {
-        int counter = 0;
-        JPanel row = createNewRow();
-        for (GameInfo info : myModel.getGameList()) {
-            SnapShot snapshot = new SnapShot(info, myResources, myModel);
-            if (counter % SNAPSHOTS_PER_ROW == 0) {
-                row = createNewRow();
-                panel.add(row);
-            }
-            row.add(snapshot);
-            counter++;
-        }
-        int numToAdd = SNAPSHOTS_PER_ROW - (counter % SNAPSHOTS_PER_ROW);
-        for (int i = 0; i < numToAdd; i++){
-            row.add(createFiller());
-        }
-    }
-    
-    private JPanel createNewRow() {
-        JPanel row = new JPanel();
-        row.setBackground(Color.WHITE);
-        return row;
-    }
-    
-    private JPanel createFiller() {
-        JPanel filler = new JPanel();
-        filler.setBackground(Color.WHITE);
-        filler.setPreferredSize(new Dimension(SnapShot.THUMBNAIL_SIZE, SnapShot.THUMBNAIL_SIZE));
-        return filler;
+        AllSnapShots allSnapShots = new AllSnapShots(model, resources, new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
+        add(new JScrollPane(allSnapShots));
     }
 }

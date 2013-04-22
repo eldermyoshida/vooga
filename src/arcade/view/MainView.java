@@ -69,6 +69,7 @@ public class MainView extends JFrame {
      * Change which mode is currently showing in myViewPanel
      */
     public void changeViewPanel (ArcadeMode mode) {
+        
         CardLayout cards = (CardLayout) (myViewPanel.getLayout());
         cards.show(myViewPanel, mode.name());
     }
@@ -82,17 +83,17 @@ public class MainView extends JFrame {
         
     }
     
-//    public static void main (String[] args) {
-//        ResourceBundle resources = ResourceBundle.getBundle("arcade.resources.English");
-//        
-//        new MainView(new Model(resources, "English"),resources);
-//        
-////      List<GameInfo> games = new ArrayList<GameInfo>();
-////      for (int i = 0; i < 13; i++) 
-////      {
-////          games.add(new GameInfo("example", "examplegenre", "English", this));
-////      }
-////      return games;
-//    }
+    public static void main (String[] args) {
+        ResourceBundle resources = ResourceBundle.getBundle("arcade.resources.English");
+        
+        new MainView(new Model(resources, "English"),resources);
+        
+//      List<GameInfo> games = new ArrayList<GameInfo>();
+//      for (int i = 0; i < 13; i++) 
+//      {
+//          games.add(new GameInfo("example", "examplegenre", "English", this));
+//      }
+//      return games;
+    }
 
 }
