@@ -94,15 +94,10 @@ public class Database {
                                String thumbnailPath,
                                String adscreenPath, 
                                String description) {
+        
         return myGameTable.createGame(gameName, author, genre, price, extendsGame,
                                       extendsMultiplayerGame, ageRating, singlePlayer, multiplayer,
                                       thumbnailPath, adscreenPath, description);
-    }
-
-    public void createGame (String name, String thumbnailPath,
-                            String adscreenPath, int agePermission, double price,
-                            String description, boolean isMP, boolean isSP) {
-        // TODO Auto-generated method stub
     }
 
     public void userPlaysGameFirst (String user, String gameName, String highscore) {
