@@ -163,10 +163,6 @@ public class Database {
         return myS3Instance.getGameDataFromBucket(gameName);
     }
 
-    public void getHighScores (int n) {
-        // TODO implement method
-
-    }
 
     public void insertComment (String username, String gameName, String comment) {
 
