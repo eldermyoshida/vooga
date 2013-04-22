@@ -56,6 +56,26 @@ public class ImageHelper {
     }
     
     /**
+     * Resizes an Image into square dimensions from a given icon
+     * @param image the image to scale
+     * @param size The height and width of the scaled image
+     * @return Image scale to the user parameter
+     */
+    public static Image getScaledImage(ImageIcon icon,int size){
+        return getScaledImage(icon.getImage(), size, size);
+    }
+    
+    /**
+     * Resizes an Image into square dimensions from a given icon
+     * @param image the image to scale
+     * @param size The height and width of the scaled image
+     * @return Image scale to the user parameter
+     */
+    public static Image getScaledImage(ImageIcon icon,int width, int height){
+        return getScaledImage(icon.getImage(), width, height);
+    }
+    
+    /**
      * Resizes an Image
      * @param image the image to scale
      * @param width The new width of the scaled image
