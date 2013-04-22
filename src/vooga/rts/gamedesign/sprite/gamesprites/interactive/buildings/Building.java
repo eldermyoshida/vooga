@@ -31,33 +31,39 @@ public class Building extends InteractiveEntity {
     private static UpgradeTree myUpgradeTree;
 
     private Location3D myRallyPoint;
-    private List<Unit> myProducables;
     private List<InteractiveEntity> myInteractiveEntities;
     
     private int myBuildingID;
-
+    /**
+     * Creates a new building with a rally point, a list of what can be 
+     * produced, a list of what can observe the building, and an upgrade tree.
+     * @param image is the picture of the building
+     * @param center is the location of the building
+     * @param size is the dimensions of the building
+     * @param sound is the sound that the building makes
+     * @param playerID is the team that the building is on
+     * @param health is how much health the building has
+     * @param buildTime is the time it takes to create a building
+     * @param upgradeTree is the upgrade tree for the building
+     */
     public Building (Pixmap image,
                      Location3D center,
                      Dimension size,
                      Sound sound,
                      int playerID,
                      int health,
-                     double buildTime,
-                     UpgradeTree upgradeTree) {
+                     double buildTime) {
         super(image, center, size, sound, playerID, MAXHEALTH, buildTime);
         myRallyPoint = new Location3D(getWorldLocation().getX(), getWorldLocation().getY() + 50, 0);
-        myProducables = new ArrayList<Unit>();
-        myInteractiveEntities = new ArrayList<InteractiveEntity>();
         
-        if (upgradeTree != null) {
-            myUpgradeTree = upgradeTree;
-        }
+        myInteractiveEntities = new ArrayList<InteractiveEntity>();
+
     }
 
     @Override
     public InteractiveEntity copy () {
         return new Building(getImage(), getWorldLocation(), getSize(), getSound(), getPlayerID(),
-                            getHealth(), getBuildTime(), getUpgradeTree());
+                            getHealth(), getBuildTime());
     }
 
     @Override
@@ -102,12 +108,6 @@ public class Building extends InteractiveEntity {
          */
     }
 
-    /*
-     * returns the list of producables
-     */
-    public List<Unit> getProducables () {
-        return myProducables;
-    }
 
     /**
      * Returns the rally point of the production building.
@@ -120,12 +120,6 @@ public class Building extends InteractiveEntity {
         return myRallyPoint;
     }
 
-    /*
-     * Test method to add an interactive entity to
-     */
-    public void addProducable (Unit i) {
-        myProducables.add(i);
-    }
 
     /**
      * Sets the rally point of the production building
@@ -159,13 +153,15 @@ public class Building extends InteractiveEntity {
 
     }
 
-    @Override
-    public void addActions () {
 
-    }
-    
     @Override
     public int getSpeed() {
     	return 0;
     }
+
+	@Override
+	public void addActions() {
+		// TODO Auto-generated method stub
+		
+	}
 }
