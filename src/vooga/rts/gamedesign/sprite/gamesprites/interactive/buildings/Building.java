@@ -31,8 +31,7 @@ public class Building extends InteractiveEntity {
     private static UpgradeTree myUpgradeTree;
 
     private Location3D myRallyPoint;
-    private List<InteractiveEntity> myInteractiveEntities;
-    
+
     private int myBuildingID;
     /**
      * Creates a new building with a rally point, a list of what can be 
@@ -72,9 +71,6 @@ public class Building extends InteractiveEntity {
     @Override
     public void paint (Graphics2D pen) {
         super.paint(pen);
-        for (int i = 0; i < myInteractiveEntities.size(); i++) {
-            myInteractiveEntities.get(i).paint(pen);
-        }
     }
 
     /**
