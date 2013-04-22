@@ -1,15 +1,18 @@
 package vooga.scroller.level_editor.view;
 
+import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Map;
 import javax.swing.BoxLayout;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.SpringLayout;
 import vooga.scroller.level_editor.commands.CommandConstants;
 import vooga.scroller.level_editor.controllerSuite.LETools;
 import vooga.scroller.util.Renderable;
@@ -31,6 +34,15 @@ import vooga.scroller.viewUtil.RadioGroup;
  */
 public class LEToolsView extends WindowComponent implements Renderer<LETools> {
 
+    public class SelectBackgroundListener implements ActionListener {
+
+        @Override
+        public void actionPerformed (ActionEvent e) {
+            setSelectedBackground(e.getActionCommand());
+        }
+
+    }
+
     private class SelectSpriteListener implements ActionListener {
 
         @Override
@@ -51,9 +63,9 @@ public class LEToolsView extends WindowComponent implements Renderer<LETools> {
     }
 
     private JPanel myOtherUI;
+
     private String mySelectedSpecialPoint;
     private String mySelectedSprite;
-
     private JPanel mySpriteUI;
 
     private JTabbedPane myTabs;
@@ -66,35 +78,20 @@ public class LEToolsView extends WindowComponent implements Renderer<LETools> {
         myTools = leTools;
         mySpriteUI = new JPanel();
         mySpriteUI.setLayout(new BoxLayout(mySpriteUI, BoxLayout.PAGE_AXIS));
+//        mySpriteUI.setLayout(new SpringLayout());
         for (Map<Object, String> m : myTools.getAllSprites()) {
             JPanel spriteButtons = new RadioGroup(this.getSize(), new SelectSpriteListener(), m);
             mySpriteUI.add(spriteButtons);
         }
 
         myOtherUI = new JPanel();
-        JPanel backgroundView = new JPanel();
-        backgroundView.setLayout(new GridLayout());
-        for (Object key : myTools.getBackgrounds().keySet()) {
-            backgroundView.add(makeBackgroundButton((Image) key, 
-                               myTools.getBackgrounds().get(key)));
-        }
+//        myOtherUI.setLayout(new GridLayout());
+        JPanel backgroundView = new RadioGroup(this.getSize(), new SelectBackgroundListener(),
+                                               myTools.getBackgrounds());
         myOtherUI.add(backgroundView);
         myTabs.add(mySpriteUI, "Sprites");
         myTabs.add(myOtherUI, "Other");
         EasyGridFactory.layout(this, myTabs);
-    }
-
-    private JButton makeBackgroundButton (Image background, String id) {
-       final BackgroundButton button = new BackgroundButton(new ImageIcon(background), id);
-        button.addActionListener(new ActionListener(){
-
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                sendBackground(button.getID());
-            }
-            
-        });
-        return button;
     }
 
     @Override
@@ -130,13 +127,13 @@ public class LEToolsView extends WindowComponent implements Renderer<LETools> {
         }
     }
 
-    private void sendBackground (String id) {
-        process(CommandConstants.CHANGE_BACKGROUND + CommandConstants.SPACE + id);
-    }
-
     @Override
     public void setRenderable (LETools tools) {
         myTools = tools;
+    }
+
+    public void setSelectedBackground (String id) {
+        process(CommandConstants.CHANGE_BACKGROUND + CommandConstants.SPACE + id);       
     }
 
     private void setSelectedSprite (String spriteID) {

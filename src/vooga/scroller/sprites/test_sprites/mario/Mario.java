@@ -29,7 +29,7 @@ public class Mario extends Player implements IPlayer, IInputListener{
     private int myJumpCount;
 
     public Mario (Location center, Dimension size, GameView gameView, ScrollingManager sm) {
-        super(DEFAULT_IMAGE, center, size, gameView, sm);
+        super(DEFAULT_IMAGE, center, size, gameView, sm, new Integer(1), new Integer (1));
         myJumpCount = 0;
     }
 
@@ -68,7 +68,7 @@ public class Mario extends Player implements IPlayer, IInputListener{
         this.setCenter(this.getOriginalLocation().x, this.getOriginalLocation().y);
         this.setHealth(1);
         //this.reset();
-        //takeDeathPenalty();
+        takeDeathPenalty();
         
     }
 

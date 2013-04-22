@@ -3,6 +3,7 @@ package vooga.scroller.model;
 import java.awt.BorderLayout;
 import java.awt.GraphicsConfiguration;
 import javax.swing.JFrame;
+import vooga.scroller.level_editor.Level;
 import vooga.scroller.level_editor.controllerSuite.LEController;
 import vooga.scroller.level_editor.library.BackgroundLib;
 import vooga.scroller.level_editor.library.ISpriteLibrary;
@@ -16,81 +17,49 @@ import arcade.games.Game;
 import arcade.games.GameData;
 import arcade.games.UserGameData;
 
-
 /**
  * 
  * @author Scrolling Platformer Team
- * 
+ *
  */
-public abstract class ScrollerGame extends Game {
-    private ScrollingManager myScrollingManager;
+public abstract class ScrollerGame  {
+    private static ScrollingManager DEFAULT_SM = new OmniScrollingManager();
     private Model myModel;
     private GameView myDisplay;
+    private ScrollingManager myScrollingManager;
     private Player myPlayer;
     private String myTitle;
     private String[] myLevels;
 
-    public ScrollerGame (ArcadeInteraction arcade) {
-        super(arcade);
-        initializeInstanceVariables();
+    public ScrollerGame () {
+        intializeInstanceVariables();
         makeModel();
-
     }
     
-    protected GameView getDisplay(){
-        return myDisplay;
-    }
-    
-    protected ScrollingManager getScrollingManager(){
-        return myScrollingManager;
-    }
-
-    private void initializeInstanceVariables () {
+    private void intializeInstanceVariables() {
         myScrollingManager = setScrollingManager();
         myDisplay = new GameView(PlatformerConstants.DEFAULT_WINDOW_SIZE, myScrollingManager);
-        myPlayer = setPlayer();
-        myTitle = setTitle();
+        myPlayer = setPlayer(myScrollingManager,myDisplay);
         myLevels = setLevelFileNames();
+        myTitle = setTitle();
     }
 
-    /**
-     * Instantiate and return the Player-extended class you have created.
-     * 
-     * @return Player
-     */
-    protected abstract Player setPlayer ();
-
-    /**
-     * Instantiate and return the ScrollingManager-extended class.
-     * 
-     * @return ScrollingManager
-     */
     protected abstract ScrollingManager setScrollingManager ();
-
-    /**
-     * Create a String array containing the filenames of the levels you
-     * have created in the order that you want the levels to be played.
-     * 
-     * @return String[] of Level filenames
-     */
-    protected abstract String[] setLevelFileNames ();
-
-    /**
-     * Set the title of your game.
-     * 
-     * @return String title
-     */
+    
+    protected abstract Player setPlayer (ScrollingManager sm, GameView gameView);
+    
     protected abstract String setTitle ();
 
-    private void makeModel () {
+    protected abstract String[] setLevelFileNames();
+    
+    private void makeModel() {
         myModel = new Model(myDisplay, myScrollingManager, myPlayer, myLevels);
         myModel.addPlayerToLevel();
         myDisplay.setModel(myModel);
     }
 
-    @Override
-    public void run () {
-        // container that will work with user's OS
+    public void start() {
+     // container that will work with user's OS
         JFrame frame = new JFrame(myTitle);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // add our user interface components
@@ -107,5 +76,7 @@ public abstract class ScrollerGame extends Game {
         LEController con = new LEController(lib,bgLib);
         con.start();
     }
+    
 
+    
 }

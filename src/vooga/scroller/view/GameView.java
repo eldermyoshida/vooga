@@ -132,9 +132,9 @@ public class GameView extends JComponent {
             }
         });
         // start animation
-//        if (myGame==null) {
-//            setModel(new Model(this, myScrollManager, "example.level"));//TODO
-//        }
+        if (myGame==null) {
+            setModel(new Model(this, myScrollManager, "example.level"));//TODO
+        }
         myScrollManager.initModel(myGame);
         timer.start();
     }

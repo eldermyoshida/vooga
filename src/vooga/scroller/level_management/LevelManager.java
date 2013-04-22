@@ -26,8 +26,6 @@ public class LevelManager {
     private Level myInitialLevel;
     private Level myCurrentLevel;
     private GameView myView;
-
-    private LevelFactory myLevelFactory;
     
         
     /**
@@ -35,8 +33,11 @@ public class LevelManager {
      * @param gameView to be used in constructing individual levels.
      */
     public LevelManager(ScrollingManager sm, GameView gameView, String ...levelFileNames) {   
-        this(sm, gameView);
-        myInitialLevel = myLevelFactory.linkLevels(myLevelFactory.generateLevels(levelFileNames));
+        myView = gameView;
+        LevelFactory lf = new LevelFactory(this, sm, gameView);
+        myInitialLevel = lf.linkLevels(lf.generateLevels(levelFileNames));        
+        //myCurrentLevel = myLevels.get(DEFAULT_START_LEVEL_ID); 
+        myInput = new Input(DEFAULT_INPUT_CONTROLS, gameView);
         setCurrentLevel(myInitialLevel);
     }
     
@@ -45,23 +46,16 @@ public class LevelManager {
      * @param gameView to be used in constructing individual levels.
      */
     public LevelManager(ScrollingManager sm, GameView gameView, Level ...levels) {   
-        this(sm, gameView);
+        myView = gameView;
+        LevelFactory lf = new LevelFactory(this, sm, gameView);
         List<Level> theLevels = new ArrayList<Level>();
         for (int i=0; i<levels.length; i++) {
             theLevels.add(levels[i]);
         }
-        myInitialLevel = myLevelFactory.linkLevels(theLevels);
-        setCurrentLevel(myInitialLevel);
-    }
-
-    /**
-     * @param sm
-     * @param gameView
-     */
-    private LevelManager (ScrollingManager sm, GameView gameView) {
-        myView = gameView;
+        myInitialLevel = lf.linkLevels(theLevels);        
+        //myCurrentLevel = myLevels.get(DEFAULT_START_LEVEL_ID); 
         myInput = new Input(DEFAULT_INPUT_CONTROLS, gameView);
-        myLevelFactory = new LevelFactory(this, sm, gameView);
+        setCurrentLevel(myInitialLevel);
     }
     
     

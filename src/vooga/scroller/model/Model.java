@@ -29,32 +29,33 @@ import vooga.scroller.view.GameView;
  */
 
 public class Model {
-
+         
     private GameView myView;
     private Player myPlayer;
     private LevelManager myLevelManager;
     private ScrollingManager myScrollingManager;
 
+
     private static final String PLAYER_IMAGES = "walama.gif";
-
     // "mario.gif"
-    // "transparent_wolf.gif" -- not yet added.
-    // "walama.gif"
-
+    //"transparent_wolf.gif" -- not yet added.
+    //"walama.gif"
+    
     /**
      * Constructs a new Model based on the view and the scrolling manager used by the game.
      * 
      * @param gameView which is used to display/control game.
      * @param myScrollingManager used to control in-game scrolling.
-     * @throws IOException
+     * @throws IOException 
      */
 
-    public Model (GameView gameView, ScrollingManager sm, Player player, Level ... levels) {
+    public Model (GameView gameView, ScrollingManager sm, Player player, Level ...levels) {
         this(gameView, sm, player);
         myLevelManager = initializeLevelManager(levels);
     }
-
-    public Model (GameView gameView, ScrollingManager sm, Player player, String ... levelFileNames) {
+    
+    
+    public Model (GameView gameView, ScrollingManager sm, Player player, String... levelFileNames) {
         this(gameView, sm, player);
         myLevelManager = initializeLevelManager(levelFileNames);
     }
@@ -63,58 +64,72 @@ public class Model {
         this(gameView, sm, initTestPlayer(gameView, sm), level);
     }
 
+
     private Model (GameView gameView, ScrollingManager sm, Player player) {
         myView = gameView;
         setScrollingManager(sm);
         myPlayer = player;
     }
 
+
     private static Player initTestPlayer (GameView gameView, ScrollingManager sm) {
-        return new Mario(new Location(), new Dimension(32, 32), gameView, sm);
+        Player player = new Mario(new Location(), new Dimension(32, 32), gameView, sm);
+        MovingSpriteAnimationFactory msaf = new MovingSpriteAnimationFactory(PLAYER_IMAGES);
+        Animation playerAnimation = msaf.generateAnimation(player);
+        
+        player.setView(playerAnimation);
+        return player;
     }
 
     public void addPlayerToLevel () {
         myLevelManager.getCurrentLevel().addPlayer(myPlayer);
     }
 
-    private LevelManager initializeLevelManager (String[] levelFileNames) {
-        return new LevelManager(myScrollingManager, myView, levelFileNames);
-    }
-
     private LevelManager initializeLevelManager (Level[] levels) {
         return new LevelManager(myScrollingManager, myView, levels);
     }
 
-    private void setScrollingManager (ScrollingManager sm) {
-        myScrollingManager = sm;
-        myScrollingManager.initModel(this);
-        myScrollingManager.initView(myView);
+
+    private LevelManager initializeLevelManager (String[] levelFileNames) {
+        return new LevelManager(myScrollingManager, myView, levelFileNames);
     }
 
-    // /**
-    // * User defined player initialization.
-    // */
-    // private Player initPlayer() {
-    // // TODO: this is implemented by the developer.
-    //
-    // Player player = new Mario(
-    // new Location(100, 140),
-    // new Dimension(138/6, 276/6),
-    // myView, myScrollingManager);
-    //
-    // MovingSpriteAnimationFactory msaf = new MovingSpriteAnimationFactory(PLAYER_IMAGES);
-    // Animation playerAnimation = msaf.generateAnimation(player);
-    //
-    // player.setView(playerAnimation);
-    //
-    // return player;
-    // }
+
+    private void setScrollingManager(ScrollingManager sm) {
+        myScrollingManager = sm;
+        myScrollingManager.initModel(this);
+        myScrollingManager.initView(myView); 
+    }
+
+
+
+//    /**
+//     * User defined player initialization.
+//     */
+//    private Player initPlayer() {
+//        // TODO: this is implemented by the developer. 
+//        
+//        Player player = new Mario(
+//                             new Location(100, 140),
+//                             new Dimension(138/6, 276/6),
+//                             myView, myScrollingManager);
+//        
+//        MovingSpriteAnimationFactory msaf = new MovingSpriteAnimationFactory(PLAYER_IMAGES);
+//        Animation playerAnimation = msaf.generateAnimation(player);
+//        
+//        player.setView(playerAnimation);
+//
+//        return player;
+//    }
 
     /**
      * Draw all elements of the game.
      */
     public void paint (Graphics2D pen) {
         myLevelManager.getCurrentLevel().paint(pen);
+        
+        
+        
     }
 
     /**
@@ -152,13 +167,13 @@ public class Model {
     public Dimension getLevelBounds () {
         return myLevelManager.getCurrentLevel().getLevelBounds();
     }
-
-    public Image getBackground () {
+    
+    public Image getBackground() {
         return myLevelManager.getCurrentLevel().getBackground();
     }
-
-    public Player getPlayer () {
+    
+    public Player getPlayer(){
         return myPlayer;
     }
-
+    
 }

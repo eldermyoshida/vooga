@@ -2,7 +2,7 @@ package vooga.scroller.sprites.test_sprites;
 
 import java.awt.Dimension;
 import util.Location;
-import vooga.scroller.level_editor.library.ISpriteLibrary;
+import vooga.scroller.level_editor.library.EncapsulatedSpriteLibrary;
 import vooga.scroller.sprites.interfaces.ICollectible;
 import vooga.scroller.sprites.interfaces.IEnemy;
 import vooga.scroller.sprites.interfaces.IPlatform;
@@ -26,9 +26,11 @@ import util.Vector;
  * Moreover, it is an example of the sprite-specification file the game designer
  * will need to provide.
  */
-public class MarioLib implements ISpriteLibrary {
+public class MarioLib extends EncapsulatedSpriteLibrary {
     private static final Dimension DEFAULT_SIZE = new Dimension(32, 32);
     private static final Location DEFAULT_LOC = new Location(32, 32);
+    private static final int DEFAULT_HEALTH = 1;
+    private static final int DEFAULT_DAMAGE = 0;
 
     public static class Coin extends StaticEntity implements ICollectible {
 
@@ -40,7 +42,7 @@ public class MarioLib implements ISpriteLibrary {
         }
 
         public Coin (Location center) {
-            super(new Pixmap(DEFAULT_IMG), center, DEFAULT_SIZE);
+            super(new Pixmap(DEFAULT_IMG), center, DEFAULT_SIZE, DEFAULT_HEALTH, DEFAULT_DAMAGE);
         }
 
         @Override
@@ -108,11 +110,11 @@ public class MarioLib implements ISpriteLibrary {
         }
 
         public Platform (Location center) {
-            super(new Pixmap(DEFAULT_IMG), center, DEFAULT_SIZE);
+            this(DEFAULT_IMG, center, DEFAULT_SIZE);
         }
 
         public Platform (String img, Location center, Dimension size) {
-            super(new Pixmap(img), center, size);
+            super(new Pixmap(img), center, size, DEFAULT_HEALTH, DEFAULT_DAMAGE);
         }
     }
 
@@ -124,7 +126,7 @@ public class MarioLib implements ISpriteLibrary {
         }
 
         public Plant (Location center) {
-            super(new Pixmap(DEFAULT_IMG), center, new Dimension(32, 32), 1, 3);
+            super(new Pixmap(DEFAULT_IMG), center, new Dimension(32, 32), DEFAULT_HEALTH, new Integer(2));
         }
     }
 
@@ -142,7 +144,7 @@ public class MarioLib implements ISpriteLibrary {
         }
 
         public MovingPlatformOne (Location center) {
-            super(new Pixmap(DEFAULT_IMG), center, new Dimension(96, 32));
+            super(new Pixmap(DEFAULT_IMG), center, new Dimension(96, 32), DEFAULT_HEALTH, DEFAULT_DAMAGE);
             this.changeVelocity(DEFAULT_VELOCITY);
         }
 
@@ -172,7 +174,7 @@ public class MarioLib implements ISpriteLibrary {
         }
 
         public MovingPlatformTwo (Location center) {
-            super(new Pixmap(DEFAULT_IMG), center, new Dimension(96, 32));
+            super(new Pixmap(DEFAULT_IMG), center, new Dimension(96, 32), DEFAULT_HEALTH, DEFAULT_DAMAGE);
             this.changeVelocity(DEFAULT_VELOCITY);
         }
 
@@ -239,10 +241,6 @@ public class MarioLib implements ISpriteLibrary {
         }
     }
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public Class<? extends Sprite>[] getSpritesClasses () {
-        return (Class<? extends Sprite>[]) this.getClass().getClasses();
-    }
+    
 
 }

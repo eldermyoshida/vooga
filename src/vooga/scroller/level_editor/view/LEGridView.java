@@ -159,7 +159,7 @@ public class LEGridView extends WindowComponent implements Scrollable, Renderer<
     }
 
     @Override
-    public void render (Renderable<?> r) {
+    public void render (Renderable r) {
        if (r instanceof LEGrid) {
            render((LEGrid) r);
        }
