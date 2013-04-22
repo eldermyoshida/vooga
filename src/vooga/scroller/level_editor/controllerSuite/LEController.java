@@ -189,6 +189,7 @@ public class LEController implements IController<LevelEditing> {
     public void saveFile (File file2save, WorkspaceView<LevelEditing> t) {
         LEGrid grid = (LEGrid) getModelForWorkspace(t);
         myLevelWriter.createFile(file2save, grid, myToolsManager.getSpriteLibPath());
+        grid.saveThumbnail(file2save.getPath());
 
     }
 

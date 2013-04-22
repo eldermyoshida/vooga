@@ -22,7 +22,7 @@ import javax.swing.ImageIcon;
 
 public class Pixmap implements ISpriteView {
     // OS-independent relative resource locations (like URLs)
-    private static final String RESOURCE_LOCATION = "/vooga/scroller/images/";
+    private static final String RESOURCE_LOCATION = "/vooga/scroller/marioGame/images/";
     // underlying implementation
     private java.awt.Image myImage;
     private String myFileName;
