@@ -42,8 +42,9 @@ public class ConnectionThread extends Thread {
             myOutput = new ObjectOutputStream(mySocket.getOutputStream());
         }
         catch (IOException e) {
-            // TODO add logger
-            e.printStackTrace();
+            ServerLogger.getInstance();
+            ServerLogger.myLogger.severe("severe message in connection thread");
+
         }
     }
 
@@ -148,6 +149,7 @@ public class ConnectionThread extends Thread {
 
     /**
      * gets the ID for the connection thread
+     * 
      * @return id
      */
     public int getID () {
@@ -156,6 +158,7 @@ public class ConnectionThread extends Thread {
 
     /**
      * Gets the user name for the connection thread.
+     * 
      * @return username
      */
     public String getUserName () {
@@ -164,6 +167,7 @@ public class ConnectionThread extends Thread {
 
     /**
      * Gets the name of the game the user is playing.
+     * 
      * @return game name
      */
     public String getGameName () {

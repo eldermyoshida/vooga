@@ -21,7 +21,7 @@ public abstract class AbstractThreadContainer implements IThreadContainer, IMess
             new HashMap<Integer, ConnectionThread>();
 
     /**
-     * Default empty constructor.
+     * Default empty constructor, initializes state.
      */
     public AbstractThreadContainer () {
     }

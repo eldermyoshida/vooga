@@ -30,6 +30,7 @@ public class Client extends Thread implements IClient {
     
     public Client (IMessageReceiver receiver) {
         myReceiver = receiver;
+        run();
     }
 
     /**
@@ -49,6 +50,7 @@ public class Client extends Thread implements IClient {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        // TODO refactor
         myRunning = true;
         while(myRunning){
             try {
@@ -83,4 +85,19 @@ public class Client extends Thread implements IClient {
     public void setMessageReceiver (IMessageReceiver messageReceiver) {
         myReceiver = messageReceiver;
     }
+
+    @Override
+    public void closeConnection () {
+        myRunning = false;
+        try {
+            myOutput.close();
+            myInput.close();
+            mySocket.close();
+        }
+        catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+    
 }
