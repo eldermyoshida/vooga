@@ -59,7 +59,6 @@ public class GameState extends SubState implements Controller {
     private Rectangle2D myDrag;
     private Resource r;
     
-   private GameMenu myGameMenu;
 
     public GameState (Observer observer) {
         super(observer);
@@ -68,7 +67,6 @@ public class GameState extends SubState implements Controller {
         // myMap = new GameMap(8, new Dimension(512, 512));
         pt = new PointTester();
         myFrames = new FrameCounter(new Location(100, 20));
-        myGameMenu = new GameMenu();
         setupGame();
     }
 
@@ -98,7 +96,6 @@ public class GameState extends SubState implements Controller {
         Camera.instance().paint(pen);
         myFrames.paint(pen);
         r.paint(pen);
-        myGameMenu.paint(pen);
     }
 
     @Override
