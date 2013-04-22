@@ -1,4 +1,4 @@
-package vooga.rts.networking.logger;
+package util.logger;
 
 
 import java.util.logging.FileHandler;
