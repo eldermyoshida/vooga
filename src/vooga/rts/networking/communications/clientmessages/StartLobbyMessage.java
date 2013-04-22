@@ -4,16 +4,18 @@ import vooga.rts.networking.communications.LobbyInfo;
 import vooga.rts.networking.server.ConnectionThread;
 import vooga.rts.networking.server.IThreadContainer;
 
+
 /**
  * Gives the server the information necessary to start a lobby.
- * @author David
- *
+ * 
+ * @author David Winegar
+ * 
  */
 public class StartLobbyMessage extends ClientInfoMessage {
 
     private static final long serialVersionUID = -6507449287521383418L;
     private LobbyInfo myLobbyInfo;
-    
+
     public StartLobbyMessage (LobbyInfo lobbyInfo) {
         myLobbyInfo = lobbyInfo;
     }
