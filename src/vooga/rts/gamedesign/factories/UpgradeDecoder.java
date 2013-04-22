@@ -71,7 +71,6 @@ public class UpgradeDecoder extends Decoder {
 
 	public void create(Document doc) throws ClassNotFoundException, NumberFormatException, IllegalArgumentException, SecurityException, InstantiationException, IllegalAccessException, InvocationTargetException {
 		//TODO: get all upgradeTrees into a same file. Return all results into a map
-		System.out.println("GOES HERE!!");
 		UpgradeTree upgradeTree = new UpgradeTree();
 		
 		NodeList nodeLst = doc.getElementsByTagName(UPGRADE_CATEGORY_TAG);
@@ -118,7 +117,7 @@ public class UpgradeDecoder extends Decoder {
 	 * @param upgradeTree
 	 */
 	private void printTree(UpgradeTree upgradeTree) {
-		System.out.println("Also Goes Here");
+		//System.out.println("Also Goes Here");
 		for (UpgradeNode u: upgradeTree.getHead().getChildren()) {
 			UpgradeNode current = u;
 			while (!current.getChildren().isEmpty()) {

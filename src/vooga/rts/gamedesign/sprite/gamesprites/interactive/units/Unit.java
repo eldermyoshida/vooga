@@ -39,7 +39,6 @@ import vooga.rts.util.Sound;
  */
 public class Unit extends InteractiveEntity {
 
-    private static UpgradeTree myUpgradeTree;
     private List<GameSprite> myKills; // TODO: WHAT TYPE SHOULD IT BE??
     // private boolean myIsLeftSelected; // TODO: also need the same thing for
     // Projectiles
@@ -79,7 +78,7 @@ public class Unit extends InteractiveEntity {
                  Sound sound,
                  int playerID,
                  int health,
-                 double buildTime, UpgradeTree upgradeTree) {
+                 double buildTime) {
         super(image, center, size, sound, playerID, health, buildTime);
         addActions();
     }

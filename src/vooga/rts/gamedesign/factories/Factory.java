@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -81,6 +82,10 @@ public class Factory {
 	
 	public void put(String name, UpgradeTree upgradeTree){
 		myUpgradeTrees.put(name, upgradeTree);
+	}
+	
+	public Map<String, UpgradeTree> getUpgradeTrees(){
+		return myUpgradeTrees;
 	}
 	
 	/**
@@ -221,7 +226,7 @@ public class Factory {
 			for(int i = 0 ; i < children.getLength() ; i++){
 				Node tempNode = children.item(i);
 				if(tempNode.getNodeType() == Node.ELEMENT_NODE){
-					System.out.println("CURRENT DECODER: " + tempNode.getNodeName());
+					//System.out.println("CURRENT DECODER: " + tempNode.getNodeName());
 					myDecoders.get(tempNode.getNodeName()).create(doc);
 				}
 			}
@@ -262,40 +267,5 @@ public class Factory {
 			mySprites.get(key).setOccupyStrategy(occupy);
 		}
 	}
-	
-	/**
-	 * TESTING PURPOSE
-	 */
-	public static void main(String[] args) throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ParserConfigurationException, SAXException, IOException {
-		//loads Upgrade XML - creates tree - updates activate state
-		Factory factory = new Factory();
-		
-		factory.loadXMLFile("Factory.xml");
-		
-
-		/**creates an UpgradeBuilding
-		UpgradeBuilding upgradeBuilding = new UpgradeBuilding();
-		
-		//creates two Units - adds upgrade Actions to the UpgradeBuilding
-		//the first Unit needs to specify the UpgradeTree all Units will be using.
-		InteractiveEntity oneUnit = new Unit();
-		//oneUnit.setUpgradeTree(resultTree);
-		upgradeBuilding.addUpgradeActions(resultTree);
-		InteractiveEntity twoUnit = new Unit();
-		oneUnit.setAttackStrategy(new CanAttack());
-		twoUnit.setAttackStrategy(new CanAttack());
-		for (Action a: upgradeBuilding.getActions()) {
-			System.out.println("Action type: " + a.getName());
-		}
-		System.out.println(oneUnit.getMaxHealth());
-		System.out.println(twoUnit.getMaxHealth());
-		
-		//finds Action  - 
-		Action WorstArmorAction = upgradeBuilding.findAction("Boost1");
-		//WorstArmorAction.apply();
-		System.out.println(oneUnit.getMaxHealth());
-		System.out.println(twoUnit.getMaxHealth());*/
-	}
-
 }
 
