@@ -33,9 +33,18 @@ public abstract class ScrollerGame extends Game {
         makeModel();
 
     }
+    
+    protected GameView getDisplay(){
+        return myDisplay;
+    }
+    
+    protected ScrollingManager getScrollingManager(){
+        return myScrollingManager;
+    }
 
     private void initializeInstanceVariables () {
         myScrollingManager = setScrollingManager();
+        myDisplay = new GameView(PlatformerConstants.DEFAULT_WINDOW_SIZE, myScrollingManager);
         myPlayer = setPlayer();
         myTitle = setTitle();
         myLevels = setLevelFileNames();
@@ -71,7 +80,6 @@ public abstract class ScrollerGame extends Game {
     protected abstract String setTitle ();
 
     private void makeModel () {
-        myDisplay = new GameView(PlatformerConstants.DEFAULT_WINDOW_SIZE, myScrollingManager);
         myModel = new Model(myDisplay, myScrollingManager, myPlayer, myLevels);
         myModel.addPlayerToLevel();
         myDisplay.setModel(myModel);
