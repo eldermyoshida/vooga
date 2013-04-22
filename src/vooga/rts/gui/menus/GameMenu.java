@@ -23,12 +23,9 @@ import vooga.rts.util.Location;
 
 public class GameMenu extends Menu {
 
-    private static final String BG_IMAGE_LOCATION =
-            "images/gamemenu/menu_bg.png";
-    private static final String EXIT_IMAGE_LOCATION =
-            "images/gamemenu/menu_button.png";
-    private static final String ACTION_IMAGE_LOCATION =
-            "images/gamemenu/action_button.png";
+    private static final String BG_IMAGE_LOCATION = "images/gamemenu/menu_bg.png";
+    private static final String EXIT_IMAGE_LOCATION = "images/gamemenu/menu_button.png";
+    private static final String ACTION_IMAGE_LOCATION = "images/gamemenu/action_button.png";
     private BufferedImage myBGImage;
     private static final Dimension ACTION_BUTTON_DIMENSION = new Dimension(50, 50);
 
@@ -42,7 +39,7 @@ public class GameMenu extends Menu {
     private ArrayList<Button> myActionButtons;
 
     public GameMenu () {
-        
+
         myBGImage =
                 ResourceManager.getInstance().<BufferedImage> getFile(BG_IMAGE_LOCATION,
                                                                       BufferedImage.class);
@@ -66,8 +63,7 @@ public class GameMenu extends Menu {
         int ly = iy + yPadding;
 
         for (int i = 1; i <= numPerRow; i++) {
-            int lx = ix + 
-                    (int) (ACTION_BUTTON_DIMENSION.getWidth() * (i - 1) + xPadding * i);
+            int lx = ix + (int) (ACTION_BUTTON_DIMENSION.getWidth() * (i - 1) + xPadding * i);
             Button b =
                     new ImageButton(ACTION_IMAGE_LOCATION, ACTION_BUTTON_DIMENSION,
                                     new Location(lx, ly));
@@ -76,8 +72,7 @@ public class GameMenu extends Menu {
         }
         ly += yPadding + ACTION_BUTTON_DIMENSION.getHeight();
         for (int i = 1; i <= numPerRow; i++) {
-            int lx = ix + 
-                    (int) (ACTION_BUTTON_DIMENSION.getWidth() * (i - 1) + xPadding * i);
+            int lx = ix + (int) (ACTION_BUTTON_DIMENSION.getWidth() * (i - 1) + xPadding * i);
             Button b =
                     new ImageButton(ACTION_IMAGE_LOCATION, ACTION_BUTTON_DIMENSION,
                                     new Location(lx, ly));
@@ -104,10 +99,10 @@ public class GameMenu extends Menu {
         int bgImgWidth = myBGImage.getWidth();
 
         int x = 0;
-        int y = screenY - bgImgHeight;
 
-        double xFactor = (double)screenX / (double)bgImgWidth;
+        double xFactor = (double) screenX / (double) bgImgWidth;
         int newHeight = (int) (xFactor * bgImgHeight);
+        int y = screenY - newHeight;
 
         pen.drawImage(myImage, x, y, screenX, newHeight, null);
 
@@ -123,6 +118,5 @@ public class GameMenu extends Menu {
         setChanged();
         notifyObservers(arg);
     }
-
 
 }
