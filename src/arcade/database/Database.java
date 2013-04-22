@@ -78,7 +78,8 @@ public class Database {
                                String lastname,
                                String dataOfBirth,
                                String filepath) {
-        return myUserTable.createUser(username, pw, firstname, lastname, dataOfBirth, filepath);
+        insertAvatar(username, filepath);
+        return myUserTable.createUser(username, pw, firstname, lastname, dataOfBirth);
     }
 
     /**
@@ -98,7 +99,8 @@ public class Database {
                                String thumbnailPath,
                                String adscreenPath,
                                String description) {
-        
+        insertGameThumbnail(gameName, thumbnailPath);
+        //TODO insert ad screen path as well
         return myGameTable.createGame(gameName, author, genre, price, extendsGame,
                                       extendsMultiplayerGame, ageRating, singlePlayer, multiplayer,
                                       thumbnailPath, adscreenPath, description);
