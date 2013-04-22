@@ -12,7 +12,7 @@ import vooga.rts.util.Location3D;
 
 
 /**
- * After much thought, I've decided to only have one InputController. This controller
+ * This controller
  * sends the formatted inputs to the main state, which relays them to the appropriate
  * state.
  * 
@@ -45,7 +45,11 @@ public class InputController implements Controller {
     public void sendCommand (Command command) {
         myState.receiveCommand(command);
     }
-
+    /*
+     * All the following methods are called via reflection by the Input class,
+     * based on the Input.properties file, and send the appropriate command.
+     * 
+     */
     @InputMethodTarget(name = "onLeftMouseDown")
     public void onLeftMouseDown (PositionObject o) {
         myLeftMouse = new Location(o.getPoint2D());
