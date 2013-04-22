@@ -29,6 +29,10 @@ public class ReflectionHelper {
 
         Constructor<?>[] constructors = c.getConstructors();
         for (Constructor<?> con : constructors) {
+        	System.out.println("1: " + con);
+        	for(Class<?> cons : types){
+        		System.out.println("2: " + cons);
+        	}
             Class<?>[] conParams = con.getParameterTypes();
             if (paramsEqual(types, conParams)) {
                 return con;
@@ -108,6 +112,9 @@ public class ReflectionHelper {
             }
             if (types[i] == Boolean.class) {
                 types[i] = boolean.class;
+            }
+            if(types[i] == Double.class) {
+            	types[i] = double.class;
             }
         }
         return types;

@@ -31,6 +31,7 @@ public class BuildingDecoder extends Decoder{
 	private static final String PRODUCE_TAG = "produce";
 	private static final String SOURCE_TAG = "src";
 	
+	private int DEFAULTTEAM = 0;
 	
 	private Factory myFactory;
 
@@ -64,10 +65,9 @@ public class BuildingDecoder extends Decoder{
 																  			new Location3D(0,0,0),
 																			  new Dimension(50,50),
 																			  new Sound(sound),
-																			  0,
+																			  DEFAULTTEAM,
 																			  health,
-																			  buildTime,
-																			  null);
+																			  buildTime);
 			
 			myFactory.put(name, building);
 		}
