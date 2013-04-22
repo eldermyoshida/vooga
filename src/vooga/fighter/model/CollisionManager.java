@@ -21,7 +21,7 @@ import vooga.fighter.model.objects.MouseClickObject;
  * 
  */
 public class CollisionManager {
-
+	
     /**
      * Checks for collisions between the game objects.
      */
@@ -30,7 +30,7 @@ public class CollisionManager {
             for (int j = i + 1; j < myObjects.size(); j++) {
                 GameObject o1 = myObjects.get(i);
                 GameObject o2 = myObjects.get(j);
-                if (o1 instanceof MapObject || o2 instanceof MapObject|| o1 instanceof AttackObject || o2 instanceof AttackObject) {
+                if (o1 instanceof MapObject || o2 instanceof MapObject) {
                     continue;
                 }
                 if (o1.checkCollision(o2)) {
@@ -76,14 +76,12 @@ public class CollisionManager {
      * Handles collisions between two character objects.
      */
     public void collide(CharacterObject o1, CharacterObject o2) {
-    	o1.changeHealth(-10);
     	if (o1.getCurrentState().hasPriority(o2.getCurrentState())){
-    		o1.moveBack();
+    		o2.pushBack(o1.getMovingDirection());
     	}
     	else{
-    		o2.moveBack(); 
+    		o1.pushBack(o2.getMovingDirection()); 
     	}
-        System.out.println("CollisionManager: Two CharacterObjects collided!");
     }
     
     /**
@@ -92,9 +90,8 @@ public class CollisionManager {
      */
     public void collide(AttackObject o1, AttackObject o2) {
     	if (o1.getCurrentState().hasPriority(o2.getCurrentState())){
-    		
+    		o1.endCounter();
     	}
-        System.out.println("CollisionManager: Two AttackObjects collided!");
     }
     
     /**
@@ -109,41 +106,38 @@ public class CollisionManager {
      * Destroys object on collision with character object 
      */
     public void collide(CharacterObject o1, AttackObject o2) {
-    	//o2.setCounter(0); 
-        System.out.println("CollisionManager: CharacterObject and AttackObject collided!");
+    	collide(o2,o1);
     }
     
     /**
      * Handles collisions between an attack object and a character object.
      */
     public void collide(AttackObject o1, CharacterObject o2) {
-    	if (o1.getCurrentState().hasPriority(o2.getCurrentState())&&o1.getOwner()!=o2){
+    	if (o1.getOwner()!=o2){
     		o1.inflictDamage(o2);
     	}
-        System.out.println("CollisionManager: AttackObject and CharacterObject collided!");
+    	o1.endCounter();
     }
     
     /**
      * Handles collisions between an environment object and an attack object.
      */
     public void collide(EnvironmentObject o1, AttackObject o2) {
-        System.out.println("CollisionManager: EnvironmentObject and AttackObject collided!");
+    	collide(o2, o1);
     }
     
     /**
      * Handles collisions between an attack object and an environment object.
      */
     public void collide(AttackObject o1, EnvironmentObject o2) {
-    	
-        System.out.println("CollisionManager: Attackobject and EnvironmentObject collided!");
+    	o1.endCounter();
     }
     
     /**
      * Handles collisions between a character object and an environment object.
      */
     public void collide(CharacterObject o1, EnvironmentObject o2) {
-    	
-        System.out.println("CollisionManager: CharacterObject and EnvironmentObject collided!");
+    	collide(o2, o1);
     }
     
     /**
@@ -151,7 +145,6 @@ public class CollisionManager {
      */
     public void collide(EnvironmentObject o1, CharacterObject o2) {
     	o2.moveBack(); 
-        System.out.println("CollisionManager: EnvironmentObject and CharacterObject collided!");
     }
     
     /**

@@ -23,6 +23,7 @@ public class AttackObject extends GameObject{
     private Counter myCounter;
     private GameObject myOwner;
     private List<Effect> myEffects;
+    private static final int NO_TIME_REMAINING=0; 
     
     /**
      * Constructs an AttackObject with the given owner.
@@ -147,6 +148,13 @@ public class AttackObject extends GameObject{
     	myCounter.setCounter(amount); 
     }
     
+    /**
+     * 
+     */
+    
+    public void endCounter(){
+    	setCounter(NO_TIME_REMAINING);
+    }
     /**
      * Returns true if this attack object has expired.
      */

@@ -19,6 +19,7 @@ public class Counter {
      * that has set its value.
      */
     private boolean myStatus;
+    
 
     /**
      * Construct counter with initial count set to my count
@@ -50,6 +51,7 @@ public class Counter {
         myCount = count;
         myStatus = true;
     }
+
 
     /**
      * Reduces the counter by one, if it is active. If the counter is already
