@@ -20,12 +20,14 @@ import vooga.scroller.util.Sprite;
 import vooga.scroller.util.mvc.IView;
 import vooga.scroller.util.mvc.vcFramework.Tools;
 
+
 /**
  * Toolbox specific to a level Editor.
- * This object contains all the necessary information to generate GUI items 
+ * This object contains all the necessary information to generate GUI items
  * specific to a LevelEditor
+ * 
  * @author Dagbedji Fagnisse
- *
+ * 
  */
 public class LETools extends Tools implements Renderable<LEToolsView> {
 
@@ -39,43 +41,44 @@ public class LETools extends Tools implements Renderable<LEToolsView> {
     private Map<Object, String> myBackgroundImages;
     private Map<Object, String> myOtherImages;
 
-    private List<HashMap<Object, String>> myOptions;
-
     /**
      * Initialize state of this LETools.
      */
     public LETools () {
         mySpritesOptions = new ArrayList<HashMap<Object, String>>();
         Map<Object, String> platforms = new HashMap<Object, String>();
-        Map<Object, String> ennemis = new HashMap<Object, String>();
+        Map<Object, String> enemies = new HashMap<Object, String>();
         Map<Object, String> collectibles = new HashMap<Object, String>();
         Map<Object, String> specialpoints = new HashMap<Object, String>();
         Map<Object, String> others = new HashMap<Object, String>();
-        mySpritesOptions.add(PLATFORMS, (HashMap<Object, String>)platforms);
-        mySpritesOptions.add(ENEMIES, (HashMap<Object, String>)ennemis);
-        mySpritesOptions.add(COLLECTIBLES, (HashMap<Object, String>)collectibles);
-        mySpritesOptions.add(SPECIALPOINTS, (HashMap<Object, String>)specialpoints);
-        mySpritesOptions.add(OTHERS, (HashMap<Object, String>)others);
-//        initOtherIcons();
+        mySpritesOptions.add(PLATFORMS, (HashMap<Object, String>) platforms);
+        mySpritesOptions.add(ENEMIES, (HashMap<Object, String>) enemies);
+        mySpritesOptions.add(COLLECTIBLES, (HashMap<Object, String>) collectibles);
+        mySpritesOptions.add(SPECIALPOINTS, (HashMap<Object, String>) specialpoints);
+        mySpritesOptions.add(OTHERS, (HashMap<Object, String>) others);
+        myBackgroundImages = new HashMap<Object,String>();
     }
-//
-//    public Map<Object, String> getSpriteMakingOptions() {
-//        return spriteIcons;
-//    }
-    
-    private ImageIcon getIcon(Sprite s) {
+
+    //
+    // public Map<Object, String> getSpriteMakingOptions() {
+    // return spriteIcons;
+    // }
+
+    private ImageIcon getIcon (Sprite s) {
         return new ImageIcon(s.getDefaultImg().getScaledInstance(
-                            DEFAULT_SIZE, DEFAULT_SIZE, Image.SCALE_SMOOTH));
+                                                                 DEFAULT_SIZE, DEFAULT_SIZE,
+                                                                 Image.SCALE_SMOOTH));
     }
-    
+
     /**
      * Add a Sprite option, and organize the sprites based off their behavior.
      * This particular implementation is (manually) coupled with the interfaces
      * available in the interfaces package.
+     * 
      * @param s - sample sprite
      * @param spriteID - id for communication with the model
      */
-    public void addSpriteOption(Sprite s, int spriteID) {
+    public void addSpriteOption (Sprite s, int spriteID) {
         if (s instanceof IPlatform) {
             mySpritesOptions.get(PLATFORMS).put(getIcon(s), spriteID + "");
         }
@@ -92,16 +95,16 @@ public class LETools extends Tools implements Renderable<LEToolsView> {
             mySpritesOptions.get(OTHERS).put(getIcon(s), spriteID + "");
         }
     }
-    
-//    public Map<Object, String> getOtherOptions() {
-//        return myOtherIcons;
-//    }
-    
+
+    // public Map<Object, String> getOtherOptions() {
+    // return myOtherIcons;
+    // }
+
     /**
      * 
      * @return
      */
-    public List<? extends Map<Object, String>> getAllSprites(){
+    public List<? extends Map<Object, String>> getAllSprites () {
         return mySpritesOptions;
     }
 
@@ -116,7 +119,7 @@ public class LETools extends Tools implements Renderable<LEToolsView> {
     @Override
     public void paint (Graphics2D pen) {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
@@ -131,13 +134,18 @@ public class LETools extends Tools implements Renderable<LEToolsView> {
     }
 
 
+    public void addBackgrounds (Map<Integer, Image> backgrounds) {
+        for (Integer key : backgrounds.keySet()) {
+            myBackgroundImages.put(backgrounds.get(key), "" + key);
+        }
+    }
 
-//    public void addBackgrounds (Map<Integer, Image> map) {
-//        for (Integer key : map.keySet()) {
-//            myBackgroundImages
-//                    .put(new ImageIcon(map.get(key).getScaledInstance(100, 100, Image.SCALE_SMOOTH)),
-//                         "" + key);
-//        }
-//    }
+    // public void addBackgrounds (Map<Integer, Image> map) {
+    // for (Integer key : map.keySet()) {
+    // myBackgroundImages
+    // .put(new ImageIcon(map.get(key).getScaledInstance(100, 100, Image.SCALE_SMOOTH)),
+    // "" + key);
+    // }
+    // }
 
 }

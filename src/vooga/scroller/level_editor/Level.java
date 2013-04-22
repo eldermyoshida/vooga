@@ -31,8 +31,6 @@ public class Level implements Renderable<GameView> {
 //    private GameView myView;
     private ScrollingManager myScrollingManager;
     private Image myBackground;
-    private Image DEFAULT_BACKGROUND = new ImageIcon(getClass()
-            .getResource("/vooga/scroller/images/default_background.png")).getImage();
     private Image CITY_BACKGROUND = new ImageIcon("/vooga/scroller/images/background_small.png")
             .getImage();
 
@@ -76,6 +74,7 @@ public class Level implements Renderable<GameView> {
         for (SpriteBox box : grid.getBoxes()) {
             addSprite(box.getSprite());
         }
+        setBackground(grid.getBackground());
     }
 
     public void setSize (Dimension size) {

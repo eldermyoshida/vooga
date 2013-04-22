@@ -48,5 +48,10 @@ public class Mario extends Game {
         // start animation
         display.start();
     }
+    
+    public static void main(String[] args){
+        Mario m = new Mario(null);
+        m.run();
+    }
 
 }
