@@ -29,25 +29,11 @@ import vooga.scroller.view.GameView;
  */
 
 public class Model {
-      
-    //private static final int DEFAULT_START_LEVEL_ID = 0;
-
-    
+         
     private GameView myView;
     private Player myPlayer;
-
     private LevelManager myLevelManager;
     private ScrollingManager myScrollingManager;
-    private Secretary mySecretary;
-    private List<String> spriteStrings = Arrays.asList("Mario mario", "Koopa koopa", "Coin coin",
-                                                       "MarioLib.MovingPlatform movingPlatform"); 
-    //If I could use reflection to look through the interfaces package and then generate the VisitMethods.java file, that would be BOMB! 
-    
-    private static final String PART_ONE = "public void visit (";
-    private static final String PART_TWO = ") {}";
-    private static final String COMMA = ", ";
-    private static final String DIRECTORY_LOCATION = "src/vooga/scroller/collision_manager/files/";
-    private static final String FILE_NAME = "visitMethods.txt";
 
 
     private static final String PLAYER_IMAGES = "walama.gif";
@@ -69,8 +55,6 @@ public class Model {
         myPlayer = initPlayer();
         myLevelManager = initializeLevelManager(levels);
         myLevelManager.getCurrentLevel().addPlayer(myPlayer);
-//        mySecretary = new Secretary();
-//        generateVisitMethods(spriteStrings);  
     }
     
     
@@ -79,16 +63,12 @@ public class Model {
     }
 
 
-    //TODO - refactor
     public Model (GameView gameView, ScrollingManager sm, String... levelFileNames) {
         myView = gameView;
         setScrollingManager(sm);
         myPlayer = initPlayer();
         myLevelManager = initializeLevelManager(levelFileNames);
-        myLevelManager.getCurrentLevel().addPlayer(myPlayer);
-        
-//        mySecretary = new Secretary();
-//        generateVisitMethods(spriteStrings);  
+        myLevelManager.getCurrentLevel().addPlayer(myPlayer);  
     }
     
     private LevelManager initializeLevelManager (String[] levelFileNames) {
@@ -99,9 +79,7 @@ public class Model {
     private void setScrollingManager(ScrollingManager sm) {
         myScrollingManager = sm;
         myScrollingManager.initModel(this);
-        myScrollingManager.initView(myView);
-//        mySecretary = new Secretary(DIRECTORY_LOCATION, FILE_NAME);
-//        generateVisitMethods(spriteStrings);  
+        myScrollingManager.initView(myView); 
     }
 
 
@@ -179,26 +157,4 @@ public class Model {
         return myPlayer;
     }
     
-    
-    /**
-     * This method is a helper I created to generate all the visit methods CollisionManager 
-     * uses. It can be a real pain typing out all those visit methods. This method merely 
-     * takes a list of Strings - you need a unique String for each sprite type you have - 
-     * and it writes all combinations of sprite combinations to calculate all visit method 
-     * combinations. 
-     * 
-     * The result is stored in a file called visitMethods.txt under the files package of 
-     * collision_manager. 
-     * @param List<Strings> spriteStrings
-     * @author Jay Wang
-     * @throws IOException 
-     */
-    private void generateVisitMethods (List<String> spriteStrings) throws IOException {
-        for (int i = 0; i < spriteStrings.size(); i++) {
-            for (int j = i+1; j < spriteStrings.size(); j++) {
-                
-                mySecretary.write(PART_ONE + spriteStrings.get(i) + COMMA + spriteStrings.get(j) + PART_TWO);
-            }
-        }        
-    }
 }
