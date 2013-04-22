@@ -9,7 +9,6 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import arcade.model.Model;
-import arcade.view.MainView;
 import arcade.view.TextKeywords;
 import arcade.view.forms.PublishView;
 
@@ -19,7 +18,7 @@ public class StorePanel extends JPanel {
     private Model myModel;
     private ResourceBundle myResources;
     
-    public StorePanel (Model model, ResourceBundle resources, MainView upperLevel) {
+    public StorePanel (Model model, ResourceBundle resources) {
         myModel = model;
         myResources = resources;
         

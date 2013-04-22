@@ -24,6 +24,8 @@ import arcade.model.Model;
 
 
 /**
+ * WILL REFACTOR. At this point, for test purpose only
+ * 
  * 
  * @author David Liu
  * 
