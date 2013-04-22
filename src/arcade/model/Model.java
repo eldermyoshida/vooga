@@ -17,7 +17,7 @@ import arcade.games.ArcadeInteraction;
 import arcade.games.Game;
 import arcade.games.GameData;
 import arcade.games.GameInfo;
-import arcade.games.HighScores;
+import arcade.games.Score;
 import arcade.games.MultiplayerGame;
 import arcade.games.User;
 import arcade.games.UserGameData;
@@ -106,11 +106,12 @@ public class Model implements ArcadeInteraction {
 
     /**
      * Tedious Java string manipulation to change something like:
-     * games/rts/ageOfEmpires/game.java
+     * C://blah/blah/blah/src/games/rts/ageOfEmpires/game.java
      * to games.rts.ageOfEmpires.game
      * so replace slashes with periods and remove the file extension
      */
     private String formatClassFilePath (String path) {
+        if (path == null) return null;
         // split on file extension
         String[] split = path.split(".");
         // take everything before file extension and after src to get java relative filepath.
@@ -128,6 +129,7 @@ public class Model implements ArcadeInteraction {
         }
         // remove the hanging period
         ret = ret.substring(0, ret.length() - 1);
+        System.out.println("this is ret" + ret);
         return ret;
     }
 
@@ -300,7 +302,7 @@ public class Model implements ArcadeInteraction {
     }
 
     @Override
-    public HighScores getHighScores (int n) {
+    public Score getHighScores (int n) {
         // TODO I wish I understood how we are planning on implementing high scores . . .
         // nonetheless: do database stuff here
         return null;
