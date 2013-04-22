@@ -1,32 +1,33 @@
 package vooga.towerdefense.model;
 
+import java.awt.Dimension;
 import java.awt.Point;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.util.Location;
-import vooga.towerdefense.view.TDView;
+import vooga.towerdefense.util.Pixmap;
+import vooga.towerdefense.util.Sprite;
 
-
-public class Tile {
-    private TDView myView;
-    private boolean myIsWalkable;
-    private boolean myIsBuildable;
+public class Tile extends Sprite {
+    public static final int TILE_SIZE = 50;
+    public static final Pixmap GRASS_TILE_IMAGE = new Pixmap("map/grass_tile.png");
+    public static final Pixmap PATH_TILE_IMAGE = new Pixmap("map/path_tile.png");
+    public static final Dimension TILE_DIMENSIONS = new Dimension(TILE_SIZE, TILE_SIZE);
+    
     private Point myCenter;
     private GameElement myElement;
 
-    public Tile (Point center, boolean walkable, boolean buildable) {
-        myIsWalkable = walkable;
-        myIsBuildable = buildable;
-        myCenter = center;
-    }
-
-    public void update (double elapsedTime) {
-        if (myElement != null) {
-            myElement.update(elapsedTime);
-        }
+    
+    public Tile (Pixmap image, Location center, Dimension size) {
+        super(image, center, size);
     }
     
-    public Point getCenter() {
-        return myCenter;
+    public static Pixmap getTileImage(int tileId) {
+        if (tileId == 0) {
+            return GRASS_TILE_IMAGE;
+        } else if (tileId == 1) {
+            return PATH_TILE_IMAGE;
+        }
+        return null;
     }
     
     public boolean containsElement() {
@@ -37,32 +38,15 @@ public class Tile {
         return myElement;
     }
 
-    public void setWalkable (boolean walkable) {
-        myIsWalkable = walkable;
-    }
-
-    public boolean isWalkable () {
-        return myIsWalkable;
-    }
-
-    public void setBuildable (boolean buildable) {
-        myIsBuildable = buildable;
-    }
-
-    public boolean isBuildable () {
-        return myIsBuildable;
-    }
-
     public void setTower (GameElement t) {
         myElement = t;
-        setBuildable(false);
-        setWalkable(false);
     }
 
     public void deleteTower () {
         myElement = null;
-        setBuildable(true);
     }
+    
+    
     
     public String toString() {
         return "(" + myCenter.getX() + ", " + myCenter.getY() + ")";

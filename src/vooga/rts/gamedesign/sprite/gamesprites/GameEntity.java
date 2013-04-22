@@ -37,6 +37,7 @@ import vooga.rts.ai.PathFinder;
  * 
  */
 public class GameEntity extends GameSprite {
+
     // Default velocity magnitude
     public static int DEFAULT_SPEED = 0;
     private Vector myVelocity;

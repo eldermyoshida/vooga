@@ -32,7 +32,7 @@ public class TowerDefenseGame extends Game {
      */
     @Override
     public void run () {
-        GameController game = new GameController(new Controller());
+        GameController game = new GameController(new Controller("English"));
         game.start();
     }
 

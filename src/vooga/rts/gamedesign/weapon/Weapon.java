@@ -27,9 +27,15 @@ import java.util.List;
  * 
  */
 public class Weapon {
+<<<<<<< HEAD:src/vooga/rts/gamedesign/Weapon.java
+//TODO: remove damage from weapon? 
+
+    private int myDamage;
+=======
     public static int DEFAULT_RANGE = 500;
     public static int DEFAULT_COOLDOWN_TIME = 1;
 
+>>>>>>> 3fd6b4f49d501b2a55ec8ef32ec823744601e41d:src/vooga/rts/gamedesign/weapon/Weapon.java
     private Projectile myProjectile;
     private int myRange;
     private List<Projectile> myProjectiles;
@@ -61,6 +67,16 @@ public class Weapon {
      * This method is used by the weapon to attack an InteractiveEntity.
      * 
      */
+<<<<<<< HEAD:src/vooga/rts/gamedesign/Weapon.java
+    public void fire (InteractiveEntity toBeShot) {
+        if(interval.allowAction() && !toBeShot.isDead()){
+
+            Projectile fire = myProjectile.copy(myProjectile, myCenter);
+            fire.setEnemy(toBeShot);
+            fire.move(toBeShot.getWorldLocation());
+            myProjectiles.add(fire);
+            interval.resetCooldown();
+=======
     public void fire (InteractiveEntity interactiveEntity) {
         final InteractiveEntity toBeShot = interactiveEntity;
         if (!toBeShot.isDead() && attackingState == AttackingState.NOT_ATTACKING) {
@@ -80,6 +96,7 @@ public class Weapon {
             firingProjectile.move(toBeShot.getWorldLocation());
             myProjectiles.add(firingProjectile);
             attackingState = AttackingState.NOT_ATTACKING;
+>>>>>>> 3fd6b4f49d501b2a55ec8ef32ec823744601e41d:src/vooga/rts/gamedesign/weapon/Weapon.java
         }
     }
 
@@ -124,6 +141,7 @@ public class Weapon {
         // see if enemy is in adjacent node, better way ?
         myRangeCircle = new Ellipse2D.Double(myCenter.getX(), myCenter.getY(), myRange, myRange);
         return myRangeCircle.contains(enemy.getWorldLocation().to2D());
+
     }
 
     /**

@@ -1,15 +1,15 @@
 package vooga.towerdefense.util;
 
-import java.awt.Graphics2D;
 import java.awt.Dimension;
+import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.geom.Point2D;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Point2D;
 import javax.swing.ImageIcon;
 
 
 /**
- * This class represents an image on the screen and 
+ * This class represents an image on the screen and
  * adds some utility functions to the Image class.
  * 
  * Note, Java only supports the formats: png, jpg, gif.
@@ -22,7 +22,8 @@ public class Pixmap {
     // underlying implementation
     private java.awt.Image myImage;
     private String myFileName;
-
+    private int myWidth;
+    private int myHeight;
 
     /**
      * Create an image from the given filename.
@@ -57,6 +58,8 @@ public class Pixmap {
      * Describes how to draw the image rotated on the screen.
      */
     public void paint (Graphics2D pen, Point2D center, Dimension size, double angle) {
+        myWidth = size.width;
+        myHeight = size.height;
         // save current state of the graphics area
         AffineTransform old = new AffineTransform(pen.getTransform());
         // move graphics area to center of this shape
@@ -68,20 +71,36 @@ public class Pixmap {
         // restore graphics area to its old state, so our changes have no lasting effects
         pen.setTransform(old);
     }
-    
+
     /**
      * 
-     * @return  String. The name of the Pixmap's image
+     * @return String. The name of the Pixmap's image
      */
     public String getFileName () {
         return myFileName;
     }
-    
+
     /**
      * 
-     * @return
+     * @return the Image used by the Pixmap
      */
-    public Image getImage(){
-    	return myImage;
+    public Image getImage () {
+        return myImage;
+    }
+
+    /**
+     * 
+     * @return the width of the Pixmap image
+     */
+    public int getWidth () {
+        return myWidth;
+    }
+
+    /**
+     * 
+     * @return the height of the Pixmap image
+     */
+    public int getHeight () {
+        return myHeight;
     }
 }

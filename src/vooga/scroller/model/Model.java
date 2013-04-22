@@ -3,13 +3,20 @@ package vooga.scroller.model;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import util.Location;
+import util.Secretary;
+import vooga.scroller.level_editor.Level;
+import vooga.scroller.level_management.LevelManager;
+import vooga.scroller.marioGame.spritesDefinitions.players.Mario;
 import vooga.scroller.scrollingmanager.ScrollingManager;
-import vooga.scroller.sprite_superclasses.Player;
-import vooga.scroller.test_sprites.Mario;
-import vooga.scroller.util.Location;
-import vooga.scroller.util.Pixmap;
-import vooga.scroller.view.View;
-
+import vooga.scroller.sprites.animation.Animation;
+import vooga.scroller.sprites.animation.MovingSpriteAnimationFactory;
+import vooga.scroller.sprites.interfaces.IPlayer;
+import vooga.scroller.sprites.superclasses.Player;
+import vooga.scroller.view.GameView;
 
 
 /**
@@ -22,49 +29,106 @@ import vooga.scroller.view.View;
  */
 
 public class Model {
-
-    private View myView;
-    private PlayerController myPlayer;
-
-    // This is weird how it works. I think you just need to instantiate it(see constructor)
-    private ModelInputs myInputs;
+         
+    private GameView myView;
+    private Player myPlayer;
     private LevelManager myLevelManager;
     private ScrollingManager myScrollingManager;
 
+
+    private static final String PLAYER_IMAGES = "walama.gif";
+    // "mario.gif"
+    //"transparent_wolf.gif" -- not yet added.
+    //"walama.gif"
+    
     /**
      * Constructs a new Model based on the view and the scrolling manager used by the game.
      * 
-     * @param view which is used to display/control game.
+     * @param gameView which is used to display/control game.
      * @param myScrollingManager used to control in-game scrolling.
+     * @throws IOException 
      */
-    public Model (View view, ScrollingManager sm) {
+
+    public Model (GameView gameView, ScrollingManager sm, Player player, Level ...levels) {
+        this(gameView, sm, player);
+        myLevelManager = initializeLevelManager(levels);
+    }
+    
+    
+    public Model (GameView gameView, ScrollingManager sm, Player player, String... levelFileNames) {
+        this(gameView, sm, player);
+        myLevelManager = initializeLevelManager(levelFileNames);
+    }
+
+    public Model (GameView gameView, ScrollingManager sm, Level level) {
+        this(gameView, sm, initTestPlayer(gameView, sm), level);
+    }
+
+
+    private Model (GameView gameView, ScrollingManager sm, Player player) {
+        myView = gameView;
+        setScrollingManager(sm);
+        myPlayer = player;
+    }
+
+
+    private static Player initTestPlayer (GameView gameView, ScrollingManager sm) {
+        Player player = new Mario(new Location(), new Dimension(32, 32), gameView, sm);
+        MovingSpriteAnimationFactory msaf = new MovingSpriteAnimationFactory(PLAYER_IMAGES);
+        Animation playerAnimation = msaf.generateAnimation(player);
+        
+        player.setView(playerAnimation);
+        return player;
+    }
+
+    public void addPlayerToLevel () {
+        myLevelManager.getCurrentLevel().addPlayer(myPlayer);
+    }
+
+    private LevelManager initializeLevelManager (Level[] levels) {
+        return new LevelManager(myScrollingManager, myView, levels);
+    }
+
+
+    private LevelManager initializeLevelManager (String[] levelFileNames) {
+        return new LevelManager(myScrollingManager, myView, levelFileNames);
+    }
+
+
+    private void setScrollingManager(ScrollingManager sm) {
         myScrollingManager = sm;
-        myView = view;
-        initPlayer();
-        myInputs = new ModelInputs(myPlayer, view);
-        myLevelManager = new LevelManager(myScrollingManager, view);
-        myLevelManager.currentLevel().addPlayer(myPlayer);
-
-        
+        myScrollingManager.initModel(this);
+        myScrollingManager.initView(myView); 
     }
 
-    /**
-     * User defined player initialization.
-     */
-    private void initPlayer() {
-        // TODO: this is implemented by the developer. 
-        myPlayer = new Mario(new Pixmap("mario.gif"),
-                             new Location(2500, 2500),
-                             new Dimension(30, 60),
-                             myView, myScrollingManager);
-        
-    }
+
+
+//    /**
+//     * User defined player initialization.
+//     */
+//    private Player initPlayer() {
+//        // TODO: this is implemented by the developer. 
+//        
+//        Player player = new Mario(
+//                             new Location(100, 140),
+//                             new Dimension(138/6, 276/6),
+//                             myView, myScrollingManager);
+//        
+//        MovingSpriteAnimationFactory msaf = new MovingSpriteAnimationFactory(PLAYER_IMAGES);
+//        Animation playerAnimation = msaf.generateAnimation(player);
+//        
+//        player.setView(playerAnimation);
+//
+//        return player;
+//    }
 
     /**
      * Draw all elements of the game.
      */
     public void paint (Graphics2D pen) {
-        myLevelManager.currentLevel().paint(pen);
+        myLevelManager.getCurrentLevel().paint(pen);
+        
+        
         
     }
 
@@ -74,7 +138,9 @@ public class Model {
      * @param elapsedTime is the elapsed time since the last update.
      */
     public void update (double elapsedTime) {
-        myLevelManager.currentLevel().update(elapsedTime, myView.getSize(), myView);
+
+        myLevelManager.getCurrentLevel().update(elapsedTime, myView.getSize(), myView);
+
     }
 
     /**
@@ -83,26 +149,31 @@ public class Model {
      * @return
      */
     public double getRightBoundary () {
-        return myLevelManager.currentLevel().getRightBoundary();
+        return myLevelManager.getCurrentLevel().getRightBoundary();
     }
 
     public double getLeftBoundary () {
-        return myLevelManager.currentLevel().getLeftBoundary();
+        return myLevelManager.getCurrentLevel().getLeftBoundary();
     }
 
     public double getUpperBoundary () {
-        return myLevelManager.currentLevel().getUpperBoundary();
+        return myLevelManager.getCurrentLevel().getUpperBoundary();
     }
 
     public double getLowerBoundary () {
-        return myLevelManager.currentLevel().getLowerBoundary();
+        return myLevelManager.getCurrentLevel().getLowerBoundary();
     }
 
     public Dimension getLevelBounds () {
-        return myLevelManager.currentLevel().getLevelBounds();
+        return myLevelManager.getCurrentLevel().getLevelBounds();
     }
     
     public Image getBackground() {
-        return myLevelManager.currentLevel().getBackground();
+        return myLevelManager.getCurrentLevel().getBackground();
     }
+    
+    public Player getPlayer(){
+        return myPlayer;
+    }
+    
 }
