@@ -3,6 +3,9 @@ package vooga.scroller.model;
 import java.awt.BorderLayout;
 import java.awt.GraphicsConfiguration;
 import javax.swing.JFrame;
+import vooga.scroller.level_editor.controllerSuite.LEController;
+import vooga.scroller.level_editor.library.BackgroundLib;
+import vooga.scroller.level_editor.library.ISpriteLibrary;
 import vooga.scroller.scrollingmanager.OmniScrollingManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.superclasses.Player;
@@ -97,6 +100,12 @@ public abstract class ScrollerGame extends Game {
         frame.setVisible(true);
         // start animation
         myDisplay.start();
+    }
+    
+    public static void runLevelEditor(ISpriteLibrary lib, String...filenames){
+        BackgroundLib bgLib = new BackgroundLib(filenames);
+        LEController con = new LEController(lib,bgLib);
+        con.start();
     }
 
 }
