@@ -25,16 +25,21 @@ public abstract class Menu extends Observable implements IGameLoop, Observer {
     public void update (double elapsedTime) {
 
     }
+    
+    public AffineTransform getTransform(Graphics2D pen) {
+        AffineTransform a = new AffineTransform();
+        double sx = pen.getDeviceConfiguration().getBounds().getWidth();
+        sx /= myImage.getWidth(null);
+        double sy = pen.getDeviceConfiguration().getBounds().getHeight();
+        sy /= myImage.getHeight(null);
+        a.scale(sx, sy);
+        return a;
+    }
 
     protected void paintBG (Graphics2D pen) {
         if (myImage != null) {
             if (myTransform == null) {
-                myTransform = new AffineTransform();
-                double sx = pen.getDeviceConfiguration().getBounds().getWidth();
-                sx /= myImage.getWidth(null);
-                double sy = pen.getDeviceConfiguration().getBounds().getHeight();
-                sy /= myImage.getHeight(null);
-                myTransform.scale(sx, sy);
+                myTransform = getTransform(pen);
             }
             pen.drawImage(myImage, myTransform, null);
         }
