@@ -7,6 +7,7 @@ import vooga.scroller.sprites.interfaces.ICollectible;
 import vooga.scroller.sprites.interfaces.IEnemy;
 import vooga.scroller.sprites.interfaces.IPlatform;
 import vooga.scroller.sprites.movement.LeftAndRight;
+import vooga.scroller.sprites.movement.Movement;
 import vooga.scroller.sprites.movement.TrackPlayer;
 import vooga.scroller.sprites.movement.UpAndDown;
 import vooga.scroller.sprites.superclasses.NonStaticEntity;
@@ -33,8 +34,7 @@ public class MarioLib implements ISpriteLibrary {
 
         private static final String DEFAULT_IMG = "coin.png";
         private static final int DEFAULT_COIN_VALUE = 900;
-        private int myHealth = 1;
-        
+
         public Coin () {
             this(DEFAULT_LOC);
         }
@@ -43,134 +43,48 @@ public class MarioLib implements ISpriteLibrary {
             super(new Pixmap(DEFAULT_IMG), center, DEFAULT_SIZE);
         }
 
-        public void print () {
-            System.out.println("Coin");
-        }
-
-        /**
-         * Gives a value of the coin
-         * 
-         * @return an integer that represents the 
-         */
+        @Override
         public int getValue () {
             return DEFAULT_COIN_VALUE;
-        }
-
-        @Override
-        public void takeHit (int hitValue) {
-            myHealth -= hitValue;
-        }
-        
-        public int getHealth() {
-            return myHealth;
-        }
-    }
-    
-    public static class LilMario extends NonStaticEntity {
-        
-        private static final String DEFAULT_IMG = "lilMario.png";
-        private static final Dimension LILMARIO_SIZE = new Dimension(32, 32);
-
-        public LilMario () {
-            this(DEFAULT_LOC);
-            
-        }
-        
-        public LilMario (Location center) {
-            super(new Pixmap(DEFAULT_IMG), center, LILMARIO_SIZE);
-        }
-    }
-    
- public static class BigMario extends NonStaticEntity {
-        
-        private static final String DEFAULT_IMG = "bigMario.png";
-        private static final Dimension BIGMARIO_SIZE = new Dimension(32, 64);
-
-        public BigMario () {
-            this(DEFAULT_LOC);
-            
-        }
-        
-        public BigMario (Location center) {
-            super(new Pixmap(DEFAULT_IMG), center, BIGMARIO_SIZE);
         }
     }
 
     public static class Koopa extends NonStaticEntity implements IEnemy {
-
         private static final String DEFAULT_IMG = "koopa.png";
         private static final Dimension KOOPA_SIZE = new Dimension(32, 64);
-        
-        private int myHealth = 1;
-        private int myDamage = 1;
 
         public Koopa () {
             this(DEFAULT_LOC);
         }
 
         public Koopa (Location center) {
-            super(new Pixmap(DEFAULT_IMG), center, KOOPA_SIZE);
-        }
-
-        public void print () {
-            System.out.println("Koopa");
+            super(new Pixmap(DEFAULT_IMG), center, KOOPA_SIZE, new Integer(1), new Integer(1));
         }
 
         public void update (double elapsedTime, Dimension bounds) {
-            TrackPlayer movement = new TrackPlayer(this);
-            changeVelocity(movement.execute(45, 100, getPlayer())); // want to make this call every
-                                                                    // X seconds
+            Movement movement = new TrackPlayer(this);
+            changeVelocity(movement.execute(450, 1000000, getPlayer())); // want to make this call every
             super.update(elapsedTime, bounds);
         }
-        @Override
-        public int getHealth() {
-            return myHealth;
-        }
-        
-        public void takeHit(int damage) {
-            myHealth -= damage;
-        }
-
-        @Override
-        public int getHit () {
-            return myDamage;
-        }
-
     }
 
     public static class Turtle extends NonStaticEntity implements IEnemy {
 
         private static final String DEFAULT_IMG = "turtle.gif";
-        private int myHealth = 1;
-        private int myDamage = 2;
-        
+
         public Turtle () {
             this(DEFAULT_LOC);
         }
 
         public Turtle (Location center) {
-            super(new Pixmap(DEFAULT_IMG), center, DEFAULT_SIZE);
-            // TODO Auto-generated constructor stub
-        }
-
-        public void print () {
-            System.out.println("Turtle");
+            super(new Pixmap(DEFAULT_IMG), center, DEFAULT_SIZE, new Integer(1), new Integer(2));
         }
 
         public void update (double elapsedTime, Dimension bounds) {
-            // changeVelocity(trackPlayer(70, 150)); //want to make this call every X seconds
+            TrackPlayer movement = new TrackPlayer(this);
+            changeVelocity(movement.execute(7000, 100000, getPlayer())); 
             super.update(elapsedTime, bounds);
         }
-        
-        public void takeHit(int damage) {
-            myHealth -= damage;
-        }
-
-        @Override
-        public int getHit () {
-            return myDamage;
-        }
-
 
     }
 
@@ -185,45 +99,24 @@ public class MarioLib implements ISpriteLibrary {
         public Platform (Location center) {
             super(new Pixmap(DEFAULT_IMG), center, DEFAULT_SIZE);
         }
+
         public Platform (String img, Location center, Dimension size) {
             super(new Pixmap(img), center, size);
         }
-
-        public void print () {
-            System.out.println("Platform");
-        }
-
     }
-    
+
     public static class Plant extends StaticEntity implements IEnemy {
         private static final String DEFAULT_IMG = "plant.png";
-        private int myHealth = 2;
-        private int myDamage = 1;
-        
+
         public Plant () {
             this(DEFAULT_LOC);
         }
 
         public Plant (Location center) {
-            super(new Pixmap(DEFAULT_IMG), center, new Dimension(32, 32));
+            super(new Pixmap(DEFAULT_IMG), center, new Dimension(32, 32), 1, 3);
         }
-        
-        public void takeHit(int damage) {
-            myHealth -= damage;
-        }
-
-        @Override
-        public int getHit () {
-            return myDamage;
-        }
-
     }
 
-    /**
-     * Represents a moving platform that moves in the up/down direction
-     * 
-     * @author Jay Wang
-     */
     public static class MovingPlatformOne extends NonStaticEntity implements IPlatform {
 
         private static final String DEFAULT_IMG = "platform.gif";
@@ -243,17 +136,11 @@ public class MarioLib implements ISpriteLibrary {
         public void update (double elapsedTime, Dimension bounds) {
             UpAndDown movement = new UpAndDown(this);
             changeVelocity(movement.execute(100, 250, DEFAULT_SPEED)); // want to make this call
-                                                                       // every X seconds
             super.update(elapsedTime, bounds);
         }
 
     }
 
-    /**
-     * Represents a moving platform that moves in the left/right direction
-     * 
-     * @author Jay Wang
-     */
     public static class MovingPlatformTwo extends NonStaticEntity implements IPlatform {
 
         private static final String DEFAULT_IMG = "platform.gif";
@@ -275,9 +162,8 @@ public class MarioLib implements ISpriteLibrary {
             changeVelocity(movement.execute(500, 1000, DEFAULT_SPEED));
             super.update(elapsedTime, bounds);
         }
-        
+
     }
-    
 
     public static class LevelTwoBlockOne extends Platform implements IPlatform {
 
@@ -295,9 +181,9 @@ public class MarioLib implements ISpriteLibrary {
         public void print () {
         }
     }
-    
+
     public static class LevelTwoBlockTwo extends Platform implements IPlatform {
-        
+
         private static final String DEFAULT_IMG = "leveltwoblock2.png";
         private static final Dimension DEFAULT_SIZE = new Dimension(96, 32);
 
@@ -308,13 +194,13 @@ public class MarioLib implements ISpriteLibrary {
         public LevelTwoBlockTwo (Location center) {
             super(DEFAULT_IMG, center, DEFAULT_SIZE);
         }
-        
+
         public void print () {
         }
     }
-    
+
     public static class LevelTwoBlockThree extends Platform implements IPlatform {
-        
+
         private static final String DEFAULT_IMG = "leveltwoblock3.png";
         private static final Dimension DEFAULT_SIZE = new Dimension(768, 192);
 
@@ -325,7 +211,7 @@ public class MarioLib implements ISpriteLibrary {
         public LevelTwoBlockThree (Location center) {
             super(DEFAULT_IMG, center, DEFAULT_SIZE);
         }
-        
+
         public void print () {
         }
     }

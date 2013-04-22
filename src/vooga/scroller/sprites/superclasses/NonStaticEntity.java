@@ -22,13 +22,20 @@ public abstract class NonStaticEntity extends Sprite {
     
     public static Vector DEFAULT_SPEED = new Vector(0, 45);
     private Player myPlayer;
+    private int myHealth;
+    private int myDamage;
+    
     
     public NonStaticEntity (Pixmap image, Location center, Dimension size) {
-        super(image, center, size, DEFAULT_SPEED);  //health defaulted to 1
+        super(image, center, size, DEFAULT_SPEED); 
+        myHealth = 1; //health defaulted to 1
+        myDamage = 0;
     }
     
-    public NonStaticEntity (Pixmap image, Location center, Dimension size, int health) {
+    public NonStaticEntity (Pixmap image, Location center, Dimension size, int health, int damage) {
         super(image, center, size, DEFAULT_SPEED);
+        myHealth = health;
+        myDamage = damage;
     }
     
     public void changeVelocity(Vector vector) {
@@ -58,6 +65,18 @@ public abstract class NonStaticEntity extends Sprite {
     
     public Player getPlayer() {
         return myPlayer;
+    }
+    
+    public void takeHit(int damage) {
+        myHealth -= damage;
+    }
+
+    public int getHit () {
+        return myDamage;
+    }
+    
+    public int getHealth() {
+        return myHealth;
     }
 
 
