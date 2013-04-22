@@ -24,7 +24,7 @@ public class Garrison extends Building {
                      int playerID,
                      int health,
                      double buildTime) {
-        super(image, center, size, sound, playerID, health, buildTime, null);
+        super(image, center, size, sound, playerID, health, buildTime);
         setOccupyStrategy(new CanBeOccupied());
     }
 

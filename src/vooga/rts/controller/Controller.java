@@ -12,6 +12,11 @@ import vooga.rts.commands.Command;
  */
 public interface Controller {
     
+    /**
+     * Sends the command to the appropriate receiver.
+     * 
+     * @param command the command to be sent
+     */
     public void sendCommand(Command command); // Should this not take a parameter?
     
 }

@@ -13,7 +13,9 @@ import java.util.Observer;
 import java.util.Queue;
 import vooga.rts.action.Action;
 import vooga.rts.action.IActOn;
+import vooga.rts.commands.ClickCommand;
 import vooga.rts.commands.Command;
+import vooga.rts.commands.DragCommand;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.state.DetectableState;
 import vooga.rts.gamedesign.state.MovementState;
@@ -26,7 +28,7 @@ import vooga.rts.util.Location3D;
 
 /**
  * The Manager class is responsible for managing all of the units and buildings
- * that each player has control of. Commands are passed through to the Manager
+ * that each player controls. Commands are passed through to the Manager
  * and the appropriate actions are executed on the selected units or even the
  * manager.
  * 
@@ -81,6 +83,10 @@ public class Manager implements State, IActOn, Observer {
         updateAction(command);
     }
 
+    /**
+     * Checks to see if the manager can handle the command, if not sends it to
+     * the selected entities.
+     */
     @Override
     public void updateAction (Command command) {
         if (myActions.containsKey(command.getMethodName())) {
@@ -99,6 +105,12 @@ public class Manager implements State, IActOn, Observer {
 
     }
 
+    /**
+     * Retrieves the appropriate action for all the selected entities which
+     * can handle the input, then applies the action.
+     * 
+     * @param command input used to retrieve the appropriate command
+     */
     public void applyAction (Command command) {
         Iterator<InteractiveEntity> it = mySelectedEntities.iterator();
         while (it.hasNext()) {
@@ -133,6 +145,11 @@ public class Manager implements State, IActOn, Observer {
         mySelectedEntities.remove(entity);
     }
 
+    /**
+     * Deselects the topmost unit at the given location.s
+     * 
+     * @param location at which to deselect the unit.
+     */
     public void deselect (Location3D location) {
         for (int i = getAllEntities().size() - 1; i >= 0; i--) {
             InteractiveEntity ie = getAllEntities().get(i);
@@ -147,8 +164,7 @@ public class Manager implements State, IActOn, Observer {
     /**
      * Deselects the specified entity.
      * 
-     * @param u
-     *        The entity to deselect
+     * @param u The entity to deselect
      */
     public void deselect (InteractiveEntity ie) {
         if (mySelectedEntities.contains(ie)) {
@@ -158,7 +174,7 @@ public class Manager implements State, IActOn, Observer {
     }
 
     /**
-     * Deselects all the selected entities.
+     * Deselects all selected entities.
      */
     public void deselectAll () {
         if (myMultiSelect) {
@@ -179,6 +195,11 @@ public class Manager implements State, IActOn, Observer {
         return myEntities;
     }
 
+    /**
+     * Sets the entities to a specified list of entities
+     * 
+     * @param entityList
+     */
     public void setAllEntities (List<InteractiveEntity> entityList) {
         myEntities = entityList;
     }
@@ -265,9 +286,9 @@ public class Manager implements State, IActOn, Observer {
     }
 
     public void addActions () {
-        addAction("drag", new DragSelectAction(this));
-        addAction("leftclick", new LeftClickAction(this));
-        addAction("rightclick", new RightClickAction(this));
+        addAction(DragCommand.DRAG, new DragSelectAction(this));
+        addAction(ClickCommand.LEFT_CLICK, new LeftClickAction(this));
+        addAction(ClickCommand.RIGHT_CLICK, new RightClickAction(this));
     }
 
     /**

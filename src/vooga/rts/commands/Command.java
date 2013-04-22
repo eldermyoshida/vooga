@@ -2,7 +2,8 @@ package vooga.rts.commands;
 
 /**
  * This class is a packet of information that can be sent to the appropriate
- * class which will carry out the action linked with the button press.
+ * class which will carry out the action linked with the keyboard press, the 
+ * mouse click, or the on-screen button that is pressed.
  * 
  * @author Challen Herzberg-Brovold
  * 
