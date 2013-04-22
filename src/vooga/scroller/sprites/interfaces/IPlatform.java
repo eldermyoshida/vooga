@@ -1,9 +1,9 @@
 package vooga.scroller.sprites.interfaces;
 
-import vooga.scroller.util.Sprite;
+import util.Vector;
 
-public interface IPlatform {
-    
-    public Sprite getPlatform();
+public interface IPlatform extends ISprite {
+
+    public Vector getVelocity ();
    
 }

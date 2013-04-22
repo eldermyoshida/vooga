@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import vooga.scroller.level_editor.LevelEditor;
+import vooga.scroller.level_editor.model.LevelEditor;
 
 
 /**

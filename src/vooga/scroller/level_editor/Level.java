@@ -1,39 +1,36 @@
 package vooga.scroller.level_editor;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import util.Location;
 import util.input.Input;
+import vooga.scroller.util.Renderable;
 import vooga.scroller.util.Sprite;
-import vooga.scroller.viewUtil.Renderable;
-import vooga.scroller.collision_manager.CollisionManager;
+import vooga.scroller.level_editor.controllerSuite.LEGrid;
+import vooga.scroller.level_editor.model.SpriteBox;
 import vooga.scroller.level_management.IDoor;
 import vooga.scroller.level_management.LevelPortal;
+import vooga.scroller.level_management.SpriteManager;
+import vooga.scroller.model.Model;
+import vooga.scroller.scrollingmanager.OmniScrollingManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
-import vooga.scroller.sprites.superclasses.NonStaticEntity;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.PlatformerConstants;
-import vooga.scroller.view.View;
+import vooga.scroller.util.mvc.IView;
+import vooga.scroller.view.GameView;
 
-
-public class Level implements Renderable {
+public class Level implements Renderable<GameView> {
 
     private Dimension mySize;
     private Dimension frameOfReferenceSize;
-    private Dimension frameOfActionSize;
-    private Player myPlayer;
-    private List<Sprite> mySprites;
-    private List<Sprite> myFrameOfActionSprites;
-    private List<Sprite> myFrameOfReferenceSprites;
-    private View myView;
-    private ScrollingManager myScrollManager;
+    private SpriteManager mySpriteManager;
+//    private GameView myView;
+    private ScrollingManager myScrollingManager;
     private Image myBackground;
-    private Image DEFAULT_BACKGROUND = new ImageIcon(getClass()
-            .getResource("/vooga/scroller/images/default_background.png")).getImage();
     private Image CITY_BACKGROUND = new ImageIcon("/vooga/scroller/images/background_small.png")
             .getImage();
 
@@ -49,40 +46,35 @@ public class Level implements Renderable {
         mySize = PlatformerConstants.DEFAULT_LEVEL_SIZE;
         myBackground = CITY_BACKGROUND;
         frameOfReferenceSize = PlatformerConstants.REFERENCE_FRAME_SIZE;
-        mySprites = new ArrayList<Sprite>();
+        //mySprites = new ArrayList<Sprite>();
         myStartPoint = new Location();
-        initFrames();
+        //initFrames();
     }
 
-    public Level (int id, ScrollingManager sm) {
-        this(); // TODO Incomplete. figure out SM constraints...
-    }
+//    public Level (int id, ScrollingManager sm) {
+//        this(); // TODO Incomplete. figure out SM constraints...
+//    }
 
     public Level (int id) {
         this();
         myID = id;
     }
 
-    public Level (int id, ScrollingManager sm, View view) {
+    public Level (int id, ScrollingManager sm) {
         // MIGHT WANT TO INITIALIZE THIS WITH A PLAYER AS WELL
         this();
-        myView = view;
-        frameOfActionSize = calcActionFrameSize(myView.getSize());
-        myScrollManager = sm;
+        mySpriteManager = new SpriteManager(this);
+        myScrollingManager = sm;
         myID = id;
     }
 
-    public Level (int id, ScrollingManager sm, View view, LEGrid grid) {
-        this(id, sm, view);
+    public Level (int id, ScrollingManager sm, LEGrid grid) {
+        this(id, sm);
         setSize(grid.getPixelSize());
         for (SpriteBox box : grid.getBoxes()) {
             addSprite(box.getSprite());
         }
-    }
-
-    private void initFrames () {
-        myFrameOfActionSprites = new ArrayList<Sprite>();
-        myFrameOfReferenceSprites = new ArrayList<Sprite>();
+        setBackground(grid.getBackground());
     }
 
     public void setSize (Dimension size) {
@@ -103,25 +95,15 @@ public class Level implements Renderable {
         if (s instanceof LevelPortal) {
             addDoor((LevelPortal) s);
         }
-        mySprites.add(s);
+        mySpriteManager.addSprite(s);
     }
 
     public void removeSprite (Sprite s) {
-        mySprites.remove(s);
+        mySpriteManager.removeSprite(s);
     }
 
-    public void addPlayer (Player s) {
-        myPlayer = s;
-        myPlayer.setCenter(myStartPoint.getX(), myStartPoint.getY());
-        for (Sprite sprite : mySprites) {
-            if (sprite instanceof NonStaticEntity) {
-                addPlayerToSprite((NonStaticEntity) sprite);
-            }
-        }
-    }
-
-    public void addPlayerToSprite (NonStaticEntity sprite) {
-        sprite.addPlayer(myPlayer);
+    public void addPlayer (Player p ) {
+        mySpriteManager.addPlayer(p);
     }
 
     public void setBackground (Image i) {
@@ -132,6 +114,10 @@ public class Level implements Renderable {
         return myBackground;
     }
 
+    public ScrollingManager getScrollManager(){
+        return myScrollingManager;
+    }
+    
     // Methods from Renderable Interface. To be called by View components.
 
     @Override
@@ -140,170 +126,52 @@ public class Level implements Renderable {
         return null;
     }
 
-    public void update (double elapsedTime, Dimension bounds, View view) {
-
-        if (myPlayer != null) {
-            updateFrames(view);
-            myPlayer.update(elapsedTime, bounds);
-            checkPlayerOutOfBounds();
-            if (myPlayer.getHealth() <= 0) {
-                myPlayer.handleDeath();
-            }
-
-            for (Sprite s : myFrameOfActionSprites) {
-                s.update(elapsedTime, bounds);
-                if (s.getHealth() <= 0) {
-                    this.removeSprite(s);
-                }
-            }
-
-            if (myPlayer.getHealth() <= 0) {
-                myPlayer.handleDeath();
-
-            }
-
-            intersectingSprites();
-
-        }
-    }
-
-    private void checkPlayerOutOfBounds () {
-        double xCoord = myPlayer.getX();
-        double yCoord = myPlayer.getY();
-        double rightLevelBounds = mySize.getWidth();
-        double leftLevelBounds = 0;
-        double upperLevelBounds = 0;
-        double lowerLevelBounds = mySize.getHeight();
-        rightLevelBounds = myScrollManager.getHardBoundary(1, rightLevelBounds);
-        lowerLevelBounds = myScrollManager.getHardBoundary(2, lowerLevelBounds);
-        leftLevelBounds = myScrollManager.getHardBoundary(3, leftLevelBounds);
-        upperLevelBounds = myScrollManager.getHardBoundary(4, upperLevelBounds);
-
-        if (xCoord >= rightLevelBounds) {
-            xCoord = rightLevelBounds - (myPlayer.getSize().getWidth() / 2);
-            myPlayer.setCenter(xCoord, yCoord);
-        }
-        if (xCoord <= leftLevelBounds) {
-            xCoord = leftLevelBounds + (myPlayer.getSize().getWidth() / 2);
-            myPlayer.setCenter(xCoord, yCoord);
-        }
-        if (yCoord <= upperLevelBounds) {
-            yCoord = upperLevelBounds + (myPlayer.getSize().getHeight() / 2);
-            myPlayer.setCenter(xCoord, yCoord);
-        }
-        if (yCoord >= lowerLevelBounds) {
-            yCoord = upperLevelBounds - (myPlayer.getSize().getHeight() / 2);
-            myPlayer.setCenter(xCoord, yCoord);
-        }
+    public void update (double elapsedTime, Dimension bounds, GameView gameView) {
+        mySpriteManager.updateSprites(elapsedTime, bounds, gameView);
     }
 
     @Override
     public void paint (Graphics2D pen) {
-        if (myPlayer != null) {
-            for (Sprite s : this.mySprites) {
-                s.paint(pen, myPlayer.getCenter(), myPlayer.getPaintLocation());
-            }
-            myPlayer.paint(pen);
-        }
-    }
-
-    private void updateFrames (View view) {
-        myFrameOfActionSprites.clear();
-        myFrameOfReferenceSprites.clear();
-        frameOfReferenceSize = view.getSize();
-        frameOfActionSize = calcActionFrameSize(view.getSize());
-        if (mySprites.size() > 0) {
-            for (Sprite s : mySprites) {
-                if (checkRange(s, frameOfReferenceSize)) {
-                    myFrameOfReferenceSprites.add(s);
-                    myFrameOfActionSprites.add(s);
-                }
-                if (!myFrameOfActionSprites.contains(s) & checkRange(s, frameOfActionSize)) {
-                    myFrameOfActionSprites.add(s);
-                }
-            }
-        }
-
-    }
-
-    private boolean checkRange (Sprite sprite, Dimension frame) {
-        // This is pretty hacky, I am trying to think of a more elegant way
-        if (myPlayer == null ||
-            getLeftBoundary(frame) > sprite.getX()
-            || getRightBoundary(frame) < sprite.getX()
-            || getLowerBoundary(frame) < sprite.getY()
-            || getUpperBoundary(frame) > sprite.getY()) { return false; }
-        return true;
-    }
-
-    private Dimension calcActionFrameSize (Dimension size) {
-        Dimension temp = new Dimension((int) size.getWidth() + 200, (int) size.getHeight() + 200);
-        return temp;
+        mySpriteManager.paint(pen);
     }
 
     public double getRightBoundary (Dimension frame) {
-        return myScrollManager.getRightBoundary(frame, myPlayer.getCenter());
+        return myScrollingManager.getRightBoundary(frame, getPlayer().getCenter());
     }
 
     public double getLeftBoundary (Dimension frame) {
-        return myScrollManager.getLeftBoundary(frame, myPlayer.getCenter());
+        return myScrollingManager.getLeftBoundary(frame, getPlayer().getCenter());
     }
 
     public double getUpperBoundary (Dimension frame) {
-        return myScrollManager.getUpperBoundary(frame, myPlayer.getCenter());
+        return myScrollingManager.getUpperBoundary(frame, getPlayer().getCenter());
     }
 
     public double getLowerBoundary (Dimension frame) {
-        return myScrollManager.getLowerBoundary(frame, myPlayer.getCenter());
+        return myScrollingManager.getLowerBoundary(frame, getPlayer().getCenter());
     }
 
     public double getRightBoundary () {
-        return myScrollManager.getRightBoundary(frameOfReferenceSize, myPlayer.getCenter());
+        return myScrollingManager.getRightBoundary(frameOfReferenceSize, getPlayer().getCenter());
     }
 
     public double getLeftBoundary () {
-        return myScrollManager.getLeftBoundary(frameOfReferenceSize, myPlayer.getCenter());
+        return myScrollingManager.getLeftBoundary(frameOfReferenceSize, getPlayer().getCenter());
     }
 
     public double getUpperBoundary () {
-        return myScrollManager.getUpperBoundary(frameOfReferenceSize, myPlayer.getCenter());
+        return myScrollingManager.getUpperBoundary(frameOfReferenceSize, getPlayer().getCenter());
     }
 
     public double getLowerBoundary () {
-        return myScrollManager.getLowerBoundary(frameOfReferenceSize, myPlayer.getCenter());
+        return myScrollingManager.getLowerBoundary(frameOfReferenceSize, getPlayer().getCenter());
     }
 
     public Dimension getLevelBounds () {
         return mySize;
     }
 
-    private void intersectingSprites () {
-        Sprite obj1;
-        Sprite obj2;
-        CollisionManager cm = new CollisionManager(this);
 
-        mySprites.add(myPlayer);
-        for (int i = 0; i < mySprites.size(); i++) {
-            for (int j = 0; j < mySprites.size(); j++) {
-                obj1 = mySprites.get(i);
-                obj2 = mySprites.get(j);
-                if (obj1.intersects(obj2)) {
-                    cm.handleCollision(obj1, obj2);
-                }
-            }
-        }
-
-        mySprites.remove(mySprites.size() - 1);
-    }
-
-    /**
-     * Gives the view used by this Level
-     * 
-     * @return This level's view.
-     */
-    public View getView () {
-        return myView;
-    }
 
     /**
      * Gives the player currently in the level. Returns null if
@@ -312,7 +180,7 @@ public class Level implements Renderable {
      * @return This level's player.
      */
     public Player getPlayer () {
-        return myPlayer;
+        return mySpriteManager.getPlayer();
     }
 
     /**
@@ -321,8 +189,10 @@ public class Level implements Renderable {
      * @param myInput input that controls level elements.
      */
     public void addInputListeners (Input myInput) {
-        myInput.replaceMappingResourcePath(myPlayer.getInputFilePath());
-        myInput.addListenerTo(myPlayer);
+        
+        // TODO: sprite manager?
+        myInput.replaceMappingResourcePath(getPlayer().getInputFilePath());
+        myInput.addListenerTo(getPlayer());
 
     }
 
@@ -332,7 +202,8 @@ public class Level implements Renderable {
      * @param myInput input that controls level elements.
      */
     public void removeInputListeners (Input myInput) {
-        myInput.removeListener(myPlayer);
+        // TODO: sprite manager?
+        myInput.removeListener(getPlayer());
     }
 
     /**
@@ -357,15 +228,16 @@ public class Level implements Renderable {
 
     }
 
-    // @Override
-    // public void addStartPoint (int x, int y) {
-    // addStartPoint(new Location(x,y));
-    // }
-    //
-    // @Override
-    // public void addDoor (int x, int y) {
-    // // TODO
-    // addPortal(new LevelPortal(this, new Location(x,y)));
-    // }
+    @Override //TODO - incomplete
+    public GameView initializeRenderer (IView parent) {
+     // view of user's content
+        ScrollingManager sm = new OmniScrollingManager();
+        GameView display = new GameView(PlatformerConstants.DEFAULT_WINDOW_SIZE, sm);
+        sm.initView(display);
+        Model m = new Model(display, sm, this);
+        m.addPlayerToLevel();
+        display.setModel(m);
+        return display;
+    }
 
 }

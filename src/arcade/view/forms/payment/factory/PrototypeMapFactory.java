@@ -173,7 +173,13 @@ public class PrototypeMapFactory<V> {
             Class<?> genericClass = Class.forName(className);
             return (V) genericClass.newInstance();
         }
-        catch (IllegalAccessException | ClassNotFoundException | InstantiationException e) {
+        catch (IllegalAccessException e) {
+            throw new MissingResourceException(INCORRECT_FORMATTING_ERROR_MESSAGE, "", "");
+        }
+        catch (InstantiationException e) {
+            throw new MissingResourceException(INCORRECT_FORMATTING_ERROR_MESSAGE, "", "");
+        }
+        catch (ClassNotFoundException e) {
             throw new MissingResourceException(INCORRECT_FORMATTING_ERROR_MESSAGE, "", "");
         }
     }

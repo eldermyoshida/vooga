@@ -68,7 +68,6 @@ import com.amazonaws.services.s3.model.S3ObjectSummary;
 public class S3Connections {
     
     private static final String BUCKET_NAME = "mycs308database";  
-    private static final String S3_FolderKey_PlayerPhotos = "photos/";
 
 
     private AmazonS3 myS3Instance;
@@ -94,12 +93,21 @@ public class S3Connections {
         putFileIntoBucket("thumbnail" + gameName, filepath);
     }
     
+    public void putAdScreenIntoBucket (String gameName, String filepath) {
+        putFileIntoBucket("adscreen" + gameName, filepath);
+        
+    }
+    
     public String getAvatar(String username) {
          return downloadObjectToFile("avatar" + username);
     }
     
     public String getThumbnail(String gameName) {
         return downloadObjectToFile("thumbnail" + gameName);
+    }
+    
+    public String getAdScreen(String gameName) {
+        return downloadObjectToFile("adscreen" + gameName);
     }
     
     public void putUserGameDataIntoBucket(String username, String gameName, UserGameData usd) {

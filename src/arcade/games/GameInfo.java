@@ -12,6 +12,7 @@ import javax.swing.ImageIcon;
 
 
 import arcade.database.Database;
+import arcade.exceptions.InvalidPaymentException;
 import arcade.model.Model;
 
 
@@ -94,7 +95,6 @@ public class GameInfo {
         comments.add(comment1);
         return comments;
     }
-    
     
    
 
