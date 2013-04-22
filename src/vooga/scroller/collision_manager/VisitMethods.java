@@ -6,6 +6,10 @@ import vooga.scroller.sprites.interfaces.IEnemy;
 import vooga.scroller.sprites.interfaces.ILevelPortal;
 import vooga.scroller.sprites.interfaces.IPlatform;
 import vooga.scroller.sprites.interfaces.IPlayer;
+import vooga.scroller.sprites.superclasses.Player;
+import vooga.scroller.sprites.test_sprites.MarioLib;
+import vooga.scroller.sprites.test_sprites.MarioLib.Coin;
+import vooga.scroller.sprites.test_sprites.mario.Mario;
 import vooga.scroller.util.Direction;
 
 public class VisitMethods {
@@ -27,7 +31,7 @@ public class VisitMethods {
         player.incrementScore(coin.getValue());
         coin.takeHit(player.getHit());
     }
-    
+        
     public void visit (IPlayer player, IEnemy enemy) {
         if (direction.collisionDirection(player, enemy).equals(Direction.TOP)) {
             enemy.takeHit(player.getHit());
