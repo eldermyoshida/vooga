@@ -1,14 +1,6 @@
 package vooga.rts.networking.communications;
 
 import java.io.Serializable;
-<<<<<<< HEAD
-import java.util.Observable;
-
-import vooga.rts.networking.client.lobby.Player;
-
-public class LobbyInfo extends Observable implements Serializable {
-=======
-
 
 /**
  * Basic lobby information used for sending across the network to the server browser. Lightweight so
@@ -19,7 +11,6 @@ public class LobbyInfo extends Observable implements Serializable {
  * 
  */
 public class LobbyInfo implements Serializable {
->>>>>>> 8166fc9cb73f6ac9090a4407760269092e61d32b
 
     private static final long serialVersionUID = -1941237597305628081L;
     private String myLobbyName;

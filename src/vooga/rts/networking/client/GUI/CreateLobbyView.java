@@ -15,8 +15,8 @@ public class CreateLobbyView extends JPanel {
     private static final long serialVersionUID = -5215687034662203967L;
 
     private JTextField myServerField;
-    private JComboBox<String> myMapComboBox;
-    private JComboBox<Integer> myMaxPlayersComboBox;
+    private JComboBox myMapComboBox;
+    private JComboBox myMaxPlayersComboBox;
     
     public CreateLobbyView () {
         setLayout(new BorderLayout(0, 0));
@@ -34,14 +34,14 @@ public class CreateLobbyView extends JPanel {
         
         innerPanel.add(new JLabel("Map: "));
         String[] mapChoices = {"this", "that", "the other"};
-        DefaultComboBoxModel<String> mapModel = new DefaultComboBoxModel<String>(mapChoices);
-        myMapComboBox = new JComboBox<String>(mapModel);
+        DefaultComboBoxModel mapModel = new DefaultComboBoxModel(mapChoices);
+        myMapComboBox = new JComboBox(mapModel);
         innerPanel.add(myMapComboBox);
         
         innerPanel.add(new JLabel("Max players: "));
         Integer[] playerChoices = {2, 3, 4, 5, 6, 7, 8};
-        DefaultComboBoxModel<Integer> maxPlayerModel = new DefaultComboBoxModel<Integer>(playerChoices);
-        myMaxPlayersComboBox = new JComboBox<Integer>(maxPlayerModel);
+        DefaultComboBoxModel maxPlayerModel = new DefaultComboBoxModel(playerChoices);
+        myMaxPlayersComboBox = new JComboBox(maxPlayerModel);
         innerPanel.add(myMaxPlayersComboBox);
         
         return innerPanel;
