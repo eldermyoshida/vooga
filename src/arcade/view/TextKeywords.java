@@ -25,5 +25,12 @@ public interface TextKeywords {
     static final String IMAGE_BUTON = "image_button";
     static final String GAME_NAME = "game_name";
     static final String GENRE = "genre";
+    static final String AUTHOR = "author";
+    static final String SINGLE_PLAYER = "singleplayer?";
+    static final String MULTIPLAYER = "multiplayer?";
+    static final String SMALL_PICTURE = "smallpicture";
+    static final String LARGE_PICTURE = "largepicture";
+    static final String DESCRIPTION = "description";
+    static final String FILE_SELECT = "selectfile";
     static final String PUBLISH = "publish";
 }

@@ -1,7 +1,6 @@
 package vooga.towerdefense.view;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -14,7 +13,6 @@ import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JButton;
-import javax.swing.JPanel;
 import vooga.towerdefense.util.Location;
 import vooga.towerdefense.util.Pixmap;
 
@@ -48,6 +46,7 @@ public class LevelsSelectorScreen extends SelectScreen {
         addMouseListener(myMouseListener);
     }
 
+    // TODO Placeholder!! Need to fix how images are created
     private void initLevelsImages () {
         myEasyLevel = new Pixmap("easy.gif");
         myMediumLevel = new Pixmap("medium.gif");
@@ -59,11 +58,12 @@ public class LevelsSelectorScreen extends SelectScreen {
     }
 
     @Override
-    public void paint (Graphics pen) {
+    public void paintComponent (Graphics pen) {
         super.paintComponent(pen);
         displayImages((Graphics2D) pen);
     }
-    
+
+    @Override
     public void displayImages (Graphics2D pen) {
         for (Map.Entry<Pixmap, Rectangle> entry : myLevelsImages.entrySet()) {
             entry.getKey().paint(pen,

@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import arcade.database.Database;
 import arcade.games.ArcadeInteraction;
@@ -16,11 +17,12 @@ import arcade.games.HighScores;
 import arcade.games.MultiplayerGame;
 import arcade.games.User;
 import arcade.games.UserGameData;
-import arcade.view.LoginView;
 import arcade.view.MainView;
+import arcade.view.forms.LoginView;
 
 
 public class Model implements ArcadeInteraction {
+
     public static final String DEFAULT_LOGIN_MESSAGE = "";
     private static final String LOGIN_FAILURE_MESSAGE =
             "The username or password you entered is incorrect";
@@ -65,7 +67,7 @@ public class Model implements ArcadeInteraction {
      * @param gameName
      * @param genre
      */
-     public void publish (String name,
+    public void publish (String name,
                          String genre,
                          String author,
                          double price,
@@ -77,8 +79,20 @@ public class Model implements ArcadeInteraction {
                          String thumbnailPath,
                          String adScreenPath,
                          String description) {
-        
-        myDb.createGame(name.toLowerCase() ,  genre.toLowerCase() , author , price, formatClassFilePath(extendsGame), formatClassFilePath(extendsMultiplayerGame), ageRating , singlePlayer, multiplayer , adScreenPath , description);
+        System.out.println(extendsGame);
+        System.out.println(extendsMultiplayerGame);
+        myDb.createGame(name.toLowerCase(), 
+                        genre.toLowerCase(), 
+                        author, 
+                        price,
+                        formatClassFilePath(extendsGame),
+                        formatClassFilePath(extendsMultiplayerGame), 
+                        ageRating, 
+                        singlePlayer,
+                        multiplayer, 
+                        thumbnailPath, 
+                        adScreenPath, 
+                        description);
         addGameInfo(newGameInfo(name));
     }
 
@@ -89,10 +103,15 @@ public class Model implements ArcadeInteraction {
      * so replace slashes with periods and remove the file extension
      */
     private String formatClassFilePath (String path) {
-        //split on file extension 
+        // split on file extension
         String[] split = path.split(".");
-        // take everything before file extension
-        path = split[0];
+        // take everything before file extension and after src to get java relative filepath.
+        List<String> list = Arrays.asList(split);
+        if (list.contains("src")) {
+            // this means you got the absolute file path, so you need to
+            // get java relative file path (i.e. after src/ )
+            path = split[0].split("src")[1];
+        }
         split = path.split("/");
         String ret = "";
         for (String str : split) {
@@ -104,8 +123,8 @@ public class Model implements ArcadeInteraction {
         return ret;
     }
 
-    private GameInfo newGameInfo (String name) {
-        return new GameInfo(name, myLanguage, myDb);
+    private GameInfo newGameInfo (String name) throws MissingResourceException {
+        return new GameInfo(myDb, name);
     }
 
     private void addGameInfo (GameInfo game) {
@@ -182,7 +201,13 @@ public class Model implements ArcadeInteraction {
     private void organizeSnapshots () {
         List<String> gameNames = myDb.retrieveListOfGames();
         for (String name : gameNames) {
-            addGameInfo(newGameInfo(name));
+            try {
+                addGameInfo(newGameInfo(name));
+            }
+            catch (MissingResourceException e) {
+                continue;
+            }
+
         }
     }
 
@@ -209,7 +234,7 @@ public class Model implements ArcadeInteraction {
 
     @Override
     public User getUser () {
-        // TODO get the user's avatar, figure out how we are implementing user infor for games
+        // TODO get the user's avatar, figure out how we are implementing user info for games
         return null;
     }
 
@@ -247,5 +272,4 @@ public class Model implements ArcadeInteraction {
         }
         return gd;
     }
-
 }

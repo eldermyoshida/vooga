@@ -1,7 +1,6 @@
 package vooga.towerdefense.view;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -15,7 +14,6 @@ import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JButton;
-import javax.swing.JPanel;
 import vooga.towerdefense.util.Location;
 import vooga.towerdefense.util.Pixmap;
 
@@ -56,13 +54,14 @@ public class MapsSelectorScreen extends SelectScreen {
             @Override
             public void actionPerformed (ActionEvent e) {
                 if (myMapSelected == true) {
-                    getView().showModesScreen();
+                    getView().showLevelDifficultyChoicesScreen();
                 }
             }
         });
         return myNextScreenButton;
     }
 
+    // TODO placeholder! Creation of Pixmaps needs to be cleaned up
     private void initMapImages () {
         myMap1 = new Pixmap("map1.gif");
         myMap2 = new Pixmap("map2.gif");
@@ -75,11 +74,12 @@ public class MapsSelectorScreen extends SelectScreen {
         myMapImages.put(myMap4, new Rectangle(new Point(450, 350), SIZE));
 
     }
-    
+
     @Override
-    public void paint (Graphics pen) {
+    public void paintComponent (Graphics pen) {
         super.paintComponent(pen);
         displayImages((Graphics2D) pen);
+        myNextScreenButton.setVisible(true);
     }
 
     private void setInputListener () {
@@ -117,6 +117,7 @@ public class MapsSelectorScreen extends SelectScreen {
         repaint();
     }
 
+    @Override
     public void displayImages (Graphics2D pen) {
         for (Map.Entry<Pixmap, Rectangle> entry : myMapImages.entrySet()) {
             entry.getKey().paint(pen,

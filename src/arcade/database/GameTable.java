@@ -124,6 +124,7 @@ public class GameTable extends Table {
     }
     
     /**
+
      * Given the gameName, adds a game
      * @param gameName is the name of game
      * Adds a user to user table based on information
@@ -132,6 +133,7 @@ public class GameTable extends Table {
      * @param firstname is firstname
      * @param lastname is lastname
      * @param dateOfBirth is date of birth
+
      */
     public boolean createGame(String gameName, String author, String genre, double price, 
                               String extendsGame, String extendsMultiplayerGame, int ageRating, 
@@ -166,7 +168,9 @@ public class GameTable extends Table {
     
     /**
      * Returns a list of all the games
-     */    
+
+     */
+
     public List<String> retrieveGameList() {
         String stm = "SELECT " + GAMENAME_COLUMN_FIELD + " FROM "  + TABLE_NAME;
         List<String> myGameNames = new ArrayList<String>();

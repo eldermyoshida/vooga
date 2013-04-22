@@ -5,14 +5,11 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
-import vooga.towerdefense.util.Pixmap;
 
 
 public abstract class SelectScreen extends JPanel {
-    
+
     private static final long serialVersionUID = 1L;
     private static final int XCOORD = 0;
     private static final int YCOORD = 0;
@@ -24,7 +21,7 @@ public abstract class SelectScreen extends JPanel {
         myView = view;
         setVisible(true);
     }
-    
+
     @Override
     public void paintComponent (Graphics pen) {
         super.paintComponent(pen);
@@ -32,12 +29,13 @@ public abstract class SelectScreen extends JPanel {
         pen.fillRect(XCOORD, YCOORD, getSize().width, getSize().height);
 
     }
-    
+
     public TDView getView () {
         return myView;
     }
-    
+
     public abstract void displayImages (Graphics2D pen);
-    public abstract void checkPositionClicked (Point point); 
-    
+
+    public abstract void checkPositionClicked (Point point);
+
 }
