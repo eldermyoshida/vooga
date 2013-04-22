@@ -2,6 +2,7 @@ package vooga.rts.controller;
 
 import java.awt.geom.Rectangle2D;
 import util.input.*;
+import vooga.rts.commands.ClickCommand;
 import vooga.rts.commands.Command;
 import vooga.rts.commands.DragCommand;
 import vooga.rts.commands.PositionCommand;
@@ -45,10 +46,10 @@ public class InputController implements Controller {
     public void sendCommand (Command command) {
         myState.receiveCommand(command);
     }
+
     /*
      * All the following methods are called via reflection by the Input class,
      * based on the Input.properties file, and send the appropriate command.
-     * 
      */
     @InputMethodTarget(name = "onLeftMouseDown")
     public void onLeftMouseDown (PositionObject o) {
@@ -58,27 +59,27 @@ public class InputController implements Controller {
     @InputMethodTarget(name = "onLeftMouseUp")
     public void onLeftMouseUp (PositionObject o) {
         if (myDrag == null) {
-            sendCommand(new PositionCommand("leftclick", o));
+            sendCommand(new ClickCommand(ClickCommand.LEFT_CLICK, o));
         }
         else {
             myLeftMouse = null;
             myDrag = null;
-            sendCommand(new DragCommand("drag", null, null));
+            sendCommand(new DragCommand(null, null));
 
         }
     }
 
     @InputMethodTarget(name = "onRightMouseUp")
     public void onRightMouseUp (PositionObject o) {
-        sendCommand(new PositionCommand("rightclick", o));
+        sendCommand(new ClickCommand(ClickCommand.LEFT_CLICK, o));
         myLeftMouse = null;
         myDrag = null;
-        sendCommand(new DragCommand("drag", null, null));
+        sendCommand(new DragCommand(null, null));
     }
 
     @InputMethodTarget(name = "onMouseMove")
     public void mouseMove (PositionObject o) {
-        sendCommand(new PositionCommand("move", o));
+        sendCommand(new PositionCommand(PositionCommand.MOUSE_MOVE, o));
     }
 
     @InputMethodTarget(name = "onMouseDrag")
@@ -89,7 +90,7 @@ public class InputController implements Controller {
             double width = Math.abs(o.getX() - myLeftMouse.getX());
             double height = Math.abs(o.getY() - myLeftMouse.getY());
             myDrag = new Rectangle2D.Double(uX, uY, width, height);
-            sendCommand(new DragCommand("drag", Camera.instance().viewtoWorld(myDrag), myDrag));
+            sendCommand(new DragCommand(Camera.instance().viewtoWorld(myDrag), myDrag));
         }
     }
 

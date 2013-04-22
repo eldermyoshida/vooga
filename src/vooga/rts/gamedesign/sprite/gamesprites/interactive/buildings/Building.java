@@ -4,7 +4,6 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
-import vooga.rts.gamedesign.sprite.gamesprites.interactive.IObserver;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
 import vooga.rts.gamedesign.upgrades.UpgradeNode;
@@ -33,7 +32,7 @@ public class Building extends InteractiveEntity {
 
     private Location3D myRallyPoint;
     private List<InteractiveEntity> myInteractiveEntities;
-
+    
     private int myBuildingID;
 
     public Building (Pixmap image,
@@ -47,6 +46,7 @@ public class Building extends InteractiveEntity {
         myRallyPoint = new Location3D(getWorldLocation().getX(), getWorldLocation().getY() + 50, 0);
         
         myInteractiveEntities = new ArrayList<InteractiveEntity>();
+
     }
 
     @Override
@@ -142,15 +142,15 @@ public class Building extends InteractiveEntity {
 
     }
 
-  
 
-    @Override
-    public void addActions () {
-
-    }
-    
     @Override
     public int getSpeed() {
     	return 0;
     }
+
+	@Override
+	public void addActions() {
+		// TODO Auto-generated method stub
+		
+	}
 }
