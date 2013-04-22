@@ -20,6 +20,7 @@ import vooga.rts.util.Sound;
  * @author Wenshun Liu
  * 
  */
+
 public class UpgradeBuilding extends Building {
     public int PRODUCE_TIME = 90;
 
@@ -28,8 +29,9 @@ public class UpgradeBuilding extends Building {
                             Dimension size,
                             Sound sound,
                             int playerID,
-                            int health) {
-        super(image, center, size, sound, playerID, health, null);
+                            int health,
+                            double buildTime) {
+        super(image, center, size, sound, playerID, health, null, buildTime);
     }
 
     /**
@@ -37,10 +39,10 @@ public class UpgradeBuilding extends Building {
      */
     public void addUpgradeActions (UpgradeTree upgradeTree) {
         List<UpgradeNode> initialUpgrades = upgradeTree.getCurrentUpgrades();
-        addUpgradeActions(initialUpgrades);
+        //addUpgradeActions(initialUpgrades);
     }
 
-    public void addUpgradeActions (List<UpgradeNode> nodeList) {
+   // public void addUpgradeActions (List<UpgradeNode> nodeList) {
         /*
          * for (final UpgradeNode u : nodeList) {
          * getActions().add(new Action(u.getUpgradeName(), null, "An upgrade action") {
@@ -59,7 +61,8 @@ public class UpgradeBuilding extends Building {
          * });
          * }
          */
-    }
+   // }
+
 
     @Override
     public void getOccupied (Unit u) {

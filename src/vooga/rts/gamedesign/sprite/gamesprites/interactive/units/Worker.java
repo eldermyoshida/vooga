@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import vooga.rts.gamedesign.sprite.gamesprites.GameEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.Resource;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.IGatherable;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building;
 import vooga.rts.gamedesign.strategy.gatherstrategy.CanGather;
 import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
 import vooga.rts.util.Location3D;
@@ -41,8 +42,8 @@ public class Worker extends Unit {
 	 *            is the health of the worker
 	 */
 	public Worker(Pixmap image, Location3D center, Dimension size, Sound sound,
-			int playerID, int health, int gatherAmount) {
-		super(image, center, size, sound, playerID, health);
+			int playerID, int health, int gatherAmount, double buildTime) {
+		super(image, center, size, sound, playerID, health, buildTime);
 		myGatherAmount = gatherAmount;
 		myGatherStrategy = new CanGather(DEFUALT_GATHER_INTERVAL, gatherAmount);
 
@@ -89,3 +90,4 @@ public class Worker extends Unit {
 	}
 
 }
+

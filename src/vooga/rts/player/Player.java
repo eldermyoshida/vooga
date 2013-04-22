@@ -3,11 +3,9 @@ package vooga.rts.player;
 import java.awt.Graphics2D;
 import vooga.rts.IGameLoop;
 import vooga.rts.commands.Command;
-import vooga.rts.controller.Controllable;
 import vooga.rts.controller.Controller;
-import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.manager.Manager;
-
 
 public class Player implements Controller, IGameLoop {
 
@@ -22,14 +20,13 @@ public class Player implements Controller, IGameLoop {
     @Override
     public void sendCommand (Command command) {
         // TODO Auto-generated method stub
-
     }
 
     public Manager getManager () {
         return myManager;
     }
 
-    public void add (Unit unit) {
+    public void add (InteractiveEntity unit) {
         myManager.add(unit);
     }
 
