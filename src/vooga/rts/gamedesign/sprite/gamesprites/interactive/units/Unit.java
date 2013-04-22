@@ -20,7 +20,6 @@ import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
 import vooga.rts.gamedesign.upgrades.UpgradeNode;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
 import vooga.rts.util.Camera;
-import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
@@ -83,8 +82,8 @@ public class Unit extends InteractiveEntity {
                  double buildTime) {
         super(image, center, size, sound, playerID, health, buildTime);
         // myPather = new PathingHelper();
-        System.out.println(playerID + " " + health);
-        System.out.println(playerID + " " + health);
+       // System.out.println(playerID + " " + health);
+        //System.out.println(playerID + " " + health);
         if (myUpgradeTree != null) {
             addUserToUpgradeTree(playerID);
         }
