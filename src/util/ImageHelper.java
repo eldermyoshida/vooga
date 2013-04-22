@@ -19,7 +19,7 @@ public class ImageHelper {
      * Resizes the image to to square size from a given path
      * @param path path of the image to scale
      * @param size The height and width of the scaled image
-     * @return square Image scaled to the user parameter
+     * @return square Imaged scaled to the user parameter
      */
     public static Image getScaledImage(String path, int size){
         return getScaledImage(getImageIcon(path).getImage(),size);
@@ -30,7 +30,7 @@ public class ImageHelper {
      * @param path path of the image to scale
      * @param width The new width of the scaled image
      * @param height The new height of the scaled image
-     * @return Image scale to the user parameter
+     * @return Image scaled to the user parameter
      */
     public static Image getScaledImage(String path, int width, int height){
         return getScaledImage(getImageIcon(path).getImage(),width, height);
@@ -43,6 +43,15 @@ public class ImageHelper {
      */
     public static ImageIcon getImageIcon(String path) {
         return new ImageIcon(ImageHelper.class.getResource(path));
+    }
+    
+    /**
+     * Gets an image from the given path
+     * @param path path of the image
+     * @return The image associated to this path
+     */
+    public static Image getImage(String path) {
+        return new ImageIcon(ImageHelper.class.getResource(path)).getImage();
     }
          
     /**
@@ -57,9 +66,9 @@ public class ImageHelper {
     
     /**
      * Resizes an Image into square dimensions from a given icon
-     * @param image the image to scale
+     * @param icon The ImageIcon to have its image scaled
      * @param size The height and width of the scaled image
-     * @return Image scale to the user parameter
+     * @return Image scaled to the user parameter
      */
     public static Image getScaledImage(ImageIcon icon,int size){
         return getScaledImage(icon.getImage(), size, size);
@@ -67,9 +76,9 @@ public class ImageHelper {
     
     /**
      * Resizes an Image into square dimensions from a given icon
-     * @param image the image to scale
+     * @param icon the icon to have its image scaled
      * @param size The height and width of the scaled image
-     * @return Image scale to the user parameter
+     * @return Image scaled to the user parameter
      */
     public static Image getScaledImage(ImageIcon icon,int width, int height){
         return getScaledImage(icon.getImage(), width, height);
@@ -80,7 +89,7 @@ public class ImageHelper {
      * @param image the image to scale
      * @param width The new width of the scaled image
      * @param height The new height of the scaled image
-     * @return Image scale to the user parameter
+     * @return Image scaled to the user parameter
      */
     public static Image getScaledImage(Image image,int width, int height){
         BufferedImage buffer = new BufferedImage(width,height,BufferedImage.TYPE_INT_RGB);
