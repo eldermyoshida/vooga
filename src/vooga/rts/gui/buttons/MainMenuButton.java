@@ -8,9 +8,9 @@ import vooga.rts.gui.Button;
 import vooga.rts.util.Location;
 
 
-public class ScreenButton extends Button {
+public class MainMenuButton extends Button {
 
-    public int FONT_SIZE = 60;
+    public int FONT_SIZE = 48;
     public static final int X_PADDING = 15;
     public static final int Y_PADDING = 15;
     public static final Color TEXT_COLOR = Color.white;
@@ -18,7 +18,7 @@ public class ScreenButton extends Button {
     public Color HOVER_FONT_COLOR = Color.blue;
     public String myText;
 
-    public ScreenButton (String t, Dimension size, Location pos) {
+    public MainMenuButton (String t, Dimension size, Location pos) {
         super(null, size, pos);
         myText = t;
     }
