@@ -42,6 +42,7 @@ public class UpgradeNode {
         myChildren = new ArrayList<UpgradeNode>();
         myHasBeenUpgraded = false;
         myUpgradeValue = upgradeValue;
+        myCost = new HashMap<String, Integer>();
         myCost.put("resource", costedResourceAmount); // TODO: get different types of Resource
     }
 

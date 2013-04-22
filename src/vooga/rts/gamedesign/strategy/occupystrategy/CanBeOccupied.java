@@ -53,29 +53,27 @@ public class CanBeOccupied implements OccupyStrategy {
         entity.addAction("be occupied!", new InteractiveAction(entity) {
             @Override
             public void update (Command command) {
-                
+
             }
 
             @Override
             // TODO : Cannot pass objects into apply
             public void apply () {
-                System.out.println("Goes here!");
-                if (myOccupierHashCodes.size() < myMaxOccupiers && verifyOccupier(entity, (Unit) i)) {
-                    System.out.println("Verified!!");
-                    // i.setVisible(false);
-                    // i.getEntityState().setDetectableState(DetectableState.NOTDETECTABLE);
-                    if (myOccupierID == 0) {
-                        myOccupierID = i.getPlayerID();
-                    }
-                    myOccupierHashCodes.add(i.hashCode());
-                    entity.setChanged();
-                    entity.notifyObservers(i);
-                }
-            }
-
-            @Override
-            public void apply () {
-                return;
+                /*
+                 * System.out.println("Goes here!");
+                 * if (myOccupierHashCodes.size() < myMaxOccupiers && verifyOccupier(entity, (Unit)
+                 * i)) {
+                 * System.out.println("Verified!!");
+                 * // i.setVisible(false);
+                 * // i.getEntityState().setDetectableState(DetectableState.NOTDETECTABLE);
+                 * if (myOccupierID == 0) {
+                 * myOccupierID = i.getPlayerID();
+                 * }
+                 * myOccupierHashCodes.add(i.hashCode());
+                 * entity.setChanged();
+                 * entity.notifyObservers(i);
+                 * }
+                 */
             }
         });
     }

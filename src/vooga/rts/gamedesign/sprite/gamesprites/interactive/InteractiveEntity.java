@@ -125,9 +125,10 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
                 Math.sqrt(Math.pow(getWorldLocation().getX() -
                                    ((InteractiveEntity) attackable).getWorldLocation().getX(), 2) +
                           Math.pow(getWorldLocation().getY() -
-                                   ((InteractiveEntity) attackable).getWorldLocation().getY(), 2));
+                                   ((InteractiveEntity) attackable).getWorldLocation().getY(), 2));        
         if (!this.isDead()) {
             // getEntityState().setAttackingState(AttackingState.ATTACKING);
+            
             if (getEntityState().getAttackingState() != AttackingState.WAITING &&
                 getEntityState().getAttackingState() != AttackingState.ATTACKING) {
                 getEntityState().attack();
@@ -136,6 +137,8 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
             // getGameState().setMovementState(MovementState.STATIONARY);
             if (getEntityState().canAttack()) {
                 myAttackStrategy.attack(attackable, distance);
+                
+                //System.out.println("Can Attack?");
             }
         }
     }
@@ -368,6 +371,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
             myAttackStrategy.getWeapons().get(myAttackStrategy.getWeaponIndex())
                     .update(elapsedTime);
         }
+        getEntityState().update(elapsedTime);
 
         setChanged();
         notifyObservers();
