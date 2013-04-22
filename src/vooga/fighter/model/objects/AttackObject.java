@@ -51,10 +51,10 @@ public class AttackObject extends GameObject{
         setImageData(); 
     }
 
-    	/**
-    	  * Creates a deep copy of another AttackObject's state map and sets it as this
-          * object's state map.
-          */
+    /**
+     * Creates a deep copy of another AttackObject's state map and sets it as this
+     * object's state map.
+     */
     public void copyStates(AttackObject other) {
     	Map<String,State> otherStates = other.getStates();
     	for (String key : otherStates.keySet()) {
@@ -122,6 +122,12 @@ public class AttackObject extends GameObject{
     	return myOwner; 
     }
     
+    /**
+     * Sets the owner to the creator of the attack
+     */
+    public void setOwner(CharacterObject owner){
+    	myOwner= owner; 
+    }
     /**
      * Inflicts damage upon a target player.
      */

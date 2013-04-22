@@ -151,7 +151,9 @@ public class CharacterObject extends GameObject {
     public void attack(String attack) {
         setCurrentState("weakPunch");
         UpdatableLocation characterLocation= getLocation(); 
-        currentAttacks.add(new AttackObject(myAttacks.get(attack), new UpdatableLocation(characterLocation.getLocation().getX(), characterLocation.getLocation().getY())));
+        AttackObject newAttack=new AttackObject(myAttacks.get(attack), new UpdatableLocation(characterLocation.getLocation().getX(), characterLocation.getLocation().getY()));
+        newAttack.setOwner(this);
+        currentAttacks.add(newAttack);
       
     }
 
@@ -172,7 +174,7 @@ public class CharacterObject extends GameObject {
     }
 
     /**
-     * Makes the character move back if it runs into another character or environmentobject
+     * Makes the character move back if it runs into another character or environmentObject with higher priority
      */
     public void moveBack(){
     	getLocation().translate(new Vector(movingDirection, MOVE_BACK_AMOUNT*getProperty("speed")));
