@@ -71,7 +71,7 @@ public class InputController implements Controller {
 
     @InputMethodTarget(name = "onRightMouseUp")
     public void onRightMouseUp (PositionObject o) {
-        sendCommand(new ClickCommand(ClickCommand.LEFT_CLICK, o));
+        sendCommand(new ClickCommand(ClickCommand.RIGHT_CLICK, o));
         myLeftMouse = null;
         myDrag = null;
         sendCommand(new DragCommand(null, null));

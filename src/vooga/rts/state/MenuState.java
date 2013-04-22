@@ -43,13 +43,13 @@ public class MenuState extends SubState implements Observer {
 
     @Override
     public void receiveCommand (Command command) {
-        if (command.getMethodName().equals("leftclick")) {
+        if (command.getMethodName().equals(ClickCommand.LEFT_CLICK)) {
             ClickCommand left = (ClickCommand) command;
             getCurrentMenu()
                     .handleMouseDown((int) left.getPosition().x, (int) left.getPosition().y);
         }
         else
-            if (command.getMethodName().equals("move")) {
+            if (command.getMethodName().equals(PositionCommand.MOUSE_MOVE)) {
                 PositionCommand move = (PositionCommand) command;
                 getCurrentMenu().handleMouseMovement((int) move.getPosition().x,
                                                      (int) move.getPosition().y);
