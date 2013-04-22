@@ -49,6 +49,7 @@ public class GameEntity extends GameSprite {
     private Location3D myGoal;
     private Vector myOriginalVelocity;
     private EntityState myEntityState;
+    private int mySpeed;
 
     public GameEntity (Pixmap image, Location3D center, Dimension size, int playerID, int health) {
         super(image, center, size);
@@ -60,6 +61,7 @@ public class GameEntity extends GameSprite {
         myVelocity = new Vector(0, 0);
         myGoal = new Location3D(center);
         myEntityState = new EntityState();
+        mySpeed = DEFAULT_SPEED;
     }
 
     /**
@@ -162,7 +164,6 @@ public class GameEntity extends GameSprite {
      * @param vector
      */
     public void translate (Vector vector) {
-
         getWorldLocation().translate(vector);
         resetBounds();
     }
@@ -180,7 +181,7 @@ public class GameEntity extends GameSprite {
      * Moves the Unit only. Updates first the angle the Unit is facing, and then
      * its location. Possible design choice error.
      */
-    public void move (Location3D loc) {       
+    public void move (Location3D loc) {
         myGoal = new Location3D(loc);
         Vector v = getWorldLocation().difference(myGoal.to2D());
 
@@ -191,6 +192,7 @@ public class GameEntity extends GameSprite {
         }
         else {
             setVelocity(v.getAngle(), getSpeed());
+            System.out.println(getSpeed());
             myEntityState.setMovementState(MovementState.MOVING);
         }
     }
@@ -201,7 +203,11 @@ public class GameEntity extends GameSprite {
      * @return the speed of the entity
      */
     public int getSpeed () {
-        return DEFAULT_SPEED;
+        return mySpeed;
+    }
+
+    public void setSpeed (int speed) {
+        mySpeed = speed;
     }
 
     /**
@@ -245,6 +251,9 @@ public class GameEntity extends GameSprite {
 
         Vector v = new Vector(myVelocity);
         v.scale(elapsedTime);
+        if (v.getMagnitude() > 0) {
+            System.out.println(v);
+        }
         translate(v);
         myEntityState.update(elapsedTime);
         super.update(elapsedTime);
@@ -294,6 +303,7 @@ public class GameEntity extends GameSprite {
     public void stopMoving () {
         if (!myEntityState.canMove()) {
             setVelocity(getVelocity().getAngle(), 0);
+            getEntityState().stop();
         }
     }
 
