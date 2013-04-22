@@ -38,13 +38,6 @@ public class UnitDecoder extends Decoder {
 			SecurityException, ClassNotFoundException {
 		
 		String path = doc.getElementsByTagName(HEAD_TAG).item(0).getAttributes().getNamedItem(SOURCE_TAG).getTextContent();
-		Class<?> headClass = null;
-		
-		try {
-			headClass = Class.forName(path);			
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
 		NodeList nodeLst = doc.getElementsByTagName(TYPE_TAG);
 		for(int i = 0 ; i < nodeLst.getLength() ; i++){
 			Element nElement = (Element) nodeLst.item(i);
@@ -54,7 +47,7 @@ public class UnitDecoder extends Decoder {
 			int health = Integer.parseInt(nElement.getElementsByTagName(HEALTH_TAG).item(0).getTextContent());
 			double buildTime = Double.parseDouble(nElement.getElementsByTagName(TIME_TAG).item(0).getTextContent());
 			
-			Unit unit = (Unit) ReflectionHelper.makeInstance(headClass, new Pixmap(img), 
+			Unit unit = (Unit) ReflectionHelper.makeInstance(path, new Pixmap(img), 
 																		new Location3D(0,0,0),
 																		new Dimension(50,50),
 																		new Sound(sound),

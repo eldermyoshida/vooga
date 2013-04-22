@@ -42,16 +42,7 @@ public class BuildingDecoder extends Decoder{
 	@Override
 	public void create(Document doc) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		//there is some duplicate code between decoders that should be factored out. 
-		String path = doc.getElementsByTagName(HEAD_TAG).item(0).getAttributes().getNamedItem(SOURCE_TAG).getTextContent();
-		Class<?> headClass = null;
-	
-		try {
-			headClass = Class.forName(path);			
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-
-		
+		String path = doc.getElementsByTagName(HEAD_TAG).item(0).getAttributes().getNamedItem(SOURCE_TAG).getTextContent();	
 		NodeList nodeLst = doc.getElementsByTagName(TYPE_TAG);
 		for(int i = 0 ; i < nodeLst.getLength() ; i++){
 			Element nElement = (Element) nodeLst.item(i);
@@ -60,7 +51,7 @@ public class BuildingDecoder extends Decoder{
 			String sound = nElement.getElementsByTagName(SOUND_TAG).item(0).getTextContent();
 			int health = Integer.parseInt(nElement.getElementsByTagName(HEALTH_TAG).item(0).getTextContent());
 			double buildTime = Double.parseDouble(nElement.getElementsByTagName(TIME_TAG).item(0).getTextContent());
-			Building building = (Building) ReflectionHelper.makeInstance(headClass, 
+			Building building = (Building) ReflectionHelper.makeInstance(path, 
 																			new Pixmap(img),
 																  			new Location3D(0,0,0),
 																			  new Dimension(50,50),

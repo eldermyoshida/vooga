@@ -24,6 +24,10 @@ import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
  */
 public class CannotBeOccupied implements OccupyStrategy{
 
+	public CannotBeOccupied(){
+		
+	}
+	
 	
 	public void addValidClassType(Unit u) {
 		return;
