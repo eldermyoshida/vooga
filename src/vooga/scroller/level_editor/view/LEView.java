@@ -22,7 +22,7 @@ public class LEView extends Window<LEWorkspaceView, LevelEditing, LEGridView, LE
 
     private static final long serialVersionUID = 1L;
     private static final String TITLE = "Level Editor";
-    private static final String SIMULATION_ERROR_MESSAGE = getLiteral("SimulationError");
+    private static final String SIMULATION_ERROR_MESSAGE = "SimulationError";
     
     /**
      * Default constructor - build a Window with the specified language and controller.

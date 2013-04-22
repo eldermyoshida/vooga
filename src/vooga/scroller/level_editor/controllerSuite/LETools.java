@@ -66,8 +66,13 @@ public class LETools extends Tools implements Renderable<LEToolsView> {
 
     private ImageIcon getIcon (Sprite s) {
         return new ImageIcon(s.getDefaultImg().getScaledInstance(
-                                                                 DEFAULT_SIZE, DEFAULT_SIZE,
-                                                                 Image.SCALE_SMOOTH));
+                                             DEFAULT_SIZE, DEFAULT_SIZE,
+                                             Image.SCALE_SMOOTH));
+    }
+    
+    private ImageIcon getIcon (Image a) {
+        return new ImageIcon(a.getScaledInstance(DEFAULT_SIZE, DEFAULT_SIZE,
+                                                 Image.SCALE_SMOOTH));
     }
 
     /**
@@ -136,7 +141,7 @@ public class LETools extends Tools implements Renderable<LEToolsView> {
 
     public void addBackgrounds (Map<Integer, Image> backgrounds) {
         for (Integer key : backgrounds.keySet()) {
-            myBackgroundImages.put(backgrounds.get(key), "" + key);
+            myBackgroundImages.put(getIcon(backgrounds.get(key)), "" + key);
         }
     }
 
