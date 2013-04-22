@@ -1,9 +1,11 @@
 package vooga.rts.networking.communications;
 
 import java.io.Serializable;
+import java.util.Observable;
+
 import vooga.rts.networking.client.lobby.Player;
 
-public class LobbyInfo implements Serializable {
+public class LobbyInfo extends Observable implements Serializable {
 
     private static final long serialVersionUID = 8433220026468566119L;
     private String myLobbyName;
