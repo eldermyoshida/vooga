@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import vooga.rts.IGameLoop;
+import vooga.rts.commands.ClickCommand;
+import vooga.rts.commands.Command;
+import vooga.rts.commands.PositionCommand;
 import vooga.rts.util.Location;
 
 
@@ -25,6 +28,7 @@ public abstract class Menu extends Observable implements IGameLoop, Observer {
     public void update (double elapsedTime) {
 
     }
+    
     
     public AffineTransform getTransform(Graphics2D pen) {
         AffineTransform a = new AffineTransform();
@@ -65,6 +69,17 @@ public abstract class Menu extends Observable implements IGameLoop, Observer {
         b.addObserver(this);
     }
 
+    public void receiveCommand (Command command) {
+        if (command instanceof ClickCommand) {
+            ClickCommand c = (ClickCommand) command;
+            handleMouseDown(c.getPosition());
+        }
+        else if (command instanceof PositionCommand) {
+            
+            PositionCommand p = (PositionCommand) command;
+            handleMouseMovement(p.getPosition());
+        }
+    }
     public void handleMouseDown (int x, int y) {
         for (Button b : myButtons) {
             if (b.checkWithinBounds(x, y)) {
@@ -87,6 +102,7 @@ public abstract class Menu extends Observable implements IGameLoop, Observer {
             }
         }
     }
+
     
     public void handleMouseMovement (Location l) {
         handleMouseMovement((int) l.getX(), (int) l.getY());
