@@ -1,0 +1,40 @@
+/level
+                                                            
+           a                                                
+                                                            
+                                                            
+      b                                                     
+                                                            
+                                                            
+          c                                                 
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+/lib
+vooga.scroller.sprites.test_sprites.MarioLib
+/key
+a=Koopa
+c=MovingPlatformTwo
+b=Platform
+/settings
+StartPoint=0 0
+EndPoint=100 100

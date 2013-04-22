@@ -1,6 +1,0 @@
-public void visit (Mario mario, Koopa koopa) {}
-public void visit (Mario mario, Coin coin) {}
-public void visit (Mario mario, MarioLib.MovingPlatform movingPlatform) {}
-public void visit (Koopa koopa, Coin coin) {}
-public void visit (Koopa koopa, MarioLib.MovingPlatform movingPlatform) {}
-public void visit (Coin coin, MarioLib.MovingPlatform movingPlatform) {}

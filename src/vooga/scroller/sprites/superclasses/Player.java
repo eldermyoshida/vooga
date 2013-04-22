@@ -13,7 +13,7 @@ import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.util.Gravity;
 import vooga.scroller.util.ISpriteView;
 import vooga.scroller.util.Sprite;
-import vooga.scroller.view.View;
+import vooga.scroller.view.GameView;
 
 
 /**
@@ -35,15 +35,13 @@ import vooga.scroller.view.View;
 public abstract class Player extends Sprite implements IInputListener{
 
     // Graphics2D pen;
-    private View myView;
+    private GameView myView;
     private Location myPaintCenter;
     private Dimension mySize;
     // private Pixmap myImage;
     private StateManager myStateManager;
     private ScrollingManager myScrollingManager;
     private Statistic myStatistic;
-    private int myHit = 1;
-    private int myHealth = 5;
 
 
     private Location myOriginalLocation;
@@ -58,10 +56,12 @@ public abstract class Player extends Sprite implements IInputListener{
     public Player (ISpriteView image,
                    Location center,
                    Dimension size,
-                   View view,
-                   ScrollingManager sm) {
-        super(image, center, size);
-        myView = view;
+                   GameView gameView,
+                   ScrollingManager sm, 
+                   int health, 
+                   int damage) {
+        super(image, center, size, health, damage);
+        myView = gameView;
         myPaintCenter = new Location(myView.getWidth() / 2, myView.getHeight() / 2);
         mySize = size;
         // myImage = image;
@@ -118,24 +118,10 @@ public abstract class Player extends Sprite implements IInputListener{
     public Dimension getSize() {
         return mySize;
     }
+
     public void incrementScore (int increment) {
         myStatistic.addValue(increment);
     }
     
-    public int getHit() {
-        return myHit;
-    }
-
-    public void takeHit (int damage) {
-        myHealth -= damage;
-    }
     
-    public int getHealth() {
-        return myHealth;
-    }
-    
-    @Override
-    public void setHealth(int health) {
-        myHealth = health;
-    }
 }

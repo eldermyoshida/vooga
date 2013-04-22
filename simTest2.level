@@ -1,0 +1,40 @@
+/level
+                                                            
+                                                            
+                                                            
+      a                                                     
+           b                                                
+                                                            
+                                                            
+c                                                           
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+/lib
+vooga.scroller.sprites.test_sprites.MarioLib
+/key
+a=LevelTwoBlockTwo
+b=MovingPlatformTwo
+c=LevelTwoBlockThree
+/settings
+StartPoint=48 176
+EndPoint=697 57
