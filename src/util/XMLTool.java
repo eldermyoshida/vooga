@@ -215,7 +215,7 @@ public class XMLTool {
     }
     
     /*
-     * Getters
+     * Getter methods.
      */
     /**
      * This method returns the first element in the document with an specific tag.
@@ -298,6 +298,20 @@ public class XMLTool {
             }
         }
         return map;
+    }
+    
+    /**
+     * Creates a map with the tag (as a map key) and the content (as a map value) of all the
+     * children elements of the first node with a particular tag.
+     * If the parent element does not contain children, this method returns an empty map.
+     * 
+     * @param parentTag The tag of the parent element node.
+     * @return a map with the tag (as a map key) and the content (as a map value) of all the
+     *         children elements of a particular node.
+     */
+    public Map<String, String> getMapFromParentElement (String parentTag) {
+        Element parent = getElementFromTag(parentTag);
+        return getMapFromParentElement(parent);
     }
     
     /**
