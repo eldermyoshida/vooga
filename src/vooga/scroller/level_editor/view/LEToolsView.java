@@ -80,8 +80,10 @@ public class LEToolsView extends WindowComponent implements Renderer<LETools> {
         mySpriteUI.setLayout(new BoxLayout(mySpriteUI, BoxLayout.PAGE_AXIS));
 //        mySpriteUI.setLayout(new SpringLayout());
         for (Map<Object, String> m : myTools.getAllSprites()) {
+            if (m.size()>0) {
             JPanel spriteButtons = new RadioGroup(this.getSize(), new SelectSpriteListener(), m);
             mySpriteUI.add(spriteButtons);
+            }
         }
 
         myOtherUI = new JPanel();
