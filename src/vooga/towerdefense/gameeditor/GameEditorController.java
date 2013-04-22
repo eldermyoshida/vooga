@@ -220,6 +220,7 @@ public class GameEditorController extends JFrame {
         if (directory.exists()) {
             File[] files = directory.listFiles();
             for (File file : files) {
+                System.out.println(file.getName());
                 if (file.getName().endsWith(CLASS_INDICATOR_STRING)) {
                     classes.add(Class
                             .forName(packageName +
@@ -252,6 +253,7 @@ public class GameEditorController extends JFrame {
             names.add(c.getName().substring(packageName.length() + 1,
                                             c.getName().length()));
         }
+
         // TODO: get rid of this general term
         if (names.contains("Action")) {
             names.remove("Action");
