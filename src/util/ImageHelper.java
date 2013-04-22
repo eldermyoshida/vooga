@@ -16,17 +16,17 @@ import javax.swing.JLabel;
 public class ImageHelper {
     
     /**
-     * 
+     * Resizes the image to to square size from a given path
      * @param path path of the image to scale
      * @param size The height and width of the scaled image
-     * @return Image scale to the user parameter
+     * @return square Image scaled to the user parameter
      */
     public static Image getScaledImage(String path, int size){
         return getScaledImage(getImageIcon(path).getImage(),size);
     }
     
     /**
-     * 
+     * Resizes image from a given path
      * @param path path of the image to scale
      * @param width The new width of the scaled image
      * @param height The new height of the scaled image
@@ -37,7 +37,7 @@ public class ImageHelper {
     }
     
     /**
-     * 
+     * Gets an image icon from the given path
      * @param path path of the image
      * @return The image icon for this image
      */
@@ -46,7 +46,7 @@ public class ImageHelper {
     }
          
     /**
-     * 
+     * Resizes an Image into square dimensions
      * @param image the image to scale
      * @param size The height and width of the scaled image
      * @return Image scale to the user parameter
@@ -56,7 +56,7 @@ public class ImageHelper {
     }
     
     /**
-     * 
+     * Resizes an Image
      * @param image the image to scale
      * @param width The new width of the scaled image
      * @param height The new height of the scaled image
