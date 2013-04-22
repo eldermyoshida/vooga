@@ -7,8 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -16,6 +14,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import arcade.exceptions.LoginErrorException;
 import arcade.model.Model;
 import arcade.view.TextKeywords;
 
@@ -27,13 +26,11 @@ import arcade.view.TextKeywords;
  * @author David Liu, Ellango
  * 
  */
-@SuppressWarnings("serial")
+@SuppressWarnings({ "unused", "serial" })
 public class LoginView extends Account {
     private static final String LOGO_FILENAME = "../../resources/images/VoogaLogo.png";
     private static final int WINDOW_WIDTH = 260;
     private static final int WINDOW_HEIGHT = 240;
-    // private static final int NO_KEY_PRESSED = -1;
-    // private int myLastKeyPressed;
 
     /**
      * Constructs the LoginView with a Model and ResourceBundle
@@ -43,30 +40,19 @@ public class LoginView extends Account {
      */
     public LoginView (Model model, ResourceBundle resources) {
         super(model, resources);
-        
+
         setPasswordFieldListener(new KeyAdapter() {
             @Override
             public void keyPressed (KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    tryLogin();
+                    login();
                 }
             }
         });
-        
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
         setLocationRelativeTo(null);
-    }
-
-    @Override
-    protected List<JComponent> makeComponents () {
-        List<JComponent> components = new ArrayList<JComponent>();
-        components.add(createLogo());
-        components.add(createUsernameField());
-        components.add(createPasswordField());
-        components.add(createMessageArea());
-        components.add(createButtons());
-        return components;
     }
 
     /**
@@ -92,7 +78,7 @@ public class LoginView extends Account {
         login.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent arg0) {
-                tryLogin();
+                login();
             }
         });
         buttonPanel.add(login);
@@ -102,7 +88,6 @@ public class LoginView extends Account {
             @Override
             public void actionPerformed (ActionEvent arg0) {
                 new RegisterView(getModel(), getResources(), getUsername(), getPassword());
-                // getModel().startRegister(); to instantiate the register view
                 dispose();
             }
         });
@@ -135,35 +120,18 @@ public class LoginView extends Account {
     /**
      * Sends the inputs to the model to try logging in.
      */
-    private void tryLogin () {
+    private void login () {
         String usernameInput = getUsername();
         String passwordInput = getPassword();
         clearUsername();
         clearPassword();
-        getModel().authenticate(usernameInput, passwordInput);
+        try
+        {
+            getModel().authenticate(usernameInput, passwordInput);
+        }
+        catch (LoginErrorException e)
+        {
+            sendMessage(getResources().getString(e.getLocalizedMessage()));
+        }
     }
-
-    // /**
-    // * create KeyListener: listen to "Enter" key
-    // * Reset the myLastKeyPressed to -1 after the key is released
-    // *
-    // * @return
-    // */
-    // private KeyAdapter createKeyAdapter () {
-    // KeyAdapter keyAdapter = new KeyAdapter() {
-    // @Override
-    // public void keyPressed (KeyEvent e) {
-    // myLastKeyPressed = e.getKeyCode();
-    // if (myLastKeyPressed == KeyEvent.VK_ENTER) {
-    // tryLogin();
-    // }
-    // }
-    //
-    // @Override
-    // public void keyReleased (KeyEvent e) {
-    // myLastKeyPressed = NO_KEY_PRESSED;
-    // }
-    // };
-    // return keyAdapter;
-    // }
 }

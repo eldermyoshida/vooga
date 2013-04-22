@@ -9,6 +9,10 @@ import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import arcade.database.Database;
+import arcade.exceptions.CorruptedDatabaseException;
+import arcade.exceptions.InvalidPaymentException;
+import arcade.exceptions.LoginErrorException;
+import arcade.exceptions.UsernameTakenException;
 import arcade.games.ArcadeInteraction;
 import arcade.games.Game;
 import arcade.games.GameData;
@@ -17,12 +21,15 @@ import arcade.games.HighScores;
 import arcade.games.MultiplayerGame;
 import arcade.games.User;
 import arcade.games.UserGameData;
+import arcade.model.payment.DukePaymentManager;
+import arcade.model.payment.PaymentManager;
 import arcade.view.MainView;
 import arcade.view.forms.LoginView;
 
 
 public class Model implements ArcadeInteraction {
 
+    private static final String PAYMENT_MANAGER_LOCATION = "arcade.model.payment.";
     public static final String DEFAULT_LOGIN_MESSAGE = "";
     private static final String LOGIN_FAILURE_MESSAGE =
             "The username or password you entered is incorrect";
@@ -34,6 +41,7 @@ public class Model implements ArcadeInteraction {
     private Map<String, GameInfo> myGameInfos = new HashMap<String, GameInfo>();
     private List<GameInfo> mySnapshots;
     private String myUser;
+    private PaymentManager myPaymentManager;
 
     // These will be null until you try to play a game
     Game myCurrentGame = null;
@@ -131,28 +139,35 @@ public class Model implements ArcadeInteraction {
         myGameInfos.put(game.getName(), game);
     }
 
-    public void authenticate (String username, String password) {
-        if (myDb.authenticateUsernameAndPassword(username, password)) {
-            myLoginView.dispose();
-            organizeSnapshots();
-            new MainView(this, myResources);
+    public void authenticate (String username, String password) throws LoginErrorException {
+        if (!myDb.authenticateUsernameAndPassword(username, password)) {
+            throw new LoginErrorException();
         }
-        else {
-            myLoginView.sendMessage(LOGIN_FAILURE_MESSAGE);
-        }
+        myLoginView.dispose();
+        organizeSnapshots();
+        new MainView(this, myResources);
     }
 
     /**
      * Create a new user profile by entering user-specific information.
      * This information is eventually stored in the database.
+     * @throws UsernameTakenException 
      */
     public void createNewUserProfile (String username,
                                       String pw,
                                       String firstname,
                                       String lastname,
-                                      String dataOfBirth) {
-        if (myDb.createUser(username, pw, firstname, lastname, dataOfBirth)) {
-            new LoginView(this, myResources);
+                                      String dataOfBirth) throws UsernameTakenException {
+        if (myDb.usernameExists(username)) {
+            throw new UsernameTakenException();
+        }
+        myDb.createUser(username, pw, firstname, lastname, dataOfBirth);
+        try {
+            authenticate(username, pw);
+        }
+        catch (LoginErrorException e) {
+            // this can't happen because just added to db.
+            throw new CorruptedDatabaseException();
         }
 
     }
@@ -162,14 +177,56 @@ public class Model implements ArcadeInteraction {
                                       String firstname,
                                       String lastname,
                                       String dataOfBirth,
-                                      String filepath) {
+                                      String filepath) throws UsernameTakenException {
+        
+        if (myDb.usernameExists(username)) {
+            throw new UsernameTakenException();
+        }
         myDb.createUser(username, pw, firstname, lastname, dataOfBirth, filepath);
-        authenticate(username, pw);
+        try {
+            authenticate(username, pw);
+        }
+        catch (LoginErrorException e) {
+            // this can't happen because just added to db.
+            throw new CorruptedDatabaseException();
+        }
     }
 
     public void deleteUser (String username) {
         myDb.deleteUser(username);
     }
+    
+    
+    /**
+     * First creates the appropriate PaymentManager for the transactionType
+     * if the transactionType is Duke, then the DukePaymentManager is created.
+     * 
+     * Then tries to complete the transaction with the paymentInfo.  If the 
+     * transaction is unsuccessful, the InvalidPaymentExecption is thrown.
+     * 
+     * @param transactionType
+     * @param paymentInfo
+     * @throws InvalidPaymentException
+     */
+    public void performTransaction(GameInfo game, String transactionType, String[] paymentInfo) throws InvalidPaymentException {
+        try {
+            Class<?> paymentManagerClass = Class.forName(PAYMENT_MANAGER_LOCATION + transactionType);
+            myPaymentManager = (PaymentManager) paymentManagerClass.newInstance();
+        }
+        catch (ClassNotFoundException e) {
+            throw new InvalidPaymentException();
+        }
+        catch (InstantiationException e) {
+            throw new InvalidPaymentException();
+        }
+        catch (IllegalAccessException e) {
+            throw new InvalidPaymentException();
+        }
+        
+        myPaymentManager.doTransaction(paymentInfo);
+        // TODO: write code here for moving game from Store to GameCenter
+    }
+    
 
     /**
      * Rate a specific game, store in user-game database

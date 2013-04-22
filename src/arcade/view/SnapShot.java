@@ -1,113 +1,84 @@
-
 package arcade.view;
 
-import java.awt.Dimension;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.IOException;
+import java.awt.image.BufferedImage;
 import java.util.ResourceBundle;
 import javax.swing.BoxLayout;
-import javax.swing.JComponent;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import arcade.games.GameInfo;
 import arcade.model.Model;
-import arcade.util.JPicture;
 import util.Pixmap;
 
 /**
  * 
  * @author David Liu
- *
+ * 
  */
-public class SnapShot extends JPanel implements MouseListener {
+@SuppressWarnings("serial")
+public class SnapShot extends JPanel {
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 1859238824934859448L;
+    private static final int THUMBNAIL_SIZE = 160;
     private GameInfo myGameInfo;
     private ResourceBundle myResources;
-    private JLabel myTitle;
-    private JComponent myThumbnail;
-    private JLabel myRating;
-    
-    
-    private String gameName;
     private Model myModel;
 
     public SnapShot (GameInfo info, ResourceBundle resources, Model model) {
         myModel = model;
         myGameInfo = info;
         myResources = resources;
-        gameName = info.getName();
-        myTitle = new JLabel("<html><b><font size = 4>" + myGameInfo.getName() +
-                             "</font></html></b>");
-        Pixmap p = myGameInfo.getThumbnail();
-        myThumbnail = new JPicture(p, new Dimension(160, 160));
-        myRating = new JLabel(myGameInfo.getRating() + "");
         
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-        
-        add(myThumbnail);
-        add(myTitle);
-        add(myRating);
-        myTitle.addMouseListener(this);
-        myThumbnail.addMouseListener(this);
-        myRating.addMouseListener(this);
 
+        ImageIcon icon = myGameInfo.getThumbnail();
+        ImageIcon scaledIcon = createScaledIcon(icon, THUMBNAIL_SIZE);
+        JLabel thumbnail = new JLabel(scaledIcon);
+        JLabel title = new JLabel("<html><b><font size = 4>" + myGameInfo.getName());
+        JLabel rating = new JLabel(myGameInfo.getRating() + "");
+
+        add(thumbnail);
+        add(title);
+        add(rating);
+
+        this.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked (MouseEvent arg0) {
+                if (arg0.getClickCount() == 2) {
+                    new DetailView(myGameInfo, myResources, myModel);
+                }
+            }
+
+            // these actions don't trigger any events.
+            @Override
+            public void mouseReleased (MouseEvent arg0) {}
+            @Override
+            public void mousePressed (MouseEvent arg0) {}
+            @Override
+            public void mouseExited (MouseEvent arg0) {}
+            @Override
+            public void mouseEntered (MouseEvent arg0) {}
+
+        });
     }
-
-    @Override
-    public void mouseClicked (MouseEvent arg0) {
-        // TODO Auto-generated method stub
-        if (arg0.getClickCount() == 2) {
-            System.out.println("Clicked!!");
-            // TODO:
-            // Put the String(or whatever) to the database and then
-            // get the JComponent+model from the database
-            // Create a JFrame and fill the Frame with the feedback from
-            // the database
-            // JFrame des = new JFrame(myGameInfo.title());
-            // des.setVisible(true);
-            //openHelpPage();
-            DetailView dv = new DetailView(myGameInfo, myResources, myModel);
-            
-            
-        }
-    }
-
-    @Override
-    public void mouseEntered (MouseEvent arg0) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void mouseExited (MouseEvent arg0) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void mousePressed (MouseEvent arg0) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void mouseReleased (MouseEvent arg0) {
-        // TODO Auto-generated method stub
-
-    }
-
-    public void openHelpPage () {
-        String url = "http://breadfish.de/";
-        try {
-            java.awt.Desktop.getDesktop().browse(java.net.URI.create(url));
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+    
+    /**
+     * TODO: REMOVE THE DUPLICATED CODE FROM HERE AND ButtonPanel
+     * @param icon
+     * @param size
+     * @return
+     */
+    private ImageIcon createScaledIcon(ImageIcon icon, int size){
+        Image image = icon.getImage();
+        BufferedImage buffer = new BufferedImage(size,size,BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2 = buffer.createGraphics();
+        g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        g2.drawImage(image, 0, 0, size, size, null);
+        g2.dispose();
+        return new ImageIcon(buffer);
     }
 }

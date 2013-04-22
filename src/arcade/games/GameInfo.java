@@ -1,3 +1,4 @@
+
 package arcade.games;
 
 import java.lang.reflect.Constructor;
@@ -7,14 +8,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
+import javax.swing.ImageIcon;
 
 
 import arcade.database.Database;
 import arcade.model.Model;
-import util.Pixmap;
 
 
 public class GameInfo {
+    private static final String USER_DIRECTORY = System.getProperty("user.dir");
     public static final String FILEPATH = "games.";
     public static final String RESOURCE_DIR_NAME = ".resources.";
 
@@ -53,8 +55,10 @@ public class GameInfo {
 
 
     
-    public Pixmap getThumbnail() {
-    	return myDb.getGameThumbnail(gameName);
+    public ImageIcon getThumbnail() {
+        return new ImageIcon(USER_DIRECTORY + "/src/arcade/resources/images/NoImage.gif");
+        //TODO: revert this back to getting from db.
+    	//return new ImageIcon(USER_DIRECTORY + myDb.getGameThumbnail(gameName));
     }
     
     public String getName(){
@@ -62,23 +66,25 @@ public class GameInfo {
     }
     
     public String getDescription() {
-    	return myDb.getDescription(gameName);
+    	return myDb.getGameDescription(gameName);
     }
     
-    public Pixmap getAdScren() {
-    	return new Pixmap(myDb.getGameAdScreen(gameName));
+    public ImageIcon getAdScreen() {
+    	return new ImageIcon(USER_DIRECTORY + myDb.getGameAdScreen(gameName));
     }
     
     public double getRating() {
-    	return myModel.getAverageRating(getName());
+        return 5;
+        //TODO: revert this back to getting from db.
+    	//return myModel.getAverageRating(getName());
     }
     
     private String getSingleplayerGameClassKeyword() {
-    	return myDb.getExtendsGame(gameName);
+    	return myDb.getSingleplayerGameClassKeyword(gameName);
     }
     
     private String getMultiplayerGameClassKeyword() {
-    	return myDb.getExtendsGameMultiplayer(gameName);
+    	return myDb.getMultiplayerGameClassKeyword(gameName);
     }
     
 
