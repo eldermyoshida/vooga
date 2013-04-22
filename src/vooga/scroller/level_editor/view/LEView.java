@@ -1,31 +1,40 @@
 
 package vooga.scroller.level_editor.view;
 
-import java.io.File;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import vooga.scroller.level_editor.controllerSuite.LEController;
 import vooga.scroller.level_editor.controllerSuite.LETools;
-import vooga.scroller.level_editor.library.ISpriteLibrary;
 import vooga.scroller.util.Renderable;
-import vooga.scroller.util.mvc.vcFramework.Tools;
 import vooga.scroller.util.mvc.vcFramework.Window;
-import vooga.scroller.util.mvc.vcFramework.WorkspaceView;
 
-
+/**
+ * This class is a specialized Window (using the vcFramework) for LevelEditing.
+ * As such it has the type parameters:
+ * <li> LEWorkspaceView as the default workspace supported. </li>
+ * <li> LevelEditing as the Domain Specific main resource. </li>
+ * <li> LEGridView as the main renderer.</li>
+ * <li> LETools as the toolbox that can be used to operate on the workspace items.</li>
+ * @author Dagbedji Fagnisse
+ */
 public class LEView extends Window<LEWorkspaceView, LevelEditing, LEGridView, LETools> {
     
 
     private static final long serialVersionUID = 1L;
     private static final String TITLE = "Level Editor";
+    private static final String SIMULATION_ERROR_MESSAGE = getLiteral("SimulationError");
     
+    /**
+     * Default constructor - build a Window with the specified language and controller.
+     * @param language
+     * @param lEController
+     */
     public LEView (String language, LEController lEController) {
         super(TITLE, language, lEController);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     @Override
-    public LEWorkspaceView initializeWorkspaceView (int id, Renderable<?> r) {
+    public LEWorkspaceView initializeWorkspaceView (int id, Renderable<LEGridView> r) {
         LEWorkspaceView res = new LEWorkspaceView(this, id, (Renderable<LEGridView>) r);
         return res;
     }
@@ -40,12 +49,11 @@ public class LEView extends Window<LEWorkspaceView, LevelEditing, LEGridView, LE
      * @param tab
      */
     private void simulate (LEWorkspaceView tab) {
-        if (tab.isValidForSimulation()) { //TODO
+        if (tab.isValidForSimulation()) {
             tab.getRenderable().simulate();
         }
         else 
-            JOptionPane.showMessageDialog(this, 
-                                          getLiteral("SimulationError"));
+            JOptionPane.showMessageDialog(this, SIMULATION_ERROR_MESSAGE);
     }
 
     /**
@@ -61,11 +69,6 @@ public class LEView extends Window<LEWorkspaceView, LevelEditing, LEGridView, LE
     @Override
     public void setDefaultWorkspaceTools (LETools t) {
         LEWorkspaceView.setTools(t); //TODO
-    }
-
-    @Override
-    public void render (Renderable r) {
-        //TODO ---->
     }
 
 

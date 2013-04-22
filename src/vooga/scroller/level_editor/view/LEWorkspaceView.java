@@ -83,13 +83,6 @@ public class LEWorkspaceView extends WorkspaceView<LevelEditing> implements Rend
         return myGridView.isValidForSimulation();
     }
 
-    @Override
-    public void render (Renderable<?> r) {
-
-        // TODO Auto-generated method stub !!!
-        myGridView.render(r);
-        
-    }
 
     @Override
     public void render (LEGrid grid) {
@@ -114,6 +107,11 @@ public class LEWorkspaceView extends WorkspaceView<LevelEditing> implements Rend
         if (m instanceof LEGrid)
         myGridView.setRenderable((LEGrid) m);
         else {} //TODO
+    }
+
+    @Override
+    public void render (Renderable r) {
+        myGridView.render(r);
     }
 
 }

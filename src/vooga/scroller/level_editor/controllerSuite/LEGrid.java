@@ -272,7 +272,7 @@ public class LEGrid implements Editable, Renderable<LEGridView>, Scrollable {
 //        // TODO Auto-generated method stub
 //        ScrollingManager sm = new OmniScrollingManager();
 //        GameView display = new GameView(PlatformerConstants.DEFAULT_WINDOW_SIZE, sm);
-        IView simContainer = new SimpleView("Level Simulation");
+        IView<SimpleView> simContainer = new SimpleView("Level Simulation");
         ScrollingManager sm = new OmniScrollingManager();
         Level sim = new Level(1, sm, this);
         GameView display = sim.initializeRenderer(simContainer);
