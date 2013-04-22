@@ -3,7 +3,7 @@ package vooga.scroller.sprites.test_sprites;
 import java.awt.Dimension;
 import util.Location;
 import vooga.scroller.level_editor.library.ISpriteLibrary;
-import vooga.scroller.sprites.interfaces.ICoin;
+import vooga.scroller.sprites.interfaces.ICollectible;
 import vooga.scroller.sprites.interfaces.IEnemy;
 import vooga.scroller.sprites.interfaces.IPlatform;
 import vooga.scroller.sprites.movement.LeftAndRight;
@@ -29,7 +29,7 @@ public class MarioLib implements ISpriteLibrary {
     private static final Dimension DEFAULT_SIZE = new Dimension(32, 32);
     private static final Location DEFAULT_LOC = new Location(32, 32);
 
-    public static class Coin extends StaticEntity implements ICoin {
+    public static class Coin extends StaticEntity implements ICollectible {
 
         private static final String DEFAULT_IMG = "coin.png";
         private static final int DEFAULT_COIN_VALUE = 900;
@@ -132,11 +132,6 @@ public class MarioLib implements ISpriteLibrary {
         }
 
         @Override
-        public Sprite getEnemy () {
-            return this;
-        }
-
-        @Override
         public int getHit () {
             return myDamage;
         }
@@ -172,11 +167,6 @@ public class MarioLib implements ISpriteLibrary {
         }
 
         @Override
-        public Sprite getEnemy () {
-            return this;
-        }
-
-        @Override
         public int getHit () {
             return myDamage;
         }
@@ -203,10 +193,6 @@ public class MarioLib implements ISpriteLibrary {
             System.out.println("Platform");
         }
 
-        @Override
-        public Platform getPlatform () {
-            return this;
-        }
     }
     
     public static class Plant extends StaticEntity implements IEnemy {
@@ -224,11 +210,6 @@ public class MarioLib implements ISpriteLibrary {
         
         public void takeHit(int damage) {
             myHealth -= damage;
-        }
-
-        @Override
-        public Sprite getEnemy () {
-            return this;
         }
 
         @Override
@@ -266,10 +247,6 @@ public class MarioLib implements ISpriteLibrary {
             super.update(elapsedTime, bounds);
         }
 
-        @Override
-        public MovingPlatformOne getPlatform () {
-            return this;
-        }
     }
 
     /**
@@ -299,10 +276,6 @@ public class MarioLib implements ISpriteLibrary {
             super.update(elapsedTime, bounds);
         }
         
-        @Override
-        public MovingPlatformTwo getPlatform () {
-            return this;
-        }
     }
     
 

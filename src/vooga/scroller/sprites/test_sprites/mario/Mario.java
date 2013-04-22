@@ -76,7 +76,6 @@ public class Mario extends Player implements IPlayer, IInputListener{
         this.getStatistic().removeValue(DEATH_PENALTY);
     }
 
-    @Override
     public Player getPlayer () {
         return this;
     }   

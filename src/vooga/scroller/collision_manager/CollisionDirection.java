@@ -1,7 +1,7 @@
 package vooga.scroller.collision_manager;
 
+import vooga.scroller.sprites.interfaces.ISprite;
 import vooga.scroller.util.Direction;
-import vooga.scroller.util.Sprite;
 
 public class CollisionDirection {
     
@@ -14,7 +14,7 @@ public class CollisionDirection {
      * @param Sprite sprite2
      * @return one of four Direction enums
      */
-    Direction collisionDirection (Sprite sprite1, Sprite sprite2) {  
+    Direction collisionDirection (ISprite sprite1, ISprite sprite2) {  
         if (checkTop(sprite1, sprite2)) return Direction.TOP;
         else if (checkBottom(sprite1, sprite2)) return Direction.BOTTOM;
         else if (checkLeft(sprite1, sprite2)) return Direction.LEFT;
@@ -22,19 +22,19 @@ public class CollisionDirection {
         return null;
     }
     
-    boolean checkTop(Sprite sprite1, Sprite sprite2) {
+    boolean checkTop(ISprite sprite1, ISprite sprite2) {
         return (sprite1.getBottom() >= sprite2.getTop() && sprite1.getBottom() <= sprite2.getTop() + COLLISION_GRANULARITY);
     }
     
-    boolean checkBottom(Sprite sprite1, Sprite sprite2) {
+    boolean checkBottom(ISprite sprite1, ISprite sprite2) {
         return (sprite1.getTop() <= sprite2.getBottom() && sprite1.getTop() >= sprite2.getBottom() - COLLISION_GRANULARITY);
     }
     
-    boolean checkLeft(Sprite sprite1, Sprite sprite2) {
+    boolean checkLeft(ISprite sprite1, ISprite sprite2) {
         return (sprite1.getRight() >= sprite2.getLeft() && sprite1.getRight() <= sprite2.getLeft() + COLLISION_GRANULARITY);
     }
     
-    boolean checkRight(Sprite sprite1, Sprite sprite2) {
+    boolean checkRight(ISprite sprite1, ISprite sprite2) {
         return (sprite1.getLeft() <= sprite2.getRight() && sprite1.getLeft() >= sprite2.getRight() - COLLISION_GRANULARITY);
     }
     
