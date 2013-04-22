@@ -94,29 +94,27 @@ public class S3Connections {
         putFileIntoBucket("thumbnail" + gameName, filepath);
     }
     
-    public void getAvatar(String username, String filepath) {
-        downloadObjectToFile("avatar" + username, filepath);
+    public String getAvatar(String username) {
+         return downloadObjectToFile("avatar" + username);
     }
     
-    public void putUserGameDataIntoBucket(String username, String gameName, String filepath, UserGameData usd) {
-        createFileFromByteArray(serializeObject(usd), filepath);
-        putFileIntoBucket("usergamedata" + username + gameName, filepath);
+    public void putUserGameDataIntoBucket(String username, String gameName, UserGameData usd) {
+        putFileIntoBucket("usergamedata" + username + gameName, createFileFromByteArray(serializeObject(usd)));
     }
     
-    public UserGameData getUserGameDataFromBucket(String username, String gameName, String filepath) {
-        downloadObjectToFile("usergamedata" + username + gameName, filepath);
-        byte[] data = read(createFileFromFilePath(filepath));
+    public UserGameData getUserGameDataFromBucket(String username, String gameName) {
+        String tempFilePath = downloadObjectToFile("usergamedata" + username + gameName);
+        byte[] data = read(createFileFromFilePath(tempFilePath));
         return (UserGameData) deserialize(data);
     }
     
-    public void putGameData(String gameName, String filepath, GameData gd) {
-        createFileFromByteArray(serializeObject(gd), filepath);
-        putFileIntoBucket("gamedata" + gameName, filepath);
+    public void putGameDataIntoBucket(String gameName, GameData gd) {
+        putFileIntoBucket("gamedata" + gameName, createFileFromByteArray(serializeObject(gd)));
     }
     
-    public GameData getGameDataFromBucket(String gameName, String filepath) {
-        downloadObjectToFile("gamedata" + gameName, filepath);
-        byte[] data = read(createFileFromFilePath(filepath));
+    public GameData getGameDataFromBucket(String gameName) {
+        String tempFilePath = downloadObjectToFile("gamedata" + gameName);
+        byte[] data = read(createFileFromFilePath(tempFilePath));
         return (GameData) deserialize(data);
     }
     
@@ -145,11 +143,12 @@ public class S3Connections {
         return buffer;
     }
 
-    public void createFileFromByteArray(byte[] bytes, String filepath) {
+    public String createFileFromByteArray(byte[] bytes) {
         
         FileOutputStream out;
+        String tempFilePath = getTempFilePath();
         try {
-            out = new FileOutputStream(filepath);
+            out = new FileOutputStream(tempFilePath);
             out.write(bytes);
         }
         catch (FileNotFoundException e) {
@@ -158,6 +157,7 @@ public class S3Connections {
         catch (IOException e) {
             e.printStackTrace();
         }
+        return tempFilePath;
     }
     
     public byte[] serializeObject(Object obj) {
@@ -212,9 +212,37 @@ public class S3Connections {
     }
     
     
-    public void downloadObjectToFile(String key, String filepath) {
-        File file = new File(filepath);
-        ObjectMetadata object = myS3Instance.getObject(new GetObjectRequest(BUCKET_NAME, key), file);
+    public String downloadObjectToFile(String key) {
+        File tempFile;
+        try {
+            tempFile = File.createTempFile("tempFileCS308", ".png");
+            String absolutePath = tempFile.getAbsolutePath();
+            System.out.println(absolutePath);
+//            String tempFilePath = absolutePath.
+//                substring(0,absolutePath.lastIndexOf(File.separator));
+//            System.out.println(tempFilePath);
+            ObjectMetadata object = myS3Instance.getObject(new GetObjectRequest(BUCKET_NAME, key), tempFile);
+            return absolutePath;
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    public String getTempFilePath() {
+        File tempFile;
+        try {
+            tempFile = File.createTempFile("myTemp", ".png");
+            String absolutePath = tempFile.getAbsolutePath();
+            String tempFilePath = absolutePath.
+                    substring(0,absolutePath.lastIndexOf(File.separator));
+            return tempFilePath;
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
     
     public void deleteObject(String key) {

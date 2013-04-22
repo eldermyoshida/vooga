@@ -121,19 +121,19 @@ public class Database {
     }
     
     public void storeUserGameData(String gameName, String username, String tempFilePath, UserGameData usd) {
-        myS3Instance.putUserGameDataIntoBucket(username, gameName, tempFilePath, usd);
+        myS3Instance.putUserGameDataIntoBucket(username, gameName, usd);
     }
     
-    public UserGameData getUserGameData(String gameName, String username, String tempFilePath) {
-        return myS3Instance.getUserGameDataFromBucket(username, gameName, tempFilePath);
+    public UserGameData getUserGameData(String gameName, String username) {
+        return myS3Instance.getUserGameDataFromBucket(username, gameName);
     }
     
-    public void storeGameData(String gameName, String tempFilePath, GameData gd) {
-        myS3Instance.putGameData(gameName, tempFilePath, gd);
+    public void storeGameData(String gameName, GameData gd) {
+        myS3Instance.putGameDataIntoBucket(gameName, gd);
     }
     
-    public GameData getGameData(String gameName, String tempFilePath) {
-        return myS3Instance.getGameDataFromBucket(gameName, tempFilePath);
+    public GameData getGameData(String gameName) {
+        return myS3Instance.getGameDataFromBucket(gameName);
     }
     
     public void getHighScores(int n) {
@@ -254,8 +254,7 @@ public class Database {
     }
     
     public Pixmap getAvatar(String username) {
-        myS3Instance.getAvatar(username, "/Users/nataliacarvalho/Desktop/testing4.png");
-        return null;
+        return new Pixmap(myS3Instance.getAvatar(username));
     }
     
 }
