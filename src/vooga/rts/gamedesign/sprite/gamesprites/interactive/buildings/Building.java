@@ -14,7 +14,7 @@ import vooga.rts.util.Sound;
 
 
 /**
- * This is an abstract class that represents a building. It will be extended
+ * This is an class that represents a building. It will be extended
  * by specific types of buildings such as AttackTower.
  * 
  * @author Ryan Fishel
@@ -55,8 +55,6 @@ public class Building extends InteractiveEntity {
                      double buildTime) {
         super(image, center, size, sound, playerID, MAXHEALTH, buildTime);
         myRallyPoint = new Location3D(getWorldLocation().getX(), getWorldLocation().getY() + 50, 0);
-        
-        myInteractiveEntities = new ArrayList<InteractiveEntity>();
 
     }
 
@@ -146,9 +144,6 @@ public class Building extends InteractiveEntity {
                 e.printStackTrace();
             }
             PRODUCE_TIME = 90;
-        }
-        for (InteractiveEntity ie : myInteractiveEntities) {
-            ie.update(elapsedTime);
         }
 
     }
