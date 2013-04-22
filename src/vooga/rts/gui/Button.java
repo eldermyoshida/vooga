@@ -64,7 +64,6 @@ public abstract class Button extends Observable implements IGameLoop {
     }
 
     public void setFocused (boolean b) {
-        System.out.println("focus set");
         isFocused = b;
     }
 

@@ -28,9 +28,8 @@ public abstract class Menu extends Observable implements IGameLoop, Observer {
     public void update (double elapsedTime) {
 
     }
-    
-    
-    public AffineTransform getTransform(Graphics2D pen) {
+
+    public AffineTransform getTransform (Graphics2D pen) {
         AffineTransform a = new AffineTransform();
         double sx = pen.getDeviceConfiguration().getBounds().getWidth();
         sx /= myImage.getWidth(null);
@@ -52,7 +51,6 @@ public abstract class Menu extends Observable implements IGameLoop, Observer {
     @Override
     public void paint (Graphics2D pen) {
         paintBG(pen);
-        
 
         for (Button b : myButtons) {
             b.paint(pen);
@@ -75,11 +73,12 @@ public abstract class Menu extends Observable implements IGameLoop, Observer {
             handleMouseDown(c.getPosition());
         }
         else if (command instanceof PositionCommand) {
-            
+
             PositionCommand p = (PositionCommand) command;
             handleMouseMovement(p.getPosition());
         }
     }
+
     public void handleMouseDown (int x, int y) {
         for (Button b : myButtons) {
             if (b.checkWithinBounds(x, y)) {
@@ -87,7 +86,7 @@ public abstract class Menu extends Observable implements IGameLoop, Observer {
             }
         }
     }
-    
+
     public void handleMouseDown (Location l) {
         handleMouseDown((int) l.getX(), (int) l.getY());
     }
@@ -103,7 +102,6 @@ public abstract class Menu extends Observable implements IGameLoop, Observer {
         }
     }
 
-    
     public void handleMouseMovement (Location l) {
         handleMouseMovement((int) l.getX(), (int) l.getY());
     }
