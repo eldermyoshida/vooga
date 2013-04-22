@@ -14,11 +14,12 @@ import java.awt.geom.Rectangle2D;
  */
 public class DragCommand extends Command {
 
+    private static final String DRAG = "drag";
     public Shape myWorldRectangle;
     public Rectangle2D myScreenRectangle;
 
-    public DragCommand (String inputName, Shape world, Rectangle2D screen) {
-        super(inputName);
+    public DragCommand (Shape world, Rectangle2D screen) {
+        super(DRAG);
         myWorldRectangle = world;
         myScreenRectangle = screen;
     }
