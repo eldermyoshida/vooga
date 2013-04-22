@@ -101,6 +101,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
         myBuildTime = buildTime;
         myOccupyStrategy = new CannotBeOccupied();
         myProducables = new ArrayList<InteractiveEntity>();
+        setSpeed(DEFAULT_INTERACTIVEENTITY_SPEED);
     }
 
     public void addAction (String command, Action action) {
@@ -212,10 +213,6 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
         return mySound;
     }
 
-    public int getSpeed () {
-        return DEFAULT_INTERACTIVEENTITY_SPEED;
-    }
-
     /**
      * Returns the upgrade tree of the entity.
      * 
@@ -270,6 +267,9 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
 
     @Override
     public void paint (Graphics2D pen) {
+        if (!isVisible()) {
+            return;
+        }
         // pen.rotate(getVelocity().getAngle());
 
         // should probably use the getBottom, getHeight etc...implement them

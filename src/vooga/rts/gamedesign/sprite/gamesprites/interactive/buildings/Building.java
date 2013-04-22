@@ -53,7 +53,7 @@ public class Building extends InteractiveEntity {
                      int health,
                      double buildTime) {
         super(image, center, size, sound, playerID, MAXHEALTH, buildTime);
-        myRallyPoint = new Location3D(getWorldLocation().getX(), getWorldLocation().getY() + 50, 0);
+        myRallyPoint = new Location3D(getWorldLocation().getX(), getWorldLocation().getY() + 150, 0);
 
     }
 

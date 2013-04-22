@@ -1,6 +1,7 @@
 package vooga.rts.gamedesign.strategy.occupystrategy;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import vooga.rts.action.InteractiveAction;
 import vooga.rts.commands.Command;
@@ -10,6 +11,7 @@ import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Soldier;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
 import vooga.rts.gamedesign.state.DetectableState;
 import vooga.rts.gamedesign.state.MovementState;
+import vooga.rts.gamedesign.state.OccupyState;
 import vooga.rts.util.Location3D;
 
 
@@ -28,10 +30,10 @@ public class CanBeOccupied implements OccupyStrategy {
     private List<String> myValidOccupierType;
     private int myMaxOccupiers;
     private int myOccupierID;
-    
+
     /**
-     * Creates a new occupy strategy that represents an entity that can be 
-     * occupied.  It is created with a list of what entities can occupy it,
+     * Creates a new occupy strategy that represents an entity that can be
+     * occupied. It is created with a list of what entities can occupy it,
      * what entities are occupying it, and the max number of entities that can
      * occupy it.
      */
@@ -42,18 +44,18 @@ public class CanBeOccupied implements OccupyStrategy {
         myOccupierID = 0;
     }
 
-    public void getOccupied(InteractiveEntity entity, Unit u) {
+    public void getOccupied (InteractiveEntity entity, Unit u) {
         if (myOccupierHashCodes.size() < myMaxOccupiers && verifyOccupier(entity, u)) {
             if (myOccupierID == 0) {
                 myOccupierID = u.getPlayerID();
             }
             myOccupierHashCodes.add(u.hashCode());
             entity.setChanged();
-            u.getEntityState().setDetectableState(DetectableState.NOTDETECTABLE);
+            u.getEntityState().setOccupyState(OccupyState.OCCUPYING);
             entity.notifyObservers(u);
         }
     }
-    
+
     /**
      * Creates and adds occupy strategy specific actions to entity
      */
@@ -75,12 +77,13 @@ public class CanBeOccupied implements OccupyStrategy {
 
             @Override
             public void apply () {
-                List<Integer> occupiers = myOccupierHashCodes;
                 myOccupierID = 0;
-                myOccupierHashCodes = new ArrayList<Integer>();
-                for (int hashCode : occupiers) {
+                Iterator<Integer> it = myOccupierHashCodes.iterator();
+                while (it.hasNext()) {
+                    Integer hashCode = it.next();
                     entity.setChanged();
                     entity.notifyObservers(hashCode);
+                    it.remove();
                 }
             }
         });
@@ -90,7 +93,7 @@ public class CanBeOccupied implements OccupyStrategy {
      * Adds a new type of object as a valid type of occupier.
      */
     public void addValidClassType (Unit validOccupier) {
-        Class cls = validOccupier.getClass();
+        Class<?> cls = validOccupier.getClass();
         String className = cls.getName();
         myValidOccupierType.add(className);
     }
@@ -103,11 +106,11 @@ public class CanBeOccupied implements OccupyStrategy {
      * @return whether the occupier can perform occupy action
      */
     private boolean verifyOccupier (GameEntity entity, InteractiveEntity occupier) {
-        Class cls = occupier.getClass();
-        if (!occupier.getEntityState().getMovementState().equals(MovementState.STATIONARY)){
-        	return false;
+        Class<?> cls = occupier.getClass();
+        if (!occupier.getEntityState().getMovementState().equals(MovementState.STATIONARY)) {
+            return false;
         }
-        
+
         if (myOccupierID != 0 && myOccupierID != occupier.getPlayerID()) {
             return false;
         }

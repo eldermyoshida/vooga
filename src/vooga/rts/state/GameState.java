@@ -208,7 +208,7 @@ public class GameState extends SubState implements Controller {
         });
 
         final Garrison testGarrison = garrison;
-        occupyPukingTest = new DelayedTask(1, new Runnable() {
+        occupyPukingTest = new DelayedTask(10, new Runnable() {
             @Override
             public void run () {
                 if (testGarrison.getOccupyStrategy().getOccupiers().size() > 0) {
