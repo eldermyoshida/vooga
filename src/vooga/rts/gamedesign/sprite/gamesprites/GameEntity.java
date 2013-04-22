@@ -37,14 +37,9 @@ import vooga.rts.ai.PathFinder;
  * 
  */
 public class GameEntity extends GameSprite {
-<<<<<<< HEAD:src/vooga/rts/gamedesign/sprite/GameEntity.java
 
-	//Default velocity magnitude
-	public static int DEFAULT_SPEED = 0; 
-=======
     // Default velocity magnitude
     public static int DEFAULT_SPEED = 0;
->>>>>>> 3fd6b4f49d501b2a55ec8ef32ec823744601e41d:src/vooga/rts/gamedesign/sprite/gamesprites/GameEntity.java
     private Vector myVelocity;
     private GameMap myMap;
     private int myMaxHealth;
@@ -190,11 +185,6 @@ public class GameEntity extends GameSprite {
     public void move (Location3D loc) {
         myGoal = new Location3D(loc);
         Vector v = getWorldLocation().difference(myGoal.to2D());
-<<<<<<< HEAD:src/vooga/rts/gamedesign/sprite/GameEntity.java
-        // TODO: not static amount
-
-        setVelocity(v.getAngle(), getSpeed());
-=======
 
         // magic numero
         if (v.getMagnitude() < Location3D.APPROX_EQUAL) {
@@ -206,7 +196,6 @@ public class GameEntity extends GameSprite {
             System.out.println(getSpeed());
             myEntityState.setMovementState(MovementState.MOVING);
         }
->>>>>>> 3fd6b4f49d501b2a55ec8ef32ec823744601e41d:src/vooga/rts/gamedesign/sprite/gamesprites/GameEntity.java
     }
 
     /**
@@ -222,8 +211,6 @@ public class GameEntity extends GameSprite {
         mySpeed = speed;
     }
 
-<<<<<<< HEAD:src/vooga/rts/gamedesign/sprite/GameEntity.java
-=======
     /**
      * This method is called to move the entity to a certain location.
      * 
@@ -232,7 +219,6 @@ public class GameEntity extends GameSprite {
      * @param map
      *        is the map that the game is being played on
      */
->>>>>>> 3fd6b4f49d501b2a55ec8ef32ec823744601e41d:src/vooga/rts/gamedesign/sprite/gamesprites/GameEntity.java
     public void move (Location3D loc, GameMap map) {
         setPath(loc.to2D(), map);
     }
