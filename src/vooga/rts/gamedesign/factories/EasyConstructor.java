@@ -19,7 +19,7 @@ public class EasyConstructor {
 	}
 	
 	
-	public <T>T make(Document doc){
+	public Object make(Document doc){
 		NodeList customList = doc.getElementsByTagName(CUSTOM_TAG);
 		for(int j = 0 ; j < customList.getLength() ; j++){
 			Element customElement = (Element) customList.item(j);
@@ -27,11 +27,13 @@ public class EasyConstructor {
 			String name = customElement.getElementsByTagName(NAME_TAG).item(0).getTextContent();
 			Constructor<?> building = makeSimpleCustomConstructor(classPath);
 			
-			return building.newInstance();
-
-				
+			try {
+				return (Object) building.newInstance();
+			} catch (Exception e){
+				e.printStackTrace();
+			}	
 		}
-		
+		return null;
 		
 	}
 	

@@ -58,7 +58,7 @@ public class BuildingDecoder extends Decoder{
 			String img = nElement.getElementsByTagName(IMAGE_TAG).item(0).getTextContent();
 			String sound = nElement.getElementsByTagName(SOUND_TAG).item(0).getTextContent();
 			int health = Integer.parseInt(nElement.getElementsByTagName(HEALTH_TAG).item(0).getTextContent());
-			int buildTime = Integer.parseInt(nElement.getElementsByTagName(TIME_TAG).item(0).getTextContent());
+			double buildTime = Double.parseDouble(nElement.getElementsByTagName(TIME_TAG).item(0).getTextContent());
 			Building building = (Building) ReflectionHelper.makeInstance(headClass, 
 																			new Pixmap(img),
 																  			new Location3D(0,0,0),
