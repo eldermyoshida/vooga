@@ -102,7 +102,7 @@ public class Unit extends InteractiveEntity {
 
             @Override
             public void update (Command command) {
-                PositionCommand click = (PositionCommand) command;
+                ClickCommand click = (ClickCommand) command;
                 myLocation = Camera.instance().viewtoWorld(click.getPosition());
             }
         });

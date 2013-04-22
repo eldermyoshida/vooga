@@ -1,11 +1,10 @@
 package vooga.rts.manager.actions;
 
 import vooga.rts.action.ManagerAction;
+import vooga.rts.commands.ClickCommand;
 import vooga.rts.commands.Command;
-import vooga.rts.commands.PositionCommand;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.manager.Manager;
-import vooga.rts.state.GameState;
 import vooga.rts.util.Camera;
 import vooga.rts.util.Location3D;
 
@@ -35,7 +34,7 @@ public class RightClickAction extends ManagerAction {
 
     @Override
     public void update (Command command) {
-        PositionCommand click = (PositionCommand) command;
+        ClickCommand click = (ClickCommand) command;
         myLocation = Camera.instance().viewtoWorld(click.getPosition());
         // TODO : Check outside of bounds of map
         if (myLocation.getX() < 0 || myLocation.getY() < 0) {
