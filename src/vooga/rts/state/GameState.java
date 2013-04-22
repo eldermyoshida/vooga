@@ -39,11 +39,11 @@ import vooga.rts.util.PointTester;
 
 
 /**
- * The main model of the game. This keeps track of all the players, the humanplayer 
+ * The main model of the game. This keeps track of all the players, the humanplayer
  * associated with the local game, plus the map.
  * 
  * @author Challen Herzberg-Brovold
- *
+ * 
  */
 
 public class GameState extends SubState implements Controller {
@@ -62,7 +62,6 @@ public class GameState extends SubState implements Controller {
 
     private Rectangle2D myDrag;
     private Resource r;
-    
 
     public GameState (Observer observer) {
         super(observer);
@@ -120,7 +119,8 @@ public class GameState extends SubState implements Controller {
 
     /**
      * Adds a player to the game
-     * @param player to add 
+     * 
+     * @param player to add
      * @param teamID of the player.
      */
     public void addPlayer (Player player, int teamID) {
@@ -180,14 +180,14 @@ public class GameState extends SubState implements Controller {
         ((CanProduce) b.getProductionStrategy()).setRallyPoint(new Location3D(600, 500, 0));
         myHumanPlayer.add(b);
 
-//        Garrison garrison =
-//                new Garrison((new Pixmap(ResourceManager.getInstance()
-//                        .<BufferedImage> getFile("images/factory.png", BufferedImage.class))),
-//                             new Location3D(300, 300, 0), new Dimension(100, 100), null, 1, 300,
-//                             InteractiveEntity.DEFAULT_BUILD_TIME);
-//        garrison.getOccupyStrategy().addValidClassType(new Soldier());
-//        garrison.getOccupyStrategy().createOccupyActions(garrison);
-//        myHumanPlayer.add(garrison);
+        // Garrison garrison =
+        // new Garrison((new Pixmap(ResourceManager.getInstance()
+        // .<BufferedImage> getFile("images/factory.png", BufferedImage.class))),
+        // new Location3D(300, 300, 0), new Dimension(100, 100), null, 1, 300,
+        // InteractiveEntity.DEFAULT_BUILD_TIME);
+        // garrison.getOccupyStrategy().addValidClassType(new Soldier());
+        // garrison.getOccupyStrategy().createOccupyActions(garrison);
+        // myHumanPlayer.add(garrison);
 
         myMap = new GameMap(8, new Dimension(512, 512));
 
@@ -205,21 +205,21 @@ public class GameState extends SubState implements Controller {
             }
         });
 
-//        final Garrison testGarrison = garrison;
-//        occupyPukingTest = new DelayedTask(1, new Runnable() {
-//            @Override
-//            public void run () {
-//               if (testGarrison.getOccupyStrategy().getOccupiers().size() > 5) {
-//                    System.out.println("will puke!");
-//                    testGarrison.getAction(new Command("puke all I have")).apply();
-//                }
-//                occupyPukingTest.restart();
-//            }
-//        });
+        // final Garrison testGarrison = garrison;
+        // occupyPukingTest = new DelayedTask(1, new Runnable() {
+        // @Override
+        // public void run () {
+        // if (testGarrison.getOccupyStrategy().getOccupiers().size() > 5) {
+        // System.out.println("will puke!");
+        // testGarrison.getAction(new Command("puke all I have")).apply();
+        // }
+        // occupyPukingTest.restart();
+        // }
+        // });
     }
 
     private void yuckyUnitUpdate (double elapsedTime) {
-        List<InteractiveEntity> p1 = myTeams.get(1).getUnits();  //getDetectableUnits(myTeams.get(1).getUnits());
+        List<InteractiveEntity> p1 = myTeams.get(1).getUnits();  // getDetectableUnits(myTeams.get(1).getUnits());
         List<InteractiveEntity> p2 = myTeams.get(2).getUnits();
         for (InteractiveEntity u1 : p1) {
             if (u1 instanceof Worker && r != null) {
