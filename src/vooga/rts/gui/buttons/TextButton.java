@@ -49,4 +49,16 @@ public class TextButton extends Button {
 		pen.drawString(myText, cX, cY);
 	}
 
+    @Override
+    public void processClick () {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void processHover () {
+        // TODO Auto-generated method stub
+        
+    }
+
 }

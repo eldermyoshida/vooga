@@ -46,6 +46,12 @@ public class ScreenButton extends Button {
 		update(0);
 	}
 
+    @Override
+    public void processHover () {
+        // TODO Auto-generated method stub
+        
+    }
+
 
 
 }
