@@ -1,5 +1,6 @@
 package arcade.view;
 
+import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.util.Collection;
@@ -23,9 +24,8 @@ import arcade.view.modes.StorePanel;
  */
 @SuppressWarnings("serial")
 public class MainView extends JFrame {
-    private static final int BUTTON_WIDTH = 140;
     private static final int WINDOW_WIDTH = 800;
-    private static final int WINDOW_HEIGHT = 620;
+    private static final int WINDOW_HEIGHT = 600;
     private JPanel myViewPanel;
     private Model myModel;
     private ResourceBundle myResources;
@@ -42,34 +42,22 @@ public class MainView extends JFrame {
 
         JPanel contentPane = (JPanel) getContentPane();
         contentPane.setBackground(Color.WHITE);
-        contentPane.setLayout(null);
-        contentPane.add(makeButtonPanel());
-        contentPane.add(makeViewPanel());
+        contentPane.setLayout(new BorderLayout());
+        contentPane.add(new ButtonPanel(this, myResources), BorderLayout.WEST);
+        contentPane.add(makeViewPanel(), BorderLayout.CENTER);
 
         setTitle(rb.getString(TextKeywords.TITLE));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
         setLocationRelativeTo(null);
         setVisible(true);
-    }
-
-    /**
-     * Makes the panel of buttons that switch which mode is currently showing.
-     * 
-     * @return
-     */
-    private JPanel makeButtonPanel () {
-        JPanel buttonPanel = new ButtonPanel(this);
-        buttonPanel.setBounds(0, 0, BUTTON_WIDTH, WINDOW_HEIGHT);
-        return buttonPanel;
-    }
+    }    
 
     /**
      * Makes the panel where the mode will be showing.
      */
     private JPanel makeViewPanel () {
         myViewPanel = new JPanel(new CardLayout());
-        myViewPanel.setBounds(150, 0, 650, 600);
         
         myViewPanel.add(new GameCenterPanel(this, myModel, myResources), ArcadeMode.GAMECENTER.name());
         myViewPanel.add(new SocialCenterPanel(), ArcadeMode.SOCIALCENTER.name());
