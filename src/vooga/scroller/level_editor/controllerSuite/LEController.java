@@ -16,7 +16,7 @@ import vooga.scroller.level_editor.view.LEGridView;
 import vooga.scroller.level_editor.view.LEView;
 import vooga.scroller.level_editor.view.LEWorkspaceView;
 import vooga.scroller.level_editor.view.LevelEditing;
-import vooga.scroller.sprites.test_sprites.MarioLib;
+import vooga.scroller.marioGame.MarioLib;
 import vooga.scroller.util.Editable;
 import vooga.scroller.util.Renderable;
 import vooga.scroller.util.mvc.IController;
@@ -189,6 +189,7 @@ public class LEController implements IController<LevelEditing> {
     public void saveFile (File file2save, WorkspaceView<LevelEditing> t) {
         LEGrid grid = (LEGrid) getModelForWorkspace(t);
         myLevelWriter.createFile(file2save, grid, myToolsManager.getSpriteLibPath());
+        grid.saveThumbnail(file2save.getPath());
 
     }
 

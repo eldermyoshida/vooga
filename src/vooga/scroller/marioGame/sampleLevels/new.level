@@ -31,7 +31,7 @@ acccccccccccccccccccccccccccccccccccccccccccccccccccccccc aa
 aaaaaab  b  b  b  b  b  b  b  b  b  b  b  b  b  b  b  b  b  
                                                             
 /lib
-vooga.scroller.sprites.test_sprites.MarioLib
+vooga.scroller.marioGame.MarioLib
 /key
 c=Coin
 a=Platform

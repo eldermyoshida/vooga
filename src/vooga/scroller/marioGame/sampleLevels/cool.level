@@ -31,8 +31,11 @@ b   aaaaabb  b                               fff     ff    b
 c  c  c  c  c  c  c  c  c  c  c  c  c  c  c  c  c  c  b    b
                                                             
                                                             
+                                                            
+                                                            
+                                                            
 /lib
-vooga.scroller.sprites.test_sprites.MarioLib
+vooga.scroller.marioGame.MarioLib
 /key
 f=Plant
 e=Koopa

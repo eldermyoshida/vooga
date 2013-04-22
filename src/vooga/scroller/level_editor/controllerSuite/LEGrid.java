@@ -6,10 +6,11 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
 import java.util.HashSet;
 import java.util.Set;
-import javax.swing.JButton;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.Scrollable;
 import util.Location;
@@ -17,12 +18,10 @@ import vooga.scroller.level_editor.Level;
 import vooga.scroller.level_editor.StartPoint;
 import vooga.scroller.level_editor.model.SpriteBox;
 import vooga.scroller.level_editor.view.LEGridView;
-import vooga.scroller.level_management.IDoor;
 import vooga.scroller.level_management.LevelPortal;
 import vooga.scroller.scrollingmanager.OmniScrollingManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.util.Editable;
-import vooga.scroller.util.PlatformerConstants;
 import vooga.scroller.util.Renderable;
 import vooga.scroller.util.Sprite;
 import vooga.scroller.util.mvc.IView;
@@ -69,6 +68,16 @@ public class LEGrid implements Editable, Renderable<LEGridView>, Scrollable {
                 myGrid[i][j].paint(pen);
             }
         }
+    }
+    
+    private BufferedImage paintThumbnail (BufferedImage img) {
+        Graphics2D drawer = img.createGraphics();
+        for(int i = 0; i < mySize.width; i++){
+            for( int j = 0; j < mySize.height; j++){
+                myGrid[i][j].paint(drawer);
+            }
+        }
+        return img;
     }
 
     @Override
@@ -276,6 +285,28 @@ public class LEGrid implements Editable, Renderable<LEGridView>, Scrollable {
 
     public Image getBackground () {
         return myBackground;
+    }
+    
+    private BufferedImage getThumbnail() {
+        BufferedImage res = new BufferedImage(getPixelSize().width, 
+                                             getPixelSize().height, 
+                                             BufferedImage.TYPE_INT_ARGB);
+        
+        
+        return paintThumbnail(res);
+    }
+    
+    /**
+     * TODO - needs to be completed to provide for fileName etc...
+     */
+    public void saveThumbnail(String levelFilePath) {
+        try {
+            ImageIO.write(getThumbnail(), "PNG", new File(levelFilePath+".png"));
+        }
+        catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     public void simulate () {

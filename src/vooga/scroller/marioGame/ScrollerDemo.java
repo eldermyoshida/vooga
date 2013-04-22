@@ -1,13 +1,19 @@
-package vooga.scroller.model;
+
+package vooga.scroller.marioGame;
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import arcade.games.ArcadeInteraction;
+import java.awt.GraphicsConfiguration;
+import javax.swing.JFrame;
+import arcade.games.ArcadeInteraction;
+import arcade.games.Game;
 import arcade.games.GameData;
 import arcade.games.UserGameData;
 import util.Location;
+import vooga.scroller.model.ScrollerGame;
 import vooga.scroller.scrollingmanager.OmniScrollingManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.superclasses.Player;
-import vooga.scroller.sprites.test_sprites.mario.Mario;
 import vooga.scroller.view.GameView;
 
 

@@ -1,6 +1,7 @@
-package vooga.scroller.collision_manager;
+package vooga.scroller.marioGame;
 
 import util.Vector;
+import vooga.scroller.collision_manager.CollisionDirection;
 import vooga.scroller.sprites.interfaces.IPlatform;
 import vooga.scroller.sprites.interfaces.IPlayer;
 import vooga.scroller.util.Direction;

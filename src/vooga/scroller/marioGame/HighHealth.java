@@ -1,4 +1,4 @@
-package vooga.scroller.sprites.test_sprites.mario.states;
+package vooga.scroller.marioGame;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;

@@ -29,17 +29,18 @@
                                          f   ccc            
                                              ccc            
 aaaaaaag  g  g  g  g  g  g  aa               aaaaaaa        
+                                                            
 /lib
-vooga.scroller.sprites.test_sprites.MarioLib
+vooga.scroller.marioGame.MarioLib
 /key
-c=Coin
-a=Platform
-b=MovingPlatformTwo
-h=Koopa
-f=LevelTwoBlockOne
-g=LevelTwoBlockTwo
 d=Plant
+h=Koopa
 e=MovingPlatformOne
+g=LevelTwoBlockTwo
+f=LevelTwoBlockOne
+c=Coin
+b=MovingPlatformTwo
+a=Platform
 /settings
-StartPoint=100 100
+StartPoint=112 112
 EndPoint=25 889
