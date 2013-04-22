@@ -2,6 +2,7 @@ package vooga.rts.networking.server;
 
 import java.util.HashMap;
 import java.util.Map;
+import vooga.rts.networking.communications.LobbyInfo;
 import vooga.rts.networking.communications.Message;
 import vooga.rts.networking.communications.clientmessages.ClientInfoMessage;
 
@@ -56,11 +57,7 @@ public abstract class AbstractThreadContainer implements IThreadContainer, IMess
     }
 
     @Override
-    public void startLobby (ConnectionThread thread,
-                            String mapName,
-                            String serverName,
-                            int maxPlayers,
-                            int playersPerTeam) {
+    public void startLobby (ConnectionThread thread, LobbyInfo lobbyInfo) {
     }
 
     @Override

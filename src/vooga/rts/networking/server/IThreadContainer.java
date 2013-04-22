@@ -1,5 +1,7 @@
 package vooga.rts.networking.server;
 
+import vooga.rts.networking.communications.LobbyInfo;
+
 /**
  * Provides an interface between ClientInfoMessages coming in and the various thread container
  * classses.
@@ -54,14 +56,10 @@ public interface IThreadContainer {
     public void requestLobbies (ConnectionThread thread);
 
     /**
-     * Starts a new lobby.
-     * 
-     * @param mapName name of the map being played
-     * @param serverName name of the server
-     * @param maxPlayers maximum number of players
-     * @param playersPerTeam players per team
+     * Starts a new lobby
+     * @param thread that starts new lobby
+     * @param myLobbyInfo info about the lobby
      */
-    public void startLobby (ConnectionThread thread,
-                            String lobbyName, String mapName, int maxPlayers, int playersPerTeam);
+    public void startLobby (ConnectionThread thread, LobbyInfo myLobbyInfo);
 
 }

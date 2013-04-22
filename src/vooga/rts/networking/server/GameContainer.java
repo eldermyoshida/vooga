@@ -2,6 +2,7 @@ package vooga.rts.networking.server;
 
 import java.util.HashMap;
 import java.util.Map;
+import vooga.rts.networking.communications.LobbyInfo;
 
 
 /**
@@ -15,6 +16,7 @@ import java.util.Map;
 public class GameContainer extends AbstractThreadContainer {
 
     private Map<Integer, Room> myRooms = new HashMap<Integer, Room>();
+    private Map<Integer, LobbyInfo> myLobbyInfos = new HashMap<Integer, LobbyInfo>();
     private int myRoomNumber = 0;
 
     /**
@@ -45,8 +47,8 @@ public class GameContainer extends AbstractThreadContainer {
     }
     
     @Override
-    public void startLobby (ConnectionThread thread, String mapName, String serverName, int maxPlayers, int playersPerTeam) {
-        Room lobby = new Lobby(myRoomNumber, this, mapName, serverName, maxPlayers, playersPerTeam);
+    public void startLobby (ConnectionThread thread, LobbyInfo lobbyInfo) {
+        Room lobby = new Lobby(myRoomNumber, this, lobbyInfo);
         myRoomNumber++;
         lobby.addConnection(thread);
     }
