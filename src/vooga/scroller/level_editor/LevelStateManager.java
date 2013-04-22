@@ -16,17 +16,19 @@ public class LevelStateManager {
     
     private Map<Integer,LevelState> myLevelStates;
     private LevelState myCurrentState;
+    private int myCurrentID;
     
     
     public LevelStateManager(SpriteManager spriteManager) {
         initLevelStates(spriteManager);
-        myCurrentState = myLevelStates.get(DEFAULT_ID);
+        myCurrentID = DEFAULT_ID;
+        myCurrentState = myLevelStates.get(myCurrentID);
     }
 
     private void initLevelStates (SpriteManager spriteManager) {
         myLevelStates = new HashMap<Integer, LevelState>();
         
-        PausedState paused = new PausedState();
+        PausedState paused = new PausedState(spriteManager);
         DefaultState normal = new DefaultState(spriteManager);
         
         myLevelStates.put(PAUSED_ID, paused);
@@ -34,7 +36,8 @@ public class LevelStateManager {
     }
     
     public void changeState(int stateID) {
-        myCurrentState = myLevelStates.get(stateID);
+        myCurrentID = stateID;
+        myCurrentState = myLevelStates.get(myCurrentID);
     }
     
     public void update (double elapsedTime, Dimension bounds, GameView gameView) {
@@ -43,6 +46,10 @@ public class LevelStateManager {
     
     public void paint(Graphics2D pen){
         myCurrentState.paint(pen);
+    }
+    
+    public int getCurrentStateID() {
+        return myCurrentID;
     }
 
 }

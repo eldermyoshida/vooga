@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import util.Location;
 import util.Text;
 import vooga.scroller.level_editor.LevelState;
+import vooga.scroller.level_management.SpriteManager;
 import vooga.scroller.sprites.state.State;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.view.GameView;
@@ -26,17 +27,20 @@ public class PausedState implements LevelState {
     
     private Text myMessage;
     private Location myTextLocation;
+    private SpriteManager mySpriteManager;
     
     
-    public PausedState(){
+    public PausedState(SpriteManager spriteManager){
         myMessage = new Text(DEFAULT_PAUSED_MESSAGE);
         myTextLocation = DEFAULT_LOCATION;
+        mySpriteManager = spriteManager;
     }
 
 
     @Override
     public void paint (Graphics2D pen) {
         // paints only the paused header so the user knows that the game is paused
+        mySpriteManager.paint(pen);
         myMessage.paint(pen, myTextLocation, DEFAULT_COLOR);
     }
 

@@ -266,7 +266,12 @@ public class Level implements Renderable<GameView>, IGameComponent{
      */
     @InputMethodTarget(name = "pause")
     public void pauseGame() {
-        myStateManager.changeState(LevelStateManager.PAUSED_ID);
+        if(myStateManager.getCurrentStateID() == LevelStateManager.PAUSED_ID){
+            myStateManager.changeState(LevelStateManager.DEFAULT_ID);
+        }
+        else{
+            myStateManager.changeState(LevelStateManager.PAUSED_ID);
+        }
     }
     
 
