@@ -27,8 +27,10 @@ public class MainMenu extends Menu {
     public MainMenu () {
         super();
 
-        myBGImage = ResourceManager.getInstance().<BufferedImage>getFile(DEFAULT_BGIMAGE_LOCATION, BufferedImage.class);
-        setImage(myBGImage);
+        myBGImage =
+                ResourceManager.getInstance().<BufferedImage> getFile(DEFAULT_BGIMAGE_LOCATION,
+                                                                      BufferedImage.class);
+        setBGImage(myBGImage);
 
         myStartButton =
                 new ScreenButton("Start Game", myDefaultButtonDimension, myDefaultButtonLocation);
