@@ -16,6 +16,10 @@ public class StartLobbyMessage extends ClientInfoMessage {
     private static final long serialVersionUID = -6507449287521383418L;
     private LobbyInfo myLobbyInfo;
 
+    /**
+     * Instantiates message with lobbyInfo
+     * @param lobbyInfo info to send
+     */
     public StartLobbyMessage (LobbyInfo lobbyInfo) {
         myLobbyInfo = lobbyInfo;
     }

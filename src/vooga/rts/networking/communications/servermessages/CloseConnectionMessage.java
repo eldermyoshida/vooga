@@ -2,10 +2,12 @@ package vooga.rts.networking.communications.servermessages;
 
 import vooga.rts.networking.client.IClientModel;
 
+
 /**
  * Closes the client connection.
+ * 
  * @author David Winegar
- *
+ * 
  */
 public class CloseConnectionMessage extends ServerInfoMessage {
 

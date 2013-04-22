@@ -20,6 +20,7 @@ public class Room extends AbstractThreadContainer {
      * 
      * @param id room number
      * @param container GameContainer
+     * @param lobbyInfo lobby info
      */
     public Room (int id, GameContainer container, LobbyInfo lobbyInfo) {
         setIDandContainer(id, container);

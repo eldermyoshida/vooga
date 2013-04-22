@@ -21,6 +21,13 @@ public class LobbyInfo extends Observable implements Serializable {
     private int myPlayersCount = 0;
     private int myID;
 
+    /**
+     * Creates the lobbyInfo.
+     * @param lobbyName name of lobby
+     * @param mapName name of map
+     * @param maxPlayers maximum players
+     * @param ID id
+     */
     public LobbyInfo (String lobbyName, String mapName, int maxPlayers, int ID) {
         myLobbyName = lobbyName;
         myMaxPlayers = maxPlayers;
@@ -61,13 +68,19 @@ public class LobbyInfo extends Observable implements Serializable {
      * @return
      */
     public boolean isLobbyFull () {
-        return (myPlayersCount == myMaxPlayers);
+        return myPlayersCount == myMaxPlayers;
     }
 
+    /**
+     * Decreases current player count by 1
+     */
     public void removePlayer () {
         myPlayersCount--;
     }
 
+    /**
+     * Increases player count by 1
+     */
     public void addPlayer () {
         myPlayersCount++;
     }
@@ -81,6 +94,10 @@ public class LobbyInfo extends Observable implements Serializable {
         return myID;
     }
     
+    /**
+     * Gets the current number of players
+     * @return number of players
+     */
     public int getCurrentPlayers () {
         return myPlayersCount;
     }

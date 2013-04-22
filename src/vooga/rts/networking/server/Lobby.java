@@ -14,9 +14,9 @@ public class Lobby extends Room {
 
     /**
      * Instantiates the Lobby.
-     * @param myRoomNumber
-     * @param gameContainer
-     * @param lobbyInfo
+     * @param myRoomNumber number of room
+     * @param gameContainer game container
+     * @param lobbyInfo lobby info
      */
     public Lobby (int myRoomNumber, GameContainer gameContainer, LobbyInfo lobbyInfo) {
         super(myRoomNumber, gameContainer, lobbyInfo);

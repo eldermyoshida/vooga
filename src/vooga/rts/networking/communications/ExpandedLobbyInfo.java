@@ -22,16 +22,16 @@ public class ExpandedLobbyInfo extends LobbyInfo {
     /**
      * Inner list represents a team, outer list represents all the teams
      */
-    List<List<Player>> myPlayerList = new ArrayList<List<Player>>();
+    private List<List<Player>> myPlayerList = new ArrayList<List<Player>>();
     private int myMaxTeams;
 
     /**
      * Creates the expanded lobby info.
      * 
-     * @param lobbyName
-     * @param mapName
-     * @param maxPlayers
-     * @param ID
+     * @param lobbyName name of lobby
+     * @param mapName name of map
+     * @param maxPlayers max players
+     * @param ID id
      */
     public ExpandedLobbyInfo (String lobbyName,
                               String mapName,
@@ -74,8 +74,8 @@ public class ExpandedLobbyInfo extends LobbyInfo {
         for (int i = 0; i < myPlayerList.size(); i++) {
             List<Player> team = myPlayerList.get(i);
             if (oldPlayerCount > team.size()) {
-            	team.add(player);
-            	return i + 1;
+                team.add(player);
+                return i + 1;
             }
             oldPlayerCount = team.size();
         }
@@ -83,30 +83,32 @@ public class ExpandedLobbyInfo extends LobbyInfo {
         myPlayerList.get(0).add(player);
         return 1;
     }
-    
+
     /**
      * This method is used to add a new player to the specified team.
      * 
      * @param player player to add
+     * @param teamNumber number of team
      */
     public void addPlayer (Player player, int teamNumber) {
-    	if (myMaxTeams < teamNumber) return;
+        if (myMaxTeams < teamNumber) return;
 
-    	addPlayer();
-    	extendTeams(teamNumber);
-    	myPlayerList.get(teamNumber).add(player);
+        addPlayer();
+        extendTeams(teamNumber);
+        myPlayerList.get(teamNumber).add(player);
     }
 
     /**
      * Extends the player list to the desired number of teams
+     * 
      * @param numOfTeams
      */
-    private void extendTeams(int numOfTeams){
-    	if (numOfTeams > myMaxTeams || myPlayerList.size() >= numOfTeams) return;
-    	
-    	while (myPlayerList.size() < numOfTeams) {
-    		myPlayerList.add(new ArrayList<Player>());
-    	}
+    private void extendTeams (int numOfTeams) {
+        if (numOfTeams > myMaxTeams || myPlayerList.size() >= numOfTeams) return;
+
+        while (myPlayerList.size() < numOfTeams) {
+            myPlayerList.add(new ArrayList<Player>());
+        }
     }
 
     /**
@@ -116,18 +118,18 @@ public class ExpandedLobbyInfo extends LobbyInfo {
      */
     public void removePlayer (Player player) {
         for (List<Player> team : myPlayerList) {
-        	if(team.contains(player)){
-        		team.remove(player);
-        		removePlayer();
-        	}
+            if (team.contains(player)) {
+                team.remove(player);
+                removePlayer();
+            }
         }
     }
 
     /**
      * Moves the given player to the team number
      * 
-     * @param player
-     * @param team
+     * @param player player to move
+     * @param team team to move to
      */
     public void movePlayer (Player player, int team) {
         if (team <= myMaxTeams) {
@@ -144,22 +146,22 @@ public class ExpandedLobbyInfo extends LobbyInfo {
     public int getMaxTeams () {
         return myMaxTeams;
     }
-    
+
     /**
      * 
-     * @return List with the teams in the lobby, it returns a copy of the 
-     * original list so it is used for read purposes only
+     * @return List with the teams in the lobby, it returns a copy of the
+     *         original list so it is used for read purposes only
      */
-    public List<List<Player>> getTeams() {
-    	List<List<Player>> teams = new LinkedList<List<Player>>();
-    	for (int i = 0 ; i < myPlayerList.size() ; i++) {
-    		List<Player> players = new LinkedList<Player>();
-    		teams.add(new LinkedList<Player>());
-    		for (Player p : myPlayerList.get(i)) {
-    			players.add(p);
-    		}
-    	}
-    	return teams;
+    public List<List<Player>> getTeams () {
+        List<List<Player>> teams = new LinkedList<List<Player>>();
+        for (int i = 0; i < myPlayerList.size(); i++) {
+            List<Player> players = new LinkedList<Player>();
+            teams.add(new LinkedList<Player>());
+            for (Player p : myPlayerList.get(i)) {
+                players.add(p);
+            }
+        }
+        return teams;
     }
 
 }
