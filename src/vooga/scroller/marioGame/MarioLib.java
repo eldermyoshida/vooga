@@ -42,7 +42,7 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
         }
 
         public Coin (Location center) {
-            super(new Pixmap(DEFAULT_IMG), center, DEFAULT_SIZE, DEFAULT_HEALTH, DEFAULT_DAMAGE);
+            super(makePixmap(DEFAULT_IMG), center, DEFAULT_SIZE, DEFAULT_HEALTH, DEFAULT_DAMAGE);
         }
 
         @Override
@@ -62,7 +62,7 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
         }
 
         public Koopa (Location center) {
-            super(new Pixmap(DEFAULT_IMG), center, KOOPA_SIZE, new Integer(1), new Integer(1));
+            super(makePixmap(DEFAULT_IMG), center, KOOPA_SIZE, new Integer(1), new Integer(1));
         }
 
         public void update (double elapsedTime, Dimension bounds) {
@@ -86,7 +86,7 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
         }
 
         public Turtle (Location center) {
-            super(new Pixmap(DEFAULT_IMG), center, DEFAULT_SIZE, new Integer(1), new Integer(2));
+            super(makePixmap(DEFAULT_IMG), center, DEFAULT_SIZE, new Integer(1), new Integer(2));
         }
 
         public void update (double elapsedTime, Dimension bounds) {
@@ -114,7 +114,7 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
         }
 
         public Platform (String img, Location center, Dimension size) {
-            super(new Pixmap(img), center, size, DEFAULT_HEALTH, DEFAULT_DAMAGE);
+            super(makePixmap(img), center, size, DEFAULT_HEALTH, DEFAULT_DAMAGE);
         }
     }
 
@@ -126,7 +126,7 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
         }
 
         public Plant (Location center) {
-            super(new Pixmap(DEFAULT_IMG), center, new Dimension(32, 32), DEFAULT_HEALTH, new Integer(2));
+            super(makePixmap(DEFAULT_IMG), center, new Dimension(32, 32), DEFAULT_HEALTH, new Integer(2));
         }
     }
 
@@ -144,7 +144,7 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
         }
 
         public MovingPlatformOne (Location center) {
-            super(new Pixmap(DEFAULT_IMG), center, new Dimension(96, 32), DEFAULT_HEALTH, DEFAULT_DAMAGE);
+            super(makePixmap(DEFAULT_IMG), center, new Dimension(96, 32), DEFAULT_HEALTH, DEFAULT_DAMAGE);
             this.changeVelocity(DEFAULT_VELOCITY);
         }
 
@@ -174,7 +174,7 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
         }
 
         public MovingPlatformTwo (Location center) {
-            super(new Pixmap(DEFAULT_IMG), center, new Dimension(96, 32), DEFAULT_HEALTH, DEFAULT_DAMAGE);
+            super(makePixmap(DEFAULT_IMG), center, new Dimension(96, 32), DEFAULT_HEALTH, DEFAULT_DAMAGE);
             this.changeVelocity(DEFAULT_VELOCITY);
         }
 
@@ -240,7 +240,17 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
         public void print () {
         }
     }
-
     
+    /**
+     * TODO - how to enforce implementation of this?
+     * @return
+     */
+    public static String getImagesDirectory () {
+        return "/vooga/scroller/marioGame/images/";
+    }
+
+    public static Pixmap makePixmap(String fileName) {
+        return makePixmap(getImagesDirectory(), fileName);
+    }
 
 }
