@@ -3,6 +3,7 @@ package vooga.scroller.level_management.splash_page;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import util.Location;
 import util.input.Input;
 import util.input.InputClassTarget;
 import util.input.InputMethodTarget;
@@ -30,6 +31,8 @@ public class SplashPage implements IInputListener, IGameComponent{
     private ISpriteView myBackground;
     private int myID;
     private GameView myGameView;
+    private LevelManager myLevelManager;
+    private Player myPlayer;
     
     public SplashPage (ISpriteView backgroundImage, int splashID, GameView gameView, ScrollingManager sm) {
         myBackground = backgroundImage;
@@ -55,7 +58,9 @@ public class SplashPage implements IInputListener, IGameComponent{
 
     @Override
     public void paint (Graphics2D pen) {
-        // nothing to paint here (we could always add buttons)
+        myBackground.paint(pen, new Location((double)myGameView.getWidth()/2, 
+                                             (double)myGameView.getHeight()/2), 
+                                             myGameView.getSize());
     }
 
     @InputMethodTarget(name = "exit")
@@ -90,18 +95,16 @@ public class SplashPage implements IInputListener, IGameComponent{
 
     @Override
     public Player getPlayer () {
-        // TODO Auto-generated method stub
-        return null;
+        return myPlayer;
     }
 
     @Override
     public void addPlayer (Player p) {
-        // TODO Auto-generated method stub
+        myPlayer = p;
     }
 
-    public void addManager (LevelManager myLevelManager) {
-        // TODO Auto-generated method stub
-        
+    public void addManager (LevelManager levelManager) {
+        myLevelManager = levelManager;
     }
 
     @Override
@@ -112,33 +115,27 @@ public class SplashPage implements IInputListener, IGameComponent{
 
     @Override
     public Dimension getLevelBounds () {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public double getLeftBoundary () {
-        // TODO Auto-generated method stub
         return 0;
     }
 
     @Override
     public double getUpperBoundary () {
-        // TODO Auto-generated method stub
         return 0;
     }
 
     @Override
-    public double getLowerBoundary () {
-        // TODO Auto-generated method stub
-        
+    public double getLowerBoundary () {       
         return (double)myGameView.getHeight();
 
     }
 
     @Override
     public Image getBackground () {
-        // TODO Auto-generated method stub
-        return null;
+        return myBackground.getImage();
     }
 }
