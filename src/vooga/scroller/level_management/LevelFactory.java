@@ -63,16 +63,17 @@ public class LevelFactory {
     }
 
     protected IGameComponent linkLevels (List<IGameComponent> levels) {
-        SplashPage firstPart = new SplashPage(new Pixmap("MARIO SPLASH.png"), 0, myView, mySM);
-        firstPart.addDoor(new LevelPortal());
-        firstPart.addManager(myLevelManager);
-        myLevelManager.put(firstPart.getDoor(), levels.get(0));
+        SplashPage splash = new SplashPage(MarioLib.makePixmap("MARIO SPLASH.png"), 0, myView, mySM);
+        splash.addDoor(new LevelPortal());
+        splash.addManager(myLevelManager);
+        myLevelManager.put(splash.getDoor(), levels.get(0));
+
         for (int i = 0; i < levels.size() - 1; i++) {
             myLevelManager.put(levels.get(i).getDoor(), levels.get(i + 1));
         }
-        myLevelManager.put(levels.get(levels.size()-1).getDoor(), firstPart);
+        myLevelManager.put(levels.get(levels.size()-1).getDoor(), splash);
         
-        return firstPart;
+        return splash;
     }
 
     private void hardcodeLevel2 (Level level2) {
@@ -100,7 +101,7 @@ public class LevelFactory {
     private LEGrid loadGridFromFile (String filename) {
         // TODO: Factor this out. make editable.
         
-        File f = (new File(DEFAULT_LEVEL_FOLDER + filename)).getAbsoluteFile();
+        File f = (new File(filename)).getAbsoluteFile();
         LEGrid result = myLevelReader.makeGridFromFile(f);
         return result;
     }

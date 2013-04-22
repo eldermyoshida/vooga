@@ -22,8 +22,7 @@ import arcade.games.UserGameData;
  * @author Scrolling Platformer Team
  *
  */
-public abstract class ScrollerGame  {
-    private static ScrollingManager DEFAULT_SM = new OmniScrollingManager();
+public abstract class ScrollerGame extends Game {
     private Model myModel;
     private GameView myDisplay;
     private ScrollingManager myScrollingManager;
@@ -31,7 +30,8 @@ public abstract class ScrollerGame  {
     private String myTitle;
     private String[] myLevels;
 
-    public ScrollerGame () {
+    public ScrollerGame (ArcadeInteraction arcade) {
+        super(arcade);
         intializeInstanceVariables();
         makeModel();
     }
@@ -40,7 +40,7 @@ public abstract class ScrollerGame  {
         myScrollingManager = setScrollingManager();
         myDisplay = new GameView(PlatformerConstants.DEFAULT_WINDOW_SIZE, myScrollingManager);
         myPlayer = setPlayer(myScrollingManager,myDisplay);
-        myLevels = setLevelFileNames();
+        myLevels = setLevelFileNamesPath();
         myTitle = setTitle();
     }
 
@@ -52,13 +52,24 @@ public abstract class ScrollerGame  {
 
     protected abstract String[] setLevelFileNames();
     
+    protected abstract String setLevelsDirPath();
+    
+    private String[] setLevelFileNamesPath() {
+        String[] res = new String[setLevelFileNames().length];
+        for (int i=0; i<res.length; i++) {
+            res[i]=setLevelsDirPath()+setLevelFileNames()[i];
+        }
+        return res;
+    }
+    
     private void makeModel() {
         myModel = new Model(myDisplay, myScrollingManager, myPlayer, myLevels);
         myModel.addPlayerToLevel();
         myDisplay.setModel(myModel);
     }
 
-    public void start() {
+    @Override
+    public void run() {
      // container that will work with user's OS
         JFrame frame = new JFrame(myTitle);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
