@@ -19,7 +19,6 @@ public class Database {
     private UserGameDataTable myUserGameDataTable;
     private ScoreTable myScoreTable;
     private CommentTable myCommentTable;
-
     private S3Connections myS3Instance;
 
     /**
@@ -72,12 +71,8 @@ public class Database {
      * @param date of birth is DOB
      * @avatar is the filepath for the avatar
      */
-    public boolean createUser (String username,
-                               String pw,
-                               String firstname,
-                               String lastname,
-                               String dataOfBirth,
-                               String filepath) {
+    public boolean createUser (String username, String pw, String firstname, String lastname,
+                               String dataOfBirth, String filepath) {
         insertAvatar(username, filepath);
         return myUserTable.createUser(username, pw, firstname, lastname, dataOfBirth);
     }
@@ -100,7 +95,7 @@ public class Database {
                                String adscreenPath,
                                String description) {
         insertGameThumbnail(gameName, thumbnailPath);
-        //TODO insert ad screen path as well
+        insertAdScreenPath(gameName, adscreenPath);
         return myGameTable.createGame(gameName, author, genre, price, extendsGame,
                                       extendsMultiplayerGame, ageRating, singlePlayer, multiplayer,
                                       thumbnailPath, adscreenPath, description);
@@ -173,14 +168,6 @@ public class Database {
 
     }
 
-    public void updateUserGameFilePath (String filepath) {
-        // TODO implement method
-    }
-
-    public void retrieveGameFilePath (String filepath) {
-        // TODO implement method
-    }
-
     public void insertComment (String username, String gameName, String comment) {
 
         myCommentTable.addNewComment(retrieveGameId(gameName), retrieveUserId(username), comment);
@@ -244,7 +231,7 @@ public class Database {
         return myGameTable.getPrice(gameName);
     }
 
-    public String getExtendsGame (String gameName) {
+    public String getSingleplayerGameClassKeyword (String gameName) {
         return myGameTable.getExtendsGame(gameName);
     }
 
@@ -260,7 +247,7 @@ public class Database {
         return myGameTable.getIsMultiplayer(gameName);
     }
 
-    public String getDescription (String gameName) {
+    public String getGameDescription (String gameName) {
         return myGameTable.getDescription(gameName);
     }
 
@@ -296,19 +283,8 @@ public class Database {
         return new Pixmap(myS3Instance.getAvatar(username));
     }
 
-    
-    public String getGameDescription (String gameName) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
     public Pixmap getGameAdScreen (String gameName) {
         return new Pixmap(myS3Instance.getAdScreen(gameName));
-    }
-
-    public String getSingleplayerGameClassKeyword (String gameName) {
-        // TODO Auto-generated method stub
-        return null;
     }
 
     public String getMultiplayerGameClassKeyword (String gameName) {
