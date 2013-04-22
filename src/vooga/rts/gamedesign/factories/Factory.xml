@@ -86,6 +86,7 @@
 			<health>1000</health>
 			<buildtime>100</buildtime>
 			<attack>cannotattack</attack>
+			<occupy>cannotbeoccupied</occupy>
 			<produce>worker soldier</produce>
 		</building>
 		<custom src = "vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Tower">
@@ -101,7 +102,7 @@
 			<buildtime>100</buildtime>
 			<attack>canattack</attack>
 			<gather>cannotgather</gather>
-			<occupy>cannotoccupy</occupy>
+			<occupy>cannotbeoccupied</occupy>
 			<produce></produce>
 		</unit>
 		<unit>
@@ -112,7 +113,7 @@
 			<buildtime>100</buildtime>
 			<attack>cannotattack</attack>
 			<gather>cangather</gather>
-			<occupy>cannotoccupy</occupy>
+			<occupy>cannotbeoccupied</occupy>
 			<produce>home</produce>
 		</unit>
 	</units>

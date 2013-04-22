@@ -45,6 +45,7 @@ public class Factory {
 	Map<String, Resource> myResources;
 	Map<String, Strategy> myStrategies;
 	Map<String, String[]> myProductionDependencies;
+	Map<String, String> myStrategyDependencies;
 	
 	
 	public Factory() throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ParserConfigurationException, SAXException, IOException {
@@ -182,8 +183,8 @@ public class Factory {
 			InteractiveEntity father;
 			String[] produces = myProductionDependencies.get(key);
 			for(String baby: produces){
-				father = (InteractiveEntity) mySprites.get(key);
-				InteractiveEntity producable = (InteractiveEntity) mySprites.get(baby);
+				father = mySprites.get(key);
+				InteractiveEntity producable = mySprites.get(baby);
 				father.addProducable(producable);
 			}
 		}
