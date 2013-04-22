@@ -60,8 +60,12 @@ public class LobbyInfo implements Serializable {
         return (myPlayersCount == myMaxPlayers);
     }
 
-    protected void removePlayer () {
+    public void removePlayer () {
         myPlayersCount--;
+    }
+    
+    public void addPlayer () {
+        myPlayersCount++;
     }
 
 }
