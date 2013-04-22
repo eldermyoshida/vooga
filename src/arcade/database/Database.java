@@ -4,6 +4,7 @@ import arcade.games.GameData;
 import arcade.games.UserGameData;
 
 import java.util.List;
+import util.Pixmap;
 
 /**
  * Creates overall database
@@ -16,6 +17,7 @@ public class Database {
     private UserGameDataTable myUserGameDataTable;
     private ScoreTable myScoreTable;
     private CommentTable myCommentTable;
+    private S3Connections myS3Instance;
     
     /**
      * Database constructor
@@ -26,6 +28,7 @@ public class Database {
         myUserGameDataTable = new UserGameDataTable();
         myScoreTable = new ScoreTable();
         myCommentTable = new CommentTable();
+        myS3Instance = new S3Connections();
     }
 
     /**
@@ -228,6 +231,23 @@ public class Database {
 
     public double getAverageRating (String gameName) {
         return myUserGameDataTable.getAverageRating(gameName);
+    }
+    
+    public void listAllBuckets() {
+        myS3Instance.listAllBuckets();
+    }
+    
+    public void insertAvatar(String username, String filepath) {
+        myS3Instance.putAvatarIntoBucket(username, filepath);
+    }
+    
+    public void insertGameThumbnail(String gameName, String filepath) {
+        myS3Instance.putGameThumbnailIntoBucket(gameName, filepath);
+    }
+    
+    public Pixmap getAvatar(String username) {
+        myS3Instance.getAvatar(username);
+        return null;
     }
     
 }

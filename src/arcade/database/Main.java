@@ -13,7 +13,11 @@ public class Main {
         //myDatabase.printUserTable();
         //myDatabase.printGameTable();
         
-        myDatabase.createUser("natx13", "mypassword", "Natalia", "Carvalho", "04/26/1991");
+        //myDatabase.insertAvatar("natx13", "/Users/nataliacarvalho/Desktop/testing2.png");
+        myDatabase.getAvatar("natx13");
+        
+     //   myDatabase.createUser("natx13", "mypassword", "Natalia", "Carvalho", "04/26/1991");
+     //   myDatabase.authenticateUsernameAndPassword("natx13", "password");
         
    //     myDatabase.createUser("kayzooo", "mypassword", "Kevin", "Zhu", "11/12/1990");
    //     myDatabase.createUser("doesthiswork", "hiiii", "hiii", "hiii", "11/12/1990");
@@ -49,8 +53,8 @@ public class Main {
         }
                 
         myDatabase.printUserTable();
-      //  myDatabase.printGameTable();
-      //  myDatabase.printUserGameDataTable();
+        myDatabase.printGameTable();
+        myDatabase.printUserGameDataTable();
         
         myDatabase.closeDatabaseConnection();
         

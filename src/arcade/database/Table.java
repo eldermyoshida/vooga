@@ -12,6 +12,10 @@ import java.sql.SQLException;
  */
 public abstract class Table {
     
+    protected PreparedStatement myPreparedStatement;
+    protected Connection myConnection;
+    protected ResultSet myResultSet;
+    
     Connection establishConnectionToDatabase() {
 
         try {
@@ -32,7 +36,6 @@ public abstract class Table {
             e.printStackTrace();
         }
         return connection;
-
     }    
     
     abstract void closeConnection();
