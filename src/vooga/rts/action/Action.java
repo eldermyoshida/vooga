@@ -4,9 +4,13 @@ import vooga.rts.commands.Command;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
 
 
-/*
- * This is the abstract super class for Actions.
- * Actions will be used to execute methods on parts of the game.
+/**
+ * The action interface for the command design pattern, which allows us to 
+ * link inputs (keyboard, mouse, etc) to the appropriate actions they invoke 
+ * on the selected units or managers
+ * 
+ * @author Challen Herzberg-Brovold (and whoever else worked with Actions)
+ *
  */
 public interface Action {
     /**

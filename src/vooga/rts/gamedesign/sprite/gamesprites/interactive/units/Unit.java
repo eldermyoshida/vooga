@@ -20,7 +20,6 @@ import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
 import vooga.rts.gamedesign.upgrades.UpgradeNode;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
 import vooga.rts.util.Camera;
-import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
@@ -58,8 +57,8 @@ public class Unit extends InteractiveEntity {
     }
 
     /**
-     * Creates a new unit with an image, location, size, sound, teamID and
-     * health
+     * Creates a new unit with an image, location, size, sound, teamID,
+     * health, and upgrade tree
      * 
      * @param image
      *        is the image of the unit
@@ -83,8 +82,8 @@ public class Unit extends InteractiveEntity {
                  double buildTime) {
         super(image, center, size, sound, playerID, health, buildTime);
         // myPather = new PathingHelper();
-        System.out.println(playerID + " " + health);
-        System.out.println(playerID + " " + health);
+        // System.out.println(playerID + " " + health);
+        // System.out.println(playerID + " " + health);
         if (myUpgradeTree != null) {
             addUserToUpgradeTree(playerID);
         }
@@ -93,7 +92,7 @@ public class Unit extends InteractiveEntity {
 
     @Override
     public void addActions () {
-        put("leftclick", new InteractiveAction(this) {
+        put(ClickCommand.LEFT_CLICK, new InteractiveAction(this) {
             private Location3D myLocation;
 
             @Override
@@ -103,31 +102,14 @@ public class Unit extends InteractiveEntity {
 
             @Override
             public void update (Command command) {
-                PositionCommand click = (PositionCommand) command;
+                ClickCommand click = (ClickCommand) command;
                 myLocation = Camera.instance().viewtoWorld(click.getPosition());
             }
         });
-        addOccupyAction(this);
     }
 
-    private void addOccupyAction (final Unit u) {
-        put("occupy", new InteractiveAction(this) {
-
-            @Override
-            public void apply () {
-                return;
-            }
-
-            @Override
-            public void update (Command command) {
-                return;
-            }
-
-            public void apply (InteractiveEntity i) {
-                // ((InteractiveAction)i.getAction(new Command("be occupied!"))).apply(u);
-                i.getOccupied(u);
-            }
-        });
+    public void occupy(InteractiveEntity i) {
+    	i.getOccupied(this);
     }
 
     @Override

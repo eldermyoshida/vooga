@@ -6,14 +6,17 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import util.input.PositionObject;
+import vooga.rts.commands.ClickCommand;
 import vooga.rts.commands.Command;
 import vooga.rts.commands.PositionCommand;
 import vooga.rts.gui.Menu;
 import vooga.rts.gui.menus.MainMenu;
+import vooga.rts.gui.menus.MultiMenu;
+import vooga.rts.gui.menus.SetupMenu;
 
 
 /**
- * This class hasn't really been refactored much. Will leave for later.
+ * The menu state. Still hasn't been subject to refactor.
  * 
  * @author Challen Herzberg-Brovold, Jonno Schmidt
  * 
@@ -27,6 +30,8 @@ public class MenuState extends SubState implements Observer {
         super(observer);
         myMenus = new HashMap<Integer, Menu>();
         addMenu(0, new MainMenu());
+        addMenu(1, new MultiMenu());
+        addMenu(2, new SetupMenu());
     }
 
     public void addMenu (int index, Menu menu) {
@@ -42,13 +47,13 @@ public class MenuState extends SubState implements Observer {
 
     @Override
     public void receiveCommand (Command command) {
-        if (command.getMethodName().equals("leftclick")) {
-            PositionCommand left = (PositionCommand) command;
+        if (command.getMethodName().equals(ClickCommand.LEFT_CLICK)) {
+            ClickCommand left = (ClickCommand) command;
             getCurrentMenu()
                     .handleMouseDown((int) left.getPosition().x, (int) left.getPosition().y);
         }
         else
-            if (command.getMethodName().equals("move")) {
+            if (command.getMethodName().equals(PositionCommand.MOUSE_MOVE)) {
                 PositionCommand move = (PositionCommand) command;
                 getCurrentMenu().handleMouseMovement((int) move.getPosition().x,
                                                      (int) move.getPosition().y);

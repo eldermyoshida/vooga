@@ -1,6 +1,7 @@
 package vooga.rts.gamedesign;
 
 /**
+ * This class was deprecated on 4/20/2013.  Use DelayedTask as a replacement.
  * This class deals with cooldowns.  For example, after a weapon shoots, it 
  * needs to have a delay before it can shoot again.  This class will take
  * care of setting that delay and correctly decrementing the cooldown so that

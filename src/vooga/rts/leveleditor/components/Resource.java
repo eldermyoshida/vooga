@@ -1,9 +1,11 @@
 package vooga.rts.leveleditor.components;
 
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import vooga.rts.leveleditor.gui.MapPanel;
 import vooga.rts.resourcemanager.ResourceManager;
 import vooga.rts.util.Location;
 /**
@@ -21,6 +23,8 @@ public class Resource extends MapComponent{
     private Location myLocation;
     //further extension required
     private int myAmount;
+    private int myImageWidth;
+    private int myImageHeight;
     
     /**
      * Constructor for this class
@@ -67,6 +71,10 @@ public class Resource extends MapComponent{
             //myImage = ResourceManager.getInstance().<BufferedImage>getFile(myImageName, BufferedImage.class);            
             myImage = ImageIO.read(new File(System.getProperty("user.dir")+"./src/vooga/rts/leveleditor/resource/"+myImageName));
             
+
+//            myImage = ResourceManager.getInstance().<BufferedImage>getFile(myImageName, BufferedImage.class); 
+//            myImageWidth = myImage.getWidth();
+//            myImageHeight = myImage.getHeight();
         }
     }
     
@@ -76,5 +84,29 @@ public class Resource extends MapComponent{
     
     public int getMyY() {
         return (int) myLocation.getY();
+    }
+    
+    public int getImageWidth() {
+        return myImageWidth;
+    }
+    
+    public int getImageHeight() {
+        return myImageHeight;
+    }
+
+    public void zoomIn() {
+        myLocation = new Location(myLocation.getX()*MapPanel.ZOOM_RATE,myLocation.getY()*MapPanel.ZOOM_RATE);
+        myImageWidth = (int)(myImageWidth*MapPanel.ZOOM_RATE);
+        myImageHeight = (int)(myImageHeight*MapPanel.ZOOM_RATE);
+    }
+    
+    public void zoomOut() {
+        myLocation = new Location(myLocation.getX()/MapPanel.ZOOM_RATE,myLocation.getY()/MapPanel.ZOOM_RATE);
+        myImageWidth = (int)(myImageWidth/MapPanel.ZOOM_RATE);
+        myImageHeight = (int)(myImageHeight/MapPanel.ZOOM_RATE);     
+    }
+    
+    public void paint (Graphics pen) {
+        pen.drawImage(myImage, getMyX(), getMyY(), myImageWidth,myImageHeight,null);
     }
 }

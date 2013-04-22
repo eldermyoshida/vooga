@@ -8,9 +8,16 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.Observer;
 import javax.swing.ImageIcon;
+import vooga.rts.commands.ClickCommand;
 import vooga.rts.commands.Command;
 import vooga.rts.resourcemanager.ResourceManager;
 
+/**
+ * The state of the game while its loading. Once it is done, a simple click will 
+ * advance to the menu state.
+ * @author challenherzberg-brovold
+ *
+ */
 
 public class LoadingState extends SubState {
 
@@ -58,7 +65,7 @@ public class LoadingState extends SubState {
         pen.setFont(new Font("Georgia", Font.PLAIN, 72));
         pen.drawString("Game is Loading...", 200, 300);
         pen.setFont(new Font("Georgia", Font.PLAIN, 30));
-        pen.drawString("Please Wait..", 200, 380);
+        pen.drawString("Please Wait...", 200, 380);
         if (!isLoading()) {
             pen.setFont(new Font("Georgia", Font.PLAIN, 30));
             pen.drawString("Click to start.", 200, 380);
@@ -67,11 +74,15 @@ public class LoadingState extends SubState {
 
     @Override
     public void receiveCommand (Command command) {
-        if (command.getMethodName().equals("leftclick")) {
+        if (command.getMethodName().equals(ClickCommand.LEFT_CLICK)) {
             update(0);
         }
     }
 
+    /**
+     * 
+     * @return whether or not the game is finished loadings
+     */
     private boolean isLoading () {
         return ResourceManager.getInstance().isLoading() || !myMain.isReady();
     }

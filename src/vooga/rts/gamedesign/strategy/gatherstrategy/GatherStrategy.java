@@ -1,9 +1,7 @@
 package vooga.rts.gamedesign.strategy.gatherstrategy;
 
-import vooga.rts.gamedesign.Interval;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.IGatherable;
 import vooga.rts.gamedesign.strategy.Strategy;
-import vooga.rts.util.DelayedTask;
 
 /**
  * This interface is implemented by the classes CanGather and CannotGather that
@@ -29,8 +27,14 @@ public interface GatherStrategy extends Strategy {
 	 * 
 	 * @param gatherable
 	 *            is the resource being gathered
+	 * @param playerID is the team that the entity with this gather strategy is
+	 * on
 	 */
-	public void gatherResource(int playerID, IGatherable gatherable);
+
+	public void gatherResource (int playerID, IGatherable gatherable);
+	
+
+	
 
 	/**
 	 * Updates the gather strategies so that the CanGather can update its 

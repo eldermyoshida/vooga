@@ -11,7 +11,7 @@ import java.lang.reflect.Method;
  * It has a few methods that return the information that is needed.
  * 
  * @author Jonathan Schmidt
- * 
+ * @modified Francesco Agosti
  */
 public class ReflectionHelper {
 
@@ -36,7 +36,41 @@ public class ReflectionHelper {
         }
         return null;
     }
-
+    
+    /**
+     * Retuns a new instance of your class given your parameters. 
+     * @param Class object
+     * @param Parameters of constructor
+     * @return
+     */
+    public static Object makeInstance(Class<?> c, Object ... params){
+    	try {
+			return findConstructor(c,params).newInstance(params);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+    }
+    
+    /**
+     * Returns a new instance of the class defined by your path and your parameters
+     */
+    public static Object makeInstance(String path, Object ... params){
+    	return makeInstance(makeClass(path), params);
+    }
+    
+    /**
+     * Returns the class object that is located at path.
+     */
+    private static Class<?> makeClass(String path){
+    	Class<?> thisClass = null;
+		try {
+			thisClass = Class.forName(path);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+    	return thisClass;
+    }
     /**
      * Finds and returns the requested method.
      * 
@@ -91,6 +125,9 @@ public class ReflectionHelper {
             }
             if (types[i] == Boolean.class) {
                 types[i] = boolean.class;
+            }
+            if(types[i] == Double.class) {
+            	types[i] = double.class;
             }
         }
         return types;

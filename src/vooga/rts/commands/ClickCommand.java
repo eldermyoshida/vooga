@@ -1,7 +1,6 @@
 package vooga.rts.commands;
 
 import util.input.PositionObject;
-import vooga.rts.util.Location;
 
 
 /**
@@ -11,25 +10,13 @@ import vooga.rts.util.Location;
  * @author Challen Herzberg-Brovold
  * 
  */
-public class ClickCommand extends Command {
+public class ClickCommand extends PositionCommand {
+    
+    public static String LEFT_CLICK = "leftclick";
+    public static String RIGHT_CLICK = "rightclick";
 
-    public Location myPosition;
-
-    /**
-     * 
-     * @param inputName
-     * @param position the position of the click
-     */
     public ClickCommand (String inputName, PositionObject position) {
-        super(inputName);
-        myPosition = new Location(position.getX(), position.getY());
+        super(inputName, position);
     }
 
-    /**
-     * 
-     * @return the position of the click.
-     */
-    public Location getPosition () {
-        return myPosition;
-    }
 }
