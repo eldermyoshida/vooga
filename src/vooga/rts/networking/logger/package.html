@@ -7,10 +7,24 @@
 This package is part of the CompSci 308 VOOGA Game Engine Project.
 
 <p>
+<h1>Description</h1>
 This package is the logger package. It contains a NetworkLogger that 
 serves as a wrapper for a Java.util.Logger instance. It also contains
 IHandlerFormat that serves as a way to get various Handlers to the 
 NetworkLogger.
+</p>
+
+<p>
+<h2> Specifics </h2>
+Network Logger is a class that handles a logger. It makes use of the singleton pattern
+to guarantee the use of a single logger in the program
+This class does not propagate LogRecords to parent Loggers, so if the
+user wants the log printed on the console, he should manually call addHandler
+with FORMAT_CONSOLE as input
+By default, the logger starts at ALL level so any type of message is logged 
+Note that the user does not need to use any other class in this package 
+except this one to manage the logger
+</p>
 
 <!-- Put @see and @since tags down here. -->
 

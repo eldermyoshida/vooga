@@ -1,6 +1,7 @@
 package vooga.rts.networking.communications;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import vooga.rts.networking.client.lobby.Player;
 
@@ -20,7 +21,7 @@ public class ExpandedLobbyInfo extends LobbyInfo {
     /**
      * Inner list represents a team, outer list represents all the teams
      */
-    List<ArrayList<Player>> myPlayerList = new ArrayList<ArrayList<Player>>();
+    List<List<Player>> myPlayerList = new ArrayList<List<Player>>();
     private int myMaxTeams;
 
     /**
@@ -70,7 +71,7 @@ public class ExpandedLobbyInfo extends LobbyInfo {
         extendTeams(myPlayerList.size() + 1);
         int oldPlayerCount = 0;
         for (int i = 0; i < myPlayerList.size(); i++) {
-            ArrayList<Player> team = myPlayerList.get(i);
+            List<Player> team = myPlayerList.get(i);
             if (oldPlayerCount > team.size()) {
             	team.add(player);
             	return i + 1;
@@ -113,7 +114,7 @@ public class ExpandedLobbyInfo extends LobbyInfo {
      * @param player to remove
      */
     public void removePlayer (Player player) {
-        for (ArrayList<Player> team : myPlayerList) {
+        for (List<Player> team : myPlayerList) {
         	if(team.contains(player)){
         		team.remove(player);
         		removePlayer();
@@ -141,6 +142,23 @@ public class ExpandedLobbyInfo extends LobbyInfo {
      */
     public int getMaxTeams () {
         return myMaxTeams;
+    }
+    
+    /**
+     * 
+     * @return List with the teams in the lobby, it returns a copy of the 
+     * original list so it is used for read purposes only
+     */
+    public List<List<Player>> getTeams() {
+    	List<List<Player>> teams = new LinkedList<List<Player>>();
+    	for (int i = 0 ; i < myPlayerList.size() ; i++) {
+    		List<Player> players = new LinkedList<Player>();
+    		teams.add(new LinkedList<Player>());
+    		for (Player p : myPlayerList.get(i)) {
+    			players.add(p);
+    		}
+    	}
+    	return teams;
     }
 
 }
