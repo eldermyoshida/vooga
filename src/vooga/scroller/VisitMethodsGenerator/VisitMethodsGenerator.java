@@ -1,4 +1,4 @@
-package vooga.scroller.collision_manager;
+package vooga.scroller.VisitMethodsGenerator;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,16 +17,16 @@ public class VisitMethodsGenerator {
     private static final String PART_ONE = "public void visit (";
     private static final String PART_TWO = ") {}";
     private static final String COMMA = ", ";
-    private static final String DIRECTORY_LOCATION = "src/vooga/scroller/collision_manager/files/";
-    private static final String FILE_NAME = "visitMethods.txt";
         
 
-    public VisitMethodsGenerator (List<Sprite> spriteList) throws IOException {
-        mySecretary = new Secretary(DIRECTORY_LOCATION, FILE_NAME);
+    public VisitMethodsGenerator (List<Sprite> spriteList, String dir_location, String file_name) throws IOException {
+        mySecretary = new Secretary(dir_location, file_name);
         interfaceStrings = new HashSet<String>();
         generateInterfaceStrings(spriteList);
         generateVisitMethods();
     }
+    
+
     
     /**
      * We are assuming that spriteList does not contain the player

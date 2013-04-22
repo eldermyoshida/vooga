@@ -20,7 +20,7 @@ public class MarioCollisions {
     private static final double FRICTION = .5;
     private CollisionDirection direction = new CollisionDirection();
 
-    void marioAndPlatformCollision (IPlayer player, IPlatform platform) {
+    public void marioAndPlatformCollision (IPlayer player, IPlatform platform) {
         
         
         Direction collisionType = direction.collisionDirection(player, platform);
