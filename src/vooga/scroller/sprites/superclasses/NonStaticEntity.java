@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.util.Random;
 import util.Location;
 import util.Vector;
+import vooga.scroller.sprites.movement.Movement;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.Sprite;
 
@@ -24,6 +25,7 @@ public abstract class NonStaticEntity extends Sprite {
     private Player myPlayer;
     private int myHealth;
     private int myDamage;
+    
     
     
     public NonStaticEntity (Pixmap image, Location center, Dimension size) {
@@ -78,6 +80,8 @@ public abstract class NonStaticEntity extends Sprite {
     public int getHealth() {
         return myHealth;
     }
+    
+    public abstract Vector getMovement(Movement movement);
 
 
 }
