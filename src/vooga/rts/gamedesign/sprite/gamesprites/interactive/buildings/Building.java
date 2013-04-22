@@ -4,7 +4,6 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
-import vooga.rts.gamedesign.sprite.gamesprites.interactive.IObserver;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
 import vooga.rts.gamedesign.upgrades.UpgradeNode;
@@ -34,8 +33,7 @@ public class Building extends InteractiveEntity {
     private Location3D myRallyPoint;
     private List<Unit> myProducables;
     private List<InteractiveEntity> myInteractiveEntities;
-    private List<IObserver> myObservers;
-
+    
     private int myBuildingID;
 
     public Building (Pixmap image,
@@ -50,8 +48,7 @@ public class Building extends InteractiveEntity {
         myRallyPoint = new Location3D(getWorldLocation().getX(), getWorldLocation().getY() + 50, 0);
         myProducables = new ArrayList<Unit>();
         myInteractiveEntities = new ArrayList<InteractiveEntity>();
-
-        myObservers = new ArrayList<IObserver>();
+        
         if (upgradeTree != null) {
             myUpgradeTree = upgradeTree;
         }
@@ -160,38 +157,6 @@ public class Building extends InteractiveEntity {
             ie.update(elapsedTime);
         }
 
-    }
-
-    /**
-     * Registers an IProductionObserver (a player) as its Observer.
-     */
-    public void register (IObserver newObserver) {
-        myObservers.add(newObserver);
-    }
-
-    // TODO: this should work together with Occupy! When another player occupies
-    // the building, it should unregister the current player and register the
-    // new one.
-
-    // NOTE:this can now be done in GameBuildingManager.
-    /**
-     * Unregisters an IProductionObserver (a player) so that it will not be
-     * notified anymore when ProductionBuilding updates.
-     */
-    public void unregister (IObserver deleteObserver) {
-        int observerIndex = myObservers.indexOf(deleteObserver);
-        myObservers.remove(observerIndex);
-
-    }
-
-    /**
-     * Notifies all the IProductionObserver that are currently observing of
-     * the change.
-     */
-    public void notifyProductionObserver (Unit newProduction) {
-        for (IObserver observer : myObservers) {
-            observer.addProduction(newProduction);
-        }
     }
 
     @Override
