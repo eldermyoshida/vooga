@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
 import vooga.scroller.level_editor.ILevelEditor;
+import vooga.scroller.level_editor.library.BackgroundLib;
 import vooga.scroller.level_editor.library.IBackgroundLibrary;
 import vooga.scroller.level_editor.library.ISpriteLibrary;
 import vooga.scroller.level_editor.model.LevelEditor;
@@ -15,6 +16,7 @@ import vooga.scroller.level_editor.view.LEGridView;
 import vooga.scroller.level_editor.view.LEView;
 import vooga.scroller.level_editor.view.LEWorkspaceView;
 import vooga.scroller.level_editor.view.LevelEditing;
+import vooga.scroller.sprites.test_sprites.MarioLib;
 import vooga.scroller.util.Editable;
 import vooga.scroller.util.Renderable;
 import vooga.scroller.util.mvc.IController;
@@ -34,6 +36,11 @@ import vooga.scroller.util.mvc.vcFramework.WorkspaceView;
  */
 
 public class LEController implements IController<LevelEditing> {
+    
+    public static void runLevelEditor(ISpriteLibrary lib, IBackgroundLibrary bgLib) {
+        LEController con = new LEController(lib, bgLib);
+        con.start();
+    }
 
     private static final int DEFAULT_SPRITE_GRID_SIZE = 30;
     private LevelEditing myDomainInfo;

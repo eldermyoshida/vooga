@@ -8,7 +8,7 @@ import java.util.Set;
 import vooga.scroller.util.Sprite;
 
 
-public class SpriteLibrary implements CreatableLib, ReadableLib {
+public class SpriteLibrary implements ISpriteLibrary{
 
     private Map<Integer, Sprite> mySprites;
     private Map<Integer, Image> myBackgrounds;

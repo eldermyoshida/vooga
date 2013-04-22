@@ -17,8 +17,7 @@ public class Main {
                                           "background.png",
                                           "forestbackground.jpg"};
         
-        LEController con = new LEController(new MarioLib(), new BackgroundLib(filenames));
-        con.start();
+        LEController.runLevelEditor(new MarioLib(), new BackgroundLib(filenames));
         
     }
 }

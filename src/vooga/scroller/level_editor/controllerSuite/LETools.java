@@ -37,6 +37,7 @@ public class LETools extends Tools implements Renderable<LEToolsView> {
     private static final int COLLECTIBLES = 2;
     private static final int SPECIALPOINTS = 3;
     private static final int OTHERS = 4;
+    private static final int DEFAULT_BG_SIZE = 40;
     private List<HashMap<Object, String>> mySpritesOptions;
     private Map<Object, String> myBackgroundImages;
     private Map<Object, String> myOtherImages;
@@ -70,8 +71,8 @@ public class LETools extends Tools implements Renderable<LEToolsView> {
                                              Image.SCALE_SMOOTH));
     }
     
-    private ImageIcon getIcon (Image a) {
-        return new ImageIcon(a.getScaledInstance(DEFAULT_SIZE, DEFAULT_SIZE,
+    private ImageIcon getIcon (Image a, int size) {
+        return new ImageIcon(a.getScaledInstance(size, size,
                                                  Image.SCALE_SMOOTH));
     }
 
@@ -141,7 +142,7 @@ public class LETools extends Tools implements Renderable<LEToolsView> {
 
     public void addBackgrounds (Map<Integer, Image> backgrounds) {
         for (Integer key : backgrounds.keySet()) {
-            myBackgroundImages.put(getIcon(backgrounds.get(key)), "" + key);
+            myBackgroundImages.put(getIcon(backgrounds.get(key), DEFAULT_BG_SIZE), "" + key);
         }
     }
 
