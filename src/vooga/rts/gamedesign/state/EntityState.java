@@ -116,7 +116,7 @@ public class EntityState {
      * This method returns the movement state (either moving or stationary) of
      * the game entity.
      * 
-     * @return the detectable state of the game entity
+     * @return the movement state of the game entity
      */
     public MovementState getMovementState() {
     	return myMovementState;
