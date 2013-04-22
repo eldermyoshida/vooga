@@ -16,6 +16,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import vooga.rts.gamedesign.sprite.gamesprites.GameSprite;
+import vooga.rts.gamedesign.sprite.gamesprites.Resource;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.strategy.Strategy;
 import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
 import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
@@ -39,7 +41,8 @@ public class Factory {
 	public static final String DECODER_MATCHING_PATH_TAG = "decoderPath";
 	
 	Map<String, Decoder> myDecoders = new HashMap<String, Decoder>();
-	Map<String, GameSprite> mySprites;
+	Map<String, InteractiveEntity> mySprites;
+	Map<String, Resource> myResources;
 	Map<String, Strategy> myStrategies;
 	Map<String, String[]> myProductionDependencies;
 	
@@ -47,14 +50,19 @@ public class Factory {
 	public Factory() throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ParserConfigurationException, SAXException, IOException {
 		myDecoders = new HashMap<String, Decoder>();
 		loadDecoder(DECODER_MATCHING_FILE);
-		mySprites = new HashMap<String, GameSprite>();
+		mySprites = new HashMap<String, InteractiveEntity>();
+		myResources = new HashMap<String, Resource>();
 		myStrategies = new HashMap<String, Strategy>();
 		myProductionDependencies = new HashMap<String, String[]>();
 	}
 	
 	
-	public void put(String name, GameSprite value){
+	public void put(String name, InteractiveEntity value){
 		mySprites.put(name, value);
+	}
+	
+	public void put(String name, Resource resource){
+		myResources.put(name, resource);
 	}
 	
 	public void put(String name, Strategy value){
@@ -73,12 +81,15 @@ public class Factory {
 		return (OccupyStrategy) myStrategies.get(key);
 	}
 	
-	public GameSprite getSprite(String key){
+	public InteractiveEntity getInteractiveEntity(String key){
 		return mySprites.get(key);
 	}
 	
+	public Resource getResource(String key){
+		return myResources.get(key);
+	}
+	
 	public void putProductionDependency(String name, String[] itProduces){
-		System.out.println("name: " + name + "produces: " + itProduces[0]);
 		myProductionDependencies.put(name, itProduces);
 	}
 	
@@ -161,11 +172,21 @@ public class Factory {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		initializeProducables();
+		//Testing
 	}
 	
 	
-	private void initializeProducable(){
-		
+	private void initializeProducables(){
+		for(String key :myProductionDependencies.keySet()){
+			InteractiveEntity father;
+			String[] produces = myProductionDependencies.get(key);
+			for(String baby: produces){
+				father = (InteractiveEntity) mySprites.get(key);
+				InteractiveEntity producable = (InteractiveEntity) mySprites.get(baby);
+				father.addProducable(producable);
+			}
+		}
 		
 	}
 	
@@ -175,8 +196,9 @@ public class Factory {
 	public static void main(String[] args) throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ParserConfigurationException, SAXException, IOException {
 		//loads Upgrade XML - creates tree - updates activate state
 		Factory factory = new Factory();
-
+		
 		factory.loadXMLFile("Factory.xml");
+		
 
 		/**creates an UpgradeBuilding
 		UpgradeBuilding upgradeBuilding = new UpgradeBuilding();
