@@ -1,6 +1,5 @@
 package arcade.view.modes;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ResourceBundle;
 import javax.swing.JPanel;
@@ -26,8 +25,7 @@ public class GameCenterPanel extends JPanel {
     /**
      * Creates the GameCenterPanel with a Model and ResourceBundle
      */
-    public GameCenterPanel (Model model, ResourceBundle resources) {      
-        setBackground(Color.WHITE);
+    public GameCenterPanel (Model model, ResourceBundle resources) {
         AllSnapShots allSnapShots = new AllSnapShots(model, resources, new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
         add(new JScrollPane(allSnapShots));
     }

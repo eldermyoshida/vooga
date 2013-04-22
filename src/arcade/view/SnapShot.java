@@ -85,8 +85,9 @@ public class SnapShot extends JPanel {
      * @return
      */
     private Component createRating () {
-        int rating = (int) myGameInfo.getRating();
-        return new JLabel(myRatingIcons[rating]);
+        return new JLabel(myGameInfo.getRating() + "");
+//        int rating = (int) myGameInfo.getRating();
+//        return new JLabel(myRatingIcons[rating]);
     }
 
     /**

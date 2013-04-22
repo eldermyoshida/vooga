@@ -54,7 +54,9 @@ public class StorePanel extends JPanel {
      * @return
      */
     private Component createSnapShots () {
-        AllSnapShots allSnapShots = new AllSnapShots(myModel, myResources, new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
+        AllSnapShots allSnapShots = new AllSnapShots(myModel, 
+                                                     myResources, 
+                                                     new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
         return new JScrollPane(allSnapShots);
     }
 
