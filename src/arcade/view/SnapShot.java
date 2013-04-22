@@ -1,61 +1,54 @@
 package arcade.view;
 
-import java.awt.Dimension;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
 import java.util.ResourceBundle;
 import javax.swing.BoxLayout;
-import javax.swing.JComponent;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import arcade.games.GameInfo;
 import arcade.model.Model;
-import arcade.util.JPicture;
-import arcade.util.Pixmap;
-
+import util.Pixmap;
 
 /**
  * 
  * @author David Liu
  * 
  */
+@SuppressWarnings("serial")
 public class SnapShot extends JPanel {
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 1859238824934859448L;
+    private static final int THUMBNAIL_SIZE = 160;
     private GameInfo myGameInfo;
     private ResourceBundle myResources;
-    private JLabel myTitle;
-    private JComponent myThumbnail;
-    private JLabel myRating;
-
-    private String gameName;
     private Model myModel;
 
     public SnapShot (GameInfo info, ResourceBundle resources, Model model) {
         myModel = model;
         myGameInfo = info;
         myResources = resources;
-
-        myTitle = new JLabel("<html><b><font size = 4>" + myGameInfo.getName() +
-                             "</font></html></b>");
-        Pixmap p = myGameInfo.getThumbnail();
-        myThumbnail = new JPicture(p, new Dimension(160, 160));
-        myRating = new JLabel(myGameInfo.getRating() + "");
-
+        
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
-        add(myThumbnail);
-        add(myTitle);
-        add(myRating);
+        ImageIcon icon = myGameInfo.getThumbnail();
+        ImageIcon scaledIcon = createScaledIcon(icon, THUMBNAIL_SIZE);
+        JLabel thumbnail = new JLabel(scaledIcon);
+        JLabel title = new JLabel("<html><b><font size = 4>" + myGameInfo.getName());
+        JLabel rating = new JLabel(myGameInfo.getRating() + "");
+
+        add(thumbnail);
+        add(title);
+        add(rating);
 
         this.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked (MouseEvent arg0) {
                 if (arg0.getClickCount() == 2) {
-                    System.out.println("Clicked!!");
                     new DetailView(myGameInfo, myResources, myModel);
                 }
             }
@@ -71,5 +64,21 @@ public class SnapShot extends JPanel {
             public void mouseEntered (MouseEvent arg0) {}
 
         });
+    }
+    
+    /**
+     * TODO: REMOVE THE DUPLICATED CODE FROM HERE AND ButtonPanel
+     * @param icon
+     * @param size
+     * @return
+     */
+    private ImageIcon createScaledIcon(ImageIcon icon, int size){
+        Image image = icon.getImage();
+        BufferedImage buffer = new BufferedImage(size,size,BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2 = buffer.createGraphics();
+        g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        g2.drawImage(image, 0, 0, size, size, null);
+        g2.dispose();
+        return new ImageIcon(buffer);
     }
 }

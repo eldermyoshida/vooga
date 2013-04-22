@@ -38,6 +38,8 @@ public class BackgroundPanel extends JPanel{
      * Constructs the background panel with the filepath for the image, and the
      * provided margins.
      * 
+     * The filepath should be with respect to the src folder.
+     * 
      * @param filepath for the image to set as the background
      * @param hgap is the space on the left/right sides that will not be 
      * filled by added content.

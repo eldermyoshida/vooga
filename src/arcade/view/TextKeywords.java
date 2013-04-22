@@ -49,4 +49,8 @@ public interface TextKeywords {
     static final String PAYMENT_INSTRUCTION = "payment_instruction";
     static final String PRICE_ERROR = "price_error";
     static final String AGE_ERROR = "age_error";
+    static final String PUBLISH_BUTTON = "publish_button";
+    static final String GAME_CENTER = "game_center";
+    static final String SOCIAL_CENTER = "social_center";
+    static final String GAME_STORE = "game_store";
 }

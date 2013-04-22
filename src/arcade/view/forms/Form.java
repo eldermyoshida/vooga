@@ -80,7 +80,7 @@ public abstract class Form extends JFrame {
     /**
      * Display an error message in the view.
      * 
-     * Called if user makes failed log in attempt or tries to register an account
+     * For example, if user makes failed log in attempt or tries to register an account
      * that has already been named.
      * 
      * @param message
@@ -188,7 +188,7 @@ public abstract class Form extends JFrame {
      * @param inputField
      * @return
      */
-    protected JPanel createTextPanel (String descriptionKeyword, JTextField inputField) {
+    protected JComponent createTextPanel (String descriptionKeyword, JTextField inputField) {
         JPanel panel = new JPanel();
 
         String description = myResources.getString(descriptionKeyword);

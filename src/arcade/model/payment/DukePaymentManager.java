@@ -8,6 +8,8 @@ import arcade.exceptions.InvalidPaymentException;
  * 
  * This is just a mock payment manager and no transaction actually occurs.
  * 
+ * Used Null Object Design Pattern
+ * 
  * 
  * @author Ellango
  *

@@ -31,7 +31,7 @@ public class DukePaymentView extends PaymentView {
      * @param info
      */
     public DukePaymentView (Model model, ResourceBundle resources, GameInfo info) {
-       super(model, resources, info);
+       super(model, resources, info, PAYMENT_MANAGER_CLASS);
     }
     
     /**
@@ -58,24 +58,12 @@ public class DukePaymentView extends PaymentView {
         myDukeCardTextField = new JTextField();
         return createTextPanel(TextKeywords.DUKE_CARD_NUMBER, myDukeCardTextField);
     }
-    
+
     @Override
-    protected void performTransaction () {
-//        getModel().performTransaction(getGame(),
-//                                      PAYMENT_MANAGER_CLASS,
-//                                      getGame().getPrice(),
-//                                      myNameTextField.getText(),
-//                                      myDukeCardTextField.getText());
-        try {
-            getModel().performTransaction(getGame(),
-                                          PAYMENT_MANAGER_CLASS,
-                                          myNameTextField.getText(),
-                                          myDukeCardTextField.getText());
-            dispose();  
-        }
-        catch (InvalidPaymentException e) {
-            sendMessage(getResources().getString(TextKeywords.PAYMENT_ERROR));
-        }      
+    protected String[] getPaymentInfo () {
+        String[] paymentInfo = {myNameTextField.getText(),
+                                myDukeCardTextField.getText()};
+        return paymentInfo;
     }
 
 }
