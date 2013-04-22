@@ -14,7 +14,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import arcade.games.GameInfo;
 import arcade.model.Model;
-import util.Pixmap;
 
 /**
  * A SnapShot is a small clickable panel that represents a Game in the GameCenter
