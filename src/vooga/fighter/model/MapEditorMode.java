@@ -118,6 +118,10 @@ public class MapEditorMode extends Mode {
         // overlap = delete object
         // non-overlap = place current selected object.
     }
+    
+    public void writeMap() {
+    	MapWriter writer = new MapWriter(myMap);
+    }
 
     public void nextObject () {
 
