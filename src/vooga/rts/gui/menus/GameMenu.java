@@ -32,11 +32,15 @@ public class GameMenu extends Menu {
     public GameMenu () {
         File bgImage = new File(BG_IMAGE_LOCATION);
 
-        myBGImage = ResourceManager.getInstance().<BufferedImage>getFile(BG_IMAGE_LOCATION, BufferedImage.class);
+        myBGImage =
+                ResourceManager.getInstance().<BufferedImage> getFile(BG_IMAGE_LOCATION,
+                                                                      BufferedImage.class);
         setBGImage(myBGImage);
 
-        myExitButton = new ImageButton(EXIT_IMAGE_LOCATION, EXIT_BUTTON_DIMENSION, EXIT_BUTTON_LOCATION);
+        myExitButton =
+                new ImageButton(EXIT_IMAGE_LOCATION, EXIT_BUTTON_DIMENSION, EXIT_BUTTON_LOCATION);
         addButton(myExitButton);
+
     }
 
     public void setMiniMap () {
@@ -53,28 +57,39 @@ public class GameMenu extends Menu {
 
     @Override
     protected void paintBG (Graphics2D pen) {
+        
+        int screenX = (int) pen.getDeviceConfiguration().getBounds().getWidth();
+        int screenY = (int) pen.getDeviceConfiguration().getBounds().getHeight();
+        
+        int bgImgHeight = myBGImage.getHeight();
+        int bgImgWidth = myBGImage.getWidth();
+        
         int x = 0;
-        int y = (int) pen.getDeviceConfiguration().getBounds().getHeight() - myBGImage.getHeight();
-        pen.drawImage(myImage, x, y, null);
+        int y = screenY - bgImgHeight;
+
+        double xFactor = screenX / bgImgWidth;
+        int newHeight = (int) (xFactor * bgImgHeight);
+
+        pen.drawImage(myImage, x, y, screenX, newHeight, null);
+
     }
-    
+
     @Override
     public void update (Observable o, Object arg) {
         if (o.equals(myExitButton)) {
             System.exit(0);
         }
-        
+
         setChanged();
         notifyObservers(arg);
     }
 
     public void receiveCommand (Command command) {
         if (!(command instanceof PositionCommand)) return;
-        
+
         PositionCommand p = (PositionCommand) command;
         handleMouseDown(p.getPosition());
         handleMouseMovement(p.getPosition());
 
-        
     }
 }
