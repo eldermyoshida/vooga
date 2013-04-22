@@ -48,15 +48,15 @@ public class Garrison extends Building {
     public void update (double elapsedTime) {
         super.update(elapsedTime);
         /*
-        if (getOccupyStrategy().getOccupiers().size() == 5) {
-            try {
-                // getActions().get(0).apply(getOccupyStrategy().getOccupierID());
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        */
+         * if (getOccupyStrategy().getOccupiers().size() == 5) {
+         * try {
+         * // getActions().get(0).apply(getOccupyStrategy().getOccupierID());
+         * }
+         * catch (Exception e) {
+         * e.printStackTrace();
+         * }
+         * }
+         */
     }
 
     @Override

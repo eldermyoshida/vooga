@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import util.input.PositionObject;
+import vooga.rts.commands.ClickCommand;
 import vooga.rts.commands.Command;
 import vooga.rts.commands.PositionCommand;
 import vooga.rts.gui.Menu;
@@ -13,7 +14,7 @@ import vooga.rts.gui.menus.MainMenu;
 
 
 /**
- * This class hasn't really been refactored much. Will leave for later.
+ * The menu state. Still hasn't been subject to refactor.
  * 
  * @author Challen Herzberg-Brovold, Jonno Schmidt
  * 
@@ -43,7 +44,7 @@ public class MenuState extends SubState implements Observer {
     @Override
     public void receiveCommand (Command command) {
         if (command.getMethodName().equals("leftclick")) {
-            PositionCommand left = (PositionCommand) command;
+            ClickCommand left = (ClickCommand) command;
             getCurrentMenu()
                     .handleMouseDown((int) left.getPosition().x, (int) left.getPosition().y);
         }

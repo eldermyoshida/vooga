@@ -2,6 +2,7 @@ package vooga.rts.controller;
 
 import java.awt.geom.Rectangle2D;
 import util.input.*;
+import vooga.rts.commands.ClickCommand;
 import vooga.rts.commands.Command;
 import vooga.rts.commands.DragCommand;
 import vooga.rts.commands.PositionCommand;
@@ -12,7 +13,7 @@ import vooga.rts.util.Location3D;
 
 
 /**
- * After much thought, I've decided to only have one InputController. This controller
+ * This controller
  * sends the formatted inputs to the main state, which relays them to the appropriate
  * state.
  * 
@@ -45,7 +46,11 @@ public class InputController implements Controller {
     public void sendCommand (Command command) {
         myState.receiveCommand(command);
     }
-
+    /*
+     * All the following methods are called via reflection by the Input class,
+     * based on the Input.properties file, and send the appropriate command.
+     * 
+     */
     @InputMethodTarget(name = "onLeftMouseDown")
     public void onLeftMouseDown (PositionObject o) {
         myLeftMouse = new Location(o.getPoint2D());
@@ -54,7 +59,7 @@ public class InputController implements Controller {
     @InputMethodTarget(name = "onLeftMouseUp")
     public void onLeftMouseUp (PositionObject o) {
         if (myDrag == null) {
-            sendCommand(new PositionCommand("leftclick", o));
+            sendCommand(new ClickCommand("leftclick", o));
         }
         else {
             myLeftMouse = null;
@@ -66,7 +71,7 @@ public class InputController implements Controller {
 
     @InputMethodTarget(name = "onRightMouseUp")
     public void onRightMouseUp (PositionObject o) {
-        sendCommand(new PositionCommand("rightclick", o));
+        sendCommand(new ClickCommand("rightclick", o));
         myLeftMouse = null;
         myDrag = null;
         sendCommand(new DragCommand("drag", null, null));
