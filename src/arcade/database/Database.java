@@ -1,7 +1,9 @@
 package arcade.database;
 
+import java.util.ArrayList;
 import java.util.List;
 import arcade.games.GameData;
+import arcade.games.Score;
 import arcade.games.UserGameData;
 import java.util.List;
 import util.Pixmap;
@@ -120,6 +122,10 @@ public class Database {
     public List<String> retrieveListOfGames () {
         return myGameTable.retrieveGameList();
     }
+    
+    public List<String> retrieveListOfUsers() {
+        return myUserTable.retrieveUsernames();
+    }
 
     public boolean authenticateUsernameAndPassword (String username, String password) {
         return myUserTable.authenticateUsernameAndPassword(username, password);
@@ -142,6 +148,28 @@ public class Database {
     public void addNewHighScore (String username, String gameName, int newHighScore) {
         myScoreTable.addNewHighScore(retrieveUserId(username), retrieveGameId(gameName),
                                      newHighScore);
+    }
+    
+    public List<Score> getScoresForGame(String gameName) {
+        List<String> usernames = retrieveListOfUsers();
+        List<Score> myScores = new ArrayList<Score>();
+        for (String user : usernames) {
+            myScores.addAll(myScoreTable.getScoresForGame(retrieveGameId(gameName), retrieveUserId(user), gameName, user));
+        }
+        return myScores;
+    }
+    
+    public List<Score> getScoresForUser(String username) {
+        List<String> games = retrieveListOfGames();
+        List<Score> myScores = new ArrayList<Score>();
+        for (String game : games) {
+            myScores.addAll(myScoreTable.getScoresForGame(retrieveGameId(game), retrieveUserId(username), game, username));
+        }
+        return myScores;
+    }
+    
+    public List<Score> getScoresForGameAndUser(String username, String gameName) {
+        return myScoreTable.getScoresForGame(retrieveGameId(gameName), retrieveUserId(username), gameName, username);
     }
 
     public void storeUserGameData (String gameName,
@@ -179,7 +207,6 @@ public class Database {
     }
 
     public void printGameTable () {
-
         myGameTable.printEntireTable();
     }
 

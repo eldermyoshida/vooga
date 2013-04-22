@@ -4,7 +4,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import arcade.games.Score;
 
 /**
  * Creates and updates user table
@@ -62,16 +64,22 @@ public class ScoreTable extends Table {
         }
     }
     
-    public void getHighScoresGameUser(String gameid, String userid) {
-        
-    }
-    
-    public void getHighScoresForGame(String gameid) {
-        
-    }
-    
-    public void getHighScoresForUser(String userid) {
-        
+    public List<Score> getScoresForGame(String gameid, String userid, String gameName, String userName) {
+        String stm = "SELECT gameid FROM scores WHERE gameid='" + gameid + "' AND userid='" +userid +"'";
+        List<Score> scores = new ArrayList<Score>();
+        try {
+            myPreparedStatement = myConnection.prepareStatement(stm);
+            myResultSet  = myPreparedStatement.executeQuery();
+            while (myResultSet.next()) {
+                Score score = new Score(gameName, userName, myResultSet.getInt(HIGHSCORE_COLUMN_INDEX));
+                scores.add(score);
+            }
+            return scores;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override

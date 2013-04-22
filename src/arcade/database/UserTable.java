@@ -3,6 +3,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Creates and updates user table
@@ -211,6 +213,25 @@ public class UserTable extends Table {
         catch (SQLException e) {
             e.printStackTrace();
         } 
+    }
+    
+    /**
+     * Returns a list of all the games
+     */
+    public List<String> retrieveUsernames() {
+        String stm = "SELECT " + USERNAME_COLUMN_INDEX + " FROM "  + TABLE_NAME;
+        List<String> myUsernames = new ArrayList<String>();
+        try {
+            myPreparedStatement = myConnection.prepareStatement(stm);
+            myResultSet = myPreparedStatement.executeQuery();
+            while (myResultSet.next()) {
+                myUsernames.add(myResultSet.getString(USERNAME_COLUMN_INDEX));
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return myUsernames; 
     }
     
     void printEntireTable () {

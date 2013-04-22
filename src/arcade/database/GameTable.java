@@ -149,9 +149,7 @@ public class GameTable extends Table {
     
     /**
      * Returns a list of all the games
-
      */
-
     public List<String> retrieveGameList() {
         String stm = "SELECT " + GAMENAME_COLUMN_FIELD + " FROM "  + TABLE_NAME;
         List<String> myGameNames = new ArrayList<String>();
@@ -165,8 +163,7 @@ public class GameTable extends Table {
         catch (SQLException e) {
             e.printStackTrace();
         }
-        return myGameNames;
-        
+        return myGameNames; 
     }
      
     /**
