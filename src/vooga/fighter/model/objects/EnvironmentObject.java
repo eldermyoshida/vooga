@@ -77,5 +77,9 @@ public class EnvironmentObject extends GameObject {
     public void handleCollision(EnvironmentObject other) {
         System.out.println("EnvironmentObject handleCollision : Environment collided with environment");
     }
+    
+    public void tellDelegate() {
+    	
+    }
 
 }

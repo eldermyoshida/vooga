@@ -19,7 +19,7 @@ import vooga.fighter.model.objects.MouseObject;
  * in the game objects themselves, and 
  * 
  * @author James Wei, alanni
- * 
+ * @modified Matthew Parides
  */
 public class CollisionManager {
 	
@@ -157,6 +157,20 @@ public class CollisionManager {
     	System.out.println(o2.getLocation().getLocation().getX());
     	System.out.println(o2.getLocation().getLocation().getY());
     	o1.tellDelegate();
+    }
+    
+    /**
+     * Handles collisions between an environment object and a mouseobject.
+     */
+    public void collide(EnvironmentObject o1, MouseClickObject o2) {
+    	collide(o2, o1);
+    }
+    
+    /**
+     * Handles collisions between an environment object and an attack object.
+     */
+    public void collide(MouseClickObject o1, EnvironmentObject o2) {
+    	o2.tellDelegate();
     }
     
     /**
