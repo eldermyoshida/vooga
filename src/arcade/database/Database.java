@@ -120,6 +120,22 @@ public class Database {
         myScoreTable.addNewHighScore(retrieveUserId(username), retrieveGameId(gameName), newHighScore);
     }
     
+    public void storeUserGameData(String gameName, String username, String tempFilePath, UserGameData usd) {
+        myS3Instance.putUserGameDataIntoBucket(username, gameName, tempFilePath, usd);
+    }
+    
+    public UserGameData getUserGameData(String gameName, String username, String tempFilePath) {
+        return myS3Instance.getUserGameDataFromBucket(username, gameName, tempFilePath);
+    }
+    
+    public void storeGameData(String gameName, String tempFilePath, GameData gd) {
+        myS3Instance.putGameData(gameName, tempFilePath, gd);
+    }
+    
+    public GameData getGameData(String gameName, String tempFilePath) {
+        return myS3Instance.getGameDataFromBucket(gameName, tempFilePath);
+    }
+    
     public void getHighScores(int n) {
         //TODO implement method
     }
@@ -130,10 +146,6 @@ public class Database {
         
     public void retrieveGameFilePath(String filepath) {
         //TODO implement method
-    }
-    
-    public UserGameData getUserGameData(String gameName, String username) {
-        return null;
     }
     
     public void userServer(UserGameData usd) {
@@ -151,10 +163,6 @@ public class Database {
     
     public List<String> retrieveCommentsForGame(String gameName) {
         return myCommentTable.getAllCommentsForGame(retrieveGameId(gameName));
-    }
-    
-    public GameData getGameData(String gameName) {
-        return null;
     }
     
     public void printGameTable() {
@@ -246,7 +254,7 @@ public class Database {
     }
     
     public Pixmap getAvatar(String username) {
-        myS3Instance.getAvatar(username);
+        myS3Instance.getAvatar(username, "/Users/nataliacarvalho/Desktop/testing4.png");
         return null;
     }
     

@@ -17,18 +17,25 @@ import java.awt.Image;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.UUID;
 import util.Pixmap;
 
+import arcade.games.GameData;
+import arcade.games.UserGameData;
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.auth.ClasspathPropertiesFileCredentialsProvider;
@@ -80,18 +87,109 @@ public class S3Connections {
     }
     
     public void putAvatarIntoBucket(String username, String filepath) {
-        putObjectIntoBucket("avatar" + username, filepath);
+        putFileIntoBucket("avatar" + username, filepath);
     }
     
     public void putGameThumbnailIntoBucket(String gameName, String filepath) {
-        putObjectIntoBucket("thumbnail" + gameName, filepath);
+        putFileIntoBucket("thumbnail" + gameName, filepath);
     }
     
-    public void getAvatar(String username) {
-        downloadObjectImage("avatar" + username);
+    public void getAvatar(String username, String filepath) {
+        downloadObjectToFile("avatar" + username, filepath);
     }
     
-    public void putObjectIntoBucket(String key, String filepath) {
+    public void putUserGameDataIntoBucket(String username, String gameName, String filepath, UserGameData usd) {
+        createFileFromByteArray(serializeObject(usd), filepath);
+        putFileIntoBucket("usergamedata" + username + gameName, filepath);
+    }
+    
+    public UserGameData getUserGameDataFromBucket(String username, String gameName, String filepath) {
+        downloadObjectToFile("usergamedata" + username + gameName, filepath);
+        byte[] data = read(createFileFromFilePath(filepath));
+        return (UserGameData) deserialize(data);
+    }
+    
+    public void putGameData(String gameName, String filepath, GameData gd) {
+        createFileFromByteArray(serializeObject(gd), filepath);
+        putFileIntoBucket("gamedata" + gameName, filepath);
+    }
+    
+    public GameData getGameDataFromBucket(String gameName, String filepath) {
+        downloadObjectToFile("gamedata" + gameName, filepath);
+        byte[] data = read(createFileFromFilePath(filepath));
+        return (GameData) deserialize(data);
+    }
+    
+    public File createFileFromFilePath(String filepath) {
+        return new File(filepath);
+    }
+    
+    public byte[] read(File file) {
+        byte []buffer = new byte[(int) file.length()];
+        InputStream ios = null;
+        try {
+            ios = new FileInputStream(file);     
+        }
+        catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        finally { 
+            try {
+                if ( ios != null ) 
+                    ios.close();
+            } catch ( IOException e) {
+            }
+        }
+
+        return buffer;
+    }
+
+    public void createFileFromByteArray(byte[] bytes, String filepath) {
+        
+        FileOutputStream out;
+        try {
+            out = new FileOutputStream(filepath);
+            out.write(bytes);
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public byte[] serializeObject(Object obj) {
+        ByteArrayOutputStream b = new ByteArrayOutputStream();
+        ObjectOutputStream o;
+        try {
+            o = new ObjectOutputStream(b);
+            o.writeObject(obj);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        return b.toByteArray();
+    }
+    
+    public Object deserialize(byte[] bytes) {
+        ByteArrayInputStream b = new ByteArrayInputStream(bytes);
+        ObjectInputStream o;
+        try {
+            o = new ObjectInputStream(b);
+            return o.readObject();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    public void putFileIntoBucket(String key, String filepath) {
         File file = new File(filepath);
         try {
             myS3Instance.putObject(new PutObjectRequest(BUCKET_NAME, key, file));
@@ -113,8 +211,9 @@ public class S3Connections {
         }
     }
     
-    public void downloadObjectImage(String key) {
-        File file = new File("/Users/nataliacarvalho/Desktop/testing4.png");
+    
+    public void downloadObjectToFile(String key, String filepath) {
+        File file = new File(filepath);
         ObjectMetadata object = myS3Instance.getObject(new GetObjectRequest(BUCKET_NAME, key), file);
     }
     
