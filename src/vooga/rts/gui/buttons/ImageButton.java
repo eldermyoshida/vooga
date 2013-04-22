@@ -12,12 +12,13 @@ public class ImageButton extends Button {
 
     @Override
     public void update (double elapsedTime) {
+        setChanged();
+        notifyObservers();
     }
 
     @Override
     public void processClick () {
-        // TODO Auto-generated method stub
-        
+        update(0);
     }
 
     @Override
