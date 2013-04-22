@@ -62,6 +62,31 @@ public class MainMenuController extends MenuController {
         super.getMode().addObject(new MouseClickObject(pos.getPoint2D()));
     }
     
+    @InputMethodTarget(name = "left")
+    public void left(AlertObject alObj)  {
+        super.getMode().left();
+    }
+    
+    @InputMethodTarget(name = "right")
+    public void right(AlertObject alObj)  {
+        super.getMode().right();
+    }
+    
+    @InputMethodTarget(name = "up")
+    public void up(AlertObject alObj)  {
+        super.getMode().up();
+    }
+    
+    @InputMethodTarget(name = "down")
+    public void down(AlertObject alObj)  {
+        super.getMode().down();
+    }
+    
+    @InputMethodTarget(name = "enter")
+    public void enter(AlertObject alObj)  {
+        super.getMode().setChoice(getMode().getCurrentMode().getValue());
+    }
+    
     public void removeListener(){
     	super.removeListener();
     	getInput().removeListener(this);

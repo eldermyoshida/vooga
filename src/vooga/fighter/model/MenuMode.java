@@ -25,17 +25,8 @@ public class MenuMode extends Mode {
     }
 
     @Override
-    public void update (double stepTime, Dimension bounds) {
-        List<GameObject> myObjects = getMyObjects();
-        handleCollisions();
-        for (int i = 0; i < myObjects.size(); i++) {
-            GameObject object = myObjects.get(i);
-            object.update();
-            if (object.shouldBeRemoved()) {
-                myObjects.remove(object);
-                i--;
-            }
-        }
+    public void update(double stepTime, Dimension bounds) {
+    	update();
     }
 
     @Override
@@ -45,7 +36,21 @@ public class MenuMode extends Mode {
         for (MenuObject menu : myMenuObjects) {
             addObject(menu);
         }
+        update();
+        
     }
+    
+    public void update(){
+    removeAppropriateObjects();
+    List<GameObject> myObjects = getMyObjects();
+    for (GameObject object : myObjects) {
+        object.update();
+    }
+    for (GameObject object : myObjects) {
+        object.updateState();
+    }
+    handleCollisions();
+}
 
     public void handleCollisions() {
         myCollisionManager.checkCollisions(getMyObjects());
@@ -71,12 +76,32 @@ public class MenuMode extends Mode {
     	myChoice = choice;
     }
     
+    public void left(){
+    	myMenuGrid.left();
+    }
+    
+    public void up(){
+    	myMenuGrid.up();
+    }
+    
+    public void down(){
+    	myMenuGrid.down();
+    }
+    
+    public void right(){
+    	myMenuGrid.right();
+    }
+    
     public void resetChoice(){
     	myChoice = "";
     }
     
     public String peekChoice (){
     	return myChoice;
+    }
+    
+    public MenuObject getCurrentMode(){
+    	return myMenuGrid.getCurrentObject();
     }
 
 }

@@ -13,71 +13,66 @@ import vooga.fighter.model.utils.State;
 import vooga.fighter.model.utils.UpdatableLocation;
 
 public class MenuGrid {
-	private int myColumns;
-	private int myRows;
-	private MenuObject [][] myGrid;
+	private final static String UNSELECTED = "Unselected";
+	private final static String SELECTED = "Selected";
 	private List<MenuObject> myMenuObjects;
 	private MenuMode myDelegate;
+	private MenuObject myCurrentMenuObject;
 	
 	public MenuGrid(String Id, MenuMode delegate) {
-	        myDelegate = delegate;
-		myMenuObjects = new MenuGridLoader(Id, this, delegate).getMenuObjects();
-		myGrid = createEmptyGrid(myMenuObjects.size());
-		fillGrid(myMenuObjects, myGrid, myColumns, myRows);
-	}
-	
-	public MenuObject [][] createEmptyGrid(int listsize){
-		if(listsize < 4){
-			myRows = 1;
-			myColumns = listsize;
-		}
-		else if(listsize%2 == 0){
-			myColumns = listsize/2;
-			myRows = 2;
-		}
-		else if(listsize%2 == 1){
-			myColumns = listsize/2;
-			myRows = 3;
-		}
-		return new MenuObject[myRows][myColumns];
-	}
-	
-	public MenuObject getMenuObject(int i, int j){
-		return myGrid[i][j];
+	    myDelegate = delegate;
+		MenuGridLoader menuGrid = new MenuGridLoader(Id, this, delegate);
+		myMenuObjects = menuGrid.getMenuObjects();
+		myCurrentMenuObject = menuGrid.getFirstMenuObject();
+		myCurrentMenuObject.getState(SELECTED);
 	}
 	
 	public List<MenuObject> getMenuObjects(){
 		return myMenuObjects;
 	}
 	
-	private void fillGrid(List<MenuObject> list, MenuObject [][] grid, int columns, int rows){
-		int RowNumber = 0;
-		int ColumnNumber = 0;
-		for(int i = 0; i < list.size(); i ++){
-				if(ColumnNumber <columns){
-				grid[RowNumber][ColumnNumber] = list.get(i);
-				int xloc =  (ColumnNumber)*GameManager.SIZE.width/(columns) + GameManager.SIZE.width/(2*columns);
-				int yloc =  (RowNumber)*GameManager.SIZE.height/(rows) + GameManager.SIZE.height/(2*rows);
-				list.get(i).setLocation(new UpdatableLocation(xloc,yloc));
-				int count  = 0;
-				for(Object s : list.get(i).getStates().values()){
-					State state = (State) s;
-					Dimension size = new Dimension(GameManager.SIZE.width/(2*columns), GameManager.SIZE.height/(2*rows));
-					// state.populateSize(size, count);
-					Rectangle rect = new Rectangle(GameManager.SIZE.width/(2*columns), GameManager.SIZE.height/(2*rows));
-					state.populateRectangle(rect, count);
-					count ++;
-					
-				}
-				list.get(i).setImageData();
-				ColumnNumber ++;
-				}
-				else{
-					RowNumber ++;
-					ColumnNumber =0;
-				}
-			
+	public MenuObject getCurrentObject(){
+		return myCurrentMenuObject;
+	}
+	
+	public void left(){
+		myCurrentMenuObject.setCurrentState(UNSELECTED);
+		for(MenuObject menu: myMenuObjects){
+			if(myCurrentMenuObject.getLeft() == menu.getNum()){
+				myCurrentMenuObject = menu;
+				myCurrentMenuObject.setCurrentState(SELECTED);
+			}
 		}
 	}
-
+	
+	public void right(){
+		myCurrentMenuObject.setCurrentState(UNSELECTED);
+		for(MenuObject menu: myMenuObjects){
+			if(myCurrentMenuObject.getRight() == menu.getNum()){
+				myCurrentMenuObject = menu;
+				myCurrentMenuObject.setCurrentState(SELECTED);
+			}
+		}
+	}
+	
+	public void up(){
+		myCurrentMenuObject.setCurrentState(UNSELECTED);
+		for(MenuObject menu: myMenuObjects){
+			if(myCurrentMenuObject.getUp() == menu.getNum()){
+				myCurrentMenuObject = menu;
+				myCurrentMenuObject.setCurrentState(SELECTED);
+			}
+		}
+	}
+	
+	public void down(){
+		myCurrentMenuObject.setCurrentState(UNSELECTED);
+		for(MenuObject menu: myMenuObjects){
+			if(myCurrentMenuObject.getDown() == menu.getNum()){
+				myCurrentMenuObject = menu;
+				myCurrentMenuObject.setCurrentState(SELECTED);
+			}
+		}
+	}
+	
 }

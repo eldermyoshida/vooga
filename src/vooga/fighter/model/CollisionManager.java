@@ -171,4 +171,7 @@ public class CollisionManager {
      */
     public void collide(MouseClickObject o1, MouseClickObject o2) {
     }
+    
+    public void collide(MenuObject o1, MenuObject o2) {
+    }
 }

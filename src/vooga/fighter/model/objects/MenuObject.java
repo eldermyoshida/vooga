@@ -13,13 +13,18 @@ public class MenuObject extends GameObject {
 
     private String myNext;
     private String myValue;
+    private int myGridNum;
+    private int myUp;
+    private int myDown;
+    private int myLeft;
+    private int myRight;
+    
     MenuMode myDelegate;
 
 
     public MenuObject (String choice, MenuMode delegate) {
         setLoader(new MenuLoader(choice, this));
         myDelegate = delegate;
-        //myChoice = choice;
     }
 
     @Override
@@ -30,6 +35,47 @@ public class MenuObject extends GameObject {
     @Override
     public void completeUpdate () {
         
+    }
+    
+    
+    
+    public int getUp(){
+    	return myUp;
+    }
+    
+    public int getDown(){
+    	return myDown;
+    }
+    public int getLeft(){
+    	return myLeft;
+    }
+    
+    public int getRight(){
+    	return myRight;
+    }
+    
+    public int getNum(){
+    	return myGridNum;
+    }
+    
+    public void setUp(int up){
+    	myUp = up;
+    }
+    
+    public void setDown(int down){
+    	myDown = down;
+    }
+    
+    public void setRight(int right){
+    	myRight = right;
+    }
+    
+    public void setLeft(int left){
+    	myLeft = left;
+    }
+    
+    public void setNum(int num){
+    	myGridNum = num;
     }
     
     public String getValue() {

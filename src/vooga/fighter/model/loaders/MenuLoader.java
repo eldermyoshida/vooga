@@ -9,8 +9,9 @@ import vooga.fighter.model.objects.MenuObject;
 import vooga.fighter.model.utils.State;
 
 public class MenuLoader extends ObjectLoader {
-
+	
 	private static final String MENU_PATH = "src/vooga/fighter/config/menu.xml";
+	private static final String YES = "yes";
 	
 	MenuObject myMenuObject;
 	public MenuLoader(String menuobjectname, MenuObject menuobject) {
@@ -26,15 +27,13 @@ public class MenuLoader extends ObjectLoader {
 			Element node = (Element) menuNodes.item(i);
 			String name = getAttributeValue(node, "menuobjectname");
 			if (name.equals(menuobjectname)) {
+				myMenuObject.setValue(name);
 				NodeList states = node.getElementsByTagName("state");
 				for(int j = 0; j < states.getLength(); j++){
 				Element state = (Element) states.item(j);
-				String  stateName = getAttributeValue(state, "name");
-				myMenuObject.setValue(stateName);
-				String nextStateName = getAttributeValue(state, "nextState");
-				myMenuObject.setNext(nextStateName);
-				System.out.println("<menuloader>: " + nextStateName);
-				NodeList frames = node.getElementsByTagName("frame");
+				String stateName = getAttributeValue(state, "name");
+				String blinking = getAttributeValue(state, "blink");
+				NodeList frames = state.getElementsByTagName("frame");
 				State newState = new State(myMenuObject, frames.getLength());
 				for(int k = 0; k < frames.getLength(); k++){
 					Element node1 = (Element) frames.item(k);
@@ -43,6 +42,9 @@ public class MenuLoader extends ObjectLoader {
 					newState.populateImage(image, k);
 				}
 				myMenuObject.addState(stateName, newState);
+				if(blinking.equals(YES)){
+					newState.setLooping(true);
+				}
 				if(j == 0) myMenuObject.setCurrentState(stateName);
 				}
 			}
