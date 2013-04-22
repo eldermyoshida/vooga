@@ -11,7 +11,7 @@ public abstract class HUDElement implements Observer, Paintable {
     
     protected String myName;
     protected String myFieldName;
-    protected Point2D.Double myLocation;
+    protected Point2D.Double myLocation = new Point2D.Double();
 
     public void setName (String name) {
         myName = name;
