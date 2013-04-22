@@ -28,7 +28,7 @@ public class AttackUpgradeNode extends UpgradeNode {
      * related method.
      */
     @Override
-    public void apply (InteractiveEntity requester) {
+    public void upgrade (InteractiveEntity requester) {
         requester.setAttackStrategy(new CanAttack(requester.getWorldLocation(), requester
                 .getPlayerID()));
     }

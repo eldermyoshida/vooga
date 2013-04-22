@@ -1,6 +1,5 @@
 package vooga.rts.gamedesign.upgrades;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -54,7 +53,6 @@ public class UpgradeNode {
 
     public void upgrade(InteractiveEntity requester) {
     	return;
-    	//TODO: add to subclasses
     }
     
     public boolean validUpdate (Player player) {

@@ -17,7 +17,7 @@ public class HealthUpgradeNode extends UpgradeNode {
      * related method.
      */
     @Override
-    public void apply (InteractiveEntity requester) {
+    public void upgrade (InteractiveEntity requester) {
         requester.addMaxHealth(getUpgradeValue());
     }
 

@@ -1,5 +1,12 @@
 package vooga.rts.gamedesign.strategy.vooga.rts.gamedesign.strategy.upgradestrategy;
 
-public interface UpgradeStrategy {
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
+import vooga.rts.gamedesign.upgrades.UpgradeTree;
 
+public interface UpgradeStrategy {
+	public void createUpgradeActions(final InteractiveEntity entity);
+	
+	public UpgradeTree getUpgradeTree();
+	
+	public void setUpgradeTree(UpgradeTree upgradeTree, InteractiveEntity owner);
 }

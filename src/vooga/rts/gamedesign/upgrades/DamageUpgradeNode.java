@@ -13,7 +13,7 @@ public class DamageUpgradeNode extends UpgradeNode {
     }
 
     @Override
-    public void apply (InteractiveEntity requester) {
+    public void upgrade (InteractiveEntity requester) {
         // Currently no need to check for can or cannot attack and if weapon's empty. Watch for
         // updates
         requester.getAttackStrategy().getCurrentWeapon().addDamage(getUpgradeValue());

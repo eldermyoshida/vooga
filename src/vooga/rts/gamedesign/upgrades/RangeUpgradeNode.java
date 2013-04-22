@@ -12,7 +12,7 @@ public class RangeUpgradeNode extends UpgradeNode {
     }
 
     @Override
-    public void apply (InteractiveEntity requester) {
+    public void upgrade (InteractiveEntity requester) {
         requester.getAttackStrategy().getCurrentWeapon().addRange(getUpgradeValue());
     }
 }

@@ -79,14 +79,8 @@ public class Unit extends InteractiveEntity {
                  Sound sound,
                  int playerID,
                  int health,
-                 double buildTime) {
+                 double buildTime, UpgradeTree upgradeTree) {
         super(image, center, size, sound, playerID, health, buildTime);
-        // myPather = new PathingHelper();
-        // System.out.println(playerID + " " + health);
-        // System.out.println(playerID + " " + health);
-        if (myUpgradeTree != null) {
-            addUserToUpgradeTree(playerID);
-        }
         addActions();
     }
 
@@ -116,29 +110,5 @@ public class Unit extends InteractiveEntity {
     public InteractiveEntity copy () {
         return new Unit(getImage(), getWorldLocation(), getSize(), getSound(), getPlayerID(),
                         getHealth(), getBuildTime());
-    }
-
-    @Override
-    public UpgradeTree getUpgradeTree () {
-        return myUpgradeTree;
-    }
-
-    @Override
-    public void setUpgradeTree (UpgradeTree upgradeTree, int playerID) {
-        myUpgradeTree = upgradeTree;
-        addUserToUpgradeTree(playerID);
-    }
-
-    private void addUserToUpgradeTree (int playerID) {
-        if (myUpgradeTree.getUsers().get(playerID) == null) {
-            List<InteractiveEntity> entityGroup = new ArrayList<InteractiveEntity>();
-            entityGroup.add(this);
-            myUpgradeTree.getUsers().put(playerID, entityGroup);
-        }
-        else {
-            List<InteractiveEntity> entityGroup = myUpgradeTree.getUsers().get(playerID);
-            entityGroup.add(this);
-            myUpgradeTree.getUsers().put(playerID, entityGroup);
-        }
     }
 }
