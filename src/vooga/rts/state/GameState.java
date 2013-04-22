@@ -24,6 +24,7 @@ import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Worker;
 import vooga.rts.gamedesign.state.DetectableState;
 import vooga.rts.gamedesign.strategy.production.CanProduce;
 import vooga.rts.gamedesign.weapon.Weapon;
+import vooga.rts.gui.menus.GameMenu;
 import vooga.rts.map.GameMap;
 import vooga.rts.player.HumanPlayer;
 import vooga.rts.player.Player;
@@ -39,11 +40,11 @@ import vooga.rts.util.PointTester;
 
 
 /**
- * The main model of the game. This keeps track of all the players, the humanplayer 
+ * The main model of the game. This keeps track of all the players, the humanplayer
  * associated with the local game, plus the map.
  * 
  * @author Challen Herzberg-Brovold
- *
+ * 
  */
 
 public class GameState extends SubState implements Controller {
@@ -107,9 +108,7 @@ public class GameState extends SubState implements Controller {
         // If it's a drag, we need to do some extra checking.
         if (command instanceof DragCommand) {
             myDrag = ((DragCommand) command).getScreenRectangle();
-            if (myDrag == null) {
-                return;
-            }
+            if (myDrag == null) { return; }
         }
         sendCommand(command);
     }
@@ -121,7 +120,8 @@ public class GameState extends SubState implements Controller {
 
     /**
      * Adds a player to the game
-     * @param player to add 
+     * 
+     * @param player to add
      * @param teamID of the player.
      */
     public void addPlayer (Player player, int teamID) {
@@ -165,7 +165,6 @@ public class GameState extends SubState implements Controller {
                                a.getWorldLocation(), new Dimension(30, 30), 2, 10, 6);
         a.getAttackStrategy().addWeapons(new Weapon(proj, 400, a.getWorldLocation(), 1));
         myHumanPlayer.add(a);
-
         addPlayer(2);
         Unit c = new Soldier(new Location3D(1000, 500, 0), 2);
         c.setHealth(150);
@@ -211,7 +210,7 @@ public class GameState extends SubState implements Controller {
         occupyPukingTest = new DelayedTask(1, new Runnable() {
             @Override
             public void run () {
-                if (testGarrison.getOccupyStrategy().getOccupiers().size() > 1) {
+                if (testGarrison.getOccupyStrategy().getOccupiers().size() > 0) {
                     System.out.println("will puke!");
                     testGarrison.getAction(new Command("deoccupy")).apply();
                 }
