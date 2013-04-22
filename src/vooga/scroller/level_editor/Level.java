@@ -8,6 +8,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import util.Location;
 import util.input.Input;
+import util.input.InputClassTarget;
+import util.input.InputMethodTarget;
 import vooga.scroller.util.IGameComponent;
 import vooga.scroller.util.Renderable;
 import vooga.scroller.util.Sprite;
@@ -25,6 +27,7 @@ import vooga.scroller.util.PlatformerConstants;
 import vooga.scroller.util.mvc.IView;
 import vooga.scroller.view.GameView;
 
+@InputClassTarget
 public class Level implements Renderable<GameView>, IGameComponent{
 
     private Dimension mySize;
@@ -196,6 +199,7 @@ public class Level implements Renderable<GameView>, IGameComponent{
         // TODO: sprite manager?
         myInput.replaceMappingResourcePath(getPlayer().getInputFilePath());
         myInput.addListenerTo(getPlayer());
+        myInput.addListenerTo(this);
 
     }
 
@@ -207,6 +211,7 @@ public class Level implements Renderable<GameView>, IGameComponent{
     public void removeInputListeners (Input myInput) {
         // TODO: sprite manager?
         myInput.removeListener(getPlayer());
+        myInput.removeListener(this);
     }
 
     /**
@@ -246,11 +251,14 @@ public class Level implements Renderable<GameView>, IGameComponent{
         // TODO Auto-generated method stub
         
     }
-
-    @Override
-    public String getInputFilePath () {
-        // TODO Auto-generated method stub
-        return null;
+    
+    /**
+     * Pauses the current game.
+     */
+    @InputMethodTarget(name = "pause")
+    public void pauseGame() {
+        
     }
+    
 
 }

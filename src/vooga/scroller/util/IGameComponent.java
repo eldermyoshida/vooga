@@ -22,7 +22,7 @@ public interface IGameComponent {
     
     public void paint (Graphics2D pen);
     
-    public String getInputFilePath ();
+    //public String getInputFilePath ();
 
     public IDoor getDoor ();
 

@@ -68,8 +68,9 @@ public class SplashPage implements IInputListener, IGameComponent{
         System.exit(-1);
     }
     
-    @InputMethodTarget(name = "space")
+    @InputMethodTarget(name = "start")
     public void nextLevel() {
+        System.out.println("hit");
         myDoor.goToNextLevel(getPlayer());
     }
     
@@ -84,7 +85,6 @@ public class SplashPage implements IInputListener, IGameComponent{
         myInput.removeListener(this);       
     }
 
-    @Override
     public String getInputFilePath () {
         return CONTROLS_FILE_PATH;
     }
@@ -115,7 +115,7 @@ public class SplashPage implements IInputListener, IGameComponent{
 
     @Override
     public Dimension getLevelBounds () {
-        return null;
+        return myGameView.getSize();
     }
 
     @Override

@@ -46,4 +46,8 @@ public class StateManager {
     public void undoState(){
         
     }
+    
+    public void addState(int stateID, State state) {
+        myStates.put(stateID, state);
+    }
 }
