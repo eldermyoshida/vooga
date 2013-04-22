@@ -12,10 +12,11 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+
 /**
  * StartUpScreen starts the GameEditor for the
- *      game developer.
- *
+ * game developer.
+ * 
  * @author Angelica Schwartz
  */
 public class StartUpScreen extends JPanel {
@@ -27,13 +28,14 @@ public class StartUpScreen extends JPanel {
     private JButton myStartButton;
     private MouseAdapter myMouseAdapter;
     private GameEditorController myController;
-    
+
     /**
      * Constructor.
+     * 
      * @param size
      * @param controller
      */
-    public StartUpScreen(Dimension size, GameEditorController controller) {
+    public StartUpScreen (Dimension size, GameEditorController controller) {
         myController = controller;
         setSize(size);
         setPreferredSize(size);
@@ -42,37 +44,40 @@ public class StartUpScreen extends JPanel {
         add(makeLabel(), BorderLayout.NORTH);
         add(makeButton(), BorderLayout.SOUTH);
     }
-    
+
     /**
      * paints the screen.
+     * 
      * @param pen
      */
     @Override
-    public void paintComponent(Graphics pen) {
+    public void paintComponent (Graphics pen) {
         super.paintComponents(pen);
         pen.setColor(Color.WHITE);
         pen.fillRect(0, 0, getSize().width, getSize().height);
     }
-    
+
     /**
      * Helper method to make a welcome title label.
+     * 
      * @return the JLabel created
      */
-    private JLabel makeLabel() {
+    private JLabel makeLabel () {
         return new JLabel(WELCOME_KEYWORD);
     }
-    
+
     /**
      * helper method to make the buttons.
+     * 
      * @return the JButton created
      */
-    private JComponent makeButton() {
+    private JComponent makeButton () {
         myStartButton = new JButton(START_KEYWORD);
         myStartButton.addMouseListener(myMouseAdapter);
         return myStartButton;
     }
-    
-    private void makeMouseAdapter() {
+
+    private void makeMouseAdapter () {
         myMouseAdapter = new MouseAdapter() {
             @Override
             public void mouseClicked (MouseEvent e) {
