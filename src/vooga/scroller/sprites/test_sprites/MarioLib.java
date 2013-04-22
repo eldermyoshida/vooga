@@ -52,7 +52,9 @@ public class MarioLib implements ISpriteLibrary {
     public static class Koopa extends NonStaticEntity implements IEnemy {
         private static final String DEFAULT_IMG = "koopa.png";
         private static final Dimension KOOPA_SIZE = new Dimension(32, 64);
+        private Movement movement = new TrackPlayer(this);
 
+        
         public Koopa () {
             this(DEFAULT_LOC);
         }
@@ -62,15 +64,20 @@ public class MarioLib implements ISpriteLibrary {
         }
 
         public void update (double elapsedTime, Dimension bounds) {
-            Movement movement = new TrackPlayer(this);
-            changeVelocity(movement.execute(450, 1000000, getPlayer())); // want to make this call every
+            changeVelocity(getMovement(movement)); // want to make this call every
             super.update(elapsedTime, bounds);
+        }
+
+        @Override
+        public Vector getMovement (Movement movement) {
+            return movement.execute(450, 1000000, getPlayer());
         }
     }
 
     public static class Turtle extends NonStaticEntity implements IEnemy {
 
         private static final String DEFAULT_IMG = "turtle.gif";
+        private Movement movement = new TrackPlayer(this);
 
         public Turtle () {
             this(DEFAULT_LOC);
@@ -81,9 +88,13 @@ public class MarioLib implements ISpriteLibrary {
         }
 
         public void update (double elapsedTime, Dimension bounds) {
-            TrackPlayer movement = new TrackPlayer(this);
-            changeVelocity(movement.execute(7000, 100000, getPlayer())); 
+            changeVelocity(getMovement(movement)); 
             super.update(elapsedTime, bounds);
+        }
+
+        @Override
+        public Vector getMovement (Movement movement) {
+            return movement.execute(450, 1000000, getPlayer());
         }
 
     }
@@ -123,6 +134,8 @@ public class MarioLib implements ISpriteLibrary {
         private static final int DEFAULT_SPEED = 60;
         private static final Vector DEFAULT_VELOCITY = new Vector(Sprite.DOWN_DIRECTION,
                                                                   DEFAULT_SPEED);
+        private Movement movement = new UpAndDown(this);
+
 
         public MovingPlatformOne () {
             this(DEFAULT_LOC);
@@ -134,9 +147,13 @@ public class MarioLib implements ISpriteLibrary {
         }
 
         public void update (double elapsedTime, Dimension bounds) {
-            UpAndDown movement = new UpAndDown(this);
-            changeVelocity(movement.execute(100, 250, DEFAULT_SPEED)); // want to make this call
+            changeVelocity(getMovement(movement)); // want to make this call
             super.update(elapsedTime, bounds);
+        }
+
+        @Override
+        public Vector getMovement (Movement movement) {
+            return movement.execute(100, 250, DEFAULT_SPEED);
         }
 
     }
@@ -147,6 +164,8 @@ public class MarioLib implements ISpriteLibrary {
         private static final int DEFAULT_SPEED = 60;
         private static final Vector DEFAULT_VELOCITY = new Vector(Sprite.RIGHT_DIRECTION,
                                                                   DEFAULT_SPEED);
+        private Movement movement = new LeftAndRight(this);
+
 
         public MovingPlatformTwo () {
             this(DEFAULT_LOC);
@@ -158,9 +177,13 @@ public class MarioLib implements ISpriteLibrary {
         }
 
         public void update (double elapsedTime, Dimension bounds) {
-            LeftAndRight movement = new LeftAndRight(this);
-            changeVelocity(movement.execute(500, 1000, DEFAULT_SPEED));
+            changeVelocity(getMovement(movement));
             super.update(elapsedTime, bounds);
+        }
+
+        @Override
+        public Vector getMovement (Movement movement) {
+            return movement.execute(500, 1000, DEFAULT_SPEED);
         }
 
     }
