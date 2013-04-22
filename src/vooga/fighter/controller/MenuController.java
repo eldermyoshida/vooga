@@ -60,27 +60,27 @@ public abstract class MenuController extends Controller {
     
     @InputMethodTarget(name = "left")
     public void left(AlertObject alObj)  {
-        getMode().left();
+    	if(getMode().inputReady()) getMode().left();
     }
     
     @InputMethodTarget(name = "right")
     public void right(AlertObject alObj)  {
-        getMode().right();
+    	if(getMode().inputReady()) getMode().right();
     }
     
     @InputMethodTarget(name = "up")
     public void up(AlertObject alObj)  {
-        getMode().up();
+    	if(getMode().inputReady())  getMode().up();
     }
     
     @InputMethodTarget(name = "down")
     public void down(AlertObject alObj)  {
-        getMode().down();
+    	if(getMode().inputReady()) getMode().down();
     }
     
     @InputMethodTarget(name = "enter")
     public void enter(AlertObject alObj)  {
-        getMode().setChoice(getMode().getCurrentMode().getValue());
+    	if(getMode().inputReady())  getMode().setChoice(getMode().getCurrentMode().getValue());
     }
     
     public void loadMode() {

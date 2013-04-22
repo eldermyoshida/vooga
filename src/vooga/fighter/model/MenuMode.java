@@ -113,7 +113,10 @@ public class MenuMode extends Mode {
     }
     
     public boolean inputReady(){
-    	return myInputTicks>6;
+    	if(myInputTicks>6){ myInputTicks = 0;
+    	return true;
+    	}
+    	return false;
     }
 
 }
