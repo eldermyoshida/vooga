@@ -15,9 +15,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import vooga.rts.action.Action;
-import vooga.rts.action.InteractiveAction;
 import vooga.rts.action.IActOn;
 import vooga.rts.commands.Command;
 import vooga.rts.commands.InformationCommand;
@@ -33,6 +31,8 @@ import vooga.rts.gamedesign.strategy.occupystrategy.CannotBeOccupied;
 import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
 import vooga.rts.gamedesign.strategy.production.CannotProduce;
 import vooga.rts.gamedesign.strategy.production.ProductionStrategy;
+import vooga.rts.gamedesign.strategy.upgradestrategy.CanUpgrade;
+import vooga.rts.gamedesign.strategy.upgradestrategy.UpgradeStrategy;
 import vooga.rts.gamedesign.upgrades.UpgradeNode;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
 import vooga.rts.util.Camera;
@@ -53,6 +53,7 @@ import vooga.rts.util.Information;
  * @author Wenshun Liu
  * 
  */
+
 public abstract class InteractiveEntity extends GameEntity implements
 		IAttackable, IActOn {
 
@@ -109,6 +110,10 @@ public abstract class InteractiveEntity extends GameEntity implements
 
 	public void addAction(String command, Action action) {
 		myActions.put(command, action);
+	}
+
+	public void removeAction(String command) {
+		myActions.remove(command);
 	}
 
 	public abstract void addActions();

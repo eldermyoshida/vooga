@@ -24,6 +24,7 @@ import vooga.rts.gamedesign.state.OccupyState;
 import vooga.rts.manager.actions.DragSelectAction;
 import vooga.rts.manager.actions.LeftClickAction;
 import vooga.rts.manager.actions.RightClickAction;
+import vooga.rts.state.GameState;
 import vooga.rts.state.State;
 import vooga.rts.util.Location3D;
 
@@ -132,6 +133,7 @@ public class Manager extends Observable implements State, IActOn, Observer {
      *        The entity that is to be added.
      */
     public void add (InteractiveEntity entity) {
+        entity.addObserver(GameState.getMap().getNodeMap());
         entity.addObserver(this);
         myAddQueue.add(entity);
     }
@@ -357,8 +359,7 @@ public class Manager extends Observable implements State, IActOn, Observer {
             }
 
         }
-        else
-            if (state instanceof Integer) {
+        else if (state instanceof Integer) {
                 int index = findEntityWithHashCode((Integer) state);
                 InteractiveEntity unit = myEntities.get(index);
                 unit.getEntityState().setOccupyState(OccupyState.NOT_OCCUPYING);
