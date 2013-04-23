@@ -14,7 +14,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import arcade.exceptions.AgeException;
+import arcade.exceptions.InvalidGameFileException;
 import arcade.exceptions.InvalidPriceException;
 import arcade.model.Model;
 import arcade.view.TextKeywords;
@@ -44,10 +46,7 @@ public class PublishView extends Form {
     private JTextArea myDescriptionTextField = new JTextArea();
     private String mySmallImagePath = DEFAULT_IMAGE;
     private String myLargeImagePath = DEFAULT_IMAGE;
-    private String mySinglePlayerPath;
-    private boolean isSinglePlayer;
-    private String myMultiPlayerPath;
-    private boolean isMultiPlayer;
+    private String myGameFilePath = "";
 
     /**
      * Constructs the publish view dialog box with a Model and ResourceBundle.
@@ -140,45 +139,26 @@ public class PublishView extends Form {
                                        }
                                    });
     }
+    
+    private JComponent createGameFileSelector () {
+        return createFileSelector(TextKeywords.GAME_INSTRUCTION, 
+                                  TextKeywords.FILE_SELECT, 
+                                  new FileChooserAction() {
+                                      @Override
+                                      public void approve (JFileChooser chooser) {
+                                          myGameFilePath = chooser.getSelectedFile().getPath();
+                                      }
+                                  }, 
+                                  new FileNameExtensionFilter(getResources().getString(TextKeywords.JAVA),
+                                                              "java"));
+    }
 
     /**
      * Creates the field to check if the game is single player, and if so,
      * select the file that extends Game.
      * 
-     * @return
      */
-    private JComponent createSinglePlayerCheckBox () {
-        return createCheckBox(TextKeywords.SINGLE_PLAYER,
-                              TextKeywords.SINGLE_PLAYER_INSTRUCTION,
-                              SINGLEPLAYER_WIDTH,
-                              new FileChooserAction() {
-                                  @Override
-                                  public void approve (JFileChooser chooser) {
-                                      isSinglePlayer = true;
-                                      mySinglePlayerPath = chooser.getSelectedFile().getPath();
-                                  }
-                              });
 
-    }
-
-    /**
-     * Creates the field to check if the game is multiplayer, and if so,
-     * select the file that extends MultiPlayerGame.
-     * 
-     * @return
-     */
-    private JComponent createMultiPlayerCheckBox () {
-        return createCheckBox(TextKeywords.MULTIPLAYER,
-                              TextKeywords.MULTIPLAYER_INSTRUCTION,
-                              MULTIPLAYER_WIDTH,
-                              new FileChooserAction() {
-                                  @Override
-                                  public void approve (JFileChooser chooser) {
-                                      isMultiPlayer = true;
-                                      myMultiPlayerPath = chooser.getSelectedFile().getPath();
-                                  }
-                              });
-    }
 
     /**
      * Creates the button that pops up the description area.
@@ -247,11 +227,11 @@ public class PublishView extends Form {
                                myGenreTextField.getText(),
                                myAuthorTextField.getText(),
                                getPrice(),
-                               mySinglePlayerPath,
-                               myMultiPlayerPath,
+                               getGameFilePath(),
+                               "",
                                getAgeRating(),
-                               isSinglePlayer,
-                               isMultiPlayer,
+                               true,
+                               false,
                                mySmallImagePath,
                                myLargeImagePath,
                                myDescriptionTextField.getText());
@@ -264,6 +244,9 @@ public class PublishView extends Form {
         catch (AgeException e) {
             sendMessage(getResources().getString(TextKeywords.AGE_ERROR));
             myAgeTextField.setText("");
+        }
+        catch (InvalidGameFileException e) {
+            sendMessage(getResources().getString(TextKeywords.GAME_FILE_ERROR));
         }
     }
     
@@ -297,5 +280,16 @@ public class PublishView extends Form {
         catch (NumberFormatException e) {
             throw new AgeException();
         }
+    }
+    
+    private String getGameFilePath() throws InvalidGameFileException {
+        if (myGameFilePath.isEmpty()) {
+            throw new InvalidGameFileException();
+        }
+        return myGameFilePath;
+    }
+    
+    public static void main (String[] args) {
+        new PublishView(null, ResourceBundle.getBundle("arcade.resources.English"));
     }
 }
