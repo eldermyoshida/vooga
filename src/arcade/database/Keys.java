@@ -17,11 +17,13 @@ public interface Keys {
     static final String COM_GAMEID_COLUMN_FIELD = "gameid";  
     static final String COM_USERID_COLUMN_FIELD = "userid";
     static final String COM_COMMENT_COLUMN_FIELD = "commentfield";
+    static final String COM_RATING_COLUMN_FIELD = "ratings";
     static final String COM_COMMENTID_COLUMN_FIELD = "commentid";
     static final int COM_GAMEID_COLUMN_INDEX = 1;
     static final int COM_USERID_COLUMN_INDEX = 2;
     static final int COM_COMMENT_COLUMN_INDEX = 3;
-    static final int COM_COMMENTID_COLUMN_INDEX = 4;
+    static final int COM_RATING_COLUMN_INDEX = 4;
+    static final int COM_COMMENTID_COLUMN_INDEX = 5;
     
     //keys for game table
     static final String GAM_TABLE_NAME = "games";  
@@ -56,7 +58,7 @@ public interface Keys {
     static final int GAM_GAMEID_COLUMN_INDEX = 14;
     
     //keys for score table
-    static final String SCORE_TABLE_NAME = "scores";
+    static final String SCORE_TABLE_NAME = "score";
     static final String SCORE_GAMEID_COLUMN_FIELD = "gameid";  
     static final String SCORE_USERID_COLUMN_FIELD = "userid";
     static final String SCORE_HIGHSCORE_COLUMN_FIELD = "highscore";
@@ -67,6 +69,8 @@ public interface Keys {
     static final int SCORE_SCOREID_COLUMN_INDEX = 4;
     
     //keys for user table
+    static final String USER_TABLE_NAME = "users";
+
     static final String USER_USERNAME_COLUMN_FIELD = "username";  
     static final String USER_PASSWORD_COLUMN_FIELD = "pw";
     static final String USER_FIRSTNAME_COLUMN_FIELD  = "firstname";
@@ -83,5 +87,4 @@ public interface Keys {
     static final int USER_AVATAR_COLUMN_INDEX = 6;
     static final int USER_USERID_COLUMN_INDEX = 7;
     
-    static final String USER_TABLE_NAME = "users";
 }

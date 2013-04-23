@@ -112,9 +112,10 @@ public abstract class Table {
         return entry;
     }
 
-    private void executeQuery (String stm) throws SQLException {
+    public ResultSet executeQuery (String stm) throws SQLException {
         myPreparedStatement = myConnection.prepareStatement(stm);
         myResultSet = myPreparedStatement.executeQuery();
+        return myResultSet;
     }
     
     /**
