@@ -2,12 +2,14 @@ package vooga.fighter.controller;
 
 
 
+import java.util.ArrayList;
 import java.util.List;
 import util.input.*;
 import vooga.fighter.forces.Force;
 import vooga.fighter.forces.Gravity;
 import vooga.fighter.model.objects.CharacterObject;
 import vooga.fighter.model.objects.MouseClickObject;
+import vooga.fighter.util.Physics;
 import vooga.fighter.view.Canvas;
 import vooga.fighter.view.FourPlayerMatchGameLayout;
 
@@ -32,7 +34,10 @@ public class OneVOneController extends LevelController {
     public OneVOneController(String name, Canvas frame, ControllerDelegate manager, 
     		GameInfo gameinfo) {
     	super(name, frame, manager, gameinfo);
+    	myForces= new ArrayList<Force>();
     	Gravity gravity = new Gravity();
+    	gravity.setPhysics( new Physics()); 
+    	
     	myForces.add(gravity);
     	getMode().setForces(myForces);
     	frame.setLayout(new FourPlayerMatchGameLayout());

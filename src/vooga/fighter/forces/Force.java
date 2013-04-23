@@ -16,6 +16,7 @@ public abstract class Force {
     
     public Force() {
 		myResources = ResourceBundle.getBundle(RESOURCE_PATH);
+
     }
     
     protected String[] getProperties(){

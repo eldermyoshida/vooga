@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 import vooga.fighter.controller.ModeCondition;
+import vooga.fighter.forces.Force;
 import vooga.fighter.model.loaders.MapLoader;
 import vooga.fighter.model.objects.AttackObject;
 import vooga.fighter.model.objects.CharacterObject;
@@ -25,6 +26,7 @@ import vooga.fighter.model.utils.UpdatableLocation;
 public class LevelMode extends Mode {
 
     private List<CharacterObject> myCharacterObjects;
+    private List <Force> myForces;
     private List<Health> myHealthStats;
     private List<Double> myScores;
     private MapObject myMap;
@@ -44,6 +46,9 @@ public class LevelMode extends Mode {
         removeAppropriateObjects();
         handleCollisions();
         updateHealth();
+        if (!(myForces.size()==0)){
+        	applyForces(); 
+        }
         List<GameObject> myObjects = getMyObjects();
         for (GameObject object : myObjects) {
             object.update();
@@ -60,6 +65,16 @@ public class LevelMode extends Mode {
 
 
     /**
+     * Applies forces on character objects
+     */
+    public void applyForces(){
+        for (CharacterObject ch : myCharacterObjects) {
+            for (Force force: myForces) {
+                force.applyForce(ch);
+            }
+        }
+    }
+    /**
      * loads attacks from characters if they are new and aren't timed out
      */
     public void loadAttacks() {
@@ -72,11 +87,24 @@ public class LevelMode extends Mode {
         }
     }
     
+    /**
+     * Sets the map for the level
+     */
     public void setMap(MapObject map){
     	myMap = map;
     	addObject(map);
     }
 
+    /**
+     * sets forces for the level 
+     */
+    public void setForces(List<Force> forces){
+    	myForces=forces;
+    }
+    
+    /**
+     * returns the map of the level 
+     */
     public MapObject getMap(){
     	return myMap;
     }

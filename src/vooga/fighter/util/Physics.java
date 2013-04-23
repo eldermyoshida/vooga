@@ -203,7 +203,7 @@ public class Physics {
      * @param force The force applied to the object
      * @return The new velocity with force applied
      */
-    public static Velocity applyForce (Velocity velocity, double mass, Velocity force) {
+    public Velocity applyForce (Velocity velocity, double mass, Velocity force) {
         Velocity modifiableForce = force.clone();
         modifiableForce.scale(1 / mass);
         Velocity newVelocity = velocity.clone();
