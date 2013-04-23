@@ -1,7 +1,4 @@
-import java.util.ResourceBundle;
-
 import arcade.controller.Controller;
-import arcade.view.forms.LoginView;
 
 /**
  * The one class that starts the entire project.
@@ -24,7 +21,7 @@ public class Main {
      * @param args anything passed in from the command-line
      */
     public static void main (String[] args) {
-    	Controller model = new Controller(LANGUAGE);
+    	Controller controller = new Controller(LANGUAGE);
     	
     	/*
         ResourceBundle rb = ResourceBundle.getBundle(RESOURCE_LOCATION + LANGUAGE);

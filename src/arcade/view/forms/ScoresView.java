@@ -150,5 +150,9 @@ public class ScoresView extends Form {
                + getResources().getString(TextKeywords.IN) + " " + myGame + " " 
                + getResources().getString(TextKeywords.VOOGA_HASHTAG);
     }
+    
+    public static void main (String[] args) {
+        new ScoresView(new Controller("English"), ResourceBundle.getBundle("arcade.resources.English"), "Mario", 10);
+    }
 
 }
