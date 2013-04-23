@@ -38,7 +38,7 @@ public class MapEditorController extends Controller{
 
 	    public void notifyEndCondition (String endCondition) {
 	    	removeListener();
-	    	getManager().notifyEndCondition("ScoreScreen");
+	    	getManager().notifyEndCondition(endCondition);
 	    }
 	    
 
@@ -48,6 +48,10 @@ public class MapEditorController extends Controller{
 	        String mapID = getGameInfo().getMapName();
 	   //     Mode temp = new LevelMode(this, mapID);
 	   //     setMode(temp);
+	    }
+	    
+	    public void initializeMode() {
+	    	
 	    }
 	    
 	    public Controller getController() {
@@ -81,12 +85,12 @@ public class MapEditorController extends Controller{
 	    
 	    @InputMethodTarget(name = "save")
 	    public void saveMap (AlertObject alObj)  {
-	    	
+	    	myEditTarget.writeMap();
 	    }
 	    
 	    @InputMethodTarget(name = "select")
 	    public void select (PositionObject posObj)  {
-	    	myEditTarget.select(posObj.getX(), posObj.getY());
+	    	myEditTarget.select(posObj.getPoint2D());
 	    }
 	    
 	    @InputMethodTarget(name = "nextObject")
@@ -99,19 +103,13 @@ public class MapEditorController extends Controller{
 	    	myEditTarget.prevObject();
 	    }
 	    
+	    @InputMethodTarget(name = "quit")
+	    public void quit (AlertObject alObj)  {
+	    	notifyEndCondition("MainMenu");
+	    }
+	    
 	    public void checkConditions() {
-	    	
 	    }   
 	    
-	   /* 
-	    @Override
-	    public void notifyEndCondition () {
-	        System.out.println(" controller notify end is working");
-	        getGameInfo().setMapName(2);
-	        getGameInfo().getCharacters().clear();
-	        myManager.notifyEndCondition("GameOver");
-	        
-	    }
-	    */
 }
 
