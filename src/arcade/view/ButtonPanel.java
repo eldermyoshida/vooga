@@ -1,18 +1,16 @@
 package arcade.view;
 
 import java.awt.Color;
-import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.util.ResourceBundle;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
+import util.ImageHelper;
 import arcade.model.Model;
 import arcade.view.modes.GameCenterPanel;
 import arcade.view.modes.SocialCenterPanel;
@@ -100,7 +98,9 @@ public class ButtonPanel extends JPanel {
      * @return
      */
     private void makeButton (String imageFilename, String descriptionKey, ActionListener action) {
-        JButton button = new JButton(createScaledIcon(imageFilename, BUTTON_SIZE));
+        ImageIcon icon = new ImageIcon(IMAGES_DIRECTORY + imageFilename);
+        Image scaledImage = ImageHelper.getScaledImage(icon, BUTTON_SIZE);
+        JButton button = new JButton(new ImageIcon(scaledImage));
         button.addActionListener(action);
         button.setOpaque(false);
         myToolbar.add(button);
@@ -108,22 +108,4 @@ public class ButtonPanel extends JPanel {
                                  + myResources.getString(descriptionKey)));
     }
 
-    /**
-     * A small utility method used to create an image icon from the provided
-     * filepath, scaled to the desired size.
-     * 
-     * @param imageFilename
-     * @param size
-     * @return
-     */
-    private ImageIcon createScaledIcon (String imageFilename, int size) {
-        Image image = new ImageIcon(IMAGES_DIRECTORY + imageFilename).getImage();
-        BufferedImage buffer = new BufferedImage(size, size, BufferedImage.TYPE_INT_RGB);
-        Graphics2D g2 = buffer.createGraphics();
-        g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
-                            RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-        g2.drawImage(image, 0, 0, size, size, null);
-        g2.dispose();
-        return new ImageIcon(buffer);
-    }
 }

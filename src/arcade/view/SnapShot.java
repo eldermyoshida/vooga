@@ -1,17 +1,16 @@
 package arcade.view;
 
 import java.awt.Component;
-import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
 import java.util.ResourceBundle;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import util.ImageHelper;
 import arcade.games.GameInfo;
 import arcade.model.Model;
 
@@ -29,7 +28,7 @@ public class SnapShot extends JPanel {
     public static final int THUMBNAIL_SIZE = 190;
     private static final String IMAGES_LOCATION = System.getProperty("user.dir")
                                                   + "/src/arcade/resources/images/";
-    private static final String IMAGES_NAME = "Stars.png";
+    private static final String IMAGES_NAME = "Stars.gif";
     private GameInfo myGameInfo;
     private ResourceBundle myResources;
     private Model myModel;
@@ -53,8 +52,7 @@ public class SnapShot extends JPanel {
     private ImageIcon[] initializeRatingIcons() {
         ImageIcon[] icons = new ImageIcon[6];
         for (int i = 0; i <= 5; i++) {
-            ImageIcon icon = new ImageIcon(IMAGES_LOCATION + i + IMAGES_NAME); 
-            icons[i] = icon;
+            icons[i] = new ImageIcon(IMAGES_LOCATION + i + IMAGES_NAME);
         }
         return icons;
     }
@@ -66,8 +64,8 @@ public class SnapShot extends JPanel {
      */
     private Component createThumbnail () {
         ImageIcon icon = myGameInfo.getThumbnail();
-        ImageIcon scaledIcon = createScaledIcon(icon, THUMBNAIL_SIZE);
-        return new JLabel(scaledIcon);
+        Image scaledImage = ImageHelper.getScaledImage(icon, THUMBNAIL_SIZE); 
+        return new JLabel(new ImageIcon(scaledImage));
     }
 
     /**
@@ -76,7 +74,10 @@ public class SnapShot extends JPanel {
      * @return
      */
     private Component createTitle () {
-        return new JLabel("<html><b><font size = 4>" + myGameInfo.getName());
+        JLabel label = new JLabel("<html><b><font size = 4>" + myGameInfo.getName());
+        label.setHorizontalAlignment(SwingConstants.CENTER);
+        return label;
+        
     }
 
     /**
@@ -85,9 +86,10 @@ public class SnapShot extends JPanel {
      * @return
      */
     private Component createRating () {
-        return new JLabel(myGameInfo.getRating() + "");
-//        int rating = (int) myGameInfo.getRating();
-//        return new JLabel(myRatingIcons[rating]);
+        int rating = (int) myGameInfo.getRating();
+        JLabel label = new JLabel(myRatingIcons[rating]);
+        label.setHorizontalAlignment(SwingConstants.CENTER);
+        return label;
     }
 
     /**
@@ -123,23 +125,5 @@ public class SnapShot extends JPanel {
             }
 
         };
-    }
-
-    /**
-     * TODO: REMOVE THE DUPLICATED CODE FROM HERE AND ButtonPanel
-     * 
-     * @param icon
-     * @param size
-     * @return
-     */
-    private ImageIcon createScaledIcon (ImageIcon icon, int size) {
-        Image image = icon.getImage();
-        BufferedImage buffer = new BufferedImage(size, size, BufferedImage.TYPE_INT_RGB);
-        Graphics2D g2 = buffer.createGraphics();
-        g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
-                            RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-        g2.drawImage(image, 0, 0, size, size, null);
-        g2.dispose();
-        return new ImageIcon(buffer);
     }
 }
