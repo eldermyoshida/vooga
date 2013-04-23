@@ -163,6 +163,11 @@ public class Manager extends Observable implements State, IActOn, Observer {
         deselectAll();
     }
 
+    private void notifyDeselect () {
+        setChanged();
+        notifyObservers(false);
+    }
+
     /**
      * Deselects the specified entity.
      * 
@@ -179,6 +184,8 @@ public class Manager extends Observable implements State, IActOn, Observer {
      * Deselects all selected entities.
      */
     public void deselectAll () {
+        notifyDeselect();
+
         if (myMultiSelect) {
             return;
         }
@@ -245,7 +252,7 @@ public class Manager extends Observable implements State, IActOn, Observer {
     
     public void notifySelect() {
         setChanged();
-        notifyObservers();
+        notifyObservers(true);
     }
 
     /**
