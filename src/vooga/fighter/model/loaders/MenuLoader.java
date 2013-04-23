@@ -32,8 +32,8 @@ public class MenuLoader extends ObjectLoader {
                 NodeList states = node.getElementsByTagName(getResourceBundle().getString("State"));
                 for (int j = 0; j < states.getLength(); j++) {
                     Element state = (Element) states.item(j);
-                    String stateName = getAttributeValue(state, "name");
-                    NodeList frames = state.getElementsByTagName("frame");
+                    String stateName = getAttributeValue(state, getResourceBundle().getString("Name"));
+                    NodeList frames = state.getElementsByTagName(getResourceBundle().getString("Frame"));
                     State newState = new State(myMenuObject, frames.getLength());
                     for (int k = 0; k < frames.getLength(); k++) {
                         Element node1 = (Element) frames.item(k);
