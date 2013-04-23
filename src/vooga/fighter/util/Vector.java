@@ -1,3 +1,5 @@
+package vooga.fighter.util;
+
 
 
 import java.awt.geom.Point2D;
