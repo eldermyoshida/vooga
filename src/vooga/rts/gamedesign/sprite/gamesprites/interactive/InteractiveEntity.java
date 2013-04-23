@@ -42,7 +42,6 @@ import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
 import vooga.rts.util.Information;
 
-
 /**
  * This class is the extension of GameEntity. It represents shapes that are able
  * to upgrade (to either stat of its current properties or add new properties)
@@ -132,14 +131,17 @@ public abstract class InteractiveEntity extends GameEntity implements
 	public List<InteractiveEntity> getProducables() {
 		return myProducables;
 	}
+
 	/**
 	 * adds passed in command and info into map
+	 * 
 	 * @param command
 	 * @param info
 	 */
 	public void addInfo(String command, Information info) {
 		myInfos.put(command, info);
 	}
+
 	/**
 	 * This method specifies that the interactive entity is attacking an
 	 * IAttackable. It checks to see if the IAttackable is in its range, it sets
@@ -204,8 +206,11 @@ public abstract class InteractiveEntity extends GameEntity implements
 	 */
 	public Set<InformationCommand> getCommands() {
 		Set<InformationCommand> infoCommands = new HashSet<InformationCommand>();
-		for(String s : myActions.keySet()) {
-			infoCommands.add(new InformationCommand(s, myInfos.get(s)));
+		for (String s : myActions.keySet()) {
+			// need to check what type it is...eg it cant be a left click
+			if (!s.equals("leftclick") || !s.equals("rightclick")) {
+				infoCommands.add(new InformationCommand(s, myInfos.get(s)));
+			}
 		}
 		return infoCommands;
 	}
