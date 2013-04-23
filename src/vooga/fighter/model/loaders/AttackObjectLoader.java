@@ -28,17 +28,11 @@ public class AttackObjectLoader extends ObjectLoader {
 	protected void load(String attackName) {
 		Document doc = getDocument();
 		NodeList attackNodes = doc.getElementsByTagName(getResourceBundle().getString("Attack"));
-
 		for (int i = 0; i < attackNodes.getLength(); i++) {
 			Element attackNode = (Element) attackNodes.item(i);
 			String name = getAttributeValue(attackNode, getResourceBundle().getString("AttackName"));
 			if (attackName.equals(name)) {
-				int attackDmg = Integer.parseInt(getAttributeValue(attackNode, getResourceBundle().getString("Damage")));
-				int attackDuration = Integer.parseInt(getAttributeValue(attackNode, getResourceBundle().getString("Duration")));
-				int attackSpeed = Integer.parseInt(getAttributeValue(attackNode, getResourceBundle().getString("Attackspeed")));
-				myAttack.addProperty(ModelConstants.ATTACK_PROPERTY_SPEED, attackSpeed);
-				myAttack.addProperty(ModelConstants.ATTACK_PROPERTY_POWER, attackDmg);
-				myAttack.addProperty(ModelConstants.ATTACK_PROPERTY_DURATION, attackDuration);
+				addProperties(attackNode, myAttack);
 				NodeList stateNodes = attackNode.getElementsByTagName(getResourceBundle().getString("State"));
 				addStates(stateNodes, myAttack);
 				myAttack.setCurrentState("default");
