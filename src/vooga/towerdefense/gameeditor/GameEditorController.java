@@ -241,18 +241,18 @@ public class GameEditorController extends JFrame {
     public void addViewToGame(List<String> viewInfo) {
         for (String s : viewInfo) {
             if (!s.equals("")) {
-                System.out.println(s);
                 String[] characteristics = s.split(" ");
-                System.out.println(characteristics[0]);
-                Element screen = myXMLDoc.makeElement(characteristics[0]);
-                myXMLDoc.addChildElement(myViewParent, screen);
-                String noComma = characteristics[1].substring(0, characteristics[1].length()-1);
-                System.out.println(noComma);
-                myXMLDoc.addChild(screen, WIDTH_TAG, noComma);
-                myXMLDoc.addChild(screen, HEIGHT_TAG, characteristics[2]);
-                myXMLDoc.addChild(screen, SCREEN_LOCATION_TAG, characteristics[3]);
+                if (!characteristics[0].equals("")) {
+                    Element screen = myXMLDoc.makeElement(characteristics[0]);
+                    myXMLDoc.addChildElement(myViewParent, screen);
+                    String noComma = characteristics[1].substring(0, characteristics[1].length()-1);
+                    myXMLDoc.addChild(screen, WIDTH_TAG, noComma);
+                    myXMLDoc.addChild(screen, HEIGHT_TAG, characteristics[2]);
+                    myXMLDoc.addChild(screen, SCREEN_LOCATION_TAG, characteristics[3]);
+                }
             }
         }
+        myXMLDoc.writeFile("viewtesting.xml");
     }
 
     /**
