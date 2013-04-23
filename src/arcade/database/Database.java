@@ -1,15 +1,15 @@
 package arcade.database;
 
+import java.util.ArrayList;
 import java.util.List;
 import arcade.games.GameData;
+import arcade.games.Score;
 import arcade.games.UserGameData;
-import java.util.List;
 import util.Pixmap;
 
 
 /**
  * Creates overall database
- * 
  * @author Natalia Carvalho
  */
 public class Database {
@@ -120,6 +120,10 @@ public class Database {
     public List<String> retrieveListOfGames () {
         return myGameTable.retrieveGameList();
     }
+    
+    public List<String> retrieveListOfUsers() {
+        return myUserTable.retrieveUsernames();
+    }
 
     public boolean authenticateUsernameAndPassword (String username, String password) {
         return myUserTable.authenticateUsernameAndPassword(username, password);
@@ -143,6 +147,28 @@ public class Database {
         myScoreTable.addNewHighScore(retrieveUserId(username), retrieveGameId(gameName),
                                      newHighScore);
     }
+    
+    public List<Score> getScoresForGame(String gameName) {
+        List<String> usernames = retrieveListOfUsers();
+        List<Score> myScores = new ArrayList<Score>();
+        for (String user : usernames) {
+            myScores.addAll(myScoreTable.getScoresForGame(retrieveGameId(gameName), retrieveUserId(user), gameName, user));
+        }
+        return myScores;
+    }
+    
+    public List<Score> getScoresForUser(String username) {
+        List<String> games = retrieveListOfGames();
+        List<Score> myScores = new ArrayList<Score>();
+        for (String game : games) {
+            myScores.addAll(myScoreTable.getScoresForGame(retrieveGameId(game), retrieveUserId(username), game, username));
+        }
+        return myScores;
+    }
+    
+    public List<Score> getScoresForGameAndUser(String username, String gameName) {
+        return myScoreTable.getScoresForGame(retrieveGameId(gameName), retrieveUserId(username), gameName, username);
+    }
 
     public void storeUserGameData (String gameName,
                                    String username,
@@ -163,19 +189,10 @@ public class Database {
         return myS3Instance.getGameDataFromBucket(gameName);
     }
 
-    public void getHighScores (int n) {
-        // TODO implement method
-
-    }
 
     public void insertComment (String username, String gameName, String comment) {
 
         myCommentTable.addNewComment(retrieveGameId(gameName), retrieveUserId(username), comment);
-    }
-
-    public List<String> retrieveCommentFromUsername (String username, String gameName) {
-        return myCommentTable.getCommentByUsername(retrieveGameId(gameName),
-                                                   retrieveUserId(username));
     }
 
     public List<String> retrieveCommentsForGame (String gameName) {
@@ -183,7 +200,6 @@ public class Database {
     }
 
     public void printGameTable () {
-
         myGameTable.printEntireTable();
     }
 

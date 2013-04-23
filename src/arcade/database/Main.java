@@ -9,12 +9,15 @@ public class Main {
     public static void main(String[] args) throws SQLException {
         
         Database myDatabase = new Database();
+        
+        //myDatabase.createUser("natx13", "password", "Natalia", "Carvalho", "04/26/1991");
+        //System.out.println(System.getProperty("user.dir"));
 
         //myDatabase.printUserTable();
         //myDatabase.printGameTable();
         
         //myDatabase.insertAvatar("natx13", "/Users/nataliacarvalho/Desktop/testing2.png");
- //       myDatabase.getAvatar("natx13");
+         myDatabase.getAvatar("natx13");
         
      //   myDatabase.createUser("natx13", "mypassword", "Natalia", "Carvalho", "04/26/1991");
      //   myDatabase.authenticateUsernameAndPassword("natx13", "password");
@@ -26,7 +29,7 @@ public class Main {
   //      myDatabase.createUser("test", "test", "test", "test", "01/01/1901");
         
         //myDatabase.deleteGame("example");
-        myDatabase.deleteGame("example");
+  //      myDatabase.deleteGame("example");
         
 //       myDatabase.addAvatarToUser("natx13", "C:/blahbalhblah");
         
@@ -47,15 +50,15 @@ public class Main {
         //myGameDatabase.registerGame("Pacman");
         
         
-        List<String> myGameNames = myDatabase.retrieveListOfGames();
-        
-        for (String game : myGameNames) {
-            System.out.println(game);
-        }
-                
-        myDatabase.printUserTable();
-        myDatabase.printGameTable();
-        myDatabase.printUserGameDataTable();
+//        List<String> myGameNames = myDatabase.retrieveListOfGames();
+//        
+//        for (String game : myGameNames) {
+//            System.out.println(game);
+//        }
+//                
+//        myDatabase.printUserTable();
+//        myDatabase.printGameTable();
+//        myDatabase.printUserGameDataTable();
         
         myDatabase.closeDatabaseConnection();
         

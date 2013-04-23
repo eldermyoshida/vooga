@@ -1,44 +1,59 @@
 package arcade.database;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 /**
- * Creates and updates table
+ * Creates superclass table with variables other subclasses need
+ * Establishes connection to database
  * @author Natalia Carvalho
  */
 public abstract class Table {
     
-    protected PreparedStatement myPreparedStatement;
-    protected Connection myConnection;
-    protected ResultSet myResultSet;
+    private PreparedStatement myPreparedStatement;
+    private Connection myConnection;
+    private ResultSet myResultSet;
+    private DatabaseConnection myDatabaseConnection;
     
-    Connection establishConnectionToDatabase() {
-
-        try {
-            Class.forName("org.postgresql.Driver");
-        }
-        catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        String url = "jdbc:postgresql://cgi.cs.duke.edu/nrc10";
-        String user = "nrc10";
-        String password = "aUsg5xj2f";
-        Connection connection=null;
-        try {
-           connection = DriverManager.getConnection(url, user, password);
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return connection;
-    }    
+    /**
+     * Establishes database connection and instantiates variables other subclasses 
+     * need to access table
+     */
+    public Table() {
+        myDatabaseConnection = new DatabaseConnection();
+        myPreparedStatement = myDatabaseConnection.getPreparedStatement();
+        myConnection = myDatabaseConnection.getConnection();
+        myResultSet = myDatabaseConnection.getResultSet();
+    }  
     
-    abstract void closeConnection();
+    /**
+     * Closes connection to database
+     */
+    public void closeConnection() {
+        myDatabaseConnection.closeConnection();
+    }
+    
+    /**
+     * Returns Connection
+     */
+    public Connection getConnection() {
+        return myConnection;
+    }
+    
+    /**
+     * Returns ResultSet
+     */
+    public ResultSet getResultSet() {
+        return myResultSet;
+    }
+    
+    /**
+     * Returns PreparedStatement
+     */
+    public PreparedStatement getPreparedStatement() {
+        return myPreparedStatement;
+    }
     
     abstract void printEntireTable();
 

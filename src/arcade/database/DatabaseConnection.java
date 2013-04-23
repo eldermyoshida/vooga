@@ -6,12 +6,23 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+
+/**
+ * Establishes connection to the database
+ * @author Natalia Carvalho
+ */
 public class DatabaseConnection {
-    
+
+    private static final String URL = "jdbc:postgresql://cgi.cs.duke.edu/nrc10";
+    private static final String USER = "nrc10";
+    private static final String PASSWORD = "aUsg5xj2f";
     private Connection myConnection;
     private PreparedStatement myPreparedStatement; 
     private ResultSet myResultSet;
-    
+
+    /**
+     * Constructor for DatabaseConnection that establishes connection to database
+     */
     public DatabaseConnection() {
         establishConnectionToDatabase();
     }
@@ -24,12 +35,9 @@ public class DatabaseConnection {
             e.printStackTrace();
         }
 
-        String url = "jdbc:postgresql://cgi.cs.duke.edu/nrc10";
-        String user = "nrc10";
-        String password = "aUsg5xj2f";
         myConnection = null;
         try {
-           myConnection = DriverManager.getConnection(url, user, password);
+            myConnection = DriverManager.getConnection(URL, USER, PASSWORD);
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -57,15 +65,24 @@ public class DatabaseConnection {
             e.printStackTrace();
         }
     }
-    
+       
+    /**
+     * Returns established connection
+     */
     public Connection getConnection() {
         return myConnection;
     }
     
+    /**
+     * Returns established ResultSet
+     */
     public ResultSet getResultSet() {
         return myResultSet;
     }
     
+    /**
+     * Returns established preparedstatement
+     */
     public PreparedStatement getPreparedStatement() {
         return myPreparedStatement;
     }

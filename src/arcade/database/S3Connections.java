@@ -13,10 +13,6 @@ package arcade.database;
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-import java.awt.Image;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -25,14 +21,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
-import java.util.UUID;
-import util.Pixmap;
 
 import arcade.games.GameData;
 import arcade.games.UserGameData;
@@ -64,10 +54,13 @@ import com.amazonaws.services.s3.model.S3ObjectSummary;
  *                   AwsCredentials.properties file before you try to run this
  *                   sample.
  * http://aws.amazon.com/security-credentials
+ * @author Amazon SDK and modified by Natalia Carvalho
  */
 public class S3Connections {
     
     private static final String BUCKET_NAME = "mycs308database";  
+    private static final String RELATIVE_PATH = "/arcade/amazondownloads";
+
 
 
     private AmazonS3 myS3Instance;
@@ -141,7 +134,6 @@ public class S3Connections {
             ios = new FileInputStream(file);     
         }
         catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         finally { 
@@ -158,9 +150,8 @@ public class S3Connections {
     public String createFileFromByteArray(byte[] bytes) {
         
         FileOutputStream out;
-        String tempFilePath = getTempFilePath();
         try {
-            out = new FileOutputStream(tempFilePath);
+            out = new FileOutputStream(RELATIVE_PATH);
             out.write(bytes);
         }
         catch (FileNotFoundException e) {
@@ -169,7 +160,7 @@ public class S3Connections {
         catch (IOException e) {
             e.printStackTrace();
         }
-        return tempFilePath;
+        return RELATIVE_PATH;
     }
     
     public byte[] serializeObject(Object obj) {
@@ -225,36 +216,10 @@ public class S3Connections {
     
     
     public String downloadObjectToFile(String key) {
-        File tempFile;
-        try {
-            tempFile = File.createTempFile("tempFileCS308", ".png");
-            String absolutePath = tempFile.getAbsolutePath();
-            System.out.println(absolutePath);
-//            String tempFilePath = absolutePath.
-//                substring(0,absolutePath.lastIndexOf(File.separator));
-//            System.out.println(tempFilePath);
-            ObjectMetadata object = myS3Instance.getObject(new GetObjectRequest(BUCKET_NAME, key), tempFile);
-            return absolutePath;
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-    
-    public String getTempFilePath() {
-        File tempFile;
-        try {
-            tempFile = File.createTempFile("myTemp", ".png");
-            String absolutePath = tempFile.getAbsolutePath();
-            String tempFilePath = absolutePath.
-                    substring(0,absolutePath.lastIndexOf(File.separator));
-            return tempFilePath;
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
+        File tempFile = new File(System.getProperty("user.dir") + "/src" + RELATIVE_PATH + "/temporary.png");
+        ObjectMetadata object = myS3Instance.getObject(new GetObjectRequest(BUCKET_NAME, key), tempFile);
+        System.out.println(RELATIVE_PATH);
+        return RELATIVE_PATH;
     }
     
     public void deleteObject(String key) {
