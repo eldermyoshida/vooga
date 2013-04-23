@@ -203,8 +203,20 @@ public class EditableMap {
         return (int)myTileMap.getMyTileSize().getHeight();
     }
     
+    public int getTerrainSize() {
+        return myTerrains.size();
+    }
+    
+    public int getResourceSize() {
+        return myResources.size();
+    }
+    
     public String getMyMapName () {
         return myMapName;
+    }
+    
+    public EditableTile getMyTile(int i , int j) {
+        return myTileMap.getTile(i, j);
     }
 
     public void setMyMapName (String myMapName) {

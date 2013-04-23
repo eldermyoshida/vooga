@@ -2,6 +2,7 @@ package vooga.rts.leveleditor.components;
 
 import java.awt.Dimension;
 import vooga.rts.map.TileMap;
+import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 
@@ -26,6 +27,13 @@ public class EditableTileMap extends TileMap {
         setTile(i,j,new EditableTile(image,i,j,getMyTileSize(),id,name,imageName,false));
     }
     
+    public void addTile(Location loc, int id, String name, String imageName, Pixmap image) {
+        int i = (int)(loc.getY()/this.getMyTileSize().getHeight());
+        int j = (int)(loc.getX()/this.getMyTileSize().getWidth());
+        addTile(i,j,id,name,imageName,image);
+    
+    }
+    
     public void removeTile(int i, int j) {
         this.setTile(i, j, new EditableTile(i,j,getMyTileSize()));
     }
@@ -44,5 +52,15 @@ public class EditableTileMap extends TileMap {
     public EditableTile getTile(int i , int j) {
         return this.getTile(i, j);    
     }
+    
+    public int getXCount (Location loc) {
+        return (int)(loc.getY()/getMyTileSize().getHeight());
+    }
+    
+    public int getYCount (Location loc) {
+        return (int)(loc.getX()/getMyTileSize().getWidth());
+    }
+    
+
     
 }

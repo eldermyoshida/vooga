@@ -32,6 +32,7 @@ public class PlayerSet {
             teamPlayers.add(loc);
             myPlayers.put(teamIndex, teamPlayers);
         }
+        myPlayerNumber ++;
     }
     
     public void addPlayer(int x, int y,int teamIndex) {
@@ -63,5 +64,17 @@ public class PlayerSet {
 
     public void clearPlayers() {
         myPlayers.clear();
+    }
+
+    public int getMyPlayerUpperLimit() {
+        return myPlayerUpperLimit;
+    }
+
+    public int getMyTeamUpperLimit() {
+        return myTeamUpperLimit; 
+    }
+    
+    public int getMyPlayerNumber() {
+        return myPlayerNumber;
     }
 }
