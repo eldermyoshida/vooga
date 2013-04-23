@@ -9,12 +9,14 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import javax.imageio.ImageIO;
 import vooga.rts.commands.ClickCommand;
 import vooga.rts.commands.Command;
+import vooga.rts.commands.InformationCommand;
 import vooga.rts.commands.PositionCommand;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gui.Button;
@@ -26,6 +28,7 @@ import vooga.rts.gui.buttons.MainMenuButton;
 import vooga.rts.gui.buttons.TextButton;
 import vooga.rts.manager.Manager;
 import vooga.rts.resourcemanager.ResourceManager;
+import vooga.rts.util.Information;
 import vooga.rts.util.Location;
 
 
@@ -97,14 +100,26 @@ public class GameMenu extends Menu {
     private void updateActionButtons () {
         myActionButtons.clear();
         myButtons.clear();
-        if (mySelectedEntity == null || mySelectedEntity.getActions().isEmpty()) return;
+        if (mySelectedEntity == null || mySelectedEntity.getCommands().isEmpty()) return;
 
-        for (int i = 0; i < mySelectedEntity.getActions().size(); i++) {
-            Button b =
-                    new ImageButton(ACTION_IMAGE_LOCATION, ACTION_BUTTON_DIMENSION,
-                                    myActionButtonLocations[i]);
+        Iterator<InformationCommand> i = mySelectedEntity.getCommands().iterator();
+        int k = 0;
+        while (i.hasNext()) {
+            Information info = i.next().getInfo();
+            BufferedImage image = info.getButtonImage();
+            Button b;
+            if (image == null) {
+                b =
+                        new ImageButton(ACTION_IMAGE_LOCATION, ACTION_BUTTON_DIMENSION,
+                                        myActionButtonLocations[k]);
+            } else {
+                b =
+                    new ImageButton(info.getButtonImage(), ACTION_BUTTON_DIMENSION,
+                                    myActionButtonLocations[k]);
+            }
             myActionButtons.add(b);
             addButton(b);
+            k++;
         }
     }
 

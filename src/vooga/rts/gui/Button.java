@@ -28,6 +28,10 @@ public abstract class Button extends Observable implements IGameLoop {
         myPos = pos;
         isFocused = false;
     }
+    
+    public void setImage (BufferedImage i) {
+        myImage = i;
+    }
 
     @Override
     public abstract void update (double elapsedTime);
