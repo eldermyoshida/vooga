@@ -1,0 +1,34 @@
+/level
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+        aaaaa                                                   
+b  b  b  b  b  b  b  b                                          
+/lib
+vooga.scroller.marioGame.spritesDefinitions.MarioLib
+/key
+a=Plant
+b=LevelTwoBlockTwo
+/settings
+StartPoint=16 720
+EndPoint=729 697
+Background=/vooga/scroller/images/backgrounds/background.png
