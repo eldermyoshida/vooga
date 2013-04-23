@@ -7,7 +7,7 @@ import util.IMail;
 import util.MailSender;
 
 /**
- * Handler used for a logger that sends e-mail
+ * Handler used for a logger that sends log records through e-mail
  * @author Henrique Moraes
  *
  */

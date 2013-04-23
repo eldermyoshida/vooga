@@ -13,6 +13,11 @@ import javax.mail.internet.MimeMessage;
 
 import util.logger.NetworkLogger;
 
+/**
+ * Class used to send e-mails to recipients.
+ * @author Henrique Moraes
+ *
+ */
 public class MailSender implements IMail{
 	public static final String MAIL = "mail.smpt.host";
 	private String myFromAddress;
@@ -21,6 +26,14 @@ public class MailSender implements IMail{
 	private String mySubject = "No Subject";
 	private String myMessage;
 	
+	/**
+	 * Constructor
+	 * @param from Address from which the e-mail is sent
+	 * @param to String array with recipients to send e-mail to
+	 * @param server Server address
+	 * @param subject Subject of e-mail
+	 * @param message Text in e-mail
+	 */
 	public MailSender(String from, String[] to,
 			String server, String subject, String message) {
 		setProperties(from,to,server,subject,message);
@@ -36,12 +49,23 @@ public class MailSender implements IMail{
 		myMessage = message;
 	}
 	
+	/**
+	 * Sends an e-mail according to given information
+	 * @param from Address from which the e-mail is sent
+	 * @param to String array with recipients to send e-mail to
+	 * @param server Server address
+	 * @param subject Subject of e-mail
+	 * @param message Text in e-mail
+	 */
 	public void sendMail(String from, String[] to,
 			String server, String subject, String message) {
 		setProperties(from,to,server,subject,message);
 		sendMail();
 	}
 
+	/**
+	 * Sends an e-mail according to given information
+	 */
 	public void sendMail() {
 		try {
 			Properties properties = new Properties();
