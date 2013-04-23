@@ -32,9 +32,8 @@ public class MenuLoader extends ObjectLoader {
                 NodeList states = node.getElementsByTagName("state");
                 for (int j = 0; j < states.getLength(); j++) {
                     Element state = (Element) states.item(j);
-                    String blinking = getAttributeValue(state, "blink");
                     String stateName = getAttributeValue(state, "name");
-                    NodeList frames = node.getElementsByTagName("frame");
+                    NodeList frames = state.getElementsByTagName("frame");
                     State newState = new State(myMenuObject, frames.getLength());
                     for (int k = 0; k < frames.getLength(); k++) {
                         Element node1 = (Element) frames.item(k);
@@ -43,9 +42,7 @@ public class MenuLoader extends ObjectLoader {
                         newState.populateImage(image, k);
                     }
                     myMenuObject.addState(stateName, newState);
-                    if (blinking.equals(YES)) {
-                        newState.setLooping(true);
-                    }
+                    newState.setLooping(true);
                     if (j == 0) {
                         myMenuObject.setCurrentState(stateName);
                         myMenuObject.setDefaultState(stateName);

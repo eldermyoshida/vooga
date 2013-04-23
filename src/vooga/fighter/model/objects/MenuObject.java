@@ -38,10 +38,8 @@ public class MenuObject extends GameObject {
 
     @Override
     public void completeUpdate () {
-        
+
     }
-    
-    
     
     public int getUp(){
     	return myUp;

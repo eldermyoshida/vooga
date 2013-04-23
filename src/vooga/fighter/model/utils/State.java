@@ -79,7 +79,7 @@ public class State {
     
     /**
      * Creates a state with the given owner, number of frames, priority, and depth.
-     * State has default frame delays of zero. Looping set to true by default.
+     * State has default frame delays of zero. Looping set to false by default.
      */
     public State(GameObject owner, int numFrames, int priority, int depth) {
         myOwner = owner;

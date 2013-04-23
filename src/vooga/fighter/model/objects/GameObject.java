@@ -132,6 +132,13 @@ public abstract class GameObject {
     }
     
     /**
+     * Gets the String key of the default state.
+     */
+    public String getDefaultStateKey() {
+        return myDefaultStateKey;
+    }
+    
+    /**
      * Gets the String key of the current state.
      */
     public String getCurrentStateKey() {
