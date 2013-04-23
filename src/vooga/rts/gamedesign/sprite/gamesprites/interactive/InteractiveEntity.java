@@ -206,11 +206,19 @@ public abstract class InteractiveEntity extends GameEntity implements
 	 */
 	public Set<InformationCommand> getCommands() {
 		Set<InformationCommand> infoCommands = new HashSet<InformationCommand>();
+		if (myActions.isEmpty())
+			return null; // this needs to be fixed
 		for (String s : myActions.keySet()) {
 			// need to check what type it is...eg it cant be a left click
-			if (!s.equals("leftclick") || !s.equals("rightclick")) {
+			String isMake = s.split(" ")[0];
+			if (isMake.equals("make")) { // very buggy
 				infoCommands.add(new InformationCommand(s, myInfos.get(s)));
 			}
+
+		}
+		if (infoCommands.isEmpty()) {
+			System.out.println("I am a manly man");
+			return null;
 		}
 		return infoCommands;
 	}

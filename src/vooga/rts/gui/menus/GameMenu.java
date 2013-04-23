@@ -100,7 +100,7 @@ public class GameMenu extends Menu {
     private void updateActionButtons () {
         myActionButtons.clear();
         myButtons.clear();
-        if (mySelectedEntity == null || mySelectedEntity.getCommands().isEmpty()) return;
+        if (mySelectedEntity == null || mySelectedEntity.getCommands() == null) return;
 
         Iterator<InformationCommand> i = mySelectedEntity.getCommands().iterator();
         int k = 0;
