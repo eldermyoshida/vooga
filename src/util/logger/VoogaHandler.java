@@ -10,7 +10,7 @@ import java.util.logging.Handler;
  * @author Henrique Moraes
  * 
  */
-public interface IHandlerFormat {
+public interface VoogaHandler {
 
     /**
      * Sets a handler for the input

@@ -13,7 +13,7 @@ import java.util.logging.XMLFormatter;
  * @author Henrique Moraes
  * 
  */
-public class HandlerXML implements IHandlerFormat {
+public class HandlerXML implements VoogaHandler {
     private static final String XML_EXT = ".xml";
     private static final String ERROR_MESSAGE =
             "Error in creating XML format handler";

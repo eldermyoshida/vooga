@@ -13,7 +13,7 @@ import java.util.logging.StreamHandler;
  * @author Henrique Moraes
  * 
  */
-public class HandlerStream implements IHandlerFormat {
+public class HandlerStream implements VoogaHandler {
     private static final String ERROR_MESSAGE =
             "Error in creating stream format handler";
     private OutputStream myOutputStream;

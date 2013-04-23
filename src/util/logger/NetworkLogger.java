@@ -24,6 +24,12 @@ import java.util.logging.Logger;
 public class NetworkLogger {
     public static final Logger LOGGER =
             Logger.getLogger(NetworkLogger.class.getName());
+    
+    private HandlerConsole myConsole = new HandlerConsole();
+    private HandlerSocket mySocket = new HandlerSocket;
+    private HandlerStream myStream;
+    private HandlerTxt myTxt;
+    private HandlerXML myXml;
     public static final int FORMAT_XML = 1221;
     public static final int FORMAT_TXT = 1356;
     public static final int FORMAT_CONSOLE = 1209;
@@ -128,7 +134,7 @@ public class NetworkLogger {
      * 
      * @param Output stream in case using a stream handler
      */
-    public void addLogHandler (String fileName, String ext) {
+    public void addLogHandler (String fileName) {
         mySetup.addTxtHandler();
     }
 

@@ -14,7 +14,7 @@ import java.util.logging.SimpleFormatter;
  * @author Henrique Moraes
  * 
  */
-public class HandlerTxt implements IHandlerFormat {
+public class HandlerTxt implements VoogaHandler {
     private static final String TXT_EXT = ".txt";
     private static final String ERROR_MESSAGE =
             "Error in creating txt format handler";

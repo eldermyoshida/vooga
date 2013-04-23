@@ -12,7 +12,7 @@ import java.util.logging.SocketHandler;
  * @author Henrique Moraes
  * 
  */
-public class HandlerSocket implements IHandlerFormat {
+public class HandlerSocket implements VoogaHandler {
     private static final String ERROR_MESSAGE =
             "Error in creating socket format handler";
     private String myHost;
