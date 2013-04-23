@@ -154,7 +154,7 @@ public class CollisionManager {
     public void collide(EnvironmentObject o1, CharacterObject o2) {
     	if(myCollisionDetector.hitBottom(o2.getCurrentState().getCurrentRectangle(),
     			o1.getCurrentState().getCurrentRectangle())){
-    	    o2.moveBack(.09);
+    	    o2.moveBack();
     	}
     	
     }

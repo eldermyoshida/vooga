@@ -2,6 +2,7 @@ package vooga.fighter.forces;
 
 import java.lang.reflect.Field;
 import java.util.ResourceBundle;
+import util.Vector;
 import vooga.fighter.model.objects.CharacterObject;
 import vooga.fighter.util.Physics;
 
@@ -23,5 +24,6 @@ public abstract class Force {
     
     public abstract void applyForce(CharacterObject object) ;
     
+    public abstract Vector getVector();
     
 }

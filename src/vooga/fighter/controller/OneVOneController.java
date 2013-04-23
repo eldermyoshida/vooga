@@ -5,6 +5,7 @@ package vooga.fighter.controller;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import util.Vector;
 import util.input.*;
 import vooga.fighter.forces.Force;
 import vooga.fighter.forces.ForceFactory;
@@ -36,8 +37,20 @@ public class OneVOneController extends LevelController {
     		GameInfo gameinfo) {
     	super(name, frame, manager, gameinfo);
     	ForceFactory forcefactory = new ForceFactory();
-    	getMode().setForces(forcefactory.getForces());
+    	myForces = forcefactory.getForces();
+    	getMode().setForces(myForces);
     	frame.setLayout(new FourPlayerMatchGameLayout());
+    	setSumOfForces(myForces);
+    }
+    
+    public void setSumOfForces(List<Force> forces) {
+        Vector sum = new Vector();
+        for (Force force : forces) {
+            sum.sum(force.getVector());
+        }
+        for(CharacterObject character : getInputObjects()) {
+            character.setAppliedForces(sum);
+        }
     }
     
     public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo) {
