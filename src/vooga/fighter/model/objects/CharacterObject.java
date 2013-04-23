@@ -46,6 +46,7 @@ public class CharacterObject extends GameObject {
         setLoader(new CharacterLoader(charName, this));
         setCurrentState("stand");
         setDefaultState("stand");
+        setHealth(getProperty("maxHealth"));
         getCurrentState().setLooping(true);
         setLocation(center);
         myVelocity=getLocation().getVelocity();
@@ -185,7 +186,9 @@ public class CharacterObject extends GameObject {
      */
     public void move(int direction) {
         setCurrentState("moveRight");
-        getLocation().addAcceleration(new Vector(direction, getProperty("movespeed")));
+        if (myVelocity.getMagnitude()<=5){
+        	getLocation().addAcceleration(new Vector(direction, getProperty("movespeed")));
+        }
     }
 
     /**
@@ -199,9 +202,9 @@ public class CharacterObject extends GameObject {
      * Makes the character move back if it runs into another character or environmentObject with higher priority
      */
     public void moveBack(double forceMagnitude){
-    	myVelocity.setMagnitude(0.1); //TODO: hard coded now should be force magnitude in the future
+    	myVelocity.setMagnitude(forceMagnitude); //TODO: hard coded now should be force magnitude in the future
     	reverseVelocity(); 
-    	getLocation().addAcceleration(myVelocity);
+    	getLocation().translate(myVelocity);
     }
     
     /**
