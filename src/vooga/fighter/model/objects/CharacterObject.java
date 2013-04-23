@@ -59,8 +59,9 @@ public class CharacterObject extends GameObject {
         return myIsStanding;
     }
     
-    public void changeStanding() {
-        myIsStanding = true;
+    public void setStanding(boolean bool) {
+        myIsStanding = bool;
+            
     }
 
     /**
@@ -271,5 +272,6 @@ public class CharacterObject extends GameObject {
     public void reverseVelocity(){
     	myVelocity.setDirection(myVelocity.getDirection()-180);
     }
+    
     
 }
