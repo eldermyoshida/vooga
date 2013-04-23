@@ -12,6 +12,8 @@ public class AttributeConstants {
     
 	public static final String NAME = "Name";
 	public static final String HEALTH = "Health";
+	public static final String MONEY = "Money";
+	public static final String SCORE = "Score";
 	public static final String ATTACK_DAMAGE = "Attack Damage";
 	public static final String ATTACK_RADIUS = "Attack Range";
 	public static final String NUM_OF_TARGETS = "Number of Targets";

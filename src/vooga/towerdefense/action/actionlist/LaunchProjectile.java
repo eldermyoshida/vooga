@@ -1,13 +1,13 @@
 package vooga.towerdefense.action.actionlist;
 
 import vooga.towerdefense.action.TargetedAction;
-import vooga.towerdefense.factories.GameElementFactory;
+import vooga.towerdefense.factories.examples.ExampleDosProjectileFactory;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.util.Location;
 
 /**
- * Creates a projectile aimed at a target
+ * Creates a projectile aimed at a target, target needs to be predefined by FindTarget action.
  * 
  * @author Matthew Roy
  * @author Zhen Gou
@@ -15,12 +15,11 @@ import vooga.towerdefense.util.Location;
  */
 public class LaunchProjectile extends TargetedAction {
 
-	private GameElementFactory myProjectileFactory;
+	private ExampleDosProjectileFactory myProjectileFactory;
 	private Location myStart;
 	private GameMap myMap;
-	
 
-    public LaunchProjectile (GameMap map, Location startLocation, GameElementFactory projectileFactory) {
+    public LaunchProjectile (GameMap map, Location startLocation, ExampleDosProjectileFactory projectileFactory) {
     	setTargetTracking(true);
     	myProjectileFactory = projectileFactory;
     	myStart = startLocation;
@@ -35,12 +34,13 @@ public class LaunchProjectile extends TargetedAction {
      */
     @Override
     public void executeAction (double elapsedTime) {
-        GameElement projectile = myProjectileFactory.createElement(myStart);
-        for (TargetedAction a: projectile.getTargetedActions()){
-        	a.addTargets(getTargets());
-        }
+    	//System.out.println(getTargets().size());
+    	GameElement projectile = myProjectileFactory.createElement(myStart);
         myMap.addGameElement(projectile);
+        //System.out.println(projectile.getTargetedActions().size()+ 10);
+        for (TargetedAction t: projectile.getTargetedActions()){
+            t.updateTargetedFollowUpActions(getTargets());
+        }
     }
     
-
 }

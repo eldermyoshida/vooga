@@ -8,11 +8,11 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import vooga.towerdefense.action.Action;
-import vooga.towerdefense.attributes.AttributeManager;
 import vooga.towerdefense.controller.modes.BuildMode;
 import vooga.towerdefense.controller.modes.ControlMode;
 import vooga.towerdefense.controller.modes.SelectMode;
@@ -26,6 +26,7 @@ import vooga.towerdefense.gameElements.Wave;
 import vooga.towerdefense.model.GameLoop;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.GameModel;
+import vooga.towerdefense.model.MapLoader;
 import vooga.towerdefense.model.shop.Shop;
 import vooga.towerdefense.model.shop.ShopItem;
 import vooga.towerdefense.model.tiles.Tile;
@@ -70,8 +71,11 @@ public class Controller {
 	public Controller(String language) {
 
 		List<Wave> waves = new ArrayList<Wave>();
-
-		GameMap map = new GameMap(null, 800, 600, null);
+//		String path = "/vooga/src/vooga/towerdefense/resources/map_loadfile.xml";
+		String path = "C:\\Users\\JLongley\\workspace\\vooga\\src\\vooga\\towerdefense\\resources\\map_loadfile.xml";
+		MapLoader loader = new MapLoader(path);
+		List<GameMap> maps = loader.loadMaps();
+		GameMap map = maps.get(0);
 		// FIXME: Hardcoded for testing trolls
 		ExampleAuraTowerFactory codeStyleGenerator = new ExampleAuraTowerFactory(
 				map, "Tree of Doom", null);
@@ -141,8 +145,11 @@ public class Controller {
 	// the shop!!!
 	public void fixItemOnMap(GameElement item, Point p) {
 		GameElement newItem = createNewElement(item);
+		Location snappedLocation = getPointSnappedToGrid(new Location(p.getX(),p.getY()));
+		newItem.setCenter(snappedLocation.getX(), snappedLocation.getY());
 		Tile myTile = myModel.getTile(p);
 		myTile.setTower(newItem);
+		
 		myModel.getMap().addToMap(newItem, myTile);
 		displayMap();
 		myControlMode = new SelectMode();
@@ -194,20 +201,21 @@ public class Controller {
 			Class<? extends GameElement> myClass = item.getClass();
 			@SuppressWarnings("rawtypes")
 			Class[] types = { Pixmap.class, Location.class, Dimension.class,
-					AttributeManager.class, List.class };
+					List.class, String.class };
 			Constructor<? extends GameElement> constructor = myClass
 					.getConstructor(types);
 			Object[] parameters = { item.getPixmap(), item.getCenter(),
-					item.getSize(), item.getAttributeManager(),
-					item.getActions() };
+					item.getSize(), item.getActions(), item.getType() };
 			Object myNewItem = constructor.newInstance(parameters);
 			return (GameElement) myNewItem;
 		} catch (InvocationTargetException e) {
 			// ??
+			System.out.println(e.getMessage());
 		}
 
 		catch (Exception e) {
 			// ??
+			System.out.println(e.getMessage());
 		}
 		return null;
 	}
@@ -345,5 +353,10 @@ public class Controller {
 	public boolean canBuildHere(Point p) {
 		return myModel.getMap().isBuildable(p);
 	}
+
+    public void displayPlayerStatistics (Map<String, Integer> playerData) {
+        // TODO Auto-generated method stub
+        
+    }
 
 }

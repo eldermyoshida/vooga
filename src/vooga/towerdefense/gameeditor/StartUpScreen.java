@@ -19,6 +19,7 @@ import javax.swing.JTextField;
  * game developer.
  * 
  * @author Angelica Schwartz
+ * @author Leonard K. Ng'eno
  */
 public class StartUpScreen extends JPanel {
 
@@ -46,10 +47,11 @@ public class StartUpScreen extends JPanel {
         setSize(size);
         setPreferredSize(size);
         setVisible(true);
+        this.setLayout(new BorderLayout());
         makeMouseAdapter();
-        add(makeLabel(), BorderLayout.NORTH);
-        add(makeStartButton(), BorderLayout.CENTER);
-        add(makeGameNamingSection(), BorderLayout.SOUTH);
+        this.add(makeLabel(), BorderLayout.NORTH);
+        this.add(makeStartButton(), BorderLayout.SOUTH);
+        this.add(makeGameNamingSection(), BorderLayout.CENTER);
     }
 
     /**
@@ -69,8 +71,12 @@ public class StartUpScreen extends JPanel {
      * 
      * @return the JLabel created
      */
-    private JLabel makeLabel () {
-        return new JLabel(WELCOME_KEYWORD);
+    private JComponent makeLabel () {
+        JPanel panel = new JPanel();
+        JLabel label = new JLabel(WELCOME_KEYWORD);
+        panel.setPreferredSize(new Dimension (this.getWidth(), 100));
+        panel.add(label, BorderLayout.CENTER);
+        return panel;
     }
     
     private JPanel makeGameNamingSection() {
@@ -90,9 +96,12 @@ public class StartUpScreen extends JPanel {
      * @return the JButton created
      */
     private JComponent makeStartButton () {
+        JPanel panel = new JPanel();
         myStartButton = new JButton(START_KEYWORD);
         myStartButton.addMouseListener(myMouseAdapter);
-        return myStartButton;
+        panel.add(myStartButton);
+        panel.setPreferredSize(new Dimension(this.getWidth(), 400));
+        return panel;
     }
 
     private void makeMouseAdapter () {

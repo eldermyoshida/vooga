@@ -98,7 +98,8 @@ public class GameElementFactory {
         GameElement element = new GameElement(myDef.getImage(), 
                                               myDef.getCenter(), 
                                               myDef.getSize(), 
-                                              createAttributeFactory().makeAttributeManager());
+                                              createAttributeFactory().makeAttributeManager(),
+                                              myDef.getType());
         element.addActions(createActions(element));
         return element;
     }
@@ -111,7 +112,8 @@ public class GameElementFactory {
         GameElement element = new GameElement(myDef.getImage(), 
                                               spawnLocation, 
                                               myDef.getSize(), 
-                                              createAttributeFactory().makeAttributeManager());
+                                              createAttributeFactory().makeAttributeManager(),
+                                              myDef.getType());
         element.addActions(createActions(element));
         return element;
     }

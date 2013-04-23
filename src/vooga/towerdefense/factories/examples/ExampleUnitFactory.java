@@ -52,11 +52,11 @@ public class ExampleUnitFactory extends GameElementFactory {
         GameElement myGameElement;
         if (putHere != null) {
             myGameElement = new GameElement(myDefinition.getImage(), putHere,
-                                            myDefinition.getSize(), AM);
+                                            myDefinition.getSize(), AM, "unit");
         }
         else {
             myGameElement = new GameElement(myDefinition.getImage(),
-                                            myDefinition.getCenter(), myDefinition.getSize(), AM);
+                                            myDefinition.getCenter(), myDefinition.getSize(), AM, "unit");
         }
 
         Path path = myGameMap.getShortestPath(putHere,

@@ -17,10 +17,11 @@ public class ExampleProjectileFactory extends ProjectileFactory{
     private static final Dimension DEFAULT_SIZE = new Dimension(DEFAULT_WIDTH, DEFAULT_WIDTH);
     private static final List<Action> DEFAULT_ACTIONS = new ArrayList<Action>();
     private static final AttributeManager DEFAULT_ATTRIBUTE_MANAGER=new AttributeManager();
-    
+    private static final String DEFAULT_PROJECTILE_TYPE = "projectile";
+
 
 	public GameElement createProjectile(GameElement target, Location source){
-		return new GameElement(DEFAULT_IMAGE,source, DEFAULT_SIZE, DEFAULT_ATTRIBUTE_MANAGER, DEFAULT_ACTIONS);
+		return new GameElement(DEFAULT_IMAGE,source, DEFAULT_SIZE, DEFAULT_ATTRIBUTE_MANAGER, DEFAULT_ACTIONS,DEFAULT_PROJECTILE_TYPE);
 	}
 
 }

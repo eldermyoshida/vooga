@@ -43,11 +43,11 @@ public class ExampleTowerFactory extends TowerFactory {
         GameElement myTower;
         if (putHere != null) {
             myTower = new GameElement(def.getImage(), def.getCenter(),
-                                      def.getSize(), AM);
+                                      def.getSize(), AM, "tower");
         }
         else {
             myTower = new GameElement(def.getImage(),
-                                      def.getCenter(), def.getSize(), AM);
+                                      def.getCenter(), def.getSize(), AM, "tower");
         }
 
         ArrayList<Action> actions = new ArrayList<Action>();
