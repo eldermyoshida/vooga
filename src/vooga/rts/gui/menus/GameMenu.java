@@ -2,6 +2,7 @@ package vooga.rts.gui.menus;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -35,17 +36,23 @@ public class GameMenu extends Menu {
     private static final String ACTION_IMAGE_LOCATION = "images/gamemenu/action_button.png";
     private BufferedImage myBGImage;
     private static final Dimension ACTION_BUTTON_DIMENSION = new Dimension(50, 50);
-
     private static final Dimension EXIT_BUTTON_DIMENSION = new Dimension(200, 40);
+
     private static final Location EXIT_BUTTON_LOCATION =
             new Location(Window.SCREEN_SIZE.getWidth() - EXIT_BUTTON_DIMENSION.getWidth(), 0);
-    private static final int ACTION_MENU_WIDTH = 350;
-    private static final int ACTION_MENU_HEIGHT = 180;
+    private static final int ACTION_MENU_WIDTH = 360;
+    private static final int ACTION_MENU_HEIGHT = 175;
+    private static final int ACTION_X_PADDING = 30;
+    private static final int ACTION_Y_PADDING = 30;
+    private static final int MAX_ACTION_BUTTONS = 8;
+    private static final int S_X = (int) Window.SCREEN_SIZE.getWidth();
+    private static final int S_Y = (int) Window.SCREEN_SIZE.getHeight();
 
     private InteractiveEntity mySelectedEntity;
 
     private Button myExitButton;
     private ArrayList<Button> myActionButtons;
+    Location[] myActionButtonLocations;
 
     public GameMenu () {
 
@@ -59,57 +66,46 @@ public class GameMenu extends Menu {
         addButton(myExitButton);
 
         myActionButtons = new ArrayList<Button>();
-        createActionButtons();
+        createActionButtonLocations();
     }
 
-    private void createActionButtons () {
-        /*
-         * int iy = (int) (Window.SCREEN_SIZE.getHeight() - ACTION_MENU_HEIGHT);
-         * int ix = (int) (Window.SCREEN_SIZE.getWidth() - ACTION_MENU_WIDTH);
-         * int xPadding = 30;
-         * int yPadding = 30;
-         * int numPerRow = 4;
-         * 
-         * int ly = iy + yPadding;
-         * 
-         * for (int i = 1; i <= numPerRow; i++) {
-         * int lx = ix + (int) (ACTION_BUTTON_DIMENSION.getWidth() * (i - 1) + xPadding * i);
-         * Button b =
-         * new ImageButton(ACTION_IMAGE_LOCATION, ACTION_BUTTON_DIMENSION,
-         * new Location(lx, ly));
-         * myActionButtons.add(b);
-         * addButton(b);
-         * }
-         * ly += yPadding + ACTION_BUTTON_DIMENSION.getHeight();
-         * for (int i = 1; i <= numPerRow; i++) {
-         * int lx = ix + (int) (ACTION_BUTTON_DIMENSION.getWidth() * (i - 1) + xPadding * i);
-         * Button b =
-         * new ImageButton(ACTION_IMAGE_LOCATION, ACTION_BUTTON_DIMENSION,
-         * new Location(lx, ly));
-         * myActionButtons.add(b);
-         * addButton(b);
-         * }
-         */
-        Button b =
-                new ActionButton("Create", 0, Color.BLACK, 24,
-                                 new Location(Window.SCREEN_SIZE.getWidth() - 330,
-                                              Window.SCREEN_SIZE.getHeight() - 140));
-        myActionButtons.add(b);
-        addButton(b);
+    public void createActionButtonLocations () {
+        myActionButtonLocations = new Location[MAX_ACTION_BUTTONS];
+        for (int i = 0; i < 4; i++) {
+            myActionButtonLocations[i] =
+                    new Location((S_X - ACTION_MENU_WIDTH) +
+                                 (ACTION_BUTTON_DIMENSION.getWidth() * i) +
+                                 (ACTION_X_PADDING * (i + 1)),
+                                 (S_Y - ACTION_MENU_HEIGHT) + (ACTION_Y_PADDING));
+            System.out.println("Location: " + myActionButtonLocations[i].getX() + " " +
+                               myActionButtonLocations[i].getY());
+        }
+
+        for (int i = 0; i < 4; i++) {
+            int l = 4 + i;
+            myActionButtonLocations[l] =
+                    new Location((S_X - ACTION_MENU_WIDTH) +
+                                 (ACTION_BUTTON_DIMENSION.getWidth() * i) +
+                                 (ACTION_X_PADDING * (i + 1)),
+                                 (S_Y - ACTION_MENU_HEIGHT) + ((ACTION_Y_PADDING) * 2) +
+                                         ACTION_BUTTON_DIMENSION.getHeight());
+            System.out.println("Location: " + myActionButtonLocations[i].getX() + " " +
+                               myActionButtonLocations[l].getY());
+        }
     }
 
-    public void setResources () {
+    private void updateActionButtons () {
+        myActionButtons.clear();
+        myButtons.clear();
+        if (mySelectedEntity == null || mySelectedEntity.getActions().isEmpty()) return;
 
-    }
-
-    public void setSelected () {
-
-    }
-
-    private void setSelected (List<InteractiveEntity> selected) {
-        mySelectedEntity = selected.get(0); // The current select method if there is more than
-                                            // one is just to choose the first one
-
+        for (int i = 0; i < mySelectedEntity.getActions().size(); i++) {
+            Button b =
+                    new ImageButton(ACTION_IMAGE_LOCATION, ACTION_BUTTON_DIMENSION,
+                                    myActionButtonLocations[i]);
+            myActionButtons.add(b);
+            addButton(b);
+        }
     }
 
     @Override
@@ -128,26 +124,46 @@ public class GameMenu extends Menu {
         int y = screenY - newHeight;
 
         pen.drawImage(myImage, x, y, screenX, newHeight, null);
+
+        pen.setFont(new Font("Arial", Font.PLAIN, 24));
         if (mySelectedEntity != null) {
             if (mySelectedEntity.getInfo() != null) {
-                    pen.drawString(mySelectedEntity.getInfo().getName(), (int) Window.SCREEN_SIZE.getWidth() / 2,
-                       (int) Window.SCREEN_SIZE.getHeight() - 100);
-                    pen.drawString(mySelectedEntity.getInfo().getDescription(), (int) Window.SCREEN_SIZE.getWidth() / 2,
-                                   (int) Window.SCREEN_SIZE.getHeight() - 80);
-                    pen.drawImage(mySelectedEntity.getInfo().getButtonImage(), (int) Window.SCREEN_SIZE.getWidth() / 2-200,
-                       (int) Window.SCREEN_SIZE.getHeight() - 100, null);
-                    
+                pen.setColor(Color.WHITE);
+
+                pen.drawString(mySelectedEntity.getInfo().getName(),
+                               (int) 280,
+                               (int) Window.SCREEN_SIZE.getHeight() - 90);
+                pen.setFont(new Font("Arial", Font.PLAIN, 20));
+                pen.setColor(Color.GRAY);
+                pen.drawString(mySelectedEntity.getInfo().getDescription(),
+                               (int) 280,
+                               (int) Window.SCREEN_SIZE.getHeight() - 65);
+                if (mySelectedEntity.getInfo().getButtonImage() != null) {
+                    pen.drawImage(mySelectedEntity.getInfo().getButtonImage(),
+                                  (int) 220,
+                                  (int) Window.SCREEN_SIZE.getHeight() - 90, null);
+                }
             }
         }
-        
+        updateActionButtons();
+
+        for (Button b : myButtons) {
+            b.paint(pen);
+        }
 
     }
 
     @Override
     public void update (Observable o, Object arg) {
         if (o instanceof Manager) {
+            Boolean b = (Boolean) arg;
             Manager m = (Manager) o;
-            setSelected(m.getSelected());
+            if (b) {
+                setSelected(m.getSelected());
+            }
+            else {
+                setDeselected();
+            }
         }
 
         if (o.equals(myExitButton)) {
@@ -160,6 +176,15 @@ public class GameMenu extends Menu {
             setChanged();
             notifyObservers(id);
         }
+    }
+
+    private void setDeselected () {
+        mySelectedEntity = null;
+    }
+
+    private void setSelected (List<InteractiveEntity> selected) {
+        mySelectedEntity = selected.get(0); // The current select method if there is more than
+                                            // one is just to choose the first one
     }
 
 }
