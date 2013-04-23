@@ -9,6 +9,7 @@ public class UserData {
 	 * This class is analogous to GameInfo and stores user-specific information.
 	 * This class may replace the UserInfo class.
 	 * 
+	 * 
 	 * @author Eunsu (Joe) Ryu - jesryu
 	 */
 	
@@ -29,7 +30,7 @@ public class UserData {
 	}
 	
 	public void changeAvatar(Pixmap newAvatar){
-		//TODO
+		myDb.setUserAvatar(newAvatar);
 	}
 	
 	public String getName() {
@@ -37,7 +38,7 @@ public class UserData {
 	}
 	
 	public void changeName(String newName){
-		//TODO
+		myDb.setUserRealName(newName);
 	}
 	
 	public int getAge(){
@@ -49,7 +50,7 @@ public class UserData {
 	}
 	
 	public void changeHometown (String newHometown) {
-		//TODO
+		myDb.setUserHometown(newHometown);
 	}
 	
 	public String getSchool(){
@@ -57,7 +58,7 @@ public class UserData {
 	}
 	
 	public void changeSchool(String newSchool){
-		//TODO
+		myDb.setUserSchool(newSchool);
 	}
 	
 	public String getHobbies(){
@@ -68,16 +69,16 @@ public class UserData {
 		return myDb.getUserFavoriteColor(username);
 	}
 	
-	public void changeFavoriteColot() {
-		//TODO
+	public void changeFavoriteColor(String newFavoriteColor) {
+		myDb.setUserFavoriteColor(newFavoriteColor);
 	}
 	
 	public String getFavoriteFood(){
 		return myDb.getUserFavoriteFood(username);
 	}
 	
-	public void changeFavoriteFood() {
-		//TODO
+	public void changeFavoriteFood(String newFavoriteFood) {
+		myDb.setUserFavoriteFood(newFavoriteFood);
 	}
 	
 }
