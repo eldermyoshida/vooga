@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
-import vooga.rts.action.Action;
+import vooga.rts.action.*;
 import vooga.rts.commands.Command;
 import vooga.rts.controller.Controllable;
 import vooga.rts.controller.Controller;
@@ -32,22 +32,22 @@ import vooga.rts.util.Location;
  */
 public class HumanPlayer extends Player implements Observer {
 
-    //private Map<String, Controllable> myInputMap; // Maps the command to the appropriate
-                                                  // controllable
+    // private Map<String, Controllable> myInputMap; // Maps the command to the appropriate
+    // controllable
 
     private Robot myMouseMover;
 
     private GameMenu myGameMenu;
-    
+
     private HashMap<Integer, Action> myActionMap;
 
     public HumanPlayer (int id) {
         super(id);
 
         myActionMap = new HashMap<Integer, Action>();
+        createActionMap();
         myGameMenu = new GameMenu();
         myGameMenu.addObserver(this);
-        
 
         try {
             myMouseMover = new Robot();
@@ -59,6 +59,11 @@ public class HumanPlayer extends Player implements Observer {
         // Maybe look for design pattern that can implement filtering the inputs
     }
 
+    private void createActionMap () {
+        myActionMap.put(0, new OccupyAction());
+        // ... add more here
+    }
+    
     @Override
     public void sendCommand (Command command) {
         // Check for camera movement
@@ -124,7 +129,7 @@ public class HumanPlayer extends Player implements Observer {
             Integer i = (Integer) a;
             processAction(i);
         }
-        
+
     }
 
     private void processAction (int a) {
