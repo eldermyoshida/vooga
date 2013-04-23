@@ -15,6 +15,7 @@ import vooga.fighter.model.utils.Health;
 import vooga.fighter.model.utils.ImageDataObject;
 import vooga.fighter.model.utils.State;
 import vooga.fighter.model.utils.UpdatableLocation;
+import vooga.fighter.util.CollisionManager;
 
 
 /**

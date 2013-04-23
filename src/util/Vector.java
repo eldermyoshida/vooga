@@ -115,7 +115,7 @@ public class Vector {
      * Adjusts this vector's direction by the given change value.
      */
     public void turn (double change) {
-        setDirection(getDirection() + change);
+        setDirection(Vector.SanitizeAngle(getDirection() + change));
     }
 
     /**
@@ -292,4 +292,16 @@ public class Vector {
             return Math.abs(a / b - 1) < EPSILON;
         }
     }
+
+    /**
+     * Sanitizes angle to in between 0 and 360 degrees
+     * e.g. 361 degrees goes to 1 degree
+     */
+	public static double SanitizeAngle(double Angle) {
+		while (Angle > 360)
+			Angle -= 360;
+		while (Angle < 0)
+			Angle += 360;
+		return Angle;
+	}
 }

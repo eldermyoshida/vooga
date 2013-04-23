@@ -15,6 +15,7 @@ import vooga.fighter.model.objects.CharacterObject;
 import vooga.fighter.model.objects.MenuObject;
 import vooga.fighter.model.objects.MouseClickObject;
 import vooga.fighter.model.objects.MouseObject;
+import vooga.fighter.util.CollisionManager;
 import vooga.fighter.util.Paintable;
 import vooga.fighter.view.Canvas;
 

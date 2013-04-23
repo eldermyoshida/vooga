@@ -6,6 +6,7 @@ import java.util.List;
 import vooga.fighter.model.objects.CharacterObject;
 import vooga.fighter.model.objects.GameObject;
 import vooga.fighter.model.utils.ImageDataObject;
+import vooga.fighter.util.CollisionManager;
 
 
 /**

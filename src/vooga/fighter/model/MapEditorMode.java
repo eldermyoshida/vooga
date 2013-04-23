@@ -16,6 +16,7 @@ import vooga.fighter.model.objects.MouseClickObject;
 import vooga.fighter.model.utils.ImageDataObject;
 import vooga.fighter.model.utils.State;
 import vooga.fighter.model.utils.UpdatableLocation;
+import vooga.fighter.util.CollisionManager;
 
 
 /**
