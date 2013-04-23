@@ -21,6 +21,7 @@ import arcade.games.GameInfo;
 import arcade.games.Score;
 import arcade.games.MultiplayerGame;
 import arcade.games.User;
+import arcade.games.UserData;
 import arcade.games.UserGameData;
 import arcade.model.payment.DukePaymentManager;
 import arcade.model.payment.PaymentManager;
@@ -177,12 +178,14 @@ public class Controller implements ArcadeInteraction {
 	 * @param gameName
 	 * @param genre
 	 */
+	/*
 	public void publish(GameSpecificData data){
 		myDb.createGame(data);
 		addNewGameInfoToList(data.getName());
 	}
+	*/
 	
-	/*
+	
 	public void publish(String name, String genre, String author, double price, String extendsGame, String extendsMultiplayerGame, int ageRating,
 			boolean singlePlayer, boolean multiplayer, String thumbnailPath, String adScreenPath, String description) {
 		// print
@@ -199,9 +202,9 @@ public class Controller implements ArcadeInteraction {
 		// Put game info in map
 		addNewGameInfoToList(name);
 	}
-	*/
 	
-	/*
+	
+	
 	private String formatClassFilePath(String path) {
 		if (path == null)
 			return null;
@@ -223,7 +226,7 @@ public class Controller implements ArcadeInteraction {
 		System.out.println("this is ret" + ret);
 		return ret;
 	}
-	 */
+	
 	
 	
 
@@ -323,6 +326,14 @@ public class Controller implements ArcadeInteraction {
 	 */
 	public GameInfo getGameDetail(String gameName) {
 		return myGameInfos.get(gameName);
+	}
+	
+	
+	/**
+	 * UserProfile must call this method to retrieve User-specific information
+	 */
+	public UserData getUserDetail(String username) {
+		return new UserData(myDb, currentUser);
 	}
 
 	/**

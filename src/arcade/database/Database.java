@@ -470,6 +470,7 @@ public class Database {
 
     
     
+    // USER-SPECIFIC QUERY METHODS : TO BE FILLED OUT WHEN USER-DATABASE CONTAINS ALL THESE INFO
 	public String getUserRealName(String username) {
 		// TODO Auto-generated method stub
 		return null;
@@ -499,6 +500,45 @@ public class Database {
 	public String getUserFavoriteColor(String username) {
 		// TODO Auto-generated method stub
 		return null;
+		
+	}
+
+	public String getUserFavoriteFood(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+	// Setting & changing user-specific information
+	
+	// Not sure what to pass as input: Pixmap or file-path (String)?
+	public void setUserAvatar(Pixmap newAvatar) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setUserRealName(String newName) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setUserHometown(String newHometown) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setUserSchool(String newSchool) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setUserFavoriteColor(String newFavoriteColor) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setUserFavoriteFood(String newFavoriteFood) {
+		// TODO Auto-generated method stub
 		
 	}
 
