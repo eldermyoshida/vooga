@@ -1,6 +1,7 @@
 package vooga.rts.map;
 
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +10,8 @@ import java.util.Observable;
 import java.util.Observer;
 import vooga.rts.gamedesign.sprite.gamesprites.GameSprite;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
+import vooga.rts.gamedesign.sprite.map.Tile;
+import vooga.rts.util.Camera;
 import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
 
@@ -87,7 +90,38 @@ public class NodeMap implements Observer {
     }
 
     public void paint (Graphics2D pen) {
-        // Paint everything in the game!
+        Rectangle view = Camera.instance().getWorldVision().getBounds();
+
+        // Get the start index of what is visible by the cameras.
+        int startX = (int) (view.getMinX() > 0 ? view.getMinX() : 0);
+        startX /= Node.NODE_SIZE;
+        startX /= Camera.ISO_HEIGHT;
+
+        int startY = (int) (view.getMinY() > 0 ? view.getMinY() : 0);
+        startY /= Node.NODE_SIZE;
+        startY /= Camera.ISO_HEIGHT;
+
+        // Get the end index of what is visible
+        int endX =
+                (int) (view.getMaxX() < Node.NODE_SIZE * myWidth ? view.getMaxX() : myWidth * Node.NODE_SIZE);
+        endX /= Node.NODE_SIZE;
+        endX /= Camera.ISO_HEIGHT;
+        endX = endX < myWidth ? endX : myWidth - 1;
+
+        int endY =
+                (int) (view.getMaxY() < Node.NODE_SIZE * myHeight ? view.getMaxY() : myHeight * Node.NODE_SIZE);
+        endY /= Node.NODE_SIZE;
+        endY /= Camera.ISO_HEIGHT;
+        endY = endY < myHeight ? endY : myHeight - 1;
+
+        for (int x = startX; x < endX; x++) {
+            for (int y = startY; y < endY; y++) {
+                Node n = get(x, y);
+                if (n != null) {
+                    n.paint(pen);
+                }
+            }
+        }
     }
 
     /**
@@ -121,7 +155,7 @@ public class NodeMap implements Observer {
     private Node findContainingNode (Location3D world) {
         // This should be the node for this location.
         Node potential = getNode(world);
-        if (potential != null && potential.contains(world)) {
+        if (potential != null) { // && potential.contains(world)) {
             return potential;
         }
         return null;

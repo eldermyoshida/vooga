@@ -118,6 +118,7 @@ public class GameMap implements IGameLoop {
     @Override
     public void paint (Graphics2D pen) {
         myTiles.paint(pen);
+        myNodeMap.paint(pen);
     }
 
     private void randomGenMap (Dimension size) {

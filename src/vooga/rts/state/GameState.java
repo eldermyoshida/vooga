@@ -96,12 +96,14 @@ public class GameState extends SubState implements Controller {
         r.paint(pen);
         // a bit odd, but we need to paint the other players before we paint HumanPlayer because
         // HumanPlayer contains the gameMenu
+        /*
         for (Player p : myPlayers) {
             if (!(p instanceof HumanPlayer)) {
                 p.paint(pen);
             }
-        }
+        }*/
         myHumanPlayer.paint(pen);
+        
         if (myDrag != null) {
             pen.draw(myDrag);
             // pen.draw(worldShape);

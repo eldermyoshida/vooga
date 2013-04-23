@@ -1,5 +1,6 @@
 package vooga.rts.map;
 
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
@@ -90,8 +91,11 @@ public class Node {
      * @param world The location to check
      * @return Whether it is in the node or not
      */
-    public boolean contains (Location3D world) {
-        return myBounds.contains(world.to2D());
+    public boolean contains (Location3D world) {        
+        return world.getX() >= myBounds.getMinX() &&
+                world.getX() <= myBounds.getMaxX() &&
+                world.getY() >= myBounds.getMinY() &&
+                world.getY() <= myBounds.getMaxY();
     }
 
     public void addSprite (GameSprite sprite) {
@@ -133,5 +137,11 @@ public class Node {
             resultList.add((T) item);
         }
         return resultList;
+    }
+
+    public void paint (Graphics2D pen) {
+        for (GameSprite gs : myContents) {
+            gs.paint(pen);
+        }        
     }
 }
