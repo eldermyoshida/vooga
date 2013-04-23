@@ -1,5 +1,6 @@
 package util;
 
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Dimension;
 import java.awt.Image;
@@ -10,89 +11,114 @@ import java.awt.image.RescaleOp;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+
+import sun.awt.image.ToolkitImage;
 import vooga.fighter.util.Paintable;
 
 /**
- * This class represents an image on the screen and 
- * adds some utility functions to the Image class.
+ * This class represents an image on the screen and adds some utility functions
+ * to the Image class.
  * 
  * Note, Java only supports the formats: png, jpg, gif.
  * 
- * @author Robert C. Duvall, Dagbedji F
- * Added get icon
+ * @author Robert C. Duvall, Dagbedji F Added get icon
  */
 public class Pixmap implements Paintable {
-    // OS-independent relative resource locations (like URLs)
-    private static final String RESOURCE_LOCATION = "/vooga/";
+	// OS-independent relative resource locations (like URLs)
+	private static final String RESOURCE_LOCATION = "/vooga/";
 
-    private java.awt.Image myImage;
-    private String myFileName;
+	private java.awt.Image myImage;
+	private String myFileName;
 
+	/**
+	 * Create an image from the given filename.
+	 */
+	public Pixmap(String fileName) {
+		setImage(fileName);
+	}
 
-    /**
-     * Create an image from the given filename.
-     */
-    public Pixmap (String fileName) {
-        setImage(fileName);
-    }
+	/**
+	 * Create a copy of image from the given other image.
+	 */
+	public Pixmap(Pixmap other) {
+		this(other.myFileName);
+	}
 
-    /**
-     * Create a copy of image from the given other image.
-     */
-    public Pixmap (Pixmap other) {
-        this(other.myFileName);
-    }
+	/**
+	 * Set this image to the image referred to by the given filename.
+	 */
+	public void setImage(String fileName) {
+		myImage = new ImageIcon(getClass().getResource(
+				RESOURCE_LOCATION + fileName)).getImage();
+		//setImageToGreyScale();
+		myFileName = fileName;
+	}
 
-    /**
-     * Set this image to the image referred to by the given filename.
-     */
-    public void setImage (String fileName) {
-        myImage = new ImageIcon(getClass().getResource(RESOURCE_LOCATION + fileName)).getImage();
-        myFileName = fileName;
-    }
-    
-    /**
-     * Returns the size of the image
-     */
-    public Dimension getSize () {
-    	return new Dimension(myImage.getWidth(null), myImage.getHeight(null));
-    }
+	/**
+	 * Returns the size of the image
+	 */
+	public Dimension getSize() {
+		return new Dimension(myImage.getWidth(null), myImage.getHeight(null));
+	}
 
-    /**
-     * Describes how to draw the image on the screen.
-     */
-    public void paint (Graphics2D pen, Point2D center, Dimension size) {
-        paint(pen, center, size, 0);
-    }
+	/**
+	 * Describes how to draw the image on the screen.
+	 */
+	public void paint(Graphics2D pen, Point2D center, Dimension size) {
+		paint(pen, center, size, 0);
+	}
 
-    /**
-     * Describes how to draw the image rotated on the screen.
-     */
-    public void paint (Graphics2D pen, Point2D center, Dimension size, double angle) {
-        // save current state of the graphics area
-        AffineTransform old = new AffineTransform(pen.getTransform());
-    	//AffineTransform old = new AffineTransform(AffineTransform.getScaleInstance(-1, 1));
-        // move graphics area to center of this shape
-        pen.translate(center.getX(), center.getY());
-        // rotate area about this shape
-        pen.rotate(angle);
-        // draw as usual (i.e., rotated)
-        pen.drawImage(myImage, -size.width / 2, -size.height / 2, size.width, size.height, null);
-        // restore graphics area to its old state, so our changes have no lasting effects
+	/**
+	 * Describes how to draw the image rotated on the screen.
+	 */
+	public void paint(Graphics2D pen, Point2D center, Dimension size,
+			double angle) {
+		// save current state of the graphics area
+		AffineTransform old = new AffineTransform(pen.getTransform());
+		// AffineTransform old = new
+		// AffineTransform(AffineTransform.getScaleInstance(-1, 1));
+		// move graphics area to center of this shape
+		pen.translate(center.getX(), center.getY());
+		// rotate area about this shape
+		pen.rotate(angle);
+		// draw as usual (i.e., rotated)
+		pen.drawImage(myImage, -size.width / 2, -size.height / 2, size.width,
+				size.height, null);
+		// restore graphics area to its old state, so our changes have no
+		// lasting effects
 		pen.setTransform(old);
 	}
 
 	public void paintReverse(Graphics2D pen, Point2D center, Dimension size) {
-		pen.setTransform(AffineTransform.getScaleInstance(-1, 1));
-    	paint(pen, center, size);
-    	pen.setTransform(AffineTransform.getScaleInstance(-1, 1));
-	}
-	
-	public void setImageToGreyScale() {
-		BufferedImage buffered = (BufferedImage)myImage;
-		RescaleOp op = new RescaleOp(.9f, 0, null);
-	    buffered = op.filter(buffered, null);
-	    myImage = (Image)buffered;
+		// Get the current transform
+		AffineTransform saveAT = pen.getTransform();
+		// Perform transformation
+		pen.transform(AffineTransform.getScaleInstance(-1, 1));
+		// Render
+		// g2d.draw(...);
+		paint(pen, center, size);
+		// Restore original transform
+		pen.setTransform(saveAT);
+
+		// pen.setTransform(AffineTransform.getScaleInstance(-1, 1));
+		// pen.translate(0, 0);
+		// paint(pen, center, size);
+		// pen.setTransform(AffineTransform.getScaleInstance(-1, 1));
+
 	}
 
+	public void setImageToGreyScale() {
+		BufferedImage buffered = ((ToolkitImage) myImage).getBufferedImage();
+		BufferedImage temp = new BufferedImage(buffered.getWidth(),
+				buffered.getHeight(), BufferedImage.TYPE_BYTE_GRAY);
+		// temp.getScaledInstance(buffered.getWidth(), buffered.getHeight(),
+		// buffered.getWidth());
+		temp.getScaledInstance(buffered.getWidth(), buffered.getHeight(), 0);
+		Graphics g = temp.getGraphics();
+		g.drawImage(buffered, 0, 0, null);
+		buffered = temp;
+		g.dispose();
+
+		myImage = (Image) buffered;
+	}
 }
