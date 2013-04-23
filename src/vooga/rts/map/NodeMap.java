@@ -19,8 +19,8 @@ import vooga.rts.util.Location3D;
 /**
  * This class stores all the nodes that will be used for pathfinding.
  * 
- * @author Challen Herzberg-Brovold
  * @author Jonathan Schmidt
+ * @author Challen Herzberg-Brovold
  * 
  */
 public class NodeMap implements Observer {
@@ -95,46 +95,33 @@ public class NodeMap implements Observer {
         // Get the start index of what is visible by the cameras.
         int startX = (int) (view.getMinX() > 0 ? view.getMinX() : 0);
         startX /= Node.NODE_SIZE;
-        startX *= Camera.ISO_HEIGHT;
 
         int startY = (int) (view.getMinY() > 0 ? view.getMinY() : 0);
         startY /= Node.NODE_SIZE;
-        startY *= Camera.ISO_HEIGHT;
 
         // Get the end index of what is visible
         int endX =
                 (int) (view.getMaxX() < Node.NODE_SIZE * myWidth ? view.getMaxX() : myWidth *
                                                                                     Node.NODE_SIZE);
         endX /= Node.NODE_SIZE;
-        //endX *= Camera.ISO_HEIGHT;
         endX = endX < myWidth ? endX : myWidth - 1;
 
         int endY =
                 (int) (view.getMaxY() < Node.NODE_SIZE * myHeight ? view.getMaxY() : myHeight *
                                                                                      Node.NODE_SIZE);
         endY /= Node.NODE_SIZE;
-        //endY = Camera.ISO_HEIGHT;
         endY = endY < myHeight ? endY : myHeight - 1;
 
-        for (int x = startX; x < endX; x++) {
-            for (int y = startY; y < endY; y++) {
+        System.out.println("Number of nodes = " + (endX - startX) + " x " + (endY - startY));
+
+        for (int y = startY; y < endY; y++) {
+            for (int x = endX; x > startX; x--) {
                 Node n = get(x, y);
                 if (n != null) {
                     n.paint(pen);
                 }
             }
         }
-        /*
-         * for (int x = 0; x < endX - startX; x++) {
-         * for (int y = 0; y < x; y++) {
-         * Node n = get(x + startX, y + startY);
-         * if (n != null) {
-         * n.paint(pen);
-         * }
-         * }
-         * }
-         */
-
     }
 
     /**

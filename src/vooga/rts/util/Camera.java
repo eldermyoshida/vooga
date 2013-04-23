@@ -229,7 +229,7 @@ public class Camera {
     private void updateWorldSize () {
         Rectangle2D bigger = new Rectangle(myScreenSize);
         // Scale to stop shearing
-        double zoom = 1.1;
+        double zoom = 1.0;
         AffineTransform scale = new AffineTransform();
         scale.translate((bigger.getWidth() / 2) - (bigger.getWidth() * zoom / 2),
                         (bigger.getHeight() / 2) - (bigger.getHeight() * zoom / 2));

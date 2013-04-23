@@ -55,7 +55,7 @@ public class Node {
      * @param y The Y index
      */
     public Node (int x, int y) {
-        this(y, x, 0);
+        this(x, y, 0);
     }
 
     public int getX () {
@@ -116,7 +116,7 @@ public class Node {
     }
 
     public boolean containsSprite (GameSprite sprite) {
-        return true;
+        return myContents.contains(sprite);
     }
 
     public <T extends GameSprite> List<T> filterGameSprites (List<GameSprite> fullList,
@@ -146,7 +146,7 @@ public class Node {
     public void paint (Graphics2D pen) {
         Point2D screen =
                 Camera.instance().worldToView(new Location3D(myX * NODE_SIZE, myY * NODE_SIZE, 0));
-        //pen.draw(new Ellipse2D.Double(screen.getX(), screen.getY(), NODE_SIZE, NODE_SIZE));
+        pen.draw(new Ellipse2D.Double(screen.getX(), screen.getY(), NODE_SIZE, NODE_SIZE));
         for (GameSprite gs : myContents) {
             gs.paint(pen);
         }

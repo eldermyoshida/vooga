@@ -136,7 +136,7 @@ public class Manager implements State, IActOn, Observer {
         entity.addObserver(GameState.getMap().getNodeMap());
         entity.addObserver(this);
         entity.setChanged();
-        entity.notifyObservers();
+        entity.notifyObservers(entity.getWorldLocation());
         myAddQueue.add(entity);
     }
 
