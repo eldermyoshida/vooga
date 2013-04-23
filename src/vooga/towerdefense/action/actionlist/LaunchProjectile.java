@@ -1,15 +1,10 @@
 package vooga.towerdefense.action.actionlist;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.List;
-import java.util.Map;
 
 import vooga.towerdefense.action.TargetedAction;
-import vooga.towerdefense.factories.GameElementFactory;
 import vooga.towerdefense.factories.examples.ExampleDosProjectileFactory;
-import vooga.towerdefense.factories.examples.ExampleUnitFactory;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.util.Location;
@@ -55,7 +50,6 @@ public class LaunchProjectile extends TargetedAction {
             t.updateTargetedFollowUpActions(getTargets());
         }
     	//this.setEnabled(false);*/
-    	generate
     	launch(elapsedTime);
     }
     
