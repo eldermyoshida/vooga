@@ -1,5 +1,10 @@
 package vooga.scroller.sprites.interfaces;
 
+/**
+ * 
+ * 
+ * @author Jay Wang
+ */
 public interface ICollectible extends ISprite {
      
     public int getValue();
