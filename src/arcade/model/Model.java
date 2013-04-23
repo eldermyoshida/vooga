@@ -55,12 +55,12 @@ public class Model implements ArcadeInteraction {
     	myLoginView = new LoginView(this,myResources);
     }
     
-    /*
+   
     public Model (ResourceBundle rb, String language) {
         myResources = rb;
         myLanguage = language;
     }
-    */
+   
 
     public void setLoginView (LoginView login) {
         myLoginView = login;
