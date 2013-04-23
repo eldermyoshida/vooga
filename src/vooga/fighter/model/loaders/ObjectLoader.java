@@ -52,7 +52,7 @@ public abstract class ObjectLoader {
 			myDocument.getDocumentElement().normalize();
 		} catch (Exception e) {
 			myDocument = null;
-			e.printStackTrace();
+			System.err.println("File not found for " + getClass().getSimpleName());
 		}
 	}
 	

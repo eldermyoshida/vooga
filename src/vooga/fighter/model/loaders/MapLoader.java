@@ -69,7 +69,28 @@ public class MapLoader extends ObjectLoader {
 			}
 		}
 	}
+	
+	/**
+	 * Checks if the map already exists inside the given xml file.
+	 * 
+	 * @param mapName to check
+	 * @return
+	 */
+	public boolean contains(String mapName) {
+		List<String> existingMaps = getMapNames();
+		for(String existingMap : existingMaps) {
+			if(existingMap.equals(mapName)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
+	/**
+	 * Returns a list of map names inside the designated xml file.
+	 * 
+	 * @return
+	 */
 	public List<String> getMapNames() {
 		List<String> maps = new ArrayList<String>();
 		Document doc = getDocument();
@@ -82,7 +103,6 @@ public class MapLoader extends ObjectLoader {
 	}
 
 	/**
-	 * 
 	 * Adds starting position for the characters
 	 * 
 	 * @param startingPosNodes NodeList of all starting positions available on a map

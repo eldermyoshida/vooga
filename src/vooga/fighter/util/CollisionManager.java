@@ -107,7 +107,7 @@ public class CollisionManager {
      * Handles collisions between two environment objects.
      */
     public void collide(EnvironmentObject o1, EnvironmentObject o2) {
-        System.out.println("CollisionManager: Two EnvironmentObjects collided!");
+        
     }
     
     /**
@@ -153,22 +153,18 @@ public class CollisionManager {
      * Handles collisions between an environment object and a character object.
      */
     public void collide(EnvironmentObject o1, CharacterObject o2) {
-    	System.out.println("CollisionManager: Two EnvironmentObjects collided!");
     	if(myCollisionDetector.hitBottom(o2.getCurrentState().getCurrentRectangle(),
     			o1.getCurrentState().getCurrentRectangle())){
     		o2.jump();
-    		;
+    		System.out.println("HITBOTTOMCOLLISIONMANAGER");
     	}
+    	System.out.println("COLLISIONMANAGER");
     }
     
     /**
      * Handles collisions between a Menu object and an MouseClick object.
      */
     public void collide(MenuObject o1, MouseClickObject o2) {
-    	System.out.println(o1.getLocation().getLocation().getX());
-    	System.out.println(o1.getLocation().getLocation().getY());
-    	System.out.println(o2.getLocation().getLocation().getX());
-    	System.out.println(o2.getLocation().getLocation().getY());
     	o1.tellDelegate();
     }
     
