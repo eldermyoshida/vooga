@@ -1,4 +1,4 @@
-package vooga.towerdefense.factories;
+package vooga.towerdefense.factories.definitions;
 
 import java.awt.Dimension;
 

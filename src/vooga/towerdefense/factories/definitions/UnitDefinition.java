@@ -1,4 +1,5 @@
-package vooga.towerdefense.factories;
+package vooga.towerdefense.factories.definitions;
+
 
 /**
  * @author Matthew Roy
