@@ -93,7 +93,7 @@ public class SnapShot extends JPanel {
     }
 
     /**
-     * Creates a mouse listener so that upon clicking a SnapShot, the
+     * Creates a mouse listener so that upon double clicking a SnapShot, the
      * DetailView is launched.
      * 
      * @return
