@@ -8,9 +8,9 @@ import util.XMLTool;
 
 /**
  * This is example code shows how to use the XMLtool.
- * 
+ *
  * @author Yoshida
- * 
+ *
  */
 public class XMLToolExample {
     private static XMLTool myDoc;
@@ -18,7 +18,7 @@ public class XMLToolExample {
     
     /**
      * Loads the XMLTool tester methods.
-     * 
+     *
      * @param args
      */
     public static void main (String args[]) {
