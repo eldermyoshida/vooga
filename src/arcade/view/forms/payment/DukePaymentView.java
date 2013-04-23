@@ -61,7 +61,8 @@ public class DukePaymentView extends PaymentView {
 
     @Override
     protected String[] getPaymentInfo () {
-        String[] paymentInfo = {myNameTextField.getText(),
+        String[] paymentInfo = {getGame().getPrice() + "",
+                                myNameTextField.getText(),
                                 myDukeCardTextField.getText()};
         return paymentInfo;
     }

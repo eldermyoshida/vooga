@@ -65,10 +65,18 @@ public abstract class PaymentView extends Form {
                                 }
                             });
     }
+    
+    /**
+     * Returns the game being paid for so subclasses have access.
+     */
+    protected GameInfo getGame() {
+        return myGameInfo;
+    }
 
     /**
      * Submits the required payment information fields to be processed.
      */
     protected abstract String[] getPaymentInfo ();
+    
 
 }

@@ -52,5 +52,12 @@ public interface TextKeywords {
     static final String GAME_STORE = "game_store";
     static final String JAVA = "java";
     static final String GAME_FILE_ERROR = "game_file_error";
+    static final String PIN_INSTRUCTION = "pin_message";
+    static final String SUBMIT = "submit";
+    static final String TWITTER_ERROR = "twitter_error";
+    static final String MY_SCORE = "my_score_was";
+    static final String IN = "in";
+    static final String VOOGA_HASHTAG = "vooga_hashtag";
+    
 
 }

@@ -80,6 +80,11 @@ public class GameInfo {
     	//return myModel.getAverageRating(getName());
     }
     
+    public double getPrice() {
+        //TODO: return value from db.
+        return 42;
+    }
+    
     private String getSingleplayerGameClassKeyword() {
     	return myDb.getSingleplayerGameClassKeyword(gameName);
     }
@@ -90,6 +95,7 @@ public class GameInfo {
     
 
     public List<String[]> getComments () {
+        //TODO: do this correctly.
         List<String[]> comments = new ArrayList<String[]>();
         String[] comment1 = { "subject", "theCoolestGuy", "5.0", "this game is awesome" };
         comments.add(comment1);

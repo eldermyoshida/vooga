@@ -26,7 +26,7 @@ import twitter4j.auth.RequestToken;
  */
 public class TwitterConnection {
     /**
-     * Consumer Secret constant should probably be kept a secret...
+     * Consumer Secret should probably be kept a secret...
      */
     private static final String CONSUMER_KEY = "pUIkq79OeuKPgbbGDKwQ";
     private static final String CONSUMER_SECRET = "JLuj42An4zgebJfRNOvPT53kyI2LCDlbasTxd7cR8w";
