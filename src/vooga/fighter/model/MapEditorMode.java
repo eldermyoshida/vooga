@@ -35,7 +35,7 @@ public class MapEditorMode extends Mode {
     private int myEnviroIndex; //the list index of the current environment object selected
     private int currentPlayer;
     private int numPlayers;
-    private String myBackgroundPath; //filepath to background image
+    private List<String> myBackgroundPaths; //filepath to background image
     private String mySoundPath; //filepath to sound
 
     public MapEditorMode (CollisionManager cd) {
@@ -50,6 +50,7 @@ public class MapEditorMode extends Mode {
         EnvironmentObjectLoader loader = new EnvironmentObjectLoader();
         myEnviroObjects = (ArrayList<EnvironmentObject>)loader.getEnvironmentObjects();
         initializeEnviroObjects();
+        myBackgroundPaths = new ArrayList<String>();
         
     }
 
@@ -167,7 +168,7 @@ public class MapEditorMode extends Mode {
      * writes this mode's map to the xml file
      */
     public void writeMap() {
-    	MapWriter writer = new MapWriter(myMap);
+    	MapWriter writer = new MapWriter(myMap, myBackgroundPaths, mySoundPath);
     }
 
     /**
@@ -218,11 +219,27 @@ public class MapEditorMode extends Mode {
     }
     
     /**
-     * sets the filepath of the background image
+     * sets the filepath of the background image. if filepath is null, does nothing.
      * @param filepath
      */
     public void setBackground(String filepath) {
-    	myBackgroundPath = filepath;
+    	if(filepath.equals(null)) {
+    		return;
+    	}
+    	myBackgroundPaths.clear();
+    	myBackgroundPaths.add(filepath);
+    }
+    
+    /**
+     * adds the filepath for an additional background image state to 
+     * myBackgroundPaths. If the filepath is null, does nothing.
+     * @param filepath
+     */
+    public void addBackground(String filepath) {
+    	if(filepath.equals(null)) {
+    		return;
+    	}
+    	myBackgroundPaths.add(filepath);
     }
     
     /**
