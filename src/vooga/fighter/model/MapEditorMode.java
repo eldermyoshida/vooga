@@ -34,6 +34,8 @@ public class MapEditorMode extends Mode {
     private int myEnviroIndex; //the list index of the current environment object selected
     private int currentPlayer;
     private int numPlayers;
+    private String myBackgroundPath; //filepath to background image
+    private String mySoundPath; //filepath to sound
 
     public MapEditorMode (CollisionManager cd) {
         super(cd);
@@ -97,9 +99,6 @@ public class MapEditorMode extends Mode {
                 i--;
             }
         }
-//        if (shouldModeEnd()) {
- //           signalTermination();
-  //      }
     }
 
     /**
@@ -192,6 +191,7 @@ public class MapEditorMode extends Mode {
     	addObject(myCurrentSelection);
     }
     
+    
     public void nextPlayer() {
     	currentPlayer++;
     	if(currentPlayer==numPlayers) {
@@ -206,6 +206,13 @@ public class MapEditorMode extends Mode {
     	}
     }
     
+    public void setBackground(String filepath) {
+    	myBackgroundPath = filepath;
+    }
+    
+    public void setSound(String filepath) {
+    	mySoundPath = filepath;
+    }
 
     /**
      * gets this mapEditorMode's map

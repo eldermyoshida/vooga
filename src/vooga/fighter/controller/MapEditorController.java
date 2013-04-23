@@ -18,7 +18,10 @@ import vooga.fighter.model.objects.MapObject;
 import vooga.fighter.view.Canvas;
 
 /**
- * 
+ * Controller class to handle the creation of an instance of the map editor, as
+ * well as handling inputs for the mode. Allows users to edit existing maps or 
+ * create entirely new maps. Map editor allows the addition of environmental objects,
+ * and the selection of starting positions, background, and music.
  * @author matthewparides, Jack Matteucci, Jerry Li
  *
  */
@@ -114,9 +117,15 @@ public class MapEditorController extends Controller{
 	        }
 	    }
 	    
+	    /**
+	     * prompts a user for a new 
+	     * @param alObj
+	     */
 	    @InputMethodTarget(name = "load")
-	    public void loadMap (AlertObject alObj)  {
-	    	
+	    public void loadMap (AlertObject alObj) {
+	    	String mapName = "";
+	    	loadMode();
+	    	loadMap(mapName);
 	    }
 	    
 	    /**
@@ -124,7 +133,7 @@ public class MapEditorController extends Controller{
 	     * @param alObj
 	     */
 	    @InputMethodTarget(name = "save")
-	    public void saveMap (AlertObject alObj)  {
+	    public void saveMap (AlertObject alObj) {
 	    	myEditTarget.writeMap();
 	    }
 	    
@@ -134,7 +143,7 @@ public class MapEditorController extends Controller{
 	     * @param posObj
 	     */
 	    @InputMethodTarget(name = "select")
-	    public void objectSelect (PositionObject posObj)  {
+	    public void objectSelect (PositionObject posObj) {
 	    	myEditTarget.objectSelect(posObj.getPoint2D());
 	    }
 	    
@@ -144,7 +153,7 @@ public class MapEditorController extends Controller{
 	     * @param posObj
 	     */
 	    @InputMethodTarget(name = "startselect")
-	    public void startLocSelect (PositionObject posObj)  {
+	    public void startLocSelect (PositionObject posObj) {
 	    	myEditTarget.startLocSelect(posObj.getPoint2D());
 	    }
 	    
@@ -153,7 +162,7 @@ public class MapEditorController extends Controller{
 	     * @param alObj
 	     */
 	    @InputMethodTarget(name = "nextPlayer")
-	    public void nextPlayer (AlertObject alObj)  {
+	    public void nextPlayer (AlertObject alObj) {
 	    	myEditTarget.nextPlayer();
 	    }
 	    
@@ -162,7 +171,7 @@ public class MapEditorController extends Controller{
 	     * @param alObj
 	     */
 	    @InputMethodTarget(name = "prevPlayer")
-	    public void prevPlayer (AlertObject alObj)  {
+	    public void prevPlayer (AlertObject alObj) {
 	    	myEditTarget.prevPlayer();
 	    }
 	    
@@ -172,7 +181,7 @@ public class MapEditorController extends Controller{
 	     * @param alObj
 	     */
 	    @InputMethodTarget(name = "nextObject")
-	    public void nextObject (AlertObject alObj)  {
+	    public void nextObject (AlertObject alObj) {
 	    	myEditTarget.nextObject();
 	    }
 	    
@@ -182,7 +191,7 @@ public class MapEditorController extends Controller{
 	     * @param alObj
 	     */
 	    @InputMethodTarget(name = "prevObject")
-	    public void prevObject (AlertObject alObj)  {
+	    public void prevObject (AlertObject alObj) {
 	    	myEditTarget.prevObject();
 	    }
 	    
@@ -191,8 +200,30 @@ public class MapEditorController extends Controller{
 	     * @param alObj
 	     */
 	    @InputMethodTarget(name = "quit")
-	    public void quit (AlertObject alObj)  {
+	    public void quit (AlertObject alObj) {
 	    	notifyEndCondition("MainMenu");
+	    }
+	    
+	    /**
+	     * prompts the user for a filepath for the background image, and sets
+	     * that path in the edit target.
+	     * @param alObj
+	     */
+	    @InputMethodTarget(name = "getBackground")
+	    public void getBackground (AlertObject alObj) {
+	    	String filePath = "";
+	    	myEditTarget.setBackground(filePath);
+	    }
+	    
+	    /**
+	     * prompts the user for a filepath for the sound file, and sets that path in 
+	     * the edit target.
+	     * @param alObj
+	     */
+	    @InputMethodTarget(name = "getSound")
+	    public void getSound (AlertObject alObj) {
+	    	String filePath = "";
+	    	myEditTarget.setSound(filePath);
 	    }
 	    
 	    public void checkConditions() {
