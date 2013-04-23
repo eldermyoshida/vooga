@@ -12,12 +12,12 @@ import vooga.fighter.model.utils.State;
 
 public class MouseClickLoader extends ObjectLoader {
 
-	private static final String MOUSE_PATH = "src/vooga/fighter/config/mouseclick.xml";
+	private static final String PATH_TAG = "MouseClickPath";
 
     MouseClickObject myMouseClick;
 
     public MouseClickLoader (MouseClickObject mouseclick) {
-        super("MouseClickPath");
+        super(PATH_TAG);
         myMouseClick = mouseclick;
         load();
     }

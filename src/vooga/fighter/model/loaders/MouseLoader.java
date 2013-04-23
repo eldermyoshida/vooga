@@ -13,11 +13,11 @@ import vooga.fighter.model.utils.State;
 
 public class MouseLoader extends ObjectLoader {
 
-	private static final String MOUSE_PATH = "src/vooga/fighter/config/mouse.xml";
+	private static final String PATH_TAG = "MousePath";
 
 	MouseObject myMouse;
 	public MouseLoader(MouseObject Mouse) {
-		super("MousePath");
+		super(PATH_TAG);
 		myMouse = Mouse;
 		load();
 	}

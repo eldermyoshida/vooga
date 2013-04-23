@@ -10,13 +10,13 @@ import vooga.fighter.model.utils.State;
 
 public class MenuLoader extends ObjectLoader {
 	
-	private static final String MENU_PATH = "src/vooga/fighter/config/menu.xml";
+	private static final String PATH_TAG = "MenuPath";
 	private static final String YES = "yes";
 	
 	MenuObject myMenuObject;
 	
 	public MenuLoader(String menuobjectname, MenuObject menuobject) {
-		super("MenuPath");
+		super(PATH_TAG);
 		myMenuObject = menuobject;
 		load(menuobjectname);
 	}

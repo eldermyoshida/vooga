@@ -19,7 +19,7 @@ import vooga.fighter.model.objects.EnvironmentObject;
  */
 public class EnvironmentObjectLoader extends ObjectLoader {
 
-	private static final String ENVIRONMENT_OBJECT_PATH = "src/vooga/fighter/config/environmentobjects.xml";
+	private static final String PATH_TAG = "EnvironmentPath";
 	
 	private EnvironmentObject myEnvironmentObject;
 
@@ -28,7 +28,7 @@ public class EnvironmentObjectLoader extends ObjectLoader {
 	 * all environment objects.
 	 */
 	public EnvironmentObjectLoader () {
-		super("EnvironmentPath");
+		super(PATH_TAG);
 	}
 	
 	/**
@@ -36,7 +36,7 @@ public class EnvironmentObjectLoader extends ObjectLoader {
 	 * loader will modify.
 	 */
 	public EnvironmentObjectLoader (String enviroObjectName, EnvironmentObject enviroObject) {
-		super("EnvironmentPath");
+		super(PATH_TAG);
 		myEnvironmentObject = enviroObject;
 		load(enviroObjectName); 
 	}
