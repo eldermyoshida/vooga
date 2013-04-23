@@ -79,7 +79,18 @@ public class Database {
 
     /**
      * Creates a new game
-     * @param gameName is name of name
+     * @param gameName is name of game
+     * @param author is author
+     * @param genre is genre
+     * @param price is price of game
+     * @param extendsGame string
+     * @param extendsMultiplayerGame string
+     * @param ageRating permissions
+     * @param singlePlayer game
+     * @param multiplayer game
+     * @param thumbnailPath location of thumbnail
+     * @param adscreenPath location of adscreen 
+     * @param description of game
      */
     public boolean createGame (String gameName,
                                String author,
@@ -216,7 +227,8 @@ public class Database {
         List<String> games = retrieveListOfGames();
         List<Score> myScores = new ArrayList<Score>();
         for (String game : games) {
-            myScores.addAll(myScoreTable.getScoresForGame(retrieveGameId(game), retrieveUserId(username), game, username));
+            myScores.addAll(myScoreTable.getScoresForGame(retrieveGameId(game), 
+                                                          retrieveUserId(username), game, username));
         }
         return myScores;
     }
@@ -227,7 +239,8 @@ public class Database {
      * @param username is user
      */
     public List<Score> getScoresForGameAndUser(String username, String gameName) {
-        return myScoreTable.getScoresForGame(retrieveGameId(gameName), retrieveUserId(username), gameName, username);
+        return myScoreTable.getScoresForGame(retrieveGameId(gameName), 
+                                             retrieveUserId(username), gameName, username);
     }
 
     /** 
@@ -324,74 +337,126 @@ public class Database {
         return myUserTable.retrieveUserId(username);
     }
 
+    /**
+     * Updates rating for game name and username 
+     * @param userName is user
+     * @param gameName is name of game
+     * @param rating is new rating
+     */
     public void updateRating (String userName, String gameName, double rating) {
-
+        //TODO update rating
     }
 
+    /**
+     * Retrieves genre for game
+     * @param gameName is game
+     */
     public String getGenre (String gameName) {
         return myGameTable.getGenre(gameName);
     }
 
+    /**
+     * Retrieves author for game
+     * @param gameName is game
+     */
     public String getAuthor (String gameName) {
         return myGameTable.getAuthor(gameName);
     }
 
-    public String getThumbnailPath (String gameName) {
-        return myGameTable.getThumbnailPath(gameName);
-    }
-
-    public String getAdScreenPath (String gameName) {
-        return myGameTable.getAdScreenPath(gameName);
-    }
-
+    /**
+     * Retrieves age permission for game
+     * @param gameName is game
+     */
     public int getAgePermission (String gameName) {
         return myGameTable.getAgePermission(gameName);
     }
 
+    /**
+     * Retrieves price of game
+     * @param gameName is game
+     */
     public double getPrice (String gameName) {
         return myGameTable.getPrice(gameName);
     }
 
+    /**
+     * Retrieves SingleplayerGameClassKeyword of game
+     * @param gameName is game
+     */
     public String getSingleplayerGameClassKeyword (String gameName) {
         return myGameTable.getExtendsGame(gameName);
     }
 
+    /**
+     * Retrieves MultiplayerGameClassKeyword of game
+     * @param gameName is game
+     */
     public String getMultiplayerGameClassKeyword (String gameName) {
         return myGameTable.getExtendsGameMultiplayer(gameName);
     }
 
+    /**
+     * Returns true if game is single player
+     * @param gameName is game
+     */
     public boolean getIsSinglePlayer (String gameName) {
         return myGameTable.getIsSinglePlayer(gameName);
     }
 
+    /**
+     * Returns true if game is multiplayer
+     * @param gameName is game
+     */
     public boolean getIsMultiplayer (String gameName) {
         return myGameTable.getIsMultiplayer(gameName);
     }
 
+    /**
+     * Retrieves gameDescription for game
+     * @param gameName is game
+     */
     public String getGameDescription (String gameName) {
         return myGameTable.getDescription(gameName);
     }
 
-    public String getGameFilePath (String gameName) {
-        return myGameTable.getGameFilePath(gameName);
-    }
-
+    /**
+     * Retrieves average game rating for game
+     * @param gameName is game
+     */
     public double getAverageRating (String gameName) {
         return myUserGameDataTable.getAverageRating(gameName);
     }
 
+    /**
+     * Inserts game thumbnail into Amazon S3 instance
+     * @param gameName is game
+     * @param filepath is where game is located
+     */
     public void insertGameThumbnail (String gameName, String filepath) {
         myS3Instance.putGameThumbnailIntoBucket(gameName, filepath);
     }
     
+    /**
+     * Inserts ad screen into Amazon S3 instance
+     * @param gameName is game
+     * @param filepath is where the adscreen is located
+     */
     public void insertAdScreenPath (String gameName, String filepath) {
         myS3Instance.putAdScreenIntoBucket(gameName, filepath);
     }
 
+    /**
+     * Returns Pixmap of game thumbnail
+     * @param gameName is game
+     */
     public Pixmap getGameThumbnail (String gameName) {
         return new Pixmap(myS3Instance.getThumbnail(gameName));
     }
 
+    /**
+     * Returns Pixmap of adscreen
+     * @param gameName is game
+     */
     public Pixmap getGameAdScreen (String gameName) {
         return new Pixmap(myS3Instance.getAdScreen(gameName));
     }
