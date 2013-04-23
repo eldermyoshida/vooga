@@ -33,10 +33,6 @@ public class ResourceDecoder extends Decoder{
 	
 	private static final String HEAD_TAG = "resources";
 	private static final String TYPE_TAG = "resource";
-	private static final String NAME_TAG = "name";
-	private static final String IMAGE_TAG = "img";
-	private static final String HEALTH_TAG = "health";
-	private static final String SOURCE_TAG = "src";
 	
 	private Factory myFactory;
 	

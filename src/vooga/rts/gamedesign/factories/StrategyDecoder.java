@@ -22,10 +22,9 @@ import vooga.rts.util.ReflectionHelper;
  */
 public class StrategyDecoder extends Decoder{
 
-	public static final String ATTACK_TAG = "attacks";
-	public static final String OCCUPY_TAG = "occupys";
-	public static final String GATHER_TAG = "gathers";
-	public static final String SOURCE = "src";
+	private static final String ATTACK_TAG = "attacks";
+	private static final String OCCUPY_TAG = "occupys";
+	private static final String GATHER_TAG = "gathers";
 	
 	
 	Factory myFactory;
