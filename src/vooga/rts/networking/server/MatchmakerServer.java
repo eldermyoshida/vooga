@@ -41,11 +41,11 @@ public class MatchmakerServer extends AbstractThreadContainer {
         GameContainer container;
         if (myGameContainers.containsKey(gameName)) {
             container = myGameContainers.get(gameName);
-            NetworkLogger.logMessage(Level.FINEST, "GameContainer joined");
+            NetworkLogger.logMessage(Level.FINER, "GameContainer joined");
         } else {
             container = new GameContainer();
             myGameContainers.put(gameName, container);
-            NetworkLogger.logMessage(Level.FINEST, "new GameContainer");
+            NetworkLogger.logMessage(Level.FINER, "new GameContainer");
         }
         container.addConnection(thread);
         removeConnection(thread);

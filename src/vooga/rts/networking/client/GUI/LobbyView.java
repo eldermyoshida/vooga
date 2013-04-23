@@ -121,7 +121,7 @@ public class LobbyView extends JPanel {
                                       int xposition,
                                       int yposition,
                                       ActionListener listener) {
-        JComboBox box = new JComboBox();
+        JComboBox box = new JComboBox(objectArray);
         GridBagConstraints boxConstraints = new GridBagConstraints();
         boxConstraints.fill = GridBagConstraints.HORIZONTAL;
         addComponentToGrid(xposition, yposition, box, boxConstraints);

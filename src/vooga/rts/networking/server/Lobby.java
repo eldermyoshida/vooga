@@ -1,9 +1,11 @@
 package vooga.rts.networking.server;
 
+import java.util.logging.Level;
 import vooga.rts.networking.communications.ExpandedLobbyInfo;
 import vooga.rts.networking.communications.LobbyInfo;
 import vooga.rts.networking.communications.clientmessages.UpdateLobbyInfoMessage;
 import vooga.rts.networking.communications.servermessages.SwitchToLobbyMessage;
+import vooga.rts.networking.logger.NetworkLogger;
 
 
 /**
@@ -32,6 +34,7 @@ public class Lobby extends Room {
         if (haveNoConnections()) {
             getGameContainer().removeRoom(this);
         }
+        NetworkLogger.logMessage(Level.FINER, "Lobby left");
     }
 
     @Override

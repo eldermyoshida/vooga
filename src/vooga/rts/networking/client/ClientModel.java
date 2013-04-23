@@ -22,6 +22,7 @@ import vooga.rts.networking.communications.clientmessages.JoinLobbyMessage;
 import vooga.rts.networking.communications.clientmessages.RequestServerListMessage;
 import vooga.rts.networking.communications.clientmessages.StartGameMessage;
 import vooga.rts.networking.communications.clientmessages.StartLobbyMessage;
+import vooga.rts.networking.communications.clientmessages.UpdateLobbyInfoMessage;
 import vooga.rts.networking.communications.servermessages.ServerInfoMessage;
 
 
@@ -181,6 +182,10 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
     private void startGame () {
         myClient.sendData(new StartGameMessage());
     }
+    
+    private void sendUpdatedLobbyInfo () {
+        myClient.sendData(new UpdateLobbyInfoMessage(myLobbyInfo));
+    }
 
     @Override
     public void addLobbies (LobbyInfo[] lobbies) {
@@ -190,11 +195,13 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
     @Override
     public void updateFaction (String faction, int position) {
         myLobbyInfo.getPlayerAtPosition(position).setFaction(faction);
+        sendUpdatedLobbyInfo();
     }
 
     @Override
     public void updateTeam (int team, int position) {
         myLobbyInfo.getPlayerAtPosition(position).setTeam(team);
+        sendUpdatedLobbyInfo();
     }
 
     @Override
