@@ -27,11 +27,11 @@ public class NetworkLogger {
     private static final String TXT_EXT = ".txt";
     private static final String LOG_EXT = ".log";
     
-    private HandlerConsole myConsole = new HandlerConsole();
-    private HandlerSocket mySocket = new HandlerSocket();
-    private HandlerStream myStream = new HandlerStream();;
-    private HandlerTxt myTxt = new HandlerTxt();
-    private HandlerXML myXml = new HandlerXML();
+    private HandlerConsole myConsoleHandler = new HandlerConsole();
+    private HandlerSocket mySocketHandler = new HandlerSocket();
+    private HandlerStream myStreamHandler = new HandlerStream();;
+    private HandlerTxt myTxtHandler = new HandlerTxt();
+    private HandlerXML myXmlHandler = new HandlerXML();
     
     public static final int FORMAT_XML = 1221;
     public static final int FORMAT_TXT = 1356;
@@ -61,7 +61,7 @@ public class NetworkLogger {
         mySetup = new LoggerManager();
         LOGGER.setUseParentHandlers(false);
         LOGGER.setLevel(Level.ALL);
-        addHandler(FORMAT_CONSOLE);
+        addHandler(myConsoleHandler);
     }
 
     /**
@@ -69,8 +69,8 @@ public class NetworkLogger {
      * 
      * @param handlerType the type of handler to be added
      */
-    public void addHandler (int handlerType) {
-        mySetup.addHandler(handlerType);
+    public void addHandler (IVoogaHandler hand) {
+        LOGGER.addHandler(hand.getHandler());
     }
 
     /**
@@ -98,7 +98,7 @@ public class NetworkLogger {
      * @param Output stream in case using a stream handler
      */
     public void addConsoleHandler () {
-        LOGGER.addHandler(myConsole.getFormatHandler());
+        addHandler(myConsoleHandler);
     }
     
     /**
@@ -108,7 +108,7 @@ public class NetworkLogger {
      * @param Output stream in case using a stream handler
      */
     public void addTxtHandler () {
-    	addCustomExtensionHandler(myTxt.getFileName(), TXT_EXT);
+    	addCustomExtensionHandler(myTxtHandler.getFileName(), TXT_EXT);
     }
     
     /**
@@ -118,8 +118,8 @@ public class NetworkLogger {
      * @param Output stream in case using a stream handler
      */
     public void addTxtHandler (String fileName) {
-    	myTxt.setFileName(fileName);
-    	LOGGER.addHandler(myTxt.getFormatHandler());
+    	myTxtHandler.setFileName(fileName);
+    	addHandler(myTxtHandler);
     }
     
     /**
@@ -129,7 +129,7 @@ public class NetworkLogger {
      * @param Output stream in case using a stream handler
      */
     public void addCustomExtensionHandler (String fileName, String ext) {
-    	myTxt.setExtension(ext);
+    	myTxtHandler.setExtension(ext);
     	addTxtHandler(fileName);
     }
     
@@ -150,7 +150,7 @@ public class NetworkLogger {
      * @param Output stream in case using a stream handler
      */
     public void addStreamHandler (OutputStream out) {
-        myStream.setOutputStream(out);
+        myStreamHandler.setOutputStream(out);
         addStreamHandler();
     }
     
@@ -161,7 +161,7 @@ public class NetworkLogger {
      * @param Output stream in case using a stream handler
      */
     public void addStreamHandler () {
-        LOGGER.addHandler(myStream.getHandler());
+        LOGGER.addHandler(myStreamHandler.getHandler());
     }
 
     /**
@@ -172,8 +172,8 @@ public class NetworkLogger {
      * @param port number of the port to be used
      */
     public void addSocketHandler (String host, int port) {
-        mySocket.setSocket(host, port);
-        
+        mySocketHandler.setSocket(host, port);
+        addHandler(mySocketHandler);
     }
 
     /**
@@ -204,14 +204,6 @@ public class NetworkLogger {
      */
     public static void logMessage (Level level, String message) {
         LOGGER.log(level, message);
-    }
-    
-    /**
-     * 
-     * @param fileName name of the file to write to in case a file handler is used
-     */
-    public void setFileName (String fileName) {
-        mySetup.setFileName(fileName);
     }
 
 }
