@@ -1,6 +1,8 @@
 package vooga.rts.networking.client.GUI;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -17,9 +19,13 @@ public class CreateLobbyView extends JPanel {
     private JTextField myServerField;
     private JComboBox myMapComboBox;
     private JComboBox myMaxPlayersComboBox;
+    private Integer[][] myMaxPlayerArray;
+    private String[] myMapChoices;
     
-    public CreateLobbyView () {
+    public CreateLobbyView (String[] mapChoices, Integer[][] maxPlayers) {
         setLayout(new BorderLayout(0, 0));
+        myMaxPlayerArray = maxPlayers;
+        myMapChoices = mapChoices;
         add(createPanel(), BorderLayout.CENTER);
         
     }
@@ -33,15 +39,26 @@ public class CreateLobbyView extends JPanel {
         innerPanel.add(myServerField);
         
         innerPanel.add(new JLabel("Map: "));
-        String[] mapChoices = {"this", "that", "the other"};
-        DefaultComboBoxModel mapModel = new DefaultComboBoxModel(mapChoices);
+        DefaultComboBoxModel mapModel = new DefaultComboBoxModel(myMapChoices);
         myMapComboBox = new JComboBox(mapModel);
         innerPanel.add(myMapComboBox);
+        myMapComboBox.addActionListener(new ActionListener () {
+            @Override
+            public void actionPerformed (ActionEvent arg0) {
+                String choice = (String) myMapComboBox.getSelectedItem();
+                Integer[] maxPlayerChoices = null;
+                for (int i = 0; i < myMapChoices.length; i++) {
+                    if (myMapChoices[i].equals(choice)) {
+                        maxPlayerChoices = myMaxPlayerArray[i];
+                        break;
+                    }
+                }
+                //myMaxPlayersComboBox.addItem(item);
+            } 
+        });
         
         innerPanel.add(new JLabel("Max players: "));
-        Integer[] playerChoices = {2, 3, 4, 5, 6, 7, 8};
-        DefaultComboBoxModel maxPlayerModel = new DefaultComboBoxModel(playerChoices);
-        myMaxPlayersComboBox = new JComboBox(maxPlayerModel);
+        myMaxPlayersComboBox = new JComboBox();
         innerPanel.add(myMaxPlayersComboBox);
         
         return innerPanel;
