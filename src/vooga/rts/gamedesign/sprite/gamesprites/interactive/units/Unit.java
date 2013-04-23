@@ -1,6 +1,7 @@
 package vooga.rts.gamedesign.sprite.gamesprites.interactive.units;
 
 import java.awt.Dimension;
+import java.awt.image.BufferedImage;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,7 @@ import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
 import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
 import vooga.rts.gamedesign.upgrades.UpgradeNode;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
+import vooga.rts.resourcemanager.ResourceManager;
 import vooga.rts.util.Camera;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
@@ -50,9 +52,8 @@ public class Unit extends InteractiveEntity {
     private GatherStrategy myGatherStrategy;
 
     private OccupyStrategy myOccupyStrategy;
-
     public Unit () {
-        this(null, new Location3D(), new Dimension(0, 0), null, 0, 100,
+        this(new Pixmap("sprites/soldier.png"), new Location3D(), new Dimension(0, 0), null, 0, 100,
              InteractiveEntity.DEFAULT_BUILD_TIME);
     }
 
