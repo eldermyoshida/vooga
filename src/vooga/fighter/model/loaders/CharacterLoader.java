@@ -46,14 +46,7 @@ public class CharacterLoader extends ObjectLoader {
 			Node node = charNodes.item(i);
 			String name = getAttributeValue(node, getResourceBundle().getString("CharacterName"));
 			if (charName.equals(name)) {
-				int maxHealth = Integer.parseInt(getAttributeValue(node, getResourceBundle().getString("MaxHealth")));
-				int movespeed= Integer.parseInt(getAttributeValue(node, getResourceBundle().getString("Movespeed")));
-				int mass= Integer.parseInt(getAttributeValue(node, getResourceBundle().getString("Mass")));
-				int jumpfactor= Integer.parseInt(getAttributeValue(node, getResourceBundle().getString("Jump")));
-				myChar.addProperty(getResourceBundle().getString("Movespeed"), movespeed);
-				myChar.addProperty(getResourceBundle().getString("Mass"), mass);
-				myChar.addProperty(getResourceBundle().getString("Jump"), jumpfactor);
-				myChar.setHealth(maxHealth);
+				addProperties(node, myChar);
 				NodeList stateNodes = ((Element) node).getElementsByTagName(getResourceBundle().getString("State"));
 				addStates(stateNodes, myChar);
 				NodeList attackNodes = ((Element) node).getElementsByTagName(getResourceBundle().getString("Attack"));
@@ -62,11 +55,14 @@ public class CharacterLoader extends ObjectLoader {
 		}
 	}
 	
+	
 	/**
 	 * Loads and adds attacks to the list of attacks that a character can perform
+	 *
 	 * @param attackNodes
 	 */
 	private void addAttacks(NodeList attackNodes) {
+		//TODO: Refactor this into separate loader
 		for (int i = 0; i < attackNodes.getLength(); i++) {
 			Element attack = (Element) attackNodes.item(i);
 			String attackName = getAttributeValue(attackNodes.item(i), getResourceBundle().getString("AttackName"));

@@ -24,12 +24,16 @@ import vooga.fighter.model.utils.State;
  */
 public abstract class ObjectLoader {
 
+
+    private static final String delimiter= ",";
 	private static final String RESOURCE_PATH = "vooga.fighter.config.objects";
 	private static final String RESOURCE_DEFAULT_VALUES_PATH="vooga.fighter.config.defaultvalues";
+	private static final String RESOURCE_PROPERTIES_PATH="vooga.fighter.config.propertyfields";
 	private File myObjectFile;
 	private Document myDocument;
 	private ResourceBundle myResources;
 	private ResourceBundle myDefaults; 
+    private ResourceBundle myProperties;  
 
 	/**
 	 * Points to the xml file that the loader will be parsing
@@ -37,8 +41,7 @@ public abstract class ObjectLoader {
 	 * @param objectPath
 	 */
 	public ObjectLoader (String pathName) {
-		myResources = ResourceBundle.getBundle(RESOURCE_PATH);
-		myDefaults= ResourceBundle.getBundle(RESOURCE_DEFAULT_VALUES_PATH);
+		setResourcePaths(); 
 		String objectPath = myResources.getString(pathName);
 		myObjectFile = new File(objectPath);
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -51,6 +54,15 @@ public abstract class ObjectLoader {
 			myDocument = null;
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * Sets the resource paths for the object loader
+	 */
+	private void setResourcePaths(){
+		myResources = ResourceBundle.getBundle(RESOURCE_PATH);
+		myDefaults= ResourceBundle.getBundle(RESOURCE_DEFAULT_VALUES_PATH);
+		myProperties= ResourceBundle.getBundle(RESOURCE_PROPERTIES_PATH);
 	}
 
 	/**
@@ -136,6 +148,30 @@ public abstract class ObjectLoader {
 						Integer.parseInt(getAttributeValue(hitboxNodes.item(k), getResourceBundle().getString("Height")))), j);
 			}
 		}
+	}
+	
+	/**
+	 *  return array of desired properties that will be loaded into the character
+	 */
+	protected String [] getProperties(){
+		return myProperties.getString(getClass().getSimpleName()).split(delimiter);
+	}
+	
+	/**
+	 * Loops through list of properties and adds property values for gameobject
+	 */
+	protected void addProperties(Node node, GameObject object){
+		for (String property: getProperties()){
+			addPropertyValue(node, property, object);
+		}
+	}
+	
+	/**
+	 * Matches appropriate value from xml with 
+	 */
+	protected void addPropertyValue(Node node, String property, GameObject object){
+		int propertyValue= Integer.parseInt(getAttributeValue(node, property));
+		object.addProperty(property, propertyValue);
 	}
 }
 

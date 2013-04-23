@@ -1,7 +1,6 @@
 package vooga.fighter.forces;
 
 import util.Vector;
-import util.Velocity;
 import vooga.fighter.model.objects.CharacterObject;
 import vooga.fighter.util.Physics;
 
