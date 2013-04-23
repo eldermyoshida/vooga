@@ -7,8 +7,6 @@ import java.util.List;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
-import util.Location;
-import vooga.fighter.controller.GameManager;
 import vooga.fighter.model.MenuGrid;
 import vooga.fighter.model.MenuMode;
 import vooga.fighter.model.objects.MenuObject;
@@ -18,6 +16,8 @@ import vooga.fighter.model.utils.UpdatableLocation;
 
 public class MenuGridLoader extends ObjectLoader {
 
+	private static final String PATH_TAG = "MenuGridPath";
+	
     private static final int FOUR_TICKS = 4;
 
     private List<MenuObject> myMenuObjects;
@@ -25,7 +25,7 @@ public class MenuGridLoader extends ObjectLoader {
     private MenuObject myObject;
 
     public MenuGridLoader (String menuname, MenuGrid grid, MenuMode delegate) {
-        super("MenuGridPath");
+        super(PATH_TAG);
         myDelegate = delegate;
         myMenuObjects = new ArrayList<MenuObject>();
         load(menuname);

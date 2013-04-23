@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 
 import javax.swing.JComponent;
 import vooga.fighter.controller.ViewDataSource;
@@ -81,14 +82,29 @@ public class Canvas extends JComponent {
         // If there is no defined layout, simply paint things at the locations they are given.
         if (myLayout == null) {
             for (int i = 0; i < myViewDataSource.ObjectNumber(); i++) {
-                myViewDataSource.getPaintable(i).paint((Graphics2D) pen,
-                                                 myViewDataSource.getLocation(i),
-                                                 myViewDataSource.getSize(i));
+                paintPaintable(pen, i);
             }
         }
         else {
             myLayout.paintComponents((Graphics2D)pen, myViewDataSource, this.getSize());
         }
+    }
+    
+    private void paintPaintable (Graphics pen, int i) {
+    	
+    	if (myViewDataSource.getImageEffects(i).size() == 0){
+    	
+    	myViewDataSource.getPaintable(i).paint((Graphics2D) pen,
+                myViewDataSource.getLocation(i),
+                myViewDataSource.getSize(i));
+    	}
+    	
+    	else if (myViewDataSource.getImageEffects(i).get(0) == -1){
+        	
+        	myViewDataSource.getPaintable(i).paintReverse((Graphics2D) pen,
+                    myViewDataSource.getLocation(i),
+                    myViewDataSource.getSize(i));
+        	}
     }
 
 }

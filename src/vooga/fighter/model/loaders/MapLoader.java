@@ -17,7 +17,7 @@ import vooga.fighter.model.utils.UpdatableLocation;
 
 public class MapLoader extends ObjectLoader {
 
-	private static final String MAP_PATH = "src/vooga/fighter/config/maps.xml";
+	private static final String PATH_TAG = "MapPath";
 
 	private MapObject myMap;
 
@@ -25,7 +25,7 @@ public class MapLoader extends ObjectLoader {
 	 * Dummy Constructor only to be used when getting map count
 	 */
 	public MapLoader() {
-		super("MapPath");
+		super(PATH_TAG);
 	}
 
 	/**
@@ -36,7 +36,7 @@ public class MapLoader extends ObjectLoader {
 	 * @param map object which is loaded into
 	 */
 	public MapLoader(String mapName, MapObject map) {
-		super("MapPath");
+		super(PATH_TAG);
 		myMap = map;
 		load(mapName);
 		myMap.setCurrentState("background");

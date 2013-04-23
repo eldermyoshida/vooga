@@ -17,7 +17,9 @@ import vooga.fighter.model.utils.State;
  *
  */
 public class CharacterLoader extends ObjectLoader {
-		
+	
+	private static final String PATH_TAG = "CharacterPath";
+	
 	private CharacterObject myChar;
 
 	/**
@@ -27,7 +29,7 @@ public class CharacterLoader extends ObjectLoader {
 	 * @param character
 	 */
 	public CharacterLoader (String charName, CharacterObject character) {
-		super("CharacterPath");
+		super(PATH_TAG);
 		myChar = character;
 		load(charName);
 	}
