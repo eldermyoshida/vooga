@@ -28,7 +28,7 @@ import arcade.view.forms.LoginView;
 
 
 public class Model implements ArcadeInteraction {
-
+	private static final String RESOURCE_LOCATION = "arcade.resources.";
     private static final String PAYMENT_MANAGER_LOCATION = "arcade.model.payment.";
     public static final String DEFAULT_LOGIN_MESSAGE = "";
     private static final String LOGIN_FAILURE_MESSAGE =
@@ -37,8 +37,8 @@ public class Model implements ArcadeInteraction {
     private ResourceBundle myResources;
     private LoginView myLoginView;
     private String myLanguage;
-    private Database myDb = new Database();
-    private Map<String, GameInfo> myGameInfos = new HashMap<String, GameInfo>();
+    private Database myDb;
+    private Map<String, GameInfo> myGameInfos;
     private List<GameInfo> mySnapshots;
     private String myUser;
     private PaymentManager myPaymentManager;
@@ -47,10 +47,20 @@ public class Model implements ArcadeInteraction {
     Game myCurrentGame = null;
     MultiplayerGame myCurrentMultiplayerGame = null;
 
+    
+    public Model (String language) {
+    	myResources = ResourceBundle.getBundle(RESOURCE_LOCATION + language);
+    	myDb = new Database();
+    	myGameInfos = new HashMap<String, GameInfo>();
+    	myLoginView = new LoginView(this,myResources);
+    }
+    
+    /*
     public Model (ResourceBundle rb, String language) {
         myResources = rb;
         myLanguage = language;
     }
+    */
 
     public void setLoginView (LoginView login) {
         myLoginView = login;
