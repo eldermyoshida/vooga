@@ -222,7 +222,7 @@ public class GameState extends SubState implements Controller {
 		test = new DelayedTask(3, new Runnable() {
 			@Override
 			public void run() {
-				f.getAction((new Command("I am a pony"))).apply();
+				f.getAction((new Command("make Marine"))).apply();
 				test.restart();
 			}
 		});

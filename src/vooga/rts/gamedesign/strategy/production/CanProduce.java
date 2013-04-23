@@ -81,6 +81,7 @@ public class CanProduce implements ProductionStrategy {
 					producer.addTask(dt);
 				}
 			});
+			System.out.println(producable.getInfo());
 			producer.addInfo(commandName, producable.getInfo());
 		}
 	}

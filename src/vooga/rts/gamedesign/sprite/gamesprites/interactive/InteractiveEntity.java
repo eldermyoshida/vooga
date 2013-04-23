@@ -98,6 +98,7 @@ public abstract class InteractiveEntity extends GameEntity implements
 		myAttackStrategy = new CannotAttack();
 		myProductionStrategy = new CannotProduce();
 		myActions = new HashMap<String, Action>();
+		myInfos = new HashMap<String, Information>();
 		isSelected = false;
 		myTasks = new ArrayList<DelayedTask>();
 		myBuildTime = buildTime;
