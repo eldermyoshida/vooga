@@ -1,4 +1,6 @@
-package arcade.database;
+package arcade.database.tables;
+import arcade.database.Keys;
+import arcade.database.Table;
 import arcade.games.Score;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
