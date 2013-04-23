@@ -156,9 +156,8 @@ public class CollisionManager {
     	if(myCollisionDetector.hitBottom(o2.getCurrentState().getCurrentRectangle(),
     			o1.getCurrentState().getCurrentRectangle())){
     		o2.jump();
-    		System.out.println("collision");
     	}
-    	System.out.println("collision");
+    	o2.changeStanding();
     }
     
     /**

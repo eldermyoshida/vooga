@@ -20,7 +20,7 @@ import util.Vector;
  *    (Treating all shapes as Rectangles in this case), choice 
  *    in parameters as velocity can be taken into account for 
  *    extra precision.
- * ToDO: return the point on the surface of a shape that another 
+ * TODO: return the point on the surface of a shape that another 
  *     shape/point has collided with, Velocities required
  *     as parameters (will only work with rectanges)
  *     
@@ -44,7 +44,7 @@ public class CollisionDetector {
 	  * is within the rectange bounds of point 1
 	 */
 	public boolean quickDetectCollision(Shape shape1, Shape shape2){
-		return shape1.getBounds2D().intersects(shape2.getBounds2D());
+		return shape1.getBounds().intersects(shape2.getBounds());
 	}
 
 	 /**
@@ -210,6 +210,8 @@ public class CollisionDetector {
 			return hitTop(shape1, ShapeMeasurements.getBottomRightCorner(shape2));	
 		else if(quickDetectCollision(shape1, ShapeMeasurements.getBottomLeftCorner(shape2)))
 			return hitTop(shape1, ShapeMeasurements.getBottomLeftCorner(shape2));	
+		else if(shape2.getBounds2D().getMaxY()>=shape1.getBounds2D().getMinY()&&
+				 quickDetectCollision(shape1,shape2)) return true;
 		return false;
 	}
     /**
@@ -224,6 +226,8 @@ public class CollisionDetector {
 		else if(quickDetectCollision(shape1, ShapeMeasurements.getTopLeftCorner(shape2))){
 			return hitRight(shape1, ShapeMeasurements.getTopLeftCorner(shape2));	
 		}
+		else if(shape2.getBounds2D().getMaxX()>=shape1.getBounds2D().getMinX()&&
+				 quickDetectCollision(shape1,shape2)) return true;
 		return false;
 	}
 	
@@ -237,6 +241,8 @@ public class CollisionDetector {
 			return hitBottom(shape1, ShapeMeasurements.getTopRightCorner(shape2));	
 		else if(quickDetectCollision(shape1, ShapeMeasurements.getTopLeftCorner(shape2)))
 			return hitBottom(shape1, ShapeMeasurements.getTopLeftCorner(shape2));	
+		else if(shape2.getBounds2D().getMinY()<=shape1.getBounds2D().getMaxY()&&
+				 quickDetectCollision(shape1,shape2)) return true;
 		return false;
 	}
     /**
@@ -248,7 +254,9 @@ public class CollisionDetector {
 		if(quickDetectCollision(shape1, ShapeMeasurements.getBottomRightCorner(shape2)))
 			return hitLeft(shape1, ShapeMeasurements.getBottomRightCorner(shape2));	
 		else if(quickDetectCollision(shape1, ShapeMeasurements.getTopRightCorner(shape2)))
-			return hitLeft(shape1, ShapeMeasurements.getTopRightCorner(shape2));	
+			return hitLeft(shape1, ShapeMeasurements.getTopRightCorner(shape2));
+		else if(shape2.getBounds2D().getMinX()<=shape1.getBounds2D().getMaxX()&&
+				 quickDetectCollision(shape1,shape2)) return true;
 		return false;
 	}
 	
