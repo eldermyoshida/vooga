@@ -1,13 +1,13 @@
-package vooga.towerdefense.action;
+package vooga.towerdefense.action.actionlist;
 
+import vooga.towerdefense.action.Action;
 import vooga.towerdefense.attributes.Attribute;
-import vooga.towerdefense.attributes.AttributeConstants;
-import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.util.Location;
 import vooga.towerdefense.util.Vector;
 
 /**
  * Uses the sprite move method
+ * 
  * @author Matthew Roy
  * @author Jimmy Longley
  * @author Xu Rui

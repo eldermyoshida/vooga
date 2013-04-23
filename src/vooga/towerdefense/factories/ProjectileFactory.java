@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vooga.towerdefense.action.Action;
-import vooga.towerdefense.action.MoveToDestination;
+import vooga.towerdefense.action.actionlist.MoveToDestination;
 import vooga.towerdefense.attributes.AttributeConstants;
 import vooga.towerdefense.attributes.AttributeManager;
 import vooga.towerdefense.gameElements.GameElement;

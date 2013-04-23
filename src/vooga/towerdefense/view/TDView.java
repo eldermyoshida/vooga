@@ -12,7 +12,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import vooga.towerdefense.controller.Controller;
 import vooga.towerdefense.view.gamescreens.GameElementInformationScreen;
-import vooga.towerdefense.view.gamescreens.GameStatsScreen;
 import vooga.towerdefense.view.gamescreens.InformationScreen;
 import vooga.towerdefense.view.gamescreens.MapScreen;
 import vooga.towerdefense.view.gamescreens.MultipleScreenPanel;
@@ -46,7 +45,6 @@ public class TDView {
     private static final Dimension WAVE_WINDOW_SIZE = new Dimension(200, 100);
     private JPanel myPanel;
     private InformationScreen myStatsWindow;
-    private GameStatsScreen myGameStats;
     private GameElementInformationScreen myInformationWindow;
     private MultipleScreenPanel myEastWindow;
     private ShopScreen myShopScreen;
@@ -83,14 +81,11 @@ public class TDView {
         mySplashScreen = new SplashScreen(SPLASH_SCREEN_SIZE);
         myMapScreen = new MapScreen(MAP_WINDOW_SIZE, myController);
 
-        // TODO place holder!
-        //myStatsWindow = new InformationScreen("Stats", STATS_WINDOW_SIZE);
-        myGameStats = new GameStatsScreen(STATS_WINDOW_SIZE);
+        myStatsWindow = new InformationScreen("Stats", STATS_WINDOW_SIZE);
         myInformationWindow =
                 new GameElementInformationScreen("Info", INFO_WINDOW_SIZE, myController);
         Map<JPanel, String> screens = new HashMap<JPanel, String>();
-        //screens.put(myStatsWindow, BorderLayout.NORTH);
-        screens.put(myGameStats, BorderLayout.NORTH);
+        screens.put(myStatsWindow, BorderLayout.NORTH);
         screens.put(myInformationWindow, BorderLayout.SOUTH);
         myEastWindow = new MultipleScreenPanel(EAST_WINDOW_SIZE, screens);
 
@@ -198,9 +193,6 @@ public class TDView {
         return myStatsWindow;
     }
 
-    public GameStatsScreen getStatsScreen () {
-        return myGameStats;
-    }
     /**
      * Gets the shop screen for this view.
      * 

@@ -1,15 +1,17 @@
-package vooga.towerdefense.action;
+package vooga.towerdefense.action.tobetested;
 
+import vooga.towerdefense.action.TargetedAction;
 import vooga.towerdefense.attributes.Attribute;
 import vooga.towerdefense.gameElements.GameElement;
 
 
 /**
- * Modify a specified 
+ * Modify a specified attribute value. 
+ * 
  * @author Matthew Roy
  * @author Zhen Gou
  */
-public class ModifyAttributeValue extends Action {
+public class ModifyAttributeValue extends TargetedAction {
 
     private Attribute myAppliedAttribute;
     private String myTargetAttribute;
