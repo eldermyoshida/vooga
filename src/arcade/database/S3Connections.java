@@ -1,4 +1,16 @@
 package arcade.database;
+import arcade.games.GameData;
+import arcade.games.UserGameData;
+import com.amazonaws.AmazonClientException;
+import com.amazonaws.AmazonServiceException;
+import com.amazonaws.auth.ClasspathPropertiesFileCredentialsProvider;
+import com.amazonaws.regions.Region;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.GetObjectRequest;
+import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 /*
  * Copyright 2010-2013 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -23,24 +35,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-
-import arcade.games.GameData;
-import arcade.games.UserGameData;
-import com.amazonaws.AmazonClientException;
-import com.amazonaws.AmazonServiceException;
-import com.amazonaws.auth.ClasspathPropertiesFileCredentialsProvider;
-import com.amazonaws.regions.Region;
-import com.amazonaws.regions.Regions;
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3Client;
-import com.amazonaws.services.s3.model.Bucket;
-import com.amazonaws.services.s3.model.GetObjectRequest;
-import com.amazonaws.services.s3.model.ListObjectsRequest;
-import com.amazonaws.services.s3.model.ObjectListing;
-import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.amazonaws.services.s3.model.S3Object;
-import com.amazonaws.services.s3.model.S3ObjectSummary;
 
 /**
  * This sample demonstrates how to make basic requests to Amazon S3 using
@@ -74,60 +68,117 @@ public class S3Connections {
      * Constructor that connects to S3Instance
      */
     public S3Connections() {
-        myS3Instance = new AmazonS3Client(new ClasspathPropertiesFileCredentialsProvider("AwsCredentials.properties"));
+        myS3Instance = new AmazonS3Client(
+                        new ClasspathPropertiesFileCredentialsProvider("AwsCredentials.properties"));
         Region usWest2 = Region.getRegion(Regions.US_WEST_2);
         myS3Instance.setRegion(usWest2);
     }
     
+    /**
+     * Places avatar into a bucket
+     * @param username is user
+     * @param filepath is path of avatar
+     */
     public void putAvatarIntoBucket(String username, String filepath) {
         putFileIntoBucket(AVATAR + username, filepath);
     }
     
+    /**
+     * Places game thumbnail into a bucket
+     * @param gameName is gamename
+     * @param filepath is path of thumbnail
+     */
     public void putGameThumbnailIntoBucket(String gameName, String filepath) {
         putFileIntoBucket(THUMBNAIL + gameName, filepath);
     }
     
+    /**
+     * Places game adscreen into a bucket
+     * @param gameName is gamename
+     * @param filepath is path of adscreen
+     */
     public void putAdScreenIntoBucket (String gameName, String filepath) {
-        putFileIntoBucket(ADSCREEN + gameName, filepath);
-        
+        putFileIntoBucket(ADSCREEN + gameName, filepath); 
     }
     
+    /**
+     * Retrieves avatar
+     * @param username is username
+     */
     public String getAvatar(String username) {
-         return downloadObjectToFile(AVATAR + username);
+        return downloadObjectToFile(AVATAR + username);
     }
     
+    /**
+     * Retrieves thumbnail
+     * @param gameName is game name
+     */
     public String getThumbnail(String gameName) {
         return downloadObjectToFile(THUMBNAIL + gameName);
     }
     
+    /**
+     * Retrieves ad screen
+     * @param gameName is game name
+     */
     public String getAdScreen(String gameName) {
         return downloadObjectToFile(ADSCREEN + gameName);
     }
     
+    /**
+     * Places usergamedata into bucket
+     * @param username is user name
+     * @param gameName is game name
+     * @param usd is user game data to be placed
+     */
     public void putUserGameDataIntoBucket(String username, String gameName, UserGameData usd) {
-        putFileIntoBucket(USERGAMEDATA + username + gameName, createFileFromByteArray(serializeObject(usd)));
+        putFileIntoBucket(USERGAMEDATA + username + gameName, 
+                          createFileFromByteArray(serializeObject(usd)));
     }
     
+    /**
+     * Returns given user game data
+     * @param username is user name
+     * @param gameName is game name
+     */
     public UserGameData getUserGameDataFromBucket(String username, String gameName) {
         String tempFilePath = downloadObjectToFile(USERGAMEDATA + username + gameName);
         byte[] data = read(createFileFromFilePath(tempFilePath));
         return (UserGameData) deserialize(data);
     }
     
+    /**
+     * Places gamedata into bucket
+     * @param gameName is game name
+     * @param gd is gameData to be placed
+     */
     public void putGameDataIntoBucket(String gameName, GameData gd) {
         putFileIntoBucket(GAMEDATA + gameName, createFileFromByteArray(serializeObject(gd)));
     }
     
+    /**
+     * Returns given GameData
+     * @param gameName is game name
+     */
     public GameData getGameDataFromBucket(String gameName) {
         String tempFilePath = downloadObjectToFile(GAMEDATA + gameName);
         byte[] data = read(createFileFromFilePath(tempFilePath));
         return (GameData) deserialize(data);
     }
     
+    
+    /**
+     * Returns given GameData
+     * @param filepath is the filepath to create file from
+     */
     public File createFileFromFilePath(String filepath) {
         return new File(filepath);
     }
     
+    /**
+     * Reads a file into a byte array
+     * @param file is the file
+     */
     public byte[] read(File file) {
         byte []buffer = new byte[(int) file.length()];
         InputStream ios = null;
@@ -139,17 +190,22 @@ public class S3Connections {
         }
         finally { 
             try {
-                if ( ios != null ) 
+                if (ios != null) {
                     ios.close();
-            } catch ( IOException e) {
+                }
+            } 
+            catch (IOException e) {
+                e.printStackTrace();
             }
         }
-
         return buffer;
     }
 
+    /**
+     * Creates file from byte array
+     * @param bytes is array of bytes
+     */
     public String createFileFromByteArray(byte[] bytes) {
-        
         FileOutputStream out;
         try {
             out = new FileOutputStream(RELATIVE_PATH);
@@ -164,6 +220,10 @@ public class S3Connections {
         return RELATIVE_PATH;
     }
     
+    /**
+     * Serializes an object
+     * @param obj is object to be serialized
+     */
     public byte[] serializeObject(Object obj) {
         ByteArrayOutputStream b = new ByteArrayOutputStream();
         ObjectOutputStream o;
@@ -177,6 +237,10 @@ public class S3Connections {
         return b.toByteArray();
     }
     
+    /**
+     * Deserializes an object
+     * @param bytes are byte to be read in
+     */
     public Object deserialize(byte[] bytes) {
         ByteArrayInputStream b = new ByteArrayInputStream(bytes);
         ObjectInputStream o;
@@ -193,6 +257,12 @@ public class S3Connections {
         return null;
     }
     
+    
+    /**
+     * Places an object into amazon bucket
+     * @param key (name) of file
+     * @param filepath of file
+     */
     public void putFileIntoBucket(String key, String filepath) {
         File file = new File(filepath);
         try {
@@ -215,15 +285,25 @@ public class S3Connections {
         }
     }
     
-    
+    /**
+     * Downloads an object to AmazonDownloads folder
+     * @param key (name) of file
+     */
     public String downloadObjectToFile(String key) {
-        File tempFile = new File(System.getProperty("user.dir") + "/src" + RELATIVE_PATH + "/temporary.png");
-        ObjectMetadata object = myS3Instance.getObject(new GetObjectRequest(BUCKET_NAME, key), tempFile);
+        File tempFile = new File(System.getProperty("user.dir") + "/src" + 
+                RELATIVE_PATH + "/temporary.png");
+        @SuppressWarnings("unused")
+        ObjectMetadata object = myS3Instance.getObject(
+                                            new GetObjectRequest(BUCKET_NAME, key), tempFile);
         System.out.println(RELATIVE_PATH);
         return RELATIVE_PATH;
     }
     
+    /**
+     * Deletes an object from bucket
+     * @param key (name) of file
+     */
     public void deleteObject(String key) {
-      myS3Instance.deleteObject(BUCKET_NAME, key);
+        myS3Instance.deleteObject(BUCKET_NAME, key);
     }
 }
