@@ -72,6 +72,10 @@ public class UpdatableLocation {
         myVelocity = new Vector(angle, magnitude);
     }
     
+    public void setVelocity(Vector vector) {
+        myVelocity = vector;
+    }
+    
     /**
      * Returns the velocity for this updatable location.
      */
