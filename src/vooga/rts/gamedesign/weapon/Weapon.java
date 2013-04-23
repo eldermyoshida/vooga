@@ -121,11 +121,9 @@ public class Weapon {
      *         if the interactive is out of the range of the weapon
      */
     public boolean inRange (InteractiveEntity enemy, double distance) {
-        // add z axis
-        // see if enemy is in adjacent node, better way ?
 //        myRangeCircle = new Ellipse2D.Double(myCenter.getX(), myCenter.getY(), myRange, myRange);
 //        return myRangeCircle.contains(enemy.getWorldLocation().to2D());
-        // ellipse thing doesnt seem to be working very well.
+//        ellipse thing doesnt seem to be working very well.
         return (distance < this.myRange);
     }
 
