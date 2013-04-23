@@ -167,7 +167,7 @@ public class MapEditorMode extends Mode {
      * writes this mode's map to the xml file
      */
     public void writeMap() {
-    	MapWriter writer = new MapWriter(myMap);
+    	MapWriter writer = new MapWriter(myMap, myBackgroundPath, mySoundPath);
     }
 
     /**
