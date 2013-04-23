@@ -1,6 +1,7 @@
 package vooga.rts.leveleditor.components;
 
 import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
 import java.io.File;
 
 import java.io.FileOutputStream;
@@ -21,6 +22,7 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import vooga.rts.util.Location;
+import vooga.rts.util.Pixmap;
 
 public class MapSaver {
 
@@ -103,14 +105,14 @@ public class MapSaver {
         
         String tileImagePath = path + "/tiles/";
         
-        Map<String,BufferedImage> tileInformation = new HashMap<String,BufferedImage>();
+        Map<String,Pixmap> tileInformation = new HashMap<String,Pixmap>();
         
-        for(int i = 0 ; i < mySavingMap.getMyXSize() ; i++) {
-            for(int j = 0 ; j < mySavingMap.getMyYSize() ; j++) {
-                if(mySavingMap.getMapNode(i, j).getMyTile().getMyID() != 0) {
-                    String imageName = mySavingMap.getMapNode(i, j).getMyTile().getMyImageName();
+        for(int i = 0 ; i < mySavingMap.getMyXsize() ; i++) {
+            for(int j = 0 ; j < mySavingMap.getMyYsize() ; j++) {
+                if(mySavingMap.getMyTile(i, j).getMyID() != 0) {
+                    String imageName = mySavingMap.getMyTile(i, j).getMyImageName();
                     if( !tileInformation.containsKey(imageName) ) {
-                        BufferedImage currentImage = mySavingMap.getMapNode(i, j).getMyTile().getMyImage();
+                        Pixmap currentImage = mySavingMap.getMyTile(i, j).getImage();
                         tileInformation.put(imageName, currentImage);
                     }
                 }
@@ -121,7 +123,7 @@ public class MapSaver {
             File bufferFile = new File(tileImagePath + str);
             String format = getFileFormat(str);
             try {
-                ImageIO.write(tileInformation.get(str), format, bufferFile);
+                ImageIO.write((BufferedImage)tileInformation.get(str).getMyImage(), format, bufferFile);
             }
             catch (IOException e) {
                 // TODO Auto-generated catch block
@@ -139,17 +141,15 @@ public class MapSaver {
         
         Map<String,BufferedImage> terrainInformation = new HashMap<String,BufferedImage>();
         
-        for(Integer i : mySavingMap.getLayerMap().keySet()) {
-            MapLayer myLayer = mySavingMap.getLayer(i);
-            for(Terrain ter : myLayer.getTerrainSet()) {
-                
-                String myImageName = ter.getMyImageName();
-                BufferedImage myImage = ter.getMyImage();
-                if( !terrainInformation.containsKey(myImageName)) {
-                    terrainInformation.put(myImageName, myImage);
-                }
+        for(Terrain ter : mySavingMap.get) {
+               
+            String myImageName = ter.getMyImageName();
+            BufferedImage myImage = ter.getMyImage();
+            if( !terrainInformation.containsKey(myImageName)) {
+                 terrainInformation.put(myImageName, myImage);
             }
         }
+    }
         
         for(String str : terrainInformation.keySet()) {
             File bufferFile = new File(tileImagePath + str);

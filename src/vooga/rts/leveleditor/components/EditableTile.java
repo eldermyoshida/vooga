@@ -79,5 +79,4 @@ public class EditableTile extends Tile {
         myImageName = "";
     }
    
-
 }
