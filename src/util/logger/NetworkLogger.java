@@ -33,6 +33,7 @@ public class NetworkLogger {
     private HandlerStream myStreamHandler = new HandlerStream();;
     private HandlerTxt myTxtHandler = new HandlerTxt();
     private HandlerXML myXMLHandler = new HandlerXML();
+    private HandlerMemory myMemoryHandler = new HandlerMemory();
     
     public static final int FORMAT_XML = 1221;
     public static final int FORMAT_TXT = 1356;
@@ -94,8 +95,20 @@ public class NetworkLogger {
      * @param args any necessary argument to create Socket or Stream handlers
      */
     public void addMemoryHandler (IVoogaHandler hand, int size, Level pushLevel) {
-    	
-        mySetup.addMemoryHandler(handlerType, size, pushLevel, args);
+    	myMemoryHandler.setProperties(hand, size, pushLevel);
+        addHandler(myMemoryHandler);
+    }
+    
+    /**
+     * 
+     * @param handlerType the type of handler to have records pushed to
+     * @param size Number of maximum records this handler will maintain
+     * @param push as soon as a message of the given level is issued
+     * @param args any necessary argument to create Socket or Stream handlers
+     */
+    public void addMemoryHandler (IVoogaHandler hand) {
+    	myMemoryHandler.setHandler(hand);
+        addHandler(myMemoryHandler);
     }
     
     /**
