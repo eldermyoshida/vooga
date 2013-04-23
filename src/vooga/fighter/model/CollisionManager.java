@@ -170,7 +170,7 @@ public class CollisionManager {
      * Handles collisions between an environment object and an attack object.
      */
     public void collide(MouseClickObject o1, EnvironmentObject o2) {
-    	o2.tellDelegate();
+//    	o2.tellDelegate();
     }
     
     /**
@@ -179,6 +179,7 @@ public class CollisionManager {
     public void collide(MouseClickObject o1, MenuObject o2) {
     	o2.tellDelegate();
     }
+
     /**
      * Handles collisions between an MouseClick object and MouseClick object...
      */
