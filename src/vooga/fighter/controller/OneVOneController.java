@@ -9,7 +9,6 @@ import util.input.*;
 import vooga.fighter.forces.Force;
 import vooga.fighter.forces.ForceFactory;
 import vooga.fighter.forces.Gravity;
-import vooga.fighter.forces.Viscosity;
 import vooga.fighter.model.objects.CharacterObject;
 import vooga.fighter.model.objects.MouseClickObject;
 import vooga.fighter.util.Physics;
