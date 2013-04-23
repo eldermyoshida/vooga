@@ -234,11 +234,9 @@ public class UserTable extends Table {
         return myUsernames; 
     }
     
-    void printEntireTable () {
-        System.out.println();
+    public void printEntireTable () {
+        myResultSet = selectAllRecordsFromTable(TABLE_NAME);
         try {
-            myPreparedStatement = myConnection.prepareStatement("SELECT * FROM " + TABLE_NAME);
-            myResultSet = myPreparedStatement.executeQuery();
             while (myResultSet.next()) {
                 System.out.print(myResultSet.getString(USERNAME_COLUMN_INDEX) + TABLE_SEPARATOR);
                 System.out.print(myResultSet.getString(PASSWORD_COLUMN_INDEX) + TABLE_SEPARATOR);

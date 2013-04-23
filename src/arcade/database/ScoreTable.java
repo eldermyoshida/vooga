@@ -38,9 +38,9 @@ public class ScoreTable extends Table {
      */
     public ScoreTable() {
         super();
-        myConnection = this.getConnection();
-        myPreparedStatement = this.getPreparedStatement();
-        myResultSet = this.getResultSet();
+        myConnection = getConnection();
+        myPreparedStatement = getPreparedStatement();
+        myResultSet = getResultSet();
     }
     
     /**
@@ -82,12 +82,9 @@ public class ScoreTable extends Table {
         return null;
     }
 
-    @Override
-    void printEntireTable () {
-        System.out.println();
+    public void printEntireTable () {
+        myResultSet = selectAllRecordsFromTable(TABLE_NAME);
         try {
-            myPreparedStatement = myConnection.prepareStatement("SELECT * FROM " + TABLE_NAME);
-            myResultSet = myPreparedStatement.executeQuery();
             while (myResultSet.next()) {
                 System.out.print(myResultSet.getString(GAMEID_COLUMN_INDEX) + TABLE_SEPARATOR);
                 System.out.print(myResultSet.getString(USERID_COLUMN_INDEX) + TABLE_SEPARATOR);                

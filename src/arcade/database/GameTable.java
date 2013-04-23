@@ -182,11 +182,9 @@ public class GameTable extends Table {
     }
      
     
-    void printEntireTable () {
-        System.out.println();
+    public void printEntireTable () {
+        myResultSet = selectAllRecordsFromTable(TABLE_NAME);
         try {
-            myPreparedStatement = myConnection.prepareStatement("SELECT * FROM " + TABLE_NAME);
-            myResultSet = myPreparedStatement.executeQuery();
             while (myResultSet.next()) {
                 System.out.print(myResultSet.getString(GAMENAME_COLUMN_INDEX) + SEPARATOR);
                 System.out.print(myResultSet.getString(AUTHOR_COLUMN_INDEX) + SEPARATOR);

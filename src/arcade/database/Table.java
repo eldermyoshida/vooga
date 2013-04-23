@@ -3,6 +3,7 @@ package arcade.database;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * Creates superclass table with variables other subclasses need
@@ -55,6 +56,16 @@ public abstract class Table {
         return myPreparedStatement;
     }
     
-    abstract void printEntireTable();
+    public ResultSet selectAllRecordsFromTable(String tableName) {
+        System.out.println();
+        try {
+            myPreparedStatement = myConnection.prepareStatement("SELECT * FROM " + tableName);
+            myResultSet = myPreparedStatement.executeQuery();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return myResultSet;
+    }
 
 }
