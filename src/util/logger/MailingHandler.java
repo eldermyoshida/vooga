@@ -6,6 +6,11 @@ import java.util.logging.LogRecord;
 import util.IMail;
 import util.MailSender;
 
+/**
+ * Handler used for a logger that sends e-mail
+ * @author Henrique Moraes
+ *
+ */
 public class MailingHandler extends Handler implements IMail{
 	private String myFromAddress;
 	private String[] myToAddress;
