@@ -145,7 +145,7 @@ public class CollisionManager {
      * Handles collisions between an environment object and a character object.
      */
     public void collide(EnvironmentObject o1, CharacterObject o2) {
-//    	o2.moveBack(); 
+    	o2.moveBack(0);// TODO: hardcoded meaningless value should change this later  
     }
     
     /**
