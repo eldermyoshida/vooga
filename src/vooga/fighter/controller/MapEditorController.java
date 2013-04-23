@@ -19,8 +19,7 @@ import vooga.fighter.view.Canvas;
 
 /**
  * 
- * @author matthewparides
- * used some code from Controller classes by Jerry Li and Jack Matteucci
+ * @author matthewparides, Jack Matteucci, Jerry Li
  *
  */
 @InputClassTarget
@@ -45,10 +44,10 @@ public class MapEditorController extends Controller{
 	     */
 	    public MapEditorController(String name, Canvas frame, ControllerDelegate manager, 
                 GameInfo gameinfo) {
-        super(name, frame, manager, gameinfo);
-        setInput(manager.getInput());
-        getInput().replaceMappingResourcePath(INPUT_PATHWAY);
-        getInput().addListenerTo(this);
+	    	super(name, frame, manager, gameinfo);
+	    	setInput(manager.getInput());
+	    	getInput().replaceMappingResourcePath(INPUT_PATHWAY);
+	    	getInput().addListenerTo(this);
 	    }
 	    
 	    /**
@@ -130,13 +129,41 @@ public class MapEditorController extends Controller{
 	    }
 	    
 	    /**
-	     * performs appropriate action for the user selecting a location
+	     * performs appropriate action for the user selecting a location to place an object
 	     * in the UI.
 	     * @param posObj
 	     */
 	    @InputMethodTarget(name = "select")
-	    public void select (PositionObject posObj)  {
-	    	myEditTarget.select(posObj.getPoint2D());
+	    public void objectSelect (PositionObject posObj)  {
+	    	myEditTarget.objectSelect(posObj.getPoint2D());
+	    }
+	    
+	    /**
+	     * performs appropriate action for the user selecting a location to place a starting location
+	     * in the UI.
+	     * @param posObj
+	     */
+	    @InputMethodTarget(name = "startselect")
+	    public void startLocSelect (PositionObject posObj)  {
+	    	myEditTarget.startLocSelect(posObj.getPoint2D());
+	    }
+	    
+	    /**
+	     * selects the next player whose starting position is to be placed
+	     * @param alObj
+	     */
+	    @InputMethodTarget(name = "nextPlayer")
+	    public void nextPlayer (AlertObject alObj)  {
+	    	myEditTarget.nextPlayer();
+	    }
+	    
+	    /**
+	     * selects the next player whose starting position is to be placed
+	     * @param alObj
+	     */
+	    @InputMethodTarget(name = "prevPlayer")
+	    public void prevPlayer (AlertObject alObj)  {
+	    	myEditTarget.prevPlayer();
 	    }
 	    
 	    /**

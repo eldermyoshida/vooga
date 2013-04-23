@@ -24,25 +24,30 @@ import vooga.fighter.model.utils.UpdatableLocation;
  * 
  */
 public class MapEditorMode extends Mode {
+	//at this point we assume the max # of players is 4 (so 4 starting locations)
+	private static final int NUM_PLAYERS = 4;
 
-    private List<UpdatableLocation> myStartLocations;
     private String myMapName;
     private MapObject myMap;
     private List<EnvironmentObject> myEnviroObjects; //all environmental objects that can be placed
     private EnvironmentObject myCurrentSelection;
     private int myEnviroIndex; //the list index of the current environment object selected
+    private int currentPlayer;
+    private int numPlayers;
 
     public MapEditorMode (CollisionManager cd) {
         super(cd);
-        myStartLocations = new ArrayList<UpdatableLocation>();
+        currentPlayer = 0;
+        myEnviroIndex = 0;
+        numPlayers = NUM_PLAYERS;
         //myMapName = mapName;
         myMap = null;
         myEnviroObjects = new ArrayList<EnvironmentObject>();
         myCurrentSelection = null;
-        myEnviroIndex = 0;
         EnvironmentObjectLoader loader = new EnvironmentObjectLoader();
         myEnviroObjects = (ArrayList<EnvironmentObject>)loader.getEnvironmentObjects();
         initializeEnviroObjects();
+        
     }
 
     /**
@@ -102,7 +107,6 @@ public class MapEditorMode extends Mode {
      */
     public void loadMap (String mapName) {
         myMap = new MapObject(mapName);
-        myStartLocations = myMap.getStartPositions();
         addObject(myMap);
         List<EnvironmentObject> mapObjects = myMap.getEnviroObjects();
         for (EnvironmentObject object : mapObjects) {
@@ -129,7 +133,7 @@ public class MapEditorMode extends Mode {
      * placed in that location.
      * @param point
      */
-    public void select (Point2D point) {
+    public void objectSelect (Point2D point) {
     	MouseClickObject click = new MouseClickObject(point);
     	addObject(click);
     	handleCollisions();
@@ -149,6 +153,10 @@ public class MapEditorMode extends Mode {
 	    	myMap.addEnviroObject(newObj);
 	    	addObject(newObj);
     	}
+    }
+    
+    public void startLocSelect(Point2D loc) {
+    	myMap.addStartPosition(currentPlayer, new UpdatableLocation(loc.getX(), loc.getY()));
     }
     
     /**
@@ -183,6 +191,21 @@ public class MapEditorMode extends Mode {
     	myCurrentSelection = myEnviroObjects.get(myEnviroIndex);
     	addObject(myCurrentSelection);
     }
+    
+    public void nextPlayer() {
+    	currentPlayer++;
+    	if(currentPlayer==numPlayers) {
+    		currentPlayer = 0;
+    	}
+    }
+    
+    public void prevPlayer() {
+    	currentPlayer--;
+    	if(currentPlayer<0) {
+    		currentPlayer = numPlayers-1;
+    	}
+    }
+    
 
     /**
      * gets this mapEditorMode's map
