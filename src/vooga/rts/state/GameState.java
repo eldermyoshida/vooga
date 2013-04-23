@@ -180,7 +180,7 @@ public class GameState extends SubState implements Controller {
 		a.getAttackStrategy().addWeapons(
 				new Weapon(proj, 400, a.getWorldLocation(), 1));
 		Information i2 = new Information("Marine", "I am a soldier of Nunu.", null, "buttons/marine.png");
-		worker.setInfo(i1);
+		a.setInfo(i2);
 		myHumanPlayer.add(a);
 		addPlayer(2);
 		
@@ -198,7 +198,7 @@ public class GameState extends SubState implements Controller {
 		((CanProduce) b.getProductionStrategy()).createProductionActions(b);
 		((CanProduce) b.getProductionStrategy()).setRallyPoint(new Location3D(
 				600, 500, 0));
-		Information i = new Information("Barracks", "This is a barracks that can make awesome pies", null, "images/barracks.png");
+		Information i = new Information("Barracks", "This is a barracks that can make awesome pies", null, "buttons/marine.png");
 		b.setInfo(i);
 		System.out.println(b.getInfo().getName());
 		myHumanPlayer.add(b);
