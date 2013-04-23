@@ -34,8 +34,13 @@ import org.xml.sax.SAXException;
 public class XMLTool {
     
     private static final String XML_PARAM_YES = "yes";
-    private static final String RUNTIME_EXP_MESSAGE =
+    private static final String DOC_CREATION_EXCEPTION =
             "Could not create a new instance of a Document.";
+    private static final String INDENT_REFERENCE = "{http://xml.apache.org/xslt}indent-amount";
+    private static final String CLOSE_EXCEPTION = "The writer could not be closed";
+    private static final String CONVERSION_EXCEPTION =
+            "The document could not be converted into a string";
+    private static final String WRITING_EXCEPTION = "File could not be written.";
     private Document myDoc;
     
     /**
@@ -49,10 +54,10 @@ public class XMLTool {
     /**
      * This constructor reads in an XML file from an XMLFilePath
      * 
-     * @param XMLFilePath
+     * @param xmlFilePath The relative OS independent file path from the project folder.
      */
-    public XMLTool (String XMLFilePath) {
-        readDoc(XMLFilePath);
+    public XMLTool (String xmlFilePath) {
+        readDoc(xmlFilePath);
     }
     
     /**
@@ -64,7 +69,7 @@ public class XMLTool {
             myDoc = dbFactory.newDocumentBuilder().newDocument();
         }
         catch (ParserConfigurationException e) {
-            throw new RuntimeException(RUNTIME_EXP_MESSAGE, e);
+            throw new RuntimeException(DOC_CREATION_EXCEPTION, e);
         }
     }
     
@@ -84,7 +89,7 @@ public class XMLTool {
             throw new RuntimeException("Could not open file.", e);
         }
         catch (ParserConfigurationException e) {
-            throw new RuntimeException(RUNTIME_EXP_MESSAGE, e);
+            throw new RuntimeException(DOC_CREATION_EXCEPTION, e);
         }
         catch (SAXException e) {
             throw new RuntimeException("XML document is corrupted.", e);
@@ -420,8 +425,8 @@ public class XMLTool {
         TransformerFactory factory = TransformerFactory.newInstance();
         Transformer transformer = factory.newTransformer();
         transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, XML_PARAM_YES);
-        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-        transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+        transformer.setOutputProperty(OutputKeys.INDENT, XML_PARAM_YES);
+        transformer.setOutputProperty(INDENT_REFERENCE, "4");
         
         StringWriter sw = new StringWriter();
         StreamResult result = new StreamResult(sw);
@@ -448,12 +453,12 @@ public class XMLTool {
                 writer.close();
             }
             catch (IOException e1) {
-                throw new RuntimeException("The writer could not be closed", e);
+                throw new RuntimeException(CLOSE_EXCEPTION, e);
             }
-            throw new RuntimeException("The document could not be converted into a string", e);
+            throw new RuntimeException(CONVERSION_EXCEPTION, e);
         }
         catch (IOException e) {
-            throw new RuntimeException("File could not be written.", e);
+            throw new RuntimeException(WRITING_EXCEPTION, e);
         }
     }
     
