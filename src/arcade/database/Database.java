@@ -1,8 +1,4 @@
 package arcade.database;
-import arcade.database.tables.CommentTable;
-import arcade.database.tables.GameTable;
-import arcade.database.tables.ScoreTable;
-import arcade.database.tables.UserTable;
 import arcade.games.GameData;
 import arcade.games.Score;
 import arcade.games.UserGameData;
@@ -22,7 +18,7 @@ public class Database {
     private ScoreTable myScoreTable;
     private CommentTable myCommentTable;
     private S3Connections myS3Instance;
-
+    
     /**
      * Database constructor
      */
