@@ -145,17 +145,17 @@ public class CollisionManager {
      * Handles collisions between an environment object and a character object.
      */
     public void collide(EnvironmentObject o1, CharacterObject o2) {
-    	o2.moveBack(0);// TODO: hardcoded meaningless value should change this later  
+    	o2.moveBack(2);// TODO: hardcoded meaningless value should change this later  
     }
     
     /**
      * Handles collisions between a Menu object and an MouseClick object.
      */
     public void collide(MenuObject o1, MouseClickObject o2) {
-    	System.out.println(o1.getLocation().getLocation().getX());
-    	System.out.println(o1.getLocation().getLocation().getY());
-    	System.out.println(o2.getLocation().getLocation().getX());
-    	System.out.println(o2.getLocation().getLocation().getY());
+    	//System.out.println(o1.getLocation().getLocation().getX());
+    	//System.out.println(o1.getLocation().getLocation().getY());
+    	//System.out.println(o2.getLocation().getLocation().getX());
+    	//System.out.println(o2.getLocation().getLocation().getY());
     	o1.tellDelegate();
     }
     

@@ -199,9 +199,9 @@ public class CharacterObject extends GameObject {
      * Makes the character move back if it runs into another character or environmentObject with higher priority
      */
     public void moveBack(double forceMagnitude){
-    	myVelocity.setMagnitude(0.1); //TODO: hard coded now should be force magnitude in the future
+    	myVelocity.setMagnitude(forceMagnitude); //TODO: hard coded now should be force magnitude in the future
     	reverseVelocity(); 
-    	getLocation().addAcceleration(myVelocity);
+    	getLocation().translate(myVelocity);
     }
     
     /**
