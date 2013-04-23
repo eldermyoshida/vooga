@@ -5,16 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 import vooga.fighter.controller.ModeCondition;
 import vooga.fighter.forces.Force;
-import vooga.fighter.model.loaders.MapLoader;
 import vooga.fighter.model.objects.AttackObject;
 import vooga.fighter.model.objects.CharacterObject;
-import vooga.fighter.model.objects.EnvironmentObject;
 import vooga.fighter.model.objects.GameObject;
 import vooga.fighter.model.objects.MapObject;
 import vooga.fighter.model.utils.Health;
-import vooga.fighter.model.utils.ImageDataObject;
-import vooga.fighter.model.utils.State;
-import vooga.fighter.model.utils.UpdatableLocation;
 
 
 /**
