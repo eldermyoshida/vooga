@@ -245,6 +245,7 @@ public class PublishView extends Form {
      */
     private void publish () {
         try {
+        	/*
         	GameSpecificData data = new GameSpecificData(myNameTextField.getText(),
                     myGenreTextField.getText(),
                     myAuthorTextField.getText(),
@@ -258,6 +259,23 @@ public class PublishView extends Form {
                     myLargeImagePath,
                     myDescriptionTextField.getText());
             getModel().publish(data);
+            */
+            
+        	// Old method
+        	getModel().publish(myNameTextField.getText(),
+                    myGenreTextField.getText(),
+                    myAuthorTextField.getText(),
+                    getPrice(),
+                    mySinglePlayerPath,
+                    myMultiPlayerPath,
+                    getAgeRating(),
+                    isSinglePlayer,
+                    isMultiPlayer,
+                    mySmallImagePath,
+                    myLargeImagePath,
+                    myDescriptionTextField.getText());
+        	
+        	
             dispose();
         }
         catch (InvalidPriceException e) {

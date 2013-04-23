@@ -175,12 +175,14 @@ public class Controller implements ArcadeInteraction {
 	 * @param gameName
 	 * @param genre
 	 */
+	/*
 	public void publish(GameSpecificData data){
 		myDb.createGame(data);
 		addNewGameInfoToList(data.getName());
 	}
+	*/
 	
-	/*
+	
 	public void publish(String name, String genre, String author, double price, String extendsGame, String extendsMultiplayerGame, int ageRating,
 			boolean singlePlayer, boolean multiplayer, String thumbnailPath, String adScreenPath, String description) {
 		// print
@@ -197,9 +199,9 @@ public class Controller implements ArcadeInteraction {
 		// Put game info in map
 		addNewGameInfoToList(name);
 	}
-	*/
 	
-	/*
+	
+	
 	private String formatClassFilePath(String path) {
 		if (path == null)
 			return null;
@@ -221,7 +223,7 @@ public class Controller implements ArcadeInteraction {
 		System.out.println("this is ret" + ret);
 		return ret;
 	}
-	 */
+	
 	
 	
 
