@@ -292,4 +292,23 @@ public class Vector {
             return Math.abs(a / b - 1) < EPSILON;
         }
     }
+    
+    /**
+     * Sets the vector angle and magnitude based off of component vectors.
+     * @param dX X component vector
+     * @param dY Y component vector
+     */
+    public void setVectorByComponent (double dX, double dY) {
+        setMagnitude(Math.sqrt(Math.pow(dX, 2) + Math.pow(dY, 2)));
+        setDirection(Math.atan2(dX, dY));
+    }
+    
+    /**
+     * Calculates the dot product of this vector with another vector.
+     * @param other The other vector in the dot product.
+     * @return The dot product of the two vectors.
+     */
+    public double dotProduct (Vector other) {
+        return getXChange() * other.getXChange() + getYChange() + other.getYChange();
+    }
 }
