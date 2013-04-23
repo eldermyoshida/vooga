@@ -5,17 +5,22 @@ import util.Vector;
 import vooga.scroller.sprites.superclasses.NonStaticEntity;
 import vooga.scroller.sprites.superclasses.Player;
 
+/**
+ * This is a type of Movement that does simple AI in tracking the player. This method's execute() 
+ * method will return the vector in the direction of the player with the given speed. 
+ * 
+ * @author Jay Wang
+ *
+ */
 public class TrackPlayer extends Movement {
 
     private NonStaticEntity myEntity;
-    
+   
     public TrackPlayer (NonStaticEntity nse) {
-        super(nse);
+        super();
         myEntity = nse;
     }
-
     
-    @Override
     /**
      * This method will allow a Non Static Entity to track down a Player - a simple AI of sorts. 
      * Essentially, if the player gets within the specified radius of this entity, the entity will 
@@ -31,17 +36,5 @@ public class TrackPlayer extends Movement {
         if (Vector.distanceBetween(player, myEntity.getCenter()) > (double) radius) return NonStaticEntity.DEFAULT_SPEED; 
         return new Vector(Vector.angleBetween(player, myEntity.getCenter()), speed);
     }
-    
-    
-    @Override
-    public Vector execute () {
-        return null;
-    }
-
-    @Override
-    public Vector execute (int bounds1, int bounds2, int speed) {
-        return null;
-    }
-
 
 }

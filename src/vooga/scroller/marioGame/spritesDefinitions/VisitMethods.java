@@ -12,11 +12,6 @@ import vooga.scroller.util.Direction;
 
 public class VisitMethods {
 
-    /**
-     * Begin the long slew of visit() methods... 
-     * Thinking about ways to refactor/repackage this.
-     * 
-     */
        
     private CollisionDirection direction = new CollisionDirection();
     private MarioCollisions collisions = new MarioCollisions();
