@@ -18,7 +18,7 @@ import vooga.scroller.level_editor.Level;
 import vooga.scroller.level_editor.StartPoint;
 import vooga.scroller.level_editor.model.SpriteBox;
 import vooga.scroller.level_editor.view.LEGridView;
-import vooga.scroller.level_management.LevelPortal;
+import vooga.scroller.level_management.ExamplePortal;
 import vooga.scroller.scrollingmanager.OmniScrollingManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.util.Editable;
@@ -40,7 +40,7 @@ public class LEGrid implements Editable, Renderable<LEGridView>, Scrollable {
     private Dimension mySize;
     private Set<SpriteBox> myPaintableBoxes;
     private StartPoint myStartPoint;
-    private LevelPortal myMainDoor; // TODO - eventually support multiple doors
+    private ExamplePortal myMainDoor; // TODO - eventually support multiple doors
     private IBackgroundView myBackground;
 
     public LEGrid (int numWidthBlocks, int numHeightBlocks) {
@@ -255,7 +255,7 @@ public class LEGrid implements Editable, Renderable<LEGridView>, Scrollable {
     public void addDoor (int x, int y) {
         // TODO Auto-generated method stub
         if (myMainDoor == null) {
-            myMainDoor = new LevelPortal();
+            myMainDoor = new ExamplePortal();
         }
         else {
             deleteSprite((int) myMainDoor.getX(), (int) myMainDoor.getY());

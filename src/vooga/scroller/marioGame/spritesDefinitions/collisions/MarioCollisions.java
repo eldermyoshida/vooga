@@ -3,8 +3,8 @@ package vooga.scroller.marioGame.spritesDefinitions.collisions;
 import util.Vector;
 import vooga.scroller.collision_manager.CollisionDirection;
 import vooga.scroller.sprites.interfaces.ICollectible;
+import vooga.scroller.sprites.interfaces.IDoor;
 import vooga.scroller.sprites.interfaces.IEnemy;
-import vooga.scroller.sprites.interfaces.ILevelPortal;
 import vooga.scroller.sprites.interfaces.IPlatform;
 import vooga.scroller.sprites.interfaces.IPlayer;
 import vooga.scroller.util.Direction;
@@ -28,7 +28,7 @@ public class MarioCollisions {
     private static final double FRICTION = .5;
     private CollisionDirection direction = new CollisionDirection();
 
-    protected void marioAndLevelPortalCollision (IPlayer player, ILevelPortal levelPortal) {
+    protected void marioAndLevelPortalCollision (IPlayer player, IDoor levelPortal) {
         levelPortal.goToNextLevel(player.getPlayer());
     }
 

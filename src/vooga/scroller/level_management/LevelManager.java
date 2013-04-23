@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import util.input.Input;
 import vooga.scroller.scrollingmanager.ScrollingManager;
+import vooga.scroller.sprites.interfaces.IDoor;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.IGameComponent;
 import vooga.scroller.view.GameView;
