@@ -1,4 +1,4 @@
-package vooga.rts.gamedesign.strategy.vooga.rts.gamedesign.strategy.upgradestrategy;
+package vooga.rts.gamedesign.strategy.upgradestrategy;
 
 import vooga.rts.action.InteractiveAction;
 import vooga.rts.commands.Command;

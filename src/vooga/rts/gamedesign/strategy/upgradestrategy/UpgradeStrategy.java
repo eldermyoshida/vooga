@@ -1,4 +1,4 @@
-package vooga.rts.gamedesign.strategy.vooga.rts.gamedesign.strategy.upgradestrategy;
+package vooga.rts.gamedesign.strategy.upgradestrategy;
 
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
