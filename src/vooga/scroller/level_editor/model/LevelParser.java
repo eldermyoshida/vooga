@@ -9,6 +9,8 @@ import java.util.Map;
 import java.util.Scanner;
 import util.Location;
 import vooga.scroller.level_editor.controllerSuite.LEGrid;
+import vooga.scroller.util.IBackgroundView;
+import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.Sprite;
 
 
@@ -26,8 +28,10 @@ public class LevelParser {
     private List<String> myLevelStrings;
     private Location myStartPoint;
     private static final String END_POINT = "EndPoint";
+    private static final String BACKGROUND = "Background";
     private Location myEndPoint;
     private String myLibPath;
+    private IBackgroundView myBackground;
     /**
      * Initialize instances variables.
      */
@@ -51,6 +55,7 @@ public class LevelParser {
         myCharacterMap = parseKey();
         myStartPoint = parseStartPoint();
         myEndPoint = parseEndPoint();
+        myBackground = parseBackground();
         return createGrid();
     }
 
@@ -88,19 +93,25 @@ public class LevelParser {
     }
 
     private Location parseStartPoint () {
+        return parseSpecialPoint(START_POINT);
+    }
+
+    private Location parseEndPoint () {
+        return parseSpecialPoint(END_POINT);
+    }
+
+    private Location parseSpecialPoint (String pointName) {
         String line = myScanner.nextLine();
-        line = line.substring(START_POINT.length() + 1);
+        line = line.substring(pointName.length() + 1);
         String[] splitLine = line.split(String.valueOf(SPACE));
         return new Location(Integer.parseInt(splitLine[0]),
                             Integer.parseInt(splitLine[1]));
     }
     
-    private Location parseEndPoint () {
+    private IBackgroundView parseBackground () {
         String line = myScanner.nextLine();
-        line = line.substring(END_POINT.length() + 1);
-        String[] splitLine = line.split(String.valueOf(SPACE));
-        return new Location(Integer.parseInt(splitLine[0]),
-                            Integer.parseInt(splitLine[1]));
+        line = line.substring(BACKGROUND.length() + 1);
+        return new Pixmap(line);
     }
 
     private LEGrid createGrid () {
@@ -138,6 +149,7 @@ public class LevelParser {
         }
         grid.addStartPoint((int) myStartPoint.getX(), (int) myStartPoint.getY());
         grid.addDoor((int) myEndPoint.getX(), (int) myEndPoint.getY());
+        grid.changeBackground(myBackground);
         return grid;
     }
 }
