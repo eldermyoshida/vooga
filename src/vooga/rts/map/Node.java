@@ -93,12 +93,20 @@ public class Node {
     public boolean isInside (Location3D world) {
         return myBounds.contains(world.to2D());
     }
-    
-    public void addSprite(GameSprite sprite) {
+
+    public void addSprite (GameSprite sprite) {
         if (!myContents.contains(sprite)) {
             myContents.add(sprite);
         }
     }
-    
-    public boolean containsSprite(GameSprite sprite )
+
+    public void removeSprite (GameSprite sprite) {
+        if (myContents.contains(sprite)) {
+            myContents.remove(sprite);
+        }
+    }
+
+    public boolean containsSprite (GameSprite sprite) {
+        return 
+    }
 }

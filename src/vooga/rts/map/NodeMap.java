@@ -99,7 +99,18 @@ public class NodeMap implements Observer {
      */
     private void addToNode (GameSprite sprite, Node node) {
         myLookupMap.put(sprite, node);
-        node.
+        node.addSprite(sprite);
+    }
+    
+    /**
+     * Removes a Sprite from its Node.
+     * 
+     * @param sprite The sprite to be added to the node.
+     * @param node The node to add the sprite to.
+     */
+    private void removeFromNode (GameSprite sprite) {
+        Node node = myLookupMap.get(sprite);
+        node.removeSprite(sprite);
     }
 
     /**
