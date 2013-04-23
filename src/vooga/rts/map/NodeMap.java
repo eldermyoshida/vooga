@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import vooga.rts.gamedesign.sprite.gamesprites.GameSprite;
+import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
 
 
@@ -15,6 +16,7 @@ import vooga.rts.util.Location3D;
  * This class stores all the nodes that will be used for pathfinding.
  * 
  * @author Challen Herzberg-Brovold
+ * @author Jonathan Schmidt
  * 
  */
 public class NodeMap implements Observer {
@@ -101,9 +103,9 @@ public class NodeMap implements Observer {
         myLookupMap.put(sprite, node);
         node.addSprite(sprite);
     }
-    
+
     /**
-     * Removes a Sprite from its Node.
+     * Removes a Sprite from its current Node.
      * 
      * @param sprite The sprite to be added to the node.
      * @param node The node to add the sprite to.
@@ -130,22 +132,56 @@ public class NodeMap implements Observer {
         return null;
     }
 
+    /**
+     * Returns a list of nodes less than a certain distance of the center.
+     * 
+     * @param center The center
+     * @param radius The distance to search from the center
+     * @return
+     */
+    public List<Node> getNodesinArea (Location3D center, double radius) {
+        // generate the square
+        int numTiles = (int) Math.ceil(radius / Node.NODE_SIZE);
+        int nodeX = (int) Math.floor(center.getX() / Node.NODE_SIZE);
+        int nodeY = (int) Math.floor(center.getY() / Node.NODE_SIZE);
+
+        List<Node> nodeList = new ArrayList<Node>();
+        for (int x = nodeX - numTiles; x < nodeX + numTiles; x++) {
+            for (int y = nodeY - numTiles; x < nodeY + numTiles; y++) {
+                Node cur = get(x, y);
+                if (cur != null) {
+                    if (cur.isInside(new Location3D(x * Node.NODE_SIZE, y * Node.NODE_SIZE, center
+                            .getZ()))) {
+                        nodeList.add(cur);
+                    }
+                }
+            }
+        }
+        return nodeList;
+    }
+
     @Override
     public void update (Observable arg0, Object arg1) {
+        // Map only worries about Game Sprite observables
         if (!(arg0 instanceof GameSprite)) {
             return;
         }
         GameSprite item = (GameSprite) arg0;
-
+        
         // if it's updating with its new location
         if (arg1 instanceof Location3D) {
             Node cur = myLookupMap.get(item);
+            // hasn't moved outside of the current node
             if (cur.isInside(item.getWorldLocation())) {
                 return;
             }
-            if (cur != null) {
+            if (cur != null) {                
+                // get the new node that the entity is in
                 Node newNode = findContainingNode(item.getWorldLocation());
-
+                if (newNode != null) {
+                    removeFromNode(item);
+                    addToNode(item, newNode);
+                }
             }
         }
     }

@@ -3,12 +3,13 @@ package vooga.rts.map;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.List;
 import vooga.rts.IGameLoop;
 import vooga.rts.ai.Path;
 import vooga.rts.ai.PathFinder;
+import vooga.rts.gamedesign.sprite.gamesprites.GameSprite;
 import vooga.rts.gamedesign.sprite.gamesprites.Resource;
-import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.map.Terrain;
 import vooga.rts.resourcemanager.ResourceManager;
 import vooga.rts.util.Camera;
@@ -45,11 +46,14 @@ public class GameMap implements IGameLoop {
      */
     public GameMap (int node, Dimension size) {
         NodeFactory factory = new NodeFactory();
+        myNodeSize = node;
+        myNodeMap = factory.makeMap(myNodeSize, size);        
+        
         myTerrain = new GameSpriteManager<Terrain>();
         myResources = new GameSpriteManager<Resource>();
         
-        myNodeSize = node;
-        myNodeMap = factory.makeMap(myNodeSize, size);
+        
+        
         Camera.instance().setMapSize(size);
         randomGenMap();
     }
@@ -88,11 +92,29 @@ public class GameMap implements IGameLoop {
      * 
      * @param loc The Location to search from
      * @param radius The radius of the circle to search in
+     * @param type The type of unit to search for. This will compare on the name of the unit.
+     * @param teamID The player ID.
+     * @param same Whether to search for things of the same player ID or different one.
      * @return
      */
-    public List<InteractiveEntity> getUnitsInArea (Location3D loc, double radius) {
-        return null;
+    public <T extends GameSprite> List<T> getInArea (Location3D loc, double radius, T type, int teamID, boolean same) {
+        List<T> inRange = new ArrayList<T>();
+        List<Node> nodesinArea = myNodeMap.getNodesinArea(loc, radius);
+        for (Node n : nodesinArea) {
+            // TODO: team id
+            // TODO: whether same or different
+            inRange.addAll(n.<T>filterGameSprites(n.getContents(), type, 0, true));
+        }        
+        return inRange;
     }
+    
+    /*
+    public <T extends GameSprite> List<T> getInArea (Location3D loc, double radius, T type, int teamID, boolean same) {
+        
+    }
+    */
+    
+   
 
     @Override
     public void update (double elapsedTime) {
@@ -131,8 +153,7 @@ public class GameMap implements IGameLoop {
                     myTiles.createTile(1, i, j);
                 }
             }
-        }
-        System.out.println("Map Made");
+        }        
         Camera.instance().setMapSize(new Dimension(tilesX * tileWidthX, tilesY * tileWidthY));
     }
 }
