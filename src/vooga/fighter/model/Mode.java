@@ -25,10 +25,10 @@ public abstract class Mode {
     /**
      * Constructs a new Mode.
      */
-    public Mode() {
+    public Mode(CollisionManager collisionmanager) {
         myObjects = new ArrayList<GameObject>();
         myImageDataObjects = new ArrayList<ImageDataObject>();
-        myCollisionManager = new CollisionManager();
+        myCollisionManager = collisionmanager;
     }
 
     /**
@@ -102,10 +102,5 @@ public abstract class Mode {
      */
     public abstract void update(double stepTime, Dimension bounds);
 
-    /**
-     * Handles all initialization details when the mode is loaded by the appropriate
-     * subcontroller. This method should be called first by the subcontroller.
-     */
-    public abstract void initializeMode();
 
 }

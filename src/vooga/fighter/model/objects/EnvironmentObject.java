@@ -13,6 +13,14 @@ import vooga.fighter.model.utils.UpdatableLocation;
  */
 public class EnvironmentObject extends GameObject {
 	private String myName;
+
+	/**
+	 * Constructs a new EnvironmentObject without a given center; used for level editor.
+	 */
+	public EnvironmentObject(String name) {
+		super();
+		init(name);
+	}
 	
     /**
      * Constructs a new EnvironmentObject with the given image, center, and size.
@@ -20,11 +28,15 @@ public class EnvironmentObject extends GameObject {
      */
     public EnvironmentObject(String name, UpdatableLocation center) {
         super();
-        myName = name;
+        setLocation(center);
+        init(name);
+    }
+    
+    private void init(String name) {
+    	myName = name;
         setLoader(new EnvironmentObjectLoader(name, this));
         setCurrentState("default");
         getCurrentState().setLooping(true);
-        setLocation(center);
         setImageData();
     }
     

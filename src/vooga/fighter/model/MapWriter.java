@@ -9,7 +9,7 @@ import vooga.fighter.model.utils.UpdatableLocation;
 
 
 /**
- * 
+ * Class used to write out map objects to the specific xml format used by the model team.
  * @author matthewparides
  *
  */

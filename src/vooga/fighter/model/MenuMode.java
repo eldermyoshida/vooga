@@ -17,18 +17,17 @@ import vooga.fighter.model.utils.State;
  *
  */
 public class MenuMode extends Mode {
-    private String myMenuId;
+    private String myMenuName;
     private List<MenuObject> myMenuObjects;
     private MouseClickObject myMouseClick;
     private MouseObject myMouse;
     private MenuGrid myMenuGrid;
-    private CollisionManager myCollisionManager = new CollisionManager();
     private String myChoice;
     private int myInputTicks;
 
-    public MenuMode (String menuId) {
-        super();
-        myMenuId = menuId;
+    public MenuMode (CollisionManager manager, String menuName) {
+        super(manager);
+        myMenuName = menuName;
         myChoice = "";
         myInputTicks = 0;
     }
@@ -38,15 +37,20 @@ public class MenuMode extends Mode {
     	update();
     }
 
-    @Override
-    public void initializeMode () {
-        myMenuGrid = new MenuGrid(myMenuId, this);
-        myMenuObjects = myMenuGrid.getMenuObjects();
-        for (MenuObject menu : myMenuObjects) {
+
+    public void setMenuGrid (MenuGrid grid){
+    	myMenuGrid = grid;
+    }
+    
+    public String getName(){
+    	return myMenuName;
+    }
+    
+    public void setMenuObjects (List<MenuObject> menus) {
+        myMenuObjects = menus;
+        for (MenuObject menu : menus) {
             addObject(menu);
         }
-        update();
-        
     }
     
     public void update(){
@@ -62,9 +66,6 @@ public class MenuMode extends Mode {
     myInputTicks++;
 }
 
-    public void handleCollisions() {
-        myCollisionManager.checkCollisions(getMyObjects());
-    }
 
     public String getMenusNext(String value){
     	for(MenuObject menu : myMenuObjects){
@@ -73,6 +74,7 @@ public class MenuMode extends Mode {
     	return "";
     }
 
+    
 
     @Override
     public void addObject (GameObject object) {
@@ -113,12 +115,12 @@ public class MenuMode extends Mode {
     	return myChoice;
     }
     
-    public MenuObject getCurrentMode(){
+    public MenuObject getCurrentMenu(){
     	return myMenuGrid.getCurrentObject();
     }
     
     public boolean inputReady(){
-    	if(myInputTicks>2){ myInputTicks = 0;
+    	if(myInputTicks>3){ myInputTicks = 0;
     	return true;
     	}
     	return false;
