@@ -3,6 +3,8 @@ package vooga.rts.networking.client;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashSet;
+import java.util.Set;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import vooga.rts.networking.client.GUI.CreateLobbyView;
@@ -14,6 +16,7 @@ import vooga.rts.networking.client.GUI.ViewContainerPanel;
 import vooga.rts.networking.communications.ExpandedLobbyInfo;
 import vooga.rts.networking.communications.LobbyInfo;
 import vooga.rts.networking.communications.Message;
+import vooga.rts.networking.communications.Player;
 import vooga.rts.networking.communications.clientmessages.InitialConnectionMessage;
 import vooga.rts.networking.communications.clientmessages.JoinLobbyMessage;
 import vooga.rts.networking.communications.clientmessages.RequestServerListMessage;
@@ -31,12 +34,14 @@ import vooga.rts.networking.communications.servermessages.ServerInfoMessage;
 public class ClientModel implements IMessageReceiver, IClientModel, IModel {
 
     private IClient myClient;
+    private String myUserName;
     private ViewContainerPanel myContainerPanel;
     private ServerBrowserView myServerBrowserView;
     private CreateLobbyView myCreateLobbyView;
     private ExpandedLobbyInfo myLobbyInfo;
     private LobbyView myLobbyView;
     private String[] myFactions;
+    private Set<Player> myUserControlledPlayers = new HashSet<Player>();
 
     /**
      * This is the handler of information needed by all of the views in the process of connecting to
@@ -52,6 +57,7 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
                         String[] factions,
                         String[] maps,
                         Integer[][] maxPlayerArray) {
+        myUserName = userName;
         myFactions = factions;
         myContainerPanel = new ViewContainerPanel(gameName);
         myServerBrowserView = new ServerBrowserView(new ServerBrowserTableAdapter());
@@ -142,8 +148,8 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
      */
     private void switchToLobbyView (ExpandedLobbyInfo lobbyInfo) {
         // TODO resources
-        myLobbyInfo = lobbyInfo;
-        myLobbyView = new LobbyView(this, myFactions, myLobbyInfo.getMaxPlayers());
+        myLobbyView = new LobbyView(this, myFactions, lobbyInfo.getMaxPlayers());
+        updateLobby(lobbyInfo);
         myContainerPanel.changeView(myLobbyView, " Lobby Creation");
         myContainerPanel.changeLeftButton("Leave Lobby", new ActionListener() {
             @Override
@@ -192,12 +198,16 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
     }
 
     @Override
-    public void switchToLobby (ExpandedLobbyInfo lobbyInfo) {
+    public void switchToLobby (ExpandedLobbyInfo lobbyInfo, int playerID) {
+        Player userPlayer = new Player(myUserName, 1, myFactions[0], playerID);
+        myUserControlledPlayers.add(userPlayer);
+        lobbyInfo.addPlayer(userPlayer);
         switchToLobbyView(lobbyInfo);
     }
 
     @Override
     public void updateLobby (ExpandedLobbyInfo lobbyInfo) {
         myLobbyInfo = lobbyInfo;
+        myLobbyView.update(myUserControlledPlayers, myLobbyInfo.getPlayers());
     }
 }

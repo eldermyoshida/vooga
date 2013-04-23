@@ -3,6 +3,7 @@ package vooga.rts.networking.server;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
+import vooga.rts.networking.communications.ExpandedLobbyInfo;
 import vooga.rts.networking.communications.LobbyInfo;
 import vooga.rts.networking.communications.Message;
 import vooga.rts.networking.communications.clientmessages.ClientInfoMessage;
@@ -60,6 +61,10 @@ public abstract class AbstractThreadContainer implements IThreadContainer, IMess
 
     @Override
     public void startLobby (ConnectionThread thread, LobbyInfo lobbyInfo) {
+    }
+    
+    @Override
+    public void updateLobbyInfo (ConnectionThread thread, ExpandedLobbyInfo myLobbyInfo){
     }
 
     @Override

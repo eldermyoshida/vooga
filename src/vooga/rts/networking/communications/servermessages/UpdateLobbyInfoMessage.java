@@ -2,7 +2,6 @@ package vooga.rts.networking.communications.servermessages;
 
 import vooga.rts.networking.client.IClientModel;
 import vooga.rts.networking.communications.ExpandedLobbyInfo;
-import vooga.rts.networking.communications.LobbyInfo;
 
 
 /**
@@ -20,13 +19,13 @@ public class UpdateLobbyInfoMessage extends AbstractLobbyInfoMessage {
      * 
      * @param info to send
      */
-    public UpdateLobbyInfoMessage (LobbyInfo info) {
+    public UpdateLobbyInfoMessage (ExpandedLobbyInfo info) {
         super(info);
     }
 
     @Override
     public void affectClient (IClientModel model) {
-        // TODO Auto-generated method stub
+        model.updateLobby((ExpandedLobbyInfo) getLobbyInfo());
     }
 
 }

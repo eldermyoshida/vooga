@@ -48,6 +48,10 @@ public class Room extends AbstractThreadContainer {
         myID = id;
         myGameContainer = container;
     }
+    
+    protected void setLobbyInfo (ExpandedLobbyInfo lobbyInfo) {
+        myLobbyModel = lobbyInfo;
+    }
 
     protected GameContainer getGameContainer () {
         return myGameContainer;
