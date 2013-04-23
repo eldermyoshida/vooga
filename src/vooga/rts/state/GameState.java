@@ -71,6 +71,7 @@ public class GameState extends SubState implements Controller {
         // myMap = new GameMap(8, new Dimension(512, 512));
         pt = new PointTester();
         myFrames = new FrameCounter(new Location(100, 20));
+        myMap = new GameMap(new Dimension(10000, 10000));
         setupGame();
     }
 
@@ -191,7 +192,7 @@ public class GameState extends SubState implements Controller {
         garrison.getOccupyStrategy().createOccupyActions(garrison);
         myHumanPlayer.add(garrison);
 
-        myMap = new GameMap(new Dimension(10000, 10000));
+        
 
         r =
                 new Resource(new Pixmap(ResourceManager.getInstance()

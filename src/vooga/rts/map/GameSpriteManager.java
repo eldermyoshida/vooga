@@ -7,6 +7,8 @@ import java.util.Observable;
 import vooga.rts.IGameLoop;
 import vooga.rts.gamedesign.sprite.gamesprites.GameSprite;
 import vooga.rts.gamedesign.sprite.map.Terrain;
+import vooga.rts.state.GameState;
+import vooga.rts.state.MainState;
 import vooga.rts.util.Location3D;
 
 
@@ -51,6 +53,7 @@ public class GameSpriteManager<T extends GameSprite> extends Observable implemen
      * @param gs The item to add
      */
     public void add (T gs) {
+        gs.addObserver(GameState.getMap().getNodeMap());
         myGameSprites.add(gs);
     }
 
@@ -80,7 +83,7 @@ public class GameSpriteManager<T extends GameSprite> extends Observable implemen
 
     /**
      * Returns a list of all the items in this manager that are within a certain radius
-     * of the provided location. 
+     * of the provided location.
      * 
      * @param center The location to search from
      * @param radius The distance away from the location to select items
