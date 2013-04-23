@@ -87,11 +87,7 @@ public class NodeMap implements Observer {
     }
 
     public void paint (Graphics2D pen) {
-        for (int x = 0; x < myWidth; x++) {
-            for (int y = 0; y < myHeight; y++) {
-                pen.drawRect(x * 10, y * 10, 10, 10);
-            }
-        }
+        // Paint everything in the game!
     }
 
     /**
@@ -123,11 +119,9 @@ public class NodeMap implements Observer {
      * @return The node that the location is inside.
      */
     private Node findContainingNode (Location3D world) {
-        // This should be the node for this location.
-        int Xindex = (int) Math.floor(world.getX() / Node.NODE_SIZE);
-        int Yindex = (int) Math.floor(world.getY() / Node.NODE_SIZE);
-        Node potential = get(Xindex, Yindex);
-        if (potential != null && potential.isInside(world)) {
+        // This should be the node for this location.        
+        Node potential = getNode(world);
+        if (potential != null && potential.contains(world)) {
             return potential;
         }
         return null;
@@ -151,7 +145,7 @@ public class NodeMap implements Observer {
             for (int y = nodeY - numTiles; x < nodeY + numTiles; y++) {
                 Node cur = get(x, y);
                 if (cur != null) {
-                    if (cur.isInside(new Location3D(x * Node.NODE_SIZE, y * Node.NODE_SIZE, center
+                    if (cur.contains(new Location3D(x * Node.NODE_SIZE, y * Node.NODE_SIZE, center
                             .getZ()))) {
                         nodeList.add(cur);
                     }
@@ -159,6 +153,18 @@ public class NodeMap implements Observer {
             }
         }
         return nodeList;
+    }
+    
+    /**
+     * Returns a node that corresponds to a provided world location.
+     * 
+     * @param location The location of 
+     * @return
+     */
+    public Node getNode (Location3D location) {
+        int x = (int) Math.floor(location.getX() / Node.NODE_SIZE);
+        int y = (int) Math.floor(location.getY() / Node.NODE_SIZE);
+        return get(x, y);
     }
 
     @Override
@@ -168,15 +174,15 @@ public class NodeMap implements Observer {
             return;
         }
         GameSprite item = (GameSprite) arg0;
-        
+
         // if it's updating with its new location
         if (arg1 instanceof Location3D) {
             Node cur = myLookupMap.get(item);
-            // hasn't moved outside of the current node
-            if (cur.isInside(item.getWorldLocation())) {
-                return;
-            }
-            if (cur != null) {                
+            if (cur != null) {
+                // hasn't moved outside of the current node
+                if (cur.contains(item.getWorldLocation())) {
+                    return;
+                }
                 // get the new node that the entity is in
                 Node newNode = findContainingNode(item.getWorldLocation());
                 if (newNode != null) {

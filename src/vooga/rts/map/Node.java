@@ -90,7 +90,7 @@ public class Node {
      * @param world The location to check
      * @return Whether it is in the node or not
      */
-    public boolean isInside (Location3D world) {
+    public boolean contains (Location3D world) {
         return myBounds.contains(world.to2D());
     }
 

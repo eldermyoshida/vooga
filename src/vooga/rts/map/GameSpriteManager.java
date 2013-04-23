@@ -14,7 +14,7 @@ import vooga.rts.util.Location3D;
  * This class is a basic manager for Game Sprites that will go on the map.
  * These will be things such as Terrains and Resources.
  * 
- * Extensions of this class will be what is used to store the actual information.
+ * This class uses generics in order to store mutliple ti
  * 
  * @author Jonathan Schmidt
  * 
@@ -23,6 +23,9 @@ public class GameSpriteManager<T extends GameSprite> extends Observable implemen
 
     private List<T> myGameSprites;
 
+    /**
+     * Creates a new GameSpriteMananger
+     */
     public GameSpriteManager () {
         myGameSprites = new ArrayList<T>();
     }
@@ -42,16 +45,17 @@ public class GameSpriteManager<T extends GameSprite> extends Observable implemen
     }
 
     /**
-     * Adds terrain to the terrain map
+     * Adds items to the manager. These items will then be observed by the NodeMap
+     * and will be updated and painted every cycle.
      * 
-     * @param gs The Terrain to add
+     * @param gs The item to add
      */
     public void add (T gs) {
         myGameSprites.add(gs);
     }
 
     /**
-     * Removes a Terrain from the TerrainManager if it exists
+     * Removes a particular item from the manager. This will stop it from being updated or painted.
      * 
      * @param gs The Terrain to remove
      */
@@ -60,12 +64,12 @@ public class GameSpriteManager<T extends GameSprite> extends Observable implemen
     }
 
     /**
-     * Returns the first Game Sprite at the certain world position
+     * Returns the first item at the provided world location
      * 
-     * @param world The world position to look at
+     * @param world The world location to look at
      * @return The Game Sprite at that position
      */
-    public T getGameSprite (Location3D world) {
+    public T getItem (Location3D world) {
         for (T t : myGameSprites) {
             if (t.intersects(world)) {
                 return t;
@@ -74,6 +78,14 @@ public class GameSpriteManager<T extends GameSprite> extends Observable implemen
         return null;
     }
 
+    /**
+     * Returns a list of all the items in this manager that are within a certain radius
+     * of the provided location. 
+     * 
+     * @param center The location to search from
+     * @param radius The distance away from the location to select items
+     * @return List of items that are in the area
+     */
     public List<T> getInArea (Location3D center, double radius) {
         List<T> items = new ArrayList<T>();
         for (T single : myGameSprites) {
