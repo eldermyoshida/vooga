@@ -2,22 +2,31 @@ package util.logger;
 
 import java.util.logging.Handler;
 
-public class HandlerMail implements IVoogaHandler{
-	private String myFrom;
-	private String[] myTo;
+import util.IMail;
+
+public class HandlerMail implements IVoogaHandler, IMail{
+	private MailingHandler myHandler;
 	
-	public void setFrom(String from) {
-		myFrom = from;
+	public HandlerMail() {
+		myHandler = new MailingHandler();
 	}
 	
-	public void setTo(String[] to){
-		myTo = to;
+	
+	public HandlerMail(String from, String[] to, String server,
+			String subject, String message) {
+		this();
+		myHandler.setProperties(from, to, server, subject, message);
 	}
 	
 	@Override
 	public Handler getHandler() {
-		// TODO Auto-generated method stub
-		return null;
+		return myHandler;
+	}
+
+	@Override
+	public void setProperties(String from, String[] to, String server,
+			String subject, String message) {
+		myHandler.setProperties(from, to, server, subject, message);		
 	}
 
 }
