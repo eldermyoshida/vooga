@@ -1,5 +1,6 @@
 package arcade.database;
 import arcade.controller.GameSpecificData;
+import arcade.controller.UserSpecificData;
 import arcade.games.GameData;
 import arcade.games.Score;
 import arcade.games.UserGameData;
@@ -56,7 +57,7 @@ public class Database {
                                String dataOfBirth) {
         return myUserTable.createUser(username, pw, firstname, lastname, dataOfBirth);
     }
-
+    
     /**
      * Creates a user when given username, pw, firstname, lastname, and dataofbirth and avatar
      * 
@@ -72,6 +73,11 @@ public class Database {
         insertAvatar(username, filepath);
         return myUserTable.createUser(username, pw, firstname, lastname, dataOfBirth);
     }
+    
+    public boolean createUser(UserSpecificData data) {
+		return createUser(data.getUsername(), data.getPassword(), data.getFirstName(), data.getLastName(), data.getDOB(), data.getImageFilePath());
+	}
+    
 
     /**
      * Creates a new game
@@ -462,4 +468,6 @@ public class Database {
         return myS3Instance.getThumbnail(gameName);
         //return new Pixmap(myS3Instance.getAdScreen(gameName));
     }
+
+	
 }

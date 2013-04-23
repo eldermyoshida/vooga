@@ -84,6 +84,7 @@ public class MainView extends JFrame {
         
     }
     
+    /*
     public static void main (String[] args) {
         ResourceBundle resources = ResourceBundle.getBundle("arcade.resources.English");
         
@@ -96,5 +97,6 @@ public class MainView extends JFrame {
 //      }
 //      return games;
     }
+    */
 
 }

@@ -98,24 +98,25 @@ public class GameSpecificData {
 	
 	
 	
-	private String formatFilePath(String path){
-		String start = substringStartingWith(path, "src");
-		String output = "";
-		for (int i = 0; i < start.length(); i++) {
-			char c = start.charAt(i);
-			if (c == '.') break;
-			if (c == '/') output += ".";
-			else output += c;
-		}
-		return output;
-	}
-	
-	/*
+//	private String formatFilePath(String path){
+//		String start = substringStartingWith(path, "src");
+//		String output = "";
+//		for (int i = 0; i < start.length(); i++) {
+//			char c = start.charAt(i);
+//			if (c == '.') break;
+//			if (c == '/') output += ".";
+//			else output += c;
+//		}
+//		return output;
+//	}
+//	
+	/**
 	 * Tedious Java string manipulation to change something like:
 	 * C://blah/blah/blah/src/games/rts/ageOfEmpires/game.java to
 	 * games.rts.ageOfEmpires.game so replace slashes with periods and remove
 	 * the file extension
-	private String formatClassFilePath(String path) {
+	 */
+	private String formatFilePath(String path) {
 		if (path == null)
 			return null;
 		// split on file extension
@@ -137,7 +138,6 @@ public class GameSpecificData {
 		return ret;
 	}
 	
-	*/
 	
 	private String substringStartingWith(String prefix, String target){
 		return target.substring(target.indexOf(prefix));

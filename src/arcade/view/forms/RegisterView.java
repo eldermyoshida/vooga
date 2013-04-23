@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import arcade.controller.Controller;
+import arcade.controller.UserSpecificData;
 import arcade.exceptions.DOBFormatException;
 import arcade.exceptions.UsernameFormatException;
 import arcade.exceptions.UsernameTakenException;
@@ -170,13 +171,19 @@ public class RegisterView extends Account {
             if (!isUsernameCorrectFormat(getUsername())) { throw new UsernameFormatException(); }
 
             if (!isDOBCorrectFormat(myDOBTextField.getText())) { throw new DOBFormatException(); }
+            
+            UserSpecificData data = new UserSpecificData(getUsername(), getPassword(),
+                    myFirstNameTextField.getText(), myLastNameTextField.getText(), myDOBTextField.getText());
+            getModel().createNewUserProfile(data);
 
+            /*
             getModel().createNewUserProfile(getUsername(),
                                             getPassword(),
                                             myFirstNameTextField.getText(),
                                             myLastNameTextField.getText(),
                                             myDOBTextField.getText());// ,
             // myImagePath);
+            */
             dispose();
 
         }

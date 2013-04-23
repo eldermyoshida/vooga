@@ -67,11 +67,12 @@ public class Controller implements ArcadeInteraction {
 	}
 
 	
+	/*
 	public Controller(ResourceBundle rb, String language) {
 		myResources = rb;
 		myLanguage = language;
 	}
-
+	 */
 	
 	public void setLoginView(LoginView login) {
 		myLoginView = login;
@@ -120,6 +121,17 @@ public class Controller implements ArcadeInteraction {
 	 * 
 	 * @throws UsernameTakenException
 	 */
+	public void createNewUserProfile(UserSpecificData data) throws UsernameTakenException {
+		if (usernameInDatabase(data.getUsername())) throw new UsernameTakenException();
+		myDb.createUser(data);
+		try {
+			authenticate(data.getUsername(),data.getPassword());
+		} catch (LoginErrorException e) {
+			throw new CorruptedDatabaseException();
+		}
+	}
+	
+	/*
 	public void createNewUserProfile(String username, String pw, String firstname, String lastname, String dateOfBirth) 
 			throws UsernameTakenException {
 		createNewUserProfile(username, pw, firstname, lastname, dateOfBirth, NO_USER_IMAGE);
@@ -138,6 +150,7 @@ public class Controller implements ArcadeInteraction {
 			throw new CorruptedDatabaseException();
 		}
 	}
+	*/
 	
 	private boolean usernameInDatabase(String username){
 		return myDb.usernameExists(username);
