@@ -14,8 +14,7 @@ public interface IGameComponent {
     
     public void update(double elapsedTime, Dimension bounds, GameView view);
     
-   public void addManager (LevelManager lm);
-    
+   
     public void addInputListeners (Input myInput);
     
     public void removeInputListeners (Input myInput);

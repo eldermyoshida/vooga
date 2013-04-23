@@ -1,11 +1,9 @@
 package vooga.scroller.level_editor;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import util.Location;
 import util.input.Input;
 import util.input.InputClassTarget;
@@ -16,7 +14,6 @@ import vooga.scroller.util.Sprite;
 import vooga.scroller.level_editor.controllerSuite.LEGrid;
 import vooga.scroller.level_editor.model.SpriteBox;
 import vooga.scroller.level_management.IDoor;
-import vooga.scroller.level_management.LevelManager;
 import vooga.scroller.level_management.LevelPortal;
 import vooga.scroller.level_management.SpriteManager;
 import vooga.scroller.marioGame.spritesDefinitions.players.Mario;
@@ -45,46 +42,73 @@ public class Level implements Renderable<GameView>, IGameComponent{
     private IDoor myDoor;
     private Location myStartPoint;
 
-    public int getID () {
-        return myID;
-    }
-
+    //    public Level (int id, ScrollingManager sm) {
+    //        this(); // TODO Incomplete. figure out SM constraints...
+    //    }
+    
     private Level () {
         mySize = PlatformerConstants.DEFAULT_LEVEL_SIZE;
         myBackground = CITY_BACKGROUND;
         frameOfReferenceSize = PlatformerConstants.REFERENCE_FRAME_SIZE;
-        //mySprites = new ArrayList<Sprite>();
+        // mySprites = new ArrayList<Sprite>();
         myStartPoint = new Location();
-        //initFrames();
+        // initFrames();
     }
-
-//    public Level (int id, ScrollingManager sm) {
-//        this(); // TODO Incomplete. figure out SM constraints...
-//    }
 
     public Level (int id) {
         this();
         myID = id;
     }
 
-    public Level (int id, ScrollingManager sm) {
-        // MIGHT WANT TO INITIALIZE THIS WITH A PLAYER AS WELL
-        this();
-        mySpriteManager = new SpriteManager(this);
-        myStateManager = new LevelStateManager(mySpriteManager);
-        myScrollingManager = sm;
-        myID = id;
+    //    public Level (int id, ScrollingManager sm) {
+        //        this(); // TODO Incomplete. figure out SM constraints...
+        //    }
+        
+            public Level (int id, ScrollingManager sm) {
+                // MIGHT WANT TO INITIALIZE THIS WITH A PLAYER AS WELL
+                this();
+                mySpriteManager = new SpriteManager(this);
+                myStateManager = new LevelStateManager(mySpriteManager);
+                myScrollingManager = sm;
+                myID = id;
+            }
+
+    //    public Level (int id, ScrollingManager sm) {
+            //        this(); // TODO Incomplete. figure out SM constraints...
+            //    }
+            
+                public Level (int id, ScrollingManager sm, LEGrid grid) {
+                    this(id, sm);
+                    setSize(grid.getPixelSize());
+                    for (SpriteBox box : grid.getBoxes()) {
+                        addSprite(box.getSprite());
+                    }
+                    if(grid.getBackground()!=null) {
+                        setBackground(grid.getBackground()); 
+                    }
+                }
+
+    
+
+    
+
+//    public Level (int id, ScrollingManager sm) {
+//        this(); // TODO Incomplete. figure out SM constraints...
+//    }
+
+    public void update (double elapsedTime, Dimension bounds, GameView gameView) {
+        myStateManager.update(elapsedTime, bounds, gameView);
+        //mySpriteManager.updateSprites(elapsedTime, bounds, gameView);
     }
 
-    public Level (int id, ScrollingManager sm, LEGrid grid) {
-        this(id, sm);
-        setSize(grid.getPixelSize());
-        for (SpriteBox box : grid.getBoxes()) {
-            addSprite(box.getSprite());
-        }
-        if(grid.getBackground()!=null) {
-            setBackground(grid.getBackground()); 
-        }
+    @Override
+    public void paint (Graphics2D pen) {
+        myStateManager.paint(pen);
+        //mySpriteManager.paint(pen);
+    }
+
+    public int getID () {
+        return myID;
     }
 
     public void setSize (Dimension size) {
@@ -134,17 +158,6 @@ public class Level implements Renderable<GameView>, IGameComponent{
     public Object getState () {
         // TODO auto-generated.
         return null;
-    }
-
-    public void update (double elapsedTime, Dimension bounds, GameView gameView) {
-        myStateManager.update(elapsedTime, bounds, gameView);
-        //mySpriteManager.updateSprites(elapsedTime, bounds, gameView);
-    }
-
-    @Override
-    public void paint (Graphics2D pen) {
-        myStateManager.paint(pen);
-        //mySpriteManager.paint(pen);
     }
 
     public double getRightBoundary (Dimension frame) {
@@ -242,35 +255,35 @@ public class Level implements Renderable<GameView>, IGameComponent{
 
     }
 
+    // TODO: Can we initialize somewhere else?
     @Override //TODO - incomplete
     public GameView initializeRenderer (IView parent) {
      // view of user's content
         ScrollingManager sm = new OmniScrollingManager();
         GameView display = new GameView(PlatformerConstants.DEFAULT_WINDOW_SIZE, sm);
         sm.initView(display);
-        Player sample = new Mario(new Location(), new Dimension(32, 32), display, sm);
+        Player sample = new Mario(new Location(), new Dimension(30, 32), display, sm);
         Model m = new Model(display, sm, sample, this);
         m.addPlayerToLevel();
         display.setModel(m);
         return display;
     }
 
-    @Override
-    public void addManager (LevelManager lm) {
-        // TODO Auto-generated method stub
-        
-    }
     
     /**
      * Pauses the current game.
      */
     @InputMethodTarget(name = "pause")
     public void pauseGame() {
-        if(myStateManager.getCurrentStateID() == LevelStateManager.PAUSED_ID){
-            myStateManager.changeState(LevelStateManager.DEFAULT_ID);
+        if(myStateManager.isActive(LevelStateManager.DEFAULT_ID)){
+            myStateManager.removeState(LevelStateManager.DEFAULT_ID);
+            myStateManager.addState(LevelStateManager.PAUSED_ID);
+            return;
         }
-        else{
-            myStateManager.changeState(LevelStateManager.PAUSED_ID);
+        if(myStateManager.isActive(LevelStateManager.PAUSED_ID)){
+            myStateManager.addState(LevelStateManager.DEFAULT_ID);
+            myStateManager.removeState(LevelStateManager.PAUSED_ID);
+            return;
         }
     }
     

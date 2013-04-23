@@ -18,7 +18,7 @@ import vooga.scroller.view.GameView;
 public class Mario extends Player implements IPlayer, IInputListener{
 
 
-    private static final String CONTROLS_FILE_PATH = "vooga/scroller/resources/controls/MarioMapping";
+    private static final String CONTROLS_FILE_PATH = "vooga/scroller/marioGame/controls/MarioMapping";
    
     
     private static final int MAX_JUMPS = 2;
@@ -31,6 +31,7 @@ public class Mario extends Player implements IPlayer, IInputListener{
 
     public Mario (Location center, Dimension size, GameView gameView, ScrollingManager sm) {
         super(DEFAULT_IMAGE, center, size, gameView, sm, new Integer(1), new Integer (1));
+        MarioLib.addLeftRightAnimationToPlayer(this, "mario.gif");
         myJumpCount = 0;
     }
 
