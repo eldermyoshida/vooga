@@ -17,7 +17,7 @@ public class TrollUnitDefinition extends GameElementDefinition {
     private static final Pixmap TROLL_IMAGE = new Pixmap("Troll_Sprite.png");
     private static final Location DEFAULT_TOWER_LOCATION = new Location(200, 100);
     private static final Dimension DEFAULT_TOWER_SIZE = new Dimension(50, 50);
-    private static final double DEFAULT_MOVE_SPEED = 150;
+    private static final double DEFAULT_MOVE_SPEED = 50;
     private static final double DEFAULT_DIRECTION = 50;
     
     /**

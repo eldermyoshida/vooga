@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
 import vooga.rts.util.Vector;
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.tobetested.FollowPath;
@@ -264,9 +265,16 @@ public class GameMap {
         int x2 = (int) (finish.getX() / TileFactory.TILE_DIMENSIONS.getWidth());
         int y1 = (int) (start.getY() / TileFactory.TILE_DIMENSIONS.getHeight());
         int y2 = (int) (finish.getY() / TileFactory.TILE_DIMENSIONS.getHeight());
-        Path thePath = myPathfinder.getShortestPath(x1, y1, x2, y2);
-        // thePath.add(finish);
+        Location startIndex = getTileIndexFromLocation(start);
+        Location finishIndex = getTileIndexFromLocation(finish);
+        Path thePath = myPathfinder.getShortestPath(startIndex,finishIndex);
+        thePath.add(finish);
         return thePath;
+    }
+    
+    private Location getTileIndexFromLocation(Location location) {
+    	return new Location((int)((location.getX()-1)/TileFactory.TILE_DIMENSIONS.getWidth()),
+    						(int)((location.getY()-1)/TileFactory.TILE_DIMENSIONS.getHeight()));
     }
 
     /**

@@ -2,7 +2,9 @@ package vooga.towerdefense.model;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.Timer;
+
 import vooga.towerdefense.controller.Controller;
 
 /**
@@ -46,9 +48,7 @@ public class GameLoop {
 	private void initTimer() {
 		myTimer = new Timer(DEFAULT_DELAY, new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// myController.update(DEFAULT_DELAY);
-
-				myController.update(10);
+				myController.update(DEFAULT_DELAY);
 				myController.displayMap();
 			}
 		});
