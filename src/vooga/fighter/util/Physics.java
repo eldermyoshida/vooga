@@ -221,6 +221,18 @@ public class Physics {
     }
     
     /**
+     * Returns a velocity with no magnitude in the y axis. Useful for simulating normal force.
+     * @param velocity The velocity of the object.
+     * @return The velocity with only an x component.
+     */
+    public static Vector negateFalling (Vector velocity) {
+        Vector newVector = new Vector(velocity);
+        newVector.setVectorByComponent(velocity.getXChange(), 0);
+        
+        return newVector;
+    }
+    
+    /**
      * Returns the velocity vector reflected about a wall of impact. Assumes a
      * perfect elastic
      * collision.
