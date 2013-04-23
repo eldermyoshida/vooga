@@ -36,7 +36,7 @@ public class Controller implements ArcadeInteraction {
 		private static final String LOGIN_FAILURE_MESSAGE = "The username or password you entered is incorrect";
 		private static final String REGISTER_FAILURE_MESSAGE = "That username is already taken.";
 		
-		// Statis parameterrs
+		// Status parameterrs
 		private static final String NO_USER_IMAGE = "";
 		
 		// View
@@ -160,6 +160,12 @@ public class Controller implements ArcadeInteraction {
 	 * @param gameName
 	 * @param genre
 	 */
+	public void publish(GameSpecificData data){
+		myDb.createGame(data);
+		addNewGameInfoToList(data.getName());
+	}
+	
+	/*
 	public void publish(String name, String genre, String author, double price, String extendsGame, String extendsMultiplayerGame, int ageRating,
 			boolean singlePlayer, boolean multiplayer, String thumbnailPath, String adScreenPath, String description) {
 		// print
@@ -176,7 +182,7 @@ public class Controller implements ArcadeInteraction {
 		// Put game info in map
 		addNewGameInfoToList(name);
 	}
-	
+	*/
 	
 
 	/**

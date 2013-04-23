@@ -1,4 +1,5 @@
 package arcade.database;
+import arcade.controller.GameSpecificData;
 import arcade.games.GameData;
 import arcade.games.Score;
 import arcade.games.UserGameData;
@@ -104,6 +105,12 @@ public class Database {
         return myGameTable.createGame(gameName, author, genre, price, extendsGame,
                                       extendsMultiplayerGame, ageRating, singlePlayer, multiplayer,
                                       thumbnailPath, adscreenPath, description);
+    }
+    
+    public boolean createGame(GameSpecificData data) {
+    	return createGame(data.getName(), data.getAuthor(), data.getGenre(), data.getPrice(), data.getExtendsGame(),
+    			data.getExtendsMultiplyaer(), data.getAgeRating(), data.isSinglePlayer(), data.isMultiplayer(),
+    			data.getThumbnailPath(), data.getAdScreenPath(), data.getDescription());
     }
 
     /**
