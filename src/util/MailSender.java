@@ -6,6 +6,7 @@ import javax.mail.Address;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
+import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -19,13 +20,25 @@ public class MailSender {
 	private String myServerAddress;
 	private String mySubject = "No Subject";
 	private String myMessage;
+	
 	public MailSender(String from, String[] to,
+			String server, String subject, String message) {
+		setProperties(from,to,server,subject,message);
+	}
+	
+	public void setProperties(String from, String[] to,
 			String server, String subject, String message) {
 		myFromAddress = from;
 		myToAddress = to;
 		myServerAddress = server;
 		mySubject = subject;
 		myMessage = message;
+	}
+	
+	public void sendMail(String from, String[] to,
+			String server, String subject, String message) {
+		setProperties(from,to,server,subject,message);
+		sendMail();
 	}
 
 	public void sendMail() {
@@ -41,6 +54,10 @@ public class MailSender {
 			Address[] to = new InternetAddress[myToAddress.length];
 			for(int i = 0; i < myToAddress.length; i++)
 		        to[i] = new InternetAddress(myToAddress[i]);
+			mimeMsg.setRecipients(Message.RecipientType.TO,to);
+			mimeMsg.setSubject(mySubject);
+			mimeMsg.setText(myMessage);
+			Transport.send(mimeMsg);
 
 		} catch (AddressException e) {
 			NetworkLogger.logMessage("Error in choosing e-mail address\n"+e.toString());
