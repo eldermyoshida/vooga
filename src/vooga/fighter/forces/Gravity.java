@@ -13,13 +13,7 @@ public class Gravity extends Force {
     public Gravity() {
         super();
     }
-    
-    public void initialize(double direction, double magnitude) {
-        myDirection = direction;
-        myMagnitude = magnitude;
-        myVector = new Vector(myDirection, myMagnitude);
-    }
-    
+
     public void applyForce(CharacterObject object) {
         Vector newForce = getPhysics().applyForce(object.getVelocity(), object.getMass(), myVector);
         object.getLocation().setVelocity(newForce);
