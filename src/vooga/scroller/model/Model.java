@@ -38,7 +38,6 @@ public class Model {
 
     private static final String PLAYER_IMAGES = "walama.gif";
     // "mario.gif"
-    //"transparent_wolf.gif" -- not yet added.
     //"walama.gif"
     
     /**
@@ -101,35 +100,11 @@ public class Model {
         myScrollingManager.initView(myView); 
     }
 
-
-
-//    /**
-//     * User defined player initialization.
-//     */
-//    private Player initPlayer() {
-//        // TODO: this is implemented by the developer. 
-//        
-//        Player player = new Mario(
-//                             new Location(100, 140),
-//                             new Dimension(138/6, 276/6),
-//                             myView, myScrollingManager);
-//        
-//        MovingSpriteAnimationFactory msaf = new MovingSpriteAnimationFactory(PLAYER_IMAGES);
-//        Animation playerAnimation = msaf.generateAnimation(player);
-//        
-//        player.setView(playerAnimation);
-//
-//        return player;
-//    }
-
     /**
      * Draw all elements of the game.
      */
     public void paint (Graphics2D pen) {
         myLevelManager.getCurrentLevel().paint(pen);
-        
-        
-        
     }
 
     /**
@@ -138,13 +113,15 @@ public class Model {
      * @param elapsedTime is the elapsed time since the last update.
      */
     public void update (double elapsedTime) {
-
         myLevelManager.getCurrentLevel().update(elapsedTime, myView.getSize(), myView);
-
     }
 
     /**
      * Gives various boundaries for the current level.
+     * TODO: can these be consolidated into one function (seems like a lot extra things that aren't
+     * really associated with the model.
+     * (we could just return the current level or maybe the bounds of the level(this might be 
+     * dependent on other things) )
      * 
      * @return
      */
