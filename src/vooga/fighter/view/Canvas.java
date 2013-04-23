@@ -114,23 +114,27 @@ public class Canvas extends JComponent {
     }
     
     /**
-     * Opens an explorer window to select a file. Returns null on cancel and absolute path on success.
-     * @param descriptor Description of what types of files are being searched for.
-     * @param extensions Zero or more file extensions to filter for. (do not prefix with a period)
+     * Opens an explorer window to select a file. Returns null on cancel and
+     * absolute path on success.
+     * 
+     * @param descriptor
+     *            Description of what types of files are being searched for.
+     * @param extensions
+     *            Zero or more file extensions to filter for. (do not prefix
+     *            with a period)
      * @return The absolute path name of a file, or null.
      */
-    public String chooseFile (String descriptor, String ... extensions) {
+    public String chooseFile(String descriptor, String... extensions) {
         JFileChooser chooser = new JFileChooser();
         
-        FileNameExtensionFilter filter = new FileNameExtensionFilter(descriptor, extensions);
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                descriptor, extensions);
         chooser.setFileFilter(filter);
         int returnVal = chooser.showOpenDialog(this);
         
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
+        if (returnVal == JFileChooser.APPROVE_OPTION)
             return chooser.getSelectedFile().getAbsolutePath();
-        }
-        else {
+        else
             return null;
-        }
     }
 }
