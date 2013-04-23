@@ -4,6 +4,8 @@ package vooga.fighter.controller;
 
 import java.util.List;
 import util.input.*;
+import vooga.fighter.forces.Force;
+import vooga.fighter.forces.Gravity;
 import vooga.fighter.model.objects.CharacterObject;
 import vooga.fighter.model.objects.MouseClickObject;
 import vooga.fighter.view.Canvas;
@@ -20,7 +22,9 @@ import vooga.fighter.view.FourPlayerMatchGameLayout;
 @InputClassTarget
 public class OneVOneController extends LevelController {
     private static final String INPUT_PATHWAY = "vooga.fighter.config.leveldefault";
-
+    
+    private List<Force> myForces;
+    
     public OneVOneController () {
         super();
     }   
@@ -28,6 +32,9 @@ public class OneVOneController extends LevelController {
     public OneVOneController(String name, Canvas frame, ControllerDelegate manager, 
     		GameInfo gameinfo) {
     	super(name, frame, manager, gameinfo);
+    	Gravity gravity = new Gravity();
+    	myForces.add(gravity);
+    	getMode().setForces(myForces);
     	frame.setLayout(new FourPlayerMatchGameLayout());
     }
     
