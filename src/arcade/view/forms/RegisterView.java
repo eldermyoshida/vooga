@@ -212,8 +212,7 @@ public class RegisterView extends Account {
      * @return
      */
     private boolean isDOBCorrectFormat (String dob) {
-        // TODO: USE REGULAR EXPRESSIONS
-        return true;
+        return dob.matches("[0-1][0-9]/[0-3][0-9]/[1-2][0-9][0-9][0-9]");
     }
 
 }

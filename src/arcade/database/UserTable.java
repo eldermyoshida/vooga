@@ -1,9 +1,10 @@
 package arcade.database;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Creates and updates user table
@@ -38,29 +39,10 @@ public class UserTable extends Table {
      * Constructor but eventually I want to make this part of the abstract class
      */
     public UserTable() {
-        myConnection=establishConnectionToDatabase();
-        myPreparedStatement=null;
-        myResultSet=null;
-    }
-
-    /**
-     * Closes Connection, ResultSet, and PreparedStatements once done with database
-     */
-    public void closeConnection() {
-        try {
-            if (myPreparedStatement != null) {
-                myPreparedStatement.close();
-            }
-            if (myResultSet != null) {
-                myResultSet.close();
-            }
-            if (myConnection != null) {
-                myConnection.close();
-            }
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
+        super();
+        myConnection = this.getConnection();
+        myPreparedStatement = this.getPreparedStatement();
+        myResultSet = this.getResultSet();
     }
 
     /**
@@ -182,7 +164,7 @@ public class UserTable extends Table {
     /**
      * Given a username and a column_index, returns that entire row entry
      * @param username is the username
-     * @param columnIndex is the index that we want the information for
+     * @param COLUMN_INDEX is the index that we want the information for
      */
     public String retrieveEntry(String username, int COLUMN_INDEX) {
         String stm = "SELECT * FROM " +TABLE_NAME + " WHERE " + USERNAME_COLUMN_FIELD + "='" + username + "'";
@@ -231,6 +213,25 @@ public class UserTable extends Table {
         catch (SQLException e) {
             e.printStackTrace();
         } 
+    }
+    
+    /**
+     * Returns a list of all the games
+     */
+    public List<String> retrieveUsernames() {
+        String stm = "SELECT " + USERNAME_COLUMN_INDEX + " FROM "  + TABLE_NAME;
+        List<String> myUsernames = new ArrayList<String>();
+        try {
+            myPreparedStatement = myConnection.prepareStatement(stm);
+            myResultSet = myPreparedStatement.executeQuery();
+            while (myResultSet.next()) {
+                myUsernames.add(myResultSet.getString(USERNAME_COLUMN_INDEX));
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return myUsernames; 
     }
     
     void printEntireTable () {

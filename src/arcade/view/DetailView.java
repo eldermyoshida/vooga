@@ -19,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import util.ImageHelper;
 import arcade.games.GameInfo;
 import arcade.model.Model;
 
@@ -72,8 +73,8 @@ public class DetailView extends JFrame {
 
         myContentPanel = (JPanel) getContentPane();
         ImageIcon icon = myGameInfo.getThumbnail();
-        ImageIcon scaledIcon = createScaledIcon(icon, 160);
-        myPicture = new JLabel(scaledIcon);
+        Image scaledImage = ImageHelper.getScaledImage(icon, 160);
+        myPicture = new JLabel(new ImageIcon(scaledImage));
         myPicture.setBounds(ORIGIN_X, 5, 160, 160);
 
         myTitle = new JLabel("<html><b><font color = gray>" + "Name" + "</font></b></html>");
@@ -165,21 +166,6 @@ public class DetailView extends JFrame {
         myCommentsContent.setText(sb.toString());
     }
     
-    /**
-     * TODO: REMOVE THE DUPLICATED CODE FROM HERE AND ButtonPanel
-     * @param icon
-     * @param size
-     * @return
-     */
-    private ImageIcon createScaledIcon(ImageIcon icon, int size){
-        Image image = icon.getImage();
-        BufferedImage buffer = new BufferedImage(size,size,BufferedImage.TYPE_INT_RGB);
-        Graphics2D g2 = buffer.createGraphics();
-        g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-        g2.drawImage(image, 0, 0, size, size, null);
-        g2.dispose();
-        return new ImageIcon(buffer);
-    }
 
     // public static void main(String[] args){
     // GameInfo in = new GameInfo("example","English");

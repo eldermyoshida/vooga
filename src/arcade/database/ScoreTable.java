@@ -4,6 +4,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import arcade.games.Score;
 
 /**
  * Creates and updates user table
@@ -34,28 +37,10 @@ public class ScoreTable extends Table {
      * Constructor but eventually I want to make this part of the abstract class
      */
     public ScoreTable() {
-        myConnection=establishConnectionToDatabase();
-        myPreparedStatement=null;
-        myResultSet=null;
-    }
-    /**
-     * Closes Connection, ResultSet, and PreparedStatements once done with database
-     */
-    public void closeConnection() {
-        try {
-            if (myPreparedStatement != null) {
-                myPreparedStatement.close();
-            }
-            if (myResultSet != null) {
-                myResultSet.close();
-            }
-            if (myConnection != null) {
-                myConnection.close();
-            }
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
+        super();
+        myConnection = this.getConnection();
+        myPreparedStatement = this.getPreparedStatement();
+        myResultSet = this.getResultSet();
     }
     
     /**
@@ -77,6 +62,24 @@ public class ScoreTable extends Table {
         catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    
+    public List<Score> getScoresForGame(String gameid, String userid, String gameName, String userName) {
+        String stm = "SELECT gameid FROM scores WHERE gameid='" + gameid + "' AND userid='" +userid +"'";
+        List<Score> scores = new ArrayList<Score>();
+        try {
+            myPreparedStatement = myConnection.prepareStatement(stm);
+            myResultSet  = myPreparedStatement.executeQuery();
+            while (myResultSet.next()) {
+                Score score = new Score(gameName, userName, myResultSet.getInt(HIGHSCORE_COLUMN_INDEX));
+                scores.add(score);
+            }
+            return scores;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
