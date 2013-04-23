@@ -14,9 +14,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+
+import arcade.controller.Controller;
+import arcade.controller.GameSpecificData;
 import arcade.exceptions.AgeException;
 import arcade.exceptions.InvalidPriceException;
-import arcade.model.Model;
 import arcade.view.TextKeywords;
 
 
@@ -55,7 +57,7 @@ public class PublishView extends Form {
      * @param model
      * @param resources
      */
-    public PublishView (Model model, ResourceBundle resources) {
+    public PublishView (Controller model, ResourceBundle resources) {
         super(model, resources);
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -243,18 +245,19 @@ public class PublishView extends Form {
      */
     private void publish () {
         try {
-            getModel().publish(myNameTextField.getText(),
-                               myGenreTextField.getText(),
-                               myAuthorTextField.getText(),
-                               getPrice(),
-                               mySinglePlayerPath,
-                               myMultiPlayerPath,
-                               getAgeRating(),
-                               isSinglePlayer,
-                               isMultiPlayer,
-                               mySmallImagePath,
-                               myLargeImagePath,
-                               myDescriptionTextField.getText());
+        	GameSpecificData data = new GameSpecificData(myNameTextField.getText(),
+                    myGenreTextField.getText(),
+                    myAuthorTextField.getText(),
+                    getPrice(),
+                    mySinglePlayerPath,
+                    myMultiPlayerPath,
+                    getAgeRating(),
+                    isSinglePlayer,
+                    isMultiPlayer,
+                    mySmallImagePath,
+                    myLargeImagePath,
+                    myDescriptionTextField.getText());
+            getModel().publish(data);
             dispose();
         }
         catch (InvalidPriceException e) {

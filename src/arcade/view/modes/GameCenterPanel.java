@@ -5,7 +5,8 @@ import java.awt.Dimension;
 import java.util.ResourceBundle;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import arcade.model.Model;
+
+import arcade.controller.Controller;
 import arcade.view.AllSnapShots;
 
 /**
@@ -22,7 +23,7 @@ public class GameCenterPanel extends JPanel {
     /**
      * 
      */
-    public GameCenterPanel (Model model, ResourceBundle resources) {      
+    public GameCenterPanel (Controller model, ResourceBundle resources) {      
         setBackground(Color.WHITE);
         AllSnapShots allSnapShots = new AllSnapShots(model, resources, new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
         add(new JScrollPane(allSnapShots));

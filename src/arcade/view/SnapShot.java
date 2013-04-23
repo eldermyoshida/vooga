@@ -12,8 +12,9 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import arcade.controller.Controller;
 import arcade.games.GameInfo;
-import arcade.model.Model;
 
 /**
  * A SnapShot is a small clickable panel that represents a Game in the GameCenter
@@ -28,9 +29,9 @@ public class SnapShot extends JPanel {
     public static final int THUMBNAIL_SIZE = 190;
     private GameInfo myGameInfo;
     private ResourceBundle myResources;
-    private Model myModel;
+    private Controller myModel;
 
-    public SnapShot (GameInfo info, ResourceBundle resources, Model model) {
+    public SnapShot (GameInfo info, ResourceBundle resources, Controller model) {
         myModel = model;
         myGameInfo = info;
         myResources = resources;
