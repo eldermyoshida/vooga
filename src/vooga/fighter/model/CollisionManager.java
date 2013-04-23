@@ -11,6 +11,7 @@ import vooga.fighter.model.objects.MapObject;
 import vooga.fighter.model.objects.MenuObject;
 import vooga.fighter.model.objects.MouseClickObject;
 import vooga.fighter.model.objects.MouseObject;
+import vooga.fighter.util.CollisionDetector;
 
 /**
  * Detects collisions between all the game objects. Collision handling is achieved
@@ -21,6 +22,12 @@ import vooga.fighter.model.objects.MouseObject;
  */
 public class CollisionManager {
 	
+    CollisionDetector myCollisionDetector;
+    
+    public CollisionManager() {
+        myCollisionDetector = new CollisionDetector();
+    }
+    
     /**
      * Checks for collisions between the game objects.
      */
@@ -81,6 +88,7 @@ public class CollisionManager {
 //    	else{
 //    		o1.pushBack(o2.getMovingDirection()); 
 //    	}
+        System.out.println("characters colliding");
     }
     
     /**
@@ -143,17 +151,23 @@ public class CollisionManager {
      * Handles collisions between an environment object and a character object.
      */
     public void collide(EnvironmentObject o1, CharacterObject o2) {
-    	o2.moveBack(0);// TODO: hardcoded meaningless value should change this later  
+        
+        System.out.println("colliding");
+//    	if (myCollisionDetector.hitBottom(o2.getCurrentState().getCurrentRectangle(),
+//    	     o1.getCurrentState().getCurrentRectangle())) {
+//    	    o2.jump();
+//    	    System.out.println("colliding");
+//    	}
     }
     
     /**
      * Handles collisions between a Menu object and an MouseClick object.
      */
     public void collide(MenuObject o1, MouseClickObject o2) {
-    	System.out.println(o1.getLocation().getLocation().getX());
-    	System.out.println(o1.getLocation().getLocation().getY());
-    	System.out.println(o2.getLocation().getLocation().getX());
-    	System.out.println(o2.getLocation().getLocation().getY());
+    	//System.out.println(o1.getLocation().getLocation().getX());
+    	//System.out.println(o1.getLocation().getLocation().getY());
+    	//System.out.println(o2.getLocation().getLocation().getX());
+    	//System.out.println(o2.getLocation().getLocation().getY());
     	o1.tellDelegate();
     }
     
