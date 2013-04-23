@@ -11,6 +11,13 @@ import vooga.scroller.level_editor.level_state.PausedState;
 import vooga.scroller.level_management.SpriteManager;
 import vooga.scroller.view.GameView;
 
+/**
+ * Represents the manager for all the states in the level. This consists of active state 
+ * and non active states. All states are referenced using an int stateID
+ * 
+ * @author Scott Valentine
+ *
+ */
 public class LevelStateManager {
 
     // What to do about these. Leve them for reference for other parts of the game
