@@ -8,10 +8,12 @@ import java.util.List;
 import java.util.Map;
 import javax.swing.ImageIcon;
 import javax.swing.JMenuBar;
+import javax.swing.JToggleButton;
 import vooga.scroller.level_editor.StartPoint;
+import vooga.scroller.level_editor.commands.CommandConstants;
 import vooga.scroller.level_editor.view.LEActionLibrary;
 import vooga.scroller.level_editor.view.LEMenuBar;
-import vooga.scroller.level_editor.view.LEToolsView;
+import vooga.scroller.level_editor.view.TabbedToolsView;
 import vooga.scroller.level_editor.view.LEView;
 import vooga.scroller.level_management.IDoor;
 import vooga.scroller.sprites.interfaces.ICollectible;
@@ -33,7 +35,7 @@ import vooga.scroller.util.mvc.vcFramework.WorkspaceView;
  * @author Dagbedji Fagnisse
  * 
  */
-public class LETools extends Tools<LEToolsView> {
+public class LETools extends Tools<TabbedToolsView> {
 
     private static final int DEFAULT_SIZE = 40;
     private static final int PLATFORMS = 0;
@@ -139,16 +141,33 @@ public class LETools extends Tools<LEToolsView> {
     }
 
     @Override
-    public LEToolsView initializeRenderer (IView parent) {
-        return new LEToolsView(this, parent);
+    public TabbedToolsView initializeRenderer (IView parent) {
+        return new TabbedToolsView(this, parent);
     }
 
-    // public void addBackgrounds (Map<Integer, Image> map) {
-    // for (Integer key : map.keySet()) {
-    // myBackgroundImages
-    // .put(new ImageIcon(map.get(key).getScaledInstance(100, 100, Image.SCALE_SMOOTH)),
-    // "" + key);
-    // }
-    // }
+    @Override
+    public List<? extends Map<Object, String>> EditableDependents () {
+        return getAllSprites();
+    }
+
+    @Override
+    public Map<Object, String> getEditableIndependents () {
+        return getBackgrounds();
+    }
+
+    @Override
+    public String EditableDependentsTitle () {
+        return "Sprites";
+    }
+
+    @Override
+    public String getEditableIndependentsTitle () {
+        return "Other";
+    }
+
+    @Override
+    public String getEditableIndependentsKeyword () {
+        return CommandConstants.CHANGE_BACKGROUND;
+    }
 
 }

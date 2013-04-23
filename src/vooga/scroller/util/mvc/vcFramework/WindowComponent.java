@@ -15,7 +15,7 @@ import vooga.scroller.util.mvc.IView;
  *
  */
 @SuppressWarnings("serial")
-public abstract class WindowComponent extends JPanel implements IView {
+public abstract class WindowComponent<R> extends JPanel implements IView<R> {
 
     private IView myResponsible;
 

@@ -53,6 +53,7 @@ public class Model {
     public Model (GameView gameView, ScrollingManager sm, Player player, Level ...levels) {
         this(gameView, sm, player);
         myLevelManager = initializeLevelManager(levels);
+        addPlayerToLevel();
     }
     
     

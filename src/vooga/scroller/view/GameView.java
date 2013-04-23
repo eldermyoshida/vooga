@@ -50,8 +50,6 @@ public class GameView extends JComponent {
     private Point myLastMousePosition;
     // MULTIPLE KEY SUPPORT
     private Set<Integer> myKeys;
-    // Player
-    private Player myPlayer;
     private ScrollingManager myScrollManager;
     private boolean win = false;
 

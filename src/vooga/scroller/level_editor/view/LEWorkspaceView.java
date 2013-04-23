@@ -30,10 +30,9 @@ public class LEWorkspaceView extends WorkspaceView<LevelEditing> implements Rend
      */
     private static final long serialVersionUID = 1L;
     private LEGridView myGridView;
-    private LEToolsView myToolsView;
+    private TabbedToolsView myToolsView;
     private JScrollPane myLevelGridScroller;
     private JScrollPane myToolsScroller;
-    private static LETools ourTools;
 
     /**
      * Create a Workspace with the specified host, id, and renderable
@@ -43,7 +42,7 @@ public class LEWorkspaceView extends WorkspaceView<LevelEditing> implements Rend
      * @param r - Renderable to be loaded in this workspace.
      */
     public LEWorkspaceView (LEView host, int id, 
-                            Renderable<LEGridView> grid, Tools<LEToolsView> tools) {
+                            Renderable<LEGridView> grid, Tools<TabbedToolsView> tools) {
         super(id, host);
         myGridView = grid.initializeRenderer(this);
         myToolsView = tools.initializeRenderer(this);
@@ -61,7 +60,7 @@ public class LEWorkspaceView extends WorkspaceView<LevelEditing> implements Rend
         if (isn instanceof String) {
             String cmd = (String) isn;
             if (getCommand(cmd).equals(CommandConstants.CREATE_SPRITE)) {
-                cmd = cmd + CommandConstants.SPACE + myToolsView.getSelectedSpriteID();
+                cmd = cmd + CommandConstants.SPACE + myToolsView.getSelectedEditableDependent();
             }
             super.process(cmd);
         }
@@ -74,10 +73,6 @@ public class LEWorkspaceView extends WorkspaceView<LevelEditing> implements Rend
         return cmd.split(CommandConstants.SPACE)[0];
     }
 
-    // TODO - Good design choice??
-    public static void setTools (Tools t) {
-        ourTools = (LETools) t;
-    }
 
     public boolean isValidForSimulation () {
         return myGridView.isValidForSimulation();

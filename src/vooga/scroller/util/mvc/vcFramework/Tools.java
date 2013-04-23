@@ -1,7 +1,10 @@
 package vooga.scroller.util.mvc.vcFramework;
 
+import java.util.List;
+import java.util.Map;
 import javax.swing.JMenuBar;
-import vooga.scroller.level_editor.view.LEToolsView;
+import javax.swing.JToggleButton;
+import vooga.scroller.level_editor.view.TabbedToolsView;
 import vooga.scroller.util.mvc.IView;
 
 /**
@@ -18,4 +21,13 @@ public abstract class Tools<T extends WindowComponent> {
 
     public abstract T initializeRenderer (IView parent);
 
+    public abstract List<? extends Map<Object, String>> EditableDependents ();
+
+    public abstract Map<Object, String> getEditableIndependents ();
+
+    public abstract String EditableDependentsTitle ();
+
+    public abstract String getEditableIndependentsTitle ();
+
+    public abstract String getEditableIndependentsKeyword ();
 }
