@@ -12,12 +12,17 @@ import javax.swing.Timer;
 
 import util.Location;
 import util.input.*;
+import vooga.fighter.model.CollisionManager;
+import vooga.fighter.model.LevelMode;
+import vooga.fighter.model.Mode;
+import vooga.fighter.model.objects.AttackObject;
+import vooga.fighter.model.objects.CharacterObject;
+import vooga.fighter.model.objects.EnvironmentObject;
+import vooga.fighter.model.objects.MapObject;
 import vooga.fighter.model.LevelMode;
 import vooga.fighter.model.Mode;
 import vooga.fighter.model.objects.CharacterObject;
-import vooga.fighter.model.LevelMode;
-import vooga.fighter.model.Mode;
-import vooga.fighter.model.objects.CharacterObject;
+import vooga.fighter.model.utils.UpdatableLocation;
 import vooga.fighter.util.Paintable;
 import vooga.fighter.view.Canvas;
 
@@ -62,11 +67,15 @@ public abstract class LevelController extends Controller {
 
     
     public void loadMode() {
-        List<String> characterNames = getGameInfo().getCharacters();
-        String mapID = getGameInfo().getMapName();
-        LevelMode temp = new LevelMode(characterNames, mapID);
-        setMode((Mode) temp);
-        myInputObjects = temp.getMyCharacterObjects();
+        LevelMode temp = new LevelMode(new CollisionManager());
+        super.setMode((Mode) temp);
+        myInputObjects = temp.getCharacterObjects();
+    }
+    
+    public void initializeMode(){
+        loadMap(getGameInfo().getMapName());
+        loadCharacters(getGameInfo().getCharacters(), getMode().getMap().getStartPositions());
+        loadHealth();
     }
     
     protected List<CharacterObject> getInputObjects(){
@@ -115,7 +124,7 @@ public abstract class LevelController extends Controller {
     ModeCondition wincondition = new ModeCondition() {
     	public boolean checkCondition(Mode mode) {
     		LevelMode levelmode = (LevelMode) mode;
-			for(CharacterObject character: levelmode.getMyCharacterObjects()){
+			for(CharacterObject character: levelmode.getCharacterObjects()){
 				if(!character.hasHealthRemaining()) return true;
 			}
 			return false;
@@ -125,7 +134,7 @@ public abstract class LevelController extends Controller {
     ModeCondition lowhealthcondition = new ModeCondition() {
     	public boolean checkCondition(Mode mode) {
     		LevelMode levelmode = (LevelMode) mode;
-			for(CharacterObject character: levelmode.getMyCharacterObjects()){
+			for(CharacterObject character: levelmode.getCharacterObjects()){
 				if(!character.hasHealthRemaining()) return true;
 			}
 			return false;
@@ -135,6 +144,39 @@ public abstract class LevelController extends Controller {
     public void developerUpdate(){
     	;
     }
+    
+    
+
+    public void loadHealth() {
+        for (int i = 0; i < getMode().getCharacterObjects().size(); i++) {
+            getMode().getHealthStats().add(getMode().getCharacterObjects().get(i).getHealth());
+        }
+    }
+
+    /**
+     * Loads the environment objects for a map using the ObjectLoader.
+     */
+    public void loadMap(String mapName) {
+    	getMode().setMap(new MapObject(mapName));
+        List<EnvironmentObject> mapObjects = getMode().getMap().getEnviroObjects();
+        for (EnvironmentObject object : mapObjects) {
+        	getMode().addObject(object);
+        }
+    }
+
+    /**
+     * Loads the character objects for the selected characters using the ObjectLoader.
+     */
+    public void loadCharacters(List<String> characterNames, List<UpdatableLocation> startingPos) {
+        for (int i = 0; i < characterNames.size(); i++) {
+            String charName = characterNames.get(i);
+            UpdatableLocation start = startingPos.get(i);
+            CharacterObject newCharacter = new CharacterObject(charName, start);
+            getMode().addObject(newCharacter);
+            getMode().addCharacter(newCharacter);
+        }
+    }
+
     
     
 }

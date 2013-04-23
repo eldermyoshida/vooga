@@ -115,8 +115,10 @@ public abstract class Controller{
 
     protected void setMode(Mode mode){
         myMode = mode;
-        myMode.initializeMode();
+        initializeMode();
     }
+    
+    public abstract void loadMode();
     
     protected void setLoopInfo(DisplayInfo loopinfo){
     	myDisplayInfo = loopinfo;
@@ -166,9 +168,6 @@ public abstract class Controller{
 
     }
 
-    public void loadMode() {
-
-    }
     public void removeListener(){
     	getInput().removeListener(this);
     }
@@ -179,6 +178,8 @@ public abstract class Controller{
     public abstract Controller getController();
     
     public abstract void developerUpdate();
+    
+    public abstract void initializeMode();
 
         
 

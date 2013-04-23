@@ -1,13 +1,16 @@
 package vooga.fighter.model;
 
-import java.awt.Dimension;
+import java.awt.Dimension; 
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
-import vooga.fighter.controller.ModelDelegate;
+
+import util.input.src.input.PositionObject;
 import vooga.fighter.model.objects.CharacterObject;
 import vooga.fighter.model.objects.EnvironmentObject;
 import vooga.fighter.model.objects.GameObject;
 import vooga.fighter.model.objects.MapObject;
+import vooga.fighter.model.objects.MouseClickObject;
 import vooga.fighter.model.utils.ImageDataObject;
 import vooga.fighter.model.utils.State;
 import vooga.fighter.model.utils.UpdatableLocation;
@@ -23,12 +26,18 @@ public class MapEditorMode extends Mode {
     private List<UpdatableLocation> myStartLocations;
     private String myMapName;
     private MapObject myMap;
+    private List<EnvironmentObject> myEnviroObjects;
+    private EnvironmentObject myCurrentSelection;
+    private int myEnviroIndex; //the list index of the current environment object selected
 
-    public MapEditorMode (ModelDelegate cd, List<Integer> charIds, String mapName) {
+    public MapEditorMode (CollisionManager cd) {
         super(cd);
         myStartLocations = new ArrayList<UpdatableLocation>();
-        myMapName = mapName;
+        //myMapName = mapName;
         myMap = null;
+        myEnviroObjects = new ArrayList<EnvironmentObject>();
+        myCurrentSelection = null;
+        myEnviroIndex = 0;
     }
 
     /**
@@ -58,9 +67,9 @@ public class MapEditorMode extends Mode {
                 i--;
             }
         }
-        if (shouldModeEnd()) {
-            signalTermination();
-        }
+//        if (shouldModeEnd()) {
+ //           signalTermination();
+  //      }
     }
 
     /**
@@ -113,18 +122,31 @@ public class MapEditorMode extends Mode {
         return result;
     }
 
-    public void select (double XCoord, double yCoord) {
+    public void select (Point2D point) {
+    	MouseClickObject click = new MouseClickObject(point);
         // check for overlap with existing object.
         // overlap = delete object
         // non-overlap = place current selected object.
     }
+    
+    public void writeMap() {
+    	MapWriter writer = new MapWriter(myMap);
+    }
 
     public void nextObject () {
-
+    	myEnviroIndex++;
+    	if(myEnviroIndex == myEnviroObjects.size()) {
+    		myEnviroIndex = 0;
+    	}
+    	myCurrentSelection = myEnviroObjects.get(myEnviroIndex);
     }
 
     public void prevObject () {
-
+    	myEnviroIndex--;
+    	if(myEnviroIndex == -1) {
+    		myEnviroIndex = (myEnviroObjects.size() - 1);
+    	}
+    	myCurrentSelection = myEnviroObjects.get(myEnviroIndex);
     }
 
     public MapObject getMap () {

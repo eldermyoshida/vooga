@@ -17,7 +17,7 @@ public class MouseLoader extends ObjectLoader {
 
 	MouseObject myMouse;
 	public MouseLoader(MouseObject Mouse) {
-		super(MOUSE_PATH);
+		super("MousePath");
 		myMouse = Mouse;
 		load();
 	}
@@ -42,7 +42,7 @@ public class MouseLoader extends ObjectLoader {
 		newState.populateRectangle(rect, 0);
 		myMouse.addState(Statename, newState);
 		myMouse.setCurrentState(Statename);
-		myMouse.resetBounds();
+		myMouse.setDefaultState(Statename);
 	}
 
 

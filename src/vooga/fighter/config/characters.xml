@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <objects>
-    <character charID="Ryu" charName="Ryu" charIcon="ryuicon.png" maxHealth="100" movespeed="15">
+    <character charID="Ryu" charName="Ryu" charIcon="ryuicon.png" maxHealth="100" movespeed="15" mass="20">
         <state stateName="stand">
             <frame image="fighter/images/ryu_stand1.gif">
                 <hitbox cornerX="10" cornerY="3" rectX="28" rectY="78"/>
@@ -52,7 +52,7 @@
             </frame>
         </attack>
     </character>
-    <character charID="Ken" charName="Ken" charIcon="kenicon.png" maxHealth="100" movespeed="15">
+    <character charID="Ken" charName="Ken" charIcon="kenicon.png" maxHealth="100" movespeed="15" mass="20">
         <state stateName="stand">
             <frame image="fighter/images/ken_stand1.gif">
                 <hitbox cornerX="10" cornerY="3" rectX="28" rectY="78"/>

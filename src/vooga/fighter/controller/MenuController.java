@@ -12,6 +12,7 @@ import vooga.fighter.controller.GameInfo;
 import vooga.fighter.controller.OneVOneController;
 import vooga.fighter.model.*;
 import vooga.fighter.model.objects.CharacterObject;
+import vooga.fighter.model.objects.MenuObject;
 import vooga.fighter.model.objects.MouseClickObject;
 import vooga.fighter.model.objects.MouseObject;
 import vooga.fighter.util.Paintable;
@@ -46,7 +47,6 @@ public abstract class MenuController extends Controller {
         setInput(manager.getInput());
         getInput().replaceMappingResourcePath(INPUT_PATHWAY);
         getInput().addListenerTo(this);
-       
     	DisplayLoopInfo LoopInfo =  new DisplayLoopInfo(super.getMode());
     	setLoopInfo(LoopInfo);
     	myEndConditions = new ArrayList<ModeCondition>();
@@ -89,12 +89,18 @@ public abstract class MenuController extends Controller {
     
     @InputMethodTarget(name = "enter")
     public void enter(AlertObject alObj)  {
-    	if(getMode().inputReady())  getMode().setChoice(getMode().getCurrentMode().getValue());
+    	if(getMode().inputReady()) getMode().setChoice(getMode().getCurrentMenu().getValue());
     }
     
     public void loadMode() {
-        Mode mode = new MenuMode(super.getName());
+        Mode mode = new MenuMode(new CollisionManager(), super.getName());
         super.setMode(mode);
+    }
+    public void initializeMode () {
+        MenuGrid grid = new MenuGrid(getMode().getName(), getMode());
+        getMode().setMenuGrid(grid);
+        getMode().setMenuObjects(grid.getMenuObjects());
+        getMode().update();
     }
     
     public MenuMode getMode(){
@@ -128,6 +134,5 @@ public abstract class MenuController extends Controller {
 			return !("".equals(getMode().peekChoice()));
     	}
     };
-
 
 }

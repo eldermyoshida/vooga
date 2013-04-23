@@ -24,38 +24,16 @@ import vooga.fighter.model.utils.UpdatableLocation;
  */
 public class LevelMode extends Mode {
 
-    private List<UpdatableLocation> myStartLocations;
-    private List<String> myCharacterNames;
     private List<CharacterObject> myCharacterObjects;
     private List<Health> myHealthStats;
     private List<Double> myScores;
-    private String myMapName;
     private MapObject myMap;
     private List<ModeCondition> myModeConditions;
 
-    public LevelMode(List<String> charNames, String mapName) {
-        super();
-        myStartLocations = new ArrayList<UpdatableLocation>();
+    public LevelMode(CollisionManager manager) {
+        super(manager);
         myCharacterObjects = new ArrayList<CharacterObject>();
         myHealthStats = new ArrayList<Health>();
-        myCharacterNames = charNames;
-        myMapName = mapName;
-        myMap = null;
-    }
-
-    /**
-     * Overrides superclass initialize method by creating all objects in the level.
-     */
-    public void initializeMode() {
-        loadMap(myMapName);
-        loadCharacters(myCharacterNames, myStartLocations);
-        loadHealth();
-    }
-
-    public void loadHealth() {
-        for (int i = 0; i < myCharacterObjects.size(); i++) {
-            myHealthStats.add(myCharacterObjects.get(i).getHealth());
-        }
     }
 
     /**
@@ -79,38 +57,7 @@ public class LevelMode extends Mode {
         }
     }
 
-    /**
-     * Loads the environment objects for a map using the ObjectLoader.
-     */
-    public void loadMap(String mapName) {
-        myMap = new MapObject(mapName);
-        myStartLocations = myMap.getStartPositions();
-        addObject(myMap);
-        List<EnvironmentObject> mapObjects = myMap.getEnviroObjects();
-        for (EnvironmentObject object : mapObjects) {
-            addObject(object);
-        }
-    }
 
-    /**
-     * Loads the character objects for the selected characters using the ObjectLoader.
-     */
-    public void loadCharacters(List<String> characterNames, List<UpdatableLocation> startingPos) {
-        for (int i = 0; i < characterNames.size(); i++) {
-            String charName = characterNames.get(i);
-            UpdatableLocation start = startingPos.get(i);
-            CharacterObject newCharacter = new CharacterObject(charName, start);
-            addObject(newCharacter);
-            myCharacterObjects.add(newCharacter);
-        }
-    }
-
-    /**
-     * Returns the list of CharacterObjects.
-     */
-    public List<CharacterObject> getMyCharacterObjects() {
-        return myCharacterObjects;
-    }
 
     /**
      * loads attacks from characters if they are new and aren't timed out
@@ -124,24 +71,29 @@ public class LevelMode extends Mode {
             }
         }
     }
-
-    public List<Health> getHealth() {
-        return myHealthStats;
+    
+    public void setMap(MapObject map){
+    	myMap = map;
+    	addObject(map);
     }
 
-//    public List<Double> getScores () {
-//        myScores.clear();
-//        for (int i = 0; i < myCharacterObjects.size(); i++) {
-//            myHealthStats.add(myCharacterObjects.get(i).getScore());
-//        }
-//        return myScores;
-//
-//    }
+    public MapObject getMap(){
+    	return myMap;
+    }
+    /**
+     * Returns the list of CharacterObjects.
+     */
+    public List<CharacterObject> getCharacterObjects() {
+        return myCharacterObjects;
+    }
+    
+    public void addCharacter(CharacterObject character){
+    	myCharacterObjects.add(character);
+    }
 
-    public void addConditions(ModeCondition ... conditions) {
-        for (ModeCondition condition : conditions) {
-            myModeConditions.add(condition);
-        }
+
+    public List<Health> getHealthStats() {
+        return myHealthStats;
     }
 
 }

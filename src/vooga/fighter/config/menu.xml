@@ -63,4 +63,13 @@
             <frame image="fighter/images/fire.png" />   
         </state>
    	</menuobject>
+   	<menuobject menuobjectname = "NewMap">
+    	<state name = "Unselected" blink="no" >
+    		<frame image = "fighter/images/new2.jpg" />
+    	</state>
+    	<state name = "Selected" blink="yes" >
+            <frame image="fighter/images/new2.jpg" />
+            <frame image="fighter/images/fire.png" />   
+        </state>
+   	</menuobject>
 </objects>
