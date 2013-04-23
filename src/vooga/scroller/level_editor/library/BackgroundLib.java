@@ -15,7 +15,7 @@ import vooga.scroller.util.Pixmap;
 
 public class BackgroundLib implements IBackgroundLibrary {
 
-    private static final String BACKGROUND_LOCATION ="src/vooga/scroller/images/backgrounds/";
+    private static final String BACKGROUND_LOCATION ="/vooga/scroller/images/backgrounds/";
     private Map<Integer, Image> myBackgrounds;
     private HashMap<Integer, IBackgroundView> myPixmaps;
 

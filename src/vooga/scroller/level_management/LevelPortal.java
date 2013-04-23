@@ -20,9 +20,11 @@ import vooga.scroller.sprites.interfaces.ILevelPortal;;
  */
 public class LevelPortal extends Sprite implements ILevelPortal, IDoor {
 
+    private static final String DEFAULT_FILENAME = "portal.png";
+    private static final String DEFAULT_PATH = "/vooga/scroller/images/";
     private static final Dimension DEFAULT_SIZE = new Dimension(50, 50);
     private static final Location DEFAULT_LOCATION = new Location (0,0);
-    private static Pixmap DEFAULT_IMG = new Pixmap("portal.png");
+    private static Pixmap DEFAULT_IMG = new Pixmap(DEFAULT_PATH,DEFAULT_FILENAME);
     private IGameComponent myNextLevel;
     private LevelManager myLevelManager;
     
