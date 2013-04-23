@@ -4,7 +4,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import arcade.games.Score;
 
 /**
  * Creates and updates user table
@@ -62,14 +64,21 @@ public class CommentTable extends Table {
         }
     }
     
-    public List<String> getCommentByUsername(String gameid, String userid) {
-        //TODO implement method
-        return null;
-    }
-    
     public List<String> getAllCommentsForGame(String gameid) {
-        //TODO implement method
-        return null;
+        String stm = "SELECT gameid FROM scores WHERE gameid='" + gameid + "'";
+        List<String> comments = new ArrayList<String>();
+        try {
+            myPreparedStatement = myConnection.prepareStatement(stm);
+            myResultSet  = myPreparedStatement.executeQuery();
+            while (myResultSet.next()) {
+                comments.add(myResultSet.getString(COMMENT_COLUMN_INDEX));
+            }
+            return comments;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return comments;
     }
 
     @Override

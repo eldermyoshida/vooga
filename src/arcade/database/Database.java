@@ -5,13 +5,11 @@ import java.util.List;
 import arcade.games.GameData;
 import arcade.games.Score;
 import arcade.games.UserGameData;
-import java.util.List;
 import util.Pixmap;
 
 
 /**
  * Creates overall database
- * 
  * @author Natalia Carvalho
  */
 public class Database {
@@ -195,11 +193,6 @@ public class Database {
     public void insertComment (String username, String gameName, String comment) {
 
         myCommentTable.addNewComment(retrieveGameId(gameName), retrieveUserId(username), comment);
-    }
-
-    public List<String> retrieveCommentFromUsername (String username, String gameName) {
-        return myCommentTable.getCommentByUsername(retrieveGameId(gameName),
-                                                   retrieveUserId(username));
     }
 
     public List<String> retrieveCommentsForGame (String gameName) {
