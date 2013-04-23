@@ -13,6 +13,14 @@ import vooga.fighter.model.utils.UpdatableLocation;
  */
 public class EnvironmentObject extends GameObject {
 	private String myName;
+
+	/**
+	 * Constructs a new EnvironmentObject without a given center; used for level editor.
+	 */
+	public EnvironmentObject(String name) {
+		super();
+		init(name);
+	}
 	
     /**
      * Constructs a new EnvironmentObject with the given image, center, and size.
@@ -20,11 +28,15 @@ public class EnvironmentObject extends GameObject {
      */
     public EnvironmentObject(String name, UpdatableLocation center) {
         super();
-        myName = name;
+        setLocation(center);
+        init(name);
+    }
+    
+    private void init(String name) {
+    	myName = name;
         setLoader(new EnvironmentObjectLoader(name, this));
         setCurrentState("default");
         getCurrentState().setLooping(true);
-        setLocation(center);
         setImageData();
     }
     
@@ -48,38 +60,6 @@ public class EnvironmentObject extends GameObject {
      */
     public boolean shouldBeRemoved() {
         return false;
-    }
-    
-    /**
-     * Dispatches a colliding object to allow for proper collision handling. 
-     */
-    public void dispatchCollision(GameObject other) {
-        other.handleCollision(this);
-    }
-    
-    /**
-     * Collision with another CharacterObject.
-     */
-    public void handleCollision(CharacterObject other) {
-        System.out.println("EnvironmentObject handleCollision : Environment collided with character");
-    }
-    
-    /**
-     * Collision with an AttackObject.
-     */
-    public void handleCollision(AttackObject other) {
-        System.out.println("EnvironmentObject handleCollision : Environment collided with attack");
-    }
-    
-    /**
-     * Collision with an EnvironmentObject.
-     */
-    public void handleCollision(EnvironmentObject other) {
-        System.out.println("EnvironmentObject handleCollision : Environment collided with environment");
-    }
-    
-    public void tellDelegate() {
-    	
     }
 
 }

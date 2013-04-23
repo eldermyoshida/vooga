@@ -45,6 +45,7 @@ public class CharacterObject extends GameObject {
         myVelocity=new Vector(movingDirection, getProperty("speed"));
         setLoader(new CharacterLoader(charName, this));
         setCurrentState("stand");
+        setDefaultState("stand");
         getCurrentState().setLooping(true);
         setLocation(center);
         setImageData();
@@ -184,7 +185,7 @@ public class CharacterObject extends GameObject {
     public void move(int direction) {
         setCurrentState("moveRight");
         movingDirection=direction;
-        myVelocity= new Vector(direction, getProperty("speed"));
+        myVelocity= new Vector(direction, getProperty("movespeed"));
         getLocation().translate(myVelocity);
     }
 
@@ -192,14 +193,14 @@ public class CharacterObject extends GameObject {
      * Makes the character get pushed back if hit by something with higher priority
      */
     public void pushBack(int direction){
-    	getLocation().translate(new Vector(direction, MOVE_BACK_AMOUNT*getProperty("speed")));
+    	getLocation().translate(new Vector(direction, MOVE_BACK_AMOUNT*getProperty("movespeed")));
     }
 
     /**
      * Makes the character move back if it runs into another character or environmentObject with higher priority
      */
     public void moveBack(){
-    	getLocation().translate(new Vector(movingDirection, MOVE_BACK_AMOUNT*getProperty("speed")));
+    	getLocation().translate(new Vector(movingDirection, MOVE_BACK_AMOUNT*getProperty("movespeed")));
     }
     
     /**
@@ -249,37 +250,6 @@ public class CharacterObject extends GameObject {
      */
     public List<AttackObject> getAttackObjects(){
     	return currentAttacks; 
-    }
-    
-
-    /**
-     * Dispatches a colliding object to allow for proper collision handling. 
-     */
-    public void dispatchCollision(GameObject other) {
-        other.handleCollision(this);
-    }
-    
-    /**
-     * Collision with another CharacterObject.
-     */
-    public void handleCollision(CharacterObject other) {
-        System.out.println("CharacterObject handleCollision : Character collided with character");
-    }
-    
-    /**
-     * Collision with an AttackObject.
-     */
-    public void handleCollision(AttackObject other) {
-        other.inflictDamage(this);
-        System.out.println("CharacterObject handleCollision : Character collided with ATTACK");
-        
-    }
-    
-    /**
-     * Collision with an EnvironmentObject.
-     */
-    public void handleCollision(EnvironmentObject other) {
-        System.out.println("CharacterObject handleCollision : Character collided with environment");
     }
     
 }

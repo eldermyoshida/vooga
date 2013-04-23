@@ -36,9 +36,13 @@ public abstract class ObjectLoader {
 	 * 
 	 * @param objectPath
 	 */
-	public ObjectLoader (String objectPath) {
+	public ObjectLoader (String pathName) {
 		myResources = ResourceBundle.getBundle(RESOURCE_PATH);
+<<<<<<< HEAD
 		myDefaults= ResourceBundle.getBundle(RESOURCE_PATH);
+=======
+		String objectPath = myResources.getString(pathName);
+>>>>>>> e4b123492e39476c02ba3acb3fa16101f492c673
 		myObjectFile = new File(objectPath);
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder;
