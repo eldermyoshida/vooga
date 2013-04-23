@@ -9,14 +9,16 @@ package vooga.rts.networking.communications;
  *
  */
 public class Player {
-    protected String myName;
-    protected int myID;
-    protected String myFaction;
+    private String myName;
+    private int myID;
+    private String myFaction;
+    private int myTeam;
     
-    public Player (String name, String faction, int id) {
+    public Player (String name, int team, String faction, int id) {
         myName = name;
         myID = id;
         myFaction = faction;
+        myTeam = team;
     }
     
     public String getName() {
@@ -31,8 +33,16 @@ public class Player {
         return myFaction;
     }
     
+    public int getTeam () {
+        return myTeam;
+    }
+    
     public void setFaction (String faction) {
         myFaction = faction;
+    }
+    
+    public void setTeam (int team) {
+        myTeam = team;
     }
     
     @Override

@@ -11,7 +11,12 @@ import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import vooga.rts.networking.communications.Player;
 
-
+/**
+ * Represents the view of the lobby.
+ * @author David Winegar
+ * @author Sean Wareham
+ *
+ */
 public class LobbyView extends JPanel {
 
     private static final long serialVersionUID = -3777313562807648414L;
@@ -33,12 +38,14 @@ public class LobbyView extends JPanel {
         // initialize GridBagLayout
         GridBagLayout gridBagLayout = new GridBagLayout();
         gridBagLayout.columnWidths = new int[] { 0, 0, 0, 0 };
-        gridBagLayout.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        gridBagLayout.rowHeights =
+                new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         gridBagLayout.columnWeights = new double[] { 1.0, 1.0, 1.0, Double.MIN_VALUE };
         gridBagLayout.rowWeights =
-                new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+                new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                              0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
         setLayout(gridBagLayout);
-        
+
         // initialize state
         myMaxPlayers = maxPlayers;
         myUsernameLabels = new JLabel[myMaxPlayers];
@@ -48,7 +55,7 @@ public class LobbyView extends JPanel {
         for (int i = 0; i < myMaxPlayers; i++) {
             teamNumList[i] = i + 1;
         }
-        
+
         // initialize labels and buttons for player slots
         for (int i = 0; i < myMaxPlayers; i++) {
             myUsernameLabels[i] = createLabel(NO_PLAYER, COLUMN_1, i + 1);
@@ -66,10 +73,6 @@ public class LobbyView extends JPanel {
 
     /**
      * Creates a label and adds it to grid
-     * 
-     * @param name
-     * @param xposition
-     * @param yposition
      */
     private JLabel createLabel (String name, int xposition, int yposition) {
         JLabel label = new JLabel(name);
@@ -81,9 +84,6 @@ public class LobbyView extends JPanel {
 
     /**
      * Creates a combobox and adds it to grid
-     * 
-     * @param xposition
-     * @param yposition
      */
     private JComboBox createComboBox (Object[] objectArray, int xposition, int yposition) {
         JComboBox box = new JComboBox();
@@ -96,11 +96,6 @@ public class LobbyView extends JPanel {
 
     /**
      * adds component to grid at specified place
-     * 
-     * @param xposition
-     * @param yposition
-     * @param component
-     * @param labelConstraints
      */
     private void addComponentToGrid (int xposition,
                                      int yposition,
@@ -113,7 +108,7 @@ public class LobbyView extends JPanel {
     }
 
     public void update (Player[] userControlledPlayers, List<ArrayList<Player>> players) {
-
+        
     }
 
 }

@@ -7,7 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-/*
+/**
  * Represents the View for creating a new lobby.
  */
 public class CreateLobbyView extends JPanel {

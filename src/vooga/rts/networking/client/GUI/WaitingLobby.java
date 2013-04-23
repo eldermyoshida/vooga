@@ -12,12 +12,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
-import vooga.rts.networking.communications.ExpandedLobbyInfo;
+import vooga.rts.networking.communications.OldLobbyInfo;
 import vooga.rts.networking.communications.Player;
 
 public class WaitingLobby implements Observer{
 	private JPanel myPanel;
-	public WaitingLobby(ExpandedLobbyInfo info) {
+	public WaitingLobby(OldLobbyInfo info) {
 		info.addObserver(this);
 		myPanel = new JPanel();
 	}
@@ -28,14 +28,14 @@ public class WaitingLobby implements Observer{
 	
 	@Override
 	public void update(Observable obj, Object arg1) {
-		myPanel = createTeamPanel((ExpandedLobbyInfo) obj);	
+		myPanel = createTeamPanel((OldLobbyInfo) obj);	
 	}
 	
 	 /**
 	*
 	* @return panel with team player names
 	*/
-	    private JPanel createTeamPanel(ExpandedLobbyInfo info){
+	    private JPanel createTeamPanel(OldLobbyInfo info){
 	        JPanel teamPanel = new JPanel();
 	        int index = 1;
 	        List<List<Player>> teams = info.getTeams();
