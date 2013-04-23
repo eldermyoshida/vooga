@@ -41,14 +41,14 @@ public abstract class Sprite {
     private int myDamage;
     
     /**
-     * Create a shape at the given position, with the given size.
+     * Create a shape at the given position, with the given size. This is the constructor that StaticEntities call. 
      */
     public Sprite (ISpriteView image, Location center, Dimension size, int health, int damage) {
         this(image, center, size, new Vector(), health, damage);
     }
 
     /**
-     * Create a shape at the given position, with the given size, velocity, and color.
+     * Create a shape at the given position, with the given size, velocity, and color. This is the constructor that NonStaticEntities call. 
      */
     public Sprite (ISpriteView image, Location center, Dimension size, Vector velocity, int health, int damage) {
         // make copies just to be sure no one else has access
