@@ -63,10 +63,10 @@ public class MapEditorMode extends Mode {
      */
     public void initializeEnviroObjects() {
     	for(EnvironmentObject enviro: myEnviroObjects) {
-    		double xOffset = enviro.getImageData().getMySize().getWidth();
-    		double yOffset = enviro.getImageData().getMySize().getHeight();
-    		ImageDataObject newImageLocation = new ImageDataObject(enviro.getImageData().getMyImage(),
-    				new Location(xOffset, yOffset), enviro.getImageData().getMySize());
+    		double xOffset = enviro.getImageData().getSize().getWidth();
+    		double yOffset = enviro.getImageData().getSize().getHeight();
+    		ImageDataObject newImageLocation = new ImageDataObject(enviro.getImageData().getImage(),
+    				new Location(xOffset, yOffset), enviro.getImageData().getSize(), new ArrayList<Integer>());
     		enviro.setImageData(newImageLocation);
     	}
     	addObject(myEnviroObjects.get(0));

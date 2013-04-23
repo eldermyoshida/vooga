@@ -33,15 +33,6 @@ public class MapEditorController extends Controller{
         setInput(manager.getInput());
         getInput().replaceMappingResourcePath(INPUT_PATHWAY);
         getInput().addListenerTo(this);
-<<<<<<< HEAD
-        GameLoopInfo gameLoopInfo = new GameLoopInfo((LevelMode) getMode());
-        setLoopInfo(gameLoopInfo);
-        gameinfo.setGameLoopInfo(gameLoopInfo);
-=======
-     //   GameLoopInfo gameLoopInfo = new GameLoopInfo((MapEditorMode) getMode());
-    //    setLoopInfo(gameLoopInfo);
-     //   gameinfo.setGameLoopInfo(gameLoopInfo);
->>>>>>> added removeState to GameObjects, finished placement method for editor
 	    }
 	    
 	    public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo) {
