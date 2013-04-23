@@ -11,7 +11,6 @@ public abstract class Force {
 	
     private Physics myPhysics;
 	private ResourceBundle myResources;
-    private static final String delimiter= ",";
 	private static final String RESOURCE_PATH="vooga.fighter.config.forces";
     
     public Force() {
@@ -19,9 +18,6 @@ public abstract class Force {
 
     }
     
-    protected String[] getProperties(){
-    	return myResources.getString(getClass().getSimpleName()).split(delimiter);
-    }
     
     public void setPhysics(Physics physics) {
         myPhysics = physics;
@@ -30,6 +26,8 @@ public abstract class Force {
     public Physics getPhysics() {
         return myPhysics;
     }
+    
+    public abstract void initialize(double param1, double param2);
     
     public abstract void applyForce(CharacterObject object) ;
     

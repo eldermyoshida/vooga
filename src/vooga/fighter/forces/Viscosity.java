@@ -10,7 +10,6 @@ public class Viscosity extends Force{
     
     public Viscosity() {
         super();
-        myViscosityFactor = Double.parseDouble(getProperties()[0]);
     }
     
     public void applyForce(CharacterObject object) {
@@ -18,6 +17,11 @@ public class Viscosity extends Force{
         vector.setDirection(180 - (object.getVelocity().getDirection()));
         vector.scale(myViscosityFactor);
         object.getLocation().addAcceleration(vector);
+    }
+    
+    public void initialize(double param1, double param2) {
+        myViscosityFactor = param1;
+        
     }
 
 }

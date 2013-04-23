@@ -13,9 +13,7 @@ public class Gravity extends Force {
     
     public Gravity() {
         super();
-        myDirection= Double.parseDouble(getProperties()[0]);
-        myMagnitude= Double.parseDouble(getProperties()[1]);
-        myVector= new Vector(myDirection, myMagnitude);
+        
     }
 
     
@@ -23,7 +21,13 @@ public class Gravity extends Force {
         //Velocity newForce = getPhysics().applyForce(new Velocity(object.getVelocity()), (double) object.getMass(), new Velocity(myVector));
         object.getLocation().addAcceleration(myVector);
     }
-
     
+    public void initialize(double param1, double param2) {
+        myDirection = param1;
+        myMagnitude = param2;
+        myVector= new Vector(myDirection, myMagnitude);
+    }
+
+
     
 }
