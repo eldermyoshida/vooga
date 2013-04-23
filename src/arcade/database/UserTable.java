@@ -12,6 +12,8 @@ import java.util.List;
  * @author Natalia Carvalho
  */
 public class UserTable extends Table {
+    private static final String EQUALS = "='";
+    private static final String APOSTROPHE = "'";
     private static final String TABLE_SEPARATOR = ": ";
     private static final String USERNAME_COLUMN_FIELD = "username";  
     private static final String PASSWORD_COLUMN_FIELD = "pw";
@@ -40,9 +42,9 @@ public class UserTable extends Table {
      */
     public UserTable() {
         super();
-        myConnection = this.getConnection();
-        myPreparedStatement = this.getPreparedStatement();
-        myResultSet = this.getResultSet();
+        myConnection = getConnection();
+        myPreparedStatement = getPreparedStatement();
+        myResultSet = getResultSet();
     }
 
     /**
@@ -52,7 +54,7 @@ public class UserTable extends Table {
      * @return true if valid username/password; false otherwise
      */
     public boolean authenticateUsernameAndPassword(String username, String password) {
-        String stm = "SELECT username, pw FROM users WHERE username = '" + username + "'";
+        String stm = "SELECT username, pw FROM users WHERE username = '" + username + APOSTROPHE;
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
             myResultSet  = myPreparedStatement.executeQuery();
@@ -64,7 +66,7 @@ public class UserTable extends Table {
 
         }
         catch (SQLException e) {
-            e.printStackTrace();
+            writeErrorMessage("Error authenticating in UserTable.java @ Line 58");
         }
 
         return false;
@@ -75,7 +77,7 @@ public class UserTable extends Table {
      * @param username is the username
      */
     public boolean usernameExists(String username) {
-        String stm = "SELECT username FROM users WHERE username='" + username + "'";
+        String stm = "SELECT username FROM users WHERE username='" + username + APOSTROPHE;
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
             myResultSet  = myPreparedStatement.executeQuery();
@@ -84,7 +86,7 @@ public class UserTable extends Table {
             }
         }
         catch (SQLException e) {
-            e.printStackTrace();
+            writeErrorMessage("Error determining if username exists in UserTable.java @ Line 81");
         }
         return false;
     }
@@ -102,7 +104,8 @@ public class UserTable extends Table {
         if (usernameExists(user)) {
             return false;
         }
-        String stm = "INSERT INTO users(username, pw, firstname, lastname, DOB) VALUES(?, ?, ?, ?, ?)";
+        String stm = "INSERT INTO users(username, pw, firstname, lastname, DOB) " +
+                "VALUES(?, ?, ?, ?, ?)";
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
             myPreparedStatement.setString(USERNAME_COLUMN_INDEX, user);
@@ -113,7 +116,7 @@ public class UserTable extends Table {
             myPreparedStatement.executeUpdate();
         }
         catch (SQLException e) {
-            e.printStackTrace();
+            writeErrorMessage("Error creating user in UserTable.java @ Line 109");
         }
         return true;
     }
@@ -142,7 +145,8 @@ public class UserTable extends Table {
      * @param username is the username
      */
     public String retrieveUserId(String username) {
-        return retrieveEntry(username, USERNAME_COLUMN_INDEX);
+        return retrieveEntryString(TABLE_NAME, USERNAME_COLUMN_FIELD, username, 
+                                   USERNAME_COLUMN_INDEX);
     }
     
     /**
@@ -150,7 +154,7 @@ public class UserTable extends Table {
      * @param username is the user
      */
     public String retrieveDOB(String username) {
-        return retrieveEntry(username, DOB_COLUMN_INDEX);
+        return retrieveEntryString(TABLE_NAME, USERNAME_COLUMN_FIELD, username, DOB_COLUMN_INDEX);
     }
     
     /**
@@ -158,28 +162,7 @@ public class UserTable extends Table {
      * @param username is the username
      */
     public String retrieveAvatar(String username) {
-        return retrieveEntry(username, AVATAR_COLUMN_INDEX);
-    }
-    
-    /**
-     * Given a username and a column_index, returns that entire row entry
-     * @param username is the username
-     * @param COLUMN_INDEX is the index that we want the information for
-     */
-    public String retrieveEntry(String username, int COLUMN_INDEX) {
-        String stm = "SELECT * FROM " +TABLE_NAME + " WHERE " + USERNAME_COLUMN_FIELD + "='" + username + "'";
-        String entry = "";
-        try {
-            myPreparedStatement = myConnection.prepareStatement(stm);
-            myResultSet = myPreparedStatement.executeQuery();
-            if (myResultSet.next()) {
-                entry = myResultSet.getString(COLUMN_INDEX);
-            }
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return entry;
+        return retrieveEntryString(TABLE_NAME, USERNAME_COLUMN_FIELD, username, AVATAR_COLUMN_INDEX);
     }
 
     /**
@@ -187,14 +170,10 @@ public class UserTable extends Table {
      * @param username is user
      */
     public void deleteUser(String username) {
-        String stm = "DELETE FROM " + TABLE_NAME + " WHERE " + USERNAME_COLUMN_FIELD + "='" + username + "'";
-        try {
-            myPreparedStatement = myConnection.prepareStatement(stm);
-            myPreparedStatement.executeUpdate();
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
+        String stm = "DELETE FROM " + TABLE_NAME + " WHERE " + 
+                USERNAME_COLUMN_FIELD + EQUALS + username + APOSTROPHE;
+        executeStatement(stm); 
+
     }
     
     /**
@@ -204,15 +183,9 @@ public class UserTable extends Table {
      */
     public void updateAvatar(String user, String filepath) {
         String userid = retrieveUserId(user);
-        String stm = "UPDATE " + TABLE_NAME + " SET " + AVATAR_COLUMN_FIELD + "='" + 
-                "filepath" + "' WHERE " + USERID_COLUMN_FIELD + "='" + userid + "'";   
-        try {
-            myPreparedStatement = myConnection.prepareStatement(stm);
-            myPreparedStatement.executeUpdate();
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        } 
+        String stm = "UPDATE " + TABLE_NAME + " SET " + AVATAR_COLUMN_FIELD + EQUALS + 
+                "filepath" + "' WHERE " + USERID_COLUMN_FIELD + EQUALS + userid + APOSTROPHE;   
+        executeStatement(stm);
     }
     
     /**
@@ -229,16 +202,18 @@ public class UserTable extends Table {
             }
         }
         catch (SQLException e) {
-            e.printStackTrace();
+            writeErrorMessage("Error retrieving usernames in UserTable.java @ Line 197");
         }
         return myUsernames; 
     }
     
-    void printEntireTable () {
-        System.out.println();
+    
+    /**
+     * Prints entire table
+     */
+    public void printEntireTable () {
+        myResultSet = selectAllRecordsFromTable(TABLE_NAME);
         try {
-            myPreparedStatement = myConnection.prepareStatement("SELECT * FROM " + TABLE_NAME);
-            myResultSet = myPreparedStatement.executeQuery();
             while (myResultSet.next()) {
                 System.out.print(myResultSet.getString(USERNAME_COLUMN_INDEX) + TABLE_SEPARATOR);
                 System.out.print(myResultSet.getString(PASSWORD_COLUMN_INDEX) + TABLE_SEPARATOR);
@@ -250,7 +225,7 @@ public class UserTable extends Table {
             }
         }
         catch (SQLException e) {
-            e.printStackTrace();
+            writeErrorMessage("Error printing entire table in UserTable.java @ Line 216");
         }
     }
 

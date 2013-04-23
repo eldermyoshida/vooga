@@ -12,6 +12,8 @@ import java.sql.SQLException;
  */
 public class UserGameDataTable extends Table {
 
+    private static final String EQUALS = "='";
+    private static final String APOSTROPHE = "'";
     private static final String TABLE_SEPARATOR = ": ";
     private static final String GAMEID_COLUMN_FIELD = "gameid";  
     private static final String USERID_COLUMN_FIELD = "userid";
@@ -37,25 +39,18 @@ public class UserGameDataTable extends Table {
      */
     public UserGameDataTable() {
         super();
-        myConnection = this.getConnection();
-        myPreparedStatement = this.getPreparedStatement();
-        myResultSet = this.getResultSet();
+        myConnection = getConnection();
+        myPreparedStatement = getPreparedStatement();
+        myResultSet = getResultSet();
     }
     
     /**
      * Add new user game data to table 
      * @param gameid is game id
      * @param userid is user id
-
-     * @param highscore of the game
-
-     * @param highscore of the game
-
      */
     public void createNewUserGameData (String gameid, String userid) {
-        
         String stm = "INSERT INTO usergamedata(gameid, userid, highscore) VALUES (?, ?, ?)";
-        //String stm = "INSERT INTO " + TABLE_NAME + "(" + GAMEID_COLUMN_FIELD + ", " + USERID_COLUMN_FIELD + ", " + HIGHSCORE_COLUMN_FIELD + ") VALUES(?, ?, ?)";
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
             myPreparedStatement.setString(GAMEID_COLUMN_INDEX, gameid);
@@ -63,7 +58,7 @@ public class UserGameDataTable extends Table {
             myPreparedStatement.executeUpdate();
         }
         catch (SQLException e) {
-            e.printStackTrace();
+            writeErrorMessage("Error creating new user game data in UserGameData.java @ Line 54");
         }
     }
     
@@ -76,15 +71,9 @@ public class UserGameDataTable extends Table {
      */
 
     public void updateHighScore(String userid, String gameid, String highscore) {
-        String stm = "UPDATE usergamedata SET highscore = '" + highscore + "' WHERE userid = '" + userid + "' AND gameid = '" + gameid + "'" ;
-        try {
-            myPreparedStatement = myConnection.prepareStatement(stm);
-            myPreparedStatement.executeUpdate();
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
-
+        String stm = "UPDATE usergamedata SET highscore = '" + highscore + 
+                "' WHERE userid = '" + userid + "' AND gameid = '" + gameid + APOSTROPHE;
+        executeStatement(stm);
     }
     
     /**
@@ -92,35 +81,37 @@ public class UserGameDataTable extends Table {
      * @param userid is user id
      */
     public void deleteUser(String userid) {
-        String stm = "DELETE FROM " + TABLE_NAME + " WHERE "+ USERID_COLUMN_FIELD + "='" + userid + "'";
-        try {
-            myPreparedStatement = myConnection.prepareStatement(stm);
-            myPreparedStatement.executeUpdate();
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
+        String stm = "DELETE FROM " + TABLE_NAME + " WHERE " + USERID_COLUMN_FIELD + 
+                EQUALS + userid + APOSTROPHE;
+        executeStatement(stm);
     }
     
-    void printEntireTable () {
-        System.out.println();
+    /**
+     * Prints entire table
+     */
+    public void printEntireTable () {
+        myResultSet = selectAllRecordsFromTable(TABLE_NAME);
         try {
-            myPreparedStatement = myConnection.prepareStatement("SELECT * FROM " + TABLE_NAME);
-            myResultSet = myPreparedStatement.executeQuery();
             while (myResultSet.next()) {
                 System.out.print(myResultSet.getString(GAMEID_COLUMN_INDEX) + TABLE_SEPARATOR);
-                System.out.print(myResultSet.getString(USERID_COLUMN_INDEX) + TABLE_SEPARATOR);                
-                System.out.print(myResultSet.getString(USERGAMEFILEPATH_COLUMN_INDEX) + TABLE_SEPARATOR);
+                System.out.print(myResultSet.getString(USERID_COLUMN_INDEX) + 
+                                 TABLE_SEPARATOR);                
+                System.out.print(myResultSet.getString(USERGAMEFILEPATH_COLUMN_INDEX) + 
+                                 TABLE_SEPARATOR);
                 System.out.println(myResultSet.getString(USERGAMEID_COLUMN_INDEX) + TABLE_SEPARATOR);
             }
         }
         catch (SQLException e) {
-            e.printStackTrace();
+        	writeErrorMessage("Error printing entire table in UserGameDataTable.java @ Line 94");
         }
     }
 
+    /**
+     * Returns the average rating of a game
+     * @param gameName is name of game
+     */
     public double getAverageRating (String gameName) {
-        // TODO Auto-generated method stub
+        // TODO
         return 0;
         
     }

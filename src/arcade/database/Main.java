@@ -17,14 +17,13 @@ public class Main {
         //myDatabase.printGameTable();
         
         //myDatabase.insertAvatar("natx13", "/Users/nataliacarvalho/Desktop/testing2.png");
-         myDatabase.getAvatar("natx13");
+        // myDatabase.getAvatar("natx13");
         
      //   myDatabase.createUser("natx13", "mypassword", "Natalia", "Carvalho", "04/26/1991");
      //   myDatabase.authenticateUsernameAndPassword("natx13", "password");
         
    //     myDatabase.createUser("kayzooo", "mypassword", "Kevin", "Zhu", "11/12/1990");
    //     myDatabase.createUser("doesthiswork", "hiiii", "hiii", "hiii", "11/12/1990");
-   //     myDatabase.createUser("natx13", "nataliapassword", "Natalia", "Carvalho", "04/26/1991", "blahblahblh");
    //     myDatabase.createUser("bob", "mypassword", "Joe", "Smith", "11/11/1911");   
   //      myDatabase.createUser("test", "test", "test", "test", "01/01/1901");
         
@@ -45,7 +44,7 @@ public class Main {
         //System.out.println(myDatabase.retrieveAvatar("natx13"));
 
         //myDatabase.deleteUser("kayzooo");
-        //myDatabase.deleteUser("natx13");8
+        //myDatabase.deleteUser("natx13");
         
         //myGameDatabase.registerGame("Pacman");
         
@@ -56,9 +55,9 @@ public class Main {
 //            System.out.println(game);
 //        }
 //                
-//        myDatabase.printUserTable();
-//        myDatabase.printGameTable();
-//        myDatabase.printUserGameDataTable();
+        myDatabase.printUserTable();
+        myDatabase.printGameTable();
+        myDatabase.printUserGameDataTable();
         
         myDatabase.closeDatabaseConnection();
         

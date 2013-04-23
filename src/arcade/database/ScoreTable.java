@@ -1,12 +1,11 @@
 package arcade.database;
+import arcade.games.Score;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import arcade.games.Score;
 
 /**
  * Creates and updates user table
@@ -38,9 +37,9 @@ public class ScoreTable extends Table {
      */
     public ScoreTable() {
         super();
-        myConnection = this.getConnection();
-        myPreparedStatement = this.getPreparedStatement();
-        myResultSet = this.getResultSet();
+        myConnection = getConnection();
+        myPreparedStatement = getPreparedStatement();
+        myResultSet = getResultSet();
     }
     
     /**
@@ -60,43 +59,54 @@ public class ScoreTable extends Table {
             myPreparedStatement.executeUpdate();
         }
         catch (SQLException e) {
-            e.printStackTrace();
+            writeErrorMessage("Error adding new high score in ScoreTable.java @ Line 54");
         }
     }
     
-    public List<Score> getScoresForGame(String gameid, String userid, String gameName, String userName) {
-        String stm = "SELECT gameid FROM scores WHERE gameid='" + gameid + "' AND userid='" +userid +"'";
+    /**
+     * Gets scores for a given game
+     * @param gameid is game id
+     * @param userid is user id
+     * @param gameName is name of game
+     * @param userName is user
+     */
+    public List<Score> getScoresForGame(String gameid, String userid, 
+                                        String gameName, String userName) {
+        String stm = "SELECT gameid FROM scores WHERE gameid='" + 
+                    gameid + "' AND userid='" + userid + "'";
         List<Score> scores = new ArrayList<Score>();
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
             myResultSet  = myPreparedStatement.executeQuery();
             while (myResultSet.next()) {
-                Score score = new Score(gameName, userName, myResultSet.getInt(HIGHSCORE_COLUMN_INDEX));
+                Score score = new Score(gameName, userName, 
+                                        myResultSet.getInt(HIGHSCORE_COLUMN_INDEX));
                 scores.add(score);
             }
             return scores;
         }
         catch (SQLException e) {
-            e.printStackTrace();
+            writeErrorMessage("Error getting scores for game in ScoreTable.java @ Line 78");
         }
         return null;
     }
 
-    @Override
-    void printEntireTable () {
-        System.out.println();
+    /**
+     * Prints entire table
+     */
+    public void printEntireTable () {
+        myResultSet = selectAllRecordsFromTable(TABLE_NAME);
         try {
-            myPreparedStatement = myConnection.prepareStatement("SELECT * FROM " + TABLE_NAME);
-            myResultSet = myPreparedStatement.executeQuery();
             while (myResultSet.next()) {
                 System.out.print(myResultSet.getString(GAMEID_COLUMN_INDEX) + TABLE_SEPARATOR);
-                System.out.print(myResultSet.getString(USERID_COLUMN_INDEX) + TABLE_SEPARATOR);                
+                System.out.print(myResultSet.getString(USERID_COLUMN_INDEX) + 
+                                 TABLE_SEPARATOR);                
                 System.out.print(myResultSet.getInt(HIGHSCORE_COLUMN_INDEX) + TABLE_SEPARATOR);
                 System.out.println(myResultSet.getString(SCOREID_COLUMN_INDEX) + TABLE_SEPARATOR);
             }
         }
         catch (SQLException e) {
-            e.printStackTrace();
+            writeErrorMessage("Error printing entire table in ScoreTable.java @ Line 99");
         }
     }
 

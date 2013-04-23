@@ -1,12 +1,10 @@
 package arcade.database;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import arcade.games.Score;
 
 /**
  * Creates and updates user table
@@ -38,9 +36,9 @@ public class CommentTable extends Table {
      */
     public CommentTable() {
         super();
-        myConnection = this.getConnection();
-        myPreparedStatement = this.getPreparedStatement();
-        myResultSet = this.getResultSet();
+        myConnection = getConnection();
+        myPreparedStatement = getPreparedStatement();
+        myResultSet = getResultSet();
     }
     
     /**
@@ -60,10 +58,14 @@ public class CommentTable extends Table {
             myPreparedStatement.executeUpdate();
         }
         catch (SQLException e) {
-            e.printStackTrace();
+            writeErrorMessage("Error adding new comment for this game in CommentTable.java @ Line 53");
         }
     }
     
+    /**
+     * Gets all comments for a given game
+     * @param gameid is game id
+     */
     public List<String> getAllCommentsForGame(String gameid) {
         String stm = "SELECT gameid FROM scores WHERE gameid='" + gameid + "'";
         List<String> comments = new ArrayList<String>();
@@ -76,26 +78,27 @@ public class CommentTable extends Table {
             return comments;
         }
         catch (SQLException e) {
-            e.printStackTrace();
+        	writeErrorMessage("Error getting all comments for this game in CommentTable.java @ Line 72");
         }
         return comments;
     }
 
-    @Override
-    void printEntireTable () {
-        System.out.println();
+    /**
+     * Prints entire table
+     */
+    public void printEntireTable () {
+        myResultSet = selectAllRecordsFromTable(TABLE_NAME);
         try {
-            myPreparedStatement = myConnection.prepareStatement("SELECT * FROM " + TABLE_NAME);
-            myResultSet = myPreparedStatement.executeQuery();
             while (myResultSet.next()) {
                 System.out.print(myResultSet.getString(GAMEID_COLUMN_INDEX) + TABLE_SEPARATOR);
-                System.out.print(myResultSet.getString(USERID_COLUMN_INDEX) + TABLE_SEPARATOR);                
+                System.out.print(myResultSet.getString(USERID_COLUMN_INDEX) + 
+                                 TABLE_SEPARATOR);                
                 System.out.print(myResultSet.getString(COMMENT_COLUMN_INDEX) + TABLE_SEPARATOR);
                 System.out.println(myResultSet.getString(COMMENTID_COLUMN_INDEX) + TABLE_SEPARATOR);
             }
         }
         catch (SQLException e) {
-            e.printStackTrace();
+            writeErrorMessage("Error printing entire table in CommentTable.java @ Line 91");
         }
     }
 
