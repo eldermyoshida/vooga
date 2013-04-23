@@ -18,7 +18,6 @@ import vooga.fighter.model.utils.UpdatableLocation;
 
 public class MenuGridLoader extends ObjectLoader {
 
-    private static final String MENUGRID_PATH = "src/vooga/fighter/config/menugrid.xml";
     private static final int FOUR_TICKS = 4;
 
     private List<MenuObject> myMenuObjects;
