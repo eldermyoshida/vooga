@@ -1,5 +1,6 @@
 package vooga.fighter.util;
 
+import util.Vector;
 import util.Velocity;
 
 /**
@@ -79,8 +80,14 @@ public class Physics {
                  aMass * aTurned.getXChange() + bMass * bTurned.getXChange()) / (aMass + bMass);
 
         Velocity[] newDirections = new Velocity[2];
-        newDirections[0] = new Velocity(aVelocity.getX(), aVelocity.getY(), aVectorTurnedDX, aVelocity.getYChange());
-        newDirections[1] = new Velocity(bVelocity.getX(), bVelocity.getY(), bVectorTurnedDX, bVelocity.getYChange());
+        newDirections[0] = new Velocity(aVelocity.getX(),aVelocity.getY(),0,0);
+        newDirections[1] = new Velocity(bVelocity.getX(),bVelocity.getY(),0,0);
+        
+        newDirections[0].setVector(aVectorTurnedDX,aTurned.getYChange());
+        newDirections[1].setVector(bVectorTurnedDX,bTurned.getYChange());
+        
+        newDirections[0].turn(-referenceAngle);
+        newDirections[1].turn(-referenceAngle);
 
         return newDirections;
     }
@@ -139,10 +146,10 @@ public class Physics {
         double terminalXVelocity = -(Math.sin(Math.toRadians(inclineAngle)) * terminalSpeed);
         double terminalYVelocity = -(Math.cos(Math.toRadians(inclineAngle)) * terminalSpeed);
 
-        // Represents the adjustment to the velocity by one time period. The adjustment scales
-        // linearly with how
-        // close the velocities are to matching and inversely with the coefficient of friction,
-        // where a higher
+        // Represents the adjustment to the velocity by one time period.
+        // The adjustment scales linearly with how
+        // close the velocities are to matching and inversely with the
+        // coefficient of friction, where a higher
         // coefficient represents a slower change and slower max speed.
         double gravityDXVelocity =
                 -(Math.sin(Math.toRadians(inclineAngle)) * gravitationalAcceleration) *
@@ -170,7 +177,7 @@ public class Physics {
 
     /**
      * Returns the velocity vector reflected about a wall of impact. Assumes a perfect elastic
-     * collision.
+     * collision. 
      * 
      * @param velocity The velocity of the object
      * @param inclineAngle The angle of the wall being hit. [0, 180)
@@ -204,7 +211,7 @@ public class Physics {
 
         return newVelocity;
     }
-
+   
     /**
      * Applies a force on an object with a given velocity and mass. Limits the
      * maximum speed of the object.
@@ -226,4 +233,5 @@ public class Physics {
 
         return newVelocity;
     }
+    
 }

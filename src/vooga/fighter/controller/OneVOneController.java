@@ -2,10 +2,17 @@ package vooga.fighter.controller;
 
 
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 import util.input.*;
+import vooga.fighter.forces.Force;
+import vooga.fighter.forces.ForceFactory;
+import vooga.fighter.forces.Gravity;
+import vooga.fighter.forces.Viscosity;
 import vooga.fighter.model.objects.CharacterObject;
 import vooga.fighter.model.objects.MouseClickObject;
+import vooga.fighter.util.Physics;
 import vooga.fighter.view.Canvas;
 import vooga.fighter.view.FourPlayerMatchGameLayout;
 
@@ -20,7 +27,8 @@ import vooga.fighter.view.FourPlayerMatchGameLayout;
 @InputClassTarget
 public class OneVOneController extends LevelController {
     private static final String INPUT_PATHWAY = "vooga.fighter.config.leveldefault";
-
+    private List<Force> myForces;
+    
     public OneVOneController () {
         super();
     }   
@@ -28,6 +36,8 @@ public class OneVOneController extends LevelController {
     public OneVOneController(String name, Canvas frame, ControllerDelegate manager, 
     		GameInfo gameinfo) {
     	super(name, frame, manager, gameinfo);
+    	ForceFactory forcefactory = new ForceFactory();
+    	getMode().setForces(forcefactory.getForces());
     	frame.setLayout(new FourPlayerMatchGameLayout());
     }
     
@@ -35,6 +45,8 @@ public class OneVOneController extends LevelController {
         Controller controller = new OneVOneController(name, frame, manager, gameinfo);
         return controller;
     }
+    
+   
 
     public void notifyEndCondition (String endCondition) {
     	removeListener();
@@ -43,7 +55,7 @@ public class OneVOneController extends LevelController {
     
     @InputMethodTarget(name = "player1_jump")
     public void playerOneJumpInput (AlertObject alObj)  {
-        getInputObjects().get(0).move(270);
+        getInputObjects().get(0).jump();
     }
     
     @InputMethodTarget(name = "player1_left")

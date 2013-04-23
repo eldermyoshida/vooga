@@ -47,6 +47,14 @@ public class MapObject extends GameObject {
     }
     
     /**
+     * removes an environment object from the map object
+     * @param object - object to be removed
+     */
+    public void removeEnviroObject(EnvironmentObject object) {
+    	myEnviroObjects.remove(object);
+    }
+    
+    /**
      * returns the name of this map.
      * @return myName - this map's name.
      */

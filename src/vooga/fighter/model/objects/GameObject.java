@@ -33,6 +33,7 @@ public abstract class GameObject {
     private Map<String,State> myStates;
     private Map<String,Integer> myProperties;
     private List<Integer> myImageEffects;
+    private boolean myRemoveState;
     
     /**
      * Constructs a new GameObject. All fields are initially empty, and must be
@@ -49,6 +50,7 @@ public abstract class GameObject {
         myDefaultState = null;
         myDefaultStateKey = null;
         myImageData = null;
+        myRemoveState = false;
     }
     
     /**
@@ -257,16 +259,28 @@ public abstract class GameObject {
     public Map<String,State> getStates(){
         return myStates;
     }
- 
+    
+    /**
+     * Indicates whether or not the object is ready to be removed.
+     */
+    public boolean shouldBeRemoved() {
+    	return myRemoveState;
+    }
+    
+    /**
+     * sets the removeState of this object
+     * @param bool
+     */
+    public void setRemoveState(boolean bool) {
+    	myRemoveState = bool;
+    }
+    
     /**
      * Handles additional update logic outside of resolving movement on the object
      * and setting image data.
      */
     public abstract void completeUpdate();
     
-    /**
-     * Indicates whether or not the object is ready to be removed.
-     */
-    public abstract boolean shouldBeRemoved();
+    
     
 }

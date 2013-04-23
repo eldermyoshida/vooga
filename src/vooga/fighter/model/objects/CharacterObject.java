@@ -23,6 +23,7 @@ public class CharacterObject extends GameObject {
 
     private static final int RIGHT=0; 
     private static final int MOVE_BACK_AMOUNT=-2; 
+    private static final int UP=270; 
     
     private Map<String, AttackObject> myAttacks;
     private List<Effect> myActiveEffects;
@@ -42,12 +43,12 @@ public class CharacterObject extends GameObject {
         myHealth = new Health();
         movingDirection=RIGHT; 
         currentAttacks= new ArrayList<AttackObject>();
-        myVelocity=new Vector(movingDirection, getProperty("speed"));
         setLoader(new CharacterLoader(charName, this));
         setCurrentState("stand");
         setDefaultState("stand");
         getCurrentState().setLooping(true);
         setLocation(center);
+        myVelocity=getLocation().getVelocity();
         setImageData();
         
     }
@@ -184,23 +185,23 @@ public class CharacterObject extends GameObject {
      */
     public void move(int direction) {
         setCurrentState("moveRight");
-        movingDirection=direction;
-        myVelocity= new Vector(direction, getProperty("movespeed"));
-        getLocation().translate(myVelocity);
+        getLocation().addAcceleration(new Vector(direction, getProperty("movespeed")));
     }
 
     /**
      * Makes the character get pushed back if hit by something with higher priority
      */
     public void pushBack(int direction){
-    	getLocation().translate(new Vector(direction, MOVE_BACK_AMOUNT*getProperty("movespeed")));
+    	getLocation().addAcceleration(new Vector(direction, MOVE_BACK_AMOUNT*getProperty("movespeed")));
     }
 
     /**
      * Makes the character move back if it runs into another character or environmentObject with higher priority
      */
-    public void moveBack(){
-    	getLocation().translate(new Vector(movingDirection, MOVE_BACK_AMOUNT*getProperty("movespeed")));
+    public void moveBack(double forceMagnitude){
+    	myVelocity.setMagnitude(0.1); //TODO: hard coded now should be force magnitude in the future
+    	reverseVelocity(); 
+    	getLocation().addAcceleration(myVelocity);
     }
     
     /**
@@ -214,7 +215,7 @@ public class CharacterObject extends GameObject {
      * Will add jump method
      */
     public void jump() {        
-    	//TODO: Add acceleration 
+    	getLocation().addAcceleration(new Vector(UP, getProperty("jumpfactor")));
     } 
     
     /**
@@ -250,6 +251,13 @@ public class CharacterObject extends GameObject {
      */
     public List<AttackObject> getAttackObjects(){
     	return currentAttacks; 
+    }
+    
+    /**
+     * Reverse the direction of the given vector
+     */
+    public void reverseVelocity(){
+    	myVelocity.setDirection(myVelocity.getDirection()-180);
     }
     
 }

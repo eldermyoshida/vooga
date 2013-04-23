@@ -1,6 +1,5 @@
 package vooga.fighter.model.loaders;
 
-import java.awt.Dimension;
 import java.awt.Rectangle;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -12,36 +11,34 @@ import vooga.fighter.model.utils.State;
 
 public class MouseClickLoader extends ObjectLoader {
 
-	private static final String MOUSE_PATH = "src/vooga/fighter/config/mouseclick.xml";
+	private static final String PATH_TAG = "MouseClickPath";
 
     MouseClickObject myMouseClick;
 
     public MouseClickLoader (MouseClickObject mouseclick) {
-        super("MouseClickPath");
+        super(PATH_TAG);
         myMouseClick = mouseclick;
         load();
     }
 
     protected void load () {
         Document doc = getDocument();
-        NodeList menuNodes = doc.getElementsByTagName("mouseclickobject");
+        NodeList menuNodes = doc.getElementsByTagName(getResourceBundle().getString("MosueClickObject"));
         for (int i = 0; i < menuNodes.getLength(); i++) {
             Element node = (Element) menuNodes.item(i);
-            NodeList states = node.getElementsByTagName("state");
+            NodeList states = node.getElementsByTagName(getResourceBundle().getString("State"));
             for (int j = 0; j < states.getLength(); j++) {
                 Element state = (Element) states.item(j);
-                String Statename = getAttributeValue(state, "name");
-                NodeList frames = state.getElementsByTagName("frame");
+                String Statename = getAttributeValue(state, getResourceBundle().getString("Name"));
+                NodeList frames = state.getElementsByTagName(getResourceBundle().getString("Frame"));
                 State newState = new State(myMouseClick, frames.getLength());
                 for (int k = 0; k < frames.getLength(); k++) {
                     Element node1 = (Element) frames.item(k);
-                    String imagepathway = getAttributeValue(node1, "image");
+                    String imagepathway = getAttributeValue(node1, getResourceBundle().getString("Image"));
                     newState.populateImage(new Pixmap(imagepathway), k);
-                    int width = Integer.parseInt((getAttributeValue(node1, "width")));
-                    int height = Integer.parseInt((getAttributeValue(node1, "height")));
-                    Dimension dim = new Dimension(width, height);
+                    int width = Integer.parseInt((getAttributeValue(node1, getResourceBundle().getString("Width"))));
+                    int height = Integer.parseInt((getAttributeValue(node1, getResourceBundle().getString("Height"))));
                     Rectangle rect = new Rectangle(width, height);
-                    newState.populateSize(dim, k);
                     newState.populateRectangle(rect, k);
                     myMouseClick.addState(Statename, newState);
                 }
