@@ -27,6 +27,7 @@ import vooga.towerdefense.gameElements.Wave;
 import vooga.towerdefense.model.GameLoop;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.GameModel;
+import vooga.towerdefense.model.MapLoader;
 import vooga.towerdefense.model.shop.Shop;
 import vooga.towerdefense.model.shop.ShopItem;
 import vooga.towerdefense.model.tiles.Tile;
@@ -71,8 +72,11 @@ public class Controller {
 	public Controller(String language) {
 
 		List<Wave> waves = new ArrayList<Wave>();
-
-		GameMap map = new GameMap(null, 800, 600, null);
+//		String path = "/vooga/src/vooga/towerdefense/resources/map_loadfile.xml";
+		String path = "C:\\Users\\Erick\\CompSci308\\vooga\\src\\vooga\\towerdefense\\resources\\map_loadfile.xml";
+		MapLoader loader = new MapLoader(path);
+		List<GameMap> maps = loader.loadMaps();
+		GameMap map = maps.get(1);
 		// FIXME: Hardcoded for testing trolls
 		ExampleAuraTowerFactory codeStyleGenerator = new ExampleAuraTowerFactory(
 				map, "Tree of Doom", null);
