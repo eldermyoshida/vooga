@@ -79,8 +79,15 @@ public class MapObject extends GameObject {
     /**
      * Adds a starting position to the map object.
      */
-    public void addStartPosition(int index, UpdatableLocation position) {
-        myStartingPositions.add(index, position);
+    public void addStartPosition(UpdatableLocation position) {
+        myStartingPositions.add(position);
+    }
+    
+    /**
+     * sets a starting position to the map object.
+     */
+    public void setStartPosition(int index, UpdatableLocation position) {
+        myStartingPositions.set(index, position);
     }
     
     /**

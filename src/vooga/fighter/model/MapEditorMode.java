@@ -70,8 +70,8 @@ public class MapEditorMode extends Mode {
      */
     public void initializeEnviroObjects() {
     	for(EnvironmentObject enviro: myEnviroObjects) {
-    		double xOffset = enviro.getImageData().getSize().getWidth();
-    		double yOffset = enviro.getImageData().getSize().getHeight();
+    		double xOffset = enviro.getImageData().getSize().getWidth()/2;
+    		double yOffset = enviro.getImageData().getSize().getHeight()/2;
     		ImageDataObject newImageLocation = new ImageDataObject(enviro.getImageData().getImage(),
     				new Location(xOffset, yOffset), enviro.getImageData().getSize(), new ArrayList<Integer>());
     		enviro.setImageData(newImageLocation);
@@ -154,8 +154,12 @@ public class MapEditorMode extends Mode {
     	}
     }
     
+    /**
+     * sets the starting position of the currently selected player
+     * @param loc
+     */
     public void startLocSelect(Point2D loc) {
-    	myMap.addStartPosition(currentPlayer, new UpdatableLocation(loc.getX(), loc.getY()));
+    	myMap.setStartPosition(currentPlayer, new UpdatableLocation(loc.getX(), loc.getY()));
     }
     
     /**
@@ -191,7 +195,10 @@ public class MapEditorMode extends Mode {
     	addObject(myCurrentSelection);
     }
     
-    
+    /**
+     * selects the next player's information to be edited
+     * (currently only used for starting locations)
+     */
     public void nextPlayer() {
     	currentPlayer++;
     	if(currentPlayer==numPlayers) {
@@ -199,6 +206,9 @@ public class MapEditorMode extends Mode {
     	}
     }
     
+    /**
+     * selects the previous player's information to be edited
+     */
     public void prevPlayer() {
     	currentPlayer--;
     	if(currentPlayer<0) {
@@ -206,10 +216,18 @@ public class MapEditorMode extends Mode {
     	}
     }
     
+    /**
+     * sets the filepath of the background image
+     * @param filepath
+     */
     public void setBackground(String filepath) {
     	myBackgroundPath = filepath;
     }
     
+    /**
+     * sets the filepath of the sound file for music
+     * @param filepath
+     */
     public void setSound(String filepath) {
     	mySoundPath = filepath;
     }

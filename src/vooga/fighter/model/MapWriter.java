@@ -3,9 +3,12 @@ package vooga.fighter.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.w3c.dom.Element;
+
 import vooga.fighter.model.objects.EnvironmentObject;
 import vooga.fighter.model.objects.MapObject;
 import vooga.fighter.model.utils.UpdatableLocation;
+import vooga.towerdefense.util.XMLTool;
 
 
 /**
@@ -17,64 +20,60 @@ public class MapWriter {
 	private static final String INPUT_PATHWAY = "vooga.fighter.config.maps";
 	private MapObject myWriteSource;
 	private ArrayList<String> myWriteOutLines;
+	private XMLTool myXMLWriter;
+	private Element myRoot;
+	private String mySoundFilePath;
+	private String myBackgroundFilePath;
 	
-	public MapWriter(MapObject map) {
+	public MapWriter(MapObject map, String soundFilePath, String backgroundFilePath) {
 		myWriteSource = map;
+		myXMLWriter = new XMLTool();
 	}
 	
 	public void writeMap() {
+		myXMLWriter.makeDoc();
+		myRoot = myXMLWriter.makeRoot("mapStart");
 		String name = myWriteSource.getName();
 		List<UpdatableLocation> startingPos = myWriteSource.getStartPositions();
 		List<EnvironmentObject> enviroObjects = myWriteSource.getEnviroObjects();
 		//start writeout
-		myWriteOutLines.add(writeMapHeader());
+		writeMapHeader();
 		for(UpdatableLocation loc: startingPos) {
-			myWriteOutLines.add(writeStartPosString(loc));
+			writeStartPos(loc);
 		}
-		//writing state information
-		myWriteOutLines.add(writeStateHeader());
-		myWriteOutLines.add("    " + writeBackgroundImage());
-		myWriteOutLines.add("</state>");
-		//finish state information
+		writeStates();
 		for(EnvironmentObject enviro: enviroObjects) {
-			myWriteOutLines.add(writeEnvironmentObjectString(enviro));
+			writeEnvironmentObject(enviro);
 		}
-		myWriteOutLines.add("</map>");
+		//myWriteOutLines.add("</map>");
+		String writeOut = myXMLWriter.translateToXMLString(myXMLWriter.getDoc());
 		
 		
 	}
 	
-	private String writeStartPosString(UpdatableLocation loc) {
-		String str = "<startingPos xCoord=";
-		str += "\"" + loc.getLocation().getX() + "\" yCoord=\"" + loc.getLocation().getY() + "\"/>";
-		return str;
+	private void writeStartPos(UpdatableLocation loc) {
+		myXMLWriter.addChild(myRoot, "startingPos", "xCoord=\"" + 
+				loc.getLocation().getX() + "\" yCoord=\"" + loc.getLocation().getY() + "\"");
 	}
 	
-	private String writeEnvironmentObjectString(EnvironmentObject enviro) {
-		String str = "<environmentObject objectName=\"";
-		str += enviro.getName() + "\" xCoord=\"" + enviro.getLocation().getLocation().getX() 
-				+ "\" yCoord=\"" + enviro.getLocation().getLocation().getY() + "\" />";
-		return str;
+	private void writeEnvironmentObject(EnvironmentObject enviro) {
+		myXMLWriter.addChild(myRoot, "environmentObject", "objectName=\"" + 
+				enviro.getName() + "\" xCoord=\"" + enviro.getLocation().getLocation().getX() 
+				+ "\" yCoord=\"" + enviro.getLocation().getLocation().getY() + "\"");
 	}
 	
-	private String writeMapHeader() {
-		String str = "<map mapName=\"";
-		str += myWriteSource.getName() + "\" xSize=\"1024\" ySize=\"871\">";
-		return str;
+	private void writeMapHeader() {
+		myXMLWriter.addChild(myRoot, myXMLWriter.makeElement("map", "mapName=\"" + myWriteSource.getName() + "\" " +
+				"xSize=\"1024\" ySize=\"871\""));
 	}
 	
-	private String writeStateHeader() {
+	private String writeStates() {
+		Element stateHead = myXMLWriter.makeElement("state","stateName = \"background\"");
+		myXMLWriter.addChild(myRoot, stateHead);
+		Element background = myXMLWriter.makeElement("frame", "image = \"" + 
+				myBackgroundFilePath + "\"");
+		myXMLWriter.addChild(stateHead, background);
 		return "<state stateName = \"background\">";
-	}
-	
-	private String writeBackgroundImage() {
-		String str = "<frame image = \"fighter/images/" + myWriteSource.getName() + ".jpeg\" />";
-		return str;
-	}
-	
-	private String writeBackgroundImage(String filePath) {
-		String str = "<frame image = \"" + filePath + "\" />";
-		return str;
 	}
 
 }
