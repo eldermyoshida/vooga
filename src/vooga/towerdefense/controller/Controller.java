@@ -8,6 +8,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
@@ -345,5 +346,10 @@ public class Controller {
 	public boolean canBuildHere(Point p) {
 		return myModel.getMap().isBuildable(p);
 	}
+
+    public void displayPlayerStatistics (Map<String, Integer> playerData) {
+        // TODO Auto-generated method stub
+        
+    }
 
 }
