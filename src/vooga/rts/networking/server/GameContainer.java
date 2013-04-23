@@ -1,6 +1,5 @@
 package vooga.rts.networking.server;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -36,6 +35,20 @@ public class GameContainer extends AbstractThreadContainer {
      */
     protected void addRoom (Room room) {
         myRooms.put(room.getID(), room);
+    }
+    
+    /**
+     * Increments lobby info size with the given id
+     */
+    protected void incrementLobbyInfoSize (int id) {
+        myLobbyInfos.get(id).addPlayer();
+    }
+    
+    /**
+     * Decrements lobby info size with the given id
+     */
+    protected void decrementLobbyInfoSize (int id) {
+        myLobbyInfos.get(id).removePlayer();
     }
 
     /**

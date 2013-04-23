@@ -1,7 +1,7 @@
 package vooga.rts.networking.server;
 
 import vooga.rts.networking.communications.LobbyInfo;
-import vooga.rts.networking.communications.servermessages.LobbyInfoMessage;
+import vooga.rts.networking.communications.servermessages.SwitchToLobbyMessage;
 
 
 /**
@@ -26,6 +26,7 @@ public class Lobby extends Room {
     public void leaveLobby (ConnectionThread thread) {
         removeConnection(thread);
         getGameContainer().addConnection(thread);
+        getGameContainer().decrementLobbyInfoSize(getID());
         if (haveNoConnections()) {
             getGameContainer().removeRoom(this);
         }
@@ -39,6 +40,7 @@ public class Lobby extends Room {
     @Override
     public void addConnection (ConnectionThread thread) {
         super.addConnection(thread);
-        thread.sendMessage(new LobbyInfoMessage(getLobbyModel()));
+        thread.sendMessage(new SwitchToLobbyMessage(getLobbyModel()));
+        getGameContainer().incrementLobbyInfoSize(getID());
     }
 }

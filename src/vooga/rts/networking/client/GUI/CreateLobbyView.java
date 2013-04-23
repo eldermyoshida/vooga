@@ -72,6 +72,6 @@ public class CreateLobbyView extends JPanel {
     public LobbyInfo getLobbyInfo () {
         return new LobbyInfo(myServerField.getText(),
                              (String) myMapComboBox.getSelectedItem(), 
-                             (int) myMapComboBox.getSelectedItem(), 0);
+                             (int) myMaxPlayersComboBox.getSelectedItem(), 0);
     }
 }
