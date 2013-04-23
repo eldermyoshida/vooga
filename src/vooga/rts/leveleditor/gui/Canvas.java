@@ -102,13 +102,6 @@ public class Canvas extends JFrame {
         return myCurrentSelectTile;
     }
 
-    public void ZoomIn() {
-        myMapPanel.ZoomIn();      
-    }
-
-    public void ZoomOut() {
-        myMapPanel.ZoomOut();      
-    }
 
     public void clear() {
         myMapPanel.clear();
@@ -129,14 +122,14 @@ public class Canvas extends JFrame {
     }
     
     public void addLayer() {
-       myMapPanel.addLayer();
+//       myMapPanel.addLayer();
        myLayerPanel.addLayer(myMapPanel.getMaxLayer());
        
     }
     
     public void removeLayer() {
        myLayerPanel.removeLayer(myMapPanel.getMaxLayer());
-       myMapPanel.removeLayer(); 
+//       myMapPanel.removeLayer(); 
     }
 
     
