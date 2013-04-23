@@ -24,7 +24,7 @@ import vooga.rts.util.Location3D;
  * 
  */
 public class Node {
-    public static int NODE_SIZE = 32;
+    public static int NODE_SIZE = 8;
 
     private int myHeight;
     private int myTier;
@@ -169,7 +169,11 @@ public class Node {
             pen.draw(new Ellipse2D.Double(screen.getX(), screen.getY(), NODE_SIZE, NODE_SIZE));
         }
         pen.setColor(Color.red);
-        pen.drawString(Integer.toString(index), (int)screen.getX() + NODE_SIZE/2, (int)screen.getY()+ NODE_SIZE/2);
+        pen.setFont(new Font("Arial", Font.PLAIN, 10));
+        pen.drawString(Integer.toString(index), (int)screen.getX(), (int)screen.getY());
+        pen.setColor(Color.blue);
+        pen.setFont(new Font("Arial", Font.PLAIN, 12));
+        pen.drawString("(" + myX + ", " + myY  + ")", (int)screen.getX(), (int)screen.getY()+ NODE_SIZE/2 + 6);
         pen.setColor(Color.black);
         paint(pen);
     }
