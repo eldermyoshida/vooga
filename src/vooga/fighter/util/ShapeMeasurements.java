@@ -44,6 +44,7 @@ public class ShapeMeasurements {
 		float[] coordinates = new float[6];
 		float[] pastcoordinates = new float[6];
 ;		while(!path1.isDone()){
+			System.out.print(xcount);
 			path1.currentSegment(coordinates);
 			if(coordinates[0]!=pastcoordinates[0]){ 
 				//Unfortunate, but makes this work for rectanges so I will keep the if statement until I refactor
