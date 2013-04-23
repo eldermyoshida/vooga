@@ -10,42 +10,39 @@ import vooga.fighter.model.utils.State;
 
 public class MenuLoader extends ObjectLoader {
 	
-	private static final String MENU_PATH = "src/vooga/fighter/config/menu.xml";
+	private static final String PATH_TAG = "MenuPath";
 	private static final String YES = "yes";
 	
 	MenuObject myMenuObject;
 	
 	public MenuLoader(String menuobjectname, MenuObject menuobject) {
-		super("MenuPath");
+		super(PATH_TAG);
 		myMenuObject = menuobject;
 		load(menuobjectname);
 	}
 
     protected void load (String menuobjectname) {
         Document doc = getDocument();
-        NodeList menuNodes = doc.getElementsByTagName("menuobject");
+        NodeList menuNodes = doc.getElementsByTagName(getResourceBundle().getString("MenuObject"));
         for (int i = 0; i < menuNodes.getLength(); i++) {
             Element node = (Element) menuNodes.item(i);
-            String name = getAttributeValue(node, "menuobjectname");
+            String name = getAttributeValue(node, getResourceBundle().getString("MenuObjectName"));
             if (name.equals(menuobjectname)) {
                 myMenuObject.setValue(name);
-                NodeList states = node.getElementsByTagName("state");
+                NodeList states = node.getElementsByTagName(getResourceBundle().getString("State"));
                 for (int j = 0; j < states.getLength(); j++) {
                     Element state = (Element) states.item(j);
-                    String blinking = getAttributeValue(state, "blink");
                     String stateName = getAttributeValue(state, "name");
-                    NodeList frames = node.getElementsByTagName("frame");
+                    NodeList frames = state.getElementsByTagName("frame");
                     State newState = new State(myMenuObject, frames.getLength());
                     for (int k = 0; k < frames.getLength(); k++) {
                         Element node1 = (Element) frames.item(k);
-                        String imagepathway = getAttributeValue(node1, "image");
+                        String imagepathway = getAttributeValue(node1, getResourceBundle().getString("Image"));
                         Pixmap image = new Pixmap(imagepathway);
                         newState.populateImage(image, k);
                     }
                     myMenuObject.addState(stateName, newState);
-                    if (blinking.equals(YES)) {
-                        newState.setLooping(true);
-                    }
+                    newState.setLooping(true);
                     if (j == 0) {
                         myMenuObject.setCurrentState(stateName);
                         myMenuObject.setDefaultState(stateName);

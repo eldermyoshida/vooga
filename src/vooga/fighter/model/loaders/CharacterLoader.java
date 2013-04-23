@@ -17,7 +17,9 @@ import vooga.fighter.model.utils.State;
  *
  */
 public class CharacterLoader extends ObjectLoader {
-		
+	
+	private static final String PATH_TAG = "CharacterPath";
+	
 	private CharacterObject myChar;
 
 	/**
@@ -27,7 +29,7 @@ public class CharacterLoader extends ObjectLoader {
 	 * @param character
 	 */
 	public CharacterLoader (String charName, CharacterObject character) {
-		super("CharacterPath");
+		super(PATH_TAG);
 		myChar = character;
 		load(charName);
 	}
@@ -47,8 +49,10 @@ public class CharacterLoader extends ObjectLoader {
 				int maxHealth = Integer.parseInt(getAttributeValue(node, getResourceBundle().getString("MaxHealth")));
 				int movespeed= Integer.parseInt(getAttributeValue(node, getResourceBundle().getString("Movespeed")));
 				int mass= Integer.parseInt(getAttributeValue(node, getResourceBundle().getString("Mass")));
+				int jumpfactor= Integer.parseInt(getAttributeValue(node, getResourceBundle().getString("Jump")));
 				myChar.addProperty(getResourceBundle().getString("Movespeed"), movespeed);
 				myChar.addProperty(getResourceBundle().getString("Mass"), mass);
+				myChar.addProperty(getResourceBundle().getString("Jump"), jumpfactor);
 				myChar.setHealth(maxHealth);
 				NodeList stateNodes = ((Element) node).getElementsByTagName(getResourceBundle().getString("State"));
 				addStates(stateNodes, myChar);
@@ -68,14 +72,14 @@ public class CharacterLoader extends ObjectLoader {
 			String attackName = getAttributeValue(attackNodes.item(i), getResourceBundle().getString("AttackName"));
 			int attackDmg = Integer.parseInt(getAttributeValue(attackNodes.item(i), getResourceBundle().getString("Damage")));
 			int attackDuration = Integer.parseInt(getAttributeValue(attackNodes.item(i), getResourceBundle().getString("Duration")));
-			int attackSpeed = Integer.parseInt(getAttributeValue(attackNodes.item(i), getResourceBundle().getString("Movespeed")));
+			int attackSpeed = Integer.parseInt(getAttributeValue(attackNodes.item(i), getResourceBundle().getString("Attackspeed")));
 			NodeList frameNodes = attack.getElementsByTagName(getResourceBundle().getString("Frame"));
 			AttackObject newAttack = new AttackObject();
 			State newState = new State(myChar, frameNodes.getLength());
 			newAttack.addProperty(ModelConstants.ATTACK_PROPERTY_SPEED, attackSpeed);
 			newAttack.addProperty(ModelConstants.ATTACK_PROPERTY_POWER, attackDmg);
 			newAttack.addProperty(ModelConstants.ATTACK_PROPERTY_DURATION, attackDuration);
-			getImageAndHitboxProperties(frameNodes, newState);
+			getFrameProperties(frameNodes, newState);
 			newAttack.addState(attackName, newState);
 			newAttack.setCurrentState(attackName);
 			myChar.addAttack(attackName, newAttack);

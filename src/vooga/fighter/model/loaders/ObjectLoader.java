@@ -38,7 +38,7 @@ public abstract class ObjectLoader {
 	 */
 	public ObjectLoader (String pathName) {
 		myResources = ResourceBundle.getBundle(RESOURCE_PATH);
-		myDefaults= ResourceBundle.getBundle(RESOURCE_PATH);
+		myDefaults= ResourceBundle.getBundle(RESOURCE_DEFAULT_VALUES_PATH);
 		String objectPath = myResources.getString(pathName);
 		myObjectFile = new File(objectPath);
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -81,13 +81,15 @@ public abstract class ObjectLoader {
 	 * @return
 	 */
 	protected String getAttributeValue(Node node, String tag) {
-		String value= node.getAttributes().getNamedItem(tag).getTextContent();
-		if (value==null){
-			value= myDefaults.getString(getClass()+tag);
-			throw new RuntimeException("No "+ tag +" set.  Property set to default value: "+ value );
-			//TODO: will remove hard coding in runtime exception later 
+		try{
+			String value= node.getAttributes().getNamedItem(tag).getTextContent();
+			return value; 
 		}
-		return value;
+		catch(NullPointerException e){
+			String value= myDefaults.getString(getClass().getSimpleName()+tag);
+			System.err.println("Property "+ tag+ " not set.  Default value is "+value);
+			return value;
+		}
 	}
 
 	/**
@@ -110,10 +112,10 @@ public abstract class ObjectLoader {
 	protected void addStates(NodeList stateNodes, GameObject myObject) {
 		for (int i = 0; i < stateNodes.getLength(); i++) {
 			Element state = (Element) stateNodes.item(i);
-			String stateName = getAttributeValue(stateNodes.item(i), "stateName");
-			NodeList frameNodes = state.getElementsByTagName("frame");
+			String stateName = getAttributeValue(stateNodes.item(i), getResourceBundle().getString("StateName"));
+			NodeList frameNodes = state.getElementsByTagName(getResourceBundle().getString("Frame"));
 			State newState = new State(myObject, frameNodes.getLength());
-			getImageAndHitboxProperties(frameNodes, newState);
+			getFrameProperties(frameNodes, newState);
 			myObject.addState(stateName, newState);
 		}
 	}
@@ -121,17 +123,17 @@ public abstract class ObjectLoader {
 	/**
 	 * Loads frames and states for the objects 
 	 */
-	protected void getImageAndHitboxProperties(NodeList frameNodes, State newState){
+	protected void getFrameProperties(NodeList frameNodes, State newState){
 		for (int j = 0; j < frameNodes.getLength(); j++) {
 			Element frame = (Element) frameNodes.item(j);
-			if (frame.getAttributes().getNamedItem("image") != null){
-				newState.populateImage(new Pixmap(getAttributeValue(frame, "image")), j);
+			if (frame.getAttributes().getNamedItem(getResourceBundle().getString("Image")) != null){
+				newState.populateImage(new Pixmap(getAttributeValue(frame, getResourceBundle().getString("Image"))), j);
 			}
-			NodeList hitboxNodes = frame.getElementsByTagName("hitbox"); 
+			NodeList hitboxNodes = frame.getElementsByTagName(getResourceBundle().getString("Hitbox")); 
 			for (int k=0; k<hitboxNodes.getLength(); k++){
-				newState.populateRectangle(new Rectangle(Integer.parseInt(getAttributeValue(hitboxNodes.item(k), "cornerX")),
-						Integer.parseInt(getAttributeValue(hitboxNodes.item(k), "cornerY")), Integer.parseInt(getAttributeValue(hitboxNodes.item(k), "rectX")),
-						Integer.parseInt(getAttributeValue(hitboxNodes.item(k), "rectY"))), j);
+				newState.populateRectangle(new Rectangle(Integer.parseInt(getAttributeValue(hitboxNodes.item(k), getResourceBundle().getString("CornerX"))),
+						Integer.parseInt(getAttributeValue(hitboxNodes.item(k), getResourceBundle().getString("CornerY"))), Integer.parseInt(getAttributeValue(hitboxNodes.item(k), getResourceBundle().getString("Width"))),
+						Integer.parseInt(getAttributeValue(hitboxNodes.item(k), getResourceBundle().getString("Height")))), j);
 			}
 		}
 	}

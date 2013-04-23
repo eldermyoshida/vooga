@@ -7,8 +7,6 @@ import java.util.List;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
-import util.Location;
-import vooga.fighter.controller.GameManager;
 import vooga.fighter.model.MenuGrid;
 import vooga.fighter.model.MenuMode;
 import vooga.fighter.model.objects.MenuObject;
@@ -18,6 +16,8 @@ import vooga.fighter.model.utils.UpdatableLocation;
 
 public class MenuGridLoader extends ObjectLoader {
 
+	private static final String PATH_TAG = "MenuGridPath";
+	
     private static final int FOUR_TICKS = 4;
 
     private List<MenuObject> myMenuObjects;
@@ -25,11 +25,10 @@ public class MenuGridLoader extends ObjectLoader {
     private MenuObject myObject;
 
     public MenuGridLoader (String menuname, MenuGrid grid, MenuMode delegate) {
-        super("MenuGridPath");
+        super(PATH_TAG);
         myDelegate = delegate;
         myMenuObjects = new ArrayList<MenuObject>();
         load(menuname);
-        System.out.println("<menugridloader.java><menugridloader> " + myMenuObjects);
     }
 
     /**
@@ -37,24 +36,24 @@ public class MenuGridLoader extends ObjectLoader {
      */
     protected void load (String menuname) {
         Document doc = getDocument();
-        NodeList menugridNodes = doc.getElementsByTagName("menumode");
+        NodeList menugridNodes = doc.getElementsByTagName(getResourceBundle().getString("MenuMode"));
         for (int i = 0; i < menugridNodes.getLength(); i++) {
             Element node = (Element) menugridNodes.item(i);
-            String name = getAttributeValue(node, "menuname");
+            String name = getAttributeValue(node, getResourceBundle().getString("MenuName"));
             if (name.equals(menuname)) {
-                NodeList menuobjects = node.getElementsByTagName("menuobject");
+                NodeList menuobjects = node.getElementsByTagName(getResourceBundle().getString("MenuObject"));
                 for (int j = 0; j < menuobjects.getLength(); j++) {
                     Element node1 = (Element) menuobjects.item(j);
-                    String MenuObjectName = getAttributeValue(node1, "menuobjectname");
+                    String MenuObjectName = getAttributeValue(node1, getResourceBundle().getString("MenuObjectName"));
                     MenuObject menuobject = new MenuObject(MenuObjectName, myDelegate);
                     if (j == 0) myObject = menuobject;
-                    int xCoord = Integer.parseInt(getAttributeValue(node1, "xCoord"));
-                    int yCoord = Integer.parseInt(getAttributeValue(node1, "yCoord"));
+                    int xCoord = Integer.parseInt(getAttributeValue(node1, getResourceBundle().getString("XCoordinate")));
+                    int yCoord = Integer.parseInt(getAttributeValue(node1, getResourceBundle().getString("YCoordinate")));
                     menuobject.setLocation(new UpdatableLocation(xCoord, yCoord));
-                    String nextStateName = getAttributeValue(node1, "nextState");
+                    String nextStateName = getAttributeValue(node1, getResourceBundle().getString("NextState"));
                     menuobject.setNext(nextStateName);
-                    int xSize = Integer.parseInt(getAttributeValue(node1, "xSize"));
-                    int ySize = Integer.parseInt(getAttributeValue(node1, "ySize"));
+                    int xSize = Integer.parseInt(getAttributeValue(node1, getResourceBundle().getString("XSize")));
+                    int ySize = Integer.parseInt(getAttributeValue(node1, getResourceBundle().getString("YSize")));
                     for (Object s : menuobject.getStates().values()) {
                         State state = (State) s;
                         for (int k = 0; k < state.getNumFrames(); k++) {
@@ -65,15 +64,15 @@ public class MenuGridLoader extends ObjectLoader {
                             state.populateAllDelays(FOUR_TICKS);
                         }
                     }
-                    int gridnum = Integer.parseInt(getAttributeValue(node1, "gridnum"));
+                    int gridnum = Integer.parseInt(getAttributeValue(node1, getResourceBundle().getString("GridNum")));
                     menuobject.setNum(gridnum);
-                    int up = Integer.parseInt(getAttributeValue(node1, "up"));
+                    int up = Integer.parseInt(getAttributeValue(node1, getResourceBundle().getString("Up")));
                     menuobject.setUp(up);
-                    int down = Integer.parseInt(getAttributeValue(node1, "down"));
+                    int down = Integer.parseInt(getAttributeValue(node1, getResourceBundle().getString("Down")));
                     menuobject.setDown(down);
-                    int left = Integer.parseInt(getAttributeValue(node1, "left"));
+                    int left = Integer.parseInt(getAttributeValue(node1, getResourceBundle().getString("Left")));
                     menuobject.setLeft(left);
-                    int right = Integer.parseInt(getAttributeValue(node1, "right"));
+                    int right = Integer.parseInt(getAttributeValue(node1, getResourceBundle().getString("Right")));
                     menuobject.setRight(right);
                     myMenuObjects.add(menuobject);
                 }

@@ -17,7 +17,7 @@ import vooga.fighter.model.utils.UpdatableLocation;
 
 public class MapLoader extends ObjectLoader {
 
-	private static final String MAP_PATH = "src/vooga/fighter/config/maps.xml";
+	private static final String PATH_TAG = "MapPath";
 
 	private MapObject myMap;
 
@@ -25,7 +25,7 @@ public class MapLoader extends ObjectLoader {
 	 * Dummy Constructor only to be used when getting map count
 	 */
 	public MapLoader() {
-		super("MapPath");
+		super(PATH_TAG);
 	}
 
 	/**
@@ -36,7 +36,7 @@ public class MapLoader extends ObjectLoader {
 	 * @param map object which is loaded into
 	 */
 	public MapLoader(String mapName, MapObject map) {
-		super("MapPath");
+		super(PATH_TAG);
 		myMap = map;
 		load(mapName);
 		myMap.setCurrentState("background");
@@ -51,30 +51,20 @@ public class MapLoader extends ObjectLoader {
 	 */
 	protected void load(String mapName) {
 		Document doc = getDocument();
-		NodeList mapNodes = doc.getElementsByTagName(getResourceBundle()
-				.getString("Map"));
+		NodeList mapNodes = doc.getElementsByTagName(getResourceBundle().getString("Map"));
 
 		for (int i = 0; i < mapNodes.getLength(); i++) {
 			Element node = (Element) mapNodes.item(i);
-			String name = getAttributeValue(node, getResourceBundle()
-					.getString("MapName"));
+			String name = getAttributeValue(node, getResourceBundle().getString("MapName"));
 			if (mapName.equals(name)) {
-				NodeList stateNodes = ((Element) node)
-						.getElementsByTagName(getResourceBundle().getString(
-								"State"));
+				NodeList stateNodes = ((Element) node).getElementsByTagName(getResourceBundle().getString("State"));
 				addStates(stateNodes, myMap);
-				myMap.setLocation(new UpdatableLocation(Integer
-						.parseInt(getAttributeValue(node, getResourceBundle()
-								.getString("XSize"))) / 2, Integer
-						.parseInt(getAttributeValue(node, getResourceBundle()
-								.getString("YSize"))) / 2));
-				NodeList startingPosNodes = node
-						.getElementsByTagName(getResourceBundle().getString(
-								"StartingPosition"));
+				myMap.setLocation(new UpdatableLocation(Integer.parseInt(getAttributeValue(node, getResourceBundle()
+					.getString("XSize"))) / 2, Integer.parseInt(getAttributeValue(node, getResourceBundle()
+					.getString("YSize"))) / 2));
+				NodeList startingPosNodes = node.getElementsByTagName(getResourceBundle().getString("StartingPosition"));
 				addStartingPositions(startingPosNodes);
-				NodeList enviroObjectNodes = node
-						.getElementsByTagName(getResourceBundle().getString(
-								"EnvironmentObject"));
+				NodeList enviroObjectNodes = node.getElementsByTagName(getResourceBundle().getString("EnvironmentObject"));
 				addEnviroObjects(enviroObjectNodes);
 			}
 		}
@@ -83,12 +73,10 @@ public class MapLoader extends ObjectLoader {
 	public List<String> getMapNames() {
 		List<String> maps = new ArrayList<String>();
 		Document doc = getDocument();
-		NodeList mapNodes = doc.getElementsByTagName(getResourceBundle()
-				.getString("Map"));
+		NodeList mapNodes = doc.getElementsByTagName(getResourceBundle().getString("Map"));
 		for (int i = 0; i < mapNodes.getLength(); i++) {
 			Element node = (Element) mapNodes.item(i);
-			maps.add(getAttributeValue(node,
-					getResourceBundle().getString("MapName")));
+			maps.add(getAttributeValue(node, getResourceBundle().getString("MapName")));
 		}
 		return maps;
 	}
@@ -118,14 +106,10 @@ public class MapLoader extends ObjectLoader {
 	private void addEnviroObjects(NodeList enviroObjectNodes) {
 		for (int i = 0; i < enviroObjectNodes.getLength(); i++) {
 			Node enviroObjectNode = enviroObjectNodes.item(i);
-			int xCoord = Integer.parseInt(getAttributeValue(enviroObjectNode,
-					getResourceBundle().getString("XCoordinate")));
-			int yCoord = Integer.parseInt(getAttributeValue(enviroObjectNode,
-					getResourceBundle().getString("YCoordinate")));
-			EnvironmentObject newEnvironmentObject = new EnvironmentObject(
-					getAttributeValue(enviroObjectNode, getResourceBundle()
-							.getString("EnvironmentObjectName")),
-					new UpdatableLocation(xCoord, yCoord));
+			int xCoord = Integer.parseInt(getAttributeValue(enviroObjectNode, getResourceBundle().getString("XCoordinate")));
+			int yCoord = Integer.parseInt(getAttributeValue(enviroObjectNode, getResourceBundle().getString("YCoordinate")));
+			EnvironmentObject newEnvironmentObject = new EnvironmentObject(getAttributeValue(enviroObjectNode, getResourceBundle()
+				.getString("EnvironmentObjectName")), new UpdatableLocation(xCoord, yCoord));
 			myMap.addEnviroObject(newEnvironmentObject);
 		}
 	}

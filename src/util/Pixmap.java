@@ -5,6 +5,9 @@ import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.geom.Point2D;
 import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
+import java.awt.image.RescaleOp;
+
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import vooga.fighter.util.Paintable;
@@ -78,11 +81,18 @@ public class Pixmap implements Paintable {
         // restore graphics area to its old state, so our changes have no lasting effects
 		pen.setTransform(old);
 	}
-    
-    //Not yet tested.
-    public void paintReverse (Graphics2D pen, Point2D center, Dimension size, double angle) {
+
+	public void paintReverse(Graphics2D pen, Point2D center, Dimension size) {
+		pen.setTransform(AffineTransform.getScaleInstance(-1, 1));
+    	paint(pen, center, size);
     	pen.setTransform(AffineTransform.getScaleInstance(-1, 1));
-    	paint(pen, center, size, angle);
-    }
+	}
+	
+	public void setImageToGreyScale() {
+		BufferedImage buffered = (BufferedImage)myImage;
+		RescaleOp op = new RescaleOp(.9f, 0, null);
+	    buffered = op.filter(buffered, null);
+	    myImage = (Image)buffered;
+	}
 
 }

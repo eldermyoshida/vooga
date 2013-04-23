@@ -1,6 +1,7 @@
 package vooga.fighter.forces;
 
 import util.Vector;
+import util.Velocity;
 import vooga.fighter.model.objects.CharacterObject;
 import vooga.fighter.util.Physics;
 
@@ -12,19 +13,21 @@ public class Gravity extends Force {
     
     public Gravity() {
         super();
-    }
-    
-    public void initialize(double direction, double magnitude) {
-        myDirection = direction;
-        myMagnitude = magnitude;
-        myVector = new Vector(myDirection, myMagnitude);
-    }
-    
-    public void applyForce(CharacterObject object) {
-        Vector newForce = getPhysics().applyForce(object.getVelocity(), object.getMass(), myVector);
-        object.getLocation().setVelocity(newForce);
+        
     }
 
     
+    public void applyForce(CharacterObject object) {
+        //Velocity newForce = getPhysics().applyForce(new Velocity(object.getVelocity()), (double) object.getMass(), new Velocity(myVector));
+        object.getLocation().addAcceleration(myVector);
+    }
+    
+    public void initialize(double param1, double param2) {
+        myDirection = param1;
+        myMagnitude = param2;
+        myVector= new Vector(myDirection, myMagnitude);
+    }
+
+
     
 }

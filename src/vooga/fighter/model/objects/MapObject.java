@@ -47,6 +47,14 @@ public class MapObject extends GameObject {
     }
     
     /**
+     * removes an environment object from the map object
+     * @param object - object to be removed
+     */
+    public void removeEnviroObject(EnvironmentObject object) {
+    	myEnviroObjects.remove(object);
+    }
+    
+    /**
      * returns the name of this map.
      * @return myName - this map's name.
      */
@@ -71,8 +79,8 @@ public class MapObject extends GameObject {
     /**
      * Adds a starting position to the map object.
      */
-    public void addStartPosition(UpdatableLocation position) {
-        myStartingPositions.add(position);
+    public void addStartPosition(int index, UpdatableLocation position) {
+        myStartingPositions.add(index, position);
     }
     
     /**
