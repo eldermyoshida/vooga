@@ -4,7 +4,9 @@ import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -156,6 +158,7 @@ public class ViewEditorScreen extends GameEditorScreen {
     
     private void populateDropDoxBoxes() throws IOException, ClassNotFoundException {
         List<String> screens = getController().getClassNamesInPackage(SCREEN_PACKAGE_PATH);
+        screens.add("");
         for (String s : screens) {
             myNorthPanel.addItem(s);
             mySouthPanel.addItem(s);
@@ -163,16 +166,39 @@ public class ViewEditorScreen extends GameEditorScreen {
             myEastPanel.addItem(s);
             myWestPanel.addItem(s);
         }
+        myNorthPanel.setSelectedItem("");
+        mySouthPanel.setSelectedItem("");
+        myCenterPanel.setSelectedItem("");
+        myEastPanel.setSelectedItem("");
+        myWestPanel.setSelectedItem("");
     }
 
     /**
-     * adds this level to the game.
+     * adds this view to the game.
      */
     @Override
     public void addElementToGame () {
-        // TODO Auto-generated method stub
         getController().setMapSize(getMapDimension());
-        getController().addViewToGame();
+        List<String> viewInfo = makeViewStrings();
+        getController().addViewToGame(viewInfo);
+    }
+    
+    /**
+     * makes a map of the screen name to the location.
+     */
+    private List<String> makeViewStrings() {
+        List<String> viewInfo = new ArrayList<String>();
+        String s = (String)myNorthPanel.getSelectedItem() + " " + myNorthSize.getText() + " " + "NORTH";
+        viewInfo.add(s);
+        s = (String)mySouthPanel.getSelectedItem() + " " + mySouthSize.getText() + " " + "SOUTH";
+        viewInfo.add(s);
+        s = (String)myCenterPanel.getSelectedItem() + " " + myCenterSize.getText() + " " + "CENTER";
+        viewInfo.add(s);
+        s = (String)myEastPanel.getSelectedItem() + " " + myEastSize.getText() + " " + "EAST";
+        viewInfo.add(s);
+        s = (String)myWestPanel.getSelectedItem() + " " + myWestSize.getText() + " " + "WEST";
+        viewInfo.add(s);
+        return viewInfo;
     }
     
     /**
