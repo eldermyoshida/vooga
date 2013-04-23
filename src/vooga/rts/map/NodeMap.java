@@ -60,7 +60,7 @@ public class NodeMap implements Observer {
      * @return node at the coordinates
      */
     public Node get (int x, int y) {
-        if (x > 0 && y > 0 && x < myMap.length && y < myMap[0].length) {
+        if (x >= 0 && y >= 0 && x < myMap.length && y < myMap[0].length) {
             return myMap[x][y];
         }
         return null;
