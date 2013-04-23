@@ -81,21 +81,23 @@ public class NetworkLogger {
     }
 
     /**
-     * Adds a memory handler to the logger depending on static constants and
+     * Adds a memory handler to the logger depending on given handler and
      * constraints. A memory handler pushes all log records after a message of
      * the specified threshold level is logged
      * This API was designed to be able to combine any other handler to the
      * memoryHandler
-     * WARNING the type of handler added will have the same level as the
-     * current level of the logger. Once it is set, its level cannot be changed
+     * WARNING the type of handler added will have level INFO. 
+     * Once it is set, its level cannot be changed. If the user wishes to set
+     * the handler from memory, he should set it manually and call the regular
+     * addHandler()
      * 
-     * @param handlerType the type of handler to have records pushed to
+     * @param handler the type of handler to have records pushed to
      * @param size Number of maximum records this handler will maintain
-     * @param push as soon as a message of the given level is issued
-     * @param args any necessary argument to create Socket or Stream handlers
+     * @param pushLevel push to handler as soon as a message of the given 
+     * level is issued
      */
-    public void addMemoryHandler (IVoogaHandler hand, int size, Level pushLevel) {
-    	myMemoryHandler.setProperties(hand, size, pushLevel);
+    public void addMemoryHandler (IVoogaHandler handler, int size, Level pushLevel) {
+    	myMemoryHandler.setProperties(handler, size, pushLevel);
         addHandler(myMemoryHandler);
     }
     
@@ -106,8 +108,8 @@ public class NetworkLogger {
      * @param push as soon as a message of the given level is issued
      * @param args any necessary argument to create Socket or Stream handlers
      */
-    public void addMemoryHandler (IVoogaHandler hand) {
-    	myMemoryHandler.setHandler(hand);
+    public void addMemoryHandler (IVoogaHandler handler) {
+    	myMemoryHandler.setHandler(handler);
         addHandler(myMemoryHandler);
     }
     

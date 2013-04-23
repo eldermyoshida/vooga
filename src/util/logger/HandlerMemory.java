@@ -6,23 +6,25 @@ import java.util.logging.MemoryHandler;
 import java.util.logging.SocketHandler;
 
 public class HandlerMemory implements IVoogaHandler{
-	private static final Level DEFAULT_LEVEL = Level.INFO;
+	private static final Level DEFAULT_PUSH_LEVEL = Level.SEVERE;
+	private static final Level DEFAULT_HANDLER_LEVEL = Level.INFO;
 	private static final int DEFAULT_LIMIT = 100;
 	private static final String ERROR_MESSAGE =
             "Error in creating memory format handler";
 	
-	private Level myLevel;
+	private Level myPushLevel;
+	private Level myHandlerLevel = DEFAULT_HANDLER_LEVEL;
 	private int mySize;
 	private IVoogaHandler myHandler;
 	
 	public HandlerMemory(IVoogaHandler hand, int size, Level pushLevel) {
-		myLevel = pushLevel;
+		myPushLevel = pushLevel;
 		myHandler = hand;
 		mySize = size;
 	}
 	
 	public HandlerMemory() {
-		myLevel = DEFAULT_LEVEL;
+		myPushLevel = DEFAULT_PUSH_LEVEL;
 		mySize = DEFAULT_LIMIT;
 	}
 	
@@ -30,12 +32,16 @@ public class HandlerMemory implements IVoogaHandler{
 		myHandler = hand;
 	}
 	
+	public void setHandlerLevel(Level level) {
+		myHandlerLevel = level;
+	}
+	
 	public void setSize(int size) {
 		mySize = size;
 	}
 	
 	public void setPushLevel(Level level) {
-		myLevel = level;
+		myPushLevel = level;
 	}
 	
 	public void setProperties(IVoogaHandler hand, int size, Level level) {
@@ -46,14 +52,16 @@ public class HandlerMemory implements IVoogaHandler{
 	
 	@Override
 	public Handler getHandler() {
-		 Handler handler = null;
+		 Handler memHandler = null;
 	        try {
-	            handler = new MemoryHandler(myHandler.getHandler(),mySize,myLevel);
+	        	Handler handler = myHandler.getHandler();
+	        	handler.setLevel(myHandlerLevel);
+	            memHandler = new MemoryHandler(handler,mySize,myPushLevel);
 	        }
 	        catch (Exception e) {
 	            NetworkLogger.LOGGER.severe(ERROR_MESSAGE);
 	        }
-	        return handler;
+	        return memHandler;
 	}
 
 }
