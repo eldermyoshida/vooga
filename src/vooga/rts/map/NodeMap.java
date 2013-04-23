@@ -119,7 +119,7 @@ public class NodeMap implements Observer {
      * @return The node that the location is inside.
      */
     private Node findContainingNode (Location3D world) {
-        // This should be the node for this location.        
+        // This should be the node for this location.
         Node potential = getNode(world);
         if (potential != null && potential.contains(world)) {
             return potential;
@@ -154,11 +154,11 @@ public class NodeMap implements Observer {
         }
         return nodeList;
     }
-    
+
     /**
      * Returns a node that corresponds to a provided world location.
      * 
-     * @param location The location of 
+     * @param location The location of
      * @return
      */
     public Node getNode (Location3D location) {
@@ -169,6 +169,7 @@ public class NodeMap implements Observer {
 
     @Override
     public void update (Observable arg0, Object arg1) {
+        System.out.println("Map is being told information!");
         // Map only worries about Game Sprite observables
         if (!(arg0 instanceof GameSprite)) {
             return;
