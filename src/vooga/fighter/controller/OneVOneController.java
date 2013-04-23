@@ -37,7 +37,6 @@ public class OneVOneController extends LevelController {
     	super(name, frame, manager, gameinfo);
     	initializeForces();
     	getMode().setForces(myForces);
-    	
     	frame.setLayout(new FourPlayerMatchGameLayout());
     }
     
