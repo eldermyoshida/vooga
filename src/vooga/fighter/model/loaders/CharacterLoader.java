@@ -68,7 +68,7 @@ public class CharacterLoader extends ObjectLoader {
 			String attackName = getAttributeValue(attackNodes.item(i), getResourceBundle().getString("AttackName"));
 			int attackDmg = Integer.parseInt(getAttributeValue(attackNodes.item(i), getResourceBundle().getString("Damage")));
 			int attackDuration = Integer.parseInt(getAttributeValue(attackNodes.item(i), getResourceBundle().getString("Duration")));
-			int attackSpeed = Integer.parseInt(getAttributeValue(attackNodes.item(i), getResourceBundle().getString("Movespeed")));
+			int attackSpeed = Integer.parseInt(getAttributeValue(attackNodes.item(i), getResourceBundle().getString("Attackspeed")));
 			NodeList frameNodes = attack.getElementsByTagName(getResourceBundle().getString("Frame"));
 			AttackObject newAttack = new AttackObject();
 			State newState = new State(myChar, frameNodes.getLength());
