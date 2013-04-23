@@ -20,13 +20,17 @@ import util.Vector;
  */
 public class CharacterObject extends GameObject {
 
+
+    private static final int RIGHT=0; 
+    private static final int MOVE_BACK_AMOUNT=-2; 
+    
     private Map<String, AttackObject> myAttacks;
     private List<Effect> myActiveEffects;
     private Health myHealth; 
     private List<AttackObject> currentAttacks; 
     private boolean facingRight;  
     private int movingDirection; 
-    private static final int MOVE_BACK_AMOUNT=-2; 
+    private Vector myVelocity;  
     
     /**
      * Constructs a new CharacterObject.
@@ -36,8 +40,9 @@ public class CharacterObject extends GameObject {
         myAttacks = new HashMap<String, AttackObject>();
         myActiveEffects = new ArrayList<Effect>();
         myHealth = new Health();
-        facingRight= true;  
+        movingDirection=RIGHT; 
         currentAttacks= new ArrayList<AttackObject>();
+        myVelocity=new Vector(movingDirection, getProperty("speed"));
         setLoader(new CharacterLoader(charName, this));
         setCurrentState("stand");
         getCurrentState().setLooping(true);
@@ -89,6 +94,22 @@ public class CharacterObject extends GameObject {
         return myActiveEffects;
     }
 
+    
+    /**
+     * Returns the mass for character
+     */
+    public int getMass(){
+    	return getProperty("mass");
+    }
+    
+    /**
+     * Returns the speed of the character 
+     */
+    public Vector getVelocity(){
+    	return myVelocity;
+    }
+    
+ 
     /**
      * Adds an AttackObject to the list of attacks available for this character.
      * Note that this attack will not be added to the list of game objects in a
@@ -99,6 +120,7 @@ public class CharacterObject extends GameObject {
         myAttacks.put(key, object);
     }
 
+    
     /**
      * Creates and returns an attack object based on a given identifier. Returns null
      * if the specified attack does not exist.
@@ -154,7 +176,6 @@ public class CharacterObject extends GameObject {
         AttackObject newAttack=new AttackObject(myAttacks.get(attack), new UpdatableLocation(characterLocation.getLocation().getX(), characterLocation.getLocation().getY()));
         newAttack.setOwner(this);
         currentAttacks.add(newAttack);
-      
     }
 
     /**
@@ -163,7 +184,8 @@ public class CharacterObject extends GameObject {
     public void move(int direction) {
         setCurrentState("moveRight");
         movingDirection=direction;
-        getLocation().translate(new Vector(direction, getProperty("speed")));
+        myVelocity= new Vector(direction, getProperty("speed"));
+        getLocation().translate(myVelocity);
     }
 
     /**
