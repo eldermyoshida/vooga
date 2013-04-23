@@ -13,6 +13,10 @@ public class RangeUpgradeNode extends UpgradeNode {
 
     @Override
     public void upgrade (InteractiveEntity requester) {
-        requester.getAttackStrategy().getCurrentWeapon().addRange(getUpgradeValue());
+        //requester.getAttackStrategy().getCurrentWeapon().addRange(getUpgradeValue());
+    	getReflectionHelper().changeValue("myRange",
+    			requester.getAttackStrategy().getCurrentWeapon(),
+    			getUpgradeValue());
+    	
     }
 }

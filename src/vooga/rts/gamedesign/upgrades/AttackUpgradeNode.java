@@ -15,7 +15,7 @@ public class AttackUpgradeNode extends UpgradeNode {
      * 
      * @author Wenshun Liu
      */
-    // TODO: now upgradeValue is only Integer. See if need to be generic based on the need.
+
     public AttackUpgradeNode (UpgradeTree upgradeTree,
                               String upgradeType,
                               int upgradeValue,
@@ -29,8 +29,10 @@ public class AttackUpgradeNode extends UpgradeNode {
      */
     @Override
     public void upgrade (InteractiveEntity requester) {
-        requester.setAttackStrategy(new CanAttack(requester.getWorldLocation(), requester
-                .getPlayerID()));
+        //requester.setAttackStrategy(new CanAttack(requester.getWorldLocation(), requester
+                //.getPlayerID()));
+    	getReflectionHelper().setValue("myAttackStrategy", requester,
+    			new CanAttack(requester.getWorldLocation(), requester.getPlayerID()));
     }
 
 }

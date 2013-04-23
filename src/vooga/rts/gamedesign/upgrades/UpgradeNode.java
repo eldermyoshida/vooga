@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.player.Player;
+import vooga.rts.util.ReflectionHelper;
 
 
 /**
@@ -25,7 +26,8 @@ public class UpgradeNode {
     private String myUpgradeName;
     private int myUpgradeValue;
     private boolean myHasBeenUpgraded;
-    private List<UpgradeNode> myChildren; // set to list for the Head.
+    private List<UpgradeNode> myChildren;
+    private ReflectionHelper myReflectionHelper;
 
     public UpgradeNode () {
         this(null, null, 0, 0);
@@ -43,6 +45,7 @@ public class UpgradeNode {
         myUpgradeValue = upgradeValue;
         myCost = new HashMap<String, Integer>();
         myCost.put("resource", costedResourceAmount); // TODO: Deal with cost
+        myReflectionHelper = new ReflectionHelper();
     }
 
     public void apply (InteractiveEntity requester) {
@@ -93,5 +96,9 @@ public class UpgradeNode {
 
     public Map<String, Integer> getCost () {
         return myCost;
+    }
+    
+    public ReflectionHelper getReflectionHelper(){
+    	return myReflectionHelper;
     }
 }
