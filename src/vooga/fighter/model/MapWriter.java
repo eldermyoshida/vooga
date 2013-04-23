@@ -21,6 +21,7 @@ public class MapWriter {
 	private MapObject myWriteSource;
 	private ArrayList<String> myWriteOutLines;
 	private XMLTool myXMLWriter;
+	private Element myFakeRoot; 
 	private Element myRoot;
 	private String mySoundFilePath;
 	private String myBackgroundFilePath;
@@ -32,7 +33,7 @@ public class MapWriter {
 	
 	public void writeMap() {
 		myXMLWriter.makeDoc();
-		myRoot = myXMLWriter.makeRoot("mapStart");
+		myFakeRoot = myXMLWriter.makeRoot("map");
 		String name = myWriteSource.getName();
 		List<UpdatableLocation> startingPos = myWriteSource.getStartPositions();
 		List<EnvironmentObject> enviroObjects = myWriteSource.getEnviroObjects();
@@ -63,17 +64,17 @@ public class MapWriter {
 	}
 	
 	private void writeMapHeader() {
-		myXMLWriter.addChild(myRoot, myXMLWriter.makeElement("map", "mapName=\"" + myWriteSource.getName() + "\" " +
-				"xSize=\"1024\" ySize=\"871\""));
+		myRoot = myXMLWriter.makeElement("map", "mapName=\"" + myWriteSource.getName() + "\" " +
+				"xSize=\"1024\" ySize=\"871\"");
+		myXMLWriter.addChild(myFakeRoot, myRoot);
 	}
 	
-	private String writeStates() {
+	private void writeStates() {
 		Element stateHead = myXMLWriter.makeElement("state","stateName = \"background\"");
 		myXMLWriter.addChild(myRoot, stateHead);
 		Element background = myXMLWriter.makeElement("frame", "image = \"" + 
 				myBackgroundFilePath + "\"");
 		myXMLWriter.addChild(stateHead, background);
-		return "<state stateName = \"background\">";
 	}
 
 }
