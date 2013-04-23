@@ -470,6 +470,7 @@ public class Database {
 
     
     
+    // USER-SPECIFIC QUERY METHODS : TO BE FILLED OUT WHEN USER-DATABASE CONTAINS ALL THESE INFO
 	public String getUserRealName(String username) {
 		// TODO Auto-generated method stub
 		return null;
@@ -500,6 +501,11 @@ public class Database {
 		// TODO Auto-generated method stub
 		return null;
 		
+	}
+
+	public String getUserFavoriteFood(String username) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

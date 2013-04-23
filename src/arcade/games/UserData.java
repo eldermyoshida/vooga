@@ -68,4 +68,16 @@ public class UserData {
 		return myDb.getUserFavoriteColor(username);
 	}
 	
+	public void changeFavoriteColot() {
+		//TODO
+	}
+	
+	public String getFavoriteFood(){
+		return myDb.getUserFavoriteFood(username);
+	}
+	
+	public void changeFavoriteFood() {
+		//TODO
+	}
+	
 }
