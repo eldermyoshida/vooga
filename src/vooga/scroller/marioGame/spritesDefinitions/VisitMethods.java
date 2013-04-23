@@ -2,7 +2,7 @@ package vooga.scroller.marioGame.spritesDefinitions;
 
 
 import vooga.scroller.collision_manager.CollisionDirection;
-import vooga.scroller.marioGame.spritesDefinitions.players.MarioCollisions;
+import vooga.scroller.marioGame.spritesDefinitions.players.resources.MarioCollisions;
 import vooga.scroller.sprites.interfaces.ICollectible;
 import vooga.scroller.sprites.interfaces.IEnemy;
 import vooga.scroller.sprites.interfaces.ILevelPortal;
