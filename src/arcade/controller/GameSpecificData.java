@@ -1,5 +1,8 @@
 package arcade.controller;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class GameSpecificData {
 	/**
 	 * This class is used to hold game-specific data entered by developer. When the publisher
@@ -30,12 +33,12 @@ public class GameSpecificData {
 	
 	public GameSpecificData(String name, String genre, String author, double price, String extendsGame, String extendsMultiplayerGame, int ageRating,
 			boolean singleplayer, boolean multiplayer, String thumbnailPath, String adScreenPath, String description){
-		gameName = name;
-		gameGenre = genre;
-		gameAuthor = author;
+		gameName = name.toLowerCase();
+		gameGenre = genre.toLowerCase();
+		gameAuthor = formatFilePath(author);
 		gamePrice = price;
-		extendsGamePath = extendsGame;
-		extendsMultiplayerGamePath = extendsMultiplayerGame;
+		extendsGamePath = formatFilePath(extendsGame);
+		extendsMultiplayerGamePath = formatFilePath(extendsMultiplayerGame);
 		gameAgeRating = ageRating;
 		gameIsSinglePlayer = singleplayer;
 		gameIsMultiPlayer = multiplayer;
@@ -91,5 +94,52 @@ public class GameSpecificData {
 	
 	public String getDescription(){
 		return gameDescription;
+	}
+	
+	
+	
+	private String formatFilePath(String path){
+		String start = substringStartingWith(path, "src");
+		String output = "";
+		for (int i = 0; i < start.length(); i++) {
+			char c = start.charAt(i);
+			if (c == '.') break;
+			if (c == '/') output += ".";
+			else output += c;
+		}
+		return output;
+	}
+	
+	/*
+	 * Tedious Java string manipulation to change something like:
+	 * C://blah/blah/blah/src/games/rts/ageOfEmpires/game.java to
+	 * games.rts.ageOfEmpires.game so replace slashes with periods and remove
+	 * the file extension
+	private String formatClassFilePath(String path) {
+		if (path == null)
+			return null;
+		// split on file extension
+		String[] split = path.split("."); // take everything before file extension and after src to get java relative filepath.
+		List<String> list = Arrays.asList(split);
+		if (list.contains("src")) {
+			// this means you got the absolute file path, so you need to get java relative file path (i.e. after src/ )
+			path = split[0].split("src")[1];
+		}
+		split = path.split("/");
+		String ret = "";
+		for (String str : split) {
+			ret += str;
+			ret += ".";
+		}
+		// remove the hanging period
+		ret = ret.substring(0, ret.length() - 1);
+		System.out.println("this is ret" + ret);
+		return ret;
+	}
+	
+	*/
+	
+	private String substringStartingWith(String prefix, String target){
+		return target.substring(target.indexOf(prefix));
 	}
 }

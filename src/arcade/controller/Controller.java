@@ -184,13 +184,7 @@ public class Controller implements ArcadeInteraction {
 	}
 	*/
 	
-
-	/**
-	 * Tedious Java string manipulation to change something like:
-	 * C://blah/blah/blah/src/games/rts/ageOfEmpires/game.java to
-	 * games.rts.ageOfEmpires.game so replace slashes with periods and remove
-	 * the file extension
-	 */
+	/*
 	private String formatClassFilePath(String path) {
 		if (path == null)
 			return null;
@@ -212,7 +206,7 @@ public class Controller implements ArcadeInteraction {
 		System.out.println("this is ret" + ret);
 		return ret;
 	}
-
+	 */
 	
 	
 
