@@ -32,33 +32,4 @@ public class MouseObject extends GameObject {
     	return MOUSE_IMAGE_TAG;
     }
 
-
-
-	@Override
-	public void dispatchCollision(GameObject other) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void handleCollision(CharacterObject other) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void handleCollision(AttackObject other) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void handleCollision(EnvironmentObject other) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

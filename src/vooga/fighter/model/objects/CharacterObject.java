@@ -40,6 +40,7 @@ public class CharacterObject extends GameObject {
         currentAttacks= new ArrayList<AttackObject>();
         setLoader(new CharacterLoader(charName, this));
         setCurrentState("stand");
+        setDefaultState("stand");
         getCurrentState().setLooping(true);
         setLocation(center);
         setImageData();
@@ -225,37 +226,6 @@ public class CharacterObject extends GameObject {
      */
     public List<AttackObject> getAttackObjects(){
     	return currentAttacks; 
-    }
-    
-
-    /**
-     * Dispatches a colliding object to allow for proper collision handling. 
-     */
-    public void dispatchCollision(GameObject other) {
-        other.handleCollision(this);
-    }
-    
-    /**
-     * Collision with another CharacterObject.
-     */
-    public void handleCollision(CharacterObject other) {
-        System.out.println("CharacterObject handleCollision : Character collided with character");
-    }
-    
-    /**
-     * Collision with an AttackObject.
-     */
-    public void handleCollision(AttackObject other) {
-        other.inflictDamage(this);
-        System.out.println("CharacterObject handleCollision : Character collided with ATTACK");
-        
-    }
-    
-    /**
-     * Collision with an EnvironmentObject.
-     */
-    public void handleCollision(EnvironmentObject other) {
-        System.out.println("CharacterObject handleCollision : Character collided with environment");
     }
     
 }

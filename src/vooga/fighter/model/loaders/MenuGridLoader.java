@@ -65,7 +65,6 @@ public class MenuGridLoader extends ObjectLoader {
 						state.populateSize(size, k);
 						Rectangle rect = new Rectangle(xSize,ySize);
 						state.populateRectangle(rect, k);
-						state.resetBounds(new Location(xCoord,yCoord));
 						state.populateAllDelays(FOUR_TICKS);
 						}
 					}
