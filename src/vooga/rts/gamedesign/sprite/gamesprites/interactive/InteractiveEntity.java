@@ -36,6 +36,7 @@ import vooga.rts.util.DelayedTask;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
+import vooga.rts.util.Information;
 
 
 /**
@@ -64,6 +65,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     private List<DelayedTask> myTasks;
     private double myBuildTime;
     private List<InteractiveEntity> myProducables;
+    private Information myInfo;
 
     public static final double DEFAULT_BUILD_TIME = 5;
 
@@ -113,7 +115,12 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     public void addTask (DelayedTask dt) {
         myTasks.add(dt);
     }
-
+    public void setInfo(Information info) {
+    	myInfo = info;
+    }
+    public Information getInfo() {
+    	return myInfo;
+    }
     /**
      * returns the list of producables
      */
