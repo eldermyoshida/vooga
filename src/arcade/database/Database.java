@@ -1,15 +1,15 @@
 package arcade.database;
 
-import java.util.List;
 import arcade.games.GameData;
+import arcade.games.Score;
 import arcade.games.UserGameData;
+import java.util.ArrayList;
 import java.util.List;
 import util.Pixmap;
 
 
 /**
  * Creates overall database
- * 
  * @author Natalia Carvalho
  */
 public class Database {
@@ -19,8 +19,8 @@ public class Database {
     private UserGameDataTable myUserGameDataTable;
     private ScoreTable myScoreTable;
     private CommentTable myCommentTable;
-
     private S3Connections myS3Instance;
+   
 
     /**
      * Database constructor
@@ -31,7 +31,8 @@ public class Database {
         myUserGameDataTable = new UserGameDataTable();
         myScoreTable = new ScoreTable();
         myCommentTable = new CommentTable();
-        myS3Instance = new S3Connections();
+        myS3Instance = new S3Connections(); 
+       
     }
 
     /**
@@ -46,13 +47,13 @@ public class Database {
     }
 
     /**
-     * Creates a user when gien username, pw, firstname, lastname, and dataofbirth
+     * Creates a user when given username, pw, firstname, lastname, and dataofbirth
      * 
      * @param username is user
      * @param pw is password
      * @param firstname is first name
      * @param lastname is last name
-     * @param date of birth is DOB
+     * @param dateOfBirth is DOB
      */
     public boolean createUser (String username,
                                String pw,
@@ -69,22 +70,17 @@ public class Database {
      * @param pw is password
      * @param firstname is first name
      * @param lastname is last name
-     * @param date of birth is DOB
-     * @avatar is the filepath for the avatar
+     * @param dataOfBirth is DOB
+     * @param filepath is the filepath for the avatar
      */
-    public boolean createUser (String username,
-                               String pw,
-                               String firstname,
-                               String lastname,
-                               String dataOfBirth,
-                               String filepath) {
+    public boolean createUser (String username, String pw, String firstname, String lastname,
+                               String dataOfBirth, String filepath) {
         insertAvatar(username, filepath);
         return myUserTable.createUser(username, pw, firstname, lastname, dataOfBirth);
     }
 
     /**
      * Creates a new game
-     * 
      * @param gameName is name of name
      */
     public boolean createGame (String gameName,
@@ -100,53 +96,127 @@ public class Database {
                                String adscreenPath,
                                String description) {
         insertGameThumbnail(gameName, thumbnailPath);
-        //TODO insert ad screen path as well
+        insertAdScreenPath(gameName, adscreenPath);
         return myGameTable.createGame(gameName, author, genre, price, extendsGame,
                                       extendsMultiplayerGame, ageRating, singlePlayer, multiplayer,
                                       thumbnailPath, adscreenPath, description);
     }
 
-    public void userPlaysGameFirst (String user, String gameName, String highscore) {
+    /**
+     * Called first time user plays game
+     * @param user username
+     * @param gameName is name of name
+     */
+    public void userPlaysGameFirst (String user, String gameName) {
         myUserGameDataTable.createNewUserGameData(retrieveGameId(gameName), retrieveUserId(user));
     }
 
-    public void updateAvatar (String user, String filepath) {
-        myUserTable.updateAvatar(user, filepath);
+    /**
+     * Inserts avatar into S3 Instance
+     * @param username user
+     * @param filepath of new avatar image
+     */
+    public void insertAvatar (String username, String filepath) {
+        myS3Instance.putAvatarIntoBucket(username, filepath);
+    }
+    
+    /**
+     * Returns pixmap of avatar
+     * @param username user
+     */
+    public Pixmap getAvatar (String username) {
+        return new Pixmap(myS3Instance.getAvatar(username));
     }
 
-    public String retrieveAvatar (String username) {
-        return myUserTable.retrieveAvatar(username);
-    }
-
+    /**
+     * Returns date of birth of a user
+     * @param username user
+     */
     public String retrieveDOB (String username) {
         return myUserTable.retrieveDOB(username);
     }
 
+    /**
+     * Returns list of games
+     */
     public List<String> retrieveListOfGames () {
         return myGameTable.retrieveGameList();
     }
+    
+    /**
+     * Returns list of users
+     */
+    public List<String> retrieveListOfUsers() {
+        return myUserTable.retrieveUsernames();
+    }
 
+    /**
+     * Returns true if username and password match up, false otherwise
+     * @param username is user
+     * @param password is password
+     */
     public boolean authenticateUsernameAndPassword (String username, String password) {
         return myUserTable.authenticateUsernameAndPassword(username, password);
     }
 
+
+    /**
+     * Deletes user
+     * @param username is user
+     */
     public void deleteUser (String username) {
         myUserGameDataTable.deleteUser(retrieveUserId(username));
         myUserTable.deleteUser(username);
     }
 
+    /**
+     * Deletes game
+     * @param gameName is game to be deleted
+     */
     public void deleteGame (String gameName) {
         myGameTable.deleteGame(gameName);
-        // TODO delete game from other tables as well
     }
 
+    /**
+     * Returns true if usernameExists, false otherwise
+     * @param username is user
+     */
     public boolean usernameExists (String username) {
         return myUserTable.usernameExists(username);
     }
 
+    /**
+     * Returns true if usernameExists, false otherwise
+     * @param username is user
+     * @param gameName is game name
+     * @param newHighScore is high score to be inserted
+     */
     public void addNewHighScore (String username, String gameName, int newHighScore) {
         myScoreTable.addNewHighScore(retrieveUserId(username), retrieveGameId(gameName),
                                      newHighScore);
+    }
+    
+    public List<Score> getScoresForGame(String gameName) {
+        List<String> usernames = retrieveListOfUsers();
+        List<Score> myScores = new ArrayList<Score>();
+        for (String user : usernames) {
+            myScores.addAll(myScoreTable.getScoresForGame(retrieveGameId(gameName), 
+                                                          retrieveUserId(user), gameName, user));
+        }
+        return myScores;
+    }
+    
+    public List<Score> getScoresForUser(String username) {
+        List<String> games = retrieveListOfGames();
+        List<Score> myScores = new ArrayList<Score>();
+        for (String game : games) {
+            myScores.addAll(myScoreTable.getScoresForGame(retrieveGameId(game), retrieveUserId(username), game, username));
+        }
+        return myScores;
+    }
+    
+    public List<Score> getScoresForGameAndUser(String username, String gameName) {
+        return myScoreTable.getScoresForGame(retrieveGameId(gameName), retrieveUserId(username), gameName, username);
     }
 
     public void storeUserGameData (String gameName,
@@ -168,27 +238,10 @@ public class Database {
         return myS3Instance.getGameDataFromBucket(gameName);
     }
 
-    public void getHighScores (int n) {
-        // TODO implement method
-
-    }
-
-    public void updateUserGameFilePath (String filepath) {
-        // TODO implement method
-    }
-
-    public void retrieveGameFilePath (String filepath) {
-        // TODO implement method
-    }
 
     public void insertComment (String username, String gameName, String comment) {
 
         myCommentTable.addNewComment(retrieveGameId(gameName), retrieveUserId(username), comment);
-    }
-
-    public List<String> retrieveCommentFromUsername (String username, String gameName) {
-        return myCommentTable.getCommentByUsername(retrieveGameId(gameName),
-                                                   retrieveUserId(username));
     }
 
     public List<String> retrieveCommentsForGame (String gameName) {
@@ -196,7 +249,6 @@ public class Database {
     }
 
     public void printGameTable () {
-
         myGameTable.printEntireTable();
     }
 
@@ -244,11 +296,11 @@ public class Database {
         return myGameTable.getPrice(gameName);
     }
 
-    public String getExtendsGame (String gameName) {
+    public String getSingleplayerGameClassKeyword (String gameName) {
         return myGameTable.getExtendsGame(gameName);
     }
 
-    public String getExtendsGameMultiplayer (String gameName) {
+    public String getMultiplayerGameClassKeyword (String gameName) {
         return myGameTable.getExtendsGameMultiplayer(gameName);
     }
 
@@ -260,7 +312,7 @@ public class Database {
         return myGameTable.getIsMultiplayer(gameName);
     }
 
-    public String getDescription (String gameName) {
+    public String getGameDescription (String gameName) {
         return myGameTable.getDescription(gameName);
     }
 
@@ -270,14 +322,6 @@ public class Database {
 
     public double getAverageRating (String gameName) {
         return myUserGameDataTable.getAverageRating(gameName);
-    }
-
-    public void listAllBuckets () {
-        myS3Instance.listAllBuckets();
-    }
-
-    public void insertAvatar (String username, String filepath) {
-        myS3Instance.putAvatarIntoBucket(username, filepath);
     }
 
     public void insertGameThumbnail (String gameName, String filepath) {
@@ -292,28 +336,7 @@ public class Database {
         return new Pixmap(myS3Instance.getThumbnail(gameName));
     }
 
-    public Pixmap getAvatar (String username) {
-        return new Pixmap(myS3Instance.getAvatar(username));
-    }
-
-    
-    public String getGameDescription (String gameName) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
     public Pixmap getGameAdScreen (String gameName) {
         return new Pixmap(myS3Instance.getAdScreen(gameName));
     }
-
-    public String getSingleplayerGameClassKeyword (String gameName) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    public String getMultiplayerGameClassKeyword (String gameName) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
 }
