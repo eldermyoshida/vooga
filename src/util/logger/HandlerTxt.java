@@ -45,7 +45,7 @@ public class HandlerTxt implements IHandlerFormat {
      * Sets the file output name to a default value
      */
     public HandlerTxt () {
-        myFileName = LoggerSetup.DEFAULT_NAME;
+        myFileName = LoggerManager.DEFAULT_NAME;
     }
 
     @Override

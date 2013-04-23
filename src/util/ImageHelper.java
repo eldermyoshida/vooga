@@ -9,7 +9,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 /**
- * Class with static methods that help handling images
+ * Class with static methods that helps handling 
+ * and resizing images
  * @author Henrique Moraes
  *
  */

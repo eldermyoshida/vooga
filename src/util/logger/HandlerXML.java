@@ -33,7 +33,7 @@ public class HandlerXML implements IHandlerFormat {
      * Sets the file output name to a default value
      */
     public HandlerXML () {
-        myFileName = LoggerSetup.DEFAULT_NAME;
+        myFileName = LoggerManager.DEFAULT_NAME;
     }
 
     @Override

@@ -32,7 +32,7 @@ public class NetworkLogger {
     public static final int FORMAT_LOG_FILE = 1398;
 
     private static NetworkLogger instance = null;
-    private LoggerSetup mySetup;
+    private LoggerManager mySetup;
 
     /**
      * 
@@ -49,7 +49,7 @@ public class NetworkLogger {
      * Private constructor of this singleton
      */
     private NetworkLogger () {
-        mySetup = new LoggerSetup();
+        mySetup = new LoggerManager();
         LOGGER.setUseParentHandlers(false);
         LOGGER.setLevel(Level.ALL);
         addHandler(FORMAT_CONSOLE);
@@ -80,6 +80,26 @@ public class NetworkLogger {
      */
     public void addMemoryHandler (int handlerType, int size, Level pushLevel, Object ... args) {
         mySetup.addMemoryHandler(handlerType, size, pushLevel, args);
+    }
+    
+    /**
+     * 
+     * Adds a handler that sends log records across a given stream
+     * 
+     * @param Output stream in case using a stream handler
+     */
+    public void addConsoleHandler () {
+        mySetup.addConsoleHandler();
+    }
+    
+    /**
+     * 
+     * Adds a handler that sends log records across a given stream
+     * 
+     * @param Output stream in case using a stream handler
+     */
+    public void addTxtHandler (OutputStream out) {
+        mySetup.addStreamHandler(out);
     }
 
     /**

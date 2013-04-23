@@ -14,7 +14,7 @@ import java.util.logging.MemoryHandler;
  * @author Henrique Moraes
  * 
  */
-public class LoggerSetup {
+public class LoggerManager {
     public static final String DEFAULT_NAME = "Logger";
     private static final String ERROR_MESSAGE =
             "Error in adding handler to logger";
