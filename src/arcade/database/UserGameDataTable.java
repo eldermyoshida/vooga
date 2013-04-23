@@ -53,7 +53,6 @@ public class UserGameDataTable extends Table {
 
      */
     public void createNewUserGameData (String gameid, String userid) {
-        
         String stm = "INSERT INTO usergamedata(gameid, userid, highscore) VALUES (?, ?, ?)";
         //String stm = "INSERT INTO " + TABLE_NAME + "(" + GAMEID_COLUMN_FIELD + ", " + USERID_COLUMN_FIELD + ", " + HIGHSCORE_COLUMN_FIELD + ") VALUES(?, ?, ?)";
         try {
@@ -102,6 +101,9 @@ public class UserGameDataTable extends Table {
         }
     }
     
+    /**
+     * Prints entire table
+     */
     public void printEntireTable () {
         myResultSet = selectAllRecordsFromTable(TABLE_NAME);
         try {

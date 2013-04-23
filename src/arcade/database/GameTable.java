@@ -171,7 +171,8 @@ public class GameTable extends Table {
      * @param gameName is gameName
      */
     public void deleteGame(String gameName) {
-        String stm = "DELETE FROM " + TABLE_NAME + " WHERE " + GAMENAME_COLUMN_FIELD + "='" + gameName + "'";
+        String stm = "DELETE FROM " + TABLE_NAME + " WHERE " + 
+                GAMENAME_COLUMN_FIELD + "='" + gameName + "'";
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
             myPreparedStatement.executeUpdate();
@@ -181,7 +182,9 @@ public class GameTable extends Table {
         }
     }
      
-    
+    /**
+     * Prints entire table
+     */
     public void printEntireTable () {
         myResultSet = selectAllRecordsFromTable(TABLE_NAME);
         try {
@@ -212,7 +215,7 @@ public class GameTable extends Table {
      * @param gameName is the gamename
      */
     public String getGenre(String gameName) {
-        return retrieveEntryString(gameName, GENRE_COLUMN_INDEX);
+        return retrieveEntryString(TABLE_NAME, gameName, GENRE_COLUMN_INDEX);
     }
     
     /**
@@ -220,7 +223,7 @@ public class GameTable extends Table {
      * @param gameName is the gamename
      */
     public String getAuthor(String gameName) {
-        return retrieveEntryString(gameName, AUTHOR_COLUMN_INDEX);
+        return retrieveEntryString(TABLE_NAME, gameName, AUTHOR_COLUMN_INDEX);
     }
     
     /**
@@ -228,7 +231,7 @@ public class GameTable extends Table {
      * @param gameName is the gamename
      */
     public String getThumbnailPath(String gameName) {
-        return retrieveEntryString(gameName, THUMBNAIL_COLUMN_INDEX);
+        return retrieveEntryString(TABLE_NAME, gameName, THUMBNAIL_COLUMN_INDEX);
     }
     
     /**
@@ -236,7 +239,7 @@ public class GameTable extends Table {
      * @param gameName is the gamename
      */
     public String getAdScreenPath(String gameName) {
-        return retrieveEntryString(gameName, ADSCREEN_COLUMN_INDEX);
+        return retrieveEntryString(TABLE_NAME, gameName, ADSCREEN_COLUMN_INDEX);
     }
     
     /**
@@ -244,7 +247,7 @@ public class GameTable extends Table {
      * @param gameName is the gamename
      */
     public int getAgePermission(String gameName) {
-        return retrieveEntryInt(gameName, AUTHOR_COLUMN_INDEX);
+        return retrieveEntryInt(TABLE_NAME, gameName, AUTHOR_COLUMN_INDEX);
     }
     
     
@@ -261,7 +264,7 @@ public class GameTable extends Table {
      * @param gameName is the gamename
      */
     public String getExtendsGame(String gameName) {
-        return retrieveEntryString(gameName, EXTENDSGAME_COLUMN_INDEX);
+        return retrieveEntryString(TABLE_NAME, gameName, EXTENDSGAME_COLUMN_INDEX);
     }
     
     /**
@@ -269,7 +272,7 @@ public class GameTable extends Table {
      * @param gameName is the gamename
      */
     public String getExtendsGameMultiplayer(String gameName) {
-        return retrieveEntryString(gameName, EXTENDSMULTIPLAYER_COLUMN_INDEX);
+        return retrieveEntryString(TABLE_NAME, gameName, EXTENDSMULTIPLAYER_COLUMN_INDEX);
     }
     
     /**
@@ -294,7 +297,7 @@ public class GameTable extends Table {
      * @param gameName is the gamename
      */
     public String getDescription(String gameName) {
-        return retrieveEntryString(gameName, DESCRIPTION_COLUMN_INDEX);
+        return retrieveEntryString(TABLE_NAME, gameName, DESCRIPTION_COLUMN_INDEX);
     }
     
     /**
@@ -302,50 +305,7 @@ public class GameTable extends Table {
      * @param gameName is the gamename
      */
     public String getGameFilePath(String gameName) {
-        return retrieveEntryString(gameName, GAMEFILEPATH_COLUMN_INDEX);
-    }
-    
-    /**
-     * Given a gamename and a column_index, returns that entire row entry
-     * @param gameName is the gamename
-     * @param COLUMN_INDEX is the index that we want the information for
-     */
-    public String retrieveEntryString(String gameName, int COLUMN_INDEX) {
-        String stm = "SELECT * FROM " + TABLE_NAME + " WHERE " + GAMENAME_COLUMN_FIELD + "='" + gameName + "'";
-        String entry = "";
-        try {
-            myPreparedStatement = myConnection.prepareStatement(stm);
-            myResultSet = myPreparedStatement.executeQuery();
-            if (myResultSet.next()) {
-                entry = myResultSet.getString(COLUMN_INDEX);
-            }
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return entry;
-    }
-    
-    
-    /**
-     * Given a gamename and a column_index, returns that entire row entry
-     * @param gameName is the gamename
-     * @param columnIndex is the index that we want the information for
-     */
-    public int retrieveEntryInt(String gameName, int COLUMN_INDEX) {
-        String stm = "SELECT * FROM " +TABLE_NAME + " WHERE " + GAMENAME_COLUMN_FIELD + "='" + gameName + "'";
-        int entry = 0;
-        try {
-            myPreparedStatement = myConnection.prepareStatement(stm);
-            myResultSet = myPreparedStatement.executeQuery();
-            if (myResultSet.next()) {
-                entry = myResultSet.getInt(COLUMN_INDEX);
-            }
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return entry;
+        return retrieveEntryString(TABLE_NAME, gameName, GAMEFILEPATH_COLUMN_INDEX);
     }
     
     /**

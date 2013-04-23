@@ -1,12 +1,10 @@
 package arcade.database;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import arcade.games.Score;
 
 /**
  * Creates and updates user table
@@ -64,6 +62,10 @@ public class CommentTable extends Table {
         }
     }
     
+    /**
+     * Gets all comments for a given game
+     * @param gameid is game id
+     */
     public List<String> getAllCommentsForGame(String gameid) {
         String stm = "SELECT gameid FROM scores WHERE gameid='" + gameid + "'";
         List<String> comments = new ArrayList<String>();
@@ -81,12 +83,16 @@ public class CommentTable extends Table {
         return comments;
     }
 
+    /**
+     * Prints entire table
+     */
     public void printEntireTable () {
         myResultSet = selectAllRecordsFromTable(TABLE_NAME);
         try {
             while (myResultSet.next()) {
                 System.out.print(myResultSet.getString(GAMEID_COLUMN_INDEX) + TABLE_SEPARATOR);
-                System.out.print(myResultSet.getString(USERID_COLUMN_INDEX) + TABLE_SEPARATOR);                
+                System.out.print(myResultSet.getString(USERID_COLUMN_INDEX) + 
+                                 TABLE_SEPARATOR);                
                 System.out.print(myResultSet.getString(COMMENT_COLUMN_INDEX) + TABLE_SEPARATOR);
                 System.out.println(myResultSet.getString(COMMENTID_COLUMN_INDEX) + TABLE_SEPARATOR);
             }

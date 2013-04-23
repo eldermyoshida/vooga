@@ -1,12 +1,11 @@
 package arcade.database;
+import arcade.games.Score;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import arcade.games.Score;
 
 /**
  * Creates and updates user table
@@ -82,6 +81,9 @@ public class ScoreTable extends Table {
         return null;
     }
 
+    /**
+     * Prints entire table
+     */
     public void printEntireTable () {
         myResultSet = selectAllRecordsFromTable(TABLE_NAME);
         try {

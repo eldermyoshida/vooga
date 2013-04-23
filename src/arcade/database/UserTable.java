@@ -142,7 +142,7 @@ public class UserTable extends Table {
      * @param username is the username
      */
     public String retrieveUserId(String username) {
-        return retrieveEntry(username, USERNAME_COLUMN_INDEX);
+        return retrieveEntryString(TABLE_NAME, username, USERNAME_COLUMN_INDEX);
     }
     
     /**
@@ -150,7 +150,7 @@ public class UserTable extends Table {
      * @param username is the user
      */
     public String retrieveDOB(String username) {
-        return retrieveEntry(username, DOB_COLUMN_INDEX);
+        return retrieveEntryString(TABLE_NAME, username, DOB_COLUMN_INDEX);
     }
     
     /**
@@ -158,28 +158,7 @@ public class UserTable extends Table {
      * @param username is the username
      */
     public String retrieveAvatar(String username) {
-        return retrieveEntry(username, AVATAR_COLUMN_INDEX);
-    }
-    
-    /**
-     * Given a username and a column_index, returns that entire row entry
-     * @param username is the username
-     * @param COLUMN_INDEX is the index that we want the information for
-     */
-    public String retrieveEntry(String username, int COLUMN_INDEX) {
-        String stm = "SELECT * FROM " +TABLE_NAME + " WHERE " + USERNAME_COLUMN_FIELD + "='" + username + "'";
-        String entry = "";
-        try {
-            myPreparedStatement = myConnection.prepareStatement(stm);
-            myResultSet = myPreparedStatement.executeQuery();
-            if (myResultSet.next()) {
-                entry = myResultSet.getString(COLUMN_INDEX);
-            }
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return entry;
+        return retrieveEntryString(TABLE_NAME, username, AVATAR_COLUMN_INDEX);
     }
 
     /**
@@ -234,6 +213,10 @@ public class UserTable extends Table {
         return myUsernames; 
     }
     
+    
+    /**
+     * Prints entire table
+     */
     public void printEntireTable () {
         myResultSet = selectAllRecordsFromTable(TABLE_NAME);
         try {
