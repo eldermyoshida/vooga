@@ -3,10 +3,10 @@ package vooga.towerdefense.factories.examples;
 import java.util.ArrayList;
 
 import vooga.towerdefense.action.Action;
-import vooga.towerdefense.action.FollowPath;
-import vooga.towerdefense.action.Move;
-import vooga.towerdefense.action.OnDeath;
-import vooga.towerdefense.action.RemoveGameElement;
+import vooga.towerdefense.action.actionlist.Move;
+import vooga.towerdefense.action.tobetested.FollowPath;
+import vooga.towerdefense.action.tobetested.OnDeath;
+import vooga.towerdefense.action.tobetested.RemoveGameElement;
 import vooga.towerdefense.attributes.Attribute;
 import vooga.towerdefense.attributes.AttributeConstants;
 import vooga.towerdefense.attributes.AttributeManager;

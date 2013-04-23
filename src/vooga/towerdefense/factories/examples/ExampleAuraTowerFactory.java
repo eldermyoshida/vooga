@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.FindTargets;
-import vooga.towerdefense.action.ModifyAttributeValue;
+import vooga.towerdefense.action.tobetested.ModifyAttributeValue;
 import vooga.towerdefense.attributes.Attribute;
 import vooga.towerdefense.attributes.AttributeConstants;
 import vooga.towerdefense.attributes.AttributeManager;

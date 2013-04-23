@@ -217,6 +217,22 @@ public class XMLTool {
     /*
      * Getter methods.
      */
+
+    /**
+     * Returns a list of elements with the tag from an specific element.
+     * 
+     * @param tag The name of the tag to match on.
+     * @return A list of elements with the tag.
+     */
+    public List<Element> getElementList(Element parent, String tag) {
+        List<Element> nodeList = new ArrayList<Element>();
+        NodeList nodes = parent.getElementsByTagName(tag);
+        for (int i = 0; i < nodes.getLength(); i++) {
+            nodeList.add((Element) parent.getElementsByTagName(tag).item(i));
+        }
+        return nodeList;
+    }
+    
     /**
      * This method returns the first element in the document with an specific tag.
      * Be careful with this method! If you have many instances of the same tag, use
@@ -301,6 +317,28 @@ public class XMLTool {
     }
     
     /**
+     * Creates a map with the child tag (as a map key) and a child element (as a map value) of all
+     * the
+     * children elements of a particular parent element.
+     * If the parent element does not contain children, this method returns an empty map.
+     * 
+     * @param parent The parent element node.
+     * @return a map with the child tag (as a map key) and a child element (as a map value) of all
+     *         the children elements of a particular parent element.
+     */
+    public Map<String, Element> getMapElementFromParent (Element parent) {
+        Map<String, Element> map = new HashMap<String, Element>();
+        NodeList nodes = parent.getChildNodes();
+        for (int i = 0; i < nodes.getLength(); i++) {
+            if (nodes.item(i).getNodeType() == Node.ELEMENT_NODE) {
+                Element node = (Element) nodes.item(i);
+                map.put(node.getTagName(), node);
+            }
+        }
+        return map;
+    }
+
+    /**
      * Creates a map with the tag (as a map key) and the content (as a map value) of all the
      * children elements of the first node with a particular tag.
      * If the parent element does not contain children, this method returns an empty map.
@@ -354,6 +392,8 @@ public class XMLTool {
         Transformer transformer = factory.newTransformer();
         transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, XML_PARAM_YES);
         transformer.setOutputProperty(OutputKeys.INDENT, XML_PARAM_YES);
+        transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "5");
+
         
         StringWriter sw = new StringWriter();
         StreamResult result = new StreamResult(sw);

@@ -43,6 +43,7 @@ public class GameEditorController extends JFrame {
     private static final String GRID_TAG = "grid";
     private static final String ATTRIBUTES_TAG = "Attributes";
     private static final String ACTIONS_TAG = "Actions";
+    private static final String PARAMETER_TAG = "Parameter";
     private static final Dimension SIZE = new Dimension(700, 700);
     private static final String RESOURCE_PATH = "vooga.src.vooga.towerdefense.resources.";
     private static final String ACTION_PACKAGE_PATH = "vooga.towerdefense.factories.actionfactories";
@@ -81,7 +82,7 @@ public class GameEditorController extends JFrame {
         initializeGUI();
         
         //TODO: remove, this is just for testing
-        GameElement temp = new GameElement(new Pixmap("tower.gif"), new Location(0,0), new Dimension(0,0), null, null);
+        GameElement temp = new GameElement(new Pixmap("tower.gif"), new Location(0,0), new Dimension(0,0), null, null, "unit");
         myCreatedUnits.add(temp);
         myCreatedUnits.add(temp);
         myCreatedUnits.add(temp);
@@ -152,14 +153,59 @@ public class GameEditorController extends JFrame {
      * @param actions is the map of action name to value
      */
     private void addGameElementToFile(Element parent, String type, String name, String path, Map<String, String> attributes, String actions) {
-        Element unitElement = myXMLDoc.makeElement(name);
-        myXMLDoc.addChildElement(parent, unitElement);
-        myXMLDoc.addChild(unitElement, IMAGE_TAG, path);
+        Element gameElement = myXMLDoc.makeElement(name);
+        myXMLDoc.addChildElement(parent, gameElement);
+        myXMLDoc.addChild(gameElement, IMAGE_TAG, path);
         Element attributeElement = myXMLDoc.makeElementsFromMap(ATTRIBUTES_TAG, attributes);
-        myXMLDoc.addChildElement(unitElement, attributeElement);
+        myXMLDoc.addChildElement(gameElement, attributeElement);
         //TODO: fix this for actions 
-        //Element actionElement = myXMLDoc.makeElementsFromMap(ACTIONS_TAG, actions);
-        //myXMLDoc.addChildElement(unitElement, actionElement);
+        Element actionElement = myXMLDoc.makeElement(ACTIONS_TAG);
+        myXMLDoc.addChildElement(gameElement, makeActionElement(actions.split("\n"), actionElement));
+        myXMLDoc.writeFile("actionstest.xml");
+    }
+    
+    /**
+     * helper method to make the action element.
+     * @param actions is a formatted string for actions
+     * @return the element made from this string.
+     */
+    private Element makeActionElement(String[] actions, Element parent) {
+        if (actions.length == 0) {
+            return parent;
+        }
+        else {
+            System.out.println("actions not length 0 for " + parent.getTagName());
+            String[] values = actions[0].split(" ");
+            Element child = myXMLDoc.makeElement(values[0]);
+            for (int k = 1; k < values.length; k++) {
+                myXMLDoc.addChild(child, PARAMETER_TAG, values[k]);
+            }
+            int indexOfLastParent = 0;
+            for (int i = 1; i < actions.length; i++) {
+                System.out.println("looking at: " + actions[i]);
+                if ((actions[i].charAt(0) != '\t')) {
+                    ArrayList<String> children = new ArrayList<String>();
+                    for (int j = indexOfLastParent+1; j < i; j++) {
+                        children.add(actions[j]);
+                        indexOfLastParent = j;
+                    }
+                    indexOfLastParent++;
+                    Object[] childrenArray = children.toArray();
+                    String[] childrenString = new String[childrenArray.length];
+                    for (int m = 0; m < childrenArray.length; m++) {
+                        childrenString[m] = (String)childrenArray[m];
+                    }
+                    myXMLDoc.addChildElement(parent, makeActionElement(childrenString, child));
+                    System.out.println("parent: " + parent.getTagName() + ", child: " + child.getTagName());
+                }
+                else {
+                    System.out.println("changed " + actions[i]);
+                    actions[i] = actions[i].substring(1, actions[i].length());
+                    System.out.println(" to " + actions[i]);
+                }
+            }
+            return parent;
+        }
     }
 
     /**

@@ -462,6 +462,7 @@ public class GameElementEditorScreen extends GameEditorScreen {
                                              myImageBox.getText(),
                                              makeMap(myAttributesSelected.getText()),
                                              myActionsSelected.getText());
+        
     }
     
     /**
@@ -472,7 +473,7 @@ public class GameElementEditorScreen extends GameEditorScreen {
         Map<String, String> map = new HashMap<String, String>();
         String[] subParts = s.split("\n");
         for (String subPart : subParts) {
-            while (!subPart.equals("")) {
+            if (!subPart.equals("")) {
                 String[] nameAndValue = subPart.split(" ");
                 map.put(nameAndValue[0], nameAndValue[1]);
             }
