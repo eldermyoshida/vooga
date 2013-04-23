@@ -82,7 +82,7 @@ public class Canvas extends JComponent {
         // If there is no defined layout, simply paint things at the locations they are given.
         if (myLayout == null) {
             for (int i = 0; i < myViewDataSource.ObjectNumber(); i++) {
-                paintPaintable(pen, i);
+                paintPaintable((Graphics2D)pen, i);
             }
         }
         else {
@@ -90,21 +90,21 @@ public class Canvas extends JComponent {
         }
     }
     
-    private void paintPaintable (Graphics pen, int i) {
-    	
-    	if (myViewDataSource.getImageEffects(i).size() == 0){
-    	
-    	myViewDataSource.getPaintable(i).paint((Graphics2D) pen,
-                myViewDataSource.getLocation(i),
-                myViewDataSource.getSize(i));
+    private void paintPaintable (Graphics2D pen, int index) {
+    	if (myViewDataSource.getImageEffects(index).size() == 0) {
+    	    myViewDataSource.getPaintable(index).paint(pen,
+    	                                           myViewDataSource.getLocation(index),
+    	                                           myViewDataSource.getSize(index));
     	}
     	
-    	else if (myViewDataSource.getImageEffects(i).get(0) == -1){
-        	
-        	myViewDataSource.getPaintable(i).paintReverse((Graphics2D) pen,
-                    myViewDataSource.getLocation(i),
-                    myViewDataSource.getSize(i));
-        	}
+    	else if (myViewDataSource.getImageEffects(index).get(0) == -1) {
+    	    AffineTransform saveAT = pen.getTransform();
+    	    pen.transform(AffineTransform.getScaleInstance(1, -1));
+    	    myViewDataSource.getPaintable(index).paint(pen,
+	                                           myViewDataSource.getLocation(index),
+	                                           myViewDataSource.getSize(index));
+    	    pen.setTransform(saveAT);
+	}
     }
 
 }

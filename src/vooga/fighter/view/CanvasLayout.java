@@ -3,7 +3,6 @@ package vooga.fighter.view;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
 
 import vooga.fighter.controller.ViewDataSource;
 
@@ -15,7 +14,9 @@ public abstract class CanvasLayout {
     }
     
     protected void horizontalReversePaint(Graphics2D pen, ViewDataSource data, int objectNumber) {
-    	pen.setTransform(AffineTransform.getScaleInstance(1, -1));
+        AffineTransform saveAT = pen.getTransform();
+    	pen.transform(AffineTransform.getScaleInstance(1, -1));
     	data.getPaintable(objectNumber).paint(pen, data.getLocation(objectNumber),data.getSize(objectNumber));
+    	pen.setTransform(saveAT);
     }
 }

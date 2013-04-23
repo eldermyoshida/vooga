@@ -44,8 +44,9 @@ public class CollisionDetector {
 	  * is within the rectange bounds of point 1
 	 */
 	public boolean quickDetectCollision(Shape shape1, Shape shape2){
-		return shape1.contains(shape2.getBounds2D());
+		return shape1.getBounds2D().intersects(shape2.getBounds2D());
 	}
+
 	 /**
 	  * Uses rectange bounds of each shape to check if point2
 	  * is within the rectange bounds of point 1
