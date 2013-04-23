@@ -26,8 +26,8 @@ import javax.swing.JTextField;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import util.BackgroundPanel;
+import arcade.controller.Controller;
 import arcade.exceptions.UndefinedFormException;
-import arcade.model.Model;
 import arcade.view.TextKeywords;
 
 
@@ -47,7 +47,7 @@ public abstract class Form extends JFrame {
     private static final int MESSAGE_WIDTH = 140;
     private static final int CHECKBOX_TRAILING_WIDTH = 35;
 
-    private Model myModel;
+    private Controller myModel;
     private ResourceBundle myResources;
     private JLabel myWarningMessage = new JLabel();
 
@@ -58,7 +58,7 @@ public abstract class Form extends JFrame {
      * @param model
      * @param resources
      */
-    public Form (Model model, ResourceBundle resources) {
+    public Form (Controller model, ResourceBundle resources) {
         myModel = model;
         myResources = resources;
 
@@ -310,7 +310,7 @@ public abstract class Form extends JFrame {
      * 
      * @return
      */
-    protected Model getModel () {
+    protected Controller getModel () {
         return myModel;
     }
 

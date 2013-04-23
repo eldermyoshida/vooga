@@ -7,8 +7,9 @@ import java.util.ResourceBundle;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.Scrollable;
+
+import arcade.controller.Controller;
 import arcade.games.GameInfo;
-import arcade.model.Model;
 
 /**
  * AllSnapShots is a panel containing many individual SnapShots.  AllSnapShots
@@ -24,11 +25,11 @@ public class AllSnapShots extends JPanel implements Scrollable {
     private static final int SNAPSHOTS_PER_ROW = 3;
     private static final int SCROLL_AMOUNT = 30;
     
-    private Model myModel;
+    private Controller myModel;
     private ResourceBundle myResources;
     private Dimension mySize;
 
-    public AllSnapShots (Model model, ResourceBundle resources, Dimension size) {
+    public AllSnapShots (Controller model, ResourceBundle resources, Dimension size) {
         myModel = model;
         myResources = resources;
         mySize = size;

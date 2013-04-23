@@ -6,7 +6,8 @@ import java.awt.Color;
 import java.util.ResourceBundle;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import arcade.model.Model;
+
+import arcade.controller.Controller;
 import arcade.view.modes.ArcadeMode;
 import arcade.view.modes.GameCenterPanel;
 import arcade.view.modes.SocialCenterPanel;
@@ -25,7 +26,7 @@ public class MainView extends JFrame {
     private static final int WINDOW_WIDTH = 800;
     private static final int WINDOW_HEIGHT = 600;
     private JPanel myViewPanel;
-    private Model myModel;
+    private Controller myModel;
     private ResourceBundle myResources;
 
     /**
@@ -34,7 +35,7 @@ public class MainView extends JFrame {
      * @param model
      * @param rb
      */
-    public MainView (Model model, ResourceBundle rb) {
+    public MainView (Controller model, ResourceBundle rb) {
         myModel = model;
         myResources = rb;
 
@@ -86,7 +87,7 @@ public class MainView extends JFrame {
     public static void main (String[] args) {
         ResourceBundle resources = ResourceBundle.getBundle("arcade.resources.English");
         
-        new MainView(new Model(resources, "English"),resources);
+        new MainView(new Controller(resources, "English"),resources);
         
 //      List<GameInfo> games = new ArrayList<GameInfo>();
 //      for (int i = 0; i < 13; i++) 

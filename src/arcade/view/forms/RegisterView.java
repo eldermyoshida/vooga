@@ -12,10 +12,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import arcade.controller.Controller;
 import arcade.exceptions.DOBFormatException;
 import arcade.exceptions.UsernameFormatException;
 import arcade.exceptions.UsernameTakenException;
-import arcade.model.Model;
 import arcade.view.TextKeywords;
 
 
@@ -44,7 +45,7 @@ public class RegisterView extends Account {
      * @param model
      * @param resources
      */
-    public RegisterView (Model model, ResourceBundle resources) {
+    public RegisterView (Controller model, ResourceBundle resources) {
         this(model, resources, "", "");
     }
 
@@ -59,7 +60,7 @@ public class RegisterView extends Account {
      * @param initialUsername
      * @param initialPassword
      */
-    public RegisterView (Model model,
+    public RegisterView (Controller model,
                          ResourceBundle resources,
                          String initialUsername,
                          String initialPassword) {

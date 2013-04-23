@@ -3,9 +3,10 @@ package arcade.view.forms.payment;
 import java.util.ResourceBundle;
 import javax.swing.JComponent;
 import javax.swing.JTextField;
+
+import arcade.controller.Controller;
 import arcade.exceptions.InvalidPaymentException;
 import arcade.games.GameInfo;
-import arcade.model.Model;
 import arcade.view.TextKeywords;
 
 
@@ -30,7 +31,7 @@ public class DukePaymentView extends PaymentView {
      * @param resources
      * @param info
      */
-    public DukePaymentView (Model model, ResourceBundle resources, GameInfo info) {
+    public DukePaymentView (Controller model, ResourceBundle resources, GameInfo info) {
        super(model, resources, info, PAYMENT_MANAGER_CLASS);
     }
     

@@ -5,9 +5,10 @@ import java.awt.event.ActionListener;
 import java.util.ResourceBundle;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+
+import arcade.controller.Controller;
 import arcade.exceptions.InvalidPaymentException;
 import arcade.games.GameInfo;
-import arcade.model.Model;
 import arcade.view.TextKeywords;
 import arcade.view.forms.Form;
 
@@ -34,7 +35,7 @@ public abstract class PaymentView extends Form {
      * @param resources
      * @param info
      */
-    public PaymentView (Model model, ResourceBundle resources, GameInfo game, String transactionType) {
+    public PaymentView (Controller model, ResourceBundle resources, GameInfo game, String transactionType) {
         super(model, resources);
         myGameInfo = game;
         myTransactionType = transactionType;

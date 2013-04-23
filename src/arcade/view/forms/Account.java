@@ -5,7 +5,8 @@ import java.util.ResourceBundle;
 import javax.swing.JComponent;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import arcade.model.Model;
+
+import arcade.controller.Controller;
 import arcade.view.TextKeywords;
 
 @SuppressWarnings("serial")
@@ -27,7 +28,7 @@ public abstract class Account extends Form {
      * @param model
      * @param resources
      */
-    public Account (Model model, ResourceBundle resources) {
+    public Account (Controller model, ResourceBundle resources) {
         super(model, resources);
     }
 

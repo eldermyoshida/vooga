@@ -14,8 +14,9 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import arcade.controller.Controller;
 import arcade.exceptions.LoginErrorException;
-import arcade.model.Model;
 import arcade.view.TextKeywords;
 
 
@@ -38,7 +39,7 @@ public class LoginView extends Account {
      * @param model to authenticate the login information
      * @param resources to display text of appropriate language on screen
      */
-    public LoginView (Model model, ResourceBundle resources) {
+    public LoginView (Controller model, ResourceBundle resources) {
         super(model, resources);
 
         setPasswordFieldListener(new KeyAdapter() {

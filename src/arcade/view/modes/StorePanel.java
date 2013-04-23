@@ -8,17 +8,18 @@ import java.util.ResourceBundle;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import arcade.model.Model;
+
+import arcade.controller.Controller;
 import arcade.view.TextKeywords;
 import arcade.view.forms.PublishView;
 
 
 @SuppressWarnings("serial")
 public class StorePanel extends JPanel {
-    private Model myModel;
+    private Controller myModel;
     private ResourceBundle myResources;
     
-    public StorePanel (Model model, ResourceBundle resources) {
+    public StorePanel (Controller model, ResourceBundle resources) {
         myModel = model;
         myResources = resources;
         

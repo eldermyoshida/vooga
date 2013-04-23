@@ -19,8 +19,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+
+import arcade.controller.Controller;
 import arcade.games.GameInfo;
-import arcade.model.Model;
 
 
 /**
@@ -58,9 +59,9 @@ public class DetailView extends JFrame {
     private JTextArea myDescriptionContent;
     private JEditorPane myCommentsContent;
     private JButton myPlayButton;
-    private Model myModel;
+    private Controller myModel;
 
-    public DetailView (GameInfo info, ResourceBundle resources, Model model) {
+    public DetailView (GameInfo info, ResourceBundle resources, Controller model) {
         myModel = model;
         setBackground(Color.WHITE);
         myGameInfo = info;

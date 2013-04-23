@@ -10,9 +10,10 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+
+import arcade.controller.Controller;
 import arcade.exceptions.UndefinedPaymentException;
 import arcade.games.GameInfo;
-import arcade.model.Model;
 import arcade.view.TextKeywords;
 import arcade.view.forms.Form;
 import arcade.view.forms.payment.factory.PaymentViewMapFactory;
@@ -42,7 +43,7 @@ public class PaymentSelection extends Form {
      * @param model
      * @param resources
      */
-    public PaymentSelection (Model model, ResourceBundle resources, GameInfo game) {
+    public PaymentSelection (Controller model, ResourceBundle resources, GameInfo game) {
         super(model, resources);
         myGame = game;
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
