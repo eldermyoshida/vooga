@@ -15,7 +15,7 @@ public class MenuLoader extends ObjectLoader {
 	
 	MenuObject myMenuObject;
 	public MenuLoader(String menuobjectname, MenuObject menuobject) {
-		super(MENU_PATH);
+		super("MenuPath");
 		myMenuObject = menuobject;
 		load(menuobjectname);
 	}

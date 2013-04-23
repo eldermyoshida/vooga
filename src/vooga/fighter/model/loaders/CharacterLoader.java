@@ -29,7 +29,7 @@ public class CharacterLoader extends ObjectLoader {
 	 * @param character
 	 */
 	public CharacterLoader (String charName, CharacterObject character) {
-		super(CHARACTER_PATH);
+		super("CharacterPath");
 		myChar = character;
 		load(charName);
 	}

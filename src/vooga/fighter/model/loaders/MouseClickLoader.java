@@ -17,7 +17,7 @@ public class MouseClickLoader extends ObjectLoader {
 
 	MouseClickObject myMouseClick;
 	public MouseClickLoader(MouseClickObject mouseclick) {
-		super(MOUSE_PATH);
+		super("MousePath");
 		myMouseClick = mouseclick;
 		load();
 	}

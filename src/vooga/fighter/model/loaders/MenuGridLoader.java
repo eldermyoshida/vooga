@@ -28,7 +28,7 @@ public class MenuGridLoader extends ObjectLoader {
 	private MenuObject myObject;
 
 	public MenuGridLoader (String menuname, MenuGrid grid, MenuMode delegate) {
-		super(MENUGRID_PATH);
+		super("MenuGridPath");
 		myDelegate = delegate;
 		myMenuObjects = new ArrayList<MenuObject>();
 		load(menuname);

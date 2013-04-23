@@ -31,7 +31,7 @@ public class MapLoader extends ObjectLoader {
 	 * Dummy Constructor only to be used when getting map count
 	 */
 	public MapLoader(){
-		super(MAP_PATH);
+		super("MapPath");
 	}
 
 	/**
@@ -40,7 +40,7 @@ public class MapLoader extends ObjectLoader {
 	 * @param map object which is loaded into
 	 */
 	public MapLoader (String mapName, MapObject map) {
-		super(MAP_PATH);
+		super("MapPath");
 		myMap = map;
 		load(mapName);
 		myMap.setCurrentState("background");
