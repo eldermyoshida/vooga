@@ -27,8 +27,6 @@ import arcade.view.modes.StorePanel;
  */
 @SuppressWarnings("serial")
 public class ButtonPanel extends JPanel {
-    private static final String IMAGES_DIRECTORY = System.getProperty("user.dir") +
-                                                   "/src/arcade/resources/images/";
     private static final String GAME_CENTER_PICTURE_NAME = "GameCenterIcon.jpg";
     private static final String SOCIAL_CENTER_PICTURE_NAME = "SocialCenterIcon.jpg";
     private static final String GAME_STORE_PICTURE_NAME = "StoreIcon.jpg";
@@ -100,7 +98,7 @@ public class ButtonPanel extends JPanel {
      * @return
      */
     private void makeButton (String imageFilename, String descriptionKey, ActionListener action) {
-        ImageIcon icon = new ImageIcon(IMAGES_DIRECTORY + imageFilename);
+        ImageIcon icon = new ImageIcon(MainView.IMAGES_DIRECTORY + imageFilename);
         Image scaledImage = ImageHelper.getScaledImage(icon, BUTTON_SIZE);
         JButton button = new JButton(new ImageIcon(scaledImage));
         button.addActionListener(action);

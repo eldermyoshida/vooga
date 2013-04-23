@@ -18,6 +18,8 @@ import arcade.view.modes.GameCenterPanel;
  */
 @SuppressWarnings("serial")
 public class MainView extends JFrame {
+    public static final String IMAGES_DIRECTORY = System.getProperty("user.dir")
+                                                  + "/src/arcade/resources/images/";
     private static final int WINDOW_WIDTH = 800;
     private static final int WINDOW_HEIGHT = 600;
     private JPanel myViewPanel;

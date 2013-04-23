@@ -26,8 +26,6 @@ import arcade.games.GameInfo;
 public class SnapShot extends JPanel {
 
     public static final int THUMBNAIL_SIZE = 190;
-    private static final String IMAGES_LOCATION = System.getProperty("user.dir")
-                                                  + "/src/arcade/resources/images/";
     private static final String IMAGES_NAME = "Stars.gif";
     private GameInfo myGameInfo;
     private ResourceBundle myResources;
@@ -66,7 +64,7 @@ public class SnapShot extends JPanel {
     private ImageIcon[] initializeRatingIcons () {
         ImageIcon[] icons = new ImageIcon[6];
         for (int i = 0; i <= 5; i++) {
-            icons[i] = new ImageIcon(IMAGES_LOCATION + i + IMAGES_NAME);
+            icons[i] = new ImageIcon(MainView.IMAGES_DIRECTORY + i + IMAGES_NAME);
         }
         return icons;
     }

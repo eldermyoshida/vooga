@@ -21,6 +21,7 @@ import twitter4j.TwitterException;
 import util.ImageHelper;
 import arcade.controller.Controller;
 import arcade.model.Model;
+import arcade.view.MainView;
 import arcade.view.TextKeywords;
 
 
@@ -33,8 +34,6 @@ import arcade.view.TextKeywords;
  */
 @SuppressWarnings({ "serial", "unused" })
 public class ScoresView extends Form {
-    private static final String IMAGES_DIRECTORY = System.getProperty("user.dir")
-                                                   + "/src/arcade/resources/images/";
     private static final String BUTTON_IMAGE = "Twitter.gif";
     private static final int WINDOW_WIDTH = 250;
     private static final int WINDOW_HEIGHT = 220;
@@ -66,7 +65,7 @@ public class ScoresView extends Form {
      */
     private JComponent createTweetButton () {
         JPanel panel = new JPanel();
-        ImageIcon icon = new ImageIcon(IMAGES_DIRECTORY + BUTTON_IMAGE);
+        ImageIcon icon = new ImageIcon(MainView.IMAGES_DIRECTORY + BUTTON_IMAGE);
         final JButton button = new JButton(icon);
         button.addActionListener(new ActionListener() {
             @Override
