@@ -57,7 +57,7 @@ public class Database {
                                String dataOfBirth) {
         return myUserTable.createUser(username, pw, firstname, lastname, dataOfBirth);
     }
-    
+
     /**
      * Creates a user when given username, pw, firstname, lastname, and dataofbirth and avatar
      * 
@@ -467,6 +467,4 @@ public class Database {
     public String getGameAdScreen (String gameName) {
         return myS3Instance.getThumbnail(gameName);
     }
-
-	
 }
