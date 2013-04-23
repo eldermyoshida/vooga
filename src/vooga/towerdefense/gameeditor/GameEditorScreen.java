@@ -105,6 +105,7 @@ public abstract class GameEditorScreen extends JPanel {
         myFinishButton.setVisible(true);
         buttonPanel.add(myAddButton, BorderLayout.NORTH);
         buttonPanel.add(myFinishButton, BorderLayout.SOUTH);
+       // buttonPanel.setPreferredSize(new Dimension(mySize.width, 100));
         add(buttonPanel, BorderLayout.NORTH);
     }
 

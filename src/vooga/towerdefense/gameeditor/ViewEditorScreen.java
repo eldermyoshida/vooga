@@ -1,13 +1,16 @@
 package vooga.towerdefense.gameeditor;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 
@@ -114,7 +117,7 @@ public class ViewEditorScreen extends GameEditorScreen {
     public ViewEditorScreen (Dimension size, GameEditorController controller) {
         super(size, controller, TITLE_NAME, NEXT_SCREEN_NAME);
         try {
-            makeScreen();
+            add(makeScreen(), BorderLayout.CENTER);
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -125,7 +128,10 @@ public class ViewEditorScreen extends GameEditorScreen {
         JOptionPane.showMessageDialog(null, "Note: you must contain a mapscreen\nand shopscreen in your view");
     }
     
-    private void makeScreen() throws IOException, ClassNotFoundException {
+    private JComponent makeScreen() throws IOException, ClassNotFoundException {
+        JPanel panel = new JPanel();
+        panel.setPreferredSize(new Dimension(800, 600));
+        
         myNorthPanel = new JComboBox();
         mySouthPanel = new JComboBox();
         myCenterPanel = new JComboBox();
@@ -136,22 +142,45 @@ public class ViewEditorScreen extends GameEditorScreen {
         myCenterSize = new JTextField(TEXT_FIELD_WIDTH);
         myEastSize = new JTextField(TEXT_FIELD_WIDTH);
         myWestSize = new JTextField(TEXT_FIELD_WIDTH);
+        
         populateDropDoxBoxes();
-        add(new JLabel(NORTH_NAME));
-        add(myNorthPanel);
-        add(myNorthSize);
-        add(new JLabel(CENTER_NAME));
-        add(myCenterPanel);
-        add(myCenterSize);
-        add(new JLabel(SOUTH_NAME));
-        add(mySouthPanel);
-        add(mySouthSize);
-        add(new JLabel(EAST_NAME));
-        add(myEastPanel);
-        add(myEastSize);
-        add(new JLabel(WEST_NAME));
-        add(myWestPanel);
-        add(myWestSize);
+        
+        JPanel north = new JPanel();
+        north.setPreferredSize(new Dimension(800, 50));
+        north.add(new JLabel(NORTH_NAME));
+        north.add(myNorthPanel);
+        north.add(myNorthSize);
+        panel.add(north);
+        
+        JPanel center = new JPanel();
+        center.setPreferredSize(new Dimension(800, 50));
+        center.add(new JLabel(CENTER_NAME));
+        center.add(myCenterPanel);
+        center.add(myCenterSize);
+        panel.add(center);
+        
+        JPanel south = new JPanel();
+        south.setPreferredSize(new Dimension(800, 50));
+        south.add(new JLabel(SOUTH_NAME));
+        south.add(mySouthPanel);
+        south.add(mySouthSize);
+        panel.add(south);
+        
+        JPanel east = new JPanel();
+        east.setPreferredSize(new Dimension(800, 50));
+        east.add(new JLabel(EAST_NAME));
+        east.add(myEastPanel);
+        east.add(myEastSize);
+        panel.add(east);
+        
+        JPanel west = new JPanel();
+        west.setPreferredSize(new Dimension(800, 50));
+        west.add(new JLabel(WEST_NAME), BorderLayout.WEST);
+        west.add(myWestPanel, BorderLayout.WEST);
+        west.add(myWestSize, BorderLayout.WEST);
+        panel.add(west);
+        
+        return panel;
     }
     
     private void populateDropDoxBoxes() throws IOException, ClassNotFoundException {

@@ -19,6 +19,7 @@ import javax.swing.JTextField;
  * game developer.
  * 
  * @author Angelica Schwartz
+ * @author Leonard K. Ng'eno
  */
 public class StartUpScreen extends JPanel {
 
