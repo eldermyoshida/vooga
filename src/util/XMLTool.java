@@ -26,20 +26,10 @@ import org.xml.sax.SAXException;
 /**
  * This utility creates an XML document.
  * 
- * It must handle creation/addition, addition to point, removal of Elements and Contents from Maps,
- * Trees.
- * It must provide the user feedback of what has been changed in the file (getters)
- * It must be able to inform the user about its content.
- * 
- * The element operations consist of creating element trees.
- * The use of attributes is avoided because they are more difficult to read
+ * The use of attributes is avoided in this utility because they are more difficult to read
  * and to maintain. (Reference: w3schools.com)
  * 
- * 
- * @WARNING: This code is not yet fully implemented.
- * 
  * @author Yoshida
- * 
  */
 public class XMLTool {
     
@@ -330,7 +320,7 @@ public class XMLTool {
      * @return a map with the child tag (as a map key) and a child element (as a map value) of all
      *         the children elements of a particular parent element.
      */
-    public Map<String, Element> getChildrentElementMap (String parentTag) {
+    public Map<String, Element> getChildrenElementMap (String parentTag) {
         Element parent = getElement(parentTag);
         return getChildrenElementMap(parent);
     }
@@ -412,8 +402,6 @@ public class XMLTool {
         }
         return elementList;
     }
-    
-    
     
     /*
      * Writing to file, will be replaced by the secretary program
