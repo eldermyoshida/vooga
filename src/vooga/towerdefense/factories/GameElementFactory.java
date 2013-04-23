@@ -2,9 +2,7 @@ package vooga.towerdefense.factories;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import vooga.towerdefense.action.Action;
-import vooga.towerdefense.attributes.AttributeConstants;
 import vooga.towerdefense.attributes.AttributeManager;
 import vooga.towerdefense.attributes.DefaultAttributeManager;
 import vooga.towerdefense.factories.actionfactories.ActionFactory;
@@ -16,6 +14,7 @@ import vooga.towerdefense.util.Location;
 /**
  * A factory that creates game elements based on preset data
  * Reads from an xmlfile (eventually)
+ * 
  * @author Matthew Roy
  * @author Xu Rui
  *

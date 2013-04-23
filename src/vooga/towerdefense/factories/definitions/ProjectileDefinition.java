@@ -1,12 +1,6 @@
 package vooga.towerdefense.factories.definitions;
 
 import java.awt.Dimension;
-import java.util.ArrayList;
-import java.util.List;
-
-import vooga.towerdefense.action.Action;
-import vooga.towerdefense.attributes.AttributeConstants;
-import vooga.towerdefense.attributes.AttributeManager;
 import vooga.towerdefense.util.Location;
 import vooga.towerdefense.util.Pixmap;
 
