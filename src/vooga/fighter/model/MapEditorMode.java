@@ -5,7 +5,9 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
+import util.Location;
 import util.input.src.input.PositionObject;
+import vooga.fighter.model.loaders.EnvironmentObjectLoader;
 import vooga.fighter.model.objects.CharacterObject;
 import vooga.fighter.model.objects.EnvironmentObject;
 import vooga.fighter.model.objects.GameObject;
@@ -26,7 +28,7 @@ public class MapEditorMode extends Mode {
     private List<UpdatableLocation> myStartLocations;
     private String myMapName;
     private MapObject myMap;
-    private List<EnvironmentObject> myEnviroObjects;
+    private List<EnvironmentObject> myEnviroObjects; //all environmental objects that can be placed
     private EnvironmentObject myCurrentSelection;
     private int myEnviroIndex; //the list index of the current environment object selected
 
@@ -38,6 +40,9 @@ public class MapEditorMode extends Mode {
         myEnviroObjects = new ArrayList<EnvironmentObject>();
         myCurrentSelection = null;
         myEnviroIndex = 0;
+        EnvironmentObjectLoader loader = new EnvironmentObjectLoader();
+        myEnviroObjects = (ArrayList<EnvironmentObject>)loader.getEnvironmentObjects();
+        initializeEnviroObjects();
     }
 
     /**
@@ -45,6 +50,26 @@ public class MapEditorMode extends Mode {
      */
     public void initializeMode () {
         loadMap(myMapName);
+    }
+    
+    public void setMap(MapObject map){
+    	myMap = map;
+    	addObject(map);
+    }
+    
+    /**
+     * initializes all of the environment objects for this editor to be displayed in the upper left hand corner
+     * when selected. Also selects the first object as the current object.
+     */
+    public void initializeEnviroObjects() {
+    	for(EnvironmentObject enviro: myEnviroObjects) {
+    		double xOffset = enviro.getImageData().getSize().getWidth();
+    		double yOffset = enviro.getImageData().getSize().getHeight();
+    		ImageDataObject newImageLocation = new ImageDataObject(enviro.getImageData().getImage(),
+    				new Location(xOffset, yOffset), enviro.getImageData().getSize(), new ArrayList<Integer>());
+    		enviro.setImageData(newImageLocation);
+    	}
+    	addObject(myEnviroObjects.get(0));
     }
 
     /**
@@ -85,31 +110,6 @@ public class MapEditorMode extends Mode {
         }
     }
 
-    /**
-     * Loads the character objects for the selected characters using the ObjectLoader.
-     */
-    public void loadCharacters(List<String> characterNames, List<UpdatableLocation> startingPos) {
-        for (int i=0; i<characterNames.size(); i++) {
-            String charName = characterNames.get(i);
-            UpdatableLocation start = startingPos.get(i);
-            CharacterObject newCharacter = new CharacterObject(charName, start);
-            addObject(newCharacter);
-        }
-    }
-
-    /**
-     * Checks if the level has ended. Does so by checking if any player has no health
-     * remaining.
-     */
-    public boolean shouldModeEnd () {
-        for (GameObject object : getMyObjects()) {
-            if (object instanceof CharacterObject) {
-                CharacterObject currentChar = (CharacterObject) object;
-                if (!currentChar.hasHealthRemaining()) { return true; }
-            }
-        }
-        return false;
-    }
 
     /**
      * Creates the list of image data objects and returns it.
@@ -122,31 +122,63 @@ public class MapEditorMode extends Mode {
         return result;
     }
 
+    /**
+     * Carries out actions associated with a user selecting a location on the map.
+     * If they pressed on an existing environment object, that object will be removed.
+     * If they pressed an open space, the currently selected environment object will be
+     * placed in that location.
+     * @param point
+     */
     public void select (Point2D point) {
     	MouseClickObject click = new MouseClickObject(point);
-        // check for overlap with existing object.
-        // overlap = delete object
-        // non-overlap = place current selected object.
+    	addObject(click);
+    	handleCollisions();
+    	removeObject(click);
+    	boolean removeExecuted = false;
+    	for(GameObject obj: getMyObjects()) {
+    		if(obj.shouldBeRemoved()) {
+    			removeObject(obj);
+    			myMap.removeEnviroObject((EnvironmentObject)obj);
+    			removeExecuted = true;
+    		}
+    		
+    	}
+    	if(!removeExecuted) {
+	    	UpdatableLocation currentLoc = new UpdatableLocation(point.getX(), point.getY());
+	    	EnvironmentObject newObj = new EnvironmentObject(myCurrentSelection.getName(), currentLoc);
+	    	myMap.addEnviroObject(newObj);
+	    	addObject(newObj);
+    	}
     }
     
     public void writeMap() {
     	MapWriter writer = new MapWriter(myMap);
     }
 
+    /**
+     * selects the next environment object in the list of environment objects (myEnviroObjects)
+     */
     public void nextObject () {
+    	removeObject(myCurrentSelection);
     	myEnviroIndex++;
     	if(myEnviroIndex == myEnviroObjects.size()) {
     		myEnviroIndex = 0;
     	}
     	myCurrentSelection = myEnviroObjects.get(myEnviroIndex);
+    	addObject(myCurrentSelection);
     }
 
+    /**
+     * selects the previous environment object in the list of environment objects (myEnviroObjects)
+     */
     public void prevObject () {
+    	removeObject(myCurrentSelection);
     	myEnviroIndex--;
     	if(myEnviroIndex == -1) {
     		myEnviroIndex = (myEnviroObjects.size() - 1);
     	}
     	myCurrentSelection = myEnviroObjects.get(myEnviroIndex);
+    	addObject(myCurrentSelection);
     }
 
     public MapObject getMap () {

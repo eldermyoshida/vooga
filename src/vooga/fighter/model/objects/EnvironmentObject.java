@@ -56,10 +56,10 @@ public class EnvironmentObject extends GameObject {
     }
 
     /**
-     * Returns false for now.
+     * Returns false for now. Put in gameObject
      */
-    public boolean shouldBeRemoved() {
-        return false;
-    }
+   // public boolean shouldBeRemoved() {
+   //     return false;
+   // }
 
 }
