@@ -155,6 +155,10 @@ public class EditableMap {
         myPlayerSet.removePlayer(startX, startY, endX, endY);
     }
     
+    public void addTile(Location3D loc, int id, String name, String imageName, Pixmap image) {
+        myTileMap.addTile(loc, id, name, imageName, image);
+    }
+    
     public void addTerrain(Terrain ter) {
         myTerrains.add(ter);
     } 
@@ -217,6 +221,14 @@ public class EditableMap {
     
     public EditableTile getMyTile(int i , int j) {
         return myTileMap.getTile(i, j);
+    }
+    
+    public Terrain getTerrain(int index) {
+        return myTerrains.get(index);
+    }
+    
+    public Resource getResource(int index) {
+        return myResources.get(index);
     }
 
     public void setMyMapName (String myMapName) {

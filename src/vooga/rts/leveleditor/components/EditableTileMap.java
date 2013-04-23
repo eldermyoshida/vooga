@@ -27,7 +27,7 @@ public class EditableTileMap extends TileMap {
         setTile(i,j,new EditableTile(image,i,j,getMyTileSize(),id,name,imageName,false));
     }
     
-    public void addTile(Location loc, int id, String name, String imageName, Pixmap image) {
+    public void addTile(Location3D loc, int id, String name, String imageName, Pixmap image) {
         int i = (int)(loc.getY()/this.getMyTileSize().getHeight());
         int j = (int)(loc.getX()/this.getMyTileSize().getWidth());
         addTile(i,j,id,name,imageName,image);

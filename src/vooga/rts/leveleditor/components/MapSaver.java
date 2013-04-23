@@ -141,8 +141,8 @@ public class MapSaver {
         
         Map<String,BufferedImage> terrainInformation = new HashMap<String,BufferedImage>();
         
-        for(Terrain ter : mySavingMap.get) {
-               
+        for(int i = 0 ; i < mySavingMap.getTerrainSize(); i++ ) {
+            Terrain ter = mySavingMap.getTerrain(i);   
             String myImageName = ter.getMyImageName();
             BufferedImage myImage = ter.getMyImage();
             if( !terrainInformation.containsKey(myImageName)) {
