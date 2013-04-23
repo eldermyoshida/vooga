@@ -23,6 +23,7 @@ public class Resource extends MapComponent{
     private Location myLocation;
     //further extension required
     private int myAmount;
+    private String myType;
     private int myImageWidth;
     private int myImageHeight;
     
@@ -35,7 +36,6 @@ public class Resource extends MapComponent{
      */
     public Resource(Location loc, int id) {
         super(BUNDLE_NAME);
-        //setType(id);
         myLocation = loc;
     }
     
@@ -57,31 +57,12 @@ public class Resource extends MapComponent{
         myImage = image;
     }
 
-    public void setType(int id) {
-        super.setID(id);
-        try {
-         refreshImage();
+    public void setType(String type) {
+        myType = type;
      }
-     catch (IOException e) {
-         // TODO Auto-generated catch block
-         e.printStackTrace();
-     }
-    }
-    
-    public void refreshImage() throws IOException {
-        if(myResource.containsKey(myID+"")) {
-            String content = myResource.getString(myID+"");
-            String[] buffer = content.split("&");
-            myName = buffer[0];
-            myImageName = buffer[1];
-            //myImage = ResourceManager.getInstance().<BufferedImage>getFile(myImageName, BufferedImage.class);            
-            myImage = ImageIO.read(new File(System.getProperty("user.dir")+"./src/vooga/rts/leveleditor/resource/"+myImageName));
-            
 
-//            myImage = ResourceManager.getInstance().<BufferedImage>getFile(myImageName, BufferedImage.class); 
-//            myImageWidth = myImage.getWidth();
-//            myImageHeight = myImage.getHeight();
-        }
+    public void setAmount(int amount) {
+        myAmount = amount;
     }
     
     public int getMyX() {
