@@ -17,8 +17,8 @@ public class CreateLobbyView extends JPanel {
     private static final long serialVersionUID = -5215687034662203967L;
 
     private JTextField myServerField;
-    private JComboBox myMapComboBox;
-    private JComboBox myMaxPlayersComboBox;
+    private JComboBox<String> myMapComboBox;
+    private JComboBox<Integer> myMaxPlayersComboBox;
     private Integer[][] myMaxPlayerArray;
     private String[] myMapChoices;
     
@@ -27,7 +27,7 @@ public class CreateLobbyView extends JPanel {
         myMaxPlayerArray = maxPlayers;
         myMapChoices = mapChoices;
         add(createPanel(), BorderLayout.CENTER);
-        
+//        myMaxPlayersComboBox = new JComboBox();
     }
     
     private JPanel createPanel () {
@@ -53,12 +53,18 @@ public class CreateLobbyView extends JPanel {
                         break;
                     }
                 }
-                //myMaxPlayersComboBox.addItem(item);
+
+                myMaxPlayersComboBox.removeAllItems();
+                
+                for( int i =0; i< maxPlayerChoices.length; i++) {
+                    myMaxPlayersComboBox.insertItemAt(maxPlayerChoices[i], i);
+                }
+
             } 
         });
         
         innerPanel.add(new JLabel("Max players: "));
-        myMaxPlayersComboBox = new JComboBox();
+        myMaxPlayersComboBox = new JComboBox<Integer>();
         innerPanel.add(myMaxPlayersComboBox);
         
         return innerPanel;

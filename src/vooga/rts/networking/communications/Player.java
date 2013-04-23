@@ -2,8 +2,7 @@ package vooga.rts.networking.communications;
 /**
  * Class represents a player that can play a game
  * (can be either AI or Human)
- * Note: hopefully this will be replaced by a Player class from the arcade, if not this
- * will at a minimum serve as a handover between arcade settings and game settigns
+ * This serves as a handover betwee the networking game setup and then the in-game settings.
  * @author srwareham
  * @author Henrique Moraes
  *
@@ -13,34 +12,58 @@ public class Player {
     private int myID;
     private String myFaction;
     private int myTeam;
-    
+    /**
+     * A player object whose purpose is to contain state for the game simulation to read in and construct based off of appropriately.
+     * @param name
+     * @param team
+     * @param faction
+     * @param id
+     */
     public Player (String name, int team, String faction, int id) {
         myName = name;
         myID = id;
         myFaction = faction;
         myTeam = team;
     }
-    
+    /**
+     * Returns the name of the player
+     * @return
+     */
     public String getName() {
         return myName;
     }
-    
+    /**
+     * Returns the ID of the player.
+     * @return
+     */
     public int getID() {
         return myID;
     }
-    
+    /**
+     * Returns the faction of the player.
+     * @return
+     */
     public String getFaction () {
         return myFaction;
     }
-    
+    /**
+     * Returns the team of the player.
+     * @return
+     */
     public int getTeam () {
         return myTeam;
     }
-    
+    /**
+     * Setter for the faction of the player.
+     * @param faction
+     */
     public void setFaction (String faction) {
         myFaction = faction;
     }
-    
+    /**
+     * Setter for the team of the player.
+     * @param team
+     */
     public void setTeam (int team) {
         myTeam = team;
     }
