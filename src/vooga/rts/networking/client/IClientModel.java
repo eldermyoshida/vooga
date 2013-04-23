@@ -14,8 +14,8 @@ public interface IClientModel {
 
     public void addLobbies (LobbyInfo[] lobbies);
     
-    public void switchToLobbyView (ExpandedLobbyInfo lobbyInfo);
+    public void switchToLobby (ExpandedLobbyInfo lobbyInfo);
     
-    public void updateLobbyView (ExpandedLobbyInfo lobbyInfo);
+    public void updateLobby (ExpandedLobbyInfo lobbyInfo);
 
 }

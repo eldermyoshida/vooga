@@ -12,11 +12,13 @@ import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import vooga.rts.networking.communications.Player;
 
+
 /**
  * Represents the view of the lobby.
+ * 
  * @author David Winegar
  * @author Sean Wareham
- *
+ * 
  */
 public class LobbyView extends JPanel {
 
@@ -59,26 +61,26 @@ public class LobbyView extends JPanel {
         for (int i = 0; i < myMaxPlayers; i++) {
             teamNumList[i] = i + 1;
         }
-        
-        ActionListener factionListener = new ActionListener () {
+
+        ActionListener factionListener = new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {
                 JComboBox box = (JComboBox) e.getSource();
                 String faction = (String) box.getSelectedItem();
-                for(int i = 0; i < myFactionBoxes.length; i++) {
+                for (int i = 0; i < myFactionBoxes.length; i++) {
                     if (box == myFactionBoxes[i]) {
                         myModel.updateFaction(faction, i);
                     }
                 }
             }
         };
-        
-        ActionListener teamListener = new ActionListener () {
+
+        ActionListener teamListener = new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {
                 JComboBox box = (JComboBox) e.getSource();
                 int team = (int) box.getSelectedItem();
-                for(int i = 0; i < myTeamBoxes.length; i++) {
+                for (int i = 0; i < myTeamBoxes.length; i++) {
                     if (box == myTeamBoxes[i]) {
                         myModel.updateTeam(team, i);
                     }
@@ -115,7 +117,10 @@ public class LobbyView extends JPanel {
     /**
      * Creates a combobox and adds it to grid
      */
-    private JComboBox createComboBox (Object[] objectArray, int xposition, int yposition, ActionListener listener) {
+    private JComboBox createComboBox (Object[] objectArray,
+                                      int xposition,
+                                      int yposition,
+                                      ActionListener listener) {
         JComboBox box = new JComboBox();
         GridBagConstraints boxConstraints = new GridBagConstraints();
         boxConstraints.fill = GridBagConstraints.HORIZONTAL;
@@ -137,16 +142,16 @@ public class LobbyView extends JPanel {
         labelConstraints.gridy = yposition;
         add(component, labelConstraints);
     }
-    
+
     private void updateLabelsAndButtons () {
         for (int i = 0; i < myPlayers.length; i++) {
             Player player = myPlayers[i];
             if (player != null) {
-               myUsernameLabels[i].setText(player.getName());
-               myFactionBoxes[i].setSelectedItem(player.getFaction());
-               myTeamBoxes[i].setSelectedItem(player.getTeam());
-               if(myUserControlledPlayers.contains(player)) {
-                   myFactionBoxes[i].setEnabled(true);
+                myUsernameLabels[i].setText(player.getName());
+                myFactionBoxes[i].setSelectedItem(player.getFaction());
+                myTeamBoxes[i].setSelectedItem(player.getTeam());
+                if (myUserControlledPlayers.contains(player)) {
+                    myFactionBoxes[i].setEnabled(true);
                     myTeamBoxes[i].setEnabled(true);
                 }
             }

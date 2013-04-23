@@ -1,8 +1,12 @@
 package vooga.rts.networking.server;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
 import vooga.rts.networking.communications.LobbyInfo;
+import vooga.rts.networking.communications.servermessages.LobbyListMessage;
+import vooga.rts.networking.logger.NetworkLogger;
 
 
 /**
@@ -24,6 +28,7 @@ public class GameContainer extends AbstractThreadContainer {
      */
     protected void removeRoom (Room room) {
         myRooms.remove(room.getID());
+        myLobbyInfos.remove(room.getID());
     }
 
     /**
@@ -44,18 +49,24 @@ public class GameContainer extends AbstractThreadContainer {
             removeConnection(thread);
             myRooms.get(lobbyNumber).addConnection(thread);
         }
+        NetworkLogger.logMessage(Level.FINER, "Lobby joined");
     }
     
     @Override
     public void startLobby (ConnectionThread thread, LobbyInfo lobbyInfo) {
+        lobbyInfo = new LobbyInfo(lobbyInfo, myRoomNumber);
         Room lobby = new Lobby(myRoomNumber, this, lobbyInfo);
+        myLobbyInfos.put(myRoomNumber, lobbyInfo);
         myRoomNumber++;
         lobby.addConnection(thread);
+        addRoom(lobby);
+        NetworkLogger.logMessage(Level.FINER, "Lobby started");
     }
     
     @Override
     public void requestLobbies (ConnectionThread thread) {
-        
+        LobbyInfo[] infoArray = myLobbyInfos.values().toArray(new LobbyInfo[myLobbyInfos.size()]);
+        thread.sendMessage(new LobbyListMessage(infoArray));
     }
 
 }

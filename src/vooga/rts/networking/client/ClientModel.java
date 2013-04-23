@@ -56,11 +56,11 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
         myContainerPanel = new ViewContainerPanel(gameName);
         myServerBrowserView = new ServerBrowserView(new ServerBrowserTableAdapter());
         myCreateLobbyView = new CreateLobbyView(maps, maxPlayerArray);
-        switchToServerBrowserView();
         myClient = new Client(this);
         myClient.beginAcceptingConnections();
         Message initialConnection = new InitialConnectionMessage(gameName, userName);
         myClient.sendData(initialConnection);
+        switchToServerBrowserView();
     }
 
     private JPanel getPanel () {
@@ -140,8 +140,10 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
     /**
      * Switches the current view to the Lobby.
      */
-    private void switchToLobbyView () {
+    private void switchToLobbyView (ExpandedLobbyInfo lobbyInfo) {
         // TODO resources
+        myLobbyInfo = lobbyInfo;
+        myLobbyView = new LobbyView(this, myFactions, myLobbyInfo.getMaxPlayers());
         myContainerPanel.changeView(myLobbyView, " Lobby Creation");
         myContainerPanel.changeLeftButton("Leave Lobby", new ActionListener() {
             @Override
@@ -190,12 +192,12 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
     }
 
     @Override
-    public void switchToLobbyView (ExpandedLobbyInfo lobbyInfo) {
-        myLobbyInfo = lobbyInfo;
+    public void switchToLobby (ExpandedLobbyInfo lobbyInfo) {
+        switchToLobbyView(lobbyInfo);
     }
 
     @Override
-    public void updateLobbyView (ExpandedLobbyInfo lobbyInfo) {
+    public void updateLobby (ExpandedLobbyInfo lobbyInfo) {
         myLobbyInfo = lobbyInfo;
     }
 }

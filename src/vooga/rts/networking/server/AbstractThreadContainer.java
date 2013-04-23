@@ -2,9 +2,11 @@ package vooga.rts.networking.server;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
 import vooga.rts.networking.communications.LobbyInfo;
 import vooga.rts.networking.communications.Message;
 import vooga.rts.networking.communications.clientmessages.ClientInfoMessage;
+import vooga.rts.networking.logger.NetworkLogger;
 
 
 /**
@@ -74,6 +76,7 @@ public abstract class AbstractThreadContainer implements IThreadContainer, IMess
      */
     @Override
     public void receiveMessageFromClient (Message message, ConnectionThread thread) {
+        NetworkLogger.logMessage(Level.FINEST, "Message received from " + thread.getID());
         stampMessage(message);
         if (message instanceof ClientInfoMessage) {
             ClientInfoMessage systemMessage = (ClientInfoMessage) message;
