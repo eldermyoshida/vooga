@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import twitter4j.TwitterException;
 import util.ImageHelper;
+import arcade.controller.Controller;
 import arcade.model.Model;
 import arcade.view.TextKeywords;
 
@@ -44,13 +45,13 @@ public class ScoresView extends Form {
     private Double myScore;
 
     /**
-     * Creates a ScoresView with a Model and ResourceBundle
+     * Creates a ScoresView with a Controller and ResourceBundle
      * 
-     * @param model
+     * @param controller
      * @param resources
      */
-    public ScoresView (Model model, ResourceBundle resources, String gameName, double score) {
-        super(model, resources);
+    public ScoresView (Controller controller, ResourceBundle resources, String gameName, double score) {
+        super(controller, resources);
         myGame = gameName;
         myScore = score;
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -85,7 +86,7 @@ public class ScoresView extends Form {
      */
     private void startTwitterRequest() {
         try {
-            String urlToAuthorize = getModel().setUpTwitterRequest();
+            String urlToAuthorize = getController().setUpTwitterRequest();
             Desktop.getDesktop().browse(URI.create(urlToAuthorize));
             setBounds(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
             setLocationRelativeTo(null);
@@ -133,7 +134,7 @@ public class ScoresView extends Form {
     private void sendTweet() {
         String pin = myPinTextField.getText();
         try {
-            getModel().sendTweet(pin, generateTweetMessage());
+            getController().sendTweet(pin, generateTweetMessage());
         }
         catch (TwitterException e) {
             sendMessage(getResources().getString(TextKeywords.TWITTER_ERROR));
@@ -151,13 +152,4 @@ public class ScoresView extends Form {
                + getResources().getString(TextKeywords.VOOGA_HASHTAG);
     }
 
-    /**
-     * Used for testing
-     * 
-     * @param args
-     */
-    public static void main (String[] args) {
-        ResourceBundle resources = ResourceBundle.getBundle("arcade.resources.English");
-        new ScoresView(new Model(resources, "English"), resources, "ExampleGame", 42);
-    }
 }

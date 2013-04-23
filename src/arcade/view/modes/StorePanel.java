@@ -10,8 +10,8 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import arcade.model.Model;
 import arcade.view.AllSnapShots;
+import arcade.controller.Controller;
 import arcade.view.TextKeywords;
 import arcade.view.forms.PublishView;
 
@@ -28,17 +28,17 @@ public class StorePanel extends JPanel {
     private static final int PANEL_WIDTH = 590;
     private static final int PANEL_HEIGHT = 510;
     
-    private Model myModel;
+    private Controller myController;
     private ResourceBundle myResources;
     
     /**
-     * Creates a StorePanel with a Model and ResourceBundle.
+     * Creates a StorePanel with a Controller and ResourceBundle.
      * 
-     * @param model
+     * @param controller
      * @param resources
      */
-    public StorePanel (Model model, ResourceBundle resources) {
-        myModel = model;
+    public StorePanel (Controller controller, ResourceBundle resources) {
+        myController = controller;
         myResources = resources;
         
         setBackground(Color.WHITE);
@@ -54,7 +54,7 @@ public class StorePanel extends JPanel {
      * @return
      */
     private Component createSnapShots () {
-        AllSnapShots allSnapShots = new AllSnapShots(myModel, 
+        AllSnapShots allSnapShots = new AllSnapShots(myController, 
                                                      myResources, 
                                                      new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
         return new JScrollPane(allSnapShots);
@@ -71,7 +71,7 @@ public class StorePanel extends JPanel {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent arg0) {
-                new PublishView(myModel, myResources);
+                new PublishView(myController, myResources);
             }
         });
         panel.add(button);

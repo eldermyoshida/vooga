@@ -5,9 +5,10 @@ import java.awt.event.ActionListener;
 import java.util.ResourceBundle;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+
+import arcade.controller.Controller;
 import arcade.exceptions.InvalidPaymentException;
 import arcade.games.GameInfo;
-import arcade.model.Model;
 import arcade.view.TextKeywords;
 import arcade.view.forms.Form;
 
@@ -34,8 +35,8 @@ public abstract class PaymentView extends Form {
      * @param resources
      * @param info
      */
-    public PaymentView (Model model, ResourceBundle resources, GameInfo game, String transactionType) {
-        super(model, resources);
+    public PaymentView (Controller controller, ResourceBundle resources, GameInfo game, String transactionType) {
+        super(controller, resources);
         myGameInfo = game;
         myTransactionType = transactionType;
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -54,7 +55,7 @@ public abstract class PaymentView extends Form {
                                 @Override
                                 public void actionPerformed (ActionEvent e) {
                                     try {
-                                        getModel().performTransaction(myGameInfo,
+                                        getController().performTransaction(myGameInfo,
                                                                       myTransactionType,
                                                                       getPaymentInfo());
                                     }

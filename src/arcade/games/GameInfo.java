@@ -11,9 +11,9 @@ import java.util.ResourceBundle;
 import javax.swing.ImageIcon;
 
 
+import arcade.controller.Controller;
 import arcade.database.Database;
 import arcade.exceptions.InvalidPaymentException;
-import arcade.model.Model;
 
 
 public class GameInfo {
@@ -33,17 +33,15 @@ public class GameInfo {
     public static final String DESCRIPTION_KEYWORD = "description";
 
     private ResourceBundle myResourceBundle;
-    private Model myModel;
+    private Controller myModel;
     
     private Database myDb;
     private String gameName;
     
     
-    public GameInfo (String gamename, String genre, String language, Model model) throws MissingResourceException {
+    public GameInfo (String gamename, String genre, String language, Controller model) throws MissingResourceException {
         String filepath = FILEPATH + genre + "." + gamename + RESOURCE_DIR_NAME + language;
         myModel = model;
-        // String filepath = FILEPATH + gamename + RESOURCE_DIR_NAME + language;
-        
         myResourceBundle = ResourceBundle.getBundle(filepath);
         
     }
@@ -57,9 +55,7 @@ public class GameInfo {
 
     
     public ImageIcon getThumbnail() {
-        return new ImageIcon(USER_DIRECTORY + "/src/arcade/resources/images/NoImage.gif");
-        //TODO: revert this back to getting from db.
-    	//return new ImageIcon(USER_DIRECTORY + myDb.getGameThumbnail(gameName));
+    	return new ImageIcon(USER_DIRECTORY + myDb.getGameThumbnail(gameName));
     }
     
     public String getName(){
@@ -130,7 +126,7 @@ public class GameInfo {
     
     // untested . . . hope it works . . .
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    public MultiplayerGame getMultiplayerGame (Model model) {
+    public MultiplayerGame getMultiplayerGame (Controller model) {
         Class gameClass = getMultiplayerGameClass();
         try {
             Constructor con = gameClass.getConstructor(MultiplayerArcadeInteraction.class);
@@ -169,7 +165,7 @@ public class GameInfo {
 
     // I SAY I will add better exception handling here but . . . .
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    public Game getGame (Model model) {
+    public Game getGame (Controller model) {
         Class gameClass = getSingleplayerGameClass();
         try {
             Constructor con = gameClass.getConstructor(ArcadeInteraction.class);

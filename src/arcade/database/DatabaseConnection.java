@@ -31,15 +31,15 @@ public class DatabaseConnection {
      */
     public DatabaseConnection() {
         establishConnectionToDatabase();
-        try{
-            myDatabaseErrorLog = new FileHandler(System.getProperty("user.dir")+"/src/arcade/resources/ErrorLog.log");
-            myLogger=Logger.getLogger(Table.class.getName());
+        try {
+            myDatabaseErrorLog = new FileHandler(System.getProperty("user.dir") + 
+                    "/src/arcade/resources/ErrorLog.log");
+            myLogger = Logger.getLogger(Table.class.getName());
             myLogger.addHandler(myDatabaseErrorLog);
-            }
-            catch (IOException e)
-            {	
-            	System.err.println("File not found");
-            } 
+        }
+        catch (IOException e) {
+            System.err.println("File not found");
+        } 
     }
     
     private void establishConnectionToDatabase() {
@@ -103,10 +103,10 @@ public class DatabaseConnection {
     }
     /**
      * Logs an error in the logger file
+     * @param errorToBeLogged is error that's logged
      */
-    public void logError(String errorToBeLogged)
-    {
-    	myLogger.info(errorToBeLogged);
+    public void logError(String errorToBeLogged) {
+        myLogger.info(errorToBeLogged);
     }
 
 }

@@ -15,10 +15,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import arcade.controller.Controller;
+import arcade.controller.GameSpecificData;
 import arcade.exceptions.AgeException;
 import arcade.exceptions.InvalidGameFileException;
 import arcade.exceptions.InvalidPriceException;
-import arcade.model.Model;
 import arcade.view.TextKeywords;
 
 
@@ -28,7 +29,7 @@ import arcade.view.TextKeywords;
  * @author Ellango
  * 
  */
-@SuppressWarnings({"serial", "unused"})
+@SuppressWarnings({ "serial", "unused" })
 public class PublishView extends Form {
     private static final int DESCRIPTION_HEIGHT = 300;
     private static final int DESCRIPTION_WIDTH = 280;
@@ -49,14 +50,13 @@ public class PublishView extends Form {
     private String myGameFilePath = "";
 
     /**
-     * Constructs the publish view dialog box with a Model and ResourceBundle.
+     * Constructs the publish view dialog box with a Controller and ResourceBundle.
      * 
-     * @param model
+     * @param controller
      * @param resources
      */
-    public PublishView (Model model, ResourceBundle resources) {
-        super(model, resources);
-
+    public PublishView (Controller controller, ResourceBundle resources) {
+        super(controller, resources);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         pack();
         setLocationRelativeTo(null);
@@ -139,26 +139,20 @@ public class PublishView extends Form {
                                        }
                                    });
     }
-    
+
     private JComponent createGameFileSelector () {
-        return createFileSelector(TextKeywords.GAME_INSTRUCTION, 
-                                  TextKeywords.FILE_SELECT, 
+        return createFileSelector(TextKeywords.GAME_INSTRUCTION,
+                                  TextKeywords.FILE_SELECT,
                                   new FileChooserAction() {
                                       @Override
                                       public void approve (JFileChooser chooser) {
                                           myGameFilePath = chooser.getSelectedFile().getPath();
                                       }
-                                  }, 
-                                  new FileNameExtensionFilter(getResources().getString(TextKeywords.JAVA),
+                                  },
+                                  new FileNameExtensionFilter(getResources()
+                                          .getString(TextKeywords.JAVA),
                                                               "java"));
     }
-
-    /**
-     * Creates the field to check if the game is single player, and if so,
-     * select the file that extends Game.
-     * 
-     */
-
 
     /**
      * Creates the button that pops up the description area.
@@ -218,23 +212,24 @@ public class PublishView extends Form {
     }
 
     /**
-     * Try telling model to publish a new game.  Inform the user if invalid 
+     * Try telling controller to publish a new game. Inform the user if invalid
      * inputs.
      */
     private void publish () {
         try {
-            getModel().publish(myNameTextField.getText(),
-                               myGenreTextField.getText(),
-                               myAuthorTextField.getText(),
-                               getPrice(),
-                               getGameFilePath(),
-                               "",
-                               getAgeRating(),
-                               true,
-                               false,
-                               mySmallImagePath,
-                               myLargeImagePath,
-                               myDescriptionTextField.getText());
+            GameSpecificData data = new GameSpecificData(myNameTextField.getText(),
+                                                         myGenreTextField.getText(),
+                                                         myAuthorTextField.getText(),
+                                                         getPrice(),
+                                                         getGameFilePath(),
+                                                         "",
+                                                         getAgeRating(),
+                                                         true,
+                                                         false,
+                                                         mySmallImagePath,
+                                                         myLargeImagePath,
+                                                         myDescriptionTextField.getText());
+            getController().publish(data);
             dispose();
         }
         catch (InvalidPriceException e) {
@@ -249,13 +244,14 @@ public class PublishView extends Form {
             sendMessage(getResources().getString(TextKeywords.GAME_FILE_ERROR));
         }
     }
-    
+
     /**
      * Gets the price entered by the user.
+     * 
      * @return
      * @throws InvalidPriceException if not valid.
      */
-    private double getPrice() throws InvalidPriceException {
+    private double getPrice () throws InvalidPriceException {
         try {
             double price = Double.parseDouble(myPriceTextField.getText());
             if (price < 0) throw new InvalidPriceException();
@@ -265,13 +261,14 @@ public class PublishView extends Form {
             throw new InvalidPriceException();
         }
     }
-    
+
     /**
-     * Gets the age rating entered by the user. 
+     * Gets the age rating entered by the user.
+     * 
      * @return
-     * @throws AgeException
+     * @throws AgeException if not a valid age.
      */
-    private int getAgeRating() throws AgeException {
+    private int getAgeRating () throws AgeException {
         try {
             int age = Integer.parseInt(myAgeTextField.getText());
             if (age < 0) throw new AgeException();
@@ -281,15 +278,15 @@ public class PublishView extends Form {
             throw new AgeException();
         }
     }
-    
-    private String getGameFilePath() throws InvalidGameFileException {
-        if (myGameFilePath.isEmpty()) {
-            throw new InvalidGameFileException();
-        }
+
+    /**
+     * Gets the game file path selected by the user.
+     * 
+     * @return
+     * @throws InvalidGameFileException if not a valid file path
+     */
+    private String getGameFilePath () throws InvalidGameFileException {
+        if (myGameFilePath.isEmpty()) { throw new InvalidGameFileException(); }
         return myGameFilePath;
-    }
-    
-    public static void main (String[] args) {
-        new PublishView(null, ResourceBundle.getBundle("arcade.resources.English"));
     }
 }

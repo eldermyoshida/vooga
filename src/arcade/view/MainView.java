@@ -5,7 +5,7 @@ import java.awt.Color;
 import java.util.ResourceBundle;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import arcade.model.Model;
+import arcade.controller.Controller;
 import arcade.view.modes.GameCenterPanel;
 
 
@@ -21,23 +21,23 @@ public class MainView extends JFrame {
     private static final int WINDOW_WIDTH = 800;
     private static final int WINDOW_HEIGHT = 600;
     private JPanel myViewPanel;
-    private Model myModel;
+    private Controller myController;
     private ResourceBundle myResources;
 
     /**
-     * Creates the MainView with the provided Model and ResourceBundle
+     * Creates the MainView with the provided Controller and ResourceBundle
      * 
-     * @param model
+     * @param controller
      * @param rb
      */
-    public MainView (Model model, ResourceBundle rb) {
-        myModel = model;
+    public MainView (Controller controller, ResourceBundle rb) {
+        myController = controller;
         myResources = rb;
 
         JPanel contentPane = (JPanel) getContentPane();
         contentPane.setBackground(Color.WHITE);
         contentPane.setLayout(new BorderLayout());
-        contentPane.add(new ButtonPanel(this, myModel, myResources), BorderLayout.WEST);
+        contentPane.add(new ButtonPanel(this, myController, myResources), BorderLayout.WEST);
         contentPane.add(makeViewPanel(), BorderLayout.CENTER);
 
         setTitle(rb.getString(TextKeywords.TITLE));
@@ -53,7 +53,7 @@ public class MainView extends JFrame {
      */
     private JPanel makeViewPanel () {
         myViewPanel = new JPanel();
-        myViewPanel.add(new GameCenterPanel(myModel, myResources));
+        myViewPanel.add(new GameCenterPanel(myController, myResources));
         return myViewPanel;
     }
 
@@ -76,18 +76,5 @@ public class MainView extends JFrame {
     public void showEndGameView () {
         
     }
-    
-//    public static void main (String[] args) {
-//        ResourceBundle resources = ResourceBundle.getBundle("arcade.resources.English");
-//        
-//        new MainView(new Model(resources, "English"), resources);
-//        
-////      List<GameInfo> games = new ArrayList<GameInfo>();
-////      for (int i = 0; i < 13; i++) 
-////      {
-////          games.add(new GameInfo("example", "examplegenre", "English", this));
-////      }
-////      return games;
-//    }
 
 }

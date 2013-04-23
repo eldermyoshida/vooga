@@ -20,8 +20,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import util.ImageHelper;
+import arcade.controller.Controller;
 import arcade.games.GameInfo;
-import arcade.model.Model;
 
 
 /**
@@ -59,10 +59,10 @@ public class DetailView extends JFrame {
     private JTextArea myDescriptionContent;
     private JEditorPane myCommentsContent;
     private JButton myPlayButton;
-    private Model myModel;
+    private Controller myController;
 
-    public DetailView (GameInfo info, ResourceBundle resources, Model model) {
-        myModel = model;
+    public DetailView (GameInfo info, ResourceBundle resources, Controller controller) {
+        myController = controller;
         setBackground(Color.WHITE);
         myGameInfo = info;
         myResources = resources;
@@ -96,7 +96,7 @@ public class DetailView extends JFrame {
 
             @Override
             public void actionPerformed (ActionEvent e) {
-                myModel.playGame(myGameInfo);
+                myController.playGame(myGameInfo);
             }
 
         });

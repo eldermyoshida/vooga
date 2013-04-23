@@ -1,5 +1,6 @@
 package arcade.database;
-
+import arcade.controller.GameSpecificData;
+import arcade.controller.UserSpecificData;
 import arcade.games.GameData;
 import arcade.games.Score;
 import arcade.games.UserGameData;
@@ -16,18 +17,16 @@ public class Database {
 
     private GameTable myGameTable;
     private UserTable myUserTable;
-    private UserGameDataTable myUserGameDataTable;
     private ScoreTable myScoreTable;
     private CommentTable myCommentTable;
     private S3Connections myS3Instance;
-
+    
     /**
      * Database constructor
      */
     public Database () {
         myGameTable = new GameTable();
         myUserTable = new UserTable();
-        myUserGameDataTable = new UserGameDataTable();
         myScoreTable = new ScoreTable();
         myCommentTable = new CommentTable();
         myS3Instance = new S3Connections();
@@ -39,14 +38,12 @@ public class Database {
     public void closeDatabaseConnection () {
         myGameTable.closeConnection();
         myUserTable.closeConnection();
-        myUserGameDataTable.closeConnection();
         myScoreTable.closeConnection();
         myCommentTable.closeConnection();
     }
 
     /**
      * Creates a user when given username, pw, firstname, lastname, and dataofbirth
-     * 
      * @param username is user
      * @param pw is password
      * @param firstname is first name
@@ -76,6 +73,11 @@ public class Database {
         insertAvatar(username, filepath);
         return myUserTable.createUser(username, pw, firstname, lastname, dataOfBirth);
     }
+    
+    public boolean createUser(UserSpecificData data) {
+		return createUser(data.getUsername(), data.getPassword(), data.getFirstName(), data.getLastName(), data.getDOB(), data.getImageFilePath());
+	}
+    
 
     /**
      * Creates a new game
@@ -110,14 +112,11 @@ public class Database {
                                       extendsMultiplayerGame, ageRating, singlePlayer, multiplayer,
                                       thumbnailPath, adscreenPath, description);
     }
-
-    /**
-     * Called first time user plays game
-     * @param user username
-     * @param gameName is name of name
-     */
-    public void userPlaysGameFirst (String user, String gameName) {
-        myUserGameDataTable.createNewUserGameData(retrieveGameId(gameName), retrieveUserId(user));
+    
+    public boolean createGame(GameSpecificData data) {
+    	return createGame(data.getName(), data.getAuthor(), data.getGenre(), data.getPrice(), data.getExtendsGame(),
+    			data.getExtendsMultiplyaer(), data.getAgeRating(), data.isSinglePlayer(), data.isMultiplayer(),
+    			data.getThumbnailPath(), data.getAdScreenPath(), data.getDescription());
     }
 
     /**
@@ -174,7 +173,7 @@ public class Database {
      * @param username is user
      */
     public void deleteUser (String username) {
-        myUserGameDataTable.deleteUser(retrieveUserId(username));
+        //myUserGameDataTable.deleteUser(retrieveUserId(username));
         myUserTable.deleteUser(username);
     }
 
@@ -313,12 +312,19 @@ public class Database {
     public void printUserTable () {
         myUserTable.printEntireTable();
     }
-
+    
     /**
-     * Prints UserGameDataTable
+     * Retrieves score table
      */
-    public void printUserGameDataTable () {
-        myUserGameDataTable.printEntireTable();
+    public void printScoreTable () {
+        myScoreTable.printEntireTable();
+    }
+    
+    /**
+     * Retrieves comment table
+     */
+    public void printCommentTable () {
+        myCommentTable.printEntireTable();
     }
 
     /**
@@ -344,7 +350,7 @@ public class Database {
      * @param rating is new rating
      */
     public void updateRating (String userName, String gameName, double rating) {
-        //TODO update rating
+        myCommentTable.addNewRating(retrieveUserId(userName), retrieveGameId(gameName), rating);
     }
 
     /**
@@ -424,7 +430,8 @@ public class Database {
      * @param gameName is game
      */
     public double getAverageRating (String gameName) {
-        return myUserGameDataTable.getAverageRating(gameName);
+        return myCommentTable.getAverageRating(retrieveGameId(gameName));
+        
     }
 
     /**
@@ -446,18 +453,56 @@ public class Database {
     }
 
     /**
-     * Returns Pixmap of game thumbnail
+     * Returns path of saved location of game thumbnail
      * @param gameName is game
      */
-    public Pixmap getGameThumbnail (String gameName) {
-        return new Pixmap(myS3Instance.getThumbnail(gameName));
+    public String getGameThumbnail (String gameName) {
+        return myS3Instance.getThumbnail(gameName);
     }
 
     /**
-     * Returns Pixmap of adscreen
+     * Returns path of saved location of adscreen
      * @param gameName is game
      */
-    public Pixmap getGameAdScreen (String gameName) {
-        return new Pixmap(myS3Instance.getAdScreen(gameName));
+    public String getGameAdScreen (String gameName) {
+        return myS3Instance.getThumbnail(gameName);
     }
+
+    
+    
+	public String getUserRealName(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public int getUserAge(String username) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public String getUserHometown(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getUserSchool(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getUserHobbies(String username) {
+		// TODO Auto-generated method stub
+		return null;
+		
+	}
+
+	public String getUserFavoriteColor(String username) {
+		// TODO Auto-generated method stub
+		return null;
+		
+	}
+
+
+	
+
 }

@@ -1,5 +1,6 @@
 import java.util.ResourceBundle;
-import arcade.model.Model;
+
+import arcade.controller.Controller;
 import arcade.view.forms.LoginView;
 
 /**
@@ -9,7 +10,7 @@ import arcade.view.forms.LoginView;
  */
 public class Main {
     
-    private static final String RESOURCE_LOCATION = "arcade.resources.";
+    
     private static final String LANGUAGE = "English";
     
     
@@ -23,10 +24,14 @@ public class Main {
      * @param args anything passed in from the command-line
      */
     public static void main (String[] args) {
+    	Controller model = new Controller(LANGUAGE);
+    	
+    	/*
         ResourceBundle rb = ResourceBundle.getBundle(RESOURCE_LOCATION + LANGUAGE);
         Model model = new Model(rb, LANGUAGE);
         LoginView login = new LoginView(model, rb);
         model.setLoginView(login);
+        */
         
     }
 }

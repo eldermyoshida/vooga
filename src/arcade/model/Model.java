@@ -44,7 +44,6 @@ public class Model implements ArcadeInteraction {
     private List<GameInfo> mySnapshots;
     private String myUser;
     private PaymentManager myPaymentManager;
-    private TwitterConnection myTwitter;
 
     // These will be null until you try to play a game
     Game myCurrentGame = null;
@@ -231,30 +230,7 @@ public class Model implements ArcadeInteraction {
         myPaymentManager.doTransaction(paymentInfo);
         // TODO: write code here for moving game from Store to GameCenter
     }
-    
-    /**
-     * Sets up a new twitter request to get access to a user's account.
-     * Returns a URL that a user can access to authorize.
-     * @return
-     * @throws TwitterException 
-     */
-    public String setUpTwitterRequest() throws TwitterException {
-        myTwitter = new TwitterConnection();
-        return myTwitter.newRequest();
-    }
-    
-    /**
-     * After the user authorizes the twitter request, s/he will have a pin.
-     * This gets access using the provided pin, and sends a tweet containing
-     * text.
-     * 
-     * @param pin
-     * @param text
-     * @throws TwitterException 
-     */
-    public void sendTweet(String pin, String text) throws TwitterException {
-        myTwitter.sendTweet(pin, text);
-    }
+
     
 
     /**

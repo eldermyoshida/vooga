@@ -4,7 +4,8 @@ import java.awt.Dimension;
 import java.util.ResourceBundle;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import arcade.model.Model;
+
+import arcade.controller.Controller;
 import arcade.view.AllSnapShots;
 
 /**
@@ -23,10 +24,10 @@ public class GameCenterPanel extends JPanel {
     private static final int PANEL_WIDTH = 590;
 
     /**
-     * Creates the GameCenterPanel with a Model and ResourceBundle
+     * Creates the GameCenterPanel with a Controller and ResourceBundle
      */
-    public GameCenterPanel (Model model, ResourceBundle resources) {
-        AllSnapShots allSnapShots = new AllSnapShots(model, resources, new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
+    public GameCenterPanel (Controller controller, ResourceBundle resources) {
+        AllSnapShots allSnapShots = new AllSnapShots(controller, resources, new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
         add(new JScrollPane(allSnapShots));
     }
 }

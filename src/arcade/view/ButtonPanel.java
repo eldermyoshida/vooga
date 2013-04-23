@@ -11,7 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
 import util.ImageHelper;
-import arcade.model.Model;
+import arcade.controller.Controller;
 import arcade.view.modes.GameCenterPanel;
 import arcade.view.modes.SocialCenterPanel;
 import arcade.view.modes.StorePanel;
@@ -34,20 +34,21 @@ public class ButtonPanel extends JPanel {
     private static final int BUTTON_SIZE = 140;
 
     private MainView myMainView;
-    private Model myModel;
+    private Controller myController;
     private ResourceBundle myResources;
     private JToolBar myToolbar;
 
     /**
      * Creates a ButtonPanel with the mainView that it can manipulate by changing
-     * which mode is showing, and a ResourceBundle
+     * which mode is showing, a Controller, and a ResourceBundle
      * 
      * @param mainView
+     * @param controller
      * @param resources
      */
-    public ButtonPanel (MainView mainView, Model model, ResourceBundle resources) {
+    public ButtonPanel (MainView mainView, Controller controller, ResourceBundle resources) {
         myMainView = mainView;
-        myModel = model;
+        myController = controller;
         myResources = resources;
         setBackground(Color.lightGray);
 
@@ -67,7 +68,7 @@ public class ButtonPanel extends JPanel {
                    new ActionListener() {
                        @Override
                        public void actionPerformed (ActionEvent arg0) {
-                           myMainView.changeViewPanel(new GameCenterPanel(myModel, myResources));
+                           myMainView.changeViewPanel(new GameCenterPanel(myController, myResources));
                        }
                    });
         makeButton(SOCIAL_CENTER_PICTURE_NAME,
@@ -83,7 +84,7 @@ public class ButtonPanel extends JPanel {
                    new ActionListener() {
                        @Override
                        public void actionPerformed (ActionEvent arg0) {
-                           myMainView.changeViewPanel(new StorePanel(myModel, myResources));
+                           myMainView.changeViewPanel(new StorePanel(myController, myResources));
                        }
                    });
     }

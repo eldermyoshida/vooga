@@ -11,8 +11,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import util.ImageHelper;
+import arcade.controller.Controller;
 import arcade.games.GameInfo;
-import arcade.model.Model;
 
 
 /**
@@ -31,11 +31,19 @@ public class SnapShot extends JPanel {
     private static final String IMAGES_NAME = "Stars.gif";
     private GameInfo myGameInfo;
     private ResourceBundle myResources;
-    private Model myModel;
     private ImageIcon[] myRatingIcons;
+    private Controller myController;
 
-    public SnapShot (GameInfo info, ResourceBundle resources, Model model) {
-        myModel = model;
+    /**|
+     * Creates a SnapShot with a GameInfo for the game it is displaying, a 
+     * ResourceBundle, and a Controller
+     * 
+     * @param info
+     * @param resources
+     * @param controller
+     */
+    public SnapShot (GameInfo info, ResourceBundle resources, Controller controller) {
+        myController = controller;
         myGameInfo = info;
         myResources = resources;
         myRatingIcons = initializeRatingIcons();
@@ -49,6 +57,11 @@ public class SnapShot extends JPanel {
         this.addMouseListener(createListener());
     }
 
+    /**
+     * Initializes ImageIcons for each picture of the stars representing the rating
+     * 
+     * @return
+     */
     private ImageIcon[] initializeRatingIcons() {
         ImageIcon[] icons = new ImageIcon[6];
         for (int i = 0; i <= 5; i++) {
@@ -103,7 +116,7 @@ public class SnapShot extends JPanel {
             @Override
             public void mouseClicked (MouseEvent arg0) {
                 if (arg0.getClickCount() == 2) {
-                    new DetailView(myGameInfo, myResources, myModel);
+                    new DetailView(myGameInfo, myResources, myController);
                 }
             }
 
