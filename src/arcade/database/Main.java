@@ -10,7 +10,13 @@ public class Main {
         
         Database myDatabase = new Database();
         
-        //myDatabase.createUser("natx13", "password", "Natalia", "Carvalho", "04/26/1991");
+        
+        myDatabase.createUser("natx13", "password", "Natalia", "Carvalho", "04/26/1991");
+        myDatabase.createUser("kayzooo", "mypassword", "Kevin", "Zhu", "11/12/1990");
+
+        
+        //myDatabase.addNewHighScore("natx13", "example", 157);
+        
         //System.out.println(System.getProperty("user.dir"));
 
         //myDatabase.printUserTable();
@@ -22,7 +28,6 @@ public class Main {
      //   myDatabase.createUser("natx13", "mypassword", "Natalia", "Carvalho", "04/26/1991");
      //   myDatabase.authenticateUsernameAndPassword("natx13", "password");
         
-   //     myDatabase.createUser("kayzooo", "mypassword", "Kevin", "Zhu", "11/12/1990");
    //     myDatabase.createUser("doesthiswork", "hiiii", "hiii", "hiii", "11/12/1990");
    //     myDatabase.createUser("bob", "mypassword", "Joe", "Smith", "11/11/1911");   
   //      myDatabase.createUser("test", "test", "test", "test", "01/01/1901");
@@ -57,6 +62,8 @@ public class Main {
 //                
         myDatabase.printUserTable();
         myDatabase.printGameTable();
+        myDatabase.printScoreTable();
+        myDatabase.printCommentTable();
         
         myDatabase.closeDatabaseConnection();
         

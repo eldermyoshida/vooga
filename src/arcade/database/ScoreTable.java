@@ -36,7 +36,7 @@ public class ScoreTable extends Table {
      */
     public void addNewHighScore (String gameid, String userid, int highscore) {
         
-        String stm = "INSERT INTO scores(gameid, userid, highscore) VALUES (?, ?, ?)";
+        String stm = "INSERT INTO score(gameid, userid, highscore) VALUES (?, ?, ?)";
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
             myPreparedStatement.setString(Keys.SCORE_GAMEID_COLUMN_INDEX, gameid);
@@ -45,7 +45,8 @@ public class ScoreTable extends Table {
             myPreparedStatement.executeUpdate();
         }
         catch (SQLException e) {
-            writeErrorMessage("Error adding new high score in ScoreTable.java @ Line 54");
+            e.printStackTrace();
+            //writeErrorMessage("Error adding new high score in ScoreTable.java @ Line 54");
         }
     }
     
@@ -58,7 +59,7 @@ public class ScoreTable extends Table {
      */
     public List<Score> getScoresForGame(String gameid, String userid, 
                                         String gameName, String userName) {
-        String stm = "SELECT gameid FROM scores WHERE gameid='" + 
+        String stm = "SELECT gameid FROM score WHERE gameid='" + 
                     gameid + "' AND userid='" + userid + "'";
         List<Score> scores = new ArrayList<Score>();
         try {
@@ -72,7 +73,7 @@ public class ScoreTable extends Table {
             return scores;
         }
         catch (SQLException e) {
-            writeErrorMessage("Error getting scores for game in ScoreTable.java @ Line 78");
+            writeErrorMessage("Error getting score for game in ScoreTable.java @ Line 78");
         }
         return null;
     }
@@ -88,7 +89,7 @@ public class ScoreTable extends Table {
                                  Keys.SEPARATOR);
                 System.out.print(myResultSet.getString(Keys.SCORE_USERID_COLUMN_INDEX) + 
                                  Keys.SEPARATOR);                
-                System.out.print(myResultSet.getInt(Keys.SCORE_HIGHSCORE_COLUMN_INDEX) + 
+                System.out.print(myResultSet.getDouble(Keys.SCORE_HIGHSCORE_COLUMN_INDEX) + 
                                  Keys.SEPARATOR);
                 System.out.println(myResultSet.getString(Keys.SCORE_SCOREID_COLUMN_INDEX) + 
                                    Keys.SEPARATOR);
