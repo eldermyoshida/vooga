@@ -1,11 +1,9 @@
 package vooga.scroller.level_editor;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import util.Location;
 import util.input.Input;
 import util.input.InputClassTarget;
@@ -16,7 +14,6 @@ import vooga.scroller.util.Sprite;
 import vooga.scroller.level_editor.controllerSuite.LEGrid;
 import vooga.scroller.level_editor.model.SpriteBox;
 import vooga.scroller.level_management.IDoor;
-import vooga.scroller.level_management.LevelManager;
 import vooga.scroller.level_management.LevelPortal;
 import vooga.scroller.level_management.SpriteManager;
 import vooga.scroller.marioGame.spritesDefinitions.players.Mario;
@@ -272,11 +269,6 @@ public class Level implements Renderable<GameView>, IGameComponent{
         return display;
     }
 
-    @Override
-    public void addManager (LevelManager lm) {
-        // TODO Auto-generated method stub
-        
-    }
     
     /**
      * Pauses the current game.

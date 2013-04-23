@@ -39,6 +39,7 @@ public class Model {
     private static final String PLAYER_IMAGES = "walama.gif";
     // "mario.gif"
     //"walama.gif"
+    private static final String DEFAULT_IMAGE_LOCATION = "/vooga/scroller/marioGame/images/";
     
     /**
      * Constructs a new Model based on the view and the scrolling manager used by the game.
@@ -73,7 +74,7 @@ public class Model {
 
     private static Player initTestPlayer (GameView gameView, ScrollingManager sm) {
         Player player = new Mario(new Location(), new Dimension(32, 32), gameView, sm);
-        MovingSpriteAnimationFactory msaf = new MovingSpriteAnimationFactory(PLAYER_IMAGES);
+        MovingSpriteAnimationFactory msaf = new MovingSpriteAnimationFactory(DEFAULT_IMAGE_LOCATION, PLAYER_IMAGES);
         Animation playerAnimation = msaf.generateAnimation(player);
         
         player.setView(playerAnimation);

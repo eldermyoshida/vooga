@@ -31,6 +31,7 @@ public class Mario extends Player implements IPlayer, IInputListener{
 
     public Mario (Location center, Dimension size, GameView gameView, ScrollingManager sm) {
         super(DEFAULT_IMAGE, center, size, gameView, sm, new Integer(1), new Integer (1));
+        MarioLib.addLeftRightAnimationToPlayer(this, "mario.gif");
         myJumpCount = 0;
     }
 

@@ -257,9 +257,10 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
         return makePixmap(getImagesDirectory(), fileName);
     }
     
-    public static Animation makeLeftRightAnimation(String baseFileName) {
-       // TODO: make animations more general and give ability to add sprite.
-        return null;
+    public static void addLeftRightAnimationToPlayer(Player player, String baseFileName) {        
+        MovingSpriteAnimationFactory msaf = new MovingSpriteAnimationFactory(getImagesDirectory(),                                                                              baseFileName);
+        Animation playerAnimation = msaf.generateAnimation(player);        
+        player.setView(playerAnimation);
     }
 
 }

@@ -3,10 +3,12 @@ package vooga.scroller.level_management.splash_page;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.geom.Point2D;
 import util.Location;
 import util.input.Input;
 import util.input.InputClassTarget;
 import util.input.InputMethodTarget;
+import util.input.PositionObject;
 import vooga.scroller.level_editor.Level;
 import vooga.scroller.level_editor.exceptions.LevelEditorException;
 import vooga.scroller.level_management.IDoor;
@@ -32,13 +34,20 @@ public class SplashPage implements IInputListener, IGameComponent{
     private ISpriteView myBackground;
     private int myID;
     private GameView myGameView;
-    private LevelManager myLevelManager;
     private Player myPlayer;
+    private String myControlLocation;
+    private Mouse myMouse;
+    
+    // buttons
+    private Button myButton;
     
     public SplashPage (ISpriteView backgroundImage, int splashID, GameView gameView, ScrollingManager sm) {
         myBackground = backgroundImage;
         myID = splashID;
         myGameView = gameView;
+        myControlLocation = CONTROLS_FILE_PATH;
+        myMouse = new Mouse();
+        myButton = new Button();
     }
 
     /**
@@ -50,10 +59,14 @@ public class SplashPage implements IInputListener, IGameComponent{
         myDoor = door;
     }
     
+    public void setControls(String controlFilePath){
+        myControlLocation = controlFilePath;
+    }
     
     @Override
     public void update(double elapsedTime, Dimension bounds, GameView gameView) {
         // Just leave the background image.
+        
     }
 
 
@@ -62,6 +75,9 @@ public class SplashPage implements IInputListener, IGameComponent{
         myBackground.paint(pen, new Location((double)myGameView.getWidth()/2, 
                                              (double)myGameView.getHeight()/2), 
                                              myGameView.getSize());
+        myButton.paint(pen);
+        myMouse.paint(pen);
+
     }
 
     @InputMethodTarget(name = "exit")
@@ -71,8 +87,19 @@ public class SplashPage implements IInputListener, IGameComponent{
     
     @InputMethodTarget(name = "start")
     public void nextLevel() {
-        System.out.println("hit");
         myDoor.goToNextLevel(getPlayer());
+    }
+    
+    @InputMethodTarget(name = "mouse")
+    public void updateMouse(PositionObject posObj) {
+        myMouse.setCenter(posObj.getPoint2D().getX(), posObj.getPoint2D().getY());
+    }
+    
+    @InputMethodTarget(name = "click")
+    public void mouseClick(PositionObject posObj) {
+        if(myButton.intersects(posObj.getPoint2D())){
+            nextLevel();
+        }
     }
     
     @Override
@@ -87,7 +114,7 @@ public class SplashPage implements IInputListener, IGameComponent{
     }
 
     public String getInputFilePath () {
-        return CONTROLS_FILE_PATH;
+        return myControlLocation;
     }
     
     public IDoor getDoor() {
@@ -104,9 +131,6 @@ public class SplashPage implements IInputListener, IGameComponent{
         myPlayer = p;
     }
 
-    public void addManager (LevelManager levelManager) {
-        myLevelManager = levelManager;
-    }
 
     @Override
     public double getRightBoundary () {

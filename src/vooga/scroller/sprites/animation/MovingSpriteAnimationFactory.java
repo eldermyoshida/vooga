@@ -43,14 +43,14 @@ public class MovingSpriteAnimationFactory {//implements AnimationFactory{
         myMoveRight = moveRight;
     }
     
-    public MovingSpriteAnimationFactory(String spriteFilePath) {
+    public MovingSpriteAnimationFactory(String fileLocation, String spriteFilePath) {
         String fileFormat = getFileFormat(spriteFilePath);
         String baseName = getBaseName(spriteFilePath);
-        myDefaultView = new Pixmap(baseName + DEFAULT_ENDING + fileFormat);
-        myStandRight = new Pixmap(baseName + STAND_RIGHT_ENDING + fileFormat);
-        myMoveRight = new Pixmap(baseName + MOVE_RIGHT_ENDING + fileFormat);
-        myStandLeft = new Pixmap(baseName + STAND_LEFT_ENDING + fileFormat);
-        myMoveLeft = new Pixmap(baseName + MOVE_LEFT_ENDING + fileFormat);       
+        myDefaultView = new Pixmap(fileLocation, baseName + DEFAULT_ENDING + fileFormat);
+        myStandRight = new Pixmap(fileLocation, baseName + STAND_RIGHT_ENDING + fileFormat);
+        myMoveRight = new Pixmap(fileLocation, baseName + MOVE_RIGHT_ENDING + fileFormat);
+        myStandLeft = new Pixmap(fileLocation, baseName + STAND_LEFT_ENDING + fileFormat);
+        myMoveLeft = new Pixmap(fileLocation, baseName + MOVE_LEFT_ENDING + fileFormat);       
     }
     
     private String getBaseName (String spriteFilePath) {
