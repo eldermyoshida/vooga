@@ -1,6 +1,6 @@
 package vooga.rts.networking.client;
 
-import java.util.List;
+import vooga.rts.networking.communications.ExpandedLobbyInfo;
 import vooga.rts.networking.communications.LobbyInfo;
 
 /**
@@ -13,5 +13,9 @@ public interface IClientModel {
     public void closeConnection ();
 
     public void addLobbies (LobbyInfo[] lobbies);
+    
+    public void switchToLobbyView (ExpandedLobbyInfo lobbyInfo);
+    
+    public void updateLobbyView (ExpandedLobbyInfo lobbyInfo);
 
 }

@@ -34,9 +34,9 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
     private ViewContainerPanel myContainerPanel;
     private ServerBrowserView myServerBrowserView;
     private CreateLobbyView myCreateLobbyView;
-    //private ServerBrowserTableAdapter myAdapter;
     private ExpandedLobbyInfo myLobbyInfo;
     private LobbyView myLobbyView;
+    private String[] myFactions;
 
     /**
      * This is the handler of information needed by all of the views in the process of connecting to
@@ -47,7 +47,12 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
      * @param maps
      * @param maxPlayerArray
      */
-    public ClientModel (String gameName, String userName, String[] maps, Integer[][] maxPlayerArray) {
+    public ClientModel (String gameName,
+                        String userName,
+                        String[] factions,
+                        String[] maps,
+                        Integer[][] maxPlayerArray) {
+        myFactions = factions;
         myContainerPanel = new ViewContainerPanel(gameName);
         myServerBrowserView = new ServerBrowserView(new ServerBrowserTableAdapter());
         myCreateLobbyView = new CreateLobbyView(maps, maxPlayerArray);
@@ -77,7 +82,7 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
     /**
      * Switches the current View to the ServerBrowser.
      */
-    public void switchToServerBrowserView () {
+    private void switchToServerBrowserView () {
         requestLobbies();
         // TODO resources
         myContainerPanel.changeView(myServerBrowserView, " Server Browser");
@@ -98,7 +103,7 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
     /**
      * Switches the current View to the LobbyCreatorScreen.
      */
-    public void switchToCreateLobbyView () {
+    private void switchToCreateLobbyView () {
         // TODO resources
         myContainerPanel.changeView(myCreateLobbyView, " Lobby Creation");
         myContainerPanel.changeLeftButton("Back to Server Browser", new ActionListener() {
@@ -118,13 +123,13 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
     /**
      * Switches the current view to the Lobby.
      */
-    public void switchToLobbyView () {
+    private void switchToLobbyView () {
         // TODO resources
         myContainerPanel.changeView(myLobbyView, " Lobby Creation");
         myContainerPanel.changeLeftButton("Leave Lobby", new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent arg0) {
-                
+
                 switchToServerBrowserView();
             }
         });
@@ -135,19 +140,19 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
             }
         });
     }
-    
+
     private void requestLobbies () {
         myClient.sendData(new RequestServerListMessage());
     }
-    
+
     private void requestJoinLobby (int id) {
         myClient.sendData(new JoinLobbyMessage(id));
     }
-    
+
     private void startLobby (LobbyInfo lobbyInfo) {
         myClient.sendData(new StartLobbyMessage(lobbyInfo));
     }
-    
+
     private void startGame () {
         myClient.sendData(new StartGameMessage());
     }
@@ -157,7 +162,8 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
      */
     public static void main (String[] args) {
         ClientModel model =
-                new ClientModel("Test Game", "User 1", new String[] { "map1", "map2" },
+                new ClientModel("Test Game", "User 1", new String[] { "protoss", "zerg" },
+                                new String[] { "map1", "map2" },
                                 new Integer[][] { { 2, 3, 4 }, { 2, 3, 4, 5, 6 } });
 
         JFrame frame = new JFrame();
@@ -175,13 +181,24 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
 
     @Override
     public void updateFaction (String faction, int position) {
-        // TODO Auto-generated method stub
-
+        
     }
 
     @Override
     public void updateTeam (int team, int position) {
         // TODO Auto-generated method stub
 
+    }
+
+    @Override
+    public void switchToLobbyView (ExpandedLobbyInfo lobbyInfo) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void updateLobbyView (ExpandedLobbyInfo lobbyInfo) {
+        // TODO Auto-generated method stub
+        
     }
 }
