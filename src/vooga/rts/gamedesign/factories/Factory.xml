@@ -87,13 +87,13 @@
 			<occupy>cannotbeoccupied</occupy>
 			<produce>worker soldier</produce>
 		</building>
-		<custom src = "vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Tower">
+		<custombuilding src = "vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Tower">
 			<name>tower</name>
-		</custom>
+		</custombuilding>
 	</buildings>
 	<units src = "vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit">
 		<unit>
-			<name>soldier</name>
+			<name>combat</name>
 			<img>soldier.jpg</img>
 			<sound>pikachu.wav</sound>
 			<health>100</health>
@@ -114,6 +114,9 @@
 			<occupy>cannotbeoccupied</occupy>
 			<produce>home</produce>
 		</unit>
+		<customunit src = "vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Soldier">
+			<name>soldier</name>
+		</customunit>
 	</units>
 </GameElements>
 
