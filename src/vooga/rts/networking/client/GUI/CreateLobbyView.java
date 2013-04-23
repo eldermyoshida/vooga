@@ -8,6 +8,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import vooga.rts.networking.communications.LobbyInfo;
 
 /**
  * Represents the View for creating a new lobby.
@@ -17,8 +18,8 @@ public class CreateLobbyView extends JPanel {
     private static final long serialVersionUID = -5215687034662203967L;
 
     private JTextField myServerField;
-    private JComboBox<String> myMapComboBox;
-    private JComboBox<Integer> myMaxPlayersComboBox;
+    private JComboBox myMapComboBox;
+    private JComboBox myMaxPlayersComboBox;
     private Integer[][] myMaxPlayerArray;
     private String[] myMapChoices;
     
@@ -66,5 +67,11 @@ public class CreateLobbyView extends JPanel {
         innerPanel.add(myMaxPlayersComboBox);
 
         return innerPanel;
+    }
+    
+    public LobbyInfo getLobbyInfo () {
+        return new LobbyInfo(myServerField.getText(),
+                             (String) myMapComboBox.getSelectedItem(), 
+                             (int) myMapComboBox.getSelectedItem(), 0);
     }
 }

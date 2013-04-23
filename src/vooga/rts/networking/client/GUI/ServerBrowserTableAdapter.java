@@ -18,7 +18,7 @@ public class ServerBrowserTableAdapter extends AbstractTableModel {
                                       "Map",
                                       "Players" };
 
-    private LobbyInfo[] myLobbies = new LobbyInfo[1];
+    private LobbyInfo[] myLobbies = new LobbyInfo[0];
 
     @Override
     public int getColumnCount () {
@@ -33,6 +33,10 @@ public class ServerBrowserTableAdapter extends AbstractTableModel {
     @Override
     public String getColumnName (int col) {
         return myColumnNames[col];
+    }
+    
+    public int getidOfRow (int row) {
+        return myLobbies[row].getID();
     }
 
     @Override

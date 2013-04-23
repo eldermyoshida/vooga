@@ -15,7 +15,10 @@ import vooga.rts.networking.communications.ExpandedLobbyInfo;
 import vooga.rts.networking.communications.LobbyInfo;
 import vooga.rts.networking.communications.Message;
 import vooga.rts.networking.communications.clientmessages.InitialConnectionMessage;
+import vooga.rts.networking.communications.clientmessages.JoinLobbyMessage;
 import vooga.rts.networking.communications.clientmessages.RequestServerListMessage;
+import vooga.rts.networking.communications.clientmessages.StartGameMessage;
+import vooga.rts.networking.communications.clientmessages.StartLobbyMessage;
 import vooga.rts.networking.communications.servermessages.ServerInfoMessage;
 
 
@@ -31,7 +34,7 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
     private ViewContainerPanel myContainerPanel;
     private ServerBrowserView myServerBrowserView;
     private CreateLobbyView myCreateLobbyView;
-    private ServerBrowserTableAdapter myAdapter;
+    //private ServerBrowserTableAdapter myAdapter;
     private ExpandedLobbyInfo myLobbyInfo;
     private LobbyView myLobbyView;
 
@@ -46,8 +49,7 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
      */
     public ClientModel (String gameName, String userName, String[] maps, Integer[][] maxPlayerArray) {
         myContainerPanel = new ViewContainerPanel(gameName);
-        myAdapter = new ServerBrowserTableAdapter();
-        myServerBrowserView = new ServerBrowserView(myAdapter);
+        myServerBrowserView = new ServerBrowserView(new ServerBrowserTableAdapter());
         myCreateLobbyView = new CreateLobbyView(maps, maxPlayerArray);
         switchToServerBrowserView();
         myClient = new Client(this);
@@ -60,10 +62,6 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
         return myContainerPanel;
     }
 
-    private void requestLobbies () {
-        // myClient.sendData(new RequestServerListMessage());
-    }
-
     @Override
     public void getMessage (Message message) {
         if (message instanceof ServerInfoMessage) {
@@ -73,7 +71,7 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
 
     @Override
     public void closeConnection () {
-        // myClient.close();
+        myClient.closeConnection();
     }
 
     /**
@@ -92,7 +90,7 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
         myContainerPanel.changeRightButton("Join Game", new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent arg0) {
-                requestJoinLobby();
+                requestJoinLobby(myServerBrowserView.getSelectedID());
             }
         });
     }
@@ -112,7 +110,7 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
         myContainerPanel.changeRightButton("Start Lobby", new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent arg0) {
-                startLobby();
+                startLobby(myCreateLobbyView.getLobbyInfo());
             }
         });
     }
@@ -138,16 +136,20 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
         });
     }
     
-    private void requestJoinLobby () {
-        //my
+    private void requestLobbies () {
+        myClient.sendData(new RequestServerListMessage());
     }
     
-    private void startLobby () {
-        
+    private void requestJoinLobby (int id) {
+        myClient.sendData(new JoinLobbyMessage(id));
+    }
+    
+    private void startLobby (LobbyInfo lobbyInfo) {
+        myClient.sendData(new StartLobbyMessage(lobbyInfo));
     }
     
     private void startGame () {
-        // TODO
+        myClient.sendData(new StartGameMessage());
     }
 
     /**
@@ -168,7 +170,7 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
 
     @Override
     public void addLobbies (LobbyInfo[] lobbies) {
-        myAdapter.addLobbies(lobbies);
+        myServerBrowserView.addLobbies(lobbies);
     }
 
     @Override
