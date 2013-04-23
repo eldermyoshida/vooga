@@ -3,7 +3,7 @@
     <environmentObject objectName="platform">
         <state stateName = "default">
             <frame image="fighter/images/brick1.gif">
-                <hitbox cornerX="0" cornerY="0" rectX="70" rectY="20"/>
+                <hitbox cornerX="0" cornerY="0" width="70" height="20"/>
             </frame>
         </state>
     </environmentObject>

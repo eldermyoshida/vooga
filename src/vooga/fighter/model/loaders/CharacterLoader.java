@@ -77,7 +77,7 @@ public class CharacterLoader extends ObjectLoader {
 			newAttack.addProperty(ModelConstants.ATTACK_PROPERTY_SPEED, attackSpeed);
 			newAttack.addProperty(ModelConstants.ATTACK_PROPERTY_POWER, attackDmg);
 			newAttack.addProperty(ModelConstants.ATTACK_PROPERTY_DURATION, attackDuration);
-			getImageAndHitboxProperties(frameNodes, newState);
+			getFrameProperties(frameNodes, newState);
 			newAttack.addState(attackName, newState);
 			newAttack.setCurrentState(attackName);
 			myChar.addAttack(attackName, newAttack);
