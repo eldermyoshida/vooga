@@ -32,7 +32,7 @@ public class LoggerManager {
      * @throws IOException
      */
     private Handler createHandler (int outputFormat, Object ... args) throws IOException {
-        VoogaHandler loggerFormat = null;
+        IVoogaHandler loggerFormat = null;
         try {
             switch (outputFormat) {
                 case NetworkLogger.FORMAT_XML:

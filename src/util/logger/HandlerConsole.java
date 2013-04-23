@@ -13,7 +13,7 @@ import java.util.logging.SimpleFormatter;
  * @author Henrique Moraes
  * 
  */
-public class HandlerConsole implements VoogaHandler {
+public class HandlerConsole implements IVoogaHandler {
     private static final String ERROR_MESSAGE =
             "Error in creating Console based handler";
 
