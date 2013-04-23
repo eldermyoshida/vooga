@@ -20,6 +20,8 @@ public abstract class Table {
      * select from keyword
      */
     public static final String SELECT_FROM = "SELECT * FROM ";
+    private static final String APOSTROPHE = "'";
+    private static final String EQUALS = "='";
     
     private PreparedStatement myPreparedStatement;
     private Connection myConnection;
@@ -65,6 +67,10 @@ public abstract class Table {
         return myPreparedStatement;
     }
     
+    /**
+     * Selects all records from a table given a tablename
+     * @param tableName is name of table
+     */
     public ResultSet selectAllRecordsFromTable(String tableName) {
         System.out.println();
         try {
@@ -80,11 +86,14 @@ public abstract class Table {
     /**
      * Given parameter and a columnIndex, returns that entire row entry for a table
      * @param tableName is name of table
+     * @param columnField is the name of the column
      * @param parameter is parameter we are interested in
      * @param columnIndex is the index that we want the information for
      */
-    public int retrieveEntryInt(String tableName, String parameter, int columnIndex) {
-        String stm = SELECT_FROM + tableName + WHERE_KEYWORD + columnIndex + "='" + parameter + "'";
+    public int retrieveEntryInt(String tableName, String columnField, String parameter, 
+                                int columnIndex) {
+        String stm = SELECT_FROM + tableName + WHERE_KEYWORD + columnField + 
+                EQUALS + parameter + APOSTROPHE;
         int entry = 0;
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
@@ -102,11 +111,14 @@ public abstract class Table {
     /**
      * Given parameter and a columnIndex, returns that entire row entry for a table
      * @param tableName is name of table
+     * @param columnField is the name of the column
      * @param parameter is parameter we are interested in
      * @param columnIndex is the index that we want the information for
      */
-    public String retrieveEntryString(String tableName, String parameter, int columnIndex) {
-        String stm = SELECT_FROM + tableName + WHERE_KEYWORD + columnIndex + "='" + parameter + "'";
+    public String retrieveEntryString(String tableName, String columnField, 
+                                      String parameter, int columnIndex) {
+        String stm = SELECT_FROM + tableName + WHERE_KEYWORD + columnField + 
+                EQUALS + parameter + APOSTROPHE;
         String entry = "";
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
@@ -119,6 +131,45 @@ public abstract class Table {
             e.printStackTrace();
         }
         return entry;
+    }
+    
+    /**
+     * Given parameter and a columnIndex, returns that entire row entry for a table
+     * @param tableName is name of table
+     * @param columnField is the name of the column
+     * @param parameter is parameter we are interested in
+     * @param columnIndex is the index that we want the information for
+     */
+    public boolean retrieveEntryBoolean(String tableName, String columnField, 
+                                        String parameter, int columnIndex) {
+        String stm = SELECT_FROM + tableName + WHERE_KEYWORD + columnField + 
+                EQUALS + parameter + APOSTROPHE;
+        boolean entry = false;
+        try {
+            myPreparedStatement = myConnection.prepareStatement(stm);
+            myResultSet = myPreparedStatement.executeQuery();
+            if (myResultSet.next()) {
+                entry = myResultSet.getBoolean(columnIndex);
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return entry;
+    }
+    
+    /**
+     * Executes a statement for a table
+     * @param stm is the statement
+     */
+    public void executeStatement (String stm) {
+        try {
+            myPreparedStatement = myConnection.prepareStatement(stm);
+            myPreparedStatement.executeUpdate();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }

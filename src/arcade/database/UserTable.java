@@ -12,6 +12,8 @@ import java.util.List;
  * @author Natalia Carvalho
  */
 public class UserTable extends Table {
+    private static final String EQUALS = "='";
+    private static final String APOSTROPHE = "'";
     private static final String TABLE_SEPARATOR = ": ";
     private static final String USERNAME_COLUMN_FIELD = "username";  
     private static final String PASSWORD_COLUMN_FIELD = "pw";
@@ -40,9 +42,9 @@ public class UserTable extends Table {
      */
     public UserTable() {
         super();
-        myConnection = this.getConnection();
-        myPreparedStatement = this.getPreparedStatement();
-        myResultSet = this.getResultSet();
+        myConnection = getConnection();
+        myPreparedStatement = getPreparedStatement();
+        myResultSet = getResultSet();
     }
 
     /**
@@ -52,7 +54,7 @@ public class UserTable extends Table {
      * @return true if valid username/password; false otherwise
      */
     public boolean authenticateUsernameAndPassword(String username, String password) {
-        String stm = "SELECT username, pw FROM users WHERE username = '" + username + "'";
+        String stm = "SELECT username, pw FROM users WHERE username = '" + username + APOSTROPHE;
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
             myResultSet  = myPreparedStatement.executeQuery();
@@ -75,7 +77,7 @@ public class UserTable extends Table {
      * @param username is the username
      */
     public boolean usernameExists(String username) {
-        String stm = "SELECT username FROM users WHERE username='" + username + "'";
+        String stm = "SELECT username FROM users WHERE username='" + username + APOSTROPHE;
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
             myResultSet  = myPreparedStatement.executeQuery();
@@ -102,7 +104,8 @@ public class UserTable extends Table {
         if (usernameExists(user)) {
             return false;
         }
-        String stm = "INSERT INTO users(username, pw, firstname, lastname, DOB) VALUES(?, ?, ?, ?, ?)";
+        String stm = "INSERT INTO users(username, pw, firstname, lastname, DOB) " +
+                "VALUES(?, ?, ?, ?, ?)";
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
             myPreparedStatement.setString(USERNAME_COLUMN_INDEX, user);
@@ -142,7 +145,8 @@ public class UserTable extends Table {
      * @param username is the username
      */
     public String retrieveUserId(String username) {
-        return retrieveEntryString(TABLE_NAME, username, USERNAME_COLUMN_INDEX);
+        return retrieveEntryString(TABLE_NAME, USERNAME_COLUMN_FIELD, username, 
+                                   USERNAME_COLUMN_INDEX);
     }
     
     /**
@@ -150,7 +154,7 @@ public class UserTable extends Table {
      * @param username is the user
      */
     public String retrieveDOB(String username) {
-        return retrieveEntryString(TABLE_NAME, username, DOB_COLUMN_INDEX);
+        return retrieveEntryString(TABLE_NAME, USERNAME_COLUMN_FIELD, username, DOB_COLUMN_INDEX);
     }
     
     /**
@@ -158,7 +162,7 @@ public class UserTable extends Table {
      * @param username is the username
      */
     public String retrieveAvatar(String username) {
-        return retrieveEntryString(TABLE_NAME, username, AVATAR_COLUMN_INDEX);
+        return retrieveEntryString(TABLE_NAME, USERNAME_COLUMN_FIELD, username, AVATAR_COLUMN_INDEX);
     }
 
     /**
@@ -166,14 +170,10 @@ public class UserTable extends Table {
      * @param username is user
      */
     public void deleteUser(String username) {
-        String stm = "DELETE FROM " + TABLE_NAME + " WHERE " + USERNAME_COLUMN_FIELD + "='" + username + "'";
-        try {
-            myPreparedStatement = myConnection.prepareStatement(stm);
-            myPreparedStatement.executeUpdate();
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
+        String stm = "DELETE FROM " + TABLE_NAME + " WHERE " + 
+                USERNAME_COLUMN_FIELD + EQUALS + username + APOSTROPHE;
+        executeStatement(stm); 
+
     }
     
     /**
@@ -183,15 +183,9 @@ public class UserTable extends Table {
      */
     public void updateAvatar(String user, String filepath) {
         String userid = retrieveUserId(user);
-        String stm = "UPDATE " + TABLE_NAME + " SET " + AVATAR_COLUMN_FIELD + "='" + 
-                "filepath" + "' WHERE " + USERID_COLUMN_FIELD + "='" + userid + "'";   
-        try {
-            myPreparedStatement = myConnection.prepareStatement(stm);
-            myPreparedStatement.executeUpdate();
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        } 
+        String stm = "UPDATE " + TABLE_NAME + " SET " + AVATAR_COLUMN_FIELD + EQUALS + 
+                "filepath" + "' WHERE " + USERID_COLUMN_FIELD + EQUALS + userid + APOSTROPHE;   
+        executeStatement(stm);
     }
     
     /**

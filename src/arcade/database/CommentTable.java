@@ -36,9 +36,9 @@ public class CommentTable extends Table {
      */
     public CommentTable() {
         super();
-        myConnection = this.getConnection();
-        myPreparedStatement = this.getPreparedStatement();
-        myResultSet = this.getResultSet();
+        myConnection = getConnection();
+        myPreparedStatement = getPreparedStatement();
+        myResultSet = getResultSet();
     }
     
     /**

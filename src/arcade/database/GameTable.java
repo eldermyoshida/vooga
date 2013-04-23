@@ -56,9 +56,9 @@ public class GameTable extends Table {
      */
     public GameTable() {
         super();
-        myConnection = this.getConnection();
-        myPreparedStatement = this.getPreparedStatement();
-        myResultSet = this.getResultSet();
+        myConnection = getConnection();
+        myPreparedStatement = getPreparedStatement();
+        myResultSet = getResultSet();
     }
 
     /**
@@ -85,19 +85,7 @@ public class GameTable extends Table {
      * @param gameName is the game's name
      */
     public String retrieveGameId(String gameName) {
-        String stm = "SELECT * FROM " + TABLE_NAME + " WHERE " + GAMENAME_COLUMN_FIELD + "='" + gameName + "'";
-        String gameid = "";
-        try {
-            myPreparedStatement = myConnection.prepareStatement(stm);
-            myResultSet  = myPreparedStatement.executeQuery();
-            if (myResultSet.next()) {
-                gameid = myResultSet.getString(GAMEID_COLUMN_INDEX);
-            }
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return gameid;
+        return retrieveEntryString(TABLE_NAME, GAMENAME_COLUMN_FIELD, gameName, GAMENAME_COLUMN_INDEX);
     }
     
     /**
@@ -123,7 +111,10 @@ public class GameTable extends Table {
         if (gameNameExists(gameName)) {
             return false;
         }
-        String stm = "INSERT INTO " + TABLE_NAME + "(gamename, author, genre, thumbnail, adscreen, agepermission, price, extendsgame, extendsmultiplayergame, singleplayer, multiplayer, description) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+        String stm = "INSERT INTO " + TABLE_NAME + "(gamename, author, genre, thumbnail, " +
+        		"adscreen, agepermission, price, extendsgame, " +
+        		"extendsmultiplayergame, " + "singleplayer, multiplayer, description) " +
+        				"VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
             myPreparedStatement.setString(GAMENAME_COLUMN_INDEX, gameName);
@@ -215,7 +206,7 @@ public class GameTable extends Table {
      * @param gameName is the gamename
      */
     public String getGenre(String gameName) {
-        return retrieveEntryString(TABLE_NAME, gameName, GENRE_COLUMN_INDEX);
+        return retrieveEntryString(TABLE_NAME, GAMENAME_COLUMN_FIELD, gameName, GENRE_COLUMN_INDEX);
     }
     
     /**
@@ -223,7 +214,7 @@ public class GameTable extends Table {
      * @param gameName is the gamename
      */
     public String getAuthor(String gameName) {
-        return retrieveEntryString(TABLE_NAME, gameName, AUTHOR_COLUMN_INDEX);
+        return retrieveEntryString(TABLE_NAME, GAMENAME_COLUMN_FIELD, gameName, AUTHOR_COLUMN_INDEX);
     }
     
     /**
@@ -231,7 +222,7 @@ public class GameTable extends Table {
      * @param gameName is the gamename
      */
     public String getThumbnailPath(String gameName) {
-        return retrieveEntryString(TABLE_NAME, gameName, THUMBNAIL_COLUMN_INDEX);
+        return retrieveEntryString(TABLE_NAME, GAMENAME_COLUMN_FIELD, gameName, THUMBNAIL_COLUMN_INDEX);
     }
     
     /**
@@ -239,7 +230,7 @@ public class GameTable extends Table {
      * @param gameName is the gamename
      */
     public String getAdScreenPath(String gameName) {
-        return retrieveEntryString(TABLE_NAME, gameName, ADSCREEN_COLUMN_INDEX);
+        return retrieveEntryString(TABLE_NAME, GAMENAME_COLUMN_FIELD, gameName, ADSCREEN_COLUMN_INDEX);
     }
     
     /**
@@ -247,7 +238,7 @@ public class GameTable extends Table {
      * @param gameName is the gamename
      */
     public int getAgePermission(String gameName) {
-        return retrieveEntryInt(TABLE_NAME, gameName, AUTHOR_COLUMN_INDEX);
+        return retrieveEntryInt(TABLE_NAME, GAMENAME_COLUMN_FIELD, gameName, AUTHOR_COLUMN_INDEX);
     }
     
     
@@ -264,7 +255,7 @@ public class GameTable extends Table {
      * @param gameName is the gamename
      */
     public String getExtendsGame(String gameName) {
-        return retrieveEntryString(TABLE_NAME, gameName, EXTENDSGAME_COLUMN_INDEX);
+        return retrieveEntryString(TABLE_NAME, GAMENAME_COLUMN_FIELD, gameName, EXTENDSGAME_COLUMN_INDEX);
     }
     
     /**
@@ -272,7 +263,7 @@ public class GameTable extends Table {
      * @param gameName is the gamename
      */
     public String getExtendsGameMultiplayer(String gameName) {
-        return retrieveEntryString(TABLE_NAME, gameName, EXTENDSMULTIPLAYER_COLUMN_INDEX);
+        return retrieveEntryString(TABLE_NAME, GAMENAME_COLUMN_FIELD, gameName, EXTENDSMULTIPLAYER_COLUMN_INDEX);
     }
     
     /**
@@ -280,7 +271,7 @@ public class GameTable extends Table {
      * @param gameName is the gamename
      */
     public boolean getIsSinglePlayer(String gameName) {
-        return retrieveEntryBoolean(gameName, SINGLEPLAYER_COLUMN_INDEX);
+        return retrieveEntryBoolean(TABLE_NAME, GAMENAME_COLUMN_FIELD, gameName, SINGLEPLAYER_COLUMN_INDEX);
     }
     
     /**
@@ -288,7 +279,7 @@ public class GameTable extends Table {
      * @param gameName is the gamename
      */
     public boolean getIsMultiplayer(String gameName) {
-        return retrieveEntryBoolean(gameName, MULTIPLAYER_COLUMN_INDEX);
+        return retrieveEntryBoolean(TABLE_NAME, GAMENAME_COLUMN_FIELD, gameName, MULTIPLAYER_COLUMN_INDEX);
     }
     
     
@@ -297,7 +288,7 @@ public class GameTable extends Table {
      * @param gameName is the gamename
      */
     public String getDescription(String gameName) {
-        return retrieveEntryString(TABLE_NAME, gameName, DESCRIPTION_COLUMN_INDEX);
+        return retrieveEntryString(TABLE_NAME, GAMENAME_COLUMN_FIELD, gameName, DESCRIPTION_COLUMN_INDEX);
     }
     
     /**
@@ -305,7 +296,7 @@ public class GameTable extends Table {
      * @param gameName is the gamename
      */
     public String getGameFilePath(String gameName) {
-        return retrieveEntryString(TABLE_NAME, gameName, GAMEFILEPATH_COLUMN_INDEX);
+        return retrieveEntryString(TABLE_NAME, GAMENAME_COLUMN_FIELD, gameName, GAMEFILEPATH_COLUMN_INDEX);
     }
     
     /**
@@ -313,35 +304,14 @@ public class GameTable extends Table {
      * @param gameName is the gamename
      * @param columnIndex is the index that we want the information for
      */
-    public double retrieveEntryDouble(String gameName, int COLUMN_INDEX) {
+    public double retrieveEntryDouble(String gameName, int columnIndex) {
         String stm = "SELECT * FROM " +TABLE_NAME + " WHERE " + GAMENAME_COLUMN_FIELD + "='" + gameName + "'";
         double entry = 0;
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
             myResultSet = myPreparedStatement.executeQuery();
             if (myResultSet.next()) {
-                entry = myResultSet.getDouble(COLUMN_INDEX);
-            }
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return entry;
-    }
-    
-    /**
-     * Given a gamename and a column_index, returns that entire row entry
-     * @param gameName is the gamename
-     * @param columnIndex is the index that we want the information for
-     */
-    public boolean retrieveEntryBoolean(String gameName, int columnIndex) {
-        String stm = "SELECT * FROM " + TABLE_NAME + " WHERE " + GAMENAME_COLUMN_FIELD + "='" + gameName + "'";
-        boolean entry = false;
-        try {
-            myPreparedStatement = myConnection.prepareStatement(stm);
-            myResultSet = myPreparedStatement.executeQuery();
-            if (myResultSet.next()) {
-                entry = myResultSet.getBoolean(columnIndex);
+                entry = myResultSet.getDouble(columnIndex);
             }
         }
         catch (SQLException e) {

@@ -63,14 +63,24 @@ public class ScoreTable extends Table {
         }
     }
     
-    public List<Score> getScoresForGame(String gameid, String userid, String gameName, String userName) {
-        String stm = "SELECT gameid FROM scores WHERE gameid='" + gameid + "' AND userid='" +userid +"'";
+    /**
+     * Gets scores for a given game
+     * @param gameid is game id
+     * @param userid is user id
+     * @param gameName is name of game
+     * @param userName is user
+     */
+    public List<Score> getScoresForGame(String gameid, String userid, 
+                                        String gameName, String userName) {
+        String stm = "SELECT gameid FROM scores WHERE gameid='" + 
+                    gameid + "' AND userid='" + userid + "'";
         List<Score> scores = new ArrayList<Score>();
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
             myResultSet  = myPreparedStatement.executeQuery();
             while (myResultSet.next()) {
-                Score score = new Score(gameName, userName, myResultSet.getInt(HIGHSCORE_COLUMN_INDEX));
+                Score score = new Score(gameName, userName, 
+                                        myResultSet.getInt(HIGHSCORE_COLUMN_INDEX));
                 scores.add(score);
             }
             return scores;
@@ -89,7 +99,8 @@ public class ScoreTable extends Table {
         try {
             while (myResultSet.next()) {
                 System.out.print(myResultSet.getString(GAMEID_COLUMN_INDEX) + TABLE_SEPARATOR);
-                System.out.print(myResultSet.getString(USERID_COLUMN_INDEX) + TABLE_SEPARATOR);                
+                System.out.print(myResultSet.getString(USERID_COLUMN_INDEX) + 
+                                 TABLE_SEPARATOR);                
                 System.out.print(myResultSet.getInt(HIGHSCORE_COLUMN_INDEX) + TABLE_SEPARATOR);
                 System.out.println(myResultSet.getString(SCOREID_COLUMN_INDEX) + TABLE_SEPARATOR);
             }
