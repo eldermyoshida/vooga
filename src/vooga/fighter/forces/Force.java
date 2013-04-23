@@ -2,7 +2,6 @@ package vooga.fighter.forces;
 
 import java.lang.reflect.Field;
 import java.util.ResourceBundle;
-import util.Velocity;
 import vooga.fighter.model.objects.CharacterObject;
 import vooga.fighter.util.Physics;
 

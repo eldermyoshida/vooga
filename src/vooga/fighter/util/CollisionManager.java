@@ -23,6 +23,12 @@ import vooga.fighter.model.objects.MouseObject;
  */
 public class CollisionManager {
 	
+	CollisionDetector myCollisionDetector;
+	
+	public CollisionManager(){
+		myCollisionDetector = new CollisionDetector();
+	}
+	
     /**
      * Checks for collisions between the game objects.
      */
@@ -34,12 +40,13 @@ public class CollisionManager {
                 if (o1 instanceof MapObject || o2 instanceof MapObject) {
                     continue;
                 }
-                if (o1.checkCollision(o2)) {
-                    handleCollisions(o1, o2);
+                if (myCollisionDetector.quickDetectCollision(o1.getCurrentState().getCurrentRectangle(), 
+                    		o2.getCurrentState().getCurrentRectangle()))
+                	handleCollisions(o1,o2);
+                
                 }
             }
         }
-    }
 
 //    /**
 //     * Applies collisions between collided game objects. Collisions are handled
@@ -139,13 +146,21 @@ public class CollisionManager {
      */
     public void collide(CharacterObject o1, EnvironmentObject o2) {
     	collide(o2, o1);
+    	if(myCollisionDetector.hitBottom(o1.getCurrentState().getCurrentRectangle(),
+    			o2.getCurrentState().getCurrentRectangle())){
+    		o1.jump();
+    	}
     }
     
     /**
      * Handles collisions between an environment object and a character object.
      */
     public void collide(EnvironmentObject o1, CharacterObject o2) {
-    	o2.moveBack(0);// TODO: hardcoded meaningless value should change this later  
+    	if(myCollisionDetector.hitBottom(o2.getCurrentState().getCurrentRectangle(),
+    			o1.getCurrentState().getCurrentRectangle())){
+    		o2.jump();
+    		;
+    	}
     }
     
     /**
