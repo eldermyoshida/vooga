@@ -42,8 +42,6 @@ public class GameInfo {
     public GameInfo (String gamename, String genre, String language, Model model) throws MissingResourceException {
         String filepath = FILEPATH + genre + "." + gamename + RESOURCE_DIR_NAME + language;
         myModel = model;
-        // String filepath = FILEPATH + gamename + RESOURCE_DIR_NAME + language;
-        
         myResourceBundle = ResourceBundle.getBundle(filepath);
         
     }
