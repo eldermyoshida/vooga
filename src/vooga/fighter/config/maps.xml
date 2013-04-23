@@ -16,4 +16,6 @@
         </state>
         <environmentObject objectName="platform" xCoord="300" yCoord="300" />
     </map>
+    <map mapName="NewMap" xSize="1024" ySize="871">
+    </map>
 </maps>

@@ -249,6 +249,14 @@ public class MapEditorMode extends Mode {
     public void setSound(String filepath) {
     	mySoundPath = filepath;
     }
+    
+    /**
+     * sets the name of the map
+     * @param name
+     */
+    public void setName(String name) {
+    	myMap.setName(name);
+    }
 
     /**
      * gets this mapEditorMode's map
