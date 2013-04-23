@@ -18,6 +18,7 @@ public class GameElementDefinition {
     protected Pixmap myImage;
     protected Location myCenter;
     protected Dimension mySize;
+    protected String myType;
 
     public GameElementDefinition () {
 
@@ -33,6 +34,10 @@ public class GameElementDefinition {
 
     public Dimension getSize () {
         return mySize;
+    }
+    
+    public String getType (){
+    	return myType;
     }
 
     /**
