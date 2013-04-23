@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
+import javax.swing.SwingConstants;
 import util.ImageHelper;
 import arcade.controller.Controller;
 import arcade.view.modes.GameCenterPanel;
@@ -52,7 +53,7 @@ public class ButtonPanel extends JPanel {
         myResources = resources;
         setBackground(Color.lightGray);
 
-        myToolbar = new JToolBar(JToolBar.VERTICAL);
+        myToolbar = new JToolBar(SwingConstants.VERTICAL);
         myToolbar.setOpaque(false);
         myToolbar.setFloatable(false);
         fillToolbar();

@@ -45,7 +45,7 @@ public class MainView extends JFrame {
         setBounds(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
         setLocationRelativeTo(null);
         setVisible(true);
-    }    
+    }
 
     /**
      * Makes the panel where the mode will be showing, and initializes it
@@ -59,6 +59,7 @@ public class MainView extends JFrame {
 
     /**
      * Changes the mode to the provided panel.
+     * 
      * @param panel
      */
     public void changeViewPanel (JPanel panel) {
@@ -74,7 +75,7 @@ public class MainView extends JFrame {
      * 
      */
     public void showEndGameView () {
-        
+
     }
 
 }

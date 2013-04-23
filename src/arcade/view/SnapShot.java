@@ -34,8 +34,9 @@ public class SnapShot extends JPanel {
     private ImageIcon[] myRatingIcons;
     private Controller myController;
 
-    /**|
-     * Creates a SnapShot with a GameInfo for the game it is displaying, a 
+    /**
+     * |
+     * Creates a SnapShot with a GameInfo for the game it is displaying, a
      * ResourceBundle, and a Controller
      * 
      * @param info
@@ -54,7 +55,7 @@ public class SnapShot extends JPanel {
         add(createTitle());
         add(createRating());
 
-        this.addMouseListener(createListener());
+        addMouseListener(createListener());
     }
 
     /**
@@ -62,7 +63,7 @@ public class SnapShot extends JPanel {
      * 
      * @return
      */
-    private ImageIcon[] initializeRatingIcons() {
+    private ImageIcon[] initializeRatingIcons () {
         ImageIcon[] icons = new ImageIcon[6];
         for (int i = 0; i <= 5; i++) {
             icons[i] = new ImageIcon(IMAGES_LOCATION + i + IMAGES_NAME);
@@ -77,7 +78,7 @@ public class SnapShot extends JPanel {
      */
     private Component createThumbnail () {
         ImageIcon icon = myGameInfo.getThumbnail();
-        Image scaledImage = ImageHelper.getScaledImage(icon, THUMBNAIL_SIZE); 
+        Image scaledImage = ImageHelper.getScaledImage(icon, THUMBNAIL_SIZE);
         return new JLabel(new ImageIcon(scaledImage));
     }
 
@@ -90,7 +91,7 @@ public class SnapShot extends JPanel {
         JLabel label = new JLabel("<html><b><font size = 4>" + myGameInfo.getName());
         label.setHorizontalAlignment(SwingConstants.CENTER);
         return label;
-        
+
     }
 
     /**

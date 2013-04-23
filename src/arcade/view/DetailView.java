@@ -1,24 +1,20 @@
 package arcade.view;
 
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.WindowConstants;
 import util.ImageHelper;
 import arcade.controller.Controller;
 import arcade.games.GameInfo;
@@ -68,7 +64,7 @@ public class DetailView extends JFrame {
         myResources = resources;
         setLayout(null);
         setTitle(myGameInfo.getName());
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setBounds(100, 100, WINDOW_WIDTH, WINDOW_HEIGHT);
 
         myContentPanel = (JPanel) getContentPane();
@@ -145,7 +141,7 @@ public class DetailView extends JFrame {
         myContentPanel.add(myComments);
         myContentPanel.add(commentPane);
 
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setVisible(true);
     }
 
@@ -165,7 +161,6 @@ public class DetailView extends JFrame {
         }
         myCommentsContent.setText(sb.toString());
     }
-    
 
     // public static void main(String[] args){
     // GameInfo in = new GameInfo("example","English");

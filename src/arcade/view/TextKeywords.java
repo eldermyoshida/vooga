@@ -58,6 +58,5 @@ public interface TextKeywords {
     static final String MY_SCORE = "my_score_was";
     static final String IN = "in";
     static final String VOOGA_HASHTAG = "vooga_hashtag";
-    
 
 }

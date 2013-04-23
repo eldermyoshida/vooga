@@ -119,19 +119,17 @@ public class LoginView extends Account {
     }
 
     /**
-     * Sends the inputs to the model to try logging in.
+     * Sends the inputs to the controller to try logging in.
      */
     private void login () {
         String usernameInput = getUsername();
         String passwordInput = getPassword();
         clearUsername();
         clearPassword();
-        try
-        {
+        try {
             getController().authenticate(usernameInput, passwordInput);
         }
-        catch (LoginErrorException e)
-        {
+        catch (LoginErrorException e) {
             sendMessage(getResources().getString(e.getLocalizedMessage()));
         }
     }

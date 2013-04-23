@@ -7,24 +7,24 @@ import java.util.ResourceBundle;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.Scrollable;
-
 import arcade.controller.Controller;
 import arcade.games.GameInfo;
 
+
 /**
- * AllSnapShots is a panel containing many individual SnapShots.  AllSnapShots
- * is Scrollable so when more SnapShots are available than fit on the screen, 
- * the rest can be viewed by scrolling down if this class is added to a 
+ * AllSnapShots is a panel containing many individual SnapShots. AllSnapShots
+ * is Scrollable so when more SnapShots are available than fit on the screen,
+ * the rest can be viewed by scrolling down if this class is added to a
  * JScrollPane
  * 
  * @author Ellango
- *
+ * 
  */
 @SuppressWarnings("serial")
 public class AllSnapShots extends JPanel implements Scrollable {
     private static final int SNAPSHOTS_PER_ROW = 3;
     private static final int SCROLL_AMOUNT = 30;
-    
+
     private Controller myController;
     private ResourceBundle myResources;
     private Dimension mySize;
@@ -42,15 +42,15 @@ public class AllSnapShots extends JPanel implements Scrollable {
         myController = controller;
         myResources = resources;
         mySize = size;
-        
+
         setBackground(Color.WHITE);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        
+
         addSnapShots();
     }
-    
+
     /**
-     * Adds all of the SnapShots to this panel.  Adds from left to right until
+     * Adds all of the SnapShots to this panel. Adds from left to right until
      * SNAPSHOTS_PER_ROW are filled, and then goes to the next row.
      */
     private void addSnapShots () {
@@ -66,29 +66,31 @@ public class AllSnapShots extends JPanel implements Scrollable {
             counter++;
         }
         int fillersNeeded = SNAPSHOTS_PER_ROW - (counter % SNAPSHOTS_PER_ROW);
-        for (int i = 0; i < fillersNeeded; i++){
+        for (int i = 0; i < fillersNeeded; i++) {
             row.add(createFiller());
         }
     }
-    
+
     /**
-     * Helper called by addSnapShots.  Creates a new row when the previous row
+     * Helper called by addSnapShots. Creates a new row when the previous row
      * is filled.
+     * 
      * @return
      */
-    private JPanel createNewRow() {
+    private JPanel createNewRow () {
         JPanel row = new JPanel();
         row.setBackground(Color.WHITE);
         return row;
     }
-    
+
     /**
-     * Helper called by addSnapShots.  After all SnapShots have been added to this
+     * Helper called by addSnapShots. After all SnapShots have been added to this
      * panel, pad the rest of the row with filler so that all SnapShots arranged
      * nicely in a grid.
+     * 
      * @return
      */
-    private JPanel createFiller() {
+    private JPanel createFiller () {
         JPanel filler = new JPanel();
         filler.setBackground(Color.WHITE);
         filler.setPreferredSize(new Dimension(SnapShot.THUMBNAIL_SIZE, SnapShot.THUMBNAIL_SIZE));
