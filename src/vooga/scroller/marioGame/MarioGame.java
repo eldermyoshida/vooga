@@ -1,12 +1,7 @@
 
 package vooga.scroller.marioGame;
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import arcade.games.ArcadeInteraction;
-import java.awt.GraphicsConfiguration;
-import javax.swing.JFrame;
-import arcade.games.ArcadeInteraction;
-import arcade.games.Game;
 import arcade.games.GameData;
 import arcade.games.UserGameData;
 import util.Location;

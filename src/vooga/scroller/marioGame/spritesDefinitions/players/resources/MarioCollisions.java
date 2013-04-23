@@ -1,4 +1,4 @@
-package vooga.scroller.marioGame.spritesDefinitions.players;
+package vooga.scroller.marioGame.spritesDefinitions.players.resources;
 
 import util.Vector;
 import vooga.scroller.collision_manager.CollisionDirection;

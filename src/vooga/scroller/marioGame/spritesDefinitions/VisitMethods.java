@@ -2,7 +2,7 @@ package vooga.scroller.marioGame.spritesDefinitions;
 
 
 import vooga.scroller.collision_manager.CollisionDirection;
-import vooga.scroller.marioGame.spritesDefinitions.players.MarioCollisions;
+import vooga.scroller.marioGame.spritesDefinitions.players.resources.MarioCollisions;
 import vooga.scroller.sprites.interfaces.ICollectible;
 import vooga.scroller.sprites.interfaces.IEnemy;
 import vooga.scroller.sprites.interfaces.ILevelPortal;
@@ -12,11 +12,6 @@ import vooga.scroller.util.Direction;
 
 public class VisitMethods {
 
-    /**
-     * Begin the long slew of visit() methods... 
-     * Thinking about ways to refactor/repackage this.
-     * 
-     */
        
     private CollisionDirection direction = new CollisionDirection();
     private MarioCollisions collisions = new MarioCollisions();

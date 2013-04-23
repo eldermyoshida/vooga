@@ -2,18 +2,32 @@ package vooga.scroller.sprites.movement;
 
 import util.Vector;
 import vooga.scroller.sprites.superclasses.NonStaticEntity;
-import vooga.scroller.sprites.superclasses.Player;
 
+/**
+ * This is a type of Movement that moves a NonStaticEntity up to down. All 
+ * you need to do is specify the top bounds, bottom bounds, and the speed. A canonical 
+ * example that uses this kind of movement would be a platform that moves from up to 
+ * down. 
+ * <br>
+ * <br>
+ * However, if you do decide to use this kind of movement, you must instantiate your 
+ * sprite within the top and bottom bounds. 
+ * 
+ * @author Jay Wang
+ *
+ */
 public class UpAndDown extends Movement {
 
     private NonStaticEntity myEntity;
+    private MovementHelper helper;
+
     
     public UpAndDown (NonStaticEntity nse) {
-        super(nse);
+        super();
         myEntity = nse;
+        helper = new MovementHelper(myEntity);
     }
 
-    @Override
     /**
      * This method will only work if the Y coordinate of moving platform is 
      * instantiated somewhere between TOP and BOTTOM. You can't create a moving platform 
@@ -26,22 +40,7 @@ public class UpAndDown extends Movement {
      * @return a vector in the UP or DOWN direction with given SPEED
      */
     public Vector execute (int top, int bottom, int speed) {
-        return handlePlatformMovements(myEntity.getTop(), myEntity.getBottom(), top, bottom, speed);
+        return helper.handlePlatformMovements(myEntity.getTop(), myEntity.getBottom(), top, bottom, speed);
     }
-
-    @Override
-    public Vector execute () {
-        return null;
-    }
-
-    @Override
-    public Vector execute (int speed, int radius, Player myPlayer) {
-        return null;
-    }
-
-
-
-    
-    
 
 }

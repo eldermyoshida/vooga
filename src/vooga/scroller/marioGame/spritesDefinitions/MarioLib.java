@@ -72,7 +72,7 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
 
         @Override
         public Vector getMovement (Movement movement) {
-            return movement.execute(450, 1000000, getPlayer());
+            return movement.execute(450, 1000000, getPlayerLocation());
         }
     }
 
@@ -96,7 +96,7 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
 
         @Override
         public Vector getMovement (Movement movement) {
-            return movement.execute(450, 1000000, getPlayer());
+            return movement.execute(450, 1000000, getPlayerLocation());
         }
 
     }
