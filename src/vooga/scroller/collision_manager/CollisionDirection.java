@@ -5,11 +5,14 @@ import vooga.scroller.util.Direction;
 
 public class CollisionDirection {
     
-    
-    private static final int COLLISION_GRANULARITY = 15;
+   
+    private static final int COLLISION_GRANULARITY = 15; //This is how much "wiggle" room you want when deciding what exactly is a collision 
 
     /**
-     * Helper Methods for getting Collision Direction
+     * This method takes in two sprites and returns the collision direction of 
+     * sprite1 and sprite2. For example, if sprite1 collided with sprite2 from 
+     * the top, collisionDirection(sprite1, sprite2) would return Direction.TOP. 
+     * 
      * @param Sprite sprite1
      * @param Sprite sprite2
      * @return one of four Direction enums

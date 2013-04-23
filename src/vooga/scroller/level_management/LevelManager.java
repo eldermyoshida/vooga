@@ -2,13 +2,11 @@ package vooga.scroller.level_management;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import util.Location;
 import util.input.Input;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.superclasses.Player;
+import vooga.scroller.util.IGameComponent;
 import vooga.scroller.view.GameView;
 import vooga.scroller.level_editor.Level;
 
@@ -23,8 +21,8 @@ public class LevelManager {
     private static final String DEFAULT_INPUT_CONTROLS = "vooga/scroller/resources/controls/SplashMapping";
     
     private Input myInput;
-    private Level myInitialLevel;
-    private Level myCurrentLevel;
+    private IGameComponent myInitialLevel;
+    private IGameComponent myCurrentLevel;
     private GameView myView;
     
         
@@ -48,11 +46,11 @@ public class LevelManager {
     public LevelManager(ScrollingManager sm, GameView gameView, Level ...levels) {   
         myView = gameView;
         LevelFactory lf = new LevelFactory(this, sm, gameView);
-        List<Level> theLevels = new ArrayList<Level>();
+        List<IGameComponent> gameComponents = new ArrayList<IGameComponent>();
         for (int i=0; i<levels.length; i++) {
-            theLevels.add(levels[i]);
+            gameComponents.add(levels[i]);
         }
-        myInitialLevel = lf.linkLevels(theLevels);        
+        myInitialLevel = lf.linkLevels(gameComponents);        
         //myCurrentLevel = myLevels.get(DEFAULT_START_LEVEL_ID); 
         myInput = new Input(DEFAULT_INPUT_CONTROLS, gameView);
         setCurrentLevel(myInitialLevel);
@@ -64,7 +62,7 @@ public class LevelManager {
      * 
      * @return The current level
      */
-    public Level getCurrentLevel() {
+    public IGameComponent getCurrentLevel() {
         return myCurrentLevel;
     }
     
@@ -73,7 +71,7 @@ public class LevelManager {
      * 
      * @param id of the level to become the current level.
      */
-    public void setCurrentLevel(Level level) {
+    public void setCurrentLevel(IGameComponent level) {
         if(myCurrentLevel != null){
             myCurrentLevel.removeInputListeners(myInput);
             Player p = myCurrentLevel.getPlayer();
@@ -89,7 +87,7 @@ public class LevelManager {
     /**
      * Map a door to a starting point. Bind door to this level manager.
      */
-    public void put(IDoor door, Level nextLevel) {
+    public void put(IDoor door, IGameComponent nextLevel) {
         door.setNextLevel(nextLevel);
         door.setManager(this);
     }

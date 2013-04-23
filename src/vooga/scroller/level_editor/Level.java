@@ -8,13 +8,18 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import util.Location;
 import util.input.Input;
+import util.input.InputClassTarget;
+import util.input.InputMethodTarget;
+import vooga.scroller.util.IGameComponent;
 import vooga.scroller.util.Renderable;
 import vooga.scroller.util.Sprite;
 import vooga.scroller.level_editor.controllerSuite.LEGrid;
 import vooga.scroller.level_editor.model.SpriteBox;
 import vooga.scroller.level_management.IDoor;
+import vooga.scroller.level_management.LevelManager;
 import vooga.scroller.level_management.LevelPortal;
 import vooga.scroller.level_management.SpriteManager;
+import vooga.scroller.marioGame.spritesDefinitions.players.Mario;
 import vooga.scroller.model.Model;
 import vooga.scroller.scrollingmanager.OmniScrollingManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
@@ -23,11 +28,13 @@ import vooga.scroller.util.PlatformerConstants;
 import vooga.scroller.util.mvc.IView;
 import vooga.scroller.view.GameView;
 
-public class Level implements Renderable<GameView> {
+@InputClassTarget
+public class Level implements Renderable<GameView>, IGameComponent{
 
     private Dimension mySize;
     private Dimension frameOfReferenceSize;
     private SpriteManager mySpriteManager;
+    private LevelStateManager myStateManager;
 //    private GameView myView;
     private ScrollingManager myScrollingManager;
     private Image myBackground;
@@ -64,6 +71,7 @@ public class Level implements Renderable<GameView> {
         // MIGHT WANT TO INITIALIZE THIS WITH A PLAYER AS WELL
         this();
         mySpriteManager = new SpriteManager(this);
+        myStateManager = new LevelStateManager(mySpriteManager);
         myScrollingManager = sm;
         myID = id;
     }
@@ -74,7 +82,9 @@ public class Level implements Renderable<GameView> {
         for (SpriteBox box : grid.getBoxes()) {
             addSprite(box.getSprite());
         }
-        setBackground(grid.getBackground());
+        if(grid.getBackground()!=null) {
+            setBackground(grid.getBackground()); 
+        }
     }
 
     public void setSize (Dimension size) {
@@ -127,12 +137,14 @@ public class Level implements Renderable<GameView> {
     }
 
     public void update (double elapsedTime, Dimension bounds, GameView gameView) {
-        mySpriteManager.updateSprites(elapsedTime, bounds, gameView);
+        myStateManager.update(elapsedTime, bounds, gameView);
+        //mySpriteManager.updateSprites(elapsedTime, bounds, gameView);
     }
 
     @Override
     public void paint (Graphics2D pen) {
-        mySpriteManager.paint(pen);
+        myStateManager.paint(pen);
+        //mySpriteManager.paint(pen);
     }
 
     public double getRightBoundary (Dimension frame) {
@@ -193,6 +205,7 @@ public class Level implements Renderable<GameView> {
         // TODO: sprite manager?
         myInput.replaceMappingResourcePath(getPlayer().getInputFilePath());
         myInput.addListenerTo(getPlayer());
+        myInput.addListenerTo(this);
 
     }
 
@@ -204,6 +217,7 @@ public class Level implements Renderable<GameView> {
     public void removeInputListeners (Input myInput) {
         // TODO: sprite manager?
         myInput.removeListener(getPlayer());
+        myInput.removeListener(this);
     }
 
     /**
@@ -234,10 +248,31 @@ public class Level implements Renderable<GameView> {
         ScrollingManager sm = new OmniScrollingManager();
         GameView display = new GameView(PlatformerConstants.DEFAULT_WINDOW_SIZE, sm);
         sm.initView(display);
-        Model m = new Model(display, sm, this);
+        Player sample = new Mario(new Location(), new Dimension(32, 32), display, sm);
+        Model m = new Model(display, sm, sample, this);
         m.addPlayerToLevel();
         display.setModel(m);
         return display;
     }
+
+    @Override
+    public void addManager (LevelManager lm) {
+        // TODO Auto-generated method stub
+        
+    }
+    
+    /**
+     * Pauses the current game.
+     */
+    @InputMethodTarget(name = "pause")
+    public void pauseGame() {
+        if(myStateManager.getCurrentStateID() == LevelStateManager.PAUSED_ID){
+            myStateManager.changeState(LevelStateManager.DEFAULT_ID);
+        }
+        else{
+            myStateManager.changeState(LevelStateManager.PAUSED_ID);
+        }
+    }
+    
 
 }

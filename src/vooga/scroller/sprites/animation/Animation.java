@@ -95,4 +95,10 @@ public class Animation implements ISpriteView {
     public void addAnimationState(AnimationState animation) {
         myAnimations.add(animation);
     }
+
+    @Override
+    public Image getImage () {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

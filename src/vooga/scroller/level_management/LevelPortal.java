@@ -4,6 +4,9 @@ import java.awt.Dimension;
 import util.Location;
 import vooga.scroller.level_editor.Level;
 import vooga.scroller.sprites.superclasses.Player;
+import vooga.scroller.sprites.superclasses.StaticEntity;
+import vooga.scroller.util.IGameComponent;
+import vooga.scroller.util.ISpriteView;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.Sprite;
 import vooga.scroller.sprites.interfaces.ILevelPortal;;
@@ -20,7 +23,7 @@ public class LevelPortal extends Sprite implements ILevelPortal, IDoor {
     private static final Dimension DEFAULT_SIZE = new Dimension(50, 50);
     private static final Location DEFAULT_LOCATION = new Location (0,0);
     private static Pixmap DEFAULT_IMG = new Pixmap("portal.png");
-    private Level myNextLevel;
+    private IGameComponent myNextLevel;
     private LevelManager myLevelManager;
     
     public LevelPortal () {
@@ -42,12 +45,12 @@ public class LevelPortal extends Sprite implements ILevelPortal, IDoor {
     }
 
     @Override
-    public void setNextLevel (Level level) {
+    public void setNextLevel (IGameComponent level) {
         myNextLevel = level;
     }
 
     @Override
-    public Level getNextLevel () {
+    public IGameComponent getNextLevel () {
         return myNextLevel;
     }
 
@@ -55,5 +58,6 @@ public class LevelPortal extends Sprite implements ILevelPortal, IDoor {
     public void setManager (LevelManager lm) {
         myLevelManager = lm;
     }
+
 
 }

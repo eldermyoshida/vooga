@@ -15,5 +15,7 @@ public interface ISpriteView extends IMotionPainting {
     public void setDefaultView(ISpriteView ispriteview);
 
     void paint (Graphics2D pen, Point2D center, Dimension size, double angle);
+    
+    public Image getImage();
 
 }

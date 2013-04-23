@@ -8,8 +8,10 @@ import util.Location;
 import vooga.scroller.level_editor.Level;
 import vooga.scroller.level_editor.controllerSuite.LEGrid;
 import vooga.scroller.level_editor.model.LevelParser;
-import vooga.scroller.marioGame.MarioLib;
+import vooga.scroller.level_management.splash_page.SplashPage;
+import vooga.scroller.marioGame.spritesDefinitions.MarioLib;
 import vooga.scroller.scrollingmanager.ScrollingManager;
+import vooga.scroller.util.IGameComponent;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.view.GameView;
 
@@ -46,8 +48,8 @@ public class LevelFactory {
      * @param view is the view used for level information.
      * @return a the first of the List of all levels that will be played in the game.
      */
-    public List<Level> generateLevels () {
-        List<Level> levels = new ArrayList<Level>();
+    public List<IGameComponent> generateLevels () {
+        List<IGameComponent> gameComponents = new ArrayList<IGameComponent>();
         // TODO: this will ideally read in levels from file and create instances of each level
         // This works for demo
         Level level1 = buildLevel(1, loadGridFromFile("example.level"));
@@ -55,16 +57,17 @@ public class LevelFactory {
         Level level2 = new Level(2, mySM);
         hardcodeLevel2(level2);
         hardCodeCompleteL2(level2);
-        levels.add(level1);
-        levels.add(level2);
-        return levels;
+        gameComponents.add(level1);
+        gameComponents.add(level2);
+        return gameComponents;
     }
 
-    protected Level linkLevels (List<Level> levels) {
-        SplashPage splash = new SplashPage(new Pixmap("MARIO SPLASH.png"), 0, myView, mySM);
+    protected IGameComponent linkLevels (List<IGameComponent> levels) {
+        SplashPage splash = new SplashPage(MarioLib.makePixmap("MARIO SPLASH.png"), 0, myView, mySM);
         splash.addDoor(new LevelPortal());
         splash.addManager(myLevelManager);
         myLevelManager.put(splash.getDoor(), levels.get(0));
+
         for (int i = 0; i < levels.size() - 1; i++) {
             myLevelManager.put(levels.get(i).getDoor(), levels.get(i + 1));
         }
@@ -98,7 +101,7 @@ public class LevelFactory {
     private LEGrid loadGridFromFile (String filename) {
         // TODO: Factor this out. make editable.
         
-        File f = (new File(DEFAULT_LEVEL_FOLDER + filename)).getAbsoluteFile();
+        File f = (new File(filename)).getAbsoluteFile();
         LEGrid result = myLevelReader.makeGridFromFile(f);
         return result;
     }
@@ -182,17 +185,17 @@ public class LevelFactory {
         return myCurrLevel;
     }
 
-    public List<Level> generateLevels (String[] levelFileNames) {
-        List<Level> levels = new ArrayList<Level>();
+    public List<IGameComponent> generateLevels (String[] levelFileNames) {
+        List<IGameComponent> gameComponents = new ArrayList<IGameComponent>();
 
         // TODO: this will ideally read in levels from file and create instances of each level
         // This works for demo
         for (int i=0; i<levelFileNames.length; i++) {
              Level curr = buildLevel(i+1, loadGridFromFile(levelFileNames[i]));
-             levels.add(curr);
+             gameComponents.add(curr);
         }
 
-        return levels;
+        return gameComponents;
     }
 
 }
