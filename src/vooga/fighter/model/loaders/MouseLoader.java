@@ -17,7 +17,7 @@ public class MouseLoader extends ObjectLoader {
 
 	MouseObject myMouse;
 	public MouseLoader(MouseObject Mouse) {
-		super(MOUSE_PATH);
+		super("MousePath");
 		myMouse = Mouse;
 		load();
 	}

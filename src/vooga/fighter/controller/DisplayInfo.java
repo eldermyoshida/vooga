@@ -24,12 +24,14 @@ public class DisplayInfo extends Observable implements ViewDataSource{
     private List<Paintable> myGamePaintables;
     private List<Paintable> myHUDPaintables;
     private List<Dimension> myImageSizes;
+    private List<List<Integer>> myImageEffects;
 
     public DisplayInfo() {
         myLocations = new ArrayList<Location>();
         myGamePaintables = new ArrayList<Paintable>();
         myHUDPaintables = new ArrayList<Paintable>();
         myImageSizes = new ArrayList<Dimension>();
+        myImageEffects = new ArrayList<List<Integer>>();
     }
 	
     /**
@@ -139,6 +141,21 @@ public class DisplayInfo extends Observable implements ViewDataSource{
     public void clearHUD () {
         myHUDPaintables.clear();
     }
+    
+    public void addImageEffect(List<Integer> effects) {
+        myImageEffects.add(effects);
+    }
+
+    public List<List<Integer>> getImageEffects(){
+    	return myImageEffects;
+    }
+    
+	public List<Integer> getImageEffects(int index) {
+		if (index >= myGamePaintables.size()) {
+			return new ArrayList<Integer>();
+		}
+		return myImageEffects.get(index);
+	}
 
    
 

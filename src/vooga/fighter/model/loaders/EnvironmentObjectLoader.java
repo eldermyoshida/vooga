@@ -28,7 +28,7 @@ public class EnvironmentObjectLoader extends ObjectLoader {
 	 * all environment objects.
 	 */
 	public EnvironmentObjectLoader () {
-		super(ENVIRONMENT_OBJECT_PATH);
+		super("EnvironmentPath");
 	}
 	
 	/**
@@ -36,7 +36,7 @@ public class EnvironmentObjectLoader extends ObjectLoader {
 	 * loader will modify.
 	 */
 	public EnvironmentObjectLoader (String enviroObjectName, EnvironmentObject enviroObject) {
-		super(ENVIRONMENT_OBJECT_PATH);
+		super("EnvironmentPath");
 		myEnvironmentObject = enviroObject;
 		load(enviroObjectName); 
 	}

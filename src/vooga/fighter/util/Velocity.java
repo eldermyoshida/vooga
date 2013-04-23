@@ -1,7 +1,6 @@
 package vooga.fighter.util;
 
 
-
 import java.awt.geom.Point2D;
 
 
@@ -13,7 +12,7 @@ import java.awt.geom.Point2D;
  * @author Robert C. Duvall
  * @author Wayne You
  */
-public class Vector implements Cloneable {
+public class Velocity implements Cloneable {
     // angle in degrees
     private double myAngle;
     // "speed" in pixels per second
@@ -26,11 +25,11 @@ public class Vector implements Cloneable {
     /**
      * Create a zero vector, i.e., with no magnitude.
      */
-    public Vector () {
+    public Velocity () {
         this(0, 0);
     }
     
-    public Vector (double x, double y, double angle, double magnitude) {
+    public Velocity (double x, double y, double angle, double magnitude) {
         this(0, 0);
         myX = x;
         myY = y;
@@ -39,7 +38,7 @@ public class Vector implements Cloneable {
     /**
      * Create a vector in the given direction with the given magnitude.
      */
-    public Vector (double angle, double magnitude) {
+    public Velocity (double angle, double magnitude) {
         setDirection(angle);
         setMagnitude(magnitude);
     }
@@ -48,14 +47,14 @@ public class Vector implements Cloneable {
      * Create a vector whose direction and magnitude are determined by
      * direction and distance between the two given points.
      */
-    public Vector (Point2D source, Point2D target) {
+    public Velocity (Point2D source, Point2D target) {
         this(angleBetween(target, source), distanceBetween(target, source));
     }
 
     /**
      * Create a vector that is identical to the given other vector.
      */
-    public Vector (Vector other) {
+    public Velocity (Velocity other) {
         this(other.getX(), other.getY(), other.getDirection(), other.getMagnitude());
     }
 
@@ -80,7 +79,7 @@ public class Vector implements Cloneable {
      * More formally, returns the magnitude of this vector projected onto the
      * given other vector.
      */
-    public double getRelativeMagnitude (Vector other) {
+    public double getRelativeMagnitude (Velocity other) {
         return -getMagnitude() * Math.cos(Math.toRadians(getAngleBetween(other)));
     }
 
@@ -116,7 +115,7 @@ public class Vector implements Cloneable {
     /**
      * Returns the angle between this vector and the given other vector.
      */
-    public double getAngleBetween (Vector other) {
+    public double getAngleBetween (Velocity other) {
         return getDirection() - other.getDirection();
     }
     
@@ -175,7 +174,7 @@ public class Vector implements Cloneable {
     /**
      * Adds the given vector to this vector.
      */
-    public void sum (Vector other) {
+    public void sum (Velocity other) {
         // double a1 = getAngle();
         // double a2 = other.getAngle();
         // double m1 = getMagnitude();
@@ -196,9 +195,9 @@ public class Vector implements Cloneable {
     /**
      * Subtracts the given vector from this vector.
      */
-    public void difference (Vector other) {
+    public void difference (Velocity other) {
         // avoid changing other vector
-        Vector v = new Vector(other);
+        Velocity v = new Velocity(other);
         v.negate();
         sum(v);
     }
@@ -214,8 +213,8 @@ public class Vector implements Cloneable {
     /**
      * Returns the average of this vector with the given other vector.
      */
-    public Vector average (Vector other) {
-        return new Vector((getDirection() + other.getDirection()) / 2.0,
+    public Velocity average (Velocity other) {
+        return new Velocity((getDirection() + other.getDirection()) / 2.0,
                           (getMagnitude() + other.getMagnitude()) / 2.0);
     }
 
@@ -226,7 +225,7 @@ public class Vector implements Cloneable {
     @Override
     public boolean equals (Object vector) {
         try {
-            Vector other = (Vector) vector;
+            Velocity other = (Velocity) vector;
             return (fuzzyEquals(getMagnitude(), other.getMagnitude()) && 
                     fuzzyEquals(getDirection(), other.getDirection()));
         }
@@ -293,7 +292,7 @@ public class Vector implements Cloneable {
     }
     
     @Override
-    public Vector clone () {
-        return new Vector(this);
+    public Velocity clone () {
+        return new Velocity(this);
     }
 }

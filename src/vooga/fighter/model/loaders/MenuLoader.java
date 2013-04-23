@@ -9,17 +9,17 @@ import vooga.fighter.model.utils.State;
 
 
 public class MenuLoader extends ObjectLoader {
-
-    private static final String MENU_PATH = "src/vooga/fighter/config/menu.xml";
-    private static final String YES = "yes";
-
-    MenuObject myMenuObject;
-
-    public MenuLoader (String menuobjectname, MenuObject menuobject) {
-        super(MENU_PATH);
-        myMenuObject = menuobject;
-        load(menuobjectname);
-    }
+	
+	private static final String MENU_PATH = "src/vooga/fighter/config/menu.xml";
+	private static final String YES = "yes";
+	
+	MenuObject myMenuObject;
+	
+	public MenuLoader(String menuobjectname, MenuObject menuobject) {
+		super("MenuPath");
+		myMenuObject = menuobject;
+		load(menuobjectname);
+	}
 
     protected void load (String menuobjectname) {
         Document doc = getDocument();
@@ -58,5 +58,4 @@ public class MenuLoader extends ObjectLoader {
         // TODO Auto-generated method stub
 
     }
-
 }

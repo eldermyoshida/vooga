@@ -48,11 +48,13 @@ public class DisplayLoopInfo extends DisplayInfo implements ViewDataSource{
     	getLocations().clear();
     	getGameObjects().clear();
     	getImageSizes().clear();
+    	getImageEffects().clear();
     	myImageData = myMode.getImageData();
     	for(ImageDataObject data : myImageData){
-    		getGameObjects().add(data.getMyImage());
-    		getLocations().add(data.getMyLocation());
-    		getImageSizes().add(data.getMySize());
+    		getGameObjects().add(data.getImage());
+    		getLocations().add(data.getLocation());
+    		getImageSizes().add(data.getSize());
+    		getImageEffects().add(data.getImageEffect());
     	}
     }
     
