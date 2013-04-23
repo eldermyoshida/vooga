@@ -274,11 +274,7 @@ public class Database {
     public double getAverageRating (String gameName) {
         return myUserGameDataTable.getAverageRating(gameName);
     }
-
-    public void listAllBuckets () {
-        myS3Instance.listAllBuckets();
-    }
-
+    
     public void insertAvatar (String username, String filepath) {
         myS3Instance.putAvatarIntoBucket(username, filepath);
     }

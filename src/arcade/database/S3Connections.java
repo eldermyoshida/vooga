@@ -58,6 +58,11 @@ import com.amazonaws.services.s3.model.S3ObjectSummary;
  */
 public class S3Connections {
     
+    private static final String GAMEDATA = "gamedata";
+    private static final String USERGAMEDATA = "usergamedata";
+    private static final String AVATAR = "avatar";
+    private static final String THUMBNAIL = "thumbnail";
+    private static final String ADSCREEN = "adscreen";
     private static final String BUCKET_NAME = "mycs308database";  
     private static final String RELATIVE_PATH = "/arcade/amazondownloads";
 
@@ -65,60 +70,56 @@ public class S3Connections {
 
     private AmazonS3 myS3Instance;
     
+    /**
+     * Constructor that connects to S3Instance
+     */
     public S3Connections() {
         myS3Instance = new AmazonS3Client(new ClasspathPropertiesFileCredentialsProvider("AwsCredentials.properties"));
         Region usWest2 = Region.getRegion(Regions.US_WEST_2);
         myS3Instance.setRegion(usWest2);
     }
     
-    public void listAllBuckets() {
-        System.out.println("Listing buckets");
-        for (Bucket bucket : myS3Instance.listBuckets()) {
-            System.out.println(" - " + bucket.getName());
-        }
-    }
-    
     public void putAvatarIntoBucket(String username, String filepath) {
-        putFileIntoBucket("avatar" + username, filepath);
+        putFileIntoBucket(AVATAR + username, filepath);
     }
     
     public void putGameThumbnailIntoBucket(String gameName, String filepath) {
-        putFileIntoBucket("thumbnail" + gameName, filepath);
+        putFileIntoBucket(THUMBNAIL + gameName, filepath);
     }
     
     public void putAdScreenIntoBucket (String gameName, String filepath) {
-        putFileIntoBucket("adscreen" + gameName, filepath);
+        putFileIntoBucket(ADSCREEN + gameName, filepath);
         
     }
     
     public String getAvatar(String username) {
-         return downloadObjectToFile("avatar" + username);
+         return downloadObjectToFile(AVATAR + username);
     }
     
     public String getThumbnail(String gameName) {
-        return downloadObjectToFile("thumbnail" + gameName);
+        return downloadObjectToFile(THUMBNAIL + gameName);
     }
     
     public String getAdScreen(String gameName) {
-        return downloadObjectToFile("adscreen" + gameName);
+        return downloadObjectToFile(ADSCREEN + gameName);
     }
     
     public void putUserGameDataIntoBucket(String username, String gameName, UserGameData usd) {
-        putFileIntoBucket("usergamedata" + username + gameName, createFileFromByteArray(serializeObject(usd)));
+        putFileIntoBucket(USERGAMEDATA + username + gameName, createFileFromByteArray(serializeObject(usd)));
     }
     
     public UserGameData getUserGameDataFromBucket(String username, String gameName) {
-        String tempFilePath = downloadObjectToFile("usergamedata" + username + gameName);
+        String tempFilePath = downloadObjectToFile(USERGAMEDATA + username + gameName);
         byte[] data = read(createFileFromFilePath(tempFilePath));
         return (UserGameData) deserialize(data);
     }
     
     public void putGameDataIntoBucket(String gameName, GameData gd) {
-        putFileIntoBucket("gamedata" + gameName, createFileFromByteArray(serializeObject(gd)));
+        putFileIntoBucket(GAMEDATA + gameName, createFileFromByteArray(serializeObject(gd)));
     }
     
     public GameData getGameDataFromBucket(String gameName) {
-        String tempFilePath = downloadObjectToFile("gamedata" + gameName);
+        String tempFilePath = downloadObjectToFile(GAMEDATA + gameName);
         byte[] data = read(createFileFromFilePath(tempFilePath));
         return (GameData) deserialize(data);
     }
