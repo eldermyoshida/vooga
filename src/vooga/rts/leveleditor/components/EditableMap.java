@@ -1,21 +1,16 @@
 package vooga.rts.leveleditor.components;
 
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.io.File;
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import org.xml.sax.SAXException;
-import vooga.rts.leveleditor.gui.MapPanel;
-import vooga.rts.map.GameMap;
 import vooga.rts.util.Location;
+import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 
 
@@ -164,8 +159,32 @@ public class EditableMap {
         myTerrains.add(ter);
     } 
     
-    public void addTerrain() {
-        myTerrains.add(new Terrain());
+    public void addTerrain(Pixmap image, Location3D center , int id , String name , String imageName, int walkAbility ) {
+        myTerrains.add(new Terrain(image, center , id , name ,imageName, walkAbility));
+    }
+    
+    public void addTerrain(Pixmap image, int x, int y , int z, int id, String name , String imageName , int walkAbility) {
+        addTerrain(image, new Location3D(x, y ,z), id, name , imageName ,walkAbility);
+    }
+    
+    public void addTerrain(Pixmap image, int x, int y, int layerCount, int layerHeight, int id , String name , String imageName, int walkAbility) {
+        addTerrain(image,x,y,layerCount*layerHeight,id,name,imageName,walkAbility);
+    }
+    
+    public void addResource(Resource res) {
+        myResources.add(res);
+    }
+    
+    public void addResource(Pixmap image, Location3D center , int id, String name , String imageName, int amount) {
+        addResource(image,center,id,name,imageName,amount);
+    }
+    
+    public void addResource(Pixmap image, int x, int y , int z, int id, String name , String imageName , int walkAbility) {
+        addResource(image, new Location3D(x, y ,z), id, name , imageName ,walkAbility);
+    }
+    
+    public void addResource(Pixmap image, int x, int y, int layerCount, int layerHeight, int id , String name , String imageName, int walkAbility) {
+        addResource(image,x,y,layerCount*layerHeight,id,name,imageName,walkAbility);
     }
     
     public int getMyXsize() {
