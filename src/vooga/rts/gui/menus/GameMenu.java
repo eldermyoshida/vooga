@@ -185,6 +185,7 @@ public class GameMenu extends Menu {
     private void setSelected (List<InteractiveEntity> selected) {
         mySelectedEntity = selected.get(0); // The current select method if there is more than
                                             // one is just to choose the first one
+        updateActionButtons();
     }
 
 }
