@@ -171,8 +171,9 @@ public class State {
     public Rectangle getCurrentRectangle() {
         Rectangle currentRect = myRectangles[myCurrentFrame];
         Location location = myOwner.getLocation().getLocation();
-        Point origin = new Point((int) location.getX(), (int) location.getY());
         Dimension size = currentRect.getSize();
+        Point origin = new Point((int) location.getX() -(int) size.getWidth()/2 , 
+        		(int) location.getY()-(int) size.getHeight()/2 );
         Rectangle result = new Rectangle(origin, size);
         return result;
     }

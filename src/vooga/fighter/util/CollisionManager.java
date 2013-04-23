@@ -84,6 +84,7 @@ public class CollisionManager {
      * Handles collisions between two character objects.
      */
     public void collide(CharacterObject o1, CharacterObject o2) {
+    	System.out.println("Character Colliding");
 //    	if (o1.getCurrentState().hasPriority(o2.getCurrentState())){
 //    		o2.pushBack(o1.getMovingDirection());
 //    	}
@@ -146,16 +147,13 @@ public class CollisionManager {
      */
     public void collide(CharacterObject o1, EnvironmentObject o2) {
     	collide(o2, o1);
-    	if(myCollisionDetector.hitBottom(o1.getCurrentState().getCurrentRectangle(),
-    			o2.getCurrentState().getCurrentRectangle())){
-    		o1.jump();
-    	}
     }
     
     /**
      * Handles collisions between an environment object and a character object.
      */
     public void collide(EnvironmentObject o1, CharacterObject o2) {
+    	System.out.println("CollisionManager: Two EnvironmentObjects collided!");
     	if(myCollisionDetector.hitBottom(o2.getCurrentState().getCurrentRectangle(),
     			o1.getCurrentState().getCurrentRectangle())){
     		o2.jump();
