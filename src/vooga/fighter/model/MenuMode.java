@@ -9,6 +9,7 @@ import vooga.fighter.model.objects.MenuObject;
 import vooga.fighter.model.objects.MouseClickObject;
 import vooga.fighter.model.objects.MouseObject;
 import vooga.fighter.model.utils.State;
+import vooga.fighter.util.CollisionManager;
 
 /**
  * 

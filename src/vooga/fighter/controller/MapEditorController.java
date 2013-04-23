@@ -8,13 +8,13 @@ import vooga.fighter.input.AlertObject;
 import vooga.fighter.input.InputClassTarget;
 import vooga.fighter.input.InputMethodTarget;
 import vooga.fighter.input.PositionObject;
-import vooga.fighter.model.CollisionManager;
 import vooga.fighter.model.LevelMode;
 import vooga.fighter.model.MapEditorMode;
 import vooga.fighter.model.Mode;
 import vooga.fighter.model.objects.CharacterObject;
 import vooga.fighter.model.objects.EnvironmentObject;
 import vooga.fighter.model.objects.MapObject;
+import vooga.fighter.util.CollisionManager;
 import vooga.fighter.view.Canvas;
 
 /**

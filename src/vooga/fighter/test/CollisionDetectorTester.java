@@ -4,12 +4,15 @@ import static org.junit.Assert.*;
 
 import java.awt.Rectangle;
 import java.awt.Shape;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 
 import org.junit.Test;
 
 import util.Location;
-import vooga.fighter.model.utils.CollisionDetector;
+import vooga.fighter.util.CollisionDetector;
+import vooga.fighter.util.ShapeMeasurements;
 
 public class CollisionDetectorTester {
 	CollisionDetector myDetector;
@@ -17,39 +20,19 @@ public class CollisionDetectorTester {
     public void setUp(){
     	myDetector = new CollisionDetector();
     }
-    
-	@Test
-	public void testgetQuickCenter() {
-		setUp();
-		Rectangle rect2 = new Rectangle(100,100);
-		assertTrue(myDetector.getQuickCenter(rect2).getX()==50.0);
-		assertTrue(myDetector.getQuickCenter(rect2).getY()==50.0);
-	}
 	
 	@Test
-	public void testgetBottomRightCorner() {
+	public void testpreciseDetectCollisionPoint (){
 		setUp();
-		Rectangle rect2 = new Rectangle(100,100);
-		assertTrue(myDetector.getBottomRightCorner(rect2).getX()==100);
-		assertTrue(myDetector.getBottomRightCorner(rect2).getY()==100);
-	}
+		Rectangle2D rect2 = new Rectangle(100,100);
+		Location loc = new Location(5,4);
+		Ellipse2D ellipse = new Ellipse2D.Float(0,0, 10, 10);
+        assertTrue(myDetector.preciseDetectCollision(rect2, loc));
+        assertTrue(myDetector.preciseDetectCollision(ellipse,loc));
+        }
 	
-	@Test
-	public void testgetBottomLeftCorner() {
-		setUp();
-		Rectangle rect2 = new Rectangle(100,100);
-		assertTrue(myDetector.getBottomLeftCorner(rect2).getX()==0);
-		assertTrue(myDetector.getBottomLeftCorner(rect2).getY()==100);
-	}
-    
-	@Test
-	public void testgetQuickDirection (){
-		setUp();
-		Rectangle rect2 = new Rectangle(100,100);
-		Location loc = new Location(50,100);
-		assertTrue(myDetector.getQuickDirection(rect2, loc)==90);
-	}
-	
+
+
 	@Test
 	public void testquickDetectCollision (){
 		setUp();

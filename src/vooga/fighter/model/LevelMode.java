@@ -10,6 +10,7 @@ import vooga.fighter.model.objects.CharacterObject;
 import vooga.fighter.model.objects.GameObject;
 import vooga.fighter.model.objects.MapObject;
 import vooga.fighter.model.utils.Health;
+import vooga.fighter.util.CollisionManager;
 
 
 /**
