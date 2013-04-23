@@ -35,8 +35,9 @@ public class Resource extends MapComponent{
      */
     public Resource(Location loc, int id) {
         super(BUNDLE_NAME);
-        setType(id);
-        myLocation = loc;}
+        //setType(id);
+        myLocation = loc;
+    }
     
     public Resource(int x , int y, int id ) {
         this( new Location(x,y), id);
@@ -51,6 +52,11 @@ public class Resource extends MapComponent{
         myLocation = new Location(x,y);
     }
     
+    public Resource(int ID, String name, BufferedImage image) {
+        super(ID,name,"");
+        myImage = image;
+    }
+
     public void setType(int id) {
         super.setID(id);
         try {
