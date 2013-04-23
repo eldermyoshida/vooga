@@ -55,7 +55,7 @@ public class Controller implements ArcadeInteraction {
 		
 		// Parameters
 		private String myLanguage;
-		private String myUser;
+		private String currentUser;
 	
 		
 	public Controller(String language) {
@@ -84,6 +84,7 @@ public class Controller implements ArcadeInteraction {
 			throw new LoginErrorException();
 		}
 		myLoginView.dispose();
+		currentUser = username;
 		organizeSnapshots();
 		new MainView(this, myResources);
 	}
@@ -251,19 +252,27 @@ public class Controller implements ArcadeInteraction {
 		myPaymentManager.doTransaction(paymentInfo);
 		// TODO: write code here for moving game from Store to GameCenter
 	}
+	
+	
+	
+	
 
 	/**
 	 * Rate a specific game, store in user-game database
 	 */
 	public void rateGame(double rating, String gameName) {
-		myDb.updateRating(myUser, gameName, rating);
+		myDb.updateRating(currentUser, gameName, rating);
 	}
 
+	
+	
 	public void playGame(GameInfo gameinfo) {
 		myCurrentGame = gameinfo.getGame(this);
 		myCurrentGame.run();
 	}
 
+	
+	
 	public void playMultiplayerGame(GameInfo gameinfo) {
 		MultiplayerGame game = gameinfo.getMultiplayerGame(this);
 		game.run();
@@ -283,8 +292,7 @@ public class Controller implements ArcadeInteraction {
 	/**
 	 * GameDetailPanel must call this method to get game-specific info.
 	 * 
-	 * @param gameName
-	 *            : name of the chosen game (String)
+	 * @param gameName: name of the chosen game (String)
 	 * @return
 	 */
 	public GameInfo getGameDetail(String gameName) {
@@ -293,9 +301,7 @@ public class Controller implements ArcadeInteraction {
 
 	/**
 	 * TODO: Must add user-game specific detail
-	 * 
-	 * @param user
-	 *            ,game (whatever that identifies the user and the game)
+	 * @param user, game (whatever that identifies the user and the game)
 	 * @return
 	 */
 	public UserGameData getUserGameData(String user, String game) {
@@ -332,7 +338,7 @@ public class Controller implements ArcadeInteraction {
 
 	@Override
 	public UserGameData getUserGameData(String gameName) {
-		UserGameData ugd = myDb.getUserGameData(gameName, myUser);
+		UserGameData ugd = myDb.getUserGameData(gameName, currentUser);
 		if (ugd == null) {
 			// use reflection to find the game class and call the generate user
 			// profile method

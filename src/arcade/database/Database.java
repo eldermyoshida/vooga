@@ -467,4 +467,11 @@ public class Database {
     public String getGameAdScreen (String gameName) {
         return myS3Instance.getThumbnail(gameName);
     }
+
+    
+    
+	public String getUserRealName(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
