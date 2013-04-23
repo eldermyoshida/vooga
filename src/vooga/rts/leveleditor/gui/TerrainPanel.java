@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import javax.imageio.ImageIO;
 import vooga.rts.leveleditor.components.Terrain;
 import vooga.rts.leveleditor.components.Tile;
+import vooga.rts.util.Pixmap;
 
 
 public class TerrainPanel extends MapComponentPanel {
@@ -23,8 +24,8 @@ public class TerrainPanel extends MapComponentPanel {
     public void addButton () {
         for(int i=0; i<myFiles.length; ++i) {
             try {
-                BufferedImage image = ImageIO.read(myFiles[i]);
-                myPanel.add(new TerrainButton(new Terrain(i+1,myFiles[i].getName(),image),this));
+                Pixmap image = new Pixmap(ImageIO.read(myFiles[i]));
+                myPanel.add(new TerrainButton(new Terrain(image,0,0,0,i+1,"",myFiles[i].getName(),0),this));
             } catch (IOException e) {
                 e.printStackTrace();
             }

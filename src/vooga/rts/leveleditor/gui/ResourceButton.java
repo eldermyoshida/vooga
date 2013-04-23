@@ -3,6 +3,7 @@ package vooga.rts.leveleditor.gui;
 import java.awt.Image;
 import java.awt.Insets;
 import java.awt.image.BufferedImage;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -12,6 +13,7 @@ import util.input.InputClassTarget;
 import util.input.InputMethodTarget;
 import util.input.PositionObject;
 import vooga.rts.leveleditor.components.Resource;
+import vooga.rts.util.Pixmap;
 
 
 /**
@@ -29,7 +31,7 @@ public class ResourceButton extends JToggleButton {
 
     private Resource myResource;
     private ResourcePanel myOwner;
-    private Image myIcon;
+    private Pixmap myIcon;
     private Input myInput;
     private boolean isInitialized;
 
@@ -41,14 +43,14 @@ public class ResourceButton extends JToggleButton {
      */
     public ResourceButton (Resource r, ResourcePanel owner) {
         myResource = r;
-        myIcon = r.getMyImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+        myIcon = r.getImage();//.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
         myOwner = owner;
         myInput = new Input(INPUT_DIR, this);
         myInput.addListenerTo(this);
         isInitialized = false;
 
         setToolTipText(r.getMyName());
-        setIcon(new ImageIcon(myIcon));
+        setIcon((Icon) myIcon);
         setMargin(new Insets(2, 2, 2, 2));
     }
 
@@ -70,7 +72,7 @@ public class ResourceButton extends JToggleButton {
         if (option == JOptionPane.OK_OPTION) {
             try {
                 String type = resourceType.getText();
-                myResource.setType(type);
+                myResource.setName(type);
                 int amount = Integer.parseInt(resourceAmount.getText());
                 myResource.setAmount(amount);
                 isInitialized = true;

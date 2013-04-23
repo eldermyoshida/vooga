@@ -52,5 +52,15 @@ public class Resource extends GameSprite{
 
     public int getMyAmount () {
         return myAmount;
+    }
+
+    public void setAmount(int amount) {
+        myAmount = amount;
+        
+    }
+
+    public void setName(String type) {
+        myName = type;
+        
     }    
 }
