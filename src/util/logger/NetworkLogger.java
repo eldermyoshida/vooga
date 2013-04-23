@@ -203,6 +203,21 @@ public class NetworkLogger {
         mySocketHandler.setSocket(host, port);
         addHandler(mySocketHandler);
     }
+    
+    /**
+     * 
+     * Adds a handler that sends log records via e-mail
+	 * 
+	 * @param from Address from which the e-mail is sent
+	 * @param to String array with recipients to send e-mail to
+	 * @param server Server address
+	 * @param subject Subject of e-mail
+	 * @param message Text in e-mail
+	 */
+    public void addMailHandler (String from, String[] to,
+			String server, String subject, String message) {
+        addHandler(new HandlerMail(from, to, server, subject, message));
+    }
 
     /**
      * Sets the level of the logger and all its handlers
