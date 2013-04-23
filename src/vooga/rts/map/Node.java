@@ -1,54 +1,75 @@
 package vooga.rts.map;
 
+import java.awt.Rectangle;
 import vooga.rts.util.Location;
+import vooga.rts.util.Location3D;
+
+
 /**
- * For now, height can either be one or zero. Eventually, there will be more
- * instance variables that describe how high it is off the ground for the sake 
- * of Pathfinding for multiple levels (flying, walking, underground, etc)l
+ * The Node class represents the smallest thing that the game needs to know about.
+ * This will be used for generating a path for units to follow and also be responsible
+ * for painting all game entities in their correct location.
  * 
+ * @author Jonathan Schmidt
  * @author Challen Herzberg-Brovold
- *
+ * 
  */
 public class Node {
+    public static int NODE_SIZE = 8;
 
     private int myHeight;
     private int myTier;
     private int myX;
     private int myY;
-    private Location myCenter;
+    private Rectangle myBounds;
 
-    public Node(int x, int y, int tier, Location center) {
+    /**
+     * Creates a Node at the specified index and in the specified tier.
+     * 
+     * @param x The X index
+     * @param y The Y index
+     * @param tier The level that the node is at
+     */
+    public Node (int x, int y, int tier) {
         myX = x;
         myY = y;
         myTier = tier;
-        myCenter = center;
-    }
-    
-    public Node(int x, int y, Location center) {
-        this(y, x, 0, center);
+        myBounds = new Rectangle(myX * NODE_SIZE, myY * NODE_SIZE, NODE_SIZE, NODE_SIZE);
     }
 
-    public int getX() {
+    /**
+     * Creates a Node at a specified index.
+     * The level is set to 0.
+     * 
+     * @param x The X index
+     * @param y The Y index
+     */
+    public Node (int x, int y) {
+        this(y, x, 0);
+    }
+
+    public int getX () {
         return myX;
     }
 
-    public int getY() {
+    public int getY () {
         return myY;
     }
 
-//    public void addObstruction (IObstruction obstruct) {
-//       myHeight = obstruct.getHeight();
-//    }
-   
+    // public void addObstruction (IObstruction obstruct) {
+    // myHeight = obstruct.getHeight();
+    // }
+
     public double getTier () {
         return myTier;
     }
-    
-    // This return statement could potentially be cleaned up, but still will wait for patter to clear  up.
+
+    // This return statement could potentially be cleaned up, but still will wait for patter to
+    // clear up.
     public boolean connectsTo (Node other) {
         return getTier() == other.getTier() || other.getTier() < 0;
     }
-    
+
     /**
      * 
      * @return the height of the node based on anything inside of it (ie. IObstructions)
@@ -56,8 +77,14 @@ public class Node {
     public int getHeight () {
         return myHeight;
     }
-    
-    public Location getCenter () {
-        return myCenter;
+
+    /**
+     * Returns whether a location is contained within this node.
+     * 
+     * @param world The location to check
+     * @return Whether it is in the node or not
+     */
+    public boolean isInside (Location3D world) {
+        return myBounds.contains(world.to2D());
     }
 }

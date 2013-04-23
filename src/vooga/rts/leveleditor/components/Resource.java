@@ -2,7 +2,9 @@ package vooga.rts.leveleditor.components;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+import javax.imageio.ImageIO;
 import vooga.rts.leveleditor.gui.MapPanel;
 import vooga.rts.resourcemanager.ResourceManager;
 import vooga.rts.util.Location;
@@ -21,6 +23,7 @@ public class Resource extends MapComponent{
     private Location myLocation;
     //further extension required
     private int myAmount;
+    private String myType;
     private int myImageWidth;
     private int myImageHeight;
     
@@ -33,8 +36,8 @@ public class Resource extends MapComponent{
      */
     public Resource(Location loc, int id) {
         super(BUNDLE_NAME);
-        setType(id);
-        myLocation = loc;}
+        myLocation = loc;
+    }
     
     public Resource(int x , int y, int id ) {
         this( new Location(x,y), id);
@@ -49,27 +52,17 @@ public class Resource extends MapComponent{
         myLocation = new Location(x,y);
     }
     
-    public void setType(int id) {
-        super.setID(id);
-        try {
-         refreshImage();
-     }
-     catch (IOException e) {
-         // TODO Auto-generated catch block
-         e.printStackTrace();
-     }
+    public Resource(int ID, String name, BufferedImage image) {
+        super(ID,name,"");
+        myImage = image;
     }
-    
-    public void refreshImage() throws IOException {
-        if(myResource.containsKey(myID+"")) {
-            String content = myResource.getString(myID+"");
-            String[] buffer = content.split("&");
-            myName = buffer[0];
-            myImageName = buffer[1];
-            myImage = ResourceManager.getInstance().<BufferedImage>getFile(myImageName, BufferedImage.class); 
-            myImageWidth = myImage.getWidth();
-            myImageHeight = myImage.getHeight();
-        }
+
+    public void setType(String type) {
+        myType = type;
+     }
+
+    public void setAmount(int amount) {
+        myAmount = amount;
     }
     
     public int getMyX() {

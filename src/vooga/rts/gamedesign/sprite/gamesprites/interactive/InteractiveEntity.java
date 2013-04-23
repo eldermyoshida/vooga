@@ -7,14 +7,13 @@ import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
 import vooga.rts.action.Action;
-import vooga.rts.action.InteractiveAction;
 import vooga.rts.action.IActOn;
 import vooga.rts.commands.Command;
 import vooga.rts.gamedesign.sprite.gamesprites.GameEntity;
@@ -29,7 +28,8 @@ import vooga.rts.gamedesign.strategy.occupystrategy.CannotBeOccupied;
 import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
 import vooga.rts.gamedesign.strategy.production.CannotProduce;
 import vooga.rts.gamedesign.strategy.production.ProductionStrategy;
-import vooga.rts.gamedesign.upgrades.UpgradeNode;
+import vooga.rts.gamedesign.strategy.upgradestrategy.CanUpgrade;
+import vooga.rts.gamedesign.strategy.upgradestrategy.UpgradeStrategy;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
 import vooga.rts.util.Camera;
 import vooga.rts.util.DelayedTask;
@@ -54,11 +54,11 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     private static final int LOCATION_OFFSET = 20;
     private static int DEFAULT_INTERACTIVEENTITY_SPEED = 150;
     private boolean isSelected;
-    private UpgradeTree myUpgradeTree;
     private Sound mySound;
     private AttackStrategy myAttackStrategy;
     private ProductionStrategy myProductionStrategy;
     private OccupyStrategy myOccupyStrategy;
+    private UpgradeStrategy myUpgradeStrategy;
     private int myArmor;
     private Map<String, Action> myActions;
     private List<DelayedTask> myTasks;
@@ -91,36 +91,48 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
                               int health,
                               double buildTime) {
         super(image, center, size, playerID, health);
-        // myMakers = new HashMap<String, Factory>(); //WHERE SHOULD THIS GO?
         mySound = sound;
         myAttackStrategy = new CannotAttack();
         myProductionStrategy = new CannotProduce();
+        myUpgradeStrategy = new CanUpgrade();
         myActions = new HashMap<String, Action>();
         isSelected = false;
         myTasks = new ArrayList<DelayedTask>();
         myBuildTime = buildTime;
         myOccupyStrategy = new CannotBeOccupied();
         myProducables = new ArrayList<InteractiveEntity>();
+        setSpeed(DEFAULT_INTERACTIVEENTITY_SPEED);
     }
 
     public void addAction (String command, Action action) {
         myActions.put(command, action);
     }
 
+    public void removeAction (String command) {
+    	myActions.remove(command);
+    }
+    
     public abstract void addActions ();
 
     public void addTask (DelayedTask dt) {
         myTasks.add(dt);
     }
-    
+
     /**
      * returns the list of producables
      */
     public List<InteractiveEntity> getProducables () {
         return myProducables;
     }
-
     
+    public void setUpgradeTree(UpgradeTree upgradeTree) {
+    	myUpgradeStrategy.setUpgradeTree(upgradeTree, this);
+    }
+    
+    public UpgradeTree getUpgradeTree() {
+    	return myUpgradeStrategy.getUpgradeTree();
+    }
+
     /**
      * This method specifies that the interactive entity is attacking an
      * IAttackable. It checks to see if the IAttackable is in its range, it sets
@@ -135,10 +147,10 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
                 Math.sqrt(Math.pow(getWorldLocation().getX() -
                                    ((InteractiveEntity) attackable).getWorldLocation().getX(), 2) +
                           Math.pow(getWorldLocation().getY() -
-                                   ((InteractiveEntity) attackable).getWorldLocation().getY(), 2));        
+                                   ((InteractiveEntity) attackable).getWorldLocation().getY(), 2));
         if (!this.isDead()) {
             // getEntityState().setAttackingState(AttackingState.ATTACKING);
-            
+
             if (getEntityState().getAttackingState() != AttackingState.WAITING &&
                 getEntityState().getAttackingState() != AttackingState.ATTACKING) {
                 getEntityState().attack();
@@ -147,8 +159,8 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
             // getGameState().setMovementState(MovementState.STATIONARY);
             if (getEntityState().canAttack()) {
                 myAttackStrategy.attack(attackable, distance);
-                
-                //System.out.println("Can Attack?");
+
+                // System.out.println("Can Attack?");
             }
         }
     }
@@ -162,26 +174,23 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     }
 
     /**
-     * Creates a copy of an interactive entity. 
+     * Creates a copy of an interactive entity.
      **/
     public abstract InteractiveEntity copy ();
-    
+
     /**
      * Returns the action that corresponds to a command.
+     * 
      * @param command is a command that was entered by the player
      * @return the action the is mapped to the command
      */
     public Action getAction (Command command) {
         return myActions.get(command.getMethodName());
     }
-    
+
     public void getOccupied (Unit occupier) {
         if (occupier.collidesWith(this)) {
-            // TODO: this if check is because action is not initialized in Occupy Strategy.
-            if (this.getAction(new Command("be occupied!")) != null) {
-                // ((InteractiveAction)this.getAction(new Command("be occupied!"))).apply(occupier);
-                // getOccupyStrategy().getOccupied(this, occupier);
-            }
+            myOccupyStrategy.getOccupied(this, occupier);
         }
     }
 
@@ -216,21 +225,10 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
         return mySound;
     }
 
-    public int getSpeed () {
-        return DEFAULT_INTERACTIVEENTITY_SPEED;
-    }
-    
-    /**
-     * Returns the upgrade tree of the entity.
-     * @return the entities upgrade tree
-     */
-    public UpgradeTree getTree () {
-        return myUpgradeTree;
-    }
-    
     /**
      * Returns the strategy the entity has for producing (CanProduce or
      * CannotProduce).
+     * 
      * @return the production strategy of the entity
      */
     public ProductionStrategy getProductionStrategy () {
@@ -238,23 +236,14 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     }
 
     /**
-     * Sets the production strategy of the entity to CanProduce or 
+     * Sets the production strategy of the entity to CanProduce or
      * CannotProduce.
+     * 
      * @param productionStrategy is the production strategy the entity will
-     * have
+     *        have
      */
     public void setProductionStrategy (ProductionStrategy productionStrategy) {
         myProductionStrategy = productionStrategy;
-    }
-
-    /**
-     * Returns the upgrade tree for the interactive entity.
-     * 
-     * @return the upgrade tree for the interactive entity
-     */
-
-    public UpgradeTree getUpgradeTree () {
-        return myUpgradeTree;
     }
 
     /**
@@ -271,6 +260,9 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
 
     @Override
     public void paint (Graphics2D pen) {
+        if (!isVisible()) {
+            return;
+        }
         // pen.rotate(getVelocity().getAngle());
 
         // should probably use the getBottom, getHeight etc...implement them
@@ -364,26 +356,6 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     public void setAttackStrategy (AttackStrategy newStrategy) {
         myAttackStrategy = newStrategy;
     }
-    
-    /**
-     * Sets the upgrade tree of the entity for a specific team based on an 
-     * upgrade tree and player ID that are passed in.
-     * @param upgradeTree is the new upgrade tree that the entity will have
-     * @param playerID is the team that the upgrade is for
-     */
-    public void setUpgradeTree (UpgradeTree upgradeTree, int playerID) {
-        myUpgradeTree = upgradeTree;
-    }
-
-    //
-    // public Action findAction(String name) {
-    // for (Action a: myActions) {
-    // if (a.getName().equals(name)) {
-    // return a;
-    // }
-    // }
-    // return null;
-    // }
 
     @Override
     public void update (double elapsedTime) {
@@ -411,18 +383,12 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
         notifyObservers();
     }
 
-    
-
     /*
      * Test method to add an interactive entity to
      */
     public void addProducable (InteractiveEntity i) {
         myProducables.add(i);
     }
-    
- 
-
-
     
     @Override
     public void updateAction (Command command) {
@@ -433,45 +399,28 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     }
 
     /**
-     * upgrades the interactive based on the selected upgrade
-     * 
-     * @param upgradeNode
-     *        is the upgrade that the interactive will get
-     * @throws NoSuchMethodException
-     * @throws InstantiationException
-     * @throws InvocationTargetException
-     * @throws IllegalAccessException
-     * @throws SecurityException
-     * @throws IllegalArgumentException
-     */
-    public void upgrade (UpgradeNode upgradeNode) throws IllegalArgumentException,
-                                                 SecurityException, IllegalAccessException,
-                                                 InvocationTargetException, InstantiationException,
-                                                 NoSuchMethodException {
-        // upgradeNode.apply(upgradeNode.getUpgradeTree().getUsers());
-    }
-    
-    /**
      * Sets the object to be in the changed state for the observer pattern.
      */
     public void setChanged () {
         super.setChanged();
     }
-    
+
     /**
-     * Gets the occupy strategy of the entity (either CanBeOccupied or 
+     * Gets the occupy strategy of the entity (either CanBeOccupied or
      * CannotBeOccupied).
+     * 
      * @return
      */
     public OccupyStrategy getOccupyStrategy () {
         return myOccupyStrategy;
     }
-    
+
     /**
-     * Sets the occupy strategy for the entity to be CanBeOccupied or 
+     * Sets the occupy strategy for the entity to be CanBeOccupied or
      * CannotBeOccupied.
+     * 
      * @param occupyStrategy is the occupy strategy that the entity is being
-     * set to
+     *        set to
      */
     public void setOccupyStrategy (OccupyStrategy occupyStrategy) {
         myOccupyStrategy = occupyStrategy;

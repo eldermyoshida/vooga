@@ -25,18 +25,17 @@ import vooga.rts.util.Location;
 
 public class EditableMap implements Serializable {
 
-
     /**
      * serial version UID
      */
     private static final long serialVersionUID = 5848819056578981375L;
     private int myXSize;
-    private int myYSize; 
-    
-    private Map<Integer , MapLayer> myLayers;
-    
+    private int myYSize;
+
+    private Map<Integer, MapLayer> myLayers;
+
     private List<Resource> myResource;
-    
+
     private String myMapName = "CIEMAS";
     private String myDescription = " our RTS is the best one !";
 
@@ -45,24 +44,19 @@ public class EditableMap implements Serializable {
     private Map<Integer, Location> myPlayerLocations;
     private int myPlayerNumber;
 
-    private BetterMapSaver mySaver;
-    private BetterMapLoader myLoader;
+    private MapSaver mySaver;
+    private MapLoader myLoader;
 
-    public EditableMap (int x, int y, int nodeX, int nodeY) {
-
+    public EditableMap (String name, String desc, int x, int y, int nodeX, int nodeY) {
+        myMapName = name;
+        myDescription = desc;
         myXSize = x;
         myYSize = y;
-
         initializeMap(nodeX, nodeY);
     }
 
-    public EditableMap (int x, int y) {
-
-        this(x, y, MapPanel.DEFAULT_TILE_WIDTH, MapPanel.DEFAULT_TILE_HEIGHT);
-    }
-
     public EditableMap () {
-        this(0, 0);
+        this("", "", 0, 0, 0, 0);
     }
 
     public void initializeMap (int width, int height) {
@@ -74,18 +68,17 @@ public class EditableMap implements Serializable {
         }
         myPlayerLocations = new HashMap<Integer, Location>();
         myPlayerNumber = 0;
-        myLayers = new HashMap<Integer , MapLayer>();
-        myLayers.put(1,new MapLayer());
+        myLayers = new HashMap<Integer, MapLayer>();
+        myLayers.put(1, new MapLayer());
         myResource = new ArrayList<Resource>();
 
         try {
-                mySaver = new BetterMapSaver(this);
-                myLoader = new BetterMapLoader(this);
-            }
-            catch (ParserConfigurationException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+            mySaver = new MapSaver(this);
+            myLoader = new MapLoader(this);
+        }
+        catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        }
     }
 
     public void initializeMap () {
@@ -107,14 +100,14 @@ public class EditableMap implements Serializable {
         myPlayerNumber--;
     }
 
-    public void addLayer() {
+    public void addLayer () {
         int count = myLayers.size();
-        count ++;
+        count++;
         myLayers.put(count, new MapLayer());
     }
-    
-    public void removeLayer() {
-        
+
+    public void removeLayer () {
+
     }
 
     public HashMap<Integer, Location> getLocationMap () {
@@ -136,9 +129,8 @@ public class EditableMap implements Serializable {
         System.out.println("X Size : " + myXSize);
         System.out.println("Y Size : " + myYSize);
 
-        
-        for(int i =0 ; i<myXSize ; i++) {
-            for(int j =0 ; j<myYSize ; j++) {
+        for (int i = 0; i < myXSize; i++) {
+            for (int j = 0; j < myYSize; j++) {
                 System.out.print(myNodeMatrix[i][j].getMyTile().getMyID());
                 System.out.print(" ");
             }
@@ -151,21 +143,21 @@ public class EditableMap implements Serializable {
     }
 
     public void load (File resourceFile) {
-        
+
         try {
             System.out.println("LOAD MAP IN THE FILE");
             myLoader.loadMapFile(resourceFile);
-            
+
         }
         catch (SAXException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
         catch (IOException e) {
-           // TODO Auto-generated catch block
-           e.printStackTrace();
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
-          
+
     }
 
     public void load (String filePath) {
@@ -185,7 +177,7 @@ public class EditableMap implements Serializable {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        
+
     }
 
     public void save (String filePath) {
@@ -203,34 +195,33 @@ public class EditableMap implements Serializable {
             myLayers.put(layerIndex, bufferLayer);
         }
     }
-    
-    public void addTile(int x , int y , int id) {
+
+    public void addTile (int x, int y, int id) {
         myNodeMatrix[x][y].getMyTile().setType(id);
     }
-    
-    
-    
-    public void addResource(int x, int y , int resourceID) {
-        Resource buffer = new Resource(x,y,resourceID);
+
+    public void addResource (int x, int y, int resourceID) {
+        Resource buffer = new Resource(x, y, resourceID);
         myResource.add(buffer);
     }
-    
-    public int getLayerNumber() {
+
+    public int getLayerNumber () {
         return myLayers.size();
     }
-    
-    public Map<Integer , MapLayer> getLayerMap() {
+
+    public Map<Integer, MapLayer> getLayerMap () {
         return myLayers;
     }
-    
-    public MapLayer getLayer(int index) {
+
+    public MapLayer getLayer (int index) {
         return myLayers.get(index);
-    } 
-    
-    public List<Resource> getResourceSet() {
+    }
+
+    public List<Resource> getResourceSet () {
         return myResource;
     }
-        public String getMyMapName () {
+
+    public String getMyMapName () {
         return myMapName;
     }
 
@@ -306,19 +297,18 @@ public class EditableMap implements Serializable {
                 myNodeMatrix[i][j].ZoomIn();
             }
         }
-        
-        for(Resource r : myResource) {
+
+        for (Resource r : myResource) {
             r.zoomIn();
         }
-        
-        for(MapLayer l : myLayers.values()) {
-            for(Terrain t : l.getTerrainSet()) {
+
+        for (MapLayer l : myLayers.values()) {
+            for (Terrain t : l.getTerrainSet()) {
                 t.zoomIn();
             }
         }
 
     }
-
 
     public void zoomOut () {
         for (int i = 0; i < myXSize; i++) {
@@ -326,45 +316,42 @@ public class EditableMap implements Serializable {
                 myNodeMatrix[i][j].ZoomOut();
             }
         }
-        
-        for(Resource r : myResource) {
+
+        for (Resource r : myResource) {
             r.zoomOut();
         }
-        
-        for(MapLayer l : myLayers.values()) {
-            for(Terrain t : l.getTerrainSet()) {
+
+        for (MapLayer l : myLayers.values()) {
+            for (Terrain t : l.getTerrainSet()) {
                 t.zoomOut();
             }
         }
 
     }
 
-    
-    public static void main(String[] args) {
-        EditableMap test = new EditableMap(10,10);
-        test.addPlayer(1,2);
-        test.addPlayer(2,3);
-        test.addPlayer(3,4);
-        test.addPlayer(5,7);
+    public static void main (String[] args) {
+        EditableMap test = new EditableMap("TestMap", "This is a test map", 10, 10, 50, 50);
+        test.addPlayer(1, 2);
+        test.addPlayer(2, 3);
+        test.addPlayer(3, 4);
+        test.addPlayer(5, 7);
         test.addTile(1, 1, 1);
         test.addTile(2, 2, 2);
         test.addTile(3, 3, 3);
-        test.addTerrain(3, new Terrain(2,2,1));
-        test.addTerrain(2, new Terrain(3,3,2));
-        test.addTerrain(1, new Terrain(4,4,3));
+        test.addTerrain(3, new Terrain(2, 2, 1));
+        test.addTerrain(2, new Terrain(3, 3, 2));
         test.addResource(7, 7, 1);
         test.addResource(8, 8, 2);
-        test.addResource(9, 9, 3);
-        BetterMapSaver saver = null;
+        MapSaver saver = null;
         try {
-            saver = new BetterMapSaver(test);
+            saver = new MapSaver(test);
         }
         catch (ParserConfigurationException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
         try {
-            saver.generateMapFile(new File(System.getProperty("user.dir") + "./src/test.xml"));
+            saver.generateMapFile(new File(System.getProperty("user.dir") + "./turtleRock"));
         }
         catch (TransformerException e) {
             // TODO Auto-generated catch block
@@ -374,6 +361,6 @@ public class EditableMap implements Serializable {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-    
+
     }
 }

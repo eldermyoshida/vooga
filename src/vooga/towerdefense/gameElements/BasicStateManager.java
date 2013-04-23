@@ -1,7 +1,6 @@
 package vooga.towerdefense.gameElements;
 
 import java.awt.Graphics2D;
-
 import vooga.towerdefense.attributes.AttributeConstants;
 
 
@@ -14,11 +13,10 @@ import vooga.towerdefense.attributes.AttributeConstants;
  */
 
 public class BasicStateManager extends StateManager {
-	private static final AttributeConstants myAttributeConstants=new AttributeConstants();
+    private static final AttributeConstants myAttributeConstants = new AttributeConstants();
     private final State myNormalState;
     private final State myBuffedState;
     private State myCurrentState;
-    
 
     public BasicStateManager (Unit unit, State normal, State buffed) {
         super(unit);

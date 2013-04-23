@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import vooga.rts.networking.communications.LobbyInfo;
 
+
 /**
  * Represents the View for creating a new lobby.
  */
@@ -22,27 +23,27 @@ public class CreateLobbyView extends JPanel {
     private JComboBox myMaxPlayersComboBox;
     private Integer[][] myMaxPlayerArray;
     private String[] myMapChoices;
-    
+
     public CreateLobbyView (String[] mapChoices, Integer[][] maxPlayers) {
         setLayout(new BorderLayout(0, 0));
         myMaxPlayerArray = maxPlayers;
         myMapChoices = mapChoices;
         add(createPanel(), BorderLayout.CENTER);
     }
-    
+
     private JPanel createPanel () {
         JPanel innerPanel = new JPanel();
-        
+
         // TODO add resources file
         innerPanel.add(new JLabel("Server name: "));
         myServerField = new JTextField(20);
         innerPanel.add(myServerField);
-        
+
         innerPanel.add(new JLabel("Map: "));
         DefaultComboBoxModel mapModel = new DefaultComboBoxModel(myMapChoices);
         myMapComboBox = new JComboBox(mapModel);
         innerPanel.add(myMapComboBox);
-        myMapComboBox.addActionListener(new ActionListener () {
+        myMapComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent arg0) {
                 String choice = (String) myMapComboBox.getSelectedItem();
@@ -55,23 +56,23 @@ public class CreateLobbyView extends JPanel {
                 }
 
                 myMaxPlayersComboBox.removeAllItems();
-                for( int i =0; i< maxPlayerChoices.length; i++) {
+                for (int i = 0; i < maxPlayerChoices.length; i++) {
                     myMaxPlayersComboBox.insertItemAt(maxPlayerChoices[i], i);
                 }
 
-            } 
+            }
         });
-        
+
         innerPanel.add(new JLabel("Max players: "));
-        myMaxPlayersComboBox = new JComboBox<Integer>();
+        myMaxPlayersComboBox = new JComboBox();
         innerPanel.add(myMaxPlayersComboBox);
 
         return innerPanel;
     }
-    
+
     public LobbyInfo getLobbyInfo () {
-        return new LobbyInfo(myServerField.getText(),
-                             (String) myMapComboBox.getSelectedItem(), 
-                             (int) myMaxPlayersComboBox.getSelectedItem(), 0);
+        return new LobbyInfo(myServerField.getText(),      
+                             (String) myMapComboBox.getSelectedItem(),
+                             (Integer) myMapComboBox.getSelectedItem(), 0);
     }
 }

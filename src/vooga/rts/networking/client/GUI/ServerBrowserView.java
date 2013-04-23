@@ -3,7 +3,6 @@ package vooga.rts.networking.client.GUI;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.table.TableModel;
 import vooga.rts.networking.communications.LobbyInfo;
 
 
@@ -36,7 +35,7 @@ public class ServerBrowserView extends JPanel {
     public void addLobbies (LobbyInfo[] lobbies) {
         myAdapter.addLobbies(lobbies);
     }
-    
+
     public int getSelectedID () {
         return myAdapter.getidOfRow(myTable.getSelectedRow());
     }

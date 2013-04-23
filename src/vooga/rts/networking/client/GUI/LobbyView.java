@@ -79,8 +79,8 @@ public class LobbyView extends JPanel {
             @Override
             public void actionPerformed (ActionEvent e) {
                 JComboBox box = (JComboBox) e.getSource();
-                int team = (int) box.getSelectedItem();
-                for (int i = 0; i < myTeamBoxes.length; i++) {
+                Integer team = (Integer) box.getSelectedItem();
+                for(int i = 0; i < myTeamBoxes.length; i++) {
                     if (box == myTeamBoxes[i]) {
                         myModel.updateTeam(team, i);
                     }

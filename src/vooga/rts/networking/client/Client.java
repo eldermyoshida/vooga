@@ -27,7 +27,7 @@ public class Client extends Thread implements IClient {
     private int myPort = PORT;
     private IMessageReceiver myReceiver;
     private boolean myRunning = false;
-    
+
     public Client (IMessageReceiver receiver) {
         myReceiver = receiver;
         try {
@@ -51,11 +51,11 @@ public class Client extends Thread implements IClient {
     public void run () {
         // TODO refactor
         myRunning = true;
-        while(myRunning){
+        while (myRunning) {
             try {
                 Object object = myInput.readObject();
-                if (object instanceof Message) { 
-                    myReceiver.getMessage((Message) object); 
+                if (object instanceof Message) {
+                    myReceiver.getMessage((Message) object);
                 }
             }
             catch (ClassNotFoundException e) {
@@ -103,5 +103,5 @@ public class Client extends Thread implements IClient {
     public void beginAcceptingConnections () {
         start();
     }
-    
+
 }

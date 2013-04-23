@@ -8,7 +8,7 @@
 	</pair>
 	<pair>
 		<type>buildings</type>
-		<decoderPath>vooga.rts.gamedesign.factories.BuildingDecoder</decoderPath>
+		<decoderPath>vooga.rts.gamedesign.factories.InteractiveEntityDecoder</decoderPath>
 	</pair>
 	<pair>
 		<type>resources</type>
@@ -20,6 +20,6 @@
 	</pair>
 	<pair>
 		<type>units</type>
-		<decoderPath>vooga.rts.gamedesign.factories.UnitDecoder</decoderPath>
+		<decoderPath>vooga.rts.gamedesign.factories.InteractiveEntityDecoder</decoderPath>
 	</pair>
 </XMLMatchUp>

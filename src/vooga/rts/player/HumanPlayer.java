@@ -1,14 +1,21 @@
 package vooga.rts.player;
 
 import java.awt.AWTException;
+import java.awt.Graphics2D;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.Robot;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
+import vooga.rts.action.*;
+import vooga.rts.commands.ClickCommand;
 import vooga.rts.commands.Command;
 import vooga.rts.controller.Controllable;
 import vooga.rts.controller.Controller;
 import vooga.rts.gui.Window;
+import vooga.rts.gui.menus.GameMenu;
 import vooga.rts.util.Camera;
 import vooga.rts.util.Location;
 
@@ -24,15 +31,25 @@ import vooga.rts.util.Location;
  * @author Challen Herzberg-Brovold
  * 
  */
-public class HumanPlayer extends Player implements Controller {
+public class HumanPlayer extends Player implements Observer {
 
-    private Map<String, Controllable> myInputMap; // Maps the command to the appropriate
-                                                  // controllable
+    // private Map<String, Controllable> myInputMap; // Maps the command to the appropriate
+    // controllable
 
     private Robot myMouseMover;
 
+    private GameMenu myGameMenu;
+
+    private HashMap<Integer, Command> myCommandMap;
+
     public HumanPlayer (int id) {
         super(id);
+
+        myCommandMap = new HashMap<Integer, Command>();
+        createCommandMap();
+        myGameMenu = new GameMenu();
+        myGameMenu.addObserver(this);
+
         try {
             myMouseMover = new Robot();
         }
@@ -43,10 +60,16 @@ public class HumanPlayer extends Player implements Controller {
         // Maybe look for design pattern that can implement filtering the inputs
     }
 
+    private void createCommandMap () {
+        //myCommandMap.put(0, new ClickCommand("click", null));
+        // ... add more here
+    }
+    
     @Override
     public void sendCommand (Command command) {
         // Check for camera movement
         getManager().receiveCommand(command);
+        myGameMenu.receiveCommand(command);
     }
 
     public void checkCameraMouse (double elapsedtime) {
@@ -92,6 +115,27 @@ public class HumanPlayer extends Player implements Controller {
     public void update (double elapsedTime) {
         super.update(elapsedTime);
         checkCameraMouse(elapsedTime);
+    }
+
+    @Override
+    public void paint (Graphics2D pen) {
+        super.paint(pen);
+        myGameMenu.paint(pen);
+    }
+
+    @Override
+    public void update (Observable o, Object a) {
+        if (o instanceof GameMenu) {
+            GameMenu g = (GameMenu) o;
+            Integer i = (Integer) a;
+            processAction(i);
+        }
+
+    }
+
+    private void processAction (int a) {
+        // This code handles an action of id "a".
+        Command command = myCommandMap.get(a);
     }
 
 }
