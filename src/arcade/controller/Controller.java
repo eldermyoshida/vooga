@@ -20,6 +20,7 @@ import arcade.games.GameInfo;
 import arcade.games.Score;
 import arcade.games.MultiplayerGame;
 import arcade.games.User;
+import arcade.games.UserData;
 import arcade.games.UserGameData;
 import arcade.model.payment.DukePaymentManager;
 import arcade.model.payment.PaymentManager;
@@ -297,6 +298,14 @@ public class Controller implements ArcadeInteraction {
 	 */
 	public GameInfo getGameDetail(String gameName) {
 		return myGameInfos.get(gameName);
+	}
+	
+	
+	/**
+	 * UserProfile must call this method to retrieve User-specific information
+	 */
+	public UserData getUserDetail(String username) {
+		return new UserData(myDb, currentUser);
 	}
 
 	/**
