@@ -30,17 +30,10 @@ public class Client extends Thread implements IClient {
     
     public Client (IMessageReceiver receiver) {
         myReceiver = receiver;
-        run();
-    }
-
-    /**
-     * Creates the sockets and streams for this client
-     */
-    public void run () {
         try {
             mySocket = new Socket(myHost, myPort);
-            myInput = new ObjectInputStream(mySocket.getInputStream());
             myOutput = new ObjectOutputStream(mySocket.getOutputStream());
+            myInput = new ObjectInputStream(mySocket.getInputStream());
         }
         catch (UnknownHostException e) {
             // TODO Auto-generated catch block
@@ -50,6 +43,12 @@ public class Client extends Thread implements IClient {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Creates the sockets and streams for this client
+     */
+    public void run () {
         // TODO refactor
         myRunning = true;
         while(myRunning){
@@ -98,6 +97,11 @@ public class Client extends Thread implements IClient {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void beginAcceptingConnections () {
+        start();
     }
     
 }

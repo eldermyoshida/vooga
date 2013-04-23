@@ -15,6 +15,8 @@ public interface IClient {
      * @param message to send
      */
     public void sendData (Message message);
+    
+    public void beginAcceptingConnections ();
 
     /**
      * Sets this as the message receiver. 

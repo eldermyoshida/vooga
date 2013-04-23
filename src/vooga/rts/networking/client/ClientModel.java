@@ -27,7 +27,7 @@ import vooga.rts.networking.communications.servermessages.ServerInfoMessage;
  */
 public class ClientModel implements IMessageReceiver, IClientModel, IModel {
 
-    // private IClient myClient = new Client(this);
+    private IClient myClient;
     private ViewContainerPanel myContainerPanel;
     private ServerBrowserView myServerBrowserView;
     private CreateLobbyView myCreateLobbyView;
@@ -45,13 +45,15 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
      * @param maxPlayerArray
      */
     public ClientModel (String gameName, String userName, String[] maps, Integer[][] maxPlayerArray) {
-        // Message initialConnection = new InitialConnectionMessage(gameName, userName);
-        // myClient.sendData(initialConnection);
         myContainerPanel = new ViewContainerPanel(gameName);
         myAdapter = new ServerBrowserTableAdapter();
         myServerBrowserView = new ServerBrowserView(myAdapter);
         myCreateLobbyView = new CreateLobbyView(maps, maxPlayerArray);
         switchToServerBrowserView();
+        myClient = new Client(this);
+        myClient.beginAcceptingConnections();
+        Message initialConnection = new InitialConnectionMessage(gameName, userName);
+        myClient.sendData(initialConnection);
     }
 
     private JPanel getPanel () {
@@ -78,6 +80,7 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
      * Switches the current View to the ServerBrowser.
      */
     public void switchToServerBrowserView () {
+        requestLobbies();
         // TODO resources
         myContainerPanel.changeView(myServerBrowserView, " Server Browser");
         myContainerPanel.changeLeftButton("Host Game", new ActionListener() {
@@ -89,7 +92,7 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
         myContainerPanel.changeRightButton("Join Game", new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent arg0) {
-                switchToLobbyView();
+                requestJoinLobby();
             }
         });
     }
@@ -109,7 +112,7 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
         myContainerPanel.changeRightButton("Start Lobby", new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent arg0) {
-                switchToLobbyView();
+                startLobby();
             }
         });
     }
@@ -119,14 +122,32 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
      */
     public void switchToLobbyView () {
         // TODO resources
-        myContainerPanel.changeView(myCreateLobbyView, " Lobby Creation");
+        myContainerPanel.changeView(myLobbyView, " Lobby Creation");
         myContainerPanel.changeLeftButton("Leave Lobby", new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent arg0) {
+                
                 switchToServerBrowserView();
             }
         });
-        myContainerPanel.changeRightButton("Start Lobby", null);
+        myContainerPanel.changeRightButton("Start Lobby", new ActionListener() {
+            @Override
+            public void actionPerformed (ActionEvent arg0) {
+                startGame();
+            }
+        });
+    }
+    
+    private void requestJoinLobby () {
+        //my
+    }
+    
+    private void startLobby () {
+        
+    }
+    
+    private void startGame () {
+        // TODO
     }
 
     /**
