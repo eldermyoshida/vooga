@@ -38,13 +38,10 @@ public class ExampleAuraTowerFactory extends GameElementFactory {
     public GameElement createElement (Location putHere) {
         TowerDefinition def = new TowerDefinition();
         AttributeManager AM = getDefaultAM();
-
-        //Pixmap tImage = new Pixmap("palmtree.png");
-        Pixmap tImage = new Pixmap("Duvall.jpg");
-
+        
         GameElement myTower;
         if (putHere != null) {
-            myTower = new GameElement(tImage, putHere,
+            myTower = new GameElement(def.getImage(), putHere,
                                       new Dimension(50, 50), AM, "tower");
         }
         else {

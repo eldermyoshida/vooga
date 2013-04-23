@@ -12,7 +12,7 @@ import vooga.towerdefense.attributes.AttributeConstants;
 import vooga.towerdefense.attributes.AttributeManager;
 import vooga.towerdefense.factories.GameElementFactory;
 import vooga.towerdefense.factories.definitions.GameElementDefinition;
-import vooga.towerdefense.factories.definitions.TrollUnitDefinition;
+import vooga.towerdefense.factories.definitions.UnitDefinition;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.Path;
@@ -39,11 +39,11 @@ public class ExampleUnitFactory extends GameElementFactory {
     }
 
     public GameElement createElement (Location putHere) {
-        return createElement(putHere, new TrollUnitDefinition());
+        return createElement(putHere, new UnitDefinition());
     }
 
-    public GameElement createElement (Location putHere, TrollUnitDefinition myDef) {
-        TrollUnitDefinition myDefinition = myDef;
+    public GameElement createElement (Location putHere, UnitDefinition myDef) {
+        UnitDefinition myDefinition = myDef;
 
         AttributeManager AM = new AttributeManager();
         AM.addAttribute(new Attribute(AttributeConstants.MOVE_SPEED, 150.0));
