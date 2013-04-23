@@ -58,7 +58,7 @@ public class CommentTable extends Table {
             myPreparedStatement.executeUpdate();
         }
         catch (SQLException e) {
-            e.printStackTrace();
+            writeErrorMessage("Error adding new comment for this game in CommentTable.java @ Line 53");
         }
     }
     
@@ -78,7 +78,7 @@ public class CommentTable extends Table {
             return comments;
         }
         catch (SQLException e) {
-            e.printStackTrace();
+        	writeErrorMessage("Error getting all comments for this game in CommentTable.java @ Line 72");
         }
         return comments;
     }
@@ -98,7 +98,7 @@ public class CommentTable extends Table {
             }
         }
         catch (SQLException e) {
-            e.printStackTrace();
+            writeErrorMessage("Error printing entire table in CommentTable.java @ Line 91");
         }
     }
 

@@ -58,7 +58,7 @@ public class UserGameDataTable extends Table {
             myPreparedStatement.executeUpdate();
         }
         catch (SQLException e) {
-            e.printStackTrace();
+            writeErrorMessage("Error creating new user game data in UserGameData.java @ Line 54");
         }
     }
     
@@ -102,7 +102,7 @@ public class UserGameDataTable extends Table {
             }
         }
         catch (SQLException e) {
-            e.printStackTrace();
+        	writeErrorMessage("Error printing entire table in UserGameDataTable.java @ Line 94");
         }
     }
 

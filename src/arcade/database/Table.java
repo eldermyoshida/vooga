@@ -83,7 +83,7 @@ public abstract class Table {
             executeQuery(SELECT_FROM + tableName);
         }
         catch (SQLException e) {
-            e.printStackTrace();
+            writeErrorMessage("Error selecting all records from table in Table.java @ Line 82");
         }
         return myResultSet;
     }
@@ -107,7 +107,7 @@ public abstract class Table {
             }
         }
         catch (SQLException e) {
-            e.printStackTrace();
+            writeErrorMessage("Error retrieving entry integer in Table.java @ Line 103");
         }
         return entry;
     }
@@ -131,7 +131,7 @@ public abstract class Table {
             }
         }
         catch (SQLException e) {
-            e.printStackTrace();
+            writeErrorMessage("Error retrieving entry string in Table.java @ Line 127");
         }
         return entry;
     }
@@ -160,7 +160,7 @@ public abstract class Table {
             }
         }
         catch (SQLException e) {
-            e.printStackTrace();
+            writeErrorMessage("Error retrieving entry boolean in Table.java @ Line 156");
         }
         return entry;
     }
@@ -177,6 +177,10 @@ public abstract class Table {
         catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    public void writeErrorMessage(String errorMessage)
+    {
+    	myDatabaseConnection.logError(errorMessage);
     }
 
 }

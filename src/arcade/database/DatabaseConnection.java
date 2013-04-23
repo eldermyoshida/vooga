@@ -1,10 +1,13 @@
 package arcade.database;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
 
 
 /**
@@ -19,12 +22,24 @@ public class DatabaseConnection {
     private Connection myConnection;
     private PreparedStatement myPreparedStatement; 
     private ResultSet myResultSet;
+    private FileHandler myDatabaseErrorLog;
+    private Logger myLogger;
+
 
     /**
      * Constructor for DatabaseConnection that establishes connection to database
      */
     public DatabaseConnection() {
         establishConnectionToDatabase();
+        try{
+            myDatabaseErrorLog = new FileHandler(System.getProperty("user.dir")+"/src/arcade/resources/ErrorLog.log");
+            myLogger=Logger.getLogger(Table.class.getName());
+            myLogger.addHandler(myDatabaseErrorLog);
+            }
+            catch (IOException e)
+            {	
+            	System.err.println("File not found");
+            } 
     }
     
     private void establishConnectionToDatabase() {
@@ -32,7 +47,7 @@ public class DatabaseConnection {
             Class.forName("org.postgresql.Driver");
         }
         catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            logError("Class not found for Database in DatabaseConnection.java @Line 46");
         }
 
         myConnection = null;
@@ -40,7 +55,7 @@ public class DatabaseConnection {
             myConnection = DriverManager.getConnection(URL, USER, PASSWORD);
         }
         catch (SQLException e) {
-            e.printStackTrace();
+            logError("SQL Error connection to database in DatabaseConnection.java@Line 54");
         }
         myResultSet = null;
         myPreparedStatement = null;
@@ -62,7 +77,7 @@ public class DatabaseConnection {
             }
         }
         catch (SQLException e) {
-            e.printStackTrace();
+            logError("Error closing connection in DatabaseConnection.java @ Line 68");
         }
     }
        
@@ -81,10 +96,17 @@ public class DatabaseConnection {
     }
     
     /**
-     * Returns established preparedstatement
+     * Returns established prepared statement
      */
     public PreparedStatement getPreparedStatement() {
         return myPreparedStatement;
+    }
+    /**
+     * Logs an error in the logger file
+     */
+    public void logError(String errorToBeLogged)
+    {
+    	myLogger.info(errorToBeLogged);
     }
 
 }

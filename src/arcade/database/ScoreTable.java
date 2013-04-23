@@ -59,7 +59,7 @@ public class ScoreTable extends Table {
             myPreparedStatement.executeUpdate();
         }
         catch (SQLException e) {
-            e.printStackTrace();
+            writeErrorMessage("Error adding new high score in ScoreTable.java @ Line 54");
         }
     }
     
@@ -86,7 +86,7 @@ public class ScoreTable extends Table {
             return scores;
         }
         catch (SQLException e) {
-            e.printStackTrace();
+            writeErrorMessage("Error getting scores for game in ScoreTable.java @ Line 78");
         }
         return null;
     }
@@ -106,7 +106,7 @@ public class ScoreTable extends Table {
             }
         }
         catch (SQLException e) {
-            e.printStackTrace();
+            writeErrorMessage("Error printing entire table in ScoreTable.java @ Line 99");
         }
     }
 
