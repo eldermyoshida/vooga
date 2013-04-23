@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
+import twitter4j.TwitterException;
 import arcade.database.Database;
 import arcade.exceptions.CorruptedDatabaseException;
 import arcade.exceptions.InvalidPaymentException;
@@ -23,6 +24,7 @@ import arcade.games.User;
 import arcade.games.UserGameData;
 import arcade.model.payment.DukePaymentManager;
 import arcade.model.payment.PaymentManager;
+import arcade.model.social.TwitterConnection;
 import arcade.view.MainView;
 import arcade.view.forms.LoginView;
 
@@ -42,6 +44,7 @@ public class Model implements ArcadeInteraction {
     private List<GameInfo> mySnapshots;
     private String myUser;
     private PaymentManager myPaymentManager;
+    private TwitterConnection myTwitter;
 
     // These will be null until you try to play a game
     Game myCurrentGame = null;
@@ -229,6 +232,30 @@ public class Model implements ArcadeInteraction {
         // TODO: write code here for moving game from Store to GameCenter
     }
     
+    /**
+     * Sets up a new twitter request to get access to a user's account.
+     * Returns a URL that a user can access to authorize.
+     * @return
+     * @throws TwitterException 
+     */
+    public String setUpTwitterRequest() throws TwitterException {
+        myTwitter = new TwitterConnection();
+        return myTwitter.newRequest();
+    }
+    
+    /**
+     * After the user authorizes the twitter request, s/he will have a pin.
+     * This gets access using the provided pin, and sends a tweet containing
+     * text.
+     * 
+     * @param pin
+     * @param text
+     * @throws TwitterException 
+     */
+    public void sendTweet(String pin, String text) throws TwitterException {
+        myTwitter.sendTweet(pin, text);
+    }
+    
 
     /**
      * Rate a specific game, store in user-game database
@@ -254,13 +281,13 @@ public class Model implements ArcadeInteraction {
      * @return
      */
     public Collection<GameInfo> getGameList () {
-        //return myGameInfos.values();
-      List<GameInfo> games = new ArrayList<GameInfo>();
-      for (int i = 0; i < 13; i++) 
-      {
-          games.add(new GameInfo("example", "examplegenre", "English", this));
-      }
-      return games;
+        return myGameInfos.values();
+//      List<GameInfo> games = new ArrayList<GameInfo>();
+//      for (int i = 0; i < 13; i++) 
+//      {
+//          games.add(new GameInfo("example", "examplegenre", "English", this));
+//      }
+//      return games;
     }
 
     private void organizeSnapshots () {
