@@ -3,7 +3,6 @@ package vooga.rts.networking.client;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import vooga.rts.networking.client.GUI.CreateLobbyView;

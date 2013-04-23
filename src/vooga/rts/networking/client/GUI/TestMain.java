@@ -17,7 +17,7 @@ public class TestMain {
         ViewContainerPanel panel = new ViewContainerPanel("test");
         frame.add(panel);
         //panel.changeView(new ServerBrowserView(new ServerBrowserTableAdapter()), " server browser");
-        panel.changeView(new LobbyView(new String[] {"Zerg", "Protoss", "Terran"}, 8), " stuff");
+        panel.changeView(new LobbyView(null, new String[] {"Zerg", "Protoss", "Terran"}, 8), " stuff");
         frame.setVisible(true);
         frame.pack();
     }

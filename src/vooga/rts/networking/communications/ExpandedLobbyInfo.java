@@ -3,7 +3,6 @@ package vooga.rts.networking.communications;
 import java.util.Arrays;
 
 
-
 /**
  * Expanded lobby information used by the lobby model and view. Passed back and forth between the
  * server and client.
@@ -66,11 +65,11 @@ public class ExpandedLobbyInfo extends LobbyInfo {
      * 
      * @param player player to add
      */
-    public void addPlayer (Player player) {        
+    public void addPlayer (Player player) {
         if (myNextSlot != getMaxPlayers()) {
             addPlayer();
             myPlayers[myNextSlot] = player;
-            for(int i = myNextSlot + 1; i < myPlayers.length; i++) {
+            for (int i = myNextSlot + 1; i < myPlayers.length; i++) {
                 if (myPlayers[i] == null) {
                     myNextSlot = i;
                     return;
@@ -89,9 +88,22 @@ public class ExpandedLobbyInfo extends LobbyInfo {
         for (int i = 0; i < myPlayers.length; i++) {
             if (myPlayers[i] != null && myPlayers[i].equals(player)) {
                 myPlayers[i] = null;
-                if(myNextSlot > i) {
+                if (myNextSlot > i) {
                     myNextSlot = i;
                 }
+            }
+        }
+    }
+
+    /**
+     * Swaps out the player with a newer version.
+     * 
+     * @param player to change
+     */
+    public void changePlayer (Player player) {
+        for (int i = 0; i < myPlayers.length; i++) {
+            if (myPlayers[i] != null && myPlayers[i].equals(player)) {
+                myPlayers[i] = player;
             }
         }
     }
@@ -104,7 +116,12 @@ public class ExpandedLobbyInfo extends LobbyInfo {
     public int getMaxTeams () {
         return myMaxTeams;
     }
-    
+
+    /**
+     * Returns a copy of the current players.
+     * 
+     * @return copy of player array
+     */
     public Player[] getPlayers () {
         return Arrays.copyOf(myPlayers, myPlayers.length);
     }
