@@ -45,13 +45,14 @@ public class GameMap implements IGameLoop {
      */
     public GameMap (Dimension size) {
         NodeFactory factory = new NodeFactory();
+        Dimension dou = new Dimension((int)size.getWidth(), (int)(size.getHeight() * 2));
         myNodeMap = factory.makeMap(Node.NODE_SIZE, size);
 
         myTerrain = new GameSpriteManager<Terrain>();
         myResources = new GameSpriteManager<Resource>();
 
         Camera.instance().setMapSize(size);
-        randomGenMap(size);
+        randomGenMap(dou);
     }
 
     /**
@@ -112,7 +113,7 @@ public class GameMap implements IGameLoop {
 
     @Override
     public void update (double elapsedTime) {
-        myTiles.update(elapsedTime);
+        // myTiles.update(elapsedTime);
     }
 
     @Override
@@ -122,20 +123,22 @@ public class GameMap implements IGameLoop {
     }
 
     private void randomGenMap (Dimension size) {
-        int tileWidth = 60;
-        int tileHeight = 42;
-        int tilesX = (int) size.getWidth() / tileWidth;
+        int tileWidth = 64;
+        int tileHeight = 64;
+        int tilesX = (int) size.getWidth() / tileWidth;        
         int tilesY = (int) size.getHeight() / tileHeight;
+        
+        
         myTiles = new TileMap(new Dimension(tileWidth, tileHeight), tilesX, tilesY);
 
         BufferedImage banana =
                 ResourceManager
                         .getInstance()
-                        .<BufferedImage> getFile("images/tiles/isometric_new_tiles_by_spasquini.png",
+                        .<BufferedImage> getFile("images/tiles/iso-64x64-outside.png",
                                                  BufferedImage.class);
 
         myTiles.addTileType(1, banana.getSubimage(6 * tileWidth, 0, tileWidth, tileHeight));
-        myTiles.addTileType(2, banana.getSubimage(7 * tileWidth, 0, tileWidth, tileHeight));
+        myTiles.addTileType(2, banana.getSubimage(4 * tileWidth, 0, tileWidth, tileHeight));
 
         for (int i = 0; i < tilesX; i++) {
             for (int j = 0; j < tilesY; j++) {

@@ -112,13 +112,20 @@ public class NodeMap implements Observer {
         endY /= Node.NODE_SIZE;
         endY = endY < myHeight ? endY : myHeight - 1;
 
-        System.out.println("Number of nodes = " + (endX - startX) + " x " + (endY - startY));
+        // System.out.println("Number of nodes = " + (endX - startX) + " x " + (endY - startY));
 
+        int index = 0;
         for (int y = startY; y < endY; y++) {
-            for (int x = endX; x > startX; x--) {
+            for (int x = startX; x < y; x++) {
+            //int x = 0;
                 Node n = get(x, y);
                 if (n != null) {
-                    n.paint(pen);
+                    index++;
+                    n.paint(pen, index);
+                }
+                else
+                {
+                    break;
                 }
             }
         }

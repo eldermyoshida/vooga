@@ -68,7 +68,7 @@ public class GameState extends SubState implements Controller {
         super(observer);
         myTeams = new HashMap<Integer, Team>();
         myPlayers = new ArrayList<Player>();
-        myMap = new GameMap(new Dimension(2000, 1000));
+        myMap = new GameMap(new Dimension(4000, 2000));
         // myMap = new GameMap(8, new Dimension(512, 512));
         pt = new PointTester();
         myFrames = new FrameCounter(new Location(100, 20));        
@@ -94,7 +94,7 @@ public class GameState extends SubState implements Controller {
         myMap.paint(pen);
         
         
-        myHumanPlayer.paint(pen);
+        // myHumanPlayer.paint(pen);
 
         if (myDrag != null) {
             pen.draw(myDrag);

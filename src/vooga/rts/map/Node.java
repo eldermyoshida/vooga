@@ -1,5 +1,7 @@
 package vooga.rts.map;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.Ellipse2D;
@@ -22,7 +24,7 @@ import vooga.rts.util.Location3D;
  * 
  */
 public class Node {
-    public static int NODE_SIZE = 8;
+    public static int NODE_SIZE = 32;
 
     private int myHeight;
     private int myTier;
@@ -143,12 +145,33 @@ public class Node {
         return resultList; 
     }
 
-    public void paint (Graphics2D pen) {
-        Point2D screen =
-                Camera.instance().worldToView(new Location3D(myX * NODE_SIZE, myY * NODE_SIZE, 0));
-        pen.draw(new Ellipse2D.Double(screen.getX(), screen.getY(), NODE_SIZE, NODE_SIZE));
+    public void paint (Graphics2D pen) {        
         for (GameSprite gs : myContents) {
             gs.paint(pen);
         }
     }
+    
+    /**
+     * Paints the Node with a ellipse surrounding it. This is used for testing purposes.
+     * Also prints the index of the node which can be the order that the node was painted.
+     * 
+     * @param pen The Graphics 2D to paint with
+     * @param index The index of the node
+     */
+    public void paint (Graphics2D pen, int index) {
+        Point2D screen =
+                Camera.instance().worldToView(new Location3D(myX * NODE_SIZE, myY * NODE_SIZE, 0));
+        if (myX % 10 == 0 || myY % 10 == 0) {
+            pen.fill(new Ellipse2D.Double(screen.getX(), screen.getY(), NODE_SIZE, NODE_SIZE));
+        }
+        else
+        {
+            pen.draw(new Ellipse2D.Double(screen.getX(), screen.getY(), NODE_SIZE, NODE_SIZE));
+        }
+        pen.setColor(Color.red);
+        pen.drawString(Integer.toString(index), (int)screen.getX() + NODE_SIZE/2, (int)screen.getY()+ NODE_SIZE/2);
+        pen.setColor(Color.black);
+        paint(pen);
+    }
+
 }
