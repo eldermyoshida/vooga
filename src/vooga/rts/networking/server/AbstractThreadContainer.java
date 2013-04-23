@@ -135,4 +135,7 @@ public abstract class AbstractThreadContainer implements IThreadContainer, IMess
         myConnectionThreads.clear();
     }
 
+    protected int getNumberOfConnections () {
+        return myConnectionThreads.size();
+    }
 }

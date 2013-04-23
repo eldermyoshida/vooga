@@ -18,7 +18,7 @@ import vooga.rts.networking.communications.Message;
  * 
  */
 public class Client extends Thread implements IClient {
-    private static final int PORT = 55309;
+    private static final int PORT = 55310;
     private static final String HOST = "localhost";
     private ObjectInputStream myInput;
     private ObjectOutputStream myOutput;

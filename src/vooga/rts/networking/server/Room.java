@@ -64,5 +64,9 @@ public class Room extends AbstractThreadContainer {
     protected ExpandedLobbyInfo getLobbyModel () {
         return myLobbyModel;
     }
+    
+    protected int getMaxConnections () {
+        return myLobbyModel.getMaxPlayers();
+    }
 
 }
