@@ -201,7 +201,6 @@ public class GameState extends SubState implements Controller {
 				600, 500, 0));
 		Information i = new Information("Barracks", "This is a barracks that can make awesome pies", null, "buttons/marine.png");
 		b.setInfo(i);
-		System.out.println(b.getInfo().getName());
 		myHumanPlayer.add(b);
 
 		Garrison garrison = new Garrison(new Pixmap(ResourceManager

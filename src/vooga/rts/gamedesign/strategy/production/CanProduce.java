@@ -55,7 +55,8 @@ public class CanProduce implements ProductionStrategy {
 	@Override
 	public void createProductionActions(final InteractiveEntity producer) {
 		for (final InteractiveEntity producable : myProducables) {
-			producer.addAction("I am a pony", new InteractiveAction(producer) {
+			String commandName = "make " + producable.getInfo().getName();
+			producer.addAction(commandName, new InteractiveAction(producer) {
 				@Override
 				public void update(Command command) {
 				}
@@ -80,6 +81,7 @@ public class CanProduce implements ProductionStrategy {
 					producer.addTask(dt);
 				}
 			});
+			producer.addInfo(commandName, producable.getInfo());
 		}
 	}
 }
