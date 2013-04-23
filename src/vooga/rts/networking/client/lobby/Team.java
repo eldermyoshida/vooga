@@ -3,7 +3,7 @@ package vooga.rts.networking.client.lobby;
 import java.util.ArrayList;
 import java.util.List;
 
-import vooga.rts.networking.client.Player;
+import vooga.rts.networking.communications.Player;
 
 public class Team implements Comparable<Team> {
     private int myNumber;

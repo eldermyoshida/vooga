@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.table.*;
-import vooga.rts.player.RTSPlayer;
 
 
 public class PlayerTable extends JScrollPane {
@@ -14,7 +13,7 @@ public class PlayerTable extends JScrollPane {
 
     /**
      * 
-     */
+     
     private static final long serialVersionUID = -1671059744815042087L;
     public JTable myTable;
 
@@ -62,7 +61,7 @@ public class PlayerTable extends JScrollPane {
 
             /**
              * 
-             */
+             
             private static final long serialVersionUID = -4151956216349241397L;
 
             //  Determine editor to be used by row
@@ -110,7 +109,7 @@ public class PlayerTable extends JScrollPane {
      * @param player
      * @param teams
      * @return
-     */
+     
     private JComboBox<Integer> teamComboBox(final RTSPlayer player, Integer[] teams) {
         final JComboBox<Integer> teamSelector = new JComboBox<Integer>(teams);
         teamSelector.addActionListener(new ActionListener() {
@@ -132,7 +131,7 @@ public class PlayerTable extends JScrollPane {
         }
         
     }
-    
+    */
     
     
 

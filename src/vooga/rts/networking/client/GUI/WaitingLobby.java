@@ -12,8 +12,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
-import vooga.rts.networking.client.Player;
 import vooga.rts.networking.communications.ExpandedLobbyInfo;
+import vooga.rts.networking.communications.Player;
 
 public class WaitingLobby implements Observer{
 	private JPanel myPanel;

@@ -1,4 +1,4 @@
-package vooga.rts.networking.client;
+package vooga.rts.networking.communications;
 /**
  * Class represents a player that can play a game
  * (can be either AI or Human)
@@ -11,9 +11,12 @@ package vooga.rts.networking.client;
 public class Player {
     protected String myName;
     protected int myID;
+    protected String myFaction;
     
-    public Player (String name, int ID) {
+    public Player (String name, String faction, int id) {
         myName = name;
+        myID = id;
+        myFaction = faction;
     }
     
     public String getName() {
@@ -22,6 +25,14 @@ public class Player {
     
     public int getID() {
         return myID;
+    }
+    
+    public String getFaction () {
+        return myFaction;
+    }
+    
+    public void setFaction (String faction) {
+        myFaction = faction;
     }
     
     @Override
