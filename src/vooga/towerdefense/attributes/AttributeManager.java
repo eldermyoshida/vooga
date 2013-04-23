@@ -94,6 +94,10 @@ public class AttributeManager {
         }
     }
 
+    public void replaceAttributeValue(String type, double newValue){
+    	myAttributes.get(type).setValue(newValue);
+    }
+    
     /**
      * Resets all attributes to default values
      */

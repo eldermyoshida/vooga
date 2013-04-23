@@ -1,15 +1,15 @@
 package vooga.towerdefense.factories.examplesfactories;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.actionlist.Move;
 import vooga.towerdefense.action.tobetested.FollowPath;
 import vooga.towerdefense.action.tobetested.OnDeath;
 import vooga.towerdefense.action.tobetested.RemoveGameElement;
-import vooga.towerdefense.attributes.Attribute;
 import vooga.towerdefense.attributes.AttributeConstants;
-import vooga.towerdefense.attributes.AttributeManager;
+import vooga.towerdefense.attributes.DefaultAttributeManager;
 import vooga.towerdefense.factories.GameElementFactory;
 import vooga.towerdefense.factories.definitions.GameElementDefinition;
 import vooga.towerdefense.factories.definitions.UnitDefinition;
@@ -44,12 +44,9 @@ public class ExampleUnitFactory extends GameElementFactory {
 
     public GameElement createElement (Location putHere, UnitDefinition myDef) {
         UnitDefinition myDefinition = myDef;
+        DefaultAttributeManager AM = new DefaultAttributeManager();
+        AM.replaceAttributeValue(AttributeConstants.MOVE_SPEED, 100);
 
-        AttributeManager AM = new AttributeManager();
-        AM.addAttribute(new Attribute(AttributeConstants.MOVE_SPEED, 150.0));
-        AM.addAttribute(new Attribute(AttributeConstants.DIRECTION, 50.0));
-        AM.addAttribute(new Attribute(AttributeConstants.ATTACK_INTERVAL, 50.0));
-        AM.addAttribute(new Attribute(AttributeConstants.HEALTH, 100.0));
         GameElement myGameElement;
         if (putHere != null) {
             myGameElement = new GameElement(myDefinition.getImage(), putHere,
@@ -59,21 +56,29 @@ public class ExampleUnitFactory extends GameElementFactory {
             myGameElement = new GameElement(myDefinition.getImage(),
                                             myDefinition.getCenter(), myDefinition.getSize(), AM, "unit");
         }
-
-        Path path = myGameMap.getShortestPath(putHere,
-                                              myGameMap.default_end_location);
-        ArrayList<Action> actions = new ArrayList<Action>();
-        actions.add(new FollowPath(myGameElement, path));
-        actions.add(new Move(myGameElement.getCenter(), myGameElement.getAttributeManager()
-                .getAttribute(AttributeConstants.MOVE_SPEED), myGameElement
-                .getAttributeManager().getAttribute(
-                                                    AttributeConstants.DIRECTION)));
-
-        Action myDeath = new OnDeath(AM.getAttribute(AttributeConstants.HEALTH));
-        myDeath.addFollowUpAction(new RemoveGameElement(myGameMap, myGameElement));
-        actions.add(myDeath);
-        myGameElement.addActions(actions);
+        
+        myGameElement.addActions(createActions(myGameElement));
         return myGameElement;
     }
+    
+    /**
+     * Manually add game element actions (for testing only actions will be predefined in level editor)
+     */
+    @Override
+    public List<Action> createActions(GameElement element) {
+        Path path = myGameMap.getShortestPath(element.getCenter(),
+                myGameMap.default_end_location);
+    	ArrayList<Action> actions = new ArrayList<Action>();
+        actions.add(new FollowPath(element, path));
+        actions.add(new Move(element.getCenter(), element.getAttributeManager()
+                .getAttribute(AttributeConstants.MOVE_SPEED), element
+                .getAttributeManager().getAttribute(
+                                                    AttributeConstants.DIRECTION)));
+        Action myDeath = new OnDeath(element.getAttributeManager().getAttribute(AttributeConstants.HEALTH));
+        myDeath.addFollowUpAction(new RemoveGameElement(myGameMap, element));
+        actions.add(myDeath);
+        return actions;
+    }
+    
 
 }

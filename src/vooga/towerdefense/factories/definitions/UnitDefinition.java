@@ -18,6 +18,7 @@ public class UnitDefinition extends GameElementDefinition {
 	private Pixmap myImage;
 	private Location myCenter;
 	private Dimension mySize;
+	private String myType;
 
     public UnitDefinition () {
         myImage = DefinitionConstants.DEFAULT_UNIT_IMAGE;

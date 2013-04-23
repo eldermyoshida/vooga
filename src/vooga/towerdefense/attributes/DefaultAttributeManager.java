@@ -13,6 +13,8 @@ public class DefaultAttributeManager extends AttributeManager {
         this.addAttribute(new Attribute(AttributeConstants.ATTACK_RADIUS, 200.0));
         this.addAttribute(new Attribute(AttributeConstants.MOVE_SPEED, 1.0));
         this.addAttribute(new Attribute(AttributeConstants.AURA_EFFECT, -10.0));
+        this.addAttribute(new Attribute(AttributeConstants.HEALTH, 100.0));
+
         this.setProjectileFactory(new ExampleDosProjectileFactory());
 	}
 	
