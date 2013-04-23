@@ -39,7 +39,7 @@ public abstract class UnitFactory extends GameElementFactory {
         GameElementDefinition myDefinition = getDefinition();
 
         AttributeManager AM = new AttributeManager();
-        GameElement myUnit = new GameElement(null, null, null);
+        GameElement myUnit = new GameElement(null, null, null, null);
         ArrayList<Action> actions = new ArrayList<Action>();
 
         return myUnit;

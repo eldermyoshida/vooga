@@ -4,8 +4,8 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.FindTargets;
-import vooga.towerdefense.action.LaunchProjectile;
-import vooga.towerdefense.action.ModifyAttributeValue;
+import vooga.towerdefense.action.actionlist.LaunchProjectile;
+import vooga.towerdefense.action.tobetested.ModifyAttributeValue;
 import vooga.towerdefense.attributes.AttributeConstants;
 import vooga.towerdefense.attributes.AttributeManager;
 import vooga.towerdefense.factories.TowerDefinition;
@@ -37,11 +37,11 @@ public class ExampleShootingTowerFactory extends TowerFactory {
         GameElement myTower;
         if (putHere != null) {
             myTower = new GameElement(tImage, putHere,
-                                      new Dimension(100, 100), AM);
+                                      new Dimension(100, 100), AM, "tower");
         }
         else {
             myTower = new GameElement(def.getImage(),
-                                      def.getCenter(), def.getSize(), AM);
+                                      def.getCenter(), def.getSize(), AM, "tower");
         }
 
         ArrayList<Action> actions = new ArrayList<Action>();

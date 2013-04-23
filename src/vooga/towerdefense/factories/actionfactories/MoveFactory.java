@@ -1,7 +1,7 @@
 package vooga.towerdefense.factories.actionfactories;
 
 import vooga.towerdefense.action.Action;
-import vooga.towerdefense.action.Move;
+import vooga.towerdefense.action.actionlist.Move;
 import vooga.towerdefense.attributes.AttributeConstants;
 import vooga.towerdefense.gameElements.GameElement;
 
