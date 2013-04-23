@@ -27,7 +27,7 @@ public class MovementHelper {
         myEntity = nse;
     }
     
-    protected Vector handlePlatformMovements (double position1, double position2, int bounds1, int bounds2, int speed) {
+    public Vector handlePlatformMovements (double position1, double position2, int bounds1, int bounds2, int speed) {
         
         if (position1 < bounds1) {
             if (position2 < bounds2) { 

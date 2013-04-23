@@ -1,7 +1,10 @@
-package vooga.scroller.marioGame.spritesDefinitions.players.resources;
+package vooga.scroller.marioGame.spritesDefinitions.collisions;
 
 import util.Vector;
 import vooga.scroller.collision_manager.CollisionDirection;
+import vooga.scroller.sprites.interfaces.ICollectible;
+import vooga.scroller.sprites.interfaces.IEnemy;
+import vooga.scroller.sprites.interfaces.ILevelPortal;
 import vooga.scroller.sprites.interfaces.IPlatform;
 import vooga.scroller.sprites.interfaces.IPlayer;
 import vooga.scroller.util.Direction;
@@ -12,7 +15,11 @@ import vooga.scroller.util.Sprite;
  * This class is specific to our game and is not intended to be a part of the
  * framework. It is meant to handle certain collisions specific to our Mario
  * game. If the game designer wants to implement specific collision helper methods
- * this is the place where those methods should go.
+ * this is the place where those methods should go. <br>
+ * <br>
+ * Ultimately, this is the place where the game designer should dump all collision
+ * logic into. He/She can then call these methods because VisitMethods.java
+ * has a instance of this class.
  * 
  * @author Jay Wang
  */
@@ -21,7 +28,25 @@ public class MarioCollisions {
     private static final double FRICTION = .5;
     private CollisionDirection direction = new CollisionDirection();
 
-    public void marioAndPlatformCollision (IPlayer player, IPlatform platform) {
+    protected void marioAndLevelPortalCollision (IPlayer player, ILevelPortal levelPortal) {
+        levelPortal.goToNextLevel(player.getPlayer());
+    }
+
+    protected void marioAndEnemyCollision (IPlayer player, IEnemy enemy) {
+        if (direction.collisionDirection(player, enemy).equals(Direction.TOP)) {
+            enemy.takeHit(player.getHit());
+        }
+        else {
+            player.takeHit(enemy.getHit());
+        }
+    }
+
+    protected void marioAndCollectibleCollision (IPlayer player, ICollectible collectible) {
+        player.incrementScore(collectible.getValue());
+        collectible.takeHit(player.getHit());
+    }
+
+    protected void marioAndPlatformCollision (IPlayer player, IPlatform platform) {
 
         Direction collisionType = direction.collisionDirection(player, platform);
 
