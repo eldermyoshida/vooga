@@ -7,7 +7,9 @@ import java.util.List;
 import vooga.rts.IGameLoop;
 import vooga.rts.ai.Path;
 import vooga.rts.ai.PathFinder;
+import vooga.rts.gamedesign.sprite.gamesprites.Resource;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
+import vooga.rts.gamedesign.sprite.map.Terrain;
 import vooga.rts.resourcemanager.ResourceManager;
 import vooga.rts.util.Camera;
 import vooga.rts.util.Location;
@@ -33,7 +35,8 @@ public class GameMap implements IGameLoop {
     private int myNodeSize;
     private NodeMap myNodeMap;
     private TileMap myTiles;
-    private TerrainManager myTerrain;
+    private GameSpriteManager<Terrain> myTerrain;
+    private GameSpriteManager<Resource> myResources;
 
     /**
      * calculates how many nodes there are
@@ -42,7 +45,9 @@ public class GameMap implements IGameLoop {
      */
     public GameMap (int node, Dimension size) {
         NodeFactory factory = new NodeFactory();
-        myTerrain = new TerrainManager();
+        myTerrain = new GameSpriteManager<Terrain>();
+        myResources = new GameSpriteManager<Resource>();
+        
         myNodeSize = node;
         myNodeMap = factory.makeMap(myNodeSize, size);
         Camera.instance().setMapSize(size);
@@ -52,15 +57,15 @@ public class GameMap implements IGameLoop {
     /**
      * @return the terrain
      */
-    public TerrainManager getTerrain () {
+    public GameSpriteManager<Terrain> getTerrain () {
         return myTerrain;
     }
-
+    
     /**
-     * @param terrain the terrain to set
+     * @return the resources
      */
-    public void setTerrain (TerrainManager terrain) {
-        myTerrain = terrain;
+    public GameSpriteManager<Resource> getResources () {
+        return myResources;
     }
 
     public Node getNode (Location location) {
@@ -73,7 +78,7 @@ public class GameMap implements IGameLoop {
         return finder.calculatePath(getNode(start), getNode(finish), myNodeMap);
     }
 
-    public NodeMap getMap () {
+    public NodeMap getNodeMap () {
         return myNodeMap;
     }
 
