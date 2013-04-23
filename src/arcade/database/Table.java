@@ -15,19 +15,9 @@ public abstract class Table {
     /**
      * where keyword
      */
-    public static final String WHERE_KEYWORD = " WHERE ";
-    /**
-     * select from keyword
-     */
-    public static final String SELECT_FROM = "SELECT * FROM ";
     /**
      * apostrophe keyword
      */
-    public static final String APOSTROPHE = "'";
-    /**
-     * equals keyword
-     */
-    public static final String EQUALS = "='";
     
     private PreparedStatement myPreparedStatement;
     private Connection myConnection;
@@ -53,24 +43,10 @@ public abstract class Table {
     }
     
     /**
-     * Returns Connection
+     * Returns Database Connection
      */
-    public Connection getConnection() {
-        return myConnection;
-    }
-    
-    /**
-     * Returns ResultSet
-     */
-    public ResultSet getResultSet() {
-        return myResultSet;
-    }
-    
-    /**
-     * Returns PreparedStatement
-     */
-    public PreparedStatement getPreparedStatement() {
-        return myPreparedStatement;
+    public DatabaseConnection getDatabaseConnection() {
+        return myDatabaseConnection;
     }
     
     /**
@@ -80,7 +56,7 @@ public abstract class Table {
     public ResultSet selectAllRecordsFromTable(String tableName) {
         System.out.println();
         try {
-            executeQuery(SELECT_FROM + tableName);
+            executeQuery(Keys.SELECT_FROM + tableName);
         }
         catch (SQLException e) {
             writeErrorMessage("Error selecting all records from table in Table.java @ Line 82");
@@ -97,8 +73,8 @@ public abstract class Table {
      */
     public int retrieveEntryInt(String tableName, String columnField, String parameter, 
                                 int columnIndex) {
-        String stm = SELECT_FROM + tableName + WHERE_KEYWORD + columnField + 
-                EQUALS + parameter + APOSTROPHE;
+        String stm = Keys.SELECT_FROM + tableName + Keys.WHERE_KEYWORD + columnField + 
+                Keys.EQUALS + parameter + Keys.APOSTROPHE;
         int entry = 0;
         try {
             executeQuery(stm);
@@ -121,8 +97,8 @@ public abstract class Table {
      */
     public String retrieveEntryString(String tableName, String columnField, 
                                       String parameter, int columnIndex) {
-        String stm = SELECT_FROM + tableName + WHERE_KEYWORD + columnField + 
-                EQUALS + parameter + APOSTROPHE;
+        String stm = Keys.SELECT_FROM + tableName + Keys.WHERE_KEYWORD + columnField + 
+                Keys.EQUALS + parameter + Keys.APOSTROPHE;
         String entry = "";
         try {
             executeQuery(stm);
@@ -150,8 +126,8 @@ public abstract class Table {
      */
     public boolean retrieveEntryBoolean(String tableName, String columnField, 
                                         String parameter, int columnIndex) {
-        String stm = SELECT_FROM + tableName + WHERE_KEYWORD + columnField + 
-                EQUALS + parameter + APOSTROPHE;
+        String stm = Keys.SELECT_FROM + tableName + Keys.WHERE_KEYWORD + columnField + 
+                Keys.EQUALS + parameter + Keys.APOSTROPHE;
         boolean entry = false;
         try {
             executeQuery(stm);
@@ -178,9 +154,13 @@ public abstract class Table {
             e.printStackTrace();
         }
     }
-    public void writeErrorMessage(String errorMessage)
-    {
-    	myDatabaseConnection.logError(errorMessage);
+    
+    /**
+     * Writes an error to log
+     * @param errorMessage is error
+     */
+    public void writeErrorMessage(String errorMessage) {
+        myDatabaseConnection.logError(errorMessage);
     }
 
 }

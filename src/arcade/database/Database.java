@@ -16,7 +16,6 @@ public class Database {
 
     private GameTable myGameTable;
     private UserTable myUserTable;
-    private UserGameDataTable myUserGameDataTable;
     private ScoreTable myScoreTable;
     private CommentTable myCommentTable;
     private S3Connections myS3Instance;
@@ -27,7 +26,6 @@ public class Database {
     public Database () {
         myGameTable = new GameTable();
         myUserTable = new UserTable();
-        myUserGameDataTable = new UserGameDataTable();
         myScoreTable = new ScoreTable();
         myCommentTable = new CommentTable();
         myS3Instance = new S3Connections();
@@ -39,14 +37,12 @@ public class Database {
     public void closeDatabaseConnection () {
         myGameTable.closeConnection();
         myUserTable.closeConnection();
-        myUserGameDataTable.closeConnection();
         myScoreTable.closeConnection();
         myCommentTable.closeConnection();
     }
 
     /**
      * Creates a user when given username, pw, firstname, lastname, and dataofbirth
-     * 
      * @param username is user
      * @param pw is password
      * @param firstname is first name
@@ -112,15 +108,6 @@ public class Database {
     }
 
     /**
-     * Called first time user plays game
-     * @param user username
-     * @param gameName is name of name
-     */
-    public void userPlaysGameFirst (String user, String gameName) {
-        myUserGameDataTable.createNewUserGameData(retrieveGameId(gameName), retrieveUserId(user));
-    }
-
-    /**
      * Inserts avatar into S3 Instance
      * @param username user
      * @param filepath of new avatar image
@@ -174,7 +161,7 @@ public class Database {
      * @param username is user
      */
     public void deleteUser (String username) {
-        myUserGameDataTable.deleteUser(retrieveUserId(username));
+        //myUserGameDataTable.deleteUser(retrieveUserId(username));
         myUserTable.deleteUser(username);
     }
 
@@ -315,13 +302,6 @@ public class Database {
     }
 
     /**
-     * Prints UserGameDataTable
-     */
-    public void printUserGameDataTable () {
-        myUserGameDataTable.printEntireTable();
-    }
-
-    /**
      * Retrieves a gameID from game
      * @param gameName for gameID
      */
@@ -424,7 +404,9 @@ public class Database {
      * @param gameName is game
      */
     public double getAverageRating (String gameName) {
-        return myUserGameDataTable.getAverageRating(gameName);
+        //TODO implement averarage rating
+        return 0;
+        
     }
 
     /**

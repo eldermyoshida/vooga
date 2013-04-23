@@ -57,7 +57,6 @@ public class Main {
 //                
         myDatabase.printUserTable();
         myDatabase.printGameTable();
-        myDatabase.printUserGameDataTable();
         
         myDatabase.closeDatabaseConnection();
         

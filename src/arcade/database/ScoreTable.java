@@ -14,20 +14,6 @@ import java.util.List;
  */
 public class ScoreTable extends Table {
 
-    private static final String TABLE_SEPARATOR = ": ";
-    private static final String GAMEID_COLUMN_FIELD = "gameid";  
-    private static final String USERID_COLUMN_FIELD = "userid";
-    private static final String HIGHSCORE_COLUMN_FIELD = "highscore";
-    private static final String SCOREID_COLUMN_FIELD = "scoreid";  
-
-    
-    private static final int GAMEID_COLUMN_INDEX = 1;
-    private static final int USERID_COLUMN_INDEX = 2;
-    private static final int HIGHSCORE_COLUMN_INDEX = 3;
-    private static final int SCOREID_COLUMN_INDEX = 4;
-    
-    private static final String TABLE_NAME = "scores";
-
     private Connection myConnection;
     private PreparedStatement myPreparedStatement; 
     private ResultSet myResultSet;
@@ -37,9 +23,9 @@ public class ScoreTable extends Table {
      */
     public ScoreTable() {
         super();
-        myConnection = getConnection();
-        myPreparedStatement = getPreparedStatement();
-        myResultSet = getResultSet();
+        myConnection = getDatabaseConnection().getConnection();
+        myPreparedStatement = getDatabaseConnection().getPreparedStatement();
+        myResultSet = getDatabaseConnection().getResultSet();
     }
     
     /**
@@ -53,9 +39,9 @@ public class ScoreTable extends Table {
         String stm = "INSERT INTO scores(gameid, userid, highscore) VALUES (?, ?, ?)";
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
-            myPreparedStatement.setString(GAMEID_COLUMN_INDEX, gameid);
-            myPreparedStatement.setString(USERID_COLUMN_INDEX, userid);
-            myPreparedStatement.setInt(HIGHSCORE_COLUMN_INDEX, highscore);
+            myPreparedStatement.setString(Keys.SCORE_GAMEID_COLUMN_INDEX, gameid);
+            myPreparedStatement.setString(Keys.SCORE_USERID_COLUMN_INDEX, userid);
+            myPreparedStatement.setInt(Keys.SCORE_HIGHSCORE_COLUMN_INDEX, highscore);
             myPreparedStatement.executeUpdate();
         }
         catch (SQLException e) {
@@ -80,7 +66,7 @@ public class ScoreTable extends Table {
             myResultSet  = myPreparedStatement.executeQuery();
             while (myResultSet.next()) {
                 Score score = new Score(gameName, userName, 
-                                        myResultSet.getInt(HIGHSCORE_COLUMN_INDEX));
+                                        myResultSet.getInt(Keys.SCORE_HIGHSCORE_COLUMN_INDEX));
                 scores.add(score);
             }
             return scores;
@@ -95,14 +81,17 @@ public class ScoreTable extends Table {
      * Prints entire table
      */
     public void printEntireTable () {
-        myResultSet = selectAllRecordsFromTable(TABLE_NAME);
+        myResultSet = selectAllRecordsFromTable(Keys.SCORE_TABLE_NAME);
         try {
             while (myResultSet.next()) {
-                System.out.print(myResultSet.getString(GAMEID_COLUMN_INDEX) + TABLE_SEPARATOR);
-                System.out.print(myResultSet.getString(USERID_COLUMN_INDEX) + 
-                                 TABLE_SEPARATOR);                
-                System.out.print(myResultSet.getInt(HIGHSCORE_COLUMN_INDEX) + TABLE_SEPARATOR);
-                System.out.println(myResultSet.getString(SCOREID_COLUMN_INDEX) + TABLE_SEPARATOR);
+                System.out.print(myResultSet.getString(Keys.SCORE_GAMEID_COLUMN_INDEX) + 
+                                 Keys.SEPARATOR);
+                System.out.print(myResultSet.getString(Keys.SCORE_USERID_COLUMN_INDEX) + 
+                                 Keys.SEPARATOR);                
+                System.out.print(myResultSet.getInt(Keys.SCORE_HIGHSCORE_COLUMN_INDEX) + 
+                                 Keys.SEPARATOR);
+                System.out.println(myResultSet.getString(Keys.SCORE_SCOREID_COLUMN_INDEX) + 
+                                   Keys.SEPARATOR);
             }
         }
         catch (SQLException e) {

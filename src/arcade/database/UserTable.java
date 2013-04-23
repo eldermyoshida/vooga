@@ -12,26 +12,6 @@ import java.util.List;
  * @author Natalia Carvalho
  */
 public class UserTable extends Table {
-    private static final String EQUALS = "='";
-    private static final String APOSTROPHE = "'";
-    private static final String TABLE_SEPARATOR = ": ";
-    private static final String USERNAME_COLUMN_FIELD = "username";  
-    private static final String PASSWORD_COLUMN_FIELD = "pw";
-    private static final String FIRSTNAME_COLUMN_FIELD  = "firstname";
-    private static final String LASTNAME_COLUMN_FIELD  = "lastname";
-    private static final String DOB_COLUMN_FIELD  = "DOB";
-    private static final String AVATAR_COLUMN_FIELD  = "avatarfilepath";
-    private static final String USERID_COLUMN_FIELD = "userid";
-
-    private static final int USERNAME_COLUMN_INDEX = 1;
-    private static final int PASSWORD_COLUMN_INDEX = 2;
-    private static final int FIRSTNAME_COLUMN_INDEX = 3;
-    private static final int LASTNAME_COLUMN_INDEX = 4;
-    private static final int DOB_COLUMN_INDEX = 5;
-    private static final int AVATAR_COLUMN_INDEX = 6;
-    private static final int USERID_COLUMN_INDEX = 7;
-    
-    private static final String TABLE_NAME = "users";
 
     private Connection myConnection;
     private PreparedStatement myPreparedStatement; 
@@ -42,9 +22,9 @@ public class UserTable extends Table {
      */
     public UserTable() {
         super();
-        myConnection = getConnection();
-        myPreparedStatement = getPreparedStatement();
-        myResultSet = getResultSet();
+        myConnection = getDatabaseConnection().getConnection();
+        myPreparedStatement = getDatabaseConnection().getPreparedStatement();
+        myResultSet = getDatabaseConnection().getResultSet();
     }
 
     /**
@@ -54,12 +34,13 @@ public class UserTable extends Table {
      * @return true if valid username/password; false otherwise
      */
     public boolean authenticateUsernameAndPassword(String username, String password) {
-        String stm = "SELECT username, pw FROM users WHERE username = '" + username + APOSTROPHE;
+        String stm = "SELECT username, pw FROM users WHERE username = '" + 
+                    username + Keys.APOSTROPHE;
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
             myResultSet  = myPreparedStatement.executeQuery();
             if (myResultSet.next()) {
-                if (myResultSet.getString(PASSWORD_COLUMN_INDEX).equals(password)) {
+                if (myResultSet.getString(Keys.USER_PASSWORD_COLUMN_INDEX).equals(password)) {
                     return true;
                 }
             }
@@ -77,7 +58,7 @@ public class UserTable extends Table {
      * @param username is the username
      */
     public boolean usernameExists(String username) {
-        String stm = "SELECT username FROM users WHERE username='" + username + APOSTROPHE;
+        String stm = "SELECT username FROM users WHERE username='" + username + Keys.APOSTROPHE;
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
             myResultSet  = myPreparedStatement.executeQuery();
@@ -108,11 +89,11 @@ public class UserTable extends Table {
                 "VALUES(?, ?, ?, ?, ?)";
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
-            myPreparedStatement.setString(USERNAME_COLUMN_INDEX, user);
-            myPreparedStatement.setString(PASSWORD_COLUMN_INDEX, pw);
-            myPreparedStatement.setString(FIRSTNAME_COLUMN_INDEX, firstname);
-            myPreparedStatement.setString(LASTNAME_COLUMN_INDEX, lastname);
-            myPreparedStatement.setString(DOB_COLUMN_INDEX, dob);
+            myPreparedStatement.setString(Keys.USER_USERNAME_COLUMN_INDEX, user);
+            myPreparedStatement.setString(Keys.USER_PASSWORD_COLUMN_INDEX, pw);
+            myPreparedStatement.setString(Keys.USER_FIRSTNAME_COLUMN_INDEX, firstname);
+            myPreparedStatement.setString(Keys.USER_LASTNAME_COLUMN_INDEX, lastname);
+            myPreparedStatement.setString(Keys.USER_DOB_COLUMN_INDEX, dob);
             myPreparedStatement.executeUpdate();
         }
         catch (SQLException e) {
@@ -145,8 +126,8 @@ public class UserTable extends Table {
      * @param username is the username
      */
     public String retrieveUserId(String username) {
-        return retrieveEntryString(TABLE_NAME, USERNAME_COLUMN_FIELD, username, 
-                                   USERNAME_COLUMN_INDEX);
+        return retrieveEntryString(Keys.USER_TABLE_NAME, Keys.USER_USERNAME_COLUMN_FIELD, username, 
+                                   Keys.USER_USERNAME_COLUMN_INDEX);
     }
     
     /**
@@ -154,7 +135,8 @@ public class UserTable extends Table {
      * @param username is the user
      */
     public String retrieveDOB(String username) {
-        return retrieveEntryString(TABLE_NAME, USERNAME_COLUMN_FIELD, username, DOB_COLUMN_INDEX);
+        return retrieveEntryString(Keys.USER_TABLE_NAME, Keys.USER_USERNAME_COLUMN_FIELD, 
+                                   username, Keys.USER_DOB_COLUMN_INDEX);
     }
     
     /**
@@ -162,7 +144,8 @@ public class UserTable extends Table {
      * @param username is the username
      */
     public String retrieveAvatar(String username) {
-        return retrieveEntryString(TABLE_NAME, USERNAME_COLUMN_FIELD, username, AVATAR_COLUMN_INDEX);
+        return retrieveEntryString(Keys.USER_TABLE_NAME, Keys.USER_USERNAME_COLUMN_FIELD, 
+                                   username, Keys.USER_AVATAR_COLUMN_INDEX);
     }
 
     /**
@@ -170,8 +153,8 @@ public class UserTable extends Table {
      * @param username is user
      */
     public void deleteUser(String username) {
-        String stm = "DELETE FROM " + TABLE_NAME + " WHERE " + 
-                USERNAME_COLUMN_FIELD + EQUALS + username + APOSTROPHE;
+        String stm = "DELETE FROM " + Keys.USER_TABLE_NAME + " WHERE " + 
+                Keys.USER_USERNAME_COLUMN_FIELD + Keys.EQUALS + username + Keys.APOSTROPHE;
         executeStatement(stm); 
 
     }
@@ -183,8 +166,9 @@ public class UserTable extends Table {
      */
     public void updateAvatar(String user, String filepath) {
         String userid = retrieveUserId(user);
-        String stm = "UPDATE " + TABLE_NAME + " SET " + AVATAR_COLUMN_FIELD + EQUALS + 
-                "filepath" + "' WHERE " + USERID_COLUMN_FIELD + EQUALS + userid + APOSTROPHE;   
+        String stm = "UPDATE " + Keys.USER_TABLE_NAME + " SET " + Keys.USER_AVATAR_COLUMN_FIELD + 
+                Keys.EQUALS + "filepath" + "' WHERE " + Keys.USER_USERID_COLUMN_FIELD + 
+                Keys.EQUALS + userid + Keys.APOSTROPHE;   
         executeStatement(stm);
     }
     
@@ -192,13 +176,13 @@ public class UserTable extends Table {
      * Returns a list of all the games
      */
     public List<String> retrieveUsernames() {
-        String stm = "SELECT " + USERNAME_COLUMN_INDEX + " FROM "  + TABLE_NAME;
+        String stm = "SELECT " + Keys.USER_USERNAME_COLUMN_INDEX + " FROM "  + Keys.USER_TABLE_NAME;
         List<String> myUsernames = new ArrayList<String>();
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
             myResultSet = myPreparedStatement.executeQuery();
             while (myResultSet.next()) {
-                myUsernames.add(myResultSet.getString(USERNAME_COLUMN_INDEX));
+                myUsernames.add(myResultSet.getString(Keys.USER_USERNAME_COLUMN_INDEX));
             }
         }
         catch (SQLException e) {
@@ -212,16 +196,21 @@ public class UserTable extends Table {
      * Prints entire table
      */
     public void printEntireTable () {
-        myResultSet = selectAllRecordsFromTable(TABLE_NAME);
+        myResultSet = selectAllRecordsFromTable(Keys.USER_TABLE_NAME);
         try {
             while (myResultSet.next()) {
-                System.out.print(myResultSet.getString(USERNAME_COLUMN_INDEX) + TABLE_SEPARATOR);
-                System.out.print(myResultSet.getString(PASSWORD_COLUMN_INDEX) + TABLE_SEPARATOR);
-                System.out.print(myResultSet.getString(FIRSTNAME_COLUMN_INDEX) + TABLE_SEPARATOR);
-                System.out.print(myResultSet.getString(LASTNAME_COLUMN_INDEX) + TABLE_SEPARATOR);
-                System.out.print(myResultSet.getString(DOB_COLUMN_INDEX) + TABLE_SEPARATOR);
-                System.out.print(myResultSet.getString(AVATAR_COLUMN_INDEX) + TABLE_SEPARATOR);
-                System.out.println(myResultSet.getString(USERID_COLUMN_INDEX));
+                System.out.print(myResultSet.getString(Keys.USER_USERNAME_COLUMN_INDEX) + 
+                                 Keys.SEPARATOR);
+                System.out.print(myResultSet.getString(Keys.USER_PASSWORD_COLUMN_INDEX) + 
+                                 Keys.SEPARATOR);
+                System.out.print(myResultSet.getString(Keys.USER_FIRSTNAME_COLUMN_INDEX) + 
+                                 Keys.SEPARATOR);
+                System.out.print(myResultSet.getString(Keys.USER_LASTNAME_COLUMN_INDEX) + 
+                                 Keys.SEPARATOR);
+                System.out.print(myResultSet.getString(Keys.USER_DOB_COLUMN_INDEX) + Keys.SEPARATOR);
+                System.out.print(myResultSet.getString(Keys.USER_AVATAR_COLUMN_INDEX) + 
+                                 Keys.SEPARATOR);
+                System.out.println(myResultSet.getString(Keys.USER_USERID_COLUMN_INDEX));
             }
         }
         catch (SQLException e) {

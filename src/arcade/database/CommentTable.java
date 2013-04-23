@@ -13,20 +13,6 @@ import java.util.List;
  */
 public class CommentTable extends Table {
 
-    private static final String TABLE_SEPARATOR = ": ";
-    private static final String GAMEID_COLUMN_FIELD = "gameid";  
-    private static final String USERID_COLUMN_FIELD = "userid";
-    private static final String COMMENT_COLUMN_FIELD = "commentfield";
-    private static final String COMMENTID_COLUMN_FIELD = "commentid";  
-
-    
-    private static final int GAMEID_COLUMN_INDEX = 1;
-    private static final int USERID_COLUMN_INDEX = 2;
-    private static final int COMMENT_COLUMN_INDEX = 3;
-    private static final int COMMENTID_COLUMN_INDEX = 4;
-    
-    private static final String TABLE_NAME = "comments";
-
     private Connection myConnection;
     private PreparedStatement myPreparedStatement; 
     private ResultSet myResultSet;
@@ -36,9 +22,9 @@ public class CommentTable extends Table {
      */
     public CommentTable() {
         super();
-        myConnection = getConnection();
-        myPreparedStatement = getPreparedStatement();
-        myResultSet = getResultSet();
+        myConnection = getDatabaseConnection().getConnection();
+        myPreparedStatement = getDatabaseConnection().getPreparedStatement();
+        myResultSet = getDatabaseConnection().getResultSet();
     }
     
     /**
@@ -52,13 +38,14 @@ public class CommentTable extends Table {
         String stm = "INSERT INTO scores(gameid, userid, comment) VALUES (?, ?, ?)";
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
-            myPreparedStatement.setString(GAMEID_COLUMN_INDEX, gameid);
-            myPreparedStatement.setString(USERID_COLUMN_INDEX, userid);
-            myPreparedStatement.setString(COMMENT_COLUMN_INDEX, comment);
+            myPreparedStatement.setString(Keys.COM_GAMEID_COLUMN_INDEX, gameid);
+            myPreparedStatement.setString(Keys.COM_USERID_COLUMN_INDEX, userid);
+            myPreparedStatement.setString(Keys.COM_COMMENT_COLUMN_INDEX, comment);
             myPreparedStatement.executeUpdate();
         }
         catch (SQLException e) {
-            writeErrorMessage("Error adding new comment for this game in CommentTable.java @ Line 53");
+            writeErrorMessage("Error adding new comment for this game in " +
+                    "CommentTable.java @ Line 53");
         }
     }
     
@@ -73,12 +60,13 @@ public class CommentTable extends Table {
             myPreparedStatement = myConnection.prepareStatement(stm);
             myResultSet  = myPreparedStatement.executeQuery();
             while (myResultSet.next()) {
-                comments.add(myResultSet.getString(COMMENT_COLUMN_INDEX));
+                comments.add(myResultSet.getString(Keys.COM_COMMENT_COLUMN_INDEX));
             }
             return comments;
         }
         catch (SQLException e) {
-        	writeErrorMessage("Error getting all comments for this game in CommentTable.java @ Line 72");
+            writeErrorMessage("Error getting all comments for this game in " +
+                    "CommentTable.java @ Line 72");
         }
         return comments;
     }
@@ -87,14 +75,17 @@ public class CommentTable extends Table {
      * Prints entire table
      */
     public void printEntireTable () {
-        myResultSet = selectAllRecordsFromTable(TABLE_NAME);
+        myResultSet = selectAllRecordsFromTable(Keys.COM_TABLE_NAME);
         try {
             while (myResultSet.next()) {
-                System.out.print(myResultSet.getString(GAMEID_COLUMN_INDEX) + TABLE_SEPARATOR);
-                System.out.print(myResultSet.getString(USERID_COLUMN_INDEX) + 
-                                 TABLE_SEPARATOR);                
-                System.out.print(myResultSet.getString(COMMENT_COLUMN_INDEX) + TABLE_SEPARATOR);
-                System.out.println(myResultSet.getString(COMMENTID_COLUMN_INDEX) + TABLE_SEPARATOR);
+                System.out.print(myResultSet.getString(Keys.COM_GAMEID_COLUMN_INDEX) + 
+                                 Keys.SEPARATOR);
+                System.out.print(myResultSet.getString(Keys.COM_USERID_COLUMN_INDEX) + 
+                                 Keys.SEPARATOR);                
+                System.out.print(myResultSet.getString(Keys.COM_COMMENT_COLUMN_INDEX) + 
+                                 Keys.SEPARATOR);
+                System.out.println(myResultSet.getString(Keys.COM_COMMENTID_COLUMN_INDEX) + 
+                                   Keys.SEPARATOR);
             }
         }
         catch (SQLException e) {
