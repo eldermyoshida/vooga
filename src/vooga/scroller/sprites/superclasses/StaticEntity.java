@@ -46,11 +46,7 @@ public class StaticEntity extends Sprite {
     public void translate (Vector v) {
         // you can't translate this to pretend it is moving
     }
-    
-    @Override
-    public void setVelocity (double angle, double magnitude) {
-        // you can't set the velocity of something that never moves
-    }
+
 
 
 }

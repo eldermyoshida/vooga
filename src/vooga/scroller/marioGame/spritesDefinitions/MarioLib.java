@@ -13,7 +13,7 @@ import vooga.scroller.sprites.movement.LeftAndRight;
 import vooga.scroller.sprites.movement.Movement;
 import vooga.scroller.sprites.movement.TrackPlayer;
 import vooga.scroller.sprites.movement.UpAndDown;
-import vooga.scroller.sprites.superclasses.NonStaticEntity;
+import vooga.scroller.sprites.superclasses.GameCharacter;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.sprites.superclasses.StaticEntity;
 import vooga.scroller.util.Pixmap;
@@ -36,7 +36,7 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
     private static final int DEFAULT_HEALTH = 1;
     private static final int DEFAULT_DAMAGE = 0;
 
-    public static class Coin extends StaticEntity implements ICollectible {
+    public static class Coin extends GameCharacter implements ICollectible {
 
         private static final String DEFAULT_IMG = "coin.png";
         private static final int DEFAULT_COIN_VALUE = 900;
@@ -53,9 +53,15 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
         public int getValue () {
             return DEFAULT_COIN_VALUE;
         }
+
+        @Override
+        public void handleDeath () {
+            // killing this does not do anything           
+        }
+
     }
 
-    public static class Koopa extends NonStaticEntity implements IEnemy {
+    public static class Koopa extends GameCharacter implements IEnemy {
         private static final String DEFAULT_IMG = "koopa.png";
         private static final Dimension KOOPA_SIZE = new Dimension(32, 64);
         private Movement movement = new TrackPlayer(this);
@@ -70,17 +76,24 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
         }
 
         public void update (double elapsedTime, Dimension bounds) {
-            changeVelocity(getMovement(movement)); // want to make this call every
+            this.setVelocity(getMovement(movement)); // want to make this call every
             super.update(elapsedTime, bounds);
         }
 
         @Override
         public Vector getMovement (Movement movement) {
-            return movement.execute(30, 100, getPlayerLocation());
+            return movement.execute(30, 100, getTargetLocation());
         }
+
+        @Override
+        public void handleDeath () {
+            // TODO Auto-generated method stub
+            
+        }
+
     }
 
-    public static class Turtle extends NonStaticEntity implements IEnemy {
+    public static class Turtle extends GameCharacter implements IEnemy {
 
         private static final String DEFAULT_IMG = "turtle.gif";
         private Movement movement = new TrackPlayer(this);
@@ -94,7 +107,7 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
         }
 
         public void update (double elapsedTime, Dimension bounds) {
-            changeVelocity(getMovement(movement)); 
+            this.setVelocity(getMovement(movement)); 
             super.update(elapsedTime, bounds);
         }
 
@@ -103,6 +116,13 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
             return movement.execute(450, 1000000, getPlayerLocation());
         }
 
+        @Override
+        public void handleDeath () {
+            // TODO Auto-generated method stub
+            
+        }
+
+       
     }
 
     public static class Platform extends StaticEntity implements IPlatform {
@@ -118,11 +138,11 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
         }
 
         public Platform (String img, Location center, Dimension size) {
-            super(makePixmap(img), center, size, DEFAULT_HEALTH, DEFAULT_DAMAGE);
+            super(makePixmap(img), center, size);
         }
     }
 
-    public static class Plant extends StaticEntity implements IEnemy {
+    public static class Plant extends GameCharacter implements IEnemy {
         private static final String DEFAULT_IMG = "plant.png";
 
         public Plant () {
@@ -132,9 +152,16 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
         public Plant (Location center) {
             super(makePixmap(DEFAULT_IMG), center, new Dimension(32, 32), DEFAULT_HEALTH, new Integer(2));
         }
+
+        @Override
+        public void handleDeath () {
+            // TODO Auto-generated method stub
+            
+        }
+
     }
 
-    public static class MovingPlatformOne extends NonStaticEntity implements IPlatform {
+    public static class MovingPlatformOne extends StaticEntity implements IPlatform {
 
         private static final String DEFAULT_IMG = "platform.gif";
         private static final int DEFAULT_SPEED = 60;
@@ -148,12 +175,12 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
         }
 
         public MovingPlatformOne (Location center) {
-            super(makePixmap(DEFAULT_IMG), center, new Dimension(96, 32), DEFAULT_HEALTH, DEFAULT_DAMAGE);
+            super(makePixmap(DEFAULT_IMG), center, new Dimension(96, 32));
             this.changeVelocity(DEFAULT_VELOCITY);
         }
 
         public void update (double elapsedTime, Dimension bounds) {
-            changeVelocity(getMovement(movement)); // want to make this call
+            changeVelocity(getMovement(movement));
             super.update(elapsedTime, bounds);
         }
 
@@ -161,10 +188,9 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
         public Vector getMovement (Movement movement) {
             return movement.execute(100, 250, DEFAULT_SPEED);
         }
-
     }
 
-    public static class MovingPlatformTwo extends NonStaticEntity implements IPlatform {
+    public static class MovingPlatformTwo extends StaticEntity implements IPlatform {
 
         private static final String DEFAULT_IMG = "platform.gif";
         private static final int DEFAULT_SPEED = 60;
@@ -178,12 +204,12 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
         }
 
         public MovingPlatformTwo (Location center) {
-            super(makePixmap(DEFAULT_IMG), center, new Dimension(96, 32), DEFAULT_HEALTH, DEFAULT_DAMAGE);
-            this.changeVelocity(DEFAULT_VELOCITY);
+            super(makePixmap(DEFAULT_IMG), center, new Dimension(96, 32));
+            this.setVelocity(DEFAULT_VELOCITY);
         }
 
         public void update (double elapsedTime, Dimension bounds) {
-            changeVelocity(getMovement(movement));
+            this.setVelocity(getMovement(movement));
             super.update(elapsedTime, bounds);
         }
 
@@ -259,7 +285,7 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
     
     public static void addLeftRightAnimationToPlayer(Player player, String baseFileName) {        
         MovingSpriteAnimationFactory msaf = new MovingSpriteAnimationFactory(getImagesDirectory(),                                                                              baseFileName);
-        Animation playerAnimation = msaf.generateAnimation(player);        
+        Animation<Sprite> playerAnimation = msaf.generateAnimation(player);        
         player.setView(playerAnimation);
     }
 

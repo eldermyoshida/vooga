@@ -48,6 +48,12 @@ public abstract class GameCharacter extends Sprite {
         myDamage = damage;
     }
 
+    public void update (double elapsedTime, Dimension bounds) {
+        if(myHealth < 0){
+            handleDeath();
+        }
+    }
+    
     /**
      * This sprite takes damage from its health.
      * 

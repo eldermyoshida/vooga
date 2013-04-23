@@ -2,7 +2,7 @@ package vooga.scroller.sprites.movement;
 
 import util.Location;
 import util.Vector;
-import vooga.scroller.sprites.superclasses.NonStaticEntity;
+import vooga.scroller.util.Sprite;
 
 /**
  * This is a type of Movement that does simple AI in tracking the player. This method's execute() 
@@ -13,11 +13,15 @@ import vooga.scroller.sprites.superclasses.NonStaticEntity;
  */
 public class TrackPlayer extends Movement {
 
-    private NonStaticEntity myEntity;
+    private Sprite myTarget;
    
-    public TrackPlayer (NonStaticEntity nse) {
+    // TODO: can't leave this here. I am going to ask jay more about this.
+    private static final Vector DEFAULT_SPEED = new Vector(0,100);
+    
+    
+    public TrackPlayer (Sprite nse) {
         super();
-        myEntity = nse;
+        myTarget = nse;
     }
     
     /**
@@ -31,8 +35,10 @@ public class TrackPlayer extends Movement {
      * @return a vector that in direction of the player with the given SPEED
      */
     public Vector execute (int speed, int radius, Location playerLocation) {
-        if (Vector.distanceBetween(playerLocation, myEntity.getCenter()) > (double) radius) return NonStaticEntity.DEFAULT_SPEED; 
-        return new Vector(Vector.angleBetween(playerLocation, myEntity.getCenter()), speed);
+        if (Vector.distanceBetween(playerLocation, myTarget.getCenter()) > (double) radius) {
+            return DEFAULT_SPEED; 
+        }
+        return new Vector(Vector.angleBetween(playerLocation, myTarget.getCenter()), speed);
     }
 
 }

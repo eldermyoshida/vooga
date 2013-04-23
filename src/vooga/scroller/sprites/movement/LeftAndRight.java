@@ -1,7 +1,7 @@
 package vooga.scroller.sprites.movement;
 
 import util.Vector;
-import vooga.scroller.sprites.superclasses.NonStaticEntity;
+import vooga.scroller.util.Sprite;
 
 /**
  * This is a type of Movement that moves a NonStaticEntity from the left to right. All 
@@ -18,10 +18,10 @@ import vooga.scroller.sprites.superclasses.NonStaticEntity;
  */
 public class LeftAndRight extends Movement {
 
-    private NonStaticEntity myEntity;
+    private Sprite myEntity;
     private MovementHelper helper;
     
-    public LeftAndRight (NonStaticEntity nse) {
+    public LeftAndRight (Sprite nse) {
         super();
         myEntity = nse;
         helper = new MovementHelper(myEntity);

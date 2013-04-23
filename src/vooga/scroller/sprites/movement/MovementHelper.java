@@ -1,7 +1,7 @@
 package vooga.scroller.sprites.movement;
 
 import util.Vector;
-import vooga.scroller.sprites.superclasses.NonStaticEntity;
+import vooga.scroller.util.Sprite;
 
 /**
  * This is a helper class where the game designer can store helper functions 
@@ -20,10 +20,14 @@ import vooga.scroller.sprites.superclasses.NonStaticEntity;
  */
 public class MovementHelper {
 
+
+    private static final String PLATFORM_BOUNDS_ERROR = "ERROR: Cannot give moving platform bounds " +
+    		"that do not encapsulate its instantiated (X,Y) position.";
     
-    protected NonStaticEntity myEntity;
     
-    public MovementHelper (NonStaticEntity nse) {
+    private Sprite myEntity;
+    
+    public MovementHelper (Sprite nse) {
         myEntity = nse;
     }
     
@@ -46,7 +50,6 @@ public class MovementHelper {
         }
         
         if (position1 < (bounds1 - myEntity.getHeight()) || position2 > (bounds2 + myEntity.getHeight())) {
-            System.err.println("ERROR: Cannot give moving platform bounds that do not encapsulate its instantiated (X,Y) position.");
             return null;
         }      
         return myEntity.getVelocity();

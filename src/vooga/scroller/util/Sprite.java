@@ -356,9 +356,12 @@ public abstract class Sprite {
         myVelocity.sum(force);
     }
     
-    
     public Dimension getSize() {
         return mySize;
+    }
+    
+    public void setVelocity (Vector velocity){
+        myVelocity = velocity;
     }
 }
 

@@ -31,7 +31,7 @@ public class LevelPortal extends Sprite implements ILevelPortal, IDoor {
     }
     
     public LevelPortal (Location center) {
-        super(DEFAULT_IMG, center, DEFAULT_SIZE, new Integer(1), new Integer(0));
+        super(DEFAULT_IMG, center, DEFAULT_SIZE);
     }
 
 

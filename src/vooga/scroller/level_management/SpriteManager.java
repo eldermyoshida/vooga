@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import vooga.scroller.collision_manager.CollisionManager;
 import vooga.scroller.level_editor.Level;
-import vooga.scroller.sprites.superclasses.NonStaticEntity;
+import vooga.scroller.sprites.superclasses.GameCharacter;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.Direction;
 import vooga.scroller.util.Sprite;
@@ -47,14 +47,14 @@ public class SpriteManager {
         myPlayer = p;
         myPlayer.setCenter(myLevel.getStartPoint().x, myLevel.getStartPoint().x);
         for (Sprite sprite : mySprites) {
-            if (sprite instanceof NonStaticEntity) {
-                addPlayerToSprite((NonStaticEntity) sprite);
-            }
+            //if (sprite instanceof NonStaticEntity) {
+                //addPlayerToSprite((NonStaticEntity) sprite);
+            //}
         }
     }
 
-    public void addPlayerToSprite (NonStaticEntity sprite) {
-        sprite.addPlayer(myPlayer);
+    public void addPlayerToSprite (GameCharacter sprite) {
+        sprite.addTarget(myPlayer);
     }
 
     public Player getPlayer(){
