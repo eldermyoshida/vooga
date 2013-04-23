@@ -209,10 +209,21 @@ public class MapEditorController extends Controller{
 	     * that path in the edit target.
 	     * @param alObj
 	     */
-	    @InputMethodTarget(name = "getBackground")
-	    public void getBackground (AlertObject alObj) {
-	    	String filePath = "";
+	    @InputMethodTarget(name = "setBackground")
+	    public void setBackground (AlertObject alObj) {
+	    	String filePath = getView().chooseFile("Image file", "jpeg", "gif");
 	    	myEditTarget.setBackground(filePath);
+	    }
+	    
+	    /**
+	     * prompts the user for a filepath for the background image, and sets
+	     * that path in the edit target.
+	     * @param alObj
+	     */
+	    @InputMethodTarget(name = "addBackground")
+	    public void addBackground (AlertObject alObj) {
+	    	String filePath = getView().chooseFile("Image file", "jpeg", "gif");
+	    	myEditTarget.addBackground(filePath);
 	    }
 	    
 	    /**
@@ -220,9 +231,9 @@ public class MapEditorController extends Controller{
 	     * the edit target.
 	     * @param alObj
 	     */
-	    @InputMethodTarget(name = "getSound")
-	    public void getSound (AlertObject alObj) {
-	    	String filePath = "";
+	    @InputMethodTarget(name = "setSound")
+	    public void setSound (AlertObject alObj) {
+	    	String filePath = getView().chooseFile("Sound file", "wav");
 	    	myEditTarget.setSound(filePath);
 	    }
 	    

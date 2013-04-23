@@ -13,10 +13,12 @@ import vooga.towerdefense.util.XMLTool;
 
 /**
  * Class used to write out map objects to the specific xml format used by the model team.
+ * this version of a map writer writes raw strings instead of using a tool in order to 
+ * conform fully to our xml format.
  * @author matthewparides
  *
  */
-public class MapWriter {
+public class RawMapWriter {
 	private static final String INPUT_PATHWAY = "vooga.fighter.config.maps";
 	private MapObject myWriteSource;
 	private ArrayList<String> myWriteOutLines;
@@ -26,61 +28,61 @@ public class MapWriter {
 	private String mySoundFilePath;
 	private List<String> myBackgroundFilePaths;
 	
-	public MapWriter(MapObject map, String soundFilePath, List<String> backgroundFilePaths) {
+	public RawMapWriter(MapObject map, String soundFilePath, List<String> backgroundFilePaths) {
 		myWriteSource = map;
-		myXMLWriter = new XMLTool();
 		myBackgroundFilePaths = backgroundFilePaths;
 	}
 	
 	public void writeMap() {
-		myXMLWriter.makeDoc();
-		myFakeRoot = myXMLWriter.makeRoot("map");
 		String name = myWriteSource.getName();
 		List<UpdatableLocation> startingPos = myWriteSource.getStartPositions();
 		List<EnvironmentObject> enviroObjects = myWriteSource.getEnviroObjects();
 		//start writeout
-		writeMapHeader();
+		myWriteOutLines.add(writeMapHeaderString());
 		for(UpdatableLocation loc: startingPos) {
-			writeStartPos(loc);
+			myWriteOutLines.add(writeStartPosString(loc));
 		}
-		writeStates();
-		for(EnvironmentObject enviro: enviroObjects) {
-			writeEnvironmentObject(enviro);
-		}
-		//myWriteOutLines.add("</map>");
-		String writeOut = myXMLWriter.translateToXMLString(myXMLWriter.getDoc());
-		
-		
-	}
-	
-	private void writeStartPos(UpdatableLocation loc) {
-		myXMLWriter.addChild(myRoot, "startingPos", "xCoord=\"" + 
-				loc.getLocation().getX() + "\" yCoord=\"" + loc.getLocation().getY() + "\"");
-	}
-	
-	private void writeEnvironmentObject(EnvironmentObject enviro) {
-		myXMLWriter.addChild(myRoot, "environmentObject", "objectName=\"" + 
-				enviro.getName() + "\" xCoord=\"" + enviro.getLocation().getLocation().getX() 
-				+ "\" yCoord=\"" + enviro.getLocation().getLocation().getY() + "\"");
-	}
-	
-	private void writeMapHeader() {
-		myRoot = myXMLWriter.makeElement("map", "mapName=\"" + myWriteSource.getName() + "\" " +
-				"xSize=\"1024\" ySize=\"871\"");
-		myXMLWriter.addChild(myFakeRoot, myRoot);
-	}
-	
-	private void writeStates() {
-		Element stateHead = myXMLWriter.makeElement("state","stateName = \"background\"");
-		myXMLWriter.addChild(myRoot, stateHead);
+		myWriteOutLines.add(writeStateHeaderString("background"));
 		for(String str: myBackgroundFilePaths) {
-			Element background = myXMLWriter.makeElement("frame", "image = \"" + 
-				str + "\"");
-			myXMLWriter.addChild(stateHead, background);
+			myWriteOutLines.add(writeStateString(str));
 		}
+		myWriteOutLines.add("</state>");
+		for(EnvironmentObject enviro: enviroObjects) {
+			myWriteOutLines.add(writeEnvironmentObjectString(enviro));
+		}
+		myWriteOutLines.add("</map>");
 	}
-
+	
+	private String writeMapHeaderString() {
+		String ret= "map mapName=\"" + myWriteSource.getName() + "\" " +
+				"xSize=\"1024\" ySize=\"871\">";
+		return ret;
+	}
+	
+	private String writeStartPosString(UpdatableLocation loc) {
+		String ret = "startingPos xCoord=\"" + 
+				loc.getLocation().getX() + "\" yCoord=\"" + loc.getLocation().getY() + "\"/>";
+		return ret;
+	}
+	
+	private String writeEnvironmentObjectString(EnvironmentObject enviro) {
+		String ret = "environmentObject objectName=\"" + 
+				enviro.getName() + "\" xCoord=\"" + enviro.getLocation().getLocation().getX() 
+				+ "\" yCoord=\"" + enviro.getLocation().getLocation().getY() + "\" />";
+		return ret;
+	}
+	
+	private String writeStateHeaderString(String stateName) {
+		String ret = "<state stateName = \"" + stateName + "\">";
+		return ret;
+	}
+	
+	private String writeStateString(String statePath) {
+		String ret = "<frame image = \"" + statePath + "\" />";
+		return ret;
+	}
 }
+
 /*
 <map mapName="RainbowBackground" xSize="1024" ySize="871">
 <startingPos xCoord="140" yCoord="300"/>

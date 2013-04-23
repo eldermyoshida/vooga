@@ -66,7 +66,12 @@ public class LevelMode extends Mode {
     public void applyForces(){
         for (CharacterObject ch : myCharacterObjects) {
             for (Force force: myForces) {
-                force.applyForce(ch);
+                if (!ch.getStanding()) {
+                    force.applyForce(ch);
+                }
+                else {
+                    ch.getVelocity().setMagnitude(0);
+                }
             }
         }
     }
