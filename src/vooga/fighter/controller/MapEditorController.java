@@ -17,16 +17,32 @@ import vooga.fighter.model.objects.EnvironmentObject;
 import vooga.fighter.model.objects.MapObject;
 import vooga.fighter.view.Canvas;
 
+/**
+ * 
+ * @author matthewparides
+ * used some code from Controller classes by Jerry Li and Jack Matteucci
+ *
+ */
 @InputClassTarget
 public class MapEditorController extends Controller{
 	
 	    private static final String INPUT_PATHWAY = "vooga.fighter.input.MapEditorMapping_en_US";
 	    private MapEditorMode myEditTarget;
 
+	    /**
+	     * constructor
+	     */
 	    public MapEditorController () {
 	        super();
 	    }   
 		
+	    /**
+	     * constructor - sets instance variables of the super class and the input
+	     * @param name
+	     * @param frame
+	     * @param manager
+	     * @param gameinfo
+	     */
 	    public MapEditorController(String name, Canvas frame, ControllerDelegate manager, 
                 GameInfo gameinfo) {
         super(name, frame, manager, gameinfo);
@@ -35,33 +51,55 @@ public class MapEditorController extends Controller{
         getInput().addListenerTo(this);
 	    }
 	    
+	    /**
+	     * loads relevant data into this controller and returns it
+	     */
 	    public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo) {
 	        Controller controller = new MainMenuController(name, frame, manager, gameinfo);
 	        return controller;
 	    }
 
+	    /**
+	     * notifies the manager that this state has completed
+	     */
 	    public void notifyEndCondition (String endCondition) {
 	    	removeListener();
 	    	getManager().notifyEndCondition(endCondition);
 	    }
 	    
+	    /**
+	     * returns this controller's mode
+	     */
 	    public MapEditorMode getMode(){
 	    	return (MapEditorMode) super.getMode();
 	    }
 	    
+	    /**
+	     * loads the mode for this controller
+	     */
 	    public void loadMode() {
 	        MapEditorMode temp = new MapEditorMode(new CollisionManager());
 	        super.setMode((Mode) temp);
 	    }
 	    
+	    /**
+	     * loads the user-selected map 
+	     */
 	    public void initializeMode() {
 	    	loadMap(getGameInfo().getMapName());
 	    }
 	    
+	    /**
+	     * returns this controller
+	     */
 	    public Controller getController() {
 	    	return this;
 	    }
 
+	    /**
+	     * sets the edit target of this controller
+	     * @param map
+	     */
 	    public void setEditTarget(MapEditorMode map) {
 	    	myEditTarget = map;
 	    }
@@ -82,26 +120,49 @@ public class MapEditorController extends Controller{
 	    	
 	    }
 	    
+	    /**
+	     * saves the current edit target map to the maps xml file
+	     * @param alObj
+	     */
 	    @InputMethodTarget(name = "save")
 	    public void saveMap (AlertObject alObj)  {
 	    	myEditTarget.writeMap();
 	    }
 	    
+	    /**
+	     * performs appropriate action for the user selecting a location
+	     * in the UI.
+	     * @param posObj
+	     */
 	    @InputMethodTarget(name = "select")
 	    public void select (PositionObject posObj)  {
 	    	myEditTarget.select(posObj.getPoint2D());
 	    }
 	    
+	    /**
+	     * selects the next object in the editTarget's collection of 
+	     * placeable objects
+	     * @param alObj
+	     */
 	    @InputMethodTarget(name = "nextObject")
 	    public void nextObject (AlertObject alObj)  {
 	    	myEditTarget.nextObject();
 	    }
 	    
+	    /**
+	     * selects the previous object in the editTarget's collection of
+	     * placeable objects
+	     * @param alObj
+	     */
 	    @InputMethodTarget(name = "prevObject")
 	    public void prevObject (AlertObject alObj)  {
 	    	myEditTarget.prevObject();
 	    }
 	    
+	    /**
+	     * quits the mapEditor and returns to the main menu
+	     * @param alObj
+	     */
 	    @InputMethodTarget(name = "quit")
 	    public void quit (AlertObject alObj)  {
 	    	notifyEndCondition("MainMenu");
