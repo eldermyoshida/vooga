@@ -392,6 +392,8 @@ public class XMLTool {
         Transformer transformer = factory.newTransformer();
         transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, XML_PARAM_YES);
         transformer.setOutputProperty(OutputKeys.INDENT, XML_PARAM_YES);
+        transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "5");
+
         
         StringWriter sw = new StringWriter();
         StreamResult result = new StreamResult(sw);
