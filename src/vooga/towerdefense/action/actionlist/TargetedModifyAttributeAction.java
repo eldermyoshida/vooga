@@ -1,6 +1,7 @@
-package vooga.towerdefense.action;
+package vooga.towerdefense.action.actionlist;
 
 import vooga.towerdefense.gameElements.GameElement;
+import vooga.towerdefense.action.TargetedAction;
 import vooga.towerdefense.attributes.Attribute;
 
 
@@ -14,29 +15,28 @@ import vooga.towerdefense.attributes.Attribute;
  * @author Matthew Roy
  * 
  */
-public class TargetedModifyAttributeAction extends Action {
+public class TargetedModifyAttributeAction extends TargetedAction {
 
-    GameElement myTarget;
-    Attribute myTargetAttribute;
+	Attribute myTargetAttribute;
 
-    /**
-     * @param initiator
-     */
+	/**
+	 * constructor
+	 * @param toModify
+	 */
     public TargetedModifyAttributeAction (Attribute toModify) {
         myTargetAttribute = toModify;
     }
 
-    
     @Override
     public void executeAction (double elapsedTime) {
-        for (GameElement e : getTargets()) {
+        for (GameElement target : getTargets()) {
             Attribute targetsAttribute =
-                    myTarget.getAttributeManager().getAttribute(myTargetAttribute.getName());
+                    target.getAttributeManager().getAttribute(myTargetAttribute.getName());
             if (targetsAttribute != null) {
                 targetsAttribute.setValue(myTargetAttribute.getValue());
             }
             else {
-                myTarget.getAttributeManager().addAttribute(myTargetAttribute);
+                target.getAttributeManager().addAttribute(myTargetAttribute);
             }
         }
     }

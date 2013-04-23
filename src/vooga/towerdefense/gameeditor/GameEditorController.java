@@ -17,7 +17,6 @@ import javax.swing.JFrame;
 import org.w3c.dom.Element;
 import com.sun.org.apache.xalan.internal.xsltc.runtime.Parameter;
 import util.XMLTool;
-import vooga.towerdefense.action.MakeElement;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.gameElements.Wave;
 import vooga.towerdefense.util.Location;
@@ -75,7 +74,7 @@ public class GameEditorController extends JFrame {
         initializeGUI();
         
         //TODO: remove, this is just for testing
-        GameElement temp = new GameElement(new Pixmap("tower.gif"), new Location(0,0), new Dimension(0,0), null, null);
+        GameElement temp = new GameElement(new Pixmap("tower.gif"), new Location(0,0), new Dimension(0,0), null, null, "unit");
         myCreatedUnits.add(temp);
         myCreatedUnits.add(temp);
         myCreatedUnits.add(temp);

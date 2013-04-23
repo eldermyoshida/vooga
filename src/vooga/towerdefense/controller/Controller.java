@@ -8,7 +8,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
@@ -24,7 +23,6 @@ import vooga.towerdefense.factories.examples.ExampleUnitFactory;
 import vooga.towerdefense.factories.examples.TrollUnitDefinition;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.gameElements.Wave;
-import vooga.towerdefense.gamestatistics.Player;
 import vooga.towerdefense.model.GameLoop;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.GameModel;
@@ -65,8 +63,6 @@ public class Controller {
 	 * control mode for the controller.
 	 */
 	private ControlMode myControlMode;
-	
-	private Player myPlayer;
 
 	// TODO: controller constructor should take waves & map in order to
 	// initialize GameModel?
@@ -90,7 +86,6 @@ public class Controller {
 		myModel = new GameModel(this, waves, map, new Shop(map));
 		myView = new TDView(this);
 		myControlMode = new SelectMode();
-		myPlayer = new Player(this);
 	}
 
 	/**
@@ -129,10 +124,6 @@ public class Controller {
 		}
 	}
 
-	public void displayPlayerStatistics (Map<String, Integer> playerStats) {
-	    myView.getStatsScreen().updatePlayerStatistics(playerStats);
-	}
-	
 	/**
 	 * updates the display on the MapScreen.
 	 */

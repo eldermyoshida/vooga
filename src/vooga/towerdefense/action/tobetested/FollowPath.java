@@ -1,5 +1,6 @@
-package vooga.towerdefense.action;
+package vooga.towerdefense.action.tobetested;
 
+import vooga.towerdefense.action.Action;
 import vooga.towerdefense.attributes.AttributeConstants;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.model.Path;
@@ -8,10 +9,11 @@ import vooga.towerdefense.util.Vector;
 
 
 /**
- * makes the action initiator move following a path
+ * Makes the action initiator follow a path.
  * 
+ * @author Mattew Roy
  * @author Zhen Gou
- * @author Xu Rui
+ *
  * 
  */
 

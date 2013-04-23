@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 import vooga.towerdefense.action.Action;
+import vooga.towerdefense.action.TargetedAction;
 import vooga.towerdefense.attributes.Attribute;
 import vooga.towerdefense.attributes.AttributeConstants;
 import vooga.towerdefense.attributes.AttributeManager;
@@ -26,6 +27,7 @@ public class GameElement extends Sprite {
 
     private AttributeManager myAttributeManager;
     private List<Action> myActions;
+    private String myType;
 
     /**
      * 
@@ -39,22 +41,23 @@ public class GameElement extends Sprite {
                         Location center,
                         Dimension size,
                         AttributeManager attributes,
-                        List<Action> actions) {
+                        List<Action> actions,
+                        String type) {
         super(image, center, size);
         myAttributeManager = attributes;
         myActions = actions;
     }
 
-    public GameElement (Pixmap image, Location center, Dimension size, List<Action> actions) {
-        this(image, center, size, new AttributeManager(), actions);
+    public GameElement (Pixmap image, Location center, Dimension size, List<Action> actions, String type) {
+        this(image, center, size, new AttributeManager(), actions, type);
     }
 
-    public GameElement (Pixmap image, Location center, Dimension size, AttributeManager am) {
-        this(image, center, size, am, new ArrayList<Action>());
+    public GameElement (Pixmap image, Location center, Dimension size, AttributeManager am, String type) {
+        this(image, center, size, am, new ArrayList<Action>(), type);
     }
 
-    public GameElement (Pixmap image, Location center, Dimension size) {
-        this(image, center, size, new AttributeManager(), new ArrayList<Action>());
+    public GameElement (Pixmap image, Location center, Dimension size, String type) {
+        this(image, center, size, new AttributeManager(), new ArrayList<Action>(), type);
     }
 
     /**
@@ -69,11 +72,14 @@ public class GameElement extends Sprite {
         myAttributeManager.update();
     }
 
+    public String getType(){
+    	return myType;
+    }
     @Override
     public void paint (Graphics2D pen) {
         super.paint(pen);
 
-        // FIXME: Hardcoded healthbars
+        // FIXME: Hardcoded healthbars 
         Attribute health = getAttributeManager().getAttribute(AttributeConstants.HEALTH);
         if (health != null) {
             pen.setColor(Color.red);
@@ -84,6 +90,7 @@ public class GameElement extends Sprite {
         }
     }
 
+    
     public void addAction (Action a) {
         myActions.add(a);
     }
@@ -98,6 +105,20 @@ public class GameElement extends Sprite {
 
     public List<Action> getActions () {
         return myActions;
+    }
+    
+    /**
+     * Returns all target tracking actions
+     * @return
+     */
+    public List<TargetedAction> getTargetedActions(){
+    	List<TargetedAction> actions = new ArrayList<TargetedAction>();
+    	for (Action a: actions){
+    		if (a.isTargetTracking()){
+    			actions.add((TargetedAction) a);
+    		}
+    	}
+    	return actions;
     }
 
 }

@@ -11,7 +11,7 @@ import java.util.List;
 
 import vooga.rts.util.Vector;
 import vooga.towerdefense.action.Action;
-import vooga.towerdefense.action.FollowPath;
+import vooga.towerdefense.action.tobetested.FollowPath;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.model.tiles.Tile;
 import vooga.towerdefense.model.tiles.factories.TileFactory;

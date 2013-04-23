@@ -1,4 +1,6 @@
-package vooga.towerdefense.action;
+package vooga.towerdefense.action.tobetested;
+
+import vooga.towerdefense.action.Action;
 
 /**
  * @author Matthew Roy
