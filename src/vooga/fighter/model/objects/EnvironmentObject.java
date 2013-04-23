@@ -28,8 +28,8 @@ public class EnvironmentObject extends GameObject {
      */
     public EnvironmentObject(String name, UpdatableLocation center) {
         super();
-        init(name);
         setLocation(center);
+        init(name);
     }
     
     private void init(String name) {
