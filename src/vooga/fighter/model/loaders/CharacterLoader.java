@@ -29,7 +29,7 @@ public class CharacterLoader extends ObjectLoader {
 	 * @param character
 	 */
 	public CharacterLoader (String charName, CharacterObject character) {
-		super(CHARACTER_PATH);
+		super("CharacterPath");
 		myChar = character;
 		load(charName);
 	}
@@ -48,7 +48,9 @@ public class CharacterLoader extends ObjectLoader {
 			if (charName.equals(name)) {
 				int maxHealth = Integer.parseInt(getAttributeValue(node, "maxHealth"));
 				int speed= Integer.parseInt(getAttributeValue(node, "movespeed"));
+				int mass= Integer.parseInt(getAttributeValue(node, "mass"));
 				myChar.addProperty("speed", speed);
+				myChar.addProperty("mass", mass);
 				myChar.setHealth(maxHealth);
 				NodeList stateNodes = ((Element) node).getElementsByTagName("state");
 				addStates(stateNodes, myChar);
