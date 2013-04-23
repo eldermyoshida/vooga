@@ -14,21 +14,32 @@ import vooga.rts.util.Pixmap;
 import vooga.rts.util.ReflectionHelper;
 import vooga.rts.util.Sound;
 
+
+/**
+* This Class acts as the decoder for all interactive entities since they all have the same constructor. 
+* If you would like to extend interactive entity to implement a class with a different constructor then you 
+* should use default values for the extra parameters (or you could write your own decoder).
+*
+*/
 public class InteractiveEntityDecoder extends Decoder {
 	
 	private int DEFAULTTEAM = 0;
 	
 	private Factory myFactory;
+	private CustomHanlder myCustomHandler;
 
 	public InteractiveEntityDecoder(Factory factory){
 		myFactory = factory;
+		myCustomHandler = new CustomHanlder(factory);
 	}
 
 	@Override
 	public void create(Document doc, String type) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		//there is some duplicate code between decoders that should be factored out. 
 		String path = doc.getElementsByTagName(type).item(0).getAttributes().getNamedItem(SOURCE_TAG).getTextContent();	
-		NodeList nodeLst = doc.getElementsByTagName(type.substring(0, type.length()-1));
+		String subtype = type.substring(0, type.length()-1);
+		NodeList nodeLst = doc.getElementsByTagName(subtype);
+		myCustomHandler.addAllCustoms(doc, subtype);
 		for(int i = 0 ; i < nodeLst.getLength() ; i++){
 			Element nElement = (Element) nodeLst.item(i);
 			String name = getElement(nElement, NAME_TAG);

@@ -31,14 +31,13 @@ public class ResourceDecoder extends Decoder{
 	
 	private static final Dimension RESOURCE_SIZE = new Dimension(50,50);
 	
-	private static final String HEAD_TAG = "resources";
-	private static final String TYPE_TAG = "resource";
-	
 	private Factory myFactory;
+	private CustomHandler myCustomHandler;
 	
 	
 	public ResourceDecoder(Factory factory){
 		myFactory = factory;
+		myCustomHandler = new CustomHandler(factory);
 	}
 		
 	/**
@@ -56,8 +55,10 @@ public class ResourceDecoder extends Decoder{
 	 * @throws SAXException
 	 */
 	public void create(Document doc, String type) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
-		String path = doc.getElementsByTagName(HEAD_TAG).item(0).getAttributes().getNamedItem(SOURCE_TAG).getTextContent();
-		NodeList nodeLst = doc.getElementsByTagName(TYPE_TAG);
+		String path = doc.getElementsByTagName(type).item(0).getAttributes().getNamedItem(SOURCE_TAG).getTextContent();
+		String subtype = type.substring(0, type.length()-1);
+		myCustomHandler.addAllCustoms(doc,subtype);
+		NodeList nodeLst = doc.getElementsByTagName(subtype);
 		
 		for(int i = 0 ; i < nodeLst.getLength() ; i++){
 			Element nElement = (Element) nodeLst.item(i);
