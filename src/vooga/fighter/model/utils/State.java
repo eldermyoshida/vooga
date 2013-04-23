@@ -1,8 +1,8 @@
 package vooga.fighter.model.utils;
 
 import java.awt.Dimension;
+import java.awt.Point;
 import java.awt.Rectangle;
-import vooga.fighter.model.objects.CharacterObject;
 import vooga.fighter.model.objects.GameObject;
 import util.Location;
 import util.Pixmap;
@@ -55,7 +55,8 @@ public class State {
 
     /**
      * Creates a state with the given owner, number of frames, and default priority
-     * and depth of zero. State has default frame delays of zero.
+     * and depth of zero. State has default frame delays of zero. Looping set to
+     * true by default.
      */
     public State(GameObject owner, int numFrames) {
         this(owner, numFrames, 0, 0);
@@ -78,7 +79,7 @@ public class State {
     
     /**
      * Creates a state with the given owner, number of frames, priority, and depth.
-     * State has default frame delays of zero.
+     * State has default frame delays of zero. Looping set to true by default.
      */
     public State(GameObject owner, int numFrames, int priority, int depth) {
         myOwner = owner;
@@ -168,8 +169,11 @@ public class State {
      * Returns the current active rectangle for this state.
      */
     public Rectangle getCurrentRectangle() {
-        Rectangle result = myRectangles[myCurrentFrame];
+        Rectangle currentRect = myRectangles[myCurrentFrame];
         Location location = myOwner.getLocation().getLocation();
+        Point origin = new Point((int) location.getX(), (int) location.getY());
+        Dimension size = currentRect.getSize();
+        Rectangle result = new Rectangle(origin, size);
         return result;
     }
 
@@ -282,13 +286,13 @@ public class State {
      * is not looping, or exceptions will be encountered.
      */
     public void update() {
-        if (myDelay == myFrameDelays[myCurrentFrame]&&myLooping) {
+        if (myDelay == myFrameDelays[myCurrentFrame]) {
             myCurrentFrame++;
             myDelay = 0;
         } else {
             myDelay++;
         }
-        if (hasCompleted()) {
+        if (hasCompleted() && myLooping) {
             resetState();
         }
     }
@@ -298,11 +302,7 @@ public class State {
      */
     public void resetState() {
         myCurrentFrame = 0;
-    }
-    
-    public void setCurrentRectangle(Rectangle rect){
-    	myRectangles[myCurrentFrame] = rect;
-    }
+    }    
 
     /**
      * Returns true if the state's animation has concluded, false otherwise.
@@ -314,16 +314,4 @@ public class State {
         return (myCurrentFrame >= myNumFrames);
     }
     
-    /**
-     * Resets bounds of rectangle based on given center location of rectangle
-     */
-    public void resetBounds (Location loc) {
-    	if(null!= myRectangles[myCurrentFrame]){
-        myRectangles[myCurrentFrame] = new Rectangle(
-        		(int) myRectangles[myCurrentFrame].getWidth(), 
-        		(int) myRectangles[myCurrentFrame].getHeight(),
-        		(int) loc.getX() - (int) myRectangles[myCurrentFrame].getWidth()/2, 
-        		(int) loc.getY() - (int) myRectangles[myCurrentFrame].getHeight()/2);
-    }
-    }
 }

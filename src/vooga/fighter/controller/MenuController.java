@@ -53,6 +53,16 @@ public abstract class MenuController extends Controller {
     	setupConditions();
     }
     
+    public void loadMode() {
+        Mode mode = new MenuMode(new CollisionManager(), super.getName());
+        super.setMode(mode);
+    }
+    public void initializeMode () {
+        MenuGrid grid = new MenuGrid(getMode().getName(), getMode());
+        getMode().setMenuGrid(grid);
+        getMode().setMenuObjects(grid.getMenuObjects());
+        getMode().update();
+    }
     
     @InputMethodTarget(name = "continue")
     public void mouseclick(PositionObject pos)  {
@@ -90,17 +100,6 @@ public abstract class MenuController extends Controller {
     @InputMethodTarget(name = "enter")
     public void enter(AlertObject alObj)  {
     	if(getMode().inputReady()) getMode().setChoice(getMode().getCurrentMenu().getValue());
-    }
-    
-    public void loadMode() {
-        Mode mode = new MenuMode(new CollisionManager(), super.getName());
-        super.setMode(mode);
-    }
-    public void initializeMode () {
-        MenuGrid grid = new MenuGrid(getMode().getName(), getMode());
-        getMode().setMenuGrid(grid);
-        getMode().setMenuObjects(grid.getMenuObjects());
-        getMode().update();
     }
     
     public MenuMode getMode(){

@@ -8,7 +8,9 @@ import vooga.fighter.model.utils.State;
 import vooga.fighter.model.utils.UpdatableLocation;
 import java.awt.Dimension;
 import java.awt.Rectangle;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -24,20 +26,28 @@ public abstract class GameObject {
     private ObjectLoader myLoader;
     private UpdatableLocation myCenter;
     private State myCurrentState;
+    private String myCurrentStateKey;
+    private State myDefaultState;
+    private String myDefaultStateKey;
     private ImageDataObject myImageData;
     private Map<String,State> myStates;
     private Map<String,Integer> myProperties;
-
+    private List<Integer> myImageEffects;
+    
     /**
      * Constructs a new GameObject. All fields are initially empty, and must be
      * populated with an ObjectLoader.
      */
     public GameObject() {
 //        myInstanceId = System.currentTimeMillis();
+    	myImageEffects = new ArrayList<Integer>();
         myStates = new HashMap<String,State>();
         myProperties = new HashMap<String,Integer>();
         myLoader = null;
         myCurrentState = null;
+        myCurrentStateKey = null;
+        myDefaultState = null;
+        myDefaultStateKey = null;
         myImageData = null;
     }
     
@@ -113,17 +123,25 @@ public abstract class GameObject {
      */
     public void setCurrentState(String key) {
         myCurrentState = getState(key);
+        myCurrentStateKey = key;
         myCurrentState.resetState();
     }
     
     /**
-     * Sets the current state for an object based on another state
+     * Sets the default state for this object.
      */
-    
-    public void setCurrentState(State st){
-    	myCurrentState= st;
-    	myCurrentState.resetState(); 
+    public void setDefaultState(String key) {
+        myDefaultState = getState(key);
+        myDefaultStateKey = key;
     }
+    
+    /**
+     * Gets the String key of the current state.
+     */
+    public String getCurrentStateKey() {
+        return myCurrentStateKey;
+    }
+    
     /**
      * Gets the current state for this object.
      */
@@ -162,7 +180,7 @@ public abstract class GameObject {
         Dimension myCurrentSize = myCurrentState.getCurrentSize();
         Location myCurrentLocation = myCenter.getLocation();
         if (!(myCurrentSize == null || myCurrentImage == null || myCenter == null)) {
-        	myImageData = new ImageDataObject(myCurrentImage, myCurrentLocation, myCurrentSize);
+        	myImageData = new ImageDataObject(myCurrentImage, myCurrentLocation, myCurrentSize, myImageEffects);
         }
     }
     
@@ -170,7 +188,7 @@ public abstract class GameObject {
      * Sets image data to the information from an ImageDataObject
      */
     public void setImageData(ImageDataObject image){
-    	myImageData= new ImageDataObject(image.getMyImage(), image.getMyLocation(),image.getMySize() );
+    	myImageData= new ImageDataObject(image.getImage(), image.getLocation(),image.getSize(), image.getImageEffect() );
     }
     
     /**
@@ -188,7 +206,6 @@ public abstract class GameObject {
     	setImageData();
         if (myCenter != null) {
             myCenter.update();
-            resetBounds();
         }
         completeUpdate();
     }
@@ -202,14 +219,27 @@ public abstract class GameObject {
         if (myCurrentState != null) {
             myCurrentState.update();
         }
-    }    
+        if (myCurrentState.hasCompleted()) {
+            stateCompleteUpdate();
+        }
+    }
+    
+    /**
+     * Determines behavior to be taken if the state has completed. Note that looping
+     * states will automatically reset. By default this method sets the current state
+     * to the default state.
+     */
+    public void stateCompleteUpdate() {
+        myCurrentState = myDefaultState;
+        myCurrentStateKey = myDefaultStateKey;
+        myCurrentState.resetState();
+    }
     
     /**
      * Returns true if this object is colliding with another.
      */
     public boolean checkCollision(GameObject other) {
         Rectangle thisRect = getCurrentState().getCurrentRectangle(); 
-        Rectangle a = new Rectangle(0,0);
         Rectangle otherRect = other.getCurrentState().getCurrentRectangle();
         return thisRect.intersects(otherRect);
     }
@@ -220,36 +250,12 @@ public abstract class GameObject {
     public Map<String,State> getStates(){
         return myStates;
     }
-    
-    public void resetBounds () {
-        getCurrentState().resetBounds(myCenter.getLocation());
-    }
  
     /**
      * Handles additional update logic outside of resolving movement on the object
      * and setting image data.
      */
     public abstract void completeUpdate();
-    
-    /**
-     * Second dispatch for collision management. Key part of the visitor pattern.
-     */
-    public abstract void dispatchCollision(GameObject other);
-    
-    /**
-     * Handles a collision with another game object. Key part of the visitor pattern.
-     */
-    public abstract void handleCollision(CharacterObject other);
-
-    /**
-     * Handles a collision with another game object. Key part of the visitor pattern.
-     */
-    public abstract void handleCollision(AttackObject other);
-    
-    /**
-     * Handles a collision with another game object. Key part of the visitor pattern.
-     */
-    public abstract void handleCollision(EnvironmentObject other);
     
     /**
      * Indicates whether or not the object is ready to be removed.

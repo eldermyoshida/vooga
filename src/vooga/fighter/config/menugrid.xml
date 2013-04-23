@@ -39,5 +39,10 @@
     <menumode menuname="MapSelectMenu1" >
         <menuobject menuobjectname="BacktoCharacter" />
     </menumode>
-    
+    <menumode menuname="MapSelectMenu2" >
+        <menuobject menuobjectname="BlueMap" xCoord = "250" yCoord = "150" xSize = "150" ySize = "150" nextState = "MapEditor" gridnum = "1" up="3" down="3" left="2" right="2" />
+        <menuobject menuobjectname="BlueMap" xCoord = "550" yCoord = "150" xSize = "150" ySize = "150" nextState = "MapEditor" gridnum = "2" up="4" down="4" left="1" right="1" />
+        <menuobject menuobjectname="BlueMap" xCoord = "250" yCoord = "450" xSize = "150" ySize = "150" nextState = "MapEditor" gridnum = "3" up="1" down="1" left="4" right="4" />
+        <menuobject menuobjectname="NewMap" xCoord = "550" yCoord = "450" xSize = "150" ySize = "150" nextState = "MapEditor" gridnum = "4" up="2" down="2" left="3" right="3" />                        
+    </menumode>
 </menutype>

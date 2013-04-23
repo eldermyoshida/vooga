@@ -18,7 +18,7 @@ import vooga.fighter.model.utils.State;
  */
 public class CharacterLoader extends ObjectLoader {
 	
-	private static final String CHARACTER_PATH = "src/vooga/fighter/config/characters.xml";
+	private static final String PATH_TAG = "CharacterPath";
 	
 	private CharacterObject myChar;
 
@@ -29,7 +29,7 @@ public class CharacterLoader extends ObjectLoader {
 	 * @param character
 	 */
 	public CharacterLoader (String charName, CharacterObject character) {
-		super(CHARACTER_PATH);
+		super(PATH_TAG);
 		myChar = character;
 		load(charName);
 	}
@@ -40,19 +40,21 @@ public class CharacterLoader extends ObjectLoader {
 	 */
 	protected void load(String charName) {
 		Document doc = getDocument();
-		NodeList charNodes = doc.getElementsByTagName("character");
+		NodeList charNodes = doc.getElementsByTagName(getResourceBundle().getString("Character"));
 
 		for (int i = 0; i < charNodes.getLength(); i++) {
 			Node node = charNodes.item(i);
-			String name = getAttributeValue(node, "charID");
+			String name = getAttributeValue(node, getResourceBundle().getString("CharacterName"));
 			if (charName.equals(name)) {
-				int maxHealth = Integer.parseInt(getAttributeValue(node, "maxHealth"));
-				int speed= Integer.parseInt(getAttributeValue(node, "movespeed"));
-				myChar.addProperty("speed", speed);
+				int maxHealth = Integer.parseInt(getAttributeValue(node, getResourceBundle().getString("MaxHealth")));
+				int movespeed= Integer.parseInt(getAttributeValue(node, getResourceBundle().getString("Movespeed")));
+				int mass= Integer.parseInt(getAttributeValue(node, getResourceBundle().getString("Mass")));
+				myChar.addProperty(getResourceBundle().getString("Movespeed"), movespeed);
+				myChar.addProperty(getResourceBundle().getString("Mass"), mass);
 				myChar.setHealth(maxHealth);
-				NodeList stateNodes = ((Element) node).getElementsByTagName("state");
+				NodeList stateNodes = ((Element) node).getElementsByTagName(getResourceBundle().getString("State"));
 				addStates(stateNodes, myChar);
-				NodeList attackNodes = ((Element) node).getElementsByTagName("attack");
+				NodeList attackNodes = ((Element) node).getElementsByTagName(getResourceBundle().getString("Attack"));
 				addAttacks(attackNodes);
 			}
 		}
@@ -65,11 +67,11 @@ public class CharacterLoader extends ObjectLoader {
 	private void addAttacks(NodeList attackNodes) {
 		for (int i = 0; i < attackNodes.getLength(); i++) {
 			Element attack = (Element) attackNodes.item(i);
-			String attackName = getAttributeValue(attackNodes.item(i), "attackName");
-			int attackDmg = Integer.parseInt(getAttributeValue(attackNodes.item(i), "damage"));
-			int attackDuration = Integer.parseInt(getAttributeValue(attackNodes.item(i), "duration"));
-			int attackSpeed = Integer.parseInt(getAttributeValue(attackNodes.item(i), "speed"));
-			NodeList frameNodes = attack.getElementsByTagName("frame");
+			String attackName = getAttributeValue(attackNodes.item(i), getResourceBundle().getString("AttackName"));
+			int attackDmg = Integer.parseInt(getAttributeValue(attackNodes.item(i), getResourceBundle().getString("Damage")));
+			int attackDuration = Integer.parseInt(getAttributeValue(attackNodes.item(i), getResourceBundle().getString("Duration")));
+			int attackSpeed = Integer.parseInt(getAttributeValue(attackNodes.item(i), getResourceBundle().getString("Movespeed")));
+			NodeList frameNodes = attack.getElementsByTagName(getResourceBundle().getString("Frame"));
 			AttackObject newAttack = new AttackObject();
 			State newState = new State(myChar, frameNodes.getLength());
 			newAttack.addProperty(ModelConstants.ATTACK_PROPERTY_SPEED, attackSpeed);

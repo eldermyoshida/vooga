@@ -25,18 +25,24 @@ import vooga.fighter.model.utils.State;
 public abstract class ObjectLoader {
 
 	private static final String RESOURCE_PATH = "vooga.fighter.config.objects";
-
+	private static final String RESOURCE_DEFAULT_VALUES_PATH="vooga.fighter.config.defaultvalues";
 	private File myObjectFile;
 	private Document myDocument;
 	private ResourceBundle myResources;
+	private ResourceBundle myDefaults; 
 
 	/**
 	 * Points to the xml file that the loader will be parsing
 	 * 
 	 * @param objectPath
 	 */
-	public ObjectLoader (String objectPath) {
+	public ObjectLoader (String pathName) {
 		myResources = ResourceBundle.getBundle(RESOURCE_PATH);
+<<<<<<< HEAD
+		myDefaults= ResourceBundle.getBundle(RESOURCE_PATH);
+=======
+		String objectPath = myResources.getString(pathName);
+>>>>>>> e4b123492e39476c02ba3acb3fa16101f492c673
 		myObjectFile = new File(objectPath);
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder;
@@ -78,7 +84,13 @@ public abstract class ObjectLoader {
 	 * @return
 	 */
 	protected String getAttributeValue(Node node, String tag) {
-		return node.getAttributes().getNamedItem(tag).getTextContent();
+		String value= node.getAttributes().getNamedItem(tag).getTextContent();
+		if (value==null){
+			value= myDefaults.getString(getClass()+tag);
+			throw new RuntimeException("No "+ tag +" set.  Property set to default value: "+ value );
+			//TODO: will remove hard coding in runtime exception later 
+		}
+		return value;
 	}
 
 	/**
