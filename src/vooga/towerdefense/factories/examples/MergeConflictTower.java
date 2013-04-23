@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.FindTargets;
 import vooga.towerdefense.action.actionlist.LaunchProjectile;
-import vooga.towerdefense.action.actionlist.Move;
-import vooga.towerdefense.action.tobetested.MakeElement;
 import vooga.towerdefense.action.tobetested.RandomChance;
 import vooga.towerdefense.attributes.Attribute;
 import vooga.towerdefense.attributes.AttributeConstants;
@@ -45,11 +43,11 @@ public class MergeConflictTower extends GameElementFactory {
         GameElement myTower;
         if (putHere != null) {
             myTower = new GameElement(tImage, putHere,
-                                      new Dimension(100, 100), AM);
+                                      new Dimension(100, 100), AM, "tower");
         }
         else {
             myTower = new GameElement(def.getImage(),
-                                      def.getCenter(), def.getSize(), AM);
+                                      def.getCenter(), def.getSize(), AM, "tower");
         }
 
         ArrayList<Action> actions = new ArrayList<Action>();
@@ -59,7 +57,7 @@ public class MergeConflictTower extends GameElementFactory {
         ExampleDosProjectileFactory coolStoryBro = new ExampleDosProjectileFactory();
         coolStoryBro.initialize(getMap());
         //Action launchProjectile = new MakeElement(getMap(), myTower.getCenter(), new ExampleDosProjectileFactory());
-        Action launchProjectile = new LaunchProjectile(getMap(), myTower, new ExampleDosProjectileFactory(), myTower);
+        Action launchProjectile = new LaunchProjectile(getMap(), putHere, new ExampleDosProjectileFactory());
         findTargets.addFollowUpAction(launchProjectile);
         randomFiring.addFollowUpAction(findTargets);
         actions.add(randomFiring);

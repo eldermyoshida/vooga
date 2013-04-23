@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vooga.towerdefense.action.Action;
-import vooga.towerdefense.action.actionlist.MoveToDestination;
+import vooga.towerdefense.action.actionlist.MoveToTarget;
 import vooga.towerdefense.attributes.AttributeConstants;
 import vooga.towerdefense.attributes.AttributeManager;
 import vooga.towerdefense.gameElements.GameElement;
@@ -25,23 +25,24 @@ public class ProjectileFactory extends GameElementFactory {
 			DEFAULT_WIDTH);
 	private static final List<Action> DEFAULT_ACTIONS = new ArrayList<Action>();
 	private static final AttributeManager DEFAULT_ATTRIBUTE_MANAGER = new AttributeManager();
+	private static final String DEFAULT_PROJECTILE_NAME = "projectile";
 
 	public GameElement createProjectile(GameElement initiator,
 			GameElement target) {
 
 		return new GameElement(DEFAULT_IMAGE, initiator.getCenter(),
-				DEFAULT_SIZE, DEFAULT_ATTRIBUTE_MANAGER, DEFAULT_ACTIONS);
+				DEFAULT_SIZE, DEFAULT_ATTRIBUTE_MANAGER, DEFAULT_ACTIONS, DEFAULT_PROJECTILE_NAME);
 
 	}
 
 	public GameElement createProjectile(GameElement initiator,
 			Location targetLocation) {
 		GameElement projectile = new GameElement(DEFAULT_IMAGE,
-				initiator.getCenter(), DEFAULT_SIZE, DEFAULT_ATTRIBUTE_MANAGER);
+				initiator.getCenter(), DEFAULT_SIZE, DEFAULT_ATTRIBUTE_MANAGER, DEFAULT_PROJECTILE_NAME);
 		projectile.addActions(DEFAULT_ACTIONS);
 
 		List<Action> actions = new ArrayList<Action>();
-		actions.add(new MoveToDestination(projectile.getCenter(),
+		actions.add(new MoveToTarget(projectile.getCenter(),
 				targetLocation, initiator.getAttributeManager().getAttribute(
 						AttributeConstants.MOVE_SPEED)));
 		projectile.addActions(actions);

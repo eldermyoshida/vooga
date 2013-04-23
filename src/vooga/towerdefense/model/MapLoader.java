@@ -1,8 +1,6 @@
 package vooga.towerdefense.model;
 
 import java.awt.Dimension;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -53,7 +51,7 @@ public class MapLoader {
     private static final String TILE_SIZE_TAG = "tile_size";
     private static final String GRID_TAG = "grid";
     
-    public XMLTool myXMLTool;    
+    private XMLTool myXMLTool;    
     private Map<Integer, TileFactory> myTileIdMap;
     
     /**
