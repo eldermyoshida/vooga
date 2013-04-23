@@ -27,6 +27,7 @@ import java.util.List;
  * 
  */
 public class Weapon {
+
     public static int DEFAULT_RANGE = 500;
     public static int DEFAULT_COOLDOWN_TIME = 1;
 
@@ -37,7 +38,7 @@ public class Weapon {
     // private Interval interval;
     private Ellipse2D myRangeCircle;
     private Location3D myCenter;
-    private AttackingState attackingState;    
+    private AttackingState attackingState;
 
     private DelayedTask cooldownTime;
 
@@ -127,11 +128,11 @@ public class Weapon {
      * @return true if the interactive is in the range of the weapon and false
      *         if the interactive is out of the range of the weapon
      */
-    public boolean inRange (InteractiveEntity enemy) {
-        // add z axis
-        // see if enemy is in adjacent node, better way ?
-        myRangeCircle = new Ellipse2D.Double(myCenter.getX(), myCenter.getY(), myRange, myRange);
-        return myRangeCircle.contains(enemy.getWorldLocation().to2D());
+    public boolean inRange (InteractiveEntity enemy, double distance) {
+//        myRangeCircle = new Ellipse2D.Double(myCenter.getX(), myCenter.getY(), myRange, myRange);
+//        return myRangeCircle.contains(enemy.getWorldLocation().to2D());
+//        ellipse thing doesnt seem to be working very well.
+        return (distance < this.myRange);
     }
 
     /**
@@ -173,7 +174,7 @@ public class Weapon {
             }
         }
     }
-    
+
     /**
      * @param center the center to set
      */

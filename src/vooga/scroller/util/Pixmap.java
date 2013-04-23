@@ -16,12 +16,13 @@ import javax.swing.ImageIcon;
  * 
  * Note, Java only supports the formats: png, jpg, gif.
  * 
- * @author Robert C. Duvall, Dagbedji F
- * Added get icon
+ * @author Robert C. Duvall
+ * Added getter for view @author DF
  */
-public class Pixmap {
+
+public class Pixmap implements ISpriteView {
     // OS-independent relative resource locations (like URLs)
-    private static final String RESOURCE_LOCATION = "/vooga/scroller/images/";
+    private static final String DEFAULT_RESOURCE_LOCATION = "/vooga/scroller/images/";
     // underlying implementation
     private java.awt.Image myImage;
     private String myFileName;
@@ -31,7 +32,14 @@ public class Pixmap {
      * Create an image from the given filename.
      */
     public Pixmap (String fileName) {
-        setImage(fileName);
+        this(DEFAULT_RESOURCE_LOCATION, fileName);
+    }
+    
+    /**
+     * Create an image from the given filename.
+     */
+    public Pixmap (String directory, String fileName) {
+        setImage(directory+fileName);
     }
 
     /**
@@ -45,13 +53,15 @@ public class Pixmap {
      * Set this image to the image referred to by the given filename.
      */
     public void setImage (String fileName) {
-        myImage = new ImageIcon(getClass().getResource(RESOURCE_LOCATION + fileName)).getImage();
+        myImage = new ImageIcon(getClass().getResource(fileName)).getImage();
         myFileName = fileName;
     }
+    
 
     /**
      * Describes how to draw the image on the screen.
      */
+    @Override
     public void paint (Graphics2D pen, Point2D center, Dimension size) {
         paint(pen, center, size, 0);
     }
@@ -59,6 +69,7 @@ public class Pixmap {
     /**
      * Describes how to draw the image rotated on the screen.
      */
+    @Override
     public void paint (Graphics2D pen, Point2D center, Dimension size, double angle) {
         // save current state of the graphics area
         AffineTransform old = new AffineTransform(pen.getTransform());
@@ -72,7 +83,36 @@ public class Pixmap {
         pen.setTransform(old);
     }
     
-    public Image getImg() {
+    /**
+     * TODO - Get Version Control approval
+     * @return the default image for this Pixmap
+     */
+    @Override
+    public Image getDefaultImg() {
         return myImage;
     }
+    
+    /**
+     * TODO - Changing the picture should be a function of the state,
+     * not changing the image itself. A sprite should hold a collection
+     * of its images and paint it.
+     * TODO - Get Version Control approval
+     * @param im
+     */
+    private void setImg(Image im) {
+        myImage = im;
+    }
+
+    @Override
+    public ISpriteView reset () {
+        // TODO Auto-generated method stub
+        return this;
+    }
+
+    @Override
+    public void setDefaultView (ISpriteView ispriteview) {
+       // myImage = ispriteview
+        // TODO: 
+    }
+
 }

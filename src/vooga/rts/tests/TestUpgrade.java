@@ -12,13 +12,12 @@ import org.xml.sax.SAXException;
 import vooga.rts.commands.Command;
 import vooga.rts.gamedesign.factories.Factory;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Soldier;
-import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;
 import vooga.rts.gamedesign.strategy.attackstrategy.CannotAttack;
 import vooga.rts.gamedesign.upgrades.UpgradeNode;
 
 public class TestUpgrade {
 	
-	private static String readUserInput(String printMessage)
+	private String readUserInput(String printMessage)
 			throws IOException {
 		System.out.print(printMessage);
 		InputStreamReader isr = new InputStreamReader(System.in);

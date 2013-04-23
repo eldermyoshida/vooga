@@ -6,9 +6,9 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import vooga.scroller.model.Model;
-import vooga.scroller.sprite_superclasses.Player;
-import vooga.scroller.util.Location;
-import vooga.scroller.view.View;
+import vooga.scroller.sprites.superclasses.Player;
+import util.Location;
+import vooga.scroller.view.GameView;
 /**
  * The default scrolling manager
  * @author Ross
@@ -16,13 +16,13 @@ import vooga.scroller.view.View;
  */
 public class DefaultScrollingManager extends ScrollingManager {
     private Model myGame;
-    private View myView;
+    private GameView myView;
     
     public void initGame(Model game) {
         myGame = game;
     }
 
-    public void initView(View view) {
+    public void initView(GameView view) {
         myView = view;
     }
 
@@ -130,7 +130,7 @@ public class DefaultScrollingManager extends ScrollingManager {
         myGame.paint((Graphics2D) pen);
     }
 
-    public Location playerPaintLocation (PlayerController p) {
+    public Location playerPaintLocation (Player p) {
         double x = myView.getWidth() / 2;
         double y = myView.getHeight() / 2;
         if(p.getX() > (levelRightBoundary() - myView.getWidth() / 2)) {

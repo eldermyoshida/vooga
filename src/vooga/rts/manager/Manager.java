@@ -17,8 +17,10 @@ import vooga.rts.commands.ClickCommand;
 import vooga.rts.commands.Command;
 import vooga.rts.commands.DragCommand;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building;
 import vooga.rts.gamedesign.state.DetectableState;
 import vooga.rts.gamedesign.state.MovementState;
+import vooga.rts.gamedesign.state.OccupyState;
 import vooga.rts.manager.actions.DragSelectAction;
 import vooga.rts.manager.actions.LeftClickAction;
 import vooga.rts.manager.actions.RightClickAction;
@@ -323,33 +325,33 @@ public class Manager implements State, IActOn, Observer {
         if (entity instanceof InteractiveEntity) {
             InteractiveEntity ie = (InteractiveEntity) entity;
             if (ie.isDead()) {
-            	remove(ie);
+                remove(ie);
             }
         }
 
         // While Shepherds watch their flocks by night.
         if (state instanceof InteractiveEntity) {
-        	add((InteractiveEntity) state);
+            InteractiveEntity sent = (InteractiveEntity) state;
+            if (!myEntities.contains(sent)) {
+                add(sent);
+            }
 
-        	if (((InteractiveEntity) state).getEntityState().getDetectableState()
-        			.equals(DetectableState.NOTDETECTABLE)) {
-        		int index = myEntities.indexOf(state);
-        		myEntities.get(index).setVisible(false);
-        		deselect(myEntities.get(index));
-        	}
+            if (!sent.getEntityState().canSelect()) {
+                sent.setVisible(false);
+                deselect(sent);
+            }
 
         }
-
         else if (state instanceof Integer) {
-        	int index = findEntityWithHashCode((Integer) state);
-        	myEntities.get(index).getEntityState()
-        	.setDetectableState(DetectableState.DETECTABLE);
-        	myEntities.get(index).setVisible(true);
-        	myEntities.get(index).setWorldLocation(new Location3D());
-        	
-        	//BELOW are all attempts to stop the Unit from moving. Yet not working : /
-        	myEntities.get(index).getEntityState().setMovementState(MovementState.STATIONARY);
-        	myEntities.get(index).stopMoving();
-        }
+                int index = findEntityWithHashCode((Integer) state);
+                InteractiveEntity unit = myEntities.get(index);
+                unit.getEntityState().setOccupyState(OccupyState.NOT_OCCUPYING);
+                unit.setVisible(true);
+
+                unit.setWorldLocation((((Building) entity).getRallyPoint()));
+                unit.move((((Building) entity).getRallyPoint()));
+                myEntities.get(index).stopMoving();
+                unit.getEntityState().setMovementState(MovementState.STATIONARY);
+            }
     }
 }

@@ -8,8 +8,7 @@ bin/
 .project
 .settings
 .DS_Store
-Thumbs.db
-*.classpath
 *.project
-
+*.ucls
+Thumbs.db
 /bin

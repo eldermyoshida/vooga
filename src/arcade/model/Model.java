@@ -1,22 +1,35 @@
 package arcade.model;
 
-import games.example.Example;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
+import arcade.database.Database;
+import arcade.exceptions.CorruptedDatabaseException;
+import arcade.exceptions.InvalidPaymentException;
+import arcade.exceptions.LoginErrorException;
+import arcade.exceptions.UsernameTakenException;
 import arcade.games.ArcadeInteraction;
 import arcade.games.Game;
 import arcade.games.GameData;
 import arcade.games.GameInfo;
 import arcade.games.HighScores;
+import arcade.games.MultiplayerGame;
 import arcade.games.User;
 import arcade.games.UserGameData;
-import arcade.util.Pixmap;
-import arcade.view.LoginView;
+import arcade.model.payment.DukePaymentManager;
+import arcade.model.payment.PaymentManager;
 import arcade.view.MainView;
+import arcade.view.forms.LoginView;
 
 
 public class Model implements ArcadeInteraction {
+
+    private static final String PAYMENT_MANAGER_LOCATION = "arcade.model.payment.";
     public static final String DEFAULT_LOGIN_MESSAGE = "";
     private static final String LOGIN_FAILURE_MESSAGE =
             "The username or password you entered is incorrect";
@@ -24,8 +37,15 @@ public class Model implements ArcadeInteraction {
     private ResourceBundle myResources;
     private LoginView myLoginView;
     private String myLanguage;
-
+    private Database myDb = new Database();
+    private Map<String, GameInfo> myGameInfos = new HashMap<String, GameInfo>();
     private List<GameInfo> mySnapshots;
+    private String myUser;
+    private PaymentManager myPaymentManager;
+
+    // These will be null until you try to play a game
+    Game myCurrentGame = null;
+    MultiplayerGame myCurrentMultiplayerGame = null;
 
     public Model (ResourceBundle rb, String language) {
         myResources = rb;
@@ -36,43 +56,192 @@ public class Model implements ArcadeInteraction {
         myLoginView = login;
     }
 
-    public void authenticate (String username, String password) {
-        // myLoginView.sendMessage(LOGIN_FAILURE_MESSAGE);
-        myLoginView.destroy();
-        getGameList();
+    /**
+     * 
+     * @param directoryPath
+     */
+    public void publishGame (String directoryPath) {
+        return;
+    }
+
+    /**
+     * This should be called after a developer enters the information about
+     * his / her game. The method will add the game entry to the database and
+     * create a new GameInfo to display in the gamecenter.
+     * 
+     * This sanitizes all the input so we guarantee that all names an genres are
+     * lowercase on the backend.
+     * 
+     * @param gameName
+     * @param genre
+     */
+    public void publish (String name,
+                         String genre,
+                         String author,
+                         double price,
+                         String extendsGame,
+                         String extendsMultiplayerGame,
+                         int ageRating,
+                         boolean singlePlayer,
+                         boolean multiplayer,
+                         String thumbnailPath,
+                         String adScreenPath,
+                         String description) {
+        System.out.println(extendsGame);
+        System.out.println(extendsMultiplayerGame);
+        myDb.createGame(name.toLowerCase(), 
+                        genre.toLowerCase(), 
+                        author, 
+                        price,
+                        formatClassFilePath(extendsGame),
+                        formatClassFilePath(extendsMultiplayerGame), 
+                        ageRating, 
+                        singlePlayer,
+                        multiplayer, 
+                        thumbnailPath, 
+                        adScreenPath, 
+                        description);
+        addGameInfo(newGameInfo(name));
+    }
+
+    /**
+     * Tedious Java string manipulation to change something like:
+     * games/rts/ageOfEmpires/game.java
+     * to games.rts.ageOfEmpires.game
+     * so replace slashes with periods and remove the file extension
+     */
+    private String formatClassFilePath (String path) {
+        // split on file extension
+        String[] split = path.split(".");
+        // take everything before file extension and after src to get java relative filepath.
+        List<String> list = Arrays.asList(split);
+        if (list.contains("src")) {
+            // this means you got the absolute file path, so you need to
+            // get java relative file path (i.e. after src/ )
+            path = split[0].split("src")[1];
+        }
+        split = path.split("/");
+        String ret = "";
+        for (String str : split) {
+            ret += str;
+            ret += ".";
+        }
+        // remove the hanging period
+        ret = ret.substring(0, ret.length() - 1);
+        return ret;
+    }
+
+    private GameInfo newGameInfo (String name) throws MissingResourceException {
+        return new GameInfo(myDb, name);
+    }
+
+    private void addGameInfo (GameInfo game) {
+        myGameInfos.put(game.getName(), game);
+    }
+
+    public void authenticate (String username, String password) throws LoginErrorException {
+        if (!myDb.authenticateUsernameAndPassword(username, password)) {
+            throw new LoginErrorException();
+        }
+        myLoginView.dispose();
         organizeSnapshots();
         new MainView(this, myResources);
-
-        // if (username.equals("ellango") && password.equals("password")) {
-        // myLoginView.destroy();
-        // getGameList();
-        // organizeSnapshots();
-        // new MainView(this, myResources);
-        // }
-        // else {
-        // myLoginView.sendMessage(LOGIN_FAILURE_MESSAGE);
-        // }
     }
 
     /**
      * Create a new user profile by entering user-specific information.
      * This information is eventually stored in the database.
+     * @throws UsernameTakenException 
      */
-    public void createNewUserProfile () {
+    public void createNewUserProfile (String username,
+                                      String pw,
+                                      String firstname,
+                                      String lastname,
+                                      String dataOfBirth) throws UsernameTakenException {
+        if (myDb.usernameExists(username)) {
+            throw new UsernameTakenException();
+        }
+        myDb.createUser(username, pw, firstname, lastname, dataOfBirth);
+        try {
+            authenticate(username, pw);
+        }
+        catch (LoginErrorException e) {
+            // this can't happen because just added to db.
+            throw new CorruptedDatabaseException();
+        }
 
     }
+
+    public void createNewUserProfile (String username,
+                                      String pw,
+                                      String firstname,
+                                      String lastname,
+                                      String dataOfBirth,
+                                      String filepath) throws UsernameTakenException {
+        
+        if (myDb.usernameExists(username)) {
+            throw new UsernameTakenException();
+        }
+        myDb.createUser(username, pw, firstname, lastname, dataOfBirth, filepath);
+        try {
+            authenticate(username, pw);
+        }
+        catch (LoginErrorException e) {
+            // this can't happen because just added to db.
+            throw new CorruptedDatabaseException();
+        }
+    }
+
+    public void deleteUser (String username) {
+        myDb.deleteUser(username);
+    }
+    
+    
+    /**
+     * First creates the appropriate PaymentManager for the transactionType
+     * if the transactionType is Duke, then the DukePaymentManager is created.
+     * 
+     * Then tries to complete the transaction with the paymentInfo.  If the 
+     * transaction is unsuccessful, the InvalidPaymentExecption is thrown.
+     * 
+     * @param transactionType
+     * @param paymentInfo
+     * @throws InvalidPaymentException
+     */
+    public void performTransaction(GameInfo game, String transactionType, String[] paymentInfo) throws InvalidPaymentException {
+        try {
+            Class<?> paymentManagerClass = Class.forName(PAYMENT_MANAGER_LOCATION + transactionType);
+            myPaymentManager = (PaymentManager) paymentManagerClass.newInstance();
+        }
+        catch (ClassNotFoundException e) {
+            throw new InvalidPaymentException();
+        }
+        catch (InstantiationException e) {
+            throw new InvalidPaymentException();
+        }
+        catch (IllegalAccessException e) {
+            throw new InvalidPaymentException();
+        }
+        
+        myPaymentManager.doTransaction(paymentInfo);
+        // TODO: write code here for moving game from Store to GameCenter
+    }
+    
 
     /**
      * Rate a specific game, store in user-game database
      */
-    public void rateGame (GameInfo g, int rating) {
-
+    public void rateGame (double rating, String gameName) {
+        myDb.updateRating(myUser, gameName, rating);
     }
-    
-    public void playGame(GameInfo gameinfo) {
-        System.out.println(gameinfo.getName());
-        //TODO: instantiate the game.
-        Game game = new Example(this);
+
+    public void playGame (GameInfo gameinfo) {
+        myCurrentGame = gameinfo.getGame(this);
+        myCurrentGame.run();
+    }
+
+    public void playMultiplayerGame (GameInfo gameinfo) {
+        MultiplayerGame game = gameinfo.getMultiplayerGame(this);
         game.run();
     }
 
@@ -82,14 +251,21 @@ public class Model implements ArcadeInteraction {
      * 
      * @return
      */
-    public List<GameInfo> getGameList () {
-        return mySnapshots;
+    public Collection<GameInfo> getGameList () {
+        return myGameInfos.values();
     }
 
     private void organizeSnapshots () {
-        mySnapshots = new ArrayList<GameInfo>();
-        GameInfo myGameInfo = new GameInfo("example", myLanguage);
-        mySnapshots.add(myGameInfo);
+        List<String> gameNames = myDb.retrieveListOfGames();
+        for (String name : gameNames) {
+            try {
+                addGameInfo(newGameInfo(name));
+            }
+            catch (MissingResourceException e) {
+                continue;
+            }
+
+        }
     }
 
     /**
@@ -99,10 +275,7 @@ public class Model implements ArcadeInteraction {
      * @return
      */
     public GameInfo getGameDetail (String gameName) {
-        for (GameInfo g : mySnapshots) {
-            if (g.getName().equals(gameName)) { return g; }
-        }
-        return null;
+        return myGameInfos.get(gameName);
     }
 
     /**
@@ -118,8 +291,12 @@ public class Model implements ArcadeInteraction {
 
     @Override
     public User getUser () {
-        // TODO get the user's avatar, figure out how we are implementing user infor for games
+        // TODO get the user's avatar, figure out how we are implementing user info for games
         return null;
+    }
+
+    public double getAverageRating (String gameName) {
+        return myDb.getAverageRating(gameName);
     }
 
     @Override
@@ -136,15 +313,20 @@ public class Model implements ArcadeInteraction {
     }
 
     @Override
-    public UserGameData getUserGameData () {
-        // TODO database stuff
-        return null;
+    public UserGameData getUserGameData (String gameName) {
+        UserGameData ugd = myDb.getUserGameData(gameName, myUser);
+        if (ugd == null) {
+            // use reflection to find the game class and call the generate user profile method
+        }
+        return ugd;
     }
 
     @Override
-    public GameData getGameData () {
-        // TODO database stuff
-        return null;
+    public GameData getGameData (String gameName) {
+        GameData gd = myDb.getGameData(gameName);
+        if (gd == null) {
+            // use reflection to find the game class and call the generate game method
+        }
+        return gd;
     }
-
 }

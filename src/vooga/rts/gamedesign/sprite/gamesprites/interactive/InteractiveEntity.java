@@ -101,6 +101,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
         myBuildTime = buildTime;
         myOccupyStrategy = new CannotBeOccupied();
         myProducables = new ArrayList<InteractiveEntity>();
+        setSpeed(DEFAULT_INTERACTIVEENTITY_SPEED);
     }
 
     public void addAction (String command, Action action) {
@@ -116,7 +117,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     public void addTask (DelayedTask dt) {
         myTasks.add(dt);
     }
-    
+
     /**
      * returns the list of producables
      */
@@ -132,7 +133,6 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     	return myUpgradeStrategy.getUpgradeTree();
     }
 
-    
     /**
      * This method specifies that the interactive entity is attacking an
      * IAttackable. It checks to see if the IAttackable is in its range, it sets
@@ -147,10 +147,10 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
                 Math.sqrt(Math.pow(getWorldLocation().getX() -
                                    ((InteractiveEntity) attackable).getWorldLocation().getX(), 2) +
                           Math.pow(getWorldLocation().getY() -
-                                   ((InteractiveEntity) attackable).getWorldLocation().getY(), 2));        
+                                   ((InteractiveEntity) attackable).getWorldLocation().getY(), 2));
         if (!this.isDead()) {
             // getEntityState().setAttackingState(AttackingState.ATTACKING);
-            
+
             if (getEntityState().getAttackingState() != AttackingState.WAITING &&
                 getEntityState().getAttackingState() != AttackingState.ATTACKING) {
                 getEntityState().attack();
@@ -159,8 +159,8 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
             // getGameState().setMovementState(MovementState.STATIONARY);
             if (getEntityState().canAttack()) {
                 myAttackStrategy.attack(attackable, distance);
-                
-                //System.out.println("Can Attack?");
+
+                // System.out.println("Can Attack?");
             }
         }
     }
@@ -174,19 +174,20 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     }
 
     /**
-     * Creates a copy of an interactive entity. 
+     * Creates a copy of an interactive entity.
      **/
     public abstract InteractiveEntity copy ();
-    
+
     /**
      * Returns the action that corresponds to a command.
+     * 
      * @param command is a command that was entered by the player
      * @return the action the is mapped to the command
      */
     public Action getAction (Command command) {
         return myActions.get(command.getMethodName());
     }
-    
+
     public void getOccupied (Unit occupier) {
         if (occupier.collidesWith(this)) {
             myOccupyStrategy.getOccupied(this, occupier);
@@ -224,13 +225,10 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
         return mySound;
     }
 
-    public int getSpeed () {
-        return DEFAULT_INTERACTIVEENTITY_SPEED;
-    }
-    
     /**
      * Returns the strategy the entity has for producing (CanProduce or
      * CannotProduce).
+     * 
      * @return the production strategy of the entity
      */
     public ProductionStrategy getProductionStrategy () {
@@ -238,10 +236,11 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     }
 
     /**
-     * Sets the production strategy of the entity to CanProduce or 
+     * Sets the production strategy of the entity to CanProduce or
      * CannotProduce.
+     * 
      * @param productionStrategy is the production strategy the entity will
-     * have
+     *        have
      */
     public void setProductionStrategy (ProductionStrategy productionStrategy) {
         myProductionStrategy = productionStrategy;
@@ -261,6 +260,9 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
 
     @Override
     public void paint (Graphics2D pen) {
+        if (!isVisible()) {
+            return;
+        }
         // pen.rotate(getVelocity().getAngle());
 
         // should probably use the getBottom, getHeight etc...implement them
@@ -381,8 +383,6 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
         notifyObservers();
     }
 
-    
-
     /*
      * Test method to add an interactive entity to
      */
@@ -397,28 +397,30 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
             action.update(command);
         }
     }
-    
+
     /**
      * Sets the object to be in the changed state for the observer pattern.
      */
     public void setChanged () {
         super.setChanged();
     }
-    
+
     /**
-     * Gets the occupy strategy of the entity (either CanBeOccupied or 
+     * Gets the occupy strategy of the entity (either CanBeOccupied or
      * CannotBeOccupied).
+     * 
      * @return
      */
     public OccupyStrategy getOccupyStrategy () {
         return myOccupyStrategy;
     }
-    
+
     /**
-     * Sets the occupy strategy for the entity to be CanBeOccupied or 
+     * Sets the occupy strategy for the entity to be CanBeOccupied or
      * CannotBeOccupied.
+     * 
      * @param occupyStrategy is the occupy strategy that the entity is being
-     * set to
+     *        set to
      */
     public void setOccupyStrategy (OccupyStrategy occupyStrategy) {
         myOccupyStrategy = occupyStrategy;

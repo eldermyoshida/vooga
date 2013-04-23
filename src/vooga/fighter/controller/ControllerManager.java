@@ -1,13 +1,13 @@
 package vooga.fighter.controller;
 
-import vooga.fighter.input.Input;
-import vooga.fighter.input.InputClassTarget;
+
 
 import java.awt.Dimension;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import util.input.Input;
 import vooga.fighter.view.Canvas;
 /**
  * 
@@ -16,45 +16,51 @@ import vooga.fighter.view.Canvas;
  */
 
 public class ControllerManager implements ControllerDelegate{
-	private static final String MAINMENU = "MainMenu";
-	private static final String TEST = "Test";
+        
+       
 	private Map<String, Controller> myControllerMap;
 	private Controller myCurrentController;
 	private Canvas myCanvas;
 	private GameInfo myGameInfo;
+	private ControlProgressionManager myProgressionManager;
+	private static final String INPUT_PATHWAY = "vooga.fighter.config.menudefault";
+	private Input myInput;
 	
-	public ControllerManager(Canvas frame, GameInfo gameinfo) {
+	public ControllerManager(Canvas frame, GameInfo gameinfo, ControllerFactory factory,
+			ControlProgressionManager progressionmanager) {
 		myCanvas = frame;
-		myControllerMap = new ControllerFactory(frame).getMap();
+		myInput = new Input(INPUT_PATHWAY, myCanvas);
+		myControllerMap = factory.getMap();
 		myGameInfo = gameinfo;
-		myCurrentController = myControllerMap.get(TEST).getController(this, myGameInfo);
+		myProgressionManager = progressionmanager;
+		myCurrentController = myControllerMap.get(myProgressionManager.getFirstController())
+				.getController(this, myGameInfo);
+		
 	}
 	
 	public void run(){
 		myCurrentController.start();
 	}
+	
+	public void notifyEndCondition(String string) {
+		switchController(string);
+	}
 
-	public void switchController(String NextController) {
-	        System.out.println("switching controllers");
+	private void switchController(String condition) {
 		myCurrentController.stop();
-		myCurrentController = myControllerMap.get(NextController);
+		myCurrentController = myControllerMap.get(myProgressionManager.getNextController(
+				myCurrentController.getName(), condition));
 		System.out.println("now the controller is: " + myCurrentController.getName() );
 		//myCurrentController.displaySplash();
 		myCurrentController = myCurrentController.getController(this, myGameInfo);
 		myCurrentController.start();	
 	}      
 
-
+	public void exit(){
+		System.exit(0);
+	}
 	
-	private String pickController(String condition){
-		String NextController = ""; //ERROR LOGIC NEEDED!
-		return NextController;
+	public Input getInput() {
+	    return myInput;
 	}
-
-	@Override
-	public void notifyEndCondition(String string) {
-		switchController(string);
-		
-	}
-
 }
