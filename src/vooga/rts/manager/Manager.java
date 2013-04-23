@@ -175,6 +175,7 @@ public class Manager implements State, IActOn, Observer {
         }
     }
 
+    
     /**
      * Deselects all selected entities.
      */
