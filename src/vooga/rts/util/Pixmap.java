@@ -85,4 +85,16 @@ public class Pixmap {
         pen.setTransform(old);
     }
     //public void paint ()
+    
+    public Dimension getMyDimension() {
+        return new Dimension(myImage.getWidth(null), myImage.getHeight(null));
+    }
+    
+    public int getMyWidth() {
+        return myImage.getWidth(null);
+    }
+    
+    public int getMyHeight() {
+        return myImage.getHeight(null);
+    }
 }

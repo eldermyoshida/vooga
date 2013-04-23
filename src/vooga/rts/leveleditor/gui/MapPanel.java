@@ -13,7 +13,7 @@ import util.input.InputClassTarget;
 import util.input.InputMethodTarget;
 import util.input.PositionObject;
 import vooga.rts.leveleditor.components.EditableMap;
-import vooga.rts.leveleditor.components.EditableNode;
+import vooga.rts.leveleditor.components.EditableTile;
 import vooga.rts.leveleditor.components.MapLayer;
 import vooga.rts.leveleditor.components.Resource;
 import vooga.rts.leveleditor.components.Terrain;
@@ -182,7 +182,7 @@ public class MapPanel extends JComponent {
         x = x / myTileHeight;
         y = y / myTileWidth;
         if (x >= 0 && x < myWidth && y >= 0 && y < myHeight) {
-            EditableNode n = myMap.getMapNode(y, x);
+            EditableTile n = myMap.getMapNode(y, x);
             if (!myRemoveFlag) {
                 n.setTile(myCanvas.getCurrentSelectTile().getMyID());
                 n.setOccupied(true);
@@ -199,7 +199,7 @@ public class MapPanel extends JComponent {
     public void placePlayer (int x, int y) {
         int nodex = x / myTileWidth;
         int nodey = y / myTileHeight;
-        EditableNode n = myMap.getMapNode(nodex, nodey);
+        EditableTile n = myMap.getMapNode(nodex, nodey);
         if (!myRemoveFlag) {
             myMap.addPlayer(x, y);
             n.setPlayerIndex(myMap.getMyPlayerNumber());

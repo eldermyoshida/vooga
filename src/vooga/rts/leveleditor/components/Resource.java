@@ -1,112 +1,50 @@
 package vooga.rts.leveleditor.components;
 
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
-import vooga.rts.leveleditor.gui.MapPanel;
-import vooga.rts.resourcemanager.ResourceManager;
-import vooga.rts.util.Location;
+import vooga.rts.gamedesign.sprite.gamesprites.GameSprite;
+import vooga.rts.util.Location3D;
+import vooga.rts.util.Pixmap;
 /**
  * This class represents the available resource types the designer can choose from
  * 
- * @author Ziqiang Huang
  * @author Yang Yang
  *
  */
 
-public class Resource extends MapComponent{
-    
-    private static final String BUNDLE_NAME = "ResourceIndex";
-    
-    private Location myLocation;
-    //further extension required
+public class Resource extends GameSprite{
+   
+    private int myID;
+    private String myName;
+    private String myImageName;
     private int myAmount;
-    private int myImageWidth;
-    private int myImageHeight;
     
-    /**
-     * Constructor for this class
-     * 
-     * @param id
-     * @param name
-     * @param image
-     */
-    public Resource(Location loc, int id) {
-        super(BUNDLE_NAME);
-        setType(id);
-        myLocation = loc;}
-    
-    public Resource(int x , int y, int id ) {
-        this( new Location(x,y), id);
+    public Resource(Pixmap image, Location3D center , int id, String name , String imageName, int amount) {
+        super(image,center,image.getMyDimension());
+        myID = id;
+        myName = name;
+        myImageName = imageName;
     }
     
-    public Resource(int id) {
-        this(0,0,id);
+    public Resource(Pixmap image, int x , int y , int z , int id, String name , String imageName, int amount) {
+       this(image,new Location3D(x,y,z),id,name,imageName,amount);
     }
     
-    public Resource(int x, int y , int ID, String name, String imageName) {
-        super(ID,name,imageName);
-        myLocation = new Location(x,y);
-    }
-    
-    public void setType(int id) {
-        super.setID(id);
-        try {
-         refreshImage();
+    public Resource(Pixmap image, int x , int y , int layerCount , int layerHeight, int id, String name , String imageName, int amount) {
+        this(image,x,y,layerCount*layerHeight,id,name,imageName,amount);
      }
-     catch (IOException e) {
-         // TODO Auto-generated catch block
-         e.printStackTrace();
-     }
-    }
-    
-    public void refreshImage() throws IOException {
-        if(myResource.containsKey(myID+"")) {
-            String content = myResource.getString(myID+"");
-            String[] buffer = content.split("&");
-            myName = buffer[0];
-            myImageName = buffer[1];
-            //myImage = ResourceManager.getInstance().<BufferedImage>getFile(myImageName, BufferedImage.class);            
-            myImage = ImageIO.read(new File(System.getProperty("user.dir")+"./src/vooga/rts/leveleditor/resource/"+myImageName));
-            
 
-//            myImage = ResourceManager.getInstance().<BufferedImage>getFile(myImageName, BufferedImage.class); 
-//            myImageWidth = myImage.getWidth();
-//            myImageHeight = myImage.getHeight();
-        }
-    }
-    
-    public int getMyX() {
-        return (int) myLocation.getX();
-    }
-    
-    public int getMyY() {
-        return (int) myLocation.getY();
-    }
-    
-    public int getImageWidth() {
-        return myImageWidth;
-    }
-    
-    public int getImageHeight() {
-        return myImageHeight;
+    public int getMyID () {
+        return myID;
     }
 
-    public void zoomIn() {
-        myLocation = new Location(myLocation.getX()*MapPanel.ZOOM_RATE,myLocation.getY()*MapPanel.ZOOM_RATE);
-        myImageWidth = (int)(myImageWidth*MapPanel.ZOOM_RATE);
-        myImageHeight = (int)(myImageHeight*MapPanel.ZOOM_RATE);
+    public String getMyName () {
+        return myName;
     }
-    
-    public void zoomOut() {
-        myLocation = new Location(myLocation.getX()/MapPanel.ZOOM_RATE,myLocation.getY()/MapPanel.ZOOM_RATE);
-        myImageWidth = (int)(myImageWidth/MapPanel.ZOOM_RATE);
-        myImageHeight = (int)(myImageHeight/MapPanel.ZOOM_RATE);     
+
+    public String getMyImageName () {
+        return myImageName;
     }
-    
-    public void paint (Graphics pen) {
-        pen.drawImage(myImage, getMyX(), getMyY(), myImageWidth,myImageHeight,null);
-    }
+
+    public int getMyAmount () {
+        return myAmount;
+    }    
 }

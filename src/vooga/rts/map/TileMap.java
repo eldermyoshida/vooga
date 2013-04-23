@@ -98,7 +98,7 @@ public class TileMap implements IGameLoop {
      * @param y The Y index of the tile
      * @return The Tile at the specified location.
      */
-    private Tile getTile (int x, int y) {
+    public Tile getTile (int x, int y) {
         if (x < 0 || y < 0 || x >= myWidth || y >= myHeight) {
             return null;
         }
@@ -114,7 +114,7 @@ public class TileMap implements IGameLoop {
      * @param y The Y index of the tile
      * @param toset The tile to be placed at the location.
      */
-    private void setTile (int x, int y, Tile toset) {
+    public void setTile (int x, int y, Tile toset) {
         if (x < 0 || y < 0 || x >= myWidth || y >= myHeight) {
             return;
         }
@@ -167,5 +167,17 @@ public class TileMap implements IGameLoop {
                 }
             }
         }
+    }
+    
+    public int getMyWidth() {
+        return myWidth;
+    }
+    
+    public int getMyHeight() {
+        return myHeight;
+    }
+    
+    public Dimension getMyTileSize() {
+        return myTileSize;
     }
 }

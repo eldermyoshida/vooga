@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Map>
 <MapInfo>
-<Name>CIEMAS</Name>
-<Desc> our RTS is the best one !</Desc>
+<Name>TestMap</Name>
+<Desc>This is a test map</Desc>
 <Players number="4">
 <Player ID="1" X="1" Y="2"/>
 <Player ID="2" X="2" Y="3"/>

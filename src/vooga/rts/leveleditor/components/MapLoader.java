@@ -186,7 +186,7 @@ public class MapLoader {
                     int id = Integer.parseInt(attributes.item(0).getNodeValue());
                     int x = Integer.parseInt(attributes.item(1).getNodeValue());
                     int y = Integer.parseInt(attributes.item(2).getNodeValue());
-                    myMap.addTerrain(layerIndex, new Terrain(Integer.parseInt(x),Integer.parseInt(y),Integer.parseInt(id)));
+                    myMap.addTerrain(layerIndex, new Terrain(x,y,id));
                 }
             }
         }
