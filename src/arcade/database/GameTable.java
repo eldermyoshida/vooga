@@ -85,7 +85,8 @@ public class GameTable extends Table {
      * @param gameName is the game's name
      */
     public String retrieveGameId(String gameName) {
-        return retrieveEntryString(TABLE_NAME, GAMENAME_COLUMN_FIELD, gameName, GAMENAME_COLUMN_INDEX);
+        return retrieveEntryString(TABLE_NAME, GAMENAME_COLUMN_FIELD, 
+                                   gameName, GAMENAME_COLUMN_INDEX);
     }
     
     /**
@@ -96,7 +97,7 @@ public class GameTable extends Table {
      * @param genre of game
      * @param price of game
      * @param extendsGame string
-     * @param extendsGameMultiplayerGame string
+     * @param extendsMultiplayerGame string
      * @param ageRating permissions
      * @param singlePlayer is true if game is for singleplayer
      * @param multiplayer is true if game is a multiplayer game
@@ -112,9 +113,9 @@ public class GameTable extends Table {
             return false;
         }
         String stm = "INSERT INTO " + TABLE_NAME + "(gamename, author, genre, thumbnail, " +
-        		"adscreen, agepermission, price, extendsgame, " +
-        		"extendsmultiplayergame, " + "singleplayer, multiplayer, description) " +
-        				"VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+                "adscreen, agepermission, price, extendsgame, " +
+                "extendsmultiplayergame, " + "singleplayer, multiplayer, description) " +
+                "VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
             myPreparedStatement.setString(GAMENAME_COLUMN_INDEX, gameName);
@@ -162,8 +163,8 @@ public class GameTable extends Table {
      * @param gameName is gameName
      */
     public void deleteGame(String gameName) {
-        String stm = "DELETE FROM " + TABLE_NAME + " WHERE " + 
-                GAMENAME_COLUMN_FIELD + "='" + gameName + "'";
+        String stm = "DELETE FROM " + TABLE_NAME + Table.WHERE_KEYWORD + 
+                GAMENAME_COLUMN_FIELD + Table.EQUALS + gameName + Table.APOSTROPHE;
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
             myPreparedStatement.executeUpdate();
@@ -222,7 +223,8 @@ public class GameTable extends Table {
      * @param gameName is the gamename
      */
     public String getThumbnailPath(String gameName) {
-        return retrieveEntryString(TABLE_NAME, GAMENAME_COLUMN_FIELD, gameName, THUMBNAIL_COLUMN_INDEX);
+        return retrieveEntryString(TABLE_NAME, GAMENAME_COLUMN_FIELD, gameName, 
+                                   THUMBNAIL_COLUMN_INDEX);
     }
     
     /**
@@ -230,7 +232,8 @@ public class GameTable extends Table {
      * @param gameName is the gamename
      */
     public String getAdScreenPath(String gameName) {
-        return retrieveEntryString(TABLE_NAME, GAMENAME_COLUMN_FIELD, gameName, ADSCREEN_COLUMN_INDEX);
+        return retrieveEntryString(TABLE_NAME, GAMENAME_COLUMN_FIELD,
+                                   gameName, ADSCREEN_COLUMN_INDEX);
     }
     
     /**
@@ -255,7 +258,8 @@ public class GameTable extends Table {
      * @param gameName is the gamename
      */
     public String getExtendsGame(String gameName) {
-        return retrieveEntryString(TABLE_NAME, GAMENAME_COLUMN_FIELD, gameName, EXTENDSGAME_COLUMN_INDEX);
+        return retrieveEntryString(TABLE_NAME, GAMENAME_COLUMN_FIELD, 
+                                   gameName, EXTENDSGAME_COLUMN_INDEX);
     }
     
     /**
@@ -263,7 +267,8 @@ public class GameTable extends Table {
      * @param gameName is the gamename
      */
     public String getExtendsGameMultiplayer(String gameName) {
-        return retrieveEntryString(TABLE_NAME, GAMENAME_COLUMN_FIELD, gameName, EXTENDSMULTIPLAYER_COLUMN_INDEX);
+        return retrieveEntryString(TABLE_NAME, GAMENAME_COLUMN_FIELD, 
+                                   gameName, EXTENDSMULTIPLAYER_COLUMN_INDEX);
     }
     
     /**
@@ -271,7 +276,8 @@ public class GameTable extends Table {
      * @param gameName is the gamename
      */
     public boolean getIsSinglePlayer(String gameName) {
-        return retrieveEntryBoolean(TABLE_NAME, GAMENAME_COLUMN_FIELD, gameName, SINGLEPLAYER_COLUMN_INDEX);
+        return retrieveEntryBoolean(TABLE_NAME, GAMENAME_COLUMN_FIELD, 
+                                    gameName, SINGLEPLAYER_COLUMN_INDEX);
     }
     
     /**
@@ -279,7 +285,8 @@ public class GameTable extends Table {
      * @param gameName is the gamename
      */
     public boolean getIsMultiplayer(String gameName) {
-        return retrieveEntryBoolean(TABLE_NAME, GAMENAME_COLUMN_FIELD, gameName, MULTIPLAYER_COLUMN_INDEX);
+        return retrieveEntryBoolean(TABLE_NAME, GAMENAME_COLUMN_FIELD, 
+                                    gameName, MULTIPLAYER_COLUMN_INDEX);
     }
     
     
@@ -288,7 +295,8 @@ public class GameTable extends Table {
      * @param gameName is the gamename
      */
     public String getDescription(String gameName) {
-        return retrieveEntryString(TABLE_NAME, GAMENAME_COLUMN_FIELD, gameName, DESCRIPTION_COLUMN_INDEX);
+        return retrieveEntryString(TABLE_NAME, GAMENAME_COLUMN_FIELD, 
+                                   gameName, DESCRIPTION_COLUMN_INDEX);
     }
     
     /**
@@ -296,7 +304,8 @@ public class GameTable extends Table {
      * @param gameName is the gamename
      */
     public String getGameFilePath(String gameName) {
-        return retrieveEntryString(TABLE_NAME, GAMENAME_COLUMN_FIELD, gameName, GAMEFILEPATH_COLUMN_INDEX);
+        return retrieveEntryString(TABLE_NAME, GAMENAME_COLUMN_FIELD, 
+                                   gameName, GAMEFILEPATH_COLUMN_INDEX);
     }
     
     /**
@@ -305,7 +314,8 @@ public class GameTable extends Table {
      * @param columnIndex is the index that we want the information for
      */
     public double retrieveEntryDouble(String gameName, int columnIndex) {
-        String stm = "SELECT * FROM " +TABLE_NAME + " WHERE " + GAMENAME_COLUMN_FIELD + "='" + gameName + "'";
+        String stm = "SELECT * FROM " + TABLE_NAME + Table.WHERE_KEYWORD + 
+                GAMENAME_COLUMN_FIELD + Table.EQUALS + gameName + Table.APOSTROPHE;
         double entry = 0;
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);

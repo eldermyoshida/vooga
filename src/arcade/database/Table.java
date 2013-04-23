@@ -20,8 +20,14 @@ public abstract class Table {
      * select from keyword
      */
     public static final String SELECT_FROM = "SELECT * FROM ";
-    private static final String APOSTROPHE = "'";
-    private static final String EQUALS = "='";
+    /**
+     * apostrophe keyword
+     */
+    public static final String APOSTROPHE = "'";
+    /**
+     * equals keyword
+     */
+    public static final String EQUALS = "='";
     
     private PreparedStatement myPreparedStatement;
     private Connection myConnection;
@@ -74,8 +80,7 @@ public abstract class Table {
     public ResultSet selectAllRecordsFromTable(String tableName) {
         System.out.println();
         try {
-            myPreparedStatement = myConnection.prepareStatement(SELECT_FROM + tableName);
-            myResultSet = myPreparedStatement.executeQuery();
+            executeQuery(SELECT_FROM + tableName);
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -96,8 +101,7 @@ public abstract class Table {
                 EQUALS + parameter + APOSTROPHE;
         int entry = 0;
         try {
-            myPreparedStatement = myConnection.prepareStatement(stm);
-            myResultSet = myPreparedStatement.executeQuery();
+            executeQuery(stm);
             if (myResultSet.next()) {
                 entry = myResultSet.getInt(columnIndex);
             }
@@ -121,8 +125,7 @@ public abstract class Table {
                 EQUALS + parameter + APOSTROPHE;
         String entry = "";
         try {
-            myPreparedStatement = myConnection.prepareStatement(stm);
-            myResultSet = myPreparedStatement.executeQuery();
+            executeQuery(stm);
             if (myResultSet.next()) {
                 entry = myResultSet.getString(columnIndex);
             }
@@ -131,6 +134,11 @@ public abstract class Table {
             e.printStackTrace();
         }
         return entry;
+    }
+
+    private void executeQuery (String stm) throws SQLException {
+        myPreparedStatement = myConnection.prepareStatement(stm);
+        myResultSet = myPreparedStatement.executeQuery();
     }
     
     /**
@@ -146,8 +154,7 @@ public abstract class Table {
                 EQUALS + parameter + APOSTROPHE;
         boolean entry = false;
         try {
-            myPreparedStatement = myConnection.prepareStatement(stm);
-            myResultSet = myPreparedStatement.executeQuery();
+            executeQuery(stm);
             if (myResultSet.next()) {
                 entry = myResultSet.getBoolean(columnIndex);
             }
