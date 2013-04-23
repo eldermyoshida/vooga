@@ -29,9 +29,15 @@ public class Animation implements ISpriteView {
      * @param sp is the sprite on that this animation animates.
      */
     public Animation (Sprite sp) {
+        this();
         mySprite = sp;
-        myAnimations = new ArrayList<AnimationState>();
+        
+        // myAnimations = new ArrayList<AnimationState>();
         //initAnimations();
+    }
+    
+    public Animation() {
+        myAnimations = new ArrayList<AnimationState>();
     }
     
     /**
@@ -39,6 +45,10 @@ public class Animation implements ISpriteView {
      */
     private void initAnimations () {
 
+    }
+    
+    public void setSprite(Sprite sprite) {
+        mySprite = sprite;
     }
 
     /**

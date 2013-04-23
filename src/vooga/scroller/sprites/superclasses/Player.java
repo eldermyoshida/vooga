@@ -10,9 +10,9 @@ import vooga.scroller.sprites.state.StateManager;
 import vooga.scroller.statistics.PlayerScore;
 import vooga.scroller.statistics.Statistic;
 import vooga.scroller.scrollingmanager.ScrollingManager;
-import vooga.scroller.util.Gravity;
 import vooga.scroller.util.ISpriteView;
 import vooga.scroller.util.Sprite;
+import vooga.scroller.util.physics.ForceBundle;
 import vooga.scroller.view.GameView;
 
 
@@ -42,6 +42,7 @@ public abstract class Player extends Sprite implements IInputListener{
     private StateManager myStateManager;
     private ScrollingManager myScrollingManager;
     private Statistic myStatistic;
+    private ForceBundle forceBundle;
 
 
     private Location myOriginalLocation;
@@ -69,16 +70,15 @@ public abstract class Player extends Sprite implements IInputListener{
         myScrollingManager = sm;
         myStatistic = new PlayerScore();
         myOriginalLocation = center;
+        forceBundle = new ForceBundle(this);
     }
 
     @Override
     public void update (double elapsedTime, Dimension bounds) {
         myStateManager.update(elapsedTime, bounds);
         super.update(elapsedTime, bounds);
-
+        forceBundle.apply();
         myPaintCenter = myScrollingManager.playerPaintLocation(this);
-        Gravity gravity = new Gravity(this);
-        gravity.applyGravity();
     }
     
     public abstract void handleDeath();

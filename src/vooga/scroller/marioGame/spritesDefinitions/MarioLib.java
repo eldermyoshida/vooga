@@ -3,6 +3,9 @@ package vooga.scroller.marioGame.spritesDefinitions;
 import java.awt.Dimension;
 import util.Location;
 import vooga.scroller.level_editor.library.EncapsulatedSpriteLibrary;
+import vooga.scroller.marioGame.spritesDefinitions.players.Mario;
+import vooga.scroller.sprites.animation.Animation;
+import vooga.scroller.sprites.animation.MovingSpriteAnimationFactory;
 import vooga.scroller.sprites.interfaces.ICollectible;
 import vooga.scroller.sprites.interfaces.IEnemy;
 import vooga.scroller.sprites.interfaces.IPlatform;
@@ -11,6 +14,7 @@ import vooga.scroller.sprites.movement.Movement;
 import vooga.scroller.sprites.movement.TrackPlayer;
 import vooga.scroller.sprites.movement.UpAndDown;
 import vooga.scroller.sprites.superclasses.NonStaticEntity;
+import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.sprites.superclasses.StaticEntity;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.Sprite;
@@ -72,7 +76,7 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
 
         @Override
         public Vector getMovement (Movement movement) {
-            return movement.execute(450, 1000000, getPlayerLocation());
+            return movement.execute(30, 100, getPlayerLocation());
         }
     }
 
@@ -251,6 +255,12 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
 
     public static Pixmap makePixmap(String fileName) {
         return makePixmap(getImagesDirectory(), fileName);
+    }
+    
+    public static void addLeftRightAnimationToPlayer(Player player, String baseFileName) {        
+        MovingSpriteAnimationFactory msaf = new MovingSpriteAnimationFactory(getImagesDirectory(),                                                                              baseFileName);
+        Animation playerAnimation = msaf.generateAnimation(player);        
+        player.setView(playerAnimation);
     }
 
 }
