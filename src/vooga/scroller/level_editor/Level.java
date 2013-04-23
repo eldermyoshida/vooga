@@ -35,7 +35,6 @@ public class Level implements Renderable<GameView>, IGameComponent{
     private Dimension frameOfReferenceSize;
     private SpriteManager mySpriteManager;
     private LevelStateManager myStateManager;
-//    private GameView myView;
     private ScrollingManager myScrollingManager;
     private Image myBackground;
     private Image CITY_BACKGROUND = new ImageIcon("/vooga/scroller/images/background_small.png")
@@ -247,10 +246,7 @@ public class Level implements Renderable<GameView>, IGameComponent{
      // view of user's content
         ScrollingManager sm = new OmniScrollingManager();
         GameView display = new GameView(PlatformerConstants.DEFAULT_WINDOW_SIZE, sm);
-        sm.initView(display);
-        Player sample = new Mario(new Location(), new Dimension(32, 32), display, sm);
-        Model m = new Model(display, sm, sample, this);
-        m.addPlayerToLevel();
+        Model m = new Model(display, sm, this);
         display.setModel(m);
         return display;
     }

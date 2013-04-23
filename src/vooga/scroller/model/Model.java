@@ -9,6 +9,7 @@ import java.util.List;
 import util.Location;
 import util.Secretary;
 import vooga.scroller.level_editor.Level;
+import vooga.scroller.level_management.LevelFactory;
 import vooga.scroller.level_management.LevelManager;
 import vooga.scroller.marioGame.spritesDefinitions.players.Mario;
 import vooga.scroller.scrollingmanager.ScrollingManager;
@@ -56,8 +57,7 @@ public class Model {
     
     
     public Model (GameView gameView, ScrollingManager sm, Player player, String... levelFileNames) {
-        this(gameView, sm, player);
-        myLevelManager = initializeLevelManager(levelFileNames);
+        this(gameView, sm, player, LevelFactory.generateLevels(sm, levelFileNames));
     }
 
     public Model (GameView gameView, ScrollingManager sm, Level level) {
