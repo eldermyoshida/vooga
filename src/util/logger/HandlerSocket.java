@@ -30,7 +30,7 @@ public class HandlerSocket implements IVoogaHandler {
     }
 
     @Override
-    public Handler getFormatHandler () {
+    public Handler getHandler () {
         Handler handler = null;
         try {
             handler = new SocketHandler(myHost, myPort);

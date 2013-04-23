@@ -31,6 +31,10 @@ public class HandlerTxt implements IVoogaHandler {
         myFileName = LoggerManager.DEFAULT_NAME;
     }
     
+    public String getFileName() {
+    	return myFileName;
+    }
+    
     public void setFileName(String file) {
     	myFileName = file.replace("\\s+", "");
     }
@@ -45,7 +49,7 @@ public class HandlerTxt implements IVoogaHandler {
     }
 
     @Override
-    public Handler getFormatHandler () {
+    public Handler getHandler () {
         Handler handler = null;
         try {
             handler = new FileHandler(myFileName + myExtension);

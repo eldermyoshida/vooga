@@ -41,7 +41,7 @@ public class HandlerXML implements IVoogaHandler {
     }
 
     @Override
-    public Handler getFormatHandler () {
+    public Handler getHandler () {
         Handler handler = null;
         try {
             handler = new FileHandler(myFileName + XML_EXT);

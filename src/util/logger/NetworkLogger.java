@@ -24,12 +24,15 @@ import java.util.logging.Logger;
 public class NetworkLogger {
     public static final Logger LOGGER =
             Logger.getLogger(NetworkLogger.class.getName());
+    private static final String TXT_EXT = ".txt";
+    private static final String LOG_EXT = ".log";
     
     private HandlerConsole myConsole = new HandlerConsole();
     private HandlerSocket mySocket = new HandlerSocket();
     private HandlerStream myStream = new HandlerStream();;
     private HandlerTxt myTxt = new HandlerTxt();
     private HandlerXML myXml = new HandlerXML();
+    
     public static final int FORMAT_XML = 1221;
     public static final int FORMAT_TXT = 1356;
     public static final int FORMAT_CONSOLE = 1209;
@@ -105,8 +108,7 @@ public class NetworkLogger {
      * @param Output stream in case using a stream handler
      */
     public void addTxtHandler () {
-    	myTxt.setExtension();
-        LOGGER.addHandler(myTxt.getFormatHandler());
+    	addCustomExtensionHandler(myTxt.getFileName(), TXT_EXT);
     }
     
     /**
@@ -117,7 +119,7 @@ public class NetworkLogger {
      */
     public void addTxtHandler (String fileName) {
     	myTxt.setFileName(fileName);
-        addTxtHandler();
+    	LOGGER.addHandler(myTxt.getFormatHandler());
     }
     
     /**
@@ -127,7 +129,8 @@ public class NetworkLogger {
      * @param Output stream in case using a stream handler
      */
     public void addCustomExtensionHandler (String fileName, String ext) {
-    	myTxt.setFileName(fileName);
+    	myTxt.setExtension(ext);
+    	addTxtHandler(fileName);
     }
     
     /**
@@ -137,7 +140,7 @@ public class NetworkLogger {
      * @param Output stream in case using a stream handler
      */
     public void addLogHandler (String fileName) {
-        mySetup.addTxtHandler();
+    	addCustomExtensionHandler (fileName, LOG_EXT);
     }
 
     /**
@@ -147,7 +150,18 @@ public class NetworkLogger {
      * @param Output stream in case using a stream handler
      */
     public void addStreamHandler (OutputStream out) {
-        mySetup.addStreamHandler(out);
+        myStream.setOutputStream(out);
+        addStreamHandler();
+    }
+    
+    /**
+     * 
+     * Adds a handler that sends log records across a given stream
+     * 
+     * @param Output stream in case using a stream handler
+     */
+    public void addStreamHandler () {
+        LOGGER.addHandler(myStream.getHandler());
     }
 
     /**
@@ -158,7 +172,8 @@ public class NetworkLogger {
      * @param port number of the port to be used
      */
     public void addSocketHandler (String host, int port) {
-        mySetup.addSocketHandler(host, port);
+        mySocket.setSocket(host, port);
+        
     }
 
     /**

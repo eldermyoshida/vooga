@@ -38,12 +38,12 @@ public class HandlerStream implements IVoogaHandler {
         myOutputStream = System.out;
     }
     
-    public void setOutStream (OutputStream out) {
+    public void setOutputStream (OutputStream out) {
     	myOutputStream = out;
     }
 
     @Override
-    public Handler getFormatHandler () {
+    public Handler getHandler () {
         Handler handler = null;
         try {
             handler = new StreamHandler(myOutputStream, new SimpleFormatter());

@@ -17,5 +17,5 @@ public interface IVoogaHandler {
      * 
      * @param log the logger being used for the programm
      */
-    public Handler getFormatHandler ();
+    public Handler getHandler ();
 }

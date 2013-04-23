@@ -59,7 +59,7 @@ public class LoggerManager {
         catch (IllegalArgumentException e) {
             NetworkLogger.LOGGER.severe(ERROR_ARGUMENT_MESSAGE);
         }
-        return loggerFormat.getFormatHandler();
+        return loggerFormat.getHandler();
 
     }
 

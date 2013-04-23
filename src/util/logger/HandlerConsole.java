@@ -18,7 +18,7 @@ public class HandlerConsole implements IVoogaHandler {
             "Error in creating Console based handler";
 
     @Override
-    public Handler getFormatHandler () {
+    public Handler getHandler () {
         Handler handler = null;
         try {
             handler = new ConsoleHandler();
