@@ -3,6 +3,7 @@ package vooga.rts.gamedesign.factories;
 import java.lang.reflect.InvocationTargetException;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  * 
@@ -17,6 +18,21 @@ import org.w3c.dom.Document;
 public abstract class Decoder {
 
 	
+	protected static final String TIME_TAG = "buildtime";
+	protected static final String CUSTOM_TAG = "custom";
+	protected static final String COST_TAG = "cost";
+	protected static final String NAME_TAG = "name";
+	protected static final String IMAGE_TAG = "img";
+	protected static final String SOUND_TAG = "sound";
+	protected static final String HEALTH_TAG = "health";
+	protected static final String ATTACK_TAG = "attack";
+	protected static final String OCCUPY_TAG = "occupy";
+	protected static final String PRODUCE_TAG = "produce";
+	protected static final String SOURCE_TAG = "src";
+	
+	protected String getElement(Element element, String tag){
+		return element.getElementsByTagName(tag).item(0).getTextContent();
+	}
 	
 	/**
 	 * Depending on the decoder, this method takes in the document, parses it and instantiates
@@ -33,5 +49,5 @@ public abstract class Decoder {
 	 * @throws SecurityException
 	 * @throws ClassNotFoundException
 	 */
-	public abstract void create(Document doc) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException;
+	public abstract void create(Document doc, String tag) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException;
 }

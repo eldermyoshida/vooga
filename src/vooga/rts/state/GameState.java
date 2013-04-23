@@ -1,5 +1,6 @@
 package vooga.rts.state;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
@@ -90,17 +91,24 @@ public class GameState extends SubState implements Controller {
 
     @Override
     public void paint (Graphics2D pen) {
+        pen.setBackground(Color.BLACK);
         myMap.paint(pen);
+        r.paint(pen);
+        // a bit odd, but we need to paint the other players before we paint HumanPlayer because
+        // HumanPlayer contains the gameMenu
         for (Player p : myPlayers) {
-            p.paint(pen);
+            if (!(p instanceof HumanPlayer)) {
+                p.paint(pen);
+            }
         }
+        myHumanPlayer.paint(pen);
         if (myDrag != null) {
             pen.draw(myDrag);
             // pen.draw(worldShape);
         }
         Camera.instance().paint(pen);
         myFrames.paint(pen);
-        r.paint(pen);
+
     }
 
     @Override
@@ -108,9 +116,7 @@ public class GameState extends SubState implements Controller {
         // If it's a drag, we need to do some extra checking.
         if (command instanceof DragCommand) {
             myDrag = ((DragCommand) command).getScreenRectangle();
-            if (myDrag == null) {
-                return;
-            }
+            if (myDrag == null) { return; }
         }
         sendCommand(command);
     }
@@ -156,14 +162,12 @@ public class GameState extends SubState implements Controller {
     public void setupGame () {
         addPlayer(1);
         Unit worker =
-                new Worker(new Pixmap(ResourceManager.getInstance()
-                        .<BufferedImage> getFile("images/scv.gif", BufferedImage.class)),
+                new Worker(new Pixmap("scv.gif"),
                            new Location3D(100, 100, 0), new Dimension(75, 75), null, 1, 200, 40, 5);
         myHumanPlayer.add(worker);
         Unit a = new Soldier();
         Projectile proj =
-                new Projectile(new Pixmap(ResourceManager.getInstance()
-                        .<BufferedImage> getFile("images/bullet.png", BufferedImage.class)),
+                new Projectile(new Pixmap("bullet.png"),
                                a.getWorldLocation(), new Dimension(30, 30), 2, 10, 6);
         a.getAttackStrategy().addWeapons(new Weapon(proj, 400, a.getWorldLocation(), 1));
         myHumanPlayer.add(a);
@@ -173,8 +177,7 @@ public class GameState extends SubState implements Controller {
         // myHumanPlayer.add(c);
         myPlayers.get(1).add(c);
         Building b =
-                new Building((new Pixmap(ResourceManager.getInstance()
-                        .<BufferedImage> getFile("images/factory.png", BufferedImage.class))),
+                new Building(new Pixmap("factory.png"),
                              new Location3D(700, 700, 0), new Dimension(100, 100), null, 1, 300,
                              InteractiveEntity.DEFAULT_BUILD_TIME);
         b.setProductionStrategy(new CanProduce());
@@ -184,8 +187,7 @@ public class GameState extends SubState implements Controller {
         myHumanPlayer.add(b);
 
         Garrison garrison =
-                new Garrison((new Pixmap(ResourceManager.getInstance()
-                        .<BufferedImage> getFile("images/barracks.jpeg", BufferedImage.class))),
+                new Garrison(new Pixmap("barracks.jpeg"),
                              new Location3D(300, 300, 0), new Dimension(100, 100), null, 1, 300,
                              InteractiveEntity.DEFAULT_BUILD_TIME);
         garrison.getOccupyStrategy().addValidClassType(new Soldier());
@@ -195,8 +197,7 @@ public class GameState extends SubState implements Controller {
         
 
         r =
-                new Resource(new Pixmap(ResourceManager.getInstance()
-                        .<BufferedImage> getFile("images/mineral.gif", BufferedImage.class)),
+                new Resource(new Pixmap("mineral.gif"),
                              new Location3D(200, 300, 0), new Dimension(50, 50), 0, 200, "mineral");
 
         final Building f = b;

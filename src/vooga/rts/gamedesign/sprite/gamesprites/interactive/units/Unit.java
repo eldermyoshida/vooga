@@ -1,6 +1,7 @@
 package vooga.rts.gamedesign.sprite.gamesprites.interactive.units;
 
 import java.awt.Dimension;
+import java.awt.image.BufferedImage;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,7 @@ import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
 import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
 import vooga.rts.gamedesign.upgrades.UpgradeNode;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
+import vooga.rts.resourcemanager.ResourceManager;
 import vooga.rts.util.Camera;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
@@ -39,7 +41,6 @@ import vooga.rts.util.Sound;
  */
 public class Unit extends InteractiveEntity {
 
-    private static UpgradeTree myUpgradeTree;
     private List<GameSprite> myKills; // TODO: WHAT TYPE SHOULD IT BE??
     // private boolean myIsLeftSelected; // TODO: also need the same thing for
     // Projectiles
@@ -50,9 +51,8 @@ public class Unit extends InteractiveEntity {
     private GatherStrategy myGatherStrategy;
 
     private OccupyStrategy myOccupyStrategy;
-
     public Unit () {
-        this(null, new Location3D(), new Dimension(0, 0), null, 0, 100,
+        this(new Pixmap("sprites/soldier.png"), new Location3D(), new Dimension(0, 0), null, 0, 100,
              InteractiveEntity.DEFAULT_BUILD_TIME);
     }
 
@@ -81,12 +81,6 @@ public class Unit extends InteractiveEntity {
                  int health,
                  double buildTime) {
         super(image, center, size, sound, playerID, health, buildTime);
-        // myPather = new PathingHelper();
-        // System.out.println(playerID + " " + health);
-        // System.out.println(playerID + " " + health);
-        if (myUpgradeTree != null) {
-            addUserToUpgradeTree(playerID);
-        }
         addActions();
     }
 
@@ -116,29 +110,5 @@ public class Unit extends InteractiveEntity {
     public InteractiveEntity copy () {
         return new Unit(getImage(), getWorldLocation(), getSize(), getSound(), getPlayerID(),
                         getHealth(), getBuildTime());
-    }
-
-    @Override
-    public UpgradeTree getUpgradeTree () {
-        return myUpgradeTree;
-    }
-
-    @Override
-    public void setUpgradeTree (UpgradeTree upgradeTree, int playerID) {
-        myUpgradeTree = upgradeTree;
-        addUserToUpgradeTree(playerID);
-    }
-
-    private void addUserToUpgradeTree (int playerID) {
-        if (myUpgradeTree.getUsers().get(playerID) == null) {
-            List<InteractiveEntity> entityGroup = new ArrayList<InteractiveEntity>();
-            entityGroup.add(this);
-            myUpgradeTree.getUsers().put(playerID, entityGroup);
-        }
-        else {
-            List<InteractiveEntity> entityGroup = myUpgradeTree.getUsers().get(playerID);
-            entityGroup.add(this);
-            myUpgradeTree.getUsers().put(playerID, entityGroup);
-        }
     }
 }

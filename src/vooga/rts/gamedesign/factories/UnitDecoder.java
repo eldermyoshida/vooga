@@ -25,14 +25,6 @@ public class UnitDecoder extends Decoder {
 
 	private static String HEAD_TAG = "units";
 	private static String TYPE_TAG = "unit";
-	private static final String NAME_TAG = "name";
-	private static final String IMAGE_TAG = "img";
-	private static final String SOUND_TAG = "sound";
-	private static final String HEALTH_TAG = "health";
-	private static final String PRODUCE_TAG = "produce";
-	private static final String OCCUPY_TAG = "occupy";
-	private static final String SOURCE_TAG = "src";
-	private static final String TIME_TAG = "buildtime";
 	
 	
 	private Factory myFactory;
@@ -42,7 +34,7 @@ public class UnitDecoder extends Decoder {
 	
 	
 	@Override
-	public void create(Document doc) throws InstantiationException,
+	public void create(Document doc, String type) throws InstantiationException,
 			IllegalAccessException, IllegalArgumentException,
 			InvocationTargetException, NoSuchMethodException,
 			SecurityException, ClassNotFoundException {
