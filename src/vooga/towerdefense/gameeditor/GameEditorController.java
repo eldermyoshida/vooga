@@ -36,6 +36,11 @@ public class GameEditorController extends JFrame {
     private static final String TITLE_KEYWORD = "GAME EDITOR";
     private static final String GAME_ELEMENT_TAG = "GameElement";
     private static final String IMAGE_TAG = "Image";
+    private static final String MAP_TAG = "map";
+    private static final String WIDTH_TAG = "width";
+    private static final String HEIGHT_TAG = "height";
+    private static final String TILE_TAG = "tile";
+    private static final String GRID_TAG = "grid";
     private static final String ATTRIBUTES_TAG = "Attributes";
     private static final String ACTIONS_TAG = "Actions";
     private static final Dimension SIZE = new Dimension(700, 700);
@@ -52,6 +57,7 @@ public class GameEditorController extends JFrame {
     private XMLTool myXMLDoc;
     private Element myRoot;
     private Element myGameElementParent;
+    private Element myMapParent;
     
     /**
      * Constructor.
@@ -69,7 +75,9 @@ public class GameEditorController extends JFrame {
         myXMLDoc = new XMLTool();
         myRoot = myXMLDoc.makeRoot("Game");
         myGameElementParent = myXMLDoc.makeElement(GAME_ELEMENT_TAG);
-        myXMLDoc.addChildElement(myRoot, myGameElementParent);       
+        myMapParent = myXMLDoc.makeElement(MAP_TAG);
+        myXMLDoc.addChildElement(myRoot, myGameElementParent);  
+        myXMLDoc.addChildElement(myRoot, myMapParent);
         initializeGUI();
         
         //TODO: remove, this is just for testing
@@ -117,8 +125,18 @@ public class GameEditorController extends JFrame {
     /**
      * adds a map to the XML file.
      */
-    public void addMapToGame () {
-        // TODO: implement
+    public void addMapToGame (String name, String image, String width, String height, String tileSize, String map) {
+        Element thisMap = myXMLDoc.makeElement(name.trim());
+        myXMLDoc.addChild(thisMap, IMAGE_TAG, image);
+        myXMLDoc.addChild(thisMap, WIDTH_TAG, width);
+        myXMLDoc.addChild(thisMap, HEIGHT_TAG, height);
+        myXMLDoc.addChild(thisMap, TILE_TAG, tileSize);
+        myXMLDoc.addChild(thisMap, GRID_TAG, map);
+        myXMLDoc.addChildElement(myMapParent, thisMap);
+        myXMLDoc.writeFile("mappptest.xml");
+//        Element grid = myXMLDoc.makeElementsFromMap("grid", map);
+//        myXMLDoc.addChildElement(thisMap, grid);
+//        myXMLDoc.addChildElement(myMapParent, thisMap);
     }
     
     public void addGameElementToGame(String type, String name, String path, Map<String, String> attributes, String actions) {
