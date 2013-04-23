@@ -32,6 +32,7 @@ public class CharacterObject extends GameObject {
     private boolean facingRight;  
     private int movingDirection; 
     private Vector myVelocity;  
+    private boolean myIsStanding;
     
     /**
      * Constructs a new CharacterObject.
@@ -52,6 +53,14 @@ public class CharacterObject extends GameObject {
         myVelocity=getLocation().getVelocity();
         setImageData();
         
+    }
+    
+    public boolean getStanding() {
+        return myIsStanding;
+    }
+    
+    public void changeStanding() {
+        myIsStanding = true;
     }
 
     /**

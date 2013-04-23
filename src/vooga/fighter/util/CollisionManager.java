@@ -158,7 +158,8 @@ public class CollisionManager {
     		o2.jump();
     		System.out.println("collision");
     	}
-    	System.out.println("collision");
+    	o2.changeStanding();
+    	System.out.println("colliding");
     }
     
     /**
