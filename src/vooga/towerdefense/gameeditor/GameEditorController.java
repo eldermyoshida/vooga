@@ -160,52 +160,9 @@ public class GameEditorController extends JFrame {
         myXMLDoc.addChildElement(gameElement, attributeElement);
         //TODO: fix this for actions 
         Element actionElement = myXMLDoc.makeElement(ACTIONS_TAG);
-        myXMLDoc.addChildElement(gameElement, makeActionElement(actions.split("\n"), actionElement));
+        ActionXMLWriter parser = new ActionXMLWriter(myXMLDoc);
+        myXMLDoc.addChildElement(gameElement, parser.parse(actionElement, actions));
         myXMLDoc.writeFile("actionstest.xml");
-    }
-    
-    /**
-     * helper method to make the action element.
-     * @param actions is a formatted string for actions
-     * @return the element made from this string.
-     */
-    private Element makeActionElement(String[] actions, Element parent) {
-        if (actions.length == 0) {
-            return parent;
-        }
-        else {
-            System.out.println("actions not length 0 for " + parent.getTagName());
-            String[] values = actions[0].split(" ");
-            Element child = myXMLDoc.makeElement(values[0]);
-            for (int k = 1; k < values.length; k++) {
-                myXMLDoc.addChild(child, PARAMETER_TAG, values[k]);
-            }
-            int indexOfLastParent = 0;
-            for (int i = 1; i < actions.length; i++) {
-                System.out.println("looking at: " + actions[i]);
-                if ((actions[i].charAt(0) != '\t')) {
-                    ArrayList<String> children = new ArrayList<String>();
-                    for (int j = indexOfLastParent+1; j < i; j++) {
-                        children.add(actions[j]);
-                        indexOfLastParent = j;
-                    }
-                    indexOfLastParent++;
-                    Object[] childrenArray = children.toArray();
-                    String[] childrenString = new String[childrenArray.length];
-                    for (int m = 0; m < childrenArray.length; m++) {
-                        childrenString[m] = (String)childrenArray[m];
-                    }
-                    myXMLDoc.addChildElement(parent, makeActionElement(childrenString, child));
-                    System.out.println("parent: " + parent.getTagName() + ", child: " + child.getTagName());
-                }
-                else {
-                    System.out.println("changed " + actions[i]);
-                    actions[i] = actions[i].substring(1, actions[i].length());
-                    System.out.println(" to " + actions[i]);
-                }
-            }
-            return parent;
-        }
     }
 
     /**
