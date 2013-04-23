@@ -13,7 +13,7 @@ import javax.mail.internet.MimeMessage;
 
 import util.logger.NetworkLogger;
 
-public class MailSender {
+public class MailSender implements IMail{
 	public static final String MAIL = "mail.smpt.host";
 	private String myFromAddress;
 	private String[] myToAddress;
@@ -26,6 +26,7 @@ public class MailSender {
 		setProperties(from,to,server,subject,message);
 	}
 	
+	@Override
 	public void setProperties(String from, String[] to,
 			String server, String subject, String message) {
 		myFromAddress = from;
