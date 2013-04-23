@@ -24,6 +24,7 @@ public class LevelWriter {
     private static final char SPACE = ' ';
     private static final String START_POINT = "StartPoint";
     private static final String END_POINT = "EndPoint";
+    private static final String BACKGROUND = "Background";
     private int myKeyCounter;
     private Map<String, Character> myMap;
     private FileWriter myFileWriter;
@@ -120,6 +121,9 @@ public class LevelWriter {
             myFileWriter.write(NEW_LINE);
             myFileWriter.write(END_POINT + EQUALS +
                                (int) myPortal.getX() + SPACE + (int) myPortal.getY());
+            myFileWriter.write(NEW_LINE);
+            myFileWriter.write(BACKGROUND + EQUALS +
+                               myGrid.getBackground().getFileName());
             myFileWriter.close();
         }
         catch (IOException e) {

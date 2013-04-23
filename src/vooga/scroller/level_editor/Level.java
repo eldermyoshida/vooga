@@ -83,7 +83,7 @@ public class Level implements Renderable<GameView>, IGameComponent{
             addSprite(box.getSprite());
         }
         if(grid.getBackground()!=null) {
-            setBackground(grid.getBackground()); 
+            setBackground(grid.getBackground().getImage()); 
         }
     }
 

@@ -20,7 +20,7 @@ import javax.swing.ImageIcon;
  * Added getter for view @author DF
  */
 
-public class Pixmap implements ISpriteView {
+public class Pixmap implements ISpriteView, IBackgroundView {
     // OS-independent relative resource locations (like URLs)
     private static final String DEFAULT_RESOURCE_LOCATION = "/vooga/scroller/images/";
     // underlying implementation
@@ -118,6 +118,11 @@ public class Pixmap implements ISpriteView {
     @Override
     public Image getImage () {
         return myImage;
+    }
+
+    @Override
+    public String getFileName () {
+        return myFileName;
     }
 
 }

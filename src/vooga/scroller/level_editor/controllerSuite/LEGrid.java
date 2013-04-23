@@ -22,6 +22,7 @@ import vooga.scroller.level_management.LevelPortal;
 import vooga.scroller.scrollingmanager.OmniScrollingManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.util.Editable;
+import vooga.scroller.util.IBackgroundView;
 import vooga.scroller.util.Renderable;
 import vooga.scroller.util.Sprite;
 import vooga.scroller.util.mvc.IView;
@@ -40,7 +41,7 @@ public class LEGrid implements Editable, Renderable<LEGridView>, Scrollable {
     private Set<SpriteBox> myPaintableBoxes;
     private StartPoint myStartPoint;
     private LevelPortal myMainDoor; //TODO - eventually support multiple doors
-    private Image myBackground;
+    private IBackgroundView myBackground;
 
     public LEGrid (int numWidthBlocks, int numHeightBlocks) {
         mySpriteSize = DEFAULT_SPRITE_SIZE;
@@ -62,7 +63,7 @@ public class LEGrid implements Editable, Renderable<LEGridView>, Scrollable {
 
     @Override
     public void paint (Graphics2D pen) {
-        pen.drawImage(myBackground, 0, 0, null);
+        pen.drawImage(myBackground.getImage(), 0, 0, null);
         for(int i = 0; i < mySize.width; i++){
             for( int j = 0; j < mySize.height; j++){
                 myGrid[i][j].paint(pen);
@@ -279,11 +280,11 @@ public class LEGrid implements Editable, Renderable<LEGridView>, Scrollable {
     }
 
     @Override
-    public void changeBackground (Image i) {
-        myBackground = i;
+    public void changeBackground (IBackgroundView bg) {
+        myBackground = bg;
     }
 
-    public Image getBackground () {
+    public IBackgroundView getBackground () {
         return myBackground;
     }
     

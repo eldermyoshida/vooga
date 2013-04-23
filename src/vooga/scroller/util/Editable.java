@@ -16,7 +16,7 @@ import java.awt.Image;
  */
 public interface Editable {
 
-    public void changeBackground (Image i);
+    public void changeBackground (IBackgroundView iBackgroundView);
 
     public void addSprite (Sprite s, int x, int y);
 

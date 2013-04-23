@@ -15,6 +15,7 @@ import vooga.scroller.level_management.IDoor;
 import vooga.scroller.sprites.interfaces.ICollectible;
 import vooga.scroller.sprites.interfaces.IEnemy;
 import vooga.scroller.sprites.interfaces.IPlatform;
+import vooga.scroller.util.IBackgroundView;
 import vooga.scroller.util.Renderable;
 import vooga.scroller.util.Sprite;
 import vooga.scroller.util.mvc.IView;
@@ -140,9 +141,9 @@ public class LETools extends Tools implements Renderable<LEToolsView> {
     }
 
 
-    public void addBackgrounds (Map<Integer, Image> backgrounds) {
-        for (Integer key : backgrounds.keySet()) {
-            myBackgroundImages.put(getIcon(backgrounds.get(key), DEFAULT_BG_SIZE), "" + key);
+    public void addBackgrounds (Map<Integer, IBackgroundView> map) {
+        for (Integer key : map.keySet()) {
+            myBackgroundImages.put(getIcon(map.get(key).getImage(), DEFAULT_BG_SIZE), "" + key);
         }
     }
 
