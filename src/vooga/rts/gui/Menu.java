@@ -62,6 +62,10 @@ public abstract class Menu extends Observable implements IGameLoop, Observer {
         myButtons.add(b);
         b.addObserver(this);
     }
+    
+    public void clearButtons () {
+        myButtons.clear();
+    }
 
     public void receiveCommand (Command command) {
         if (command instanceof ClickCommand) {
