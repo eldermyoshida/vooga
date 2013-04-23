@@ -5,7 +5,10 @@ import java.util.List;
 
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.attributes.AttributeConstants;
+import vooga.towerdefense.attributes.AttributeManager;
+import vooga.towerdefense.attributes.DefaultAttributeManager;
 import vooga.towerdefense.factories.actionfactories.ActionFactory;
+import vooga.towerdefense.factories.definitions.GameElementDefinition;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.util.Location;
@@ -18,6 +21,9 @@ import vooga.towerdefense.util.Location;
  *
  */
 public class GameElementFactory {
+	
+	private static DefaultAttributeManager DEFAULT_ATTRIBUTE_MANAGER = new DefaultAttributeManager();
+
     /**
      * Name of the element that is defined in this class. For convenience.
      */
@@ -118,4 +124,7 @@ public class GameElementFactory {
         return element;
     }
 
+    public AttributeManager getDefaultAM(){
+    	return DEFAULT_ATTRIBUTE_MANAGER;
+    }
 }

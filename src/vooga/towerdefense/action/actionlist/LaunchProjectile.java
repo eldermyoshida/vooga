@@ -1,7 +1,7 @@
 package vooga.towerdefense.action.actionlist;
 
 import vooga.towerdefense.action.TargetedAction;
-import vooga.towerdefense.factories.examples.ExampleDosProjectileFactory;
+import vooga.towerdefense.factories.examplesfactories.ExampleDosProjectileFactory;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.util.Location;
@@ -18,6 +18,7 @@ public class LaunchProjectile extends TargetedAction {
 	private ExampleDosProjectileFactory myProjectileFactory;
 	private Location myStart;
 	private GameMap myMap;
+	private boolean isLaunched;
 
     public LaunchProjectile (GameMap map, Location startLocation, ExampleDosProjectileFactory projectileFactory) {
     	setTargetTracking(true);
@@ -34,13 +35,17 @@ public class LaunchProjectile extends TargetedAction {
      */
     @Override
     public void executeAction (double elapsedTime) {
+    	
     	//System.out.println(getTargets().size());
     	GameElement projectile = myProjectileFactory.createElement(myStart);
+    	if (!isLaunched){
         myMap.addGameElement(projectile);
+    	}
         //System.out.println(projectile.getTargetedActions().size()+ 10);
         for (TargetedAction t: projectile.getTargetedActions()){
             t.updateTargetedFollowUpActions(getTargets());
         }
+        isLaunched = true;
     }
     
 }

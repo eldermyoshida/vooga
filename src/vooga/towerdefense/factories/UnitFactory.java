@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.attributes.AttributeManager;
 import vooga.towerdefense.factories.actionfactories.ActionFactory;
+import vooga.towerdefense.factories.definitions.GameElementDefinition;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.util.Location;
 

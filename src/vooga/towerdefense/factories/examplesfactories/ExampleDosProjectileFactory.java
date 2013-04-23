@@ -1,4 +1,4 @@
-package vooga.towerdefense.factories.examples;
+package vooga.towerdefense.factories.examplesfactories;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
@@ -16,9 +16,8 @@ import vooga.towerdefense.attributes.AttributeConstants;
 import vooga.towerdefense.attributes.AttributeManager;
 import vooga.towerdefense.attributes.DefaultAttributeManager;
 import vooga.towerdefense.factories.GameElementFactory;
-import vooga.towerdefense.factories.ProjectileDefinition;
-import vooga.towerdefense.factories.ProjectileFactory;
-import vooga.towerdefense.factories.TowerDefinition;
+import vooga.towerdefense.factories.definitions.ProjectileDefinition;
+import vooga.towerdefense.factories.definitions.TowerDefinition;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.util.Location;
@@ -42,10 +41,10 @@ public class ExampleDosProjectileFactory extends GameElementFactory {
         ProjectileDefinition def = new ProjectileDefinition();
         AttributeManager AM = getDefaultAM();
 
-        Pixmap tImage = new Pixmap("fireball.gif");
+        ///Pixmap tImage = new Pixmap("fireball.gif");
         GameElement myProjectile;
         if (putHere != null) {
-            myProjectile = new GameElement(tImage, putHere,
+            myProjectile = new GameElement(def.getImage(), putHere,
                                       new Dimension(25,25), AM, "projectile");
         }
         else {
@@ -59,29 +58,20 @@ public class ExampleDosProjectileFactory extends GameElementFactory {
                                 AM.getAttribute(AttributeConstants.ATTACK_RADIUS));
         /*findTargets.addFollowUpAction(new SetAttributeValue(AM
                 .getAttribute(AttributeConstants.AURA_EFFECT), AttributeConstants.MOVE_SPEED));*/
-        Move m = new Move(putHere, DEFAULT_ATTRIBUTE_MANAGER.getAttribute(AttributeConstants.MOVE_SPEED), 
+      /*  Move m = new Move(putHere, DEFAULT_ATTRIBUTE_MANAGER.getAttribute(AttributeConstants.MOVE_SPEED), 
         		DEFAULT_ATTRIBUTE_MANAGER.getAttribute(AttributeConstants.DIRECTION));
         ModifyAttributeValue a = new ModifyAttributeValue(AM
         .getAttribute(AttributeConstants.AURA_EFFECT), AttributeConstants.HEALTH);
         m.addFollowUpAction(a);
         //findTargets.addFollowUpAction(m);
-        actions.add(m);
+        actions.add(m);*/
+       /* actions.add(new Move(myProjectile.getCenter(), AM
+                .getAttribute(AttributeConstants.MOVE_SPEED), AM
+                 .getAttribute(AttributeConstants.DIRECTION)));*/
+        actions.add(new MoveToTarget(myProjectile.getCenter(), new Location(400, 400), DEFAULT_ATTRIBUTE_MANAGER.getAttribute(AttributeConstants.MOVE_SPEED)));
 
         myProjectile.addActions(actions);
         return myProjectile;
-    }
-
-    public AttributeManager getDefaultAM () {
-        AttributeManager AM = new AttributeManager();
-        AM.addAttribute(new Attribute(AttributeConstants.ATTACK_RADIUS, 100.0));
-        AM.addAttribute(new Attribute(AttributeConstants.DIRECTION, -50.0));
-        AM.addAttribute(new Attribute(AttributeConstants.ATTACK_INTERVAL, 30.0));
-        AM.addAttribute(new Attribute(AttributeConstants.NUM_OF_TARGETS, 1.0));
-        AM.addAttribute(new Attribute(AttributeConstants.ATTACK_RADIUS, 200.0));
-        AM.addAttribute(new Attribute(AttributeConstants.MOVE_SPEED, 50.0));
-        AM.addAttribute(new Attribute(AttributeConstants.AURA_EFFECT, 5.0));
-        AM.setProjectileFactory(new ProjectileFactory());
-        return AM;
     }
 
     /**
@@ -120,11 +110,14 @@ public class ExampleDosProjectileFactory extends GameElementFactory {
         actions.add(new MoveToDestination(myProjectile.getCenter(), e.getCenter(), AM
                 .getAttribute(AttributeConstants.MOVE_SPEED)));*/
         
-        MoveToTarget m = new MoveToTarget(myStart.getCenter(), null, DEFAULT_ATTRIBUTE_MANAGER.getAttribute(AttributeConstants.MOVE_SPEED));
-        ModifyAttributeValue a = new ModifyAttributeValue(AM
+        //MoveToTarget m = new MoveToTarget(myStart.getCenter(), null, DEFAULT_ATTRIBUTE_MANAGER.getAttribute(AttributeConstants.MOVE_SPEED));
+        actions.add(new Move(myProjectile.getCenter(), AM
+                       .getAttribute(AttributeConstants.MOVE_SPEED), AM
+                        .getAttribute(AttributeConstants.DIRECTION)));
+       /* ModifyAttributeValue a = new ModifyAttributeValue(AM
         .getAttribute(AttributeConstants.AURA_EFFECT), AttributeConstants.HEALTH);
         m.addFollowUpAction(a);
-        actions.add(m);
+        actions.add(m);*/
         myProjectile.addActions(actions);
         return myProjectile;
     }
