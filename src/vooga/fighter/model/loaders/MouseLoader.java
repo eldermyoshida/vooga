@@ -24,18 +24,18 @@ public class MouseLoader extends ObjectLoader {
 
 	protected void load() {
 		Document doc = getDocument();
-		NodeList menuNodes = doc.getElementsByTagName("mouseobject");
+		NodeList menuNodes = doc.getElementsByTagName(getResourceBundle().getString("MouseObject"));
 		Element node = (Element) menuNodes.item(0);
-		NodeList states = node.getElementsByTagName("state");
+		NodeList states = node.getElementsByTagName(getResourceBundle().getString("State"));
 		Element state = (Element) states.item(0);
-		String Statename = getAttributeValue(state, "name");
-		NodeList frames = node.getElementsByTagName("frame");
+		String Statename = getAttributeValue(state, getResourceBundle().getString("Name"));
+		NodeList frames = node.getElementsByTagName(getResourceBundle().getString("Frame"));
 		State newState = new State(myMouse, frames.getLength());
 		Element node1 = (Element) frames.item(0);
-		String imagepathway = getAttributeValue(node1, myMouse.getImageTag()+"image");
+		String imagepathway = getAttributeValue(node1, myMouse.getImageTag()+getResourceBundle().getString("Image"));
 		newState.populateImage(new Pixmap(imagepathway), 0);
-		int width = Integer.parseInt((getAttributeValue(node1, "width")));
-		int height = Integer.parseInt((getAttributeValue(node1, "height")));
+		int width = Integer.parseInt((getAttributeValue(node1, getResourceBundle().getString("Width"))));
+		int height = Integer.parseInt((getAttributeValue(node1, getResourceBundle().getString("Height"))));
 		Dimension dim = new Dimension(width,height);
 		Rectangle rect = new Rectangle(width,height);
 		newState.populateAllSizes(dim);
