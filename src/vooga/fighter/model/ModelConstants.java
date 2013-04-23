@@ -14,4 +14,6 @@ public class ModelConstants {
     public static final String ATTACK_PROPERTY_DIRECTION = "direction";
     public static final String ATTACK_PROPERTY_DURATION = "duration";
     
+    // attack object constants
+    public static final int ATTACK_COUNTER_ZERO = 0; 
 }

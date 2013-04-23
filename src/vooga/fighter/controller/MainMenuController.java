@@ -50,6 +50,7 @@ public class MainMenuController extends MenuController {
         Controller controller = new MainMenuController(name, frame, manager, gameinfo);
         return controller;
     }
+    
     /**
      * Checks this controller's end conditions
      */
