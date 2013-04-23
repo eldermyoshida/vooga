@@ -243,18 +243,16 @@ public class XMLTool {
     /**
      * Returns a list of elements with the tag from an specific element.
      * 
+     * @param parent The parent element from which the element
      * @param tag The name of the tag to match on. The special value "*" matches all tags. For XML,
      *        the tag parameter is case-sensitive, otherwise it depends on the case-sensitivity
      *        of the mark up language in use.
+     * 
      * @return A list of elements with the tag.
      */
     public List<Element> getElementList (Element parent, String tag) {
-        List<Element> nodeList = new ArrayList<Element>();
         NodeList nodes = parent.getElementsByTagName(tag);
-        for (int i = 0; i < nodes.getLength(); i++) {
-            nodeList.add((Element) parent.getElementsByTagName(tag).item(i));
-        }
-        return nodeList;
+        return convertNodeList(nodes);
     }
     
     /**
@@ -266,12 +264,8 @@ public class XMLTool {
      * @return A list of elements with the tag.
      */
     public List<Element> getElementList (String tag) {
-        List<Element> nodeList = new ArrayList<Element>();
         NodeList nodes = myDoc.getElementsByTagName(tag);
-        for (int i = 0; i < nodes.getLength(); i++) {
-            nodeList.add((Element) myDoc.getElementsByTagName(tag).item(i));
-        }
-        return nodeList;
+        return convertNodeList(nodes);
     }
     
     /**
@@ -311,11 +305,11 @@ public class XMLTool {
      * children elements of a particular parent element.
      * If the parent element does not contain children, this method returns an empty map.
      * 
-     * @param parent The parent element node.
+     * @param parent The parent element node from which the children elements will be created.
      * @return a map with the child tag (as a map key) and a child element (as a map value) of all
      *         the children elements of a particular parent element.
      */
-    public Map<String, Element> getElementMapFromParent (Element parent) {
+    public Map<String, Element> getChildrenElementMap (Element parent) {
         Map<String, Element> map = new HashMap<String, Element>();
         NodeList nodes = parent.getChildNodes();
         for (int i = 0; i < nodes.getLength(); i++) {
@@ -336,9 +330,9 @@ public class XMLTool {
      * @return a map with the child tag (as a map key) and a child element (as a map value) of all
      *         the children elements of a particular parent element.
      */
-    public Map<String, Element> getElementMapFromParent (String parentTag) {
+    public Map<String, Element> getChildrentElementMap (String parentTag) {
         Element parent = getElement(parentTag);
-        return getElementMapFromParent(parent);
+        return getChildrenElementMap(parent);
     }
     
     /**
@@ -350,7 +344,7 @@ public class XMLTool {
      * @return a map with the tag (as a map key) and the content (as a map value) of all the
      *         children elements of a particular node.
      */
-    public Map<String, String> getStringMapFromParent (Element parent) {
+    public Map<String, String> getChildrenStringMap (Element parent) {
         Map<String, String> map = new HashMap<String, String>();
         NodeList nodes = parent.getChildNodes();
         for (int i = 0; i < nodes.getLength(); i++) {
@@ -371,9 +365,9 @@ public class XMLTool {
      * @return a map with the tag (as a map key) and the content (as a map value) of all the
      *         children elements of a particular node.
      */
-    public Map<String, String> getStringMapFromParent (String parentTag) {
+    public Map<String, String> getChildrenStringMap (String parentTag) {
         Element parent = getElement(parentTag);
-        return getStringMapFromParent(parent);
+        return getChildrenStringMap(parent);
     }
     
     /**
@@ -389,15 +383,37 @@ public class XMLTool {
      *         children content as a value. Map<key, value> = Map<childTag, childValue> =
      *         Map<String, String>;
      */
-    public List<Map<String, Element>> getMapListFromTag (String parentsTag) {
+    public List<Map<String, Element>> getMapList (String parentsTag) {
         List<Element> nodeList = getElementList(parentsTag);
         List<Map<String, Element>> listOfMaps =
                 new ArrayList<Map<String, Element>>(nodeList.size());
         for (int i = 0; i < nodeList.size(); i++) {
-            listOfMaps.add(getElementMapFromParent(nodeList.get(i)));
+            listOfMaps.add(getChildrenElementMap(nodeList.get(i)));
         }
         return listOfMaps;
     }
+    
+    /*
+     * Other functionalities
+     */
+    
+    /**
+     * Converts a NodeList into a list of Elements.
+     * 
+     * @param nodeList NodeList containing elements
+     * @return A list with the elements of nodeList.
+     */
+    public List<Element> convertNodeList (NodeList nodeList) {
+        List<Element> elementList = new ArrayList<Element>();
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            if (nodeList.item(i).getNodeType() == Node.ELEMENT_NODE) {
+                elementList.add((Element) nodeList.item(i));
+            }
+        }
+        return elementList;
+    }
+    
+    
     
     /*
      * Writing to file, will be replaced by the secretary program
@@ -452,4 +468,5 @@ public class XMLTool {
             throw new RuntimeException("File could not be written.", e);
         }
     }
+    
 }
