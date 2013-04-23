@@ -1,5 +1,6 @@
 package vooga.rts.leveleditor.gui;
 
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
@@ -26,7 +27,7 @@ public class ResourceButton extends JToggleButton {
 
     private Resource myResource;
     private ResourcePanel myOwner;
-    private BufferedImage myIcon;
+    private Image myIcon;
     private Input myInput;
 
     /**
@@ -37,12 +38,11 @@ public class ResourceButton extends JToggleButton {
      */
     public ResourceButton (Resource r, ResourcePanel owner) {
         myResource = r;
-        myIcon = r.getMyImage();
+        myIcon = r.getMyImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
         myOwner = owner;
         myInput = new Input(INPUT_DIR, this);
         myInput.addListenerTo(this);
 
-        myIcon.getGraphics().drawImage(myIcon, 0, 0, 32, 32, null);
         setToolTipText(r.getMyName());
         setIcon(new ImageIcon(myIcon));
         setMargin(new Insets(2, 2, 2, 2));
