@@ -8,10 +8,14 @@ import java.awt.geom.AffineTransform;
 
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+<<<<<<< HEAD
+=======
 import vooga.fighter.controller.ViewDataSource;
 
+>>>>>>> 05c897bfc8a6f32835866341bd291ac1111970d3
 /**
  * Creates an area of the screen in which the game will be drawn that supports:
  * <UL>
@@ -24,6 +28,100 @@ import vooga.fighter.controller.ViewDataSource;
  * @author Wayne You
  */
 public class Canvas extends JComponent {
+<<<<<<< HEAD
+	// default serialization ID
+	private static final long serialVersionUID = 1L;
+
+	// game to be animated
+	private ViewDataSource myViewDataSource;
+	// current layout of the game
+	private CanvasLayout myLayout = null;
+
+	/**
+	 * Create a panel so that it knows its size
+	 */
+	public Canvas(Dimension size) {
+		// set size (a bit of a pain)
+		setPreferredSize(size);
+		setSize(size);
+		// prepare to receive input
+		setFocusable(true);
+		requestFocus();
+	}
+
+	/**
+	 * Sets the data source from the controller.
+	 * 
+	 * @param data
+	 */
+	public void setViewDataSource(ViewDataSource data) {
+		myViewDataSource = data;
+	}
+
+	/**
+	 * Sets up the layout of the view. Null implies no layout.
+	 * 
+	 * @param layout
+	 */
+	public void setLayout(CanvasLayout layout) {
+		myLayout = layout;
+	}
+
+	/**
+	 * Calls java's repaint method.
+	 */
+	public void paint() {
+		repaint();
+	}
+
+	/**
+	 * Paint the contents of the canvas.
+	 * 
+	 * Never called by you directly, instead called by Java runtime when area of
+	 * screen covered by this container needs to be displayed (i.e., creation,
+	 * uncovering, change in status)
+	 * 
+	 * @param pen
+	 *            used to paint shape on the screen
+	 */
+	@Override
+	public void paintComponent(Graphics pen) {
+		pen.setColor(Color.WHITE);
+		pen.fillRect(0, 0, getSize().width, getSize().height);
+		// If there is no defined layout, simply paint things at the locations
+		// they are given.
+		if (myLayout == null) {
+			for (int i = 0; i < myViewDataSource.ObjectNumber(); i++) {
+				// paintPaintable(pen, i);
+				myViewDataSource.getPaintable(i).paint((Graphics2D) pen,
+						myViewDataSource.getLocation(i),
+						myViewDataSource.getSize(i));
+
+			}
+		} else {
+			myLayout.paintComponents((Graphics2D) pen, myViewDataSource,
+					this.getSize());
+		}
+	}
+
+	private void paintPaintable(Graphics pen, int i) {
+
+		if (myViewDataSource.getImageEffects(i).size() == 0) {
+
+			myViewDataSource.getPaintable(i).paint((Graphics2D) pen,
+					myViewDataSource.getLocation(i),
+					myViewDataSource.getSize(i));
+		}
+
+		else if (myViewDataSource.getImageEffects(i).get(0) == -1) {
+
+			myViewDataSource.getPaintable(i).paintReverse((Graphics2D) pen,
+					myViewDataSource.getLocation(i),
+					myViewDataSource.getSize(i));
+		}
+	}
+
+=======
     // default serialization ID
     private static final long serialVersionUID = 1L;
     
@@ -114,23 +212,42 @@ public class Canvas extends JComponent {
     }
     
     /**
-     * Opens an explorer window to select a file. Returns null on cancel and absolute path on success.
-     * @param descriptor Description of what types of files are being searched for.
-     * @param extensions Zero or more file extensions to filter for. (do not prefix with a period)
+     * Opens an explorer window to select a file. Returns null on cancel and
+     * absolute path on success.
+     * 
+     * @param descriptor
+     *            Description of what types of files are being searched for.
+     * @param extensions
+     *            Zero or more file extensions to filter for. (do not prefix
+     *            with a period)
      * @return The absolute path name of a file, or null.
      */
-    public String chooseFile (String descriptor, String ... extensions) {
+    public String chooseFile(String descriptor, String... extensions) {
         JFileChooser chooser = new JFileChooser();
         
-        FileNameExtensionFilter filter = new FileNameExtensionFilter(descriptor, extensions);
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                descriptor, extensions);
         chooser.setFileFilter(filter);
         int returnVal = chooser.showOpenDialog(this);
         
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
+        if (returnVal == JFileChooser.APPROVE_OPTION)
             return chooser.getSelectedFile().getAbsolutePath();
-        }
-        else {
+        else
             return null;
-        }
     }
+    
+    /**
+     * Prompts the user for a string.
+     * 
+     * @param title
+     *            The title of the dialog box.
+     * @param text
+     *            The text of the dialog box.
+     * @return The string input, or null for no input.
+     */
+    public String promptForString(String title, String text) {
+        return JOptionPane.showInputDialog(this, text, title,
+                JOptionPane.PLAIN_MESSAGE);
+    }
+>>>>>>> 05c897bfc8a6f32835866341bd291ac1111970d3
 }

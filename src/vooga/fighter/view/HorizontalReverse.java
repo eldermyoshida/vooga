@@ -14,7 +14,7 @@ public class HorizontalReverse {
 		
 	}
 	
-    protected void applyReverse(Graphics2D pen, ViewDataSource data, int objectNumber) {
+    protected void paintReverse(Graphics2D pen, ViewDataSource data, int objectNumber) {
     	pen.setTransform(AffineTransform.getScaleInstance(1, -1));
     	data.getPaintable(objectNumber).paint(pen, data.getLocation(objectNumber),data.getSize(objectNumber));
     }

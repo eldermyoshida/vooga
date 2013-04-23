@@ -24,11 +24,12 @@ public class MapWriter {
 	private Element myFakeRoot; 
 	private Element myRoot;
 	private String mySoundFilePath;
-	private String myBackgroundFilePath;
+	private List<String> myBackgroundFilePaths;
 	
-	public MapWriter(MapObject map, String soundFilePath, String backgroundFilePath) {
+	public MapWriter(MapObject map, String soundFilePath, List<String> backgroundFilePaths) {
 		myWriteSource = map;
 		myXMLWriter = new XMLTool();
+		myBackgroundFilePaths = backgroundFilePaths;
 	}
 	
 	public void writeMap() {
@@ -72,9 +73,11 @@ public class MapWriter {
 	private void writeStates() {
 		Element stateHead = myXMLWriter.makeElement("state","stateName = \"background\"");
 		myXMLWriter.addChild(myRoot, stateHead);
-		Element background = myXMLWriter.makeElement("frame", "image = \"" + 
-				myBackgroundFilePath + "\"");
-		myXMLWriter.addChild(stateHead, background);
+		for(String str: myBackgroundFilePaths) {
+			Element background = myXMLWriter.makeElement("frame", "image = \"" + 
+				str + "\"");
+			myXMLWriter.addChild(stateHead, background);
+		}
 	}
 
 }
