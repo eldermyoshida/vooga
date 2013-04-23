@@ -33,7 +33,7 @@ public class HandlerXML implements IVoogaHandler {
      * Sets the file output name to a default value
      */
     public HandlerXML () {
-        myFileName = LoggerManager.DEFAULT_NAME;
+        myFileName = NetworkLogger.DEFAULT_FILE_NAME;
     }
     
     public void setFileName (String file) {

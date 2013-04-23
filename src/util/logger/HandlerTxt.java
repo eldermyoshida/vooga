@@ -28,7 +28,7 @@ public class HandlerTxt implements IVoogaHandler {
      * Sets the file output name to a default value
      */
     public HandlerTxt () {
-        myFileName = LoggerManager.DEFAULT_NAME;
+        myFileName = NetworkLogger.DEFAULT_FILE_NAME;
     }
     
     public String getFileName() {

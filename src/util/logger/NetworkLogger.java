@@ -26,12 +26,13 @@ public class NetworkLogger {
             Logger.getLogger(NetworkLogger.class.getName());
     private static final String TXT_EXT = ".txt";
     private static final String LOG_EXT = ".log";
+    public static final String DEFAULT_FILE_NAME = "Logger";
     
     private HandlerConsole myConsoleHandler = new HandlerConsole();
     private HandlerSocket mySocketHandler = new HandlerSocket();
     private HandlerStream myStreamHandler = new HandlerStream();;
     private HandlerTxt myTxtHandler = new HandlerTxt();
-    private HandlerXML myXmlHandler = new HandlerXML();
+    private HandlerXML myXMLHandler = new HandlerXML();
     
     public static final int FORMAT_XML = 1221;
     public static final int FORMAT_TXT = 1356;
@@ -141,6 +142,27 @@ public class NetworkLogger {
      */
     public void addLogHandler (String fileName) {
     	addCustomExtensionHandler (fileName, LOG_EXT);
+    }
+    
+    /**
+     * 
+     * Adds a handler that sends log records across a given stream
+     * 
+     * @param Output stream in case using a stream handler
+     */
+    public void addXMLHandler (String fileName) {
+    	myXMLHandler.setFileName(fileName);
+    	addXMLHandler();
+    }
+    
+    /**
+     * 
+     * Adds a handler that sends log records across a given stream
+     * 
+     * @param Output stream in case using a stream handler
+     */
+    public void addXMLHandler () {
+    	addHandler (myXMLHandler);
     }
 
     /**
