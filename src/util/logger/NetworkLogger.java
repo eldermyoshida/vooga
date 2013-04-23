@@ -11,12 +11,11 @@ import java.util.logging.Logger;
  * A class that handles a logger. It makes use of the singleton pattern
  * to guarantee the use of a single logger in the program
  * This class does not propagate LogRecords to parent Loggers, so if the
- * user wants the log printed on the console, he should manually call addHandler
- * with FORMAT_CONSOLE as input
+ * It sets a console handler as a default handler
  * 
  * By default, the logger starts at ALL level so any type of message is logged
  * 
- * >>>Note that the user does not need to use any other class in this package 
+ * Note that the user does not need to use any other class in this package 
  * except this one to manage the logger
  * 
  * @author Henrique Moraes
