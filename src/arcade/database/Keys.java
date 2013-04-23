@@ -17,11 +17,13 @@ public interface Keys {
     static final String COM_GAMEID_COLUMN_FIELD = "gameid";  
     static final String COM_USERID_COLUMN_FIELD = "userid";
     static final String COM_COMMENT_COLUMN_FIELD = "commentfield";
+    static final String COM_RATING_COLUMN_FIELD = "ratings";
     static final String COM_COMMENTID_COLUMN_FIELD = "commentid";
     static final int COM_GAMEID_COLUMN_INDEX = 1;
     static final int COM_USERID_COLUMN_INDEX = 2;
     static final int COM_COMMENT_COLUMN_INDEX = 3;
-    static final int COM_COMMENTID_COLUMN_INDEX = 4;
+    static final int COM_RATING_COLUMN_INDEX = 4;
+    static final int COM_COMMENTID_COLUMN_INDEX = 5;
     
     //keys for game table
     static final String GAM_TABLE_NAME = "games";  

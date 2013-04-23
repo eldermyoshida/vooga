@@ -300,10 +300,16 @@ public class Database {
         myUserTable.printEntireTable();
     }
     
+    /**
+     * Retrieves score table
+     */
     public void printScoreTable () {
         myScoreTable.printEntireTable();
     }
     
+    /**
+     * Retrieves comment table
+     */
     public void printCommentTable () {
         myCommentTable.printEntireTable();
     }
@@ -331,7 +337,7 @@ public class Database {
      * @param rating is new rating
      */
     public void updateRating (String userName, String gameName, double rating) {
-        //TODO update rating
+        myCommentTable.addNewRating(retrieveUserId(userName), retrieveGameId(gameName), rating);
     }
 
     /**
@@ -411,8 +417,7 @@ public class Database {
      * @param gameName is game
      */
     public double getAverageRating (String gameName) {
-        //TODO implement averarage rating
-        return 0;
+        return myCommentTable.getAverageRating(retrieveGameId(gameName));
         
     }
 
@@ -435,24 +440,18 @@ public class Database {
     }
 
     /**
-     * Returns Pixmap of game thumbnail
+     * Returns path of saved location of game thumbnail
      * @param gameName is game
      */
     public String getGameThumbnail (String gameName) {
-        //System.out.println("received game thumbnail");
-        System.out.println(myS3Instance.getThumbnail(gameName));
         return myS3Instance.getThumbnail(gameName);
-        //return new Pixmap(myS3Instance.getThumbnail(gameName));
     }
 
     /**
-     * Returns Pixmap of adscreen
+     * Returns path of saved location of adscreen
      * @param gameName is game
      */
     public String getGameAdScreen (String gameName) {
-        //System.out.println(myS3Instance.getAdScreen(gameName));
-        System.out.println(myS3Instance.getAdScreen(gameName));
         return myS3Instance.getThumbnail(gameName);
-        //return new Pixmap(myS3Instance.getAdScreen(gameName));
     }
 }
