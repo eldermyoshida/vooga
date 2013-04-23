@@ -19,6 +19,7 @@ import vooga.rts.networking.communications.Message;
 import vooga.rts.networking.communications.Player;
 import vooga.rts.networking.communications.clientmessages.InitialConnectionMessage;
 import vooga.rts.networking.communications.clientmessages.JoinLobbyMessage;
+import vooga.rts.networking.communications.clientmessages.LeaveLobbyMessage;
 import vooga.rts.networking.communications.clientmessages.RequestServerListMessage;
 import vooga.rts.networking.communications.clientmessages.StartGameMessage;
 import vooga.rts.networking.communications.clientmessages.StartLobbyMessage;
@@ -155,7 +156,7 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
         myContainerPanel.changeLeftButton("Leave Lobby", new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent arg0) {
-
+                myClient.sendData(new LeaveLobbyMessage());
                 switchToServerBrowserView();
             }
         });
