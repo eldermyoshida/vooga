@@ -23,6 +23,7 @@ public class CharacterObject extends GameObject {
 
     private static final int RIGHT=0; 
     private static final int MOVE_BACK_AMOUNT=-2; 
+    private static final int UP=270; 
     
     private Map<String, AttackObject> myAttacks;
     private List<Effect> myActiveEffects;
@@ -184,7 +185,7 @@ public class CharacterObject extends GameObject {
      */
     public void move(int direction) {
         setCurrentState("moveRight");
-        getLocation().translate(new Vector(direction, getProperty("movespeed")));
+        getLocation().addAcceleration(new Vector(direction, getProperty("movespeed")));
     }
 
     /**
@@ -200,7 +201,7 @@ public class CharacterObject extends GameObject {
     public void moveBack(double forceMagnitude){
     	myVelocity.setMagnitude(0.1); //TODO: hard coded now should be force magnitude in the future
     	reverseVelocity(); 
-    	getLocation().translate(myVelocity);
+    	getLocation().addAcceleration(myVelocity);
     }
     
     /**
@@ -214,7 +215,7 @@ public class CharacterObject extends GameObject {
      * Will add jump method
      */
     public void jump() {        
-    	getLocation().addAcceleration(new Vector(270, 3));
+    	getLocation().addAcceleration(new Vector(UP, getProperty("jumpfactor")));
     } 
     
     /**

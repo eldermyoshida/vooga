@@ -49,8 +49,10 @@ public class CharacterLoader extends ObjectLoader {
 				int maxHealth = Integer.parseInt(getAttributeValue(node, getResourceBundle().getString("MaxHealth")));
 				int movespeed= Integer.parseInt(getAttributeValue(node, getResourceBundle().getString("Movespeed")));
 				int mass= Integer.parseInt(getAttributeValue(node, getResourceBundle().getString("Mass")));
+				int jumpfactor= Integer.parseInt(getAttributeValue(node, getResourceBundle().getString("Jump")));
 				myChar.addProperty(getResourceBundle().getString("Movespeed"), movespeed);
 				myChar.addProperty(getResourceBundle().getString("Mass"), mass);
+				myChar.addProperty(getResourceBundle().getString("Jump"), jumpfactor);
 				myChar.setHealth(maxHealth);
 				NodeList stateNodes = ((Element) node).getElementsByTagName(getResourceBundle().getString("State"));
 				addStates(stateNodes, myChar);
