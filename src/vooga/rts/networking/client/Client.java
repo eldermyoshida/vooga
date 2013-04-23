@@ -18,7 +18,7 @@ import vooga.rts.networking.communications.Message;
  * 
  */
 public class Client extends Thread implements IClient {
-    private static final int PORT = 55308;
+    private static final int PORT = 55309;
     private static final String HOST = "localhost";
     private ObjectInputStream myInput;
     private ObjectOutputStream myOutput;
@@ -27,20 +27,13 @@ public class Client extends Thread implements IClient {
     private int myPort = PORT;
     private IMessageReceiver myReceiver;
     private boolean myRunning = false;
-    
+
     public Client (IMessageReceiver receiver) {
         myReceiver = receiver;
-        run();
-    }
-
-    /**
-     * Creates the sockets and streams for this client
-     */
-    public void run () {
         try {
             mySocket = new Socket(myHost, myPort);
-            myInput = new ObjectInputStream(mySocket.getInputStream());
             myOutput = new ObjectOutputStream(mySocket.getOutputStream());
+            myInput = new ObjectInputStream(mySocket.getInputStream());
         }
         catch (UnknownHostException e) {
             // TODO Auto-generated catch block
@@ -50,13 +43,19 @@ public class Client extends Thread implements IClient {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Creates the sockets and streams for this client
+     */
+    public void run () {
         // TODO refactor
         myRunning = true;
-        while(myRunning){
+        while (myRunning) {
             try {
                 Object object = myInput.readObject();
-                if (object instanceof Message) { 
-                    myReceiver.getMessage((Message) object); 
+                if (object instanceof Message) {
+                    myReceiver.getMessage((Message) object);
                 }
             }
             catch (ClassNotFoundException e) {
@@ -99,5 +98,10 @@ public class Client extends Thread implements IClient {
             e.printStackTrace();
         }
     }
-    
+
+    @Override
+    public void beginAcceptingConnections () {
+        start();
+    }
+
 }

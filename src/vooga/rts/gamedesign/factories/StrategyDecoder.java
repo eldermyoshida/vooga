@@ -22,10 +22,9 @@ import vooga.rts.util.ReflectionHelper;
  */
 public class StrategyDecoder extends Decoder{
 
-	public static final String ATTACK_TAG = "attacks";
-	public static final String OCCUPY_TAG = "occupys";
-	public static final String GATHER_TAG = "gathers";
-	public static final String SOURCE = "src";
+	private static final String ATTACK_TAG = "attacks";
+	private static final String OCCUPY_TAG = "occupys";
+	private static final String GATHER_TAG = "gathers";
 	
 	
 	Factory myFactory;
@@ -65,7 +64,7 @@ public class StrategyDecoder extends Decoder{
 	 * which runs through the lists and makes the strategies. 
 	 */
 	@Override
-	public void create(Document doc) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+	public void create(Document doc, String type) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		NodeList attackLst = doc.getElementsByTagName(ATTACK_TAG).item(0).getChildNodes();
 		NodeList occupyLst = doc.getElementsByTagName(OCCUPY_TAG).item(0).getChildNodes();
 		NodeList gatherLst = doc.getElementsByTagName(GATHER_TAG).item(0).getChildNodes();

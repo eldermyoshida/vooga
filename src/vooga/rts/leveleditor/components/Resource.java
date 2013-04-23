@@ -15,8 +15,14 @@ public class Resource extends GameSprite{
     private int myID;
     private String myName;
     private String myImageName;
-    private int myAmount;
-    
+    private int myAmount;   
+    /**
+     * Constructor for this class
+     * 
+     * @param id
+     * @param name
+     * @param image
+     */ 
     public Resource(Pixmap image, Location3D center , int id, String name , String imageName, int amount) {
         super(image,center,image.getMyDimension());
         myID = id;
@@ -34,7 +40,7 @@ public class Resource extends GameSprite{
 
     public int getMyID () {
         return myID;
-    }
+    }   
 
     public String getMyName () {
         return myName;

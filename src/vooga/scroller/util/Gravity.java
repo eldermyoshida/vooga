@@ -1,5 +1,7 @@
 package vooga.scroller.util;
 
+import util.Vector;
+
 /**
  * This is how we want to handle gravity. Every sprite will have an instance of this 
  * gravity object. 
@@ -12,7 +14,7 @@ public class Gravity {
     Sprite sprite;
     private double groundLoc;
     private static final double DISTANCE_OFF_GROUND = 15;
-    private static final double GRAVITY_CONSTANT = -6;
+    private static final double GRAVITY_CONSTANT = -10;
 
     private Vector gravityVector;
     
@@ -23,6 +25,6 @@ public class Gravity {
     }
     
     public void applyGravity() {
-        sprite.translate(gravityVector);
+        sprite.addVector(gravityVector);
     }
 }

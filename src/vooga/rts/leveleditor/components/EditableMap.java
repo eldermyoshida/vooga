@@ -52,8 +52,7 @@ public class EditableMap {
         myMapName = name;
         myDescription =desc;
         myTileMap = new EditableTileMap(new Dimension(tileWidth,tileHeight),ySize,xSize);
-   
-        
+           
         initializeMap();
     }
 
@@ -68,18 +67,16 @@ public class EditableMap {
         myResources = new ArrayList<Resource>();
 
         try {
-                mySaver = new MapSaver(this);
-                myLoader = new MapLoader(this);
-            }
-            catch (ParserConfigurationException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+            mySaver = new MapSaver(this);
+            myLoader = new MapLoader(this);
+        }
+        catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        }
     }
 
 
 
-    
 
     public void clearMap () {
         myTileMap.removeAllTiles();
@@ -90,7 +87,6 @@ public class EditableMap {
         System.out.println("printmatrix executed");
         System.out.println("X Size : " + getMyXsize());
         System.out.println("Y Size : " + getMyYsize());
-
         
         for(int i =0 ; i<getMyXsize() ; i++) {
             for(int j =0 ; j<getMyYsize() ; j++) {
@@ -106,21 +102,21 @@ public class EditableMap {
     }
 
     public void load (File resourceFile) {
-        
+
         try {
             System.out.println("LOAD MAP IN THE FILE");
             myLoader.loadMapFile(resourceFile);
-            
+
         }
         catch (SAXException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
         catch (IOException e) {
-           // TODO Auto-generated catch block
-           e.printStackTrace();
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
-          
+
     }
 
     public void load (String filePath) {
@@ -140,7 +136,7 @@ public class EditableMap {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        
+
     }
 
     public void save (String filePath) {
@@ -214,19 +210,9 @@ public class EditableMap {
        }
     }
     
-    public static void main(String[] args) {
-        EditableMap test = new EditableMap("TestMap","This is a test map",10,10,50,50);
-        test.addPlayer(1,2);
-        test.addPlayer(2,3);
-        test.addPlayer(3,4);
-        test.addPlayer(5,7);
-        test.addTile(1, 1, 1);
-        test.addTile(2, 2, 2);
-        test.addTile(3, 3, 3);
-        test.addTerrain(3, new Terrain(2,2,1));
-        test.addTerrain(2, new Terrain(3,3,2));
-        test.addResource(7, 7, 1);
-        test.addResource(8, 8, 2);
+    public static void main (String[] args) {
+        EditableMap test = new EditableMap("TestMap", "This is a test map", 10, 10, 50, 50);
+        
         MapSaver saver = null;
         try {
             saver = new MapSaver(test);
@@ -246,6 +232,6 @@ public class EditableMap {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-    
+
     }
 }

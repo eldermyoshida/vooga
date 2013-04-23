@@ -24,8 +24,7 @@ import vooga.rts.util.Pixmap;
 public class Projectile extends GameEntity {
 	// Default speed
 	public static int DEFAULT_PROJECTILE_SPEED = 800;
-	public static Pixmap DEFAULT_PIC = new Pixmap(ResourceManager.getInstance()
-			.<BufferedImage> getFile("images/bullet.png", BufferedImage.class));
+	public static Pixmap DEFAULT_PIC = new Pixmap("bullet.png");
 	public static Dimension DEFAULT_DIMENSION = new Dimension(20, 20);
 	public static int DEFAULT_DAMAGE = 10;
 	public static int DEFAULT_HEALTH = 6;

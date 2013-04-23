@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import javax.swing.AbstractAction;
@@ -29,13 +30,13 @@ import vooga.scroller.util.Pixmap;
  */
 public class RadioGroup extends JPanel {
 
+    static int DEFAULT_BUTTON_MARGIN = 16;
     
-    private Collection<JToggleButton> myButtons;
+    private List<JToggleButton> myButtons;
     private ButtonGroup myGrouper;
     
     private ActionListener myListener;
     
-    private String myName = "group";
     
     /**
      * For internal logical handling
@@ -47,7 +48,6 @@ public class RadioGroup extends JPanel {
         myGrouper = new ButtonGroup();
         myListener = listener;
         myOptions = new TreeMap<String, String>();
-        applyLayout();
     }
     
     /**
@@ -55,9 +55,10 @@ public class RadioGroup extends JPanel {
      * @param listener - listener supposed to handle events for the Radio Group
      * @param buttons - representing Radio options
      */
-    public RadioGroup(ActionListener listener, JRadioButton ...buttons) {
+    public RadioGroup(Dimension containerSize, ActionListener listener, List<JToggleButton> buttons) {
         this(listener);
         add(buttons);
+        applyLayout(containerSize);
     }
     
     /**
@@ -65,9 +66,8 @@ public class RadioGroup extends JPanel {
      * @param listener - listener supposed to handle events for the Radio Group
      * @param optionsMap - representing Radio options (key-value pairs)
      */
-    public RadioGroup(ActionListener listener, Map<Object, String> optionsMap) {
-        this(listener);
-        add(makeRadioButtons(optionsMap));
+    public RadioGroup(Dimension containerSize, ActionListener listener, Map<Object, String> optionsMap) {
+        this(containerSize, listener, makeRadioButtons(optionsMap));
     }
     
 
@@ -76,9 +76,8 @@ public class RadioGroup extends JPanel {
      * @param listener - listener supposed to handle events for the Radio Group
      * @param options - representing Radio options (literals)
      */
-    public RadioGroup(ActionListener listener, String ...options) {
-        this(listener);
-        add(makeRadioButtons(mapify(options)));
+    public RadioGroup(Dimension containerSize, ActionListener listener, String ...options) {
+        this(containerSize, listener, makeRadioButtons(mapify(options)));
     }
     
     
@@ -97,12 +96,12 @@ public class RadioGroup extends JPanel {
         tester.setSize(250, 150);
         tester.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ActionListener testAction = getTestAction();
-        RadioGroup rg1 = new RadioGroup(testAction, "2013", "2014", "2015", "2016");
+        RadioGroup rg1 = new RadioGroup(tester.getSize(), testAction, "2013", "2014", "2015", "2016");
         System.out.println(rg1.getHTML());
         Map<Object, String> sex = new HashMap<Object, String>();
         sex.put("Male", "M");
         sex.put("Female", "F");
-        RadioGroup rg2 = new RadioGroup(testAction, sex);
+        RadioGroup rg2 = new RadioGroup(tester.getSize(), testAction, sex);
         System.out.println(rg2);
         EasyGridFactory.layout(tester, rg1, rg2);
         tester.pack();
@@ -113,19 +112,27 @@ public class RadioGroup extends JPanel {
      * Add the buttons passes to the RadioGroup
      * @param buttons - to be added
      */
-    public void add (Collection<JToggleButton>buttons) {
+    public void add (List<JToggleButton>buttons) {
         for (JToggleButton b:buttons) {
             add(b);
         }
     }
     
 
-    private void applyLayout() {
-//        this.setPreferredSize(new Dimension(150, 100));
-//        this.setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
-        this.setLayout(new GridLayout(0, 4));//TODO - Generalize
+    private void applyLayout(Dimension containerSize) {
+        this.setLayout(new GridLayout(0, getButtonsPerRow(containerSize)));
     }
     
+    private int getButtonsPerRow (Dimension containerSize) {
+        int sampleWidth = myButtons.get(0).getSize().width;
+        if(sampleWidth == 0) {
+            sampleWidth = 40;
+        }
+        sampleWidth += DEFAULT_BUTTON_MARGIN;
+        int result = containerSize.width/sampleWidth;
+        return result;
+    }
+
     private void add (JToggleButton b) {
         super.add(b);
         myButtons.add(b);
@@ -167,6 +174,7 @@ public class RadioGroup extends JPanel {
     }
     
     private String getHTML(JToggleButton b) {
+        String myName = "group";
         return "<input type=\"radio\" " +
                         "name=" + myName + " " +
                         "value=" + b.getActionCommand() + 
@@ -174,8 +182,8 @@ public class RadioGroup extends JPanel {
                         + b.getText() + "<br>";
     }
     
-    private Collection<JToggleButton> makeRadioButtons(Map<Object, String> optionsMap) {
-        Collection<JToggleButton> buttons = new ArrayList<JToggleButton>();
+    private static List<JToggleButton> makeRadioButtons(Map<Object, String> optionsMap) {
+        List<JToggleButton> buttons = new ArrayList<JToggleButton>();
         for (Object o: optionsMap.keySet()) {
             JToggleButton currB = new JToggleButton();
             if (o instanceof String) {
@@ -195,28 +203,28 @@ public class RadioGroup extends JPanel {
         return buttons;
     }
     
-    private JRadioButton makeRadioOption (Pixmap p, String optionValue) {
+    private static JRadioButton makeRadioOption (Pixmap p, String optionValue) {
         JRadioButton res = new JRadioButton((Icon) p);
         res.setActionCommand(optionValue);
         res.setSelected(true);
         return res;
     }
 
-    private JToggleButton makeRadioOption (String optionLabel, String optionValue) {
+    private static JToggleButton makeRadioOption (String optionLabel, String optionValue) {
         JToggleButton res = new JToggleButton(optionLabel);
         res.setActionCommand(optionValue);
         res.setSelected(true);
         return res;
     }
     
-    private JToggleButton makeRadioOption (Icon c, String optionValue) {
+    private static JToggleButton makeRadioOption (Icon c, String optionValue) {
         JToggleButton res = new JToggleButton(c);
         res.setActionCommand(optionValue);
         res.setSelected(true);
         return res;
     }
     
-    private Map<Object, String> mapify(String ...options) {
+    private static Map<Object, String> mapify(String ...options) {
         Map<Object, String> res = new HashMap<Object, String>();
         for (String o: options) {
             res.put(o, o);

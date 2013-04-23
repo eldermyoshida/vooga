@@ -1,13 +1,13 @@
 
 package vooga.scroller.model;
 
-import vooga.scroller.input.AlertObject;
-import vooga.scroller.input.Input;
-import vooga.scroller.input.InputClassTarget;
-import vooga.scroller.input.InputMethodTarget;
-import vooga.scroller.input.PositionObject;
+import util.input.AlertObject;
+import util.input.Input;
+import util.input.InputClassTarget;
+import util.input.InputMethodTarget;
+import util.input.PositionObject;
 import javax.swing.JComponent;
-import vooga.scroller.sprite_superclasses.Player;
+import vooga.scroller.sprites.superclasses.Player;
 /**
  * Class that holds all user defined control methods. These methods can work
  * on the player used in the construciton of this.
@@ -21,7 +21,7 @@ public class ModelInputs {
     private static final String TEST_CONTROLS = "vooga/scroller/resources/controls/TestMapping";
 
     private Input myInput;
-    private PlayerController myPlayer;
+    private Player myPlayer;
 
     /**
      * Creates a new set of ModelInputs based on
@@ -29,7 +29,7 @@ public class ModelInputs {
      * @param player on which the controls will act
      * @param view from where the controls come from.
      */
-    public ModelInputs (PlayerController player, JComponent view) {
+    public ModelInputs (Player player, JComponent view) {
         myInput = new Input(TEST_CONTROLS, view);
         myPlayer = player;
         myInput.addListenerTo(this);
@@ -46,7 +46,7 @@ public class ModelInputs {
      */
     @InputMethodTarget(name = "jump")
     public void jumpInput (AlertObject alObj) {
-        myPlayer.translate(PlayerController.UP_VELOCITY);
+        myPlayer.translate(Player.UP_VELOCITY);
     }
 
     /**
@@ -56,7 +56,7 @@ public class ModelInputs {
      */
     @InputMethodTarget(name = "left")
     public void leftInput (AlertObject alObj) {
-        myPlayer.translate(PlayerController.LEFT_VELOCITY);
+        myPlayer.translate(Player.LEFT_VELOCITY);
     }
 
     /**
@@ -66,7 +66,7 @@ public class ModelInputs {
      */
     @InputMethodTarget(name = "right")
     public void rightInput (AlertObject alObj) {
-        myPlayer.translate(PlayerController.RIGHT_VELOCITY);
+        myPlayer.translate(Player.RIGHT_VELOCITY);
     }
 
     /**
@@ -75,7 +75,7 @@ public class ModelInputs {
      */
     @InputMethodTarget(name = "down")
     public void downInput (AlertObject alObj) {
-        myPlayer.translate(PlayerController.DOWN_VELOCITY);
+        myPlayer.translate(Player.DOWN_VELOCITY);
     }
     
     @InputMethodTarget(name="test")

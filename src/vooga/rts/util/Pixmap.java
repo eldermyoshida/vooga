@@ -17,57 +17,44 @@ import javax.swing.ImageIcon;
  * @author Robert C. Duvall
  */
 public class Pixmap {
-    // OS-independent relative resource locations (like URLs)
-    private static final String RESOURCE_LOCATION = "/vooga/rts/resources/images/";
-    // underlying implementation
-    private java.awt.Image myImage;
-    private String myFileName;
+	// OS-independent relative resource locations (like URLs)
+	private static final String RESOURCE_LOCATION = "/vooga/rts/resources/images/";
+	// underlying implementation
+	private java.awt.Image myImage;
+	private String myFileName;
 
 
-    /**
-     * Create an image from the given filename.
-     */
-    public Pixmap (String fileName) {
-        setImage(fileName);
-    }
-    
-    /**
-     * Create an image from the given filename.
-     */
-    public Pixmap (Image image) {
-        myImage = image;
-    }
+	/**
+	 * Create an image from the given filename.
+	 */
+	public Pixmap (String fileName) {
+		setImage(fileName);
+	}
 
-    /**
-     * Create a copy of image from the given other image.
-     */
-    public Pixmap (Pixmap other) {
-        //this(other.myFileName);
-        this(other.myImage);
-    }
+	/**
+	 * Create an image from the given filename.
+	 */
+	public Pixmap (Image image) {
+		myImage = image;
+	}
 
-    /**
-     * Set this image to the image referred to by the given filename.
-     */
-    public void setImage (String fileName) {
-        myImage = new ImageIcon(getClass().getResource(RESOURCE_LOCATION + fileName)).getImage();
-        myFileName = fileName;
-    }
+	/**
+	 * Create a copy of image from the given other image.
+	 */
+	public Pixmap (Pixmap other) {
+		//this(other.myFileName);
+		this(other.myImage);
+	}
 
-    /**
-     * Describes how to draw the image on the screen.
-     */
-    public void paint (Graphics2D pen, Point2D center) {
-        paint(pen, center, null, 0);
-    }
-    
-    /**
-     * Describes how to draw the image on the screen.
-     */
-    public void paint (Graphics2D pen, Point2D center, Dimension size) {
-        paint(pen, center, size, 0);
-    }
+	/**
+	 * Set this image to the image referred to by the given filename.
+	 */
+	public void setImage (String fileName) {
+		myImage = new ImageIcon(getClass().getResource(RESOURCE_LOCATION + fileName)).getImage();
+		myFileName = fileName;
+	}
 
+<<<<<<< HEAD
     /**
      * Describes how to draw the image rotated on the screen.
      */
@@ -97,4 +84,37 @@ public class Pixmap {
     public int getMyHeight() {
         return myImage.getHeight(null);
     }
+=======
+	/**
+	 * Describes how to draw the image on the screen.
+	 */
+	public void paint (Graphics2D pen, Point2D center) {
+		paint(pen, center, null, 0);
+	}
+
+	/**
+	 * Describes how to draw the image on the screen.
+	 */
+	public void paint (Graphics2D pen, Point2D center, Dimension size) {
+		paint(pen, center, size, 0);
+	}
+
+	/**
+	 * Describes how to draw the image rotated on the screen.
+	 */
+	public void paint (Graphics2D pen, Point2D center, Dimension size, double angle) {
+		// save current state of the graphics area
+		AffineTransform old = new AffineTransform(pen.getTransform());
+		// move graphics area to center of this shape
+		pen.translate(center.getX(), center.getY());
+		// rotate area about this shape
+		pen.rotate(angle);
+		// draw as usual (i.e., rotated)
+		pen.drawImage(myImage, -size.width / 2, -size.height / 2, size.width, size.height, null);
+		//pen.drawImage(myImage, 0, 0, size.width, size.height, null);
+		// restore graphics area to its old state, so our changes have no lasting effects
+		pen.setTransform(old);
+	}
+	//public void paint ()
+>>>>>>> 6ab3f4781c65040fcd50847edcd738282c7168a3
 }

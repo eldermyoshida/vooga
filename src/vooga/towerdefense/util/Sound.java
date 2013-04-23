@@ -21,8 +21,8 @@ public class Sound {
     // OS-independent relative resource locations (like URLs)
     private static final String RESOURCE_LOCATION = "/sounds/";
     // underlying implementation
-    private ArrayList<AudioInputStream> myAlbum = new ArrayList<>();
-    private ArrayList<String> myFileNames = new ArrayList<>();
+    private ArrayList<AudioInputStream> myAlbum = new ArrayList<AudioInputStream>();
+    private ArrayList<String> myFileNames = new ArrayList<String>();
     private AudioClip myClip;
     
     /**

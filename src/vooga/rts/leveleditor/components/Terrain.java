@@ -29,7 +29,7 @@ public class Terrain extends GameSprite {
         myImageName = name;
         myWalkAbility = walkAbility;
     }
-
+   
     public Terrain (Pixmap image, int x, int y , int z, int id, String name , String imageName , int walkAbility) {
         this(image,new Location3D(x,y,z),id,name,imageName,walkAbility);
     }

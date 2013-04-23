@@ -33,10 +33,6 @@ public class ResourceDecoder extends Decoder{
 	
 	private static final String HEAD_TAG = "resources";
 	private static final String TYPE_TAG = "resource";
-	private static final String NAME_TAG = "name";
-	private static final String IMAGE_TAG = "img";
-	private static final String HEALTH_TAG = "health";
-	private static final String SOURCE_TAG = "src";
 	
 	private Factory myFactory;
 	
@@ -59,7 +55,7 @@ public class ResourceDecoder extends Decoder{
 	 * @throws ParserConfigurationException
 	 * @throws SAXException
 	 */
-	public void create(Document doc) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+	public void create(Document doc, String type) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		String path = doc.getElementsByTagName(HEAD_TAG).item(0).getAttributes().getNamedItem(SOURCE_TAG).getTextContent();
 		NodeList nodeLst = doc.getElementsByTagName(TYPE_TAG);
 		
