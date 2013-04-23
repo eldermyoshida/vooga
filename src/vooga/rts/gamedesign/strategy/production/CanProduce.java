@@ -65,7 +65,7 @@ public class CanProduce implements ProductionStrategy {
 				public void apply() {
 					// check for resources
 					final InteractiveEntity unit = producable;
-					DelayedTask dt = new DelayedTask(1, new Runnable() {
+					DelayedTask dt = new DelayedTask(unit.getBuildTime(), new Runnable() {
 						@Override
 						public void run() {
 							//System.out.println("Creating");
