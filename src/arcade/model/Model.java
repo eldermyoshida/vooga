@@ -25,7 +25,7 @@ import arcade.model.payment.DukePaymentManager;
 import arcade.model.payment.PaymentManager;
 import arcade.view.MainView;
 import arcade.view.forms.LoginView;
-
+import util.FilePathFormatter;
 
 public class Model implements ArcadeInteraction {
 
@@ -42,6 +42,7 @@ public class Model implements ArcadeInteraction {
     private List<GameInfo> mySnapshots;
     private String myUser;
     private PaymentManager myPaymentManager;
+    private FilePathFormatter myPathFormatter = new FilePathFormatter();
 
     // These will be null until you try to play a game
     Game myCurrentGame = null;
@@ -93,8 +94,8 @@ public class Model implements ArcadeInteraction {
                         genre.toLowerCase(), 
                         author, 
                         price,
-                        formatClassFilePath(extendsGame),
-                        formatClassFilePath(extendsMultiplayerGame), 
+                        myPathFormatter.formatClassFilePath(extendsGame),
+                        myPathFormatter.formatClassFilePath(extendsMultiplayerGame), 
                         ageRating, 
                         singlePlayer,
                         multiplayer, 
