@@ -73,4 +73,12 @@ public abstract class NonStaticEntity extends Sprite {
     public Location getPlayerLocation() {
         return myPlayer.getCenter();
     }
+
+    /**
+     * This is called in the SpriteManager on NonStaticEntities that need a Player
+     * @param player
+     */
+    public void addPlayer (Player player) {
+        myPlayer = player;
+    }
 }
