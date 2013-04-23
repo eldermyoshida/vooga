@@ -25,16 +25,21 @@ public class MapEditorController extends Controller{
 	        super();
 	    }   
 		
-	    public void initializeRest(Canvas frame, ControllerDelegate manager, 
+	    public MapEditorController(String name, Canvas frame, ControllerDelegate manager, 
                 GameInfo gameinfo) {
-        super.initializeRest(frame, manager, gameinfo);
+        super(name, frame, manager, gameinfo);
         setInput(manager.getInput());
         getInput().replaceMappingResourcePath(INPUT_PATHWAY);
         getInput().addListenerTo(this);
         GameLoopInfo gameLoopInfo = new GameLoopInfo((LevelMode) getMode());
         setLoopInfo(gameLoopInfo);
         gameinfo.setGameLoopInfo(gameLoopInfo);
-    }
+	    }
+	    
+	    public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo) {
+	        Controller controller = new MainMenuController(name, frame, manager, gameinfo);
+	        return controller;
+	    }
 
 	    public void notifyEndCondition (String endCondition) {
 	    	removeListener();
@@ -109,7 +114,11 @@ public class MapEditorController extends Controller{
 	    }
 	    
 	    public void checkConditions() {
-	    }   
+	    }
+	    
+	    public void developerUpdate() {
+	    	
+	    }
 	    
 }
 
