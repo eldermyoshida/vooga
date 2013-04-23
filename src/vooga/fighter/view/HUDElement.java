@@ -5,7 +5,13 @@ import java.lang.reflect.Field;
 import java.util.Observer;
 import vooga.fighter.util.Paintable;
 
-
+/**
+ * Acts as a display for model data. Throws NullPointerExceptions on Update.
+ * (Update method signature would not be properly overridden if it was given
+ *     throw statements.)
+ * @author Wayne You
+ *
+ */
 public abstract class HUDElement implements Observer, Paintable {
     public static final int DEFAULT_TEXT_HEIGHT = 20;
     
