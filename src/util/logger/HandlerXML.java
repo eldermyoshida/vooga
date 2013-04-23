@@ -35,6 +35,10 @@ public class HandlerXML implements IHandlerFormat {
     public HandlerXML () {
         myFileName = LoggerManager.DEFAULT_NAME;
     }
+    
+    public void setFileName (String file) {
+    	myFileName = file;
+    }
 
     @Override
     public Handler getFormatHandler () {

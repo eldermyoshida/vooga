@@ -98,8 +98,38 @@ public class NetworkLogger {
      * 
      * @param Output stream in case using a stream handler
      */
-    public void addTxtHandler (OutputStream out) {
-        mySetup.addStreamHandler(out);
+    public void addTxtHandler () {
+        mySetup.addTxtHandler();
+    }
+    
+    /**
+     * 
+     * Adds a handler that sends log records across a given stream
+     * 
+     * @param Output stream in case using a stream handler
+     */
+    public void addTxtHandler (String fileName) {
+        mySetup.addTxtHandler();
+    }
+    
+    /**
+     * 
+     * Adds a handler that sends log records across a given stream
+     * 
+     * @param Output stream in case using a stream handler
+     */
+    public void addTxtHandler (String fileName, String ext) {
+        mySetup.addTxtHandler();
+    }
+    
+    /**
+     * 
+     * Adds a handler that sends log records across a given stream
+     * 
+     * @param Output stream in case using a stream handler
+     */
+    public void addLogHandler (String fileName, String ext) {
+        mySetup.addTxtHandler();
     }
 
     /**
