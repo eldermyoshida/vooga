@@ -141,11 +141,15 @@ public class Canvas extends JComponent {
     
     /**
      * Prompts the user for a string.
-     * @param title The title of the dialog box.
-     * @param text The text of the dialog box.
+     * 
+     * @param title
+     *            The title of the dialog box.
+     * @param text
+     *            The text of the dialog box.
      * @return The string input, or null for no input.
      */
     public String promptForString(String title, String text) {
-        return (String)JOptionPane.showInputDialog(this, text, title, JOptionPane.PLAIN_MESSAGE);
+        return JOptionPane.showInputDialog(this, text, title,
+                JOptionPane.PLAIN_MESSAGE);
     }
 }

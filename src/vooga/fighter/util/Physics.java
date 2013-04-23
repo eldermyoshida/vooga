@@ -167,8 +167,7 @@ public class Physics {
     
     /**
      * Applies gravity to an object in contact with something acting as the
-     * ground with a particular
-     * angle.
+     * ground with a particular angle.
      * 
      * @param velocity
      *            The current velocity of the object.
