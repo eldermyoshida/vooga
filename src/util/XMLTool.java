@@ -217,6 +217,22 @@ public class XMLTool {
     /*
      * Getter methods.
      */
+
+    /**
+     * Returns a list of elements with the tag from an specific element.
+     * 
+     * @param tag The name of the tag to match on.
+     * @return A list of elements with the tag.
+     */
+    public List<Element> getElementList(Element parent, String tag) {
+        List<Element> nodeList = new ArrayList<Element>();
+        NodeList nodes = parent.getElementsByTagName(tag);
+        for (int i = 0; i < nodes.getLength(); i++) {
+            nodeList.add((Element) parent.getElementsByTagName(tag).item(i));
+        }
+        return nodeList;
+    }
+    
     /**
      * This method returns the first element in the document with an specific tag.
      * Be careful with this method! If you have many instances of the same tag, use
