@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import util.input.*;
 import vooga.fighter.forces.Force;
+import vooga.fighter.forces.ForceFactory;
 import vooga.fighter.forces.Gravity;
 import vooga.fighter.forces.Viscosity;
 import vooga.fighter.model.objects.CharacterObject;
@@ -25,12 +26,8 @@ import vooga.fighter.view.FourPlayerMatchGameLayout;
  */
 @InputClassTarget
 public class OneVOneController extends LevelController {
-    private static final String delimiter= ",";
     private static final String INPUT_PATHWAY = "vooga.fighter.config.leveldefault";
-    private static final String FORCE_PATHWAY = "vooga.fighter.config.forces";
-    private static final String PACKAGE_NAME = "vooga.fighter.forces.";
     private List<Force> myForces;
-    private ResourceBundle myForceResources;
     
     public OneVOneController () {
         super();
@@ -39,9 +36,8 @@ public class OneVOneController extends LevelController {
     public OneVOneController(String name, Canvas frame, ControllerDelegate manager, 
     		GameInfo gameinfo) {
     	super(name, frame, manager, gameinfo);
-    	myForceResources = ResourceBundle.getBundle(FORCE_PATHWAY);
-    	initializeForces();
-    	getMode().setForces(myForces);
+    	ForceFactory forcefactory = new ForceFactory();
+    	getMode().setForces(forcefactory.getForces());
     	frame.setLayout(new FourPlayerMatchGameLayout());
     }
     
@@ -50,37 +46,7 @@ public class OneVOneController extends LevelController {
         return controller;
     }
     
-    public void initializeForces() {
-        for (String forceName : myForceResources.keySet()) {
-            Force current = constructForce(forceName);
-            String[] parameters = myForceResources.getString(getClass().getSimpleName()).split(delimiter);
-            if (parameters.length == 2) {
-                current.initialize(Double.parseDouble(parameters[0]), Double.parseDouble(parameters[1]));
-            }
-            else {
-                current.initialize(Double.parseDouble(parameters[0]), 0);
-            }
-            myForces.add(current);
-        }
-    }
-    
-    public Force constructForce(String name) {
-        Object objectForce = null;
-        Force force = null;
-        try {
-            Class<?> forceClass = null;
-            String filePath = PACKAGE_NAME + name;
-            forceClass = Class.forName(filePath);
-            objectForce = forceClass.newInstance();
-            force = (Force) objectForce;
-            //controller.initializeName(myResources.getString(controllerName));
-            
-        }
-        catch (Exception e){
-            throw new NullPointerException("No such class");
-        }
-        return force;
-    }
+   
 
     public void notifyEndCondition (String endCondition) {
     	removeListener();
