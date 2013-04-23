@@ -34,16 +34,13 @@ public class NetworkLogger {
     private HandlerXML myXMLHandler = new HandlerXML();
     private HandlerMemory myMemoryHandler = new HandlerMemory();
 
-    private static NetworkLogger instance = null;
+    private static NetworkLogger instance = new NetworkLogger();
 
     /**
      * 
      * @return instance of this Network Logger
      */
     public static NetworkLogger getInstance () {
-        if (instance == null) {
-            instance = new NetworkLogger();
-        }
         return instance;
     }
 
