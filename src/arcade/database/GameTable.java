@@ -1,6 +1,4 @@
 package arcade.database;
-import arcade.database.Keys;
-import arcade.database.Table;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -221,12 +219,12 @@ public class GameTable extends Table {
     }
     
     /**
-     * Given a gamename, retrieves author
+     * Given a gamename, retrieves age permission
      * @param gameName is the gamename
      */
     public int getAgePermission(String gameName) {
         return retrieveEntryInt(Keys.GAM_TABLE_NAME, Keys.GAM_GAMENAME_COLUMN_FIELD, 
-                                gameName, Keys.GAM_AUTHOR_COLUMN_INDEX);
+                                gameName, Keys.GAM_AGEPERMISSION_COLUMN_INDEX);
     }
     
     /**

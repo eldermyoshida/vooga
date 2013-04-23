@@ -299,6 +299,14 @@ public class Database {
     public void printUserTable () {
         myUserTable.printEntireTable();
     }
+    
+    public void printScoreTable () {
+        myScoreTable.printEntireTable();
+    }
+    
+    public void printCommentTable () {
+        myCommentTable.printEntireTable();
+    }
 
     /**
      * Retrieves a gameID from game
@@ -430,15 +438,21 @@ public class Database {
      * Returns Pixmap of game thumbnail
      * @param gameName is game
      */
-    public Pixmap getGameThumbnail (String gameName) {
-        return new Pixmap(myS3Instance.getThumbnail(gameName));
+    public String getGameThumbnail (String gameName) {
+        //System.out.println("received game thumbnail");
+        System.out.println(myS3Instance.getThumbnail(gameName));
+        return myS3Instance.getThumbnail(gameName);
+        //return new Pixmap(myS3Instance.getThumbnail(gameName));
     }
 
     /**
      * Returns Pixmap of adscreen
      * @param gameName is game
      */
-    public Pixmap getGameAdScreen (String gameName) {
-        return new Pixmap(myS3Instance.getAdScreen(gameName));
+    public String getGameAdScreen (String gameName) {
+        //System.out.println(myS3Instance.getAdScreen(gameName));
+        System.out.println(myS3Instance.getAdScreen(gameName));
+        return myS3Instance.getThumbnail(gameName);
+        //return new Pixmap(myS3Instance.getAdScreen(gameName));
     }
 }

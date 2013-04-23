@@ -52,6 +52,7 @@ import java.io.ObjectOutputStream;
  */
 public class S3Connections {
     
+    private static final String TEMPORARY_PNG = "/temporary.png";
     private static final String GAMEDATA = "gamedata";
     private static final String USERGAMEDATA = "usergamedata";
     private static final String AVATAR = "avatar";
@@ -290,13 +291,13 @@ public class S3Connections {
      * @param key (name) of file
      */
     public String downloadObjectToFile(String key) {
-        File tempFile = new File(System.getProperty("user.dir") + "/src" + 
-                RELATIVE_PATH + "/temporary.png");
+        String pathOfImage = "/src" + RELATIVE_PATH + TEMPORARY_PNG;
+        File tempFile = new File(System.getProperty("user.dir") + pathOfImage);
         @SuppressWarnings("unused")
         ObjectMetadata object = myS3Instance.getObject(
                                             new GetObjectRequest(BUCKET_NAME, key), tempFile);
         System.out.println(RELATIVE_PATH);
-        return RELATIVE_PATH;
+        return pathOfImage;
     }
     
     /**

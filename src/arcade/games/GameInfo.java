@@ -55,9 +55,7 @@ public class GameInfo {
 
     
     public ImageIcon getThumbnail() {
-        return new ImageIcon(USER_DIRECTORY + "/src/arcade/resources/images/NoImage.gif");
-        //TODO: revert this back to getting from db.
-    	//return new ImageIcon(USER_DIRECTORY + myDb.getGameThumbnail(gameName));
+    	return new ImageIcon(USER_DIRECTORY + myDb.getGameThumbnail(gameName));
     }
     
     public String getName(){
