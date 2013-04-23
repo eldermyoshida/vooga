@@ -23,19 +23,22 @@ public class LevelFactory {
 
     private static String DEFAULT_LEVEL_FOLDER = "src/vooga/scroller/resources/sampleLevels/";
     private LevelManager myLevelManager;
-    private LevelParser myLevelReader;
+//    private LevelParser myLevelReader;
     private ScrollingManager mySM;
     private GameView myView;
 
     public LevelFactory (LevelManager lm, ScrollingManager sm, GameView gameView) {
         myLevelManager = lm;
-        myLevelReader = new LevelParser();
         mySM = sm;
         myView = gameView;
     }
-
+    
     private Level buildLevel (int id, LEGrid grid) {
-        Level result = new Level(id, mySM, grid);
+        return buildLevel(id, mySM, grid);
+    }
+
+    public static Level buildLevel (int id, ScrollingManager sm, LEGrid grid) {
+        Level result = new Level(id, sm, grid);
         return result;
     }
 
@@ -95,11 +98,11 @@ public class LevelFactory {
                 .getImage());
     }
 
-    private LEGrid loadGridFromFile (String filename) {
+    private static LEGrid loadGridFromFile (String filename) {
         // TODO: Factor this out. make editable.
         
         File f = (new File(filename)).getAbsoluteFile();
-        LEGrid result = myLevelReader.makeGridFromFile(f);
+        LEGrid result = (new LevelParser()).makeGridFromFile(f);
         return result;
     }
 
@@ -194,5 +197,16 @@ public class LevelFactory {
 
         return levels;
     }
+    
+    public static Level[] generateLevels (ScrollingManager sm, String[] levelFileNames) {
+        Level[] levels = new Level[levelFileNames.length];
+        for (int i=0; i<levelFileNames.length; i++) {
+             Level curr = buildLevel(i+1, sm, loadGridFromFile(levelFileNames[i]));
+             levels[i]=curr;
+        }
+
+        return levels;
+    }
+    
 
 }
