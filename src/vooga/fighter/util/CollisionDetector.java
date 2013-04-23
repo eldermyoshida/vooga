@@ -20,7 +20,7 @@ import util.Vector;
  *    (Treating all shapes as Rectangles in this case), choice 
  *    in parameters as velocity can be taken into account for 
  *    extra precision.
- * ToDO: return the point on the surface of a shape that another 
+ * TODO: return the point on the surface of a shape that another 
  *     shape/point has collided with, Velocities required
  *     as parameters (will only work with rectanges)
  *     
@@ -44,7 +44,7 @@ public class CollisionDetector {
 	  * is within the rectange bounds of point 1
 	 */
 	public boolean quickDetectCollision(Shape shape1, Shape shape2){
-		return shape1.getBounds2D().intersects(shape2.getBounds2D());
+		return shape1.getBounds().intersects(shape2.getBounds());
 	}
 
 	 /**
