@@ -34,16 +34,8 @@ public class NetworkLogger {
     private HandlerTxt myTxtHandler = new HandlerTxt();
     private HandlerXML myXMLHandler = new HandlerXML();
     private HandlerMemory myMemoryHandler = new HandlerMemory();
-    
-    public static final int FORMAT_XML = 1221;
-    public static final int FORMAT_TXT = 1356;
-    public static final int FORMAT_CONSOLE = 1209;
-    public static final int FORMAT_STREAM = 1200;
-    public static final int FORMAT_SOCKET = 1333;
-    public static final int FORMAT_LOG_FILE = 1398;
 
     private static NetworkLogger instance = null;
-    private LoggerManager mySetup;
 
     /**
      * 
@@ -60,7 +52,6 @@ public class NetworkLogger {
      * Private constructor of this singleton
      */
     private NetworkLogger () {
-        mySetup = new LoggerManager();
         LOGGER.setUseParentHandlers(false);
         LOGGER.setLevel(Level.ALL);
         addHandler(myConsoleHandler);
@@ -102,11 +93,16 @@ public class NetworkLogger {
     }
     
     /**
-     * 
-     * @param handlerType the type of handler to have records pushed to
-     * @param size Number of maximum records this handler will maintain
-     * @param push as soon as a message of the given level is issued
-     * @param args any necessary argument to create Socket or Stream handlers
+     * Adds a memory handler to the logger depending on given handler and
+     * constraints. A memory handler pushes all log records after a message of
+     * the specified threshold level is logged
+     * This API was designed to be able to combine any other handler to the
+     * memoryHandler
+     * WARNING the type of handler added will have level INFO. 
+     * Once it is set, its level cannot be changed. If the user wishes to set
+     * the handler from memory, he should set it manually and call the regular
+     * addHandler()
+     * @param handler the type of handler to have records pushed to
      */
     public void addMemoryHandler (IVoogaHandler handler) {
     	myMemoryHandler.setHandler(handler);
@@ -115,9 +111,7 @@ public class NetworkLogger {
     
     /**
      * 
-     * Adds a handler that sends log records across a given stream
-     * 
-     * @param Output stream in case using a stream handler
+     * Adds a handler that sends log records to the Console
      */
     public void addConsoleHandler () {
         addHandler(myConsoleHandler);
@@ -125,9 +119,7 @@ public class NetworkLogger {
     
     /**
      * 
-     * Adds a handler that sends log records across a given stream
-     * 
-     * @param Output stream in case using a stream handler
+     * Adds a handler that records messages in a txt file
      */
     public void addTxtHandler () {
     	addCustomExtensionHandler(myTxtHandler.getFileName(), TXT_EXT);
@@ -135,9 +127,9 @@ public class NetworkLogger {
     
     /**
      * 
-     * Adds a handler that sends log records across a given stream
+     * Adds a handler that records messages in a txt file
      * 
-     * @param Output stream in case using a stream handler
+     * @param fileName Name of the file to have records written to
      */
     public void addTxtHandler (String fileName) {
     	myTxtHandler.setFileName(fileName);
@@ -146,9 +138,10 @@ public class NetworkLogger {
     
     /**
      * 
-     * Adds a handler that sends log records across a given stream
+     * Adds a handler that records messages in a file with user-defined extension
      * 
-     * @param Output stream in case using a stream handler
+     * @param fileName Name of the file to have records written to
+     * @param ext The extension of the file
      */
     public void addCustomExtensionHandler (String fileName, String ext) {
     	myTxtHandler.setExtension(ext);
@@ -157,9 +150,9 @@ public class NetworkLogger {
     
     /**
      * 
-     * Adds a handler that sends log records across a given stream
+     * Adds a handler that records messages in a .log file
      * 
-     * @param Output stream in case using a stream handler
+     * @param fileName Name of the file to have records written to
      */
     public void addLogHandler (String fileName) {
     	addCustomExtensionHandler (fileName, LOG_EXT);
@@ -167,9 +160,9 @@ public class NetworkLogger {
     
     /**
      * 
-     * Adds a handler that sends log records across a given stream
+     * Adds a handler that records messages in an XML file
      * 
-     * @param Output stream in case using a stream handler
+     * @param fileName Name of the file to have records written to
      */
     public void addXMLHandler (String fileName) {
     	myXMLHandler.setFileName(fileName);
@@ -178,9 +171,7 @@ public class NetworkLogger {
     
     /**
      * 
-     * Adds a handler that sends log records across a given stream
-     * 
-     * @param Output stream in case using a stream handler
+     * Adds a handler that records messages in an XML file
      */
     public void addXMLHandler () {
     	addHandler (myXMLHandler);
@@ -190,7 +181,7 @@ public class NetworkLogger {
      * 
      * Adds a handler that sends log records across a given stream
      * 
-     * @param Output stream in case using a stream handler
+     * @param out Outputstream that this handler should write to
      */
     public void addStreamHandler (OutputStream out) {
         myStreamHandler.setOutputStream(out);
@@ -200,8 +191,6 @@ public class NetworkLogger {
     /**
      * 
      * Adds a handler that sends log records across a given stream
-     * 
-     * @param Output stream in case using a stream handler
      */
     public void addStreamHandler () {
         LOGGER.addHandler(myStreamHandler.getHandler());
