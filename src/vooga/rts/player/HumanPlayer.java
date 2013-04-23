@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import vooga.rts.action.*;
+import vooga.rts.commands.ClickCommand;
 import vooga.rts.commands.Command;
 import vooga.rts.controller.Controllable;
 import vooga.rts.controller.Controller;
@@ -39,13 +40,13 @@ public class HumanPlayer extends Player implements Observer {
 
     private GameMenu myGameMenu;
 
-    private HashMap<Integer, Action> myActionMap;
+    private HashMap<Integer, Command> myCommandMap;
 
     public HumanPlayer (int id) {
         super(id);
 
-        myActionMap = new HashMap<Integer, Action>();
-        createActionMap();
+        myCommandMap = new HashMap<Integer, Command>();
+        createCommandMap();
         myGameMenu = new GameMenu();
         myGameMenu.addObserver(this);
 
@@ -59,8 +60,8 @@ public class HumanPlayer extends Player implements Observer {
         // Maybe look for design pattern that can implement filtering the inputs
     }
 
-    private void createActionMap () {
-        myActionMap.put(0, new OccupyAction());
+    private void createCommandMap () {
+        myCommandMap.put(0, new ClickCommand("click", null));
         // ... add more here
     }
     
@@ -134,7 +135,7 @@ public class HumanPlayer extends Player implements Observer {
 
     private void processAction (int a) {
         // This code handles an action of id "a".
-        Action action = myActionMap.get(a);
+        Command command = myCommandMap.get(a);
     }
 
 }
