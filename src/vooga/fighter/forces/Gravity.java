@@ -1,6 +1,7 @@
 package vooga.fighter.forces;
 
 import util.Vector;
+import util.Velocity;
 import vooga.fighter.model.objects.CharacterObject;
 import vooga.fighter.util.Physics;
 
@@ -15,7 +16,7 @@ public class Gravity extends Force {
     }
 
     public void applyForce(CharacterObject object) {
-        Vector newForce = getPhysics().applyForce(object.getVelocity(), object.getMass(), myVector);
+        Velocity newForce = getPhysics().applyForce((Velocity) object.getVelocity(), (double) object.getMass(), (Velocity) myVector);
         object.getLocation().setVelocity(newForce);
     }
 

@@ -211,7 +211,7 @@ public class Physics {
 
         return newVelocity;
     }
-
+   
     /**
      * Applies a force on an object with a given velocity and mass. Limits the
      * maximum speed of the object.
