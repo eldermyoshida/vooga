@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import vooga.rts.gamedesign.sprite.gamesprites.GameSprite;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
 
@@ -181,6 +182,15 @@ public class NodeMap implements Observer {
                 if (newNode != null) {
                     removeFromNode(item);
                     addToNode(item, newNode);
+                }
+            }
+        }
+        if (item instanceof InteractiveEntity) {
+            InteractiveEntity ie = (InteractiveEntity) item;
+            if (ie.isDead()) {
+                Node cur = myLookupMap.get(item);
+                if (cur != null) {
+                    removeFromNode(item);
                 }
             }
         }
