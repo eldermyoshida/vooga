@@ -3,6 +3,7 @@ package vooga.rts.map;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 import vooga.rts.IGameLoop;
 import vooga.rts.gamedesign.sprite.gamesprites.GameSprite;
 import vooga.rts.gamedesign.sprite.map.Terrain;
@@ -18,7 +19,7 @@ import vooga.rts.util.Location3D;
  * @author Jonathan Schmidt
  * 
  */
-public class GameSpriteManager<T extends GameSprite> implements IGameLoop {
+public class GameSpriteManager<T extends GameSprite> extends Observable implements IGameLoop {
 
     private List<T> myGameSprites;
 

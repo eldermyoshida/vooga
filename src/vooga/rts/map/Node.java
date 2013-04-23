@@ -106,7 +106,32 @@ public class Node {
         }
     }
 
+    public List<GameSprite> getContents () {
+        return myContents;
+    }
+
     public boolean containsSprite (GameSprite sprite) {
-        return 
+        return true;
+    }
+
+    public <T extends GameSprite> List<T> filterGameSprites (List<GameSprite> fullList, GameSprite gsType, int teamID, boolean same) {
+        List<T> resultList = new ArrayList<T>();        
+        for (GameSprite item : fullList) {
+            /*
+            if (item instanceof ) {
+               
+               Determine whether these things are the same.
+                
+            }*/
+            if (same) {
+                
+            }
+            else
+            {
+                
+            }
+            resultList.add((T) item);
+        }
+        return resultList;
     }
 }

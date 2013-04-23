@@ -238,5 +238,6 @@ public class Camera {
     
     public Shape getWorldVision() {
         return myWorldVision;
+        
     }
 }
