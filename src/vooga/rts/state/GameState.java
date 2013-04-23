@@ -180,6 +180,7 @@ public class GameState extends SubState implements Controller {
 		a.getAttackStrategy().addWeapons(
 				new Weapon(proj, 400, a.getWorldLocation(), 1));
 		Information i2 = new Information("Marine", "I am a soldier of Nunu.", null, "buttons/marine.png");
+
 		a.setInfo(i2);
 		myHumanPlayer.add(a);
 		addPlayer(2);
