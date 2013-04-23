@@ -48,7 +48,7 @@ public abstract class AbstractThreadContainer implements IThreadContainer, IMess
     }
 
     @Override
-    public void leaveLobby (ConnectionThread thread) {
+    public void leaveLobby (ConnectionThread thread, ExpandedLobbyInfo lobbyInfo) {
     }
 
     @Override

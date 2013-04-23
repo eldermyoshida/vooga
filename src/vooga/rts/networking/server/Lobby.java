@@ -28,12 +28,15 @@ public class Lobby extends Room {
     }
 
     @Override
-    public void leaveLobby (ConnectionThread thread) {
+    public void leaveLobby (ConnectionThread thread, ExpandedLobbyInfo lobbyInfo) {
+        setLobbyInfo(lobbyInfo);
         removeConnection(thread);
         getGameContainer().addConnection(thread);
         getGameContainer().decrementLobbyInfoSize(getID());
         if (haveNoConnections()) {
             getGameContainer().removeRoom(this);
+        } else {
+            sendMessageToAllConnections(new SendLobbyInfoUpdatesMessage(lobbyInfo));
         }
         NetworkLogger.logMessage(Level.FINER, "Lobby left");
     }

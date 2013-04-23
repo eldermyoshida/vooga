@@ -4,9 +4,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import vooga.rts.networking.client.GUI.CreateLobbyView;
@@ -154,11 +152,14 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
         // TODO resources
         myLobbyView = new LobbyView(this, myFactions, lobbyInfo.getMaxPlayers());
         updateLobby(lobbyInfo);
+        sendUpdatedLobbyInfo();
         myContainerPanel.changeView(myLobbyView, " Lobby Creation");
         myContainerPanel.changeLeftButton("Leave Lobby", new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent arg0) {
-                myClient.sendData(new LeaveLobbyMessage());
+                // TODO this code sucks
+                myLobbyInfo.removePlayer(myUserControlledPlayers.get(0));
+                myClient.sendData(new LeaveLobbyMessage(myLobbyInfo));
                 switchToServerBrowserView();
             }
         });

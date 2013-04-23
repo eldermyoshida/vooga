@@ -169,6 +169,8 @@ public class LobbyView extends JPanel {
                     myFactionBoxes[i].setEnabled(false);
                     myTeamBoxes[i].setEnabled(false);
                 }
+            } else {
+                myUsernameLabels[i].setText(NO_PLAYER);
             }
         }
         validate();

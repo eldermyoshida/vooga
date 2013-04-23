@@ -47,7 +47,7 @@ public class ServerBrowserTableAdapter extends AbstractTableModel {
         switch(arg1) {
             case 0: return myLobbies[arg0].getLobbyName();
             case 1: return myLobbies[arg0].getMapName();
-            case 2: return myLobbies[arg0].getMaxPlayers() + " / " + myLobbies[arg0].getCurrentPlayers();
+            case 2: return myLobbies[arg0].getCurrentPlayers() + " / " + myLobbies[arg0].getMaxPlayers();
             default: return null;
         }
     }
