@@ -38,7 +38,11 @@ public abstract class ObjectLoader {
 	 */
 	public ObjectLoader (String pathName) {
 		myResources = ResourceBundle.getBundle(RESOURCE_PATH);
+<<<<<<< HEAD
 		myDefaults= ResourceBundle.getBundle(RESOURCE_PATH);
+=======
+		myDefaults= ResourceBundle.getBundle(RESOURCE_DEFAULT_VALUES_PATH);
+>>>>>>> 540daf38c9c0442f84d8091dd9989f420cd467b5
 		String objectPath = myResources.getString(pathName);
 		myObjectFile = new File(objectPath);
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -81,13 +85,15 @@ public abstract class ObjectLoader {
 	 * @return
 	 */
 	protected String getAttributeValue(Node node, String tag) {
-		String value= node.getAttributes().getNamedItem(tag).getTextContent();
-		if (value==null){
-			value= myDefaults.getString(getClass()+tag);
-			throw new RuntimeException("No "+ tag +" set.  Property set to default value: "+ value );
-			//TODO: will remove hard coding in runtime exception later 
+		try{
+			String value= node.getAttributes().getNamedItem(tag).getTextContent();
+			return value; 
 		}
-		return value;
+		catch(NullPointerException e){
+			String value= myDefaults.getString(getClass().getSimpleName()+tag);
+			System.err.println("Property "+ tag+ " not set.  Default value is "+value);
+			return value;
+		}
 	}
 
 	/**
