@@ -34,7 +34,7 @@ public class UnitDecoder extends Decoder {
 	
 	
 	@Override
-	public void create(Document doc) throws InstantiationException,
+	public void create(Document doc, String type) throws InstantiationException,
 			IllegalAccessException, IllegalArgumentException,
 			InvocationTargetException, NoSuchMethodException,
 			SecurityException, ClassNotFoundException {

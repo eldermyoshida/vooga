@@ -49,5 +49,5 @@ public abstract class Decoder {
 	 * @throws SecurityException
 	 * @throws ClassNotFoundException
 	 */
-	public abstract void create(Document doc) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException;
+	public abstract void create(Document doc, String tag) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException;
 }

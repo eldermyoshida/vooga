@@ -69,7 +69,7 @@ public class UpgradeDecoder extends Decoder {
 	 * 
 	 */
 
-	public void create(Document doc) throws ClassNotFoundException, NumberFormatException, IllegalArgumentException, SecurityException, InstantiationException, IllegalAccessException, InvocationTargetException {
+	public void create(Document doc, String type) throws ClassNotFoundException, NumberFormatException, IllegalArgumentException, SecurityException, InstantiationException, IllegalAccessException, InvocationTargetException {
 		//TODO: get all upgradeTrees into a same file. Return all results into a map
 		UpgradeTree upgradeTree = new UpgradeTree();
 		

@@ -15,9 +15,6 @@ import vooga.rts.util.ReflectionHelper;
 import vooga.rts.util.Sound;
 
 public class InteractiveEntityDecoder extends Decoder {
-
-	private static final String HEAD_TAG = "buildings";
-	private static final String TYPE_TAG = "building";
 	
 	private int DEFAULTTEAM = 0;
 	
@@ -28,13 +25,10 @@ public class InteractiveEntityDecoder extends Decoder {
 	}
 
 	@Override
-	public void create(Document doc) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+	public void create(Document doc, String type) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		//there is some duplicate code between decoders that should be factored out. 
-		String path = doc.getElementsByTagName(HEAD_TAG).item(0).getAttributes().getNamedItem(SOURCE_TAG).getTextContent();	
-		
-	
-		
-		NodeList nodeLst = doc.getElementsByTagName(TYPE_TAG);
+		String path = doc.getElementsByTagName(type).item(0).getAttributes().getNamedItem(SOURCE_TAG).getTextContent();	
+		NodeList nodeLst = doc.getElementsByTagName(type.substring(0, type.length()-1));
 		for(int i = 0 ; i < nodeLst.getLength() ; i++){
 			Element nElement = (Element) nodeLst.item(i);
 			String name = getElement(nElement, NAME_TAG);
