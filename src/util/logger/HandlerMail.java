@@ -1,6 +1,8 @@
 package util.logger;
 
+import java.util.logging.Formatter;
 import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 
 import util.IMail;
 
@@ -19,6 +21,14 @@ public class HandlerMail implements IVoogaHandler, IMail{
 	 */
 	public HandlerMail() {
 		myHandler = new MailingHandler();
+		myHandler.setFormatter(new Formatter() {
+		      public String format(LogRecord record) {
+		        return record.getLevel() + "  :  "
+		          + record.getSourceClassName() + ":"
+		          + record.getSourceMethodName() + ":"
+		          + record.getMessage() + "\n";
+		      }
+		    });
 	}
 	
 	/**

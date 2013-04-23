@@ -83,6 +83,7 @@ public class MailSender implements IMail{
 			mimeMsg.setSubject(mySubject);
 			mimeMsg.setText(myMessage);
 			Transport.send(mimeMsg);
+			System.out.println("finished sending");
 
 		} catch (AddressException e) {
 			NetworkLogger.logMessage("Error in choosing e-mail address\n"+e.toString());
