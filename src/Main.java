@@ -24,6 +24,7 @@ public class Main {
      */
     public static void main (String[] args) {
         ResourceBundle rb = ResourceBundle.getBundle(RESOURCE_LOCATION + LANGUAGE);
+        System.out.println(System.getProperty("user.dir"));
         Model model = new Model(rb, LANGUAGE);
         LoginView login = new LoginView(model, rb);
         model.setLoginView(login);

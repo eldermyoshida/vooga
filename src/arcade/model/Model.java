@@ -1,5 +1,6 @@
 package arcade.model;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -25,6 +26,7 @@ import arcade.model.payment.DukePaymentManager;
 import arcade.model.payment.PaymentManager;
 import arcade.view.MainView;
 import arcade.view.forms.LoginView;
+import util.FilePathFormatter;
 
 
 public class Model implements ArcadeInteraction {
@@ -42,10 +44,9 @@ public class Model implements ArcadeInteraction {
     private List<GameInfo> mySnapshots;
     private String myUser;
     private PaymentManager myPaymentManager;
-
+    private FilePathFormatter myFilePathFormatter = new FilePathFormatter();
     // These will be null until you try to play a game
     Game myCurrentGame = null;
-    MultiplayerGame myCurrentMultiplayerGame = null;
 
     public Model (ResourceBundle rb, String language) {
         myResources = rb;
@@ -55,6 +56,8 @@ public class Model implements ArcadeInteraction {
     public void setLoginView (LoginView login) {
         myLoginView = login;
     }
+
+    
 
     /**
      * 
@@ -87,17 +90,17 @@ public class Model implements ArcadeInteraction {
                          String thumbnailPath,
                          String adScreenPath,
                          String description) {
-        myDb.createGame(name.toLowerCase(), 
-                        genre.toLowerCase(), 
-                        author, 
+        myDb.createGame(name.toLowerCase(),
+                        genre.toLowerCase(),
+                        author,
                         price,
-                        formatClassFilePath(extendsGame),
-                        formatClassFilePath(extendsMultiplayerGame), 
-                        ageRating, 
+                        myFilePathFormatter.formatClassFilePath(extendsGame),
+                        myFilePathFormatter.formatClassFilePath(extendsMultiplayerGame),
+                        ageRating,
                         singlePlayer,
-                        multiplayer, 
-                        thumbnailPath, 
-                        adScreenPath, 
+                        multiplayer,
+                        thumbnailPath,
+                        adScreenPath,
                         description);
         addGameInfo(newGameInfo(name));
     }
@@ -108,18 +111,7 @@ public class Model implements ArcadeInteraction {
      * to games.rts.ageOfEmpires.game
      * so replace slashes with periods and remove the file extension
      */
-    private String formatClassFilePath (String path) {
-     // this  should be someone else's problem. deal with your own null pointer exceptions
-        if (path == null) return null; 
-        String source = "src/";
-        path = path.substring(0 , path.indexOf("."));
-        if(path.indexOf(source) == -1){/*bad*/}
-        while(path.indexOf(source) != -1){
-            path= path.substring(path.indexOf(source) + source.length() , path.length());
-        }
-        path.replace("/", ".");
-        return path;
-    }
+    
 
     private GameInfo newGameInfo (String name) throws MissingResourceException {
         return new GameInfo(myDb, name);
@@ -130,9 +122,7 @@ public class Model implements ArcadeInteraction {
     }
 
     public void authenticate (String username, String password) throws LoginErrorException {
-        if (!myDb.authenticateUsernameAndPassword(username, password)) {
-            throw new LoginErrorException();
-        }
+        if (!myDb.authenticateUsernameAndPassword(username, password)) { throw new LoginErrorException(); }
         myLoginView.dispose();
         organizeSnapshots();
         new MainView(this, myResources);
@@ -141,16 +131,15 @@ public class Model implements ArcadeInteraction {
     /**
      * Create a new user profile by entering user-specific information.
      * This information is eventually stored in the database.
-     * @throws UsernameTakenException 
+     * 
+     * @throws UsernameTakenException
      */
     public void createNewUserProfile (String username,
                                       String pw,
                                       String firstname,
                                       String lastname,
                                       String dataOfBirth) throws UsernameTakenException {
-        if (myDb.usernameExists(username)) {
-            throw new UsernameTakenException();
-        }
+        if (myDb.usernameExists(username)) { throw new UsernameTakenException(); }
         myDb.createUser(username, pw, firstname, lastname, dataOfBirth);
         try {
             authenticate(username, pw);
@@ -168,10 +157,8 @@ public class Model implements ArcadeInteraction {
                                       String lastname,
                                       String dataOfBirth,
                                       String filepath) throws UsernameTakenException {
-        
-        if (myDb.usernameExists(username)) {
-            throw new UsernameTakenException();
-        }
+
+        if (myDb.usernameExists(username)) { throw new UsernameTakenException(); }
         myDb.createUser(username, pw, firstname, lastname, dataOfBirth, filepath);
         try {
             authenticate(username, pw);
@@ -185,22 +172,23 @@ public class Model implements ArcadeInteraction {
     public void deleteUser (String username) {
         myDb.deleteUser(username);
     }
-    
-    
+
     /**
      * First creates the appropriate PaymentManager for the transactionType
      * if the transactionType is Duke, then the DukePaymentManager is created.
      * 
-     * Then tries to complete the transaction with the paymentInfo.  If the 
+     * Then tries to complete the transaction with the paymentInfo. If the
      * transaction is unsuccessful, the InvalidPaymentExecption is thrown.
      * 
      * @param transactionType
      * @param paymentInfo
      * @throws InvalidPaymentException
      */
-    public void performTransaction(GameInfo game, String transactionType, String[] paymentInfo) throws InvalidPaymentException {
+    public void performTransaction (GameInfo game, String transactionType, String[] paymentInfo)
+                                                                                                throws InvalidPaymentException {
         try {
-            Class<?> paymentManagerClass = Class.forName(PAYMENT_MANAGER_LOCATION + transactionType);
+            Class<?> paymentManagerClass =
+                    Class.forName(PAYMENT_MANAGER_LOCATION + transactionType);
             myPaymentManager = (PaymentManager) paymentManagerClass.newInstance();
         }
         catch (ClassNotFoundException e) {
@@ -212,11 +200,10 @@ public class Model implements ArcadeInteraction {
         catch (IllegalAccessException e) {
             throw new InvalidPaymentException();
         }
-        
+
         myPaymentManager.doTransaction(paymentInfo);
         // TODO: write code here for moving game from Store to GameCenter
     }
-    
 
     /**
      * Rate a specific game, store in user-game database
