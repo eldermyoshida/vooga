@@ -66,12 +66,17 @@ public class NetworkLogger {
     }
 
     /**
-     * Adds a handler to the logger depending on static constants
+     * Adds a handler to the logger and sets it to the logger level
+     * All add handler methods eventually pass through this method
+     * Can be used to set customized handlers for the logger in case
+     * the user wants to extend the design
      * 
      * @param handlerType the type of handler to be added
      */
     public void addHandler (IVoogaHandler hand) {
-        LOGGER.addHandler(hand.getHandler());
+    	Handler handler = hand.getHandler();
+    	handler.setLevel(NetworkLogger.LOGGER.getLevel());
+        LOGGER.addHandler(handler);
     }
 
     /**
@@ -88,7 +93,8 @@ public class NetworkLogger {
      * @param push as soon as a message of the given level is issued
      * @param args any necessary argument to create Socket or Stream handlers
      */
-    public void addMemoryHandler (int handlerType, int size, Level pushLevel, Object ... args) {
+    public void addMemoryHandler (IVoogaHandler hand, int size, Level pushLevel) {
+    	
         mySetup.addMemoryHandler(handlerType, size, pushLevel, args);
     }
     
