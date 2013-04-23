@@ -26,6 +26,7 @@ import vooga.fighter.util.CollisionManager;
 import vooga.fighter.util.Paintable;
 import vooga.fighter.view.Canvas;
 
+//Two EnvironmentObjects collided!
 
 /**
  * 

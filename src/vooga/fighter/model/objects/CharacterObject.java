@@ -46,6 +46,7 @@ public class CharacterObject extends GameObject {
         setLoader(new CharacterLoader(charName, this));
         setCurrentState("stand");
         setDefaultState("stand");
+        setHealth(getProperty("maxHealth"));
         getCurrentState().setLooping(true);
         setLocation(center);
         myVelocity=getLocation().getVelocity();
@@ -185,7 +186,9 @@ public class CharacterObject extends GameObject {
      */
     public void move(int direction) {
         setCurrentState("moveRight");
-        getLocation().addAcceleration(new Vector(direction, getProperty("movespeed")));
+        if (myVelocity.getMagnitude()<=5){
+        	getLocation().addAcceleration(new Vector(direction, getProperty("movespeed")));
+        }
     }
 
     /**
