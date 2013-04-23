@@ -8,7 +8,9 @@ import vooga.fighter.model.utils.State;
 import vooga.fighter.model.utils.UpdatableLocation;
 import java.awt.Dimension;
 import java.awt.Rectangle;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -30,13 +32,15 @@ public abstract class GameObject {
     private ImageDataObject myImageData;
     private Map<String,State> myStates;
     private Map<String,Integer> myProperties;
-
+    private List<Integer> myImageEffects;
+    
     /**
      * Constructs a new GameObject. All fields are initially empty, and must be
      * populated with an ObjectLoader.
      */
     public GameObject() {
 //        myInstanceId = System.currentTimeMillis();
+    	myImageEffects = new ArrayList<Integer>();
         myStates = new HashMap<String,State>();
         myProperties = new HashMap<String,Integer>();
         myLoader = null;
@@ -176,7 +180,7 @@ public abstract class GameObject {
         Dimension myCurrentSize = myCurrentState.getCurrentSize();
         Location myCurrentLocation = myCenter.getLocation();
         if (!(myCurrentSize == null || myCurrentImage == null || myCenter == null)) {
-        	myImageData = new ImageDataObject(myCurrentImage, myCurrentLocation, myCurrentSize);
+        	myImageData = new ImageDataObject(myCurrentImage, myCurrentLocation, myCurrentSize, myImageEffects);
         }
     }
     
@@ -184,7 +188,7 @@ public abstract class GameObject {
      * Sets image data to the information from an ImageDataObject
      */
     public void setImageData(ImageDataObject image){
-    	myImageData= new ImageDataObject(image.getMyImage(), image.getMyLocation(),image.getMySize() );
+    	myImageData= new ImageDataObject(image.getImage(), image.getLocation(),image.getSize(), image.getImageEffect() );
     }
     
     /**
