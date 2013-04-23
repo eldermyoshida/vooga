@@ -36,13 +36,13 @@ public class ButtonPanel extends JPanel {
         JButton ZoomInButton = new JButton("ZoomIn");
         ZoomInButton.addActionListener(new ActionListener() {
             public void actionPerformed (ActionEvent e) {
-                myCanvas.ZoomIn();
+                //myCanvas.ZoomIn();
             }
         });
         JButton ZoomOutButton = new JButton("ZoomOut");
         ZoomOutButton.addActionListener(new ActionListener() {
             public void actionPerformed (ActionEvent e) {
-                myCanvas.ZoomOut();
+                //myCanvas.ZoomOut();
             }
         });
         JButton RemoveButton = new JButton("Remove");
