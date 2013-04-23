@@ -80,7 +80,7 @@ public class XMLToolExample {
                            myReadDoc.getContent("language"));
         // The XMLTool also lets you get a Map that was initially added to the file.
         Map<String, String> bobMap = new HashMap<String, String>();
-        bobMap = myReadDoc.getMapFromParent(bobElement);
+        bobMap = myReadDoc.getStringMapFromParent(bobElement);
         System.out.println(bobMap.toString());
         
     }
