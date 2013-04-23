@@ -14,10 +14,10 @@ public class Viscosity extends Force{
     }
     
     public void applyForce(CharacterObject object) {
-        Vector vector = object.getVelocity();
-        vector.setDirection(180 - (object.getVelocity().getDirection()));
+        Vector vector = new Vector(object.getVelocity());
+        vector.setDirection(vector.getDirection()-180);
         vector.scale(myViscosityFactor);
-        object.getLocation().addAcceleration(vector);
+        object.getLocation().translate(vector);
     }
 
 }
