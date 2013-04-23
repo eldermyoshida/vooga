@@ -39,7 +39,7 @@ public class ConnectionServer extends Thread {
 
         while (myServerAcceptingConnections) {
             try {
-                serverSocket = new ServerSocket(PORT);
+                serverSocket = new ServerSocket(PORT + myConnectionID);
                 
                 Socket socket = serverSocket.accept();
                 ConnectionThread thread =
@@ -52,6 +52,7 @@ public class ConnectionServer extends Thread {
             }
             catch (IOException e) {
                 NetworkLogger.logMessage(Level.SEVERE, "Connection Server failed");
+                myServerAcceptingConnections = false;
             }
         }
 

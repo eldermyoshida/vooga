@@ -3,7 +3,9 @@ package vooga.rts.networking.client;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -43,7 +45,7 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
     private ExpandedLobbyInfo myLobbyInfo;
     private LobbyView myLobbyView;
     private String[] myFactions;
-    private Set<Player> myUserControlledPlayers = new HashSet<Player>();
+    private List<Player> myUserControlledPlayers = new ArrayList<Player>();
 
     /**
      * This is the handler of information needed by all of the views in the process of connecting to
@@ -160,7 +162,7 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
                 switchToServerBrowserView();
             }
         });
-        myContainerPanel.changeRightButton("Start Lobby", new ActionListener() {
+        myContainerPanel.changeRightButton("Start Game", new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent arg0) {
                 startGame();
@@ -208,6 +210,7 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
     @Override
     public void switchToLobby (ExpandedLobbyInfo lobbyInfo, int playerID) {
         Player userPlayer = new Player(myUserName, 1, myFactions[0], playerID);
+        myUserControlledPlayers.clear();
         myUserControlledPlayers.add(userPlayer);
         lobbyInfo.addPlayer(userPlayer);
         switchToLobbyView(lobbyInfo);

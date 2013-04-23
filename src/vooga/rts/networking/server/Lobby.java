@@ -4,6 +4,7 @@ import java.util.logging.Level;
 import vooga.rts.networking.communications.ExpandedLobbyInfo;
 import vooga.rts.networking.communications.LobbyInfo;
 import vooga.rts.networking.communications.clientmessages.UpdateLobbyInfoMessage;
+import vooga.rts.networking.communications.servermessages.SendLobbyInfoUpdatesMessage;
 import vooga.rts.networking.communications.servermessages.SwitchToLobbyMessage;
 import vooga.rts.networking.logger.NetworkLogger;
 
@@ -52,7 +53,7 @@ public class Lobby extends Room {
     @Override
     public void updateLobbyInfo (ConnectionThread thread, ExpandedLobbyInfo lobbyInfo) {
         setLobbyInfo(lobbyInfo);
-        sendMessageToAllConnections(new UpdateLobbyInfoMessage(lobbyInfo));
+        sendMessageToAllConnections(new SendLobbyInfoUpdatesMessage(lobbyInfo));
     }
 
 }

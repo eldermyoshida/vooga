@@ -10,7 +10,7 @@ import vooga.rts.networking.communications.ExpandedLobbyInfo;
  * @author David Winegar
  * 
  */
-public class UpdateLobbyInfoMessage extends AbstractLobbyInfoMessage {
+public class SendLobbyInfoUpdatesMessage extends AbstractLobbyInfoMessage {
 
     private static final long serialVersionUID = 6729477946727355957L;
 
@@ -19,7 +19,7 @@ public class UpdateLobbyInfoMessage extends AbstractLobbyInfoMessage {
      * 
      * @param info to send
      */
-    public UpdateLobbyInfoMessage (ExpandedLobbyInfo info) {
+    public SendLobbyInfoUpdatesMessage (ExpandedLobbyInfo info) {
         super(info);
     }
 
