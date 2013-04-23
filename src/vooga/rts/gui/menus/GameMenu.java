@@ -8,11 +8,14 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
+import java.util.Observer;
 import javax.imageio.ImageIO;
 import vooga.rts.commands.ClickCommand;
 import vooga.rts.commands.Command;
 import vooga.rts.commands.PositionCommand;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gui.Button;
 import vooga.rts.gui.Menu;
 import vooga.rts.gui.Window;
@@ -20,6 +23,7 @@ import vooga.rts.gui.buttons.ActionButton;
 import vooga.rts.gui.buttons.ImageButton;
 import vooga.rts.gui.buttons.MainMenuButton;
 import vooga.rts.gui.buttons.TextButton;
+import vooga.rts.manager.Manager;
 import vooga.rts.resourcemanager.ResourceManager;
 import vooga.rts.util.Location;
 
@@ -37,6 +41,8 @@ public class GameMenu extends Menu {
             new Location(Window.SCREEN_SIZE.getWidth() - EXIT_BUTTON_DIMENSION.getWidth(), 0);
     private static final int ACTION_MENU_WIDTH = 350;
     private static final int ACTION_MENU_HEIGHT = 180;
+
+    private InteractiveEntity mySelectedEntity;
 
     private Button myExitButton;
     private ArrayList<Button> myActionButtons;
@@ -100,8 +106,14 @@ public class GameMenu extends Menu {
 
     }
 
+    private void setSelected (List<InteractiveEntity> selected) {
+        mySelectedEntity = selected.get(0); // The current select method if there is more than
+                                            // one is just to choose the first one
+
+    }
+
     @Override
-    protected void paintBG (Graphics2D pen) {
+    public void paint (Graphics2D pen) {
 
         int screenX = (int) Window.SCREEN_SIZE.getWidth();
         int screenY = (int) Window.SCREEN_SIZE.getHeight();
@@ -116,11 +128,27 @@ public class GameMenu extends Menu {
         int y = screenY - newHeight;
 
         pen.drawImage(myImage, x, y, screenX, newHeight, null);
+        if (mySelectedEntity != null) {
+            if (mySelectedEntity.getInfo() != null) {
+                    pen.drawString(mySelectedEntity.getInfo().getName(), (int) Window.SCREEN_SIZE.getWidth() / 2,
+                       (int) Window.SCREEN_SIZE.getHeight() - 100);
+                    pen.drawString(mySelectedEntity.getInfo().getDescription(), (int) Window.SCREEN_SIZE.getWidth() / 2,
+                                   (int) Window.SCREEN_SIZE.getHeight() - 80);
+                    pen.drawImage(mySelectedEntity.getInfo().getButtonImage(), (int) Window.SCREEN_SIZE.getWidth() / 2-200,
+                       (int) Window.SCREEN_SIZE.getHeight() - 100, null);
+                    
+            }
+        }
+        
 
     }
 
     @Override
     public void update (Observable o, Object arg) {
+        if (o instanceof Manager) {
+            Manager m = (Manager) o;
+            setSelected(m.getSelected());
+        }
 
         if (o.equals(myExitButton)) {
             System.exit(0);
