@@ -18,7 +18,10 @@ import vooga.scroller.level_editor.Level;
  */
 public class LevelManager {
 
-    private static final String DEFAULT_INPUT_CONTROLS = "vooga/scroller/resources/controls/SplashMapping";
+    // TODO: this string exists somewhere else (need to consolidate)
+    //TODO: fix design such that there is no need for developer to specify default (we could
+    // just make a place holder file... seems like a cop-out
+    private static final String DEFAULT_INPUT_CONTROLS = "vooga/scroller/marioGame/controls/SplashMapping";
     
     private Input myInput;
     private IGameComponent myInitialLevel;

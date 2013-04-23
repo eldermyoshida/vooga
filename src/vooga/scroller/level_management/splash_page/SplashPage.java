@@ -22,10 +22,11 @@ import vooga.scroller.view.GameView;
 @InputClassTarget
 public class SplashPage implements IInputListener, IGameComponent{
 
-    
-    public static final String CONTROLS_FILE_PATH = "vooga/scroller/resources/controls/SplashMapping";
+    // TODO: this string is the part of every Splash page and thus needs to be removed
+    public static final String CONTROLS_FILE_PATH = "vooga/scroller/marioGame/controls/SplashMapping";
 
-    
+    // TODO: this class needs to be extendible and more general so developers can defined
+    // their own controls for the splash page.
     
     private IDoor myDoor;
     private ISpriteView myBackground;

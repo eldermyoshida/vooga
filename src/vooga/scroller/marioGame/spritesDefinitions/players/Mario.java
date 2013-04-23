@@ -18,7 +18,7 @@ import vooga.scroller.view.GameView;
 public class Mario extends Player implements IPlayer, IInputListener{
 
 
-    private static final String CONTROLS_FILE_PATH = "vooga/scroller/resources/controls/MarioMapping";
+    private static final String CONTROLS_FILE_PATH = "vooga/scroller/marioGame/controls/MarioMapping";
    
     
     private static final int MAX_JUMPS = 2;
