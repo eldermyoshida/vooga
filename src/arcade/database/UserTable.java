@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 /**
  * Creates and updates user table
+ * this clearly needs to be refactored because there is duplicate code
  * @author Natalia Carvalho
  */
 public class UserTable extends Table {
@@ -37,33 +38,14 @@ public class UserTable extends Table {
      * Constructor but eventually I want to make this part of the abstract class
      */
     public UserTable() {
-        createDatabase();
+        myConnection=establishConnectionToDatabase();
+        myPreparedStatement=null;
+        myResultSet=null;
     }
 
-    void createDatabase() {
-
-        try {
-            Class.forName("org.postgresql.Driver");
-        }
-        catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        String url = "jdbc:postgresql:mynewdatabase";
-        String user = "user1";
-        String password = "1234";
-
-        try {
-            myConnection = DriverManager.getConnection(url, user, password);
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
-        myPreparedStatement = null; 
-        myResultSet = null;
-
-    }
-
+    /**
+     * Closes Connection, ResultSet, and PreparedStatements once done with database
+     */
     public void closeConnection() {
         try {
             if (myPreparedStatement != null) {
@@ -93,7 +75,9 @@ public class UserTable extends Table {
             myPreparedStatement = myConnection.prepareStatement(stm);
             myResultSet  = myPreparedStatement.executeQuery();
             if (myResultSet.next()) {
-                return true;
+                if (myResultSet.getString(PASSWORD_COLUMN_INDEX).equals(password)) {
+                    return true;
+                }
             }
 
         }
@@ -105,7 +89,7 @@ public class UserTable extends Table {
     }
     
     /**
-     * Returns true if usernameExists, false othwerwise
+     * Returns true if usernameExists, false otherwise
      * @param username is the username
      */
     public boolean usernameExists(String username) {
@@ -162,12 +146,12 @@ public class UserTable extends Table {
      * @param filepath is the filepath
      */
     public boolean createUser(String user, String pw, String firstname, 
-                        String lastname, String dob, String filepath) {
+                              String lastname, String dob, String filepath) {
         if (usernameExists(user)) {
             return false;
         }
-            createUser(user, pw, firstname, lastname, dob);
-            updateAvatar(user, filepath);
+        createUser(user, pw, firstname, lastname, dob);
+        updateAvatar(user, filepath);
         return true;
     }
     
@@ -179,14 +163,27 @@ public class UserTable extends Table {
         return retrieveEntry(username, USERNAME_COLUMN_INDEX);
     }
     
+    /**
+     * Given a username, retrieves the date of birth
+     * @param username is the user
+     */
     public String retrieveDOB(String username) {
         return retrieveEntry(username, DOB_COLUMN_INDEX);
     }
     
+    /**
+     * Given a username, retrieves avatar filepath
+     * @param username is the username
+     */
     public String retrieveAvatar(String username) {
         return retrieveEntry(username, AVATAR_COLUMN_INDEX);
     }
     
+    /**
+     * Given a username and a column_index, returns that entire row entry
+     * @param username is the username
+     * @param columnIndex is the index that we want the information for
+     */
     public String retrieveEntry(String username, int COLUMN_INDEX) {
         String stm = "SELECT * FROM " +TABLE_NAME + " WHERE " + USERNAME_COLUMN_FIELD + "='" + username + "'";
         String entry = "";
@@ -218,9 +215,15 @@ public class UserTable extends Table {
         }
     }
     
+    /**
+     * Given a username and a filepath, updates avatar
+     * @param user is username
+     * @param filepath is the filepath of the avatar
+     */
     public void updateAvatar(String user, String filepath) {
         String userid = retrieveUserId(user);
-        String stm = "UPDATE users SET avatarfilepath = '" + filepath + "' WHERE userid = '" + userid + "'";
+        String stm = "UPDATE " + TABLE_NAME + " SET " + AVATAR_COLUMN_FIELD + "='" + 
+                "filepath" + "' WHERE " + USERID_COLUMN_FIELD + "='" + userid + "'";   
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
             myPreparedStatement.executeUpdate();

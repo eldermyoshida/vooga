@@ -14,7 +14,7 @@ import vooga.rts.util.Sound;
 
 
 /**
- * This is an abstract class that represents a building. It will be extended
+ * This is an class that represents a building. It will be extended
  * by specific types of buildings such as AttackTower.
  * 
  * @author Ryan Fishel
@@ -31,8 +31,7 @@ public class Building extends InteractiveEntity {
     private static UpgradeTree myUpgradeTree;
 
     private Location3D myRallyPoint;
-    private List<InteractiveEntity> myInteractiveEntities;
-    
+
     private int myBuildingID;
     /**
      * Creates a new building with a rally point, a list of what can be 
@@ -54,9 +53,7 @@ public class Building extends InteractiveEntity {
                      int health,
                      double buildTime) {
         super(image, center, size, sound, playerID, MAXHEALTH, buildTime);
-        myRallyPoint = new Location3D(getWorldLocation().getX(), getWorldLocation().getY() + 50, 0);
-        
-        myInteractiveEntities = new ArrayList<InteractiveEntity>();
+        myRallyPoint = new Location3D(getWorldLocation().getX(), getWorldLocation().getY() + 150, 0);
 
     }
 
@@ -74,9 +71,6 @@ public class Building extends InteractiveEntity {
     @Override
     public void paint (Graphics2D pen) {
         super.paint(pen);
-        for (int i = 0; i < myInteractiveEntities.size(); i++) {
-            myInteractiveEntities.get(i).paint(pen);
-        }
     }
 
     /**
@@ -147,10 +141,6 @@ public class Building extends InteractiveEntity {
             }
             PRODUCE_TIME = 90;
         }
-        for (InteractiveEntity ie : myInteractiveEntities) {
-            ie.update(elapsedTime);
-        }
-
     }
 
 

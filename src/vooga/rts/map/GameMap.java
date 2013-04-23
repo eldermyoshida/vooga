@@ -108,17 +108,6 @@ public class GameMap implements IGameLoop {
         int tileWidthY = 42;
         myTiles = new TileMap(new Dimension(tileWidthX, tileWidthY), tilesX, tilesY);
 
-        /*
-         * BufferedImage banana =
-         * ResourceManager.getInstance()
-         * .<BufferedImage> getFile("images/tiles/iso-64x64-outside.png",
-         * BufferedImage.class);
-         * 
-         * 
-         * myTiles.addTileType(1, banana.getSubimage(0, 0, 64, 64));
-         * myTiles.addTileType(2, banana.getSubimage(2 * 64, 0, 64, 64));
-         */
-
         BufferedImage banana =
                 ResourceManager
                         .getInstance()

@@ -28,17 +28,6 @@ public class BuildingDecoder extends Decoder{
 	
 	private static final String HEAD_TAG = "buildings";
 	private static final String TYPE_TAG = "building";
-	private static final String TIME_TAG = "buildtime";
-	private static final String CUSTOM_TAG = "custom";
-	private static final String COST_TAG = "cost";
-	private static final String NAME_TAG = "name";
-	private static final String IMAGE_TAG = "img";
-	private static final String SOUND_TAG = "sound";
-	private static final String HEALTH_TAG = "health";
-	private static final String ATTACK_TAG = "attack";
-	private static final String OCCUPY_TAG = "occupy";
-	private static final String PRODUCE_TAG = "produce";
-	private static final String SOURCE_TAG = "src";
 	
 	private int DEFAULTTEAM = 0;
 	
@@ -53,14 +42,16 @@ public class BuildingDecoder extends Decoder{
 		//there is some duplicate code between decoders that should be factored out. 
 		String path = doc.getElementsByTagName(HEAD_TAG).item(0).getAttributes().getNamedItem(SOURCE_TAG).getTextContent();	
 		
+	
+		
 		NodeList nodeLst = doc.getElementsByTagName(TYPE_TAG);
 		for(int i = 0 ; i < nodeLst.getLength() ; i++){
 			Element nElement = (Element) nodeLst.item(i);
-			String name = nElement.getElementsByTagName(NAME_TAG).item(0).getTextContent();
-			String img = nElement.getElementsByTagName(IMAGE_TAG).item(0).getTextContent();
-			String sound = nElement.getElementsByTagName(SOUND_TAG).item(0).getTextContent();
-			int health = Integer.parseInt(nElement.getElementsByTagName(HEALTH_TAG).item(0).getTextContent());
-			double buildTime = Double.parseDouble(nElement.getElementsByTagName(TIME_TAG).item(0).getTextContent());
+			String name = getElement(nElement, NAME_TAG);
+			String img = getElement(nElement, IMAGE_TAG);
+			String sound = getElement(nElement, SOUND_TAG);
+			int health = Integer.parseInt(getElement(nElement, HEALTH_TAG));
+			double buildTime = Double.parseDouble(getElement(nElement, TIME_TAG));
 			Building building = (Building) ReflectionHelper.makeInstance(path, 
 																			new Pixmap(img),
 																  			new Location3D(0,0,0),
