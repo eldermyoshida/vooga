@@ -27,6 +27,7 @@ public class GameElement extends Sprite {
 
     private AttributeManager myAttributeManager;
     private List<Action> myActions;
+    private String myType;
 
     /**
      * 
@@ -40,22 +41,23 @@ public class GameElement extends Sprite {
                         Location center,
                         Dimension size,
                         AttributeManager attributes,
-                        List<Action> actions) {
+                        List<Action> actions,
+                        String type) {
         super(image, center, size);
         myAttributeManager = attributes;
         myActions = actions;
     }
 
-    public GameElement (Pixmap image, Location center, Dimension size, List<Action> actions) {
-        this(image, center, size, new AttributeManager(), actions);
+    public GameElement (Pixmap image, Location center, Dimension size, List<Action> actions, String type) {
+        this(image, center, size, new AttributeManager(), actions, type);
     }
 
-    public GameElement (Pixmap image, Location center, Dimension size, AttributeManager am) {
-        this(image, center, size, am, new ArrayList<Action>());
+    public GameElement (Pixmap image, Location center, Dimension size, AttributeManager am, String type) {
+        this(image, center, size, am, new ArrayList<Action>(), type);
     }
 
-    public GameElement (Pixmap image, Location center, Dimension size) {
-        this(image, center, size, new AttributeManager(), new ArrayList<Action>());
+    public GameElement (Pixmap image, Location center, Dimension size, String type) {
+        this(image, center, size, new AttributeManager(), new ArrayList<Action>(), type);
     }
 
     /**
@@ -70,6 +72,9 @@ public class GameElement extends Sprite {
         myAttributeManager.update();
     }
 
+    public String getType(){
+    	return myType;
+    }
     @Override
     public void paint (Graphics2D pen) {
         super.paint(pen);
