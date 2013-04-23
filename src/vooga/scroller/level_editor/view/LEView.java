@@ -1,8 +1,6 @@
 
 package vooga.scroller.level_editor.view;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import vooga.scroller.level_editor.controllerSuite.LEController;
 import vooga.scroller.level_editor.controllerSuite.LETools;
 import vooga.scroller.util.Renderable;
@@ -18,43 +16,36 @@ import vooga.scroller.util.mvc.vcFramework.Window;
  * @author Dagbedji Fagnisse
  */
 public class LEView extends Window<LEWorkspaceView, LevelEditing, LEGridView, LETools> {
-    
+
 
     private static final long serialVersionUID = 1L;
-    private static final String TITLE = "Level Editor";
     private static final String SIMULATION_ERROR_MESSAGE = "SimulationError";
-    
+    private static final String TITLE = "Level Editor";
+
     /**
      * Default constructor - build a Window with the specified language and controller.
-     * @param language
-     * @param lEController
+     * @param language - to be used for the GUI (and maybe domain keywords).
+     * @param lEController - Specialized controller for level Editing.
      */
-    public LEView (String language, LEController lEController) {
-        super(TITLE, language, lEController);
+    public LEView (String language, LEController lEController, LETools t) {
+        super(TITLE, language, lEController, t);
     }
 
     @Override
     public LEWorkspaceView initializeWorkspaceView (int id, Renderable<LEGridView> r) {
-        LEWorkspaceView res = new LEWorkspaceView(this, id, (Renderable<LEGridView>) r);
+        LEWorkspaceView res = new LEWorkspaceView(this, id, r, getTools());
         return res;
     }
 
-    @Override
-    protected void setMenu () {
-        super.setMenu(new LEMenuBar(this));
-    }
-    
     /**
-     * Get the active tab and simulate it if it is valid
-     * @param tab
+     * TODO - figure out tools hierarchy
+     * @param t - default toolbox
      */
-    private void simulate (LEWorkspaceView tab) {
-        if (tab.isValidForSimulation()) {
-            tab.getRenderable().simulate();
-        }
-        else 
-            JOptionPane.showMessageDialog(this, SIMULATION_ERROR_MESSAGE);
+    @Override
+    public void setDefaultWorkspaceTools (LETools t) {
+        LEWorkspaceView.setTools(t);
     }
+
 
     /**
      * Simulate the existing workspace data
@@ -66,9 +57,16 @@ public class LEView extends Window<LEWorkspaceView, LevelEditing, LEGridView, LE
     }
 
 
-    @Override
-    public void setDefaultWorkspaceTools (LETools t) {
-        LEWorkspaceView.setTools(t); //TODO
+    /**
+     * Get the active tab and simulate it if it is valid
+     * @param tab
+     */
+    private void simulate (LEWorkspaceView tab) {
+        if (tab.isValidForSimulation()) {
+            tab.getRenderable().simulate();
+        }
+        else 
+            showMessageDialog(SIMULATION_ERROR_MESSAGE);
     }
 
 

@@ -14,6 +14,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import vooga.scroller.level_editor.view.LEGridView;
 import vooga.scroller.level_editor.view.LEWorkspaceView;
@@ -42,6 +43,7 @@ implements IWindow<W, D, R, T> {
     private static final String USER_DIR = "user.dir";
     private IController<D> myController;
     private JTabbedPane myTabbedPane;
+    private T myTools;
     private JMenuBar myMenuBar;
     private JFileChooser myChooser;
     private Dimension mySize = ViewConstants.DEFAULT_WINDOW_SIZE;
@@ -52,22 +54,33 @@ implements IWindow<W, D, R, T> {
      * @param language The display language for the window
      * @param lEController The Controller responsible for this view
      */
-    public Window (String title, String language, IController<D> lEController) {
+    public Window (String title, String language, IController<D> controller, T tools) {
         super(title);
         this.setResizable(false);
         setPreferredSize(mySize);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        myController = lEController;
+        myController = controller;
         // create and arrange sub-parts of the GUI
         ourResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
         myChooser = new JFileChooser(System.getProperties().getProperty(USER_DIR));
         //tabs
         getContentPane().setLayout(new GridBagLayout());
-        setMenu();
+        setTools(tools);
         addComponents();
     }    
 
-    protected abstract void setMenu ();
+    private void setTools (T tools) {
+        myTools = tools;
+        setMenu(myTools);
+    }
+
+    protected void setMenu (T tools) {
+        setMenu(tools.getMenu(this));
+    }
+    
+    protected T getTools() {
+        return myTools;
+    }
 
     /**
      * Way to initialize tab creation from the window
@@ -229,5 +242,9 @@ implements IWindow<W, D, R, T> {
     @Override
     public void render(Renderable<R> r) {
         showWorkspace (getActiveTab(), r);
+    }
+    
+    public void showMessageDialog (String message) {
+        JOptionPane.showMessageDialog(this, message);
     }
 }

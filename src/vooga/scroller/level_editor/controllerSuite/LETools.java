@@ -7,8 +7,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.swing.ImageIcon;
+import javax.swing.JMenuBar;
 import vooga.scroller.level_editor.StartPoint;
 import vooga.scroller.level_editor.view.LEActionLibrary;
+import vooga.scroller.level_editor.view.LEMenuBar;
 import vooga.scroller.level_editor.view.LEToolsView;
 import vooga.scroller.level_editor.view.LEView;
 import vooga.scroller.level_management.IDoor;
@@ -19,6 +21,8 @@ import vooga.scroller.util.Renderable;
 import vooga.scroller.util.Sprite;
 import vooga.scroller.util.mvc.IView;
 import vooga.scroller.util.mvc.vcFramework.Tools;
+import vooga.scroller.util.mvc.vcFramework.Window;
+import vooga.scroller.util.mvc.vcFramework.WorkspaceView;
 
 
 /**
@@ -29,7 +33,7 @@ import vooga.scroller.util.mvc.vcFramework.Tools;
  * @author Dagbedji Fagnisse
  * 
  */
-public class LETools extends Tools implements Renderable<LEToolsView> {
+public class LETools extends Tools<LEToolsView> {
 
     private static final int DEFAULT_SIZE = 40;
     private static final int PLATFORMS = 0;
@@ -122,28 +126,21 @@ public class LETools extends Tools implements Renderable<LEToolsView> {
         return myBackgroundImages;
     }
 
-    @Override
-    public void paint (Graphics2D pen) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public Object getState () {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public LEToolsView initializeRenderer (IView parent) {
-        return new LEToolsView(this, parent);
-    }
-
 
     public void addBackgrounds (Map<Integer, Image> backgrounds) {
         for (Integer key : backgrounds.keySet()) {
             myBackgroundImages.put(getIcon(backgrounds.get(key), DEFAULT_BG_SIZE), "" + key);
         }
+    }
+
+    @Override
+    public JMenuBar getMenu (Window w) {
+        return new LEMenuBar((LEView) w);
+    }
+
+    @Override
+    public LEToolsView initializeRenderer (IView parent) {
+        return new LEToolsView(this, parent);
     }
 
     // public void addBackgrounds (Map<Integer, Image> map) {

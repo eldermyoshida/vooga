@@ -43,10 +43,10 @@ public class LEWorkspaceView extends WorkspaceView<LevelEditing> implements Rend
      * @param r - Renderable to be loaded in this workspace.
      */
     public LEWorkspaceView (LEView host, int id, 
-                            Renderable<LEGridView> grid) {
+                            Renderable<LEGridView> grid, Tools<LEToolsView> tools) {
         super(id, host);
         myGridView = grid.initializeRenderer(this);
-        myToolsView = ourTools.initializeRenderer(this);
+        myToolsView = tools.initializeRenderer(this);
         myLevelGridScroller = new JScrollPane(myGridView,
                                               JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                                               JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
