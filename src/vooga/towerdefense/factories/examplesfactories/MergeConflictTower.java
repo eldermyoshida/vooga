@@ -1,4 +1,4 @@
-package vooga.towerdefense.factories.examples;
+package vooga.towerdefense.factories.examplesfactories;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
@@ -6,12 +6,10 @@ import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.FindTargets;
 import vooga.towerdefense.action.actionlist.LaunchProjectile;
 import vooga.towerdefense.action.tobetested.RandomChance;
-import vooga.towerdefense.attributes.Attribute;
 import vooga.towerdefense.attributes.AttributeConstants;
 import vooga.towerdefense.attributes.AttributeManager;
 import vooga.towerdefense.factories.GameElementFactory;
-import vooga.towerdefense.factories.ProjectileFactory;
-import vooga.towerdefense.factories.TowerDefinition;
+import vooga.towerdefense.factories.definitions.TowerDefinition;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.util.Location;
@@ -68,19 +66,6 @@ public class MergeConflictTower extends GameElementFactory {
     }
     
 
-
-    public AttributeManager getDefaultAM () {
-        AttributeManager AM = new AttributeManager();
-        AM.addAttribute(new Attribute(AttributeConstants.ATTACK_RADIUS, 200.0));
-        AM.addAttribute(new Attribute(AttributeConstants.DIRECTION, 50.0));
-        AM.addAttribute(new Attribute(AttributeConstants.ATTACK_INTERVAL, 30.0));
-        AM.addAttribute(new Attribute(AttributeConstants.NUM_OF_TARGETS, 1.0));
-        AM.addAttribute(new Attribute(AttributeConstants.ATTACK_RADIUS, 200.0));
-        AM.addAttribute(new Attribute(AttributeConstants.MOVE_SPEED, 10.0));
-        AM.addAttribute(new Attribute(AttributeConstants.AURA_EFFECT, 5.0));
-        AM.setProjectileFactory(new ProjectileFactory());
-        return AM;
-    }
 
     
     

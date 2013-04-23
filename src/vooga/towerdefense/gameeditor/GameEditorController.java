@@ -34,16 +34,18 @@ public class GameEditorController extends JFrame {
      */
     private static final long serialVersionUID = 1L;
     private static final String TITLE_KEYWORD = "GAME EDITOR";
-    private static final String GAME_ELEMENT_TAG = "GameElement";
-    private static final String IMAGE_TAG = "Image";
+    private static final String VIEW_TAG = "view";
+    private static final String GAME_ELEMENT_TAG = "gameelement";
+    private static final String IMAGE_TAG = "image";
     private static final String MAP_TAG = "map";
     private static final String WIDTH_TAG = "width";
     private static final String HEIGHT_TAG = "height";
     private static final String TILE_TAG = "tile";
     private static final String GRID_TAG = "grid";
-    private static final String ATTRIBUTES_TAG = "Attributes";
-    private static final String ACTIONS_TAG = "Actions";
-    private static final String PARAMETER_TAG = "Parameter";
+    private static final String SCREEN_LOCATION_TAG = "location";
+    private static final String ATTRIBUTES_TAG = "attributes";
+    private static final String ACTIONS_TAG = "actions";
+    private static final String PARAMETER_TAG = "parameter";
     private static final Dimension SIZE = new Dimension(700, 700);
     private static final String RESOURCE_PATH = "vooga.src.vooga.towerdefense.resources.";
     private static final String ACTION_PACKAGE_PATH = "vooga.towerdefense.factories.actionfactories";
@@ -57,6 +59,7 @@ public class GameEditorController extends JFrame {
     private String myName;
     private XMLTool myXMLDoc;
     private Element myRoot;
+    private Element myViewParent;
     private Element myGameElementParent;
     private Element myMapParent;
     
@@ -75,10 +78,12 @@ public class GameEditorController extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         myXMLDoc = new XMLTool();
         myRoot = myXMLDoc.makeRoot("Game");
-        myGameElementParent = myXMLDoc.makeElement(GAME_ELEMENT_TAG);
+        myViewParent = myXMLDoc.makeElement(VIEW_TAG);
         myMapParent = myXMLDoc.makeElement(MAP_TAG);
-        myXMLDoc.addChildElement(myRoot, myGameElementParent);  
+        myGameElementParent = myXMLDoc.makeElement(GAME_ELEMENT_TAG);
+        myXMLDoc.addChildElement(myRoot, myViewParent);  
         myXMLDoc.addChildElement(myRoot, myMapParent);
+        myXMLDoc.addChildElement(myRoot, myGameElementParent);
         initializeGUI();
         
         //TODO: remove, this is just for testing
@@ -190,8 +195,21 @@ public class GameEditorController extends JFrame {
     /**
      * adds a view to the XML file.
      */
-    public void addViewToGame () {
-        // TODO: implement
+    public void addViewToGame(List<String> viewInfo) {
+        for (String s : viewInfo) {
+            if (!s.equals("")) {
+                String[] characteristics = s.split(" ");
+                if (!characteristics[0].equals("")) {
+                    Element screen = myXMLDoc.makeElement(characteristics[0]);
+                    myXMLDoc.addChildElement(myViewParent, screen);
+                    String noComma = characteristics[1].substring(0, characteristics[1].length()-1);
+                    myXMLDoc.addChild(screen, WIDTH_TAG, noComma);
+                    myXMLDoc.addChild(screen, HEIGHT_TAG, characteristics[2]);
+                    myXMLDoc.addChild(screen, SCREEN_LOCATION_TAG, characteristics[3]);
+                }
+            }
+        }
+        myXMLDoc.writeFile("viewtesting.xml");
     }
 
     /**

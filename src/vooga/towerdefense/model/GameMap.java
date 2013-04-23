@@ -11,6 +11,7 @@ import java.util.List;
 import vooga.rts.util.Vector;
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.tobetested.FollowPath;
+import vooga.towerdefense.attributes.AttributeManager;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.model.tiles.Tile;
 import vooga.towerdefense.model.tiles.factories.TileFactory;
@@ -90,7 +91,6 @@ public class GameMap {
      *        the tile in which to add the game element
      */
     public void addToMap (GameElement e, Tile t) {
-        e.setCenter(t.getCenter().getX(), t.getCenter().getY());
         myGameElements.add(e);
     }
 
@@ -303,7 +303,7 @@ public class GameMap {
      */
     public void addGhostImage (Pixmap itemImage, Location location,
                                Dimension size) {
-        myGhostImage = new GameElement(itemImage, location, size, null, null, null);
+        myGhostImage = new GameElement(itemImage, location, size, new AttributeManager(), new ArrayList<Action>(), "GhostImage");
     }
 
     /**

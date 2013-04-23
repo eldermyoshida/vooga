@@ -13,15 +13,14 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import vooga.towerdefense.action.Action;
-import vooga.towerdefense.attributes.AttributeManager;
 import vooga.towerdefense.controller.modes.BuildMode;
 import vooga.towerdefense.controller.modes.ControlMode;
 import vooga.towerdefense.controller.modes.SelectMode;
 import vooga.towerdefense.factories.GameElementFactory;
 import vooga.towerdefense.factories.WaveFactory;
-import vooga.towerdefense.factories.examples.ExampleAuraTowerFactory;
-import vooga.towerdefense.factories.examples.ExampleUnitFactory;
-import vooga.towerdefense.factories.examples.TrollUnitDefinition;
+import vooga.towerdefense.factories.definitions.UnitDefinition;
+import vooga.towerdefense.factories.examplesfactories.ExampleAuraTowerFactory;
+import vooga.towerdefense.factories.examplesfactories.ExampleUnitFactory;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.gameElements.Wave;
 import vooga.towerdefense.model.GameLoop;
@@ -73,10 +72,10 @@ public class Controller {
 
 		List<Wave> waves = new ArrayList<Wave>();
 //		String path = "/vooga/src/vooga/towerdefense/resources/map_loadfile.xml";
-		String path = "C:\\Users\\Erick\\CompSci308\\vooga\\src\\vooga\\towerdefense\\resources\\map_loadfile.xml";
+		String path = "/Users/XuRui/Documents/CS308workspace/vooga/src/vooga/towerdefense/resources/map_loadfile.xml";
 		MapLoader loader = new MapLoader(path);
 		List<GameMap> maps = loader.loadMaps();
-		GameMap map = maps.get(1);
+		GameMap map = maps.get(0);
 		// FIXME: Hardcoded for testing trolls
 		ExampleAuraTowerFactory codeStyleGenerator = new ExampleAuraTowerFactory(
 				map, "Tree of Doom", null);
@@ -85,7 +84,7 @@ public class Controller {
 				.createElement(new Location(450, 200));
 		map.addGameElement(duvallTheMighty);
 		waves.add(WaveFactory.createWave(new ExampleUnitFactory("Troll",
-				new TrollUnitDefinition(), map), 25, map, map
+				new UnitDefinition(), map), 25, map, map
 				.getTile(new Point(25, 275))));
 		setLanguage(language);
 		myModel = new GameModel(this, waves, map, new Shop(map));
@@ -146,8 +145,11 @@ public class Controller {
 	// the shop!!!
 	public void fixItemOnMap(GameElement item, Point p) {
 		GameElement newItem = createNewElement(item);
+		Location snappedLocation = getPointSnappedToGrid(new Location(p.getX(),p.getY()));
+		newItem.setCenter(snappedLocation.getX(), snappedLocation.getY());
 		Tile myTile = myModel.getTile(p);
 		myTile.setTower(newItem);
+		
 		myModel.getMap().addToMap(newItem, myTile);
 		displayMap();
 		myControlMode = new SelectMode();
@@ -199,20 +201,21 @@ public class Controller {
 			Class<? extends GameElement> myClass = item.getClass();
 			@SuppressWarnings("rawtypes")
 			Class[] types = { Pixmap.class, Location.class, Dimension.class,
-					AttributeManager.class, List.class };
+					List.class, String.class };
 			Constructor<? extends GameElement> constructor = myClass
 					.getConstructor(types);
 			Object[] parameters = { item.getPixmap(), item.getCenter(),
-					item.getSize(), item.getAttributeManager(),
-					item.getActions() };
+					item.getSize(), item.getActions(), item.getType() };
 			Object myNewItem = constructor.newInstance(parameters);
 			return (GameElement) myNewItem;
 		} catch (InvocationTargetException e) {
 			// ??
+			System.out.println(e.getMessage());
 		}
 
 		catch (Exception e) {
 			// ??
+			System.out.println(e.getMessage());
 		}
 		return null;
 	}

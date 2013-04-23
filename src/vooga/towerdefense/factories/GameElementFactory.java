@@ -2,10 +2,11 @@ package vooga.towerdefense.factories;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import vooga.towerdefense.action.Action;
-import vooga.towerdefense.attributes.AttributeConstants;
+import vooga.towerdefense.attributes.AttributeManager;
+import vooga.towerdefense.attributes.DefaultAttributeManager;
 import vooga.towerdefense.factories.actionfactories.ActionFactory;
+import vooga.towerdefense.factories.definitions.GameElementDefinition;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.util.Location;
@@ -13,16 +14,20 @@ import vooga.towerdefense.util.Location;
 /**
  * A factory that creates game elements based on preset data
  * Reads from an xmlfile (eventually)
+ * 
  * @author Matthew Roy
  * @author Xu Rui
  *
  */
 public class GameElementFactory {
+	
+	private static DefaultAttributeManager DEFAULT_ATTRIBUTE_MANAGER = new DefaultAttributeManager();
+
     /**
      * Name of the element that is defined in this class. For convenience.
      */
     private String myName;
-    protected GameElementDefinition myDef; 
+    private GameElementDefinition myDef; 
     private List<ActionFactory> myActionsToMake;
     private GameMap myMap;
     
@@ -36,9 +41,9 @@ public class GameElementFactory {
         myDef = definition;
     }
     
-    public GameElementFactory(GameElementDefinition definition) {
+    /*public GameElementFactory(GameElementDefinition definition) {
         this(definition.get(AttributeConstants.NAME), definition);
-    }
+    }*/
     
     public void initialize(GameMap map) {
         myMap = map;
@@ -118,4 +123,7 @@ public class GameElementFactory {
         return element;
     }
 
+    public AttributeManager getDefaultAM(){
+    	return DEFAULT_ATTRIBUTE_MANAGER;
+    }
 }
