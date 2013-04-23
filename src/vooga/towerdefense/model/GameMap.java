@@ -295,7 +295,7 @@ public class GameMap {
      */
     public void addGhostImage (Pixmap itemImage, Location location,
                                Dimension size) {
-        myGhostImage = new GameElement(itemImage, location, size);
+        myGhostImage = new GameElement(itemImage, location, size, null, null, null);
     }
 
     /**
