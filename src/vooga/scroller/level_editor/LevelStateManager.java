@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import vooga.scroller.level_editor.level_state.DefaultState;
+import vooga.scroller.level_editor.level_state.LevelState;
 import vooga.scroller.level_editor.level_state.PausedState;
 import vooga.scroller.level_management.SpriteManager;
 import vooga.scroller.view.GameView;

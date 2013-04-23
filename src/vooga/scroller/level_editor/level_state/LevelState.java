@@ -1,4 +1,4 @@
-package vooga.scroller.level_editor;
+package vooga.scroller.level_editor.level_state;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;

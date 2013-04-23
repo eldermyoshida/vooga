@@ -43,20 +43,18 @@ public abstract class Sprite {
     /**
      * Create a shape at the given position, with the given size. This is the constructor that StaticEntities call. 
      */
-    public Sprite (ISpriteView image, Location center, Dimension size, int health, int damage) {
-        this(image, center, size, new Vector(), health, damage);
+    public Sprite (ISpriteView image, Location center, Dimension size) {
+        this(image, center, size, new Vector());
     }
 
     /**
      * Create a shape at the given position, with the given size, velocity, and color. This is the constructor that NonStaticEntities call. 
      */
-    public Sprite (ISpriteView image, Location center, Dimension size, Vector velocity, int health, int damage) {
+    public Sprite (ISpriteView image, Location center, Dimension size, Vector velocity) {
         // make copies just to be sure no one else has access
         
         mySize = size;
         myOriginalView = image;
-        myHealth = health;
-        myDamage = damage;
         myOriginalCenter = new Location(center);
         myLastLocation = new Location(myOriginalCenter.x, myOriginalCenter.y);
         myLastLocation2 = new Location(myOriginalCenter.x, myOriginalCenter.y);
@@ -358,21 +356,6 @@ public abstract class Sprite {
         myVelocity.sum(force);
     }
     
-    public void takeHit(int damage) {
-        myHealth -= damage;
-    }
-
-    public int getHit () {
-        return myDamage;
-    }
-    
-    public int getHealth() {
-        return myHealth;
-    }
-    
-    public void setHealth(int health) {
-        myHealth = health;
-    }
     
     public Dimension getSize() {
         return mySize;

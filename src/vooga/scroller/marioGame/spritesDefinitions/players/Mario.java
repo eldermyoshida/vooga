@@ -8,14 +8,13 @@ import util.input.InputMethodTarget;
 import vooga.scroller.level_management.IInputListener;
 import vooga.scroller.marioGame.spritesDefinitions.MarioLib;
 import vooga.scroller.scrollingmanager.ScrollingManager;
-import vooga.scroller.sprites.interfaces.IPlayer;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.Sprite;
 import vooga.scroller.view.GameView;
 
 @InputClassTarget
-public class Mario extends Player implements IPlayer, IInputListener{
+public class Mario extends Player implements IInputListener{
 
 
     private static final String CONTROLS_FILE_PATH = "vooga/scroller/marioGame/controls/MarioMapping";
@@ -26,6 +25,15 @@ public class Mario extends Player implements IPlayer, IInputListener{
     private static final Pixmap DEFAULT_IMAGE = MarioLib.makePixmap("standright.png");
     private static final int DEATH_PENALTY = 1000;
 
+
+    private static final Vector JUMP_VELOCITY = new Vector(Sprite.UP_DIRECTION, 100);
+
+
+    private static final double MOVE_MAGNITUDE = 10;
+
+
+    private static final double MAX_SPEED = 300;
+
    
     private int myJumpCount;
 
@@ -35,15 +43,6 @@ public class Mario extends Player implements IPlayer, IInputListener{
         myJumpCount = 0;
     }
 
-    public void print() {
-        System.out.println("Mario");
-    }
-    
-    
-    public void scorePoints(int value) {
-        this.incrementScore(value);
-    }
-    
     @Override
     public void update (double elapsedTime, Dimension bounds) {
         if (myJumpCount == MAX_JUMPS && this.getVelocity().getComponentVector(Sprite.UP_DIRECTION).getMagnitude() < .5) {
@@ -63,58 +62,58 @@ public class Mario extends Player implements IPlayer, IInputListener{
             this.addVector(right);
         }
         super.update(elapsedTime, bounds);
+        checkSpeed();
+    }
+
+    private void checkSpeed () {
+        double speed = this.getVelocity().getMagnitude();       
+        if(speed > MAX_SPEED){
+            double angle = this.getVelocity().getDirection();
+            this.setVelocity(angle, MAX_SPEED);
+        }       
     }
 
     @Override
     public void handleDeath () {
-        this.setCenter(this.getOriginalLocation().x, this.getOriginalLocation().y);
-        this.setHealth(1);
-        //this.reset();
-        takeDeathPenalty();
         
-    }
-
-    private void takeDeathPenalty () {
-        this.decrementScore(DEATH_PENALTY);
+        
     }
 
     public Player getPlayer () {
         return this;
     }   
     
+    @Override
+    public String getInputFilePath () {
+        return CONTROLS_FILE_PATH;
+    }
+
     @InputMethodTarget(name = "left")
     public void walkLeft() {        
         Vector force = this.getVelocity().getComponentVector(Player.RIGHT_DIRECTION);
         force.negate();
-        this.addVector(force);       
-        this.addVector(Player.LEFT_VELOCITY);
-        this.translate(Player.LEFT_VELOCITY);
+        this.addVector(force);     
+        this.translate(new Vector(Sprite.LEFT_DIRECTION, MOVE_MAGNITUDE));
+
     }
     
     @InputMethodTarget(name = "right")
     public void walkRight() {
-        // TODO: set max speed for player
         Vector force = this.getVelocity().getComponentVector(Player.LEFT_DIRECTION);
         force.negate();
-        this.addVector(force);        
-        this.addVector(Player.RIGHT_VELOCITY);
-        this.translate(Player.RIGHT_VELOCITY);
+        this.addVector(force);     
+        this.translate(new Vector(Sprite.RIGHT_DIRECTION, MOVE_MAGNITUDE));
+
     }
     
     @InputMethodTarget(name = "jump")
     public void jump() {
         if(this.getVelocity().getComponentVector(Sprite.UP_DIRECTION).getMagnitude() < .5 &&
             this.getVelocity().getComponentVector(Sprite.DOWN_DIRECTION).getMagnitude() < .5 && myJumpCount < MAX_JUMPS ) {           
-            this.addVector(UP_VELOCITY);
+            addVector(JUMP_VELOCITY);
             myJumpCount +=1;
         }
     }
-
-    @Override
-    public String getInputFilePath () {
-        return CONTROLS_FILE_PATH;
-    } 
-   
 }
 
 

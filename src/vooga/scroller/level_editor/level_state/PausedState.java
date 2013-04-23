@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import util.Location;
 import util.Text;
-import vooga.scroller.level_editor.LevelState;
 import vooga.scroller.level_management.SpriteManager;
 import vooga.scroller.view.GameView;
 /**
