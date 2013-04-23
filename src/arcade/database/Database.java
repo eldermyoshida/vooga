@@ -474,4 +474,35 @@ public class Database {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public int getUserAge(String username) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public String getUserHometown(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getUserSchool(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getUserHobbies(String username) {
+		// TODO Auto-generated method stub
+		return null;
+		
+	}
+
+	public String getUserFavoriteColor(String username) {
+		// TODO Auto-generated method stub
+		return null;
+		
+	}
+
+
+	
+
 }

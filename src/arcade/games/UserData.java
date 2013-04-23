@@ -39,4 +39,33 @@ public class UserData {
 	public void changeName(String newName){
 		//TODO
 	}
+	
+	public int getAge(){
+		return myDb.getUserAge(username);
+	}
+	
+	public String getHometown(){
+		return myDb.getUserHometown(username);
+	}
+	
+	public void changeHometown (String newHometown) {
+		//TODO
+	}
+	
+	public String getSchool(){
+		return myDb.getUserSchool(username);
+	}
+	
+	public void changeSchool(String newSchool){
+		//TODO
+	}
+	
+	public String getHobbies(){
+		return myDb.getUserHobbies(username);
+	}
+	
+	public String getUserFavoriteColor(){
+		return myDb.getUserFavoriteColor(username);
+	}
+	
 }
