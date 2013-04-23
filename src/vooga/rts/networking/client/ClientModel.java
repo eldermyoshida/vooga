@@ -35,6 +35,15 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
     private ExpandedLobbyInfo myLobbyInfo;
     private LobbyView myLobbyView;
 
+    /**
+     * This is the handler of information needed by all of the views in the process of connecting to
+     * / creating a server, creating a game, waiting in a lobby.
+     * 
+     * @param gameName
+     * @param userName
+     * @param maps
+     * @param maxPlayerArray
+     */
     public ClientModel (String gameName, String userName, String[] maps, Integer[][] maxPlayerArray) {
         // Message initialConnection = new InitialConnectionMessage(gameName, userName);
         // myClient.sendData(initialConnection);
@@ -65,6 +74,9 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
         // myClient.close();
     }
 
+    /**
+     * Switches the current View to the ServerBrowser.
+     */
     public void switchToServerBrowserView () {
         // TODO resources
         myContainerPanel.changeView(myServerBrowserView, " Server Browser");
@@ -82,6 +94,9 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
         });
     }
 
+    /**
+     * Switches the current View to the LobbyCreatorScreen.
+     */
     public void switchToCreateLobbyView () {
         // TODO resources
         myContainerPanel.changeView(myCreateLobbyView, " Lobby Creation");
@@ -99,6 +114,9 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
         });
     }
 
+    /**
+     * Switches the current view to the Lobby.
+     */
     public void switchToLobbyView () {
         // TODO resources
         myContainerPanel.changeView(myCreateLobbyView, " Lobby Creation");
