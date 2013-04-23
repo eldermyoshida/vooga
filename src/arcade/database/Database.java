@@ -51,7 +51,7 @@ public class Database {
      * @param pw is password
      * @param firstname is first name
      * @param lastname is last name
-     * @param dateOfBirth is DOB
+     * @param dataOfBirth is DOB
      */
     public boolean createUser (String username,
                                String pw,
@@ -194,6 +194,10 @@ public class Database {
                                      newHighScore);
     }
     
+    /**
+     * Returns list of scores for a game
+     * @param gameName is game name
+     */
     public List<Score> getScoresForGame(String gameName) {
         List<String> usernames = retrieveListOfUsers();
         List<Score> myScores = new ArrayList<Score>();
@@ -204,6 +208,10 @@ public class Database {
         return myScores;
     }
     
+    /**
+     * Returns list of scores for a user
+     * @param username is user
+     */
     public List<Score> getScoresForUser(String username) {
         List<String> games = retrieveListOfGames();
         List<Score> myScores = new ArrayList<Score>();
@@ -213,55 +221,105 @@ public class Database {
         return myScores;
     }
     
+    /**
+     * Returns list of scores for a game and user
+     * @param gameName is game name
+     * @param username is user
+     */
     public List<Score> getScoresForGameAndUser(String username, String gameName) {
         return myScoreTable.getScoresForGame(retrieveGameId(gameName), retrieveUserId(username), gameName, username);
     }
 
+    /** 
+     * Stores user game data on S3 instance
+     * @param gameName is game name
+     * @param username is user
+     * @param usd is UserGameData
+     */
     public void storeUserGameData (String gameName,
                                    String username,
-                                   String tempFilePath,
                                    UserGameData usd) {
         myS3Instance.putUserGameDataIntoBucket(username, gameName, usd);
     }
 
+    /** 
+     * Gets UserGameData from S3 Instance
+     * @param gameName is game name
+     * @param username is user
+     */
     public UserGameData getUserGameData (String gameName, String username) {
         return myS3Instance.getUserGameDataFromBucket(username, gameName);
     }
 
+    /** 
+     * Stores GameData from S3 Instance
+     * @param gameName is game name
+     * @param gd is gameData
+     */
     public void storeGameData (String gameName, GameData gd) {
         myS3Instance.putGameDataIntoBucket(gameName, gd);
     }
 
+    /** 
+     * Gets GameData from S3 Instance
+     * @param gameName is game name
+     */
     public GameData getGameData (String gameName) {
         return myS3Instance.getGameDataFromBucket(gameName);
     }
 
 
+    /** 
+     * Inserts comment for a user and game
+     * @param username is user
+     * @param gameName is game name
+     * @param comment is comment to be inserted
+     */
     public void insertComment (String username, String gameName, String comment) {
-
         myCommentTable.addNewComment(retrieveGameId(gameName), retrieveUserId(username), comment);
     }
 
+    /**
+     * Retrieves all comments for game
+     * @param gameName is game name
+     */
     public List<String> retrieveCommentsForGame (String gameName) {
         return myCommentTable.getAllCommentsForGame(retrieveGameId(gameName));
     }
 
+    /**
+     * Prints gameTable
+     */
     public void printGameTable () {
         myGameTable.printEntireTable();
     }
 
+    /**
+     * Retrieves user table
+     */
     public void printUserTable () {
         myUserTable.printEntireTable();
     }
 
+    /**
+     * Prints UserGameDataTable
+     */
     public void printUserGameDataTable () {
         myUserGameDataTable.printEntireTable();
     }
 
+    /**
+     * Retrieves a gameID from game
+     * @param gameName for gameID
+     */
     private String retrieveGameId (String gameName) {
         return myGameTable.retrieveGameId(gameName);
     }
 
+    /**
+     * Retrieves a userID for user
+     * @param username is user
+     */
     private String retrieveUserId (String username) {
         return myUserTable.retrieveUserId(username);
     }
