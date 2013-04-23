@@ -6,9 +6,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
@@ -149,8 +147,8 @@ public class LobbyView extends JPanel {
                myTeamBoxes[i].setSelectedItem(player.getTeam());
                if(myUserControlledPlayers.contains(player)) {
                    myFactionBoxes[i].setEnabled(true);
-                   myTeamBoxes[i].setEnabled(true);
-               }
+                    myTeamBoxes[i].setEnabled(true);
+                }
             }
         }
     }

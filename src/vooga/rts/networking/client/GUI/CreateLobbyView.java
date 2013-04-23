@@ -27,7 +27,6 @@ public class CreateLobbyView extends JPanel {
         myMaxPlayerArray = maxPlayers;
         myMapChoices = mapChoices;
         add(createPanel(), BorderLayout.CENTER);
-//        myMaxPlayersComboBox = new JComboBox();
     }
     
     private JPanel createPanel () {
@@ -55,7 +54,6 @@ public class CreateLobbyView extends JPanel {
                 }
 
                 myMaxPlayersComboBox.removeAllItems();
-                
                 for( int i =0; i< maxPlayerChoices.length; i++) {
                     myMaxPlayersComboBox.insertItemAt(maxPlayerChoices[i], i);
                 }
@@ -66,7 +64,7 @@ public class CreateLobbyView extends JPanel {
         innerPanel.add(new JLabel("Max players: "));
         myMaxPlayersComboBox = new JComboBox<Integer>();
         innerPanel.add(myMaxPlayersComboBox);
-        
+
         return innerPanel;
     }
 }
