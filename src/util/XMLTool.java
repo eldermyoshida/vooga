@@ -317,6 +317,28 @@ public class XMLTool {
     }
     
     /**
+     * Creates a map with the child tag (as a map key) and a child element (as a map value) of all
+     * the
+     * children elements of a particular parent element.
+     * If the parent element does not contain children, this method returns an empty map.
+     * 
+     * @param parent The parent element node.
+     * @return a map with the child tag (as a map key) and a child element (as a map value) of all
+     *         the children elements of a particular parent element.
+     */
+    public Map<String, Element> getMapElementFromParent (Element parent) {
+        Map<String, Element> map = new HashMap<String, Element>();
+        NodeList nodes = parent.getChildNodes();
+        for (int i = 0; i < nodes.getLength(); i++) {
+            if (nodes.item(i).getNodeType() == Node.ELEMENT_NODE) {
+                Element node = (Element) nodes.item(i);
+                map.put(node.getTagName(), node);
+            }
+        }
+        return map;
+    }
+
+    /**
      * Creates a map with the tag (as a map key) and the content (as a map value) of all the
      * children elements of the first node with a particular tag.
      * If the parent element does not contain children, this method returns an empty map.
