@@ -25,7 +25,7 @@ public class NodeFactory {
         NodeMap map = new NodeMap(xNodes, yNodes);
         for (int x = 0; x < xNodes; x++) {
             for (int y = 0; y < yNodes; y++) {
-                map.put(new Node(x, y), 0, 0);
+                map.put(new Node(x, y), x, y);
             }
         }
         return map;

@@ -169,33 +169,40 @@ public class NodeMap implements Observer {
 
     @Override
     public void update (Observable arg0, Object arg1) {
-        System.out.println("Map is being told information!");
         // Map only worries about Game Sprite observables
         if (!(arg0 instanceof GameSprite)) {
             return;
         }
         GameSprite item = (GameSprite) arg0;
+        Node cur = myLookupMap.get(item);
+        // If the map doesn't know about it yet
+        if (cur == null) {
+            Node newNode = findContainingNode(item.getWorldLocation());
+            if (newNode != null) {
+                addToNode(item, newNode);
+                cur = newNode;
+            }
+        }
 
         // if it's updating with its new location
         if (arg1 instanceof Location3D) {
-            Node cur = myLookupMap.get(item);
-            if (cur != null) {
-                // hasn't moved outside of the current node
-                if (cur.contains(item.getWorldLocation())) {
-                    return;
-                }
-                // get the new node that the entity is in
+            System.out.println("Updating poition");
+            // hasn't moved outside of the current node
+            if (cur.contains(item.getWorldLocation())) {
+                return;
+            }
+            else {
                 Node newNode = findContainingNode(item.getWorldLocation());
                 if (newNode != null) {
                     removeFromNode(item);
                     addToNode(item, newNode);
                 }
             }
+
         }
         if (item instanceof InteractiveEntity) {
             InteractiveEntity ie = (InteractiveEntity) item;
-            if (ie.isDead()) {
-                Node cur = myLookupMap.get(item);
+            if (ie.isDead()) {                
                 if (cur != null) {
                     removeFromNode(item);
                 }
