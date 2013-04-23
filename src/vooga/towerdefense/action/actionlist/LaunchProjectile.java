@@ -1,8 +1,5 @@
 package vooga.towerdefense.action.actionlist;
 
-import java.util.LinkedList;
-import java.util.Queue;
-
 import vooga.towerdefense.action.TargetedAction;
 import vooga.towerdefense.factories.examples.ExampleDosProjectileFactory;
 import vooga.towerdefense.gameElements.GameElement;
@@ -21,17 +18,12 @@ public class LaunchProjectile extends TargetedAction {
 	private ExampleDosProjectileFactory myProjectileFactory;
 	private Location myStart;
 	private GameMap myMap;
-    private double myFireDelay = 500;
-    private double myTimer = 0;	
-    private Queue<GameElement> myQueue;
-    private double myLastSpawnTime;
 
     public LaunchProjectile (GameMap map, Location startLocation, ExampleDosProjectileFactory projectileFactory) {
     	setTargetTracking(true);
     	myProjectileFactory = projectileFactory;
     	myStart = startLocation;
     	myMap = map;
-    	myQueue = new LinkedList<GameElement>();
     }
 
     /**
@@ -42,34 +34,13 @@ public class LaunchProjectile extends TargetedAction {
      */
     @Override
     public void executeAction (double elapsedTime) {
-    	/*System.out.println(getTargets().size());
+    	//System.out.println(getTargets().size());
     	GameElement projectile = myProjectileFactory.createElement(myStart);
         myMap.addGameElement(projectile);
-        System.out.println(projectile.getTargetedActions().size()+ 10);
+        //System.out.println(projectile.getTargetedActions().size()+ 10);
         for (TargetedAction t: projectile.getTargetedActions()){
             t.updateTargetedFollowUpActions(getTargets());
         }
-    	//this.setEnabled(false);*/
-    	launch(elapsedTime);
     }
     
-
-    public void generateProjectile(ExampleDosProjectileFactory factory, int numProjectiles, Location startLocation){
-    	for (int i=0;i<numProjectiles; i++ ){
-    		myQueue.add(factory.createElement(startLocation));
-    	}
-    }
-    
-    public void launch(double elapsedTime){
-    	while(!myQueue.isEmpty()){
-    		myMap.addGameElement(myQueue.poll());
-    		myLastSpawnTime = myTimer;
-    	}
-    	myTimer += elapsedTime;
-    	
-    }
-    
-    private boolean canSpawn() {
-        return myTimer == 0 || (myTimer - myLastSpawnTime) > myFireDelay;
-    }
 }
