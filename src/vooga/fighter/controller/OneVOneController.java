@@ -7,6 +7,7 @@ import java.util.List;
 import util.input.*;
 import vooga.fighter.forces.Force;
 import vooga.fighter.forces.Gravity;
+import vooga.fighter.forces.Viscosity;
 import vooga.fighter.model.objects.CharacterObject;
 import vooga.fighter.model.objects.MouseClickObject;
 import vooga.fighter.util.Physics;
@@ -34,18 +35,27 @@ public class OneVOneController extends LevelController {
     public OneVOneController(String name, Canvas frame, ControllerDelegate manager, 
     		GameInfo gameinfo) {
     	super(name, frame, manager, gameinfo);
-    	myForces= new ArrayList<Force>();
-    	Gravity gravity = new Gravity();
-    	gravity.setPhysics( new Physics()); 
-    	
-    	myForces.add(gravity);
+    	initializeForces();
     	getMode().setForces(myForces);
+    	
     	frame.setLayout(new FourPlayerMatchGameLayout());
     }
     
     public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo) {
         Controller controller = new OneVOneController(name, frame, manager, gameinfo);
         return controller;
+    }
+    
+    public void initializeForces() {
+        Physics physics = new Physics();
+        myForces= new ArrayList<Force>();
+        Gravity gravity = new Gravity();
+        Viscosity viscosity = new Viscosity();
+        myForces.add(gravity);
+        myForces.add(viscosity);
+        for (Force force : myForces) {
+            force.setPhysics(physics);
+        }
     }
 
     public void notifyEndCondition (String endCondition) {
