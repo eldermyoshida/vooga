@@ -373,5 +373,9 @@ public abstract class Sprite {
     public void setHealth(int health) {
         myHealth = health;
     }
+    
+    public Dimension getSize() {
+        return mySize;
+    }
 }
 

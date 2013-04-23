@@ -41,7 +41,7 @@ public class Mario extends Player implements IPlayer, IInputListener{
     
     
     public void scorePoints(int value) {
-        this.getStatistic().addValue(value);
+        this.incrementScore(value);
     }
     
     @Override
@@ -75,7 +75,7 @@ public class Mario extends Player implements IPlayer, IInputListener{
     }
 
     private void takeDeathPenalty () {
-        this.getStatistic().removeValue(DEATH_PENALTY);
+        this.decrementScore(DEATH_PENALTY);
     }
 
     public Player getPlayer () {

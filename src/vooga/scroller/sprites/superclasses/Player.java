@@ -34,11 +34,8 @@ import vooga.scroller.view.GameView;
  */
 public abstract class Player extends Sprite implements IInputListener{
 
-    // Graphics2D pen;
     private GameView myView;
     private Location myPaintCenter;
-    private Dimension mySize;
-    // private Pixmap myImage;
     private StateManager myStateManager;
     private ScrollingManager myScrollingManager;
     private Statistic myStatistic;
@@ -64,8 +61,6 @@ public abstract class Player extends Sprite implements IInputListener{
         super(image, center, size, health, damage);
         myView = gameView;
         myPaintCenter = new Location(myView.getWidth() / 2, myView.getHeight() / 2);
-        mySize = size;
-        // myImage = image;
         myStateManager = new StateManager(this);
         myScrollingManager = sm;
         myStatistic = new PlayerScore();
@@ -85,7 +80,7 @@ public abstract class Player extends Sprite implements IInputListener{
 
     @Override
     public void paint (Graphics2D pen) {
-        super.getView().paint(pen, myPaintCenter, mySize);
+        super.getView().paint(pen, myPaintCenter, super.getSize());
         displayStatistic(pen);
     }
 
@@ -97,11 +92,11 @@ public abstract class Player extends Sprite implements IInputListener{
         return myPaintCenter;
     }
 
-    public Statistic getStatistic () {
-        return myStatistic;
-    }
-
-    public void displayStatistic (Graphics2D pen) {
+    /**
+     * Displays the statistic on the screen
+     * @param pen is the graphic that paints the text and value.
+     */
+    private void displayStatistic (Graphics2D pen) {
         ValueText vt = new ValueText(myStatistic.getName(), myStatistic.getAggregateValue());
         vt.paint(pen, PlayerScore.DEFAULT_SCORE_LOCATION, PlayerScore.DEFAULT_SCORE_COLOR);
     }
@@ -110,13 +105,20 @@ public abstract class Player extends Sprite implements IInputListener{
         return myOriginalLocation;
     }
     
-    public Dimension getSize() {
-        return mySize;
-    }
-
+    
+    /**
+     * Increments the player's score.
+     * @param increment is the value by which the player's score is increased.
+     */
     public void incrementScore (int increment) {
         myStatistic.addValue(increment);
     }
     
-    
+    /**
+     * Decrements the score of the player
+     * @param decrement is the amount by which to decrease the players score.
+     */
+    public void decrementScore(int decrement){
+        myStatistic.removeValue(decrement);
+    }
 }

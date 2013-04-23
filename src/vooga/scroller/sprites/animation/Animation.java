@@ -7,19 +7,20 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 import vooga.scroller.util.ISpriteView;
-import vooga.scroller.util.Sprite;
 
 /**
  * Represents an animation that depends on different movements of a sprite.
+ * 
+ * @param S is the object that this animation animates (i.e. a sprite).
  * 
  * @author Scott Valentine
  *
  */
 
-public class Animation implements ISpriteView {
+public class Animation<S> implements ISpriteView {
 
-    private List<AnimationState> myAnimations;
-    private Sprite mySprite;
+    private List<AnimationState<S>> myAnimations;
+    private S mySprite;
     private ISpriteView myDefaultStateView;
 
     /**
@@ -28,7 +29,7 @@ public class Animation implements ISpriteView {
      * @param defaultImageFile is the file path of the default image for this animation.
      * @param sp is the sprite on that this animation animates.
      */
-    public Animation (Sprite sp) {
+    public Animation (S sp) {
         this();
         mySprite = sp;
         
@@ -37,17 +38,10 @@ public class Animation implements ISpriteView {
     }
     
     public Animation() {
-        myAnimations = new ArrayList<AnimationState>();
+        myAnimations = new ArrayList<AnimationState<S>>();
     }
     
-    /**
-     * Initiates all of the animationStates used in this animation.
-     */
-    private void initAnimations () {
-
-    }
-    
-    public void setSprite(Sprite sprite) {
+    public void setSprite(S sprite) {
         mySprite = sprite;
     }
 
@@ -57,7 +51,7 @@ public class Animation implements ISpriteView {
      * @return
      */
     private ISpriteView getStateView() {
-        for (AnimationState as: myAnimations) {
+        for (AnimationState<S> as: myAnimations) {
             if (as.validAnimation(mySprite)) {
                 return as.getView();
             }
@@ -102,7 +96,7 @@ public class Animation implements ISpriteView {
      * 
      * @param animation is the animation state to add.
      */
-    public void addAnimationState(AnimationState animation) {
+    public void addAnimationState(AnimationState<S> animation) {
         myAnimations.add(animation);
     }
 
