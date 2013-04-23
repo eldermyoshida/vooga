@@ -10,13 +10,17 @@ import java.awt.geom.Rectangle2D;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
 import vooga.rts.action.Action;
 import vooga.rts.action.InteractiveAction;
 import vooga.rts.action.IActOn;
 import vooga.rts.commands.Command;
+import vooga.rts.commands.InformationCommand;
 import vooga.rts.gamedesign.sprite.gamesprites.GameEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.IAttackable;
 import vooga.rts.gamedesign.sprite.gamesprites.Projectile;
@@ -62,6 +66,7 @@ public abstract class InteractiveEntity extends GameEntity implements
 	private OccupyStrategy myOccupyStrategy;
 	private int myArmor;
 	private Map<String, Action> myActions;
+	private Map<String, Information> myInfos;
 	private List<DelayedTask> myTasks;
 	private double myBuildTime;
 	private List<InteractiveEntity> myProducables;
@@ -125,7 +130,14 @@ public abstract class InteractiveEntity extends GameEntity implements
 	public List<InteractiveEntity> getProducables() {
 		return myProducables;
 	}
-
+	/**
+	 * adds passed in command and info into map
+	 * @param command
+	 * @param info
+	 */
+	public void addInfo(String command, Information info) {
+		myInfos.put(command, info);
+	}
 	/**
 	 * This method specifies that the interactive entity is attacking an
 	 * IAttackable. It checks to see if the IAttackable is in its range, it sets
@@ -188,8 +200,12 @@ public abstract class InteractiveEntity extends GameEntity implements
 	 * returns all the actions this interactive entity is capable of doing
 	 * 
 	 */
-	public Map<String, Action> getActions() {
-		return myActions;
+	public Set<InformationCommand> getCommands() {
+		Set<InformationCommand> infoCommands = new HashSet<InformationCommand>();
+		for(String s : myActions.keySet()) {
+			infoCommands.add(new InformationCommand(s, myInfos.get(s)));
+		}
+		return infoCommands;
 	}
 
 	public void getOccupied(Unit occupier) {
