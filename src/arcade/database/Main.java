@@ -14,6 +14,8 @@ public class Main {
         
         myDatabase.createUser("natx13", "password", "Natalia", "Carvalho", "04/26/1991");
         myDatabase.createUser("kayzooo", "mypassword", "Kevin", "Zhu", "11/12/1990");
+        
+        myDatabase.insertComment("natx13", "test", "this game is a piece of crap");
 
         //myDatabase.addNewHighScore("test", "test", 100);
 //        List<Score> myScores = myDatabase.getScoresForGame("test");
@@ -66,9 +68,9 @@ public class Main {
 //        }
 //                
         myDatabase.printUserTable();
-        //myDatabase.printGameTable();
+        myDatabase.printGameTable();
         myDatabase.printScoreTable();
-        //myDatabase.printCommentTable();
+        myDatabase.printCommentTable();
         
         myDatabase.closeDatabaseConnection();
         
