@@ -206,10 +206,45 @@ public class GameInfo {
     }
 
     @SuppressWarnings("unchecked")
+    public GameData getGameData (Game theGame) {
+        try{
+            return myDb.getGameData(myGameName);
+        
+        }catch( NullPointerException e){// this should actually be the amazon error. replace.
+            @SuppressWarnings("rawtypes")
+            Class game = getClass();
+            Method method;
+            try {
+                method = game.getMethod("generateNewGameProfile");
+                try {
+                    return (GameData) method.invoke(theGame);
+                }
+                catch (IllegalArgumentException e1) {
+                    e1.printStackTrace();
+                }
+                catch (IllegalAccessException e1) {
+                    e1.printStackTrace();
+                }
+                catch (InvocationTargetException e1) {
+                    e1.printStackTrace();
+                }
+            }
+            catch (SecurityException e1) {
+                e1.printStackTrace();
+            }
+            catch (NoSuchMethodException e1) {
+                e1.printStackTrace();
+            }
+           return null;
+        }
+    }
+    
+    
     public UserGameData getUserGameData (Game theGame ,String user) {
         try{
             return myDb.getUserGameData(myGameName, user);
-        }catch( NullPointerException e){
+        
+        }catch( NullPointerException e){// this should actually be the amazon error. replace.
             @SuppressWarnings("rawtypes")
             Class game = getClass();
             Method method;
@@ -237,6 +272,7 @@ public class GameInfo {
            return null;
         }
     }
+
 
     // // TODO make sure this doesnt break if the game isnt multiplayer
     // @SuppressWarnings("rawtypes")
