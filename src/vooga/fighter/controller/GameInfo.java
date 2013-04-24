@@ -37,6 +37,7 @@ public class GameInfo extends UserGameData{
         myScores = new ArrayList<Integer>();
         myGameMode = "Fighting Game";
         myMapNames = mapNames;
+        myWinners = new ArrayList<Integer>();
     }
 
     /**
