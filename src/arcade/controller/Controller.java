@@ -27,6 +27,7 @@ import arcade.games.UserGameData;
 import arcade.model.payment.DukePaymentManager;
 import arcade.model.payment.PaymentManager;
 import arcade.model.social.TwitterConnection;
+import arcade.view.DetailView;
 import arcade.view.MainView;
 import arcade.view.forms.LoginView;
 
@@ -265,6 +266,10 @@ public class Controller implements ArcadeInteraction {
 	 */
 	public void rateGame(double rating, String gameName) {
 		myDb.updateRating(currentUser, gameName, rating);
+	}
+	
+	public void commentGame(String comment, String gameName) {
+	    //TODO: fill in.
 	}
 
 	

@@ -55,6 +55,10 @@ public class GameInfo {
     public String getName () {
         return myGameName;
     }
+    
+    public String getGenre() {
+        return myDb.getGenre(myGameName);
+    }
 
     public String getDescription () {
         return myDb.getGameDescription(myGameName);
@@ -86,7 +90,7 @@ public class GameInfo {
     public List<String[]> getComments () {
         // TODO: do this correctly.
         List<String[]> comments = new ArrayList<String[]>();
-        String[] comment1 = { "subject", "theCoolestGuy", "5.0", "this game is awesome" };
+        String[] comment1 = { "theCoolestGuy", "this game is awesome" };
         comments.add(comment1);
         return comments;
     }
