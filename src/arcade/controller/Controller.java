@@ -204,7 +204,47 @@ public class Controller implements ArcadeInteraction {
 	}
 	
 	
+	private String formatUsernameForResourceFile(String username) {
+		return username + " =";
+	}
     
+	
+	public void registerUser(String username) throws IOException {
+		File file1 = createFileForLocation(FILEWRITER_LOCATION); 
+		File file2 = createFileForLocation(TMP_LOCATION);
+		copyFile(file2,file1,formatUsernameForResourceFile(username));
+		copyFile(file1,file2);
+	}
+	
+	public void purchaseGame(String username, String gameName) throws IOException{
+		File file1 = createFileForLocation(FILEWRITER_LOCATION); 
+		File file2 = createFileForLocation(TMP_LOCATION);
+		replaceLine(file2,file1,username,gameName);
+		copyFile(file1,file2);
+	}
+	
+	private void replaceLine(File temp, File target, String username, String gameName) throws IOException{
+		FileReader fr = new FileReader(temp);
+		BufferedReader br = new BufferedReader(fr);
+		
+		FileWriter fw = new FileWriter(target);
+		BufferedWriter bw = new BufferedWriter(fw);
+		
+		String line;
+		while ((line = br.readLine())!=null){
+			if (line.contains(username)) writeLine(bw, line + " "+ gameName);
+			else writeLine(bw,line);
+		}
+		closeWriters(fw, bw);
+		closeReaders(fr, br);
+	}
+	
+	public String[] getGamesForUser(String username){
+		String games = userPurchaseHistory.getString(username);
+		return games.split(" ");
+	}
+		
+		
 
     /*
      * public void createNewUserProfile(String username, String pw, String firstname, String
