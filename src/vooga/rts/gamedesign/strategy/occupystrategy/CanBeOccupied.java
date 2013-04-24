@@ -7,7 +7,7 @@ import vooga.rts.action.InteractiveAction;
 import vooga.rts.commands.Command;
 import vooga.rts.gamedesign.sprite.gamesprites.GameEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
-import vooga.rts.gamedesign.sprite.gamesprites.interactive.Unit;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
 import vooga.rts.gamedesign.state.DetectableState;
 import vooga.rts.gamedesign.state.MovementState;
 import vooga.rts.gamedesign.state.OccupyState;

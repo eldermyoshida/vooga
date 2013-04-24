@@ -22,6 +22,8 @@ import vooga.rts.commands.InformationCommand;
 import vooga.rts.gamedesign.sprite.gamesprites.GameEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.IAttackable;
 import vooga.rts.gamedesign.sprite.gamesprites.Projectile;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
 import vooga.rts.gamedesign.state.AttackingState;
 import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
 import vooga.rts.gamedesign.strategy.attackstrategy.CannotAttack;
@@ -237,9 +239,9 @@ public abstract class InteractiveEntity extends GameEntity implements
 		return infoCommands;
 	}
 
-	public void getOccupied(Unit occupier) {
-		if (occupier.collidesWith(this)) {
-			myOccupyStrategy.getOccupied(this, occupier);
+	public void getOccupied(Unit unit) {
+		if (unit.collidesWith(this)) {
+			myOccupyStrategy.getOccupied(this, unit);
 		}
 	}
 

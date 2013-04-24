@@ -2,8 +2,8 @@ package vooga.rts.gamedesign.strategy.production;
 
 import vooga.rts.action.InteractiveAction;
 import vooga.rts.commands.Command;
-import vooga.rts.gamedesign.sprite.gamesprites.interactive.Building;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building;
 import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;
 import vooga.rts.util.DelayedTask;
 import vooga.rts.util.Location3D;

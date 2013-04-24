@@ -11,7 +11,7 @@ import org.xml.sax.SAXException;
 
 import vooga.rts.commands.Command;
 import vooga.rts.gamedesign.factories.Factory;
-import vooga.rts.gamedesign.sprite.gamesprites.interactive.Unit;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
 import vooga.rts.gamedesign.strategy.attackstrategy.CannotAttack;
 import vooga.rts.gamedesign.upgrades.UpgradeNode;
 

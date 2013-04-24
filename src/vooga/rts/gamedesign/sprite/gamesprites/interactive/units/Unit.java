@@ -1,4 +1,4 @@
-package vooga.rts.gamedesign.sprite.gamesprites.interactive;
+package vooga.rts.gamedesign.sprite.gamesprites.interactive.units;
 
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
@@ -14,6 +14,8 @@ import vooga.rts.action.InteractiveAction;
 import vooga.rts.gamedesign.sprite.gamesprites.GameEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.GameSprite;
 import vooga.rts.gamedesign.sprite.gamesprites.Resource;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.IGatherable;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.strategy.gatherstrategy.CanGather;
 import vooga.rts.gamedesign.strategy.gatherstrategy.CannotGather;
 import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;

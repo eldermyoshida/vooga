@@ -5,7 +5,7 @@ import java.util.List;
 import vooga.rts.action.InteractiveAction;
 import vooga.rts.commands.Command;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
-import vooga.rts.gamedesign.sprite.gamesprites.interactive.Unit;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
 
 
 /**
