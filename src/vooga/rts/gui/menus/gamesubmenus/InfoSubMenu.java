@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.util.Observable;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gui.Button;
 import vooga.rts.gui.Window;
@@ -49,6 +50,12 @@ public class InfoSubMenu extends SubMenu {
 
     @Override
     public void processHover (int x, int y) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void update (Observable o, Object arg) {
         // TODO Auto-generated method stub
         
     }

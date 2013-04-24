@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Observable;
 import vooga.rts.commands.InformationCommand;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gui.Button;
@@ -79,20 +80,20 @@ public class ActionsSubMenu extends SubMenu {
         Iterator<InformationCommand> i = mySelectedEntity.getCommands().iterator();
         int k = 0;
         while (i.hasNext()) {
-            Information info = i.next().getInfo();
-            BufferedImage image = info.getButtonImage();
+            InformationCommand command = i.next();
             ActionButton b;
-            if (image == null) {
+            if (command.getInfo().getButtonImage() == null) {
                 b =
                         new ActionButton(ACTION_IMAGE_URL, ACTION_BUTTON_DIMENSION,
-                                        myActionButtonLocations[k], info);
+                                        myActionButtonLocations[k], command);
             }
             else {
                 b =
-                        new ActionButton(info.getButtonImage(), ACTION_BUTTON_DIMENSION,
-                                        myActionButtonLocations[k], info);
+                        new ActionButton(command, ACTION_BUTTON_DIMENSION,
+                                        myActionButtonLocations[k]);
             }
             myActionButtons.add(b);
+            b.addObserver(this);
             k++;
         }
     }
@@ -121,6 +122,15 @@ public class ActionsSubMenu extends SubMenu {
     public void setSelectedEntity (InteractiveEntity i) {
         mySelectedEntity = i;
         updateActionButtons();
+    }
+
+    @Override
+    public void update (Observable o, Object a) {
+        if (a instanceof InformationCommand) {
+            InformationCommand b = (InformationCommand) a;
+            setChanged();
+            notifyObservers(b);
+        }
     }
 
 
