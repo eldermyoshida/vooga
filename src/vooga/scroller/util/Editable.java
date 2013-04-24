@@ -24,6 +24,6 @@ public interface Editable {
 
     public void addStartPoint (int x, int y);
 
-    public void addDoor (int x, int y);
+    public void addDoor (Sprite s, int x, int y);
     
 }

@@ -22,9 +22,7 @@ import vooga.scroller.util.Sprite;
 public interface ILevelEditor {
     
 
-    public static final int START_ID = -1;
-    
-    public static final int END_ID = -2;
+    public static final int START_ID = 0;
 
     /**
      * This is the generalized method call for a client to send a LevelEditor

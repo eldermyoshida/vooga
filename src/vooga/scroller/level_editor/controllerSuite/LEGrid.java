@@ -21,6 +21,7 @@ import vooga.scroller.level_editor.view.LEGridView;
 import vooga.scroller.level_management.ExamplePortal;
 import vooga.scroller.scrollingmanager.OmniScrollingManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
+import vooga.scroller.sprites.interfaces.IDoor;
 import vooga.scroller.util.Editable;
 import vooga.scroller.util.IBackgroundView;
 import vooga.scroller.util.Renderable;
@@ -40,7 +41,7 @@ public class LEGrid implements Editable, Renderable<LEGridView>, Scrollable {
     private Dimension mySize;
     private Set<SpriteBox> myPaintableBoxes;
     private StartPoint myStartPoint;
-    private ExamplePortal myMainDoor; // TODO - eventually support multiple doors
+    private Sprite myDoor; 
     private IBackgroundView myBackground;
 
     public LEGrid (int numWidthBlocks, int numHeightBlocks) {
@@ -85,7 +86,7 @@ public class LEGrid implements Editable, Renderable<LEGridView>, Scrollable {
         addToBox(spr, currentBox);
     }
 
-    public void addSpriteToBox (int xcoor, int ycoor, Sprite sprite) {
+    public void addSpriteWithCoor (int xcoor, int ycoor, Sprite sprite) {
         addToBox(sprite, getBoxFromCoor(xcoor, ycoor));
     }
 
@@ -230,7 +231,7 @@ public class LEGrid implements Editable, Renderable<LEGridView>, Scrollable {
 
     public boolean isValidForSimulation () {
         // TODO Check for valid starting and exit points.
-        return (myStartPoint != null && myMainDoor != null);
+        return (myStartPoint != null && myDoor != null);
     }
 
     @Override
@@ -252,20 +253,20 @@ public class LEGrid implements Editable, Renderable<LEGridView>, Scrollable {
     }
 
     @Override
-    public void addDoor (int x, int y) {
+    public void addDoor (Sprite s, int x, int y) {
         // TODO Auto-generated method stub
-        if (myMainDoor == null) {
-            myMainDoor = new ExamplePortal();
+        if (myDoor == null) {
+            myDoor = s;
         }
         else {
-            deleteSprite((int) myMainDoor.getX(), (int) myMainDoor.getY());
+            deleteSprite((int) myDoor.getX(), (int) myDoor.getY());
         }
-        addSprite(myMainDoor, x, y);
+        addSprite(myDoor, x, y);
     }
 
     public Location removePortal () {
-        if (myMainDoor == null) { return DEFAULT_END_LOC; }
-        Location center = myMainDoor.getCenter();
+        if (myDoor == null) { return DEFAULT_END_LOC; }
+        Location center = myDoor.getCenter();
         deleteSprite((int) center.getX(), (int) center.getY());
         return center;
     }

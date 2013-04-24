@@ -33,7 +33,7 @@ public class ToolsManager {
 
     private void setTools () {
 
-        int i = 0;
+        int i = 1;
         mySpriteMap = new HashMap<Integer, Sprite>();
         myViewTools = new LETools();
         myViewTools.addBackgrounds(myBackgroundLib.getBackgrounds());
@@ -53,8 +53,6 @@ public class ToolsManager {
         }
         sprite = new StartPoint();
         setupTool(ILevelEditor.START_ID, sprite);
-        sprite = new ExamplePortal();
-        setupTool(ILevelEditor.END_ID, sprite);
     }
 
     private void setupTool (int i, Sprite sprite) {
