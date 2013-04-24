@@ -3,6 +3,7 @@ import vooga.towerdefense.controller.Controller;
 import vooga.towerdefense.model.GameLoop;
 import arcade.games.ArcadeInteraction;
 import arcade.games.Game;
+import arcade.games.GameData;
 import arcade.games.UserGameData;
 
 /**
@@ -34,6 +35,12 @@ public class TowerDefenseGame extends Game {
     public void run () {
         GameLoop game = new GameLoop(new Controller("English"));
         game.start();
+    }
+
+    @Override
+    public GameData generateNewGameProfile () {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }
