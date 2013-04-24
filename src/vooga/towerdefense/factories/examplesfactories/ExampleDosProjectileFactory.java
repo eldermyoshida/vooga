@@ -21,6 +21,7 @@ import vooga.towerdefense.util.Location;
  * 
  * Example projectile that moves towards targets.
  * Actions and attributes are manually defined here.
+ * Used for testing actions only.
  * 
  * @author Matthew Roy
  * @edited Xu Rui
@@ -31,8 +32,8 @@ public class ExampleDosProjectileFactory extends GameElementFactory {
     private GameElementDefinition def;
     private AttributeManager AM;
     
-    public ExampleDosProjectileFactory(){
-    	super();
+    public ExampleDosProjectileFactory(String name, GameElementDefinition definition){
+    	super(name, definition);
         def = new ProjectileDefinition();
         AM = getDefaultAM();
     }
@@ -84,8 +85,8 @@ public class ExampleDosProjectileFactory extends GameElementFactory {
     public List<Action> createActions(GameElement element) {
         ArrayList<Action> actions = new ArrayList<Action>();
         actions.add(new Move(element.getCenter(), element.getAttributeManager()
-                .getAttribute(AttributeConstantsEnum.MOVE_SPEED), element.getAttributeManager()
-                 .getAttribute(AttributeConstantsEnum.DIRECTION)));
+                .getAttribute(AttributeConstants.MOVE_SPEED), element.getAttributeManager()
+                 .getAttribute(AttributeConstants.DIRECTION)));
         return actions;
     }
 

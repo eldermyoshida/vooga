@@ -3,7 +3,7 @@ package vooga.towerdefense.model;
 import java.util.HashSet;
 
 import vooga.towerdefense.attributes.Attribute;
-import vooga.towerdefense.attributes.AttributeConstantsEnum;
+import vooga.towerdefense.attributes.AttributeConstants;
 import vooga.towerdefense.attributes.AttributeManager;
 
 public class Player {
@@ -12,9 +12,9 @@ public class Player {
 	
 	public Player() {
 		myAttributeManager = new AttributeManager();
-		myAttributeManager.addAttribute(new Attribute(AttributeConstants(HEALTH), 100D));
-		myAttributeManager.addAttribute(new Attribute(AttributeConstantsEnum.SCORE, 0D));
-		myAttributeManager.addAttribute(new Attribute(AttributeConstantsEnum.MONEY, 1000D));
+		myAttributeManager.addAttribute(new Attribute(AttributeConstants.HEALTH, 100D));
+		myAttributeManager.addAttribute(new Attribute(AttributeConstants.SCORE, 0D));
+		myAttributeManager.addAttribute(new Attribute(AttributeConstants.MONEY, 1000D));
 	}
 
 	public Player(HashSet<Attribute> attributes) {
