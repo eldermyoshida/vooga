@@ -12,6 +12,10 @@ or subclassing GameManager, which is encompassed the entire code framework, abov
 <p>
 To use our framework to create a game, a Game Developer would only need to subclass a controller, add that controller to the FightingManifesto file. Inside the subclassed controller, the developer would define his/her winning conditions, special conditions, and inputs. Of course, if the developer wanted to add inputs, he would add the inputs in the input file mapping. 
 
+<p>
+In order to extend the display elements, a game developer would need to extend the HUDElement class AND override the update method (See an existing element for assistance). The new class can then be used in HUDVariable as a HUDClassName.
+HUDFactory should be passed the package name of the extended HUDElements and will find both HUDElements in the package and the default vooga package. 
+
 
 <!-- Fill this in with your high-level design and API examples -->
 
