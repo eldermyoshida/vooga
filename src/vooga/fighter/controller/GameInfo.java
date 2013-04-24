@@ -112,7 +112,6 @@ public class GameInfo extends UserGameData{
     /**
      * Return list of (double) scores
      */
-    @Override
     public List<Double> getScores() {
         List<Double> myArcadeScores = new ArrayList<Double>();
         for(Integer i : myScores){
