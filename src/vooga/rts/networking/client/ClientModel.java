@@ -146,7 +146,9 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
                                            new ActionListener() {
                                                @Override
                                                public void actionPerformed (ActionEvent arg0) {
-                                                   startLobby(myCreateLobbyView.getLobbyInfo());
+                                                   if (myCreateLobbyView.allItemsChosen()) {
+                                                       startLobby(myCreateLobbyView.getLobbyInfo());
+                                                   }
                                                }
                                            });
     }
@@ -176,7 +178,9 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
                                            new ActionListener() {
                                                @Override
                                                public void actionPerformed (ActionEvent arg0) {
-                                                   startGame();
+                                                   if (myLobbyInfo.canStartGame()) {
+                                                       startGame(); 
+                                                   }
                                                }
                                            });
     }

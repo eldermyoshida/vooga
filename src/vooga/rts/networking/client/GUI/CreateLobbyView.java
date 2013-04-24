@@ -70,6 +70,12 @@ public class CreateLobbyView extends JPanel {
 
         return innerPanel;
     }
+    
+    public boolean allItemsChosen () {
+        return myMaxPlayersComboBox.getSelectedIndex() != -1 &&
+                myMapComboBox.getSelectedIndex() != -1 &&
+                myServerField.getText() != "";
+    }
 
     public LobbyInfo getLobbyInfo () {
         return new LobbyInfo(myServerField.getText(),      
