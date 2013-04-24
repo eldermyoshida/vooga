@@ -98,16 +98,12 @@ public class LETools extends Tools implements Renderable<LEToolsView> {
         }
         else if (StartPoint.class.isAssignableFrom(s.getClass()) ||
                 LevelPortal.class.isAssignableFrom(s.getClass())) {
-            mySpritesOptions.get(SPECIALPOINTS).put(getIcon(s), spriteID + "");
+            mySpritesOptions.get(SPECIALPOINTS).put(getIcon(s), -spriteID + "");
         }
-//        else {
-//            mySpritesOptions.get(OTHERS).put(getIcon(s), spriteID + "");
-//        }
+        else {
+            mySpritesOptions.get(OTHERS).put(getIcon(s), spriteID + "");
+        }
     }
-
-    // public Map<Object, String> getOtherOptions() {
-    // return myOtherIcons;
-    // }
 
     /**
      * 
@@ -148,13 +144,5 @@ public class LETools extends Tools implements Renderable<LEToolsView> {
             myBackgroundImages.put(getIcon(map.get(key).getImage(), DEFAULT_BG_SIZE), "" + key);
         }
     }
-
-    // public void addBackgrounds (Map<Integer, Image> map) {
-    // for (Integer key : map.keySet()) {
-    // myBackgroundImages
-    // .put(new ImageIcon(map.get(key).getScaledInstance(100, 100, Image.SCALE_SMOOTH)),
-    // "" + key);
-    // }
-    // }
 
 }

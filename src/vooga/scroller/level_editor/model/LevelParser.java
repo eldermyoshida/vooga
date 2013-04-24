@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Scanner;
 import util.Location;
 import vooga.scroller.level_editor.controllerSuite.LEGrid;
+import vooga.scroller.level_management.LevelPortal;
 import vooga.scroller.util.IBackgroundView;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.Sprite;
@@ -27,11 +28,10 @@ public class LevelParser {
     private Map<Character, String> myCharacterMap;
     private List<String> myLevelStrings;
     private Location myStartPoint;
-    private static final String END_POINT = "EndPoint";
     private static final String BACKGROUND = "Background";
-    private Location myEndPoint;
     private String myLibPath;
     private IBackgroundView myBackground;
+
     /**
      * Initialize instances variables.
      */
@@ -54,17 +54,15 @@ public class LevelParser {
         myLibPath = parseLibPath();
         myCharacterMap = parseKey();
         myStartPoint = parseStartPoint();
-        myEndPoint = parseEndPoint();
         myBackground = parseBackground();
         return createGrid();
     }
 
-
     private String parseLibPath () {
-        String result="";
+        String result = "";
         String line = myScanner.nextLine();
         while (!line.equals(BEGIN_KEY)) {
-            result=line;
+            result = line;
             line = myScanner.nextLine();
         }
         return result;
@@ -93,21 +91,13 @@ public class LevelParser {
     }
 
     private Location parseStartPoint () {
-        return parseSpecialPoint(START_POINT);
-    }
-
-    private Location parseEndPoint () {
-        return parseSpecialPoint(END_POINT);
-    }
-
-    private Location parseSpecialPoint (String pointName) {
         String line = myScanner.nextLine();
-        line = line.substring(pointName.length() + 1);
+        line = line.substring(START_POINT.length() + 1);
         String[] splitLine = line.split(String.valueOf(SPACE));
         return new Location(Integer.parseInt(splitLine[0]),
                             Integer.parseInt(splitLine[1]));
     }
-    
+
     private IBackgroundView parseBackground () {
         String line = myScanner.nextLine();
         line = line.substring(BACKGROUND.length() + 1);
@@ -124,13 +114,18 @@ public class LevelParser {
                 System.out.println(c);
                 if (c != SPACE) {
                     String name = myCharacterMap.get(c);
-                    
+
                     Sprite spr;
                     try {
-                        spr = (Sprite) Class.forName(myLibPath+"$"+name).newInstance();
+                        spr = (Sprite) Class.forName(myLibPath + "$" + name).newInstance();
                         System.out.println(name);
                         System.out.println(spr);
-                        grid.addSpriteWithCoor(j, i-1, spr);
+                        if (spr instanceof LevelPortal) {
+                            grid.addDoorWithCoor(j, i - 1, spr);
+                        }
+                        else {
+                            grid.addSpriteWithCoor(j, i - 1, spr);
+                        }
                     }
                     catch (InstantiationException e) {
                         // TODO Auto-generated catch block
@@ -143,12 +138,11 @@ public class LevelParser {
                     catch (ClassNotFoundException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
-                    }//myNameMap.get(name).copy();
+                    }// myNameMap.get(name).copy();
                 }
             }
         }
         grid.addStartPoint((int) myStartPoint.getX(), (int) myStartPoint.getY());
-        grid.addDoor((int) myEndPoint.getX(), (int) myEndPoint.getY());
         grid.changeBackground(myBackground);
         return grid;
     }
