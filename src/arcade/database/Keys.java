@@ -39,7 +39,6 @@ public interface Keys {
     static final String GAM_SINGLEPLAYER_COLUMN_FIELD = "singleplayer";
     static final String GAM_MULTIPLAYER_COLUMN_FIELD = "multiplayer";
     static final String GAM_DESCRIPTION_COLUMN_FIELD = "description";
-    static final String GAM_GAMEFILEPATH_COLUMN_FIELD = "gamefilepath";
     static final String GAM_GAMEID_COLUMN_FIELD = "gameid";  
     
     static final int GAM_GAMENAME_COLUMN_INDEX = 1;
@@ -54,8 +53,7 @@ public interface Keys {
     static final int GAM_SINGLEPLAYER_COLUMN_INDEX = 10;
     static final int GAM_MULTIPLAYER_COLUMN_INDEX = 11;
     static final int GAM_DESCRIPTION_COLUMN_INDEX = 12;
-    static final int GAM_GAMEFILEPATH_COLUMN_INDEX = 13;
-    static final int GAM_GAMEID_COLUMN_INDEX = 14;
+    static final int GAM_GAMEID_COLUMN_INDEX = 13;
     
     //keys for score table
     static final String SCORE_TABLE_NAME = "score";

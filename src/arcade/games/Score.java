@@ -1,6 +1,5 @@
 package arcade.games;
 
-
 /**
  * Data structure for representing a score in the view. Instantiated by the Database and
  * is read only.

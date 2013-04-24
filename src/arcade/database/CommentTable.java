@@ -35,7 +35,7 @@ public class CommentTable extends Table {
      */
     public void addNewComment (String gameid, String userid, String comment) {
         
-        String stm = "INSERT INTO scores(gameid, userid, comment) VALUES (?, ?, ?)";
+        String stm = "INSERT INTO comments(gameid, userid, commentfield) VALUES (?, ?, ?)";
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
             myPreparedStatement.setString(Keys.COM_GAMEID_COLUMN_INDEX, gameid);
@@ -44,6 +44,7 @@ public class CommentTable extends Table {
             myPreparedStatement.executeUpdate();
         }
         catch (SQLException e) {
+            e.printStackTrace();
             writeErrorMessage("Error adding new comment for this game in " +
                     "CommentTable.java @ Line 53");
         }
@@ -57,7 +58,7 @@ public class CommentTable extends Table {
      */
     public void addNewRating (String gameid, String userid, double rating) {
         
-        String stm = "INSERT INTO scores(gameid, userid, comment, ratings) VALUES (?, ?, ?, ?)";
+        String stm = "INSERT INTO comments(gameid, userid, commentfield, rating) VALUES (?, ?, ?, ?)";
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
             myPreparedStatement.setString(Keys.COM_GAMEID_COLUMN_INDEX, gameid);
@@ -73,7 +74,7 @@ public class CommentTable extends Table {
     }
     
     public double getAverageRating (String gameid) {
-        String stm = "SELECT ratings FROM score WHERE gameid='" + gameid + "'";
+        String stm = "SELECT rating FROM score WHERE gameid='" + gameid + "'";
         List<Double> ratings = new ArrayList<Double>();
         try {
             myResultSet = executeQuery(stm);
@@ -101,7 +102,7 @@ public class CommentTable extends Table {
      * @param gameid is game id
      */
     public List<String> getAllCommentsForGame(String gameid) {
-        String stm = "SELECT gameid FROM scores WHERE gameid='" + gameid + "'";
+        String stm = "SELECT * FROM comments WHERE gameid='" + gameid + "'";
         List<String> comments = new ArrayList<String>();
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
