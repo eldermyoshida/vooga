@@ -28,15 +28,12 @@ import arcade.model.payment.PaymentManager;
 import arcade.model.social.TwitterConnection;
 import arcade.view.MainView;
 import arcade.view.forms.LoginView;
-
+import util.FilePathFormatter;
 
 public class Model implements ArcadeInteraction {
 
     private static final String PAYMENT_MANAGER_LOCATION = "arcade.model.payment.";
     public static final String DEFAULT_LOGIN_MESSAGE = "";
-    private static final String LOGIN_FAILURE_MESSAGE =
-            "The username or password you entered is incorrect";
-    private static final String REGISTER_FAILURE_MESSAGE = "That username is already taken.";
     private ResourceBundle myResources;
     private LoginView myLoginView;
     private String myLanguage;

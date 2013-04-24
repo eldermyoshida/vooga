@@ -37,14 +37,13 @@ public class Controller implements ArcadeInteraction {
 		
 		// Messages
 		public static final String DEFAULT_LOGIN_MESSAGE = "";
-		private static final String LOGIN_FAILURE_MESSAGE = "The username or password you entered is incorrect";
-		private static final String REGISTER_FAILURE_MESSAGE = "That username is already taken.";
 		
 		// Status parameterrs
 		private static final String NO_USER_IMAGE = "";
 		
 		// View
 		private LoginView myLoginView;
+		private MainView myView;
 		
 		// Resource
 		private ResourceBundle myResources;
@@ -92,7 +91,7 @@ public class Controller implements ArcadeInteraction {
 		myLoginView.dispose();
 		currentUser = username;
 		organizeSnapshots();
-		new MainView(this, myResources);
+		myView = new MainView(this, myResources);
 	}
 	
 	
@@ -343,9 +342,7 @@ public class Controller implements ArcadeInteraction {
 
 	@Override
 	public void killGame() {
-		// save the usergamedata and game data if applicable, and return to
-		// detail screen
-
+	    myView.showEndGameView();
 	}
 
 	@Override
