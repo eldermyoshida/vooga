@@ -1,6 +1,7 @@
 package vooga.rts.gamedesign.upgrades;
 
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
+import vooga.rts.util.ReflectionHelper;
 
 /**
 *
@@ -25,7 +26,7 @@ public class AttackCoolDownUpgradeNode extends UpgradeNode {
      */
     @Override
     public void upgrade (InteractiveEntity requester) {
-    	getReflectionHelper().setValue("myCoolDownTime",
+    	ReflectionHelper.setValue("myCoolDownTime",
     			requester.getAttackStrategy().getCurrentWeapon(),
     			getUpgradeValue());
     	

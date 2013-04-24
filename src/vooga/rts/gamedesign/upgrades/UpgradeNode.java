@@ -27,7 +27,6 @@ public class UpgradeNode {
     private int myUpgradeValue;
     private boolean myHasBeenUpgraded;
     private List<UpgradeNode> myChildren;
-    private ReflectionHelper myReflectionHelper;
 
     public UpgradeNode () {
         this(null, null, 0, 0);
@@ -44,8 +43,7 @@ public class UpgradeNode {
         myHasBeenUpgraded = false;
         myUpgradeValue = upgradeValue;
         myCost = new HashMap<String, Integer>();
-        myCost.put("resource", costedResourceAmount); // TODO: Deal with cost
-        myReflectionHelper = new ReflectionHelper();
+        myCost.put("resource", costedResourceAmount);
     }
     
     /**
@@ -153,13 +151,5 @@ public class UpgradeNode {
     public Map<String, Integer> getCost () {
         return myCost;
     }
-    
-    /**
-     * Returns the reflection helper that aids the activation process.
-     * 
-     * @return the reflection helper
-     */
-    public ReflectionHelper getReflectionHelper(){
-    	return myReflectionHelper;
-    }
+
 }

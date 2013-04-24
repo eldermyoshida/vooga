@@ -1,6 +1,7 @@
 package vooga.rts.gamedesign.upgrades;
 
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
+import vooga.rts.util.ReflectionHelper;
 
 /**
 *
@@ -26,7 +27,7 @@ public class SpeedUpgradeNode extends UpgradeNode {
      */
     @Override
     public void upgrade (InteractiveEntity requester) {
-    	getReflectionHelper().changeValue("mySpeed",
+    	ReflectionHelper.changeValue("mySpeed",
     			requester,
     			getUpgradeValue());
     	
