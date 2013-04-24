@@ -12,6 +12,8 @@ import java.util.Map;
 import util.input.Input;
 import vooga.fighter.view.Canvas;
 /**
+ * Handles switching controllers. Uses ControllerFactory and 
+ * ControlProgressionManager
  * 
  * @author Jack Matteucci
  * @author Jerry Li
@@ -29,6 +31,13 @@ public class ControllerManager implements ControllerDelegate{
 	private static final String INPUT_PATHWAY = "vooga.fighter.config.menudefault";
 	private Input myInput;
 	
+	/**
+	 * Constructs a ControllerManager
+	 * @param frame        Canvas
+	 * @param gameinfo     GameInfo
+	 * @param factory      Factory
+	 * @param progressionmanager   ControlProgressionManager(Handles logic of switching)
+	 */
 	public ControllerManager(Canvas frame, GameInfo gameinfo, ControllerFactory factory,
 			ControlProgressionManager progressionmanager) {
 		myCanvas = frame;
@@ -42,14 +51,24 @@ public class ControllerManager implements ControllerDelegate{
 		myCurrentController = myCurrentController.getController(name, frame, this, gameinfo);
 	}
 	
+	/**
+	 * Starts current controller
+	 */
 	public void run(){
 		myCurrentController.start();
 	}
 	
+	/**
+	 * the implemented ControllerDelegate method
+	 */
 	public void notifyEndCondition(String string) {
 		switchController(string);
 	}
-
+	
+	/**
+	 * Switches controllers
+	 * @param condition    the controller name
+	 */
 	private void switchController(String condition) {
 		myCurrentController.stop();
 		myCurrentController = myProgressionManager.getNextController(condition);
@@ -59,11 +78,17 @@ public class ControllerManager implements ControllerDelegate{
 		myCurrentController = myCurrentController.getController(name, myCanvas, this, myGameInfo);
 		myCurrentController.start();	
 	}      
-
+	
+	/**
+	 * Exits game
+	 */
 	public void exit(){
 		System.exit(0);
 	}
 	
+	/**
+	 * Returns input
+	 */
 	public Input getInput() {
 	    return myInput;
 	}

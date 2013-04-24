@@ -1,16 +1,10 @@
 package vooga.fighter.controller;
-import java.awt.Dimension;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Observable;
-import util.Location;
 import vooga.fighter.model.LevelMode;
 import vooga.fighter.model.Mode;
 import vooga.fighter.model.utils.Health;
-import vooga.fighter.model.utils.ImageDataObject;
 import vooga.fighter.util.HUDVariable;
-import vooga.fighter.util.Paintable;
-import util.*;
 
 
 /**     
@@ -56,7 +50,11 @@ public class GameLoopInfo extends DisplayLoopInfo implements ViewDataSource{
                  HUDElementClass = "PlayerScoreAndHealth"
             )
     private PlayerStatus Player4Status;
-
+    
+    /**
+     * Constructs gameloopinfo with levelmode
+     * @param mode
+     */
     public GameLoopInfo(LevelMode mode) {
     	super(mode);
     	myLevelMode = mode;
@@ -68,11 +66,19 @@ public class GameLoopInfo extends DisplayLoopInfo implements ViewDataSource{
         initializePlayers();
     }
     
+    /**
+     * Returns mode
+     */
     @Override
     public Mode getMode() {
         return myLevelMode;
     }
     
+    /**
+     * Initialize player statuses to be displayed.
+     * Because of how display is painted in view, method is a little messy.
+     * Had to work with what we have. 
+     */
     public void initializePlayers() {
           if (myNumberPlayers == 1) {
               Player1Status = new PlayerStatus();
@@ -105,6 +111,9 @@ public class GameLoopInfo extends DisplayLoopInfo implements ViewDataSource{
           addHUDElements();
     }
     
+    /**
+     * Update stats and displays
+     */
     @Override
     public void update() {
         super.update();
@@ -114,7 +123,10 @@ public class GameLoopInfo extends DisplayLoopInfo implements ViewDataSource{
     }
     
     
-    
+    /**
+     * update the stats by getting information from 
+     * mode
+     */
     public void updateStats() {
         LevelMode currentMode = (LevelMode) getMode();
         myHealthStats = currentMode.getHealthStats();
@@ -130,7 +142,12 @@ public class GameLoopInfo extends DisplayLoopInfo implements ViewDataSource{
         return myHealthStats.get(index);
     }
 
-
+    
+    /**
+     * Return double score at index
+     * @param index     index
+     * @return          
+     */
     public Double getScore(int index) {
         return myScores.get(index);
     }
@@ -138,6 +155,7 @@ public class GameLoopInfo extends DisplayLoopInfo implements ViewDataSource{
    
 
     /**
+     * Returns list of health
      * @return the myHealthStats
      */
     public List<Health> getHealthStats() {
@@ -145,22 +163,25 @@ public class GameLoopInfo extends DisplayLoopInfo implements ViewDataSource{
     }
 
     /**
+     * Sets list of health
      * @param myHealthStats the myHealthStats to set
      */
     public void setHealthStats(List<Health> healthStats) {
         myHealthStats = healthStats;
     }
-
+    
+    /**
+     * Sets health at index
+     * @param index     index
+     * @param heal      health
+     */
     public void setHealthStat(int index, Health heal) {
         myHealthStats.set(index, heal);
     }
 
     /**
-     * @return the myImageSizes
-     */
-
-    /**
-     * 
+     * Sets scores
+     * @param scores
      */
     public void setScores(List<Double> scores) {
         myScores = scores;
@@ -168,14 +189,16 @@ public class GameLoopInfo extends DisplayLoopInfo implements ViewDataSource{
 
 
     /**
-     * 
+     * Set score at index
+     * @param index     index
+     * @param score     double score
      */
     public void setScore(int index, double score) {
         myScores.set(index, score);
     }
 
     /**
-     * 
+     * Return double scores;
      * @return
      */
     public List<Double> getScores() {

@@ -16,7 +16,11 @@ import java.util.ResourceBundle;
 import vooga.fighter.view.Canvas;
 
 /**
- * 
+ * Uses reflection to construct controllers from a 
+ * .properties file. After subclassing a controller, a dev
+ * just needs to add the subclass class name and the name of the controller
+ * to FightingManifesto.properties. 
+ *  
  * @author Jack Matteucci
  * @author Jerry Li
  *
