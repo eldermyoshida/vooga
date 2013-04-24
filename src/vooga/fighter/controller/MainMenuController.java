@@ -28,15 +28,15 @@ public class MainMenuController extends MenuController {
     public MainMenuController () {
         super();
     }
-/**
- * Concrete constructor, used when controller is switched to 
- * @param name      name of controller
- * @param frame     canvas
- * @param manager   ControllerManager
- * @param gameinfo  GameInfo
- */
+    /**
+     * Concrete constructor, used when controller is switched to 
+     * @param name      name of controller
+     * @param frame     canvas
+     * @param manager   ControllerManager
+     * @param gameinfo  GameInfo
+     */
     public MainMenuController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo,
-    		String pathway) {
+                              String pathway) {
         super(name, frame, manager, gameinfo, pathway);
 
         getGameInfo().reset();
@@ -44,11 +44,11 @@ public class MainMenuController extends MenuController {
         getInput().addListenerTo(this);
     }
 
-/**
- * Returns concrete controller, used when controller is switched to
- */
+    /**
+     * Returns concrete controller, used when controller is switched to
+     */
     public Controller getController(String name, Canvas frame, ControllerDelegate manager, 
-    		GameInfo gameinfo, String pathway) {
+                                    GameInfo gameinfo, String pathway) {
         return new MainMenuController(name, frame, manager, gameinfo, pathway);
     }
 

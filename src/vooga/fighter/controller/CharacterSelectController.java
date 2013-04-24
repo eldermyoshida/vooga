@@ -1,23 +1,11 @@
 package vooga.fighter.controller;
 
-import util.Location;
-import util.input.AlertObject;
 import util.input.Input;
-import util.input.InputClassTarget;
-import util.input.InputMethodTarget;
-import util.input.PositionObject;
 import vooga.fighter.controller.Controller;
 import vooga.fighter.controller.ControllerDelegate;
 import vooga.fighter.controller.GameInfo;
-import vooga.fighter.controller.OneVOneController;
-import vooga.fighter.model.*;
-import vooga.fighter.model.objects.MouseClickObject;
-import vooga.fighter.util.Paintable;
 import vooga.fighter.view.Canvas;
 
-import java.awt.Dimension;
-import java.util.List;
-import java.util.ResourceBundle;
 
 
 /**
@@ -39,7 +27,7 @@ public class CharacterSelectController extends MenuController {
     public CharacterSelectController () {
         super();
     }
-    
+
     /**
      * Concrete Constructor, two constructors used for reflection purposes
      * @param name      Name of controller
@@ -53,12 +41,12 @@ public class CharacterSelectController extends MenuController {
         myCharLimit = getGameInfo().getNumCharacters();
         myCharIndex = 0;
     }
-    
+
     /**
      * returns concrete controller
      */
     public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo,
-    		String filepath) {
+                                    String filepath) {
         Controller controller = new CharacterSelectController(name, frame, manager, gameinfo, filepath);
         return controller;
     }
@@ -70,13 +58,12 @@ public class CharacterSelectController extends MenuController {
         getGameInfo().addCharacters(choice);
         getMode().resetChoice();
         myCharIndex ++;
-        System.out.println("character selected");
         if(myCharIndex >= myCharLimit){
             removeListener();
             getManager().notifyEndCondition(getMode().getMenusNext(choice));
         }
     } 
-    
+
     /**
      * Removes input listener
      */
@@ -84,7 +71,7 @@ public class CharacterSelectController extends MenuController {
         super.removeListener();
         getInput().removeListener(this);
     }
-    
+
     /**
      * Checks conditions
      */

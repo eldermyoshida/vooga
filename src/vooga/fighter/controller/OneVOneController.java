@@ -19,11 +19,12 @@ import vooga.fighter.view.FourPlayerMatchGameLayout;
 
 
 /**
+ * A 1v1 fighting game instance
  * 
  * @author Jerry Li
- * 
  * @author by Jack Matteucci
  * 
+ * Great class to reference when subclasing level controller 
  */
 @InputClassTarget
 public class OneVOneController extends LevelController {
@@ -34,11 +35,22 @@ public class OneVOneController extends LevelController {
     private String myScorePathway;
     private List<Force> myForces;
     private ResourceBundle myResources;
-    
+
+    /**
+     * Initial constructor
+     */
     public OneVOneController () {
         super();
     }   
-	
+
+    /**
+     * Concrete constructor
+     * @param name      name of controller
+     * @param frame     frame
+     * @param manager   ControllerManager
+     * @param gameinfo  GameInfo
+     * @param filepath  FilePath
+     */
     public OneVOneController(String name, Canvas frame, ControllerDelegate manager, 
     		GameInfo gameinfo, String filepath) {
     	super(name, frame, manager, gameinfo, filepath);
@@ -51,7 +63,11 @@ public class OneVOneController extends LevelController {
     	frame.setLayout(new FourPlayerMatchGameLayout());
     	setSumOfForces(myForces);
     }
-    
+
+    /**
+     * Set sum of forces acting upon objects
+     * @param forces
+     */
     public void setSumOfForces(List<Force> forces) {
         Vector sum = new Vector();
         for (Force force : forces) {
@@ -61,87 +77,100 @@ public class OneVOneController extends LevelController {
             character.setAppliedForces(sum);
         }
     }
-    
+
+    /**
+     * Return concrete controller
+     */
     public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo,
-    		String filepath) {
+                                    String filepath) {
         Controller controller = new OneVOneController(name, frame, manager, gameinfo, filepath);
         return controller;
     }
-    
-   
 
+
+    /**
+     * notify delegate of condition
+     */
     public void notifyEndCondition (String endCondition) {
     	removeListener();
     	getManager().notifyEndCondition(myResources.getString(SCORE));
     }
-    
+
+
+    /**
+     * Details movement inputs
+     * @param alObj
+     */
     @InputMethodTarget(name = "player1_jump")
     public void playerOneJumpInput (AlertObject alObj)  {
         getInputObjects().get(0).jump();
     }
-    
+
     @InputMethodTarget(name = "player1_left")
     public void playerOneLeftInput (AlertObject alObj) {
         getInputObjects().get(0).move(180);
-        
+
     }
-    
+
     @InputMethodTarget(name = "player1_right")
     public void playerOneRightInput(AlertObject alObj) {
         getInputObjects().get(0).move(0);
-        
+
     }
-    
-    @InputMethodTarget(name = "player1_down")
-    public void playerOneDownInput(AlertObject alObj) {
-        getInputObjects().get(0).move(90);
-        
-    }
-    
+
+    //    @InputMethodTarget(name = "player1_down")
+    //    public void playerOneDownInput(AlertObject alObj) {
+    //        getInputObjects().get(0).move(90);
+    //        
+    //    }
+
     @InputMethodTarget(name = "player2_jump")
     public void playerTwoJumpInput (AlertObject alObj)  {
         getInputObjects().get(1).move(270);
     }
-    
+
     @InputMethodTarget(name = "player2_left")
     public void playerTwoLeftInput (AlertObject alObj) {
         getInputObjects().get(1).move(180);
-       
+
     }
-    
+
     @InputMethodTarget(name = "player2_right")
     public void playerTwoRightInput(AlertObject alObj) {
         getInputObjects().get(1).move(0);
-        
+
     }
-    
-    @InputMethodTarget(name = "player2_down")
-    public void playerTwoDownInput(AlertObject alObj) {
-        getInputObjects().get(1).move(90);
-        
-    }
-    
+
+    //    @InputMethodTarget(name = "player2_down")
+    //    public void playerTwoDownInput(AlertObject alObj) {
+    //        getInputObjects().get(1).move(90);
+    //        
+    //    }
+
     @InputMethodTarget(name = "player1_attack")
     public void playerOneAttackInput(AlertObject alObj) {
         AttackObject newAttack = getInputObjects().get(0).attack("weakPunch");
         getMode().addObject(newAttack);
     }
-    
+
     @InputMethodTarget(name = "player2_attack")
     public void playerTwoAttacknput(AlertObject alObj) {
-    	getInputObjects().get(1).attack("weakPunch");
+        getInputObjects().get(1).attack("weakPunch");
     }
-    
+
     @InputMethodTarget(name = "continue")
     public void mouseclick(PositionObject pos)  {
-    	//This is a test
-    	getInputObjects().get(1).changeHealth(-10);
+        //This is a test
+        getInputObjects().get(1).changeHealth(-10);
     }
-    
+
+    /**
+     * Removes listener
+     */
     public void removeListener(){
-    	super.removeListener();
-    	getInput().removeListener(this);
+        super.removeListener();
+        getInput().removeListener(this);
     }
-    
-    
+
+
 }

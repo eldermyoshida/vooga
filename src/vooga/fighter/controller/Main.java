@@ -19,7 +19,9 @@ public class Main extends JFrame
      */
     public static void main (String args[])
     {
+
         GameManagerRunAlone control = new GameManagerRunAlone();
+
         control.run();
     }
 }

@@ -23,7 +23,6 @@ public class MapWriter {
 	private MapObject myWriteSource;
 	private XMLTool myXMLWriter;
 	private Element myRoot;
-	//sound in maps has not yet been implemented
 	private String mySoundFilePath;
 	private List<String> myBackgroundFilePaths;
     private String myFilePath;
