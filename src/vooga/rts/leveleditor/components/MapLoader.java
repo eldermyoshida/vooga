@@ -33,8 +33,8 @@ public class MapLoader {
     private Map<Integer, String> myTerrainImageName;
     private Map<Integer, String> myResourceImageName;
     
-    private Map<Integer,BufferedImage> myTileImage;
-    private Map<Integer,BufferedImage> myTerrainImage;
+    private Map<Integer, BufferedImage> myTileImage;
+    private Map<Integer, BufferedImage> myTerrainImage;
     private Map<Integer, BufferedImage> myResourceImage;
     
     private Map<Integer, String> myTerrainWalkAbility;
@@ -46,7 +46,7 @@ public class MapLoader {
 
     /**
      * constructor 
-     * @throws ParserConfigurationException
+     * @throws ParserConfigurationException exception
      */
     public MapLoader() throws ParserConfigurationException {
         
@@ -113,7 +113,7 @@ public class MapLoader {
         myMap.setMyMapName(descriptionNode.getTextContent());
     
         NodeList playerList = root.getElementsByTagName("Player");
-        for (int i = 0 ; i < playerList.getLength() ; i++ ) {
+        for (int i = 0; i < playerList.getLength(); i++) {
             Node playerNode = playerList.item(i);
             NamedNodeMap attributes = playerNode.getAttributes();
             String x = attributes.item(1).getNodeValue();
@@ -156,7 +156,7 @@ public class MapLoader {
         String terrainImagePath = path + "images/terrains/";
         String resourceImagePath = path + "images/resources/";
         
-        for (int i = 0 ; i < tileTypeList.getLength() ; i++ ) {
+        for (int i = 0; i < tileTypeList.getLength(); i++) {
             Node tileTypeNode = tileTypeList.item(i);
             NamedNodeMap attributes = tileTypeNode.getAttributes();
             String tileID = attributes.item(0).getNodeValue();
@@ -169,7 +169,7 @@ public class MapLoader {
             
         }
         
-        for (int i = 0 ; i < terrainTypeList.getLength() ; i++ ) {
+        for (int i = 0; i < terrainTypeList.getLength(); i++) {
             Node terrainTypeNode = terrainTypeList.item(i);
             NamedNodeMap attributes = terrainTypeNode.getAttributes();
             String terrainID = attributes.item(0).getNodeValue();
@@ -183,7 +183,7 @@ public class MapLoader {
             myTerrainImage.put(Integer.parseInt(terrainID), terrainImage);
         }
         
-        for (int i = 0 ; i < resourceTypeList.getLength() ; i++ ) {
+        for (int i = 0; i < resourceTypeList.getLength(); i++) {
             Node resourceTypeNode = resourceTypeList.item(i);
             NamedNodeMap attributes = resourceTypeNode.getAttributes();
             String resourceID = attributes.item(0).getNodeValue();
@@ -197,9 +197,6 @@ public class MapLoader {
             myResourceAmount.put(Integer.parseInt(resourceID), resourceAmount);
             myResourceImage.put(Integer.parseInt(resourceID), resourceImage);
         }
-        
-    
-    
     }
 
     /**
@@ -212,10 +209,10 @@ public class MapLoader {
         
         int y = myMap.getMyYsize();
         
-        for (int i = 0 ; i < tileList.getLength() ; i++ ) {
+        for (int i = 0; i < tileList.getLength(); i++) {
             
-            int myX = i/ y;
-            int myY = i% y;
+            int myX = i / y;
+            int myY = i % y;
             
             Node tileNode = tileList.item(i);
             NamedNodeMap attributes = tileNode.getAttributes();
@@ -300,7 +297,7 @@ public class MapLoader {
      */
     public void loadResources(Element root, String path) {
         NodeList resourceList = root.getElementsByTagName("resource");
-        for(int i = 0 ; i < resourceList.getLength() ; i++) {
+        for (int i = 0; i < resourceList.getLength(); i++) {
             Node resourceNode = resourceList.item(i);
             NamedNodeMap attributes = resourceNode.getAttributes();
             int resourceID = Integer.parseInt(attributes.item(0).getNodeValue());
@@ -311,7 +308,8 @@ public class MapLoader {
             String resourceImageName = myResourceImageName.get(resourceID);
             Pixmap resourceImage = new Pixmap(myResourceImage.get(resourceID));
             int resourceAmount = Integer.parseInt(myResourceAmount.get(resourceID));
-            myMap.addResource(resourceImage, x, y, z, resourceID, resourceName, resourceImageName, resourceAmount);
+            myMap.addResource(resourceImage, x, y, z, resourceID,
+                              resourceName, resourceImageName, resourceAmount);
         }
     }  
     

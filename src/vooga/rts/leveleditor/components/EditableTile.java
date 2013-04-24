@@ -30,7 +30,8 @@ public class EditableTile extends Tile {
     /**
      * the default image for each tile
      */
-    private static Pixmap DEFAULT_IMAGE = new Pixmap(ResourceManager.getInstance().<BufferedImage>getFile(DEFAULT_IMAGE_PATH, BufferedImage.class));
+    private static Pixmap DEFAULT_IMAGE = new Pixmap(
+                                           ResourceManager.getInstance().<BufferedImage>getFile(DEFAULT_IMAGE_PATH, BufferedImage.class));
     
     private boolean myOccupied;
     
@@ -44,7 +45,8 @@ public class EditableTile extends Tile {
      * @param imageName of the tile
      * @param isOccupied of the tile
      */
-    public EditableTile(Pixmap image, Location3D center, Dimension size, int id , String name, String imageName, boolean isOccupied) {
+    public EditableTile(Pixmap image, Location3D center, Dimension size, 
+                        int id , String name, String imageName, boolean isOccupied) {
         super(image, center, size);
         myID = id;
         myName = name;
@@ -64,8 +66,10 @@ public class EditableTile extends Tile {
      * @param imageName of the tile
      * @param isOccupied of the tile
      */
-    public EditableTile(Pixmap image, int xCount, int yCount, Dimension size, int id, String name, String imageName , boolean isOccupied) {
-        this(image, new Location3D(xCount*size.getWidth()+size.getWidth()/2,yCount*size.getHeight()+size.getHeight()/2,0), size,id,name,imageName,isOccupied);
+    public EditableTile(Pixmap image, int xCount, int yCount, Dimension size, int id, 
+                        String name, String imageName , boolean isOccupied) {
+        this(image, new Location3D(xCount * size.getWidth()+ size.getWidth() / 2,
+                                   yCount * size.getHeight()+ size.getHeight() / 2,0), size, id, name, imageName, isOccupied);
     }
     
     /**
@@ -75,7 +79,7 @@ public class EditableTile extends Tile {
     public EditableTile(EditableTile node) {
         this(node.getImage(),node.getWorldLocation(),
                            new Dimension((int)node.getWidth(), (int)node.getHeight()),
-                                                                   node.getMyID(),node.getMyName(),node.getMyImageName(),node.getOccupied());
+                                              node.getMyID(), node.getMyName(), node.getMyImageName(), node.getOccupied());
     }
     
     /**
@@ -86,7 +90,7 @@ public class EditableTile extends Tile {
      */
     public EditableTile(int xCount, int yCount, Dimension size) {
         
-        this(DEFAULT_IMAGE,xCount,yCount,size,0,"","",false);
+        this(DEFAULT_IMAGE, xCount, yCount, size, 0, "", "", false);
     }
     
     /**
@@ -97,7 +101,7 @@ public class EditableTile extends Tile {
      * @param height height of the tile
      */
     public EditableTile(int xCount, int yCount, int width, int height) {
-        this(xCount, yCount, new Dimension(width,height));
+        this(xCount, yCount, new Dimension(width, height));
     }
     
     
@@ -146,7 +150,7 @@ public class EditableTile extends Tile {
      */
     public void reset() {
         myOccupied = false;
-        myID= 0;
+        myID = 0;
         myName = "";
         myImageName = "";
     }

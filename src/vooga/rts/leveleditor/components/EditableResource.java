@@ -19,9 +19,10 @@ public class EditableResource extends Resource {
     /**
      * Constructor for this class
      * 
-     * @param id
-     * @param name
-     * @param image
+     * @param id of the resource
+     * @param name of the resource
+     * @param image of the resource
+     * @param imageName of the resource
      */ 
     public EditableResource(Pixmap image, Location3D center , int id, 
                             String name , String imageName, int amount) {
@@ -35,14 +36,15 @@ public class EditableResource extends Resource {
      * @param x x position 
      * @param y y position
      * @param z z position
-     * @param id id
-     * @param name
-     * @param imageName
-     * @param amount
+     * @param id id of the resource
+     * @param name of the resource
+     * @param imageName of the resource
+     * @param amount of the resource
      */
     
-    public EditableResource(Pixmap image, int x , int y , int z , int id, String name , String imageName, int amount) {
-       this(image, new Location3D(x,y,z), id, name, imageName, amount);
+    public EditableResource(Pixmap image, int x , int y , int z , 
+                            int id, String name , String imageName, int amount) {
+       this(image, new Location3D(x, y, z), id, name, imageName, amount);
     }
     
     /**
@@ -57,8 +59,9 @@ public class EditableResource extends Resource {
      * @param imageName image name of the resource
       * @param amount amount of the resource
      */
-    public EditableResource(Pixmap image, int x , int y , int layerCount , int layerHeight, int id, String name , String imageName, int amount) {
-        this(image, x, y, layerCount*layerHeight, id, name, imageName, amount);
+    public EditableResource(Pixmap image, int x , int y , 
+                            int layerCount , int layerHeight, int id, String name , String imageName, int amount) {
+        this(image, x, y, layerCount * layerHeight, id, name, imageName, amount);
     }
     /**
      * return the id 
@@ -70,7 +73,7 @@ public class EditableResource extends Resource {
     }   
    
     /**
-     * return the image name
+     * get the image name
      * @return String
      */
     public String getMyImageName () {

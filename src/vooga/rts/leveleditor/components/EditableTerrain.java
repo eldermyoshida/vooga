@@ -55,7 +55,7 @@ public class EditableTerrain extends Terrain {
     */
     public EditableTerrain (Pixmap image, int x, int y , int z, int id,
                             String name , String imageName , int walkAbility) {
-        this(image , new Location3D(x,y,z) , id , name , imageName , walkAbility);
+        this(image , new Location3D(x, y, z) , id , name , imageName , walkAbility);
     }
     /**
      * constructor for editableterrain
@@ -71,7 +71,7 @@ public class EditableTerrain extends Terrain {
      */
     public EditableTerrain (Pixmap image, int x, int y, int layerCount, int layerHeight, 
                                    int id , String name , String imageName, int walkAbility) {
-        this(image, x, y, layerCount*layerHeight, id, name, imageName, walkAbility);
+        this(image, x, y, layerCount * layerHeight, id, name, imageName, walkAbility);
     }
     /**
      * return the id of this 

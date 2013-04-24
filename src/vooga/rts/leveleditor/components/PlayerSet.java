@@ -31,7 +31,7 @@ public class PlayerSet {
     
     /**
      * add a player based on it s
-     * @param loc
+     * @param loc of the player
      */
     public void addPlayer(Location loc) {
         myPlayerNumber++;
@@ -43,7 +43,7 @@ public class PlayerSet {
      * @param y y location
      */
     public void addPlayer(int x, int y) {
-        addPlayer(new Location(x,y));
+        addPlayer(new Location(x, y));
     }
     
     /**
@@ -63,18 +63,18 @@ public class PlayerSet {
     /**
      * remove a player based on x and y
      * @param startX start x value
-     * @param startY
-     * @param endX
-     * @param endY
+     * @param startY start y
+     * @param endX end x
+     * @param endY end y
      */
     public void removePlayer(int startX, int startY, int endX, int endY) {
        
-       for(Integer i : myPlayers.keySet()) {
+       for (Integer i : myPlayers.keySet()) {
             Location loc = myPlayers.get(i);
             int x = (int)loc.getX();
             int y = (int)loc.getY();
-            if( ((x>= startX && x<= endX)||(x<= startX && x>= endX))&&
-                    ((y>= startY && y<= endY)||(y<= startY && y>= endY))) {
+            if (((x >= startX && x <= endX)||(x <= startX && x>= endX))&&
+                    ((y >= startY && y <= endY)||(y <= startY && y >= endY))) {
                 myPlayers.remove(i);
             }
        }
@@ -116,7 +116,7 @@ public class PlayerSet {
      * get all players
      * @return myPlayers
      */
-    public Map<Integer,Location> getAllPlayers() {
+    public Map<Integer, Location> getAllPlayers() {
         return myPlayers;
     }
 }

@@ -1,13 +1,9 @@
 package vooga.rts.leveleditor.components;
 
 import java.awt.Dimension;
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import java.util.Map;
-import javax.imageio.ImageIO;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
 import vooga.rts.map.GameMap;
 import vooga.rts.state.GameState;
 import vooga.rts.util.Location;
@@ -124,8 +120,8 @@ public class EditableMap extends GameMap {
         System.out.println("X Size : " + getMyXsize());
         System.out.println("Y Size : " + getMyYsize());
         
-        for (int i = 0 ; i<getMyXsize() ; i++) {
-            for (int j = 0 ; j<getMyYsize() ; j++) {
+        for (int i = 0; i < getMyXsize(); i++) {
+            for (int j = 0; j < getMyYsize(); j++) {
                 System.out.print(myTileMap.getTile(i, j).getMyID());
                 System.out.print(" ");
             }
@@ -251,12 +247,12 @@ public class EditableMap extends GameMap {
      * @param image the image of the terrain
      * @param center the center position of the terrain
      * @param id the id of the terrain
-     * @param name
-     * @param imageName
-     * @param walkAbility
+     * @param name of the terrain
+     * @param imageName of the terrain
+     * @param walkAbility of the terrain
      */
     public void addTerrain(Pixmap image, Location3D center , int id , 
-                           String name , String imageName, int walkAbility ) {
+                           String name , String imageName, int walkAbility) {
         addTerrain(new EditableTerrain(image, center , id , name, imageName, walkAbility));
     }
     
@@ -289,7 +285,7 @@ public class EditableMap extends GameMap {
      */
     public void addTerrain(Pixmap image, int x, int y, int layerCount, 
                            int layerHeight, int id , String name , String imageName, int walkAbility) {
-        addTerrain(image, x, y, layerCount*layerHeight, id, name, imageName, walkAbility);
+        addTerrain(image, x, y, layerCount * layerHeight, id, name, imageName, walkAbility);
     }
     
     /**
@@ -343,7 +339,7 @@ public class EditableMap extends GameMap {
      */
     public void addResource(Pixmap image, int x, int y, int layerCount, 
                             int layerHeight, int id , String name , String imageName, int amount) {
-        addResource(image, x, y, layerCount*layerHeight, id, name, imageName,amount);
+        addResource(image, x, y, layerCount * layerHeight, id, name, imageName, amount);
     }
     
     /**
@@ -436,10 +432,10 @@ public class EditableMap extends GameMap {
 
     /**
      * set the map name 
-     * @param myMapName the name of this map
+     * @param name the name of this map
      */
-    public void setMyMapName (String myMapName) {
-        this.myMapName = myMapName;
+    public void setMyMapName (String name) {
+        this.myMapName = name;
     }
     /**
      * get the description of that map
@@ -450,10 +446,10 @@ public class EditableMap extends GameMap {
     }
     /**
      * set the description of the map
-     * @param myDescription the description
+     * @param des the description
      */
-    public void setMyDescription (String myDescription) {
-        this.myDescription = myDescription;
+    public void setMyDescription (String des) {
+        this.myDescription = des;
     }
     /**
      * return all players

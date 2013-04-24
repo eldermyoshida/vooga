@@ -19,9 +19,9 @@ public class EditableTileMap extends TileMap {
 
     /**
      * constructor 1
-     * @param tileSize
-     * @param width
-     * @param height
+     * @param tileSize of the tile
+     * @param width of the tile
+     * @param height of the tile
      */
     public EditableTileMap (Dimension tileSize, int width, int height) {
         super(tileSize, width, height);
@@ -34,8 +34,8 @@ public class EditableTileMap extends TileMap {
     public void initialize() {
         int x = this.getMyHeight();
         int y = this.getMyWidth();
-        for (int i = 0 ; i < x ; i++) {
-            for (int j = 0 ; j < y ; j++) {
+        for (int i = 0; i < x; i++) {
+            for (int j = 0; j < y; j++) {
                 setTile(i, j, new EditableTile(i, j, getMyTileSize()));
             }
         }
@@ -63,8 +63,8 @@ public class EditableTileMap extends TileMap {
      * @param image of the tile 
      */
     public void addTile(Location3D loc, int id, String name, String imageName, Pixmap image) {
-        int i = (int)(loc.getX()/ this.getMyTileSize().getWidth()*2);
-        int j = (int)(loc.getY()/ this.getMyTileSize().getHeight()*2);
+        int i = (int)(loc.getX() / this.getMyTileSize().getWidth() * 2);
+        int j = (int)(loc.getY() / this.getMyTileSize().getHeight() * 2);
         addTile(i, j, id, name, imageName, image);
     }
     
@@ -111,8 +111,8 @@ public class EditableTileMap extends TileMap {
      * @throws IOException exception has to throw
      */
     public void removeTile(Location3D center) throws IOException {
-        int i = (int)(center.getY()/ getMyTileSize().getHeight());
-        int j = (int)(center.getX()/ getMyTileSize().getWidth());
+        int i = (int)(center.getY() / getMyTileSize().getHeight());
+        int j = (int)(center.getX() / getMyTileSize().getWidth());
         removeTile(i, j);
     }
     
@@ -130,20 +130,20 @@ public class EditableTileMap extends TileMap {
     
     /**
      * get my x count
-     * @param loc
+     * @param loc location
      * @return int 
      */
     public int getXCount (Location loc) {
-        return (int)(loc.getY()/ getMyTileSize().getHeight());
+        return (int)(loc.getY() / getMyTileSize().getHeight());
     }
     
     /**
      * get my y count
-     * @param loc
+     * @param loc location
      * @return int 
      */
     public int getYCount (Location loc) {
-        return (int)(loc.getX()/ getMyTileSize().getWidth());
+        return (int)(loc.getX() / getMyTileSize().getWidth());
     }
     
 
