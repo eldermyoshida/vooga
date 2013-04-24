@@ -340,8 +340,9 @@ public class Factory {
 			OccupyStrategy occupy = (OccupyStrategy) myStrategies.get(strategies[1]);
 			mySprites.get(key).setOccupyStrategy(occupy);
 			GatherStrategy gather = (GatherStrategy) myStrategies.get(strategies[2]);
-			mySprites.get(key).setGatherStrategy(gather);
-			
+			if (mySprites.get(key) instanceof Unit) {
+				((Unit)mySprites.get(key)).setGatherStrategy(gather);
+			}
 		}
 	}
 	
