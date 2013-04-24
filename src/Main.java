@@ -1,3 +1,4 @@
+import util.FilePathFormatter;
 import arcade.controller.Controller;
 
 /**
@@ -22,6 +23,7 @@ public class Main {
      */
     public static void main (String[] args) {
     	Controller controller = new Controller(LANGUAGE);
+    	System.out.println( new FilePathFormatter().formatClassFilePath("C:\\Users\\Will Nance\\Dropbox\\Eclipse\\vooga\\src\\games\\examplegenre\\example\\Example.java"));
     	
     	/*
         ResourceBundle rb = ResourceBundle.getBundle(RESOURCE_LOCATION + LANGUAGE);
