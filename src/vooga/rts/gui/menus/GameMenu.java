@@ -151,8 +151,10 @@ public class GameMenu extends Menu {
     @Override
     public void update (Observable o, Object arg) {
         
-        if (o instanceof SubMenu) {
-            // implement here
+        if (arg instanceof InformationCommand) {
+            InformationCommand i = (InformationCommand) arg;
+            setChanged();
+            notifyObservers(i);
         }
         
         if (o instanceof Manager) {
