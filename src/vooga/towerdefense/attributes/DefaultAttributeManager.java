@@ -3,7 +3,7 @@ package vooga.towerdefense.attributes;
 import vooga.towerdefense.factories.examplesfactories.ExampleDosProjectileFactory;
 
 /**
- * predefined attributeManager, for testing.
+ * Predefined attributeManager, used for testing purposes only.
  * 
  *
  */

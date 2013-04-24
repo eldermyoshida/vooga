@@ -3,8 +3,9 @@ package vooga.towerdefense.factories.definitions;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
-import vooga.towerdefense.factories.AttributeManagerFactory;
+
 import vooga.towerdefense.factories.actionfactories.ActionFactory;
+import vooga.towerdefense.factories.attributefactories.AttributeManagerFactory;
 import vooga.towerdefense.util.Location;
 import vooga.towerdefense.util.Pixmap;
 

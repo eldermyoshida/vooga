@@ -7,16 +7,17 @@ import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.util.Location;
 
 /**
- * Creates find target actions that give all of their followup actions 
+ * This is an action factory that creates find target actions that give all of their follow up actions 
  * the game elements inside their radius
+ * 
  * @author Matthew Roy
  *
  */
 public class FindTargetsFactory extends ActionFactory {
     
     private String myRadiusId;
-    private List<ActionFactory> myFollowUpActions;
-    
+    private List<ActionFactory> myFollowUpActionFactories;
+   
     /**
      * 
      * @param AttrRadiusToSearch is the id of the attribute used for radius
@@ -26,7 +27,7 @@ public class FindTargetsFactory extends ActionFactory {
     }
 
     /**
-     * Creates a find targets action
+     * Creates a find targets action with follow up actions added.
      * @param e
      * @return 
      */
@@ -34,7 +35,7 @@ public class FindTargetsFactory extends ActionFactory {
     protected Action buildAction (GameElement e) {
         Location searchCenter = e.getCenter();
         Action locateTargets = new FindTargets(getMap(), searchCenter, e.getAttributeManager().getAttribute(myRadiusId));
-        for (ActionFactory a : myFollowUpActions) {
+        for (ActionFactory a : myFollowUpActionFactories) {
             locateTargets.addFollowUpAction(a.buildAction(e));
         }
         return locateTargets;

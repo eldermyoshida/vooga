@@ -1,14 +1,15 @@
-package vooga.towerdefense.factories;
+package vooga.towerdefense.factories.elementfactories;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.actionlist.MoveToTarget;
-import vooga.towerdefense.attributes.AttributeConstants;
+import vooga.towerdefense.attributes.AttributeConstantsEnum;
 import vooga.towerdefense.attributes.AttributeManager;
 import vooga.towerdefense.attributes.DefaultAttributeManager;
 import vooga.towerdefense.factories.actionfactories.ActionFactory;
+import vooga.towerdefense.factories.attributefactories.AttributeManagerFactory;
 import vooga.towerdefense.factories.definitions.GameElementDefinition;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.model.GameMap;
@@ -147,7 +148,7 @@ public class GameElementFactory {
         List<Action> actions = new ArrayList<Action>();
         actions.add(new MoveToTarget(projectile.getCenter(),
                                      target.getCenter(), projectile.getAttributeManager()
-                                             .getAttribute(AttributeConstants.MOVE_SPEED.toString())));
+                                             .getAttribute(AttributeConstantsEnum.MOVE_SPEED.toString())));
         projectile.addActions(actions);
         return projectile;
     }

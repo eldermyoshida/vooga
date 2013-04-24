@@ -7,11 +7,12 @@ import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.actionlist.Move;
 import vooga.towerdefense.action.actionlist.MoveToTarget;
 import vooga.towerdefense.attributes.AttributeConstants;
+import vooga.towerdefense.attributes.AttributeConstantsEnum;
 import vooga.towerdefense.attributes.AttributeManager;
-import vooga.towerdefense.factories.GameElementFactory;
 import vooga.towerdefense.factories.definitions.DefinitionConstants;
 import vooga.towerdefense.factories.definitions.GameElementDefinition;
 import vooga.towerdefense.factories.definitions.ProjectileDefinition;
+import vooga.towerdefense.factories.elementfactories.GameElementFactory;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.util.Location;
@@ -31,9 +32,11 @@ public class ExampleDosProjectileFactory extends GameElementFactory {
     private AttributeManager AM;
     
     public ExampleDosProjectileFactory(){
+    	super();
         def = new ProjectileDefinition();
         AM = getDefaultAM();
     }
+    
     public GameElement createElement (Location putHere) {
         GameElement myProjectile;
         if (putHere != null) {
@@ -81,8 +84,8 @@ public class ExampleDosProjectileFactory extends GameElementFactory {
     public List<Action> createActions(GameElement element) {
         ArrayList<Action> actions = new ArrayList<Action>();
         actions.add(new Move(element.getCenter(), element.getAttributeManager()
-                .getAttribute(AttributeConstants.MOVE_SPEED), element.getAttributeManager()
-                 .getAttribute(AttributeConstants.DIRECTION)));
+                .getAttribute(AttributeConstantsEnum.MOVE_SPEED), element.getAttributeManager()
+                 .getAttribute(AttributeConstantsEnum.DIRECTION)));
         return actions;
     }
 

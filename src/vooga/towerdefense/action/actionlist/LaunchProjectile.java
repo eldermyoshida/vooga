@@ -1,7 +1,7 @@
 package vooga.towerdefense.action.actionlist;
 
 import vooga.towerdefense.action.TargetedAction;
-import vooga.towerdefense.factories.GameElementFactory;
+import vooga.towerdefense.factories.elementfactories.GameElementFactory;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.util.Location;
@@ -20,7 +20,6 @@ public class LaunchProjectile extends TargetedAction {
 	private GameMap myMap;
 
     public LaunchProjectile (GameMap map, Location startLocation, GameElementFactory projectileFactory) {
-    	setTargetTracking(true);
     	myProjectileFactory = projectileFactory;
     	myStart = startLocation;
     	myMap = map;
@@ -40,11 +39,5 @@ public class LaunchProjectile extends TargetedAction {
             	myMap.addGameElement(projectile);
             }
         }
-        
-        //System.out.println(projectile.getTargetedActions().size()+ 10);
-        /*for (TargetedAction t: projectile.getTargetedActions()){
-            t.updateTargetedFollowUpActions(getTargets());
-        }*/
     }
-    
 }

@@ -1,4 +1,4 @@
-package vooga.towerdefense.factories;
+package vooga.towerdefense.factories.attributefactories;
 
 import vooga.towerdefense.attributes.Attribute;
 

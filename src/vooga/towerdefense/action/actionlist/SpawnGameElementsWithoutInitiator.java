@@ -3,7 +3,7 @@ package vooga.towerdefense.action.actionlist;
 import java.util.ArrayList;
 import java.util.List;
 import vooga.towerdefense.action.Action;
-import vooga.towerdefense.factories.GameElementFactory;
+import vooga.towerdefense.factories.elementfactories.GameElementFactory;
 import vooga.towerdefense.factories.examplesfactories.ExampleUnitFactory;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.model.GameMap;

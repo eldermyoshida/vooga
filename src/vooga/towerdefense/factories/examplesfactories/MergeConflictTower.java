@@ -6,10 +6,10 @@ import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.FindTargets;
 import vooga.towerdefense.action.actionlist.LaunchProjectile;
 import vooga.towerdefense.action.tobetested.RandomChance;
-import vooga.towerdefense.attributes.AttributeConstants;
+import vooga.towerdefense.attributes.AttributeConstantsEnum;
 import vooga.towerdefense.attributes.AttributeManager;
-import vooga.towerdefense.factories.GameElementFactory;
 import vooga.towerdefense.factories.definitions.TowerDefinition;
+import vooga.towerdefense.factories.elementfactories.GameElementFactory;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.util.Location;
@@ -50,7 +50,7 @@ public class MergeConflictTower extends GameElementFactory {
 
         ArrayList<Action> actions = new ArrayList<Action>();
         FindTargets findTargets =
-                new FindTargets(getMap(), myTower.getCenter(), AM.getAttribute(AttributeConstants.ATTACK_RADIUS));
+                new FindTargets(getMap(), myTower.getCenter(), AM.getAttribute(AttributeConstantsEnum.ATTACK_RADIUS));
         Action randomFiring = new RandomChance(0.01);
         ExampleDosProjectileFactory coolStoryBro = new ExampleDosProjectileFactory();
         coolStoryBro.initialize(getMap());

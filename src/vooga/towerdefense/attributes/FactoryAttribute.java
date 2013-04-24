@@ -1,6 +1,6 @@
 package vooga.towerdefense.attributes;
 
-import vooga.towerdefense.factories.GameElementFactory;
+import vooga.towerdefense.factories.elementfactories.GameElementFactory;
 
 /**
  * FactoryAttribute describes the factories usable by GameElement

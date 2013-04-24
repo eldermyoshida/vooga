@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.Map;
 import org.w3c.dom.Element;
 import vooga.towerdefense.util.XMLTool;
-import vooga.towerdefense.factories.AttributeFactory;
-import vooga.towerdefense.factories.AttributeManagerFactory;
-import vooga.towerdefense.factories.GameElementFactory;
 import vooga.towerdefense.factories.actionfactories.ActionFactory;
+import vooga.towerdefense.factories.attributefactories.AttributeFactory;
+import vooga.towerdefense.factories.attributefactories.AttributeManagerFactory;
+import vooga.towerdefense.factories.elementfactories.GameElementFactory;
 import vooga.towerdefense.util.Pixmap;
 
 public class GameElementXMLLoader {
