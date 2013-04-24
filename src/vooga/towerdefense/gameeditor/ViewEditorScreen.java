@@ -2,10 +2,15 @@ package vooga.towerdefense.gameeditor;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -18,6 +23,7 @@ import javax.swing.JTextField;
  * ViewEditorScreen is responsible for helping
  * the game developer make the view.
  * 
+ * @author Leonard K. Ng'eno
  * @author Angelica Schwartz
  */
 public class ViewEditorScreen extends GameEditorScreen {
@@ -37,7 +43,7 @@ public class ViewEditorScreen extends GameEditorScreen {
     /**
      * the name of the class the represents multiple panels.
      */
-    private static final String MULTIPLE_PANEL_NAME = "MultiplePanelScreen";
+    private static final String MULTIPLE_PANEL_NAME = "MultipleScreenPanel";
     /**
      * title constant.
      */
@@ -70,23 +76,23 @@ public class ViewEditorScreen extends GameEditorScreen {
     /**
      * north drop down box.
      */
-    private JComboBox myNorthPanel;
+    private JComboBox<String> myNorthPanel;
     /**
      * south drop down box.
      */
-    private JComboBox mySouthPanel;
+    private JComboBox<String> mySouthPanel;
     /**
      * center drop down box.
      */
-    private JComboBox myCenterPanel;
+    private JComboBox<String> myCenterPanel;
     /**
      * east drop down box.
      */
-    private JComboBox myEastPanel;
+    private JComboBox<String> myEastPanel;
     /**
      * west drop down box.
      */
-    private JComboBox myWestPanel;
+    private JComboBox<String> myWestPanel;
     /**
      * north size field.
      */
@@ -107,6 +113,18 @@ public class ViewEditorScreen extends GameEditorScreen {
      * west size field.
      */
     private JTextField myWestSize;
+    private JComboBox<String> myMultiPanel;
+    private JTextField myMultiPanelSize;
+    private ActionListener myActionListener;
+    private List<JComboBox<String>> myJComboPanels;
+    private JPanel mySouthernPanelScreen;
+    private JComboBox<String> mySouthernPanelPosition;
+    private JButton myMultiButtonADD;
+    private JButton myMultiButtonDONE;
+    private Map<String, List<String>> myMultiScreenMap;
+    private String myKey;
+    private List<String> myScreens;
+    private JLabel myScreenLabel, mySizeLabel;
     
     /**
      * Constructor.
@@ -116,8 +134,14 @@ public class ViewEditorScreen extends GameEditorScreen {
      */
     public ViewEditorScreen (Dimension size, GameEditorController controller) {
         super(size, controller, TITLE_NAME, NEXT_SCREEN_NAME);
+        myJComboPanels = new ArrayList<JComboBox<String>>();
+        myMultiScreenMap = new HashMap<String, List<String>>();
+        myScreens = new ArrayList<String>();
+        makeActionListener();
         try {
             add(makeScreen(), BorderLayout.CENTER);
+            add(makeSouthPanel(), BorderLayout.SOUTH);
+            attachListeners();
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -128,23 +152,110 @@ public class ViewEditorScreen extends GameEditorScreen {
         JOptionPane.showMessageDialog(null, "Note: you must contain a mapscreen\nand shopscreen in your view");
     }
     
+    private JComponent makeSouthPanel () {
+        mySouthernPanelScreen = new JPanel();
+        mySouthernPanelScreen.setPreferredSize(new Dimension(800, 100));
+        myScreenLabel = new JLabel("SCREEN");
+        mySouthernPanelScreen.add(myScreenLabel);
+        mySouthernPanelScreen.add(myMultiPanel);
+        mySizeLabel = new JLabel("SIZE");
+        mySouthernPanelScreen.add(mySizeLabel);
+        mySouthernPanelScreen.add(myMultiPanelSize);
+        mySouthernPanelScreen.add(mySouthernPanelPosition);
+        myMultiButtonADD = new JButton("ADD");
+        myMultiButtonDONE = new JButton("DONE");
+        myMultiButtonADD.addActionListener(myActionListener);
+        myMultiButtonDONE.addActionListener(myActionListener);
+        mySouthernPanelScreen.add(myMultiButtonADD);
+        mySouthernPanelScreen.add(myMultiButtonDONE);
+        this.add(mySouthernPanelScreen, BorderLayout.SOUTH);
+        mySouthernPanelScreen.setVisible(false);
+
+        return mySouthernPanelScreen;
+    }
+
+    private void makeActionListener () {
+        myActionListener = new ActionListener() {
+
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                if (e.getSource().equals(myMultiButtonADD)){
+                    addPanelToMultiplePanels();
+                }
+                else if (e.getSource().equals(myMultiButtonDONE)){
+                    doneAddingMultiplePanels();
+                }
+                checkItemSelected(e);
+            }
+            
+        };
+    }
+
+    private void doneAddingMultiplePanels () {
+        // TODO ???
+        myMultiScreenMap.put(myKey, myScreens);
+        mySouthernPanelScreen.setVisible(false);
+        myMultiPanel.setVisible(false);
+        myMultiPanelSize.setVisible(false);
+        myMultiButtonADD.setVisible(false);
+        myMultiButtonDONE.setVisible(false);
+        myScreenLabel.setVisible(false);
+        mySizeLabel.setVisible(false);
+    }
+
+    private void setComponentVisibility (boolean visible) {
+        
+    }
+    private void addPanelToMultiplePanels () {
+        // TODO ??????
+        String position = (String)mySouthernPanelPosition.getSelectedItem();
+        String screen = (String)myMultiPanel.getSelectedItem();
+        String size = myMultiPanelSize.getText();
+       size = size.replaceFirst(",", "");
+        myScreens.add(position + " " + screen + " " + size);
+        myMultiPanelSize.setText("");
+    }
+
+    private void checkItemSelected (ActionEvent e) {
+        for (JComboBox<String> s: myJComboPanels) {
+            if (s.getSelectedItem().equals(MULTIPLE_PANEL_NAME)){
+                mySouthernPanelScreen.setVisible(true);
+                myKey = s.getName();
+                s.resetKeyboardActions();
+            }
+        }
+    }
+    
     private JComponent makeScreen() throws IOException, ClassNotFoundException {
         JPanel panel = new JPanel();
-        panel.setPreferredSize(new Dimension(800, 600));
+        panel.setPreferredSize(new Dimension(800, 400));
         
-        myNorthPanel = new JComboBox();
-        mySouthPanel = new JComboBox();
-        myCenterPanel = new JComboBox();
-        myEastPanel = new JComboBox();
-        myWestPanel = new JComboBox();
+        myNorthPanel = new JComboBox<String>();
+        myNorthPanel.setName(NORTH_NAME);
+        mySouthPanel = new JComboBox<String>();
+        mySouthPanel.setName(SOUTH_NAME);
+        myCenterPanel = new JComboBox<String>();
+        myCenterPanel.setName(CENTER_NAME);
+        myEastPanel = new JComboBox<String>();
+        myEastPanel.setName(EAST_NAME);
+        myWestPanel = new JComboBox<String>();
+        myWestPanel.setName(WEST_NAME);
+        myMultiPanel = new JComboBox<String>();
+        mySouthernPanelPosition = new JComboBox<String>();
         myNorthSize = new JTextField(TEXT_FIELD_WIDTH);
         mySouthSize = new JTextField(TEXT_FIELD_WIDTH);
         myCenterSize = new JTextField(TEXT_FIELD_WIDTH);
         myEastSize = new JTextField(TEXT_FIELD_WIDTH);
         myWestSize = new JTextField(TEXT_FIELD_WIDTH);
-        
+        myMultiPanelSize = new JTextField(TEXT_FIELD_WIDTH);
+
         populateDropDoxBoxes();
+        alignCenterScreenComponents(panel);
         
+        return panel;
+    }
+    
+    private void alignCenterScreenComponents(JPanel panel) {
         JPanel north = new JPanel();
         north.setPreferredSize(new Dimension(800, 50));
         north.add(new JLabel(NORTH_NAME));
@@ -179,8 +290,18 @@ public class ViewEditorScreen extends GameEditorScreen {
         west.add(myWestPanel, BorderLayout.WEST);
         west.add(myWestSize, BorderLayout.WEST);
         panel.add(west);
+    }
+    
+    private void attachListeners () {
+        myJComboPanels.add(myCenterPanel);
+        myJComboPanels.add(myEastPanel);
+        myJComboPanels.add(myNorthPanel);
+        myJComboPanels.add(mySouthPanel);
+        myJComboPanels.add(myWestPanel);
         
-        return panel;
+        for (JComboBox<String> jc : myJComboPanels) {
+            jc.addActionListener(myActionListener);
+        }
     }
     
     private void populateDropDoxBoxes() throws IOException, ClassNotFoundException {
@@ -191,7 +312,13 @@ public class ViewEditorScreen extends GameEditorScreen {
             myCenterPanel.addItem(s);
             myEastPanel.addItem(s);
             myWestPanel.addItem(s);
+            myMultiPanel.addItem(s);
         }
+        mySouthernPanelPosition.addItem(NORTH_NAME);
+        mySouthernPanelPosition.addItem(CENTER_NAME);
+        mySouthernPanelPosition.addItem(SOUTH_NAME);
+        mySouthernPanelPosition.addItem(EAST_NAME);
+        mySouthernPanelPosition.addItem(WEST_NAME);
     }
 
     /**
@@ -199,9 +326,10 @@ public class ViewEditorScreen extends GameEditorScreen {
      */
     @Override
     public void addElementToGame () {
-        // TODO Auto-generated method stub
-        getController().setMapSize(getMapDimension());
-        getController().addViewToGame();
+        // TODO handle multiple screens ....
+
+//        getController().setMapSize(getMapDimension());
+//        getController().addViewToGame();
     }
     
     /**
@@ -244,7 +372,7 @@ public class ViewEditorScreen extends GameEditorScreen {
         screens.add((String)myEastPanel.getSelectedItem());
         screens.add((String)myWestPanel.getSelectedItem());
         if (screens.contains(MULTIPLE_PANEL_NAME)) {
-            
+           
         }
     }
 }
