@@ -1,27 +1,22 @@
 package vooga.fighter.model;
 
 import java.awt.Dimension;
-import java.util.ArrayList;
 import java.util.List;
-import vooga.fighter.model.objects.CharacterObject;
 import vooga.fighter.model.objects.GameObject;
 import vooga.fighter.model.objects.MenuObject;
-import vooga.fighter.model.objects.MouseClickObject;
-import vooga.fighter.model.objects.MouseObject;
-import vooga.fighter.model.utils.State;
 import vooga.fighter.util.CollisionManager;
 
+
 /**
+ * Mode implementation for a menu.
  * 
  * @author Jack Matteucci
  * @modified Jerry Li
- *
+ * 
  */
 public class MenuMode extends Mode {
     private String myMenuName;
     private List<MenuObject> myMenuObjects;
-    private MouseClickObject myMouseClick;
-    private MouseObject myMouse;
     private MenuGrid myMenuGrid;
     private String myChoice;
     private int myInputTicks;
@@ -34,97 +29,79 @@ public class MenuMode extends Mode {
     }
 
     @Override
-    public void update(double stepTime, Dimension bounds) {
-    	update();
+    public void update () {
+        removeAppropriateObjects();
+        List<GameObject> myObjects = getMyObjects();
+        for (GameObject object : myObjects) {
+            object.update();
+        }
+        for (GameObject object : myObjects) {
+            object.updateState();
+        }
+        handleCollisions();
+        myInputTicks++;
     }
 
+    public void setMenuGrid (MenuGrid grid) {
+        myMenuGrid = grid;
+    }
 
-    public void setMenuGrid (MenuGrid grid){
-    	myMenuGrid = grid;
+    public String getName () {
+        return myMenuName;
     }
-    
-    public String getName(){
-    	return myMenuName;
-    }
-    
+
     public void setMenuObjects (List<MenuObject> menus) {
         myMenuObjects = menus;
         for (MenuObject menu : menus) {
             addObject(menu);
         }
     }
-    
-    public void update(){
-    removeAppropriateObjects();
-    List<GameObject> myObjects = getMyObjects();
-    for (GameObject object : myObjects) {
-        object.update();
-    }
-    for (GameObject object : myObjects) {
-        object.updateState();
-    }
-    handleCollisions();
-    myInputTicks++;
-}
 
-
-    public String getMenusNext(String value){
-    	for(MenuObject menu : myMenuObjects){
-    		if(menu.getValue().equals(value)) return menu.getNext(); 
-    	}
-    	return "";
-    }
-
-    
-
-    @Override
-    public void addObject (GameObject object) {
-        super.addObject(object);
-        if (object instanceof MouseClickObject) {
-            myMouseClick = (MouseClickObject) object;
+    public String getMenusNext (String value) {
+        for (MenuObject menu : myMenuObjects) {
+            if (menu.getValue().equals(value)) return menu.getNext();
         }
-        else if (object instanceof MouseObject) {
-            myMouse = (MouseObject) object;
+        return "";
+    }
+
+    public void setChoice (String choice) {
+        myChoice = choice;
+    }
+
+    public void left () {
+        myMenuGrid.left();
+    }
+
+    public void up () {
+        myMenuGrid.up();
+    }
+
+    public void down () {
+        myMenuGrid.down();
+    }
+
+    public void right () {
+        myMenuGrid.right();
+    }
+
+    public void resetChoice () {
+        myChoice = "";
+    }
+
+    public String peekChoice () {
+        return myChoice;
+    }
+
+    public MenuObject getCurrentMenu () {
+        return myMenuGrid.getCurrentObject();
+    }
+
+    public boolean inputReady () {
+        if (myInputTicks > 3) {
+            myInputTicks = 0;
+            return true;
         }
-    }
-    
-    public void setChoice (String choice){
-    	myChoice = choice;
-    }
-    
-    public void left(){
-    	myMenuGrid.left();
-    }
-    
-    public void up(){
-    	myMenuGrid.up();
-    }
-    
-    public void down(){
-    	myMenuGrid.down();
-    }
-    
-    public void right(){
-    	myMenuGrid.right();
-    }
-    
-    public void resetChoice(){
-    	myChoice = "";
-    }
-    
-    public String peekChoice (){
-    	return myChoice;
-    }
-    
-    public MenuObject getCurrentMenu(){
-    	return myMenuGrid.getCurrentObject();
-    }
-    
-    public boolean inputReady(){
-    	if(myInputTicks>3){ myInputTicks = 0;
-    	return true;
-    	}
-    	return false;
+        return false;
     }
 
 }

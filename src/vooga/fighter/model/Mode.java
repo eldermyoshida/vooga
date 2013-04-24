@@ -3,7 +3,6 @@ package vooga.fighter.model;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
-import vooga.fighter.model.objects.CharacterObject;
 import vooga.fighter.model.objects.GameObject;
 import vooga.fighter.model.utils.ImageDataObject;
 import vooga.fighter.util.CollisionManager;
@@ -81,9 +80,6 @@ public abstract class Mode {
             result.add(object.getImageData());
         }
         return result;
-        
-        // why doesn't below work? look at later.
-        // return myImageDataObjects;
     }
 
     /**
@@ -101,7 +97,6 @@ public abstract class Mode {
     /**
      * Updates the mode for one game loop. Implemented by subclasses.
      */
-    public abstract void update(double stepTime, Dimension bounds);
-
+    public abstract void update();
 
 }

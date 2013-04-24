@@ -34,7 +34,6 @@ public class CharacterObject extends GameObject {
     private boolean facingRight;  
     private int movingDirection; 
     private Vector myVelocity;  
-    private boolean myIsStanding;
     
     /**
      * Constructs a new CharacterObject.
@@ -47,23 +46,12 @@ public class CharacterObject extends GameObject {
         movingDirection=RIGHT; 
         currentAttacks= new ArrayList<AttackObject>();
         setLoader(new CharacterLoader(charName, this));
-        setCurrentState("stand");
-        setDefaultState("stand");
         setHealth(getProperty("maxHealth"));
         getCurrentState().setLooping(true);
         setLocation(center);
         myVelocity=getLocation().getVelocity();
         setImageData();
         
-    }
-    
-    public boolean getStanding() {
-        return myIsStanding;
-    }
-    
-    public void setStanding(boolean bool) {
-        myIsStanding = bool;
-            
     }
 
     /**
@@ -201,7 +189,7 @@ public class CharacterObject extends GameObject {
      * Moves in given direction at speed of character
      */
     public void move(int direction) {
-        setCurrentState("moveRight");
+        movingDirection=direction; 
         getLocation().translate(new Vector(direction, getProperty("movespeed")));
 
     }
