@@ -353,4 +353,8 @@ public class GameMap {
 	public Location getSpawnLocation() {
 		return mySpawnLocation;
 	}
+
+	public Location getDestination() {
+		return myDestination;
+	}
 }
