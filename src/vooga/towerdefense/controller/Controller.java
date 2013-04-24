@@ -34,8 +34,8 @@ import vooga.towerdefense.model.shop.Shop;
 import vooga.towerdefense.model.shop.ShopItem;
 import vooga.towerdefense.model.tiles.Tile;
 import vooga.towerdefense.model.tiles.factories.TileFactory;
-import vooga.towerdefense.util.Location;
-import vooga.towerdefense.util.Pixmap;
+import util.Location;
+import util.Pixmap;
 import vooga.towerdefense.view.TDView;
 
 /**
@@ -411,3 +411,4 @@ public class Controller {
 	}
 
 }
+

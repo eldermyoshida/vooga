@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.w3c.dom.Element;
-import vooga.towerdefense.util.XMLTool;
+import util.XMLTool;
 import vooga.towerdefense.factories.actionfactories.ActionFactory;
 
 public class ActionXMLLoader {
@@ -20,7 +20,7 @@ public class ActionXMLLoader {
     }
     
     public List<ActionFactory> loadActions() {
-        Element actionsElement = myXMLTool.getElement(ACTIONS_TAG);                
+        Element actionsElement = myXMLTool.getElementFromTag(ACTIONS_TAG);                
         Map<String, Element> subElements = myXMLTool.getChildrenElementMap(actionsElement);
         List<ActionFactory> actions = new ArrayList<ActionFactory>();
         for (Element e : subElements.values()) {

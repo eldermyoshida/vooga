@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.w3c.dom.Element;
-import vooga.towerdefense.util.XMLTool;
+import util.XMLTool;
 import vooga.scroller.level_editor.Level;
 import vooga.towerdefense.model.rules.Rule;
 
@@ -15,9 +15,8 @@ public class LevelsXMLLoader {
     
     private XMLTool myXMLTool;
     
-    public LevelsXMLLoader(XMLTool xmlTool, String xmlFilePath) {
-        myXMLTool = xmlTool;  
-        myXMLTool.readDoc(xmlFilePath);
+    public LevelsXMLLoader(String xmlFilePath) {
+        myXMLTool = new XMLTool(xmlFilePath);
     }
     
     public List<Level> getLevels() {

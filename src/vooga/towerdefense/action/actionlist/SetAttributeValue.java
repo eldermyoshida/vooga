@@ -1,4 +1,4 @@
-package vooga.towerdefense.action.tobetested;
+package vooga.towerdefense.action.actionlist;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +9,8 @@ import vooga.towerdefense.gameElements.GameElement;
 
 
 /**
+ * This action sets the attribute value to a new attribute value.
+ * Not applicable for FactoryAttributes (see ModifyFactoryAttribute)
  * 
  * @author Matthew Roy
  * 
@@ -39,11 +41,5 @@ public class SetAttributeValue extends Action {
             }
         }
     }
-
-    @Override
-    public void update (double elapsedTime) {
-        // TODO Auto-generated method stub
-
-    }
-
 }
+

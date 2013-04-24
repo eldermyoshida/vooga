@@ -13,8 +13,8 @@ import vooga.towerdefense.factories.attributefactories.AttributeManagerFactory;
 import vooga.towerdefense.factories.definitions.GameElementDefinition;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.model.GameMap;
-import vooga.towerdefense.util.Location;
-import vooga.towerdefense.util.Pixmap;
+import util.Location;
+import util.Pixmap;
 
 
 /**

@@ -12,8 +12,8 @@ import vooga.towerdefense.action.TargetedAction;
 import vooga.towerdefense.attributes.Attribute;
 import vooga.towerdefense.attributes.AttributeConstantsEnum;
 import vooga.towerdefense.attributes.AttributeManager;
-import vooga.towerdefense.util.Location;
-import vooga.towerdefense.util.Pixmap;
+import util.Location;
+import util.Pixmap;
 import vooga.towerdefense.util.Sprite;
 
 
