@@ -128,13 +128,6 @@ public class GameMap implements IGameLoop {
         return inRange;
     }
 
-    /*
-     * public <T extends GameSprite> List<T> getInArea (Location3D loc, double radius, T type, int
-     * teamID, boolean same) {
-     * 
-     * }
-     */
-
     @Override
     public void update (double elapsedTime) {
         // myTiles.update(elapsedTime);

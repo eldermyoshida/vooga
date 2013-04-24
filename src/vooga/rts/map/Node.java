@@ -13,6 +13,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import vooga.rts.gamedesign.sprite.gamesprites.GameEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.GameSprite;
+import vooga.rts.gamedesign.sprite.map.Terrain;
 import vooga.rts.gamedesign.state.OccupyState;
 import vooga.rts.state.GameState;
 import vooga.rts.util.Camera;
@@ -91,15 +92,16 @@ public class Node {
     public int getY () {
         return myY;
     }
-
-    // public void addObstruction (IObstruction obstruct) {
-    // myHeight = obstruct.getHeight();
-    // }
-
+    
+    
     public double getTier () {
+        if (myTier != 0) {
+            System.out.println(myTier);
+        }
         return myTier;
     }
-
+    
+    
     // This return statement could potentially be cleaned up, but still will
     // wait for patter to
     // clear up.
@@ -131,12 +133,18 @@ public class Node {
     public void addSprite (GameSprite sprite) {
         if (!myContents.contains(sprite)) {
             myContents.add(sprite);
+            if (sprite instanceof Terrain) {
+                myTier++;
+            }
         }
     }
 
     public void removeSprite (GameSprite sprite) {
         if (myContents.contains(sprite)) {
             myContents.remove(sprite);
+            if (sprite instanceof Terrain) {
+                myTier--;
+            }
         }
     }
 

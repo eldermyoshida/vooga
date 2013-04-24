@@ -58,7 +58,7 @@ public class AstarFinder implements PathFinder {
                     fScore.put(neighbor, gScore.get(neighbor) +
                                calculateHeuristic(neighbor, finish));
                     if (!open.contains(neighbor)) {
-                        if (!(neighbor.getTier() > 0)) {
+                        if (neighbor.getTier() < 1) {
                             open.add(neighbor);
                         }
                     }
