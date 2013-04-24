@@ -57,14 +57,28 @@ public abstract class Controller{
     private Mode myMode;
     private DisplayInfo myDisplayInfo;
 
+    /**
+     * Constructor
+     */
     public Controller(){
     
     }
     
+    /**
+     * sets this controller's name
+     * @param name
+     */
     public void initializeName(String name) {
         myName = name;
     }
 
+    /**
+     * Constructor
+     * @param name
+     * @param frame
+     * @param manager
+     * @param gameinfo
+     */
     public Controller(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo) {
         myName = name;
         myCanvas = frame;
@@ -75,62 +89,125 @@ public abstract class Controller{
         loadMode();
     }
     
+    /**
+     * Instantiates a new controller with input parameters
+     * @param name - name of this controller
+     * @param frame - View for this controller
+     * @param manager - the ControllerDelegate manager that handles switching between controllers
+     * @param gameinfo - the GameInfo object that holds general data about the current 
+     * 					game state (num players, gameMode, etc.)
+     * @return the newly instantiated controller
+     */
     public abstract Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo);
     
-    protected void setInput(Input input){
+    /**
+     * sets this Controller's input
+     * @param input
+     */
+    protected void setInput(Input input) {
     	myInput = input;
     }
 
-    public String getName(){
+    /**
+     * returns this Controller's name
+     * @return myName
+     */
+    public String getName() {
         return myName;
     }
     
+    /**
+     * sets the name of this controller
+     * @param name
+     */
     public void setName(String name) {
         myName = name;
     }
     
-    protected Input getInput(){
+    /**
+     * gets this controller's input object
+     * @return myInput
+     */
+    protected Input getInput() {
     	return myInput;
     }
 
-    protected Canvas getView(){
+    /**
+     * gets this controller's view
+     * @return myCanvas
+     */
+    protected Canvas getView() {
         return myCanvas;
     }
 
-    protected String getPath(){
+    /**
+     * gets this controller's filepath
+     * @return myPath
+     */
+    protected String getPath() {
         return myPath;
     }
-
-    protected ControllerDelegate getManager(){
+    
+    /**
+     * gets this controller's manager. The manager is the class that handles
+     * switching of controllers.
+     * @return myManager
+     */
+    protected ControllerDelegate getManager() {
         return myManager;
     }
 
-    protected GameInfo getGameInfo(){
+    /**
+     * returns this controller's GameInfo
+     * @return myGameInfo
+     */
+    protected GameInfo getGameInfo() {
         return myGameInfo;
     }
     
-    protected Mode getMode(){
+    /**
+     * returns this controller's mode
+     * @return myMode
+     */
+    protected Mode getMode() {
     	return myMode;
     }
 
-    protected void setMode(Mode mode){
+    /**
+     * sets this controller's mode and initializes it
+     * @param mode
+     */
+    protected void setMode(Mode mode) {
         myMode = mode;
         initializeMode();
     }
     
+    /**
+     * 
+     */
     public abstract void loadMode();
     
+    /**
+     * sets the loopinfo of this controller
+     * @param loopinfo - contains painting info for this controller
+     */
     protected void setLoopInfo(DisplayInfo loopinfo){
     	myDisplayInfo = loopinfo;
     	myCanvas.setViewDataSource(myDisplayInfo);
     }
 
-    public void displaySplash(){
+    /**
+     * displays the splash screen for this controller
+     */
+    public void displaySplash() {
     	myCanvas.setViewDataSource(myDisplayInfo);
     	myCanvas.paint();
     }
     
-    private void generateSplash(){
+    /**
+     * creates the splash screen for this controller
+     */
+    private void generateSplash() {
     	myDisplayInfo = new DisplayInfo();
     	myDisplayInfo.clear();
     	
@@ -139,6 +216,9 @@ public abstract class Controller{
         myDisplayInfo.setGamePaintable(0, new Pixmap(mySplashPath));
     }
 
+    /**
+     * starts this controller. starts the timer and begins the update/paint loop.
+     */
     public void start() {
         final int stepTime = DEFAULT_DELAY;
         // create a timer to animate the canvas
@@ -163,22 +243,46 @@ public abstract class Controller{
         System.exit(0);
     }
 
+    /**
+     * stops this controller's timer
+     */
     public void stop () {
         myTimer.stop();
 
     }
 
-    public void removeListener(){
+    /**
+     * removes this controller's input listener.
+     */
+    public void removeListener() {
     	getInput().removeListener(this);
     }
     
+    /**
+     * checks for the completion of end conditions
+     */
     public abstract void checkConditions();
  
+    /**
+     * Notifies the controllerdelegate that the current game state is completed
+     * @param choice
+     */
     public abstract void notifyEndCondition(String choice);
+    
+    /**
+     * instantiates a new controller
+     * @return this
+     */
     public abstract Controller getController();
     
+    /**
+     * Update for special cases desired by the developer
+     */
     public abstract void developerUpdate();
     
+    /**
+     * initializes this controller's mode
+     */
     public abstract void initializeMode();
 
         

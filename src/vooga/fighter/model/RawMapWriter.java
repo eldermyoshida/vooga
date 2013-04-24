@@ -20,6 +20,7 @@ import vooga.towerdefense.util.XMLTool;
  */
 public class RawMapWriter {
 	private static final String INPUT_PATHWAY = "vooga.fighter.config.maps";
+	
 	private MapObject myWriteSource;
 	private ArrayList<String> myWriteOutLines;
 	private XMLTool myXMLWriter;

@@ -61,6 +61,13 @@ public class MapObject extends GameObject {
     public String getName() {
     	return myName;
     }
+    
+    /**
+     * sets the name of this map. used by map editor
+     */
+    public void setName(String newName) {
+    	myName = newName;
+    }
 
     /**
      * Returns the list of environment objects in the map object.
