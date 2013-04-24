@@ -53,7 +53,7 @@ public class Unit extends InteractiveEntity {
     private OccupyStrategy myOccupyStrategy;
     public Unit () {
         this(new Pixmap("sprites/soldier.png"), new Location3D(), new Dimension(0, 0), null, 0, 100,
-             InteractiveEntity.DEFAULT_BUILD_TIME);
+             InteractiveEntity.DEFAULT_BUILD_TIME, InteractiveEntity.DEFAULT_INTERACTIVEENTITY_SPEED);
     }
 
     /**
@@ -79,8 +79,9 @@ public class Unit extends InteractiveEntity {
                  Sound sound,
                  int playerID,
                  int health,
-                 double buildTime) {
+                 double buildTime, int speed) {
         super(image, center, size, sound, playerID, health, buildTime);
+        setSpeed(speed);
         addActions();
     }
 
@@ -109,7 +110,7 @@ public class Unit extends InteractiveEntity {
     @Override
     public InteractiveEntity copy () {
         return new Unit(getImage(), getWorldLocation(), getSize(), getSound(), getPlayerID(),
-                        getHealth(), getBuildTime());
+                        getHealth(), getBuildTime(), getSpeed());
     }
     
 }

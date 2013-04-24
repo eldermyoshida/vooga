@@ -66,8 +66,8 @@ import vooga.rts.util.Information;
 public abstract class InteractiveEntity extends GameEntity implements
 		IAttackable, IActOn {
 
-	private static final int LOCATION_OFFSET = 20;
-	private static int DEFAULT_INTERACTIVEENTITY_SPEED = 150;
+	public static final int LOCATION_OFFSET = 20;
+	public static int DEFAULT_INTERACTIVEENTITY_SPEED = 150;
 	private boolean isSelected;
 	private UpgradeTree myUpgradeTree;
 	private Sound mySound;

@@ -83,7 +83,6 @@
 			<sound>pikachu.wav</sound>
 			<health>1000</health>
 			<buildtime>100</buildtime>
-			<attack>cannotattack</attack>
 			<occupy>cannotbeoccupied</occupy>
 			<produce>worker soldier</produce>
 		</building>
@@ -98,7 +97,6 @@
 			<sound>pikachu.wav</sound>
 			<health>100</health>
 			<buildtime>100</buildtime>
-			<attack>canattack</attack>
 			<gather>cannotgather</gather>
 			<occupy>cannotbeoccupied</occupy>
 			<produce></produce>
@@ -109,7 +107,6 @@
 			<sound>pikachu.wav</sound>
 			<health>100</health>
 			<buildtime>100</buildtime>
-			<attack>cannotattack</attack>
 			<gather>cangather</gather>
 			<occupy>cannotbeoccupied</occupy>
 			<produce>home</produce>
@@ -118,6 +115,12 @@
 			<name>soldier</name>
 		</customunit>
 	</units>
+	<weapons src = "">
+			<weapon>
+			
+	</weapons>
+	
+	
 </GameElements>
 
 
