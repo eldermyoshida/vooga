@@ -3,7 +3,7 @@ package vooga.towerdefense.gameeditor;
 import java.util.ArrayList;
 import java.util.List;
 import org.w3c.dom.Element;
-import util.XMLTool;
+import vooga.towerdefense.util.XMLTool;
 
 
 /**
@@ -74,7 +74,7 @@ public class ActionXMLWriter {
         String[] dataArray = dataString.split("\n");
 
         while (myIndex < dataArray.length) {
-            myXMLTool.addChildElement(rootElement, parse(dataArray, 0));
+            myXMLTool.addChild(rootElement, parse(dataArray, 0));
         }
         return rootElement;
     }
@@ -88,13 +88,13 @@ public class ActionXMLWriter {
 
         for (String param : params) {
             Element parameterElement = myXMLTool.makeElement(PARAM_TAG, param);
-            myXMLTool.addChildElement(currentElement, parameterElement);
+            myXMLTool.addChild(currentElement, parameterElement);
         }
         while (myIndex < dataArray.length) {
             String next = dataArray[myIndex];
             if (countTabs(next) > numTabs) {
                 Element child = parse(dataArray, numTabs + 1);
-                myXMLTool.addChildElement(currentElement, child);
+                myXMLTool.addChild(currentElement, child);
             }
             else {
                 break;

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.w3c.dom.Element;
-import util.XMLTool;
+import vooga.towerdefense.util.XMLTool;
 import vooga.scroller.level_editor.Level;
 import vooga.towerdefense.model.rules.Rule;
 
@@ -17,13 +17,13 @@ public class LevelsXMLLoader {
     
     public LevelsXMLLoader(XMLTool xmlTool, String xmlFilePath) {
         myXMLTool = xmlTool;  
-        myXMLTool.setDoc(xmlFilePath);
+        myXMLTool.readDoc(xmlFilePath);
     }
     
     public List<Level> getLevels() {
-        Element levelsElement = myXMLTool.getElementFromTag(LEVELS_TAG);
+        Element levelsElement = myXMLTool.getElement(LEVELS_TAG);
         
-        Map<String, Element> subElements = myXMLTool.getMapElementFromParent(levelsElement);
+        Map<String, Element> subElements = myXMLTool.getChildrenElementMap(levelsElement);
         
         List<Level> levels = new ArrayList<Level>();
         for (Element subElement : subElements.values()) {
@@ -33,7 +33,7 @@ public class LevelsXMLLoader {
     }
     
     private Level getLevel(Element levelElement) {
-        Map<String, Element> subElements = myXMLTool.getMapElementFromParent(levelElement);
+        Map<String, Element> subElements = myXMLTool.getChildrenElementMap(levelElement);
         
         List<Rule> rules = getRules(subElements.get(RULES_TAG));
         
@@ -42,7 +42,7 @@ public class LevelsXMLLoader {
     }
     
     private List<Rule> getRules(Element rulesElement) {
-        Map<String, Element> subElements = myXMLTool.getMapElementFromParent(rulesElement);
+        Map<String, Element> subElements = myXMLTool.getChildrenElementMap(rulesElement);
         
         List<Rule> rules = new ArrayList<Rule>();
         for (Element subElement : subElements.values()) {
@@ -53,7 +53,7 @@ public class LevelsXMLLoader {
     }
     
     private Rule getRule(Element ruleElement) {
-        Map<String, Element> subElements = myXMLTool.getMapElementFromParent(ruleElement);
+        Map<String, Element> subElements = myXMLTool.getChildrenElementMap(ruleElement);
         String ruleValue = getRuleValue(subElements.get(VALUE_TAG));
         
         Rule r = null;

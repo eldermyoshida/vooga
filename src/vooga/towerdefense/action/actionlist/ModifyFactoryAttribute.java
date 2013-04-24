@@ -15,7 +15,7 @@ import vooga.towerdefense.attributes.Attribute;
  * @author Matthew Roy
  * 
  */
-public class TargetedModifyAttributeAction extends TargetedAction {
+public class ModifyFactoryAttribute extends TargetedAction {
 
 	Attribute myTargetAttribute;
 
@@ -23,7 +23,7 @@ public class TargetedModifyAttributeAction extends TargetedAction {
 	 * constructor
 	 * @param toModify
 	 */
-    public TargetedModifyAttributeAction (Attribute toModify) {
+    public ModifyFactoryAttribute (Attribute toModify) {
         myTargetAttribute = toModify;
     }
 

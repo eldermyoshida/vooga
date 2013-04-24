@@ -147,8 +147,7 @@ public class GameElementFactory {
         List<Action> actions = new ArrayList<Action>();
         actions.add(new MoveToTarget(projectile.getCenter(),
                                      target.getCenter(), projectile.getAttributeManager()
-                                             .getAttribute(
-                                                           AttributeConstants.MOVE_SPEED)));
+                                             .getAttribute(AttributeConstants.MOVE_SPEED.toString())));
         projectile.addActions(actions);
         return projectile;
     }

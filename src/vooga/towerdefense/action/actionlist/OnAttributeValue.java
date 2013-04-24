@@ -30,7 +30,7 @@ public class OnAttributeValue extends Action {
 	@Override
 	public void executeAction (double elapsedTime) {
 			if (myMonitoredAttribute.getValue()== myConditionAttribute.getValue()){
-				updateFollowupActions(elapsedTime);
+				updateFollowUpActions(elapsedTime);
 				setEnabled(false);
 			}
 	}

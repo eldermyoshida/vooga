@@ -8,6 +8,8 @@ import vooga.towerdefense.util.Location;
 
 /**
  * Shell of an attribute class, allows for tracking and modification.
+ * Value is in double, can be reset, and add temporary value, can also paint a bar
+ * representing its value
  * 
  * @author Matthew Roy
  * @author XuRui
