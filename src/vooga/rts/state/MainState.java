@@ -98,6 +98,8 @@ public class MainState implements State, Observer {
         }
         else if (o instanceof MenuState) {
             setActiveState(new GameState(this));
+        } else if (o instanceof GameState) {
+            setActiveState(new GameOverState(this));
         }
     }
 

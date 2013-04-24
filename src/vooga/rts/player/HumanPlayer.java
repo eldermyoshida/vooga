@@ -125,8 +125,12 @@ public class HumanPlayer extends Player implements Observer {
         if (a instanceof InformationCommand) {
             InformationCommand i = (InformationCommand) a;
             getManager().receiveCommand(i);
+        } else {
+            setChanged();
+            notifyObservers();
         }
-
+        
+       
     }
 
 }

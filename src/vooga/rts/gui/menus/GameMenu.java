@@ -174,7 +174,8 @@ public class GameMenu extends Menu {
         }
 
         if (o.equals(myExitButton)) {
-            System.exit(0);
+            setChanged();
+            notifyObservers();
         }
 //        if (o instanceof ActionButton) {
 //            ActionButton a = (ActionButton) o;
