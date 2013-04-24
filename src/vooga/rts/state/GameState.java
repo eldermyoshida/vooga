@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Observable;
 import java.util.Observer;
 import vooga.rts.commands.Command;
 import vooga.rts.commands.DragCommand;
@@ -46,7 +47,7 @@ import vooga.rts.util.PointTester;
  * 
  */
 
-public class GameState extends SubState implements Controller {
+public class GameState extends SubState implements Controller, Observer {
 
     private final static int DEFAULT_NODE_SIZE = 8;
     private Map<Integer, Team> myTeams;
@@ -60,21 +61,29 @@ public class GameState extends SubState implements Controller {
     private FrameCounter myFrames;
 
     private Rectangle2D myDrag;
+    
+    private boolean isGameOver;
 
     public GameState (Observer observer) {
         super(observer);
         myTeams = new HashMap<Integer, Team>();
         myPlayers = new ArrayList<Player>();
+        
         myMap = new GameMap(new Dimension(4000, 2000));
         // myMap = new GameMap(8, new Dimension(512, 512));
         pt = new PointTester();
         myFrames = new FrameCounter(new Location(100, 20));
         myTasks = new ArrayList<DelayedTask>();
+        isGameOver = false;
         setupGame();
     }
 
     @Override
     public void update (double elapsedTime) {
+        if (isGameOver) {
+            setChanged();
+            notifyObservers();
+        }
         myMap.update(elapsedTime);
 
         for (Player p : myPlayers) {
@@ -122,7 +131,9 @@ public class GameState extends SubState implements Controller {
      * @param teamID of the player.
      */
     public void addPlayer (Player player, int teamID) {
+        player.addObserver(this);
         myPlayers.add(player);
+        
         if (myTeams.get(teamID) == null) {
             addTeam(teamID);
         }
@@ -288,8 +299,19 @@ public class GameState extends SubState implements Controller {
         }
         occupyPukingTest.update(elapsedTime);
     }
+    
+    public void initializeGameOver () {
+        isGameOver = true;
+    }
 
     public static GameMap getMap () {
         return myMap;
     }
+
+    @Override
+    public void update (Observable arg0, Object arg1) {
+        initializeGameOver();
+    }
+    
+    
 }
