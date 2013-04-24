@@ -1,3 +1,4 @@
+import javax.swing.ImageIcon;
 import arcade.database.Database;
 import arcade.exceptions.InvalidPaymentException;
 
