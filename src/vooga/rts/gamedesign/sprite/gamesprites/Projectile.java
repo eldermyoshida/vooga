@@ -34,7 +34,6 @@ public class Projectile extends GameEntity {
 	
 	private int myDamage;
 	private InteractiveEntity myTarget;
-	private int mySpeed;
 	
 	private DelayedTask myTimer;
 
@@ -126,11 +125,6 @@ public class Projectile extends GameEntity {
 		interactiveEntity.changeHealth(myDamage);
 	}
 
-	@Override
-	public int getSpeed() {
-		return mySpeed;
-	}
-
 	/**
 	 * Makes a clone of the projectile.
 	 * 
@@ -143,6 +137,6 @@ public class Projectile extends GameEntity {
 	public Projectile copy(Projectile other, Location3D shootFrom) {
 		return new Projectile(new Pixmap(other.getImage()), new Location3D(
 				shootFrom), new Dimension(other.getSize()),
-				other.getPlayerID(), other.getDamage(), other.getHealth(), getSpeed());
+				other.getPlayerID(), other.getDamage(), other.getHealth(), other.getSpeed());
 	}
 }
