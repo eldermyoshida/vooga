@@ -1,4 +1,4 @@
-package vooga.towerdefense.action.tobetested;
+package vooga.towerdefense.action.actionlist;
 
 import vooga.towerdefense.action.TargetedAction;
 import vooga.towerdefense.attributes.Attribute;
