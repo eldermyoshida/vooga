@@ -42,11 +42,7 @@ public abstract class LevelPortal extends Sprite implements IDoor {
 
     @Override
     public void goToNextLevel (Player player) {      
-        // TODO: this can be where animations or cutscreens are played?
-        // This could also be done in the level manager.
-        
         myLevelManager.setCurrentLevel(myNextLevel);
-        myLevelManager.getCurrentLevel().addPlayer(player);     
     }
 
     @Override

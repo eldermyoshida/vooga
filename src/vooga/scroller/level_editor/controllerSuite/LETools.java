@@ -97,7 +97,7 @@ public class LETools extends Tools implements Renderable<LEToolsView> {
             mySpritesOptions.get(COLLECTIBLES).put(getIcon(s), spriteID + "");
         }
         else if (StartPoint.class.isAssignableFrom(s.getClass()) ||
-                LevelPortal.class.isAssignableFrom(s.getClass())) {
+                IDoor.class.isAssignableFrom(s.getClass())) {
             mySpritesOptions.get(SPECIALPOINTS).put(getIcon(s), -spriteID + "");
         }
         else {

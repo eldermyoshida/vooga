@@ -97,9 +97,6 @@ public class LEGrid implements Editable, Renderable<LEGridView>, Scrollable {
             myPaintableBoxes.add(currentBox);
             combineBoxes(currentBox, currentBox, spr.getWidth(), spr.getHeight());
         }
-        else {
-            // TODO send Unavailable feedback
-        }
     }
 
     @Override
