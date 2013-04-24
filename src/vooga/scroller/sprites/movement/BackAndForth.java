@@ -6,7 +6,13 @@ import vooga.scroller.util.Sprite;
 
 
 /**
- * Represents the back and forth movement between two points.
+ * Represents the back and forth movement between two points. All you need to do is give the constructor 
+ * two points - one point that represents your start and one point that represents your end. You also 
+ * need to give it the speed you want this sprite to move at.
+ * <br>
+ * <br>
+ * Note - Before we were handling this with UpAndDown.java and LeftAndRight.java. This is our attempt at 
+ * generalizing that kind of movement. 
  * 
  * 
  * @author Scott Valentine
@@ -23,8 +29,7 @@ public class BackAndForth implements Movement {
     private double myMaxX;
     private double myMinX;
     private double myAngle;
-    private double myMinY;
-    private double myMaxY;
+
 
     /**
      * Creates a new back and forth movement that can only be used for the given sprite.
@@ -43,9 +48,6 @@ public class BackAndForth implements Movement {
         myMaxX = Math.max(start.getX(), end.getX());
         myMinX = Math.min(start.getX(), end.getX());
         
-        myMaxY = Math.max(start.getY(), end.getY());
-        myMinY = Math.min(start.getY(), end.getY());
-
         myAngle = Vector.angleBetween(start, end);
 
         placeEntityOnLine();
@@ -97,14 +99,14 @@ public class BackAndForth implements Movement {
             myEntity.setCenter(myMinX, myEntity.getY());
             myEntity.getVelocity().negate();
         }
-        else if (myEntity.getY() > myMaxY) {
-            myEntity.setCenter(myEntity.getX(), myMaxY);
-            myEntity.getVelocity().negate();
-        }
-        else if (myEntity.getY() < myMinY) {
-            myEntity.setCenter(myEntity.getY(), myMinY);
-            myEntity.getVelocity().negate();
-        }
+//        else if (myEntity.getY() > myMaxY) {
+//            myEntity.setCenter(myEntity.getX(), myMaxY);
+//            myEntity.getVelocity().negate();
+//        }
+//        else if (myEntity.getY() < myMinY) {
+//            myEntity.setCenter(myEntity.getY(), myMinY);
+//            myEntity.getVelocity().negate();
+//        }
 
     }
 

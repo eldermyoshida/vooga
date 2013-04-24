@@ -7,18 +7,13 @@ import vooga.scroller.util.ISpriteView;
 import vooga.scroller.util.Sprite;
 
 /**
- * TODO: rewrite this.
- * This is the superclass for all sprites a game designer creates 
- * that interact in the game as living things. Critical in this class is the abstract getMovement() method 
- * that this superclass forces its subclasses to implement. This class also 
- * contains a bunch of helper methods pertaining to Velocity / Movement that 
- * many NonStaticEntities may find useful.  
- * <br>
- * <br>
- * Every NonStaticEntity has a default speed that is defaulted to (0, 45). However,
- * this will most definitely be by the NonStaticEntity. 
+ * UPDATE - This is the superclass for all sprites a game designer creates 
+ * that interact in the game as living things. Critical in this class 
+ * are the myHealth and myDamage fields. If you have a sprite that can die 
+ * and/or cause damage to another sprite, then you want a GameCharacter.
  * 
  * @author Jay Wang
+ * @author Scott Valentine
  *
  */
 public abstract class GameCharacter extends Sprite {

@@ -322,25 +322,45 @@ public class Sprite {
     /**
      * Returns the default image for this sprite.
      * 
-     * @return
+     * @return the default image of this sprite.
      */
     public Image getDefaultImg () {
         
         return myOriginalView.getDefaultImg();
     }
     
+    /**
+     * Sets the default image of this sprite.
+     * 
+     * @param s is the ISpriteView that this sprite will use to paint itself.
+     */
     public void setDefaultImg (ISpriteView s){
         myOriginalView = s;
     }
     
+    /**
+     * Adds a vector to this sprite's velocity.
+     * 
+     * @param force is the vector to be added to this sprite.
+     */
     public void addVector(Vector force) {
         myVelocity.sum(force);
     }
     
+    /**
+     * Gives the dimensions of this sprite.
+     * 
+     * @return the Size of this sprite in dimensions.
+     */
     public Dimension getSize() {
         return mySize;
     }
     
+    /**
+     * Sets the velocity of this sprite.
+     * 
+     * @param velocity is the vector to set this sprite's velocity to.
+     */
     public void setVelocity (Vector velocity){
         myVelocity = new Vector(velocity);
     }
