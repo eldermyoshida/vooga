@@ -54,11 +54,11 @@ public static final Dimension SIZE = new Dimension(800, 600);
         myControllerManager.run();
     }
 
-    protected ControllerFactory makeFactory(Canvas canvas, String pathway){
+    private ControllerFactory makeFactory(Canvas canvas, String pathway){
         return new ControllerFactory(canvas, pathway);
     }
 
-    protected ControllerManager makeManager(Canvas canvas, GameInfo info, ControllerFactory factory,
+    private ControllerManager makeManager(Canvas canvas, GameInfo info, ControllerFactory factory,
                                             ControlProgressionManager progression, String myFilePathway){
         return new ControllerManager(canvas, info, factory, progression, myFilePathway);
     }

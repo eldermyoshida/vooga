@@ -19,13 +19,18 @@ import vooga.fighter.model.objects.MouseClickObject;
  * 
  * @author James Wei, alanni
  * @modified Matthew Parides
+ * @modified Jack Matteucci
  */
 public class CollisionManager {
 
     CollisionDetector myCollisionDetector;
 
     public CollisionManager () {
-        myCollisionDetector = new CollisionDetector();
+        setCollisionDetector();
+    }
+    
+    public void setCollisionDetector(){
+    	myCollisionDetector = new CollisionDetector();
     }
 
     /**
