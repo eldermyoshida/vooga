@@ -55,7 +55,8 @@ public class StorePanel extends JPanel {
      */
     private Component createSnapShots () {
         AllSnapShots allSnapShots = new AllSnapShots(myController, 
-                                                     myResources, 
+                                                     myResources,
+                                                     myController.getGameList(),
                                                      new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
         return new JScrollPane(allSnapShots);
     }

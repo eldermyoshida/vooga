@@ -3,6 +3,7 @@ package arcade.view;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Rectangle;
+import java.util.Collection;
 import java.util.ResourceBundle;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
@@ -38,7 +39,7 @@ public class AllSnapShots extends JPanel implements Scrollable {
      * @param resources
      * @param size
      */
-    public AllSnapShots (Controller controller, ResourceBundle resources, Dimension size) {
+    public AllSnapShots (Controller controller, ResourceBundle resources, Collection<GameInfo> games, Dimension size) {
         myController = controller;
         myResources = resources;
         mySize = size;
@@ -46,18 +47,18 @@ public class AllSnapShots extends JPanel implements Scrollable {
         setBackground(Color.WHITE);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        addSnapShots();
+        addSnapShots(games);
     }
 
     /**
      * Adds all of the SnapShots to this panel. Adds from left to right until
      * SNAPSHOTS_PER_ROW are filled, and then goes to the next row.
      */
-    private void addSnapShots () {
+    private void addSnapShots (Collection<GameInfo> games) {
         int counter = 0;
         JPanel row = createNewRow();
-        for (GameInfo info : myController.getGameList()) {
-            SnapShot snapshot = new SnapShot(info, myResources, myController);
+        for (GameInfo game : games){
+            SnapShot snapshot = new SnapShot(game, myResources, myController);
             if (counter % SNAPSHOTS_PER_ROW == 0) {
                 row = createNewRow();
                 add(row);

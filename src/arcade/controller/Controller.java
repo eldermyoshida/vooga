@@ -72,6 +72,7 @@ public class Controller implements ArcadeInteraction {
         myResources = ResourceBundle.getBundle(RESOURCE_LOCATION + language);
         myDb = new Database();
         myGameInfos = new HashMap<String, GameInfo>();
+        myPurchasedGames = new ArrayList<GameInfo>();
         myLoginView = new LoginView(this, myResources);
     }
 

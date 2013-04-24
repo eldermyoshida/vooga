@@ -61,4 +61,5 @@ public interface TextKeywords {
     static final String SCORE_MESSAGE = "score_message";
     static final String HIGH_SCORES = "high_scores";
     static final String ALREADY_PURCHASED = "already_purchased";
+    static final String NO_GAMES = "no_games";
 }
