@@ -14,6 +14,7 @@ import javax.swing.JTextField;
  * @author Ziqiang Huang
  *
  */
+@SuppressWarnings("serial")
 public class MenuManager extends JMenuBar {
 
     public static final String USER_DIR = "user.dir";
@@ -103,7 +104,6 @@ public class MenuManager extends JMenuBar {
                     }
                 }
                 catch (Exception exception) {
-                    //TODO
                 }
             }
         });
@@ -120,15 +120,16 @@ public class MenuManager extends JMenuBar {
                     }
                 }
                 catch (Exception exception) {
-                    //TODO
                 }
             }
         });
 
     }
 
-
-    protected void showCustomizeMapDialog() {
+    /**
+     * show the customization dialog for the map
+     */
+    public void showCustomizeMapDialog() {
         JTextField MapName = new JTextField();
         JTextField MapDesc = new JTextField();
         JTextField TileWidth = new JTextField();
@@ -157,7 +158,6 @@ public class MenuManager extends JMenuBar {
                 myCanvas.getMapPanel().initializeMap(name,desc,width,height,tileWidth,tileHeight);
             }
             catch (Exception e1) {
-                //TODO
             }
         }
     }

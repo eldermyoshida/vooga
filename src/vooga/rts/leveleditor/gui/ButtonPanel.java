@@ -8,12 +8,13 @@ import javax.swing.JPanel;
 
 /**
  * This Class holds all the functional Buttons for this level editor
- * ZoomIn, ZoomOut, remove, clear
+ * Right now it has fill, remove and clearall button
  * 
  * @author Ziqiang Huang
  *
  */
 
+@SuppressWarnings("serial")
 public class ButtonPanel extends JPanel {
 
     private Canvas myCanvas;

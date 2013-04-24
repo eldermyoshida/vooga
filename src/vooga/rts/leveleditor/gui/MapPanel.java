@@ -144,7 +144,7 @@ public class MapPanel extends JComponent {
 
     public void placeTerrain (Location3D loc) {
         EditableTerrain t = myCanvas.getCurrentSelectTerrain();
-        myMap.addTile(loc, t.getMyID(), t.getMyName(), t.getMyImageName(), t.getImage());
+        myMap.addTerrain(t.getImage(), loc, t.getMyID(), t.getMyName(), t.getMyImageName(), t.getMyWalkAbility());
         repaint();
     }
 
