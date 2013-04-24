@@ -215,20 +215,6 @@ public class PublishView extends Form {
      */
     private void publish () {
         try {
-//            GameSpecificData data = new GameSpecificData(myNameTextField.getText(),
-//                                                         myGenreTextField.getText(),
-//                                                         myAuthorTextField.getText(),
-//                                                         getPrice(),
-//                                                         getGameFilePath(),
-//                                                         "",
-//                                                         getAgeRating(),
-//                                                         true,
-//                                                         false,
-//                                                         mySmallImagePath,
-//                                                         myLargeImagePath,
-//                                                         myDescriptionTextField.getText());
-//            getController().publish(data);
-
             getController().publish(myNameTextField.getText(),
                                   myGenreTextField.getText(),
                                   myAuthorTextField.getText(),

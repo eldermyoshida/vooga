@@ -41,7 +41,7 @@ public class ScoresView extends Form {
     private static final int WINDOW_HEIGHT = 220;
     private static final int MAX_HIGH_SCORES_SHOWN = 5;
 
-    private double myScore;
+    private int myScore;
     
     private JLabel myUserScore;
     private JPanel myPinPanel;
@@ -54,7 +54,7 @@ public class ScoresView extends Form {
      * @param controller
      * @param resources
      */
-    public ScoresView (Controller controller, ResourceBundle resources, double score) {
+    public ScoresView (Controller controller, ResourceBundle resources, int score) {
         super(controller, resources);
         myScore = score;
         setUserScoreMessage(score);
