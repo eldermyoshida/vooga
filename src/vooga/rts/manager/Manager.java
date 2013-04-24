@@ -94,8 +94,13 @@ public class Manager extends Observable implements State, IActOn, Observer {
     public void updateAction (Command command) {
         if (myActions.containsKey(command.getMethodName())) {
             Action current = myActions.get(command.getMethodName());
+//            System.out.println(command.getMethodName());
+//            if(command.getMethodName().equals(ClickCommand.RIGHT_CLICK)){
+//                System.out.println("JUST FUCKING DO IT");
+//            }
             current.update(command);
             current.apply();
+            
         }
         else {
             applyAction(command);

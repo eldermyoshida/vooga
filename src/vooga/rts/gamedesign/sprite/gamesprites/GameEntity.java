@@ -2,6 +2,7 @@ package vooga.rts.gamedesign.sprite.gamesprites;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import vooga.rts.ai.AstarFinder;
 import vooga.rts.ai.Path;
 import vooga.rts.ai.PathFinder;
 import vooga.rts.gamedesign.state.EntityState;
@@ -54,6 +55,7 @@ public class GameEntity extends GameSprite {
         myEntityState = new EntityState();
         mySpeed = DEFAULT_SPEED;
         myPath = new Path();
+        myFinder = new AstarFinder();
     }
 
     /**
@@ -72,6 +74,7 @@ public class GameEntity extends GameSprite {
                 myEntityState.setMovementState(MovementState.MOVING);
             }
         }
+        System.out.println("myPath size: " + myPath.size());
         Vector velocity = new Vector(myVelocity);
         velocity.scale(elapsedTime);
         translate(velocity);
@@ -85,8 +88,8 @@ public class GameEntity extends GameSprite {
      */
     public void move (Location3D loc) {
        myPath = GameState.getMap().getPath(myFinder, getWorldLocation(), loc);
+       System.out.println("goal location: " + loc.toString() + " current location: " + getWorldLocation().toString());
        myGoal = myPath.getNext();
-       System.out.println("I am the manlier man, ya dig");
     }
 
     /**
