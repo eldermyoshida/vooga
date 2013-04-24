@@ -13,12 +13,7 @@ public class TilePanel extends MapComponentPanel {
     
     public TilePanel(Canvas canvas) {
         super(canvas);
-    }
-    
-    @Override
-    public void setResourceBundle() {
-        myResource = ResourceBundle.getBundle(RELATIVE_PATH+"TileIndex");
-    }
+    }    
     
     @Override
     public void addButton() {

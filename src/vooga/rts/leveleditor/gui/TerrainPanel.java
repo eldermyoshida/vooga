@@ -15,11 +15,6 @@ public class TerrainPanel extends MapComponentPanel {
     }
 
     @Override
-    public void setResourceBundle () {
-        myResource = ResourceBundle.getBundle(RELATIVE_PATH + "TerrainIndex");
-    }
-
-    @Override
     public void addButton () {
         for(int i=0; i<myFiles.length; ++i) {
             try {

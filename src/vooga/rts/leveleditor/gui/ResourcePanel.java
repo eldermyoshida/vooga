@@ -30,12 +30,6 @@ public class ResourcePanel extends MapComponentPanel {
     }
 
     @Override
-    public void setResourceBundle() {
-        myResource = ResourceBundle.getBundle(RELATIVE_PATH+"ResourceIndex");
-       
-    }
-
-    @Override
     public void addButton() {
         for(int i=0; i<myFiles.length; ++i) {
             try {
