@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
-import vooga.towerdefense.factories.GameElementFactory;
+import vooga.towerdefense.factories.elementfactories.GameElementFactory;
 import vooga.towerdefense.util.Location;
 
 /**

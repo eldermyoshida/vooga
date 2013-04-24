@@ -1,7 +1,7 @@
 
 package vooga.fighter.controller;
 
-
+import util.input.*;
 
 import java.util.List;
 import java.util.Map;

@@ -8,27 +8,32 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import vooga.towerdefense.action.Action;
-import vooga.towerdefense.attributes.AttributeManager;
 import vooga.towerdefense.controller.modes.BuildMode;
 import vooga.towerdefense.controller.modes.ControlMode;
 import vooga.towerdefense.controller.modes.SelectMode;
-import vooga.towerdefense.factories.GameElementFactory;
-import vooga.towerdefense.factories.WaveFactory;
-import vooga.towerdefense.factories.examples.ExampleAuraTowerFactory;
-import vooga.towerdefense.factories.examples.ExampleUnitFactory;
-import vooga.towerdefense.factories.examples.TrollUnitDefinition;
+import vooga.towerdefense.factories.actionfactories.WaveActionFactory;
+import vooga.towerdefense.factories.definitions.GameElementDefinition;
+import vooga.towerdefense.factories.definitions.UnitDefinition;
+import vooga.towerdefense.factories.elementfactories.GameElementFactory;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.gameElements.Wave;
 import vooga.towerdefense.model.GameLoop;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.GameModel;
+import vooga.towerdefense.model.MapLoader;
+import vooga.towerdefense.model.levels.Level;
+import vooga.towerdefense.model.rules.NextLevelRule;
+import vooga.towerdefense.model.rules.Rule;
+import vooga.towerdefense.model.rules.WinRule;
 import vooga.towerdefense.model.shop.Shop;
 import vooga.towerdefense.model.shop.ShopItem;
 import vooga.towerdefense.model.tiles.Tile;
+import vooga.towerdefense.model.tiles.factories.TileFactory;
 import vooga.towerdefense.util.Location;
 import vooga.towerdefense.util.Pixmap;
 import vooga.towerdefense.view.TDView;
@@ -70,22 +75,57 @@ public class Controller {
 	public Controller(String language) {
 
 		List<Wave> waves = new ArrayList<Wave>();
-
-		GameMap map = new GameMap(null, 800, 600, null);
+		String path = "/vooga/towerdefense/resources/map_loadfile.xml";
+		//String path = "C:/Users/Leonard/Desktop/308/vooga/src/vooga/towerdefense/resources/map_loadfile.xml";
+//		String path = "/Users/XuRui/Documents/CS308workspace/vooga/src/vooga/towerdefense/resources/map_loadfile.xml";
+		//String path = "C:\\Users\\JLongley\\workspace\\vooga\\src\\vooga\\towerdefense\\resources\\map_loadfile.xml";
+		MapLoader loader = new MapLoader(path);
+		List<GameMap> maps = loader.loadMaps();
+		GameMap map = maps.get(2);
 		// FIXME: Hardcoded for testing trolls
-		ExampleAuraTowerFactory codeStyleGenerator = new ExampleAuraTowerFactory(
-				map, "Tree of Doom", null);
-		codeStyleGenerator.initialize(map);
-		GameElement duvallTheMighty = codeStyleGenerator
-				.createElement(new Location(450, 200));
-		map.addGameElement(duvallTheMighty);
-		waves.add(WaveFactory.createWave(new ExampleUnitFactory("Troll",
-				new TrollUnitDefinition(), map), 25, map, map
-				.getTile(new Point(25, 275))));
+		// ExampleAuraTowerFactory codeStyleGenerator = new
+		// ExampleAuraTowerFactory(
+		// map, "Tree of Doom", null);
+		// codeStyleGenerator.initialize(map);
+		// GameElement duvallTheMighty = codeStyleGenerator
+		// .createElement(new Location(450, 200));
+		// map.addGameElement(duvallTheMighty);
+		//
+		// waves.add(WaveFactory.createWave(new ExampleUnitFactory("Troll",
+		// new TrollUnitDefinition(), map), 25, map, map
+		// .getTile(new Point(25, 275))));
 		setLanguage(language);
-		myModel = new GameModel(this, waves, map, new Shop(map));
+
+		List<Level> levels = new ArrayList<Level>();
+		List<Action> actions = new ArrayList<Action>();
+
+		GameElementFactory factory = new GameElementFactory("Tester", new UnitDefinition());
+		WaveActionFactory waveFactory = new WaveActionFactory(10, 200, factory,
+				map);
+		waveFactory.initialize(map);
+		Action action = waveFactory.createAction(null);
+		actions.add(action);
+		List<Rule> levelRules = new ArrayList<Rule>();
+
+		Level level = new Level(actions, levelRules);
+		levels.add(level);
+		List<Rule> rules = new ArrayList<Rule>();
+		
 		myView = new TDView(this);
+		
+		myModel = new GameModel(this, levels, rules, map, new Shop(map));
+		
+		rules.add(new WinRule(myModel));
+		rules.add(new NextLevelRule(myModel));
 		myControlMode = new SelectMode();
+	}
+	
+	/**
+	 * gets the view.
+	 * @return the view for this controller.
+	 */
+	public TDView getView() {
+	    return myView;
 	}
 
 	/**
@@ -141,8 +181,12 @@ public class Controller {
 	// the shop!!!
 	public void fixItemOnMap(GameElement item, Point p) {
 		GameElement newItem = createNewElement(item);
+		Location snappedLocation = getPointSnappedToGrid(new Location(p.getX(),
+				p.getY()));
+		newItem.setCenter(snappedLocation.getX(), snappedLocation.getY());
 		Tile myTile = myModel.getTile(p);
 		myTile.setTower(newItem);
+
 		myModel.getMap().addToMap(newItem, myTile);
 		displayMap();
 		myControlMode = new SelectMode();
@@ -194,20 +238,21 @@ public class Controller {
 			Class<? extends GameElement> myClass = item.getClass();
 			@SuppressWarnings("rawtypes")
 			Class[] types = { Pixmap.class, Location.class, Dimension.class,
-					AttributeManager.class, List.class };
+					List.class, String.class };
 			Constructor<? extends GameElement> constructor = myClass
 					.getConstructor(types);
 			Object[] parameters = { item.getPixmap(), item.getCenter(),
-					item.getSize(), item.getAttributeManager(),
-					item.getActions() };
+					item.getSize(), item.getActions()};
 			Object myNewItem = constructor.newInstance(parameters);
 			return (GameElement) myNewItem;
 		} catch (InvocationTargetException e) {
 			// ??
+			System.out.println(e.getMessage());
 		}
 
 		catch (Exception e) {
 			// ??
+			System.out.println(e.getMessage());
 		}
 		return null;
 	}
@@ -253,10 +298,10 @@ public class Controller {
 	}
 
 	/**
-	 * starts the next wave in the model.
+	 * starts the next level in the model.
 	 */
-	public void startNextWave() {
-		myModel.startNextWave();
+	public void startNextLevel() {
+		myModel.startNextLevel();
 	}
 
 	public Location getPointSnappedToGrid(Location location) {
@@ -338,12 +383,31 @@ public class Controller {
 	}
 
 	/**
-	 * Used to determine if a ghost image should be painted, it tests if a tower can be built at a particular point.
+	 * Used to determine if a ghost image should be painted, it tests if a tower
+	 * can be built at a particular point.
+	 * 
 	 * @param p
 	 * @return
 	 */
-	public boolean canBuildHere(Point p) {
-		return myModel.getMap().isBuildable(p);
+	public boolean canBuildHere(Point p, int tilesWide, int tilesTall) {
+		boolean canBuild = true;
+		for (int i = 0; i < tilesWide; i++) {
+			for (int j = 0; j < tilesTall; j++) {
+				Location location = new Location(p.getX() + i
+						* TileFactory.TILE_DIMENSIONS.getWidth(), p.getY() + j
+						* TileFactory.TILE_DIMENSIONS.getHeight());
+				canBuild = canBuild & myModel.getMap().isBuildable(location);
+			}
+		}
+
+		return canBuild;
+	}
+
+	public void displayPlayerStatistics(Map<String, Integer> playerData) {
+		String info = "Player info: \n\n";
+		for (String key : playerData.keySet())
+			info += key + ": " + playerData.get(key) + "\n";
+		myView.getPlayerInfoScreen().displayInformation(info);
 	}
 
 }

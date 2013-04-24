@@ -12,6 +12,11 @@ import vooga.fighter.model.loaders.MapLoader;
 import vooga.fighter.view.Canvas;
 import vooga.fighter.controller.ControllerManager;
 import vooga.fighter.controller.GameInfo;
+import util.input.*;
+
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -22,6 +27,7 @@ import java.util.Map;
 
 public class GameManager extends Game{
 public static final Dimension SIZE = new Dimension(800, 600);
+
     public static final String TITLE = "Fighter!";
     public static final int THREE_TOP_HIGH_SCORES = 3;
     private Canvas myCanvas;

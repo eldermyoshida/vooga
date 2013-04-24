@@ -1,5 +1,6 @@
 package vooga.rts.controller;
 
+<<<<<<< HEAD
 import java.awt.geom.Rectangle2D;
 import util.input.*;
 import vooga.rts.commands.ClickCommand;
@@ -10,6 +11,9 @@ import vooga.rts.state.State;
 import vooga.rts.util.Camera;
 import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
+=======
+import util.input.*;
+>>>>>>> input
 
 
 /**

@@ -30,7 +30,6 @@ public class GameInfo extends UserGameData{
     private HighScores myHighScores;
     private List<Integer> myWinners;
     private GameLoopInfo myGameLoopInfo;
-
     /**
      * Constructs game info with a list of map names.
      * Creates new lists of character names and scores
@@ -122,7 +121,6 @@ public class GameInfo extends UserGameData{
     /**
      * Return list of (double) scores
      */
-    @Override
     public List<Double> getScores() {
         List<Double> myArcadeScores = new ArrayList<Double>();
         for(Integer i : myTotalScores){
@@ -249,6 +247,7 @@ public class GameInfo extends UserGameData{
     public List<String> getMapNames(){
         return myMapNames;
     }
+<<<<<<< HEAD
 
     /**
      * set high scores
@@ -264,6 +263,15 @@ public class GameInfo extends UserGameData{
      */
     public HighScores getHighScores(){
         return myHighScores;
+=======
+    
+    public void setHighScores(Score highscores){
+    	myHighScores = highscores;
+    }
+    
+    public Score getHighScores(){
+    	return myHighScores;
+>>>>>>> 9df8e210c1a977237052b8237da8d28b20ac7ebc
     }
 
     /**
