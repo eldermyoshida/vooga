@@ -82,7 +82,7 @@ public class GameInfo {
     }
     
     private String getSingleplayerGameClassKeyword() {
-    	return myDb.getSingleplayerGameClassKeyword(gameName);
+    	return myDb.getExtendsGame(gameName);
     }
     
     private String getMultiplayerGameClassKeyword() {
@@ -192,6 +192,7 @@ public class GameInfo {
     @SuppressWarnings("rawtypes")
     private Class getSingleplayerGameClass () {
         try {
+            System.out.println(getSingleplayerGameClassKeyword());
             return Class.forName(getSingleplayerGameClassKeyword());
         }
         catch (ClassNotFoundException e) {
