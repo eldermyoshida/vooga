@@ -29,7 +29,7 @@ public class MenuMode extends Mode {
     }
 
     @Override
-    public void update (double stepTime, Dimension bounds) {
+    public void update () {
         removeAppropriateObjects();
         List<GameObject> myObjects = getMyObjects();
         for (GameObject object : myObjects) {

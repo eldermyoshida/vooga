@@ -7,10 +7,8 @@ import util.Pixmap;
 import util.input.Input;
 import vooga.fighter.model.*;
 import vooga.fighter.view.Canvas;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.swing.Timer;
@@ -225,7 +223,7 @@ public abstract class Controller{
          myTimer = new Timer(stepTime, 
                                new ActionListener() {
             public void actionPerformed (ActionEvent e) {
-                myMode.update((double) stepTime / ONE_SECOND, myCanvas.getSize());
+                myMode.update();
                 myDisplayInfo.update();
                 myCanvas.paint();
                 checkConditions();

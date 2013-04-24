@@ -97,7 +97,6 @@ public abstract class Mode {
     /**
      * Updates the mode for one game loop. Implemented by subclasses.
      */
-    public abstract void update(double stepTime, Dimension bounds);
-
+    public abstract void update();
 
 }
