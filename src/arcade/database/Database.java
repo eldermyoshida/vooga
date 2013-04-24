@@ -1,6 +1,7 @@
 package arcade.database;
 import arcade.controller.GameSpecificData;
 import arcade.controller.UserSpecificData;
+import arcade.games.Comment;
 import arcade.games.GameData;
 import arcade.games.Score;
 import arcade.games.UserGameData;
@@ -111,12 +112,6 @@ public class Database {
         return myGameTable.createGame(gameName, author, genre, price, extendsGame,
                                       extendsMultiplayerGame, ageRating, singlePlayer, multiplayer,
                                       thumbnailPath, adscreenPath, description);
-    }
-    
-    public boolean createGame(GameSpecificData data) {
-    	return createGame(data.getName(), data.getAuthor(), data.getGenre(), data.getPrice(), data.getExtendsGame(),
-    			data.getExtendsMultiplyaer(), data.getAgeRating(), data.isSinglePlayer(), data.isMultiplayer(),
-    			data.getThumbnailPath(), data.getAdScreenPath(), data.getDescription());
     }
 
     /**
@@ -286,17 +281,26 @@ public class Database {
      * @param username is user
      * @param gameName is game name
      * @param comment is comment to be inserted
+     * @param rating is rating
      */
-    public void insertCommentAndRating (String username, String gameName, String comment, double rating) {
-        myCommentTable.addNewCommentAndRating(retrieveGameId(gameName), retrieveUserId(username), comment, rating);
+    public void insertCommentAndRating (String username, String gameName, 
+                                        String comment, double rating) {
+        myCommentTable.addNewCommentAndRating(retrieveGameId(gameName), 
+                                              retrieveUserId(username), comment, rating);
     }
 
     /**
      * Retrieves all comments for game
      * @param gameName is game name
      */
-    public List<String> retrieveCommentsForGame (String gameName) {
-        return myCommentTable.getAllCommentsForGame(retrieveGameId(gameName));
+    public List<Comment> retrieveCommentsForGame (String gameName) {
+        List<Comment> myComments = new ArrayList<Comment>();
+        List<String> myUsers = myUserTable.retrieveUsernames();
+        for (String s : myUsers) {
+            myComments.addAll(myCommentTable.getAllCommentsAndRatingsForGame(
+                                     retrieveGameId(gameName), s, retrieveUserId(s)));
+        }
+        return myComments;
     }
 
     /**
