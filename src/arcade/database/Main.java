@@ -2,6 +2,7 @@ package arcade.database;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import arcade.games.Score;
 
 
 public class Main {
@@ -14,7 +15,11 @@ public class Main {
         myDatabase.createUser("natx13", "password", "Natalia", "Carvalho", "04/26/1991");
         myDatabase.createUser("kayzooo", "mypassword", "Kevin", "Zhu", "11/12/1990");
 
-        
+        //myDatabase.addNewHighScore("test", "test", 100);
+//        List<Score> myScores = myDatabase.getScoresForGame("test");
+//        for (Score s : myScores) {
+//            System.out.println(s.getScore());
+//        }
         //myDatabase.addNewHighScore("natx13", "example", 157);
         
         //System.out.println(System.getProperty("user.dir"));
@@ -32,7 +37,7 @@ public class Main {
    //     myDatabase.createUser("bob", "mypassword", "Joe", "Smith", "11/11/1911");   
   //      myDatabase.createUser("test", "test", "test", "test", "01/01/1901");
         
-        myDatabase.deleteGame("test");
+       // myDatabase.deleteGame("test");
   //      myDatabase.deleteGame("example");
         
 //       myDatabase.addAvatarToUser("natx13", "C:/blahbalhblah");
@@ -61,9 +66,9 @@ public class Main {
 //        }
 //                
         myDatabase.printUserTable();
-        myDatabase.printGameTable();
+        //myDatabase.printGameTable();
         myDatabase.printScoreTable();
-        myDatabase.printCommentTable();
+        //myDatabase.printCommentTable();
         
         myDatabase.closeDatabaseConnection();
         

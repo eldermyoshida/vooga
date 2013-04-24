@@ -1,9 +1,5 @@
 package arcade.games;
 
-import java.util.HashMap;
-import java.util.Map;
-
-
 /**
  * Data structure for representing a score in the view. Instantiated by the Database and
  * is read only.
@@ -20,15 +16,15 @@ public class Score implements Comparable<Score>{
         myScore = score;
     }
 
-    protected String getGame () {
+    public String getGame () {
         return myGame;
     }
 
-    protected String getUser () {
+    public String getUser () {
         return myUser;
     }
 
-    protected double getScore () {
+    public double getScore () {
         return myScore;
     }
 

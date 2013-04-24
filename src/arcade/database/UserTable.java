@@ -175,11 +175,9 @@ public class UserTable extends Table {
      * Returns a list of all the games
      */
     public List<String> retrieveUsernames() {
-        String stm = "SELECT " + Keys.USER_USERNAME_COLUMN_INDEX + " FROM "  + Keys.USER_TABLE_NAME;
+        myResultSet = selectAllRecordsFromTable(Keys.USER_TABLE_NAME);
         List<String> myUsernames = new ArrayList<String>();
         try {
-            myPreparedStatement = myConnection.prepareStatement(stm);
-            myResultSet = myPreparedStatement.executeQuery();
             while (myResultSet.next()) {
                 myUsernames.add(myResultSet.getString(Keys.USER_USERNAME_COLUMN_INDEX));
             }
