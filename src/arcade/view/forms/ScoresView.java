@@ -20,7 +20,6 @@ import javax.swing.JTextField;
 import twitter4j.TwitterException;
 import util.ImageHelper;
 import arcade.controller.Controller;
-import arcade.model.Model;
 import arcade.view.MainView;
 import arcade.view.TextKeywords;
 
