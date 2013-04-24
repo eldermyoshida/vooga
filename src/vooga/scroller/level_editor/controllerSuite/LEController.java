@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
 import vooga.scroller.level_editor.ILevelEditor;
-import vooga.scroller.level_editor.library.BackgroundLib;
 import vooga.scroller.level_editor.library.IBackgroundLibrary;
 import vooga.scroller.level_editor.library.ISpriteLibrary;
 import vooga.scroller.level_editor.model.LevelEditor;
@@ -16,7 +15,6 @@ import vooga.scroller.level_editor.view.LEGridView;
 import vooga.scroller.level_editor.view.LEView;
 import vooga.scroller.level_editor.view.LEWorkspaceView;
 import vooga.scroller.level_editor.view.LevelEditing;
-import vooga.scroller.marioGame.spritesDefinitions.MarioLib;
 import vooga.scroller.util.Editable;
 import vooga.scroller.util.Renderable;
 import vooga.scroller.util.mvc.IController;
@@ -92,7 +90,7 @@ public class LEController implements IController<LevelEditing> {
 
     private void initLevelEditor () {
         String language = getLanguage();
-        myModel = new LevelEditor(language);
+        myModel = new LevelEditor();
         myView = new LEView(language, this);
     }
 
@@ -197,6 +195,10 @@ public class LEController implements IController<LevelEditing> {
     public void start() {
         //Welcome message
         myView.start();
+    }
+    public static void showErrorMsg (String copyError) {
+        // TODO Auto-generated method stub
+        
     }
 
 }
