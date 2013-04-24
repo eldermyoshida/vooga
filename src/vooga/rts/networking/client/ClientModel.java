@@ -9,12 +9,12 @@ import java.util.Observable;
 import javax.swing.JPanel;
 
 import vooga.rts.networking.NetworkBundle;
-import vooga.rts.networking.client.gui.CreateLobbyView;
-import vooga.rts.networking.client.gui.IModel;
-import vooga.rts.networking.client.gui.LobbyView;
-import vooga.rts.networking.client.gui.ServerBrowserTableAdapter;
-import vooga.rts.networking.client.gui.TableContainerView;
-import vooga.rts.networking.client.gui.ViewContainerPanel;
+import vooga.rts.networking.client.clientgui.CreateLobbyView;
+import vooga.rts.networking.client.clientgui.IModel;
+import vooga.rts.networking.client.clientgui.LobbyView;
+import vooga.rts.networking.client.clientgui.ServerBrowserTableAdapter;
+import vooga.rts.networking.client.clientgui.TableContainerView;
+import vooga.rts.networking.client.clientgui.ViewContainerPanel;
 import vooga.rts.networking.communications.ExpandedLobbyInfo;
 import vooga.rts.networking.communications.LobbyInfo;
 import vooga.rts.networking.communications.Message;

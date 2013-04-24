@@ -1,4 +1,4 @@
-package vooga.rts.networking.client.gui;
+package vooga.rts.networking.client.clientgui;
 
 /**
  * Represents the ClientModel to the LobbyView so that it can update the Player at the given
