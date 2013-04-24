@@ -90,20 +90,14 @@ public class GameEditorController extends JFrame {
     private void initializeXML() {
         myXMLDoc = new XMLTool();
         myRoot = myXMLDoc.makeRoot(GAME_TAG);
-        makeAndAddSectionToRoot(myViewParent, VIEW_TAG);
-        makeAndAddSectionToRoot(myMapParent, MAP_TAG);
-        makeAndAddSectionToRoot(myGameElementParent, GAME_ELEMENT_TAG);
-        makeAndAddSectionToRoot(myWaveParent, WAVE_TAG);
-    }
-    
-    /**
-     * helper method to initialize the parents and add them to the root.
-     * @param sectionParent is the parent element of each section
-     * @param tag is the name for this section
-     */
-    private void makeAndAddSectionToRoot(Element sectionParent, String tag) {
-        sectionParent = myXMLDoc.makeElement(tag);
-        myXMLDoc.addChildElement(myRoot, sectionParent);
+        myViewParent = myXMLDoc.makeElement(VIEW_TAG);
+        myXMLDoc.addChildElement(myRoot, myViewParent);
+        myMapParent = myXMLDoc.makeElement(MAP_TAG);
+        myXMLDoc.addChildElement(myRoot, myMapParent);
+        myGameElementParent = myXMLDoc.makeElement(GAME_ELEMENT_TAG);
+        myXMLDoc.addChildElement(myRoot, myGameElementParent);
+        myWaveParent = myXMLDoc.makeElement(WAVE_TAG);
+        myXMLDoc.addChildElement(myRoot, myWaveParent);
     }
 
     /**
@@ -174,7 +168,6 @@ public class GameEditorController extends JFrame {
         myXMLDoc.addChild(gameElement, IMAGE_TAG, path);
         Element attributeElement = myXMLDoc.makeElementsFromMap(ATTRIBUTES_TAG, attributes);
         myXMLDoc.addChildElement(gameElement, attributeElement);
-        //TODO: fix this for actions 
         Element actionElement = myXMLDoc.makeElement(ACTIONS_TAG);
         ActionXMLWriter parser = new ActionXMLWriter(myXMLDoc);
         myXMLDoc.addChildElement(gameElement, parser.parse(actionElement, actions));
@@ -195,7 +188,7 @@ public class GameEditorController extends JFrame {
      * adds a view to the XML file.
      */
     public void addViewToGame(List<String> viewInfo) {
-        for (String s : viewInfo) {
+        /*for (String s : viewInfo) {
             if (!s.equals("")) {
                 String[] characteristics = s.split(" ");
                 if (!characteristics[0].equals("")) {
@@ -207,7 +200,7 @@ public class GameEditorController extends JFrame {
                     myXMLDoc.addChild(screen, SCREEN_LOCATION_TAG, characteristics[3]);
                 }
             }
-        }
+        }*/
     }
 
     /**
