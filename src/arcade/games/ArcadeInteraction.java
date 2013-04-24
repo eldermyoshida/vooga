@@ -9,18 +9,9 @@ package arcade.games;
  * @author ArcadeTeam
  */
 public interface ArcadeInteraction {
-    
-    /**
-     * Gets the user currently logged into the arcade.
-     */
-    public User getUser();
+   
         
-    /**
-     * Gets the top n high scores.
-     * 
-     * @param n is the number of high scores the game wants
-     */
-    public Score getHighScores(int n);
+   
 
     /**
      * Closes the window containing the game
@@ -35,6 +26,7 @@ public interface ArcadeInteraction {
     
     public GameData getGameData(String gameName);
 
-    public String getCurrentGame();
+    String getCurrentGame ();
+
         
 }
