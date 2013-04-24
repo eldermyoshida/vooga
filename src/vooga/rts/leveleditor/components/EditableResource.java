@@ -1,7 +1,6 @@
 package vooga.rts.leveleditor.components;
 
 import java.awt.Image;
-import vooga.rts.gamedesign.sprite.gamesprites.GameSprite;
 import vooga.rts.gamedesign.sprite.gamesprites.Resource;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
@@ -58,4 +57,5 @@ public class EditableResource extends Resource{
     public Image getMyImage() {
         return super.getImage().getMyImage();
     }
+    
 }

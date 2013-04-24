@@ -42,7 +42,7 @@ public class MapLoader {
 
     public MapLoader() throws ParserConfigurationException {
         
-        myMap = new EditableMap();
+        
         
         myFactory = DocumentBuilderFactory.newInstance();
         myBuilder = myFactory.newDocumentBuilder();
@@ -76,8 +76,8 @@ public class MapLoader {
         myDocument = myBuilder.parse(resourceFile);
         Element root = myDocument.getDocumentElement();
         
-        loadInfo(root);
         loadSizeInfo(root);
+        loadInfo(root);        
         loadTypeInfo(root,path);
         loadTiles(root);
         loadTerrains(root);
@@ -117,7 +117,8 @@ public class MapLoader {
         
         int width = Integer.parseInt(tileSizeNode.getAttributes().item(1).getNodeValue());
         int height = Integer.parseInt(tileSizeNode.getAttributes().item(0).getNodeValue());
-        myMap.resetTileMap(x, y, width, height);
+        myMap = new EditableMap("", "", x, y, width, height);
+        //myMap.resetTileMap(x, y, width, height);
         
     }
     
