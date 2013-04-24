@@ -10,6 +10,7 @@ import java.util.Scanner;
 import util.Location;
 import vooga.scroller.level_editor.controllerSuite.LEGrid;
 import vooga.scroller.level_management.LevelPortal;
+import vooga.scroller.sprites.interfaces.IDoor;
 import vooga.scroller.util.IBackgroundView;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.Sprite;
@@ -120,7 +121,7 @@ public class LevelParser {
                         spr = (Sprite) Class.forName(myLibPath + "$" + name).newInstance();
                         System.out.println(name);
                         System.out.println(spr);
-                        if (spr instanceof LevelPortal) {
+                        if (IDoor.class.isAssignableFrom(spr.getClass())) {
                             grid.addDoorWithCoor(j, i - 1, spr);
                         }
                         else {
