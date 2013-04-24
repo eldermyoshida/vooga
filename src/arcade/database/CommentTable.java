@@ -102,7 +102,7 @@ public class CommentTable extends Table {
      * @param gameid is game id
      */
     public List<String> getAllCommentsForGame(String gameid) {
-        String stm = "SELECT gameid FROM comments WHERE gameid='" + gameid + "'";
+        String stm = "SELECT * FROM comments WHERE gameid='" + gameid + "'";
         List<String> comments = new ArrayList<String>();
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
