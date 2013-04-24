@@ -28,10 +28,10 @@ public abstract class PaymentView extends Form {
     private String myTransactionType;
 
     /**
-     * Constructs the PaymentView with a Model, ResourceBundle, and a GameInfo
+     * Constructs the PaymentView with a Controller, ResourceBundle, and a GameInfo
      * for the game to be bought.
      * 
-     * @param model
+     * @param controller
      * @param resources
      * @param info
      */
