@@ -1,6 +1,8 @@
 package vooga.rts.networking.server;
 
 import java.util.logging.Level;
+
+import vooga.rts.networking.NetworkBundle;
 import vooga.rts.networking.communications.ExpandedLobbyInfo;
 import vooga.rts.networking.communications.LobbyInfo;
 import vooga.rts.networking.communications.clientmessages.UpdateLobbyInfoMessage;
@@ -38,7 +40,7 @@ public class Lobby extends Room {
         } else {
             sendMessageToAllConnections(new SendLobbyInfoUpdatesMessage(lobbyInfo));
         }
-        NetworkLogger.logMessage(Level.FINER, "Lobby left");
+        NetworkLogger.logMessage(Level.FINER, NetworkBundle.getString("LobbyLeft"));
     }
 
     @Override
