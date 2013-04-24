@@ -75,7 +75,7 @@ public abstract class ObjectLoader {
 	 * Returns the xml document which the loader points to
 	 * @return
 	 */
-	protected Document getDocument() {
+	public Document getDocument() {
 		return myDocument;
 	}
 
@@ -92,7 +92,7 @@ public abstract class ObjectLoader {
 	 * @param tag
 	 * @return
 	 */
-	protected String getAttributeValue(Node node, String tag) {
+	public String getAttributeValue(Node node, String tag) {
 		try{
 			String value= node.getAttributes().getNamedItem(tag).getTextContent();
 			return value; 

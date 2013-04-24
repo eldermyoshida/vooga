@@ -9,8 +9,6 @@ import vooga.fighter.model.objects.AttackObject;
 
 public class AttackObjectLoader extends ObjectLoader {
 
-	private static final String PATH_TAG = "AttackPath";
-
 	private AttackObject myAttack;
 
 	/**
@@ -20,7 +18,7 @@ public class AttackObjectLoader extends ObjectLoader {
 	 * @param attack
 	 */
 	public AttackObjectLoader (String attackName, AttackObject attack) {
-		super(PATH_TAG);
+		super(ModelConstants.ATTACKLOADER_PATH_TAG);
 		myAttack = attack;
 		load(attackName);
 	}
@@ -28,6 +26,7 @@ public class AttackObjectLoader extends ObjectLoader {
 	protected void load(String attackName) {
 		Document doc = getDocument();
 		NodeList attackNodes = doc.getElementsByTagName(getResourceBundle().getString("Attack"));
+
 		for (int i = 0; i < attackNodes.getLength(); i++) {
 			Element attackNode = (Element) attackNodes.item(i);
 			String name = getAttributeValue(attackNode, getResourceBundle().getString("AttackName"));

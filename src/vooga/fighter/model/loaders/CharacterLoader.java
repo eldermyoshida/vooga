@@ -4,6 +4,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import vooga.fighter.model.ModelConstants;
 import vooga.fighter.model.objects.AttackObject;
 import vooga.fighter.model.objects.CharacterObject;
 
@@ -14,9 +15,7 @@ import vooga.fighter.model.objects.CharacterObject;
  *
  */
 public class CharacterLoader extends ObjectLoader {
-	
-	private static final String PATH_TAG = "CharacterPath";
-	
+		
 	private CharacterObject myChar;
 
 	/**
@@ -26,7 +25,7 @@ public class CharacterLoader extends ObjectLoader {
 	 * @param character
 	 */
 	public CharacterLoader (String charName, CharacterObject character) {
-		super(PATH_TAG);
+		super(ModelConstants.CHARACTERLOADER_PATH_TAG);
 		myChar = character;
 		load(charName);
 	}

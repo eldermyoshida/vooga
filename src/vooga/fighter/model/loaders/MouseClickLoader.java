@@ -5,18 +5,17 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import util.Pixmap;
+import vooga.fighter.model.ModelConstants;
 import vooga.fighter.model.objects.MouseClickObject;
 import vooga.fighter.model.utils.State;
 
 
 public class MouseClickLoader extends ObjectLoader {
 
-	private static final String PATH_TAG = "MouseClickPath";
-
     MouseClickObject myMouseClick;
 
     public MouseClickLoader (MouseClickObject mouseclick) {
-        super(PATH_TAG);
+        super(ModelConstants.MOUSECLICKLOADERPATH_TAG);
         myMouseClick = mouseclick;
         load();
     }
