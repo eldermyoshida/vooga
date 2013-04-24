@@ -344,15 +344,12 @@ public class XMLTool {
      *         children elements of a particular node.
      */
     public Map<String, String> getChildrenStringMap (Element parent) {
-        Map<String, String> map = new HashMap<String, String>();
-        NodeList nodes = parent.getChildNodes();
-        for (int i = 0; i < nodes.getLength(); i++) {
-            if (nodes.item(i).getNodeType() == Node.ELEMENT_NODE) {
-                Element node = (Element) nodes.item(i);
-                map.put(node.getTagName(), node.getTextContent());
-            }
+        Map<String, String> stringMap = new HashMap<String, String>();
+        Map<String, Element> elementMap = getChildrenElementMap(parent);
+        for (String key : elementMap.keySet()) {
+            stringMap.put(key, elementMap.get(key).getTextContent());
         }
-        return map;
+        return stringMap;
     }
     
     /**
