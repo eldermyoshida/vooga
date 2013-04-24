@@ -121,9 +121,14 @@ public class GameMap {
 	 * @return a Tile object containing this point (x, y)
 	 */
 	public Tile getTile(Location location) {
+		try {
 		return myGrid[(int) (location.getX() / TileFactory.TILE_DIMENSIONS
 				.getWidth())][(int) (location.getY() / TileFactory.TILE_DIMENSIONS
 				.getHeight())];
+		}
+		catch(ArrayIndexOutOfBoundsException e) {
+			return null;
+		}
 	}
 
 	/**
@@ -341,7 +346,8 @@ public class GameMap {
 	 * @return
 	 */
 	public boolean isBuildable(Location l) {
-		return getTile(l).isBuildable();
+		Tile t = getTile(l);
+		return (t==null) ? false : t.isBuildable();
 	}
 
 	public Location getSpawnLocation() {

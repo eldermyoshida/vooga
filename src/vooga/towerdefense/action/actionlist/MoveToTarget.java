@@ -1,6 +1,5 @@
 package vooga.towerdefense.action.actionlist;
 
-import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.TargetedAction;
 import vooga.towerdefense.attributes.Attribute;
 import vooga.towerdefense.util.Location;
@@ -33,7 +32,6 @@ public class MoveToTarget extends TargetedAction{
 			myDestination = getTargets().get(0).getCenter();
 		}
 		myHeading = new Vector(Vector.angleBetween(myCenter, myDestination), mySpeed.getValue());
-		System.out.println("Moving to location");
         Vector v = new Vector(myHeading.getDirection(), mySpeed.getValue());
         v.scale(elapsedTime / 1000);
         myCenter.translate(v);

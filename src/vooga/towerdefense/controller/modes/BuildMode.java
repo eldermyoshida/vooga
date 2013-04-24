@@ -59,8 +59,6 @@ public class BuildMode extends ControlMode {
 		int tilesWide = (int) myItemToBuild.getAttributeManager().getAttribute("Tiles wide").getValue();
 		int tilesTall = (int) myItemToBuild.getAttributeManager().getAttribute("Tiles tall").getValue();
 		
-		System.out.println(tilesWide + " wide, " + tilesTall + " tall");
-		
 		if (controller.canBuildHere(p, tilesWide, tilesTall))
 			controller.paintGhostImage(myItemToBuild.getPixmap(),
 					snappedLocation, myItemToBuild.getSize());

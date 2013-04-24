@@ -3,6 +3,7 @@ package vooga.towerdefense.factories.actionfactories;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
+
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.model.GameMap;
@@ -28,9 +29,8 @@ public abstract class ActionFactory {
      * Places in all of the objects that the factory could need to function
      * Cannot create actions until initialized
      */
-    public void initialize (GameMap map, Graphics2D pen) {
+    public void initialize (GameMap map) {
         myMap = map;
-        myPen = pen;
         myFollowUpActions = new ArrayList<ActionFactory>();
     }
     

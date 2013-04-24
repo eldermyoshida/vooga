@@ -97,6 +97,7 @@ public class Controller {
 		GameElementFactory factory = new GameElementFactory();
 		WaveActionFactory waveFactory = new WaveActionFactory(10, 200, factory,
 				map);
+		waveFactory.initialize(map);
 		Action action = waveFactory.createAction(null);
 		actions.add(action);
 		List<Rule> levelRules = new ArrayList<Rule>();
@@ -104,10 +105,13 @@ public class Controller {
 		Level level = new Level(actions, levelRules);
 		levels.add(level);
 		List<Rule> rules = new ArrayList<Rule>();
+		
+		myView = new TDView(this);
+		
+		myModel = new GameModel(this, levels, rules, map, new Shop(map));
+		
 		rules.add(new WinRule(myModel));
 		rules.add(new NextLevelRule(myModel));
-		myModel = new GameModel(this, levels, rules, map, new Shop(map));
-		myView = new TDView(this);
 		myControlMode = new SelectMode();
 	}
 

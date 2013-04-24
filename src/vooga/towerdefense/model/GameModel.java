@@ -2,6 +2,7 @@ package vooga.towerdefense.model;
 
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.List;
 
 import vooga.towerdefense.action.Action;
@@ -42,9 +43,12 @@ public class GameModel {
     public GameModel (Controller controller, List<Level> levels, List<Rule> rules, GameMap gameMap, Shop shop) {
         myController = controller;
         myLevels = levels;
+        myRules = rules;
         myGameMap = gameMap;
         myShop = shop;
         myCurrentLevel = 0;
+        myPlayer = new Player(controller);
+        myActiveActions = new ArrayList<Action>();
     }
     
     /**
