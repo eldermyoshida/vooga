@@ -51,11 +51,11 @@ public class ExampleUnitFactory extends GameElementFactory {
         GameElement myGameElement;
         if (putHere != null) {
             myGameElement = new GameElement(myDefinition.getImage(), putHere,
-                                            myDefinition.getSize(), AM, "unit");
+                                            myDefinition.getSize(), AM);
         }
         else {
             myGameElement = new GameElement(myDefinition.getImage(),
-                                            myDefinition.getCenter(), myDefinition.getSize(), AM, "unit");
+                                            myDefinition.getCenter(), myDefinition.getSize(), AM);
         }
         
         myGameElement.addActions(createActions(myGameElement));
@@ -68,7 +68,7 @@ public class ExampleUnitFactory extends GameElementFactory {
     @Override
     public List<Action> createActions(GameElement element) {
         Path path = myGameMap.getShortestPath(element.getCenter(),
-                myGameMap.default_end_location);
+                myGameMap.myEndLocation);
     	ArrayList<Action> actions = new ArrayList<Action>();
         actions.add(new FollowPath(element, path));
         actions.add(new Move(element.getCenter(), element.getAttributeManager()

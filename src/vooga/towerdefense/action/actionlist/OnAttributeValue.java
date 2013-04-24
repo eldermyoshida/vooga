@@ -29,14 +29,10 @@ public class OnAttributeValue extends Action {
 	 */
 	@Override
 	public void executeAction (double elapsedTime) {
-		try{
 			if (myMonitoredAttribute.getValue()== myConditionAttribute.getValue()){
 				updateFollowUpActions(elapsedTime);
 				setEnabled(false);
 			}
-		}catch (NullPointerException e){
-			throw new NullPointerException(Action.NULL_POINTER_EXCEPTION);
-		}
 	}
 
 	/**

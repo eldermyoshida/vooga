@@ -73,6 +73,7 @@ public class ViewEditorScreen extends GameEditorScreen {
      * width of the text field boxes.
      */
     private static final int TEXT_FIELD_WIDTH = 20;
+
     /**
      * north drop down box.
      */
@@ -244,7 +245,7 @@ public class ViewEditorScreen extends GameEditorScreen {
         myEastSize = new JTextField(TEXT_FIELD_WIDTH);
         myWestSize = new JTextField(TEXT_FIELD_WIDTH);
         myMultiPanelSize = new JTextField(TEXT_FIELD_WIDTH);
-
+        
         populateDropDoxBoxes();
         alignCenterScreenComponents(panel);
         
@@ -331,7 +332,8 @@ public class ViewEditorScreen extends GameEditorScreen {
     public void addElementToGame () {
         getController().setMapSize(getMapDimension());
         List<String> viewInfo = makeViewStrings();
-        getController().addViewToGame(viewInfo, myMultiScreenMap);
+        String dimension = getTopLevelContainerDimension();
+        getController().addViewToGame(dimension, viewInfo, myMultiScreenMap);
     }
     
     

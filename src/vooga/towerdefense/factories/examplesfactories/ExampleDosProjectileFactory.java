@@ -38,11 +38,11 @@ public class ExampleDosProjectileFactory extends GameElementFactory {
         GameElement myProjectile;
         if (putHere != null) {
             myProjectile = new GameElement(def.getImage(), putHere,
-                                      new Dimension(25,25), AM, "projectile");
+                                      new Dimension(25,25), AM);
         }
         else {
             myProjectile = new GameElement(def.getImage(),
-                                      def.getCenter(), def.getSize(), AM, "projectile");
+                                      def.getCenter(), def.getSize(), AM);
         }
 
         ArrayList<Action> actions = new ArrayList<Action>();
@@ -63,11 +63,11 @@ public class ExampleDosProjectileFactory extends GameElementFactory {
         GameElement myProjectile;
         if (myStart != null) {
             myProjectile = new GameElement(def.getImage(), myStart.getCenter(),
-                                           new Dimension(30, 30), AM, DefinitionConstants.DEFAULT_PROJECTILE_NAME);
+                                           new Dimension(30, 30), AM);
         }
         else {
             myProjectile = new GameElement(def.getImage(),
-                                           def.getCenter(), def.getSize(), AM, DefinitionConstants.DEFAULT_PROJECTILE_NAME);
+                                           def.getCenter(), def.getSize(), AM);
         }
 
         myProjectile.addActions(createActions(myProjectile));

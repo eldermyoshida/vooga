@@ -11,6 +11,7 @@ import vooga.towerdefense.util.Location;
 /**
  * Filters targets using an affiliation system
  * 
+ * 
  * @author Matthew Roy
  * @author XuRui
  * 
@@ -48,5 +49,6 @@ public class FilterTargets extends TargetedAction {
                 }
             }
         }
+        updateTargetedFollowUpActions(filteredTargets);
     }
 }
