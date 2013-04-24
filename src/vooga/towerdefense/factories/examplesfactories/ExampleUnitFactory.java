@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vooga.towerdefense.action.Action;
+import vooga.towerdefense.action.actionlist.FollowPath;
 import vooga.towerdefense.action.actionlist.Move;
-import vooga.towerdefense.action.tobetested.FollowPath;
 import vooga.towerdefense.action.tobetested.OnDeath;
 import vooga.towerdefense.action.tobetested.RemoveGameElement;
 import vooga.towerdefense.attributes.AttributeConstants;

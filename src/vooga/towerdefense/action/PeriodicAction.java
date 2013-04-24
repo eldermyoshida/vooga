@@ -1,6 +1,5 @@
-package vooga.towerdefense.action.tobetested;
+package vooga.towerdefense.action;
 
-import vooga.towerdefense.action.Action;
 
 /**
  * super class for all actions that is periodic. Means they only apply very cooldown time
