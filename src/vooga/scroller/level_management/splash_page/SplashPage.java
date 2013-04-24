@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.geom.Point2D;
+import java.util.List;
 import util.Location;
 import util.input.Input;
 import util.input.InputClassTarget;
@@ -19,10 +20,11 @@ import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.IGameComponent;
 import vooga.scroller.util.ISpriteView;
 import vooga.scroller.util.Pixmap;
+import vooga.scroller.util.Sprite;
 import vooga.scroller.view.GameView;
 
 @InputClassTarget
-public class SplashPage implements IInputListener, IGameComponent{
+public abstract class SplashPage implements IInputListener, IGameComponent{
 
     // TODO: this string is the part of every Splash page and thus needs to be removed
     public static final String CONTROLS_FILE_PATH = "vooga/scroller/marioGame/controls/SplashMapping";
@@ -35,19 +37,17 @@ public class SplashPage implements IInputListener, IGameComponent{
     private int myID;
     private GameView myGameView;
     private Player myPlayer;
-    private String myControlLocation;
-    private Mouse myMouse;
+    //private Mouse myMouse;
+    private List<Sprite> mySprites;
     
     // buttons
-    private Button myButton;
+    //private Button myButton;
     
     public SplashPage (ISpriteView backgroundImage, int splashID, GameView gameView, ScrollingManager sm) {
         myBackground = backgroundImage;
         myID = splashID;
         myGameView = gameView;
-        myControlLocation = CONTROLS_FILE_PATH;
-        myMouse = new Mouse();
-        myButton = new Button();
+        mySprites = getSprites();
     }
 
     /**
@@ -59,10 +59,7 @@ public class SplashPage implements IInputListener, IGameComponent{
         myDoor = door;
     }
     
-    public void setControls(String controlFilePath){
-        myControlLocation = controlFilePath;
-    }
-    
+   
     @Override
     public void update(double elapsedTime, Dimension bounds, GameView gameView) {
         // Just leave the background image.
@@ -75,47 +72,40 @@ public class SplashPage implements IInputListener, IGameComponent{
         myBackground.paint(pen, new Location((double)myGameView.getWidth()/2, 
                                              (double)myGameView.getHeight()/2), 
                                              myGameView.getSize());
-        myButton.paint(pen);
-        myMouse.paint(pen);
-
+        for(Sprite sp: mySprites) {
+            sp.paint(pen);
+        }
     }
 
+    public abstract List<Sprite> getSprites();
+        
+    
     @InputMethodTarget(name = "exit")
     public void exit() {
         System.exit(-1);
     }
     
-    @InputMethodTarget(name = "start")
-    public void nextLevel() {
-        myDoor.goToNextLevel(getPlayer());
-    }
-    
-    @InputMethodTarget(name = "mouse")
-    public void updateMouse(PositionObject posObj) {
-        myMouse.setCenter(posObj.getPoint2D().getX(), posObj.getPoint2D().getY());
-    }
-    
-    @InputMethodTarget(name = "click")
-    public void mouseClick(PositionObject posObj) {
-        if(myButton.intersects(posObj.getPoint2D())){
-            nextLevel();
-        }
-    }
-    
-    @Override
-    public void addInputListeners (Input myInput) {
-        myInput.replaceMappingResourcePath(getInputFilePath());
-        myInput.addListenerTo(this);        
-    }
-    
-    @Override
-    public void removeInputListeners (Input myInput) {
-        myInput.removeListener(this);       
-    }
 
-    public String getInputFilePath () {
-        return myControlLocation;
-    }
+    
+//    @InputMethodTarget(name = "mouse")
+//    public void updateMouse(PositionObject posObj) {
+//        myMouse.setCenter(posObj.getPoint2D().getX(), posObj.getPoint2D().getY());
+//    }
+//    
+//    @InputMethodTarget(name = "click")
+//    public void mouseClick(PositionObject posObj) {
+//        if(myButton.intersects(posObj.getPoint2D())){
+//            nextLevel();
+//        }
+//    }
+    
+    public abstract void addInputListeners (Input input);
+
+    public abstract void removeInputListeners(Input input);
+    
+    public abstract String getInputFilePath (); 
+        //return myControlLocation;
+    
     
     public IDoor getDoor() {
         return myDoor;
@@ -134,7 +124,6 @@ public class SplashPage implements IInputListener, IGameComponent{
 
     @Override
     public double getRightBoundary () {
-        //return 0;
         return (double)myGameView.getWidth();
     }
 

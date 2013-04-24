@@ -7,6 +7,7 @@ import java.io.IOException;
 import util.Location;
 import vooga.scroller.level_editor.Level;
 import vooga.scroller.level_management.LevelManager;
+import vooga.scroller.level_management.splash_page.SplashPage;
 import vooga.scroller.marioGame.spritesDefinitions.players.Mario;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.animation.Animation;
@@ -46,13 +47,13 @@ public class Model {
      * @throws IOException 
      */
 
-    public Model (GameView gameView, ScrollingManager sm, Player player, String splashPage, Level ...levels) {
+    public Model (GameView gameView, ScrollingManager sm, Player player, SplashPage splashPage, Level ...levels) {
         this(gameView, sm, player);
         myLevelManager = initializeLevelManager(splashPage, levels);
     }
     
     
-    public Model (GameView gameView, ScrollingManager sm, Player player, String splashPage, String... levelFileNames) {
+    public Model (GameView gameView, ScrollingManager sm, Player player, SplashPage splashPage, String... levelFileNames) {
         this(gameView, sm, player);
         myLevelManager = initializeLevelManager(splashPage, levelFileNames);
     }
@@ -82,12 +83,12 @@ public class Model {
         myLevelManager.getCurrentLevel().addPlayer(myPlayer);
     }
 
-    private LevelManager initializeLevelManager (String splashPage, Level[] levels) {
+    private LevelManager initializeLevelManager (SplashPage splashPage, Level[] levels) {
         return new LevelManager(myScrollingManager, myView, splashPage, levels);
     }
 
 
-    private LevelManager initializeLevelManager (String splashPage, String[] levelFileNames) {
+    private LevelManager initializeLevelManager (SplashPage splashPage, String[] levelFileNames) {
         return new LevelManager(myScrollingManager, myView, splashPage, levelFileNames);
     }
 

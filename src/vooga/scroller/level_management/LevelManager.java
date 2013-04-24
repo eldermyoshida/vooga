@@ -10,6 +10,7 @@ import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.IGameComponent;
 import vooga.scroller.view.GameView;
 import vooga.scroller.level_editor.Level;
+import vooga.scroller.level_management.splash_page.SplashPage;
 
 /**
  * Manages the flow and order of levels in gameplay.
@@ -34,7 +35,7 @@ public class LevelManager {
      * Creates a new level manager based on the view used by individual levels.
      * @param gameView to be used in constructing individual levels.
      */
-    public LevelManager(ScrollingManager sm, GameView gameView, String splashPage, String ...levelFileNames) {   
+    public LevelManager(ScrollingManager sm, GameView gameView, SplashPage splashPage, String ...levelFileNames) {   
         myView = gameView;
         LevelFactory lf = new LevelFactory(this, sm, gameView);
         myInitialLevel = lf.linkLevels(splashPage, lf.generateLevels(levelFileNames));        
@@ -47,7 +48,7 @@ public class LevelManager {
      * Creates a new level manager based on the view used by individual levels.
      * @param gameView to be used in constructing individual levels.
      */
-    public LevelManager(ScrollingManager sm, GameView gameView, String splashPage, Level ...levels) {   
+    public LevelManager(ScrollingManager sm, GameView gameView, SplashPage splashPage, Level ...levels) {   
         myView = gameView;
         LevelFactory lf = new LevelFactory(this, sm, gameView);
         List<IGameComponent> gameComponents = new ArrayList<IGameComponent>();

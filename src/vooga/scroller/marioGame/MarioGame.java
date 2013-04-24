@@ -5,11 +5,15 @@ import arcade.games.ArcadeInteraction;
 import arcade.games.GameData;
 import arcade.games.UserGameData;
 import util.Location;
+import vooga.scroller.level_management.splash_page.SplashPage;
+import vooga.scroller.marioGame.splash_page.MarioSplashPage;
+import vooga.scroller.marioGame.spritesDefinitions.MarioLib;
 import vooga.scroller.marioGame.spritesDefinitions.players.Mario;
 import vooga.scroller.model.ScrollerGame;
 import vooga.scroller.scrollingmanager.OmniScrollingManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.superclasses.Player;
+import vooga.scroller.util.Pixmap;
 import vooga.scroller.view.GameView;
 
 
@@ -90,9 +94,9 @@ public class MarioGame extends ScrollerGame {
 
 
     @Override
-    protected String setSplashPageNamesPath () {
+    protected SplashPage setSplashPage () {
         // TODO Auto-generated method stub
-        return SPLASH_DIR;
+        return new MarioSplashPage(MarioLib.makePixmap("MARIO SPLASH.png"), 0, getDisplay(), getScrollingManager());
     }
 
 }
