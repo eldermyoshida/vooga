@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import arcade.games.Comment;
 
 /**
  * Creates and updates user table
@@ -78,15 +79,17 @@ public class CommentTable extends Table {
      * Gets all comments for a given game
      * @param gameid is game id
      */
-    public List<String> getAllCommentsForGame(String gameid) {
-        String stm = "SELECT * FROM comments WHERE gameid='" + gameid + "'";
-        List<String> comments = new ArrayList<String>();
+    public List<Comment> getAllCommentsAndRatingsForGame(String gameid, String username, String userid) {
+        String stm = "SELECT * FROM comments WHERE gameid='" + gameid + "'" + 
+    "AND userid='" + userid + '"';
+        
+        List<Comment> comments = new ArrayList<Comment>();
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
             myResultSet = myPreparedStatement.executeQuery();
             while (myResultSet.next()) {
-                String comment = myResultSet.getString(Keys.COM_COMMENT_COLUMN_INDEX);
-                comments.add(comment);
+                comments.add(new Comment(myResultSet.getDouble(Keys.COM_RATING_COLUMN_INDEX), 
+                                         username, myResultSet.getString(Keys.COM_COMMENT_COLUMN_INDEX)));
             }
             return comments;
         }
