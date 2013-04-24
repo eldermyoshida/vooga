@@ -53,7 +53,8 @@ public class ExampleChat implements NetworkedGame {
     private void createFrame () {
         myFrame = new JFrame();
         //myFrame.add(myModel.getView());
-        myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        myFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        
         myFrame.setPreferredSize(new Dimension(600, 500));
         myFrame.setVisible(true);
         myFrame.pack();
@@ -73,12 +74,11 @@ public class ExampleChat implements NetworkedGame {
     @Override
     public void loadGame (ExpandedLobbyInfo info, PlayerInfo thisPlayer) {
         myFrame.removeAll();
-        
+        //myFrame.add(new ChatPanel());
     }
 
     @Override
     public void startGame (IClient client) {
-        // TODO Auto-generated method stub
         
     }
 
