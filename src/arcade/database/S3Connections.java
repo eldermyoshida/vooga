@@ -52,6 +52,9 @@ import java.io.ObjectOutputStream;
  */
 public class S3Connections {
     
+    private static final String USER_DIR = System.getProperty("user.dir");
+    private static final String SRC = "/src";
+    private static final String FILENAME = "/filename";
     private static final String TEMPORARY_PNG = "/temporary.png";
     private static final String GAMEDATA = "gamedata";
     private static final String USERGAMEDATA = "usergamedata";
@@ -181,7 +184,7 @@ public class S3Connections {
      * @param file is the file
      */
     public byte[] read(File file) {
-        byte []buffer = new byte[(int) file.length()];
+        byte [] buffer = new byte[(int) file.length()];
         InputStream ios = null;
         try {
             ios = new FileInputStream(file);     
@@ -209,7 +212,7 @@ public class S3Connections {
     public String createFileFromByteArray(byte[] bytes) {
         FileOutputStream out;
         try {
-            out = new FileOutputStream(System.getProperty("user.dir") + "/src" + RELATIVE_PATH + "/");
+            out = new FileOutputStream(USER_DIR + SRC + RELATIVE_PATH + FILENAME);
             out.write(bytes);
         }
         catch (FileNotFoundException e) {
@@ -218,7 +221,7 @@ public class S3Connections {
         catch (IOException e) {
             e.printStackTrace();
         }
-        return System.getProperty("user.dir") + RELATIVE_PATH;
+        return USER_DIR + SRC + RELATIVE_PATH + FILENAME;
     }
     
     /**
@@ -291,8 +294,8 @@ public class S3Connections {
      * @param key (name) of file
      */
     public String downloadObjectToFile(String key) {
-        String pathOfImage = "/src" + RELATIVE_PATH + TEMPORARY_PNG;
-        File tempFile = new File(System.getProperty("user.dir") + pathOfImage);
+        String pathOfImage = SRC + RELATIVE_PATH + TEMPORARY_PNG;
+        File tempFile = new File(USER_DIR + pathOfImage);
         @SuppressWarnings("unused")
         ObjectMetadata object = myS3Instance.getObject(
                                             new GetObjectRequest(BUCKET_NAME, key), tempFile);
