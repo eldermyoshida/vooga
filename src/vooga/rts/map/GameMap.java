@@ -3,6 +3,7 @@ package vooga.rts.map;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.ObjectInputStream.GetField;
 import java.util.ArrayList;
 import java.util.List;
 import vooga.rts.IGameLoop;
@@ -10,6 +11,7 @@ import vooga.rts.ai.Path;
 import vooga.rts.ai.PathFinder;
 import vooga.rts.gamedesign.sprite.gamesprites.GameSprite;
 import vooga.rts.gamedesign.sprite.gamesprites.Resource;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.map.Terrain;
 import vooga.rts.resourcemanager.ResourceManager;
 import vooga.rts.util.Camera;
@@ -54,7 +56,7 @@ public class GameMap implements IGameLoop {
         myResources = new GameSpriteManager<Resource>();
 
         Camera.instance().setMapSize(size);
-        // randomGenMap(dou);
+        randomGenMap(dou);
     }
 
     public GameMap (Dimension tileSize, int width, int height) {
@@ -127,6 +129,24 @@ public class GameMap implements IGameLoop {
     public void paint (Graphics2D pen) {
         myTiles.paint(pen);
         myNodeMap.paint(pen);
+    }
+
+    /**
+     * Returns an Interactive Entity that is at the specified location.
+     * 
+     * @param loc The location to search for an interactive entity.
+     * @return The Interactive Entity if it exists, otherwise null.
+     */
+    public InteractiveEntity getEntity (Location3D loc) {
+        Node n = myNodeMap.getNode(loc);
+        for (GameSprite gs : n.getContents()) {
+            if (gs instanceof InteractiveEntity) {
+                if (gs.intersects(loc)) {
+                    return (InteractiveEntity) gs;
+                }
+            }
+        }
+        return null;
     }
 
     private void randomGenMap (Dimension size) {
