@@ -68,6 +68,8 @@ public class Factory {
 		mySprites = new HashMap<String, InteractiveEntity>();
 		myResources = new HashMap<String, Resource>();
 		myStrategies = new HashMap<String, Strategy>();
+		myWeapons = new HashMap<String, Weapon>();
+		myProjectiles = new HashMap<String, Projectile>();
 		myProductionDependencies = new HashMap<String, String[]>();
 		myStrategyDependencies = new HashMap<String, String[]>();
 		myUpgradeTrees = new HashMap<String, UpgradeTree>();

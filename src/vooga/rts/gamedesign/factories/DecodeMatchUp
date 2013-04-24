@@ -22,4 +22,13 @@
 		<type>units</type>
 		<decoderPath>vooga.rts.gamedesign.factories.UnitDecoder</decoderPath>
 	</pair>
+	<pair>
+		<type>weapons</type>
+		<decoderPath>vooga.rts.gamedesign.factories.WeaponDecoder</decoderPath>
+	</pair>	
+	<pair>
+		<type>projectiles</type>
+		<decoderPath>vooga.rts.gamedesign.factories.ProjectileDecoder</decoderPath>
+	</pair>
+	
 </XMLMatchUp>

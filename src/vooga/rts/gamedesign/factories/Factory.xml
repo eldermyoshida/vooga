@@ -121,11 +121,11 @@
 			<weapon>
 				<name>gun</name>
 				<myprojectile>bullet</myprojectile>
-				<range>500<range>
-				<cooldown>1<cooldown>
+				<range>500</range>
+				<cooldown>1</cooldown>
 			</weapon>
 	</weapons>
-	<projectiles>
+	<projectiles src = "vooga.rts.gamedesign.sprite.gamesprites.Projectile">
 		<projectile>
 			<name>bullet</name>
 			<img>bullet.png</img>
