@@ -34,9 +34,7 @@ public class GameEntity extends GameSprite {
     private Vector myVelocity;
     private int myMaxHealth;
     private int myCurrentHealth;
-    private PathFinder myFinder;
     private int myPlayerID;
-    private Path myPath;
     private Location3D myGoal;
     private Vector myOriginalVelocity;
     private EntityState myEntityState;
@@ -53,31 +51,29 @@ public class GameEntity extends GameSprite {
         myGoal = new Location3D(center);
         myEntityState = new EntityState();
         mySpeed = DEFAULT_SPEED;
-        myPath = new Path();
-        myFinder = new AstarFinder();
+    }
+
+    public boolean reachedGoal () {
+        Vector v = getWorldLocation().difference(myGoal.to2D());
+        return (v.getMagnitude() < Location3D.APPROX_EQUAL);
     }
 
     /**
      * Updates the shape's location.
      */
     // TODO: make Velocity three dimensional...
-    public void update (double elapsedTime) {    
-        Vector v = getWorldLocation().difference(myGoal.to2D());       
-        if(v.getMagnitude() < Location3D.APPROX_EQUAL) {
-            if(myPath.size() == 0) {                
-                setVelocity(v.getAngle(), 0);
-                myEntityState.setMovementState(MovementState.STATIONARY); // What is STATIONARY FOR?
-            }
-            else {
-                myGoal = myPath.getNext();
-            }
+    public void update (double elapsedTime) {
+        Vector v = getWorldLocation().difference(myGoal.to2D());
+        if (reachedGoal()) {
+            setVelocity(v.getAngle(), 0);
+            myEntityState.stop();
         }
         else {
-           setVelocity(v.getAngle(), getSpeed());
+            setVelocity(v.getAngle(), getSpeed());
             myEntityState.setMovementState(MovementState.MOVING);
         }
+
         Vector velocity = new Vector(myVelocity);
-        System.out.println("Vecotr direction: " + velocity.getAngle());
         velocity.scale(elapsedTime);
         translate(velocity);
         stopMoving();
@@ -90,9 +86,7 @@ public class GameEntity extends GameSprite {
      * its location. Possible design choice error.
      */
     public void move (Location3D loc) {
-       myPath = GameState.getMap().getPath(myFinder, getWorldLocation(), loc);
-       myGoal = myPath.getNext();
-       System.out.println("MY next in path: " + myGoal.toString());
+        myGoal = loc;
     }
 
     /**
@@ -223,34 +217,6 @@ public class GameEntity extends GameSprite {
 
     public void setSpeed (int speed) {
         mySpeed = speed;
-    }
-
-    /**
-     * This method is called to move the entity to a certain location.
-     * 
-     * @param loc
-     *        is the location where the entity will move to
-     * @param map
-     *        is the map that the game is being played on
-     */
-    public void move (Location3D loc, GameMap map) {
-        // setPath(loc.to2D(), map);
-    }
-
-    /**
-     * Sets the path that the entity will move on.
-     * 
-     * @param location
-     *        is the location where the entity will move to
-     * @param map
-     *        is the map that the game is being played on
-     */
-    public void setPath (Location3D location, GameMap map) {
-
-        myPath =
-                myFinder.calculatePath(map.getNodeMap().getNode(getWorldLocation()), map
-                        .getNodeMap().getNode(location), map.getNodeMap());
-        // myGoal = myPath.getNext();
     }
 
     public void changeHealth (int change) {
