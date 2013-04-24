@@ -54,8 +54,8 @@ public class GameElementInformationScreen extends InformationScreen {
      * @param size
      * @param controller
      */
-    public GameElementInformationScreen (String title, Dimension size, Controller controller) {
-        super(title, size);
+    public GameElementInformationScreen (Dimension size, Controller controller) {
+        super(size, controller);
         myController = controller;
         add(getTextArea(), InformationScreen.INFO_SCREEN_LOCATION);
         makeMouseAdapter();

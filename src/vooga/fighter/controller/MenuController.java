@@ -22,6 +22,7 @@ import vooga.fighter.view.Canvas;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
+import util.input.*;
 import java.util.ResourceBundle;
 
 
@@ -39,14 +40,14 @@ public abstract class MenuController extends Controller {
     private static final String INPUT_PATHWAY = "config.menudefault";
     private String myInputPathway;
     private List<ModeCondition> myEndConditions;
-    
+
     /**
      * Initial constructor, used in reflection
      */
     public MenuController () {
         super();
     }
-    
+
     /**
      * Concrete constructor, used when ControllerManager switches to this controller
      * @param name      name of controller
@@ -55,18 +56,18 @@ public abstract class MenuController extends Controller {
      * @param gameinfo  GameInfo
      */
     public MenuController(String name, Canvas frame, ControllerDelegate manager, 
-    		GameInfo gameinfo, String pathway) {
-    	super(name, frame, manager, gameinfo, pathway);
-    	myInputPathway = getHardFilePath() + INPUT_PATHWAY;
+                          GameInfo gameinfo, String pathway) {
+        super(name, frame, manager, gameinfo, pathway);
+        myInputPathway = getHardFilePath() + INPUT_PATHWAY;
         setInput(manager.getInput());
         getInput().replaceMappingResourcePath(myInputPathway);
         getInput().addListenerTo(this);
-    	DisplayLoopInfo LoopInfo =  new DisplayLoopInfo(super.getMode());
-    	setLoopInfo(LoopInfo);
-    	myEndConditions = new ArrayList<ModeCondition>();
-    	setupConditions();
+        DisplayLoopInfo LoopInfo =  new DisplayLoopInfo(super.getMode());
+        setLoopInfo(LoopInfo);
+        myEndConditions = new ArrayList<ModeCondition>();
+        setupConditions();
     }
-    
+
     /**
      * Loads the mode associated with MenuController (MenuMode)
      */
@@ -80,7 +81,7 @@ public abstract class MenuController extends Controller {
         getMode().setMenuObjects(grid.getMenuObjects());
         getMode().update();
     }
-    
+
     /**
      * Creates mouse object when mouse is clicked
      * @param pos
@@ -89,7 +90,7 @@ public abstract class MenuController extends Controller {
     public void mouseclick(PositionObject pos)  {
         getMode().addObject(new MouseClickObject(pos.getPoint2D(), getHardFilePath()));
     }
-    
+
     /**
      * Creates mouse object when mouse moves
      * @param pos
@@ -98,69 +99,69 @@ public abstract class MenuController extends Controller {
     public void mousemove(PositionObject pos)  {
         getMode().addObject(new MouseObject(pos.getPoint2D(), getHardFilePath()));
     }
-    
+
     /**
      * 
      */
     public void developerUpdate(){
-        
+
     }
-    
+
     @InputMethodTarget(name = "left")
     public void left(AlertObject alObj)  {
-    	if(getMode().inputReady()) getMode().left();
+        if(getMode().inputReady()) getMode().left();
     }
-    
+
     @InputMethodTarget(name = "right")
     public void right(AlertObject alObj)  {
-    	if(getMode().inputReady()) getMode().right();
+        if(getMode().inputReady()) getMode().right();
     }
-    
+
     @InputMethodTarget(name = "up")
     public void up(AlertObject alObj)  {
-    	if(getMode().inputReady())  getMode().up();
+        if(getMode().inputReady())  getMode().up();
     }
-    
+
     @InputMethodTarget(name = "down")
     public void down(AlertObject alObj)  {
-    	if(getMode().inputReady()) getMode().down();
+        if(getMode().inputReady()) getMode().down();
     }
-    
+
     @InputMethodTarget(name = "enter")
     public void enter(AlertObject alObj)  {
-    	if(getMode().inputReady()) getMode().setChoice(getMode().getCurrentMenu().getValue());
+        if(getMode().inputReady()) getMode().setChoice(getMode().getCurrentMenu().getValue());
     }
-    
+
     public MenuMode getMode(){
-    	return (MenuMode) super.getMode();
+        return (MenuMode) super.getMode();
     }
-    
+
     public Controller getController() {
         return this;
     }
-    
+
     public void removeListener(){
-    	super.removeListener();
-    	getInput().removeListener(this);
+        super.removeListener();
+        getInput().removeListener(this);
     }
-    
+
     protected void addEndCondition(ModeCondition condition){
-    	myEndConditions.add(condition);
+        myEndConditions.add(condition);
     }
-    
+
     protected List<ModeCondition> getConditions(){
-    	return myEndConditions;
+        return myEndConditions;
     }
-    
-    
+
+
     public void setupConditions(){
-    	addEndCondition(endcondition);
+        addEndCondition(endcondition);
     }
-    
+
     ModeCondition endcondition = new ModeCondition() {
-    	public boolean checkCondition(Mode mode) {
-			return !("".equals(getMode().peekChoice()));
-    	}
+        public boolean checkCondition(Mode mode) {
+            return !("".equals(getMode().peekChoice()));
+        }
     };
 
 }

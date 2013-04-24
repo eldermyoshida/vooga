@@ -1,16 +1,16 @@
 package vooga.fighter.controller;
 
+import vooga.fighter.view.Canvas;
 
 
-import util.Location;
-import util.Pixmap;
 import util.input.Input;
 import vooga.fighter.model.*;
 import vooga.fighter.view.Canvas;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ResourceBundle;
-
+import java.util.List;
+import util.input.*;
 import javax.swing.Timer;
 
 
@@ -31,7 +31,7 @@ import javax.swing.Timer;
 
 public abstract class Controller{
     public static final String DEFAULT_RESOURCE_PACKAGE = "config.";
-	public static final String DEFAULT_IMAGE_PACKAGE = "images.";
+    public static final String DEFAULT_IMAGE_PACKAGE = "images.";
     public static final String NEXT = "Next";
     public static final String BACK = "Back";
     public static final String EXIT = "EXIT";
@@ -40,7 +40,7 @@ public abstract class Controller{
     private String myHardFilePath;
     private String myImagePackagePath;
     private String myResourcePath;
-    
+
     protected ControllerDelegate myManager;
     private String myName;
     private String myPath;
@@ -62,9 +62,9 @@ public abstract class Controller{
      * Constructor
      */
     public Controller(){
-    
+
     }
-    
+
     /**
      * sets this controller's name
      * @param name
@@ -92,7 +92,7 @@ public abstract class Controller{
         myGameInfo = gameinfo;
         loadMode();
     }
-    
+
     /**
      * Instantiates a new controller with input parameters
      * @param name - name of this controller
@@ -103,14 +103,14 @@ public abstract class Controller{
      * @return the newly instantiated controller
      */
     public abstract Controller getController(String name, Canvas frame, ControllerDelegate manager, 
-    		GameInfo gameinfo, String filePath);
-    
+                                             GameInfo gameinfo, String filePath);
+
     /**
      * sets this Controller's input
      * @param input
      */
     protected void setInput(Input input) {
-    	myInput = input;
+        myInput = input;
     }
 
     /**
@@ -120,7 +120,7 @@ public abstract class Controller{
     public String getName() {
         return myName;
     }
-    
+
     /**
      * sets the name of this controller
      * @param name
@@ -128,13 +128,13 @@ public abstract class Controller{
     public void setName(String name) {
         myName = name;
     }
-    
+
     /**
      * gets this controller's input object
      * @return myInput
      */
     protected Input getInput() {
-    	return myInput;
+        return myInput;
     }
 
     /**
@@ -152,7 +152,7 @@ public abstract class Controller{
     protected String getPath() {
         return myPath;
     }
-    
+
     /**
      * gets this controller's manager. The manager is the class that handles
      * switching of controllers.
@@ -169,13 +169,13 @@ public abstract class Controller{
     protected GameInfo getGameInfo() {
         return myGameInfo;
     }
-    
+
     /**
      * returns this controller's mode
      * @return myMode
      */
     protected Mode getMode() {
-    	return myMode;
+        return myMode;
     }
 
     /**
@@ -186,20 +186,20 @@ public abstract class Controller{
         myMode = mode;
         initializeMode();
     }
-    
+
     /**
      * This method is to used by any subclasses as it loads the Mode in 
      * this superclass's constructer (so that it happens before any Mode methods are called)
      */
     public abstract void loadMode();
-    
+
     /**
      * sets the loopinfo of this controller
      * @param loopinfo - contains painting info for this controller
      */
     protected void setLoopInfo(DisplayInfo loopinfo){
-    	myDisplayInfo = loopinfo;
-    	myCanvas.setViewDataSource(myDisplayInfo);
+        myDisplayInfo = loopinfo;
+        myCanvas.setViewDataSource(myDisplayInfo);
     }
 
     /**
@@ -207,7 +207,7 @@ public abstract class Controller{
      */
     protected void displaySplash() {
     }
-    
+
     /**
      * creates the splash screen for this controller, if subclassed and overwritten
      */
@@ -220,14 +220,14 @@ public abstract class Controller{
     public void start() {
         final int stepTime = DEFAULT_DELAY;
         // create a timer to animate the canvas
-         myTimer = new Timer(stepTime, 
-                               new ActionListener() {
+        myTimer = new Timer(stepTime, 
+                            new ActionListener() {
             public void actionPerformed (ActionEvent e) {
                 myMode.update();
                 myDisplayInfo.update();
                 myCanvas.paint();
                 checkConditions();
-                
+
             }
         });
         // start animation
@@ -248,46 +248,46 @@ public abstract class Controller{
         myTimer.stop();
 
     }
-    
+
     protected String getHardFilePath(){
-    	return myHardFilePath;
+        return myHardFilePath;
     }
 
     /**
      * removes this controller's input listener.
      */
     protected void removeListener() {
-    	getInput().removeListener(this);
+        getInput().removeListener(this);
     }
-    
+
     /**
      * checks for the completion of end conditions
      */
     protected abstract void checkConditions();
- 
+
     /**
      * Notifies the controllerdelegate that the current game state is completed
      * @param choice
      */
     protected abstract void notifyEndCondition(String choice);
-    
+
     /**
      * instantiates a new controller
      * @return this
      */
     public abstract Controller getController();
-    
+
     /**
      * Update for special cases desired by the developer
      */
     protected abstract void developerUpdate();
-    
+
     /**
      * initializes this controller's mode
      */
     protected abstract void initializeMode();
 
-        
+
 
 
 }

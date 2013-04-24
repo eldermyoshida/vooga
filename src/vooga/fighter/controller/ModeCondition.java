@@ -11,6 +11,6 @@ import vooga.fighter.model.Mode;
 public interface ModeCondition {
 
 
-	public boolean checkCondition(Mode mode);
+    public boolean checkCondition(Mode mode);
 
 }
