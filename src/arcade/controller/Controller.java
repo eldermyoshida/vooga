@@ -31,6 +31,16 @@ public class Controller implements ArcadeInteraction {
     // Locations
     private static final String RESOURCE_LOCATION = "arcade.resources.";
     private static final String PAYMENT_MANAGER_LOCATION = "arcade.model.payment.";
+    
+    private static final String SOURCE = "src";
+	private static final String PACKAGE_LOCATION = "arcade/resources";
+	private static final String FILENAME = "userPurchases";
+	private static final String EXTENSION = ".properties";
+	private static final String FILEWRITER_LOCATION = SOURCE + "/" + PACKAGE_LOCATION + "/" + FILENAME + "1" + EXTENSION;
+	private static final String TMP_LOCATION = SOURCE + "/" + PACKAGE_LOCATION + "/" + FILENAME + "2" + EXTENSION;
+	private static final String RESOURCEBUNDLE_LOCATION = PACKAGE_LOCATION + "." + FILENAME + "1";
+
+    
 
     // Messages
     public static final String DEFAULT_LOGIN_MESSAGE = "";
@@ -44,6 +54,7 @@ public class Controller implements ArcadeInteraction {
 
     // Resource
     private ResourceBundle myResources;
+    private ResourceBundle userPurchaseHistory;
 
     // Models
     private Database myDb;
