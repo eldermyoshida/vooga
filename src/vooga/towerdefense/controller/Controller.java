@@ -407,7 +407,7 @@ public class Controller {
 		String info = "Player info: \n\n";
 		for (String key : playerData.keySet())
 			info += key + ": " + playerData.get(key) + "\n";
-		myView.getPlayerInfoScreen().displayInformation(info);
+		//myView.getPlayerInfoScreen().displayInformation(info);
 	}
 
 }

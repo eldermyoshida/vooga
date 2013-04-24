@@ -70,10 +70,10 @@ public class MapsSelectorScreen extends SelectScreen {
 
     // TODO placeholder! Creation of Pixmaps needs to be cleaned up
     private void initMapImages () {
-        myMapLoader = new MapLoader(PATH);
-        List<GameMap> myGameMaps = myMapLoader.loadMaps();
-        System.out.println("mapps: " + myGameMaps);
-        
+//        myMapLoader = new MapLoader(PATH);
+//        List<GameMap> myGameMaps = myMapLoader.loadMaps();
+//        System.out.println("mapps: " + myGameMaps);
+//        
         myMap1 = new Pixmap("map1.gif");
         myMap2 = new Pixmap("map2.gif");
         myMap3 = new Pixmap("map3.gif");

@@ -99,10 +99,10 @@ public class ViewXMLLoader {
             controller.getView().setShopScreen((ShopScreen)screen);
         }
         else if (myXMLTool.getContent(element).equals(GAME_ELEMENTS_SCREEN_TAG)) {
-            controller.getView().setGameElementInfoScreen((GameElementInformationScreen)screen);
+            controller.getView().setGameElementInformationScreen((GameElementInformationScreen)screen);
         }
         else if (myXMLTool.getContent(element).equals(GAME_STATS_SCREEN_TAG)) {
-            controller.getView().setPlayerInfoScreen((GameStatsScreen)screen);
+            controller.getView().setStatsScreen((GameStatsScreen)screen);
         }
         return screen;
     }

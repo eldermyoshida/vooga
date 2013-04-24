@@ -7,7 +7,7 @@ import java.util.List;
 
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.controller.Controller;
-import vooga.towerdefense.model.gamestatistics.Player;
+import vooga.towerdefense.model.Player;
 import vooga.towerdefense.model.levels.Level;
 import vooga.towerdefense.model.rules.Rule;
 import vooga.towerdefense.model.shop.Shop;
@@ -47,7 +47,8 @@ public class GameModel {
         myGameMap = gameMap;
         myShop = shop;
         myCurrentLevel = 0;
-        myPlayer = new Player(controller);
+       // myPlayer = new Player(controller);
+        myPlayer = new Player();
         myActiveActions = new ArrayList<Action>();
     }
     
