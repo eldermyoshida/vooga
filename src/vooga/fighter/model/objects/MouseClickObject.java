@@ -1,7 +1,6 @@
 package vooga.fighter.model.objects;
 
 import java.awt.geom.Point2D;
-import vooga.fighter.model.utils.UpdatableLocation;
 
 
 public class MouseClickObject extends MouseObject {

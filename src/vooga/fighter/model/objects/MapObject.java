@@ -155,35 +155,9 @@ public class MapObject extends GameObject {
     }
 
     /**
-     * Nothing for now, will refactor GameObject to remove this method.
-     */
-    public void applyCollideEffect(GameObject o) {
-        
-    }
-
-    /**
      * Nothing for now, just return false. Never need to remove map.
      */
     public boolean shouldBeRemoved() {
         return false;
     }
-
-
-    public void dispatchCollision (GameObject other) {
-        
-    }
-
-    public void handleCollision (CharacterObject other) {
-        
-    }
-
-
-    public void handleCollision (AttackObject other) {
-        
-    }
-
-    public void handleCollision (EnvironmentObject other) {
-        
-    }
-    
 }

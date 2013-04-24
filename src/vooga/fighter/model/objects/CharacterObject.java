@@ -24,7 +24,6 @@ public class CharacterObject extends GameObject {
 
 
     private static final int RIGHT=0; 
-    private static final int MOVE_BACK_AMOUNT=-2; 
     private static final int UP=270; 
     
     private Map<String, AttackObject> myAttacks;
@@ -229,13 +228,6 @@ public class CharacterObject extends GameObject {
     public void jump() {        
     	getLocation().addAcceleration(new Vector(UP, getProperty("jumpfactor")));
     } 
-    
-    /**
-     * Characters should never be removed.
-     */
-    public boolean shouldBeRemoved() {
-        return false;
-    }
     
     /**
      * Checks to see if character is facing right
