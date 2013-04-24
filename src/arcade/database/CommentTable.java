@@ -110,8 +110,8 @@ public class CommentTable extends Table {
         }
         catch (SQLException e) {
             e.printStackTrace();
-//            writeErrorMessage("Error getting all comments for this game in " +
-//                    "CommentTable.java @ Line 72");
+            writeErrorMessage("Error getting all comments for this game in " +
+                    "CommentTable.java @ Line 72");
         }
         return comments;
     }
@@ -139,7 +139,5 @@ public class CommentTable extends Table {
             writeErrorMessage("Error printing entire table in CommentTable.java @ Line 91");
         }
     }
-
-  
 
 }
