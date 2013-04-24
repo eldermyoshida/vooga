@@ -8,8 +8,6 @@ import util.XMLTool;
 import vooga.towerdefense.attributes.Attribute;
 import vooga.towerdefense.attributes.AttributeManager;
 import vooga.towerdefense.factories.GameElementFactory;
-import vooga.towerdefense.gameElements.GameElement;
-import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.util.Location;
 import vooga.towerdefense.util.Pixmap;
 
@@ -19,35 +17,26 @@ public class GameElementXMLLoader {
     private static final String TYPE_TAG = "type";
     private static final String IMAGE_TAG = "image";
     private static final String VALUE_TAG = "value";
+
+    private XMLTool myXMLTool;    
     
-    
-    private XMLTool myXMLTool;
-    private GameMap myGameMap;
-    private Map<String, GameElementFactory> myGameElementFactories;    
-    
-    public GameElementXMLLoader(GameMap gameMap, XMLTool xmlTool, String xmlFilePath) {
+    public GameElementXMLLoader(XMLTool xmlTool, String xmlFilePath) {
         myXMLTool = xmlTool;
-        myGameMap = gameMap;
         myXMLTool.setDoc(xmlFilePath);
-        initGameElementFactories();
     }
     
-    public void initGameElementFactories() {
-        
-    }
-    
-    public List<GameElement> loadGameElements() {
+    public List<GameElementFactory> loadGameElementFactories() {
         Element gameElementsElement = myXMLTool.getElementFromTag(GAME_ELEMENTS_TAG);        
         Map<String, Element> subElements = myXMLTool.getMapElementFromParent(gameElementsElement);
         
-        List<GameElement> gameElements = new ArrayList<GameElement>();
+        List<GameElementFactory> gameElementFactories = new ArrayList<GameElementFactory>();
         for (Element subElement : subElements.values()) {
-            gameElements.add(loadGameElement(subElement));
+            gameElementFactories.add(loadGameElementFactory(subElement));
         }
-        return gameElements;
+        return gameElementFactories;
     }
     
-    public GameElement loadGameElement(Element gameElement) {
+    public GameElementFactory loadGameElementFactory(Element gameElement) {
         Map<String, Element> subElements = myXMLTool.getMapElementFromParent(gameElement);
         
         String gameElementName = myXMLTool.getTagName(gameElement);
@@ -64,8 +53,7 @@ public class GameElementXMLLoader {
                                                               elementLocation,
                                                               elementType,
                                                               am);
-        geFactory.initialize(myGameMap);
-        return geFactory.createElement();
+        return geFactory;
     }     
     
     private Pixmap loadElementImage(Element imageElement) {

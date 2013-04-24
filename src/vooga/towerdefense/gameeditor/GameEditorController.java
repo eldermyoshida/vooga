@@ -55,6 +55,7 @@ public class GameEditorController extends JFrame {
     private static final String UNIT_INDICATOR = "Unit";
     private static final String RESOURCE_PATH = "vooga.src.vooga.towerdefense.resources.";
     public static final String CLASS_INDICATOR_STRING = ".class";
+    private static final String MULTI_PANEL_TAG = "MultipleScreenPanel";
     private Dimension mySize;
     private Dimension myMapSize;
     private List<String> myCreatedUnits;
@@ -184,8 +185,8 @@ public class GameEditorController extends JFrame {
     /**
      * adds a view to the XML file.
      */
-    public void addViewToGame(List<String> viewInfo) {
-        /*for (String s : viewInfo) {
+    public void addViewToGame(List<String> viewInfo, Map<String, List<String>> map) {
+        for (String s : viewInfo) {
             if (!s.equals("")) {
                 String[] characteristics = s.split(" ");
                 if (!characteristics[0].equals("")) {
@@ -195,9 +196,26 @@ public class GameEditorController extends JFrame {
                     myXMLDoc.addChild(screen, WIDTH_TAG, noComma);
                     myXMLDoc.addChild(screen, HEIGHT_TAG, characteristics[2]);
                     myXMLDoc.addChild(screen, SCREEN_LOCATION_TAG, characteristics[3]);
+                   
+                    if (characteristics[0].equals("MultipleScreenPanel")) {
+                        for (Map.Entry<String, List<String>> entry: map.entrySet()){
+                            if (entry.getKey().equals(characteristics[3])) {
+                                for (String str: entry.getValue()) {
+                                    String[] values = str.split(" ");                                   
+                                    Element screen2 = myXMLDoc.makeElement(values[1]);
+                                    myXMLDoc.addChildElement(screen, screen2);
+                                    myXMLDoc.addChild(screen2, WIDTH_TAG, values[2]);
+                                    myXMLDoc.addChild(screen2, HEIGHT_TAG, values[3]);
+                                    myXMLDoc.addChild(screen2, SCREEN_LOCATION_TAG, values[0]);
+                                }
+                            }
+                        }
+                    }
+                   
                 }
             }
-        }*/
+        }
+        myXMLDoc.writeFile("multi.xml");
     }
 
     /**
