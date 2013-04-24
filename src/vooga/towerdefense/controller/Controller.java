@@ -18,9 +18,9 @@ import vooga.towerdefense.controller.modes.ControlMode;
 import vooga.towerdefense.controller.modes.SelectMode;
 import vooga.towerdefense.factories.GameElementFactory;
 import vooga.towerdefense.factories.WaveFactory;
-import vooga.towerdefense.factories.examples.ExampleAuraTowerFactory;
-import vooga.towerdefense.factories.examples.ExampleUnitFactory;
-import vooga.towerdefense.factories.examples.TrollUnitDefinition;
+import vooga.towerdefense.factories.definitions.UnitDefinition;
+import vooga.towerdefense.factories.examplesfactories.ExampleAuraTowerFactory;
+import vooga.towerdefense.factories.examplesfactories.ExampleUnitFactory;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.gameElements.Wave;
 import vooga.towerdefense.model.GameLoop;
@@ -72,7 +72,7 @@ public class Controller {
 
 		List<Wave> waves = new ArrayList<Wave>();
 //		String path = "/vooga/src/vooga/towerdefense/resources/map_loadfile.xml";
-		String path = "C:\\Users\\JLongley\\workspace\\vooga\\src\\vooga\\towerdefense\\resources\\map_loadfile.xml";
+		String path = "/Users/XuRui/Documents/CS308workspace/vooga/src/vooga/towerdefense/resources/map_loadfile.xml";
 		MapLoader loader = new MapLoader(path);
 		List<GameMap> maps = loader.loadMaps();
 		GameMap map = maps.get(0);
@@ -84,7 +84,7 @@ public class Controller {
 				.createElement(new Location(450, 200));
 		map.addGameElement(duvallTheMighty);
 		waves.add(WaveFactory.createWave(new ExampleUnitFactory("Troll",
-				new TrollUnitDefinition(), map), 25, map, map
+				new UnitDefinition(), map), 25, map, map
 				.getTile(new Point(25, 275))));
 		setLanguage(language);
 		myModel = new GameModel(this, waves, map, new Shop(map));

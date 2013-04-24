@@ -2,25 +2,26 @@ package vooga.towerdefense.factories.examplesfactories;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
-
+import java.util.List;
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.FindTargets;
 import vooga.towerdefense.action.actionlist.LaunchProjectile;
-import vooga.towerdefense.action.tobetested.ModifyAttributeValue;
-import vooga.towerdefense.attributes.Attribute;
 import vooga.towerdefense.attributes.AttributeConstants;
 import vooga.towerdefense.attributes.AttributeManager;
 import vooga.towerdefense.factories.GameElementFactory;
+import vooga.towerdefense.factories.definitions.DefinitionConstants;
 import vooga.towerdefense.factories.definitions.TowerDefinition;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.util.Location;
-import vooga.towerdefense.util.Pixmap;
 
 
 /**
- * @author Matthew Roy
+ * Example tower factory that can modify attributes of units within attack radius.
+ * Actions and attributes are manually defined here.
  * 
+ * @author Matthew Roy
+ * @author Xu Rui
  */
 public class ExampleAuraTowerFactory extends GameElementFactory {
 
@@ -38,30 +39,36 @@ public class ExampleAuraTowerFactory extends GameElementFactory {
     public GameElement createElement (Location putHere) {
         TowerDefinition def = new TowerDefinition();
         AttributeManager AM = getDefaultAM();
-
-        //Pixmap tImage = new Pixmap("palmtree.png");
-        Pixmap tImage = new Pixmap("Duvall.jpg");
-
+        
         GameElement myTower;
         if (putHere != null) {
-            myTower = new GameElement(tImage, putHere,
-                                      new Dimension(50, 50), AM, "tower");
+            myTower = new GameElement(def.getImage(), putHere,
+                                      new Dimension(50, 50), AM, DefinitionConstants.DEFAULT_TOWER_NAME);
         }
         else {
             myTower = new GameElement(def.getImage(),
-                                      def.getCenter(), def.getSize(), AM, "tower");
+                                      def.getCenter(), def.getSize(), AM, DefinitionConstants.DEFAULT_TOWER_NAME);
         }
-
-        ArrayList<Action> actions = new ArrayList<Action>();
-        FindTargets findTargets =
-                new FindTargets(myMap, putHere, AM.getAttribute(AttributeConstants.ATTACK_RADIUS));
-        findTargets.addFollowUpAction(new LaunchProjectile(myMap, putHere, new ExampleDosProjectileFactory()));
-        		/*new ModifyAttributeValue(AM
-                .getAttribute(AttributeConstants.AURA_EFFECT), AttributeConstants.HEALTH));*/
-        actions.add(findTargets);
-
-        myTower.addActions(actions);
+        
+        myTower.addActions(createActions(myTower));
         return myTower;
+    }
+    
+    /**
+     * Manually add game element actions (for testing only actions will be predefined in level editor)
+     */
+    @Override
+    public List<Action> createActions(GameElement element) {
+    	 ArrayList<Action> actions = new ArrayList<Action>();
+         FindTargets findTargets =
+                 new FindTargets(myMap, element.getCenter(), 
+                		 element.getAttributeManager().getAttribute(AttributeConstants.ATTACK_RADIUS));
+         findTargets.addFollowUpAction(new LaunchProjectile(myMap, element.getCenter(), 
+        		 new ExampleDosProjectileFactory()));
+         		/*new ModifyAttributeValue(AM
+                 .getAttribute(AttributeConstants.AURA_EFFECT), AttributeConstants.HEALTH));*/
+         actions.add(findTargets);
+        return actions;
     }
 
 }

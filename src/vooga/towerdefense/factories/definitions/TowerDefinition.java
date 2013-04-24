@@ -1,29 +1,49 @@
 package vooga.towerdefense.factories.definitions;
 
 import java.awt.Dimension;
-
 import vooga.towerdefense.util.Pixmap;
 import vooga.towerdefense.util.Location;
 
+/**
+ * Default TowerDefinition used for testing tower factories; 
+ * only GameElementDefinition and GameElement will be made and used at the end.
+ * 
+ * @author XuRui
+ *
+ */
+
 public class TowerDefinition extends GameElementDefinition {
 	
-	private static final Pixmap TOWER_IMAGE = new Pixmap("tower.gif");
-	private static final Location DEFAULT_TOWER_LOCATION = new Location(200, 100);
-	private static final Dimension DEFAULT_TOWER_SIZE = new Dimension(50, 50);
-	
-	Pixmap myImage;
-	Location myCenter;
-	Dimension mySize;
+	private Pixmap myImage;
+	private Location myCenter;
+	private Dimension mySize;
+	private String myType;
 
 	public TowerDefinition() {
-		myImage = TOWER_IMAGE;
-		myCenter = DEFAULT_TOWER_LOCATION;
-		mySize = DEFAULT_TOWER_SIZE;
+		myImage = DefinitionConstants.DEFAULT_TOWER_IMAGE;
+		myCenter = DefinitionConstants.DEFAULT_TOWER_LOCATION;
+		mySize = DefinitionConstants.DEFAULT_TOWER_SIZE;
+		
 	}
 	
+	public void setImage(Pixmap image){
+		myImage = image;
+	}
 	
-	
+    public Pixmap getImage () {
+        return myImage;
+    }
 
-	
+    public Location getCenter () {
+        return myCenter;
+    }
+
+    public Dimension getSize () {
+        return mySize;
+    }
+    
+    public String getType (){
+    	return myType;
+    }
 	
 }
