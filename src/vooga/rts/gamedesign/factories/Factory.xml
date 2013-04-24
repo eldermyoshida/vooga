@@ -97,6 +97,7 @@
 			<sound>pikachu.wav</sound>
 			<health>100</health>
 			<buildtime>100</buildtime>
+			<speed>180</speed>
 			<gather>cannotgather</gather>
 			<occupy>cannotbeoccupied</occupy>
 			<produce></produce>
@@ -107,6 +108,7 @@
 			<sound>pikachu.wav</sound>
 			<health>100</health>
 			<buildtime>100</buildtime>
+			<speed>140</speed>
 			<gather>cangather</gather>
 			<occupy>cannotbeoccupied</occupy>
 			<produce>home</produce>
@@ -116,7 +118,7 @@
 		</customunit>
 	</units>
 	<weapons src = "">
-			<weapon>
+			<weapon></weapon>
 			
 	</weapons>
 	
