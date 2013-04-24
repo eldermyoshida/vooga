@@ -1,9 +1,6 @@
 package vooga.rts.leveleditor.gui;
 
 import java.awt.event.ActionEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
@@ -24,7 +21,12 @@ public class MenuManager extends JMenuBar {
     public static final String USER_DIR = "user.dir";
     private Canvas myCanvas;
     private JFileChooser myChooser;
-
+    
+    /**
+     * Constructor for the class
+     * 
+     * @param canvas the canvas that holds the menu manager
+     */
     public MenuManager(Canvas canvas) {
         myCanvas = canvas;
         myChooser = new JFileChooser(System.getProperties().getProperty(USER_DIR));
@@ -81,7 +83,7 @@ public class MenuManager extends JMenuBar {
         menu.add(new AbstractAction("RemovePlayer") {
             @Override
             public void actionPerformed (ActionEvent e) {
-                myCanvas.setMode(MapPanel.PLAYERMODE);
+                myCanvas.clearPlayer();
             }
         });
     }

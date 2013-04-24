@@ -19,6 +19,7 @@ import vooga.rts.leveleditor.components.EditableTile;
 import vooga.rts.leveleditor.components.EditableResource;
 import vooga.rts.resourcemanager.ResourceManager;
 import vooga.rts.util.Camera;
+import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
 
 /**
@@ -54,6 +55,7 @@ public class MapPanel extends JComponent {
     private int myCurrentLayer;
     private int myMaxLayer;
     private int myMode;
+    private BufferedImage myPlayerImage;
 
     /**
      * Constructor for the map
@@ -71,7 +73,7 @@ public class MapPanel extends JComponent {
         myMaxLayer = 0;
         myTileWidth = 0;
         myTileHeight = 0;
-        ResourceManager.getInstance().<BufferedImage> getFile(PLAYER_IMAGE_PATH,
+        myPlayerImage = ResourceManager.getInstance().<BufferedImage> getFile(PLAYER_IMAGE_PATH,
                                                               BufferedImage.class);
         setPanelSize();
 
@@ -114,9 +116,12 @@ public class MapPanel extends JComponent {
         drawLineTest(0, myHeight * myTileHeight/2, myWidth * myTileWidth/2, myHeight * myTileHeight/2,g);
 
         myMap.paint((Graphics2D)g);
-        System.out.println("PAINTED");
+        
+        for(Location loc : myMap.getAllPlayers().values()) {
+            g.drawImage(myPlayerImage, (int)loc.getX(), (int)loc.getY(), null);
+        }
     }
-    
+
     /**
      * Helper method to draw a line between two point
      * 
@@ -233,7 +238,8 @@ public class MapPanel extends JComponent {
      * @param loc
      */
     public void placePlayer (Location3D loc) {
-        myMap.addPlayer(loc.to2D());
+        Point2D loc1 = Camera.instance().worldToView(loc);
+        myMap.addPlayer(new Location(loc1.getX(),loc1.getY()));
         repaint();
     }
     
