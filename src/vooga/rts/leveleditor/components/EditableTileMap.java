@@ -3,6 +3,7 @@ package vooga.rts.leveleditor.components;
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import vooga.rts.gamedesign.sprite.map.Tile;
 import vooga.rts.map.TileMap;
 import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
@@ -26,11 +27,10 @@ public class EditableTileMap extends TileMap {
     }    
     
     public void addTile(int i, int j, int id, String name , String imageName, Pixmap image) {
-        //setTile(i,j,new EditableTile(image,i,j,getMyTileSize(),id,name,imageName,false));
-        addTileType(id, (BufferedImage)image.getMyImage());
-        createTile(id, i, j);
+        setTile(i,j,new EditableTile(image,i,j,getMyTileSize(),id,name,imageName,false));
     }
     
+
     public void addTile(Location3D loc, int id, String name, String imageName, Pixmap image) {
         int i = (int)(loc.getX()/this.getMyTileSize().getWidth() * 2);
         int j = (int)(loc.getY()/this.getMyTileSize().getHeight() * 2);

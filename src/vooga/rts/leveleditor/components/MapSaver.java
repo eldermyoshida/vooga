@@ -5,8 +5,10 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
 import javax.imageio.ImageIO;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -23,9 +25,6 @@ import vooga.rts.util.Location;
 import vooga.rts.util.Pixmap;
 
 public class MapSaver {
-
-    private static final String RESOURCE_PATH = "vooga.rts.leveleditor.resource.";
-    
     
     private DocumentBuilderFactory myFactory ;
     private DocumentBuilder myBuilder;
@@ -33,19 +32,11 @@ public class MapSaver {
     
     private EditableMap mySavingMap; 
     
-    private ResourceBundle myTerrainResources;
-    private ResourceBundle myTileResources;
-    private ResourceBundle myResourceResources;
-    
-    
     public MapSaver(EditableMap map) throws ParserConfigurationException {
         myFactory = DocumentBuilderFactory.newInstance();
         myBuilder = myFactory.newDocumentBuilder();
         myDocument = myBuilder.newDocument();
         mySavingMap = map;
-        myTerrainResources = ResourceBundle.getBundle(RESOURCE_PATH + "TerrainIndex" );
-        myTileResources = ResourceBundle.getBundle(RESOURCE_PATH+"TileIndex");
-        myResourceResources = ResourceBundle.getBundle(RESOURCE_PATH+"ResourceIndex");
     }
     
     public void generateMapFile(File objectiveFile) throws TransformerException, IOException {
@@ -251,46 +242,57 @@ public class MapSaver {
         tileAmount.setAttribute("X", mySavingMap.getMyXsize()+"");
         tileAmount.setAttribute("Y", mySavingMap.getMyYsize()+"");
         sizeInfo.appendChild(tileAmount);
+   
+        Set<Integer> myTileIndex = new HashSet<Integer>();
+        Set<Integer> myTerrainIndex = new HashSet<Integer>();
+        Set<Integer> myResourceIndex = new HashSet<Integer>();
         
-        for(String str : myTileResources.keySet()) {
-            String value = myTileResources.getString(str);
-            String[] content = value.split("&");
-            String name = content[0];
-            String imagePath = content[1];
-            Element newTile =  myDocument.createElement("tiletype");
-            newTile.setAttribute("ID", str);
-            newTile.setAttribute("image", imagePath);
-            newTile.setAttribute("name", name);
-            tileIndex.appendChild(newTile);
+        for(int i = 0 ; i < mySavingMap.getMyXsize() ; i ++) {
+            for(int j = 0 ; j < mySavingMap.getMyYsize() ; j++) {
+                EditableTile currentTile = mySavingMap.getMyTile(i, j);
+                int id = currentTile.getMyID();
+                if( !myTileIndex.contains(id) && id != 0) { 
+                    myTileIndex.add(id);
+                    Element newTile =  myDocument.createElement("tiletype");
+                    newTile.setAttribute("ID", id+"");
+                    newTile.setAttribute("image", currentTile.getMyImageName());
+                    newTile.setAttribute("name", currentTile.getMyName());
+                    tileIndex.appendChild(newTile);
+                }
+            }
         }
         
-        for(String str : myTerrainResources.keySet()) {
-            String value = myTerrainResources.getString(str);
-            String[] content = value.split("&");
-            String name = content[0];
-            String imagePath = content[1];
-            String walkAbility = content[2];
-            Element newTerrain =  myDocument.createElement("terraintype");
-            newTerrain.setAttribute("ID", str);
-            newTerrain.setAttribute("image", imagePath);
-            newTerrain.setAttribute("name", name);
-            newTerrain.setAttribute("walkAbility", walkAbility);
-            terrainIndex.appendChild(newTerrain);
+         
+        
+        for(int i = 0 ; i < mySavingMap.getTerrainSize() ; i ++) {
+            
+            EditableTerrain currentTerrain = mySavingMap.getTerrain(i);
+            int id = currentTerrain.getMyID();
+            if( !myTerrainIndex.contains(id) ) {
+                myTerrainIndex.add(id);
+                Element newTerrain =  myDocument.createElement("terraintype");
+                newTerrain.setAttribute("ID", id+"");
+                newTerrain.setAttribute("image", currentTerrain.getMyImageName());
+                newTerrain.setAttribute("name", currentTerrain.getMyName());
+                newTerrain.setAttribute("walkAbility", currentTerrain.getMyWalkAbility()+"");
+                terrainIndex.appendChild(newTerrain);
+                    
+            }
         }
         
-        for(String str : myResourceResources.keySet()) {
-            String value = myResourceResources.getString(str);
-            String[] content = value.split("&");
-            String name = content[0];
-            String imagePath = content[1];
-            String amount = content[2];
-            System.out.println(amount);
-            Element newResource =  myDocument.createElement("resourcetype");
-            newResource.setAttribute("ID", str);
-            newResource.setAttribute("image", imagePath);
-            newResource.setAttribute("name", name);
-            newResource.setAttribute("amount", amount);
-            resourceIndex.appendChild(newResource);
+        for(int i = 0 ; i < mySavingMap.getResourceSize(); i ++) {    
+            EditableResource currentResource = mySavingMap.getResource(i);
+            int id = currentResource.getMyID();
+            if( !myResourceIndex.contains(id) ) {
+                myResourceIndex.add(id);
+                Element newResource =  myDocument.createElement("resourcetype");
+                newResource.setAttribute("ID", id+"");
+                newResource.setAttribute("image", currentResource.getMyImageName());
+                newResource.setAttribute("name", currentResource.getType());
+                newResource.setAttribute("walkAbility", currentResource.getMyAmount()+"");
+                terrainIndex.appendChild(newResource);
+                    
+            }
         }
         
         resourceInfo.appendChild(sizeInfo);
