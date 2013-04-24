@@ -12,6 +12,8 @@ public class Main {
         
         Database myDatabase = new Database();
         
+        System.out.println(myDatabase.getAverageRating("test"));
+        
         
 //        myDatabase.createUser("natx13", "password", "Natalia", "Carvalho", "04/26/1991");
 //        myDatabase.createUser("kayzooo", "mypassword", "Kevin", "Zhu", "11/12/1990");
@@ -25,6 +27,8 @@ public class Main {
 //        }
         
 //        myDatabase.updateRating("natx13", "test", 4.0);
+        
+        //myDatabase.insertCommentAndRating("hi there", "test", "what is this???", 1.0);
         //myDatabase.insertComment("natx13", "test", "this game is a piece of crap");
 
 //        List<String> myComments = myDatabase.retrieveCommentsForGame("test");

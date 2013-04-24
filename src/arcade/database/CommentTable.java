@@ -59,7 +59,7 @@ public class CommentTable extends Table {
      * @param gameid is game id
      */
     public double getAverageRating (String gameid) {
-        String stm = "SELECT * FROM score WHERE gameid='" + gameid + Keys.APOSTROPHE;
+        String stm = "SELECT * FROM comment WHERE gameid='" + gameid + Keys.APOSTROPHE;
         List<Double> ratings = new ArrayList<Double>();
         try {
             myResultSet = executeQuery(stm);
@@ -75,8 +75,12 @@ public class CommentTable extends Table {
     }
     
     private double getAverage(List<Double> numbers) {
+        if (numbers.size() == 0) {
+            return 0.0;
+        }
         Double sum = 0.0;
         for (Double d : numbers) {
+            System.out.println("Double d " + d);
             sum += d;
         }
         return sum.doubleValue() / numbers.size();
@@ -106,8 +110,8 @@ public class CommentTable extends Table {
         }
         catch (SQLException e) {
             e.printStackTrace();
-//            writeErrorMessage("Error getting all comments for this game in " +
-//                    "CommentTable.java @ Line 72");
+            writeErrorMessage("Error getting all comments for this game in " +
+                    "CommentTable.java @ Line 72");
         }
         return comments;
     }
@@ -135,7 +139,5 @@ public class CommentTable extends Table {
             writeErrorMessage("Error printing entire table in CommentTable.java @ Line 91");
         }
     }
-
-  
 
 }

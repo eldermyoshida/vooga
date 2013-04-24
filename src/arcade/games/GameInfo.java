@@ -1,4 +1,3 @@
-
 package arcade.games;
 
 import java.lang.reflect.Constructor;
@@ -10,6 +9,7 @@ import java.util.List;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import javax.swing.ImageIcon;
+import com.amazonaws.services.s3.model.AmazonS3Exception;
 import arcade.controller.Controller;
 import arcade.database.Database;
 
@@ -71,7 +71,7 @@ public class GameInfo {
 
     public double getPrice () {
         // TODO: return value from db.
-        
+
         return 42;
     }
 
@@ -79,9 +79,22 @@ public class GameInfo {
         return myDb.getSingleplayerGameClassKeyword(myGameName);
     }
 
-
     public List<Comment> getComments () {
-       return myDb.retrieveCommentsForGame(myGameName);
+        return myDb.retrieveCommentsForGame(myGameName);
+    }
+
+    public List<Score> getScores () {
+        return myDb.getScoresForGame(myGameName);
+    }
+
+    public List<Score> getSortedScores () {
+        List<Score> scores = getScores();
+        Collections.sort(scores);
+        return scores;
+    }
+
+    public String getGenre () {
+        return myDb.getGenre(myGameName);
     }
 
     // Here, there be shiny reflective dragons . . .
@@ -106,19 +119,6 @@ public class GameInfo {
      * developers will have to worry about getting things exactly right :(
      */
 
-    
-
-    public List<Score> getScores () {
-        return myDb.getScoresForGame(myGameName);
-    }
-
-    public List<Score> getSortedScores () {
-        List<Score> scores = getScores();
-        Collections.sort(scores);
-        return scores;
-    }
-
-    
     // I SAY I will add better exception handling here but . . . .
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public Game getGame (Controller model) {
@@ -129,31 +129,27 @@ public class GameInfo {
                 return (Game) con.newInstance(model);
             }
             catch (IllegalArgumentException e) {
+                e.printStackTrace();
             }
             catch (InstantiationException e) {
-            }
+                e.printStackTrace();}
             catch (IllegalAccessException e) {
-            }
+                e.printStackTrace();}
             catch (InvocationTargetException e) {
-            }
+                e.printStackTrace();}
         }
         catch (SecurityException e) {
-        }
+            e.printStackTrace();}
         catch (NoSuchMethodException e) {
-        }
+            e.printStackTrace();}
         return null;
     }
-    
-    
-    public String getGenre() {
-        return myDb.getGenre(myGameName);
-    }
-    
-    
+
     // TODO make sure this doesnt break if the game isnt single player
     @SuppressWarnings("rawtypes")
     private Class getSingleplayerGameClass () {
         try {
+            System.out.println(getSingleplayerGameClassKeyword());
             return Class.forName(getSingleplayerGameClassKeyword());
         }
         catch (ClassNotFoundException e) {
@@ -165,10 +161,11 @@ public class GameInfo {
 
     @SuppressWarnings("unchecked")
     public GameData getGameData (Game theGame) {
-        try{
+        try {
             return myDb.getGameData(myGameName);
-        
-        }catch( NullPointerException e){// this should actually be the amazon error. replace.
+
+        }
+        catch (AmazonS3Exception e) {// this should actually be the amazon error. replace.
             @SuppressWarnings("rawtypes")
             Class game = getClass();
             Method method;
@@ -193,17 +190,17 @@ public class GameInfo {
             catch (NoSuchMethodException e1) {
                 e1.printStackTrace();
             }
-           return null;
+            return null;
         }
     }
-    
-    
+
     @SuppressWarnings("unchecked")
-    public UserGameData getUserGameData (Game theGame ,String user) {
-        try{
+    public UserGameData getUserGameData (Game theGame, String user) {
+        try {
             return myDb.getUserGameData(myGameName, user);
-        
-        }catch( NullPointerException e){// this should actually be the amazon error. replace.
+
+        }
+        catch (AmazonS3Exception e) {// this should actually be the amazon error. replace.
             @SuppressWarnings("rawtypes")
             Class game = getSingleplayerGameClass();
             Method method;
@@ -228,11 +225,8 @@ public class GameInfo {
             catch (NoSuchMethodException e1) {
                 e1.printStackTrace();
             }
-           return null;
+            return null;
         }
     }
-
-
-   
 
 }
