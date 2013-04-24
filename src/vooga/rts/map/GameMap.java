@@ -45,24 +45,20 @@ public class GameMap implements IGameLoop {
      * @param mapSize This is the size of the map in pixels
      */
     public GameMap (Dimension size) {
-<<<<<<< HEAD
-=======
         mySize = size;
         NodeFactory factory = new NodeFactory();
->>>>>>> master
-        Dimension dou = new Dimension((int)size.getWidth(), (int)(size.getHeight() * 2));
-        NodeFactory factory = new NodeFactory();
+        Dimension dou = new Dimension((int) size.getWidth(), (int) (size.getHeight() * 2));        
         myNodeMap = factory.makeMap(Node.NODE_SIZE, size);
 
         myTerrain = new GameSpriteManager<Terrain>();
         myResources = new GameSpriteManager<Resource>();
 
         Camera.instance().setMapSize(size);
-        //randomGenMap(dou);
+        // randomGenMap(dou);
     }
-    
+
     public GameMap (Dimension tileSize, int width, int height) {
-        this(new Dimension((int)tileSize.getWidth() * width, (int)tileSize.getHeight() * height));
+        this(new Dimension((int) tileSize.getWidth() * width, (int) tileSize.getHeight() * height));
         myTiles = new TileMap(tileSize, width, height);
     }
 
@@ -136,15 +132,13 @@ public class GameMap implements IGameLoop {
     private void randomGenMap (Dimension size) {
         int tileWidth = 64;
         int tileHeight = 64;
-        int tilesX = (int) size.getWidth() / tileWidth;        
+        int tilesX = (int) size.getWidth() / tileWidth;
         int tilesY = (int) size.getHeight() / tileHeight;
-        
-        
+
         myTiles = new TileMap(new Dimension(tileWidth, tileHeight), tilesX, tilesY);
 
         BufferedImage banana =
-                ResourceManager
-                        .getInstance()
+                ResourceManager.getInstance()
                         .<BufferedImage> getFile("images/tiles/iso-64x64-outside.png",
                                                  BufferedImage.class);
 
@@ -163,12 +157,12 @@ public class GameMap implements IGameLoop {
         }
         Camera.instance().setMapSize(size);
     }
-    
-    public void setTileMap(TileMap map) {
+
+    public void setTileMap (TileMap map) {
         myTiles = map;
     }
-    
-    public Dimension getSize() {
+
+    public Dimension getSize () {
         return mySize;
     }
 }
