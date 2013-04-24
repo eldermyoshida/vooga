@@ -18,7 +18,7 @@ import vooga.rts.util.Location3D;
  * 
  */
 public class Node {
-    public static int NODE_SIZE = 8;
+    public static int NODE_SIZE = 16;
 
     private int myHeight;
     private int myTier;
@@ -78,7 +78,7 @@ public class Node {
     // This return statement could potentially be cleaned up, but still will wait for patter to
     // clear up.
     public boolean connectsTo (Node other) {
-        return getTier() == other.getTier() || other.getTier() < 0;
+        return getTier() == other.getTier();
     }
 
     /**

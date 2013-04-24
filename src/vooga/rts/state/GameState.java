@@ -84,7 +84,7 @@ public class GameState extends SubState implements Controller {
             p.update(elapsedTime);
         }
 
-        yuckyUnitUpdate(elapsedTime);
+//        yuckyUnitUpdate(elapsedTime);
 
         myFrames.update(elapsedTime);
     }
@@ -169,72 +169,72 @@ public class GameState extends SubState implements Controller {
 		worker.setInfo(i1);
 		myHumanPlayer.add(worker);
 		
-		Unit a = new Soldier();
-		Projectile proj = new Projectile(new Pixmap(ResourceManager
-				.getInstance().<BufferedImage> getFile("images/bullet.png",
-						BufferedImage.class)), a.getWorldLocation(),
-				new Dimension(30, 30), 2, 10, 6);
-		a.getAttackStrategy().addWeapons(
-				new Weapon(proj, 400, a.getWorldLocation(), 1));
-		Information i2 = new Information("Marine", "I am a soldier of Nunu.", null, "buttons/marine.png");
-
-		a.setInfo(i2);
-		myHumanPlayer.add(a);
-		addPlayer(2);
-		
-		Unit c = new Soldier(new Location3D(1200, 500, 0), 2);
-		c.setHealth(150);
-		// myHumanPlayer.add(c);
-		myPlayers.get(1).add(c);
-		
-		Building b = new Building(new Pixmap(ResourceManager.getInstance()
-				.<BufferedImage> getFile("images/factory.png", BufferedImage.class)),
-				new Location3D(700, 700, 0), new Dimension(100, 100), null, 1,
-				300, InteractiveEntity.DEFAULT_BUILD_TIME);
-		b.setProductionStrategy(new CanProduce());
-		((CanProduce) b.getProductionStrategy()).addProducable(new Soldier());
-		((CanProduce) b.getProductionStrategy()).createProductionActions(b);
-		((CanProduce) b.getProductionStrategy()).setRallyPoint(new Location3D(
-				600, 500, 0));
-		Information i = new Information("Barracks", "This is a barracks that can make awesome pies", null, "buttons/marine.png");
-		b.setInfo(i);
-		myHumanPlayer.add(b);
-
-		Garrison garrison = new Garrison(new Pixmap(ResourceManager
-				.getInstance().<BufferedImage> getFile("images/barracks.jpeg",
-						BufferedImage.class)), new Location3D(300, 300, 0),
-				new Dimension(100, 100), null, 1, 300,
-				InteractiveEntity.DEFAULT_BUILD_TIME);
-		garrison.getOccupyStrategy().addValidClassType(new Soldier());
-		garrison.getOccupyStrategy().createOccupyActions(garrison);
-		myHumanPlayer.add(garrison);
-		
+//		Unit a = new Soldier();
+//		Projectile proj = new Projectile(new Pixmap(ResourceManager
+//				.getInstance().<BufferedImage> getFile("images/bullet.png",
+//						BufferedImage.class)), a.getWorldLocation(),
+//				new Dimension(30, 30), 2, 10, 6);
+//		a.getAttackStrategy().addWeapons(
+//				new Weapon(proj, 400, a.getWorldLocation(), 1));
+//		Information i2 = new Information("Marine", "I am a soldier of Nunu.", null, "buttons/marine.png");
+//
+//		a.setInfo(i2);
+//		myHumanPlayer.add(a);
+//		addPlayer(2);
+//		
+//		Unit c = new Soldier(new Location3D(1200, 500, 0), 2);
+//		c.setHealth(150);
+//		// myHumanPlayer.add(c);
+//		myPlayers.get(1).add(c);
+//		
+//		Building b = new Building(new Pixmap(ResourceManager.getInstance()
+//				.<BufferedImage> getFile("images/factory.png", BufferedImage.class)),
+//				new Location3D(700, 700, 0), new Dimension(100, 100), null, 1,
+//				300, InteractiveEntity.DEFAULT_BUILD_TIME);
+//		b.setProductionStrategy(new CanProduce());
+//		((CanProduce) b.getProductionStrategy()).addProducable(new Soldier());
+//		((CanProduce) b.getProductionStrategy()).createProductionActions(b);
+//		((CanProduce) b.getProductionStrategy()).setRallyPoint(new Location3D(
+//				600, 500, 0));
+//		Information i = new Information("Barracks", "This is a barracks that can make awesome pies", null, "buttons/marine.png");
+//		b.setInfo(i);
+//		myHumanPlayer.add(b);
+//
+//		Garrison garrison = new Garrison(new Pixmap(ResourceManager
+//				.getInstance().<BufferedImage> getFile("images/barracks.jpeg",
+//						BufferedImage.class)), new Location3D(300, 300, 0),
+//				new Dimension(100, 100), null, 1, 300,
+//				InteractiveEntity.DEFAULT_BUILD_TIME);
+//		garrison.getOccupyStrategy().addValidClassType(new Soldier());
+//		garrison.getOccupyStrategy().createOccupyActions(garrison);
+//		myHumanPlayer.add(garrison);
+//		
 		r = new Resource(new Pixmap(ResourceManager.getInstance()
 				.<BufferedImage> getFile("images/mineral.gif", BufferedImage.class)),
 				new Location3D(200, 300, 0), new Dimension(50, 50), 0, 200,
 				"mineral");
 
 
-        final Building f = b;
-        test = new DelayedTask(3, new Runnable() {
-            @Override
-            public void run () {
-                f.getAction((new Command("make Marine"))).apply();
-                test.restart();
-            }
-        });
-
-        final Garrison testGarrison = garrison;
-        occupyPukingTest = new DelayedTask(10, new Runnable() {
-            @Override
-            public void run () {
-                if (testGarrison.getOccupyStrategy().getOccupiers().size() > 0) {
-                    System.out.println("will puke!");
-                    testGarrison.getAction(new Command("deoccupy")).apply();
-                }
-                occupyPukingTest.restart();
-            }
-        });
+//        final Building f = b;
+//        test = new DelayedTask(3, new Runnable() {
+//            @Override
+//            public void run () {
+//                f.getAction((new Command("make Marine"))).apply();
+//                test.restart();
+//            }
+//        });
+//
+//        final Garrison testGarrison = garrison;
+//        occupyPukingTest = new DelayedTask(10, new Runnable() {
+//            @Override
+//            public void run () {
+//                if (testGarrison.getOccupyStrategy().getOccupiers().size() > 0) {
+//                    System.out.println("will puke!");
+//                    testGarrison.getAction(new Command("deoccupy")).apply();
+//                }
+//                occupyPukingTest.restart();
+//            }
+//        });
     }
 
     private void yuckyUnitUpdate (double elapsedTime) {

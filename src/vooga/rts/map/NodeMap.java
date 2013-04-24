@@ -32,6 +32,8 @@ public class NodeMap implements Observer {
         myMap = new Node[width][height];
         myWidth = width;
         myHeight = height;
+        System.out.println(width);
+        System.out.println(height);
         myLookupMap = new HashMap<GameSprite, Node>();
     }
 
@@ -45,9 +47,14 @@ public class NodeMap implements Observer {
         List<Node> neighbors = new ArrayList<Node>();
         int x = current.getX();
         int y = current.getY();
-        for (int i = -1; i < 2; i += 2) {
-            neighbors.add(get(x + i, y));
-            neighbors.add(get(x, y + i));
+        System.out.println("Current x and y: " + current.getX() + " " + current.getY());
+        neighbors.add(get(x - 1, y));
+        neighbors.add(get(x + 1, y));
+        neighbors.add(get(x, y - 1));
+        neighbors.add(get(x, y + 1));
+        
+        for (Node neigh: neighbors) {
+            System.out.println(neigh.getX() + " " + neigh.getY());
         }
         return neighbors;
     }
@@ -61,7 +68,7 @@ public class NodeMap implements Observer {
      */
     public Node get (int x, int y) {
         if (x > 0 && y > 0 && x < myMap.length && y < myMap[0].length) {
-            return myMap[x][y];
+            return myMap[y][x];
         }
         return null;
     }
@@ -186,7 +193,6 @@ public class NodeMap implements Observer {
 
         // if it's updating with its new location
         if (arg1 instanceof Location3D) {
-            System.out.println("Updating poition");
             // hasn't moved outside of the current node
             if (cur.contains(item.getWorldLocation())) {
                 return;

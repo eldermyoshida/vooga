@@ -32,7 +32,6 @@ public class GameEntity extends GameSprite {
     // Default velocity magnitude
     public static int DEFAULT_SPEED = 0;
     private Vector myVelocity;
-    private GameMap myMap;
     private int myMaxHealth;
     private int myCurrentHealth;
     private PathFinder myFinder;
@@ -64,17 +63,20 @@ public class GameEntity extends GameSprite {
     // TODO: make Velocity three dimensional...
     public void update (double elapsedTime) {    
         Vector v = getWorldLocation().difference(myGoal.to2D());
+        //System.out.println(myGoal.toString());        
         if(v.getMagnitude() < Location3D.APPROX_EQUAL) {
             if(myPath.size() == 0) {                
                 setVelocity(v.getAngle(), 0);
                 myEntityState.setMovementState(MovementState.STATIONARY); // What is STATIONARY FOR?
             }
             else {
-                setVelocity(v.getAngle(), getSpeed());
-                myEntityState.setMovementState(MovementState.MOVING);
+                myGoal = myPath.getNext();
             }
         }
-        System.out.println("myPath size: " + myPath.size());
+        else {
+            setVelocity(v.getAngle(), getSpeed());
+            myEntityState.setMovementState(MovementState.MOVING);
+        }
         Vector velocity = new Vector(myVelocity);
         velocity.scale(elapsedTime);
         translate(velocity);
@@ -88,8 +90,8 @@ public class GameEntity extends GameSprite {
      */
     public void move (Location3D loc) {
        myPath = GameState.getMap().getPath(myFinder, getWorldLocation(), loc);
-       System.out.println("goal location: " + loc.toString() + " current location: " + getWorldLocation().toString());
        myGoal = myPath.getNext();
+       System.out.println("MY next in path: " + myGoal.toString());
     }
 
     /**

@@ -36,7 +36,6 @@ public class RightClickAction extends ManagerAction {
     public void update (Command command) {
         ClickCommand click = (ClickCommand) command;
         myLocation = Camera.instance().viewtoWorld(click.getPosition());
-        System.out.println("click location: " + myLocation.toString());
         // TODO : Check outside of bounds of map
         if (myLocation.getX() < 0 || myLocation.getY() < 0) {
             myLocation = null;
