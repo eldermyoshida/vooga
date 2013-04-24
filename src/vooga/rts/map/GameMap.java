@@ -5,10 +5,13 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.ObjectInputStream.GetField;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import vooga.rts.IGameLoop;
 import vooga.rts.ai.Path;
 import vooga.rts.ai.PathFinder;
+import vooga.rts.gamedesign.sprite.gamesprites.GameEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.GameSprite;
 import vooga.rts.gamedesign.sprite.gamesprites.Resource;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
@@ -98,7 +101,7 @@ public class GameMap implements IGameLoop {
      * @param same Whether to search for things of the same player ID or different one.
      * @return
      */
-    public <T extends GameSprite> List<T> getInArea (Location3D loc,
+    public <T extends GameEntity> List<T> getInArea (Location3D loc,
                                                      double radius,
                                                      T type,
                                                      int teamID,
@@ -108,8 +111,17 @@ public class GameMap implements IGameLoop {
         for (Node n : nodesinArea) {
             // TODO: team id
             // TODO: whether same or different
-            inRange.addAll(n.<T> filterGameSprites(n.getContents(), type, 0, true));
+            inRange.addAll(n.<T> filterGameSprites(n.getContents(), type, teamID, same));
         }
+        
+        final Location3D loca = loc;
+        Collections.sort(inRange, new Comparator<T>() {
+            @Override
+            public int compare (T o1, T o2) {                
+                return (int)(o2.getWorldLocation().getDistance(loca) - o1.getWorldLocation().getDistance(loca));  
+            }
+            
+        });
         return inRange;
     }
 

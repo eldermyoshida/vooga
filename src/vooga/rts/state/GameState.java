@@ -48,8 +48,6 @@ import vooga.rts.util.PointTester;
  */
 
 public class GameState extends SubState implements Controller {
-
-    private final static int DEFAULT_NODE_SIZE = 8;
     private Map<Integer, Team> myTeams;
     private static GameMap myMap;
     private HumanPlayer myHumanPlayer;
@@ -157,7 +155,7 @@ public class GameState extends SubState implements Controller {
         Unit worker =
                 new Unit(new Pixmap(ResourceManager.getInstance()
                         .<BufferedImage> getFile("images/scv.gif", BufferedImage.class)),
-                           new Location3D(100, 100, 0), new Dimension(75, 75), null, 1, 200, 40, 150);
+                         new Location3D(100, 100, 0), new Dimension(75, 75), null, 1, 200, 40, 150);
         worker.setGatherStrategy(new CanGather());
         Information i1 =
                 new Information("Worker",
@@ -206,6 +204,11 @@ public class GameState extends SubState implements Controller {
                                                      new Dimension(50, 50), 0, 200, "mineral"));
         }
 
+        for (int j = 0; j < 10; j++) {
+            getMap().getTerrain().add(new Terrain(new Pixmap("images/gold.png"),
+                                                  new Location3D(100, 100, j * 25),
+                                                  new Dimension(50, 50)));
+        }
         Building garrison =
                 new Building(new Pixmap(ResourceManager.getInstance()
                         .<BufferedImage> getFile("images/barracks.jpeg", BufferedImage.class)),
@@ -213,7 +216,7 @@ public class GameState extends SubState implements Controller {
                              InteractiveEntity.DEFAULT_BUILD_TIME);
         Information garrisonInfo =
                 new Information("Garrison", "This is a garrison that soldiers can occupy", null,
-                               "buttons/marine.png");
+                                "buttons/marine.png");
         b.setInfo(garrisonInfo);
         garrison.setOccupyStrategy(new CanBeOccupied());
         garrison.getOccupyStrategy().createOccupyActions(garrison);
@@ -264,16 +267,15 @@ public class GameState extends SubState implements Controller {
     }
 
     private void yuckyUnitUpdate (double elapsedTime) {
-        
+
         List<InteractiveEntity> p1 = myTeams.get(1).getUnits();
         List<InteractiveEntity> p2 = myTeams.get(2).getUnits();
-        /*for (InteractiveEntity u1 : p1) {
-            for (InteractiveEntity u2 : p2) {
-                u2.getAttacked(u1);
-                u1.getAttacked(u2);
-            }
-        }
-        */
+        // for (InteractiveEntity u1 : p1) {
+        // for (InteractiveEntity u2 : p2) {
+        // u2.getAttacked(u1);
+        // u1.getAttacked(u2);
+        // }
+        // }
 
         for (DelayedTask dt : myTasks) {
             dt.update(elapsedTime);
@@ -292,8 +294,8 @@ public class GameState extends SubState implements Controller {
     public static GameMap getMap () {
         return myMap;
     }
-    
-    public static void setMap(GameMap map) {
+
+    public static void setMap (GameMap map) {
         myMap = map;
     }
 }
