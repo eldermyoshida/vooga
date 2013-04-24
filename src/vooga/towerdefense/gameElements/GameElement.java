@@ -91,8 +91,4 @@ public class GameElement extends Sprite {
         return actions;
     }
 
-	public Double getType() {
-		return 0.0;
-	}
-
 }

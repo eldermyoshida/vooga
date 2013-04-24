@@ -75,7 +75,8 @@ public class Controller {
 	public Controller(String language) {
 
 		List<Wave> waves = new ArrayList<Wave>();
-		String path = "C:\\Users\\JLongley\\workspace\\vooga\\src\\vooga\\towerdefense\\resources\\map_loadfile.xml";
+		//String path = "C:\\Users\\JLongley\\workspace\\vooga\\src\\vooga\\towerdefense\\resources\\map_loadfile.xml";
+		String path = "/vooga/towerdefense/resources/map_loadfile.xml";
 		MapLoader loader = new MapLoader(path);
 		List<GameMap> maps = loader.loadMaps();
 		GameMap map = maps.get(2);
@@ -233,7 +234,7 @@ public class Controller {
 			Constructor<? extends GameElement> constructor = myClass
 					.getConstructor(types);
 			Object[] parameters = { item.getPixmap(), item.getCenter(),
-					item.getSize(), item.getActions(), item.getType() };
+					item.getSize(), item.getActions() };
 			Object myNewItem = constructor.newInstance(parameters);
 			return (GameElement) myNewItem;
 		} catch (InvocationTargetException e) {

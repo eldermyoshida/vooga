@@ -1,6 +1,5 @@
 package vooga.towerdefense.attributes;
 
-import vooga.towerdefense.factories.examplesfactories.ExampleDosProjectileFactory;
 
 /**
  * predefined attributeManager, for testing.
@@ -21,7 +20,7 @@ public class DefaultAttributeManager extends AttributeManager {
         this.addAttribute(new Attribute(AttributeConstants.TILES_TALL, 1.0));
         this.addAttribute(new Attribute(AttributeConstants.HEALTH, 100.0));
 
-        this.addGameElementFactory(AttributeConstants.PROJECTILE_FACTORY,(new ExampleDosProjectileFactory()));
+       // this.addGameElementFactory(AttributeConstants.PROJECTILE_FACTORY,(new ExampleDosProjectileFactory()));
 	}
 	
 

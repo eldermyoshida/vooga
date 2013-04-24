@@ -6,14 +6,13 @@ import vooga.towerdefense.factories.AttributeManagerFactory;
 import vooga.towerdefense.util.Location;
 import vooga.towerdefense.util.Pixmap;
 
-public class TrollDefinition extends GameElementDefinition {
+public class ExampleTowerDefinition extends GameElementDefinition {
 
-	public TrollDefinition() {
-		myImage = new Pixmap("Troll_Sprite.png");
-    	mySize = new Dimension(50,50);
-    	myCenter = new Location(0,0);
-    	myType = "troll";
+	public ExampleTowerDefinition(Pixmap pixmap, Location putHere,
+			Dimension dimension, String string) {
+		super(pixmap, putHere, dimension, string);
 	}
+
 	@Override
 	public AttributeManagerFactory getAttributeManagerFactory() {
 		// TODO Auto-generated method stub

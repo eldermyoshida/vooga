@@ -3,6 +3,7 @@ package vooga.towerdefense.factories;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
+
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.actionlist.MoveToTarget;
 import vooga.towerdefense.attributes.AttributeConstants;
@@ -59,7 +60,8 @@ public class GameElementFactory {
                                AttributeManagerFactory attrManager, List<ActionFactory> myActions) {
         myName = name;
         myImage = image;
-        mySize = new Dimension(image.getWidth(), image.getHeight());
+        //mySize = new Dimension(image.getWidth(), image.getHeight());
+        mySize = new Dimension(50,50);
         myType = type;
         myAttributeManager = attrManager;
     }

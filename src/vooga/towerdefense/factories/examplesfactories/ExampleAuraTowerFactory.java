@@ -10,11 +10,12 @@ import vooga.towerdefense.action.actionlist.LaunchProjectile;
 import vooga.towerdefense.attributes.AttributeConstants;
 import vooga.towerdefense.attributes.AttributeManager;
 import vooga.towerdefense.factories.GameElementFactory;
-import vooga.towerdefense.factories.definitions.DefinitionConstants;
-import vooga.towerdefense.factories.definitions.TowerDefinition;
+import vooga.towerdefense.factories.definitions.ExampleTowerDefinition;
+import vooga.towerdefense.factories.definitions.GameElementDefinition;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.util.Location;
+import vooga.towerdefense.util.Pixmap;
 
 
 /**
@@ -32,23 +33,24 @@ public class ExampleAuraTowerFactory extends GameElementFactory {
      * @param name
      * @param def
      */
-    public ExampleAuraTowerFactory (GameMap map, String name, TowerDefinition def) {
+    public ExampleAuraTowerFactory (GameMap map, String name, GameElementDefinition def) {
         super(name, def);
         myMap = map;
     }
 
     public GameElement createElement (Location putHere) {
-        TowerDefinition def = new TowerDefinition();
+    	//Pixmap image, Location center, Dimension size, String type
+        GameElementDefinition def = new ExampleTowerDefinition(new Pixmap("Tower.gif"), putHere, new Dimension(50,50), "tower");
         AttributeManager AM = getDefaultAM();
         
         GameElement myTower;
         if (putHere != null) {
             myTower = new GameElement(def.getImage(), putHere,
-                                      new Dimension(50, 50), AM, DefinitionConstants.DEFAULT_TOWER_NAME);
+                                      new Dimension(50, 50), AM);
         }
         else {
             myTower = new GameElement(def.getImage(),
-                                      def.getCenter(), def.getSize(), AM, DefinitionConstants.DEFAULT_TOWER_NAME);
+                                      def.getCenter(), def.getSize(), AM);
         }
         
         myTower.addActions(createActions(myTower));

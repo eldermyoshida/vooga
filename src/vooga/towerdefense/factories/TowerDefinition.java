@@ -26,4 +26,10 @@ public class TowerDefinition extends GameElementDefinition {
 		mySize = DEFAULT_TOWER_SIZE;
 	}
 
+	@Override
+	public AttributeManagerFactory getAttributeManagerFactory() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
