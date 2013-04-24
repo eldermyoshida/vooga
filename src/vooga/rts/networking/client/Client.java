@@ -5,6 +5,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
+
+import vooga.rts.networking.NetworkBundle;
 import vooga.rts.networking.communications.Message;
 
 
@@ -76,7 +78,7 @@ public class Client extends Thread implements IClient {
             myOutput.writeObject(message);
         }
         catch (IOException e) {
-            System.out.println("Exception writing to server: " + e);
+            System.out.println(NetworkBundle.BUNDLE.getString("ExceptionServer") + e);
         }
     }
 

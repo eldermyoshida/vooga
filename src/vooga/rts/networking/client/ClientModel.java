@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import vooga.rts.networking.NetworkBundle;
 import vooga.rts.networking.client.GUI.CreateLobbyView;
 import vooga.rts.networking.client.GUI.IModel;
 import vooga.rts.networking.client.GUI.LobbyView;
@@ -79,15 +81,14 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
      */
     public void switchToServerBrowserView () {
         requestLobbies();
-        // TODO resources
-        myContainerPanel.changeView(myServerBrowserView, " Server Browser");
-        myContainerPanel.changeLeftButton("Host Game", new ActionListener() {
+        myContainerPanel.changeView(myServerBrowserView, NetworkBundle.BUNDLE.getString("ServerBrowser"));
+        myContainerPanel.changeLeftButton(NetworkBundle.BUNDLE.getString("HostGame"), new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent arg0) {
                 switchToCreateLobbyView();
             }
         });
-        myContainerPanel.changeRightButton("Join Game", new ActionListener() {
+        myContainerPanel.changeRightButton(NetworkBundle.BUNDLE.getString("JoinGame"), new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent arg0) {
                 requestJoinLobby(myServerBrowserView.getSelectedID());
@@ -99,15 +100,14 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
      * Switches the current View to the LobbyCreatorScreen.
      */
     public void switchToCreateLobbyView () {
-        // TODO resources
-        myContainerPanel.changeView(myCreateLobbyView, " Lobby Creation");
-        myContainerPanel.changeLeftButton("Back to Server Browser", new ActionListener() {
+        myContainerPanel.changeView(myCreateLobbyView, NetworkBundle.BUNDLE.getString("LobbyCreation"));
+        myContainerPanel.changeLeftButton(NetworkBundle.BUNDLE.getString("BackToBrowser"), new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent arg0) {
                 switchToServerBrowserView();
             }
         });
-        myContainerPanel.changeRightButton("Start Lobby", new ActionListener() {
+        myContainerPanel.changeRightButton(NetworkBundle.BUNDLE.getString("StartLobby"), new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent arg0) {
                 startLobby(myCreateLobbyView.getLobbyInfo());
@@ -120,15 +120,15 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
      */
     public void switchToLobbyView () {
         // TODO resources
-        myContainerPanel.changeView(myLobbyView, " Lobby Creation");
-        myContainerPanel.changeLeftButton("Leave Lobby", new ActionListener() {
+        myContainerPanel.changeView(myLobbyView, NetworkBundle.BUNDLE.getString("LobbyCreation"));
+        myContainerPanel.changeLeftButton(NetworkBundle.BUNDLE.getString("LeaveLobby"), new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent arg0) {
                 
                 switchToServerBrowserView();
             }
         });
-        myContainerPanel.changeRightButton("Start Lobby", new ActionListener() {
+        myContainerPanel.changeRightButton(NetworkBundle.BUNDLE.getString("StartLobby"), new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent arg0) {
                 startGame();
