@@ -23,7 +23,7 @@ import vooga.rts.networking.communications.clientmessages.InitialConnectionMessa
 import vooga.rts.networking.communications.clientmessages.JoinLobbyMessage;
 import vooga.rts.networking.communications.clientmessages.LeaveLobbyMessage;
 import vooga.rts.networking.communications.clientmessages.RequestServerListMessage;
-import vooga.rts.networking.communications.clientmessages.StartGameMessage;
+import vooga.rts.networking.communications.clientmessages.RequestStartGameMessage;
 import vooga.rts.networking.communications.clientmessages.StartLobbyMessage;
 import vooga.rts.networking.communications.clientmessages.UpdateLobbyInfoMessage;
 import vooga.rts.networking.communications.servermessages.ServerInfoMessage;
@@ -33,6 +33,8 @@ import vooga.rts.networking.communications.servermessages.ServerInfoMessage;
  * Model for the overall server browser on the client.
  * 
  * @author David Winegar
+ * @author Sean Wareham
+ * @author Henrique Morales
  * 
  */
 public class ClientModel extends Observable implements IMessageReceiver, IClientModel, IModel {
@@ -160,7 +162,7 @@ public class ClientModel extends Observable implements IMessageReceiver, IClient
                                                @Override
                                                public void actionPerformed (ActionEvent arg0) {
                                                    if (myLobbyInfo.canStartGame()) {
-                                                       startGame();
+                                                       requestStartGame();
                                                    }
                                                }
                                            });
@@ -178,8 +180,8 @@ public class ClientModel extends Observable implements IMessageReceiver, IClient
         myClient.sendData(new StartLobbyMessage(lobbyInfo));
     }
 
-    private void startGame () {
-        myClient.sendData(new StartGameMessage());
+    private void requestStartGame () {
+        myClient.sendData(new RequestStartGameMessage());
     }
 
     private void sendUpdatedLobbyInfo () {
@@ -225,6 +227,17 @@ public class ClientModel extends Observable implements IMessageReceiver, IClient
     @Override
     public void alertClient (String title, String message) {
         myContainerPanel.showMessageDialog(title, message);
+        
+    }
+
+    @Override
+    public void loadGame (ExpandedLobbyInfo lobbyInfo) {
+        // TODO
+    }
+
+    @Override
+    public void startGame () {
+        // TODO 
         
     }
 }
