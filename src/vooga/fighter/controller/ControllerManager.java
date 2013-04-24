@@ -1,11 +1,7 @@
 
 package vooga.fighter.controller;
 
-<<<<<<< HEAD
-
-=======
 import util.input.*;
->>>>>>> input
 
 import java.awt.Dimension;
 import java.util.Collection;

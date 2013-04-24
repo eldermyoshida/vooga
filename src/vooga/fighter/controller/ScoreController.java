@@ -1,7 +1,6 @@
 package vooga.fighter.controller;
 
 import util.Location;
-<<<<<<< HEAD
 import util.input.AlertObject;
 import util.input.Input;
 import util.input.InputClassTarget;
@@ -14,10 +13,6 @@ import vooga.fighter.controller.OneVOneController;
 import vooga.fighter.model.*;
 import vooga.fighter.model.objects.MouseClickObject;
 import vooga.fighter.util.HUDVariable;
-=======
-import vooga.fighter.game.Mode;
-import util.input.*;
->>>>>>> input
 import vooga.fighter.util.Paintable;
 import vooga.fighter.view.Canvas;
 
