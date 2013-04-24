@@ -92,22 +92,22 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
         myContainerPanel.changeView(myServerBrowserView,
                                     NetworkBundle.getString("ServerBrowser"));
         myContainerPanel.changeLeftButton(NetworkBundle.getString("HostGame"),
-                                          new ActionListener() {
-                                              @Override
-                                              public void actionPerformed (ActionEvent arg0) {
-                                                  switchToCreateLobbyView();
-                                              }
-                                          });
-        myContainerPanel.changeRightButton(NetworkBundle.getString("JoinGame"),
-                                           new ActionListener() {
-                                               @Override
-                                               public void actionPerformed (ActionEvent arg0) {
-                                                   if (myServerBrowserView.hasSelectedRow()) {
-                                                       requestJoinLobby(myServerBrowserAdapter
-                                                               .getidOfRow(myServerBrowserView.getSelectedRow()));
-                                                   }
-                                               }
-                                           });
+        		new ActionListener() {
+        	@Override
+        	public void actionPerformed (ActionEvent arg0) {
+        		switchToCreateLobbyView();
+        	}
+        });
+        myContainerPanel.changeRightButton(NetworkBundle.getString("JoinGame"), 
+        		new ActionListener() {
+        	@Override
+        	public void actionPerformed (ActionEvent arg0) {
+        		if (myServerBrowserView.hasSelectedRow()) {
+        			requestJoinLobby(myServerBrowserAdapter
+        					.getIdOfRow(myServerBrowserView.getSelectedRow()));
+        		}
+        	}
+        });
     }
 
     /**
@@ -117,21 +117,21 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
         myContainerPanel.changeView(myCreateLobbyView,
                                     NetworkBundle.getString("LobbyCreation"));
         myContainerPanel.changeLeftButton(NetworkBundle.getString("BackToBrowser"),
-                                          new ActionListener() {
-                                              @Override
-                                              public void actionPerformed (ActionEvent arg0) {
-                                                  switchToServerBrowserView();
-                                              }
-                                          });
+        		new ActionListener() {
+        	@Override
+        	public void actionPerformed (ActionEvent arg0) {
+        		switchToServerBrowserView();
+        	}
+        });
         myContainerPanel.changeRightButton(NetworkBundle.getString("StartLobby"),
-                                           new ActionListener() {
-                                               @Override
-                                               public void actionPerformed (ActionEvent arg0) {
-                                                   if (myCreateLobbyView.allItemsChosen()) {
-                                                       startLobby(myCreateLobbyView.getLobbyInfo());
-                                                   }
-                                               }
-                                           });
+        		new ActionListener() {
+        	@Override
+        	public void actionPerformed (ActionEvent arg0) {
+        		if (myCreateLobbyView.allItemsChosen()) {
+        			startLobby(myCreateLobbyView.getLobbyInfo());
+        		}
+        	}
+        });
     }
 
     /**
@@ -185,6 +185,10 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
         myClient.sendData(new UpdateLobbyInfoMessage(myLobbyInfo));
     }
     
+    /**
+     * 
+     * @return the view used by all networking functions
+     */
     public JPanel getView () {
         return myContainerPanel;
     }
