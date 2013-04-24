@@ -25,6 +25,8 @@ public class LayerPanel extends JPanel {
         myCanvas = canvas;
         myLayerVector = new Vector<String>();
         myLayers = new JList(myLayerVector);
+        myLayerVector.add("Layer 0");
+        myLayers.setListData(myLayerVector);
         addListSelectionListener(myLayers);
         add(myLayers,BorderLayout.WEST);
 
@@ -48,7 +50,7 @@ public class LayerPanel extends JPanel {
      */
     
     public void addLayer (int layerNum) {
-        myLayerVector.add("Layer" + layerNum);
+        myLayerVector.add("Layer " + layerNum);
         myLayers.setListData(myLayerVector);
     }
     
@@ -57,8 +59,10 @@ public class LayerPanel extends JPanel {
      * @param layerNum
      */
     public void removeLayer (int layerNum) {
-        myLayerVector.remove("Layer" + layerNum);
-        myLayers.setListData(myLayerVector);
+        if(layerNum>0) {
+            myLayerVector.remove("Layer " + layerNum);
+            myLayers.setListData(myLayerVector);
+        }
     }
     
     /**

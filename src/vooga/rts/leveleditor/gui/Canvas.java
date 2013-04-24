@@ -123,14 +123,14 @@ public class Canvas extends JFrame {
     }
     
     public void addLayer() {
-//       myMapPanel.addLayer();
+       myMapPanel.addLayer();
        myLayerPanel.addLayer(myMapPanel.getMaxLayer());
        
     }
     
     public void removeLayer() {
        myLayerPanel.removeLayer(myMapPanel.getMaxLayer());
-//       myMapPanel.removeLayer(); 
+       myMapPanel.removeLayer(); 
     }
 
     
