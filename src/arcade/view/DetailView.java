@@ -18,6 +18,7 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import util.ImageHelper;
 import arcade.controller.Controller;
+import arcade.games.Comment;
 import arcade.games.GameInfo;
 import arcade.view.forms.payment.PaymentSelection;
 
@@ -176,12 +177,14 @@ public class DetailView extends JFrame {
     }
 
     private void constructCommentAreaContent () {
-        List<String[]> commentContents = myGameInfo.getComments();
+        List<Comment> comments = myGameInfo.getComments();
         StringBuilder sb = new StringBuilder();
-        for (String[] comment : commentContents) {
-            sb.append(BOLD_HEADER + comment[0] + BOLD_TAIL);
+        for (Comment comment : comments) {
+            sb.append(BOLD_HEADER + comment.getUser() + BOLD_TAIL);
             sb.append(HTML_NEWLINE);
-            sb.append(comment[1]);
+            sb.append(comment.getRating() + "");
+            sb.append(HTML_NEWLINE);
+            sb.append(comment.getComment());
             sb.append(HTML_NEWLINE);           
             sb.append(HTML_NEWLINE);
         }
