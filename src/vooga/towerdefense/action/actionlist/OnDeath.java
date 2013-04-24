@@ -46,7 +46,7 @@ public class OnDeath extends Action {
 	public void update(double elapsedTime) {
 		executeAction(elapsedTime);
 		if (isEnabled())
-			updateFollowupActions(elapsedTime);
+			updateFollowUpActions(elapsedTime);
 	}
 
 }

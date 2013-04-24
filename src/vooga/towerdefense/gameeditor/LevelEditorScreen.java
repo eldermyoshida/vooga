@@ -3,6 +3,7 @@ package vooga.towerdefense.gameeditor;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JComboBox;
 
@@ -50,10 +51,12 @@ public class LevelEditorScreen extends ElementWithActionEditorScreen {
      */
     public LevelEditorScreen (Dimension size, GameEditorController controller) throws ClassNotFoundException, IOException {
         super(size, controller, TITLE_NAME, NEXT_SCREEN_NAME);
+        myAvailableUnits = new JComboBox();
         setActionPath(WAVE_ACTION_PACKAGE_PATH);
         makeAttributesSection(getRules());
         makeActionsSection(WAVE_ACTION_PACKAGE_PATH);
         populateUnits();
+        makeScreen();
     }
     
     /**
@@ -74,25 +77,13 @@ public class LevelEditorScreen extends ElementWithActionEditorScreen {
         for (String unit : units) {
             myAvailableUnits.addItem(unit);
         }
-        add(myAvailableUnits);
     }
 
     /**
      * adds this level to the game.
      */
     public void addElementToGame () {
-        // TODO Auto-generated method stub
-        getController().addLevelToGame();
-    }
-
-    /**
-     * adds additional mouse behavior specific
-     * to the LevelEditorScreen.
-     * 
-     * @param e is the MouseEvent
-     */
-    @Override
-    public void addAdditionalMouseBehavior (MouseEvent e) {
-        // fill in with appropriate mouse behavior
+        getController().addLevelToGame(getName(), getAttributes(),
+                                             getActions());
     }
 }
