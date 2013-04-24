@@ -1,6 +1,8 @@
 package vooga.rts.networking.client;
 
 import java.awt.Dimension;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JFrame;
 
 public class TestMain {
@@ -9,10 +11,17 @@ public class TestMain {
      * @param args
      */
     public static void main (String[] args) {
+        List<String> factions = new ArrayList<String>();
+        factions.add("protoss");
+        factions.add("zerg");
+        List<String> maps = new ArrayList<String>();
+        factions.add("map1");
+        factions.add("map2");
+        List<Integer> maxPlayers = new ArrayList<Integer>();
+        maxPlayers.add(4);
+        maxPlayers.add(6);
         ClientModel model =
-                new ClientModel("Test Game", "User 1", new String[] { "protoss", "zerg" },
-                                new String[] { "map1", "map2" },
-                                new Integer[][] { { 2, 3, 4 }, { 2, 3, 4, 5, 6 } });
+                new ClientModel("Test Game", "User 1", factions, maps, maxPlayers);
 
         JFrame frame = new JFrame();
         frame.add(model.getView());

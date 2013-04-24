@@ -7,6 +7,7 @@ import java.awt.Insets;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.Collection;
+import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
@@ -42,7 +43,7 @@ public class LobbyView extends JPanel {
     /**
      * Create the panel.
      */
-    public LobbyView (IModel model, String[] factions, int maxPlayers) {
+    public LobbyView (IModel model, List<String> myFactions, int maxPlayers) {
         // initialize GridBagLayout
         GridBagLayout gridBagLayout = new GridBagLayout();
         gridBagLayout.columnWidths = new int[] { 0, 0, 0, 0 };
@@ -71,7 +72,7 @@ public class LobbyView extends JPanel {
         for (int i = 0; i < myMaxPlayers; i++) {
             myUsernameLabels[i] = createLabel(NO_PLAYER, COLUMN_1, i + 1);
             myTeamBoxes[i] = createComboBox(teamNumList, COLUMN_2, i + 1, myTeamListener);
-            myFactionBoxes[i] = createComboBox(factions, COLUMN_3, i + 1, myFactionListener);
+            myFactionBoxes[i] = createComboBox(myFactions.toArray(), COLUMN_3, i + 1, myFactionListener);
         }
 
         // initialize title labels

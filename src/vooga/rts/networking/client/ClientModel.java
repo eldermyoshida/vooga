@@ -43,7 +43,7 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
     private CreateLobbyView myCreateLobbyView;
     private ExpandedLobbyInfo myLobbyInfo;
     private LobbyView myLobbyView;
-    private String[] myFactions;
+    private List<String> myFactions;
     private List<Player> myUserControlledPlayers = new ArrayList<Player>();
 
     /**
@@ -57,9 +57,9 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
      */
     public ClientModel (String gameName,
                         String userName,
-                        String[] factions,
-                        String[] maps,
-                        Integer[] maxPlayerArray) {
+                        List<String> factions,
+                        List<String> maps,
+                        List<Integer> maxPlayerArray) {
         myUserName = userName;
         myFactions = factions;
         myContainerPanel = new ViewContainerPanel(gameName);
@@ -147,7 +147,6 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
                                           new ActionListener() {
                                               @Override
                                               public void actionPerformed (ActionEvent arg0) {
-                                                  // TODO this code sucks
                                                   myLobbyInfo.removePlayer(myUserControlledPlayers
                                                           .get(0));
                                                   myClient.sendData(new LeaveLobbyMessage(
@@ -209,7 +208,7 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
 
     @Override
     public void switchToLobby (ExpandedLobbyInfo lobbyInfo, int playerID) {
-        Player userPlayer = new Player(myUserName, 1, myFactions[0], playerID);
+        Player userPlayer = new Player(myUserName, 1, myFactions.get(0), playerID);
         myUserControlledPlayers.clear();
         myUserControlledPlayers.add(userPlayer);
         lobbyInfo.addPlayer(userPlayer);

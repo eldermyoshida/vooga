@@ -3,12 +3,12 @@ package vooga.rts.networking.client.GUI;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
 import vooga.rts.networking.NetworkBundle;
 import vooga.rts.networking.communications.LobbyInfo;
 
@@ -23,13 +23,13 @@ public class CreateLobbyView extends JPanel {
     private JTextField myServerField;
     private JComboBox myMapComboBox;
     private JComboBox myMaxPlayersComboBox;
-    private Integer[] myMaxPlayerArray;
-    private String[] myMapChoices;
+    private List<Integer> myMaxPlayerArray;
+    private List<String> myMapChoices;
 
-    public CreateLobbyView (String[] mapChoices, Integer[] maxPlayers) {
+    public CreateLobbyView (List<String> maps, List<Integer> maxPlayerArray) {
         setLayout(new BorderLayout(0, 0));
-        myMaxPlayerArray = maxPlayers;
-        myMapChoices = mapChoices;
+        myMaxPlayerArray = maxPlayerArray;
+        myMapChoices = maps;
         add(createPanel(), BorderLayout.CENTER);
     }
 
@@ -41,28 +41,18 @@ public class CreateLobbyView extends JPanel {
         innerPanel.add(myServerField);
 
         innerPanel.add(new JLabel(NetworkBundle.getString("Map")));
-        DefaultComboBoxModel mapModel = new DefaultComboBoxModel(myMapChoices);
+        DefaultComboBoxModel mapModel = new DefaultComboBoxModel(myMapChoices.toArray());
         myMapComboBox = new JComboBox(mapModel);
         innerPanel.add(myMapComboBox);
         myMapComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent arg0) {
                 String choice = (String) myMapComboBox.getSelectedItem();
-                Integer[] maxPlayerChoices = null;
-                for (int i = 0; i < myMapChoices.length; i++) {
-                    if (myMapChoices[i].equals(choice)) {
-                        Integer[] playerNumArray = new Integer[myMaxPlayerArray[i] - 1];
-                        for (int b = 2; b <= myMaxPlayerArray[i]; b++){
-                            playerNumArray[b - 2] = b;
-                        }
-                        maxPlayerChoices = playerNumArray;
-                        break;
-                    }
-                }
+                Integer maxPlayers = myMaxPlayerArray.get(myMapChoices.indexOf(choice));
 
                 myMaxPlayersComboBox.removeAllItems();
-                for (int i = 0; i < maxPlayerChoices.length; i++) {
-                    myMaxPlayersComboBox.insertItemAt(maxPlayerChoices[i], i);
+                for (int i = 2; i < maxPlayers; i++) {
+                    myMaxPlayersComboBox.insertItemAt(i-2, i);
                 }
 
             }
@@ -74,15 +64,15 @@ public class CreateLobbyView extends JPanel {
 
         return innerPanel;
     }
-    
+
     public boolean allItemsChosen () {
         return myMaxPlayersComboBox.getSelectedIndex() != -1 &&
-                myMapComboBox.getSelectedIndex() != -1 &&
-                myServerField.getText() != "";
+               myMapComboBox.getSelectedIndex() != -1 &&
+               myServerField.getText() != "";
     }
 
     public LobbyInfo getLobbyInfo () {
-        return new LobbyInfo(myServerField.getText(),      
+        return new LobbyInfo(myServerField.getText(),
                              (String) myMapComboBox.getSelectedItem(),
                              (Integer) myMaxPlayersComboBox.getSelectedItem(), 0);
     }
