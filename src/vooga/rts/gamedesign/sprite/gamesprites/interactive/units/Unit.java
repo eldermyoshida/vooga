@@ -46,7 +46,7 @@ public class Unit extends InteractiveEntity {
     public static Location3D DEFAULT_LOCATION = new Location3D();
     public static Dimension DEFAULT_SIZE = new Dimension(90,90);
     public static Sound DEFAULT_SOUND = null;
-    public static int DEFAULT_PLAYERID = 2;
+    public static int DEFAULT_PLAYERID = 1;
     public static int DEFAULT_HEALTH = 100;
     
 
@@ -54,9 +54,6 @@ public class Unit extends InteractiveEntity {
     
     public Unit () {
         this(DEFAULT_IMAGE, DEFAULT_LOCATION, DEFAULT_SIZE, DEFAULT_SOUND, DEFAULT_PLAYERID, DEFAULT_HEALTH, InteractiveEntity.DEFAULT_BUILD_TIME, InteractiveEntity.DEFAULT_SPEED);
-        //for testing.
-        Information i = new Information("Marine", "I fear no darkness. I was born in it", null, "buttons/marine.png");
-        setInfo(i);
     }
     
     /**

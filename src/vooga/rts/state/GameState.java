@@ -149,7 +149,7 @@ public class GameState extends SubState implements Controller {
     }
 
     private DelayedTask test;
-    private DelayedTask occupyPukingTest;
+    private DelayedTask deoccupyTest;
 
     public void setupGame () {
         addPlayer(1);
@@ -181,7 +181,8 @@ public class GameState extends SubState implements Controller {
 
         Unit c = new Unit();
         c.setWorldLocation(new Location3D(1200, 500, 0));
-        c.setAttackStrategy(new CanAttack(a.getWorldLocation(), c.getPlayerID()));
+        c.move(c.getWorldLocation());
+        c.setAttackStrategy(new CanAttack(c.getWorldLocation(), c.getPlayerID()));
         c.setHealth(150);
         // myHumanPlayer.add(c);
         myPlayers.get(1).add(c);
@@ -227,14 +228,14 @@ public class GameState extends SubState implements Controller {
         }, true));
 
         final Building testGarrison = garrison;
-        occupyPukingTest = new DelayedTask(10, new Runnable() {
+        deoccupyTest = new DelayedTask(10, new Runnable() {
             @Override
             public void run () {
                 if (testGarrison.getOccupyStrategy().getOccupiers().size() > 0) {
                     System.out.println("will puke!");
                     testGarrison.getAction(new Command("deoccupy")).apply();
                 }
-                occupyPukingTest.restart();
+                deoccupyTest.restart();
             }
         });
 
@@ -284,7 +285,7 @@ public class GameState extends SubState implements Controller {
                 }
             }
         }
-        occupyPukingTest.update(elapsedTime);
+        deoccupyTest.update(elapsedTime);
     }
 
     public static GameMap getMap () {
