@@ -248,8 +248,9 @@ public class Manager extends Observable implements State, IActOn, Observer {
         deselectAll();
         if (!mySelectedEntities.contains(entity)) {
             if (myEntities.contains(entity)) {
-                mySelectedEntities.add(entity);
-                entity.select(true);
+                if (entity.select(true)) {
+                    mySelectedEntities.add(entity);
+                }
             }
         }
         notifySelect();

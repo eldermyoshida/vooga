@@ -143,9 +143,7 @@ public class GameState extends SubState implements Controller {
         }
         addPlayer(result, teamID);
     }
-
-    private DelayedTask deoccupyTest;
-
+    
     public void setupGame () {
         addPlayer(1);
 
@@ -213,7 +211,7 @@ public class GameState extends SubState implements Controller {
         Building garrison =
                 new Building(new Pixmap(ResourceManager.getInstance()
                         .<BufferedImage> getFile("images/home.png", BufferedImage.class)),
-                             new Location3D(300, 300, 0), new Dimension(128, 128), null, 1, 300,
+                             new Location3D(300, 450, 0), new Dimension(128, 128), null, 1, 300,
                              InteractiveEntity.DEFAULT_BUILD_TIME);
         
         Information garrisonInfo =
@@ -232,16 +230,17 @@ public class GameState extends SubState implements Controller {
         }, true));
 
         final Building testGarrison = garrison;
-        deoccupyTest = new DelayedTask(10, new Runnable() {
+        /*
+        myTasks.add(new DelayedTask(10, new Runnable() {
             @Override
             public void run () {
                 if (testGarrison.getOccupyStrategy().getOccupiers().size() > 0) {
                     System.out.println("will puke!");
                     testGarrison.getAction(new Command("deoccupy")).apply();
-                }
-                deoccupyTest.restart();
+                }                
             }
-        });
+        }));
+        */
 
         b = new Building(new Pixmap(ResourceManager.getInstance()
                         .<BufferedImage> getFile("images/factory.png", BufferedImage.class)),
@@ -277,10 +276,11 @@ public class GameState extends SubState implements Controller {
         // u1.getAttacked(u2);
         // }
         // }
-
+        
         for (DelayedTask dt : myTasks) {
             dt.update(elapsedTime);
         }
+        
         // now even yuckier
         for (int i = 0; i < p1.size(); ++i) {
             if (p1.get(i) instanceof Unit) {
@@ -288,8 +288,7 @@ public class GameState extends SubState implements Controller {
                     ((Unit) p1.get(i)).occupy(p1.get(j));
                 }
             }
-        }
-        deoccupyTest.update(elapsedTime);
+        }        
     }
 
     public static GameMap getMap () {
