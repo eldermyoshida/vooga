@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 
 
 /**
@@ -29,6 +30,7 @@ public class ChatPanel extends JPanel {
      * @param model to set
      */
     public ChatPanel (IChatModel model) {
+        myModel = model;
         setLayout(new BorderLayout(0, 0));
         createChatPane();
         createOutputPane();
@@ -45,13 +47,14 @@ public class ChatPanel extends JPanel {
 
     private void createOutputPane () {
         myTextArea = new JTextArea();
-        JScrollPane pane = new JScrollPane();
-        pane.add(myTextArea);
+        myTextArea.setEditable(false);
+        JScrollPane pane = new JScrollPane(myTextArea);
+        pane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         add(pane, BorderLayout.CENTER);
     }
 
     private void createChatPane () {
-        myInputArea = new JTextField(50);
+        myInputArea = new JTextField();
         myInputArea.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent arg0) {

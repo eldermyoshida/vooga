@@ -28,7 +28,7 @@ public class ExampleChat implements NetworkedGame, IChatModel, IMessageReceiver 
     private IClient myClient;
     private PlayerInfo myPlayer;
     private ExpandedLobbyInfo myInfo;
-    private int myStartTime;
+    private long myStartTime;
 
     /**
      * Main for example chat program.
@@ -68,31 +68,43 @@ public class ExampleChat implements NetworkedGame, IChatModel, IMessageReceiver 
 
     @Override
     public void loadGame (ExpandedLobbyInfo info, PlayerInfo thisPlayer) {
-        myFrame.removeAll();
-        myFrame.add(new ChatPanel(this));
+        myFrame.dispose();
+        myFrame = new JFrame();
+        myChatPanel = new ChatPanel(this);
+        myFrame.add(myChatPanel);
         myPlayer = thisPlayer;
+        myInfo = info;
 
+        myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        myFrame.setPreferredSize(new Dimension(600, 500));
+        myFrame.setVisible(true);
+        myFrame.pack();
     }
 
     @Override
     public void startGame (IClient client) {
         myClient = client;
-        myStartTime = (int) System.nanoTime();
+        client.setMessageReceiver(this);
+        myStartTime = System.nanoTime();
     }
 
     @Override
     public void getMessage (Message message) {
         if (message instanceof ChatMessage) {
             ChatMessage chat = (ChatMessage) message;
-            myChatPanel.appendMessage(chat.getInitialTime() + " : " +
-                                      myInfo.getPlayer(chat.getSender()) + " : " +
-                                      chat.getMessage());
+            myChatPanel.appendMessage(
+                    chat.getInitialTime() + " : " +
+                            myInfo.getPlayer(chat.getSender()).getName() + " : " +
+                            chat.getMessage() + "\n");
+
         }
     }
 
     @Override
     public void messageEntered (String message) {
-        myClient.sendData(new ChatMessage(new UserTimeStamp(System.nanoTime() - myStartTime),
+        myClient.sendData(new ChatMessage(
+                                          new UserTimeStamp(
+                                                            (System.nanoTime() - myStartTime) / 1000000),
                                           message, myPlayer.getId()));
     }
 
