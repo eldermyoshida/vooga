@@ -102,6 +102,8 @@ public class DetailView extends JFrame {
 
         });
         
+        JLabel price = new JLabel(myGameInfo.getPrice() + " USD");
+        price.setBounds(300, 30, 100, 50);
         myBuyButton = new JButton("buy"); 
         myBuyButton.setBounds(180, 50, 130, 110);
         myBuyButton.addActionListener(new ActionListener() {
@@ -162,6 +164,7 @@ public class DetailView extends JFrame {
 
         myContentPanel.add(myPicture);
         myContentPanel.add(myPlayButton);
+        myContentPanel.add(price);
         myContentPanel.add(myBuyButton);
         myContentPanel.add(myTitle);
         myContentPanel.add(myGenre);
