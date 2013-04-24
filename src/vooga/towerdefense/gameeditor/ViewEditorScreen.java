@@ -73,6 +73,7 @@ public class ViewEditorScreen extends GameEditorScreen {
      * width of the text field boxes.
      */
     private static final int TEXT_FIELD_WIDTH = 20;
+
     /**
      * north drop down box.
      */
@@ -192,7 +193,6 @@ public class ViewEditorScreen extends GameEditorScreen {
     }
 
     private void doneAddingMultiplePanels () {
-        // TODO ???
         myMultiScreenMap.put(myKey, myScreens);
         mySouthernPanelScreen.setVisible(false);
         mySouthernPanelPosition.setVisible(false);
@@ -204,11 +204,7 @@ public class ViewEditorScreen extends GameEditorScreen {
         mySizeLabel.setVisible(false);
     }
 
-    private void setComponentVisibility (boolean visible) {
-        
-    }
     private void addPanelToMultiplePanels () {
-        // TODO ??????
         String position = (String)mySouthernPanelPosition.getSelectedItem();
         String screen = (String)myMultiPanel.getSelectedItem();
         String size = myMultiPanelSize.getText();
@@ -249,7 +245,7 @@ public class ViewEditorScreen extends GameEditorScreen {
         myEastSize = new JTextField(TEXT_FIELD_WIDTH);
         myWestSize = new JTextField(TEXT_FIELD_WIDTH);
         myMultiPanelSize = new JTextField(TEXT_FIELD_WIDTH);
-
+        
         populateDropDoxBoxes();
         alignCenterScreenComponents(panel);
         
@@ -336,7 +332,8 @@ public class ViewEditorScreen extends GameEditorScreen {
     public void addElementToGame () {
         getController().setMapSize(getMapDimension());
         List<String> viewInfo = makeViewStrings();
-        getController().addViewToGame(viewInfo, myMultiScreenMap);
+        String dimension = getTopLevelContainerDimension();
+        getController().addViewToGame(dimension, viewInfo, myMultiScreenMap);
     }
     
     
@@ -356,11 +353,6 @@ public class ViewEditorScreen extends GameEditorScreen {
         s = (String)myWestPanel.getSelectedItem() + " " + myWestSize.getText() + " " + "WEST";
         viewInfo.add(s);
         return viewInfo;
-
-        // TODO handle multiple screens ....
-
-//        getController().setMapSize(getMapDimension());
-//        getController().addViewToGame();
     }
     
     /**

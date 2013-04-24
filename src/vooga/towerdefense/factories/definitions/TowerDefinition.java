@@ -1,6 +1,9 @@
 package vooga.towerdefense.factories.definitions;
 
 import java.awt.Dimension;
+
+import vooga.towerdefense.attributes.DefaultAttributeManager;
+import vooga.towerdefense.factories.AttributeManagerFactory;
 import vooga.towerdefense.util.Pixmap;
 import vooga.towerdefense.util.Location;
 
@@ -17,7 +20,6 @@ public class TowerDefinition extends GameElementDefinition {
 	private Pixmap myImage;
 	private Location myCenter;
 	private Dimension mySize;
-	private String myType;
 
 	public TowerDefinition() {
 		myImage = DefinitionConstants.DEFAULT_TOWER_IMAGE;
@@ -41,9 +43,10 @@ public class TowerDefinition extends GameElementDefinition {
     public Dimension getSize () {
         return mySize;
     }
-    
-    public String getType (){
-    	return myType;
-    }
+
+	@Override
+	public AttributeManagerFactory getAttributeManagerFactory() {
+		return new AttributeManagerFactory();
+	}
 	
 }

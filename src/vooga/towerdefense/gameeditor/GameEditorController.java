@@ -2,32 +2,25 @@ package vooga.towerdefense.gameeditor;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import org.w3c.dom.Element;
-import util.XMLTool;
-import vooga.towerdefense.gameElements.GameElement;
-import vooga.towerdefense.gameElements.Wave;
-import vooga.towerdefense.util.Location;
-import vooga.towerdefense.util.Pixmap;
+import vooga.towerdefense.util.XMLTool;
 
 /**
  * Controls the game editor & makes the XML
  *      file based on input from the game editor.
  *
  * @author Angelica Schwartz
+ * @author Leonard Ng'eno
  */
 public class GameEditorController extends JFrame {
     /**
@@ -39,23 +32,24 @@ public class GameEditorController extends JFrame {
     private static final String GAME_TAG = "game";
     private static final String VIEW_TAG = "view";
     private static final String GAME_ELEMENT_TAG = "gameelement";
-    private static final String WAVE_TAG = "wave";
+    private static final String LEVEL_TAG = "level";
     private static final String IMAGE_TAG = "image";
     private static final String TYPE_TAG = "type";
     private static final String MAP_TAG = "map";
+    private static final String DIMENSION_TAG = "dimension";
     private static final String WIDTH_TAG = "width";
     private static final String HEIGHT_TAG = "height";
     private static final String TILE_TAG = "tile";
     private static final String GRID_TAG = "grid";
+    private static final String RULES_TAG = "rules";
     private static final String SCREEN_LOCATION_TAG = "location";
     private static final String ATTRIBUTES_TAG = "attributes";
     private static final String ACTIONS_TAG = "actions";
-    private static final String PARAMETER_TAG = "parameter";
+    private static final String FACTORY_INDICATOR = "Factory";
     private static final Dimension SIZE = new Dimension(700, 700);
     private static final String UNIT_INDICATOR = "Unit";
     private static final String RESOURCE_PATH = "vooga.src.vooga.towerdefense.resources.";
     public static final String CLASS_INDICATOR_STRING = ".class";
-    private static final String MULTI_PANEL_TAG = "MultipleScreenPanel";
     private Dimension mySize;
     private Dimension myMapSize;
     private List<String> myCreatedUnits;
@@ -65,7 +59,8 @@ public class GameEditorController extends JFrame {
     private Element myViewParent;
     private Element myGameElementParent;
     private Element myMapParent;
-    private Element myWaveParent;
+    private Element myLevelParent;
+    private ActionXMLWriter myActionParser; 
     
     /**
      * Constructor.
@@ -91,13 +86,14 @@ public class GameEditorController extends JFrame {
         myXMLDoc = new XMLTool();
         myRoot = myXMLDoc.makeRoot(GAME_TAG);
         myViewParent = myXMLDoc.makeElement(VIEW_TAG);
-        myXMLDoc.addChildElement(myRoot, myViewParent);
+        myXMLDoc.addChild(myRoot, myViewParent);
         myMapParent = myXMLDoc.makeElement(MAP_TAG);
-        myXMLDoc.addChildElement(myRoot, myMapParent);
+        myXMLDoc.addChild(myRoot, myMapParent);
         myGameElementParent = myXMLDoc.makeElement(GAME_ELEMENT_TAG);
-        myXMLDoc.addChildElement(myRoot, myGameElementParent);
-        myWaveParent = myXMLDoc.makeElement(WAVE_TAG);
-        myXMLDoc.addChildElement(myRoot, myWaveParent);
+        myXMLDoc.addChild(myRoot, myGameElementParent);
+        myLevelParent = myXMLDoc.makeElement(LEVEL_TAG);
+        myXMLDoc.addChild(myRoot, myLevelParent);
+        myActionParser = new ActionXMLWriter(myXMLDoc);
     }
 
     /**
@@ -128,8 +124,14 @@ public class GameEditorController extends JFrame {
     /**
      * adds a level to the XML file.
      */
-    public void addLevelToGame () {
-        // TODO: implement
+    public void addLevelToGame (String name, Map<String, String> rules, String actions) {
+        Element thisLevel = myXMLDoc.makeElement(name);
+        myXMLDoc.addChild(myLevelParent, thisLevel);
+        Element ruleELement = myXMLDoc.makeElementsFromMap(RULES_TAG, rules);
+        myXMLDoc.addChild(thisLevel, ruleELement);
+        Element actionElement = myXMLDoc.makeElement(ACTIONS_TAG);
+        myXMLDoc.addChild(thisLevel, myActionParser.parse(actionElement, actions));
+        
     }
 
     /**
@@ -142,7 +144,9 @@ public class GameEditorController extends JFrame {
         myXMLDoc.addChild(thisMap, HEIGHT_TAG, height);
         myXMLDoc.addChild(thisMap, TILE_TAG, tileSize);
         myXMLDoc.addChild(thisMap, GRID_TAG, map);
-        myXMLDoc.addChildElement(myMapParent, thisMap);
+        myXMLDoc.addChild(myMapParent, thisMap);
+        
+        myXMLDoc.writeFile("tdmap1.xml");
     }
     
     public void addGameElementToGame(String type, String name, String path, Map<String, String> attributes, String actions) {
@@ -162,15 +166,13 @@ public class GameEditorController extends JFrame {
      */
     private void addGameElementToFile(Element parent, String type, String name, String path, Map<String, String> attributes, String actions) {
         Element gameElement = myXMLDoc.makeElement(name);
-        myXMLDoc.addChildElement(parent, gameElement);
+        myXMLDoc.addChild(parent, gameElement);
         myXMLDoc.addChild(gameElement, IMAGE_TAG, path);
         myXMLDoc.addChild(gameElement, TYPE_TAG, type);
         Element attributeElement = myXMLDoc.makeElementsFromMap(ATTRIBUTES_TAG, attributes);
-        myXMLDoc.addChildElement(gameElement, attributeElement);
+        myXMLDoc.addChild(gameElement, attributeElement);
         Element actionElement = myXMLDoc.makeElement(ACTIONS_TAG);
-        ActionXMLWriter parser = new ActionXMLWriter(myXMLDoc);
-        myXMLDoc.addChildElement(gameElement, parser.parse(actionElement, actions));
-        myXMLDoc.writeFile("actionstest.xml");
+        myXMLDoc.addChild(gameElement, myActionParser.parse(actionElement, actions));
     }
 
     /**
@@ -185,25 +187,28 @@ public class GameEditorController extends JFrame {
     /**
      * adds a view to the XML file.
      */
-    public void addViewToGame(List<String> viewInfo, Map<String, List<String>> map) {
+    public void addViewToGame(String dimension, List<String> viewInfo, Map<String, List<String>> map) {
+        Element viewscreen = myXMLDoc.makeElement("Dimension");
+        myXMLDoc.addChild(myViewParent, viewscreen);
+        myXMLDoc.addChild(viewscreen, DIMENSION_TAG, dimension);
+        
         for (String s : viewInfo) {
             if (!s.equals("")) {
                 String[] characteristics = s.split(" ");
                 if (!characteristics[0].equals("")) {
                     Element screen = myXMLDoc.makeElement(characteristics[0]);
-                    myXMLDoc.addChildElement(myViewParent, screen);
+                    myXMLDoc.addChild(myViewParent, screen);
                     String noComma = characteristics[1].substring(0, characteristics[1].length()-1);
                     myXMLDoc.addChild(screen, WIDTH_TAG, noComma);
                     myXMLDoc.addChild(screen, HEIGHT_TAG, characteristics[2]);
                     myXMLDoc.addChild(screen, SCREEN_LOCATION_TAG, characteristics[3]);
-                   
                     if (characteristics[0].equals("MultipleScreenPanel")) {
                         for (Map.Entry<String, List<String>> entry: map.entrySet()){
                             if (entry.getKey().equals(characteristics[3])) {
                                 for (String str: entry.getValue()) {
                                     String[] values = str.split(" ");                                   
                                     Element screen2 = myXMLDoc.makeElement(values[1]);
-                                    myXMLDoc.addChildElement(screen, screen2);
+                                    myXMLDoc.addChild(screen, screen2);
                                     myXMLDoc.addChild(screen2, WIDTH_TAG, values[2]);
                                     myXMLDoc.addChild(screen2, HEIGHT_TAG, values[3]);
                                     myXMLDoc.addChild(screen2, SCREEN_LOCATION_TAG, values[0]);
@@ -215,20 +220,22 @@ public class GameEditorController extends JFrame {
                 }
             }
         }
-        myXMLDoc.writeFile("multi.xml");
+        myXMLDoc.writeFile("view32.xml");
+
     }
 
     /**
-     * adds a wave to the XML file.
+     * sets the mapsize for this game.
+     * @param mapSize
      */
-    public void addWaveToGame () {
-        // TODO: implement
-    }
-
     public void setMapSize (Dimension mapSize) {
         myMapSize = mapSize;
     }
 
+    /**
+     * gets the mapsize for this game.
+     * @return Dimension that is the mapsize
+     */
     public Dimension getMapSize () {
         return myMapSize;
     }
@@ -267,13 +274,12 @@ public class GameEditorController extends JFrame {
      * @return a list of parameters as strings
      * @throws ClassNotFoundException
      */
+    @SuppressWarnings("rawtypes")
     public List<String> getParametersForAction(String className) throws ClassNotFoundException {
         List<String> parameters = new ArrayList<String>();
-        //TODO: get rid of magic string
-        Class c = Class.forName(className + "Factory");
+        Class c = Class.forName(className + FACTORY_INDICATOR);
         Constructor cons = c.getConstructors()[0];
         Class[] parameterClasses = cons.getParameterTypes();
-        Annotation[] annotations = cons.getDeclaredAnnotations();
         for (Class parameterClass: parameterClasses) {
             parameters.add(parameterClass.getSimpleName().toString());
         }

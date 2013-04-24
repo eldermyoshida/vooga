@@ -6,8 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.w3c.dom.Element;
-import util.XMLTool;
-import vooga.towerdefense.action.Action;
+import vooga.towerdefense.util.XMLTool;
 import vooga.towerdefense.factories.actionfactories.ActionFactory;
 
 public class ActionXMLLoader {
@@ -20,24 +19,24 @@ public class ActionXMLLoader {
         myXMLTool = xmlTool;
     }
     
-    public List<Action> loadActions() {
-        Element actionsElement = myXMLTool.getElementFromTag(ACTIONS_TAG);                
-        Map<String, Element> subElements = myXMLTool.getMapElementFromParent(actionsElement);
-        List<Action> actions = new ArrayList<Action>();
+    public List<ActionFactory> loadActions() {
+        Element actionsElement = myXMLTool.getElement(ACTIONS_TAG);                
+        Map<String, Element> subElements = myXMLTool.getChildrenElementMap(actionsElement);
+        List<ActionFactory> actions = new ArrayList<ActionFactory>();
         for (Element e : subElements.values()) {
             actions.add(loadAction(e));
         }
         return actions;
     }
     
-    private Action loadAction(Element actionElement) {
+    private ActionFactory loadAction(Element actionElement) {
         String actionName = myXMLTool.getContent(actionElement);
         List<String> parameterStrings = new ArrayList<String>();
         Object[] parameterStringsArray = parameterStrings.toArray();
         
-        List<Action> subActions = new ArrayList<Action>();
+        List<ActionFactory> subActions = new ArrayList<ActionFactory>();
         
-        Map<String, Element> subElements = myXMLTool.getMapElementFromParent(actionElement); 
+        Map<String, Element> subElements = myXMLTool.getChildrenElementMap(actionElement); 
         for (String subElementName : subElements.keySet()) {
             if (subElementName.equals(PARAMETER_TAG)) {
                 parameterStrings.add(loadParameterString(subElements.get(subElementName)));
@@ -70,7 +69,8 @@ public class ActionXMLLoader {
         catch (ClassNotFoundException e) {
             return null;
         }        
-        return af.createAction(e);
+        af.addFollowUpActionsFactories(subActions);
+        return af;
     }
     
     private String loadParameterString(Element parameterElement) {

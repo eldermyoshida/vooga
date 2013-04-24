@@ -8,31 +8,42 @@ package vooga.towerdefense.attributes;
  * @author Matthew Roy
  * @author Zhen Gou
  * @author Jimmy Longley
- *
+ * @author Yoshida
+ * 
  */
-public class AttributeConstants {
+public enum AttributeConstants {
+    NAME("Name"),
+    HEALTH("Health"),
+    MONEY("Money"),
+    SCORE("Score"),
+    SHAPE("Shape"),
+    AFFILIATION("Affiliation"),
+    ATTACK_DAMAGE("Attack Damage"),
+    ATTACK_RADIUS("Attack Range"),
+    NUM_OF_TARGETS("Number of Targets"),
+    TILES_WIDE("Tiles wide"),
+    TILES_TALL("Tiles tall"),
     
-	public static final String NAME = "Name";
-	public static final String HEALTH = "Health";
-	public static final String MONEY = "Money";
-	public static final String SCORE = "Score";
-	public static final String SHAPE = "Shape";
-	public static final String ATTACK_DAMAGE = "Attack Damage";
-	public static final String ATTACK_RADIUS = "Attack Range";
-	public static final String NUM_OF_TARGETS = "Number of Targets";
-	public static final String TILES_WIDE = "Tiles wide";
-	public static final String TILES_TALL = "Tiles tall";
-
-	/**
-	 * How many attacks per second
-	 */
-	public static final String ATTACK_INTERVAL = "Attack Speed";
-	public static final String ARMOR = "Armor";
-	public static final String MOVE_SPEED = "Move Speed";
-	public static final String DIRECTION = "Direction";
-	public static final String UPGRADES = "Upgrades";
-	public static final String COST = "Cost";
-	
-	public static final String PROJECTILE_FACTORY="projectile factory";
-	public static final String AURA_EFFECT = "Aura";
+    /**
+     * Attacks per second
+     */
+    ATTACK_INTERVAL("Attack Speed"),
+    ARMOR("Armor"),
+    MOVE_SPEED("Move Speed"),
+    DIRECTION("Direction"),
+    UPGRADES("Upgrades"),
+    COST("Cost"),
+    
+    PROJECTILE_FACTORY("projectile factory"),
+    AURA_EFFECT("Aura");
+    
+    private String attributeConstant;
+    
+    private AttributeConstants(String s) {
+        attributeConstant = s;
+    }
+    
+    public String getStatusCode () {
+        return attributeConstant;
+    }
 }

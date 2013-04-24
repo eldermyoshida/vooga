@@ -3,7 +3,6 @@ package vooga.towerdefense.factories;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
-
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.actionlist.MoveToTarget;
 import vooga.towerdefense.attributes.AttributeConstants;
@@ -40,7 +39,6 @@ public class GameElementFactory {
 
     private Pixmap myImage;
     private Dimension mySize;
-    private String myType;
     private AttributeManagerFactory myAttributeManager;
 
     /**
@@ -56,19 +54,16 @@ public class GameElementFactory {
 
     public GameElementFactory (String name,
                                Pixmap image,
-                               String type,
                                AttributeManagerFactory attrManager, List<ActionFactory> myActions) {
         myName = name;
         myImage = image;
-        //mySize = new Dimension(image.getWidth(), image.getHeight());
-        mySize = new Dimension(50,50);
-        myType = type;
+        mySize = new Dimension(image.getWidth(), image.getHeight());
         myAttributeManager = attrManager;
     }
 
     @Deprecated
     public GameElementFactory (String name, GameElementDefinition definition) {
-        this(name, definition.getImage(), definition.getType(), definition
+        this(name, definition.getImage(), definition
                 .getAttributeManagerFactory(), definition.getActions());
         myName = name;
         myDef = definition;
