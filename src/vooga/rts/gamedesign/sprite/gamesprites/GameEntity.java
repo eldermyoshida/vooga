@@ -25,7 +25,7 @@ import vooga.rts.util.Vector;
 public class GameEntity extends GameSprite {
 
     // Default velocity magnitude
-    public static int DEFAULT_SPEED = 0;
+    public static int DEFAULT_SPEED = 100;
     private Vector myVelocity;
     private int myMaxHealth;
     private int myCurrentHealth;

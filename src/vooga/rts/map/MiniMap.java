@@ -15,7 +15,7 @@ public class MiniMap implements IGameLoop {
     public MiniMap (GameMap toshow, Dimension size) {
         myMap = toshow;
         myMaxSize = size;
-        nodesPerPixel = (int) myMap.getNodeMap().getWidth() / size.getWidth();
+        // nodesPerPixel = (int) myMap.getNodeMap().getWidth() / size.getWidth();
     }
 
     @Override

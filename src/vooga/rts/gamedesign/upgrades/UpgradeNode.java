@@ -24,7 +24,6 @@ public class UpgradeNode {
     private int myUpgradeValue;
     private boolean myHasBeenUpgraded;
     private List<UpgradeNode> myChildren;
-    private ReflectionHelper myReflectionHelper;
 
     public UpgradeNode () {
         this(null, null, 0, 0);

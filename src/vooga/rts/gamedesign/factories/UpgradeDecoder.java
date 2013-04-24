@@ -47,7 +47,7 @@ public class UpgradeDecoder extends Decoder {
 		myUpgradeNodeType = new HashMap<String, String>();
 		myFactory.loadMappingInfo("UpgradeNodeMatchUp", myUpgradeNodeType);
 	}
-	
+
 	/**
 	 * Creates the UpgradeTree by receiving Document passed in from
 	 * the Factory, containing necessary information related to the
@@ -57,10 +57,9 @@ public class UpgradeDecoder extends Decoder {
 	 * @throws NumberFormatException 
 	 * 
 	 */
-
 	public void create(Document doc, String type) throws NumberFormatException {
 		UpgradeTree upgradeTree = new UpgradeTree();
-
+		
 		NodeList treeLst = doc.getElementsByTagName(TREE_TAG);
 		for (int i = 0; i < treeLst.getLength(); i++) {
 			Element treeElmnt = (Element) treeLst.item(i);
@@ -71,7 +70,6 @@ public class UpgradeDecoder extends Decoder {
 	}
 	
 	private void createSingleTree(String treeName, Element treeElmnt, UpgradeTree upgradeTree) {
-
 		NodeList nodeLst = treeElmnt.getElementsByTagName(UPGRADE_CATEGORY_TAG);
 
 		for (int i = 0; i < nodeLst.getLength(); i++) {
@@ -115,7 +113,6 @@ public class UpgradeDecoder extends Decoder {
 	 * @param upgradeTree
 	 */
 	private void printTree(UpgradeTree upgradeTree) {
-		//System.out.println("Also Goes Here");
 		for (UpgradeNode u: upgradeTree.getHead().getChildren()) {
 			UpgradeNode current = u;
 			while (!current.getChildren().isEmpty()) {

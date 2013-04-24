@@ -8,7 +8,7 @@
 	</pair>
 	<pair>
 		<type>buildings</type>
-		<path>vooga.rts.gamedesign.factories.InteractiveEntityDecoder</path>
+		<path>vooga.rts.gamedesign.factories.BuildingDecoder</path>
 	</pair>
 	<pair>
 		<type>resources</type>
@@ -20,6 +20,15 @@
 	</pair>
 	<pair>
 		<type>units</type>
-		<path>vooga.rts.gamedesign.factories.InteractiveEntityDecoder</path>
+		<path>vooga.rts.gamedesign.factories.UnitDecoder</path>
 	</pair>
+	<pair>
+		<type>weapons</type>
+		<path>vooga.rts.gamedesign.factories.WeaponDecoder</path>
+	</pair>	
+	<pair>
+		<type>projectiles</type>
+		<path>vooga.rts.gamedesign.factories.ProjectileDecoder</path>
+	</pair>
+
 </XMLMatchUp>

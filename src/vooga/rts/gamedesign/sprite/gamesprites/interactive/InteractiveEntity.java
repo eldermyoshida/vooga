@@ -31,6 +31,7 @@ import vooga.rts.gamedesign.state.AttackingState;
 import vooga.rts.gamedesign.state.UnitState;
 import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
 import vooga.rts.gamedesign.strategy.attackstrategy.CannotAttack;
+import vooga.rts.gamedesign.strategy.gatherstrategy.CannotGather;
 import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
 import vooga.rts.gamedesign.strategy.occupystrategy.CannotBeOccupied;
 import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
@@ -44,10 +45,10 @@ import vooga.rts.gamedesign.weapon.Weapon;
 import vooga.rts.state.GameState;
 import vooga.rts.util.Camera;
 import vooga.rts.util.DelayedTask;
+import vooga.rts.util.Information;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
-import vooga.rts.util.Information;
 
 
 /**
@@ -64,6 +65,8 @@ import vooga.rts.util.Information;
 
 public abstract class InteractiveEntity extends GameEntity implements IAttackable, IActOn {
 
+    public static final Location3D DEFAULT_LOCATION = new Location3D(0, 0, 0);
+    public static final int DEFAULT_PLAYERID = 0;
     private static final int LOCATION_OFFSET = 20;
     private static int DEFAULT_INTERACTIVEENTITY_SPEED = 150;
     private boolean isSelected;
@@ -73,6 +76,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     private ProductionStrategy myProductionStrategy;
     private UpgradeStrategy myUpgradeStrategy;
     private OccupyStrategy myOccupyStrategy;
+    private GatherStrategy myGatherStrategy;
     private int myArmor;
     private Map<String, Action> myActions;
     private Map<String, Information> myInfos;
@@ -114,6 +118,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
         myAttackStrategy = new CannotAttack();
         myProductionStrategy = new CannotProduce();
         myUpgradeStrategy = new CanUpgrade();
+        myGatherStrategy = new CannotGather();
         myActions = new HashMap<String, Action>();
         myInfos = new HashMap<String, Information>();
         isSelected = false;
@@ -246,7 +251,6 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
 
         }
         if (infoCommands.isEmpty()) {
-            System.out.println("I am a manly man");
             return null;
         }
         return infoCommands;
@@ -287,15 +291,6 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
 
     public Sound getSound () {
         return mySound;
-    }
-
-    /**
-     * Returns the upgrade tree of the entity.
-     * 
-     * @return the entities upgrade tree
-     */
-    public UpgradeTree getTree () {
-        return myUpgradeTree;
     }
 
     /**
@@ -386,7 +381,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
             getEntityState().setUnitState(UnitState.ATTACK);
         }
         if (other instanceof Building) {
-        	getEntityState().setUnitState(UnitState.OCCUPY);
+            getEntityState().setUnitState(UnitState.OCCUPY);
         }
 
         move(other.getWorldLocation());
@@ -421,8 +416,9 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
 
     /**
      * Sets the attack strategy for an interactive. Can set the interactive to
-     * CanAttack or to CannotAttack and then can specify how it would attack. Also updates
-     * the weapons of the strategy to be at the same location of this entity.
+     * CanAttack or to CannotAttack and then can specify how it would attack.
+     * Also updates the weapons of the strategy to be at the same location of
+     * this entity.
      * 
      * @param newStrategy
      *        is the new attack strategy that the interactive will have
@@ -445,19 +441,10 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
         myUpgradeTree = upgradeTree;
     }
 
-    //
-    // public Action findAction(String name) {
-    // for (Action a: myActions) {
-    // if (a.getName().equals(name)) {
-    // return a;
-    // }
-    // }
-    // return null;
-    // }
 
     @Override
     public void update (double elapsedTime) {
-        
+
         if (myPath.size() == 0) {
             setVelocity(getVelocity().getAngle(), 0);
             getEntityState().stop();
@@ -465,7 +452,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
         else {
             super.move(myPath.getNext());
         }
-
+        
         super.update(elapsedTime);
 
         Iterator<DelayedTask> it = myTasks.iterator();
@@ -476,11 +463,16 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
                 it.remove();
             }
         }
-
         if (myAttackStrategy.hasWeapon()) {
-
-            myAttackStrategy.getCurrentWeapon().update(elapsedTime);
-
+            Weapon weapon = myAttackStrategy.getCurrentWeapon();
+            List<InteractiveEntity> enemies =
+                    GameState.getMap().<InteractiveEntity> getInArea(getWorldLocation(),
+                                                                     weapon.getRange(), this,
+                                                                     getPlayerID(), false);
+            if (!enemies.isEmpty()) {
+                enemies.get(0).getAttacked(this);
+            }
+            weapon.update(elapsedTime);
         }
         getEntityState().update(elapsedTime);
 
@@ -503,24 +495,6 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
         }
     }
 
-    /**
-     * upgrades the interactive based on the selected upgrade
-     * 
-     * @param upgradeNode
-     *        is the upgrade that the interactive will get
-     * @throws NoSuchMethodException
-     * @throws InstantiationException
-     * @throws InvocationTargetException
-     * @throws IllegalAccessException
-     * @throws SecurityException
-     * @throws IllegalArgumentException
-     */
-    public void upgrade (UpgradeNode upgradeNode) throws IllegalArgumentException,
-                                                 SecurityException, IllegalAccessException,
-                                                 InvocationTargetException, InstantiationException,
-                                                 NoSuchMethodException {
-        // upgradeNode.apply(upgradeNode.getUpgradeTree().getUsers());
-    }
 
     /**
      * Sets the object to be in the changed state for the observer pattern.
@@ -573,6 +547,11 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     public void move (Location3D loc) {
         myPath = GameState.getMap().getPath(myFinder, getWorldLocation(), loc);
         super.move(myPath.getNext());
+    }
+
+    public void addWeapon (Weapon toAdd) {
+        myAttackStrategy.addWeapon(toAdd);
+
     }
 
 }
