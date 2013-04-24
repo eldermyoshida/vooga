@@ -32,10 +32,14 @@ public class EnvironmentObject extends GameObject {
         init(name);
     }
     
+    /**
+     * Common method for functions used to initiate EnvironmentObjects
+     * @param name of the environmentObject
+     */
     private void init(String name) {
     	myName = name;
         setLoader(new EnvironmentObjectLoader(name, this));
-        setCurrentState("default");
+        setToDefaultState();
         getCurrentState().setLooping(true);
         setImageData();
     }

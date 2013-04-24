@@ -35,6 +35,7 @@ public class AttackObject extends GameObject{
     	myEffects = new ArrayList<Effect>();
         myCounter = new Counter();
         setLoader(new AttackObjectLoader(name, this));
+        setToDefaultState();
     }
     
     public AttackObject (AttackObject other, UpdatableLocation center){

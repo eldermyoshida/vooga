@@ -35,7 +35,7 @@ public class AttackObjectLoader extends ObjectLoader {
 				addProperties(attackNode, myAttack);
 				NodeList stateNodes = attackNode.getElementsByTagName(getResourceBundle().getString("State"));
 				addStates(stateNodes, myAttack);
-				myAttack.setCurrentState("default");
+				myAttack.defineDefaultState(getAttributeValue(attackNode, getResourceBundle().getString("Default")));
 			}
 		}
 	}

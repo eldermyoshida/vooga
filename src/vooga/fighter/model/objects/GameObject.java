@@ -135,9 +135,16 @@ public abstract class GameObject {
     }
     
     /**
+     * Sets the current state to the default state.
+     */
+    public void setToDefaultState() {
+    	setCurrentState(getDefaultStateKey());
+    }
+    
+    /**
      * Sets the default state for this object.
      */
-    public void setDefaultState(String key) {
+    public void defineDefaultState(String key) {
         myDefaultState = getState(key);
         myDefaultStateKey = key;
     }

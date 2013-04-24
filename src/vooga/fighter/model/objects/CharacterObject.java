@@ -45,6 +45,7 @@ public class CharacterObject extends GameObject {
         currentAttacks= new ArrayList<AttackObject>();
         setLoader(new CharacterLoader(charName, this));
         setHealth(getProperty("maxHealth"));
+        setToDefaultState();
         getCurrentState().setLooping(true);
         setLocation(center);
         myVelocity=getLocation().getVelocity();

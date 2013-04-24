@@ -45,7 +45,7 @@ public class MenuLoader extends ObjectLoader {
                     newState.setLooping(true);
                     if (j == 0) {
                         myMenuObject.setCurrentState(stateName);
-                        myMenuObject.setDefaultState(stateName);
+                        myMenuObject.defineDefaultState(stateName);
                     }
                 }
 

@@ -52,7 +52,7 @@ public abstract class ObjectLoader {
 			myDocument.getDocumentElement().normalize();
 		} catch (Exception e) {
 			myDocument = null;
-			System.err.println("File not found for " + getClass().getSimpleName());
+			System.err.println("Parsing error/file not found for " + getClass().getSimpleName());
 		}
 	}
 	
@@ -140,6 +140,8 @@ public abstract class ObjectLoader {
 			Element frame = (Element) frameNodes.item(j);
 			if (frame.getAttributes().getNamedItem(getResourceBundle().getString("Image")) != null){
 				newState.populateImage(new Pixmap(getAttributeValue(frame, getResourceBundle().getString("Image"))), j);
+			} else {
+				newState.populateImage(new Pixmap(getResourceBundle().getString("Blank")), j);
 			}
 			NodeList hitboxNodes = frame.getElementsByTagName(getResourceBundle().getString("Hitbox")); 
 			for (int k=0; k<hitboxNodes.getLength(); k++){
