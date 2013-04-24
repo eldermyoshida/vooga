@@ -28,9 +28,12 @@ public class BuildingDecoder extends Decoder{
 	
 	
 	private Factory myFactory;
-
+	private CustomHandler myCustomHandler;
+	
 	public BuildingDecoder(Factory factory){
 		myFactory = factory;
+		myCustomHandler = new CustomHandler(factory);
+		
 	}
 
 	@Override
@@ -39,6 +42,7 @@ public class BuildingDecoder extends Decoder{
 		String path = doc.getElementsByTagName(type).item(0).getAttributes().getNamedItem(SOURCE_TAG).getTextContent();	
 		String subtype = type.substring(0, type.length()-1);
 		NodeList nodeLst = doc.getElementsByTagName(subtype);
+		myCustomHandler.create(doc, subtype);
 		for(int i = 0 ; i < nodeLst.getLength() ; i++){
 			Element nElement = (Element) nodeLst.item(i);
 			String name = getElement(nElement, NAME_TAG);

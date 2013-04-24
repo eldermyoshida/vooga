@@ -55,6 +55,8 @@ public class Factory {
 	Map<String, String[]> myProductionDependencies;
 	Map<String, String[]> myStrategyDependencies;
 	Map<String, UpgradeTree> myUpgradeTrees;
+	Map<String, String[]> myWeaponDependencies;
+	Map<String, String[]> myProjectileDependencies;
 	
 	
 	public Factory()  {
@@ -72,6 +74,8 @@ public class Factory {
 		myProjectiles = new HashMap<String, Projectile>();
 		myProductionDependencies = new HashMap<String, String[]>();
 		myStrategyDependencies = new HashMap<String, String[]>();
+		myWeaponDependencies = new HashMap<String, String[]>();
+		myProjectileDependencies = new HashMap<String, String[]>();
 		myUpgradeTrees = new HashMap<String, UpgradeTree>();
 	}
 	
@@ -177,6 +181,29 @@ public class Factory {
 	}
 	
 	/**
+	 * Puts a weapon dependency (tells the factory what weapon "name" uses) in
+	 * a dependency map. 
+	 * @param name
+	 * @param strategies
+	 */
+	public void putWeaponDependency(String name, String[] strategies){
+		myStrategyDependencies.put(name, strategies);
+	}
+	
+	/**
+	 * Puts a projectile dependency (tells the factory what projectile "name" uses) in
+	 * a dependency map. 
+	 * @param name
+	 * @param strategies
+	 */
+	public void putProjectileDependency(String name, String[] strategies){
+		myStrategyDependencies.put(name, strategies);
+	}
+	
+	
+	
+	
+	/**
 	 * Creates decoders by loading the input file that specifies the path of
 	 * each Decoder and the type of class it is in charge of. Puts the decoders
 	 * and their corresponding types into a map.
@@ -239,7 +266,6 @@ public class Factory {
 			doc.getDocumentElement().normalize();
 			System.out.println(doc.getDocumentElement().getNodeName());
 			
-			//myDecoders.get(doc.getDocumentElement().getNodeName()).create(doc);
 			
 			NodeList head = doc.getChildNodes();
 			Node childNode = head.item(0);
@@ -247,7 +273,6 @@ public class Factory {
 			for(int i = 0 ; i < children.getLength() ; i++){
 				Node tempNode = children.item(i);
 				if(tempNode.getNodeType() == Node.ELEMENT_NODE){
-					//System.out.println("CURRENT DECODER: " + tempNode.getNodeName());
 					String type = tempNode.getNodeName();
 					myDecoders.get(type).create(doc, type);
 				}

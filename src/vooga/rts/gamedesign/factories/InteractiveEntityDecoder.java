@@ -22,8 +22,6 @@ import vooga.rts.util.Sound;
 */
 public class InteractiveEntityDecoder extends Decoder {
 	
-	private int DEFAULTTEAM = 0;
-	
 	private Factory myFactory;
 	private CustomHandler myCustomHandler;
 
