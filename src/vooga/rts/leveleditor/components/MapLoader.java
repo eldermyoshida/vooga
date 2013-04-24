@@ -268,7 +268,7 @@ public class MapLoader {
             EditableResource res =  test.getMyMap().getResource(i);
             System.out.print(res.getMyID());
             System.out.print(" ");
-            System.out.print(res.getMyName());
+            System.out.print(res.getType());
             System.out.print(" ");
             System.out.print(res.getMyImageName());
             System.out.print(" ");

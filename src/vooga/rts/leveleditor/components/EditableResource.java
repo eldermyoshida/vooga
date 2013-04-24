@@ -2,6 +2,7 @@ package vooga.rts.leveleditor.components;
 
 import java.awt.Image;
 import vooga.rts.gamedesign.sprite.gamesprites.GameSprite;
+import vooga.rts.gamedesign.sprite.gamesprites.Resource;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 /**
@@ -14,7 +15,6 @@ import vooga.rts.util.Pixmap;
 public class EditableResource extends Resource{
    
     private int myID;
-    private String myName;
     private String myImageName;
     private int myAmount;   
     /**
@@ -25,9 +25,8 @@ public class EditableResource extends Resource{
      * @param image
      */ 
     public EditableResource(Pixmap image, Location3D center , int id, String name , String imageName, int amount) {
-        super(image,center,image.getMyDimension());
+        super(image,center,image.getMyDimension(), 0, amount, name);
         myID = id;
-        myName = name;
         myImageName = imageName;
     }
     
@@ -43,10 +42,6 @@ public class EditableResource extends Resource{
         return myID;
     }   
 
-    public String getMyName () {
-        return myName;
-    }
-
     public String getMyImageName () {
         return myImageName;
     }
@@ -58,11 +53,7 @@ public class EditableResource extends Resource{
     public void setAmount(int amount) {
         myAmount = amount;
         
-    }
-
-    public void setName(String type) {
-        myName = type;
-    }    
+    }  
     
     public Image getMyImage() {
         return super.getImage().getMyImage();

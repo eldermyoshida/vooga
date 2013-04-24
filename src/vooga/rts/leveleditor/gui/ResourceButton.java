@@ -39,18 +39,20 @@ public class ResourceButton extends JToggleButton {
      * Constructor for this class
      * 
      * @param r : the Resource which the button represents
+     * @param image 
      * @param owner : the ResourcePanel which holds this button;
      */
-    public ResourceButton (EditableResource r, ResourcePanel owner) {
-        myResource = r;
-        myIcon = r.getImage();//.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+    public ResourceButton (EditableResource editableResource, BufferedImage image, ResourcePanel owner) {
+        myResource = editableResource;
+        myIcon = editableResource.getImage();
+        Image image2 = image.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
         myOwner = owner;
         myInput = new Input(INPUT_DIR, this);
         myInput.addListenerTo(this);
         isInitialized = false;
 
-        setToolTipText(r.getMyName());
-        setIcon((Icon) myIcon);
+        setToolTipText(editableResource.getType());
+        setIcon(new ImageIcon(image2));
         setMargin(new Insets(2, 2, 2, 2));
     }
 
@@ -72,7 +74,7 @@ public class ResourceButton extends JToggleButton {
         if (option == JOptionPane.OK_OPTION) {
             try {
                 String type = resourceType.getText();
-                myResource.setName(type);
+                myResource.setType(type);
                 int amount = Integer.parseInt(resourceAmount.getText());
                 myResource.setAmount(amount);
                 isInitialized = true;

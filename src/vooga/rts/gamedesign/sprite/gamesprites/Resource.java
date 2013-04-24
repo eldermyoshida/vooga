@@ -60,4 +60,8 @@ public class Resource extends GameEntity implements IGatherable {
     public String getType () {
         return myType;
     }
+    
+    public void setType (String type) {
+        myType = type;        
+    }
 }

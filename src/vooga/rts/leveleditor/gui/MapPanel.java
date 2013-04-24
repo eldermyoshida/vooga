@@ -17,7 +17,6 @@ import util.input.PositionObject;
 import vooga.rts.leveleditor.components.EditableMap;
 import vooga.rts.leveleditor.components.EditableTile;
 import vooga.rts.leveleditor.components.EditableResource;
-import vooga.rts.leveleditor.components.Terrain;
 import vooga.rts.resourcemanager.ResourceManager;
 import vooga.rts.util.Camera;
 import vooga.rts.util.Location;
@@ -111,7 +110,8 @@ public class MapPanel extends JComponent {
 //        g.drawLine(0, myHeight * myTileHeight, myWidth * myTileWidth, myHeight * myTileHeight);
 
         // paint Node
-        myMap.paint((Graphics2D)g);
+        //myMap.paint((Graphics2D)g);
+        myMap.printMatrix();
         System.out.println("paint");
 
         // paint Player
