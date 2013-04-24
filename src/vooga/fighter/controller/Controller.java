@@ -30,14 +30,16 @@ import javax.swing.Timer;
  */
 
 public abstract class Controller{
-    public static final String DEFAULT_RESOURCE_PACKAGE = "vooga.fighter.config.";
-	public static final String DEFAULT_IMAGE_PACKAGE = "vooga.fighter.images.";
+    public static final String DEFAULT_RESOURCE_PACKAGE = "config.";
+	public static final String DEFAULT_IMAGE_PACKAGE = "images.";
     public static final String NEXT = "Next";
     public static final String BACK = "Back";
     public static final String EXIT = "EXIT";
     public static final String SPLASH = "Splash";
     public static final String CONTROL = "Control";
-    private String myFilepath;
+    private String myHardFilePath;
+    private String myImagePackagePath;
+    private String myResourcePath;
     
     protected ControllerDelegate myManager;
     private String myName;
@@ -78,11 +80,14 @@ public abstract class Controller{
      * @param manager
      * @param gameinfo
      */
-    public Controller(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo) {
+    public Controller(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo, String filePath) {
         myName = name;
         myCanvas = frame;
-        mySplashResource = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + SPLASH);
-        mySplashPath = DEFAULT_IMAGE_PACKAGE+ mySplashResource.getString(CONTROL);
+        myHardFilePath = filePath;
+        myImagePackagePath = myHardFilePath + DEFAULT_IMAGE_PACKAGE;
+        myResourcePath = myHardFilePath + DEFAULT_RESOURCE_PACKAGE;
+        mySplashResource = ResourceBundle.getBundle(myResourcePath+ SPLASH);
+        mySplashPath = myImagePackagePath+ mySplashResource.getString(CONTROL);
         myManager = manager;
         myGameInfo = gameinfo;
         loadMode();
@@ -97,7 +102,8 @@ public abstract class Controller{
      * 					game state (num players, gameMode, etc.)
      * @return the newly instantiated controller
      */
-    public abstract Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo);
+    public abstract Controller getController(String name, Canvas frame, ControllerDelegate manager, 
+    		GameInfo gameinfo, String filePath);
     
     /**
      * sets this Controller's input
@@ -241,6 +247,10 @@ public abstract class Controller{
     public void stop () {
         myTimer.stop();
 
+    }
+    
+    protected String getHardFilePath(){
+    	return myHardFilePath;
     }
 
     /**

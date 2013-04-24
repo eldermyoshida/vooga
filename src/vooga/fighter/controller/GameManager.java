@@ -43,17 +43,18 @@ public static final Dimension SIZE = new Dimension(800, 600);
     private Canvas myCanvas;
     private ControllerManager myControllerManager;
     private GameInfo myGameInfo;
-    private String myFilePathway;
+    private String myHardFilePathway;
 
     public GameManager(){//ArcadeInteraction arcade) {
     	//super(arcade);
-    	setFilePathway()
+    	setFilePathway();
         myCanvas = new Canvas(SIZE); 
         myGameInfo = new GameInfo(new MapLoader().getMapNames());
         //myGameInfo.setHighScores(getArcade().getHighScores(THREE_TOP_HIGH_SCORES));
-        ControllerFactory factory = makeFactory(myCanvas,myFilePathway);
-        ControlProgressionManager progressionmanager = makeProgression(factory.getMap()), myFilePathway);
-        myControllerManager = makeManager(myCanvas, myGameInfo, factory, progressionmanager,myFilePathway)
+        ControllerFactory factory = makeFactory(myCanvas,myHardFilePathway);
+        ControlProgressionManager progressionmanager = makeProgression(factory.getMap());
+        
+        myControllerManager = makeManager(myCanvas, myGameInfo, factory, progressionmanager,myHardFilePathway);
         JFrame frame = new JFrame(TITLE);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // add our user interface components
@@ -62,9 +63,8 @@ public static final Dimension SIZE = new Dimension(800, 600);
         frame.pack();
         frame.setVisible(true);
 	}
-    
-    
-	 public void run (){
+
+	public void run (){
 		 myControllerManager.run();
 	    }
 	 
@@ -73,12 +73,12 @@ public static final Dimension SIZE = new Dimension(800, 600);
 	 }
 	 
 	 protected ControllerManager makeManager(Canvas canvas, GameInfo info, ControllerFactory factory,
-			 ControlProgressionManager progression, String pathway){
-		 return new ControllerManager(canvas, info, factory, progression, pathway);
+			 ControlProgressionManager progression, String myFilePathway){
+		 return new ControllerManager(canvas, info, factory, progression, myFilePathway);
 	 }
 	 
-	 protected ControlProgressionManager makeProgression(Map map, String pathway){
-		 return new ControlProgressionManager(map, pathway);
+	 protected ControlProgressionManager makeProgression(Map map){
+		 return new ControlProgressionManager(map);
 	 }
 	 		
 
@@ -87,7 +87,7 @@ public static final Dimension SIZE = new Dimension(800, 600);
 	 }
 	 
 	 protected void setFilePathway(){
-		 myFilePathway = "vooga.fighter.config";
+		 myHardFilePathway = "vooga.fighter.config";
 	 }
 	 
 	 

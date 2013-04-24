@@ -26,8 +26,7 @@ public class ControlProgressionManager {
 	 * @param controllerMap
 	 */
 	public ControlProgressionManager(Map<String, Controller> controllerMap) {
-		myControllerMap = controllerMap;
-		
+		myControllerMap = controllerMap;		
 	}
 	
 	/**

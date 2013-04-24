@@ -53,8 +53,8 @@ public abstract class LevelController extends Controller {
     }
 
     public LevelController(String name, Canvas frame, ControllerDelegate manager, 
-                GameInfo gameinfo) {
-        super(name, frame, manager, gameinfo);
+                GameInfo gameinfo, String filePath) {
+        super(name, frame, manager, gameinfo, filePath);
         setInput(manager.getInput());
         getInput().replaceMappingResourcePath(INPUT_PATHWAY);
         getInput().addListenerTo(this);

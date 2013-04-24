@@ -28,7 +28,8 @@ public class ControllerManager implements ControllerDelegate{
 	private Canvas myCanvas;
 	private GameInfo myGameInfo;
 	private ControlProgressionManager myProgressionManager;
-	private static final String INPUT_PATHWAY = "vooga.fighter.config.menudefault";
+	private static final String INPUT_PATHWAY = "config.menudefault";
+	private String myHardFilePath;
 	private Input myInput;
 	
 	/**
@@ -39,7 +40,8 @@ public class ControllerManager implements ControllerDelegate{
 	 * @param progressionmanager   ControlProgressionManager(Handles logic of switching)
 	 */
 	public ControllerManager(Canvas frame, GameInfo gameinfo, ControllerFactory factory,
-			ControlProgressionManager progressionmanager) {
+			ControlProgressionManager progressionmanager, String filepath) {
+		myHardFilePath = filepath;
 		myCanvas = frame;
 		myInput = new Input(INPUT_PATHWAY, myCanvas);
 		myControllerMap = factory.getMap();
@@ -48,7 +50,7 @@ public class ControllerManager implements ControllerDelegate{
 		//myProgressionManager.setControllerProgression(myControllerMap);
 		myCurrentController = myProgressionManager.getNextController("MainMenu");
 		String name = myCurrentController.getName();
-		myCurrentController = myCurrentController.getController(name, frame, this, gameinfo);
+		myCurrentController = myCurrentController.getController(name, frame, this, gameinfo, myHardFilePath);
 	}
 	
 	/**
@@ -75,7 +77,7 @@ public class ControllerManager implements ControllerDelegate{
 		System.out.println("<controllermanager> now the controller is: " + myCurrentController.getName() );
 		myCurrentController = myCurrentController.getController();
 		String name = myCurrentController.getName();
-		myCurrentController = myCurrentController.getController(name, myCanvas, this, myGameInfo);
+		myCurrentController = myCurrentController.getController(name, myCanvas, this, myGameInfo, myHardFilePath);
 		myCurrentController.start();	
 	}      
 	
