@@ -20,7 +20,7 @@ import vooga.towerdefense.util.Pixmap;
  * 
  * @author Matthew Roy
  * @author Xu Rui
- *
+ * @author Zhen Gou
  */
 public class GameElementFactory {
 	
@@ -44,6 +44,16 @@ public class GameElementFactory {
         myActionsToMake = new ArrayList<ActionFactory>();
     }
     
+    /**
+     * complete constructor
+     * @param name
+     * @param image
+     * @param location
+     * @param size
+     * @param type
+     * @param attrManager
+     */
+    
     public GameElementFactory(String name,Pixmap image, Location location, Dimension size, String type, AttributeManager attrManager){
     	myName=name;
     	myImage=image;
@@ -53,6 +63,8 @@ public class GameElementFactory {
     	myAttributeManager=attrManager;
     	
     }
+    
+    @Deprecated
     public GameElementFactory(String name, GameElementDefinition definition) {
         this();
         myName = name;
@@ -74,7 +86,7 @@ public class GameElementFactory {
     public String getName() {
         return myName;
     }
-    
+    @Deprecated
     public GameElementDefinition getDefinition() {
         return myDef;
     }
@@ -87,7 +99,7 @@ public class GameElementFactory {
     public void setDefinition(GameElementDefinition def) {
         myDef = def;
     }
-    
+
     public AttributeManagerFactory createAttributeFactory() {
         AttributeManagerFactory factory = new AttributeManagerFactory();
         return factory;
