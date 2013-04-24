@@ -36,14 +36,14 @@ public class CharacterObject extends GameObject {
     /**
      * Constructs a new CharacterObject.
      */
-    public CharacterObject(String charName, UpdatableLocation center) {
+    public CharacterObject(String charName, UpdatableLocation center, String pathHierarchy) {
         super();
         myAttacks = new HashMap<String, AttackObject>();
         myActiveEffects = new ArrayList<Effect>();
         myHealth = new Health();
         movingDirection=ModelConstants.RIGHT; 
         currentAttacks= new ArrayList<AttackObject>();
-        setLoader(new CharacterLoader(charName, this));
+        setLoader(new CharacterLoader(charName, this, pathHierarchy));
         setHealth(getProperty("maxHealth"));
         getCurrentState().setLooping(true);
         setLocation(center);

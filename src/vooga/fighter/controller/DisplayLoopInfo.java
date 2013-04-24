@@ -9,6 +9,9 @@ import vooga.fighter.util.HUDFactory;
 import vooga.fighter.view.HUDElement;
 
 /**
+ * Display loop info for menus
+ * Extends DisplayInfo and implements
+ * ViewDataSource
  * 
  * @author Jack Matteucci
  * @author Wayne You
@@ -20,16 +23,27 @@ public class DisplayLoopInfo extends DisplayInfo implements ViewDataSource{
     private Mode myMode;
     private List<ImageDataObject> myImageData;
     
+    /**
+     * Constructor
+     */
     public DisplayLoopInfo() {
         super();
     }
     
+    /**
+     * Constructor with mode, gets imagedata, from mode
+     * @param mode
+     */
     public DisplayLoopInfo(Mode mode) {
         myMode = mode;
     	myImageData = mode.getImageData();
         updateInfo();
     }
-
+    
+    /**
+     * Adds HUDElements by checking the annotation and creating
+     * the HUDElements
+     */
     protected void addHUDElements () {
         try {
             for (HUDElement e : HUDFactory.getHUDElements(this)) {
@@ -46,7 +60,10 @@ public class DisplayLoopInfo extends DisplayInfo implements ViewDataSource{
             throw new NullPointerException("Could not find class: " + e.getMessage());
         }
     }
-
+    
+    /**
+     * Updates by retrieving information from mode
+     */
     public void updateInfo(){
     	getLocations().clear();
     	getGameObjects().clear();
@@ -61,15 +78,25 @@ public class DisplayLoopInfo extends DisplayInfo implements ViewDataSource{
     	}
     }
     
+    /**
+     * Updates information
+     */
     public void update() {
         updateInfo();
     }
     
+    /**
+     * clear imagedata
+     */
     public void clear(){
     	super.clear();
         myImageData.clear();
     }
-
+    
+    /**
+     * Returns mode
+     * @return
+     */
     public Mode getMode() {
         return myMode;
     }

@@ -4,6 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * Constructs the forces from a properties file
+ * If a dev wants to add a new force, he subclasses force and adds it
+ * to forces.properties
+ * @author Jerry Li
+ *
+ */
 public class ForceFactory {
     
     private static final String delimiter= ",";
@@ -12,12 +19,18 @@ public class ForceFactory {
     private List<Force> myForces;
     private ResourceBundle myForceResources;
     
+    /**
+     * Constructs force factory, sets resource bundle
+     */
     public ForceFactory() {
         myForces = new ArrayList<Force>();
         myForceResources = ResourceBundle.getBundle(FORCE_PATHWAY);
         initializeForces();
     }
     
+    /**
+     * Constructs list of forces
+     */
     public void initializeForces() {
         myForces = new ArrayList<Force>();
         for (String forceName : myForceResources.keySet()) {
@@ -33,6 +46,11 @@ public class ForceFactory {
         }
     }
     
+    /**
+     * Constructs force using reflection and the resource bundle
+     * @param name      name
+     * @return          
+     */
     public Force constructForce(String name) {
         Object objectForce = null;
         Force force = null;
@@ -51,7 +69,10 @@ public class ForceFactory {
         return force;
     }
     
-    
+    /**
+     * Return list of forces
+     * @return
+     */
     public List<Force> getForces() {
         return myForces;
     }

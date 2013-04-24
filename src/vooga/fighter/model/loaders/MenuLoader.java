@@ -4,24 +4,22 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import util.Pixmap;
+import vooga.fighter.model.ModelConstants;
 import vooga.fighter.model.objects.MenuObject;
 import vooga.fighter.model.utils.State;
 
 
 public class MenuLoader extends ObjectLoader {
 	
-	private static final String PATH_TAG = "MenuPath";
-	private static final String YES = "yes";
-	
 	MenuObject myMenuObject;
 	
-	public MenuLoader(String menuobjectname, MenuObject menuobject) {
-		super(PATH_TAG);
+	public MenuLoader(String menuobjectname, MenuObject menuobject, String pathHierarchy) {
+		super(ModelConstants.MENULOADER_PATH_TAG, pathHierarchy);
 		myMenuObject = menuobject;
-		load(menuobjectname);
+		load(menuobjectname, pathHierarchy);
 	}
 
-    protected void load (String menuobjectname) {
+    protected void load (String menuobjectname, String pathHiearchy) {
         Document doc = getDocument();
         NodeList menuNodes = doc.getElementsByTagName(getResourceBundle().getString("MenuObject"));
         for (int i = 0; i < menuNodes.getLength(); i++) {
@@ -51,11 +49,5 @@ public class MenuLoader extends ObjectLoader {
 
             }
         }
-    }
-
-    @Deprecated
-    public void load (int id) {
-        // TODO Auto-generated method stub
-
     }
 }

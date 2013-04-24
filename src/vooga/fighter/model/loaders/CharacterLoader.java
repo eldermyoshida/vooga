@@ -4,6 +4,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import vooga.fighter.model.ModelConstants;
 import vooga.fighter.model.objects.AttackObject;
 import vooga.fighter.model.objects.CharacterObject;
 
@@ -14,9 +15,7 @@ import vooga.fighter.model.objects.CharacterObject;
  *
  */
 public class CharacterLoader extends ObjectLoader {
-	
-	private static final String PATH_TAG = "CharacterPath";
-	
+		
 	private CharacterObject myChar;
 
 	/**
@@ -25,17 +24,17 @@ public class CharacterLoader extends ObjectLoader {
 	 * @param charName
 	 * @param character
 	 */
-	public CharacterLoader (String charName, CharacterObject character) {
-		super(PATH_TAG);
+	public CharacterLoader (String charName, CharacterObject character, String pathHierarchy) {
+		super(ModelConstants.CHARACTERLOADER_PATH_TAG, pathHierarchy);
 		myChar = character;
-		load(charName);
+		load(charName, pathHierarchy);
 	}
 
 	/**
 	 * Loads the character associated with the id
 	 * @param charId is the id of the character to be loaded
 	 */
-	protected void load(String charName) {
+	protected void load(String charName, String pathHierarchy) {
 		Document doc = getDocument();
 		NodeList charNodes = doc.getElementsByTagName(getResourceBundle().getString("Character"));
 
@@ -49,7 +48,7 @@ public class CharacterLoader extends ObjectLoader {
 				myChar.setDefaultState(getResourceBundle().getString("DefaultState"));
 				myChar.setCurrentState(getResourceBundle().getString("DefaultState"));
 				NodeList attackNodes = node.getElementsByTagName(getResourceBundle().getString("Attack"));
-				addAttacks(attackNodes);
+				addAttacks(attackNodes, pathHierarchy);
 			}
 		}
 	}
@@ -60,10 +59,10 @@ public class CharacterLoader extends ObjectLoader {
 	 *
 	 * @param attackNodes
 	 */
-	private void addAttacks(NodeList attackNodes) {
+	private void addAttacks(NodeList attackNodes, String pathHierarchy) {
 		for (int i = 0; i < attackNodes.getLength(); i++) {
 			String attackName = getAttributeValue(attackNodes.item(i), getResourceBundle().getString("AttackName"));
-			AttackObject newAttack = new AttackObject(attackName);
+			AttackObject newAttack = new AttackObject(attackName, pathHierarchy);
 			myChar.addAttack(attackName, newAttack);
 		}
 	}

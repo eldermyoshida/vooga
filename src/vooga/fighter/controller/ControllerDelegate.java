@@ -8,11 +8,22 @@ import util.input.Input;
  *
  */
 public interface ControllerDelegate {
-
+    
+    /**
+     * Notifies delegate
+     * @param string
+     */
     public void notifyEndCondition(String string);
     
+    /**
+     * exits program
+     */
     public void exit();
     
+    /**
+     * returns input
+     * @return
+     */
     public Input getInput();
 
 }

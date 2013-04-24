@@ -25,10 +25,10 @@ import vooga.fighter.model.utils.State;
 public abstract class ObjectLoader {
 
 
-    private static final String delimiter= ",";
-	private static final String RESOURCE_PATH = "vooga.fighter.config.objects";
-	private static final String RESOURCE_DEFAULT_VALUES_PATH="vooga.fighter.config.defaultvalues";
-	private static final String RESOURCE_PROPERTIES_PATH="vooga.fighter.config.propertyfields";
+    private String delimiter= ",";
+	private String RESOURCE_PATH = "config.objects";
+	private String RESOURCE_DEFAULT_VALUES_PATH="config.defaultvalues";
+	private String RESOURCE_PROPERTIES_PATH="config.propertyfields";
 	private File myObjectFile;
 	private Document myDocument;
 	private ResourceBundle myResources;
@@ -40,8 +40,8 @@ public abstract class ObjectLoader {
 	 * 
 	 * @param objectPath
 	 */
-	public ObjectLoader (String pathName) {
-		setResourcePaths(); 
+	public ObjectLoader (String pathName, String pathHierarchy) {
+		setResourcePaths(pathHierarchy); 
 		String objectPath = myResources.getString(pathName);
 		myObjectFile = new File(objectPath);
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -59,23 +59,24 @@ public abstract class ObjectLoader {
 	/**
 	 * Sets the resource paths for the object loader
 	 */
-	private void setResourcePaths(){
-		myResources = ResourceBundle.getBundle(RESOURCE_PATH);
-		myDefaults= ResourceBundle.getBundle(RESOURCE_DEFAULT_VALUES_PATH);
-		myProperties= ResourceBundle.getBundle(RESOURCE_PROPERTIES_PATH);
+	private void setResourcePaths(String pathHierarchy){
+		myResources = ResourceBundle.getBundle(pathHierarchy+RESOURCE_PATH);
+		myDefaults= ResourceBundle.getBundle(pathHierarchy+RESOURCE_DEFAULT_VALUES_PATH);
+		myProperties= ResourceBundle.getBundle(pathHierarchy+RESOURCE_PROPERTIES_PATH);
 	}
 
 	/**
 	 * Loads object based on the name given
 	 * @param name
 	 */
-	protected abstract void load(String name);
+	protected abstract void load(String name, String pathHierarchy);
+	
 
 	/**
 	 * Returns the xml document which the loader points to
 	 * @return
 	 */
-	protected Document getDocument() {
+	public Document getDocument() {
 		return myDocument;
 	}
 
@@ -92,7 +93,7 @@ public abstract class ObjectLoader {
 	 * @param tag
 	 * @return
 	 */
-	protected String getAttributeValue(Node node, String tag) {
+	public String getAttributeValue(Node node, String tag) {
 		try{
 			String value= node.getAttributes().getNamedItem(tag).getTextContent();
 			return value; 

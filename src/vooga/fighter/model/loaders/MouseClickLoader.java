@@ -5,23 +5,22 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import util.Pixmap;
+import vooga.fighter.model.ModelConstants;
 import vooga.fighter.model.objects.MouseClickObject;
 import vooga.fighter.model.utils.State;
 
 
 public class MouseClickLoader extends ObjectLoader {
 
-	private static final String PATH_TAG = "MouseClickPath";
-
     MouseClickObject myMouseClick;
 
-    public MouseClickLoader (MouseClickObject mouseclick) {
-        super(PATH_TAG);
+    public MouseClickLoader (MouseClickObject mouseclick, String pathHierarchy) {
+        super(ModelConstants.MOUSECLICKLOADERPATH_TAG, pathHierarchy);
         myMouseClick = mouseclick;
-        load();
+        load(ModelConstants.MOUSECLICKLOADERPATH_TAG, pathHierarchy);
     }
 
-    protected void load () {
+    protected void load (String mouseClick, String pathHierarchy) {
         Document doc = getDocument();
         NodeList menuNodes = doc.getElementsByTagName(getResourceBundle().getString("MosueClickObject"));
         for (int i = 0; i < menuNodes.getLength(); i++) {
@@ -48,11 +47,5 @@ public class MouseClickLoader extends ObjectLoader {
                 }
             }
         }
-    }
-
-    @Deprecated
-    public void load (String Name) {
-        // :( Don't need the string
-
     }
 }
