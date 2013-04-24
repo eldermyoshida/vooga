@@ -170,6 +170,14 @@ public class MapPanel extends JComponent {
         
     }
     
+    private void remove(Location3D loc) {
+       System.out.println("Trying to remove");
+       myMap.getTerrain().remove(myMap.getTerrain().getItem(loc));
+       myMap.getResources().remove(myMap.getResources().getItem(loc));
+       System.out.println("remove");
+       repaint();
+    }
+    
     public void fillTiles() {
         EditableTile t = myCanvas.getCurrentSelectTile();
         for(int i = 0; i<myMap.getMyXsize(); ++i) {
@@ -241,11 +249,14 @@ public class MapPanel extends JComponent {
                 break;
             case FILLMODE:
                 fillTiles();
-                break;    
+                break;
+            case REMOVEMODE:
+                remove(loc);
             default:
                 break;
         }
     }
+
 
     @InputMethodTarget(name = "onMouseDrag")
     public void testDrag (PositionObject p) {

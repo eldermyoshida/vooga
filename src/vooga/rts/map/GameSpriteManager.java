@@ -2,6 +2,7 @@ package vooga.rts.map;
 
 import java.awt.Graphics2D;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
@@ -28,6 +29,8 @@ import vooga.rts.util.Location3D;
 public class GameSpriteManager<T extends GameSprite> implements IGameLoop, Observer {
 
     private List<T> myGameSprites;
+    
+    private Iterator<T> myRemoval;
 
     /**
      * Creates a new GameSpriteMananger
@@ -65,8 +68,19 @@ public class GameSpriteManager<T extends GameSprite> implements IGameLoop, Obser
      * 
      * @param gs The Terrain to remove
      */
-    public void remove (T gs) {
+    public void remove (T gs) {    
+        if (gs == null) {
+            return;
+        }
         myGameSprites.remove(gs);
+        gs.setChanged();
+        gs.notifyObservers("remove");
+    }
+    
+    private void removeIterator (T gs) {        
+        myRemoval.remove();
+        gs.setChanged();
+        gs.notifyObservers("remove");
     }
 
     /**
@@ -122,6 +136,13 @@ public class GameSpriteManager<T extends GameSprite> implements IGameLoop, Obser
     
     public List<T> getMySprites() {
         return myGameSprites;
+    }
+    
+    public void clearAll() {
+        myRemoval = myGameSprites.iterator();
+        while (myRemoval.hasNext()) {
+            removeIterator(myRemoval.next());
+        }
     }
 
 }

@@ -9,6 +9,8 @@ import javax.imageio.ImageIO;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import org.xml.sax.SAXException;
+import vooga.rts.gamedesign.sprite.gamesprites.Resource;
+import vooga.rts.gamedesign.sprite.map.Terrain;
 import vooga.rts.map.GameMap;
 import vooga.rts.state.GameState;
 import vooga.rts.util.Location;
@@ -87,11 +89,11 @@ public class EditableMap extends GameMap {
         myTileMap = new EditableTileMap(new Dimension(tileWidth,tileHeight),ySize,xSize);
     }
 
-
     public void clearMap () {
         myTileMap.removeAllTiles();
-        getTerrain().getMySprites().clear();
-        getResources().getMySprites().clear();
+        getTerrain().clearAll();
+        getResources().clearAll();
+        System.out.println("clear");
     }
 
     public void printMatrix () {
