@@ -1,4 +1,4 @@
-package vooga.rts.networking.client.GUI;
+package vooga.rts.networking.client.gui;
 
 public interface IModel {
 

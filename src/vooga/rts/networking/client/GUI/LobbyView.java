@@ -1,4 +1,4 @@
-package vooga.rts.networking.client.GUI;
+package vooga.rts.networking.client.gui;
 
 import javax.swing.JPanel;
 import java.awt.GridBagLayout;

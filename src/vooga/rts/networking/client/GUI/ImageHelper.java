@@ -1,4 +1,4 @@
-package vooga.rts.networking.client.GUI;
+package vooga.rts.networking.client.gui;
 
 import java.awt.Graphics2D;
 import java.awt.Image;
