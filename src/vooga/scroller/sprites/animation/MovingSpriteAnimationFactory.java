@@ -3,7 +3,23 @@ package vooga.scroller.sprites.animation;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.Sprite;
 
-public class MovingSpriteAnimationFactory {//implements AnimationFactory{
+/**
+ * Creates an animation for a left-right moving sprite. 
+ * This requires at least 5 different images in the image package.
+ * <br>
+ * If the name of the default image is "mario.gif", then this factory needs images
+ * <ul>
+ * <li> mairo_stand_left.gif
+ * <li> mario_move_left.gif
+ * <li> mario_stand_right.gif
+ * <li> mario_move_right.gif
+ * <li> mario.gif
+ * </ul>
+ * 
+ * @author Scott Valentine
+ *
+ */
+public class MovingSpriteAnimationFactory {
 
     private static final String STAND_LEFT_ENDING = "_stand_left";
     private static final String MOVE_LEFT_ENDING = "_move_left";
@@ -67,25 +83,19 @@ public class MovingSpriteAnimationFactory {//implements AnimationFactory{
         return '.'+fileNameParts[fileNameParts.length-1];
     }
 
-    
-    public Animation generateAnimation (Sprite sprite) {
-        
-        Animation result = new Animation(sprite);
-        
-        
-        AnimationState left = new MoveLeft(myMoveLeft, myStandLeft);
-        AnimationState right = new MoveRight(myMoveRight, myStandRight);
-
-
+    /**
+     * Creates a new animation specific to a sprite that represents the sprite 
+     * moving left and right.
+     * @param sprite is the sprite on which the animation will apply
+     * @return The animation to be set in the sprite's ISpriteView.
+     */
+    public Animation<Sprite> generateAnimation (Sprite sprite) {       
+        Animation<Sprite> result = new Animation<Sprite>(sprite);              
+        AnimationState<Sprite> left = new MoveLeft(myMoveLeft, myStandLeft);
+        AnimationState<Sprite> right = new MoveRight(myMoveRight, myStandRight);
         result.addAnimationState(right);
-        result.addAnimationState(left);
-        
-        result.setDefaultView(myDefaultView);
-        
+        result.addAnimationState(left);        
+        result.setDefaultView(myDefaultView);        
         return result;
     }
-
-    
-    
-    
 }

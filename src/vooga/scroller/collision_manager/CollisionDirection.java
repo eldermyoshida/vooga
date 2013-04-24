@@ -6,7 +6,7 @@ import vooga.scroller.util.Direction;
 public class CollisionDirection {
     
    
-    private static final int COLLISION_GRANULARITY = 15; //This is how much "wiggle" room you want when deciding what exactly is a collision 
+    private static final int COLLISION_GRANULARITY = 25; //This is how much "wiggle" room you want when deciding what exactly is a collision 
 
     /**
      * This method takes in two sprites and returns the collision direction of 

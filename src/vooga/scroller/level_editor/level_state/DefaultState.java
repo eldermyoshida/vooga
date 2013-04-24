@@ -2,7 +2,6 @@ package vooga.scroller.level_editor.level_state;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import vooga.scroller.level_editor.LevelState;
 import vooga.scroller.level_management.SpriteManager;
 import vooga.scroller.sprites.state.State;
 import vooga.scroller.view.GameView;

@@ -15,7 +15,7 @@ import util.Vector;
  *   
  * @author Robert C. Duvall
  */
-public abstract class Sprite {
+public class Sprite {
     // canonical directions for a collision
     public static final int RIGHT_DIRECTION = 0;
     public static final int UP_DIRECTION =  270;
@@ -36,27 +36,23 @@ public abstract class Sprite {
     private Rectangle myBounds;
     private Location myLastLocation;
     private Location myLastLocation2;
-    //private ISpriteView myDefaultImage;// ??
-    private int myHealth; 
-    private int myDamage;
+
     
     /**
      * Create a shape at the given position, with the given size. This is the constructor that StaticEntities call. 
      */
-    public Sprite (ISpriteView image, Location center, Dimension size, int health, int damage) {
-        this(image, center, size, new Vector(), health, damage);
+    public Sprite (ISpriteView image, Location center, Dimension size) {
+        this(image, center, size, new Vector());
     }
 
     /**
      * Create a shape at the given position, with the given size, velocity, and color. This is the constructor that NonStaticEntities call. 
      */
-    public Sprite (ISpriteView image, Location center, Dimension size, Vector velocity, int health, int damage) {
+    public Sprite (ISpriteView image, Location center, Dimension size, Vector velocity) {
         // make copies just to be sure no one else has access
         
         mySize = size;
         myOriginalView = image;
-        myHealth = health;
-        myDamage = damage;
         myOriginalCenter = new Location(center);
         myLastLocation = new Location(myOriginalCenter.x, myOriginalCenter.y);
         myLastLocation2 = new Location(myOriginalCenter.x, myOriginalCenter.y);
@@ -87,6 +83,9 @@ public abstract class Sprite {
         myLastLocation2 = new Location(myLastLocation.x, myLastLocation.y);
         myLastLocation = new Location(myCenter.x, myCenter.y);
 
+        System.out.println(myCenter);
+        
+        
         // do not change original velocity
         Vector v = new Vector(myVelocity);
         v.scale(elapsedTime);
@@ -171,27 +170,6 @@ public abstract class Sprite {
     public double getHeight () {
         return mySize.getHeight();
     }
-    
-    /**
-     * Returns the health of the sprite.
-     */
-//    public int getHealth () {
-//        return health;
-//    }
-//    
-//    /**
-//     * Reduces the health of sprite by 1.
-//     */
-//    public void takeHit () {
-//        health--;
-//    }
-//    
-//    /**
-//     * Reduces the health of the sprite by hit.
-//     */
-//    public void takeHit (int hit) {
-//        health -= hit;
-//    }
 
     /**
      * Scales shape's size by the given factors.
@@ -338,7 +316,7 @@ public abstract class Sprite {
     /**
      * Gives the last location of this sprite.
      * 
-     * @return The locaiton of the sprite at the previous update.
+     * @return The location of the sprite at the previous update.
      */
     public Location lastLocation() {
         return myLastLocation2;
@@ -362,20 +340,12 @@ public abstract class Sprite {
         myVelocity.sum(force);
     }
     
-    public void takeHit(int damage) {
-        myHealth -= damage;
-    }
-
-    public int getHit () {
-        return myDamage;
+    public Dimension getSize() {
+        return mySize;
     }
     
-    public int getHealth() {
-        return myHealth;
-    }
-    
-    public void setHealth(int health) {
-        myHealth = health;
+    public void setVelocity (Vector velocity){
+        myVelocity = new Vector(velocity);
     }
 }
 

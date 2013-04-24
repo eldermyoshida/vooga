@@ -13,18 +13,6 @@ public class HighHealth implements State{
     }
 
     @Override
-    public void activate () {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void deactivate () {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
     public void paint (Graphics2D pen) {
         // TODO Auto-generated method stub
         

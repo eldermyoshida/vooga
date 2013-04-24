@@ -1,7 +1,5 @@
 package vooga.scroller.sprites.movement;
 
-import util.Location;
-import util.Vector;
 
 /**
  * Abstract superclass using the strategy design pattern. Every movement of 
@@ -18,18 +16,8 @@ import util.Vector;
  * @author Jay Wang
  *
  */
-public abstract class Movement {
+public interface Movement {
     
-    public Movement() {};
-    
-    public Vector execute () {
-        return null;
-    }
-    public Vector execute (int bounds1, int bounds2, int speed) {
-        return null;
-    }
-    public Vector execute (int speed, int radius, Location playerLocation) {
-        return null;
-    }
+    public void execute();
 
 }

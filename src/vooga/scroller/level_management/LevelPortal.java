@@ -20,15 +20,19 @@ public abstract class LevelPortal extends Sprite implements IDoor {
     private IGameComponent myNextLevel;
     private LevelManager myLevelManager;
 
-    public LevelPortal(){
-        super(DEFAULT_IMG, DEFAULT_LOCATION, DEFAULT_SIZE, 0, 0);
+    public LevelPortal () {
+        this(DEFAULT_LOCATION);
         setView(initView());
         setDefaultImg(initView());
         setSize(initSize().width, initSize().height);
     }
-    
+
+    public LevelPortal (Location center) {
+        super(DEFAULT_IMG, center, DEFAULT_SIZE);
+    }
+
     @Override
-    public Image getDefaultImg(){
+    public Image getDefaultImg () {
         return initView().getImage();
     }
     
@@ -59,6 +63,4 @@ public abstract class LevelPortal extends Sprite implements IDoor {
     public void setManager (LevelManager lm) {
         myLevelManager = lm;
     }
-    
-    
 }
