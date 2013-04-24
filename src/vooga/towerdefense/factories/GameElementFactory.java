@@ -101,9 +101,8 @@ public class GameElementFactory {
         myDef = def;
     }
 
-    public AttributeManagerFactory createAttributeFactory () {
-        AttributeManagerFactory factory = new AttributeManagerFactory();
-        return factory;
+    public AttributeManager createAttributeFactory () {
+        return myAttributeManager.makeAttributeManager();
     }
 
     public void setActionFactories (List<ActionFactory> actionsToMake) {
@@ -134,7 +133,7 @@ public class GameElementFactory {
         GameElement element = new GameElement(myImage,
                                               spawnLocation,
                                               mySize,
-                                              createAttributeFactory().makeAttributeManager());
+                                              createAttributeFactory());
         element.addActions(createActions(element));
         return element;
     }
@@ -142,8 +141,7 @@ public class GameElementFactory {
     public GameElement createElement (Location spawn, GameElement target) {
         GameElement projectile =
                 new GameElement(myImage,
-                                spawn, mySize, createAttributeFactory()
-                                        .makeAttributeManager());
+                                spawn, mySize, myAttributeManager.makeAttributeManager());
         projectile.addActions(createActions(projectile));
 
         List<Action> actions = new ArrayList<Action>();

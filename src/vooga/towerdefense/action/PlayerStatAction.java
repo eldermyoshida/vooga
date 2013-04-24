@@ -1,6 +1,5 @@
-package vooga.towerdefense.action.actionlist;
+package vooga.towerdefense.action;
 
-import vooga.towerdefense.action.Action;
 import vooga.towerdefense.attributes.Attribute;
 import vooga.towerdefense.attributes.AttributeConstants;
 import vooga.towerdefense.model.Player;
