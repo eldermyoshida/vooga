@@ -5,6 +5,12 @@ import vooga.fighter.util.HUDFactory;
 import vooga.fighter.util.HUDVariable;
 import vooga.fighter.view.HUDElement;
 
+/**
+ * Displays winning Player
+ * 
+ * @author Jerry Li
+ *
+ */
 public class ScoreInfo extends DisplayInfo implements ViewDataSource{
     
     @HUDVariable(
@@ -13,10 +19,17 @@ public class ScoreInfo extends DisplayInfo implements ViewDataSource{
             )
     private String myWinner;
     
+    /**
+     * Constructor
+     */
     public ScoreInfo() {
         super();
     }
     
+    /**
+     * Gets the winners and displays
+     * @param winners
+     */
     public void setWinners(List<Integer> winners) {
         System.out.println("Winner is Player " + winners.get(0));
         for (int i = 0; i < winners.size(); i++) {
@@ -25,6 +38,10 @@ public class ScoreInfo extends DisplayInfo implements ViewDataSource{
         addHUDElements();
     }
     
+    
+    /**
+     * Checks annotations and creates the display
+     */
     protected void addHUDElements () {
         try {
             for (HUDElement e : HUDFactory.getHUDElements(this)) {

@@ -10,6 +10,9 @@ import vooga.fighter.util.Paintable;
 
 
 /**
+ * Displays game updatable information
+ * Extends Observable and implements
+ * ViewDataSource
  * 
  * @author Jack Matteucci
  * @author Jerry Li
@@ -17,8 +20,8 @@ import vooga.fighter.util.Paintable;
  *
  */
 public class DisplayInfo extends Observable implements ViewDataSource{
-    
-    
+
+
 
     private List<Location> myLocations;
     private List<Paintable> myGamePaintables;
@@ -26,6 +29,9 @@ public class DisplayInfo extends Observable implements ViewDataSource{
     private List<Dimension> myImageSizes;
     private List<List<Integer>> myImageEffects;
 
+    /**
+     * Constructer, constructs lists. 
+     */
     public DisplayInfo() {
         myLocations = new ArrayList<Location>();
         myGamePaintables = new ArrayList<Paintable>();
@@ -33,11 +39,10 @@ public class DisplayInfo extends Observable implements ViewDataSource{
         myImageSizes = new ArrayList<Dimension>();
         myImageEffects = new ArrayList<List<Integer>>();
     }
-	
+
     /**
      * @return object location at list index
      */
-
     public Paintable getPaintable (int index) {
         if (index >= myGamePaintables.size()) {
             return myHUDPaintables.get(index - myGamePaintables.size());
@@ -45,6 +50,9 @@ public class DisplayInfo extends Observable implements ViewDataSource{
         return myGamePaintables.get(index);
     }
 
+    /**
+     * Returns location
+     */
     public Location getLocation(int index) {
         if (index >= myGamePaintables.size()) {
             return new Location(0,0);
@@ -61,7 +69,7 @@ public class DisplayInfo extends Observable implements ViewDataSource{
         }
         return myImageSizes.get(index);
     }
-    
+
     /**
      * @param myLocations the mySpriteLocations to set
      */
@@ -91,10 +99,19 @@ public class DisplayInfo extends Observable implements ViewDataSource{
         myGamePaintables = gamePaintables;
     }
 
+    /**
+     * Set a paintable
+     * @param index
+     * @param p
+     */
     public void setGamePaintable(int index, Paintable p) {
         myGamePaintables.set(index, p);
     }
-    
+
+    /**
+     * Get List of Image sizes dimensions
+     * @return
+     */
     public List<Dimension> getImageSizes() {
         return myImageSizes;
     }
@@ -107,7 +124,7 @@ public class DisplayInfo extends Observable implements ViewDataSource{
     }
 
     /**
-     * 
+     * Sets the size
      */
     public void setSize(int index, Dimension dim) {
         myImageSizes.set(index, dim);
@@ -119,44 +136,73 @@ public class DisplayInfo extends Observable implements ViewDataSource{
     protected List<Location> getLocations() {
         return myLocations;
     }
-    
+
+    /**
+     * Clear lists
+     */
     public void clear(){
         myGamePaintables.clear();
         myImageSizes.clear();
         myLocations.clear();
     }
-    
-    public int ObjectNumber (){
-    	return myGamePaintables.size() + myHUDPaintables.size();
-    }
-    
-    public void update(){
-    }
-   
 
+    /**
+     * Returns numbre of objects
+     */
+    public int ObjectNumber (){
+        return myGamePaintables.size() + myHUDPaintables.size();
+    }
+
+    
+    /**Empty update for 
+     * heirarchy purposes. 
+     */
+    public void update(){
+
+    }
+
+
+    /**
+     * Add to the HUD an element
+     * @param element
+     */
     public void addHUDDisplay (Paintable element) {
         myHUDPaintables.add(element);
     }
-    
+
+    /**
+     * Clears hud
+     */
     public void clearHUD () {
         myHUDPaintables.clear();
     }
-    
+
+    /**
+     * Add effects
+     * @param effects
+     */
     public void addImageEffect(List<Integer> effects) {
         myImageEffects.add(effects);
     }
 
+    /**
+     * Return effects
+     * @return myImageEffects
+     */
     public List<List<Integer>> getImageEffects(){
-    	return myImageEffects;
+        return myImageEffects;
     }
-    
-	public List<Integer> getImageEffects(int index) {
-		if (index >= myGamePaintables.size()) {
-			return new ArrayList<Integer>();
-		}
-		return myImageEffects.get(index);
-	}
 
-   
+    /**
+     * Returns effect at index
+     */
+    public List<Integer> getImageEffects(int index) {
+        if (index >= myGamePaintables.size()) {
+            return new ArrayList<Integer>();
+        }
+        return myImageEffects.get(index);
+    }
+
+
 
 }
