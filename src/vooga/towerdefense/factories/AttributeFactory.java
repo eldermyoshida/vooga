@@ -19,6 +19,7 @@ public class AttributeFactory {
     /**
      * Creates an attribute with a value 
      * default value defined in the xml file
+     * or potentially a 
      * @return
      */
     public Attribute create() {
