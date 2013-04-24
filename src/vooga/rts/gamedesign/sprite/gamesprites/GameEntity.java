@@ -2,11 +2,13 @@ package vooga.rts.gamedesign.sprite.gamesprites;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import vooga.rts.ai.AstarFinder;
 import vooga.rts.ai.Path;
 import vooga.rts.ai.PathFinder;
 import vooga.rts.gamedesign.state.EntityState;
 import vooga.rts.gamedesign.state.MovementState;
 import vooga.rts.map.GameMap;
+import vooga.rts.state.GameState;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Vector;
@@ -30,7 +32,6 @@ public class GameEntity extends GameSprite {
     // Default velocity magnitude
     public static int DEFAULT_SPEED = 0;
     private Vector myVelocity;
-    private GameMap myMap;
     private int myMaxHealth;
     private int myCurrentHealth;
     private PathFinder myFinder;
@@ -52,6 +53,46 @@ public class GameEntity extends GameSprite {
         myGoal = new Location3D(center);
         myEntityState = new EntityState();
         mySpeed = DEFAULT_SPEED;
+        myPath = new Path();
+        myFinder = new AstarFinder();
+    }
+
+    /**
+     * Updates the shape's location.
+     */
+    // TODO: make Velocity three dimensional...
+    public void update (double elapsedTime) {    
+        Vector v = getWorldLocation().difference(myGoal.to2D());       
+        if(v.getMagnitude() < Location3D.APPROX_EQUAL) {
+            if(myPath.size() == 0) {                
+                setVelocity(v.getAngle(), 0);
+                myEntityState.setMovementState(MovementState.STATIONARY); // What is STATIONARY FOR?
+            }
+            else {
+                myGoal = myPath.getNext();
+            }
+        }
+        else {
+           setVelocity(v.getAngle(), getSpeed());
+            myEntityState.setMovementState(MovementState.MOVING);
+        }
+        Vector velocity = new Vector(myVelocity);
+        System.out.println("Vecotr direction: " + velocity.getAngle());
+        velocity.scale(elapsedTime);
+        translate(velocity);
+        stopMoving();
+        myEntityState.update(elapsedTime);
+        super.update(elapsedTime);
+    }
+
+    /**
+     * Moves the Unit only. Updates first the angle the Unit is facing, and then
+     * its location. Possible design choice error.
+     */
+    public void move (Location3D loc) {
+       myPath = GameState.getMap().getPath(myFinder, getWorldLocation(), loc);
+       myGoal = myPath.getNext();
+       System.out.println("MY next in path: " + myGoal.toString());
     }
 
     /**
@@ -172,25 +213,6 @@ public class GameEntity extends GameSprite {
     }
 
     /**
-     * Moves the Unit only. Updates first the angle the Unit is facing, and then
-     * its location. Possible design choice error.
-     */
-    public void move (Location3D loc) {
-        myGoal = new Location3D(loc);
-        Vector v = getWorldLocation().difference(myGoal.to2D());
-
-        // magic numero
-        if (v.getMagnitude() < Location3D.APPROX_EQUAL) {
-            setVelocity(v.getAngle(), 0);
-            myEntityState.setMovementState(MovementState.STATIONARY);
-        }
-        else {
-            setVelocity(v.getAngle(), getSpeed());
-            myEntityState.setMovementState(MovementState.MOVING);
-        }
-    }
-
-    /**
      * Returns the speed of the entity.
      * 
      * @return the speed of the entity
@@ -229,28 +251,6 @@ public class GameEntity extends GameSprite {
                 myFinder.calculatePath(map.getNodeMap().getNode(getWorldLocation()), map
                         .getNodeMap().getNode(location), map.getNodeMap());
         // myGoal = myPath.getNext();
-    }
-
-    /**
-     * Updates the shape's location.
-     */
-    // TODO: make Velocity three dimensional...
-    public void update (double elapsedTime) {
-
-        if (getWorldLocation().near(myGoal)) {
-            myEntityState.setMovementState(MovementState.STATIONARY);
-        }
-        move(myGoal);
-        stopMoving();
-
-        Vector v = new Vector(myVelocity);
-        v.scale(elapsedTime);
-        if (v.getMagnitude() > 0) {
-            System.out.println(v);
-        }
-        translate(v);
-        myEntityState.update(elapsedTime);
-        super.update(elapsedTime);
     }
 
     public void changeHealth (int change) {
