@@ -5,6 +5,8 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.ObjectInputStream.GetField;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import vooga.rts.IGameLoop;
 import vooga.rts.ai.Path;
@@ -111,6 +113,15 @@ public class GameMap implements IGameLoop {
             // TODO: whether same or different
             inRange.addAll(n.<T> filterGameSprites(n.getContents(), type, teamID, same));
         }
+        
+        final Location3D loca = loc;
+        Collections.sort(inRange, new Comparator<T>() {
+            @Override
+            public int compare (T o1, T o2) {                
+                return (int)(o2.getWorldLocation().getDistance(loca) - o1.getWorldLocation().getDistance(loca));  
+            }
+            
+        });
         return inRange;
     }
 

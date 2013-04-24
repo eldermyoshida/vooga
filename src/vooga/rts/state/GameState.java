@@ -200,13 +200,13 @@ public class GameState extends SubState implements Controller {
                                                      new Dimension(50, 50), 0, 200, "mineral"));
         }
         
-        /*
+        
         for (int j = 0; j < 10; j++) {
-            getMap().getTerrain().add(new Terrain(new Pixmap("gold.png"),
+            getMap().getTerrain().add(new Terrain(new Pixmap("images/gold.png"),
                                                      new Location3D(100, 100, j*25),
                                                      new Dimension(50, 50)));
         }
-        */
+        
         
         Garrison garrison =
                 new Garrison(new Pixmap(ResourceManager.getInstance()
