@@ -123,8 +123,10 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
                                            new ActionListener() {
                                                @Override
                                                public void actionPerformed (ActionEvent arg0) {
-                                                   requestJoinLobby(myServerBrowserView
-                                                           .getSelectedID());
+                                                   if (myServerBrowserView.hasSelected()) {
+                                                       requestJoinLobby(myServerBrowserView
+                                                               .getSelectedID());
+                                                   }
                                                }
                                            });
     }
@@ -179,7 +181,7 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
                                                @Override
                                                public void actionPerformed (ActionEvent arg0) {
                                                    if (myLobbyInfo.canStartGame()) {
-                                                       startGame(); 
+                                                       startGame();
                                                    }
                                                }
                                            });
