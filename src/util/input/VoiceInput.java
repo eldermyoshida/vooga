@@ -59,7 +59,7 @@ public class VoiceInput extends InputDevice implements Runnable {
     private void setVoiceManager() {
         voiceManager = new ConfigurationManager(
                 VoiceInput.class.getResource(configFilePath));
-        System.out.println(configFilePath);
+        //System.out.println(configFilePath);
         myRecognizer = (Recognizer) voiceManager.lookup("recognizer");
         myRecognizer.allocate();
         Microphone microphone = (Microphone) voiceManager.lookup("microphone");
