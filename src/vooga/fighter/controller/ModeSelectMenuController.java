@@ -30,7 +30,8 @@ import java.util.ResourceBundle;
 
 public class ModeSelectMenuController extends MenuController {
 	
-    private static final String FILE_NAME = "vooga.fighter.config.ModeCharacterNumbers";
+    private static final String FILE_NAME = "config.ModeCharacterNumbers";
+    private String myFileName;
     private ResourceBundle myResources;
     
     public ModeSelectMenuController () {
@@ -39,13 +40,15 @@ public class ModeSelectMenuController extends MenuController {
     }
         
     public ModeSelectMenuController(String name, Canvas frame, ControllerDelegate manager, 
-                GameInfo gameinfo) {
-        super(name, frame, manager, gameinfo);
-        myResources = ResourceBundle.getBundle(FILE_NAME);
+                GameInfo gameinfo, String pathway) {
+        super(name, frame, manager, gameinfo, pathway);
+        myFileName = getHardFilePath() + FILE_NAME;
+        myResources = ResourceBundle.getBundle(myFileName);
     }
     
-    public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo) {
-        Controller controller = new ModeSelectMenuController(name, frame, manager, gameinfo);
+    public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo,
+    		String pathway) {
+        Controller controller = new ModeSelectMenuController(name, frame, manager, gameinfo, pathway);
         return controller;
     }
     /**

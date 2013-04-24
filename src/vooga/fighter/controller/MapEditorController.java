@@ -1,17 +1,14 @@
 package vooga.fighter.controller;
 
-import java.util.ArrayList;
 import java.util.List; 
 
-import util.input.src.input.Input;
-import vooga.fighter.input.AlertObject;
-import vooga.fighter.input.InputClassTarget;
-import vooga.fighter.input.InputMethodTarget;
-import vooga.fighter.input.PositionObject;
-import vooga.fighter.model.LevelMode;
+
+import util.input.AlertObject;
+import util.input.InputClassTarget;
+import util.input.InputMethodTarget;
+import util.input.PositionObject;
 import vooga.fighter.model.MapEditorMode;
 import vooga.fighter.model.Mode;
-import vooga.fighter.model.objects.CharacterObject;
 import vooga.fighter.model.objects.EnvironmentObject;
 import vooga.fighter.model.objects.MapObject;
 import vooga.fighter.util.CollisionManager;
@@ -28,7 +25,8 @@ import vooga.fighter.view.Canvas;
 @InputClassTarget
 public class MapEditorController extends Controller{
 	
-	    private static final String INPUT_PATHWAY = "vooga.fighter.input.MapEditorMapping_en_US";
+	    private static final String INPUT_PATHWAY = "MapEditorMapping_en_US";
+	    private String myInputPathway;
 	    private MapEditorMode myEditTarget;
 
 	    /**
@@ -46,18 +44,20 @@ public class MapEditorController extends Controller{
 	     * @param gameinfo
 	     */
 	    public MapEditorController(String name, Canvas frame, ControllerDelegate manager, 
-                GameInfo gameinfo) {
-	    	super(name, frame, manager, gameinfo);
+                GameInfo gameinfo, String pathway) {
+	    	super(name, frame, manager, gameinfo, pathway);
+	    	myInputPathway = getHardFilePath() + INPUT_PATHWAY;
 	    	setInput(manager.getInput());
-	    	getInput().replaceMappingResourcePath(INPUT_PATHWAY);
+	    	getInput().replaceMappingResourcePath(myInputPathway);
 	    	getInput().addListenerTo(this);
 	    }
 	    
 	    /**
 	     * loads relevant data into this controller and returns it
 	     */
-	    public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo) {
-	        Controller controller = new MainMenuController(name, frame, manager, gameinfo);
+	    public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo,
+	    		String pathway) {
+	        Controller controller = new MainMenuController(name, frame, manager, gameinfo, pathway);
 	        return controller;
 	    }
 
@@ -80,7 +80,7 @@ public class MapEditorController extends Controller{
 	     * loads the mode for this controller
 	     */
 	    public void loadMode() {
-	        MapEditorMode temp = new MapEditorMode(new CollisionManager());
+	        MapEditorMode temp = new MapEditorMode(new CollisionManager(), getHardFilePath());
 	        super.setMode((Mode) temp);
 	    }
 	    
@@ -110,7 +110,7 @@ public class MapEditorController extends Controller{
 	     * Loads the environment objects for a map using the ObjectLoader.
 	     */
 	    public void loadMap(String mapName) {
-	    	getMode().setMap(new MapObject(mapName));
+	    	getMode().setMap(new MapObject(mapName, getHardFilePath()));
 	        List<EnvironmentObject> mapObjects = getMode().getMap().getEnviroObjects();
 	        for (EnvironmentObject object : mapObjects) {
 	        	getMode().addObject(object);
@@ -247,9 +247,10 @@ public class MapEditorController extends Controller{
 	    	myEditTarget.setName(newName);
 	    }
 	    
+	    //not used
 	    public void checkConditions() {
 	    }
-	    
+	    //not used
 	    public void developerUpdate() {
 	    	
 	    }

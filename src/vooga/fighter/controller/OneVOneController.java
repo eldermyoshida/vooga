@@ -27,7 +27,8 @@ import vooga.fighter.view.FourPlayerMatchGameLayout;
  */
 @InputClassTarget
 public class OneVOneController extends LevelController {
-    private static final String INPUT_PATHWAY = "vooga.fighter.config.leveldefault";
+    private static final String INPUT_PATHWAY = "config.leveldefault";
+    private String myInputPathway;
     private List<Force> myForces;
     
     public OneVOneController () {
@@ -35,8 +36,9 @@ public class OneVOneController extends LevelController {
     }   
 	
     public OneVOneController(String name, Canvas frame, ControllerDelegate manager, 
-    		GameInfo gameinfo) {
-    	super(name, frame, manager, gameinfo);
+    		GameInfo gameinfo, String filepath) {
+    	super(name, frame, manager, gameinfo, filepath);
+    	myInputPathway = getHardFilePath() + INPUT_PATHWAY;
     	ForceFactory forcefactory = new ForceFactory();
     	myForces = forcefactory.getForces();
     	getMode().setForces(myForces);
@@ -54,8 +56,9 @@ public class OneVOneController extends LevelController {
         }
     }
     
-    public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo) {
-        Controller controller = new OneVOneController(name, frame, manager, gameinfo);
+    public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo,
+    		String filepath) {
+        Controller controller = new OneVOneController(name, frame, manager, gameinfo, filepath);
         return controller;
     }
     

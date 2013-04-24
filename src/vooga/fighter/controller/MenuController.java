@@ -34,7 +34,8 @@ import java.util.ResourceBundle;
 @InputClassTarget
 public abstract class MenuController extends Controller {
 
-    private static final String INPUT_PATHWAY = "vooga.fighter.config.menudefault";
+    private static final String INPUT_PATHWAY = "config.menudefault";
+    private String myInputPathway;
     private List<ModeCondition> myEndConditions;
 
     public MenuController () {
@@ -43,10 +44,11 @@ public abstract class MenuController extends Controller {
     
     
     public MenuController(String name, Canvas frame, ControllerDelegate manager, 
-    		GameInfo gameinfo) {
-    	super(name, frame, manager, gameinfo);
+    		GameInfo gameinfo, String pathway) {
+    	super(name, frame, manager, gameinfo, pathway);
+    	myInputPathway = getHardFilePath() + INPUT_PATHWAY;
         setInput(manager.getInput());
-        getInput().replaceMappingResourcePath(INPUT_PATHWAY);
+        getInput().replaceMappingResourcePath(myInputPathway);
         getInput().addListenerTo(this);
     	DisplayLoopInfo LoopInfo =  new DisplayLoopInfo(super.getMode());
     	setLoopInfo(LoopInfo);
@@ -59,7 +61,7 @@ public abstract class MenuController extends Controller {
         super.setMode(mode);
     }
     public void initializeMode () {
-        MenuGrid grid = new MenuGrid(getMode().getName(), getMode());
+        MenuGrid grid = new MenuGrid(getMode().getName(), getMode(), getHardFilePath());
         getMode().setMenuGrid(grid);
         getMode().setMenuObjects(grid.getMenuObjects());
         getMode().update();
@@ -67,12 +69,12 @@ public abstract class MenuController extends Controller {
     
     @InputMethodTarget(name = "continue")
     public void mouseclick(PositionObject pos)  {
-        getMode().addObject(new MouseClickObject(pos.getPoint2D()));
+        getMode().addObject(new MouseClickObject(pos.getPoint2D(), getHardFilePath()));
     }
     
     @InputMethodTarget(name = "move")
     public void mousemove(PositionObject pos)  {
-        getMode().addObject(new MouseObject(pos.getPoint2D()));
+        getMode().addObject(new MouseObject(pos.getPoint2D(), getHardFilePath()));
     }
     
     public void developerUpdate(){

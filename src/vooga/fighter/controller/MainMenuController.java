@@ -35,15 +35,16 @@ public class MainMenuController extends MenuController {
         super();
     }
     
-    public MainMenuController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo) {
-        super(name, frame, manager, gameinfo);
+    public MainMenuController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo,
+    		String pathway) {
+        super(name, frame, manager, gameinfo, pathway);
         getGameInfo().reset();
         setInput(manager.getInput());
         getInput().addListenerTo(this);
     }
     
-    public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo) {
-        Controller controller = new MainMenuController(name, frame, manager, gameinfo);
+    public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo, String pathway) {
+        Controller controller = new MainMenuController(name, frame, manager, gameinfo, pathway);
         return controller;
     }
     

@@ -35,12 +35,13 @@ public class MapSelectController extends MenuController {
     }
         
     public MapSelectController(String name, Canvas frame, ControllerDelegate manager, 
-                GameInfo gameinfo) {
-        super(name, frame, manager, gameinfo);
+                GameInfo gameinfo, String pathway) {
+        super(name, frame, manager, gameinfo, pathway);
     }
     
-    public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo) {
-        Controller controller = new MapSelectController(name, frame, manager, gameinfo);
+    public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo,
+    		String pathway) {
+        Controller controller = new MapSelectController(name, frame, manager, gameinfo, pathway);
         return controller;
     }
     

@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.swing.Timer;
 
@@ -43,10 +44,15 @@ import vooga.fighter.view.Canvas;
  */
 
 public abstract class LevelController extends Controller {
-    private static final String INPUT_PATHWAY = "vooga.fighter.config.leveldefault";
+    private static final String INPUT_PATHWAY = "config.leveldefault";
+    private static final String SCORE_PATHWAY = "config.score";
+    private static final String SCORE = "ScoreScreen";
     private List<CharacterObject> myInputObjects;
     private List<ModeCondition> myWinConditions;
     private List<ModeCondition> myUniqueConditions;
+    String myInputPathway;
+    String myScorePathway;
+    private ResourceBundle myResource;
 
     public LevelController () {
         super();
@@ -56,7 +62,10 @@ public abstract class LevelController extends Controller {
                 GameInfo gameinfo, String filePath) {
         super(name, frame, manager, gameinfo, filePath);
         setInput(manager.getInput());
-        getInput().replaceMappingResourcePath(INPUT_PATHWAY);
+        myInputPathway = getHardFilePath() + INPUT_PATHWAY;
+        myScorePathway = getHardFilePath() + SCORE_PATHWAY;
+        myResource = ResourceBundle.getBundle(myScorePathway);
+        getInput().replaceMappingResourcePath(myInputPathway);
         getInput().addListenerTo(this);
         GameLoopInfo gameLoopInfo = new GameLoopInfo((LevelMode) getMode());
         setLoopInfo(gameLoopInfo);
@@ -152,7 +161,7 @@ public abstract class LevelController extends Controller {
      */
     public void checkConditions(){
     	for(ModeCondition condition : getWinConditions()){
-    		if(condition.checkCondition(getMode())) getManager().notifyEndCondition("ScoreScreen");
+    		if(condition.checkCondition(getMode())) getManager().notifyEndCondition(myResource.getString(SCORE));
     	}
     }
     
@@ -196,7 +205,7 @@ public abstract class LevelController extends Controller {
      * Loads the environment objects for a map using the ObjectLoader.
      */
     protected void loadMap(String mapName) {
-    	getMode().setMap(new MapObject(mapName));
+    	getMode().setMap(new MapObject(mapName, getHardFilePath()));
         List<EnvironmentObject> mapObjects = getMode().getMap().getEnviroObjects();
         for (EnvironmentObject object : mapObjects) {
         	getMode().addObject(object);
@@ -210,7 +219,7 @@ public abstract class LevelController extends Controller {
         for (int i = 0; i < characterNames.size(); i++) {
             String charName = characterNames.get(i);
             UpdatableLocation start = startingPos.get(i);
-            CharacterObject newCharacter = new CharacterObject(charName, start);
+            CharacterObject newCharacter = new CharacterObject(charName, start, getHardFilePath());
             getMode().addObject(newCharacter);
             getMode().addCharacter(newCharacter);
         }

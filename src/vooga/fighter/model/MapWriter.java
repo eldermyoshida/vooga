@@ -1,9 +1,7 @@
 package vooga.fighter.model;
 
-import java.util.ArrayList; 
 import java.util.List;
 
-import javax.xml.transform.TransformerException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -22,14 +20,13 @@ import vooga.fighter.model.utils.UpdatableLocation;
  *
  */
 public class MapWriter {
-	private static final String INPUT_PATHWAY = "vooga.fighter.config.maps";
 	private MapObject myWriteSource;
-	private ArrayList<String> myWriteOutLines;
 	private XMLTool myXMLWriter;
-	private Element myFakeRoot; 
 	private Element myRoot;
+	//sound in maps has not yet been implemented
 	private String mySoundFilePath;
 	private List<String> myBackgroundFilePaths;
+    private String myFilePath;
 	
 	/**
 	 * constructor
@@ -37,7 +34,8 @@ public class MapWriter {
 	 * @param soundFilePath
 	 * @param backgroundFilePaths
 	 */
-	public MapWriter(MapObject map, String soundFilePath, List<String> backgroundFilePaths) {
+	public MapWriter(MapObject map, String soundFilePath, List<String> backgroundFilePaths, String filepath) {
+		myFilePath= filepath;
 		myWriteSource = map;
 		myXMLWriter = new XMLTool();
 		myBackgroundFilePaths = backgroundFilePaths;
@@ -48,15 +46,14 @@ public class MapWriter {
 	 */
 	public void writeMap() {
 		myXMLWriter.makeDoc();
-		String name = myWriteSource.getName();
 		List<UpdatableLocation> startingPos = myWriteSource.getStartPositions();
 		List<EnvironmentObject> enviroObjects = myWriteSource.getEnviroObjects();
-		//start writeout
 		writeMapHeader();
 		for(UpdatableLocation loc: startingPos) {
 			writeStartPos(loc);
 		}
 		writeStates();
+		writeSound();
 		for(EnvironmentObject enviro: enviroObjects) {
 			writeEnvironmentObject(enviro);
 		}
@@ -90,6 +87,18 @@ public class MapWriter {
 	}
 	
 	/**
+	 * writes the sound information to xml nodes
+	 * currently writes just the filepath
+	 */
+	private void writeSound() {
+		Element soundHead = myXMLWriter.makeElement("sound");
+		myXMLWriter.addChild(myRoot, soundHead);
+		Element sound = myXMLWriter.makeElement("soundFile");
+		sound.setAttribute("sound", mySoundFilePath);
+		myXMLWriter.addChild(soundHead, sound);
+	}
+	
+	/**
 	 * writes the map header info to an xml node
 	 * the map header includes the map name and the dimensions.
 	 */
@@ -119,8 +128,7 @@ public class MapWriter {
 	 * If the map already exists, overwrites that data, if not, adds a new map.
 	 */
 	private void writeToFile() {
-		MapLoader loader = new MapLoader();
-		boolean overwrote = false;
+		MapLoader loader = new MapLoader(myFilePath);
 		Document doc = loader.getDocument();
 		Element root = doc.getDocumentElement();
 		NodeList mapNodes = doc.getElementsByTagName("map");

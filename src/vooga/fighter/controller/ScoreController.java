@@ -31,23 +31,21 @@ import java.util.ResourceBundle;
 public class ScoreController extends MenuController {
         
     private ResourceBundle myResources;
-    
-    
-  
-    
+
     public ScoreController () {
         super();
     }
         
     public ScoreController(String name, Canvas frame, ControllerDelegate manager, 
-                GameInfo gameinfo) {
-        super(name, frame, manager, gameinfo);
+                GameInfo gameinfo, String filePath) {
+        super(name, frame, manager, gameinfo, filePath);
         ScoreInfo scoreInfo = new ScoreInfo();
         scoreInfo.setWinners(gameinfo.getWinners());
     }
     
-    public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo) {
-        Controller controller = new ScoreController(name, frame, manager, gameinfo);
+    public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo,
+    		String filepath) {
+        Controller controller = new ScoreController(name, frame, manager, gameinfo, filepath);
         return controller;
     }
     
@@ -63,7 +61,7 @@ public class ScoreController extends MenuController {
     
     @InputMethodTarget(name = "continue")
     public void mouseclick(PositionObject pos)  {
-        super.getMode().addObject(new MouseClickObject(pos.getPoint2D()));
+        super.getMode().addObject(new MouseClickObject(pos.getPoint2D(), getHardFilePath()));
     }
     
 

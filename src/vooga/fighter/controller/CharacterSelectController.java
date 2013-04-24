@@ -48,8 +48,8 @@ public class CharacterSelectController extends MenuController {
      * @param gameinfo  GameInfo
      */
     public CharacterSelectController(String name, Canvas frame, ControllerDelegate manager, 
-                                     GameInfo gameinfo) {
-        super(name, frame, manager, gameinfo);
+                                     GameInfo gameinfo, String filepath) {
+        super(name, frame, manager, gameinfo, filepath);
         myCharLimit = getGameInfo().getNumCharacters();
         myCharIndex = 0;
     }
@@ -57,8 +57,9 @@ public class CharacterSelectController extends MenuController {
     /**
      * returns concrete controller
      */
-    public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo) {
-        Controller controller = new CharacterSelectController(name, frame, manager, gameinfo);
+    public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo,
+    		String filepath) {
+        Controller controller = new CharacterSelectController(name, frame, manager, gameinfo, filepath);
         return controller;
     }
 

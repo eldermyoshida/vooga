@@ -17,24 +17,24 @@ public class EnvironmentObject extends GameObject {
 	/**
 	 * Constructs a new EnvironmentObject without a given center; used for level editor.
 	 */
-	public EnvironmentObject(String name) {
+	public EnvironmentObject(String name, String pathHierarchy) {
 		super();
-		init(name);
+		init(name, pathHierarchy);
 	}
 	
     /**
      * Constructs a new EnvironmentObject with the given image, center, and size.
      * In the future this will use the object loader to read from XML.
      */
-    public EnvironmentObject(String name, UpdatableLocation center) {
+    public EnvironmentObject(String name, UpdatableLocation center, String pathHierarchy) {
         super();
         setLocation(center);
-        init(name);
+        init(name, pathHierarchy);
     }
     
-    private void init(String name) {
+    private void init(String name, String pathHierarchy) {
     	myName = name;
-        setLoader(new EnvironmentObjectLoader(name, this));
+        setLoader(new EnvironmentObjectLoader(name, this, pathHierarchy));
         setCurrentState("default");
         getCurrentState().setLooping(true);
         setImageData();

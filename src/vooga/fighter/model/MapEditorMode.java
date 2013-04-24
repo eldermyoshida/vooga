@@ -1,20 +1,16 @@
 package vooga.fighter.model;
 
-import java.awt.Dimension; 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
 import util.Location;
-import util.input.src.input.PositionObject;
 import vooga.fighter.model.loaders.EnvironmentObjectLoader;
-import vooga.fighter.model.objects.CharacterObject;
 import vooga.fighter.model.objects.EnvironmentObject;
 import vooga.fighter.model.objects.GameObject;
 import vooga.fighter.model.objects.MapObject;
 import vooga.fighter.model.objects.MouseClickObject;
 import vooga.fighter.model.utils.ImageDataObject;
-import vooga.fighter.model.utils.State;
 import vooga.fighter.model.utils.UpdatableLocation;
 import vooga.fighter.util.CollisionManager;
 
@@ -37,9 +33,11 @@ public class MapEditorMode extends Mode {
     private int numPlayers;
     private List<String> myBackgroundPaths; //filepath to background image
     private String mySoundPath; //filepath to sound
+    private String myFilePath;
 
-    public MapEditorMode (CollisionManager cd) {
+    public MapEditorMode (CollisionManager cd, String filepath) {
         super(cd);
+        myFilePath = filepath;
         currentPlayer = 0;
         myEnviroIndex = 0;
         numPlayers = NUM_PLAYERS;
@@ -47,8 +45,8 @@ public class MapEditorMode extends Mode {
         myMap = null;
         myEnviroObjects = new ArrayList<EnvironmentObject>();
         myCurrentSelection = null;
-        EnvironmentObjectLoader loader = new EnvironmentObjectLoader();
-        myEnviroObjects = (ArrayList<EnvironmentObject>)loader.getEnvironmentObjects();
+        EnvironmentObjectLoader loader = new EnvironmentObjectLoader(myFilePath);
+        myEnviroObjects = (ArrayList<EnvironmentObject>)loader.getEnvironmentObjects(myFilePath);
         initializeEnviroObjects();
         myBackgroundPaths = new ArrayList<String>();
         
@@ -90,12 +88,6 @@ public class MapEditorMode extends Mode {
         handleCollisions();
         for (int i = 0; i < myObjects.size(); i++) {
             GameObject object = myObjects.get(i);
-            State state = object.getCurrentState();
-            // System.out.printf("Updating %s:\n", object.getClass().toString());
-            // System.out.printf("Object current state:\ncurrentFrame: %d\nnumFrames: %d\nNull checks:\nImage: %b\nRectangle: %b\nSize: %b\n",
-            // state.myCurrentFrame, state.myNumFrames, (state.getCurrentImage()==null),
-            // (state.getCurrentRectangle()==null),
-            // (state.getCurrentSize()==null));
             object.update();
             if (object.shouldBeRemoved()) {
                 myObjects.remove(object);
@@ -108,7 +100,7 @@ public class MapEditorMode extends Mode {
      * Loads the environment objects for a map using the ObjectLoader.
      */
     public void loadMap (String mapName) {
-        myMap = new MapObject(mapName);
+        myMap = new MapObject(mapName, myFilePath);
         addObject(myMap);
         List<EnvironmentObject> mapObjects = myMap.getEnviroObjects();
         for (EnvironmentObject object : mapObjects) {
@@ -136,7 +128,7 @@ public class MapEditorMode extends Mode {
      * @param point
      */
     public void objectSelect (Point2D point) {
-    	MouseClickObject click = new MouseClickObject(point);
+    	MouseClickObject click = new MouseClickObject(point, myFilePath);
     	addObject(click);
     	handleCollisions();
     	removeObject(click);
@@ -151,7 +143,7 @@ public class MapEditorMode extends Mode {
     	}
     	if(!removeExecuted) {
 	    	UpdatableLocation currentLoc = new UpdatableLocation(point.getX(), point.getY());
-	    	EnvironmentObject newObj = new EnvironmentObject(myCurrentSelection.getName(), currentLoc);
+	    	EnvironmentObject newObj = new EnvironmentObject(myCurrentSelection.getName(), currentLoc, myFilePath);
 	    	myMap.addEnviroObject(newObj);
 	    	addObject(newObj);
     	}
@@ -169,7 +161,8 @@ public class MapEditorMode extends Mode {
      * writes this mode's map to the xml file
      */
     public void writeMap() {
-    	MapWriter writer = new MapWriter(myMap, mySoundPath, myBackgroundPaths);
+    	MapWriter writer = new MapWriter(myMap, mySoundPath, myBackgroundPaths, myFilePath);
+    	writer.writeMap();
     }
 
     /**
