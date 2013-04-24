@@ -15,6 +15,7 @@ import vooga.fighter.model.objects.MouseClickObject;
 import vooga.fighter.util.HUDVariable;
 import vooga.fighter.util.Paintable;
 import vooga.fighter.view.Canvas;
+import vooga.fighter.view.ScoreScreenLayout;
 
 import java.awt.Dimension;
 import java.util.List;
@@ -41,6 +42,7 @@ public class ScoreController extends MenuController {
         super(name, frame, manager, gameinfo, filePath);
         ScoreInfo scoreInfo = new ScoreInfo(filePath);
         scoreInfo.setWinners(gameinfo.getWinners());
+        this.getView().setLayout(new ScoreScreenLayout());
     }
     
     public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo,
