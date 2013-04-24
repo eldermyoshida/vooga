@@ -163,17 +163,6 @@ public abstract class GameEditorScreen extends JPanel {
         };
         return myMouseAdapter;
     }
-
-    public void handleMultipleScreens () {
-        try {
-            myController.displayNextScreen(myMulNextScreenName);
-        }
-        catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-                | SecurityException | NoSuchMethodException | IllegalArgumentException
-                | InvocationTargetException e) {
-            e.printStackTrace();
-        }
-    }
     
     /**
      * adds the specific element to the XML file.

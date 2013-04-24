@@ -34,7 +34,7 @@ public class MapsSelectorScreen extends SelectScreen {
     private static final String CHECKED_IMAGE = "checked.gif";
     private static final long serialVersionUID = 1L;
     private static final Dimension SIZE = new Dimension(200, 200);
-    private static final String PATH = "vooga.towerdefense.view.precreatedmaps";
+    private static final String PATH = "/vooga/towerdefense/view/precreatedmaps/tdmap1.xml";
     private MouseAdapter myMouseListener;
     private Pixmap myMap1;
     private Pixmap myMap2;
