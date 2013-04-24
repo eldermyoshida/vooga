@@ -44,11 +44,11 @@ public class ExampleAuraTowerFactory extends GameElementFactory {
         GameElement myTower;
         if (putHere != null) {
             myTower = new GameElement(def.getImage(), putHere,
-                                      new Dimension(50, 50), AM, DefinitionConstants.DEFAULT_TOWER_NAME);
+                                      new Dimension(50, 50), AM);
         }
         else {
             myTower = new GameElement(def.getImage(),
-                                      def.getCenter(), def.getSize(), AM, DefinitionConstants.DEFAULT_TOWER_NAME);
+                                      def.getCenter(), def.getSize(), AM);
         }
         
         myTower.addActions(createActions(myTower));
