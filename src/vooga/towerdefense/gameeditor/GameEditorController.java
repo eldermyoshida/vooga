@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 import javax.swing.JFrame;
 import org.w3c.dom.Element;
-import vooga.towerdefense.util.XMLTool;
+import util.XMLTool;
 
 
 /**
