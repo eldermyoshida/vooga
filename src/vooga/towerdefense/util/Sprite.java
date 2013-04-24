@@ -59,25 +59,6 @@ public abstract class Sprite {
         resetBounds();
     }
 
-    /**
-     * Describes how to "animate" the shape by changing its state.
-     * 
-     * Currently, moves by the current velocity.
-     */
-    public void update (double elapsedTime, Dimension bounds) {
-        // do not change original velocity
-        Vector v = new Vector(myVelocity);
-        //v.scale(elapsedTime);
-        //translate(v);
-    }
-
-    /**
-     * Moves shape's center by given vector.
-     */
-    public void translate (Vector v) {
-        myCenter.translate(v);
-        resetBounds();
-    }
 
     /**
      * Resets shape's center.
