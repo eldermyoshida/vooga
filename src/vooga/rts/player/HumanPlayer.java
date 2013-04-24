@@ -62,17 +62,18 @@ public class HumanPlayer extends Player implements Observer {
     }
 
     private void createCommandMap () {
-        //myCommandMap.put(0, new ClickCommand("click", null));
+        // myCommandMap.put(0, new ClickCommand("click", null));
         // ... add more here
     }
-    
+
     @Override
     public void sendCommand (Command command) {
         // Check for camera movement
         if (myGameMenu.withinBoundary(command)) {
             myGameMenu.receiveCommand(command);
-        } else {
-        getManager().receiveCommand(command);
+        }
+        else {
+            getManager().receiveCommand(command);
         }
     }
 
