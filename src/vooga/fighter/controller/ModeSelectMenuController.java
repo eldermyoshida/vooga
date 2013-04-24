@@ -22,10 +22,13 @@ import java.util.ResourceBundle;
 
 /**
  * 
+ * controller for selecting game mode (1v1, 2v2)
+ * 
  * @author Jerry Li 
  * @author Jack Matteucci
  * 
  */
+
 
 
 public class ModeSelectMenuController extends MenuController {
@@ -34,11 +37,22 @@ public class ModeSelectMenuController extends MenuController {
     private String myFileName;
     private ResourceBundle myResources;
     
+    /**
+     * Initial constructor
+     */
     public ModeSelectMenuController () {
         super();
 
     }
-        
+     
+    /**
+     * COncrete constructor
+     * @param name      controller name 
+     * @param frame     canvas
+     * @param manager   controllermanager
+     * @param gameinfo  gameinfo
+     * @param pathway   filepath
+     */
     public ModeSelectMenuController(String name, Canvas frame, ControllerDelegate manager, 
                 GameInfo gameinfo, String pathway) {
         super(name, frame, manager, gameinfo, pathway);
@@ -46,6 +60,9 @@ public class ModeSelectMenuController extends MenuController {
         myResources = ResourceBundle.getBundle(myFileName);
     }
     
+    /**
+     * Return concrete controller
+     */
     public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo,
     		String pathway) {
         Controller controller = new ModeSelectMenuController(name, frame, manager, gameinfo, pathway);
@@ -54,7 +71,6 @@ public class ModeSelectMenuController extends MenuController {
     /**
      * Checks this controller's end conditions
      */
-    
     public void notifyEndCondition(String choice) {
     	removeListener();
     	getMode().resetChoice();
@@ -64,12 +80,18 @@ public class ModeSelectMenuController extends MenuController {
     		getManager().notifyEndCondition(getMode().getMenusNext(choice));
     		
     }
-
+    
+    /**
+     * removes input listener
+     */
     public void removeListener(){
     	super.removeListener();
     	getInput().removeListener(this);
     }
     
+    /**
+     * check modecondition
+     */
     public void checkConditions(){
     	for(ModeCondition condition: getConditions())
     		if(condition.checkCondition(getMode())) notifyEndCondition(getMode().peekChoice());
