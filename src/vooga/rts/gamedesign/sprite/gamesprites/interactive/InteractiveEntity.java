@@ -554,4 +554,8 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
 
     }
 
+	public void setUpgradeStrategy(UpgradeStrategy upgradeStrategy) {
+		myUpgradeStrategy = upgradeStrategy;
+	}
+
 }

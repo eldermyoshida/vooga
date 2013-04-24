@@ -68,6 +68,7 @@ public class UnitDecoder extends Decoder {
 			strategies[1] = getElement(nElement, OCCUPY_TAG);
 			strategies[2] = getElement(nElement, GATHER_TAG);
 			strategies[3] = getElement(nElement, UPGRADE_TAG);
+			System.out.println("UPGRADE TREE NAME FOUND: " + getElement(nElement, UPGRADE_TREE_NAME_TAG));
 			strategies[4] = getElement(nElement, UPGRADE_TREE_NAME_TAG);
 			
 			//Load Weapon Dependency

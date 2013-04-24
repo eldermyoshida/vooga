@@ -99,6 +99,7 @@ public class UpgradeDecoder extends Decoder {
 		printTree(upgradeTree);
 		System.out.println(treeName);
 		myFactory.put(treeName, upgradeTree);
+		System.out.println("tree put in factory: "+ treeName);
 	}
 	
 	private String loadSingleLine(Element element, String tag) {

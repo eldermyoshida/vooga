@@ -151,6 +151,15 @@ public class Factory {
 	}
 	
 	/**
+	 * Returns an Upgrade Strategy from a map of strategies. 
+	 * @param key
+	 * @return UpgradeStrategy
+	 */
+	public UpgradeStrategy getUpgradeStrategy(String key){
+		return (UpgradeStrategy) myStrategies.get(key);
+	}
+	
+	/**
 	 * Returns the whole map of Entities
 	 * (you do not need to return any other maps because entities encapsulate other objects).
 	 */
@@ -343,12 +352,29 @@ public class Factory {
 			mySprites.get(key).setOccupyStrategy(occupy);
 			GatherStrategy gather = (GatherStrategy) myStrategies.get(strategies[2]);
 			if (mySprites.get(key) instanceof Unit) {
+				System.out.println("find Unit for Gather");
 				((Unit)mySprites.get(key)).setGatherStrategy(gather);
 			}
 			UpgradeStrategy upgrade = (UpgradeStrategy) myStrategies.get(strategies[3]);
-			mySprites.get(key).setOccupyStrategy(occupy);
+			mySprites.get(key).setUpgradeStrategy(upgrade);
 			if (upgrade instanceof CanUpgrade) {
-				mySprites.get(key).setUpgradeTree(myUpgradeTrees.get(myStrategies.get(strategies[4])));
+				System.out.println("upgrade tree list size at the moment: " + myUpgradeTrees.size());
+				System.out.println(myUpgradeTrees.keySet());
+				System.out.println(strategies[4]);
+				System.out.println(myUpgradeTrees.containsKey(strategies[4]));
+				
+				UpgradeTree relatedUpgradeTree = myUpgradeTrees.get(strategies[4]);
+				if (relatedUpgradeTree == null) {
+					System.out.println("NULL TREE!!");
+				}
+				System.out.println("upgrade tree name: " + myStrategies.get(strategies[4]));
+				if (relatedUpgradeTree.getCurrentUpgrades() == null) {
+					System.out.println("NO CURRENT UPGRADE");
+				}
+				if (relatedUpgradeTree.getCurrentUpgrades().size() == 0) {
+					System.out.println("NO CURRENT UPGRADE SIZE");
+				}
+				mySprites.get(key).setUpgradeTree(relatedUpgradeTree);
 			}
 			
 		}

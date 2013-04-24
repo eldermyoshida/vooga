@@ -50,6 +50,7 @@ public class CanBeOccupied implements OccupyStrategy {
             myOccupierHashCodes.add(u.hashCode());
             entity.setChanged();
             u.getEntityState().setOccupyState(OccupyState.OCCUPYING);
+            u.setVisible(false);
             entity.notifyObservers(u);
         }
     }

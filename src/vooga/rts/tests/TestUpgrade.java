@@ -38,17 +38,9 @@ public class TestUpgrade {
 		Factory factory = new Factory();
 		factory.loadXMLFile("Factory.xml");
 
-		Soldier soldier = new Soldier();
+		Unit soldier = (Unit) factory.getInteractiveEntity("combat");
 		soldier.setAttackStrategy(new CannotAttack()); //sets soldier to cannot attack to test upgrade
-		for (String s: factory.getUpgradeTrees().keySet()) {
-			System.out.println(s);
-		}
-		UpgradeTree tree = factory.getUpgradeTrees().get("SoldierUpgrade");
-		if (tree == null) {
-			System.out.println("null");
-		}
 		
-		soldier.setUpgradeTree(tree);
 		try {
 			while (true) {
 				System.out.println("\n");
