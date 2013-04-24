@@ -135,6 +135,7 @@ public class DetailView extends JFrame {
         myComments.setBounds(ORIGIN_X, 400, LABEL_WIDTH, LABEL_HEIGHT);
 
         myCommentsContent = new JEditorPane();
+        myCommentsContent.setEditable(false);
         myCommentsContent.setContentType("text/html");
         constructCommentAreaContent();
         JScrollPane commentPane = new JScrollPane(myCommentsContent);
@@ -153,7 +154,7 @@ public class DetailView extends JFrame {
             @Override
             public void actionPerformed (ActionEvent arg0) {
                 double rating = Double.parseDouble(myRatingWriter.getText());
-                myController.commentAndRateGame(myRatingWriter.getText(), rating, myGameInfo.getName());
+                myController.commentAndRateGame(myCommentsWriter.getText(), rating, myGameInfo.getName());
             }
         });
         
@@ -161,6 +162,7 @@ public class DetailView extends JFrame {
 
         myContentPanel.add(myPicture);
         myContentPanel.add(myPlayButton);
+        myContentPanel.add(myBuyButton);
         myContentPanel.add(myTitle);
         myContentPanel.add(myGenre);
         myContentPanel.add(myRating);
