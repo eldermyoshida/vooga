@@ -9,7 +9,7 @@ import vooga.towerdefense.model.AStar.AreaMap;
 import vooga.towerdefense.model.AStar.DiagonalHeuristic;
 import vooga.towerdefense.model.tiles.Tile;
 import vooga.towerdefense.model.tiles.factories.TileFactory;
-import vooga.towerdefense.util.Location;
+import util.Location;
 
 /**
  * Generates paths based on what tiles are eligible to walk on in the map using

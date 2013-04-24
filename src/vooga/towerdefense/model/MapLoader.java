@@ -9,14 +9,14 @@ import java.util.Scanner;
 
 import org.w3c.dom.Element;
 
-import vooga.towerdefense.util.XMLTool;
+import util.XMLTool;
 import vooga.towerdefense.model.tiles.Tile;
 import vooga.towerdefense.model.tiles.factories.DefaultTileFactory;
 import vooga.towerdefense.model.tiles.factories.GrassTileFactory;
 import vooga.towerdefense.model.tiles.factories.PathTileFactory;
 import vooga.towerdefense.model.tiles.factories.TileFactory;
-import vooga.towerdefense.util.Location;
-import vooga.towerdefense.util.Pixmap;
+import util.Location;
+import util.Pixmap;
 
 /**
  * This class is responsible for constructing GameMap objects
@@ -98,8 +98,7 @@ public class MapLoader {
      * @param mapFilePath a path to the map XML file
      */
     public MapLoader(String mapFilePath) {
-        myXMLTool = new XMLTool();
-        myXMLTool.readDoc(mapFilePath);
+        myXMLTool = new XMLTool(mapFilePath);        
         initTileIdMap();
     }
     

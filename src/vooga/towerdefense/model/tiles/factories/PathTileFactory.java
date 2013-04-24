@@ -2,8 +2,8 @@ package vooga.towerdefense.model.tiles.factories;
 
 import vooga.towerdefense.model.tiles.PathTile;
 import vooga.towerdefense.model.tiles.Tile;
-import vooga.towerdefense.util.Location;
-import vooga.towerdefense.util.Pixmap;
+import util.Location;
+import util.Pixmap;
 
 /**
  * A tile factory that creates PathTile objects.
