@@ -77,7 +77,7 @@ public class XMLTool {
      * @param path The path with the filename of an XML formatted file.
      */
     public void setDoc (String path) {
-        File file = new File(path);
+        File file = new File(getClass().getResource(path).getFile());
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         try {
             myDoc = dbFactory.newDocumentBuilder().parse(file);
