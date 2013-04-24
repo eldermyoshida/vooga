@@ -46,6 +46,8 @@ public class CharacterLoader extends ObjectLoader {
 				addProperties(node, myChar);
 				NodeList stateNodes = node.getElementsByTagName(getResourceBundle().getString("State"));
 				addStates(stateNodes, myChar);
+				myChar.setDefaultState(getResourceBundle().getString("DefaultState"));
+				myChar.setCurrentState(getResourceBundle().getString("DefaultState"));
 				NodeList attackNodes = node.getElementsByTagName(getResourceBundle().getString("Attack"));
 				addAttacks(attackNodes);
 			}
