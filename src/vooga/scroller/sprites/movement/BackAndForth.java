@@ -23,8 +23,8 @@ public class BackAndForth implements Movement {
     private double myMaxX;
     private double myMinX;
     private double myAngle;
-    private double myMinY;
-    private double myMaxY;
+    //private double myMinY;
+    //private double myMaxY;
 
     /**
      * Creates a new back and forth movement that can only be used for the given sprite.
@@ -43,8 +43,8 @@ public class BackAndForth implements Movement {
         myMaxX = Math.max(start.getX(), end.getX());
         myMinX = Math.min(start.getX(), end.getX());
         
-        myMaxY = Math.max(start.getY(), end.getY());
-        myMinY = Math.min(start.getY(), end.getY());
+        //myMaxY = Math.max(start.getY(), end.getY());
+        //myMinY = Math.min(start.getY(), end.getY());
 
         myAngle = Vector.angleBetween(start, end);
 
@@ -97,14 +97,14 @@ public class BackAndForth implements Movement {
             myEntity.setCenter(myMinX, myEntity.getY());
             myEntity.getVelocity().negate();
         }
-        else if (myEntity.getY() > myMaxY) {
-            myEntity.setCenter(myEntity.getX(), myMaxY);
-            myEntity.getVelocity().negate();
-        }
-        else if (myEntity.getY() < myMinY) {
-            myEntity.setCenter(myEntity.getY(), myMinY);
-            myEntity.getVelocity().negate();
-        }
+//        else if (myEntity.getY() > myMaxY) {
+//            myEntity.setCenter(myEntity.getX(), myMaxY);
+//            myEntity.getVelocity().negate();
+//        }
+//        else if (myEntity.getY() < myMinY) {
+//            myEntity.setCenter(myEntity.getY(), myMinY);
+//            myEntity.getVelocity().negate();
+//        }
 
     }
 
