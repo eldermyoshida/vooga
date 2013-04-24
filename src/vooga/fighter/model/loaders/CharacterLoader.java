@@ -62,6 +62,7 @@ public class CharacterLoader extends ObjectLoader {
 		for (int i = 0; i < attackNodes.getLength(); i++) {
 			String attackName = getAttributeValue(attackNodes.item(i), getResourceBundle().getString("AttackName"));
 			AttackObject newAttack = new AttackObject(attackName, pathHierarchy);
+			newAttack.setOwner(myChar);
 			myChar.addAttack(attackName, newAttack);
 		}
 	}
