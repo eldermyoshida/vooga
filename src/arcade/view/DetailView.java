@@ -127,7 +127,7 @@ public class DetailView extends JFrame {
 		submitButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed (ActionEvent arg0) {
-				double rating = (Double)ratingBox.getSelectedItem();
+				double rating = new Double((Integer) ratingBox.getSelectedItem());
 				myController.commentAndRateGame(commentsWriter.getText(), rating, myGameInfo.getName());
 				commentsWriter.setText("");
 			}

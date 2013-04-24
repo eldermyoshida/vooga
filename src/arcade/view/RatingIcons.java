@@ -57,20 +57,20 @@ public class RatingIcons {
         }
     }
     
-    /**
-     * Testing code.
-     * @param args
-     */
-    public static void main (String[] args) {
-        JFrame jf = new JFrame();
-        JEditorPane jep = new JEditorPane();
-        jep.setContentType("text/html");
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i <= 5; i++) {
-            sb.append(new RatingIcons().makeHTMLText(i));
-        }
-        jep.setText(sb.toString());
-        jf.getContentPane().add(jep);
-        jf.setVisible(true);
-    }
+//    /**
+//     * Testing code.
+//     * @param args
+//     */
+//    public static void main (String[] args) {
+//        JFrame jf = new JFrame();
+//        JEditorPane jep = new JEditorPane();
+//        jep.setContentType("text/html");
+//        StringBuilder sb = new StringBuilder();
+//        for (int i = 0; i <= 5; i++) {
+//            sb.append(new RatingIcons().makeHTMLText(i));
+//        }
+//        jep.setText(sb.toString());
+//        jf.getContentPane().add(jep);
+//        jf.setVisible(true);
+//    }
 }
