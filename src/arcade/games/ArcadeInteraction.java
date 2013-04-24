@@ -34,4 +34,7 @@ public interface ArcadeInteraction {
     public UserGameData getUserGameData(String gameName);
     
     public GameData getGameData(String gameName);
+
+    public String getCurrentGame();
+        
 }

@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import util.ImageHelper;
 import arcade.controller.Controller;
@@ -39,7 +40,7 @@ public class DetailView extends JFrame {
 
     private static final String BOLD_TAIL = "</b>";
     private static final String HTML_TAIL = "</html>";
-    private static final String HTML_NEWLINE = "<br />";
+    private static final String HTML_NEWLINE = "<br>";
 
     private ResourceBundle myResources;
     private GameInfo myGameInfo;
@@ -52,6 +53,8 @@ public class DetailView extends JFrame {
             myAuthor,
             myComments;
 
+    private JTextField myCommentsWriter;
+    private JTextField myRatingWriter;
     private JTextArea myDescriptionContent;
     private JEditorPane myCommentsContent;
     private JButton myPlayButton;
@@ -63,7 +66,7 @@ public class DetailView extends JFrame {
         myGameInfo = info;
         myResources = resources;
         setLayout(null);
-        setTitle(myGameInfo.getName());
+        setTitle(resources.getString(TextKeywords.TITLE));
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setBounds(100, 100, WINDOW_WIDTH, WINDOW_HEIGHT);
 
@@ -73,13 +76,13 @@ public class DetailView extends JFrame {
         myPicture = new JLabel(new ImageIcon(scaledImage));
         myPicture.setBounds(ORIGIN_X, 5, 160, 160);
 
-        myTitle = new JLabel("<html><b><font color = gray>" + "Name" + "</font></b></html>");
+        myTitle = new JLabel("<html><b><font color = gray>" + info.getName() + "</font></b></html>");
         myTitle.setBounds(170, 0, LABEL_WIDTH, LABEL_HEIGHT);
 
-        myGenre = new JLabel("Genre");
+        myGenre = new JLabel(info.getGenre());
         myGenre.setBounds(170, 20, LABEL_WIDTH, LABEL_HEIGHT);
 
-        myRating = new JLabel("5");
+        myRating = new JLabel(info.getRating()+"");
         myRating.setBounds(170, 40, LABEL_WIDTH, LABEL_HEIGHT);
 
         String localDirectory = System.getProperty("user.dir");
@@ -114,22 +117,43 @@ public class DetailView extends JFrame {
         myDescriptionContent.setWrapStyleWord(true);
         myDescriptionContent.setEditable(false);
 
-        myComments = new JLabel("Comment");
+        myComments = new JLabel("Comments");
         myComments.setBackground(Color.gray);
         myComments.setBounds(ORIGIN_X, 400, LABEL_WIDTH, LABEL_HEIGHT);
 
         myCommentsContent = new JEditorPane();
         myCommentsContent.setContentType("text/html");
-        // constructCommentAreaContent();
-        myCommentsContent.setText(HTML_HEADER + BOLD_HEADER + "SUBJECT" + BOLD_TAIL +
-                                  HTML_NEWLINE +
-                                  "AUTHOR" +
-                                  HTML_NEWLINE +
-                                  "RATING" +
-                                  HTML_NEWLINE +
-                                  "COMMENT" + HTML_TAIL);
+        constructCommentAreaContent();
         JScrollPane commentPane = new JScrollPane(myCommentsContent);
         commentPane.setBounds(ORIGIN_X, 420, WINDOW_WIDTH - 25, 150);
+        
+        myCommentsWriter = new JTextField();
+        myCommentsWriter.setBounds(ORIGIN_X, 600, WINDOW_WIDTH, 50);
+        JButton button = new JButton("Submit");
+        button.setBounds(ORIGIN_X, 650, WINDOW_WIDTH, 50);
+        button.addActionListener(new ActionListener() {
+            
+            @Override
+            public void actionPerformed (ActionEvent arg0) {
+                myController.commentGame(myCommentsWriter.getText(), myGameInfo.getName());
+            }
+        });
+        
+        
+        myRatingWriter = new JTextField();
+        myRatingWriter.setBounds(ORIGIN_X, 700, WINDOW_WIDTH, 50);
+        JButton ratingButton = new JButton("Submit");
+        ratingButton.setBounds(ORIGIN_X, 750, WINDOW_WIDTH, 50);
+        button.addActionListener(new ActionListener() {
+            
+            @Override
+            public void actionPerformed (ActionEvent arg0) {
+                double rating = Double.parseDouble(myRatingWriter.getText());
+                myController.rateGame(rating, myGameInfo.getName());
+            }
+        });
+        
+        
 
         myContentPanel.add(myPicture);
         myContentPanel.add(myPlayButton);
@@ -140,6 +164,10 @@ public class DetailView extends JFrame {
         myContentPanel.add(descriptionPane);
         myContentPanel.add(myComments);
         myContentPanel.add(commentPane);
+        myContentPanel.add(myCommentsWriter);
+        myContentPanel.add(button);
+        myContentPanel.add(myRatingWriter);
+        myContentPanel.add(ratingButton);
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setVisible(true);
@@ -149,22 +177,12 @@ public class DetailView extends JFrame {
         List<String[]> commentContents = myGameInfo.getComments();
         StringBuilder sb = new StringBuilder();
         for (String[] comment : commentContents) {
-            String subject = BOLD_HEADER + comment[0] + NEWLINE + BOLD_TAIL;
-            sb.append(subject);
-            String user = comment[1] + NEWLINE;
-            sb.append(user);
-            // TODO: rating
-            sb.append(comment[2] + NEWLINE);
-
-            String content = comment[3] + NEWLINE;
-            sb.append(content);
+            sb.append(BOLD_HEADER + comment[0] + BOLD_TAIL);
+            sb.append(HTML_NEWLINE);
+            sb.append(comment[1]);
+            sb.append(HTML_NEWLINE);           
+            sb.append(HTML_NEWLINE);
         }
         myCommentsContent.setText(sb.toString());
     }
-
-    // public static void main(String[] args){
-    // GameInfo in = new GameInfo("example","English");
-    // DetailView main = new DetailView(in, null);
-    // }
-
 }

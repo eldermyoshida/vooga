@@ -11,6 +11,7 @@ import java.awt.Component;
 public abstract class Game{
     
     private ArcadeInteraction myArcade;
+    private UserGameData myUserGameData;
     
     /**
      * Constructs a game with the arcade interface and the user game data
@@ -19,16 +20,20 @@ public abstract class Game{
      */
     public Game(ArcadeInteraction arcade) {
         myArcade = arcade;
+        myUserGameData = myArcade.getUserGameData(myArcade.getCurrentGame());
     }    
     
     
     /**
      * This method will be called by the arcade if the user has never played
      * the game before, and this data will be associated with the user currently
-     * playing.  
+     * playing.   You should override this to return your specific implementation of 
+     * UserGameData if your game uses an extension of this class.
      * @return the specific subclass of UserGameData for each game.
      */
-    public abstract UserGameData generateNewProfile();
+    public  UserGameData generateNewProfile(){
+        return new UserGameData();
+    }
     
     
     /**
