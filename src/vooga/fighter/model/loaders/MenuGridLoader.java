@@ -9,6 +9,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import vooga.fighter.model.MenuGrid;
 import vooga.fighter.model.MenuMode;
+import vooga.fighter.model.ModelConstants;
 import vooga.fighter.model.objects.MenuObject;
 import vooga.fighter.model.utils.State;
 import vooga.fighter.model.utils.UpdatableLocation;
@@ -16,25 +17,22 @@ import vooga.fighter.model.utils.UpdatableLocation;
 
 public class MenuGridLoader extends ObjectLoader {
 
-	private static final String PATH_TAG = "MenuGridPath";
-	
-    private static final int FOUR_TICKS = 4;
 
     private List<MenuObject> myMenuObjects;
     private MenuMode myDelegate;
     private MenuObject myObject;
 
-    public MenuGridLoader (String menuname, MenuGrid grid, MenuMode delegate) {
-        super(PATH_TAG);
+    public MenuGridLoader (String menuname, MenuGrid grid, MenuMode delegate, String pathHierarchy) {
+        super(ModelConstants.MENUGRIDLOADER_PATH_TAG, pathHierarchy);
         myDelegate = delegate;
         myMenuObjects = new ArrayList<MenuObject>();
-        load(menuname);
+        load(menuname, pathHierarchy);
     }
 
     /**
      * Loads map from xml data
      */
-    protected void load (String menuname) {
+    protected void load (String menuname, String pathHierarchy) {
         Document doc = getDocument();
         NodeList menugridNodes = doc.getElementsByTagName(getResourceBundle().getString("MenuMode"));
         for (int i = 0; i < menugridNodes.getLength(); i++) {
@@ -45,7 +43,7 @@ public class MenuGridLoader extends ObjectLoader {
                 for (int j = 0; j < menuobjects.getLength(); j++) {
                     Element node1 = (Element) menuobjects.item(j);
                     String MenuObjectName = getAttributeValue(node1, getResourceBundle().getString("MenuObjectName"));
-                    MenuObject menuobject = new MenuObject(MenuObjectName, myDelegate);
+                    MenuObject menuobject = new MenuObject(MenuObjectName, myDelegate, pathHierarchy);
                     if (j == 0) myObject = menuobject;
                     int xCoord = Integer.parseInt(getAttributeValue(node1, getResourceBundle().getString("XCoordinate")));
                     int yCoord = Integer.parseInt(getAttributeValue(node1, getResourceBundle().getString("YCoordinate")));
@@ -61,7 +59,7 @@ public class MenuGridLoader extends ObjectLoader {
                             state.populateSize(size, k);
                             Rectangle rect = new Rectangle(xSize, ySize);
                             state.populateRectangle(rect, k);
-                            state.populateAllDelays(FOUR_TICKS);
+                            state.populateAllDelays(ModelConstants.FOUR_TICKS);
                         }
                     }
                     int gridnum = Integer.parseInt(getAttributeValue(node1, getResourceBundle().getString("GridNum")));

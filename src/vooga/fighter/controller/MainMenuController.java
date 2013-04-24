@@ -1,27 +1,15 @@
 package vooga.fighter.controller;
 
-import util.Location;
-import util.input.AlertObject;
-import util.input.Input;
-import util.input.InputClassTarget;
-import util.input.InputMethodTarget;
-import util.input.PositionObject;
 import vooga.fighter.controller.Controller;
 import vooga.fighter.controller.ControllerDelegate;
 import vooga.fighter.controller.GameInfo;
-import vooga.fighter.controller.OneVOneController;
-import vooga.fighter.model.*;
-import vooga.fighter.model.objects.MouseClickObject;
-import vooga.fighter.util.Paintable;
 import vooga.fighter.view.Canvas;
-
-import java.awt.Dimension;
-import java.util.List;
 import java.util.ResourceBundle;
 
 
 /**
  * 
+ * Details a MainMenuController class, where start game etc. selections are
  * @author Jack Matteucci
  * @author Jerry Li
  * 
@@ -30,29 +18,44 @@ import java.util.ResourceBundle;
  * 
  */
 public class MainMenuController extends MenuController {
-	
+
     private ResourceBundle myResources;
-    
+
+    /**
+     * Initial constructor. Called by ControllerFactory initially
+     * using reflection. 
+     */
     public MainMenuController () {
         super();
     }
-    
+
+    /**
+     * Concrete constructor, used when controller is switched to 
+     * @param name      name of controller
+     * @param frame     canvas
+     * @param manager   ControllerManager
+     * @param gameinfo  GameInfo
+     */
     public MainMenuController(String name, Canvas frame, ControllerDelegate manager, 
-                           GameInfo gameinfo) {
+                              GameInfo gameinfo) {
+
         super(name, frame, manager, gameinfo);
         getGameInfo().reset();
         setInput(manager.getInput());
         getInput().addListenerTo(this);
-
     }
-    
+
+    /**
+     * Returns concrete controller, used when controller is switched to
+     */
     public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo) {
         Controller controller = new MainMenuController(name, frame, manager, gameinfo);
         return controller;
     }
-    
+
     /**
-     * Checks this controller's end conditions
+     * Checks this controller's end conditions and notifies the 
+     * delegate
      */
     @Override
     public void notifyEndCondition(String choice) {
@@ -61,16 +64,21 @@ public class MainMenuController extends MenuController {
         getManager().notifyEndCondition(getMode().getMenusNext(choice));
     }
 
-    
+    /**
+     * Removes the input listener
+     */
     public void removeListener(){
-    	super.removeListener();
-    	getInput().removeListener(this);
+        super.removeListener();
+        getInput().removeListener(this);
     }
-    
+
+    /**
+     * Checks condition
+     */
     public void checkConditions(){
-    	for(ModeCondition condition: getConditions()){
-    		if(condition.checkCondition(getMode())) notifyEndCondition(getMode().peekChoice());
-    }
+        for(ModeCondition condition: getConditions()){
+            if(condition.checkCondition(getMode())) notifyEndCondition(getMode().peekChoice());
+        }
     }
 
 }

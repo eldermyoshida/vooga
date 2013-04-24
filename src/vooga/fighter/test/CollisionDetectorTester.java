@@ -61,7 +61,7 @@ public class CollisionDetectorTester {
 	public void testHitRightPoint() {
 		setUp();
 		Rectangle rect1 = new Rectangle(100,100);
-		Location loc = new Location(90,50);
+		Location loc = new Location(95,50);
 		assertTrue(myDetector.hitRight(rect1,loc));
 	}
 	@Test
@@ -85,7 +85,7 @@ public class CollisionDetectorTester {
 	public void testHitBottom() {
 		setUp();
 		Rectangle rect1 = new Rectangle(100,100);
-		Rectangle rect2 = new Rectangle(50,90,1,1);
+		Rectangle rect2 = new Rectangle(50,90,20,200);
 		assertTrue(myDetector.hitBottom(rect1,rect2));
 	}
 	
@@ -93,14 +93,14 @@ public class CollisionDetectorTester {
 	public void testHitRight() {
 		setUp();
 		Rectangle rect1 = new Rectangle(100,100);
-		Rectangle rect2 = new Rectangle(90, 50,1,1);
+		Rectangle rect2 = new Rectangle(90, 50,20,200);
 		assertTrue(myDetector.hitRight(rect1,rect2));
 	}
 	@Test
 	public void testHitLeft() {
 		setUp();
 		Rectangle rect1 = new Rectangle(100,100);
-		Rectangle rect2 = new Rectangle(10,50,1,5);
+		Rectangle rect2 = new Rectangle(10,50,1,1);
 		assertTrue(myDetector.hitLeft(rect1,rect2));
 	}
 

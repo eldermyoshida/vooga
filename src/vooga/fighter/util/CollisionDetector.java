@@ -1,11 +1,9 @@
 package vooga.fighter.util;
 
-import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.PathIterator;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,7 +11,7 @@ import util.Location;
 import util.Vector;
 
 /**
- * This class is deticated to collision detection for 
+ * This class is dedicated to collision detection for 
  * shapes and provides useful methods to:
  * -confirm detections for shapes, either quickly or precisely
  * -check the side of a shape that another shape/point has with 
@@ -22,7 +20,7 @@ import util.Vector;
  *    extra precision.
  * TODO: return the point on the surface of a shape that another 
  *     shape/point has collided with, Velocities required
- *     as parameters (will only work with rectanges)
+ *     as parameters (will only work with rectangles)
  *     
  * Please read through the methods, but this class can be both
  * extended to include specific functionality for specific shapes (i.e ellipses)
@@ -35,21 +33,18 @@ import util.Vector;
  */
 
 public class CollisionDetector {
-
-	public CollisionDetector() {
-	}
 	
 	 /**
-	  * Uses rectange bounds of each shape to check if any point of shape2
-	  * is within the rectange bounds of point 1
+	  * Uses rectangle bounds of each shape to check if any point of shape2
+	  * is within the rectangle bounds of point 1
 	 */
 	public boolean quickDetectCollision(Shape shape1, Shape shape2){
 		return shape1.getBounds().intersects(shape2.getBounds());
 	}
 
 	 /**
-	  * Uses rectange bounds of each shape to check if point2
-	  * is within the rectange bounds of point 1
+	  * Uses rectangle bounds of each shape to check if point2
+	  * is within the rectangle bounds of point 1
 	 */
 	public boolean quickDetectCollision(Shape shape1, Point2D point2){
 		return shape1.contains(point2);
@@ -141,7 +136,7 @@ public class CollisionDetector {
 	  */
 	public boolean preciseDetectCollsion(Shape shape1, Shape shape2){
 		double precision = 1; //degree
-		return preciseDetectCollision(shape1,shape2,1);
+		return preciseDetectCollision(shape1,shape2,precision);
 	}
 	
     /**
@@ -150,27 +145,25 @@ public class CollisionDetector {
      * point2
      */
 	public boolean hitTop(Shape shape1, Point2D point2){
-		double hitdirection = getQuickDirection(shape1,point2);
-		if((hitdirection-getQuickDirection(shape1, ShapeMeasurements.getTopLeftCorner(shape1) ) > 0 &&
-			(hitdirection-getQuickDirection(shape1, ShapeMeasurements.getTopRightCorner(shape1))) <= 0)){
-					return true;
-				}
-		return false;
+		return checkCornersVsPoint(shape1, point2,ShapeMeasurements.getTopRightCorner(shape1), 
+				ShapeMeasurements.getTopLeftCorner(shape1));
 	}
 	
     /**
      * Convenience method: Treating the Shape as a Rectangle
      * returns whether shape1's right side has been collided with by 
-     * point2
+     * point2  TODO, refactor slightly!
      */
 	public boolean hitRight(Shape shape1, Point2D point2){
+		if(!quickDetectCollision(shape1, point2)) return false;
 		double hitdirection = getQuickDirection(shape1,point2);
-		if((hitdirection-getQuickDirection(shape1, ShapeMeasurements.getTopRightCorner(shape1) ) > 0 ||
-			(hitdirection-getQuickDirection(shape1, ShapeMeasurements.getBottomRightCorner(shape1))) <= 0)){
-					return true;
-				}
+		if((hitdirection-getQuickDirection(shape1, ShapeMeasurements.getTopRightCorner(shape1)) <= 0 &&
+				(hitdirection-getQuickDirection(shape1, ShapeMeasurements.getBottomRightCorner(shape1))) < 0)){
+						return true;
+					}
 		return false;
 	}
+	
 	
     /**
      * Convenience method: Treating the Shape as a Rectangle
@@ -178,12 +171,8 @@ public class CollisionDetector {
      * point2
      */
 	public boolean hitLeft(Shape shape1, Point2D point2){
-		double hitdirection = getQuickDirection(shape1,point2);
-		if((hitdirection-getQuickDirection(shape1, ShapeMeasurements.getBottomLeftCorner(shape1) ) > 0 &&
-			(hitdirection-getQuickDirection(shape1, ShapeMeasurements.getTopLeftCorner(shape1))) <= 0)){
-					return true;
-				}
-		return false;
+		return checkCornersVsPoint(shape1, point2,ShapeMeasurements.getTopLeftCorner(shape1), 
+				ShapeMeasurements.getBottomLeftCorner(shape1));
 	}
 	
     /**
@@ -192,12 +181,8 @@ public class CollisionDetector {
      * point2
      */
 	public boolean hitBottom(Shape shape1, Point2D point2){
-		double hitdirection = getQuickDirection(shape1,point2);
-		if((hitdirection-getQuickDirection(shape1, ShapeMeasurements.getBottomLeftCorner(shape1) ) <= 0 &&
-			(hitdirection-getQuickDirection(shape1, ShapeMeasurements.getBottomRightCorner(shape1))) > 0)){
-					return true;
-				}
-		return false;
+		return checkCornersVsPoint(shape1, point2,ShapeMeasurements.getBottomLeftCorner(shape1), 
+				ShapeMeasurements.getBottomRightCorner(shape1));
 	}
 	
     /**
@@ -206,12 +191,10 @@ public class CollisionDetector {
      * shape2
      */
 	public boolean hitTop(Shape shape1, Shape shape2){
-		if(quickDetectCollision(shape1, ShapeMeasurements.getBottomRightCorner(shape2)))
-			return hitTop(shape1, ShapeMeasurements.getBottomRightCorner(shape2));	
-		else if(quickDetectCollision(shape1, ShapeMeasurements.getBottomLeftCorner(shape2)))
-			return hitTop(shape1, ShapeMeasurements.getBottomLeftCorner(shape2));	
-		else if(shape2.getBounds2D().getMaxY()>=shape1.getBounds2D().getMinY()&&
-				 quickDetectCollision(shape1,shape2)) return true;
+		if(hitTop(shape1, ShapeMeasurements.getBottomRightCorner(shape2))) return true;	
+		else if(hitTop(shape1, ShapeMeasurements.getBottomLeftCorner(shape2))) return true;	
+		else if(checkStuff(shape1, shape2, shape1.getBounds2D().getMinY(), 
+				shape2.getBounds2D().getMaxY())) return true;
 		return false;
 	}
     /**
@@ -220,14 +203,10 @@ public class CollisionDetector {
      * shape2
      */
 	public boolean hitRight(Shape shape1, Shape shape2){
-		if(quickDetectCollision(shape1, ShapeMeasurements.getBottomLeftCorner(shape2))){
-			return hitRight(shape1, ShapeMeasurements.getBottomLeftCorner(shape2));
-		}
-		else if(quickDetectCollision(shape1, ShapeMeasurements.getTopLeftCorner(shape2))){
-			return hitRight(shape1, ShapeMeasurements.getTopLeftCorner(shape2));	
-		}
-		else if(shape2.getBounds2D().getMaxX()>=shape1.getBounds2D().getMinX()&&
-				 quickDetectCollision(shape1,shape2)) return true;
+		if(hitRight(shape1, ShapeMeasurements.getBottomLeftCorner(shape2))) return true;
+		else if(hitRight(shape1, ShapeMeasurements.getTopLeftCorner(shape2))) return true;	
+		else if(checkStuff(shape1, shape2, shape1.getBounds2D().getMinX(), 
+				shape2.getBounds2D().getMaxX())) return true;
 		return false;
 	}
 	
@@ -237,12 +216,10 @@ public class CollisionDetector {
      * shape2
      */
 	public boolean hitBottom(Shape shape1, Shape shape2){
-		if(quickDetectCollision(shape1, ShapeMeasurements.getTopRightCorner(shape2)))
-			return hitBottom(shape1, ShapeMeasurements.getTopRightCorner(shape2));	
-		else if(quickDetectCollision(shape1, ShapeMeasurements.getTopLeftCorner(shape2)))
-			return hitBottom(shape1, ShapeMeasurements.getTopLeftCorner(shape2));	
-		else if(shape2.getBounds2D().getMinY()<=shape1.getBounds2D().getMaxY()&&
-				 quickDetectCollision(shape1,shape2)) return true;
+		if(hitBottom(shape1, ShapeMeasurements.getTopRightCorner(shape2))) return true;	
+		else if(hitBottom(shape1, ShapeMeasurements.getTopLeftCorner(shape2))) return true;	
+		else if(checkStuff(shape1, shape2, shape1.getBounds2D().getMaxY(), 
+				shape2.getBounds2D().getMinY())) return true;
 		return false;
 	}
     /**
@@ -251,12 +228,10 @@ public class CollisionDetector {
      * shape2
      */
 	public boolean hitLeft(Shape shape1, Shape shape2){
-		if(quickDetectCollision(shape1, ShapeMeasurements.getBottomRightCorner(shape2)))
-			return hitLeft(shape1, ShapeMeasurements.getBottomRightCorner(shape2));	
-		else if(quickDetectCollision(shape1, ShapeMeasurements.getTopRightCorner(shape2)))
-			return hitLeft(shape1, ShapeMeasurements.getTopRightCorner(shape2));
-		else if(shape2.getBounds2D().getMinX()<=shape1.getBounds2D().getMaxX()&&
-				 quickDetectCollision(shape1,shape2)) return true;
+		if(hitLeft(shape1, ShapeMeasurements.getBottomRightCorner(shape2))) return true;	
+		else if(hitLeft(shape1, ShapeMeasurements.getTopRightCorner(shape2))) return true;
+		else if(checkStuff(shape1, shape2, shape1.getBounds2D().getMaxX(), 
+				shape2.getBounds2D().getMinX())) return true;
 		return false;
 	}
 	
@@ -273,8 +248,8 @@ public class CollisionDetector {
 	 /**
 	  * Convenience method to track rectangles
 	 */
-	public static List trackLine(Location loc1, Location loc2, int NumberOfPoints){
-		List line  = new LinkedList<Location>();
+	public static List<Location> trackLine(Location loc1, Location loc2, int NumberOfPoints){
+		List<Location> line  = new LinkedList<Location>();
 		Vector vec = new Vector(loc1,loc2);
 		double x = loc1.getX();
 		double y = loc1.getX();
@@ -302,5 +277,17 @@ public class CollisionDetector {
 		return false;
 	}
 
+	private boolean checkCornersVsPoint(Shape shape1, Point2D intersectingPoint, Point2D corner1, Point2D corner2){
+		if(!quickDetectCollision(shape1, intersectingPoint)) return false;
+		double hitdirection = getQuickDirection(shape1,intersectingPoint);
+		if((hitdirection-getQuickDirection(shape1, corner1 ) <= 0 &&
+				(hitdirection-getQuickDirection(shape1, corner2)) > 0)){
+						return true;
+					}
+		return false;
+	}
 
+	private boolean checkStuff(Shape shape1, Shape shape2, double upperbound, double lowerbound){
+		return (lowerbound>=upperbound&&quickDetectCollision(shape1,shape2));
+	}
 }

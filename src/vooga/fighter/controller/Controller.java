@@ -7,10 +7,8 @@ import util.Pixmap;
 import util.input.Input;
 import vooga.fighter.model.*;
 import vooga.fighter.view.Canvas;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.swing.Timer;
@@ -33,12 +31,13 @@ import javax.swing.Timer;
 
 public abstract class Controller{
     public static final String DEFAULT_RESOURCE_PACKAGE = "vooga.fighter.config.";
-	public static final String DEFAULT_IMAGE_PACKAGE = "vooga.fighter.images.";
+    public static final String DEFAULT_IMAGE_PACKAGE = "vooga.fighter.images.";
     public static final String NEXT = "Next";
     public static final String BACK = "Back";
     public static final String EXIT = "EXIT";
     public static final String SPLASH = "Splash";
     public static final String CONTROL = "Control";
+    private String myFilepath;
     
     protected ControllerDelegate myManager;
     private String myName;
@@ -183,7 +182,8 @@ public abstract class Controller{
     }
     
     /**
-     * 
+     * This method is to used by any subclasses as it loads the Mode in 
+     * this superclass's constructer (so that it happens before any Mode methods are called)
      */
     public abstract void loadMode();
     
@@ -197,23 +197,15 @@ public abstract class Controller{
     }
 
     /**
-     * displays the splash screen for this controller
+     * displays the splash screen for this controller, if subclassed and overwritten
      */
-    public void displaySplash() {
-    	myCanvas.setViewDataSource(myDisplayInfo);
-    	myCanvas.paint();
+    protected void displaySplash() {
     }
     
     /**
-     * creates the splash screen for this controller
+     * creates the splash screen for this controller, if subclassed and overwritten
      */
-    private void generateSplash() {
-    	myDisplayInfo = new DisplayInfo();
-    	myDisplayInfo.clear();
-    	
-        myDisplayInfo.setSize(0, GameManager.SIZE);
-        myDisplayInfo.setGameObjectLocation(0, new Location(GameManager.SIZE.getWidth()/2, GameManager.SIZE.getHeight()/2));
-        myDisplayInfo.setGamePaintable(0, new Pixmap(mySplashPath));
+    protected void generateSplash() {
     }
 
     /**
@@ -225,7 +217,7 @@ public abstract class Controller{
          myTimer = new Timer(stepTime, 
                                new ActionListener() {
             public void actionPerformed (ActionEvent e) {
-                myMode.update((double) stepTime / ONE_SECOND, myCanvas.getSize());
+                myMode.update();
                 myDisplayInfo.update();
                 myCanvas.paint();
                 checkConditions();
@@ -254,20 +246,20 @@ public abstract class Controller{
     /**
      * removes this controller's input listener.
      */
-    public void removeListener() {
+    protected void removeListener() {
     	getInput().removeListener(this);
     }
     
     /**
      * checks for the completion of end conditions
      */
-    public abstract void checkConditions();
+    protected abstract void checkConditions();
  
     /**
      * Notifies the controllerdelegate that the current game state is completed
      * @param choice
      */
-    public abstract void notifyEndCondition(String choice);
+    protected abstract void notifyEndCondition(String choice);
     
     /**
      * instantiates a new controller
@@ -278,12 +270,12 @@ public abstract class Controller{
     /**
      * Update for special cases desired by the developer
      */
-    public abstract void developerUpdate();
+    protected abstract void developerUpdate();
     
     /**
      * initializes this controller's mode
      */
-    public abstract void initializeMode();
+    protected abstract void initializeMode();
 
         
 

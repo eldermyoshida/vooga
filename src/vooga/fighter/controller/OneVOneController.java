@@ -68,7 +68,6 @@ public class OneVOneController extends LevelController {
     
     @InputMethodTarget(name = "player1_jump")
     public void playerOneJumpInput (AlertObject alObj)  {
-        getInputObjects().get(0).setStanding(false);
         getInputObjects().get(0).jump();
     }
     

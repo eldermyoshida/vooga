@@ -1,20 +1,16 @@
 package vooga.fighter.model;
 
-import java.awt.Dimension; 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
 import util.Location;
-import util.input.src.input.PositionObject;
 import vooga.fighter.model.loaders.EnvironmentObjectLoader;
-import vooga.fighter.model.objects.CharacterObject;
 import vooga.fighter.model.objects.EnvironmentObject;
 import vooga.fighter.model.objects.GameObject;
 import vooga.fighter.model.objects.MapObject;
 import vooga.fighter.model.objects.MouseClickObject;
 import vooga.fighter.model.utils.ImageDataObject;
-import vooga.fighter.model.utils.State;
 import vooga.fighter.model.utils.UpdatableLocation;
 import vooga.fighter.util.CollisionManager;
 
@@ -84,17 +80,12 @@ public class MapEditorMode extends Mode {
     /**
      * Updates level mode by calling update in all of its objects.
      */
-    public void update (double stepTime, Dimension bounds) {
+    @Override
+    public void update () {
         List<GameObject> myObjects = getMyObjects();
         handleCollisions();
         for (int i = 0; i < myObjects.size(); i++) {
             GameObject object = myObjects.get(i);
-            State state = object.getCurrentState();
-            // System.out.printf("Updating %s:\n", object.getClass().toString());
-            // System.out.printf("Object current state:\ncurrentFrame: %d\nnumFrames: %d\nNull checks:\nImage: %b\nRectangle: %b\nSize: %b\n",
-            // state.myCurrentFrame, state.myNumFrames, (state.getCurrentImage()==null),
-            // (state.getCurrentRectangle()==null),
-            // (state.getCurrentSize()==null));
             object.update();
             if (object.shouldBeRemoved()) {
                 myObjects.remove(object);
@@ -169,6 +160,7 @@ public class MapEditorMode extends Mode {
      */
     public void writeMap() {
     	MapWriter writer = new MapWriter(myMap, mySoundPath, myBackgroundPaths);
+    	writer.writeMap();
     }
 
     /**
