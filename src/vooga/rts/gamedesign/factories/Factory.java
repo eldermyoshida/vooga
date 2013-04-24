@@ -17,6 +17,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import vooga.rts.gamedesign.sprite.gamesprites.GameSprite;
+import vooga.rts.gamedesign.sprite.gamesprites.Projectile;
 import vooga.rts.gamedesign.sprite.gamesprites.Resource;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.strategy.Strategy;
@@ -24,6 +25,9 @@ import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
 import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
 import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
+import vooga.rts.gamedesign.weapon.Weapon;
+import vooga.rts.resourcemanager.ImageLoader;
+import vooga.rts.resourcemanager.ResourceManager;
 
 
 /**
@@ -46,6 +50,8 @@ public class Factory {
 	Map<String, InteractiveEntity> mySprites;
 	Map<String, Resource> myResources;
 	Map<String, Strategy> myStrategies;
+	Map<String, Weapon> myWeapons;
+	Map<String, Projectile> myProjectiles;
 	Map<String, String[]> myProductionDependencies;
 	Map<String, String[]> myStrategyDependencies;
 	Map<String, UpgradeTree> myUpgradeTrees;
@@ -87,6 +93,14 @@ public class Factory {
 	
 	public void put(String name, UpgradeTree upgradeTree){
 		myUpgradeTrees.put(name, upgradeTree);
+	}
+	
+	public void put(String name, Weapon weapon){
+		myWeapons.put(name, weapon);
+	}
+	
+	public void put(String name, Projectile proj){
+		myProjectiles.put(name, proj);
 	}
 	
 	public Map<String, UpgradeTree> getUpgradeTrees(){

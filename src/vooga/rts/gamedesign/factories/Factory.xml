@@ -117,10 +117,23 @@
 			<name>soldier</name>
 		</customunit>
 	</units>
-	<weapons src = "">
-			<weapon></weapon>
-			
+	<weapons src = "vooga.rts.gamedesign.weapon.Weapon">
+			<weapon>
+				<name>gun</name>
+				<myprojectile>bullet</myprojectile>
+				<range>500<range>
+				<cooldown>1<cooldown>
+			</weapon>
 	</weapons>
+	<projectiles>
+		<projectile>
+			<name>bullet</name>
+			<img>bullet.png</img>
+			<damage>10</damage>
+			<lifespan>100</lifespan>
+			<speed>200</speed>
+		</projectile>
+	</projectiles>
 	
 	
 </GameElements>

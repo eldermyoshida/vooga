@@ -48,9 +48,9 @@ public class BuildingDecoder extends Decoder{
 			double buildTime = Double.parseDouble(getElement(nElement, TIME_TAG));
 			Building building = (Building) ReflectionHelper.makeInstance(path, 
 																			new Pixmap(img),
-																			  new Sound(sound),
-																			  health,
-																			  buildTime);
+																			 new Sound(sound),
+																			 health,
+																			 buildTime);
 			
 			myFactory.put(name, building);
 			//Load Production Dependencies now
