@@ -1,12 +1,12 @@
 package games.examplegenre.example2;
 
 import java.io.IOException;
+import java.util.Random;
 import arcade.games.ArcadeInteraction;
 import arcade.games.Game;
 
 public class Example2 extends Game{
     
-    private static final String GAME_NAME = "example2";
     public Example2 (ArcadeInteraction arcade) {
         super(arcade);
     }
@@ -23,7 +23,7 @@ public class Example2 extends Game{
         
     
         // update the score before killing it 
-        //getArcade().getUserGameData().setScore(42);
+        getArcade().getUserGameData(this).setScore(new Random().nextInt(100));
         getArcade().killGame();
     }
 
