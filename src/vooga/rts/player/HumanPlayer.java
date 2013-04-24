@@ -69,8 +69,11 @@ public class HumanPlayer extends Player implements Observer {
     @Override
     public void sendCommand (Command command) {
         // Check for camera movement
+        if (myGameMenu.withinBoundary(command)) {
+            myGameMenu.receiveCommand(command);
+        } else {
         getManager().receiveCommand(command);
-        myGameMenu.receiveCommand(command);
+        }
     }
 
     public void checkCameraMouse (double elapsedtime) {
