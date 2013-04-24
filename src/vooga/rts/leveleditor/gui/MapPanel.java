@@ -112,7 +112,8 @@ public class MapPanel extends JComponent {
 //        g.drawLine(0, myHeight * myTileHeight, myWidth * myTileWidth, myHeight * myTileHeight);
 
         // paint Node
-        myMap.paint((Graphics2D)g);
+        //myMap.paint((Graphics2D)g);
+        myMap.printMatrix();
         System.out.println("paint");
 
         // paint Player

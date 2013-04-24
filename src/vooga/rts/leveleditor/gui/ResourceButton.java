@@ -39,18 +39,20 @@ public class ResourceButton extends JToggleButton {
      * Constructor for this class
      * 
      * @param r : the Resource which the button represents
+     * @param image 
      * @param owner : the ResourcePanel which holds this button;
      */
-    public ResourceButton (Resource r, ResourcePanel owner) {
+    public ResourceButton (Resource r, BufferedImage image, ResourcePanel owner) {
         myResource = r;
-        myIcon = r.getImage();//.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+        myIcon = r.getImage();
+        Image image2 = image.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
         myOwner = owner;
         myInput = new Input(INPUT_DIR, this);
         myInput.addListenerTo(this);
         isInitialized = false;
 
         setToolTipText(r.getMyName());
-        setIcon((Icon) myIcon);
+        setIcon(new ImageIcon(image2));
         setMargin(new Insets(2, 2, 2, 2));
     }
 

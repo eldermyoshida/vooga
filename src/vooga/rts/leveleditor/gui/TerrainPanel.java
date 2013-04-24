@@ -23,8 +23,9 @@ public class TerrainPanel extends MapComponentPanel {
     public void addButton () {
         for(int i=0; i<myFiles.length; ++i) {
             try {
-                Pixmap image = new Pixmap(ImageIO.read(myFiles[i]));
-                myPanel.add(new TerrainButton(new Terrain(image,0,0,0,i+1,"",myFiles[i].getName(),0),this));
+                BufferedImage image = ImageIO.read(myFiles[i]);
+                Pixmap image1 = new Pixmap(image);
+                myPanel.add(new TerrainButton(new Terrain(image1,0,0,0,i+1,"",myFiles[i].getName(),0),image,this));
             } catch (IOException e) {
                 e.printStackTrace();
             }
