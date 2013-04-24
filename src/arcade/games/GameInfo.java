@@ -1,3 +1,4 @@
+
 package arcade.games;
 
 import java.lang.reflect.Constructor;
@@ -184,7 +185,13 @@ public class GameInfo {
         }
         return null;
     }
-
+    
+    
+    public String getGenre() {
+        return myDb.getGenre(myGameName);
+    }
+    
+    
     // TODO make sure this doesnt break if the game isnt single player
     @SuppressWarnings("rawtypes")
     private Class getSingleplayerGameClass () {

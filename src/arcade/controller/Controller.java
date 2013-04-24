@@ -1,3 +1,4 @@
+
 package arcade.controller;
 
 import java.util.ArrayList;
@@ -373,3 +374,4 @@ public class Controller implements ArcadeInteraction {
         return myCurrentGameInfo.getName();
     }
 }
+

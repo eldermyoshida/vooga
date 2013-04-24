@@ -59,7 +59,7 @@ public class ScoreTable extends Table {
      */
     public List<Score> getScoresForGame(String gameid, String userid, 
                                         String gameName, String userName) {
-        String stm = "SELECT gameid FROM score WHERE gameid='" + 
+        String stm = "SELECT * FROM score WHERE gameid='" + 
                     gameid + "' AND userid='" + userid + "'";
         List<Score> scores = new ArrayList<Score>();
         try {

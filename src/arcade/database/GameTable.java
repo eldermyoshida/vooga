@@ -172,13 +172,12 @@ public class GameTable extends Table {
                                  Keys.SEPARATOR);
                 System.out.print(myResultSet.getString(Keys.GAM_DESCRIPTION_COLUMN_INDEX) + 
                                  Keys.SEPARATOR);
-                System.out.print(myResultSet.getString(Keys.GAM_GAMEFILEPATH_COLUMN_INDEX) + 
-                                 Keys.SEPARATOR);
                 System.out.println(myResultSet.getString(Keys.GAM_GAMEID_COLUMN_INDEX));
             }
         }
         catch (SQLException e) {
-            writeErrorMessage("Error printing entire table in GameTable.java @ Line 182");
+            e.printStackTrace();
+            //writeErrorMessage("Error printing entire table in GameTable.java @ Line 182");
         }
     }
     
@@ -279,15 +278,6 @@ public class GameTable extends Table {
     public String getDescription(String gameName) {
         return retrieveEntryString(Keys.GAM_TABLE_NAME, Keys.GAM_GAMENAME_COLUMN_FIELD, 
                                    gameName, Keys.GAM_DESCRIPTION_COLUMN_INDEX);
-    }
-    
-    /**
-     * Given a gamename, retrieves description
-     * @param gameName is the gamename
-     */
-    public String getGameFilePath(String gameName) {
-        return retrieveEntryString(Keys.GAM_TABLE_NAME, Keys.GAM_GAMENAME_COLUMN_FIELD, 
-                                   gameName, Keys.GAM_GAMEFILEPATH_COLUMN_INDEX);
     }
     
     /**
