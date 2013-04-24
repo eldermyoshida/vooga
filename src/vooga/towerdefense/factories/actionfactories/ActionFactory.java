@@ -89,7 +89,9 @@ public abstract class ActionFactory {
      * @param e
      * @return
      */
-    protected abstract Action buildTargetedAction (GameElement e, GameElement target);
+    protected Action buildTargetedAction (GameElement e, GameElement target){
+    	return buildAction(e);
+    }
 
     /**
      * Used to create the following actions

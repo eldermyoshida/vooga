@@ -33,7 +33,7 @@ public class FindTargetsFactory extends ActionFactory {
     @Override
     protected Action buildAction (GameElement e) {
         Location searchCenter = e.getCenter();
-        Action locateTargets = new FindTargets(myMap, searchCenter, e.getAttributeManager().getAttribute(myRadiusId));
+        Action locateTargets = new FindTargets(getMap(), searchCenter, e.getAttributeManager().getAttribute(myRadiusId));
         for (ActionFactory a : myFollowUpActions) {
             locateTargets.addFollowUpAction(a.buildAction(e));
         }
