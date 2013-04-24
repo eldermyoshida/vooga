@@ -215,19 +215,20 @@ public class MapPanel extends JComponent {
         return myMaxLayer;
     }
 
-//    public void addLayer () {
-//        myMaxLayer++;
-//        myMap.getLayerMap().put(myMaxLayer, new MapLayer());
-//    }
-//
-//    public void removeLayer () {
-//        myMap.getLayerMap().remove(myMaxLayer);
-//        myMaxLayer--;
-//    }
+    public void addLayer () {
+        myMaxLayer++;
+        
+    }
+
+    public void removeLayer () {
+        if(myMaxLayer>0)
+        myMaxLayer--;
+    }
 
     @InputMethodTarget(name = "onLeftMouseDown")
     public void testClick (PositionObject p) {
         Location3D loc = Camera.instance().viewtoWorld(p.getPoint2D());
+        //Location3D loc2 = new Location3D(loc.getX(),loc.getY(),myCurrentLayer*myTileHeight/2);
         switch (myMode) {
             case RESOURCEMODE:
                 placeResource(loc);
