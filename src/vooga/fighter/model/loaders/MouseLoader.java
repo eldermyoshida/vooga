@@ -16,13 +16,13 @@ public class MouseLoader extends ObjectLoader {
 
 	MouseObject myMouse;
 	
-	public MouseLoader(MouseObject Mouse) {
-		super(ModelConstants.MOUSELOADER_PATH_TAG);
+	public MouseLoader(MouseObject Mouse, String pathHierarchy) {
+		super(ModelConstants.MOUSELOADER_PATH_TAG, pathHierarchy);
 		myMouse = Mouse;
-		load();
+		load(ModelConstants.MOUSELOADER_PATH_TAG, pathHierarchy);
 	}
 
-	protected void load() {
+	protected void load(String mouse, String pathHierarchy) {
 		Document doc = getDocument();
 		NodeList menuNodes = doc.getElementsByTagName(getResourceBundle().getString("MouseObject"));
 		Element node = (Element) menuNodes.item(0);
@@ -43,15 +43,6 @@ public class MouseLoader extends ObjectLoader {
 		myMouse.addState(Statename, newState);
 		myMouse.setCurrentState(Statename);
 		myMouse.defineDefaultState(Statename);
-	}
-
-
-	@Deprecated
-	public void load(int id) {
-	}
-
-	@Deprecated
-	public void load(String name) {
 	}
 
 }

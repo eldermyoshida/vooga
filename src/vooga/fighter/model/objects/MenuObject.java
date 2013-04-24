@@ -21,8 +21,8 @@ public class MenuObject extends GameObject {
     
 
 
-    public MenuObject (String choice, MenuMode delegate) {
-        setLoader(new MenuLoader(choice, this));
+    public MenuObject (String choice, MenuMode delegate, String pathHierarchy) {
+        setLoader(new MenuLoader(choice, this, pathHierarchy));
         myDelegate = delegate;
 
     }

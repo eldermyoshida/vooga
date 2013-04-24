@@ -13,13 +13,13 @@ public class MenuLoader extends ObjectLoader {
 	
 	MenuObject myMenuObject;
 	
-	public MenuLoader(String menuobjectname, MenuObject menuobject) {
-		super(ModelConstants.MENULOADER_PATH_TAG);
+	public MenuLoader(String menuobjectname, MenuObject menuobject, String pathHierarchy) {
+		super(ModelConstants.MENULOADER_PATH_TAG, pathHierarchy);
 		myMenuObject = menuobject;
-		load(menuobjectname);
+		load(menuobjectname, pathHierarchy);
 	}
 
-    protected void load (String menuobjectname) {
+    protected void load (String menuobjectname, String pathHiearchy) {
         Document doc = getDocument();
         NodeList menuNodes = doc.getElementsByTagName(getResourceBundle().getString("MenuObject"));
         for (int i = 0; i < menuNodes.getLength(); i++) {

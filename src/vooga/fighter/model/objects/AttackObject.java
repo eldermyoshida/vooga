@@ -30,11 +30,11 @@ public class AttackObject extends GameObject{
      * 
      * @param name of the attack object as labeled in its respective xml
      */
-    public AttackObject (String name) {
+    public AttackObject (String name, String pathHierarchy) {
     	super();
     	myEffects = new ArrayList<Effect>();
         myCounter = new Counter();
-        setLoader(new AttackObjectLoader(name, this));
+        setLoader(new AttackObjectLoader(name, this, pathHierarchy));
         setToDefaultState();
     }
     

@@ -41,7 +41,8 @@ public class DisplayLoopInfo extends DisplayInfo implements ViewDataSource{
     }
     
     /**
-     * Adds addHUDElements
+     * Adds HUDElements by checking the annotation and creating
+     * the HUDElements
      */
     protected void addHUDElements () {
         try {

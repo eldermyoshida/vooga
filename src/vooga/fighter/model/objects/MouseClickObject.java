@@ -7,8 +7,8 @@ import vooga.fighter.model.ModelConstants;
 
 public class MouseClickObject extends MouseObject {
 
-    public MouseClickObject (Point2D loc) {
-    	super(loc);
+    public MouseClickObject (Point2D loc, String pathHierarchy) {
+    	super(loc, pathHierarchy);
     }
     
     @Override

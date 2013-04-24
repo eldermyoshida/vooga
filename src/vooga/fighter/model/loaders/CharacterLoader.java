@@ -24,17 +24,17 @@ public class CharacterLoader extends ObjectLoader {
 	 * @param charName
 	 * @param character
 	 */
-	public CharacterLoader (String charName, CharacterObject character) {
-		super(ModelConstants.CHARACTERLOADER_PATH_TAG);
+	public CharacterLoader (String charName, CharacterObject character, String pathHierarchy) {
+		super(ModelConstants.CHARACTERLOADER_PATH_TAG, pathHierarchy);
 		myChar = character;
-		load(charName);
+		load(charName, pathHierarchy);
 	}
 
 	/**
 	 * Loads the character associated with the id
 	 * @param charId is the id of the character to be loaded
 	 */
-	protected void load(String charName) {
+	protected void load(String charName, String pathHierarchy) {
 		Document doc = getDocument();
 		NodeList charNodes = doc.getElementsByTagName(getResourceBundle().getString("Character"));
 
@@ -47,7 +47,7 @@ public class CharacterLoader extends ObjectLoader {
 				addStates(stateNodes, myChar);
 				myChar.defineDefaultState(getAttributeValue(node, getResourceBundle().getString("Default")));
 				NodeList attackNodes = node.getElementsByTagName(getResourceBundle().getString("Attack"));
-				addAttacks(attackNodes);
+				addAttacks(attackNodes, pathHierarchy);
 			}
 		}
 	}
@@ -58,10 +58,10 @@ public class CharacterLoader extends ObjectLoader {
 	 *
 	 * @param attackNodes
 	 */
-	private void addAttacks(NodeList attackNodes) {
+	private void addAttacks(NodeList attackNodes, String pathHierarchy) {
 		for (int i = 0; i < attackNodes.getLength(); i++) {
 			String attackName = getAttributeValue(attackNodes.item(i), getResourceBundle().getString("AttackName"));
-			AttackObject newAttack = new AttackObject(attackName);
+			AttackObject newAttack = new AttackObject(attackName, pathHierarchy);
 			myChar.addAttack(attackName, newAttack);
 		}
 	}

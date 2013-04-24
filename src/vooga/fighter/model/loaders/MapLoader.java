@@ -24,8 +24,8 @@ public class MapLoader extends ObjectLoader {
 	/**
 	 * Dummy Constructor only to be used when getting map count
 	 */
-	public MapLoader() {
-		super(ModelConstants.MAPLOADER_PATH_TAG);
+	public MapLoader(String pathHierarchy) {
+		super(ModelConstants.MAPLOADER_PATH_TAG, pathHierarchy);
 	}
 
 	/**
@@ -35,10 +35,10 @@ public class MapLoader extends ObjectLoader {
 	 * @param mapName to be loaded
 	 * @param map object which is loaded into
 	 */
-	public MapLoader(String mapName, MapObject map) {
-		super(ModelConstants.MAPLOADER_PATH_TAG);
+	public MapLoader(String mapName, MapObject map, String pathHierarchy) {
+		super(ModelConstants.MAPLOADER_PATH_TAG, pathHierarchy);
 		myMap = map;
-		load(mapName);
+		load(mapName, pathHierarchy);
 		myMap.setCurrentState("background");
 		myMap.defineDefaultState("background");
 		myMap.getCurrentState().setLooping(true);
@@ -49,7 +49,7 @@ public class MapLoader extends ObjectLoader {
 	 * 
 	 * @param mapName to be loaded
 	 */
-	protected void load(String mapName) {
+	protected void load(String mapName, String pathHierarchy) {
 		Document doc = getDocument();
 		NodeList mapNodes = doc.getElementsByTagName(getResourceBundle().getString("Map"));
 
@@ -65,7 +65,7 @@ public class MapLoader extends ObjectLoader {
 				NodeList startingPosNodes = node.getElementsByTagName(getResourceBundle().getString("StartingPosition"));
 				addStartingPositions(startingPosNodes);
 				NodeList enviroObjectNodes = node.getElementsByTagName(getResourceBundle().getString("EnvironmentObject"));
-				addEnviroObjects(enviroObjectNodes);
+				addEnviroObjects(enviroObjectNodes, pathHierarchy);
 			}
 		}
 	}
@@ -123,13 +123,13 @@ public class MapLoader extends ObjectLoader {
 	 * 
 	 * @param enviroObjectNodes to be added to the map
 	 */
-	private void addEnviroObjects(NodeList enviroObjectNodes) {
+	private void addEnviroObjects(NodeList enviroObjectNodes, String pathHierarchy) {
 		for (int i = 0; i < enviroObjectNodes.getLength(); i++) {
 			Node enviroObjectNode = enviroObjectNodes.item(i);
 			int xCoord = Integer.parseInt(getAttributeValue(enviroObjectNode, getResourceBundle().getString("XCoordinate")));
 			int yCoord = Integer.parseInt(getAttributeValue(enviroObjectNode, getResourceBundle().getString("YCoordinate")));
 			EnvironmentObject newEnvironmentObject = new EnvironmentObject(getAttributeValue(enviroObjectNode, getResourceBundle()
-				.getString("EnvironmentObjectName")), new UpdatableLocation(xCoord, yCoord));
+				.getString("EnvironmentObjectName")), new UpdatableLocation(xCoord, yCoord), pathHierarchy);
 			myMap.addEnviroObject(newEnvironmentObject);
 		}
 	}
