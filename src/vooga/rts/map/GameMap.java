@@ -52,14 +52,16 @@ public class GameMap implements IGameLoop {
     public GameMap (Dimension size) {
         mySize = size;
         NodeFactory factory = new NodeFactory();
-        Dimension dou = new Dimension((int) size.getWidth(), (int) (size.getHeight() * 2));
         myNodeMap = factory.makeMap(Node.NODE_SIZE, size);
-
         myTerrain = new GameSpriteManager<Terrain>();
         myResources = new GameSpriteManager<Resource>();
-
         Camera.instance().setMapSize(size);
-        // randomGenMap(dou);
+    }
+
+    public GameMap (Dimension size, boolean random) {
+        this(size);
+        Dimension dou = new Dimension((int) size.getWidth(), (int) (size.getHeight() * 2));
+        randomGenMap(dou);
     }
 
     public GameMap (Dimension tileSize, int width, int height) {
