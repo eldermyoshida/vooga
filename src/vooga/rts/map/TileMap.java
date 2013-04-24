@@ -156,14 +156,14 @@ public class TileMap implements IGameLoop {
                         .getWidth());
         endX /= myTileSize.getWidth();
         endX /= Camera.ISO_HEIGHT;
-        endX = endX < myWidth ? endX : myWidth - 1;
+        endX = endX < myWidth ? endX : myWidth;
 
         int endY =
                 (int) (view.getMaxY() < myMapSize.getHeight() ? view.getMaxY() : myMapSize
                         .getHeight());
         endY /= myTileSize.getHeight();
         endY /= Camera.ISO_HEIGHT;
-        endY = endY < myHeight ? endY : myHeight - 1;
+        endY = endY < myHeight ? endY : myHeight;
 
         for (int x = startX; x < endX; x++) {
             for (int y = startY; y < endY; y++) {
