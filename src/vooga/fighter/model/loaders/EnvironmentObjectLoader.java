@@ -68,6 +68,7 @@ public class EnvironmentObjectLoader extends ObjectLoader {
 			if (enviroObjectName.equals(name)) {
 				NodeList stateNodes = ((Element) enviroObjectNode).getElementsByTagName(getResourceBundle().getString("State"));
 				addStates(stateNodes, myEnvironmentObject);
+				myEnvironmentObject.defineDefaultState(getAttributeValue(enviroObjectNode, getResourceBundle().getString("Default")));
 			}
 		}
 	}

@@ -23,6 +23,9 @@ public class AttackObjectLoader extends ObjectLoader {
 		load(attackName, pathHierarchy);
 	}
 
+	/**
+	 * loads attack object
+	 */
 	protected void load(String attackName, String pathHierarchy) {
 		Document doc = getDocument();
 		NodeList attackNodes = doc.getElementsByTagName(getResourceBundle().getString("Attack"));
@@ -34,7 +37,7 @@ public class AttackObjectLoader extends ObjectLoader {
 				addProperties(attackNode, myAttack);
 				NodeList stateNodes = attackNode.getElementsByTagName(getResourceBundle().getString("State"));
 				addStates(stateNodes, myAttack);
-				myAttack.setCurrentState("default");
+				myAttack.defineDefaultState(getAttributeValue(attackNode, getResourceBundle().getString("Default")));
 			}
 		}
 	}

@@ -40,7 +40,7 @@ public class MapLoader extends ObjectLoader {
 		myMap = map;
 		load(mapName, pathHierarchy);
 		myMap.setCurrentState("background");
-		myMap.setDefaultState("background");
+		myMap.defineDefaultState("background");
 		myMap.getCurrentState().setLooping(true);
 	}
 
