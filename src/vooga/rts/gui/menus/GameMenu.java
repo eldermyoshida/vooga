@@ -121,6 +121,9 @@ public class GameMenu extends Menu {
         for (SubMenu s : mySubMenus) {
             if (s.checkWithinBounds(l)) { return true; }
         }
+        for (Button b : myButtons) {
+            if (b.checkWithinBounds(l)) { return true; }
+        }
 
         return false;
     }
@@ -201,6 +204,11 @@ public class GameMenu extends Menu {
         for (SubMenu b : mySubMenus) {
             if (b.checkWithinBounds(x, y)) {
                 b.processClick(x, y);
+            }
+        }
+        for (Button b : myButtons) {
+            if (b.checkWithinBounds(x, y)) {
+                b.processClick();
             }
         }
     }

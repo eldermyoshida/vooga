@@ -53,6 +53,10 @@ public abstract class Button extends Observable implements IGameLoop {
     public boolean checkWithinBounds (int x, int y) {
         return (x > myPos.x && y > myPos.y && x < (myPos.x + mySize.width) && y < (myPos.y + mySize.height));
     }
+    
+    public boolean checkWithinBounds (Location l) {
+        return checkWithinBounds((int) l.getX(), (int) l.getY());
+    }
 
     public Dimension getSize () {
         return mySize;
