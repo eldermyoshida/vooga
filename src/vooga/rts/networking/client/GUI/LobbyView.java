@@ -10,6 +10,8 @@ import java.util.Collection;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
+
+import vooga.rts.networking.NetworkBundle;
 import vooga.rts.networking.communications.Player;
 
 /**
@@ -94,10 +96,9 @@ public class LobbyView extends JPanel {
         }
 
         // initialize title labels
-        // TODO resources file
-        createLabel("Player Name", COLUMN_1, ROW_1);
-        createLabel("Team", COLUMN_2, ROW_1);
-        createLabel("Faction", COLUMN_3, ROW_1);
+        createLabel(NetworkBundle.BUNDLE.getString("PlayerName"), COLUMN_1, ROW_1);
+        createLabel(NetworkBundle.BUNDLE.getString("Team"), COLUMN_2, ROW_1);
+        createLabel(NetworkBundle.BUNDLE.getString("Faction"), COLUMN_3, ROW_1);
 
     }
 
