@@ -288,8 +288,8 @@ public class MapSaver {
                 newResource.setAttribute("ID", id+"");
                 newResource.setAttribute("image", currentResource.getMyImageName());
                 newResource.setAttribute("name", currentResource.getType());
-                newResource.setAttribute("walkAbility", currentResource.getMyAmount()+"");
-                terrainIndex.appendChild(newResource);
+                newResource.setAttribute("amount", currentResource.getMyAmount()+"");
+                resourceIndex.appendChild(newResource);
                     
             }
         }

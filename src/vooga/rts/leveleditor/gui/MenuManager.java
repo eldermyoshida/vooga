@@ -7,6 +7,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import vooga.rts.leveleditor.components.EditableMap;
 
 /**
  * This class holds all the menus for the level editor
@@ -116,7 +117,9 @@ public class MenuManager extends JMenuBar {
                     int response = myChooser.showOpenDialog(null);
                     if (response == JFileChooser.APPROVE_OPTION) {
                         myCanvas.getMapPanel().getMyMap().load(myChooser.getSelectedFile());
-                        myCanvas.getMapPanel().repaint();    
+                        EditableMap newMap = myCanvas.getMapPanel().getMyMap().returnLoadedMap();
+                        myCanvas.getMapPanel().setMap(newMap);                       
+                        myCanvas.getMapPanel().repaint();
                     }
                 }
                 catch (Exception exception) {

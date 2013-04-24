@@ -99,6 +99,7 @@ public class MapPanel extends JComponent {
 
         // paint map
         myMap.paint((Graphics2D)g);
+        System.out.println("PAINTED");
     }
     
     public void drawLineTest(int x1, int y1, int x2, int y2, Graphics g) {
@@ -131,6 +132,10 @@ public class MapPanel extends JComponent {
         myTileHeight = h;
         setPanelSize();
         repaint();
+    }
+    
+    public void setMap(EditableMap map) {
+        myMap = map;
     }
 
     public void initializeMap (String name, String desc, int width, int height, int tileWidth, int tileHeight) {

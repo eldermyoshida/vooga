@@ -60,7 +60,7 @@ public class MapLoader {
         myTerrainWalkAbility = new HashMap<Integer,String>();
         myResourceAmount = new HashMap<Integer,String>();
         
-       // myMap = map;       
+        //myMap = map;       
         
  
     }
@@ -68,9 +68,12 @@ public class MapLoader {
 
     public void loadMapFile(File resourceFile) throws SAXException, IOException {
         
+        System.out.println("start loading");
+        
         String XMLpath = resourceFile.getPath();
         String XMLFileName = resourceFile.getName();
         String path = XMLpath.substring(0, XMLpath.indexOf(XMLFileName));
+        System.out.println("path created");
         
         
         myDocument = myBuilder.parse(resourceFile);
@@ -82,7 +85,8 @@ public class MapLoader {
         loadTiles(root);
         loadTerrains(root);
         loadResources(root,path);
-
+        
+        //printEverything();
     }
 
     public void loadInfo(Element root) {
@@ -117,8 +121,7 @@ public class MapLoader {
         
         int width = Integer.parseInt(tileSizeNode.getAttributes().item(1).getNodeValue());
         int height = Integer.parseInt(tileSizeNode.getAttributes().item(0).getNodeValue());
-        myMap = new EditableMap("", "", x, y, width, height);
-        //myMap.resetTileMap(x, y, width, height);
+        myMap = new EditableMap("","",x,y,width,height);
         
     }
     
@@ -219,7 +222,45 @@ public class MapLoader {
                 }
         }
         
+    } 
+
+    public void printEverything() {
+      myMap.printMatrix();
+      for(int i = 0 ; i < myMap.getResourceSize() ; i++) {
+          EditableResource res =  myMap.getResource(i);
+          System.out.print(res.getMyID());
+          System.out.print(" ");
+          System.out.print(res.getType());
+          System.out.print(" ");
+          System.out.print(res.getMyImageName());
+          System.out.print(" ");
+          System.out.print(res.getWorldLocation().getX());
+          System.out.print(" ");
+          System.out.print(res.getWorldLocation().getY());
+          System.out.print(" ");
+          System.out.print(res.getWorldLocation().getZ());   
+          System.out.println();
+      }
+  
+      for(int i = 0 ; i < myMap.getTerrainSize() ; i++) {
+      
+          EditableTerrain res =  myMap.getTerrain(i);
+      
+          System.out.print(res.getMyID());
+          System.out.print(" ");
+          System.out.print(res.getMyName());
+          System.out.print(" ");
+          System.out.print(res.getMyImageName());
+          System.out.print(" ");
+          System.out.print(res.getWorldLocation().getX());
+          System.out.print(" ");
+          System.out.print(res.getWorldLocation().getY());
+          System.out.print(" ");
+          System.out.print(res.getWorldLocation().getZ());   
+          System.out.println();
+      }
     }
+
 
     public void loadResources(Element root, String path) {
         NodeList resourceList = root.getElementsByTagName("resource");
@@ -263,39 +304,6 @@ public class MapLoader {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-    
-        test.getMyMap().printMatrix();
-        for(int i = 0 ; i < test.getMyMap().getResourceSize() ; i++) {
-            EditableResource res =  test.getMyMap().getResource(i);
-            System.out.print(res.getMyID());
-            System.out.print(" ");
-            System.out.print(res.getType());
-            System.out.print(" ");
-            System.out.print(res.getMyImageName());
-            System.out.print(" ");
-            System.out.print(res.getWorldLocation().getX());
-            System.out.print(" ");
-            System.out.print(res.getWorldLocation().getY());
-            System.out.print(" ");
-            System.out.print(res.getWorldLocation().getZ());   
-            System.out.println();
-        }
-        for(int i = 0 ; i < test.getMyMap().getTerrainSize() ; i++) {
-            EditableTerrain res =  test.getMyMap().getTerrain(i);
-            System.out.print(res.getMyID());
-            System.out.print(" ");
-            System.out.print(res.getMyName());
-            System.out.print(" ");
-            System.out.print(res.getMyImageName());
-            System.out.print(" ");
-            System.out.print(res.getWorldLocation().getX());
-            System.out.print(" ");
-            System.out.print(res.getWorldLocation().getY());
-            System.out.print(" ");
-            System.out.print(res.getWorldLocation().getZ());   
-            System.out.println();
-        }
     }
 }
-
 
