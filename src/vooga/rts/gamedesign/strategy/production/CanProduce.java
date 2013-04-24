@@ -2,9 +2,13 @@ package vooga.rts.gamedesign.strategy.production;
 
 import vooga.rts.action.InteractiveAction;
 import vooga.rts.commands.Command;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.Building;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
+import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;
 import vooga.rts.util.DelayedTask;
 import vooga.rts.util.Location3D;
+
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,9 +32,10 @@ public class CanProduce implements ProductionStrategy {
 	 * it can produce and a rally point (where all the units created by this 
 	 * entity will go).
 	 */
-	public CanProduce() {
+	public CanProduce(Building building) {
 		myProducables = new ArrayList<InteractiveEntity>();
 		myRallyPoint = new Location3D();
+		setRallyPoint(building);
 	}
 	
 	/**
@@ -39,8 +44,9 @@ public class CanProduce implements ProductionStrategy {
 	 * @param rallyPoint is the location where the units will go when they 
 	 * are created
 	 */
-	public void setRallyPoint(Location3D rallyPoint) {
-		myRallyPoint = rallyPoint;
+	public void setRallyPoint(Building building) {
+		myRallyPoint = new Location3D(building.getWorldLocation().getX(),
+				building.getWorldLocation().getY() + 50, 0);
 	}
 
 	/**
@@ -72,6 +78,7 @@ public class CanProduce implements ProductionStrategy {
 							InteractiveEntity f = ((InteractiveEntity) unit)
 									.copy();
 							f.setWorldLocation(producer.getWorldLocation());
+							f.setAttackStrategy(new CanAttack(f.getWorldLocation(), f.getPlayerID()));
 							producer.setChanged();
 							producer.notifyObservers(f);
 							f.move(myRallyPoint);
@@ -85,4 +92,17 @@ public class CanProduce implements ProductionStrategy {
 			producer.addInfo(commandName, producable.getInfo());
 		}
 	}
+	
+    public void paint (Graphics2D pen) {
+        for (int i = 0; i < myProducables.size(); i++) {
+            myProducables.get(i).paint(pen);
+        }
+    }
+
+    public void update (double elapsedTime) {
+        for (InteractiveEntity ie : myProducables) {
+            ie.update(elapsedTime);
+        }
+
+    }
 }

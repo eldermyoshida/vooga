@@ -1,5 +1,7 @@
 package vooga.rts.gamedesign.strategy.production;
 
+import java.awt.Graphics2D;
+
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 
 /**
@@ -26,5 +28,11 @@ public interface ProductionStrategy {
    *  requires a timer for cooldown for production 
    */
   public void createProductionActions(InteractiveEntity producer);
+  
+  public void addProducable(InteractiveEntity producable);
+  
+  public void update (double elapsedTime);
+  
+  public void paint (Graphics2D pen);
 
 }

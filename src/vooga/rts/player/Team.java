@@ -3,7 +3,7 @@ package vooga.rts.player;
 import java.util.ArrayList;
 import java.util.List;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
-import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.Unit;
 
 
 public class Team {

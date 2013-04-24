@@ -15,12 +15,12 @@ import vooga.rts.commands.DragCommand;
 import vooga.rts.controller.Controller;
 import vooga.rts.gamedesign.sprite.gamesprites.Projectile;
 import vooga.rts.gamedesign.sprite.gamesprites.Resource;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.Building;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
-import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building;
-import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Garrison;
-import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Soldier;
-import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
-import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Worker;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.Unit;
+import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;
+import vooga.rts.gamedesign.strategy.gatherstrategy.CanGather;
+import vooga.rts.gamedesign.strategy.occupystrategy.CanBeOccupied;
 import vooga.rts.gamedesign.strategy.production.CanProduce;
 import vooga.rts.gamedesign.weapon.Weapon;
 import vooga.rts.map.GameMap;
@@ -154,16 +154,18 @@ public class GameState extends SubState implements Controller {
         addPlayer(1);
 
         Unit worker =
-                new Worker(new Pixmap(ResourceManager.getInstance()
+                new Unit(new Pixmap(ResourceManager.getInstance()
                         .<BufferedImage> getFile("images/scv.gif", BufferedImage.class)),
-                           new Location3D(100, 100, 0), new Dimension(75, 75), null, 1, 200, 40, 5);
+                           new Location3D(100, 100, 0), new Dimension(75, 75), null, 1, 200, 40);
+        worker.setGatherStrategy(new CanGather());
         Information i1 =
                 new Information("Worker",
                                 "I am a worker. I am sent down from Denethor, son of Ecthelion ",
                                 null, "images/scv.png");
         worker.setInfo(i1);
         myHumanPlayer.add(worker);
-        Unit a = new Soldier();
+        Unit a = new Unit();
+        a.setAttackStrategy(new CanAttack(a.getWorldLocation(), a.getPlayerID()));
         Projectile proj =
                 new Projectile(new Pixmap(ResourceManager.getInstance()
                         .<BufferedImage> getFile("images/bullet.png", BufferedImage.class)),
@@ -176,7 +178,8 @@ public class GameState extends SubState implements Controller {
         myHumanPlayer.add(a);
         addPlayer(2);
 
-        Unit c = new Soldier(new Location3D(1200, 500, 0), 2);
+        Unit c = new Unit(new Location3D(1200, 500, 0), 2);
+        c.setAttackStrategy(new CanAttack(a.getWorldLocation(), c.getPlayerID()));
         c.setHealth(150);
         // myHumanPlayer.add(c);
         myPlayers.get(1).add(c);
@@ -186,10 +189,9 @@ public class GameState extends SubState implements Controller {
                         .<BufferedImage> getFile("images/factory.png", BufferedImage.class)),
                              new Location3D(700, 700, 0), new Dimension(100, 100), null, 1, 300,
                              InteractiveEntity.DEFAULT_BUILD_TIME);
-        b.setProductionStrategy(new CanProduce());
-        ((CanProduce) b.getProductionStrategy()).addProducable(new Soldier());
+        b.setProductionStrategy(new CanProduce(b));
+        ((CanProduce) b.getProductionStrategy()).addProducable(new Unit());
         ((CanProduce) b.getProductionStrategy()).createProductionActions(b);
-        ((CanProduce) b.getProductionStrategy()).setRallyPoint(new Location3D(600, 500, 0));
         Information i =
                 new Information("Barracks", "This is a barracks that can make awesome pies", null,
                                 "buttons/marine.png");
@@ -201,12 +203,12 @@ public class GameState extends SubState implements Controller {
                                                      new Location3D(200 + j * 15, 300 + j * 10, 0),
                                                      new Dimension(50, 50), 0, 200, "mineral"));
         }
-        Garrison garrison =
-                new Garrison(new Pixmap(ResourceManager.getInstance()
+        Building garrison =
+                new Building(new Pixmap(ResourceManager.getInstance()
                         .<BufferedImage> getFile("images/barracks.jpeg", BufferedImage.class)),
                              new Location3D(300, 300, 0), new Dimension(100, 100), null, 1, 300,
                              InteractiveEntity.DEFAULT_BUILD_TIME);
-        garrison.getOccupyStrategy().addValidClassType(new Soldier());
+        garrison.setOccupyStrategy(new CanBeOccupied());
         garrison.getOccupyStrategy().createOccupyActions(garrison);
         myHumanPlayer.add(garrison);
         final Building f = b;
@@ -218,7 +220,7 @@ public class GameState extends SubState implements Controller {
             }
         });
 
-        final Garrison testGarrison = garrison;
+        final Building testGarrison = garrison;
         occupyPukingTest = new DelayedTask(10, new Runnable() {
             @Override
             public void run () {
@@ -235,18 +237,11 @@ public class GameState extends SubState implements Controller {
         List<InteractiveEntity> p1 = myTeams.get(1).getUnits();
         List<InteractiveEntity> p2 = myTeams.get(2).getUnits();
         for (InteractiveEntity u1 : p1) {
-            /*
-             * if (u1 instanceof Worker && r != null) {
-             * //((Worker) u1).gather(r);
-             * }
-             */
             for (InteractiveEntity u2 : p2) {
                 u2.getAttacked(u1);
                 u1.getAttacked(u2);
             }
         }
-        // r.update(elapsedTime);
-        // }
         test.update(elapsedTime);
         // now even yuckier
         for (int i = 0; i < p1.size(); ++i) {

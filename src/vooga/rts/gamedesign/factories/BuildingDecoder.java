@@ -9,7 +9,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.Building;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;

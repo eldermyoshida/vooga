@@ -1,4 +1,4 @@
-package vooga.rts.gamedesign.sprite.gamesprites.interactive.units;
+package vooga.rts.gamedesign.sprite.gamesprites.interactive;
 
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
@@ -14,9 +14,6 @@ import vooga.rts.action.InteractiveAction;
 import vooga.rts.gamedesign.sprite.gamesprites.GameEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.GameSprite;
 import vooga.rts.gamedesign.sprite.gamesprites.Resource;
-import vooga.rts.gamedesign.sprite.gamesprites.interactive.IGatherable;
-import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
-import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building;
 import vooga.rts.gamedesign.strategy.gatherstrategy.CanGather;
 import vooga.rts.gamedesign.strategy.gatherstrategy.CannotGather;
 import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
@@ -52,17 +49,9 @@ public class Unit extends InteractiveEntity {
     public static Sound DEFAULT_SOUND = null;
     public static int DEFAULT_PLAYERID = 2;
     public static int DEFAULT_HEALTH = 100;
-	
-    private List<GameSprite> myKills; // TODO: WHAT TYPE SHOULD IT BE??
-    // private boolean myIsLeftSelected; // TODO: also need the same thing for
-    // Projectiles
-    // private boolean myIsRightSelected; // TODO: should be observing the mouse
-    // action instead!!
-    // private PathingHelper myPather;
 
     private GatherStrategy myGatherStrategy;
-
-    private OccupyStrategy myOccupyStrategy;
+    
     public Unit () {
         this(DEFAULT_IMAGE, DEFAULT_LOCATION, DEFAULT_SIZE, DEFAULT_SOUND, DEFAULT_PLAYERID, DEFAULT_HEALTH, InteractiveEntity.DEFAULT_BUILD_TIME);
         //for testing.
@@ -99,6 +88,7 @@ public class Unit extends InteractiveEntity {
                  int health,
                  double buildTime) {
         super(image, center, size, sound, playerID, health, buildTime);
+        myGatherStrategy = new CannotGather();
         addActions();
     }
     
@@ -106,28 +96,7 @@ public class Unit extends InteractiveEntity {
 	public void update(double elapsedTime) {
 		super.update(elapsedTime);
 		myGatherStrategy.update(elapsedTime);
-	}
-    
-	/**
-	 * Another recognize method specific for workers as they can gather
-	 * resources which are not InteractiveEntities
-	 */
-	public void recognize(Resource resource) {
-		gather(resource);
-	}
-
-	/**
-	 * The worker gathers the resource if it can and then resets its gather
-	 * cooldown.
-	 * 
-	 * @param gatherable
-	 *            is the resource being gathered.
-	 */
-	public void gather(IGatherable gatherable) {
-		// shouldnt the cast be to a type Resource?
-		if (this.collidesWith((GameEntity) gatherable)) {
-			myGatherStrategy.gatherResource(getPlayerID(), gatherable);
-		}
+		
 	}
     
     @Override
@@ -166,7 +135,11 @@ public class Unit extends InteractiveEntity {
 	 */
 	public void setGatherAmount(int gatherAmount) {
 		myGatherStrategy.setGatherAmount(gatherAmount);
-		myGatherStrategy = new CanGather(CanGather.DEFUALT_GATHER_INTERVAL,
+		myGatherStrategy = new CanGather(CanGather.DEFAULT_GATHER_INTERVAL,
 				myGatherStrategy.getGatherAmount());
+	}
+	
+	public void setGatherStrategy(GatherStrategy gatherStrategy) {
+		myGatherStrategy = gatherStrategy;
 	}
 }

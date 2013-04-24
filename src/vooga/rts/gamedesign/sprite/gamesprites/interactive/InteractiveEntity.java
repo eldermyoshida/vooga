@@ -22,8 +22,6 @@ import vooga.rts.commands.InformationCommand;
 import vooga.rts.gamedesign.sprite.gamesprites.GameEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.IAttackable;
 import vooga.rts.gamedesign.sprite.gamesprites.Projectile;
-import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building;
-import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
 import vooga.rts.gamedesign.state.AttackingState;
 import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
 import vooga.rts.gamedesign.strategy.attackstrategy.CannotAttack;
@@ -322,9 +320,20 @@ public abstract class InteractiveEntity extends GameEntity implements
 		if (!isVisible()) {
 			return;
 		}
-		// pen.rotate(getVelocity().getAngle());
-
-		// should probably use the getBottom, getHeight etc...implement them
+		
+		paintHealthBar(pen);
+		super.paint(pen);
+		if (myAttackStrategy.getCanAttack()
+				&& !getAttackStrategy().getWeapons().isEmpty()) {
+			for (Projectile p : myAttackStrategy.getWeapons()
+					.get(myAttackStrategy.getWeaponIndex()).getProjectiles()) {
+				p.paint(pen);
+			}
+		}
+		myProductionStrategy.paint(pen);
+	}
+	
+	private void paintHealthBar(Graphics2D pen){
 		Point2D selectLocation = Camera.instance().worldToView(
 				getWorldLocation());
 
@@ -346,14 +355,6 @@ public abstract class InteractiveEntity extends GameEntity implements
 					selectLocation.getX() - LOCATION_OFFSET,
 					selectLocation.getY() + LOCATION_OFFSET, 50, 30);
 			pen.fill(selectedCircle);
-		}
-		super.paint(pen);
-		if (myAttackStrategy.getCanAttack()
-				&& !getAttackStrategy().getWeapons().isEmpty()) {
-			for (Projectile p : myAttackStrategy.getWeapons()
-					.get(myAttackStrategy.getWeaponIndex()).getProjectiles()) {
-				p.paint(pen);
-			}
 		}
 	}
 
@@ -431,16 +432,6 @@ public abstract class InteractiveEntity extends GameEntity implements
 		myUpgradeTree = upgradeTree;
 	}
 
-	//
-	// public Action findAction(String name) {
-	// for (Action a: myActions) {
-	// if (a.getName().equals(name)) {
-	// return a;
-	// }
-	// }
-	// return null;
-	// }
-
 	@Override
 	public void update(double elapsedTime) {
 
@@ -463,6 +454,7 @@ public abstract class InteractiveEntity extends GameEntity implements
 			myAttackStrategy.getWeapons()
 					.get(myAttackStrategy.getWeaponIndex()).update(elapsedTime);
 		}
+		myProductionStrategy.update(elapsedTime);
 		getEntityState().update(elapsedTime);
 
 		setChanged();
