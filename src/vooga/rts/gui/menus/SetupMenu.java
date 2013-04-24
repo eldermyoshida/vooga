@@ -5,9 +5,12 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.util.Observable;
 import vooga.rts.gui.Menu;
+import vooga.rts.networking.communications.ExpandedLobbyInfo;
 
 public class SetupMenu extends Menu {
 
+    ExpandedLobbyInfo myLobbyInfo;
+    
     public SetupMenu () {
         super();
 
@@ -34,5 +37,9 @@ public class SetupMenu extends Menu {
     public void update(Observable o, Object a) {
         setChanged();
         notifyObservers();
+    }
+
+    public void setLobbyInfo (ExpandedLobbyInfo e) {
+        myLobbyInfo = e;
     }
 }

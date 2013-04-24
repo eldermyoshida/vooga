@@ -4,15 +4,20 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
+import java.util.Observer;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import vooga.rts.gui.Menu;
 import vooga.rts.gui.Window;
 import vooga.rts.networking.client.ClientModel;
+import vooga.rts.networking.communications.ExpandedLobbyInfo;
 import vooga.rts.networking.server.MatchmakerServer;
 
 
-public class MultiMenu extends Menu {
+public class MultiMenu extends Menu implements Observer {
 
     private JFrame myFrame;
     private ClientModel myClientModel;
@@ -21,31 +26,44 @@ public class MultiMenu extends Menu {
         myFrame = f;
         MatchmakerServer server = new MatchmakerServer();
         server.startAcceptingConnections();
-        myClientModel = new ClientModel("Test Game", "User 1", new String[] { "protoss", "zerg" },
-                                        new String[] { "map1", "map2" },
-                                        new Integer[][] { { 2, 3, 4 }, { 2, 3, 4, 5, 6 } });
-        myFrame.add(myClientModel.getPanel());
+        List<String> factions = new ArrayList<String>();
+        factions.add("protoss");
+        factions.add("zerg");
+        List<String> maps = new ArrayList<String>();
+        maps.add("map1");
+        maps.add("map2");
+        List<Integer> maxPlayers = new ArrayList<Integer>();
+        maxPlayers.add(4);
+        maxPlayers.add(6);
+        myClientModel =
+                new ClientModel("Test Game", "User 1", factions, maps, maxPlayers);
+
     }
 
+    public void setFrame () {
+        
+        myFrame.setContentPane(myClientModel.getView());
+        myFrame.setVisible(true);
+    }
+    
     @Override
     public void paint (Graphics2D pen) {
 
-        super.paint(pen);
-
-        pen.setFont(new Font("Helvetica", Font.BOLD, 50));
-        pen.setColor(Color.red);
-        pen.drawString("This is the Multiplayer page. Click to start game.", 150, 150);
 
     }
 
     public void handleMouseDown (int x, int y) {
-        myFrame.remove(myClientModel.getPanel());
+        myFrame.remove(myClientModel.getView());
         setChanged();
         notifyObservers();
     }
 
     @Override
     public void update (Observable o, Object a) {
+        if (o instanceof ClientModel) {
+            ClientModel c = (ClientModel) o;
+            ExpandedLobbyInfo e = (ExpandedLobbyInfo) a;
+        }
         setChanged();
         notifyObservers();
     }
