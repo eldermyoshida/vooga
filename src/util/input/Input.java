@@ -31,10 +31,10 @@ public class Input {
     
     public Input(String inputMapResourcePath, JComponent component) {
         myInputMap = new ResourceMappingObject("mapping", inputMapResourcePath);
-        myDefaultSettings = ResourceBundle.getBundle("input/DefaultSettings");
+        myDefaultSettings = ResourceBundle.getBundle("util/input/DefaultSettings");
         inputDevices.add(new KeyboardInput(component, this));
         inputDevices.add(new MouseInput(component, this));    
-        inputDevices.add(new VoiceInput(component,this));
+        //inputDevices.add(new VoiceInput(component,this));
     }
     
     public Input(String inputMapResourcePath, String overrideSettingsResourcePath, JComponent component) {

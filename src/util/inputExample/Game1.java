@@ -49,13 +49,13 @@ public class Game1 {
         you = new PlayerSuperHero(new Pixmap("runningYou.png"), new Pixmap("flyingYou.png"));
         updateWindowSize();
         
-        input1 = new Input("examples/Game1MappingsMode1", myCanvas);
+        input1 = new Input("util/inputExample/Game1MappingsMode1", myCanvas);
         input1.addListenerTo(this);
         input1.addListenerTo(you);
         
         //Optional Modifications:
         //input1.replaceMappingResourcePath("examples/LegacyGame1Mappings");
-        input1.overrideSettings("examples/Settings");
+        input1.overrideSettings("util/inputExample/Settings");
         input1.overrideMapping("cheat", "Keyboard_NM_Down|Keyboard_Right_Down");
         input1.overrideMapping("stopcheat", "Keyboard_N_Up|Keyboard_Right_Up");
         
@@ -118,7 +118,7 @@ public class Game1 {
      */
     @InputMethodTarget(name = "setMode1")
     public void setMode1(AlertObject x){
-        input1.replaceMappingResourcePath("examples/Game1MappingsMode1");
+        input1.replaceMappingResourcePath("util/inputExample/Game1MappingsMode1");
     }
     
     /**
@@ -126,7 +126,7 @@ public class Game1 {
      */
     @InputMethodTarget(name = "setMode2")
     public void setMode2(AlertObject x){
-        input1.replaceMappingResourcePath("examples/Game1MappingsMode2");
+        input1.replaceMappingResourcePath("util/inputExample/Game1MappingsMode2");
     }
     
     /**

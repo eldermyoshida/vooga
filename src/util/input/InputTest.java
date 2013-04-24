@@ -48,7 +48,7 @@ public class InputTest extends TestCase {
         frame.getContentPane().add(myCanvas, BorderLayout.CENTER);
         frame.setVisible(true);
         
-        input1 = new Input("examples/Game1MappingsMode1", myCanvas) {
+        input1 = new Input("util/inputExample/Game1MappingsMode1", myCanvas) {
             @Override
             protected void execute(String gameBehavior, AlertObject in) {
                 super.execute(gameBehavior, in);
