@@ -33,7 +33,7 @@ public class TerrainButton extends JToggleButton {
      * Constructor for the map
      * 
      * @param t the terrain the button represents
-     * @param image the bufferred image for the button icon
+     * @param image the buffered image for the button icon
      * @param owner the panel that holds the button
      */
     public TerrainButton (EditableTerrain t, BufferedImage image, TerrainPanel owner) {
