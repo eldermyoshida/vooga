@@ -1,6 +1,9 @@
 package vooga.rts.leveleditor.gui;
 
 import java.awt.event.ActionEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
@@ -116,7 +119,7 @@ public class MenuManager extends JMenuBar {
                 try {
                     int response = myChooser.showOpenDialog(null);
                     if (response == JFileChooser.APPROVE_OPTION) {
-                        myCanvas.getMapPanel().getMyMap().load(myChooser.getSelectedFile());
+                        myCanvas.getMapPanel().getMyMap().load(myChooser.getSelectedFile());          
                         EditableMap newMap = myCanvas.getMapPanel().getMyMap().returnLoadedMap();
                         myCanvas.getMapPanel().setMap(newMap);                       
                         myCanvas.getMapPanel().repaint();

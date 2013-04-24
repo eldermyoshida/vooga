@@ -69,9 +69,9 @@ public class EditableTerrain extends Terrain {
      * @param imageName image name
      * @param walkAbility walkability
      */
-    public EditableTerrain (Pixmap image, int x, int y, int layerCount,
-                            int layerHeight, int id , String name , String imageName, int walkAbility) {
-        this(image , x , y , layerCount*layerHeight , id , name , imageName , walkAbility);
+    public EditableTerrain (Pixmap image, int x, int y, int layerCount, int layerHeight, 
+                                   int id , String name , String imageName, int walkAbility) {
+        this(image, x, y, layerCount*layerHeight, id, name, imageName, walkAbility);
     }
     /**
      * return the id of this 

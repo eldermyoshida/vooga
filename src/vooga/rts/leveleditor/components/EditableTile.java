@@ -29,7 +29,7 @@ public class EditableTile extends Tile {
     
     
     public EditableTile(Pixmap image, Location3D center, Dimension size, int id , String name, String imageName, boolean isOccupied) {
-        super(image,center,size);
+        super(image, center, size);
         myID = id;
         myName = name;
         myImageName = imageName;
