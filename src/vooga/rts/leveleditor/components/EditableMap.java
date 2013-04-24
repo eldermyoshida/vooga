@@ -99,8 +99,8 @@ public class EditableMap extends GameMap {
 
     public void clearMap () {
         myTileMap.removeAllTiles();
-        getTerrain().getMySprites().clear();
-        getResources().getMySprites().clear();
+        getTerrain().getContents().clear();
+        getResources().getContents().clear();
         System.out.println("clear");
     }
     
@@ -415,7 +415,7 @@ public class EditableMap extends GameMap {
      * @return EditableTerrain
      */
     public EditableTerrain getTerrain(int index) {
-        return (EditableTerrain)getTerrain().getMySprites().get(index);
+        return (EditableTerrain)getTerrain().getContents().get(index);
     }
     /**
      * return a certain resource in this map
@@ -423,7 +423,7 @@ public class EditableMap extends GameMap {
      * @return EditableResource
      */
     public EditableResource getResource(int index) {
-        return (EditableResource)getResources().getMySprites().get(index);
+        return (EditableResource)getResources().getContents().get(index);
     }
 
     /**
