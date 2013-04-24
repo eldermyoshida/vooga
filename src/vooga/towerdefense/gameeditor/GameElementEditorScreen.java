@@ -44,7 +44,11 @@ public class GameElementEditorScreen extends GameEditorScreen {
     /**
      * the next screen is the wave editor screen.
      */
-    private static final String NEXT_SCREEN_NAME = "WaveEditorScreen";;
+    private static final String NEXT_SCREEN_NAME = "WaveEditorScreen";
+    /**
+     * path to the action factories package.
+     */
+    private static final String ACTION_PACKAGE_PATH = "vooga.towerdefense.factories.actionfactories";
     /**
      * constant for text area width.
      */
@@ -316,7 +320,7 @@ public class GameElementEditorScreen extends GameEditorScreen {
         JPanel westSide = new JPanel(new BorderLayout());
         westSide.add(new JLabel(ACTION_TITLE), BorderLayout.NORTH);
         myActionsBox = new JComboBox();
-        List<String> actions = getController().getAvailableActions();
+        List<String> actions = getController().getAvailableActions(ACTION_PACKAGE_PATH);
         for (String a : actions) {
             myActionsBox.addItem(a);
         }
@@ -441,7 +445,7 @@ public class GameElementEditorScreen extends GameEditorScreen {
     private String addAction() {
         List<String> valuesToPromptFor;
         try {
-            valuesToPromptFor = getController().getParametersForAction(myActionsBox.getSelectedItem().toString());
+            valuesToPromptFor = getController().getParametersForAction(ACTION_PACKAGE_PATH + "." + myActionsBox.getSelectedItem().toString());
             String display = myActionsBox.getSelectedItem().toString();
             for (String value: valuesToPromptFor) {
                 display += " " + JOptionPane.showInputDialog("Enter a " + value + " for this action");

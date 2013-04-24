@@ -87,7 +87,7 @@ public class GameElementXMLFactory {
     public GameElement makeGameElement () {
         AttributeManager attributeManager = new AttributeManager();
         GameElement gameElement =
-                new GameElement(myGEPixmap, myGELocation, myGESize, attributeManager, myGEActions);
+                new GameElement(myGEPixmap, myGELocation, myGESize, attributeManager, myGEActions, "test");
         return gameElement;
     }
 }

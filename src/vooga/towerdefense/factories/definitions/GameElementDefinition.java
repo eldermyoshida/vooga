@@ -1,4 +1,4 @@
-package vooga.towerdefense.factories;
+package vooga.towerdefense.factories.definitions;
 
 import java.awt.Dimension;
 import vooga.towerdefense.util.Location;
@@ -15,15 +15,22 @@ import vooga.towerdefense.util.Pixmap;
  * 
  */
 public class GameElementDefinition {
-    protected Pixmap myImage;
-    protected Location myCenter;
-    protected Dimension mySize;
-    protected String myType;
+    private Pixmap myImage;
+    private Location myCenter;
+    private Dimension mySize;
+    private String myType;
 
-    public GameElementDefinition () {
-
+    public GameElementDefinition(){
+    	
     }
-
+    
+    public GameElementDefinition (Pixmap image, Location center, Dimension size, String type) {
+    	myImage = image;
+    	mySize = size;
+    	myCenter = center;
+    	myType = type;
+    }
+    
     public Pixmap getImage () {
         return myImage;
     }
@@ -38,15 +45,6 @@ public class GameElementDefinition {
     
     public String getType (){
     	return myType;
-    }
-
-    /**
-     * @param name
-     * @return
-     */
-    public String get (String name) {
-        // TODO Auto-generated method stub
-        return null;
     }
 
 }
