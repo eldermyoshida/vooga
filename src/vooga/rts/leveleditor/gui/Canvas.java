@@ -23,6 +23,7 @@ import vooga.rts.resourcemanager.ResourceManager;
  * @author Ziqiang Huang
  *
  */
+@SuppressWarnings("serial")
 public class Canvas extends JFrame {
 
     public static final Dimension DEFAULT_CANVAS_SIZE  = new Dimension (800,600);
