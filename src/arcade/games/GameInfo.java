@@ -1,16 +1,14 @@
-
 package arcade.games;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import javax.swing.ImageIcon;
-
-
 import arcade.controller.Controller;
 import arcade.database.Database;
 import arcade.exceptions.InvalidPaymentException;
@@ -34,71 +32,65 @@ public class GameInfo {
 
     private ResourceBundle myResourceBundle;
     private Controller myModel;
-    
+
     private Database myDb;
-    private String gameName;
-    
-    
-    public GameInfo (String gamename, String genre, String language, Controller model) throws MissingResourceException {
+    private String myGameName;
+
+    public GameInfo (String gamename, String genre, String language, Controller model)
+                                                                                      throws MissingResourceException {
         String filepath = FILEPATH + genre + "." + gamename + RESOURCE_DIR_NAME + language;
         myModel = model;
         myResourceBundle = ResourceBundle.getBundle(filepath);
-        
+
     }
 
+    public GameInfo (Database database, String id) {
+        myDb = database;
+        myGameName = id;
+    }
 
-    public GameInfo(Database database, String id) {
-		myDb = database;
-		gameName = id;
-	}
+    public ImageIcon getThumbnail () {
+        return new ImageIcon(USER_DIRECTORY + myDb.getGameThumbnail(myGameName));
+    }
 
+    public String getName () {
+        return myGameName;
+    }
 
-    
-    public ImageIcon getThumbnail() {
-    	return new ImageIcon(USER_DIRECTORY + myDb.getGameThumbnail(gameName));
+    public String getDescription () {
+        return myDb.getGameDescription(myGameName);
     }
-    
-    public String getName(){
-    	return gameName;
+
+    public ImageIcon getAdScreen () {
+        return new ImageIcon(USER_DIRECTORY + myDb.getGameAdScreen(myGameName));
     }
-    
-    public String getDescription() {
-    	return myDb.getGameDescription(gameName);
-    }
-    
-    public ImageIcon getAdScreen() {
-    	return new ImageIcon(USER_DIRECTORY + myDb.getGameAdScreen(gameName));
-    }
-    
-    public double getRating() {
+
+    public double getRating () {
         return 5;
-        //TODO: revert this back to getting from db.
-    	//return myModel.getAverageRating(getName());
+        // TODO: revert this back to getting from db.
+        // return myModel.getAverageRating(getName());
     }
-    
-    public double getPrice() {
-        //TODO: return value from db.
+
+    public double getPrice () {
+        // TODO: return value from db.
         return 42;
     }
-    
-    private String getSingleplayerGameClassKeyword() {
-    	return myDb.getSingleplayerGameClassKeyword(gameName);
+
+    private String getSingleplayerGameClassKeyword () {
+        return myDb.getSingleplayerGameClassKeyword(myGameName);
     }
-    
-    private String getMultiplayerGameClassKeyword() {
-    	return myDb.getMultiplayerGameClassKeyword(gameName);
+
+    private String getMultiplayerGameClassKeyword () {
+        return myDb.getMultiplayerGameClassKeyword(myGameName);
     }
-    
 
     public List<String[]> getComments () {
-        //TODO: do this correctly.
+        // TODO: do this correctly.
         List<String[]> comments = new ArrayList<String[]>();
         String[] comment1 = { "subject", "theCoolestGuy", "5.0", "this game is awesome" };
         comments.add(comment1);
         return comments;
     }
-    
-   
 
     // Here, there be shiny reflective dragons . . .
 
@@ -122,8 +114,6 @@ public class GameInfo {
      * developers will have to worry about getting things exactly right :(
      */
 
-    
-    
     // untested . . . hope it works . . .
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public MultiplayerGame getMultiplayerGame (Controller model) {
@@ -148,8 +138,19 @@ public class GameInfo {
         }
         return null;
     }
-    
- // TODO make sure this doesnt break if the game isnt multiplayer
+
+    public List<Score> getScores () {
+        List<Score> ret = new ArrayList<Score>();
+        return myDb.getScoresForGame(myGameName);
+    }
+
+    public List<Score> getSortedScores () {
+        List<Score> scores = getScores();
+        Collections.sort(scores);
+        return scores;
+    }
+
+    // TODO make sure this doesnt break if the game isnt multiplayer
     @SuppressWarnings("rawtypes")
     private Class getMultiplayerGameClass () {
         try {
@@ -160,8 +161,6 @@ public class GameInfo {
         }
         return null;
     }
-    
-
 
     // I SAY I will add better exception handling here but . . . .
     @SuppressWarnings({ "rawtypes", "unchecked" })
@@ -200,35 +199,31 @@ public class GameInfo {
             return null;
         }
     }
-    
-    
-    
-    
-//  // TODO make sure this doesnt break if the game isnt multiplayer
-//  @SuppressWarnings("rawtypes")
-//  private Class getMultiplayerGameClass () {
-//      try {
-//          return Class.forName(myResourceBundle.getString(MULTIPLAYER_GAME_MAIN_CLASS_KEYWORD));
-//      }
-//      catch (ClassNotFoundException e) {
-//          // add some additional tries for letter case, then throw an exception
-//      }
-//      return null;
-//  }
-  
-    
-//
-//    // TODO make sure this doesnt break if the game isnt single player
-//    @SuppressWarnings("rawtypes")
-//    private Class getGameClass () {
-//        try {
-//            return Class.forName(myResourceBundle.getString(GAME_MAIN_CLASS_KEYWORD));
-//        }
-//        catch (ClassNotFoundException e) {
-//            // add some additional tries for letter case, then throw an exception
-//
-//            return null;
-//        }
-//    }
+
+    // // TODO make sure this doesnt break if the game isnt multiplayer
+    // @SuppressWarnings("rawtypes")
+    // private Class getMultiplayerGameClass () {
+    // try {
+    // return Class.forName(myResourceBundle.getString(MULTIPLAYER_GAME_MAIN_CLASS_KEYWORD));
+    // }
+    // catch (ClassNotFoundException e) {
+    // // add some additional tries for letter case, then throw an exception
+    // }
+    // return null;
+    // }
+
+    //
+    // // TODO make sure this doesnt break if the game isnt single player
+    // @SuppressWarnings("rawtypes")
+    // private Class getGameClass () {
+    // try {
+    // return Class.forName(myResourceBundle.getString(GAME_MAIN_CLASS_KEYWORD));
+    // }
+    // catch (ClassNotFoundException e) {
+    // // add some additional tries for letter case, then throw an exception
+    //
+    // return null;
+    // }
+    // }
 
 }
