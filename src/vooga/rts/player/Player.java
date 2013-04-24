@@ -16,7 +16,7 @@ import vooga.rts.manager.Manager;
  */
 public class Player implements Controller, IGameLoop {
 
-    private Manager myManager;
+    protected Manager myManager;
     private int myTeamID;
 
     public Player (int id) {
@@ -39,7 +39,7 @@ public class Player implements Controller, IGameLoop {
 
     @Override
     public void paint (Graphics2D pen) {
-        myManager.paint(pen);
+        //myManager.paint(pen);
     }
 
     @Override
