@@ -1,4 +1,4 @@
-package vooga.rts.networking.client.gui;
+package vooga.rts.networking.client.clientgui;
 
 import javax.swing.table.AbstractTableModel;
 import vooga.rts.networking.NetworkBundle;
@@ -63,7 +63,7 @@ public class ServerBrowserTableAdapter extends AbstractTableModel {
             case 1:
                 return myLobbies[arg0].getMapName();
             case 2:
-                return myLobbies[arg0].getCurrentPlayers() + " / " +
+                return myLobbies[arg0].getNumberOfPlayers() + " / " +
                        myLobbies[arg0].getMaxPlayers();
             default:
                 return null;

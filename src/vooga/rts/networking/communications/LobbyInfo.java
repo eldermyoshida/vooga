@@ -107,7 +107,7 @@ public class LobbyInfo extends Observable implements Serializable {
      * Gets the current number of players
      * @return number of players
      */
-    public int getCurrentPlayers () {
+    public int getNumberOfPlayers () {
         return myPlayersCount;
     }
 

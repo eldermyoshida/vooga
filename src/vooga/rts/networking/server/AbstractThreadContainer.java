@@ -53,7 +53,7 @@ public abstract class AbstractThreadContainer implements IThreadContainer, IMess
     }
 
     @Override
-    public void startGameServer (ConnectionThread thread) {
+    public void requestGameStart (ConnectionThread thread) {
     }
 
     @Override
@@ -66,6 +66,11 @@ public abstract class AbstractThreadContainer implements IThreadContainer, IMess
 
     @Override
     public void updateLobbyInfo (ConnectionThread thread, ExpandedLobbyInfo myLobbyInfo) {
+    }
+
+    @Override
+    public void clientIsReadyToStart (ConnectionThread thread) {
+
     }
 
     @Override

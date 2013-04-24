@@ -1,4 +1,4 @@
-package vooga.rts.networking.client.gui;
+package vooga.rts.networking.client.clientgui;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;

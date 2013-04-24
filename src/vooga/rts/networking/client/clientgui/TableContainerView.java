@@ -1,4 +1,4 @@
-package vooga.rts.networking.client.gui;
+package vooga.rts.networking.client.clientgui;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
