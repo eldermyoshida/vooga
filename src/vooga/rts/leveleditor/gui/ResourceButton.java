@@ -61,18 +61,18 @@ public class ResourceButton extends JToggleButton {
     @InputMethodTarget(name = "onLeftMouseDown")
     public void getResource (PositionObject p) {
         if(!isInitialized) {
-        showCustmizationDailog();
+            showCustmizationDailog();
         }
         myOwner.getCanvas().remove(false);
         myOwner.setCurrentSelectResource(myResource);
         myOwner.getCanvas().setMode(MapPanel.RESOURCEMODE);
     }
-    
+
     /**
      * show the customizationDaliog of this resource 
      * users should enter in the type and the amount of the resource
      */
-    public void showCustmizationDailog() {
+    private void showCustmizationDailog() {
         JTextField resourceType = new JTextField();
         JTextField resourceAmount = new JTextField();
         Object[] message = {"Type", resourceType, "Amount", resourceAmount};
@@ -90,5 +90,7 @@ public class ResourceButton extends JToggleButton {
             }
         }
     }
+    
+    
 
 }

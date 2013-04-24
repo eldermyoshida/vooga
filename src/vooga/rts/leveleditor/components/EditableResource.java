@@ -12,7 +12,8 @@ import vooga.rts.util.Pixmap;
  */
 
 public class EditableResource extends Resource{
-   
+    
+    private String myName;
     private int myID;
     private String myImageName;
     private int myAmount;   
@@ -70,7 +71,7 @@ public class EditableResource extends Resource{
     }
 
     public void setType(String type) {
-        setType(type);
+        myName = type;
         
     }
     
