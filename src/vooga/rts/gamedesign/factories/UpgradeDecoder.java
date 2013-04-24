@@ -1,14 +1,19 @@
 package vooga.rts.gamedesign.factories;
 
 import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.xml.parsers.ParserConfigurationException;
 
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import vooga.rts.gamedesign.upgrades.UpgradeNode;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
@@ -40,16 +45,12 @@ public class UpgradeDecoder extends Decoder {
 	private Factory myFactory;
 	private Map<String, String> myUpgradeNodeType;
 	
-	public UpgradeDecoder(Factory factory){
+	public UpgradeDecoder(Factory factory) throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ParserConfigurationException, SAXException, IOException{
 		myFactory = factory;
 		myUpgradeNodeType = new HashMap<String, String>();
-		//TODO: close this.
-		myUpgradeNodeType.put("Health", "vooga.rts.gamedesign.upgrades.HealthUpgradeNode");
-		myUpgradeNodeType.put("Damage", "vooga.rts.gamedesign.upgrades.DamageUpgradeNode");
-		myUpgradeNodeType.put("AttackStrategy", "vooga.rts.gamedesign.upgrades.AttackUpgradeNode");
-		myUpgradeNodeType.put("Range", "vooga.rts.gamedesign.upgrades.RangeUpgradeNode");
+		myFactory.loadMappingInfo("UpgradeNodeMatchUp", myUpgradeNodeType);
 	}
-	
+
 	/**
 	 * Creates the UpgradeTree by receiving Document passed in from
 	 * the Factory, containing necessary information related to the
@@ -59,9 +60,7 @@ public class UpgradeDecoder extends Decoder {
 	 * @throws NumberFormatException 
 	 * 
 	 */
-
 	public void create(Document doc, String type) throws NumberFormatException {
-		//TODO: get all upgradeTrees into a same file. Return all results into a map
 		UpgradeTree upgradeTree = new UpgradeTree();
 		
 		NodeList treeLst = doc.getElementsByTagName(TREE_TAG);
@@ -117,7 +116,6 @@ public class UpgradeDecoder extends Decoder {
 	 * @param upgradeTree
 	 */
 	private void printTree(UpgradeTree upgradeTree) {
-		//System.out.println("Also Goes Here");
 		for (UpgradeNode u: upgradeTree.getHead().getChildren()) {
 			UpgradeNode current = u;
 			while (!current.getChildren().isEmpty()) {

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- This is the match up between XML input type and its decoder -->
+
+<MatchUp>
+	<pair>
+		<type>Upgrade</type>
+		<path>vooga.rts.gamedesign.factories.UpgradeDecoder</path>
+	</pair>
+	<pair>
+		<type>buildings</type>
+		<path>vooga.rts.gamedesign.factories.InteractiveEntityDecoder</path>
+	</pair>
+	<pair>
+		<type>resources</type>
+		<path>vooga.rts.gamedesign.factories.ResourceDecoder</path>
+	</pair>
+	<pair>
+		<type>strategies</type>
+		<path>vooga.rts.gamedesign.factories.StrategyDecoder</path>
+	</pair>
+	<pair>
+		<type>units</type>
+		<path>vooga.rts.gamedesign.factories.InteractiveEntityDecoder</path>
+	</pair>
+</MatchUp>

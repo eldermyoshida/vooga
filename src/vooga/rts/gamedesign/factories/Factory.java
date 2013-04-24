@@ -19,6 +19,7 @@ import org.xml.sax.SAXException;
 import vooga.rts.gamedesign.sprite.gamesprites.GameSprite;
 import vooga.rts.gamedesign.sprite.gamesprites.Resource;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.Unit;
 import vooga.rts.gamedesign.strategy.Strategy;
 import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
 import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
@@ -37,12 +38,13 @@ import vooga.rts.gamedesign.upgrades.UpgradeTree;
  */
 
 public class Factory {
-	public static final String DECODER_MATCHING_FILE = "DecodeMatchUp";
-	public static final String DECODER_MATCHING_PAIR_TAG = "pair";
-	public static final String DECODER_MATCHING_DECODETYPE_TAG = "type";
-	public static final String DECODER_MATCHING_PATH_TAG = "decoderPath";
+	public static final String DECODER_MATCHING_FILE = "DecoderMatchUp";
+	public static final String MATCHING_PAIR_TAG = "pair";
+	public static final String MATCHING_TYPE_TAG = "type";
+	public static final String MATCHING_PATH_TAG = "path";
 	
-	Map<String, Decoder> myDecoders = new HashMap<String, Decoder>();
+	Map<String, String> myDecoderPaths;
+	Map<String, Decoder> myDecoders;
 	Map<String, InteractiveEntity> mySprites;
 	Map<String, Resource> myResources;
 	Map<String, Strategy> myStrategies;
@@ -52,10 +54,12 @@ public class Factory {
 	
 	
 	public Factory()  {
+		myDecoderPaths = new HashMap<String, String>();
 		myDecoders = new HashMap<String, Decoder>();
 		
 		try {
-			loadDecoder(DECODER_MATCHING_FILE);
+			loadMappingInfo(DECODER_MATCHING_FILE, myDecoderPaths);
+			createDecoders();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -179,30 +183,36 @@ public class Factory {
 	 * @throws SAXException
 	 * @throws IOException
 	 */
-	private void loadDecoder(String fileName) throws ClassNotFoundException, IllegalArgumentException, SecurityException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ParserConfigurationException, SAXException, IOException {
+	public void loadMappingInfo(String fileName, Map map) throws ClassNotFoundException, IllegalArgumentException, SecurityException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ParserConfigurationException, SAXException, IOException {
 		File file = new File(getClass().getResource(fileName).getFile());
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		DocumentBuilder db = dbf.newDocumentBuilder();
 		Document doc = db.parse(file);
 		doc.getDocumentElement().normalize();
 		
-		NodeList nodeLst = doc.getElementsByTagName(DECODER_MATCHING_PAIR_TAG);
+		NodeList nodeLst = doc.getElementsByTagName(MATCHING_PAIR_TAG);
 		
 		for (int i = 0; i < nodeLst.getLength(); i++) {
 			Element pairElmnt = (Element) nodeLst.item(i);
 			
-			Element typeElmnt = (Element)pairElmnt.getElementsByTagName(DECODER_MATCHING_DECODETYPE_TAG).item(0);
+			Element typeElmnt = (Element)pairElmnt.getElementsByTagName(MATCHING_TYPE_TAG).item(0);
 			NodeList typeList = typeElmnt.getChildNodes();
 			String type = ((Node) typeList.item(0)).getNodeValue();
 			
-			Element pathElmnt = (Element)pairElmnt.getElementsByTagName(DECODER_MATCHING_PATH_TAG).item(0);
+			Element pathElmnt = (Element)pairElmnt.getElementsByTagName(MATCHING_PATH_TAG).item(0);
 			NodeList pathList = pathElmnt.getChildNodes();
 			String path = ((Node) pathList.item(0)).getNodeValue();
 			
+			map.put(type, path);
+		}
+	}
+	
+	private void createDecoders() throws IllegalArgumentException, SecurityException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ClassNotFoundException {
+		for (String key: myDecoderPaths.keySet()) {
 			Class<?> headClass =
-					Class.forName(path);
+					Class.forName(myDecoderPaths.get(key));
 			Decoder decoder = (Decoder) headClass.getConstructor(Factory.class).newInstance(this);
-			myDecoders.put(type, decoder);
+			myDecoders.put(key, decoder);
 		}
 	}
 	
@@ -274,7 +284,10 @@ public class Factory {
 			OccupyStrategy occupy = (OccupyStrategy) myStrategies.get(strategies[1]);
 			mySprites.get(key).setOccupyStrategy(occupy);
 			GatherStrategy gather = (GatherStrategy) myStrategies.get(strategies[2]);
-			mySprites.get(key).setGatherStrategy(gather);
+			//TODO: should be better than this
+			if (mySprites.get(key) instanceof Unit) {
+				((Unit) mySprites.get(key)).setGatherStrategy(gather);
+			}
 		}
 	}
 	
