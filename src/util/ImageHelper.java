@@ -7,8 +7,8 @@ import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 
 /**
- * Class with static methods that help handling images
- * 
+ * Class with static methods that helps handling 
+ * and resizing images
  * @author Henrique Moraes
  *
  */
