@@ -3,7 +3,7 @@ package vooga.fighter.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import arcade.games.HighScores;
+import arcade.games.Score;
 import arcade.games.UserGameData;
 
 /**
@@ -27,7 +27,7 @@ public class GameInfo extends UserGameData{
     private List<Integer> myTotalScores;
     private List<String> myMapsPlayed;
     private List<String> myMapNames;
-    private HighScores myHighScores;
+    private Score myHighScores;
     private List<Integer> myWinners;
     private GameLoopInfo myGameLoopInfo;
     /**
@@ -247,31 +247,13 @@ public class GameInfo extends UserGameData{
     public List<String> getMapNames(){
         return myMapNames;
     }
-<<<<<<< HEAD
 
-    /**
-     * set high scores
-     * @param highscores
-     */
-    public void setHighScores(HighScores highscores){
-        myHighScores = highscores;
-    }
-
-    /**
-     * return the high scores
-     * @return
-     */
-    public HighScores getHighScores(){
-        return myHighScores;
-=======
-    
     public void setHighScores(Score highscores){
     	myHighScores = highscores;
     }
     
     public Score getHighScores(){
     	return myHighScores;
->>>>>>> 9df8e210c1a977237052b8237da8d28b20ac7ebc
     }
 
     /**

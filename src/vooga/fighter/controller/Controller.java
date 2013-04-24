@@ -1,7 +1,6 @@
 package vooga.fighter.controller;
 
 import vooga.fighter.view.Canvas;
-import vooga.fighter.game.*;
 
 
 import util.input.Input;
