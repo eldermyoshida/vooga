@@ -197,16 +197,8 @@ public class CharacterObject extends GameObject {
      */
     public void move(int direction) {
         setCurrentState("moveRight");
-        if (myVelocity.getMagnitude()<=5){
-        	getLocation().addAcceleration(new Vector(direction, getProperty("movespeed")));
-        }
-    }
+        getLocation().translate(new Vector(direction, getProperty("movespeed")));
 
-    /**
-     * Makes the character get pushed back if hit by something with higher priority
-     */
-    public void pushBack(int direction){
-    	getLocation().addAcceleration(new Vector(direction, MOVE_BACK_AMOUNT*getProperty("movespeed")));
     }
 
     /**
