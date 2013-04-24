@@ -51,7 +51,7 @@ public class CommentTable extends Table {
     }
     
     public double getAverageRating (String gameid) {
-        String stm = "SELECT rating FROM score WHERE gameid='" + gameid + "'";
+        String stm = "SELECT * FROM score WHERE gameid='" + gameid + "'";
         List<Double> ratings = new ArrayList<Double>();
         try {
             myResultSet = executeQuery(stm);

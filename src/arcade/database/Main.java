@@ -12,8 +12,10 @@ public class Main {
         Database myDatabase = new Database();
         
         
-        myDatabase.createUser("natx13", "password", "Natalia", "Carvalho", "04/26/1991");
-        myDatabase.createUser("kayzooo", "mypassword", "Kevin", "Zhu", "11/12/1990");
+//        myDatabase.createUser("natx13", "password", "Natalia", "Carvalho", "04/26/1991");
+//        myDatabase.createUser("kayzooo", "mypassword", "Kevin", "Zhu", "11/12/1990");
+        
+        System.out.println(myDatabase.getAverageRating("test"));
         
 //        myDatabase.updateRating("natx13", "test", 4.0);
         //myDatabase.insertComment("natx13", "test", "this game is a piece of crap");
