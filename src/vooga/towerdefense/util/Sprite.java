@@ -5,6 +5,8 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
 
+import util.Location;
+
 
 /**
  * This class represents a shape that moves on its own.

@@ -4,7 +4,7 @@ import java.util.List;
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.FindTargets;
 import vooga.towerdefense.gameElements.GameElement;
-import vooga.towerdefense.util.Location;
+import util.Location;
 
 /**
  * This is an action factory that creates find target actions that give all of their follow up actions 

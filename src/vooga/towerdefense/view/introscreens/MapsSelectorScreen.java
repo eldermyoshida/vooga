@@ -17,7 +17,6 @@ import java.util.Map;
 import javax.swing.JButton;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.MapLoader;
-import vooga.towerdefense.util.Location;
 import vooga.towerdefense.util.Pixmap;
 import vooga.towerdefense.view.TDView;
 

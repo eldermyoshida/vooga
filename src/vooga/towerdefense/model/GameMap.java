@@ -14,7 +14,7 @@ import vooga.towerdefense.attributes.AttributeManager;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.model.tiles.Tile;
 import vooga.towerdefense.model.tiles.factories.TileFactory;
-import vooga.towerdefense.util.Location;
+import util.Location;
 import vooga.towerdefense.util.Pixmap;
 
 

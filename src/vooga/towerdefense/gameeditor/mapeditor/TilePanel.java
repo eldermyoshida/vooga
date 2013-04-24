@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JPanel;
-import vooga.towerdefense.util.Location;
+import util.Location;
 import vooga.towerdefense.util.Pixmap;
 
 /**

@@ -4,7 +4,7 @@ import vooga.towerdefense.action.TargetedAction;
 import vooga.towerdefense.factories.elementfactories.GameElementFactory;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.model.GameMap;
-import vooga.towerdefense.util.Location;
+import util.Location;
 
 /**
  * Creates a projectile aimed at a target, target needs to be predefined by FindTarget action.

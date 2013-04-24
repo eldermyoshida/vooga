@@ -5,7 +5,7 @@ import java.awt.Dimension;
 import vooga.towerdefense.attributes.DefaultAttributeManager;
 import vooga.towerdefense.factories.attributefactories.AttributeManagerFactory;
 import vooga.towerdefense.util.Pixmap;
-import vooga.towerdefense.util.Location;
+import util.Location;
 
 /**
  * Default TowerDefinition used for testing tower factories; 
