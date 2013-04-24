@@ -97,7 +97,7 @@ public class EditableTile extends Tile {
      * @param height height of the tile
      */
     public EditableTile(int xCount, int yCount, int width, int height) {
-        this(xCount,yCount,new Dimension(width,height));
+        this(xCount, yCount, new Dimension(width,height));
     }
     
     

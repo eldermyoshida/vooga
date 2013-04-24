@@ -89,8 +89,8 @@ public class EditableMap extends GameMap {
      * @param tileWidth the width of a single tile
      * @param tileHeight the height of a single tile
      */
-    public void resetTileMap(int xSize, int ySize ,int tileWidth, int tileHeight) {
-        myTileMap = new EditableTileMap(new Dimension(tileWidth,tileHeight),ySize,xSize);
+    public void resetTileMap(int xSize, int ySize , int tileWidth, int tileHeight) {
+        myTileMap = new EditableTileMap(new Dimension(tileWidth, tileHeight), ySize, xSize);
     }
 
     /**
@@ -120,8 +120,8 @@ public class EditableMap extends GameMap {
         System.out.println("X Size : " + getMyXsize());
         System.out.println("Y Size : " + getMyYsize());
         
-        for (int i =0 ; i<getMyXsize() ; i++) {
-            for (int j =0 ; j<getMyYsize() ; j++) {
+        for (int i = 0 ; i<getMyXsize() ; i++) {
+            for (int j = 0 ; j<getMyYsize() ; j++) {
                 System.out.print(myTileMap.getTile(i, j).getMyID());
                 System.out.print(" ");
             }
@@ -136,11 +136,10 @@ public class EditableMap extends GameMap {
      */
     public void load (File resourceFile) {
 
-         try {
+        try {
             myLoader.loadMapFile(resourceFile);
         }
         catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -149,7 +148,7 @@ public class EditableMap extends GameMap {
     }
     /**
      * load the map from a certain path
-     * @param filePath
+     * @param filePath the file path
      */
     public void load (String filePath) {
         File bufferFile = new File(filePath);
@@ -160,11 +159,10 @@ public class EditableMap extends GameMap {
      * @param objectiveFile the destination file
      */
     public void save (File objectiveFile) {
-         try {
+        try {
             mySaver.generateMapFile(objectiveFile);
         }
         catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -253,8 +251,9 @@ public class EditableMap extends GameMap {
      * @param imageName
      * @param walkAbility
      */
-    public void addTerrain(Pixmap image, Location3D center , int id , String name , String imageName, int walkAbility ) {
-        addTerrain(new EditableTerrain(image, center , id , name ,imageName, walkAbility));
+    public void addTerrain(Pixmap image, Location3D center , int id , 
+                           String name , String imageName, int walkAbility ) {
+        addTerrain(new EditableTerrain(image, center , id , name, imageName, walkAbility));
     }
     
     /**
@@ -268,8 +267,9 @@ public class EditableMap extends GameMap {
      * @param imageName imageName of the terrain
      * @param walkAbility walkability of the terrain
      */
-    public void addTerrain(Pixmap image, int x, int y , int z, int id, String name , String imageName , int walkAbility) {
-        addTerrain(image, new Location3D(x, y ,z), id, name , imageName ,walkAbility);
+    public void addTerrain(Pixmap image, int x, int y , int z, int id, 
+                           String name , String imageName , int walkAbility) {
+        addTerrain(image, new Location3D(x, y, z), id, name, imageName, walkAbility);
     }
     /**
      * add terrain based on different parameters 
@@ -283,8 +283,9 @@ public class EditableMap extends GameMap {
      * @param imageName image name of the terrain
      * @param walkAbility walkability of the terrain
      */
-    public void addTerrain(Pixmap image, int x, int y, int layerCount, int layerHeight, int id , String name , String imageName, int walkAbility) {
-        addTerrain(image,x,y,layerCount*layerHeight,id,name,imageName,walkAbility);
+    public void addTerrain(Pixmap image, int x, int y, int layerCount, 
+                           int layerHeight, int id , String name , String imageName, int walkAbility) {
+        addTerrain(image, x, y, layerCount*layerHeight, id, name, imageName, walkAbility);
     }
     
     /**
@@ -303,8 +304,9 @@ public class EditableMap extends GameMap {
      * @param imageName of the resource
      * @param amount of the resource
      */
-    public void addResource(Pixmap image, Location3D center , int id, String name , String imageName, int amount) {
-        addResource(new EditableResource(image,center,id,name,imageName,amount));
+    public void addResource(Pixmap image, Location3D center , int id, 
+                            String name , String imageName, int amount) {
+        addResource(new EditableResource(image, center, id, name, imageName, amount));
     }
     
     /**
@@ -318,8 +320,9 @@ public class EditableMap extends GameMap {
      * @param imageName of the resource
      * @param walkAbility of the resource
      */
-    public void addResource(Pixmap image, int x, int y , int z, int id, String name , String imageName , int walkAbility) {
-        addResource(image, new Location3D(x, y ,z), id, name , imageName ,walkAbility);
+    public void addResource(Pixmap image, int x, int y , int z,
+                            int id, String name , String imageName , int walkAbility) {
+        addResource(image, new Location3D(x, y , z), id, name, imageName, walkAbility);
     }
     
     /**
@@ -334,8 +337,9 @@ public class EditableMap extends GameMap {
      * @param imageName image name of the resource
      * @param amount amount of the resource
      */
-    public void addResource(Pixmap image, int x, int y, int layerCount, int layerHeight, int id , String name , String imageName, int amount) {
-        addResource(image,x,y,layerCount*layerHeight,id,name,imageName,amount);
+    public void addResource(Pixmap image, int x, int y, int layerCount, 
+                            int layerHeight, int id , String name , String imageName, int amount) {
+        addResource(image, x, y, layerCount*layerHeight, id, name, imageName,amount);
     }
     
     /**
@@ -451,7 +455,7 @@ public class EditableMap extends GameMap {
      * return all players
      * @return the whole player set
      */
-    public Map<Integer,Location> getAllPlayers() {
+    public Map<Integer, Location> getAllPlayers() {
         return myPlayerSet.getAllPlayers();
     }
 

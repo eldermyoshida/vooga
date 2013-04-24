@@ -259,7 +259,7 @@ public class MapLoader {
      */
     public void printEverything() {
       myMap.printMatrix();
-      for(int i = 0 ; i < myMap.getResourceSize() ; i++) {
+      for (int i = 0 ; i < myMap.getResourceSize() ; i++) {
           EditableResource res =  myMap.getResource(i);
           System.out.print(res.getMyID());
           System.out.print(" ");
@@ -275,7 +275,7 @@ public class MapLoader {
           System.out.println();
       }
   
-      for(int i = 0 ; i < myMap.getTerrainSize() ; i++) {
+      for (int i = 0 ; i < myMap.getTerrainSize() ; i++) {
       
           EditableTerrain res =  myMap.getTerrain(i);
       

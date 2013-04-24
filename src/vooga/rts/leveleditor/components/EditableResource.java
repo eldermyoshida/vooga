@@ -11,7 +11,7 @@ import vooga.rts.util.Pixmap;
  *
  */
 
-public class EditableResource extends Resource{
+public class EditableResource extends Resource {
     
     private int myID;
     private String myImageName;
@@ -23,8 +23,9 @@ public class EditableResource extends Resource{
      * @param name
      * @param image
      */ 
-    public EditableResource(Pixmap image, Location3D center , int id, String name , String imageName, int amount) {
-        super(image,center,image.getMyDimension(), 0, amount, name);
+    public EditableResource(Pixmap image, Location3D center , int id, 
+                            String name , String imageName, int amount) {
+        super(image, center, image.getMyDimension(), 0, amount, name);
         myID = id;
         myImageName = imageName;
     }
@@ -41,7 +42,7 @@ public class EditableResource extends Resource{
      */
     
     public EditableResource(Pixmap image, int x , int y , int z , int id, String name , String imageName, int amount) {
-       this(image,new Location3D(x,y,z),id,name,imageName,amount);
+       this(image, new Location3D(x,y,z), id, name, imageName, amount);
     }
     
     /**
@@ -57,8 +58,8 @@ public class EditableResource extends Resource{
       * @param amount amount of the resource
      */
     public EditableResource(Pixmap image, int x , int y , int layerCount , int layerHeight, int id, String name , String imageName, int amount) {
-        this(image,x,y,layerCount*layerHeight,id,name,imageName,amount);
-     }
+        this(image, x, y, layerCount*layerHeight, id, name, imageName, amount);
+    }
     /**
      * return the id 
      * @return int
@@ -92,7 +93,10 @@ public class EditableResource extends Resource{
         myAmount = amount;
         
     }  
-    
+    /**
+     * return the image of the resource
+     * @return
+     */
     public Image getMyImage() {
         return super.getImage().getMyImage();
     }

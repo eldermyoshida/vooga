@@ -52,7 +52,7 @@ public class EditableTileMap extends TileMap {
     public void addTile(int i, int j, int id, String name , String imageName, Pixmap image) {
         addTileType(id, (BufferedImage)image.getMyImage());
         this.createTile(id, i, j, id, name, imageName);
-  }
+    }
     
     /**
      * add tiles based on different parameters
@@ -88,7 +88,8 @@ public class EditableTileMap extends TileMap {
                 new Location3D(x * getMyTileSize().width / 2 ,
                                y * getMyTileSize().height / 2, 0);
 
-        EditableTile newTile = new EditableTile(image, position, getMyTileSize(),id,name,imageName,false);
+        EditableTile newTile = new EditableTile(image, position, getMyTileSize(), id, name, 
+                                                imageName, false);
         setTile(x, y, newTile);
     }
     

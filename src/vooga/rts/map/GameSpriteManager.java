@@ -14,6 +14,7 @@ import vooga.rts.gamedesign.sprite.gamesprites.GameSprite;
 import vooga.rts.gamedesign.sprite.map.Terrain;
 import vooga.rts.state.GameState;
 import vooga.rts.state.MainState;
+import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
 
 
@@ -149,6 +150,10 @@ public class GameSpriteManager<T extends GameSprite> implements IGameLoop, Obser
         while (myRemoval.hasNext()) {
             removeIterator(myRemoval.next());
         }
+    }
+
+    public List<T> getMySprites () {
+        return myGameSprites;
     }
 
 }
