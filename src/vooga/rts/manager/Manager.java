@@ -107,7 +107,6 @@ public class Manager extends Observable implements State, IActOn, Observer {
     @Override
     public void addAction (String input, Action action) {
         myActions.put(input, action);
-
     }
 
     /**
@@ -155,7 +154,7 @@ public class Manager extends Observable implements State, IActOn, Observer {
     }
 
     /**
-     * Deselects the topmost unit at the given location.s
+     * Deselects the topmost unit at the given location.
      * 
      * @param location at which to deselect the unit.
      */
