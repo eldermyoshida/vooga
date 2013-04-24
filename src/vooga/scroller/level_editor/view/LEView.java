@@ -1,6 +1,7 @@
 
 package vooga.scroller.level_editor.view;
 
+import vooga.scroller.level_editor.LevelEditing;
 import vooga.scroller.level_editor.controllerSuite.LEController;
 import vooga.scroller.level_editor.controllerSuite.LEGrid;
 import vooga.scroller.level_editor.controllerSuite.LETools;
@@ -20,8 +21,10 @@ public class LEView extends Window<LEWorkspaceView, LevelEditing, LEGridView, LE
 
 
     private static final long serialVersionUID = 1L;
-    private static final String SIMULATION_ERROR_MESSAGE = "SimulationError";
-    private static final String TITLE = "Level Editor";
+    private static final String SIMULATION_ERROR_MESSAGE = 
+            LevelEditing.VIEW_CONSTANTS.SIMULATION_ERROR_MESSAGE;
+    private static final String TITLE = 
+            LevelEditing.VIEW_CONSTANTS.DOMAIN_NAME;
 
     /**
      * Default constructor - build a Window with the specified language and controller.
@@ -62,23 +65,9 @@ public class LEView extends Window<LEWorkspaceView, LevelEditing, LEGridView, LE
             showMessageDialog(SIMULATION_ERROR_MESSAGE);
     }
 
-    @Override
-    public void setDefaultWorkspaceTools (LETools t) {
-        // TODO Auto-generated method stub
-        
-    }
+    
 
-    @Override
-    public void setRenderable (Renderable<LevelEditing> renderable) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public Renderable<LevelEditing> getRenderable () {
-        // TODO Auto-generated method stub
-        return null;
-    }
+    
 
 
 }

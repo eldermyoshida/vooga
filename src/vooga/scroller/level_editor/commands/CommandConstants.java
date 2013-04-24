@@ -16,5 +16,7 @@ public class CommandConstants {
 
     public static final String CHANGE_BACKGROUND = "changeBackground";
     
+    public static final String CHANGE_GRID_SIZE = "changeGridSize";
+    
     public static final String SPACE = " ";
 }

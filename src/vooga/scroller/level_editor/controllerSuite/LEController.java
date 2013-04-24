@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
 import vooga.scroller.level_editor.ILevelEditor;
-import vooga.scroller.level_editor.library.BackgroundLib;
+import vooga.scroller.level_editor.LevelEditing;
 import vooga.scroller.level_editor.library.IBackgroundLibrary;
 import vooga.scroller.level_editor.library.ISpriteLibrary;
 import vooga.scroller.level_editor.model.LevelEditor;
@@ -15,8 +15,6 @@ import vooga.scroller.level_editor.model.LevelWriter;
 import vooga.scroller.level_editor.view.LEGridView;
 import vooga.scroller.level_editor.view.LEView;
 import vooga.scroller.level_editor.view.LEWorkspaceView;
-import vooga.scroller.level_editor.view.LevelEditing;
-import vooga.scroller.marioGame.spritesDefinitions.MarioLib;
 import vooga.scroller.util.Editable;
 import vooga.scroller.util.Renderable;
 import vooga.scroller.util.mvc.IController;
@@ -42,7 +40,7 @@ public class LEController implements IController<LevelEditing> {
         con.start();
     }
 
-    private static final int DEFAULT_SPRITE_GRID_SIZE = 30;
+    public static final int DEFAULT_SPRITE_GRID_SIZE = 30;
     private LevelEditing myDomainInfo;
     private LevelParser myLevelReader;
     private LevelWriter myLevelWriter;
@@ -52,6 +50,9 @@ public class LEController implements IController<LevelEditing> {
     private ToolsManager myToolsManager;
     private IWindow<LEWorkspaceView, LevelEditing, LEGridView, LETools> myView;
     private Map<Editable, WorkspaceView<LevelEditing>> myWorkspace2Tab;
+    private GridSpinner myGridSpinner;
+    public static final int MIN_SPRITE_GRID_SIZE = 20;
+    public static final int MAX_SPRITE_GRID_SIZE = 1000;
 
     /**
      * Preferred constructor, specifies sprites and background to be availed in the 
@@ -71,6 +72,7 @@ public class LEController implements IController<LevelEditing> {
         myTab2Workspace = new HashMap<WorkspaceView<LevelEditing>, Editable>();
         myLevelWriter = new LevelWriter();
         myLevelReader = new LevelParser();
+        myGridSpinner = new GridSpinner(MIN_SPRITE_GRID_SIZE, MAX_SPRITE_GRID_SIZE);
     }
     /**
      * @param id
@@ -115,6 +117,7 @@ public class LEController implements IController<LevelEditing> {
         return myTab2Workspace.get(v);
     }
 
+    
 
     /**
      * This allows the user to specify the number of blocks needed for the level.
@@ -122,21 +125,15 @@ public class LEController implements IController<LevelEditing> {
      */
     private int[] getNumBlocks () {
         int[] res = new int[2];
-        String s = (String)JOptionPane.showInputDialog(
-                                                       null,
-                                                       "How many blocks:\n"
-                                                               + "width, height",
-                                                               "New Level Size",
-                                                               JOptionPane.PLAIN_MESSAGE,
-                                                               null,
-                                                               null,
-                "" + DEFAULT_SPRITE_GRID_SIZE + ", " + DEFAULT_SPRITE_GRID_SIZE);
-        if (!s.isEmpty()) {
-            int splitter = s.indexOf(",");
-            String s1 = s.substring(0, splitter).trim();
-            String s2 = s.substring(splitter + 1).trim();
-            res[0] = Integer.parseInt(s1);
-            res[1] = Integer.parseInt(s2);
+        
+        int a = (int) JOptionPane.showConfirmDialog(null, new GridSpinner(
+                                                    MIN_SPRITE_GRID_SIZE,
+                                                    MAX_SPRITE_GRID_SIZE), 
+                                                   "Grid Height and Width", 
+                                                    JOptionPane.OK_CANCEL_OPTION);
+        if (a == 0) {
+            res[0] = myGridSpinner.getGridWidth();
+            res[1] = myGridSpinner.getGridHeight();
         }
         else {
             res[0] = DEFAULT_SPRITE_GRID_SIZE; 
@@ -195,8 +192,8 @@ public class LEController implements IController<LevelEditing> {
 
     @Override
     public void start() {
-        //Welcome message
         myView.start();
     }
+
 
 }

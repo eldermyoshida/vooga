@@ -2,7 +2,7 @@
 package vooga.scroller.util.mvc;
 
 import java.awt.Dimension;
-import vooga.scroller.level_editor.view.LevelEditing;
+import vooga.scroller.level_editor.LevelEditing;
 import vooga.scroller.util.Renderable;
 import vooga.scroller.util.Renderer;
 import vooga.scroller.util.mvc.vcFramework.IDomainDescriptor;

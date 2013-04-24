@@ -6,8 +6,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Map;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import vooga.scroller.level_editor.LevelEditing;
+import vooga.scroller.level_editor.commands.CommandConstants;
+import vooga.scroller.level_editor.controllerSuite.GridSpinner;
 import vooga.scroller.level_editor.controllerSuite.LETools;
 import vooga.scroller.util.Renderable;
 import vooga.scroller.util.Renderer;
@@ -30,6 +35,17 @@ import vooga.scroller.viewUtil.RadioGroup;
 public class TabbedToolsView<D extends IDomainDescriptor> extends 
     WindowComponent<D> {
 
+    public class UpdateGridSizeListener implements ActionListener {
+        
+        @Override
+        public void actionPerformed (ActionEvent e) {
+            process(CommandConstants.CHANGE_GRID_SIZE + " " + 
+                    myGridSpinner.getGridWidth() + ", " +
+                    myGridSpinner.getGridHeight());
+        }
+
+    }
+    
     public class EditableIndependentsListener implements ActionListener {
         String myKeyword;
         EditableIndependentsListener(String s) {
@@ -68,9 +84,9 @@ public class TabbedToolsView<D extends IDomainDescriptor> extends
     private JPanel myEditableDependentsUI;
 
     private JTabbedPane myTabs;
-
     private Tools<D> myTools;
-    private Tools<D> myRealTools;
+    
+    GridSpinner myGridSpinner;
 
     public TabbedToolsView (Tools<D> leTools, IView<D> parent) {
         super(parent, getDefaultWidthRatio(), getDefaultHeightRatio());
@@ -78,12 +94,20 @@ public class TabbedToolsView<D extends IDomainDescriptor> extends
         myEditableDependentsUI = new JPanel();
         myEditableDependentsUI.setLayout(new BoxLayout(myEditableDependentsUI, BoxLayout.PAGE_AXIS));
         myIndependentsUI = new JPanel();
-        myRealTools = leTools;
+        myIndependentsUI.setLayout(new BoxLayout(myIndependentsUI, BoxLayout.PAGE_AXIS));
         setRenderable((Renderable<D>)leTools);
     }
 
     public String getSelectedEditableDependent () {
         return mySelectedEditableDependent;
+    }
+    
+    private JComponent addOtherSpecificTools() {
+        myGridSpinner = new GridSpinner();
+        JButton validator = new JButton("Update Grid Size");
+        validator.addActionListener(new UpdateGridSizeListener());
+        myGridSpinner.add(validator);
+        return myGridSpinner;
     }
     
     @Override
@@ -103,13 +127,14 @@ public class TabbedToolsView<D extends IDomainDescriptor> extends
             Map<Image, String> m = myTools.getEditableIndependents().get(keyword);
             if (m.size()>0) {
             JPanel ed_ind_Buttons = new RadioGroup(this.getSize(), 
-                                               new EditableIndependentsListener(keyword),
-                                               m);
+                                   new EditableIndependentsListener(keyword),
+                                   m);
             myIndependentsUI.add(ed_ind_Buttons);
             }
         }
         myTabs.add(myEditableDependentsUI, myTools.EditableDependentsTitle());
         myTabs.add(myIndependentsUI, myTools.getEditableIndependentsTitle());
+//        myTabs.add(addOtherSpecificTools());
         EasyGridFactory.layout(this, myTabs);
     }
 

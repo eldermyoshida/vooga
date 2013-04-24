@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Point;
 import javax.swing.JScrollPane;
 import vooga.scroller.level_editor.Level;
+import vooga.scroller.level_editor.LevelEditing;
 import vooga.scroller.level_editor.commands.CommandConstants;
 import vooga.scroller.level_editor.controllerSuite.LEGrid;
 import vooga.scroller.level_editor.controllerSuite.LETools;
