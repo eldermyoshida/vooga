@@ -280,8 +280,11 @@ public class Factory {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		initializeProjectiles();
+		initializeWeapons();
 		initializeProducables();
 		initializeStrategies();
+
 	}
 	
 	/**
@@ -301,7 +304,7 @@ public class Factory {
 	}
 	/**
 	 * Once strategies defined by the XML file are loaded into their maps this method uses
-	 * the strategy dependency map
+	 * the strategy dependency map to add strategies to their holder
 	 * 
 	 */
 	private void initializeStrategies(){
@@ -319,16 +322,38 @@ public class Factory {
 	}
 	
 	/**
-	 * Once defined by the XML file are loaded into their maps this method uses
-	 * the strategy dependency map
+	 * Once weapons defined by the XML file are loaded into their map this method uses
+	 * the weapon dependency map to assign weapons to the correct entity. 
 	 * @param args
 	 */
 	private void initializeWeapons(){
 		for(String key: myWeaponDependencies.keySet()){
-			
+			String[] weapons = myWeaponDependencies.get(key);
+			InteractiveEntity holder = mySprites.get(key);
+			for(String weapon: weapons){
+				Weapon toAdd = myWeapons.get(weapon);
+				holder.addWeapon(toAdd);
+			}
 		}
 	}
 	
+	
+	/**
+	 * Once projectiles that have been defined in the XML file have been loaded into their 
+	 * maps this method gives the projectiles to their weapon. 
+	 * 
+	 * @param args
+	 */
+	private void initializeProjectiles(){
+		for(String key: myProjectileDependencies.keySet()){
+			String projectile = myProjectileDependencies.get(key);
+			Weapon holder = myWeapons.get(key);
+			Projectile toAdd = myProjectiles.get(projectile);
+			holder.setProjectile(toAdd);
+			
+		}
+		
+	}
 	
 	public static void main (String[] args) {
 		Factory a = new Factory();

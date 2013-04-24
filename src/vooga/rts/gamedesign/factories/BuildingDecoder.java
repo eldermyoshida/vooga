@@ -66,8 +66,7 @@ public class BuildingDecoder extends Decoder{
 			String[] strategies = new String[3];
 			strategies[0] = CANNOT_ATTACK;
 			strategies[1] = getElement(nElement, OCCUPY_TAG);
-			strategies[2] = getElement(nElement, GATHER_TAG);
-			
+			strategies[2] = CANNOT_GATHER;
 			//Load Weapon Dependency
 			String[] weapons = getElement(nElement, MYWEAPONS_TAG).split("\\s+");
 			if(weapons[0] != ""){

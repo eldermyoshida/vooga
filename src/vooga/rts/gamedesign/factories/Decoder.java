@@ -39,6 +39,7 @@ public abstract class Decoder {
 	protected static final String CAN_ATTACK = "canattack";
 	protected static final String CANNOT_ATTACK = "cannotattack";
 	protected static final String MYWEAPONS_TAG = "myweapons";
+	protected static final String CANNOT_GATHER = "cannotgather";
 	
 	
 	/**
