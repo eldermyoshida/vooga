@@ -197,8 +197,8 @@ public class Controller implements ArcadeInteraction {
                          String adScreenPath,
                          String description) {
         // print
-        System.out.println(extendsGame);
-        System.out.println(extendsMultiplayerGame);
+//        System.out.println(extendsGame);
+//        System.out.println(extendsMultiplayerGame);
 
         // Put info in DB
         myDb.createGame(name.toLowerCase(), genre.toLowerCase(), author, price,

@@ -42,6 +42,7 @@ public class ScoresView extends Form {
     private static final int MAX_HIGH_SCORES_SHOWN = 5;
 
     private int myScore;
+    private String myGameName;
     
     private JLabel myUserScore;
     private JPanel myPinPanel;
@@ -57,6 +58,7 @@ public class ScoresView extends Form {
     public ScoresView (Controller controller, ResourceBundle resources, int score) {
         super(controller, resources);
         myScore = score;
+        myGameName = controller.getCurrentGame();
         setUserScoreMessage(score);
         
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -99,12 +101,15 @@ public class ScoresView extends Form {
      */
     private JComponent createHighScoresList() {
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(2, 0));
+        panel.setLayout(new GridLayout(3, 0));
+        
         List<Score> scores = getController().getCurrentGameInfo().getSortedScores();
         if (scores.size() > MAX_HIGH_SCORES_SHOWN) {
             scores = scores.subList(0, MAX_HIGH_SCORES_SHOWN);
         }
+        int counter = 1;
         for (Score score : scores) {
+            panel.add(new JLabel(counter + ". "));
             panel.add(new JLabel(score.getUser()));
             panel.add(new JLabel(score.getScore() + ""));
         }
@@ -201,12 +206,8 @@ public class ScoresView extends Form {
         return getResources().getString(TextKeywords.MY_SCORE) 
                + " " + myScore + " " 
                + getResources().getString(TextKeywords.IN) + " " 
-               + getController().getCurrentGame() + " " 
+               + myGameName + " " 
                + getResources().getString(TextKeywords.VOOGA_HASHTAG);
-    }
-    
-    public static void main (String[] args) {
-        new ScoresView(new Controller("English"), ResourceBundle.getBundle("arcade.resources.English"), 10);
     }
 
 }
