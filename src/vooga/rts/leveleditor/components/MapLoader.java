@@ -265,7 +265,7 @@ public class MapLoader {
     
         test.getMyMap().printMatrix();
         for(int i = 0 ; i < test.getMyMap().getResourceSize() ; i++) {
-            Resource res =  test.getMyMap().getResource(i);
+            EditableResource res =  test.getMyMap().getResource(i);
             System.out.print(res.getMyID());
             System.out.print(" ");
             System.out.print(res.getMyName());
@@ -280,7 +280,7 @@ public class MapLoader {
             System.out.println();
         }
         for(int i = 0 ; i < test.getMyMap().getTerrainSize() ; i++) {
-            Terrain res =  test.getMyMap().getTerrain(i);
+            EditableTerrain res =  test.getMyMap().getTerrain(i);
             System.out.print(res.getMyID());
             System.out.print(" ");
             System.out.print(res.getMyName());

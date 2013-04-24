@@ -11,7 +11,7 @@ import vooga.rts.util.Pixmap;
  *
  */
 
-public class Resource extends GameSprite{
+public class EditableResource extends Resource{
    
     private int myID;
     private String myName;
@@ -24,18 +24,18 @@ public class Resource extends GameSprite{
      * @param name
      * @param image
      */ 
-    public Resource(Pixmap image, Location3D center , int id, String name , String imageName, int amount) {
+    public EditableResource(Pixmap image, Location3D center , int id, String name , String imageName, int amount) {
         super(image,center,image.getMyDimension());
         myID = id;
         myName = name;
         myImageName = imageName;
     }
     
-    public Resource(Pixmap image, int x , int y , int z , int id, String name , String imageName, int amount) {
+    public EditableResource(Pixmap image, int x , int y , int z , int id, String name , String imageName, int amount) {
        this(image,new Location3D(x,y,z),id,name,imageName,amount);
     }
     
-    public Resource(Pixmap image, int x , int y , int layerCount , int layerHeight, int id, String name , String imageName, int amount) {
+    public EditableResource(Pixmap image, int x , int y , int layerCount , int layerHeight, int id, String name , String imageName, int amount) {
         this(image,x,y,layerCount*layerHeight,id,name,imageName,amount);
      }
 

@@ -16,7 +16,7 @@ import util.input.InputMethodTarget;
 import util.input.PositionObject;
 import vooga.rts.leveleditor.components.EditableMap;
 import vooga.rts.leveleditor.components.EditableTile;
-import vooga.rts.leveleditor.components.Resource;
+import vooga.rts.leveleditor.components.EditableResource;
 import vooga.rts.leveleditor.components.Terrain;
 import vooga.rts.resourcemanager.ResourceManager;
 import vooga.rts.util.Camera;

@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.ResourceBundle;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
-import vooga.rts.leveleditor.components.Resource;
+import vooga.rts.leveleditor.components.EditableResource;
 import vooga.rts.util.Pixmap;
 
 /**
@@ -39,7 +39,7 @@ public class ResourcePanel extends MapComponentPanel {
         for(int i=0; i<myFiles.length; ++i) {
             try {
                 Pixmap image = new Pixmap(ImageIO.read(myFiles[i]));               
-                myPanel.add(new ResourceButton(new Resource(image,0,0,0,i+1,"",myFiles[i].getName(),0),this));
+                myPanel.add(new ResourceButton(new EditableResource(image,0,0,0,i+1,"",myFiles[i].getName(),0),this));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -50,7 +50,7 @@ public class ResourcePanel extends MapComponentPanel {
      * Set the current resource selected by user
      * @param r
      */
-    public void setCurrentSelectResource(Resource r) {
+    public void setCurrentSelectResource(EditableResource r) {
         myCanvas.setCurrentSelectResource(r);
     }
 

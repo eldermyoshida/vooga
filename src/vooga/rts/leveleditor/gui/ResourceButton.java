@@ -12,7 +12,7 @@ import util.input.Input;
 import util.input.InputClassTarget;
 import util.input.InputMethodTarget;
 import util.input.PositionObject;
-import vooga.rts.leveleditor.components.Resource;
+import vooga.rts.leveleditor.components.EditableResource;
 import vooga.rts.util.Pixmap;
 
 
@@ -29,7 +29,7 @@ public class ResourceButton extends JToggleButton {
 
     public static final String INPUT_DIR = "vooga.rts.resources.properties.Input";
 
-    private Resource myResource;
+    private EditableResource myResource;
     private ResourcePanel myOwner;
     private Pixmap myIcon;
     private Input myInput;
@@ -41,7 +41,7 @@ public class ResourceButton extends JToggleButton {
      * @param r : the Resource which the button represents
      * @param owner : the ResourcePanel which holds this button;
      */
-    public ResourceButton (Resource r, ResourcePanel owner) {
+    public ResourceButton (EditableResource r, ResourcePanel owner) {
         myResource = r;
         myIcon = r.getImage();//.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
         myOwner = owner;

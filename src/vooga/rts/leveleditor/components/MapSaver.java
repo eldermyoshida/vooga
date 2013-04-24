@@ -142,7 +142,7 @@ public class MapSaver {
         Map<String,BufferedImage> terrainInformation = new HashMap<String,BufferedImage>();
         
         for(int i = 0 ; i < mySavingMap.getTerrainSize(); i++ ) {
-            Terrain ter = mySavingMap.getTerrain(i);   
+            EditableTerrain ter = mySavingMap.getTerrain(i);   
             String myImageName = ter.getMyImageName();
             BufferedImage myImage = (BufferedImage)ter.getMyImage();
             
@@ -178,7 +178,7 @@ public class MapSaver {
         Map<String,BufferedImage> resourceInformation = new HashMap<String,BufferedImage>();
         
         for(int i = 0 ; i < mySavingMap.getResourceSize() ; i++) {
-            Resource res = mySavingMap.getResource(i);
+            EditableResource res = mySavingMap.getResource(i);
             String myImageName = res.getMyImageName();
             BufferedImage myImage = (BufferedImage)res.getMyImage();
             if( !resourceInformation.containsKey(myImageName)) {
@@ -325,7 +325,7 @@ public class MapSaver {
         Element terrains = myDocument.createElement("terrains");
          
         for(int i = 0 ; i < mySavingMap.getTerrainSize() ; i++) {
-            Terrain ter = mySavingMap.getTerrain(i);    
+            EditableTerrain ter = mySavingMap.getTerrain(i);    
             int ID = ter.getMyID();
             int x = (int)ter.getWorldLocation().getX();
             int y = (int)ter.getWorldLocation().getY();
@@ -347,7 +347,7 @@ public class MapSaver {
         Element resources = myDocument.createElement("Resources");
         
         for(int i = 0 ; i < mySavingMap.getResourceSize() ; i++) {
-            Resource res = mySavingMap.getResource(i);
+            EditableResource res = mySavingMap.getResource(i);
             int ID = res.getMyID();
             int x = (int)res.getWorldLocation().getX();
             int y = (int)res.getWorldLocation().getY();
