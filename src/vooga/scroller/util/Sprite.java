@@ -329,6 +329,10 @@ public class Sprite {
         return myOriginalView.getDefaultImg();
     }
     
+    public void setDefaultImg (ISpriteView s){
+        myOriginalView = s;
+    }
+    
     public void addVector(Vector force) {
         myVelocity.sum(force);
     }

@@ -15,13 +15,13 @@
                                                                 
                                                                 
             a                                                   
-            a                                                   
+         e  a                                                   
             a                                                   
             a                                                   
          aaaa                                                   
                                                                 
                                                                 
-        bbbbb                                                   
+        bbbbb        d                                          
 c  c  c  c  c  c  c  c                                          
 /lib
 vooga.scroller.marioGame.spritesDefinitions.MarioLib
@@ -29,7 +29,8 @@ vooga.scroller.marioGame.spritesDefinitions.MarioLib
 b=Plant
 c=LevelTwoBlockTwo
 a=Platform
+d=ExamplePortal
+e=ItemBlock
 /settings
 StartPoint=16 720
-EndPoint=729 697
 Background=/vooga/scroller/images/backgrounds/background.png

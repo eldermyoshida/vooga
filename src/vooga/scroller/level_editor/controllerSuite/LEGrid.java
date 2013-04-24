@@ -3,7 +3,6 @@ package vooga.scroller.level_editor.controllerSuite;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.HashSet;
@@ -18,7 +17,7 @@ import vooga.scroller.level_editor.Level;
 import vooga.scroller.level_editor.StartPoint;
 import vooga.scroller.level_editor.model.SpriteBox;
 import vooga.scroller.level_editor.view.LEGridView;
-import vooga.scroller.level_management.ExamplePortal;
+import vooga.scroller.level_management.LevelPortal;
 import vooga.scroller.scrollingmanager.OmniScrollingManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.util.Editable;
@@ -34,13 +33,12 @@ public class LEGrid implements Editable, Renderable<LEGridView>, Scrollable {
 
     public static final int DEFAULT_SPRITE_SIZE = 32;
     private static final Location DEFAULT_START_LOC = new Location(0, 0);
-    private static final Location DEFAULT_END_LOC = new Location(100, 100);
     private int mySpriteSize;
     private SpriteBox[][] myGrid;
     private Dimension mySize;
     private Set<SpriteBox> myPaintableBoxes;
     private StartPoint myStartPoint;
-    private ExamplePortal myMainDoor; // TODO - eventually support multiple doors
+    private LevelPortal myDoor; 
     private IBackgroundView myBackground;
 
     public LEGrid (int numWidthBlocks, int numHeightBlocks) {
@@ -85,7 +83,7 @@ public class LEGrid implements Editable, Renderable<LEGridView>, Scrollable {
         addToBox(spr, currentBox);
     }
 
-    public void addSpriteToBox (int xcoor, int ycoor, Sprite sprite) {
+    public void addSpriteWithCoor (int xcoor, int ycoor, Sprite sprite) {
         addToBox(sprite, getBoxFromCoor(xcoor, ycoor));
     }
 
@@ -98,9 +96,6 @@ public class LEGrid implements Editable, Renderable<LEGridView>, Scrollable {
             currentBox.addSprite(spr);
             myPaintableBoxes.add(currentBox);
             combineBoxes(currentBox, currentBox, spr.getWidth(), spr.getHeight());
-        }
-        else {
-            // TODO send Unavailable feedback
         }
     }
 
@@ -230,7 +225,7 @@ public class LEGrid implements Editable, Renderable<LEGridView>, Scrollable {
 
     public boolean isValidForSimulation () {
         // TODO Check for valid starting and exit points.
-        return (myStartPoint != null && myMainDoor != null);
+        return (myStartPoint != null && myDoor != null);
     }
 
     @Override
@@ -252,22 +247,19 @@ public class LEGrid implements Editable, Renderable<LEGridView>, Scrollable {
     }
 
     @Override
-    public void addDoor (int x, int y) {
-        // TODO Auto-generated method stub
-        if (myMainDoor == null) {
-            myMainDoor = new ExamplePortal();
+    public void addDoor (Sprite s, int x, int y) {
+        if (myDoor == null) {
+            myDoor = (LevelPortal) s;
         }
         else {
-            deleteSprite((int) myMainDoor.getX(), (int) myMainDoor.getY());
+            deleteSprite((int) myDoor.getX(), (int) myDoor.getY());
         }
-        addSprite(myMainDoor, x, y);
+        addSprite(myDoor, x, y);
     }
 
-    public Location removePortal () {
-        if (myMainDoor == null) { return DEFAULT_END_LOC; }
-        Location center = myMainDoor.getCenter();
-        deleteSprite((int) center.getX(), (int) center.getY());
-        return center;
+    public void addDoorWithCoor (int xcoor, int ycoor, Sprite sprite) {
+        myDoor = (LevelPortal) sprite;
+        addSpriteWithCoor(xcoor,ycoor,sprite);
     }
 
     @Override

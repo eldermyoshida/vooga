@@ -67,12 +67,11 @@ public class LevelEditor implements ILevelEditor {
         if(id == START_ID){
             addStartPoint(x,y);
         }
-        if(id == END_ID) {
-            addDoor(x,y);
+        if(id < START_ID) {
+            addDoor(x,y,-id);
         }
         else{
-            Sprite sprite = mySpriteMap.get(id);
-            sprite = sprite.copy();
+            Sprite sprite = getSpriteFromMap(id);
                 try{
                     myGrid.addSprite(sprite, x, y);
                 }
@@ -82,13 +81,19 @@ public class LevelEditor implements ILevelEditor {
                 }
         }
     }
+
+    private Sprite getSpriteFromMap (int id) {
+        Sprite sprite = mySpriteMap.get(id);
+        sprite = sprite.copy();
+        return sprite;
+    }
     
     private void addStartPoint (int x, int y) {
         myGrid.addStartPoint(x,y);
     }
     
-    private void addDoor (int x, int y) {
-        myGrid.addDoor(x,y);
+    private void addDoor (int x, int y, int id) {
+        myGrid.addDoor(getSpriteFromMap(id),x,y);
     }
 
     @Command

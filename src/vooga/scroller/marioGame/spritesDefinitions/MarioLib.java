@@ -4,9 +4,7 @@ import java.awt.Dimension;
 import java.awt.geom.Point2D;
 import util.Location;
 import vooga.scroller.level_editor.library.EncapsulatedSpriteLibrary;
-import vooga.scroller.level_management.LevelManager;
 import vooga.scroller.level_management.LevelPortal;
-import vooga.scroller.marioGame.spritesDefinitions.players.Mario;
 import vooga.scroller.sprites.animation.Animation;
 import vooga.scroller.sprites.animation.MovingSpriteAnimationFactory;
 import vooga.scroller.sprites.interfaces.ICollectible;
@@ -241,6 +239,16 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
 
         public void print () {
         }
+    }
+    
+    public static class ItemBlock extends Sprite implements IPlatform {
+
+        private static final String BLOCK_IMG = "itemBlock.gif";
+        
+        public ItemBlock () {
+            super(makePixmap(BLOCK_IMG), DEFAULT_LOC, DEFAULT_SIZE);
+        }
+        
     }
 
     public static class ExamplePortal extends LevelPortal {
