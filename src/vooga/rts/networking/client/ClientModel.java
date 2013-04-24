@@ -12,7 +12,7 @@ import vooga.rts.networking.client.gui.CreateLobbyView;
 import vooga.rts.networking.client.gui.IModel;
 import vooga.rts.networking.client.gui.LobbyView;
 import vooga.rts.networking.client.gui.ServerBrowserTableAdapter;
-import vooga.rts.networking.client.gui.ServerBrowserView;
+import vooga.rts.networking.client.gui.TableContainerView;
 import vooga.rts.networking.client.gui.ViewContainerPanel;
 import vooga.rts.networking.communications.ExpandedLobbyInfo;
 import vooga.rts.networking.communications.LobbyInfo;
@@ -39,12 +39,13 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
     private IClient myClient;
     private String myUserName;
     private ViewContainerPanel myContainerPanel;
-    private ServerBrowserView myServerBrowserView;
+    private TableContainerView myServerBrowserView;
     private CreateLobbyView myCreateLobbyView;
     private ExpandedLobbyInfo myLobbyInfo;
     private LobbyView myLobbyView;
     private List<String> myFactions;
     private List<Player> myUserControlledPlayers = new ArrayList<Player>();
+    private ServerBrowserTableAdapter myServerBrowserAdapter = new ServerBrowserTableAdapter();
 
     /**
      * This is the handler of information needed by all of the views in the process of connecting to
@@ -63,7 +64,7 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
         myUserName = userName;
         myFactions = factions;
         myContainerPanel = new ViewContainerPanel(gameName);
-        myServerBrowserView = new ServerBrowserView(new ServerBrowserTableAdapter());
+        myServerBrowserView = new TableContainerView(myServerBrowserAdapter);
         myCreateLobbyView = new CreateLobbyView(maps, maxPlayerArray);
         myClient = new Client(this);
         Message initialConnection = new InitialConnectionMessage(gameName, userName);
@@ -101,9 +102,9 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
                                            new ActionListener() {
                                                @Override
                                                public void actionPerformed (ActionEvent arg0) {
-                                                   if (myServerBrowserView.hasSelected()) {
-                                                       requestJoinLobby(myServerBrowserView
-                                                               .getSelectedID());
+                                                   if (myServerBrowserView.hasSelectedRow()) {
+                                                       requestJoinLobby(myServerBrowserAdapter
+                                                               .getidOfRow(myServerBrowserView.getSelectedRow()));
                                                    }
                                                }
                                            });
@@ -190,7 +191,7 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
 
     @Override
     public void addLobbies (LobbyInfo[] lobbies) {
-        myServerBrowserView.addLobbies(lobbies);
+        myServerBrowserAdapter.changeLobbies(lobbies);
     }
 
     @Override
