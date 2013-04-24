@@ -15,6 +15,9 @@ import vooga.scroller.level_editor.controllerSuite.LEGrid;
 import vooga.scroller.level_editor.model.SpriteBox;
 import vooga.scroller.level_management.LevelPortal;
 import vooga.scroller.level_management.SpriteManager;
+import vooga.scroller.level_management.splash_page.SplashPage;
+import vooga.scroller.level_management.splash_page.TestSplashPage;
+import vooga.scroller.marioGame.splash_page.MarioSplashPage;
 import vooga.scroller.marioGame.spritesDefinitions.players.Mario;
 import vooga.scroller.model.Model;
 import vooga.scroller.scrollingmanager.OmniScrollingManager;
@@ -257,7 +260,10 @@ public class Level implements Renderable<GameView>, IGameComponent {
         GameView display = new GameView(PlatformerConstants.DEFAULT_WINDOW_SIZE, sm);
         sm.initView(display);
         Player sample = new Mario(new Location(), new Dimension(30, 32), display, sm);
-        Model m = new Model(display, sm, sample, this);
+        
+        SplashPage sp = new TestSplashPage(display, myScrollingManager);
+        
+        Model m = new Model(display, sm, sample, sp, this);
         m.addPlayerToLevel();
         display.setModel(m);
         return display;

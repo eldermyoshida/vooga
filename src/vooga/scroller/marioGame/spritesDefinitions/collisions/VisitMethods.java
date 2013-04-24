@@ -1,11 +1,12 @@
 package vooga.scroller.marioGame.spritesDefinitions.collisions;
 
 
+import vooga.scroller.marioGame.spritesDefinitions.players.Mario;
 import vooga.scroller.sprites.interfaces.ICollectible;
 import vooga.scroller.sprites.interfaces.IDoor;
 import vooga.scroller.sprites.interfaces.IEnemy;
 import vooga.scroller.sprites.interfaces.IPlatform;
-import vooga.scroller.sprites.interfaces.IPlayer;
+import vooga.scroller.sprites.superclasses.Player;
 
 /**
  * This is where you want to place your visit methods. To keep this class as 
@@ -21,19 +22,19 @@ public class VisitMethods {
        
     private MarioCollisions collisions = new MarioCollisions();
 
-    public void visit (IPlayer player, IPlatform platform) {
-        collisions.marioAndPlatformCollision(player, platform);
+    public void visit (Mario mario, IPlatform platform) {
+        collisions.marioAndPlatformCollision(mario, platform);
     }
     
-    public void visit (IPlayer player, ICollectible collectible) {
-        collisions.marioAndCollectibleCollision(player, collectible);
+    public void visit (Mario mario, ICollectible collectible) {
+        collisions.marioAndCollectibleCollision(mario, collectible);
     }
         
-    public void visit (IPlayer player, IEnemy enemy) {
-        collisions.marioAndEnemyCollision(player, enemy);
+    public void visit (Mario mario, IEnemy enemy) {
+        collisions.marioAndEnemyCollision(mario, enemy);
     }
     
-    public void visit (IPlayer player, IDoor levelPortal) {
+    public void visit (Player player, IDoor levelPortal) {
         collisions.marioAndLevelPortalCollision(player, levelPortal);
     }
 }

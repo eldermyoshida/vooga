@@ -1,7 +1,7 @@
 package vooga.scroller.sprites.movement;
 
 import util.Vector;
-import vooga.scroller.sprites.superclasses.Locatable;
+import vooga.scroller.sprites.interfaces.Locatable;
 import vooga.scroller.util.Sprite;
 
 /**

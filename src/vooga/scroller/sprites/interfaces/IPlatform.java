@@ -10,7 +10,7 @@ package vooga.scroller.sprites.interfaces;
  * 
  * @author Jay Wang
  */
-public interface IPlatform extends ISprite {
+public interface IPlatform extends Locatable {
 
    
 }

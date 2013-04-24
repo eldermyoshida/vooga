@@ -3,6 +3,7 @@ package vooga.scroller.sprites.superclasses;
 import java.awt.Dimension;
 import util.Location;
 import util.Vector;
+import vooga.scroller.sprites.interfaces.Locatable;
 import vooga.scroller.util.ISpriteView;
 import vooga.scroller.util.Sprite;
 

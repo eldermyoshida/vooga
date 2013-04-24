@@ -4,18 +4,16 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 import util.Location;
-import util.Secretary;
 import vooga.scroller.level_editor.Level;
 import vooga.scroller.level_management.LevelManager;
+import vooga.scroller.level_management.splash_page.SplashPage;
 import vooga.scroller.marioGame.spritesDefinitions.players.Mario;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.animation.Animation;
 import vooga.scroller.sprites.animation.MovingSpriteAnimationFactory;
-import vooga.scroller.sprites.interfaces.IPlayer;
 import vooga.scroller.sprites.superclasses.Player;
+import vooga.scroller.util.Sprite;
 import vooga.scroller.view.GameView;
 
 
@@ -49,20 +47,20 @@ public class Model {
      * @throws IOException 
      */
 
-    public Model (GameView gameView, ScrollingManager sm, Player player, Level ...levels) {
+    public Model (GameView gameView, ScrollingManager sm, Player player, SplashPage splashPage, Level ...levels) {
         this(gameView, sm, player);
-        myLevelManager = initializeLevelManager(levels);
+        myLevelManager = initializeLevelManager(splashPage, levels);
     }
     
     
-    public Model (GameView gameView, ScrollingManager sm, Player player, String... levelFileNames) {
+    public Model (GameView gameView, ScrollingManager sm, Player player, SplashPage splashPage, String... levelFileNames) {
         this(gameView, sm, player);
-        myLevelManager = initializeLevelManager(levelFileNames);
+        myLevelManager = initializeLevelManager(splashPage, levelFileNames);
     }
 
-    public Model (GameView gameView, ScrollingManager sm, Level level) {
-        this(gameView, sm, initTestPlayer(gameView, sm), level);
-    }
+//    public Model (GameView gameView, ScrollingManager sm, Level level) {
+//        this(gameView, sm, initTestPlayer(gameView, sm), level);
+//    }
 
 
     private Model (GameView gameView, ScrollingManager sm, Player player) {
@@ -75,7 +73,7 @@ public class Model {
     private static Player initTestPlayer (GameView gameView, ScrollingManager sm) {
         Player player = new Mario(new Location(), new Dimension(32, 32), gameView, sm);
         MovingSpriteAnimationFactory msaf = new MovingSpriteAnimationFactory(DEFAULT_IMAGE_LOCATION, PLAYER_IMAGES);
-        Animation playerAnimation = msaf.generateAnimation(player);
+        Animation<Sprite> playerAnimation = msaf.generateAnimation(player);
         
         player.setView(playerAnimation);
         return player;
@@ -85,13 +83,13 @@ public class Model {
         myLevelManager.getCurrentLevel().addPlayer(myPlayer);
     }
 
-    private LevelManager initializeLevelManager (Level[] levels) {
-        return new LevelManager(myScrollingManager, myView, levels);
+    private LevelManager initializeLevelManager (SplashPage splashPage, Level[] levels) {
+        return new LevelManager(myScrollingManager, myView, splashPage, levels);
     }
 
 
-    private LevelManager initializeLevelManager (String[] levelFileNames) {
-        return new LevelManager(myScrollingManager, myView, levelFileNames);
+    private LevelManager initializeLevelManager (SplashPage splashPage, String[] levelFileNames) {
+        return new LevelManager(myScrollingManager, myView, splashPage, levelFileNames);
     }
 
 
