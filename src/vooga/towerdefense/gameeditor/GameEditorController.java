@@ -41,6 +41,7 @@ public class GameEditorController extends JFrame {
     private static final String GAME_ELEMENT_TAG = "gameelement";
     private static final String WAVE_TAG = "wave";
     private static final String IMAGE_TAG = "image";
+    private static final String TYPE_TAG = "type";
     private static final String MAP_TAG = "map";
     private static final String WIDTH_TAG = "width";
     private static final String HEIGHT_TAG = "height";
@@ -53,12 +54,10 @@ public class GameEditorController extends JFrame {
     private static final Dimension SIZE = new Dimension(700, 700);
     private static final String UNIT_INDICATOR = "Unit";
     private static final String RESOURCE_PATH = "vooga.src.vooga.towerdefense.resources.";
-    private static final String ATTRIBUTES_CLASS_PATH =
-            "vooga.towerdefense.attributes.AttributeConstants";
     public static final String CLASS_INDICATOR_STRING = ".class";
     private Dimension mySize;
     private Dimension myMapSize;
-    private Map<Image, String> myCreatedUnits;
+    private List<String> myCreatedUnits;
     private String myName;
     private XMLTool myXMLDoc;
     private Element myRoot;
@@ -74,7 +73,7 @@ public class GameEditorController extends JFrame {
      */
     public GameEditorController (Dimension size) {
         this.setTitle(TITLE_KEYWORD);
-        myCreatedUnits = new HashMap<Image, String>();
+        myCreatedUnits = new ArrayList<String>();
         mySize = size;
         setSize(mySize);
         setPreferredSize(mySize);
@@ -147,9 +146,7 @@ public class GameEditorController extends JFrame {
     
     public void addGameElementToGame(String type, String name, String path, Map<String, String> attributes, String actions) {
         if (type.equals(UNIT_INDICATOR)) {
-            ImageIcon ii = new ImageIcon(path);
-            Image image = ii.getImage();
-            myCreatedUnits.put(image, name);
+            myCreatedUnits.add(name);
         }
         addGameElementToFile(myGameElementParent, type, name, path, attributes, actions);
     }
@@ -166,6 +163,7 @@ public class GameEditorController extends JFrame {
         Element gameElement = myXMLDoc.makeElement(name);
         myXMLDoc.addChildElement(parent, gameElement);
         myXMLDoc.addChild(gameElement, IMAGE_TAG, path);
+        myXMLDoc.addChild(gameElement, TYPE_TAG, type);
         Element attributeElement = myXMLDoc.makeElementsFromMap(ATTRIBUTES_TAG, attributes);
         myXMLDoc.addChildElement(gameElement, attributeElement);
         Element actionElement = myXMLDoc.makeElement(ACTIONS_TAG);
@@ -175,13 +173,12 @@ public class GameEditorController extends JFrame {
     }
 
     /**
-     * gets the list of already created unit images.
+     * gets the list of already created units.
      * 
-     * @return a list of images.
+     * @return a list of unit names as strings.
      */
-    @SuppressWarnings("unchecked")
-    public List<Image> getIconsForUnits () {
-        return (List<Image>)myCreatedUnits.keySet();
+    public List<String> getUnits () {
+        return myCreatedUnits;
     }
     
     /**
@@ -346,9 +343,9 @@ public class GameEditorController extends JFrame {
      * @return the attributes as a list of strings
      * @throws ClassNotFoundException
      */
-    public List<String> getAttributes() throws ClassNotFoundException {
+    public List<String> getAttributes(String attributeClassName) throws ClassNotFoundException {
         List<String> fields = new ArrayList<String>();
-        Field[] fieldList = getFieldsInClass(ATTRIBUTES_CLASS_PATH);
+        Field[] fieldList = getFieldsInClass(attributeClassName);
         for (Field field : fieldList) {
             fields.add(field.getName());
         }
