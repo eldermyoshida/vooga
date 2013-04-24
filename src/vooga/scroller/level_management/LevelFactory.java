@@ -151,10 +151,6 @@ public class LevelFactory {
         myCurrLevel.addSprite(new MarioLib.Plant(
                                                  new Location(500, 400)
                 ));
-
-        myCurrLevel.addSprite(new MarioLib.MovingPlatformTwo(
-                                                             new Location(900, 500)
-                ));
         myCurrLevel
                 .setBackground(new ImageIcon(getClass()
                         .getResource("/vooga/scroller/images/backgrounds/background.png"))
