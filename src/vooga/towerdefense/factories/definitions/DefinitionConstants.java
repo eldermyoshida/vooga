@@ -3,7 +3,7 @@ package vooga.towerdefense.factories.definitions;
 import java.awt.Dimension;
 
 import util.Location;
-import vooga.towerdefense.util.Pixmap;
+import util.Pixmap;
 
 /**
  * List of default definitions used for testing factories.

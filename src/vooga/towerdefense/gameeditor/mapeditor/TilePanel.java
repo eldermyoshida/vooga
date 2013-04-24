@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 import javax.swing.JPanel;
 import util.Location;
-import vooga.towerdefense.util.Pixmap;
+import util.Pixmap;
 
 /**
  * This is the class that displays the types of tiles that the game developer can use
@@ -73,7 +73,7 @@ public class TilePanel extends JPanel {
     private void handlePixmapClicked (Point point) {
         for (Pixmap pixmap : myPixmaps) {
             if (myBounds.get(pixmap).contains(point)) {
-                myEditor.makeTileInstances(pixmap.getFileName());
+                myEditor.makeTileInstances(pixmap.getFilePath());
             }
         }
     }

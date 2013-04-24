@@ -13,7 +13,7 @@ import vooga.towerdefense.attributes.Attribute;
 import vooga.towerdefense.attributes.AttributeConstantsEnum;
 import vooga.towerdefense.attributes.AttributeManager;
 import util.Location;
-import vooga.towerdefense.util.Pixmap;
+import util.Pixmap;
 import vooga.towerdefense.util.Sprite;
 
 

@@ -35,7 +35,7 @@ import vooga.towerdefense.model.shop.ShopItem;
 import vooga.towerdefense.model.tiles.Tile;
 import vooga.towerdefense.model.tiles.factories.TileFactory;
 import util.Location;
-import vooga.towerdefense.util.Pixmap;
+import util.Pixmap;
 import vooga.towerdefense.view.TDView;
 
 /**

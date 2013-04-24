@@ -94,4 +94,13 @@ public class Pixmap {
         return myImage;
     }
     
+    /**
+     * Gets the file path of the image of this Pixmap
+     * @return the file path of the image of this Pixmap
+     */
+    
+    public String getFilePath(){
+    	return myFilePath;
+    }
+    
 }

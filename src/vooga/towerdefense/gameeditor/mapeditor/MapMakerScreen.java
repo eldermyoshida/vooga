@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 import vooga.towerdefense.model.tiles.GrassTile;
 import vooga.towerdefense.model.tiles.Tile;
 import util.Location;
-import vooga.towerdefense.util.Pixmap;
+import util.Pixmap;
 
 
 /**

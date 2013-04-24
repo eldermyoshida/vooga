@@ -9,7 +9,7 @@ import vooga.towerdefense.factories.actionfactories.ActionFactory;
 import vooga.towerdefense.factories.attributefactories.AttributeFactory;
 import vooga.towerdefense.factories.attributefactories.AttributeManagerFactory;
 import vooga.towerdefense.factories.elementfactories.GameElementFactory;
-import vooga.towerdefense.util.Pixmap;
+import util.Pixmap;
 
 public class GameElementXMLLoader {
     private static final String GAME_ELEMENTS_TAG = "GameElements";

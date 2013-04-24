@@ -13,7 +13,9 @@ import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JButton;
-import vooga.towerdefense.util.Pixmap;
+
+import util.Location;
+import util.Pixmap;
 import vooga.towerdefense.view.TDView;
 
 
@@ -98,7 +100,7 @@ public class LevelsSelectorScreen extends SelectScreen {
     public void checkPositionClicked (Point point) {
         if (!myPrevName.isEmpty()) {
             for (Map.Entry<Pixmap, Rectangle> entry1 : myLevelsImages.entrySet()) {
-                if (entry1.getKey().getFileName().equals(CHECKED_IMAGE)) {
+                if (entry1.getKey().getFilePath().equals(CHECKED_IMAGE)) {
                     entry1.getKey().setImage(myPrevName);
                     repaint();
                 }
@@ -114,7 +116,7 @@ public class LevelsSelectorScreen extends SelectScreen {
     }
 
     private void selectedImage (Pixmap myImage) {
-        myPrevName = myImage.getFileName();
+        myPrevName = myImage.getFilePath();
         myImage.setImage(CHECKED_IMAGE);
         repaint();
     }

@@ -6,6 +6,8 @@ import java.awt.Rectangle;
 import java.awt.geom.Point2D;
 
 import util.Location;
+import util.Pixmap;
+import util.Vector;
 
 
 /**

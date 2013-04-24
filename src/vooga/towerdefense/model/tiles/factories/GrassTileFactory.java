@@ -3,7 +3,7 @@ package vooga.towerdefense.model.tiles.factories;
 import vooga.towerdefense.model.tiles.GrassTile;
 import vooga.towerdefense.model.tiles.Tile;
 import util.Location;
-import vooga.towerdefense.util.Pixmap;
+import util.Pixmap;
 
 /**
  * A tile factory that creates GrassTile objects.

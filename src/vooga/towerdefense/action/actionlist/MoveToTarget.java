@@ -3,7 +3,7 @@ package vooga.towerdefense.action.actionlist;
 import vooga.towerdefense.action.TargetedAction;
 import vooga.towerdefense.attributes.Attribute;
 import util.Location;
-import vooga.towerdefense.util.Vector;
+import util.Vector;
 
 
 /**
