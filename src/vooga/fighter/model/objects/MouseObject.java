@@ -11,9 +11,9 @@ public class MouseObject extends GameObject {
 	
     private int myTicks;
     
-	public MouseObject(Point2D loc) {
+	public MouseObject(Point2D loc, String pathHierarchy) {
         setLocation(new UpdatableLocation(loc.getX(), loc.getY()));
-        setLoader(new MouseLoader(this));
+        setLoader(new MouseLoader(this, pathHierarchy));
         setImageData();
         myTicks = 0;
 	}
