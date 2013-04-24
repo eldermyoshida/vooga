@@ -15,7 +15,7 @@
                                                                 
                                                                 
             a                                                   
-            a                                                   
+         e  a                                                   
             a                                                   
             a                                                   
          aaaa                                                   
@@ -30,6 +30,7 @@ b=Plant
 c=LevelTwoBlockTwo
 a=Platform
 d=ExamplePortal
+e=ItemBlock
 /settings
 StartPoint=16 720
 Background=/vooga/scroller/images/backgrounds/background.png
