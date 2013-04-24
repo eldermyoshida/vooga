@@ -11,11 +11,12 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import org.w3c.dom.Element;
-import com.sun.org.apache.xalan.internal.xsltc.runtime.Parameter;
 import util.XMLTool;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.gameElements.Wave;
@@ -34,8 +35,11 @@ public class GameEditorController extends JFrame {
      */
     private static final long serialVersionUID = 1L;
     private static final String TITLE_KEYWORD = "GAME EDITOR";
+    private static final String XML_EXTENSION = ".xml";
+    private static final String GAME_TAG = "game";
     private static final String VIEW_TAG = "view";
     private static final String GAME_ELEMENT_TAG = "gameelement";
+    private static final String WAVE_TAG = "wave";
     private static final String IMAGE_TAG = "image";
     private static final String MAP_TAG = "map";
     private static final String WIDTH_TAG = "width";
@@ -47,21 +51,21 @@ public class GameEditorController extends JFrame {
     private static final String ACTIONS_TAG = "actions";
     private static final String PARAMETER_TAG = "parameter";
     private static final Dimension SIZE = new Dimension(700, 700);
+    private static final String UNIT_INDICATOR = "Unit";
     private static final String RESOURCE_PATH = "vooga.src.vooga.towerdefense.resources.";
-    private static final String ACTION_PACKAGE_PATH = "vooga.towerdefense.factories.actionfactories";
     private static final String ATTRIBUTES_CLASS_PATH =
             "vooga.towerdefense.attributes.AttributeConstants";
     public static final String CLASS_INDICATOR_STRING = ".class";
     private Dimension mySize;
     private Dimension myMapSize;
-    private List<GameElement> myCreatedUnits;
-    private List<Wave> myCreatedWaves;
+    private Map<Image, String> myCreatedUnits;
     private String myName;
     private XMLTool myXMLDoc;
     private Element myRoot;
     private Element myViewParent;
     private Element myGameElementParent;
     private Element myMapParent;
+    private Element myWaveParent;
     
     /**
      * Constructor.
@@ -70,36 +74,42 @@ public class GameEditorController extends JFrame {
      */
     public GameEditorController (Dimension size) {
         this.setTitle(TITLE_KEYWORD);
-        myCreatedUnits = new ArrayList<GameElement>();
-        myCreatedWaves = new ArrayList<Wave>();
+        myCreatedUnits = new HashMap<Image, String>();
         mySize = size;
         setSize(mySize);
         setPreferredSize(mySize);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        myXMLDoc = new XMLTool();
-        myRoot = myXMLDoc.makeRoot("Game");
-        myViewParent = myXMLDoc.makeElement(VIEW_TAG);
-        myMapParent = myXMLDoc.makeElement(MAP_TAG);
-        myGameElementParent = myXMLDoc.makeElement(GAME_ELEMENT_TAG);
-        myXMLDoc.addChildElement(myRoot, myViewParent);  
-        myXMLDoc.addChildElement(myRoot, myMapParent);
-        myXMLDoc.addChildElement(myRoot, myGameElementParent);
+        initializeXML();
         initializeGUI();
-        
-        //TODO: remove, this is just for testing
-        GameElement temp = new GameElement(new Pixmap("tower.gif"), new Location(0,0), new Dimension(0,0), null, null, "unit");
-        myCreatedUnits.add(temp);
-        myCreatedUnits.add(temp);
-        myCreatedUnits.add(temp);
-        myCreatedUnits.add(temp);
-        myCreatedUnits.add(temp);
-        myCreatedUnits.add(temp);
+    }
+    
+    /**
+     * starts a new XML file & initializes the parents of
+     *          
+     */
+    private void initializeXML() {
+        myXMLDoc = new XMLTool();
+        myRoot = myXMLDoc.makeRoot(GAME_TAG);
+        makeAndAddSectionToRoot(myViewParent, VIEW_TAG);
+        makeAndAddSectionToRoot(myMapParent, MAP_TAG);
+        makeAndAddSectionToRoot(myGameElementParent, GAME_ELEMENT_TAG);
+        makeAndAddSectionToRoot(myWaveParent, WAVE_TAG);
+    }
+    
+    /**
+     * helper method to initialize the parents and add them to the root.
+     * @param sectionParent is the parent element of each section
+     * @param tag is the name for this section
+     */
+    private void makeAndAddSectionToRoot(Element sectionParent, String tag) {
+        sectionParent = myXMLDoc.makeElement(tag);
+        myXMLDoc.addChildElement(myRoot, sectionParent);
     }
 
     /**
      * starts the visual for the game editor.
      */
-    public void initializeGUI () {
+    private void initializeGUI () {
         StartUpScreen screen = new StartUpScreen(SIZE, this);
         getContentPane().add(screen, BorderLayout.CENTER);
 
@@ -111,7 +121,7 @@ public class GameEditorController extends JFrame {
      * saves the xml file.
      */
     public void saveFile() {
-        myXMLDoc.writeFile(myName);
+        myXMLDoc.writeFile(myName + XML_EXTENSION);
     }
     
     /**
@@ -139,13 +149,14 @@ public class GameEditorController extends JFrame {
         myXMLDoc.addChild(thisMap, TILE_TAG, tileSize);
         myXMLDoc.addChild(thisMap, GRID_TAG, map);
         myXMLDoc.addChildElement(myMapParent, thisMap);
-        myXMLDoc.writeFile("mappptest.xml");
-//        Element grid = myXMLDoc.makeElementsFromMap("grid", map);
-//        myXMLDoc.addChildElement(thisMap, grid);
-//        myXMLDoc.addChildElement(myMapParent, thisMap);
     }
     
     public void addGameElementToGame(String type, String name, String path, Map<String, String> attributes, String actions) {
+        if (type.equals(UNIT_INDICATOR)) {
+            ImageIcon ii = new ImageIcon(path);
+            Image image = ii.getImage();
+            myCreatedUnits.put(image, name);
+        }
         addGameElementToFile(myGameElementParent, type, name, path, attributes, actions);
     }
     
@@ -166,7 +177,6 @@ public class GameEditorController extends JFrame {
         //TODO: fix this for actions 
         Element actionElement = myXMLDoc.makeElement(ACTIONS_TAG);
         myXMLDoc.addChildElement(gameElement, makeActionElement(actions.split("\n"), actionElement));
-        myXMLDoc.writeFile("actionstest.xml");
     }
     
     /**
@@ -214,25 +224,13 @@ public class GameEditorController extends JFrame {
     }
 
     /**
-     * gets the list of already created units.
+     * gets the list of already created unit images.
      * 
-     * @return a list of gameelements
+     * @return a list of images.
      */
-    public List<GameElement> getUnits () {
-        List<GameElement> g = new ArrayList<GameElement>();
-        for (GameElement unit : myCreatedUnits) {
-            g.add(unit);
-        }
-        return g;
-    }
-
-    /**
-     * gets the list of already created waves.
-     * 
-     * @return a list of units
-     */
-    public List<Wave> getWaves () {
-        return myCreatedWaves;
+    @SuppressWarnings("unchecked")
+    public List<Image> getIconsForUnits () {
+        return (List<Image>)myCreatedUnits.keySet();
     }
     
     /**
@@ -252,7 +250,6 @@ public class GameEditorController extends JFrame {
                 }
             }
         }
-        myXMLDoc.writeFile("viewtesting.xml");
     }
 
     /**
@@ -268,27 +265,6 @@ public class GameEditorController extends JFrame {
 
     public Dimension getMapSize () {
         return myMapSize;
-    }
-
-    /**
-     * Get icons for the game elements in the list.
-     * 
-     * @param gameElementsCreated
-     * @return a list of images
-     */
-    public List<Image> getIconsForUnits () {
-        List<Image> images = new ArrayList<Image>();
-        for (GameElement unit : myCreatedUnits) {
-            images.add(unit.getPixmap().getImage());
-        }
-        return images;
-    }
-    
-    /**
-     * write the xml file.
-     */
-    public void writeFile() {
-        myXMLDoc.writeFile(myName + ".xml");
     }
 
     /**
@@ -328,7 +304,7 @@ public class GameEditorController extends JFrame {
     public List<String> getParametersForAction(String className) throws ClassNotFoundException {
         List<String> parameters = new ArrayList<String>();
         //TODO: get rid of magic string
-        Class c = Class.forName(ACTION_PACKAGE_PATH + "." + className + "Factory");
+        Class c = Class.forName(className + "Factory");
         Constructor cons = c.getConstructors()[0];
         Class[] parameterClasses = cons.getParameterTypes();
         Annotation[] annotations = cons.getDeclaredAnnotations();
@@ -345,9 +321,9 @@ public class GameEditorController extends JFrame {
      * @throws IOException
      * @throws ClassNotFoundException
      */
-    public List<String> getAvailableActions() throws IOException, ClassNotFoundException {
+    public List<String> getAvailableActions(String packageName) throws IOException, ClassNotFoundException {
         List<String> actions = new ArrayList<String>();
-        List<Class> actionClasses = getClassesInPackage(ACTION_PACKAGE_PATH);
+        List<Class> actionClasses = getClassesInPackage(packageName);
         for (Class actionClass : actionClasses) {
             String action = actionClass.getSimpleName().toString();
             action = action.substring(0, action.length()-"Factory".length());
