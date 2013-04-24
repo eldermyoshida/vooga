@@ -39,8 +39,8 @@ public class Model {
 
     private static final String PLAYER_IMAGES = "walama.gif";
     // "mario.gif"
-    //"transparent_wolf.gif" -- not yet added.
     //"walama.gif"
+    private static final String DEFAULT_IMAGE_LOCATION = "/vooga/scroller/marioGame/images/";
     
     /**
      * Constructs a new Model based on the view and the scrolling manager used by the game.
@@ -75,7 +75,7 @@ public class Model {
 
     private static Player initTestPlayer (GameView gameView, ScrollingManager sm) {
         Player player = new Mario(new Location(), new Dimension(32, 32), gameView, sm);
-        MovingSpriteAnimationFactory msaf = new MovingSpriteAnimationFactory(PLAYER_IMAGES);
+        MovingSpriteAnimationFactory msaf = new MovingSpriteAnimationFactory(DEFAULT_IMAGE_LOCATION, PLAYER_IMAGES);
         Animation playerAnimation = msaf.generateAnimation(player);
         
         player.setView(playerAnimation);
@@ -102,15 +102,11 @@ public class Model {
         myScrollingManager.initView(myView); 
     }
 
-
     /**
      * Draw all elements of the game.
      */
     public void paint (Graphics2D pen) {
         myLevelManager.getCurrentLevel().paint(pen);
-        
-        
-        
     }
 
     /**
@@ -119,13 +115,15 @@ public class Model {
      * @param elapsedTime is the elapsed time since the last update.
      */
     public void update (double elapsedTime) {
-
         myLevelManager.getCurrentLevel().update(elapsedTime, myView.getSize(), myView);
-
     }
 
     /**
      * Gives various boundaries for the current level.
+     * TODO: can these be consolidated into one function (seems like a lot extra things that aren't
+     * really associated with the model.
+     * (we could just return the current level or maybe the bounds of the level(this might be 
+     * dependent on other things) )
      * 
      * @return
      */

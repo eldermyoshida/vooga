@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Map;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -35,16 +34,6 @@ import vooga.scroller.viewUtil.RadioGroup;
 public class TabbedToolsView<D extends IDomainDescriptor> extends 
     WindowComponent<D> {
 
-    public class UpdateGridSizeListener implements ActionListener {
-        
-        @Override
-        public void actionPerformed (ActionEvent e) {
-            process(CommandConstants.CHANGE_GRID_SIZE + " " + 
-                    myGridSpinner.getGridWidth() + ", " +
-                    myGridSpinner.getGridHeight());
-        }
-
-    }
     
     public class EditableIndependentsListener implements ActionListener {
         String myKeyword;
@@ -86,28 +75,27 @@ public class TabbedToolsView<D extends IDomainDescriptor> extends
     private JTabbedPane myTabs;
     private Tools<D> myTools;
     
-    GridSpinner myGridSpinner;
 
-    public TabbedToolsView (Tools<D> leTools, IView<D> parent) {
+    public TabbedToolsView (Tools<D> tools, IView<D> parent) {
         super(parent, getDefaultWidthRatio(), getDefaultHeightRatio());
         myTabs = new JTabbedPane();
         myEditableDependentsUI = new JPanel();
         myEditableDependentsUI.setLayout(new BoxLayout(myEditableDependentsUI, BoxLayout.PAGE_AXIS));
         myIndependentsUI = new JPanel();
         myIndependentsUI.setLayout(new BoxLayout(myIndependentsUI, BoxLayout.PAGE_AXIS));
-        setRenderable((Renderable<D>)leTools);
+        setRenderable((Renderable<D>)tools);
     }
 
     public String getSelectedEditableDependent () {
         return mySelectedEditableDependent;
     }
     
-    private JComponent addOtherSpecificTools() {
-        myGridSpinner = new GridSpinner();
-        JButton validator = new JButton("Update Grid Size");
-        validator.addActionListener(new UpdateGridSizeListener());
-        myGridSpinner.add(validator);
-        return myGridSpinner;
+    /**
+     * TODO - 
+     * @param comp
+     */
+    protected void addSpecializedToolUI(JComponent comp) {
+        myTabs.add(comp);
     }
     
     @Override

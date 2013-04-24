@@ -14,6 +14,7 @@ public class SimpleView extends JFrame implements IView<Gaming> {
     public SimpleView (String title) {
         super(title);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        start();
     }
 
     @Override
@@ -44,6 +45,13 @@ public class SimpleView extends JFrame implements IView<Gaming> {
     public Renderable<Gaming> getRenderable () {
         // TODO Auto-generated method stub
         return null;
+    }
+
+   
+    public void start () {
+        pack();
+        setVisible(true);
+        
     }
 
 

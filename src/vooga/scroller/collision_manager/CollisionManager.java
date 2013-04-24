@@ -3,7 +3,7 @@ package vooga.scroller.collision_manager;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import vooga.scroller.level_editor.Level;
-import vooga.scroller.marioGame.spritesDefinitions.VisitMethods;
+import vooga.scroller.marioGame.spritesDefinitions.collisions.VisitMethods;
 import vooga.scroller.util.Sprite;
 
 
@@ -49,10 +49,12 @@ public class CollisionManager {
      */
     public void handleCollision (Sprite sprite1, Sprite sprite2) {
 
-        if (sprite1.getClass().getInterfaces().length == 0 ||
-            sprite2.getClass().getInterfaces().length == 0) {
+        Class<? extends Sprite> clazz1 = sprite1.getClass();
+        Class<? extends Sprite> clazz2 = sprite2.getClass();
+        if (checkForInterfaces(clazz1) == null ||
+            checkForInterfaces(clazz2) == null) {
             @SuppressWarnings("rawtypes")
-            Class[] classArray = { sprite1.getClass(), sprite2.getClass() };
+            Class[] classArray = { clazz1, clazz2 };
             Object[] sprites = { sprite1, sprite2 };
             invokeVisit(classArray, sprites);
         }
@@ -60,11 +62,21 @@ public class CollisionManager {
         else {
             @SuppressWarnings("rawtypes")
             Class[] classArray =
-                    { sprite1.getClass().getInterfaces()[0], sprite2.getClass().getInterfaces()[0] };
+                    { checkForInterfaces(clazz1)[0], checkForInterfaces(clazz2)[0] };
             Object[] sprites = { sprite1, sprite2 };
             invokeVisit(classArray, sprites);
         }
 
+    }
+    
+    @SuppressWarnings("rawtypes")
+    public Class[] checkForInterfaces(Class clazz) {
+        if(clazz.getInterfaces().length != 0)
+            return clazz.getInterfaces();
+        if(clazz.getSuperclass() == null)
+            return null;
+        return checkForInterfaces(clazz.getSuperclass());
+        
     }
 
     private void invokeVisit (@SuppressWarnings("rawtypes") Class[] classArray, Object[] sprites) {

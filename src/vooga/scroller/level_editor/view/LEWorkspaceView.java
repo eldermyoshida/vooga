@@ -47,7 +47,7 @@ public class LEWorkspaceView extends WorkspaceView<LevelEditing>
                             Renderable<LevelEditing> grid, Tools<LevelEditing> tools) {
         super(id, host);
         myGridView = grid.initializeRenderer(this);
-        myToolsView = new TabbedToolsView<LevelEditing>(tools, this);
+        myToolsView = new LEToolsView(tools, this);
         myLevelGridScroller = new JScrollPane((LEGridView) myGridView,
                                               JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                                               JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);

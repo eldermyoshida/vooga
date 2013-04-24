@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import util.input.Input;
 import vooga.scroller.scrollingmanager.ScrollingManager;
+import vooga.scroller.sprites.interfaces.IDoor;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.IGameComponent;
 import vooga.scroller.view.GameView;
@@ -18,7 +19,10 @@ import vooga.scroller.level_editor.Level;
  */
 public class LevelManager {
 
-    private static final String DEFAULT_INPUT_CONTROLS = "vooga/scroller/resources/controls/SplashMapping";
+    // TODO: this string exists somewhere else (need to consolidate)
+    //TODO: fix design such that there is no need for developer to specify default (we could
+    // just make a place holder file... seems like a cop-out
+    private static final String DEFAULT_INPUT_CONTROLS = "vooga/scroller/marioGame/controls/SplashMapping";
     
     private Input myInput;
     private IGameComponent myInitialLevel;

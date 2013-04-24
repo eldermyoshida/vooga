@@ -32,4 +32,5 @@ public abstract class Tools<D extends IDomainDescriptor> implements Renderable<D
     public abstract String EditableDependentsTitle ();
 
     public abstract String getEditableIndependentsTitle ();
+    
 }

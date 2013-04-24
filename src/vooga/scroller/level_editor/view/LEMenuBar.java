@@ -22,7 +22,7 @@ public class LEMenuBar extends MenuBarView {
     private static final long serialVersionUID = -2714084580594858599L;
 
     private LEActionLibrary myLib;
-    private List<JMenu> myMenus;
+    
     
     /**
      * Attach the menu to the specified window
@@ -30,6 +30,11 @@ public class LEMenuBar extends MenuBarView {
      */
     public LEMenuBar (LEView window) {
         super(window);
+        List<JMenu> menus = new ArrayList<JMenu>();
+        menus.add(makePreferencesMenu());
+        menus.add(makeHelpMenu());
+        menus.add(makeSimulateMenu());
+        super.addCustomMenus(menus);
     }
 
     @Override
@@ -58,26 +63,6 @@ public class LEMenuBar extends MenuBarView {
         return result;
     }
 
-    @Override
-    protected void addCustomMenus () {
-        myMenus = new ArrayList<JMenu>();
-        addCustomMenu(makePreferencesMenu());
-        addCustomMenu(makeHelpMenu());
-        addCustomMenu(makeSimulateMenu());
-    }
-
-    private void addCustomMenu (JMenu cm) {
-        myMenus.add(cm);
-        this.add(cm);
-    }
-
-    /**
-     * Make the Workspace specific menus available to members of the class hierarchy
-     */
-    @Override
-    protected List<JMenu> getWorkspaceMenus () { 
-        return myMenus;
-    }
 
     @Override
     protected void setSpecializedWindow (Window w) {

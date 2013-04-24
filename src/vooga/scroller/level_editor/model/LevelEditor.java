@@ -11,6 +11,7 @@ import javax.swing.ImageIcon;
 import util.Location;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.superclasses.Player;
+import vooga.scroller.util.IBackgroundView;
 import vooga.scroller.util.Sprite;
 import vooga.scroller.level_editor.ILevelEditor;
 import vooga.scroller.level_editor.commands.Command;
@@ -39,7 +40,7 @@ public class LevelEditor implements ILevelEditor {
     private ScrollingManager myScrollingManager;
     private Editable myGrid;
     private Map<Integer, Sprite> mySpriteMap;
-    private Map<Integer, Image> myBackgrounds;
+    private Map<Integer, IBackgroundView> myBackgrounds;
 
     public LevelEditor () {
         myGrid = new LEGrid(DEFAULT_GRID_SIZE,DEFAULT_GRID_SIZE);
@@ -66,12 +67,11 @@ public class LevelEditor implements ILevelEditor {
         if(id == START_ID){
             addStartPoint(x,y);
         }
-        if(id == END_ID) {
-            addDoor(x,y);
+        if(id < START_ID) {
+            addDoor(x,y,-id);
         }
         else{
-            Sprite sprite = mySpriteMap.get(id);
-            sprite = sprite.copy();
+            Sprite sprite = getSpriteFromMap(id);
                 try{
                     myGrid.addSprite(sprite, x, y);
                 }
@@ -81,13 +81,19 @@ public class LevelEditor implements ILevelEditor {
                 }
         }
     }
+
+    private Sprite getSpriteFromMap (int id) {
+        Sprite sprite = mySpriteMap.get(id);
+        sprite = sprite.copy();
+        return sprite;
+    }
     
     private void addStartPoint (int x, int y) {
         myGrid.addStartPoint(x,y);
     }
     
-    private void addDoor (int x, int y) {
-        myGrid.addDoor(x,y);
+    private void addDoor (int x, int y, int id) {
+        myGrid.addDoor(getSpriteFromMap(id),x,y);
     }
 
     @Command
@@ -149,7 +155,7 @@ public class LevelEditor implements ILevelEditor {
     }
 
     @Override
-    public void setBackgroundMap (Map<Integer, Image> map) {
+    public void setBackgroundMap (Map<Integer, IBackgroundView> map) {
         myBackgrounds = map;
         
     }

@@ -16,10 +16,12 @@ import vooga.scroller.level_editor.view.LEActionLibrary;
 import vooga.scroller.level_editor.view.LEMenuBar;
 import vooga.scroller.level_editor.view.TabbedToolsView;
 import vooga.scroller.level_editor.view.LEView;
-import vooga.scroller.level_management.IDoor;
+import vooga.scroller.level_management.LevelPortal;
 import vooga.scroller.sprites.interfaces.ICollectible;
+import vooga.scroller.sprites.interfaces.IDoor;
 import vooga.scroller.sprites.interfaces.IEnemy;
 import vooga.scroller.sprites.interfaces.IPlatform;
+import vooga.scroller.util.IBackgroundView;
 import vooga.scroller.util.Renderable;
 import vooga.scroller.util.Renderer;
 import vooga.scroller.util.Sprite;
@@ -45,7 +47,6 @@ public class LETools extends Tools<LevelEditing> {
     private static final int COLLECTIBLES = 2;
     private static final int SPECIALPOINTS = 3;
     private static final int OTHERS = 4;
-    private static final int DEFAULT_BG_SIZE = 40;
     private static final String BACKGROUND_CMD =  CommandConstants.CHANGE_BACKGROUND;
     private List<Map<Image, String>> mySpritesOptions;
 //    private Map<Image, String> myBackgroundImages;
@@ -110,7 +111,6 @@ public class LETools extends Tools<LevelEditing> {
         }
     }
 
-
     /**
      * 
      * @return
@@ -125,9 +125,10 @@ public class LETools extends Tools<LevelEditing> {
     }
 
 
-    public void addBackgrounds (Map<Integer, Image> backgrounds) {
+    public void addBackgrounds (Map<Integer, IBackgroundView> backgrounds) {
         for (Integer key : backgrounds.keySet()) {
-            myOtherOptions.get(BACKGROUND_CMD).put(backgrounds.get(key), "" + key);
+            myOtherOptions.get(BACKGROUND_CMD).put(
+                           backgrounds.get(key).getImage(), "" + key);
         }
     }
 

@@ -6,9 +6,11 @@ import java.awt.GridBagLayout;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
@@ -279,5 +281,9 @@ public abstract class Window<W extends WorkspaceView<D>,
      */
     public void undo () {
         getActiveTab().undo();
+    }
+    
+    public void addDomainSpecificMenus(D d) {
+//        myMenuBar.add(d.getDomainMenuItems());
     }
 }

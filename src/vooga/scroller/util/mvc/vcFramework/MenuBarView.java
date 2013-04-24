@@ -28,6 +28,7 @@ public abstract class MenuBarView extends JMenuBar {
     private JMenu myFileMenu;
     private JMenu myEditMenu;
     private Timer myTimer;
+    private List<JMenu> myCustomMenus;
     
     /**
      * Constructor for MenuBarView
@@ -37,6 +38,7 @@ public abstract class MenuBarView extends JMenuBar {
     public MenuBarView(Window window) {
         myWindow = window;
         myActionLibrary = new WindowActionLibrary(myWindow);
+        myCustomMenus = new ArrayList<JMenu>();
         setSpecializedWindow(myWindow);
         addComponents();
         ActionListener prefListener =  new ActionListener() {
@@ -48,6 +50,7 @@ public abstract class MenuBarView extends JMenuBar {
         };
         myTimer = new Timer(DEFAULT_DELAY, prefListener);
         myTimer.start();
+        
     }
 
     /**
@@ -56,12 +59,20 @@ public abstract class MenuBarView extends JMenuBar {
     protected void addComponents () {
             this.add(makeFileMenu());
             this.add(makeEditMenu());
-            this.addCustomMenus();
     }
     
     protected abstract void setSpecializedWindow(Window w);
 
-    protected abstract void addCustomMenus ();
+    protected void addCustomMenus (List <JMenu> menus) {
+        for(JMenu m: menus) {
+            addCustomMenu(m);
+        }
+    }
+    
+    private void addCustomMenu (JMenu cm) {
+        myCustomMenus.add(cm);
+        this.add(cm);
+    }
 
     /**
      * This menu is a generalized menu that handles all File actions.
@@ -110,13 +121,15 @@ public abstract class MenuBarView extends JMenuBar {
      * Make the preferences menu active
      */
     private void enableWorkspaceDependentsMenus() {
-        for (JMenu c: getWorkspaceMenus()) {
+        for (JMenu c: getCustomMenus()) {
             c.setEnabled(true);
         }
         myEditMenu.setEnabled(true);
     }
 
-protected abstract List<JMenu> getWorkspaceMenus ();
+    protected List<JMenu> getCustomMenus () {
+        return myCustomMenus;
+    }
 
     
 }
