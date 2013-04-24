@@ -212,7 +212,9 @@ public class MapEditorController extends Controller{
 	    @InputMethodTarget(name = "setBackground")
 	    public void setBackground (AlertObject alObj) {
 	    	String filePath = getView().chooseFile("Image file", "jpeg", "gif");
-	    	myEditTarget.setBackground(filePath);
+	    	if(!filePath.equals(null)) {
+	    		myEditTarget.setBackground(filePath);
+	    	}
 	    }
 	    
 	    /**
@@ -223,7 +225,9 @@ public class MapEditorController extends Controller{
 	    @InputMethodTarget(name = "addBackground")
 	    public void addBackground (AlertObject alObj) {
 	    	String filePath = getView().chooseFile("Image file", "jpeg", "gif");
-	    	myEditTarget.addBackground(filePath);
+	    	if(!filePath.equals(null)) {
+	    		myEditTarget.addBackground(filePath);
+	    	}
 	    }
 	    
 	    /**
@@ -234,7 +238,9 @@ public class MapEditorController extends Controller{
 	    @InputMethodTarget(name = "setSound")
 	    public void setSound (AlertObject alObj) {
 	    	String filePath = getView().chooseFile("Sound file", "wav");
-	    	myEditTarget.setSound(filePath);
+	    	if(!filePath.equals(null)) {
+	    		myEditTarget.setSound(filePath);
+	    	}
 	    }
 	    
 	    /**
@@ -243,14 +249,15 @@ public class MapEditorController extends Controller{
 	     */
 	    @InputMethodTarget(name = "setName")
 	    public void setName (AlertObject alObj) {
-	    	String newName = getView().chooseFile("New map name","Enter a name for the map");
-	    	myEditTarget.setName(newName);
+	    	String newName = getView().promptForString("New map name","Enter a name for the map");
+	    	if(!newName.equals(null) & !newName.equals("")) {
+	    		myEditTarget.setName(newName);
+	    	}
 	    }
 	    
-	    //not used
 	    public void checkConditions() {
 	    }
-	    //not used
+	    
 	    public void developerUpdate() {
 	    	
 	    }

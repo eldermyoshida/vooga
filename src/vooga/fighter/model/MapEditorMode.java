@@ -17,7 +17,7 @@ import vooga.fighter.util.CollisionManager;
 
 /**
  * 
- * @author matthewparides
+ * @author matthewparides, james wei
  * 
  */
 public class MapEditorMode extends Mode {
