@@ -272,8 +272,8 @@ public class Controller implements ArcadeInteraction {
     /**
      * Rate a specific game, store in user-game database
      */
-    public void rateGame (double rating, String gameName) {
-        myDb.updateRating(currentUser, gameName, rating);
+    public void commentAndRateGame (String comment, double rating, String gameName) {
+        myDb.insertCommentAndRating(currentUser, gameName, comment, rating);
     }
 
     public void playGame (GameInfo gameinfo) {

@@ -151,9 +151,8 @@ public class DetailView extends JFrame {
             
             @Override
             public void actionPerformed (ActionEvent arg0) {
-                myController.commentGame(myCommentsWriter.getText(), myGameInfo.getName());
                 double rating = Double.parseDouble(myRatingWriter.getText());
-                myController.rateGame(rating, myGameInfo.getName());
+                myController.commentAndRateGame(myRatingWriter.getText(), rating, myGameInfo.getName());
             }
         });
         
