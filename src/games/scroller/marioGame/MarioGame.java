@@ -1,5 +1,5 @@
 
-package vooga.scroller.marioGame;
+package games.scroller.marioGame;
 import java.awt.Dimension;
 import arcade.games.ArcadeInteraction;
 import arcade.games.GameData;
