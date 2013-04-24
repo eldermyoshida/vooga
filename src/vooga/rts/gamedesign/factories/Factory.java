@@ -38,7 +38,8 @@ import vooga.rts.gamedesign.upgrades.UpgradeTree;
  */
 
 public class Factory {
-	public static final String DECODER_MATCHING_FILE = "DecoderMatchUp";
+	
+	public static final String DECODER_MATCHING_FILE = "DecodeMatchUp";
 	public static final String MATCHING_PAIR_TAG = "pair";
 	public static final String MATCHING_TYPE_TAG = "type";
 	public static final String MATCHING_PATH_TAG = "path";
@@ -56,7 +57,7 @@ public class Factory {
 	public Factory()  {
 		myDecoderPaths = new HashMap<String, String>();
 		myDecoders = new HashMap<String, Decoder>();
-		
+
 		try {
 			loadMappingInfo(DECODER_MATCHING_FILE, myDecoderPaths);
 			createDecoders();
@@ -70,7 +71,7 @@ public class Factory {
 		myStrategyDependencies = new HashMap<String, String[]>();
 		myUpgradeTrees = new HashMap<String, UpgradeTree>();
 	}
-	
+
 	/**
 	 * all put methods add a key, game element pair to the appropriate Map instance variable. 
 	 * (The method is overloaded a few times since there are several maps).
@@ -80,23 +81,24 @@ public class Factory {
 	public void put(String name, InteractiveEntity value){
 		mySprites.put(name, value);
 	}
-	
+
 	public void put(String name, Resource resource){
 		myResources.put(name, resource);
 	}
-	
+
 	public void put(String name, Strategy value){
 		myStrategies.put(name, value);
 	}
-	
+
 	public void put(String name, UpgradeTree upgradeTree){
+		System.out.println("puts here");
 		myUpgradeTrees.put(name, upgradeTree);
 	}
-	
+
 	public Map<String, UpgradeTree> getUpgradeTrees(){
 		return myUpgradeTrees;
 	}
-	
+
 	/**
 	 * Returns an Attack Strategy from a map of strategies. 
 	 * (this format is used so that you do not have to cast later on). 
@@ -106,7 +108,7 @@ public class Factory {
 	public AttackStrategy getAttackStrategy(String key){
 		return (AttackStrategy) myStrategies.get(key);
 	}
-	
+
 	/**
 	 * Returns a Gather Strategy from a map of strategies. 
 	 * @param key
@@ -115,7 +117,7 @@ public class Factory {
 	public GatherStrategy getGatherStrategy(String key){
 		return (GatherStrategy) myStrategies.get(key);
 	}
-	
+
 	/**
 	 * Returns an Occupy Strategy from a map of strategies. 
 	 * @param key
@@ -124,7 +126,7 @@ public class Factory {
 	public OccupyStrategy getOccupyStrategy(String key){
 		return (OccupyStrategy) myStrategies.get(key);
 	}
-	
+
 	/**
 	 * Returns an Interactive Entity from a map of InteractiveEntities
 	 * @param key
@@ -133,7 +135,7 @@ public class Factory {
 	public InteractiveEntity getInteractiveEntity(String key){
 		return mySprites.get(key);
 	}
-	
+
 	/**
 	 * Returns an Resource from a map of Resources
 	 * @param key
@@ -142,7 +144,7 @@ public class Factory {
 	public Resource getResource(String key){
 		return myResources.get(key);
 	}
-	
+
 	/**
 	 * Puts a production dependency (tells the factory what "name" can produce) in
 	 * a dependency map. 
@@ -153,7 +155,7 @@ public class Factory {
 	public void putProductionDependency(String name, String[] itProduces){
 		myProductionDependencies.put(name, itProduces);
 	}
-	
+
 	/**
 	 * Puts a strategy dependency (tells the factory what strategies "name" uses) in
 	 * a dependency map. 
@@ -163,7 +165,7 @@ public class Factory {
 	public void putStrategyDependency(String name, String[] strategies){
 		myStrategyDependencies.put(name, strategies);
 	}
-	
+
 	/**
 	 * Creates decoders by loading the input file that specifies the path of
 	 * each Decoder and the type of class it is in charge of. Puts the decoders
@@ -189,24 +191,24 @@ public class Factory {
 		DocumentBuilder db = dbf.newDocumentBuilder();
 		Document doc = db.parse(file);
 		doc.getDocumentElement().normalize();
-		
+
 		NodeList nodeLst = doc.getElementsByTagName(MATCHING_PAIR_TAG);
-		
+
 		for (int i = 0; i < nodeLst.getLength(); i++) {
 			Element pairElmnt = (Element) nodeLst.item(i);
-			
+
 			Element typeElmnt = (Element)pairElmnt.getElementsByTagName(MATCHING_TYPE_TAG).item(0);
 			NodeList typeList = typeElmnt.getChildNodes();
 			String type = ((Node) typeList.item(0)).getNodeValue();
-			
+
 			Element pathElmnt = (Element)pairElmnt.getElementsByTagName(MATCHING_PATH_TAG).item(0);
 			NodeList pathList = pathElmnt.getChildNodes();
 			String path = ((Node) pathList.item(0)).getNodeValue();
-			
+
 			map.put(type, path);
 		}
 	}
-	
+
 	private void createDecoders() throws IllegalArgumentException, SecurityException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ClassNotFoundException {
 		for (String key: myDecoderPaths.keySet()) {
 			Class<?> headClass =
@@ -215,7 +217,7 @@ public class Factory {
 			myDecoders.put(key, decoder);
 		}
 	}
-	
+
 	/**
 	 * Loads the XML file passed in and determines the type of class it provides
 	 * information for. Then passes the input file to the corresponding decoder
@@ -232,9 +234,7 @@ public class Factory {
 			Document doc = db.parse(file);
 			doc.getDocumentElement().normalize();
 			System.out.println(doc.getDocumentElement().getNodeName());
-			
-			//myDecoders.get(doc.getDocumentElement().getNodeName()).create(doc);
-			
+
 			NodeList head = doc.getChildNodes();
 			Node childNode = head.item(0);
 			NodeList children = childNode.getChildNodes();
@@ -246,15 +246,14 @@ public class Factory {
 					myDecoders.get(type).create(doc, type);
 				}
 			}
-			
-			
+
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		initializeProducables();
 		initializeStrategies();
 	}
-	
 	/**
 	 * Once instances of game elements are loaded into their maps this method adds the
 	 * producables (specified from the XML file) to their respective entities. 
@@ -279,13 +278,12 @@ public class Factory {
 		for(String key: myStrategyDependencies.keySet()){
 			String[] strategies = myStrategyDependencies.get(key);
 			//Do the same for other strategies
-			//AttackStrategy attack = (AttackStrategy) myStrategies.get(strategies[0]);
-			//mySprites.get(key).setAttackStrategy(attack);
+			AttackStrategy attack = (AttackStrategy) myStrategies.get(strategies[0]);
+			mySprites.get(key).setAttackStrategy(attack);
 			OccupyStrategy occupy = (OccupyStrategy) myStrategies.get(strategies[1]);
 			mySprites.get(key).setOccupyStrategy(occupy);
 			GatherStrategy gather = (GatherStrategy) myStrategies.get(strategies[2]);
-			//TODO: should be better than this
-			if (mySprites.get(key) instanceof Unit) {
+			if ((mySprites.get(key)) instanceof Unit) {
 				((Unit) mySprites.get(key)).setGatherStrategy(gather);
 			}
 		}

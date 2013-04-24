@@ -1,10 +1,8 @@
 package vooga.rts.gamedesign.sprite.gamesprites.interactive.units;
 
 import java.awt.Dimension;
-import java.awt.image.BufferedImage;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.List;
+import vooga.rts.action.InteractiveAction;
 import vooga.rts.commands.ClickCommand;
 import vooga.rts.commands.Command;
 import vooga.rts.commands.DragCommand;
@@ -20,9 +18,6 @@ import vooga.rts.gamedesign.strategy.gatherstrategy.CanGather;
 import vooga.rts.gamedesign.strategy.gatherstrategy.CannotGather;
 import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
 import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
-import vooga.rts.gamedesign.upgrades.UpgradeNode;
-import vooga.rts.gamedesign.upgrades.UpgradeTree;
-import vooga.rts.resourcemanager.ResourceManager;
 import vooga.rts.util.Camera;
 import vooga.rts.util.Information;
 import vooga.rts.util.Location3D;
@@ -119,8 +114,8 @@ public class Unit extends InteractiveEntity {
         });
     }
 
-    public void occupy(InteractiveEntity i) {
-    	i.getOccupied(this);
+    public void occupy (InteractiveEntity i) {
+        i.getOccupied(this);
     }
 
     @Override

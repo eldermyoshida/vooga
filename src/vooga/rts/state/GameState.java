@@ -21,6 +21,7 @@ import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building;
 import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;
 import vooga.rts.gamedesign.strategy.gatherstrategy.CanGather;
 import vooga.rts.gamedesign.strategy.occupystrategy.CanBeOccupied;
+import vooga.rts.gamedesign.sprite.map.Terrain;
 import vooga.rts.gamedesign.strategy.production.CanProduce;
 import vooga.rts.gamedesign.weapon.Weapon;
 import vooga.rts.map.GameMap;
@@ -167,8 +168,7 @@ public class GameState extends SubState implements Controller {
         Unit a = new Unit();
         a.setAttackStrategy(new CanAttack(a.getWorldLocation(), a.getPlayerID()));
         Projectile proj =
-                new Projectile(new Pixmap(ResourceManager.getInstance()
-                        .<BufferedImage> getFile("images/bullet.png", BufferedImage.class)),
+                new Projectile(new Pixmap("images/bullet.png"),
                                a.getWorldLocation(), new Dimension(30, 30), 2, 10, 6);
         a.getAttackStrategy().addWeapons(new Weapon(proj, 400, a.getWorldLocation(), 1));
         Information i2 =
@@ -199,7 +199,7 @@ public class GameState extends SubState implements Controller {
         myHumanPlayer.add(b);
 
         for (int j = 0; j < 10; j++) {
-            getMap().getResources().add(new Resource(new Pixmap("mineral.gif"),
+            getMap().getResources().add(new Resource(new Pixmap("images/mineral.gif"),
                                                      new Location3D(200 + j * 15, 300 + j * 10, 0),
                                                      new Dimension(50, 50), 0, 200, "mineral"));
         }
@@ -286,5 +286,9 @@ public class GameState extends SubState implements Controller {
 
     public static GameMap getMap () {
         return myMap;
+    }
+    
+    public static void setMap(GameMap map) {
+        myMap = map;
     }
 }

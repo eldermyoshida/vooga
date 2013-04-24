@@ -12,8 +12,11 @@ import org.xml.sax.SAXException;
 import vooga.rts.commands.Command;
 import vooga.rts.gamedesign.factories.Factory;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Soldier;
+import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;
 import vooga.rts.gamedesign.strategy.attackstrategy.CannotAttack;
 import vooga.rts.gamedesign.upgrades.UpgradeNode;
+import vooga.rts.gamedesign.upgrades.UpgradeTree;
 
 public class TestUpgrade {
 	
@@ -34,8 +37,18 @@ public class TestUpgrade {
 	private void upgradeWithNewManager() throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ParserConfigurationException, SAXException, IOException{
 		Factory factory = new Factory();
 		factory.loadXMLFile("Factory.xml");
-		Unit soldier = new Unit();
-		soldier.setUpgradeTree(factory.getUpgradeTrees().get("SoldierUpgrade"));
+
+		Soldier soldier = new Soldier();
+		soldier.setAttackStrategy(new CannotAttack()); //sets soldier to cannot attack to test upgrade
+		for (String s: factory.getUpgradeTrees().keySet()) {
+			System.out.println(s);
+		}
+		UpgradeTree tree = factory.getUpgradeTrees().get("SoldierUpgrade");
+		if (tree == null) {
+			System.out.println("null");
+		}
+		
+		soldier.setUpgradeTree(tree);
 		try {
 			while (true) {
 				System.out.println("\n");
@@ -43,7 +56,7 @@ public class TestUpgrade {
 					System.out.println("Current upgrades: " + currentUpgrade.getUpgradeName());
 				}
 				System.out.println("\nMaxHealth: " + soldier.getMaxHealth());
-				if (!soldier.getAttackStrategy().getCanAttack()){ //goes here when soldier cannot attack
+				if (!(soldier.getAttackStrategy() instanceof CanAttack)){ //goes here when soldier cannot attack
 					System.out.println("Range currently not available");
 					System.out.println("Damage current not available");
 				}else {
