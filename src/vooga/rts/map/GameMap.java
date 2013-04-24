@@ -37,6 +37,7 @@ public class GameMap implements IGameLoop {
     private TileMap myTiles;
     private GameSpriteManager<Terrain> myTerrain;
     private GameSpriteManager<Resource> myResources;
+    private Dimension mySize;
 
     /**
      * calculates how many nodes there are
@@ -44,15 +45,25 @@ public class GameMap implements IGameLoop {
      * @param mapSize This is the size of the map in pixels
      */
     public GameMap (Dimension size) {
+<<<<<<< HEAD
+=======
+        mySize = size;
         NodeFactory factory = new NodeFactory();
+>>>>>>> master
         Dimension dou = new Dimension((int)size.getWidth(), (int)(size.getHeight() * 2));
+        NodeFactory factory = new NodeFactory();
         myNodeMap = factory.makeMap(Node.NODE_SIZE, size);
 
         myTerrain = new GameSpriteManager<Terrain>();
         myResources = new GameSpriteManager<Resource>();
 
         Camera.instance().setMapSize(size);
-        randomGenMap(dou);
+        //randomGenMap(dou);
+    }
+    
+    public GameMap (Dimension tileSize, int width, int height) {
+        this(new Dimension((int)tileSize.getWidth() * width, (int)tileSize.getHeight() * height));
+        myTiles = new TileMap(tileSize, width, height);
     }
 
     /**
@@ -151,5 +162,13 @@ public class GameMap implements IGameLoop {
             }
         }
         Camera.instance().setMapSize(size);
+    }
+    
+    public void setTileMap(TileMap map) {
+        myTiles = map;
+    }
+    
+    public Dimension getSize() {
+        return mySize;
     }
 }

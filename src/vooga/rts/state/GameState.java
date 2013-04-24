@@ -21,6 +21,7 @@ import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Garrison;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Soldier;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Worker;
+import vooga.rts.gamedesign.sprite.map.Terrain;
 import vooga.rts.gamedesign.strategy.production.CanProduce;
 import vooga.rts.gamedesign.weapon.Weapon;
 import vooga.rts.map.GameMap;
@@ -201,6 +202,13 @@ public class GameState extends SubState implements Controller {
                                                      new Location3D(200 + j * 15, 300 + j * 10, 0),
                                                      new Dimension(50, 50), 0, 200, "mineral"));
         }
+        
+        for (int j = 0; j < 10; j++) {
+            getMap().getTerrain().add(new Terrain(new Pixmap("mineral.gif"),
+                                                     new Location3D(100, 100, j*25),
+                                                     new Dimension(50, 50)));
+        }
+        
         Garrison garrison =
                 new Garrison(new Pixmap(ResourceManager.getInstance()
                         .<BufferedImage> getFile("images/barracks.jpeg", BufferedImage.class)),
@@ -281,5 +289,9 @@ public class GameState extends SubState implements Controller {
 
     public static GameMap getMap () {
         return myMap;
+    }
+    
+    public static void setMap(GameMap map) {
+        myMap = map;
     }
 }

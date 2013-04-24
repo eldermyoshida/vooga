@@ -42,8 +42,8 @@ public class Pixmap {
 	 * Create a copy of image from the given other image.
 	 */
 	public Pixmap (Pixmap other) {
-		//this(other.myFileName);
-		this(other.myImage);
+	    //this(other.myFileName);
+	    this(other.myImage);
 	}
 
 	/**
@@ -54,35 +54,54 @@ public class Pixmap {
 		myFileName = fileName;
 	}
 
+    /**
+     * Describes how to draw the image rotated on the screen.
+     */
+    public void paint (Graphics2D pen, Point2D center, Dimension size, double angle) {
+        // save current state of the graphics area
+        AffineTransform old = new AffineTransform(pen.getTransform());
+        // move graphics area to center of this shape
+        pen.translate(center.getX(), center.getY());
+        // rotate area about this shape
+        pen.rotate(angle);
+        // draw as usual (i.e., rotated)
+        pen.drawImage(myImage, -size.width / 2, -size.height / 2, size.width, size.height, null);
+        //pen.drawImage(myImage, 0, 0, size.width, size.height, null);
+        // restore graphics area to its old state, so our changes have no lasting effects
+        pen.setTransform(old);
+    }
+    //public void paint ()
+    
+    public Dimension getMyDimension() {
+        return new Dimension(myImage.getWidth(null), myImage.getHeight(null));
+    }
+    
+    public int getMyWidth() {
+        return myImage.getWidth(null);
+    }
+    
+    public int getMyHeight() {
+        return myImage.getHeight(null);
+    }
 	/**
 	 * Describes how to draw the image on the screen.
 	 */
-	public void paint (Graphics2D pen, Point2D center) {
+    public void paint (Graphics2D pen, Point2D center) {
 		paint(pen, center, null, 0);
-	}
+	
+    }
 
 	/**
 	 * Describes how to draw the image on the screen.
 	 */
-	public void paint (Graphics2D pen, Point2D center, Dimension size) {
+	
+    public void paint (Graphics2D pen, Point2D center, Dimension size) {
 		paint(pen, center, size, 0);
-	}
+	
+    }
+    
+    public Image getMyImage() {
+        return myImage;
+    }
 
-	/**
-	 * Describes how to draw the image rotated on the screen.
-	 */
-	public void paint (Graphics2D pen, Point2D center, Dimension size, double angle) {
-		// save current state of the graphics area
-		AffineTransform old = new AffineTransform(pen.getTransform());
-		// move graphics area to center of this shape
-		pen.translate(center.getX(), center.getY());
-		// rotate area about this shape
-		pen.rotate(angle);
-		// draw as usual (i.e., rotated)
-		pen.drawImage(myImage, -size.width / 2, -size.height / 2, size.width, size.height, null);
-		//pen.drawImage(myImage, 0, 0, size.width, size.height, null);
-		// restore graphics area to its old state, so our changes have no lasting effects
-		pen.setTransform(old);
-	}
-	//public void paint ()
 }
