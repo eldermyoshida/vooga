@@ -140,12 +140,19 @@ public class Controller implements ArcadeInteraction {
      * information is eventually stored in the database.
      * 
      * @throws UsernameTakenException
+     * @throws IOException 
      */
-    public void createNewUserProfile (UserSpecificData data) throws UsernameTakenException {
+    public void createNewUserProfile (UserSpecificData data) throws UsernameTakenException, IOException {
         if (usernameInDatabase(data.getUsername())) throw new UsernameTakenException();
         myDb.createUser(data);
         try {
-            authenticate(data.getUsername(), data.getPassword());
+        	String username = data.getUsername();
+        	String password = data.getPassword();
+            authenticate(username, password);
+            if (!loginCreteriaNotSatisfied(username, password)) {
+            	System.out.println("111");
+            	recordUserInPurchaseResourceFile(username);;
+            }
         }
         catch (LoginErrorException e) {
             throw new CorruptedDatabaseException();
@@ -209,14 +216,14 @@ public class Controller implements ArcadeInteraction {
 	}
     
 	
-	public void registerUser(String username) throws IOException {
+	public void recordUserInPurchaseResourceFile(String username) throws IOException {
 		File file1 = createFileForLocation(FILEWRITER_LOCATION); 
 		File file2 = createFileForLocation(TMP_LOCATION);
 		copyFile(file2,file1,formatUsernameForResourceFile(username));
 		copyFile(file1,file2);
 	}
 	
-	public void purchaseGame(String username, String gameName) throws IOException{
+	public void recordGamePurchaseHistory(String username, String gameName) throws IOException{
 		File file1 = createFileForLocation(FILEWRITER_LOCATION); 
 		File file2 = createFileForLocation(TMP_LOCATION);
 		replaceLine(file2,file1,username,gameName);
