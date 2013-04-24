@@ -164,7 +164,7 @@ public class GameInfo {
     @SuppressWarnings("rawtypes")
     private Class getSingleplayerGameClass () {
         try {
-            System.out.println(getSingleplayerGameClassKeyword());
+            //System.out.println(getSingleplayerGameClassKeyword());
             return Class.forName(getSingleplayerGameClassKeyword());
         }
         catch (ClassNotFoundException e) {

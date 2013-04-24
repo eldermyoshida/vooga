@@ -3,3 +3,4 @@ createHighScoresHeading
 createHighScoresList
 createTweetButton
 createPinEntry
+createMessageArea

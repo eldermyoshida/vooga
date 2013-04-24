@@ -60,4 +60,5 @@ public interface TextKeywords {
     static final String VOOGA_HASHTAG = "vooga_hashtag";
     static final String SCORE_MESSAGE = "score_message";
     static final String HIGH_SCORES = "high_scores";
+    static final String ALREADY_PURCHASED = "already_purchased";
 }

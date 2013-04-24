@@ -20,10 +20,7 @@ import arcade.games.ArcadeInteraction;
 import arcade.games.Game;
 import arcade.games.GameData;
 import arcade.games.GameInfo;
-import arcade.games.Score;
-import arcade.games.MultiplayerGame;
 import arcade.games.UserGameData;
-import arcade.model.payment.DukePaymentManager;
 import arcade.model.payment.PaymentManager;
 import arcade.model.social.TwitterConnection;
 import arcade.view.MainView;
@@ -51,6 +48,7 @@ public class Controller implements ArcadeInteraction {
     // Models
     private Database myDb;
     private Map<String, GameInfo> myGameInfos;
+    private Collection<GameInfo> myPurchasedGames;
     private PaymentManager myPaymentManager;
     private TwitterConnection myTwitter;
     private FilePathFormatter myFilePathFormatter = new FilePathFormatter();
@@ -242,7 +240,7 @@ public class Controller implements ArcadeInteraction {
         }
 
         myPaymentManager.doTransaction(paymentInfo);
-        // TODO: write code here for moving game from Store to GameCenter
+        myPurchasedGames.add(game);
     }
 
     
@@ -297,7 +295,7 @@ public class Controller implements ArcadeInteraction {
         System.out.println(print);
     }
     /**
-     * TODO: Get the list of games from the database.
+     * Get the list of games from the database.
      * 
      * @return
      */
@@ -305,6 +303,15 @@ public class Controller implements ArcadeInteraction {
         return myGameInfos.values();
     }
 
+    
+    /**
+     * The collection of all games purchased by the user.  Unfortunately, only
+     * persists through current session, not saved in database.
+     * @return
+     */
+    public Collection<GameInfo> getGamesPurchased() {
+        return myPurchasedGames;
+    }
     
     
     
@@ -341,7 +348,6 @@ public class Controller implements ArcadeInteraction {
     public void killGame () {
         int score = getCurrentUserGameData().getLastScore();
         myDb.addNewHighScore(myCurrentUser, myCurrentGameInfo.getName(),  score);
-        print(myCurrentGame + " " + myCurrentGameInfo + " " + getCurrentGame());
         myView.showEndGameView(score);
         myDb.storeUserGameData(getCurrentGame(), myCurrentUser, getCurrentUserGameData());
         myCurrentGame = null;

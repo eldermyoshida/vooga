@@ -1,6 +1,7 @@
 package arcade.view.forms;
 
 import java.awt.Desktop;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -9,8 +10,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -37,9 +40,11 @@ import arcade.view.TextKeywords;
 @SuppressWarnings({ "serial", "unused" })
 public class ScoresView extends Form {
     private static final String BUTTON_IMAGE = "Twitter.gif";
-    private static final int WINDOW_WIDTH = 250;
-    private static final int WINDOW_HEIGHT = 220;
+    private static final int NAME_WIDTH = 100;
+    private static final int SCORE_WIDTH = 40;
     private static final int MAX_HIGH_SCORES_SHOWN = 5;
+    private static final int WINDOW_WIDTH = 270;
+    private static final int HEIGHT_OFFSET = 20;
 
     private int myScore;
     private String myGameName;
@@ -62,15 +67,14 @@ public class ScoresView extends Form {
         setUserScoreMessage(score);
         
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        pack();
+        setBounds(0, 0, WINDOW_WIDTH, getPreferredSize().height + HEIGHT_OFFSET);
         setLocationRelativeTo(null);
     }
     
     /**
      * Creates the message for the user displaying his/her score.
      * 
-     * Starts out as empty because this method is called in Form superclass
-     * before score can be set.  To fill in the label, must call setUserScoreMessage
+     * To fill in the label, must call setUserScoreMessage
      * @return
      */
     private JComponent createUserScoreMessage() {
@@ -78,13 +82,6 @@ public class ScoresView extends Form {
         myUserScore = new JLabel("");
         panel.add(myUserScore);
         return panel;
-    }
-    
-    /**
-     * Sets the user score message with the text containing the user's score.
-     */
-    private void setUserScoreMessage(double score) {
-        myUserScore.setText(getResources().getString(TextKeywords.SCORE_MESSAGE) + " " + score);
     }
     
     /**
@@ -101,17 +98,24 @@ public class ScoresView extends Form {
      */
     private JComponent createHighScoresList() {
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(3, 0));
-        
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         List<Score> scores = getController().getCurrentGameInfo().getSortedScores();
         if (scores.size() > MAX_HIGH_SCORES_SHOWN) {
             scores = scores.subList(0, MAX_HIGH_SCORES_SHOWN);
         }
-        int counter = 1;
+        int ranking = 1;
         for (Score score : scores) {
-            panel.add(new JLabel(counter + ". "));
-            panel.add(new JLabel(score.getUser()));
-            panel.add(new JLabel(score.getScore() + ""));
+            JPanel row = new JPanel();
+            row.add(new JLabel(ranking + ".  "));
+            JLabel user = new JLabel(score.getUser());
+            user.setPreferredSize(new Dimension(NAME_WIDTH, user.getPreferredSize().height));
+            row.add(user);
+            JLabel points = new JLabel(score.getScore()+"");
+            points.setPreferredSize(new Dimension(SCORE_WIDTH, points.getPreferredSize().height));
+            row.add(points);
+            row.setOpaque(false);
+            panel.add(row);
+            ranking++;
         }
         return panel;
     }
@@ -145,9 +149,9 @@ public class ScoresView extends Form {
         try {
             String urlToAuthorize = getController().setUpTwitterRequest();
             Desktop.getDesktop().browse(URI.create(urlToAuthorize));
-            setBounds(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
-            setLocationRelativeTo(null);
             myPinPanel.setVisible(true);
+            setBounds(0, 0, WINDOW_WIDTH, getPreferredSize().height + HEIGHT_OFFSET);
+            setLocationRelativeTo(null);
         }
         catch (TwitterException e) {
             sendMessage(getResources().getString(TextKeywords.TWITTER_ERROR));
@@ -209,5 +213,11 @@ public class ScoresView extends Form {
                + myGameName + " " 
                + getResources().getString(TextKeywords.VOOGA_HASHTAG);
     }
-
+    
+    /**
+     * Sets the user score message with the text containing the user's score.
+     */
+    private void setUserScoreMessage(double score) {
+        myUserScore.setText(getResources().getString(TextKeywords.SCORE_MESSAGE) + " " + score);
+    }
 }
