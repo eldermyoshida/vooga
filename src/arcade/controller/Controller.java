@@ -330,9 +330,9 @@ public class Controller implements ArcadeInteraction {
      * @param user, game (whatever that identifies the user and the game)
      * @return
      */
-    public UserGameData getUserGameData () {
+    public UserGameData getUserGameData (Game game) {
         if (myCurrentUserGameData == null ){
-            myCurrentUserGameData =  myCurrentGameInfo.getUserGameData(myCurrentGame , myCurrentUser);
+            myCurrentUserGameData =  myCurrentGameInfo.getUserGameData(game , myCurrentUser);
         }
         return myCurrentUserGameData;
     }
