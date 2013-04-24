@@ -117,6 +117,14 @@ public class Controller {
 		rules.add(new NextLevelRule(myModel));
 		myControlMode = new SelectMode();
 	}
+	
+	/**
+	 * gets the view.
+	 * @return the view for this controller.
+	 */
+	public TDView getView() {
+	    return myView;
+	}
 
 	/**
 	 * cancels the purchase and stops painting ghost image.

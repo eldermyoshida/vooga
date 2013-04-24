@@ -13,6 +13,8 @@ import java.util.List;
  * 
  */
 public abstract class Action {
+	public static final String NULL_POINTER_EXCEPTION = "Attribute(s) does not exist for element.";
+	
     private boolean myEnabledState;
     private boolean targetTracking;
     private List<Action> myFollowUpActions;
@@ -30,7 +32,7 @@ public abstract class Action {
     /**
      * Executes action after update clears the execute condition.
      */
-    public void updateFollowupActions(double elapsedTime) {
+    public void updateFollowUpActions(double elapsedTime) {
         for (Action a : getFollowUpActions()) {
             a.update(elapsedTime);
         }
@@ -44,7 +46,7 @@ public abstract class Action {
     public void update (double elapsedTime) {
         if (isEnabled()) {
             executeAction(elapsedTime);
-            updateFollowupActions(elapsedTime);
+            updateFollowUpActions(elapsedTime);
         }
     }
 

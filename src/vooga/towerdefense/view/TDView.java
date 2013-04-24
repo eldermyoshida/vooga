@@ -58,10 +58,18 @@ public class TDView {
      * 
      * @param controller
      */
-    public TDView (Dimension size, Controller controller) {
-        mySize = size;
+    public TDView (Controller controller) {
         myController = controller;
         createGUI();
+    }
+    
+    /**
+     * sets the size of this view.
+     * @param size is a Dimension
+     */
+    public void setSize (Dimension size) {
+        mySize = size;
+        myFrame.setPreferredSize(mySize);
     }
 
     /**
