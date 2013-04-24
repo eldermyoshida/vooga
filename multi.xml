@@ -1,29 +1,9 @@
 <game>
      <view>
-          <ShopScreen>
-               <width>1212</width>
-               <height>3423</height>
-               <location>NORTH</location>
-          </ShopScreen>
-          <MultipleScreenPanel>
-               <width>213</width>
-               <height>565</height>
-               <location>SOUTH</location>
-               <GameStatsScreen>
-                    <width>121</width>
-                    <height>454</height>
-                    <location>NORTH</location>
-               </GameStatsScreen>
-               <InformationScreen>
-                    <width>433</width>
-                    <height>234</height>
-                    <location>CENTER</location>
-               </InformationScreen>
-          </MultipleScreenPanel>
           <MapScreen>
-               <width>1313</width>
-               <height>465</height>
-               <location>CENTER</location>
+               <width>400</width>
+               <height>400</height>
+               <location>NORTH</location>
           </MapScreen>
      </view>
      <map/>

@@ -51,9 +51,19 @@ public class LevelEditorScreen extends ElementWithActionEditorScreen {
     public LevelEditorScreen (Dimension size, GameEditorController controller) throws ClassNotFoundException, IOException {
         super(size, controller, TITLE_NAME, NEXT_SCREEN_NAME);
         setActionPath(WAVE_ACTION_PACKAGE_PATH);
-        makeAttributesSection(RULE_PACKAGE_PATH);
+        makeAttributesSection(getRules());
         makeActionsSection(WAVE_ACTION_PACKAGE_PATH);
         populateUnits();
+    }
+    
+    /**
+     * helper method that gets the rules available for this game.
+     * @return
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
+    private List<String> getRules() throws IOException, ClassNotFoundException {
+        return getController().getClassNamesInPackage(RULE_PACKAGE_PATH);
     }
     
     /**
