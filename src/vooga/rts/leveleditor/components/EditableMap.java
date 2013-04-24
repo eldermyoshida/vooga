@@ -2,11 +2,8 @@ package vooga.rts.leveleditor.components;
 
 import java.awt.Dimension;
 import java.io.File;
-import java.io.IOException;
 import java.util.Map;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
-import org.xml.sax.SAXException;
 import vooga.rts.map.GameMap;
 import vooga.rts.state.GameState;
 import vooga.rts.util.Location;
@@ -139,17 +136,15 @@ public class EditableMap extends GameMap {
      */
     public void load (File resourceFile) {
 
-        try {
-            System.out.println("LOAD MAP IN THE FILE");
+         try {
             myLoader.loadMapFile(resourceFile);
+        }
+        catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
-        }
-        catch (SAXException e) {
-            e.printStackTrace();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+        
         
     }
     /**
@@ -165,16 +160,13 @@ public class EditableMap extends GameMap {
      * @param objectiveFile the destination file
      */
     public void save (File objectiveFile) {
-        try {
+         try {
             mySaver.generateMapFile(objectiveFile);
         }
-        catch (TransformerException e) {
+        catch (Exception e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-
     }
     /**
      * save the map to a certain path
