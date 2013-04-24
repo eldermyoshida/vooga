@@ -42,6 +42,9 @@ public class ClientModel implements IMessageReceiver, IClientModel {
     
 =======
 
+<<<<<<< HEAD
+>>>>>>> parent of 62aa403... merging misc classes
+=======
 >>>>>>> parent of 62aa403... merging misc classes
     private JPanel getPanel () {
         return myContainerPanel;
