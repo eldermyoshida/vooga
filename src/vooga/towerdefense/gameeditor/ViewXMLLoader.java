@@ -6,7 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 import javax.swing.JPanel;
 import org.w3c.dom.Element;
-import util.XMLTool;
+import vooga.towerdefense.util.XMLTool;
 import vooga.towerdefense.controller.Controller;
 import vooga.towerdefense.view.gamescreens.GameElementInformationScreen;
 import vooga.towerdefense.view.gamescreens.GameStatsScreen;

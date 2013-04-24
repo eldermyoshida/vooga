@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 import javax.swing.JFrame;
 import org.w3c.dom.Element;
-import util.XMLTool;
+import vooga.towerdefense.util.XMLTool;
 
 /**
  * Controls the game editor & makes the XML

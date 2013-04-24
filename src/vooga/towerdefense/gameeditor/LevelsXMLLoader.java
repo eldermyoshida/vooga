@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.w3c.dom.Element;
-import util.XMLTool;
+import vooga.towerdefense.util.XMLTool;
 import vooga.scroller.level_editor.Level;
 import vooga.towerdefense.model.rules.Rule;
 

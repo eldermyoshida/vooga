@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.w3c.dom.Element;
-import util.XMLTool;
+import vooga.towerdefense.util.XMLTool;
 import vooga.towerdefense.factories.actionfactories.ActionFactory;
 
 public class ActionXMLLoader {

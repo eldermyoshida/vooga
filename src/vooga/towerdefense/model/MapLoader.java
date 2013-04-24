@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 import org.w3c.dom.Element;
 
-import util.XMLTool;
+import vooga.towerdefense.util.XMLTool;
 import vooga.towerdefense.model.tiles.Tile;
 import vooga.towerdefense.model.tiles.factories.DefaultTileFactory;
 import vooga.towerdefense.model.tiles.factories.GrassTileFactory;

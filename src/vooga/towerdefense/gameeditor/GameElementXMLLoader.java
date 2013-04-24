@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.w3c.dom.Element;
-import util.XMLTool;
+import vooga.towerdefense.util.XMLTool;
 import vooga.towerdefense.factories.AttributeFactory;
 import vooga.towerdefense.factories.AttributeManagerFactory;
 import vooga.towerdefense.factories.GameElementFactory;
