@@ -66,7 +66,6 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
         myServerBrowserView = new ServerBrowserView(new ServerBrowserTableAdapter());
         myCreateLobbyView = new CreateLobbyView(maps, maxPlayerArray);
         myClient = new Client(this);
-        myClient.beginAcceptingConnections();
         Message initialConnection = new InitialConnectionMessage(gameName, userName);
         myClient.sendData(initialConnection);
         switchToServerBrowserView();
