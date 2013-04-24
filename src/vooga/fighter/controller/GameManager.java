@@ -1,6 +1,6 @@
 package vooga.fighter.controller;
 
-import java.awt.BorderLayout;
+import java.awt.BorderLayout; 
 import java.awt.Dimension;
 import java.awt.DisplayMode;
 import java.awt.GraphicsDevice;
@@ -43,15 +43,17 @@ public static final Dimension SIZE = new Dimension(800, 600);
     private Canvas myCanvas;
     private ControllerManager myControllerManager;
     private GameInfo myGameInfo;
+    private String myFilePathway;
 
     public GameManager(){//ArcadeInteraction arcade) {
     	//super(arcade);
+    	setFilePathway();
         myCanvas = new Canvas(SIZE); 
         myGameInfo = new GameInfo(new MapLoader().getMapNames());
         //myGameInfo.setHighScores(getArcade().getHighScores(THREE_TOP_HIGH_SCORES));
-        ControllerFactory factory = makeFactory(myCanvas);
-        ControlProgressionManager progressionmanager = new ControlProgressionManager(factory.getMap());
-        myControllerManager = new ControllerManager(myCanvas, myGameInfo, factory, progressionmanager);
+        ControllerFactory factory = makeFactory(myCanvas,myFilePathway);
+        ControlProgressionManager progressionmanager = makeProgression(factory.getMap()), myFilePathway);
+        myControllerManager = makeManager(myCanvas, myGameInfo, factory, progressionmanager,myFilePathway);
         JFrame frame = new JFrame(TITLE);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // add our user interface components
@@ -66,13 +68,29 @@ public static final Dimension SIZE = new Dimension(800, 600);
 		 myControllerManager.run();
 	    }
 	 
-	 public ControllerFactory makeFactory(Canvas canvas){
-		 return new ControllerFactory(canvas);
+	 protected ControllerFactory makeFactory(Canvas canvas, String pathway){
+		 return new ControllerFactory(canvas, pathway);
 	 }
+	 
+	 protected ControllerManager makeManager(Canvas canvas, GameInfo info, ControllerFactory factory,
+			 ControlProgressionManager progression, String pathway){
+		 return new ControllerManager(canvas, info, factory, progression, pathway);
+	 }
+	 
+	 protected ControlProgressionManager makeProgression(Map map, String pathway){
+		 return new ControlProgressionManager(map, pathway);
+	 }
+	 		
 
 	 public UserGameData generateNewProfile(){
 		return myGameInfo;
 	 }
+	 
+	 protected void setFilePathway(){
+		 myFilePathway = "vooga.fighter.config";
+	 }
+	 
+	 
 
 
 }

@@ -31,19 +31,15 @@ import java.util.ResourceBundle;
  */
 public class MainMenuController extends MenuController {
 	
-    private ResourceBundle myResources;
-    
     public MainMenuController () {
         super();
     }
     
-    public MainMenuController(String name, Canvas frame, ControllerDelegate manager, 
-                           GameInfo gameinfo) {
+    public MainMenuController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo) {
         super(name, frame, manager, gameinfo);
         getGameInfo().reset();
         setInput(manager.getInput());
         getInput().addListenerTo(this);
-
     }
     
     public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo) {
