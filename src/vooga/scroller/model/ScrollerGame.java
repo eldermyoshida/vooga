@@ -1,21 +1,16 @@
 package vooga.scroller.model;
 
 import java.awt.BorderLayout;
-import java.awt.GraphicsConfiguration;
 import javax.swing.JFrame;
-import vooga.scroller.level_editor.Level;
 import vooga.scroller.level_editor.controllerSuite.LEController;
 import vooga.scroller.level_editor.library.BackgroundLib;
 import vooga.scroller.level_editor.library.ISpriteLibrary;
-import vooga.scroller.scrollingmanager.OmniScrollingManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.PlatformerConstants;
 import vooga.scroller.view.GameView;
 import arcade.games.ArcadeInteraction;
 import arcade.games.Game;
-import arcade.games.GameData;
-import arcade.games.UserGameData;
 
 /**
  * 

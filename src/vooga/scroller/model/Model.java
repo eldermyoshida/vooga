@@ -4,18 +4,15 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 import util.Location;
-import util.Secretary;
 import vooga.scroller.level_editor.Level;
 import vooga.scroller.level_management.LevelManager;
 import vooga.scroller.marioGame.spritesDefinitions.players.Mario;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.animation.Animation;
 import vooga.scroller.sprites.animation.MovingSpriteAnimationFactory;
-import vooga.scroller.sprites.interfaces.IPlayer;
 import vooga.scroller.sprites.superclasses.Player;
+import vooga.scroller.util.Sprite;
 import vooga.scroller.view.GameView;
 
 
@@ -75,7 +72,7 @@ public class Model {
     private static Player initTestPlayer (GameView gameView, ScrollingManager sm) {
         Player player = new Mario(new Location(), new Dimension(32, 32), gameView, sm);
         MovingSpriteAnimationFactory msaf = new MovingSpriteAnimationFactory(DEFAULT_IMAGE_LOCATION, PLAYER_IMAGES);
-        Animation playerAnimation = msaf.generateAnimation(player);
+        Animation<Sprite> playerAnimation = msaf.generateAnimation(player);
         
         player.setView(playerAnimation);
         return player;

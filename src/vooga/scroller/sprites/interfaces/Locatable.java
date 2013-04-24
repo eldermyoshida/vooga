@@ -1,5 +1,6 @@
 package vooga.scroller.sprites.interfaces;
 
+import java.awt.geom.Point2D;
 import util.Vector;
 
 
@@ -12,7 +13,7 @@ import util.Vector;
  * @author Jay Wang
  * 
  */
-public interface ISprite {
+public interface Locatable {
 
     /**
      * Returns the bottom pixel of the Sprite.
@@ -73,20 +74,22 @@ public interface ISprite {
     /**
      * Sets the center of the Sprite to Location(x,y)
      */
-    public void setCenter (double x, double y);
-
-    /**
-     * Adds the Vector r to the current Velocity vector of the Sprite.
-     * 
-     * @param Vector
-     */
-    public void addVector (Vector r);
-
-    /**
-     * Returns the Velocity vector of the Sprite.
-     * 
-     * @return Vector
-     */
+//    public void setCenter (double x, double y);
+//
+//    /**
+//     * Adds the Vector r to the current Velocity vector of the Sprite.
+//     * 
+//     * @param Vector
+//     */
+//    public void addVector (Vector r);
+//
+//    /**
+//     * Returns the Velocity vector of the Sprite.
+//     * 
+//     * @return Vector
+//     */
     public Vector getVelocity ();
+
+    public Point2D getCenter ();
 
 }

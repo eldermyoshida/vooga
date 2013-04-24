@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import util.Location;
 import vooga.scroller.level_management.IInputListener;
 import vooga.scroller.scrollingmanager.ScrollingManager;
+import vooga.scroller.sprites.interfaces.Locatable;
 import vooga.scroller.util.ISpriteView;
 import vooga.scroller.util.physics.ForceBundle;
 import vooga.scroller.view.GameView;
