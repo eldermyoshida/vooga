@@ -9,8 +9,6 @@ import javax.imageio.ImageIO;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import org.xml.sax.SAXException;
-import vooga.rts.gamedesign.sprite.gamesprites.Resource;
-import vooga.rts.gamedesign.sprite.map.Terrain;
 import vooga.rts.map.GameMap;
 import vooga.rts.state.GameState;
 import vooga.rts.util.Location;
@@ -106,8 +104,8 @@ public class EditableMap extends GameMap {
 
     public void clearMap () {
         myTileMap.removeAllTiles();
-        getTerrain().clearAll();
-        getResources().clearAll();
+        getTerrain().getMySprites().clear();
+        getResources().getMySprites().clear();
         System.out.println("clear");
     }
     
@@ -313,10 +311,17 @@ public class EditableMap extends GameMap {
         return (EditableResource)getResources().getMySprites().get(index);
     }
 
+    /**
+     * set the map name 
+     * @param myMapName the name of this map
+     */
     public void setMyMapName (String myMapName) {
         this.myMapName = myMapName;
     }
-
+    /**
+     * get the description of that map
+     * @return the description of current map
+     */
     public String getMyDescription () {
         return myDescription;
     }
@@ -334,92 +339,5 @@ public class EditableMap extends GameMap {
     public Map<Integer,Location> getAllPlayers() {
         return myPlayerSet.getAllPlayers();
     }
-    
-    
-    public static void main (String[] args) {
-        EditableMap test = new EditableMap("TestMap", "This is a test map", 10, 10, 50, 50);
-        
-        String imagePath = System.getProperty("user.dir") + "./src/vooga/rts/leveleditor/resource/";
-        
-        BufferedImage terrain1 = null;
-        BufferedImage terrain2 = null;
-        
-        BufferedImage tile1 = null;
-        BufferedImage tile2 = null;
-        BufferedImage tile3 = null;
-        
-        BufferedImage resource1 = null;
-        BufferedImage resource2 = null;
-    
-        
-        try {
-            terrain1 = ImageIO.read(new File(imagePath+"Terrain1.jpg"));
-            terrain2 = ImageIO.read(new File(imagePath+"Terrain2.jpg"));
-            
-            tile1 = ImageIO.read(new File(imagePath+"Bricks1.jpg"));
-            tile2 = ImageIO.read(new File(imagePath+"Brush1.jpg"));
-            tile3 = ImageIO.read(new File(imagePath+"Concrete1.jpg"));
-            
-            resource1 = ImageIO.read(new File(imagePath + "gas1.png"));
-            resource2 = ImageIO.read(new File(imagePath + "mineral1.png"));
-        }  catch (IOException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
-        }
-        
-        
-        
-        test.addPlayer(10, 10);
-        test.addPlayer(20, 20);
-        
-        test.addTile(new Location3D(25,25,0), 1, "bricks", "Bricks1.jpg", new Pixmap(tile1));
-        test.addTile(new Location3D(75, 75,0), 1, "bricks", "Bricks1.jpg", new Pixmap(tile1));
-        test.addTile(3, 3, 1, "bricks", "Bricks1.jpg", new Pixmap(tile1));
-        test.addTile(4, 4, 1, "bricks", "Bricks1.jpg", new Pixmap(tile1));
-        
-        test.addTile(5, 5, 2, "brush", "Brush1.jpg", new Pixmap(tile2));
-        test.addTile(6, 6, 2, "brush", "Brush1.jpg", new Pixmap(tile2));
-        test.addTile(7, 7, 2, "brush", "Brush1.jpg", new Pixmap(tile2));
-        test.addTile(8, 8, 2, "brush", "Brush1.jpg", new Pixmap(tile2));
-        
-        test.addTile(5, 7, 3, "concrete", "Concrete1.jpg", new Pixmap(tile3));
-        test.addTile(6, 8, 3, "concrete", "Concrete1.jpg", new Pixmap(tile3));
-        test.addTile(3, 7, 3, "concrete", "Concrete1.jpg", new Pixmap(tile3));
-        test.addTile(2, 8, 3, "concrete", "Concrete1.jpg", new Pixmap(tile3));
-        
-        
-        
-        test.addTerrain(new Pixmap(terrain1), 20, 20, 0, 1, "ter1", "Terrain1.jpg", 2);
-        test.addTerrain(new Pixmap(terrain1), 40, 40, 0, 1, "ter1", "Terrain1.jpg", 2);
-        test.addTerrain(new Pixmap(terrain2), 60, 60, 0, 2, "ter2", "Terrain2.jpg", 4);
-        test.addTerrain(new Pixmap(terrain2), 80, 80, 0, 2, "ter2", "Terrain2.jpg", 4);
-        
-        test.addResource(new Pixmap(resource1), 80, 20,0,1, "gas", "gas1.png", 1000);
-        test.addResource(new Pixmap(resource2), 50, 10,0,2, "mineral", "mineral1.png", 1000);
-        
-        test.printMatrix();
-        System.out.println(test.getTerrainSize());
-        System.out.println(test.getResourceSize());
-        
-        System.out.println(test.getMyTile(2, 2).getWorldLocation().getX());
-        System.out.println(test.getMyTile(2, 2).getWorldLocation().getY());
-                
-        MapSaver saver = null;
-        try {
-            saver = new MapSaver(test);
-        }
-        catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        }
-        try {
-            saver.generateMapFile(new File(System.getProperty("user.dir") + "./turtleRock"));
-        }
-        catch (TransformerException e) {
-            e.printStackTrace();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
 
-    }
 }

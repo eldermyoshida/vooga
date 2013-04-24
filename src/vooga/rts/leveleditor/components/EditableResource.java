@@ -29,6 +29,17 @@ public class EditableResource extends Resource{
         myID = id;
         myImageName = imageName;
     }
+    /**
+     * construtor for editableResource
+     * @param image image for this resource
+     * @param x x position 
+     * @param y y position
+     * @param z z position
+     * @param id id
+     * @param name
+     * @param imageName
+     * @param amount
+     */
     
     public EditableResource(Pixmap image, int x , int y , int z , int id, String name , String imageName, int amount) {
        this(image,new Location3D(x,y,z),id,name,imageName,amount);

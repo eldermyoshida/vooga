@@ -35,7 +35,7 @@ public class MapLoader {
     private Map<Integer, String> myTerrainWalkAbility;
     private Map<Integer, String> myResourceAmount;
     
-    private DocumentBuilderFactory myFactory ;
+    private DocumentBuilderFactory myFactory;
     private DocumentBuilder myBuilder;
     private Document myDocument;
 
@@ -47,18 +47,18 @@ public class MapLoader {
         myFactory = DocumentBuilderFactory.newInstance();
         myBuilder = myFactory.newDocumentBuilder();
         
-        myTileName = new HashMap<Integer,String>();
-        myTerrainName = new HashMap<Integer,String>();
-        myResourceName = new HashMap<Integer,String>();
-        myTileImageName = new HashMap<Integer,String>();
-        myTerrainImageName = new HashMap<Integer,String>();
-        myResourceImageName = new HashMap<Integer,String>();
-        myTileImage = new HashMap<Integer,BufferedImage>();
-        myTerrainImage = new HashMap<Integer,BufferedImage>();
-        myResourceImage = new HashMap<Integer,BufferedImage>();
+        myTileName = new HashMap<Integer, String>();
+        myTerrainName = new HashMap<Integer, String>();
+        myResourceName = new HashMap<Integer, String>();
+        myTileImageName = new HashMap<Integer, String>();
+        myTerrainImageName = new HashMap<Integer, String>();
+        myResourceImageName = new HashMap<Integer, String>();
+        myTileImage = new HashMap<Integer, BufferedImage>();
+        myTerrainImage = new HashMap<Integer, BufferedImage>();
+        myResourceImage = new HashMap<Integer, BufferedImage>();
         
-        myTerrainWalkAbility = new HashMap<Integer,String>();
-        myResourceAmount = new HashMap<Integer,String>();
+        myTerrainWalkAbility = new HashMap<Integer, String>();
+        myResourceAmount = new HashMap<Integer, String>();
         
         //myMap = map;       
         
@@ -70,9 +70,9 @@ public class MapLoader {
         
         System.out.println("start loading");
         
-        String XMLpath = resourceFile.getPath();
-        String XMLFileName = resourceFile.getName();
-        String path = XMLpath.substring(0, XMLpath.indexOf(XMLFileName));
+        String xmlPath = resourceFile.getPath();
+        String xmlFileName = resourceFile.getName();
+        String path = xmlPath.substring(0, xmlPath.indexOf(xmlFileName));
         System.out.println("path created");
         
         
@@ -81,10 +81,10 @@ public class MapLoader {
         
         loadSizeInfo(root);
         loadInfo(root);        
-        loadTypeInfo(root,path);
+        loadTypeInfo(root, path);
         loadTiles(root);
         loadTerrains(root);
-        loadResources(root,path);
+        loadResources(root, path);
         
         //printEverything();
     }
@@ -99,12 +99,12 @@ public class MapLoader {
         myMap.setMyMapName(descriptionNode.getTextContent());
     
         NodeList playerList = root.getElementsByTagName("Player");
-        for(int i = 0 ; i < playerList.getLength() ; i++ ) {
+        for (int i = 0 ; i < playerList.getLength() ; i++ ) {
             Node playerNode = playerList.item(i);
             NamedNodeMap attributes = playerNode.getAttributes();
             String x = attributes.item(1).getNodeValue();
             String y = attributes.item(2).getNodeValue();
-            myMap.addPlayer(Integer.parseInt(x),Integer.parseInt(y));
+            myMap.addPlayer(Integer.parseInt(x), Integer.parseInt(y));
         }
     }
 
@@ -121,7 +121,7 @@ public class MapLoader {
         
         int width = Integer.parseInt(tileSizeNode.getAttributes().item(1).getNodeValue());
         int height = Integer.parseInt(tileSizeNode.getAttributes().item(0).getNodeValue());
-        myMap = new EditableMap("","",x,y,width,height);
+        myMap = new EditableMap("", "", x, y, width, height);
         
     }
     
@@ -134,7 +134,7 @@ public class MapLoader {
         String terrainImagePath = path + "images/terrains/";
         String resourceImagePath = path + "images/resources/";
         
-        for(int i = 0 ; i < tileTypeList.getLength() ; i++ ) {
+        for (int i = 0 ; i < tileTypeList.getLength() ; i++ ) {
             Node tileTypeNode = tileTypeList.item(i);
             NamedNodeMap attributes = tileTypeNode.getAttributes();
             String tileID = attributes.item(0).getNodeValue();
@@ -147,7 +147,7 @@ public class MapLoader {
             
         }
         
-        for(int i = 0 ; i < terrainTypeList.getLength() ; i++ ) {
+        for (int i = 0 ; i < terrainTypeList.getLength() ; i++ ) {
             Node terrainTypeNode = terrainTypeList.item(i);
             NamedNodeMap attributes = terrainTypeNode.getAttributes();
             String terrainID = attributes.item(0).getNodeValue();
@@ -161,14 +161,15 @@ public class MapLoader {
             myTerrainImage.put(Integer.parseInt(terrainID), terrainImage);
         }
         
-        for(int i = 0 ; i < resourceTypeList.getLength() ; i++ ) {
+        for (int i = 0 ; i < resourceTypeList.getLength() ; i++ ) {
             Node resourceTypeNode = resourceTypeList.item(i);
             NamedNodeMap attributes = resourceTypeNode.getAttributes();
             String resourceID = attributes.item(0).getNodeValue();
             String resourceAmount = attributes.item(1).getNodeValue();
             String resourceImageName = attributes.item(2).getNodeValue();
             String resourceName = attributes.item(3).getNodeValue();
-            BufferedImage resourceImage = ImageIO.read(new File(resourceImagePath + resourceImageName));
+            BufferedImage resourceImage = ImageIO.read(new File
+                                                       (resourceImagePath + resourceImageName));
             myResourceName.put(Integer.parseInt(resourceID), resourceName);
             myResourceImageName.put(Integer.parseInt(resourceID), resourceImageName);
             myResourceAmount.put(Integer.parseInt(resourceID), resourceAmount);
@@ -185,10 +186,10 @@ public class MapLoader {
         
         int y = myMap.getMyYsize();
         
-        for(int i = 0 ; i < tileList.getLength() ; i++ ) {
+        for (int i = 0 ; i < tileList.getLength() ; i++ ) {
             
-            int myX = i/y;
-            int myY = i%y;
+            int myX = i/ y;
+            int myY = i% y;
             
             Node tileNode = tileList.item(i);
             NamedNodeMap attributes = tileNode.getAttributes();

@@ -20,15 +20,23 @@ public class EditableTileMap extends TileMap {
         int x = this.getMyHeight();
         int y = this.getMyWidth();
         for (int i = 0 ; i < x ; i++) {
-            for(int j = 0 ; j < y ; j++) {
-                setTile(i,j,new EditableTile(i,j,getMyTileSize()));
+            for (int j = 0 ; j < y ; j++) {
+                setTile(i, j, new EditableTile(i, j, getMyTileSize()));
             }
         }
     }    
-    
+    /**
+     * 
+     * @param i
+     * @param j
+     * @param id
+     * @param name
+     * @param imageName
+     * @param image
+     */
     public void addTile(int i, int j, int id, String name , String imageName, Pixmap image) {
         addTileType(id, (BufferedImage)image.getMyImage());
-        this.createTile(id, i, j,id,name,imageName);
+        this.createTile(id, i, j, id, name, imageName);
 //          setTile(i,j,new EditableTile(image,i,j,getMyTileSize(),id,name,imageName,false));
 //          System.out.println(i);
 //          System.out.println(j);
@@ -36,9 +44,9 @@ public class EditableTileMap extends TileMap {
     
 
     public void addTile(Location3D loc, int id, String name, String imageName, Pixmap image) {
-        int i = (int)(loc.getX()/this.getMyTileSize().getWidth()*2);
-        int j = (int)(loc.getY()/this.getMyTileSize().getHeight()*2);
-        addTile(i,j,id,name,imageName,image);
+        int i = (int)(loc.getX()/ this.getMyTileSize().getWidth()*2);
+        int j = (int)(loc.getY()/ this.getMyTileSize().getHeight()*2);
+        addTile(i, j, id, name, imageName, image);
 //        System.out.println("Location3d: " + loc.getX());
 //        System.out.println("Location3d: " + loc.getY());  
     }
@@ -62,13 +70,13 @@ public class EditableTileMap extends TileMap {
     
     
     public void removeTile(int i, int j) throws IOException {
-        this.setTile(i, j, new EditableTile(i,j,getMyTileSize()));
+        this.setTile(i, j, new EditableTile(i, j, getMyTileSize()));
     }
     
     public void removeTile(Location3D center) throws IOException {
-        int i = (int)(center.getY()/getMyTileSize().getHeight());
-        int j = (int)(center.getX()/getMyTileSize().getWidth());
-        removeTile(i,j);
+        int i = (int)(center.getY()/ getMyTileSize().getHeight());
+        int j = (int)(center.getX()/ getMyTileSize().getWidth());
+        removeTile(i, j);
     }
     
     public void removeAllTiles() {
@@ -81,11 +89,11 @@ public class EditableTileMap extends TileMap {
     }
     
     public int getXCount (Location loc) {
-        return (int)(loc.getY()/getMyTileSize().getHeight());
+        return (int)(loc.getY()/ getMyTileSize().getHeight());
     }
     
     public int getYCount (Location loc) {
-        return (int)(loc.getX()/getMyTileSize().getWidth());
+        return (int)(loc.getX()/ getMyTileSize().getWidth());
     }
     
 
