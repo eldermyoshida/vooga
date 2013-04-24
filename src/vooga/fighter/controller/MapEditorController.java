@@ -1,17 +1,13 @@
 package vooga.fighter.controller;
 
-import java.util.ArrayList;
 import java.util.List; 
 
-import util.input.src.input.Input;
 import vooga.fighter.input.AlertObject;
 import vooga.fighter.input.InputClassTarget;
 import vooga.fighter.input.InputMethodTarget;
 import vooga.fighter.input.PositionObject;
-import vooga.fighter.model.LevelMode;
 import vooga.fighter.model.MapEditorMode;
 import vooga.fighter.model.Mode;
-import vooga.fighter.model.objects.CharacterObject;
 import vooga.fighter.model.objects.EnvironmentObject;
 import vooga.fighter.model.objects.MapObject;
 import vooga.fighter.util.CollisionManager;
@@ -247,9 +243,10 @@ public class MapEditorController extends Controller{
 	    	myEditTarget.setName(newName);
 	    }
 	    
+	    //not used
 	    public void checkConditions() {
 	    }
-	    
+	    //not used
 	    public void developerUpdate() {
 	    	
 	    }
