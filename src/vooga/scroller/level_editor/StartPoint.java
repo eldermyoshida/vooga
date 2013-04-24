@@ -16,10 +16,7 @@ public class StartPoint extends StaticEntity{
     }
     
     public StartPoint (Pixmap image, Location center, Dimension size) {
-        super(image, center, size);
+        super(image, center, size, new Integer(1), new Integer(0));
     }
-    
-    
-
 
 }

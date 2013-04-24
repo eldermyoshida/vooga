@@ -9,3 +9,6 @@ bin/
 .settings
 .DS_Store
 *.project
+*.ucls
+Thumbs.db
+/bin
