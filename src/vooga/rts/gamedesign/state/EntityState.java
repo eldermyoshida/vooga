@@ -74,6 +74,10 @@ public class EntityState {
 	public void setOccupyState(OccupyState occupyState) {
 		myOccupyState = occupyState;
 	}
+	
+	public OccupyState getOccupyState() {
+	    return myOccupyState;
+	}
 
 	/**
 	 * This method is used to set the producing state (either producing or not
