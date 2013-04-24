@@ -113,12 +113,6 @@ public class Database {
                                       extendsMultiplayerGame, ageRating, singlePlayer, multiplayer,
                                       thumbnailPath, adscreenPath, description);
     }
-    
-    public boolean createGame(GameSpecificData data) {
-    	return createGame(data.getName(), data.getAuthor(), data.getGenre(), data.getPrice(), data.getExtendsGame(),
-    			data.getExtendsMultiplyaer(), data.getAgeRating(), data.isSinglePlayer(), data.isMultiplayer(),
-    			data.getThumbnailPath(), data.getAdScreenPath(), data.getDescription());
-    }
 
     /**
      * Inserts avatar into S3 Instance
@@ -287,9 +281,12 @@ public class Database {
      * @param username is user
      * @param gameName is game name
      * @param comment is comment to be inserted
+     * @param rating is rating
      */
-    public void insertCommentAndRating (String username, String gameName, String comment, double rating) {
-        myCommentTable.addNewCommentAndRating(retrieveGameId(gameName), retrieveUserId(username), comment, rating);
+    public void insertCommentAndRating (String username, String gameName, 
+                                        String comment, double rating) {
+        myCommentTable.addNewCommentAndRating(retrieveGameId(gameName), 
+                                              retrieveUserId(username), comment, rating);
     }
 
     /**
@@ -297,8 +294,13 @@ public class Database {
      * @param gameName is game name
      */
     public List<Comment> retrieveCommentsForGame (String gameName) {
-        return null;
-        //return myCommentTable.getAllCommentsForGame(retrieveGameId(gameName));
+        List<Comment> myComments = new ArrayList<Comment>();
+        List<String> myUsers = myUserTable.retrieveUsernames();
+        for (String s : myUsers) {
+            myComments.addAll(myCommentTable.getAllCommentsAndRatingsForGame(
+                                     retrieveGameId(gameName), s, retrieveUserId(s)));
+        }
+        return myComments;
     }
 
     /**
