@@ -21,7 +21,7 @@ import vooga.fighter.util.CollisionManager;
 
 /**
  * 
- * @author matthewparides, james
+ * @author matthewparides
  * 
  */
 public class MapEditorMode extends Mode {
@@ -168,7 +168,7 @@ public class MapEditorMode extends Mode {
      * writes this mode's map to the xml file
      */
     public void writeMap() {
-    	MapWriter writer = new MapWriter(myMap, myBackgroundPaths, mySoundPath);
+    	MapWriter writer = new MapWriter(myMap, mySoundPath, myBackgroundPaths);
     }
 
     /**
@@ -248,6 +248,14 @@ public class MapEditorMode extends Mode {
      */
     public void setSound(String filepath) {
     	mySoundPath = filepath;
+    }
+    
+    /**
+     * sets the name of the map
+     * @param name
+     */
+    public void setName(String name) {
+    	myMap.setName(name);
     }
 
     /**

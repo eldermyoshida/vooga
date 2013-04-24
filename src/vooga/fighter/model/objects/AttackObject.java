@@ -7,6 +7,7 @@ import java.util.Map;
 import util.Location;
 import util.Vector;
 import vooga.fighter.model.ModelConstants;
+import vooga.fighter.model.loaders.AttackObjectLoader;
 import vooga.fighter.model.utils.Counter;
 import vooga.fighter.model.utils.Effect;
 import vooga.fighter.model.utils.State;
@@ -27,12 +28,13 @@ public class AttackObject extends GameObject{
     /**
      * Constructs an AttackObject with the given owner.
      * 
-     * Will update to use ObjectLoader.
+     * @param name of the attack object as labeled in its respective xml
      */
-    public AttackObject() {
+    public AttackObject (String name) {
     	super();
-        myEffects = new ArrayList<Effect>();
+    	myEffects = new ArrayList<Effect>();
         myCounter = new Counter();
+        setLoader(new AttackObjectLoader(name, this));
     }
     
     public AttackObject (AttackObject other, UpdatableLocation center){

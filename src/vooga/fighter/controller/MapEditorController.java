@@ -237,6 +237,16 @@ public class MapEditorController extends Controller{
 	    	myEditTarget.setSound(filePath);
 	    }
 	    
+	    /**
+	     * prompts the user for a name for the map
+	     * @param alObj
+	     */
+	    @InputMethodTarget(name = "setName")
+	    public void setName (AlertObject alObj) {
+	    	String newName = getView().chooseFile("New map name","Enter a name for the map");
+	    	myEditTarget.setName(newName);
+	    }
+	    
 	    public void checkConditions() {
 	    }
 	    

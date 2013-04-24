@@ -8,8 +8,8 @@ import java.awt.geom.AffineTransform;
 
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
 import vooga.fighter.controller.ViewDataSource;
 
 /**
@@ -24,6 +24,8 @@ import vooga.fighter.controller.ViewDataSource;
  * @author Wayne You
  */
 public class Canvas extends JComponent {
+	// default serialization ID
+
     // default serialization ID
     private static final long serialVersionUID = 1L;
     
@@ -136,5 +138,19 @@ public class Canvas extends JComponent {
             return chooser.getSelectedFile().getAbsolutePath();
         else
             return null;
+    }
+    
+    /**
+     * Prompts the user for a string.
+     * 
+     * @param title
+     *            The title of the dialog box.
+     * @param text
+     *            The text of the dialog box.
+     * @return The string input, or null for no input.
+     */
+    public String promptForString(String title, String text) {
+        return JOptionPane.showInputDialog(this, text, title,
+                JOptionPane.PLAIN_MESSAGE);
     }
 }

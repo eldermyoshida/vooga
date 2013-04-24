@@ -2,14 +2,10 @@ package vooga.fighter.model.loaders;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import vooga.fighter.model.ModelConstants;
-import vooga.fighter.model.effects.BurnEffect;
 import vooga.fighter.model.objects.AttackObject;
 import vooga.fighter.model.objects.CharacterObject;
-import vooga.fighter.model.utils.State;
 
 /**
  * Loads data associated with a character object to be passed to CharacterObject.
@@ -24,9 +20,9 @@ public class CharacterLoader extends ObjectLoader {
 	private CharacterObject myChar;
 
 	/**
-	 * Constructs the character loader with the id to be loaded and the character which the
+	 * Constructs the character loader with the name to be loaded and the character which the
 	 * loader will modify.
-	 * @param charId
+	 * @param charName
 	 * @param character
 	 */
 	public CharacterLoader (String charName, CharacterObject character) {
@@ -44,13 +40,13 @@ public class CharacterLoader extends ObjectLoader {
 		NodeList charNodes = doc.getElementsByTagName(getResourceBundle().getString("Character"));
 
 		for (int i = 0; i < charNodes.getLength(); i++) {
-			Node node = charNodes.item(i);
+			Element node = (Element) charNodes.item(i);
 			String name = getAttributeValue(node, getResourceBundle().getString("CharacterName"));
 			if (charName.equals(name)) {
 				addProperties(node, myChar);
-				NodeList stateNodes = ((Element) node).getElementsByTagName(getResourceBundle().getString("State"));
+				NodeList stateNodes = node.getElementsByTagName(getResourceBundle().getString("State"));
 				addStates(stateNodes, myChar);
-				NodeList attackNodes = ((Element) node).getElementsByTagName(getResourceBundle().getString("Attack"));
+				NodeList attackNodes = node.getElementsByTagName(getResourceBundle().getString("Attack"));
 				addAttacks(attackNodes);
 			}
 		}
@@ -63,22 +59,9 @@ public class CharacterLoader extends ObjectLoader {
 	 * @param attackNodes
 	 */
 	private void addAttacks(NodeList attackNodes) {
-		//TODO: Refactor this into separate loader
 		for (int i = 0; i < attackNodes.getLength(); i++) {
-			Element attack = (Element) attackNodes.item(i);
 			String attackName = getAttributeValue(attackNodes.item(i), getResourceBundle().getString("AttackName"));
-			int attackDmg = Integer.parseInt(getAttributeValue(attackNodes.item(i), getResourceBundle().getString("Damage")));
-			int attackDuration = Integer.parseInt(getAttributeValue(attackNodes.item(i), getResourceBundle().getString("Duration")));
-			int attackSpeed = Integer.parseInt(getAttributeValue(attackNodes.item(i), getResourceBundle().getString("Attackspeed")));
-			NodeList frameNodes = attack.getElementsByTagName(getResourceBundle().getString("Frame"));
-			AttackObject newAttack = new AttackObject();
-			State newState = new State(myChar, frameNodes.getLength());
-			newAttack.addProperty(ModelConstants.ATTACK_PROPERTY_SPEED, attackSpeed);
-			newAttack.addProperty(ModelConstants.ATTACK_PROPERTY_DAMAGE, attackDmg);
-			newAttack.addProperty(ModelConstants.ATTACK_PROPERTY_DURATION, attackDuration);
-			getFrameProperties(frameNodes, newState);
-			newAttack.addState(attackName, newState);
-			newAttack.setCurrentState(attackName);
+			AttackObject newAttack = new AttackObject(attackName);
 			myChar.addAttack(attackName, newAttack);
 		}
 	}

@@ -40,11 +40,9 @@ public class LevelMode extends Mode {
     public void update(double stepTime, Dimension bounds) {
         loadAttacks();
         removeAppropriateObjects();
-        handleCollisions();
         updateHealth();
-        if (!(myForces.size()==0)){
-        	applyForces(); 
-        }
+        applyForces(); 
+        handleCollisions();
         List<GameObject> myObjects = getMyObjects();
         
         // object update() and updateState() have to be in separate loops
@@ -78,12 +76,7 @@ public class LevelMode extends Mode {
     public void applyForces(){
         for (CharacterObject ch : myCharacterObjects) {
             for (Force force: myForces) {
-                if (!ch.getStanding()) {
-                    force.applyForce(ch);
-                }
-                else {
-                    ch.getVelocity().setMagnitude(0);
-                }
+                 force.applyForce(ch);
             }
         }
     }

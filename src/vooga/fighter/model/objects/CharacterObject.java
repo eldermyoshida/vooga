@@ -28,6 +28,7 @@ public class CharacterObject extends GameObject {
     private static final int UP=270; 
     
     private Map<String, AttackObject> myAttacks;
+    private Vector forcesApplied; 
     private List<Effect> myActiveEffects;
     private Health myHealth; 
     private List<AttackObject> currentAttacks; 
@@ -61,8 +62,9 @@ public class CharacterObject extends GameObject {
         return myIsStanding;
     }
     
-    public void changeStanding() {
-        myIsStanding = true;
+    public void setStanding(boolean bool) {
+        myIsStanding = bool;
+            
     }
 
     /**
@@ -201,23 +203,15 @@ public class CharacterObject extends GameObject {
      */
     public void move(int direction) {
         setCurrentState("moveRight");
-        if (myVelocity.getMagnitude()<=5){
-        	getLocation().addAcceleration(new Vector(direction, getProperty("movespeed")));
-        }
-    }
+        getLocation().translate(new Vector(direction, getProperty("movespeed")));
 
-    /**
-     * Makes the character get pushed back if hit by something with higher priority
-     */
-    public void pushBack(int direction){
-    	getLocation().addAcceleration(new Vector(direction, MOVE_BACK_AMOUNT*getProperty("movespeed")));
     }
 
     /**
      * Makes the character move back if it runs into another character or environmentObject with higher priority
      */
-    public void moveBack(double forceMagnitude){
-    	myVelocity.setMagnitude(forceMagnitude); //TODO: hard coded now should be force magnitude in the future
+    public void moveBack(){
+    	myVelocity.setMagnitude(forcesApplied.getMagnitude()); 
     	reverseVelocity(); 
     	getLocation().translate(myVelocity);
     }
@@ -276,6 +270,13 @@ public class CharacterObject extends GameObject {
      */
     public void reverseVelocity(){
     	myVelocity.setDirection(myVelocity.getDirection()-180);
+    }
+    
+    /**
+     * Sets the applied forces acting on a character object 
+     */
+    public void setAppliedForces(Vector sumOfForces){
+    	forcesApplied= sumOfForces;
     }
     
 }

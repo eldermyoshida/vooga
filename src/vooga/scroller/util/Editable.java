@@ -2,6 +2,7 @@
 package vooga.scroller.util;
 
 import java.awt.Dimension;
+import java.awt.Image;
 
 
 
@@ -15,7 +16,7 @@ import java.awt.Dimension;
  */
 public interface Editable {
 
-    public void changeBackground ();
+    public void changeBackground (Image i);
 
     public void addSprite (Sprite s, int x, int y);
 

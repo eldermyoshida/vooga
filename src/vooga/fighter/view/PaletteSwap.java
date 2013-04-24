@@ -19,7 +19,7 @@ public class PaletteSwap {
 
 	}
 
-	public void applyGreyscale(Image colorImage, int width, int height) {
+	public static void applyGreyscale(Image colorImage, int width, int height) {
 		BufferedImage bufferedImage = new BufferedImage(width, height,
 				BufferedImage.TYPE_BYTE_GRAY);
 		//Graphics g = image.getGraphics();
