@@ -47,7 +47,7 @@ public class MarioGame extends ScrollerGame {
 
     @Override
     protected String[] setLevelFileNames () {
-        String[] levelsFiles = {"test.level"};
+        String[] levelsFiles = {"longlevel.level"};
         return levelsFiles;
     }
 
