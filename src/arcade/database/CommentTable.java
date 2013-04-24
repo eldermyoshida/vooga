@@ -33,37 +33,14 @@ public class CommentTable extends Table {
      * @param userid is user id
      * @param comment is the comment to be added
      */
-    public void addNewComment (String gameid, String userid, String comment) {
-        
-        String stm = "INSERT INTO comments(gameid, userid, commentfield) VALUES (?, ?, ?)";
-        try {
-            myPreparedStatement = myConnection.prepareStatement(stm);
-            myPreparedStatement.setString(Keys.COM_GAMEID_COLUMN_INDEX, gameid);
-            myPreparedStatement.setString(Keys.COM_USERID_COLUMN_INDEX, userid);
-            myPreparedStatement.setString(Keys.COM_COMMENT_COLUMN_INDEX, comment);
-            myPreparedStatement.executeUpdate();
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-            writeErrorMessage("Error adding new comment for this game in " +
-                    "CommentTable.java @ Line 53");
-        }
-    }
-    
-    /**
-     * Add new comment to table
-     * @param gameid is game id
-     * @param userid is user id
-     * @param comment is the comment to be added
-     */
-    public void addNewRating (String gameid, String userid, double rating) {
+    public void addNewCommentAndRating (String gameid, String userid, String comment, double rating) {
         
         String stm = "INSERT INTO comments(gameid, userid, commentfield, rating) VALUES (?, ?, ?, ?)";
         try {
             myPreparedStatement = myConnection.prepareStatement(stm);
             myPreparedStatement.setString(Keys.COM_GAMEID_COLUMN_INDEX, gameid);
             myPreparedStatement.setString(Keys.COM_USERID_COLUMN_INDEX, userid);
-            myPreparedStatement.setString(Keys.COM_COMMENT_COLUMN_INDEX, null);
+            myPreparedStatement.setString(Keys.COM_COMMENT_COLUMN_INDEX, comment);
             myPreparedStatement.setDouble(Keys.COM_RATING_COLUMN_INDEX, rating);
             myPreparedStatement.executeUpdate();
         }
@@ -109,9 +86,7 @@ public class CommentTable extends Table {
             myResultSet = myPreparedStatement.executeQuery();
             while (myResultSet.next()) {
                 String comment = myResultSet.getString(Keys.COM_COMMENT_COLUMN_INDEX);
-                if (comment != null) {
-                    comments.add(comment);
-                }
+                comments.add(comment);
             }
             return comments;
         }

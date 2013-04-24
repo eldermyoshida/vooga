@@ -100,7 +100,7 @@ public class ScoresView extends Form {
     private JComponent createHighScoresList() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(2, 0));
-        List<Score> scores = getController().getGameInfo().getSortedScores();
+        List<Score> scores = getController().getCurrentGameInfo().getSortedScores();
         if (scores.size() > MAX_HIGH_SCORES_SHOWN) {
             scores = scores.subList(0, MAX_HIGH_SCORES_SHOWN);
         }
@@ -201,7 +201,7 @@ public class ScoresView extends Form {
         return getResources().getString(TextKeywords.MY_SCORE) 
                + " " + myScore + " " 
                + getResources().getString(TextKeywords.IN) + " " 
-               + getController().getGameInfo().getName() + " " 
+               + getController().getCurrentGame() + " " 
                + getResources().getString(TextKeywords.VOOGA_HASHTAG);
     }
     

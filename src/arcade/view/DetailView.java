@@ -19,6 +19,7 @@ import javax.swing.WindowConstants;
 import util.ImageHelper;
 import arcade.controller.Controller;
 import arcade.games.GameInfo;
+import arcade.view.forms.payment.PaymentSelection;
 
 
 /**
@@ -57,7 +58,7 @@ public class DetailView extends JFrame {
     private JTextField myRatingWriter;
     private JTextArea myDescriptionContent;
     private JEditorPane myCommentsContent;
-    private JButton myPlayButton;
+    private JButton myPlayButton, myBuyButton;
     private Controller myController;
 
     public DetailView (GameInfo info, ResourceBundle resources, Controller controller) {
@@ -99,6 +100,17 @@ public class DetailView extends JFrame {
             }
 
         });
+        
+        myBuyButton = new JButton("buy"); 
+        myBuyButton.setBounds(180, 50, 130, 110);
+        myBuyButton.addActionListener(new ActionListener() {
+            
+            @Override
+            public void actionPerformed (ActionEvent arg0) {
+                new PaymentSelection(myController, myResources, myGameInfo);
+            }
+        });
+        
 
         myDescription = new JLabel("Description");
         myDescription.setBounds(ORIGIN_X, 180, LABEL_WIDTH, LABEL_HEIGHT);
@@ -129,25 +141,17 @@ public class DetailView extends JFrame {
         
         myCommentsWriter = new JTextField();
         myCommentsWriter.setBounds(ORIGIN_X, 600, WINDOW_WIDTH, 50);
-        JButton button = new JButton("Submit");
-        button.setBounds(ORIGIN_X, 650, WINDOW_WIDTH, 50);
-        button.addActionListener(new ActionListener() {
+       
+        
+        myRatingWriter = new JTextField();
+        myRatingWriter.setBounds(ORIGIN_X, 650, WINDOW_WIDTH, 50);
+        JButton ratingButton = new JButton("Submit");
+        ratingButton.setBounds(ORIGIN_X, 700, WINDOW_WIDTH, 50);
+        ratingButton.addActionListener(new ActionListener() {
             
             @Override
             public void actionPerformed (ActionEvent arg0) {
                 myController.commentGame(myCommentsWriter.getText(), myGameInfo.getName());
-            }
-        });
-        
-        
-        myRatingWriter = new JTextField();
-        myRatingWriter.setBounds(ORIGIN_X, 700, WINDOW_WIDTH, 50);
-        JButton ratingButton = new JButton("Submit");
-        ratingButton.setBounds(ORIGIN_X, 750, WINDOW_WIDTH, 50);
-        button.addActionListener(new ActionListener() {
-            
-            @Override
-            public void actionPerformed (ActionEvent arg0) {
                 double rating = Double.parseDouble(myRatingWriter.getText());
                 myController.rateGame(rating, myGameInfo.getName());
             }
@@ -165,7 +169,6 @@ public class DetailView extends JFrame {
         myContentPanel.add(myComments);
         myContentPanel.add(commentPane);
         myContentPanel.add(myCommentsWriter);
-        myContentPanel.add(button);
         myContentPanel.add(myRatingWriter);
         myContentPanel.add(ratingButton);
 
