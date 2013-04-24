@@ -4,6 +4,7 @@ import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.actionlist.FollowPath;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.model.Path;
+import vooga.towerdefense.util.Location;
 /**
  * Factory for creating FollowPath action, to create followPath actions of different path
  * need different instances of this factory.
@@ -15,16 +16,10 @@ import vooga.towerdefense.model.Path;
  */
 
 public class FollowPathFactory extends ActionFactory{
-	private Path myPath;
 	
-	public FollowPathFactory(Path path){
-		myPath=path;
-		
-	}
-
 	@Override
 	protected Action buildAction(GameElement elementToMove) {
-		return new FollowPath(elementToMove,myPath);
+		return new FollowPath(elementToMove,getMap().getShortestPath(elementToMove.getCenter(), getMap().getDestination()));
 		
 	}
 	

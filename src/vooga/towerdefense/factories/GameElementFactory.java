@@ -39,7 +39,6 @@ public class GameElementFactory {
 
     private Pixmap myImage;
     private Dimension mySize;
-    private String myType;
     private AttributeManagerFactory myAttributeManager;
 
     /**
@@ -55,18 +54,16 @@ public class GameElementFactory {
 
     public GameElementFactory (String name,
                                Pixmap image,
-                               String type,
                                AttributeManagerFactory attrManager, List<ActionFactory> myActions) {
         myName = name;
         myImage = image;
         mySize = new Dimension(image.getWidth(), image.getHeight());
-        myType = type;
         myAttributeManager = attrManager;
     }
 
     @Deprecated
     public GameElementFactory (String name, GameElementDefinition definition) {
-        this(name, definition.getImage(), definition.getType(), definition
+        this(name, definition.getImage(), definition
                 .getAttributeManagerFactory(), definition.getActions());
         myName = name;
         myDef = definition;

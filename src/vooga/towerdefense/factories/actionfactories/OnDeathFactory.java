@@ -1,21 +1,20 @@
 package vooga.towerdefense.factories.actionfactories;
 
-
-import java.util.List;
-
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.actionlist.OnDeath;
 import vooga.towerdefense.gameElements.GameElement;
-
+/**
+ * factory for creating OnDeathFactory
+ * @author Zhen Gou
+ *
+ */
 public class OnDeathFactory extends ActionFactory{
-	public OnDeathFactory(List<ActionFactory> followups){
+	public OnDeathFactory(){
 		super();
-		addFollowUpActionsFactories(followups);
 	}
 	@Override
 	public Action buildAction(GameElement element){
 		Action action=new OnDeath(element);
-		action.addFollowUpActions(createFollowUpActions(element));
 		return action;
 	}
 }

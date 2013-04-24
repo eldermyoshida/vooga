@@ -14,14 +14,14 @@ import vooga.towerdefense.attributes.AttributeManager;
  */
 public class AttributeManagerFactory {
 
-    private List<Attribute> myInputAttributes;
+    private List<AttributeFactory> myInputAttributes;
 
     /**
      * Dangerous because it uses instantiated attributes
      * @param gameElementAttributes
      */
-    public AttributeManagerFactory (List<Attribute> gameElementAttributes) {
-        myInputAttributes = new ArrayList<Attribute>();
+    public AttributeManagerFactory (List<AttributeFactory> gameElementAttributes) {
+        myInputAttributes = new ArrayList<AttributeFactory>();
         myInputAttributes.addAll(gameElementAttributes);
     }
 
@@ -31,19 +31,34 @@ public class AttributeManagerFactory {
      * @param attributeValue
      */
     public AttributeManagerFactory (List<String> attributeName, List<Double> attributeValue) {
-        myInputAttributes = new ArrayList<Attribute>();
+        myInputAttributes = new ArrayList<AttributeFactory>();
         for (int i = 0; i<attributeName.size(); i++) {
-            myInputAttributes.add(new Attribute(attributeName.get(i), attributeValue.get(i)));
+            myInputAttributes.add(new AttributeFactory(attributeName.get(i), attributeValue.get(i)));
         }
     }
 
     public AttributeManagerFactory () {
-        myInputAttributes = new ArrayList<Attribute>();
+        myInputAttributes = new ArrayList<AttributeFactory>();
     }
 
+    /**
+     * Creates attributes at default values
+     * @return
+     */
     public AttributeManager makeAttributeManager () {
+        return makeAttributeManager(1);
+    }
+    
+    /**
+     * Creates attributes at a multiple of the default values
+     * @param modifier
+     * @return
+     */
+    public AttributeManager makeAttributeManager (double modifier) {
         AttributeManager manager = new AttributeManager();
-        manager.addAttributes(myInputAttributes);
+        for (AttributeFactory fact : myInputAttributes) {
+            manager.addAttribute(fact.create());
+        }
         return manager;
     }
 

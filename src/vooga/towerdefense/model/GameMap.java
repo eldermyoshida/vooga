@@ -315,7 +315,7 @@ public class GameMap {
 	public void addGhostImage(Pixmap itemImage, Location location,
 			Dimension size) {
 		myGhostImage = new GameElement(itemImage, location, size,
-				new AttributeManager(), new ArrayList<Action>(), "GhostImage");
+				new AttributeManager());
 	}
 
 	/**
@@ -352,5 +352,9 @@ public class GameMap {
 
 	public Location getSpawnLocation() {
 		return mySpawnLocation;
+	}
+
+	public Location getDestination() {
+		return myDestination;
 	}
 }
