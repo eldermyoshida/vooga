@@ -40,17 +40,9 @@ import vooga.rts.util.Sound;
  * 
  */
 public class Unit extends InteractiveEntity {
+	
+	public static final Dimension DEFAULT_SIZE = new Dimension(50,50);
 
-    private List<GameSprite> myKills; // TODO: WHAT TYPE SHOULD IT BE??
-    // private boolean myIsLeftSelected; // TODO: also need the same thing for
-    // Projectiles
-    // private boolean myIsRightSelected; // TODO: should be observing the mouse
-    // action instead!!
-    // private PathingHelper myPather;
-
-    private GatherStrategy myGatherStrategy;
-
-    private OccupyStrategy myOccupyStrategy;
     public Unit () {
         this(new Pixmap("sprites/soldier.png"), new Location3D(), new Dimension(0, 0), null, 0, 100,
              InteractiveEntity.DEFAULT_BUILD_TIME, InteractiveEntity.DEFAULT_INTERACTIVEENTITY_SPEED);
@@ -83,6 +75,11 @@ public class Unit extends InteractiveEntity {
         super(image, center, size, sound, playerID, health, buildTime);
         setSpeed(speed);
         addActions();
+    }
+    
+    public Unit(Pixmap image, Sound sound, int health, double buildTime, int speed){
+    	this(image, InteractiveEntity.DEFAULT_LOCATION, DEFAULT_SIZE, sound, InteractiveEntity.DEFAULT_PLAYERID, health, buildTime, speed);
+    	
     }
 
     @Override

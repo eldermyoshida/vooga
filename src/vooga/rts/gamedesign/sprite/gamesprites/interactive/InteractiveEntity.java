@@ -68,6 +68,8 @@ public abstract class InteractiveEntity extends GameEntity implements
 
 	public static final int LOCATION_OFFSET = 20;
 	public static int DEFAULT_INTERACTIVEENTITY_SPEED = 150;
+	public static final Location3D DEFAULT_LOCATION = new Location3D(0,0,0);
+	public static final int DEFAULT_PLAYERID = 0;
 	private boolean isSelected;
 	private UpgradeTree myUpgradeTree;
 	private Sound mySound;
