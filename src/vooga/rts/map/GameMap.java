@@ -56,7 +56,7 @@ public class GameMap implements IGameLoop {
         myResources = new GameSpriteManager<Resource>();
 
         Camera.instance().setMapSize(size);
-        randomGenMap(dou);
+        // randomGenMap(dou);
     }
 
     public GameMap (Dimension tileSize, int width, int height) {

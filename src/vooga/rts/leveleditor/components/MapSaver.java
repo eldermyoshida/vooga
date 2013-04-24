@@ -2,6 +2,7 @@ package vooga.rts.leveleditor.components;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
@@ -14,6 +15,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
@@ -46,12 +48,15 @@ public class MapSaver {
     /**
      * generate a map file
      * @param objectiveFile the objective file
+     * @throws FileNotFoundException 
+     * @throws TransformerException 
      * @throws Exception
      */
-    public void generateMapFile(File objectiveFile) throws Exception {
+    public void generateMapFile(File objectiveFile) throws FileNotFoundException, TransformerException  {
         
         String filePath = objectiveFile.getPath();
         String fileName = objectiveFile.getName();
+        myDocument = myBuilder.newDocument();
         
         String relativePath = filePath.substring(0,filePath.indexOf(fileName));
         String XMLPath = relativePath + fileName + "/" + fileName +".xml";
@@ -242,7 +247,7 @@ public class MapSaver {
         info.appendChild(description);
         
         Element players = myDocument.createElement("Players");
-        players.setAttribute("number", mySavingMap+"");
+        players.setAttribute("number", mySavingMap.getMyPlayerNumber()+"");
         for(Integer i : mySavingMap.getAllPlayers().keySet()) {
             Location loc = mySavingMap.getAllPlayers().get(i);
             int x = (int)loc.getX();
