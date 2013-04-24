@@ -15,6 +15,7 @@ import util.input.InputClassTarget;
 import util.input.InputMethodTarget;
 import util.input.PositionObject;
 import vooga.rts.leveleditor.components.EditableMap;
+import vooga.rts.leveleditor.components.EditableTerrain;
 import vooga.rts.leveleditor.components.EditableTile;
 import vooga.rts.leveleditor.components.EditableResource;
 import vooga.rts.resourcemanager.ResourceManager;
@@ -162,13 +163,13 @@ public class MapPanel extends JComponent {
 //    }
 
     public void placeResource (Location3D loc) {
-        Resource r = myCanvas.getCurrentSelectResource();
-        myMap.addResource(r.getImage(), loc, r.getMyID(), r.getMyName(), r.getMyImageName(), r.getMyAmount());
+        EditableResource r = myCanvas.getCurrentSelectResource();
+        myMap.addResource(r.getImage(), loc, r.getMyID(), r.getType(), r.getMyImageName(), r.getMyAmount());
         repaint();
     }
 
     public void placeTerrain (Location3D loc) {
-        Terrain t = myCanvas.getCurrentSelectTerrain();
+        EditableTerrain t = myCanvas.getCurrentSelectTerrain();
         myMap.addTile(loc, t.getMyID(), t.getMyName(), t.getMyImageName(), t.getImage());
         repaint();
     }

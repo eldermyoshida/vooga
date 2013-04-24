@@ -57,5 +57,10 @@ public class EditableResource extends Resource{
     public Image getMyImage() {
         return super.getImage().getMyImage();
     }
+
+    public void setType(String type) {
+        setType(type);
+        
+    }
     
 }
