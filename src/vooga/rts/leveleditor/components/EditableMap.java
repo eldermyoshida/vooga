@@ -19,7 +19,7 @@ import vooga.rts.util.Pixmap;
 /**
  * a class of EditableMap, this editable map is used to generate a
  * map that can be used for game players. This class enables them to
- * generated their own map
+ * generated their own map. This clas extends GameMap
  * 
  * @author Richard Yang
  * 
@@ -27,8 +27,14 @@ import vooga.rts.util.Pixmap;
 
 public class EditableMap extends GameMap {
 
-
+    /**
+     * the default value of player upper limit
+     */
     private static final int DEFAULT_PLAYER_UPPER_LIMIT = 8;
+    
+    /**
+     * the default value of team upper limit
+     */
     private static final int DEFAULT_TEAM_UPPER_LIMIT = 4;
     
     private String myMapName = "CIEMAS";
