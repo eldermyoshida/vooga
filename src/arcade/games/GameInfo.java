@@ -52,6 +52,10 @@ public class GameInfo {
     public ImageIcon getThumbnail () {
         return new ImageIcon(USER_DIRECTORY + myDb.getGameThumbnail(myGameName));
     }
+    
+    public String getAuthor() {
+        return myDb.getAuthor(myGameName);
+    }
 
     public String getName () {
         return myGameName;
@@ -80,9 +84,7 @@ public class GameInfo {
     }
 
     public double getPrice () {
-        // TODO: return value from db.
-
-        return 42;
+        return myDb.getPrice(myGameName);
     }
 
     private String getSingleplayerGameClassKeyword () {
