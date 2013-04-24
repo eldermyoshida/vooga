@@ -40,7 +40,7 @@ import vooga.rts.util.Location3D;
  * 
  */
 
-public class Manager implements State, IActOn, Observer {
+public class Manager extends Observable implements State, IActOn, Observer {
 
     private List<InteractiveEntity> myEntities;
     private List<InteractiveEntity> mySelectedEntities;
@@ -135,6 +135,8 @@ public class Manager implements State, IActOn, Observer {
     public void add (InteractiveEntity entity) {
         entity.addObserver(GameState.getMap().getNodeMap());
         entity.addObserver(this);
+        entity.setChanged();
+        entity.notifyObservers(entity.getWorldLocation());
         myAddQueue.add(entity);
     }
 
@@ -165,6 +167,11 @@ public class Manager implements State, IActOn, Observer {
         deselectAll();
     }
 
+    private void notifyDeselect () {
+        setChanged();
+        notifyObservers(false);
+    }
+
     /**
      * Deselects the specified entity.
      * 
@@ -181,6 +188,8 @@ public class Manager implements State, IActOn, Observer {
      * Deselects all selected entities.
      */
     public void deselectAll () {
+        notifyDeselect();
+
         if (myMultiSelect) {
             return;
         }
@@ -214,6 +223,7 @@ public class Manager implements State, IActOn, Observer {
      * @return The selected entities
      */
     public List<InteractiveEntity> getSelected () {
+        
         return mySelectedEntities;
     }
 
@@ -233,6 +243,7 @@ public class Manager implements State, IActOn, Observer {
      * @param entity
      */
     public void select (InteractiveEntity entity) {
+        
         deselectAll();
         if (!mySelectedEntities.contains(entity)) {
             if (myEntities.contains(entity)) {
@@ -240,6 +251,12 @@ public class Manager implements State, IActOn, Observer {
                 entity.select(true);
             }
         }
+        notifySelect();
+    }
+    
+    public void notifySelect() {
+        setChanged();
+        notifyObservers(true);
     }
 
     /**
@@ -344,7 +361,8 @@ public class Manager implements State, IActOn, Observer {
             }
 
         }
-        else if (state instanceof Integer) {
+        else
+            if (state instanceof Integer) {
                 int index = findEntityWithHashCode((Integer) state);
                 InteractiveEntity unit = myEntities.get(index);
                 unit.getEntityState().setOccupyState(OccupyState.NOT_OCCUPYING);
