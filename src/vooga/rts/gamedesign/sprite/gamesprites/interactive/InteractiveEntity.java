@@ -20,6 +20,7 @@ import vooga.rts.action.IActOn;
 import vooga.rts.ai.AstarFinder;
 import vooga.rts.ai.Path;
 import vooga.rts.ai.PathFinder;
+import vooga.rts.commands.ClickCommand;
 import vooga.rts.commands.Command;
 import vooga.rts.commands.InformationCommand;
 import vooga.rts.gamedesign.sprite.gamesprites.GameEntity;
@@ -245,7 +246,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
         for (String s : myActions.keySet()) {
             // need to check what type it is...eg it cant be a left click
             String actionType = s.split(" ")[0];
-            if (!actionType.equals("leftclick") && !actionType.equals("rightclick")) { 
+            if (!actionType.equals(ClickCommand.LEFT_CLICK ) && !actionType.equals(ClickCommand.RIGHT_CLICK)) { 
                 infoCommands.add(new InformationCommand(s, myInfos.get(s)));
             }
 
