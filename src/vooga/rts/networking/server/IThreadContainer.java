@@ -49,7 +49,7 @@ public interface IThreadContainer {
      * 
      * @param thread thread that starts it
      */
-    public void startGameServer (ConnectionThread thread);
+    public void requestGameStart (ConnectionThread thread);
 
     /**
      * Requests information about a set number of lobbies
@@ -73,5 +73,11 @@ public interface IThreadContainer {
      * @param lobbyInfo 
      */
     public void updateLobbyInfo (ConnectionThread thread, ExpandedLobbyInfo lobbyInfo);
+    
+    /**
+     * Confirms to the server that the client is ready to start the game.
+     * @param thread
+     */
+    public void clientIsReadyToStart(ConnectionThread thread);
 
 }
