@@ -12,6 +12,8 @@ public class DefaultAttributeManager extends AttributeManager {
         this.addAttribute(new Attribute(AttributeConstants.ATTACK_RADIUS, 200.0));
         this.addAttribute(new Attribute(AttributeConstants.MOVE_SPEED, 10.0));
         this.addAttribute(new Attribute(AttributeConstants.AURA_EFFECT, -10.0));
+        this.addAttribute(new Attribute(AttributeConstants.TILES_WIDE, 1.0));
+        this.addAttribute(new Attribute(AttributeConstants.TILES_TALL, 1.0));
         this.setProjectileFactory(new ProjectileFactory());
 	}
 	

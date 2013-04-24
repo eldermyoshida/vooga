@@ -4,8 +4,11 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.List;
 
+import vooga.towerdefense.action.Action;
 import vooga.towerdefense.controller.Controller;
-import vooga.towerdefense.gameElements.Wave;
+import vooga.towerdefense.model.gamestatistics.Player;
+import vooga.towerdefense.model.levels.Level;
+import vooga.towerdefense.model.rules.Rule;
 import vooga.towerdefense.model.shop.Shop;
 import vooga.towerdefense.model.shop.ShopItem;
 import vooga.towerdefense.model.tiles.Tile;
@@ -20,24 +23,54 @@ import vooga.towerdefense.model.tiles.Tile;
  */
 public class GameModel {
     private Controller myController;
-    private List<Wave> myWaves;
     private GameMap myGameMap;
-    private Wave myCurrentWave;
+    private Player myPlayer;
+    private List<Level> myLevels;
+    private int myCurrentLevel;
+    private List<Rule> myRules;
+    private List<Action> myActiveActions;
     private Shop myShop;
 
-    /**
-     * 
-     * @param controller a controller
-     * @param waves a list of wave objects
-     * @param gameMap a game map
-     * @param shop a shop
-     */
-    public GameModel (Controller controller, List<Wave> waves, GameMap gameMap, Shop shop) {
+/**
+ * 
+ * @param controller
+ * @param levels
+ * @param rules
+ * @param gameMap
+ * @param shop
+ */
+    public GameModel (Controller controller, List<Level> levels, List<Rule> rules, GameMap gameMap, Shop shop) {
         myController = controller;
-        myWaves = waves;
+        myLevels = levels;
         myGameMap = gameMap;
         myShop = shop;
-        myCurrentWave = waves.get(0);
+        myCurrentLevel = 0;
+    }
+    
+    /**
+     * Updates the game during an iteration of the game loop.
+     * 
+     * @param elapsedTime time elapsed since last clock tick
+     */
+    public void update (double elapsedTime) {
+    	updateActions(elapsedTime);
+    	myGameMap.update(elapsedTime);
+    	checkRules();
+    }
+    
+    private void updateActions(double elapsedTime) {
+    	for(Action action : myActiveActions)
+    		action.update(elapsedTime);
+    }
+    
+    /**
+     * Applys each of the current applicable rules in play
+     */
+    private void checkRules() {
+    	for(Rule rule : myRules)
+    		rule.apply();
+    	for(Rule rule : myLevels.get(myCurrentLevel).getRules())
+    		rule.apply();
     }
 
     /**
@@ -51,36 +84,23 @@ public class GameModel {
     }
 
     /**
-     * Updates the game during an iteration of the game loop.
-     * 
-     * @param elapsedTime time elapsed since last clock tick
-     */
-    public void update (double elapsedTime) {
-        updateWave(elapsedTime);
-        myGameMap.update(elapsedTime);
-    }
-
-    /**
-     * 
-     * @param elapsedTime
-     */
-    public void updateWave (double elapsedTime) {
-        myCurrentWave.update(elapsedTime);
-//        myCurrentWave.update(elapsedTime);
-//        if (myCurrentWave.waveCompleted())
-//            startNextWave();
-    }
-
-    /**
      * Jumps to the next wave on the list.
      */
-    public void startNextWave () {
-        if (myWaves.iterator().hasNext()) {
-            myCurrentWave = myWaves.iterator().next();
+    public void startNextLevel () {
+    	if (myLevels.size()>myCurrentLevel) {
+            myCurrentLevel++;
         }
         else {
-            // TODO: add win behavior
+            win();
         }
+    }
+    
+    /**
+     * The function called when the winning conditions are met.
+     */
+    public void win() {
+    	//TODO: implement
+    	System.out.println("YOU WIN");
     }
 
     /**
@@ -118,4 +138,17 @@ public class GameModel {
     public ShopItem getShopItem (Point p) {
         return myShop.getShopItem(p);
     }
+    
+    public Player getPlayer() {
+    	return myPlayer;
+    }
+
+    
+	public void addActions(List<Action> actions) {
+		myActiveActions.addAll(actions);
+	}
+
+	public Level getActiveLevel() {
+		return myLevels.get(myCurrentLevel);
+	}
 }

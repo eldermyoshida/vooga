@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.FindTargets;
 import vooga.towerdefense.action.actionlist.LaunchProjectile;
-import vooga.towerdefense.action.tobetested.ModifyAttributeValue;
 import vooga.towerdefense.attributes.Attribute;
 import vooga.towerdefense.attributes.AttributeConstants;
 import vooga.towerdefense.attributes.AttributeManager;
@@ -46,11 +45,11 @@ public class ExampleAuraTowerFactory extends GameElementFactory {
         GameElement myTower;
         if (putHere != null) {
             myTower = new GameElement(tImage, putHere,
-                                      new Dimension(50, 50), AM, "tower");
+                                      new Dimension(50,50), AM, "tower");
         }
         else {
             myTower = new GameElement(def.getImage(),
-                                      def.getCenter(), def.getSize(), AM, "tower");
+                                      def.getCenter(), new Dimension(50,50), AM, "tower");
         }
 
         ArrayList<Action> actions = new ArrayList<Action>();
@@ -62,6 +61,11 @@ public class ExampleAuraTowerFactory extends GameElementFactory {
         actions.add(findTargets);
 
         myTower.addActions(actions);
+        
+        myTower.getAttributeManager().addAttribute(new Attribute("Tiles wide",2.0));
+        myTower.getAttributeManager().addAttribute(new Attribute("Tiles tall",3.0));
+        
+        
         return myTower;
     }
 

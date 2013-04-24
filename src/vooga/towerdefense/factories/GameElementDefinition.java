@@ -1,6 +1,7 @@
 package vooga.towerdefense.factories;
 
 import java.awt.Dimension;
+
 import vooga.towerdefense.util.Location;
 import vooga.towerdefense.util.Pixmap;
 
@@ -19,6 +20,7 @@ public class GameElementDefinition {
     protected Location myCenter;
     protected Dimension mySize;
     protected String myType;
+    protected String myShape;
 
     public GameElementDefinition () {
 
@@ -38,6 +40,10 @@ public class GameElementDefinition {
     
     public String getType (){
     	return myType;
+    }
+    
+    public String getShape (){
+    	return myShape;
     }
 
     /**

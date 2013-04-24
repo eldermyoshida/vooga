@@ -6,9 +6,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+
 import org.w3c.dom.Element;
+
 import util.XMLTool;
 import vooga.towerdefense.model.tiles.Tile;
+import vooga.towerdefense.model.tiles.factories.DefaultTileFactory;
 import vooga.towerdefense.model.tiles.factories.GrassTileFactory;
 import vooga.towerdefense.model.tiles.factories.PathTileFactory;
 import vooga.towerdefense.model.tiles.factories.TileFactory;
@@ -65,8 +68,9 @@ public class MapLoader {
     
     private void initTileIdMap() {
         myTileIdMap = new HashMap<Integer, TileFactory>();
-        myTileIdMap.put(0, new GrassTileFactory());
-        myTileIdMap.put(1, new PathTileFactory());
+        myTileIdMap.put(0, new DefaultTileFactory());
+        myTileIdMap.put(1, new GrassTileFactory());
+        myTileIdMap.put(2, new PathTileFactory());
     }
     
     public List<GameMap> loadMaps() {
