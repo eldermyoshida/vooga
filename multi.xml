@@ -1,9 +1,14 @@
 <game>
      <view>
-          <MapScreen>
-               <width>400</width>
-               <height>400</height>
+          <ShopScreen>
+               <width>600</width>
+               <height>100</height>
                <location>NORTH</location>
+          </ShopScreen>
+          <MapScreen>
+               <width>500</width>
+               <height>100</height>
+               <location>CENTER</location>
           </MapScreen>
      </view>
      <map/>

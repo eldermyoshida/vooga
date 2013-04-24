@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +49,7 @@ public class MapEditorScreen extends GameEditorScreen {
     private static final String PATH_TILE_NAME = "path_tile.png";
     private static final Location DEFAULT_LOCATION = new Location(0, 0);
     private static final Dimension DEFAULT_SIZE = new Dimension(50, 50);
-    private static final Dimension TILE_PANEL_SIZE = new Dimension(200, 70);
+    private static final Dimension TILE_PANEL_SIZE = new Dimension(300, 70);
     private static final Pixmap GRASS_PIXMAP = new Pixmap(GRASS_TILE_NAME);
     private static final Pixmap PATH_PIXMAP = new Pixmap(PATH_TILE_NAME);
     private static final String USER_DIR = "user.dir";
@@ -143,8 +144,16 @@ public class MapEditorScreen extends GameEditorScreen {
                     int response = myChooser.showOpenDialog(null);
                     if (response == JFileChooser.APPROVE_OPTION) {
                         File file = myChooser.getSelectedFile();
-                        String path = file.getPath().replace("%20", " ");
+                        String path = file.getName();
                         myBackgroundImageName = path;
+//                        try {
+//                            path = file.getCanonicalPath();
+//                            myBackgroundImageName = path;
+//                        }
+//                        catch (IOException e1) {
+//                            e1.printStackTrace();
+//                        }
+//                       // String path = file.getPath().replace("%20", " ");           
                     }
                 }
                 else if (e.getSource().equals(myMapNameButton)) {
@@ -222,6 +231,7 @@ public class MapEditorScreen extends GameEditorScreen {
     private List<Pixmap> makeTileImages (File[] file) {
         List<Pixmap> images = new ArrayList<Pixmap>();
         for (File f : file) {
+            System.out.println("f: " + f);
             images.add(new Pixmap(f.getName()));
             myBackgroundImages.add(f.getName());
         }

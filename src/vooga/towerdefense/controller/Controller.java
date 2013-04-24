@@ -73,7 +73,10 @@ public class Controller {
 	public Controller(String language) {
 
 		List<Wave> waves = new ArrayList<Wave>();
-		String path = "C:\\Users\\JLongley\\workspace\\vooga\\src\\vooga\\towerdefense\\resources\\map_loadfile.xml";
+		String path = "/vooga/towerdefense/resources/map_loadfile.xml";
+		//String path = "C:/Users/Leonard/Desktop/308/vooga/src/vooga/towerdefense/resources/map_loadfile.xml";
+//		String path = "/Users/XuRui/Documents/CS308workspace/vooga/src/vooga/towerdefense/resources/map_loadfile.xml";
+		//String path = "C:\\Users\\JLongley\\workspace\\vooga\\src\\vooga\\towerdefense\\resources\\map_loadfile.xml";
 		MapLoader loader = new MapLoader(path);
 		List<GameMap> maps = loader.loadMaps();
 		GameMap map = maps.get(2);
