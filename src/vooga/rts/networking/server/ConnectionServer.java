@@ -4,8 +4,9 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.logging.Level;
+
+import util.logger.NetworkLogger;
 import vooga.rts.networking.NetworkBundle;
-import vooga.rts.networking.logger.NetworkLogger;
 
 
 /**
@@ -49,12 +50,12 @@ public class ConnectionServer extends Thread {
                 myConnectionID++;
                 thread.start();
                 myMatchServer.addConnection(thread);
-                NetworkLogger.logMessage(Level.INFO, NetworkBundle.getString("NewConnection") +
+                NetworkLogger.getLogger().log(Level.INFO, NetworkBundle.getString("NewConnection") +
                                                        ": " + thread.getID());
                 serverSocket.close();
             }
             catch (IOException e) {
-                NetworkLogger.logMessage(Level.SEVERE, NetworkBundle.getString("ConnectionFailed"));
+                NetworkLogger.getLogger().log(Level.SEVERE, NetworkBundle.getString("ConnectionFailed"));
                 myIsServerAcceptingConnections = false;
             }
         }
@@ -64,7 +65,7 @@ public class ConnectionServer extends Thread {
                 serverSocket.close();
             }
             catch (IOException e) {
-                NetworkLogger.logMessage(Level.SEVERE,
+                NetworkLogger.getLogger().log(Level.SEVERE,
                                          NetworkBundle.getString("ConnectionSocketFailed"));
             }
         }

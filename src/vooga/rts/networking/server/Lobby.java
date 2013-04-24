@@ -1,12 +1,13 @@
 package vooga.rts.networking.server;
 
 import java.util.logging.Level;
+
+import util.logger.NetworkLogger;
 import vooga.rts.networking.NetworkBundle;
 import vooga.rts.networking.communications.ExpandedLobbyInfo;
 import vooga.rts.networking.communications.LobbyInfo;
 import vooga.rts.networking.communications.servermessages.SendLobbyInfoUpdatesMessage;
 import vooga.rts.networking.communications.servermessages.SwitchToLobbyMessage;
-import vooga.rts.networking.logger.NetworkLogger;
 
 
 /**
@@ -40,7 +41,7 @@ public class Lobby extends Room {
         else {
             sendMessageToAllConnections(new SendLobbyInfoUpdatesMessage(lobbyInfo));
         }
-        NetworkLogger.logMessage(Level.INFO,
+        NetworkLogger.getLogger().log(Level.INFO,
                                  NetworkBundle.getString("LobbyLeft") + ": " +
                                          lobbyInfo.getLobbyName());
     }
