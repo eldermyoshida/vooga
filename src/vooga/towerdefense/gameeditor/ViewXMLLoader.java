@@ -6,7 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 import javax.swing.JPanel;
 import org.w3c.dom.Element;
-import vooga.towerdefense.util.XMLTool;
+import util.XMLTool;
 import vooga.towerdefense.controller.Controller;
 import vooga.towerdefense.view.gamescreens.GameElementInformationScreen;
 import vooga.towerdefense.view.gamescreens.GameStatsScreen;
@@ -99,10 +99,10 @@ public class ViewXMLLoader {
             controller.getView().setShopScreen((ShopScreen)screen);
         }
         else if (myXMLTool.getContent(element).equals(GAME_ELEMENTS_SCREEN_TAG)) {
-            controller.getView().setGameElementInfoScreen((GameElementInformationScreen)screen);
+            controller.getView().setGameElementInformationScreen((GameElementInformationScreen)screen);
         }
         else if (myXMLTool.getContent(element).equals(GAME_STATS_SCREEN_TAG)) {
-            controller.getView().setPlayerInfoScreen((GameStatsScreen)screen);
+            controller.getView().setStatsScreen((GameStatsScreen)screen);
         }
         return screen;
     }

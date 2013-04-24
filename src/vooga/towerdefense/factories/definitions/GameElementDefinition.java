@@ -4,10 +4,10 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 
-import vooga.towerdefense.factories.AttributeManagerFactory;
 import vooga.towerdefense.factories.actionfactories.ActionFactory;
-import vooga.towerdefense.util.Location;
-import vooga.towerdefense.util.Pixmap;
+import vooga.towerdefense.factories.attributefactories.AttributeManagerFactory;
+import util.Location;
+import util.Pixmap;
 
 
 /**
@@ -20,20 +20,25 @@ import vooga.towerdefense.util.Pixmap;
  * 
  */
 public abstract class GameElementDefinition {
-    protected Pixmap myImage;
-    protected Location myCenter;
-    protected Dimension mySize;
-    protected String myType;
+    private String myName;
+    private Pixmap myImage;
+    private Location myCenter;
+    private Dimension mySize;
 
     public GameElementDefinition(){
     	
     }
     
-    public GameElementDefinition (Pixmap image, Location center, Dimension size, String type) {
+    public GameElementDefinition (String name, Pixmap image, Location center, Dimension size) {
+        myName = name;
     	myImage = image;
     	mySize = size;
     	myCenter = center;
-    	myType = type;
+    }
+    
+    
+    public String getName() {
+        return myName;
     }
     
     public Pixmap getImage () {
@@ -47,11 +52,6 @@ public abstract class GameElementDefinition {
     public Dimension getSize () {
         return mySize;
     }
-    
-    public String getType (){
-    	return myType;
-    }
-    
     
     public abstract AttributeManagerFactory getAttributeManagerFactory();
     

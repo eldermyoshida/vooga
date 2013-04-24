@@ -16,8 +16,10 @@ import vooga.towerdefense.action.Action;
 import vooga.towerdefense.controller.modes.BuildMode;
 import vooga.towerdefense.controller.modes.ControlMode;
 import vooga.towerdefense.controller.modes.SelectMode;
-import vooga.towerdefense.factories.GameElementFactory;
-import vooga.towerdefense.factories.actionfactories.gameactionfactories.WaveActionFactory;
+import vooga.towerdefense.factories.actionfactories.WaveActionFactory;
+import vooga.towerdefense.factories.definitions.GameElementDefinition;
+import vooga.towerdefense.factories.definitions.UnitDefinition;
+import vooga.towerdefense.factories.elementfactories.GameElementFactory;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.gameElements.Wave;
 import vooga.towerdefense.model.GameLoop;
@@ -32,8 +34,8 @@ import vooga.towerdefense.model.shop.Shop;
 import vooga.towerdefense.model.shop.ShopItem;
 import vooga.towerdefense.model.tiles.Tile;
 import vooga.towerdefense.model.tiles.factories.TileFactory;
-import vooga.towerdefense.util.Location;
-import vooga.towerdefense.util.Pixmap;
+import util.Location;
+import util.Pixmap;
 import vooga.towerdefense.view.TDView;
 
 /**
@@ -97,7 +99,7 @@ public class Controller {
 		List<Level> levels = new ArrayList<Level>();
 		List<Action> actions = new ArrayList<Action>();
 
-		GameElementFactory factory = new GameElementFactory();
+		GameElementFactory factory = new GameElementFactory("Tester", new UnitDefinition());
 		WaveActionFactory waveFactory = new WaveActionFactory(10, 200, factory,
 				map);
 		waveFactory.initialize(map);
@@ -240,7 +242,7 @@ public class Controller {
 			Constructor<? extends GameElement> constructor = myClass
 					.getConstructor(types);
 			Object[] parameters = { item.getPixmap(), item.getCenter(),
-					item.getSize(), item.getActions(), item.getType() };
+					item.getSize(), item.getActions()};
 			Object myNewItem = constructor.newInstance(parameters);
 			return (GameElement) myNewItem;
 		} catch (InvocationTargetException e) {
@@ -405,7 +407,8 @@ public class Controller {
 		String info = "Player info: \n\n";
 		for (String key : playerData.keySet())
 			info += key + ": " + playerData.get(key) + "\n";
-		myView.getPlayerInfoScreen().displayInformation(info);
+		//myView.getPlayerInfoScreen().displayInformation(info);
 	}
 
 }
+

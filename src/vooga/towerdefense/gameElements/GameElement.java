@@ -1,15 +1,19 @@
 package vooga.towerdefense.gameElements;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.TargetedAction;
+import vooga.towerdefense.attributes.Attribute;
+import vooga.towerdefense.attributes.AttributeConstantsEnum;
 import vooga.towerdefense.attributes.AttributeManager;
-import vooga.towerdefense.util.Location;
-import vooga.towerdefense.util.Pixmap;
+import util.Location;
+import util.Pixmap;
 import vooga.towerdefense.util.Sprite;
 
 

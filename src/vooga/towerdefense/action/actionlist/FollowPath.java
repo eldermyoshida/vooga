@@ -1,11 +1,11 @@
 package vooga.towerdefense.action.actionlist;
 
 import vooga.towerdefense.action.Action;
-import vooga.towerdefense.attributes.AttributeConstants;
+import vooga.towerdefense.attributes.AttributeConstantsEnum;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.model.Path;
-import vooga.towerdefense.util.Location;
-import vooga.towerdefense.util.Vector;
+import util.Location;
+import util.Vector;
 
 
 /**
@@ -53,14 +53,14 @@ public class FollowPath extends Action {
                     new Vector(-1 * newDirection.getDirection(), newDirection.getMagnitude());
 
             myInitiator.getAttributeManager()
-                    .getAttribute(AttributeConstants.DIRECTION)
+                    .getAttribute(AttributeConstantsEnum.DIRECTION.toString())
                     .setValue(newDirection.getDirection());
         }
 
         else {
             // TODO: needs to have an reached end of path thing
             myInitiator.getAttributeManager()
-                    .getAttribute(AttributeConstants.MOVE_SPEED).setValue(0);
+                    .getAttribute(AttributeConstantsEnum.MOVE_SPEED.toString()).setValue(0);
         }
 
     }

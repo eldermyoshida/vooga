@@ -1,12 +1,14 @@
 package vooga.towerdefense.factories.actionfactories;
 
 import vooga.towerdefense.action.Action;
-import vooga.towerdefense.action.tobetested.ModifyAttributeValue;
+import vooga.towerdefense.action.actionlist.ModifyAttributeValue;
 import vooga.towerdefense.attributes.Attribute;
 import vooga.towerdefense.gameElements.GameElement;
 
 
 /**
+ * This action factory builds a ModifyAttributeValue action.
+ * 
  * @author Matthew Roy
  * 
  */
@@ -26,7 +28,7 @@ public class ModifyAttributeValueFactory extends ActionFactory {
     }
 
     /**
-     * Overrides from superclasses
+     * Builds a ModifyAttributeValueAction that applies modifies value of targets with corresponding targetID.
      * 
      * @return
      */

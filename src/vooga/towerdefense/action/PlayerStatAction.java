@@ -1,8 +1,8 @@
-package vooga.towerdefense.action.actionlist;
+package vooga.towerdefense.action;
 
-import vooga.towerdefense.action.Action;
 import vooga.towerdefense.attributes.Attribute;
 import vooga.towerdefense.attributes.AttributeConstants;
+import vooga.towerdefense.attributes.AttributeConstantsEnum;
 import vooga.towerdefense.model.Player;
 
 /**
@@ -29,11 +29,7 @@ public class PlayerStatAction extends Action{
 		myScoreChangeReference=scoreChange;
 		myLifeChangeReference=lifeChange;
 		myMoneyChangeReference=moneyChange;
-		
-		
-		
-		
-		
+	
 	}
 
 	@Override

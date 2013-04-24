@@ -7,19 +7,21 @@ import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.actionlist.Move;
 import vooga.towerdefense.action.actionlist.MoveToTarget;
 import vooga.towerdefense.attributes.AttributeConstants;
+import vooga.towerdefense.attributes.AttributeConstantsEnum;
 import vooga.towerdefense.attributes.AttributeManager;
-import vooga.towerdefense.factories.GameElementFactory;
 import vooga.towerdefense.factories.definitions.DefinitionConstants;
 import vooga.towerdefense.factories.definitions.GameElementDefinition;
 import vooga.towerdefense.factories.definitions.ProjectileDefinition;
+import vooga.towerdefense.factories.elementfactories.GameElementFactory;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.model.GameMap;
-import vooga.towerdefense.util.Location;
+import util.Location;
 
 /**
  * 
  * Example projectile that moves towards targets.
  * Actions and attributes are manually defined here.
+ * Used for testing actions only.
  * 
  * @author Matthew Roy
  * @edited Xu Rui
@@ -30,10 +32,12 @@ public class ExampleDosProjectileFactory extends GameElementFactory {
     private GameElementDefinition def;
     private AttributeManager AM;
     
-    public ExampleDosProjectileFactory(){
+    public ExampleDosProjectileFactory(String name, GameElementDefinition definition){
+    	super(name, definition);
         def = new ProjectileDefinition();
         AM = getDefaultAM();
     }
+    
     public GameElement createElement (Location putHere) {
         GameElement myProjectile;
         if (putHere != null) {

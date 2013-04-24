@@ -1,4 +1,4 @@
-package vooga.towerdefense.action.tobetested;
+package vooga.towerdefense.action.actionlist;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -10,6 +10,9 @@ import vooga.towerdefense.gameElements.GameElement;
 
 
 /**
+ * This is a test paint attribute action. 
+ * Not a core game element component, but should be worked on further given more time.
+ * 
  * @author Matthew Roy
  * 
  */
@@ -28,10 +31,9 @@ public class PaintAttributes extends Action {
         myAttribute = toPaint;
     }
 
-    // FIXME: No pen, how would we do this?
     /**
      * Paints health bar or equivalent
-     * 
+     * Needs to figure out a way to paint bar without pen. Currently hardcoded.
      * @param elapseTime
      */
     @Override
