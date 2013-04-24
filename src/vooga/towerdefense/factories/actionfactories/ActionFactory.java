@@ -16,8 +16,8 @@ import vooga.towerdefense.model.GameMap;
  */
 public abstract class ActionFactory {
 
-    protected GameMap myMap;
-    protected List<ActionFactory> myFollowUpActions;
+    private GameMap myMap;
+    private List<ActionFactory> myFollowUpActions;
 
     public ActionFactory () {
         myFollowUpActions = new ArrayList<ActionFactory>();
@@ -30,6 +30,10 @@ public abstract class ActionFactory {
     public void initialize (GameMap map) {
         myMap = map;
     }
+    
+    public GameMap getMap() {
+        return myMap;
+    }
 
     // TODO: Not sure if this is the best way to implement this. There needs to be a way to give in
     // a list of followup actions to the action
@@ -40,6 +44,10 @@ public abstract class ActionFactory {
     // a list of followup actions to the action
     public void addFollowUpActionsFactories (List<ActionFactory> addToList) {
         myFollowUpActions.addAll(addToList);
+    }
+    
+    public List<ActionFactory> getFollowUpActions() {
+        return myFollowUpActions;
     }
 
     /**
