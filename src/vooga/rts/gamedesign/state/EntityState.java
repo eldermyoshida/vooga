@@ -138,9 +138,34 @@ public class EntityState {
 	public boolean canMove() {
 		return myMovementState == MovementState.MOVING;
 	}
-
+	/**
+	 * Returns whether or not the entity can be selected.
+	 * @return true if the entity can be selected and false if it can not be
+	 * selected
+	 */
 	public boolean canSelect() {
 		return myOccupyState == OccupyState.NOT_OCCUPYING;
+	}
+	
+	/**
+	 * Sets the state of an entity to producing.  When an entity produces,
+	 * it does not move attack, move, or occupy.
+	 */
+	public void produce() {
+		myProducingState = ProducingState.PRODUCING;
+		myMovementState = MovementState.STATIONARY;
+		myAttackingState = AttackingState.NOT_ATTACKING;
+		myOccupyState = OccupyState.NOT_OCCUPYING; 
+		myUnitState = UnitState.PRODUCE;
+	}
+	
+	/**
+	 * Returns whether or not an entity can produce other entities
+	 * @return true if the entity can produce other entities and false if it 
+	 * cannot produce other entities 
+	 */
+	public boolean canProduce() {
+		return myProducingState == ProducingState.PRODUCING && myUnitState == UnitState.PRODUCE;
 	}
 
 	/**
@@ -190,7 +215,7 @@ public class EntityState {
 	 * This method is used to update the cooldown of the attacking delayed task.
 	 * This delayed task is used to make the entity delay attacking after moving
 	 * so that the entity does not look "buggy" as it moves and shoots. If the
-	 * entity is moving, its cooldown is reset to the max cooldwow. If the
+	 * entity is moving, its cooldown is reset to the max cooldown. If the
 	 * entity is not moving the cooldown gets decremented.
 	 */
 	public void update(double elapsedTime) {
