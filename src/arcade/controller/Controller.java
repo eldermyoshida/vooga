@@ -288,6 +288,7 @@ public class Controller implements ArcadeInteraction {
     public void playGame (GameInfo gameinfo) {
         myCurrentGameInfo = gameinfo;
         myCurrentGame = gameinfo.getGame(this);
+        myCurrentUserGameData = getUserGameData(myCurrentGame);
         myCurrentGame.run();
     }
 
@@ -338,9 +339,11 @@ public class Controller implements ArcadeInteraction {
      * @param user, game (whatever that identifies the user and the game)
      * @return
      */
+    @Override
     public UserGameData getUserGameData (Game game) {
         if (myCurrentUserGameData == null ){
-            myCurrentUserGameData =  myCurrentGameInfo.getUserGameData(game , myCurrentUser);
+            //myCurrentUserGameData =  myCurrentGameInfo.getUserGameData(game , myCurrentUser);
+            myCurrentUserGameData = myCurrentGame.generateNewProfile();
         }
         return myCurrentUserGameData;
     }
@@ -350,7 +353,7 @@ public class Controller implements ArcadeInteraction {
         int score = getCurrentUserGameData().getLastScore();
         myDb.addNewHighScore(myCurrentUser, myCurrentGameInfo.getName(),  score);
         myView.showEndGameView(score);
-        myDb.storeUserGameData(getCurrentGame(), myCurrentUser, getCurrentUserGameData());
+        //myDb.storeUserGameData(getCurrentGame(), myCurrentUser, getCurrentUserGameData());
         myCurrentGame = null;
         myCurrentGameInfo = null;
        
@@ -358,7 +361,8 @@ public class Controller implements ArcadeInteraction {
 
     
     private UserGameData getCurrentUserGameData(){
-        return myCurrentGameInfo.getUserGameData(myCurrentGame, myCurrentUser);
+        //return myCurrentGameInfo.getUserGameData(myCurrentGame, myCurrentUser);
+        return myCurrentUserGameData;
     }
     
 
