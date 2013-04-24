@@ -13,15 +13,19 @@ import vooga.scroller.util.Sprite;
  */
 public class TrackPlayer implements Movement {
 
-   
-    // TODO: can't leave this here. I am going to ask jay more about this.
-    private static final Vector DEFAULT_SPEED = new Vector(0,100);
     private int mySpeed;
     private int myRadius;
     private Sprite myPredator;
     private Locatable myTarget; 
     
-    
+    /**
+     * Creates a new TrackPlayer object that is tied to a specific sprite.
+     * 
+     * @param predator is the Sprite that is moving towards the target.
+     * @param target is the object that the predator is moving towards.
+     * @param speed is the speed at which the predator stalks the target.
+     * @param radius is the radius at which the predator becomes aware ot the target.
+     */
     public TrackPlayer (Sprite predator, Locatable target, int speed, int radius) {
         super();
         myPredator = predator;
@@ -42,18 +46,16 @@ public class TrackPlayer implements Movement {
      * @return a vector that in direction of the player with the given SPEED
      */
     public void execute () {
-        //out of range
-        // TODO :
-//        if(myTarget == null){
-//            return;
-//        }
-        
         if (Vector.distanceBetween(myPredator.getCenter(), myTarget.getCenter()) < (double) myRadius) {
             myPredator.setVelocity(Vector.angleBetween(myPredator.getCenter(), myTarget.getCenter()), mySpeed); 
         }
     }
 
-
+    /**
+     * Sets the target that this tracking will point to.
+     * 
+     * @param target is the Locatable object that this movement will move towards.
+     */
     public void setTarget (Locatable target) {
         myTarget = target;       
     }

@@ -18,6 +18,9 @@ package vooga.scroller.sprites.movement;
  */
 public interface Movement {
     
+    /**
+     * Executes this movement.
+     */
     public void execute();
 
 }
