@@ -208,6 +208,10 @@ public class GameState extends SubState implements Controller {
                         .<BufferedImage> getFile("images/barracks.jpeg", BufferedImage.class)),
                              new Location3D(300, 300, 0), new Dimension(100, 100), null, 1, 300,
                              InteractiveEntity.DEFAULT_BUILD_TIME);
+        Information garrisonInfo =
+                new Information("Garrison", "This is a garrison that soldiers can occupy", null,
+                               "buttons/marine.png");
+        b.setInfo(garrisonInfo);
         garrison.setOccupyStrategy(new CanBeOccupied());
         garrison.getOccupyStrategy().createOccupyActions(garrison);
         myHumanPlayer.add(garrison);

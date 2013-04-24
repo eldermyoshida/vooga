@@ -25,6 +25,8 @@ import vooga.rts.util.ReflectionHelper;
  *
  */
 public class UpgradeDecoder extends Decoder {
+	public static final String TREE_TAG = "tree";
+	public static final String TREE_NAME_TAG = "treeName";
 	public static final String UPGRADE_CATEGORY_TAG = "type";
 	public static final String CATEGORY_NAME_TAG = "name";
 	public static final String INDIVIDUAL_UPGRADE_TAG = "upgradeNode";
@@ -62,7 +64,18 @@ public class UpgradeDecoder extends Decoder {
 		//TODO: get all upgradeTrees into a same file. Return all results into a map
 		UpgradeTree upgradeTree = new UpgradeTree();
 		
-		NodeList nodeLst = doc.getElementsByTagName(UPGRADE_CATEGORY_TAG);
+		NodeList treeLst = doc.getElementsByTagName(TREE_TAG);
+		for (int i = 0; i < treeLst.getLength(); i++) {
+			Element treeElmnt = (Element) treeLst.item(i);
+			Element treeNameElmnt = (Element) treeElmnt.getElementsByTagName(TREE_NAME_TAG).item(0);
+			NodeList treeName = treeNameElmnt.getChildNodes();
+			createSingleTree(((Node) treeName.item(0)).getNodeValue(), treeElmnt, upgradeTree);
+		}
+	}
+	
+	private void createSingleTree(String treeName, Element treeElmnt, UpgradeTree upgradeTree) {
+		
+		NodeList nodeLst = treeElmnt.getElementsByTagName(UPGRADE_CATEGORY_TAG);
 
 		for (int i = 0; i < nodeLst.getLength(); i++) {
 
@@ -89,7 +102,7 @@ public class UpgradeDecoder extends Decoder {
 		}
 		upgradeTree.updateTreeStatus();
 		//printTree(upgradeTree);
-		myFactory.put("", upgradeTree);
+		myFactory.put(treeName, upgradeTree);
 	}
 	
 	private String loadSingleLine(Element element, String tag) {
