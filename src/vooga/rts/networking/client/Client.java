@@ -79,7 +79,7 @@ public class Client extends Thread implements IClient {
             myOutput.writeObject(message);
         }
         catch (IOException e) {
-            System.out.println(NetworkBundle.BUNDLE.getString("ExceptionServer") + e);
+            System.out.println(NetworkBundle.getString("ExceptionServer") + e);
         }
     }
 

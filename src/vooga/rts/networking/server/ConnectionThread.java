@@ -46,7 +46,7 @@ public class ConnectionThread extends Thread {
             myOutput = new ObjectOutputStream(mySocket.getOutputStream());
         }
         catch (IOException e) {
-            NetworkLogger.logMessage(Level.FINER, NetworkBundle.BUNDLE.getString("InitialConnectionFailed"));
+            NetworkLogger.logMessage(Level.FINER, NetworkBundle.getString("InitialConnectionFailed"));
         }
     }
 
@@ -87,11 +87,11 @@ public class ConnectionThread extends Thread {
             }
         }
         catch (IOException e) {
-            NetworkLogger.logMessage(Level.FINER, NetworkBundle.BUNDLE.getString("ConnectionFailedIO"));
+            NetworkLogger.logMessage(Level.FINER, NetworkBundle.getString("ConnectionFailedIO"));
             close();
         }
         catch (ClassNotFoundException e) {
-            NetworkLogger.logMessage(Level.FINER, NetworkBundle.BUNDLE.getString("ConnectionFailedClassEx"));
+            NetworkLogger.logMessage(Level.FINER, NetworkBundle.getString("ConnectionFailedClassEx"));
             close();
         }
     }
@@ -122,7 +122,7 @@ public class ConnectionThread extends Thread {
             }
         }
         catch (IOException e) {
-            NetworkLogger.logMessage(Level.FINER, NetworkBundle.BUNDLE.getString("ClosingConnectionsFailed"));
+            NetworkLogger.logMessage(Level.FINER, NetworkBundle.getString("ClosingConnectionsFailed"));
         }
     }
 
@@ -137,10 +137,10 @@ public class ConnectionThread extends Thread {
         }
         try {
             myOutput.writeObject(m);
-            NetworkLogger.logMessage(Level.FINEST, "Message sent");
+            NetworkLogger.logMessage(Level.FINEST, NetworkBundle.getString("MessageSent"));
         }
         catch (IOException e) {
-            NetworkLogger.logMessage(Level.FINE, "failed sending message");
+            NetworkLogger.logMessage(Level.FINE, NetworkBundle.getString("failed sending message"));
         }
     }
 
