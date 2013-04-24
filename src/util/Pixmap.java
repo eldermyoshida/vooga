@@ -52,7 +52,7 @@ public class Pixmap implements Paintable {
 	public void setImage(String fileName) {
 		myImage = new ImageIcon(getClass().getResource(
 				RESOURCE_LOCATION + fileName)).getImage();
-		setImageToGrayscale();
+		//setImageToGreyScale();
 		myFileName = fileName;
 	}
 

@@ -24,8 +24,8 @@ import vooga.towerdefense.gameeditor.GameEditorScreen;
 import vooga.towerdefense.model.tiles.GrassTile;
 import vooga.towerdefense.model.tiles.PathTile;
 import vooga.towerdefense.model.tiles.Tile;
-import vooga.towerdefense.util.Location;
-import vooga.towerdefense.util.Pixmap;
+import util.Location;
+import util.Pixmap;
 
 
 /**

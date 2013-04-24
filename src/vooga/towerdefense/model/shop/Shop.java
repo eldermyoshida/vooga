@@ -8,7 +8,7 @@ import java.util.List;
 import vooga.towerdefense.factories.definitions.DefinitionConstants;
 import vooga.towerdefense.factories.elementfactories.GameElementFactory;
 import vooga.towerdefense.model.GameMap;
-import vooga.towerdefense.util.Location;
+import util.Location;
 
 /**
  * The Shop is a container for a list of ShopItems that can be purchased by the
