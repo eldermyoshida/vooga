@@ -38,7 +38,7 @@ public class CollisionManager {
                 GameObject o2 = myObjects.get(j);
                 if (!(o1 instanceof MapObject || o2 instanceof MapObject)){
                 	Rectangle o1Rect = o1.getCurrentState().getCurrentRectangle();
-                	Rectangle o2Rect = o1.getCurrentState().getCurrentRectangle();
+                	Rectangle o2Rect = o2.getCurrentState().getCurrentRectangle();
 	                if (myCollisionDetector.quickDetectCollision(o1Rect, o2Rect)) {
 	                    handleCollisions(o1, o2);
 	                }

@@ -43,7 +43,7 @@ public class MouseClickLoader extends ObjectLoader {
                 }
                 if (j == 0) {
                     myMouseClick.defineDefaultState(Statename);
-                    myMouseClick.setCurrentState(Statename);
+                	myMouseClick.setToDefaultState();
                 }
             }
         }
