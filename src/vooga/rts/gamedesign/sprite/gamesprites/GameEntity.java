@@ -186,7 +186,6 @@ public class GameEntity extends GameSprite {
         }
         else {
             setVelocity(v.getAngle(), getSpeed());
-            System.out.println(getSpeed());
             myEntityState.setMovementState(MovementState.MOVING);
         }
     }

@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Observer;
-import vooga.rts.action.InteractiveAction;
 import vooga.rts.commands.Command;
 import vooga.rts.commands.DragCommand;
 import vooga.rts.controller.Controller;
@@ -22,10 +21,8 @@ import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Garrison;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Soldier;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Worker;
-import vooga.rts.gamedesign.state.DetectableState;
 import vooga.rts.gamedesign.strategy.production.CanProduce;
 import vooga.rts.gamedesign.weapon.Weapon;
-import vooga.rts.gui.menus.GameMenu;
 import vooga.rts.map.GameMap;
 import vooga.rts.player.HumanPlayer;
 import vooga.rts.player.Player;
@@ -34,6 +31,7 @@ import vooga.rts.resourcemanager.ResourceManager;
 import vooga.rts.util.Camera;
 import vooga.rts.util.DelayedTask;
 import vooga.rts.util.FrameCounter;
+import vooga.rts.util.Information;
 import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
@@ -41,8 +39,8 @@ import vooga.rts.util.PointTester;
 
 
 /**
- * The main model of the game. This keeps track of all the players, the humanplayer
- * associated with the local game, plus the map.
+ * The main model of the game. This keeps track of all the players, the
+ * humanplayer associated with the local game, plus the map.
  * 
  * @author Challen Herzberg-Brovold
  * 
@@ -71,7 +69,7 @@ public class GameState extends SubState implements Controller {
         myMap = new GameMap(new Dimension(4000, 2000));
         // myMap = new GameMap(8, new Dimension(512, 512));
         pt = new PointTester();
-        myFrames = new FrameCounter(new Location(100, 20));        
+        myFrames = new FrameCounter(new Location(100, 20));
         setupGame();
     }
 
@@ -92,13 +90,10 @@ public class GameState extends SubState implements Controller {
     public void paint (Graphics2D pen) {
         pen.setBackground(Color.BLACK);
         myMap.paint(pen);
-        
-        
-        // myHumanPlayer.paint(pen);
+        myHumanPlayer.paint(pen);
 
         if (myDrag != null) {
             pen.draw(myDrag);
-            // pen.draw(worldShape);
         }
         Camera.instance().paint(pen);
         myFrames.paint(pen);
@@ -157,53 +152,68 @@ public class GameState extends SubState implements Controller {
 
     public void setupGame () {
         addPlayer(1);
+
         Unit worker =
-                new Worker(new Pixmap("scv.gif"), new Location3D(100, 100, 0),
-                           new Dimension(75, 75), null, 1, 200, 40, 5);
+                new Worker(new Pixmap(ResourceManager.getInstance()
+                        .<BufferedImage> getFile("images/scv.gif", BufferedImage.class)),
+                           new Location3D(100, 100, 0), new Dimension(75, 75), null, 1, 200, 40, 5);
+        Information i1 =
+                new Information("Worker",
+                                "I am a worker. I am sent down from Denethor, son of Ecthelion ",
+                                null, "images/scv.png");
+        worker.setInfo(i1);
         myHumanPlayer.add(worker);
         Unit a = new Soldier();
         Projectile proj =
-                new Projectile(new Pixmap("bullet.png"), a.getWorldLocation(),
-                               new Dimension(30, 30), 2, 10, 6);
+                new Projectile(new Pixmap(ResourceManager.getInstance()
+                        .<BufferedImage> getFile("images/bullet.png", BufferedImage.class)),
+                               a.getWorldLocation(), new Dimension(30, 30), 2, 10, 6);
         a.getAttackStrategy().addWeapons(new Weapon(proj, 400, a.getWorldLocation(), 1));
+        Information i2 =
+                new Information("Marine", "I am a soldier of Nunu.", null, "buttons/marine.png");
+
+        a.setInfo(i2);
         myHumanPlayer.add(a);
         addPlayer(2);
-        Unit c = new Soldier(new Location3D(1000, 500, 0), 2);
+
+        Unit c = new Soldier(new Location3D(1200, 500, 0), 2);
         c.setHealth(150);
         // myHumanPlayer.add(c);
         myPlayers.get(1).add(c);
+
         Building b =
-                new Building(new Pixmap("factory.png"), new Location3D(700, 700, 0),
-                             new Dimension(100, 100), null, 1, 300,
+                new Building(new Pixmap(ResourceManager.getInstance()
+                        .<BufferedImage> getFile("images/factory.png", BufferedImage.class)),
+                             new Location3D(700, 700, 0), new Dimension(100, 100), null, 1, 300,
                              InteractiveEntity.DEFAULT_BUILD_TIME);
         b.setProductionStrategy(new CanProduce());
         ((CanProduce) b.getProductionStrategy()).addProducable(new Soldier());
         ((CanProduce) b.getProductionStrategy()).createProductionActions(b);
         ((CanProduce) b.getProductionStrategy()).setRallyPoint(new Location3D(600, 500, 0));
+        Information i =
+                new Information("Barracks", "This is a barracks that can make awesome pies", null,
+                                "buttons/marine.png");
+        b.setInfo(i);
         myHumanPlayer.add(b);
 
+        for (int j = 0; j < 10; j++) {
+            getMap().getResources().add(new Resource(new Pixmap("mineral.gif"),
+                                                     new Location3D(200 + j * 15, 300 + j * 10, 0),
+                                                     new Dimension(50, 50), 0, 200, "mineral"));
+        }
         Garrison garrison =
-                new Garrison(new Pixmap("barracks.jpeg"), new Location3D(300, 300, 0),
-                             new Dimension(100, 100), null, 1, 300,
+                new Garrison(new Pixmap(ResourceManager.getInstance()
+                        .<BufferedImage> getFile("images/barracks.jpeg", BufferedImage.class)),
+                             new Location3D(300, 300, 0), new Dimension(100, 100), null, 1, 300,
                              InteractiveEntity.DEFAULT_BUILD_TIME);
         garrison.getOccupyStrategy().addValidClassType(new Soldier());
         garrison.getOccupyStrategy().createOccupyActions(garrison);
         myHumanPlayer.add(garrison);
-
-        for (int i = 0; i < 10; i++) {
-            getMap().getResources().add(
-                new Resource(new Pixmap("mineral.gif"), new Location3D(200 + i*15, 300 + i*10, 0),
-                             new Dimension(50, 50), 0, 200, "mineral")
-                );
-        }
-
-        
-        
         final Building f = b;
         test = new DelayedTask(3, new Runnable() {
             @Override
             public void run () {
-                f.getAction((new Command("I am a pony"))).apply();
+                f.getAction((new Command("make Marine"))).apply();
                 test.restart();
             }
         });
@@ -226,16 +236,16 @@ public class GameState extends SubState implements Controller {
         List<InteractiveEntity> p2 = myTeams.get(2).getUnits();
         for (InteractiveEntity u1 : p1) {
             /*
-            if (u1 instanceof Worker && r != null) {
-                //((Worker) u1).gather(r);
-            }
-            */
+             * if (u1 instanceof Worker && r != null) {
+             * //((Worker) u1).gather(r);
+             * }
+             */
             for (InteractiveEntity u2 : p2) {
                 u2.getAttacked(u1);
                 u1.getAttacked(u2);
             }
         }
-        //r.update(elapsedTime);
+        // r.update(elapsedTime);
         // }
         test.update(elapsedTime);
         // now even yuckier

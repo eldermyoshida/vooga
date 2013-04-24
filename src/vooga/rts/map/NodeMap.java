@@ -223,7 +223,6 @@ public class NodeMap implements Observer {
 
         // if it's updating with its new location
         if (arg1 instanceof Location3D) {
-            System.out.println("Updating poition");
             // hasn't moved outside of the current node
             if (cur.contains(item.getWorldLocation())) {
                 return;
@@ -235,7 +234,6 @@ public class NodeMap implements Observer {
                     addToNode(item, newNode);
                 }
             }
-
         }
         if (item instanceof InteractiveEntity) {
             InteractiveEntity ie = (InteractiveEntity) item;
