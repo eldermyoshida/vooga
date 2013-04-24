@@ -1,4 +1,59 @@
 <?xml version="1.0" encoding="windows-1252" standalone="no"?>
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
+<record>
+  <date>2013-04-24T00:25:52</date>
+  <millis>1366777552056</millis>
+  <sequence>0</sequence>
+  <logger>arcade.database.Table</logger>
+  <level>INFO</level>
+  <class>arcade.database.DatabaseConnection</class>
+  <method>logError</method>
+  <thread>10</thread>
+  <message>Error getting all comments for this game in CommentTable.java @ Line 72</message>
+</record>
+<record>
+  <date>2013-04-24T00:25:52</date>
+  <millis>1366777552080</millis>
+  <sequence>1</sequence>
+  <logger>arcade.database.Table</logger>
+  <level>INFO</level>
+  <class>arcade.database.DatabaseConnection</class>
+  <method>logError</method>
+  <thread>10</thread>
+  <message>Error getting all comments for this game in CommentTable.java @ Line 72</message>
+</record>
+<record>
+  <date>2013-04-24T00:25:52</date>
+  <millis>1366777552099</millis>
+  <sequence>2</sequence>
+  <logger>arcade.database.Table</logger>
+  <level>INFO</level>
+  <class>arcade.database.DatabaseConnection</class>
+  <method>logError</method>
+  <thread>10</thread>
+  <message>Error getting all comments for this game in CommentTable.java @ Line 72</message>
+</record>
+<record>
+  <date>2013-04-24T00:25:52</date>
+  <millis>1366777552113</millis>
+  <sequence>3</sequence>
+  <logger>arcade.database.Table</logger>
+  <level>INFO</level>
+  <class>arcade.database.DatabaseConnection</class>
+  <method>logError</method>
+  <thread>10</thread>
+  <message>Error getting all comments for this game in CommentTable.java @ Line 72</message>
+</record>
+<record>
+  <date>2013-04-24T00:25:52</date>
+  <millis>1366777552129</millis>
+  <sequence>4</sequence>
+  <logger>arcade.database.Table</logger>
+  <level>INFO</level>
+  <class>arcade.database.DatabaseConnection</class>
+  <method>logError</method>
+  <thread>10</thread>
+  <message>Error getting all comments for this game in CommentTable.java @ Line 72</message>
+</record>
 </log>
