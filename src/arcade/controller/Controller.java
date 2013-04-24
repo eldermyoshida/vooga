@@ -294,6 +294,7 @@ public class Controller implements ArcadeInteraction {
      * 
      * @param gameName
      * @param genre
+     * @throws IOException 
      */
     /*
      * public void publish(GameSpecificData data){
@@ -313,7 +314,7 @@ public class Controller implements ArcadeInteraction {
                          boolean multiplayer,
                          String thumbnailPath,
                          String adScreenPath,
-                         String description) {
+                         String description) throws IOException {
         // print
 //        System.out.println(extendsGame);
 //        System.out.println(extendsMultiplayerGame);
@@ -348,6 +349,7 @@ public class Controller implements ArcadeInteraction {
             Class<?> paymentManagerClass =
                     Class.forName(PAYMENT_MANAGER_LOCATION + transactionType);
             myPaymentManager = (PaymentManager) paymentManagerClass.newInstance();
+            recordGamePurchaseHistory(myCurrentUser, game.getName());
         }
         catch (ClassNotFoundException e) {
             throw new InvalidPaymentException();
@@ -357,10 +359,13 @@ public class Controller implements ArcadeInteraction {
         }
         catch (IllegalAccessException e) {
             throw new InvalidPaymentException();
-        }
+        } catch (IOException e) {
+			throw new InvalidPaymentException();
+		}
 
         myPaymentManager.doTransaction(paymentInfo);
         myPurchasedGames.add(game);
+        
     }
 
     
