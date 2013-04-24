@@ -51,7 +51,7 @@ public class GameEditorController extends JFrame {
     private static final Dimension SIZE = new Dimension(700, 700);
     private static final String UNIT_INDICATOR = "Unit";
     private static final String RESOURCE_PATH = "/src/vooga/towerdefese/resources/";
-    public static final String CLASS_INDICATOR_STRING = ".class";
+    private static final String CLASS_INDICATOR_STRING = ".class";
     private Dimension mySize;
     private Dimension myMapSize;
     private List<String> myCreatedUnits;
@@ -67,7 +67,7 @@ public class GameEditorController extends JFrame {
     /**
      * Constructor.
      * 
-     * @param size
+     * @param size The preferred size of this game editor.
      */
     public GameEditorController(Dimension size) {
         this.setTitle(TITLE_KEYWORD);
@@ -81,8 +81,7 @@ public class GameEditorController extends JFrame {
     }
     
     /**
-     * starts a new XML file & initializes the parents of
-     * 
+     * Starts a new XML file & initializes the main parent elements
      */
     private void initializeXML () {
         myXMLDoc = new XMLTool();
@@ -99,32 +98,38 @@ public class GameEditorController extends JFrame {
     }
     
     /**
-     * starts the visual for the game editor.
+     * Starts the visual for the game editor.
      */
     private void initializeGUI () {
         StartUpScreen screen = new StartUpScreen(SIZE, this);
         getContentPane().add(screen, BorderLayout.CENTER);
-        
         pack();
         setVisible(true);
     }
     
     /**
-     * saves the xml file.
+     * Saves the XML file.
      */
     public void saveFile () {
         myXMLDoc.writeFile(RESOURCE_PATH + myName + XML_EXTENSION);
     }
     
     /**
-     * sets the name of this game.
+     * Sets the name of this game.
+     * 
+     * @param name The desired name of the game.
      */
     public void setNameOfGame (String name) {
         myName = name;
     }
     
     /**
-     * adds a level to the XML file.
+     * Creates a new level in the game and adds it to the XML file.
+     * 
+     * @param name The name of the level
+     * @param rules A map of rules, which controls different instructions for updating scores and
+     *        determining other game states
+     * @param actions Any action present in the game.
      */
     public void addLevelToGame (String name, Map<String, String> rules, String actions) {
         Element thisLevel = myXMLDoc.makeElement(name);
@@ -137,7 +142,14 @@ public class GameEditorController extends JFrame {
     }
     
     /**
-     * adds a map to the XML file.
+     * Adds a map to the XML file.
+     * 
+     * @param name The name of the map, used as a tag. This name will be formatted.
+     * @param image A string URL to the background image
+     * @param width The width determined by the user
+     * @param height The height of the map determined by the user
+     * @param tile Size The size of a tile
+     * @param map The grid
      */
     public void addMapToGame (String name,
                               String image,
@@ -156,6 +168,15 @@ public class GameEditorController extends JFrame {
         myXMLDoc.writeFile(RESOURCE_PATH + "tdmap1.xml");
     }
     
+    /**
+     * Creates a new game element based on user input and adds it to the game.
+     * 
+     * @param type Determines the type of element
+     * @param name is the game element's name
+     * @param path is the image path
+     * @param attributes is the map of attribute name to value
+     * @param actions is the map of action name to value
+     */
     public void addGameElementToGame (String type,
                                       String name,
                                       String path,
@@ -168,7 +189,7 @@ public class GameEditorController extends JFrame {
     }
     
     /**
-     * adds a game element to the XML file.
+     * Adds a game element to the XML file.
      * 
      * @param parent is the parent element
      * @param name is the game element's name
@@ -193,7 +214,7 @@ public class GameEditorController extends JFrame {
     }
     
     /**
-     * gets the list of already created units.
+     * Gets the list of already created units.
      * 
      * @return a list of unit names as strings.
      */
@@ -201,9 +222,12 @@ public class GameEditorController extends JFrame {
         return myCreatedUnits;
     }
     
-    /**
-     * adds a view to the XML file.
-     */
+/**
+ * 
+ * @param dimension
+ * @param viewInfo
+ * @param map
+ */
     public void addViewToGame (String dimension,
                                List<String> viewInfo,
                                Map<String, List<String>> map) {
@@ -327,7 +351,7 @@ public class GameEditorController extends JFrame {
         List<Class> actionClasses = getClassesInPackage(packageName);
         for (Class actionClass : actionClasses) {
             String action = actionClass.getSimpleName().toString();
-            action = action.substring(0, action.length() - "Factory".length());
+            action = action.substring(0, action.length() - FACTORY_INDICATOR.length());
             actions.add(action);
         }
         return actions;
