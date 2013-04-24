@@ -1,29 +1,28 @@
 <game>
-     <view/>
+     <view>
+          <MapScreen>
+               <width>400</width>
+               <height>400</height>
+               <location>NORTH</location>
+          </MapScreen>
+     </view>
      <map/>
      <gameelement>
-          <RedUnit>
-               <image>imagepath</image>
+          <redunit>
+               <image>11</image>
+               <type>Unit</type>
                <attributes>
-                    <HEALTH>0</HEALTH>
+                    <NAME>1</NAME>
                </attributes>
                <actions>
                     <FindTargets>
-                         <parameter>12</parameter>
-                         <ModifyAttributeValue>
-                              <parameter>as</parameter>
-                              <parameter>as</parameter>
-                              <Move>
-                                   <parameter>a</parameter>
-                              </Move>
-                         </ModifyAttributeValue>
+                         <parameter>11</parameter>
                     </FindTargets>
-                    <ModifyAttributeValue>
-                         <parameter>12</parameter>
-                         <parameter>12</parameter>
-                    </ModifyAttributeValue>
+                    <Move>
+                         <parameter>11</parameter>
+                    </Move>
                </actions>
-          </RedUnit>
+          </redunit>
      </gameelement>
-     <wave/>
+     <level/>
 </game>

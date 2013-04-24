@@ -170,7 +170,12 @@ public abstract class ElementWithActionEditorScreen extends GameEditorScreen {
             int index = fullAttributes.indexOf("\n");
             String attribute = fullAttributes.substring(0, index);
             String[] nameAndValue = attribute.split(" ");
-            attributeMap.put(nameAndValue[0], nameAndValue[1]);
+            if (nameAndValue.length != 1) {
+                attributeMap.put(nameAndValue[0], nameAndValue[1]);
+            }
+            else {
+                attributeMap.put(nameAndValue[0], "");
+            }
             fullAttributes = fullAttributes.substring(index+1);
         }
         return attributeMap;
@@ -310,7 +315,7 @@ public abstract class ElementWithActionEditorScreen extends GameEditorScreen {
             myActionsSelected.setText(myActionsSelected.getText().substring(0, myActionsSelected.getText().indexOf(parentAction))
                                       + parentAction + "\n" + childAction
                                       + myActionsSelected.getText().substring(myActionsSelected.getText().indexOf(parentAction) 
-                                                                              + parentAction.length()+1, myActionsSelected.getText().length()));
+                                      + parentAction.length()+1, myActionsSelected.getText().length()));
             
         }
         else if (e.getSource().equals(myDeleteAttributeButton)) {

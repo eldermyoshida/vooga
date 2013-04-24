@@ -83,7 +83,7 @@ public class ActionXMLWriter {
         String actionString = dataArray[myIndex++];
         String actionName = getActionName(actionString);
         List<String> params = getParams(actionString);
-
+        
         Element currentElement = myXMLTool.makeElement(actionName);
 
         for (String param : params) {
