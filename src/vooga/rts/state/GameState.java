@@ -105,9 +105,7 @@ public class GameState extends SubState implements Controller {
         // If it's a drag, we need to do some extra checking.
         if (command instanceof DragCommand) {
             myDrag = ((DragCommand) command).getScreenRectangle();
-            if (myDrag == null) {
-                return;
-            }
+            if (myDrag == null) { return; }
         }
         sendCommand(command);
     }
@@ -160,7 +158,7 @@ public class GameState extends SubState implements Controller {
         Information i1 =
                 new Information("Worker",
                                 "I am a worker. I am sent down from Denethor, son of Ecthelion ",
-                                null, "images/scv.png");
+                                null, "buttons/firebat.png");
         worker.setInfo(i1);
         myHumanPlayer.add(worker);
         Unit a = new Soldier();
@@ -188,6 +186,7 @@ public class GameState extends SubState implements Controller {
                              InteractiveEntity.DEFAULT_BUILD_TIME);
         b.setProductionStrategy(new CanProduce());
         ((CanProduce) b.getProductionStrategy()).addProducable(new Soldier());
+        ((CanProduce) b.getProductionStrategy()).addProducable(worker);
         ((CanProduce) b.getProductionStrategy()).createProductionActions(b);
         ((CanProduce) b.getProductionStrategy()).setRallyPoint(new Location3D(600, 800, 0));
         Information i =
@@ -210,12 +209,10 @@ public class GameState extends SubState implements Controller {
         garrison.getOccupyStrategy().createOccupyActions(garrison);
         myHumanPlayer.add(garrison);
         final Building f = b;
-        myTasks.add(new DelayedTask(2, new Runnable() {
-            @Override
-            public void run () {
-                f.getAction((new Command("make Marine"))).apply();
-            }
-        }, true));
+
+        f.getAction((new Command("make Marine"))).apply();
+
+        f.getAction((new Command("make Worker"))).apply();
 
         final Garrison testGarrison = garrison;
         occupyPukingTest = new DelayedTask(10, new Runnable() {
@@ -229,29 +226,32 @@ public class GameState extends SubState implements Controller {
             }
         });
 
-        b =
-                new Building(new Pixmap(ResourceManager.getInstance()
-                        .<BufferedImage> getFile("images/factory.png", BufferedImage.class)),
-                             new Location3D(100, 500, 0), new Dimension(100, 100), null, 1, 300,
-                             InteractiveEntity.DEFAULT_BUILD_TIME);
-        b.setProductionStrategy(new CanProduce());
-        ((CanProduce) b.getProductionStrategy()).addProducable(new Soldier());
-        ((CanProduce) b.getProductionStrategy()).createProductionActions(b);
-        ((CanProduce) b.getProductionStrategy()).setRallyPoint(new Location3D(200, 600, 0));
-        i =
-                new Information("Barracks", "This is a barracks that can make awesome pies", null,
-                                "buttons/marine.png");
-        b.setInfo(i);
-
-        final Building g = b;
-        myTasks.add(new DelayedTask(2, new Runnable() {
-            @Override
-            public void run () {
-                g.getAction((new Command("make Marine"))).apply();
-            }
-        }, true));
-
-        myPlayers.get(1).add(b);
+        /*
+         * b =
+         * new Building(new Pixmap(ResourceManager.getInstance()
+         * .<BufferedImage> getFile("images/factory.png", BufferedImage.class)),
+         * new Location3D(100, 500, 0), new Dimension(100, 100), null, 1, 300,
+         * InteractiveEntity.DEFAULT_BUILD_TIME);
+         * b.setProductionStrategy(new CanProduce());
+         * ((CanProduce) b.getProductionStrategy()).addProducable(new Soldier());
+         * ((CanProduce) b.getProductionStrategy()).createProductionActions(b);
+         * ((CanProduce) b.getProductionStrategy()).setRallyPoint(new Location3D(200, 600, 0));
+         * i =
+         * new Information("Barracks", "This is a barracks that can make awesome pies", null,
+         * "buttons/marine.png");
+         * b.setInfo(i);
+         * 
+         * final Building g = b;
+         * myTasks.add(new DelayedTask(2, new Runnable() {
+         * 
+         * @Override
+         * public void run () {
+         * g.getAction((new Command("make Marine"))).apply();
+         * }
+         * }, true));
+         * 
+         * myPlayers.get(1).add(b);
+         */
     }
 
     private void yuckyUnitUpdate (double elapsedTime) {

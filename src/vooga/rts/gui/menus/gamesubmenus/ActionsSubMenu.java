@@ -68,8 +68,8 @@ public class ActionsSubMenu extends SubMenu {
                                  (ACTION_X_PADDING * (i + 1)),
                                  (S_Y - ACTION_MENU_HEIGHT) + ((ACTION_Y_PADDING) * 2) +
                                          ACTION_BUTTON_DIMENSION.getHeight());
-            System.out.println("Location: " + myActionButtonLocations[i].getX() + " " +
-                               myActionButtonLocations[l].getY());
+            //System.out.println("Location: " + myActionButtonLocations[i].getX() + " " +
+                               //myActionButtonLocations[l].getY());
         }
     }
 
