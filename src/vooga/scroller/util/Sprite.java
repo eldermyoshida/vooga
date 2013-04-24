@@ -62,6 +62,12 @@ public class Sprite {
         resetBounds();
     }
     
+    /**
+     * Creates and returns a copy of this Sprite. Used for instantiating copies for use
+     * with the LevelEditor.
+     * 
+     * @return a copy of a sprite
+     */
     public Sprite copy(){
         try {
             return this.getClass().newInstance();
