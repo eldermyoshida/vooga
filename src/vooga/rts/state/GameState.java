@@ -155,8 +155,7 @@ public class GameState extends SubState implements Controller {
         addPlayer(1);
 
         Unit worker =
-                new Worker(new Pixmap(ResourceManager.getInstance()
-                        .<BufferedImage> getFile("images/scv.gif", BufferedImage.class)),
+                new Worker(new Pixmap("images/scv.gif"),
                            new Location3D(100, 100, 0), new Dimension(75, 75), null, 1, 200, 40, 5);
         Information i1 =
                 new Information("Worker",
@@ -166,8 +165,7 @@ public class GameState extends SubState implements Controller {
         myHumanPlayer.add(worker);
         Unit a = new Soldier();
         Projectile proj =
-                new Projectile(new Pixmap(ResourceManager.getInstance()
-                        .<BufferedImage> getFile("images/bullet.png", BufferedImage.class)),
+                new Projectile(new Pixmap("images/bullet.png"),
                                a.getWorldLocation(), new Dimension(30, 30), 2, 10, 6);
         a.getAttackStrategy().addWeapons(new Weapon(proj, 400, a.getWorldLocation(), 1));
         Information i2 =
