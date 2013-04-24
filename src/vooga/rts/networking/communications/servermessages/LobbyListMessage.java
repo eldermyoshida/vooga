@@ -2,6 +2,7 @@ package vooga.rts.networking.communications.servermessages;
 
 import vooga.rts.networking.client.IClientModel;
 import vooga.rts.networking.communications.LobbyInfo;
+import vooga.rts.networking.communications.Message;
 
 
 /**
@@ -10,13 +11,14 @@ import vooga.rts.networking.communications.LobbyInfo;
  * @author David Winegar
  * 
  */
-public class LobbyListMessage extends ServerInfoMessage {
+public class LobbyListMessage extends Message implements ServerInfoMessage {
 
     private static final long serialVersionUID = -1875703902581296257L;
     private LobbyInfo[] myLobbies;
 
     /**
      * Instantiates the message with the given list.
+     * 
      * @param lobbyList list to send
      */
     public LobbyListMessage (LobbyInfo[] lobbyList) {
