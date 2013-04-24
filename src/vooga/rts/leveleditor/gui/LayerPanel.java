@@ -70,6 +70,7 @@ public class LayerPanel extends JPanel {
      */
     public void clear() {
         myLayerVector.clear();
+        myLayerVector.add("Layer 0");
         myLayers.setListData(myLayerVector);
     }
 

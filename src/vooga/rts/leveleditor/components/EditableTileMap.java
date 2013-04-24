@@ -27,14 +27,21 @@ public class EditableTileMap extends TileMap {
     }    
     
     public void addTile(int i, int j, int id, String name , String imageName, Pixmap image) {
-        setTile(i,j,new EditableTile(image,i,j,getMyTileSize(),id,name,imageName,false));
+        addTileType(id, (BufferedImage)image.getMyImage());
+        createTile(id, i, j);
+//          setTile(i,j,new EditableTile(image,i,j,getMyTileSize(),id,name,imageName,false));
+//          System.out.println(i);
+//          System.out.println(j);
     }
     
 
     public void addTile(Location3D loc, int id, String name, String imageName, Pixmap image) {
-        int i = (int)(loc.getX()/this.getMyTileSize().getWidth() * 2);
-        int j = (int)(loc.getY()/this.getMyTileSize().getHeight() * 2);
+        int i = (int)(loc.getX()/this.getMyTileSize().getWidth()*2 );
+        int j = (int)(loc.getY()/this.getMyTileSize().getHeight()*2 );
         addTile(i,j,id,name,imageName,image);
+//        System.out.println("Location3d: " + loc.getX());
+//        System.out.println("Location3d: " + loc.getY());
+        
        
     
     }
