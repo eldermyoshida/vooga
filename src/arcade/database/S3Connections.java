@@ -35,7 +35,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.Random;
 
 /**
  * This sample demonstrates how to make basic requests to Amazon S3 using
@@ -295,8 +294,7 @@ public class S3Connections {
      * @param key (name) of file
      */
     public String downloadObjectToFile(String key) {
-        Random random = new Random();
-        String pathOfImage = SRC + RELATIVE_PATH + TEMPORARY_PNG + random.nextInt() + ".png";
+        String pathOfImage = SRC + RELATIVE_PATH + TEMPORARY_PNG + key + ".png";
         File tempFile = new File(USER_DIR + pathOfImage);
         @SuppressWarnings("unused")
         ObjectMetadata object = myS3Instance.getObject(
