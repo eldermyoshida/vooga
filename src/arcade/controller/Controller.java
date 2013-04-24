@@ -335,14 +335,6 @@ public class Controller implements ArcadeInteraction {
         return myCurrentUserGameData;
     }
 
-
-
-    public double getAverageRating (String gameName) {
-        return myDb.getAverageRating(gameName);
-    }
-
- 
-
     @Override
     public void killGame () {
         int score = getCurrentUserGameData().getLastScore();

@@ -10,10 +10,7 @@ public class Main {
     
     public static void main(String[] args) throws SQLException {
         
-        Database myDatabase = new Database();
-        
-        System.out.println(myDatabase.getAverageRating("test"));
-        
+        Database myDatabase = new Database();        
         
 //        myDatabase.createUser("natx13", "password", "Natalia", "Carvalho", "04/26/1991");
 //        myDatabase.createUser("kayzooo", "mypassword", "Kevin", "Zhu", "11/12/1990");
