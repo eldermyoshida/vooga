@@ -54,11 +54,11 @@ public class GameElementFactory {
      * @param attrManager
      */
     
-    public GameElementFactory(String name,Pixmap image, Location location, Dimension size, String type, AttributeManager attrManager){
+    public GameElementFactory(String name,Pixmap image, Location location, String type, AttributeManager attrManager){
     	myName=name;
     	myImage=image;
     	myCenter=location;
-    	mySize=size;
+    	mySize=new Dimension(image.getWidth(),image.getHeight());
     	myType=type;
     	myAttributeManager=attrManager;
     	
@@ -74,7 +74,10 @@ public class GameElementFactory {
     public GameElementFactory(GameElementDefinition definition) {
         this(definition.get(AttributeConstants.NAME), definition);
     }*/
-    
+    /**
+     * must be called before create element
+     * @param map
+     */
     public void initialize(GameMap map) {
         myMap = map;
     }
