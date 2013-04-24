@@ -9,7 +9,6 @@ import java.util.ResourceBundle;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import vooga.rts.leveleditor.components.Resource;
-import vooga.rts.leveleditor.components.Tile;
 import vooga.rts.util.Pixmap;
 
 /**

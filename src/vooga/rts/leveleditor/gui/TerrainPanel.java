@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.ResourceBundle;
 import javax.imageio.ImageIO;
 import vooga.rts.leveleditor.components.Terrain;
-import vooga.rts.leveleditor.components.Tile;
 import vooga.rts.util.Pixmap;
 
 

@@ -6,9 +6,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import vooga.rts.leveleditor.components.EditableTile;
 import vooga.rts.leveleditor.components.Resource;
 import vooga.rts.leveleditor.components.Terrain;
-import vooga.rts.leveleditor.components.Tile;
 import vooga.rts.resourcemanager.ImageLoader;
 import vooga.rts.resourcemanager.ResourceManager;
 
@@ -37,7 +37,7 @@ public class Canvas extends JFrame {
     private MenuManager myMenuManager;
     private Resource myCurrentSelectResource;
     private Terrain myCurrentSelectTerrain;
-    private Tile myCurrentSelectTile;
+    private EditableTile myCurrentSelectTile;
     private JScrollPane  myMapScroll;
 
     public Canvas() {
@@ -94,11 +94,11 @@ public class Canvas extends JFrame {
         return myCurrentSelectTerrain;
     }
     
-    public void setCurrentSelectTile(Tile t) {
-        myCurrentSelectTile = t;       
+    public void setCurrentSelectTile(EditableTile myTile) {
+        myCurrentSelectTile = myTile;       
     }
     
-    public Tile getCurrentSelectTile() {
+    public EditableTile getCurrentSelectTile() {
         return myCurrentSelectTile;
     }
 

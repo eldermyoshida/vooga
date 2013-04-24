@@ -113,6 +113,7 @@ public class MapPanel extends JComponent {
 
         // paint Node
         myMap.paint((Graphics2D)g);
+        System.out.println("paint");
 
         // paint Player
 //        for (Location c : myMap.getLocationMap().values()) {
@@ -198,6 +199,10 @@ public class MapPanel extends JComponent {
 
     // test printing matrix bug switch x and y
     private void placeTile (Location3D loc) {
+        EditableTile t = myCanvas.getCurrentSelectTile();
+        myMap.addTile(loc, t.getMyID(), t.getMyName(), t.getMyImageName(), t.getImage());
+        repaint();
+        System.out.println("placeTile");
 //        x = x / myTileHeight;
 //        y = y / myTileWidth;
 //        if (x >= 0 && x < myWidth && y >= 0 && y < myHeight) {
@@ -274,6 +279,8 @@ public class MapPanel extends JComponent {
     @InputMethodTarget(name = "onLeftMouseDown")
     public void testClick (PositionObject p) {
         Location3D loc = Camera.instance().viewtoWorld(p.getPoint2D());
+        System.out.println(loc.getX());
+        System.out.println(loc.getY());
         switch (myMode) {
 //            case RESOURCEMODE:
 //                placeResource((int) (p.getX()), (int) (p.getY()));

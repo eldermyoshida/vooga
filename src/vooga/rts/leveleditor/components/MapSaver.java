@@ -144,6 +144,9 @@ public class MapSaver {
         for(int i = 0 ; i < mySavingMap.getTerrainSize(); i++ ) {
             Terrain ter = mySavingMap.getTerrain(i);   
             String myImageName = ter.getMyImageName();
+<<<<<<< HEAD
+            BufferedImage myImage = ter.getImage();
+=======
             BufferedImage myImage = (BufferedImage)ter.getMyImage();
             File bufferFile = new File(tileImagePath + myImageName);
             try {
@@ -153,6 +156,7 @@ public class MapSaver {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
+>>>>>>> b9ff7a17ce2b88675d7ded3d8a60cd1873d2a5aa
             if( !terrainInformation.containsKey(myImageName)) {
                  terrainInformation.put(myImageName, myImage);
             }
@@ -187,7 +191,11 @@ public class MapSaver {
         for(int i = 0 ; i < mySavingMap.getResourceSize() ; i++) {
             Resource res = mySavingMap.getResource(i);
             String myImageName = res.getMyImageName();
+<<<<<<< HEAD
+            BufferedImage myImage = res.getImage();
+=======
             BufferedImage myImage = (BufferedImage)res.getMyImage();
+>>>>>>> b9ff7a17ce2b88675d7ded3d8a60cd1873d2a5aa
             if( !resourceInformation.containsKey(myImageName)) {
                 resourceInformation.put(myImageName, myImage);
             }
