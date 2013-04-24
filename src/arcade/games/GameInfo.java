@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package arcade.games;
 
 import java.lang.reflect.Constructor;
