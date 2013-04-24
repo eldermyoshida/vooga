@@ -92,16 +92,11 @@ public class Node {
     public int getY () {
         return myY;
     }
-    
-    
+
     public double getTier () {
-        if (myTier != 0) {
-            System.out.println(myTier);
-        }
         return myTier;
     }
-    
-    
+
     // This return statement could potentially be cleaned up, but still will
     // wait for patter to
     // clear up.
