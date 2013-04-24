@@ -1,4 +1,5 @@
 createUserScoreMessage
 createHighScoresHeading
+createHighScoresList
 createTweetButton
 createPinEntry

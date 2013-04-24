@@ -6,7 +6,6 @@ import java.util.ResourceBundle;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import arcade.controller.Controller;
-import arcade.games.GameInfo;
 import arcade.view.forms.ScoresView;
 import arcade.view.modes.GameCenterPanel;
 
@@ -78,8 +77,8 @@ public class MainView extends JFrame {
      * high scores, and an option to share on social networks.
      * 
      */
-    public void showEndGameView (GameInfo game, double userScore) {
-        new ScoresView(myController, myResources, game, userScore);
+    public void showEndGameView (double userScore) {
+        new ScoresView(myController, myResources, userScore);
     }
 
 }

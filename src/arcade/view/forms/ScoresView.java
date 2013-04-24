@@ -1,6 +1,7 @@
 package arcade.view.forms;
 
 import java.awt.Desktop;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,6 +9,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.net.URI;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -21,6 +23,7 @@ import twitter4j.TwitterException;
 import util.ImageHelper;
 import arcade.controller.Controller;
 import arcade.games.GameInfo;
+import arcade.games.Score;
 import arcade.model.Model;
 import arcade.view.MainView;
 import arcade.view.TextKeywords;
@@ -38,24 +41,26 @@ public class ScoresView extends Form {
     private static final String BUTTON_IMAGE = "Twitter.gif";
     private static final int WINDOW_WIDTH = 250;
     private static final int WINDOW_HEIGHT = 220;
+    private static final int MAX_HIGH_SCORES_SHOWN = 5;
 
+    private double myScore;
+    
+    private JLabel myUserScore;
     private JPanel myPinPanel;
     private JTextField myPinTextField;
-    private GameInfo myGame;
-    private double myScore;
 
     /**
-     * Creates a ScoresView with a Controller, ResourceBundle, a GameInfo for
-     * the game that has just been finished playing, and the score of the user
-     * for that game.
+     * Creates a ScoresView with a Controller, ResourceBundle, and the score 
+     * of the user for the game that has just been played.
      * 
      * @param controller
      * @param resources
      */
-    public ScoresView (Controller controller, ResourceBundle resources, GameInfo game, double score) {
+    public ScoresView (Controller controller, ResourceBundle resources, double score) {
         super(controller, resources);
-        myGame = game;
         myScore = score;
+        setUserScoreMessage(score);
+        
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         pack();
         setLocationRelativeTo(null);
@@ -63,11 +68,23 @@ public class ScoresView extends Form {
     
     /**
      * Creates the message for the user displaying his/her score.
+     * 
+     * Starts out as empty because this method is called in Form superclass
+     * before score can be set.  To fill in the label, must call setUserScoreMessage
      * @return
      */
     private JComponent createUserScoreMessage() {
-        JLabel label = new JLabel(getResources().getString(TextKeywords.SCORE_MESSAGE) + " " + myScore);
-        return label;
+        JPanel panel = new JPanel();
+        myUserScore = new JLabel("");
+        panel.add(myUserScore);
+        return panel;
+    }
+    
+    /**
+     * Sets the user score message with the text containing the user's score.
+     */
+    private void setUserScoreMessage(double score) {
+        myUserScore.setText(getResources().getString(TextKeywords.SCORE_MESSAGE) + " " + score);
     }
     
     /**
@@ -76,6 +93,24 @@ public class ScoresView extends Form {
      */
     private JComponent createHighScoresHeading() {
         return createInstruction(TextKeywords.HIGH_SCORES);
+    }
+    
+    /**
+     * Creates the list of the high scores for the game that has just been played.
+     * @return
+     */
+    private JComponent createHighScoresList() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(2, 0));
+        List<Score> scores = getController().getGameInfo().getSortedScores();
+        if (scores.size() > MAX_HIGH_SCORES_SHOWN) {
+            scores = scores.subList(0, MAX_HIGH_SCORES_SHOWN);
+        }
+        for (Score score : scores) {
+            panel.add(new JLabel(score.getUser()));
+            panel.add(new JLabel(score.getScore() + ""));
+        }
+        return panel;
     }
 
     /**
@@ -167,12 +202,13 @@ public class ScoresView extends Form {
     private String generateTweetMessage() {
         return getResources().getString(TextKeywords.MY_SCORE) 
                + " " + myScore + " " 
-               + getResources().getString(TextKeywords.IN) + " " + myGame + " " 
+               + getResources().getString(TextKeywords.IN) + " " 
+               + getController().getGameInfo().getName() + " " 
                + getResources().getString(TextKeywords.VOOGA_HASHTAG);
     }
     
     public static void main (String[] args) {
-        //new ScoresView(new Controller("English"), ResourceBundle.getBundle("arcade.resources.English"), "Mario", 10);
+        new ScoresView(new Controller("English"), ResourceBundle.getBundle("arcade.resources.English"), 10);
     }
 
 }
