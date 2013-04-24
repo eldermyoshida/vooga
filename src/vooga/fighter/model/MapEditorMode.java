@@ -84,7 +84,8 @@ public class MapEditorMode extends Mode {
     /**
      * Updates level mode by calling update in all of its objects.
      */
-    public void update (double stepTime, Dimension bounds) {
+    @Override
+    public void update () {
         List<GameObject> myObjects = getMyObjects();
         handleCollisions();
         for (int i = 0; i < myObjects.size(); i++) {

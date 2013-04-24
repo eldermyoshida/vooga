@@ -1,11 +1,9 @@
 package vooga.fighter.util;
 
-import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.PathIterator;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,7 +11,7 @@ import util.Location;
 import util.Vector;
 
 /**
- * This class is deticated to collision detection for 
+ * This class is dedicated to collision detection for 
  * shapes and provides useful methods to:
  * -confirm detections for shapes, either quickly or precisely
  * -check the side of a shape that another shape/point has with 
@@ -22,7 +20,7 @@ import util.Vector;
  *    extra precision.
  * TODO: return the point on the surface of a shape that another 
  *     shape/point has collided with, Velocities required
- *     as parameters (will only work with rectanges)
+ *     as parameters (will only work with rectangles)
  *     
  * Please read through the methods, but this class can be both
  * extended to include specific functionality for specific shapes (i.e ellipses)
@@ -35,21 +33,18 @@ import util.Vector;
  */
 
 public class CollisionDetector {
-
-	public CollisionDetector() {
-	}
 	
 	 /**
-	  * Uses rectange bounds of each shape to check if any point of shape2
-	  * is within the rectange bounds of point 1
+	  * Uses rectangle bounds of each shape to check if any point of shape2
+	  * is within the rectangle bounds of point 1
 	 */
 	public boolean quickDetectCollision(Shape shape1, Shape shape2){
 		return shape1.getBounds().intersects(shape2.getBounds());
 	}
 
 	 /**
-	  * Uses rectange bounds of each shape to check if point2
-	  * is within the rectange bounds of point 1
+	  * Uses rectangle bounds of each shape to check if point2
+	  * is within the rectangle bounds of point 1
 	 */
 	public boolean quickDetectCollision(Shape shape1, Point2D point2){
 		return shape1.contains(point2);
@@ -141,7 +136,7 @@ public class CollisionDetector {
 	  */
 	public boolean preciseDetectCollsion(Shape shape1, Shape shape2){
 		double precision = 1; //degree
-		return preciseDetectCollision(shape1,shape2,1);
+		return preciseDetectCollision(shape1,shape2,precision);
 	}
 	
     /**
@@ -253,8 +248,8 @@ public class CollisionDetector {
 	 /**
 	  * Convenience method to track rectangles
 	 */
-	public static List trackLine(Location loc1, Location loc2, int NumberOfPoints){
-		List line  = new LinkedList<Location>();
+	public static List<Location> trackLine(Location loc1, Location loc2, int NumberOfPoints){
+		List<Location> line  = new LinkedList<Location>();
 		Vector vec = new Vector(loc1,loc2);
 		double x = loc1.getX();
 		double y = loc1.getX();

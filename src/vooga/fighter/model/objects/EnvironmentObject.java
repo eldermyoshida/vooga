@@ -54,12 +54,4 @@ public class EnvironmentObject extends GameObject {
     public void completeUpdate() {
         
     }
-
-    /**
-     * Returns false for now. Put in gameObject
-     */
-   // public boolean shouldBeRemoved() {
-   //     return false;
-   // }
-
 }

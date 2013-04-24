@@ -37,17 +37,27 @@ public class LevelMode extends Mode {
     /**
      * Updates level mode by calling update in all of its objects.
      */
-    public void update(double stepTime, Dimension bounds) {
+    public void update() {
         loadAttacks();
         removeAppropriateObjects();
-        handleCollisions();
         updateHealth();
-        if (!(myForces.size()==0)){
-        	applyForces(); 
-        }
+        applyForces(); 
+        handleCollisions();
         List<GameObject> myObjects = getMyObjects();
+        
+        // object update() and updateState() have to be in separate loops
         for (GameObject object : myObjects) {
             object.update();
+            if (object instanceof AttackObject) {
+                System.out.printf("LevelMode update : got attack object in loop\n");
+                System.out.printf("LevelMode update : attack hitbox x=%d y=%d w=%d h=%d\n", 
+                                  object.getCurrentState().getCurrentRectangle().x,
+                                  object.getCurrentState().getCurrentRectangle().y,
+                                  object.getCurrentState().getCurrentRectangle().width,
+                                  object.getCurrentState().getCurrentRectangle().height);
+            }
+        }
+        for (GameObject object : myObjects) {
             object.updateState();
         }
     }
@@ -66,12 +76,7 @@ public class LevelMode extends Mode {
     public void applyForces(){
         for (CharacterObject ch : myCharacterObjects) {
             for (Force force: myForces) {
-                if (!ch.getStanding()) {
-                    force.applyForce(ch);
-                }
-                else {
-                    ch.getVelocity().setMagnitude(0);
-                }
+                 force.applyForce(ch);
             }
         }
     }

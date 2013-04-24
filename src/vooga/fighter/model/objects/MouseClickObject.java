@@ -1,12 +1,11 @@
 package vooga.fighter.model.objects;
 
 import java.awt.geom.Point2D;
-import vooga.fighter.model.utils.UpdatableLocation;
+
+import vooga.fighter.model.ModelConstants;
 
 
 public class MouseClickObject extends MouseObject {
-
-	private static final String MOUSE_CLICK_IMAGE_TAG = "mouseclick";
 
     public MouseClickObject (Point2D loc) {
     	super(loc);
@@ -14,6 +13,6 @@ public class MouseClickObject extends MouseObject {
     
     @Override
     public String getImageTag(){
-    	return MOUSE_CLICK_IMAGE_TAG;
+    	return ModelConstants.MOUSE_CLICK_IMAGE_TAG;
     }
 }

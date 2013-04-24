@@ -41,7 +41,7 @@ public class AttackObject extends GameObject{
     	super();
     	addProperty(ModelConstants.ATTACK_PROPERTY_SPEED, other.getProperty(ModelConstants.ATTACK_PROPERTY_SPEED));
     	addProperty(ModelConstants.ATTACK_PROPERTY_DIRECTION, other.getProperty(ModelConstants.ATTACK_PROPERTY_DIRECTION));
-    	addProperty(ModelConstants.ATTACK_PROPERTY_POWER, other.getProperty(ModelConstants.ATTACK_PROPERTY_POWER));
+    	addProperty(ModelConstants.ATTACK_PROPERTY_DAMAGE, other.getProperty(ModelConstants.ATTACK_PROPERTY_DAMAGE));
     	addProperty(ModelConstants.ATTACK_PROPERTY_DURATION, other.getProperty(ModelConstants.ATTACK_PROPERTY_DURATION));
     	this.myEffects = other.myEffects;
         this.myOwner = other.myOwner;
@@ -133,7 +133,7 @@ public class AttackObject extends GameObject{
      * Inflicts damage upon a target player.
      */
     public int inflictDamage(CharacterObject target){
-        int damage = getProperty(ModelConstants.ATTACK_PROPERTY_POWER);
+        int damage = getProperty(ModelConstants.ATTACK_PROPERTY_DAMAGE);
     	return target.changeHealth(-damage);
     }
     

@@ -23,23 +23,27 @@ import vooga.fighter.view.Canvas;
  */
 public class ControllerFactory {
 
-    private static final String DEFAULT_RESOURCE_PACKAGE = "vooga.fighter.config.FightingManifesto";
-    private static final String PACKAGE_NAME = "vooga.fighter.controller.";
+    private String DEFAULT_RESOURCE_PACKAGE = "FightingManifesto";
+    private static final String PACKAGE_NAME = "controller.";
     
     private Map<String, Controller> myControllerMap;
     private List<Controller> myControllerList;
     private Canvas myCanvas;
     private ResourceBundle myResources;
+    private String myResourceName;
+    private String myPackageName;
 
     /**
      * Constructor - retrieves the resource bundle and constructs the map of
      * controller names (keys) and the controllers (value)
      * @param frame
      */
-    public ControllerFactory(Canvas frame) {
+    public ControllerFactory(Canvas frame, String pathway) {
         myControllerMap = new HashMap<String, Controller>();
         myControllerList = new ArrayList<Controller>();
-        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE);
+        myResourceName = pathway +DEFAULT_RESOURCE_PACKAGE;
+        myPackageName = pathway + PACKAGE_NAME;
+        myResources = ResourceBundle.getBundle(myResourceName);
         constructControllerMap();
     } 
     
@@ -63,7 +67,7 @@ public class ControllerFactory {
             Controller controller = null;
             try {
                 Class<?> controllerClass = null;
-                String filePath = PACKAGE_NAME + controllerName;
+                String filePath = myPackageName + controllerName;
                 controllerClass = Class.forName(filePath);
                 controllerObject = controllerClass.newInstance();
                 controller = (Controller) controllerObject;

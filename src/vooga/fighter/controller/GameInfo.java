@@ -25,20 +25,21 @@ public class GameInfo extends UserGameData{
     private List<String> myMapsPlayed;
     private List<String> myMapNames;
     private HighScores myHighScores;
-    private List<String> myWinners;
+    private List<Integer> myWinners;
     private GameLoopInfo myGameLoopInfo;
 
-	/**
+    /**
      * Constructor
      */
     public GameInfo (List<String> mapNames) {
-    	myCharacters = new ArrayList<String>();
-    	myMapsPlayed = new ArrayList<String>();
-    	myScores = new ArrayList<Integer>();
-    	myGameMode = "Fighting Game";
-    	myMapNames = mapNames;
+        myCharacters = new ArrayList<String>();
+        myMapsPlayed = new ArrayList<String>();
+        myScores = new ArrayList<Integer>();
+        myGameMode = "Fighting Game";
+        myMapNames = mapNames;
+        myWinners = new ArrayList<Integer>();
     }
-    
+
     /**
      * Test constructor, automatically adds character index and map index to load. 
      */
@@ -47,11 +48,11 @@ public class GameInfo extends UserGameData{
         myCharacters = characters;
         myMapName = map;
     }
-    
+
     public void setGameLoopInfo(GameLoopInfo info) {
         myGameLoopInfo = info;
     }
-    
+
     public void setModeName(String name) {
         myModeName = name;
     }
@@ -59,52 +60,52 @@ public class GameInfo extends UserGameData{
      * 
      */
     public void setScores(List<Integer> scores) {
-    	myScores = scores;
+        myScores = scores;
     }
-    
+
     /**
      * 
      */
     public int getScore(int index) {
-    	return myScores.get(index);
+        return myScores.get(index);
     }
-    
+
     public void reset(){
-    	myCharacters.clear();
-    	myMapName = null;
-    	myNumCharacters = 0;
-    	myModeName = null;
+        myCharacters.clear();
+        myMapName = null;
+        myNumCharacters = 0;
+        myModeName = null;
     }
-    
+
     /**
      * 
      */
     public void setScore(int index, int score) {
-    	myScores.set(index, score);
+        myScores.set(index, score);
     }
-    
+
     /**
      * 
      * @return
      */
     @Override
     public List<Double> getScores() {
-    	List<Double> myArcadeScores = new ArrayList<Double>();
-    	for(Integer i : myScores){
-    		myArcadeScores.add((double) i);
-    	}
-    	return myArcadeScores;
+        List<Double> myArcadeScores = new ArrayList<Double>();
+        for(Integer i : myScores){
+            myArcadeScores.add((double) i);
+        }
+        return myArcadeScores;
     }
-    
+
     /**
      * 
      * @return
      */
     public List<Integer> getIntScores() {
-    	return myScores;
+        return myScores;
     }
-   
-    
+
+
     /**
      * 
      * @return
@@ -144,7 +145,7 @@ public class GameInfo extends UserGameData{
     public List<String> getCharacters () {
         return myCharacters;
     }
-    
+
     public void addCharacters(String character) {
         myCharacters.add(character);
     }
@@ -180,33 +181,38 @@ public class GameInfo extends UserGameData{
     public void setNumCharacters (int numCharacters) {
         myNumCharacters = numCharacters;
     }
-    
+
 
     public int getMapCount(){
-    	return myMapNames.size();
+        return myMapNames.size();
     }
 
     public List<String> getMapsPlayed(){
-    	return myMapsPlayed;
+        return myMapsPlayed;
     }
-    
-    public List<String> getMapNames(){
-    	return myMapNames;
-    }
-    
-    public void setHighScores(HighScores highscores){
-    	myHighScores = highscores;
-    }
-    
-    public HighScores getHighScores(){
-    	return myHighScores;
-    }
-    
-    public List<String> getWinners() {
-		return myWinners;
-	}
 
-	public void setWinners(List<String> myWinners) {
-		myWinners = myWinners;
-	}
+    public List<String> getMapNames(){
+        return myMapNames;
+    }
+
+    public void setHighScores(HighScores highscores){
+        myHighScores = highscores;
+    }
+
+    public HighScores getHighScores(){
+        return myHighScores;
+    }
+
+    public List<Integer> getWinners() {
+        return myWinners;
+    }
+
+    public void setWinners(List<Integer> winners) {
+        myWinners = winners;
+    }
+
+    public void addWinners(int winner) {
+        myWinners.add(winner);
+    }
+
 }

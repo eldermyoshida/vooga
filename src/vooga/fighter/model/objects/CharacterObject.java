@@ -4,10 +4,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import vooga.fighter.model.ModelConstants;
+import vooga.fighter.model.effects.BurnEffect;
 import vooga.fighter.model.loaders.CharacterLoader;
 import vooga.fighter.model.utils.Effect;
 import vooga.fighter.model.utils.Health;
 import vooga.fighter.model.utils.UpdatableLocation;
+import util.Location;
 import util.Vector;
 
 
@@ -19,11 +23,6 @@ import util.Vector;
  * 
  */
 public class CharacterObject extends GameObject {
-
-
-    private static final int RIGHT=0; 
-    private static final int MOVE_BACK_AMOUNT=-2; 
-    private static final int UP=270; 
     
     private Map<String, AttackObject> myAttacks;
     private Vector forcesApplied; 
@@ -33,7 +32,6 @@ public class CharacterObject extends GameObject {
     private boolean facingRight;  
     private int movingDirection; 
     private Vector myVelocity;  
-    private boolean myIsStanding;
     
     /**
      * Constructs a new CharacterObject.
@@ -43,11 +41,9 @@ public class CharacterObject extends GameObject {
         myAttacks = new HashMap<String, AttackObject>();
         myActiveEffects = new ArrayList<Effect>();
         myHealth = new Health();
-        movingDirection=RIGHT; 
+        movingDirection=ModelConstants.RIGHT; 
         currentAttacks= new ArrayList<AttackObject>();
         setLoader(new CharacterLoader(charName, this));
-        setCurrentState("stand");
-        setDefaultState("stand");
         setHealth(getProperty("maxHealth"));
         getCurrentState().setLooping(true);
         setLocation(center);
@@ -55,24 +51,19 @@ public class CharacterObject extends GameObject {
         setImageData();
         
     }
-    
-    public boolean getStanding() {
-        return myIsStanding;
-    }
-    
-    public void setStanding(boolean bool) {
-        myIsStanding = bool;
-            
-    }
 
     /**
      * Updates the character for one game loop cycle. Applies effects currently
      * active on the character.
      */
     public void completeUpdate() {
-        for (Effect effect : myActiveEffects) {
+        for (int i=0; i<myActiveEffects.size(); i++) {
+            Effect effect = myActiveEffects.get(i);
             effect.update();
-        } 
+            if (effect.hasEnded()) {                
+                removeActiveEffect(effect);
+            }
+        }
     }
     
     /**
@@ -144,9 +135,10 @@ public class CharacterObject extends GameObject {
      */
     public AttackObject createAttack(String key) {
         if (myAttacks.containsKey(key)) {
-            return myAttacks.get(key);
-        }
-        else {
+            Location charLocation = getLocation().getLocation();
+            UpdatableLocation newLocation = new UpdatableLocation(charLocation.getX(), charLocation.getY());
+            return new AttackObject(myAttacks.get(key), newLocation);
+        } else {
             return null;
         }
     }
@@ -181,32 +173,23 @@ public class CharacterObject extends GameObject {
     }
 
     /**
-     * Creates a new AttackObject by cloning the object identified by the given key
-     * in the attacks map.
+     * Creates and returns a new AttackObject by cloning the object identified
+     * by the given key in the attacks map.
      */
-    public void attack(String attack) {
-        setCurrentState("weakPunch");
-        UpdatableLocation characterLocation= getLocation(); 
-        AttackObject newAttack=new AttackObject(myAttacks.get(attack), new UpdatableLocation(characterLocation.getLocation().getX(), characterLocation.getLocation().getY()));
+    public AttackObject attack(String key) {
+        setCurrentState(key);
+        AttackObject newAttack = createAttack(key);
         newAttack.setOwner(this);
-        currentAttacks.add(newAttack);
+        return newAttack;
     }
 
     /**
      * Moves in given direction at speed of character
      */
     public void move(int direction) {
-        setCurrentState("moveRight");
-        if (myVelocity.getMagnitude()<=5){
-        	getLocation().addAcceleration(new Vector(direction, getProperty("movespeed")));
-        }
-    }
+        movingDirection=direction; 
+        getLocation().translate(new Vector(direction, getProperty("movespeed")));
 
-    /**
-     * Makes the character get pushed back if hit by something with higher priority
-     */
-    public void pushBack(int direction){
-    	getLocation().addAcceleration(new Vector(direction, MOVE_BACK_AMOUNT*getProperty("movespeed")));
     }
 
     /**
@@ -229,15 +212,8 @@ public class CharacterObject extends GameObject {
      * Will add jump method
      */
     public void jump() {        
-    	getLocation().addAcceleration(new Vector(UP, getProperty("jumpfactor")));
+    	getLocation().addAcceleration(new Vector(ModelConstants.UP, getProperty("jumpfactor")));
     } 
-    
-    /**
-     * Characters should never be removed.
-     */
-    public boolean shouldBeRemoved() {
-        return false;
-    }
     
     /**
      * Checks to see if character is facing right

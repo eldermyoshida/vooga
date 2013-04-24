@@ -12,6 +12,7 @@ import vooga.fighter.controller.GameInfo;
 import vooga.fighter.controller.OneVOneController;
 import vooga.fighter.model.*;
 import vooga.fighter.model.objects.MouseClickObject;
+import vooga.fighter.util.HUDVariable;
 import vooga.fighter.util.Paintable;
 import vooga.fighter.view.Canvas;
 
@@ -31,6 +32,9 @@ public class ScoreController extends MenuController {
         
     private ResourceBundle myResources;
     
+    
+  
+    
     public ScoreController () {
         super();
     }
@@ -38,6 +42,8 @@ public class ScoreController extends MenuController {
     public ScoreController(String name, Canvas frame, ControllerDelegate manager, 
                 GameInfo gameinfo) {
         super(name, frame, manager, gameinfo);
+        ScoreInfo scoreInfo = new ScoreInfo();
+        scoreInfo.setWinners(gameinfo.getWinners());
     }
     
     public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo) {
@@ -52,7 +58,6 @@ public class ScoreController extends MenuController {
     	removeListener();
     	getMode().resetChoice();
     	getGameInfo().getCharacters().clear();
-    	System.out.println("<scorecontroller> " + choice);
     	getManager().notifyEndCondition(getMode().getMenusNext(choice));
         }
     
