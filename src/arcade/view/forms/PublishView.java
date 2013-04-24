@@ -35,7 +35,7 @@ public class PublishView extends Form {
     private static final int DESCRIPTION_WIDTH = 280;
     private static final String DEFAULT_IMAGE =
             new File(System.getProperty("user.dir")
-                     + "/src/arcade/resources/images/NoImage.jpg")
+                     + "/src/arcade/resources/images/NoImage.gif")
                     .getPath();
     private JTextField myNameTextField;
     private JTextField myGenreTextField;

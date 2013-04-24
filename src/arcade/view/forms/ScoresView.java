@@ -20,6 +20,7 @@ import javax.swing.JTextField;
 import twitter4j.TwitterException;
 import util.ImageHelper;
 import arcade.controller.Controller;
+import arcade.games.GameInfo;
 import arcade.model.Model;
 import arcade.view.MainView;
 import arcade.view.TextKeywords;
@@ -40,22 +41,41 @@ public class ScoresView extends Form {
 
     private JPanel myPinPanel;
     private JTextField myPinTextField;
-    private String myGame;
-    private Double myScore;
+    private GameInfo myGame;
+    private double myScore;
 
     /**
-     * Creates a ScoresView with a Controller and ResourceBundle
+     * Creates a ScoresView with a Controller, ResourceBundle, a GameInfo for
+     * the game that has just been finished playing, and the score of the user
+     * for that game.
      * 
      * @param controller
      * @param resources
      */
-    public ScoresView (Controller controller, ResourceBundle resources, String gameName, double score) {
+    public ScoresView (Controller controller, ResourceBundle resources, GameInfo game, double score) {
         super(controller, resources);
-        myGame = gameName;
+        myGame = game;
         myScore = score;
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         pack();
         setLocationRelativeTo(null);
+    }
+    
+    /**
+     * Creates the message for the user displaying his/her score.
+     * @return
+     */
+    private JComponent createUserScoreMessage() {
+        JLabel label = new JLabel(getResources().getString(TextKeywords.SCORE_MESSAGE) + " " + myScore);
+        return label;
+    }
+    
+    /**
+     * Creates the heading to denote high scores are listed below.
+     * @return
+     */
+    private JComponent createHighScoresHeading() {
+        return createInstruction(TextKeywords.HIGH_SCORES);
     }
 
     /**
@@ -152,7 +172,7 @@ public class ScoresView extends Form {
     }
     
     public static void main (String[] args) {
-        new ScoresView(new Controller("English"), ResourceBundle.getBundle("arcade.resources.English"), "Mario", 10);
+        //new ScoresView(new Controller("English"), ResourceBundle.getBundle("arcade.resources.English"), "Mario", 10);
     }
 
 }
