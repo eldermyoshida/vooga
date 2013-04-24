@@ -50,9 +50,14 @@ public class CreateLobbyView extends JPanel {
                 String choice = (String) myMapComboBox.getSelectedItem();
                 Integer maxPlayers = myMaxPlayerArray.get(myMapChoices.indexOf(choice));
 
+                Integer[] maxPlayerChoices = new Integer[maxPlayers - 1];
+                for (int b = 2; b <= maxPlayers; b++) {
+                    maxPlayerChoices[b - 2] = b;
+                }
+
                 myMaxPlayersComboBox.removeAllItems();
-                for (int i = 2; i < maxPlayers; i++) {
-                    myMaxPlayersComboBox.insertItemAt(i-2, i);
+                for (int i = 0; i < maxPlayerChoices.length; i++) {
+                    myMaxPlayersComboBox.insertItemAt(maxPlayerChoices[i], i);
                 }
 
             }

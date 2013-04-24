@@ -15,8 +15,8 @@ public class TestMain {
         factions.add("protoss");
         factions.add("zerg");
         List<String> maps = new ArrayList<String>();
-        factions.add("map1");
-        factions.add("map2");
+        maps.add("map1");
+        maps.add("map2");
         List<Integer> maxPlayers = new ArrayList<Integer>();
         maxPlayers.add(4);
         maxPlayers.add(6);
