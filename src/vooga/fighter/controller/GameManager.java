@@ -1,6 +1,6 @@
 package vooga.fighter.controller;
 
-import java.awt.BorderLayout;
+import java.awt.BorderLayout; 
 import java.awt.Dimension;
 import java.awt.DisplayMode;
 import java.awt.GraphicsDevice;
@@ -47,13 +47,13 @@ public static final Dimension SIZE = new Dimension(800, 600);
 
     public GameManager(){//ArcadeInteraction arcade) {
     	//super(arcade);
-    	setFilePathway()
+    	setFilePathway();
         myCanvas = new Canvas(SIZE); 
         myGameInfo = new GameInfo(new MapLoader().getMapNames());
         //myGameInfo.setHighScores(getArcade().getHighScores(THREE_TOP_HIGH_SCORES));
         ControllerFactory factory = makeFactory(myCanvas,myFilePathway);
         ControlProgressionManager progressionmanager = makeProgression(factory.getMap()), myFilePathway);
-        myControllerManager = makeManager(myCanvas, myGameInfo, factory, progressionmanager,myFilePathway)
+        myControllerManager = makeManager(myCanvas, myGameInfo, factory, progressionmanager,myFilePathway);
         JFrame frame = new JFrame(TITLE);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // add our user interface components
