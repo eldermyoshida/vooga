@@ -58,21 +58,26 @@ public class EditableMap extends GameMap {
     public EditableMap (String name, String desc, int xSize, int ySize,
                              int tileWidth, int tileHeight) {
         super(new Dimension(tileWidth , tileHeight) , xSize , ySize);
-        myTileMap = new EditableTileMap(new Dimension(tileWidth,tileHeight) , xSize , ySize);
+        myTileMap = new EditableTileMap(new Dimension(tileWidth, tileHeight), xSize, ySize);
         myMapName = name;
         myDescription = desc;
         GameState.setMap(this);
         initializeMap();
         setTileMap(myTileMap);
     }
-
+    /**
+     * default constructor
+     */
     public EditableMap () {
         this("", "", 0, 0, 0, 0);
     }
 
+    /**
+     * initialize the map tile by tile
+     */
     public void initializeMap () {
         myTileMap.initialize();
-        myPlayerSet = new PlayerSet(DEFAULT_PLAYER_UPPER_LIMIT,DEFAULT_TEAM_UPPER_LIMIT);
+        myPlayerSet = new PlayerSet(DEFAULT_PLAYER_UPPER_LIMIT, DEFAULT_TEAM_UPPER_LIMIT);
 
         try {
             mySaver = new MapSaver(this);
@@ -82,35 +87,47 @@ public class EditableMap extends GameMap {
             e.printStackTrace();
         }
     }
-
+    /**
+     * reset the tile map to a certain size
+     * @param xSize x size of this tile map
+     * @param ySize y size of this tile map
+     * @param tileWidth the width of a single tile
+     * @param tileHeight the height of a single tile
+     */
     public void resetTileMap(int xSize, int ySize ,int tileWidth, int tileHeight) {
         myTileMap = new EditableTileMap(new Dimension(tileWidth,tileHeight),ySize,xSize);
     }
 
-
+    /**
+     * clear all tiles
+     */
     public void clearMap () {
         myTileMap.removeAllTiles();
         
     }
 
+    /**
+     * print the id of each tile, just for testing purpose
+     */
     public void printMatrix () {
         System.out.println("printmatrix executed");
         System.out.println("X Size : " + getMyXsize());
         System.out.println("Y Size : " + getMyYsize());
         
-        for(int i =0 ; i<getMyXsize() ; i++) {
-            for(int j =0 ; j<getMyYsize() ; j++) {
+        for (int i =0 ; i<getMyXsize() ; i++) {
+            for (int j =0 ; j<getMyYsize() ; j++) {
                 System.out.print(myTileMap.getTile(i, j).getMyID());
                 System.out.print(" ");
             }
             System.out.print("\n");
         }
-        for (int i = 0; i < 10; i++) {
-            System.out.print("**");
-        }
         System.out.print("\n");
     }
-
+    
+    /**
+     * load the map from xml file
+     * @param resourceFile resource xml file
+     */
     public void load (File resourceFile) {
 
         try {
@@ -119,57 +136,90 @@ public class EditableMap extends GameMap {
 
         }
         catch (SAXException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
     }
-
+    /**
+     * load the map from a certain path
+     * @param filePath
+     */
     public void load (String filePath) {
         File bufferFile = new File(filePath);
         load(bufferFile);
     }
-
+    /**
+     * save the file to a destination
+     * @param objectiveFile the destination file
+     */
     public void save (File objectiveFile) {
         try {
             mySaver.generateMapFile(objectiveFile);
         }
         catch (TransformerException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
     }
-
+    /**
+     * save the map to a certain path
+     * @param filePath the desitination file path
+     */
     public void save (String filePath) {
         File bufferFile = new File(filePath);
         save(bufferFile);
     }
     
+    /**
+     * add a player based on its location
+     * @param location location of the player
+     */
     public void addPlayer(Location location) {
         myPlayerSet.addPlayer(location);
     }
-    
+    /**
+     * add a player based on x and y
+     * @param x x position of player
+     * @param y y position of player
+     */
     public void addPlayer(int x , int y) {
         myPlayerSet.addPlayer(x, y);
     }
     
+    /**
+     * remove player 
+     * @param start start location
+     * @param end end location
+     */
     public void removePlayer(Location start, Location end) {
         myPlayerSet.removePlayer(start, end);
     }
     
+    /**
+     * remove a player from the map
+     * @param startX start x position 
+     * @param startY start y position
+     * @param endX end x position
+     * @param endY end y position
+     */
     public void removePlayer(int startX, int startY, int endX, int endY) {
         myPlayerSet.removePlayer(startX, startY, endX, endY);
     }
     
+    /**
+     * add a tile to this map
+     * @param loc location of the terrain
+     * @param id id of the terrain
+     * @param name name of the terrain
+     * @param imageName imageName of the terrain
+     * @param image image of the terrain
+     */
     public void addTile(Location3D loc, int id, String name, String imageName, Pixmap image) {
         myTileMap.addTile(loc, id, name, imageName, image);
     }
@@ -261,11 +311,17 @@ public class EditableMap extends GameMap {
     public String getMyDescription () {
         return myDescription;
     }
-
+    /**
+     * set the description of the map
+     * @param myDescription the description
+     */
     public void setMyDescription (String myDescription) {
         this.myDescription = myDescription;
     }
-    
+    /**
+     * return all players
+     * @return the whole player set
+     */
     public Map<Integer,Location> getAllPlayers() {
         return myPlayerSet.getAllPlayers();
     }
@@ -344,18 +400,15 @@ public class EditableMap extends GameMap {
             saver = new MapSaver(test);
         }
         catch (ParserConfigurationException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         try {
             saver.generateMapFile(new File(System.getProperty("user.dir") + "./turtleRock"));
         }
         catch (TransformerException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 

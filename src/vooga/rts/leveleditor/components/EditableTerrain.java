@@ -75,7 +75,7 @@ public class EditableTerrain extends Terrain {
     }
     /**
      * return the id of this 
-     * @return myID
+     * @return myID id of this terrain
      */
     public int getMyID () {
         return myID;
@@ -113,7 +113,7 @@ public class EditableTerrain extends Terrain {
 
     /**
      * set the walkability
-     * @param walkability walkability
+     * @param walkability walkability of this terrain
      */
     public void setWalkability(int walkability) {
         myWalkAbility = walkability;
@@ -121,7 +121,7 @@ public class EditableTerrain extends Terrain {
     }
     /**
      * set the type of this terrain 
-     * @param type type
+     * @param type type of this terrain
      */
     public void setType(String type) {
         myName = type;
