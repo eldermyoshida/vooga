@@ -42,6 +42,7 @@ public abstract class Decoder {
 	protected static final String CANNOT_GATHER = "cannotgather";
 	
 	
+	
 	/**
 	 * Gets the text content of the specified tag from the Element given as a parameter
 	 * @param element

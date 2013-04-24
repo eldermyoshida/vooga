@@ -142,6 +142,20 @@ public class Factory {
 		return (OccupyStrategy) myStrategies.get(key);
 	}
 	
+	/** Returns the whole map of Entities
+	 * (you do not need to return any other maps because entities encapsulate other objects).
+	 */
+	public Map<String, InteractiveEntity> getEntitiesMap(){
+		return mySprites;
+	}
+	
+	/**
+	 * Returns the whole map of resources.
+	 */
+	public Map<String, Resource> getResourceMap(){
+		return myResources;
+	}
+	
 	/**
 	 * Returns an Interactive Entity from a map of InteractiveEntities
 	 * @param key
