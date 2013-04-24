@@ -46,8 +46,20 @@ public class LevelMode extends Mode {
         	applyForces(); 
         }
         List<GameObject> myObjects = getMyObjects();
+        
+        // object update() and updateState() have to be in separate loops
         for (GameObject object : myObjects) {
             object.update();
+            if (object instanceof AttackObject) {
+                System.out.printf("LevelMode update : got attack object in loop\n");
+                System.out.printf("LevelMode update : attack hitbox x=%d y=%d w=%d h=%d\n", 
+                                  object.getCurrentState().getCurrentRectangle().x,
+                                  object.getCurrentState().getCurrentRectangle().y,
+                                  object.getCurrentState().getCurrentRectangle().width,
+                                  object.getCurrentState().getCurrentRectangle().height);
+            }
+        }
+        for (GameObject object : myObjects) {
             object.updateState();
         }
     }

@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import vooga.fighter.model.effects.BurnEffect;
 import vooga.fighter.model.loaders.CharacterLoader;
 import vooga.fighter.model.utils.Effect;
 import vooga.fighter.model.utils.Health;
 import vooga.fighter.model.utils.UpdatableLocation;
+import util.Location;
 import util.Vector;
 
 
@@ -68,9 +70,13 @@ public class CharacterObject extends GameObject {
      * active on the character.
      */
     public void completeUpdate() {
-        for (Effect effect : myActiveEffects) {
+        for (int i=0; i<myActiveEffects.size(); i++) {
+            Effect effect = myActiveEffects.get(i);
             effect.update();
-        } 
+            if (effect.hasEnded()) {                
+                removeActiveEffect(effect);
+            }
+        }
     }
     
     /**
@@ -142,9 +148,10 @@ public class CharacterObject extends GameObject {
      */
     public AttackObject createAttack(String key) {
         if (myAttacks.containsKey(key)) {
-            return myAttacks.get(key);
-        }
-        else {
+            Location charLocation = getLocation().getLocation();
+            UpdatableLocation newLocation = new UpdatableLocation(charLocation.getX(), charLocation.getY());
+            return new AttackObject(myAttacks.get(key), newLocation);
+        } else {
             return null;
         }
     }
@@ -179,15 +186,14 @@ public class CharacterObject extends GameObject {
     }
 
     /**
-     * Creates a new AttackObject by cloning the object identified by the given key
-     * in the attacks map.
+     * Creates and returns a new AttackObject by cloning the object identified
+     * by the given key in the attacks map.
      */
-    public void attack(String attack) {
-        setCurrentState("weakPunch");
-        UpdatableLocation characterLocation= getLocation(); 
-        AttackObject newAttack=new AttackObject(myAttacks.get(attack), new UpdatableLocation(characterLocation.getLocation().getX(), characterLocation.getLocation().getY()));
+    public AttackObject attack(String key) {
+        setCurrentState(key);
+        AttackObject newAttack = createAttack(key);
         newAttack.setOwner(this);
-        currentAttacks.add(newAttack);
+        return newAttack;
     }
 
     /**

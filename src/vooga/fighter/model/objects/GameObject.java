@@ -40,7 +40,7 @@ public abstract class GameObject {
      * populated with an ObjectLoader.
      */
     public GameObject() {
-//        myInstanceId = System.currentTimeMillis();
+        myInstanceId = System.currentTimeMillis();
     	myImageEffects = new ArrayList<Integer>();
         myStates = new HashMap<String,State>();
         myProperties = new HashMap<String,Integer>();
@@ -51,6 +51,11 @@ public abstract class GameObject {
         myDefaultStateKey = null;
         myImageData = null;
         myRemoveState = false;
+        try {
+            Thread.sleep(1);
+        } catch (InterruptedException e) {
+            
+        }
     }
     
     /**
@@ -268,11 +273,33 @@ public abstract class GameObject {
     }
     
     /**
-     * sets the removeState of this object
-     * @param bool
+     * Sets the removeState of this object
      */
     public void setRemoveState(boolean bool) {
     	myRemoveState = bool;
+    }
+    
+    /**
+     * Checks if this object is equal to another by using the instance id.
+     */
+    public boolean equals(Object o) {
+        if (o == null) {
+            return false;
+        }
+        GameObject other;
+        if (o instanceof GameObject) {
+            other = (GameObject) o;
+        } else {
+            return false;
+        }        
+        return myInstanceId == other.getInstanceId();
+    }
+    
+    /**
+     * Returns hashcode for the game object by casting instance id to int.
+     */
+    public int hashcode() {
+        return (int) myInstanceId;
     }
     
     /**

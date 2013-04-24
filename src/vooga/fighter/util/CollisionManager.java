@@ -1,9 +1,7 @@
 package vooga.fighter.util;
 
-import java.awt.Rectangle;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Collections;
 import java.util.List;
 import vooga.fighter.model.objects.AttackObject;
 import vooga.fighter.model.objects.CharacterObject;
@@ -47,17 +45,6 @@ public class CollisionManager {
                 }
             }
         }
-
-//    /**
-//     * Applies collisions between collided game objects. Collisions are handled
-//     * through an implementation of the visitor design pattern.
-//     * 
-//     * Note: if you want to use the old visitor framework, uncomment this method
-//     * and comment out the handleCollisions method with reflection below.
-//     */
-//    public void handleCollisions(GameObject o1, GameObject o2) {
-//        o1.dispatchCollision(o2);
-//    }    
     
     /**
      * Delegates to specific collision methods based on the runtime type of our
@@ -84,7 +71,7 @@ public class CollisionManager {
      * Handles collisions between two character objects.
      */
     public void collide(CharacterObject o1, CharacterObject o2) {
-    	System.out.println("Character Colliding");
+//    	System.out.println("CollisionManager : Character Colliding");
 //    	if (o1.getCurrentState().hasPriority(o2.getCurrentState())){
 //    		o2.pushBack(o1.getMovingDirection());
 //    	}
@@ -122,10 +109,13 @@ public class CollisionManager {
      * Handles collisions between an attack object and a character object.
      */
     public void collide(AttackObject o1, CharacterObject o2) {
-    	if (o1.getOwner()!=o2){
-    		o1.inflictDamage(o2);
-    	}
-    	o1.endCounter();
+        System.out.println("CollisionManager: AttackObject and CharacterObject collided!");
+        if (!o1.getOwner().equals(o2)) {
+                int remaining = o1.inflictDamage(o2);
+                System.out.printf("CollisionManager collide : target has %d hp remaining\n", remaining);
+                o1.addTargetForEffects(o2);
+        }
+        o1.endCounter();
     }
     
     /**

@@ -96,9 +96,13 @@ public abstract class Effect {
     public void update() {
         applyEffect();
         myCounter.decrementCounter();
-        if (!myCounter.hasCountRemaining()) {
-            myOwner.removeActiveEffect(this);
-        }
+    }
+    
+    /**
+     * Returns true if the effect has ended.
+     */
+    public boolean hasEnded() {
+        return !myCounter.hasCountRemaining();
     }
     
     /**

@@ -22,7 +22,7 @@ public class ModelConstants {
     }
     
     // strings used to identify attack object properties
-    public static final String ATTACK_PROPERTY_POWER = myResources.getString("Damage");
+    public static final String ATTACK_PROPERTY_DAMAGE = myResources.getString("Damage");
     public static final String ATTACK_PROPERTY_SPEED = myResources.getString("Movespeed");
     public static final String ATTACK_PROPERTY_DIRECTION = myResources.getString("Direction");
     public static final String ATTACK_PROPERTY_DURATION = myResources.getString("Duration");

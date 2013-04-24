@@ -74,7 +74,7 @@ public class CharacterLoader extends ObjectLoader {
 			AttackObject newAttack = new AttackObject();
 			State newState = new State(myChar, frameNodes.getLength());
 			newAttack.addProperty(ModelConstants.ATTACK_PROPERTY_SPEED, attackSpeed);
-			newAttack.addProperty(ModelConstants.ATTACK_PROPERTY_POWER, attackDmg);
+			newAttack.addProperty(ModelConstants.ATTACK_PROPERTY_DAMAGE, attackDmg);
 			newAttack.addProperty(ModelConstants.ATTACK_PROPERTY_DURATION, attackDuration);
 			getFrameProperties(frameNodes, newState);
 			newAttack.addState(attackName, newState);
