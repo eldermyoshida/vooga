@@ -22,7 +22,6 @@ import arcade.games.GameData;
 import arcade.games.GameInfo;
 import arcade.games.Score;
 import arcade.games.MultiplayerGame;
-import arcade.games.User;
 import arcade.games.UserData;
 import arcade.games.UserGameData;
 import arcade.model.payment.DukePaymentManager;
@@ -64,11 +63,11 @@ public class Controller implements ArcadeInteraction {
         return myCurrentGameInfo;
     }
 
-    private MultiplayerGame myCurrentMultiplayerGame;
 
     // Parameters
     private String myLanguage;
     private String currentUser;
+    private UserGameData myCurrentUserGameData;
 
     public Controller (String language) {
         myLanguage = language;
@@ -282,10 +281,7 @@ public class Controller implements ArcadeInteraction {
         myCurrentGame.run();
     }
 
-    public void playMultiplayerGame (GameInfo gameinfo) {
-        MultiplayerGame game = gameinfo.getMultiplayerGame(this);
-        game.run();
-    }
+
 
     /**
      * TODO: Get the list of games from the database.
@@ -320,54 +316,34 @@ public class Controller implements ArcadeInteraction {
      * @return
      */
     public UserGameData getUserGameData (String user, String game) {
-            return myCurrentGameInfo.getUserGameData(myCurrentGame , user);
+        if (myCurrentUserGameData == null ){
+            myCurrentUserGameData =  myCurrentGameInfo.getUserGameData(myCurrentGame , user);
+        }
+        return myCurrentUserGameData;
     }
 
-    @Override
-    public User getUser () {
-        // TODO get the user's avatar, figure out how we are implementing user
-        // info for games
-        return null;
-    }
+
 
     public double getAverageRating (String gameName) {
         return myDb.getAverageRating(gameName);
     }
 
-    @Override
-    public Score getHighScores (int n) {
-        // TODO I wish I understood how we are planning on implementing high
-        // scores . . .
-        // nonetheless: do database stuff here
-        return null;
-    }
+ 
 
     @Override
     public void killGame () {
-        myView.showEndGameView();
+        int score = getCurrentUserGameData().getLastScore();
+        myDb.addNewHighScore(currentUser, myCurrentGameInfo.getName(),  score);
+        myView.showEndGameView(score);
         myCurrentGame = null;
         myCurrentGameInfo = null;
     }
 
-    @Override
-    public UserGameData getUserGameData (String gameName) {
-        UserGameData ugd = myDb.getUserGameData(gameName, currentUser);
-        if (ugd == null) {
-            // use reflection to find the game class and call the generate user
-            // profile method
-        }
-        return ugd;
+    
+    private UserGameData getCurrentUserGameData(){
+        return myCurrentGameInfo.getUserGameData(myCurrentGame, currentUser);
     }
-
-    @Override
-    public GameData getGameData (String gameName) {
-        GameData gd = myDb.getGameData(gameName);
-        if (gd == null) {
-            // use reflection to find the game class and call the generate game
-            // method
-        }
-        return gd;
-    }
+    
 
     @Override
     public String getCurrentGame () {
