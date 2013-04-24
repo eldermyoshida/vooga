@@ -31,6 +31,7 @@ public class GameLoopInfo extends DisplayLoopInfo implements ViewDataSource{
     private List<Double> myScores;
     private List<PlayerStatus> myPlayerStats;
     private int myNumberPlayers;
+    private LevelMode myLevelMode;
 
     @HUDVariable(
                  name = "Player1",
@@ -58,12 +59,18 @@ public class GameLoopInfo extends DisplayLoopInfo implements ViewDataSource{
 
     public GameLoopInfo(LevelMode mode) {
     	super(mode);
+    	myLevelMode = mode;
     	myPlayerStats = new ArrayList<PlayerStatus>();
         myHealthStats = new ArrayList<Health>();
         myScores = new ArrayList<Double>();
         myCharacterNames = new ArrayList<String>();
         myNumberPlayers = mode.getCharacterObjects().size();
         initializePlayers();
+    }
+    
+    @Override
+    public Mode getMode() {
+        return myLevelMode;
     }
     
     public void initializePlayers() {

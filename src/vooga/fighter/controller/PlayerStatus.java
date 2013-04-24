@@ -17,6 +17,7 @@ public class PlayerStatus {
     private String myCharacterName;
     private Health myHealth;
     private Double myScore;
+    private boolean winStatus;
     
     public PlayerStatus () {
         myPlayerID++;
