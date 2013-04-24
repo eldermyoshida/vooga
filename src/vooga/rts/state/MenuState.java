@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
+import javax.swing.JFrame;
 import util.input.PositionObject;
 import vooga.rts.commands.ClickCommand;
 import vooga.rts.commands.Command;
@@ -26,11 +27,11 @@ public class MenuState extends SubState implements Observer {
     private Map<Integer, Menu> myMenus;
     private int myCurrentMenu;
 
-    public MenuState (Observer observer) {
+    public MenuState (Observer observer, JFrame f) {
         super(observer);
         myMenus = new HashMap<Integer, Menu>();
         addMenu(0, new MainMenu());
-        addMenu(1, new MultiMenu());
+        addMenu(1, new MultiMenu(f));
         addMenu(2, new SetupMenu());
     }
 
@@ -52,12 +53,11 @@ public class MenuState extends SubState implements Observer {
             getCurrentMenu()
                     .handleMouseDown((int) left.getPosition().x, (int) left.getPosition().y);
         }
-        else
-            if (command.getMethodName().equals(PositionCommand.MOUSE_MOVE)) {
-                PositionCommand move = (PositionCommand) command;
-                getCurrentMenu().handleMouseMovement((int) move.getPosition().x,
-                                                     (int) move.getPosition().y);
-            }
+        else if (command.getMethodName().equals(PositionCommand.MOUSE_MOVE)) {
+            PositionCommand move = (PositionCommand) command;
+            getCurrentMenu().handleMouseMovement((int) move.getPosition().x,
+                                                 (int) move.getPosition().y);
+        }
         // At some point, will need a menu controller and use actions to clean this up
     }
 
@@ -88,8 +88,30 @@ public class MenuState extends SubState implements Observer {
     }
 
     @Override
-    public void update (Observable arg0, Object arg1) {
-        setChanged();
-        notifyObservers(arg1);
+    public void update (Observable o, Object a) {
+        if (o instanceof MainMenu) {
+            int s = (Integer) a;
+            if (s == 0) { // If user clicked single player
+                setMenu(2); // take them to the setup
+            }
+            else if (s == 1) { // if user clicked multi player
+                setMenu(1); // take them to the multi player menu
+            }
+            else {
+                setChanged();
+                notifyObservers();
+            }
+        }
+        else if (o instanceof MultiMenu) {
+            setMenu(2); // take them to the setup
+        }
+        else if (o instanceof SetupMenu) {
+            setChanged();
+            notifyObservers();
+        }
+        else {
+            setChanged();
+            notifyObservers();
+        }
     }
 }
