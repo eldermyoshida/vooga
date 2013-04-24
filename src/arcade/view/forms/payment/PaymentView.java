@@ -58,6 +58,7 @@ public abstract class PaymentView extends Form {
                                         getController().performTransaction(myGameInfo,
                                                                       myTransactionType,
                                                                       getPaymentInfo());
+                                        dispose();
                                     }
                                     catch (InvalidPaymentException e1) {
                                         sendMessage(getResources()
