@@ -11,6 +11,7 @@ import java.util.List;
 import javax.swing.Timer;
 
 import util.Location;
+<<<<<<< HEAD
 import util.input.*;
 import vooga.fighter.model.LevelMode;
 import vooga.fighter.model.Mode;
@@ -23,6 +24,13 @@ import vooga.fighter.model.Mode;
 import vooga.fighter.model.objects.CharacterObject;
 import vooga.fighter.model.utils.UpdatableLocation;
 import vooga.fighter.util.CollisionManager;
+=======
+import vooga.fighter.input.*;
+import vooga.fighter.game.LevelMode;
+import vooga.fighter.game.Mode;
+import util.input.*;
+import vooga.fighter.objects.CharacterObject;
+>>>>>>> input
 import vooga.fighter.util.Paintable;
 import vooga.fighter.view.Canvas;
 

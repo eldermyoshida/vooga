@@ -1,7 +1,11 @@
 package vooga.fighter.controller;
 
+<<<<<<< HEAD
 
 
+=======
+import util.input.*;
+>>>>>>> input
 
 
 import java.lang.reflect.Constructor;

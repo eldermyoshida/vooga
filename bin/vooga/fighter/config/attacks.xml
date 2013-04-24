@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<attack attackName="weakPunch" damage="5" duration="20" attackspeed="50">
+<attack attackName="weakPunch" damage="5" duration="20" attackspeed="50" default="default">
     <state stateName="default">
         <frame>
             <hitbox cornerX="35" cornerY="14" width="10" height="10"/>

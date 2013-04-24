@@ -22,7 +22,11 @@ import util.Text;
 import vooga.fighter.view.Canvas;
 import vooga.fighter.controller.ControllerManager;
 import vooga.fighter.controller.GameInfo;
+<<<<<<< HEAD
 
+=======
+import util.input.*;
+>>>>>>> input
 
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -36,7 +40,11 @@ import java.util.ResourceBundle;
  *
  */
 
+<<<<<<< HEAD
 public class GameManager {//extends Game{
+=======
+public class GameManager { //extends Game{
+>>>>>>> input
 public static final Dimension SIZE = new Dimension(800, 600);
     public static final String TITLE = "Fighter!";
     public static final int THREE_TOP_HIGH_SCORES = 3;
