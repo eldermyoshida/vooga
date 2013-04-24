@@ -287,8 +287,8 @@ public class Database {
      * @param gameName is game name
      * @param comment is comment to be inserted
      */
-    public void insertComment (String username, String gameName, String comment) {
-        myCommentTable.addNewComment(retrieveGameId(gameName), retrieveUserId(username), comment);
+    public void insertCommentAndRating (String username, String gameName, String comment, double rating) {
+        myCommentTable.addNewCommentAndRating(retrieveGameId(gameName), retrieveUserId(username), comment, rating);
     }
 
     /**
@@ -341,16 +341,6 @@ public class Database {
      */
     private String retrieveUserId (String username) {
         return myUserTable.retrieveUserId(username);
-    }
-
-    /**
-     * Updates rating for game name and username 
-     * @param userName is user
-     * @param gameName is name of game
-     * @param rating is new rating
-     */
-    public void updateRating (String userName, String gameName, double rating) {
-        myCommentTable.addNewRating(retrieveUserId(userName), retrieveGameId(gameName), rating);
     }
 
     /**

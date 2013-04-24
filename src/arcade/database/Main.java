@@ -15,12 +15,13 @@ public class Main {
         myDatabase.createUser("natx13", "password", "Natalia", "Carvalho", "04/26/1991");
         myDatabase.createUser("kayzooo", "mypassword", "Kevin", "Zhu", "11/12/1990");
         
+//        myDatabase.updateRating("natx13", "test", 4.0);
         //myDatabase.insertComment("natx13", "test", "this game is a piece of crap");
 
-        List<String> myComments = myDatabase.retrieveCommentsForGame("test");
-        for (String s : myComments) {
-            System.out.println(s);
-        }
+//        List<String> myComments = myDatabase.retrieveCommentsForGame("test");
+//        for (String s : myComments) {
+//            System.out.println(s);
+//        }
 
         //myDatabase.addNewHighScore("test", "test", 100);
 //        List<Score> myScores = myDatabase.getScoresForGame("test");
