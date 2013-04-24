@@ -1,7 +1,5 @@
 package vooga.fighter.controller;
 
-import vooga.fighter.input.Input;
-import vooga.fighter.input.InputClassTarget;
 import vooga.fighter.view.Canvas;
 import vooga.fighter.game.*;
 
@@ -9,6 +7,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import util.input.*;
 
 import javax.swing.Timer;
 

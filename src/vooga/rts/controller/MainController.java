@@ -11,7 +11,7 @@ import javax.swing.Timer;
 
 import vooga.rts.Game;
 import vooga.rts.gui.Window;
-import vooga.rts.input.Input;
+import util.input.*;
 import vooga.rts.util.FrameCounter;
 
 public class MainController extends AbstractController implements Observer {

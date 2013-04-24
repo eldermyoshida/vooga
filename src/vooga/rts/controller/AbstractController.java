@@ -9,7 +9,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 
 import vooga.rts.IGameLoop;
-import vooga.rts.input.PositionObject;
+import util.input.*;
 
 public abstract class AbstractController extends Observable implements
 		IGameLoop {

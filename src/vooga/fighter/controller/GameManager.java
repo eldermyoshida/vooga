@@ -20,15 +20,13 @@ import vooga.fighter.util.Text;
 import vooga.fighter.view.Canvas;
 import vooga.fighter.controller.ControllerManager;
 import vooga.fighter.controller.GameInfo;
-import vooga.fighter.input.Input;
-import vooga.fighter.input.InputClassTarget;
+import util.input.*;
 
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
-
 
 
 public class GameManager { //extends Game{

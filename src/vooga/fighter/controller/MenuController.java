@@ -6,12 +6,12 @@ import vooga.fighter.controller.ControllerDelegate;
 import vooga.fighter.controller.GameInfo;
 import vooga.fighter.controller.LevelController;
 import vooga.fighter.game.*;
-import vooga.fighter.input.Input;
 import vooga.fighter.util.Paintable;
 import vooga.fighter.view.Canvas;
 
 import java.awt.Dimension;
 import java.util.List;
+import util.input.*;
 import java.util.ResourceBundle;
 
 

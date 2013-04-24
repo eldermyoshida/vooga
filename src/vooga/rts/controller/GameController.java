@@ -32,19 +32,16 @@ import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;
 import vooga.rts.gamedesign.strategy.attackstrategy.CannotAttack;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
 import vooga.rts.gui.Window;
-import vooga.rts.input.PositionObject;
+import util.input.*;
 import vooga.rts.map.GameMap;
 import vooga.rts.player.HumanPlayer;
 import vooga.rts.player.Player;
 import vooga.rts.player.Team;
 import vooga.rts.resourcemanager.ResourceManager;
-<<<<<<< HEAD
 import util.Location;
-=======
 import vooga.rts.util.Camera;
 import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
->>>>>>> 9dccbd781fb23e9dd7c08d6dbaa393fae7a1e645
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.PointTester;
 import vooga.rts.util.Sound;

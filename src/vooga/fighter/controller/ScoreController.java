@@ -6,9 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.Timer;
 import util.Location;
 import vooga.fighter.game.Mode;
-import vooga.fighter.input.AlertObject;
-import vooga.fighter.input.Input;
-import vooga.fighter.input.InputMethodTarget;
+import util.input.*;
 import vooga.fighter.util.Paintable;
 import vooga.fighter.view.Canvas;
 

@@ -8,7 +8,7 @@ import java.util.Observable;
 import java.util.Observer;
 import vooga.rts.gui.Menu;
 import vooga.rts.gui.menus.MainMenu;
-import vooga.rts.input.PositionObject;
+import util.input.*;
 
 public class MenuController extends AbstractController implements Observer  {
 

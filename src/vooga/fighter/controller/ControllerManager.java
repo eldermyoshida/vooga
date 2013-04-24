@@ -1,7 +1,6 @@
 package vooga.fighter.controller;
 
-import vooga.fighter.input.Input;
-import vooga.fighter.input.InputClassTarget;
+import util.input.*;
 
 import java.awt.Dimension;
 import java.util.Collection;
