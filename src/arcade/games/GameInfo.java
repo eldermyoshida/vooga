@@ -80,12 +80,8 @@ public class GameInfo {
     }
 
 
-    public List<String[]> getComments () {
-        // TODO: do this correctly.
-        List<String[]> comments = new ArrayList<String[]>();
-        String[] comment1 = { "subject", "theCoolestGuy", "5.0", "this game is awesome" };
-        comments.add(comment1);
-        return comments;
+    public List<Comment> getComments () {
+       return myDb.retrieveCommentsForGame(myGameName);
     }
 
     // Here, there be shiny reflective dragons . . .
