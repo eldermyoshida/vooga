@@ -33,6 +33,7 @@ public class MapPanel extends JComponent {
     public static final int TERRAINMODE = 3;
     public static final int TILEMODE = 4;
     public static final int FILLMODE = 5;
+    public static final int REMOVEMODE = 6;
 
     private Canvas myCanvas;
     private EditableMap myMap;
@@ -164,6 +165,11 @@ public class MapPanel extends JComponent {
         myMode = FILLMODE;       
     }
     
+    public void setRemoveMode() {
+        myMode = REMOVEMODE;
+        
+    }
+    
     public void fillTiles() {
         EditableTile t = myCanvas.getCurrentSelectTile();
         for(int i = 0; i<myMap.getMyXsize(); ++i) {
@@ -248,6 +254,7 @@ public class MapPanel extends JComponent {
             placeTile(loc);
         }
     }
+
 
 
 }
