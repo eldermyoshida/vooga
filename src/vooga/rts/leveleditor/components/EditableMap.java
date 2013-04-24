@@ -61,13 +61,13 @@ public class EditableMap {
         myTerrains = new ArrayList<Terrain>();
         myResources = new ArrayList<Resource>();
 
-        try {
-            mySaver = new MapSaver(this);
-            myLoader = new MapLoader(this);
-        }
-        catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            //mySaver = new MapSaver(this);
+//            //myLoader = new MapLoader(this);
+//        }
+//        catch (ParserConfigurationException e) {
+//            e.printStackTrace();
+//        }
     }
 
 

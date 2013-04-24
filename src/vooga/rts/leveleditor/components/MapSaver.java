@@ -144,7 +144,7 @@ public class MapSaver {
         for(int i = 0 ; i < mySavingMap.getTerrainSize(); i++ ) {
             Terrain ter = mySavingMap.getTerrain(i);   
             String myImageName = ter.getMyImageName();
-            BufferedImage myImage = ter.getMyImage();
+            BufferedImage myImage = ter.getImage();
             if( !terrainInformation.containsKey(myImageName)) {
                  terrainInformation.put(myImageName, myImage);
             }
@@ -176,7 +176,7 @@ public class MapSaver {
         
         for(Resource res : mySavingMap.getResourceSet()) {
             String myImageName = res.getMyImageName();
-            BufferedImage myImage = res.getMyImage();
+            BufferedImage myImage = res.getImage();
             if( !resourceInformation.containsKey(myImageName)) {
                 resourceInformation.put(myImageName, myImage);
             }
