@@ -56,9 +56,9 @@ public class EditableMap extends GameMap {
      * @param tileHeight the height of the tiles in this map
      */
     public EditableMap (String name, String desc, int xSize, int ySize,
-                                            int tileWidth, int tileHeight) {
-        super(new Dimension(tileWidth , tileHeight) ,xSize ,ySize);
-        myTileMap = new EditableTileMap(new Dimension(tileWidth,tileHeight),xSize,ySize);
+                             int tileWidth, int tileHeight) {
+        super(new Dimension(tileWidth , tileHeight) , xSize , ySize);
+        myTileMap = new EditableTileMap(new Dimension(tileWidth,tileHeight) , xSize , ySize);
         myMapName = name;
         myDescription = desc;
         GameState.setMap(this);
