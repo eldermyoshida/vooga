@@ -2,26 +2,26 @@ package vooga.rts.gamedesign.sprite.gamesprites.interactive.units;
 
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.List;
+import vooga.rts.action.InteractiveAction;
 import vooga.rts.commands.ClickCommand;
 import vooga.rts.commands.Command;
 import vooga.rts.commands.DragCommand;
 import vooga.rts.commands.PositionCommand;
 import vooga.rts.action.Action;
 import vooga.rts.action.InteractiveAction;
+import vooga.rts.gamedesign.sprite.gamesprites.GameEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.GameSprite;
+import vooga.rts.gamedesign.sprite.gamesprites.Resource;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.IGatherable;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
-import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building;
+import vooga.rts.gamedesign.strategy.gatherstrategy.CanGather;
 import vooga.rts.gamedesign.strategy.gatherstrategy.CannotGather;
 import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
 import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
-import vooga.rts.gamedesign.upgrades.UpgradeNode;
-import vooga.rts.gamedesign.upgrades.UpgradeTree;
 import vooga.rts.resourcemanager.ResourceManager;
 import vooga.rts.util.Camera;
+import vooga.rts.util.Information;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
@@ -41,21 +41,24 @@ import vooga.rts.util.Sound;
  */
 public class Unit extends InteractiveEntity {
 
-    private List<GameSprite> myKills; // TODO: WHAT TYPE SHOULD IT BE??
-    // private boolean myIsLeftSelected; // TODO: also need the same thing for
-    // Projectiles
-    // private boolean myIsRightSelected; // TODO: should be observing the mouse
-    // action instead!!
-    // private PathingHelper myPather;
+	//default values
+    public static Pixmap DEFAULT_IMAGE = new Pixmap("images/sprites/soldier.png");
+    public static Location3D DEFAULT_LOCATION = new Location3D();
+    public static Dimension DEFAULT_SIZE = new Dimension(90,90);
+    public static Sound DEFAULT_SOUND = null;
+    public static int DEFAULT_PLAYERID = 1;
+    public static int DEFAULT_HEALTH = 100;
+    
 
     private GatherStrategy myGatherStrategy;
-
-    private OccupyStrategy myOccupyStrategy;
+    
     public Unit () {
-        this(new Pixmap("sprites/soldier.png"), new Location3D(), new Dimension(0, 0), null, 0, 100,
-             InteractiveEntity.DEFAULT_BUILD_TIME);
-    }
+        this(DEFAULT_IMAGE, DEFAULT_LOCATION, DEFAULT_SIZE, DEFAULT_SOUND, DEFAULT_PLAYERID, DEFAULT_HEALTH, InteractiveEntity.DEFAULT_BUILD_TIME, InteractiveEntity.DEFAULT_SPEED);
+        Information i = new Information("Marine", "I fear no darkness. I was born in it", null, "buttons/marine.png");
+        setInfo(i);
 
+    }
+    
     /**
      * Creates a new unit with an image, location, size, sound, teamID,
      * health, and upgrade tree
@@ -79,9 +82,18 @@ public class Unit extends InteractiveEntity {
                  Sound sound,
                  int playerID,
                  int health,
-                 double buildTime) {
+                 double buildTime,
+                 int speed) {
         super(image, center, size, sound, playerID, health, buildTime);
+        myGatherStrategy = new CannotGather();
+        setSpeed(speed);
         addActions();
+    }
+
+    public Unit (Pixmap image, Sound sound, int health, double buildTime, int speed) {
+        this(image, InteractiveEntity.DEFAULT_LOCATION, DEFAULT_SIZE, sound,
+             InteractiveEntity.DEFAULT_PLAYERID, health, buildTime, speed);
+
     }
 
     @Override
@@ -102,14 +114,53 @@ public class Unit extends InteractiveEntity {
         });
     }
 
-    public void occupy(InteractiveEntity i) {
-    	i.getOccupied(this);
+    public void occupy (InteractiveEntity i) {
+        i.getOccupied(this);
     }
 
     @Override
-    public InteractiveEntity copy () {
+    public Unit copy () {
         return new Unit(getImage(), getWorldLocation(), getSize(), getSound(), getPlayerID(),
-                        getHealth(), getBuildTime());
+                        getHealth(), getBuildTime(), getSpeed());
     }
-    
+
+	/**
+	 * Sets the amount that the worker can gather at a time.
+	 * 
+	 * @param gatherAmount
+	 *            is the amount that the worker can gather
+	 */
+	public void setGatherAmount(int gatherAmount) {
+		myGatherStrategy.setGatherAmount(gatherAmount);
+		myGatherStrategy = new CanGather(CanGather.DEFAULTCOOL,
+				myGatherStrategy.getGatherAmount());
+	}
+	
+	public void setGatherStrategy(GatherStrategy gatherStrategy) {
+		myGatherStrategy = gatherStrategy;
+	}
+	
+	//OLD WORKER METHODS. Put here just in case
+	
+	/**
+	 * Another recognize method specific for workers as they can gather
+	 * resources which are not InteractiveEntities
+	 */
+	public void recognize(Resource resource) {
+		gather(resource);
+	}
+
+	/**
+	 * The worker gathers the resource if it can and then resets its gather
+	 * cooldown.
+	 * 
+	 * @param gatherable
+	 *            is the resource being gathered.
+	 */
+	public void gather(IGatherable gatherable) {
+		// shouldnt the cast be to a type Resource?
+		if (this.collidesWith((GameEntity) gatherable)) {
+			myGatherStrategy.gatherResource(getPlayerID(), gatherable);
+		}
+	}
 }

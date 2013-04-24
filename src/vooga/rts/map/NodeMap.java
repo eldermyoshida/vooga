@@ -146,7 +146,9 @@ public class NodeMap implements Observer {
      */
     private void removeFromNode (GameSprite sprite) {
         Node node = myLookupMap.get(sprite);
-        node.removeSprite(sprite);
+        if (node != null) {
+            node.removeSprite(sprite);
+        }
     }
 
     /**
@@ -179,7 +181,7 @@ public class NodeMap implements Observer {
 
         List<Node> nodeList = new ArrayList<Node>();
         for (int x = nodeX - numTiles; x < nodeX + numTiles; x++) {
-            for (int y = nodeY - numTiles; x < nodeY + numTiles; y++) {
+            for (int y = nodeY - numTiles; y < nodeY + numTiles; y++) {
                 Node cur = get(x, y);
                 if (cur != null) {
                     if (cur.contains(new Location3D(x * Node.NODE_SIZE, y * Node.NODE_SIZE, center
@@ -242,6 +244,9 @@ public class NodeMap implements Observer {
                     removeFromNode(item);
                 }
             }
+        }
+        if (arg1 instanceof String && ((String)arg1).equals("remove")) {
+            removeFromNode(item);
         }
     }
 }
