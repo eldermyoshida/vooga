@@ -66,7 +66,8 @@ public class GameElementFactory {
 
     @Deprecated
     public GameElementFactory (String name, GameElementDefinition definition) {
-        this(name, definition.getImage(), definition.getType(), definition.getAttributeManagerFactory(), definition.getActions());
+        this(name, definition.getImage(), definition.getType(), definition
+                .getAttributeManagerFactory(), definition.getActions());
         myName = name;
         myDef = definition;
     }
@@ -128,6 +129,7 @@ public class GameElementFactory {
 
     /**
      * Creates a game element at a location
+     * 
      * @param spawnLocation
      * @return
      */
@@ -140,8 +142,7 @@ public class GameElementFactory {
         return element;
     }
 
-    public GameElement createElement(Location spawn, GameElement Target,
-               Location targetLocation) {
+    public GameElement createElement (Location spawn, GameElement target) {
         GameElement projectile =
                 new GameElement(myImage,
                                 spawn, mySize, createAttributeFactory()
@@ -150,7 +151,7 @@ public class GameElementFactory {
 
         List<Action> actions = new ArrayList<Action>();
         actions.add(new MoveToTarget(projectile.getCenter(),
-                                     targetLocation, projectile.getAttributeManager()
+                                     target.getCenter(), projectile.getAttributeManager()
                                              .getAttribute(
                                                            AttributeConstants.MOVE_SPEED)));
         projectile.addActions(actions);

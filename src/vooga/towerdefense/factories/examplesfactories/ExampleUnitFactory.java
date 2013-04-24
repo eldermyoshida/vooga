@@ -24,6 +24,7 @@ import vooga.towerdefense.util.Location;
  * @author Jimmy Longley
  * 
  */
+@Deprecated
 public class ExampleUnitFactory extends GameElementFactory {
 
     private GameMap myGameMap;
@@ -74,7 +75,7 @@ public class ExampleUnitFactory extends GameElementFactory {
                 .getAttribute(AttributeConstants.MOVE_SPEED), element
                 .getAttributeManager().getAttribute(
                                                     AttributeConstants.DIRECTION)));
-        Action myDeath = new OnDeath(element.getAttributeManager().getAttribute(AttributeConstants.HEALTH));
+        Action myDeath = new OnDeath(element);
         myDeath.addFollowUpAction(new RemoveGameElement(myGameMap, element));
         actions.add(myDeath);
         return actions;
