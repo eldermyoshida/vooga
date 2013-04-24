@@ -33,7 +33,7 @@ public class DatabaseConnection {
         establishConnectionToDatabase();
         try {
             myDatabaseErrorLog = new FileHandler(System.getProperty("user.dir") + 
-                    "/src/arcade/resources/ErrorLog.log");
+                    "/src/arcade/resources/logs/ErrorLog.log");
             myLogger = Logger.getLogger(Table.class.getName());
             myLogger.addHandler(myDatabaseErrorLog);
         }

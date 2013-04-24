@@ -287,13 +287,15 @@ public class Controller implements ArcadeInteraction {
     
     
     public void playGame (GameInfo gameinfo) {
-        myCurrentGame = gameinfo.getGame(this);
         myCurrentGameInfo = gameinfo;
+        myCurrentGame = gameinfo.getGame(this);
         myCurrentGame.run();
     }
 
 
-
+    private void print(Object print){
+        System.out.println(print);
+    }
     /**
      * TODO: Get the list of games from the database.
      * 
@@ -340,8 +342,10 @@ public class Controller implements ArcadeInteraction {
         int score = getCurrentUserGameData().getLastScore();
         myDb.addNewHighScore(myCurrentUser, myCurrentGameInfo.getName(),  score);
         myView.showEndGameView(score);
+        myDb.storeUserGameData(getCurrentGame(), myCurrentUser, getCurrentUserGameData());
         myCurrentGame = null;
         myCurrentGameInfo = null;
+       
     }
 
     
