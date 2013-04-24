@@ -220,8 +220,7 @@ public class GameEditorController extends JFrame {
                 }
             }
         }
-        myXMLDoc.writeFile("view32.xml");
-
+      
     }
 
     /**
