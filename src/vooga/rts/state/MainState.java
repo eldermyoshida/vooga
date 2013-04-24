@@ -13,6 +13,7 @@ import vooga.rts.Game;
 import vooga.rts.commands.Command;
 import vooga.rts.controller.InputController;
 import vooga.rts.gui.Window;
+import vooga.rts.gui.menus.MultiMenu;
 
 
 /**
@@ -82,7 +83,9 @@ public class MainState implements State, Observer {
 
     @Override
     public void paint (Graphics2D pen) {
+        
         myActiveState.paint(pen);
+
     }
 
     @Override
@@ -111,6 +114,13 @@ public class MainState implements State, Observer {
         graphics.setColor(Color.BLACK);
         graphics.fillRect(0, 0, myWindow.getCanvas().getWidth(), myWindow.getCanvas().getHeight());
         // long preRender = System.nanoTime();
+        if (myActiveState instanceof MenuState) {
+            MenuState m = (MenuState) myActiveState;
+            if (m.getCurrentMenu() instanceof MultiMenu) {
+                myWindow.getCanvas().repaint();
+                return;
+            }
+        }
         paint(graphics);
         // System.out.println("Render Time = " + (System.nanoTime() - preRender) / 1000000 +
         // " ms.");

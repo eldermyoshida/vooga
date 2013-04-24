@@ -14,6 +14,7 @@ import vooga.rts.gui.Menu;
 import vooga.rts.gui.menus.MainMenu;
 import vooga.rts.gui.menus.MultiMenu;
 import vooga.rts.gui.menus.SetupMenu;
+import vooga.rts.networking.communications.ExpandedLobbyInfo;
 
 
 /**
@@ -34,6 +35,7 @@ public class MenuState extends SubState implements Observer {
         addMenu(1, new MultiMenu(f));
         addMenu(2, new SetupMenu());
     }
+    
 
     public void addMenu (int index, Menu menu) {
         myMenus.put(index, menu);
@@ -44,6 +46,10 @@ public class MenuState extends SubState implements Observer {
         if (myMenus.containsKey(index)) {
             myCurrentMenu = index;
         }
+    }
+    
+    public Menu getMenu (int index) {
+        return myMenus.get(index);
     }
 
     @Override
@@ -66,7 +72,7 @@ public class MenuState extends SubState implements Observer {
         getCurrentMenu().update(elapsedTime);
     }
 
-    private Menu getCurrentMenu () {
+    public Menu getCurrentMenu () {
         return myMenus.get(myCurrentMenu);
     }
 
@@ -95,6 +101,7 @@ public class MenuState extends SubState implements Observer {
                 setMenu(2); // take them to the setup
             }
             else if (s == 1) { // if user clicked multi player
+                ((MultiMenu) getMenu(1)).setFrame();
                 setMenu(1); // take them to the multi player menu
             }
             else {
@@ -104,6 +111,8 @@ public class MenuState extends SubState implements Observer {
         }
         else if (o instanceof MultiMenu) {
             setMenu(2); // take them to the setup
+            ExpandedLobbyInfo e = (ExpandedLobbyInfo) a;
+            ((SetupMenu) getCurrentMenu()).setLobbyInfo(e);
         }
         else if (o instanceof SetupMenu) {
             setChanged();
