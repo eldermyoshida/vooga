@@ -24,6 +24,7 @@ public abstract class ScrollerGame extends Game {
     private Player myPlayer;
     private String myTitle;
     private String[] myLevels;
+    private String mySplashPage;
 
     public ScrollerGame (ArcadeInteraction arcade) {
         super(arcade);
@@ -37,6 +38,7 @@ public abstract class ScrollerGame extends Game {
         myPlayer = setPlayer(myScrollingManager,myDisplay);
         myLevels = setLevelFileNamesPath();
         myTitle = setTitle();
+        mySplashPage = setSplashPageNamesPath();
     }
 
     protected abstract ScrollingManager setScrollingManager ();
@@ -49,6 +51,8 @@ public abstract class ScrollerGame extends Game {
     
     protected abstract String setLevelsDirPath();
     
+    protected abstract String setSplashPageNamesPath();
+    
     private String[] setLevelFileNamesPath() {
         String[] res = new String[setLevelFileNames().length];
         for (int i=0; i<res.length; i++) {
@@ -58,7 +62,7 @@ public abstract class ScrollerGame extends Game {
     }
     
     private void makeModel() {
-        myModel = new Model(myDisplay, myScrollingManager, myPlayer, myLevels);
+        myModel = new Model(myDisplay, myScrollingManager, myPlayer, mySplashPage, myLevels);
         myModel.addPlayerToLevel();
         myDisplay.setModel(myModel);
     }

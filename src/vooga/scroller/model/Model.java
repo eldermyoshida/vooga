@@ -46,20 +46,20 @@ public class Model {
      * @throws IOException 
      */
 
-    public Model (GameView gameView, ScrollingManager sm, Player player, Level ...levels) {
+    public Model (GameView gameView, ScrollingManager sm, Player player, String splashPage, Level ...levels) {
         this(gameView, sm, player);
-        myLevelManager = initializeLevelManager(levels);
+        myLevelManager = initializeLevelManager(splashPage, levels);
     }
     
     
-    public Model (GameView gameView, ScrollingManager sm, Player player, String... levelFileNames) {
+    public Model (GameView gameView, ScrollingManager sm, Player player, String splashPage, String... levelFileNames) {
         this(gameView, sm, player);
-        myLevelManager = initializeLevelManager(levelFileNames);
+        myLevelManager = initializeLevelManager(splashPage, levelFileNames);
     }
 
-    public Model (GameView gameView, ScrollingManager sm, Level level) {
-        this(gameView, sm, initTestPlayer(gameView, sm), level);
-    }
+//    public Model (GameView gameView, ScrollingManager sm, Level level) {
+//        this(gameView, sm, initTestPlayer(gameView, sm), level);
+//    }
 
 
     private Model (GameView gameView, ScrollingManager sm, Player player) {
@@ -82,13 +82,13 @@ public class Model {
         myLevelManager.getCurrentLevel().addPlayer(myPlayer);
     }
 
-    private LevelManager initializeLevelManager (Level[] levels) {
-        return new LevelManager(myScrollingManager, myView, levels);
+    private LevelManager initializeLevelManager (String splashPage, Level[] levels) {
+        return new LevelManager(myScrollingManager, myView, splashPage, levels);
     }
 
 
-    private LevelManager initializeLevelManager (String[] levelFileNames) {
-        return new LevelManager(myScrollingManager, myView, levelFileNames);
+    private LevelManager initializeLevelManager (String splashPage, String[] levelFileNames) {
+        return new LevelManager(myScrollingManager, myView, splashPage, levelFileNames);
     }
 
 

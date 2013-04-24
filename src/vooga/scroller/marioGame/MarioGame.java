@@ -23,6 +23,7 @@ public class MarioGame extends ScrollerGame {
     // constants
     public static final String TITLE = "Mario Demo";
     public static final String LEVELS_DIR = "src/vooga/scroller/marioGame/sampleLevels/";
+    public static final String SPLASH_DIR = "MARIO SPLASH.png";
 
 
     /**
@@ -85,6 +86,13 @@ public class MarioGame extends ScrollerGame {
     public GameData generateNewGameProfile () {
         // TODO Auto-generated method stub
         return null;
+    }
+
+
+    @Override
+    protected String setSplashPageNamesPath () {
+        // TODO Auto-generated method stub
+        return SPLASH_DIR;
     }
 
 }

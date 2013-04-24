@@ -29,6 +29,7 @@ import vooga.scroller.view.GameView;
 @InputClassTarget
 public class Level implements Renderable<GameView>, IGameComponent {
 
+    private static final String DEFAULT_SPLASH = "MARIO SPLASH.png";
     private Dimension mySize;
     private Dimension frameOfReferenceSize;
     private SpriteManager mySpriteManager;
@@ -257,7 +258,7 @@ public class Level implements Renderable<GameView>, IGameComponent {
         GameView display = new GameView(PlatformerConstants.DEFAULT_WINDOW_SIZE, sm);
         sm.initView(display);
         Player sample = new Mario(new Location(), new Dimension(30, 32), display, sm);
-        Model m = new Model(display, sm, sample, this);
+        Model m = new Model(display, sm, sample, DEFAULT_SPLASH, this);
         m.addPlayerToLevel();
         display.setModel(m);
         return display;

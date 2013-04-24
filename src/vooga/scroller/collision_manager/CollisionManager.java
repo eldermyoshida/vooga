@@ -112,7 +112,10 @@ public class CollisionManager {
     private void addInterfaces(Class clazz, List<Class> classList){
             for(Class c: clazz.getInterfaces()){
                 classList.add(c);
-            }  
+            }
+            if(clazz.getSuperclass() != null){
+                addInterfaces(clazz.getSuperclass(), classList);
+            }
     }
     
     
@@ -129,6 +132,7 @@ public class CollisionManager {
     private void invokeVisit (@SuppressWarnings("rawtypes") Class[] classArray, Object[] sprites) {
         try {
             Method method = visit.getClass().getMethod("visit", classArray);
+
             method.invoke(visit, sprites);
         }
 
@@ -145,7 +149,7 @@ public class CollisionManager {
         }
 
         catch (IllegalArgumentException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
 
         catch (IllegalAccessException e) {
