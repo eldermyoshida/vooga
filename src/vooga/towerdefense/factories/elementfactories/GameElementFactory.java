@@ -1,14 +1,15 @@
-package vooga.towerdefense.factories;
+package vooga.towerdefense.factories.elementfactories;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.actionlist.MoveToTarget;
-import vooga.towerdefense.attributes.AttributeConstants;
+import vooga.towerdefense.attributes.AttributeConstantsEnum;
 import vooga.towerdefense.attributes.AttributeManager;
 import vooga.towerdefense.attributes.DefaultAttributeManager;
 import vooga.towerdefense.factories.actionfactories.ActionFactory;
+import vooga.towerdefense.factories.attributefactories.AttributeManagerFactory;
 import vooga.towerdefense.factories.definitions.GameElementDefinition;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.model.GameMap;
@@ -39,7 +40,7 @@ public class GameElementFactory {
 
     private Pixmap myImage;
     private Dimension mySize;
-    private AttributeManagerFactory myAttributeManager;
+    private AttributeManagerFactory myAttributeManagerFactory;
 
     /**
      * complete constructor
@@ -58,9 +59,17 @@ public class GameElementFactory {
         myName = name;
         myImage = image;
         mySize = new Dimension(image.getWidth(), image.getHeight());
-        myAttributeManager = attrManager;
+        myAttributeManagerFactory = attrManager;
+        myActions = new ArrayList<ActionFactory>();
     }
 
+    public GameElementFactory (String name, Pixmap image){
+        myName = name;
+        myImage = image;
+        myAttributeManagerFactory = new AttributeManagerFactory();
+        mySize = new Dimension(image.getWidth(), image.getHeight());
+        
+    }
     @Deprecated
     public GameElementFactory (String name, GameElementDefinition definition) {
         this(name, definition.getImage(), definition
@@ -101,9 +110,8 @@ public class GameElementFactory {
         myDef = def;
     }
 
-    public AttributeManagerFactory createAttributeFactory () {
-        AttributeManagerFactory factory = new AttributeManagerFactory();
-        return factory;
+    public AttributeManager createAttributeFactory () {
+        return myAttributeManagerFactory.makeAttributeManager();
     }
 
     public void setActionFactories (List<ActionFactory> actionsToMake) {
@@ -134,7 +142,7 @@ public class GameElementFactory {
         GameElement element = new GameElement(myImage,
                                               spawnLocation,
                                               mySize,
-                                              createAttributeFactory().makeAttributeManager());
+                                              createAttributeFactory());
         element.addActions(createActions(element));
         return element;
     }
@@ -142,15 +150,13 @@ public class GameElementFactory {
     public GameElement createElement (Location spawn, GameElement target) {
         GameElement projectile =
                 new GameElement(myImage,
-                                spawn, mySize, createAttributeFactory()
-                                        .makeAttributeManager());
+                                spawn, mySize, myAttributeManagerFactory.makeAttributeManager());
         projectile.addActions(createActions(projectile));
 
         List<Action> actions = new ArrayList<Action>();
         actions.add(new MoveToTarget(projectile.getCenter(),
                                      target.getCenter(), projectile.getAttributeManager()
-                                             .getAttribute(
-                                                           AttributeConstants.MOVE_SPEED)));
+                                             .getAttribute(AttributeConstantsEnum.MOVE_SPEED.toString())));
         projectile.addActions(actions);
         return projectile;
     }

@@ -24,4 +24,8 @@ public class Player {
 	public AttributeManager getAttributeManager() {
 		return myAttributeManager;
 	}
+	
+	public void addAttribute(Attribute newAttribute){
+		myAttributeManager.addAttribute(newAttribute);
+	}
 }

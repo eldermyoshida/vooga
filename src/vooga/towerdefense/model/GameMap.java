@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-
 import vooga.rts.util.Vector;
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.actionlist.FollowPath;
@@ -18,6 +17,7 @@ import vooga.towerdefense.model.tiles.factories.TileFactory;
 import vooga.towerdefense.util.Location;
 import vooga.towerdefense.util.Pixmap;
 
+
 /**
  * The GameMap holds all of the state corresponding to an entire game at a given
  * moment, including all towers and units and the tiles that comprise the map
@@ -27,6 +27,7 @@ import vooga.towerdefense.util.Pixmap;
  * @author Jimmy Longley
  */
 public class GameMap {
+
 
 	private List<GameElement> myGameElements;
 	private Tile[][] myGrid;

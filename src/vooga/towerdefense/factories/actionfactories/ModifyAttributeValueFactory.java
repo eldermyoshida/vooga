@@ -7,6 +7,8 @@ import vooga.towerdefense.gameElements.GameElement;
 
 
 /**
+ * This action factory builds a ModifyAttributeValue action.
+ * 
  * @author Matthew Roy
  * 
  */
@@ -26,7 +28,7 @@ public class ModifyAttributeValueFactory extends ActionFactory {
     }
 
     /**
-     * Overrides from superclasses
+     * Builds a ModifyAttributeValueAction that applies modifies value of targets with corresponding targetID.
      * 
      * @return
      */

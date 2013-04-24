@@ -5,7 +5,7 @@ import java.util.List;
 
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.attributes.Attribute;
-import vooga.towerdefense.attributes.AttributeConstants;
+import vooga.towerdefense.attributes.AttributeConstantsEnum;
 import vooga.towerdefense.gameElements.GameElement;
 
 /**
@@ -36,7 +36,7 @@ public class OnDeath extends Action {
 	@Override
 	public void executeAction(double elapseTime) {
 		if (myResponsibleElement.getAttributeManager()
-				.getAttribute(AttributeConstants.HEALTH).getValue() <= 0) {
+				.getAttribute(AttributeConstantsEnum.HEALTH.toString()).getValue() <= 0) {
 			setEnabled(true);
 		}
 

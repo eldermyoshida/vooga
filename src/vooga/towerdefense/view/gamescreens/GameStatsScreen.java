@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import javax.swing.JPanel;
+import vooga.towerdefense.controller.Controller;
 import vooga.towerdefense.util.ValueText;
 
 
@@ -33,7 +34,7 @@ public class GameStatsScreen extends JPanel {
     private ValueText myMoney;
     private ValueText myLives;
 
-    public GameStatsScreen (Dimension size) {
+    public GameStatsScreen (Dimension size, Controller controller) {
         setPreferredSize(size);
         setFocusable(true);
 
