@@ -1,6 +1,7 @@
 package vooga.rts.gamedesign.sprite.gamesprites.interactive.units;
 
 import java.awt.Dimension;
+import java.awt.image.BufferedImage;
 import java.util.List;
 import vooga.rts.action.InteractiveAction;
 import vooga.rts.commands.ClickCommand;
@@ -18,6 +19,7 @@ import vooga.rts.gamedesign.strategy.gatherstrategy.CanGather;
 import vooga.rts.gamedesign.strategy.gatherstrategy.CannotGather;
 import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
 import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
+import vooga.rts.resourcemanager.ResourceManager;
 import vooga.rts.util.Camera;
 import vooga.rts.util.Information;
 import vooga.rts.util.Location3D;
@@ -40,7 +42,7 @@ import vooga.rts.util.Sound;
 public class Unit extends InteractiveEntity {
 
 	//default values
-    public static Pixmap DEFAULT_IMAGE = new Pixmap("sprites/soldier.png");
+    public static Pixmap DEFAULT_IMAGE = new Pixmap("images/sprites/soldier.png");
     public static Location3D DEFAULT_LOCATION = new Location3D();
     public static Dimension DEFAULT_SIZE = new Dimension(90,90);
     public static Sound DEFAULT_SOUND = null;
