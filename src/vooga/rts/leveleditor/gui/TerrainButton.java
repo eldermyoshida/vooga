@@ -5,6 +5,8 @@ import java.awt.Insets;
 import java.awt.image.BufferedImage;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import util.input.Input;
 import util.input.InputClassTarget;
@@ -23,6 +25,7 @@ public class TerrainButton extends JToggleButton {
     private TerrainPanel myOwner;
     private Pixmap myIcon;
     private Input myInput;
+    private boolean isInitialized;
 
     public TerrainButton (EditableTerrain t, BufferedImage image, TerrainPanel owner) {
         myTerrain = t;
@@ -40,9 +43,32 @@ public class TerrainButton extends JToggleButton {
 
     @InputMethodTarget(name = "onLeftMouseDown")
     public void getResource (PositionObject p) {
+        if(!isInitialized) {
+            showCustmizationDailog();
+            }
         myOwner.getCanvas().remove(false);
         myOwner.setCurrentSelectTerrain(myTerrain);
         myOwner.getCanvas().setMode(MapPanel.TERRAINMODE);
+    }
+
+    private void showCustmizationDailog() {
+        JTextField terrainType = new JTextField();
+        JTextField walkability = new JTextField();
+        Object[] message = {"Type", terrainType, "Walkability", walkability};
+        int option = JOptionPane.showConfirmDialog(null, message,"Set Terrain",JOptionPane.OK_CANCEL_OPTION);
+        if (option == JOptionPane.OK_OPTION) {
+            try {
+                String type = terrainType.getText();
+                myTerrain.setType(type);
+                int w = Integer.parseInt(walkability.getText());
+                myTerrain.setWalkability(w);
+                isInitialized = true;
+            }
+            catch (Exception e1) {
+               
+            }
+        }
+        
     }
 
 }

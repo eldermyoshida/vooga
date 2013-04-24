@@ -57,6 +57,17 @@ public class EditableTerrain extends Terrain {
     
     public Image getMyImage() {
         return super.getImage().getMyImage();
+    }
+
+
+    public void setWalkability(int w) {
+        myWalkAbility = w;
+        
+    }
+
+    public void setType(String type) {
+        myName = type;
+        
     } 
  
 }

@@ -84,5 +84,9 @@ public class EditableTile extends Tile {
         myName = "";
         myImageName = "";
     }
+
+    public void setType(String type) {
+        myName = type;        
+    }
    
 }
