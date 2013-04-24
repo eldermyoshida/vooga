@@ -192,7 +192,6 @@ public class ViewEditorScreen extends GameEditorScreen {
     }
 
     private void doneAddingMultiplePanels () {
-        // TODO ???
         myMultiScreenMap.put(myKey, myScreens);
         mySouthernPanelScreen.setVisible(false);
         mySouthernPanelPosition.setVisible(false);
@@ -204,11 +203,7 @@ public class ViewEditorScreen extends GameEditorScreen {
         mySizeLabel.setVisible(false);
     }
 
-    private void setComponentVisibility (boolean visible) {
-        
-    }
     private void addPanelToMultiplePanels () {
-        // TODO ??????
         String position = (String)mySouthernPanelPosition.getSelectedItem();
         String screen = (String)myMultiPanel.getSelectedItem();
         String size = myMultiPanelSize.getText();
@@ -356,11 +351,6 @@ public class ViewEditorScreen extends GameEditorScreen {
         s = (String)myWestPanel.getSelectedItem() + " " + myWestSize.getText() + " " + "WEST";
         viewInfo.add(s);
         return viewInfo;
-
-        // TODO handle multiple screens ....
-
-//        getController().setMapSize(getMapDimension());
-//        getController().addViewToGame();
     }
     
     /**
