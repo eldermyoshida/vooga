@@ -12,6 +12,7 @@ import util.input.InputClassTarget;
 import util.input.InputMethodTarget;
 import vooga.scroller.util.IGameComponent;
 import vooga.scroller.util.Renderable;
+import vooga.scroller.util.Renderer;
 import vooga.scroller.util.Sprite;
 import vooga.scroller.level_editor.controllerSuite.LEGrid;
 import vooga.scroller.level_editor.model.SpriteBox;
@@ -242,13 +243,13 @@ public class Level implements Renderable<GameView>, IGameComponent{
     }
 
     @Override //TODO - incomplete
-    public GameView initializeRenderer (IView parent) {
+    public Renderer<GameView> initializeRenderer (IView<?> parent) {
      // view of user's content
         ScrollingManager sm = new OmniScrollingManager();
         GameView display = new GameView(PlatformerConstants.DEFAULT_WINDOW_SIZE, sm);
         Model m = new Model(display, sm, this);
         display.setModel(m);
-        return display;
+        return (Renderer<GameView>) display;//TODO - bad
     }
 
     @Override

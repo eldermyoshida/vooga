@@ -4,7 +4,7 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 import vooga.scroller.util.Renderable;
 
-public class SimpleView extends JFrame implements IView<SimpleView> {
+public class SimpleView extends JFrame implements IView<Gaming> {
 
     /**
      * 
@@ -29,9 +29,21 @@ public class SimpleView extends JFrame implements IView<SimpleView> {
     }
 
     @Override
-    public void render (Renderable<SimpleView> r) {
+    public void render (Renderable<Gaming> r) {
         // TODO Auto-generated method stub
         
+    }
+
+    @Override
+    public void setRenderable (Renderable<Gaming> renderable) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public Renderable<Gaming> getRenderable () {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 

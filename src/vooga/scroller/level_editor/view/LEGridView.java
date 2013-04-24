@@ -19,7 +19,8 @@ import vooga.scroller.util.mvc.IView;
 import vooga.scroller.util.mvc.vcFramework.WindowComponent;
 
 
-public class LEGridView extends WindowComponent implements Scrollable, Renderer<LEGrid>{
+public class LEGridView extends WindowComponent<LevelEditing> 
+implements Scrollable, Renderer<LevelEditing>{
     private class GridPositionListener implements MouseListener {
 
         @Override
@@ -73,7 +74,7 @@ public class LEGridView extends WindowComponent implements Scrollable, Renderer<
      * @param d
      * @param e
      */
-    public LEGridView (IView parent, Renderable<LEGridView> r) {
+    public LEGridView (IView parent, Renderable<LevelEditing> r) {
         // TODO Auto-generated constructor stub
         super(parent,((LEGrid) r).getPixelSize());
         this.addMouseListener(new GridPositionListener());
@@ -146,20 +147,15 @@ public class LEGridView extends WindowComponent implements Scrollable, Renderer<
     }
 
 
-    @Override //TODO - explicit the difference between render & set Renderable
-    public void render (LEGrid r) {
-        setRenderable(r);
-    }
-
     @Override
-    public void setRenderable (LEGrid r) {
-        myGrid = r;
+    public void setRenderable (Renderable<LevelEditing>  r) {
+        myGrid = (LEGrid) r;
         setSize(myGrid.getPixelSize());
         repaint();
     }
 
     @Override
-    public void render (Renderable r) {
+    public void render (Renderable<LevelEditing> r) {
        if (r instanceof LEGrid) {
            render((LEGrid) r);
        }
@@ -173,8 +169,13 @@ public class LEGridView extends WindowComponent implements Scrollable, Renderer<
     }
 
     @Override
-    public LEGrid getRenderable () {
+    public Renderable<LevelEditing> getRenderable () {
         return myGrid;
+    }
+
+
+    public void simulate () {
+        myGrid.simulate();
     }
 
 }

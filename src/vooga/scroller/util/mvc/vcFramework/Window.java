@@ -35,7 +35,7 @@ import vooga.scroller.viewUtil.EasyGridFactory;
  */
 @SuppressWarnings("serial")
 public abstract class Window<W extends WorkspaceView<D>, D extends IDomainDescriptor,
-R extends WindowComponent, T extends Tools> extends JFrame 
+R extends WindowComponent<D>, T extends Tools<D>> extends JFrame 
 implements IWindow<W, D, R, T> {
 
     private static ResourceBundle ourResources;
@@ -104,7 +104,7 @@ implements IWindow<W, D, R, T> {
      * @param tab The tab to be added
      * @param p The Renderable that it is associated with
      */
-    public void addTab (W tab, Renderable<R> p) {
+    public void addTab (W tab, Renderable<D> p) {
         myTabbedPane.addTab(getLiteral("TabTitle") + " " + (tab.getID() + 1), tab);
         tab.setRenderable(p);
     }
@@ -225,7 +225,7 @@ implements IWindow<W, D, R, T> {
     }
     
     @Override
-    public void showWorkspace (W associatedWorkspaceView, Renderable<R> r) {
+    public void showWorkspace (W associatedWorkspaceView, Renderable<D> r) {
         addTab(associatedWorkspaceView, r);
     }
     
@@ -240,7 +240,7 @@ implements IWindow<W, D, R, T> {
      * @param r - object to render
      */
     @Override
-    public void render(Renderable<R> r) {
+    public void render(Renderable<D> r) {
         showWorkspace (getActiveTab(), r);
     }
     

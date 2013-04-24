@@ -13,6 +13,7 @@ import vooga.scroller.level_editor.StartPoint;
 import vooga.scroller.level_editor.commands.CommandConstants;
 import vooga.scroller.level_editor.view.LEActionLibrary;
 import vooga.scroller.level_editor.view.LEMenuBar;
+import vooga.scroller.level_editor.view.LevelEditing;
 import vooga.scroller.level_editor.view.TabbedToolsView;
 import vooga.scroller.level_editor.view.LEView;
 import vooga.scroller.level_management.IDoor;
@@ -35,7 +36,7 @@ import vooga.scroller.util.mvc.vcFramework.WorkspaceView;
  * @author Dagbedji Fagnisse
  * 
  */
-public class LETools extends Tools<TabbedToolsView> {
+public class LETools extends Tools<LevelEditing> {
 
     private static final int DEFAULT_SIZE = 40;
     private static final int PLATFORMS = 0;
@@ -44,32 +45,35 @@ public class LETools extends Tools<TabbedToolsView> {
     private static final int SPECIALPOINTS = 3;
     private static final int OTHERS = 4;
     private static final int DEFAULT_BG_SIZE = 40;
-    private List<HashMap<Object, String>> mySpritesOptions;
-    private Map<Object, String> myBackgroundImages;
-    private Map<Object, String> myOtherImages;
+    private static final String BACKGROUND_CMD =  CommandConstants.CHANGE_BACKGROUND;
+    private List<Map<Image, String>> mySpritesOptions;
+//    private Map<Image, String> myBackgroundImages;
+    private Map<String, Map<Image, String>> myOtherOptions;
 
     /**
      * Initialize state of this LETools.
      */
     public LETools () {
-        mySpritesOptions = new ArrayList<HashMap<Object, String>>();
-        Map<Object, String> platforms = new HashMap<Object, String>();
-        Map<Object, String> enemies = new HashMap<Object, String>();
-        Map<Object, String> collectibles = new HashMap<Object, String>();
-        Map<Object, String> specialpoints = new HashMap<Object, String>();
-        Map<Object, String> others = new HashMap<Object, String>();
-        mySpritesOptions.add(PLATFORMS, (HashMap<Object, String>) platforms);
-        mySpritesOptions.add(ENEMIES, (HashMap<Object, String>) enemies);
-        mySpritesOptions.add(COLLECTIBLES, (HashMap<Object, String>) collectibles);
-        mySpritesOptions.add(SPECIALPOINTS, (HashMap<Object, String>) specialpoints);
-        mySpritesOptions.add(OTHERS, (HashMap<Object, String>) others);
-        myBackgroundImages = new HashMap<Object,String>();
+        mySpritesOptions = new ArrayList<Map<Image, String>>();
+        Map<Image, String> platforms = new HashMap<Image, String>();
+        Map<Image, String> enemies = new HashMap<Image, String>();
+        Map<Image, String> collectibles = new HashMap<Image, String>();
+        Map<Image, String> specialpoints = new HashMap<Image, String>();
+        Map<Image, String> others = new HashMap<Image, String>();
+        mySpritesOptions.add(PLATFORMS, platforms);
+        mySpritesOptions.add(ENEMIES, enemies);
+        mySpritesOptions.add(COLLECTIBLES, collectibles);
+        mySpritesOptions.add(SPECIALPOINTS, specialpoints);
+        mySpritesOptions.add(OTHERS, others);
+        Map<Image, String> backgrounds = new HashMap<Image,String>();
+        myOtherOptions = new HashMap<String, Map<Image, String>>();
+        myOtherOptions.put(BACKGROUND_CMD, backgrounds);
+    }
+    
+    private Image getImg (Sprite s) {
+        return s.getDefaultImg();
     }
 
-    //
-    // public Map<Object, String> getSpriteMakingOptions() {
-    // return spriteIcons;
-    // }
 
     private ImageIcon getIcon (Sprite s) {
         return new ImageIcon(s.getDefaultImg().getScaledInstance(
@@ -77,10 +81,7 @@ public class LETools extends Tools<TabbedToolsView> {
                                              Image.SCALE_SMOOTH));
     }
     
-    private ImageIcon getIcon (Image a, int size) {
-        return new ImageIcon(a.getScaledInstance(size, size,
-                                                 Image.SCALE_SMOOTH));
-    }
+    
 
     /**
      * Add a Sprite option, and organize the sprites based off their behavior.
@@ -92,46 +93,40 @@ public class LETools extends Tools<TabbedToolsView> {
      */
     public void addSpriteOption (Sprite s, int spriteID) {
         if (s instanceof IPlatform) {
-            mySpritesOptions.get(PLATFORMS).put(getIcon(s), spriteID + "");
+            mySpritesOptions.get(PLATFORMS).put(getImg(s), spriteID + "");
         }
         else if (s instanceof IEnemy) {
-            mySpritesOptions.get(ENEMIES).put(getIcon(s), spriteID + "");
+            mySpritesOptions.get(ENEMIES).put(getImg(s), spriteID + "");
         }
         else if (s instanceof ICollectible) {
-            mySpritesOptions.get(COLLECTIBLES).put(getIcon(s), spriteID + "");
+            mySpritesOptions.get(COLLECTIBLES).put(getImg(s), spriteID + "");
         }
         else if (s instanceof StartPoint || s instanceof IDoor) {
-            mySpritesOptions.get(SPECIALPOINTS).put(getIcon(s), spriteID + "");
+            mySpritesOptions.get(SPECIALPOINTS).put(getImg(s), spriteID + "");
         }
         else {
-            mySpritesOptions.get(OTHERS).put(getIcon(s), spriteID + "");
+            mySpritesOptions.get(OTHERS).put(getImg(s), spriteID + "");
         }
     }
 
-    // public Map<Object, String> getOtherOptions() {
-    // return myOtherIcons;
-    // }
 
     /**
      * 
      * @return
      */
-    public List<? extends Map<Object, String>> getAllSprites () {
+    public List<Map<Image, String>> getAllSprites () {
         return mySpritesOptions;
     }
 
-    public Map<Object, String> getOtherOptions () {
-        return myOtherImages;
-    }
 
-    public Map<Object, String> getBackgrounds () {
-        return myBackgroundImages;
+    public Map<Image, String> getBackgrounds () {
+        return myOtherOptions.get(BACKGROUND_CMD);
     }
 
 
     public void addBackgrounds (Map<Integer, Image> backgrounds) {
         for (Integer key : backgrounds.keySet()) {
-            myBackgroundImages.put(getIcon(backgrounds.get(key), DEFAULT_BG_SIZE), "" + key);
+            myOtherOptions.get(BACKGROUND_CMD).put(backgrounds.get(key), "" + key);
         }
     }
 
@@ -139,20 +134,20 @@ public class LETools extends Tools<TabbedToolsView> {
     public JMenuBar getMenu (Window w) {
         return new LEMenuBar((LEView) w);
     }
+//
+//    @Override
+//    public TabbedToolsView initializeRenderer (IView parent) {
+//        return new TabbedToolsView(this, parent);
+//    }
 
     @Override
-    public TabbedToolsView initializeRenderer (IView parent) {
-        return new TabbedToolsView(this, parent);
-    }
-
-    @Override
-    public List<? extends Map<Object, String>> EditableDependents () {
+    public List<Map<Image, String>> EditableDependents () {
         return getAllSprites();
     }
 
     @Override
-    public Map<Object, String> getEditableIndependents () {
-        return getBackgrounds();
+    public Map<String, Map<Image, String>> getEditableIndependents () {
+        return myOtherOptions;
     }
 
     @Override
@@ -163,11 +158,6 @@ public class LETools extends Tools<TabbedToolsView> {
     @Override
     public String getEditableIndependentsTitle () {
         return "Other";
-    }
-
-    @Override
-    public String getEditableIndependentsKeyword () {
-        return CommandConstants.CHANGE_BACKGROUND;
     }
 
 }

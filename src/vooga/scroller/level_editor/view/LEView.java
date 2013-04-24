@@ -32,19 +32,11 @@ public class LEView extends Window<LEWorkspaceView, LevelEditing, LEGridView, LE
     }
 
     @Override
-    public LEWorkspaceView initializeWorkspaceView (int id, Renderable<LEGridView> r) {
+    public LEWorkspaceView initializeWorkspaceView (int id, Renderable<LevelEditing> r) {
         LEWorkspaceView res = new LEWorkspaceView(this, id, r, getTools());
         return res;
     }
 
-    /**
-     * TODO - figure out tools hierarchy
-     * @param t - default toolbox
-     */
-    @Override
-    public void setDefaultWorkspaceTools (LETools t) {
-        LEWorkspaceView.setTools(t);
-    }
 
 
     /**
@@ -63,10 +55,28 @@ public class LEView extends Window<LEWorkspaceView, LevelEditing, LEGridView, LE
      */
     private void simulate (LEWorkspaceView tab) {
         if (tab.isValidForSimulation()) {
-            tab.getRenderable().simulate();
+            ((LEGridView) tab.getRenderable()).simulate();
         }
         else 
             showMessageDialog(SIMULATION_ERROR_MESSAGE);
+    }
+
+    @Override
+    public void setDefaultWorkspaceTools (LETools t) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void setRenderable (Renderable<LevelEditing> renderable) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public Renderable<LevelEditing> getRenderable () {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 

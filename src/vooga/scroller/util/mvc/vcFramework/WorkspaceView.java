@@ -18,7 +18,8 @@ import vooga.scroller.util.mvc.vcFramework.Window;
  * @author Dagbedji Fagnisse
  *
  */
-public abstract class WorkspaceView<D extends IDomainDescriptor> extends WindowComponent {
+public abstract class WorkspaceView<D extends IDomainDescriptor> 
+                                        extends WindowComponent<D> {
 
     /**
      * 
@@ -29,7 +30,6 @@ public abstract class WorkspaceView<D extends IDomainDescriptor> extends WindowC
     @SuppressWarnings("unused")
     private GridBagConstraints myConstraints;
     private Dimension mySize = ViewConstants.DEFAULT_TAB_SIZE;
-    private static Tools myTools;
     private static Double DEF_WIDTH_RATIO = .95;
     private static Double DEF_HEIGHT_RATIO = .9;
 
@@ -81,14 +81,6 @@ public abstract class WorkspaceView<D extends IDomainDescriptor> extends WindowC
         ((Window) getResponsible()).process(this, o);
     }
     
-    //TODO - good design choice?
-    public static void setTools(Tools t) {
-        myTools = t;
-    }
-    
-    public Tools getTools() {
-        return myTools;
-    }
 
-    public abstract void setRenderable (Renderable<?> m);
+    public abstract void setRenderable (Renderable<D> m);
 }

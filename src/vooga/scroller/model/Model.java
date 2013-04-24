@@ -103,26 +103,6 @@ public class Model {
     }
 
 
-
-//    /**
-//     * User defined player initialization.
-//     */
-//    private Player initPlayer() {
-//        // TODO: this is implemented by the developer. 
-//        
-//        Player player = new Mario(
-//                             new Location(100, 140),
-//                             new Dimension(138/6, 276/6),
-//                             myView, myScrollingManager);
-//        
-//        MovingSpriteAnimationFactory msaf = new MovingSpriteAnimationFactory(PLAYER_IMAGES);
-//        Animation playerAnimation = msaf.generateAnimation(player);
-//        
-//        player.setView(playerAnimation);
-//
-//        return player;
-//    }
-
     /**
      * Draw all elements of the game.
      */

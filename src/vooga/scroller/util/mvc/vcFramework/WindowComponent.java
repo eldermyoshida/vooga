@@ -1,7 +1,6 @@
 
 package vooga.scroller.util.mvc.vcFramework;
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
 import javax.swing.JPanel;
 import vooga.scroller.util.mvc.IView;
 
@@ -10,14 +9,15 @@ import vooga.scroller.util.mvc.IView;
  * It is also responsible for simplifying and 
  * enforcing the chain of responsibility all
  * the way to the higher level window
- * 
+ * D - the domain descriptor, also enforces chain of responsibility
  * @author Ross Cahoon, Dagbedji Fagnisse
  *
  */
 @SuppressWarnings("serial")
-public abstract class WindowComponent<R> extends JPanel implements IView<R> {
+public abstract class WindowComponent<D extends IDomainDescriptor> 
+                extends JPanel implements IView<D> {
 
-    private IView myResponsible;
+    private IView<D> myResponsible;
 
     
     
@@ -25,7 +25,7 @@ public abstract class WindowComponent<R> extends JPanel implements IView<R> {
      * Constructor for WindowView
      * @param parent the parent of the View being created
      */
-    private WindowComponent (IView parent) {
+    private WindowComponent (IView<D> parent) {
         myResponsible = parent;
         this.setBorder(ViewConstants.DEFAULT_BORDER);
     }
@@ -36,7 +36,7 @@ public abstract class WindowComponent<R> extends JPanel implements IView<R> {
      * @param parent - container responsible for this WindowComponent
      * @param size - pixels width and height for the component being created
      */
-    public WindowComponent (IView parent, Dimension size) {
+    public WindowComponent (IView<D> parent, Dimension size) {
         this(parent);
         setDefaultSize(size);
     }
@@ -49,7 +49,7 @@ public abstract class WindowComponent<R> extends JPanel implements IView<R> {
      * @param relativeHeight - 1 is same size as the parent.
      * TODO - if size is greater than 1, automatically enable scrolling (?)
      */
-    public WindowComponent (IView parent, double relativeWidth, double relativeHeight) {
+    public WindowComponent (IView<D> parent, double relativeWidth, double relativeHeight) {
         this(parent);
         Dimension rel = getDefaultSize(relativeWidth, relativeHeight);
         setDefaultSize(rel);   
@@ -75,7 +75,7 @@ public abstract class WindowComponent<R> extends JPanel implements IView<R> {
      * Identify the ViewComponent responsible for this one.
      * @return - responsible ViewComponent.
      */
-    protected IView getResponsible() {
+    protected IView<D> getResponsible() {
         return myResponsible;
     }
     
