@@ -3,7 +3,6 @@ package vooga.scroller.level_editor.controllerSuite;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.HashSet;
@@ -18,11 +17,9 @@ import vooga.scroller.level_editor.Level;
 import vooga.scroller.level_editor.StartPoint;
 import vooga.scroller.level_editor.model.SpriteBox;
 import vooga.scroller.level_editor.view.LEGridView;
-import vooga.scroller.level_management.ExamplePortal;
 import vooga.scroller.level_management.LevelPortal;
 import vooga.scroller.scrollingmanager.OmniScrollingManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
-import vooga.scroller.sprites.interfaces.IDoor;
 import vooga.scroller.util.Editable;
 import vooga.scroller.util.IBackgroundView;
 import vooga.scroller.util.Renderable;
@@ -36,7 +33,6 @@ public class LEGrid implements Editable, Renderable<LEGridView>, Scrollable {
 
     public static final int DEFAULT_SPRITE_SIZE = 32;
     private static final Location DEFAULT_START_LOC = new Location(0, 0);
-    private static final Location DEFAULT_END_LOC = new Location(100, 100);
     private int mySpriteSize;
     private SpriteBox[][] myGrid;
     private Dimension mySize;
@@ -265,14 +261,8 @@ public class LEGrid implements Editable, Renderable<LEGridView>, Scrollable {
     }
 
     public void addDoorWithCoor (int xcoor, int ycoor, Sprite sprite) {
-        
-    }
-
-    public Location removePortal () {
-        if (myDoor == null) { return DEFAULT_END_LOC; }
-        Location center = myDoor.getCenter();
-        deleteSprite((int) center.getX(), (int) center.getY());
-        return center;
+        myDoor = (LevelPortal) sprite;
+        addSpriteWithCoor(xcoor,ycoor,sprite);
     }
 
     @Override

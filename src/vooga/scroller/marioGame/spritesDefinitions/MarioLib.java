@@ -249,6 +249,16 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
         public void print () {
         }
     }
+    
+    public static class ItemBlock extends StaticEntity implements IPlatform {
+
+        private static final String BLOCK_IMG = "itemBlock.gif";
+        
+        public ItemBlock () {
+            super(makePixmap(BLOCK_IMG), DEFAULT_LOC, DEFAULT_SIZE, DEFAULT_HEALTH, DEFAULT_DAMAGE);
+        }
+        
+    }
 
     public static class ExamplePortal extends LevelPortal {
 
