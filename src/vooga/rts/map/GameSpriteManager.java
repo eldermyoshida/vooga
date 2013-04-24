@@ -110,10 +110,18 @@ public class GameSpriteManager<T extends GameSprite> implements IGameLoop, Obser
     @Override
     public void update (Observable arg0, Object arg1) {
         if (arg0 instanceof GameEntity) {
-            if (((GameEntity)arg).isDead()) {
+            if (((GameEntity)arg1).isDead()) {
                 remove((T) arg0);
             }
         }
+    }
+    
+    public int getSize() {
+        return myGameSprites.size();
+    }
+    
+    public List<T> getMySprites() {
+        return myGameSprites;
     }
 
 }

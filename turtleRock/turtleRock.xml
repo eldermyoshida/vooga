@@ -3,7 +3,7 @@
 <MapInfo>
 <Name>TestMap</Name>
 <Desc>This is a test map</Desc>
-<Players number="vooga.rts.leveleditor.components.EditableMap@5d64db48">
+<Players number="vooga.rts.leveleditor.components.EditableMap@5327510b">
 <Player ID="1" X="20" Y="20"/>
 </Players>
 </MapInfo>

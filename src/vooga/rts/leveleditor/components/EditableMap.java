@@ -1,17 +1,16 @@
 package vooga.rts.leveleditor.components;
 
 import java.awt.Dimension;
-import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import javax.imageio.ImageIO;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import org.xml.sax.SAXException;
+import vooga.rts.map.GameMap;
+import vooga.rts.state.GameState;
 import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
@@ -26,31 +25,30 @@ import vooga.rts.util.Pixmap;
  * 
  */
 
-public class EditableMap {
+public class EditableMap extends GameMap {
 
 
     private static final int DEFAULT_PLAYER_UPPER_LIMIT = 8;
     private static final int DEFAULT_TEAM_UPPER_LIMIT = 4;
     
-    private List<Terrain> myTerrains;
-    
-    private List<Resource> myResources;
-    
     private String myMapName = "CIEMAS";
     private String myDescription = " our RTS is the best one !";
-
-    private EditableTileMap myTileMap;
 
     private PlayerSet myPlayerSet;
 
     private MapSaver mySaver;
     private MapLoader myLoader;
+    
+    private EditableTileMap myTileMap;
 
     public EditableMap (String name, String desc, int xSize, int ySize, int tileWidth, int tileHeight) {
+        super(new Dimension(tileWidth,tileHeight),xSize,ySize);
+        myTileMap = new EditableTileMap(new Dimension(tileWidth,tileHeight),xSize,ySize);
         myMapName = name;
         myDescription =desc;
-        myTileMap = new EditableTileMap(new Dimension(tileWidth,tileHeight),ySize,xSize);
+        GameState.setMap(this);
         initializeMap();
+        setTileMap(myTileMap);
     }
 
     public EditableMap () {
@@ -60,16 +58,14 @@ public class EditableMap {
     public void initializeMap () {
         myTileMap.initialize();
         myPlayerSet = new PlayerSet(DEFAULT_PLAYER_UPPER_LIMIT,DEFAULT_TEAM_UPPER_LIMIT);
-        myTerrains = new ArrayList<Terrain>();
-        myResources = new ArrayList<Resource>();
 
-//        try {
-//            //mySaver = new MapSaver(this);
-//            //myLoader = new MapLoader(this);
-//        }
-//        catch (ParserConfigurationException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            mySaver = new MapSaver(this);
+            //myLoader = new MapLoader(this);
+        }
+        catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        }
     }
 
     public void resetTileMap(int xSize, int ySize ,int tileWidth, int tileHeight) {
@@ -167,12 +163,12 @@ public class EditableMap {
         myTileMap.addTile(i, j, id, name, imageName, image);
     }
     
-    public void addTerrain(Terrain ter) {
-        myTerrains.add(ter);
+    public void addTerrain(EditableTerrain ter) {
+        getTerrain().add(ter);
     } 
     
     public void addTerrain(Pixmap image, Location3D center , int id , String name , String imageName, int walkAbility ) {
-        myTerrains.add(new Terrain(image, center , id , name ,imageName, walkAbility));
+        addTerrain(new EditableTerrain(image, center , id , name ,imageName, walkAbility));
     }
     
     public void addTerrain(Pixmap image, int x, int y , int z, int id, String name , String imageName , int walkAbility) {
@@ -183,12 +179,12 @@ public class EditableMap {
         addTerrain(image,x,y,layerCount*layerHeight,id,name,imageName,walkAbility);
     }
     
-    public void addResource(Resource res) {
-        myResources.add(res);
+    public void addResource(EditableResource res) {
+        getResources().add(res);
     }
     
     public void addResource(Pixmap image, Location3D center , int id, String name , String imageName, int amount) {
-        addResource(new Resource(image,center,id,name,imageName,amount));
+        addResource(new EditableResource(image,center,id,name,imageName,amount));
     }
     
     public void addResource(Pixmap image, int x, int y , int z, int id, String name , String imageName , int walkAbility) {
@@ -216,11 +212,11 @@ public class EditableMap {
     }
     
     public int getTerrainSize() {
-        return myTerrains.size();
+        return getTerrain().getSize();
     }
     
     public int getResourceSize() {
-        return myResources.size();
+        return getResources().getSize();
     }
     
     public String getMyMapName () {
@@ -235,12 +231,12 @@ public class EditableMap {
         return myTileMap.getTile(i, j);
     }
     
-    public Terrain getTerrain(int index) {
-        return myTerrains.get(index);
+    public EditableTerrain getTerrain(int index) {
+        return (EditableTerrain)getTerrain().getMySprites().get(index);
     }
     
-    public Resource getResource(int index) {
-        return myResources.get(index);
+    public EditableResource getResource(int index) {
+        return (EditableResource)getResources().getMySprites().get(index);
     }
 
     public void setMyMapName (String myMapName) {
@@ -259,15 +255,6 @@ public class EditableMap {
         return myPlayerSet.getAllPlayers();
     }
     
-    public void paint(Graphics2D pen) {
-       myTileMap.paint(pen);
-       for(Terrain ter : myTerrains) {
-           ter.paint(pen);
-       }
-       for(Resource res : myResources) {
-           res.paint(pen);
-       }
-    }
     
     public static void main (String[] args) {
         EditableMap test = new EditableMap("TestMap", "This is a test map", 10, 10, 50, 50);

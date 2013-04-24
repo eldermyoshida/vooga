@@ -6,9 +6,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import vooga.rts.leveleditor.components.EditableTerrain;
 import vooga.rts.leveleditor.components.EditableTile;
-import vooga.rts.leveleditor.components.Resource;
-import vooga.rts.leveleditor.components.Terrain;
+import vooga.rts.leveleditor.components.EditableResource;
 import vooga.rts.resourcemanager.ImageLoader;
 import vooga.rts.resourcemanager.ResourceManager;
 
@@ -35,8 +35,8 @@ public class Canvas extends JFrame {
     private LayerPanel myLayerPanel;
     private ButtonPanel myButtonPanel;
     private MenuManager myMenuManager;
-    private Resource myCurrentSelectResource;
-    private Terrain myCurrentSelectTerrain;
+    private EditableResource myCurrentSelectResource;
+    private EditableTerrain myCurrentSelectTerrain;
     private EditableTile myCurrentSelectTile;
     private JScrollPane  myMapScroll;
 
@@ -78,19 +78,19 @@ public class Canvas extends JFrame {
     }
 
 
-    public void setCurrentSelectResource(Resource r) {
+    public void setCurrentSelectResource(EditableResource r) {
         myCurrentSelectResource = r;
     }
 
-    public Resource getCurrentSelectResource() {
+    public EditableResource getCurrentSelectResource() {
         return myCurrentSelectResource;
     }
     
-    public void setCurrentSelectTerrain(Terrain t) {
+    public void setCurrentSelectTerrain(EditableTerrain t) {
         myCurrentSelectTerrain = t;        
     }
     
-    public Terrain getCurrentSelectTerrain() {
+    public EditableTerrain getCurrentSelectTerrain() {
         return myCurrentSelectTerrain;
     }
     

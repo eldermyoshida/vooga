@@ -282,4 +282,8 @@ public class GameState extends SubState implements Controller {
     public static GameMap getMap () {
         return myMap;
     }
+    
+    public static void setMap(GameMap map) {
+        myMap = map;
+    }
 }
