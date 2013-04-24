@@ -46,12 +46,21 @@ public class EditableMap extends GameMap {
     private MapLoader myLoader;
     
     private EditableTileMap myTileMap;
-
-    public EditableMap (String name, String desc, int xSize, int ySize, int tileWidth, int tileHeight) {
-        super(new Dimension(tileWidth,tileHeight),xSize,ySize);
+    /**
+     * constructor for editable map
+     * @param name the name of this map
+     * @param desc a brief description of this game map
+     * @param xSize the x size of this map, in tiles
+     * @param ySize the y size of this map, in tiles
+     * @param tileWidth the width of the tiles in this map
+     * @param tileHeight the height of the tiles in this map
+     */
+    public EditableMap (String name, String desc, int xSize, int ySize,
+                                            int tileWidth, int tileHeight) {
+        super(new Dimension(tileWidth , tileHeight) ,xSize ,ySize);
         myTileMap = new EditableTileMap(new Dimension(tileWidth,tileHeight),xSize,ySize);
         myMapName = name;
-        myDescription =desc;
+        myDescription = desc;
         GameState.setMap(this);
         initializeMap();
         setTileMap(myTileMap);
