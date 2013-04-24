@@ -19,8 +19,7 @@ public class GameElementXMLLoader {
     private static final String TYPE_TAG = "type";
     private static final String IMAGE_TAG = "image";
     private static final String VALUE_TAG = "value";
-    
-    
+
     private XMLTool myXMLTool;
     private GameMap myGameMap;    
     
