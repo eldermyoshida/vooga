@@ -86,18 +86,34 @@ public class PlayerSet {
         myPlayers.clear();
     }
 
+    /**
+     * get the upperlimit of players
+     * @return player upper limit
+     */
     public int getMyPlayerUpperLimit() {
         return myPlayerUpperLimit;
     }
-
+    
+    /**
+     * get the upper limit of teams
+     * @return
+     */
     public int getMyTeamUpperLimit() {
         return myTeamUpperLimit; 
     }
     
+    /**
+     * return the number of players
+     * @return
+     */
     public int getMyPlayerNumber() {
         return myPlayerNumber;
     }
     
+    /**
+     * get all players
+     * @return myPlayers
+     */
     public Map<Integer,Location> getAllPlayers() {
         return myPlayers;
     }
