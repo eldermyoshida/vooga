@@ -9,7 +9,7 @@ import java.util.Map;
  * is read only.
  * 
  */
-public class Score {
+public class Score implements Comparable<Score>{
     String myGame;
     String myUser;
     double myScore;
@@ -30,6 +30,11 @@ public class Score {
 
     protected double getScore () {
         return myScore;
+    }
+
+    @Override
+    public int compareTo (Score other) {
+        return (int) (this.getScore() - other.getScore());
     }
 
 }

@@ -225,10 +225,7 @@ public class Model implements ArcadeInteraction {
         myCurrentGame.run();
     }
 
-    public void playMultiplayerGame (GameInfo gameinfo) {
-        MultiplayerGame game = gameinfo.getMultiplayerGame(this);
-        game.run();
-    }
+ 
 
     /**
      * TODO:
