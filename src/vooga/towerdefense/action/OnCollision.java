@@ -35,6 +35,7 @@ public class OnCollision extends TargetedAction{
 	 * @return
 	 */
 	public boolean collisionDetected(){
+		//FIXME make sure targets need to be updated every frame
 		for (GameElement target: getTargets()){
 			if (myInitiator.intersects(target)){
 				return true;
