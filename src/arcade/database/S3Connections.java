@@ -209,7 +209,7 @@ public class S3Connections {
     public String createFileFromByteArray(byte[] bytes) {
         FileOutputStream out;
         try {
-            out = new FileOutputStream(RELATIVE_PATH);
+            out = new FileOutputStream(System.getProperty("user.dir") + "/src" + RELATIVE_PATH + "/");
             out.write(bytes);
         }
         catch (FileNotFoundException e) {
@@ -218,7 +218,7 @@ public class S3Connections {
         catch (IOException e) {
             e.printStackTrace();
         }
-        return RELATIVE_PATH;
+        return System.getProperty("user.dir") + RELATIVE_PATH;
     }
     
     /**
