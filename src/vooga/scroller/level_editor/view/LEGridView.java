@@ -6,9 +6,14 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import javax.swing.AbstractAction;
+import javax.swing.JMenu;
 import javax.swing.JScrollPane;
+import javax.swing.KeyStroke;
 import javax.swing.Scrollable;
 import vooga.scroller.level_editor.LevelEditing;
 import vooga.scroller.level_editor.commands.CommandConstants;
@@ -51,6 +56,9 @@ implements Scrollable, Renderer<LevelEditing>{
         }
 
     }
+
+
+    private static LEGridView D;
     
     
     public static double getDefaultHeightRatio() {
@@ -75,7 +83,7 @@ implements Scrollable, Renderer<LevelEditing>{
      * @param d
      * @param e
      */
-    public LEGridView (IView parent, Renderable<LevelEditing> r) {
+    public LEGridView (IView<LevelEditing> parent, Renderable<LevelEditing> r) {
         // TODO Auto-generated constructor stub
         super(parent,((LEGrid) r).getPixelSize());
         this.addMouseListener(new GridPositionListener());
@@ -178,5 +186,9 @@ implements Scrollable, Renderer<LevelEditing>{
     public void simulate () {
         myGrid.simulate();
     }
+    
+    
+
+
 
 }

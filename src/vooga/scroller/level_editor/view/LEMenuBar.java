@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JMenu;
+import vooga.scroller.level_editor.LevelEditing;
 import vooga.scroller.util.mvc.vcFramework.MenuBarView;
 import vooga.scroller.util.mvc.vcFramework.Window;
 
@@ -14,7 +15,7 @@ import vooga.scroller.util.mvc.vcFramework.Window;
  * @author Dagbedji Fagnisse
  *
  */
-public class LEMenuBar extends MenuBarView {
+public class LEMenuBar extends MenuBarView<LevelEditing> {
 
     /**
      * 
@@ -32,41 +33,25 @@ public class LEMenuBar extends MenuBarView {
         super(window);
         List<JMenu> menus = new ArrayList<JMenu>();
         menus.add(makePreferencesMenu());
-        menus.add(makeHelpMenu());
-        menus.add(makeSimulateMenu());
         super.addCustomMenus(menus);
     }
 
-    @Override
+    /**
+     * This menu handles actions that apply primarily to the current domain-specific
+     * Renderable. 
+     * @return
+     */
     protected JMenu makePreferencesMenu () {
-        // TODO - Add LEPreferences
         JMenu result = new JMenu(Window.getResources().getString("PreferencesMenu"));
         result.setMnemonic(KeyEvent.VK_P);
         result.setEnabled(false);
         return result;
     }
-
-    @Override
-    protected JMenu makeHelpMenu () {
-        // TODO - Add LEHelp
-        JMenu result = new JMenu(Window.getResources().getString("HelpMenu"));
-        result.setMnemonic(KeyEvent.VK_H);
-        result.setEnabled(true);
-        return result;
-    }
     
-    private JMenu makeSimulateMenu () {
-        JMenu result = new JMenu(Window.getResources().getString("SimulateMenu"));
-        result.setMnemonic(KeyEvent.VK_F2);
-        result.add(myLib.new SimulateAction());
-        result.setEnabled(false);
-        return result;
-    }
 
 
     @Override
     protected void setSpecializedWindow (Window w) {
-        // TODO Auto-generated method stub
         myLib = new LEActionLibrary((LEView)w);
         
     }

@@ -1,10 +1,16 @@
 
 package vooga.scroller.level_editor.view;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import javax.swing.AbstractAction;
+import javax.swing.JMenu;
+import javax.swing.KeyStroke;
 import vooga.scroller.level_editor.LevelEditing;
 import vooga.scroller.level_editor.controllerSuite.LEController;
 import vooga.scroller.level_editor.controllerSuite.LEGrid;
 import vooga.scroller.level_editor.controllerSuite.LETools;
+import vooga.scroller.level_editor.view.LEActionLibrary.SimulateAction;
 import vooga.scroller.util.Renderable;
 import vooga.scroller.util.mvc.vcFramework.Window;
 
@@ -33,6 +39,7 @@ public class LEView extends Window<LEWorkspaceView, LevelEditing, LEGridView, LE
      */
     public LEView (String language, LEController lEController, LETools t) {
         super(TITLE, language, lEController, t);
+        registerMenu(makeSimulateMenu());
     }
 
     @Override
@@ -65,6 +72,33 @@ public class LEView extends Window<LEWorkspaceView, LevelEditing, LEGridView, LE
             showMessageDialog(SIMULATION_ERROR_MESSAGE);
     }
 
+    @Override
+    public LevelEditing getDomain () {
+        return new LevelEditing();
+    }
+
+    public class SimulateAction extends AbstractAction {
+        
+        public SimulateAction () {
+            super(getLiteral("SimulateMenu"));
+            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(
+                                     KeyEvent.VK_F5, ActionEvent.ALT_MASK));
+        }
+
+        @Override
+        public void actionPerformed (ActionEvent e) {
+            // TODO Auto-generated method stub
+            simulate();
+        }
+    }
+
+    private JMenu makeSimulateMenu () {
+        JMenu result = new JMenu(Window.getResources().getString("SimulateMenu"));
+        result.setMnemonic(KeyEvent.VK_F2);
+        result.add(new SimulateAction());
+        result.setEnabled(false);
+        return result;
+    }
     
 
     

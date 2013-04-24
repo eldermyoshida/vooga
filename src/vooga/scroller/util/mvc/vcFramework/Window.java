@@ -50,7 +50,7 @@ public abstract class Window<W extends WorkspaceView<D>,
 
     private JFileChooser myChooser;
     private IController<D> myController;
-    private JMenuBar myMenuBar;
+    private MenuBarView<D> myMenuBar;
     private Dimension mySize = ViewConstants.DEFAULT_WINDOW_SIZE;
     
     private JTabbedPane myTabbedPane;    
@@ -84,7 +84,7 @@ public abstract class Window<W extends WorkspaceView<D>,
      * @param s - string literal to be looked up (key)
      * @return the string literal specified in the relevant properties file
      */
-    public static String getLiteral(String s) {
+    public String getLiteral(String s) {
         return Window.ourResources.getString(s);
     }
     /**
@@ -226,7 +226,7 @@ public abstract class Window<W extends WorkspaceView<D>,
 
     
     protected void setMenu (JMenuBar menu) {
-        myMenuBar = menu;
+        myMenuBar = (MenuBarView<D>) menu;
     }
     
     protected void setMenu (T tools) {
@@ -285,5 +285,11 @@ public abstract class Window<W extends WorkspaceView<D>,
     
     public void addDomainSpecificMenus(D d) {
 //        myMenuBar.add(d.getDomainMenuItems());
+    }
+
+    public abstract D getDomain() ;
+    
+    public void registerMenu (JMenu jMenu) {
+        myMenuBar.addCustomMenu(jMenu);
     }
 }

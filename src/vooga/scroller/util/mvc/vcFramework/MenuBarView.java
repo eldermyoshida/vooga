@@ -20,11 +20,11 @@ import vooga.scroller.level_editor.view.LEActionLibrary;
  *
  */
 @SuppressWarnings("serial")
-public abstract class MenuBarView extends JMenuBar {
+public abstract class MenuBarView<D extends IDomainDescriptor> extends JMenuBar {
     private static final int DEFAULT_DELAY = 100;
-    private Window myWindow;
+    private Window<?, D, ?, ?> myWindow;
+    D myDomain;
     private WindowActionLibrary myActionLibrary;
-    private LEActionLibrary myWSActionLibrary;
     private JMenu myFileMenu;
     private JMenu myEditMenu;
     private Timer myTimer;
@@ -35,12 +35,14 @@ public abstract class MenuBarView extends JMenuBar {
      * @param window the parent view that component is inside of
      */
     
-    public MenuBarView(Window window) {
+    public MenuBarView(Window<?, D, ?, ?> window) {
         myWindow = window;
+        myDomain = window.getDomain();
         myActionLibrary = new WindowActionLibrary(myWindow);
         myCustomMenus = new ArrayList<JMenu>();
         setSpecializedWindow(myWindow);
-        addComponents();
+        addCoreMenus();
+        addDomainMenus();
         ActionListener prefListener =  new ActionListener() {
             public void actionPerformed (ActionEvent e) {
                 if (myWindow.getTabCount() > 0) {
@@ -53,15 +55,20 @@ public abstract class MenuBarView extends JMenuBar {
         
     }
 
+    private void addDomainMenus () {
+        List<JMenu> menus = myDomain.getDomainSpecificMenus();
+        addCustomMenus(menus);
+    }
+
     /**
      * Any 
      */
-    protected void addComponents () {
+    protected void addCoreMenus () {
             this.add(makeFileMenu());
             this.add(makeEditMenu());
     }
     
-    protected abstract void setSpecializedWindow(Window w);
+    protected abstract void setSpecializedWindow(Window<?, D, ?, ?> w);
 
     protected void addCustomMenus (List <JMenu> menus) {
         for(JMenu m: menus) {
@@ -69,7 +76,7 @@ public abstract class MenuBarView extends JMenuBar {
         }
     }
     
-    private void addCustomMenu (JMenu cm) {
+    public void addCustomMenu (JMenu cm) {
         myCustomMenus.add(cm);
         this.add(cm);
     }
@@ -104,18 +111,6 @@ public abstract class MenuBarView extends JMenuBar {
         return myEditMenu;
     }
     
-    /**
-     * This menu handles actions that apply primarily to the current domain-specific
-     * Renderable. 
-     * @return
-     */
-    protected abstract JMenu makePreferencesMenu();
-    
-    /**
-     * This menu handles actions that provide help resources to the user. 
-     * @return
-     */
-    protected abstract JMenu makeHelpMenu();
     
     /**
      * Make the preferences menu active

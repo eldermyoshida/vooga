@@ -2,6 +2,7 @@ package vooga.scroller.util.mvc;
 
 import java.awt.Dimension;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
 import vooga.scroller.util.Renderable;
 
 public class SimpleView extends JFrame implements IView<Gaming> {
@@ -51,6 +52,18 @@ public class SimpleView extends JFrame implements IView<Gaming> {
     public void start () {
         pack();
         setVisible(true);
+        
+    }
+
+    @Override
+    public String getLiteral (String string) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void registerMenu (JMenu jMenu) {
+        // TODO Auto-generated method stub
         
     }
 

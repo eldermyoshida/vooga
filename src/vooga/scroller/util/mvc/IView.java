@@ -2,6 +2,7 @@
 package vooga.scroller.util.mvc;
 
 import java.awt.Dimension;
+import javax.swing.JMenu;
 import vooga.scroller.level_editor.LevelEditing;
 import vooga.scroller.util.Renderable;
 import vooga.scroller.util.Renderer;
@@ -34,5 +35,16 @@ public interface IView<D extends IDomainDescriptor>
      * some space.
      */
     public Dimension getSize();
+
+
+    /**
+     * To enforce language hierarchy/translation
+     * @param string
+     * @return
+     */
+    public String getLiteral (String string);
+
+
+    public void registerMenu (JMenu jMenu);
 
 }

@@ -1,6 +1,7 @@
 
 package vooga.scroller.util.mvc.vcFramework;
 import java.awt.Dimension;
+import javax.swing.JMenu;
 import javax.swing.JPanel;
 import vooga.scroller.util.mvc.IView;
 
@@ -92,6 +93,15 @@ public abstract class WindowComponent<D extends IDomainDescriptor>
         this.setSize(d);
         this.setPreferredSize(d);
         this.setMinimumSize(d);
+    }
+    
+    public String getLiteral (String string) {
+        return myResponsible.getLiteral(string);
+    }
+
+    public void registerMenu (JMenu jMenu) {
+        myResponsible.registerMenu(jMenu);
+        
     }
 }
 
