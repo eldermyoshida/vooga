@@ -12,15 +12,15 @@ public class Comment {
         myComment = comment;
     }
 
-    protected double getRating () {
+    public double getRating () {
         return myRating;
     }
 
-    protected String getUser () {
+    public String getUser () {
         return myUser;
     }
 
-    protected String getComment () {
+    public String getComment () {
         return myComment;
     }
     
