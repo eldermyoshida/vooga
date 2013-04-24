@@ -56,7 +56,7 @@ public class HandlerTxt implements IVoogaHandler {
             handler.setFormatter(new SimpleFormatter());
         }
         catch (Exception e) {
-            NetworkLogger.LOGGER.severe(ERROR_MESSAGE);
+            NetworkLogger.myLogger.severe(ERROR_MESSAGE);
         }
         return handler;
     }

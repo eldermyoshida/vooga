@@ -36,7 +36,7 @@ public class HandlerSocket implements IVoogaHandler {
             handler = new SocketHandler(myHost, myPort);
         }
         catch (Exception e) {
-            NetworkLogger.LOGGER.severe(ERROR_MESSAGE);
+            NetworkLogger.myLogger.severe(ERROR_MESSAGE);
         }
         return handler;
     }

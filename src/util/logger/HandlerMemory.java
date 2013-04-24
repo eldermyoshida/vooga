@@ -95,7 +95,7 @@ public class HandlerMemory implements IVoogaHandler{
 	            memHandler = new MemoryHandler(handler,mySize,myPushLevel);
 	        }
 	        catch (Exception e) {
-	            NetworkLogger.LOGGER.severe(ERROR_MESSAGE);
+	            NetworkLogger.myLogger.severe(ERROR_MESSAGE);
 	        }
 	        return memHandler;
 	}
