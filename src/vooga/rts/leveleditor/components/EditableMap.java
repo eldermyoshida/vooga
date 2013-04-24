@@ -100,12 +100,10 @@ public class EditableMap extends GameMap {
         myTileMap = new EditableTileMap(new Dimension(tileWidth,tileHeight),ySize,xSize);
     }
 
-<<<<<<< HEAD
-=======
     /**
      * clear all tiles
      */
->>>>>>> 3648ea035fa36b2c26e9d554004f400e283d4772
+
     public void clearMap () {
         myTileMap.removeAllTiles();
         getTerrain().clearAll();
