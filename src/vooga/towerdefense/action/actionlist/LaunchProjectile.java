@@ -19,6 +19,7 @@ public class LaunchProjectile extends TargetedAction {
 	private GameElementFactory myProjectileFactory;
 	private Location myStart;
 	private GameMap myMap;
+	private boolean isLaunched;
 
     public LaunchProjectile (GameMap map, Location startLocation, GameElementFactory projectileFactory) {
     	setTargetTracking(true);
@@ -38,10 +39,19 @@ public class LaunchProjectile extends TargetedAction {
         
         for (GameElement target : getTargets()) {
             GameElement projectile = myProjectileFactory.createElement(myStart, target);
-            myMap.addGameElement(projectile);
-            //TODO needs to add more actions to the projectile
         }
         
+    	
+    	//System.out.println(getTargets().size());
+    	GameElement projectile = myProjectileFactory.createElement(myStart);
+    	if (!isLaunched){
+        myMap.addGameElement(projectile);
+    	}
+        //System.out.println(projectile.getTargetedActions().size()+ 10);
+        for (TargetedAction t: projectile.getTargetedActions()){
+            t.updateTargetedFollowUpActions(getTargets());
+        }
+        isLaunched = true;
     }
     
 }
