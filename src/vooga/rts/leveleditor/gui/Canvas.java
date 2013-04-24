@@ -110,9 +110,6 @@ public class Canvas extends JFrame {
 
     }
 
-    public void remove(boolean b) {
-        myMapPanel.setRemoveFlag(b);       
-    }
 
     public MapPanel getMapPanel() {
         return myMapPanel;
@@ -132,16 +129,6 @@ public class Canvas extends JFrame {
        myLayerPanel.removeLayer(myMapPanel.getMaxLayer());
        myMapPanel.removeLayer(); 
     }
-
-    
-    public static void main(String[] args) {
-        ResourceManager.getInstance().registerResourceLoader(new ImageLoader());
-        ResourceManager.getInstance().setResourceBase("/vooga/rts/leveleditor/resource/");
-        
-        new Canvas();
-    }
-
-
 
 
 }
