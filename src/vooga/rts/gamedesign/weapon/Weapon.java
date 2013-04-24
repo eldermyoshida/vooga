@@ -49,15 +49,18 @@ public class Weapon {
      * @param projectile
      */
     public Weapon (Projectile projectile, int range, Location3D center, double cooldownTime) {
+    	this(range, cooldownTime);
         myProjectile = projectile;
-        myRange = range;
-        // interval = new Interval(cooldownTime);
-        myCooldownTime = cooldownTime;
         myCenter = center;
-        myProjectiles = new ArrayList<Projectile>();
-        attackingState = AttackingState.NOT_ATTACKING;
     }
 
+    public Weapon(int range, double cooldownTime) {
+    	myRange = range;
+    	myCooldownTime = cooldownTime;
+    	myProjectiles = new ArrayList<Projectile>();
+        attackingState = AttackingState.NOT_ATTACKING;
+    }
+    
     /**
      * This method is used by the weapon to attack an InteractiveEntity.
      * 
@@ -180,5 +183,6 @@ public class Weapon {
      */
     public void setCenter (Location3D center) {
         myCenter = center;
+        myProjectile.setWorldLocation(center);
     }
 }

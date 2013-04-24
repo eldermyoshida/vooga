@@ -2,6 +2,7 @@ package vooga.rts.map;
 
 import java.awt.Graphics2D;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
@@ -13,6 +14,7 @@ import vooga.rts.gamedesign.sprite.gamesprites.GameSprite;
 import vooga.rts.gamedesign.sprite.map.Terrain;
 import vooga.rts.state.GameState;
 import vooga.rts.state.MainState;
+import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
 
 
@@ -28,6 +30,8 @@ import vooga.rts.util.Location3D;
 public class GameSpriteManager<T extends GameSprite> implements IGameLoop, Observer {
 
     private List<T> myGameSprites;
+    
+    private Iterator<T> myRemoval;
 
     /**
      * Creates a new GameSpriteMananger
@@ -65,8 +69,19 @@ public class GameSpriteManager<T extends GameSprite> implements IGameLoop, Obser
      * 
      * @param gs The Terrain to remove
      */
-    public void remove (T gs) {
+    public void remove (T gs) {    
+        if (gs == null) {
+            return;
+        }
         myGameSprites.remove(gs);
+        gs.setChanged();
+        gs.notifyObservers("remove");
+    }
+    
+    private void removeIterator (T gs) {        
+        myRemoval.remove();
+        gs.setChanged();
+        gs.notifyObservers("remove");
     }
 
     /**
@@ -110,10 +125,35 @@ public class GameSpriteManager<T extends GameSprite> implements IGameLoop, Obser
     @Override
     public void update (Observable arg0, Object arg1) {
         if (arg0 instanceof GameEntity) {
-            if (((GameEntity)arg).isDead()) {
+            if (((GameEntity) arg0).isDead()) {
                 remove((T) arg0);
             }
         }
+    }
+
+    /**
+     * Returns the number of entities in the manager.
+     */
+    public int getSize () {
+        return myGameSprites.size();
+    }
+    
+    /**
+     * Returns the contents of the Game Sprite Manager
+     */
+    public List<T> getContents() {
+        return myGameSprites;
+    }
+    
+    public void clearAll() {
+        myRemoval = myGameSprites.iterator();
+        while (myRemoval.hasNext()) {
+            removeIterator(myRemoval.next());
+        }
+    }
+
+    public List<T> getMySprites () {
+        return myGameSprites;
     }
 
 }
