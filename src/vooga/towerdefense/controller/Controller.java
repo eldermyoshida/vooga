@@ -18,6 +18,8 @@ import vooga.towerdefense.controller.modes.ControlMode;
 import vooga.towerdefense.controller.modes.SelectMode;
 import vooga.towerdefense.factories.GameElementFactory;
 import vooga.towerdefense.factories.actionfactories.gameactionfactories.WaveActionFactory;
+import vooga.towerdefense.factories.definitions.GameElementDefinition;
+import vooga.towerdefense.factories.definitions.TrollDefinition;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.gameElements.Wave;
 import vooga.towerdefense.model.GameLoop;
@@ -93,8 +95,10 @@ public class Controller {
 
 		List<Level> levels = new ArrayList<Level>();
 		List<Action> actions = new ArrayList<Action>();
+		
+		GameElementDefinition troll = new TrollDefinition();
 
-		GameElementFactory factory = new GameElementFactory();
+		GameElementFactory factory = new GameElementFactory("troll", new TrollDefinition());
 		WaveActionFactory waveFactory = new WaveActionFactory(10, 200, factory,
 				map);
 		waveFactory.initialize(map);

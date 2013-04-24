@@ -67,7 +67,6 @@ public class GameModel {
 	private void updateActions(double elapsedTime) {
 		for (Action action : myActiveActions) {
 			action.update(elapsedTime);
-			System.out.println(action);
 		}
 	}
 

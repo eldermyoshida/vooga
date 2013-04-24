@@ -3,6 +3,7 @@ package vooga.towerdefense.factories.definitions;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
+
 import vooga.towerdefense.factories.AttributeManagerFactory;
 import vooga.towerdefense.factories.actionfactories.ActionFactory;
 import vooga.towerdefense.util.Location;
@@ -19,10 +20,10 @@ import vooga.towerdefense.util.Pixmap;
  * 
  */
 public abstract class GameElementDefinition {
-    private Pixmap myImage;
-    private Location myCenter;
-    private Dimension mySize;
-    private String myType;
+    protected Pixmap myImage;
+    protected Location myCenter;
+    protected Dimension mySize;
+    protected String myType;
 
     public GameElementDefinition(){
     	
