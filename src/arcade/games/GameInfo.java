@@ -65,13 +65,12 @@ public class GameInfo {
     }
 
     public double getRating () {
-        return 5;
-        // TODO: revert this back to getting from db.
-        // return myModel.getAverageRating(getName());
+        return myDb.getAverageRating(myGameName);
     }
 
     public double getPrice () {
         // TODO: return value from db.
+        
         return 42;
     }
 
@@ -139,7 +138,6 @@ public class GameInfo {
     }
 
     public List<Score> getScores () {
-        List<Score> ret = new ArrayList<Score>();
         return myDb.getScoresForGame(myGameName);
     }
 
