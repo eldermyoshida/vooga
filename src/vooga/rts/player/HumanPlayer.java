@@ -126,7 +126,7 @@ public class HumanPlayer extends Player implements Observer {
     public void update (Observable o, Object a) {
         if (a instanceof InformationCommand) {
             InformationCommand i = (InformationCommand) a;
-            // Do stuff here with informationCommand
+            getManager().receiveCommand(i);
         }
 
     }
