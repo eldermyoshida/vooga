@@ -2,10 +2,10 @@ package vooga.scroller.level_editor;
 
 import java.awt.Dimension;
 import util.Location;
-import vooga.scroller.sprites.superclasses.StaticEntity;
 import vooga.scroller.util.Pixmap;
+import vooga.scroller.util.Sprite;
 
-public class StartPoint extends StaticEntity{
+public class StartPoint extends Sprite{
 
     private static final String DEFAULT_FILENAME = "startPoint.png";
     private static final String DEFAULT_PATH = "/vooga/scroller/images/";

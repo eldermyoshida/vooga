@@ -81,10 +81,7 @@ public class Sprite {
      */
     public void update (double elapsedTime, Dimension bounds) {
         myLastLocation2 = new Location(myLastLocation.x, myLastLocation.y);
-        myLastLocation = new Location(myCenter.x, myCenter.y);
-
-        System.out.println(myCenter);
-        
+        myLastLocation = new Location(myCenter.x, myCenter.y);       
         
         // do not change original velocity
         Vector v = new Vector(myVelocity);

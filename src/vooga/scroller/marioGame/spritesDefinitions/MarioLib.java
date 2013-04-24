@@ -19,7 +19,6 @@ import vooga.scroller.sprites.movement.TrackPlayer;
 import vooga.scroller.sprites.superclasses.GameCharacter;
 import vooga.scroller.sprites.superclasses.Locatable;
 import vooga.scroller.sprites.superclasses.Player;
-import vooga.scroller.sprites.superclasses.StaticEntity;
 import vooga.scroller.util.IGameComponent;
 import vooga.scroller.util.ISpriteView;
 import vooga.scroller.util.Pixmap;
@@ -128,7 +127,7 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
         }
     }
 
-    public static class Platform extends StaticEntity implements IPlatform {
+    public static class Platform extends Sprite implements IPlatform {
 
         private static final String DEFAULT_IMG = "block.png";
 
@@ -165,15 +164,15 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
 
     }
 
-    public static class MovingPlatformOne extends StaticEntity implements IPlatform {
+    public static class MovingPlatformOne extends Sprite implements IPlatform {
 
         private static final String DEFAULT_IMG = "platform.gif";
-        private static final int DEFAULT_SPEED = 60;
+        private static final int DEFAULT_SPEED = 100;
         private static final Vector DEFAULT_VELOCITY = new Vector(Sprite.DOWN_DIRECTION,
                                                                   DEFAULT_SPEED);
         private int SPEED = 30;
-        private Point2D START = new Point2D.Double(20.0, 40.0);
-        private Point2D END = new Point2D.Double(200.0, 40.0);
+        private Point2D START = new Point2D.Double(500.0, 100.0);
+        private Point2D END = new Point2D.Double(200.0, 500.0);
 
         private Movement movement = new BackAndForth(this, START, END, SPEED);
 
@@ -192,32 +191,6 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
 
     }
 
-    public static class MovingPlatformTwo extends StaticEntity implements IPlatform {
-
-        private static final String DEFAULT_IMG = "platform.gif";
-        private static final int DEFAULT_SPEED = 60;
-        private static final Vector DEFAULT_VELOCITY = new Vector(Sprite.RIGHT_DIRECTION,
-                                                                  DEFAULT_SPEED);
-        private int SPEED = 30;
-        private Point2D START = new Point2D.Double(40.0, 40.0);
-        private Point2D END = new Point2D.Double(40.0, 200.0);
-
-        private Movement movement = new BackAndForth(this, START, END, SPEED);
-
-        public MovingPlatformTwo () {
-            this(DEFAULT_LOC);
-        }
-
-        public MovingPlatformTwo (Location center) {
-            super(makePixmap(DEFAULT_IMG), center, new Dimension(96, 32));
-        }
-
-        public void update (double elapsedTime, Dimension bounds) {
-            movement.execute();
-            super.update(elapsedTime, bounds);
-        }
-
-    }
 
     public static class LevelTwoBlockOne extends Platform implements IPlatform {
 

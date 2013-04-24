@@ -20,9 +20,11 @@ public class BackAndForth implements Movement {
     private Point2D myStart;
     private Point2D myEnd;
     private int mySpeed;
-    private double myMax;;
-    private double myMin;;
+    private double myMaxX;
+    private double myMinX;
     private double myAngle;
+    private double myMinY;
+    private double myMaxY;
 
     /**
      * Creates a new back and forth movement that can only be used for the given sprite.
@@ -38,8 +40,11 @@ public class BackAndForth implements Movement {
         myEnd = end;
         mySpeed = speed;
 
-        myMax = Math.max(start.getX(), end.getX());
-        myMin = Math.min(start.getX(), end.getX());
+        myMaxX = Math.max(start.getX(), end.getX());
+        myMinX = Math.min(start.getX(), end.getX());
+        
+        myMaxY = Math.max(start.getY(), end.getY());
+        myMinY = Math.min(start.getY(), end.getY());
 
         myAngle = Vector.angleBetween(start, end);
 
@@ -57,12 +62,11 @@ public class BackAndForth implements Movement {
     }
 
     private void placeEntityOnLine () {
-
         int toStart =
                 normalizeAngle((int) Vector.angleBetween(myEntity.getCenter(), myStart) % MAX_ANGLE);
         int toEnd =
                 normalizeAngle(((int) Vector.angleBetween(myEntity.getCenter(), myEnd) 
-                        + MAX_ANGLE / 2) % MAX_ANGLE);
+                        ) % MAX_ANGLE);
 
         if (toStart != toEnd) {
             moveEntityToLine();
@@ -83,11 +87,25 @@ public class BackAndForth implements Movement {
     }
 
     private void applyBoundary () {
-        if (myEntity.getX() > myMax) {
+        //placeEntityOnLine ();
+
+        if (myEntity.getX() > myMaxX) {
+            myEntity.setCenter(myMaxX, myEntity.getY());
             myEntity.getVelocity().negate();
         }
-        else if (myEntity.getX() < myMin) {
+        else if (myEntity.getX() < myMinX) {
+            myEntity.setCenter(myMinX, myEntity.getY());
             myEntity.getVelocity().negate();
         }
+        else if (myEntity.getY() > myMaxY) {
+            myEntity.setCenter(myEntity.getX(), myMaxY);
+            myEntity.getVelocity().negate();
+        }
+        else if (myEntity.getY() < myMinY) {
+            myEntity.setCenter(myEntity.getY(), myMinY);
+            myEntity.getVelocity().negate();
+        }
+
     }
+
 }
