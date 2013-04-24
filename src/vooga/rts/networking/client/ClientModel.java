@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import vooga.rts.networking.NetworkBundle;
 import vooga.rts.networking.client.GUI.CreateLobbyView;
 import vooga.rts.networking.client.GUI.IModel;
 import vooga.rts.networking.client.GUI.LobbyView;
@@ -74,7 +75,7 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
     private JPanel getPanel () {
         return myContainerPanel;
     }
-    
+
     /**
      * testing
      */
@@ -109,66 +110,75 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
      */
     private void switchToServerBrowserView () {
         requestLobbies();
-        // TODO resources
-        myContainerPanel.changeView(myServerBrowserView, " Server Browser");
-        myContainerPanel.changeLeftButton("Host Game", new ActionListener() {
-            @Override
-            public void actionPerformed (ActionEvent arg0) {
-                switchToCreateLobbyView();
-            }
-        });
-        myContainerPanel.changeRightButton("Join Game", new ActionListener() {
-            @Override
-            public void actionPerformed (ActionEvent arg0) {
-                requestJoinLobby(myServerBrowserView.getSelectedID());
-            }
-        });
+        myContainerPanel.changeView(myServerBrowserView,
+                                    NetworkBundle.BUNDLE.getString("ServerBrowser"));
+        myContainerPanel.changeLeftButton(NetworkBundle.BUNDLE.getString("HostGame"),
+                                          new ActionListener() {
+                                              @Override
+                                              public void actionPerformed (ActionEvent arg0) {
+                                                  switchToCreateLobbyView();
+                                              }
+                                          });
+        myContainerPanel.changeRightButton(NetworkBundle.BUNDLE.getString("JoinGame"),
+                                           new ActionListener() {
+                                               @Override
+                                               public void actionPerformed (ActionEvent arg0) {
+                                                   requestJoinLobby(myServerBrowserView
+                                                           .getSelectedID());
+                                               }
+                                           });
     }
 
     /**
      * Switches the current View to the LobbyCreatorScreen.
      */
     private void switchToCreateLobbyView () {
-        // TODO resources
-        myContainerPanel.changeView(myCreateLobbyView, " Lobby Creation");
-        myContainerPanel.changeLeftButton("Back to Server Browser", new ActionListener() {
-            @Override
-            public void actionPerformed (ActionEvent arg0) {
-                switchToServerBrowserView();
-            }
-        });
-        myContainerPanel.changeRightButton("Start Lobby", new ActionListener() {
-            @Override
-            public void actionPerformed (ActionEvent arg0) {
-                startLobby(myCreateLobbyView.getLobbyInfo());
-            }
-        });
+        myContainerPanel.changeView(myCreateLobbyView,
+                                    NetworkBundle.BUNDLE.getString("LobbyCreation"));
+        myContainerPanel.changeLeftButton(NetworkBundle.BUNDLE.getString("BackToBrowser"),
+                                          new ActionListener() {
+                                              @Override
+                                              public void actionPerformed (ActionEvent arg0) {
+                                                  switchToServerBrowserView();
+                                              }
+                                          });
+        myContainerPanel.changeRightButton(NetworkBundle.BUNDLE.getString("StartLobby"),
+                                           new ActionListener() {
+                                               @Override
+                                               public void actionPerformed (ActionEvent arg0) {
+                                                   startLobby(myCreateLobbyView.getLobbyInfo());
+                                               }
+                                           });
     }
 
     /**
      * Switches the current view to the Lobby.
      */
     private void switchToLobbyView (ExpandedLobbyInfo lobbyInfo) {
-        // TODO resources
         myLobbyView = new LobbyView(this, myFactions, lobbyInfo.getMaxPlayers());
         updateLobby(lobbyInfo);
         sendUpdatedLobbyInfo();
-        myContainerPanel.changeView(myLobbyView, " Lobby Creation");
-        myContainerPanel.changeLeftButton("Leave Lobby", new ActionListener() {
-            @Override
-            public void actionPerformed (ActionEvent arg0) {
-                // TODO this code sucks
-                myLobbyInfo.removePlayer(myUserControlledPlayers.get(0));
-                myClient.sendData(new LeaveLobbyMessage(myLobbyInfo));
-                switchToServerBrowserView();
-            }
-        });
-        myContainerPanel.changeRightButton("Start Game", new ActionListener() {
-            @Override
-            public void actionPerformed (ActionEvent arg0) {
-                startGame();
-            }
-        });
+
+        myContainerPanel.changeView(myLobbyView, NetworkBundle.BUNDLE.getString("LobbyCreation"));
+        myContainerPanel.changeLeftButton(NetworkBundle.BUNDLE.getString("LeaveLobby"),
+                                          new ActionListener() {
+                                              @Override
+                                              public void actionPerformed (ActionEvent arg0) {
+                                                  // TODO this code sucks
+                                                  myLobbyInfo.removePlayer(myUserControlledPlayers
+                                                          .get(0));
+                                                  myClient.sendData(new LeaveLobbyMessage(
+                                                                                          myLobbyInfo));
+                                                  switchToServerBrowserView();
+                                              }
+                                          });
+        myContainerPanel.changeRightButton(NetworkBundle.BUNDLE.getString("StartLobby"),
+                                           new ActionListener() {
+                                               @Override
+                                               public void actionPerformed (ActionEvent arg0) {
+                                                   startGame();
+                                               }
+                                           });
     }
 
     private void requestLobbies () {
@@ -186,7 +196,7 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
     private void startGame () {
         myClient.sendData(new StartGameMessage());
     }
-    
+
     private void sendUpdatedLobbyInfo () {
         myClient.sendData(new UpdateLobbyInfoMessage(myLobbyInfo));
     }

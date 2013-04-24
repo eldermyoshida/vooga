@@ -8,6 +8,8 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import vooga.rts.networking.NetworkBundle;
 import vooga.rts.networking.communications.LobbyInfo;
 
 
@@ -34,12 +36,11 @@ public class CreateLobbyView extends JPanel {
     private JPanel createPanel () {
         JPanel innerPanel = new JPanel();
 
-        // TODO add resources file
-        innerPanel.add(new JLabel("Server name: "));
+        innerPanel.add(new JLabel(NetworkBundle.BUNDLE.getString("ServerName")));
         myServerField = new JTextField(20);
         innerPanel.add(myServerField);
 
-        innerPanel.add(new JLabel("Map: "));
+        innerPanel.add(new JLabel(NetworkBundle.BUNDLE.getString("Map")));
         DefaultComboBoxModel mapModel = new DefaultComboBoxModel(myMapChoices);
         myMapComboBox = new JComboBox(mapModel);
         innerPanel.add(myMapComboBox);
@@ -63,7 +64,7 @@ public class CreateLobbyView extends JPanel {
             }
         });
 
-        innerPanel.add(new JLabel("Max players: "));
+        innerPanel.add(new JLabel(NetworkBundle.BUNDLE.getString("MaxPlayers")));
         myMaxPlayersComboBox = new JComboBox();
         innerPanel.add(myMaxPlayersComboBox);
 
