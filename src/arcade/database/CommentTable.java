@@ -83,7 +83,7 @@ public class CommentTable extends Table {
             System.out.println("Double d " + d);
             sum += d;
         }
-        return sum.doubleValue() / numbers.size();
+        return sum / numbers.size();
     }
     
     /**
