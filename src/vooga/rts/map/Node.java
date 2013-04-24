@@ -25,6 +25,7 @@ public class Node {
     private int myX;
     private int myY;
     private Rectangle myBounds;
+    private Location3D myCenter;
 
     private List<GameSprite> myContents;
 
@@ -41,6 +42,7 @@ public class Node {
         myTier = tier;
         myBounds = new Rectangle(myX * NODE_SIZE, myY * NODE_SIZE, NODE_SIZE, NODE_SIZE);
         myContents = new ArrayList<GameSprite>();
+        myCenter = new Location3D(myX * NODE_SIZE + NODE_SIZE/2, myY * NODE_SIZE + NODE_SIZE/2, tier);
     }
 
     /**
@@ -54,6 +56,9 @@ public class Node {
         this(y, x, 0);
     }
 
+    public Location3D getCenter() {
+        return myCenter;
+    }
     public int getX () {
         return myX;
     }
