@@ -8,7 +8,6 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import javax.swing.JComponent;
 import util.input.Input;
 import util.input.InputClassTarget;
@@ -20,9 +19,7 @@ import vooga.rts.leveleditor.components.EditableTile;
 import vooga.rts.leveleditor.components.EditableResource;
 import vooga.rts.resourcemanager.ResourceManager;
 import vooga.rts.util.Camera;
-import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
-import vooga.rts.util.PointTester;
 
 
 @InputClassTarget
@@ -31,7 +28,6 @@ public class MapPanel extends JComponent {
     public static final String INPUT_DIR = "vooga.rts.resources.properties.Input";
     public static final String PLAYER_IMAGE_PATH = "Player1.png";
     public static final Dimension DEFAULT_MAP_SIZE = new Dimension(600, 600);
-    public static final double ZOOM_RATE = 1.25;
     public static final int RESOURCEMODE = 1;
     public static final int PLAYERMODE = 2;
     public static final int TERRAINMODE = 3;
@@ -51,7 +47,6 @@ public class MapPanel extends JComponent {
     private int myMode;
     private BufferedImage myPlayerImage;
     
-    //private PointTester pt;
 
     public MapPanel (Canvas canvas) {
         myCanvas = canvas;
@@ -62,12 +57,11 @@ public class MapPanel extends JComponent {
         myHeight = 0;
         myCurrentLayer = 0;
         myMaxLayer = 0;
-        myTileWidth = 50;
-        myTileHeight = 50;
+        myTileWidth = 0;
+        myTileHeight = 0;
         myPlayerImage =
                 ResourceManager.getInstance().<BufferedImage> getFile(PLAYER_IMAGE_PATH,
                                                                       BufferedImage.class);
-        //pt = new PointTester();
         setPanelSize();
         
     }
@@ -82,8 +76,6 @@ public class MapPanel extends JComponent {
 
     @Override
     public void paintComponent (Graphics g) {
-        //pt.paint((Graphics2D)g);
-        //Camera.instance().setWorldLocation(new Location3D());
         g.setColor(Color.white);
         g.fillRect(0, 0, 2*myWidth * myTileWidth, myHeight * myTileHeight);
         Camera.instance().paint((Graphics2D)g);
@@ -104,11 +96,8 @@ public class MapPanel extends JComponent {
         drawLineTest(myWidth * myTileWidth/2, 0, myWidth * myTileWidth/2, myHeight * myTileHeight/2,g);
         drawLineTest(0, myHeight * myTileHeight/2, myWidth * myTileWidth/2, myHeight * myTileHeight/2,g);
 
-
         // paint map
         myMap.paint((Graphics2D)g);
-
-        //Camera.instance().paint((Graphics2D)g);
     }
     
     public void drawLineTest(int x1, int y1, int x2, int y2, Graphics g) {
@@ -146,22 +135,6 @@ public class MapPanel extends JComponent {
     public void initializeMap (String name, String desc, int width, int height, int tileWidth, int tileHeight) {
         myMap = new EditableMap(name,desc,width, height, tileWidth, tileHeight);
     }
-
-//    public void ZoomIn () {
-//        myMap.zoomIn();
-//        myTileWidth = (int) (myTileWidth * ZOOM_RATE);
-//        myTileHeight = (int) (myTileHeight * ZOOM_RATE);
-//        setPanelSize();
-//        repaint();
-//    }
-
-//    public void ZoomOut () {
-//        myMap.zoomOut();
-//        myTileWidth = (int) (myTileWidth / ZOOM_RATE);
-//        myTileHeight = (int) (myTileHeight / ZOOM_RATE);
-//        setPanelSize();
-//        repaint();
-//    }
 
     public void placeResource (Location3D loc) {
         EditableResource r = myCanvas.getCurrentSelectResource();
@@ -255,8 +228,6 @@ public class MapPanel extends JComponent {
     @InputMethodTarget(name = "onLeftMouseDown")
     public void testClick (PositionObject p) {
         Location3D loc = Camera.instance().viewtoWorld(p.getPoint2D());
-        System.out.println(loc.getX());
-        System.out.println(loc.getY());
         switch (myMode) {
             case RESOURCEMODE:
                 placeResource(loc);
