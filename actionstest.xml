@@ -1,0 +1,29 @@
+<game>
+     <view/>
+     <map/>
+     <gameelement>
+          <RedUnit>
+               <image>imagepath</image>
+               <attributes>
+                    <HEALTH>0</HEALTH>
+               </attributes>
+               <actions>
+                    <FindTargets>
+                         <parameter>12</parameter>
+                         <ModifyAttributeValue>
+                              <parameter>as</parameter>
+                              <parameter>as</parameter>
+                              <Move>
+                                   <parameter>a</parameter>
+                              </Move>
+                         </ModifyAttributeValue>
+                    </FindTargets>
+                    <ModifyAttributeValue>
+                         <parameter>12</parameter>
+                         <parameter>12</parameter>
+                    </ModifyAttributeValue>
+               </actions>
+          </RedUnit>
+     </gameelement>
+     <wave/>
+</game>
