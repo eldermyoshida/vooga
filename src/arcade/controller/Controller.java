@@ -349,6 +349,7 @@ public class Controller implements ArcadeInteraction {
     public void killGame () {
         int score = getCurrentUserGameData().getLastScore();
         myDb.addNewHighScore(myCurrentUser, myCurrentGameInfo.getName(),  score);
+        print(myCurrentGame + " " + myCurrentGameInfo + " " + getCurrentGame());
         myView.showEndGameView(score);
         myDb.storeUserGameData(getCurrentGame(), myCurrentUser, getCurrentUserGameData());
         myCurrentGame = null;

@@ -216,7 +216,6 @@ public class GameInfo {
             try {
 
                 method = game.getMethod("generateNewProfile");
-                print (" the game is " + game + " the method is " + method + " this is the gma instance " + theGame);
                 try {
                     return (UserGameData) method.invoke(theGame);
                 }
