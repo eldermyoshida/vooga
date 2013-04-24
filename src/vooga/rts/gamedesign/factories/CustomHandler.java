@@ -18,7 +18,7 @@ import vooga.rts.util.ReflectionHelper;
 *
 */
 
-public class CustomHandler {
+public class CustomHandler extends Decoder{
 	
 	private static final String CUSTOM_TAG = "custom";
 	private static final String NAME_TAG = "name";
@@ -32,29 +32,29 @@ public class CustomHandler {
 		myFactory = factory;
 	}
 
-	
-	public void addAllCustoms(Document doc, String type){
+
+	@Override
+	public void create(Document doc, String type) {
 		NodeList custom = doc.getElementsByTagName(CUSTOM_TAG + type);
 		for(int i = 0; i < custom.getLength() ; i++){
 			Element customElement = (Element) custom.item(i);
 			String path = customElement.getAttributes().getNamedItem(SOURCE_TAG).getTextContent();
-			String name = getElement(custom, NAME_TAG);
+			String name = getElement(customElement, NAME_TAG);
 			Object toPut = ReflectionHelper.makeInstance(path);
 
 			if(type == BUILDING_TYPE){
-				myFactory.put(name, (Building) toPut);
+				myFactory.put(name, (InteractiveEntity) toPut);
 			}
 			if(type == RESOURCE_TYPE){
 				myFactory.put(name, (Resource) toPut);
 
 			}
 			if(type == UNIT_TYPE){
-				myFactory.put(name, (Unit) toPut);
+				myFactory.put(name, (InteractiveEntity) toPut);
 
 			}
 			
 		}
-		
 		
 	}
 	

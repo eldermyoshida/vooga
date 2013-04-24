@@ -1,6 +1,5 @@
 package vooga.rts.gamedesign.factories;
 
-import java.lang.reflect.InvocationTargetException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -41,13 +40,6 @@ public abstract class Decoder {
 	 * (since dependencies exist between two objects that both need to be instantiated). This allows us to define
 	 * game elements in the XML file in any order (as it should be). 
 	 * @param doc
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
-	 * @throws IllegalArgumentException
-	 * @throws InvocationTargetException
-	 * @throws NoSuchMethodException
-	 * @throws SecurityException
-	 * @throws ClassNotFoundException
 	 */
-	public abstract void create(Document doc, String tag) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException;
+	public abstract void create(Document doc, String tag);
 }

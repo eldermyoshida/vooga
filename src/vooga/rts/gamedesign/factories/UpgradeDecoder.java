@@ -1,7 +1,6 @@
 package vooga.rts.gamedesign.factories;
 
 import java.io.File;
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,6 +12,7 @@ import org.w3c.dom.NodeList;
 
 import vooga.rts.gamedesign.upgrades.UpgradeNode;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
+import vooga.rts.util.ReflectionHelper;
 
 /**
  * This class is an extension of Decoder class that is in charge of the creation
@@ -54,17 +54,11 @@ public class UpgradeDecoder extends Decoder {
 	 * UpgradeTree
 	 * 
 	 * @param doc the Document passed in from Factory
-	 * @throws ClassNotFoundException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
 	 * @throws NumberFormatException 
 	 * 
 	 */
 
-	public void create(Document doc, String type) throws ClassNotFoundException, NumberFormatException, IllegalArgumentException, SecurityException, InstantiationException, IllegalAccessException, InvocationTargetException {
+	public void create(Document doc, String type) throws NumberFormatException {
 		//TODO: get all upgradeTrees into a same file. Return all results into a map
 		UpgradeTree upgradeTree = new UpgradeTree();
 		
@@ -88,9 +82,7 @@ public class UpgradeDecoder extends Decoder {
 				String costedResource = loadSingleLine(upgradeNodeElement, COSTING_RESOURCE_TYPE_TAG);
 				String costedResourceAmount = loadSingleLine(upgradeNodeElement, COSTING_RESOURCE_AMOUNT_TAG);
 				
-				Class<?> headClass = Class.forName(myUpgradeNodeType.get(object));
-				UpgradeNode newUpgrade = (UpgradeNode) headClass.
-						getConstructors()[0].newInstance(upgradeTree, nodeName, Integer.parseInt(value), Integer.parseInt(costedResourceAmount));	
+				UpgradeNode newUpgrade = (UpgradeNode) ReflectionHelper.makeInstance(myUpgradeNodeType.get(object), upgradeTree, nodeName, Integer.parseInt(value), Integer.parseInt(costedResourceAmount));
 				UpgradeNode current = upgradeTree.findNode(parent);
 				current.addChild(newUpgrade);
 			}

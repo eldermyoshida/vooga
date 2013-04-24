@@ -1,7 +1,6 @@
 package vooga.rts.gamedesign.factories;
 
 import java.awt.Dimension;
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,20 +43,13 @@ public class ResourceDecoder extends Decoder{
 	 * Adds the resources defined in the XML file to the map of Sprites found in the factory. 
 	 * 
 	 * @Override
-	 * @throws ClassNotFoundException
-	 * @throws IllegalArgumentException
-	 * @throws SecurityException
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
-	 * @throws InvocationTargetException
-	 * @throws NoSuchMethodException
 	 * @throws ParserConfigurationException
 	 * @throws SAXException
 	 */
-	public void create(Document doc, String type) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+	public void create(Document doc, String type) {
 		String path = doc.getElementsByTagName(type).item(0).getAttributes().getNamedItem(SOURCE_TAG).getTextContent();
 		String subtype = type.substring(0, type.length()-1);
-		myCustomHandler.addAllCustoms(doc,subtype);
+		myCustomHandler.create(doc,subtype);
 		NodeList nodeLst = doc.getElementsByTagName(subtype);
 		
 		for(int i = 0 ; i < nodeLst.getLength() ; i++){

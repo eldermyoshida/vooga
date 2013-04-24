@@ -1,7 +1,6 @@
 package vooga.rts.gamedesign.factories;
 
 import java.awt.Dimension;
-import java.lang.reflect.InvocationTargetException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -26,20 +25,20 @@ public class InteractiveEntityDecoder extends Decoder {
 	private int DEFAULTTEAM = 0;
 	
 	private Factory myFactory;
-	private CustomHanlder myCustomHandler;
+	private CustomHandler myCustomHandler;
 
 	public InteractiveEntityDecoder(Factory factory){
 		myFactory = factory;
-		myCustomHandler = new CustomHanlder(factory);
+		myCustomHandler = new CustomHandler(factory);
 	}
 
 	@Override
-	public void create(Document doc, String type) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+	public void create(Document doc, String type) {
 		//there is some duplicate code between decoders that should be factored out. 
 		String path = doc.getElementsByTagName(type).item(0).getAttributes().getNamedItem(SOURCE_TAG).getTextContent();	
 		String subtype = type.substring(0, type.length()-1);
 		NodeList nodeLst = doc.getElementsByTagName(subtype);
-		myCustomHandler.addAllCustoms(doc, subtype);
+		myCustomHandler.create(doc, subtype);
 		for(int i = 0 ; i < nodeLst.getLength() ; i++){
 			Element nElement = (Element) nodeLst.item(i);
 			String name = getElement(nElement, NAME_TAG);
