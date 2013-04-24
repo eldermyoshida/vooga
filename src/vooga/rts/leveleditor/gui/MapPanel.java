@@ -88,12 +88,10 @@ public class MapPanel extends JComponent {
         Camera.instance().paint((Graphics2D)g);
         g.setColor(Color.gray);
         for (int i = 0; i < myWidth; i++) {
-//            g.drawLine(i * myTileWidth, 0, i * myTileWidth, myHeight * myTileHeight);
             drawLineTest(i * myTileWidth / 2, 0, i * myTileWidth / 2, myHeight * myTileHeight/2,g);
         }
 
         for (int j = 0; j < myHeight; j++) {
-//            g.drawLine(0, j * myTileHeight, myWidth * myTileWidth, j * myTileHeight);
             drawLineTest(0, j * myTileHeight /2  , myWidth * myTileWidth / 2, j * myTileHeight /2,g);
         }
 
@@ -104,33 +102,11 @@ public class MapPanel extends JComponent {
         drawLineTest(0, 0, 0, myHeight * myTileHeight/2,g);
         drawLineTest(myWidth * myTileWidth/2, 0, myWidth * myTileWidth/2, myHeight * myTileHeight/2,g);
         drawLineTest(0, myHeight * myTileHeight/2, myWidth * myTileWidth/2, myHeight * myTileHeight/2,g);
-//
-//        g.drawLine(0, 0, myWidth * myTileWidth, 0);
-//        g.drawLine(0, 0, 0, myHeight * myTileHeight);
-//        g.drawLine(myWidth * myTileWidth, 0, myWidth * myTileWidth, myHeight * myTileHeight);
-//        g.drawLine(0, myHeight * myTileHeight, myWidth * myTileWidth, myHeight * myTileHeight);
 
-        // paint Node
+
+        // paint map
         myMap.paint((Graphics2D)g);
-        //myMap.printMatrix();
-        System.out.println("paint");
 
-        // paint Player
-//        for (Location c : myMap.getLocationMap().values()) {
-//            g.drawImage(myPlayerImage, (int) (c.getX()), (int) (c.getY()), null);
-//        }
-//
-//        // paint Terrain
-//        for (MapLayer m : myMap.getLayerMap().values()) {
-//            for (Terrain t : m.getTerrainSet()) {
-//                t.paint(g);
-//            }
-//        }
-//
-//        // paint Resource
-//        for (Resource r : myMap.getResourceSet()) {
-//            r.paint(g);
-//        }
         //Camera.instance().paint((Graphics2D)g);
     }
     
@@ -186,38 +162,23 @@ public class MapPanel extends JComponent {
 //        repaint();
 //    }
 
-//    public void placeResource (int x, int y) {
-//        myMap.addResource(x, y, myCanvas.getCurrentSelectResource().getMyID());
-//        repaint();
-//    }
-//
-//    public void placeTerrain (int x, int y) {
-//        Terrain t = new Terrain(new Location(x, y), myCanvas.getCurrentSelectTerrain().getMyID());
-//        myMap.addTerrain(myCurrentLayer, t);
-//        repaint();
-//    }
+    public void placeResource (Location3D loc) {
+        Resource r = myCanvas.getCurrentSelectResource();
+        myMap.addResource(r.getImage(), loc, r.getMyID(), r.getMyName(), r.getMyImageName(), r.getMyAmount());
+        repaint();
+    }
 
-    // test printing matrix bug switch x and y
+    public void placeTerrain (Location3D loc) {
+        Terrain t = myCanvas.getCurrentSelectTerrain();
+        myMap.addTile(loc, t.getMyID(), t.getMyName(), t.getMyImageName(), t.getImage());
+        repaint();
+    }
+
+
     private void placeTile (Location3D loc) {
         EditableTile t = myCanvas.getCurrentSelectTile();
         myMap.addTile(loc, t.getMyID(), t.getMyName(), t.getMyImageName(), t.getImage());
         repaint();
-        System.out.println("placeTile");
-//        x = x / myTileHeight;
-//        y = y / myTileWidth;
-//        if (x >= 0 && x < myWidth && y >= 0 && y < myHeight) {
-//            EditableTile n = myMap.getMapNode(y, x);
-//            if (!myRemoveFlag) {
-//                n.setTile(myCanvas.getCurrentSelectTile().getMyID());
-//                n.setOccupied(true);
-//            }
-//            else {
-//                n.reset();
-//            }
-//            myMap.printMatrix();
-//            repaint();
-//        }
-
     }
 
 //    public void placePlayer (int x, int y) {
@@ -282,15 +243,15 @@ public class MapPanel extends JComponent {
         System.out.println(loc.getX());
         System.out.println(loc.getY());
         switch (myMode) {
-//            case RESOURCEMODE:
-//                placeResource((int) (p.getX()), (int) (p.getY()));
-//                break;
+            case RESOURCEMODE:
+                placeResource(loc);
+                break;
 //            case PLAYERMODE:
 //                placePlayer((int) (p.getX()), (int) (p.getY()));
 //                break;
-//            case TERRAINMODE:
-//                placeTerrain((int) (p.getX()), (int) (p.getY()));
-//                break;
+            case TERRAINMODE:
+                placeTerrain(loc);
+                break;
             case TILEMODE:
                 placeTile(loc);
                 break;
