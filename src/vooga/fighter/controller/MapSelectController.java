@@ -21,6 +21,8 @@ import java.util.ResourceBundle;
 
 
 /**
+ * Details a map select controller, where you can select maps
+ * 
  * 
  * @author Jack Matteucci 
  * @author Jerry Li
@@ -29,23 +31,35 @@ import java.util.ResourceBundle;
 
 public class MapSelectController extends MenuController {
     
-    
+    /**
+     * Initial constructor
+     */
     public MapSelectController () {
         super();
     }
-        
+    
+    /**
+     * Concrete constructor, called when level is switched to by controllermanager
+     * @param name      name of controller
+     * @param frame     canvas
+     * @param manager   ControllerManager
+     * @param gameinfo  GameInfo
+     */
     public MapSelectController(String name, Canvas frame, ControllerDelegate manager, 
                 GameInfo gameinfo) {
         super(name, frame, manager, gameinfo);
     }
     
+    /**
+     * Returns concrete controller, used when level is switched to by controllermanager
+     */
     public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo) {
         Controller controller = new MapSelectController(name, frame, manager, gameinfo);
         return controller;
     }
     
     /**
-     * Checks this controller's end conditions
+     * Notifies the delegate when controller ends
      */
     public void notifyEndCondition(String choice) {
     	removeListener();
@@ -54,12 +68,17 @@ public class MapSelectController extends MenuController {
 		getManager().notifyEndCondition(getMode().getMenusNext(choice));
     	}
 
-
+    /**
+     * Removes input
+     */
     public void removeListener(){
     	super.removeListener();
     	getInput().removeListener(this);
     }
-   
+    
+    /**
+     * Checks conditions
+     */
     public void checkConditions(){
     	for(ModeCondition condition: getConditions())
     		if(condition.checkCondition(getMode())) notifyEndCondition(getMode().peekChoice());
