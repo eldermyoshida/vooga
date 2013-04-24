@@ -32,11 +32,11 @@ import java.util.ResourceBundle;
 
 
 public class ModeSelectMenuController extends MenuController {
-	
+
     private static final String FILE_NAME = "config.ModeCharacterNumbers";
     private String myFileName;
     private ResourceBundle myResources;
-    
+
     /**
      * Initial constructor
      */
@@ -44,7 +44,7 @@ public class ModeSelectMenuController extends MenuController {
         super();
 
     }
-     
+
     /**
      * COncrete constructor
      * @param name      controller name 
@@ -54,17 +54,17 @@ public class ModeSelectMenuController extends MenuController {
      * @param pathway   filepath
      */
     public ModeSelectMenuController(String name, Canvas frame, ControllerDelegate manager, 
-                GameInfo gameinfo, String pathway) {
+                                    GameInfo gameinfo, String pathway) {
         super(name, frame, manager, gameinfo, pathway);
         myFileName = getHardFilePath() + FILE_NAME;
         myResources = ResourceBundle.getBundle(myFileName);
     }
-    
+
     /**
      * Return concrete controller
      */
     public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo,
-    		String pathway) {
+                                    String pathway) {
         Controller controller = new ModeSelectMenuController(name, frame, manager, gameinfo, pathway);
         return controller;
     }
@@ -72,31 +72,30 @@ public class ModeSelectMenuController extends MenuController {
      * Checks this controller's end conditions
      */
     public void notifyEndCondition(String choice) {
-    	removeListener();
-    	getMode().resetChoice();
-    		getGameInfo().setGameMode(choice);
-    		System.out.println(choice);
-    		getGameInfo().setNumCharacters(Integer.parseInt(myResources.getString(choice)));    		
-    		getManager().notifyEndCondition(getMode().getMenusNext(choice));
-    		
+        removeListener();
+        getMode().resetChoice();
+        getGameInfo().setGameMode(choice);
+        getGameInfo().setNumCharacters(Integer.parseInt(myResources.getString(choice)));    		
+        getManager().notifyEndCondition(getMode().getMenusNext(choice));
+
     }
-    
+
     /**
      * removes input listener
      */
     public void removeListener(){
-    	super.removeListener();
-    	getInput().removeListener(this);
+        super.removeListener();
+        getInput().removeListener(this);
     }
-    
+
     /**
      * check modecondition
      */
     public void checkConditions(){
-    	for(ModeCondition condition: getConditions())
-    		if(condition.checkCondition(getMode())) notifyEndCondition(getMode().peekChoice());
+        for(ModeCondition condition: getConditions())
+            if(condition.checkCondition(getMode())) notifyEndCondition(getMode().peekChoice());
     }
 
-    
+
 
 }

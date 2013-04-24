@@ -11,13 +11,13 @@ import vooga.fighter.util.HUDVariable;
  *
  */
 public class ScoreInfo extends DisplayLoopInfo implements ViewDataSource{
-    
-    
+
+
     /**
      * File where win statements are located
      */
     private static final String myFileName = "config.WinStatements";
-    
+
     @HUDVariable(
                  name = "Winner",
                  HUDElementClass = "Text"
@@ -25,7 +25,7 @@ public class ScoreInfo extends DisplayLoopInfo implements ViewDataSource{
     private String myWinner;
     private String myWinStatement;
     private ResourceBundle myWinStatements;
-    
+
     /**
      * Constructors Score info with default
      * config file package name
@@ -35,7 +35,7 @@ public class ScoreInfo extends DisplayLoopInfo implements ViewDataSource{
         myWinStatements = ResourceBundle.getBundle(config+myFileName);
         myWinStatement = myWinStatements.getString(this.getClass().getSimpleName());
     }
-    
+
     /**
      * Gets the winners and displays
      * To change the win statement, just change the text in
@@ -43,12 +43,11 @@ public class ScoreInfo extends DisplayLoopInfo implements ViewDataSource{
      * @param winners   list of winners
      */
     public void setWinners(List<Integer> winners) {
-        System.out.println(myWinStatement + winners.get(0));
         for (int i = 0; i < winners.size(); i++) {
             myWinner = myWinStatement + i;
         }
         addHUDElements();
     }
-    
-    
+
+
 }
