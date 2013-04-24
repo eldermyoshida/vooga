@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +15,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-import vooga.rts.gamedesign.sprite.gamesprites.GameSprite;
 import vooga.rts.gamedesign.sprite.gamesprites.Projectile;
 import vooga.rts.gamedesign.sprite.gamesprites.Resource;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
@@ -29,9 +27,6 @@ import vooga.rts.gamedesign.strategy.upgradestrategy.CanUpgrade;
 import vooga.rts.gamedesign.strategy.upgradestrategy.UpgradeStrategy;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
 import vooga.rts.gamedesign.weapon.Weapon;
-import vooga.rts.resourcemanager.ImageLoader;
-import vooga.rts.resourcemanager.ResourceManager;
-import vooga.rts.util.ReflectionHelper;
 
 
 /**
@@ -345,35 +340,19 @@ public class Factory {
 	private void initializeStrategies(){
 		for(String key: myStrategyDependencies.keySet()){
 			String[] strategies = myStrategyDependencies.get(key);
-			//Do the same for other strategies
 			AttackStrategy attack = (AttackStrategy) myStrategies.get(strategies[0]);
 			mySprites.get(key).setAttackStrategy(attack);
 			OccupyStrategy occupy = (OccupyStrategy) myStrategies.get(strategies[1]);
 			mySprites.get(key).setOccupyStrategy(occupy);
 			GatherStrategy gather = (GatherStrategy) myStrategies.get(strategies[2]);
 			if (mySprites.get(key) instanceof Unit) {
-				System.out.println("find Unit for Gather");
 				((Unit)mySprites.get(key)).setGatherStrategy(gather);
 			}
 			UpgradeStrategy upgrade = (UpgradeStrategy) myStrategies.get(strategies[3]);
 			mySprites.get(key).setUpgradeStrategy(upgrade);
 			if (upgrade instanceof CanUpgrade) {
-				System.out.println("upgrade tree list size at the moment: " + myUpgradeTrees.size());
-				System.out.println(myUpgradeTrees.keySet());
-				System.out.println(strategies[4]);
-				System.out.println(myUpgradeTrees.containsKey(strategies[4]));
-				
 				UpgradeTree relatedUpgradeTree = myUpgradeTrees.get(strategies[4]);
-				if (relatedUpgradeTree == null) {
-					System.out.println("NULL TREE!!");
-				}
-				System.out.println("upgrade tree name: " + myStrategies.get(strategies[4]));
-				if (relatedUpgradeTree.getCurrentUpgrades() == null) {
-					System.out.println("NO CURRENT UPGRADE");
-				}
-				if (relatedUpgradeTree.getCurrentUpgrades().size() == 0) {
-					System.out.println("NO CURRENT UPGRADE SIZE");
-				}
+	
 				mySprites.get(key).setUpgradeTree(relatedUpgradeTree);
 			}
 			

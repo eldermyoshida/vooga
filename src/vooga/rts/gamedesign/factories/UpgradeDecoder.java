@@ -1,6 +1,5 @@
 package vooga.rts.gamedesign.factories;
 
-import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
@@ -96,10 +95,8 @@ public class UpgradeDecoder extends Decoder {
 			}
 		}
 		upgradeTree.updateTreeStatus();
-		printTree(upgradeTree);
 		System.out.println(treeName);
 		myFactory.put(treeName, upgradeTree);
-		System.out.println("tree put in factory: "+ treeName);
 	}
 	
 	private String loadSingleLine(Element element, String tag) {
