@@ -22,7 +22,6 @@ import arcade.games.GameData;
 import arcade.games.GameInfo;
 import arcade.games.Score;
 import arcade.games.MultiplayerGame;
-import arcade.games.UserData;
 import arcade.games.UserGameData;
 import arcade.model.payment.DukePaymentManager;
 import arcade.model.payment.PaymentManager;
@@ -68,6 +67,7 @@ public class Controller implements ArcadeInteraction {
     private String myLanguage;
     private String currentUser;
     private UserGameData myCurrentUserGameData;
+    private GameData myCurrentGameData;
 
     public Controller (String language) {
         myLanguage = language;
@@ -305,9 +305,7 @@ public class Controller implements ArcadeInteraction {
     /**
      * UserProfile must call this method to retrieve User-specific information
      */
-    public UserData getUserDetail (String username) {
-        return new UserData(myDb, currentUser);
-    }
+
 
     /**
      * TODO: Must add user-game specific detail
@@ -349,5 +347,22 @@ public class Controller implements ArcadeInteraction {
     public String getCurrentGame () {
         return myCurrentGameInfo.getName();
     }
+
+    @Override
+    public GameData getGameData (String gameName) {
+      
+        if (myCurrentGameData == null ){
+            myCurrentGameData =  myCurrentGameInfo.getGameData(myCurrentGame );
+        }
+        return myCurrentGameData;
+        
+        
+        
+        
+    }
+
+
+
+
 }
 
