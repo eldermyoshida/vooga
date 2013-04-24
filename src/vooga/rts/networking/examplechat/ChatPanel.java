@@ -8,10 +8,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+
 /**
  * Creates a panel that communicates with an IChatModel.
+ * 
  * @author David Winegar
- *
+ * 
  */
 public class ChatPanel extends JPanel {
 
@@ -23,6 +25,7 @@ public class ChatPanel extends JPanel {
 
     /**
      * Sets the model and instanitates state.
+     * 
      * @param model to set
      */
     public ChatPanel (IChatModel model) {
@@ -30,28 +33,31 @@ public class ChatPanel extends JPanel {
         createChatPane();
         createOutputPane();
     }
-    
+
     /**
      * Writes a message to the text area.
+     * 
      * @param message to write
      */
     public void appendMessage (String message) {
         myTextArea.append(message);
     }
-    
+
     private void createOutputPane () {
+        myTextArea = new JTextArea();
         JScrollPane pane = new JScrollPane();
         pane.add(myTextArea);
         add(pane, BorderLayout.CENTER);
     }
 
     private void createChatPane () {
-        myInputArea.addActionListener(new ActionListener () {
+        myInputArea = new JTextField(50);
+        myInputArea.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent arg0) {
                 myModel.messageEntered(myInputArea.getText());
                 myInputArea.setText(EMPTY_STRING);
-            }   
+            }
         });
         add(myInputArea, BorderLayout.SOUTH);
     }

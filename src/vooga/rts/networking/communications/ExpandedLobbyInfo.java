@@ -152,5 +152,19 @@ public class ExpandedLobbyInfo extends LobbyInfo {
         }
         return false;
     }
+    
+    /**
+     * Gets a player with the given id
+     * @param id of player
+     * @return player
+     */
+    public PlayerInfo getPlayer (int id) {
+        for (int i = 0; i < myPlayers.length; i++) {
+            if (myPlayers[i].getId() == id) {
+                return myPlayers[i];
+            }
+        }
+        return null;
+    }
 
 }
