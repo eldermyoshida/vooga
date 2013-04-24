@@ -36,6 +36,7 @@ public class MapPanel extends JComponent {
     public static final int PLAYERMODE = 2;
     public static final int TERRAINMODE = 3;
     public static final int TILEMODE = 4;
+    public static final int FILLMODE = 5;
 
     private Canvas myCanvas;
     private EditableMap myMap;
@@ -194,7 +195,21 @@ public class MapPanel extends JComponent {
 //        }
 //        repaint();
 //    }
-
+    
+    public void fill() {
+        myMode = FILLMODE;       
+    }
+    
+    public void fillTiles() {
+        EditableTile t = myCanvas.getCurrentSelectTile();
+        for(int i = 0; i<myMap.getMyXsize(); ++i) {
+            for(int j = 0; j<myMap.getMyYsize(); ++j) {
+                myMap.addTile(i,j, t.getMyID(), t.getMyName(), t.getMyImageName(), t.getImage());
+            }
+        }
+        repaint();        
+    }
+    
     public void clear () {
         myCurrentLayer = 0;
         myMaxLayer = 0;
@@ -255,6 +270,9 @@ public class MapPanel extends JComponent {
             case TILEMODE:
                 placeTile(loc);
                 break;
+            case FILLMODE:
+                fillTiles();
+                break;    
             default:
                 break;
         }
@@ -267,5 +285,6 @@ public class MapPanel extends JComponent {
             placeTile(loc);
         }
     }
+
 
 }
