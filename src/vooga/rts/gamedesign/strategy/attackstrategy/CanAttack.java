@@ -117,7 +117,7 @@ public class CanAttack implements AttackStrategy {
      * 
      * @param weapon the new Weapon to be added into the list.
      */
-    public void addWeapons (Weapon weapon) {
+    public void addWeapon (Weapon weapon) {
         myWeapons.add(weapon);
     }
 

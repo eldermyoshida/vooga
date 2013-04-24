@@ -85,6 +85,8 @@
 			<buildtime>100</buildtime>
 			<occupy>cannotbeoccupied</occupy>
 			<produce>worker soldier</produce>
+			<myweapons></myweapons>
+			
 		</building>
 		<custombuilding src = "vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Tower">
 			<name>tower</name>
@@ -101,6 +103,7 @@
 			<gather>cannotgather</gather>
 			<occupy>cannotbeoccupied</occupy>
 			<produce></produce>
+			<myweapons>gun</myweapons>
 		</unit>
 		<unit>
 			<name>worker</name>
@@ -112,6 +115,7 @@
 			<gather>cangather</gather>
 			<occupy>cannotbeoccupied</occupy>
 			<produce>home</produce>
+			<myweapons></myweapons>
 		</unit>
 		<customunit src = "vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Soldier">
 			<name>soldier</name>
@@ -124,6 +128,12 @@
 				<range>500</range>
 				<cooldown>1</cooldown>
 			</weapon>
+			<weapon>
+				<name>sniper</name>
+				<myprojectile>sniperbullet</myprojectile>
+				<range>800</range>
+				<cooldown>1</cooldown>
+			</weapon>
 	</weapons>
 	<projectiles src = "vooga.rts.gamedesign.sprite.gamesprites.Projectile">
 		<projectile>
@@ -133,9 +143,14 @@
 			<lifespan>100</lifespan>
 			<speed>200</speed>
 		</projectile>
+		<projectile>
+			<name>sniperbullet</name>
+			<img>bullet.png</img>
+			<damage>10</damage>
+			<lifespan>100</lifespan>
+			<speed>400</speed>
+		</projectile>
 	</projectiles>
-	
-	
 </GameElements>
 
 

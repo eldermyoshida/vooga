@@ -27,6 +27,14 @@ public class WeaponDecoder extends Decoder {
 			double cooldown = Double.parseDouble(getElement(wElement, COOLDOWN_TAG));
 			Weapon weapon = (Weapon) ReflectionHelper.makeInstance(path, range, cooldown);
 			myFactory.put(name, weapon);
+			
+			
+			//Load Projectile Dependencies
+			String projectile = getElement(wElement, MYPROJECTILE_TAG);
+			if(projectile != ""){
+				myFactory.putProjectileDependency(name, projectile);
+			}
+			
 		}
 	}
 

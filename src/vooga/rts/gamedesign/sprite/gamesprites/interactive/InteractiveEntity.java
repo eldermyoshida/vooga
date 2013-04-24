@@ -158,6 +158,13 @@ public abstract class InteractiveEntity extends GameEntity implements
 	public void addInfo(String command, Information info) {
 		myInfos.put(command, info);
 	}
+	
+	/**
+	 * Adds a weapon to this units Attack Strategy if the strategy allows
+	 */
+	public void addWeapon(Weapon toAdd){
+		myAttackStrategy.addWeapon(toAdd);
+	}
 
 	/**
 	 * This method specifies that the interactive entity is attacking an
@@ -193,6 +200,8 @@ public abstract class InteractiveEntity extends GameEntity implements
 		}
 	}
 
+	
+	
 	public int calculateDamage(int damage) {
 		return damage * (1 - (myArmor / (myArmor + 100)));
 	}

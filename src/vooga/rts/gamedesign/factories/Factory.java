@@ -28,6 +28,7 @@ import vooga.rts.gamedesign.upgrades.UpgradeTree;
 import vooga.rts.gamedesign.weapon.Weapon;
 import vooga.rts.resourcemanager.ImageLoader;
 import vooga.rts.resourcemanager.ResourceManager;
+import vooga.rts.util.ReflectionHelper;
 
 
 /**
@@ -56,7 +57,7 @@ public class Factory {
 	Map<String, String[]> myStrategyDependencies;
 	Map<String, UpgradeTree> myUpgradeTrees;
 	Map<String, String[]> myWeaponDependencies;
-	Map<String, String[]> myProjectileDependencies;
+	Map<String, String> myProjectileDependencies;
 	
 	
 	public Factory()  {
@@ -75,7 +76,7 @@ public class Factory {
 		myProductionDependencies = new HashMap<String, String[]>();
 		myStrategyDependencies = new HashMap<String, String[]>();
 		myWeaponDependencies = new HashMap<String, String[]>();
-		myProjectileDependencies = new HashMap<String, String[]>();
+		myProjectileDependencies = new HashMap<String, String>();
 		myUpgradeTrees = new HashMap<String, UpgradeTree>();
 	}
 	
@@ -186,8 +187,8 @@ public class Factory {
 	 * @param name
 	 * @param strategies
 	 */
-	public void putWeaponDependency(String name, String[] strategies){
-		myStrategyDependencies.put(name, strategies);
+	public void putWeaponDependency(String name, String[] weapons){
+		myWeaponDependencies.put(name, weapons);
 	}
 	
 	/**
@@ -196,8 +197,8 @@ public class Factory {
 	 * @param name
 	 * @param strategies
 	 */
-	public void putProjectileDependency(String name, String[] strategies){
-		myStrategyDependencies.put(name, strategies);
+	public void putProjectileDependency(String name, String projectile){
+		myProjectileDependencies.put(name, projectile);
 	}
 	
 	
@@ -222,7 +223,7 @@ public class Factory {
 	 * @throws SAXException
 	 * @throws IOException
 	 */
-	private void loadDecoder(String fileName) throws ClassNotFoundException, IllegalArgumentException, SecurityException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ParserConfigurationException, SAXException, IOException {
+	private void loadDecoder(String fileName) throws ParserConfigurationException, SAXException, IOException {
 		File file = new File(getClass().getResource(fileName).getFile());
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		DocumentBuilder db = dbf.newDocumentBuilder();
@@ -241,10 +242,7 @@ public class Factory {
 			Element pathElmnt = (Element)pairElmnt.getElementsByTagName(DECODER_MATCHING_PATH_TAG).item(0);
 			NodeList pathList = pathElmnt.getChildNodes();
 			String path = ((Node) pathList.item(0)).getNodeValue();
-			
-			Class<?> headClass =
-					Class.forName(path);
-			Decoder decoder = (Decoder) headClass.getConstructor(Factory.class).newInstance(this);
+			Decoder decoder = (Decoder) ReflectionHelper.makeInstance(path, this);
 			myDecoders.put(type, decoder);
 		}
 	}
@@ -310,8 +308,8 @@ public class Factory {
 		for(String key: myStrategyDependencies.keySet()){
 			String[] strategies = myStrategyDependencies.get(key);
 			//Do the same for other strategies
-			//AttackStrategy attack = (AttackStrategy) myStrategies.get(strategies[0]);
-			//mySprites.get(key).setAttackStrategy(attack);
+			AttackStrategy attack = (AttackStrategy) myStrategies.get(strategies[0]);
+			mySprites.get(key).setAttackStrategy(attack);
 			OccupyStrategy occupy = (OccupyStrategy) myStrategies.get(strategies[1]);
 			mySprites.get(key).setOccupyStrategy(occupy);
 			GatherStrategy gather = (GatherStrategy) myStrategies.get(strategies[2]);
@@ -319,6 +317,18 @@ public class Factory {
 			
 		}
 	}
+	
+	/**
+	 * Once defined by the XML file are loaded into their maps this method uses
+	 * the strategy dependency map
+	 * @param args
+	 */
+	private void initializeWeapons(){
+		for(String key: myWeaponDependencies.keySet()){
+			
+		}
+	}
+	
 	
 	public static void main (String[] args) {
 		Factory a = new Factory();
