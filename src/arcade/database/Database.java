@@ -423,15 +423,6 @@ public class Database {
     }
 
     /**
-     * Retrieves average game rating for game
-     * @param gameName is game
-     */
-    public double getAverageRating (String gameName) {
-        return myCommentTable.getAverageRating(retrieveGameId(gameName));
-        
-    }
-
-    /**
      * Inserts game thumbnail into Amazon S3 instance
      * @param gameName is game
      * @param filepath is where game is located
