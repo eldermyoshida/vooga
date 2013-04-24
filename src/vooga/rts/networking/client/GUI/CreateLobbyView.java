@@ -36,11 +36,11 @@ public class CreateLobbyView extends JPanel {
     private JPanel createPanel () {
         JPanel innerPanel = new JPanel();
 
-        innerPanel.add(new JLabel(NetworkBundle.BUNDLE.getString("ServerName")));
+        innerPanel.add(new JLabel(NetworkBundle.getString("ServerName")));
         myServerField = new JTextField(20);
         innerPanel.add(myServerField);
 
-        innerPanel.add(new JLabel(NetworkBundle.BUNDLE.getString("Map")));
+        innerPanel.add(new JLabel(NetworkBundle.getString("Map")));
         DefaultComboBoxModel mapModel = new DefaultComboBoxModel(myMapChoices);
         myMapComboBox = new JComboBox(mapModel);
         innerPanel.add(myMapComboBox);
@@ -64,7 +64,7 @@ public class CreateLobbyView extends JPanel {
             }
         });
 
-        innerPanel.add(new JLabel(NetworkBundle.BUNDLE.getString("MaxPlayers")));
+        innerPanel.add(new JLabel(NetworkBundle.getString("MaxPlayers")));
         myMaxPlayersComboBox = new JComboBox();
         innerPanel.add(myMaxPlayersComboBox);
 

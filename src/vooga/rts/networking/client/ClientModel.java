@@ -111,15 +111,15 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
     private void switchToServerBrowserView () {
         requestLobbies();
         myContainerPanel.changeView(myServerBrowserView,
-                                    NetworkBundle.BUNDLE.getString("ServerBrowser"));
-        myContainerPanel.changeLeftButton(NetworkBundle.BUNDLE.getString("HostGame"),
+                                    NetworkBundle.getString("ServerBrowser"));
+        myContainerPanel.changeLeftButton(NetworkBundle.getString("HostGame"),
                                           new ActionListener() {
                                               @Override
                                               public void actionPerformed (ActionEvent arg0) {
                                                   switchToCreateLobbyView();
                                               }
                                           });
-        myContainerPanel.changeRightButton(NetworkBundle.BUNDLE.getString("JoinGame"),
+        myContainerPanel.changeRightButton(NetworkBundle.getString("JoinGame"),
                                            new ActionListener() {
                                                @Override
                                                public void actionPerformed (ActionEvent arg0) {
@@ -134,15 +134,15 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
      */
     private void switchToCreateLobbyView () {
         myContainerPanel.changeView(myCreateLobbyView,
-                                    NetworkBundle.BUNDLE.getString("LobbyCreation"));
-        myContainerPanel.changeLeftButton(NetworkBundle.BUNDLE.getString("BackToBrowser"),
+                                    NetworkBundle.getString("LobbyCreation"));
+        myContainerPanel.changeLeftButton(NetworkBundle.getString("BackToBrowser"),
                                           new ActionListener() {
                                               @Override
                                               public void actionPerformed (ActionEvent arg0) {
                                                   switchToServerBrowserView();
                                               }
                                           });
-        myContainerPanel.changeRightButton(NetworkBundle.BUNDLE.getString("StartLobby"),
+        myContainerPanel.changeRightButton(NetworkBundle.getString("StartLobby"),
                                            new ActionListener() {
                                                @Override
                                                public void actionPerformed (ActionEvent arg0) {
@@ -161,8 +161,8 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
         updateLobby(lobbyInfo);
         sendUpdatedLobbyInfo();
 
-        myContainerPanel.changeView(myLobbyView, NetworkBundle.BUNDLE.getString("LobbyCreation"));
-        myContainerPanel.changeLeftButton(NetworkBundle.BUNDLE.getString("LeaveLobby"),
+        myContainerPanel.changeView(myLobbyView, NetworkBundle.getString("LobbyCreation"));
+        myContainerPanel.changeLeftButton(NetworkBundle.getString("LeaveLobby"),
                                           new ActionListener() {
                                               @Override
                                               public void actionPerformed (ActionEvent arg0) {
@@ -174,7 +174,7 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
                                                   switchToServerBrowserView();
                                               }
                                           });
-        myContainerPanel.changeRightButton(NetworkBundle.BUNDLE.getString("StartLobby"),
+        myContainerPanel.changeRightButton(NetworkBundle.getString("StartLobby"),
                                            new ActionListener() {
                                                @Override
                                                public void actionPerformed (ActionEvent arg0) {

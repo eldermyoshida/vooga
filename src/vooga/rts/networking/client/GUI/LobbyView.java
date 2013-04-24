@@ -75,9 +75,9 @@ public class LobbyView extends JPanel {
         }
 
         // initialize title labels
-        createLabel(NetworkBundle.BUNDLE.getString("PlayerName"), COLUMN_1, ROW_1);
-        createLabel(NetworkBundle.BUNDLE.getString("Team"), COLUMN_2, ROW_1);
-        createLabel(NetworkBundle.BUNDLE.getString("Faction"), COLUMN_3, ROW_1);
+        createLabel(NetworkBundle.getString("PlayerName"), COLUMN_1, ROW_1);
+        createLabel(NetworkBundle.getString("Team"), COLUMN_2, ROW_1);
+        createLabel(NetworkBundle.getString("Faction"), COLUMN_3, ROW_1);
 
     }
 
