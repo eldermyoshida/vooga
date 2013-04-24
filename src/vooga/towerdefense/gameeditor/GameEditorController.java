@@ -36,6 +36,7 @@ public class GameEditorController extends JFrame {
     private static final String IMAGE_TAG = "image";
     private static final String TYPE_TAG = "type";
     private static final String MAP_TAG = "map";
+    private static final String DIMENSION_TAG = "dimension";
     private static final String WIDTH_TAG = "width";
     private static final String HEIGHT_TAG = "height";
     private static final String TILE_TAG = "tile";
@@ -186,7 +187,11 @@ public class GameEditorController extends JFrame {
     /**
      * adds a view to the XML file.
      */
-    public void addViewToGame(List<String> viewInfo, Map<String, List<String>> map) {
+    public void addViewToGame(String dimension, List<String> viewInfo, Map<String, List<String>> map) {
+        Element viewscreen = myXMLDoc.makeElement("Dimension");
+        myXMLDoc.addChildElement(myViewParent, viewscreen);
+        myXMLDoc.addChild(viewscreen, DIMENSION_TAG, dimension);
+        
         for (String s : viewInfo) {
             if (!s.equals("")) {
                 String[] characteristics = s.split(" ");
@@ -197,7 +202,6 @@ public class GameEditorController extends JFrame {
                     myXMLDoc.addChild(screen, WIDTH_TAG, noComma);
                     myXMLDoc.addChild(screen, HEIGHT_TAG, characteristics[2]);
                     myXMLDoc.addChild(screen, SCREEN_LOCATION_TAG, characteristics[3]);
-                   
                     if (characteristics[0].equals("MultipleScreenPanel")) {
                         for (Map.Entry<String, List<String>> entry: map.entrySet()){
                             if (entry.getKey().equals(characteristics[3])) {
@@ -216,6 +220,8 @@ public class GameEditorController extends JFrame {
                 }
             }
         }
+        myXMLDoc.writeFile("view32.xml");
+
     }
 
     /**
