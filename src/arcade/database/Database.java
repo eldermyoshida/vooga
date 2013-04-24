@@ -1,6 +1,7 @@
 package arcade.database;
 import arcade.controller.GameSpecificData;
 import arcade.controller.UserSpecificData;
+import arcade.games.Comment;
 import arcade.games.GameData;
 import arcade.games.Score;
 import arcade.games.UserGameData;
@@ -295,8 +296,9 @@ public class Database {
      * Retrieves all comments for game
      * @param gameName is game name
      */
-    public List<String> retrieveCommentsForGame (String gameName) {
-        return myCommentTable.getAllCommentsForGame(retrieveGameId(gameName));
+    public List<Comment> retrieveCommentsForGame (String gameName) {
+        return null;
+        //return myCommentTable.getAllCommentsForGame(retrieveGameId(gameName));
     }
 
     /**
