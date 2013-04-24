@@ -153,7 +153,7 @@ public class MapObject extends GameObject {
 
         }
     }
-
+    
     /**
      * Nothing for now, just return false. Never need to remove map.
      */
