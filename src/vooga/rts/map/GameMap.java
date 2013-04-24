@@ -125,7 +125,6 @@ public class GameMap implements IGameLoop {
         int tileHeight = 42;
         int tilesX = (int) size.getWidth() / tileWidth;
         int tilesY = (int) size.getHeight() / tileHeight;
-        System.out.println(size.getWidth());
         myTiles = new TileMap(new Dimension(tileWidth, tileHeight), tilesX, tilesY);
 
         BufferedImage banana =
