@@ -36,7 +36,7 @@ public class ViewXMLLoader {
     }
     
     public void makeView(Controller controller) throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException {
-        Element viewElement = myXMLTool.getElementFromTag(VIEW_TAG);
+        Element viewElement = myXMLTool.getElement(VIEW_TAG);
         
         Map<String, Element> subElements = myXMLTool.getChildrenElementMap(viewElement);
         Element dimensionElement = subElements.get(DIMENSION_TAG);
@@ -66,7 +66,7 @@ public class ViewXMLLoader {
         for (String s : subMultiples.keySet()) {
             Element subScreenElement = subMultiples.get(s);
             JPanel subScreen = getScreen(subScreenElement, controller);
-            Element locElement = myXMLTool.getElementFromTag(LOCATION_TAG);
+            Element locElement = myXMLTool.getElement(LOCATION_TAG);
             String location = BORDER_LAYOUT_ADDITION + myXMLTool.getContent(locElement);
             ((MultipleScreenPanel) panel).addScreen(subScreen, location);
         }

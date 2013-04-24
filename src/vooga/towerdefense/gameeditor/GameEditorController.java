@@ -264,12 +264,6 @@ public class GameEditorController extends JFrame {
                 }
             }
         }
-<<<<<<< HEAD
-      
-=======
-        myXMLDoc.writeFile(RESOURCE_PATH + "view32.xml");
-        
->>>>>>> ff21a1ce2f56e3120ce513e5f7812e013a33e4da
     }
     
     /**

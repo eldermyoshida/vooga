@@ -20,7 +20,7 @@ public class ActionXMLLoader {
     }
     
     public List<ActionFactory> loadActions() {
-        Element actionsElement = myXMLTool.getElementFromTag(ACTIONS_TAG);                
+        Element actionsElement = myXMLTool.getElement(ACTIONS_TAG);                
         Map<String, Element> subElements = myXMLTool.getChildrenElementMap(actionsElement);
         List<ActionFactory> actions = new ArrayList<ActionFactory>();
         for (Element e : subElements.values()) {
