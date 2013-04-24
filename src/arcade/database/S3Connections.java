@@ -296,7 +296,6 @@ public class S3Connections {
         @SuppressWarnings("unused")
         ObjectMetadata object = myS3Instance.getObject(
                                             new GetObjectRequest(BUCKET_NAME, key), tempFile);
-        System.out.println(RELATIVE_PATH);
         return pathOfImage;
     }
     

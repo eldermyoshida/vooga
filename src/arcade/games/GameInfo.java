@@ -2,6 +2,7 @@ package arcade.games;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -194,6 +195,39 @@ public class GameInfo {
             // add some additional tries for letter case, then throw an exception
 
             return null;
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    public UserGameData getUserGameData (Game theGame ,String user) {
+        try{
+            return myDb.getUserGameData(myGameName, user);
+        }catch( NullPointerException e){
+            @SuppressWarnings("rawtypes")
+            Class game = getClass();
+            Method method;
+            try {
+                method = game.getMethod("generateNewProfile");
+                try {
+                    return (UserGameData) method.invoke(theGame);
+                }
+                catch (IllegalArgumentException e1) {
+                    e1.printStackTrace();
+                }
+                catch (IllegalAccessException e1) {
+                    e1.printStackTrace();
+                }
+                catch (InvocationTargetException e1) {
+                    e1.printStackTrace();
+                }
+            }
+            catch (SecurityException e1) {
+                e1.printStackTrace();
+            }
+            catch (NoSuchMethodException e1) {
+                e1.printStackTrace();
+            }
+           return null;
         }
     }
 

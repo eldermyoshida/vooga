@@ -319,9 +319,7 @@ public class Controller implements ArcadeInteraction {
      * @return
      */
     public UserGameData getUserGameData (String user, String game) {
-        // Query database to get info specific to the user and the game (e.g.
-        // scores)
-        return new UserGameData();
+            return myCurrentGameInfo.getUserGameData(myCurrentGame , user);
     }
 
     @Override
@@ -368,5 +366,10 @@ public class Controller implements ArcadeInteraction {
             // method
         }
         return gd;
+    }
+
+    @Override
+    public String getCurrentGame () {
+        return myCurrentGameInfo.getName();
     }
 }

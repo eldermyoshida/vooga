@@ -10,7 +10,7 @@ import java.util.List;
  * here in subclassed UserGameDatas.
  * @author Will Nance
  */
-public class UserGameData implements Serializable {
+public  class UserGameData implements Serializable {
 
     /**
      * 
