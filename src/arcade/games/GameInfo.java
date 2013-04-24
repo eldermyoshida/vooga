@@ -12,7 +12,6 @@ import java.util.ResourceBundle;
 import javax.swing.ImageIcon;
 import arcade.controller.Controller;
 import arcade.database.Database;
-import arcade.exceptions.InvalidPaymentException;
 
 
 public class GameInfo {
@@ -80,9 +79,6 @@ public class GameInfo {
         return myDb.getSingleplayerGameClassKeyword(myGameName);
     }
 
-    private String getMultiplayerGameClassKeyword () {
-        return myDb.getMultiplayerGameClassKeyword(myGameName);
-    }
 
     public List<String[]> getComments () {
         // TODO: do this correctly.
@@ -114,30 +110,7 @@ public class GameInfo {
      * developers will have to worry about getting things exactly right :(
      */
 
-    // untested . . . hope it works . . .
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-    public MultiplayerGame getMultiplayerGame (Controller model) {
-        Class gameClass = getMultiplayerGameClass();
-        try {
-            Constructor con = gameClass.getConstructor(MultiplayerArcadeInteraction.class);
-            try {
-                return (MultiplayerGame) con.newInstance(model);
-            }
-            catch (IllegalArgumentException e) {
-            }
-            catch (InstantiationException e) {
-            }
-            catch (IllegalAccessException e) {
-            }
-            catch (InvocationTargetException e) {
-            }
-        }
-        catch (SecurityException e) {
-        }
-        catch (NoSuchMethodException e) {
-        }
-        return null;
-    }
+    
 
     public List<Score> getScores () {
         return myDb.getScoresForGame(myGameName);
@@ -149,18 +122,7 @@ public class GameInfo {
         return scores;
     }
 
-    // TODO make sure this doesnt break if the game isnt multiplayer
-    @SuppressWarnings("rawtypes")
-    private Class getMultiplayerGameClass () {
-        try {
-            return Class.forName(getMultiplayerGameClassKeyword());
-        }
-        catch (ClassNotFoundException e) {
-            // add some additional tries for letter case, then throw an exception
-        }
-        return null;
-    }
-
+    
     // I SAY I will add better exception handling here but . . . .
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public Game getGame (Controller model) {
@@ -240,13 +202,14 @@ public class GameInfo {
     }
     
     
+    @SuppressWarnings("unchecked")
     public UserGameData getUserGameData (Game theGame ,String user) {
         try{
             return myDb.getUserGameData(myGameName, user);
         
         }catch( NullPointerException e){// this should actually be the amazon error. replace.
             @SuppressWarnings("rawtypes")
-            Class game = getClass();
+            Class game = getSingleplayerGameClass();
             Method method;
             try {
                 method = game.getMethod("generateNewProfile");
@@ -274,30 +237,6 @@ public class GameInfo {
     }
 
 
-    // // TODO make sure this doesnt break if the game isnt multiplayer
-    // @SuppressWarnings("rawtypes")
-    // private Class getMultiplayerGameClass () {
-    // try {
-    // return Class.forName(myResourceBundle.getString(MULTIPLAYER_GAME_MAIN_CLASS_KEYWORD));
-    // }
-    // catch (ClassNotFoundException e) {
-    // // add some additional tries for letter case, then throw an exception
-    // }
-    // return null;
-    // }
-
-    //
-    // // TODO make sure this doesnt break if the game isnt single player
-    // @SuppressWarnings("rawtypes")
-    // private Class getGameClass () {
-    // try {
-    // return Class.forName(myResourceBundle.getString(GAME_MAIN_CLASS_KEYWORD));
-    // }
-    // catch (ClassNotFoundException e) {
-    // // add some additional tries for letter case, then throw an exception
-    //
-    // return null;
-    // }
-    // }
+   
 
 }
