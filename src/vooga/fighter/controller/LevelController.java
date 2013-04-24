@@ -126,7 +126,7 @@ public abstract class LevelController extends Controller {
     	public boolean checkCondition(Mode mode) {
     		LevelMode levelmode = (LevelMode) mode;
 			for(CharacterObject character: levelmode.getCharacterObjects()){
-				if(!character.hasHealthRemaining()) return true;
+				if(!character.hasHealthRemaining()){ return true;
 			}
 			return false;
 		}
@@ -176,8 +176,6 @@ public abstract class LevelController extends Controller {
             getMode().addObject(newCharacter);
             getMode().addCharacter(newCharacter);
         }
-    }
+}
 
-    
-    
 }
