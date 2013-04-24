@@ -63,7 +63,16 @@ public class InteractiveEntityDecoder extends Decoder {
 			}
 			//Load Strategy Dependencies now
 			String[] strategies = new String[3];
-			strategies[1] = nElement.getElementsByTagName(OCCUPY_TAG).item(0).getTextContent();
+			strategies[0] = getElement(nElement, ATTACK_TAG);
+			strategies[1] = getElement(nElement, OCCUPY_TAG);
+			
+			if(subtype.equals(BUILDING_TYPE)) {
+				strategies[2] = "cannotgather";
+			}else{
+				strategies[2] = getElement(nElement, GATHER_TAG);
+			}
+
+			
 			myFactory.putStrategyDependency(name, strategies);
 			
 			

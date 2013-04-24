@@ -70,6 +70,7 @@ public class StrategyDecoder extends Decoder{
 		NodeList gatherLst = doc.getElementsByTagName(GATHER_TAG).item(0).getChildNodes();
 			
 		getSources(occupyLst);
+		getSources(gatherLst);
 	}
 
 }
