@@ -179,7 +179,8 @@ public class GameState extends SubState implements Controller {
 
         Unit c = new Unit();
         c.setWorldLocation(new Location3D(1200, 500, 0));
-        c.setAttackStrategy(new CanAttack(a.getWorldLocation(), c.getPlayerID()));
+        c.move(c.getWorldLocation());
+        c.setAttackStrategy(new CanAttack(c.getWorldLocation(), c.getPlayerID()));
         c.setHealth(150);
         // myHumanPlayer.add(c);
         myPlayers.get(1).add(c);
