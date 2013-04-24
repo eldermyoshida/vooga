@@ -10,6 +10,7 @@ import util.input.*;
 import vooga.fighter.forces.Force;
 import vooga.fighter.forces.ForceFactory;
 import vooga.fighter.forces.Gravity;
+import vooga.fighter.model.objects.AttackObject;
 import vooga.fighter.model.objects.CharacterObject;
 import vooga.fighter.model.objects.MouseClickObject;
 import vooga.fighter.util.Physics;
@@ -114,7 +115,8 @@ public class OneVOneController extends LevelController {
     
     @InputMethodTarget(name = "player1_attack")
     public void playerOneAttackInput(AlertObject alObj) {
-        getInputObjects().get(0).attack("weakPunch");
+        AttackObject newAttack = getInputObjects().get(0).attack("weakPunch");
+        getMode().addObject(newAttack);
     }
     
     @InputMethodTarget(name = "player2_attack")

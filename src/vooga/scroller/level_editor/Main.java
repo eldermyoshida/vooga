@@ -1,7 +1,9 @@
 
 package vooga.scroller.level_editor;
 
-import vooga.scroller.sprites.test_sprites.MarioLib;
+import vooga.scroller.level_editor.controllerSuite.LEController;
+import vooga.scroller.level_editor.library.BackgroundLib;
+import vooga.scroller.marioGame.spritesDefinitions.MarioLib;
 
 
 public class Main {
@@ -15,8 +17,7 @@ public class Main {
                                           "background.png",
                                           "forestbackground.jpg"};
         
-        LEController con = new LEController(new MarioLib(), new BackgroundLib(filenames));
-        con.start();
+        LEController.runLevelEditor(new MarioLib(), new BackgroundLib(filenames));
         
     }
 }
