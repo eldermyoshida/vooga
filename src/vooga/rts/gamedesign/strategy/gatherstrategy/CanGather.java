@@ -19,6 +19,8 @@ import vooga.rts.util.DelayedTask;
  */
 public class CanGather implements GatherStrategy {
 
+	public static final int DEFUALT_GATHER_INTERVAL = 5;
+	
 	private DelayedTask myGatherDelay;
 	private double myCooldown;
 	private int myGatherAmount;
@@ -64,6 +66,16 @@ public class CanGather implements GatherStrategy {
 		if(myGatherDelay != null) {
 			myGatherDelay.update(elapsedTime);
 		}
+	}
+
+	@Override
+	public int getGatherAmount() {
+		return myGatherAmount;
+	}
+
+	@Override
+	public void setGatherAmount(int gatherAmount) {
+		return;
 	}
 
 }
