@@ -452,9 +452,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
         else {
             super.move(myPath.getNext());
         }
-
-        super.update(elapsedTime);
-
+        
         super.update(elapsedTime);
 
         Iterator<DelayedTask> it = myTasks.iterator();
