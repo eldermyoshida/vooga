@@ -211,6 +211,8 @@ public class Controller implements ArcadeInteraction {
         addNewGameInfoToList(name);
     }
 
+    
+    
     /**
      * First creates the appropriate PaymentManager for the transactionType if
      * the transactionType is Duke, then the DukePaymentManager is created.
@@ -243,6 +245,9 @@ public class Controller implements ArcadeInteraction {
         // TODO: write code here for moving game from Store to GameCenter
     }
 
+    
+    
+    
     /**
      * Sets up a new twitter request to get access to a user's account.
      * Returns a URL that a user can access to authorize.
@@ -255,6 +260,8 @@ public class Controller implements ArcadeInteraction {
         return myTwitter.newRequest();
     }
 
+    
+    
     /**
      * After the user authorizes the twitter request, s/he will have a pin.
      * This gets access using the provided pin, and sends a tweet containing
@@ -268,6 +275,8 @@ public class Controller implements ArcadeInteraction {
         myTwitter.sendTweet(pin, text);
     }
 
+    
+    
     /**
      * Rate a specific game, store in user-game database
      */
@@ -275,6 +284,8 @@ public class Controller implements ArcadeInteraction {
         myDb.insertCommentAndRating(myCurrentUser, gameName, comment, rating);
     }
 
+    
+    
     public void playGame (GameInfo gameinfo) {
         myCurrentGame = gameinfo.getGame(this);
         myCurrentGameInfo = gameinfo;
@@ -292,6 +303,9 @@ public class Controller implements ArcadeInteraction {
         return myGameInfos.values();
     }
 
+    
+    
+    
     /**
      * GameDetailPanel must call this method to get game-specific info.
      * 
@@ -306,6 +320,7 @@ public class Controller implements ArcadeInteraction {
      * UserProfile must call this method to retrieve User-specific information
      */
 
+    
 
     /**
      * TODO: Must add user-game specific detail
@@ -348,17 +363,13 @@ public class Controller implements ArcadeInteraction {
         return myCurrentGameInfo.getName();
     }
 
+    
     @Override
     public GameData getGameData () {
         if (myCurrentGameData == null ){
             myCurrentGameData =  myCurrentGameInfo.getGameData(myCurrentGame );
         }
         return myCurrentGameData;
-        
     }
-
-
-
-
 }
 
