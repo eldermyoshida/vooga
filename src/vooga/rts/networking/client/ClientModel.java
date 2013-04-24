@@ -38,7 +38,11 @@ public class ClientModel implements IMessageReceiver, IClientModel {
         myCreateLobbyView = new CreateLobbyView();
         switchToServerBrowserView();
     }
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> parent of 62aa403... merging misc classes
     private JPanel getPanel () {
         return myContainerPanel;
     }
