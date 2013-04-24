@@ -14,4 +14,11 @@ public interface IChatModel {
      * @param message entered
      */
     public void messageEntered (String message);
+
+    /**
+     * Creates server browser model and sets it as the view.
+     * 
+     * @param name username
+     */
+    public void switchToServerBrowser (String userName);
 }

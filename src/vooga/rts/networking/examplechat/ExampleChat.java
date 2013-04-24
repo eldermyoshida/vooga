@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import vooga.rts.networking.client.ClientModel;
 import vooga.rts.networking.client.IClient;
 import vooga.rts.networking.client.IMessageReceiver;
@@ -22,6 +23,11 @@ import vooga.rts.networking.communications.UserTimeStamp;
  */
 public class ExampleChat implements NetworkedGame, IChatModel, IMessageReceiver {
 
+    private static final int ONE_MILLISECOND = 1000000;
+    private static final String SEPARATOR = " : ";
+    private static final int MAX_PLAYERS = 8;
+    private static final int DEFAULT_HEIGHT = 500;
+    private static final int DEFAULT_WIDTH = 600;
     private ClientModel myModel;
     private JFrame myFrame;
     private ChatPanel myChatPanel;
@@ -31,54 +37,49 @@ public class ExampleChat implements NetworkedGame, IChatModel, IMessageReceiver 
     private long myStartTime;
 
     /**
-     * Main for example chat program.
-     * 
-     * @param args
-     */
-    public static void main (String[] args) {
-        new ExampleChat();
-    }
-
-    /**
      * Starts by creating the dialog box.
      */
     public ExampleChat () {
         new UsernameDialogBox(this);
     }
 
-    protected void createFrame () {
+    /**
+     * Creates the frame for the given panel
+     */
+    protected void createFrame (JPanel panel) {
         myFrame = new JFrame();
-        myFrame.add(myModel.getView());
+        myFrame.add(panel);
         myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        myFrame.setPreferredSize(new Dimension(600, 500));
+        myFrame.setPreferredSize(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT));
         myFrame.setVisible(true);
         myFrame.pack();
     }
 
-    protected void createView (String name) {
+    @Override
+    public void switchToServerBrowser (String name) {
+        createServerBrowserModel(name);
+        createFrame(myModel.getView());
+    }
+
+    protected void createServerBrowserModel (String name) {
         List<String> factions = new ArrayList<String>();
         factions.add("chat person");
         List<String> maps = new ArrayList<String>();
         maps.add("chat room");
         List<Integer> maxPlayers = new ArrayList<Integer>();
-        maxPlayers.add(8);
+        maxPlayers.add(MAX_PLAYERS);
         myModel = new ClientModel(this, "Chat Room", name, factions, maps, maxPlayers);
     }
 
     @Override
     public void loadGame (ExpandedLobbyInfo info, PlayerInfo thisPlayer) {
         myFrame.dispose();
-        myFrame = new JFrame();
         myChatPanel = new ChatPanel(this);
-        myFrame.add(myChatPanel);
         myPlayer = thisPlayer;
         myInfo = info;
 
-        myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        myFrame.setPreferredSize(new Dimension(600, 500));
-        myFrame.setVisible(true);
-        myFrame.pack();
+        createFrame(myChatPanel);
     }
 
     @Override
@@ -93,8 +94,8 @@ public class ExampleChat implements NetworkedGame, IChatModel, IMessageReceiver 
         if (message instanceof ChatMessage) {
             ChatMessage chat = (ChatMessage) message;
             myChatPanel.appendMessage(
-                    chat.getInitialTime() + " : " +
-                            myInfo.getPlayer(chat.getSender()).getName() + " : " +
+                    chat.getInitialTime() + SEPARATOR +
+                            myInfo.getPlayer(chat.getSender()).getName() + SEPARATOR +
                             chat.getMessage() + "\n");
 
         }
@@ -104,7 +105,8 @@ public class ExampleChat implements NetworkedGame, IChatModel, IMessageReceiver 
     public void messageEntered (String message) {
         myClient.sendData(new ChatMessage(
                                           new UserTimeStamp(
-                                                            (System.nanoTime() - myStartTime) / 1000000),
+                                                            (System.nanoTime() - myStartTime) /
+                                                                    ONE_MILLISECOND),
                                           message, myPlayer.getId()));
     }
 

@@ -38,6 +38,11 @@ public class ChatMessage extends GameMessage {
         return myMessage;
     }
 
+    /**
+     * Gets the ID of the sender.
+     * 
+     * @return id
+     */
     public int getSender () {
         return myID;
     }
