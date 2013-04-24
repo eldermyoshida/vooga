@@ -13,13 +13,13 @@ import vooga.scroller.util.Renderable;
 import vooga.scroller.util.Sprite;
 import vooga.scroller.level_editor.controllerSuite.LEGrid;
 import vooga.scroller.level_editor.model.SpriteBox;
-import vooga.scroller.level_management.IDoor;
-import vooga.scroller.level_management.LevelPortal;
+import vooga.scroller.level_management.ExamplePortal;
 import vooga.scroller.level_management.SpriteManager;
 import vooga.scroller.marioGame.spritesDefinitions.players.Mario;
 import vooga.scroller.model.Model;
 import vooga.scroller.scrollingmanager.OmniScrollingManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
+import vooga.scroller.sprites.interfaces.IDoor;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.PlatformerConstants;
 import vooga.scroller.util.mvc.IView;
@@ -84,7 +84,7 @@ public class Level implements Renderable<GameView>, IGameComponent{
                         addSprite(box.getSprite());
                     }
                     if(grid.getBackground()!=null) {
-                        setBackground(grid.getBackground()); 
+                        setBackground(grid.getBackground().getImage()); 
                     }
                 }
 
@@ -106,7 +106,7 @@ public class Level implements Renderable<GameView>, IGameComponent{
         myStateManager.paint(pen);
         //mySpriteManager.paint(pen);
     }
-
+    
     public int getID () {
         return myID;
     }
@@ -126,8 +126,8 @@ public class Level implements Renderable<GameView>, IGameComponent{
             myStartPoint = s.getCenter();
             return;
         }
-        if (s instanceof LevelPortal) {
-            addDoor((LevelPortal) s);
+        if (s instanceof ExamplePortal) {
+            addDoor((ExamplePortal) s);
         }
         mySpriteManager.addSprite(s);
     }

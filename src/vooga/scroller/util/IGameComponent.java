@@ -4,8 +4,8 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import util.input.Input;
-import vooga.scroller.level_management.IDoor;
 import vooga.scroller.level_management.LevelManager;
+import vooga.scroller.sprites.interfaces.IDoor;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.view.GameView;
 

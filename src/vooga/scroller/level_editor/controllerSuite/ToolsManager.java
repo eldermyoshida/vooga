@@ -8,7 +8,7 @@ import vooga.scroller.level_editor.library.BackgroundLib;
 import vooga.scroller.level_editor.library.IBackgroundLibrary;
 import vooga.scroller.level_editor.library.ISpriteLibrary;
 import vooga.scroller.level_editor.view.LEView;
-import vooga.scroller.level_management.LevelPortal;
+import vooga.scroller.level_management.ExamplePortal;
 import vooga.scroller.util.Sprite;
 import vooga.scroller.util.mvc.IWindow;
 import vooga.scroller.util.mvc.vcFramework.Window;
@@ -53,7 +53,7 @@ public class ToolsManager {
         }
         sprite = new StartPoint();
         setupTool(ILevelEditor.START_ID, sprite);
-        sprite = new LevelPortal();
+        sprite = new ExamplePortal();
         setupTool(ILevelEditor.END_ID, sprite);
     }
 

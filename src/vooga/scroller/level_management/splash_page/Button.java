@@ -11,7 +11,7 @@ public class Button extends Sprite {
     
     private static final Location DEFAULT_CENTER = new Location(400,150);
     private static final Dimension MOUSE_DIMENSIONS = new Dimension(100,100);
-    private static final ISpriteView DEFAULT_IMAGE = new Pixmap("start_button.png");
+    private static final ISpriteView DEFAULT_IMAGE = new Pixmap("/vooga/scroller/images/","start_button.png");
     
     public Button () {
         super(DEFAULT_IMAGE, DEFAULT_CENTER, MOUSE_DIMENSIONS);

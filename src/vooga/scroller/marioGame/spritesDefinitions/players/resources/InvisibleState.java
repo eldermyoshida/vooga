@@ -12,7 +12,7 @@ import vooga.scroller.util.Sprite;
 
 public class InvisibleState implements State{
 
-    private static final Pixmap DEFAULT_IMAGE = new Pixmap("invisible.gif");
+    private static final Pixmap DEFAULT_IMAGE = new Pixmap("/vooga/scroller/images/invisible.gif");
     private static final double INVISIBLE_TIME = 5;
     private Sprite mySprite;
     private ISpriteView myDefaultView;

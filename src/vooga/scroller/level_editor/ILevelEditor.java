@@ -5,6 +5,7 @@ import java.awt.Image;
 import java.util.Map;
 import javax.swing.Icon;
 import vooga.scroller.util.Editable;
+import vooga.scroller.util.IBackgroundView;
 import vooga.scroller.util.Sprite;
 
 /**
@@ -39,6 +40,6 @@ public interface ILevelEditor {
      */
     public void setSpriteMap (Map<Integer, Sprite> spriteMap);
 
-    void setBackgroundMap (Map<Integer, Image> map);
+    void setBackgroundMap (Map<Integer, IBackgroundView> map);
     
 }

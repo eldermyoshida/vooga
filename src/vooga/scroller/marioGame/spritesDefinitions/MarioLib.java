@@ -4,10 +4,13 @@ import java.awt.Dimension;
 import java.awt.geom.Point2D;
 import util.Location;
 import vooga.scroller.level_editor.library.EncapsulatedSpriteLibrary;
+import vooga.scroller.level_management.LevelManager;
+import vooga.scroller.level_management.LevelPortal;
 import vooga.scroller.marioGame.spritesDefinitions.players.Mario;
 import vooga.scroller.sprites.animation.Animation;
 import vooga.scroller.sprites.animation.MovingSpriteAnimationFactory;
 import vooga.scroller.sprites.interfaces.ICollectible;
+import vooga.scroller.sprites.interfaces.IDoor;
 import vooga.scroller.sprites.interfaces.IEnemy;
 import vooga.scroller.sprites.interfaces.IPlatform;
 import vooga.scroller.sprites.movement.BackAndForth;
@@ -17,6 +20,8 @@ import vooga.scroller.sprites.superclasses.GameCharacter;
 import vooga.scroller.sprites.superclasses.Locatable;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.sprites.superclasses.StaticEntity;
+import vooga.scroller.util.IGameComponent;
+import vooga.scroller.util.ISpriteView;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.Sprite;
 import util.Vector;
@@ -69,7 +74,6 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
         private int RADIUS = 45;
         private TrackPlayer movement = new TrackPlayer(this, getLocatable(), SPEED, RADIUS);
 
-        
         public Koopa () {
             this(DEFAULT_LOC);
         }
@@ -149,7 +153,8 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
         }
 
         public Plant (Location center) {
-            super(makePixmap(DEFAULT_IMG), center, new Dimension(32, 32), DEFAULT_HEALTH, new Integer(2));
+            super(makePixmap(DEFAULT_IMG), center, new Dimension(32, 32), DEFAULT_HEALTH,
+                  new Integer(2));
         }
 
         @Override
@@ -171,7 +176,6 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
         private Point2D END = new Point2D.Double(200.0, 40.0);
 
         private Movement movement = new BackAndForth(this, START, END, SPEED);
-
 
         public MovingPlatformOne () {
             this(DEFAULT_LOC);
@@ -265,22 +269,40 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
         public void print () {
         }
     }
-    
+
+    public static class ExamplePortal extends LevelPortal {
+
+        private static final String PORTAL_IMG = "door.png";
+        private static final Dimension PORTAL_SIZE = new Dimension(32, 64);
+
+        @Override
+        public ISpriteView initView () {
+            return makePixmap(PORTAL_IMG);
+        }
+
+        @Override
+        public Dimension initSize () {
+            return PORTAL_SIZE;
+        }
+    }
+
     /**
      * TODO - how to enforce implementation of this?
+     * 
      * @return
      */
     public static String getImagesDirectory () {
         return "/vooga/scroller/marioGame/images/";
     }
 
-    public static Pixmap makePixmap(String fileName) {
+    public static Pixmap makePixmap (String fileName) {
         return makePixmap(getImagesDirectory(), fileName);
     }
-    
-    public static void addLeftRightAnimationToPlayer(Player player, String baseFileName) {        
-        MovingSpriteAnimationFactory msaf = new MovingSpriteAnimationFactory(getImagesDirectory(),                                                                              baseFileName);
-        Animation<Sprite> playerAnimation = msaf.generateAnimation(player);        
+
+    public static void addLeftRightAnimationToPlayer (Player player, String baseFileName) {
+        MovingSpriteAnimationFactory msaf =
+                new MovingSpriteAnimationFactory(getImagesDirectory(), baseFileName);
+        Animation<Sprite> playerAnimation = msaf.generateAnimation(player);
         player.setView(playerAnimation);
     }
 

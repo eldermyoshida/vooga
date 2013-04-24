@@ -45,7 +45,7 @@ public class SpriteManager {
 
     public void addPlayer (Player p) {
         myPlayer = p;
-        myPlayer.setCenter(myLevel.getStartPoint().x, myLevel.getStartPoint().x);
+        myPlayer.setCenter(myLevel.getStartPoint().x, myLevel.getStartPoint().y);
         for (Sprite sprite : mySprites) {
             if (sprite instanceof GameCharacter) {
                 ((GameCharacter) sprite).addTarget(p);

@@ -42,7 +42,7 @@ public class MarioGame extends ScrollerGame {
 
     @Override
     protected String[] setLevelFileNames () {
-        String[] levelsFiles = {"verySimpleLevel.level", "new.level"};
+        String[] levelsFiles = {"test.level"};
         return levelsFiles;
     }
 

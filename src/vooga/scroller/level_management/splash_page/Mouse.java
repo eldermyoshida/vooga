@@ -8,7 +8,7 @@ import vooga.scroller.util.Sprite;
 
 public class Mouse extends Sprite {
 
-    private static final Pixmap DEFAULT_IMAGE = new Pixmap("sun.png");
+    private static final Pixmap DEFAULT_IMAGE = new Pixmap("/vooga/scroller/images/sun.png");
     private static final Location DEFAULT_CENTER = new Location(0,0);
     private static final Dimension MOUSE_DIMENSIONS = new Dimension(40,40);
     

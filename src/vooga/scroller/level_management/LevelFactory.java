@@ -64,7 +64,7 @@ public class LevelFactory {
 
     protected IGameComponent linkLevels (List<IGameComponent> levels) {
         SplashPage splash = new SplashPage(MarioLib.makePixmap("MARIO SPLASH.png"), 0, myView, mySM);
-        splash.addDoor(new LevelPortal());
+        splash.addDoor(new ExamplePortal());
         myLevelManager.put(splash.getDoor(), levels.get(0));
 
         for (int i = 0; i < levels.size() - 1; i++) {
@@ -83,7 +83,7 @@ public class LevelFactory {
 
     private void hardCodeCompleteL2 (Level level2) {
         Location level2Start = new Location(100, 140);
-        LevelPortal level2End = new LevelPortal(new Location(1000, 140));
+        ExamplePortal level2End = new ExamplePortal(new Location(1000, 140));
         level2.addStartPoint(level2Start);
         level2.addSprite(level2End);
         level2.setBackground(new ImageIcon(getClass().getResource(
