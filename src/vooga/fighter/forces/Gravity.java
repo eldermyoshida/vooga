@@ -27,6 +27,8 @@ public class Gravity extends Force {
         myVector= new Vector(myDirection, myMagnitude);
     }
 
-
+    public Vector getVector() {
+        return myVector;
+    }
     
 }

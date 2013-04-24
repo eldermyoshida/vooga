@@ -26,12 +26,14 @@ public class CharacterObject extends GameObject {
     private static final int UP=270; 
     
     private Map<String, AttackObject> myAttacks;
+    private Vector forcesApplied; 
     private List<Effect> myActiveEffects;
     private Health myHealth; 
     private List<AttackObject> currentAttacks; 
     private boolean facingRight;  
     private int movingDirection; 
     private Vector myVelocity;  
+    private boolean myIsStanding;
     
     /**
      * Constructs a new CharacterObject.
@@ -52,6 +54,15 @@ public class CharacterObject extends GameObject {
         myVelocity=getLocation().getVelocity();
         setImageData();
         
+    }
+    
+    public boolean getStanding() {
+        return myIsStanding;
+    }
+    
+    public void setStanding(boolean bool) {
+        myIsStanding = bool;
+            
     }
 
     /**
@@ -201,8 +212,8 @@ public class CharacterObject extends GameObject {
     /**
      * Makes the character move back if it runs into another character or environmentObject with higher priority
      */
-    public void moveBack(double forceMagnitude){
-    	myVelocity.setMagnitude(forceMagnitude); //TODO: hard coded now should be force magnitude in the future
+    public void moveBack(){
+    	myVelocity.setMagnitude(forcesApplied.getMagnitude()); 
     	reverseVelocity(); 
     	getLocation().translate(myVelocity);
     }
@@ -261,6 +272,13 @@ public class CharacterObject extends GameObject {
      */
     public void reverseVelocity(){
     	myVelocity.setDirection(myVelocity.getDirection()-180);
+    }
+    
+    /**
+     * Sets the applied forces acting on a character object 
+     */
+    public void setAppliedForces(Vector sumOfForces){
+    	forcesApplied= sumOfForces;
     }
     
 }

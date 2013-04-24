@@ -20,6 +20,7 @@ import vooga.towerdefense.util.XMLTool;
  */
 public class RawMapWriter {
 	private static final String INPUT_PATHWAY = "vooga.fighter.config.maps";
+	
 	private MapObject myWriteSource;
 	private ArrayList<String> myWriteOutLines;
 	private XMLTool myXMLWriter;
@@ -28,9 +29,9 @@ public class RawMapWriter {
 	private String mySoundFilePath;
 	private List<String> myBackgroundFilePaths;
 	
-	public RawMapWriter(MapObject map, String soundFilePath, List<String> backgroundFilePath) {
+	public RawMapWriter(MapObject map, String soundFilePath, List<String> backgroundFilePaths) {
 		myWriteSource = map;
-		myBackgroundFilePaths = backgroundFilePath;
+		myBackgroundFilePaths = backgroundFilePaths;
 	}
 	
 	public void writeMap() {
@@ -51,8 +52,6 @@ public class RawMapWriter {
 			myWriteOutLines.add(writeEnvironmentObjectString(enviro));
 		}
 		myWriteOutLines.add("</map>");
-		
-		
 	}
 	
 	private String writeMapHeaderString() {

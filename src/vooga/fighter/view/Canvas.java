@@ -8,8 +8,8 @@ import java.awt.geom.AffineTransform;
 
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
 import vooga.fighter.controller.ViewDataSource;
 
 /**
@@ -24,6 +24,8 @@ import vooga.fighter.controller.ViewDataSource;
  * @author Wayne You
  */
 public class Canvas extends JComponent {
+	// default serialization ID
+
     // default serialization ID
     private static final long serialVersionUID = 1L;
     
@@ -114,23 +116,41 @@ public class Canvas extends JComponent {
     }
     
     /**
-     * Opens an explorer window to select a file. Returns null on cancel and absolute path on success.
-     * @param descriptor Description of what types of files are being searched for.
-     * @param extensions Zero or more file extensions to filter for. (do not prefix with a period)
+     * Opens an explorer window to select a file. Returns null on cancel and
+     * absolute path on success.
+     * 
+     * @param descriptor
+     *            Description of what types of files are being searched for.
+     * @param extensions
+     *            Zero or more file extensions to filter for. (do not prefix
+     *            with a period)
      * @return The absolute path name of a file, or null.
      */
-    public String chooseFile (String descriptor, String ... extensions) {
+    public String chooseFile(String descriptor, String... extensions) {
         JFileChooser chooser = new JFileChooser();
         
-        FileNameExtensionFilter filter = new FileNameExtensionFilter(descriptor, extensions);
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                descriptor, extensions);
         chooser.setFileFilter(filter);
         int returnVal = chooser.showOpenDialog(this);
         
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
+        if (returnVal == JFileChooser.APPROVE_OPTION)
             return chooser.getSelectedFile().getAbsolutePath();
-        }
-        else {
+        else
             return null;
-        }
+    }
+    
+    /**
+     * Prompts the user for a string.
+     * 
+     * @param title
+     *            The title of the dialog box.
+     * @param text
+     *            The text of the dialog box.
+     * @return The string input, or null for no input.
+     */
+    public String promptForString(String title, String text) {
+        return JOptionPane.showInputDialog(this, text, title,
+                JOptionPane.PLAIN_MESSAGE);
     }
 }

@@ -31,7 +31,11 @@ public class ControllerFactory {
     private Canvas myCanvas;
     private ResourceBundle myResources;
 
-
+    /**
+     * Constructor - retrieves the resource bundle and constructs the map of
+     * controller names (keys) and the controllers (value)
+     * @param frame
+     */
     public ControllerFactory(Canvas frame) {
         myControllerMap = new HashMap<String, Controller>();
         myControllerList = new ArrayList<Controller>();
@@ -39,12 +43,21 @@ public class ControllerFactory {
         constructControllerMap();
     } 
     
+    /**
+     * constructs the map of all controllers (value) associated with their names (key)
+     */
     public void constructControllerMap() {
         for (String controllerName : myResources.keySet()) {
             Controller current = createController(controllerName);
             myControllerMap.put(current.getName(), current);
         }
     }
+    
+    /**
+     * constructs a new controller from data in an xml file
+     * @param controllerName
+     * @return controller - the controller constructed from the xml
+     */
     public Controller createController(String controllerName) {
             Object controllerObject = null;
             Controller controller = null;
@@ -64,10 +77,18 @@ public class ControllerFactory {
         return controller;
     }
     
+    /**
+     * returns the map of names and controllers
+     * @return myControllerMap - map of controller names (key) and controllers (value)
+     */
     public Map<String, Controller> getMap() {
         return myControllerMap;
     }
     
+    /**
+     * returns the list of all Controllers
+     * @return myControllerList - list of all controllers
+     */
     public List getList() {
         return myControllerList;
     }
