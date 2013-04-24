@@ -39,7 +39,7 @@ public class EditableTile extends Tile {
     
     
     public EditableTile(Pixmap image, int xCount, int yCount, Dimension size, int id, String name, String imageName , boolean isOccupied) {
-        this(image, new Location3D(yCount*size.getWidth()+size.getWidth()/2,xCount*size.getHeight()+size.getHeight()/2,0), size,id,name,imageName,isOccupied);
+        this(image, new Location3D(xCount*size.getWidth()+size.getWidth()/2,yCount*size.getHeight()+size.getHeight()/2,0), size,id,name,imageName,isOccupied);
     }
     
     public EditableTile(EditableTile node) {
