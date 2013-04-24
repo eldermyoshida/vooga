@@ -17,6 +17,12 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import vooga.rts.util.Pixmap;
 
+
+/**
+ * the loader that transform a xml file to a real map
+ * @author Richard Yang
+ *
+ */
 public class MapLoader {
 
     private EditableMap myMap;
@@ -39,7 +45,10 @@ public class MapLoader {
     private DocumentBuilder myBuilder;
     private Document myDocument;
 
-
+    /**
+     * constructor 
+     * @throws ParserConfigurationException
+     */
     public MapLoader() throws ParserConfigurationException {
         
         
@@ -59,14 +68,16 @@ public class MapLoader {
         
         myTerrainWalkAbility = new HashMap<Integer, String>();
         myResourceAmount = new HashMap<Integer, String>();
-        
-        //myMap = map;       
-        
- 
+      
     }
 
-
-    public void loadMapFile(File resourceFile) throws SAXException, IOException {
+    
+    /**
+     * 
+     * @param resourceFile source file
+     * @throws Exception exception
+     */
+    public void loadMapFile(File resourceFile) throws Exception {
         
         System.out.println("start loading");
         
@@ -89,6 +100,10 @@ public class MapLoader {
         //printEverything();
     }
 
+    /**
+     * load all information from the xml file
+     * @param root root element
+     */
     public void loadInfo(Element root) {
         NodeList nameList = root.getElementsByTagName("Name");
         Node nameNode = nameList.item(0);
@@ -107,7 +122,11 @@ public class MapLoader {
             myMap.addPlayer(Integer.parseInt(x), Integer.parseInt(y));
         }
     }
-
+    
+    /**
+     * load all size information from the xml file
+     * @param root root element
+     */
     public void loadSizeInfo(Element root) {
         NodeList tileSizeList = root.getElementsByTagName("tilesize");
         NodeList tileAmountList = root.getElementsByTagName("tileamount");
@@ -125,6 +144,10 @@ public class MapLoader {
         
     }
     
+    /**
+     * load all type information from the xml file
+     * @param root root element
+     */
     public void loadTypeInfo(Element root, String path) throws IOException {
         NodeList tileTypeList = root.getElementsByTagName("tiletype");
         NodeList terrainTypeList = root.getElementsByTagName("terraintype");
@@ -180,6 +203,10 @@ public class MapLoader {
     
     }
 
+    /**
+     * load all terrains from the xml file
+     * @param root root element
+     */
     public void loadTiles(Element root) {
         
         NodeList tileList = root.getElementsByTagName("tile");
@@ -201,9 +228,11 @@ public class MapLoader {
         }
     }
 
+    /**
+     * load all terrains from the xml file
+     * @param root root element
+     */
     public void loadTerrains(Element root) {
-        
-        
         NodeList terrainList = root.getElementsByTagName("terrain");
 
         for(int j = 0 ; j < terrainList.getLength() ; j++) {
@@ -224,7 +253,10 @@ public class MapLoader {
         }
         
     } 
-
+    /**
+     *print everything in this map, used for testing
+     *
+     */
     public void printEverything() {
       myMap.printMatrix();
       for(int i = 0 ; i < myMap.getResourceSize() ; i++) {
@@ -262,7 +294,11 @@ public class MapLoader {
       }
     }
 
-
+    /**
+     * load resources from the file 
+     * @param root root element
+     * @param path path of the image files
+     */
     public void loadResources(Element root, String path) {
         NodeList resourceList = root.getElementsByTagName("resource");
         for(int i = 0 ; i < resourceList.getLength() ; i++) {
@@ -280,31 +316,12 @@ public class MapLoader {
         }
     }  
     
+    /**
+     * get the loaded editable map
+     * @return
+     */
     public EditableMap getMyMap() {
         return myMap;
     }
     
-    public static void main(String[] args) {
-        MapLoader test = null;
-        
-        try {
-            test = new MapLoader();
-        }
-        catch (ParserConfigurationException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        try {
-            test.loadMapFile(new File(System.getProperty("user.dir")+"./turtleRock/turtleRock.xml"));
-        }
-        catch (SAXException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
 }
-

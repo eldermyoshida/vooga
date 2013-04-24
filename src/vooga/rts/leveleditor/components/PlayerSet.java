@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import vooga.rts.util.Location;
 /**
- * this class contais all players in this game
+ * this class contains all players in this game
  * @author Richard Yang
  *
  */
@@ -18,7 +18,7 @@ public class PlayerSet {
     
     /**
      * constructor for player set
-     * @param playerLimit the upperlimit of player
+     * @param playerLimit the upper limit of player
      * @param teamLimit the upper limit of team
      */
     public PlayerSet(int playerLimit, int teamLimit) {
@@ -88,18 +88,34 @@ public class PlayerSet {
         myPlayerNumber = 0;
     }
 
+    /**
+     * get the upperlimit of players
+     * @return player upper limit
+     */
     public int getMyPlayerUpperLimit() {
         return myPlayerUpperLimit;
     }
-
+    
+    /**
+     * get the upper limit of teams
+     * @return
+     */
     public int getMyTeamUpperLimit() {
         return myTeamUpperLimit; 
     }
     
+    /**
+     * return the number of players
+     * @return
+     */
     public int getMyPlayerNumber() {
         return myPlayerNumber;
     }
     
+    /**
+     * get all players
+     * @return myPlayers
+     */
     public Map<Integer,Location> getAllPlayers() {
         return myPlayers;
     }

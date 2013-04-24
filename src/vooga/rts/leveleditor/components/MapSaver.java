@@ -31,6 +31,11 @@ public class MapSaver {
     
     private EditableMap mySavingMap; 
     
+    /**
+     * constructor 
+     * @param map the map we want to save 
+     * @throws ParserConfigurationException xml parser exception
+     */
     public MapSaver(EditableMap map) throws ParserConfigurationException {
         myFactory = DocumentBuilderFactory.newInstance();
         myBuilder = myFactory.newDocumentBuilder();
@@ -38,7 +43,12 @@ public class MapSaver {
         mySavingMap = map;
     }
     
-    public void generateMapFile(File objectiveFile) throws TransformerException, IOException {
+    /**
+     * generate a map file
+     * @param objectiveFile the objective file
+     * @throws Exception
+     */
+    public void generateMapFile(File objectiveFile) throws Exception {
         
         String filePath = objectiveFile.getPath();
         String fileName = objectiveFile.getName();
@@ -82,6 +92,10 @@ public class MapSaver {
         
     }
     
+    /**
+     * store the images into certain path
+     * @param path path we want to store
+     */
     private void storeImages(String path) {
         
         storeTileImages(path);
@@ -89,6 +103,10 @@ public class MapSaver {
         storeResourceImages(path);
     }
     
+    /**
+     * store all tile images
+     * @param path objective path
+     */
     private void storeTileImages(String path) {
         File tileFolder = new File(path + "/tiles");
         tileFolder.mkdirs();
@@ -123,6 +141,10 @@ public class MapSaver {
         }
     }
     
+    /**
+     * store all terrain images
+     * @param path objective path
+     */
     private void storeTerrainImages(String path) {
         File tileFolder = new File(path + "/terrains");
         tileFolder.mkdirs();
@@ -158,7 +180,10 @@ public class MapSaver {
         }
     }
 
-    
+    /**
+     * store all resource images
+     * @param path objective path
+     */
     private void storeResourceImages(String path) {
         File tileFolder = new File(path + "/resources");
         tileFolder.mkdirs();
@@ -192,11 +217,20 @@ public class MapSaver {
     
     }
     
+    /**
+     * get the format of a file based on its name
+     * @param fileName the name of the file
+     * @return String
+     */
     private String getFileFormat(String fileName) {
         
         return fileName.substring(fileName.indexOf(".")+1);
     }
     
+    /**
+     * append the information of this map in xml file
+     * @param root root element
+     */
     private void appendInfo(Element root) {
         Element info = myDocument.createElement("MapInfo");
         Element name = myDocument.createElement("Name");
@@ -225,6 +259,10 @@ public class MapSaver {
         root.appendChild(info);
     }
     
+    /**
+     * append the resource information of this map in xml file
+     * @param root root element
+     */
     private void appendResourceInfo(Element root) {
         Element resourceInfo = myDocument.createElement("Resourceinfo");
         Element sizeInfo = myDocument.createElement("SizeInfo");
@@ -303,6 +341,11 @@ public class MapSaver {
         
     }
     
+    /**
+     * append the tile this map in xml file
+     * @param root root element
+     */
+    
     private void appendTile(Element root) {
         Element tile = myDocument.createElement("tiles");
         
@@ -321,7 +364,11 @@ public class MapSaver {
         root.appendChild(tile);
         
     }
-
+    
+    /**
+     * append the terrains of this map in xml file
+     * @param root root element
+     */
     private void appendTerrain(Element root) {
         Element terrains = myDocument.createElement("terrains");
          
@@ -344,6 +391,10 @@ public class MapSaver {
         
     }
    
+    /**
+     * append the resource information of this map in xml file
+     * @param root root element
+     */
     private void appendResource(Element root) {
         Element resources = myDocument.createElement("Resources");
         
