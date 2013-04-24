@@ -44,6 +44,7 @@ public class Controller implements ArcadeInteraction {
 		
 		// View
 		private LoginView myLoginView;
+		private MainView myView;
 		
 		// Resource
 		private ResourceBundle myResources;
@@ -90,7 +91,7 @@ public class Controller implements ArcadeInteraction {
 		myLoginView.dispose();
 		currentUser = username;
 		organizeSnapshots();
-		new MainView(this, myResources);
+		myView = new MainView(this, myResources);
 	}
 	
 	
@@ -368,9 +369,7 @@ public class Controller implements ArcadeInteraction {
 
 	@Override
 	public void killGame() {
-		// save the usergamedata and game data if applicable, and return to
-		// detail screen
-
+	    myView.showEndGameView();
 	}
 
 	@Override
