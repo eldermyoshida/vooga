@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 
 /**
@@ -20,9 +21,7 @@ import javax.swing.JPanel;
  */
 public abstract class GameEditorScreen extends JPanel {
 
-    /**
-     * default serialized id.
-     */
+    private static final int TEXT_FIELD_WIDTH = 20;
     private static final long serialVersionUID = 1L;
     private static final String ADD_BUTTON_TEXT = "Add to game";
     private static final String FINISH_BUTTON_TEXT = "Next section";
@@ -33,7 +32,9 @@ public abstract class GameEditorScreen extends JPanel {
     private JButton myFinishButton;
     private Dimension mySize;
     private GameEditorController myController;
-
+    private JTextField myContainerSize;
+    private String myTopLevelContainerDimension;
+    
     /**
      * Constructor.
      * 
@@ -101,11 +102,14 @@ public abstract class GameEditorScreen extends JPanel {
         myAddButton.addMouseListener(myMouseAdapter);
         myAddButton.setVisible(true);
         myFinishButton = new JButton(FINISH_BUTTON_TEXT);
+        myContainerSize = new JTextField(TEXT_FIELD_WIDTH);
         myFinishButton.addMouseListener(myMouseAdapter);
         myFinishButton.setVisible(true);
         buttonPanel.add(myAddButton, BorderLayout.NORTH);
         buttonPanel.add(myFinishButton, BorderLayout.SOUTH);
         add(buttonPanel, BorderLayout.NORTH);
+        add(new JLabel ("TOP LEVEL CONTAINER DIMENSION"));
+        add(myContainerSize);
     }
 
     /**
@@ -162,7 +166,12 @@ public abstract class GameEditorScreen extends JPanel {
         };
         return myMouseAdapter;
     }
-
+    
+    public String getTopLevelContainerDimension() {
+        String text = myContainerSize.getText();
+        return text;
+    }
+    
     /**
      * adds the specific element to the XML file.
      * will be implemented by the sub-classes

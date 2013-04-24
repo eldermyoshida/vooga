@@ -35,12 +35,15 @@ public class FinishScreen extends GameEditorScreen {
 
     }
 
+    /**
+     * adds additional behavior for a mouse click.
+     * @param e is a MouseEvent
+     */
     @Override
     public void addAdditionalMouseBehavior (MouseEvent e) {
         if (e.getSource().equals(myFinishButton)) {
-            getController().writeFile();
+            getController().saveFile();
         }
-
     }
 
 }
