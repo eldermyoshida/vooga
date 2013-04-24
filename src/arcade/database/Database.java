@@ -1,5 +1,4 @@
 package arcade.database;
-import arcade.controller.GameSpecificData;
 import arcade.controller.UserSpecificData;
 import arcade.games.Comment;
 import arcade.games.GameData;
@@ -61,7 +60,6 @@ public class Database {
 
     /**
      * Creates a user when given username, pw, firstname, lastname, and dataofbirth and avatar
-     * 
      * @param username is user
      * @param pw is password
      * @param firstname is first name
@@ -75,9 +73,14 @@ public class Database {
         return myUserTable.createUser(username, pw, firstname, lastname, dataOfBirth);
     }
     
+    /**
+     * Creates a user when given username, pw, firstname, lastname, and dataofbirth and avatar
+     * @param data is a wrapper for user data
+     */
     public boolean createUser(UserSpecificData data) {
-		return createUser(data.getUsername(), data.getPassword(), data.getFirstName(), data.getLastName(), data.getDOB(), data.getImageFilePath());
-	}
+        return createUser(data.getUsername(), data.getPassword(), data.getFirstName(), 
+                          data.getLastName(), data.getDOB(), data.getImageFilePath());
+    }
     
 
     /**
@@ -461,82 +464,5 @@ public class Database {
     public String getGameAdScreen (String gameName) {
         return myS3Instance.getThumbnail(gameName);
     }
-
-    
-    
-    // USER-SPECIFIC QUERY METHODS : TO BE FILLED OUT WHEN USER-DATABASE CONTAINS ALL THESE INFO
-	public String getUserRealName(String username) {
-		// TODO Auto-generated method stub
-		return "Bob";
-	}
-
-	public int getUserAge(String username) {
-		// TODO Auto-generated method stub
-		return 18;
-	}
-
-	public String getUserHometown(String username) {
-		// TODO Auto-generated method stub
-		return "Waco";
-	}
-
-	public String getUserSchool(String username) {
-		// TODO Auto-generated method stub
-		return "Duke";
-	}
-
-	public String getUserHobbies(String username) {
-		// TODO Auto-generated method stub
-		return "Coding";
-		
-	}
-
-	public String getUserFavoriteColor(String username) {
-		// TODO Auto-generated method stub
-		return "Blue";
-		
-	}
-
-	public String getUserFavoriteFood(String username) {
-		// TODO Auto-generated method stub
-		return "rice";
-	}
-
-	
-	// Setting & changing user-specific information
-	
-	// Not sure what to pass as input: Pixmap or file-path (String)?
-	public void setUserAvatar(Pixmap newAvatar) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setUserRealName(String newName) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setUserHometown(String newHometown) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setUserSchool(String newSchool) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setUserFavoriteColor(String newFavoriteColor) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setUserFavoriteFood(String newFavoriteFood) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	
 
 }
