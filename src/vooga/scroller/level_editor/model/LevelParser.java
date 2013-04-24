@@ -25,7 +25,7 @@ import vooga.scroller.util.Sprite;
 public class LevelParser {
 
     private static final String RESOURCE_PATH = "vooga.scroller.level_editor.model.SaveLoad";
-    
+
     private static final char SPACE = ' ';
     private static final String NEW_LINE = System.getProperty("line.seperator");
     private ResourceBundle myResources = ResourceBundle.getBundle(RESOURCE_PATH);
@@ -44,6 +44,12 @@ public class LevelParser {
         myCharacterMap = new HashMap<Character, String>();
     }
 
+    /**
+     * Creates an LEGrid from a save file.
+     * 
+     * @param file
+     * @return LEGrid
+     */
     public LEGrid makeGridFromFile (File file) {
         myLevelStrings = new ArrayList<String>();
         myCharacterMap = new HashMap<Character, String>();
