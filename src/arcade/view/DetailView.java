@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
@@ -18,7 +19,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
 import util.ImageHelper;
@@ -48,11 +48,7 @@ import arcade.view.forms.payment.PaymentSelection;
  */
 public class DetailView extends JFrame {
 
-
-	
-	/**
-	 * Constants:
-	 */
+	private static final Integer[] RATINGS = {1,2,3,4,5};
 	private static final String GAME_TITLE_FONT_TAIL = "</font></font></b></html>";
 	private static final String GAME_TITLE_FONT_HEADER = "<html><b><font color = gray><font size = 6>";
 	private static final String PLAY_IMAGE_URL = "/src/arcade/resources/images/PlayIcon.jpg";
@@ -76,36 +72,16 @@ public class DetailView extends JFrame {
 	private static final int DESCRIPTION_ROWS = 10;
 	private static final int WINDOW_WIDTH = 600;
 	private static final int WINDOW_HEIGHT = 600;
-	private static final int LABEL_HEIGHT = 15;
-	private static final int LABEL_WIDTH = 100;
-	private static final int ORIGIN_X = 5;
 
-
-	/**
-	 * Instance Variables
-	 */
 	private ResourceBundle myResources;
 	private GameInfo myGameInfo;
 	private JPanel myContentPanel;
-	private JLabel myTitle,
-					myPicture,
-					myRating,
-					myGenre,
-					myDescription,
-					myAuthor,
-					myComments;
-
-	private JTextField myCommentsWriter;
-	private JTextField myRatingWriter;
-	private JTextArea myDescriptionContent;
-	private JEditorPane myCommentsContent;
-	private JButton myPlayButton, myBuyButton;
 	private Controller myController;
 
 
 
 	/**
-	 * Constructor
+	 * Create and initialized the detail view
 	 * @param info
 	 * @param resources
 	 * @param controller
@@ -124,7 +100,7 @@ public class DetailView extends JFrame {
 
 
 		createTheBasicInfoPanel();
-		Color c = createBackGroundColorForDescriptionSection();
+		Color c = makeLightGray();
 		createAndConfigureTheDescriptionSection(c);
 		createCommentSection();
 		createCommentingAndRatingArea();
@@ -141,17 +117,26 @@ public class DetailView extends JFrame {
 	 */
 	private void createCommentingAndRatingArea() {
 
-		myCommentsWriter = new JTextField();
+		final JTextArea commentsWriter = new JTextArea(3, 30);
+		commentsWriter.setBackground(Color.LIGHT_GRAY);
+		commentsWriter.setWrapStyleWord(true);
+		commentsWriter.setLineWrap(true);
+		final JComboBox ratingBox = new JComboBox(RATINGS);
+
 		JButton submitButton = new JButton(SUBMIT);
 		submitButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed (ActionEvent arg0) {
-				double rating = Double.parseDouble(myRatingWriter.getText());
-				myController.commentAndRateGame(myCommentsWriter.getText(), rating, myGameInfo.getName());
+				double rating = (Double)ratingBox.getSelectedItem();
+				myController.commentAndRateGame(commentsWriter.getText(), rating, myGameInfo.getName());
+				commentsWriter.setText("");
 			}
 		});
 
-		myContentPanel.add(myCommentsWriter);
+		JPanel subPanel = new JPanel();
+		subPanel.add(commentsWriter);
+		subPanel.add(ratingBox);
+		myContentPanel.add(subPanel);
 		myContentPanel.add(submitButton);
 	}
 
@@ -163,16 +148,16 @@ public class DetailView extends JFrame {
 	 */
 	private void createCommentSection() {
 
-		myComments = new JLabel(COMMENTS);
-		myComments.setBackground(Color.gray);
-		myContentPanel.add(myComments);
+		JLabel comments = new JLabel(COMMENTS);
+		comments.setBackground(Color.gray);
+		myContentPanel.add(comments);
 
-		myCommentsContent = new JEditorPane();
-		myCommentsContent.setEditable(false);
-		myCommentsContent.setContentType(COMMENT_AREA_CONTENT_TYPE);
+		JEditorPane commentsContent = new JEditorPane();
+		commentsContent.setEditable(false);
+		commentsContent.setContentType(COMMENT_AREA_CONTENT_TYPE);
 
-		constructCommentAreaContent();
-		JScrollPane commentPane = new JScrollPane(myCommentsContent);
+		constructCommentAreaContent(commentsContent);
+		JScrollPane commentPane = new JScrollPane(commentsContent);
 		myContentPanel.add(commentPane);
 	}
 
@@ -185,19 +170,19 @@ public class DetailView extends JFrame {
 	 */
 	private void createAndConfigureTheDescriptionSection(Color c) {
 
-		myDescription = new JLabel(DESCRIPTION);
-		myDescription.setBackground(c);
-		myDescription.setAlignmentX(Component.LEFT_ALIGNMENT);
+		JLabel description = new JLabel(DESCRIPTION);
+		description.setBackground(c);
+		description.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-		myDescriptionContent = new JTextArea(myGameInfo.getDescription(), DESCRIPTION_ROWS, DESCRIPTION_COLUMN);
-		myDescriptionContent.setLineWrap(true);
-		myDescriptionContent.setWrapStyleWord(true);
-		myDescriptionContent.setEditable(false);
-		myDescriptionContent.setBackground(c);
+		JTextArea descriptionContent = new JTextArea(myGameInfo.getDescription(), DESCRIPTION_ROWS, DESCRIPTION_COLUMN);
+		descriptionContent.setLineWrap(true);
+		descriptionContent.setWrapStyleWord(true);
+		descriptionContent.setEditable(false);
+		descriptionContent.setBackground(c);
 
-		JScrollPane descriptionPane = new JScrollPane(myDescriptionContent);
+		JScrollPane descriptionPane = new JScrollPane(descriptionContent);
 
-		myContentPanel.add(myDescription);
+		myContentPanel.add(description);
 		myContentPanel.add(descriptionPane);
 	}
 
@@ -214,18 +199,15 @@ public class DetailView extends JFrame {
 
 		ImageIcon icon = myGameInfo.getThumbnail();
 		Image scaledImage = ImageHelper.getScaledImage(icon, 160);
-		myPicture = new JLabel(new ImageIcon(scaledImage));
+		JLabel picture = new JLabel(new ImageIcon(scaledImage));
 
-		basicInfoPanel.add(myPicture);
+		basicInfoPanel.add(picture);
 		basicInfoPanel.add(createSubPanelForBasicInfoPanel(myGameInfo));
 
-		createThePlayButtonWithGameTriggeringActionListener();
-		createThePurchaseButtonWithPaymentWindowTrigger();
-
 		if (myController.getGamesPurchased().contains(myGameInfo))
-			basicInfoPanel.add(myPlayButton);
+			basicInfoPanel.add(createThePlayButton());
 		else
-			basicInfoPanel.add(myBuyButton);
+			basicInfoPanel.add(createThePurchaseButton());
 		myContentPanel.add(basicInfoPanel);
 	}
 
@@ -235,7 +217,7 @@ public class DetailView extends JFrame {
 	 * game description area.
 	 * @return
 	 */
-	private Color createBackGroundColorForDescriptionSection() {
+	private Color makeLightGray() {
 
 		int r = Color.GRAY.getRed();
 		int g = Color.gray.getGreen();
@@ -250,16 +232,18 @@ public class DetailView extends JFrame {
 	 * Create the buy button which will trigger the payment view and methods.
 	 * 
 	 */
-	private void createThePurchaseButtonWithPaymentWindowTrigger() {
+	private JButton createThePurchaseButton() {
 
-		myBuyButton = new JButton(BUY+ NEWLINE + PRICE + myGameInfo.getPrice());
+		JButton buyButton = new JButton(BUY+ NEWLINE + PRICE + myGameInfo.getPrice());
 
-		myBuyButton.addActionListener(new ActionListener() {
+		buyButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed (ActionEvent arg0) {
 				new PaymentSelection(myController, myResources, myGameInfo);
 			}
 		});
+
+		return buyButton;
 	}
 
 
@@ -267,20 +251,21 @@ public class DetailView extends JFrame {
 	 * Create the play button which starts the game the user selects. 
 	 * 
 	 */
-	private void createThePlayButtonWithGameTriggeringActionListener() {
+	private JButton createThePlayButton() {
 
 		String localDirectory = System.getProperty(USER_DIR);
 		ImageIcon playButtonIcon =
 				new ImageIcon(localDirectory + PLAY_IMAGE_URL);
 
-		myPlayButton = new JButton(playButtonIcon);
+		JButton playButton = new JButton(playButtonIcon);
 
-		myPlayButton.addActionListener(new ActionListener() {
+		playButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed (ActionEvent e) {
 				myController.playGame(myGameInfo);
 			}
 		});
+		return playButton;
 	}
 
 
@@ -298,15 +283,15 @@ public class DetailView extends JFrame {
 		JPanel subPanelForBasicInfo = new JPanel();
 		subPanelForBasicInfo.setLayout(new BoxLayout(subPanelForBasicInfo, BoxLayout.PAGE_AXIS));
 
-		myTitle = new JLabel(GAME_TITLE_FONT_HEADER + myGameInfo.getName() + GAME_TITLE_FONT_TAIL);
-		myGenre = new JLabel(myGameInfo.getGenre());
-		myAuthor = new JLabel(myGameInfo.getAuthor());
-		myRating = new JLabel(info.getRating()+"");
+		JLabel title = new JLabel(GAME_TITLE_FONT_HEADER + myGameInfo.getName() + GAME_TITLE_FONT_TAIL);
+		JLabel genre = new JLabel(myGameInfo.getGenre());
+		JLabel author = new JLabel(myGameInfo.getAuthor());
+		JLabel rating = new RatingIcons().makeLabel((int)info.getRating());
 
-		subPanelForBasicInfo.add(myTitle);
-		subPanelForBasicInfo.add(myGenre);
-		subPanelForBasicInfo.add(myAuthor);
-		subPanelForBasicInfo.add(myRating);
+		subPanelForBasicInfo.add(title);
+		subPanelForBasicInfo.add(genre);
+		subPanelForBasicInfo.add(author);
+		subPanelForBasicInfo.add(rating);
 
 		return subPanelForBasicInfo;
 	}
@@ -318,18 +303,18 @@ public class DetailView extends JFrame {
 	 * shows what rating the user gave to the game
 	 * 
 	 */
-	private void constructCommentAreaContent () {
+	private void constructCommentAreaContent (JEditorPane commentPane) {
 		List<Comment> comments = myGameInfo.getComments();
 		StringBuilder sb = new StringBuilder();
 		for (Comment comment : comments) {
 			sb.append(HTML_BOLD_HEADER + comment.getUser() + HTML_BOLD_TAIL);
 			sb.append(HTML_NEWLINE);
-			sb.append(comment.getRating() + "");
+			sb.append(new RatingIcons().makeHTMLText((int)comment.getRating()));
 			sb.append(HTML_NEWLINE);
 			sb.append(comment.getComment());
 			sb.append(HTML_NEWLINE);           
 			sb.append(HTML_NEWLINE);
 		}
-		myCommentsContent.setText(sb.toString());
+		commentPane.setText(sb.toString());
 	}
 }
