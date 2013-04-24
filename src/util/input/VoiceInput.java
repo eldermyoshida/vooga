@@ -30,7 +30,7 @@ public class VoiceInput extends InputDevice implements Runnable {
 
     private static final String DEVICE = "Voice";
     private final String DefaultConfigFilePath = "dict.config.xml";
-    private final String DefaultDictionaryFilePath = "input";
+    private final String DefaultDictionaryFilePath = "util/input";
     private final String DefaultDictionaryFileName = "dict.gram";
 
     private ConfigurationManager voiceManager;
@@ -59,6 +59,7 @@ public class VoiceInput extends InputDevice implements Runnable {
     private void setVoiceManager() {
         voiceManager = new ConfigurationManager(
                 VoiceInput.class.getResource(configFilePath));
+        System.out.println(configFilePath);
         myRecognizer = (Recognizer) voiceManager.lookup("recognizer");
         myRecognizer.allocate();
         Microphone microphone = (Microphone) voiceManager.lookup("microphone");
@@ -116,7 +117,7 @@ public class VoiceInput extends InputDevice implements Runnable {
 
         // Update the dict file info in the setting file
         SAXBuilder builder = new SAXBuilder();
-        File xmlFile = new File("src/input/" + configFilePath);
+        File xmlFile = new File("src/util/input/" + configFilePath);
         try {
             Document doc = (Document) builder.build(xmlFile);
             Element rootNode = doc.getRootElement();
@@ -142,7 +143,7 @@ public class VoiceInput extends InputDevice implements Runnable {
 
             XMLOutputter xmlOutput = new XMLOutputter();
             xmlOutput
-                    .output(doc, new FileWriter("src/input/" + configFilePath));
+                    .output(doc, new FileWriter("src/util/input/" + configFilePath));
 
             // Reload the setting file
             setVoiceManager();
@@ -181,9 +182,9 @@ public class VoiceInput extends InputDevice implements Runnable {
      * @throws IOException
      */
     private void duplicateConfigFile() throws IOException {
-        InputStream in = new FileInputStream("src/input/" + configFilePath);
+        InputStream in = new FileInputStream("src/util/input/" + configFilePath);
         configFilePath = "newDict.config.xml";
-        OutputStream out = new FileOutputStream("src/input/" + configFilePath);
+        OutputStream out = new FileOutputStream("src/util/input/" + configFilePath);
         byte[] buffer = new byte[1024];
 
         int len;
