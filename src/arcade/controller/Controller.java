@@ -182,6 +182,28 @@ public class Controller implements ArcadeInteraction {
 		return file;
 	}
     
+	
+	private void copyFile(File origin, File target) throws IOException {
+		copyFile(origin, target, null);
+	}
+	
+	private void copyFile (File origin, File target, String newUser) throws IOException {
+		FileReader fr = new FileReader(origin);
+		BufferedReader br = new BufferedReader(fr);
+		
+		FileWriter fw = new FileWriter(target);
+		BufferedWriter bw = new BufferedWriter(fw);
+		
+		String line;
+		while ((line = br.readLine())!=null){
+			writeLine(bw, line);
+		}
+		if (newUser != null) writeLine(bw, newUser);
+		closeWriters(fw, bw);
+		closeReaders(fr, br);
+	}
+	
+	
     
 
     /*
