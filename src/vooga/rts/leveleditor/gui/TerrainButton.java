@@ -58,12 +58,12 @@ public class TerrainButton extends JToggleButton {
     public void getResource (PositionObject p) {
         if(!isInitialized) {
             showCustmizationDailog();
-            }
+        }
         myOwner.getCanvas().remove(false);
         myOwner.setCurrentSelectTerrain(myTerrain);
         myOwner.getCanvas().setMode(MapPanel.TERRAINMODE);
     }
-    
+
     /**
      * show the custmization dailog for the terrain
      * users should enter in the type and walkability of the map
