@@ -6,6 +6,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+import vooga.fighter.model.ModelConstants;
 import vooga.fighter.model.objects.EnvironmentObject;
 import vooga.fighter.model.objects.MapObject;
 import vooga.fighter.model.utils.UpdatableLocation;
@@ -17,15 +19,13 @@ import vooga.fighter.model.utils.UpdatableLocation;
 
 public class MapLoader extends ObjectLoader {
 
-	private static final String PATH_TAG = "MapPath";
-
 	private MapObject myMap;
 
 	/**
 	 * Dummy Constructor only to be used when getting map count
 	 */
 	public MapLoader() {
-		super(PATH_TAG);
+		super(ModelConstants.MAPLOADER_PATH_TAG);
 	}
 
 	/**
@@ -36,7 +36,7 @@ public class MapLoader extends ObjectLoader {
 	 * @param map object which is loaded into
 	 */
 	public MapLoader(String mapName, MapObject map) {
-		super(PATH_TAG);
+		super(ModelConstants.MAPLOADER_PATH_TAG);
 		myMap = map;
 		load(mapName);
 		myMap.setCurrentState("background");
