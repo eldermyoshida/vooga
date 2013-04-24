@@ -12,6 +12,7 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * This class implements ProductionStrategy and is used as an instance in
  * interactives for objects that are able to produce other interactives. The
@@ -44,28 +45,35 @@ public class CanProduce implements ProductionStrategy {
 	 * @param rallyPoint is the location where the units will go when they 
 	 * are created
 	 */
+	public void setRallyPoint(Location3D rallyPoint) {
+		myRallyPoint = rallyPoint;
+	}
+	
 	public void setRallyPoint(Building building) {
 		myRallyPoint = new Location3D(building.getWorldLocation().getX(),
 				building.getWorldLocation().getY() + 50, 0);
 	}
+	
+	
 
-	/**
-	 * Adds an interactive entity that can be produced to the list of this 
-	 * entities producables.
-	 * @param producable is an entity that this production entity can create
-	 */
-	public void addProducable(InteractiveEntity producable) {
-		myProducables.add(producable);
-	}
+    /**
+     * Adds an interactive entity that can be produced to the list of this
+     * entities producables.
+     * 
+     * @param producable is an entity that this production entity can create
+     */
+    public void addProducable (InteractiveEntity producable) {
+        myProducables.add(producable);
+    }
 
-	@Override
-	public void createProductionActions(final InteractiveEntity producer) {
-		for (final InteractiveEntity producable : myProducables) {
-			String commandName = "make " + producable.getInfo().getName();
-			producer.addAction(commandName, new InteractiveAction(producer) {
-				@Override
-				public void update(Command command) {
-				}
+    @Override
+    public void createProductionActions (final InteractiveEntity producer) {
+        for (final InteractiveEntity producable : myProducables) {
+            String commandName = "make " + producable.getInfo().getName();
+            producer.addAction(commandName, new InteractiveAction(producer) {
+                @Override
+                public void update (Command command) {
+                }
 
 				@Override
 				public void apply() {

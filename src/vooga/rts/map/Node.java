@@ -24,8 +24,7 @@ import vooga.rts.util.Location3D;
  * 
  */
 public class Node {
-    public static int NODE_SIZE = 8;
-
+    public static int NODE_SIZE = 16;
     private int myHeight;
     private int myTier;
     private int myX;
@@ -142,15 +141,15 @@ public class Node {
             }
             resultList.add((T) item);
         }
-        return resultList; 
+        return resultList;
     }
 
-    public void paint (Graphics2D pen) {        
+    public void paint (Graphics2D pen) {
         for (GameSprite gs : myContents) {
             gs.paint(pen);
         }
     }
-    
+
     /**
      * Paints the Node with a ellipse surrounding it. This is used for testing purposes.
      * Also prints the index of the node which can be the order that the node was painted.
@@ -164,16 +163,16 @@ public class Node {
         if (myX % 10 == 0 || myY % 10 == 0) {
             pen.fill(new Ellipse2D.Double(screen.getX(), screen.getY(), NODE_SIZE, NODE_SIZE));
         }
-        else
-        {
+        else {
             pen.draw(new Ellipse2D.Double(screen.getX(), screen.getY(), NODE_SIZE, NODE_SIZE));
         }
         pen.setColor(Color.red);
         pen.setFont(new Font("Arial", Font.PLAIN, 10));
-        pen.drawString(Integer.toString(index), (int)screen.getX(), (int)screen.getY());
+        pen.drawString(Integer.toString(index), (int) screen.getX(), (int) screen.getY());
         pen.setColor(Color.blue);
         pen.setFont(new Font("Arial", Font.PLAIN, 12));
-        pen.drawString("(" + myX + ", " + myY  + ")", (int)screen.getX(), (int)screen.getY()+ NODE_SIZE/2 + 6);
+        pen.drawString("(" + myX + ", " + myY + ")", (int) screen.getX(), (int) screen.getY() +
+                                                                          NODE_SIZE / 2 + 6);
         pen.setColor(Color.black);
         paint(pen);
     }

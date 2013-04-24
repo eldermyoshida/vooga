@@ -53,9 +53,8 @@ public class GameState extends SubState implements Controller {
     private static GameMap myMap;
     private HumanPlayer myHumanPlayer;
     private List<Player> myPlayers;
-    // private Resource r;
-    // private Building building;
-    // private UpgradeBuilding upgradeBuilding;
+    private List<DelayedTask> myTasks;
+
     private PointTester pt;
 
     private FrameCounter myFrames;
@@ -70,6 +69,7 @@ public class GameState extends SubState implements Controller {
         // myMap = new GameMap(8, new Dimension(512, 512));
         pt = new PointTester();
         myFrames = new FrameCounter(new Location(100, 20));
+        myTasks = new ArrayList<DelayedTask>();
         setupGame();
     }
 
@@ -187,7 +187,7 @@ public class GameState extends SubState implements Controller {
         Building b =
                 new Building(new Pixmap(ResourceManager.getInstance()
                         .<BufferedImage> getFile("images/factory.png", BufferedImage.class)),
-                             new Location3D(700, 700, 0), new Dimension(100, 100), null, 1, 300,
+                             new Location3D(500, 1000, 0), new Dimension(100, 100), null, 1, 300,
                              InteractiveEntity.DEFAULT_BUILD_TIME);
         b.setProductionStrategy(new CanProduce(b));
         ((CanProduce) b.getProductionStrategy()).addProducable(new Unit());
@@ -212,13 +212,12 @@ public class GameState extends SubState implements Controller {
         garrison.getOccupyStrategy().createOccupyActions(garrison);
         myHumanPlayer.add(garrison);
         final Building f = b;
-        test = new DelayedTask(3, new Runnable() {
+        myTasks.add(new DelayedTask(2, new Runnable() {
             @Override
             public void run () {
                 f.getAction((new Command("make Marine"))).apply();
-                test.restart();
             }
-        });
+        }, true));
 
         final Building testGarrison = garrison;
         occupyPukingTest = new DelayedTask(10, new Runnable() {
@@ -231,6 +230,30 @@ public class GameState extends SubState implements Controller {
                 occupyPukingTest.restart();
             }
         });
+
+        b =
+                new Building(new Pixmap(ResourceManager.getInstance()
+                        .<BufferedImage> getFile("images/factory.png", BufferedImage.class)),
+                             new Location3D(100, 500, 0), new Dimension(100, 100), null, 1, 300,
+                             InteractiveEntity.DEFAULT_BUILD_TIME);
+        b.setProductionStrategy(new CanProduce(b));
+        ((CanProduce) b.getProductionStrategy()).addProducable(new Unit());
+        ((CanProduce) b.getProductionStrategy()).createProductionActions(b);
+        ((CanProduce) b.getProductionStrategy()).setRallyPoint(new Location3D(200, 600, 0));
+        i =
+                new Information("Barracks", "This is a barracks that can make awesome pies", null,
+                                "buttons/marine.png");
+        b.setInfo(i);
+
+        final Building g = b;
+        myTasks.add(new DelayedTask(2, new Runnable() {
+            @Override
+            public void run () {
+                g.getAction((new Command("make Marine"))).apply();
+            }
+        }, true));
+
+        myPlayers.get(1).add(b);
     }
 
     private void yuckyUnitUpdate (double elapsedTime) {
@@ -242,7 +265,10 @@ public class GameState extends SubState implements Controller {
                 u1.getAttacked(u2);
             }
         }
-        test.update(elapsedTime);
+
+        for (DelayedTask dt : myTasks) {
+            dt.update(elapsedTime);
+        }
         // now even yuckier
         for (int i = 0; i < p1.size(); ++i) {
             if (p1.get(i) instanceof Unit) {

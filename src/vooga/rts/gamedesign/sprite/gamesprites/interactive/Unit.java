@@ -135,7 +135,7 @@ public class Unit extends InteractiveEntity {
 	 */
 	public void setGatherAmount(int gatherAmount) {
 		myGatherStrategy.setGatherAmount(gatherAmount);
-		myGatherStrategy = new CanGather(CanGather.DEFAULT_GATHER_INTERVAL,
+		myGatherStrategy = new CanGather(CanGather.DEFAULTCOOL,
 				myGatherStrategy.getGatherAmount());
 	}
 	

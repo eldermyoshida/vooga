@@ -25,6 +25,7 @@ import vooga.rts.gamedesign.sprite.gamesprites.Projectile;
 import vooga.rts.gamedesign.state.AttackingState;
 import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
 import vooga.rts.gamedesign.strategy.attackstrategy.CannotAttack;
+import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
 import vooga.rts.gamedesign.strategy.occupystrategy.CannotBeOccupied;
 import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
 import vooga.rts.gamedesign.strategy.production.CannotProduce;
@@ -63,6 +64,7 @@ public abstract class InteractiveEntity extends GameEntity implements
 	private AttackStrategy myAttackStrategy;
 	private ProductionStrategy myProductionStrategy;
 	private OccupyStrategy myOccupyStrategy;
+	private GatherStrategy myGatherStrategy;
 	private int myArmor;
 	private Map<String, Action> myActions;
 	private Map<String, Information> myInfos;
@@ -501,6 +503,14 @@ public abstract class InteractiveEntity extends GameEntity implements
 	public void setChanged() {
 		super.setChanged();
 	}
+	
+	/**
+	 * Sets the current gather strategy to other
+	 * @param other
+	 */
+    public void setGatherStrategy(GatherStrategy other) {
+    	myGatherStrategy = other;
+    }
 
 	/**
 	 * Gets the occupy strategy of the entity (either CanBeOccupied or
