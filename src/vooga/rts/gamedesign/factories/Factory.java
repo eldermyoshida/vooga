@@ -191,24 +191,24 @@ public class Factory {
 		DocumentBuilder db = dbf.newDocumentBuilder();
 		Document doc = db.parse(file);
 		doc.getDocumentElement().normalize();
-
+		
 		NodeList nodeLst = doc.getElementsByTagName(MATCHING_PAIR_TAG);
-
+		
 		for (int i = 0; i < nodeLst.getLength(); i++) {
 			Element pairElmnt = (Element) nodeLst.item(i);
-
+			
 			Element typeElmnt = (Element)pairElmnt.getElementsByTagName(MATCHING_TYPE_TAG).item(0);
 			NodeList typeList = typeElmnt.getChildNodes();
 			String type = ((Node) typeList.item(0)).getNodeValue();
-
+			
 			Element pathElmnt = (Element)pairElmnt.getElementsByTagName(MATCHING_PATH_TAG).item(0);
 			NodeList pathList = pathElmnt.getChildNodes();
 			String path = ((Node) pathList.item(0)).getNodeValue();
-
+			
 			map.put(type, path);
 		}
 	}
-
+	
 	private void createDecoders() throws IllegalArgumentException, SecurityException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ClassNotFoundException {
 		for (String key: myDecoderPaths.keySet()) {
 			Class<?> headClass =

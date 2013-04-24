@@ -59,6 +59,7 @@ public class UpgradeDecoder extends Decoder {
 	 */
 	public void create(Document doc, String type) throws NumberFormatException {
 		UpgradeTree upgradeTree = new UpgradeTree();
+		
 		NodeList treeLst = doc.getElementsByTagName(TREE_TAG);
 		for (int i = 0; i < treeLst.getLength(); i++) {
 			Element treeElmnt = (Element) treeLst.item(i);
@@ -95,6 +96,8 @@ public class UpgradeDecoder extends Decoder {
 			}
 		}
 		upgradeTree.updateTreeStatus();
+		printTree(upgradeTree);
+		System.out.println(treeName);
 		myFactory.put(treeName, upgradeTree);
 	}
 	

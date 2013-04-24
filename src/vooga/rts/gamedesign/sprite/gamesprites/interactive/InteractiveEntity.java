@@ -60,6 +60,7 @@ import vooga.rts.util.Information;
  * @author Wenshun Liu
  * 
  */
+
 public abstract class InteractiveEntity extends GameEntity implements IAttackable, IActOn {
 
     private static final int LOCATION_OFFSET = 20;

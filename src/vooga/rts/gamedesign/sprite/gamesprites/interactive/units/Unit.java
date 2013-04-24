@@ -90,13 +90,6 @@ public class Unit extends InteractiveEntity {
     }
     
     @Override
-	public void update(double elapsedTime) {
-		super.update(elapsedTime);
-		myGatherStrategy.update(elapsedTime);
-		
-	}
-    
-    @Override
     public void addActions () {
         put(ClickCommand.LEFT_CLICK, new InteractiveAction(this) {
             private Location3D myLocation;
@@ -123,7 +116,7 @@ public class Unit extends InteractiveEntity {
         return new Unit(getImage(), getWorldLocation(), getSize(), getSound(), getPlayerID(),
                         getHealth(), getBuildTime());
     }
-    
+
 	/**
 	 * Sets the amount that the worker can gather at a time.
 	 * 

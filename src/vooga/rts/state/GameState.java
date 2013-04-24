@@ -203,6 +203,7 @@ public class GameState extends SubState implements Controller {
                                                      new Location3D(200 + j * 15, 300 + j * 10, 0),
                                                      new Dimension(50, 50), 0, 200, "mineral"));
         }
+
         Building garrison =
                 new Building(new Pixmap(ResourceManager.getInstance()
                         .<BufferedImage> getFile("images/barracks.jpeg", BufferedImage.class)),
