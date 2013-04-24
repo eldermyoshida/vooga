@@ -195,6 +195,7 @@ public class ViewEditorScreen extends GameEditorScreen {
         // TODO ???
         myMultiScreenMap.put(myKey, myScreens);
         mySouthernPanelScreen.setVisible(false);
+        mySouthernPanelPosition.setVisible(false);
         myMultiPanel.setVisible(false);
         myMultiPanelSize.setVisible(false);
         myMultiButtonADD.setVisible(false);
@@ -335,8 +336,9 @@ public class ViewEditorScreen extends GameEditorScreen {
     public void addElementToGame () {
         getController().setMapSize(getMapDimension());
         List<String> viewInfo = makeViewStrings();
-        getController().addViewToGame(viewInfo);
+        getController().addViewToGame(viewInfo, myMultiScreenMap);
     }
+    
     
     /**
      * makes a map of the screen name to the location.
