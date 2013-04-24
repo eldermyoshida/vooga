@@ -8,6 +8,7 @@ import java.util.List;
 import util.Location;
 import util.input.src.input.PositionObject;
 import vooga.fighter.model.loaders.EnvironmentObjectLoader;
+import vooga.fighter.model.mode.Mode;
 import vooga.fighter.model.objects.CharacterObject;
 import vooga.fighter.model.objects.EnvironmentObject;
 import vooga.fighter.model.objects.GameObject;

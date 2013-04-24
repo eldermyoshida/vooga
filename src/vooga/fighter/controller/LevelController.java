@@ -12,14 +12,12 @@ import javax.swing.Timer;
 
 import util.Location;
 import util.input.*;
-import vooga.fighter.model.LevelMode;
-import vooga.fighter.model.Mode;
+import vooga.fighter.model.mode.LevelMode;
+import vooga.fighter.model.mode.Mode;
 import vooga.fighter.model.objects.AttackObject;
 import vooga.fighter.model.objects.CharacterObject;
 import vooga.fighter.model.objects.EnvironmentObject;
 import vooga.fighter.model.objects.MapObject;
-import vooga.fighter.model.LevelMode;
-import vooga.fighter.model.Mode;
 import vooga.fighter.model.objects.CharacterObject;
 import vooga.fighter.model.utils.UpdatableLocation;
 import vooga.fighter.util.CollisionManager;

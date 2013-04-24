@@ -6,6 +6,7 @@ import util.Location;
 import util.Pixmap;
 import util.input.Input;
 import vooga.fighter.model.*;
+import vooga.fighter.model.mode.Mode;
 import vooga.fighter.view.Canvas;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

@@ -8,7 +8,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import vooga.fighter.model.MenuGrid;
-import vooga.fighter.model.MenuMode;
+import vooga.fighter.model.mode.MenuMode;
 import vooga.fighter.model.objects.MenuObject;
 import vooga.fighter.model.utils.State;
 import vooga.fighter.model.utils.UpdatableLocation;

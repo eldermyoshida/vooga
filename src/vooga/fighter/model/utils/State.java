@@ -170,10 +170,13 @@ public class State {
      */
     public Rectangle getCurrentRectangle() {
         Rectangle currentRect = myRectangles[myCurrentFrame];
+        if (currentRect == null) {
+            return new Rectangle();
+        }
         Location location = myOwner.getLocation().getLocation();
         Dimension size = currentRect.getSize();
-        Point origin = new Point((int) location.getX() -(int) size.getWidth()/2 , 
-        		(int) location.getY()-(int) size.getHeight()/2 );
+        Point origin = new Point((int) location.getX() - (int) size.getWidth()/2, 
+        		(int) location.getY() - (int) size.getHeight()/2);
         Rectangle result = new Rectangle(origin, size);
         return result;
     }

@@ -1,7 +1,8 @@
-package vooga.fighter.model;
+package vooga.fighter.model.mode;
 
 import java.awt.Dimension;
 import java.util.List;
+import vooga.fighter.model.MenuGrid;
 import vooga.fighter.model.objects.GameObject;
 import vooga.fighter.model.objects.MenuObject;
 import vooga.fighter.util.CollisionManager;

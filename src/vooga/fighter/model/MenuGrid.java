@@ -2,6 +2,7 @@ package vooga.fighter.model;
 
 import java.util.List;
 import vooga.fighter.model.loaders.MenuGridLoader;
+import vooga.fighter.model.mode.MenuMode;
 import vooga.fighter.model.objects.MenuObject;
 
 

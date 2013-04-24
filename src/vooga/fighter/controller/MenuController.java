@@ -11,6 +11,8 @@ import vooga.fighter.controller.ControllerDelegate;
 import vooga.fighter.controller.GameInfo;
 import vooga.fighter.controller.OneVOneController;
 import vooga.fighter.model.*;
+import vooga.fighter.model.mode.MenuMode;
+import vooga.fighter.model.mode.Mode;
 import vooga.fighter.model.objects.CharacterObject;
 import vooga.fighter.model.objects.MenuObject;
 import vooga.fighter.model.objects.MouseClickObject;
