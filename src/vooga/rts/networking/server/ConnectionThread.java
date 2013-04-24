@@ -5,7 +5,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.logging.Level;
-
 import util.logger.NetworkLogger;
 import vooga.rts.networking.NetworkBundle;
 import vooga.rts.networking.communications.Message;
@@ -47,7 +46,7 @@ public class ConnectionThread extends Thread {
         }
         catch (IOException e) {
             NetworkLogger.getLogger().log(Level.FINER,
-                                     NetworkBundle.getString("InitialConnectionFailed"));
+                                          NetworkBundle.getString("InitialConnectionFailed"));
         }
     }
 
@@ -88,12 +87,13 @@ public class ConnectionThread extends Thread {
             }
         }
         catch (IOException e) {
-            NetworkLogger.getLogger().log(Level.FINER, NetworkBundle.getString("ConnectionFailedIO"));
+            NetworkLogger.getLogger().log(Level.FINER,
+                                          NetworkBundle.getString("ConnectionFailedIO"));
             close();
         }
         catch (ClassNotFoundException e) {
             NetworkLogger.getLogger().log(Level.FINER,
-                                     NetworkBundle.getString("ConnectionFailedClassEx"));
+                                          NetworkBundle.getString("ConnectionFailedClassEx"));
             close();
         }
     }
@@ -125,7 +125,7 @@ public class ConnectionThread extends Thread {
         }
         catch (IOException e) {
             NetworkLogger.getLogger().log(Level.FINER,
-                                     NetworkBundle.getString("ClosingConnectionsFailed"));
+                                          NetworkBundle.getString("ClosingConnectionsFailed"));
         }
     }
 
@@ -140,12 +140,14 @@ public class ConnectionThread extends Thread {
         }
         try {
             myOutput.writeObject(m);
-            NetworkLogger.getLogger().log(Level.FINEST, NetworkBundle.getString("MessageSent") + ": \"" +
-                                                   m.getClass().toString() + "\"");
+            NetworkLogger.getLogger().log(Level.FINEST,
+                                          NetworkBundle.getString("MessageSent") +
+                                                  m.getClass().toString());
         }
         catch (IOException e) {
-            NetworkLogger.getLogger().log(Level.FINE, NetworkBundle.getString("MessageFailed" + ": \"" +
-                    m.getClass().toString() + "\""));
+            NetworkLogger.getLogger().log(Level.FINE,
+                                          NetworkBundle.getString("MessageFailed" +
+                                                                  m.getClass().toString()));
         }
     }
 
