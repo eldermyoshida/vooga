@@ -49,7 +49,7 @@ public class ConnectionServer extends Thread {
                 myConnectionID++;
                 thread.start();
                 myMatchServer.addConnection(thread);
-                NetworkLogger.logMessage(Level.FINEST, NetworkBundle.getString("New connection joined"));
+                NetworkLogger.logMessage(Level.FINEST, NetworkBundle.getString("NewConnection"));
                 serverSocket.close();
             }
             catch (IOException e) {
