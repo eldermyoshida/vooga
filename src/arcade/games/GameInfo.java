@@ -80,9 +80,7 @@ public class GameInfo {
     }
 
     public double getPrice () {
-        // TODO: return value from db.
-
-        return 42;
+        return myDb.getPrice(myGameName);
     }
 
     private String getSingleplayerGameClassKeyword () {
