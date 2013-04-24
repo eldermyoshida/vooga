@@ -73,7 +73,7 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
         switchToServerBrowserView();
     }
 
-    private JPanel getPanel () {
+    public JPanel getPanel () {
         return myContainerPanel;
     }
     
