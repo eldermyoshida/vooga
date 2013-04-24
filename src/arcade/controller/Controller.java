@@ -330,9 +330,9 @@ public class Controller implements ArcadeInteraction {
      * @param user, game (whatever that identifies the user and the game)
      * @return
      */
-    public UserGameData getUserGameData () {
+    public UserGameData getUserGameData (Game game) {
         if (myCurrentUserGameData == null ){
-            myCurrentUserGameData =  myCurrentGameInfo.getUserGameData(myCurrentGame , myCurrentUser);
+            myCurrentUserGameData =  myCurrentGameInfo.getUserGameData(game , myCurrentUser);
         }
         return myCurrentUserGameData;
     }
@@ -341,6 +341,7 @@ public class Controller implements ArcadeInteraction {
     public void killGame () {
         int score = getCurrentUserGameData().getLastScore();
         myDb.addNewHighScore(myCurrentUser, myCurrentGameInfo.getName(),  score);
+        print(myCurrentGame + " " + myCurrentGameInfo + " " + getCurrentGame());
         myView.showEndGameView(score);
         myDb.storeUserGameData(getCurrentGame(), myCurrentUser, getCurrentUserGameData());
         myCurrentGame = null;

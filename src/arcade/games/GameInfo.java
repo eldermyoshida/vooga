@@ -80,7 +80,9 @@ public class GameInfo {
     }
 
     public double getPrice () {
-        return myDb.getPrice(myGameName);
+        // TODO: return value from db.
+
+        return 42;
     }
 
     private String getSingleplayerGameClassKeyword () {
@@ -140,16 +142,21 @@ public class GameInfo {
                 e.printStackTrace();
             }
             catch (InstantiationException e) {
-                e.printStackTrace();}
+                e.printStackTrace();
+            }
             catch (IllegalAccessException e) {
-                e.printStackTrace();}
+                e.printStackTrace();
+            }
             catch (InvocationTargetException e) {
-                e.printStackTrace();}
+                e.printStackTrace();
+            }
         }
         catch (SecurityException e) {
-            e.printStackTrace();}
+            e.printStackTrace();
+        }
         catch (NoSuchMethodException e) {
-            e.printStackTrace();}
+            e.printStackTrace();
+        }
         return null;
     }
 
@@ -202,17 +209,22 @@ public class GameInfo {
         }
     }
 
+    private void print (Object o) {
+        System.out.println(o);
+    }
+
     @SuppressWarnings("unchecked")
     public UserGameData getUserGameData (Game theGame, String user) {
         try {
             return myDb.getUserGameData(myGameName, user);
 
         }
-        catch (AmazonS3Exception e) {// this should actually be the amazon error. replace.
+        catch (AmazonS3Exception e) {
             @SuppressWarnings("rawtypes")
             Class game = getSingleplayerGameClass();
             Method method;
             try {
+
                 method = game.getMethod("generateNewProfile");
                 try {
                     return (UserGameData) method.invoke(theGame);
