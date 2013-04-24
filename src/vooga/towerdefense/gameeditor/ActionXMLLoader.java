@@ -20,8 +20,8 @@ public class ActionXMLLoader {
     }
     
     public List<ActionFactory> loadActions() {
-        Element actionsElement = myXMLTool.getElementFromTag(ACTIONS_TAG);                
-        Map<String, Element> subElements = myXMLTool.getMapElementFromParent(actionsElement);
+        Element actionsElement = myXMLTool.getElement(ACTIONS_TAG);                
+        Map<String, Element> subElements = myXMLTool.getChildrenElementMap(actionsElement);
         List<ActionFactory> actions = new ArrayList<ActionFactory>();
         for (Element e : subElements.values()) {
             actions.add(loadAction(e));
@@ -36,7 +36,7 @@ public class ActionXMLLoader {
         
         List<ActionFactory> subActions = new ArrayList<ActionFactory>();
         
-        Map<String, Element> subElements = myXMLTool.getMapElementFromParent(actionElement); 
+        Map<String, Element> subElements = myXMLTool.getChildrenElementMap(actionElement); 
         for (String subElementName : subElements.keySet()) {
             if (subElementName.equals(PARAMETER_TAG)) {
                 parameterStrings.add(loadParameterString(subElements.get(subElementName)));

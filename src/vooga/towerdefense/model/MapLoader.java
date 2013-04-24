@@ -99,7 +99,7 @@ public class MapLoader {
      */
     public MapLoader(String mapFilePath) {
         myXMLTool = new XMLTool();
-        myXMLTool.setDoc(mapFilePath);
+        myXMLTool.readDoc(mapFilePath);
         initTileIdMap();
     }
     
@@ -117,8 +117,8 @@ public class MapLoader {
      */
     public List<GameMap> loadMaps() {
         List<GameMap> gameMaps = new ArrayList<GameMap>();
-        Element mapElement = myXMLTool.getElementFromTag(MAP_TAG);
-        Map<String, Element> m = myXMLTool.getMapElementFromParent(mapElement);
+        Element mapElement = myXMLTool.getElement(MAP_TAG);
+        Map<String, Element> m = myXMLTool.getChildrenElementMap(mapElement);
         for (Element e : m.values()) {
             GameMap map = loadMap(e);
             gameMaps.add(map);
@@ -127,7 +127,7 @@ public class MapLoader {
     }
     
     private GameMap loadMap(Element mapNameElement) {
-        Map<String, Element> subElements = myXMLTool.getMapElementFromParent(mapNameElement);
+        Map<String, Element> subElements = myXMLTool.getChildrenElementMap(mapNameElement);
         Pixmap mapImage = loadMapImage(subElements.get(IMAGE_TAG));
         Dimension mapDimensions = loadMapDimensions(subElements.get(DIMENSION_TAG));
         Dimension tileSize = loadMapTileSize(subElements.get(TILE_SIZE_TAG));
@@ -141,7 +141,7 @@ public class MapLoader {
     }
     
     private Dimension loadMapDimensions(Element dimensionElement) {
-        Map<String, Element> subElements = myXMLTool.getMapElementFromParent(dimensionElement);
+        Map<String, Element> subElements = myXMLTool.getChildrenElementMap(dimensionElement);
         int width = getMapWidth(subElements.get(WIDTH_TAG));
         int height = getMapHeight(subElements.get(HEIGHT_TAG));
         return new Dimension(width, height);

@@ -36,9 +36,9 @@ public class ViewXMLLoader {
     }
     
     public void makeView(Controller controller) throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException {
-        Element viewElement = myXMLTool.getElementFromTag(VIEW_TAG);
+        Element viewElement = myXMLTool.getElement(VIEW_TAG);
         
-        Map<String, Element> subElements = myXMLTool.getMapElementFromParent(viewElement);
+        Map<String, Element> subElements = myXMLTool.getChildrenElementMap(viewElement);
         Element dimensionElement = subElements.get(DIMENSION_TAG);
         Dimension dimension = makeDimensionFrom(myXMLTool.getContent(dimensionElement));
         controller.getView().setSize(dimension);
@@ -62,11 +62,11 @@ public class ViewXMLLoader {
     }
     
     private JPanel createMultipleScreenPanel(JPanel panel, Element element, Controller controller) throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException {
-        Map<String, Element> subMultiples = myXMLTool.getMapElementFromParent(element);
+        Map<String, Element> subMultiples = myXMLTool.getChildrenElementMap(element);
         for (String s : subMultiples.keySet()) {
             Element subScreenElement = subMultiples.get(s);
             JPanel subScreen = getScreen(subScreenElement, controller);
-            Element locElement = myXMLTool.getElementFromTag(LOCATION_TAG);
+            Element locElement = myXMLTool.getElement(LOCATION_TAG);
             String location = BORDER_LAYOUT_ADDITION + myXMLTool.getContent(locElement);
             ((MultipleScreenPanel) panel).addScreen(subScreen, location);
         }
@@ -85,7 +85,7 @@ public class ViewXMLLoader {
      * @throws InvocationTargetException
      */
     private JPanel getScreen(Element element, Controller controller) throws ClassNotFoundException, IllegalArgumentException, InstantiationException, IllegalAccessException, InvocationTargetException {
-        Map<String, Element> subElements = myXMLTool.getMapElementFromParent(element);
+        Map<String, Element> subElements = myXMLTool.getChildrenElementMap(element);
         Element dimensionElement = subElements.get(DIMENSION_TAG);
         Dimension dimension = makeDimensionFrom(myXMLTool.getContent(dimensionElement));
         Class c = Class.forName(myXMLTool.getContent(element));
