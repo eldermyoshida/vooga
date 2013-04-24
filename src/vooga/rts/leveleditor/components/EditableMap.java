@@ -335,6 +335,9 @@ public class EditableMap {
         test.printMatrix();
         System.out.println(test.getTerrainSize());
         System.out.println(test.getResourceSize());
+        
+        System.out.println(test.getMyTile(2, 2).getWorldLocation().getX());
+        System.out.println(test.getMyTile(2, 2).getWorldLocation().getY());
                 
         MapSaver saver = null;
         try {

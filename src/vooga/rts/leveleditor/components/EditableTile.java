@@ -1,7 +1,9 @@
 package vooga.rts.leveleditor.components;
 
 import java.awt.Dimension;
+import java.awt.image.BufferedImage;
 import vooga.rts.gamedesign.sprite.map.Tile;
+import vooga.rts.resourcemanager.ResourceManager;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 
@@ -16,9 +18,12 @@ import vooga.rts.util.Pixmap;
 
 public class EditableTile extends Tile {
     
+    private static final String DEFAULT_IMAGE_PATH = "./vooga/rts/leveleditor/resource/default.gif";
+    
     private int myID;
     private String myName;
     private  String myImageName;
+    private static Pixmap DEFAULT_IMAGE = new Pixmap(ResourceManager.getInstance().<BufferedImage>getFile(DEFAULT_IMAGE_PATH, BufferedImage.class));
     
     private boolean myOccupied;
     
@@ -45,7 +50,7 @@ public class EditableTile extends Tile {
     
     public EditableTile(int xCount, int yCount, Dimension size) {
         
-        this(null,xCount,yCount,size,0,"","",false);
+        this(DEFAULT_IMAGE,xCount,yCount,size,0,"","",false);
     }
     
     public EditableTile(int xCount, int yCount, int width, int height) {

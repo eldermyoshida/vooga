@@ -15,20 +15,25 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+import vooga.rts.util.Pixmap;
 
 public class MapLoader {
 
     private EditableMap myMap;
     private Map<Integer, String> myTileName;
     private Map<Integer, String> myTerrainName;
+    private Map<Integer, String> myResourceName;
 
     private Map<Integer, String> myTileImageName;
     private Map<Integer, String> myTerrainImageName;
-   
+    private Map<Integer, String> myResourceImageName;
+    
     private Map<Integer,BufferedImage> myTileImage;
     private Map<Integer,BufferedImage> myTerrainImage;
+    private Map<Integer, BufferedImage> myResourceImage;
     
     private Map<Integer, String> myTerrainWalkAbility;
+    private Map<Integer, String> myResourceAmount;
     
     private DocumentBuilderFactory myFactory ;
     private DocumentBuilder myBuilder;
@@ -43,13 +48,16 @@ public class MapLoader {
         
         myTileName = new HashMap<Integer,String>();
         myTerrainName = new HashMap<Integer,String>();
+        myResourceName = new HashMap<Integer,String>();
         myTileImageName = new HashMap<Integer,String>();
         myTerrainImageName = new HashMap<Integer,String>();
+        myResourceImageName = new HashMap<Integer,String>();
         myTileImage = new HashMap<Integer,BufferedImage>();
         myTerrainImage = new HashMap<Integer,BufferedImage>();
+        myResourceImage = new HashMap<Integer,BufferedImage>();
         
         myTerrainWalkAbility = new HashMap<Integer,String>();
-        
+        myResourceAmount = new HashMap<Integer,String>();
         
        myMap = map;       
         
@@ -115,9 +123,11 @@ public class MapLoader {
     public void loadTypeInfo(Element root, String path) throws IOException {
         NodeList tileTypeList = root.getElementsByTagName("tiletype");
         NodeList terrainTypeList = root.getElementsByTagName("terraintype");
+        NodeList resourceTypeList = root.getElementsByTagName("resourceType");
         
         String tileImagePath = path + "images/tiles/";
         String terrainImagePath = path + "images/terrains/";
+        String resourceImagePath = path + "images/resources/";
         
         for(int i = 0 ; i < tileTypeList.getLength() ; i++ ) {
             Node tileTypeNode = tileTypeList.item(i);
@@ -139,12 +149,27 @@ public class MapLoader {
             String terrainImageName = attributes.item(1).getNodeValue();
             String terrainName = attributes.item(2).getNodeValue();
             String terrainWalkAbility = attributes.item(3).getNodeValue();
-            BufferedImage terrainImage = ImageIO.read(new File(tileImagePath + terrainImageName));
+            BufferedImage terrainImage = ImageIO.read(new File(terrainImagePath + terrainImageName));
             myTerrainName.put(Integer.parseInt(terrainID), terrainName);
             myTerrainImageName.put(Integer.parseInt(terrainID), terrainImageName);
             myTerrainWalkAbility.put(Integer.parseInt(terrainID), terrainWalkAbility);
             myTerrainImage.put(Integer.parseInt(terrainID), terrainImage);
         }
+        
+        for(int i = 0 ; i < resourceTypeList.getLength() ; i++ ) {
+            Node resourceTypeNode = resourceTypeList.item(i);
+            NamedNodeMap attributes = resourceTypeNode.getAttributes();
+            String resourceID = attributes.item(0).getNodeValue();
+            String resourceImageName = attributes.item(1).getNodeValue();
+            String resourceName = attributes.item(2).getNodeValue();
+            String resourceAmount = attributes.item(3).getNodeValue();
+            BufferedImage resourceImage = ImageIO.read(new File(resourceImagePath + resourceImageName));
+            myResourceName.put(Integer.parseInt(resourceID), resourceName);
+            myResourceImageName.put(Integer.parseInt(resourceID), resourceImageName);
+            myResourceAmount.put(Integer.parseInt(resourceID), resourceAmount);
+            myResourceImage.put(Integer.parseInt(resourceID), resourceImage);
+        }
+        
     
     
     }
@@ -153,7 +178,7 @@ public class MapLoader {
         
         NodeList tileList = root.getElementsByTagName("tile");
         
-        int y = myMap.getMyYSize();
+        int y = myMap.getMyYsize();
         
         for(int i = 0 ; i < tileList.getLength() ; i++ ) {
             
@@ -162,32 +187,36 @@ public class MapLoader {
             
             Node tileNode = tileList.item(i);
             NamedNodeMap attributes = tileNode.getAttributes();
-            String tileID = attributes.item(0).getNodeValue();
-            myMap.getMapNode(myX, myY).setTile(Integer.parseInt(tileID));
+            int tileID = Integer.parseInt(attributes.item(0).getNodeValue());
+            String tileName = myTileName.get(tileID);
+            String tileImageName = myTileImageName.get(tileID);
+            Pixmap tileImage = new Pixmap(myTileImage.get(tileID));
+            myMap.addTile(myX, myY, tileID, tileName, tileImageName, tileImage);
         }
     }
 
     public void loadTerrains(Element root) {
         
         
-        NodeList layerList = root.getElementsByTagName("layer");
+        NodeList terrainList = root.getElementsByTagName("terrain");
 
-        for(int i = 0 ; i < layerList.getLength() ; i++) {
-            Node layerNode = layerList.item(i); 
-            int layerIndex = Integer.parseInt(layerNode.getAttributes().item(0).getNodeValue());
-            NodeList terrainList = layerNode.getChildNodes();
-            
-            for(int j = 0 ; j < terrainList.getLength() ; j++) {
+        for(int j = 0 ; j < terrainList.getLength() ; j++) {
                 Node terrainNode = terrainList.item(j);
                 if(terrainNode.hasAttributes()) {
                     NamedNodeMap attributes = terrainNode.getAttributes();
-                    int id = Integer.parseInt(attributes.item(0).getNodeValue());
+                    int terrainID = Integer.parseInt(attributes.item(0).getNodeValue());
                     int x = Integer.parseInt(attributes.item(1).getNodeValue());
                     int y = Integer.parseInt(attributes.item(2).getNodeValue());
-                    myMap.addTerrain(layerIndex, new Terrain(x,y,id));
+                    int z = Integer.parseInt(attributes.item(3).getNodeValue());
+                    String terrainName = myTerrainName.get(terrainID);
+                    String terrainImageName = myTerrainImageName.get(terrainID);
+                    Pixmap terrainImage = new Pixmap(myTerrainImage.get(terrainID));
+                    int terrainWalkAbility = Integer.parseInt(myTerrainWalkAbility.get(terrainID));
+                    myMap.addTerrain(terrainImage, x, y, z, terrainID, terrainName, terrainImageName, 
+                                 terrainWalkAbility);
                 }
-            }
         }
+        
     }
 
     public void loadResources(Element root, String path) {
@@ -195,10 +224,15 @@ public class MapLoader {
         for(int i = 0 ; i < resourceList.getLength() ; i++) {
             Node resourceNode = resourceList.item(i);
             NamedNodeMap attributes = resourceNode.getAttributes();
-            String id = attributes.item(0).getNodeValue();
-            String x = attributes.item(1).getNodeValue();
-            String y = attributes.item(2).getNodeValue();
-            myMap.addResource(Integer.parseInt(x), Integer.parseInt(y), Integer.parseInt(id));
+            int resourceID = Integer.parseInt(attributes.item(0).getNodeValue());
+            int x = Integer.parseInt(attributes.item(1).getNodeValue());
+            int y = Integer.parseInt(attributes.item(2).getNodeValue());
+            int z = Integer.parseInt(attributes.item(3).getNodeValue());
+            String resourceName = myResourceName.get(resourceID);
+            String resourceImageName = myResourceImageName.get(resourceID);
+            Pixmap resourceImage = new Pixmap(myResourceImage.get(resourceID));
+            int resourceAmount = Integer.parseInt(myResourceAmount.get(resourceID));
+            myMap.addResource(resourceImage, x, y, z, resourceID, resourceName, resourceImageName, resourceAmount);
         }
     }  
 }
