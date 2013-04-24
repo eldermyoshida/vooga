@@ -34,7 +34,8 @@ public class PlayerSet {
      * @param loc
      */
     public void addPlayer(Location loc) {
-        myPlayers.put(myPlayerNumber + 1, loc);
+        myPlayerNumber++;
+        myPlayers.put(myPlayerNumber, loc);
     }
     /**
      * add a player based on x and y
@@ -84,6 +85,7 @@ public class PlayerSet {
      */
     public void clearPlayers() {
         myPlayers.clear();
+        myPlayerNumber = 0;
     }
 
     public int getMyPlayerUpperLimit() {

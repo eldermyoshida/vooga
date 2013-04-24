@@ -339,5 +339,8 @@ public class EditableMap extends GameMap {
     public Map<Integer,Location> getAllPlayers() {
         return myPlayerSet.getAllPlayers();
     }
+    public PlayerSet  getPlayerSet() {
+        return myPlayerSet;
+    }
 
 }
