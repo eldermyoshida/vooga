@@ -66,7 +66,17 @@ public class GameInfo {
     }
 
     public double getRating () {
-        return myDb.getAverageRating(myGameName);
+        List<Comment> comments = myDb.retrieveCommentsForGame(myGameName);
+        
+        double averageRating = 0;
+        if (comments.size() != 0) {
+            double sum = 0;
+            for (Comment comment : comments) {
+                sum += comment.getRating();
+            }
+            averageRating = sum / comments.size();
+        }
+        return averageRating;
     }
 
     public double getPrice () {
