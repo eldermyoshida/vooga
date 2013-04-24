@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vooga.towerdefense.factories.GameElementFactory;
-import vooga.towerdefense.factories.examples.ExampleAuraTowerFactory;
+import vooga.towerdefense.factories.examplesfactories.ExampleAuraTowerFactory;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.util.Location;
 

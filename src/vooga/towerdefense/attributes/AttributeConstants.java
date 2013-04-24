@@ -5,7 +5,9 @@ package vooga.towerdefense.attributes;
  * 
  * Should this be an Enum?
  * 
- * @author Matthew Roy, Zhen Gou
+ * @author Matthew Roy
+ * @author Zhen Gou
+ * @author Jimmy Longley
  *
  */
 public class AttributeConstants {
@@ -14,9 +16,13 @@ public class AttributeConstants {
 	public static final String HEALTH = "Health";
 	public static final String MONEY = "Money";
 	public static final String SCORE = "Score";
+	public static final String SHAPE = "Shape";
 	public static final String ATTACK_DAMAGE = "Attack Damage";
 	public static final String ATTACK_RADIUS = "Attack Range";
 	public static final String NUM_OF_TARGETS = "Number of Targets";
+	public static final String TILES_WIDE = "Tiles wide";
+	public static final String TILES_TALL = "Tiles tall";
+
 	/**
 	 * How many attacks per second
 	 */
