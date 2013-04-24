@@ -5,7 +5,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.logging.Level;
-
 import vooga.rts.networking.NetworkBundle;
 import vooga.rts.networking.communications.Message;
 import vooga.rts.networking.communications.clientmessages.InitialConnectionMessage;
@@ -46,7 +45,8 @@ public class ConnectionThread extends Thread {
             myOutput = new ObjectOutputStream(mySocket.getOutputStream());
         }
         catch (IOException e) {
-            NetworkLogger.logMessage(Level.FINER, NetworkBundle.getString("InitialConnectionFailed"));
+            NetworkLogger.logMessage(Level.FINER,
+                                     NetworkBundle.getString("InitialConnectionFailed"));
         }
     }
 
@@ -91,7 +91,8 @@ public class ConnectionThread extends Thread {
             close();
         }
         catch (ClassNotFoundException e) {
-            NetworkLogger.logMessage(Level.FINER, NetworkBundle.getString("ConnectionFailedClassEx"));
+            NetworkLogger.logMessage(Level.FINER,
+                                     NetworkBundle.getString("ConnectionFailedClassEx"));
             close();
         }
     }
@@ -122,7 +123,8 @@ public class ConnectionThread extends Thread {
             }
         }
         catch (IOException e) {
-            NetworkLogger.logMessage(Level.FINER, NetworkBundle.getString("ClosingConnectionsFailed"));
+            NetworkLogger.logMessage(Level.FINER,
+                                     NetworkBundle.getString("ClosingConnectionsFailed"));
         }
     }
 
@@ -137,7 +139,8 @@ public class ConnectionThread extends Thread {
         }
         try {
             myOutput.writeObject(m);
-            NetworkLogger.logMessage(Level.FINEST, NetworkBundle.getString("MessageSent"));
+            NetworkLogger.logMessage(Level.FINEST, NetworkBundle.getString("MessageSent") +
+                                                   m.getClass().toString());
         }
         catch (IOException e) {
             NetworkLogger.logMessage(Level.FINE, NetworkBundle.getString("failed sending message"));

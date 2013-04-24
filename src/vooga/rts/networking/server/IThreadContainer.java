@@ -5,7 +5,7 @@ import vooga.rts.networking.communications.LobbyInfo;
 
 /**
  * Provides an interface between ClientInfoMessages coming in and the various thread container
- * classses.
+ * classes.
  * 
  * @author David Winegar
  * 

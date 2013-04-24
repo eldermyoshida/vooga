@@ -66,7 +66,7 @@ public class GameContainer extends AbstractThreadContainer {
                     .getMaxConnections()) {
             removeConnection(thread);
             myRooms.get(lobbyNumber).addConnection(thread);
-            NetworkLogger.logMessage(Level.FINER, NetworkBundle.getString("LobbyJoined"));
+            NetworkLogger.logMessage(Level.INFO, NetworkBundle.getString("LobbyJoined"));
         }
     }
 
@@ -78,7 +78,7 @@ public class GameContainer extends AbstractThreadContainer {
         myRoomNumber++;
         lobby.addConnection(thread);
         addRoom(lobby);
-        NetworkLogger.logMessage(Level.FINER, NetworkBundle.getString("LobbyStarted"));
+        NetworkLogger.logMessage(Level.INFO, NetworkBundle.getString("LobbyStarted"));
     }
 
     @Override
