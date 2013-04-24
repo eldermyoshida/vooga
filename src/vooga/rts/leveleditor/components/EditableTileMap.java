@@ -10,17 +10,27 @@ import vooga.rts.util.Pixmap;
 
 /**
  * this class contains a matrix of EditableTile, which is a part of the whole map
+ * this class extends TileMap
  * @author Richard Yang
  *
  */
 
 public class EditableTileMap extends TileMap {
 
+    /**
+     * constructor 1
+     * @param tileSize
+     * @param width
+     * @param height
+     */
     public EditableTileMap (Dimension tileSize, int width, int height) {
         super(tileSize, width, height);
         initialize();
     }
 
+    /**
+     * initialize the whole tile map
+     */
     public void initialize() {
         int x = this.getMyHeight();
         int y = this.getMyWidth();
@@ -31,31 +41,42 @@ public class EditableTileMap extends TileMap {
         }
     }    
     /**
-     * 
-     * @param i
-     * @param j
-     * @param id
-     * @param name
-     * @param imageName
-     * @param image
+     * add tile based on some parameters
+     * @param i ith 
+     * @param j jth 
+     * @param id id of the tile
+     * @param name id of the tile
+     * @param imageName id of the tile
+     * @param image id of the tile
      */
     public void addTile(int i, int j, int id, String name , String imageName, Pixmap image) {
         addTileType(id, (BufferedImage)image.getMyImage());
         this.createTile(id, i, j, id, name, imageName);
-//          setTile(i,j,new EditableTile(image,i,j,getMyTileSize(),id,name,imageName,false));
-//          System.out.println(i);
-//          System.out.println(j);
-    }
+  }
     
-
+    /**
+     * add tiles based on different parameters
+     * @param loc location of the tile
+     * @param id id of the tile 
+     * @param name of the tile 
+     * @param imageName of the tile 
+     * @param image of the tile 
+     */
     public void addTile(Location3D loc, int id, String name, String imageName, Pixmap image) {
         int i = (int)(loc.getX()/ this.getMyTileSize().getWidth()*2);
         int j = (int)(loc.getY()/ this.getMyTileSize().getHeight()*2);
         addTile(i, j, id, name, imageName, image);
-//        System.out.println("Location3d: " + loc.getX());
-//        System.out.println("Location3d: " + loc.getY());  
     }
     
+    /**
+     * create a tile at a certain position
+     * @param tiletype of the tile 
+     * @param x x position
+     * @param y y position 
+     * @param id of the tile 
+     * @param name of the tile 
+     * @param imageName of the tile 
+     */
     public void createTile (int tiletype, int x, int y, int id, String name , String imageName) {
         if (x < 0 || y < 0 || x >= this.getMyWidth() || y >= getMyHeight()) {
             return;
@@ -73,17 +94,30 @@ public class EditableTileMap extends TileMap {
     
     
     
-    
+    /**
+     * remove a tile based on its i and j
+     * @param i ith 
+     * @param j jth
+     * @throws IOException exception has to throw
+     */
     public void removeTile(int i, int j) throws IOException {
         this.setTile(i, j, new EditableTile(i, j, getMyTileSize()));
     }
     
+    /**
+     * remove a tile based on its location
+     * @param center center position of the tile
+     * @throws IOException exception has to throw
+     */
     public void removeTile(Location3D center) throws IOException {
         int i = (int)(center.getY()/ getMyTileSize().getHeight());
         int j = (int)(center.getX()/ getMyTileSize().getWidth());
         removeTile(i, j);
     }
     
+    /**
+     * remove all tiles in this map
+     */
     public void removeAllTiles() {
         initialize();
     }
@@ -93,10 +127,20 @@ public class EditableTileMap extends TileMap {
         return (EditableTile) super.getTile(i, j);    
     }
     
+    /**
+     * get my x count
+     * @param loc
+     * @return int 
+     */
     public int getXCount (Location loc) {
         return (int)(loc.getY()/ getMyTileSize().getHeight());
     }
     
+    /**
+     * get my y count
+     * @param loc
+     * @return int 
+     */
     public int getYCount (Location loc) {
         return (int)(loc.getX()/ getMyTileSize().getWidth());
     }
