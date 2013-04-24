@@ -78,10 +78,11 @@ public class CommentTable extends Table {
     /**
      * Gets all comments for a given game
      * @param gameid is game id
+     * @param username is user
+     * @param userid is user
      */
     public List<Comment> getAllCommentsAndRatingsForGame(String gameid, String username, String userid) {
-        String stm = "SELECT * FROM comments WHERE gameid='" + gameid + "'" + 
-    "AND userid='" + userid + '"';
+        String stm = "SELECT * FROM comments WHERE gameid='" + gameid + "'" + " AND userid='" + userid + "'";
         
         List<Comment> comments = new ArrayList<Comment>();
         try {
@@ -94,8 +95,9 @@ public class CommentTable extends Table {
             return comments;
         }
         catch (SQLException e) {
-            writeErrorMessage("Error getting all comments for this game in " +
-                    "CommentTable.java @ Line 72");
+            e.printStackTrace();
+//            writeErrorMessage("Error getting all comments for this game in " +
+//                    "CommentTable.java @ Line 72");
         }
         return comments;
     }
