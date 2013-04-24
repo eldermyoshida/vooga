@@ -473,39 +473,39 @@ public class Database {
     // USER-SPECIFIC QUERY METHODS : TO BE FILLED OUT WHEN USER-DATABASE CONTAINS ALL THESE INFO
 	public String getUserRealName(String username) {
 		// TODO Auto-generated method stub
-		return null;
+		return "Bob";
 	}
 
 	public int getUserAge(String username) {
 		// TODO Auto-generated method stub
-		return 0;
+		return 18;
 	}
 
 	public String getUserHometown(String username) {
 		// TODO Auto-generated method stub
-		return null;
+		return "Waco";
 	}
 
 	public String getUserSchool(String username) {
 		// TODO Auto-generated method stub
-		return null;
+		return "Duke";
 	}
 
 	public String getUserHobbies(String username) {
 		// TODO Auto-generated method stub
-		return null;
+		return "Coding";
 		
 	}
 
 	public String getUserFavoriteColor(String username) {
 		// TODO Auto-generated method stub
-		return null;
+		return "Blue";
 		
 	}
 
 	public String getUserFavoriteFood(String username) {
 		// TODO Auto-generated method stub
-		return null;
+		return "rice";
 	}
 
 	

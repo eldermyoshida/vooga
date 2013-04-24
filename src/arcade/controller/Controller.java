@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import twitter4j.TwitterException;
+import util.FilePathFormatter;
 import arcade.database.Database;
 import arcade.exceptions.CorruptedDatabaseException;
 import arcade.exceptions.InvalidPaymentException;
@@ -53,6 +54,7 @@ public class Controller implements ArcadeInteraction {
 		private Map<String, GameInfo> myGameInfos;
 		private PaymentManager myPaymentManager;
 		private TwitterConnection myTwitter;
+		private FilePathFormatter myFilePathFormatter = new FilePathFormatter();
 		
 		private Game myCurrentGame;
 		private MultiplayerGame myCurrentMultiplayerGame;
@@ -194,8 +196,8 @@ public class Controller implements ArcadeInteraction {
 		
 		// Put info in DB
 		myDb.createGame(name.toLowerCase(), genre.toLowerCase(), author, price,
-				formatClassFilePath(extendsGame),
-				formatClassFilePath(extendsMultiplayerGame), ageRating,
+		                myFilePathFormatter.formatClassFilePath(extendsGame),
+		                myFilePathFormatter.formatClassFilePath(extendsMultiplayerGame), ageRating,
 				singlePlayer, multiplayer, thumbnailPath, adScreenPath,
 				description);
 		
@@ -203,34 +205,7 @@ public class Controller implements ArcadeInteraction {
 		addNewGameInfoToList(name);
 	}
 	
-	
-	
-	private String formatClassFilePath(String path) {
-		if (path == null)
-			return null;
-		// split on file extension
-		String[] split = path.split("."); // take everything before file extension and after src to get java relative filepath.
-		List<String> list = Arrays.asList(split);
-		if (list.contains("src")) {
-			// this means you got the absolute file path, so you need to get java relative file path (i.e. after src/ )
-			path = split[0].split("src")[1];
-		}
-		split = path.split("/");
-		String ret = "";
-		for (String str : split) {
-			ret += str;
-			ret += ".";
-		}
-		// remove the hanging period
-		ret = ret.substring(0, ret.length() - 1);
-		System.out.println("this is ret" + ret);
-		return ret;
-	}
-	
-	
-	
 
-	
 
 	/**
 	 * First creates the appropriate PaymentManager for the transactionType if

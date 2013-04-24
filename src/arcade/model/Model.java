@@ -48,6 +48,7 @@ public class Model implements ArcadeInteraction {
     private FilePathFormatter myFilePathFormatter = new FilePathFormatter();
     // These will be null until you try to play a game
     Game myCurrentGame = null;
+    GameInfo myCurrentGameInfo = null;
     MultiplayerGame myCurrentMultiplayerGame = null;
 
     public Model (ResourceBundle rb, String language) {
@@ -225,7 +226,7 @@ public class Model implements ArcadeInteraction {
         myCurrentGame.run();
     }
 
- 
+    
 
     /**
      * TODO:
@@ -296,6 +297,7 @@ public class Model implements ArcadeInteraction {
 
     @Override
     public void killGame () {
+        
         // save the usergamedata and game data if applicable, and return to detail screen
 
     }

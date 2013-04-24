@@ -32,7 +32,7 @@ public class Main {
    //     myDatabase.createUser("bob", "mypassword", "Joe", "Smith", "11/11/1911");   
   //      myDatabase.createUser("test", "test", "test", "test", "01/01/1901");
         
-        //myDatabase.deleteGame("example");
+        myDatabase.deleteGame("");
   //      myDatabase.deleteGame("example");
         
 //       myDatabase.addAvatarToUser("natx13", "C:/blahbalhblah");
