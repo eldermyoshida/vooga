@@ -142,4 +142,28 @@ public class Unit extends InteractiveEntity {
 	public void setGatherStrategy(GatherStrategy gatherStrategy) {
 		myGatherStrategy = gatherStrategy;
 	}
+	
+	//OLD WORKER METHODS. Put here just in case
+	
+	/**
+	 * Another recognize method specific for workers as they can gather
+	 * resources which are not InteractiveEntities
+	 */
+	public void recognize(Resource resource) {
+		gather(resource);
+	}
+
+	/**
+	 * The worker gathers the resource if it can and then resets its gather
+	 * cooldown.
+	 * 
+	 * @param gatherable
+	 *            is the resource being gathered.
+	 */
+	public void gather(IGatherable gatherable) {
+		// shouldnt the cast be to a type Resource?
+		if (this.collidesWith((GameEntity) gatherable)) {
+			myGatherStrategy.gatherResource(getPlayerID(), gatherable);
+		}
+	}
 }
