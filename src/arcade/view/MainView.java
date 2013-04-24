@@ -77,7 +77,7 @@ public class MainView extends JFrame {
      * high scores, and an option to share on social networks.
      * 
      */
-    public void showEndGameView (double userScore) {
+    public void showEndGameView (int userScore) {
         new ScoresView(myController, myResources, userScore);
     }
 
