@@ -36,4 +36,16 @@ public class ModelConstants {
     // effect properties
     public static final String EFFECT_PROPERTY_BURN_DAMAGE = myResources.getString("Damage");
     
+    //directions
+    public static final int RIGHT=0; 
+    public static final int DOWN=90;
+    public static final int LEFT=180; 
+    public static final int UP=270; 
+    
+    //Mouse click image tag
+    public static final String MOUSE_CLICK_IMAGE_TAG = "mouseclick";
+    
+    //Mouse image tag
+    public static final String MOUSE_IMAGE_TAG = "mouse";
+    
 }

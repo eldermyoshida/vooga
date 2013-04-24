@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import vooga.fighter.model.ModelConstants;
 import vooga.fighter.model.effects.BurnEffect;
 import vooga.fighter.model.loaders.CharacterLoader;
 import vooga.fighter.model.utils.Effect;
@@ -21,10 +23,6 @@ import util.Vector;
  * 
  */
 public class CharacterObject extends GameObject {
-
-
-    private static final int RIGHT=0; 
-    private static final int UP=270; 
     
     private Map<String, AttackObject> myAttacks;
     private Vector forcesApplied; 
@@ -43,7 +41,7 @@ public class CharacterObject extends GameObject {
         myAttacks = new HashMap<String, AttackObject>();
         myActiveEffects = new ArrayList<Effect>();
         myHealth = new Health();
-        movingDirection=RIGHT; 
+        movingDirection=ModelConstants.RIGHT; 
         currentAttacks= new ArrayList<AttackObject>();
         setLoader(new CharacterLoader(charName, this));
         setHealth(getProperty("maxHealth"));
@@ -214,7 +212,7 @@ public class CharacterObject extends GameObject {
      * Will add jump method
      */
     public void jump() {        
-    	getLocation().addAcceleration(new Vector(UP, getProperty("jumpfactor")));
+    	getLocation().addAcceleration(new Vector(ModelConstants.UP, getProperty("jumpfactor")));
     } 
     
     /**
