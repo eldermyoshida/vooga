@@ -14,6 +14,8 @@ import vooga.fighter.controller.ViewDataSource;
  * @author Wayne You
  * 
  */
+
+
 public class EndMatchLayout extends CanvasLayout {
     private static final int TEXT_HEIGHT = 30;
     

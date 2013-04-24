@@ -19,9 +19,12 @@ import vooga.fighter.view.HUDElement;
 public class DisplayLoopInfo extends DisplayInfo implements ViewDataSource{
     private Mode myMode;
     private List<ImageDataObject> myImageData;
-
-    public DisplayLoopInfo(Mode mode) {
+    
+    public DisplayLoopInfo() {
         super();
+    }
+    
+    public DisplayLoopInfo(Mode mode) {
         myMode = mode;
     	myImageData = mode.getImageData();
         updateInfo();

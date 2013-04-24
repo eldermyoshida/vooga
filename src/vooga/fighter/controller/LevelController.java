@@ -135,8 +135,14 @@ public abstract class LevelController extends Controller {
     ModeCondition lowhealthcondition = new ModeCondition() {
     	public boolean checkCondition(Mode mode) {
     		LevelMode levelmode = (LevelMode) mode;
-			for(CharacterObject character: levelmode.getCharacterObjects()){
-				if(!character.hasHealthRemaining()) return true;
+    		        for (int i = 0; i < levelmode.getCharacterObjects().size(); i++) {
+			//for(CharacterObject character: levelmode.getCharacterObjects()){
+				if(!levelmode.getCharacterObjects().get(i).hasHealthRemaining()) {
+				    
+				    getGameInfo().addWinners(i);
+				    
+				    return true;
+				}
 			}
 			return false;
 		}
