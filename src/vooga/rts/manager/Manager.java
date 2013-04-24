@@ -49,10 +49,12 @@ public class Manager extends Observable implements State, IActOn, Observer {
     private Map<String, Action> myActions;
 
     private Queue<InteractiveEntity> myAddQueue;
+    private int myPlayer;
 
     Iterator<InteractiveEntity> myUpdateIterator;
 
-    public Manager () {
+    public Manager (int playerID) {
+    	myPlayer = playerID;
         myEntities = new ArrayList<InteractiveEntity>();
         mySelectedEntities = new ArrayList<InteractiveEntity>();
         myGroups = new HashMap<Integer, List<InteractiveEntity>>();
@@ -133,6 +135,7 @@ public class Manager extends Observable implements State, IActOn, Observer {
      *        The entity that is to be added.
      */
     public void add (InteractiveEntity entity) {
+    	entity.setPlayerID(myPlayer);
         entity.addObserver(GameState.getMap().getNodeMap());
         entity.addObserver(this);
         entity.setChanged();
@@ -223,7 +226,6 @@ public class Manager extends Observable implements State, IActOn, Observer {
      * @return The selected entities
      */
     public List<InteractiveEntity> getSelected () {
-        
         return mySelectedEntities;
     }
 
@@ -242,18 +244,19 @@ public class Manager extends Observable implements State, IActOn, Observer {
      * 
      * @param entity
      */
-    public void select (InteractiveEntity entity) {        
+    public void select (InteractiveEntity entity) {
         deselectAll();
         if (!mySelectedEntities.contains(entity)) {
             if (myEntities.contains(entity)) {
-                mySelectedEntities.add(entity);
-                entity.select(true);
+                if (entity.select(true)) {
+                    mySelectedEntities.add(entity);
+                }
             }
         }
         notifySelect();
     }
-    
-    public void notifySelect() {
+
+    public void notifySelect () {
         setChanged();
         notifyObservers(true);
     }
@@ -353,13 +356,9 @@ public class Manager extends Observable implements State, IActOn, Observer {
             if (!myEntities.contains(sent)) {
                 add(sent);
             }
-
-            if (!sent.getEntityState().canSelect()) {
-                sent.setVisible(false);
-                deselect(sent);
-            }
         }
-        else
+        else 
+        {
             if (state instanceof Integer) {
                 int index = findEntityWithHashCode((Integer) state);
                 InteractiveEntity unit = myEntities.get(index);
@@ -371,5 +370,7 @@ public class Manager extends Observable implements State, IActOn, Observer {
                 myEntities.get(index).stopMoving();
                 unit.getEntityState().setMovementState(MovementState.STATIONARY);
             }
+        }
+
     }
 }
