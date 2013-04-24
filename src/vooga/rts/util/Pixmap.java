@@ -42,8 +42,8 @@ public class Pixmap {
 	 * Create a copy of image from the given other image.
 	 */
 	public Pixmap (Pixmap other) {
-		//this(other.myFileName);
-		this(other.myImage);
+	    //this(other.myFileName);
+	    this(other.myImage);
 	}
 
 	/**

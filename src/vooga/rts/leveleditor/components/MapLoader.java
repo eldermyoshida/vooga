@@ -103,14 +103,12 @@ public class MapLoader {
         Node tileAmountNode = tileAmountList.item(0);
        
         
-        String x = tileAmountNode.getAttributes().item(0).getNodeValue();
-        String y = tileAmountNode.getAttributes().item(1).getNodeValue();
+        int x = Integer.parseInt(tileAmountNode.getAttributes().item(0).getNodeValue());
+        int y = Integer.parseInt(tileAmountNode.getAttributes().item(1).getNodeValue());
         
-        String width = tileSizeNode.getAttributes().item(1).getNodeValue();
-        String height = tileSizeNode.getAttributes().item(0).getNodeValue();
-        myMap.setMyXSize(Integer.parseInt(x));
-        myMap.setMyYSize(Integer.parseInt(y));
-        myMap.initializeMap(Integer.parseInt(width), Integer.parseInt(height));
+        int width = Integer.parseInt(tileSizeNode.getAttributes().item(1).getNodeValue());
+        int height = Integer.parseInt(tileSizeNode.getAttributes().item(0).getNodeValue());
+        myMap.resetTileMap(x, y, width, height);
         
     }
     

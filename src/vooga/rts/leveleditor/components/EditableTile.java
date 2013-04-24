@@ -44,6 +44,7 @@ public class EditableTile extends Tile {
     }
     
     public EditableTile(int xCount, int yCount, Dimension size) {
+        
         this(null,xCount,yCount,size,0,"","",false);
     }
     

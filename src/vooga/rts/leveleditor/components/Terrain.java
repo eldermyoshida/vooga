@@ -1,6 +1,7 @@
 package vooga.rts.leveleditor.components;
 
 
+import java.awt.Image;
 import vooga.rts.gamedesign.sprite.gamesprites.GameSprite;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
@@ -26,7 +27,7 @@ public class Terrain extends GameSprite {
         super(image, center, image.getMyDimension());
         myID = id;
         myName = name;
-        myImageName = name;
+        myImageName = imageName;
         myWalkAbility = walkAbility;
     }
    
@@ -54,4 +55,8 @@ public class Terrain extends GameSprite {
         return myWalkAbility;
     }
     
- }
+    public Image getMyImage() {
+        return super.getImage().getMyImage();
+    } 
+ 
+}
