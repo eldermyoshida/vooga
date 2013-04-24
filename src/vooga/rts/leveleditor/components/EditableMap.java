@@ -81,7 +81,7 @@ public class EditableMap extends GameMap {
 
         try {
             mySaver = new MapSaver(this);
-            //myLoader = new MapLoader(this);
+            myLoader = new MapLoader();
         }
         catch (ParserConfigurationException e) {
             e.printStackTrace();
@@ -105,6 +105,10 @@ public class EditableMap extends GameMap {
         myTileMap.removeAllTiles();
         getTerrain().getMySprites().clear();
         getResources().getMySprites().clear();
+    }
+    
+    public EditableMap returnLoadedMap() {
+        return myLoader.getMyMap();
     }
 
     /**
@@ -142,7 +146,7 @@ public class EditableMap extends GameMap {
         catch (IOException e) {
             e.printStackTrace();
         }
-
+        
     }
     /**
      * load the map from a certain path
