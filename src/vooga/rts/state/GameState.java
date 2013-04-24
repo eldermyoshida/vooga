@@ -155,8 +155,7 @@ public class GameState extends SubState implements Controller {
         addPlayer(1);
 
         Unit worker =
-                new Worker(new Pixmap(ResourceManager.getInstance()
-                        .<BufferedImage> getFile("images/scv.gif", BufferedImage.class)),
+                new Worker(new Pixmap("images/scv.gif"),
                            new Location3D(100, 100, 0), new Dimension(75, 75), null, 1, 200, 40, 5);
         Information i1 =
                 new Information("Worker",
@@ -198,16 +197,18 @@ public class GameState extends SubState implements Controller {
         myHumanPlayer.add(b);
 
         for (int j = 0; j < 10; j++) {
-            getMap().getResources().add(new Resource(new Pixmap("mineral.gif"),
+            getMap().getResources().add(new Resource(new Pixmap("images/mineral.gif"),
                                                      new Location3D(200 + j * 15, 300 + j * 10, 0),
                                                      new Dimension(50, 50), 0, 200, "mineral"));
         }
         
+        /*
         for (int j = 0; j < 10; j++) {
-            getMap().getTerrain().add(new Terrain(new Pixmap("mineral.gif"),
+            getMap().getTerrain().add(new Terrain(new Pixmap("gold.png"),
                                                      new Location3D(100, 100, j*25),
                                                      new Dimension(50, 50)));
         }
+        */
         
         Garrison garrison =
                 new Garrison(new Pixmap(ResourceManager.getInstance()

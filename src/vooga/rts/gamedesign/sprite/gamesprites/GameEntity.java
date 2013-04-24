@@ -2,13 +2,8 @@ package vooga.rts.gamedesign.sprite.gamesprites;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import vooga.rts.ai.AstarFinder;
-import vooga.rts.ai.Path;
-import vooga.rts.ai.PathFinder;
 import vooga.rts.gamedesign.state.EntityState;
 import vooga.rts.gamedesign.state.MovementState;
-import vooga.rts.map.GameMap;
-import vooga.rts.state.GameState;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Vector;

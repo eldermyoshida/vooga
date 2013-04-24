@@ -4,10 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
-
 import java.util.Observable;
 import javax.swing.JPanel;
-
 import vooga.rts.networking.NetworkBundle;
 import vooga.rts.networking.client.clientgui.CreateLobbyView;
 import vooga.rts.networking.client.clientgui.IModel;
@@ -23,7 +21,7 @@ import vooga.rts.networking.communications.clientmessages.InitialConnectionMessa
 import vooga.rts.networking.communications.clientmessages.JoinLobbyMessage;
 import vooga.rts.networking.communications.clientmessages.LeaveLobbyMessage;
 import vooga.rts.networking.communications.clientmessages.RequestServerListMessage;
-import vooga.rts.networking.communications.clientmessages.StartGameMessage;
+import vooga.rts.networking.communications.clientmessages.RequestStartGameMessage;
 import vooga.rts.networking.communications.clientmessages.StartLobbyMessage;
 import vooga.rts.networking.communications.clientmessages.UpdateLobbyInfoMessage;
 import vooga.rts.networking.communications.servermessages.ServerInfoMessage;
@@ -33,6 +31,8 @@ import vooga.rts.networking.communications.servermessages.ServerInfoMessage;
  * Model for the overall server browser on the client.
  * 
  * @author David Winegar
+ * @author Sean Wareham
+ * @author Henrique Morales
  * 
  */
 public class ClientModel extends Observable implements IMessageReceiver, IClientModel, IModel {
@@ -90,8 +90,7 @@ public class ClientModel extends Observable implements IMessageReceiver, IClient
      */
     private void switchToServerBrowserView () {
         requestLobbies();
-        myContainerPanel.changeView(myServerBrowserView,
-                                    NetworkBundle.getString("ServerBrowser"));
+        myContainerPanel.changeView(myServerBrowserView, NetworkBundle.getString("ServerBrowser"));
         myContainerPanel.changeLeftButton(NetworkBundle.getString("HostGame"),
                                           new ActionListener() {
                                               @Override
@@ -105,7 +104,8 @@ public class ClientModel extends Observable implements IMessageReceiver, IClient
                                                public void actionPerformed (ActionEvent arg0) {
                                                    if (myServerBrowserView.hasSelectedRow()) {
                                                        requestJoinLobby(myServerBrowserAdapter
-                                                               .getidOfRow(myServerBrowserView.getSelectedRow()));
+                                                               .getIdOfRow(myServerBrowserView
+                                                                       .getSelectedRow()));
                                                    }
                                                }
                                            });
@@ -115,8 +115,7 @@ public class ClientModel extends Observable implements IMessageReceiver, IClient
      * Switches the current View to the LobbyCreatorScreen.
      */
     private void switchToCreateLobbyView () {
-        myContainerPanel.changeView(myCreateLobbyView,
-                                    NetworkBundle.getString("LobbyCreation"));
+        myContainerPanel.changeView(myCreateLobbyView, NetworkBundle.getString("LobbyCreation"));
         myContainerPanel.changeLeftButton(NetworkBundle.getString("BackToBrowser"),
                                           new ActionListener() {
                                               @Override
@@ -160,32 +159,56 @@ public class ClientModel extends Observable implements IMessageReceiver, IClient
                                                @Override
                                                public void actionPerformed (ActionEvent arg0) {
                                                    if (myLobbyInfo.canStartGame()) {
-                                                       startGame();
+                                                       requestStartGame();
                                                    }
                                                }
                                            });
     }
 
+    /**
+     * Request currently available lobbies from the server
+     */
     private void requestLobbies () {
         myClient.sendData(new RequestServerListMessage());
     }
 
+    /**
+     * Request to join a lobby on the server
+     * 
+     * @param id ID of the lobby to join
+     */
     private void requestJoinLobby (int id) {
         myClient.sendData(new JoinLobbyMessage(id));
     }
 
+    /**
+     * Starts a new lobby for purposes of hosting a game
+     * 
+     * @param lobbyInfo Lobby containing information to host a game
+     */
     private void startLobby (LobbyInfo lobbyInfo) {
         myClient.sendData(new StartLobbyMessage(lobbyInfo));
     }
 
-    private void startGame () {
-        myClient.sendData(new StartGameMessage());
+    /**
+     * Request to initiate the game in this lobby
+     */
+    private void requestStartGame () {
+        myClient.sendData(new RequestStartGameMessage());
     }
 
+    /**
+     * Sends an infoLobby so other users can view that the state of
+     * the lobby has changed
+     */
     private void sendUpdatedLobbyInfo () {
         myClient.sendData(new UpdateLobbyInfoMessage(myLobbyInfo));
     }
-    
+
+    /**
+     * 
+     * @return the view used by all networking functions
+     */
     public JPanel getView () {
         return myContainerPanel;
     }
@@ -225,6 +248,17 @@ public class ClientModel extends Observable implements IMessageReceiver, IClient
     @Override
     public void alertClient (String title, String message) {
         myContainerPanel.showMessageDialog(title, message);
-        
+
+    }
+
+    @Override
+    public void loadGame (ExpandedLobbyInfo lobbyInfo) {
+        // TODO
+    }
+
+    @Override
+    public void startGame () {
+        // TODO
+
     }
 }

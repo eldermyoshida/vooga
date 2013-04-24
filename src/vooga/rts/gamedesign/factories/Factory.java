@@ -20,6 +20,7 @@ import vooga.rts.gamedesign.sprite.gamesprites.GameSprite;
 import vooga.rts.gamedesign.sprite.gamesprites.Projectile;
 import vooga.rts.gamedesign.sprite.gamesprites.Resource;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
 import vooga.rts.gamedesign.strategy.Strategy;
 import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
 import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
@@ -43,11 +44,12 @@ import vooga.rts.util.ReflectionHelper;
 
 public class Factory {
 	public static final String DECODER_MATCHING_FILE = "DecodeMatchUp";
-	public static final String DECODER_MATCHING_PAIR_TAG = "pair";
-	public static final String DECODER_MATCHING_DECODETYPE_TAG = "type";
-	public static final String DECODER_MATCHING_PATH_TAG = "decoderPath";
+	public static final String MATCHING_PAIR_TAG = "pair";
+	public static final String MATCHING_TYPE_TAG = "type";
+	public static final String MATCHING_PATH_TAG = "decoderPath";
 	
-	Map<String, Decoder> myDecoders = new HashMap<String, Decoder>();
+	Map<String, String> myDecoderPaths;
+	Map<String, Decoder> myDecoders;
 	Map<String, InteractiveEntity> mySprites;
 	Map<String, Resource> myResources;
 	Map<String, Strategy> myStrategies;
@@ -61,6 +63,7 @@ public class Factory {
 	
 	
 	public Factory()  {
+		myDecoderPaths = new HashMap<String, String>();
 		myDecoders = new HashMap<String, Decoder>();
 		
 		try {
@@ -99,6 +102,7 @@ public class Factory {
 	}
 	
 	public void put(String name, UpgradeTree upgradeTree){
+		System.out.println("puts here");
 		myUpgradeTrees.put(name, upgradeTree);
 	}
 	
@@ -194,7 +198,7 @@ public class Factory {
 	public void putStrategyDependency(String name, String[] strategies){
 		myStrategyDependencies.put(name, strategies);
 	}
-	
+
 	/**
 	 * Puts a weapon dependency (tells the factory what weapon "name" uses) in
 	 * a dependency map. 
@@ -237,29 +241,35 @@ public class Factory {
 	 * @throws SAXException
 	 * @throws IOException
 	 */
+
 	private void loadDecoder(String fileName) throws ParserConfigurationException, SAXException, IOException {
+
+
 		File file = new File(getClass().getResource(fileName).getFile());
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		DocumentBuilder db = dbf.newDocumentBuilder();
 		Document doc = db.parse(file);
 		doc.getDocumentElement().normalize();
-		
-		NodeList nodeLst = doc.getElementsByTagName(DECODER_MATCHING_PAIR_TAG);
-		
+
+		NodeList nodeLst = doc.getElementsByTagName(MATCHING_PAIR_TAG);
+
 		for (int i = 0; i < nodeLst.getLength(); i++) {
 			Element pairElmnt = (Element) nodeLst.item(i);
-			
-			Element typeElmnt = (Element)pairElmnt.getElementsByTagName(DECODER_MATCHING_DECODETYPE_TAG).item(0);
+
+			Element typeElmnt = (Element)pairElmnt.getElementsByTagName(MATCHING_TYPE_TAG).item(0);
 			NodeList typeList = typeElmnt.getChildNodes();
 			String type = ((Node) typeList.item(0)).getNodeValue();
-			
-			Element pathElmnt = (Element)pairElmnt.getElementsByTagName(DECODER_MATCHING_PATH_TAG).item(0);
+
+			Element pathElmnt = (Element)pairElmnt.getElementsByTagName(MATCHING_PATH_TAG).item(0);
 			NodeList pathList = pathElmnt.getChildNodes();
 			String path = ((Node) pathList.item(0)).getNodeValue();
 			Decoder decoder = (Decoder) ReflectionHelper.makeInstance(path, this);
 			myDecoders.put(type, decoder);
+
 		}
 	}
+
+
 	
 	/**
 	 * Loads the XML file passed in and determines the type of class it provides
@@ -277,8 +287,6 @@ public class Factory {
 			Document doc = db.parse(file);
 			doc.getDocumentElement().normalize();
 			System.out.println(doc.getDocumentElement().getNodeName());
-			
-			
 			NodeList head = doc.getChildNodes();
 			Node childNode = head.item(0);
 			NodeList children = childNode.getChildNodes();
