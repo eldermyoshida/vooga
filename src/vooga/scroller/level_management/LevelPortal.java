@@ -41,7 +41,7 @@ public class LevelPortal extends Sprite implements ILevelPortal, IDoor {
         // This could also be done in the level manager.
         
         myLevelManager.setCurrentLevel(myNextLevel);
-        myLevelManager.getCurrentLevel().addPlayer(player);     
+        //myLevelManager.getCurrentLevel().addPlayer(player);     
     }
 
     @Override

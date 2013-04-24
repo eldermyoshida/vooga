@@ -1,7 +1,7 @@
 package vooga.scroller.sprites.movement;
 
-import util.Location;
 import util.Vector;
+import vooga.scroller.sprites.superclasses.Locatable;
 import vooga.scroller.util.Sprite;
 
 /**
@@ -11,19 +11,26 @@ import vooga.scroller.util.Sprite;
  * @author Jay Wang
  *
  */
-public class TrackPlayer extends Movement {
+public class TrackPlayer implements Movement {
 
-    private Sprite myTarget;
    
     // TODO: can't leave this here. I am going to ask jay more about this.
     private static final Vector DEFAULT_SPEED = new Vector(0,100);
+    private int mySpeed;
+    private int myRadius;
+    private Sprite myPredator;
+    private Locatable myTarget; 
     
     
-    public TrackPlayer (Sprite nse) {
+    public TrackPlayer (Sprite predator, Locatable target, int speed, int radius) {
         super();
-        myTarget = nse;
+        myPredator = predator;
+        myTarget = target;
+        mySpeed = speed;
+        myRadius = radius;
     }
     
+
     /**
      * This method will allow a Non Static Entity to track down a Player - a simple AI of sorts. 
      * Essentially, if the player gets within the specified radius of this entity, the entity will 
@@ -34,11 +41,21 @@ public class TrackPlayer extends Movement {
      * @param radius
      * @return a vector that in direction of the player with the given SPEED
      */
-    public Vector execute (int speed, int radius, Location playerLocation) {
-        if (Vector.distanceBetween(playerLocation, myTarget.getCenter()) > (double) radius) {
-            return DEFAULT_SPEED; 
+    public void execute () {
+        //out of range
+        // TODO :
+//        if(myTarget == null){
+//            return;
+//        }
+        
+        if (Vector.distanceBetween(myPredator.getCenter(), myTarget.getCenter()) < (double) myRadius) {
+            myPredator.setVelocity(Vector.angleBetween(myPredator.getCenter(), myTarget.getCenter()), mySpeed); 
         }
-        return new Vector(Vector.angleBetween(playerLocation, myTarget.getCenter()), speed);
+    }
+
+
+    public void setTarget (Locatable target) {
+        myTarget = target;       
     }
 
 }

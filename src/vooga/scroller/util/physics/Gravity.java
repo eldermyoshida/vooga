@@ -13,7 +13,7 @@ import vooga.scroller.util.Sprite;
 public class Gravity implements Force {
 
     Sprite sprite;
-    private static final double GRAVITY_CONSTANT = -10;
+    private static final double GRAVITY_CONSTANT = -5;
 
     private Vector gravityVector;
     

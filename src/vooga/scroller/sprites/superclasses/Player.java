@@ -3,6 +3,7 @@ package vooga.scroller.sprites.superclasses;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import util.Location;
+import util.Vector;
 import vooga.scroller.level_management.IInputListener;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.util.ISpriteView;
@@ -26,7 +27,7 @@ import vooga.scroller.view.GameView;
  * @author Jay Wang, Ross Cahoon, Scott Valentine
  * 
  */
-public abstract class Player extends GameCharacter implements IInputListener{
+public abstract class Player extends GameCharacter implements IInputListener, Locatable {
 
     private GameView myView;
     private Location myPaintCenter;
@@ -51,7 +52,7 @@ public abstract class Player extends GameCharacter implements IInputListener{
     public void update (double elapsedTime, Dimension bounds) {
         super.update(elapsedTime, bounds);
         forceBundle.apply();
-        myPaintCenter = myScrollingManager.playerPaintLocation(this);
+        myPaintCenter = myScrollingManager.playerPaintLocation(this);       
     }
 
     @Override

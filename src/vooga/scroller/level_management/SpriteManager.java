@@ -12,6 +12,7 @@ import vooga.scroller.util.Direction;
 import vooga.scroller.util.Sprite;
 import vooga.scroller.view.GameView;
 
+
 public class SpriteManager {
 
     private List<Sprite> mySprites;
@@ -19,13 +20,12 @@ public class SpriteManager {
     private List<Sprite> myFrameOfReferenceSprites;
     private Player myPlayer;
     private Dimension frameOfReferenceSize;
-    //private Dimension frameOfActionSize;
+    // private Dimension frameOfActionSize;
     private Level myLevel;
 
-
-    public SpriteManager(Level level){
+    public SpriteManager (Level level) {
         myLevel = level;
-        //frameOfActionSize = calcActionFrameSize(view.getSize());
+        // frameOfActionSize = calcActionFrameSize(view.getSize());
         mySprites = new ArrayList<Sprite>();
         initFrames();
     }
@@ -43,13 +43,13 @@ public class SpriteManager {
         mySprites.add(s);
     }
 
-    public void addPlayer(Player p){
+    public void addPlayer (Player p) {
         myPlayer = p;
         myPlayer.setCenter(myLevel.getStartPoint().x, myLevel.getStartPoint().x);
         for (Sprite sprite : mySprites) {
-            //if (sprite instanceof NonStaticEntity) {
-                //addPlayerToSprite((NonStaticEntity) sprite);
-            //}
+            if (sprite instanceof GameCharacter) {
+                ((GameCharacter) sprite).addTarget(p);
+            }
         }
     }
 
@@ -57,11 +57,11 @@ public class SpriteManager {
         sprite.addTarget(myPlayer);
     }
 
-    public Player getPlayer(){
+    public Player getPlayer () {
         return myPlayer;
     }
 
-    public void updateSprites(double elapsedTime, Dimension bounds, GameView gameView) {
+    public void updateSprites (double elapsedTime, Dimension bounds, GameView gameView) {
 
         if (myPlayer != null) {
             updateFrames(gameView);
@@ -72,8 +72,10 @@ public class SpriteManager {
             }
             for (Sprite s : myFrameOfActionSprites) {
                 s.update(elapsedTime, bounds);
-                if (s.getHealth() <= 0) {
-                    this.removeSprite(s);
+                if (s instanceof GameCharacter) {
+                    if (((GameCharacter) s).getHealth() <= 0) {
+                        this.removeSprite(s);
+                    }
                 }
             }
             if (myPlayer.getHealth() <= 0) {
@@ -90,10 +92,14 @@ public class SpriteManager {
         double leftLevelBounds = 0;
         double upperLevelBounds = 0;
         double lowerLevelBounds = myLevel.getLevelBounds().getHeight();
-        rightLevelBounds = myLevel.getScrollManager().getHardBoundary(Direction.RIGHT, rightLevelBounds);
-        lowerLevelBounds = myLevel.getScrollManager().getHardBoundary(Direction.BOTTOM, lowerLevelBounds);
-        leftLevelBounds = myLevel.getScrollManager().getHardBoundary(Direction.LEFT, leftLevelBounds);
-        upperLevelBounds = myLevel.getScrollManager().getHardBoundary(Direction.TOP, upperLevelBounds);
+        rightLevelBounds =
+                myLevel.getScrollManager().getHardBoundary(Direction.RIGHT, rightLevelBounds);
+        lowerLevelBounds =
+                myLevel.getScrollManager().getHardBoundary(Direction.BOTTOM, lowerLevelBounds);
+        leftLevelBounds =
+                myLevel.getScrollManager().getHardBoundary(Direction.LEFT, leftLevelBounds);
+        upperLevelBounds =
+                myLevel.getScrollManager().getHardBoundary(Direction.TOP, upperLevelBounds);
 
         if (xCoord >= rightLevelBounds) {
             xCoord = rightLevelBounds - (myPlayer.getSize().getWidth() / 2);
@@ -117,19 +123,18 @@ public class SpriteManager {
         myFrameOfActionSprites.clear();
         myFrameOfReferenceSprites.clear();
         frameOfReferenceSize = gameView.getSize();
-        //frameOfActionSize = calcActionFrameSize(view.getSize());
+        // frameOfActionSize = calcActionFrameSize(view.getSize());
         if (mySprites.size() > 0) {
             for (Sprite s : mySprites) {
-                updateFrameOfActionSprites(s,frameOfReferenceSize);
+                updateFrameOfActionSprites(s, frameOfReferenceSize);
             }
         }
     }
 
-
-//    private Dimension calcActionFrameSize (Dimension size) {
-//        Dimension temp = new Dimension((int) size.getWidth() + 200, (int) size.getHeight() + 200);
-//        return temp;
-//    }
+    // private Dimension calcActionFrameSize (Dimension size) {
+    // Dimension temp = new Dimension((int) size.getWidth() + 200, (int) size.getHeight() + 200);
+    // return temp;
+    // }
 
     private void intersectingSprites () {
         Sprite obj1;
@@ -149,15 +154,15 @@ public class SpriteManager {
         mySprites.remove(mySprites.size() - 1);
     }
 
-    private void updateFrameOfActionSprites (Sprite sprite, Dimension frame) {            
+    private void updateFrameOfActionSprites (Sprite sprite, Dimension frame) {
         boolean condition = (myPlayer != null &&
-                myLevel.getLeftBoundary(frame) <= sprite.getX()
-                && myLevel.getRightBoundary(frame) >= sprite.getX()
-                && myLevel.getLowerBoundary(frame) >= sprite.getY()
-                && myLevel.getUpperBoundary(frame) <+ sprite.getY());
-        if(!myFrameOfActionSprites.contains(sprite) && condition) {
+                             myLevel.getLeftBoundary(frame) <= sprite.getX()
+                             && myLevel.getRightBoundary(frame) >= sprite.getX()
+                             && myLevel.getLowerBoundary(frame) >= sprite.getY()
+                             && myLevel.getUpperBoundary(frame) < +sprite.getY());
+        if (!myFrameOfActionSprites.contains(sprite) && condition) {
             myFrameOfActionSprites.add(sprite);
-        }       
+        }
     }
 
     public void paint (Graphics2D pen) {

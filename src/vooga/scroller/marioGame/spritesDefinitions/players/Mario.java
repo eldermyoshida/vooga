@@ -8,13 +8,14 @@ import util.input.InputMethodTarget;
 import vooga.scroller.level_management.IInputListener;
 import vooga.scroller.marioGame.spritesDefinitions.MarioLib;
 import vooga.scroller.scrollingmanager.ScrollingManager;
+import vooga.scroller.sprites.interfaces.IPlayer;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.Sprite;
 import vooga.scroller.view.GameView;
 
 @InputClassTarget
-public class Mario extends Player implements IInputListener{
+public class Mario extends Player implements IPlayer, IInputListener{
 
 
     private static final String CONTROLS_FILE_PATH = "vooga/scroller/marioGame/controls/MarioMapping";
@@ -113,6 +114,12 @@ public class Mario extends Player implements IInputListener{
             addVector(JUMP_VELOCITY);
             myJumpCount +=1;
         }
+    }
+
+    @Override
+    public void incrementScore (int increment) {
+        // TODO Auto-generated method stub
+        
     }
 }
 

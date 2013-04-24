@@ -1,6 +1,7 @@
 package vooga.scroller.marioGame.spritesDefinitions;
 
 import java.awt.Dimension;
+import java.awt.geom.Point2D;
 import util.Location;
 import vooga.scroller.level_editor.library.EncapsulatedSpriteLibrary;
 import vooga.scroller.marioGame.spritesDefinitions.players.Mario;
@@ -9,11 +10,11 @@ import vooga.scroller.sprites.animation.MovingSpriteAnimationFactory;
 import vooga.scroller.sprites.interfaces.ICollectible;
 import vooga.scroller.sprites.interfaces.IEnemy;
 import vooga.scroller.sprites.interfaces.IPlatform;
-import vooga.scroller.sprites.movement.LeftAndRight;
+import vooga.scroller.sprites.movement.BackAndForth;
 import vooga.scroller.sprites.movement.Movement;
 import vooga.scroller.sprites.movement.TrackPlayer;
-import vooga.scroller.sprites.movement.UpAndDown;
 import vooga.scroller.sprites.superclasses.GameCharacter;
+import vooga.scroller.sprites.superclasses.Locatable;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.sprites.superclasses.StaticEntity;
 import vooga.scroller.util.Pixmap;
@@ -64,7 +65,9 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
     public static class Koopa extends GameCharacter implements IEnemy {
         private static final String DEFAULT_IMG = "koopa.png";
         private static final Dimension KOOPA_SIZE = new Dimension(32, 64);
-        private Movement movement = new TrackPlayer(this);
+        private int SPEED = 30;
+        private int RADIUS = 45;
+        private TrackPlayer movement = new TrackPlayer(this, getLocatable(), SPEED, RADIUS);
 
         
         public Koopa () {
@@ -76,19 +79,20 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
         }
 
         public void update (double elapsedTime, Dimension bounds) {
-            this.setVelocity(getMovement(movement)); // want to make this call every
+            movement.execute();
             super.update(elapsedTime, bounds);
         }
 
         @Override
-        public Vector getMovement (Movement movement) {
-            return movement.execute(30, 100, getTargetLocation());
-        }
-
-        @Override
         public void handleDeath () {
-            // TODO Auto-generated method stub
-            
+            // TODO Auto-generated method stub   
+        }
+        
+        
+        // TODO :This is hacky
+        @Override
+        public void addTarget(Locatable target){
+            movement.setTarget(target);
         }
 
     }
@@ -96,7 +100,10 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
     public static class Turtle extends GameCharacter implements IEnemy {
 
         private static final String DEFAULT_IMG = "turtle.gif";
-        private Movement movement = new TrackPlayer(this);
+        private int SPEED = 30;
+        private int RADIUS = 45;
+        private Movement movement = new TrackPlayer(this, getLocatable(), SPEED, RADIUS);
+
 
         public Turtle () {
             this(DEFAULT_LOC);
@@ -107,22 +114,14 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
         }
 
         public void update (double elapsedTime, Dimension bounds) {
-            this.setVelocity(getMovement(movement)); 
+            movement.execute();
             super.update(elapsedTime, bounds);
         }
 
         @Override
-        public Vector getMovement (Movement movement) {
-            return movement.execute(450, 1000000, getPlayerLocation());
-        }
-
-        @Override
         public void handleDeath () {
-            // TODO Auto-generated method stub
-            
+            // TODO Auto-generated method stub   
         }
-
-       
     }
 
     public static class Platform extends StaticEntity implements IPlatform {
@@ -167,7 +166,11 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
         private static final int DEFAULT_SPEED = 60;
         private static final Vector DEFAULT_VELOCITY = new Vector(Sprite.DOWN_DIRECTION,
                                                                   DEFAULT_SPEED);
-        private Movement movement = new UpAndDown(this);
+        private int SPEED = 30;
+        private Point2D START = new Point2D.Double(20.0, 40.0);
+        private Point2D END = new Point2D.Double(200.0, 40.0);
+
+        private Movement movement = new BackAndForth(this, START, END, SPEED);
 
 
         public MovingPlatformOne () {
@@ -176,18 +179,13 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
 
         public MovingPlatformOne (Location center) {
             super(makePixmap(DEFAULT_IMG), center, new Dimension(96, 32));
-            this.changeVelocity(DEFAULT_VELOCITY);
         }
 
         public void update (double elapsedTime, Dimension bounds) {
-            changeVelocity(getMovement(movement));
+            movement.execute();
             super.update(elapsedTime, bounds);
         }
 
-        @Override
-        public Vector getMovement (Movement movement) {
-            return movement.execute(100, 250, DEFAULT_SPEED);
-        }
     }
 
     public static class MovingPlatformTwo extends StaticEntity implements IPlatform {
@@ -196,8 +194,11 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
         private static final int DEFAULT_SPEED = 60;
         private static final Vector DEFAULT_VELOCITY = new Vector(Sprite.RIGHT_DIRECTION,
                                                                   DEFAULT_SPEED);
-        private Movement movement = new LeftAndRight(this);
+        private int SPEED = 30;
+        private Point2D START = new Point2D.Double(40.0, 40.0);
+        private Point2D END = new Point2D.Double(40.0, 200.0);
 
+        private Movement movement = new BackAndForth(this, START, END, SPEED);
 
         public MovingPlatformTwo () {
             this(DEFAULT_LOC);
@@ -205,17 +206,11 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
 
         public MovingPlatformTwo (Location center) {
             super(makePixmap(DEFAULT_IMG), center, new Dimension(96, 32));
-            this.setVelocity(DEFAULT_VELOCITY);
         }
 
         public void update (double elapsedTime, Dimension bounds) {
-            this.setVelocity(getMovement(movement));
+            movement.execute();
             super.update(elapsedTime, bounds);
-        }
-
-        @Override
-        public Vector getMovement (Movement movement) {
-            return movement.execute(500, 1000, DEFAULT_SPEED);
         }
 
     }

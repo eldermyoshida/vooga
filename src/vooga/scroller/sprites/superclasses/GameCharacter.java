@@ -1,7 +1,6 @@
 package vooga.scroller.sprites.superclasses;
 
 import java.awt.Dimension;
-import java.awt.geom.Point2D;
 import util.Location;
 import util.Vector;
 import vooga.scroller.util.ISpriteView;
@@ -31,7 +30,7 @@ public abstract class GameCharacter extends Sprite {
     
     private int myHealth;
     private int myDamage;
-    private Sprite myTarget;
+    private Locatable myTarget;
     
     /**
      * Builds a new GameCharacter that interacts with other game characters in the game.
@@ -49,7 +48,8 @@ public abstract class GameCharacter extends Sprite {
     }
 
     public void update (double elapsedTime, Dimension bounds) {
-        if(myHealth < 0){
+        super.update(elapsedTime, bounds);
+        if(myHealth <= 0){
             handleDeath();
         }
     }
@@ -94,7 +94,7 @@ public abstract class GameCharacter extends Sprite {
      * Gives a target sprite for this to target.
      * @param targetSprite is the sprite that this will target.
      */
-    public void addTarget(Sprite targetSprite) {
+    public void addTarget(Locatable targetSprite) {
         myTarget = targetSprite;
     }
     
@@ -102,11 +102,8 @@ public abstract class GameCharacter extends Sprite {
      * This defines where this sprite is targeting, if it is at all targeting.
      * @return
      */
-    public Point2D getTargetLocation() {
-        if(myTarget != null){
-            return myTarget.getCenter();
-        }
-        return null;
+    public Locatable getLocatable() {
+        return myTarget;
     }
     
     /**
