@@ -40,7 +40,7 @@ public class ScoreController extends MenuController {
                 GameInfo gameinfo, String filePath) {
         super(name, frame, manager, gameinfo, filePath);
         ScoreInfo scoreInfo = new ScoreInfo(filePath);
-        scoreInfo.setWinners(gameinfo.getWinners());
+        scoreInfo.setWinners(getGameInfo().getWinners());
     }
     
     public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo,
@@ -58,12 +58,6 @@ public class ScoreController extends MenuController {
     	getGameInfo().getCharacters().clear();
     	getManager().notifyEndCondition(getMode().getMenusNext(choice));
         }
-    
-    @InputMethodTarget(name = "continue")
-    public void mouseclick(PositionObject pos)  {
-        super.getMode().addObject(new MouseClickObject(pos.getPoint2D(), getHardFilePath()));
-    }
-    
 
     public void removeListener(){
     	super.removeListener();

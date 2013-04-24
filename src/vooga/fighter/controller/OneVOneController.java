@@ -28,8 +28,12 @@ import vooga.fighter.view.FourPlayerMatchGameLayout;
 @InputClassTarget
 public class OneVOneController extends LevelController {
     private static final String INPUT_PATHWAY = "config.leveldefault";
+    private static final String SCORE_PATHWAY = "config.score";
+    private static final String SCORE = "ScoreScreen";
     private String myInputPathway;
+    private String myScorePathway;
     private List<Force> myForces;
+    private ResourceBundle myResources;
     
     public OneVOneController () {
         super();
@@ -39,6 +43,8 @@ public class OneVOneController extends LevelController {
     		GameInfo gameinfo, String filepath) {
     	super(name, frame, manager, gameinfo, filepath);
     	myInputPathway = getHardFilePath() + INPUT_PATHWAY;
+    	myScorePathway = getHardFilePath() + SCORE_PATHWAY;
+    	myResources = ResourceBundle.getBundle(myScorePathway);
     	ForceFactory forcefactory = new ForceFactory(getHardFilePath());
     	myForces = forcefactory.getForces();
     	getMode().setForces(myForces);
@@ -66,7 +72,7 @@ public class OneVOneController extends LevelController {
 
     public void notifyEndCondition (String endCondition) {
     	removeListener();
-    	getManager().notifyEndCondition("ScoreScreen");
+    	getManager().notifyEndCondition(myResources.getString(SCORE));
     }
     
     @InputMethodTarget(name = "player1_jump")

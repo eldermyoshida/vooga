@@ -36,7 +36,7 @@ import java.util.ResourceBundle;
  *
  */
 
-public class GameManager extends Game{
+public class GameManagerRunAlone{
 public static final Dimension SIZE = new Dimension(800, 600);
     public static final String TITLE = "Fighter!";
     public static final int THREE_TOP_HIGH_SCORES = 3;
@@ -45,15 +45,14 @@ public static final Dimension SIZE = new Dimension(800, 600);
     private GameInfo myGameInfo;
     private String myHardFilePathway;
 
-    public GameManager(ArcadeInteraction arcade) {
-    	super(arcade);
+    public GameManagerRunAlone() {
     	setFilePathway();
-        setCanvas();
-        setInfo();
+        myCanvas = new Canvas(SIZE); 
+        myGameInfo = new GameInfo(new MapLoader(myHardFilePathway).getMapNames());
         ControllerFactory factory = makeFactory(myCanvas,myHardFilePathway);
         ControlProgressionManager progressionmanager = makeProgression(factory.getMap());
         myControllerManager = makeManager(myCanvas, myGameInfo, factory, progressionmanager,myHardFilePathway);
-        JFrame frame = makeFrame();
+        JFrame frame = new JFrame(TITLE);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().add(myCanvas, BorderLayout.CENTER);
         frame.pack();
@@ -85,28 +84,6 @@ public static final Dimension SIZE = new Dimension(800, 600);
 	 protected void setFilePathway(){
 		 myHardFilePathway = "vooga.fighter.";
 	 }
-	 
-	 protected GameInfo getGameInfo(){
-		 return myGameInfo;
-	 }
-
-	@Override
-	public GameData generateNewGameProfile() {
-		return null;
-	}
-	
-	protected void setInfo(){
-		myGameInfo = new GameInfo(new MapLoader(myHardFilePathway).getMapNames());
-	}
-	
-	protected void setCanvas(){
-		myCanvas = new Canvas(SIZE);
-	}
-	
-	protected JFrame makeFrame(){
-		return new JFrame(TITLE);
-	}
-	 
 	 
 
 
