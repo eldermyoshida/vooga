@@ -65,7 +65,7 @@ public class Controller implements ArcadeInteraction {
 
     // Parameters
     private String myLanguage;
-    private String currentUser;
+    private String myCurrentUser;
     private UserGameData myCurrentUserGameData;
     private GameData myCurrentGameData;
 
@@ -91,7 +91,7 @@ public class Controller implements ArcadeInteraction {
     public void authenticate (String username, String password) throws LoginErrorException {
         if (loginCreteriaNotSatisfied(username, password)) { throw new LoginErrorException(); }
         myLoginView.dispose();
-        currentUser = username;
+        myCurrentUser = username;
         organizeSnapshots();
         myView = new MainView(this, myResources);
     }
@@ -211,6 +211,8 @@ public class Controller implements ArcadeInteraction {
         addNewGameInfoToList(name);
     }
 
+    
+    
     /**
      * First creates the appropriate PaymentManager for the transactionType if
      * the transactionType is Duke, then the DukePaymentManager is created.
@@ -243,6 +245,9 @@ public class Controller implements ArcadeInteraction {
         // TODO: write code here for moving game from Store to GameCenter
     }
 
+    
+    
+    
     /**
      * Sets up a new twitter request to get access to a user's account.
      * Returns a URL that a user can access to authorize.
@@ -255,6 +260,8 @@ public class Controller implements ArcadeInteraction {
         return myTwitter.newRequest();
     }
 
+    
+    
     /**
      * After the user authorizes the twitter request, s/he will have a pin.
      * This gets access using the provided pin, and sends a tweet containing
@@ -268,13 +275,17 @@ public class Controller implements ArcadeInteraction {
         myTwitter.sendTweet(pin, text);
     }
 
+    
+    
     /**
      * Rate a specific game, store in user-game database
      */
     public void commentAndRateGame (String comment, double rating, String gameName) {
-        myDb.insertCommentAndRating(currentUser, gameName, comment, rating);
+        myDb.insertCommentAndRating(myCurrentUser, gameName, comment, rating);
     }
 
+    
+    
     public void playGame (GameInfo gameinfo) {
         myCurrentGame = gameinfo.getGame(this);
         myCurrentGameInfo = gameinfo;
@@ -292,6 +303,9 @@ public class Controller implements ArcadeInteraction {
         return myGameInfos.values();
     }
 
+    
+    
+    
     /**
      * GameDetailPanel must call this method to get game-specific info.
      * 
@@ -306,6 +320,7 @@ public class Controller implements ArcadeInteraction {
      * UserProfile must call this method to retrieve User-specific information
      */
 
+    
 
     /**
      * TODO: Must add user-game specific detail
@@ -313,9 +328,9 @@ public class Controller implements ArcadeInteraction {
      * @param user, game (whatever that identifies the user and the game)
      * @return
      */
-    public UserGameData getUserGameData (String user, String game) {
+    public UserGameData getUserGameData () {
         if (myCurrentUserGameData == null ){
-            myCurrentUserGameData =  myCurrentGameInfo.getUserGameData(myCurrentGame , user);
+            myCurrentUserGameData =  myCurrentGameInfo.getUserGameData(myCurrentGame , myCurrentUser);
         }
         return myCurrentUserGameData;
     }
@@ -331,7 +346,7 @@ public class Controller implements ArcadeInteraction {
     @Override
     public void killGame () {
         int score = getCurrentUserGameData().getLastScore();
-        myDb.addNewHighScore(currentUser, myCurrentGameInfo.getName(),  score);
+        myDb.addNewHighScore(myCurrentUser, myCurrentGameInfo.getName(),  score);
         myView.showEndGameView(score);
         myCurrentGame = null;
         myCurrentGameInfo = null;
@@ -339,7 +354,7 @@ public class Controller implements ArcadeInteraction {
 
     
     private UserGameData getCurrentUserGameData(){
-        return myCurrentGameInfo.getUserGameData(myCurrentGame, currentUser);
+        return myCurrentGameInfo.getUserGameData(myCurrentGame, myCurrentUser);
     }
     
 
@@ -348,21 +363,13 @@ public class Controller implements ArcadeInteraction {
         return myCurrentGameInfo.getName();
     }
 
+    
     @Override
-    public GameData getGameData (String gameName) {
-      
+    public GameData getGameData () {
         if (myCurrentGameData == null ){
             myCurrentGameData =  myCurrentGameInfo.getGameData(myCurrentGame );
         }
         return myCurrentGameData;
-        
-        
-        
-        
     }
-
-
-
-
 }
 

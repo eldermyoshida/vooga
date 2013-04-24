@@ -22,9 +22,9 @@ public interface ArcadeInteraction {
      * Get data associated with a specific game and a user
      * @return UserGameData
      */
-    public UserGameData getUserGameData(String user, String game);
+    public UserGameData getUserGameData();
     
-    public GameData getGameData(String gameName);
+    public GameData getGameData();
 
     String getCurrentGame ();
 
