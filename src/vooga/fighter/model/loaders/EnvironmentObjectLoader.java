@@ -26,31 +26,31 @@ public class EnvironmentObjectLoader extends ObjectLoader {
 	 * Constructor used when trying to read the environment objects data directly such as wanting to retrieve
 	 * all environment objects.
 	 */
-	public EnvironmentObjectLoader () {
-		super(ModelConstants.ENVIRONMENTLOADER_PATH_TAG);
+	public EnvironmentObjectLoader (String pathHierarchy) {
+		super(ModelConstants.ENVIRONMENTLOADER_PATH_TAG, pathHierarchy);
 	}
 	
 	/**
 	 * Constructs the environment object loader with the id to be loaded and the environment object which the
 	 * loader will modify.
 	 */
-	public EnvironmentObjectLoader (String enviroObjectName, EnvironmentObject enviroObject) {
-		super(ModelConstants.ENVIRONMENTLOADER_PATH_TAG);
+	public EnvironmentObjectLoader (String enviroObjectName, EnvironmentObject enviroObject, String pathHierarchy) {
+		super(ModelConstants.ENVIRONMENTLOADER_PATH_TAG, pathHierarchy);
 		myEnvironmentObject = enviroObject;
-		load(enviroObjectName); 
+		load(enviroObjectName, pathHierarchy); 
 	}
 	
 	/**
 	 * Retrieves information of all environment objects; used for level editor.
 	 */
-	public List<EnvironmentObject> getEnvironmentObjects() {
+	public List<EnvironmentObject> getEnvironmentObjects(String pathHierarchy) {
 		Document doc = getDocument();
 		List<EnvironmentObject> allEnviroObjects = new ArrayList<EnvironmentObject>();
 		NodeList enviroObjectNodes = doc.getElementsByTagName(getResourceBundle().getString("EnvironmentObject"));
 		for (int i = 0; i < enviroObjectNodes.getLength(); i++) {
 			Node enviroObjectNode = enviroObjectNodes.item(i);
 			String name = getAttributeValue(enviroObjectNode, getResourceBundle().getString("EnvironmentObjectName"));
-			EnvironmentObject newEnvironmentObject= new EnvironmentObject(name);
+			EnvironmentObject newEnvironmentObject= new EnvironmentObject(name, pathHierarchy);
 			allEnviroObjects.add(newEnvironmentObject);
 		}
 		return allEnviroObjects;
@@ -59,7 +59,7 @@ public class EnvironmentObjectLoader extends ObjectLoader {
 	/**
 	 * Loads the environment object associated with the id
 	 */
-	protected void load(String enviroObjectName) {
+	protected void load(String enviroObjectName, String pathHierarchy) {
 		Document doc = getDocument();
 		NodeList enviroObjectNodes = doc.getElementsByTagName(getResourceBundle().getString("EnvironmentObject"));
 		for (int i = 0; i < enviroObjectNodes.getLength(); i++) {

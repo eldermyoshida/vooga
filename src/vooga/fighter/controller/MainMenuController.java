@@ -38,11 +38,11 @@ public class MainMenuController extends MenuController {
      */
     public MainMenuController(String name, Canvas frame, ControllerDelegate manager, 
                               GameInfo gameinfo) {
+
         super(name, frame, manager, gameinfo);
         getGameInfo().reset();
         setInput(manager.getInput());
         getInput().addListenerTo(this);
-
     }
 
     /**
