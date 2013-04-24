@@ -26,10 +26,8 @@ import arcade.games.GameInfo;
 public class SnapShot extends JPanel {
 
     public static final int THUMBNAIL_SIZE = 190;
-    private static final String IMAGES_NAME = "Stars.gif";
     private GameInfo myGameInfo;
     private ResourceBundle myResources;
-    private ImageIcon[] myRatingIcons;
     private Controller myController;
 
     /**
@@ -45,7 +43,6 @@ public class SnapShot extends JPanel {
         myController = controller;
         myGameInfo = info;
         myResources = resources;
-        myRatingIcons = initializeRatingIcons();
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -54,19 +51,6 @@ public class SnapShot extends JPanel {
         add(createRating());
 
         addMouseListener(createListener());
-    }
-
-    /**
-     * Initializes ImageIcons for each picture of the stars representing the rating
-     * 
-     * @return
-     */
-    private ImageIcon[] initializeRatingIcons () {
-        ImageIcon[] icons = new ImageIcon[6];
-        for (int i = 0; i <= 5; i++) {
-            icons[i] = new ImageIcon(MainView.IMAGES_DIRECTORY + i + IMAGES_NAME);
-        }
-        return icons;
     }
 
     /**
@@ -99,7 +83,7 @@ public class SnapShot extends JPanel {
      */
     private Component createRating () {
         int rating = (int) myGameInfo.getRating();
-        JLabel label = new JLabel(myRatingIcons[rating]);
+        JLabel label = new RatingIcons().makeLabel(rating);
         label.setHorizontalAlignment(SwingConstants.CENTER);
         return label;
     }
