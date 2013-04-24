@@ -3,11 +3,16 @@ package vooga.rts.leveleditor.components;
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import vooga.rts.gamedesign.sprite.map.Tile;
 import vooga.rts.map.TileMap;
 import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
+
+/**
+ * this class contains a matrix of EditableTile, which is a part of the whole map
+ * @author Richard Yang
+ *
+ */
 
 public class EditableTileMap extends TileMap {
 

@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import vooga.rts.util.Location;
 /**
- * this class contais all players in this game
+ * this class contains all players in this game
  * @author Richard Yang
  *
  */
@@ -18,7 +18,7 @@ public class PlayerSet {
     
     /**
      * constructor for player set
-     * @param playerLimit the upperlimit of player
+     * @param playerLimit the upper limit of player
      * @param teamLimit the upper limit of team
      */
     public PlayerSet(int playerLimit, int teamLimit) {

@@ -13,7 +13,6 @@ import vooga.rts.util.Pixmap;
 
 public class EditableResource extends Resource{
     
-    private String myName;
     private int myID;
     private String myImageName;
     private int myAmount;   
@@ -45,22 +44,50 @@ public class EditableResource extends Resource{
        this(image,new Location3D(x,y,z),id,name,imageName,amount);
     }
     
+    /**
+     * constructor
+     * @param image image of the resource
+     * @param x x position
+     * @param y y position
+     * @param layerCount layer number
+     * @param layerHeight height of the layer
+     * @param id id of the resource
+     * @param name name of the resource
+     * @param imageName image name of the resource
+      * @param amount amount of the resource
+     */
     public EditableResource(Pixmap image, int x , int y , int layerCount , int layerHeight, int id, String name , String imageName, int amount) {
         this(image,x,y,layerCount*layerHeight,id,name,imageName,amount);
      }
+    /**
+     * return the id 
+     * @return int
+     */
 
     public int getMyID () {
         return myID;
     }   
-
+   
+    /**
+     * return the image name
+     * @return String
+     */
     public String getMyImageName () {
         return myImageName;
     }
 
+    /**
+     * get the amount of resource
+     * @return int 
+     */
     public int getMyAmount () {
         return myAmount;
     }
 
+    /**
+     * set the amount of resource
+     * @param amount resource amount
+     */
     public void setAmount(int amount) {
         myAmount = amount;
         
@@ -69,10 +96,4 @@ public class EditableResource extends Resource{
     public Image getMyImage() {
         return super.getImage().getMyImage();
     }
-
-    public void setType(String type) {
-        myName = type;
-        
-    }
-    
 }

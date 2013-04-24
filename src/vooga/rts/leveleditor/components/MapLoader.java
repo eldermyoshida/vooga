@@ -17,6 +17,12 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import vooga.rts.util.Pixmap;
 
+
+/**
+ * the loader that transform a xml file to a real map
+ * @author Richard Yang
+ *
+ */
 public class MapLoader {
 
     private EditableMap myMap;
@@ -39,7 +45,10 @@ public class MapLoader {
     private DocumentBuilder myBuilder;
     private Document myDocument;
 
-
+    /**
+     * constructor 
+     * @throws ParserConfigurationException
+     */
     public MapLoader() throws ParserConfigurationException {
         
         
@@ -59,14 +68,16 @@ public class MapLoader {
         
         myTerrainWalkAbility = new HashMap<Integer, String>();
         myResourceAmount = new HashMap<Integer, String>();
-        
-        //myMap = map;       
-        
- 
+      
     }
 
-
-    public void loadMapFile(File resourceFile) throws SAXException, IOException {
+    
+    /**
+     * 
+     * @param resourceFile source file
+     * @throws Exception exception
+     */
+    public void loadMapFile(File resourceFile) throws Exception {
         
         System.out.println("start loading");
         
