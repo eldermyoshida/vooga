@@ -3,6 +3,7 @@ package vooga.rts.leveleditor.components;
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import vooga.rts.gamedesign.sprite.map.Tile;
 import vooga.rts.map.TileMap;
 import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
@@ -64,6 +65,9 @@ public class EditableTileMap extends TileMap {
         EditableTile newTile = new EditableTile(image, position, getMyTileSize(),id,name,imageName,false);
         setTile(x, y, newTile);
     }
+    
+    
+    
     
     public void removeTile(int i, int j) throws IOException {
         this.setTile(i, j, new EditableTile(i, j, getMyTileSize()));

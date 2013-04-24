@@ -59,7 +59,6 @@ public class TerrainButton extends JToggleButton {
         if(!isInitialized) {
             showCustmizationDailog();
         }
-        myOwner.getCanvas().remove(false);
         myOwner.setCurrentSelectTerrain(myTerrain);
         myOwner.getCanvas().setMode(MapPanel.TERRAINMODE);
     }

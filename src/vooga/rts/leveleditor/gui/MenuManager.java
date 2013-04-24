@@ -75,7 +75,6 @@ public class MenuManager extends JMenuBar {
             @Override
             public void actionPerformed (ActionEvent e) {
                myCanvas.setMode(MapPanel.PLAYERMODE);
-               myCanvas.getMapPanel().setRemoveFlag(false);
             }
         });
 
@@ -83,7 +82,6 @@ public class MenuManager extends JMenuBar {
             @Override
             public void actionPerformed (ActionEvent e) {
                 myCanvas.setMode(MapPanel.PLAYERMODE);
-                myCanvas.getMapPanel().setRemoveFlag(true);
             }
         });
     }

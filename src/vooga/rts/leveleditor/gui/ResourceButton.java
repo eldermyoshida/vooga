@@ -63,7 +63,6 @@ public class ResourceButton extends JToggleButton {
         if(!isInitialized) {
             showCustmizationDailog();
         }
-        myOwner.getCanvas().remove(false);
         myOwner.setCurrentSelectResource(myResource);
         myOwner.getCanvas().setMode(MapPanel.RESOURCEMODE);
     }

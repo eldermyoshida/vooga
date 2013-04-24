@@ -57,7 +57,6 @@ public class TileButton extends JToggleButton {
         if(!isInitialized) {
             showCustmizationDailog();
             }
-        myOwner.getCanvas().remove(false);
         myOwner.setCurrentSelectTile(myTile);
         myOwner.getCanvas().setMode(MapPanel.TILEMODE);
     }
