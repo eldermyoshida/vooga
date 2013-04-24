@@ -117,15 +117,15 @@ public class Canvas extends JComponent {
 			pen.setTransform(saveAT);
 		}
 
-		else if (myViewDataSource.getImageEffects(index).size() > 1
-				&& myViewDataSource.getImageEffects(index).get(1) == -1) {
-
-			myPaletteSwap.setImageToGreyScale(myViewDataSource
-					.getPaintable(index));
-			myViewDataSource.getPaintable(index).paint(pen,
-					myViewDataSource.getLocation(index),
-					myViewDataSource.getSize(index));
-		}
+		//else if (myViewDataSource.getImageEffects(index).size() > 1
+		//		&& myViewDataSource.getImageEffects(index).get(1) == -1) {
+		//
+		//	myPaletteSwap.setImageToGreyScale(myViewDataSource
+		//			.getPaintable(index));
+		//	myViewDataSource.getPaintable(index).paint(pen,
+		//			myViewDataSource.getLocation(index),
+		//			myViewDataSource.getSize(index));
+		//}
 	}
 
 	/**
