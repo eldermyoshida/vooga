@@ -221,4 +221,10 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
         myLobbyInfo = lobbyInfo;
         myLobbyView.update(myUserControlledPlayers, myLobbyInfo.getPlayers());
     }
+
+    @Override
+    public void alertClient (String title, String message) {
+        myContainerPanel.showMessageDialog(title, message);
+        
+    }
 }
