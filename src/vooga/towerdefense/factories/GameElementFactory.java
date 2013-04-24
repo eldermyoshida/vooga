@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vooga.towerdefense.action.Action;
+import vooga.towerdefense.action.actionlist.MoveToTarget;
 import vooga.towerdefense.attributes.AttributeConstants;
 import vooga.towerdefense.factories.actionfactories.ActionFactory;
 import vooga.towerdefense.gameElements.GameElement;
@@ -116,6 +117,20 @@ public class GameElementFactory {
                                               myDef.getType());
         element.addActions(createActions(element));
         return element;
+    }
+    
+    public GameElement createElement (Location spawn, Location Target,
+        Location targetLocation) {
+            GameElement projectile = new GameElement(myDef.myImage,
+                            spawn, myDef.getSize(), createAttributeFactory().makeAttributeManager(), getName());
+            projectile.addActions(createActions(projectile));
+
+            List<Action> actions = new ArrayList<Action>();
+            actions.add(new MoveToTarget(projectile.getCenter(),
+                            targetLocation, projectile.getAttributeManager().getAttribute(
+                                            AttributeConstants.MOVE_SPEED)));
+            projectile.addActions(actions);
+            return projectile;
     }
 
 }
