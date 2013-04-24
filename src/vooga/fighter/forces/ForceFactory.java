@@ -14,17 +14,19 @@ import java.util.ResourceBundle;
 public class ForceFactory {
     
     private static final String delimiter= ",";
-    private static final String FORCE_PATHWAY = "vooga.fighter.config.forces";
-    private static final String PACKAGE_NAME = "vooga.fighter.forces.";
+    private String myForcePathway = "config.forces";
+    private String myForcePackage = "forces.";
     private List<Force> myForces;
     private ResourceBundle myForceResources;
     
     /**
      * Constructs force factory, sets resource bundle
      */
-    public ForceFactory() {
+    public ForceFactory(String name) {
+        myForcePathway = name + myForcePathway;
+        myForcePackage = name + myForcePackage;
         myForces = new ArrayList<Force>();
-        myForceResources = ResourceBundle.getBundle(FORCE_PATHWAY);
+        myForceResources = ResourceBundle.getBundle(myForcePathway);
         initializeForces();
     }
     
@@ -56,7 +58,7 @@ public class ForceFactory {
         Force force = null;
         try {
             Class<?> forceClass = null;
-            String filePath = PACKAGE_NAME + name;
+            String filePath = myForcePackage + name;
             forceClass = Class.forName(filePath);
             objectForce = forceClass.newInstance();
             force = (Force) objectForce;
