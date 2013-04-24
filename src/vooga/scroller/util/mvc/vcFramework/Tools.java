@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.swing.JMenuBar;
 import javax.swing.JToggleButton;
 import vooga.scroller.level_editor.view.TabbedToolsView;
+import vooga.scroller.util.Renderable;
 import vooga.scroller.util.mvc.IView;
 
 /**
@@ -16,7 +17,7 @@ import vooga.scroller.util.mvc.IView;
  * @author Dagbedji Fagnisse
  *
  */
-public abstract class Tools<D extends IDomainDescriptor> {
+public abstract class Tools<D extends IDomainDescriptor> implements Renderable<D> {
     
 //    public abstract Object getActionLibrary();
     

@@ -26,11 +26,12 @@ import vooga.scroller.scrollingmanager.OmniScrollingManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.PlatformerConstants;
+import vooga.scroller.util.mvc.Gaming;
 import vooga.scroller.util.mvc.IView;
 import vooga.scroller.view.GameView;
 
 @InputClassTarget
-public class Level implements Renderable<GameView>, IGameComponent{
+public class Level implements Renderable<Gaming>, IGameComponent{
 
     private Dimension mySize;
     private Dimension frameOfReferenceSize;
@@ -243,13 +244,13 @@ public class Level implements Renderable<GameView>, IGameComponent{
     }
 
     @Override //TODO - incomplete
-    public Renderer<GameView> initializeRenderer (IView<?> parent) {
+    public Renderer<Gaming> initializeRenderer (IView<?> parent) {
      // view of user's content
         ScrollingManager sm = new OmniScrollingManager();
         GameView display = new GameView(PlatformerConstants.DEFAULT_WINDOW_SIZE, sm);
         Model m = new Model(display, sm, this);
         display.setModel(m);
-        return (Renderer<GameView>) display;//TODO - bad
+        return (Renderer<Gaming>) display;//TODO - bad
     }
 
     @Override

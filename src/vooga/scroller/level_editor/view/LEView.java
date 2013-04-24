@@ -2,6 +2,7 @@
 package vooga.scroller.level_editor.view;
 
 import vooga.scroller.level_editor.controllerSuite.LEController;
+import vooga.scroller.level_editor.controllerSuite.LEGrid;
 import vooga.scroller.level_editor.controllerSuite.LETools;
 import vooga.scroller.util.Renderable;
 import vooga.scroller.util.mvc.vcFramework.Window;
@@ -55,7 +56,7 @@ public class LEView extends Window<LEWorkspaceView, LevelEditing, LEGridView, LE
      */
     private void simulate (LEWorkspaceView tab) {
         if (tab.isValidForSimulation()) {
-            ((LEGridView) tab.getRenderable()).simulate();
+            ((LEGrid) tab.getRenderable()).simulate();
         }
         else 
             showMessageDialog(SIMULATION_ERROR_MESSAGE);

@@ -21,6 +21,7 @@ import vooga.scroller.sprites.interfaces.ICollectible;
 import vooga.scroller.sprites.interfaces.IEnemy;
 import vooga.scroller.sprites.interfaces.IPlatform;
 import vooga.scroller.util.Renderable;
+import vooga.scroller.util.Renderer;
 import vooga.scroller.util.Sprite;
 import vooga.scroller.util.mvc.IView;
 import vooga.scroller.util.mvc.vcFramework.Tools;
@@ -130,10 +131,6 @@ public class LETools extends Tools<LevelEditing> {
         }
     }
 
-    @Override
-    public JMenuBar getMenu (Window w) {
-        return new LEMenuBar((LEView) w);
-    }
 //
 //    @Override
 //    public TabbedToolsView initializeRenderer (IView parent) {
@@ -158,6 +155,29 @@ public class LETools extends Tools<LevelEditing> {
     @Override
     public String getEditableIndependentsTitle () {
         return "Other";
+    }
+
+    @Override
+    public Object getState () {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Renderer<LevelEditing> initializeRenderer (IView<?> parent) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void paint (Graphics2D pen) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public JMenuBar getMenu (Window<?, LevelEditing, ?, ?> w) {
+        return new LEMenuBar((LEView) w);
     }
 
 }
