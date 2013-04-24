@@ -23,7 +23,13 @@ import vooga.scroller.level_editor.controllerSuite.LEController;
  */
 
 import vooga.scroller.util.Editable;
-
+/**
+ * LevelEditor is the Model side of the Level Editor as a whole. It processes
+ * commands received by the controller on an Editable Grid also handed from
+ * the controller
+ * 
+ * @author Danny Goodman, Deo Fagnisse
+ */
 public class LevelEditor implements ILevelEditor {
 
     private static final String SPACE = " ";

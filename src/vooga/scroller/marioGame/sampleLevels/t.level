@@ -5,11 +5,11 @@
                               
                               
                               
+                a             
                               
                               
-                              
-           a     b            
-               a              
+               b              
+       b                      
                               
                               
                               
@@ -32,8 +32,8 @@
 /lib
 vooga.scroller.marioGame.spritesDefinitions.MarioLib
 /key
-b=StarPortal
-a=LevelTwoBlockOne
+a=StarPortal
+b=LevelTwoBlockTwo
 /settings
-StartPoint=400 272
+StartPoint=304 176
 Background=/vooga/scroller/images/backgrounds/background.png

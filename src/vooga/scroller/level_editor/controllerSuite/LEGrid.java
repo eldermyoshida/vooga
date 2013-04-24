@@ -224,8 +224,11 @@ public class LEGrid implements Editable, Renderable<LEGridView>, Scrollable {
     }
 
     public boolean isValidForSimulation () {
-        // TODO Check for valid starting and exit points.
         return (myStartPoint != null && myDoor != null);
+    }
+
+    public boolean isValidForSave () {
+        return (myDoor != null && myBackground != null);
     }
 
     @Override
