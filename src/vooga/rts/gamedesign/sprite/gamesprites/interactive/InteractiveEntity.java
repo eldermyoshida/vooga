@@ -468,7 +468,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
             List<InteractiveEntity> enemies =
                     GameState.getMap().<InteractiveEntity> getInArea(getWorldLocation(),
                                                                      weapon.getRange(), this,
-                                                                     getPlayerID(), false);
+                                                                     GameState.getPlayers().getTeamID(getPlayerID()), false);
             if (!enemies.isEmpty()) {
                 enemies.get(0).getAttacked(this);
             }
