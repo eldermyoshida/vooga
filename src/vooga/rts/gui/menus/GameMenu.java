@@ -155,6 +155,7 @@ public class GameMenu extends Menu {
             InformationCommand i = (InformationCommand) arg;
             setChanged();
             notifyObservers(i);
+            
         }
         
         if (o instanceof Manager) {

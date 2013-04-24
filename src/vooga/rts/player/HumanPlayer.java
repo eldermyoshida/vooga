@@ -41,7 +41,6 @@ public class HumanPlayer extends Player implements Observer {
 
     private GameMenu myGameMenu;
 
-
     public HumanPlayer (int id) {
         super(id);
 
@@ -58,7 +57,6 @@ public class HumanPlayer extends Player implements Observer {
         // method which adds all the inputs from controllables to them.
         // Maybe look for design pattern that can implement filtering the inputs
     }
-
 
     @Override
     public void sendCommand (Command command) {
@@ -130,6 +128,5 @@ public class HumanPlayer extends Player implements Observer {
         }
 
     }
-
 
 }

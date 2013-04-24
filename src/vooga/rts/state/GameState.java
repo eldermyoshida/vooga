@@ -145,8 +145,10 @@ public class GameState extends SubState implements Controller {
         addPlayer(result, teamID);
     }
 
+    //For testing
     private DelayedTask test;
     private DelayedTask occupyPukingTest;
+    private DelayedTask workerTest;
 
     public void setupGame () {
         addPlayer(1);
@@ -160,6 +162,12 @@ public class GameState extends SubState implements Controller {
                                 "I am a worker. I am sent down from Denethor, son of Ecthelion ",
                                 null, "buttons/firebat.png");
         worker.setInfo(i1);
+        worker.setProductionStrategy(new CanProduce());
+        ((CanProduce) worker.getProductionStrategy()).addProducable(new Soldier());
+        ((CanProduce) worker.getProductionStrategy()).addProducable(worker);
+        ((CanProduce) worker.getProductionStrategy()).createProductionActions(worker);
+        ((CanProduce) worker.getProductionStrategy()).setRallyPoint(new Location3D(600, 800, 0));
+        
         myHumanPlayer.add(worker);
         Unit a = new Soldier();
         Projectile proj =
@@ -213,6 +221,8 @@ public class GameState extends SubState implements Controller {
         f.getAction((new Command("make Marine"))).apply();
 
         f.getAction((new Command("make Worker"))).apply();
+        
+       //workerTest = new DelayedTask( worker.getAction((new Command("make Marine"))).apply();
 
         final Garrison testGarrison = garrison;
         occupyPukingTest = new DelayedTask(10, new Runnable() {
