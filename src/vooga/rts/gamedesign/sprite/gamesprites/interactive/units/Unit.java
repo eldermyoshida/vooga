@@ -48,20 +48,17 @@ public class Unit extends InteractiveEntity {
     public static Sound DEFAULT_SOUND = null;
     public static int DEFAULT_PLAYERID = 2;
     public static int DEFAULT_HEALTH = 100;
+    
 
     private GatherStrategy myGatherStrategy;
     
     public Unit () {
-        this(DEFAULT_IMAGE, DEFAULT_LOCATION, DEFAULT_SIZE, DEFAULT_SOUND, DEFAULT_PLAYERID, DEFAULT_HEALTH, InteractiveEntity.DEFAULT_BUILD_TIME);
+        this(DEFAULT_IMAGE, DEFAULT_LOCATION, DEFAULT_SIZE, DEFAULT_SOUND, DEFAULT_PLAYERID, DEFAULT_HEALTH, InteractiveEntity.DEFAULT_BUILD_TIME, InteractiveEntity.DEFAULT_SPEED);
         //for testing.
         Information i = new Information("Marine", "I fear no darkness. I was born in it", null, "buttons/marine.png");
         setInfo(i);
     }
     
-    public Unit(Location3D location, int teamID) {
-        this(DEFAULT_IMAGE, location, DEFAULT_SIZE, DEFAULT_SOUND, teamID, DEFAULT_HEALTH, InteractiveEntity.DEFAULT_BUILD_TIME);
-    }
-
     /**
      * Creates a new unit with an image, location, size, sound, teamID,
      * health, and upgrade tree
@@ -85,12 +82,20 @@ public class Unit extends InteractiveEntity {
                  Sound sound,
                  int playerID,
                  int health,
-                 double buildTime) {
+                 double buildTime,
+                 int speed) {
         super(image, center, size, sound, playerID, health, buildTime);
         myGatherStrategy = new CannotGather();
+        setSpeed(speed);
         addActions();
     }
-    
+
+    public Unit (Pixmap image, Sound sound, int health, double buildTime, int speed) {
+        this(image, InteractiveEntity.DEFAULT_LOCATION, DEFAULT_SIZE, sound,
+             InteractiveEntity.DEFAULT_PLAYERID, health, buildTime, speed);
+
+    }
+
     @Override
     public void addActions () {
         put(ClickCommand.LEFT_CLICK, new InteractiveAction(this) {
@@ -116,7 +121,7 @@ public class Unit extends InteractiveEntity {
     @Override
     public InteractiveEntity copy () {
         return new Unit(getImage(), getWorldLocation(), getSize(), getSound(), getPlayerID(),
-                        getHealth(), getBuildTime());
+                        getHealth(), getBuildTime(), getSpeed());
     }
 
 	/**

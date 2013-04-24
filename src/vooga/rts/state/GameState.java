@@ -157,7 +157,7 @@ public class GameState extends SubState implements Controller {
         Unit worker =
                 new Unit(new Pixmap(ResourceManager.getInstance()
                         .<BufferedImage> getFile("images/scv.gif", BufferedImage.class)),
-                           new Location3D(100, 100, 0), new Dimension(75, 75), null, 1, 200, 40);
+                           new Location3D(100, 100, 0), new Dimension(75, 75), null, 1, 200, 40, 150);
         worker.setGatherStrategy(new CanGather());
         Information i1 =
                 new Information("Worker",
@@ -168,9 +168,10 @@ public class GameState extends SubState implements Controller {
         Unit a = new Unit();
         a.setAttackStrategy(new CanAttack(a.getWorldLocation(), a.getPlayerID()));
         Projectile proj =
-                new Projectile(new Pixmap("images/bullet.png"),
-                               a.getWorldLocation(), new Dimension(30, 30), 2, 10, 6);
-        a.getAttackStrategy().addWeapons(new Weapon(proj, 400, a.getWorldLocation(), 1));
+                new Projectile(new Pixmap(ResourceManager.getInstance()
+                        .<BufferedImage> getFile("images/bullet.png", BufferedImage.class)),
+                               a.getWorldLocation(), new Dimension(30, 30), 2, 10, 6, 800);
+        a.getAttackStrategy().addWeapon(new Weapon(proj, 400, a.getWorldLocation(), 1));
         Information i2 =
                 new Information("Marine", "I am a soldier of Nunu.", null, "buttons/marine.png");
 
@@ -178,7 +179,8 @@ public class GameState extends SubState implements Controller {
         myHumanPlayer.add(a);
         addPlayer(2);
 
-        Unit c = new Unit(new Location3D(1200, 500, 0), 2);
+        Unit c = new Unit();
+        c.setWorldLocation(new Location3D(1200, 500, 0));
         c.setAttackStrategy(new CanAttack(a.getWorldLocation(), c.getPlayerID()));
         c.setHealth(150);
         // myHumanPlayer.add(c);
