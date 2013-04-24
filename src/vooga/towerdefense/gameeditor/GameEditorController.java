@@ -143,6 +143,8 @@ public class GameEditorController extends JFrame {
         myXMLDoc.addChild(thisMap, TILE_TAG, tileSize);
         myXMLDoc.addChild(thisMap, GRID_TAG, map);
         myXMLDoc.addChildElement(myMapParent, thisMap);
+        
+        myXMLDoc.writeFile("tdmap1.xml");
     }
     
     public void addGameElementToGame(String type, String name, String path, Map<String, String> attributes, String actions) {
