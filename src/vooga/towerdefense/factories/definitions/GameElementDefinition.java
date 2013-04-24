@@ -1,20 +1,24 @@
 package vooga.towerdefense.factories.definitions;
 
 import java.awt.Dimension;
+import java.util.ArrayList;
+import java.util.List;
+import vooga.towerdefense.factories.AttributeManagerFactory;
+import vooga.towerdefense.factories.actionfactories.ActionFactory;
 import vooga.towerdefense.util.Location;
 import vooga.towerdefense.util.Pixmap;
 
 
 /**
  * Class that defines a game element as created by the designer
- * Created from xml data parser, used to create the factory object
+ * Used as a replacement for an xml file
  * Functionally, it bundles the states the define an object
  * 
  * @author Matthew Roy
  * @author Xu Rui
  * 
  */
-public class GameElementDefinition {
+public abstract class GameElementDefinition {
     private Pixmap myImage;
     private Location myCenter;
     private Dimension mySize;
@@ -45,6 +49,14 @@ public class GameElementDefinition {
     
     public String getType (){
     	return myType;
+    }
+    
+    
+    public abstract AttributeManagerFactory getAttributeManagerFactory();
+    
+    
+    public List<ActionFactory> getActions() {
+        return new ArrayList<ActionFactory>();
     }
 
 }
