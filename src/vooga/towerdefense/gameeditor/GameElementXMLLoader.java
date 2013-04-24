@@ -22,18 +22,12 @@ public class GameElementXMLLoader {
     
     
     private XMLTool myXMLTool;
-    private GameMap myGameMap;
-    private Map<String, GameElementFactory> myGameElementFactories;    
+    private GameMap myGameMap;    
     
     public GameElementXMLLoader(GameMap gameMap, XMLTool xmlTool, String xmlFilePath) {
         myXMLTool = xmlTool;
         myGameMap = gameMap;
         myXMLTool.setDoc(xmlFilePath);
-        initGameElementFactories();
-    }
-    
-    public void initGameElementFactories() {
-        
     }
     
     public List<GameElement> loadGameElements() {
