@@ -50,9 +50,7 @@ public class EditableMap {
         myMapName = name;
         myDescription =desc;
         myTileMap = new EditableTileMap(new Dimension(tileWidth,tileHeight),ySize,xSize);
-        System.out.println("haven't initialized");
         initializeMap();
-        System.out.println("initialized");
     }
 
     public EditableMap () {
@@ -307,8 +305,8 @@ public class EditableMap {
         test.addPlayer(10, 10);
         test.addPlayer(20, 20);
         
-        test.addTile(1, 1, 1, "bricks", "Bricks1.jpg", new Pixmap(tile1));
-        test.addTile(2, 2, 1, "bricks", "Bricks1.jpg", new Pixmap(tile1));
+        test.addTile(new Location3D(25,25,0), 1, "bricks", "Bricks1.jpg", new Pixmap(tile1));
+        test.addTile(new Location3D(75, 75,0), 1, "bricks", "Bricks1.jpg", new Pixmap(tile1));
         test.addTile(3, 3, 1, "bricks", "Bricks1.jpg", new Pixmap(tile1));
         test.addTile(4, 4, 1, "bricks", "Bricks1.jpg", new Pixmap(tile1));
         
@@ -317,20 +315,20 @@ public class EditableMap {
         test.addTile(7, 7, 2, "brush", "Brush1.jpg", new Pixmap(tile2));
         test.addTile(8, 8, 2, "brush", "Brush1.jpg", new Pixmap(tile2));
         
-        test.addTile(5, 7, 3, "concrete", "Contrete1.jpg", new Pixmap(tile3));
-        test.addTile(6, 8, 3, "concrete", "Contrete1.jpg", new Pixmap(tile3));
-        test.addTile(3, 7, 3, "concrete", "Contrete1.jpg", new Pixmap(tile3));
-        test.addTile(2, 8, 3, "concrete", "Contrete1.jpg", new Pixmap(tile3));
+        test.addTile(5, 7, 3, "concrete", "Concrete1.jpg", new Pixmap(tile3));
+        test.addTile(6, 8, 3, "concrete", "Concrete1.jpg", new Pixmap(tile3));
+        test.addTile(3, 7, 3, "concrete", "Concrete1.jpg", new Pixmap(tile3));
+        test.addTile(2, 8, 3, "concrete", "Concrete1.jpg", new Pixmap(tile3));
         
         
         
         test.addTerrain(new Pixmap(terrain1), 20, 20, 0, 1, "ter1", "Terrain1.jpg", 2);
         test.addTerrain(new Pixmap(terrain1), 40, 40, 0, 1, "ter1", "Terrain1.jpg", 2);
-        test.addTerrain(new Pixmap(terrain2), 60, 60, 0, 1, "ter2", "Terrain2.jpg", 4);
-        test.addTerrain(new Pixmap(terrain2), 80, 80, 0, 1, "ter2", "Terrain2.jpg", 4);
+        test.addTerrain(new Pixmap(terrain2), 60, 60, 0, 2, "ter2", "Terrain2.jpg", 4);
+        test.addTerrain(new Pixmap(terrain2), 80, 80, 0, 2, "ter2", "Terrain2.jpg", 4);
         
         test.addResource(new Pixmap(resource1), 80, 20,0,1, "gas", "gas1.png", 1000);
-        test.addResource(new Pixmap(resource2), 50, 10,0,1, "mineral", "mineral1.png", 1000);
+        test.addResource(new Pixmap(resource2), 50, 10,0,2, "mineral", "mineral1.png", 1000);
         
         test.printMatrix();
         System.out.println(test.getTerrainSize());

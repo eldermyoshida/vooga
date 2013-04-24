@@ -40,8 +40,9 @@ public class MapLoader {
     private Document myDocument;
 
 
-    public MapLoader(EditableMap map) throws ParserConfigurationException {
+    public MapLoader() throws ParserConfigurationException {
         
+        myMap = new EditableMap();
         
         myFactory = DocumentBuilderFactory.newInstance();
         myBuilder = myFactory.newDocumentBuilder();
@@ -59,7 +60,7 @@ public class MapLoader {
         myTerrainWalkAbility = new HashMap<Integer,String>();
         myResourceAmount = new HashMap<Integer,String>();
         
-       myMap = map;       
+       // myMap = map;       
         
  
     }
@@ -123,7 +124,7 @@ public class MapLoader {
     public void loadTypeInfo(Element root, String path) throws IOException {
         NodeList tileTypeList = root.getElementsByTagName("tiletype");
         NodeList terrainTypeList = root.getElementsByTagName("terraintype");
-        NodeList resourceTypeList = root.getElementsByTagName("resourceType");
+        NodeList resourceTypeList = root.getElementsByTagName("resourcetype");
         
         String tileImagePath = path + "images/tiles/";
         String terrainImagePath = path + "images/terrains/";
@@ -160,9 +161,9 @@ public class MapLoader {
             Node resourceTypeNode = resourceTypeList.item(i);
             NamedNodeMap attributes = resourceTypeNode.getAttributes();
             String resourceID = attributes.item(0).getNodeValue();
-            String resourceImageName = attributes.item(1).getNodeValue();
-            String resourceName = attributes.item(2).getNodeValue();
-            String resourceAmount = attributes.item(3).getNodeValue();
+            String resourceAmount = attributes.item(1).getNodeValue();
+            String resourceImageName = attributes.item(2).getNodeValue();
+            String resourceName = attributes.item(3).getNodeValue();
             BufferedImage resourceImage = ImageIO.read(new File(resourceImagePath + resourceImageName));
             myResourceName.put(Integer.parseInt(resourceID), resourceName);
             myResourceImageName.put(Integer.parseInt(resourceID), resourceImageName);
@@ -235,6 +236,65 @@ public class MapLoader {
             myMap.addResource(resourceImage, x, y, z, resourceID, resourceName, resourceImageName, resourceAmount);
         }
     }  
+    
+    public EditableMap getMyMap() {
+        return myMap;
+    }
+    
+    public static void main(String[] args) {
+        MapLoader test = null;
+        
+        try {
+            test = new MapLoader();
+        }
+        catch (ParserConfigurationException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        try {
+            test.loadMapFile(new File(System.getProperty("user.dir")+"./turtleRock/turtleRock.xml"));
+        }
+        catch (SAXException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    
+        test.getMyMap().printMatrix();
+        for(int i = 0 ; i < test.getMyMap().getResourceSize() ; i++) {
+            Resource res =  test.getMyMap().getResource(i);
+            System.out.print(res.getMyID());
+            System.out.print(" ");
+            System.out.print(res.getMyName());
+            System.out.print(" ");
+            System.out.print(res.getMyImageName());
+            System.out.print(" ");
+            System.out.print(res.getWorldLocation().getX());
+            System.out.print(" ");
+            System.out.print(res.getWorldLocation().getY());
+            System.out.print(" ");
+            System.out.print(res.getWorldLocation().getZ());   
+            System.out.println();
+        }
+        for(int i = 0 ; i < test.getMyMap().getTerrainSize() ; i++) {
+            Terrain res =  test.getMyMap().getTerrain(i);
+            System.out.print(res.getMyID());
+            System.out.print(" ");
+            System.out.print(res.getMyName());
+            System.out.print(" ");
+            System.out.print(res.getMyImageName());
+            System.out.print(" ");
+            System.out.print(res.getWorldLocation().getX());
+            System.out.print(" ");
+            System.out.print(res.getWorldLocation().getY());
+            System.out.print(" ");
+            System.out.print(res.getWorldLocation().getZ());   
+            System.out.println();
+        }
+    }
 }
 
 

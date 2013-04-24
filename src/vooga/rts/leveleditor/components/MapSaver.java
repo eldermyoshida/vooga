@@ -284,6 +284,7 @@ public class MapSaver {
             String name = content[0];
             String imagePath = content[1];
             String amount = content[2];
+            System.out.println(amount);
             Element newResource =  myDocument.createElement("resourcetype");
             newResource.setAttribute("ID", str);
             newResource.setAttribute("image", imagePath);
