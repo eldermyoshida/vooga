@@ -3,10 +3,12 @@ package vooga.fighter.util;
 import java.awt.Rectangle;
 import java.lang.reflect.Method;
 import java.util.List;
+
 import vooga.fighter.model.objects.AttackObject;
 import vooga.fighter.model.objects.CharacterObject;
 import vooga.fighter.model.objects.EnvironmentObject;
 import vooga.fighter.model.objects.GameObject;
+import vooga.fighter.model.objects.MapObject;
 import vooga.fighter.model.objects.MenuObject;
 import vooga.fighter.model.objects.MouseClickObject;
 
@@ -34,10 +36,12 @@ public class CollisionManager {
             for (int j = i + 1; j < myObjects.size(); j++) {
                 GameObject o1 = myObjects.get(i);
                 GameObject o2 = myObjects.get(j);
-                Rectangle o1Rect = o1.getCurrentState().getCurrentRectangle();
-                Rectangle o2Rect = o1.getCurrentState().getCurrentRectangle();
-                if (myCollisionDetector.quickDetectCollision(o1Rect, o2Rect)) {
-                    handleCollisions(o1, o2);
+                if (!(o1 instanceof MapObject || o2 instanceof MapObject)){
+                	Rectangle o1Rect = o1.getCurrentState().getCurrentRectangle();
+                	Rectangle o2Rect = o1.getCurrentState().getCurrentRectangle();
+	                if (myCollisionDetector.quickDetectCollision(o1Rect, o2Rect)) {
+	                    handleCollisions(o1, o2);
+	                }
                 }
             }
         }
