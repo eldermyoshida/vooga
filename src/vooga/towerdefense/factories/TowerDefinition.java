@@ -15,7 +15,6 @@ public class TowerDefinition extends GameElementDefinition {
 	private static final Dimension DEFAULT_TOWER_SIZE = new Dimension(
 			(int) TileFactory.TILE_DIMENSIONS.getWidth(),
 			(int) TileFactory.TILE_DIMENSIONS.getHeight());
-	private static final String DEFAULT_TOWER_SHAPE = "1 1 1\n1 1 1";
 
 	Pixmap myImage;
 	Location myCenter;

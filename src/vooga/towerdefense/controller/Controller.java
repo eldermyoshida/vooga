@@ -93,9 +93,10 @@ public class Controller {
 
 		List<Level> levels = new ArrayList<Level>();
 		List<Action> actions = new ArrayList<Action>();
-		
+
 		GameElementFactory factory = new GameElementFactory();
-		WaveActionFactory waveFactory = new WaveActionFactory(10,200,factory, map);
+		WaveActionFactory waveFactory = new WaveActionFactory(10, 200, factory,
+				map);
 		Action action = waveFactory.createAction(null);
 		actions.add(action);
 		List<Rule> levelRules = new ArrayList<Rule>();
@@ -381,7 +382,7 @@ public class Controller {
 				canBuild = canBuild & myModel.getMap().isBuildable(location);
 			}
 		}
-		
+
 		return canBuild;
 	}
 
