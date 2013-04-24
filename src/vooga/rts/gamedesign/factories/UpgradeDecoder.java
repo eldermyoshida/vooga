@@ -23,9 +23,6 @@ import vooga.rts.util.ReflectionHelper;
  * This class is an extension of Decoder class that is in charge of the creation
  * of UpgradeTree for upgrade package.
  * 
- * @author Ryan Fishel
- * @author Kevin Oh
- * @author Francesco Agosti
  * @author Wenshun Liu
  *
  */
@@ -62,7 +59,11 @@ public class UpgradeDecoder extends Decoder {
 	 */
 	public void create(Document doc, String type) throws NumberFormatException {
 		UpgradeTree upgradeTree = new UpgradeTree();
+<<<<<<< HEAD
 		
+=======
+
+>>>>>>> master
 		NodeList treeLst = doc.getElementsByTagName(TREE_TAG);
 		for (int i = 0; i < treeLst.getLength(); i++) {
 			Element treeElmnt = (Element) treeLst.item(i);
@@ -73,7 +74,11 @@ public class UpgradeDecoder extends Decoder {
 	}
 	
 	private void createSingleTree(String treeName, Element treeElmnt, UpgradeTree upgradeTree) {
+<<<<<<< HEAD
 		
+=======
+
+>>>>>>> master
 		NodeList nodeLst = treeElmnt.getElementsByTagName(UPGRADE_CATEGORY_TAG);
 
 		for (int i = 0; i < nodeLst.getLength(); i++) {
@@ -82,25 +87,30 @@ public class UpgradeDecoder extends Decoder {
 			Element nameElmnt = (Element) typeElmnt.getElementsByTagName(CATEGORY_NAME_TAG).item(0);
 			NodeList name = nameElmnt.getChildNodes();
 			upgradeTree.addBranch(((Node) name.item(0)).getNodeValue());
-			
+
 			NodeList upgradeNodeList = typeElmnt.getElementsByTagName(INDIVIDUAL_UPGRADE_TAG);
 			for (int j=0; j<upgradeNodeList.getLength(); ++j) {
 				Element upgradeNodeElement = (Element) upgradeNodeList.item(j);
-				
+
 				String parent = loadSingleLine(upgradeNodeElement, PARENT_UPGRADE_TAG);
 				String nodeName = loadSingleLine(upgradeNodeElement, TITLE_TAG);
 				String object = loadSingleLine(upgradeNodeElement, AFFECTING_OBJECT_TAG);
 				String value = loadSingleLine(upgradeNodeElement, AFFECTING_VALUE_TAG);
 				String costedResource = loadSingleLine(upgradeNodeElement, COSTING_RESOURCE_TYPE_TAG);
 				String costedResourceAmount = loadSingleLine(upgradeNodeElement, COSTING_RESOURCE_AMOUNT_TAG);
-				
+
 				UpgradeNode newUpgrade = (UpgradeNode) ReflectionHelper.makeInstance(myUpgradeNodeType.get(object), upgradeTree, nodeName, Integer.parseInt(value), Integer.parseInt(costedResourceAmount));
 				UpgradeNode current = upgradeTree.findNode(parent);
 				current.addChild(newUpgrade);
 			}
 		}
 		upgradeTree.updateTreeStatus();
+<<<<<<< HEAD
 		//printTree(upgradeTree);
+=======
+		printTree(upgradeTree);
+		System.out.println(treeName);
+>>>>>>> master
 		myFactory.put(treeName, upgradeTree);
 	}
 	

@@ -13,9 +13,6 @@ import vooga.rts.util.ReflectionHelper;
  * This class is the superclass of a single upgrade. It is used to build the
  * upgrade tree and apply the upgrade to the corresponding object.
  * 
- * @author Ryan Fishel
- * @author Kevin Oh
- * @author Francesco Agosti
  * @author Wenshun Liu
  * 
  */
@@ -151,5 +148,4 @@ public class UpgradeNode {
     public Map<String, Integer> getCost () {
         return myCost;
     }
-
 }

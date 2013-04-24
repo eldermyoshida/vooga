@@ -38,7 +38,11 @@ import vooga.rts.gamedesign.upgrades.UpgradeTree;
  */
 
 public class Factory {
+<<<<<<< HEAD
 	public static final String DECODER_MATCHING_FILE = "DecoderMatchUp";
+=======
+	public static final String DECODER_MATCHING_FILE = "DecodeMatchUp";
+>>>>>>> master
 	public static final String MATCHING_PAIR_TAG = "pair";
 	public static final String MATCHING_TYPE_TAG = "type";
 	public static final String MATCHING_PATH_TAG = "path";
@@ -90,6 +94,7 @@ public class Factory {
 	}
 	
 	public void put(String name, UpgradeTree upgradeTree){
+		System.out.println("puts here");
 		myUpgradeTrees.put(name, upgradeTree);
 	}
 	
@@ -163,7 +168,7 @@ public class Factory {
 	public void putStrategyDependency(String name, String[] strategies){
 		myStrategyDependencies.put(name, strategies);
 	}
-	
+
 	/**
 	 * Creates decoders by loading the input file that specifies the path of
 	 * each Decoder and the type of class it is in charge of. Puts the decoders
@@ -189,6 +194,7 @@ public class Factory {
 		DocumentBuilder db = dbf.newDocumentBuilder();
 		Document doc = db.parse(file);
 		doc.getDocumentElement().normalize();
+<<<<<<< HEAD
 		
 		NodeList nodeLst = doc.getElementsByTagName(MATCHING_PAIR_TAG);
 		
@@ -207,6 +213,26 @@ public class Factory {
 		}
 	}
 	
+=======
+
+		NodeList nodeLst = doc.getElementsByTagName(MATCHING_PAIR_TAG);
+
+		for (int i = 0; i < nodeLst.getLength(); i++) {
+			Element pairElmnt = (Element) nodeLst.item(i);
+
+			Element typeElmnt = (Element)pairElmnt.getElementsByTagName(MATCHING_TYPE_TAG).item(0);
+			NodeList typeList = typeElmnt.getChildNodes();
+			String type = ((Node) typeList.item(0)).getNodeValue();
+
+			Element pathElmnt = (Element)pairElmnt.getElementsByTagName(MATCHING_PATH_TAG).item(0);
+			NodeList pathList = pathElmnt.getChildNodes();
+			String path = ((Node) pathList.item(0)).getNodeValue();
+
+			map.put(type, path);
+		}
+	}
+
+>>>>>>> master
 	private void createDecoders() throws IllegalArgumentException, SecurityException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ClassNotFoundException {
 		for (String key: myDecoderPaths.keySet()) {
 			Class<?> headClass =
@@ -232,8 +258,6 @@ public class Factory {
 			Document doc = db.parse(file);
 			doc.getDocumentElement().normalize();
 			System.out.println(doc.getDocumentElement().getNodeName());
-			
-			//myDecoders.get(doc.getDocumentElement().getNodeName()).create(doc);
 			
 			NodeList head = doc.getChildNodes();
 			Node childNode = head.item(0);
@@ -279,15 +303,22 @@ public class Factory {
 		for(String key: myStrategyDependencies.keySet()){
 			String[] strategies = myStrategyDependencies.get(key);
 			//Do the same for other strategies
-			//AttackStrategy attack = (AttackStrategy) myStrategies.get(strategies[0]);
-			//mySprites.get(key).setAttackStrategy(attack);
+			AttackStrategy attack = (AttackStrategy) myStrategies.get(strategies[0]);
+			mySprites.get(key).setAttackStrategy(attack);
 			OccupyStrategy occupy = (OccupyStrategy) myStrategies.get(strategies[1]);
 			mySprites.get(key).setOccupyStrategy(occupy);
 			GatherStrategy gather = (GatherStrategy) myStrategies.get(strategies[2]);
+<<<<<<< HEAD
 			//TODO: should be better than this
 			if (mySprites.get(key) instanceof Unit) {
 				((Unit) mySprites.get(key)).setGatherStrategy(gather);
 			}
+=======
+			if ((mySprites.get(key)) instanceof Unit) {
+				((Unit) mySprites.get(key)).setGatherStrategy(gather);
+			}
+			
+>>>>>>> master
 		}
 	}
 	
