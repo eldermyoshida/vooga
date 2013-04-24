@@ -52,13 +52,15 @@ public class GameMap implements IGameLoop {
     public GameMap (Dimension size) {
         mySize = size;
         NodeFactory factory = new NodeFactory();
-        Dimension dou = new Dimension((int) size.getWidth(), (int) (size.getHeight() * 2));
         myNodeMap = factory.makeMap(Node.NODE_SIZE, size);
-
         myTerrain = new GameSpriteManager<Terrain>();
         myResources = new GameSpriteManager<Resource>();
-
         Camera.instance().setMapSize(size);
+    }
+
+    public GameMap (Dimension size, boolean random) {
+        this(size);
+        Dimension dou = new Dimension((int) size.getWidth(), (int) (size.getHeight() * 2));
         randomGenMap(dou);
     }
 
@@ -113,14 +115,15 @@ public class GameMap implements IGameLoop {
             // TODO: whether same or different
             inRange.addAll(n.<T> filterGameSprites(n.getContents(), type, teamID, same));
         }
-        
+
         final Location3D loca = loc;
         Collections.sort(inRange, new Comparator<T>() {
             @Override
-            public int compare (T o1, T o2) {                
-                return (int)(o2.getWorldLocation().getDistance(loca) - o1.getWorldLocation().getDistance(loca));  
+            public int compare (T o1, T o2) {
+                double value1 = o1.getWorldLocation().getDistance(loca);
+                double value2 = o2.getWorldLocation().getDistance(loca);
+                return (int) (value1 - value2);
             }
-            
         });
         return inRange;
     }
