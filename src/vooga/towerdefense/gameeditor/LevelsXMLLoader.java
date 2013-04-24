@@ -15,9 +15,8 @@ public class LevelsXMLLoader {
     
     private XMLTool myXMLTool;
     
-    public LevelsXMLLoader(XMLTool xmlTool, String xmlFilePath) {
-        myXMLTool = xmlTool;  
-        myXMLTool.readDoc(xmlFilePath);
+    public LevelsXMLLoader(String xmlFilePath) {
+        myXMLTool = new XMLTool(xmlFilePath);
     }
     
     public List<Level> getLevels() {

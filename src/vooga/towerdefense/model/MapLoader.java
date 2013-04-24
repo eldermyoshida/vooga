@@ -98,8 +98,7 @@ public class MapLoader {
      * @param mapFilePath a path to the map XML file
      */
     public MapLoader(String mapFilePath) {
-        myXMLTool = new XMLTool();
-        myXMLTool.readDoc(mapFilePath);
+        myXMLTool = new XMLTool(mapFilePath);        
         initTileIdMap();
     }
     

@@ -15,12 +15,14 @@ import javax.swing.JFrame;
 import org.w3c.dom.Element;
 import vooga.towerdefense.util.XMLTool;
 
+
 /**
  * Controls the game editor & makes the XML
- *      file based on input from the game editor.
- *
+ * file based on input from the game editor.
+ * 
  * @author Angelica Schwartz
  * @author Leonard Ng'eno
+ * @author Yoshida
  */
 public class GameEditorController extends JFrame {
     /**
@@ -48,7 +50,7 @@ public class GameEditorController extends JFrame {
     private static final String FACTORY_INDICATOR = "Factory";
     private static final Dimension SIZE = new Dimension(700, 700);
     private static final String UNIT_INDICATOR = "Unit";
-    private static final String RESOURCE_PATH = "vooga.src.vooga.towerdefense.resources.";
+    private static final String RESOURCE_PATH = "/src/vooga/towerdefese/resources/";
     public static final String CLASS_INDICATOR_STRING = ".class";
     private Dimension mySize;
     private Dimension myMapSize;
@@ -60,14 +62,14 @@ public class GameEditorController extends JFrame {
     private Element myGameElementParent;
     private Element myMapParent;
     private Element myLevelParent;
-    private ActionXMLWriter myActionParser; 
+    private ActionXMLWriter myActionParser;
     
     /**
      * Constructor.
      * 
      * @param size
      */
-    public GameEditorController (Dimension size) {
+    public GameEditorController(Dimension size) {
         this.setTitle(TITLE_KEYWORD);
         myCreatedUnits = new ArrayList<String>();
         mySize = size;
@@ -80,9 +82,9 @@ public class GameEditorController extends JFrame {
     
     /**
      * starts a new XML file & initializes the parents of
-     *          
+     * 
      */
-    private void initializeXML() {
+    private void initializeXML () {
         myXMLDoc = new XMLTool();
         myRoot = myXMLDoc.makeRoot(GAME_TAG);
         myViewParent = myXMLDoc.makeElement(VIEW_TAG);
@@ -95,29 +97,29 @@ public class GameEditorController extends JFrame {
         myXMLDoc.addChild(myRoot, myLevelParent);
         myActionParser = new ActionXMLWriter(myXMLDoc);
     }
-
+    
     /**
      * starts the visual for the game editor.
      */
     private void initializeGUI () {
         StartUpScreen screen = new StartUpScreen(SIZE, this);
         getContentPane().add(screen, BorderLayout.CENTER);
-
+        
         pack();
         setVisible(true);
     }
-
+    
     /**
      * saves the xml file.
      */
-    public void saveFile() {
-        myXMLDoc.writeFile(myName + XML_EXTENSION);
+    public void saveFile () {
+        myXMLDoc.writeFile(RESOURCE_PATH + myName + XML_EXTENSION);
     }
     
     /**
      * sets the name of this game.
      */
-    public void setNameOfGame(String name) {
+    public void setNameOfGame (String name) {
         myName = name;
     }
     
@@ -133,11 +135,16 @@ public class GameEditorController extends JFrame {
         myXMLDoc.addChild(thisLevel, myActionParser.parse(actionElement, actions));
         
     }
-
+    
     /**
      * adds a map to the XML file.
      */
-    public void addMapToGame (String name, String image, String width, String height, String tileSize, String map) {
+    public void addMapToGame (String name,
+                              String image,
+                              String width,
+                              String height,
+                              String tileSize,
+                              String map) {
         Element thisMap = myXMLDoc.makeElement(name.trim());
         myXMLDoc.addChild(thisMap, IMAGE_TAG, image);
         myXMLDoc.addChild(thisMap, WIDTH_TAG, width);
@@ -146,10 +153,14 @@ public class GameEditorController extends JFrame {
         myXMLDoc.addChild(thisMap, GRID_TAG, map);
         myXMLDoc.addChild(myMapParent, thisMap);
         
-        myXMLDoc.writeFile("tdmap1.xml");
+        myXMLDoc.writeFile(RESOURCE_PATH + "tdmap1.xml");
     }
     
-    public void addGameElementToGame(String type, String name, String path, Map<String, String> attributes, String actions) {
+    public void addGameElementToGame (String type,
+                                      String name,
+                                      String path,
+                                      Map<String, String> attributes,
+                                      String actions) {
         if (type.equals(UNIT_INDICATOR)) {
             myCreatedUnits.add(name);
         }
@@ -158,13 +169,19 @@ public class GameEditorController extends JFrame {
     
     /**
      * adds a game element to the XML file.
+     * 
      * @param parent is the parent element
      * @param name is the game element's name
      * @param path is the image path
      * @param attributes is the map of attribute name to value
      * @param actions is the map of action name to value
      */
-    private void addGameElementToFile(Element parent, String type, String name, String path, Map<String, String> attributes, String actions) {
+    private void addGameElementToFile (Element parent,
+                                       String type,
+                                       String name,
+                                       String path,
+                                       Map<String, String> attributes,
+                                       String actions) {
         Element gameElement = myXMLDoc.makeElement(name);
         myXMLDoc.addChild(parent, gameElement);
         myXMLDoc.addChild(gameElement, IMAGE_TAG, path);
@@ -174,7 +191,7 @@ public class GameEditorController extends JFrame {
         Element actionElement = myXMLDoc.makeElement(ACTIONS_TAG);
         myXMLDoc.addChild(gameElement, myActionParser.parse(actionElement, actions));
     }
-
+    
     /**
      * gets the list of already created units.
      * 
@@ -187,7 +204,9 @@ public class GameEditorController extends JFrame {
     /**
      * adds a view to the XML file.
      */
-    public void addViewToGame(String dimension, List<String> viewInfo, Map<String, List<String>> map) {
+    public void addViewToGame (String dimension,
+                               List<String> viewInfo,
+                               Map<String, List<String>> map) {
         Element viewscreen = myXMLDoc.makeElement("Dimension");
         myXMLDoc.addChild(myViewParent, viewscreen);
         myXMLDoc.addChild(viewscreen, DIMENSION_TAG, dimension);
@@ -198,15 +217,16 @@ public class GameEditorController extends JFrame {
                 if (!characteristics[0].equals("")) {
                     Element screen = myXMLDoc.makeElement(characteristics[0]);
                     myXMLDoc.addChild(myViewParent, screen);
-                    String noComma = characteristics[1].substring(0, characteristics[1].length()-1);
+                    String noComma =
+                            characteristics[1].substring(0, characteristics[1].length() - 1);
                     myXMLDoc.addChild(screen, WIDTH_TAG, noComma);
                     myXMLDoc.addChild(screen, HEIGHT_TAG, characteristics[2]);
                     myXMLDoc.addChild(screen, SCREEN_LOCATION_TAG, characteristics[3]);
                     if (characteristics[0].equals("MultipleScreenPanel")) {
-                        for (Map.Entry<String, List<String>> entry: map.entrySet()){
+                        for (Map.Entry<String, List<String>> entry : map.entrySet()) {
                             if (entry.getKey().equals(characteristics[3])) {
-                                for (String str: entry.getValue()) {
-                                    String[] values = str.split(" ");                                   
+                                for (String str : entry.getValue()) {
+                                    String[] values = str.split(" ");
                                     Element screen2 = myXMLDoc.makeElement(values[1]);
                                     myXMLDoc.addChild(screen, screen2);
                                     myXMLDoc.addChild(screen2, WIDTH_TAG, values[2]);
@@ -216,30 +236,32 @@ public class GameEditorController extends JFrame {
                             }
                         }
                     }
-                   
+                    
                 }
             }
         }
-        myXMLDoc.writeFile("view32.xml");
-
+        myXMLDoc.writeFile(RESOURCE_PATH + "view32.xml");
+        
     }
-
+    
     /**
      * sets the mapsize for this game.
+     * 
      * @param mapSize
      */
     public void setMapSize (Dimension mapSize) {
         myMapSize = mapSize;
     }
-
+    
     /**
      * gets the mapsize for this game.
+     * 
      * @return Dimension that is the mapsize
      */
     public Dimension getMapSize () {
         return myMapSize;
     }
-
+    
     /**
      * uses reflection to display the next screen in the sequence.
      * 
@@ -259,7 +281,7 @@ public class GameEditorController extends JFrame {
             GameEditorScreen screen = (GameEditorScreen) cons.newInstance(mySize, this);
             getContentPane().add(screen);
             screen.display();
-    
+            
             pack();
             setVisible(true);
         }
@@ -270,17 +292,18 @@ public class GameEditorController extends JFrame {
     
     /**
      * returns the parameters of the constructor in the desired class.
+     * 
      * @param className the class path
      * @return a list of parameters as strings
      * @throws ClassNotFoundException
      */
     @SuppressWarnings("rawtypes")
-    public List<String> getParametersForAction(String className) throws ClassNotFoundException {
+    public List<String> getParametersForAction (String className) throws ClassNotFoundException {
         List<String> parameters = new ArrayList<String>();
         Class c = Class.forName(className + FACTORY_INDICATOR);
         Constructor cons = c.getConstructors()[0];
         Class[] parameterClasses = cons.getParameterTypes();
-        for (Class parameterClass: parameterClasses) {
+        for (Class parameterClass : parameterClasses) {
             parameters.add(parameterClass.getSimpleName().toString());
         }
         return parameters;
@@ -288,22 +311,24 @@ public class GameEditorController extends JFrame {
     
     /**
      * gets the available actions for the gam developer.
+     * 
      * @param actionPackageName is the package where the action factories are.
-     * @return 
+     * @return
      * @throws IOException
      * @throws ClassNotFoundException
      */
-    public List<String> getAvailableActions(String packageName) throws IOException, ClassNotFoundException {
+    public List<String> getAvailableActions (String packageName) throws IOException,
+                                                                ClassNotFoundException {
         List<String> actions = new ArrayList<String>();
         List<Class> actionClasses = getClassesInPackage(packageName);
         for (Class actionClass : actionClasses) {
             String action = actionClass.getSimpleName().toString();
-            action = action.substring(0, action.length()-"Factory".length());
+            action = action.substring(0, action.length() - "Factory".length());
             actions.add(action);
         }
-        return actions;        
+        return actions;
     }
-
+    
     /**
      * Get the classes in this package.
      * 
@@ -337,7 +362,7 @@ public class GameEditorController extends JFrame {
         }
         return classes;
     }
-
+    
     /**
      * gets the list of class names in the desired package.
      * 
@@ -353,8 +378,8 @@ public class GameEditorController extends JFrame {
         List<Class> classes = getClassesInPackage(packageName);
         for (Class c : classes) {
             if (!c.getName().contains("$")) {
-                names.add(c.getName().substring(packageName.length()+1,
-                        c.getName().length()));
+                names.add(c.getName().substring(packageName.length() + 1,
+                                                c.getName().length()));
             }
             names.add(c.getName().substring(packageName.length() + 1,
                                             c.getName().length()));
@@ -364,10 +389,11 @@ public class GameEditorController extends JFrame {
     
     /**
      * gets the attributes as strings for the game developer.
+     * 
      * @return the attributes as a list of strings
      * @throws ClassNotFoundException
      */
-    public List<String> getAttributes(String attributeClassName) throws ClassNotFoundException {
+    public List<String> getAttributes (String attributeClassName) throws ClassNotFoundException {
         List<String> fields = new ArrayList<String>();
         Field[] fieldList = getFieldsInClass(attributeClassName);
         for (Field field : fieldList) {
@@ -375,7 +401,7 @@ public class GameEditorController extends JFrame {
         }
         return fields;
     }
-
+    
     /**
      * gets the list of field names in the desired class.
      * 

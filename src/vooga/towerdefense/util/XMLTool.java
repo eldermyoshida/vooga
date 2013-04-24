@@ -32,6 +32,7 @@ import org.xml.sax.SAXException;
  * @author Yoshida
  */
 public class XMLTool {
+    
     private static final String XML_PARAM_YES = "yes";
     private static final String DOC_CREATION_EXCEPTION =
             "Could not create a new instance of a Document.";
@@ -45,10 +46,21 @@ public class XMLTool {
     
     /**
      * The constructor of this XML file builder automatically creates a buffered
-     * document with the destination of the argument path, ready to receive elements. *
+     * document with the destination of the argument path, ready to receive elements.
      */
     public XMLTool() {
         makeDoc();
+    }
+    
+    /**
+     * This constructor reads in an XML file from an XMLFilePath
+     * 
+     * @param xmlFilePath The relative path with "filename.xml".
+     *        For example, if path = "/src/example.xml",
+     *        the file example.xml will be saved in the source folder.
+     */
+    public XMLTool(String xmlFilePath) {
+        readDoc(xmlFilePath);
     }
     
     /**
@@ -65,13 +77,13 @@ public class XMLTool {
     }
     
     /**
-     * Sets a new document from an XML file.
-     * This is an XML reader.
+     * Reads a new document from an XML file.
      * 
-     * @param path The path with the filename of an XML formatted file.
+     * @param path The relative path with "filename.xml". For example, if path = "/src/example.xml",
+     *        the file example.xml will be saved in the source folder.
      */
     public void readDoc (String path) {
-        File file = new File(getClass().getResource(path).getFile());
+        File file = new File(USER_DIR + path);
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         try {
             myDoc = dbFactory.newDocumentBuilder().parse(file);
@@ -437,7 +449,7 @@ public class XMLTool {
     public void writeFile (String path) {
         FileWriter writer = null;
         try {
-            writer = new FileWriter(path);
+            writer = new FileWriter(USER_DIR + path);
             writer.write(translateToXMLString(myDoc));
             writer.close();
         }
@@ -454,4 +466,5 @@ public class XMLTool {
             throw new RuntimeException(WRITING_EXCEPTION, e);
         }
     }
+    
 }
