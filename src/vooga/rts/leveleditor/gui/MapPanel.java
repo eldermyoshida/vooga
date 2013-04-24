@@ -155,19 +155,10 @@ public class MapPanel extends JComponent {
         repaint();
     }
 
-//    public void placePlayer (int x, int y) {
-//        int nodex = x / myTileWidth;
-//        int nodey = y / myTileHeight;
-//        EditableTile n = myMap.getMapNode(nodex, nodey);
-//        if (!myRemoveFlag) {
-//            myMap.addPlayer(x, y);
-//            n.setPlayerIndex(myMap.getMyPlayerNumber());
-//        }
-//        else {
-//            myMap.removePlayer(n.getPlayerIndex());
-//        }
-//        repaint();
-//    }
+    public void placePlayer (Location3D loc) {
+        myMap.addPlayer(loc.to2D());
+        repaint();
+    }
     
     public void fill() {
         myMode = FILLMODE;       
@@ -233,9 +224,9 @@ public class MapPanel extends JComponent {
             case RESOURCEMODE:
                 placeResource(loc);
                 break;
-//            case PLAYERMODE:
-//                placePlayer((int) (p.getX()), (int) (p.getY()));
-//                break;
+            case PLAYERMODE:
+                placePlayer(loc);
+                break;
             case TERRAINMODE:
                 placeTerrain(loc);
                 break;

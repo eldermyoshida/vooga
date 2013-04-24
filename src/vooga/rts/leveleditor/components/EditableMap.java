@@ -103,7 +103,8 @@ public class EditableMap extends GameMap {
      */
     public void clearMap () {
         myTileMap.removeAllTiles();
-        
+        getTerrain().getMySprites().clear();
+        getResources().getMySprites().clear();
     }
 
     /**
