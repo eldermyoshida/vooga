@@ -6,7 +6,7 @@ import vooga.towerdefense.gameElements.GameElement;
 
 public class WaveActionFactory extends ActionFactory {
 
-    public WaveActionFactory(String numUnits, String cooldown, String name) {
+    public WaveActionFactory(String numUnits, String cooldown) {
         //TODO: fill in here!
     }
     
