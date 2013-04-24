@@ -1,6 +1,12 @@
 
 package arcade.controller;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -38,7 +44,7 @@ public class Controller implements ArcadeInteraction {
 	private static final String EXTENSION = ".properties";
 	private static final String FILEWRITER_LOCATION = SOURCE + "/" + PACKAGE_LOCATION + "/" + FILENAME + "1" + EXTENSION;
 	private static final String TMP_LOCATION = SOURCE + "/" + PACKAGE_LOCATION + "/" + FILENAME + "2" + EXTENSION;
-	private static final String RESOURCEBUNDLE_LOCATION = PACKAGE_LOCATION + "." + FILENAME + "1";
+	private static final String PURCHASE_RB_LOCATION = RESOURCE_LOCATION + FILENAME + "1";
 
     
 
@@ -81,6 +87,7 @@ public class Controller implements ArcadeInteraction {
     public Controller (String language) {
         myLanguage = language;
         myResources = ResourceBundle.getBundle(RESOURCE_LOCATION + language);
+        userPurchaseHistory = ResourceBundle.getBundle(PURCHASE_RB_LOCATION);
         myDb = new Database();
         myGameInfos = new HashMap<String, GameInfo>();
         myPurchasedGames = new ArrayList<GameInfo>();
@@ -144,6 +151,38 @@ public class Controller implements ArcadeInteraction {
             throw new CorruptedDatabaseException();
         }
     }
+    
+    // Personalized Game-Center methods (trying without database)
+    
+    private void closeWriters(FileWriter fw, BufferedWriter bw) throws IOException {
+		bw.close();
+		fw.close();
+	}
+	
+	private void closeReaders(FileReader fr, BufferedReader br) throws IOException {
+		br.close();
+		fr.close();
+	}
+	
+	private void writeLine(BufferedWriter bw, String line) throws IOException {
+		bw.write(line);
+		bw.newLine();
+	}
+	
+	private File createFileForLocation(String loc) {
+		File file = new File(loc);
+		if (file.exists()) {
+			try{ 
+				file.createNewFile();
+			}
+			catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return file;
+	}
+    
+    
 
     /*
      * public void createNewUserProfile(String username, String pw, String firstname, String
