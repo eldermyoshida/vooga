@@ -5,7 +5,9 @@ import vooga.rts.IGameLoop;
 import vooga.rts.commands.Command;
 import vooga.rts.controller.Controller;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
+import vooga.rts.manager.IndividualResourceManager;
 import vooga.rts.manager.Manager;
+import vooga.rts.resourcemanager.ResourceManager;
 
 
 /**
@@ -18,6 +20,8 @@ import vooga.rts.manager.Manager;
 public class Player implements Controller, IGameLoop {
 
     protected Manager myManager;
+    private IndividualResourceManager myResources;
+
     private int myPlayerID;
     private int myTeamID;
 
@@ -25,6 +29,14 @@ public class Player implements Controller, IGameLoop {
         myManager = new Manager(playerid);
         myPlayerID = playerid;
         myTeamID = teamID;
+        myResources = new IndividualResourceManager();
+    }
+
+    /**
+     * @return the resources of the player
+     */
+    public IndividualResourceManager getResouces () {
+        return myResources;
     }
 
     @Override
