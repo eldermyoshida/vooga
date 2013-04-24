@@ -32,6 +32,10 @@ public class Client extends Thread implements IClient {
     private IMessageReceiver myReceiver;
     private boolean myRunning = false;
 
+    /**
+     * Instantiates the client and starts the connection.
+     * @param receiver to send messages to
+     */
     public Client (IMessageReceiver receiver) {
         myReceiver = receiver;
         try {
