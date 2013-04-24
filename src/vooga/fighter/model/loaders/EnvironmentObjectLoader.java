@@ -8,6 +8,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import vooga.fighter.model.ModelConstants;
 import vooga.fighter.model.objects.EnvironmentObject;
 
 /**
@@ -18,8 +19,6 @@ import vooga.fighter.model.objects.EnvironmentObject;
  *
  */
 public class EnvironmentObjectLoader extends ObjectLoader {
-
-	private static final String PATH_TAG = "EnvironmentPath";
 	
 	private EnvironmentObject myEnvironmentObject;
 
@@ -28,7 +27,7 @@ public class EnvironmentObjectLoader extends ObjectLoader {
 	 * all environment objects.
 	 */
 	public EnvironmentObjectLoader () {
-		super(PATH_TAG);
+		super(ModelConstants.ENVIRONMENTLOADER_PATH_TAG);
 	}
 	
 	/**
@@ -36,7 +35,7 @@ public class EnvironmentObjectLoader extends ObjectLoader {
 	 * loader will modify.
 	 */
 	public EnvironmentObjectLoader (String enviroObjectName, EnvironmentObject enviroObject) {
-		super(PATH_TAG);
+		super(ModelConstants.ENVIRONMENTLOADER_PATH_TAG);
 		myEnvironmentObject = enviroObject;
 		load(enviroObjectName); 
 	}

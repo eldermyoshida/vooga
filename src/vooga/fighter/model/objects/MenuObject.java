@@ -9,8 +9,6 @@ import vooga.fighter.model.loaders.MenuLoader;
  *
  */
 public class MenuObject extends GameObject {
-
-
     private String myNext;
     private String myValue;
     private int myGridNum;
@@ -27,11 +25,6 @@ public class MenuObject extends GameObject {
         setLoader(new MenuLoader(choice, this));
         myDelegate = delegate;
 
-    }
-
-    @Override
-    public boolean shouldBeRemoved () {
-        return false;
     }
 
     @Override

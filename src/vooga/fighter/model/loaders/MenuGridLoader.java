@@ -9,6 +9,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import vooga.fighter.model.MenuGrid;
 import vooga.fighter.model.MenuMode;
+import vooga.fighter.model.ModelConstants;
 import vooga.fighter.model.objects.MenuObject;
 import vooga.fighter.model.utils.State;
 import vooga.fighter.model.utils.UpdatableLocation;
@@ -16,16 +17,13 @@ import vooga.fighter.model.utils.UpdatableLocation;
 
 public class MenuGridLoader extends ObjectLoader {
 
-	private static final String PATH_TAG = "MenuGridPath";
-	
-    private static final int FOUR_TICKS = 4;
 
     private List<MenuObject> myMenuObjects;
     private MenuMode myDelegate;
     private MenuObject myObject;
 
     public MenuGridLoader (String menuname, MenuGrid grid, MenuMode delegate) {
-        super(PATH_TAG);
+        super(ModelConstants.MENUGRIDLOADER_PATH_TAG);
         myDelegate = delegate;
         myMenuObjects = new ArrayList<MenuObject>();
         load(menuname);
@@ -61,7 +59,7 @@ public class MenuGridLoader extends ObjectLoader {
                             state.populateSize(size, k);
                             Rectangle rect = new Rectangle(xSize, ySize);
                             state.populateRectangle(rect, k);
-                            state.populateAllDelays(FOUR_TICKS);
+                            state.populateAllDelays(ModelConstants.FOUR_TICKS);
                         }
                     }
                     int gridnum = Integer.parseInt(getAttributeValue(node1, getResourceBundle().getString("GridNum")));
