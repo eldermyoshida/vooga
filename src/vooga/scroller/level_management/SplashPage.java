@@ -10,7 +10,7 @@ import vooga.scroller.level_editor.exceptions.LevelEditorException;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.Pixmap;
-import vooga.scroller.view.View;
+import vooga.scroller.view.GameView;
 
 @InputClassTarget
 public class SplashPage extends Level implements IInputListener{
@@ -23,8 +23,8 @@ public class SplashPage extends Level implements IInputListener{
     private LevelManager myLevelManager;
     private int myNextLevelID;
     
-    public SplashPage (Pixmap backgroundImage, int splashID, View view, ScrollingManager sm) {
-        super(splashID, sm, view);
+    public SplashPage (Pixmap backgroundImage, int splashID, GameView gameView, ScrollingManager sm) {
+        super(splashID, sm);
         this.setBackground(backgroundImage.getDefaultImg());
         setNextLevelID(1);
     }
@@ -40,7 +40,7 @@ public class SplashPage extends Level implements IInputListener{
     
     
     @Override
-    public void update(double elapsedTime, Dimension bounds, View view) {
+    public void update(double elapsedTime, Dimension bounds, GameView gameView) {
         // Just leave the background image.
     }
 
