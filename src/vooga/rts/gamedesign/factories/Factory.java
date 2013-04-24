@@ -47,7 +47,7 @@ public class Factory {
 	public static final String DECODER_MATCHING_FILE = "DecodeMatchUp";
 	public static final String MATCHING_PAIR_TAG = "pair";
 	public static final String MATCHING_TYPE_TAG = "type";
-	public static final String MATCHING_PATH_TAG = "decoderPath";
+	public static final String MATCHING_PATH_TAG = "path";
 	
 	Map<String, String> myDecoderPaths;
 	Map<String, Decoder> myDecoders;
@@ -340,8 +340,9 @@ public class Factory {
 			OccupyStrategy occupy = (OccupyStrategy) myStrategies.get(strategies[1]);
 			mySprites.get(key).setOccupyStrategy(occupy);
 			GatherStrategy gather = (GatherStrategy) myStrategies.get(strategies[2]);
-			mySprites.get(key).setGatherStrategy(gather);
-			
+			if (mySprites.get(key) instanceof Unit) {
+				((Unit)mySprites.get(key)).setGatherStrategy(gather);
+			}
 		}
 	}
 	

@@ -147,7 +147,7 @@ public class GameState extends SubState implements Controller {
     }
 
     private DelayedTask test;
-    private DelayedTask occupyPukingTest;
+    private DelayedTask deoccupyTest;
 
     public void setupGame () {
         addPlayer(1);
@@ -231,14 +231,14 @@ public class GameState extends SubState implements Controller {
         }, true));
 
         final Building testGarrison = garrison;
-        occupyPukingTest = new DelayedTask(10, new Runnable() {
+        deoccupyTest = new DelayedTask(10, new Runnable() {
             @Override
             public void run () {
                 if (testGarrison.getOccupyStrategy().getOccupiers().size() > 0) {
                     System.out.println("will puke!");
                     testGarrison.getAction(new Command("deoccupy")).apply();
                 }
-                occupyPukingTest.restart();
+                deoccupyTest.restart();
             }
         });
 
@@ -289,7 +289,7 @@ public class GameState extends SubState implements Controller {
                 }
             }
         }
-        occupyPukingTest.update(elapsedTime);
+        deoccupyTest.update(elapsedTime);
     }
 
     public static GameMap getMap () {
