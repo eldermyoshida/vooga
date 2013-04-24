@@ -22,7 +22,7 @@ public interface ArcadeInteraction {
      * Get data associated with a specific game and a user
      * @return UserGameData
      */
-    public UserGameData getUserGameData();
+    public UserGameData getUserGameData(Game game);
     
     public GameData getGameData();
 
