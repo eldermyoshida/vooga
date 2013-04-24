@@ -59,7 +59,7 @@ public class ClientModel implements IMessageReceiver, IClientModel, IModel {
                         String userName,
                         String[] factions,
                         String[] maps,
-                        Integer[][] maxPlayerArray) {
+                        Integer[] maxPlayerArray) {
         myUserName = userName;
         myFactions = factions;
         myContainerPanel = new ViewContainerPanel(gameName);

@@ -23,10 +23,10 @@ public class CreateLobbyView extends JPanel {
     private JTextField myServerField;
     private JComboBox myMapComboBox;
     private JComboBox myMaxPlayersComboBox;
-    private Integer[][] myMaxPlayerArray;
+    private Integer[] myMaxPlayerArray;
     private String[] myMapChoices;
 
-    public CreateLobbyView (String[] mapChoices, Integer[][] maxPlayers) {
+    public CreateLobbyView (String[] mapChoices, Integer[] maxPlayers) {
         setLayout(new BorderLayout(0, 0));
         myMaxPlayerArray = maxPlayers;
         myMapChoices = mapChoices;
@@ -51,7 +51,11 @@ public class CreateLobbyView extends JPanel {
                 Integer[] maxPlayerChoices = null;
                 for (int i = 0; i < myMapChoices.length; i++) {
                     if (myMapChoices[i].equals(choice)) {
-                        maxPlayerChoices = myMaxPlayerArray[i];
+                        Integer[] playerNumArray = new Integer[myMaxPlayerArray[i] - 1];
+                        for (int b = 2; b <= myMaxPlayerArray[i]; b++){
+                            playerNumArray[b - 2] = b;
+                        }
+                        maxPlayerChoices = playerNumArray;
                         break;
                     }
                 }
