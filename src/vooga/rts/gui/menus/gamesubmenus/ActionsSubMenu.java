@@ -85,12 +85,12 @@ public class ActionsSubMenu extends SubMenu {
             if (image == null) {
                 b =
                         new ActionButton(ACTION_IMAGE_URL, ACTION_BUTTON_DIMENSION,
-                                        myActionButtonLocations[k]);
+                                        myActionButtonLocations[k], info);
             }
             else {
                 b =
                         new ActionButton(info.getButtonImage(), ACTION_BUTTON_DIMENSION,
-                                        myActionButtonLocations[k]);
+                                        myActionButtonLocations[k], info);
             }
             myActionButtons.add(b);
             k++;
