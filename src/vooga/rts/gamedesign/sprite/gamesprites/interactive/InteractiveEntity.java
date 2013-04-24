@@ -17,6 +17,9 @@ import java.util.Map;
 import java.util.Set;
 import vooga.rts.action.Action;
 import vooga.rts.action.IActOn;
+import vooga.rts.ai.AstarFinder;
+import vooga.rts.ai.Path;
+import vooga.rts.ai.PathFinder;
 import vooga.rts.commands.Command;
 import vooga.rts.commands.InformationCommand;
 import vooga.rts.gamedesign.sprite.gamesprites.GameEntity;
@@ -36,13 +39,17 @@ import vooga.rts.gamedesign.strategy.upgradestrategy.CanUpgrade;
 import vooga.rts.gamedesign.strategy.upgradestrategy.UpgradeStrategy;
 import vooga.rts.gamedesign.upgrades.UpgradeNode;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
+
 import vooga.rts.gamedesign.weapon.Weapon;
+import vooga.rts.state.GameState;
+
 import vooga.rts.util.Camera;
 import vooga.rts.util.DelayedTask;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
 import vooga.rts.util.Information;
+
 
 /**
  * This class is the extension of GameEntity. It represents shapes that are able
@@ -557,5 +564,6 @@ public abstract class InteractiveEntity extends GameEntity implements
 	public void setBuildTime(double time) {
 		myBuildTime = time;
 	}
+
 
 }

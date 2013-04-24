@@ -3,8 +3,12 @@ package vooga.rts.map;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
+import java.util.Observer;
+import java.util.TreeMap;
 import vooga.rts.IGameLoop;
+import vooga.rts.gamedesign.sprite.gamesprites.GameEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.GameSprite;
 import vooga.rts.gamedesign.sprite.map.Terrain;
 import vooga.rts.state.GameState;
@@ -16,12 +20,12 @@ import vooga.rts.util.Location3D;
  * This class is a basic manager for Game Sprites that will go on the map.
  * These will be things such as Terrains and Resources.
  * 
- * This class uses generics in order to store mutliple ti
+ * This class uses generics in order to store multiple types of specific GameSprites
  * 
  * @author Jonathan Schmidt
  * 
  */
-public class GameSpriteManager<T extends GameSprite> extends Observable implements IGameLoop {
+public class GameSpriteManager<T extends GameSprite> implements IGameLoop, Observer {
 
     private List<T> myGameSprites;
 
@@ -41,9 +45,6 @@ public class GameSpriteManager<T extends GameSprite> extends Observable implemen
 
     @Override
     public void paint (Graphics2D pen) {
-        for (T t : myGameSprites) {
-            t.paint(pen);
-        }
     }
 
     /**
@@ -54,6 +55,8 @@ public class GameSpriteManager<T extends GameSprite> extends Observable implemen
      */
     public void add (T gs) {
         gs.addObserver(GameState.getMap().getNodeMap());
+        gs.setChanged();
+        gs.notifyObservers(gs.getWorldLocation());
         myGameSprites.add(gs);
     }
 
@@ -90,17 +93,35 @@ public class GameSpriteManager<T extends GameSprite> extends Observable implemen
      * @return List of items that are in the area
      */
     public List<T> getInArea (Location3D center, double radius) {
-        List<T> items = new ArrayList<T>();
+        Map<Double, T> sortedItems = new TreeMap<Double, T>();
         for (T single : myGameSprites) {
             // Do basic test first
             if (single.getWorldLocation().getManhattanDistance(center) < radius) {
                 // Do accurate test second
-                if (single.getWorldLocation().getDistance(center) < radius) {
-                    items.add(single);
+                double distance = single.getWorldLocation().getDistance(center);
+                if (distance < radius) {
+                    sortedItems.put(distance, single);
                 }
             }
         }
-        return items;
+        return new ArrayList<T>(sortedItems.values());
+    }
+
+    @Override
+    public void update (Observable arg0, Object arg1) {
+        if (arg0 instanceof GameEntity) {
+            if (((GameEntity)arg0).isDead()) {
+                remove((T) arg0);
+            }
+        }
+    }
+    
+    public int getSize() {
+        return myGameSprites.size();
+    }
+    
+    public List<T> getMySprites() {
+        return myGameSprites;
     }
 
 }
