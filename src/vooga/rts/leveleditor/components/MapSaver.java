@@ -1,9 +1,7 @@
 package vooga.rts.leveleditor.components;
 
 import java.awt.image.BufferedImage;
-import java.awt.image.RenderedImage;
 import java.io.File;
-
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
@@ -144,16 +142,26 @@ public class MapSaver {
         for(int i = 0 ; i < mySavingMap.getTerrainSize(); i++ ) {
             Terrain ter = mySavingMap.getTerrain(i);   
             String myImageName = ter.getMyImageName();
-            BufferedImage myImage = ter.getMyImage();
+            BufferedImage myImage = (BufferedImage)ter.getMyImage();
+            File bufferFile = new File(tileImagePath + myImageName);
+            try {
+                ImageIO.write(myImage, "JPG", bufferFile);
+            }
+            catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
             if( !terrainInformation.containsKey(myImageName)) {
                  terrainInformation.put(myImageName, myImage);
             }
         }
-    }
+        
         
         for(String str : terrainInformation.keySet()) {
+            
             File bufferFile = new File(tileImagePath + str);
             String format = getFileFormat(str);
+            
             try {
                 ImageIO.write(terrainInformation.get(str), format, bufferFile);
             }
@@ -174,9 +182,10 @@ public class MapSaver {
         
         Map<String,BufferedImage> resourceInformation = new HashMap<String,BufferedImage>();
         
-        for(Resource res : mySavingMap.getResourceSet()) {
+        for(int i = 0 ; i < mySavingMap.getResourceSize() ; i++) {
+            Resource res = mySavingMap.getResource(i);
             String myImageName = res.getMyImageName();
-            BufferedImage myImage = res.getMyImage();
+            BufferedImage myImage = (BufferedImage)res.getMyImage();
             if( !resourceInformation.containsKey(myImageName)) {
                 resourceInformation.put(myImageName, myImage);
             }
@@ -213,7 +222,7 @@ public class MapSaver {
         info.appendChild(description);
         
         Element players = myDocument.createElement("Players");
-        players.setAttribute("number", mySavingMap.getMyPlayerNumber()+"");
+        players.setAttribute("number", mySavingMap+"");
         for(Integer i : mySavingMap.getAllPlayers().keySet()) {
             Location loc = mySavingMap.getAllPlayers().get(i);
             int x = (int)loc.getX();
@@ -237,13 +246,13 @@ public class MapSaver {
         Element terrainIndex = myDocument.createElement("terrainindex");
         
         Element tileSize = myDocument.createElement("tilesize");
-        tileSize.setAttribute("width", mySavingMap.getMapNode(0, 0).getMyWidth()+"");
-        tileSize.setAttribute("height", mySavingMap.getMapNode(0, 0).getMyHeight()+"");
+        tileSize.setAttribute("width", mySavingMap.getMyTileWidth()+"");
+        tileSize.setAttribute("height", mySavingMap.getMyTileHeight()+"");
         sizeInfo.appendChild(tileSize);
         
         Element tileAmount = myDocument.createElement("tileamount");
-        tileAmount.setAttribute("X", mySavingMap.getMyXSize()+"");
-        tileAmount.setAttribute("Y", mySavingMap.getMyYSize()+"");
+        tileAmount.setAttribute("X", mySavingMap.getMyXsize()+"");
+        tileAmount.setAttribute("Y", mySavingMap.getMyYsize()+"");
         sizeInfo.appendChild(tileAmount);
         
         for(String str : myTileResources.keySet()) {
@@ -283,12 +292,12 @@ public class MapSaver {
     private void appendTile(Element root) {
         Element tile = myDocument.createElement("tiles");
         
-        int x = mySavingMap.getMyXSize();
-        int y = mySavingMap.getMyYSize();
+        int x = mySavingMap.getMyXsize();
+        int y = mySavingMap.getMyYsize();
         
         for(int i= 0 ; i < x ; i++) {
             for(int j = 0; j<y ; j++) {
-                Tile bufferTile = mySavingMap.getMapNode(i, j).getMyTile();
+                EditableTile bufferTile = mySavingMap.getMyTile(i, j);
                 Element currentTile = myDocument.createElement("tile"); 
                 currentTile.setAttribute("ID", bufferTile.getMyID()+"");
                 tile.appendChild(currentTile);
@@ -301,28 +310,21 @@ public class MapSaver {
 
     private void appendTerrain(Element root) {
         Element terrains = myDocument.createElement("terrains");
-        
-        int layerCount = mySavingMap.getLayerNumber();
-        
-        for(int i = 1 ; i < layerCount+1 ; i++) {
-            
-            Element layer = myDocument.createElement("layer");
-            layer.setAttribute("level", i+"");
-            
-            
-            for(Terrain ter : mySavingMap.getLayer(i).getTerrainSet()) {
-                
-                int ID = ter.getMyID();
-                int x = ter.getMyX();
-                int y = ter.getMyY();
-                Element newTerrain =  myDocument.createElement("terrain");
-                newTerrain.setAttribute("ID", ID+"");
-                newTerrain.setAttribute("X", x+"");
-                newTerrain.setAttribute("Y", y+"");
-                layer.appendChild(newTerrain);
-            }
-            terrains.appendChild(layer);
+         
+        for(int i = 0 ; i < mySavingMap.getTerrainSize() ; i++) {
+            Terrain ter = mySavingMap.getTerrain(i);    
+            int ID = ter.getMyID();
+            int x = (int)ter.getWorldLocation().getX();
+            int y = (int)ter.getWorldLocation().getY();
+            int z = (int)ter.getWorldLocation().getZ();
+            Element newTerrain =  myDocument.createElement("terrain");
+            newTerrain.setAttribute("ID", ID+"");
+            newTerrain.setAttribute("X", x+"");
+            newTerrain.setAttribute("Y", y+"");
+            newTerrain.setAttribute("Z", z+"");
+            terrains.appendChild(newTerrain);
         }
+        
         
         root.appendChild(terrains);
         
@@ -331,15 +333,18 @@ public class MapSaver {
     private void appendResource(Element root) {
         Element resources = myDocument.createElement("Resources");
         
-        for(Resource res : mySavingMap.getResourceSet()) {
-            
+        for(int i = 0 ; i < mySavingMap.getResourceSize() ; i++) {
+            Resource res = mySavingMap.getResource(i);
             int ID = res.getMyID();
-            int x = res.getMyX();
-            int y = res.getMyY();
+            int x = (int)res.getWorldLocation().getX();
+            int y = (int)res.getWorldLocation().getY();
+            int z = (int)res.getWorldLocation().getZ();
+            
             Element newTerrain =  myDocument.createElement("resource");
             newTerrain.setAttribute("ID", ID+"");
             newTerrain.setAttribute("X", x+"");
             newTerrain.setAttribute("Y", y+"");
+            newTerrain.setAttribute("Z", z+"");
             resources.appendChild(newTerrain);
         }
         

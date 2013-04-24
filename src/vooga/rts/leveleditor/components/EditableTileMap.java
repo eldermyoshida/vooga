@@ -1,6 +1,7 @@
 package vooga.rts.leveleditor.components;
 
 import java.awt.Dimension;
+import java.io.IOException;
 import vooga.rts.map.TileMap;
 import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
@@ -34,11 +35,11 @@ public class EditableTileMap extends TileMap {
     
     }
     
-    public void removeTile(int i, int j) {
+    public void removeTile(int i, int j) throws IOException {
         this.setTile(i, j, new EditableTile(i,j,getMyTileSize()));
     }
     
-    public void removeTile(Location3D center) {
+    public void removeTile(Location3D center) throws IOException {
         int i = (int)(center.getY()/getMyTileSize().getHeight());
         int j = (int)(center.getX()/getMyTileSize().getWidth());
         removeTile(i,j);
@@ -50,7 +51,7 @@ public class EditableTileMap extends TileMap {
     
     @Override
     public EditableTile getTile(int i , int j) {
-        return this.getTile(i, j);    
+        return (EditableTile) super.getTile(i, j);    
     }
     
     public int getXCount (Location loc) {
