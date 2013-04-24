@@ -38,7 +38,7 @@ public class LEGrid implements Editable, Renderable<LEGridView>, Scrollable {
     private Dimension mySize;
     private Set<SpriteBox> myPaintableBoxes;
     private StartPoint myStartPoint;
-    private LevelPortal myDoor; 
+    private LevelPortal myDoor;
     private IBackgroundView myBackground;
 
     public LEGrid (int numWidthBlocks, int numHeightBlocks) {
@@ -248,18 +248,16 @@ public class LEGrid implements Editable, Renderable<LEGridView>, Scrollable {
 
     @Override
     public void addDoor (Sprite s, int x, int y) {
-        if (myDoor == null) {
-            myDoor = (LevelPortal) s;
-        }
-        else {
+        if (myDoor != null) {
             deleteSprite((int) myDoor.getX(), (int) myDoor.getY());
         }
+        myDoor = (LevelPortal) s;
         addSprite(myDoor, x, y);
     }
 
     public void addDoorWithCoor (int xcoor, int ycoor, Sprite sprite) {
         myDoor = (LevelPortal) sprite;
-        addSpriteWithCoor(xcoor,ycoor,sprite);
+        addSpriteWithCoor(xcoor, ycoor, sprite);
     }
 
     @Override

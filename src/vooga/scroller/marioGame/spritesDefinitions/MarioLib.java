@@ -251,10 +251,26 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
         
     }
 
-    public static class ExamplePortal extends LevelPortal {
+    public static class DoorPortal extends LevelPortal {
 
         private static final String PORTAL_IMG = "door.png";
         private static final Dimension PORTAL_SIZE = new Dimension(32, 64);
+
+        @Override
+        public ISpriteView initView () {
+            return makePixmap(PORTAL_IMG);
+        }
+
+        @Override
+        public Dimension initSize () {
+            return PORTAL_SIZE;
+        }
+    }
+    
+    public static class StarPortal extends LevelPortal {
+
+        private static final String PORTAL_IMG = "star.png";
+        private static final Dimension PORTAL_SIZE = new Dimension(32, 32);
 
         @Override
         public ISpriteView initView () {
