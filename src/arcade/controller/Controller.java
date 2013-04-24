@@ -65,7 +65,7 @@ public class Controller implements ArcadeInteraction {
 
     // Parameters
     private String myLanguage;
-    private String currentUser;
+    private String myCurrentUser;
     private UserGameData myCurrentUserGameData;
     private GameData myCurrentGameData;
 
@@ -91,7 +91,7 @@ public class Controller implements ArcadeInteraction {
     public void authenticate (String username, String password) throws LoginErrorException {
         if (loginCreteriaNotSatisfied(username, password)) { throw new LoginErrorException(); }
         myLoginView.dispose();
-        currentUser = username;
+        myCurrentUser = username;
         organizeSnapshots();
         myView = new MainView(this, myResources);
     }
@@ -272,7 +272,7 @@ public class Controller implements ArcadeInteraction {
      * Rate a specific game, store in user-game database
      */
     public void commentAndRateGame (String comment, double rating, String gameName) {
-        myDb.insertCommentAndRating(currentUser, gameName, comment, rating);
+        myDb.insertCommentAndRating(myCurrentUser, gameName, comment, rating);
     }
 
     public void playGame (GameInfo gameinfo) {
@@ -313,9 +313,9 @@ public class Controller implements ArcadeInteraction {
      * @param user, game (whatever that identifies the user and the game)
      * @return
      */
-    public UserGameData getUserGameData (String user, String game) {
+    public UserGameData getUserGameData () {
         if (myCurrentUserGameData == null ){
-            myCurrentUserGameData =  myCurrentGameInfo.getUserGameData(myCurrentGame , user);
+            myCurrentUserGameData =  myCurrentGameInfo.getUserGameData(myCurrentGame , myCurrentUser);
         }
         return myCurrentUserGameData;
     }
@@ -331,7 +331,7 @@ public class Controller implements ArcadeInteraction {
     @Override
     public void killGame () {
         int score = getCurrentUserGameData().getLastScore();
-        myDb.addNewHighScore(currentUser, myCurrentGameInfo.getName(),  score);
+        myDb.addNewHighScore(myCurrentUser, myCurrentGameInfo.getName(),  score);
         myView.showEndGameView(score);
         myCurrentGame = null;
         myCurrentGameInfo = null;
@@ -339,7 +339,7 @@ public class Controller implements ArcadeInteraction {
 
     
     private UserGameData getCurrentUserGameData(){
-        return myCurrentGameInfo.getUserGameData(myCurrentGame, currentUser);
+        return myCurrentGameInfo.getUserGameData(myCurrentGame, myCurrentUser);
     }
     
 
@@ -349,15 +349,11 @@ public class Controller implements ArcadeInteraction {
     }
 
     @Override
-    public GameData getGameData (String gameName) {
-      
+    public GameData getGameData () {
         if (myCurrentGameData == null ){
             myCurrentGameData =  myCurrentGameInfo.getGameData(myCurrentGame );
         }
         return myCurrentGameData;
-        
-        
-        
         
     }
 
