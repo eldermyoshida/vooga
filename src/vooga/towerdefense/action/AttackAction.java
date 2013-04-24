@@ -1,6 +1,5 @@
 package vooga.towerdefense.action;
 
-import vooga.towerdefense.action.tobetested.PeriodicAction;
 import vooga.towerdefense.attributes.AttributeConstants;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.model.GameMap;

@@ -19,23 +19,59 @@ import vooga.towerdefense.util.Location;
 import vooga.towerdefense.util.Pixmap;
 
 /**
- * A class responsible for loading a map from a text file.
+ * This class is responsible for constructing GameMap objects
+ * from an xml file describing different game maps.
  * 
- * The text file is formatted as follows:
+ * An example of this xml file is shown below:
  * 
- * Ex: 
+ * <map>
+ *      <map1>
+ *              <image></image>
+ *              <dimension>
+ *                      <width>800</width>
+ *                      <height>600</height>            
+ *              </dimension>
+ *              <tile_size>50</tile_size>
+ *              <grid>
+ *                      0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ *                      0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ *                      0 0 0 1 1 1 1 1 0 0 0 0 0 0 0 0
+ *                      0 0 0 1 0 0 0 1 0 0 0 1 1 1 0 0
+ *                      0 0 0 1 0 0 0 1 0 0 0 1 0 1 0 0
+ *                      1 1 1 1 0 0 0 1 1 1 1 1 0 1 1 1 
+ *                      0 0 0 1 0 0 0 1 0 0 0 1 0 1 0 0
+ *                      0 0 0 1 0 0 0 1 0 0 0 1 1 1 0 0
+ *                      0 0 0 1 1 1 1 1 0 0 0 0 0 0 0 0
+ *                      0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ *                      0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ *                      0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ *              </grid>
+ *      </map1>
+ *      <map2>
+ *              <image></image>
+ *              <dimension>
+ *                      <width>800</width>
+ *                      <height>600</height>            
+ *              </dimension>
+ *              <tile_size>50</tile_size>
+ *              <grid>
+ *                      0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ *                      0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ *                      0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ *                      0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ *                      0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ *                      1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
+ *                      0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ *                      0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ *                      0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ *                      0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ *                      0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ *                      0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ *              </grid>
+ *      </map2>
+ * </map>
  * 
- * 0 0 0 0
- * 1 1 0 0
- * 0 1 1 1
- * 0 0 0 0
- * 
- * In this text file, there will be a grid of numbers. Each number
- * corresponds to a tile id. In order to create a new map, all you need
- * to do is create this text file, and make tiles with appropriate ids.
- * For example, if we let the id of grass tiles be 0, and the id of 
- * path tiles be 1. The 1s on the above grid outline the path on the map
- * that will be created.
+ * This file is read, and a List of GameMap objects can be returned.
  * 
  * @author Erick Gonzalez
  */
@@ -58,7 +94,8 @@ public class MapLoader {
     private Map<Integer, TileFactory> myTileIdMap;
     
     /**
-     * Initializes map from tile ids to tile factories.
+     * 
+     * @param mapFilePath a path to the map XML file
      */
     public MapLoader(String mapFilePath) {
         myXMLTool = new XMLTool();
@@ -73,6 +110,11 @@ public class MapLoader {
         myTileIdMap.put(2, new PathTileFactory());
     }
     
+    /**
+     * Loads all the maps described in the xml file.
+     * 
+     * @return a list of GameMap objects
+     */
     public List<GameMap> loadMaps() {
         List<GameMap> gameMaps = new ArrayList<GameMap>();
         Element mapElement = myXMLTool.getElementFromTag(MAP_TAG);
@@ -84,7 +126,7 @@ public class MapLoader {
         return gameMaps;
     }
     
-    public GameMap loadMap(Element mapNameElement) {
+    private GameMap loadMap(Element mapNameElement) {
         Map<String, Element> subElements = myXMLTool.getMapElementFromParent(mapNameElement);
         Pixmap mapImage = loadMapImage(subElements.get(IMAGE_TAG));
         Dimension mapDimensions = loadMapDimensions(subElements.get(DIMENSION_TAG));
@@ -93,33 +135,33 @@ public class MapLoader {
         return new GameMap(mapGrid, mapImage, mapDimensions, null);
     }
     
-    public Pixmap loadMapImage(Element imageElement) {
+    private Pixmap loadMapImage(Element imageElement) {
         String imagePath = myXMLTool.getContent(imageElement);
         return new Pixmap(imagePath);
     }
     
-    public Dimension loadMapDimensions(Element dimensionElement) {
+    private Dimension loadMapDimensions(Element dimensionElement) {
         Map<String, Element> subElements = myXMLTool.getMapElementFromParent(dimensionElement);
         int width = getMapWidth(subElements.get(WIDTH_TAG));
         int height = getMapHeight(subElements.get(HEIGHT_TAG));
         return new Dimension(width, height);
     }
     
-    public int getMapWidth(Element widthElement) {
+    private int getMapWidth(Element widthElement) {
         return Integer.parseInt(myXMLTool.getContent(widthElement));
     }
     
-    public int getMapHeight(Element heightElement) {
+    private int getMapHeight(Element heightElement) {
         return Integer.parseInt(myXMLTool.getContent(heightElement));
     }
     
-    public Dimension loadMapTileSize(Element tileSizeElement) {
+    private Dimension loadMapTileSize(Element tileSizeElement) {
         int tileSize = Integer.parseInt(myXMLTool.getContent(tileSizeElement));
         return new Dimension(tileSize, tileSize);
     } 
     
-    
-    public Tile[][] loadTiles(Element tilesElement, Dimension mapDimensions, Dimension tileDimensions) {
+    private Tile[][] loadTiles(Element tilesElement, Dimension mapDimensions, 
+                               Dimension tileDimensions) {
         String gridString = myXMLTool.getContent(tilesElement);
         Scanner reader = new Scanner(gridString);
         

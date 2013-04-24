@@ -2,6 +2,7 @@ package vooga.towerdefense.factories;
 
 import java.awt.Dimension;
 
+import vooga.towerdefense.factories.definitions.GameElementDefinition;
 import vooga.towerdefense.model.tiles.factories.TileFactory;
 import vooga.towerdefense.util.Location;
 import vooga.towerdefense.util.Pixmap;
@@ -24,14 +25,6 @@ public class TowerDefinition extends GameElementDefinition {
 		myImage = TOWER_IMAGE;
 		myCenter = DEFAULT_TOWER_LOCATION;
 		mySize = DEFAULT_TOWER_SIZE;
-		myShape = DEFAULT_TOWER_SHAPE;
-		setTowerSize(); 
-	}
-
-	protected void setTowerSize() {
-		int width = (int) (mySize.getWidth()  * myShape.split("\n")[0].split(" ").length);
-		int height = (int) (mySize.getHeight() * myShape.split("\n").length);
-		mySize = new Dimension(width, height);
 	}
 
 }

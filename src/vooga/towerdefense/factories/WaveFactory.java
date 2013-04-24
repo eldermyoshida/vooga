@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import vooga.towerdefense.action.Action;
-import vooga.towerdefense.action.tobetested.SpawnEnemy;
-import vooga.towerdefense.factories.examples.ExampleUnitFactory;
+import vooga.towerdefense.action.tobetested.SpawnGameElementsWithoutInitiator;
+import vooga.towerdefense.factories.examplesfactories.ExampleUnitFactory;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.gameElements.Wave;
 import vooga.towerdefense.model.GameMap;
@@ -28,7 +28,7 @@ public class WaveFactory {
         
         Location spawnLocation = new Location(spawnTile.getCenter().getX(),
                                               spawnTile.getCenter().getY());
-        Action spawnEnemies = new SpawnEnemy(ElementFactory,
+        Action spawnEnemies = new SpawnGameElementsWithoutInitiator(ElementFactory,
                                              gameMap, spawnLocation,
                                              numUnits, spawnDelay);
         Map<Boolean, Action> waveConditions =

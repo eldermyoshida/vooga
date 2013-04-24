@@ -2,9 +2,8 @@ package vooga.towerdefense.action.tobetested;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import vooga.towerdefense.action.Action;
-import vooga.towerdefense.factories.examples.ExampleUnitFactory;
+import vooga.towerdefense.action.PeriodicAction;
+import vooga.towerdefense.factories.examplesfactories.ExampleUnitFactory;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.tiles.Tile;
@@ -14,15 +13,12 @@ import vooga.towerdefense.util.Location;
  * An action that spawns game elements.
  * 
  * @author Erick Gonzalez
+ * @author Zhen Gou
  */
-public class SpawnEnemy extends Action {
+public class SpawnGameElementsWithoutInitiator extends PeriodicAction {
     private List<GameElement> myGameElements;
     private GameMap myGameMap;
     private Tile mySpawnTile;
-    private double mySpawnDelay; 
-    private double myTimer;
-    private double myLastSpawnTime;
-    private double myDuration;
     
     /**
      * 
@@ -32,20 +28,27 @@ public class SpawnEnemy extends Action {
      * @param numEnemies the number of enemies to spawn
      * @param spawnDelay the spawn delay of these enemies
      */
-    public SpawnEnemy(ExampleUnitFactory elementFactory, GameMap map, Location spawnLocation,
+    public SpawnGameElementsWithoutInitiator(ExampleUnitFactory elementFactory, GameMap map, Location spawnLocation,
                       int numEnemies, double spawnDelay) {
         myGameElements = createGameElementsToSpawn(elementFactory,
                                                    numEnemies,
                                                    spawnLocation);
         myGameMap = map;
         mySpawnTile = map.getTile(spawnLocation);
-        mySpawnDelay = spawnDelay;
-        myTimer = 0;
+        setCoolDown(spawnDelay);
+     
     }
 
     @Override
     public void executeAction (double elapsedTime) {
-        spawnGameElements(elapsedTime);
+    	updateTimer(elapsedTime);
+    	if(isReady()&&hasNextGameElement()){
+    		 spawnGameElements();
+    		 resetTimer();
+    		
+    	}
+       
+        
     }
     
     private List<GameElement> createGameElementsToSpawn(ExampleUnitFactory elementFactory,
@@ -57,13 +60,10 @@ public class SpawnEnemy extends Action {
         return units;
     }
     
-    private void spawnGameElements(double elapsedTime) {
-        if (canSpawn() && hasNextGameElement()) {
+    private void spawnGameElements() {
             GameElement gameElement = getNextGameElement();
             myGameMap.addToMap(gameElement, mySpawnTile);
-            myLastSpawnTime = myTimer;
-        }
-        myTimer += elapsedTime;
+        
     }
     
     private GameElement getNextGameElement() {
@@ -76,8 +76,7 @@ public class SpawnEnemy extends Action {
         return myGameElements.iterator().hasNext();
     }
     
-    private boolean canSpawn() {
-        return myTimer == 0 || (myTimer - myLastSpawnTime) > mySpawnDelay;
-    }
+ 
+    
 
 }

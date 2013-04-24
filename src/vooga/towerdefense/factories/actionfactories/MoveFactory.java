@@ -18,6 +18,7 @@ public class MoveFactory extends ActionFactory {
 	public MoveFactory(String moveSpeedReference) {
 		myMoveSpeedReference=moveSpeedReference;
 	}
+	
 	/**
 	 * create a move action for the game element given
 	 * @param elementToMove
