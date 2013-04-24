@@ -41,9 +41,17 @@ public abstract class Game{
      * and we need to generate a gamedata object. If you dont plan on using gameData objects
      * then you dont need to implement this method, but if you don't then you cant 
      *  call getGameData from ArcadeInteraction
+     *  
+     *  You should override this to return your specific implementation of 
+     *  GameData if your game uses an extension of this class.
+     * @return a new instance of GameData for each game.
+     *  
+     *  
      * @return the specific subclass of GameData for each game.
      */
-    public abstract GameData generateNewGameProfile();
+    public  GameData generateNewGameProfile(){
+        return new GameData();
+    }
     /**
      * starts the game (should probably start running the game loop)
      *
