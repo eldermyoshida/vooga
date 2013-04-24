@@ -139,11 +139,12 @@ public class ConnectionThread extends Thread {
         }
         try {
             myOutput.writeObject(m);
-            NetworkLogger.logMessage(Level.FINEST, NetworkBundle.getString("MessageSent") +
-                                                   m.getClass().toString());
+            NetworkLogger.logMessage(Level.FINEST, NetworkBundle.getString("MessageSent") + ": \"" +
+                                                   m.getClass().toString() + "\"");
         }
         catch (IOException e) {
-            NetworkLogger.logMessage(Level.FINE, NetworkBundle.getString("failed sending message"));
+            NetworkLogger.logMessage(Level.FINE, NetworkBundle.getString("MessageFailed" + ": \"" +
+                    m.getClass().toString() + "\""));
         }
     }
 
