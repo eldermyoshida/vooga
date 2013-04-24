@@ -37,7 +37,7 @@ public class LevelMode extends Mode {
     /**
      * Updates level mode by calling update in all of its objects.
      */
-    public void update(double stepTime, Dimension bounds) {
+    public void update() {
         loadAttacks();
         removeAppropriateObjects();
         updateHealth();
