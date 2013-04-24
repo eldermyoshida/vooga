@@ -24,7 +24,6 @@ public class CharacterObject extends GameObject {
 
 
     private static final int RIGHT=0; 
-    private static final int MOVE_BACK_AMOUNT=-2; 
     private static final int UP=270; 
     
     private Map<String, AttackObject> myAttacks;
@@ -35,7 +34,6 @@ public class CharacterObject extends GameObject {
     private boolean facingRight;  
     private int movingDirection; 
     private Vector myVelocity;  
-    private boolean myIsStanding;
     
     /**
      * Constructs a new CharacterObject.
@@ -48,23 +46,12 @@ public class CharacterObject extends GameObject {
         movingDirection=RIGHT; 
         currentAttacks= new ArrayList<AttackObject>();
         setLoader(new CharacterLoader(charName, this));
-        setCurrentState("stand");
-        setDefaultState("stand");
         setHealth(getProperty("maxHealth"));
         getCurrentState().setLooping(true);
         setLocation(center);
         myVelocity=getLocation().getVelocity();
         setImageData();
         
-    }
-    
-    public boolean getStanding() {
-        return myIsStanding;
-    }
-    
-    public void setStanding(boolean bool) {
-        myIsStanding = bool;
-            
     }
 
     /**
@@ -202,7 +189,7 @@ public class CharacterObject extends GameObject {
      * Moves in given direction at speed of character
      */
     public void move(int direction) {
-        setCurrentState("moveRight");
+        movingDirection=direction; 
         getLocation().translate(new Vector(direction, getProperty("movespeed")));
 
     }
@@ -229,13 +216,6 @@ public class CharacterObject extends GameObject {
     public void jump() {        
     	getLocation().addAcceleration(new Vector(UP, getProperty("jumpfactor")));
     } 
-    
-    /**
-     * Characters should never be removed.
-     */
-    public boolean shouldBeRemoved() {
-        return false;
-    }
     
     /**
      * Checks to see if character is facing right
