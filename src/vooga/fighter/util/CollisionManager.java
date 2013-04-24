@@ -81,10 +81,8 @@ public class CollisionManager {
      * Handles collisions between an attack object and a character object.
      */
     public void collide (AttackObject o1, CharacterObject o2) {
-        System.out.println("CollisionManager: AttackObject and CharacterObject collided!");
         if (!o1.getOwner().equals(o2)) {
             int remaining = o1.inflictDamage(o2);
-            System.out.printf("CollisionManager collide : target has %d hp remaining\n", remaining);
             o1.addTargetForEffects(o2);
         }
         o1.endCounter();

@@ -86,7 +86,7 @@ public static final Dimension SIZE = new Dimension(800, 600);
 	 }
 	 
 	 protected void setFilePathway(){
-		 myHardFilePathway = "vooga.fighter.config";
+		 myHardFilePathway = "vooga.fighter.";
 	 }
 	 
 	 

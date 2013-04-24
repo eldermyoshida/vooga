@@ -39,7 +39,7 @@ public class OneVOneController extends LevelController {
     		GameInfo gameinfo, String filepath) {
     	super(name, frame, manager, gameinfo, filepath);
     	myInputPathway = getHardFilePath() + INPUT_PATHWAY;
-    	ForceFactory forcefactory = new ForceFactory();
+    	ForceFactory forcefactory = new ForceFactory(getHardFilePath());
     	myForces = forcefactory.getForces();
     	getMode().setForces(myForces);
     	frame.setLayout(new FourPlayerMatchGameLayout());

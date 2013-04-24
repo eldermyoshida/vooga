@@ -29,6 +29,7 @@ public class ControllerManager implements ControllerDelegate{
 	private GameInfo myGameInfo;
 	private ControlProgressionManager myProgressionManager;
 	private static final String INPUT_PATHWAY = "config.menudefault";
+	private String myInputPath;
 	private String myHardFilePath;
 	private Input myInput;
 	
@@ -42,8 +43,9 @@ public class ControllerManager implements ControllerDelegate{
 	public ControllerManager(Canvas frame, GameInfo gameinfo, ControllerFactory factory,
 			ControlProgressionManager progressionmanager, String filepath) {
 		myHardFilePath = filepath;
+		myInputPath = myHardFilePath + INPUT_PATHWAY;
 		myCanvas = frame;
-		myInput = new Input(INPUT_PATHWAY, myCanvas);
+		myInput = new Input(myInputPath, myCanvas);
 		myControllerMap = factory.getMap();
 		myGameInfo = gameinfo;
 		myProgressionManager = progressionmanager;

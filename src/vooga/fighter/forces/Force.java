@@ -1,29 +1,47 @@
 package vooga.fighter.forces;
 
-import java.lang.reflect.Field;
 import java.util.ResourceBundle;
 import util.Vector;
 import vooga.fighter.model.objects.CharacterObject;
-import vooga.fighter.util.Physics;
 
+/**
+ * Abstract class that details a force that acts upon character objects.
+ * If a dev wants to create a new force, he/she just subclasses this abstract
+ * class and adds the class name and parameters to force.properties.
+ * 
+ * @author Jerry Li
+ *
+ */
 public abstract class Force {
+
+
     
-	
-	private ResourceBundle myResources;
-	private static final String RESOURCE_PATH="vooga.fighter.config.forces";
-    
+    /**
+     * Set resource bundle
+     */
     public Force() {
-		myResources = ResourceBundle.getBundle(RESOURCE_PATH);
 
     }
-    
-    
-  
-    
+
+
+
+    /**
+     * Initialize force with direction and magnitude
+     * @param param1    direction
+     * @param param2    magnitude
+     */
     public abstract void initialize(double param1, double param2);
     
+    /**
+     * Applies the force to this object
+     * @param object    characterobject
+     */
     public abstract void applyForce(CharacterObject object) ;
     
+    /**
+     * return the vector;
+     * @return
+     */
     public abstract Vector getVector();
-    
+
 }

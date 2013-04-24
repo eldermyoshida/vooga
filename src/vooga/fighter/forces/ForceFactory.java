@@ -4,20 +4,35 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * Constructs the forces from a properties file
+ * If a dev wants to add a new force, he subclasses force and adds it
+ * to forces.properties
+ * @author Jerry Li
+ *
+ */
 public class ForceFactory {
     
     private static final String delimiter= ",";
-    private static final String FORCE_PATHWAY = "vooga.fighter.config.forces";
-    private static final String PACKAGE_NAME = "vooga.fighter.forces.";
+    private String myForcePathway = "config.forces";
+    private String myForcePackage = "forces.";
     private List<Force> myForces;
     private ResourceBundle myForceResources;
     
-    public ForceFactory() {
+    /**
+     * Constructs force factory, sets resource bundle
+     */
+    public ForceFactory(String name) {
+        myForcePathway = name + myForcePathway;
+        myForcePackage = name + myForcePackage;
         myForces = new ArrayList<Force>();
-        myForceResources = ResourceBundle.getBundle(FORCE_PATHWAY);
+        myForceResources = ResourceBundle.getBundle(myForcePathway);
         initializeForces();
     }
     
+    /**
+     * Constructs list of forces
+     */
     public void initializeForces() {
         myForces = new ArrayList<Force>();
         for (String forceName : myForceResources.keySet()) {
@@ -33,12 +48,17 @@ public class ForceFactory {
         }
     }
     
+    /**
+     * Constructs force using reflection and the resource bundle
+     * @param name      name
+     * @return          
+     */
     public Force constructForce(String name) {
         Object objectForce = null;
         Force force = null;
         try {
             Class<?> forceClass = null;
-            String filePath = PACKAGE_NAME + name;
+            String filePath = myForcePackage + name;
             forceClass = Class.forName(filePath);
             objectForce = forceClass.newInstance();
             force = (Force) objectForce;
@@ -51,7 +71,10 @@ public class ForceFactory {
         return force;
     }
     
-    
+    /**
+     * Return list of forces
+     * @return
+     */
     public List<Force> getForces() {
         return myForces;
     }

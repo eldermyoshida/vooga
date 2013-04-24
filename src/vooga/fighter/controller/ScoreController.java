@@ -36,10 +36,10 @@ public class ScoreController extends MenuController {
         super();
     }
         
-    public ScoreController(String name, Canvas frame, ControllerDelegate manager, 
+    public ScoreController(String name, Canvas frame, ControllerDelegate manager,
                 GameInfo gameinfo, String filePath) {
         super(name, frame, manager, gameinfo, filePath);
-        ScoreInfo scoreInfo = new ScoreInfo();
+        ScoreInfo scoreInfo = new ScoreInfo(filePath);
         scoreInfo.setWinners(gameinfo.getWinners());
     }
     

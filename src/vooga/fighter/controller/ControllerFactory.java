@@ -1,9 +1,5 @@
 package vooga.fighter.controller;
 
-
-
-
-
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -27,7 +23,7 @@ import vooga.fighter.view.Canvas;
  */
 public class ControllerFactory {
 
-    private String DEFAULT_RESOURCE_PACKAGE = "FightingManifesto";
+    private String DEFAULT_RESOURCE_PACKAGE = "config.FightingManifesto";
     private static final String PACKAGE_NAME = "controller.";
     
     private Map<String, Controller> myControllerMap;
@@ -45,7 +41,7 @@ public class ControllerFactory {
     public ControllerFactory(Canvas frame, String pathway) {
         myControllerMap = new HashMap<String, Controller>();
         myControllerList = new ArrayList<Controller>();
-        myResourceName = pathway +DEFAULT_RESOURCE_PACKAGE;
+        myResourceName = pathway + DEFAULT_RESOURCE_PACKAGE;
         myPackageName = pathway + PACKAGE_NAME;
         myResources = ResourceBundle.getBundle(myResourceName);
         constructControllerMap();

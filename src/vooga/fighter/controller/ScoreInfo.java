@@ -1,62 +1,53 @@
 package vooga.fighter.controller;
 
 import java.util.List;
-import vooga.fighter.util.HUDFactory;
+import java.util.ResourceBundle;
 import vooga.fighter.util.HUDVariable;
-import vooga.fighter.view.HUDElement;
 
 /**
- * Displays winning Player
+ * Displays winning Player by text
  * 
  * @author Jerry Li
  *
  */
-public class ScoreInfo extends DisplayInfo implements ViewDataSource{
+public class ScoreInfo extends DisplayLoopInfo implements ViewDataSource{
+    
+    
+    /**
+     * File where win statements are located
+     */
+    private static final String myFileName = "WinStatements";
     
     @HUDVariable(
                  name = "Winner",
                  HUDElementClass = "Text"
             )
     private String myWinner;
+    private String myWinStatement;
+    private ResourceBundle myWinStatements;
     
     /**
-     * Constructor
+     * Constructors Score info with default
+     * config file package name
      */
-    public ScoreInfo() {
+    public ScoreInfo(String config) {
         super();
+        myWinStatements = ResourceBundle.getBundle(config+myFileName);
+        myWinStatement = myWinStatements.getString(this.getClass().getSimpleName());
     }
     
     /**
      * Gets the winners and displays
-     * @param winners
+     * To change the win statement, just change the text in
+     * WinningText.properties
+     * @param winners   list of winners
      */
     public void setWinners(List<Integer> winners) {
-        System.out.println("Winner is Player " + winners.get(0));
+        System.out.println(myWinStatement + winners.get(0));
         for (int i = 0; i < winners.size(); i++) {
-            myWinner = "Winner is Player " + i;
+            myWinner = myWinStatement + i;
         }
         addHUDElements();
-    }
-    
-    
-    /**
-     * Checks annotations and creates the display
-     */
-    protected void addHUDElements () {
-        try {
-            for (HUDElement e : HUDFactory.getHUDElements(this)) {
-                addHUDDisplay(e);
-            }
-        }
-        catch (InstantiationException e) {
-            throw new NullPointerException("Could not instantiate HUDElement: " + e.getMessage());
-        }
-        catch (IllegalAccessException e) {
-            throw new NullPointerException("Could not access member variable: " + e.getMessage());
-        }
-        catch (ClassNotFoundException e) {
-            throw new NullPointerException("Could not find class: " + e.getMessage());
-        }
     }
     
     

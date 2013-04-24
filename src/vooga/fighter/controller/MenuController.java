@@ -26,6 +26,8 @@ import java.util.ResourceBundle;
 
 
 /**
+ * Abstract MenuController class, details a class where
+ * menu objects perform some functionality when selected
  * 
  * @author Jerry Li 
  * @author Jack Matteucci
@@ -37,12 +39,21 @@ public abstract class MenuController extends Controller {
     private static final String INPUT_PATHWAY = "config.menudefault";
     private String myInputPathway;
     private List<ModeCondition> myEndConditions;
-
+    
+    /**
+     * Initial constructor, used in reflection
+     */
     public MenuController () {
         super();
     }
     
-    
+    /**
+     * Concrete constructor, used when ControllerManager switches to this controller
+     * @param name      name of controller
+     * @param frame     canvas
+     * @param manager   ControlerManager
+     * @param gameinfo  GameInfo
+     */
     public MenuController(String name, Canvas frame, ControllerDelegate manager, 
     		GameInfo gameinfo, String pathway) {
     	super(name, frame, manager, gameinfo, pathway);
@@ -56,6 +67,9 @@ public abstract class MenuController extends Controller {
     	setupConditions();
     }
     
+    /**
+     * Loads the mode associated with MenuController (MenuMode)
+     */
     public void loadMode() {
         Mode mode = new MenuMode(new CollisionManager(), super.getName());
         super.setMode(mode);
@@ -67,17 +81,29 @@ public abstract class MenuController extends Controller {
         getMode().update();
     }
     
+    /**
+     * Creates mouse object when mouse is clicked
+     * @param pos
+     */
     @InputMethodTarget(name = "continue")
     public void mouseclick(PositionObject pos)  {
         getMode().addObject(new MouseClickObject(pos.getPoint2D(), getHardFilePath()));
     }
     
+    /**
+     * Creates mouse object when mouse moves
+     * @param pos
+     */
     @InputMethodTarget(name = "move")
     public void mousemove(PositionObject pos)  {
         getMode().addObject(new MouseObject(pos.getPoint2D(), getHardFilePath()));
     }
     
+    /**
+     * 
+     */
     public void developerUpdate(){
+        
     }
     
     @InputMethodTarget(name = "left")
