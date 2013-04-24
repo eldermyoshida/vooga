@@ -13,10 +13,17 @@ import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.Sprite;
 import vooga.scroller.view.GameView;
 
+/**
+ * 
+ * Splash page uses for testing purposes. This can be used by the LevelEditor.
+ * @author Scott Valentine
+ *
+ */
 @InputClassTarget
 public class TestSplashPage extends SplashPage {
 
     private static final ISpriteView DEFAULT_IMAGE = new Pixmap("/vooga/scroller/images/" ,"test_splash_page.png");
+    private static final String INPUT_LOCATION = "vooga/scroller/resources/TestSplashMapping";
     private static final int DEFAULT_ID = 0;
     
     public TestSplashPage (GameView gameView,
@@ -46,18 +53,13 @@ public class TestSplashPage extends SplashPage {
     @Override
     public String getInputFilePath () {
         // TODO Auto-generated method stub
-        return "vooga/scroller/marioGame/controls/SplashMapping";
+        return INPUT_LOCATION;
 
     }
     
     @InputMethodTarget(name = "start")
     public void nextLevel () {
         getDoor().goToNextLevel(getPlayer());
-    }
-    
-    @InputMethodTarget(name = "exit")
-    public void exit() {
-        System.exit(-1);
     }
     
 

@@ -11,12 +11,19 @@ import vooga.scroller.util.ISpriteView;
 import vooga.scroller.util.Sprite;
 import vooga.scroller.view.GameView;
 
+/**
+ * Splash page specific to the mario game.
+ * 
+ * @author Scott Valentine
+ *
+ */
 @InputClassTarget
 public class MarioSplashPage extends SplashPage {
 
     public static final String CONTROLS_FILE_PATH =
             "vooga/scroller/marioGame/controls/SplashMapping";
 
+    
     public MarioSplashPage (ISpriteView backgroundImage,
                             int splashID,
                             GameView gameView,
@@ -41,17 +48,23 @@ public class MarioSplashPage extends SplashPage {
         return CONTROLS_FILE_PATH;
     }
 
+    /**
+     * Start the next level.
+     */
     @InputMethodTarget(name = "start")
     public void nextLevel () {
         getDoor().goToNextLevel(getPlayer());
     }
     
+    /**
+     * Exit the game when on the splash page.
+     */
     @InputMethodTarget(name = "exit")
     public void exit() {
         System.exit(-1);
     }
     
-
+    @Override
     public List<Sprite> getSprites () {
         return new ArrayList<Sprite>();
     }
