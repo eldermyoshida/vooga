@@ -11,17 +11,7 @@ import vooga.scroller.view.GameView;
 
 
 /**
- * Two Design Patterns being used here: Visitor and State.
- * 
- * Visitor pattern is used to handle collisions. Essentially, whenever
- * a collision is detected, we will call the visit method of myCollisionHandler
- * and pass in the object Player has just collided with.
- * 
- * State pattern is used to handle the state the Player is in. currenState
- * starts out at a default state. All updating and painting is done on
- * a state level. This is evinced through the Player's update and paint
- * methods.
- * 
+ * This is the superclass for any player the game designer creates. 
  * 
  * @author Jay Wang, Ross Cahoon, Scott Valentine
  * 

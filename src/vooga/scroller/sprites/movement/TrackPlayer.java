@@ -9,6 +9,7 @@ import vooga.scroller.util.Sprite;
  * method will return the vector in the direction of the player with the given speed. 
  * 
  * @author Jay Wang
+ * @author Scott Valentine
  *
  */
 public class TrackPlayer implements Movement {
@@ -36,7 +37,7 @@ public class TrackPlayer implements Movement {
     
 
     /**
-     * This method will allow a Non Static Entity to track down a Player - a simple AI of sorts. 
+     * This method will allow a GameCharacter to track down a Player - a simple AI of sorts. 
      * Essentially, if the player gets within the specified radius of this entity, the entity will 
      * change its velocity vector with a vector that is in the direction of the player with the 
      * given SPEED. 
