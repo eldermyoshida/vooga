@@ -71,7 +71,7 @@ public class MapPanel extends JComponent {
     }
 
     private void setPanelSize () {
-        Dimension d = new Dimension(2*myTileWidth * myWidth, myTileHeight * myHeight);
+        Dimension d = new Dimension(myTileWidth * myWidth, myTileHeight * myHeight);
         setPreferredSize(d);
         Camera.instance().setMapSize(d);
         Camera.instance().setViewSize(d);
@@ -88,21 +88,21 @@ public class MapPanel extends JComponent {
         g.setColor(Color.gray);
         for (int i = 0; i < myWidth; i++) {
 //            g.drawLine(i * myTileWidth, 0, i * myTileWidth, myHeight * myTileHeight);
-            drawLineTest(i * myTileWidth, 0, i * myTileWidth, myHeight * myTileHeight,g);
+            drawLineTest(i * myTileWidth / 2, 0, i * myTileWidth / 2, myHeight * myTileHeight/2,g);
         }
 
         for (int j = 0; j < myHeight; j++) {
 //            g.drawLine(0, j * myTileHeight, myWidth * myTileWidth, j * myTileHeight);
-            drawLineTest(0, j * myTileHeight , myWidth * myTileWidth, j * myTileHeight,g);
+            drawLineTest(0, j * myTileHeight /2  , myWidth * myTileWidth / 2, j * myTileHeight /2,g);
         }
 
         ((Graphics2D) g).setStroke(new BasicStroke(2));
         g.setColor(Color.black);
         
-        drawLineTest(0, 0, myWidth * myTileWidth, 0, g);
-        drawLineTest(0, 0, 0, myHeight * myTileHeight,g);
-        drawLineTest(myWidth * myTileWidth, 0, myWidth * myTileWidth, myHeight * myTileHeight,g);
-        drawLineTest(0, myHeight * myTileHeight, myWidth * myTileWidth, myHeight * myTileHeight,g);
+        drawLineTest(0, 0, myWidth * myTileWidth/2, 0, g);
+        drawLineTest(0, 0, 0, myHeight * myTileHeight/2,g);
+        drawLineTest(myWidth * myTileWidth/2, 0, myWidth * myTileWidth/2, myHeight * myTileHeight/2,g);
+        drawLineTest(0, myHeight * myTileHeight/2, myWidth * myTileWidth/2, myHeight * myTileHeight/2,g);
 //
 //        g.drawLine(0, 0, myWidth * myTileWidth, 0);
 //        g.drawLine(0, 0, 0, myHeight * myTileHeight);
@@ -110,8 +110,8 @@ public class MapPanel extends JComponent {
 //        g.drawLine(0, myHeight * myTileHeight, myWidth * myTileWidth, myHeight * myTileHeight);
 
         // paint Node
-        //myMap.paint((Graphics2D)g);
-        myMap.printMatrix();
+        myMap.paint((Graphics2D)g);
+        //myMap.printMatrix();
         System.out.println("paint");
 
         // paint Player
