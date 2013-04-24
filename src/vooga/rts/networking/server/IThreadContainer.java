@@ -3,6 +3,7 @@ package vooga.rts.networking.server;
 import vooga.rts.networking.communications.ExpandedLobbyInfo;
 import vooga.rts.networking.communications.LobbyInfo;
 
+
 /**
  * Provides an interface between ClientInfoMessages coming in and the various thread container
  * classes.
@@ -39,6 +40,7 @@ public interface IThreadContainer {
      * Leaves the current lobby.
      * 
      * @param thread that is leaving
+     * @param lobbyInfo 
      */
     public void leaveLobby (ConnectionThread thread, ExpandedLobbyInfo lobbyInfo);
 
@@ -58,15 +60,17 @@ public interface IThreadContainer {
 
     /**
      * Starts a new lobby
+     * 
      * @param thread that starts new lobby
-     * @param myLobbyInfo info about the lobby
+     * @param lobbyInfo 
      */
     public void startLobby (ConnectionThread thread, LobbyInfo lobbyInfo);
-    
+
     /**
      * This updates the lobby with the new expandedLobbyInfo.
-     * @param thread
-     * @param myLobbyInfo
+     * 
+     * @param thread 
+     * @param lobbyInfo 
      */
     public void updateLobbyInfo (ConnectionThread thread, ExpandedLobbyInfo lobbyInfo);
 
