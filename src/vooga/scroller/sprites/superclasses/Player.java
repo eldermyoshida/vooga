@@ -22,7 +22,6 @@ public abstract class Player extends GameCharacter implements IInputListener, Lo
     private GameView myView;
     private Location myPaintCenter;
     private ScrollingManager myScrollingManager;
-    private ForceBundle forceBundle;
 
     public Player (ISpriteView image,
                    Location center,
@@ -35,13 +34,11 @@ public abstract class Player extends GameCharacter implements IInputListener, Lo
         myView = gameView;
         myPaintCenter = new Location(myView.getWidth() / 2, myView.getHeight() / 2);
         myScrollingManager = sm;
-        forceBundle = new ForceBundle(this);
     }
 
     @Override
     public void update (double elapsedTime, Dimension bounds) {
         super.update(elapsedTime, bounds);
-        forceBundle.apply();
         myPaintCenter = myScrollingManager.playerPaintLocation(this);       
     }
 
