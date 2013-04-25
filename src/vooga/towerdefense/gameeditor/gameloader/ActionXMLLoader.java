@@ -1,4 +1,4 @@
-package vooga.towerdefense.gameeditor;
+package vooga.towerdefense.gameeditor.gameloader;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;

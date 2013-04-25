@@ -22,10 +22,12 @@ import vooga.towerdefense.factories.definitions.UnitDefinition;
 import vooga.towerdefense.factories.elementfactories.GameElementFactory;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.gameElements.Wave;
+import vooga.towerdefense.gameeditor.gameloader.GameLoader;
+import vooga.towerdefense.gameeditor.gameloader.MapLoader;
+import vooga.towerdefense.gameeditor.gameloader.ViewXMLLoader;
 import vooga.towerdefense.model.GameLoop;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.GameModel;
-import vooga.towerdefense.model.MapLoader;
 import vooga.towerdefense.model.levels.Level;
 import vooga.towerdefense.model.rules.NextLevelRule;
 import vooga.towerdefense.model.rules.Rule;
@@ -65,6 +67,10 @@ public class Controller {
 	 */
 	private TDView myView;
 	/**
+	 * game loader for this controller.
+	 */
+	private GameLoader myGameLoader;
+	/**
 	 * control mode for the controller.
 	 */
 	private ControlMode myControlMode;
@@ -72,16 +78,11 @@ public class Controller {
 	// TODO: controller constructor should take waves & map in order to
 	// initialize GameModel?
 	// TODO: fix where the parameters come from
-	public Controller(String language) {
+	public Controller(String language, String xmlPath) throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException {
 
-		List<Wave> waves = new ArrayList<Wave>();
-		String path = "/vooga/towerdefense/resources/map_loadfile.xml";
-		//String path = "C:/Users/Leonard/Desktop/308/vooga/src/vooga/towerdefense/resources/map_loadfile.xml";
-//		String path = "/Users/XuRui/Documents/CS308workspace/vooga/src/vooga/towerdefense/resources/map_loadfile.xml";
-		//String path = "C:\\Users\\JLongley\\workspace\\vooga\\src\\vooga\\towerdefense\\resources\\map_loadfile.xml";
-		MapLoader loader = new MapLoader(path);
-		List<GameMap> maps = loader.loadMaps();
-		GameMap map = maps.get(2);
+//		MapLoader loader = new MapLoader(path);
+//		List<GameMap> maps = loader.loadMaps();
+//		GameMap map = maps.get(2);
 		// FIXME: Hardcoded for testing trolls
 		// ExampleAuraTowerFactory codeStyleGenerator = new
 		// ExampleAuraTowerFactory(
@@ -95,37 +96,43 @@ public class Controller {
 		// new TrollUnitDefinition(), map), 25, map, map
 		// .getTile(new Point(25, 275))));
 		setLanguage(language);
-
-		List<Level> levels = new ArrayList<Level>();
-		List<Action> actions = new ArrayList<Action>();
-
-		GameElementFactory factory = new GameElementFactory("Tester", new UnitDefinition());
-		WaveActionFactory waveFactory = new WaveActionFactory(10, 200, factory,
-				map);
-		waveFactory.initialize(map);
-		Action action = waveFactory.createAction(null);
-		actions.add(action);
-		List<Rule> levelRules = new ArrayList<Rule>();
-
-		Level level = new Level(actions, levelRules);
-		levels.add(level);
-		List<Rule> rules = new ArrayList<Rule>();
-		
-		myView = new TDView(this);
-		
-		myModel = new GameModel(this, levels, rules, map, new Shop(map));
-		
-		rules.add(new WinRule(myModel));
-		rules.add(new NextLevelRule(myModel));
-		myControlMode = new SelectMode();
+		myGameLoader = new GameLoader(xmlPath);
+		setView();
 	}
 	
 	/**
-	 * gets the view.
-	 * @return the view for this controller.
+	 * sets up the view for this game.
+	 * @throws InvocationTargetException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws ClassNotFoundException 
+	 * @throws IllegalArgumentException 
 	 */
-	public TDView getView() {
-	    return myView;
+	private void setView() throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException {
+	    myView = myGameLoader.loadView(this);
+	}
+	
+	public void addMapAndLoadGame(GameMap map) {
+//	        List<Level> levels = new ArrayList<Level>();
+//	        List<Action> actions = new ArrayList<Action>();
+
+//	        GameElementFactory factory = new GameElementFactory("Tester", new UnitDefinition());
+//	        WaveActionFactory waveFactory = new WaveActionFactory(10, 200, factory,
+//	                                                              map);
+//	        waveFactory.initialize(map);
+//	        Action action = waveFactory.createAction(null);
+//	        actions.add(action);
+//	        List<Rule> levelRules = new ArrayList<Rule>();
+//
+//	        Level level = new Level(actions, levelRules);
+//	        levels.add(level);
+//	        List<Rule> rules = new ArrayList<Rule>();
+	                
+	        myModel = new GameModel(this, myGameLoader.loadLevels(), rules, map, new Shop(map));
+	                
+//	        rules.add(new WinRule(myModel));
+//	        rules.add(new NextLevelRule(myModel));
+	        myControlMode = new SelectMode();
 	}
 
 	/**

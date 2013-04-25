@@ -1,4 +1,4 @@
-package vooga.towerdefense.gameeditor;
+package vooga.towerdefense.gameeditor.gamemaker;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -35,7 +35,8 @@ public class ViewEditorScreen extends GameEditorScreen {
     /**
      * next screen constant.
      */
-    private static final String NEXT_SCREEN_NAME = "mapeditor.MapEditorScreen";
+//    private static final String NEXT_SCREEN_NAME = "mapeditor.MapEditorScreen";
+    private static final String NEXT_SCREEN_NAME = "RuleEditorScreen";
     /**
      * package name for the available game screens.
      */
@@ -73,7 +74,10 @@ public class ViewEditorScreen extends GameEditorScreen {
      * width of the text field boxes.
      */
     private static final int TEXT_FIELD_WIDTH = 20;
-
+    /**
+     * string constant for getting the view's main dimension.
+     */
+    private static final String TOP_LEVEL_DIMENSION_PROMPT = "TOP LEVEL CONTAINER DIMENSION";
     /**
      * north drop down box.
      */
@@ -126,6 +130,7 @@ public class ViewEditorScreen extends GameEditorScreen {
     private String myKey;
     private List<String> myScreens;
     private JLabel myScreenLabel, mySizeLabel;
+    private JTextField myContainerSize;
     
     /**
      * Constructor.
@@ -151,6 +156,11 @@ public class ViewEditorScreen extends GameEditorScreen {
             e.printStackTrace();
         }
         JOptionPane.showMessageDialog(null, "Note: you must contain a mapscreen\nand shopscreen in your view");
+    }
+    
+    public String getTopLevelContainerDimension() {
+        String text = myContainerSize.getText();
+        return text;
     }
     
     private JComponent makeSouthPanel () {
@@ -226,6 +236,11 @@ public class ViewEditorScreen extends GameEditorScreen {
     private JComponent makeScreen() throws IOException, ClassNotFoundException {
         JPanel panel = new JPanel();
         panel.setPreferredSize(new Dimension(800, 400));
+        
+
+        myContainerSize = new JTextField(TEXT_FIELD_WIDTH);
+        add(new JLabel (TOP_LEVEL_DIMENSION_PROMPT));
+        add(myContainerSize);
         
         myNorthPanel = new JComboBox();
         myNorthPanel.setName(NORTH_NAME);

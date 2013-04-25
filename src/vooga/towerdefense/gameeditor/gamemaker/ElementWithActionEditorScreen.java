@@ -1,4 +1,4 @@
-package vooga.towerdefense.gameeditor;
+package vooga.towerdefense.gameeditor.gamemaker;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -187,6 +187,14 @@ public abstract class ElementWithActionEditorScreen extends GameEditorScreen {
      */
     public String getActions() {
         return myActionsSelected.getText();
+    }
+    
+    /**
+     * gets the attributes as a string.
+     * @return a string
+     */
+    public String getAttributesText() {
+        return myAttributesSelected.getText();
     }
     
     /**

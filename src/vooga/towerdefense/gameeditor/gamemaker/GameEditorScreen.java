@@ -1,4 +1,4 @@
-package vooga.towerdefense.gameeditor;
+package vooga.towerdefense.gameeditor.gamemaker;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -25,15 +25,13 @@ public abstract class GameEditorScreen extends JPanel {
     private static final long serialVersionUID = 1L;
     private static final String ADD_BUTTON_TEXT = "Add to game";
     private static final String FINISH_BUTTON_TEXT = "Next section";
-    private String myNextScreenName = "vooga.towerdefense.gameeditor.";
+    private String myNextScreenName = "vooga.towerdefense.gameeditor.gamemaker.";
     private String myTitle = " MAKING SCREEN";
     private MouseAdapter myMouseAdapter;
     private JButton myAddButton;
     private JButton myFinishButton;
     private Dimension mySize;
     private GameEditorController myController;
-    private JTextField myContainerSize;
-    private String myTopLevelContainerDimension;
     
     /**
      * Constructor.
@@ -102,14 +100,11 @@ public abstract class GameEditorScreen extends JPanel {
         myAddButton.addMouseListener(myMouseAdapter);
         myAddButton.setVisible(true);
         myFinishButton = new JButton(FINISH_BUTTON_TEXT);
-        myContainerSize = new JTextField(TEXT_FIELD_WIDTH);
         myFinishButton.addMouseListener(myMouseAdapter);
         myFinishButton.setVisible(true);
         buttonPanel.add(myAddButton, BorderLayout.NORTH);
         buttonPanel.add(myFinishButton, BorderLayout.SOUTH);
         add(buttonPanel, BorderLayout.NORTH);
-        add(new JLabel ("TOP LEVEL CONTAINER DIMENSION"));
-        add(myContainerSize);
     }
 
     /**
@@ -165,11 +160,6 @@ public abstract class GameEditorScreen extends JPanel {
             }
         };
         return myMouseAdapter;
-    }
-    
-    public String getTopLevelContainerDimension() {
-        String text = myContainerSize.getText();
-        return text;
     }
     
     /**

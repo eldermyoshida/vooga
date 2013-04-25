@@ -1,9 +1,7 @@
-package vooga.towerdefense.gameeditor;
+package vooga.towerdefense.gameeditor.gamemaker;
 
 import java.awt.Dimension;
-import java.awt.event.MouseEvent;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JComboBox;
 
@@ -83,7 +81,7 @@ public class LevelEditorScreen extends ElementWithActionEditorScreen {
      * adds this level to the game.
      */
     public void addElementToGame () {
-        getController().addLevelToGame(getName(), getAttributes(),
+        getController().addLevelToGame(getName(), getAttributesText(),
                                              getActions());
     }
 }

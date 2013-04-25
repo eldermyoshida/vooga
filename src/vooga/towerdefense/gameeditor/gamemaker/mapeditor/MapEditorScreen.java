@@ -1,4 +1,4 @@
-package vooga.towerdefense.gameeditor.mapeditor;
+package vooga.towerdefense.gameeditor.gamemaker.mapeditor;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -19,8 +19,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import vooga.towerdefense.gameeditor.GameEditorController;
-import vooga.towerdefense.gameeditor.GameEditorScreen;
+import vooga.towerdefense.gameeditor.gamemaker.GameEditorController;
+import vooga.towerdefense.gameeditor.gamemaker.GameEditorScreen;
 import vooga.towerdefense.model.tiles.GrassTile;
 import vooga.towerdefense.model.tiles.PathTile;
 import vooga.towerdefense.model.tiles.Tile;

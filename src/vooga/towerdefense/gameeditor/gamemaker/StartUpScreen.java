@@ -1,4 +1,4 @@
-package vooga.towerdefense.gameeditor;
+package vooga.towerdefense.gameeditor.gamemaker;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -26,7 +26,7 @@ public class StartUpScreen extends JPanel {
     private static final long serialVersionUID = 1L;
     private static final String WELCOME_KEYWORD = "WELCOME TO GAME EDITOR";
     private static final String START_KEYWORD = "START";
-    private static final String NEXT_SCREEN_NAME = "vooga.towerdefense.gameeditor.ViewEditorScreen";
+    private static final String NEXT_SCREEN_NAME = "vooga.towerdefense.gameeditor.gamemaker.ViewEditorScreen";
     private static final String GAME_NAME_TEXT = "Game Name: ";
     private static final String SELECT_NAME_TEXT = "Confirm this as Game Name";
     private static final int TEXT_FIELD_WIDTH = 20;

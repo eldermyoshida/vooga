@@ -1,4 +1,4 @@
-package vooga.towerdefense.model;
+package vooga.towerdefense.gameeditor.gameloader;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
@@ -10,6 +10,7 @@ import java.util.Scanner;
 import org.w3c.dom.Element;
 
 import util.XMLTool;
+import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.tiles.Tile;
 import vooga.towerdefense.model.tiles.factories.DefaultTileFactory;
 import vooga.towerdefense.model.tiles.factories.GrassTileFactory;
@@ -97,8 +98,8 @@ public class MapLoader {
      * 
      * @param mapFilePath a path to the map XML file
      */
-    public MapLoader(String mapFilePath) {
-        myXMLTool = new XMLTool(mapFilePath);        
+    public MapLoader(XMLTool xmlTool) {
+        myXMLTool = xmlTool;        
         initTileIdMap();
     }
     

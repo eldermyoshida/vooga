@@ -1,4 +1,4 @@
-package vooga.towerdefense.gameeditor;
+package vooga.towerdefense.gameeditor.gameloader;
 
 import java.awt.Dimension;
 import java.lang.reflect.Constructor;
@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import org.w3c.dom.Element;
 import util.XMLTool;
 import vooga.towerdefense.controller.Controller;
+import vooga.towerdefense.view.TDView;
 import vooga.towerdefense.view.gamescreens.GameElementInformationScreen;
 import vooga.towerdefense.view.gamescreens.GameStatsScreen;
 import vooga.towerdefense.view.gamescreens.MapScreen;
@@ -15,8 +16,9 @@ import vooga.towerdefense.view.gamescreens.MultipleScreenPanel;
 import vooga.towerdefense.view.gamescreens.ShopScreen;
 
 /**
- * 
- * @author Erick Gonzalez
+ * ViewXMLLoader loads in the View from the XML file.
+ *
+ * @author Angelica Schwartz
  */
 public class ViewXMLLoader {
     private XMLTool myXMLTool;
@@ -31,41 +33,42 @@ public class ViewXMLLoader {
     private static final String MULTIPLE_SCREEN_PANEL_TAG = "MultipleScreenPanel";
     private static final String BORDER_LAYOUT_ADDITION = "BorderLayout.";
     
-    public ViewXMLLoader(XMLTool xmlTool, String xmlFilePath) {
+    public ViewXMLLoader(XMLTool xmlTool) {
         myXMLTool = xmlTool;
     }
     
-    public void makeView(Controller controller) throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException {
+    public TDView makeView(Controller controller) throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException {
         Element viewElement = myXMLTool.getElement(VIEW_TAG);
-        
+        TDView view = new TDView(controller);
         Map<String, Element> subElements = myXMLTool.getChildrenElementMap(viewElement);
         Element dimensionElement = subElements.get(DIMENSION_TAG);
         Dimension dimension = makeDimensionFrom(myXMLTool.getContent(dimensionElement));
-        controller.getView().setSize(dimension);
+        view.setSize(dimension);
         for (String s : subElements.keySet()) {
             if (!s.equals(MULTIPLE_SCREEN_PANEL_TAG)) {
                 Element element = subElements.get(s);
-                JPanel screen = getScreen(element, controller);
+                JPanel screen = getScreen(view, element, controller);
                 Element locationElement = subElements.get(LOCATION_TAG);
                 String location = BORDER_LAYOUT_ADDITION + myXMLTool.getContent(locationElement);
-                controller.getView().addScreen(screen, location);
+                view.addScreen(screen, location);
             }
             else {
                 Element multiplePanelScreen = subElements.get(MULTIPLE_SCREEN_PANEL_TAG);
-                JPanel multipleScreenPanel = getScreen(multiplePanelScreen, controller);
+                JPanel multipleScreenPanel = getScreen(view, multiplePanelScreen, controller);
                 Element locationElement = subElements.get(LOCATION_TAG);
                 String location = BORDER_LAYOUT_ADDITION + myXMLTool.getContent(locationElement);
-                multipleScreenPanel = createMultipleScreenPanel(multipleScreenPanel, multiplePanelScreen, controller);
-                controller.getView().addScreen(multipleScreenPanel, location);
+                multipleScreenPanel = createMultipleScreenPanel(view, multipleScreenPanel, multiplePanelScreen, controller);
+                view.addScreen(multipleScreenPanel, location);
             }
         }
+        return view;
     }
     
-    private JPanel createMultipleScreenPanel(JPanel panel, Element element, Controller controller) throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException {
+    private JPanel createMultipleScreenPanel(TDView view, JPanel panel, Element element, Controller controller) throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException {
         Map<String, Element> subMultiples = myXMLTool.getChildrenElementMap(element);
         for (String s : subMultiples.keySet()) {
             Element subScreenElement = subMultiples.get(s);
-            JPanel subScreen = getScreen(subScreenElement, controller);
+            JPanel subScreen = getScreen(view, subScreenElement, controller);
             Element locElement = myXMLTool.getElement(LOCATION_TAG);
             String location = BORDER_LAYOUT_ADDITION + myXMLTool.getContent(locElement);
             ((MultipleScreenPanel) panel).addScreen(subScreen, location);
@@ -84,7 +87,7 @@ public class ViewXMLLoader {
      * @throws IllegalAccessException
      * @throws InvocationTargetException
      */
-    private JPanel getScreen(Element element, Controller controller) throws ClassNotFoundException, IllegalArgumentException, InstantiationException, IllegalAccessException, InvocationTargetException {
+    private JPanel getScreen(TDView view, Element element, Controller controller) throws ClassNotFoundException, IllegalArgumentException, InstantiationException, IllegalAccessException, InvocationTargetException {
         Map<String, Element> subElements = myXMLTool.getChildrenElementMap(element);
         Element dimensionElement = subElements.get(DIMENSION_TAG);
         Dimension dimension = makeDimensionFrom(myXMLTool.getContent(dimensionElement));
@@ -93,16 +96,16 @@ public class ViewXMLLoader {
         Constructor cons = constructors[0];
         JPanel screen = (JPanel) cons.newInstance(dimension, controller);
         if (myXMLTool.getContent(element).equals(MAPSCREEN_TAG)) {
-            controller.getView().setMapScreen((MapScreen)screen);
+            view.setMapScreen((MapScreen)screen);
         }
         else if (myXMLTool.getContent(element).equals(SHOPSCREEN_TAG)) {
-            controller.getView().setShopScreen((ShopScreen)screen);
+            view.setShopScreen((ShopScreen)screen);
         }
         else if (myXMLTool.getContent(element).equals(GAME_ELEMENTS_SCREEN_TAG)) {
-            controller.getView().setGameElementInformationScreen((GameElementInformationScreen)screen);
+            view.setGameElementInformationScreen((GameElementInformationScreen)screen);
         }
         else if (myXMLTool.getContent(element).equals(GAME_STATS_SCREEN_TAG)) {
-            controller.getView().setStatsScreen((GameStatsScreen)screen);
+            view.setStatsScreen((GameStatsScreen)screen);
         }
         return screen;
     }

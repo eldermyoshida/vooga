@@ -1,11 +1,11 @@
-package vooga.towerdefense.gameeditor;
+package vooga.towerdefense.gameeditor.gameloader;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.w3c.dom.Element;
 import util.XMLTool;
-import vooga.scroller.level_editor.Level;
+import vooga.towerdefense.model.levels.Level;
 import vooga.towerdefense.model.rules.Rule;
 
 public class LevelsXMLLoader {
@@ -15,8 +15,8 @@ public class LevelsXMLLoader {
     
     private XMLTool myXMLTool;
     
-    public LevelsXMLLoader(String xmlFilePath) {
-        myXMLTool = new XMLTool(xmlFilePath);
+    public LevelsXMLLoader(XMLTool xmlTool) {
+        myXMLTool = xmlTool;
     }
     
     public List<Level> getLevels() {

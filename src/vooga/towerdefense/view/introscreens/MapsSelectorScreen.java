@@ -17,8 +17,8 @@ import java.util.Map;
 import javax.swing.JButton;
 
 import util.Location;
+import vooga.towerdefense.gameeditor.gameloader.MapLoader;
 import vooga.towerdefense.model.GameMap;
-import vooga.towerdefense.model.MapLoader;
 import util.Pixmap;
 import vooga.towerdefense.view.TDView;
 
@@ -75,6 +75,8 @@ public class MapsSelectorScreen extends SelectScreen {
 //        List<GameMap> myGameMaps = myMapLoader.loadMaps();
 //        System.out.println("mapps: " + myGameMaps);
 //        
+        
+        
         myMap1 = new Pixmap("map1.gif");
         myMap2 = new Pixmap("map2.gif");
         myMap3 = new Pixmap("map3.gif");
