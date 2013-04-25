@@ -94,7 +94,6 @@ public class Mario extends Player implements IInputListener{
         force.negate();
         this.addVector(force);     
         this.translate(new Vector(Sprite.LEFT_DIRECTION, MOVE_MAGNITUDE));
-
     }
     
     @InputMethodTarget(name = "right")
