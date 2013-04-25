@@ -1,4 +1,5 @@
-import java.applet.Applet;
+package util;
+
 import java.applet.AudioClip;
 import java.io.IOException;
 import java.net.URL;
@@ -20,8 +21,8 @@ public class Sound {
     // OS-independent relative resource locations (like URLs)
     private static final String RESOURCE_LOCATION = "/sounds/";
     // underlying implementation
-    private ArrayList<AudioInputStream> myAlbum = new ArrayList<>();
-    private ArrayList<String> myFileNames = new ArrayList<>();
+    private ArrayList<AudioInputStream> myAlbum = new ArrayList<AudioInputStream>();
+    private ArrayList<String> myFileNames = new ArrayList<String>();
     private AudioClip myClip;
     
     /**
@@ -113,7 +114,7 @@ public class Sound {
     }
     
     public void loop () {
-        // myAlbum.get(0).loop();
+        myAlbum.get(0);
     }
     
     /**
@@ -154,9 +155,12 @@ public class Sound {
                 myClip = (Clip) line;
                 myClip.open(myAudio);
             }
-            catch (LineUnavailableException | IOException e) {
+            catch (LineUnavailableException e) {
                 System.err.printf("The audio could not be played because" +
                                   " a music file has not been loaded!");
+            }
+            catch (IOException e) {
+            	
             }
             myClip.start();
             
