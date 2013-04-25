@@ -69,7 +69,7 @@ public class AstroidsGame extends ScrollerGame {
 
     @Override
     protected Player setPlayer (ScrollingManager sm, GameView gameView) {
-        return new Spaceship(new Location(), new Dimension(20, 32), gameView, sm);
+        return new Spaceship(new Location(), gameView, sm);
     }
 
 
