@@ -1,5 +1,6 @@
 package games.scroller.arcadedemopackage.collisions;
 
+import games.scroller.arcadedemopackage.Spaceship;
 import util.Vector;
 import vooga.scroller.collision_manager.CollisionDirection;
 import vooga.scroller.marioGame.spritesDefinitions.players.Mario;
@@ -42,12 +43,12 @@ public class SpaceshipCollisions {
         }
     }
 
-    protected void marioAndCollectibleCollision (Spaceship player, ICollectible collectible) {
+    protected void spaceshipAndCollectibleCollision (Spaceship player, ICollectible collectible) {
         player.incrementScore(collectible.getValue());
         collectible.takeHit(player.getHit());
     }
 
-    protected void marioAndPlatformCollision (Spaceship player, IPlatform platform) {
+    protected void spaceshipAndPlatformCollision (Spaceship player, IPlatform platform) {
 
         Direction collisionType = direction.collisionDirection(player, platform);
 

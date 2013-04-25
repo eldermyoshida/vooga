@@ -1,6 +1,7 @@
-package vooga.scroller.marioGame.spritesDefinitions.collisions;
+package games.scroller.arcadedemopackage.collisions;
 
 
+import games.scroller.arcadedemopackage.Spaceship;
 import vooga.scroller.marioGame.spritesDefinitions.players.Mario;
 import vooga.scroller.sprites.interfaces.ICollectible;
 import vooga.scroller.sprites.interfaces.IDoor;
@@ -23,7 +24,7 @@ public class VisitMethods {
     private SpaceshipCollisions collisions = new SpaceshipCollisions();
     
     public void visit (Spaceship spaceship, ICollectible collectible) {
-        collisions.marioAndCollectibleCollision(spaceship, collectible);
+        collisions.spaceshipAndCollectibleCollision(spaceship, collectible);
     }
         
     public void visit (Spaceship spaceship, IEnemy enemy) {
