@@ -49,6 +49,10 @@ public abstract class SpriteState implements Comparable<SpriteState>{
      */
     public abstract int getPaintPriority();
         
+    public abstract void activate(Sprite sprite);
+    
+    public abstract void deactivate(Sprite sprite);
+    
     
     @Override
     public int compareTo (SpriteState other) {

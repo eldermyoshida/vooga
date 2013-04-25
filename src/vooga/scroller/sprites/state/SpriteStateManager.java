@@ -19,11 +19,12 @@ public class SpriteStateManager {
 
     
     private static final SpriteState DEFAULT_STATE = new DefaultSpriteState();
+
+    private static final int DEFAULT_ID = -1;
     
     private Sprite mySprite;
     private Map<Integer, SpriteState> myStates;
     private Collection<SpriteState> myActiveStates;
-    private SpriteState myDefaultState;
      
     
     
@@ -35,7 +36,8 @@ public class SpriteStateManager {
     public SpriteStateManager(Sprite sprite) {
         myActiveStates = new PriorityQueue<SpriteState>();
         myStates = new HashMap<Integer, SpriteState>();
-        myDefaultState = DEFAULT_STATE;     
+        myStates.put(DEFAULT_ID, DEFAULT_STATE);
+        myActiveStates.add(DEFAULT_STATE);
     }
     
     
@@ -49,7 +51,6 @@ public class SpriteStateManager {
         for(SpriteState spState: myActiveStates){
             spState.update(mySprite, elapsedTime, bounds);
         }
-        myDefaultState.update(mySprite, elapsedTime, bounds);
     }
 
     /**
@@ -58,9 +59,7 @@ public class SpriteStateManager {
      * @param pen
      */
     public void paint (Graphics2D pen) {
-        if(myActiveStates.isEmpty()){     
-            myDefaultState.paint(mySprite, pen);
-        }
+        // only paint the first state (painting multiple states does not work).
         myActiveStates.iterator().next().paint(mySprite, pen);
     }
     
@@ -69,15 +68,21 @@ public class SpriteStateManager {
      * @param stateID
      */
     public void activateState(int stateID){
-        myActiveStates.add(myStates.get(stateID));
+        SpriteState state = myStates.get(stateID);
+        state.activate(null);
+        myActiveStates.add(state);
     }
 
     /**
-     * Deactivates the specified state.
+     * Deactivates the specified state. If stateID is not valid, remove no state.
      * @param stateID
      */
     public void deactivateState(int stateID) {
-        myActiveStates.remove(myStates.get(stateID));
+        SpriteState state = myStates.get(stateID);
+        if(state != null){
+            state.deactivate(null);
+            myActiveStates.remove(myStates.get(stateID));
+        }
     }
     
     /**

@@ -376,6 +376,14 @@ public class Sprite {
     public void addPossibleState(int stateID, SpriteState state){
         myStateManager.addState(stateID, state);
     }
+    
+    public void activateState(int stateID){
+        myStateManager.activateState(stateID);
+    }
+    
+    public void deactivateState(int stateID){
+        myStateManager.deactivateState(stateID);
+    }
 
     public void updateLastLocation () {
         myLastLocation2 = new Location(myLastLocation.x, myLastLocation.y);

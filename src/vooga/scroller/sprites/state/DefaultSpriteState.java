@@ -2,13 +2,12 @@ package vooga.scroller.sprites.state;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import util.Location;
 import util.Vector;
 import vooga.scroller.sprites.Sprite;
 
 public class DefaultSpriteState extends SpriteState{
 
-    private static final int PRIORITY = Integer.MAX_VALUE;
+    private static final int PRIORITY = 0;
     
     @Override
     public void update (Sprite sprite, double elapsedTime, Dimension bounds) {
@@ -30,6 +29,18 @@ public class DefaultSpriteState extends SpriteState{
     @Override
     public int getPaintPriority () {
         return PRIORITY;
+    }
+
+    @Override
+    public void activate (Sprite sprite) {
+        // does nothing special
+        
+    }
+
+    @Override
+    public void deactivate (Sprite sprite) {
+        // does nothing special
+        
     }
 
 }
