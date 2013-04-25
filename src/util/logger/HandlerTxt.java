@@ -31,14 +31,35 @@ public class HandlerTxt implements IVoogaHandler {
         myFileName = LoggerManager.DEFAULT_FILE_NAME;
     }
     
+    /**
+     * Constructor
+     * @param fileName Sets the file output name to the string given
+     */
+    public HandlerTxt (String fileName) {
+        myFileName = fileName;
+    }
+    
+    /**
+     * 
+     * @return Name of the file this handler is writing to
+     */
     public String getFileName() {
     	return myFileName;
     }
     
+    /**
+     * 
+     * @param file Name of the file (without spaces) to write log
+     * records to
+     */
     public void setFileName(String file) {
     	myFileName = file.replace("\\s+", "");
     }
     
+    /**
+     * 
+     * @param ext Extension for this file
+     */
     public void setExtension (String ext) {
     	if (ext.charAt(0) == '.') {
     		myExtension = ext;

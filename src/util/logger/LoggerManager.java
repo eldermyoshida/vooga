@@ -203,7 +203,7 @@ public class LoggerManager {
      */
     public void addSocketHandler (String host, int port) {
         mySocketHandler.setSocket(host, port);
-        addHandler(mySocketHandler);
+        addHandler(new HandlerSocket(host,port));
     }
     
     /**
