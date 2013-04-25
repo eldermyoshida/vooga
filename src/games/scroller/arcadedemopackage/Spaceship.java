@@ -6,14 +6,13 @@ import util.Vector;
 import util.input.InputMethodTarget;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.superclasses.Player;
-import vooga.scroller.util.ISpriteView;
 import vooga.scroller.util.Sprite;
 import vooga.scroller.view.GameView;
 import vooga.scroller.util.Pixmap;
 
 
 public class Spaceship extends Player {
-
+    private int myScore =0;
     private static final Pixmap DEFAULT_IMAGE =
             new Pixmap("/games/scroller/arcadedemopackage/images/spaceship.jpg");
     private static final Dimension DEFAULT_SIZE = new Dimension(30, 30);
@@ -66,6 +65,8 @@ public class Spaceship extends Player {
         force.negate();
         this.addVector(force);     
         this.translate(new Vector(Sprite.UP_DIRECTION, MOVE_MAGNITUDE));
-
+    }
+    public void incrementScore (int increment) {
+        myScore+=increment;
     }
 }
