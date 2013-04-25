@@ -20,9 +20,14 @@ import java.util.logging.Logger;
  * 
  * @author Henrique Moraes
  */
-public class NetworkLogger {
-    public static final Logger LOGGER =
-            Logger.getLogger(NetworkLogger.class.getName());
+public class LoggerManager {
+	/**
+	 * This logger serves as a quick reference in case the user
+	 * needs to log a message in one line of code
+	 */
+	public static final Logger DEFAULT_LOGGER = 
+			Logger.getLogger(LoggerManager.class.getName());
+	
     private static final String TXT_EXT = ".txt";
     private static final String LOG_EXT = ".log";
     public static final String DEFAULT_FILE_NAME = "Logger";
@@ -34,23 +39,20 @@ public class NetworkLogger {
     private HandlerXML myXMLHandler = new HandlerXML();
     private HandlerMemory myMemoryHandler = new HandlerMemory();
 
-    private static NetworkLogger instance = new NetworkLogger();
+    private Logger myLogger;
 
     /**
-     * 
-     * @return instance of this Network Logger
+     * Constructor
+     * Sets a logger using reflection to find the name of the calling class
+     * The Logger is initialized with the name of the calling class
      */
-    public static NetworkLogger getInstance () {
-        return instance;
-    }
-
-    /**
-     * Private constructor of this singleton
-     */
-    private NetworkLogger () {
-        LOGGER.setUseParentHandlers(false);
-        LOGGER.setLevel(Level.ALL);
-        addHandler(myConsoleHandler);
+    public LoggerManager () {
+    	StackTraceElement[] element = Thread.currentThread().getStackTrace();
+    	System.out.println(element[1].getClassName());
+    	myLogger = Logger.getLogger(element[1].getClassName());
+        myLogger.setUseParentHandlers(false);
+        myLogger.setLevel(Level.ALL);
+        addHandler(myConsoleHandler);     
     }
 
     /**
@@ -63,8 +65,8 @@ public class NetworkLogger {
      */
     public void addHandler (IVoogaHandler hand) {
     	Handler handler = hand.getHandler();
-    	handler.setLevel(NetworkLogger.LOGGER.getLevel());
-        LOGGER.addHandler(handler);
+    	handler.setLevel(myLogger.getLevel());
+        myLogger.addHandler(handler);
     }
 
     /**
@@ -189,7 +191,7 @@ public class NetworkLogger {
      * Adds a handler that sends log records across a given stream
      */
     public void addStreamHandler () {
-        LOGGER.addHandler(myStreamHandler.getHandler());
+        myLogger.addHandler(myStreamHandler.getHandler());
     }
 
     /**
@@ -224,9 +226,9 @@ public class NetworkLogger {
      * 
      * @param level
      */
-    public static void setLevel (Level level) {
-        LOGGER.setLevel(level);
-        for (Handler h : LOGGER.getHandlers()) {
+    public void setLevel (Level level) {
+        myLogger.setLevel(level);
+        for (Handler h : myLogger.getHandlers()) {
             h.setLevel(level);
         }
     }
@@ -235,8 +237,8 @@ public class NetworkLogger {
      * 
      * @return The logger associated with this API
      */
-    public static Logger getLogger() {
-    	return LOGGER;
+    public Logger getLogger() {
+    	return myLogger;
     }
 
 }

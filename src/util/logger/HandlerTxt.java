@@ -28,7 +28,7 @@ public class HandlerTxt implements IVoogaHandler {
      * Sets the file output name to a default value
      */
     public HandlerTxt () {
-        myFileName = NetworkLogger.DEFAULT_FILE_NAME;
+        myFileName = LoggerManager.DEFAULT_FILE_NAME;
     }
     
     public String getFileName() {
@@ -44,7 +44,7 @@ public class HandlerTxt implements IVoogaHandler {
     		myExtension = ext;
     	}
     	else {
-    		NetworkLogger.getLogger().log(Level.INFO, EXTENSION_ERROR);
+    		LoggerManager.DEFAULT_LOGGER.log(Level.INFO, EXTENSION_ERROR);
     	}
     }
 
@@ -56,7 +56,7 @@ public class HandlerTxt implements IVoogaHandler {
             handler.setFormatter(new SimpleFormatter());
         }
         catch (Exception e) {
-            NetworkLogger.myLogger.severe(ERROR_MESSAGE);
+            LoggerManager.DEFAULT_LOGGER.severe(ERROR_MESSAGE);
         }
         return handler;
     }
