@@ -2,15 +2,15 @@ package games.scroller.marioGame.spritesDefinitions.players.resources;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import vooga.scroller.sprites.state.State;
+import vooga.scroller.sprites.Sprite;
+import vooga.scroller.sprites.state.SpriteState;
 import vooga.scroller.util.ISpriteView;
 import vooga.scroller.util.Pixmap;
-import vooga.scroller.util.Sprite;
 
 
 
 
-public class InvisibleState implements State{
+public class InvisibleState implements SpriteState{
 
     private static final Pixmap DEFAULT_IMAGE = new Pixmap("/vooga/scroller/images/invisible.gif");
     private static final double INVISIBLE_TIME = 5;

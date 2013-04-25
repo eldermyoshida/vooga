@@ -15,12 +15,12 @@ import vooga.scroller.level_editor.exceptions.LevelEditorException;
 import vooga.scroller.level_management.IInputListener;
 import vooga.scroller.level_management.LevelManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
+import vooga.scroller.sprites.Sprite;
 import vooga.scroller.sprites.interfaces.IDoor;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.IGameComponent;
 import vooga.scroller.util.ISpriteView;
 import vooga.scroller.util.Pixmap;
-import vooga.scroller.util.Sprite;
 import vooga.scroller.view.GameView;
 
 @InputClassTarget

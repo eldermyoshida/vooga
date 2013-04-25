@@ -1,7 +1,7 @@
 package vooga.scroller.sprites.animation;
 
+import vooga.scroller.sprites.Sprite;
 import vooga.scroller.util.Pixmap;
-import vooga.scroller.util.Sprite;
 
 /**
  * Creates an animation for a left-right moving sprite. 

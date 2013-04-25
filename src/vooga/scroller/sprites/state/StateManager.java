@@ -5,7 +5,7 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
-import vooga.scroller.util.Sprite;
+import vooga.scroller.sprites.Sprite;
 
 /**
  * Manages various states 
@@ -17,17 +17,17 @@ public class StateManager {
     
     /** ID for the default state of a sprite*/
     public static final int DEFAULT_ID = 0;
-    private Map<Integer, State> myStates;    
-    private Collection<State> myCurrentStates;
+    private Map<Integer, SpriteState> myStates;    
+    private Collection<SpriteState> myCurrentStates;
     
     public StateManager(Sprite sprite) {
         StateFactory sf = new StateFactory(sprite);
         myStates = sf.createStateMap();
-        myCurrentStates = new ArrayList<State>();
+        myCurrentStates = new ArrayList<SpriteState>();
     }
     
     public void update(double elapsedTime, Dimension bounds){       
-        for(State s: myCurrentStates){
+        for(SpriteState s: myCurrentStates){
             s.update(elapsedTime, bounds);
         }
     }
@@ -42,12 +42,12 @@ public class StateManager {
     }
     
     
-    public void addState(int stateID, State state) {
+    public void addState(int stateID, SpriteState state) {
         myStates.put(stateID, state);
     }
 
     public void paint (Graphics2D pen) {
-        for(State s: myCurrentStates){
+        for(SpriteState s: myCurrentStates){
             s.paint(pen);
         }
     }

@@ -3,7 +3,7 @@ package vooga.scroller.sprites.state;
 import java.util.HashMap;
 import java.util.Map;
 import vooga.scroller.marioGame.spritesDefinitions.players.resources.InvisibleState;
-import vooga.scroller.util.Sprite;
+import vooga.scroller.sprites.Sprite;
 
 public class StateFactory {
 
@@ -13,10 +13,10 @@ public class StateFactory {
         mySprite = sprite;
     }
 
-    public Map<Integer, State> createStateMap () {
+    public Map<Integer, SpriteState> createStateMap () {
         // TODO: read in states from files and use reflection to create
         
-        Map<Integer, State> states = new HashMap<Integer, State>();
+        Map<Integer, SpriteState> states = new HashMap<Integer, SpriteState>();
         
         InvisibleState invisibleMario= new InvisibleState(mySprite);
         

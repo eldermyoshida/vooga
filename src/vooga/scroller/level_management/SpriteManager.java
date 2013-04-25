@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 import vooga.scroller.collision_manager.CollisionManager;
 import vooga.scroller.level_editor.Level;
+import vooga.scroller.sprites.Sprite;
 import vooga.scroller.sprites.superclasses.GameCharacter;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.Direction;
-import vooga.scroller.util.Sprite;
 import vooga.scroller.view.GameView;
 
 

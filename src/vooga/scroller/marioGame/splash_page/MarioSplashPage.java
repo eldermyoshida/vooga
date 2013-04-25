@@ -7,8 +7,8 @@ import util.input.InputClassTarget;
 import util.input.InputMethodTarget;
 import vooga.scroller.level_management.splash_page.SplashPage;
 import vooga.scroller.scrollingmanager.ScrollingManager;
+import vooga.scroller.sprites.Sprite;
 import vooga.scroller.util.ISpriteView;
-import vooga.scroller.util.Sprite;
 import vooga.scroller.view.GameView;
 
 /**

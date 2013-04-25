@@ -3,13 +3,13 @@ package vooga.scroller.marioGame.spritesDefinitions.collisions;
 import util.Vector;
 import vooga.scroller.collision_manager.CollisionDirection;
 import vooga.scroller.marioGame.spritesDefinitions.players.Mario;
+import vooga.scroller.sprites.Sprite;
 import vooga.scroller.sprites.interfaces.ICollectible;
 import vooga.scroller.sprites.interfaces.IDoor;
 import vooga.scroller.sprites.interfaces.IEnemy;
 import vooga.scroller.sprites.interfaces.IPlatform;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.Direction;
-import vooga.scroller.util.Sprite;
 
 
 /**

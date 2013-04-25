@@ -10,7 +10,7 @@ import java.util.Set;
 import util.Location;
 import vooga.scroller.level_editor.controllerSuite.LEController;
 import vooga.scroller.level_editor.controllerSuite.LEGrid;
-import vooga.scroller.util.Sprite;
+import vooga.scroller.sprites.Sprite;
 
 
 /**

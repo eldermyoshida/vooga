@@ -12,13 +12,13 @@ import vooga.scroller.level_editor.view.LEActionLibrary;
 import vooga.scroller.level_editor.view.LEToolsView;
 import vooga.scroller.level_editor.view.LEView;
 import vooga.scroller.level_management.LevelPortal;
+import vooga.scroller.sprites.Sprite;
 import vooga.scroller.sprites.interfaces.ICollectible;
 import vooga.scroller.sprites.interfaces.IDoor;
 import vooga.scroller.sprites.interfaces.IEnemy;
 import vooga.scroller.sprites.interfaces.IPlatform;
 import vooga.scroller.util.IBackgroundView;
 import vooga.scroller.util.Renderable;
-import vooga.scroller.util.Sprite;
 import vooga.scroller.util.mvc.IView;
 import vooga.scroller.util.mvc.vcFramework.Tools;
 

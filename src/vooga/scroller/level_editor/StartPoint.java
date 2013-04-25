@@ -2,8 +2,8 @@ package vooga.scroller.level_editor;
 
 import java.awt.Dimension;
 import util.Location;
+import vooga.scroller.sprites.Sprite;
 import vooga.scroller.util.Pixmap;
-import vooga.scroller.util.Sprite;
 
 public class StartPoint extends Sprite{
 

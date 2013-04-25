@@ -2,7 +2,7 @@ package vooga.scroller.marioGame.spritesDefinitions.physics;
 
 import java.util.ArrayList;
 import java.util.List;
-import vooga.scroller.util.Sprite;
+import vooga.scroller.sprites.Sprite;
 import vooga.scroller.util.physics.Force;
 import vooga.scroller.util.physics.Gravity;
 import vooga.scroller.util.physics.Viscosity;

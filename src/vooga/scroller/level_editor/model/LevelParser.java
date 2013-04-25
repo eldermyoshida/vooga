@@ -11,10 +11,10 @@ import java.util.Scanner;
 import util.Location;
 import vooga.scroller.level_editor.controllerSuite.LEController;
 import vooga.scroller.level_editor.controllerSuite.LEGrid;
+import vooga.scroller.sprites.Sprite;
 import vooga.scroller.sprites.interfaces.IDoor;
 import vooga.scroller.util.IBackgroundView;
 import vooga.scroller.util.Pixmap;
-import vooga.scroller.util.Sprite;
 
 
 /**
