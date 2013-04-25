@@ -12,12 +12,13 @@ import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+import util.Location;
+import util.Pixmap;
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.controller.modes.BuildMode;
 import vooga.towerdefense.controller.modes.ControlMode;
 import vooga.towerdefense.controller.modes.SelectMode;
 import vooga.towerdefense.factories.actionfactories.WaveActionFactory;
-import vooga.towerdefense.factories.definitions.GameElementDefinition;
 import vooga.towerdefense.factories.definitions.UnitDefinition;
 import vooga.towerdefense.factories.elementfactories.GameElementFactory;
 import vooga.towerdefense.gameElements.GameElement;
@@ -29,13 +30,10 @@ import vooga.towerdefense.model.MapLoader;
 import vooga.towerdefense.model.levels.Level;
 import vooga.towerdefense.model.rules.NextLevelRule;
 import vooga.towerdefense.model.rules.Rule;
-import vooga.towerdefense.model.rules.WinRule;
 import vooga.towerdefense.model.shop.Shop;
 import vooga.towerdefense.model.shop.ShopItem;
 import vooga.towerdefense.model.tiles.Tile;
 import vooga.towerdefense.model.tiles.factories.TileFactory;
-import util.Location;
-import util.Pixmap;
 import vooga.towerdefense.view.TDView;
 
 /**
@@ -115,7 +113,6 @@ public class Controller {
 		
 		myModel = new GameModel(this, levels, rules, map, new Shop(map));
 		
-		rules.add(new WinRule(myModel));
 		rules.add(new NextLevelRule(myModel));
 		myControlMode = new SelectMode();
 	}
@@ -241,6 +238,7 @@ public class Controller {
 					List.class, String.class };
 			Constructor<? extends GameElement> constructor = myClass
 					.getConstructor(types);
+			//FIXME:  the actions are passed by referece.  To truly be a new instance, they must be remade as well
 			Object[] parameters = { item.getPixmap(), item.getCenter(),
 					item.getSize(), item.getActions()};
 			Object myNewItem = constructor.newInstance(parameters);
