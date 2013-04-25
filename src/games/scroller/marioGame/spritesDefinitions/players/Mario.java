@@ -11,7 +11,8 @@ import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.Sprite;
-import vooga.scroller.util.physics.ForceBundle;
+import vooga.scroller.util.physics.Force;
+import vooga.scroller.util.physics.Gravity;
 import vooga.scroller.view.GameView;
 
 @InputClassTarget
@@ -37,20 +38,20 @@ public class Mario extends Player implements IInputListener{
 
    
     private int myJumpCount;
-    private ForceBundle forceBundle;
+    private Force myGravity;
 
 
     public Mario (Location center, Dimension size, GameView gameView, ScrollingManager sm) {
         super(DEFAULT_IMAGE, center, size, gameView, sm, new Integer(1), new Integer (1));
         MarioLib.addLeftRightAnimationToPlayer(this, "mario.gif");
         myJumpCount = 0;
-        forceBundle = new ForceBundle(this);
+        myGravity = new Gravity(this);
 
     }
 
     @Override
     public void update (double elapsedTime, Dimension bounds) {
-        forceBundle.apply();
+        myGravity.apply();
 
         if (myJumpCount == MAX_JUMPS && this.getVelocity().getComponentVector(Sprite.UP_DIRECTION).getMagnitude() < .5) {
             myJumpCount = 0;
