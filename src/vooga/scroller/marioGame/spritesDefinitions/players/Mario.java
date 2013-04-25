@@ -7,10 +7,13 @@ import util.input.InputClassTarget;
 import util.input.InputMethodTarget;
 import vooga.scroller.level_management.IInputListener;
 import vooga.scroller.marioGame.spritesDefinitions.MarioLib;
+import vooga.scroller.marioGame.spritesDefinitions.physics.ForceBundle;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.Sprite;
+import vooga.scroller.util.physics.Force;
+import vooga.scroller.util.physics.Gravity;
 import vooga.scroller.view.GameView;
 
 @InputClassTarget
@@ -23,7 +26,7 @@ public class Mario extends Player implements IInputListener{
     private static final int MAX_JUMPS = 2;
     private static final int MAX_HORIZONTAL_SPEED = 5;
     private static final Pixmap DEFAULT_IMAGE = MarioLib.makePixmap("standright.png");
-    private static final int DEATH_PENALTY = 1000;
+//    private static final int DEATH_PENALTY = 1000;
 
 
     private static final Vector JUMP_VELOCITY = new Vector(Sprite.UP_DIRECTION, 100);
@@ -36,15 +39,21 @@ public class Mario extends Player implements IInputListener{
 
    
     private int myJumpCount;
+    private Force myGravity;
+
 
     public Mario (Location center, Dimension size, GameView gameView, ScrollingManager sm) {
         super(DEFAULT_IMAGE, center, size, gameView, sm, new Integer(1), new Integer (1));
         MarioLib.addLeftRightAnimationToPlayer(this, "mario.gif");
         myJumpCount = 0;
+        myGravity = new Gravity(this);
+
     }
 
     @Override
     public void update (double elapsedTime, Dimension bounds) {
+        myGravity.apply();
+
         if (myJumpCount == MAX_JUMPS && this.getVelocity().getComponentVector(Sprite.UP_DIRECTION).getMagnitude() < .5) {
             myJumpCount = 0;
         }

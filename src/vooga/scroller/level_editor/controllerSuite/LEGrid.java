@@ -55,7 +55,6 @@ public class LEGrid implements Editable, Renderable<LEGridView>, Scrollable {
 
     @Override
     public Object getState () {
-        // TODO Auto-generated method stub
         return null;
     }
 
@@ -111,16 +110,14 @@ public class LEGrid implements Editable, Renderable<LEGridView>, Scrollable {
     }
 
     /**
-     * TODO - Moving this responsibility to Level
+     * Create Level from Grid
      * 
      * @param id
      * @param sm
      * @param v
-     * @return
+     * @return Level
      */
-    public Level createLevel (int id,
-                              ScrollingManager sm) {
-        // TODO need to refactor. Editable Level.
+    public Level createLevel (int id, ScrollingManager sm) {
         Level lev = new Level(id, sm);
         for (SpriteBox box : getBoxes()) {
             lev.addSprite(box.getSprite());
@@ -184,7 +181,6 @@ public class LEGrid implements Editable, Renderable<LEGridView>, Scrollable {
 
     @Override
     public Dimension getPreferredScrollableViewportSize () {
-        // TODO Auto-generated method stub
         return null;
     }
 
@@ -200,13 +196,11 @@ public class LEGrid implements Editable, Renderable<LEGridView>, Scrollable {
 
     @Override
     public boolean getScrollableTracksViewportWidth () {
-        // TODO Auto-generated method stub
         return false;
     }
 
     @Override
     public boolean getScrollableTracksViewportHeight () {
-        // TODO Auto-generated method stub
         return false;
     }
 
@@ -223,10 +217,20 @@ public class LEGrid implements Editable, Renderable<LEGridView>, Scrollable {
         return res;
     }
 
+    /**
+     * Checks StartPoint and Door
+     * 
+     * @return true if valid
+     */
     public boolean isValidForSimulation () {
         return (myStartPoint != null && myDoor != null);
     }
 
+    /**
+     * Checks Door and Background
+     * 
+     * @return true if valid
+     */
     public boolean isValidForSave () {
         return (myDoor != null && myBackground != null);
     }
