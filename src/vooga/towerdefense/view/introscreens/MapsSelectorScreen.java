@@ -12,10 +12,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.swing.JButton;
-import vooga.towerdefense.util.Location;
-import vooga.towerdefense.util.Pixmap;
+
+import util.Location;
+import vooga.towerdefense.model.GameMap;
+import vooga.towerdefense.model.MapLoader;
+import util.Pixmap;
 import vooga.towerdefense.view.TDView;
 
 
@@ -31,6 +35,7 @@ public class MapsSelectorScreen extends SelectScreen {
     private static final String CHECKED_IMAGE = "checked.gif";
     private static final long serialVersionUID = 1L;
     private static final Dimension SIZE = new Dimension(200, 200);
+    private static final String PATH = "/vooga/towerdefense/view/precreatedmaps/tdmap1.xml";
     private MouseAdapter myMouseListener;
     private Pixmap myMap1;
     private Pixmap myMap2;
@@ -40,6 +45,7 @@ public class MapsSelectorScreen extends SelectScreen {
     private JButton myNextScreenButton;
     private boolean myMapSelected = false;
     private String myPrevName = "";
+    private MapLoader myMapLoader;
 
     public MapsSelectorScreen (Dimension size, TDView view) {
         super(size, view);
@@ -65,6 +71,10 @@ public class MapsSelectorScreen extends SelectScreen {
 
     // TODO placeholder! Creation of Pixmaps needs to be cleaned up
     private void initMapImages () {
+        myMapLoader = new MapLoader(PATH);
+        List<GameMap> myGameMaps = myMapLoader.loadMaps();
+        System.out.println("mapps: " + myGameMaps);
+        
         myMap1 = new Pixmap("map1.gif");
         myMap2 = new Pixmap("map2.gif");
         myMap3 = new Pixmap("map3.gif");
@@ -98,7 +108,7 @@ public class MapsSelectorScreen extends SelectScreen {
 
         if (!myPrevName.isEmpty()) {
             for (Map.Entry<Pixmap, Rectangle> entry1 : myMapImages.entrySet()) {
-                if (entry1.getKey().getFileName().equals(CHECKED_IMAGE)) {
+                if (entry1.getKey().getFilePath().equals(CHECKED_IMAGE)) {
                     entry1.getKey().setImage(myPrevName);
                     repaint();
                 }
@@ -114,7 +124,7 @@ public class MapsSelectorScreen extends SelectScreen {
     }
 
     private void selectedImage (Pixmap myImage) {
-        myPrevName = myImage.getFileName();
+        myPrevName = myImage.getFilePath();
         myImage.setImage(CHECKED_IMAGE);
         repaint();
     }

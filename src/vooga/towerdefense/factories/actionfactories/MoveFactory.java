@@ -2,22 +2,32 @@ package vooga.towerdefense.factories.actionfactories;
 
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.actionlist.Move;
-import vooga.towerdefense.attributes.AttributeConstants;
 import vooga.towerdefense.gameElements.GameElement;
 
 /**
  * Factory for creating move action. User needs to specify which attribute to be taken
  * as a reference for move speed in the constructor. 
+ * 
  * @author Zhen Gou
  * 
  */
 
 public class MoveFactory extends ActionFactory {
+	
 	private String myMoveSpeedReference;
+	private String myDirectionReference;
 
-	public MoveFactory(String moveSpeedReference) {
-		myMoveSpeedReference=moveSpeedReference;
+	/**
+	 * constructor 
+	 * 
+	 * @param moveSpeedReference
+	 * @param directionReference
+	 */
+	public MoveFactory(String moveSpeedReference, String directionReference) {
+		myMoveSpeedReference = moveSpeedReference;
+		myDirectionReference = directionReference;
 	}
+	
 	/**
 	 * create a move action for the game element given
 	 * @param elementToMove
@@ -29,7 +39,7 @@ public class MoveFactory extends ActionFactory {
 				.getAttributeManager().getAttribute(
 						myMoveSpeedReference), elementToMove
 				.getAttributeManager().getAttribute(
-						AttributeConstants.DIRECTION));
+						myDirectionReference));
 		return action;
 	}
 	

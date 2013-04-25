@@ -41,22 +41,25 @@ public class XMLTool {
     private static final String CONVERSION_EXCEPTION =
             "The document could not be converted into a string";
     private static final String WRITING_EXCEPTION = "File could not be written.";
+    private static final String USER_DIR = System.getProperty("user.dir");
     private Document myDoc;
     
     /**
      * The constructor of this XML file builder automatically creates a buffered
      * document with the destination of the argument path, ready to receive elements.
      */
-    public XMLTool () {
+    public XMLTool() {
         makeDoc();
     }
     
     /**
      * This constructor reads in an XML file from an XMLFilePath
      * 
-     * @param xmlFilePath The relative OS independent file path from the project folder.
+     * @param xmlFilePath The relative path with "filename.xml".
+     *        For example, if path = "/src/example.xml",
+     *        the file example.xml will be saved in the source folder.
      */
-    public XMLTool (String xmlFilePath) {
+    public XMLTool(String xmlFilePath) {
         readDoc(xmlFilePath);
     }
     
@@ -76,10 +79,11 @@ public class XMLTool {
     /**
      * Reads a new document from an XML file.
      * 
-     * @param path The path with the filename of an XML formatted file.
+     * @param path The relative path with "filename.xml". For example, if path = "/src/example.xml",
+     *        the file example.xml will be saved in the source folder.
      */
     public void readDoc (String path) {
-        File file = new File(path);
+        File file = new File(USER_DIR + path);
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         try {
             myDoc = dbFactory.newDocumentBuilder().parse(file);
@@ -340,15 +344,12 @@ public class XMLTool {
      *         children elements of a particular node.
      */
     public Map<String, String> getChildrenStringMap (Element parent) {
-        Map<String, String> map = new HashMap<String, String>();
-        NodeList nodes = parent.getChildNodes();
-        for (int i = 0; i < nodes.getLength(); i++) {
-            if (nodes.item(i).getNodeType() == Node.ELEMENT_NODE) {
-                Element node = (Element) nodes.item(i);
-                map.put(node.getTagName(), node.getTextContent());
-            }
+        Map<String, String> stringMap = new HashMap<String, String>();
+        Map<String, Element> elementMap = getChildrenElementMap(parent);
+        for (String key : elementMap.keySet()) {
+            stringMap.put(key, elementMap.get(key).getTextContent());
         }
-        return map;
+        return stringMap;
     }
     
     /**
@@ -439,12 +440,13 @@ public class XMLTool {
      * This <code>FileWriter</code> creates the document in an specific location,
      * form an String.
      * 
-     * @param path The destination URL with the <filename>.XML
+     * @param path The relative path with "filename.xml". For example, if path = "/src/example.xml",
+     *        the file example.xml will be saved in the source folder.
      */
     public void writeFile (String path) {
         FileWriter writer = null;
         try {
-            writer = new FileWriter(path);
+            writer = new FileWriter(USER_DIR + path);
             writer.write(translateToXMLString(myDoc));
             writer.close();
         }

@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import vooga.towerdefense.controller.Controller;
 
 
 /**
@@ -47,10 +48,9 @@ public class InformationScreen extends JPanel {
      * @param title
      * @param size
      */
-    public InformationScreen (String title, Dimension size) {
+    public InformationScreen (Dimension size, Controller controller) {
         setPreferredSize(size);
         setLayout(new BorderLayout());
-        myTitle = title + "\n";
         myWidth = size.width;
         myHeight = size.height;
         add(makeInfoTextArea(), INFO_SCREEN_LOCATION);

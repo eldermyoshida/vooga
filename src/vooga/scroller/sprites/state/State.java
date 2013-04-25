@@ -33,17 +33,7 @@ public interface State {
      * @param bounds of the current view.
      */
     public void update (double elapsedTime, Dimension bounds);
-    
-    /**
-     * Activates this state
-     */
-    public void activate (); 
-    
-    /**
-     * Deactivates this state.
-     */
-    public void deactivate();
-    
+
     public void paint(Graphics2D pen);
       
 }
