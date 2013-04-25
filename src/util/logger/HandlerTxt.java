@@ -21,14 +21,14 @@ public class HandlerTxt implements IVoogaHandler {
     private static final String EXTENSION_ERROR =
             "Not a valid extension";
     private String myFileName;
-    private String myExtension = TXT_EXT;
+    private String myExtension;
 
     /**
      * Constructor
      * Sets the file output name to a default value
      */
     public HandlerTxt () {
-        myFileName = LoggerManager.DEFAULT_FILE_NAME;
+        this(LoggerManager.DEFAULT_FILE_NAME, TXT_EXT);
     }
     
     /**
@@ -36,7 +36,16 @@ public class HandlerTxt implements IVoogaHandler {
      * @param fileName Sets the file output name to the string given
      */
     public HandlerTxt (String fileName) {
+    	this(fileName, TXT_EXT);
+    }
+    
+    /**
+     * Constructor
+     * @param fileName Sets the file output name to the string given
+     */
+    public HandlerTxt (String fileName, String ext) {
         myFileName = fileName;
+        myExtension = ext;
     }
     
     /**
