@@ -32,6 +32,10 @@ public class EnvironmentObject extends GameObject {
         init(name, pathHierarchy);
     }
     
+    
+    /**
+     * Initializes environment object
+     */
     private void init(String name, String pathHierarchy) {
     	myName = name;
         setLoader(new EnvironmentObjectLoader(name, this, pathHierarchy));

@@ -2,11 +2,9 @@ package vooga.towerdefense.action;
 
 import java.util.ArrayList;
 import java.util.List;
-import vooga.towerdefense.gameElements.GameElement;
-
 
 /**
- * An AbstractAction is superclassed to define specific Actions that can be taken by game elements.
+ * An Action is the super class of all actions that can be executed by game elements.
  * This includes attacks, upgrades, path creation and anything the developer may wish to implement.
  * 
  * @author Matthew Roy
@@ -15,13 +13,14 @@ import vooga.towerdefense.gameElements.GameElement;
  * 
  */
 public abstract class Action {
+	public static final String NULL_POINTER_EXCEPTION = "Attribute(s) does not exist for element.";
+	
     private boolean myEnabledState;
+    private boolean targetTracking;
     private List<Action> myFollowUpActions;
-    private List<GameElement> myTargets;
 
     public Action () {
         myFollowUpActions = new ArrayList<Action>();
-        myTargets = new ArrayList<GameElement>();
         myEnabledState = true;
     }
 
@@ -33,7 +32,7 @@ public abstract class Action {
     /**
      * Executes action after update clears the execute condition.
      */
-    public void updateFollowupActions(double elapsedTime) {
+    public void updateFollowUpActions(double elapsedTime) {
         for (Action a : getFollowUpActions()) {
             a.update(elapsedTime);
         }
@@ -47,7 +46,7 @@ public abstract class Action {
     public void update (double elapsedTime) {
         if (isEnabled()) {
             executeAction(elapsedTime);
-            updateFollowupActions(elapsedTime);
+            updateFollowUpActions(elapsedTime);
         }
     }
 
@@ -62,54 +61,28 @@ public abstract class Action {
     public void addFollowUpActions (List<Action> action) {
         myFollowUpActions.addAll(action);
     }
-
-    /**
-     * Adds a game element to the current list of targets
-     * 
-     * @param target
-     */
-    public void addTarget (GameElement target) {
-        myTargets.add(target);
-    }
-
-    /**
-     * Adds a list of targets to the current targets of this action
-     * 
-     * @param targets
-     */
-    public void addTarget (List<GameElement> targets) {
-        myTargets.addAll(targets);
-    }
-
-    /**
-     * Sets the target list to a new target
-     * 
-     * @param newTargets
-     */
-    public void setTargets (GameElement newTarget) {
-        myTargets.clear();
-        myTargets.add(newTarget);
-    }
     
-    public List<GameElement> getTargets() {
-        return myTargets;
-    }
-
-    /**
-     * Sets the target list to a new list
-     * 
-     * @param newTargets
-     */
-    public void setTargets (List<GameElement> newTargets) {
-        myTargets = newTargets;
-    }
-
     /**
      * Returns list of followup actions
      * @return
      */
     public List<Action> getFollowUpActions () {
         return myFollowUpActions;
+    }
+    
+    
+    /**
+     * Returns list of all targeted follow up actions
+     * @return
+     */
+    public List<TargetedAction> getTargetedFollowUpActions () {
+     	List<TargetedAction> actions = new ArrayList<TargetedAction>();
+    	for (Action a: getFollowUpActions()){
+    		if (a.isTargetTracking()){
+    			actions.add((TargetedAction) a);
+    		}
+    	}
+    	return actions;
     }
 
     public boolean isEnabled () {
@@ -118,5 +91,14 @@ public abstract class Action {
 
     public void setEnabled (boolean isEnabled) {
         myEnabledState = isEnabled;
+    }
+    
+    public boolean isTargetTracking(){
+    	return targetTracking;
+    }
+    
+    public void setTargetTracking(boolean isTargeting){
+    	targetTracking = isTargeting;
+    	
     }
 }

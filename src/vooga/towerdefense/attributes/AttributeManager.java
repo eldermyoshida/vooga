@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import vooga.towerdefense.factories.GameElementFactory;
-import vooga.towerdefense.factories.ProjectileFactory;
+
+import vooga.towerdefense.factories.elementfactories.GameElementFactory;
 
 
 /**
- * Attributes object that helps to track all game element stats.
+ * Attributes object that helps to track all game element attributes.
  * It also provides info requested by view through controller.
- * Used by Towers, Units, Weapons and any Asset-based object.
+ * Used by game elements and also any other class that needs attribute management.
  * 
  * @author Matthew Roy
  * @author XuRui
@@ -19,15 +19,15 @@ import vooga.towerdefense.factories.ProjectileFactory;
  */
 public class AttributeManager {
     private HashMap<String, Attribute> myAttributes;
-    private HashMap<String, GameElementFactory> myFactories;
+    private HashMap<String, GameElementFactory> myGameElementFactories;
     private HashMap<String, GameElementFactory> myUpgrades;
-    private ProjectileFactory myProjectileFactory;
+
 
     public AttributeManager () {
         myAttributes = new HashMap<String, Attribute>();
-        myFactories = new HashMap<String, GameElementFactory>();
+        myGameElementFactories = new HashMap<String, GameElementFactory>();
         myUpgrades = new HashMap<String, GameElementFactory>();
-        // myProjectileFactory=new ProjectileFactory();
+       
     }
 
     /**
@@ -88,13 +88,20 @@ public class AttributeManager {
     public void addAttribute (Attribute newAttribute) {
         myAttributes.put(newAttribute.getName(), newAttribute);
     }
-
+/**
+ * add a list of attributes to the manager
+ * @param newAttributes
+ */
     public void addAttributes (List<Attribute> newAttributes) {
         for (Attribute a : newAttributes) {
             addAttribute(a);
         }
     }
 
+    public void replaceAttributeValue(String type, double newValue){
+    	myAttributes.get(type).setValue(newValue);
+    }
+    
     /**
      * Resets all attributes to default values
      */
@@ -125,17 +132,15 @@ public class AttributeManager {
     public HashMap<String, GameElementFactory> getUpgrades () {
         return myUpgrades;
     }
-
-    public GameElementFactory getGameElementFactories (String name) {
-        return myFactories.get(name);
+    
+    public void addGameElementFactory(String name, GameElementFactory factory){
+    	myGameElementFactories.put(name, factory);
     }
 
-    public ProjectileFactory getProjectileFactory () {
-        return myProjectileFactory;
+    public GameElementFactory getGameElementFactory (String name) {
+        return myGameElementFactories.get(name);
     }
+    
 
-    public void setProjectileFactory (ProjectileFactory projectileFactory) {
-        myProjectileFactory = projectileFactory;
-    }
-
+ 
 }

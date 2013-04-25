@@ -22,6 +22,8 @@ import vooga.fighter.util.Paintable;
  * Note, Java only supports the formats: png, jpg, gif.
  * 
  * @author Robert C. Duvall, Dagbedji F Added get icon
+ * @author Bill Muensterman and Wayne You added setImageToGrayscale and
+ *         paintReverse
  */
 public class Pixmap implements Paintable {
 	// OS-independent relative resource locations (like URLs)
@@ -75,8 +77,6 @@ public class Pixmap implements Paintable {
 			double angle) {
 		// save current state of the graphics area
 		AffineTransform old = new AffineTransform(pen.getTransform());
-		// AffineTransform old = new
-		// AffineTransform(AffineTransform.getScaleInstance(-1, 1));
 		// move graphics area to center of this shape
 		pen.translate(center.getX(), center.getY());
 		// rotate area about this shape
@@ -100,27 +100,29 @@ public class Pixmap implements Paintable {
 		// Restore original transform
 		pen.setTransform(saveAT);
 
-		// pen.setTransform(AffineTransform.getScaleInstance(-1, 1));
-		// pen.translate(0, 0);
-		// paint(pen, center, size);
-		// pen.setTransform(AffineTransform.getScaleInstance(-1, 1));
-
 	}
 
-	public void setImageToGreyScale() {
-		BufferedImage buffered = (BufferedImage)myImage;
-		RescaleOp op = new RescaleOp(.9f, 0, null);
-	    buffered = op.filter(buffered, null);
-	    myImage = (Image)buffered;
+	public void setImageToGrayscale() {
+		BufferedImage buffered = ((ToolkitImage) myImage).getBufferedImage();
+		BufferedImage temp = new BufferedImage(buffered.getWidth(),
+				buffered.getHeight(), BufferedImage.TYPE_BYTE_GRAY);
+		temp.getScaledInstance(buffered.getWidth(), buffered.getHeight(), 0);
+		Graphics g = temp.getGraphics();
+		g.drawImage(buffered, 0, 0, null);
+		buffered = temp;
+		g.dispose();
+		myImage = (Image) buffered;
 	}
-    
-    /**
-     * Gets the image of this <code>Pixmap</code> as a <code>java.awt.Image</code>
-     * 
-     * @return the image of this <code>Pixmap</code> as a <code>java.awt.Image</code>
-     */
-    public Image getImg () {
-        return myImage;
-    }
+
+	/**
+	 * Gets the image of this <code>Pixmap</code> as a
+	 * <code>java.awt.Image</code>
+	 * 
+	 * @return the image of this <code>Pixmap</code> as a
+	 *         <code>java.awt.Image</code>
+	 */
+	public Image getImg() {
+		return myImage;
+	}
 
 }

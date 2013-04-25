@@ -35,8 +35,12 @@ public class AttackObject extends GameObject{
     	myEffects = new ArrayList<Effect>();
         myCounter = new Counter();
         setLoader(new AttackObjectLoader(name, this, pathHierarchy));
+        setToDefaultState();
     }
     
+    /**
+     * Creates a deep copy of attack object based on other attack object and character location
+     */
     public AttackObject (AttackObject other, UpdatableLocation center){
     	super();
     	addProperty(ModelConstants.ATTACK_PROPERTY_SPEED, other.getProperty(ModelConstants.ATTACK_PROPERTY_SPEED));
@@ -50,7 +54,7 @@ public class AttackObject extends GameObject{
     	copyStates(other);
     	setCurrentState(other.getCurrentStateKey());
     	addStartingAcceleration();
-        setImageData(); 
+        setImageData();
     }
 
     /**
@@ -62,6 +66,7 @@ public class AttackObject extends GameObject{
     	for (String key : otherStates.keySet()) {
     		State otherState = otherStates.get(key);
     		State newState = new State(otherState);
+    		newState.setOwner(this);
     		addState(key, newState);
     	}
     }

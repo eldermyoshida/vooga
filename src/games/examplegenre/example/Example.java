@@ -13,12 +13,7 @@ public class Example extends Game {
     public Example (ArcadeInteraction arcade) {
         super(arcade);
     }
-
-    @Override
-    public UserGameData generateNewProfile () {
-        return new UserGameData();
-    }
-
+    
     @Override
     public void run () {
         String url = "http://breadfish.de/";
@@ -41,12 +36,6 @@ public class Example extends Game {
         //getArcade().getUserGameData(GAME_NAME).setScore(42);
         getArcade().killGame();
 
-    }
-
-    @Override
-    public GameData generateNewGameProfile () {
-        // TODO Auto-generated method stub
-        return null;
     }
 
 }

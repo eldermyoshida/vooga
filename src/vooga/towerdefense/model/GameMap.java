@@ -2,21 +2,21 @@ package vooga.towerdefense.model;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-
 import vooga.rts.util.Vector;
 import vooga.towerdefense.action.Action;
-import vooga.towerdefense.action.FollowPath;
+import vooga.towerdefense.action.actionlist.FollowPath;
+import vooga.towerdefense.attributes.AttributeManager;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.model.tiles.Tile;
 import vooga.towerdefense.model.tiles.factories.TileFactory;
-import vooga.towerdefense.util.Location;
-import vooga.towerdefense.util.Pixmap;
+import util.Location;
+import util.Pixmap;
+
 
 /**
  * The GameMap holds all of the state corresponding to an entire game at a given
@@ -28,14 +28,16 @@ import vooga.towerdefense.util.Pixmap;
  */
 public class GameMap {
 
+
 	private List<GameElement> myGameElements;
 	private Tile[][] myGrid;
 	private Location myDestination;
-	private Dimension myDimension;
+	private Dimension myDimensions;
 	private Path myPath;
 	private GameElement myGhostImage;
 	private Pathfinder myPathfinder;
-	public Location default_end_location;
+	public Location myEndLocation;
+	public Location mySpawnLocation;
 
 	/**
 	 * 
@@ -48,14 +50,19 @@ public class GameMap {
 	 * @param destination
 	 *            the destination point of all units
 	 */
-	public GameMap(Image background, int width, int height, Location destination) {
+	public GameMap(Tile[][] grid, Pixmap background, Dimension mapDimensions,
+			Location destination) {
+		myDimensions = mapDimensions;
+		double width = mapDimensions.getWidth();
+		double height = mapDimensions.getHeight();
 		myGameElements = new ArrayList<GameElement>();
 		myDestination = destination;
-		myDimension = new Dimension(width, height);
-		MapLoader loader = new MapLoader();
-		myGrid = loader.loadTiles(width, height);
+		myGrid = grid;
 		myPathfinder = new Pathfinder(myGrid);
-		default_end_location = new Location(width, height / 2);
+		
+		//TODO: pull these from file
+		myEndLocation = new Location(width, height / 2);
+		mySpawnLocation = new Location(0, height / 2);
 		updatePaths();
 
 		// ExampleUnitFactory myTrollFactory = new ExampleUnitFactory("Troll",
@@ -89,7 +96,6 @@ public class GameMap {
 	 *            the tile in which to add the game element
 	 */
 	public void addToMap(GameElement e, Tile t) {
-		e.setCenter(t.getCenter().getX(), t.getCenter().getY());
 		myGameElements.add(e);
 	}
 
@@ -116,9 +122,14 @@ public class GameMap {
 	 * @return a Tile object containing this point (x, y)
 	 */
 	public Tile getTile(Location location) {
+		try {
 		return myGrid[(int) (location.getX() / TileFactory.TILE_DIMENSIONS
 				.getWidth())][(int) (location.getY() / TileFactory.TILE_DIMENSIONS
 				.getHeight())];
+		}
+		catch(ArrayIndexOutOfBoundsException e) {
+			return null;
+		}
 	}
 
 	/**
@@ -263,9 +274,19 @@ public class GameMap {
 		int x2 = (int) (finish.getX() / TileFactory.TILE_DIMENSIONS.getWidth());
 		int y1 = (int) (start.getY() / TileFactory.TILE_DIMENSIONS.getHeight());
 		int y2 = (int) (finish.getY() / TileFactory.TILE_DIMENSIONS.getHeight());
-		Path thePath = myPathfinder.getShortestPath(x1, y1, x2, y2);
-		// thePath.add(finish);
+		Location startIndex = getTileIndexFromLocation(start);
+		Location finishIndex = getTileIndexFromLocation(finish);
+		Path thePath = myPathfinder.getShortestPath(startIndex, finishIndex);
+		thePath.add(finish);
 		return thePath;
+	}
+
+	private Location getTileIndexFromLocation(Location location) {
+		return new Location(
+				(int) ((location.getX() - 1) / TileFactory.TILE_DIMENSIONS
+						.getWidth()),
+				(int) ((location.getY() - 1) / TileFactory.TILE_DIMENSIONS
+						.getHeight()));
 	}
 
 	/**
@@ -277,7 +298,7 @@ public class GameMap {
 			for (Action action : e.getActions())
 				if (action.getClass().equals(FollowPath.class)) {
 					Path p = getShortestPath(e.getCenter(),
-							default_end_location);
+							myEndLocation);
 					((FollowPath) action).setPath(p);
 				}
 		}
@@ -294,7 +315,8 @@ public class GameMap {
 	 */
 	public void addGhostImage(Pixmap itemImage, Location location,
 			Dimension size) {
-		myGhostImage = new GameElement(itemImage, location, size);
+		myGhostImage = new GameElement(itemImage, location, size,
+				new AttributeManager());
 	}
 
 	/**
@@ -306,11 +328,34 @@ public class GameMap {
 	}
 
 	/**
-	 * Used to determine if a ghost image should be painted, it tests if a tower can be built at a particular point.
-	 * @param p 
+	 * Used to determine if a ghost image should be painted, it tests if a tower
+	 * can be built at a particular point.
+	 * 
+	 * @param p
 	 * @return
 	 */
 	public boolean isBuildable(Point p) {
 		return getTile(p).isBuildable();
+	}
+
+	/**
+	 * Used to determine if a ghost image should be painted, it tests if a tower
+	 * can be built at a particular location.
+	 * 
+	 * @param l
+	 *            a location
+	 * @return
+	 */
+	public boolean isBuildable(Location l) {
+		Tile t = getTile(l);
+		return (t==null) ? false : t.isBuildable();
+	}
+
+	public Location getSpawnLocation() {
+		return mySpawnLocation;
+	}
+
+	public Location getDestination() {
+		return myDestination;
 	}
 }

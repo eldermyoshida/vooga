@@ -13,8 +13,8 @@ import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JButton;
-import vooga.towerdefense.util.Location;
-import vooga.towerdefense.util.Pixmap;
+import util.Location;
+import util.Pixmap;
 import vooga.towerdefense.view.TDView;
 
 
@@ -37,8 +37,8 @@ public class LevelsSelectorScreen extends SelectScreen {
     private JButton myNextScreenButton;
     private boolean myLevelSelected = false;
     private String myPrevName = "";
-
-    public LevelsSelectorScreen (Dimension size, TDView view) {
+    
+    public LevelsSelectorScreen(Dimension size, TDView view) {
         super(size, view);
         setInputListener();
         add(makeNextScreenButton(), BorderLayout.SOUTH);
@@ -46,24 +46,24 @@ public class LevelsSelectorScreen extends SelectScreen {
         initLevelsImages();
         addMouseListener(myMouseListener);
     }
-
+    
     // TODO Placeholder!! Need to fix how images are created
     private void initLevelsImages () {
         myEasyLevel = new Pixmap("easy.gif");
         myMediumLevel = new Pixmap("medium.gif");
         myHardLevel = new Pixmap("hard.gif");
-
+        
         myLevelsImages.put(myEasyLevel, new Rectangle(new Point(100, 200), SIZE));
         myLevelsImages.put(myMediumLevel, new Rectangle(new Point(300, 200), SIZE));
         myLevelsImages.put(myHardLevel, new Rectangle(new Point(500, 200), SIZE));
     }
-
+    
     @Override
     public void paintComponent (Graphics pen) {
         super.paintComponent(pen);
         displayImages((Graphics2D) pen);
     }
-
+    
     @Override
     public void displayImages (Graphics2D pen) {
         for (Map.Entry<Pixmap, Rectangle> entry : myLevelsImages.entrySet()) {
@@ -72,20 +72,20 @@ public class LevelsSelectorScreen extends SelectScreen {
                                          .getCenterY()), SIZE);
         }
     }
-
+    
     private JButton makeNextScreenButton () {
         myNextScreenButton = new JButton("NEXT");
         myNextScreenButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {
                 if (myLevelSelected == true) {
-                    getView().assembleScreens();
+                    getView().createGUI();
                 }
             }
         });
         return myNextScreenButton;
     }
-
+    
     private void setInputListener () {
         myMouseListener = new MouseAdapter() {
             @Override
@@ -94,18 +94,18 @@ public class LevelsSelectorScreen extends SelectScreen {
             }
         };
     }
-
+    
     @Override
     public void checkPositionClicked (Point point) {
         if (!myPrevName.isEmpty()) {
             for (Map.Entry<Pixmap, Rectangle> entry1 : myLevelsImages.entrySet()) {
-                if (entry1.getKey().getFileName().equals(CHECKED_IMAGE)) {
+                if (entry1.getKey().getFilePath().equals(CHECKED_IMAGE)) {
                     entry1.getKey().setImage(myPrevName);
                     repaint();
                 }
             }
         }
-
+        
         for (Map.Entry<Pixmap, Rectangle> entry : myLevelsImages.entrySet()) {
             if (entry.getValue().contains(point)) {
                 myLevelSelected = true;
@@ -113,9 +113,9 @@ public class LevelsSelectorScreen extends SelectScreen {
             }
         }
     }
-
+    
     private void selectedImage (Pixmap myImage) {
-        myPrevName = myImage.getFileName();
+        myPrevName = myImage.getFilePath();
         myImage.setImage(CHECKED_IMAGE);
         repaint();
     }

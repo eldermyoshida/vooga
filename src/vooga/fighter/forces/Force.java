@@ -15,14 +15,11 @@ import vooga.fighter.model.objects.CharacterObject;
 public abstract class Force {
 
 
-    private ResourceBundle myResources;
-    private static final String RESOURCE_PATH="vooga.fighter.config.forces";
     
     /**
      * Set resource bundle
      */
     public Force() {
-        myResources = ResourceBundle.getBundle(RESOURCE_PATH);
 
     }
 

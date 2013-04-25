@@ -2,7 +2,6 @@ package vooga.towerdefense.view.gamescreens;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.util.Map;
 import javax.swing.JPanel;
 
 
@@ -18,33 +17,24 @@ public class MultipleScreenPanel extends JPanel {
      * default serialized id.
      */
     private static final long serialVersionUID = 1L;
-    /**
-     * map of screens to their respective locations in
-     * the BorderLayout.
-     */
-    private Map<JPanel, String> myScreens;
 
     /**
      * constructor.
      * @param Dimension
-     * @param screens
      */
-    public MultipleScreenPanel (Dimension size, Map<JPanel, String> screens) {
+    public MultipleScreenPanel (Dimension size) {
         setPreferredSize(size);
         setLayout(new BorderLayout());
-        myScreens = screens;
-        makePanel();
         setVisible(true);
     }
 
     /**
-     * helper method to put the screens in their correct
-     * locations.
+     * adds a screen to this multiple screen panel.
+     * @param screen
+     * @param location
      */
-    private void makePanel () {
-        for (JPanel screen : myScreens.keySet()) {
-            add(screen, myScreens.get(screen));
-        }
+    public void addScreen (JPanel screen, String location) {
+        add(screen, location);
     }
 
 }
