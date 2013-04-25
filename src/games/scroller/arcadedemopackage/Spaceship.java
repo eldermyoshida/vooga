@@ -13,6 +13,7 @@ import vooga.scroller.util.Pixmap;
 
 public class Spaceship extends Player {
     private int myScore =0;
+
     private static final Pixmap DEFAULT_IMAGE =
             new Pixmap("/games/scroller/arcadedemopackage/images/spaceship.jpg");
     private static final Dimension DEFAULT_SIZE = new Dimension(30, 30);
