@@ -13,6 +13,12 @@ import vooga.scroller.level_editor.controllerSuite.LEGrid;
 import vooga.scroller.util.Sprite;
 
 
+/**
+ * LevelWriter takes in an LEGrid and a file to write to and saves the Level.
+ * 
+ * @author Danny Goodman, Deo Fagnisse
+ * 
+ */
 public class LevelWriter {
 
     private static final String RESOURCE_PATH = "vooga.scroller.level_editor.model.SaveLoad";
@@ -25,6 +31,13 @@ public class LevelWriter {
     private LEGrid myGrid;
     private Location myStartPoint;
 
+    /**
+     * Creates a save file from a LEGrid
+     * 
+     * @param file
+     * @param levelGrid
+     * @param libPath
+     */
     public void createFile (File file, LEGrid levelGrid, String libPath) {
         myGrid = levelGrid;
         myStartPoint = myGrid.removeStartPoint();
