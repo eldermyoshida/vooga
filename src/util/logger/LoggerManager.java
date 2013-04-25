@@ -23,7 +23,8 @@ import java.util.logging.Logger;
 public class LoggerManager {
 	/**
 	 * This logger serves as a quick reference in case the user
-	 * needs to log a message in one line of code
+	 * wants to log a message in one line of code
+	 * The logger used was initialized with this class' name
 	 */
 	public static final Logger DEFAULT_LOGGER = 
 			Logger.getLogger(LoggerManager.class.getName());
@@ -41,8 +42,8 @@ public class LoggerManager {
      */
     public LoggerManager () {
     	StackTraceElement[] element = Thread.currentThread().getStackTrace();
-    	System.out.println(element[1].getClassName());
-    	myLogger = Logger.getLogger(element[1].getClassName());
+    	//Gets the name of the caller
+    	myLogger = Logger.getLogger(element[2].getClassName());
         myLogger.setUseParentHandlers(false);
         myLogger.setLevel(Level.ALL);
         addConsoleHandler();     
@@ -134,7 +135,7 @@ public class LoggerManager {
      * @param fileName Name of the file to have records written to
      * @param ext The extension of the file
      */
-    public void addCustomExtensionHandler (String fileName, String ext) {
+    public void addCustomExtensionFileHandler (String fileName, String ext) {
     	addHandler(new HandlerTxt(fileName, ext));
     }
     
@@ -145,7 +146,7 @@ public class LoggerManager {
      * @param fileName Name of the file to have records written to
      */
     public void addLogHandler (String fileName) {
-    	addCustomExtensionHandler (fileName, LOG_EXT);
+    	addCustomExtensionFileHandler (fileName, LOG_EXT);
     }
     
     /**
@@ -179,6 +180,7 @@ public class LoggerManager {
     /**
      * 
      * Adds a handler that sends log records across a given stream
+     * If no stream is given, the manager chooses System.out by default
      */
     public void addStreamHandler () {
         addHandler(new HandlerStream());
@@ -228,6 +230,15 @@ public class LoggerManager {
      */
     public Logger getLogger() {
     	return myLogger;
+    }
+    
+    /**
+     * Removes all handlers from the current logger of this manager
+     */
+    public void clearHandlers() {
+    	for (Handler h : myLogger.getHandlers()) {
+            myLogger.removeHandler(h);
+        }
     }
 
 }
