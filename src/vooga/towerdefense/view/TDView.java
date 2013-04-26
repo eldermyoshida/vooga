@@ -69,29 +69,26 @@ public class TDView {
      */
     public TDView (Controller controller) {
         myController = controller;
-        createGUI();
+        myFrame = new JFrame(myController.getStringFromResources(TITLE_KEYWORD));
+        myPanel = new JPanel();
+        myFrame.setContentPane(myPanel);
+        myFrame.setPreferredSize(SIZE);
+        myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //TODO: uncomment createGUI() if we want hard coded screens.
+        //createGUI();
     }
 
     /**
      * creates this view.
      */
     public void createGUI () {
-        myFrame = new JFrame(myController.getStringFromResources(TITLE_KEYWORD));
-        myPanel = new JPanel();
-        myFrame.setContentPane(myPanel);
-        myFrame.setPreferredSize(SIZE);
-        myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        mySplashScreen = new SplashScreen(SPLASH_SCREEN_SIZE);
         myMapScreen = new MapScreen(MAP_WINDOW_SIZE, myController);
 
         // TODO place holder!
-        //myStatsWindow = new InformationScreen("Stats", STATS_WINDOW_SIZE);
         myGameStats = new GameStatsScreen(STATS_WINDOW_SIZE, myController);
         myInformationWindow =
                 new GameElementInformationScreen(INFO_WINDOW_SIZE, myController);
         Map<JPanel, String> screens = new HashMap<JPanel, String>();
-       // screens.put(myStatsWindow, BorderLayout.NORTH);
         screens.put(myGameStats, BorderLayout.NORTH);
         screens.put(myInformationWindow, BorderLayout.SOUTH);
         myEastWindow = new MultipleScreenPanel(EAST_WINDOW_SIZE);
@@ -109,24 +106,12 @@ public class TDView {
         for (Entry<JPanel, String> p: screens.entrySet()){
             mySouthWindow.addScreen(p.getKey(), p.getValue());
         }
-        
+    }
+    
+    public void showSplashScreen () {
+        mySplashScreen = new SplashScreen(SPLASH_SCREEN_SIZE);
         myFrame.getContentPane().add(nextScreenButton());
         addScreen(mySplashScreen, BorderLayout.CENTER);
-    }
-
-    /**
-     * adds the new screens to the view.
-     */
-    public void assembleScreens () {
-        myFrame.remove(myLevelSelector);
-
-        myFrame.getContentPane().add(myMapScreen, BorderLayout.CENTER);
-        myFrame.getContentPane().add(myEastWindow, BorderLayout.EAST);
-        myFrame.getContentPane().add(mySouthWindow, BorderLayout.SOUTH);
-
-        myFrame.pack();
-        myFrame.setVisible(true);
-
     }
 
     /**
