@@ -9,7 +9,9 @@ import vooga.rts.networking.client.ClientModel;
 import vooga.rts.networking.client.IClientModel;
 import vooga.rts.networking.communications.ExpandedLobbyInfo;
 import vooga.rts.networking.communications.LobbyInfo;
+import vooga.rts.networking.communications.PlayerInfo;
 import vooga.rts.networking.communications.clientmessages.LeaveLobbyMessage;
+import vooga.rts.player.Player;
 
 
 public class ClientViewAdapter {
@@ -89,10 +91,9 @@ public class ClientViewAdapter {
                                           new ActionListener() {
                                               @Override
                                               public void actionPerformed (ActionEvent arg0) {
-                                                  myLobbyInfo.removePlayer(myUserControlledPlayers
+                                                  myLobbyInfo.removePlayer(myModel.getPlayersInfo()
                                                           .get(0));
-                                                  myClient.sendData(new LeaveLobbyMessage(
-                                                                                          myLobbyInfo));
+                                                  myModel.leaveLobby();
                                                   myModel.switchToServerBrowserView();
                                               }
                                           });
@@ -117,5 +118,13 @@ public class ClientViewAdapter {
     
     public void changeLobbies (LobbyInfo[] lobbies) {
         myServerBrowserAdapter.changeLobbies(lobbies);
+    }
+    
+    public void updateLobby () {
+        myLobbyView.update(myModel.getPlayersInfo(), myLobbyInfo.getPlayers());
+    }
+    
+    public void alertClient (String title, String message) {
+        myContainerPanel.showMessageDialog(title, message);
     }
 }

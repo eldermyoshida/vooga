@@ -195,6 +195,13 @@ public class ClientModel extends Observable implements IClientModel, IModel {
     public void requestJoinLobby (int id) {
         myClient.sendData(new JoinLobbyMessage(id));
     }
+    
+    /**
+     * Request to leave a lobby on the server
+     */
+    public void leaveLobby () {
+        myClient.sendData(new LeaveLobbyMessage(myLobbyInfo));
+    }
 
     /**
      * Starts a new lobby for purposes of hosting a game
@@ -257,12 +264,12 @@ public class ClientModel extends Observable implements IClientModel, IModel {
     @Override
     public void updateLobby (ExpandedLobbyInfo lobbyInfo) {
         myLobbyInfo = lobbyInfo;
-        myLobbyView.update(myUserControlledPlayers, myLobbyInfo.getPlayers());
+        myViewAdapter.updateLobby();
     }
 
     @Override
     public void alertClient (String title, String message) {
-        myContainerPanel.showMessageDialog(title, message);
+        myViewAdapter.alertClient(title, message);
     }
 
     @Override
@@ -278,5 +285,9 @@ public class ClientModel extends Observable implements IClientModel, IModel {
     
     public ExpandedLobbyInfo getLobbyInfo() {
         return myLobbyInfo;
+    }
+    
+    public List<PlayerInfo> getPlayersInfo() {
+        return myUserControlledPlayers;
     }
 }
