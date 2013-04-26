@@ -4,14 +4,15 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import vooga.towerdefense.model.tiles.DefaultTile;
 import vooga.towerdefense.model.tiles.GrassTile;
 import vooga.towerdefense.model.tiles.Tile;
 import util.Location;
@@ -28,37 +29,45 @@ import util.Pixmap;
 public class MapMakerScreen extends JPanel {
 
     private static final long serialVersionUID = 1L;
-    private static final String DEFAULT_TILE_STRING = "grass_tile.png";
-    private static final Pixmap DEFAULT_PIXMAP = new Pixmap(DEFAULT_TILE_STRING);
+    private static final String TILE_IMAGES_CLASS_PATH = "vooga/towerdefense/images/map";
+    private static final String BLANK_TILE_STRING = "blank_tile.png";
+    private static final Pixmap DEFAULT_PIXMAP = new Pixmap("/" + TILE_IMAGES_CLASS_PATH + "/" + BLANK_TILE_STRING);
     private static final Dimension DEFAULT_TILE_SIZE = new Dimension(50, 50);
     private static final Location DEFAULT_LOCATION = new Location (0,0);
-    private static final GrassTile DEFAULT_TILE = new GrassTile(0, DEFAULT_PIXMAP, DEFAULT_LOCATION, DEFAULT_TILE_SIZE);
+    private static final DefaultTile DEFAULT_TILE = new DefaultTile(0, DEFAULT_PIXMAP, DEFAULT_LOCATION, DEFAULT_TILE_SIZE);
     private static final int MINIMUM_TILE_SIZE = 10;
+    private static final String RESOURCE_LOCATION = "/vooga/towerdefense/images/background/";
     private Dimension mySize;
     private Integer myTileSize;
     private MouseAdapter myMouseListener;
     private List<Grid> myGrids;
     private Tile myTileToBuild;
-    //private Map<Point, Integer> myMapRepresentation;
     private String myMap;
+    private java.awt.Image myBackgroundImage;
 
     public MapMakerScreen (Dimension size) {
         setSize(size);
         setPreferredSize(size);
+        setBackgroundImage("bg1.jpg");
         mySize = size;
         myTileSize = 50;
         myGrids = new ArrayList<Grid>();
         myTileToBuild = DEFAULT_TILE;
         myMap = "";
-        //myMapRepresentation = new HashMap<Point,Integer>();
         
         makeListener();
         addMouseListener(myMouseListener);
     }
 
+    public void setBackgroundImage (String fileName){
+        myBackgroundImage = new ImageIcon(getClass().getResource(RESOURCE_LOCATION + fileName)).getImage();
+        repaint();
+    }
+    
     @Override
     public void paintComponent (Graphics pen) {
         super.paintComponent(pen);
+        pen.drawImage(myBackgroundImage, 0, 0, getWidth(), getHeight(), null);
         setBackground(Color.CYAN);
         paintGridLines(pen);
         paintTilesOnGrid(pen);
@@ -66,11 +75,12 @@ public class MapMakerScreen extends JPanel {
 
     private void paintTilesOnGrid (Graphics pen) {
         for (Grid g : myGrids) {
-            g.paint((Graphics2D) pen);
-            //myMapRepresentation.put(g.getTopLeftCorner(), g.getTileId());
-            myMap += Integer.toString(g.getTileId()) + " ";
+            if (g.getTile() != null) {
+                g.paint((Graphics2D) pen);
+                myMap += Integer.toString(g.getTileId()) + " ";
+            }
         }
-       System.out.println(myMap);
+//       System.out.println(myMap);
     }
 
     /**

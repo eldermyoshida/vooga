@@ -1,5 +1,6 @@
 package vooga.towerdefense.gameeditor.gamemaker.mapeditor;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -73,7 +74,8 @@ public class TilePanel extends JPanel {
     private void handlePixmapClicked (Point point) {
         for (Pixmap pixmap : myPixmaps) {
             if (myBounds.get(pixmap).contains(point)) {
-                myEditor.makeTileInstances(pixmap.getFilePath());
+                String[] name = pixmap.getFilePath().split("/");
+                myEditor.makeTileInstances(name[name.length-1]);
             }
         }
     }

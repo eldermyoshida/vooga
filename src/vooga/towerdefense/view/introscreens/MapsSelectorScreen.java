@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +35,7 @@ import vooga.towerdefense.view.TDView;
  * 
  */
 public class MapsSelectorScreen extends SelectScreen {
-    private static final String CHECKED_IMAGE = "checked.gif";
+    private static final String CHECKED_IMAGE = "/vooga/towerdefense/images/checked.gif";
     private static final long serialVersionUID = 1L;
     private static final Dimension SIZE = new Dimension(200, 200);
     private static final String PATH = "/vooga/towerdefense/view/precreatedmaps/tdmap1.xml";
@@ -64,7 +65,26 @@ public class MapsSelectorScreen extends SelectScreen {
             @Override
             public void actionPerformed (ActionEvent e) {
                 if (myMapSelected == true) {
-                    myController.setMap(mySelectedMap);
+                    try {
+                        myController.setMap(mySelectedMap);
+                    }
+                    catch (IllegalArgumentException e1) {
+                        e1.printStackTrace();
+                    }
+                    catch (ClassNotFoundException e1) {
+                        e1.printStackTrace();
+                    }
+                    catch (InstantiationException e1) {
+                        e1.printStackTrace();
+                    }
+                    catch (IllegalAccessException e1) {
+                        // TODO Auto-generated catch block
+                        e1.printStackTrace();
+                    }
+                    catch (InvocationTargetException e1) {
+                        // TODO Auto-generated catch block
+                        e1.printStackTrace();
+                    }
                     getView().showLevelDifficultyChoicesScreen();
                 }
             }

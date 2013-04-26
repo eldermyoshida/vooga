@@ -33,8 +33,8 @@ public class TowerDefenseGame extends Game {
      */
     @Override
     public void run () {
-        GameLoop game = new GameLoop(new Controller("English"));
-        game.start();
+        //GameLoop game = new GameLoop(new Controller("English", "game.));
+        //game.start();
     }
 
     @Override

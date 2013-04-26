@@ -29,6 +29,7 @@ public class SpawnGameElementsWithoutInitiator extends Action {
      * @param numEnemies the number of enemies to spawn
      * @param spawnDelay the spawn delay of these enemies
      */
+    @Deprecated //was used for testing before the xml era
     public SpawnGameElementsWithoutInitiator (GameElementFactory elementFactory,
                                               GameMap map,
                                               Location spawnLocation,

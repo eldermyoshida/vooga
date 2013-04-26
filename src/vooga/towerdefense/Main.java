@@ -1,5 +1,6 @@
 package vooga.towerdefense;
 
+import java.lang.reflect.InvocationTargetException;
 import vooga.towerdefense.controller.Controller;
 
 public class Main {
@@ -8,8 +9,8 @@ public class Main {
         // prevent instantiation of this class
     }
     
-    public static void main(String[] args) {
-        Controller controller = new Controller("English");
-        controller.start();
+    public static void main(String[] args) throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException {
+        Controller controller = new Controller("English", "/src/vooga/towerdefense/resources/TestGame.xml");
+        //controller.start();
     }
 }
