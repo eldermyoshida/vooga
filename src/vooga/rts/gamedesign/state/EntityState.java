@@ -176,8 +176,7 @@ public class EntityState {
 	 *         if the entity cannot attack
 	 */
 	public boolean canAttack() {
-		return myAttackingState == AttackingState.ATTACKING
-				&& myUnitState == UnitState.ATTACK;
+		return myAttackingState == AttackingState.ATTACKING;
 	}
 
 	/**
@@ -202,7 +201,7 @@ public class EntityState {
 	 */
 	public void attack() {
 		myAttackingState = AttackingState.WAITING;
-		myUnitState = UnitState.ATTACK;
+		//myUnitState = UnitState.ATTACK;
 		myAttackingDelay = new DelayedTask(myAttackingCooldown, new Runnable() {
 			@Override
 			public void run() {
