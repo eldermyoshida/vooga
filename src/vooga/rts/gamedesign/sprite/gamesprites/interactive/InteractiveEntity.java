@@ -191,25 +191,17 @@ public abstract class InteractiveEntity extends GameEntity implements
 								.getY(), 2));
 		if (!this.isDead()) {
 			// getEntityState().setAttackingState(AttackingState.ATTACKING);
-
-			if (getEntityState().getAttackingState() != AttackingState.WAITING
-					&& getEntityState().getAttackingState() != AttackingState.ATTACKING) {
-				if (getEntityState().getUnitState() == UnitState.ATTACK
-						&& this.getAttackStrategy()
-								.getCurrentWeapon()
-								.inRange((InteractiveEntity) attackable,
-										distance)) {
+			if (getEntityState().getAttackingState() != AttackingState.WAITING && getEntityState().getAttackingState() != AttackingState.ATTACKING) {
+				System.out.println("Able to Attack");
+				if (getEntityState().getUnitState() == UnitState.ATTACK && this.getAttackStrategy().getCurrentWeapon().inRange((InteractiveEntity) attackable, distance)) {
+					System.out.println("Stopping to Attack");
 					getEntityState().stop();
 					this.stopMoving();
 				}
 				getEntityState().attack();
 			}
-			// setVelocity(getVelocity().getAngle(), 0);
-			// getGameState().setMovementState(MovementState.STATIONARY);
 			if (getEntityState().canAttack()) {
 				myAttackStrategy.attack(attackable, distance);
-
-				// System.out.println("Can Attack?");
 			}
 		}
 	}
