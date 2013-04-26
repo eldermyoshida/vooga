@@ -26,13 +26,34 @@ public abstract class ObjectLoader {
 
 
     private String delimiter= ",";
-	private String RESOURCE_PATH = "config.objects";
+    /**
+     * The String representation of the location of the resource that will be loaded into myResources.
+     */
+	private String RESOURCE_OBJECT_PATH = "config.objects";
+    /**
+     * The String representation of the location of the resource that will be loaded into myDefaults.
+     */
 	private String RESOURCE_DEFAULT_VALUES_PATH="config.defaultvalues";
+    /**
+     * The String representation of the location of the resource that will be loaded into myProperties.
+     */
 	private String RESOURCE_PROPERTIES_PATH="config.propertyfields";
-	private File myObjectFile;
+	/**
+	 * Raw format of XML document containing object information
+	 */
 	private Document myDocument;
-	private ResourceBundle myResources;
-	private ResourceBundle myDefaults; 
+	/**
+	 * Resource bundle containing the information on tags to search for in xml files
+	 */
+	private ResourceBundle myTags;
+	/**
+	 * Resource bundle containing the information on default values if certain parameters
+	 * are not found in xml files.
+	 */
+	private ResourceBundle myDefaults;
+	/**
+	 * Resource bundle containing the information on which tags each class has in xml files
+	 */
     private ResourceBundle myProperties;  
 
 	/**
@@ -42,13 +63,13 @@ public abstract class ObjectLoader {
 	 */
 	public ObjectLoader (String pathName, String pathHierarchy) {
 		setResourcePaths(pathHierarchy); 
-		String objectPath = myResources.getString(pathName);
-		myObjectFile = new File(objectPath);
+		String objectPath = myTags.getString(pathName);
+		File objectFile = new File(objectPath);
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder;
 		try {
 			dBuilder = dbFactory.newDocumentBuilder();
-			myDocument = dBuilder.parse(myObjectFile);
+			myDocument = dBuilder.parse(objectFile);
 			myDocument.getDocumentElement().normalize();
 		} catch (Exception e) {
 			myDocument = null;
@@ -61,7 +82,7 @@ public abstract class ObjectLoader {
 	 * @param pathHierarchy The path to the folder containing the game's resources
 	 */
 	private void setResourcePaths(String pathHierarchy){
-		myResources = ResourceBundle.getBundle(pathHierarchy+RESOURCE_PATH);
+		myTags = ResourceBundle.getBundle(pathHierarchy+RESOURCE_OBJECT_PATH);
 		myDefaults= ResourceBundle.getBundle(pathHierarchy+RESOURCE_DEFAULT_VALUES_PATH);
 		myProperties= ResourceBundle.getBundle(pathHierarchy+RESOURCE_PROPERTIES_PATH);
 	}
@@ -87,7 +108,7 @@ public abstract class ObjectLoader {
 	 * return myResources
 	 */
 	protected ResourceBundle getResourceBundle() {
-		return myResources;
+		return myTags;
 	}
 
 	/**
