@@ -146,7 +146,6 @@ public abstract class ElementWithActionEditorScreen extends GameEditorScreen {
     public void makeScreen () {
         addCharacteristicsPanel();
         JPanel bottomScreen = new JPanel(new BorderLayout());
-        bottomScreen.add(myAttributesSection, BorderLayout.NORTH);
         bottomScreen.add(myActionsSection, BorderLayout.SOUTH);
         add(bottomScreen, BorderLayout.SOUTH);
     }
@@ -189,12 +188,8 @@ public abstract class ElementWithActionEditorScreen extends GameEditorScreen {
         return myActionsSelected.getText();
     }
     
-    /**
-     * gets the attributes as a string.
-     * @return a string
-     */
-    public String getAttributesText() {
-        return myAttributesSelected.getText();
+    public JTextArea getAttributesSection() {
+        return myAttributesSelected;
     }
     
     /**
@@ -203,7 +198,6 @@ public abstract class ElementWithActionEditorScreen extends GameEditorScreen {
     @Override
     public void clearScreen () {
         myNameBox.setText("");
-        myAttributesSelected.setText("");
         myActionsSelected.setText("");
     }
 
@@ -260,7 +254,7 @@ public abstract class ElementWithActionEditorScreen extends GameEditorScreen {
      * 
      * @throws ClassNotFoundException
      */
-    public void makeAttributesSection (List<String> attributes) throws ClassNotFoundException {
+    public JPanel makeAttributesSection (List<String> attributes) throws ClassNotFoundException {
         JPanel attributesSection = new JPanel(new BorderLayout());
         JPanel optionsSubPanel1 = new JPanel(new BorderLayout());
         optionsSubPanel1.add(new JLabel(ATTRIBUTE_TITLE), BorderLayout.NORTH);
@@ -286,6 +280,7 @@ public abstract class ElementWithActionEditorScreen extends GameEditorScreen {
         eastSide.add(optionsSubPanel2, BorderLayout.NORTH);
         attributesSection.add(eastSide, BorderLayout.EAST);
         myAttributesSection = attributesSection;
+        return myAttributesSection;
     }
 
     /**

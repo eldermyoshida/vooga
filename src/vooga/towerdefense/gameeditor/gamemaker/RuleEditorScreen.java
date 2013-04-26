@@ -136,8 +136,8 @@ public class RuleEditorScreen extends GameEditorScreen {
             mySelectedRules.setText(mySelectedRules.getText()
                                     + (String)myRules.getSelectedItem());
             try {
-                List<String> parameters = getController().getParametersForAction(RULES_PACKAGE_PATH
-                                                            + myRules.getSelectedItem() + "Factory");
+                List<String> parameters = getController().getParametersForAction(RULES_PACKAGE_PATH + "."
+                                                            + myRules.getSelectedItem());
                 for (String parameter : parameters) {
                     String p = JOptionPane.showInputDialog("Enter a " + parameter + " for this rule");
                     mySelectedRules.setText(mySelectedRules.getText() + " " + p);

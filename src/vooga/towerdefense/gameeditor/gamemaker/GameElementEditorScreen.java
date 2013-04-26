@@ -92,6 +92,10 @@ public class GameElementEditorScreen extends ElementWithActionEditorScreen {
      * button to get the image of the game element from the file system.
      */
     private JButton myImageSelector;
+    /**
+     * attributes section for this game element screen.
+     */
+    private JPanel myAttributesSection;
 
     /**
      * Constructor.
@@ -109,7 +113,7 @@ public class GameElementEditorScreen extends ElementWithActionEditorScreen {
         myAvailableTypes.add(TOWER_TYPE);
         myAvailableTypes.add(PROJECTILE_TYPE);
         setActionPath(ACTION_PACKAGE_PATH);
-        makeAttributesSection(getController().getAttributes(ATTRIBUTE_CLASS_PATH));
+        myAttributesSection = makeAttributesSection(getController().getAttributes(ATTRIBUTE_CLASS_PATH));
         makeActionsSection(ACTION_PACKAGE_PATH);
         makeScreen();
     }
@@ -117,6 +121,7 @@ public class GameElementEditorScreen extends ElementWithActionEditorScreen {
     @Override
     public void makeScreen() {
         super.makeScreen();        
+        add(myAttributesSection, BorderLayout.NORTH);
         JPanel typePanel = new JPanel(new BorderLayout());
         typePanel.add(new JLabel("Type: "), BorderLayout.NORTH);
         myAddTypeButton = new JButton(ADD_NEW_TYPE_TEXT);
@@ -143,6 +148,7 @@ public class GameElementEditorScreen extends ElementWithActionEditorScreen {
     public void clearScreen() {
         super.clearScreen();
         myImageBox.setText("");
+        getAttributesSection().setText("");
     }
 
     /**

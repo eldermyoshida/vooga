@@ -22,7 +22,6 @@ import util.XMLTool;
  * 
  * @author Angelica Schwartz
  * @author Leonard Ng'eno
- * @author Yoshida
  */
 public class GameEditorController extends JFrame {
     /**
@@ -63,6 +62,7 @@ public class GameEditorController extends JFrame {
     private Element myGameElementParent;
     private Element myMapParent;
     private Element myLevelParent;
+    private Element myRuleParent;
     private ActionXMLWriter myActionParser;
     
     /**
@@ -93,6 +93,8 @@ public class GameEditorController extends JFrame {
         myXMLDoc.addChild(myRoot, myMapParent);
         myGameElementParent = myXMLDoc.makeElement(GAME_ELEMENT_TAG);
         myXMLDoc.addChild(myRoot, myGameElementParent);
+        myRuleParent = myXMLDoc.makeElement(RULES_TAG);
+        myXMLDoc.addChild(myRoot, myRuleParent);
         myLevelParent = myXMLDoc.makeElement(LEVEL_TAG);
         myXMLDoc.addChild(myRoot, myLevelParent);
         myActionParser = new ActionXMLWriter(myXMLDoc);
@@ -135,11 +137,11 @@ public class GameEditorController extends JFrame {
     public void addLevelToGame (String name, String rules, String actions) {
         Element thisLevel = myXMLDoc.makeElement(name);
         myXMLDoc.addChild(myLevelParent, thisLevel);
-        Element ruleELement = addRulesToGame(rules);
-        myXMLDoc.addChild(thisLevel, ruleELement);
+        Element ruleElement = addRulesToFile(rules);
+        myXMLDoc.addChild(thisLevel, ruleElement);
         Element actionElement = myXMLDoc.makeElement(ACTIONS_TAG);
         myXMLDoc.addChild(thisLevel, myActionParser.parse(actionElement, actions));
-        
+        myXMLDoc.writeFile("\\testinglevels.xml");
     }
     
     /**
@@ -165,8 +167,6 @@ public class GameEditorController extends JFrame {
         myXMLDoc.addChild(thisMap, TILE_TAG, tileSize);
         myXMLDoc.addChild(thisMap, GRID_TAG, map);
         myXMLDoc.addChild(myMapParent, thisMap);
-        
-        myXMLDoc.writeFile(RESOURCE_PATH + "tdmap1.xml");
     }
     
     /**
@@ -214,16 +214,31 @@ public class GameEditorController extends JFrame {
         myXMLDoc.addChild(gameElement, myActionParser.parse(actionElement, actions));
     }
     
-    public Element addRulesToGame(String rulesText) {
+    /**
+     * adds the rules to the game.
+     * @param rulesText
+     */
+    public void addRulesToGame(String rulesText) {
+        myRuleParent = addRulesToFile(rulesText);
+    }
+    
+    /**
+     * adds the rules to the file.
+     * @param rulesText
+     * @return the parent element of the rules
+     */
+    private Element addRulesToFile(String rulesText) {
         Element ruleParent = myXMLDoc.makeElement(RULES_TAG);
         String[] rules = rulesText.split("\n");
         for (String r : rules) {
-            String[] rule = r.split(" ");
-            Element thisRule = myXMLDoc.makeElement(rule[0]);
-            for (int i = 1; i < rule.length; i++) {
-                myXMLDoc.addChild(thisRule, PARAMETER_TAG, rule[i]);
+            if (!r.equals("")) {
+                String[] rule = r.split(" ");
+                Element thisRule = myXMLDoc.makeElement(rule[0]);
+                for (int i = 1; i < rule.length; i++) {
+                    myXMLDoc.addChild(thisRule, PARAMETER_TAG, rule[i]);
+                }
+                myXMLDoc.addChild(ruleParent, thisRule);
             }
-            myXMLDoc.addChild(ruleParent, thisRule);
         }
         return ruleParent;
     }

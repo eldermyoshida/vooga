@@ -1,7 +1,8 @@
-package vooga.towerdefense.factories.actionfactories;
+package vooga.towerdefense.factories.waveactionfactories;
 
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.waveactions.WaveAction;
+import vooga.towerdefense.factories.actionfactories.ActionFactory;
 import vooga.towerdefense.factories.elementfactories.GameElementFactory;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.model.GameMap;
