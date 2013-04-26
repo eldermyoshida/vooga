@@ -137,8 +137,8 @@ public class CollisionDetector {
 	public boolean hitTop(Shape shape1, Shape shape2){
 		return hitTop(shape1, myMeasurements.getBottomRightCorner(shape2))||
 				hitTop(shape1, myMeasurements.getBottomLeftCorner(shape2))||
-				bothCornersIntersecting(shape1,shape2,shape2.getBounds2D().getMaxY()
-						,shape1.getBounds2D().getMinY());
+				bothCornersIntersecting(shape1,shape2,shape2.getBounds2D().getMaxY(),
+						shape1.getBounds2D().getMinY());
 	}
     /**
      * Convenience method: Treating the Shape as a Rectangle
@@ -180,8 +180,8 @@ public class CollisionDetector {
 	public boolean hitBottom(Shape shape1, Shape shape2){
 		return(hitBottom(shape1, myMeasurements.getTopRightCorner(shape2))||	
 		hitBottom(shape1, myMeasurements.getTopLeftCorner(shape2))||	
-		bothCornersIntersecting(shape1,shape2,shape1.getBounds2D().getMaxY()
-				,shape2.getBounds2D().getMinY()));
+		bothCornersIntersecting(shape1,shape2,shape1.getBounds2D().getMaxY(),
+				shape2.getBounds2D().getMinY()));
 	}
 	
     /**
@@ -225,8 +225,8 @@ public class CollisionDetector {
 	public boolean hitRight(Shape shape1, Shape shape2){
 		return hitRight(shape1, myMeasurements.getBottomLeftCorner(shape2))||
 				hitRight(shape1, myMeasurements.getTopLeftCorner(shape2))||
-				bothCornersIntersecting(shape1,shape2,shape2.getBounds2D().getMaxX()
-				,shape1.getBounds2D().getMinX());
+				bothCornersIntersecting(shape1,shape2,shape2.getBounds2D().getMaxX(),
+				shape1.getBounds2D().getMinX());
 		
 	}
     /**
@@ -272,8 +272,8 @@ public class CollisionDetector {
 	public boolean hitLeft(Shape shape1, Shape shape2){
 		return(hitLeft(shape1, myMeasurements.getBottomRightCorner(shape2))||	
 		hitLeft(shape1, myMeasurements.getTopRightCorner(shape2))||
-		bothCornersIntersecting(shape1,shape2,shape1.getBounds2D().getMaxX()
-				,shape2.getBounds2D().getMinX()));
+		bothCornersIntersecting(shape1,shape2,shape1.getBounds2D().getMaxX(),
+				shape2.getBounds2D().getMinX()));
 	}
     /**
      * Convenience method: Treating the Shape as a Rectangle
