@@ -84,7 +84,7 @@ public abstract class ActionFactory {
     protected abstract Action buildAction (GameElement e);
 
     /**
-     * Used to just create the single action
+     * calls buildAction(e) on default, needs to be override to work
      * 
      * @param e
      * @return

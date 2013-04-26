@@ -12,7 +12,7 @@ import vooga.towerdefense.gameElements.GameElement;
  *
  */
 
-public class TargetedAction extends Action {
+public abstract class TargetedAction extends Action {
 
 	private List<GameElement> myTargets;
 
@@ -24,7 +24,6 @@ public class TargetedAction extends Action {
 
 	@Override
 	public void executeAction(double elapsedTime) {
-		// TODO Auto-generated method stub
 
 	}
 
