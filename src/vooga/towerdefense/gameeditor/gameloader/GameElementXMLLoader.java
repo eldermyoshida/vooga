@@ -2,6 +2,7 @@ package vooga.towerdefense.gameeditor.gameloader;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.w3c.dom.Element;
@@ -22,17 +23,17 @@ public class GameElementXMLLoader {
     
     private XMLTool myXMLTool;
     
-    public GameElementXMLLoader(String xmlFilePath) {
-        myXMLTool = new XMLTool(xmlFilePath);
+    public GameElementXMLLoader(XMLTool xmlTool) {
+        myXMLTool = xmlTool;
     }
     
-    public List<GameElementFactory> loadGameElementFactories () {
+    public Map<String, GameElementFactory> loadGameElementFactories () {
         Element gameElementsElement = myXMLTool.getElement(GAME_ELEMENTS_TAG);
         Map<String, Element> subElements = myXMLTool.getChildrenElementMap(gameElementsElement);
         
-        List<GameElementFactory> gameElementFactories = new ArrayList<GameElementFactory>();
+        Map<String, GameElementFactory> gameElementFactories = new HashMap<String, GameElementFactory>();
         for (Element subElement : subElements.values()) {
-            gameElementFactories.add(loadGameElementFactory(subElement));
+            gameElementFactories.put(myXMLTool.getTagName(subElement), loadGameElementFactory(subElement));
         }
         return gameElementFactories;
     }

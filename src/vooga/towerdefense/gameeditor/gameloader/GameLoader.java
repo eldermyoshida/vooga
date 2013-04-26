@@ -1,10 +1,13 @@
 package vooga.towerdefense.gameeditor.gameloader;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import util.XMLTool;
 import vooga.towerdefense.controller.Controller;
-import vooga.towerdefense.gameeditor.gameloader.MapLoader;
+import vooga.towerdefense.factories.elementfactories.GameElementFactory;
+import vooga.towerdefense.gameeditor.gameloader.MapXMLLoader;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.GameModel;
 import vooga.towerdefense.model.levels.Level;
@@ -20,13 +23,15 @@ import vooga.towerdefense.view.TDView;
 public class GameLoader {
     
     private XMLTool myXMLTool;
+    private Map<String, GameElementFactory> gameElements;
     
     public GameLoader(String xmlFilePath) {
         myXMLTool = new XMLTool(xmlFilePath);
+        gameElements = new HashMap<String, GameElementFactory>();
     }
     
     public List<GameMap> loadMaps() {
-        MapLoader mapLoader = new MapLoader(myXMLTool);
+        MapXMLLoader mapLoader = new MapXMLLoader(myXMLTool);
         List<GameMap> maps = mapLoader.loadMaps();
         return maps;
     }
@@ -34,6 +39,11 @@ public class GameLoader {
     public TDView loadView(Controller controller) throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException {
         ViewXMLLoader loader = new ViewXMLLoader(myXMLTool);
         return loader.makeView(controller);
+    }
+    
+    public void loadElements() {
+        GameElementXMLLoader loader = new GameElementXMLLoader(myXMLTool);
+        gameElements = loader.loadGameElementFactories();
     }
     
     public List<Level> loadLevels(GameModel model) {
