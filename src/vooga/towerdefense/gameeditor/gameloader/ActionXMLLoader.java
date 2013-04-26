@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.Map;
 import org.w3c.dom.Element;
 import util.XMLTool;
+import vooga.towerdefense.action.Action;
 import vooga.towerdefense.factories.actionfactories.ActionFactory;
+import vooga.towerdefense.gameElements.GameElement;
 
 public class ActionXMLLoader {
     private static final String ACTIONS_TAG = "Actions";
@@ -19,17 +21,32 @@ public class ActionXMLLoader {
         myXMLTool = xmlTool;
     }
     
-    public List<ActionFactory> loadActions() {
+    public List<Action> loadActions() {
+        return loadActions(null);
+    }
+    
+    public List<Action> loadActions(GameElement e) {
+        List<ActionFactory> actionFactories = loadActionFactories();
+        
+        List<Action> actions = new ArrayList<Action>();
+        for (ActionFactory af : actionFactories) {
+            actions.add(af.createAction(e));
+        }
+        
+        return actions; 
+    }
+    
+    public List<ActionFactory> loadActionFactories() {
         Element actionsElement = myXMLTool.getElement(ACTIONS_TAG);                
         Map<String, Element> subElements = myXMLTool.getChildrenElementMap(actionsElement);
         List<ActionFactory> actions = new ArrayList<ActionFactory>();
         for (Element e : subElements.values()) {
-            actions.add(loadAction(e));
+            actions.add(loadActionFactory(e));
         }
         return actions;
     }
     
-    private ActionFactory loadAction(Element actionElement) {
+    private ActionFactory loadActionFactory(Element actionElement) {
         String actionName = myXMLTool.getContent(actionElement);
         List<String> parameterStrings = new ArrayList<String>();
         Object[] parameterStringsArray = parameterStrings.toArray();
@@ -41,7 +58,7 @@ public class ActionXMLLoader {
             if (subElementName.equals(PARAMETER_TAG)) {
                 parameterStrings.add(loadParameterString(subElements.get(subElementName)));
             } else {
-                subActions.add(loadAction(subElements.get(subElementName)));
+                subActions.add(loadActionFactory(subElements.get(subElementName)));
             }
         }
         Class actionFactoryClass = null;
