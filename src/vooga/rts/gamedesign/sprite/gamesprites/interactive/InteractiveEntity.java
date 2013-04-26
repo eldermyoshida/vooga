@@ -182,19 +182,10 @@ public abstract class InteractiveEntity extends GameEntity implements
 	 *            is the IAttackable that is being attacked.
 	 */
 	public void attack(IAttackable attackable) {
-		double distance = Math.sqrt(Math
-				.pow(getWorldLocation().getX()
-						- ((InteractiveEntity) attackable).getWorldLocation()
-								.getX(), 2)
-				+ Math.pow(getWorldLocation().getY()
-						- ((InteractiveEntity) attackable).getWorldLocation()
-								.getY(), 2));
+		double distance = distance(attackable);
 		if (!this.isDead()) {
-			// getEntityState().setAttackingState(AttackingState.ATTACKING);
-			if (getEntityState().getAttackingState() != AttackingState.WAITING && getEntityState().getAttackingState() != AttackingState.ATTACKING) {
-				System.out.println("Able to Attack");
-				if (getEntityState().getUnitState() == UnitState.ATTACK && this.getAttackStrategy().getCurrentWeapon().inRange((InteractiveEntity) attackable, distance)) {
-					System.out.println("Stopping to Attack");
+			if (!getEntityState().isAttacking()) {
+				if (attackInRange(attackable, distance)) {
 					getEntityState().stop();
 					this.stopMoving();
 				}
@@ -204,6 +195,20 @@ public abstract class InteractiveEntity extends GameEntity implements
 				myAttackStrategy.attack(attackable, distance);
 			}
 		}
+	}
+
+	private boolean attackInRange(IAttackable attackable, double distance) {
+		return getEntityState().getUnitState() == UnitState.ATTACK && this.getAttackStrategy().getCurrentWeapon().inRange((InteractiveEntity) attackable, distance);
+	}
+
+	private double distance(IAttackable attackable) {
+		return Math.sqrt(Math
+				.pow(getWorldLocation().getX()
+						- ((InteractiveEntity) attackable).getWorldLocation()
+								.getX(), 2)
+				+ Math.pow(getWorldLocation().getY()
+						- ((InteractiveEntity) attackable).getWorldLocation()
+								.getY(), 2));
 	}
 
 	public int calculateDamage(int damage) {

@@ -178,6 +178,10 @@ public class EntityState {
 	public boolean canAttack() {
 		return myAttackingState == AttackingState.ATTACKING;
 	}
+	
+	public boolean isAttacking() {
+		return myAttackingState != AttackingState.NOT_ATTACKING;
+	}
 
 	/**
 	 * Stops the movement of the entity. This means that the entity's movement
