@@ -32,6 +32,7 @@ public class EditableResource extends Resource {
         super(image, center, image.getMyDimension(), 0, amount, name);
         myID = id;
         myImageName = imageName;
+        myAmount = amount;
     }
     /**
      * construtor for editableResource
@@ -48,6 +49,7 @@ public class EditableResource extends Resource {
     public EditableResource(Pixmap image, int x , int y , int z , 
                             int id, String name , String imageName, int amount) {
        this(image, new Location3D(x, y, z), id, name, imageName, amount);
+
     }
     
     /**
