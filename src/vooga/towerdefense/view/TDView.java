@@ -135,7 +135,7 @@ public class TDView {
     public void showMapChoicesScreen () {
         myFrame.remove(mySplashScreen);
         myNextScreenButton.setVisible(false);
-        myMapSelector = new MapsSelectorScreen(MAP_WINDOW_SIZE, this);
+        myMapSelector = new MapsSelectorScreen(MAP_WINDOW_SIZE, this, myController);
         addScreen(myMapSelector, BorderLayout.CENTER);
     }
 

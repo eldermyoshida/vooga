@@ -40,16 +40,32 @@ public class GameModel {
  * @param gameMap
  * @param shop
  */
-    public GameModel (Controller controller, List<Level> levels, List<Rule> rules, GameMap gameMap, Shop shop) {
+    public GameModel (Controller controller, GameMap gameMap, Shop shop) {
         myController = controller;
-        myLevels = levels;
-        myRules = rules;
+        myLevels = new ArrayList<Level>();
+        myRules = new ArrayList<Rule>();
         myGameMap = gameMap;
         myShop = shop;
         myCurrentLevel = 0;
        // myPlayer = new Player(controller);
         myPlayer = new Player();
         myActiveActions = new ArrayList<Action>();
+    }
+    
+    /**
+     * sets the levels for this model.
+     * @param levels
+     */
+    public void setLevels(List<Level> levels) {
+        myLevels = levels;
+    }
+    
+    /**
+     * sets the rules for this model.
+     * @param rules
+     */
+    public void setRules(List<Rule> rules) {
+        myRules = rules;
     }
     
     /**

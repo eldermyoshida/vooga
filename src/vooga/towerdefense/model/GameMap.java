@@ -38,6 +38,7 @@ public class GameMap {
 	private Pathfinder myPathfinder;
 	public Location myEndLocation;
 	public Location mySpawnLocation;
+	private Pixmap myBackgroundImage;
 
 	/**
 	 * 
@@ -52,6 +53,7 @@ public class GameMap {
 	 */
 	public GameMap(Tile[][] grid, Pixmap background, Dimension mapDimensions,
 			Location destination) {
+	        myBackgroundImage = background;
 		myDimensions = mapDimensions;
 		double width = mapDimensions.getWidth();
 		double height = mapDimensions.getHeight();
@@ -131,6 +133,14 @@ public class GameMap {
 			return null;
 		}
 	}
+	
+	/**
+	 * gets the background image for this map.
+	 * @return pixmap that is the background
+	 */
+	public Pixmap getBackgroundImage() {
+	    return myBackgroundImage;
+	}
 
 	/**
 	 * 
@@ -138,6 +148,9 @@ public class GameMap {
 	 *            a pen used to draw elements on this map.
 	 */
 	public void paint(Graphics2D pen) {
+	        if (myBackgroundImage != null) {
+	            pen.drawImage(myBackgroundImage.getImg(), 0, 0, myDimensions.width, myDimensions.height, null);
+	        }
 		paintTiles(pen);
 		paintGameElements(pen);
 		if (myGhostImage != null)

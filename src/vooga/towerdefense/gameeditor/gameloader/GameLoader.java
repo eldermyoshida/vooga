@@ -6,7 +6,9 @@ import util.XMLTool;
 import vooga.towerdefense.controller.Controller;
 import vooga.towerdefense.gameeditor.gameloader.MapLoader;
 import vooga.towerdefense.model.GameMap;
+import vooga.towerdefense.model.GameModel;
 import vooga.towerdefense.model.levels.Level;
+import vooga.towerdefense.model.rules.Rule;
 import vooga.towerdefense.view.TDView;
 
 /**
@@ -34,9 +36,14 @@ public class GameLoader {
         return loader.makeView(controller);
     }
     
-    public List<Level> loadLevels() {
+    public List<Level> loadLevels(GameModel model) {
         LevelsXMLLoader loader = new LevelsXMLLoader(myXMLTool);
-        return loader.getLevels();
+        return loader.getLevels(model);
+    }
+    
+    public List<Rule> loadRules(GameModel model) {
+        RulesXMLLoader loader = new RulesXMLLoader(myXMLTool);
+        return loader.getRules(model);
     }
     
     public void startGame(Controller controller) {

@@ -14,9 +14,11 @@ import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import javax.swing.JButton;
 
 import util.Location;
+import vooga.towerdefense.controller.Controller;
 import vooga.towerdefense.gameeditor.gameloader.MapLoader;
 import vooga.towerdefense.model.GameMap;
 import util.Pixmap;
@@ -37,18 +39,18 @@ public class MapsSelectorScreen extends SelectScreen {
     private static final Dimension SIZE = new Dimension(200, 200);
     private static final String PATH = "/vooga/towerdefense/view/precreatedmaps/tdmap1.xml";
     private MouseAdapter myMouseListener;
-    private Pixmap myMap1;
-    private Pixmap myMap2;
-    private Pixmap myMap3;
-    private Pixmap myMap4;
     private Map<Pixmap, Rectangle> myMapImages;
     private JButton myNextScreenButton;
-    private boolean myMapSelected = false;
+    private boolean myMapSelected;
     private String myPrevName = "";
     private MapLoader myMapLoader;
+    private Controller myController;
+    private Pixmap mySelectedMap;
 
-    public MapsSelectorScreen (Dimension size, TDView view) {
+    public MapsSelectorScreen (Dimension size, TDView view, Controller controller) {
         super(size, view);
+        myController = controller;
+        myMapSelected = false;
         setInputListener();
         myMapImages = new HashMap<Pixmap, Rectangle>();
         initMapImages();
@@ -62,6 +64,7 @@ public class MapsSelectorScreen extends SelectScreen {
             @Override
             public void actionPerformed (ActionEvent e) {
                 if (myMapSelected == true) {
+                    myController.setMap(mySelectedMap);
                     getView().showLevelDifficultyChoicesScreen();
                 }
             }
@@ -77,16 +80,27 @@ public class MapsSelectorScreen extends SelectScreen {
 //        
         
         
-        myMap1 = new Pixmap("map1.gif");
-        myMap2 = new Pixmap("map2.gif");
-        myMap3 = new Pixmap("map3.gif");
-        myMap4 = new Pixmap("map4.gif");
-
-        myMapImages.put(myMap1, new Rectangle(new Point(100, 50), SIZE));
-        myMapImages.put(myMap2, new Rectangle(new Point(450, 50), SIZE));
-        myMapImages.put(myMap3, new Rectangle(new Point(100, 350), SIZE));
-        myMapImages.put(myMap4, new Rectangle(new Point(450, 350), SIZE));
-
+//        myMap1 = new Pixmap("map1.gif");
+//        myMap2 = new Pixmap("map2.gif");
+//        myMap3 = new Pixmap("map3.gif");
+//        myMap4 = new Pixmap("map4.gif");
+//
+//        myMapImages.put(myMap1, new Rectangle(new Point(100, 50), SIZE));
+//        myMapImages.put(myMap2, new Rectangle(new Point(450, 50), SIZE));
+//        myMapImages.put(myMap3, new Rectangle(new Point(100, 350), SIZE));
+//       myMapImages.put(myMap4, new Rectangle(new Point(450, 350), SIZE));
+        
+        Set<Pixmap> mapPixmaps = myController.getMapImages();
+        int x = 100;
+        int y = 50;
+        for (Pixmap p : mapPixmaps) {
+            myMapImages.put(p, new Rectangle(new Point(x, y), SIZE));
+            x += 350;
+            if (x >= getSize().width) {
+                x = 0;
+                y += 350;
+            }
+        }
     }
 
     @Override
@@ -112,6 +126,7 @@ public class MapsSelectorScreen extends SelectScreen {
             for (Map.Entry<Pixmap, Rectangle> entry1 : myMapImages.entrySet()) {
                 if (entry1.getKey().getFilePath().equals(CHECKED_IMAGE)) {
                     entry1.getKey().setImage(myPrevName);
+                    mySelectedMap = entry1.getKey();
                     repaint();
                 }
             }

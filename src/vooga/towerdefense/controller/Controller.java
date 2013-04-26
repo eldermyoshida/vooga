@@ -7,10 +7,13 @@ import java.awt.Point;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import util.Location;
 import util.Pixmap;
@@ -69,6 +72,10 @@ public class Controller {
 	 */
 	private GameLoader myGameLoader;
 	/**
+	 * map of image to the map object.
+	 */
+	private Map<Pixmap, GameMap> myAvailableMaps;
+	/**
 	 * control mode for the controller.
 	 */
 	private ControlMode myControlMode;
@@ -97,6 +104,7 @@ public class Controller {
 		setLanguage(language);
 		myGameLoader = new GameLoader(xmlPath);
 		setView();
+		setMaps();
 
 //		setLanguage(language);
 //
@@ -135,7 +143,38 @@ public class Controller {
 	    myView = myGameLoader.loadView(this);
 	}
 	
-	public void addMapAndLoadGame(GameMap map) {
+	/**
+	 * sets the maps available for this game.
+	 */
+	private void setMaps() {
+	    myAvailableMaps = new HashMap<Pixmap, GameMap>();
+	    List<GameMap> mapChoices = myGameLoader.loadMaps();
+	    for (GameMap map : mapChoices) {
+	        myAvailableMaps.put(map.getBackgroundImage(), map);
+	    }
+	}
+	
+	/**
+	 * sets the map for this game.
+	 * @param mapChoice
+	 */
+	public void setMap(Pixmap mapChoice) {
+	    addMapAndLoadGame(myAvailableMaps.get(mapChoice));
+	}
+	
+	/**
+	 * gets the map images for this game.
+	 * @return set of pixmap
+	 */
+        public Set<Pixmap> getMapImages() {
+	    return myAvailableMaps.keySet();
+	}
+	
+	/**
+	 * adds the map to the game and loads the remainder of the game state.
+	 * @param map
+	 */
+	private void addMapAndLoadGame(GameMap map) {
 //	        List<Level> levels = new ArrayList<Level>();
 //	        List<Action> actions = new ArrayList<Action>();
 
@@ -151,10 +190,9 @@ public class Controller {
 //	        levels.add(level);
 //	        List<Rule> rules = new ArrayList<Rule>();
 	                
-	        myModel = new GameModel(this, myGameLoader.loadLevels(), rules, map, new Shop(map));
-	                
-//	        rules.add(new WinRule(myModel));
-//	        rules.add(new NextLevelRule(myModel));
+	        myModel = new GameModel(this, map, new Shop(map));
+                myModel.setRules(myGameLoader.loadRules(myModel));
+	        myModel.setLevels(myGameLoader.loadLevels(myModel));
 	        myControlMode = new SelectMode();
 	}
 
