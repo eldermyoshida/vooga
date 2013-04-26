@@ -121,54 +121,54 @@ public class ClientModel extends Observable implements IClientModel, IModel {
      * Switches the current View to the LobbyCreatorScreen.
      */
     private void switchToCreateLobbyView () {
-        myContainerPanel.changeView(myCreateLobbyView, NetworkBundle.getString("LobbyCreation"));
-        myContainerPanel.changeLeftButton(NetworkBundle.getString("BackToBrowser"),
-                                          new ActionListener() {
-                                              @Override
-                                              public void actionPerformed (ActionEvent arg0) {
-                                                  switchToServerBrowserView();
-                                              }
-                                          });
-        myContainerPanel.changeRightButton(NetworkBundle.getString("StartLobby"),
-                                           new ActionListener() {
-                                               @Override
-                                               public void actionPerformed (ActionEvent arg0) {
-                                                   if (myCreateLobbyView.allItemsChosen()) {
-                                                       startLobby(myCreateLobbyView.getLobbyInfo());
-                                                   }
-                                               }
-                                           });
+//        myContainerPanel.changeView(myCreateLobbyView, NetworkBundle.getString("LobbyCreation"));
+//        myContainerPanel.changeLeftButton(NetworkBundle.getString("BackToBrowser"),
+//                                          new ActionListener() {
+//                                              @Override
+//                                              public void actionPerformed (ActionEvent arg0) {
+//                                                  switchToServerBrowserView();
+//                                              }
+//                                          });
+//        myContainerPanel.changeRightButton(NetworkBundle.getString("StartLobby"),
+//                                           new ActionListener() {
+//                                               @Override
+//                                               public void actionPerformed (ActionEvent arg0) {
+//                                                   if (myCreateLobbyView.allItemsChosen()) {
+//                                                       startLobby(myCreateLobbyView.getLobbyInfo());
+//                                                   }
+//                                               }
+//                                           });
     }
 
     /**
      * Switches the current view to the Lobby.
      */
     private void switchToLobbyView (ExpandedLobbyInfo lobbyInfo) {
-        myLobbyView = new LobbyView(this, myFactions, lobbyInfo.getMaxPlayers());
-        updateLobby(lobbyInfo);
-        sendUpdatedLobbyInfo();
-
-        myContainerPanel.changeView(myLobbyView, NetworkBundle.getString("LobbyCreation"));
-        myContainerPanel.changeLeftButton(NetworkBundle.getString("LeaveLobby"),
-                                          new ActionListener() {
-                                              @Override
-                                              public void actionPerformed (ActionEvent arg0) {
-                                                  myLobbyInfo.removePlayer(myUserControlledPlayers
-                                                          .get(0));
-                                                  myClient.sendData(new LeaveLobbyMessage(
-                                                                                          myLobbyInfo));
-                                                  switchToServerBrowserView();
-                                              }
-                                          });
-        myContainerPanel.changeRightButton(NetworkBundle.getString("StartLobby"),
-                                           new ActionListener() {
-                                               @Override
-                                               public void actionPerformed (ActionEvent arg0) {
-                                                   if (myLobbyInfo.canStartGame()) {
-                                                       requestStartGame();
-                                                   }
-                                               }
-                                           });
+//        myLobbyView = new LobbyView(this, myFactions, lobbyInfo.getMaxPlayers());
+//        updateLobby(lobbyInfo);
+//        sendUpdatedLobbyInfo();
+//
+//        myContainerPanel.changeView(myLobbyView, NetworkBundle.getString("LobbyCreation"));
+//        myContainerPanel.changeLeftButton(NetworkBundle.getString("LeaveLobby"),
+//                                          new ActionListener() {
+//                                              @Override
+//                                              public void actionPerformed (ActionEvent arg0) {
+//                                                  myLobbyInfo.removePlayer(myUserControlledPlayers
+//                                                          .get(0));
+//                                                  myClient.sendData(new LeaveLobbyMessage(
+//                                                                                          myLobbyInfo));
+//                                                  switchToServerBrowserView();
+//                                              }
+//                                          });
+//        myContainerPanel.changeRightButton(NetworkBundle.getString("StartLobby"),
+//                                           new ActionListener() {
+//                                               @Override
+//                                               public void actionPerformed (ActionEvent arg0) {
+//                                                   if (myLobbyInfo.canStartGame()) {
+//                                                       requestStartGame();
+//                                                   }
+//                                               }
+//                                           });
     }
 
     /**
