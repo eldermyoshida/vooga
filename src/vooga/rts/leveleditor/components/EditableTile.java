@@ -31,7 +31,8 @@ public class EditableTile extends Tile {
      * the default image for each tile
      */
     private static Pixmap DEFAULT_IMAGE = new Pixmap(
-                                           ResourceManager.getInstance().<BufferedImage>getFile(DEFAULT_IMAGE_PATH, BufferedImage.class));
+                                  ResourceManager.getInstance().<BufferedImage>getFile
+                                  (DEFAULT_IMAGE_PATH, BufferedImage.class));
     
     private boolean myOccupied;
     

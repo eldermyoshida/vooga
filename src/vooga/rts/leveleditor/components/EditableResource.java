@@ -16,14 +16,17 @@ public class EditableResource extends Resource {
     private int myID;
     private String myImageName;
     private int myAmount;   
+    
+    
     /**
-     * Constructor for this class
-     * 
+     * the constructor for editable resource
+     * @param image of the resource
+     * @param center of the resource
      * @param id of the resource
      * @param name of the resource
-     * @param image of the resource
      * @param imageName of the resource
-     */ 
+     * @param amount of the resource
+     */
     public EditableResource(Pixmap image, Location3D center , int id, 
                             String name , String imageName, int amount) {
         super(image, center, image.getMyDimension(), 0, amount, name);
