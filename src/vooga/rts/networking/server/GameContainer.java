@@ -3,7 +3,6 @@ package vooga.rts.networking.server;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
-
 import util.logger.LoggerManager;
 import vooga.rts.networking.NetworkBundle;
 import vooga.rts.networking.communications.LobbyInfo;

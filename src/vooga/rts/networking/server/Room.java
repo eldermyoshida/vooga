@@ -50,7 +50,7 @@ public class Room extends AbstractThreadContainer {
         myID = id;
         myGameContainer = container;
     }
-    
+
     protected void setLobbyInfo (ExpandedLobbyInfo lobbyInfo) {
         myLobbyModel = lobbyInfo;
     }
@@ -66,7 +66,7 @@ public class Room extends AbstractThreadContainer {
     protected ExpandedLobbyInfo getLobbyInfo () {
         return myLobbyModel;
     }
-    
+
     protected int getMaxConnections () {
         return myLobbyModel.getMaxPlayers();
     }

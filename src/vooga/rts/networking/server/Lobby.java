@@ -1,7 +1,6 @@
 package vooga.rts.networking.server;
 
 import java.util.logging.Level;
-
 import util.logger.LoggerManager;
 import vooga.rts.networking.NetworkBundle;
 import vooga.rts.networking.communications.ExpandedLobbyInfo;
@@ -46,8 +45,8 @@ public class Lobby extends Room {
             sendMessageToAllConnections(new SendLobbyInfoUpdatesMessage(lobbyInfo));
         }
         LoggerManager.DEFAULT_LOGGER.log(Level.INFO,
-                                      NetworkBundle.getString("LobbyLeft") + ": " +
-                                              lobbyInfo.getLobbyName());
+                                         NetworkBundle.getString("LobbyLeft") + ": " +
+                                                 lobbyInfo.getLobbyName());
     }
 
     @Override
@@ -62,7 +61,7 @@ public class Lobby extends Room {
     public void clientIsReadyToStart (ConnectionThread thread) {
         numberOfClientsReady++;
         if (numberOfClientsReady == getNumberOfConnections()) {
-            sendMessageToAllConnections (new StartGameMessage());
+            sendMessageToAllConnections(new StartGameMessage());
             new GameServer(getID(), getGameContainer(), this);
         }
     }
