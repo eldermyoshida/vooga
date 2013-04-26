@@ -17,7 +17,6 @@ import vooga.towerdefense.gameElements.GameElement;
  */
 public class OnDeath extends Action {
 	private GameElement myResponsibleElement;
-	private List<Action> myActions;
 
 	/**
 	 * @param initiator
@@ -36,7 +35,8 @@ public class OnDeath extends Action {
 	@Override
 	public void executeAction(double elapseTime) {
 		if (myResponsibleElement.getAttributeManager()
-				.getAttribute(AttributeConstantsEnum.HEALTH.toString()).getValue() <= 0) {
+				.getAttribute(AttributeConstantsEnum.HEALTH.toString())
+				.getValue() <= 0) {
 			setEnabled(true);
 		}
 
