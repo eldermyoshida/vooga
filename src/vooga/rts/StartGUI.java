@@ -13,6 +13,6 @@ public class StartGUI extends RTSGame
 
     public static void main (String[] args) {
         StartGUI f = new StartGUI(null);
-        // f.run();
+        f.run();
     }
 }
