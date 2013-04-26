@@ -14,6 +14,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import vooga.rts.action.Action;
 import vooga.rts.action.IActOn;
 import vooga.rts.ai.AstarFinder;
@@ -27,7 +28,6 @@ import vooga.rts.gamedesign.sprite.gamesprites.Projectile;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
 import vooga.rts.gamedesign.state.AttackingState;
-import vooga.rts.gamedesign.state.MovementState;
 import vooga.rts.gamedesign.state.UnitState;
 import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
 import vooga.rts.gamedesign.strategy.attackstrategy.CannotAttack;
@@ -543,7 +543,10 @@ public abstract class InteractiveEntity extends GameEntity implements
 	@Override
 	public void move(Location3D loc) {
 		myPath = GameState.getMap().getPath(myFinder, getWorldLocation(), loc);
-		super.move(myPath.getNext());
+		if (myPath != null) {
+			super.move(myPath.getNext());
+		}
+    
 	}
 
 	public void addWeapon(Weapon toAdd) {
