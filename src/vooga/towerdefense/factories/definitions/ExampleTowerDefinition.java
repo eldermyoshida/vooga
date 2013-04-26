@@ -2,15 +2,15 @@ package vooga.towerdefense.factories.definitions;
 
 import java.awt.Dimension;
 
-import vooga.towerdefense.factories.AttributeManagerFactory;
-import vooga.towerdefense.util.Location;
-import vooga.towerdefense.util.Pixmap;
+import util.Location;
+import util.Pixmap;
+import vooga.towerdefense.factories.attributefactories.AttributeManagerFactory;
 
 public class ExampleTowerDefinition extends GameElementDefinition {
 
 	public ExampleTowerDefinition(Pixmap pixmap, Location putHere,
-			Dimension dimension, String string) {
-		super(pixmap, putHere, dimension, string);
+			Dimension dimension, String name) {
+		super(name,pixmap, putHere, dimension);
 	}
 
 	@Override

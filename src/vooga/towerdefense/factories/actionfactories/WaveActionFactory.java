@@ -17,18 +17,17 @@ public class WaveActionFactory extends ActionFactory {
 	private int myNumUnits;
 	private int myCooldown;
 	private GameElementFactory myFactory;
-	private GameMap myMap;
 	
-	public WaveActionFactory(int numUnits, int cooldown, GameElementFactory factory, GameMap map) {
-		myNumUnits = numUnits;
-		myCooldown = cooldown;
+	//action factory
+	public WaveActionFactory(String numUnits, String cooldown, GameElementFactory factory) {
+		myNumUnits = Integer.parseInt(numUnits);
+		myCooldown = Integer.parseInt(cooldown);
 		myFactory = factory;
-		myMap = map;
 		
 	}
 	
 	@Override
 	protected Action buildAction(GameElement e) {
-		return new WaveAction(myNumUnits, myCooldown, myFactory, myMap);
+		return new WaveAction(myNumUnits, myCooldown, myFactory, getMap());
 	}
 }

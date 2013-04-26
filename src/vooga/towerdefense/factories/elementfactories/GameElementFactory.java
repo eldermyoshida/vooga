@@ -49,30 +49,29 @@ public class GameElementFactory {
      * @param image
      * @param location
      * @param size
-     * @param type
      * @param attrManager
      */
 
     public GameElementFactory (String name,
-                               Pixmap image,
+                               Pixmap image,Dimension size,
                                AttributeManagerFactory attrManager, List<ActionFactory> myActions) {
         myName = name;
         myImage = image;
-        mySize = new Dimension(image.getWidth(), image.getHeight());
+        mySize = size;
         myAttributeManagerFactory = attrManager;
         myActions = new ArrayList<ActionFactory>();
     }
-
+@Deprecated
     public GameElementFactory (String name, Pixmap image){
         myName = name;
         myImage = image;
         myAttributeManagerFactory = new AttributeManagerFactory();
-        mySize = new Dimension(image.getWidth(), image.getHeight());
+        mySize = new Dimension(50,50);//just for testing before having the xml loader working
         
     }
     @Deprecated
     public GameElementFactory (String name, GameElementDefinition definition) {
-        this(name, definition.getImage(), definition
+        this(name, definition.getImage(),definition.getSize(), definition
                 .getAttributeManagerFactory(), definition.getActions());
         myName = name;
         myDef = definition;
