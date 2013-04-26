@@ -21,6 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import vooga.towerdefense.gameeditor.gamemaker.GameEditorController;
 import vooga.towerdefense.gameeditor.gamemaker.GameEditorScreen;
+import vooga.towerdefense.model.tiles.DefaultTile;
 import vooga.towerdefense.model.tiles.GrassTile;
 import vooga.towerdefense.model.tiles.PathTile;
 import vooga.towerdefense.model.tiles.Tile;
@@ -47,11 +48,15 @@ public class MapEditorScreen extends GameEditorScreen {
     private static final String TILE_IMAGES_CLASS_PATH = "vooga/towerdefense/images/map";
     private static final String GRASS_TILE_NAME = "grass_tile.png";
     private static final String PATH_TILE_NAME = "path_tile.png";
+    private static final String BLANK_TILE_NAME = "blank_tile.png";
+    private static final String DEFAULT_TILE_NAME = "default_tile.png";
     private static final Location DEFAULT_LOCATION = new Location(0, 0);
     private static final Dimension DEFAULT_SIZE = new Dimension(50, 50);
-    private static final Dimension TILE_PANEL_SIZE = new Dimension(300, 70);
-    private static final Pixmap GRASS_PIXMAP = new Pixmap(TILE_IMAGES_CLASS_PATH + "/" + GRASS_TILE_NAME);
-    private static final Pixmap PATH_PIXMAP = new Pixmap(TILE_IMAGES_CLASS_PATH + "/" + PATH_TILE_NAME);
+    private static final Dimension TILE_PANEL_SIZE = new Dimension(400, 100);
+    private static final Pixmap GRASS_PIXMAP = new Pixmap("/" + TILE_IMAGES_CLASS_PATH + "/" + GRASS_TILE_NAME);
+    private static final Pixmap PATH_PIXMAP = new Pixmap("/" + TILE_IMAGES_CLASS_PATH + "/" + PATH_TILE_NAME);
+    private static final Pixmap BLANK_PIXMAP = new Pixmap("/" + TILE_IMAGES_CLASS_PATH + "/" + BLANK_TILE_NAME);
+    private static final Pixmap DEFAULT_PIXMAP = new Pixmap("/" + TILE_IMAGES_CLASS_PATH + "/" + DEFAULT_TILE_NAME);
     private static final String USER_DIR = "user.dir";
     private static final String DEFAULT_TILE_SIZE = "50";
 
@@ -146,14 +151,7 @@ public class MapEditorScreen extends GameEditorScreen {
                         File file = myChooser.getSelectedFile();
                         String path = file.getName();
                         myBackgroundImageName = path;
-//                        try {
-//                            path = file.getCanonicalPath();
-//                            myBackgroundImageName = path;
-//                        }
-//                        catch (IOException e1) {
-//                            e1.printStackTrace();
-//                        }
-//                       // String path = file.getPath().replace("%20", " ");           
+                        myMapMakerBox.setBackgroundImage(myBackgroundImageName);
                     }
                 }
                 else if (e.getSource().equals(myMapNameButton)) {
@@ -220,10 +218,16 @@ public class MapEditorScreen extends GameEditorScreen {
     // TODO Fix this so that the tiles are not hard-coded!
     public void makeTileInstances (String s) {
         if (s.equals(GRASS_TILE_NAME)) {
-            myTileToBuild = new GrassTile(0, GRASS_PIXMAP, DEFAULT_LOCATION, DEFAULT_SIZE);
+            myTileToBuild = new GrassTile(3, GRASS_PIXMAP, DEFAULT_LOCATION, DEFAULT_SIZE);
         }
         else if (s.equals(PATH_TILE_NAME)) {
             myTileToBuild = new PathTile(1, PATH_PIXMAP, DEFAULT_LOCATION, DEFAULT_SIZE);
+        }
+        else if (s.equals(DEFAULT_TILE_NAME)) {
+            myTileToBuild = new DefaultTile(2, DEFAULT_PIXMAP, DEFAULT_LOCATION, DEFAULT_SIZE);
+        }
+        else if (s.equals(BLANK_TILE_NAME)) {
+            myTileToBuild = new DefaultTile (0, BLANK_PIXMAP, DEFAULT_LOCATION, DEFAULT_SIZE);
         }
         myMapMakerBox.setTile(myTileToBuild);
     }
@@ -231,17 +235,15 @@ public class MapEditorScreen extends GameEditorScreen {
     private List<Pixmap> makeTileImages (File[] file) {
         List<Pixmap> images = new ArrayList<Pixmap>();
         for (File f : file) {
-            System.out.println("f: " + f);
-            images.add(new Pixmap(f.getName()));
-            myBackgroundImages.add(f.getName());
+            images.add(new Pixmap("/" + TILE_IMAGES_CLASS_PATH + "/" + f.getName()));
+            myBackgroundImages.add("/" + TILE_IMAGES_CLASS_PATH + "/" + f.getName());
         }
         return images;
     }
 
     private File[] getImages (String packageName) {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        String path = packageName.replace(".", "/");
-        URL resource = classLoader.getResource(path);
+        URL resource = classLoader.getResource(packageName);
         File directory = new File(resource.getFile());
         if (directory.exists()) {
             File[] files = directory.listFiles();

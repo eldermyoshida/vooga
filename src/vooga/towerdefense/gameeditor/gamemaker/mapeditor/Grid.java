@@ -27,6 +27,7 @@ public class Grid extends Rectangle {
         super.y = y;
         super.width = width;
         super.height = height;
+        
         myTile = tile;
     }
 
@@ -48,8 +49,8 @@ public class Grid extends Rectangle {
         pen.setStroke(new BasicStroke((float) thickness));
         pen.setColor(DEFAULT_COLOR);
         pen.drawRect(x, y, width, height);
-        myTile.getPixmap().paint(pen, new Point(x + (width / 2), y + (height / 2)),
-                                 new Dimension(width, height));
+        if (myTile != null)
+            myTile.getPixmap().paint(pen, new Point(x + (width / 2), y + (height / 2)), new Dimension(width, height));
     }
 
     /**
@@ -68,4 +69,7 @@ public class Grid extends Rectangle {
         return myTile.getTileId();
     }
     
+    public Tile getTile() {
+        return myTile;
+    }
 }
