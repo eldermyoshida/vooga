@@ -9,6 +9,15 @@ import vooga.rts.gamedesign.weapon.Weapon;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.ReflectionHelper;
 
+
+/**
+ * This class decodes the projectiles section of the XML file. 
+ * The create method instantiates all the projectiles and puts
+ * them in a their map located in the main factory class. 
+ * 
+ * @author FrancescoA
+ *
+ */
 public class ProjectileDecoder extends Decoder {
 
 	private Factory myFactory;
