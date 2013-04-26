@@ -16,12 +16,12 @@ import util.Pixmap;
 
 
 public class GameElementXMLLoader {
-    private static final String GAME_ELEMENTS_TAG = "GameElements";
-    private static final String ATTRIBUTES_TAG = "Attributes";
+    private static final String GAME_ELEMENTS_TAG = "gameelements";
+    private static final String ATTRIBUTES_TAG = "attributes";
     private static final String IMAGE_TAG = "image";
     private static final String TYPE_TAG = "type";
     private static final String DIMENSION_TAG = "dimension";
-    private static final String VALUE_TAG = "value";
+    private static final String ACTIONS_TAG = "actions";
     
     private XMLTool myXMLTool;
     
@@ -51,7 +51,7 @@ public class GameElementXMLLoader {
                 loadAttributeFactories(subElements.get(ATTRIBUTES_TAG));
         
         ActionXMLLoader loader = new ActionXMLLoader(myXMLTool);
-        List<ActionFactory> actionFactories = loader.loadActionFactories();
+        List<ActionFactory> actionFactories = loader.loadActionFactories(subElements.get(ACTIONS_TAG));
         
         AttributeManagerFactory managerFactory = new AttributeManagerFactory(attributeFactories);
         
@@ -67,7 +67,7 @@ public class GameElementXMLLoader {
     
     private Pixmap loadElementImage (Element imageElement) {
         String imagePath = myXMLTool.getContent(imageElement);
-        return new Pixmap(imagePath);
+        return new Pixmap("/vooga/towerdefense" + imagePath);
     }
     
     private String loadType (Element typeElement) {
@@ -87,7 +87,7 @@ public class GameElementXMLLoader {
     private AttributeFactory loadAttributeFactory (Element attributeElement) {
         Map<String, Element> subElements = myXMLTool.getChildrenElementMap(attributeElement);
         return new AttributeFactory(myXMLTool.getTagName(attributeElement),
-                                    loadAttributeValue(subElements.get(VALUE_TAG)));
+                                    loadAttributeValue(attributeElement));
     }
     
     private double loadAttributeValue (Element valueElement) {
