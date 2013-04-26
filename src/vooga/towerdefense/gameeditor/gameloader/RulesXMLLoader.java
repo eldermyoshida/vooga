@@ -12,7 +12,7 @@ import vooga.towerdefense.model.GameModel;
 import vooga.towerdefense.model.rules.Rule;
 
 public class RulesXMLLoader {
-    private static final String RULES_TAG = "Rules";
+    private static final String RULES_TAG = "rules";
 
     private XMLTool myXMLTool;
 

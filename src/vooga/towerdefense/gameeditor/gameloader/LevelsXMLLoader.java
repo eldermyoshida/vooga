@@ -12,7 +12,7 @@ import vooga.towerdefense.model.rules.Rule;
 
 public class LevelsXMLLoader {
     
-    private static final String LEVELS_TAG = "Levels";
+    private static final String LEVELS_TAG = "levels";
     
     private XMLTool myXMLTool;
     

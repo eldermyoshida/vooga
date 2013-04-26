@@ -74,6 +74,7 @@ public class TDView {
         myFrame.setContentPane(myPanel);
         myFrame.setPreferredSize(SIZE);
         myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        showSplashScreen();
         //TODO: uncomment createGUI() if we want hard coded screens.
         //createGUI();
     }

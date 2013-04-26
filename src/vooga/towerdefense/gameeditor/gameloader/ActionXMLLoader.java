@@ -12,7 +12,7 @@ import vooga.towerdefense.factories.actionfactories.ActionFactory;
 import vooga.towerdefense.gameElements.GameElement;
 
 public class ActionXMLLoader {
-    private static final String ACTIONS_TAG = "Actions";
+    private static final String ACTIONS_TAG = "actions";
     private static final String PARAMETER_TAG = "parameter";
     
     private XMLTool myXMLTool;
