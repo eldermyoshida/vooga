@@ -36,7 +36,7 @@ import vooga.rts.networking.communications.servermessages.ServerInfoMessage;
  * @author Henrique Morales
  * 
  */
-public class ClientModel extends Observable implements IMessageReceiver, IClientModel, IModel {
+public class ClientModel extends Observable implements IClientModel, IModel {
 
     private IClient myClient;
     private String myUserName;
