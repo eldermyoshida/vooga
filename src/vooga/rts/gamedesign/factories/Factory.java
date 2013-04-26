@@ -18,12 +18,15 @@ import org.xml.sax.SAXException;
 import vooga.rts.gamedesign.sprite.gamesprites.Projectile;
 import vooga.rts.gamedesign.sprite.gamesprites.Resource;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
 import vooga.rts.gamedesign.strategy.Strategy;
 import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
 import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
 import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
 import vooga.rts.gamedesign.strategy.production.CanProduce;
+import vooga.rts.gamedesign.strategy.production.CannotProduce;
+import vooga.rts.gamedesign.strategy.production.ProductionStrategy;
 import vooga.rts.gamedesign.strategy.upgradestrategy.CanUpgrade;
 import vooga.rts.gamedesign.strategy.upgradestrategy.UpgradeStrategy;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
@@ -324,13 +327,14 @@ public class Factory {
 	 */
 	private void initializeProducables(){
 		for(String key :myProductionDependencies.keySet()){
-			InteractiveEntity father = mySprites.get(key);
+			System.out.println(key);
 			String[] produces = myProductionDependencies.get(key);
-			for(String baby: produces){
-				InteractiveEntity producable = mySprites.get(baby);
-				father.addProducable(producable);
-			}
-			father.getProductionStrategy().createProductionActions(father);
+			mySprites.get(key).setProductionStrategy((ProductionStrategy)new CanProduce((Building) mySprites.get(key)));
+			//for(String baby: produces){
+				//InteractiveEntity producable = mySprites.get(baby);
+			((CanProduce)mySprites.get(key).getProductionStrategy()).addProducable(new Unit());
+			//}
+			((CanProduce)mySprites.get(key).getProductionStrategy()).createProductionActions(mySprites.get(key));
 		}
 	}
 	/**
@@ -356,6 +360,9 @@ public class Factory {
 	
 				mySprites.get(key).setUpgradeTree(relatedUpgradeTree);
 			}
+			//if (myProductionDependencies.keySet().contains(key)) { //case of CanProduce
+				
+			//}
 			
 		}
 	}

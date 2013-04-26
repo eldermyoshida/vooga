@@ -64,6 +64,10 @@ public class BuildingDecoder extends Decoder{
 			
 			//Load Production Dependencies now
 			String [] nameCanProduce = getElement(nElement, PRODUCE_TAG).split("\\s+");
+			System.out.println("name: " + name);
+			for (String s: nameCanProduce) {
+				System.out.println("baby: " + s);
+			}
 			if(nameCanProduce[0] != ""){
 				//building.setProductionStrategy(new CanProduce(building));
 				myFactory.putProductionDependency(name, nameCanProduce);

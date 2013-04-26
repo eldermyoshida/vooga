@@ -138,6 +138,17 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     }
 
     public abstract void addActions ();
+    
+    /**
+     * TESTING
+     */
+    public ArrayList<String> getAllActionCommands() {
+    	ArrayList<String> result = new ArrayList<String>();
+    	for (String a: myActions.keySet()) {
+    		result.add(a);
+    	}
+    	return result;
+    } 
 
     public void addTask (DelayedTask dt) {
         myTasks.add(dt);

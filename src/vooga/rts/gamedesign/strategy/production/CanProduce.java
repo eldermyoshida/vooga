@@ -38,7 +38,7 @@ public class CanProduce implements ProductionStrategy {
 		myRallyPoint = new Location3D();
 		setRallyPoint(building);
 	}
-	
+
 	/**
 	 * Sets the rally point of the entity that can produce so that units
 	 * will move to that point after they are created by the entity.
@@ -69,7 +69,8 @@ public class CanProduce implements ProductionStrategy {
     @Override
     public void createProductionActions (final InteractiveEntity producer) {
         for (final InteractiveEntity producable : myProducables) {
-            String commandName = "make " + producable.getInfo().getName();
+            String commandName = "make";
+        	//String commandName = "make " + producable.getInfo().getName();
             producer.addAction(commandName, new InteractiveAction(producer) {
                 @Override
                 public void update (Command command) {

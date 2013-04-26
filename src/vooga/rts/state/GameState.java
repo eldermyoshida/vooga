@@ -125,10 +125,7 @@ public class GameState extends SubState implements Controller {
         Unit worker =  (Unit) myFactory.getEntitiesMap().get("worker").copy();
         worker.setWorldLocation(new Location3D(300, 300, 0));
         worker.move(worker.getWorldLocation());
-                /**new Unit(new Pixmap(ResourceManager.getInstance()
-                        .<BufferedImage> getFile("images/scv.gif", BufferedImage.class)),
-                         new Location3D(100, 100, 0), new Dimension(75, 75), null, 1, 200, 40, 150);
-        worker.setGatherStrategy(new CanGather());*/
+              
         Information i1 =
                 new Information("Worker",
                                 "I am a worker. I am sent down from Denethor, son of Ecthelion ",
@@ -137,12 +134,7 @@ public class GameState extends SubState implements Controller {
         getPlayers().getHuman().add(worker);
        
         Unit a = (Unit) myFactory.getEntitiesMap().get("combat").copy();
-        /**a.setAttackStrategy(new CanAttack(a.getWorldLocation(), a.getPlayerID()));
-        Projectile proj =
-                new Projectile(new Pixmap(ResourceManager.getInstance()
-                        .<BufferedImage> getFile("images/bullet.png", BufferedImage.class)),
-                               a.getWorldLocation(), new Dimension(10, 10), 2, 10, 6, 800);
-        a.getAttackStrategy().addWeapon(new Weapon(proj, 400, a.getWorldLocation(), 1));*/
+        System.out.println("AAAAAAAAAAA " + a.getAllActionCommands());
         Information i2 =
                 new Information("Marine", "I am a soldier of Nunu.", null, "buttons/marine.png");
 
@@ -154,21 +146,18 @@ public class GameState extends SubState implements Controller {
         Unit c = (Unit) myFactory.getEntitiesMap().get("combat").copy();
         c.setWorldLocation(new Location3D(1200, 500, 0));
         c.move(c.getWorldLocation());
-       // c.setAttackStrategy(new CanAttack(c.getWorldLocation(), c.getPlayerID()));
         c.setHealth(150);
         getPlayers().getPlayer(1).add(c);
 
-        //TODO: produce section in factory should take in user defined Units.
+
         Building b = (Building) myFactory.getEntitiesMap().get("home").copy();
-        		/* Building(new Pixmap(ResourceManager.getInstance()
-        .		<BufferedImage> getFile("images/factory.png", BufferedImage.class)),
-             			new Location3D(500, 1000, 0), new Dimension(368, 224), null, 1, 300,
-             							InteractiveEntity.DEFAULT_BUILD_TIME);*/
-        //b.setWorldLocation(new Location3D(500, 1000, 0));
-        //b.move(worker.getWorldLocation());
-        //b.setProductionStrategy(new CanProduce(b));
-        //((CanProduce) b.getProductionStrategy()).addProducable(new Unit());
-        //((CanProduce) b.getProductionStrategy()).createProductionActions(b);
+        System.out.println(b.getAllActionCommands());
+        if (b.getAction((new Command("make"))) == null) {
+        	System.out.println("NO MAKE COMMAND!!!!");
+        } else {
+        	System.out.println("FIND MAKE COMMAND!!!!!");
+        }
+
         Information i =
                 new Information("Barracks", "This is a barracks that can make awesome pies", null,
                                 "buttons/marine.png");
@@ -206,7 +195,7 @@ public class GameState extends SubState implements Controller {
         myTasks.add(new DelayedTask(2, new Runnable() {
             @Override
             public void run () {
-                f.getAction((new Command("make Marine"))).apply();
+                f.getAction((new Command("make"))).apply();
             }
         }, true));
 
@@ -223,28 +212,28 @@ public class GameState extends SubState implements Controller {
         }));
         */
 
-        b = new Building(new Pixmap(ResourceManager.getInstance()
+        Building b2 = new Building(new Pixmap(ResourceManager.getInstance()
                         .<BufferedImage> getFile("images/factory.png", BufferedImage.class)),
                              new Location3D(100, 500, 0), new Dimension(368, 224), null, 1, 300,
                              InteractiveEntity.DEFAULT_BUILD_TIME);
-        b.setProductionStrategy(new CanProduce(b));
-        ((CanProduce) b.getProductionStrategy()).addProducable(new Unit());
-        ((CanProduce) b.getProductionStrategy()).createProductionActions(b);
-        ((CanProduce) b.getProductionStrategy()).setRallyPoint(new Location3D(200, 600, 0));
+        b2.setProductionStrategy(new CanProduce(b2));
+        ((CanProduce) b2.getProductionStrategy()).addProducable(new Unit());
+        ((CanProduce) b2.getProductionStrategy()).createProductionActions(b2);
+        ((CanProduce) b2.getProductionStrategy()).setRallyPoint(new Location3D(200, 600, 0));
         i =
                 new Information("Barracks", "This is a barracks that can make awesome pies", null,
                                 "buttons/marine.png");
-        b.setInfo(i);
+        b2.setInfo(i);
 
-        final Building g = b;
+        final Building g = b2;
         myTasks.add(new DelayedTask(2, new Runnable() {
             @Override
             public void run () {
-                g.getAction((new Command("make Marine"))).apply();
+                g.getAction((new Command("make"))).apply();
             }
         }, true));
 
-        getPlayers().getPlayer(1).add(b);
+        getPlayers().getPlayer(1).add(b2);
     }
 
     private void yuckyUnitUpdate (double elapsedTime) {
