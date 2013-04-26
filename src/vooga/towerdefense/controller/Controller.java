@@ -249,13 +249,15 @@ public class Controller {
 	// the shop!!!
 	public void fixItemOnMap(GameElement item, Point p) {
 		GameElement newItem = createNewElement(item);
-		Location snappedLocation = getPointSnappedToGrid(new Location(p.getX(),
-				p.getY()));
-		newItem.setCenter(snappedLocation.getX(), snappedLocation.getY());
-		Tile myTile = myModel.getTile(p);
-		myTile.setTower(newItem);
+		if (myModel.getMap().isTower(item)) {
+			Location snappedLocation = getPointSnappedToGrid(new Location(p.getX(),
+					p.getY()));
+			newItem.setCenter(snappedLocation.getX(), snappedLocation.getY());
+			
+			myModel.getMap().blockTiles(item);
+		}
 
-		myModel.getMap().addToMap(newItem, myTile);
+		myModel.getMap().addToMap(newItem);
 		displayMap();
 		myControlMode = new SelectMode();
 		setVisibilityOfShopCancelButton(false);

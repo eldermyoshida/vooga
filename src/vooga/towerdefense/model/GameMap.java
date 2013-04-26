@@ -13,6 +13,7 @@ import util.Pixmap;
 import vooga.rts.util.Vector;
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.actionlist.FollowPath;
+import vooga.towerdefense.attributes.AttributeConstants;
 import vooga.towerdefense.attributes.AttributeManager;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.model.tiles.Tile;
@@ -94,11 +95,46 @@ public class GameMap {
 	 * 
 	 * @param e
 	 *            a game element
-	 * @param t
-	 *            the tile in which to add the game element
 	 */
-	public void addToMap(GameElement e, Tile t) {
+	public void addToMap(GameElement e) {
 		myGameElements.add(e);
+	}
+
+	/**
+	 * tests if an element is a tower
+	 * 
+	 * @param e
+	 * @return
+	 */
+	public boolean isTower(GameElement e) {
+		return e.getAttributeManager().getAttribute(AttributeConstants.NAME)
+				.equals("tower");
+	}
+
+	/**
+	 * Makes tiles covered by this game element neither buildable or walkable, and sets their element.
+	 * 
+	 * @param e
+	 */
+	public void blockTiles(GameElement e) {
+		int tilesWide = (int) Math.ceil(e.getSize().getWidth()
+				/ myTileSize.getWidth());
+		int tilesTall = (int) Math.ceil(e.getSize().getHeight()
+				/ myTileSize.getHeight());
+
+		
+		for (int i = 0; i < tilesWide; i++) {
+			for (int j = 0; j < tilesTall; j++) {
+				Location location = new Location(e.getCenter().getX() + i
+						* myTileSize.getWidth(), e.getCenter().getY() + j
+						* myTileSize.getHeight());
+				
+				Tile t = getTile(location);
+				t.setTower(e);
+				t.setWalkable(false);
+				t.setBuildable(false);
+			}
+		}
 	}
 
 	/**
@@ -294,11 +330,9 @@ public class GameMap {
 	}
 
 	private Location getTileIndexFromLocation(Location location) {
-		return new Location(
-				(int) ((location.getX() - 1) / getTileSize()
-						.getWidth()),
-				(int) ((location.getY() - 1) / getTileSize()
-						.getHeight()));
+		return new Location((int) ((location.getX() - 1) / getTileSize()
+				.getWidth()), (int) ((location.getY() - 1) / getTileSize()
+				.getHeight()));
 	}
 
 	/**
