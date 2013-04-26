@@ -44,14 +44,14 @@ public class MapEditorScreen extends GameEditorScreen {
     public static final String CLASS_INDICATOR_STRING = ".png";
     private static final String NEXT_SCREEN_NAME = "GameElementEditorScreen";
     private static final String TITLE_NAME = "MAP ";
-    private static final String TILE_IMAGES_CLASS_PATH = "vooga.towerdefense.images.map";
+    private static final String TILE_IMAGES_CLASS_PATH = "vooga/towerdefense/images/map";
     private static final String GRASS_TILE_NAME = "grass_tile.png";
     private static final String PATH_TILE_NAME = "path_tile.png";
     private static final Location DEFAULT_LOCATION = new Location(0, 0);
     private static final Dimension DEFAULT_SIZE = new Dimension(50, 50);
     private static final Dimension TILE_PANEL_SIZE = new Dimension(300, 70);
-    private static final Pixmap GRASS_PIXMAP = new Pixmap(GRASS_TILE_NAME);
-    private static final Pixmap PATH_PIXMAP = new Pixmap(PATH_TILE_NAME);
+    private static final Pixmap GRASS_PIXMAP = new Pixmap(TILE_IMAGES_CLASS_PATH + "/" + GRASS_TILE_NAME);
+    private static final Pixmap PATH_PIXMAP = new Pixmap(TILE_IMAGES_CLASS_PATH + "/" + PATH_TILE_NAME);
     private static final String USER_DIR = "user.dir";
     private static final String DEFAULT_TILE_SIZE = "50";
 
