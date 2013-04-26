@@ -1,5 +1,6 @@
 package util.collisiondetector.tests;
 
+
 import static org.junit.Assert.*;
 
 import java.awt.Rectangle;
@@ -13,7 +14,6 @@ import org.junit.Test;
 import util.Location;
 import util.Vector;
 import util.collisiondetector.CollisionDetector;
-import util.collisiondetector.ShapeMeasurements;
 
 public class CollisionDetectorTester {
 	CollisionDetector myDetector;

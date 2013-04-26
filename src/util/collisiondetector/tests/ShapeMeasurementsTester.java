@@ -1,5 +1,6 @@
 package util.collisiondetector.tests;
 
+
 import static org.junit.Assert.assertTrue;
 
 import java.awt.Rectangle;

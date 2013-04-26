@@ -1,5 +1,6 @@
 package util.collisiondetector;
 
+
 import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
@@ -11,6 +12,7 @@ import java.util.List;
 
 import util.Location;
 import util.Vector;
+import util.collisiondetector.ShapeMeasurements;
 
 /**
  * This class is dedicated to collision detection for 
@@ -138,11 +140,6 @@ public class CollisionDetector {
 				bothCornersIntersecting(shape1,shape2,shape2.getBounds2D().getMaxY()
 						,shape1.getBounds2D().getMinY());
 	}
-	
-	private boolean bothCornersIntersecting(Shape shape1, Shape shape2, double lowbound, double highbound){
-		return (quickDetectCollision(shape1,shape2)&&
-		(lowbound >=highbound));
-	}
     /**
      * Convenience method: Treating the Shape as a Rectangle
      * returns whether shape1's Top side has been collided with by 
@@ -150,7 +147,7 @@ public class CollisionDetector {
      */
 	public boolean hitTop(Shape shape1, Location point2, Vector speed1, Vector speed2){
 		double vNormalization = getVelocityNormalization(speed1, speed2);
-		if(vNormalization == 0) return hitTop(shape1, point2);
+		if(vNormalization == 0) return hitTop(shape1, point2); // Not quite sure how to get rid of this check from directional checks
 		return  intersectsLine(shape1, myMeasurements.getTopLeftCorner(shape1), 
 				myMeasurements.getTopRightCorner(shape1), 
 				point2, speed1, speed2, vNormalization, INTERSECT_LINE_PRECISION);
@@ -161,8 +158,8 @@ public class CollisionDetector {
      * shape2, taking velocity of each shape into account.
      */
 	public boolean hitTop(Shape shape1, Shape shape2, Vector speed1, Vector speed2){
-		if (hitTop(shape1, myMeasurements.getBottomLeftCorner(shape2), speed1, speed2)) return true;
-		return hitTop(shape1, myMeasurements.getBottomRightCorner(shape2), speed1, speed2);
+		return hitTop(shape1, myMeasurements.getBottomLeftCorner(shape2), speed1, speed2)||
+		hitTop(shape1, myMeasurements.getBottomRightCorner(shape2), speed1, speed2);
 	}
 	
     /**
@@ -205,8 +202,8 @@ public class CollisionDetector {
      * shape2, taking velocity of each shape into account.
      */
 	public boolean hitBottom(Shape shape1, Shape shape2, Vector speed1, Vector speed2){
-		if (hitBottom(shape1, myMeasurements.getTopLeftCorner(shape2), speed1, speed2)) return true;
-		return hitBottom(shape1, myMeasurements.getTopRightCorner(shape2), speed1, speed2);
+		return (hitBottom(shape1, myMeasurements.getTopLeftCorner(shape2), speed1, speed2)||
+		hitBottom(shape1, myMeasurements.getTopRightCorner(shape2), speed1, speed2));
 	}
 	
 
@@ -251,8 +248,8 @@ public class CollisionDetector {
      * shape2, taking velocity of each shape into account.
      */
 	public boolean hitRight(Shape shape1, Shape shape2, Vector speed1, Vector speed2){
-		if (hitRight(shape1, myMeasurements.getBottomLeftCorner(shape2), speed1, speed2)) return true;
-		return hitRight(shape1, myMeasurements.getTopLeftCorner(shape2), speed1, speed2);
+		return hitRight(shape1, myMeasurements.getBottomLeftCorner(shape2), speed1, speed2)||
+				hitRight(shape1, myMeasurements.getTopLeftCorner(shape2), speed1, speed2);
 	}
 	
 	
@@ -296,8 +293,8 @@ public class CollisionDetector {
      * shape2, taking velocity of each shape into account.
      */
 	public boolean hitLeft(Shape shape1, Shape shape2, Vector speed1, Vector speed2){
-		if (hitLeft(shape1, myMeasurements.getTopRightCorner(shape2), speed1, speed2)) return true;
-		return hitLeft(shape1, myMeasurements.getBottomRightCorner(shape2), speed1, speed2);
+		return hitLeft(shape1, myMeasurements.getTopRightCorner(shape2), speed1, speed2)||
+		hitLeft(shape1, myMeasurements.getBottomRightCorner(shape2), speed1, speed2);
 	}
    
 	/**
@@ -372,19 +369,42 @@ public class CollisionDetector {
 	}
 	return false;
 	}
-	
+	 /**
+	  * Convenience Method
+	  * Checks a side of a Rectangle, and depending on inputs, will return a boolean
+	  * as to whether the given point hit that side NOTE: only works for RIGHT SIDE
+	  */
 	private boolean checkRightSide(Shape shape1, Point2D point2, Location corner1, Location corner2){
-		if(!quickDetectCollision(shape1,point2)) return false;
+		if(!quickDetectCollision(shape1,point2)) return false; //a line of repeated code :( don't really know how to refactor this out
 		double hitdirection = getQuickDirection(shape1,point2);
 		return (hitdirection-getQuickDirection(shape1, corner1 ) > 0 ||
 			(hitdirection-getQuickDirection(shape1,corner2)) <= 0);
 	}
-	
+	 /**
+	  * Convenience Method
+	  * Checks a side of a Rectangle, and depending on inputs, will return a boolean
+	  * as to whether the given point hit that side  NOTE: DOES NOT WORK FOR RIGHT SIDE
+	  */
 	private boolean checkSide(Shape shape1, Point2D point2, Location corner1, Location corner2){
 		if(!quickDetectCollision(shape1,point2)) return false;
-		double hitdirection = getQuickDirection(shape1,point2);
+		return withinCorners(shape1, getQuickDirection(shape1,point2), corner1, corner2);
+	}
+	 /**
+	  * Convenience Method to get rid of duplicated code:
+	  * checks if the direction is within the direction of the two corners
+	  */
+	private boolean withinCorners(Shape shape1, double hitdirection, 
+			Location corner1,Location corner2){
 		return (hitdirection-getQuickDirection(shape1, corner1 ) > 0 &&
-			(hitdirection-getQuickDirection(shape1,corner2)) <= 0);
+				(hitdirection-getQuickDirection(shape1,corner2)) <= 0);
+	}
+	 /**
+	  * Convenience Method to get rid of duplicated code:
+	  * checks if both corners are within the shape
+	  */
+	private boolean bothCornersIntersecting(Shape shape1, Shape shape2, double lowbound, double highbound){
+		return (quickDetectCollision(shape1,shape2)&&
+		(lowbound >=highbound));
 	}
 	
 }

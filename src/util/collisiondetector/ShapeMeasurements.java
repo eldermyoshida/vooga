@@ -1,5 +1,6 @@
 package util.collisiondetector;
 
+
 import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
@@ -19,10 +20,10 @@ public class ShapeMeasurements {
 	  * A class that returns basic measurements of 
 	  * Shapes
 	 */
-	static final double ANGLE_PRECISION = 1;
-	static final double BOUNDARY_PRECISION = 1000;
-	static final int INTERSECT_LINE_PRECISION = 1000;
-	static final double NO_ROTATION = 0;
+	public static final double ANGLE_PRECISION = 1;
+	public static final double BOUNDARY_PRECISION = 1000;
+	public static final int INTERSECT_LINE_PRECISION = 1000;
+	public static final double NO_ROTATION = 0;
 	public ShapeMeasurements() {
 	}
 	
