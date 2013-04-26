@@ -5,13 +5,14 @@ import java.util.List;
 import java.util.Map;
 import org.w3c.dom.Element;
 import util.XMLTool;
+import vooga.towerdefense.action.Action;
+import vooga.towerdefense.model.GameModel;
 import vooga.towerdefense.model.levels.Level;
 import vooga.towerdefense.model.rules.Rule;
 
 public class LevelsXMLLoader {
+    
     private static final String LEVELS_TAG = "Levels";
-    private static final String RULES_TAG = "Rules";
-    private static final String VALUE_TAG = "value";
     
     private XMLTool myXMLTool;
     
@@ -19,48 +20,23 @@ public class LevelsXMLLoader {
         myXMLTool = xmlTool;
     }
     
-    public List<Level> getLevels() {
-        Element levelsElement = myXMLTool.getElement(LEVELS_TAG);
-        
-        Map<String, Element> subElements = myXMLTool.getChildrenElementMap(levelsElement);
+    public List<Level> getLevels(GameModel model) {
+        Map<String, Element> subElements = myXMLTool.getChildrenElementMap(LEVELS_TAG);
         
         List<Level> levels = new ArrayList<Level>();
-        for (Element subElement : subElements.values()) {
-            levels.add(getLevel(subElement));
+        for (Element e : subElements.values()) {
+            levels.add(getLevel(e, model));
         }
         return levels;
     }
     
-    private Level getLevel(Element levelElement) {
-        Map<String, Element> subElements = myXMLTool.getChildrenElementMap(levelElement);
+    private Level getLevel(Element levelElement, GameModel model) {
+        RulesXMLLoader rulesLoader = new RulesXMLLoader(myXMLTool);
+        ActionXMLLoader actionLoader = new ActionXMLLoader(myXMLTool);
         
-        List<Rule> rules = getRules(subElements.get(RULES_TAG));
+        List<Rule> rules = rulesLoader.getRules(model);
+        List<Action> actions = actionLoader.loadActions();
         
-        Level level = null;
-        return level;
+        return new Level(actions, rules);
     }
-    
-    private List<Rule> getRules(Element rulesElement) {
-        Map<String, Element> subElements = myXMLTool.getChildrenElementMap(rulesElement);
-        
-        List<Rule> rules = new ArrayList<Rule>();
-        for (Element subElement : subElements.values()) {
-            rules.add(getRule(subElement));
-        }
-        
-        return rules;
-    }
-    
-    private Rule getRule(Element ruleElement) {
-        Map<String, Element> subElements = myXMLTool.getChildrenElementMap(ruleElement);
-        String ruleValue = getRuleValue(subElements.get(VALUE_TAG));
-        
-        Rule r = null;
-        return r;
-    }
-    
-    private String getRuleValue(Element valueElement) {
-        return myXMLTool.getContent(valueElement);        
-    }
-    
 }
