@@ -11,6 +11,7 @@ import org.xml.sax.SAXException;
 
 import vooga.rts.commands.Command;
 import vooga.rts.gamedesign.factories.Factory;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Soldier;
 import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;
 import vooga.rts.gamedesign.strategy.attackstrategy.CannotAttack;
@@ -36,6 +37,7 @@ public class TestUpgrade {
 	private void upgradeWithNewManager() throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ParserConfigurationException, SAXException, IOException{
 		Factory factory = new Factory();
 		factory.loadXMLFile("Factory.xml");
+
 		Soldier soldier = new Soldier();
 		soldier.setAttackStrategy(new CannotAttack()); //sets soldier to cannot attack to test upgrade
 		for (String s: factory.getUpgradeTrees().keySet()) {

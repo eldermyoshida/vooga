@@ -12,8 +12,8 @@ import vooga.rts.util.ReflectionHelper;
 * @author Wenshun Liu
 *
 */
-public class RangeUpgradeNode extends UpgradeNode {
-    public RangeUpgradeNode (UpgradeTree upgradeTree,
+public class AttackCoolDownUpgradeNode extends UpgradeNode {
+    public AttackCoolDownUpgradeNode (UpgradeTree upgradeTree,
                              String upgradeType,
                              int upgradeValue,
                              int costedResourceAmount) {
@@ -26,9 +26,10 @@ public class RangeUpgradeNode extends UpgradeNode {
      */
     @Override
     public void upgrade (InteractiveEntity requester) {
-    	ReflectionHelper.changeValue("myRange",
+    	ReflectionHelper.setValue("myCoolDownTime",
     			requester.getAttackStrategy().getCurrentWeapon(),
     			getUpgradeValue());
     	
     }
 }
+

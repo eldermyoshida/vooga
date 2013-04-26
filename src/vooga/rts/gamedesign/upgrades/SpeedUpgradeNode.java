@@ -12,8 +12,9 @@ import vooga.rts.util.ReflectionHelper;
 * @author Wenshun Liu
 *
 */
-public class RangeUpgradeNode extends UpgradeNode {
-    public RangeUpgradeNode (UpgradeTree upgradeTree,
+public class SpeedUpgradeNode extends UpgradeNode {
+    
+	public SpeedUpgradeNode (UpgradeTree upgradeTree,
                              String upgradeType,
                              int upgradeValue,
                              int costedResourceAmount) {
@@ -26,8 +27,8 @@ public class RangeUpgradeNode extends UpgradeNode {
      */
     @Override
     public void upgrade (InteractiveEntity requester) {
-    	ReflectionHelper.changeValue("myRange",
-    			requester.getAttackStrategy().getCurrentWeapon(),
+    	ReflectionHelper.changeValue("mySpeed",
+    			requester,
     			getUpgradeValue());
     	
     }
