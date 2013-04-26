@@ -13,6 +13,7 @@ import java.util.Observer;
 import vooga.rts.commands.Command;
 import vooga.rts.commands.DragCommand;
 import vooga.rts.controller.Controller;
+import vooga.rts.gamedesign.factories.Factory;
 import vooga.rts.gamedesign.sprite.gamesprites.Projectile;
 import vooga.rts.gamedesign.sprite.gamesprites.Resource;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
@@ -57,9 +58,12 @@ public class GameState extends SubState implements Controller {
     private FrameCounter myFrames;
 
     private Rectangle2D myDrag;
+    private Factory myFactory;
 
     public GameState (Observer observer) {
         super(observer);
+        myFactory = new Factory();
+        myFactory.loadXMLFile("Factory.xml");
         myMap = new GameMap(new Dimension(4000, 2000), true);
         myPlayers = new PlayerManager();
         // myMap = new GameMap(8, new Dimension(512, 512));
@@ -118,24 +122,27 @@ public class GameState extends SubState implements Controller {
     public void setupGame () {
         getPlayers().addPlayer(1);
 
-        Unit worker =
-                new Unit(new Pixmap(ResourceManager.getInstance()
+        Unit worker =  (Unit) myFactory.getEntitiesMap().get("worker").copy();
+        worker.setWorldLocation(new Location3D(100, 100, 0));
+        worker.move(worker.getWorldLocation());
+                /**new Unit(new Pixmap(ResourceManager.getInstance()
                         .<BufferedImage> getFile("images/scv.gif", BufferedImage.class)),
                          new Location3D(100, 100, 0), new Dimension(75, 75), null, 1, 200, 40, 150);
-        worker.setGatherStrategy(new CanGather());
+        worker.setGatherStrategy(new CanGather());*/
         Information i1 =
                 new Information("Worker",
                                 "I am a worker. I am sent down from Denethor, son of Ecthelion ",
                                 null, "images/scv.png");
         worker.setInfo(i1);
         getPlayers().getHuman().add(worker);
-        Unit a = new Unit();
-        a.setAttackStrategy(new CanAttack(a.getWorldLocation(), a.getPlayerID()));
+       
+        Unit a = (Unit) myFactory.getEntitiesMap().get("combat").copy();
+        /**a.setAttackStrategy(new CanAttack(a.getWorldLocation(), a.getPlayerID()));
         Projectile proj =
                 new Projectile(new Pixmap(ResourceManager.getInstance()
                         .<BufferedImage> getFile("images/bullet.png", BufferedImage.class)),
                                a.getWorldLocation(), new Dimension(10, 10), 2, 10, 6, 800);
-        a.getAttackStrategy().addWeapon(new Weapon(proj, 400, a.getWorldLocation(), 1));
+        a.getAttackStrategy().addWeapon(new Weapon(proj, 400, a.getWorldLocation(), 1));*/
         Information i2 =
                 new Information("Marine", "I am a soldier of Nunu.", null, "buttons/marine.png");
 
@@ -144,12 +151,11 @@ public class GameState extends SubState implements Controller {
         
         getPlayers().addPlayer(2);
 
-        Unit c = new Unit();
+        Unit c = (Unit) myFactory.getEntitiesMap().get("combat").copy();
         c.setWorldLocation(new Location3D(1200, 500, 0));
         c.move(c.getWorldLocation());
-        c.setAttackStrategy(new CanAttack(c.getWorldLocation(), c.getPlayerID()));
+       // c.setAttackStrategy(new CanAttack(c.getWorldLocation(), c.getPlayerID()));
         c.setHealth(150);
-        // myHumanPlayer.add(c);
         getPlayers().getPlayer(1).add(c);
 
         Building b =
