@@ -199,7 +199,7 @@ public class Controller {
 //	        List<Rule> rules = new ArrayList<Rule>();
 	        
 	        System.out.println("setting model");
-	        myGameLoader.loadElements();
+	        myGameLoader.loadElements(map);
 	        myModel = new GameModel(this, map, new Shop(map));
                 myModel.setRules(myGameLoader.loadRules(myModel));
 	        myModel.setLevels(myGameLoader.loadLevels(myModel));

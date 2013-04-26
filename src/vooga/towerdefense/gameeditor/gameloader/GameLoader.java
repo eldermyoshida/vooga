@@ -41,9 +41,9 @@ public class GameLoader {
         return loader.makeView(controller);
     }
     
-    public void loadElements() {
+    public void loadElements(GameMap map) {
         GameElementXMLLoader loader = new GameElementXMLLoader(myXMLTool);
-        gameElements = loader.loadGameElementFactories();
+        gameElements = loader.loadGameElementFactories(map);
     }
     
     public List<Level> loadLevels(GameModel model) {

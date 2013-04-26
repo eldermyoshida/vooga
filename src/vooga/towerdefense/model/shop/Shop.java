@@ -41,7 +41,6 @@ public class Shop {
 		    //factory.initialize(map);
 		    if (factories.get(i).getType().equals("Tower")) {
 		        Location l = new Location(i * ShopItem.SHOP_ITEM_WIDTH + xC, yC);
-		        factories.get(i).initialize(map);
 		        myShopItems.add(new ShopItem(l, factories.get(i)));
 
 			xC += SHOP_SEPARATOR_WIDTH;
