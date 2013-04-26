@@ -15,6 +15,7 @@ import vooga.rts.gamedesign.sprite.gamesprites.GameSprite;
 import vooga.rts.gamedesign.sprite.gamesprites.Resource;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.IGatherable;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building;
 import vooga.rts.gamedesign.strategy.gatherstrategy.CanGather;
 import vooga.rts.gamedesign.strategy.gatherstrategy.CannotGather;
 import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
@@ -120,8 +121,12 @@ public class Unit extends InteractiveEntity {
 
     @Override
     public InteractiveEntity copy () {
-        return new Unit(getImage(), getWorldLocation(), getSize(), getSound(), getPlayerID(),
-                        getHealth(), getBuildTime(), getSpeed());
+    	Unit copyUnit = new Unit(getImage(), getWorldLocation(), getSize(), getSound(), getPlayerID(),
+                getHealth(), getBuildTime(), getSpeed());
+    	copyUnit.setInfo(this.getInfo());
+    	copyUnit.setActions(this.getActions());
+        return copyUnit;
+    	
     }
 
 	/**

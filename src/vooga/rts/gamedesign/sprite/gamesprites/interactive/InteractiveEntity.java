@@ -136,6 +136,14 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     public void removeAction (String command) {
         myActions.remove(command);
     }
+    
+    public Map<String, Action> getActions() {
+    	return myActions;
+    }
+    
+    public void setActions(Map<String, Action> actions) {
+    	myActions = actions;
+    }
 
     public abstract void addActions ();
     

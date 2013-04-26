@@ -60,8 +60,11 @@ public class Building extends InteractiveEntity {
 
     @Override
     public InteractiveEntity copy () {
-        return new Building(getImage(), getWorldLocation(), getSize(), getSound(), getPlayerID(),
-                            getHealth(), getBuildTime());
+        Building copyBuilding = new Building(getImage(), getWorldLocation(), getSize(), getSound(), getPlayerID(),
+                getHealth(), getBuildTime());
+    	copyBuilding.setInfo(this.getInfo());
+    	copyBuilding.setActions(this.getActions());
+        return copyBuilding;
     }
 
 
