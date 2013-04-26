@@ -179,6 +179,13 @@ public class EntityState {
 		return myAttackingState == AttackingState.ATTACKING;
 	}
 	
+	/**
+	 * Checks to see whether an entity has an attacking state other than
+	 * not attacking.
+	 * 
+	 * @return true if the entity state is either attacking or waiting and
+	 * false if the entity is not attacking
+	 */
 	public boolean isAttacking() {
 		return myAttackingState != AttackingState.NOT_ATTACKING;
 	}

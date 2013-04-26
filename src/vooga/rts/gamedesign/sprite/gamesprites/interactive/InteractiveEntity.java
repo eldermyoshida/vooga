@@ -197,10 +197,30 @@ public abstract class InteractiveEntity extends GameEntity implements
 		}
 	}
 
+	/**
+	 * Checks to see if an entity is in attack state and comes in range of
+	 * another entity.
+	 * 
+	 * @param attackable
+	 *            is an enemy entity
+	 * @param distance
+	 *            is the distance an enemy entity is away
+	 * @return true if the entity should stop and attack the enemy and false if
+	 *         it should not
+	 */
 	private boolean attackInRange(IAttackable attackable, double distance) {
-		return getEntityState().getUnitState() == UnitState.ATTACK && this.getAttackStrategy().getCurrentWeapon().inRange((InteractiveEntity) attackable, distance);
+		return getEntityState().getUnitState() == UnitState.ATTACK
+				&& this.getAttackStrategy().getCurrentWeapon()
+						.inRange((InteractiveEntity) attackable, distance);
 	}
 
+	/**
+	 * Calculates the distance that an enemy is away from this entity.
+	 * 
+	 * @param attackable
+	 *            is an enemy entity
+	 * @return the distance that the enemy is away
+	 */
 	private double distance(IAttackable attackable) {
 		return Math.sqrt(Math
 				.pow(getWorldLocation().getX()
@@ -551,7 +571,7 @@ public abstract class InteractiveEntity extends GameEntity implements
 		if (myPath != null) {
 			super.move(myPath.getNext());
 		}
-    
+
 	}
 
 	public void addWeapon(Weapon toAdd) {
