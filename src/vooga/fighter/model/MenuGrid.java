@@ -17,12 +17,10 @@ public class MenuGrid {
     private final static String UNSELECTED = "Unselected";
     private final static String SELECTED = "Selected";
     private List<MenuObject> myMenuObjects;
-    private MenuMode myDelegate;
     private MenuObject myCurrentMenuObject;
 
     public MenuGrid (String Id, MenuMode delegate, String filepath) {
-        myDelegate = delegate;
-        MenuGridLoader menuGrid = new MenuGridLoader(Id, this, delegate, filepath);
+        MenuGridLoader menuGrid = new MenuGridLoader(Id, delegate, filepath);
         myMenuObjects = menuGrid.getMenuObjects();
         myCurrentMenuObject = menuGrid.getFirstMenuObject();
         myCurrentMenuObject.setCurrentState(SELECTED);
