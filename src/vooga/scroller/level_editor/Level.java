@@ -1,5 +1,6 @@
 package vooga.scroller.level_editor;
 
+import games.scroller.mr_fish.sprites.player.MrFish;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -259,7 +260,7 @@ public class Level implements Renderable<GameView>, IGameComponent {
         ScrollingManager sm = new OmniScrollingManager();
         GameView display = new GameView(PlatformerConstants.DEFAULT_WINDOW_SIZE, sm);
         sm.initView(display);
-        Player sample = new Mario(new Location(), new Dimension(30, 32), display, sm);
+        Player sample = new MrFish(new Location(), display, sm);
         
         SplashPage sp = new TestSplashPage(display, myScrollingManager);
         

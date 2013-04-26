@@ -7,7 +7,7 @@ import vooga.scroller.sprites.Sprite;
 import vooga.scroller.sprites.state.SpriteState;
 import vooga.scroller.util.ISpriteView;
 
-public class SpriteMovement extends SpriteState {
+public class SpriteMovement extends SpriteState<Sprite> {
     
     private static final int PRIORITY = 0;
 
@@ -15,7 +15,8 @@ public class SpriteMovement extends SpriteState {
     private double myDirection;
     private double mySpeed;
     
-    public SpriteMovement(ISpriteView view, double direction, double speed){
+    public SpriteMovement(Sprite sprite, ISpriteView view, double direction, double speed){
+        super(sprite);
         myView = view;
         myDirection = direction;
         mySpeed = speed;
@@ -23,13 +24,13 @@ public class SpriteMovement extends SpriteState {
     
 
     @Override
-    public void update (Sprite sprite, double elapsedTime, Dimension bounds) {
+    public void update (double elapsedTime, Dimension bounds) {
         // does nothing special
     }
 
     @Override
-    public void paint (Sprite sprite, Graphics2D pen) {
-        myView.paint(pen, sprite.getCenter(), sprite.getSize());
+    public void paint (Graphics2D pen, double angle) {
+        myView.paint(pen, getUnit().getCenter(), getUnit().getSize(), angle);
     }
 
     @Override
@@ -38,19 +39,18 @@ public class SpriteMovement extends SpriteState {
     }
 
     @Override
-    public void activate (Sprite sprite) {
-        Vector component = sprite.getVelocity().getComponentVector(myDirection);
+    public void activate () {
+        Vector component = getUnit().getVelocity().getComponentVector(myDirection);
         component.negate();
-        sprite.addVector(component);
-        sprite.addVector(new Vector(myDirection, mySpeed));
-
+        getUnit().addVector(component);
+        getUnit().addVector(new Vector(myDirection, mySpeed));
     }
 
     @Override
-    public void deactivate (Sprite sprite) {
-        Vector component = sprite.getVelocity().getComponentVector(myDirection);
+    public void deactivate () {
+        Vector component = getUnit().getVelocity().getComponentVector(myDirection);
         component.negate();
-        sprite.addVector(component);
+        getUnit().addVector(component);
 
     }
 

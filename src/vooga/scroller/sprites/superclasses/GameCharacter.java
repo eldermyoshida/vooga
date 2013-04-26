@@ -5,6 +5,7 @@ import util.Location;
 import util.Vector;
 import vooga.scroller.sprites.Sprite;
 import vooga.scroller.sprites.interfaces.Locatable;
+import vooga.scroller.sprites.state.SpriteStateManager;
 import vooga.scroller.util.ISpriteView;
 
 /**
@@ -27,6 +28,7 @@ public abstract class GameCharacter extends Sprite {
     private int myHealth;
     private int myDamage;
     private Locatable myTarget;
+
     
     /**
      * Builds a new GameCharacter that interacts with other game characters in the game.

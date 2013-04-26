@@ -42,6 +42,7 @@ public class Sprite {
 
     
     private SpriteStateManager myStateManager;
+    //private double myAngle;
     
     /**
      * Create a shape at the given position, with the given size. This is the constructor that StaticEntities call. 
@@ -56,6 +57,8 @@ public class Sprite {
      */
     public Sprite (ISpriteView image, Location center, Dimension size, Vector velocity) {
         // make copies just to be sure no one else has access
+        
+        //myAngle = 0;
         
         mySize = size;
         myOriginalView = image;
@@ -390,5 +393,32 @@ public class Sprite {
         myLastLocation2 = new Location(myLastLocation.x, myLastLocation.y);
         myLastLocation = new Location(myCenter.x, myCenter.y); 
     }
+    
+//    public void rotate(double angle){
+//        myAngle += angle;
+//        
+//        normalizeAngle();
+//    }
+//    
+//    public void setAngle(double angle){
+//        myAngle = angle;
+//        normalizeAngle();
+//
+//    }
+//    
+//    public double getAngle(){
+//        return myAngle;
+//    }
+//    
+//    private void normalizeAngle(){
+//        while(myAngle > 360 | myAngle < 0){
+//            if(myAngle > 360){
+//                myAngle = myAngle%360;
+//            }
+//            if(myAngle < 0){
+//                myAngle += 360;
+//            }
+//        }
+//    }
 }
 

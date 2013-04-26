@@ -74,8 +74,8 @@ public class Mario extends Player implements IInputListener{
      * Initialize all  possible states, including movement for mario.
      */
     private void intializeStates () {
-        this.addPossibleState(MoveLeft.STATE_ID, new MoveLeft(MOVE_LEFT, STAND_LEFT, SPEED));
-        this.addPossibleState(MoveRight.STATE_ID, new MoveRight(MOVE_RIGHT, STAND_RIGHT, SPEED));
+        this.addPossibleState(MoveLeft.STATE_ID, new MoveLeft(this, MOVE_LEFT, STAND_LEFT, SPEED));
+        this.addPossibleState(MoveRight.STATE_ID, new MoveRight(this, MOVE_RIGHT, STAND_RIGHT, SPEED));
     }
 
     @Override

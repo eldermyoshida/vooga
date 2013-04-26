@@ -13,7 +13,6 @@ import vooga.scroller.model.ScrollerGame;
 import vooga.scroller.scrollingmanager.OmniScrollingManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.superclasses.Player;
-import vooga.scroller.util.Pixmap;
 import vooga.scroller.view.GameView;
 
 
