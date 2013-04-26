@@ -406,7 +406,7 @@ public abstract class InteractiveEntity extends GameEntity implements
 		if (other instanceof Building) {
 			getEntityState().setUnitState(UnitState.OCCUPY);
 		}
-
+		getEntityState().setUnitState(UnitState.NOTHING);
 		move(other.getWorldLocation());
 	}
 
