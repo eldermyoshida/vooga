@@ -85,6 +85,10 @@ public class GameElementEditorScreen extends ElementWithActionEditorScreen {
      */
     private JTextField myImageBox;
     /**
+     * box to enter the dimension of the game element.
+     */
+    private JTextField myDimensionBox;
+    /**
      * button add a new type of game element.
      */
     private JButton myAddTypeButton;
@@ -120,7 +124,12 @@ public class GameElementEditorScreen extends ElementWithActionEditorScreen {
     
     @Override
     public void makeScreen() {
-        super.makeScreen();        
+        super.makeScreen();
+        JPanel dimensionPanel = new JPanel(new BorderLayout());
+        dimensionPanel.add(new JLabel("Dimension: "), BorderLayout.WEST);
+        myDimensionBox = new JTextField(TEXT_AREA_WIDTH);
+        dimensionPanel.add(myDimensionBox, BorderLayout.EAST);
+        add(dimensionPanel, BorderLayout.NORTH);
         add(myAttributesSection, BorderLayout.NORTH);
         JPanel typePanel = new JPanel(new BorderLayout());
         typePanel.add(new JLabel("Type: "), BorderLayout.NORTH);
@@ -148,6 +157,7 @@ public class GameElementEditorScreen extends ElementWithActionEditorScreen {
     public void clearScreen() {
         super.clearScreen();
         myImageBox.setText("");
+        myDimensionBox.setText("");
         getAttributesSection().setText("");
     }
 
@@ -156,7 +166,7 @@ public class GameElementEditorScreen extends ElementWithActionEditorScreen {
      */
     public void addElementToGame() {
         getController().addGameElementToGame(myTypeBox.getSelectedItem().toString(), getName(),
-                                         myImageBox.getText(),
+                                         myImageBox.getText(), myDimensionBox.getText(),
                                          getAttributes(),
                                          getActions());
     }

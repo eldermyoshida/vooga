@@ -180,7 +180,7 @@ public class GameEditorController extends JFrame {
      */
     public void addGameElementToGame (String type,
                                       String name,
-                                      String path,
+                                      String path, String dimension,
                                       Map<String, String> attributes,
                                       String actions) {
         if (type.equals(UNIT_INDICATOR)) {
@@ -271,11 +271,8 @@ public class GameEditorController extends JFrame {
                 if (!characteristics[0].equals("")) {
                     Element screen = myXMLDoc.makeElement(characteristics[0]);
                     myXMLDoc.addChild(myViewParent, screen);
-                    String noComma =
-                            characteristics[1].substring(0, characteristics[1].length() - 1);
-                    myXMLDoc.addChild(screen, WIDTH_TAG, noComma);
-                    myXMLDoc.addChild(screen, HEIGHT_TAG, characteristics[2]);
-                    myXMLDoc.addChild(screen, SCREEN_LOCATION_TAG, characteristics[3]);
+                    myXMLDoc.addChild(screen, DIMENSION_TAG, characteristics[1]);
+                    myXMLDoc.addChild(screen, SCREEN_LOCATION_TAG, characteristics[2]);
                     if (characteristics[0].equals("MultipleScreenPanel")) {
                         for (Map.Entry<String, List<String>> entry : map.entrySet()) {
                             if (entry.getKey().equals(characteristics[3])) {
@@ -283,8 +280,7 @@ public class GameEditorController extends JFrame {
                                     String[] values = str.split(" ");
                                     Element screen2 = myXMLDoc.makeElement(values[1]);
                                     myXMLDoc.addChild(screen, screen2);
-                                    myXMLDoc.addChild(screen2, WIDTH_TAG, values[2]);
-                                    myXMLDoc.addChild(screen2, HEIGHT_TAG, values[3]);
+                                    myXMLDoc.addChild(screen2, DIMENSION_TAG, values[2]);
                                     myXMLDoc.addChild(screen2, SCREEN_LOCATION_TAG, values[0]);
                                 }
                             }

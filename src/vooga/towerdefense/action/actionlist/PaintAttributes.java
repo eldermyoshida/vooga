@@ -16,6 +16,7 @@ import vooga.towerdefense.gameElements.GameElement;
  * @author Matthew Roy
  * 
  */
+@Deprecated //struggling whether it's a bad idea for an action to has a pen.
 public class PaintAttributes extends Action {
 
     private Graphics2D myPen;
