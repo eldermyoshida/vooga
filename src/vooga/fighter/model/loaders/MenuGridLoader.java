@@ -16,9 +16,7 @@ import vooga.fighter.model.utils.UpdatableLocation;
 /**
  * Loads the resources necessary for Menu layouts and item selection. Reads the data from the file designated
  * in the path ModelConstants.MENUGRIDLOADER_PATH_TAG.
- * 
  * @author Jack Matteucci, David Le
- *
  */
 public class MenuGridLoader extends ObjectLoader {
 
@@ -37,9 +35,8 @@ public class MenuGridLoader extends ObjectLoader {
      * Constructs the MenuGridLoader and initializes instance variables, sets the correct
      * data path, and begins loading process.
      * @param menuname Menu layout to be loaded
-     * @param grid 
-     * @param delegate
-     * @param pathHierarchy
+     * @param delegate Delegate to send info to
+     * @param pathHierarchy The path to the folder containing the game's resources
      */
     public MenuGridLoader (String menuname, MenuMode delegate, String pathHierarchy) {
         super(ModelConstants.MENUGRIDLOADER_PATH_TAG, pathHierarchy);
@@ -100,10 +97,18 @@ public class MenuGridLoader extends ObjectLoader {
 
     }
 
+    /**
+     * Returns the list of menu objects contained in this menu grid.
+     * @return myMenuObjects list of menu objects
+     */
     public List<MenuObject> getMenuObjects () {
         return myMenuObjects;
     }
 
+    /**
+     * Returns first menu object in this menu grid.
+     * @return myObject first object
+     */
     public MenuObject getFirstMenuObject () {
         return myObject;
     }
