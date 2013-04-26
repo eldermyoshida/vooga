@@ -27,7 +27,7 @@ import vooga.towerdefense.factories.waveactionfactories.WaveActionFactory;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.gameElements.Wave;
 import vooga.towerdefense.gameeditor.gameloader.GameLoader;
-import vooga.towerdefense.gameeditor.gameloader.MapLoader;
+import vooga.towerdefense.gameeditor.gameloader.MapXMLLoader;
 import vooga.towerdefense.gameeditor.gameloader.ViewXMLLoader;
 import vooga.towerdefense.model.GameLoop;
 import vooga.towerdefense.model.GameMap;

@@ -4,7 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import util.XMLTool;
 import vooga.towerdefense.controller.Controller;
-import vooga.towerdefense.gameeditor.gameloader.MapLoader;
+import vooga.towerdefense.gameeditor.gameloader.MapXMLLoader;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.GameModel;
 import vooga.towerdefense.model.levels.Level;
@@ -26,7 +26,7 @@ public class GameLoader {
     }
     
     public List<GameMap> loadMaps() {
-        MapLoader mapLoader = new MapLoader(myXMLTool);
+        MapXMLLoader mapLoader = new MapXMLLoader(myXMLTool);
         List<GameMap> maps = mapLoader.loadMaps();
         return maps;
     }
