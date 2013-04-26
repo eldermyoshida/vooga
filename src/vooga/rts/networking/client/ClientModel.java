@@ -186,7 +186,7 @@ public class ClientModel extends Observable implements IClientModel, IModel {
      * 
      * @param id ID of the lobby to join
      */
-    private void requestJoinLobby (int id) {
+    public void requestJoinLobby (int id) {
         myClient.sendData(new JoinLobbyMessage(id));
     }
 
@@ -195,14 +195,14 @@ public class ClientModel extends Observable implements IClientModel, IModel {
      * 
      * @param lobbyInfo Lobby containing information to host a game
      */
-    private void startLobby (LobbyInfo lobbyInfo) {
+    public void startLobby (LobbyInfo lobbyInfo) {
         myClient.sendData(new StartLobbyMessage(lobbyInfo));
     }
 
     /**
      * Request to initiate the game in this lobby
      */
-    private void requestStartGame () {
+    public void requestStartGame () {
         myClient.sendData(new RequestStartGameMessage());
     }
 
@@ -268,5 +268,9 @@ public class ClientModel extends Observable implements IClientModel, IModel {
     @Override
     public void startGame () {
         myGame.startGame(myClient);
+    }
+    
+    public ExpandedLobbyInfo getLobbyInfo() {
+        return myLobbyInfo;
     }
 }

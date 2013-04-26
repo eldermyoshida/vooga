@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import vooga.rts.networking.NetworkBundle;
+import vooga.rts.networking.client.ClientModel;
 import vooga.rts.networking.client.IClientModel;
 import vooga.rts.networking.communications.ExpandedLobbyInfo;
 import vooga.rts.networking.communications.clientmessages.LeaveLobbyMessage;
@@ -16,12 +17,14 @@ public class ClientViewAdapter {
     private LobbyView myLobbyView;
     private ServerBrowserTableAdapter myServerBrowserAdapter = new ServerBrowserTableAdapter();
     private List<String> myFactions;
-    private IModel myClientModel;
+    private ClientModel myClientModel;
+    private ExpandedLobbyInfo myLobbyInfo;
 
     public ClientViewAdapter (IModel model,
                               String gameName, List<String> factions, List<String> maps,
                               List<Integer> maxPlayerArray) {
-        myClientModel = model;
+        myClientModel = (ClientModel) model;
+        myLobbyInfo = myClientModel.getLobbyInfo();
         myFactions = factions;
         myContainerPanel = new ViewContainerPanel(gameName);
         myServerBrowserView = new TableContainerView(myServerBrowserAdapter);
@@ -42,7 +45,7 @@ public class ClientViewAdapter {
                                                @Override
                                                public void actionPerformed (ActionEvent arg0) {
                                                    if (myServerBrowserView.hasSelectedRow()) {
-                                                       requestJoinLobby(myServerBrowserAdapter
+                                                       myClientModel.requestJoinLobby(myServerBrowserAdapter
                                                                .getIdOfRow(myServerBrowserView
                                                                        .getSelectedRow()));
                                                    }
@@ -67,7 +70,7 @@ public class ClientViewAdapter {
                                                @Override
                                                public void actionPerformed (ActionEvent arg0) {
                                                    if (myCreateLobbyView.allItemsChosen()) {
-                                                       startLobby(myCreateLobbyView.getLobbyInfo());
+                                                       myClientModel.startLobby(myCreateLobbyView.getLobbyInfo());
                                                    }
                                                }
                                            });
@@ -84,7 +87,7 @@ public class ClientViewAdapter {
                                           new ActionListener() {
                                               @Override
                                               public void actionPerformed (ActionEvent arg0) {
-                                                  myLobbyInfo.removePlayer(myUserControlledPlayers
+                                                  lobbyInfo.removePlayer(myUserControlledPlayers
                                                           .get(0));
                                                   myClient.sendData(new LeaveLobbyMessage(
                                                                                           myLobbyInfo));
