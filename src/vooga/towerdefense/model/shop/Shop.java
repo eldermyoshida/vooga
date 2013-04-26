@@ -5,10 +5,10 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
-import vooga.towerdefense.factories.GameElementFactory;
-import vooga.towerdefense.factories.examples.ExampleAuraTowerFactory;
+import vooga.towerdefense.factories.definitions.DefinitionConstants;
+import vooga.towerdefense.factories.elementfactories.GameElementFactory;
 import vooga.towerdefense.model.GameMap;
-import vooga.towerdefense.util.Location;
+import util.Location;
 
 /**
  * The Shop is a container for a list of ShopItems that can be purchased by the
@@ -36,8 +36,8 @@ public class Shop {
 		int yC = 10;
 		for (int i = 0; i < NUM_SHOP_ITEMS; ++i) {
 			// TODO: replace this with parsed file input
-			GameElementFactory factory = new ExampleAuraTowerFactory(map,
-					"Tree of Doom", null);
+			GameElementFactory factory = new GameElementFactory(DefinitionConstants.DEFAULT_TOWER_NAME, 
+					DefinitionConstants.DEFAULT_TOWER_IMAGE);
 			factory.initialize(map);
 			Location l = new Location(i * ShopItem.SHOP_ITEM_WIDTH + xC, yC);
 			myShopItems.add(new ShopItem(l, factory));

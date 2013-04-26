@@ -3,8 +3,10 @@ package vooga.towerdefense.view.gamescreens;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import javax.swing.JButton;
 import javax.swing.JPanel;
+
 import vooga.towerdefense.controller.Controller;
 
 
@@ -62,7 +64,7 @@ public class NextWaveScreen extends JPanel {
             @Override
             public void mouseClicked (MouseEvent e) {
                 if (e.getSource().equals(nextWaveButton)) {
-                    myController.startNextWave();
+                    myController.startNextLevel();
                 }
             }
         };

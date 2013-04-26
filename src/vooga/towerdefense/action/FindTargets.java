@@ -10,12 +10,14 @@ import vooga.towerdefense.util.Location;
 
 
 /**
+ * Finds targets in area, passes information on to follow up actions. 
+ * Only action class that holds the game map. 
  * 
  * @author Matthew Roy
  * @author Xu Rui
  * @author Zhen Gou
  */
-public class FindTargets extends Action {
+public class FindTargets extends TargetedAction {
 
     private Attribute myScanningRadius;
     private Location mySource;
@@ -39,13 +41,6 @@ public class FindTargets extends Action {
                 setTargets(newTargets);
             }
         }
-        
-    }
-
-    public void updateFollowupActions (double elapsedTime) {
-        for (Action a : getFollowUpActions()) {
-            a.setTargets(getTargets());
-            a.update(elapsedTime);
-        }
+        updateTargetedFollowUpActions(getTargets());
     }
 }

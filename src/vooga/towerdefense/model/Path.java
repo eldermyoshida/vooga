@@ -3,7 +3,7 @@ package vooga.towerdefense.model;
 import java.util.Iterator;
 import java.util.List;
 
-import vooga.towerdefense.util.Location;
+import util.Location;
 
 /**
  * Used to help units move through the map, a Path is a list of points that a
