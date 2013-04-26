@@ -40,26 +40,26 @@ public class ClientModel extends Observable implements IClientModel, IModel {
 
     private IClient myClient;
     private String myUserName;
-//    private ViewContainerPanel myContainerPanel;
-//    private TableContainerView myServerBrowserView;
-//    private CreateLobbyView myCreateLobbyView;
+    // private ViewContainerPanel myContainerPanel;
+    // private TableContainerView myServerBrowserView;
+    // private CreateLobbyView myCreateLobbyView;
     private ExpandedLobbyInfo myLobbyInfo;
-    //private LobbyView myLobbyView;
-    //private List<String> myFactions;
+    // private LobbyView myLobbyView;
+    // private List<String> myFactions;
     private List<PlayerInfo> myUserControlledPlayers = new ArrayList<PlayerInfo>();
     private PlayerInfo myPlayer;
-    //private ServerBrowserTableAdapter myServerBrowserAdapter = new ServerBrowserTableAdapter();
+    // private ServerBrowserTableAdapter myServerBrowserAdapter = new ServerBrowserTableAdapter();
     private NetworkedGame myGame;
 
     /**
      * This is the handler of information needed by all of the views in the process of connecting to
      * / creating a server, creating a game, waiting in a lobby.
      * 
-     * @param gameName 
-     * @param userName 
-     * @param factions 
-     * @param maps 
-     * @param maxPlayerArray 
+     * @param gameName
+     * @param userName
+     * @param factions
+     * @param maps
+     * @param maxPlayerArray
      */
     public ClientModel (NetworkedGame game,
                         String gameName,
@@ -69,10 +69,10 @@ public class ClientModel extends Observable implements IClientModel, IModel {
                         List<Integer> maxPlayerArray) {
         myGame = game;
         myUserName = userName;
-//        myFactions = factions;
-//        myContainerPanel = new ViewContainerPanel(gameName);
-//        myServerBrowserView = new TableContainerView(myServerBrowserAdapter);
-//        myCreateLobbyView = new CreateLobbyView(maps, maxPlayerArray);
+        // myFactions = factions;
+        // myContainerPanel = new ViewContainerPanel(gameName);
+        // myServerBrowserView = new TableContainerView(myServerBrowserAdapter);
+        // myCreateLobbyView = new CreateLobbyView(maps, maxPlayerArray);
         myClient = new Client(this);
         Message initialConnection = new InitialConnectionMessage(gameName, userName);
         myClient.sendData(initialConnection);
@@ -96,79 +96,82 @@ public class ClientModel extends Observable implements IClientModel, IModel {
      */
     private void switchToServerBrowserView () {
         requestLobbies();
-//        myContainerPanel.changeView(myServerBrowserView, NetworkBundle.getString("ServerBrowser"));
-//        myContainerPanel.changeLeftButton(NetworkBundle.getString("HostGame"),
-//                                          new ActionListener() {
-//                                              @Override
-//                                              public void actionPerformed (ActionEvent arg0) {
-//                                                  switchToCreateLobbyView();
-//                                              }
-//                                          });
-//        myContainerPanel.changeRightButton(NetworkBundle.getString("JoinGame"),
-//                                           new ActionListener() {
-//                                               @Override
-//                                               public void actionPerformed (ActionEvent arg0) {
-//                                                   if (myServerBrowserView.hasSelectedRow()) {
-//                                                       requestJoinLobby(myServerBrowserAdapter
-//                                                               .getIdOfRow(myServerBrowserView
-//                                                                       .getSelectedRow()));
-//                                                   }
-//                                               }
-//                                           });
+        // myContainerPanel.changeView(myServerBrowserView,
+        // NetworkBundle.getString("ServerBrowser"));
+        // myContainerPanel.changeLeftButton(NetworkBundle.getString("HostGame"),
+        // new ActionListener() {
+        // @Override
+        // public void actionPerformed (ActionEvent arg0) {
+        // switchToCreateLobbyView();
+        // }
+        // });
+        // myContainerPanel.changeRightButton(NetworkBundle.getString("JoinGame"),
+        // new ActionListener() {
+        // @Override
+        // public void actionPerformed (ActionEvent arg0) {
+        // if (myServerBrowserView.hasSelectedRow()) {
+        // requestJoinLobby(myServerBrowserAdapter
+        // .getIdOfRow(myServerBrowserView
+        // .getSelectedRow()));
+        // }
+        // }
+        // });
     }
 
     /**
      * Switches the current View to the LobbyCreatorScreen.
      */
     private void switchToCreateLobbyView () {
-//        myContainerPanel.changeView(myCreateLobbyView, NetworkBundle.getString("LobbyCreation"));
-//        myContainerPanel.changeLeftButton(NetworkBundle.getString("BackToBrowser"),
-//                                          new ActionListener() {
-//                                              @Override
-//                                              public void actionPerformed (ActionEvent arg0) {
-//                                                  switchToServerBrowserView();
-//                                              }
-//                                          });
-//        myContainerPanel.changeRightButton(NetworkBundle.getString("StartLobby"),
-//                                           new ActionListener() {
-//                                               @Override
-//                                               public void actionPerformed (ActionEvent arg0) {
-//                                                   if (myCreateLobbyView.allItemsChosen()) {
-//                                                       startLobby(myCreateLobbyView.getLobbyInfo());
-//                                                   }
-//                                               }
-//                                           });
+        // myContainerPanel.changeView(myCreateLobbyView, NetworkBundle.getString("LobbyCreation"));
+        // myContainerPanel.changeLeftButton(NetworkBundle.getString("BackToBrowser"),
+        // new ActionListener() {
+        // @Override
+        // public void actionPerformed (ActionEvent arg0) {
+        // switchToServerBrowserView();
+        // }
+        // });
+        // myContainerPanel.changeRightButton(NetworkBundle.getString("StartLobby"),
+        // new ActionListener() {
+        // @Override
+        // public void actionPerformed (ActionEvent arg0) {
+        // if (myCreateLobbyView.allItemsChosen()) {
+        // startLobby(myCreateLobbyView.getLobbyInfo());
+        // }
+        // }
+        // });
     }
 
     /**
      * Switches the current view to the Lobby.
      */
     private void switchToLobbyView (ExpandedLobbyInfo lobbyInfo) {
-//        myLobbyView = new LobbyView(this, myFactions, lobbyInfo.getMaxPlayers());
-//        updateLobby(lobbyInfo);
-//        sendUpdatedLobbyInfo();
-//
-//        myContainerPanel.changeView(myLobbyView, NetworkBundle.getString("LobbyCreation"));
-//        myContainerPanel.changeLeftButton(NetworkBundle.getString("LeaveLobby"),
-//                                          new ActionListener() {
-//                                              @Override
-//                                              public void actionPerformed (ActionEvent arg0) {
-//                                                  myLobbyInfo.removePlayer(myUserControlledPlayers
-//                                                          .get(0));
-//                                                  myClient.sendData(new LeaveLobbyMessage(
-//                                                                                          myLobbyInfo));
-//                                                  switchToServerBrowserView();
-//                                              }
-//                                          });
-//        myContainerPanel.changeRightButton(NetworkBundle.getString("StartLobby"),
-//                                           new ActionListener() {
-//                                               @Override
-//                                               public void actionPerformed (ActionEvent arg0) {
-//                                                   if (myLobbyInfo.canStartGame()) {
-//                                                       requestStartGame();
-//                                                   }
-//                                               }
-//                                           });
+        updateLobby(lobbyInfo);
+        sendUpdatedLobbyInfo();
+        // myLobbyView = new LobbyView(this, myFactions, lobbyInfo.getMaxPlayers());
+        // updateLobby(lobbyInfo);
+        // sendUpdatedLobbyInfo();
+        //
+        // myContainerPanel.changeView(myLobbyView, NetworkBundle.getString("LobbyCreation"));
+        // myContainerPanel.changeLeftButton(NetworkBundle.getString("LeaveLobby"),
+        // new ActionListener() {
+        // @Override
+        // public void actionPerformed (ActionEvent arg0) {
+        // myLobbyInfo.removePlayer(myUserControlledPlayers
+        // .get(0));
+        // myClient.sendData(new LeaveLobbyMessage(
+        // myLobbyInfo));
+        // switchToServerBrowserView();
+        // }
+        // });
+        // myContainerPanel.changeRightButton(NetworkBundle.getString("StartLobby"),
+        // new ActionListener() {
+        // @Override
+        // public void actionPerformed (ActionEvent arg0) {
+        // if (myLobbyInfo.canStartGame()) {
+        // requestStartGame();
+        // }
+        // }
+        // });
     }
 
     /**
@@ -254,7 +257,6 @@ public class ClientModel extends Observable implements IClientModel, IModel {
     @Override
     public void alertClient (String title, String message) {
         myContainerPanel.showMessageDialog(title, message);
-
     }
 
     @Override
