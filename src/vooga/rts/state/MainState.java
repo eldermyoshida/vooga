@@ -9,9 +9,9 @@ import java.util.Queue;
 import java.util.Timer;
 import java.util.TimerTask;
 import util.input.Input;
-import vooga.rts.Game;
 import vooga.rts.commands.Command;
 import vooga.rts.controller.InputController;
+import vooga.rts.game.RTSGame;
 import vooga.rts.gui.Window;
 import vooga.rts.gui.menus.MultiMenu;
 
@@ -67,7 +67,7 @@ public class MainState implements State, Observer {
                 lastNano = curNano;
 
             }
-        }, 500, (long) (Game.TIME_PER_FRAME() * 1000));
+        }, 500, (long) (RTSGame.TIME_PER_FRAME() * 1000));
         myReady = true;
     }
 
