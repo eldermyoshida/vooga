@@ -12,16 +12,35 @@ import vooga.fighter.model.ModelConstants;
 import vooga.fighter.model.objects.MouseObject;
 import vooga.fighter.model.utils.State;
 
+/**
+ * Loads the resources necessary for MouseObjects. Reads the data from the file designated
+ * in the path ModelConstants.MOUSELOADER_PATH_TAG.
+ * @author David Le, Alan Ni
+ */
 public class MouseLoader extends ObjectLoader {
 
+	/**
+	 * MouseObject to be modified by this loader.
+	 */
 	MouseObject myMouse;
 	
-	public MouseLoader(MouseObject Mouse, String pathHierarchy) {
+	/**
+	 * Constructs the MouseLoader and sets the reference to the mouse object and points to
+	 * the data xml file.
+	 * @param mouse MouseObject to modify
+	 * @param pathHierarchy The path to the folder containing the game's resources
+	 */
+	public MouseLoader(MouseObject mouse, String pathHierarchy) {
 		super(ModelConstants.MOUSELOADER_PATH_TAG, pathHierarchy);
-		myMouse = Mouse;
+		myMouse = mouse;
 		load(ModelConstants.MOUSELOADER_PATH_TAG, pathHierarchy);
 	}
 
+	/**
+	 * Loads resources for the appropriate MouseObject matched by the param mouse
+	 * @param mouse Name tag of the mouse to be loaded in the xml file
+	 * @param pathHierarchy The path to the folder containing the game's resources
+	 */
 	protected void load(String mouse, String pathHierarchy) {
 		Document doc = getDocument();
 		NodeList menuNodes = doc.getElementsByTagName(getResourceBundle().getString("MouseObject"));
