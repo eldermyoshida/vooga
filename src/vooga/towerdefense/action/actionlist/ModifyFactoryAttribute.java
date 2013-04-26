@@ -15,6 +15,7 @@ import vooga.towerdefense.attributes.Attribute;
  * @author Matthew Roy
  * 
  */
+@Deprecated //because not implemented correctly
 public class ModifyFactoryAttribute extends TargetedAction {
 
 	Attribute myTargetAttribute;
