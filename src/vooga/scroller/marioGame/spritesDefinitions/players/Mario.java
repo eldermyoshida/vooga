@@ -3,7 +3,6 @@ package vooga.scroller.marioGame.spritesDefinitions.players;
 import java.awt.Dimension;
 import util.Location;
 import util.Vector;
-import util.input.AlertObject;
 import util.input.InputClassTarget;
 import util.input.InputMethodTarget;
 import vooga.scroller.level_management.IInputListener;
@@ -27,8 +26,7 @@ public class Mario extends Player implements IInputListener{
    
     
     private static final int MAX_JUMPS = 2;
-    private static final int MAX_HORIZONTAL_SPEED = 5;
-    private static final Pixmap DEFAULT_IMAGE = MarioLib.makePixmap("llama_stand_right.gif");
+    private static final Pixmap DEFAULT_IMAGE = MarioLib.makePixmap("mario_stand_right.gif");
 //    private static final int DEATH_PENALTY = 1000;
 
 
@@ -41,19 +39,19 @@ public class Mario extends Player implements IInputListener{
     private static final double MAX_SPEED = 300;
 
 
-    private static final ISpriteView MOVE_LEFT = MarioLib.makePixmap("llama_move_left.gif");
+    private static final ISpriteView MOVE_LEFT = MarioLib.makePixmap("mario_move_left.gif");
 
 
-    private static final ISpriteView STAND_LEFT = MarioLib.makePixmap("llama_stand_left.gif");
+    private static final ISpriteView STAND_LEFT = MarioLib.makePixmap("mario_stand_left.gif");
 
 
     private static final double SPEED = 100;
 
 
-    private static final ISpriteView MOVE_RIGHT = MarioLib.makePixmap("llama_move_right.gif");
+    private static final ISpriteView MOVE_RIGHT = MarioLib.makePixmap("mario_move_right.gif");
 
 
-    private static final ISpriteView STAND_RIGHT = MarioLib.makePixmap("llama_stand_right.gif");
+    private static final ISpriteView STAND_RIGHT = MarioLib.makePixmap("mario_stand_right.gif");
 
    
     private int myJumpCount;
