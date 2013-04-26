@@ -1,4 +1,6 @@
-package vooga.scroller.sprites.interfaces;
+package vooga.scroller.marioGame.interfaces;
+
+import vooga.scroller.sprites.interfaces.Locatable;
 
 
 /**

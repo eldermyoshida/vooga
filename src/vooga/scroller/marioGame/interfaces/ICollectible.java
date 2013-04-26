@@ -1,4 +1,6 @@
-package vooga.scroller.sprites.interfaces;
+package vooga.scroller.marioGame.interfaces;
+
+import vooga.scroller.sprites.interfaces.Locatable;
 
 /**
  * This interface should be implemented by any Sprites that are collectible by the player. 

@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 import util.input.Input;
 import vooga.scroller.scrollingmanager.ScrollingManager;
-import vooga.scroller.sprites.interfaces.IDoor;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.IGameComponent;
 import vooga.scroller.view.GameView;
 import vooga.scroller.level_editor.Level;
 import vooga.scroller.level_management.splash_page.SplashPage;
+import vooga.scroller.marioGame.interfaces.IDoor;
 
 /**
  * Manages the flow and order of levels in gameplay.

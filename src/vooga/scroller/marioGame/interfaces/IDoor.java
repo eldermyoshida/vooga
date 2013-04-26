@@ -1,4 +1,4 @@
-package vooga.scroller.sprites.interfaces;
+package vooga.scroller.marioGame.interfaces;
 
 import vooga.scroller.level_management.LevelManager;
 import vooga.scroller.sprites.superclasses.Player;
