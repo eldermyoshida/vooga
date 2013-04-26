@@ -123,7 +123,7 @@ public class EditableTile extends Tile {
         
     /**
      * return the id of tile
-     * @return
+     * @return int
      */
     public int getMyID() {
         return myID;
@@ -131,7 +131,7 @@ public class EditableTile extends Tile {
     
     /**
      * get the image name of tile
-     * @return
+     * @return String
      */
     public String getMyImageName() {
         return myImageName;
@@ -139,7 +139,7 @@ public class EditableTile extends Tile {
     
     /**
      * get the name of that image
-     * @return
+     * @return String
      */
     public String getMyName() {
         return myName;
