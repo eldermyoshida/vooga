@@ -254,7 +254,7 @@ public class ClientModel extends Observable implements IClientModel, IModel {
 
     @Override
     public void switchToLobby (ExpandedLobbyInfo lobbyInfo, int playerID) {
-        myPlayer = new PlayerInfo(myUserName, 1, myFactions.get(0), playerID);
+        myPlayer = new PlayerInfo(myUserName, 1, myViewAdapter.getFactions().get(0), playerID);
         myUserControlledPlayers.clear();
         myUserControlledPlayers.add(myPlayer);
         lobbyInfo.addPlayer(myPlayer);

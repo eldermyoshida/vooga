@@ -127,4 +127,8 @@ public class ClientViewAdapter {
     public void alertClient (String title, String message) {
         myContainerPanel.showMessageDialog(title, message);
     }
+    
+    public List<String> getFactions() {
+        return myFactions;
+    }
 }
