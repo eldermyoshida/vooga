@@ -39,6 +39,7 @@ public class GameElementFactory {
     private GameMap myMap;
 
     private Pixmap myImage;
+    private String myType;
     private Dimension mySize;
     private AttributeManagerFactory myAttributeManagerFactory;
 
@@ -52,16 +53,26 @@ public class GameElementFactory {
      * @param attrManager
      */
 
-    public GameElementFactory (String name,
+    public GameElementFactory (String name, String type, 
                                Pixmap image,Dimension size,
                                AttributeManagerFactory attrManager, List<ActionFactory> myActions) {
         myName = name;
+        myType = type;
         myImage = image;
         mySize = size;
         myAttributeManagerFactory = attrManager;
         myActions = new ArrayList<ActionFactory>();
     }
-@Deprecated
+    
+    /**
+     * returns the type of this factory.
+     * @return a string representing the type
+     */
+    public String getType() {
+        return myType;
+    }
+    
+    @Deprecated
     public GameElementFactory (String name, Pixmap image){
         myName = name;
         myImage = image;
@@ -70,8 +81,8 @@ public class GameElementFactory {
         
     }
     @Deprecated
-    public GameElementFactory (String name, GameElementDefinition definition) {
-        this(name, definition.getImage(),definition.getSize(), definition
+    public GameElementFactory (String name, String type, GameElementDefinition definition) {
+        this(name, type, definition.getImage(),definition.getSize(), definition
                 .getAttributeManagerFactory(), definition.getActions());
         myName = name;
         myDef = definition;
