@@ -41,8 +41,7 @@ public class ShapeMeasurements {
 	public Location getArbitraryShapeCenter(Shape shape1, double rotationAngle) {
 		List<Location> boundary = makeBoundary(shape1, rotationAngle,
 				BOUNDARY_PRECISION);
-		if (shape1 instanceof Rectangle)
-			boundary = makeRectangleBoundary(shape1, rotationAngle,
+		if (shape1 instanceof Rectangle) boundary = makeRectangleBoundary(shape1, rotationAngle,
 					INTERSECT_LINE_PRECISION);
 		float sumX = 0;
 		float sumY = 0;
@@ -223,18 +222,13 @@ public class ShapeMeasurements {
 			double rotationAngle, int numOfPoints) {
 		List<List<Location>> rectSideList = new LinkedList<List<Location>>();
 		List<Location> rectBoundary = new LinkedList<Location>();
-		rectSideList.add(makeBoundaryLine(getTopLeftCorner(shape1),
+		rectSideList.add(makeBoundaryLine(getTopLeftCorner(shape1), 
 				getTurnedTopRightCorner(shape1, rotationAngle), numOfPoints));
-		rectSideList
-				.add(makeBoundaryLine(
-						getTurnedTopRightCorner(shape1, rotationAngle),
-						getTurnedBottomRightCorner(shape1, rotationAngle),
-						numOfPoints));
-		rectSideList.add(makeBoundaryLine(
-				getTurnedBottomRightCorner(shape1, rotationAngle),
+		rectSideList.add(makeBoundaryLine(getTurnedTopRightCorner(shape1, rotationAngle),
+				getTurnedBottomRightCorner(shape1, rotationAngle),numOfPoints));
+		rectSideList.add(makeBoundaryLine(getTurnedBottomRightCorner(shape1, rotationAngle),
 				getTurnedBottomLeftCorner(shape1, rotationAngle), numOfPoints));
-		rectSideList.add(makeBoundaryLine(
-				getTurnedBottomLeftCorner(shape1, rotationAngle),
+		rectSideList.add(makeBoundaryLine(getTurnedBottomLeftCorner(shape1, rotationAngle),
 				getTopLeftCorner(shape1), numOfPoints));
 		for (List<Location> side : rectSideList) {
 			for (Location loc : side) {
@@ -274,10 +268,10 @@ public class ShapeMeasurements {
 		v.turn(-angle);
 		return new Location(getTopLeftCorner(shape1).getX() + v.getXChange(),
 				getTopLeftCorner(shape1).getX() - v.getYChange()); // For some
-																	// reason
-																	// the
-																	// translate
-																	// function
+		// reason
+		// the
+		// translate
+		// function
 		// of the Vector class way not working properly here.
 	}
 
