@@ -86,16 +86,27 @@
 	<buildings src = "vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building">
 		<building>
 			<name>home</name>
-			<img>home.png</img>
+			<img>images/home.png</img>
 			<sound>pikachu.wav</sound>
 			<health>1000</health>
 			<buildtime>100</buildtime>
 			<occupy>cannotbeoccupied</occupy>
 			<upgrade>canupgrade</upgrade>
 			<upgradeTreeName>SoldierUpgrade</upgradeTreeName>
-			<produce>worker soldier</produce>
+			<produce>combat</produce>
 			<myweapons></myweapons>
-			
+		</building>
+		<building>
+			<name>garrison</name>
+			<img>images/home.png</img>
+			<sound>pikachu.wav</sound>
+			<health>1000</health>
+			<buildtime>100</buildtime>
+			<occupy>canbeoccupied</occupy>
+			<upgrade>canupgrade</upgrade>
+			<upgradeTreeName>SoldierUpgrade</upgradeTreeName>
+			<produce></produce>
+			<myweapons></myweapons>
 		</building>
 		<custombuilding src = "vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Tower">
 			<name>tower</name>

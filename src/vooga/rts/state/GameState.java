@@ -123,7 +123,7 @@ public class GameState extends SubState implements Controller {
         getPlayers().addPlayer(1);
 
         Unit worker =  (Unit) myFactory.getEntitiesMap().get("worker").copy();
-        worker.setWorldLocation(new Location3D(100, 100, 0));
+        worker.setWorldLocation(new Location3D(300, 300, 0));
         worker.move(worker.getWorldLocation());
                 /**new Unit(new Pixmap(ResourceManager.getInstance()
                         .<BufferedImage> getFile("images/scv.gif", BufferedImage.class)),
@@ -158,14 +158,17 @@ public class GameState extends SubState implements Controller {
         c.setHealth(150);
         getPlayers().getPlayer(1).add(c);
 
-        Building b =
-                new Building(new Pixmap(ResourceManager.getInstance()
-                        .<BufferedImage> getFile("images/factory.png", BufferedImage.class)),
-                             new Location3D(500, 1000, 0), new Dimension(368, 224), null, 1, 300,
-                             InteractiveEntity.DEFAULT_BUILD_TIME);
-        b.setProductionStrategy(new CanProduce(b));
-        ((CanProduce) b.getProductionStrategy()).addProducable(new Unit());
-        ((CanProduce) b.getProductionStrategy()).createProductionActions(b);
+        //TODO: produce section in factory should take in user defined Units.
+        Building b = (Building) myFactory.getEntitiesMap().get("home").copy();
+        		/* Building(new Pixmap(ResourceManager.getInstance()
+        .		<BufferedImage> getFile("images/factory.png", BufferedImage.class)),
+             			new Location3D(500, 1000, 0), new Dimension(368, 224), null, 1, 300,
+             							InteractiveEntity.DEFAULT_BUILD_TIME);*/
+        //b.setWorldLocation(new Location3D(500, 1000, 0));
+        //b.move(worker.getWorldLocation());
+        //b.setProductionStrategy(new CanProduce(b));
+        //((CanProduce) b.getProductionStrategy()).addProducable(new Unit());
+        //((CanProduce) b.getProductionStrategy()).createProductionActions(b);
         Information i =
                 new Information("Barracks", "This is a barracks that can make awesome pies", null,
                                 "buttons/marine.png");
@@ -195,7 +198,7 @@ public class GameState extends SubState implements Controller {
         Information garrisonInfo =
                 new Information("Garrison", "This is a garrison that soldiers can occupy", null,
                                 "buttons/marine.png");
-        b.setInfo(garrisonInfo);
+        garrison.setInfo(garrisonInfo);
         garrison.setOccupyStrategy(new CanBeOccupied());
         garrison.getOccupyStrategy().createOccupyActions(garrison);
         getPlayers().getHuman().add(garrison);

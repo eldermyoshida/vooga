@@ -23,6 +23,7 @@ import vooga.rts.gamedesign.strategy.Strategy;
 import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
 import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
 import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
+import vooga.rts.gamedesign.strategy.production.CanProduce;
 import vooga.rts.gamedesign.strategy.upgradestrategy.CanUpgrade;
 import vooga.rts.gamedesign.strategy.upgradestrategy.UpgradeStrategy;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
@@ -323,13 +324,13 @@ public class Factory {
 	 */
 	private void initializeProducables(){
 		for(String key :myProductionDependencies.keySet()){
-			InteractiveEntity father;
+			InteractiveEntity father = mySprites.get(key);
 			String[] produces = myProductionDependencies.get(key);
 			for(String baby: produces){
-				father = mySprites.get(key);
 				InteractiveEntity producable = mySprites.get(baby);
 				father.addProducable(producable);
 			}
+			father.getProductionStrategy().createProductionActions(father);
 		}
 	}
 	/**
