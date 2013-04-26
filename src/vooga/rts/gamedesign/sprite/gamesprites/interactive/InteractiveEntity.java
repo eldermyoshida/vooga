@@ -402,7 +402,6 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
      * Sets the isSelected boolean to the passed in bool value.
      */
     public boolean select (boolean selected) {
-
         if (selected && getState().canSelect()) {
             isSelected = selected;
         }
@@ -547,7 +546,9 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     @Override
     public void move (Location3D loc) {
         myPath = GameState.getMap().getPath(myFinder, getWorldLocation(), loc);
-        super.move(myPath.getNext());
+        if (myPath != null) {
+            super.move(myPath.getNext());
+        }
     }
 
     public void addWeapon (Weapon toAdd) {
@@ -555,8 +556,8 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
 
     }
 
-	public void setUpgradeStrategy(UpgradeStrategy upgradeStrategy) {
-		myUpgradeStrategy = upgradeStrategy;
-	}
+    public void setUpgradeStrategy (UpgradeStrategy upgradeStrategy) {
+        myUpgradeStrategy = upgradeStrategy;
+    }
 
 }
