@@ -32,7 +32,7 @@ public class ConnectionServer extends Thread {
      */
     public ConnectionServer (MatchmakerServer matchServer) {
         myMatchServer = matchServer;
-        LoggerManager log = new LoggerManager(matchServer.getClass().getName());
+        LoggerManager log = new LoggerManager();
         myLogger = log.getLogger();
     }
 
