@@ -76,7 +76,7 @@ import vooga.towerdefense.model.tiles.factories.TileFactory;
  * 
  * @author Erick Gonzalez
  */
-public class MapLoader {
+public class MapXMLLoader {
     /**
      * Relative path to the map file.
      */
@@ -98,7 +98,7 @@ public class MapLoader {
      * 
      * @param mapFilePath a path to the map XML file
      */
-    public MapLoader(XMLTool xmlTool) {
+    public MapXMLLoader(XMLTool xmlTool) {
         myXMLTool = xmlTool;        
         initTileIdMap();
     }
