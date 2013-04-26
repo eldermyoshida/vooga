@@ -36,13 +36,13 @@ public class Shop {
 		int yC = 10;
 		for (int i = 0; i < NUM_SHOP_ITEMS; ++i) {
 			// TODO: replace this with parsed file input
-			GameElementFactory factory = new GameElementFactory(DefinitionConstants.DEFAULT_TOWER_NAME, 
-					DefinitionConstants.DEFAULT_TOWER_IMAGE);
-			factory.initialize(map);
-			Location l = new Location(i * ShopItem.SHOP_ITEM_WIDTH + xC, yC);
-			myShopItems.add(new ShopItem(l, factory));
+			//GameElementFactory factory = new GameElementFactory(DefinitionConstants.DEFAULT_TOWER_NAME, 
+			//		DefinitionConstants.DEFAULT_TOWER_IMAGE);
+			//factory.initialize(map);
+			//Location l = new Location(i * ShopItem.SHOP_ITEM_WIDTH + xC, yC);
+			//myShopItems.add(new ShopItem(l, factory));
 
-			xC += SHOP_SEPARATOR_WIDTH;
+			//xC += SHOP_SEPARATOR_WIDTH;
 		}
 	}
 

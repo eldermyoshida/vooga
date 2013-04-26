@@ -103,7 +103,7 @@ public class Controller {
 
 		setLanguage(language);
 		myGameLoader = new GameLoader(xmlPath);
-		setView();
+		myView = new TDView(this);
 		setMaps();
 
 //		setLanguage(language);
@@ -150,6 +150,7 @@ public class Controller {
 	    myAvailableMaps = new HashMap<Pixmap, GameMap>();
 	    List<GameMap> mapChoices = myGameLoader.loadMaps();
 	    for (GameMap map : mapChoices) {
+	        System.out.println(map.getBackgroundImage());
 	        myAvailableMaps.put(map.getBackgroundImage(), map);
 	    }
 	}
@@ -157,9 +158,16 @@ public class Controller {
 	/**
 	 * sets the map for this game.
 	 * @param mapChoice
+	 * @throws InvocationTargetException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws ClassNotFoundException 
+	 * @throws IllegalArgumentException 
 	 */
-	public void setMap(Pixmap mapChoice) {
+	public void setMap(Pixmap mapChoice) throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException {
+	    System.out.println("Setting map in controller");
 	    addMapAndLoadGame(myAvailableMaps.get(mapChoice));
+	    setView();
 	}
 	
 	/**
@@ -189,11 +197,13 @@ public class Controller {
 //	        Level level = new Level(actions, levelRules);
 //	        levels.add(level);
 //	        List<Rule> rules = new ArrayList<Rule>();
-	                
+	        
+	        System.out.println("setting model");
 	        myModel = new GameModel(this, map, new Shop(map));
                 myModel.setRules(myGameLoader.loadRules(myModel));
 	        myModel.setLevels(myGameLoader.loadLevels(myModel));
 	        myControlMode = new SelectMode();
+	        start();
 	}
 
 	/**

@@ -16,7 +16,7 @@ public class DefaultTileFactory extends TileFactory {
      * Image for a path tile
      */
     //public static final Pixmap PATH_TILE_IMAGE = new Pixmap("map/default_tile.png");
-    public static final Pixmap PATH_TILE_IMAGE = new Pixmap("map/blank_tile.png");;
+    public static final Pixmap PATH_TILE_IMAGE = new Pixmap("/vooga/towerdefense/images/map/blank_tile.png");
     
     @Override
     public Tile createTile (int id, Location center) {
