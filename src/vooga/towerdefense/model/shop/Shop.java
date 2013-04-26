@@ -3,6 +3,7 @@ package vooga.towerdefense.model.shop;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import vooga.towerdefense.factories.definitions.DefinitionConstants;

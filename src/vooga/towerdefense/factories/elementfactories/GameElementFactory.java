@@ -27,8 +27,8 @@ import util.Pixmap;
  */
 public class GameElementFactory {
 
-    private static DefaultAttributeManager DEFAULT_ATTRIBUTE_MANAGER =
-            new DefaultAttributeManager();
+    //private static DefaultAttributeManager DEFAULT_ATTRIBUTE_MANAGER =
+      //      new DefaultAttributeManager();
 
     /**
      * Name of the element that is defined in this class. For convenience.
@@ -171,7 +171,7 @@ public class GameElementFactory {
         return projectile;
     }
 
-    public AttributeManager getDefaultAM () {
-        return DEFAULT_ATTRIBUTE_MANAGER;
-    }
+    //public AttributeManager getDefaultAM () {
+    //    return DEFAULT_ATTRIBUTE_MANAGER;
+    //}
 }

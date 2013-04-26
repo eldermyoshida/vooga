@@ -12,7 +12,6 @@ import vooga.towerdefense.model.GameModel;
 import vooga.towerdefense.model.rules.Rule;
 
 public class RulesXMLLoader {
-    private static final String RULES_TAG = "rules";
 
     private XMLTool myXMLTool;
 
@@ -20,8 +19,8 @@ public class RulesXMLLoader {
         myXMLTool = xmlTool;
     }
     
-    public List<Rule> getRules(GameModel gameModel) {
-        List<RuleFactory> ruleFactories = getRuleFactories();
+    public List<Rule> getRules(GameModel gameModel, Element rulesElement) {
+        List<RuleFactory> ruleFactories = getRuleFactories(rulesElement);
         
         List<Rule> rules = new ArrayList<Rule>();
         for (RuleFactory rf : ruleFactories) {
@@ -31,8 +30,8 @@ public class RulesXMLLoader {
         return rules;
     }
     
-    public List<RuleFactory> getRuleFactories() {
-        Map<String, Element> subElements = myXMLTool.getChildrenElementMap(RULES_TAG);
+    public List<RuleFactory> getRuleFactories(Element rulesElement) {
+        Map<String, Element> subElements = myXMLTool.getChildrenElementMap(rulesElement);
         
         List<RuleFactory> ruleFactories = new ArrayList<RuleFactory>();
         for (Element ruleElement : subElements.values()) {
@@ -83,8 +82,5 @@ public class RulesXMLLoader {
     private String getRuleFactoryConstructorParameter (Element ruleParameterElement) {
         return myXMLTool.getContent(ruleParameterElement);
     }
-    
-    public static void main(String[] args) {
-        
-    }
+
 }

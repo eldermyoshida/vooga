@@ -7,6 +7,7 @@ import java.awt.Point;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -199,8 +200,8 @@ public class Controller {
 //	        List<Rule> rules = new ArrayList<Rule>();
 	        
 	        System.out.println("setting model");
-	        myGameLoader.loadElements(map);
-	        myModel = new GameModel(this, map, new Shop(map));
+	        List<GameElementFactory> factories = myGameLoader.loadElements(map);
+	        myModel = new GameModel(this, map, new Shop(map, factories));
                 myModel.setRules(myGameLoader.loadRules(myModel));
 	        myModel.setLevels(myGameLoader.loadLevels(myModel));
 	        myControlMode = new SelectMode();

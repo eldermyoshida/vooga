@@ -13,6 +13,8 @@ import vooga.towerdefense.model.rules.Rule;
 public class LevelsXMLLoader {
     
     private static final String LEVELS_TAG = "levels";
+    private static final String ACTIONS_TAG = "actions";
+    private static final String RULES_TAG = "rules";
     
     private XMLTool myXMLTool;
     
@@ -33,10 +35,10 @@ public class LevelsXMLLoader {
     private Level getLevel(Element levelElement, GameModel model) {
         RulesXMLLoader rulesLoader = new RulesXMLLoader(myXMLTool);
         ActionXMLLoader actionLoader = new ActionXMLLoader(myXMLTool);
-        
-        List<Rule> rules = rulesLoader.getRules(model);
-        List<Action> actions = actionLoader.loadActions();
-        
+        Map<String, Element> subElements = myXMLTool.getChildrenElementMap(levelElement);
+
+        List<Rule> rules = rulesLoader.getRules(model, subElements.get(RULES_TAG));
+        List<Action> actions = actionLoader.loadActions(subElements.get(ACTIONS_TAG));
         return new Level(actions, rules);
     }
 }

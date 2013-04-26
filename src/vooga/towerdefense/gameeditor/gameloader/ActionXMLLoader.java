@@ -19,7 +19,7 @@ import vooga.towerdefense.gameElements.GameElement;
  * @author Erick Gonzalez
  */
 public class ActionXMLLoader {
-    private static final String ACTIONS_TAG = "Actions";
+    private static final String ACTIONS_TAG = "actions";
     private static final String PARAMETER_TAG = "parameter";
 
     private XMLTool myXMLTool;
@@ -39,8 +39,8 @@ public class ActionXMLLoader {
      * 
      * @return loads a list of actions
      */
-    public List<Action> loadActions () {
-        return loadActions(null);
+    public List<Action> loadActions (Element actionsElement) {
+        return loadActions(null, actionsElement);
     }
 
     /**
@@ -50,8 +50,9 @@ public class ActionXMLLoader {
      * @param e the game element object that an action acts on
      * @return a list of actions acting on e
      */
-    public List<Action> loadActions (GameElement e) {
-        List<ActionFactory> actionFactories = loadActionFactories();
+    public List<Action> loadActions (GameElement e, Element actionsElement) {
+        List<ActionFactory> actionFactories = loadActionFactories(actionsElement);
+        System.out.println(actionFactories);
 
         List<Action> actions = new ArrayList<Action>();
         for (ActionFactory af : actionFactories) {
@@ -65,15 +66,13 @@ public class ActionXMLLoader {
      * 
      * @return a list of action factories
      */
-    public List<ActionFactory> loadActionFactories () {
-        Element actionsElement = myXMLTool.getElement(ACTIONS_TAG);
+    public List<ActionFactory> loadActionFactories (Element actionsElement) {
         Map<String, Element> subElements = myXMLTool.getChildrenElementMap(actionsElement);
 
         List<ActionFactory> actionFactories = new ArrayList<ActionFactory>();
         for (Element e : subElements.values()) {
             actionFactories.add(loadActionFactory(e));
         }
-        System.out.println(actionFactories);
         return actionFactories;
     }
 
