@@ -56,7 +56,7 @@ public abstract class SpriteState implements Comparable<SpriteState>{
     
     @Override
     public int compareTo (SpriteState other) {
-        return other.getPaintPriority() - this.getPaintPriority();
+        return this.getPaintPriority() - other.getPaintPriority();
     }
       
 }

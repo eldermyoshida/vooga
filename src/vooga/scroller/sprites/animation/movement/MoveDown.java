@@ -1,40 +1,15 @@
 package vooga.scroller.sprites.animation.movement;
 
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import vooga.scroller.sprites.Sprite;
-import vooga.scroller.sprites.state.SpriteState;
+import util.inputExample.Sprite;
+import vooga.scroller.util.ISpriteView;
 
-public class MoveDown extends SpriteState {
+public class MoveDown extends SpriteMovement {
 
-    @Override
-    public void update (Sprite sprite, double elapsedTime, Dimension bounds) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void paint (Sprite sprite, Graphics2D pen) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public int getPaintPriority () {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    @Override
-    public void activate (Sprite sprite) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void deactivate (Sprite sprite) {
-        // TODO Auto-generated method stub
-
+    public static final int STATE_ID = -2;
+    
+    public MoveDown (ISpriteView view, double speed) {
+        super(view, Sprite.DOWN_DIRECTION, speed);
+        // TODO Auto-generated constructor stub
     }
 
 }

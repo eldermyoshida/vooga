@@ -2,6 +2,7 @@ package vooga.scroller.sprites.superclasses;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.geom.Point2D;
 import util.Location;
 import vooga.scroller.level_management.IInputListener;
 import vooga.scroller.scrollingmanager.ScrollingManager;
@@ -43,7 +44,12 @@ public abstract class Player extends GameCharacter implements IInputListener, Lo
 
     @Override
     public void paint (Graphics2D pen) {
-        super.getView().paint(pen, myPaintCenter, super.getSize());
+        
+        Point2D currentLocal = new Location(this.getCenter());
+        this.setCenter(myPaintCenter.getX(), myPaintCenter.getY());
+        
+        super.paint(pen);
+        this.setCenter(currentLocal.getX(), currentLocal.getY());
     }
 
     /**

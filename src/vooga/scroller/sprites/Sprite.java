@@ -262,11 +262,12 @@ public class Sprite {
      * Display this shape translated on the screen, used for all Sprites besides Player
      */
     public void paint (Graphics2D pen, Location loc, Location origLoc) {
-        Location currentLocal = this.getCenter();      
+        Location currentLocal = new Location(this.getCenter());      
         Location tempLocal = translate(loc, origLoc);     
         this.setCenter(tempLocal.getX(), tempLocal.getY());
         this.paint(pen);
         this.setCenter(currentLocal.getX(), currentLocal.getY());
+        //myView.paint(pen, translate(loc, origLoc), mySize, 0);
     }
     
     /**

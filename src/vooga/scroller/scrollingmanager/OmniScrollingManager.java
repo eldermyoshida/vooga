@@ -92,12 +92,12 @@ public class OmniScrollingManager extends ScrollingManager {
         int imgwidth = img.getWidth(null);
         int imgheight = img.getHeight(null);
         
-        System.out.println("Left : " + leftpaintbound);
-        System.out.println("Right : " + rightpaintbound);
-        System.out.println("Upper : " + upperpaintbound);
-        System.out.println("Lower : " + lowerpaintbound);
-        System.out.println("Width : " + imgwidth);
-        System.out.println("Height : " + imgheight);
+//        System.out.println("Left : " + leftpaintbound);
+//        System.out.println("Right : " + rightpaintbound);
+//        System.out.println("Upper : " + upperpaintbound);
+//        System.out.println("Lower : " + lowerpaintbound);
+//        System.out.println("Width : " + imgwidth);
+//        System.out.println("Height : " + imgheight);
         
         pen.drawImage(img, leftpaintbound, upperpaintbound, imgwidth, imgheight, null);
         pen.drawImage(img, rightpaintbound, upperpaintbound, imgwidth, imgheight, null);

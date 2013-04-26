@@ -1,40 +1,23 @@
 package vooga.scroller.sprites.animation.movement;
 
-import java.awt.Dimension;
-import java.awt.Graphics2D;
 import vooga.scroller.sprites.Sprite;
-import vooga.scroller.sprites.state.SpriteState;
+import vooga.scroller.util.ISpriteView;
 
-public class MoveRight extends SpriteState {
+public class MoveRight extends SpriteMovement {
+    
+    public static final int STATE_ID = -5;
 
-    @Override
-    public void update (Sprite sprite, double elapsedTime, Dimension bounds) {
-        // TODO Auto-generated method stub
+    
+    private ISpriteView myStandView;
 
+    public MoveRight (ISpriteView move, ISpriteView stand, double speed) {
+        super(move, Sprite.RIGHT_DIRECTION, speed);
+        myStandView = stand;
     }
-
+    
     @Override
-    public void paint (Sprite sprite, Graphics2D pen) {
-        // TODO Auto-generated method stub
-
+    public void deactivate(Sprite sprite) {
+        super.deactivate(sprite);
+        sprite.setView(myStandView);
     }
-
-    @Override
-    public int getPaintPriority () {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    @Override
-    public void activate (Sprite sprite) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void deactivate (Sprite sprite) {
-        // TODO Auto-generated method stub
-
-    }
-
 }

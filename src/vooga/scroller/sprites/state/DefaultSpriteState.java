@@ -7,7 +7,7 @@ import vooga.scroller.sprites.Sprite;
 
 public class DefaultSpriteState extends SpriteState{
 
-    private static final int PRIORITY = 0;
+    private static final int PRIORITY = Integer.MAX_VALUE;
     
     @Override
     public void update (Sprite sprite, double elapsedTime, Dimension bounds) {
