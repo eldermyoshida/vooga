@@ -7,7 +7,6 @@ import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -39,7 +38,6 @@ import vooga.rts.gamedesign.strategy.production.CannotProduce;
 import vooga.rts.gamedesign.strategy.production.ProductionStrategy;
 import vooga.rts.gamedesign.strategy.upgradestrategy.CanUpgrade;
 import vooga.rts.gamedesign.strategy.upgradestrategy.UpgradeStrategy;
-import vooga.rts.gamedesign.upgrades.UpgradeNode;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
 import vooga.rts.gamedesign.weapon.Weapon;
 import vooga.rts.state.GameState;
@@ -404,7 +402,6 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
      * Sets the isSelected boolean to the passed in bool value.
      */
     public boolean select (boolean selected) {
-
         if (selected && getState().canSelect()) {
             isSelected = selected;
         }
@@ -441,18 +438,18 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
         myUpgradeTree = upgradeTree;
     }
 
-
     @Override
     public void update (double elapsedTime) {
+        if (myPath != null) {
+            if (myPath.size() == 0) {
+                setVelocity(getVelocity().getAngle(), 0);
+                getEntityState().stop();
+            }
+            else {
+                super.move(myPath.getNext());
+            }
+        }
 
-        if (myPath.size() == 0) {
-            setVelocity(getVelocity().getAngle(), 0);
-            getEntityState().stop();
-        }
-        else {
-            super.move(myPath.getNext());
-        }
-        
         super.update(elapsedTime);
 
         Iterator<DelayedTask> it = myTasks.iterator();
@@ -466,9 +463,13 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
         if (myAttackStrategy.hasWeapon()) {
             Weapon weapon = myAttackStrategy.getCurrentWeapon();
             List<InteractiveEntity> enemies =
-                    GameState.getMap().<InteractiveEntity> getInArea(getWorldLocation(),
-                                                                     weapon.getRange(), this,
-                                                                     getPlayerID(), false);
+                    GameState
+                            .getMap()
+                            .<InteractiveEntity> getInArea(getWorldLocation(),
+                                                           weapon.getRange(),
+                                                           this,
+                                                           GameState.getPlayers()
+                                                                   .getTeamID(getPlayerID()), false);
             if (!enemies.isEmpty()) {
                 enemies.get(0).getAttacked(this);
             }
@@ -494,7 +495,6 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
             action.update(command);
         }
     }
-
 
     /**
      * Sets the object to be in the changed state for the observer pattern.
@@ -546,12 +546,18 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     @Override
     public void move (Location3D loc) {
         myPath = GameState.getMap().getPath(myFinder, getWorldLocation(), loc);
-        super.move(myPath.getNext());
+        if (myPath != null) {
+            super.move(myPath.getNext());
+        }
     }
 
     public void addWeapon (Weapon toAdd) {
         myAttackStrategy.addWeapon(toAdd);
 
+    }
+
+    public void setUpgradeStrategy (UpgradeStrategy upgradeStrategy) {
+        myUpgradeStrategy = upgradeStrategy;
     }
 
 }

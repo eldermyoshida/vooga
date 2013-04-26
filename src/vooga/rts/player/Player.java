@@ -5,7 +5,10 @@ import vooga.rts.IGameLoop;
 import vooga.rts.commands.Command;
 import vooga.rts.controller.Controller;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
+import vooga.rts.manager.IndividualResourceManager;
 import vooga.rts.manager.Manager;
+import vooga.rts.resourcemanager.ResourceManager;
+
 
 /**
  * Sends commands to its unit manager from either the human input, the network
@@ -16,35 +19,62 @@ import vooga.rts.manager.Manager;
  */
 public class Player implements Controller, IGameLoop {
 
-	protected Manager myManager;
-	private int myTeamID;
+    protected Manager myManager;
+    private IndividualResourceManager myResources;
 
-	public Player(int id) {
-		myManager = new Manager(id);
-		myTeamID = id;
-	}
+    private int myPlayerID;
+    private int myTeamID;
 
-	@Override
-	public void sendCommand(Command command) {
-		// TODO Auto-generated method stub
-	}
+    public Player (int playerid, int teamID) {
+        myManager = new Manager(playerid);
+        myPlayerID = playerid;
+        myTeamID = teamID;
+        myResources = new IndividualResourceManager();
+    }
 
-	public Manager getManager() {
-		return myManager;
-	}
+    /**
+     * @return the resources of the player
+     */
+    public IndividualResourceManager getResouces () {
+        return myResources;
+    }
 
-	public void add(InteractiveEntity unit) {
-		unit.setPlayerID(myTeamID);
-		myManager.add(unit);
-	}
+    @Override
+    public void sendCommand (Command command) {
+        // TODO Auto-generated method stub
+    }
 
-	@Override
-	public void paint(Graphics2D pen) {
-		// myManager.paint(pen);
-	}
+    public Manager getManager () {
+        return myManager;
+    }
 
-	@Override
-	public void update(double elapsedTime) {
-		myManager.update(elapsedTime);
-	}
+    public void add (InteractiveEntity unit) {
+        unit.setPlayerID(myPlayerID);
+        myManager.add(unit);
+    }
+
+    @Override
+    public void paint (Graphics2D pen) {
+        // myManager.paint(pen);
+    }
+
+    @Override
+    public void update (double elapsedTime) {
+        myManager.update(elapsedTime);
+    }
+
+    /**
+     * @return the playerID
+     */
+    public int getPlayerID () {
+        return myPlayerID;
+    }
+
+    /**
+     * @return the teamID
+     */
+    public int getTeamID () {
+        return myTeamID;
+    }
+
 }

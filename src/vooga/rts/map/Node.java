@@ -13,6 +13,9 @@ import java.util.Set;
 import java.util.TreeSet;
 import vooga.rts.gamedesign.sprite.gamesprites.GameEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.GameSprite;
+import vooga.rts.gamedesign.sprite.map.Terrain;
+import vooga.rts.gamedesign.state.OccupyState;
+import vooga.rts.state.GameState;
 import vooga.rts.util.Camera;
 import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
@@ -90,10 +93,6 @@ public class Node {
         return myY;
     }
 
-    // public void addObstruction (IObstruction obstruct) {
-    // myHeight = obstruct.getHeight();
-    // }
-
     public double getTier () {
         return myTier;
     }
@@ -129,12 +128,18 @@ public class Node {
     public void addSprite (GameSprite sprite) {
         if (!myContents.contains(sprite)) {
             myContents.add(sprite);
+            if (sprite instanceof Terrain) {
+                myTier++;
+            }
         }
     }
 
     public void removeSprite (GameSprite sprite) {
         if (myContents.contains(sprite)) {
             myContents.remove(sprite);
+            if (sprite instanceof Terrain) {
+                myTier--;
+            }
         }
     }
 
@@ -156,15 +161,18 @@ public class Node {
                 continue;
             }
             GameEntity ge = (GameEntity) item;
+            if (ge.getState().getOccupyState() == OccupyState.OCCUPYING) {
+                continue;
+            }
 
             if (ge.getClass().isInstance(other)) {
                 if (same) {
-                    if (ge.getPlayerID() == teamID) {
+                    if (GameState.getPlayers().getTeamID(ge.getPlayerID()) == teamID) {
                         resultList.add((T) ge);
                     }
                 }
                 else {
-                    if (ge.getPlayerID() != teamID) {
+                    if (GameState.getPlayers().getTeamID(ge.getPlayerID()) != teamID) {
                         resultList.add((T) ge);
                     }
                 }
