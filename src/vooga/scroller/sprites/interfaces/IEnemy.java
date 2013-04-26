@@ -10,7 +10,7 @@ package vooga.scroller.sprites.interfaces;
  * 
  * @author Jay Wang
  */
-public interface IEnemy extends ISprite {
+public interface IEnemy extends Locatable {
     
     /**
      * This is going to decrement the enemy's health by damage. An enemy 

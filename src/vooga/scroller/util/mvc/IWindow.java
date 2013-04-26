@@ -34,4 +34,6 @@ R extends WindowComponent<D>, T extends Tools<D>> extends IView<D> {
      */
     public void start();
 
+    public void showMessageDialog (String s);
+
 }

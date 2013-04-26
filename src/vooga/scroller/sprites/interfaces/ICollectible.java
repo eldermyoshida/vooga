@@ -8,7 +8,7 @@ package vooga.scroller.sprites.interfaces;
  * 
  * @author Jay Wang
  */
-public interface ICollectible extends ISprite {
+public interface ICollectible extends Locatable {
      
     /**
      * This returns the value of the Collectible. For a Coin, it would be 

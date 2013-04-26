@@ -2,7 +2,7 @@ package vooga.scroller.sprites.movement;
 
 import java.awt.geom.Point2D;
 import util.Vector;
-import vooga.scroller.util.Sprite;
+import vooga.scroller.sprites.Sprite;
 
 
 /**

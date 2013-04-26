@@ -3,8 +3,9 @@ package vooga.scroller.sprites.superclasses;
 import java.awt.Dimension;
 import util.Location;
 import util.Vector;
+import vooga.scroller.sprites.Sprite;
+import vooga.scroller.sprites.interfaces.Locatable;
 import vooga.scroller.util.ISpriteView;
-import vooga.scroller.util.Sprite;
 
 /**
  * UPDATE - This is the superclass for all sprites a game designer creates 

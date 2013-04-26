@@ -2,39 +2,44 @@ package vooga.scroller.marioGame.spritesDefinitions.players.resources;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import vooga.scroller.sprites.state.State;
-import vooga.scroller.util.ISpriteView;
-import vooga.scroller.util.Pixmap;
-import vooga.scroller.util.Sprite;
+import vooga.scroller.sprites.Sprite;
+import vooga.scroller.sprites.state.SpriteState;
 
 
 
 
-public class InvisibleState implements State{
-
-    private static final Pixmap DEFAULT_IMAGE = new Pixmap("/vooga/scroller/images/invisible.gif");
-    private static final double INVISIBLE_TIME = 5;
-    private Sprite mySprite;
-    private ISpriteView myDefaultView;
-    private double myTime;
-    //private 
+public class InvisibleState extends SpriteState{
     
-    public InvisibleState(Sprite sprite) {
-        mySprite = sprite;
-        myTime = 0.0;
+    private static final int PRIORITY = Integer.MIN_VALUE;
+
+    
+    @Override
+    public void update (Sprite sprite, double elapsedTime, Dimension bounds) {
+        // does nothing extra        
     }
 
     @Override
-    public void update (double elapsedTime, Dimension bounds) {
+    public void paint (Sprite sprite, Graphics2D pen) {
+        // Invisible, do not paint.
+    }
 
+    @Override
+    public int getPaintPriority () {
+        return PRIORITY;
+    }
+
+    @Override
+    public void activate (Sprite sprite) {
+        // nothign special
         
     }
 
-
     @Override
-    public void paint (Graphics2D pen) {
-        DEFAULT_IMAGE.paint(pen, mySprite.getCenter(), new Dimension((int)mySprite.getWidth(),(int) mySprite.getHeight()));
+    public void deactivate (Sprite sprite) {
+        // nothing special
+        
     }
+
 
 
 }

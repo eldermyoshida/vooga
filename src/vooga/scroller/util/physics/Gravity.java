@@ -1,7 +1,7 @@
 package vooga.scroller.util.physics;
 
 import util.Vector;
-import vooga.scroller.util.Sprite;
+import vooga.scroller.sprites.Sprite;
 
 /**
  * This is how we want to handle gravity. Every sprite will have an instance of this 

@@ -1,6 +1,5 @@
 package vooga.scroller.level_editor.controllerSuite;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -10,7 +9,6 @@ import java.util.Set;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import javax.swing.JFrame;
 import javax.swing.Scrollable;
 import util.Location;
 import vooga.scroller.level_editor.Level;
@@ -21,15 +19,14 @@ import vooga.scroller.level_editor.view.LEGridView;
 import vooga.scroller.level_management.LevelPortal;
 import vooga.scroller.scrollingmanager.OmniScrollingManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
+import vooga.scroller.sprites.Sprite;
 import vooga.scroller.util.Editable;
 import vooga.scroller.util.IBackgroundView;
 import vooga.scroller.util.Renderable;
 import vooga.scroller.util.Renderer;
-import vooga.scroller.util.Sprite;
 import vooga.scroller.util.mvc.Gaming;
 import vooga.scroller.util.mvc.IView;
 import vooga.scroller.util.mvc.SimpleView;
-import vooga.scroller.view.GameView;
 
 
 public class LEGrid implements Editable, Renderable<LevelEditing>, Scrollable {
@@ -58,7 +55,6 @@ public class LEGrid implements Editable, Renderable<LevelEditing>, Scrollable {
 
     @Override
     public Object getState () {
-        // TODO Auto-generated method stub
         return null;
     }
 
@@ -114,16 +110,14 @@ public class LEGrid implements Editable, Renderable<LevelEditing>, Scrollable {
     }
 
     /**
-     * TODO - Moving this responsibility to Level
+     * Create Level from Grid
      * 
      * @param id
      * @param sm
      * @param v
-     * @return
+     * @return Level
      */
-    public Level createLevel (int id,
-                              ScrollingManager sm) {
-        // TODO need to refactor. Editable Level.
+    public Level createLevel (int id, ScrollingManager sm) {
         Level lev = new Level(id, sm);
         for (SpriteBox box : getBoxes()) {
             lev.addSprite(box.getSprite());
@@ -187,7 +181,6 @@ public class LEGrid implements Editable, Renderable<LevelEditing>, Scrollable {
 
     @Override
     public Dimension getPreferredScrollableViewportSize () {
-        // TODO Auto-generated method stub
         return null;
     }
 
@@ -203,13 +196,11 @@ public class LEGrid implements Editable, Renderable<LevelEditing>, Scrollable {
 
     @Override
     public boolean getScrollableTracksViewportWidth () {
-        // TODO Auto-generated method stub
         return false;
     }
 
     @Override
     public boolean getScrollableTracksViewportHeight () {
-        // TODO Auto-generated method stub
         return false;
     }
 
@@ -226,9 +217,22 @@ public class LEGrid implements Editable, Renderable<LevelEditing>, Scrollable {
         return res;
     }
 
+    /**
+     * Checks StartPoint and Door
+     * 
+     * @return true if valid
+     */
     public boolean isValidForSimulation () {
-        // TODO Check for valid starting and exit points.
         return (myStartPoint != null && myDoor != null);
+    }
+
+    /**
+     * Checks Door and Background
+     * 
+     * @return true if valid
+     */
+    public boolean isValidForSave () {
+        return (myDoor != null && myBackground != null);
     }
 
     @Override

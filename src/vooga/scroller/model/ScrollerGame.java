@@ -1,8 +1,6 @@
 package vooga.scroller.model;
 
 import java.awt.BorderLayout;
-import java.awt.GraphicsConfiguration;
-import java.util.List;
 import javax.swing.JFrame;
 import vooga.scroller.level_editor.Level;
 import vooga.scroller.level_editor.controllerSuite.LEController;
@@ -10,15 +8,13 @@ import vooga.scroller.level_editor.library.BackgroundLib;
 import vooga.scroller.level_editor.library.ISpriteLibrary;
 import vooga.scroller.level_editor.model.LevelParser;
 import vooga.scroller.level_management.LevelManager;
-import vooga.scroller.scrollingmanager.OmniScrollingManager;
+import vooga.scroller.level_management.splash_page.SplashPage;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.PlatformerConstants;
 import vooga.scroller.view.GameView;
 import arcade.games.ArcadeInteraction;
 import arcade.games.Game;
-import arcade.games.GameData;
-import arcade.games.UserGameData;
 
 /**
  * 
@@ -34,7 +30,8 @@ public abstract class ScrollerGame extends Game {
     private LevelParser myLevelReader;
     private String[] myLevelsFilePaths;
     private LevelManager myLevelManager;
-    private List<Level> myLevels;
+    private Level[] myLevels;
+    private SplashPage mySplashPage;
 
     public ScrollerGame (ArcadeInteraction arcade) {
         super(arcade);
@@ -48,6 +45,7 @@ public abstract class ScrollerGame extends Game {
         myPlayer = setPlayer(myScrollingManager,myDisplay);
         myLevelsFilePaths = setLevelFileNamesPath();
         myTitle = setTitle();
+        mySplashPage = setSplashPage();
     }
 
     protected abstract ScrollingManager setScrollingManager ();
@@ -60,6 +58,8 @@ public abstract class ScrollerGame extends Game {
     
     protected abstract String setLevelsDirPath();
     
+    protected abstract SplashPage setSplashPage();
+    
     private String[] setLevelFileNamesPath() {
         String[] res = new String[setLevelFileNames().length];
         for (int i=0; i<res.length; i++) {
@@ -69,7 +69,7 @@ public abstract class ScrollerGame extends Game {
     }
     
     private void makeModel() {
-        myModel = new Model(myDisplay, myScrollingManager, myPlayer, myLevelsFilePaths);
+        myModel = new Model(myDisplay, myScrollingManager, myPlayer, mySplashPage, myLevels);
         myDisplay.setModel(myModel);
     }
 
@@ -91,6 +91,14 @@ public abstract class ScrollerGame extends Game {
         BackgroundLib bgLib = new BackgroundLib(filenames);
         LEController con = new LEController(lib,bgLib);
         con.start();
+    }
+    
+    public GameView getDisplay(){
+        return myDisplay;
+    }
+    
+    protected ScrollingManager getScrollingManager(){
+        return myScrollingManager;
     }
     
 

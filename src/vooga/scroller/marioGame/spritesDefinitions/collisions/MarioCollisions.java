@@ -2,13 +2,14 @@ package vooga.scroller.marioGame.spritesDefinitions.collisions;
 
 import util.Vector;
 import vooga.scroller.collision_manager.CollisionDirection;
+import vooga.scroller.marioGame.spritesDefinitions.players.Mario;
+import vooga.scroller.sprites.Sprite;
 import vooga.scroller.sprites.interfaces.ICollectible;
 import vooga.scroller.sprites.interfaces.IDoor;
 import vooga.scroller.sprites.interfaces.IEnemy;
 import vooga.scroller.sprites.interfaces.IPlatform;
-import vooga.scroller.sprites.interfaces.IPlayer;
+import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.Direction;
-import vooga.scroller.util.Sprite;
 
 
 /**
@@ -28,11 +29,11 @@ public class MarioCollisions {
     private static final double FRICTION = .5;
     private CollisionDirection direction = new CollisionDirection();
 
-    protected void marioAndLevelPortalCollision (IPlayer player, IDoor levelPortal) {
-        levelPortal.goToNextLevel(player.getPlayer());
+    protected void marioAndLevelPortalCollision (Player player, IDoor levelPortal) {
+        levelPortal.goToNextLevel(player);
     }
 
-    protected void marioAndEnemyCollision (IPlayer player, IEnemy enemy) {
+    protected void marioAndEnemyCollision (Mario player, IEnemy enemy) {
         if (direction.collisionDirection(player, enemy).equals(Direction.TOP)) {
             enemy.takeHit(player.getHit());
         }
@@ -41,12 +42,12 @@ public class MarioCollisions {
         }
     }
 
-    protected void marioAndCollectibleCollision (IPlayer player, ICollectible collectible) {
+    protected void marioAndCollectibleCollision (Mario player, ICollectible collectible) {
         player.incrementScore(collectible.getValue());
         collectible.takeHit(player.getHit());
     }
 
-    protected void marioAndPlatformCollision (IPlayer player, IPlatform platform) {
+    protected void marioAndPlatformCollision (Mario player, IPlatform platform) {
 
         Direction collisionType = direction.collisionDirection(player, platform);
 
@@ -59,23 +60,23 @@ public class MarioCollisions {
                 v.negate();
                 player.addVector(v);
 
-                Vector right = player.getVelocity().getComponentVector(Sprite.RIGHT_DIRECTION);
-                Vector left = player.getVelocity().getComponentVector(Sprite.LEFT_DIRECTION);
-
-                right.negate();
-                right.scale(FRICTION);
-                left.negate();
-                left.scale(FRICTION);
-                player.addVector(right);
-                player.addVector(left);
-
-                Vector sLeft = platform.getVelocity().getComponentVector(Sprite.LEFT_DIRECTION);
-                sLeft.scale(FRICTION);
-                Vector sRight = platform.getVelocity().getComponentVector(Sprite.RIGHT_DIRECTION);
-                sRight.scale(FRICTION);
-
-                player.addVector(sRight);
-                player.addVector(sLeft);
+//                Vector right = player.getVelocity().getComponentVector(Sprite.RIGHT_DIRECTION);
+//                Vector left = player.getVelocity().getComponentVector(Sprite.LEFT_DIRECTION);
+//
+//                right.negate();
+//                right.scale(FRICTION);
+//                left.negate();
+//                left.scale(FRICTION);
+//                player.addVector(right);
+//                player.addVector(left);
+//
+//                Vector sLeft = platform.getVelocity().getComponentVector(Sprite.LEFT_DIRECTION);
+//                sLeft.scale(FRICTION);
+//                Vector sRight = platform.getVelocity().getComponentVector(Sprite.RIGHT_DIRECTION);
+//                sRight.scale(FRICTION);
+//
+//                player.addVector(sRight);
+//                player.addVector(sLeft);
 
                 break;
             case BOTTOM:

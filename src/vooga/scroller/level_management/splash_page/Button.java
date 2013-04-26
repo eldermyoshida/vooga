@@ -2,9 +2,9 @@ package vooga.scroller.level_management.splash_page;
 
 import java.awt.Dimension;
 import util.Location;
+import vooga.scroller.sprites.Sprite;
 import vooga.scroller.util.ISpriteView;
 import vooga.scroller.util.Pixmap;
-import vooga.scroller.util.Sprite;
 
 public class Button extends Sprite {
 

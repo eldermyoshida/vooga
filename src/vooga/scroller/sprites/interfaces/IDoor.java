@@ -1,7 +1,5 @@
 package vooga.scroller.sprites.interfaces;
 
-import util.Location;
-import vooga.scroller.level_editor.Level;
 import vooga.scroller.level_management.LevelManager;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.IGameComponent;
@@ -14,19 +12,33 @@ import vooga.scroller.util.IGameComponent;
  */
 public interface IDoor {
 
-    //TODO: find way to handle all error strings
-    public static final String UNDEFINED_EXIT_POINT_MESSAGE = "Flag's exit point is undefined";
-
-
+    /**
+     * Sets the next level that this door points to. This sets the level that the player goes to
+     * when the player interacts with the door.
+     * 
+     * @param level is the level that this door will point to.
+     */
     public void setNextLevel (IGameComponent level);
 
-
+    /**
+     * Gives the level that this door points to.
+     * 
+     * @return The level that this door point to.
+     */
     public IGameComponent getNextLevel();
     
+    /**
+     * Sets the level manager that this door uses to move between levels.
+     * 
+     * @param lm is the level manager used by the door to move between levels.
+     */
     public void setManager(LevelManager lm);
         
     /**
-     * Takes the player to the next start point. 
+     * Takes the player to the next level. Ideally this is called when the player interacts
+     * with the door in someway. 
+     * 
+     * @param player is the player that is taken to the next level.
      */
     public void goToNextLevel(Player player);
     

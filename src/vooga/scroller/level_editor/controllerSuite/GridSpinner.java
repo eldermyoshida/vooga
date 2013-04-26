@@ -52,8 +52,8 @@ public class GridSpinner extends JPanel implements ChangeListener {
         }
         @Override
         public void stateChanged (ChangeEvent e) {
-            gridHeight = (int) hspinner.getModel().getValue();
-            gridWidth = (int) wspinner.getModel().getValue();
+            gridHeight = (Integer) hspinner.getModel().getValue();
+            gridWidth = (Integer) wspinner.getModel().getValue();
         }
         public int getGridWidth () {
             return gridWidth;

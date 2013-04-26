@@ -6,6 +6,7 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import util.Location;
 import vooga.scroller.level_editor.Level;
+import vooga.scroller.level_editor.LevelEditing;
 import vooga.scroller.level_editor.controllerSuite.LEGrid;
 import vooga.scroller.level_editor.model.LevelParser;
 import vooga.scroller.level_management.splash_page.SplashPage;
@@ -13,16 +14,18 @@ import vooga.scroller.marioGame.spritesDefinitions.MarioLib;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.util.IGameComponent;
 import vooga.scroller.util.Pixmap;
+import vooga.scroller.util.mvc.IController;
+import vooga.scroller.util.mvc.vcFramework.WorkspaceView;
 import vooga.scroller.view.GameView;
 
 
 /**
  * Instantiates all of the levels for gameplay.
- * 
+ * This is an utility class provided by the LevelEditing team.
  * @author Scott Valentine, Dagbedji Fagnisse
  * 
  */
-public class LevelFactory {
+public class LevelFactory implements IController<LevelEditing>{
 
     private static String DEFAULT_LEVEL_FOLDER = "src/vooga/scroller/resources/sampleLevels/";
     private LevelManager myLevelManager;
@@ -61,9 +64,9 @@ public class LevelFactory {
         return gameComponents;
     }
 
-    protected IGameComponent linkLevels (List<IGameComponent> levels) {
-        SplashPage splash =
-                new SplashPage(MarioLib.makePixmap("MARIO SPLASH.png"), 0, myView, mySM);
+    protected IGameComponent linkLevels (SplashPage splash, List<IGameComponent> levels) {
+//        SplashPage splash =
+//                new SplashPage(MarioLib.makePixmap(splashPage), 0, myView, mySM);
         splash.addDoor(new MarioLib.DoorPortal());
         myLevelManager.put(splash.getDoor(), levels.get(0));
     
@@ -92,6 +95,48 @@ public class LevelFactory {
         }
 
         return levels;
+    }
+
+    @Override
+    public void start () {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void saveFile (File file2save, WorkspaceView<LevelEditing> t) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void loadFile (File file2open) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void process (WorkspaceView<LevelEditing> t, Object cmd) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void initializeWorkspace () {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public LevelEditing getDomainInfo () {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void showErrorMsg (String copyError) {
+        // TODO Auto-generated method stub
+        
     }
     
 }

@@ -242,6 +242,7 @@ public abstract class Window<W extends WorkspaceView<D>,
      * Helper to show a message to the user
      * @param message - to be shown
      */
+    @Override
     public void showMessageDialog (String message) {
         JOptionPane.showMessageDialog(this, message);
     }

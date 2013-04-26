@@ -1,4 +1,3 @@
-
 package vooga.scroller.level_editor.controllerSuite;
 
 import java.io.File;
@@ -21,21 +20,23 @@ import vooga.scroller.util.mvc.IController;
 import vooga.scroller.util.mvc.IWindow;
 import vooga.scroller.util.mvc.vcFramework.WorkspaceView;
 
+
 /**
  * The controller is responsible for interfacing between an IView and an IModel.
- * Among other things, it is responsible for 
- * <LI> Instantiating a generic model and a view </LI>
- * <LI> Keeping track of multiple high-level domain-specific objects (eg. Room, Level...)</LI>
- * <LI> Send Renderable versions to the adequate IView workspace</LI>
- * <LI> Send an "Editable" versions to the Model</LI>
- * <LI> Ensuring that all high-level domain instances are kept in sync.
+ * Among other things, it is responsible for <LI>Instantiating a generic model and a view</LI> <LI>
+ * Keeping track of multiple high-level domain-specific objects (eg. Room, Level...)</LI> <LI>Send
+ * Renderable versions to the adequate IView workspace</LI> <LI>Send an "Editable" versions to the
+ * Model</LI> <LI>Ensuring that all high-level domain instances are kept in sync.
+ * 
  * @author SLogo team 3, Dagbedji F.
- *
+ * 
  */
 
 public class LEController implements IController<LevelEditing> {
-    
-    public static void runLevelEditor(ISpriteLibrary lib, IBackgroundLibrary bgLib) {
+
+    private static final String SAVE_ERROR = "All levels need a StartPoint, Portal, and Background";
+
+    public static void runLevelEditor (ISpriteLibrary lib, IBackgroundLibrary bgLib) {
         LEController con = new LEController(lib, bgLib);
         con.start();
     }
@@ -55,12 +56,13 @@ public class LEController implements IController<LevelEditing> {
     public static final int MAX_SPRITE_GRID_SIZE = 1000;
 
     /**
-     * Preferred constructor, specifies sprites and background to be availed in the 
+     * Preferred constructor, specifies sprites and background to be availed in the
      * Level Editor.
+     * 
      * @param lib - A sprite Library for the editor
      * @param bgLib - A background Library to be used in the editor
      */
-    public LEController(ISpriteLibrary lib, IBackgroundLibrary bgLib) {
+    public LEController (ISpriteLibrary lib, IBackgroundLibrary bgLib) {
         myDomainInfo = new LevelEditing();
         myToolsManager = new ToolsManager(lib, bgLib);
         myTools = myToolsManager.getViewTools();
@@ -70,10 +72,11 @@ public class LEController implements IController<LevelEditing> {
 //        myView.setDefaultWorkspaceTools(myTools);
         myWorkspace2Tab = new HashMap<Editable, WorkspaceView<LevelEditing>>();
         myTab2Workspace = new HashMap<WorkspaceView<LevelEditing>, Editable>();
-        myLevelWriter = new LevelWriter();
-        myLevelReader = new LevelParser();
+        myLevelWriter = new LevelWriter(this);
+        myLevelReader = new LevelParser(this);
         myGridSpinner = new GridSpinner(MIN_SPRITE_GRID_SIZE, MAX_SPRITE_GRID_SIZE);
     }
+
     /**
      * @param id
      * @param m
@@ -90,19 +93,20 @@ public class LEController implements IController<LevelEditing> {
     public LevelEditing getDomainInfo () {
         return myDomainInfo;
     }
-    
 
     private void initLevelEditor () {
         String language = getLanguage();
-        myModel = new LevelEditor(language);
         myView = new LEView(language, this, myTools);
+        myModel = new LevelEditor(this);
     }
 
     private String getLanguage () {
-        String[] languages = {"English", "French"};
-        int n = JOptionPane.showOptionDialog(null,
+        String[] languages = { "English", "French" };
+        int n =
+                JOptionPane.showOptionDialog(null,
                                              "Choose a language", "Language Selection",
-                                             JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
+                                             JOptionPane.YES_NO_OPTION,
+                                             JOptionPane.QUESTION_MESSAGE,
                                              null, languages, languages[0]);
         String language = languages[n];
         return language;
@@ -110,6 +114,7 @@ public class LEController implements IController<LevelEditing> {
 
     /**
      * return the Room Object corresponding to the input TabView
+     * 
      * @param t
      * @return
      */
@@ -117,10 +122,10 @@ public class LEController implements IController<LevelEditing> {
         return myTab2Workspace.get(v);
     }
 
-    
 
     /**
      * This allows the user to specify the number of blocks needed for the level.
+     * 
      * @return [width, height] in blocks
      */
     private int[] getNumBlocks () {
@@ -136,31 +141,31 @@ public class LEController implements IController<LevelEditing> {
             res[1] = myGridSpinner.getGridHeight();
         }
         else {
-            res[0] = DEFAULT_SPRITE_GRID_SIZE; 
+            res[0] = DEFAULT_SPRITE_GRID_SIZE;
             res[1] = DEFAULT_SPRITE_GRID_SIZE;
         }
         return res;
     }
 
-    
     @Override
-    public void initializeWorkspace() {
+    public void initializeWorkspace () {
         int id = myWorkspace2Tab.size();
-        int [] size = getNumBlocks();
+        int[] size = getNumBlocks();
         initializeWorkspace(id, size[0], size[1]);
     }
 
     /**
      * Initialize an LE workspace
+     * 
      * @param numWidthBlocks - blocks per width (row)
      * @param numHeightBlocks - block per height (columns)
      */
-    public void initializeWorkspace(int numWidthBlocks, int numHeightBlocks) {
+    public void initializeWorkspace (int numWidthBlocks, int numHeightBlocks) {
         int id = myWorkspace2Tab.size();
         initializeWorkspace(id, numWidthBlocks, numHeightBlocks);
     }
 
-    private void initializeWorkspace(int id, int numWidthBlocks, int numHeightBlocks) {
+    private void initializeWorkspace (int id, int numWidthBlocks, int numHeightBlocks) {
         LEGrid m = new LEGrid(numWidthBlocks, numHeightBlocks);
         createWorkspaceView(id, m);
     }
@@ -177,7 +182,7 @@ public class LEController implements IController<LevelEditing> {
         LEGrid m = (LEGrid) getModelForWorkspace(t);
         System.out.println("Controller got " + cmd);
         if (cmd instanceof String) {
-            myModel.processCommand(m, (String)cmd);
+            myModel.processCommand(m, (String) cmd);
         }
         t.setRenderable((Renderable<LevelEditing>) m);
     }
@@ -185,9 +190,18 @@ public class LEController implements IController<LevelEditing> {
     @Override
     public void saveFile (File file2save, WorkspaceView<LevelEditing> t) {
         LEGrid grid = (LEGrid) getModelForWorkspace(t);
-        myLevelWriter.createFile(file2save, grid, myToolsManager.getSpriteLibPath());
-        grid.saveThumbnail(file2save.getPath());
+        if (checkSaveable(grid)) {
+            myLevelWriter.createFile(file2save, grid, myToolsManager.getSpriteLibPath());
+            grid.saveThumbnail(file2save.getPath());
+        }
+        else {
+            showErrorMsg(SAVE_ERROR);
+        }
 
+    }
+
+    private boolean checkSaveable (LEGrid grid) {
+        return grid.isValidForSave();
     }
 
     @Override
@@ -195,5 +209,9 @@ public class LEController implements IController<LevelEditing> {
         myView.start();
     }
 
+    @Override
+    public void showErrorMsg (String copyError) {
+        myView.showMessageDialog(copyError);
+    }
 
 }

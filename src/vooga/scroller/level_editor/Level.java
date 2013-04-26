@@ -11,15 +11,18 @@ import util.input.InputMethodTarget;
 import vooga.scroller.util.IGameComponent;
 import vooga.scroller.util.Renderable;
 import vooga.scroller.util.Renderer;
-import vooga.scroller.util.Sprite;
 import vooga.scroller.level_editor.controllerSuite.LEGrid;
 import vooga.scroller.level_editor.model.SpriteBox;
 import vooga.scroller.level_management.LevelPortal;
 import vooga.scroller.level_management.SpriteManager;
+import vooga.scroller.level_management.splash_page.SplashPage;
+import vooga.scroller.level_management.splash_page.TestSplashPage;
+import vooga.scroller.marioGame.splash_page.MarioSplashPage;
 import vooga.scroller.marioGame.spritesDefinitions.players.Mario;
 import vooga.scroller.model.Model;
 import vooga.scroller.scrollingmanager.OmniScrollingManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
+import vooga.scroller.sprites.Sprite;
 import vooga.scroller.sprites.interfaces.IDoor;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.PlatformerConstants;
@@ -254,7 +257,13 @@ public class Level implements Renderable<Gaming>, IGameComponent{
      // view of user's content
         ScrollingManager sm = new OmniScrollingManager();
         GameView display = new GameView(PlatformerConstants.DEFAULT_WINDOW_SIZE, sm);
-        Model m = new Model(display, sm, this);
+        sm.initView(display);
+        Player sample = new Mario(new Location(), new Dimension(30, 32), display, sm);
+        
+        SplashPage sp = new TestSplashPage(display, myScrollingManager);
+        
+        Model m = new Model(display, sm, sample, sp, this);
+//        m.addPlayerToLevel();
         display.setModel(m);
         return (Renderer<Gaming>) display;//TODO - bad
     }
