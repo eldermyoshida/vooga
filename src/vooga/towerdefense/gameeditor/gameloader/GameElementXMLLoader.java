@@ -1,5 +1,6 @@
 package vooga.towerdefense.gameeditor.gameloader;
 
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,7 @@ public class GameElementXMLLoader {
     private static final String GAME_ELEMENTS_TAG = "GameElements";
     private static final String ATTRIBUTES_TAG = "Attributes";
     private static final String IMAGE_TAG = "image";
+    private static final String DIMENSION_TAG = "dimension";
     private static final String VALUE_TAG = "value";
     
     private XMLTool myXMLTool;
@@ -40,7 +42,8 @@ public class GameElementXMLLoader {
         
         String gameElementName = myXMLTool.getTagName(gameElement);
         Pixmap elementImage = loadElementImage(subElements.get(IMAGE_TAG));
-        List<AttributeFactory> attributeFactories =
+        Dimension elementDimension = loadDimension(subElements.get(DIMENSION_TAG));
+        List<AttributeFactory> attributeFactories = 
                 loadAttributeFactories(subElements.get(ATTRIBUTES_TAG));
         
         ActionXMLLoader loader = new ActionXMLLoader(myXMLTool);
@@ -50,6 +53,7 @@ public class GameElementXMLLoader {
         
         GameElementFactory geFactory = new GameElementFactory(gameElementName,
                                                               elementImage,
+                                                              elementDimension,
                                                               managerFactory,
                                                               actionFactories);
         return geFactory;
@@ -78,5 +82,12 @@ public class GameElementXMLLoader {
     
     private double loadAttributeValue (Element valueElement) {
         return Double.parseDouble(myXMLTool.getContent(valueElement));
+    }
+    
+    private Dimension loadDimension(Element dimensionElement) {
+        String dimensionString = myXMLTool.getContent(dimensionElement);
+        String[] dimensionStringArray = dimensionString.split(",\\s+");
+        return new Dimension(Integer.parseInt(dimensionStringArray[0]), 
+                             Integer.parseInt(dimensionStringArray[1]));
     }
 }
