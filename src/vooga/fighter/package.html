@@ -76,6 +76,10 @@ could be subclassed to include modes like a Tourney.
 
 
 
+<p>
+In order to extend the display elements, a game developer would need to extend the HUDElement class AND override the update method (See an existing element for assistance). The new class can then be used in HUDVariable as a HUDClassName.
+HUDFactory should be passed the package name of the extended HUDElements and will find both HUDElements in the package and the default vooga package. 
+
 
 <!-- Fill this in with your high-level design and API examples -->
 

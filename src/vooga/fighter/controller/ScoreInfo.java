@@ -19,7 +19,7 @@ public class ScoreInfo extends DisplayLoopInfo implements ViewDataSource{
     private static final String myFileName = "config.WinStatements";
     @HUDVariable(
                  name = "Winner",
-                 HUDElementClass = "Text"
+                 HUDElementClass = "TitleText"
             )
     private String myWinner;
     private String myWinStatement;
