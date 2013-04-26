@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Observable;
 import javax.swing.JPanel;
 import vooga.rts.networking.NetworkBundle;
+import vooga.rts.networking.client.clientgui.ClientViewAdapter;
 import vooga.rts.networking.client.clientgui.CreateLobbyView;
 import vooga.rts.networking.client.clientgui.IModel;
 import vooga.rts.networking.client.clientgui.LobbyView;
@@ -50,6 +51,7 @@ public class ClientModel extends Observable implements IClientModel, IModel {
     private PlayerInfo myPlayer;
     // private ServerBrowserTableAdapter myServerBrowserAdapter = new ServerBrowserTableAdapter();
     private NetworkedGame myGame;
+    private ClientViewAdapter myViewAdapter;
 
     /**
      * This is the handler of information needed by all of the views in the process of connecting to
@@ -69,6 +71,7 @@ public class ClientModel extends Observable implements IClientModel, IModel {
                         List<Integer> maxPlayerArray) {
         myGame = game;
         myUserName = userName;
+        myViewAdapter = new ClientViewAdapter(this, gameName, factions, maps, maxPlayerArray);
         // myFactions = factions;
         // myContainerPanel = new ViewContainerPanel(gameName);
         // myServerBrowserView = new TableContainerView(myServerBrowserAdapter);
@@ -94,8 +97,9 @@ public class ClientModel extends Observable implements IClientModel, IModel {
     /**
      * Switches the current View to the ServerBrowser.
      */
-    private void switchToServerBrowserView () {
+    public void switchToServerBrowserView () {
         requestLobbies();
+        myViewAdapter.switchToServerBrowserView();
         // myContainerPanel.changeView(myServerBrowserView,
         // NetworkBundle.getString("ServerBrowser"));
         // myContainerPanel.changeLeftButton(NetworkBundle.getString("HostGame"),
@@ -121,7 +125,8 @@ public class ClientModel extends Observable implements IClientModel, IModel {
     /**
      * Switches the current View to the LobbyCreatorScreen.
      */
-    private void switchToCreateLobbyView () {
+    public void switchToCreateLobbyView () {
+        myViewAdapter.switchToCreateLobbyView();
         // myContainerPanel.changeView(myCreateLobbyView, NetworkBundle.getString("LobbyCreation"));
         // myContainerPanel.changeLeftButton(NetworkBundle.getString("BackToBrowser"),
         // new ActionListener() {
@@ -147,6 +152,7 @@ public class ClientModel extends Observable implements IClientModel, IModel {
     private void switchToLobbyView (ExpandedLobbyInfo lobbyInfo) {
         updateLobby(lobbyInfo);
         sendUpdatedLobbyInfo();
+        myViewAdapter.switchToLobbyView();
         // myLobbyView = new LobbyView(this, myFactions, lobbyInfo.getMaxPlayers());
         // updateLobby(lobbyInfo);
         // sendUpdatedLobbyInfo();
@@ -219,12 +225,12 @@ public class ClientModel extends Observable implements IClientModel, IModel {
      * @return the view used by all networking functions
      */
     public JPanel getView () {
-        return myContainerPanel;
+        return myViewAdapter.getView();
     }
 
     @Override
     public void addLobbies (LobbyInfo[] lobbies) {
-        myServerBrowserAdapter.changeLobbies(lobbies);
+        myViewAdapter.changeLobbies(lobbies);
     }
 
     @Override

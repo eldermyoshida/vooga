@@ -3,10 +3,12 @@ package vooga.rts.networking.client.clientgui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import javax.swing.JPanel;
 import vooga.rts.networking.NetworkBundle;
 import vooga.rts.networking.client.ClientModel;
 import vooga.rts.networking.client.IClientModel;
 import vooga.rts.networking.communications.ExpandedLobbyInfo;
+import vooga.rts.networking.communications.LobbyInfo;
 import vooga.rts.networking.communications.clientmessages.LeaveLobbyMessage;
 
 
@@ -17,21 +19,21 @@ public class ClientViewAdapter {
     private LobbyView myLobbyView;
     private ServerBrowserTableAdapter myServerBrowserAdapter = new ServerBrowserTableAdapter();
     private List<String> myFactions;
-    private ClientModel myClientModel;
+    private ClientModel myModel;
     private ExpandedLobbyInfo myLobbyInfo;
 
     public ClientViewAdapter (IModel model,
                               String gameName, List<String> factions, List<String> maps,
                               List<Integer> maxPlayerArray) {
-        myClientModel = (ClientModel) model;
-        myLobbyInfo = myClientModel.getLobbyInfo();
+        myModel = (ClientModel) model;
+        myLobbyInfo = myModel.getLobbyInfo();
         myFactions = factions;
         myContainerPanel = new ViewContainerPanel(gameName);
         myServerBrowserView = new TableContainerView(myServerBrowserAdapter);
         myCreateLobbyView = new CreateLobbyView(maps, maxPlayerArray);
     }
 
-    private void switchToServerBrowserView () {
+    public void switchToServerBrowserView () {
         myContainerPanel.changeView(myServerBrowserView, NetworkBundle.getString("ServerBrowser"));
         myContainerPanel.changeLeftButton(NetworkBundle.getString("HostGame"),
                                           new ActionListener() {
@@ -45,7 +47,7 @@ public class ClientViewAdapter {
                                                @Override
                                                public void actionPerformed (ActionEvent arg0) {
                                                    if (myServerBrowserView.hasSelectedRow()) {
-                                                       myClientModel.requestJoinLobby(myServerBrowserAdapter
+                                                       myModel.requestJoinLobby(myServerBrowserAdapter
                                                                .getIdOfRow(myServerBrowserView
                                                                        .getSelectedRow()));
                                                    }
@@ -56,13 +58,13 @@ public class ClientViewAdapter {
     /**
      * Switches the current View to the LobbyCreatorScreen.
      */
-    private void switchToCreateLobbyView () {
+    public void switchToCreateLobbyView () {
         myContainerPanel.changeView(myCreateLobbyView, NetworkBundle.getString("LobbyCreation"));
         myContainerPanel.changeLeftButton(NetworkBundle.getString("BackToBrowser"),
                                           new ActionListener() {
                                               @Override
                                               public void actionPerformed (ActionEvent arg0) {
-                                                  switchToServerBrowserView();
+                                                  myModel.switchToServerBrowserView();
                                               }
                                           });
         myContainerPanel.changeRightButton(NetworkBundle.getString("StartLobby"),
@@ -70,7 +72,7 @@ public class ClientViewAdapter {
                                                @Override
                                                public void actionPerformed (ActionEvent arg0) {
                                                    if (myCreateLobbyView.allItemsChosen()) {
-                                                       myClientModel.startLobby(myCreateLobbyView.getLobbyInfo());
+                                                       myModel.startLobby(myCreateLobbyView.getLobbyInfo());
                                                    }
                                                }
                                            });
@@ -79,19 +81,19 @@ public class ClientViewAdapter {
     /**
      * Switches the current view to the Lobby.
      */
-    private void switchToLobbyView (ExpandedLobbyInfo lobbyInfo) {
-        myLobbyView = new LobbyView(myClientModel, myFactions, lobbyInfo.getMaxPlayers());
+    public void switchToLobbyView () {
+        myLobbyView = new LobbyView(myModel, myFactions, myLobbyInfo.getMaxPlayers());
 
         myContainerPanel.changeView(myLobbyView, NetworkBundle.getString("LobbyCreation"));
         myContainerPanel.changeLeftButton(NetworkBundle.getString("LeaveLobby"),
                                           new ActionListener() {
                                               @Override
                                               public void actionPerformed (ActionEvent arg0) {
-                                                  lobbyInfo.removePlayer(myUserControlledPlayers
+                                                  myLobbyInfo.removePlayer(myUserControlledPlayers
                                                           .get(0));
                                                   myClient.sendData(new LeaveLobbyMessage(
                                                                                           myLobbyInfo));
-                                                  switchToServerBrowserView();
+                                                  myModel.switchToServerBrowserView();
                                               }
                                           });
         myContainerPanel.changeRightButton(NetworkBundle.getString("StartLobby"),
@@ -99,9 +101,21 @@ public class ClientViewAdapter {
                                                @Override
                                                public void actionPerformed (ActionEvent arg0) {
                                                    if (myLobbyInfo.canStartGame()) {
-                                                       requestStartGame();
+                                                       myModel.requestStartGame();
                                                    }
                                                }
                                            });
+    }
+    
+    /**
+     * 
+     * @return the view used by all networking functions
+     */
+    public JPanel getView () {
+        return myContainerPanel;
+    }
+    
+    public void changeLobbies (LobbyInfo[] lobbies) {
+        myServerBrowserAdapter.changeLobbies(lobbies);
     }
 }
