@@ -49,7 +49,7 @@ public class Pixmap {
      *        Example: filePath = "/" + "car.png" will look for an image car.png in the src folder.
      */
     public void setImage (String filePath) {
-        myImage = new ImageIcon(filePath).getImage();
+        myImage = new ImageIcon(getClass().getResource(filePath)).getImage();
         myFilePath = filePath;
     }
     
