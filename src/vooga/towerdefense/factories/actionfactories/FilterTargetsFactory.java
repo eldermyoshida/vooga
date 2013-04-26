@@ -25,7 +25,7 @@ public class FilterTargetsFactory extends ActionFactory{
 
 	@Override
 	protected Action buildAction(GameElement e) {
-		return new FilterTargets(e.getAttributeManager().getAttribute(myAffiliationReference),e.getAttributeManager().getAttribute(myNumTargetsReference));
+		return new FilterTargets(e.getAttributeManager().getAttribute(myAffiliationReference), e.getAttributeManager().getAttribute(myNumTargetsReference));
 	}
 	
 
