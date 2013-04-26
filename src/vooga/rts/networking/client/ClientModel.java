@@ -40,15 +40,15 @@ public class ClientModel extends Observable implements IClientModel, IModel {
 
     private IClient myClient;
     private String myUserName;
-    private ViewContainerPanel myContainerPanel;
-    private TableContainerView myServerBrowserView;
-    private CreateLobbyView myCreateLobbyView;
+//    private ViewContainerPanel myContainerPanel;
+//    private TableContainerView myServerBrowserView;
+//    private CreateLobbyView myCreateLobbyView;
     private ExpandedLobbyInfo myLobbyInfo;
-    private LobbyView myLobbyView;
-    private List<String> myFactions;
+    //private LobbyView myLobbyView;
+    //private List<String> myFactions;
     private List<PlayerInfo> myUserControlledPlayers = new ArrayList<PlayerInfo>();
     private PlayerInfo myPlayer;
-    private ServerBrowserTableAdapter myServerBrowserAdapter = new ServerBrowserTableAdapter();
+    //private ServerBrowserTableAdapter myServerBrowserAdapter = new ServerBrowserTableAdapter();
     private NetworkedGame myGame;
 
     /**
@@ -69,10 +69,10 @@ public class ClientModel extends Observable implements IClientModel, IModel {
                         List<Integer> maxPlayerArray) {
         myGame = game;
         myUserName = userName;
-        myFactions = factions;
-        myContainerPanel = new ViewContainerPanel(gameName);
-        myServerBrowserView = new TableContainerView(myServerBrowserAdapter);
-        myCreateLobbyView = new CreateLobbyView(maps, maxPlayerArray);
+//        myFactions = factions;
+//        myContainerPanel = new ViewContainerPanel(gameName);
+//        myServerBrowserView = new TableContainerView(myServerBrowserAdapter);
+//        myCreateLobbyView = new CreateLobbyView(maps, maxPlayerArray);
         myClient = new Client(this);
         Message initialConnection = new InitialConnectionMessage(gameName, userName);
         myClient.sendData(initialConnection);
@@ -96,25 +96,25 @@ public class ClientModel extends Observable implements IClientModel, IModel {
      */
     private void switchToServerBrowserView () {
         requestLobbies();
-        myContainerPanel.changeView(myServerBrowserView, NetworkBundle.getString("ServerBrowser"));
-        myContainerPanel.changeLeftButton(NetworkBundle.getString("HostGame"),
-                                          new ActionListener() {
-                                              @Override
-                                              public void actionPerformed (ActionEvent arg0) {
-                                                  switchToCreateLobbyView();
-                                              }
-                                          });
-        myContainerPanel.changeRightButton(NetworkBundle.getString("JoinGame"),
-                                           new ActionListener() {
-                                               @Override
-                                               public void actionPerformed (ActionEvent arg0) {
-                                                   if (myServerBrowserView.hasSelectedRow()) {
-                                                       requestJoinLobby(myServerBrowserAdapter
-                                                               .getIdOfRow(myServerBrowserView
-                                                                       .getSelectedRow()));
-                                                   }
-                                               }
-                                           });
+//        myContainerPanel.changeView(myServerBrowserView, NetworkBundle.getString("ServerBrowser"));
+//        myContainerPanel.changeLeftButton(NetworkBundle.getString("HostGame"),
+//                                          new ActionListener() {
+//                                              @Override
+//                                              public void actionPerformed (ActionEvent arg0) {
+//                                                  switchToCreateLobbyView();
+//                                              }
+//                                          });
+//        myContainerPanel.changeRightButton(NetworkBundle.getString("JoinGame"),
+//                                           new ActionListener() {
+//                                               @Override
+//                                               public void actionPerformed (ActionEvent arg0) {
+//                                                   if (myServerBrowserView.hasSelectedRow()) {
+//                                                       requestJoinLobby(myServerBrowserAdapter
+//                                                               .getIdOfRow(myServerBrowserView
+//                                                                       .getSelectedRow()));
+//                                                   }
+//                                               }
+//                                           });
     }
 
     /**
