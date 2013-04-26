@@ -49,26 +49,6 @@ public class MainState implements State, Observer {
         input.addListenerTo(myController);
         // myStates.add(new MenuState(this));
         // myStates.add(new GameState(this));
-
-        myTimer = new Timer();
-        myTimer.scheduleAtFixedRate(new TimerTask() {
-            private long lastNano = System.nanoTime();
-
-            @Override
-            public void run () {
-                long curNano = System.nanoTime();
-                double change = curNano - lastNano;
-                change /= 1000000000;
-                // System.out.println(change);
-                update(change);
-                if (myWindow.hasFocus()) {
-                    render();
-                }
-                lastNano = curNano;
-
-            }
-        }, 500, (long) (RTSGame.TIME_PER_FRAME() * 1000));
-        myReady = true;
     }
 
     @Override
@@ -83,7 +63,7 @@ public class MainState implements State, Observer {
 
     @Override
     public void paint (Graphics2D pen) {
-        
+
         myActiveState.paint(pen);
 
     }
@@ -94,11 +74,12 @@ public class MainState implements State, Observer {
             MenuState m = new MenuState(this, myWindow.getJFrame());
             setActiveState(m);
             m.setMenu(0);
-            
+
         }
-        else if (o instanceof MenuState) {
-            setActiveState(new GameState(this));
-        }
+        else
+            if (o instanceof MenuState) {
+                setActiveState(new GameState(this));
+            }
     }
 
     /**
@@ -143,5 +124,31 @@ public class MainState implements State, Observer {
      */
     public Window getWindow () {
         return myWindow;
+    }
+
+    public void start () {
+        myTimer = new Timer();
+        myTimer.scheduleAtFixedRate(new TimerTask() {
+            private long lastNano = System.nanoTime();
+
+            @Override
+            public void run () {
+                long curNano = System.nanoTime();
+                double change = curNano - lastNano;
+                change /= 1000000000;
+                // System.out.println(change);
+                update(change);
+                if (myWindow.hasFocus()) {
+                    render();
+                }
+                lastNano = curNano;
+
+            }
+        }, 500, (long) (RTSGame.TIME_PER_FRAME() * 1000));
+        myReady = true;
+    }
+
+    public void stop () {
+        myTimer.cancel();
     }
 }
