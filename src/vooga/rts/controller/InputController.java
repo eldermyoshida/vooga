@@ -83,7 +83,7 @@ public class InputController implements Controller {
 
     @InputMethodTarget(name = "onMouseDrag")
     public void onMouseDrag (PositionObject o) {
-        if (!myLeftMouse.equals(null)) {
+        if (!(myLeftMouse == null)) {
             double uX = o.getX() > myLeftMouse.getX() ? myLeftMouse.getX() : o.getX();
             double uY = o.getY() > myLeftMouse.getY() ? myLeftMouse.getY() : o.getY();
             double width = Math.abs(o.getX() - myLeftMouse.getX());
