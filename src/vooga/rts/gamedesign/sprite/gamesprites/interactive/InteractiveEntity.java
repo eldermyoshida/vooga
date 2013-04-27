@@ -62,7 +62,7 @@ import vooga.rts.util.Sound;
  */
 
 public abstract class InteractiveEntity extends GameEntity implements
-IAttackable, IActOn {
+		IAttackable, IActOn {
 
 	public static final Location3D DEFAULT_LOCATION = new Location3D(0, 0, 0);
 	public static final int DEFAULT_PLAYERID = 0;
@@ -85,6 +85,7 @@ IAttackable, IActOn {
 	private Information myInfo;
 	private PathFinder myFinder;
 	private Path myPath;
+	private InteractiveEntity myTargetEntity;
 
 	public static final double DEFAULT_BUILD_TIME = 5;
 
@@ -122,6 +123,7 @@ IAttackable, IActOn {
 		myProducables = new ArrayList<InteractiveEntity>();
 		myPath = new Path();
 		myFinder = new AstarFinder();
+		myTargetEntity = this;
 		setSpeed(DEFAULT_INTERACTIVEENTITY_SPEED);
 	}
 
@@ -211,7 +213,7 @@ IAttackable, IActOn {
 	private boolean attackInRange(IAttackable attackable, double distance) {
 		return getEntityState().getUnitState() == UnitState.ATTACK
 				&& this.getAttackStrategy().getCurrentWeapon()
-				.inRange((InteractiveEntity) attackable, distance);
+						.inRange((InteractiveEntity) attackable, distance);
 	}
 
 	/**
@@ -225,9 +227,9 @@ IAttackable, IActOn {
 		return Math.sqrt(Math
 				.pow(getWorldLocation().getX()
 						- ((InteractiveEntity) attackable).getWorldLocation()
-						.getX(), 2)
-						+ Math.pow(getWorldLocation().getY()
-								- ((InteractiveEntity) attackable).getWorldLocation()
+								.getX(), 2)
+				+ Math.pow(getWorldLocation().getY()
+						- ((InteractiveEntity) attackable).getWorldLocation()
 								.getY(), 2));
 	}
 
@@ -363,11 +365,11 @@ IAttackable, IActOn {
 		Rectangle2D healthBar = new Rectangle2D.Double(
 				(int) selectLocation.getX() - LOCATION_OFFSET,
 				(int) (selectLocation.getY() - 5 * LOCATION_OFFSET), 50
-				* getHealth() / getMaxHealth(), 5);
+						* getHealth() / getMaxHealth(), 5);
 		float width = (float) (healthBar.getWidth() * (getHealth() / getMaxHealth()));
 		pen.setPaint(new GradientPaint((float) healthBar.getX() - width,
 				(float) healthBar.getMaxY(), Color.RED, (float) healthBar
-				.getMaxX(), (float) healthBar.getMaxY(), Color.GREEN));
+						.getMaxX(), (float) healthBar.getMaxY(), Color.GREEN));
 		pen.fill(healthBar);
 		pen.setColor(Color.black);
 
@@ -392,25 +394,23 @@ IAttackable, IActOn {
 
 	/**
 	 * If the passed in parameter is another InteractiveEntity, checks to see if
-	 * it is a Building and can be occupied, checks to see if it is an enemy,
-	 * and if so, switches to attack state. Defaults to move to the center of
-	 * the other InteractiveEntity
+	 * it is an enemy and should be attacked. Then it checks to see if it is a
+	 * building that can be occupied. Then the entity starts to move to location
+	 * clicked.
 	 * 
 	 * @param other
 	 *            - the other InteractiveEntity
 	 */
 	public void recognize(InteractiveEntity other) {
+		myTargetEntity = other;
 		if (isEnemy(other)) {
 			getEntityState().setUnitState(UnitState.ATTACK);
-			System.out.println("i attacked");
-		}
-		else if (other instanceof Building) {
+		} else if (other instanceof Building) {
 			getEntityState().setUnitState(UnitState.OCCUPY);
-		}
-		else {
+		} else {
 			getEntityState().setUnitState(UnitState.NOTHING);
-			move(other.getWorldLocation());
 		}
+		move(other.getWorldLocation());
 	}
 
 	// below are the recognize methods to handle different input parameters from
@@ -490,13 +490,20 @@ IAttackable, IActOn {
 		}
 		if (myAttackStrategy.hasWeapon()) {
 			Weapon weapon = myAttackStrategy.getCurrentWeapon();
-			List<InteractiveEntity> enemies = GameState.getMap()
-					.<InteractiveEntity> getInArea(getWorldLocation(),
-							weapon.getRange(), this,
-							GameState.getPlayers().getTeamID(getPlayerID()),
-							false);
-			if (!enemies.isEmpty()) {
-				enemies.get(0).getAttacked(this);
+			if (getEntityState().getUnitState() == UnitState.ATTACK) {
+				myTargetEntity.getAttacked(this);
+			} else {
+				List<InteractiveEntity> enemies = GameState
+						.getMap()
+						.<InteractiveEntity> getInArea(
+								getWorldLocation(),
+								weapon.getRange(),
+								this,
+								GameState.getPlayers().getTeamID(getPlayerID()),
+								false);
+				if (!enemies.isEmpty()) {
+					enemies.get(0).getAttacked(this);
+				}
 			}
 			weapon.update(elapsedTime);
 		}

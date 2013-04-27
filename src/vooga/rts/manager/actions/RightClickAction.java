@@ -14,6 +14,7 @@ import vooga.rts.util.Location3D;
  * mapped to the right click there.
  * 
  * @author Challen Herzberg-Brovold.
+ * @author Ryan Fishel
  * 
  */
 public class RightClickAction extends ManagerAction {
