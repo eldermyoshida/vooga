@@ -1,4 +1,4 @@
-package games.scroller.mr_fish.sprites.items;
+package vooga.scroller.extra_resources.inventory;
 
 import games.scroller.mr_fish.sprites.FishLib;
 import games.scroller.mr_fish.sprites.player.MrFish;

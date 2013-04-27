@@ -1,4 +1,6 @@
-package vooga.scroller.sprites.interfaces;
+package vooga.scroller.extra_resources.sprite_interfaces;
+
+import vooga.scroller.sprites.interfaces.Locatable;
 
 
 

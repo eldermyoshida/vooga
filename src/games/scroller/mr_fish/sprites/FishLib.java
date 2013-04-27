@@ -1,6 +1,5 @@
 package games.scroller.mr_fish.sprites;
 
-import games.scroller.mr_fish.sprites.items.Item;
 import games.scroller.mr_fish.sprites.player.MrFish;
 import java.awt.Dimension;
 import java.util.ArrayList;
@@ -8,13 +7,14 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 import util.Location;
+import vooga.scroller.extra_resources.inventory.Item;
+import vooga.scroller.extra_resources.sprite_interfaces.ICollectible;
+import vooga.scroller.extra_resources.sprite_interfaces.IEnemy;
+import vooga.scroller.extra_resources.sprite_interfaces.IPlatform;
 import vooga.scroller.level_editor.Level;
 import vooga.scroller.level_editor.library.EncapsulatedSpriteLibrary;
 import vooga.scroller.level_management.LevelPortal;
 import vooga.scroller.sprites.Sprite;
-import vooga.scroller.sprites.interfaces.ICollectible;
-import vooga.scroller.sprites.interfaces.IEnemy;
-import vooga.scroller.sprites.interfaces.IPlatform;
 import vooga.scroller.sprites.interfaces.Locatable;
 import vooga.scroller.sprites.movement.TrackPlayer;
 import vooga.scroller.sprites.superclasses.GameCharacter;

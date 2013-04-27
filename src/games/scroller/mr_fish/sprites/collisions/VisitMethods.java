@@ -2,14 +2,14 @@ package games.scroller.mr_fish.sprites.collisions;
 
 import games.scroller.mr_fish.sprites.FishLib.Fireball;
 import games.scroller.mr_fish.sprites.FishLib.Shark;
-import games.scroller.mr_fish.sprites.items.Item;
 import games.scroller.mr_fish.sprites.player.MrFish;
 import util.Vector;
 import vooga.scroller.collision_manager.CollisionDirection;
+import vooga.scroller.extra_resources.inventory.Item;
+import vooga.scroller.extra_resources.sprite_interfaces.IEnemy;
+import vooga.scroller.extra_resources.sprite_interfaces.IPlatform;
 import vooga.scroller.sprites.Sprite;
 import vooga.scroller.sprites.interfaces.IDoor;
-import vooga.scroller.sprites.interfaces.IEnemy;
-import vooga.scroller.sprites.interfaces.IPlatform;
 import vooga.scroller.sprites.superclasses.GameCharacter;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.Direction;

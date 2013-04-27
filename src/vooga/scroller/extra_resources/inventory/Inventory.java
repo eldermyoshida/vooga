@@ -1,4 +1,4 @@
-package games.scroller.mr_fish.sprites.player.stats;
+package vooga.scroller.extra_resources.inventory;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import games.scroller.mr_fish.sprites.items.Item;
 import games.scroller.mr_fish.sprites.player.MrFish;
 import util.Location;
 import util.input.InputClassTarget;

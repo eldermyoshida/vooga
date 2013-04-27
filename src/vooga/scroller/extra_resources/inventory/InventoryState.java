@@ -1,10 +1,9 @@
-package games.scroller.mr_fish.sprites.player.states;
+package vooga.scroller.extra_resources.inventory;
 
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import games.scroller.mr_fish.sprites.player.MrFish;
-import games.scroller.mr_fish.sprites.player.stats.Inventory;
 import util.Location;
 import util.Text;
 import vooga.scroller.sprites.state.SpriteState;

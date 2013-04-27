@@ -8,8 +8,6 @@ import arcade.games.GameData;
 import arcade.games.UserGameData;
 import util.Location;
 import vooga.scroller.level_management.splash_page.SplashPage;
-import vooga.scroller.marioGame.splash_page.MarioSplashPage;
-import vooga.scroller.marioGame.spritesDefinitions.MarioLib;
 import vooga.scroller.model.ScrollerGame;
 import vooga.scroller.scrollingmanager.OmniScrollingManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
