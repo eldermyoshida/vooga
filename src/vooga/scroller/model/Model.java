@@ -70,16 +70,6 @@ public class Model {
         myPlayer = player;
     }
 
-
-    private static Player initTestPlayer (GameView gameView, ScrollingManager sm) {
-        Player player = new Mario(new Location(), new Dimension(32, 32), gameView, sm);
-        MovingSpriteAnimationFactory msaf = new MovingSpriteAnimationFactory(DEFAULT_IMAGE_LOCATION, PLAYER_IMAGES);
-        Animation<Sprite> playerAnimation = msaf.generateAnimation(player);
-        
-        player.setView(playerAnimation);
-        return player;
-    }
-
     public void addPlayerToLevel () {
         myLevelManager.getCurrentLevel().addPlayer(myPlayer);
     }
