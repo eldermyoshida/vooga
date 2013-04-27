@@ -2,8 +2,11 @@ package vooga.towerdefense.model.tiles.factories;
 
 import vooga.towerdefense.model.Tile;
 import vooga.towerdefense.model.tiles.DefaultTile;
+import java.awt.Dimension;
 import util.Location;
 import util.Pixmap;
+import vooga.towerdefense.model.tiles.DefaultTile;
+import vooga.towerdefense.model.Tile;
 
 /**
  * A tile factory that creates DefaultTile objects.
@@ -19,8 +22,8 @@ public class DefaultTileFactory extends TileFactory {
     public static final Pixmap PATH_TILE_IMAGE = new Pixmap("/vooga/towerdefense/images/map/blank_tile.png");
     
     @Override
-    public Tile createTile (int id, Location center) {
-        return new DefaultTile(center, TileFactory.TILE_DIMENSIONS);
+    public Tile createTile (Location center) {
+        return new DefaultTile(center, TileFactory.DEFAULT_TILE_DIMENSIONS);
     }
     
     

@@ -1,10 +1,11 @@
 package vooga.towerdefense.controller.modes;
 
+import java.awt.Dimension;
 import java.awt.Point;
 
+import util.Location;
 import vooga.towerdefense.controller.Controller;
 import vooga.towerdefense.gameElements.GameElement;
-import util.Location;
 
 /**
  * A build mode used to aid in the placing and building of towers.
@@ -37,9 +38,10 @@ public class BuildMode extends ControlMode {
 	 */
 	@Override
 	public void handleMapClick(Point p, Controller controller) {
-		String shape = "1 1\n1 1"; //= myItemToBuild.getShape();
-		int tilesWide = (int) myItemToBuild.getAttributeManager().getAttribute("Tiles wide").getValue();
-		int tilesTall = (int) myItemToBuild.getAttributeManager().getAttribute("Tiles tall").getValue();
+		Dimension tileSize = controller.getTileSize();
+		int tilesWide = (int) Math.ceil(myItemToBuild.getSize().getWidth()  / tileSize.getWidth());
+		int tilesTall = (int) Math.ceil(myItemToBuild.getSize().getHeight() / tileSize.getHeight());
+		
 		
 		if (controller.canBuildHere(p, tilesWide, tilesTall))
 			controller.fixItemOnMap(myItemToBuild, p);

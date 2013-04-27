@@ -20,7 +20,7 @@ import javax.swing.JButton;
 
 import util.Location;
 import vooga.towerdefense.controller.Controller;
-import vooga.towerdefense.gameeditor.gameloader.MapLoader;
+import vooga.towerdefense.gameeditor.gameloader.MapXMLLoader;
 import vooga.towerdefense.model.GameMap;
 import util.Pixmap;
 import vooga.towerdefense.view.TDView;
@@ -44,7 +44,7 @@ public class MapsSelectorScreen extends SelectScreen {
     private JButton myNextScreenButton;
     private boolean myMapSelected;
     private String myPrevName = "";
-    private MapLoader myMapLoader;
+    private MapXMLLoader myMapLoader;
     private Controller myController;
     private Pixmap mySelectedMap;
 

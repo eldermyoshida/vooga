@@ -9,6 +9,8 @@ import java.util.Scanner;
 
 import org.w3c.dom.Element;
 
+import util.Location;
+import util.Pixmap;
 import util.XMLTool;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.Tile;
@@ -16,8 +18,6 @@ import vooga.towerdefense.model.tiles.factories.DefaultTileFactory;
 import vooga.towerdefense.model.tiles.factories.GrassTileFactory;
 import vooga.towerdefense.model.tiles.factories.PathTileFactory;
 import vooga.towerdefense.model.tiles.factories.TileFactory;
-import util.Location;
-import util.Pixmap;
 
 /**
  * This class is responsible for constructing GameMap objects
@@ -76,7 +76,7 @@ import util.Pixmap;
  * 
  * @author Erick Gonzalez
  */
-public class MapLoader {
+public class MapXMLLoader {
     /**
      * Relative path to the map file.
      */
@@ -98,7 +98,7 @@ public class MapLoader {
      * 
      * @param mapFilePath a path to the map XML file
      */
-    public MapLoader(XMLTool xmlTool) {
+    public MapXMLLoader(XMLTool xmlTool) {
         myXMLTool = xmlTool;        
         initTileIdMap();
     }
@@ -132,7 +132,7 @@ public class MapLoader {
         Dimension mapDimensions = loadMapDimensions(subElements.get(DIMENSION_TAG));
         Dimension tileSize = loadMapTileSize(subElements.get(TILE_SIZE_TAG));
         Tile[][] mapGrid = loadTiles(subElements.get(GRID_TAG), mapDimensions, tileSize);
-        return new GameMap(mapGrid, mapImage, mapDimensions, null);
+        return new GameMap(mapGrid, mapImage, mapDimensions, tileSize, null);
     }
     
     private Pixmap loadMapImage(Element imageElement) {
@@ -177,8 +177,7 @@ public class MapLoader {
                 int yCenter = (int) (i * tileDimensions.getHeight() + 
                         tileDimensions.getHeight() / 2);
                 int tileId = reader.nextInt();
-                grid[j][i] = getTileFactory(tileId).createTile(tileId, 
-                                                               new Location(xCenter, yCenter));
+                grid[j][i] = getTileFactory(tileId).createTile(new Location(xCenter, yCenter));
             }
         }
         return grid;

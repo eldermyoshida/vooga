@@ -3,94 +3,142 @@ package vooga.towerdefense.gameeditor.gameloader;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import util.XMLTool;
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.factories.actionfactories.ActionFactory;
 import vooga.towerdefense.gameElements.GameElement;
 
+
 public class ActionXMLLoader {
     private static final String ACTIONS_TAG = "actions";
     private static final String PARAMETER_TAG = "parameter";
-    
+
     private XMLTool myXMLTool;
-    
-    public ActionXMLLoader(XMLTool xmlTool) {
+
+    /**
+     * 
+     * 
+     * @param xmlTool an xmlTool
+     */
+    public ActionXMLLoader (XMLTool xmlTool) {
         myXMLTool = xmlTool;
     }
-    
-    public List<Action> loadActions() {
-        return loadActions(null);
+
+    /**
+     * This method loads all the actions described in XML that
+     * do not act upon a GameElement object.
+     * 
+     * @return loads a list of actions
+     */
+    public List<Action> loadActions (Element actionsElement) {
+        return loadActions(null, actionsElement);
     }
-    
-    public List<Action> loadActions(GameElement e) {
-        List<ActionFactory> actionFactories = loadActionFactories();
-        
+
+    /**
+     * This method loads all the actions described in XML that
+     * act upon a GameElement object e.
+     * 
+     * @param e the game element object that an action acts on
+     * @return a list of actions acting on e
+     */
+    public List<Action> loadActions (GameElement e, Element actionsElement) {
+        List<ActionFactory> actionFactories = loadActionFactories(actionsElement);
+
         List<Action> actions = new ArrayList<Action>();
         for (ActionFactory af : actionFactories) {
             actions.add(af.createAction(e));
         }
-        
-        return actions; 
-    }
-    
-    public List<ActionFactory> loadActionFactories() {
-        Element actionsElement = myXMLTool.getElement(ACTIONS_TAG);                
-        Map<String, Element> subElements = myXMLTool.getChildrenElementMap(actionsElement);
-        List<ActionFactory> actions = new ArrayList<ActionFactory>();
-        for (Element e : subElements.values()) {
-            actions.add(loadActionFactory(e));
-        }
+
         return actions;
     }
-    
-    private ActionFactory loadActionFactory(Element actionElement) {
-        String actionName = myXMLTool.getContent(actionElement);
+
+    /**
+     * 
+     * @return a list of action factories
+     */
+    public List<ActionFactory> loadActionFactories (Element actionsElement) {
+        Map<String, Element> subElements = myXMLTool.getChildrenElementMap(actionsElement);
+
+        List<ActionFactory> actionFactories = new ArrayList<ActionFactory>();
+        for (Element e : subElements.values()) {
+            actionFactories.add(loadActionFactory(e));
+            break;
+        }
+        return actionFactories;
+    }
+
+    private ActionFactory loadActionFactory (Element actionElement) {
+        String actionName = myXMLTool.getTagName(actionElement);
+        
+        NodeList nodeList = actionElement.getChildNodes();
+        System.out.println(nodeList.getLength());
+        for (int i = 0; i < nodeList.getLength(); ++i) {
+            Node current = nodeList.item(i);
+            System.out.println(current.getNodeValue());
+        }
+
         List<String> parameterStrings = new ArrayList<String>();
-        Object[] parameterStringsArray = parameterStrings.toArray();
-        
         List<ActionFactory> subActions = new ArrayList<ActionFactory>();
-        
-        Map<String, Element> subElements = myXMLTool.getChildrenElementMap(actionElement); 
+
+        Map<String, Element> subElements = myXMLTool.getChildrenElementMap(actionElement);
+
         for (String subElementName : subElements.keySet()) {
             if (subElementName.equals(PARAMETER_TAG)) {
                 parameterStrings.add(loadParameterString(subElements.get(subElementName)));
-            } else {
+            }
+            else {
                 subActions.add(loadActionFactory(subElements.get(subElementName)));
             }
         }
+        String[] parameterStringsArray = parameterStrings.toArray(new String[] {});
+        
         Class actionFactoryClass = null;
         ActionFactory af = null;
         try {
-            actionFactoryClass = Class.forName(actionName + "Factory");
-            Constructor[] constructors = actionFactoryClass.getDeclaredConstructors();
+            String thing = "";
+            if (actionName.contains("Wave")) {
+                thing = "vooga.towerdefense.factories.waveactionfactories.";
+            } else {
+                thing = "vooga.towerdefense.factories.actionfactories.";
+            }
+            String classPath = thing + actionName + "Factory";
+            actionFactoryClass = Class.forName(classPath);
+
+            Constructor[] constructors = actionFactoryClass.getDeclaredConstructors();            
             Constructor constructor = constructors[0];
-            try {
-                af = (ActionFactory) constructor.newInstance(parameterStringsArray);
-            }
-            catch (InstantiationException e) {
-                return null;
-            }
-            catch (IllegalAccessException e) {
-                return null;
-            }
-            catch (IllegalArgumentException e) {
-                return null;
-            }
-            catch (InvocationTargetException e) {
-                return null;
-            }
+            af = (ActionFactory) constructor.newInstance(parameterStringsArray);
+        }
+        catch (InstantiationException e) {
+            //System.out.println("InstantiationException");
+            return null;
+        }
+        catch (IllegalAccessException e) {
+            //System.out.println("IllegalAccessException");
+            return null;
+        }
+        catch (IllegalArgumentException e) {
+            //System.out.println("IllegalArgumentException");
+            return null;
+        }
+        catch (InvocationTargetException e) {
+            //System.out.println("InvocationTargetException");
+            return null;
         }
         catch (ClassNotFoundException e) {
+            //System.out.println("ClassNotFoundException");
             return null;
-        }        
+        }
         af.addFollowUpActionsFactories(subActions);
         return af;
     }
-    
-    private String loadParameterString(Element parameterElement) {
+
+    private String loadParameterString (Element parameterElement) {
         return myXMLTool.getContent(parameterElement);
     }
 }

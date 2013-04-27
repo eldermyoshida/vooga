@@ -3,6 +3,9 @@ package vooga.towerdefense.factories.elementfactories;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
+
+import util.Location;
+import util.Pixmap;
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.actionlist.MoveToTarget;
 import vooga.towerdefense.attributes.AttributeConstantsEnum;
@@ -13,8 +16,6 @@ import vooga.towerdefense.factories.attributefactories.AttributeManagerFactory;
 import vooga.towerdefense.factories.definitions.GameElementDefinition;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.model.GameMap;
-import util.Location;
-import util.Pixmap;
 
 
 /**
@@ -27,8 +28,8 @@ import util.Pixmap;
  */
 public class GameElementFactory {
 
-    private static DefaultAttributeManager DEFAULT_ATTRIBUTE_MANAGER =
-            new DefaultAttributeManager();
+    //private static DefaultAttributeManager DEFAULT_ATTRIBUTE_MANAGER =
+      //      new DefaultAttributeManager();
 
     /**
      * Name of the element that is defined in this class. For convenience.
@@ -39,6 +40,7 @@ public class GameElementFactory {
     private GameMap myMap;
 
     private Pixmap myImage;
+    private String myType;
     private Dimension mySize;
     private AttributeManagerFactory myAttributeManagerFactory;
 
@@ -52,26 +54,36 @@ public class GameElementFactory {
      * @param attrManager
      */
 
-    public GameElementFactory (String name,
+    public GameElementFactory (String name, String type, 
                                Pixmap image,Dimension size,
                                AttributeManagerFactory attrManager, List<ActionFactory> myActions) {
         myName = name;
+        myType = type;
         myImage = image;
         mySize = size;
         myAttributeManagerFactory = attrManager;
         myActions = new ArrayList<ActionFactory>();
     }
-@Deprecated
+    
+    /**
+     * returns the type of this factory.
+     * @return a string representing the type
+     */
+    public String getType() {
+        return myType;
+    }
+    
+    @Deprecated
     public GameElementFactory (String name, Pixmap image){
         myName = name;
         myImage = image;
         myAttributeManagerFactory = new AttributeManagerFactory();
-        mySize = new Dimension(50,50);//just for testing before having the xml loader working
+        mySize = new Dimension(50,50);//TODO: just for testing before having the xml loader working
         
     }
     @Deprecated
-    public GameElementFactory (String name, GameElementDefinition definition) {
-        this(name, definition.getImage(),definition.getSize(), definition
+    public GameElementFactory (String name, String type, GameElementDefinition definition) {
+        this(name, type, definition.getImage(),definition.getSize(), definition
                 .getAttributeManagerFactory(), definition.getActions());
         myName = name;
         myDef = definition;
@@ -160,7 +172,7 @@ public class GameElementFactory {
         return projectile;
     }
 
-    public AttributeManager getDefaultAM () {
-        return DEFAULT_ATTRIBUTE_MANAGER;
-    }
+    //public AttributeManager getDefaultAM () {
+    //    return DEFAULT_ATTRIBUTE_MANAGER;
+    //}
 }
