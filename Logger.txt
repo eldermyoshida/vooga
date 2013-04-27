@@ -1,2 +1,0 @@
-Apr 24, 2013 1:11:36 AM vooga.rts.networking.logger.NetworkLogger logMessage
-CONFIG: Server started
