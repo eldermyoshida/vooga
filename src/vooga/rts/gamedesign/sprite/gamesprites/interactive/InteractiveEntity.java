@@ -282,7 +282,6 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
      * @param toOther
      */
     public void transmitProperties (InteractiveEntity toOther) {
-    	System.out.println(getInfo());
         toOther.setInfo(getInfo());
         for (Strategy s : getStrategies()) {
             s.affect(toOther);
