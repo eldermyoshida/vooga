@@ -91,7 +91,15 @@ public class CanAttack implements AttackStrategy {
     public List<Weapon> getWeapons () {
         return myWeapons;
     }
-
+    
+    /**
+     * Sets myWeapons to the new list of weapons. 
+     */
+    public void setWeapons(List<Weapon> newWeapons){
+    	myWeapons = newWeapons;
+    }
+    
+    
     /**
      * Returns the index of the Weapon that's currently been activated in the
      * list of Weapons belonged to this CanAttack object.
@@ -133,7 +141,10 @@ public class CanAttack implements AttackStrategy {
 
 
 	public void affect(InteractiveEntity other) {
-		other.setAttackStrategy(this);
+		CanAttack toAdd = new CanAttack();
+		toAdd.setWeaponIndex(0);
+		toAdd.setWeapons(this.getWeapons());
+		other.setAttackStrategy(toAdd);
 	}
 
 }
