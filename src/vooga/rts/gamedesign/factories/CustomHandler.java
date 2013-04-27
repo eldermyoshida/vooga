@@ -41,15 +41,15 @@ public class CustomHandler extends Decoder{
 			String path = customElement.getAttributes().getNamedItem(SOURCE_TAG).getTextContent();
 			String name = getElement(customElement, NAME_TAG);
 			Object toPut = ReflectionHelper.makeInstance(path);
-			
-			if(type.equals(BUILDING_TYPE)){
+
+			if(type == BUILDING_TYPE){
 				myFactory.put(name, (InteractiveEntity) toPut);
 			}
-			if(type.equals(RESOURCE_TYPE)){
+			if(type == RESOURCE_TYPE){
 				myFactory.put(name, (Resource) toPut);
 
 			}
-			if(type.equals(UNIT_TYPE)){
+			if(type == UNIT_TYPE){
 				myFactory.put(name, (InteractiveEntity) toPut);
 
 			}

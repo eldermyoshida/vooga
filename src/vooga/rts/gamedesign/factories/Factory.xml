@@ -86,27 +86,16 @@
 	<buildings src = "vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building">
 		<building>
 			<name>home</name>
-			<img>images/home.png</img>
+			<img>home.png</img>
 			<sound>pikachu.wav</sound>
 			<health>1000</health>
 			<buildtime>100</buildtime>
 			<occupy>cannotbeoccupied</occupy>
 			<upgrade>canupgrade</upgrade>
 			<upgradeTreeName>SoldierUpgrade</upgradeTreeName>
-			<produce>combat</produce>
+			<produce>worker soldier</produce>
 			<myweapons></myweapons>
-		</building>
-		<building>
-			<name>garrison</name>
-			<img>images/home.png</img>
-			<sound>pikachu.wav</sound>
-			<health>1000</health>
-			<buildtime>100</buildtime>
-			<occupy>canbeoccupied</occupy>
-			<upgrade>canupgrade</upgrade>
-			<upgradeTreeName>SoldierUpgrade</upgradeTreeName>
-			<produce></produce>
-			<myweapons></myweapons>
+			
 		</building>
 		<custombuilding src = "vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Tower">
 			<name>tower</name>
@@ -115,7 +104,7 @@
 	<units src = "vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit">
 		<unit>
 			<name>combat</name>
-			<img>images/sprites/soldier.png</img>
+			<img>soldier.jpg</img>
 			<sound>pikachu.wav</sound>
 			<health>100</health>
 			<buildtime>100</buildtime>
@@ -129,7 +118,7 @@
 		</unit>
 		<unit>
 			<name>worker</name>
-			<img>images/worker.jpg</img>
+			<img>worker.jpg</img>
 			<sound>pikachu.wav</sound>
 			<health>100</health>
 			<buildtime>100</buildtime>
@@ -138,7 +127,7 @@
 			<occupy>cannotbeoccupied</occupy>
 			<upgrade>canupgrade</upgrade>
 			<upgradeTreeName>SoldierUpgrade</upgradeTreeName>
-			<produce></produce>
+			<produce>home</produce>
 			<myweapons></myweapons>
 		</unit>
 		<customunit src = "vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Soldier">

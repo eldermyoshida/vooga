@@ -5,16 +5,7 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 
-import vooga.rts.commands.Command;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
-import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
-import vooga.rts.gamedesign.strategy.Strategy;
-import vooga.rts.gamedesign.strategy.attackstrategy.CannotAttack;
-import vooga.rts.gamedesign.strategy.occupystrategy.CanBeOccupied;
-import vooga.rts.gamedesign.strategy.occupystrategy.CannotBeOccupied;
-import vooga.rts.gamedesign.strategy.production.CanProduce;
-import vooga.rts.gamedesign.strategy.upgradestrategy.CanUpgrade;
-import vooga.rts.gamedesign.strategy.upgradestrategy.CannotUpgrade;
 import vooga.rts.gamedesign.upgrades.UpgradeNode;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
 import vooga.rts.util.Location3D;
@@ -69,11 +60,8 @@ public class Building extends InteractiveEntity {
 
     @Override
     public InteractiveEntity copy () {
-        Building copyBuilding = new Building(getImage(), getWorldLocation(), getSize(), getSound(), getPlayerID(),
-                getHealth(), getBuildTime());
-        
-        transmitProperties(copyBuilding);
-    	return copyBuilding;
+        return new Building(getImage(), getWorldLocation(), getSize(), getSound(), getPlayerID(),
+                            getHealth(), getBuildTime());
     }
 
 
@@ -107,10 +95,4 @@ public class Building extends InteractiveEntity {
 		// TODO Auto-generated method stub
 		
 	}
-
-    @Override
-    public void updateAction (Command command) {
-        // TODO Auto-generated method stub
-        
-    }
 }

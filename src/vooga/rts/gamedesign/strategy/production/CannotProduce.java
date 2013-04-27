@@ -1,11 +1,8 @@
 package vooga.rts.gamedesign.strategy.production;
 
 import java.awt.Graphics2D;
-import java.util.List;
 
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
-import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building;
-import vooga.rts.gamedesign.strategy.Strategy;
 import vooga.rts.util.Location3D;
 
 /**
@@ -25,8 +22,10 @@ public class CannotProduce implements ProductionStrategy{
         //this will do nothing. 
     }
 
+	@Override
 	public void addProducable(InteractiveEntity producable) {
-		return;
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
@@ -35,33 +34,16 @@ public class CannotProduce implements ProductionStrategy{
 		
 	}
 
+	@Override
 	public void paint(Graphics2D pen) {
-		return;
-	}
-
-	public void setRallyPoint(Location3D rallyPoint) {
-		return;
-	}
-
-	public void setRallyPoint(InteractiveEntity entity) {
-		return;
-	}
-
-	@Override
-	public List<InteractiveEntity> getProducables() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setProducables(List<InteractiveEntity> producables) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void affect(InteractiveEntity entity) {
-		entity.setProductionStrategy(this);
+	public void setRallyPoint(Location3D rallyPoint) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
