@@ -9,9 +9,6 @@ import vooga.towerdefense.model.AStar.AStar;
 import vooga.towerdefense.model.AStar.AStarHeuristic;
 import vooga.towerdefense.model.AStar.AreaMap;
 import vooga.towerdefense.model.AStar.DiagonalHeuristic;
-import vooga.towerdefense.model.tiles.factories.TileFactory;
-import util.Location;
-import vooga.towerdefense.model.Tile;
 
 /**
  * Generates paths based on what tiles are eligible to walk on in the map using
@@ -53,6 +50,9 @@ public class Pathfinder {
 	 * @return the shortest path between (x1,y1) and (x2,y2)
 	 */
 	public Path getShortestPath(Location start, Location finish) {
+		
+		System.out.println("start: " + start +  "  finish: " + finish);
+		
 		int startX = (int) start.getX();
 		int startY = (int) start.getY();
 		int goalX = (int) finish.getX();

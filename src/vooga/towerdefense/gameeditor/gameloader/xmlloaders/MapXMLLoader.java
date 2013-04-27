@@ -134,7 +134,7 @@ public class MapXMLLoader {
         Dimension mapDimensions = loadMapDimensions(subElements.get(DIMENSION_TAG));
         Dimension tileSize = loadMapTileSize(subElements.get(TILE_SIZE_TAG));
         Tile[][] mapGrid = loadTiles(subElements.get(GRID_TAG), mapDimensions, tileSize);
-        return new GameMap(mapGrid, mapImage, mapDimensions, tileSize, null);
+        return new GameMap(mapGrid, mapImage, mapDimensions, tileSize);
     }
     
     private Pixmap loadMapImage(Element imageElement) {

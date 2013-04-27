@@ -1,0 +1,79 @@
+<Game>
+	<view>
+		<dimension>800, 800</dimension>
+		<MapScreen>
+			<dimension>800, 600</dimension>
+			<location>NORTH</location>
+		</MapScreen>
+		<ShopScreen>
+			<dimension>800, 200</dimension>
+			<location>SOUTH</location>
+		</ShopScreen>
+	</view>
+	<map>
+		<Map1>
+			<image>/vooga/towerdefense/images/tower.gif</image>
+			<tile_size>50</tile_size>
+			<dimension>
+				<width>500</width>
+				<height>500</height>
+			</dimension>
+			<grid>1 1 1 1 1 1 1 1 1 1
+			1 1 1 1 1 1 1 1 1 1
+			1 1 1 1 1 1 1 1 1 1
+			1 1 1 1 1 1 1 1 1 1
+			1 2 2 2 1 1 1 1 1 1
+			2 2 1 2 1 2 2 2 2 2
+			1 1 1 2 1 2 1 1 1 1
+			1 1 1 2 2 2 1 1 1 1
+			1 1 1 1 1 1 1 1 1 1
+			1 1 1 1 1 1 1 1 1 1</grid>
+		</Map1>
+	</map>
+	<gameelements>
+		<TestUnit>
+			<dimension>50, 50</dimension>
+			<image>/images/bear.gif</image>
+			<type>Unit</type>
+			<attributes>
+				<HEALTH>100</HEALTH>
+				<MOVE_SPEED>50</MOVE_SPEED>
+				<DIRECTION>0</DIRECTION>
+			</attributes>
+			<actions>
+				<FollowPath>
+				</FollowPath>
+				<Move>
+					<parameter1>MOVE_SPEED</parameter1>
+					<parameter2>DIRECTION</parameter2>
+				</Move>
+			</actions>			
+		</TestUnit>
+		<TestTower>
+			<dimension>50, 50</dimension>
+			<image>/images/tower.gif</image>
+			<type>Tower</type>
+			<attributes>
+				<HEALTH>100</HEALTH>
+			</attributes>
+			<actions>
+			</actions>			
+		</TestTower>
+	</gameelements>
+	<rules>
+		<EnemyReachedEndRule/>
+	</rules>
+	<levels>
+		<Level1>
+			<rules>
+			</rules>
+			<actions>
+				<WaveAction>
+					<parameter1>15</parameter1>
+					<parameter2>2000</parameter2>
+					<parameter3>TestUnit</parameter3>
+				</WaveAction>
+			</actions>
+		</Level1>
+	</levels>
+</Game>
