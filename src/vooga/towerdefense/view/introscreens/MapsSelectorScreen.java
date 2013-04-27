@@ -86,7 +86,6 @@ public class MapsSelectorScreen extends SelectScreen {
                     catch (InvocationTargetException e1) {
                         e1.printStackTrace();
                     }
-                    getView().showScreen();
                 }
             }
         });

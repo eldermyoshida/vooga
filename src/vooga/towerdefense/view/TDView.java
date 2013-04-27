@@ -74,7 +74,6 @@ public class TDView {
         myFrame.setContentPane(myPanel);
         myFrame.setPreferredSize(SIZE);
         myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        showSplashScreen();
         //TODO: uncomment createGUI() if we want hard coded screens.
         //createGUI();
     }
@@ -137,6 +136,7 @@ public class TDView {
     }
     
     public void showScreen() {
+        myFrame.pack();
         myFrame.setVisible(true);
         myFrame.remove(myMapSelector);
     }
@@ -151,6 +151,7 @@ public class TDView {
      */
     public void addScreen (JPanel screen, String location) {
         myFrame.getContentPane().add(screen, location);
+        System.out.println("Added screen to tdview");
 
         myFrame.pack();
         myFrame.setVisible(true);
