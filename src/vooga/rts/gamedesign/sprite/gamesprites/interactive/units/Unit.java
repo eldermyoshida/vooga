@@ -130,33 +130,6 @@ public class Unit extends InteractiveEntity {
     	copyUnit.setOccupyStrategy(getOccupyStrategy());
     	copyUnit.setProductionStrategy(getProductionStrategy());
     	
-    	/*
-        if (getGatherStrategy() instanceof CanGather) {
-        	copyUnit.setGatherStrategy(new CanGather());
-        }
-        
-        if (getAttackStrategy() instanceof CanAttack) {
-        	copyUnit.setAttackStrategy(new CanAttack()); //TODO: also copy weapons and projectiles
-        }
-        
-        if (getOccupyStrategy() instanceof CanBeOccupied) {
-    		copyUnit.setOccupyStrategy(new CanBeOccupied());
-    		copyUnit.getOccupyStrategy().createOccupyActions(copyUnit);
-    	}
-    	if (getProductionStrategy() instanceof CanProduce) {
-    		copyUnit.setProductionStrategy(new CanProduce(copyUnit));
-    		copyUnit.getProductionStrategy().setProducables(getProductionStrategy().getProducables());
-            copyUnit.getProductionStrategy().createProductionActions(copyUnit);
-    	}
-       
-        if (getUpgradeStrategy() instanceof CanUpgrade) {
-    		copyUnit.setUpgradeStrategy(new CanUpgrade());
-    		if (getUpgradeStrategy().getUpgradeTree() == null) {
-    			System.out.println("NULLLLLLLLL!");
-    		}
-    		copyUnit.getUpgradeStrategy().setUpgradeTree(getUpgradeStrategy().getUpgradeTree(), copyUnit);
-    	}
-    	*/
     	return copyUnit;
     }
 
