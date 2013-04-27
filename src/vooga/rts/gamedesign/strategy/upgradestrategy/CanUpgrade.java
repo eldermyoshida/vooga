@@ -3,6 +3,7 @@ package vooga.rts.gamedesign.strategy.upgradestrategy;
 import vooga.rts.action.InteractiveAction;
 import vooga.rts.commands.Command;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
+import vooga.rts.gamedesign.strategy.Strategy;
 import vooga.rts.gamedesign.upgrades.UpgradeNode;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
 
@@ -32,4 +33,6 @@ public class CanUpgrade implements UpgradeStrategy{
 	public UpgradeTree getUpgradeTree(){
 		return myUpgradeTree;
 	}
+
+
 }

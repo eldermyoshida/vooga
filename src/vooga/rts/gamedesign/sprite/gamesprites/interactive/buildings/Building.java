@@ -70,22 +70,16 @@ public class Building extends InteractiveEntity {
         Building copyBuilding = new Building(getImage(), getWorldLocation(), getSize(), getSound(), getPlayerID(),
                 getHealth(), getBuildTime());
     	copyBuilding.setInfo(getInfo());
+    	copyBuilding.setOccupyStrategy(getOccupyStrategy());
+    	//copyBuilding.setProductionStrategy(getProductionStrategy());
+    	copyBuilding.setUpgradeStrategy(getUpgradeStrategy());
     	
-        //copyBuilding.setOccupyStrategy(new CannotBeOccupied());
-    	if (getOccupyStrategy() instanceof CanBeOccupied) {
-    		copyBuilding.setOccupyStrategy(new CanBeOccupied());
-    		copyBuilding.getOccupyStrategy().createOccupyActions(copyBuilding);
-    	}
+
     	if (getProductionStrategy() instanceof CanProduce) {
     		copyBuilding.setProductionStrategy(new CanProduce(copyBuilding));
     		copyBuilding.getProductionStrategy().setProducables(getProductionStrategy().getProducables());
     		//copyBuilding.getProductionStrategy().addProducable(new Unit());
             copyBuilding.getProductionStrategy().createProductionActions(copyBuilding);
-    	}
-        //copyBuilding.setUpgradeStrategy(new CannotUpgrade());
-        if (getUpgradeStrategy() instanceof CanUpgrade) {
-    		copyBuilding.setUpgradeStrategy(new CanUpgrade());
-    		copyBuilding.setUpgradeTree(getUpgradeStrategy().getUpgradeTree());
     	}
         
     	return copyBuilding;

@@ -8,5 +8,13 @@ package vooga.rts.gamedesign.strategy;
  *
  */
 public interface Strategy {
+	
+	
+	/**
+	 * This will always return a new version of the strategy. This will be useful
+	 * 
+	 * @return a copy of the strategy
+	 */
+	public Strategy copy();
 
 }

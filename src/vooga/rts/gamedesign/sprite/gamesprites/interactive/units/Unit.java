@@ -125,6 +125,12 @@ public class Unit extends InteractiveEntity {
                 getHealth(), getBuildTime(), getSpeed());
     	copyUnit.setInfo(this.getInfo());
     	
+    	copyUnit.setGatherStrategy(getGatherStrategy());
+    	copyUnit.setAttackStrategy(getAttackStrategy());
+    	copyUnit.setOccupyStrategy(getOccupyStrategy());
+    	copyUnit.setProductionStrategy(getProductionStrategy());
+    	
+    	/*
         if (getGatherStrategy() instanceof CanGather) {
         	copyUnit.setGatherStrategy(new CanGather());
         }
@@ -150,6 +156,7 @@ public class Unit extends InteractiveEntity {
     		}
     		copyUnit.getUpgradeStrategy().setUpgradeTree(getUpgradeStrategy().getUpgradeTree(), copyUnit);
     	}
+    	*/
     	return copyUnit;
     }
 

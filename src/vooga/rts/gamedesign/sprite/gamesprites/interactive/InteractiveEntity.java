@@ -531,7 +531,6 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
      * Test method to add an interactive entity to
      */
     public void addProducable (InteractiveEntity producable) {
-        //myProducables.add(producable);
         myProductionStrategy.addProducable(producable);
     }
 
