@@ -33,10 +33,10 @@ public class CanProduce implements ProductionStrategy {
 	 * it can produce and a rally point (where all the units created by this 
 	 * entity will go).
 	 */
-	public CanProduce(Building building) {
+	public CanProduce(InteractiveEntity entity) {
 		myProducables = new ArrayList<InteractiveEntity>();
 		myRallyPoint = new Location3D();
-		setRallyPoint(building);
+		setRallyPoint(entity);
 	}
 
 	/**

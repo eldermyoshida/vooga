@@ -37,6 +37,7 @@ import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
 import vooga.rts.gamedesign.strategy.production.CannotProduce;
 import vooga.rts.gamedesign.strategy.production.ProductionStrategy;
 import vooga.rts.gamedesign.strategy.upgradestrategy.CanUpgrade;
+import vooga.rts.gamedesign.strategy.upgradestrategy.CannotUpgrade;
 import vooga.rts.gamedesign.strategy.upgradestrategy.UpgradeStrategy;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
 import vooga.rts.gamedesign.weapon.Weapon;
@@ -112,7 +113,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
         mySound = sound;
         myAttackStrategy = new CannotAttack();
         myProductionStrategy = new CannotProduce();
-        myUpgradeStrategy = new CanUpgrade();
+        myUpgradeStrategy = new CannotUpgrade();
         myActions = new HashMap<String, Action>();
         myInfos = new HashMap<String, Information>();
         isSelected = false;

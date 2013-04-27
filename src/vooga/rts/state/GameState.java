@@ -194,7 +194,7 @@ public class GameState extends SubState implements Controller {
         getPlayers().getHuman().add(garrison);
 
         final Building testGarrison = garrison;
-        /*
+        
         myTasks.add(new DelayedTask(10, new Runnable() {
             @Override
             public void run () {
@@ -204,7 +204,6 @@ public class GameState extends SubState implements Controller {
                 }                
             }
         }));
-        */
 
         Building b2 = (Building) startBuilding.copy();
         b2.setWorldLocation(new Location3D(100, 500, 0));

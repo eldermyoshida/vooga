@@ -317,8 +317,8 @@ public class Factory {
 		}
 		initializeProjectiles();
 		initializeWeapons();
-		initializeProducables();
 		initializeStrategies();
+		initializeProducables();
 
 	}
 	/**
@@ -330,10 +330,10 @@ public class Factory {
 			System.out.println(key);
 			String[] produces = myProductionDependencies.get(key);
 			mySprites.get(key).setProductionStrategy((ProductionStrategy)new CanProduce((Building) mySprites.get(key)));
-			//for(String baby: produces){
-				//InteractiveEntity producable = mySprites.get(baby);
-			((CanProduce)mySprites.get(key).getProductionStrategy()).addProducable(new Unit());
-			//}
+			for(String baby: produces){
+				InteractiveEntity producable = mySprites.get(baby);
+				(mySprites.get(key).getProductionStrategy()).addProducable(new Unit());
+			}
 			//((CanProduce)mySprites.get(key).getProductionStrategy()).createProductionActions(mySprites.get(key));
 		}
 	}

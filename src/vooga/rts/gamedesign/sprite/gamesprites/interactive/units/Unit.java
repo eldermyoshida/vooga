@@ -19,7 +19,10 @@ import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building;
 import vooga.rts.gamedesign.strategy.gatherstrategy.CanGather;
 import vooga.rts.gamedesign.strategy.gatherstrategy.CannotGather;
 import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
+import vooga.rts.gamedesign.strategy.occupystrategy.CanBeOccupied;
 import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
+import vooga.rts.gamedesign.strategy.production.CanProduce;
+import vooga.rts.gamedesign.strategy.upgradestrategy.CanUpgrade;
 import vooga.rts.resourcemanager.ResourceManager;
 import vooga.rts.util.Camera;
 import vooga.rts.util.Information;
@@ -124,12 +127,27 @@ public class Unit extends InteractiveEntity {
     	Unit copyUnit = new Unit(getImage(), getWorldLocation(), getSize(), getSound(), getPlayerID(),
                 getHealth(), getBuildTime(), getSpeed());
     	copyUnit.setInfo(this.getInfo());
-    	copyUnit.setActions(this.getActions());
+    	
         copyUnit.setGatherStrategy(this.getGatherStrategy());
         copyUnit.setAttackStrategy(this.getAttackStrategy());
-        copyUnit.setOccupyStrategy(this.getOccupyStrategy());
-        copyUnit.setProductionStrategy(this.getProductionStrategy());
-        copyUnit.setUpgradeStrategy(this.getUpgradeStrategy());
+        
+        if (getOccupyStrategy() instanceof CanBeOccupied) {
+    		copyUnit.setOccupyStrategy(new CanBeOccupied());
+    		copyUnit.getOccupyStrategy().createOccupyActions(copyUnit);
+    	}
+    	if (getProductionStrategy() instanceof CanProduce) {
+    		copyUnit.setProductionStrategy(new CanProduce(copyUnit));
+    		copyUnit.getProductionStrategy().setProducables(getProductionStrategy().getProducables());
+            copyUnit.getProductionStrategy().createProductionActions(copyUnit);
+    	}
+       
+        if (getUpgradeStrategy() instanceof CanUpgrade) {
+    		copyUnit.setUpgradeStrategy(new CanUpgrade());
+    		if (getUpgradeStrategy().getUpgradeTree() == null) {
+    			System.out.println("NULLLLLLLLL!");
+    		}
+    		copyUnit.getUpgradeStrategy().setUpgradeTree(getUpgradeStrategy().getUpgradeTree(), copyUnit);
+    	}
     	return copyUnit;
     }
 

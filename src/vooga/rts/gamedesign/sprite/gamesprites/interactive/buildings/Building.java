@@ -85,7 +85,7 @@ public class Building extends InteractiveEntity {
         //copyBuilding.setUpgradeStrategy(new CannotUpgrade());
         if (getUpgradeStrategy() instanceof CanUpgrade) {
     		copyBuilding.setUpgradeStrategy(new CanUpgrade());
-    		copyBuilding.setUpgradeTree(getUpgradeTree());
+    		copyBuilding.setUpgradeTree(getUpgradeStrategy().getUpgradeTree());
     	}
         
     	return copyBuilding;
