@@ -33,6 +33,8 @@ public class LoggerManager {
     public static final String DEFAULT_FILE_NAME = "Logger";
 
     private Logger myLogger;
+    private IVoogaHandler myDefaultHandler = new HandlerConsole();
+    private Level myDefaultLevel;
 
     /**
      * Constructor
@@ -41,12 +43,31 @@ public class LoggerManager {
      * By default, a console handler is set
      */
     public LoggerManager () {
+        //Gets the name of the caller
     	StackTraceElement[] element = Thread.currentThread().getStackTrace();
-    	//Gets the name of the caller
-    	myLogger = Logger.getLogger(element[2].getClassName());
+    	
+    	initializeLogger(element[2].getClassName());    
+    }
+    
+    /**
+     * Constructor
+     * Sets a logger using reflection to find the name of the calling class
+     * The Logger is initialized with the name of the calling class
+     * By default, a console handler is set
+     */
+    public LoggerManager (String loggerName) {
+        initializeLogger(loggerName);   
+    }
+    
+    /**
+     * Initializes a logger with default parameters of this manager
+     * @param loggerName Name of the logger to initialize
+     */
+    private void initializeLogger(String loggerName) {
+        myLogger = Logger.getLogger(loggerName);
         myLogger.setUseParentHandlers(false);
-        myLogger.setLevel(Level.ALL);
-        addConsoleHandler();     
+        myLogger.setLevel(myDefaultLevel);
+        addHandler(myDefaultHandler);
     }
 
     /**
