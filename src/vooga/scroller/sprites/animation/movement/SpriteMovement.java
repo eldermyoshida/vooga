@@ -9,7 +9,7 @@ import vooga.scroller.util.ISpriteView;
 
 public class SpriteMovement extends SpriteState<Sprite> {
     
-    private static final int PRIORITY = 0;
+    private static final int PRIORITY = 1;
 
     private ISpriteView myView;
     private double myDirection;

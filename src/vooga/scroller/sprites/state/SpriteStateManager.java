@@ -21,7 +21,6 @@ public class SpriteStateManager {
     
     //private static final SpriteState DEFAULT_STATE = new DefaultSpriteState();
 
-    private static final int DEFAULT_ID = -1;
     
     @SuppressWarnings("rawtypes")
     private Map<Integer, SpriteState> myStates;
@@ -40,7 +39,7 @@ public class SpriteStateManager {
         myActiveStates = new PriorityQueue<SpriteState>();
         myStates = new HashMap<Integer, SpriteState>();
         SpriteState<Sprite> defaultState = new DefaultSpriteState(sprite);
-        myStates.put(DEFAULT_ID, defaultState);
+        myStates.put(DefaultSpriteState.DEFAULT_ID, defaultState);
         myActiveStates.add(defaultState);
     }
     

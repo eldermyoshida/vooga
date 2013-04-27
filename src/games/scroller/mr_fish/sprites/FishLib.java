@@ -91,7 +91,7 @@ public class FishLib extends EncapsulatedSpriteLibrary {
         @Override
         public int getValue () {
             // TODO Auto-generated method stub
-            return 0;
+            return 10;
         }
         @Override
         public void useItem (MrFish p) {
@@ -184,7 +184,7 @@ public class FishLib extends EncapsulatedSpriteLibrary {
         
     }
     
-    public static class Coral extends Sprite implements IPlatform{
+    public static class Coral1 extends Sprite implements IPlatform{
         private static final Pixmap IMG1 = makePixmap(IMAGE_LOCATION,"coral1.gif");
         private static final Pixmap IMG2 = makePixmap(IMAGE_LOCATION,"coral2.png");
         private static final Pixmap IMG3 = makePixmap(IMAGE_LOCATION,"coral3.png");
@@ -196,13 +196,38 @@ public class FishLib extends EncapsulatedSpriteLibrary {
         
         private static final Pixmap[] DEFAULT_IMAGES = {IMG1, IMG2, IMG3, IMG4, IMG5};
         
-        private static final Dimension DEFAULT_SIZE = new Dimension(32, 32);
+        private static final Dimension DEFAULT_SIZE = new Dimension(32, 320);
         
-        public Coral(){
+        public Coral1(){
             this(DEFAULT_CENTER);
         }
         
-        public Coral (Location center) {
+        public Coral1 (Location center) {
+            super(DEFAULT_IMAGES[RANDOM.nextInt(DEFAULT_IMAGES.length)], center, DEFAULT_SIZE);
+        }
+        
+    }
+    
+    
+    public static class Coral2 extends Sprite implements IPlatform{
+        private static final Pixmap IMG1 = makePixmap(IMAGE_LOCATION,"coral1.gif");
+        private static final Pixmap IMG2 = makePixmap(IMAGE_LOCATION,"coral2.png");
+        private static final Pixmap IMG3 = makePixmap(IMAGE_LOCATION,"coral3.png");
+        private static final Pixmap IMG4 = makePixmap(IMAGE_LOCATION,"coral4.gif");
+        private static final Pixmap IMG5 = makePixmap(IMAGE_LOCATION,"coral5.png");
+
+        private static final Random RANDOM = new Random();
+        
+        
+        private static final Pixmap[] DEFAULT_IMAGES = {IMG1, IMG2, IMG3, IMG4, IMG5};
+        
+        private static final Dimension DEFAULT_SIZE = new Dimension(320, 32);
+        
+        public Coral2(){
+            this(DEFAULT_CENTER);
+        }
+        
+        public Coral2 (Location center) {
             super(DEFAULT_IMAGES[RANDOM.nextInt(DEFAULT_IMAGES.length)], center, DEFAULT_SIZE);
         }
         

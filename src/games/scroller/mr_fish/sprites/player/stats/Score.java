@@ -4,28 +4,31 @@ import vooga.scroller.statistics.Statistic;
 
 public class Score implements Statistic {
 
+    private static final String NAME = "MR. FISH SCORE";
+    private int myScore;
+    public Score(){
+        myScore = 0;
+    }
+    
     @Override
     public void addValue (int val) {
-        // TODO Auto-generated method stub
-
+        myScore +=val;
     }
 
     @Override
     public void removeValue (int val) {
-        // TODO Auto-generated method stub
-
+        myScore -= val;
     }
 
     @Override
     public int getAggregateValue () {
-        // TODO Auto-generated method stub
-        return 0;
+        
+        return myScore;
     }
 
     @Override
     public String getName () {
-        // TODO Auto-generated method stub
-        return null;
+        return NAME;
     }
 
 }

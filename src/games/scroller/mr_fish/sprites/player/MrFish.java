@@ -1,11 +1,18 @@
 package games.scroller.mr_fish.sprites.player;
 
 import games.scroller.mr_fish.sprites.FishLib;
+import games.scroller.mr_fish.sprites.items.Item;
+import games.scroller.mr_fish.sprites.player.states.InventoryState;
 import games.scroller.mr_fish.sprites.player.states.TiltDown;
 import games.scroller.mr_fish.sprites.player.states.TiltUp;
 import games.scroller.mr_fish.sprites.player.stats.Inventory;
+import games.scroller.mr_fish.sprites.player.stats.Score;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics2D;
+import java.awt.geom.Point2D;
 import util.Location;
+import util.ValueText;
 import util.input.InputClassTarget;
 import util.input.InputMethodTarget;
 import vooga.scroller.scrollingmanager.ScrollingManager;
@@ -13,6 +20,7 @@ import vooga.scroller.sprites.animation.movement.MoveDown;
 import vooga.scroller.sprites.animation.movement.MoveLeft;
 import vooga.scroller.sprites.animation.movement.MoveRight;
 import vooga.scroller.sprites.animation.movement.MoveUp;
+import vooga.scroller.sprites.state.DefaultSpriteState;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.statistics.Statistic;
 import vooga.scroller.util.ISpriteView;
@@ -38,6 +46,8 @@ public class MrFish extends Player {
     private static final ISpriteView MOVE_DOWN = FishLib.makePixmap(FishLib.IMAGE_LOCATION, "frog_move_down.gif");
     private static final ISpriteView STAND_DOWN = FishLib.makePixmap(FishLib.IMAGE_LOCATION, "frog_stand_down.gif");
     private static final double RATE_ROTATION = 2.0;
+    private static final Point2D SCORE_LOCATION = new Location(100, 30);
+    private static final Color SCORE_COLOR = Color.BLACK;
     
     
     
@@ -45,9 +55,17 @@ public class MrFish extends Player {
     private Statistic myScore;
     private Statistic myMoney;
     
+    private ValueText myScoreHeader;
+    
     
     public MrFish (Location center, GameView gameView, ScrollingManager sm) {
         super(MR_FISH_VIEW, center, MR_FISH_SIZE, gameView, sm, MR_FISH_HEALTH, MR_FISH_DAMAGE);
+        
+        myScore = new Score();
+        myInventory = new Inventory(this);
+        
+        myScoreHeader = new ValueText(myScore.getName(), myScore.getAggregateValue());
+
         initializePossibleStates();
     }
 
@@ -60,12 +78,23 @@ public class MrFish extends Player {
         this.addPossibleState(MoveUp.STATE_ID, new MoveUp(this, MOVE_UP, STAND_UP, SPEED));
         this.addPossibleState(MoveDown.STATE_ID, new MoveDown(this, MOVE_DOWN, STAND_DOWN, SPEED));
 
+        this.addPossibleState(InventoryState.STATE_ID, new InventoryState(this, myInventory));
+        
         //this.addPossibleState(TiltUp.STATE_ID, new TiltUp(this, RATE_ROTATION, SPEED));
         //this.addPossibleState(TiltDown.STATE_ID, new TiltDown(this, RATE_ROTATION, SPEED));
-
+    }
+    
+    public void update (double elapsedTime, Dimension bounds) {
+        super.update(elapsedTime, bounds);
         
     }
 
+    @Override
+    public void paint(Graphics2D pen){
+        super.paint(pen);
+        myScoreHeader.paint(pen, SCORE_LOCATION, SCORE_COLOR);      
+    }
+    
     @Override
     public String getInputFilePath () {
         return INPUT_LOCATION;
@@ -125,4 +154,45 @@ public class MrFish extends Player {
     public void stopRight() {
         this.deactivateState(MoveRight.STATE_ID);
     }
+
+    public void incrementScore (int value) {
+        myScoreHeader.updateValue(value);
+        myScore.addValue(value);
+        
+    }
+
+    public void addItem (Item collectible) {
+        myInventory.addItem(collectible);       
+    }
+    
+    @InputMethodTarget(name = "menuon")
+    public void showInventory(){
+        this.activateState(InventoryState.STATE_ID);
+        this.deactivateState(DefaultSpriteState.DEFAULT_ID);
+    }
+    
+    @InputMethodTarget(name = "menuoff")
+    public void hideInventory(){
+        this.deactivateState(InventoryState.STATE_ID);
+        this.activateState(DefaultSpriteState.DEFAULT_ID);
+
+    }
+    
+    @InputMethodTarget(name = "menuright")
+    public void selectRight(){
+        myInventory.getNextItem();
+        
+    }
+    @InputMethodTarget(name = "menuleft")
+    public void selectLeft(){
+        myInventory.getPreviousItem();
+    }
+
+    @InputMethodTarget(name = "selectitem")
+    public void selectItem(){
+        myInventory.getPreviousItem();
+        myInventory.selectCurrent();
+    }
+
+    
 }

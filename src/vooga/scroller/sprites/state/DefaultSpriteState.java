@@ -8,6 +8,8 @@ import vooga.scroller.sprites.Sprite;
 public class DefaultSpriteState extends SpriteState<Sprite>{
 
     private static final int PRIORITY = Integer.MAX_VALUE-1;
+    public static final int DEFAULT_ID = -1;
+
     
     public DefaultSpriteState(Sprite sp){
         super(sp);
