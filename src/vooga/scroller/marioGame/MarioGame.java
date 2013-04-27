@@ -12,8 +12,9 @@ import vooga.scroller.marioGame.spritesDefinitions.players.Mario;
 import vooga.scroller.model.ScrollerGame;
 import vooga.scroller.scrollingmanager.OmniScrollingManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
+import vooga.scroller.scrollingmanager.UniScrollingManager;
 import vooga.scroller.sprites.superclasses.Player;
-import vooga.scroller.util.Pixmap;
+import vooga.scroller.util.Direction;
 import vooga.scroller.view.GameView;
 
 
@@ -62,7 +63,7 @@ public class MarioGame extends ScrollerGame {
 
     @Override
     protected ScrollingManager setScrollingManager () {
-        return new OmniScrollingManager();
+        return new UniScrollingManager(Direction.LEFT);
     }
 
 
@@ -71,7 +72,6 @@ public class MarioGame extends ScrollerGame {
     protected Player setPlayer (ScrollingManager sm, GameView gameView) {
         return new Mario(new Location(), new Dimension(20, 32), gameView, sm);
     }
-
 
 
     @Override
