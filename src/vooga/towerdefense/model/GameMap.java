@@ -404,7 +404,7 @@ public class GameMap {
 	public Location getSpawnLocation() {
 	    Tile t = null;
 	    for (int i = 0; i < myGrid.length; ++i) {
-	        for (int j = 0; j < myGrid[i].length; ++i) {
+	        for (int j = 0; j < myGrid[i].length; ++j) {
 	            if (myGrid[j][i] instanceof PathTile) {
 	                t = myGrid[j][i];
 	                break;
@@ -415,7 +415,18 @@ public class GameMap {
 	}
 
 	public Location getDestination() {
-		return myDestination;
+	    Tile t = null;
+	    for (int i = 0; i < myGrid.length; ++i) {
+	        for (int j = 0; j < myGrid[i].length; ++j) {
+	            if (myGrid[j][i] instanceof PathTile) {
+	                t = myGrid[j][i];
+	                if (j == myGrid[i].length - 1) {
+	                    break;
+	                }
+	            }
+	        }
+	    }
+	    return t.getCenter();
 	}
 
 	public Dimension getTileSize() {

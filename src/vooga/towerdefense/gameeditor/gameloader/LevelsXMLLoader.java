@@ -7,6 +7,7 @@ import org.w3c.dom.Element;
 import util.XMLTool;
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.factories.elementfactories.GameElementFactory;
+import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.GameModel;
 import vooga.towerdefense.model.levels.Level;
 import vooga.towerdefense.model.rules.Rule;
@@ -23,23 +24,23 @@ public class LevelsXMLLoader {
         myXMLTool = xmlTool;
     }
     
-    public List<Level> getLevels(GameModel model) {
+    public List<Level> getLevels(GameModel model, GameMap gameMap) {
         Map<String, Element> subElements = myXMLTool.getChildrenElementMap(LEVELS_TAG);
         
         List<Level> levels = new ArrayList<Level>();
         for (Element e : subElements.values()) {
-            levels.add(getLevel(e, model));
+            levels.add(getLevel(e, model, gameMap));
         }
         return levels;
     }
         
-    private Level getLevel(Element levelElement, GameModel model) {
+    private Level getLevel(Element levelElement, GameModel model, GameMap gameMap) {
         RulesXMLLoader rulesLoader = new RulesXMLLoader(myXMLTool);
         ActionXMLLoader actionLoader = new ActionXMLLoader(myXMLTool);
         Map<String, Element> subElements = myXMLTool.getChildrenElementMap(levelElement);
 
         List<Rule> rules = rulesLoader.getRules(model, subElements.get(RULES_TAG));
-        List<Action> actions = actionLoader.loadActions(subElements.get(ACTIONS_TAG));
+        List<Action> actions = actionLoader.loadActions(subElements.get(ACTIONS_TAG), gameMap);
         return new Level(actions, rules);
     }
 }

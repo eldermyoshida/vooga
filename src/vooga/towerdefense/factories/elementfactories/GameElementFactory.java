@@ -62,7 +62,7 @@ public class GameElementFactory {
         myImage = image;
         mySize = size;
         myAttributeManagerFactory = attrManager;
-        myActions = new ArrayList<ActionFactory>();
+        myActionsToMake = myActions;
     }
     
     /**

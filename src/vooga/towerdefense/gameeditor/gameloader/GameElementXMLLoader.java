@@ -51,7 +51,7 @@ public class GameElementXMLLoader {
                 loadAttributeFactories(subElements.get(ATTRIBUTES_TAG));
         
         ActionXMLLoader loader = new ActionXMLLoader(myXMLTool);
-        List<ActionFactory> actionFactories = loader.loadActionFactories(subElements.get(ACTIONS_TAG));
+        List<ActionFactory> actionFactories = loader.loadActionFactories(subElements.get(ACTIONS_TAG), map);
         
         AttributeManagerFactory managerFactory = new AttributeManagerFactory(attributeFactories);
         
