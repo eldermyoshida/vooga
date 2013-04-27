@@ -18,12 +18,12 @@ import vooga.rts.networking.NetworkBundle;
 public class MatchmakerServer extends AbstractThreadContainer {
     private Map<String, GameContainer> myGameContainers = new HashMap<String, GameContainer>();
     private ConnectionServer myConnectionServer = new ConnectionServer(this);
-    
+
     /**
      * Initializes overall server hierarchy.
      */
     public MatchmakerServer () {
-        getLogger().addHandler(new HandlerTxt("matchmaker").getHandler());
+        getLogger().addHandler(new HandlerTxt(getClass().getSimpleName()).getHandler());
         getLogger().log(Level.INFO, NetworkBundle.getString("ServerStarted"));
     }
 
@@ -40,14 +40,14 @@ public class MatchmakerServer extends AbstractThreadContainer {
         if (myGameContainers.containsKey(gameName)) {
             container = myGameContainers.get(gameName);
             getLogger().log(Level.INFO,
-                         NetworkBundle.getString("GameContainerJoined") +
-                                 gameName);
+                            NetworkBundle.getString("GameContainerJoined") +
+                                    gameName);
         }
         else {
-            container = new GameContainer();
+            container = new GameContainer(gameName);
             myGameContainers.put(gameName, container);
             getLogger().log(Level.INFO, NetworkBundle.getString("NewGameContainer") +
-                                     gameName);
+                                        gameName);
         }
         container.addConnection(thread);
         removeConnection(thread);
