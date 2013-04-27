@@ -68,13 +68,11 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     private static final int LOCATION_OFFSET = 20;
     private static int DEFAULT_INTERACTIVEENTITY_SPEED = 150;
     private boolean isSelected;
-    private UpgradeTree myUpgradeTree;
     private Sound mySound;
     private AttackStrategy myAttackStrategy;
     private ProductionStrategy myProductionStrategy;
     private UpgradeStrategy myUpgradeStrategy;
     private OccupyStrategy myOccupyStrategy;
-    private GatherStrategy myGatherStrategy;
     private int myArmor;
     private Map<String, Action> myActions;
     private Map<String, Information> myInfos;
@@ -111,12 +109,10 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
                               int health,
                               double buildTime) {
         super(image, center, size, playerID, health);
-        // myMakers = new HashMap<String, Factory>(); //WHERE SHOULD THIS GO?
         mySound = sound;
         myAttackStrategy = new CannotAttack();
         myProductionStrategy = new CannotProduce();
         myUpgradeStrategy = new CanUpgrade();
-        myGatherStrategy = new CannotGather();
         myActions = new HashMap<String, Action>();
         myInfos = new HashMap<String, Information>();
         isSelected = false;
@@ -449,18 +445,6 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
         myAttackStrategy = newStrategy;
     }
 
-    /**
-     * Sets the upgrade tree of the entity for a specific team based on an
-     * upgrade tree and player ID that are passed in.
-     * 
-     * @param upgradeTree
-     *        is the new upgrade tree that the entity will have
-     * @param playerID
-     *        is the team that the upgrade is for
-     */
-    public void setUpgradeTree (UpgradeTree upgradeTree, int playerID) {
-        myUpgradeTree = upgradeTree;
-    }
 
     @Override
     public void update (double elapsedTime) {
@@ -571,6 +555,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     @Override
     public void move (Location3D loc) {
         myPath = GameState.getMap().getPath(myFinder, getWorldLocation(), loc);
+        myProductionStrategy.setRallyPoint(this);
         super.move(myPath.getNext());
     }
 

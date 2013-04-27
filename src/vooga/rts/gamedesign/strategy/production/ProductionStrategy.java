@@ -3,6 +3,7 @@ package vooga.rts.gamedesign.strategy.production;
 import java.awt.Graphics2D;
 
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building;
 import vooga.rts.util.Location3D;
 
 /**
@@ -30,6 +31,8 @@ public interface ProductionStrategy {
 	 */
 
 	public void setRallyPoint(Location3D rallyPoint);
+	
+	public void setRallyPoint(InteractiveEntity entity);
 	
 	public void createProductionActions(InteractiveEntity producer);
 

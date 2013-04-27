@@ -49,9 +49,9 @@ public class CanProduce implements ProductionStrategy {
 		myRallyPoint = rallyPoint;
 	}
 	
-	public void setRallyPoint(Building building) {
-		myRallyPoint = new Location3D(building.getWorldLocation().getX(),
-				building.getWorldLocation().getY() + 50, 0);
+	public void setRallyPoint(InteractiveEntity entity) {
+		myRallyPoint = new Location3D(entity.getWorldLocation().getX(),
+				entity.getWorldLocation().getY() + 50, 0);
 	}
 	
 	

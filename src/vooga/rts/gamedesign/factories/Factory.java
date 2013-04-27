@@ -334,7 +334,7 @@ public class Factory {
 				//InteractiveEntity producable = mySprites.get(baby);
 			((CanProduce)mySprites.get(key).getProductionStrategy()).addProducable(new Unit());
 			//}
-			((CanProduce)mySprites.get(key).getProductionStrategy()).createProductionActions(mySprites.get(key));
+			//((CanProduce)mySprites.get(key).getProductionStrategy()).createProductionActions(mySprites.get(key));
 		}
 	}
 	/**
@@ -357,7 +357,6 @@ public class Factory {
 			mySprites.get(key).setUpgradeStrategy(upgrade);
 			if (upgrade instanceof CanUpgrade) {
 				UpgradeTree relatedUpgradeTree = myUpgradeTrees.get(strategies[4]);
-	
 				mySprites.get(key).setUpgradeTree(relatedUpgradeTree);
 			}
 		}

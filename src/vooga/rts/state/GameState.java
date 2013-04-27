@@ -147,11 +147,11 @@ public class GameState extends SubState implements Controller {
         c.move(c.getWorldLocation());
         getPlayers().getPlayer(1).add(c);
 
-
-        Building b = (Building) myFactory.getEntitiesMap().get("home").copy();
+        Building startBuilding = (Building) myFactory.getEntitiesMap().get("home");
+        
+        Building b = (Building) startBuilding.copy();
         b.setWorldLocation(new Location3D(700, 30, 0));
         b.move(b.getWorldLocation());
-        
         Information i =
                 new Information("Barracks", "This is a barracks that can make awesome pies", null,
                                 "buttons/marine.png");
@@ -180,12 +180,11 @@ public class GameState extends SubState implements Controller {
             }
             
         }
-        Building garrison =
-                new Building(new Pixmap(ResourceManager.getInstance()
-                        .<BufferedImage> getFile("images/home.png", BufferedImage.class)),
-                             new Location3D(300, 450, 0), new Dimension(128, 128), null, 1, 300,
-                             InteractiveEntity.DEFAULT_BUILD_TIME);
         
+        Building garrison = (Building) myFactory.getEntitiesMap().get("garrison").copy();
+        garrison.setWorldLocation(new Location3D(300, 450, 0));
+        garrison.move(b.getWorldLocation());       
+
         Information garrisonInfo =
                 new Information("Garrison", "This is a garrison that soldiers can occupy", null,
                                 "buttons/marine.png");
@@ -207,26 +206,21 @@ public class GameState extends SubState implements Controller {
         }));
         */
 
-        Building b2 = new Building(new Pixmap(ResourceManager.getInstance()
-                        .<BufferedImage> getFile("images/factory.png", BufferedImage.class)),
-                             new Location3D(100, 500, 0), new Dimension(368, 224), null, 1, 300,
-                             InteractiveEntity.DEFAULT_BUILD_TIME);
-        b2.setProductionStrategy(new CanProduce(b2));
-        ((CanProduce) b2.getProductionStrategy()).addProducable(new Unit());
-        ((CanProduce) b2.getProductionStrategy()).createProductionActions(b2);
-        ((CanProduce) b2.getProductionStrategy()).setRallyPoint(new Location3D(200, 600, 0));
+        Building b2 = (Building) startBuilding.copy();
+        b2.setWorldLocation(new Location3D(100, 500, 0));
+        b2.move(b2.getWorldLocation());
         i =
                 new Information("Barracks", "This is a barracks that can make awesome pies", null,
                                 "buttons/marine.png");
         b2.setInfo(i);
 
-        final Building g = b2;
+        /**final Building g = b2;
         myTasks.add(new DelayedTask(2, new Runnable() {
             @Override
             public void run () {
                 g.getAction((new Command("make Marine"))).apply();
             }
-        }, true));
+        }, true));*/
 
         getPlayers().getPlayer(1).add(b2);
     }

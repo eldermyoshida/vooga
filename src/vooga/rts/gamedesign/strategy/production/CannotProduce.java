@@ -3,6 +3,7 @@ package vooga.rts.gamedesign.strategy.production;
 import java.awt.Graphics2D;
 
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building;
 import vooga.rts.util.Location3D;
 
 /**
@@ -42,6 +43,12 @@ public class CannotProduce implements ProductionStrategy{
 
 	@Override
 	public void setRallyPoint(Location3D rallyPoint) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setRallyPoint(InteractiveEntity entity) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -6,6 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
+import vooga.rts.gamedesign.strategy.attackstrategy.CannotAttack;
+import vooga.rts.gamedesign.strategy.occupystrategy.CannotBeOccupied;
+import vooga.rts.gamedesign.strategy.production.CanProduce;
+import vooga.rts.gamedesign.strategy.upgradestrategy.CannotUpgrade;
 import vooga.rts.gamedesign.upgrades.UpgradeNode;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
 import vooga.rts.util.Location3D;
@@ -62,14 +67,20 @@ public class Building extends InteractiveEntity {
     public InteractiveEntity copy () {
         Building copyBuilding = new Building(getImage(), getWorldLocation(), getSize(), getSound(), getPlayerID(),
                 getHealth(), getBuildTime());
-    	copyBuilding.setInfo(this.getInfo());
-    	copyBuilding.setActions(this.getActions());
-        copyBuilding.setAttackStrategy(this.getAttackStrategy());
-        copyBuilding.setOccupyStrategy(this.getOccupyStrategy());
-        copyBuilding.setProductionStrategy(this.getProductionStrategy());
-        copyBuilding.getProductionStrategy().createProductionActions(copyBuilding); //need to reset action for notifyObserver
-        copyBuilding.setUpgradeStrategy(this.getUpgradeStrategy());
-        copyBuilding.getUpgradeStrategy().createUpgradeActions(copyBuilding);
+    	copyBuilding.setInfo(getInfo());
+        copyBuilding.setAttackStrategy(new CannotAttack());
+        copyBuilding.setOccupyStrategy(new CannotBeOccupied());
+        copyBuilding.setProductionStrategy(new CanProduce(copyBuilding));
+        copyBuilding.getProductionStrategy().addProducable(new Unit());
+        copyBuilding.getProductionStrategy().createProductionActions(copyBuilding);
+        copyBuilding.setUpgradeStrategy(new CannotUpgrade());
+    	
+    	//copyBuilding.setAttackStrategy(getAttackStrategy());
+        //copyBuilding.setOccupyStrategy(getOccupyStrategy());
+        //copyBuilding.setProductionStrategy(getProductionStrategy());
+        //copyBuilding.getProductionStrategy().createProductionActions(copyBuilding);
+        //copyBuilding.setUpgradeStrategy(getUpgradeStrategy());
+        //copyBuilding.getUpgradeStrategy().createUpgradeActions(copyBuilding);
     	return copyBuilding;
     }
 
