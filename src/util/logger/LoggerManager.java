@@ -10,10 +10,10 @@ import java.util.logging.Logger;
 /**
  * A class that handles a logger. It makes use of the singleton pattern
  * to guarantee the use of a single logger in the program
- * This class does not propagate LogRecords to parent Loggers.
+ * This class does not propagate LogRecords to parent Loggers, so if the
  * It sets a console handler as a default handler
  * 
- * By default, the logger starts at ALL level so any type of message is logged.
+ * By default, the logger starts at ALL level so any type of message is logged
  * 
  * Note that the user does not need to use any other class in this package 
  * except this one to manage the logger
@@ -35,7 +35,7 @@ public class LoggerManager {
     private Logger myLogger;
 
     /**
-     * Constructor.
+     * Constructor
      * Sets a logger using reflection to find the name of the calling class
      * The Logger is initialized with the name of the calling class
      * By default, a console handler is set
@@ -43,22 +43,23 @@ public class LoggerManager {
     public LoggerManager () {
     	StackTraceElement[] element = Thread.currentThread().getStackTrace();
     	//Gets the name of the caller
-    	setLogger(element[2].getClassName());   
+    	setLogger(element[2].getClassName());           
     }
     
     /**
-     * Constructor.
-     * Sets a logger with the given class name
+     * Constructor
+     * Sets a logger according to the name given
      * By default, a console handler is set
-     * @param name of the class to initialize the logger
+     * @param loggerName Sets a logger with the given name
+     * the name should be a class name
      */
-    public LoggerManager (String className) {
-    	setLogger(className);   
+    public LoggerManager (String loggerName) {
+    	setLogger(loggerName);     
     }
     
     /**
-     * Sets the logger with default properties
-     * @param loggerName Name no initialize the logger
+     * Sets the logger with default values
+     * @param loggerName name of logger
      */
     private void setLogger(String loggerName) {
     	myLogger = Logger.getLogger(loggerName);

@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 
+import vooga.rts.commands.Command;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
 import vooga.rts.gamedesign.strategy.Strategy;
@@ -106,4 +107,10 @@ public class Building extends InteractiveEntity {
 		// TODO Auto-generated method stub
 		
 	}
+
+    @Override
+    public void updateAction (Command command) {
+        // TODO Auto-generated method stub
+        
+    }
 }

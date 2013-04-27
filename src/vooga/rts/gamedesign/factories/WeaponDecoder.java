@@ -7,6 +7,15 @@ import org.w3c.dom.NodeList;
 import vooga.rts.gamedesign.weapon.Weapon;
 import vooga.rts.util.ReflectionHelper;
 
+
+/**
+ * This class decodes the weapons section of the XML file. 
+ * The create method instantiates all the weapons and takes note of all
+ * the weapon-projectile pairs so that they can be paired later (when all
+ * things are finally instantiated). 
+ * @author FrancescoA
+ *
+ */
 public class WeaponDecoder extends Decoder {
 	
 	private Factory myFactory;

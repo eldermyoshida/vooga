@@ -100,7 +100,7 @@ public class Unit extends InteractiveEntity {
 
     @Override
     public void addActions () {
-        put(ClickCommand.LEFT_CLICK, new InteractiveAction(this) {
+        addAction(ClickCommand.LEFT_CLICK, new InteractiveAction(this) {
             private Location3D myLocation;
 
             @Override
@@ -126,6 +126,12 @@ public class Unit extends InteractiveEntity {
                 getHealth(), getBuildTime(), getSpeed());
     	transmitProperties(copyUnit);
     	return copyUnit;
+    }
+
+    @Override
+    public void updateAction (Command command) {
+        // TODO Auto-generated method stub
+        
     }
 
 	
