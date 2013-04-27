@@ -37,9 +37,8 @@ public class ViewXMLLoader {
         myXMLTool = xmlTool;
     }
     
-    public TDView makeView(Controller controller) throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException {
+    public TDView makeView(TDView view, Controller controller) throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException {
         Element viewElement = myXMLTool.getElement(VIEW_TAG);
-        TDView view = new TDView(controller);
         Map<String, Element> subElements = myXMLTool.getChildrenElementMap(viewElement);
         Element dimensionElement = subElements.get(DIMENSION_TAG);
         Dimension dimension = makeDimensionFrom(myXMLTool.getContent(dimensionElement));

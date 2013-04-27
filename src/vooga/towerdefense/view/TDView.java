@@ -120,6 +120,7 @@ public class TDView {
      */
     public void showMapChoicesScreen () {
         myFrame.remove(mySplashScreen);
+        mySplashScreen.setVisible(false);
         myNextScreenButton.setVisible(false);
         myMapSelector = new MapsSelectorScreen(MAP_WINDOW_SIZE, this, myController);
         addScreen(myMapSelector, BorderLayout.CENTER);
@@ -137,8 +138,12 @@ public class TDView {
     
     public void showScreen() {
         myFrame.setVisible(true);
+        myFrame.remove(myMapSelector);
     }
 
+    public void dismissMapSelector(){
+        myMapSelector.setVisible(false);
+    }
     /**
      * adds the parameter screen to the view.
      * 

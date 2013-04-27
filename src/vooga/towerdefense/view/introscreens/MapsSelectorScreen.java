@@ -47,10 +47,12 @@ public class MapsSelectorScreen extends SelectScreen {
     private MapXMLLoader myMapLoader;
     private Controller myController;
     private Pixmap mySelectedMap;
+    private TDView myView;
 
     public MapsSelectorScreen (Dimension size, TDView view, Controller controller) {
         super(size, view);
         myController = controller;
+        myView = view;
         myMapSelected = false;
         setInputListener();
         myMapImages = new HashMap<Pixmap, Rectangle>();
@@ -66,6 +68,7 @@ public class MapsSelectorScreen extends SelectScreen {
             public void actionPerformed (ActionEvent e) {
                 if (myMapSelected == true) {
                     try {
+                        myView.dismissMapSelector();
                         myController.setMap(mySelectedMap);
                     }
                     catch (IllegalArgumentException e1) {
@@ -78,11 +81,9 @@ public class MapsSelectorScreen extends SelectScreen {
                         e1.printStackTrace();
                     }
                     catch (IllegalAccessException e1) {
-                        // TODO Auto-generated catch block
                         e1.printStackTrace();
                     }
                     catch (InvocationTargetException e1) {
-                        // TODO Auto-generated catch block
                         e1.printStackTrace();
                     }
                     getView().showScreen();
@@ -142,20 +143,20 @@ public class MapsSelectorScreen extends SelectScreen {
     @Override
     public void checkPositionClicked (Point point) {
 
-        if (!myPrevName.isEmpty()) {
-            for (Map.Entry<Pixmap, Rectangle> entry1 : myMapImages.entrySet()) {
-                if (entry1.getKey().getFilePath().equals(CHECKED_IMAGE)) {
-                    entry1.getKey().setImage(myPrevName);
-                    repaint();
-                }
-            }
-        }
+//        if (!myPrevName.isEmpty()) {
+//            for (Map.Entry<Pixmap, Rectangle> entry1 : myMapImages.entrySet()) {
+//                if (entry1.getKey().getFilePath().equals(CHECKED_IMAGE)) {
+//                    entry1.getKey().setImage(myPrevName);
+//                    repaint();
+//                }
+//            }
+//        }
 
         for (Map.Entry<Pixmap, Rectangle> entry : myMapImages.entrySet()) {
             if (entry.getValue().contains(point)) {
                 myMapSelected = true;
                 mySelectedMap = entry.getKey();
-                selectedImage(entry.getKey());
+              //  selectedImage(entry.getKey());
             }
         }
     }

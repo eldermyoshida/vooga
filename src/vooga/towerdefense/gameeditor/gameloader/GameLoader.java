@@ -40,9 +40,9 @@ public class GameLoader {
         return maps;
     }
     
-    public TDView loadView(Controller controller) throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException {
+    public TDView loadView(TDView view, Controller controller) throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException {
         ViewXMLLoader loader = new ViewXMLLoader(myXMLTool);
-        return loader.makeView(controller);
+        return loader.makeView(view, controller);
     }
     
     public List<GameElementFactory> loadElements(GameMap map) {

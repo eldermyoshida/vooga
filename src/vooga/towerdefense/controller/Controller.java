@@ -27,12 +27,6 @@ import vooga.towerdefense.model.GameLoop;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.GameModel;
 import vooga.towerdefense.model.Tile;
-import vooga.towerdefense.model.levels.Level;
-import vooga.towerdefense.model.rules.NextLevelRule;
-import vooga.towerdefense.model.rules.Rule;
-import vooga.towerdefense.model.shop.Shop;
-import vooga.towerdefense.model.shop.ShopItem;
-import vooga.towerdefense.model.tiles.factories.TileFactory;
 import vooga.towerdefense.model.shop.Shop;
 import vooga.towerdefense.model.shop.ShopItem;
 import vooga.towerdefense.view.TDView;
@@ -136,7 +130,7 @@ public class Controller {
 	 * @throws IllegalArgumentException 
 	 */
 	private void setView() throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException {
-	    myView = myGameLoader.loadView(this);
+	    myView = myGameLoader.loadView(myView, this);
 	}
 	
 	/**
