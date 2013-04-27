@@ -62,7 +62,7 @@ import vooga.rts.util.Sound;
  */
 
 public abstract class InteractiveEntity extends GameEntity implements
-		IAttackable, IActOn {
+IAttackable, IActOn {
 
 	public static final Location3D DEFAULT_LOCATION = new Location3D(0, 0, 0);
 	public static final int DEFAULT_PLAYERID = 0;
@@ -211,7 +211,7 @@ public abstract class InteractiveEntity extends GameEntity implements
 	private boolean attackInRange(IAttackable attackable, double distance) {
 		return getEntityState().getUnitState() == UnitState.ATTACK
 				&& this.getAttackStrategy().getCurrentWeapon()
-						.inRange((InteractiveEntity) attackable, distance);
+				.inRange((InteractiveEntity) attackable, distance);
 	}
 
 	/**
@@ -225,9 +225,9 @@ public abstract class InteractiveEntity extends GameEntity implements
 		return Math.sqrt(Math
 				.pow(getWorldLocation().getX()
 						- ((InteractiveEntity) attackable).getWorldLocation()
-								.getX(), 2)
-				+ Math.pow(getWorldLocation().getY()
-						- ((InteractiveEntity) attackable).getWorldLocation()
+						.getX(), 2)
+						+ Math.pow(getWorldLocation().getY()
+								- ((InteractiveEntity) attackable).getWorldLocation()
 								.getY(), 2));
 	}
 
@@ -363,11 +363,11 @@ public abstract class InteractiveEntity extends GameEntity implements
 		Rectangle2D healthBar = new Rectangle2D.Double(
 				(int) selectLocation.getX() - LOCATION_OFFSET,
 				(int) (selectLocation.getY() - 5 * LOCATION_OFFSET), 50
-						* getHealth() / getMaxHealth(), 5);
+				* getHealth() / getMaxHealth(), 5);
 		float width = (float) (healthBar.getWidth() * (getHealth() / getMaxHealth()));
 		pen.setPaint(new GradientPaint((float) healthBar.getX() - width,
 				(float) healthBar.getMaxY(), Color.RED, (float) healthBar
-						.getMaxX(), (float) healthBar.getMaxY(), Color.GREEN));
+				.getMaxX(), (float) healthBar.getMaxY(), Color.GREEN));
 		pen.fill(healthBar);
 		pen.setColor(Color.black);
 
@@ -402,12 +402,15 @@ public abstract class InteractiveEntity extends GameEntity implements
 	public void recognize(InteractiveEntity other) {
 		if (isEnemy(other)) {
 			getEntityState().setUnitState(UnitState.ATTACK);
+			System.out.println("i attacked");
 		}
-		if (other instanceof Building) {
+		else if (other instanceof Building) {
 			getEntityState().setUnitState(UnitState.OCCUPY);
 		}
-		getEntityState().setUnitState(UnitState.NOTHING);
-		move(other.getWorldLocation());
+		else {
+			getEntityState().setUnitState(UnitState.NOTHING);
+			move(other.getWorldLocation());
+		}
 	}
 
 	// below are the recognize methods to handle different input parameters from
