@@ -5,7 +5,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-import vooga.scroller.level_editor.Level;
 import vooga.scroller.sprites.Sprite;
 
 
@@ -32,11 +31,9 @@ import vooga.scroller.sprites.Sprite;
 
 public class CollisionManager {
 
-    Level myLevel;
     private VisitMethods visit;
 
-    public CollisionManager (Level level) {
-        myLevel = level;
+    public CollisionManager () {
         visit = new VisitMethods();
     }
 
