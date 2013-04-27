@@ -96,7 +96,7 @@ public class MapXMLLoader {
     
     /**
      * 
-     * @param mapFilePath a path to the map XML file
+     * @param xmlTool an XMLTool with an xml file
      */
     public MapXMLLoader(XMLTool xmlTool) {
         myXMLTool = xmlTool;        

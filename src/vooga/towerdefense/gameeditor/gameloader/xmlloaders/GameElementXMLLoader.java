@@ -6,16 +6,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.w3c.dom.Element;
+import util.Pixmap;
 import util.XMLTool;
 import vooga.towerdefense.factories.actionfactories.ActionFactory;
 import vooga.towerdefense.factories.attributefactories.AttributeFactory;
 import vooga.towerdefense.factories.attributefactories.AttributeManagerFactory;
 import vooga.towerdefense.factories.elementfactories.GameElementFactory;
 import vooga.towerdefense.model.GameMap;
-import util.Pixmap;
 
-
+/**
+ * This class is responsible for loading GameElementFactory
+ * objects from an XML file.
+ * 
+ * @author Erick Gonzalez
+ */
 public class GameElementXMLLoader {
+    private static final String IMAGE_PATH = "/vooga/towerdefense/images/";
+    
     private static final String GAME_ELEMENTS_TAG = "gameelements";
     private static final String ATTRIBUTES_TAG = "attributes";
     private static final String IMAGE_TAG = "image";
@@ -25,23 +32,37 @@ public class GameElementXMLLoader {
     
     private XMLTool myXMLTool;
     
+    /**
+     * 
+     * @param xmlTool an xml tool containing the xml document
+     */
     public GameElementXMLLoader(XMLTool xmlTool) {
         myXMLTool = xmlTool;
     }
     
+    /**
+     * Loads a map from GameElementFactory name to GameElementFactory objects.
+     * 
+     * @param map a game map
+     * @return a map from the name of a GameElementFactory to its object
+     */
     public Map<String, GameElementFactory> loadGameElementFactories (GameMap map) {
         //TODO: This needs to be passed in as a parameter
         Element gameElementsElement = myXMLTool.getElement(GAME_ELEMENTS_TAG);        
         List<Element> subElements = myXMLTool.getChildrenList(gameElementsElement);
         
-        Map<String, GameElementFactory> gameElementFactories = new HashMap<String, GameElementFactory>();
+        Map<String, GameElementFactory> gameElementFactories = 
+                new HashMap<String, GameElementFactory>();
         for (Element subElement : subElements) {
-            gameElementFactories.put(myXMLTool.getTagName(subElement), loadGameElementFactory(subElement, map));
+            gameElementFactories.put(myXMLTool.getTagName(subElement), 
+                                     loadGameElementFactory(subElement, map));
         }
         return gameElementFactories;
     }
     
-    public GameElementFactory loadGameElementFactory (Element gameElement, GameMap map) {
+    
+    private GameElementFactory loadGameElementFactory (Element gameElement, 
+                                                       GameMap map) {
         Map<String, Element> subElementMap = myXMLTool.getChildrenElementMap(gameElement);
         
         String gameElementName = myXMLTool.getTagName(gameElement);
@@ -52,7 +73,8 @@ public class GameElementXMLLoader {
                 loadAttributeFactories(subElementMap.get(ATTRIBUTES_TAG));
         
         ActionXMLLoader loader = new ActionXMLLoader(myXMLTool);
-        List<ActionFactory> actionFactories = loader.loadActionFactories(subElementMap.get(ACTIONS_TAG), map);
+        List<ActionFactory> actionFactories = loader.
+                loadActionFactories(subElementMap.get(ACTIONS_TAG), map);
         
         AttributeManagerFactory managerFactory = new AttributeManagerFactory(attributeFactories);
         
@@ -67,9 +89,8 @@ public class GameElementXMLLoader {
     }
     
     private Pixmap loadElementImage (Element imageElement) {
-        String imagePath = myXMLTool.getContent(imageElement);
-        //TODO: Wtf is this?
-        return new Pixmap("/vooga/towerdefense" + imagePath);
+        String imageName = myXMLTool.getContent(imageElement);
+        return new Pixmap(IMAGE_PATH + imageName);
     }
     
     private String loadType (Element typeElement) {
