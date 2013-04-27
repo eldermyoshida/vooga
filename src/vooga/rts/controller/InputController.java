@@ -50,6 +50,7 @@ public class InputController implements Controller {
      * All the following methods are called via reflection by the Input class,
      * based on the Input.properties file, and send the appropriate command.
      */
+    
     @InputMethodTarget(name = "onLeftMouseDown")
     public void onLeftMouseDown (PositionObject o) {
         myLeftMouse = new Location(o.getPoint2D());
@@ -57,16 +58,14 @@ public class InputController implements Controller {
 
     @InputMethodTarget(name = "onLeftMouseUp")
     public void onLeftMouseUp (PositionObject o) {
-        if (myDrag == null) {
-            System.out.println("Not Dragging");
+        if (myDrag == null) {            
             sendCommand(new ClickCommand(ClickCommand.LEFT_CLICK, o));
         }
-        else {
-            myLeftMouse = null;
-            myDrag = null;
+        else {            
             sendCommand(new DragCommand(null, null));
-
         }
+        myLeftMouse = null;
+        myDrag = null;
     }
 
     @InputMethodTarget(name = "onRightMouseUp")
