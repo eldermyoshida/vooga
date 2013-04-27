@@ -71,7 +71,7 @@ public class ClientModel extends Observable implements IClientModel, IModel {
                         List<Integer> maxPlayerArray) {
         myGame = game;
         myUserName = userName;
-        myViewAdapter = new ClientViewAdapter(this, gameName, factions, maps, maxPlayerArray);
+        
         // myFactions = factions;
         // myContainerPanel = new ViewContainerPanel(gameName);
         // myServerBrowserView = new TableContainerView(myServerBrowserAdapter);
@@ -79,7 +79,7 @@ public class ClientModel extends Observable implements IClientModel, IModel {
         myClient = new Client(this);
         Message initialConnection = new InitialConnectionMessage(gameName, userName);
         myClient.sendData(initialConnection);
-        switchToServerBrowserView();
+        myViewAdapter = new ClientViewAdapter(this, gameName, factions, maps, maxPlayerArray);
     }
 
     @Override
@@ -97,7 +97,7 @@ public class ClientModel extends Observable implements IClientModel, IModel {
     /**
      * Switches the current View to the ServerBrowser.
      */
-    public void switchToServerBrowserView () {
+    private void switchToServerBrowserView () {
         requestLobbies();
         myViewAdapter.switchToServerBrowserView();
         // myContainerPanel.changeView(myServerBrowserView,
@@ -125,7 +125,7 @@ public class ClientModel extends Observable implements IClientModel, IModel {
     /**
      * Switches the current View to the LobbyCreatorScreen.
      */
-    public void switchToCreateLobbyView () {
+    private void switchToCreateLobbyView () {
         myViewAdapter.switchToCreateLobbyView();
         // myContainerPanel.changeView(myCreateLobbyView, NetworkBundle.getString("LobbyCreation"));
         // myContainerPanel.changeLeftButton(NetworkBundle.getString("BackToBrowser"),
@@ -183,7 +183,7 @@ public class ClientModel extends Observable implements IClientModel, IModel {
     /**
      * Request currently available lobbies from the server
      */
-    private void requestLobbies () {
+    public void requestLobbies () {
         myClient.sendData(new RequestServerListMessage());
     }
 
@@ -223,7 +223,7 @@ public class ClientModel extends Observable implements IClientModel, IModel {
      * Sends an infoLobby so other users can view that the state of
      * the lobby has changed
      */
-    private void sendUpdatedLobbyInfo () {
+    public void sendUpdatedLobbyInfo () {
         myClient.sendData(new UpdateLobbyInfoMessage(myLobbyInfo));
     }
 

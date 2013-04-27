@@ -22,20 +22,20 @@ public class ClientViewAdapter {
     private ServerBrowserTableAdapter myServerBrowserAdapter = new ServerBrowserTableAdapter();
     private List<String> myFactions;
     private ClientModel myModel;
-    private ExpandedLobbyInfo myLobbyInfo;
 
     public ClientViewAdapter (IModel model,
                               String gameName, List<String> factions, List<String> maps,
                               List<Integer> maxPlayerArray) {
         myModel = (ClientModel) model;
-        myLobbyInfo = myModel.getLobbyInfo();
         myFactions = factions;
         myContainerPanel = new ViewContainerPanel(gameName);
         myServerBrowserView = new TableContainerView(myServerBrowserAdapter);
         myCreateLobbyView = new CreateLobbyView(maps, maxPlayerArray);
+        switchToServerBrowserView();
     }
 
     public void switchToServerBrowserView () {
+        myModel.requestLobbies();
         myContainerPanel.changeView(myServerBrowserView, NetworkBundle.getString("ServerBrowser"));
         myContainerPanel.changeLeftButton(NetworkBundle.getString("HostGame"),
                                           new ActionListener() {
@@ -66,7 +66,7 @@ public class ClientViewAdapter {
                                           new ActionListener() {
                                               @Override
                                               public void actionPerformed (ActionEvent arg0) {
-                                                  myModel.switchToServerBrowserView();
+                                                  switchToServerBrowserView();
                                               }
                                           });
         myContainerPanel.changeRightButton(NetworkBundle.getString("StartLobby"),
@@ -83,25 +83,27 @@ public class ClientViewAdapter {
     /**
      * Switches the current view to the Lobby.
      */
-    public void switchToLobbyView () {
-        myLobbyView = new LobbyView(myModel, myFactions, myLobbyInfo.getMaxPlayers());
+    public void switchToLobbyView (ExpandedLobbyInfo lobbyInfo) {
+        myLobbyView = new LobbyView(myModel, myFactions, lobbyInfo.getMaxPlayers());
+        myModel.updateLobby(lobbyInfo);
+        myModel.sendUpdatedLobbyInfo();
 
         myContainerPanel.changeView(myLobbyView, NetworkBundle.getString("LobbyCreation"));
         myContainerPanel.changeLeftButton(NetworkBundle.getString("LeaveLobby"),
                                           new ActionListener() {
                                               @Override
                                               public void actionPerformed (ActionEvent arg0) {
-                                                  myLobbyInfo.removePlayer(myModel.getPlayersInfo()
+                                                  myModel.getLobbyInfo().removePlayer(myModel.getPlayersInfo()
                                                           .get(0));
                                                   myModel.leaveLobby();
-                                                  myModel.switchToServerBrowserView();
+                                                  switchToServerBrowserView();
                                               }
                                           });
         myContainerPanel.changeRightButton(NetworkBundle.getString("StartLobby"),
                                            new ActionListener() {
                                                @Override
                                                public void actionPerformed (ActionEvent arg0) {
-                                                   if (myLobbyInfo.canStartGame()) {
+                                                   if (myModel.getLobbyInfo().canStartGame()) {
                                                        myModel.requestStartGame();
                                                    }
                                                }
@@ -121,7 +123,7 @@ public class ClientViewAdapter {
     }
     
     public void updateLobby () {
-        myLobbyView.update(myModel.getPlayersInfo(), myLobbyInfo.getPlayers());
+        myLobbyView.update(myModel.getPlayersInfo(), myModel.getLobbyInfo().getPlayers());
     }
     
     public void alertClient (String title, String message) {
