@@ -151,7 +151,6 @@ public class TDView {
      */
     public void addScreen (JPanel screen, String location) {
         myFrame.getContentPane().add(screen, location);
-        System.out.println("Added screen to tdview");
 
         myFrame.pack();
         myFrame.setVisible(true);
@@ -187,7 +186,6 @@ public class TDView {
      * @param mapscreen is the mapscreen
      */
     public void setMapScreen(MapScreen mapscreen) {
-        System.out.println("tdview: setting map screen to " + mapscreen);
         myMapScreen = mapscreen;
     }
 
