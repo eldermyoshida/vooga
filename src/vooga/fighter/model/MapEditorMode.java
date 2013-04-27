@@ -21,7 +21,7 @@ import vooga.fighter.util.CollisionManager;
  * 
  */
 public class MapEditorMode extends Mode {
-	//at this point we assume the max # of players is 4 (so 4 starting locations)
+	//max # of players in one level is 4 (so 4 starting locations)
 	private static final int NUM_PLAYERS = 4;
 
     private String myMapName;
@@ -41,7 +41,6 @@ public class MapEditorMode extends Mode {
         currentPlayer = 0;
         myEnviroIndex = 0;
         numPlayers = NUM_PLAYERS;
-        //myMapName = mapName;
         myMap = null;
         myEnviroObjects = new ArrayList<EnvironmentObject>();
         myCurrentSelection = null;
@@ -162,7 +161,7 @@ public class MapEditorMode extends Mode {
      */
     public void writeMap() {
     	MapWriter writer = new MapWriter(myMap, mySoundPath, myBackgroundPaths, myFilePath);
-    	writer.writeMap();
+    	writer.writeData();
     }
 
     /**

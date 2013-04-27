@@ -1,5 +1,6 @@
 package vooga.fighter.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -19,13 +20,11 @@ import vooga.fighter.model.utils.UpdatableLocation;
  * @author matthewparides
  *
  */
-public class MapWriter {
+public class MapWriter extends AbstractWriter{
 	private MapObject myWriteSource;
-	private XMLTool myXMLWriter;
 	private Element myRoot;
 	private String mySoundFilePath;
 	private List<String> myBackgroundFilePaths;
-    private String myFilePath;
 	
 	/**
 	 * constructor
@@ -34,29 +33,31 @@ public class MapWriter {
 	 * @param backgroundFilePaths
 	 */
 	public MapWriter(MapObject map, String soundFilePath, List<String> backgroundFilePaths, String filepath) {
-		myFilePath= filepath;
+		super(filepath, new XMLTool());
 		myWriteSource = map;
-		myXMLWriter = new XMLTool();
 		myBackgroundFilePaths = backgroundFilePaths;
 	}
 	
 	/**
-	 * writes the data in the myWriteSource map to an xml file
+	 * writes the data in the myWriteSource map to an xml file at myFilePath
 	 */
-	public void writeMap() {
-		myXMLWriter.makeDoc();
+	public void writeData() {
+		writeData(getFilePath());
+	}
+	
+	/**
+	 * writes the data in myWriteSource to the xml file at filepath
+	 */
+	public void writeData(String filepath) {
+		getXMLWriter().makeDoc();
 		List<UpdatableLocation> startingPos = myWriteSource.getStartPositions();
 		List<EnvironmentObject> enviroObjects = myWriteSource.getEnviroObjects();
 		writeMapHeader();
-		for(UpdatableLocation loc: startingPos) {
-			writeStartPos(loc);
-		}
+		writeStartPositions(startingPos);
 		writeStates();
 		writeSound();
-		for(EnvironmentObject enviro: enviroObjects) {
-			writeEnvironmentObject(enviro);
-		}
-		writeToFile();
+		writeEnvironmentObjects(enviroObjects);
+		writeToFile(filepath);
 	}
 	
 	/**
@@ -65,11 +66,21 @@ public class MapWriter {
 	 * @param loc
 	 */
 	private void writeStartPos(UpdatableLocation loc) {
-		Element elem = myXMLWriter.makeElement("startingPos");
+		Element elem = getXMLWriter().makeElement("startingPos");
 		elem.setAttribute("yCoord", "" + loc.getLocation().getY());
 		elem.setAttribute("xCoord", "" + loc.getLocation().getX());
-		myXMLWriter.addChild(myRoot, elem);
+		getXMLWriter().addChild(myRoot, elem);
 		
+	}
+	
+	/**
+	 * writes all starting locations to the xmlWriter
+	 * @param startLocs
+	 */
+	private void writeStartPositions(List<UpdatableLocation> startLocs) {
+		for(UpdatableLocation loc: startLocs) {
+			writeStartPos(loc);
+		}
 	}
 	
 	/**
@@ -78,11 +89,23 @@ public class MapWriter {
 	 * @param enviro - the environmentobject to write
 	 */
 	private void writeEnvironmentObject(EnvironmentObject enviro) {
-		Element elem = myXMLWriter.makeElement("environtmentObject");
+		List<String> attribNames = new ArrayList<String>();
+		List<String> attribValues = new ArrayList<String>();
+		Element elem = getXMLWriter().makeElement("environtmentObject");
 		elem.setAttribute("yCoord", "" + enviro.getLocation().getLocation().getY());
 		elem.setAttribute("xCoord", "" + enviro.getLocation().getLocation().getX());
 		elem.setAttribute("objectName", enviro.getName());
-		myXMLWriter.addChild(myRoot, elem);
+		getXMLWriter().addChild(myRoot, elem);
+	}
+	
+	/**
+	 * writes all environmentObjects in enviroObjs to the xmlWriter
+	 * @param enviroObjs
+	 */
+	private void writeEnvironmentObjects(List<EnvironmentObject> enviroObjs) {
+		for(EnvironmentObject enviro: enviroObjs) {
+			writeEnvironmentObject(enviro);
+		}
 	}
 	
 	/**
@@ -90,11 +113,11 @@ public class MapWriter {
 	 * currently writes just the filepath
 	 */
 	private void writeSound() {
-		Element soundHead = myXMLWriter.makeElement("sound");
-		myXMLWriter.addChild(myRoot, soundHead);
-		Element sound = myXMLWriter.makeElement("soundFile");
+		Element soundHead = getXMLWriter().makeElement("sound");
+		getXMLWriter().addChild(myRoot, soundHead);
+		Element sound = getXMLWriter().makeElement("soundFile");
 		sound.setAttribute("sound", mySoundFilePath);
-		myXMLWriter.addChild(soundHead, sound);
+		getXMLWriter().addChild(soundHead, sound);
 	}
 	
 	/**
@@ -102,7 +125,7 @@ public class MapWriter {
 	 * the map header includes the map name and the dimensions.
 	 */
 	private void writeMapHeader() {
-		myRoot = myXMLWriter.makeRoot("map");
+		myRoot = getXMLWriter().makeRoot("map");
 		myRoot.setAttribute("ySize", "871");
 		myRoot.setAttribute("xSize", "1024");
 		myRoot.setAttribute("mapName", myWriteSource.getName());
@@ -112,22 +135,22 @@ public class MapWriter {
 	 * writes the image states data to xml nodes
 	 */
 	private void writeStates() {
-		Element stateHead = myXMLWriter.makeElement("state");
+		Element stateHead = getXMLWriter().makeElement("state");
 		stateHead.setAttribute("stateName", "background");
-		myXMLWriter.addChild(myRoot, stateHead);
+		getXMLWriter().addChild(myRoot, stateHead);
 		for(String str: myBackgroundFilePaths) {
-			Element background = myXMLWriter.makeElement("frame");
+			Element background = getXMLWriter().makeElement("frame");
 			background.setAttribute("image", str);
-			myXMLWriter.addChild(stateHead, background);
+			getXMLWriter().addChild(stateHead, background);
 		}
 	}
 	
 	/**
-	 * writes the map's generated xml nodes to the map.xml file.
+	 * writes the map's generated xml nodes to the file at input filepath.
 	 * If the map already exists, overwrites that data, if not, adds a new map.
 	 */
-	private void writeToFile() {
-		MapLoader loader = new MapLoader(myFilePath);
+	protected void writeToFile(String filepath) {
+		MapLoader loader = new MapLoader(filepath);
 		Document doc = loader.getDocument();
 		Element root = doc.getDocumentElement();
 		NodeList mapNodes = doc.getElementsByTagName("map");
