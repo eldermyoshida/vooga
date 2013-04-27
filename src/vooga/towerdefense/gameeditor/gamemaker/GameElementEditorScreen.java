@@ -29,21 +29,17 @@ public class GameElementEditorScreen extends ElementWithActionEditorScreen {
      */
     private static final long serialVersionUID = 1L;
     /**
-     * specifies user directory.
-     */
-    private static final String USER_DIR = "user.dir";
-    /**
      * next screen constant.
      */
     private static final String NEXT_SCREEN_NAME = "RuleEditorScreen";
     /**
-     * constant for the image selector button.
-     */
-    private static final String IMAGE_SELECTOR_KEYWORD = "Select Image From File";
-    /**
-     * package for the wave action factories.
+     * package for the action factories.
      */
     private static final String ACTION_PACKAGE_PATH = "vooga.towerdefense.factories.actionfactories";
+    /**
+     * package for the images.
+     */
+    private static final String IMAGE_PACKAGE_PATH = "vooga.towerdefense.images";
     /**
      * package for the attributes.
      */
@@ -69,10 +65,6 @@ public class GameElementEditorScreen extends ElementWithActionEditorScreen {
      */
     private static final String PROJECTILE_TYPE = "Projectile";
     /**
-     * used to choose file in the directory.
-     */
-    private JFileChooser myFileChooser;
-    /**
      * arraylist with the default available types.
      */
     private List<String> myAvailableTypes;
@@ -83,7 +75,7 @@ public class GameElementEditorScreen extends ElementWithActionEditorScreen {
     /**
      * box to enter the image of the game element.
      */
-    private JTextField myImageBox;
+    private JComboBox myImageBox;
     /**
      * box to enter the dimension of the game element.
      */
@@ -92,10 +84,6 @@ public class GameElementEditorScreen extends ElementWithActionEditorScreen {
      * button add a new type of game element.
      */
     private JButton myAddTypeButton;
-    /**
-     * button to get the image of the game element from the file system.
-     */
-    private JButton myImageSelector;
     /**
      * attributes section for this game element screen.
      */
@@ -111,7 +99,6 @@ public class GameElementEditorScreen extends ElementWithActionEditorScreen {
      */
     public GameElementEditorScreen (Dimension size, GameEditorController controller) throws ClassNotFoundException, IOException {
         super(size, controller, TITLE_NAME, NEXT_SCREEN_NAME);
-        myFileChooser = new JFileChooser(System.getProperties().getProperty(USER_DIR));
         myAvailableTypes = new ArrayList<String>();
         myAvailableTypes.add(UNIT_TYPE);
         myAvailableTypes.add(TOWER_TYPE);
@@ -148,12 +135,22 @@ public class GameElementEditorScreen extends ElementWithActionEditorScreen {
         
         JPanel imagePanel = new JPanel(new BorderLayout());
         imagePanel.add(new JLabel("Image: "), BorderLayout.NORTH);
-        myImageBox = new JTextField(TEXT_AREA_WIDTH);
-        myImageSelector = new JButton(IMAGE_SELECTOR_KEYWORD);
-        myImageSelector.addMouseListener(getMouseAdapter());
-        imagePanel.add(myImageBox, BorderLayout.CENTER);
-        imagePanel.add(myImageSelector, BorderLayout.SOUTH);
-        add(imagePanel, BorderLayout.NORTH);
+        myImageBox = new JComboBox();
+        List<String> images;
+        try {
+            images = getController().getClassNamesInPackage(IMAGE_PACKAGE_PATH);
+            for (String imageName: images) {
+                myImageBox.addItem(imageName);
+            }
+            imagePanel.add(myImageBox, BorderLayout.CENTER);
+            add(imagePanel, BorderLayout.NORTH);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
     
     /**
@@ -162,7 +159,6 @@ public class GameElementEditorScreen extends ElementWithActionEditorScreen {
     @Override
     public void clearScreen() {
         super.clearScreen();
-        myImageBox.setText("");
         myDimensionBox.setText("");
         getAttributesSection().setText("");
     }
@@ -172,7 +168,7 @@ public class GameElementEditorScreen extends ElementWithActionEditorScreen {
      */
     public void addElementToGame() {
         getController().addGameElementToGame(myTypeBox.getSelectedItem().toString(), getName(),
-                                         myImageBox.getText(), myDimensionBox.getText(),
+                                         myImageBox.getSelectedItem().toString(), myDimensionBox.getText(),
                                          getAttributes(),
                                          getActions());
     }
@@ -190,14 +186,6 @@ public class GameElementEditorScreen extends ElementWithActionEditorScreen {
             String newType = JOptionPane.showInputDialog("Enter your new type");
             myTypeBox.addItem(newType);
             myTypeBox.setSelectedItem(newType);
-        }
-        else if (e.getSource().equals(myImageSelector)) {
-            int response = myFileChooser.showOpenDialog(null);
-            if (response == JFileChooser.APPROVE_OPTION) {
-                File file = myFileChooser.getSelectedFile();
-                String path = file.getPath().replace("%20", " ");
-                myImageBox.setText(path);
-            }
         }
     }
 }

@@ -25,11 +25,11 @@ public class AttackActionFactory extends ActionFactory {
     private LaunchProjectileFactory myProjectiles;
     
     
-    public AttackActionFactory(@ActionAnnotation(name = "attack radius", value = "int") String attackRadius,
-                               @ActionAnnotation(name = "attack speed", value = "int") String attackSpeed,
-                               @ActionAnnotation(name = "num targets", value = "int") String numTargets,
-                               @ActionAnnotation(name = "target affiliation", value = "int") String targetAffiliation,
-                               @ActionAnnotation(name = "projectile", value = "name")String projectileFactory) {
+    public AttackActionFactory(@ActionAnnotation(name = "attack radius", value = "attribute") String attackRadius,
+                               @ActionAnnotation(name = "attack speed", value = "attribute") String attackSpeed,
+                               @ActionAnnotation(name = "num targets", value = "attribute") String numTargets,
+                               @ActionAnnotation(name = "target affiliation", value = "attribute") String targetAffiliation,
+                               @ActionAnnotation(name = "projectile", value = "name") String projectileFactory) {
         super();
         myRadius = attackRadius;
         myAttackSpeed = attackSpeed;
