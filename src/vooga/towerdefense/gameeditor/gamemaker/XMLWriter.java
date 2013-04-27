@@ -25,7 +25,7 @@ public class XMLWriter {
     public static final String XML_EXTENSION = ".xml";
     public static final String GAME_TAG = "game";
     public static final String VIEW_TAG = "view";
-    public static final String GAME_ELEMENT_TAG = "gameelement";
+    public static final String GAME_ELEMENT_TAG = "gameelements";
     public static final String LEVELS_TAG = "levels";
     public static final String IMAGE_TAG = "image";
     public static final String TYPE_TAG = "type";
@@ -33,7 +33,7 @@ public class XMLWriter {
     public static final String DIMENSION_TAG = "dimension";
     public static final String WIDTH_TAG = "width";
     public static final String HEIGHT_TAG = "height";
-    public static final String TILE_TAG = "tile";
+    public static final String TILE_SIZE_TAG = "tile_size";
     public static final String GRID_TAG = "grid";
     public static final String RULES_TAG = "rules";
     public static final String PARAMETER_TAG = "parameter";
@@ -44,7 +44,6 @@ public class XMLWriter {
     public static final String UNIT_INDICATOR = "Unit";
 
     private XMLTool myXMLDoc;
-    private String myName;
     private Element myRoot;
     private Element myViewParent;
     private Element myMapParent;
@@ -82,11 +81,11 @@ public class XMLWriter {
      */
     private void initializeXML () {
         myRoot = myXMLDoc.makeRoot(GAME_TAG);
-        initializeSubParent(myRoot, myViewParent, VIEW_TAG);
-        initializeSubParent(myRoot, myMapParent, MAP_TAG);
-        initializeSubParent(myRoot, myGameElementParent, GAME_ELEMENT_TAG);
-        initializeSubParent(myRoot, myRuleParent, RULES_TAG);
-        initializeSubParent(myRoot, myLevelParent, LEVELS_TAG);
+        myViewParent = initializeSubParent(myRoot, myViewParent, VIEW_TAG);
+        myMapParent = initializeSubParent(myRoot, myMapParent, MAP_TAG);
+        myGameElementParent = initializeSubParent(myRoot, myGameElementParent, GAME_ELEMENT_TAG);
+        myRuleParent = initializeSubParent(myRoot, myRuleParent, RULES_TAG);
+        myLevelParent = initializeSubParent(myRoot, myLevelParent, LEVELS_TAG);
     }
     
     /**
@@ -95,9 +94,10 @@ public class XMLWriter {
      * @param parent is the parent of the sub section
      * @param tag is the name of this section
      */
-    private void initializeSubParent(Element root, Element parent, String tag) {
+    private Element initializeSubParent(Element root, Element parent, String tag) {
         parent = myXMLDoc.makeElement(tag);
         myXMLDoc.addChild(root, parent);
+        return parent;
     }
 
     /**
@@ -148,7 +148,7 @@ public class XMLWriter {
         if (type.equals(UNIT_INDICATOR)) {
             myCreatedUnits.add(name);
         }
-        myGameElementXMLWriter.write(myGameElementParent, type, name, path, attributes, actions);
+        myGameElementXMLWriter.write(myGameElementParent, type, name, path, dimension, attributes, actions);
     }
 
     /**
@@ -175,8 +175,8 @@ public class XMLWriter {
     /**
      * Saves the XML file.
      */
-    public void saveFile () {
-        myXMLDoc.writeFile(RESOURCE_PATH + myName + XML_EXTENSION);
+    public void saveFile (String name) {
+        myXMLDoc.writeFile(RESOURCE_PATH + name + XML_EXTENSION);
     }
 
     /**

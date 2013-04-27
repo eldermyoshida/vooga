@@ -70,10 +70,6 @@ public class ViewEditorScreen extends GameEditorScreen {
      */
     private static final String CENTER_NAME = "CENTER";
     /**
-     * width of the text field boxes.
-     */
-    private static final int TEXT_FIELD_WIDTH = 20;
-    /**
      * string constant for getting the view's main dimension.
      */
     private static final String TOP_LEVEL_DIMENSION_PROMPT = "TOP LEVEL CONTAINER DIMENSION";

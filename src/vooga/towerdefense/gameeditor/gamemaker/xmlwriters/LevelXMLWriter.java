@@ -32,7 +32,9 @@ public class LevelXMLWriter {
     public void write(Element parent, String name, String rules, String actions) {
         Element thisLevel = myXMLTool.makeElement(name);
         myXMLTool.addChild(parent, thisLevel);
-        myRuleParser.write(thisLevel, rules);
+        Element ruleElement = myXMLTool.makeElement(XMLWriter.RULES_TAG);
+        myRuleParser.write(ruleElement, rules);
+        myXMLTool.addChild(thisLevel, ruleElement);
         Element actionElement = myXMLTool.makeElement(XMLWriter.ACTIONS_TAG);
         myXMLTool.addChild(thisLevel, myActionParser.parse(actionElement, actions));
     }

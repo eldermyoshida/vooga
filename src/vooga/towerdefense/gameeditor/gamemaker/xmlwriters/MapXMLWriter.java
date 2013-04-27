@@ -35,9 +35,11 @@ public class MapXMLWriter {
     public void write (Element parent, String name, String image, String width, String height, String tileSize, String map) {
         Element thisMap = myXMLTool.makeElement(name.trim());
         myXMLTool.addChild(thisMap, XMLWriter.IMAGE_TAG, image);
-        myXMLTool.addChild(thisMap, XMLWriter.WIDTH_TAG, width);
-        myXMLTool.addChild(thisMap, XMLWriter.HEIGHT_TAG, height);
-        myXMLTool.addChild(thisMap, XMLWriter.TILE_TAG, tileSize);
+        Element dimensionElement = myXMLTool.makeElement(XMLWriter.DIMENSION_TAG);
+        myXMLTool.addChild(thisMap, dimensionElement);
+        myXMLTool.addChild(dimensionElement, XMLWriter.WIDTH_TAG, width);
+        myXMLTool.addChild(dimensionElement, XMLWriter.HEIGHT_TAG, height);
+        myXMLTool.addChild(thisMap, XMLWriter.TILE_SIZE_TAG, tileSize);
         myXMLTool.addChild(thisMap, XMLWriter.GRID_TAG, map);
         myXMLTool.addChild(parent, thisMap);
     }

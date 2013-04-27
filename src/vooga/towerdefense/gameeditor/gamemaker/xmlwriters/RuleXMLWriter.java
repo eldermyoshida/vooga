@@ -28,7 +28,6 @@ public class RuleXMLWriter {
      * @param rulesText is the string representing the rules
      */
     public void write (Element parent, String rulesText) {
-        Element ruleParent = myXMLTool.makeElement(XMLWriter.RULES_TAG);
         String[] rules = rulesText.split("\n");
         for (String r : rules) {
             if (!r.equals("")) {
@@ -37,10 +36,9 @@ public class RuleXMLWriter {
                 for (int i = 1; i < rule.length; i++) {
                     myXMLTool.addChild(thisRule, XMLWriter.PARAMETER_TAG, rule[i]);
                 }
-                myXMLTool.addChild(ruleParent, thisRule);
+                myXMLTool.addChild(parent, thisRule);
             }
         }
-        myXMLTool.addChild(parent, ruleParent);
     }
 
 }

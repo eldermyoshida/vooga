@@ -6,7 +6,8 @@ import javax.swing.JButton;
 
 
 /**
- * temporary placeholder. Will edit soon!
+ * FinishScreen helps the game developer save the
+ *      game he/she has been editing to a file.
  * 
  * @author Angelica Schwartz
  */
@@ -21,6 +22,11 @@ public class FinishScreen extends GameEditorScreen {
     private static final String NEXT_SCREEN_NAME = null;
     private JButton myFinishButton;
 
+    /**
+     * Constructor.
+     * @param size
+     * @param controller
+     */
     public FinishScreen (Dimension size,
                          GameEditorController controller) {
         super(size, controller, TITLE_NAME, NEXT_SCREEN_NAME);
@@ -31,8 +37,7 @@ public class FinishScreen extends GameEditorScreen {
 
     @Override
     public void addElementToGame () {
-        // TODO Auto-generated method stub
-
+        // do nothing
     }
 
     /**
