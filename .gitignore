@@ -2,7 +2,7 @@ bin/
 bin/**
 
 *.class
-
+Logger.txt
 *.checkstyle
 .checkstyle
 .classpath
