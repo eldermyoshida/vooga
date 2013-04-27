@@ -4,6 +4,7 @@ package util.logger;
 import java.io.OutputStream;
 import java.util.logging.Handler;
 import java.util.logging.Level;
+import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
 
@@ -34,7 +35,7 @@ public class LoggerManager {
 
     private Logger myLogger;
     private IVoogaHandler myDefaultHandler = new HandlerConsole();
-    private Level myDefaultLevel;
+    private Level myDefaultLevel = Level.ALL;
 
     /**
      * Constructor
@@ -50,10 +51,8 @@ public class LoggerManager {
     }
     
     /**
-     * Constructor
-     * Sets a logger using reflection to find the name of the calling class
-     * The Logger is initialized with the name of the calling class
-     * By default, a console handler is set
+     * Constructor.
+     * Sets a logger according to the given class name
      */
     public LoggerManager (String loggerName) {
         initializeLogger(loggerName);   
@@ -69,6 +68,7 @@ public class LoggerManager {
         myLogger.setLevel(myDefaultLevel);
         addHandler(myDefaultHandler);
     }
+    
 
     /**
      * Adds a handler to the logger and sets it to the logger level
@@ -243,6 +243,22 @@ public class LoggerManager {
         for (Handler h : myLogger.getHandlers()) {
             h.setLevel(level);
         }
+        LogRecord l;
+    }
+    
+    /**
+     * Sets the level of the logger and all its handlers
+     * 
+     * @param level
+     */
+    public void log (Level level, String message) {
+        LogRecord l = new LogRecord(level, message);
+        StackTraceElement[] element = Thread.currentThread().getStackTrace();   
+        l.setSourceClassName(element[2].getClassName());
+        l.setSourceMethodName(element[2].getMethodName());
+        
+        myLogger.log(l);
+        
     }
 
     /**
