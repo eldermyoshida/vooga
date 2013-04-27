@@ -117,4 +117,6 @@ public class CanBeOccupied implements OccupyStrategy {
     public int getMaxOccupiers () {
         return myMaxOccupiers;
     }
+
+
 }

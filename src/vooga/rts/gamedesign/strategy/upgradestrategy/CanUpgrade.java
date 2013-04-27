@@ -34,5 +34,11 @@ public class CanUpgrade implements UpgradeStrategy{
 		return myUpgradeTree;
 	}
 
+	@Override
+	public Strategy affect(InteractiveEntity other) {
+		
+		return null;
+	}
+
 
 }

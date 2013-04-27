@@ -131,4 +131,10 @@ public class CanAttack implements AttackStrategy {
     	return true;
     }
 
+
+	@Override
+	public void affect(InteractiveEntity other) {
+		other.setAttackStrategy(this);
+	}
+
 }

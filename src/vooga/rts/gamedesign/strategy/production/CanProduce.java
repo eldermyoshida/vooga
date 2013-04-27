@@ -4,6 +4,7 @@ import vooga.rts.action.InteractiveAction;
 import vooga.rts.commands.Command;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building;
+import vooga.rts.gamedesign.strategy.Strategy;
 import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;
 import vooga.rts.util.DelayedTask;
 import vooga.rts.util.Location3D;
@@ -121,5 +122,10 @@ public class CanProduce implements ProductionStrategy {
 	@Override
 	public void setProducables(List<InteractiveEntity> producables) {
 		myProducables = producables;
+	}
+
+	@Override
+	public Strategy copy() {
+		
 	}
 }
