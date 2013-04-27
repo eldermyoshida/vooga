@@ -123,9 +123,9 @@ public abstract class ObjectLoader {
 			return value; 
 		}
 		catch(NullPointerException e){
-			String value= myDefaults.getString(getClass().getSimpleName()+tag);
-			System.err.println("Property "+ tag+ " not set.  Default value is "+value);
-			return value;
+				String value= myDefaults.getString(getClass().getSimpleName()+tag);
+				System.err.println("Property "+ tag+ " not set.  Default value is "+value);
+				return value;
 		}
 	}
 
