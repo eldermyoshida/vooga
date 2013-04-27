@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observer;
 import javax.xml.parsers.ParserConfigurationException;
+import util.Location;
 import vooga.rts.commands.Command;
 import vooga.rts.commands.DragCommand;
 import vooga.rts.controller.Controller;
@@ -20,11 +21,11 @@ import vooga.rts.gamedesign.sprite.map.Terrain;
 import vooga.rts.leveleditor.components.MapLoader;
 import vooga.rts.manager.PlayerManager;
 import vooga.rts.map.GameMap;
+import vooga.rts.map.MiniMap;
 import vooga.rts.util.Camera;
 import vooga.rts.util.DelayedTask;
 import vooga.rts.util.FrameCounter;
 import vooga.rts.util.Information;
-import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 
@@ -69,6 +70,8 @@ public class GameState extends SubState implements Controller {
 
     private Rectangle2D myDrag;
     private Factory myFactory;
+    
+    private MiniMap myMiniMap;
 
     public GameState (Observer observer) {
         super(observer);
@@ -84,7 +87,8 @@ public class GameState extends SubState implements Controller {
         }
         catch (Exception e1) {
         }
-        myMap = ml.getMyMap();
+        setMap(ml.getMyMap());
+        myMiniMap = new MiniMap(getMap(), new Location(50, 500), new Dimension(150, 200));
 
         // myMap = new GameMap(new Dimension(4000, 2000), true);
         myPlayers = new PlayerManager();
@@ -112,6 +116,7 @@ public class GameState extends SubState implements Controller {
     public void paint (Graphics2D pen) {
         pen.setBackground(Color.BLACK);
         myMap.paint(pen);
+        myMiniMap.paint(pen);
         getPlayers().getHuman().paint(pen);
 
         if (myDrag != null) {
@@ -253,7 +258,7 @@ public class GameState extends SubState implements Controller {
     }
 
     public static void setMap (GameMap map) {
-        myMap = map;
+        myMap = map;       
     }
 
     @Override

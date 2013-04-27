@@ -30,7 +30,7 @@ import vooga.rts.gui.menus.gamesubmenus.MiniMapSubMenu;
 import vooga.rts.manager.Manager;
 import vooga.rts.resourcemanager.ResourceManager;
 import vooga.rts.util.Information;
-import vooga.rts.util.Location;
+import util.Location;
 
 
 public class GameMenu extends Menu {
@@ -38,7 +38,7 @@ public class GameMenu extends Menu {
     private BufferedImage myBGImage;
 
     // Image paths
-    //private static final String BG_IMAGE_URL = "images/gamemenu/menu_bg.png";
+    // private static final String BG_IMAGE_URL = "images/gamemenu/menu_bg.png";
     private static final String EXIT_IMAGE_URL = "images/gamemenu/menu_button.png";
     private static final String MINIMAP_IMAGE_URL = "images/gamemenu/menu_minimap.png";
     private static final String INFO_IMAGE_URL = "images/gamemenu/menu_info.png";
@@ -59,14 +59,12 @@ public class GameMenu extends Menu {
     private static final Location INFO_LOCATION = new Location(MINIMAP_LOCATION.getX() +
                                                                MINIMAP_DIMENSION.getWidth(),
                                                                Window.SCREEN_SIZE.getHeight() -
-                                                                       INFO_DIMENSION
-                                                                               .getHeight());
+                                                                       INFO_DIMENSION.getHeight());
     private static final Location ACTIONS_LOCATION = new Location(INFO_LOCATION.getX() +
                                                                   INFO_DIMENSION.getWidth(),
                                                                   Window.SCREEN_SIZE.getHeight() -
                                                                           ACTIONS_DIMENSION
                                                                                   .getHeight());
-
 
     private InteractiveEntity mySelectedEntity;
 
@@ -83,8 +81,7 @@ public class GameMenu extends Menu {
         // BufferedImage.class);
         // setBGImage(myBGImage);
 
-        myExitButton =
-                new ImageButton(EXIT_IMAGE_URL, EXIT_BUTTON_DIMENSION, EXIT_BUTTON_LOCATION);
+        myExitButton = new ImageButton(EXIT_IMAGE_URL, EXIT_BUTTON_DIMENSION, EXIT_BUTTON_LOCATION);
         addButton(myExitButton);
 
         mySubMenus = new ArrayList<SubMenu>();
@@ -113,13 +110,17 @@ public class GameMenu extends Menu {
             ClickCommand c = (ClickCommand) command;
             l = c.getPosition();
         }
-        else if (command instanceof PositionCommand) {
-            PositionCommand c = (PositionCommand) command;
-            l = c.getPosition();
-        }
-        if (l == null) return false;
+        else
+            if (command instanceof PositionCommand) {
+                PositionCommand c = (PositionCommand) command;
+                l = c.getPosition();
+            }
+        if (l == null)
+            return false;
         for (SubMenu s : mySubMenus) {
-            if (s.checkWithinBounds(l)) { return true; }
+            if (s.checkWithinBounds(l)) {
+                return true;
+            }
         }
 
         return false;
@@ -127,7 +128,7 @@ public class GameMenu extends Menu {
 
     @Override
     public void paint (Graphics2D pen) {
-        
+
         // int bgImgHeight = myBGImage.getHeight();
         // int bgImgWidth = myBGImage.getWidth();
         //
@@ -138,25 +139,24 @@ public class GameMenu extends Menu {
         // int y = S_Y - newHeight;
         //
         // pen.drawImage(myImage, x, y, S_X, newHeight, null);
-        
+
         super.paint(pen);
-        
+
         for (SubMenu s : mySubMenus) {
             s.paint(pen);
         }
-
 
     }
 
     @Override
     public void update (Observable o, Object arg) {
-        
+
         if (arg instanceof InformationCommand) {
             InformationCommand i = (InformationCommand) arg;
             setChanged();
             notifyObservers(i);
         }
-        
+
         if (o instanceof Manager) {
             Boolean b = (Boolean) arg;
             Manager m = (Manager) o;
@@ -172,13 +172,13 @@ public class GameMenu extends Menu {
         if (o.equals(myExitButton)) {
             System.exit(0);
         }
-//        if (o instanceof ActionButton) {
-//            ActionButton a = (ActionButton) o;
-//            Integer id = a.getID();
-//
-//            setChanged();
-//            notifyObservers(id);
-//        }
+        // if (o instanceof ActionButton) {
+        // ActionButton a = (ActionButton) o;
+        // Integer id = a.getID();
+        //
+        // setChanged();
+        // notifyObservers(id);
+        // }
     }
 
     private void setDeselected () {
@@ -195,7 +195,7 @@ public class GameMenu extends Menu {
             b.setSelectedEntity(mySelectedEntity);
         }
     }
-    
+
     public void handleMouseDown (int x, int y) {
         for (SubMenu b : mySubMenus) {
             if (b.checkWithinBounds(x, y)) {
