@@ -10,6 +10,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,14 +21,14 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import util.Location;
+import util.Pixmap;
 import vooga.towerdefense.gameeditor.gamemaker.GameEditorController;
 import vooga.towerdefense.gameeditor.gamemaker.GameEditorScreen;
+import vooga.towerdefense.model.Tile;
 import vooga.towerdefense.model.tiles.DefaultTile;
 import vooga.towerdefense.model.tiles.GrassTile;
 import vooga.towerdefense.model.tiles.PathTile;
-import vooga.towerdefense.model.tiles.Tile;
-import util.Location;
-import util.Pixmap;
 
 
 /**
@@ -45,6 +47,7 @@ public class MapEditorScreen extends GameEditorScreen {
     public static final String CLASS_INDICATOR_STRING = ".png";
     private static final String NEXT_SCREEN_NAME = "GameElementEditorScreen";
     private static final String TITLE_NAME = "MAP ";
+    private static final String TILE_PACKAGE_PATH = "vooga.towerdefense.model.tiles";
     private static final String TILE_IMAGES_CLASS_PATH = "vooga/towerdefense/images/map";
     private static final String GRASS_TILE_NAME = "grass_tile.png";
     private static final String PATH_TILE_NAME = "path_tile.png";
@@ -53,10 +56,14 @@ public class MapEditorScreen extends GameEditorScreen {
     private static final Location DEFAULT_LOCATION = new Location(0, 0);
     private static final Dimension DEFAULT_SIZE = new Dimension(50, 50);
     private static final Dimension TILE_PANEL_SIZE = new Dimension(400, 100);
-    private static final Pixmap GRASS_PIXMAP = new Pixmap("/" + TILE_IMAGES_CLASS_PATH + "/" + GRASS_TILE_NAME);
-    private static final Pixmap PATH_PIXMAP = new Pixmap("/" + TILE_IMAGES_CLASS_PATH + "/" + PATH_TILE_NAME);
-    private static final Pixmap BLANK_PIXMAP = new Pixmap("/" + TILE_IMAGES_CLASS_PATH + "/" + BLANK_TILE_NAME);
-    private static final Pixmap DEFAULT_PIXMAP = new Pixmap("/" + TILE_IMAGES_CLASS_PATH + "/" + DEFAULT_TILE_NAME);
+    private static final Pixmap GRASS_PIXMAP = new Pixmap("/" + TILE_IMAGES_CLASS_PATH + "/" +
+                                                          GRASS_TILE_NAME);
+    private static final Pixmap PATH_PIXMAP = new Pixmap("/" + TILE_IMAGES_CLASS_PATH + "/" +
+                                                         PATH_TILE_NAME);
+    private static final Pixmap BLANK_PIXMAP = new Pixmap("/" + TILE_IMAGES_CLASS_PATH + "/" +
+                                                          BLANK_TILE_NAME);
+    private static final Pixmap DEFAULT_PIXMAP = new Pixmap("/" + TILE_IMAGES_CLASS_PATH + "/" +
+                                                            DEFAULT_TILE_NAME);
     private static final String USER_DIR = "user.dir";
     private static final String DEFAULT_TILE_SIZE = "50";
 
@@ -71,6 +78,7 @@ public class MapEditorScreen extends GameEditorScreen {
     private TilePanel myTilePainter;
     private Tile myTileToBuild;
     private List<String> myBackgroundImages;
+    private List<Tile> myTiles;
     private String myBackgroundImageName;
     private String myMapName;
     private JButton myBackgroundImageButton;
@@ -161,9 +169,9 @@ public class MapEditorScreen extends GameEditorScreen {
         };
     }
 
-    private void setMapName() {
+    private void setMapName () {
         myMapName = myMapNameTextField.getText();
-        if (myMapName.isEmpty()){
+        if (myMapName.isEmpty()) {
             JOptionPane.showMessageDialog(null, "NAME MUST BE AT LEAST 1 LETTER!!");
         }
         else {
@@ -171,7 +179,7 @@ public class MapEditorScreen extends GameEditorScreen {
             System.out.println("my map name: " + myMapName);
         }
     }
-    
+
     private JLabel makeLabelText (String text) {
         return new JLabel(text);
     }
@@ -192,19 +200,16 @@ public class MapEditorScreen extends GameEditorScreen {
      */
     @Override
     public void addElementToGame () {
-        getController().addMapToGame(getMapName(), getBackgroundImagePath(), myMapMakerBox.getMapWidth(), myMapMakerBox.getMapHeight(), getTileSize(), myMapMakerBox.getMapString());
-        // getController().addMapToGame(int TileSize, Map<String, String> tileInfo);
-        // Element mapParent = makeElement ("Map");
-        // myXMLDoc.addChildElement(myRoot, myParent);
-        // Element tileInfo = myXMLDoc.addElementFromMap ("TitleInfo", tileInfo)
-        // myXMLDoc.addChildElement(mapParent, tileInfo)
-
+        getController().addMapToGame(getMapName(), getBackgroundImagePath(),
+                                     myMapMakerBox.getMapWidth(), myMapMakerBox.getMapHeight(),
+                                     getTileSize(), myMapMakerBox.getMapString());
     }
 
     private JPanel makePathTilePainter () {
         File[] images = getImages(TILE_IMAGES_CLASS_PATH);
         List<Pixmap> myImages = new ArrayList<Pixmap>();
         myImages = makeTileImages(images);
+        initTileClasses();
         myTilePainter = new TilePanel(TILE_PANEL_SIZE, myImages, this);
         return myTilePainter;
     }
@@ -217,18 +222,25 @@ public class MapEditorScreen extends GameEditorScreen {
      */
     // TODO Fix this so that the tiles are not hard-coded!
     public void makeTileInstances (String s) {
-        if (s.equals(GRASS_TILE_NAME)) {
-            myTileToBuild = new GrassTile(3, GRASS_PIXMAP, DEFAULT_LOCATION, DEFAULT_SIZE);
+        
+        for (Tile tile: myTiles) {
+           if (tile.getName().equals(s)){
+               myTileToBuild = tile;
+           }
         }
-        else if (s.equals(PATH_TILE_NAME)) {
-            myTileToBuild = new PathTile(1, PATH_PIXMAP, DEFAULT_LOCATION, DEFAULT_SIZE);
-        }
-        else if (s.equals(DEFAULT_TILE_NAME)) {
-            myTileToBuild = new DefaultTile(2, DEFAULT_PIXMAP, DEFAULT_LOCATION, DEFAULT_SIZE);
-        }
-        else if (s.equals(BLANK_TILE_NAME)) {
-            myTileToBuild = new DefaultTile (0, BLANK_PIXMAP, DEFAULT_LOCATION, DEFAULT_SIZE);
-        }
+//        
+//        if (s.equals(GRASS_TILE_NAME)) {
+//            myTileToBuild = new GrassTile(3, GRASS_PIXMAP, DEFAULT_LOCATION, DEFAULT_SIZE);
+//        }
+//        else if (s.equals(PATH_TILE_NAME)) {
+//            myTileToBuild = new PathTile(1, PATH_PIXMAP, DEFAULT_LOCATION, DEFAULT_SIZE);
+//        }
+//        else if (s.equals(DEFAULT_TILE_NAME)) {
+//            myTileToBuild = new DefaultTile(2, DEFAULT_PIXMAP, DEFAULT_LOCATION, DEFAULT_SIZE);
+//        }
+//        else if (s.equals(BLANK_TILE_NAME)) {
+//            myTileToBuild = new DefaultTile(0, BLANK_PIXMAP, DEFAULT_LOCATION, DEFAULT_SIZE);
+//        }
         myMapMakerBox.setTile(myTileToBuild);
     }
 
@@ -252,35 +264,89 @@ public class MapEditorScreen extends GameEditorScreen {
         return null;
     }
 
+    private void initTileClasses() {
+        List<Class> classes = new ArrayList<Class>();
+        myTiles = new ArrayList<Tile>();
+        try {
+            classes = getController().getClassesInPackage(TILE_PACKAGE_PATH);
+            for (Class myClass : classes) {
+                Class[] types = {Location.class, Dimension.class };
+                Object[] parameters = {new Location(0,0), new Dimension(50,50)};
+                try {
+                  //  if (myClass.)
+                    Constructor constructor = myClass.getConstructor(types);
+                }
+                catch (NoSuchMethodException e) {
+                    e.printStackTrace();
+                }
+                catch (SecurityException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+     
+        for (Class myClass : classes) {
+            Class[] types = {Location.class, Dimension.class };
+            Object[] parameters = {new Location(0,0), new Dimension(50,50)};
+            Constructor constructor;
+            Object newTile;
+            try {
+                constructor = myClass.getConstructor(types);
+                try {
+                    newTile = constructor.newInstance(parameters);
+                    myTiles.add((Tile) newTile);
+                }
+                catch (InstantiationException e) {
+                    e.printStackTrace();
+                }
+                catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+                catch (IllegalArgumentException e) {
+                    e.printStackTrace();
+                }
+                catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                }
+            }
+            catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            }
+            catch (SecurityException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
     @Override
     public void addAdditionalMouseBehavior (MouseEvent e) {
         // TODO Auto-generated method stub
     }
 
-//    /**
-//     * get the Grid of the Map with their tiles and location
-//     * 
-//     * @return a mapping of the tile's position and the tile's id as strings
-//     */
-//    public Map<String, String> getMapRepresentation () {
-//        return myMapMakerBox.getMapRepresentation();
-//    }
-
     /**
      * get the name of the map
-     * @return  name of the map
+     * 
+     * @return name of the map
      */
     public String getMapName () {
         return myMapName;
     }
-    
+
     /**
-     * get the path of the background image 
-     * @return  string representing the path of the background image
+     * get the path of the background image
+     * 
+     * @return string representing the path of the background image
      */
     public String getBackgroundImagePath () {
         return myBackgroundImageName;
     }
+
     /**
      * 
      * @return the size of each tile in the map

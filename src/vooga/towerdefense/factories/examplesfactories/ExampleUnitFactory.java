@@ -35,7 +35,7 @@ public class ExampleUnitFactory extends GameElementFactory {
      */
     public ExampleUnitFactory (String elementName,
                                GameElementDefinition definition, GameMap gameMap) {
-        super(elementName, definition);
+        super(elementName, "Projectile", definition);
         myGameMap = gameMap;
     }
 

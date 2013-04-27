@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.FindTargets;
 import vooga.towerdefense.action.actionlist.LaunchProjectile;
-import vooga.towerdefense.action.tobetested.RandomChance;
+import vooga.towerdefense.action.RandomChance;
+import vooga.towerdefense.attributes.Attribute;
 import vooga.towerdefense.attributes.AttributeConstants;
 import vooga.towerdefense.attributes.AttributeConstantsEnum;
 import vooga.towerdefense.attributes.AttributeManager;
@@ -32,14 +33,14 @@ public class MergeConflictTower extends GameElementFactory {
      * @param def
      */
     public MergeConflictTower (GameMap map, String name, TowerDefinition def) {
-        super(name, def);
+        super(name, "Projectile", def);
         initialize(map);
     }
 
     @Override
     public GameElement createElement (Location putHere) {
         TowerDefinition def = new TowerDefinition();
-        AttributeManager AM = getDefaultAM();
+        AttributeManager AM = new AttributeManager();
 
         Pixmap tImage = new Pixmap("github.png");
         GameElement myTower;
@@ -55,7 +56,7 @@ public class MergeConflictTower extends GameElementFactory {
         ArrayList<Action> actions = new ArrayList<Action>();
         FindTargets findTargets =
                 new FindTargets(getMap(), myTower.getCenter(), AM.getAttribute(AttributeConstants.ATTACK_RADIUS));
-        Action randomFiring = new RandomChance(0.01);
+        Action randomFiring = new RandomChance(new Attribute("Chance", 0.1));
         ExampleDosProjectileFactory coolStoryBro = new ExampleDosProjectileFactory("projectilefactory", new ProjectileDefinition());
         coolStoryBro.initialize(getMap());
         //Action launchProjectile = new MakeElement(getMap(), myTower.getCenter(), new ExampleDosProjectileFactory());

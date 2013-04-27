@@ -25,6 +25,7 @@ public class AttackActionFactory extends ActionFactory {
     
     
     public AttackActionFactory(String attackRadius, String attackSpeed, String numTargets, String targetAffiliation, String projectileFactory) {
+        super();
         myRadius = attackRadius;
         myAttackSpeed = attackSpeed;
         myNumberOfTargets = numTargets;

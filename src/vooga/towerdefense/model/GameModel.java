@@ -12,7 +12,6 @@ import vooga.towerdefense.model.levels.Level;
 import vooga.towerdefense.model.rules.Rule;
 import vooga.towerdefense.model.shop.Shop;
 import vooga.towerdefense.model.shop.ShopItem;
-import vooga.towerdefense.model.tiles.Tile;
 
 
 /**
