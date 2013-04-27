@@ -396,7 +396,8 @@ public abstract class InteractiveEntity extends GameEntity implements
 	 * If the passed in parameter is another InteractiveEntity, checks to see if
 	 * it is an enemy and should be attacked. Then it checks to see if it is a
 	 * building that can be occupied. Then the entity starts to move to location
-	 * clicked.  A reference to the interactive entity that is passed in is stored.
+	 * clicked. A reference to the interactive entity that is passed in is
+	 * stored.
 	 * 
 	 * @param other
 	 *            - the other InteractiveEntity
@@ -469,13 +470,11 @@ public abstract class InteractiveEntity extends GameEntity implements
 
 	@Override
 	public void update(double elapsedTime) {
-		if (myPath != null) {
-			if (myPath.size() == 0) {
-				setVelocity(getVelocity().getAngle(), 0);
-				getEntityState().stop();
-			} else {
-				super.move(myPath.getNext());
-			}
+		if (myPath.size() == 0) {
+			setVelocity(getVelocity().getAngle(), 0);
+			getEntityState().stop();
+		} else {
+			super.move(myPath.getNext());
 		}
 
 		super.update(elapsedTime);
@@ -493,14 +492,7 @@ public abstract class InteractiveEntity extends GameEntity implements
 			if (getEntityState().inAttackMode()) {
 				myTargetEntity.getAttacked(this);
 			} else {
-				List<InteractiveEntity> enemies = GameState
-						.getMap()
-						.<InteractiveEntity> getInArea(
-								getWorldLocation(),
-								weapon.getRange(),
-								this,
-								GameState.getPlayers().getTeamID(getPlayerID()),
-								false);
+				List<InteractiveEntity> enemies = findEnemies(weapon);
 				if (!enemies.isEmpty()) {
 					enemies.get(0).getAttacked(this);
 				}
@@ -511,6 +503,21 @@ public abstract class InteractiveEntity extends GameEntity implements
 
 		setChanged();
 		notifyObservers();
+	}
+
+	/**
+	 * Finds a list of enemies that are in range of the entity.
+	 * 
+	 * @param weapon
+	 *            is the weapon that the entity has
+	 * @return a list of enemies
+	 */
+	private List<InteractiveEntity> findEnemies(Weapon weapon) {
+		List<InteractiveEntity> enemies = GameState.getMap()
+				.<InteractiveEntity> getInArea(getWorldLocation(),
+						weapon.getRange(), this,
+						GameState.getPlayers().getTeamID(getPlayerID()), false);
+		return enemies;
 	}
 
 	/*
