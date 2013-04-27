@@ -12,5 +12,5 @@ bin/**
 *.project
 *.ucls
 Thumbs.db
-/bin
+/bin/
 src/arcade/resources/ErrorLog*
