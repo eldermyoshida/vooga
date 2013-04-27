@@ -3,6 +3,7 @@ package vooga.rts.leveleditor.components;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 import javax.imageio.ImageIO;
@@ -56,6 +57,7 @@ public class MapLoader {
         myFactory = DocumentBuilderFactory.newInstance();
         myBuilder = myFactory.newDocumentBuilder();
         
+        // yolo
         myTileName = new HashMap<Integer, String>();
         myTerrainName = new HashMap<Integer, String>();
         myResourceName = new HashMap<Integer, String>();
@@ -69,6 +71,12 @@ public class MapLoader {
         myTerrainWalkAbility = new HashMap<Integer, String>();
         myResourceAmount = new HashMap<Integer, String>();
       
+    }
+    
+    
+    public void loadMapFile(String mapfile) throws Exception {
+        URI f = getClass().getResource(mapfile).toURI();
+        loadMapFile(new File(f));
     }
 
     

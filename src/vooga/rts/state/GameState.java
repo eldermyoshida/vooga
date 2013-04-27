@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Observer;
+import javax.xml.parsers.ParserConfigurationException;
 import vooga.rts.commands.Command;
 import vooga.rts.commands.DragCommand;
 import vooga.rts.controller.Controller;
@@ -25,6 +26,7 @@ import vooga.rts.gamedesign.strategy.occupystrategy.CanBeOccupied;
 import vooga.rts.gamedesign.sprite.map.Terrain;
 import vooga.rts.gamedesign.strategy.production.CanProduce;
 import vooga.rts.gamedesign.weapon.Weapon;
+import vooga.rts.leveleditor.components.MapLoader;
 import vooga.rts.manager.PlayerManager;
 import vooga.rts.map.GameMap;
 import vooga.rts.player.HumanPlayer;
@@ -61,7 +63,19 @@ public class GameState extends SubState implements Controller {
 
     public GameState (Observer observer) {
         super(observer);
-        myMap = new GameMap(new Dimension(4000, 2000), true);
+        
+        MapLoader ml = null;
+        try {
+            ml = new MapLoader();
+            ml.loadMapFile("/vooga/rts/tests/maps/ciemas/ciemas.xml");
+        }
+        catch (ParserConfigurationException e) {
+        }
+        catch (Exception e1) {
+        }       
+        myMap = ml.getMyMap();
+        
+        // myMap = new GameMap(new Dimension(4000, 2000), true);
         myPlayers = new PlayerManager();
         // myMap = new GameMap(8, new Dimension(512, 512));
 
