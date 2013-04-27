@@ -36,12 +36,13 @@ public class GameElementXMLWriter {
      */
     public void write (Element parent,
                        String type,
-                       String name,
-                       String path,
+                       String name, String path, 
+                       String dimension,
                        Map<String, String> attributes,
                        String actions) {
         Element gameElement = myXMLTool.makeElement(name);
         myXMLTool.addChild(parent, gameElement);
+        myXMLTool.addChild(gameElement, XMLWriter.DIMENSION_TAG, dimension);
         myXMLTool.addChild(gameElement, XMLWriter.IMAGE_TAG, path);
         myXMLTool.addChild(gameElement, XMLWriter.TYPE_TAG, type);
         Element attributeElement = myXMLTool.makeElementsFromMap(XMLWriter.ATTRIBUTES_TAG, attributes);

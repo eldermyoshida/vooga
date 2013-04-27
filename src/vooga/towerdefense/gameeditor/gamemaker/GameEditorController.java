@@ -69,7 +69,7 @@ public class GameEditorController extends JFrame {
      * Saves the XML file.
      */
     public void saveFile () {
-        myXMLWriter.saveFile();
+        myXMLWriter.saveFile(myName);
     }
 
     /**

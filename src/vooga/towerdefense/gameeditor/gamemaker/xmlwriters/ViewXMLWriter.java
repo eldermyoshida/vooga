@@ -44,16 +44,16 @@ public class ViewXMLWriter {
                 if (!characteristics[0].equals("")) {
                     Element screen = myXMLTool.makeElement(characteristics[0]);
                     myXMLTool.addChild(parent, screen);
-                    myXMLTool.addChild(screen, XMLWriter.DIMENSION_TAG, characteristics[1]);
-                    myXMLTool.addChild(screen, XMLWriter.SCREEN_LOCATION_TAG, characteristics[2]);
+                    myXMLTool.addChild(screen, XMLWriter.DIMENSION_TAG, characteristics[1] + " " + characteristics[2]);
+                    myXMLTool.addChild(screen, XMLWriter.SCREEN_LOCATION_TAG, characteristics[3]);
                     if (characteristics[0].equals(MULTIPLE_SCREEN_PANEL_NAME)) {
                         for (Map.Entry<String, List<String>> entry : map.entrySet()) {
-                            if (entry.getKey().equals(characteristics[3])) {
+                            if (entry.getKey().equals(characteristics[4])) {
                                 for (String str : entry.getValue()) {
                                     String[] values = str.split(" ");
                                     Element screen2 = myXMLTool.makeElement(values[1]);
                                     myXMLTool.addChild(screen, screen2);
-                                    myXMLTool.addChild(screen2, XMLWriter.DIMENSION_TAG, values[2]);
+                                    myXMLTool.addChild(screen2, XMLWriter.DIMENSION_TAG, values[2] + " " + values[3]);
                                     myXMLTool.addChild(screen2, XMLWriter.SCREEN_LOCATION_TAG, values[0]);
                                 }
                             }
