@@ -22,7 +22,7 @@ public class ConnectionServer extends Thread {
     private int myConnectionID = 0;
     private MatchmakerServer myMatchServer;
     private boolean myIsServerAcceptingConnections = false;
-    private Logger myLogger;
+    private Logger myLogger = Logger.getLogger(getClass().getName());
 
     /**
      * Creates a connection server that sends connections to the MatchmakerServer specified.
