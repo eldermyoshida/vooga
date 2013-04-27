@@ -12,9 +12,9 @@ public class MenuGrid {
     private MenuMode myDelegate;
     private MenuObject myCurrentMenuObject;
 
-    public MenuGrid (String Id, MenuMode delegate) {
+    public MenuGrid (String Id, MenuMode delegate, String filepath) {
         myDelegate = delegate;
-        MenuGridLoader menuGrid = new MenuGridLoader(Id, this, delegate);
+        MenuGridLoader menuGrid = new MenuGridLoader(Id, this, delegate, filepath);
         myMenuObjects = menuGrid.getMenuObjects();
         myCurrentMenuObject = menuGrid.getFirstMenuObject();
         myCurrentMenuObject.setCurrentState(SELECTED);
