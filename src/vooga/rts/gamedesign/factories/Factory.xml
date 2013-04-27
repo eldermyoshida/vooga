@@ -2,7 +2,7 @@
 
 
 <GameElements>
-<Upgrade>
+<upgrade>
 	<tree>
 		<treeName>SoldierUpgrade</treeName>
 		<type>
@@ -52,7 +52,7 @@
 			</upgradeNode>
 		</type>
 	</tree>
-</Upgrade>
+</upgrade>
 	<resources src = "vooga.rts.gamedesign.sprite.gamesprites.Resource">
 		<resource>
 			<name>gold</name>
