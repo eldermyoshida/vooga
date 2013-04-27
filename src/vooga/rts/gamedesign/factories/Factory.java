@@ -350,9 +350,8 @@ public class Factory {
 			OccupyStrategy occupy = (OccupyStrategy) myStrategies.get(strategies[1]);
 			mySprites.get(key).setOccupyStrategy(occupy);
 			GatherStrategy gather = (GatherStrategy) myStrategies.get(strategies[2]);
-			if (mySprites.get(key) instanceof Unit) {
-				((Unit)mySprites.get(key)).setGatherStrategy(gather);
-			}
+			mySprites.get(key).setGatherStrategy(gather);
+			
 			UpgradeStrategy upgrade = (UpgradeStrategy) myStrategies.get(strategies[3]);
 			mySprites.get(key).setUpgradeStrategy(upgrade);
 			if (upgrade instanceof CanUpgrade) {
