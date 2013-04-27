@@ -3,11 +3,12 @@ package vooga.rts.gamedesign.factories;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+
+import vooga.rts.util.Information;
 
 /**
- * 
- * @author Ryan Fishel
- * @author Kevin Oh
+ *
  * @author Francesco Agosti
  * @author Wenshun Liu
  * 
@@ -43,6 +44,8 @@ public abstract class Decoder {
 	protected static final String CAN_UPGRADE = "canupgrade";
 	protected static final String MYWEAPONS_TAG = "myweapons";
 	protected static final String CANNOT_GATHER = "cannotgather";
+	protected static final int DESCRIPTION_INDEX = 0;
+	protected static final int BUTTON_INDEX = 1;
 	
 	
 	
@@ -55,6 +58,22 @@ public abstract class Decoder {
 	protected String getElement(Element element, String tag){
 		return element.getElementsByTagName(tag).item(0).getTextContent();
 
+	}
+	
+	/**
+	 * Looks through a nodeList and uses the information convention we have established to find
+	 * the description and button img necessary to instantiate an information object, then returns
+	 * this object. 
+	 * @param name
+	 * @param listOfInfo
+	 * @return new information from the content of the NodeList
+	 */
+	protected Information getInformation(String name, NodeList listOfInfo){
+		NodeList littleinfos = listOfInfo.item(0).getChildNodes();
+		String description = littleinfos.item(DESCRIPTION_INDEX).getTextContent();
+		String buttonsrc = littleinfos.item(BUTTON_INDEX).getTextContent();
+		System.out.println(description);
+		return new Information(name, description,buttonsrc);
 	}
 	
 	/**

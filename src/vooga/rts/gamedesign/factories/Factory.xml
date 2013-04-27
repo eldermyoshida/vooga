@@ -95,6 +95,10 @@
 			<upgradeTreeName>SoldierUpgrade</upgradeTreeName>
 			<produce>combat</produce>
 			<myweapons></myweapons>
+			<information>
+				<description>Welcome home</description>
+				<button>buttons/marine.png</button>
+			</information>			
 		</building>
 		<building>
 			<name>garrison</name>
@@ -107,6 +111,10 @@
 			<upgradeTreeName>SoldierUpgrade</upgradeTreeName>
 			<produce></produce>
 			<myweapons></myweapons>
+			<information>
+				<description>I am a garrison</description>
+				<button>buttons/marine.png</button>
+			</information>			
 		</building>
 		<custombuilding src = "vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Tower">
 			<name>tower</name>
@@ -144,6 +152,10 @@
 			<upgradeTreeName>SoldierUpgrade</upgradeTreeName>
 			<produce></produce>
 			<myweapons></myweapons>
+			<information>
+				<description>I am a big doo doo</description>
+				<button>images/scv.png</button>
+			</information>			
 		</unit>
 		<customunit src = "vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Soldier">
 			<name>soldier</name>
