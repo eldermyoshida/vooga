@@ -1,7 +1,7 @@
 package vooga.rts.gui.menus;
 
 import java.awt.Color;
-import java.awt.Dimension;
+import vooga.rts.util.SDimension;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -35,38 +35,35 @@ import vooga.rts.util.Location;
 
 public class GameMenu extends Menu {
 
-    private BufferedImage myBGImage;
-
     // Image paths
-    //private static final String BG_IMAGE_URL = "images/gamemenu/menu_bg.png";
     private static final String EXIT_IMAGE_URL = "images/gamemenu/menu_button.png";
     private static final String MINIMAP_IMAGE_URL = "images/gamemenu/menu_minimap.png";
     private static final String INFO_IMAGE_URL = "images/gamemenu/menu_info.png";
     private static final String ACTIONS_IMAGE_URL = "images/gamemenu/menu_actions.png";
 
-    // Dimensions
-    private static final Dimension EXIT_BUTTON_DIMENSION = new Dimension(200, 40);
-    private static final Dimension MINIMAP_DIMENSION = new Dimension(206, 206);
-    private static final Dimension INFO_DIMENSION = new Dimension(800, 135);
-    private static final Dimension ACTIONS_DIMENSION = new Dimension(360, 175);
+    // SDimensions
+    private static final SDimension EXIT_BUTTON_DIMENSION = new SDimension(200, 40);
+    private static final SDimension MINIMAP_DIMENSION = new SDimension(206, 206);
+    
+    private static final SDimension INFO_DIMENSION = new SDimension(800, 135);
+    private static final SDimension ACTIONS_DIMENSION = new SDimension(360, 175);
 
     private static final Location EXIT_BUTTON_LOCATION =
-            new Location(Window.SCREEN_SIZE.getWidth() - EXIT_BUTTON_DIMENSION.getWidth(), 0);
+            new Location(Window.D_X - EXIT_BUTTON_DIMENSION.getWidth(), 0);
     private static final Location MINIMAP_LOCATION = new Location(0,
-                                                                  Window.SCREEN_SIZE.getHeight() -
+                                                                  Window.D_Y -
                                                                           MINIMAP_DIMENSION
                                                                                   .getHeight());
     private static final Location INFO_LOCATION = new Location(MINIMAP_LOCATION.getX() +
                                                                MINIMAP_DIMENSION.getWidth(),
-                                                               Window.SCREEN_SIZE.getHeight() -
+                                                               Window.D_Y -
                                                                        INFO_DIMENSION
                                                                                .getHeight());
     private static final Location ACTIONS_LOCATION = new Location(INFO_LOCATION.getX() +
                                                                   INFO_DIMENSION.getWidth(),
-                                                                  Window.SCREEN_SIZE.getHeight() -
+                                                                  Window.D_Y -
                                                                           ACTIONS_DIMENSION
                                                                                   .getHeight());
-
 
     private InteractiveEntity mySelectedEntity;
 
@@ -130,37 +127,25 @@ public class GameMenu extends Menu {
 
     @Override
     public void paint (Graphics2D pen) {
-        
-        // int bgImgHeight = myBGImage.getHeight();
-        // int bgImgWidth = myBGImage.getWidth();
-        //
-        // int x = 0;
-        //
-        // double xFactor = (double) S_X / (double) bgImgWidth;
-        // int newHeight = (int) (xFactor * bgImgHeight);
-        // int y = S_Y - newHeight;
-        //
-        // pen.drawImage(myImage, x, y, S_X, newHeight, null);
-        
+
         super.paint(pen);
-        
+
         for (SubMenu s : mySubMenus) {
             s.paint(pen);
         }
-
 
     }
 
     @Override
     public void update (Observable o, Object arg) {
-        
+
         if (arg instanceof InformationCommand) {
             InformationCommand i = (InformationCommand) arg;
             setChanged();
             notifyObservers(i);
-            
+
         }
-        
+
         if (o instanceof Manager) {
             Boolean b = (Boolean) arg;
             Manager m = (Manager) o;
@@ -177,13 +162,13 @@ public class GameMenu extends Menu {
             setChanged();
             notifyObservers();
         }
-//        if (o instanceof ActionButton) {
-//            ActionButton a = (ActionButton) o;
-//            Integer id = a.getID();
-//
-//            setChanged();
-//            notifyObservers(id);
-//        }
+        // if (o instanceof ActionButton) {
+        // ActionButton a = (ActionButton) o;
+        // Integer id = a.getID();
+        //
+        // setChanged();
+        // notifyObservers(id);
+        // }
     }
 
     private void setDeselected () {
@@ -200,7 +185,7 @@ public class GameMenu extends Menu {
             b.setSelectedEntity(mySelectedEntity);
         }
     }
-    
+
     public void handleMouseDown (int x, int y) {
         for (SubMenu b : mySubMenus) {
             if (b.checkWithinBounds(x, y)) {
