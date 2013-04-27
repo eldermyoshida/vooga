@@ -76,22 +76,27 @@ public class ViewEditorScreen extends GameEditorScreen {
     /**
      * north drop down box.
      */
+    @SuppressWarnings("rawtypes")
     private JComboBox myNorthPanel;
     /**
      * south drop down box.
      */
+    @SuppressWarnings("rawtypes")
     private JComboBox mySouthPanel;
     /**
      * center drop down box.
      */
+    @SuppressWarnings("rawtypes")
     private JComboBox myCenterPanel;
     /**
      * east drop down box.
      */
+    @SuppressWarnings("rawtypes")
     private JComboBox myEastPanel;
     /**
      * west drop down box.
      */
+    @SuppressWarnings("rawtypes")
     private JComboBox myWestPanel;
     /**
      * north size field.
@@ -113,11 +118,14 @@ public class ViewEditorScreen extends GameEditorScreen {
      * west size field.
      */
     private JTextField myWestSize;
+    @SuppressWarnings("rawtypes")
     private JComboBox myMultiPanel;
     private JTextField myMultiPanelSize;
     private ActionListener myActionListener;
+    @SuppressWarnings("rawtypes")
     private List<JComboBox> myJComboPanels;
     private JPanel mySouthernPanelScreen;
+    @SuppressWarnings("rawtypes")
     private JComboBox mySouthernPanelPosition;
     private JButton myMultiButtonADD;
     private JButton myMultiButtonDONE;
@@ -133,6 +141,7 @@ public class ViewEditorScreen extends GameEditorScreen {
      * @param size
      * @param controller
      */
+    @SuppressWarnings("rawtypes")
     public ViewEditorScreen (Dimension size, GameEditorController controller) {
         super(size, controller, TITLE_NAME, NEXT_SCREEN_NAME);
         myJComboPanels = new ArrayList<JComboBox>();
@@ -218,6 +227,7 @@ public class ViewEditorScreen extends GameEditorScreen {
         myMultiPanelSize.setText("");
     }
 
+    @SuppressWarnings("rawtypes")
     private void checkItemSelected (ActionEvent e) {
         for (JComboBox s: myJComboPanels) {
             if (s.getSelectedItem().equals(MULTIPLE_PANEL_NAME)){
@@ -228,6 +238,7 @@ public class ViewEditorScreen extends GameEditorScreen {
         }
     }
     
+    @SuppressWarnings("rawtypes")
     private JComponent makeScreen() throws IOException, ClassNotFoundException {
         JPanel panel = new JPanel();
         panel.setPreferredSize(new Dimension(800, 400));
@@ -299,6 +310,7 @@ public class ViewEditorScreen extends GameEditorScreen {
         panel.add(west);
     }
     
+    @SuppressWarnings("rawtypes")
     private void attachListeners () {
         myJComboPanels.add(myCenterPanel);
         myJComboPanels.add(myEastPanel);
@@ -311,6 +323,7 @@ public class ViewEditorScreen extends GameEditorScreen {
         }
     }
     
+    @SuppressWarnings("unchecked")
     private void populateDropDoxBoxes() throws IOException, ClassNotFoundException {
         List<String> screens = getController().getClassNamesInPackage(SCREEN_PACKAGE_PATH);
         screens.add("");

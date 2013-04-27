@@ -4,7 +4,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import org.w3c.dom.Element;
 import util.XMLTool;
 import vooga.towerdefense.action.Action;
@@ -12,7 +11,12 @@ import vooga.towerdefense.factories.actionfactories.ActionFactory;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.model.GameMap;
 
-
+/**
+ * This class is responsible for loading Action objects
+ * from an XML file.
+ * 
+ * @author Erick Gonzalez
+ */
 public class ActionXMLLoader {
     private static final String ACTIONS_TAG = "actions";
 
@@ -20,29 +24,36 @@ public class ActionXMLLoader {
 
     /**
      * 
-     * 
-     * @param xmlTool an xmlTool
+     * @param xmlTool an XMLTool containing the xml document
      */
     public ActionXMLLoader (XMLTool xmlTool) {
         myXMLTool = xmlTool;
     }
 
     /**
-     * This method loads all the actions described in XML that
-     * do not act upon a GameElement object.
+     * Given an XML element representing the <actions> tag, returns
+     * a List of Action objects under this tag. Because no
+     * GameElement parameter is specified, these actions do not
+     * act on a specific GameElement.
      * 
-     * @return loads a list of actions
+     * @param actionsElement the xml element for the <actions> tag
+     * @param gameMap a game map
+     * @return a list of actions under the actionsElement
      */
     public List<Action> loadActions (Element actionsElement, GameMap gameMap) {
         return loadActions(null, actionsElement, gameMap);
     }
 
+    
     /**
-     * This method loads all the actions described in XML that
-     * act upon a GameElement object e.
+     * Given an XML element representing the <actions> tag, returns a List of
+     * Action objects under this tag. Because a GameElement parameter is specified,
+     * these actions will act on this specified GameElement object.
      * 
-     * @param e the game element object that an action acts on
-     * @return a list of actions acting on e
+     * @param e a game element upon which the list of actions will act on
+     * @param actionsElement the XML element represening the <actions> tag
+     * @param gameMap a game map object
+     * @return a list of actions acting on the given GameElement
      */
     public List<Action> loadActions (GameElement e, Element actionsElement, GameMap gameMap) {
         List<ActionFactory> actionFactories = loadActionFactories(actionsElement, gameMap);
@@ -56,41 +67,44 @@ public class ActionXMLLoader {
     }
 
     /**
+     * Given an XML element representing the <actions> tag, returns a List of
+     * ActionFactory objects under this tag.  
      * 
-     * @return a list of action factories
+     * @param actionsElement the XML element representing the <actions> tag
+     * @param gameMap a game map object
+     * @return a list of ActionFactory objects acting on the given GameElement
      */
-    public List<ActionFactory> loadActionFactories (Element actionsElement, GameMap gameMap) {
-        Map<String, Element> subElements = myXMLTool.getChildrenElementMap(actionsElement);
+    public List<ActionFactory> loadActionFactories (Element actionsElement, GameMap gameMap) {        
+        List<Element> subElements = myXMLTool.getChildrenList(actionsElement);
 
         List<ActionFactory> actionFactories = new ArrayList<ActionFactory>();
-        for (Element e : subElements.values()) {
+        for (Element e : subElements) {
             actionFactories.add(loadActionFactory(e, gameMap));
         }
         return actionFactories;
     }
 
+    @SuppressWarnings("rawtypes")
     private ActionFactory loadActionFactory (Element actionElement, GameMap gameMap) {
         String actionName = myXMLTool.getTagName(actionElement);
         
         List<String> parameterStrings = new ArrayList<String>();
-        List<ActionFactory> subActions = new ArrayList<ActionFactory>();
+        List<ActionFactory> subActionFactories = new ArrayList<ActionFactory>();
 
         List<Element> subElements = myXMLTool.getChildrenList(actionElement);
 
         for (Element subElement: subElements) {
             String subElementName = myXMLTool.getTagName(subElement);
             if (subElementName.equals(ACTIONS_TAG)) {
-                subActions.add(loadActionFactory(subElement, gameMap));
+                subActionFactories.add(loadActionFactory(subElement, gameMap));
             }
             else {                
                 parameterStrings.add(loadParameterString(subElement));
             }
         }
-        String[] parameterStringsArray = parameterStrings.toArray(new String[] {});
         
-        Class actionFactoryClass = null;
-        ActionFactory af = null;
         try {
+            //TODO: need to fix this shit
             String thing = "";
             if (actionName.contains("Wave")) {
                 thing = "vooga.towerdefense.factories.waveactionfactories.";
@@ -98,35 +112,32 @@ public class ActionXMLLoader {
                 thing = "vooga.towerdefense.factories.actionfactories.";
             }
             String classPath = thing + actionName + "Factory";
-            actionFactoryClass = Class.forName(classPath);
+            Class actionFactoryClass = Class.forName(classPath);
 
-            Constructor[] constructors = actionFactoryClass.getDeclaredConstructors();            
+            Constructor[] constructors = actionFactoryClass.getDeclaredConstructors();
+            // ActionFactory objects have only one constructor
             Constructor constructor = constructors[0];
-            af = (ActionFactory) constructor.newInstance(parameterStringsArray);
+            ActionFactory af = (ActionFactory) constructor.newInstance(parameterStrings.toArray());
+            
+            af.addFollowUpActionsFactories(subActionFactories);
+            af.initialize(gameMap);
+            return af;
         }
         catch (InstantiationException e) {
-            System.out.println("InstantiationException");
             return null;
         }
         catch (IllegalAccessException e) {
-            System.out.println("IllegalAccessException");
             return null;
         }
         catch (IllegalArgumentException e) {
-            System.out.println("IllegalArgumentException");
             return null;
         }
         catch (InvocationTargetException e) {
-            System.out.println("InvocationTargetException");
             return null;
         }
         catch (ClassNotFoundException e) {
-            System.out.println("ClassNotFoundException");
             return null;
-        }
-        af.addFollowUpActionsFactories(subActions);
-        af.initialize(gameMap);
-        return af;
+        }        
     }
 
     private String loadParameterString (Element parameterElement) {

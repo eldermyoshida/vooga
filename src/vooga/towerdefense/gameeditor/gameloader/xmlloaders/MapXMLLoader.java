@@ -117,10 +117,12 @@ public class MapXMLLoader {
      */
     public List<GameMap> loadMaps() {
         List<GameMap> gameMaps = new ArrayList<GameMap>();
+        //TODO: mapElement needs to be passed in as a parameter
         Element mapElement = myXMLTool.getElement(MAP_TAG);
-        Map<String, Element> m = myXMLTool.getChildrenElementMap(mapElement);
-        for (Element e : m.values()) {
-            GameMap map = loadMap(e);
+        
+        List<Element> subElements = myXMLTool.getChildrenList(mapElement);        
+        for (Element subElement : subElements) {
+            GameMap map = loadMap(subElement);
             gameMaps.add(map);
         }
         return gameMaps;
@@ -141,9 +143,10 @@ public class MapXMLLoader {
     }
     
     private Dimension loadMapDimensions(Element dimensionElement) {
-        Map<String, Element> subElements = myXMLTool.getChildrenElementMap(dimensionElement);
-        int width = getMapWidth(subElements.get(WIDTH_TAG));
-        int height = getMapHeight(subElements.get(HEIGHT_TAG));
+        Map<String, Element> subElementMap = myXMLTool.getChildrenElementMap(dimensionElement);
+        
+        int width = getMapWidth(subElementMap.get(WIDTH_TAG));
+        int height = getMapHeight(subElementMap.get(HEIGHT_TAG));
         return new Dimension(width, height);
     }
     

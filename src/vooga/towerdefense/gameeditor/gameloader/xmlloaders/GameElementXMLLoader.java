@@ -30,28 +30,29 @@ public class GameElementXMLLoader {
     }
     
     public Map<String, GameElementFactory> loadGameElementFactories (GameMap map) {
-        Element gameElementsElement = myXMLTool.getElement(GAME_ELEMENTS_TAG);
-        Map<String, Element> subElements = myXMLTool.getChildrenElementMap(gameElementsElement);
+        //TODO: This needs to be passed in as a parameter
+        Element gameElementsElement = myXMLTool.getElement(GAME_ELEMENTS_TAG);        
+        List<Element> subElements = myXMLTool.getChildrenList(gameElementsElement);
         
         Map<String, GameElementFactory> gameElementFactories = new HashMap<String, GameElementFactory>();
-        for (Element subElement : subElements.values()) {
+        for (Element subElement : subElements) {
             gameElementFactories.put(myXMLTool.getTagName(subElement), loadGameElementFactory(subElement, map));
         }
         return gameElementFactories;
     }
     
     public GameElementFactory loadGameElementFactory (Element gameElement, GameMap map) {
-        Map<String, Element> subElements = myXMLTool.getChildrenElementMap(gameElement);
+        Map<String, Element> subElementMap = myXMLTool.getChildrenElementMap(gameElement);
         
         String gameElementName = myXMLTool.getTagName(gameElement);
         String gameElementType = loadType(myXMLTool.getElement(TYPE_TAG));
-        Pixmap elementImage = loadElementImage(subElements.get(IMAGE_TAG));
-        Dimension elementDimension = loadDimension(subElements.get(DIMENSION_TAG));
+        Pixmap elementImage = loadElementImage(subElementMap.get(IMAGE_TAG));
+        Dimension elementDimension = loadDimension(subElementMap.get(DIMENSION_TAG));
         List<AttributeFactory> attributeFactories = 
-                loadAttributeFactories(subElements.get(ATTRIBUTES_TAG));
+                loadAttributeFactories(subElementMap.get(ATTRIBUTES_TAG));
         
         ActionXMLLoader loader = new ActionXMLLoader(myXMLTool);
-        List<ActionFactory> actionFactories = loader.loadActionFactories(subElements.get(ACTIONS_TAG), map);
+        List<ActionFactory> actionFactories = loader.loadActionFactories(subElementMap.get(ACTIONS_TAG), map);
         
         AttributeManagerFactory managerFactory = new AttributeManagerFactory(attributeFactories);
         
@@ -67,6 +68,7 @@ public class GameElementXMLLoader {
     
     private Pixmap loadElementImage (Element imageElement) {
         String imagePath = myXMLTool.getContent(imageElement);
+        //TODO: Wtf is this?
         return new Pixmap("/vooga/towerdefense" + imagePath);
     }
     
@@ -76,16 +78,16 @@ public class GameElementXMLLoader {
     
     private List<AttributeFactory> loadAttributeFactories (Element attributesElement) {
         List<AttributeFactory> attributes = new ArrayList<AttributeFactory>();
-        Map<String, Element> subElements = myXMLTool.getChildrenElementMap(attributesElement);
-        for (String attributeName : subElements.keySet()) {
-            AttributeFactory attribute = loadAttributeFactory(subElements.get(attributeName));
+        
+        List<Element> subElements = myXMLTool.getChildrenList(attributesElement);
+        for (Element subElement : subElements) {
+            AttributeFactory attribute = loadAttributeFactory(subElement);
             attributes.add(attribute);
         }
         return attributes;
     }
     
     private AttributeFactory loadAttributeFactory (Element attributeElement) {
-        Map<String, Element> subElements = myXMLTool.getChildrenElementMap(attributeElement);
         return new AttributeFactory(myXMLTool.getTagName(attributeElement),
                                     loadAttributeValue(attributeElement));
     }
