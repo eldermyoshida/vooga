@@ -8,8 +8,7 @@ import java.util.logging.Logger;
 
 
 /**
- * A class that handles a logger. It makes use of the singleton pattern
- * to guarantee the use of a single logger in the program
+ * A class that handles a logger. 
  * This class does not propagate LogRecords to parent Loggers, so if the
  * It sets a console handler as a default handler
  * 
