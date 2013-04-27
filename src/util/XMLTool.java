@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
@@ -17,7 +16,6 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -298,6 +296,17 @@ public class XMLTool {
      */
     public String getContent (String tag) {
         return getContent(getElement(tag));
+    }
+    
+    /**
+     * Get a list of children element nodes from a parent in the order they appear in the XML file.
+     * 
+     * @param parent The parent element from which the children elements are going to be retrieved.
+     * @return A list of children elements from the parent element.
+     */
+    public List<Element> getChildrenList (Element parent) {
+        NodeList nodes = parent.getChildNodes();
+        return convertNodeList(nodes);
     }
     
     /**
