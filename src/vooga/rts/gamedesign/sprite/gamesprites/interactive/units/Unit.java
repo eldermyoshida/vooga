@@ -16,6 +16,7 @@ import vooga.rts.gamedesign.sprite.gamesprites.Resource;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.IGatherable;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building;
+import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;
 import vooga.rts.gamedesign.strategy.gatherstrategy.CanGather;
 import vooga.rts.gamedesign.strategy.gatherstrategy.CannotGather;
 import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
@@ -128,8 +129,13 @@ public class Unit extends InteractiveEntity {
                 getHealth(), getBuildTime(), getSpeed());
     	copyUnit.setInfo(this.getInfo());
     	
-        copyUnit.setGatherStrategy(this.getGatherStrategy());
-        copyUnit.setAttackStrategy(this.getAttackStrategy());
+        if (getGatherStrategy() instanceof CanGather) {
+        	copyUnit.setGatherStrategy(new CanGather());
+        }
+        
+        if (getAttackStrategy() instanceof CanAttack) {
+        	copyUnit.setAttackStrategy(new CanAttack()); //TODO: also copy weapons and projectiles
+        }
         
         if (getOccupyStrategy() instanceof CanBeOccupied) {
     		copyUnit.setOccupyStrategy(new CanBeOccupied());

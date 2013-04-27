@@ -334,7 +334,6 @@ public class Factory {
 				InteractiveEntity producable = mySprites.get(baby);
 				(mySprites.get(key).getProductionStrategy()).addProducable(new Unit());
 			}
-			//((CanProduce)mySprites.get(key).getProductionStrategy()).createProductionActions(mySprites.get(key));
 		}
 	}
 	/**
