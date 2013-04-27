@@ -1,19 +1,11 @@
 package vooga.rts.networking.client;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import javax.swing.JPanel;
-import vooga.rts.networking.NetworkBundle;
 import vooga.rts.networking.client.clientgui.ClientViewAdapter;
-import vooga.rts.networking.client.clientgui.CreateLobbyView;
 import vooga.rts.networking.client.clientgui.IModel;
-import vooga.rts.networking.client.clientgui.LobbyView;
-import vooga.rts.networking.client.clientgui.ServerBrowserTableAdapter;
-import vooga.rts.networking.client.clientgui.TableContainerView;
-import vooga.rts.networking.client.clientgui.ViewContainerPanel;
 import vooga.rts.networking.communications.ExpandedLobbyInfo;
 import vooga.rts.networking.communications.LobbyInfo;
 import vooga.rts.networking.communications.Message;

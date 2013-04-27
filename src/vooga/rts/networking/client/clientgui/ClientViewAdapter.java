@@ -6,12 +6,8 @@ import java.util.List;
 import javax.swing.JPanel;
 import vooga.rts.networking.NetworkBundle;
 import vooga.rts.networking.client.ClientModel;
-import vooga.rts.networking.client.IClientModel;
 import vooga.rts.networking.communications.ExpandedLobbyInfo;
 import vooga.rts.networking.communications.LobbyInfo;
-import vooga.rts.networking.communications.PlayerInfo;
-import vooga.rts.networking.communications.clientmessages.LeaveLobbyMessage;
-import vooga.rts.player.Player;
 
 /**
  * Class used as a meddler between the client view and model
