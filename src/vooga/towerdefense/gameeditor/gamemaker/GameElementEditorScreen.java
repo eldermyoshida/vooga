@@ -17,8 +17,8 @@ import javax.swing.JTextField;
 
 
 /**
- * LevelEditorScreen is responsible for helping
- * the game developer make levels.
+ * GameElementEditorScreen is responsible for helping
+ * the game developer make game elements.
  * 
  * @author Angelica Schwartz
  */
@@ -122,6 +122,9 @@ public class GameElementEditorScreen extends ElementWithActionEditorScreen {
         makeScreen();
     }
     
+    /**
+     * makes the game element editor screen.
+     */
     @Override
     public void makeScreen() {
         super.makeScreen();
@@ -153,6 +156,9 @@ public class GameElementEditorScreen extends ElementWithActionEditorScreen {
         add(imagePanel, BorderLayout.NORTH);
     }
     
+    /**
+     * clears the screen.
+     */
     @Override
     public void clearScreen() {
         super.clearScreen();

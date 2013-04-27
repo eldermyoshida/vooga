@@ -32,7 +32,6 @@ public class StartUpScreen extends JPanel {
     private static final String NEXT_SCREEN_NAME = "vooga.towerdefense.gameeditor.gamemaker.ViewEditorScreen";
     private static final String GAME_NAME_TEXT = "Game Name: ";
     private static final String SELECT_NAME_TEXT = "Confirm this as Game Name";
-    private static final int TEXT_FIELD_WIDTH = 20;
     private boolean myConfirmation;
     private JButton myStartButton;
     private JButton myGameNameConfirmation;
@@ -91,7 +90,7 @@ public class StartUpScreen extends JPanel {
     private JPanel makeGameNamingSection() {
         JPanel panel = new JPanel();
         panel.add(new JLabel(GAME_NAME_TEXT), BorderLayout.NORTH);
-        myGameName = new JTextField(TEXT_FIELD_WIDTH);
+        myGameName = new JTextField(GameEditorScreen.TEXT_FIELD_WIDTH);
         panel.add(myGameName, BorderLayout.CENTER);
         myGameNameConfirmation = new JButton(SELECT_NAME_TEXT);
         myGameNameConfirmation.addMouseListener(myMouseAdapter);
