@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Constructor;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import vooga.towerdefense.factories.ActionAnnotation;
 
 
 /**
@@ -344,10 +347,17 @@ public abstract class ElementWithActionEditorScreen extends GameEditorScreen {
     private String addAction() {
         List<String> valuesToPromptFor;
         try {
-            valuesToPromptFor = getController().getParametersForAction(myActionPath + "." + myActionsBox.getSelectedItem().toString());
+            //valuesToPromptFor = getController().getParametersForAction(myActionPath + "." + myActionsBox.getSelectedItem().toString());
+            Class c = Class.forName(myActionPath + "." + myActionsBox.getSelectedItem().toString()+"Factory");
+            Constructor[] constructors = c.getConstructors();
+            Annotation[][] annotations = constructors[0].getParameterAnnotations();
             String display = myActionsBox.getSelectedItem().toString();
-            for (String value: valuesToPromptFor) {
-                display += " " + JOptionPane.showInputDialog("Enter a " + value + " for this action");
+            for (Annotation[] annotation : annotations) {
+                for (Annotation a: annotation) {
+                    display += " " + JOptionPane.showInputDialog("Enter the " + ((ActionAnnotation)a).name()
+                                                             + " (" + ((ActionAnnotation)a).value() + ")"
+                                                             + " for this action");
+                }
             }
             return display + "\n";
         }

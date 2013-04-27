@@ -1,6 +1,7 @@
 package vooga.towerdefense.factories.actionfactories;
 
 import vooga.towerdefense.action.Action;
+import vooga.towerdefense.factories.ActionAnnotation;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.model.GameMap;
 
@@ -24,7 +25,11 @@ public class AttackActionFactory extends ActionFactory {
     private LaunchProjectileFactory myProjectiles;
     
     
-    public AttackActionFactory(String attackRadius, String attackSpeed, String numTargets, String targetAffiliation, String projectileFactory) {
+    public AttackActionFactory(@ActionAnnotation(name = "attack radius", value = "int") String attackRadius,
+                               @ActionAnnotation(name = "attack speed", value = "int") String attackSpeed,
+                               @ActionAnnotation(name = "num targets", value = "int") String numTargets,
+                               @ActionAnnotation(name = "target affiliation", value = "int") String targetAffiliation,
+                               @ActionAnnotation(name = "projectile", value = "name")String projectileFactory) {
         super();
         myRadius = attackRadius;
         myAttackSpeed = attackSpeed;
