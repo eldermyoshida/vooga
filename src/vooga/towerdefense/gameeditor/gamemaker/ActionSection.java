@@ -15,7 +15,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import vooga.towerdefense.factories.ActionAnnotation;
 
-public class ActionSection extends SubEditorScreen {
+/**
+ * Panel that holds the action editor.
+ *
+ * @author Angelica Schwartz
+ */
+public class ActionSection extends SubEditorSection {
     
     /**
      * default serialized id.
@@ -31,12 +36,24 @@ public class ActionSection extends SubEditorScreen {
     private JButton myDeleteActionButton;
     private String myActionPath;
 
+    /**
+     * constructor.
+     * @param title
+     * @param path
+     * @param actions
+     * @param mouseAdapter
+     */
     public ActionSection(String title, String path, List<String> actions, MouseAdapter mouseAdapter) {
         super(title);
         setPath(path);
         makeActionsSection(actions, mouseAdapter);
     }
     
+    /**
+     * makes this action section.
+     * @param actions
+     * @param mouseAdapter
+     */
     public void makeActionsSection(List<String> actions, MouseAdapter mouseAdapter) {
         JPanel westSide = new JPanel(new BorderLayout());
         westSide.add(new JLabel(getTitle()), BorderLayout.NORTH);
@@ -63,20 +80,35 @@ public class ActionSection extends SubEditorScreen {
         add(eastSide, BorderLayout.EAST);
     }
     
+    /**
+     * gets the actions from this section.
+     * @return
+     */
     public String getActions() {
         return myActionsSelected.getText();
     }
     
+    /**
+     * sets the action path for this section.
+     * @param actionPath
+     */
     public void setPath(String actionPath) {
         myActionPath = actionPath;
     }
     
+    /**
+     * clears this section.
+     */
     @Override
     public void clear() {
         super.clear();
         myActionsSelected.setText("");
     }
 
+    /**
+     * handles additional mouse behavior for this action
+     *          section.
+     */
     @Override
     public void doAdditionalMouseBehavior (MouseEvent e) {
         if (e.getSource().equals(myAddActionButton)) {

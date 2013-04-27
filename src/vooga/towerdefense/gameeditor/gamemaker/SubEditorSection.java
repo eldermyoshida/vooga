@@ -6,7 +6,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public abstract class SubEditorScreen extends JPanel {
+public abstract class SubEditorSection extends JPanel {
     
     /**
      * constant for text area height.
@@ -25,7 +25,7 @@ public abstract class SubEditorScreen extends JPanel {
      */
     private JTextField myNameBox;
     
-    public SubEditorScreen(String title) {
+    public SubEditorSection(String title) {
         myTitle = title;
         addCharacteristicsPanel();
     }

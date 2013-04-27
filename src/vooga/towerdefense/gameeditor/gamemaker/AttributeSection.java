@@ -15,7 +15,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class AttributeSection extends SubEditorScreen {
+/**
+ * Panel that holds the attribute editor screen.
+ *
+ * @author Angelica Schwartz
+ */
+public class AttributeSection extends SubEditorSection {
 
     /**
      * default serialized id.
@@ -30,6 +35,12 @@ public class AttributeSection extends SubEditorScreen {
     private JButton myAddAttributeButton;
     private JButton myDeleteAttributeButton;
 
+    /**
+     * constructor.
+     * @param title
+     * @param attributes
+     * @param mouseAdapter
+     */
     public AttributeSection(String title, List<String> attributes, MouseAdapter mouseAdapter) {
         super(title);
         try {
@@ -72,12 +83,18 @@ public class AttributeSection extends SubEditorScreen {
         add(eastSide, BorderLayout.EAST);
     }
     
+    /**
+     * clears this section.
+     */
     @Override
     public void clear() {
         super.clear();
         myAttributesSelected.setText("");        
     }
     
+    /**
+     * handles mouse behavior for this AttributeSection.
+     */
     public void doAdditionalMouseBehavior(MouseEvent e) {
         if (e.getSource().equals(myAddAttributeButton)) {
             if (myAttributesBox.getSelectedItem().equals(NEW_TEXT)) {
