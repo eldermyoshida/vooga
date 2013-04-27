@@ -39,11 +39,17 @@ public abstract class ActionFactory {
     // TODO: Not sure if this is the best way to implement this. There needs to be a way to give in
     // a list of followup actions to the action
     public void addFollowUpActionsFactories (ActionFactory addToList) {
+        if (myFollowUpActions == null) {
+            myFollowUpActions = new ArrayList<ActionFactory>();
+        }
         myFollowUpActions.add(addToList);
     }
 
     // a list of followup actions to the action
     public void addFollowUpActionsFactories (List<ActionFactory> addToList) {
+        if (myFollowUpActions == null) {
+            myFollowUpActions = new ArrayList<ActionFactory>();
+        }
         myFollowUpActions.addAll(addToList);
     }
     
