@@ -1,6 +1,7 @@
 package vooga.fighter.util;
 
 import java.awt.Rectangle;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 
@@ -19,13 +20,18 @@ import vooga.fighter.model.objects.MouseClickObject;
  * 
  * @author James Wei, alanni
  * @modified Matthew Parides
+ * @modified Jack Matteucci
  */
 public class CollisionManager {
 
     CollisionDetector myCollisionDetector;
 
     public CollisionManager () {
-        myCollisionDetector = new CollisionDetector();
+        setCollisionDetector();
+    }
+    
+    public void setCollisionDetector(){
+    	myCollisionDetector = new CollisionDetector();
     }
 
     /**
@@ -58,19 +64,22 @@ public class CollisionManager {
             Method method = this.getClass().getMethod("collide", runtimeClasses);
             method.invoke(this, parameters);
         }
+        catch (InvocationTargetException e) {
+        	e.printStackTrace();
+        }
         catch (Exception e) {
-
+        	
         }
     }
+
 
     /**
      * Handles collisions between two attack objects.
      * 
      */
     public void collide (AttackObject o1, AttackObject o2) {
-        if (o1.getCurrentState().hasPriority(o2.getCurrentState())) {
-            o1.endCounter();
-        }
+        o1.endCounter();
+        o2.endCounter(); 
     }
 
     /**
@@ -86,7 +95,7 @@ public class CollisionManager {
      */
     public void collide (AttackObject o1, CharacterObject o2) {
         if (!o1.getOwner().equals(o2)) {
-            int remaining = o1.inflictDamage(o2);
+        	o1.inflictDamage(o2);
             o1.addTargetForEffects(o2);
         }
         o1.endCounter();
@@ -96,6 +105,7 @@ public class CollisionManager {
      * Handles collisions between an environment object and an attack object.
      */
     public void collide (EnvironmentObject o1, AttackObject o2) {
+    	collide(o2, o1);
     }
 
     /**

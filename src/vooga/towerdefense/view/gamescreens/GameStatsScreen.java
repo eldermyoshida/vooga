@@ -7,7 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import javax.swing.JPanel;
 import vooga.towerdefense.controller.Controller;
-import vooga.towerdefense.util.ValueText;
+import util.ValueText;
 
 
 /**

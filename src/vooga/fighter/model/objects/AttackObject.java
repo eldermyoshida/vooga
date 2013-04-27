@@ -54,7 +54,7 @@ public class AttackObject extends GameObject{
     	copyStates(other);
     	setCurrentState(other.getCurrentStateKey());
     	addStartingAcceleration();
-        setImageData(); 
+        setImageData();
     }
 
     /**
@@ -66,6 +66,7 @@ public class AttackObject extends GameObject{
     	for (String key : otherStates.keySet()) {
     		State otherState = otherStates.get(key);
     		State newState = new State(otherState);
+    		newState.setOwner(this);
     		addState(key, newState);
     	}
     }

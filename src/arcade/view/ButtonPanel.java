@@ -67,7 +67,8 @@ public class ButtonPanel extends JPanel {
                    new ActionListener() {
                        @Override
                        public void actionPerformed (ActionEvent arg0) {
-                           myMainView.changeViewPanel(new GameCenterPanel(myController, myResources));
+                           myMainView
+                                   .changeViewPanel(new GameCenterPanel(myController, myResources));
                        }
                    });
         makeButton(SOCIAL_CENTER_PICTURE_NAME,

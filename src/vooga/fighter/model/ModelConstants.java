@@ -11,8 +11,8 @@ import java.util.ResourceBundle;
 public class ModelConstants {
     
     // resource bundle setup
-    private static final String RESOURCE_PATH = "config.objects";
-    private static final String RESOURCE_DEFAULT_VALUES_PATH="config.defaultvalues";
+    private static final String RESOURCE_PATH = "vooga.fighter.config.objects";
+    private static final String RESOURCE_DEFAULT_VALUES_PATH="vooga.fighter.config.defaultvalues";
     private static ResourceBundle myDefaults;  
     private static ResourceBundle myResources;  
 

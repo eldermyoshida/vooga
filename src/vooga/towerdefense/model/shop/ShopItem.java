@@ -5,7 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 import vooga.towerdefense.factories.elementfactories.GameElementFactory;
-import vooga.towerdefense.util.Location;
+import util.Location;
 
 /**
  * ShopItem is a class used to display purchasable items in the view. It has a
