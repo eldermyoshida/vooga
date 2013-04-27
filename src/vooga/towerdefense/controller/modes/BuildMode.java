@@ -5,7 +5,7 @@ import java.awt.Point;
 
 import util.Location;
 import vooga.towerdefense.controller.Controller;
-import vooga.towerdefense.gameElements.GameElement;
+import vooga.towerdefense.gameelements.GameElement;
 
 /**
  * A build mode used to aid in the placing and building of towers.

@@ -1,6 +1,6 @@
 package vooga.towerdefense.action;
 
-import vooga.towerdefense.gameElements.GameElement;
+import vooga.towerdefense.gameelements.GameElement;
 
 
 /**
