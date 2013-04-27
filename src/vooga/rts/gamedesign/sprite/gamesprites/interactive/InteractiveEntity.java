@@ -211,7 +211,7 @@ public abstract class InteractiveEntity extends GameEntity implements
 	 *         it should not
 	 */
 	private boolean attackInRange(IAttackable attackable, double distance) {
-		return getEntityState().getUnitState() == UnitState.ATTACK
+		return getEntityState().inAttackMode()
 				&& this.getAttackStrategy().getCurrentWeapon()
 						.inRange((InteractiveEntity) attackable, distance);
 	}
@@ -396,7 +396,7 @@ public abstract class InteractiveEntity extends GameEntity implements
 	 * If the passed in parameter is another InteractiveEntity, checks to see if
 	 * it is an enemy and should be attacked. Then it checks to see if it is a
 	 * building that can be occupied. Then the entity starts to move to location
-	 * clicked.
+	 * clicked.  A reference to the interactive entity that is passed in is stored.
 	 * 
 	 * @param other
 	 *            - the other InteractiveEntity
@@ -408,7 +408,7 @@ public abstract class InteractiveEntity extends GameEntity implements
 		} else if (other instanceof Building) {
 			getEntityState().setUnitState(UnitState.OCCUPY);
 		} else {
-			getEntityState().setUnitState(UnitState.NOTHING);
+			getEntityState().setUnitState(UnitState.NO_STATE);
 		}
 		move(other.getWorldLocation());
 	}
@@ -490,7 +490,7 @@ public abstract class InteractiveEntity extends GameEntity implements
 		}
 		if (myAttackStrategy.hasWeapon()) {
 			Weapon weapon = myAttackStrategy.getCurrentWeapon();
-			if (getEntityState().getUnitState() == UnitState.ATTACK) {
+			if (getEntityState().inAttackMode()) {
 				myTargetEntity.getAttacked(this);
 			} else {
 				List<InteractiveEntity> enemies = GameState
