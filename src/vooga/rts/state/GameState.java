@@ -214,13 +214,13 @@ public class GameState extends SubState implements Controller {
                                 "buttons/marine.png");
         b2.setInfo(i);
 
-        /**final Building g = b2;
+        final Building g = b2;
         myTasks.add(new DelayedTask(2, new Runnable() {
             @Override
             public void run () {
                 g.getAction((new Command("make Marine"))).apply();
             }
-        }, true));*/
+        }, true));
 
         getPlayers().getPlayer(1).add(b2);
     }

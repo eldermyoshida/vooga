@@ -1,6 +1,7 @@
 package vooga.rts.gamedesign.strategy.production;
 
 import java.awt.Graphics2D;
+import java.util.List;
 
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building;
@@ -49,6 +50,18 @@ public class CannotProduce implements ProductionStrategy{
 
 	@Override
 	public void setRallyPoint(InteractiveEntity entity) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<InteractiveEntity> getProducables() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setProducables(List<InteractiveEntity> producables) {
 		// TODO Auto-generated method stub
 		
 	}

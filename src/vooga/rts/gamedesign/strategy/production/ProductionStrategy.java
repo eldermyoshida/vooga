@@ -1,6 +1,7 @@
 package vooga.rts.gamedesign.strategy.production;
 
 import java.awt.Graphics2D;
+import java.util.List;
 
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building;
@@ -37,6 +38,10 @@ public interface ProductionStrategy {
 	public void createProductionActions(InteractiveEntity producer);
 
 	public void addProducable(InteractiveEntity producable);
+
+	public List<InteractiveEntity> getProducables();
+	
+	public void setProducables(List<InteractiveEntity> producables);
 
 	public void update (double elapsedTime);
 

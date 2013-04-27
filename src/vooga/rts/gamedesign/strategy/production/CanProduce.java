@@ -113,4 +113,14 @@ public class CanProduce implements ProductionStrategy {
         }
 
     }
+
+	@Override
+	public List<InteractiveEntity> getProducables() {
+		return myProducables;
+	}
+
+	@Override
+	public void setProducables(List<InteractiveEntity> producables) {
+		myProducables = producables;
+	}
 }
