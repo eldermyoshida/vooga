@@ -12,7 +12,7 @@ public class CannotUpgrade implements UpgradeStrategy {
 	public UpgradeTree getUpgradeTree() {
 		return null;
 	}
-
+	
 	public void setUpgradeTree(UpgradeTree upgradeTree, InteractiveEntity owner) {
 		return;
 	}

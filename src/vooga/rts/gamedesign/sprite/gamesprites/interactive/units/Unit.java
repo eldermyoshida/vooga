@@ -125,8 +125,12 @@ public class Unit extends InteractiveEntity {
                 getHealth(), getBuildTime(), getSpeed());
     	copyUnit.setInfo(this.getInfo());
     	copyUnit.setActions(this.getActions());
-        return copyUnit;
-    	
+        copyUnit.setGatherStrategy(this.getGatherStrategy());
+        copyUnit.setAttackStrategy(this.getAttackStrategy());
+        copyUnit.setOccupyStrategy(this.getOccupyStrategy());
+        copyUnit.setProductionStrategy(this.getProductionStrategy());
+        copyUnit.setUpgradeStrategy(this.getUpgradeStrategy());
+    	return copyUnit;
     }
 
 	/**
@@ -143,6 +147,10 @@ public class Unit extends InteractiveEntity {
 	
 	public void setGatherStrategy(GatherStrategy gatherStrategy) {
 		myGatherStrategy = gatherStrategy;
+	}
+	
+	public GatherStrategy getGatherStrategy() {
+		return myGatherStrategy;
 	}
 	
 	//OLD WORKER METHODS. Put here just in case

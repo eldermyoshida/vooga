@@ -69,8 +69,7 @@ public class CanProduce implements ProductionStrategy {
     @Override
     public void createProductionActions (final InteractiveEntity producer) {
         for (final InteractiveEntity producable : myProducables) {
-            String commandName = "make";
-        	//String commandName = "make " + producable.getInfo().getName();
+        	String commandName = "make " + producable.getInfo().getName();
             producer.addAction(commandName, new InteractiveAction(producer) {
                 @Override
                 public void update (Command command) {

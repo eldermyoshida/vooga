@@ -316,8 +316,12 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
      * 
      * @return the production strategy of the entity
      */
-    public ProductionStrategy getProductionStrategy () {
+    public ProductionStrategy getProductionStrategy() {
         return myProductionStrategy;
+    }
+    
+    public UpgradeStrategy getUpgradeStrategy() {
+    	return myUpgradeStrategy;
     }
 
     /**

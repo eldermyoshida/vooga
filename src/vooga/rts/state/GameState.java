@@ -134,7 +134,6 @@ public class GameState extends SubState implements Controller {
         getPlayers().getHuman().add(worker);
        
         Unit a = (Unit) myFactory.getEntitiesMap().get("combat").copy();
-        System.out.println("AAAAAAAAAAA " + a.getAllActionCommands());
         Information i2 =
                 new Information("Marine", "I am a soldier of Nunu.", null, "buttons/marine.png");
 
@@ -146,24 +145,27 @@ public class GameState extends SubState implements Controller {
         Unit c = (Unit) myFactory.getEntitiesMap().get("combat").copy();
         c.setWorldLocation(new Location3D(1200, 500, 0));
         c.move(c.getWorldLocation());
-        c.setHealth(150);
         getPlayers().getPlayer(1).add(c);
 
 
         Building b = (Building) myFactory.getEntitiesMap().get("home").copy();
-        System.out.println(b.getAllActionCommands());
-        if (b.getAction((new Command("make"))) == null) {
-        	System.out.println("NO MAKE COMMAND!!!!");
-        } else {
-        	System.out.println("FIND MAKE COMMAND!!!!!");
-        }
-
+        b.setWorldLocation(new Location3D(700, 30, 0));
+        b.move(b.getWorldLocation());
+        
         Information i =
                 new Information("Barracks", "This is a barracks that can make awesome pies", null,
                                 "buttons/marine.png");
         b.setInfo(i);
         getPlayers().getHuman().add(b);
 
+        final Building f = b;
+        myTasks.add(new DelayedTask(2, new Runnable() {
+            @Override
+            public void run () {
+                f.getAction((new Command("make Marine"))).apply();
+            }
+        }, true));
+        
         for (int j = 0; j < 10; j++) {
             getMap().getResources().add(new Resource(new Pixmap("images/mineral.gif"),
                                                      new Location3D(600 + j * 30, 600  - j * 20, 0),
@@ -191,13 +193,6 @@ public class GameState extends SubState implements Controller {
         garrison.setOccupyStrategy(new CanBeOccupied());
         garrison.getOccupyStrategy().createOccupyActions(garrison);
         getPlayers().getHuman().add(garrison);
-        final Building f = b;
-        myTasks.add(new DelayedTask(2, new Runnable() {
-            @Override
-            public void run () {
-                f.getAction((new Command("make"))).apply();
-            }
-        }, true));
 
         final Building testGarrison = garrison;
         /*
@@ -229,7 +224,7 @@ public class GameState extends SubState implements Controller {
         myTasks.add(new DelayedTask(2, new Runnable() {
             @Override
             public void run () {
-                g.getAction((new Command("make"))).apply();
+                g.getAction((new Command("make Marine"))).apply();
             }
         }, true));
 

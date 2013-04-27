@@ -64,7 +64,13 @@ public class Building extends InteractiveEntity {
                 getHealth(), getBuildTime());
     	copyBuilding.setInfo(this.getInfo());
     	copyBuilding.setActions(this.getActions());
-        return copyBuilding;
+        copyBuilding.setAttackStrategy(this.getAttackStrategy());
+        copyBuilding.setOccupyStrategy(this.getOccupyStrategy());
+        copyBuilding.setProductionStrategy(this.getProductionStrategy());
+        copyBuilding.getProductionStrategy().createProductionActions(copyBuilding); //need to reset action for notifyObserver
+        copyBuilding.setUpgradeStrategy(this.getUpgradeStrategy());
+        copyBuilding.getUpgradeStrategy().createUpgradeActions(copyBuilding);
+    	return copyBuilding;
     }
 
 

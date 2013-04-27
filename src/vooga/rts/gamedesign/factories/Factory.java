@@ -360,10 +360,6 @@ public class Factory {
 	
 				mySprites.get(key).setUpgradeTree(relatedUpgradeTree);
 			}
-			//if (myProductionDependencies.keySet().contains(key)) { //case of CanProduce
-				
-			//}
-			
 		}
 	}
 	
