@@ -1,15 +1,15 @@
 package vooga.towerdefense.model;
 
+import java.awt.Dimension;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import util.Location;
 import vooga.towerdefense.model.AStar.AStar;
 import vooga.towerdefense.model.AStar.AStarHeuristic;
 import vooga.towerdefense.model.AStar.AreaMap;
 import vooga.towerdefense.model.AStar.DiagonalHeuristic;
 import vooga.towerdefense.model.tiles.Tile;
-import vooga.towerdefense.model.tiles.factories.TileFactory;
-import util.Location;
 
 /**
  * Generates paths based on what tiles are eligible to walk on in the map using
@@ -21,9 +21,11 @@ import util.Location;
 public class Pathfinder {
 
 	private Tile[][] myGrid;
-
-	public Pathfinder(Tile[][] grid) {
+	private Dimension myTileSize;
+	
+	public Pathfinder(Tile[][] grid, Dimension tileSize) {
 		myGrid = grid;
+		myTileSize = tileSize;
 	}
 
 	private static void removeLinearPoints(ArrayList<Point> points) {
@@ -71,8 +73,8 @@ public class Pathfinder {
 		ArrayList<Location> locations = new ArrayList<Location>();
 		for (Point p : points)
 			locations.add(new Location((p.getY() + .5)
-					* TileFactory.TILE_DIMENSIONS.getWidth(), (p.getX() + .5)
-					* TileFactory.TILE_DIMENSIONS.getHeight()));
+					* myTileSize.getWidth(), (p.getX() + .5)
+					* myTileSize.getHeight()));
 
 		return new Path(locations);
 	}

@@ -3,6 +3,9 @@ package vooga.towerdefense.factories.elementfactories;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
+
+import util.Location;
+import util.Pixmap;
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.actionlist.MoveToTarget;
 import vooga.towerdefense.attributes.AttributeConstantsEnum;
@@ -13,8 +16,6 @@ import vooga.towerdefense.factories.attributefactories.AttributeManagerFactory;
 import vooga.towerdefense.factories.definitions.GameElementDefinition;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.model.GameMap;
-import util.Location;
-import util.Pixmap;
 
 
 /**
@@ -77,7 +78,7 @@ public class GameElementFactory {
         myName = name;
         myImage = image;
         myAttributeManagerFactory = new AttributeManagerFactory();
-        mySize = new Dimension(50,50);//just for testing before having the xml loader working
+        mySize = new Dimension(50,50);//TODO: just for testing before having the xml loader working
         
     }
     @Deprecated

@@ -9,6 +9,8 @@ import java.util.Scanner;
 
 import org.w3c.dom.Element;
 
+import util.Location;
+import util.Pixmap;
 import util.XMLTool;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.tiles.Tile;
@@ -16,8 +18,6 @@ import vooga.towerdefense.model.tiles.factories.DefaultTileFactory;
 import vooga.towerdefense.model.tiles.factories.GrassTileFactory;
 import vooga.towerdefense.model.tiles.factories.PathTileFactory;
 import vooga.towerdefense.model.tiles.factories.TileFactory;
-import util.Location;
-import util.Pixmap;
 
 /**
  * This class is responsible for constructing GameMap objects
@@ -132,7 +132,7 @@ public class MapXMLLoader {
         Dimension mapDimensions = loadMapDimensions(subElements.get(DIMENSION_TAG));
         Dimension tileSize = loadMapTileSize(subElements.get(TILE_SIZE_TAG));
         Tile[][] mapGrid = loadTiles(subElements.get(GRID_TAG), mapDimensions, tileSize);
-        return new GameMap(mapGrid, mapImage, mapDimensions, null);
+        return new GameMap(mapGrid, mapImage, mapDimensions, tileSize, null);
     }
     
     private Pixmap loadMapImage(Element imageElement) {
@@ -178,7 +178,7 @@ public class MapXMLLoader {
                         tileDimensions.getHeight() / 2);
                 int tileId = reader.nextInt();
                 grid[j][i] = getTileFactory(tileId).createTile(tileId, 
-                                                               new Location(xCenter, yCenter));
+                                                               new Location(xCenter, yCenter), tileDimensions);
             }
         }
         return grid;

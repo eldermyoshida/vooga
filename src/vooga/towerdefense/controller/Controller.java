@@ -7,9 +7,7 @@ import java.awt.Point;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.MissingResourceException;
@@ -22,24 +20,15 @@ import vooga.towerdefense.action.Action;
 import vooga.towerdefense.controller.modes.BuildMode;
 import vooga.towerdefense.controller.modes.ControlMode;
 import vooga.towerdefense.controller.modes.SelectMode;
-import vooga.towerdefense.factories.definitions.UnitDefinition;
 import vooga.towerdefense.factories.elementfactories.GameElementFactory;
-import vooga.towerdefense.factories.waveactionfactories.WaveActionFactory;
 import vooga.towerdefense.gameElements.GameElement;
-import vooga.towerdefense.gameElements.Wave;
 import vooga.towerdefense.gameeditor.gameloader.GameLoader;
-import vooga.towerdefense.gameeditor.gameloader.MapXMLLoader;
-import vooga.towerdefense.gameeditor.gameloader.ViewXMLLoader;
 import vooga.towerdefense.model.GameLoop;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.GameModel;
-import vooga.towerdefense.model.levels.Level;
-import vooga.towerdefense.model.rules.NextLevelRule;
-import vooga.towerdefense.model.rules.Rule;
 import vooga.towerdefense.model.shop.Shop;
 import vooga.towerdefense.model.shop.ShopItem;
 import vooga.towerdefense.model.tiles.Tile;
-import vooga.towerdefense.model.tiles.factories.TileFactory;
 import vooga.towerdefense.view.TDView;
 
 /**
@@ -201,7 +190,7 @@ public class Controller {
 	        
 	        System.out.println("setting model");
 	        List<GameElementFactory> factories = myGameLoader.loadElements(map);
-	        myModel = new GameModel(this, map, new Shop(map, factories));
+	        myModel = new GameModel(this, map, new Shop(map,factories));
                 myModel.setRules(myGameLoader.loadRules(myModel));
 	        myModel.setLevels(myGameLoader.loadLevels(myModel));
 	        myControlMode = new SelectMode();
@@ -261,13 +250,15 @@ public class Controller {
 	// the shop!!!
 	public void fixItemOnMap(GameElement item, Point p) {
 		GameElement newItem = createNewElement(item);
-		Location snappedLocation = getPointSnappedToGrid(new Location(p.getX(),
-				p.getY()));
-		newItem.setCenter(snappedLocation.getX(), snappedLocation.getY());
-		Tile myTile = myModel.getTile(p);
-		myTile.setTower(newItem);
+		if (myModel.getMap().isTower(item)) {
+			Location snappedLocation = getPointSnappedToGrid(new Location(p.getX(),
+					p.getY()));
+			newItem.setCenter(snappedLocation.getX(), snappedLocation.getY());
+			
+			myModel.getMap().blockTiles(item);
+		}
 
-		myModel.getMap().addToMap(newItem, myTile);
+		myModel.getMap().addToMap(newItem);
 		displayMap();
 		myControlMode = new SelectMode();
 		setVisibilityOfShopCancelButton(false);
@@ -475,8 +466,8 @@ public class Controller {
 		for (int i = 0; i < tilesWide; i++) {
 			for (int j = 0; j < tilesTall; j++) {
 				Location location = new Location(p.getX() + i
-						* TileFactory.TILE_DIMENSIONS.getWidth(), p.getY() + j
-						* TileFactory.TILE_DIMENSIONS.getHeight());
+						* myModel.getMap().getTileSize().getWidth(), p.getY() + j
+						* myModel.getMap().getTileSize().getHeight());
 				canBuild = canBuild & myModel.getMap().isBuildable(location);
 			}
 		}
@@ -489,6 +480,10 @@ public class Controller {
 		for (String key : playerData.keySet())
 			info += key + ": " + playerData.get(key) + "\n";
 		//myView.getPlayerInfoScreen().displayInformation(info);
+	}
+	
+	public Dimension getTileSize() {
+		return myModel.getMap().getTileSize();
 	}
 
 }
