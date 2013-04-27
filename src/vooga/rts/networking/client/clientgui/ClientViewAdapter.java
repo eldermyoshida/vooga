@@ -22,6 +22,12 @@ public class ClientViewAdapter extends ViewAdapter {
     private CreateLobbyView myCreateLobbyView;
     private LobbyView myLobbyView;
     private ServerBrowserTableAdapter myServerBrowserAdapter = new ServerBrowserTableAdapter();
+    private ActionListener myHostGameListener;
+    private ActionListener myJoinGameListener;
+    private ActionListener myBackToBrowserListener;
+    private ActionListener myStartLobbyListener;
+    private ActionListener myLeaveLobbyListener;
+    private ActionListener myStartGameListener;
 
     /**
      * Constructor for this class.
@@ -36,9 +42,72 @@ public class ClientViewAdapter extends ViewAdapter {
                               String gameName, List<String> maps,
                               List<Integer> maxPlayerArray) {
         super(model, gameName);
+        initializeActionListeners();
         myServerBrowserView = new TableContainerView(myServerBrowserAdapter);
         myCreateLobbyView = new CreateLobbyView(maps, maxPlayerArray);
         switchToServerBrowserView();
+    }
+
+    /**
+     * Instantiates the listeners. This is a utility method so that there is not too much code in
+     * the "switch" methods.
+     */
+    private void initializeActionListeners () {
+
+        myHostGameListener = new ActionListener() {
+            @Override
+            public void actionPerformed (ActionEvent arg0) {
+                switchToCreateLobbyView();
+            }
+        };
+
+        myJoinGameListener = new ActionListener() {
+            @Override
+            public void actionPerformed (ActionEvent arg0) {
+                if (myServerBrowserView.hasSelectedRow()) {
+                    myModel.requestJoinLobby(myServerBrowserAdapter
+                            .getIdOfRow(myServerBrowserView
+                                    .getSelectedRow()));
+                }
+            }
+        };
+
+        myBackToBrowserListener = new ActionListener() {
+            @Override
+            public void actionPerformed (ActionEvent arg0) {
+                switchToServerBrowserView();
+            }
+        };
+
+        myStartLobbyListener = new ActionListener() {
+            @Override
+            public void actionPerformed (ActionEvent arg0) {
+                if (myCreateLobbyView.allItemsChosen()) {
+                    myModel.startLobby(myCreateLobbyView
+                            .getLobbyInfo());
+                }
+            }
+        };
+
+        myLeaveLobbyListener = new ActionListener() {
+            @Override
+            public void actionPerformed (ActionEvent arg0) {
+                myModel.getLobbyInfo()
+                        .removePlayer(myModel.getPlayersInfo()
+                                .get(0));
+                myModel.leaveLobby();
+                switchToServerBrowserView();
+            }
+        };
+
+        myStartGameListener = new ActionListener() {
+            @Override
+            public void actionPerformed (ActionEvent arg0) {
+                if (myModel.getLobbyInfo().canStartGame()) {
+                    myModel.requestStartGame();
+                }
+            }
+        };
     }
 
     /**
@@ -48,23 +117,9 @@ public class ClientViewAdapter extends ViewAdapter {
         myModel.requestLobbies();
         myContainerPanel.changeView(myServerBrowserView, NetworkBundle.getString("ServerBrowser"));
         myContainerPanel.changeLeftButton(NetworkBundle.getString("HostGame"),
-                                          new ActionListener() {
-                                              @Override
-                                              public void actionPerformed (ActionEvent arg0) {
-                                                  switchToCreateLobbyView();
-                                              }
-                                          });
+                                          myHostGameListener);
         myContainerPanel.changeRightButton(NetworkBundle.getString("JoinGame"),
-                                           new ActionListener() {
-                                               @Override
-                                               public void actionPerformed (ActionEvent arg0) {
-                                                   if (myServerBrowserView.hasSelectedRow()) {
-                                                       myModel.requestJoinLobby(myServerBrowserAdapter
-                                                               .getIdOfRow(myServerBrowserView
-                                                                       .getSelectedRow()));
-                                                   }
-                                               }
-                                           });
+                                           myJoinGameListener);
     }
 
     /**
@@ -73,22 +128,9 @@ public class ClientViewAdapter extends ViewAdapter {
     private void switchToCreateLobbyView () {
         myContainerPanel.changeView(myCreateLobbyView, NetworkBundle.getString("LobbyCreation"));
         myContainerPanel.changeLeftButton(NetworkBundle.getString("BackToBrowser"),
-                                          new ActionListener() {
-                                              @Override
-                                              public void actionPerformed (ActionEvent arg0) {
-                                                  switchToServerBrowserView();
-                                              }
-                                          });
+                                          myBackToBrowserListener);
         myContainerPanel.changeRightButton(NetworkBundle.getString("StartLobby"),
-                                           new ActionListener() {
-                                               @Override
-                                               public void actionPerformed (ActionEvent arg0) {
-                                                   if (myCreateLobbyView.allItemsChosen()) {
-                                                       myModel.startLobby(myCreateLobbyView
-                                                               .getLobbyInfo());
-                                                   }
-                                               }
-                                           });
+                                           myStartLobbyListener);
     }
 
     /**
@@ -101,25 +143,9 @@ public class ClientViewAdapter extends ViewAdapter {
 
         myContainerPanel.changeView(myLobbyView, NetworkBundle.getString("LobbyCreation"));
         myContainerPanel.changeLeftButton(NetworkBundle.getString("LeaveLobby"),
-                                          new ActionListener() {
-                                              @Override
-                                              public void actionPerformed (ActionEvent arg0) {
-                                                  myModel.getLobbyInfo()
-                                                          .removePlayer(myModel.getPlayersInfo()
-                                                                  .get(0));
-                                                  myModel.leaveLobby();
-                                                  switchToServerBrowserView();
-                                              }
-                                          });
+                                          myLeaveLobbyListener);
         myContainerPanel.changeRightButton(NetworkBundle.getString("StartLobby"),
-                                           new ActionListener() {
-                                               @Override
-                                               public void actionPerformed (ActionEvent arg0) {
-                                                   if (myModel.getLobbyInfo().canStartGame()) {
-                                                       myModel.requestStartGame();
-                                                   }
-                                               }
-                                           });
+                                           myStartGameListener);
     }
 
     /**

@@ -3,6 +3,7 @@ package vooga.rts.networking.client;
 import vooga.rts.networking.communications.ExpandedLobbyInfo;
 import vooga.rts.networking.communications.PlayerInfo;
 
+
 /**
  * Represents the game to the networking architecture.
  * 

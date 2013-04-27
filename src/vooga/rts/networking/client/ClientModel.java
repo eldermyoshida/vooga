@@ -195,12 +195,12 @@ public class ClientModel extends Observable implements IClientModel, IModel {
     public List<PlayerInfo> getPlayersInfo () {
         return myUserControlledPlayers;
     }
-    
+
     /**
      * 
      * @return A list with name of factions of this client view
      */
-    public List<String> getFactions() {
+    public List<String> getFactions () {
         return myFactions;
     }
 }
