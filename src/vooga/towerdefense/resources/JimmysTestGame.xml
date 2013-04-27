@@ -1,6 +1,6 @@
 <Game>
 	<view>
-		<dimension>800, 800</dimension>
+		<dimension>1100, 800</dimension>
 		<MapScreen>
 			<dimension>800, 600</dimension>
 			<location>NORTH</location>
@@ -9,6 +9,10 @@
 			<dimension>800, 200</dimension>
 			<location>SOUTH</location>
 		</ShopScreen>
+		<GameStatsScreen>
+			<dimension>200, 200</dimension>
+			<location>EAST</location>
+		</GameStatsScreen>
 	</view>
 	<map>
 		<Map1>

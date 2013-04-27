@@ -475,11 +475,8 @@ public class Controller {
 		return canBuild;
 	}
 
-	public void displayPlayerStatistics(Map<String, Integer> playerData) {
-		String info = "Player info: \n\n";
-		for (String key : playerData.keySet())
-			info += key + ": " + playerData.get(key) + "\n";
-		//myView.getPlayerInfoScreen().displayInformation(info);
+	public void displayPlayerStatistics(String playerData) {
+		myView.getStatsScreen().displayInformation(playerData);
 	}
 	
 	public Dimension getTileSize() {
