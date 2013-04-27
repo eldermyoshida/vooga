@@ -16,12 +16,6 @@ import vooga.towerdefense.action.actionlist.FollowPath;
 import vooga.towerdefense.attributes.AttributeConstants;
 import vooga.towerdefense.attributes.AttributeManager;
 import vooga.towerdefense.gameElements.GameElement;
-import vooga.towerdefense.model.tiles.PathTile;
-import vooga.towerdefense.model.tiles.factories.TileFactory;
-import util.Location;
-import util.Pixmap;
-
-import vooga.towerdefense.model.Tile;
 
 /**
  * The GameMap holds all of the state corresponding to an entire game at a given
@@ -35,7 +29,6 @@ public class GameMap {
 
 	private List<GameElement> myGameElements;
 	private Tile[][] myGrid;
-	private Location myDestination;
 	private Dimension myDimensions;
 	private GameElement myGhostImage;
 	private Pathfinder myPathfinder;
@@ -57,30 +50,18 @@ public class GameMap {
 	 *            the destination point of all units
 	 */
 	public GameMap(Tile[][] grid, Pixmap background, Dimension mapDimensions,
-			Dimension tileSize, Location destination) {
+			Dimension tileSize) {
 		myBackgroundImage = background;
 		myDimensions = mapDimensions;
-		double width = mapDimensions.getWidth();
-		double height = mapDimensions.getHeight();
 		myGameElements = new ArrayList<GameElement>();
-		myDestination = destination;
 		myGrid = grid;
 		myPathfinder = new Pathfinder(myGrid, tileSize);
 		myTileSize = tileSize;
 
 		// TODO: pull these from file
-		myEndLocation = new Location(width, height / 2);
-		mySpawnLocation = new Location(0, height / 2);
+		myEndLocation = myGrid[myGrid.length-1][myGrid[0].length/2].getCenter();
+		mySpawnLocation = myGrid[0][myGrid[0].length/2].getCenter();
 		updatePaths();
-
-		// ExampleUnitFactory myTrollFactory = new ExampleUnitFactory("Troll",
-		// new TrollUnitDefinition());
-		// GameElement troll1 = myTrollFactory.createUnit(new Location(500,
-		// 500), new TrollUnitDefinition());
-		// GameElement troll2 = myTrollFactory.createUnit(new Location(350,
-		// 250), new TrollUnitDefinition());
-		// addGameElement(troll1);
-		// addGameElement(troll2);
 	}
 
 	/**
@@ -323,10 +304,6 @@ public class GameMap {
 	 * @return the shortest path between these two locations
 	 */
 	public Path getShortestPath(Location start, Location finish) {
-		int x1 = (int) (start.getX() / getTileSize().getWidth());
-		int x2 = (int) (finish.getX() / getTileSize().getWidth());
-		int y1 = (int) (start.getY() / getTileSize().getHeight());
-		int y2 = (int) (finish.getY() / getTileSize().getHeight());
 		Location startIndex = getTileIndexFromLocation(start);
 		Location finishIndex = getTileIndexFromLocation(finish);
 		Path thePath = myPathfinder.getShortestPath(startIndex, finishIndex);
@@ -402,31 +379,11 @@ public class GameMap {
 	}
 
 	public Location getSpawnLocation() {
-	    Tile t = null;
-	    for (int i = 0; i < myGrid.length; ++i) {
-	        for (int j = 0; j < myGrid[i].length; ++j) {
-	            if (myGrid[j][i] instanceof PathTile) {
-	                t = myGrid[j][i];
-	                break;
-	            }
-	        }
-	    }
-	    return t.getCenter();
+		return mySpawnLocation;
 	}
 
-	public Location getDestination() {
-	    Tile t = null;
-	    for (int i = 0; i < myGrid.length; ++i) {
-	        for (int j = 0; j < myGrid[i].length; ++j) {
-	            if (myGrid[j][i] instanceof PathTile) {
-	                t = myGrid[j][i];
-	                if (j == myGrid[i].length - 1) {
-	                    break;
-	                }
-	            }
-	        }
-	    }
-	    return t.getCenter();
+	public Location getEndLocation() {
+		return myEndLocation;
 	}
 
 	public Dimension getTileSize() {

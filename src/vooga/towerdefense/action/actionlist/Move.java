@@ -1,9 +1,9 @@
 package vooga.towerdefense.action.actionlist;
 
-import vooga.towerdefense.action.Action;
-import vooga.towerdefense.attributes.Attribute;
 import util.Location;
 import util.Vector;
+import vooga.towerdefense.action.Action;
+import vooga.towerdefense.attributes.Attribute;
 
 /**
  * Uses the sprite move method
@@ -27,10 +27,7 @@ public class Move extends Action {
     
     @Override
     public void executeAction(double elapsedTime) {
-//        System.out.println(myDirection.getValue());
-//        System.out.println(mySpeed.getValue());
-//        Vector v = new Vector(myDirection.getValue(), mySpeed.getValue());
-        Vector v = new Vector(0, 20);
+        Vector v = new Vector(myDirection.getValue(), mySpeed.getValue());
         v.scale(elapsedTime / 1000);
         myCenter.translate(v);
     }

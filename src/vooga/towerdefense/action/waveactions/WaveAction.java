@@ -1,7 +1,6 @@
 package vooga.towerdefense.action.waveactions;
 
 import vooga.towerdefense.action.Action;
-import vooga.towerdefense.action.actionlist.Move;
 import vooga.towerdefense.factories.elementfactories.GameElementFactory;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.model.GameMap;
@@ -36,9 +35,7 @@ public class WaveAction extends Action {
 	
 	private void spawnUnit() {
 		GameElement unit = myFactory.createElement(myMap.getSpawnLocation());
-		Move moveAction = (Move) (unit.getActions().get(1));
-//		System.out.println(moveAction.isEnabled());
-//		System.out.println(unit.getActions());
+		System.out.println("spawn location: " + myMap.getSpawnLocation());
 		System.out.println("spawning unit " + unit);
 		myMap.addGameElement(unit);
 		--myUnitsRemaining;
