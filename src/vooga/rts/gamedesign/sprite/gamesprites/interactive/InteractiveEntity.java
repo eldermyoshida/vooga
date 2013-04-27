@@ -251,6 +251,17 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     public abstract InteractiveEntity copy ();
 
     /**
+     * Gives "toOther" all the information and strategies attributed to this class. 
+     * @param toOther
+     */
+    public void transmitProperties(InteractiveEntity toOther){
+    	toOther.setInfo(getInfo());
+    	for(Strategy s: getStrategies()){
+    		s.affect(toOther);
+    	}
+    }
+    
+    /**
      * Returns the action that corresponds to a command.
      * 
      * @param command

@@ -124,12 +124,7 @@ public class Unit extends InteractiveEntity {
     public InteractiveEntity copy () {
     	Unit copyUnit = new Unit(getImage(), getWorldLocation(), getSize(), getSound(), getPlayerID(),
                 getHealth(), getBuildTime(), getSpeed());
-    	copyUnit.setInfo(this.getInfo());
-    	
-
-    	for(Strategy s: getStrategies()){
-    		s.affect(copyUnit);
-    	}
+    	transmitProperties(copyUnit);
     	return copyUnit;
     }
 

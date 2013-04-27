@@ -70,11 +70,8 @@ public class Building extends InteractiveEntity {
     public InteractiveEntity copy () {
         Building copyBuilding = new Building(getImage(), getWorldLocation(), getSize(), getSound(), getPlayerID(),
                 getHealth(), getBuildTime());
-    	copyBuilding.setInfo(getInfo());
-    	
-    	for(Strategy s: getStrategies()){
-    		s.affect(copyBuilding);
-    	}
+        
+        transmitProperties(copyBuilding);
     	
     	return copyBuilding;
     }
