@@ -10,9 +10,11 @@ import java.util.logging.Logger;
 /**
  * A class that handles a logger. 
  * This class does not propagate LogRecords to parent Loggers, so if the
- * It sets a console handler as a default handler
+ * user wants to set parents or even more complex instructions, he/she
+ * should call getLogger() to do so.
+ * It sets a console handler as a default handler.
  * 
- * By default, the logger starts at ALL level so any type of message is logged
+ * By default, the logger starts at ALL level so any type of message is logged.
  * 
  * Note that the user does not need to use any other class in this package
  * except this one to manage the logger
@@ -248,10 +250,10 @@ public class LoggerManager {
      * @param message The message to log
      */
     public void log (Level level, String message) {
-        LogRecord l = new LogRecord(level, message);
-        l.setSourceClassName(LoggerReflection.getCallerClassName());
-        l.setSourceMethodName(LoggerReflection.getCallerMethodName());
-        myLogger.log(l);
+        LogRecord record = new LogRecord(level, message);
+        record.setSourceClassName(LoggerReflection.getCallerClassName());
+        record.setSourceMethodName(LoggerReflection.getCallerMethodName());
+        myLogger.log(record);
     }
 
     /**
@@ -291,8 +293,9 @@ public class LoggerManager {
     }
 
     /**
-     * 
-     * @return The logger associated with this API
+     * Gets the logger of this manager in case the user wants to 
+     * handle it for more complex instructions
+     * @return The logger associated with this Manager
      */
     public Logger getLogger () {
         return myLogger;
