@@ -177,11 +177,12 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
 
     
     public Strategy[] getStrategies(){
-    	Strategy[] all = new Strategy[4];
+    	Strategy[] all = new Strategy[5];
     	all[0] = myAttackStrategy;
     	all[1] = myOccupyStrategy;
     	all[2] = myGatherStrategy;
     	all[3] = myProductionStrategy;
+    	all[4] = myUpgradeStrategy;
     	return all;
     }
     public UpgradeTree getUpgradeTree () {

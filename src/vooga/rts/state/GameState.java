@@ -50,7 +50,24 @@ import vooga.rts.util.PointTester;
  */
 
 public class GameState extends SubState implements Controller {
-    
+    private static final Location3D DEFAULT_SOLDIER_ONE_RELATIVE_LOCATION = new Location3D(300, 300, 0);
+    private static final Location3D DEFAULT_SOLDIER_TWO_RELATIVE_LOCATION = new Location3D(0, 500, 0);
+    private static final Location3D DEFAULT_SOLDIER_THREE_RELATIVE_LOCATION = new Location3D(300, 0 , 0);
+    private static final Information DEFAULT_SOLDIER_INFO =
+    		new Information("Marine", "I am a soldier of Nunu.", null, "buttons/marine.png");
+    private static final Location3D DEFAULT_WORKER_RELATIVE_LOCATION = new Location3D(200, 200, 0);
+    private static final Information DEFAULT_WORKER_INFO = new Information("Worker",
+            "I am a worker. I am sent down from Denethor, son of Ecthelion ",
+            null, "images/scv.png");
+    private static final Location3D DEFAULT_PRODUCTION_RELATIVE_LOCATION = new Location3D(000, 500, 0);
+    private static final Information DEFAULT_PRODUCTION_INFO = new Information("Barracks",
+    		"This is a barracks that can make awesome pies", null,
+            "buttons/marine.png");
+    private static final Location3D DEFAULT_OCCUPY_RELATIVE_LOCATION = new Location3D(300, 100, 0);
+    private static final Information DEFAULT_OCCUPY_INFO = 
+    		new Information("Garrison", "This is a garrison that soldiers can occupy", null,
+            "buttons/marine.png");
+	
     private static GameMap myMap;
     private static PlayerManager myPlayers;
             
@@ -121,50 +138,96 @@ public class GameState extends SubState implements Controller {
     
     public void setupGame () {
         getPlayers().addPlayer(1);
-
+        Location3D playerOneBase = getPlayers().getHuman().getBase();
+        
         Unit worker =  (Unit) myFactory.getEntitiesMap().get("worker").copy();
-        worker.setWorldLocation(new Location3D(300, 300, 0));
+        worker.setWorldLocation(new Location3D(playerOneBase.getX() +
+        		DEFAULT_WORKER_RELATIVE_LOCATION.getX(), playerOneBase.getY() +
+        		DEFAULT_WORKER_RELATIVE_LOCATION.getY(), playerOneBase.getZ() +
+        		DEFAULT_WORKER_RELATIVE_LOCATION.getZ()));
         worker.move(worker.getWorldLocation());
-              
-        Information i1 =
-                new Information("Worker",
-                                "I am a worker. I am sent down from Denethor, son of Ecthelion ",
-                                null, "images/scv.png");
-        worker.setInfo(i1);
+        worker.setInfo(DEFAULT_WORKER_INFO);
         getPlayers().getHuman().add(worker);
        
-        Unit a = (Unit) myFactory.getEntitiesMap().get("combat").copy();
-        Information i2 =
-                new Information("Marine", "I am a soldier of Nunu.", null, "buttons/marine.png");
-
-        a.setInfo(i2);
-        getPlayers().getHuman().add(a);
+        Unit soldierOne = (Unit) myFactory.getEntitiesMap().get("combat").copy(); //TODO: refactor!
+        soldierOne.setWorldLocation(new Location3D(playerOneBase.getX() +
+        		DEFAULT_SOLDIER_ONE_RELATIVE_LOCATION.getX(), playerOneBase.getY() +
+        		DEFAULT_SOLDIER_ONE_RELATIVE_LOCATION.getY(), playerOneBase.getZ() +
+        		DEFAULT_SOLDIER_ONE_RELATIVE_LOCATION.getZ()));
+        soldierOne.move(soldierOne.getWorldLocation());
+        soldierOne.setInfo(DEFAULT_SOLDIER_INFO);
+        getPlayers().getHuman().add(soldierOne);
         
-        getPlayers().addPlayer(2);
+        Building startProduction= (Building) myFactory.getEntitiesMap().get("home").copy();
+        startProduction.setWorldLocation(new Location3D(playerOneBase.getX() +
+        		DEFAULT_PRODUCTION_RELATIVE_LOCATION.getX(), playerOneBase.getY() +
+        		DEFAULT_PRODUCTION_RELATIVE_LOCATION.getY(), playerOneBase.getZ() +
+        		DEFAULT_PRODUCTION_RELATIVE_LOCATION.getZ()));
+        startProduction.move(startProduction.getWorldLocation());
+        startProduction.setInfo(DEFAULT_PRODUCTION_INFO);
+        getPlayers().getHuman().add(startProduction);
 
-        Unit c = (Unit) myFactory.getEntitiesMap().get("combat").copy();
-        c.setWorldLocation(new Location3D(1200, 500, 0));
-        c.move(c.getWorldLocation());
-        getPlayers().getPlayer(1).add(c);
-
-        Building startBuilding = (Building) myFactory.getEntitiesMap().get("home");
-        
-        Building b = (Building) startBuilding.copy();
-        b.setWorldLocation(new Location3D(700, 30, 0));
-        b.move(b.getWorldLocation());
-        Information i =
-                new Information("Barracks", "This is a barracks that can make awesome pies", null,
-                                "buttons/marine.png");
-        b.setInfo(i);
-        getPlayers().getHuman().add(b);
-
-        final Building f = b;
+        //this is for testing
+        final Building f = startProduction;
         myTasks.add(new DelayedTask(2, new Runnable() {
             @Override
             public void run () {
                 f.getAction((new Command("make Marine"))).apply();
             }
         }, true));
+        
+        Building startOccupy = (Building) myFactory.getEntitiesMap().get("garrison").copy();
+        startOccupy.setWorldLocation(new Location3D(playerOneBase.getX() +
+        		DEFAULT_OCCUPY_RELATIVE_LOCATION.getX(), playerOneBase.getY() +
+        		DEFAULT_OCCUPY_RELATIVE_LOCATION.getY(), playerOneBase.getZ() +
+        		DEFAULT_OCCUPY_RELATIVE_LOCATION.getZ()));
+        startOccupy.move(startProduction.getWorldLocation());       
+        startOccupy.setInfo(DEFAULT_OCCUPY_INFO);
+        getPlayers().getHuman().add(startOccupy);
+
+        //This is for testing
+        final Building testGarrison = startOccupy;
+        
+        myTasks.add(new DelayedTask(10, new Runnable() {
+            @Override
+            public void run () {
+                if (testGarrison.getOccupyStrategy().getOccupiers().size() > 0) {
+                    System.out.println("will puke!");
+                    testGarrison.getAction(new Command("deoccupy")).apply();
+                }                
+            }
+        }));
+        
+        
+        getPlayers().addPlayer(2);
+        Location3D playerEnemyBase = getPlayers().getPlayer(1).getEnemyBase();
+        
+        Unit enemySoldierOne = (Unit) myFactory.getEntitiesMap().get("combat").copy();
+        enemySoldierOne.setWorldLocation(new Location3D(playerEnemyBase.getX() +
+        		DEFAULT_SOLDIER_ONE_RELATIVE_LOCATION.getX(), playerEnemyBase.getY() +
+        		DEFAULT_SOLDIER_ONE_RELATIVE_LOCATION.getY(), playerEnemyBase.getZ() +
+        		DEFAULT_SOLDIER_ONE_RELATIVE_LOCATION.getZ()));
+        enemySoldierOne.move(enemySoldierOne.getWorldLocation());
+        getPlayers().getPlayer(1).add(enemySoldierOne);
+        
+        Building enemyProduction= (Building) myFactory.getEntitiesMap().get("home").copy();
+        enemyProduction.setWorldLocation(new Location3D(playerEnemyBase.getX() +
+        		DEFAULT_PRODUCTION_RELATIVE_LOCATION.getX(), playerEnemyBase.getY() +
+        		DEFAULT_PRODUCTION_RELATIVE_LOCATION.getY(), playerEnemyBase.getZ() +
+        		DEFAULT_PRODUCTION_RELATIVE_LOCATION.getZ()));
+        enemyProduction.move(enemyProduction.getWorldLocation());
+        enemyProduction.setInfo(DEFAULT_PRODUCTION_INFO);
+        getPlayers().getPlayer(1).add(enemyProduction);
+        
+        //this is for testing
+        final Building g = enemyProduction;
+        myTasks.add(new DelayedTask(2, new Runnable() {
+            @Override
+            public void run () {
+                g.getAction((new Command("make Marine"))).apply();
+            }
+        }, true));
+        
         
         for (int j = 0; j < 10; j++) {
             getMap().getResources().add(new Resource(new Pixmap("images/mineral.gif"),
@@ -180,48 +243,6 @@ public class GameState extends SubState implements Controller {
             }
             
         }
-        
-        Building garrison = (Building) myFactory.getEntitiesMap().get("garrison").copy();
-        garrison.setWorldLocation(new Location3D(300, 450, 0));
-        garrison.move(b.getWorldLocation());       
-
-        Information garrisonInfo =
-                new Information("Garrison", "This is a garrison that soldiers can occupy", null,
-                                "buttons/marine.png");
-        garrison.setInfo(garrisonInfo);
-        garrison.setOccupyStrategy(new CanBeOccupied());
-        garrison.getOccupyStrategy().createOccupyActions(garrison);
-        getPlayers().getHuman().add(garrison);
-
-        final Building testGarrison = garrison;
-        
-        myTasks.add(new DelayedTask(10, new Runnable() {
-            @Override
-            public void run () {
-                if (testGarrison.getOccupyStrategy().getOccupiers().size() > 0) {
-                    System.out.println("will puke!");
-                    testGarrison.getAction(new Command("deoccupy")).apply();
-                }                
-            }
-        }));
-
-        Building b2 = (Building) startBuilding.copy();
-        b2.setWorldLocation(new Location3D(100, 500, 0));
-        b2.move(b2.getWorldLocation());
-        i =
-                new Information("Barracks", "This is a barracks that can make awesome pies", null,
-                                "buttons/marine.png");
-        b2.setInfo(i);
-
-        final Building g = b2;
-        myTasks.add(new DelayedTask(2, new Runnable() {
-            @Override
-            public void run () {
-                g.getAction((new Command("make Marine"))).apply();
-            }
-        }, true));
-
-        getPlayers().getPlayer(1).add(b2);
     }
 
     private void yuckyUnitUpdate (double elapsedTime) {

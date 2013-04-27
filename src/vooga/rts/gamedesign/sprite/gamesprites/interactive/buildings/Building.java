@@ -72,7 +72,6 @@ public class Building extends InteractiveEntity {
                 getHealth(), getBuildTime());
         
         transmitProperties(copyBuilding);
-    	
     	return copyBuilding;
     }
 
