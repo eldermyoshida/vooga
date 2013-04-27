@@ -40,7 +40,7 @@ import vooga.towerdefense.model.Tile;
 public class MapEditorScreen extends GameEditorScreen {
 
     private static final long serialVersionUID = 1L;
-    private static final String NEXT_SCREEN_NAME = "GameElementEditorScreen";
+    private static final String NEXT_SCREEN_NAME = "PlayerEditorScreen";
     private static final String TITLE_NAME = "MAP ";
     private static final String TILE_PACKAGE_PATH = "vooga.towerdefense.model.tiles";
     private static final String TILE_IMAGES_CLASS_PATH = "vooga/towerdefense/images/map";

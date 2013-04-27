@@ -8,6 +8,7 @@ import util.XMLTool;
 import vooga.towerdefense.gameeditor.gamemaker.xmlwriters.GameElementXMLWriter;
 import vooga.towerdefense.gameeditor.gamemaker.xmlwriters.LevelXMLWriter;
 import vooga.towerdefense.gameeditor.gamemaker.xmlwriters.MapXMLWriter;
+import vooga.towerdefense.gameeditor.gamemaker.xmlwriters.PlayerXMLWriter;
 import vooga.towerdefense.gameeditor.gamemaker.xmlwriters.RuleXMLWriter;
 import vooga.towerdefense.gameeditor.gamemaker.xmlwriters.ViewXMLWriter;
 
@@ -25,6 +26,7 @@ public class XMLWriter {
     public static final String XML_EXTENSION = ".xml";
     public static final String GAME_TAG = "game";
     public static final String VIEW_TAG = "view";
+    public static final String PLAYER_TAG = "player";
     public static final String GAME_ELEMENT_TAG = "gameelements";
     public static final String LEVELS_TAG = "levels";
     public static final String IMAGE_TAG = "image";
@@ -47,6 +49,7 @@ public class XMLWriter {
     private Element myRoot;
     private Element myViewParent;
     private Element myMapParent;
+    private Element myPlayerParent;
     private Element myGameElementParent;
     private Element myLevelParent;
     private Element myRuleParent;
@@ -55,6 +58,7 @@ public class XMLWriter {
     private ViewXMLWriter myViewXMLWriter;
     private MapXMLWriter myMapXMLWriter;
     private GameElementXMLWriter myGameElementXMLWriter;
+    private PlayerXMLWriter myPlayerXMLWriter;
     private RuleXMLWriter myRuleXMLWriter;
     private LevelXMLWriter myLevelXMLWriter;
 
@@ -71,6 +75,7 @@ public class XMLWriter {
     private void initializeXMLWriters() {
         myViewXMLWriter = new ViewXMLWriter(myXMLDoc);
         myMapXMLWriter = new MapXMLWriter(myXMLDoc);
+        myPlayerXMLWriter = new PlayerXMLWriter(myXMLDoc);
         myGameElementXMLWriter = new GameElementXMLWriter(myXMLDoc);
         myRuleXMLWriter = new RuleXMLWriter(myXMLDoc);
         myLevelXMLWriter = new LevelXMLWriter(myXMLDoc);
@@ -83,6 +88,7 @@ public class XMLWriter {
         myRoot = myXMLDoc.makeRoot(GAME_TAG);
         myViewParent = initializeSubParent(myRoot, myViewParent, VIEW_TAG);
         myMapParent = initializeSubParent(myRoot, myMapParent, MAP_TAG);
+        myPlayerParent = initializeSubParent(myRoot, myPlayerParent, PLAYER_TAG);
         myGameElementParent = initializeSubParent(myRoot, myGameElementParent, GAME_ELEMENT_TAG);
         myRuleParent = initializeSubParent(myRoot, myRuleParent, RULES_TAG);
         myLevelParent = initializeSubParent(myRoot, myLevelParent, LEVELS_TAG);
@@ -129,6 +135,14 @@ public class XMLWriter {
                               String tileSize,
                               String map) {
         myMapXMLWriter.write(myMapParent, name, image, width, height, tileSize, map);
+    }
+    
+    /**
+     * writes the player to the XML file.
+     * @param attributes
+     */
+    public void addPlayerToGame(Map<String, String> attributes) {
+        myPlayerXMLWriter.write(myPlayerParent, attributes);
     }
 
     /**

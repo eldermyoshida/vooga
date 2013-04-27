@@ -3,13 +3,11 @@ package vooga.towerdefense.gameeditor.gamemaker;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -22,7 +20,7 @@ import javax.swing.JTextField;
  * 
  * @author Angelica Schwartz
  */
-public class GameElementEditorScreen extends ElementWithActionEditorScreen {
+public class GameElementEditorScreen extends GameEditorScreen {
 
     /**
      * default serialized id.
@@ -52,6 +50,10 @@ public class GameElementEditorScreen extends ElementWithActionEditorScreen {
      * title constant.
      */
     private static final String TITLE_NAME = "GAME ELEMENT ";
+    /**
+     * constant for text area width.
+     */
+    private static final int TEXT_AREA_WIDTH = 10;
     /**
      * keyword for units.
      */
@@ -87,7 +89,11 @@ public class GameElementEditorScreen extends ElementWithActionEditorScreen {
     /**
      * attributes section for this game element screen.
      */
-    private JPanel myAttributesSection;
+    private AttributeSection myAttributesSection;
+    /**
+     * actions section for this game element screen.
+     */
+    private ActionSection myActionsSection;
 
     /**
      * Constructor.
@@ -103,24 +109,22 @@ public class GameElementEditorScreen extends ElementWithActionEditorScreen {
         myAvailableTypes.add(UNIT_TYPE);
         myAvailableTypes.add(TOWER_TYPE);
         myAvailableTypes.add(PROJECTILE_TYPE);
-        setActionPath(ACTION_PACKAGE_PATH);
-        myAttributesSection = makeAttributesSection(getController().getAttributes(ATTRIBUTE_CLASS_PATH));
-        makeActionsSection(ACTION_PACKAGE_PATH);
+        myActionsSection = new ActionSection("Actions", ACTION_PACKAGE_PATH, getController().getAvailableActions(ACTION_PACKAGE_PATH), getMouseAdapter());
+        myAttributesSection = new AttributeSection("Attributes", getController().getAttributes(ATTRIBUTE_CLASS_PATH), getMouseAdapter());
         makeScreen();
     }
     
     /**
      * makes the game element editor screen.
      */
-    @Override
     public void makeScreen() {
-        super.makeScreen();
         JPanel dimensionPanel = new JPanel(new BorderLayout());
         dimensionPanel.add(new JLabel("Dimension: "), BorderLayout.WEST);
         myDimensionBox = new JTextField(TEXT_AREA_WIDTH);
         dimensionPanel.add(myDimensionBox, BorderLayout.EAST);
         add(dimensionPanel, BorderLayout.NORTH);
         add(myAttributesSection, BorderLayout.NORTH);
+        add(myActionsSection, BorderLayout.CENTER);
         JPanel typePanel = new JPanel(new BorderLayout());
         typePanel.add(new JLabel("Type: "), BorderLayout.NORTH);
         myAddTypeButton = new JButton(ADD_NEW_TYPE_TEXT);
@@ -152,7 +156,8 @@ public class GameElementEditorScreen extends ElementWithActionEditorScreen {
     public void clearScreen() {
         super.clearScreen();
         myDimensionBox.setText("");
-        getAttributesSection().setText("");
+        myAttributesSection.clear();
+        myActionsSection.clear();
     }
 
     /**
@@ -161,8 +166,8 @@ public class GameElementEditorScreen extends ElementWithActionEditorScreen {
     public void addElementToGame() {
         getController().addGameElementToGame(myTypeBox.getSelectedItem().toString(), getName(),
                                          myImageBox.getSelectedItem().toString(), myDimensionBox.getText(),
-                                         getAttributes(),
-                                         getActions());
+                                         myAttributesSection.getAttributes(),
+                                         myActionsSection.getActions());
     }
 
     /**
@@ -173,11 +178,12 @@ public class GameElementEditorScreen extends ElementWithActionEditorScreen {
      */
     @Override
     public void addAdditionalMouseBehavior (MouseEvent e) {
-        super.addAdditionalMouseBehavior(e);
         if (e.getSource().equals(myAddTypeButton)) {
             String newType = JOptionPane.showInputDialog("Enter your new type");
             myTypeBox.addItem(newType);
             myTypeBox.setSelectedItem(newType);
         }
+        myAttributesSection.doAdditionalMouseBehavior(e);
+        myActionsSection.doAdditionalMouseBehavior(e);
     }
 }

@@ -2,6 +2,7 @@ package vooga.towerdefense.gameeditor.gamemaker;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.List;
@@ -19,7 +20,7 @@ import javax.swing.JTextArea;
  * 
  * @author Angelica Schwartz
  */
-public class LevelEditorScreen extends ElementWithActionEditorScreen {
+public class LevelEditorScreen extends GameEditorScreen {
 
     /**
      * default serialized id.
@@ -77,6 +78,10 @@ public class LevelEditorScreen extends ElementWithActionEditorScreen {
      * the box that displays the available units.
      */
     private JComboBox myAvailableUnits;
+    /**
+     * section to display actions.
+     */
+    private ActionSection myActionSection;
 
     /**
      * Constructor.
@@ -89,9 +94,8 @@ public class LevelEditorScreen extends ElementWithActionEditorScreen {
     public LevelEditorScreen (Dimension size, GameEditorController controller) throws ClassNotFoundException, IOException {
         super(size, controller, TITLE_NAME, NEXT_SCREEN_NAME);
         myAvailableUnits = new JComboBox();
-        setActionPath(WAVE_ACTION_PACKAGE_PATH);
+        myActionSection = new ActionSection("Wave Actions", WAVE_ACTION_PACKAGE_PATH, getController().getAvailableActions(WAVE_ACTION_PACKAGE_PATH), getMouseAdapter());
         populateRules();
-        makeActionsSection(WAVE_ACTION_PACKAGE_PATH);
         populateUnits();
         makeScreen();
     }
@@ -103,6 +107,7 @@ public class LevelEditorScreen extends ElementWithActionEditorScreen {
     @Override
     public void clearScreen() {
         super.clearScreen();
+        myActionSection.clear();
         mySelectedRules.setText("");
     }
     
@@ -123,9 +128,8 @@ public class LevelEditorScreen extends ElementWithActionEditorScreen {
     /**
      * helper method to add the buttons to this screen.
      */
-    @Override
     public void makeScreen() {
-        super.makeScreen();
+        add(myActionSection, BorderLayout.CENTER);
         mySelectedRules = new JTextArea(TEXT_AREA_WIDTH, TEXT_AREA_HEIGHT);
         add(new JScrollPane(mySelectedRules), BorderLayout.CENTER);
         myAddRuleButton = new JButton(ADD_RULE_TEXT);
@@ -154,12 +158,11 @@ public class LevelEditorScreen extends ElementWithActionEditorScreen {
      */
     public void addElementToGame () {
         getController().addLevelToGame(getName(), mySelectedRules.getText(),
-                                             getActions());
+                                             myActionSection.getActions());
     }
     
     @Override
     public void addAdditionalMouseBehavior(MouseEvent e) {
-        super.addAdditionalMouseBehavior(e);
         if (e.getSource().equals(myAddRuleButton)) {
             mySelectedRules.setText(mySelectedRules.getText()
                                     + (String)myRules.getSelectedItem());
@@ -179,5 +182,6 @@ public class LevelEditorScreen extends ElementWithActionEditorScreen {
         else if (e.getSource().equals(myDeleteRuleButton)) {
             mySelectedRules.replaceSelection("");
         }
+        myActionSection.doAdditionalMouseBehavior(e);
     }
 }

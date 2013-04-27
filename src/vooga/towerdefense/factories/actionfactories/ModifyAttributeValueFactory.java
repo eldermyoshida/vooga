@@ -3,6 +3,7 @@ package vooga.towerdefense.factories.actionfactories;
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.actionlist.ModifyAttributeValue;
 import vooga.towerdefense.attributes.Attribute;
+import vooga.towerdefense.factories.ActionAnnotation;
 import vooga.towerdefense.gameelements.GameElement;
 
 
@@ -22,7 +23,8 @@ public class ModifyAttributeValueFactory extends ActionFactory {
      * @param attributeToApply string of the attribute value it is using
      * @param attributeIdToApply
      */
-    public ModifyAttributeValueFactory (String attributeToApply, String attributeIdToApply) {
+    public ModifyAttributeValueFactory (@ActionAnnotation(name = "attribute to apply", value = "reference") String attributeToApply,
+                                        @ActionAnnotation(name = "attribute id to apply", value = "reference") String attributeIdToApply) {
         super();
         myAttributeToApply = attributeToApply;
         myTargetId = attributeIdToApply;
