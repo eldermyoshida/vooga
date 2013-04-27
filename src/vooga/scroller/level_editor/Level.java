@@ -263,7 +263,7 @@ public class Level implements Renderable<Gaming>, IGameComponent{
         SplashPage sp = new TestSplashPage(display, myScrollingManager);
         
         Model m = new Model(display, sm, sample, sp, this);
-//        m.addPlayerToLevel();
+        m.start();
         display.setModel(m);
         return (Renderer<Gaming>) display;//TODO - bad
     }
