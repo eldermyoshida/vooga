@@ -330,4 +330,19 @@ public class GameEditorController extends JFrame {
         Field fieldList[] = attributesClass.getDeclaredFields();
         return fieldList;
     }
+    
+    public List<String> getFiles(String packagePath) {
+        List<String> fileNames = new ArrayList<String>();
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        String path = packagePath.replace(".", "/");
+        URL resource = classLoader.getResource(path);
+        File directory = new File(resource.getFile());
+        if (directory.exists()) {
+            File[] files = directory.listFiles();
+            for (File file : files) {
+                fileNames.add(file.getName());
+            }
+        }
+        return fileNames;
+    }
 }
