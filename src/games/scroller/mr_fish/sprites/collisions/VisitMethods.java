@@ -1,5 +1,6 @@
 package games.scroller.mr_fish.sprites.collisions;
 
+import games.scroller.mr_fish.sprites.FishLib.Fireball;
 import games.scroller.mr_fish.sprites.items.Item;
 import games.scroller.mr_fish.sprites.player.MrFish;
 import util.Vector;
@@ -8,6 +9,7 @@ import vooga.scroller.sprites.Sprite;
 import vooga.scroller.sprites.interfaces.IDoor;
 import vooga.scroller.sprites.interfaces.IEnemy;
 import vooga.scroller.sprites.interfaces.IPlatform;
+import vooga.scroller.sprites.superclasses.GameCharacter;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.Direction;
 
@@ -25,7 +27,7 @@ public class VisitMethods {
     private CollisionDirection direction = new CollisionDirection();
 
 
-    public void visit (MrFish player, IPlatform platform) {
+    public void visit (GameCharacter player, IPlatform platform) {
         Direction collisionType = direction.collisionDirection(player, platform);
         System.err.println("HIT");
         if (collisionType == null) return;
@@ -80,4 +82,10 @@ public class VisitMethods {
     public void visit (Player player, IDoor levelPortal) {
         levelPortal.goToNextLevel(player);
     }
+    
+    public void visit (Fireball fire, IEnemy enemy){
+        enemy.takeHit(fire.getHit());
+    }
+    
+
 }

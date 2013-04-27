@@ -48,7 +48,7 @@ public class TrackPlayer implements Movement {
      */
     public void execute () {
         if (Vector.distanceBetween(myPredator.getCenter(), myTarget.getCenter()) < (double) myRadius) {
-            myPredator.setVelocity(Vector.angleBetween(myPredator.getCenter(), myTarget.getCenter()), mySpeed); 
+            myPredator.setVelocity(Vector.angleBetween(myPredator.getCenter(), myTarget.getCenter()), mySpeed*-1); 
         }
     }
 

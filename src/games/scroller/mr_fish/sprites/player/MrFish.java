@@ -1,6 +1,7 @@
 package games.scroller.mr_fish.sprites.player;
 
 import games.scroller.mr_fish.sprites.FishLib;
+import games.scroller.mr_fish.sprites.FishLib.Fireball;
 import games.scroller.mr_fish.sprites.items.Item;
 import games.scroller.mr_fish.sprites.player.states.InventoryState;
 import games.scroller.mr_fish.sprites.player.states.TiltDown;
@@ -13,6 +14,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import util.Location;
 import util.ValueText;
+import util.Vector;
 import util.input.InputClassTarget;
 import util.input.InputMethodTarget;
 import vooga.scroller.scrollingmanager.ScrollingManager;
@@ -21,6 +23,7 @@ import vooga.scroller.sprites.animation.movement.MoveLeft;
 import vooga.scroller.sprites.animation.movement.MoveRight;
 import vooga.scroller.sprites.animation.movement.MoveUp;
 import vooga.scroller.sprites.state.DefaultSpriteState;
+import vooga.scroller.sprites.superclasses.GameCharacter;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.statistics.Statistic;
 import vooga.scroller.util.ISpriteView;
@@ -48,6 +51,10 @@ public class MrFish extends Player {
     private static final double RATE_ROTATION = 2.0;
     private static final Point2D SCORE_LOCATION = new Location(100, 30);
     private static final Color SCORE_COLOR = Color.BLACK;
+    private static final String HEALTH_STRING = "HEALTH";
+    private static final Color HEALTH_COLOR = Color.CYAN;
+    private static final Point2D HEALTH_LOCATION = new Location(300, 30);
+    private static final double FIRE_SPEED = 50;
     
     
     
@@ -56,6 +63,7 @@ public class MrFish extends Player {
     private Statistic myMoney;
     
     private ValueText myScoreHeader;
+    private ValueText myHealthHeader;
     
     
     public MrFish (Location center, GameView gameView, ScrollingManager sm) {
@@ -65,6 +73,7 @@ public class MrFish extends Player {
         myInventory = new Inventory(this);
         
         myScoreHeader = new ValueText(myScore.getName(), myScore.getAggregateValue());
+        myHealthHeader = new ValueText(HEALTH_STRING, this.getHealth());
 
         initializePossibleStates();
     }
@@ -86,13 +95,16 @@ public class MrFish extends Player {
     
     public void update (double elapsedTime, Dimension bounds) {
         super.update(elapsedTime, bounds);
+        myHealthHeader.resetValue();
+        myHealthHeader.updateValue(this.getHealth());
         
     }
 
     @Override
     public void paint(Graphics2D pen){
         super.paint(pen);
-        myScoreHeader.paint(pen, SCORE_LOCATION, SCORE_COLOR);      
+        myScoreHeader.paint(pen, SCORE_LOCATION, SCORE_COLOR);    
+        myHealthHeader.paint(pen, HEALTH_LOCATION, HEALTH_COLOR);
     }
     
     @Override
@@ -101,10 +113,12 @@ public class MrFish extends Player {
     }
 
     @Override
-    public void handleDeath () {
+    public void handleDeath (vooga.scroller.level_editor.Level level) {
         // lose all money
         myMoney.removeValue(myMoney.getAggregateValue());
         myScore.removeValue(DEATH_PENALTY);
+        
+        this.reset();
     }
 
     
@@ -153,6 +167,18 @@ public class MrFish extends Player {
     @InputMethodTarget(name = "rightend")
     public void stopRight() {
         this.deactivateState(MoveRight.STATE_ID);
+    }
+    
+    @InputMethodTarget(name = "fire")
+    public void fire(){
+        
+        GameCharacter fireball = new Fireball(this.getCenter());
+        Vector velocity = new Vector(this.getVelocity());
+        velocity.setMagnitude(FIRE_SPEED);
+        fireball.setVelocity(velocity);
+        
+        
+        this.getLevel().addSprite(fireball);
     }
 
     public void incrementScore (int value) {

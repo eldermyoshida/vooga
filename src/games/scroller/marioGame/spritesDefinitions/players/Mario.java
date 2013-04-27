@@ -5,6 +5,7 @@ import util.Location;
 import util.Vector;
 import util.input.InputClassTarget;
 import util.input.InputMethodTarget;
+import vooga.scroller.level_editor.Level;
 import vooga.scroller.level_management.IInputListener;
 import vooga.scroller.marioGame.spritesDefinitions.MarioLib;
 import vooga.scroller.scrollingmanager.ScrollingManager;
@@ -99,7 +100,7 @@ public class Mario extends Player implements IInputListener{
     }
 
     @Override
-    public void handleDeath () {
+    public void handleDeath (Level level) {
         
         
     }

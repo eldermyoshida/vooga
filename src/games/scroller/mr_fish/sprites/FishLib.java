@@ -3,14 +3,20 @@ package games.scroller.mr_fish.sprites;
 import games.scroller.mr_fish.sprites.items.Item;
 import games.scroller.mr_fish.sprites.player.MrFish;
 import java.awt.Dimension;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Random;
 import util.Location;
+import vooga.scroller.level_editor.Level;
 import vooga.scroller.level_editor.library.EncapsulatedSpriteLibrary;
 import vooga.scroller.level_management.LevelPortal;
 import vooga.scroller.sprites.Sprite;
 import vooga.scroller.sprites.interfaces.ICollectible;
 import vooga.scroller.sprites.interfaces.IEnemy;
 import vooga.scroller.sprites.interfaces.IPlatform;
+import vooga.scroller.sprites.interfaces.Locatable;
+import vooga.scroller.sprites.movement.TrackPlayer;
 import vooga.scroller.sprites.superclasses.GameCharacter;
 import vooga.scroller.util.ISpriteView;
 import vooga.scroller.util.Pixmap;
@@ -19,6 +25,8 @@ public class FishLib extends EncapsulatedSpriteLibrary {
 
     public static final String IMAGE_LOCATION = "/games/scroller/mr_fish/images/";
     public static final Location DEFAULT_CENTER = new Location(0,0);
+    private static Random myRandom = new Random();
+    
     
     public static class Krill extends Item implements ICollectible {
 
@@ -50,12 +58,34 @@ public class FishLib extends EncapsulatedSpriteLibrary {
         private static final Pixmap DEFAULT_IMG = makePixmap(IMAGE_LOCATION,"treasure_chest.gif");
         private static final Dimension DEFAULT_SIZE = new Dimension(64, 32);
         
+        private List<Item> myItems;
+        
         public TreasureChest(){
             this(DEFAULT_CENTER);
+
         }
         
+        
+        
+        private void addItems () {
+            
+            for(int i = 0; i < 50; ++i){
+                //myItems.add(new TreasureChest());
+                myItems.add(new Krill());
+                myItems.add(new HushPuppies());
+            }
+            
+            myItems.add(new JamesCameron());
+            
+        }
+
+
+
         public TreasureChest (Location center) {
             super(DEFAULT_IMG, center, DEFAULT_SIZE);
+            myItems = new ArrayList<Item>();
+            addItems();
+            myRandom = new Random();
         }
 
 
@@ -68,8 +98,13 @@ public class FishLib extends EncapsulatedSpriteLibrary {
 
         @Override
         public void useItem (MrFish p) {
-            // TODO Auto-generated method stub
+            p.addItem(getRandomItem());
             
+        }
+
+        private Item getRandomItem () {
+            int index = myRandom.nextInt(myItems.size());
+            return myItems.get(index);
         }
         
     }
@@ -78,6 +113,8 @@ public class FishLib extends EncapsulatedSpriteLibrary {
         
         private static final Pixmap DEFAULT_IMG = makePixmap(IMAGE_LOCATION,"hush_puppies.png");
         private static final Dimension DEFAULT_SIZE = new Dimension(64, 32);
+        
+        private static final int HEALTH_MULTIPLIER = 10;
         
         public HushPuppies(){
             this(DEFAULT_CENTER);
@@ -95,15 +132,16 @@ public class FishLib extends EncapsulatedSpriteLibrary {
         }
         @Override
         public void useItem (MrFish p) {
-            // TODO Auto-generated method stub
-            
-        }
+            double multiplier = Math.pow(myRandom.nextGaussian()-.5, 2);
+            p.takeHit((int)(HEALTH_MULTIPLIER*multiplier));
+            }
 
     }
     
     public static class JamesCameron extends Item implements ICollectible {
         private static final Pixmap DEFAULT_IMG = makePixmap(IMAGE_LOCATION,"james_cameron.png");
         private static final Dimension DEFAULT_SIZE = new Dimension(64, 84);
+        private static final int SCORE = 1000;
         
         public JamesCameron(){
             this(DEFAULT_CENTER);
@@ -121,7 +159,7 @@ public class FishLib extends EncapsulatedSpriteLibrary {
         }
         @Override
         public void useItem (MrFish p) {
-            // TODO Auto-generated method stub
+            p.incrementScore(SCORE);
             
         }
 
@@ -132,6 +170,11 @@ public class FishLib extends EncapsulatedSpriteLibrary {
         private static final Dimension DEFAULT_SIZE = new Dimension(64, 32);
         private static final int DEFAULT_HEALTH = 10;
         private static final int DEFAULT_DAMAGE = 7;
+        private static final int SPEED = 30;
+        private static final int RADIUS = 300;
+        
+        private TrackPlayer movement = new TrackPlayer(this, getLocatable(), SPEED, RADIUS);
+
         
         public Shark(){
             this(DEFAULT_CENTER);
@@ -147,10 +190,22 @@ public class FishLib extends EncapsulatedSpriteLibrary {
             
         }
 
+        public void update (double elapsedTime, Dimension bounds) {
+            movement.execute();
+            super.update(elapsedTime, bounds);
+        }
+
+        
+        
         @Override
-        public void handleDeath () {
-            // TODO Auto-generated method stub
-            
+        public void handleDeath (Level level) {
+            level.addSprite(new TreasureChest(this.getCenter()));            
+        }
+        
+        @Override
+        public void addTarget(Locatable target){
+            super.addTarget(target);
+            movement.setTarget(target);
         }
         
     }
@@ -177,8 +232,8 @@ public class FishLib extends EncapsulatedSpriteLibrary {
         }
 
         @Override
-        public void handleDeath () {
-            // TODO Auto-generated method stub
+        public void handleDeath (Level level) {
+            level.addSprite(new HushPuppies(this.getCenter()));
             
         }
         
@@ -249,6 +304,40 @@ public class FishLib extends EncapsulatedSpriteLibrary {
         public Dimension initSize () {
             // TODO Auto-generated method stub
             return DEFAULT_SIZE;
+        }
+        
+    }
+    
+    public static class Fireball extends GameCharacter {
+
+        private static final Pixmap DEFAULT_IMGAGE = makePixmap(IMAGE_LOCATION,"fireball.png");
+        private static final Dimension DEFAULT_SIZE = new Dimension(15, 15);
+        
+        private static final int DEFAULT_HEALTH = 1;
+        private static final int DEFAULT_DAMAGE = 3;
+        private static final int MAX_TIME = 50;
+        
+        
+        private int myTime;
+        
+        public Fireball (Location center) {
+            super(DEFAULT_IMGAGE, center, DEFAULT_SIZE, DEFAULT_HEALTH, DEFAULT_DAMAGE);
+            myTime = 0;
+        }
+
+        @Override
+        public void update (double elapsedTime, Dimension bounds) {
+            super.update(elapsedTime, bounds);
+            myTime += 1;
+            if(myTime >= MAX_TIME){
+                this.setHealth(0);
+            }
+        }
+        
+        @Override
+        public void handleDeath (Level level) {
+            
+            
         }
         
     }

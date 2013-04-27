@@ -101,18 +101,19 @@ public class SpriteManager {
             myPlayer.update(elapsedTime, bounds);
             checkPlayerOutOfBounds();
             if (myPlayer.getHealth() <= 0) {
-                myPlayer.handleDeath();
+                myPlayer.handleDeath(myLevel);
             }
             for (Sprite s : myFrameOfActionSprites) {
                 s.update(elapsedTime, bounds);
                 if (s instanceof GameCharacter) {
                     if (((GameCharacter) s).getHealth() <= 0) {
                         this.removeSprite(s);
+                        ((GameCharacter) s).handleDeath(myLevel);
                     }
                 }
             }
             if (myPlayer.getHealth() <= 0) {
-                myPlayer.handleDeath();
+                myPlayer.handleDeath(myLevel);
             }
             intersectingSprites();
         }

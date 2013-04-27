@@ -19,7 +19,7 @@ public abstract class Item extends GameCharacter {
     }
 
     @Override
-    public void handleDeath () {
+    public void handleDeath (vooga.scroller.level_editor.Level level) {
         // TODO Auto-generated method stub
 
     }

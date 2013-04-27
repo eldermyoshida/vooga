@@ -82,6 +82,7 @@ public class LevelManager {
             Player p = myCurrentLevel.getPlayer();
             myCurrentLevel = level;
             myCurrentLevel.addPlayer(p);
+            p.setLevel(myCurrentLevel);
         }
         else{
             myCurrentLevel = level;
