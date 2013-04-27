@@ -131,9 +131,6 @@ public class GameView extends JComponent implements Renderer<Gaming>{
             }
         });
         // start animation
-        if (myGame==null) {
-//            setModel(new Model(this, myScrollManager));//TODO - make a default model?
-        }
         myScrollManager.initModel(myGame);
         timer.start();
     }
