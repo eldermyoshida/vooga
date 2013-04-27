@@ -2,7 +2,11 @@ package util.logger;
 
 import java.util.logging.Level;
 
-
+/**
+ * Class used for testing the logger
+ * @author Henrique Moraes
+ *
+ */
 public class LoggerTest {
     public static void main (String[] args) {
         LoggerManager log = new LoggerManager();
