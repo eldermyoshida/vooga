@@ -53,10 +53,7 @@ public class Unit extends InteractiveEntity {
     public static Sound DEFAULT_SOUND = null;
     public static int DEFAULT_PLAYERID = 1;
     public static int DEFAULT_HEALTH = 100;
-    
-
-    private GatherStrategy myGatherStrategy;
-    
+        
     public Unit () {
         this(DEFAULT_IMAGE, DEFAULT_LOCATION, DEFAULT_SIZE, DEFAULT_SOUND, DEFAULT_PLAYERID, DEFAULT_HEALTH, InteractiveEntity.DEFAULT_BUILD_TIME, InteractiveEntity.DEFAULT_SPEED);
         Information i = new Information("Marine", "I fear no darkness. I was born in it", null, "buttons/marine.png");
@@ -90,7 +87,6 @@ public class Unit extends InteractiveEntity {
                  double buildTime,
                  int speed) {
         super(image, center, size, sound, playerID, health, buildTime);
-        myGatherStrategy = new CannotGather();
         setSpeed(speed);
         addActions();
     }
@@ -157,47 +153,6 @@ public class Unit extends InteractiveEntity {
     	return copyUnit;
     }
 
-	/**
-	 * Sets the amount that the worker can gather at a time.
-	 * 
-	 * @param gatherAmount
-	 *            is the amount that the worker can gather
-	 */
-	public void setGatherAmount(int gatherAmount) {
-		myGatherStrategy.setGatherAmount(gatherAmount);
-		myGatherStrategy = new CanGather(CanGather.DEFAULTCOOL,
-				myGatherStrategy.getGatherAmount());
-	}
 	
-	public void setGatherStrategy(GatherStrategy gatherStrategy) {
-		myGatherStrategy = gatherStrategy;
-	}
 	
-	public GatherStrategy getGatherStrategy() {
-		return myGatherStrategy;
-	}
-	
-	//OLD WORKER METHODS. Put here just in case
-	
-	/**
-	 * Another recognize method specific for workers as they can gather
-	 * resources which are not InteractiveEntities
-	 */
-	public void recognize(Resource resource) {
-		gather(resource);
-	}
-
-	/**
-	 * The worker gathers the resource if it can and then resets its gather
-	 * cooldown.
-	 * 
-	 * @param gatherable
-	 *            is the resource being gathered.
-	 */
-	public void gather(IGatherable gatherable) {
-		// shouldnt the cast be to a type Resource?
-		if (this.collidesWith((GameEntity) gatherable)) {
-			myGatherStrategy.gatherResource(getPlayerID(), gatherable);
-		}
-	}
 }

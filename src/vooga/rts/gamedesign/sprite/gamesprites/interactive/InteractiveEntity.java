@@ -30,6 +30,7 @@ import vooga.rts.gamedesign.state.AttackingState;
 import vooga.rts.gamedesign.state.UnitState;
 import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
 import vooga.rts.gamedesign.strategy.attackstrategy.CannotAttack;
+import vooga.rts.gamedesign.strategy.gatherstrategy.CanGather;
 import vooga.rts.gamedesign.strategy.gatherstrategy.CannotGather;
 import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
 import vooga.rts.gamedesign.strategy.occupystrategy.CannotBeOccupied;
@@ -72,6 +73,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     private Sound mySound;
     private AttackStrategy myAttackStrategy;
     private ProductionStrategy myProductionStrategy;
+    private GatherStrategy myGatherStrategy;
     private UpgradeStrategy myUpgradeStrategy;
     private OccupyStrategy myOccupyStrategy;
     private int myArmor;
@@ -120,6 +122,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
         myTasks = new ArrayList<DelayedTask>();
         myBuildTime = buildTime;
         myOccupyStrategy = new CannotBeOccupied();
+        myGatherStrategy = new CannotGather();
         myProducables = new ArrayList<InteractiveEntity>();
         myPath = new Path();
         myFinder = new AstarFinder();
@@ -320,6 +323,40 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     public UpgradeStrategy getUpgradeStrategy() {
     	return myUpgradeStrategy;
     }
+    
+    
+	/**
+	 * Sets the amount that the worker can gather at a time.
+	 * 
+	 * @param gatherAmount
+	 *            is the amount that the worker can gather
+	 */
+	public void setGatherAmount(int gatherAmount) {
+		myGatherStrategy.setGatherAmount(gatherAmount);
+		myGatherStrategy = new CanGather(CanGather.DEFAULTCOOL,
+				myGatherStrategy.getGatherAmount());
+	}
+    
+	/**
+	 * The worker gathers the resource if it can and then resets its gather
+	 * cooldown.
+	 * 
+	 * @param gatherable
+	 *            is the resource being gathered.
+	 */
+	public void gather(IGatherable gatherable) {
+		if (this.collidesWith((GameEntity) gatherable)) {
+			myGatherStrategy.gatherResource(getPlayerID(), gatherable);
+		}
+	}
+	
+	public void setGatherStrategy(GatherStrategy gatherStrategy) {
+		myGatherStrategy = gatherStrategy;
+	}
+	
+	public GatherStrategy getGatherStrategy() {
+		return myGatherStrategy;
+	}
 
     /**
      * Sets the production strategy of the entity to CanProduce or

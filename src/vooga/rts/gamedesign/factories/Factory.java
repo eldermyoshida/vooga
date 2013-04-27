@@ -2,6 +2,7 @@ package vooga.rts.gamedesign.factories;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.ObjectInputStream.GetField;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
@@ -31,6 +32,7 @@ import vooga.rts.gamedesign.strategy.upgradestrategy.CanUpgrade;
 import vooga.rts.gamedesign.strategy.upgradestrategy.UpgradeStrategy;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
 import vooga.rts.gamedesign.weapon.Weapon;
+import vooga.rts.util.Location3D;
 
 
 /**
@@ -332,6 +334,7 @@ public class Factory {
 			mySprites.get(key).setProductionStrategy((ProductionStrategy)new CanProduce((Building) mySprites.get(key)));
 			for(String baby: produces){
 				InteractiveEntity producable = mySprites.get(baby);
+				//this should not be new unit
 				(mySprites.get(key).getProductionStrategy()).addProducable(new Unit());
 			}
 		}
@@ -349,9 +352,8 @@ public class Factory {
 			OccupyStrategy occupy = (OccupyStrategy) myStrategies.get(strategies[1]);
 			mySprites.get(key).setOccupyStrategy(occupy);
 			GatherStrategy gather = (GatherStrategy) myStrategies.get(strategies[2]);
-			if (mySprites.get(key) instanceof Unit) {
-				((Unit)mySprites.get(key)).setGatherStrategy(gather);
-			}
+			mySprites.get(key).setGatherStrategy(gather);
+			
 			UpgradeStrategy upgrade = (UpgradeStrategy) myStrategies.get(strategies[3]);
 			mySprites.get(key).setUpgradeStrategy(upgrade);
 			if (upgrade instanceof CanUpgrade) {
