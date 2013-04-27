@@ -45,7 +45,6 @@ public class ViewXMLLoader {
         view.setSize(dimension);
         subElements.remove(DIMENSION_TAG);
         for (String s : subElements.keySet()) {
-            System.out.println(s);
             if (!s.equals(MULTIPLE_SCREEN_PANEL_TAG)) {
                 Element element = subElements.get(s);
                 JPanel screen = getScreen(view, element, controller);
@@ -98,7 +97,6 @@ public class ViewXMLLoader {
         Constructor cons = constructors[0];
         JPanel screen = (JPanel) cons.newInstance(dimension, controller);
         if (myXMLTool.getTagName(element).equals(MAPSCREEN_TAG)) {
-            System.out.println("setting map screen in View XML Loader to " + screen);
             view.setMapScreen((MapScreen)screen);
         }
         else if (myXMLTool.getTagName(element).equals(SHOPSCREEN_TAG)) {

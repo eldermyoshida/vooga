@@ -155,9 +155,6 @@ public class Controller {
 	 * @throws IllegalArgumentException 
 	 */
 	public void setMap(Pixmap mapChoice) throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException {
-	    System.out.println("Setting map in controller");
-	    System.out.println("pixmap map choice is " + mapChoice);
-	    
 	    addMapAndLoadGame(myAvailableMaps.get(mapChoice));
 	    setView();
 	    myView.showScreen();
@@ -191,7 +188,6 @@ public class Controller {
 //	        levels.add(level);
 //	        List<Rule> rules = new ArrayList<Rule>();
 	        
-	        System.out.println("setting model");
 	        List<GameElementFactory> factories = myGameLoader.loadElements(map);
 	        myModel = new GameModel(this, map, new Shop(map,factories));
                 myModel.setRules(myGameLoader.loadRules(myModel));
@@ -240,8 +236,7 @@ public class Controller {
 	 * updates the display on the MapScreen.
 	 */
 	public void displayMap() {
-	    System.out.println(myView.getMapScreen());
-		myView.getMapScreen().update();
+	    myView.getMapScreen().update();
 	}
 
 	/**
