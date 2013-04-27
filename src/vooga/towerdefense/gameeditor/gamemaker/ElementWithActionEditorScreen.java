@@ -21,8 +21,8 @@ import vooga.towerdefense.factories.ActionAnnotation;
 
 
 /**
- * GameElementEditorScreen is the super class for helping
- * the game developer make game elements.
+ * ElementWithActionEditorScreen is the super class for helping
+ * the game developer make elements that have actions in them.
  * 
  * @author Angelica Schwartz
  */
@@ -345,9 +345,7 @@ public abstract class ElementWithActionEditorScreen extends GameEditorScreen {
      * @return
      */
     private String addAction() {
-        List<String> valuesToPromptFor;
         try {
-            //valuesToPromptFor = getController().getParametersForAction(myActionPath + "." + myActionsBox.getSelectedItem().toString());
             Class c = Class.forName(myActionPath + "." + myActionsBox.getSelectedItem().toString()+"Factory");
             Constructor[] constructors = c.getConstructors();
             Annotation[][] annotations = constructors[0].getParameterAnnotations();
