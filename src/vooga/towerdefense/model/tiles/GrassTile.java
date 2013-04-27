@@ -9,11 +9,12 @@ import vooga.towerdefense.model.Tile;
  * A grass tile.
  * 
  * @author Erick Gonzalez
+ * @author Leonard K. Ng'eno
  */
 public class GrassTile extends Tile {
     private static final String NAME = "grass_tile.png";
-    private static final String TILE_IMAGES_CLASS_PATH = "vooga/towerdefense/images/map";
-    private static final Pixmap PIXMAP = new Pixmap("/" + TILE_IMAGES_CLASS_PATH + "/" + NAME); 
+    private static final String TILE_IMAGES_CLASS_PATH = "/vooga/towerdefense/images/map/";
+    private static final Pixmap PIXMAP = new Pixmap(TILE_IMAGES_CLASS_PATH + NAME); 
     private static final int ID = 0;
     
     /**

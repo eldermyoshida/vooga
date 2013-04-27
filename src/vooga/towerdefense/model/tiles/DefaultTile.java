@@ -10,11 +10,12 @@ import vooga.towerdefense.model.Tile;
  * A blank tile.
  * 
  * @author Jimmy Longley
+ * @author Leonard K. Ng'eno
  */
 public class DefaultTile extends Tile {
     private static final String NAME = "blank_tile.png";
-    private static final String TILE_IMAGES_CLASS_PATH = "vooga/towerdefense/images/map";
-    private static final Pixmap PIXMAP = new Pixmap("/" + TILE_IMAGES_CLASS_PATH + "/" + NAME); 
+    private static final String TILE_IMAGES_CLASS_PATH = "/vooga/towerdefense/images/map/";
+    private static final Pixmap PIXMAP = new Pixmap(TILE_IMAGES_CLASS_PATH + NAME); 
     private static final int ID = 2;
     /**
      * 
