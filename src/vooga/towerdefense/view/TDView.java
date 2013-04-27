@@ -29,7 +29,6 @@ public class TDView {
     // TODO: read these names from the file
     private static final String TITLE_KEYWORD = "GameTitle";
     private static final String NEXT_BUTTON_KEYWORD = "NextButtonName";
-    private static final Dimension SIZE = new Dimension(1100, 800);
     private static final Dimension MAP_SELECTOR_SCREEN_SIZE = new Dimension(800, 600);
     private static final Dimension SPLASH_SCREEN_SIZE = new Dimension(800, 600);
     private JPanel myPanel;
@@ -53,7 +52,6 @@ public class TDView {
         myFrame = new JFrame(myController.getStringFromResources(TITLE_KEYWORD));
         myPanel = new JPanel();
         myFrame.setContentPane(myPanel);
-        myFrame.setPreferredSize(SIZE);
         myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     
