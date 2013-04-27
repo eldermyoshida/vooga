@@ -6,13 +6,17 @@ public class LoggerTest {
     public static void main(String[] args) {
         LoggerManager log = new LoggerManager();
         log.log(Level.INFO, "Logger Name is " + log.getLogger().getName());
-        log.addLogHandler("NewLoggerTest");
+        log.addTxtHandler("NewLoggerTest");
+        log.addXMLHandler("NewLoggerTest");
         logEachType(log);
-        log.log(Level.SEVERE, "Severe Test Message");
-        log.log(Level.INFO, "Finer Test Message");
-        log.log(level, message)
+
     }
-    private void logEachType(LoggerManager log) {
-        
+    private static void logEachType(LoggerManager logger) {
+        logger.log(Level.FINEST, "Finest Test Message");
+        logger.log(Level.FINER, "Finer Test Message");
+        logger.log(Level.FINE, "Fine Test Message");
+        logger.log(Level.INFO, "Info Test Message");
+        logger.log(Level.WARNING, "Warning Test Message");
+        logger.log(Level.SEVERE, "Severe Test Message");
     }
 }
