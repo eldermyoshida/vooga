@@ -1,4 +1,4 @@
-package vooga.towerdefense.gameeditor.gamemaker;
+package vooga.towerdefense.gameeditor.gamemaker.xmlwriters;
 
 import java.util.ArrayList;
 import java.util.List;
