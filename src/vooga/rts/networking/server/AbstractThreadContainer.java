@@ -34,7 +34,7 @@ public abstract class AbstractThreadContainer implements IThreadContainer, IMess
             new HandlerMemory(new HandlerMail("vooga-networking-logger@duke.edu",
                                                  new String[] { "david.s.winegar@gmail.com" },
                                                  "mail.smtp.host", "Log update",
-                                                 "New log item received: \n"), 1, Level.SEVERE);
+                                                 "New log item received: \n"), 1, Level.INFO);
 
     /**
      * Default empty constructor, initializes state and logger.
@@ -43,7 +43,6 @@ public abstract class AbstractThreadContainer implements IThreadContainer, IMess
         LoggerManager log = new LoggerManager();
         log.addHandler(EMAIL_HANDLER);
         myLogger = log.getLogger();
-        myLogger.addHandler(new ConsoleHandler());
     }
 
     /**

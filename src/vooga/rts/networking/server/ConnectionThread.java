@@ -6,7 +6,6 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import util.logger.LoggerManager;
 import vooga.rts.networking.NetworkBundle;
 import vooga.rts.networking.communications.Message;
 import vooga.rts.networking.communications.clientmessages.InitialConnectionMessage;
@@ -37,12 +36,11 @@ public class ConnectionThread extends Thread {
      * @param socket socket used for establishing the connection
      * @param id number of connection
      */
-    ConnectionThread (Socket socket, IMessageReceiver server, int id) {
+    ConnectionThread (Socket socket, IMessageReceiver server, int id, Logger logger) {
         mySocket = socket;
         myMessageServer = server;
         myID = id;
-        LoggerManager log = new LoggerManager();
-        myLogger = log.getLogger();
+        myLogger = logger;
 
         try {
             myInput = new ObjectInputStream(mySocket.getInputStream());
@@ -148,12 +146,12 @@ public class ConnectionThread extends Thread {
             myOutput.writeObject(m);
             myLogger.log(Level.FINEST,
                          NetworkBundle.getString("MessageSent") +
-                                 m.getClass().toString());
+                                 m.getClass().getSimpleName());
         }
         catch (IOException e) {
             myLogger.log(Level.FINE,
                          NetworkBundle.getString("MessageFailed") +
-                                 m.getClass().toString());
+                                 m.getClass().getSimpleName());
         }
     }
 

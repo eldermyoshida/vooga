@@ -22,7 +22,7 @@ public class ConnectionServer extends Thread {
     private int myConnectionID = 0;
     private MatchmakerServer myMatchServer;
     private boolean myIsServerAcceptingConnections = false;
-    private Logger myLogger = Logger.getLogger(getClass().getName());
+    private Logger myLogger;
 
     /**
      * Creates a connection server that sends connections to the MatchmakerServer specified.
@@ -32,6 +32,8 @@ public class ConnectionServer extends Thread {
     public ConnectionServer (MatchmakerServer matchServer) {
         myMatchServer = matchServer;
         LoggerManager log = new LoggerManager();
+        log.addHandler(AbstractThreadContainer.EMAIL_HANDLER);
+        log.addTxtHandler(getClass().getSimpleName() + PORT);
         myLogger = log.getLogger();
     }
 
@@ -43,13 +45,14 @@ public class ConnectionServer extends Thread {
         myIsServerAcceptingConnections = true;
         ServerSocket serverSocket = null;
 
+        myLogger.log(Level.INFO, NetworkBundle.getString("ConnectionServerStarted") + PORT);
         while (myIsServerAcceptingConnections) {
             try {
                 serverSocket = new ServerSocket(PORT);
 
                 Socket socket = serverSocket.accept();
                 ConnectionThread thread =
-                        new ConnectionThread(socket, myMatchServer, myConnectionID);
+                        new ConnectionThread(socket, myMatchServer, myConnectionID, myLogger);
                 myConnectionID++;
                 thread.start();
                 myMatchServer.addConnection(thread);

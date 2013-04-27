@@ -3,9 +3,7 @@ package vooga.rts.networking.server;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import util.logger.HandlerTxt;
-import util.logger.LoggerManager;
 import vooga.rts.networking.NetworkBundle;
 
 
@@ -25,7 +23,7 @@ public class MatchmakerServer extends AbstractThreadContainer {
      * Initializes overall server hierarchy.
      */
     public MatchmakerServer () {
-        getLogger().addHandler(new HandlerTxt().getHandler());
+        getLogger().addHandler(new HandlerTxt("matchmaker").getHandler());
         getLogger().log(Level.INFO, NetworkBundle.getString("ServerStarted"));
     }
 
