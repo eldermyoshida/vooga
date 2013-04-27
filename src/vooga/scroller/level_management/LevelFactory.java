@@ -39,13 +39,14 @@ public class LevelFactory {
         myView = gameView;
     }
     
-    private Level buildLevel (int id, LEGrid grid) {
-        return buildLevel(id, mySM, grid);
-    }
 
     public static Level buildLevel (int id, ScrollingManager sm, LEGrid grid) {
         Level result = new Level(id, sm, grid);
         return result;
+    }
+    
+    private Level buildLevel (int id, LEGrid grid) {
+        return buildLevel(id, mySM, grid);
     }
 
     /**
@@ -85,7 +86,6 @@ public class LevelFactory {
         LEGrid result = (new LevelParser()).makeGridFromFile(f);
         return result;
     }
-
     
     public static Level[] generateLevels (ScrollingManager sm, String[] levelFileNames) {
         Level[] levels = new Level[levelFileNames.length];

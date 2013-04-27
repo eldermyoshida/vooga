@@ -53,7 +53,15 @@ public class Model {
         myLevelManager = initializeLevelManager(splashPage, player, levels);
     }
     
-    
+
+    /**
+     * TODO -...
+     * @param gameView
+     * @param sm
+     * @param player
+     * @param splashPage
+     * @param levelFileNames
+     */
     public Model (GameView gameView, ScrollingManager sm, Player player, SplashPage splashPage, String... levelFileNames) {
         this(gameView, sm, player);
         myLevelManager = initializeLevelManager(splashPage, player, levelFileNames);
