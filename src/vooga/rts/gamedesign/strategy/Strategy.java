@@ -1,5 +1,7 @@
 package vooga.rts.gamedesign.strategy;
 
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
+
 
 /**
  * This interface acts as the common interface for all strategies.
@@ -15,6 +17,6 @@ public interface Strategy {
 	 * 
 	 * @return a copy of the strategy
 	 */
-	public Strategy copy();
+	public Strategy affect(InteractiveEntity entity);
 
 }

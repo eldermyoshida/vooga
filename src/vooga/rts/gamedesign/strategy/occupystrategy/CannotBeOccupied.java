@@ -6,6 +6,7 @@ import vooga.rts.action.InteractiveAction;
 import vooga.rts.commands.Command;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
+import vooga.rts.gamedesign.strategy.Strategy;
 
 
 /**
@@ -50,10 +51,12 @@ public class CannotBeOccupied implements OccupyStrategy{
 		
 	}
 
-	@Override
 	public void getOccupied(InteractiveEntity entity, Unit u) {
-		// TODO Auto-generated method stub
-		
+		return;
+	}
+
+	public Strategy affect(InteractiveEntity entity) {
+		return new CannotBeOccupied();
 	}
 
 

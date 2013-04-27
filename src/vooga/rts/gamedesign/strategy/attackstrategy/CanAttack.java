@@ -131,4 +131,10 @@ public class CanAttack implements AttackStrategy {
     	return true;
     }
 
+	@Override
+	public Strategy affect(InteractiveEntity entity) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

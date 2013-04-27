@@ -1,6 +1,8 @@
 package vooga.rts.gamedesign.strategy.gatherstrategy;
 
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.IGatherable;
+import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
+import vooga.rts.gamedesign.strategy.Strategy;
 
 /**
  * 
@@ -41,6 +43,11 @@ public class CannotGather implements GatherStrategy {
 	@Override
 	public void setGatherAmount(int gatherAmount) {
 		return;
+	}
+
+	@Override
+	public Strategy affect(InteractiveEntity entity) {
+		return new CannotGather();
 	}
 
 }

@@ -5,6 +5,7 @@ import java.util.List;
 
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building;
+import vooga.rts.gamedesign.strategy.Strategy;
 import vooga.rts.util.Location3D;
 
 /**
@@ -25,7 +26,7 @@ import vooga.rts.util.Location3D;
  * @author Wenshun Liu 
  *
  */
-public interface ProductionStrategy {
+public interface ProductionStrategy extends Strategy{
 
 	/** 
 	 *  requires a timer for cooldown for production 
