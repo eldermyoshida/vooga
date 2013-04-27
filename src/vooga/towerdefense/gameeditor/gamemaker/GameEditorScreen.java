@@ -9,7 +9,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 
 /**
@@ -21,7 +20,7 @@ import javax.swing.JTextField;
  */
 public abstract class GameEditorScreen extends JPanel {
 
-    private static final int TEXT_FIELD_WIDTH = 20;
+    public static final int TEXT_FIELD_WIDTH = 20;
     private static final long serialVersionUID = 1L;
     private static final String ADD_BUTTON_TEXT = "Add to game";
     private static final String FINISH_BUTTON_TEXT = "Next section";

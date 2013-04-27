@@ -54,7 +54,7 @@ public class SpawnGameElementsWithoutInitiator extends Action {
 
     private void spawnGameElements () {
         GameElement gameElement = getNextGameElement();
-        myGameMap.addToMap(gameElement, mySpawnTile);
+        myGameMap.addToMap(gameElement);
 
     }
 

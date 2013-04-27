@@ -10,13 +10,15 @@ import java.lang.reflect.InvocationTargetException;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 
 /**
  * StartUpScreen starts the GameEditor for the
- * game developer.
+ * game developer. The game developer has to provide 
+ * a name for the game.
  * 
  * @author Angelica Schwartz
  * @author Leonard K. Ng'eno
@@ -24,12 +26,13 @@ import javax.swing.JTextField;
 public class StartUpScreen extends JPanel {
 
     private static final long serialVersionUID = 1L;
+    private static final String MESSAGE = "PLEASE ENTER NAME AND CONFIRM!";
     private static final String WELCOME_KEYWORD = "WELCOME TO GAME EDITOR";
     private static final String START_KEYWORD = "START";
     private static final String NEXT_SCREEN_NAME = "vooga.towerdefense.gameeditor.gamemaker.ViewEditorScreen";
     private static final String GAME_NAME_TEXT = "Game Name: ";
     private static final String SELECT_NAME_TEXT = "Confirm this as Game Name";
-    private static final int TEXT_FIELD_WIDTH = 20;
+    private boolean myConfirmation;
     private JButton myStartButton;
     private JButton myGameNameConfirmation;
     private JTextField myGameName;
@@ -37,7 +40,7 @@ public class StartUpScreen extends JPanel {
     private GameEditorController myController;
 
     /**
-     * Constructor.
+     * Class Constructor.
      * 
      * @param size
      * @param controller
@@ -52,6 +55,7 @@ public class StartUpScreen extends JPanel {
         this.add(makeLabel(), BorderLayout.NORTH);
         this.add(makeStartButton(), BorderLayout.SOUTH);
         this.add(makeGameNamingSection(), BorderLayout.CENTER);
+        myConfirmation = false;
     }
 
     /**
@@ -79,10 +83,14 @@ public class StartUpScreen extends JPanel {
         return panel;
     }
     
+    /**
+     * Make a text field area
+     * @return  Text field component where name of game is entered
+     */
     private JPanel makeGameNamingSection() {
         JPanel panel = new JPanel();
         panel.add(new JLabel(GAME_NAME_TEXT), BorderLayout.NORTH);
-        myGameName = new JTextField(TEXT_FIELD_WIDTH);
+        myGameName = new JTextField(GameEditorScreen.TEXT_FIELD_WIDTH);
         panel.add(myGameName, BorderLayout.CENTER);
         myGameNameConfirmation = new JButton(SELECT_NAME_TEXT);
         myGameNameConfirmation.addMouseListener(myMouseAdapter);
@@ -104,17 +112,38 @@ public class StartUpScreen extends JPanel {
         return panel;
     }
 
+    /**
+     * Shows a dialogue box with message
+     */
+    private void showMessage() {
+        JOptionPane.showMessageDialog(null, MESSAGE);
+    }
+    
+    /**
+     * A mouse adapter to listen for button presses
+     */
     private void makeMouseAdapter () {
         myMouseAdapter = new MouseAdapter() {
             @Override
             public void mouseClicked (MouseEvent e) {
                 if (e.getSource().equals(myGameNameConfirmation)) {
-                    myController.setNameOfGame(myGameName.getText());
+                    if (myGameName.getText().length() == 0) {
+                        showMessage();
+                    }
+                    else {
+                        myConfirmation = true;
+                        myController.setNameOfGame(myGameName.getText());
+                    }
                 }
                 else if (e.getSource().equals(myStartButton)) {
                     try {
-                        setVisible(false);
-                        myController.displayNextScreen(NEXT_SCREEN_NAME);
+                        if (myGameName.getText().length() == 0 || myConfirmation == false) {
+                            showMessage();
+                        }
+                        else {
+                            setVisible(false);
+                            myController.displayNextScreen(NEXT_SCREEN_NAME);
+                        }
                     }
                     catch (ClassNotFoundException e1) {
                         e1.printStackTrace();
