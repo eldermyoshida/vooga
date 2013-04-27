@@ -36,10 +36,10 @@ public interface IDoor {
         
     /**
      * Takes the player to the next level. Ideally this is called when the player interacts
-     * with the door in someway. 
+     * with the door in some way. 
      * 
      * @param player is the player that is taken to the next level.
      */
-    public void goToNextLevel(Player player);
+    public void goToNextLevel();
     
 }
