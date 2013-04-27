@@ -45,21 +45,18 @@ public class GameState extends SubState implements Controller {
     private static final Location3D DEFAULT_SOLDIER_THREE_RELATIVE_LOCATION = new Location3D(300,
                                                                                              0, 0);
     private static final Information DEFAULT_SOLDIER_INFO =
-            new Information("Marine", "I am a soldier of Nunu.", null, "buttons/marine.png");
+            new Information("Marine", "I am a soldier of Nunu.", "buttons/marine.png");
     private static final Location3D DEFAULT_WORKER_RELATIVE_LOCATION = new Location3D(200, 200, 0);
     private static final Information DEFAULT_WORKER_INFO =
             new Information("Worker",
-                            "I am a worker. I am sent down from Denethor, son of Ecthelion ", null,
-                            "images/scv.png");
+                            "I am a worker. I am sent down from Denethor, son of Ecthelion ", "images/scv.png");
     private static final Location3D DEFAULT_PRODUCTION_RELATIVE_LOCATION = new Location3D(000, 500,
                                                                                           0);
     private static final Information DEFAULT_PRODUCTION_INFO =
-            new Information("Barracks", "This is a barracks that can make awesome pies", null,
-                            "buttons/marine.png");
+            new Information("Barracks", "This is a barracks that can make awesome pies", "buttons/marine.png");
     private static final Location3D DEFAULT_OCCUPY_RELATIVE_LOCATION = new Location3D(300, 100, 0);
     private static final Information DEFAULT_OCCUPY_INFO =
-            new Information("Garrison", "This is a garrison that soldiers can occupy", null,
-                            "buttons/marine.png");
+            new Information("Garrison", "This is a garrison that soldiers can occupy", "buttons/marine.png");
 
     private static GameMap myMap;
     private static PlayerManager myPlayers;
@@ -183,6 +180,8 @@ public class GameState extends SubState implements Controller {
         myTasks.add(new DelayedTask(2, new Runnable() {
             @Override
             public void run () {
+            	System.out.println(f.getInfo().getName());
+            	System.out.println(f.getActions());
                 f.getAction((new Command("make Marine"))).apply();
             }
         }, true));

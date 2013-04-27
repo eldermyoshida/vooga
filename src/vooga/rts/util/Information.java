@@ -1,6 +1,7 @@
 package vooga.rts.util;
 
 import java.awt.image.BufferedImage;
+import java.util.HashMap;
 import java.util.Map;
 
 import vooga.rts.resourcemanager.ResourceManager;
@@ -19,10 +20,10 @@ public class Information {
 	private BufferedImage myButtonImage;
 
 	public Information(String name, String description,
-			Map<String, Integer> cost, String buttonImagePath) {
+			String buttonImagePath) {
 		myName = name;
 		myDescription = description;
-		myCost = cost;
+		myCost = new HashMap<String, Integer>();
 		myButtonImage = ResourceManager.getInstance().<BufferedImage> getFile(buttonImagePath, BufferedImage.class);
 	}
 

@@ -82,7 +82,6 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     private Map<String, Information> myInfos;
     private List<DelayedTask> myTasks;
     private double myBuildTime;
-    private List<InteractiveEntity> myProducables;
     private Information myInfo;
     private PathFinder myFinder;
     private Path myPath;
@@ -122,7 +121,6 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
         myTasks = new ArrayList<DelayedTask>();
         myBuildTime = buildTime;
         myOccupyStrategy = new CannotBeOccupied();
-        myProducables = new ArrayList<InteractiveEntity>();
         myPath = new Path();
         myFinder = new AstarFinder();
         setSpeed(DEFAULT_INTERACTIVEENTITY_SPEED);
@@ -198,12 +196,6 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
         return all;
     }
 
-    /**
-     * returns the list of producables
-     */
-    public List<InteractiveEntity> getProducables () {
-        return myProducables;
-    }
 
     /**
      * adds passed in command and info into map
@@ -290,6 +282,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
      * @param toOther
      */
     public void transmitProperties (InteractiveEntity toOther) {
+    	System.out.println(getInfo());
         toOther.setInfo(getInfo());
         for (Strategy s : getStrategies()) {
             s.affect(toOther);
@@ -557,11 +550,12 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
         notifyObservers();
     }
 
-    /*
-     * Test method to add an interactive entity to
+    /**
+     * If this entity can produce, you add the producable to its production strategy. 
+     * @param producable
      */
-    public void addProducable (InteractiveEntity i) {
-        myProducables.add(i);
+    public void addProducable(InteractiveEntity producable) {
+    	myProductionStrategy.addProducable(producable);
     }
 
     /**

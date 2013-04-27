@@ -57,7 +57,7 @@ public class Unit extends InteractiveEntity {
         
     public Unit () {
         this(DEFAULT_IMAGE, DEFAULT_LOCATION, DEFAULT_SIZE, DEFAULT_SOUND, DEFAULT_PLAYERID, DEFAULT_HEALTH, InteractiveEntity.DEFAULT_BUILD_TIME, InteractiveEntity.DEFAULT_SPEED);
-        Information i = new Information("Marine", "I fear no darkness. I was born in it", null, "buttons/marine.png");
+        Information i = new Information("Marine", "I fear no darkness. I was born in it", "buttons/marine.png");
         setInfo(i);
 
     }

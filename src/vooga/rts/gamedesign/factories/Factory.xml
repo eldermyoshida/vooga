@@ -114,7 +114,7 @@
 	</buildings>
 	<units src = "vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit">
 		<unit>
-			<name>combat</name>
+			<name>marine</name>
 			<img>images/sprites/soldier.png</img>
 			<sound>pikachu.wav</sound>
 			<health>100</health>
@@ -126,6 +126,10 @@
 			<upgradeTreeName>SoldierUpgrade</upgradeTreeName>
 			<produce></produce>
 			<myweapons>gun</myweapons>
+			<information>
+				<description>I am a big doo doo</description>
+				<button>buttons/marine.png</button>
+			</information>
 		</unit>
 		<unit>
 			<name>worker</name>
