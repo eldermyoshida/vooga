@@ -118,5 +118,11 @@ public class CanBeOccupied implements OccupyStrategy {
         return myMaxOccupiers;
     }
 
+	@Override
+	public void affect(InteractiveEntity other) {
+		
+		
+	}
+
 
 }
