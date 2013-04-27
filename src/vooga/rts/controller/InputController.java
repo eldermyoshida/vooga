@@ -58,6 +58,7 @@ public class InputController implements Controller {
     @InputMethodTarget(name = "onLeftMouseUp")
     public void onLeftMouseUp (PositionObject o) {
         if (myDrag == null) {
+            System.out.println("Not Dragging");
             sendCommand(new ClickCommand(ClickCommand.LEFT_CLICK, o));
         }
         else {
