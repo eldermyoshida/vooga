@@ -17,14 +17,10 @@ import vooga.rts.networking.communications.LobbyInfo;
  * @author Henrique Moraes
  *
  */
-public class ClientViewAdapter {
-    private ViewContainerPanel myContainerPanel;
+public class ClientViewAdapter extends ViewAdapter{
     private TableContainerView myServerBrowserView;
     private CreateLobbyView myCreateLobbyView;
-    private LobbyView myLobbyView;
     private ServerBrowserTableAdapter myServerBrowserAdapter = new ServerBrowserTableAdapter();
-    private List<String> myFactions;
-    private ClientModel myModel;
 
     /**
      * Constructor for this class.
@@ -35,11 +31,10 @@ public class ClientViewAdapter {
      * @param maxPlayerArray
      */
     public ClientViewAdapter (IModel model,
-                              String gameName, List<String> factions, List<String> maps,
+                              String gameName, List<String> maps,
                               List<Integer> maxPlayerArray) {
-        myModel = (ClientModel) model;
-        myFactions = factions;
-        myContainerPanel = new ViewContainerPanel(gameName);
+        super(model, gameName);
+        
         myServerBrowserView = new TableContainerView(myServerBrowserAdapter);
         myCreateLobbyView = new CreateLobbyView(maps, maxPlayerArray);
         switchToServerBrowserView();

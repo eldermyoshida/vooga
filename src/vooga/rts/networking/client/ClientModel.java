@@ -38,6 +38,7 @@ public class ClientModel extends Observable implements IClientModel, IModel {
     private PlayerInfo myPlayer;
     private NetworkedGame myGame;
     private ClientViewAdapter myViewAdapter;
+    private List<String> myFactions;
 
     /**
      * This is the handler of information needed by all of the views in the process of connecting to
@@ -56,11 +57,12 @@ public class ClientModel extends Observable implements IClientModel, IModel {
                         List<String> maps,
                         List<Integer> maxPlayerArray) {
         myGame = game;
+        myFactions = factions;
         myUserName = userName;
         myClient = new Client(this);
         Message initialConnection = new InitialConnectionMessage(gameName, userName);
         myClient.sendData(initialConnection);
-        myViewAdapter = new ClientViewAdapter(this, gameName, factions, maps, maxPlayerArray);
+        myViewAdapter = new ClientViewAdapter(this, gameName, maps, maxPlayerArray);
     }
 
     @Override
@@ -192,5 +194,13 @@ public class ClientModel extends Observable implements IClientModel, IModel {
      */
     public List<PlayerInfo> getPlayersInfo () {
         return myUserControlledPlayers;
+    }
+    
+    /**
+     * 
+     * @return A list with name of factions of this client view
+     */
+    public List<String> getFactions() {
+        return myFactions;
     }
 }
