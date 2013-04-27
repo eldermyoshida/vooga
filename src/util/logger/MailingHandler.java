@@ -18,6 +18,15 @@ public class MailingHandler extends Handler implements IMail{
 	private String mySubject = "No Subject";
 	private String myMessage;
 	
+	public MailingHandler(){
+	}
+	
+	public MailingHandler (String from, String[] to,
+                               String server, String subject, String message) {
+	    setProperties(from, to,
+	                        server, subject, message);
+	}
+	
 	@Override
 	public void publish(LogRecord record) {
 		MailSender mail = new MailSender(myFromAddress,myToAddress, 

@@ -79,7 +79,8 @@ public class ConnectionThread extends Thread {
             else {
                 // first object is not initial connection message
                 myConnectionActive = false;
-                myMessageServer.removeConnection(this);
+                close();
+                sendMessage(new CloseConnectionMessage());
                 return;
             }
 
@@ -114,6 +115,7 @@ public class ConnectionThread extends Thread {
      * Closes streams and socket of this thread
      */
     public void close () {
+        myMessageServer.removeConnection(this);
         myConnectionActive = false;
         sendMessage(new CloseConnectionMessage());
         try {
