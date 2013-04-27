@@ -8,7 +8,6 @@ import vooga.towerdefense.action.actionlist.LaunchProjectile;
 import vooga.towerdefense.action.RandomChance;
 import vooga.towerdefense.attributes.Attribute;
 import vooga.towerdefense.attributes.AttributeConstants;
-import vooga.towerdefense.attributes.AttributeConstantsEnum;
 import vooga.towerdefense.attributes.AttributeManager;
 import vooga.towerdefense.factories.definitions.ProjectileDefinition;
 import vooga.towerdefense.factories.definitions.TowerDefinition;
