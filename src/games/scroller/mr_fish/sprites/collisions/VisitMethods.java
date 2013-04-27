@@ -1,6 +1,7 @@
 package games.scroller.mr_fish.sprites.collisions;
 
 import games.scroller.mr_fish.sprites.FishLib.Fireball;
+import games.scroller.mr_fish.sprites.FishLib.Shark;
 import games.scroller.mr_fish.sprites.items.Item;
 import games.scroller.mr_fish.sprites.player.MrFish;
 import util.Vector;
@@ -29,7 +30,6 @@ public class VisitMethods {
 
     public void visit (GameCharacter player, IPlatform platform) {
         Direction collisionType = direction.collisionDirection(player, platform);
-        System.err.println("HIT");
         if (collisionType == null) return;
 
         switch (collisionType) {
@@ -73,9 +73,11 @@ public class VisitMethods {
         collectible.setHealth(0);
     }
         
-    public void visit (MrFish fish, IEnemy enemy) {
-            enemy.takeHit(fish.getHit());
+    public void visit (MrFish fish, Shark enemy) {
+            //enemy.takeHit(fish.getHit());
             fish.takeHit(enemy.getHit());
+            fish.setCenter(enemy.getCenter().x + enemy.getWidth(), enemy.getCenter().y + enemy.getHeight());
+            
         
     }
     

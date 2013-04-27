@@ -115,10 +115,11 @@ public class MrFish extends Player {
     @Override
     public void handleDeath (vooga.scroller.level_editor.Level level) {
         // lose all money
-        myMoney.removeValue(myMoney.getAggregateValue());
-        myScore.removeValue(DEATH_PENALTY);
+        //myMoney.removeValue(myMoney.getAggregateValue());
+        //myScore.removeValue(DEATH_PENALTY);
         
-        this.reset();
+        this.setCenter(level.getStartPoint().getX(), level.getStartPoint().getY());
+        this.setHealth(MR_FISH_HEALTH);
     }
 
     
