@@ -21,7 +21,7 @@ public class FollowPathFactory extends ActionFactory{
 	@Override
 	protected Action buildAction(GameElement elementToMove) {
 	    
-		return new FollowPath(elementToMove,getMap().getShortestPath(elementToMove.getCenter(), getMap().getDestination()));
+		return new FollowPath(elementToMove,getMap().getShortestPath(elementToMove.getCenter(), getMap().getEndLocation()));
 		
 	}
 	

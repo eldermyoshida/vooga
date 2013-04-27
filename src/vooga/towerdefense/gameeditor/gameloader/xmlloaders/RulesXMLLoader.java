@@ -5,7 +5,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
 import org.w3c.dom.Element;
+
 import util.XMLTool;
 import vooga.towerdefense.factories.rulefactories.RuleFactory;
 import vooga.towerdefense.model.GameModel;
@@ -46,7 +48,8 @@ public class RulesXMLLoader {
         List<String> constructorParams = getRuleFactoryConstructorParameters(ruleNameElement);
         
         try {
-            Class ruleFactoryClass = Class.forName(myXMLTool.getContent(ruleNameElement));
+        	System.out.println("vooga.towerdefense.factories.rulefactories." + myXMLTool.getTagName(ruleNameElement));
+            Class ruleFactoryClass = Class.forName("vooga.towerdefense.factories.rulefactories." + myXMLTool.getTagName(ruleNameElement)+ "Factory");
             // There only exists one rule constructor
             Constructor c = ruleFactoryClass.getConstructors()[0];
             RuleFactory ruleFactory =
@@ -54,18 +57,23 @@ public class RulesXMLLoader {
             return ruleFactory;
         }
         catch (InstantiationException e) {
+        	System.out.println("1");
             return null;
         }
         catch (IllegalAccessException e) {
+        	System.out.println("2");
             return null;
         }
         catch (IllegalArgumentException e) {
+        	System.out.println("3");
             return null;
         }
         catch (InvocationTargetException e) {
+        	System.out.println("4");
             return null;
         }
         catch (ClassNotFoundException e) {
+        	System.out.println("5");
             return null;
         } 
     }
