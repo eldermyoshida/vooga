@@ -41,14 +41,16 @@ public class RulesXMLLoader {
         return ruleFactories;
     }
 
+    @SuppressWarnings("rawtypes")
     private RuleFactory getRuleFactory (Element ruleNameElement) {
         List<String> constructorParams = getRuleFactoryConstructorParameters(ruleNameElement);
         
         try {
             Class ruleFactoryClass = Class.forName(myXMLTool.getContent(ruleNameElement));
+            // There only exists one rule constructor
             Constructor c = ruleFactoryClass.getConstructors()[0];
             RuleFactory ruleFactory =
-                    (RuleFactory) c.newInstance(constructorParams.toArray(new String[] {}));
+                    (RuleFactory) c.newInstance(constructorParams.toArray());
             return ruleFactory;
         }
         catch (InstantiationException e) {
@@ -69,11 +71,11 @@ public class RulesXMLLoader {
     }
 
     private List<String> getRuleFactoryConstructorParameters (Element ruleNameElement) {
-        Map<String, Element> subElements = myXMLTool.getChildrenElementMap(ruleNameElement);
+        List<Element> subElements = myXMLTool.getChildrenList(ruleNameElement);
 
         List<String> ruleFactoryConstructorParameters = new ArrayList<String>();
-        for (Element e : subElements.values()) {
-            ruleFactoryConstructorParameters.add(getRuleFactoryConstructorParameter(e));
+        for (Element subElement : subElements) {
+            ruleFactoryConstructorParameters.add(getRuleFactoryConstructorParameter(subElement));
         }
 
         return ruleFactoryConstructorParameters;
@@ -82,5 +84,4 @@ public class RulesXMLLoader {
     private String getRuleFactoryConstructorParameter (Element ruleParameterElement) {
         return myXMLTool.getContent(ruleParameterElement);
     }
-
 }

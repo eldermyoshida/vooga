@@ -6,7 +6,6 @@ import java.util.Map;
 import org.w3c.dom.Element;
 import util.XMLTool;
 import vooga.towerdefense.action.Action;
-import vooga.towerdefense.factories.elementfactories.GameElementFactory;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.GameModel;
 import vooga.towerdefense.model.levels.Level;
@@ -25,11 +24,14 @@ public class LevelsXMLLoader {
     }
     
     public List<Level> getLevels(GameModel model, GameMap gameMap) {
-        Map<String, Element> subElements = myXMLTool.getChildrenElementMap(LEVELS_TAG);
-        
+        // TODO: Levels element needs to be passed in here
+        Element levelsElement = myXMLTool.getElement(LEVELS_TAG);
+
         List<Level> levels = new ArrayList<Level>();
-        for (Element e : subElements.values()) {
-            levels.add(getLevel(e, model, gameMap));
+        
+        List<Element> subElements = myXMLTool.getChildrenList(levelsElement);
+        for (Element subElement : subElements) {
+            levels.add(getLevel(subElement, model, gameMap));
         }
         return levels;
     }
