@@ -31,7 +31,7 @@ public class MainState implements State, Observer {
     private final static String DEFAULT_INPUT_LOCATION = "vooga.rts.resources.properties.Input";
     private Window myWindow;
     private Map<SubState, SubState> myStates;
-    
+
     private SubState myActiveState;
     private Timer myTimer;
     private InputController myController;
@@ -39,19 +39,19 @@ public class MainState implements State, Observer {
 
     public MainState () {
         myReady = false;
-        myStates = new HashMap<SubState, SubState>();       
-        
+        myStates = new HashMap<SubState, SubState>();
+
         myWindow = new Window();
         myWindow.setFullscreen(true);
-        LoadingState loader = new LoadingState(this);        
+        LoadingState loader = new LoadingState(this);
         setActiveState(loader);
         render();
-        
-        MenuState menu = new MenuState(this, getWindow().getJFrame());        
+
+        MenuState menu = new MenuState(this, getWindow().getJFrame());
         myStates.put(loader, menu);
         GameState game = new GameState(this);
         myStates.put(menu, game);
-        myStates.put(game, menu);        
+        myStates.put(game, menu);
 
         Input input = new Input(DEFAULT_INPUT_LOCATION, myWindow.getCanvas());
         myController = new InputController(this);
@@ -65,6 +65,7 @@ public class MainState implements State, Observer {
 
     @Override
     public void update (double elapsedTime) {
+        myController.processCommands();
         myActiveState.update(elapsedTime);
     }
 
