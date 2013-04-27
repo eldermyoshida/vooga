@@ -54,7 +54,7 @@ public class GameLoader {
         GameElementXMLLoader loader = new GameElementXMLLoader(myXMLTool);
         //TODO: Fix this
         WaveActionFactory.ourGEFactories = loader.loadGameElementFactories(map);
-        return new ArrayList<GameElementFactory>(gameElements.values());
+        return new ArrayList<GameElementFactory>(WaveActionFactory.ourGEFactories.values());
     }
     
     public List<Level> loadLevels(GameModel model, GameMap gameMap) {

@@ -36,7 +36,7 @@ public class Player {
 		}
 		
 		
-		System.out.println(playerInfo.toString());
+//		System.out.println(playerInfo.toString());
 		return playerInfo.toString();
 	}
 

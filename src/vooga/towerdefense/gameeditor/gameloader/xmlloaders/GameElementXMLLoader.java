@@ -64,9 +64,8 @@ public class GameElementXMLLoader {
     private GameElementFactory loadGameElementFactory (Element gameElement, 
                                                        GameMap map) {
         Map<String, Element> subElementMap = myXMLTool.getChildrenElementMap(gameElement);
-        
         String gameElementName = myXMLTool.getTagName(gameElement);
-        String gameElementType = loadType(myXMLTool.getElement(TYPE_TAG));
+        String gameElementType = loadType(subElementMap.get(TYPE_TAG));
         Pixmap elementImage = loadElementImage(subElementMap.get(IMAGE_TAG));
         Dimension elementDimension = loadDimension(subElementMap.get(DIMENSION_TAG));
         List<AttributeFactory> attributeFactories = 

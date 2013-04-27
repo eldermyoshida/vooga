@@ -15,7 +15,6 @@ public class PathTile extends Tile {
     private static final String NAME = "path_tile.png";
     private static final String TILE_IMAGES_CLASS_PATH = "/vooga/towerdefense/images/map/";
     private static final Pixmap PIXMAP = new Pixmap(TILE_IMAGES_CLASS_PATH + NAME); 
-    private static final int ID = 1;
     
     /**
      * 
@@ -25,7 +24,7 @@ public class PathTile extends Tile {
      * @param size the size of the tile
      */
     public PathTile (Location center, Dimension size) {
-        super(ID, PIXMAP, center, size);
+        super(PIXMAP, center, size);
         setBuildable(false);
         setWalkable(true);
     }
