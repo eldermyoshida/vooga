@@ -54,21 +54,30 @@ public class AttackObjectLoader extends ObjectLoader {
 				NodeList stateNodes = attackNode.getElementsByTagName(getResourceBundle().getString("State"));
 				addStates(stateNodes, myAttack);
 				myAttack.defineDefaultState(getAttributeValue(attackNode, getResourceBundle().getString("Default")));
-				try {
-					addEffects(effects, pathHierarchy);
-				} catch (ClassNotFoundException e) {
-					e.printStackTrace();
-				}
+				addEffects(effects, pathHierarchy);
+			
 			}
 		}
 	}
 	
-	protected void addEffects(NodeList effects, String pathHierarchy) throws ClassNotFoundException{
+	protected void addEffects(NodeList effects, String pathHierarchy){
 		for (int i=0; i<effects.getLength(); i++){
 			Node effect= effects.item(i);
-			String effectPath= getAttributeValue(effect, getResourceBundle().getString("EffectPath"));
+			String effectPath= getResourceBundle().getString("EffectPath");
 			String effectName= getAttributeValue(effect,getResourceBundle().getString("EffectName"));
-			//TODO: Add reflection for effects.  
+			Object effectObject = null;
+			Effect curr = null;
+			try {
+				Class<?> newEffects = null;
+				newEffects = Class.forName("vooga.fighter.model.effects.BurnEffect");
+				//hardcoded for testing should eventually be effectPath+effectName
+				effectObject = newEffects.newInstance();
+				curr = (Effect) effectObject;
+			}
+			catch (Exception e) {
+				throw new NullPointerException("No Such Class");
+			}
+			myAttack.addEffect(curr);
 		}
 	}
 }

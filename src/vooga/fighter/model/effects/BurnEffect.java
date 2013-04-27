@@ -5,6 +5,10 @@ import vooga.fighter.model.objects.CharacterObject;
 import vooga.fighter.model.utils.Effect;
 
 public class BurnEffect extends Effect {
+	
+	public BurnEffect() {
+		
+	}
     
     /**
      * Constructs a burn effect with given duration and damage over time, and null owner.
