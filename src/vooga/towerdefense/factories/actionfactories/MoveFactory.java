@@ -2,7 +2,7 @@ package vooga.towerdefense.factories.actionfactories;
 
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.actionlist.Move;
-import vooga.towerdefense.gameElements.GameElement;
+import vooga.towerdefense.gameelements.GameElement;
 
 /**
  * Factory for creating move action. User needs to specify which attribute to be taken

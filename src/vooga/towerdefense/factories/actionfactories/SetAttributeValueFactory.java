@@ -2,7 +2,7 @@ package vooga.towerdefense.factories.actionfactories;
 
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.actionlist.SetAttributeValue;
-import vooga.towerdefense.gameElements.GameElement;
+import vooga.towerdefense.gameelements.GameElement;
 
 /**
  * factory that creates setAttributeValue action, takes in two Strings: reference and target.
