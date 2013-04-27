@@ -31,8 +31,8 @@ public class ClientViewAdapter {
     private ClientModel myModel;
 
     /**
-     * 
-     * @param model
+     * Constructor for this class.
+     * @param model 
      * @param gameName
      * @param factions
      * @param maps
@@ -50,29 +50,29 @@ public class ClientViewAdapter {
     }
 
     /**
-    * Switches the current View to the ServerBrowser.
-    */
+     * Switches the current View to the ServerBrowser.
+     */
     public void switchToServerBrowserView () {
         myModel.requestLobbies();
         myContainerPanel.changeView(myServerBrowserView, NetworkBundle.getString("ServerBrowser"));
         myContainerPanel.changeLeftButton(NetworkBundle.getString("HostGame"),
                                           new ActionListener() {
-                                              @Override
-                                              public void actionPerformed (ActionEvent arg0) {
-                                                  switchToCreateLobbyView();
-                                              }
-                                          });
+            @Override
+            public void actionPerformed (ActionEvent arg0) {
+                switchToCreateLobbyView();
+            }
+        });
         myContainerPanel.changeRightButton(NetworkBundle.getString("JoinGame"),
                                            new ActionListener() {
-                                               @Override
-                                               public void actionPerformed (ActionEvent arg0) {
-                                                   if (myServerBrowserView.hasSelectedRow()) {
-                                                       myModel.requestJoinLobby(myServerBrowserAdapter
-                                                               .getIdOfRow(myServerBrowserView
-                                                                       .getSelectedRow()));
-                                                   }
-                                               }
-                                           });
+            @Override
+            public void actionPerformed (ActionEvent arg0) {
+                if (myServerBrowserView.hasSelectedRow()) {
+                    myModel.requestJoinLobby(myServerBrowserAdapter
+                                             .getIdOfRow(myServerBrowserView
+                                                         .getSelectedRow()));
+                }
+            }
+        });
     }
 
     /**
@@ -82,20 +82,20 @@ public class ClientViewAdapter {
         myContainerPanel.changeView(myCreateLobbyView, NetworkBundle.getString("LobbyCreation"));
         myContainerPanel.changeLeftButton(NetworkBundle.getString("BackToBrowser"),
                                           new ActionListener() {
-                                              @Override
-                                              public void actionPerformed (ActionEvent arg0) {
-                                                  switchToServerBrowserView();
-                                              }
-                                          });
+            @Override
+            public void actionPerformed (ActionEvent arg0) {
+                switchToServerBrowserView();
+            }
+        });
         myContainerPanel.changeRightButton(NetworkBundle.getString("StartLobby"),
                                            new ActionListener() {
-                                               @Override
-                                               public void actionPerformed (ActionEvent arg0) {
-                                                   if (myCreateLobbyView.allItemsChosen()) {
-                                                       myModel.startLobby(myCreateLobbyView.getLobbyInfo());
-                                                   }
-                                               }
-                                           });
+            @Override
+            public void actionPerformed (ActionEvent arg0) {
+                if (myCreateLobbyView.allItemsChosen()) {
+                    myModel.startLobby(myCreateLobbyView.getLobbyInfo());
+                }
+            }
+        });
     }
 
     /**
@@ -109,25 +109,25 @@ public class ClientViewAdapter {
         myContainerPanel.changeView(myLobbyView, NetworkBundle.getString("LobbyCreation"));
         myContainerPanel.changeLeftButton(NetworkBundle.getString("LeaveLobby"),
                                           new ActionListener() {
-                                              @Override
-                                              public void actionPerformed (ActionEvent arg0) {
-                                                  myModel.getLobbyInfo().removePlayer(myModel.getPlayersInfo()
-                                                          .get(0));
-                                                  myModel.leaveLobby();
-                                                  switchToServerBrowserView();
-                                              }
-                                          });
+            @Override
+            public void actionPerformed (ActionEvent arg0) {
+                myModel.getLobbyInfo().removePlayer(myModel.getPlayersInfo()
+                                                    .get(0));
+                myModel.leaveLobby();
+                switchToServerBrowserView();
+            }
+        });
         myContainerPanel.changeRightButton(NetworkBundle.getString("StartLobby"),
                                            new ActionListener() {
-                                               @Override
-                                               public void actionPerformed (ActionEvent arg0) {
-                                                   if (myModel.getLobbyInfo().canStartGame()) {
-                                                       myModel.requestStartGame();
-                                                   }
-                                               }
-                                           });
+            @Override
+            public void actionPerformed (ActionEvent arg0) {
+                if (myModel.getLobbyInfo().canStartGame()) {
+                    myModel.requestStartGame();
+                }
+            }
+        });
     }
-    
+
     /**
      * 
      * @return the view used by all networking functions
@@ -135,19 +135,38 @@ public class ClientViewAdapter {
     public JPanel getView () {
         return myContainerPanel;
     }
-    
+
+    /**
+     * 
+     * @param lobbies array with LobbyInfo that should update
+     * the ServerBrowserAdapter
+     */
     public void changeLobbies (LobbyInfo[] lobbies) {
         myServerBrowserAdapter.changeLobbies(lobbies);
     }
-    
+
+    /**
+     * Updates the information on the LobbyView according to the
+     * model's current information
+     */
     public void updateLobby () {
-        myLobbyView.update(myModel.getPlayersInfo(), myModel.getLobbyInfo().getPlayers());
+        myLobbyView.update(myModel.getPlayersInfo(), 
+                           myModel.getLobbyInfo().getPlayers());
     }
-    
+
+    /**
+     * Displays a window to the user with a specific message
+     * @param title Title of the window
+     * @param message String to inform the user
+     */
     public void alertClient (String title, String message) {
         myContainerPanel.showMessageDialog(title, message);
     }
-    
+
+    /**
+     * 
+     * @return A list with name of factions of this client view
+     */
     public List<String> getFactions() {
         return myFactions;
     }

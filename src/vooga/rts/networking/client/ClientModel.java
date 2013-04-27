@@ -98,7 +98,7 @@ public class ClientModel extends Observable implements IClientModel, IModel {
     public void requestJoinLobby (int id) {
         myClient.sendData(new JoinLobbyMessage(id));
     }
-    
+
     /**
      * Request to leave a lobby on the server
      */
@@ -185,12 +185,20 @@ public class ClientModel extends Observable implements IClientModel, IModel {
     public void startGame () {
         myGame.startGame(myClient);
     }
-    
-    public ExpandedLobbyInfo getLobbyInfo() {
+
+    /**
+     * 
+     * @return LobbyInfo of this model
+     */
+    public ExpandedLobbyInfo getLobbyInfo () {
         return myLobbyInfo;
     }
-    
-    public List<PlayerInfo> getPlayersInfo() {
+
+    /**
+     * 
+     * @return List with player information for this lobby
+     */
+    public List<PlayerInfo> getPlayersInfo () {
         return myUserControlledPlayers;
     }
 }
