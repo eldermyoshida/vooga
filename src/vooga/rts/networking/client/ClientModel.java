@@ -6,6 +6,7 @@ import java.util.Observable;
 import javax.swing.JPanel;
 import vooga.rts.networking.client.clientgui.ClientViewAdapter;
 import vooga.rts.networking.client.clientgui.IModel;
+import vooga.rts.networking.client.clientgui.ViewAdapter;
 import vooga.rts.networking.communications.ExpandedLobbyInfo;
 import vooga.rts.networking.communications.LobbyInfo;
 import vooga.rts.networking.communications.Message;
@@ -151,7 +152,7 @@ public class ClientModel extends Observable implements IClientModel, IModel {
 
     @Override
     public void switchToLobby (ExpandedLobbyInfo lobbyInfo, int playerID) {
-        myPlayer = new PlayerInfo(myUserName, 1, myViewAdapter.getFactions().get(0), playerID);
+        myPlayer = new PlayerInfo(myUserName, 1, myFactions.get(0), playerID);
         myUserControlledPlayers.clear();
         myUserControlledPlayers.add(myPlayer);
         lobbyInfo.addPlayer(myPlayer);
