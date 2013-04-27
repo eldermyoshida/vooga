@@ -162,8 +162,9 @@ public class CollisionDetector {
 		double vNormalization = getVelocityNormalization(speed1, speed2);
 		if (vNormalization == 0)
 			return hitTop(shape1, point2); // Not quite sure how to get rid of
-											// this check from directional
-											// checks
+											// this velocity check from directional
+											// checks, as I have to make sure they're 
+											//giving me something with velocity...
 		return intersectsLine(shape1, myMeasurements.getTopLeftCorner(shape1),
 				myMeasurements.getTopRightCorner(shape1), point2, speed1,
 				speed2, vNormalization, INTERSECT_LINE_PRECISION);
@@ -432,10 +433,17 @@ public class CollisionDetector {
 	 */
 	private boolean checkRightSide(Shape shape1, Point2D point2,
 			Location corner1, Location corner2) {
-		if (!quickDetectCollision(shape1, point2))
-			return false; // a line of repeated code :( don't really know how to
-							// refactor this out
 		double hitdirection = getQuickDirection(shape1, point2);
+		return quickDetectCollision(shape1, point2)|| withinRightCorners(shape1,hitdirection,
+				corner1, corner2);
+	}
+	
+	/**
+	 * Convenience Method to get rid of duplicated code: checks if the direction
+	 * is within the direction of the two corners, only works for Right Corners
+	 */
+	private boolean withinRightCorners(Shape shape1, double hitdirection,
+			Location corner1, Location corner2) {
 		return (hitdirection - getQuickDirection(shape1, corner1) > 0 || (hitdirection - getQuickDirection(
 				shape1, corner2)) <= 0);
 	}
@@ -447,11 +455,11 @@ public class CollisionDetector {
 	 */
 	private boolean checkSide(Shape shape1, Point2D point2, Location corner1,
 			Location corner2) {
-		if (!quickDetectCollision(shape1, point2))
-			return false;
-		return withinCorners(shape1, getQuickDirection(shape1, point2),
+		return quickDetectCollision(shape1, point2) && withinCorners(shape1, getQuickDirection(shape1, point2),
 				corner1, corner2);
 	}
+	
+	
 
 	/**
 	 * Convenience Method to get rid of duplicated code: checks if the direction
