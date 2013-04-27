@@ -6,7 +6,6 @@ import java.util.Observable;
 import javax.swing.JPanel;
 import vooga.rts.networking.client.clientgui.ClientViewAdapter;
 import vooga.rts.networking.client.clientgui.IModel;
-import vooga.rts.networking.client.clientgui.ViewAdapter;
 import vooga.rts.networking.communications.ExpandedLobbyInfo;
 import vooga.rts.networking.communications.LobbyInfo;
 import vooga.rts.networking.communications.Message;
