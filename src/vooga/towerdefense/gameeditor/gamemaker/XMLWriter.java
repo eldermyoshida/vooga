@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 import org.w3c.dom.Element;
 import util.XMLTool;
-import vooga.towerdefense.gameeditor.gamemaker.xmlwriters.ActionXMLWriter;
 import vooga.towerdefense.gameeditor.gamemaker.xmlwriters.GameElementXMLWriter;
 import vooga.towerdefense.gameeditor.gamemaker.xmlwriters.LevelXMLWriter;
 import vooga.towerdefense.gameeditor.gamemaker.xmlwriters.MapXMLWriter;
@@ -27,7 +26,7 @@ public class XMLWriter {
     public static final String GAME_TAG = "game";
     public static final String VIEW_TAG = "view";
     public static final String GAME_ELEMENT_TAG = "gameelement";
-    public static final String LEVEL_TAG = "level";
+    public static final String LEVELS_TAG = "levels";
     public static final String IMAGE_TAG = "image";
     public static final String TYPE_TAG = "type";
     public static final String MAP_TAG = "map";
@@ -45,58 +44,72 @@ public class XMLWriter {
     public static final String UNIT_INDICATOR = "Unit";
 
     private XMLTool myXMLDoc;
+    private String myName;
     private Element myRoot;
     private Element myViewParent;
-    private Element myGameElementParent;
     private Element myMapParent;
+    private Element myGameElementParent;
     private Element myLevelParent;
     private Element myRuleParent;
-    private ActionXMLWriter myActionParser;
-    private String myName;
     private List<String> myCreatedUnits;
+    
+    private ViewXMLWriter myViewXMLWriter;
+    private MapXMLWriter myMapXMLWriter;
+    private GameElementXMLWriter myGameElementXMLWriter;
+    private RuleXMLWriter myRuleXMLWriter;
+    private LevelXMLWriter myLevelXMLWriter;
 
-    XMLWriter () {
+    public XMLWriter () {
         myCreatedUnits = new ArrayList<String>();
+        myXMLDoc = new XMLTool();
+        initializeXMLWriters();
         initializeXML();
+    }
+    
+    /**
+     * helper method to create the writers.
+     */
+    private void initializeXMLWriters() {
+        myViewXMLWriter = new ViewXMLWriter(myXMLDoc);
+        myMapXMLWriter = new MapXMLWriter(myXMLDoc);
+        myGameElementXMLWriter = new GameElementXMLWriter(myXMLDoc);
+        myRuleXMLWriter = new RuleXMLWriter(myXMLDoc);
+        myLevelXMLWriter = new LevelXMLWriter(myXMLDoc);
     }
 
     /**
      * Starts a new XML file & initializes the main parent elements
      */
     private void initializeXML () {
-        myXMLDoc = new XMLTool();
         myRoot = myXMLDoc.makeRoot(GAME_TAG);
-        myViewParent = myXMLDoc.makeElement(VIEW_TAG);
-        myXMLDoc.addChild(myRoot, myViewParent);
-        myMapParent = myXMLDoc.makeElement(MAP_TAG);
-        myXMLDoc.addChild(myRoot, myMapParent);
-        myGameElementParent = myXMLDoc.makeElement(GAME_ELEMENT_TAG);
-        myXMLDoc.addChild(myRoot, myGameElementParent);
-        myRuleParent = myXMLDoc.makeElement(RULES_TAG);
-        myXMLDoc.addChild(myRoot, myRuleParent);
-        myLevelParent = myXMLDoc.makeElement(LEVEL_TAG);
-        myXMLDoc.addChild(myRoot, myLevelParent);
-        myActionParser = new ActionXMLWriter(myXMLDoc);
+        initializeSubParent(myRoot, myViewParent, VIEW_TAG);
+        initializeSubParent(myRoot, myMapParent, MAP_TAG);
+        initializeSubParent(myRoot, myGameElementParent, GAME_ELEMENT_TAG);
+        initializeSubParent(myRoot, myRuleParent, RULES_TAG);
+        initializeSubParent(myRoot, myLevelParent, LEVELS_TAG);
     }
-
+    
     /**
-     * Saves the XML file.
+     * helper method to add the parent sections to the XML file.
+     * @param root is the root of the file
+     * @param parent is the parent of the sub section
+     * @param tag is the name of this section
      */
-    public void saveFile () {
-        myXMLDoc.writeFile(RESOURCE_PATH + myName + XML_EXTENSION);
+    private void initializeSubParent(Element root, Element parent, String tag) {
+        parent = myXMLDoc.makeElement(tag);
+        myXMLDoc.addChild(root, parent);
     }
 
     /**
-     * Creates a new level in the game and adds it to the XML file.
      * 
-     * @param name The name of the level
-     * @param rules A map of rules, which controls different instructions for updating scores and
-     *        determining other game states
-     * @param actions Any action present in the game.
+     * @param dimension
+     * @param viewInfo
+     * @param map
      */
-    public void addLevelToGame (String name, String rules, String actions) {
-        LevelXMLWriter writer = new LevelXMLWriter(myXMLDoc);
-        writer.write(myLevelParent, name, rules, actions);
+    public void addViewToGame (String dimension,
+                               List<String> viewInfo,
+                               Map<String, List<String>> map) {
+        myViewXMLWriter.write(myViewParent, dimension, viewInfo, map);
     }
 
     /**
@@ -115,8 +128,7 @@ public class XMLWriter {
                               String height,
                               String tileSize,
                               String map) {
-        MapXMLWriter writer = new MapXMLWriter(myXMLDoc);
-        writer.write(myMapParent, name, image, width, height, tileSize, map);
+        myMapXMLWriter.write(myMapParent, name, image, width, height, tileSize, map);
     }
 
     /**
@@ -136,21 +148,7 @@ public class XMLWriter {
         if (type.equals(UNIT_INDICATOR)) {
             myCreatedUnits.add(name);
         }
-        GameElementXMLWriter writer = new GameElementXMLWriter(myXMLDoc);
-        writer.write(myGameElementParent, type, name, path, attributes, actions);
-    }
-
-    /**
-     * 
-     * @param dimension
-     * @param viewInfo
-     * @param map
-     */
-    public void addViewToGame (String dimension,
-                               List<String> viewInfo,
-                               Map<String, List<String>> map) {
-        ViewXMLWriter writer = new ViewXMLWriter(myXMLDoc);
-        writer.write(myViewParent, dimension, viewInfo, map);
+        myGameElementXMLWriter.write(myGameElementParent, type, name, path, attributes, actions);
     }
 
     /**
@@ -159,8 +157,26 @@ public class XMLWriter {
      * @param rulesText
      */
     public void addRulesToGame (String rulesText) {
-        RuleXMLWriter writer = new RuleXMLWriter(myXMLDoc);
-        writer.write(myRuleParent, rulesText);
+        myRuleXMLWriter.write(myRuleParent, rulesText);
+    }
+
+    /**
+     * Creates a new level in the game and adds it to the XML file.
+     * 
+     * @param name The name of the level
+     * @param rules A map of rules, which controls different instructions for updating scores and
+     *        determining other game states
+     * @param actions Any action present in the game.
+     */
+    public void addLevelToGame (String name, String rules, String actions) {
+        myLevelXMLWriter.write(myLevelParent, name, rules, actions);
+    }
+
+    /**
+     * Saves the XML file.
+     */
+    public void saveFile () {
+        myXMLDoc.writeFile(RESOURCE_PATH + myName + XML_EXTENSION);
     }
 
     /**
