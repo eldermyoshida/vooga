@@ -28,6 +28,7 @@ import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
 import vooga.rts.gamedesign.state.AttackingState;
 import vooga.rts.gamedesign.state.UnitState;
+import vooga.rts.gamedesign.strategy.Strategy;
 import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
 import vooga.rts.gamedesign.strategy.attackstrategy.CannotAttack;
 import vooga.rts.gamedesign.strategy.gatherstrategy.CanGather;
@@ -174,6 +175,15 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
         myUpgradeStrategy.setUpgradeTree(upgradeTree, this);
     }
 
+    
+    public Strategy[] getStrategies(){
+    	Strategy[] all = new Strategy[4];
+    	all[0] = myAttackStrategy;
+    	all[1] = myOccupyStrategy;
+    	all[2] = myGatherStrategy;
+    	all[3] = myProductionStrategy;
+    	return all;
+    }
     public UpgradeTree getUpgradeTree () {
         return myUpgradeStrategy.getUpgradeTree();
     }

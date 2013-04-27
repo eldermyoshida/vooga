@@ -7,6 +7,7 @@ import java.util.List;
 
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
+import vooga.rts.gamedesign.strategy.Strategy;
 import vooga.rts.gamedesign.strategy.attackstrategy.CannotAttack;
 import vooga.rts.gamedesign.strategy.occupystrategy.CanBeOccupied;
 import vooga.rts.gamedesign.strategy.occupystrategy.CannotBeOccupied;
@@ -70,10 +71,10 @@ public class Building extends InteractiveEntity {
         Building copyBuilding = new Building(getImage(), getWorldLocation(), getSize(), getSound(), getPlayerID(),
                 getHealth(), getBuildTime());
     	copyBuilding.setInfo(getInfo());
-    	getOccupyStrategy().affect(copyBuilding);
-    	getUpgradeStrategy().affect(copyBuilding);
-    	getProductionStrategy().affect(copyBuilding);
-    	getUpgradeStrategy().affect(copyBuilding);
+    	
+    	for(Strategy s: getStrategies()){
+    		s.affect(copyBuilding);
+    	}
     	
     	return copyBuilding;
     }
