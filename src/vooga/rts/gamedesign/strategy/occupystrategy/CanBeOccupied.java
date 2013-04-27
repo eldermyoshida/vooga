@@ -119,10 +119,9 @@ public class CanBeOccupied implements OccupyStrategy {
         return myMaxOccupiers;
     }
 
-	@Override
-	public Strategy affect(InteractiveEntity entity) {
+	public void affect(InteractiveEntity entity) {
 		OccupyStrategy newOccupy = new CanBeOccupied();
 		newOccupy.createOccupyActions(entity);
-		return newOccupy;
+		entity.setOccupyStrategy(newOccupy);
 	}
 }

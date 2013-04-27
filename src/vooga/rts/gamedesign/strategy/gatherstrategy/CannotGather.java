@@ -44,10 +44,9 @@ public class CannotGather implements GatherStrategy {
 	public void setGatherAmount(int gatherAmount) {
 		return;
 	}
-
-	@Override
-	public Strategy affect(InteractiveEntity entity) {
-		return new CannotGather();
+	
+	public void affect(InteractiveEntity other) {
+		other.setGatherStrategy(this);
 	}
 
 }

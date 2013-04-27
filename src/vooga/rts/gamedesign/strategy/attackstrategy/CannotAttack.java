@@ -70,11 +70,10 @@ public class CannotAttack implements AttackStrategy {
     public boolean hasWeapon(){
     	return false;
     }
-
-	@Override
-	public Strategy affect(InteractiveEntity entity) {
-		return new CannotAttack();
+    
+	public void affect(InteractiveEntity other) {
+		other.setAttackStrategy(this);
+		
 	}
-
 
 }

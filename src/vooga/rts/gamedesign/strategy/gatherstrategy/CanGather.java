@@ -86,13 +86,12 @@ public class CanGather implements GatherStrategy {
 
 	@Override
 	public void setGatherAmount(int gatherAmount) {
-		return;
+		myGatherAmount = gatherAmount;
 	}
 
 	@Override
-	public Strategy affect(InteractiveEntity entity) {
-		// TODO Auto-generated method stub
-		return null;
+	public void affect(InteractiveEntity other) {
+		other.setGatherStrategy(this);
 	}
 
 }

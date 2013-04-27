@@ -121,10 +121,10 @@ public class CanProduce implements ProductionStrategy {
 		myProducables = producables;
 	}
 
-	public Strategy affect(InteractiveEntity entity) {
+	public void affect(InteractiveEntity entity) {
 		ProductionStrategy newProduction = new CanProduce(entity);
 		newProduction.setProducables(getProducables());
 		newProduction.createProductionActions(entity);
-		return newProduction;
+		entity.setProductionStrategy(newProduction);
 	}
 }

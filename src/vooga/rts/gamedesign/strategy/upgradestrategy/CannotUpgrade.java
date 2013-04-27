@@ -19,8 +19,8 @@ public class CannotUpgrade implements UpgradeStrategy {
 	}
 
 	@Override
-	public Strategy affect(InteractiveEntity entity) {
-		return new CannotUpgrade();
+	public void affect(InteractiveEntity entity) {
+		entity.setUpgradeStrategy(this);
 	}
 
 }

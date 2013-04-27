@@ -13,10 +13,10 @@ public interface Strategy {
 	
 	
 	/**
-	 * This will always return a new version of the strategy. This will be useful
+	 * This will give the interactive entity the traits that go along with this strategy. 
 	 * 
 	 * @return a copy of the strategy
 	 */
-	public Strategy affect(InteractiveEntity entity);
+	public void affect(InteractiveEntity other);
 
 }

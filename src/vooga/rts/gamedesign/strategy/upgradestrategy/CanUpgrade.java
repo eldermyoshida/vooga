@@ -34,10 +34,10 @@ public class CanUpgrade implements UpgradeStrategy{
 		return myUpgradeTree;
 	}
 
-	public Strategy affect(InteractiveEntity entity) {
+	public void affect(InteractiveEntity entity) {
 		UpgradeStrategy newUpgrade = new CanUpgrade();
 		newUpgrade.setUpgradeTree(getUpgradeTree(), entity);
-		return newUpgrade;
+		entity.setUpgradeStrategy(newUpgrade);
 	}
 
 

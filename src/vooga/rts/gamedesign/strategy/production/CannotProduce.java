@@ -60,8 +60,8 @@ public class CannotProduce implements ProductionStrategy{
 	}
 
 	@Override
-	public Strategy affect(InteractiveEntity entity) {
-		return new CannotProduce();
+	public void affect(InteractiveEntity entity) {
+		entity.setProductionStrategy(this);
 	}
 
 }

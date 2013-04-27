@@ -55,8 +55,8 @@ public class CannotBeOccupied implements OccupyStrategy{
 		return;
 	}
 
-	public Strategy affect(InteractiveEntity entity) {
-		return new CannotBeOccupied();
+	public void affect(InteractiveEntity entity) {
+		entity.setOccupyStrategy(this);
 	}
 
 
