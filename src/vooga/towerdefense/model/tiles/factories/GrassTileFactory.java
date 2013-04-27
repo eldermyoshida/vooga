@@ -1,7 +1,7 @@
 package vooga.towerdefense.model.tiles.factories;
 
+import vooga.towerdefense.model.Tile;
 import vooga.towerdefense.model.tiles.GrassTile;
-import vooga.towerdefense.model.tiles.Tile;
 import util.Location;
 import util.Pixmap;
 
@@ -18,7 +18,7 @@ public class GrassTileFactory extends TileFactory {
 
     @Override
     public Tile createTile (int id, Location center) {
-        return new GrassTile(id, GRASS_TILE_IMAGE, center, TileFactory.TILE_DIMENSIONS);
+        return new GrassTile(center, TileFactory.TILE_DIMENSIONS);
     }
     
 }

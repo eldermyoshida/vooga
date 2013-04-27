@@ -1,7 +1,7 @@
 package vooga.towerdefense.model.tiles.factories;
 
+import vooga.towerdefense.model.Tile;
 import vooga.towerdefense.model.tiles.PathTile;
-import vooga.towerdefense.model.tiles.Tile;
 import util.Location;
 import util.Pixmap;
 
@@ -19,7 +19,7 @@ public class PathTileFactory extends TileFactory {
 
     @Override
     public Tile createTile (int id, Location center) {
-        return new PathTile(id, PATH_TILE_IMAGE, center, TileFactory.TILE_DIMENSIONS);
+        return new PathTile(center, TileFactory.TILE_DIMENSIONS);
     }
 
 }

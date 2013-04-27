@@ -11,7 +11,7 @@ import org.w3c.dom.Element;
 
 import util.XMLTool;
 import vooga.towerdefense.model.GameMap;
-import vooga.towerdefense.model.tiles.Tile;
+import vooga.towerdefense.model.Tile;
 import vooga.towerdefense.model.tiles.factories.DefaultTileFactory;
 import vooga.towerdefense.model.tiles.factories.GrassTileFactory;
 import vooga.towerdefense.model.tiles.factories.PathTileFactory;

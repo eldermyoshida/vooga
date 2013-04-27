@@ -3,6 +3,7 @@ package vooga.towerdefense.model.tiles;
 import java.awt.Dimension;
 import util.Location;
 import util.Pixmap;
+import vooga.towerdefense.model.Tile;
 
 /**
  * A grass tile.
@@ -10,7 +11,11 @@ import util.Pixmap;
  * @author Erick Gonzalez
  */
 public class GrassTile extends Tile {
-
+    private static final String NAME = "grass_tile.png";
+    private static final String TILE_IMAGES_CLASS_PATH = "vooga/towerdefense/images/map";
+    private static final Pixmap PIXMAP = new Pixmap("/" + TILE_IMAGES_CLASS_PATH + "/" + NAME); 
+    private static final int ID = 0;
+    
     /**
      * 
      * @param id tile id
@@ -18,9 +23,14 @@ public class GrassTile extends Tile {
      * @param center the center of the tile
      * @param size the size of the tile
      */
-    public GrassTile (int id, Pixmap image, Location center, Dimension size) {
-        super(id, image, center, size);
+    public GrassTile (Location center, Dimension size) {
+        super(ID, PIXMAP, center, size);
         setBuildable(true);
         setWalkable(false);
+    }
+    
+    @Override
+    public String getName() {
+        return NAME;
     }
 }

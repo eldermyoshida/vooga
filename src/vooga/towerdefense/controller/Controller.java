@@ -32,12 +32,12 @@ import vooga.towerdefense.gameeditor.gameloader.ViewXMLLoader;
 import vooga.towerdefense.model.GameLoop;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.GameModel;
+import vooga.towerdefense.model.Tile;
 import vooga.towerdefense.model.levels.Level;
 import vooga.towerdefense.model.rules.NextLevelRule;
 import vooga.towerdefense.model.rules.Rule;
 import vooga.towerdefense.model.shop.Shop;
 import vooga.towerdefense.model.shop.ShopItem;
-import vooga.towerdefense.model.tiles.Tile;
 import vooga.towerdefense.model.tiles.factories.TileFactory;
 import vooga.towerdefense.view.TDView;
 

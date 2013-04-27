@@ -7,7 +7,6 @@ import vooga.towerdefense.model.AStar.AStar;
 import vooga.towerdefense.model.AStar.AStarHeuristic;
 import vooga.towerdefense.model.AStar.AreaMap;
 import vooga.towerdefense.model.AStar.DiagonalHeuristic;
-import vooga.towerdefense.model.tiles.Tile;
 import vooga.towerdefense.model.tiles.factories.TileFactory;
 import util.Location;
 
