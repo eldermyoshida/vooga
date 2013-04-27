@@ -29,8 +29,8 @@ public class MarioCollisions {
     private static final double FRICTION = .5;
     private CollisionDirection direction = new CollisionDirection();
 
-    protected void marioAndLevelPortalCollision (Player player, IDoor levelPortal) {
-        levelPortal.goToNextLevel(player);
+    protected void marioAndLevelPortalCollision (IDoor levelPortal) {
+        levelPortal.goToNextLevel();
     }
 
     protected void marioAndEnemyCollision (Mario player, IEnemy enemy) {

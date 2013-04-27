@@ -8,6 +8,7 @@ import java.util.Map;
 import vooga.scroller.sprites.Sprite;
 import vooga.scroller.util.IBackgroundView;
 import vooga.scroller.level_editor.ILevelEditor;
+import vooga.scroller.level_editor.LevelEditing;
 import vooga.scroller.level_editor.commands.Command;
 import vooga.scroller.level_editor.commands.CommandLibrary;
 import vooga.scroller.level_editor.controllerSuite.LEController;
@@ -23,6 +24,7 @@ import vooga.scroller.level_editor.controllerSuite.LEController;
  */
 
 import vooga.scroller.util.Editable;
+import vooga.scroller.util.mvc.IController;
 /**
  * LevelEditor is the Model side of the Level Editor as a whole. It processes
  * commands received by the controller on an Editable Grid also handed from
@@ -40,6 +42,11 @@ public class LevelEditor implements ILevelEditor {
     private Editable myGrid;
     private Map<Integer, Sprite> mySpriteMap;
     private Map<Integer, IBackgroundView> myBackgrounds;
+    private IController<LevelEditing> myController;
+    
+    public LevelEditor(IController<LevelEditing> con) {
+        myController = con;
+    }
 
     /**
      * Takes in the command name and parameters all as one String to be processed.
@@ -95,7 +102,7 @@ public class LevelEditor implements ILevelEditor {
                     myGrid.addSprite(sprite, x, y);
                 }
                 catch(NullPointerException e){
-                    LEController.showErrorMsg(COPY_ERROR);
+                    myController.showErrorMsg(COPY_ERROR);
                 }
         }
     }
@@ -151,16 +158,16 @@ public class LevelEditor implements ILevelEditor {
             m.invoke(this, params);
         }
         catch (NullPointerException e) {
-            LEController.showErrorMsg(NO_METHOD_COMMAND_ERROR);
+            myController.showErrorMsg(NO_METHOD_COMMAND_ERROR);
         }
         catch (IllegalAccessException e) {
-            LEController.showErrorMsg(DEFAULT_COMMAND_ERROR);
+            myController.showErrorMsg(DEFAULT_COMMAND_ERROR);
         }
         catch (IllegalArgumentException e) {
-            LEController.showErrorMsg(PARAM_COMMAND_ERROR);
+            myController.showErrorMsg(PARAM_COMMAND_ERROR);
         }
         catch (InvocationTargetException e) {
-            LEController.showErrorMsg(DEFAULT_COMMAND_ERROR);
+            myController.showErrorMsg(DEFAULT_COMMAND_ERROR);
         }
     }
 

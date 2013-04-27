@@ -9,12 +9,14 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 import util.Location;
+import vooga.scroller.level_editor.LevelEditing;
 import vooga.scroller.level_editor.controllerSuite.LEController;
 import vooga.scroller.level_editor.controllerSuite.LEGrid;
 import vooga.scroller.sprites.Sprite;
 import vooga.scroller.sprites.interfaces.IDoor;
 import vooga.scroller.util.IBackgroundView;
 import vooga.scroller.util.Pixmap;
+import vooga.scroller.util.mvc.IController;
 
 
 /**
@@ -36,12 +38,22 @@ public class LevelParser {
     private String myLibPath;
     private IBackgroundView myBackground;
 
+    private IController<LevelEditing> myController;
+    
+    /**
+     * Utility constructor. Unfortunately, doesn't handles error properly.
+     */
+    public LevelParser() {
+        myLevelStrings = new ArrayList<String>();
+        myCharacterMap = new HashMap<Character, String>();
+    }
+
     /**
      * Initialize instances variables.
      */
-    public LevelParser () {
-        myLevelStrings = new ArrayList<String>();
-        myCharacterMap = new HashMap<Character, String>();
+    public LevelParser (IController<LevelEditing> con) {
+        this();
+        myController = con;
     }
 
     /**
@@ -57,7 +69,7 @@ public class LevelParser {
             myScanner = new Scanner(file);
         }
         catch (FileNotFoundException e) {
-            LEController.showErrorMsg(myResources.getString("FILE_ERROR"));
+            myController.showErrorMsg(myResources.getString("FILE_ERROR"));
         }
         parseLevel();
         myLibPath = parseLibPath();
@@ -134,13 +146,13 @@ public class LevelParser {
                         }
                     }
                     catch (InstantiationException e) {
-                        LEController.showErrorMsg(myResources.getString("PARSING_ERROR"));
+                        myController.showErrorMsg(myResources.getString("PARSING_ERROR"));
                     }
                     catch (IllegalAccessException e) {
-                        LEController.showErrorMsg(myResources.getString("PARSING_ERROR"));
+                        myController.showErrorMsg(myResources.getString("PARSING_ERROR"));
                     }
                     catch (ClassNotFoundException e) {
-                        LEController.showErrorMsg(myResources.getString("PARSING_ERROR"));
+                        myController.showErrorMsg(myResources.getString("PARSING_ERROR"));
                     }
                 }
             }

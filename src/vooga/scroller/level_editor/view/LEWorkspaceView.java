@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Point;
 import javax.swing.JScrollPane;
 import vooga.scroller.level_editor.Level;
+import vooga.scroller.level_editor.LevelEditing;
 import vooga.scroller.level_editor.commands.CommandConstants;
 import vooga.scroller.level_editor.controllerSuite.LEGrid;
 import vooga.scroller.level_editor.controllerSuite.LETools;
@@ -24,18 +25,18 @@ import vooga.scroller.viewUtil.EasyGridFactory;
  * @author Dagbedji Fagnisse
  * 
  */
-public class LEWorkspaceView extends WorkspaceView<LevelEditing> implements Renderer<LEGrid>{
+public class LEWorkspaceView extends WorkspaceView<LevelEditing> 
+                            implements Renderer<LevelEditing>{
     /**
      * 
      */
     private static final long serialVersionUID = 1L;
-    private LEGridView myGridView;
-    private LEToolsView myToolsView;
+    private Renderer<LevelEditing> myGridView;
+    private TabbedToolsView myToolsView;
     private JScrollPane myLevelGridScroller;
     private JScrollPane myToolsScroller;
-    private static LETools ourTools;
 
-    /**
+    /**TODO - Redesign to get rid of casts...
      * Create a Workspace with the specified host, id, and renderable
      * 
      * @param host - parent containing this workspace, typically a Window
@@ -43,11 +44,11 @@ public class LEWorkspaceView extends WorkspaceView<LevelEditing> implements Rend
      * @param r - Renderable to be loaded in this workspace.
      */
     public LEWorkspaceView (LEView host, int id, 
-                            Renderable<LEGridView> grid) {
+                            Renderable<LevelEditing> grid, Tools<LevelEditing> tools) {
         super(id, host);
         myGridView = grid.initializeRenderer(this);
-        myToolsView = ourTools.initializeRenderer(this);
-        myLevelGridScroller = new JScrollPane(myGridView,
+        myToolsView = new LEToolsView(tools, this);
+        myLevelGridScroller = new JScrollPane((LEGridView) myGridView,
                                               JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                                               JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         myToolsScroller = new JScrollPane(myToolsView,
@@ -61,7 +62,7 @@ public class LEWorkspaceView extends WorkspaceView<LevelEditing> implements Rend
         if (isn instanceof String) {
             String cmd = (String) isn;
             if (getCommand(cmd).equals(CommandConstants.CREATE_SPRITE)) {
-                cmd = cmd + CommandConstants.SPACE + myToolsView.getSelectedSpriteID();
+                cmd = cmd + CommandConstants.SPACE + myToolsView.getSelectedEditableDependent();
             }
             super.process(cmd);
         }
@@ -74,44 +75,26 @@ public class LEWorkspaceView extends WorkspaceView<LevelEditing> implements Rend
         return cmd.split(CommandConstants.SPACE)[0];
     }
 
-    // TODO - Good design choice??
-    public static void setTools (Tools t) {
-        ourTools = (LETools) t;
-    }
 
     public boolean isValidForSimulation () {
-        return myGridView.isValidForSimulation();
+        return ((LEGridView) myGridView).isValidForSimulation();
     }
 
 
     @Override
-    public void render (LEGrid grid) {
+    public void render (Renderable<LevelEditing> grid) {
         myGridView.render(grid);
     }
 
     @Override
-    public void setRenderable (LEGrid grid) {
+    public void setRenderable (Renderable<LevelEditing> grid) {
         myGridView.setRenderable(grid);
         
     }
 
     @Override
-    public LEGrid getRenderable () {
+    public Renderable<LevelEditing> getRenderable () {
         return myGridView.getRenderable();
-    }
-
-
-
-    @Override
-    public void setRenderable (Renderable<?> m) {
-        if (m instanceof LEGrid)
-        myGridView.setRenderable((LEGrid) m);
-        else {} //TODO
-    }
-
-    @Override
-    public void render (Renderable r) {
-        myGridView.render(r);
     }
 
 }

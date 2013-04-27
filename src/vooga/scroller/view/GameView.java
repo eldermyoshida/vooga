@@ -23,6 +23,9 @@ import javax.swing.Timer;
 import vooga.scroller.scrollingmanager.OmniScrollingManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.superclasses.Player;
+import vooga.scroller.util.Renderable;
+import vooga.scroller.util.Renderer;
+import vooga.scroller.util.mvc.Gaming;
 import vooga.scroller.model.Model;
 
 
@@ -30,7 +33,7 @@ import vooga.scroller.model.Model;
  *
  * @author Ross Cahoon
  */
-public class GameView extends JComponent {
+public class GameView extends JComponent implements Renderer<Gaming>{
     // default serialization ID
     private static final long serialVersionUID = 1L;
     // animate 25 times per second if possible
@@ -50,8 +53,6 @@ public class GameView extends JComponent {
     private Point myLastMousePosition;
     // MULTIPLE KEY SUPPORT
     private Set<Integer> myKeys;
-    // Player
-    private Player myPlayer;
     private ScrollingManager myScrollManager;
     private boolean win = false;
 
@@ -130,9 +131,6 @@ public class GameView extends JComponent {
             }
         });
         // start animation
-        if (myGame==null) {
-//            setModel(new Model(this, myScrollManager));//TODO - make a default model?
-        }
         myScrollManager.initModel(myGame);
         timer.start();
     }
@@ -177,6 +175,24 @@ public class GameView extends JComponent {
                 myLastMousePosition = e.getPoint();
             }
         });
+    }
+
+    @Override
+    public void render (Renderable<Gaming> renderable) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void setRenderable (Renderable<Gaming> renderable) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public Renderable<Gaming> getRenderable () {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

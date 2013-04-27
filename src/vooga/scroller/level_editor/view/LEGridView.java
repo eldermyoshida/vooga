@@ -8,6 +8,7 @@ import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.Scrollable;
+import vooga.scroller.level_editor.LevelEditing;
 import vooga.scroller.level_editor.commands.CommandConstants;
 import vooga.scroller.level_editor.controllerSuite.LEGrid;
 import vooga.scroller.level_editor.exceptions.LevelEditorException;
@@ -22,7 +23,8 @@ import vooga.scroller.util.mvc.vcFramework.WindowComponent;
  * 
  * @author Danny Goodman, Deo Fagnisse
  */
-public class LEGridView extends WindowComponent implements Scrollable, Renderer<LEGrid> {
+public class LEGridView extends WindowComponent<LevelEditing> 
+implements Scrollable, Renderer<LevelEditing>{
     private class GridPositionListener implements MouseListener {
 
         @Override
@@ -53,6 +55,8 @@ public class LEGridView extends WindowComponent implements Scrollable, Renderer<
 
     }
 
+
+    private static LEGridView D;
     public static double getDefaultHeightRatio () {
         return LevelEditing.VIEW_CONSTANTS.DEFAULT_GRIDVIEW_HEIGHT_RATIO;
     }
@@ -74,9 +78,8 @@ public class LEGridView extends WindowComponent implements Scrollable, Renderer<
      * @param d
      * @param e
      */
-    @SuppressWarnings("rawtypes")
-    public LEGridView (IView parent, Renderable<LEGridView> r) {
-        super(parent, ((LEGrid) r).getPixelSize());
+    public LEGridView (IView<LevelEditing> parent, Renderable<LevelEditing> r) {
+        super(parent,((LEGrid) r).getPixelSize());
         this.addMouseListener(new GridPositionListener());
 
     }
@@ -148,36 +151,40 @@ public class LEGridView extends WindowComponent implements Scrollable, Renderer<
         }
     }
 
-    @Override
-    public void render (LEGrid r) {
-        setRenderable(r);
-    }
 
     @Override
-    public void setRenderable (LEGrid r) {
-        myGrid = r;
+    public void setRenderable (Renderable<LevelEditing>  r) {
+        myGrid = (LEGrid) r;
         setSize(myGrid.getPixelSize());
         repaint();
     }
 
-    @SuppressWarnings("rawtypes")
-    @Override
-    public void render (Renderable r) {
-        if (r instanceof LEGrid) {
-            render((LEGrid) r);
-        }
-        else try {
-            throw new LevelEditorException("LEGridView cannot render" + r.getClass().getName());
-        }
-        catch (LevelEditorException e) {
-            e.printStackTrace();
-        }
 
+    @Override
+    public void render (Renderable<LevelEditing> r) {
+       if (r instanceof LEGrid) {
+           render((LEGrid) r);
+       }
+    else try {
+        throw new LevelEditorException("LEGridView cannot render" + r.getClass().getName());
+    }
+    catch (LevelEditorException e) {
+        e.printStackTrace();
+    }
     }
 
     @Override
-    public LEGrid getRenderable () {
+    public Renderable<LevelEditing> getRenderable () {
         return myGrid;
     }
+
+
+    public void simulate () {
+        myGrid.simulate();
+    }
+    
+    
+
+
 
 }

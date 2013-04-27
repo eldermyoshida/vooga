@@ -41,7 +41,7 @@ public abstract class LevelPortal extends Sprite implements IDoor {
     public abstract Dimension initSize();
 
     @Override
-    public void goToNextLevel (Player player) {      
+    public void goToNextLevel () {      
         myLevelManager.setCurrentLevel(myNextLevel);
     }
 

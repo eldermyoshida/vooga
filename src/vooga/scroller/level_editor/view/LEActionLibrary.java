@@ -27,7 +27,7 @@ private LEView myWindow;
     }
     
     private String getLiteral (String s) {
-        return LEView.getLiteral(s);
+        return myWindow.getLiteral(s);
     }
     
     public class SimulateAction extends AbstractAction {

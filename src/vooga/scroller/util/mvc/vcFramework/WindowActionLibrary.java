@@ -25,7 +25,7 @@ public class WindowActionLibrary {
     
     
     private String getLiteral (String string) {
-        return Window.getLiteral(string);
+        return myWindow.getLiteral(string);
     }
 
     /**

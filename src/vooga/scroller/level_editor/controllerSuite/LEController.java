@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
 import vooga.scroller.level_editor.ILevelEditor;
+import vooga.scroller.level_editor.LevelEditing;
 import vooga.scroller.level_editor.library.IBackgroundLibrary;
 import vooga.scroller.level_editor.library.ISpriteLibrary;
 import vooga.scroller.level_editor.model.LevelEditor;
@@ -13,7 +14,6 @@ import vooga.scroller.level_editor.model.LevelWriter;
 import vooga.scroller.level_editor.view.LEGridView;
 import vooga.scroller.level_editor.view.LEView;
 import vooga.scroller.level_editor.view.LEWorkspaceView;
-import vooga.scroller.level_editor.view.LevelEditing;
 import vooga.scroller.util.Editable;
 import vooga.scroller.util.Renderable;
 import vooga.scroller.util.mvc.IController;
@@ -41,7 +41,7 @@ public class LEController implements IController<LevelEditing> {
         con.start();
     }
 
-    private static final int DEFAULT_SPRITE_GRID_SIZE = 30;
+    public static final int DEFAULT_SPRITE_GRID_SIZE = 30;
     private LevelEditing myDomainInfo;
     private LevelParser myLevelReader;
     private LevelWriter myLevelWriter;
@@ -51,6 +51,9 @@ public class LEController implements IController<LevelEditing> {
     private ToolsManager myToolsManager;
     private IWindow<LEWorkspaceView, LevelEditing, LEGridView, LETools> myView;
     private Map<Editable, WorkspaceView<LevelEditing>> myWorkspace2Tab;
+    private GridSpinner myGridSpinner;
+    public static final int MIN_SPRITE_GRID_SIZE = 20;
+    public static final int MAX_SPRITE_GRID_SIZE = 1000;
 
     /**
      * Preferred constructor, specifies sprites and background to be availed in the
@@ -61,16 +64,17 @@ public class LEController implements IController<LevelEditing> {
      */
     public LEController (ISpriteLibrary lib, IBackgroundLibrary bgLib) {
         myDomainInfo = new LevelEditing();
-        initLevelEditor();
         myToolsManager = new ToolsManager(lib, bgLib);
+        myTools = myToolsManager.getViewTools();
+        initLevelEditor();
         myModel.setSpriteMap(myToolsManager.getSpriteMap());
         myModel.setBackgroundMap(bgLib.getBackgrounds());
-        myTools = myToolsManager.getViewTools();
-        myView.setDefaultWorkspaceTools(myTools);
+//        myView.setDefaultWorkspaceTools(myTools);
         myWorkspace2Tab = new HashMap<Editable, WorkspaceView<LevelEditing>>();
         myTab2Workspace = new HashMap<WorkspaceView<LevelEditing>, Editable>();
-        myLevelWriter = new LevelWriter();
-        myLevelReader = new LevelParser();
+        myLevelWriter = new LevelWriter(this);
+        myLevelReader = new LevelParser(this);
+        myGridSpinner = new GridSpinner(MIN_SPRITE_GRID_SIZE, MAX_SPRITE_GRID_SIZE);
     }
 
     /**
@@ -78,11 +82,11 @@ public class LEController implements IController<LevelEditing> {
      * @param m
      */
     private void createWorkspaceView (int id, LEGrid m) {
-        LEWorkspaceView associatedWorkspaceView =
-                myView.initializeWorkspaceView(id, (Renderable<LEGridView>) m);
+        LEWorkspaceView associatedWorkspaceView = 
+                myView.initializeWorkspaceView(id, (Renderable<LevelEditing>) m);
         myWorkspace2Tab.put(m, associatedWorkspaceView);
         myTab2Workspace.put(associatedWorkspaceView, m);
-        myView.showWorkspace(associatedWorkspaceView, (Renderable<LEGridView>) m);
+        myView.showWorkspace(associatedWorkspaceView, (Renderable<LevelEditing>) m);
     }
 
     @Override
@@ -92,8 +96,8 @@ public class LEController implements IController<LevelEditing> {
 
     private void initLevelEditor () {
         String language = getLanguage();
-        myModel = new LevelEditor();
-        myView = new LEView(language, this);
+        myView = new LEView(language, this, myTools);
+        myModel = new LevelEditor(this);
     }
 
     private String getLanguage () {
@@ -118,6 +122,7 @@ public class LEController implements IController<LevelEditing> {
         return myTab2Workspace.get(v);
     }
 
+
     /**
      * This allows the user to specify the number of blocks needed for the level.
      * 
@@ -125,23 +130,15 @@ public class LEController implements IController<LevelEditing> {
      */
     private int[] getNumBlocks () {
         int[] res = new int[2];
-        String s =
-                (String) JOptionPane.showInputDialog(
-                                                     null,
-                                                     "How many blocks:\n"
-                                                             + "width, height",
-                                                     "New Level Size",
-                                                     JOptionPane.PLAIN_MESSAGE,
-                                                     null,
-                                                     null,
-                                                     "" + DEFAULT_SPRITE_GRID_SIZE + ", " +
-                                                             DEFAULT_SPRITE_GRID_SIZE);
-        if (!s.isEmpty()) {
-            int splitter = s.indexOf(",");
-            String s1 = s.substring(0, splitter).trim();
-            String s2 = s.substring(splitter + 1).trim();
-            res[0] = Integer.parseInt(s1);
-            res[1] = Integer.parseInt(s2);
+        
+        int a = (int) JOptionPane.showConfirmDialog(null, new GridSpinner(
+                                                    MIN_SPRITE_GRID_SIZE,
+                                                    MAX_SPRITE_GRID_SIZE), 
+                                                   "Grid Height and Width", 
+                                                    JOptionPane.OK_CANCEL_OPTION);
+        if (a == 0) {
+            res[0] = myGridSpinner.getGridWidth();
+            res[1] = myGridSpinner.getGridHeight();
         }
         else {
             res[0] = DEFAULT_SPRITE_GRID_SIZE;
@@ -187,7 +184,7 @@ public class LEController implements IController<LevelEditing> {
         if (cmd instanceof String) {
             myModel.processCommand(m, (String) cmd);
         }
-        t.setRenderable((Renderable<?>) m);
+        t.setRenderable((Renderable<LevelEditing>) m);
     }
 
     @Override
@@ -208,14 +205,13 @@ public class LEController implements IController<LevelEditing> {
     }
 
     @Override
-    public void start () {
-        // Welcome message
+    public void start() {
         myView.start();
     }
 
-    public static void showErrorMsg (String copyError) {
-        // TODO Auto-generated method stub
-
+    @Override
+    public void showErrorMsg (String copyError) {
+        myView.showMessageDialog(copyError);
     }
 
 }

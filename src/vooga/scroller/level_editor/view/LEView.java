@@ -1,10 +1,16 @@
 
 package vooga.scroller.level_editor.view;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import javax.swing.AbstractAction;
+import javax.swing.JMenu;
+import javax.swing.KeyStroke;
+import vooga.scroller.level_editor.LevelEditing;
 import vooga.scroller.level_editor.controllerSuite.LEController;
+import vooga.scroller.level_editor.controllerSuite.LEGrid;
 import vooga.scroller.level_editor.controllerSuite.LETools;
+import vooga.scroller.level_editor.view.LEActionLibrary.SimulateAction;
 import vooga.scroller.util.Renderable;
 import vooga.scroller.util.mvc.vcFramework.Window;
 
@@ -18,43 +24,31 @@ import vooga.scroller.util.mvc.vcFramework.Window;
  * @author Dagbedji Fagnisse
  */
 public class LEView extends Window<LEWorkspaceView, LevelEditing, LEGridView, LETools> {
-    
+
 
     private static final long serialVersionUID = 1L;
-    private static final String TITLE = "Level Editor";
-    private static final String SIMULATION_ERROR_MESSAGE = "SimulationError";
-    
+    private static final String SIMULATION_ERROR_MESSAGE = 
+            LevelEditing.VIEW_CONSTANTS.SIMULATION_ERROR_MESSAGE;
+    private static final String TITLE = 
+            LevelEditing.VIEW_CONSTANTS.DOMAIN_NAME;
+
     /**
      * Default constructor - build a Window with the specified language and controller.
-     * @param language
-     * @param lEController
+     * @param language - to be used for the GUI (and maybe domain keywords).
+     * @param lEController - Specialized controller for level Editing.
      */
-    public LEView (String language, LEController lEController) {
-        super(TITLE, language, lEController);
+    public LEView (String language, LEController lEController, LETools t) {
+        super(TITLE, language, lEController, t);
+        registerMenu(makeSimulateMenu());
     }
 
     @Override
-    public LEWorkspaceView initializeWorkspaceView (int id, Renderable<LEGridView> r) {
-        LEWorkspaceView res = new LEWorkspaceView(this, id, (Renderable<LEGridView>) r);
+    public LEWorkspaceView initializeWorkspaceView (int id, Renderable<LevelEditing> r) {
+        LEWorkspaceView res = new LEWorkspaceView(this, id, r, getTools());
         return res;
     }
 
-    @Override
-    protected void setMenu () {
-        super.setMenu(new LEMenuBar(this));
-    }
-    
-    /**
-     * Get the active tab and simulate it if it is valid
-     * @param tab
-     */
-    private void simulate (LEWorkspaceView tab) {
-        if (tab.isValidForSimulation()) {
-            tab.getRenderable().simulate();
-        }
-        else 
-            JOptionPane.showMessageDialog(this, SIMULATION_ERROR_MESSAGE);
-    }
+
 
     /**
      * Simulate the existing workspace data
@@ -66,10 +60,48 @@ public class LEView extends Window<LEWorkspaceView, LevelEditing, LEGridView, LE
     }
 
 
-    @Override
-    public void setDefaultWorkspaceTools (LETools t) {
-        LEWorkspaceView.setTools(t); //TODO
+    /**
+     * Get the active tab and simulate it if it is valid
+     * @param tab
+     */
+    private void simulate (LEWorkspaceView tab) {
+        if (tab.isValidForSimulation()) {
+            ((LEGrid) tab.getRenderable()).simulate();
+        }
+        else 
+            showMessageDialog(SIMULATION_ERROR_MESSAGE);
     }
+
+    @Override
+    public LevelEditing getDomain () {
+        return new LevelEditing();
+    }
+
+    public class SimulateAction extends AbstractAction {
+        
+        public SimulateAction () {
+            super(getLiteral("SimulateMenu"));
+            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(
+                                     KeyEvent.VK_F5, ActionEvent.ALT_MASK));
+        }
+
+        @Override
+        public void actionPerformed (ActionEvent e) {
+            // TODO Auto-generated method stub
+            simulate();
+        }
+    }
+
+    private JMenu makeSimulateMenu () {
+        JMenu result = new JMenu(Window.getResources().getString("SimulateMenu"));
+        result.setMnemonic(KeyEvent.VK_F2);
+        result.add(new SimulateAction());
+        result.setEnabled(false);
+        return result;
+    }
+    
+
+    
 
 
 }

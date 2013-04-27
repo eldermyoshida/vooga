@@ -1,10 +1,16 @@
 package vooga.scroller.model;
 
 import java.awt.BorderLayout;
+import java.awt.GraphicsConfiguration;
+import java.util.List;
 import javax.swing.JFrame;
+import vooga.scroller.level_editor.Level;
 import vooga.scroller.level_editor.controllerSuite.LEController;
 import vooga.scroller.level_editor.library.BackgroundLib;
 import vooga.scroller.level_editor.library.ISpriteLibrary;
+import vooga.scroller.level_editor.model.LevelParser;
+import vooga.scroller.level_management.LevelManager;
+import vooga.scroller.scrollingmanager.OmniScrollingManager;
 import vooga.scroller.level_management.splash_page.SplashPage;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.superclasses.Player;
@@ -24,6 +30,9 @@ public abstract class ScrollerGame extends Game {
     private ScrollingManager myScrollingManager;
     private Player myPlayer;
     private String myTitle;
+    private String[] myLevelsFilePaths;
+    private LevelParser myLevelReader;
+    private LevelManager myLevelManager;
     private String[] myLevels;
     private SplashPage mySplashPage;
 
@@ -37,7 +46,7 @@ public abstract class ScrollerGame extends Game {
         myScrollingManager = setScrollingManager();
         myDisplay = new GameView(PlatformerConstants.DEFAULT_WINDOW_SIZE, myScrollingManager);
         myPlayer = setPlayer(myScrollingManager,myDisplay);
-        myLevels = setLevelFileNamesPath();
+        myLevelsFilePaths = setLevelFileNamesPath();
         myTitle = setTitle();
         mySplashPage = setSplashPage();
     }
@@ -63,9 +72,9 @@ public abstract class ScrollerGame extends Game {
     }
     
     private void makeModel() {
-        myModel = new Model(myDisplay, myScrollingManager, myPlayer, mySplashPage, myLevels);
-        myModel.addPlayerToLevel();
+        myModel = new Model(myDisplay, myScrollingManager, myPlayer, mySplashPage, myLevelsFilePaths);
         myDisplay.setModel(myModel);
+        myModel.start();
     }
 
     @Override

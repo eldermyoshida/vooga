@@ -47,7 +47,7 @@ public class FishSplashPage extends SplashPage {
      */
     @InputMethodTarget(name = "start")
     public void nextLevel () {
-        getDoor().goToNextLevel(getPlayer());
+        getDoor().goToNextLevel();
     }
     
     /**

@@ -82,7 +82,7 @@ public class VisitMethods {
     }
     
     public void visit (Player player, IDoor levelPortal) {
-        levelPortal.goToNextLevel(player);
+        levelPortal.goToNextLevel();
     }
     
     public void visit (Fireball fire, IEnemy enemy){

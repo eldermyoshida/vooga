@@ -35,6 +35,6 @@ public class VisitMethods {
     }
     
     public void visit (Player player, IDoor levelPortal) {
-        collisions.marioAndLevelPortalCollision(player, levelPortal);
+        collisions.marioAndLevelPortalCollision(levelPortal);
     }
 }

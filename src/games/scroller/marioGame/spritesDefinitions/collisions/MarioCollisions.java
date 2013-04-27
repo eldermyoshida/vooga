@@ -30,7 +30,7 @@ public class MarioCollisions {
     private CollisionDirection direction = new CollisionDirection();
 
     protected void marioAndLevelPortalCollision (Player player, IDoor levelPortal) {
-        levelPortal.goToNextLevel(player);
+        levelPortal.goToNextLevel();
     }
 
     protected void marioAndEnemyCollision (Mario player, IEnemy enemy) {

@@ -6,6 +6,7 @@ import java.awt.Image;
 import java.io.IOException;
 import util.Location;
 import vooga.scroller.level_editor.Level;
+import vooga.scroller.level_management.LevelFactory;
 import vooga.scroller.level_management.LevelManager;
 import vooga.scroller.level_management.splash_page.SplashPage;
 import vooga.scroller.marioGame.spritesDefinitions.players.Mario;
@@ -49,13 +50,21 @@ public class Model {
 
     public Model (GameView gameView, ScrollingManager sm, Player player, SplashPage splashPage, Level ...levels) {
         this(gameView, sm, player);
-        myLevelManager = initializeLevelManager(splashPage, levels);
+        myLevelManager = initializeLevelManager(splashPage, player, levels);
     }
     
-    
+
+    /**
+     * TODO -...
+     * @param gameView
+     * @param sm
+     * @param player
+     * @param splashPage
+     * @param levelFileNames
+     */
     public Model (GameView gameView, ScrollingManager sm, Player player, SplashPage splashPage, String... levelFileNames) {
         this(gameView, sm, player);
-        myLevelManager = initializeLevelManager(splashPage, levelFileNames);
+        myLevelManager = initializeLevelManager(splashPage, player, levelFileNames);
     }
 
 //    public Model (GameView gameView, ScrollingManager sm, Level level) {
@@ -78,18 +87,25 @@ public class Model {
         player.setView(playerAnimation);
         return player;
     }
+    
+    /**
+     * Add player and begin game
+     */
+    public void start() {
+        addPlayerToLevel();
+    }
 
-    public void addPlayerToLevel () {
+    private void addPlayerToLevel () {
         myLevelManager.getCurrentLevel().addPlayer(myPlayer);
     }
 
-    private LevelManager initializeLevelManager (SplashPage splashPage, Level[] levels) {
-        return new LevelManager(myScrollingManager, myView, splashPage, levels);
+    private LevelManager initializeLevelManager (SplashPage splashPage, Player player, Level[] levels) {
+        return new LevelManager(myScrollingManager, myView, player, splashPage, levels);
     }
 
 
-    private LevelManager initializeLevelManager (SplashPage splashPage, String[] levelFileNames) {
-        return new LevelManager(myScrollingManager, myView, splashPage, levelFileNames);
+    private LevelManager initializeLevelManager (SplashPage splashPage, Player player, String[] levelFileNames) {
+        return new LevelManager(myScrollingManager, myView, player, splashPage, levelFileNames);
     }
 
 
