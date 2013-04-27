@@ -139,35 +139,39 @@ public class GameState extends SubState implements Controller {
     public void setupGame () {
         getPlayers().addPlayer(1);
         Location3D playerOneBase = getPlayers().getHuman().getBase();
+        generateInitialSprites(0, playerOneBase);
         
-        Unit worker =  (Unit) myFactory.getEntitiesMap().get("worker").copy();
-        worker.setWorldLocation(new Location3D(playerOneBase.getX() +
-        		DEFAULT_WORKER_RELATIVE_LOCATION.getX(), playerOneBase.getY() +
-        		DEFAULT_WORKER_RELATIVE_LOCATION.getY(), playerOneBase.getZ() +
-        		DEFAULT_WORKER_RELATIVE_LOCATION.getZ()));
-        worker.move(worker.getWorldLocation());
-        worker.setInfo(DEFAULT_WORKER_INFO);
-        getPlayers().getHuman().add(worker);
+        getPlayers().addPlayer(2);
+        Location3D playerEnemyBase = getPlayers().getPlayer(1).getEnemyBase();
+        generateInitialSprites(1, playerEnemyBase);
+        
+        generateResources();
+    }
+    
+    private void generateInitialSprites(int playerID, Location3D baseLocation) {
+    	Unit worker =  (Unit) myFactory.getEntitiesMap().get("worker").copy();
+        worker = (Unit) setLocationAndInfo(worker, baseLocation,
+        		DEFAULT_WORKER_RELATIVE_LOCATION, DEFAULT_WORKER_INFO);
+        getPlayers().getPlayer(playerID).add(worker);
        
-        Unit soldierOne = (Unit) myFactory.getEntitiesMap().get("combat").copy(); //TODO: refactor!
-        soldierOne.setWorldLocation(new Location3D(playerOneBase.getX() +
-        		DEFAULT_SOLDIER_ONE_RELATIVE_LOCATION.getX(), playerOneBase.getY() +
-        		DEFAULT_SOLDIER_ONE_RELATIVE_LOCATION.getY(), playerOneBase.getZ() +
-        		DEFAULT_SOLDIER_ONE_RELATIVE_LOCATION.getZ()));
-        soldierOne.move(soldierOne.getWorldLocation());
-        soldierOne.setInfo(DEFAULT_SOLDIER_INFO);
-        getPlayers().getHuman().add(soldierOne);
+        Unit soldierOne = (Unit) myFactory.getEntitiesMap().get("combat").copy();
+        soldierOne = (Unit) setLocationAndInfo(soldierOne, baseLocation,
+        		DEFAULT_SOLDIER_ONE_RELATIVE_LOCATION, DEFAULT_SOLDIER_INFO);
+        getPlayers().getPlayer(playerID).add(soldierOne);
         
         Building startProduction= (Building) myFactory.getEntitiesMap().get("home").copy();
-        startProduction.setWorldLocation(new Location3D(playerOneBase.getX() +
-        		DEFAULT_PRODUCTION_RELATIVE_LOCATION.getX(), playerOneBase.getY() +
-        		DEFAULT_PRODUCTION_RELATIVE_LOCATION.getY(), playerOneBase.getZ() +
-        		DEFAULT_PRODUCTION_RELATIVE_LOCATION.getZ()));
-        startProduction.move(startProduction.getWorldLocation());
-        startProduction.setInfo(DEFAULT_PRODUCTION_INFO);
-        getPlayers().getHuman().add(startProduction);
-
-        //this is for testing
+        startProduction = (Building) setLocationAndInfo(startProduction,
+        		baseLocation, DEFAULT_PRODUCTION_RELATIVE_LOCATION,
+        		DEFAULT_PRODUCTION_INFO);
+        getPlayers().getPlayer(playerID).add(startProduction);
+        
+        Building startOccupy = (Building) myFactory.getEntitiesMap().get("garrison").copy();
+        startOccupy = (Building) setLocationAndInfo(startOccupy,
+        		baseLocation, DEFAULT_OCCUPY_RELATIVE_LOCATION,
+        		DEFAULT_OCCUPY_INFO);
+        getPlayers().getPlayer(playerID).add(startOccupy);
+        
+      //this is for testing
         final Building f = startProduction;
         myTasks.add(new DelayedTask(2, new Runnable() {
             @Override
@@ -175,15 +179,6 @@ public class GameState extends SubState implements Controller {
                 f.getAction((new Command("make Marine"))).apply();
             }
         }, true));
-        
-        Building startOccupy = (Building) myFactory.getEntitiesMap().get("garrison").copy();
-        startOccupy.setWorldLocation(new Location3D(playerOneBase.getX() +
-        		DEFAULT_OCCUPY_RELATIVE_LOCATION.getX(), playerOneBase.getY() +
-        		DEFAULT_OCCUPY_RELATIVE_LOCATION.getY(), playerOneBase.getZ() +
-        		DEFAULT_OCCUPY_RELATIVE_LOCATION.getZ()));
-        startOccupy.move(startProduction.getWorldLocation());       
-        startOccupy.setInfo(DEFAULT_OCCUPY_INFO);
-        getPlayers().getHuman().add(startOccupy);
 
         //This is for testing
         final Building testGarrison = startOccupy;
@@ -197,39 +192,19 @@ public class GameState extends SubState implements Controller {
                 }                
             }
         }));
-        
-        
-        getPlayers().addPlayer(2);
-        Location3D playerEnemyBase = getPlayers().getPlayer(1).getEnemyBase();
-        
-        Unit enemySoldierOne = (Unit) myFactory.getEntitiesMap().get("combat").copy();
-        enemySoldierOne.setWorldLocation(new Location3D(playerEnemyBase.getX() +
-        		DEFAULT_SOLDIER_ONE_RELATIVE_LOCATION.getX(), playerEnemyBase.getY() +
-        		DEFAULT_SOLDIER_ONE_RELATIVE_LOCATION.getY(), playerEnemyBase.getZ() +
-        		DEFAULT_SOLDIER_ONE_RELATIVE_LOCATION.getZ()));
-        enemySoldierOne.move(enemySoldierOne.getWorldLocation());
-        getPlayers().getPlayer(1).add(enemySoldierOne);
-        
-        Building enemyProduction= (Building) myFactory.getEntitiesMap().get("home").copy();
-        enemyProduction.setWorldLocation(new Location3D(playerEnemyBase.getX() +
-        		DEFAULT_PRODUCTION_RELATIVE_LOCATION.getX(), playerEnemyBase.getY() +
-        		DEFAULT_PRODUCTION_RELATIVE_LOCATION.getY(), playerEnemyBase.getZ() +
-        		DEFAULT_PRODUCTION_RELATIVE_LOCATION.getZ()));
-        enemyProduction.move(enemyProduction.getWorldLocation());
-        enemyProduction.setInfo(DEFAULT_PRODUCTION_INFO);
-        getPlayers().getPlayer(1).add(enemyProduction);
-        
-        //this is for testing
-        final Building g = enemyProduction;
-        myTasks.add(new DelayedTask(2, new Runnable() {
-            @Override
-            public void run () {
-                g.getAction((new Command("make Marine"))).apply();
-            }
-        }, true));
-        
-        
-        for (int j = 0; j < 10; j++) {
+    }
+    
+    private InteractiveEntity setLocationAndInfo(InteractiveEntity subject, Location3D base, Location3D reference, Information info) {
+    	subject.setWorldLocation(new Location3D(base.getX() +
+        		reference.getX(), base.getY() + reference.getY(), base.getZ() +
+        		reference.getZ()));
+        subject.move(subject.getWorldLocation());
+        subject.setInfo(info);
+        return subject;
+    }
+
+    private void generateResources() {
+    	for (int j = 0; j < 10; j++) {
             getMap().getResources().add(new Resource(new Pixmap("images/mineral.gif"),
                                                      new Location3D(600 + j * 30, 600  - j * 20, 0),
                                                      new Dimension(50, 50), 0, 200, "mineral"));
@@ -241,10 +216,9 @@ public class GameState extends SubState implements Controller {
                                                       new Location3D(100 + k * 25, 100, j * 25),
                                                       new Dimension(50, 50)));
             }
-            
         }
     }
-
+    
     private void yuckyUnitUpdate (double elapsedTime) {
 
         List<InteractiveEntity> p1 = getPlayers().getTeam(1).getUnits();
