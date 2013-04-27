@@ -25,7 +25,7 @@ import vooga.scroller.view.GameView;
  * @author Scott Valentine, Dagbedji Fagnisse
  * 
  */
-public class LevelFactory implements IController<LevelEditing>{
+public class LevelFactory {
 
     private static String DEFAULT_LEVEL_FOLDER = "src/vooga/scroller/resources/sampleLevels/";
     private LevelManager myLevelManager;
@@ -95,48 +95,6 @@ public class LevelFactory implements IController<LevelEditing>{
         }
 
         return levels;
-    }
-
-    @Override
-    public void start () {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void saveFile (File file2save, WorkspaceView<LevelEditing> t) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void loadFile (File file2open) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void process (WorkspaceView<LevelEditing> t, Object cmd) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void initializeWorkspace () {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public LevelEditing getDomainInfo () {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public void showErrorMsg (String copyError) {
-        // TODO Auto-generated method stub
-        
     }
     
 }

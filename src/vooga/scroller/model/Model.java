@@ -79,8 +79,15 @@ public class Model {
         player.setView(playerAnimation);
         return player;
     }
+    
+    /**
+     * Add player and begin game
+     */
+    public void start() {
+        addPlayerToLevel();
+    }
 
-    public void addPlayerToLevel () {
+    private void addPlayerToLevel () {
         myLevelManager.getCurrentLevel().addPlayer(myPlayer);
     }
 

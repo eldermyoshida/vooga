@@ -27,10 +27,7 @@ public abstract class ScrollerGame extends Game {
     private ScrollingManager myScrollingManager;
     private Player myPlayer;
     private String myTitle;
-    private LevelParser myLevelReader;
     private String[] myLevelsFilePaths;
-    private LevelManager myLevelManager;
-    private Level[] myLevels;
     private SplashPage mySplashPage;
 
     public ScrollerGame (ArcadeInteraction arcade) {
@@ -69,8 +66,9 @@ public abstract class ScrollerGame extends Game {
     }
     
     private void makeModel() {
-        myModel = new Model(myDisplay, myScrollingManager, myPlayer, mySplashPage, myLevels);
+        myModel = new Model(myDisplay, myScrollingManager, myPlayer, mySplashPage, myLevelsFilePaths);
         myDisplay.setModel(myModel);
+        myModel.start();
     }
 
     @Override
