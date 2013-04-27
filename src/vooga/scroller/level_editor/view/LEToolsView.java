@@ -19,16 +19,7 @@ import vooga.scroller.util.mvc.vcFramework.Tools;
  */
 public class LEToolsView extends TabbedToolsView<LevelEditing> {
 
-    public class UpdateGridSizeListener implements ActionListener {
-        
-        @Override
-        public void actionPerformed (ActionEvent e) {
-            process(CommandConstants.CHANGE_GRID_SIZE + " " + 
-                    myGridSpinner.getGridWidth() + ", " +
-                    myGridSpinner.getGridHeight());
-        }
-
-    }
+    
 
     /**
      * 
@@ -40,16 +31,7 @@ public class LEToolsView extends TabbedToolsView<LevelEditing> {
 
     public LEToolsView (Tools<LevelEditing> leTools, IView<LevelEditing> parent) {
         super(leTools, parent);
-        myGridSpinner = setGridSpinner();
         super.addSpecializedToolUI(myGridSpinner);
-    }
-    
-    private GridSpinner setGridSpinner() {
-        GridSpinner result = new GridSpinner();
-        JButton validator = new JButton("Update Grid Size");
-        validator.addActionListener(new UpdateGridSizeListener());
-        result.add(validator);
-        return result;
     }
 
     

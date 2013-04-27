@@ -322,4 +322,12 @@ public class LEGrid implements Editable, Renderable<LevelEditing>, Scrollable {
 //        display.start();
     }
 
+    public int getWidthInBlocks () {
+        return myGrid.length;
+    }
+
+    public int getHeightInBlocks () {
+        return myGrid[0].length;
+    }
+
 }

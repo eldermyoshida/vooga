@@ -97,4 +97,8 @@ public class LEWorkspaceView extends WorkspaceView<LevelEditing>
         return myGridView.getRenderable();
     }
 
+    public Renderer<LevelEditing> getEditableRenderer () {
+        return myGridView;
+    }
+
 }

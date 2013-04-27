@@ -22,7 +22,7 @@ public class LEMenuBar extends MenuBarView<LevelEditing> {
      */
     private static final long serialVersionUID = -2714084580594858599L;
 
-    private LEActionLibrary myLib;
+//    private LEActionLibrary myLib;
     
     
     /**
@@ -32,7 +32,7 @@ public class LEMenuBar extends MenuBarView<LevelEditing> {
     public LEMenuBar (LEView window) {
         super(window);
         List<JMenu> menus = new ArrayList<JMenu>();
-        menus.add(makePreferencesMenu());
+//        menus.add(makePreferencesMenu());
         super.addCustomMenus(menus);
     }
 
@@ -52,8 +52,8 @@ public class LEMenuBar extends MenuBarView<LevelEditing> {
 
     @Override
     protected void setSpecializedWindow (Window w) {
-        myLib = new LEActionLibrary((LEView)w);
-        
+//        myLib = new LEActionLibrary((LEView)w);
+//        
     }
 
 }
