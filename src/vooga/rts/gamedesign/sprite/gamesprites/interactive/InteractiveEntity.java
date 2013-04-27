@@ -662,18 +662,11 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     @Override
     public void move (Location3D loc) {
         final Location3D temp = new Location3D(loc);
-        myPath = null;
-        Thread pathfinding = new Thread(new Runnable() {
-            @Override
-            public void run () {
-                findpath(temp);
-
-            }
-        });
-        pathfinding.start();
+        myPath = null;        
+        findpath(temp);
     }
 
-    private synchronized void findpath (Location3D destination) {
+    private void findpath (Location3D destination) {
         myPath = GameState.getMap().getPath(myFinder, getWorldLocation(), destination);
         if (myPath != null) {
             myProductionStrategy.setRallyPoint(this);

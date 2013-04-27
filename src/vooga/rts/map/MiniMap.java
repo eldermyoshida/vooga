@@ -1,5 +1,6 @@
 package vooga.rts.map;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
@@ -33,7 +34,11 @@ public class MiniMap implements IGameLoop {
         for (int x = 0; x < myMap.getNodeMap().getWidth(); x += nodesPerPixel) {
             for (int y = 0; y < myMap.getNodeMap().getHeight(); y += nodesPerPixel) {
                 Node n = myMap.getNodeMap().get(x, y);
-                pen.fill(new Rectangle2D.Double(myScreen.getX() + x / nodesPerPixel, myScreen.getY() + y / nodesPerPixel, 1, 1));                        
+                if (n.getContents().size() > 0) {
+                    pen.setColor(Color.BLUE);
+                    pen.fill(new Rectangle2D.Double(myScreen.getX() + x / nodesPerPixel, myScreen.getY() + y / nodesPerPixel, 1, 1));
+                    pen.setColor(Color.BLACK);
+                }
             }
         }
     }
