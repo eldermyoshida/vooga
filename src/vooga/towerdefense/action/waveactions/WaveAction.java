@@ -35,8 +35,6 @@ public class WaveAction extends Action {
 	
 	private void spawnUnit() {
 		GameElement unit = myFactory.createElement(myMap.getSpawnLocation());
-		System.out.println("spawn location: " + myMap.getSpawnLocation());
-		System.out.println("spawning unit " + unit);
 		myMap.addGameElement(unit);
 		--myUnitsRemaining;
 	}
