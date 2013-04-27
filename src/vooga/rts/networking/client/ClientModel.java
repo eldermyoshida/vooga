@@ -41,15 +41,9 @@ public class ClientModel extends Observable implements IClientModel, IModel {
 
     private IClient myClient;
     private String myUserName;
-    // private ViewContainerPanel myContainerPanel;
-    // private TableContainerView myServerBrowserView;
-    // private CreateLobbyView myCreateLobbyView;
     private ExpandedLobbyInfo myLobbyInfo;
-    // private LobbyView myLobbyView;
-    // private List<String> myFactions;
     private List<PlayerInfo> myUserControlledPlayers = new ArrayList<PlayerInfo>();
     private PlayerInfo myPlayer;
-    // private ServerBrowserTableAdapter myServerBrowserAdapter = new ServerBrowserTableAdapter();
     private NetworkedGame myGame;
     private ClientViewAdapter myViewAdapter;
 
@@ -71,11 +65,6 @@ public class ClientModel extends Observable implements IClientModel, IModel {
                         List<Integer> maxPlayerArray) {
         myGame = game;
         myUserName = userName;
-        
-        // myFactions = factions;
-        // myContainerPanel = new ViewContainerPanel(gameName);
-        // myServerBrowserView = new TableContainerView(myServerBrowserAdapter);
-        // myCreateLobbyView = new CreateLobbyView(maps, maxPlayerArray);
         myClient = new Client(this);
         Message initialConnection = new InitialConnectionMessage(gameName, userName);
         myClient.sendData(initialConnection);
@@ -93,92 +82,6 @@ public class ClientModel extends Observable implements IClientModel, IModel {
     public void closeConnection () {
         myClient.closeConnection();
     }
-
-//    /**
-//     * Switches the current View to the ServerBrowser.
-//     */
-//    private void switchToServerBrowserView () {
-//        requestLobbies();
-//        myViewAdapter.switchToServerBrowserView();
-//         myContainerPanel.changeView(myServerBrowserView,
-//         NetworkBundle.getString("ServerBrowser"));
-//         myContainerPanel.changeLeftButton(NetworkBundle.getString("HostGame"),
-//         new ActionListener() {
-//         @Override
-//         public void actionPerformed (ActionEvent arg0) {
-//         switchToCreateLobbyView();
-//         }
-//         });
-//         myContainerPanel.changeRightButton(NetworkBundle.getString("JoinGame"),
-//         new ActionListener() {
-//         @Override
-//         public void actionPerformed (ActionEvent arg0) {
-//         if (myServerBrowserView.hasSelectedRow()) {
-//         requestJoinLobby(myServerBrowserAdapter
-//         .getIdOfRow(myServerBrowserView
-//         .getSelectedRow()));
-//         }
-//         }
-//         });
-//    }
-
-//    /**
-//     * Switches the current View to the LobbyCreatorScreen.
-//     */
-//    private void switchToCreateLobbyView () {
-//        myViewAdapter.switchToCreateLobbyView();
-//         myContainerPanel.changeView(myCreateLobbyView, NetworkBundle.getString("LobbyCreation"));
-//         myContainerPanel.changeLeftButton(NetworkBundle.getString("BackToBrowser"),
-//         new ActionListener() {
-//         @Override
-//         public void actionPerformed (ActionEvent arg0) {
-//         switchToServerBrowserView();
-//         }
-//         });
-//         myContainerPanel.changeRightButton(NetworkBundle.getString("StartLobby"),
-//         new ActionListener() {
-//         @Override
-//         public void actionPerformed (ActionEvent arg0) {
-//         if (myCreateLobbyView.allItemsChosen()) {
-//         startLobby(myCreateLobbyView.getLobbyInfo());
-//         }
-//         }
-//         });
-//    }
-
-//    /**
-//     * Switches the current view to the Lobby.
-//     */
-//    private void switchToLobbyView (ExpandedLobbyInfo lobbyInfo) {
-//        updateLobby(lobbyInfo);
-//        sendUpdatedLobbyInfo();
-//        myViewAdapter.switchToLobbyView();
-//         myLobbyView = new LobbyView(this, myFactions, lobbyInfo.getMaxPlayers());
-//         updateLobby(lobbyInfo);
-//         sendUpdatedLobbyInfo();
-//        
-//         myContainerPanel.changeView(myLobbyView, NetworkBundle.getString("LobbyCreation"));
-//         myContainerPanel.changeLeftButton(NetworkBundle.getString("LeaveLobby"),
-//         new ActionListener() {
-//         @Override
-//         public void actionPerformed (ActionEvent arg0) {
-//         myLobbyInfo.removePlayer(myUserControlledPlayers
-//         .get(0));
-//         myClient.sendData(new LeaveLobbyMessage(
-//         myLobbyInfo));
-//         switchToServerBrowserView();
-//         }
-//         });
-//         myContainerPanel.changeRightButton(NetworkBundle.getString("StartLobby"),
-//         new ActionListener() {
-//         @Override
-//         public void actionPerformed (ActionEvent arg0) {
-//         if (myLobbyInfo.canStartGame()) {
-//         requestStartGame();
-//         }
-//         }
-//         });
-//    }
 
     /**
      * Request currently available lobbies from the server

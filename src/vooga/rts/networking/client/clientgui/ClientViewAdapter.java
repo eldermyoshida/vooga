@@ -13,7 +13,14 @@ import vooga.rts.networking.communications.PlayerInfo;
 import vooga.rts.networking.communications.clientmessages.LeaveLobbyMessage;
 import vooga.rts.player.Player;
 
-
+/**
+ * Class used as a meddler between the client view and model
+ * It manages the necessary operations on the model given the 
+ * user input and keeps the display information up to date 
+ * in case data comes from the network
+ * @author Henrique Moraes
+ *
+ */
 public class ClientViewAdapter {
     private ViewContainerPanel myContainerPanel;
     private TableContainerView myServerBrowserView;
@@ -23,6 +30,14 @@ public class ClientViewAdapter {
     private List<String> myFactions;
     private ClientModel myModel;
 
+    /**
+     * 
+     * @param model
+     * @param gameName
+     * @param factions
+     * @param maps
+     * @param maxPlayerArray
+     */
     public ClientViewAdapter (IModel model,
                               String gameName, List<String> factions, List<String> maps,
                               List<Integer> maxPlayerArray) {
@@ -34,6 +49,9 @@ public class ClientViewAdapter {
         switchToServerBrowserView();
     }
 
+    /**
+    * Switches the current View to the ServerBrowser.
+    */
     public void switchToServerBrowserView () {
         myModel.requestLobbies();
         myContainerPanel.changeView(myServerBrowserView, NetworkBundle.getString("ServerBrowser"));
