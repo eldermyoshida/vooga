@@ -83,7 +83,11 @@ public class MainState implements State, Observer {
 
     @Override
     public void paint (Graphics2D pen) {
+        float x = ((float) Window.SCREEN_SIZE.getWidth() / (float) Window.D_X);
+        float y = ((float) Window.SCREEN_SIZE.getHeight() / (float) Window.D_Y);
+        pen.scale(x, y);
         myActiveState.paint(pen);
+
     }
 
     @Override
