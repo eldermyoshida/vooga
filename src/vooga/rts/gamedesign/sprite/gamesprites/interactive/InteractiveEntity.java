@@ -14,7 +14,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import vooga.rts.action.Action;
 import vooga.rts.action.IActOn;
 import vooga.rts.ai.AstarFinder;
@@ -27,10 +26,11 @@ import vooga.rts.gamedesign.sprite.gamesprites.IAttackable;
 import vooga.rts.gamedesign.sprite.gamesprites.Projectile;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
-import vooga.rts.gamedesign.state.AttackingState;
 import vooga.rts.gamedesign.state.UnitState;
+import vooga.rts.gamedesign.strategy.Strategy;
 import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
 import vooga.rts.gamedesign.strategy.attackstrategy.CannotAttack;
+import vooga.rts.gamedesign.strategy.gatherstrategy.CanGather;
 import vooga.rts.gamedesign.strategy.gatherstrategy.CannotGather;
 import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
 import vooga.rts.gamedesign.strategy.occupystrategy.CannotBeOccupied;
@@ -38,6 +38,7 @@ import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
 import vooga.rts.gamedesign.strategy.production.CannotProduce;
 import vooga.rts.gamedesign.strategy.production.ProductionStrategy;
 import vooga.rts.gamedesign.strategy.upgradestrategy.CanUpgrade;
+import vooga.rts.gamedesign.strategy.upgradestrategy.CannotUpgrade;
 import vooga.rts.gamedesign.strategy.upgradestrategy.UpgradeStrategy;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
 import vooga.rts.gamedesign.weapon.Weapon;
@@ -68,9 +69,10 @@ public abstract class InteractiveEntity extends GameEntity implements
 	public static final int DEFAULT_PLAYERID = 0;
 	private static final int LOCATION_OFFSET = 20;
 	private static int DEFAULT_INTERACTIVEENTITY_SPEED = 150;
+	public static final double DEFAULT_BUILD_TIME = 5;
 	private boolean isSelected;
-	private UpgradeTree myUpgradeTree;
 	private Sound mySound;
+	private UpgradeTree myUpgradeTree;
 	private AttackStrategy myAttackStrategy;
 	private ProductionStrategy myProductionStrategy;
 	private UpgradeStrategy myUpgradeStrategy;
@@ -86,8 +88,6 @@ public abstract class InteractiveEntity extends GameEntity implements
 	private PathFinder myFinder;
 	private Path myPath;
 	private InteractiveEntity myTargetEntity;
-
-	public static final double DEFAULT_BUILD_TIME = 5;
 
 	/**
 	 * Creates a new interactive entity.
@@ -108,11 +108,10 @@ public abstract class InteractiveEntity extends GameEntity implements
 	public InteractiveEntity(Pixmap image, Location3D center, Dimension size,
 			Sound sound, int playerID, int health, double buildTime) {
 		super(image, center, size, playerID, health);
-		// myMakers = new HashMap<String, Factory>(); //WHERE SHOULD THIS GO?
 		mySound = sound;
 		myAttackStrategy = new CannotAttack();
 		myProductionStrategy = new CannotProduce();
-		myUpgradeStrategy = new CanUpgrade();
+		myUpgradeStrategy = new CannotUpgrade();
 		myGatherStrategy = new CannotGather();
 		myActions = new HashMap<String, Action>();
 		myInfos = new HashMap<String, Information>();
@@ -135,7 +134,26 @@ public abstract class InteractiveEntity extends GameEntity implements
 		myActions.remove(command);
 	}
 
+	public Map<String, Action> getActions() {
+		return myActions;
+	}
+
+	public void setActions(Map<String, Action> actions) {
+		myActions = actions;
+	}
+
 	public abstract void addActions();
+
+	/**
+	 * TESTING
+	 */
+	public ArrayList<String> getAllActionCommands() {
+		ArrayList<String> result = new ArrayList<String>();
+		for (String a : myActions.keySet()) {
+			result.add(a);
+		}
+		return result;
+	}
 
 	public void addTask(DelayedTask dt) {
 		myTasks.add(dt);
@@ -155,6 +173,16 @@ public abstract class InteractiveEntity extends GameEntity implements
 
 	public UpgradeTree getUpgradeTree() {
 		return myUpgradeStrategy.getUpgradeTree();
+	}
+
+	public Strategy[] getStrategies() {
+		Strategy[] all = new Strategy[5];
+		all[0] = myAttackStrategy;
+		all[1] = myOccupyStrategy;
+		all[2] = myGatherStrategy;
+		all[3] = myProductionStrategy;
+		all[4] = myUpgradeStrategy;
+		return all;
 	}
 
 	/**
@@ -247,6 +275,19 @@ public abstract class InteractiveEntity extends GameEntity implements
 	public abstract InteractiveEntity copy();
 
 	/**
+	 * Gives "toOther" all the information and strategies attributed to this
+	 * class.
+	 * 
+	 * @param toOther
+	 */
+	public void transmitProperties(InteractiveEntity toOther) {
+		toOther.setInfo(getInfo());
+		for (Strategy s : getStrategies()) {
+			s.affect(toOther);
+		}
+	}
+
+	/**
 	 * Returns the action that corresponds to a command.
 	 * 
 	 * @param command
@@ -311,7 +352,6 @@ public abstract class InteractiveEntity extends GameEntity implements
 	 * 
 	 * @return the sound of the interactive entity
 	 */
-
 	public Sound getSound() {
 		return mySound;
 	}
@@ -324,6 +364,43 @@ public abstract class InteractiveEntity extends GameEntity implements
 	 */
 	public ProductionStrategy getProductionStrategy() {
 		return myProductionStrategy;
+	}
+
+	public UpgradeStrategy getUpgradeStrategy() {
+		return myUpgradeStrategy;
+	}
+
+	/**
+	 * Sets the amount that the worker can gather at a time.
+	 * 
+	 * @param gatherAmount
+	 *            is the amount that the worker can gather
+	 */
+	public void setGatherAmount(int gatherAmount) {
+		myGatherStrategy.setGatherAmount(gatherAmount);
+		myGatherStrategy = new CanGather(CanGather.DEFAULTCOOL,
+				myGatherStrategy.getGatherAmount());
+	}
+
+	/**
+	 * The worker gathers the resource if it can and then resets its gather
+	 * cooldown.
+	 * 
+	 * @param gatherable
+	 *            is the resource being gathered.
+	 */
+	public void gather(IGatherable gatherable) {
+		if (this.collidesWith((GameEntity) gatherable)) {
+			myGatherStrategy.gatherResource(getPlayerID(), gatherable);
+		}
+	}
+
+	public void setGatherStrategy(GatherStrategy gatherStrategy) {
+		myGatherStrategy = gatherStrategy;
+	}
+
+	public GatherStrategy getGatherStrategy() {
+		return myGatherStrategy;
 	}
 
 	/**
@@ -388,29 +465,23 @@ public abstract class InteractiveEntity extends GameEntity implements
 		}
 	}
 
-	public void put(String name, Action action) { // Might just use a putter
-		myActions.put(name, action);
-	}
-
 	/**
 	 * If the passed in parameter is another InteractiveEntity, checks to see if
-	 * it is an enemy and should be attacked. Then it checks to see if it is a
-	 * building that can be occupied. Then the entity starts to move to location
-	 * clicked. A reference to the interactive entity that is passed in is
-	 * stored.
+	 * it is a Building and can be occupied, checks to see if it is an enemy,
+	 * and if so, switches to attack state. Defaults to move to the center of
+	 * the other InteractiveEntity
 	 * 
 	 * @param other
 	 *            - the other InteractiveEntity
 	 */
 	public void recognize(InteractiveEntity other) {
-		myTargetEntity = other;
 		if (isEnemy(other)) {
 			getEntityState().setUnitState(UnitState.ATTACK);
-		} else if (other instanceof Building) {
-			getEntityState().setUnitState(UnitState.OCCUPY);
-		} else {
-			getEntityState().setUnitState(UnitState.NO_STATE);
 		}
+		if (other instanceof Building) {
+			getEntityState().setUnitState(UnitState.OCCUPY);
+		}
+		getEntityState().setUnitState(UnitState.NO_STATE);
 		move(other.getWorldLocation());
 	}
 
@@ -470,11 +541,13 @@ public abstract class InteractiveEntity extends GameEntity implements
 
 	@Override
 	public void update(double elapsedTime) {
-		if (myPath.size() == 0) {
-			setVelocity(getVelocity().getAngle(), 0);
-			getEntityState().stop();
-		} else {
-			super.move(myPath.getNext());
+		if (myPath != null) {
+			if (myPath.size() == 0) {
+				setVelocity(getVelocity().getAngle(), 0);
+				getEntityState().stop();
+			} else {
+				super.move(myPath.getNext());
+			}
 		}
 
 		super.update(elapsedTime);
@@ -496,8 +569,8 @@ public abstract class InteractiveEntity extends GameEntity implements
 				if (!enemies.isEmpty()) {
 					enemies.get(0).getAttacked(this);
 				}
+				weapon.update(elapsedTime);
 			}
-			weapon.update(elapsedTime);
 		}
 		getEntityState().update(elapsedTime);
 
@@ -586,6 +659,7 @@ public abstract class InteractiveEntity extends GameEntity implements
 	public void move(Location3D loc) {
 		myPath = GameState.getMap().getPath(myFinder, getWorldLocation(), loc);
 		if (myPath != null) {
+			myProductionStrategy.setRallyPoint(this);
 			super.move(myPath.getNext());
 		}
 
