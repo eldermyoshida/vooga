@@ -66,6 +66,7 @@ public class MapsSelectorScreen extends SelectScreen {
             public void actionPerformed (ActionEvent e) {
                 if (myMapSelected == true) {
                     try {
+                        System.out.println("Selected map is " + mySelectedMap);
                         myController.setMap(mySelectedMap);
                     }
                     catch (IllegalArgumentException e1) {
@@ -85,7 +86,6 @@ public class MapsSelectorScreen extends SelectScreen {
                         // TODO Auto-generated catch block
                         e1.printStackTrace();
                     }
-                    getView().showScreen();
                 }
             }
         });

@@ -100,6 +100,7 @@ public class Controller {
 		setLanguage(language);
 		myGameLoader = new GameLoader(xmlPath);
 		myView = new TDView(this);
+		myView.showSplashScreen();
 		setMaps();
 
 //		setLanguage(language);
@@ -165,6 +166,7 @@ public class Controller {
 	    
 	    addMapAndLoadGame(myAvailableMaps.get(mapChoice));
 	    setView();
+	    myView.showScreen();
 	}
 	
 	/**
