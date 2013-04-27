@@ -111,6 +111,14 @@ public class GameEditorController extends JFrame {
                               String map) {
         myXMLWriter.addMapToGame(name, image, width, height, tileSize, map);
     }
+    
+    /**
+     * adds the player information to the game.
+     * @param attributes is the map of the attributes
+     */
+    public void addPlayerToGame(Map<String, String> attributes) {
+        myXMLWriter.addPlayerToGame(attributes);
+    }
 
     /**
      * Creates a new game element based on user input and adds it to the game.

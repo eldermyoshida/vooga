@@ -17,6 +17,7 @@ import vooga.towerdefense.model.Tile;
 import vooga.towerdefense.model.tiles.factories.DefaultTileFactory;
 import vooga.towerdefense.model.tiles.factories.GrassTileFactory;
 import vooga.towerdefense.model.tiles.factories.PathTileFactory;
+import vooga.towerdefense.model.tiles.factories.SpawnTileFactory;
 import vooga.towerdefense.model.tiles.factories.TileFactory;
 
 /**
@@ -89,7 +90,9 @@ public class MapXMLLoader {
     private static final String GRID_TAG = "grid";
     
     private XMLTool myXMLTool;    
-    private Map<Integer, TileFactory> myTileIdMap;
+    private Map<String, TileFactory> myTileIdMap;
+    private Location spawnLocation;
+    private Location endLocation;
     
     /**
      * 
@@ -101,10 +104,12 @@ public class MapXMLLoader {
     }
     
     private void initTileIdMap() {
-        myTileIdMap = new HashMap<Integer, TileFactory>();
-        myTileIdMap.put(0, new DefaultTileFactory());
-        myTileIdMap.put(1, new GrassTileFactory());
-        myTileIdMap.put(2, new PathTileFactory());
+        myTileIdMap = new HashMap<String, TileFactory>();
+        myTileIdMap.put("0", new DefaultTileFactory());
+        myTileIdMap.put("1", new GrassTileFactory());
+        myTileIdMap.put("2", new PathTileFactory());
+        myTileIdMap.put("s", new SpawnTileFactory());
+        myTileIdMap.put("e", new PathTileFactory());
     }
     
     /**
@@ -131,7 +136,7 @@ public class MapXMLLoader {
         Dimension mapDimensions = loadMapDimensions(subElements.get(DIMENSION_TAG));
         Dimension tileSize = loadMapTileSize(subElements.get(TILE_SIZE_TAG));
         Tile[][] mapGrid = loadTiles(subElements.get(GRID_TAG), mapDimensions, tileSize);
-        return new GameMap(mapGrid, mapImage, mapDimensions, tileSize);
+        return new GameMap(mapGrid, mapImage, mapDimensions, tileSize, spawnLocation, endLocation);
     }
     
     private Pixmap loadMapImage(Element imageElement) {
@@ -176,14 +181,20 @@ public class MapXMLLoader {
                         tileDimensions.getWidth() / 2);
                 int yCenter = (int) (i * tileDimensions.getHeight() + 
                         tileDimensions.getHeight() / 2);
-                int tileId = reader.nextInt();
-                grid[j][i] = getTileFactory(tileId).createTile(new Location(xCenter, yCenter));
+                String tileId = reader.next();
+                Location location = new Location(xCenter, yCenter);
+                if (tileId.equals("s")) {
+                    spawnLocation = location;
+                } else if (tileId.equals("e")) {
+                    endLocation = location;
+                }
+                grid[j][i] = getTileFactory(tileId).createTile(location);
             }
         }
         return grid;
     }
     
-    private TileFactory getTileFactory(int tileId) {
+    private TileFactory getTileFactory(String tileId) {
         return myTileIdMap.get(tileId);
     }
 }
