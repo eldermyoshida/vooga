@@ -2,12 +2,12 @@ package vooga.scroller.marioGame.spritesDefinitions.collisions;
 
 import util.Vector;
 import vooga.scroller.collision_manager.CollisionDirection;
+import vooga.scroller.marioGame.interfaces.ICollectible;
+import vooga.scroller.marioGame.interfaces.IDoor;
+import vooga.scroller.marioGame.interfaces.IEnemy;
+import vooga.scroller.marioGame.interfaces.IPlatform;
 import vooga.scroller.marioGame.spritesDefinitions.players.Mario;
 import vooga.scroller.sprites.Sprite;
-import vooga.scroller.sprites.interfaces.ICollectible;
-import vooga.scroller.sprites.interfaces.IDoor;
-import vooga.scroller.sprites.interfaces.IEnemy;
-import vooga.scroller.sprites.interfaces.IPlatform;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.Direction;
 
@@ -29,8 +29,8 @@ public class MarioCollisions {
     private static final double FRICTION = .5;
     private CollisionDirection direction = new CollisionDirection();
 
-    protected void marioAndLevelPortalCollision (Player player, IDoor levelPortal) {
-        levelPortal.goToNextLevel(player);
+    protected void marioAndLevelPortalCollision (IDoor levelPortal) {
+        levelPortal.goToNextLevel();
     }
 
     protected void marioAndEnemyCollision (Mario player, IEnemy enemy) {

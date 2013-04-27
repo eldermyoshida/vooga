@@ -1,11 +1,11 @@
 package games.scroller.marioGame.spritesDefinitions.collisions;
 
 
+import vooga.scroller.marioGame.interfaces.ICollectible;
+import vooga.scroller.marioGame.interfaces.IDoor;
+import vooga.scroller.marioGame.interfaces.IEnemy;
+import vooga.scroller.marioGame.interfaces.IPlatform;
 import vooga.scroller.marioGame.spritesDefinitions.players.Mario;
-import vooga.scroller.sprites.interfaces.ICollectible;
-import vooga.scroller.sprites.interfaces.IDoor;
-import vooga.scroller.sprites.interfaces.IEnemy;
-import vooga.scroller.sprites.interfaces.IPlatform;
 import vooga.scroller.sprites.superclasses.Player;
 
 /**

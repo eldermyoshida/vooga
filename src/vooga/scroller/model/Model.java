@@ -50,13 +50,13 @@ public class Model {
 
     public Model (GameView gameView, ScrollingManager sm, Player player, SplashPage splashPage, Level ...levels) {
         this(gameView, sm, player);
-        myLevelManager = initializeLevelManager(splashPage, levels);
+        myLevelManager = initializeLevelManager(splashPage, player, levels);
     }
     
     
     public Model (GameView gameView, ScrollingManager sm, Player player, SplashPage splashPage, String... levelFileNames) {
         this(gameView, sm, player);
-        myLevelManager = initializeLevelManager(splashPage, levelFileNames);
+        myLevelManager = initializeLevelManager(splashPage, player, levelFileNames);
     }
 
 //    public Model (GameView gameView, ScrollingManager sm, Level level) {
@@ -91,13 +91,13 @@ public class Model {
         myLevelManager.getCurrentLevel().addPlayer(myPlayer);
     }
 
-    private LevelManager initializeLevelManager (SplashPage splashPage, Level[] levels) {
-        return new LevelManager(myScrollingManager, myView, splashPage, levels);
+    private LevelManager initializeLevelManager (SplashPage splashPage, Player player, Level[] levels) {
+        return new LevelManager(myScrollingManager, myView, player, splashPage, levels);
     }
 
 
-    private LevelManager initializeLevelManager (SplashPage splashPage, String[] levelFileNames) {
-        return new LevelManager(myScrollingManager, myView, splashPage, levelFileNames);
+    private LevelManager initializeLevelManager (SplashPage splashPage, Player player, String[] levelFileNames) {
+        return new LevelManager(myScrollingManager, myView, player, splashPage, levelFileNames);
     }
 
 
