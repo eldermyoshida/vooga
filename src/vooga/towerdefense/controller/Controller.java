@@ -446,6 +446,7 @@ public class Controller {
 	 */
 	public void start() {
 		GameLoop game = new GameLoop(this);
+		myModel.startNextLevel();
 		game.start();
 	}
 
