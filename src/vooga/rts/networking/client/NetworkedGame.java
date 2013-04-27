@@ -5,7 +5,7 @@ import vooga.rts.networking.communications.PlayerInfo;
 
 
 /**
- * Represents the game to the networking architecture.
+ * Represents the game to the client-side networking architecture.
  * 
  * @author David Winegar
  * 
@@ -25,4 +25,9 @@ public interface NetworkedGame {
      * Starts the game.
      */
     public void startGame (IClient client);
+
+    /**
+     * Notifies the networked game that the server browser has been closed.
+     */
+    public void serverBrowserClosed ();
 }

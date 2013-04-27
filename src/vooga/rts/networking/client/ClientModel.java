@@ -206,7 +206,7 @@ public class ClientModel extends Observable implements IClientModel, IModel {
 
     @Override
     public void connectionClosed () {
-        // TODO Auto-generated method stub
-        
+        myViewAdapter.destroyPanel();
+        myGame.serverBrowserClosed();
     }
 }

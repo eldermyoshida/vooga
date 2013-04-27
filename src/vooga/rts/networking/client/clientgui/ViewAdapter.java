@@ -30,5 +30,9 @@ public abstract class ViewAdapter {
     public void alertClient (String title, String message) {
         myContainerPanel.showMessageDialog(title, message);
     }
+    
+    public void destroyPanel () {
+        myContainerPanel.removeAll();
+    }
 
 }
