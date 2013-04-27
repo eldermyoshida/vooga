@@ -48,13 +48,8 @@ import vooga.rts.util.PointTester;
  * 
  */
 
-<<<<<<< HEAD
 public class GameState extends SubState implements Controller, Observer {
 
-    private final static int DEFAULT_NODE_SIZE = 8;
-=======
-public class GameState extends SubState implements Controller {
->>>>>>> ba51a35e27796e8c34d8eb279e70c04e678711a4
     private Map<Integer, Team> myTeams;
     private static GameMap myMap;
     private HumanPlayer myHumanPlayer;
@@ -64,19 +59,14 @@ public class GameState extends SubState implements Controller {
     private FrameCounter myFrames;
 
     private Rectangle2D myDrag;
-    
+
     private boolean isGameOver;
 
     public GameState (Observer observer) {
         super(observer);
         myTeams = new HashMap<Integer, Team>();
         myPlayers = new ArrayList<Player>();
-<<<<<<< HEAD
-        
-        myMap = new GameMap(new Dimension(4000, 2000));
-=======
         myMap = new GameMap(new Dimension(4000, 2000), true);
->>>>>>> ba51a35e27796e8c34d8eb279e70c04e678711a4
         // myMap = new GameMap(8, new Dimension(512, 512));
 
         myFrames = new FrameCounter(new Location(100, 20));
@@ -140,7 +130,7 @@ public class GameState extends SubState implements Controller {
     public void addPlayer (Player player, int teamID) {
         player.addObserver(this);
         myPlayers.add(player);
-        
+
         if (myTeams.get(teamID) == null) {
             addTeam(teamID);
         }
@@ -163,8 +153,7 @@ public class GameState extends SubState implements Controller {
         addPlayer(result, teamID);
     }
 
-
-    //For testing
+    // For testing
     private DelayedTask test;
     private DelayedTask occupyPukingTest;
     private DelayedTask workerTest;
@@ -226,7 +215,7 @@ public class GameState extends SubState implements Controller {
 
         for (int j = 0; j < 10; j++) {
             getMap().getResources().add(new Resource(new Pixmap("images/mineral.gif"),
-                                                     new Location3D(600 + j * 30, 600  - j * 20, 0),
+                                                     new Location3D(600 + j * 30, 600 - j * 20, 0),
                                                      new Dimension(50, 50), 0, 200, "mineral"));
         }
 
@@ -236,14 +225,14 @@ public class GameState extends SubState implements Controller {
                                                       new Location3D(100 + k * 25, 100, j * 25),
                                                       new Dimension(50, 50)));
             }
-            
+
         }
         Building garrison =
                 new Building(new Pixmap(ResourceManager.getInstance()
                         .<BufferedImage> getFile("images/home.png", BufferedImage.class)),
                              new Location3D(300, 450, 0), new Dimension(128, 128), null, 1, 300,
                              InteractiveEntity.DEFAULT_BUILD_TIME);
-        
+
         Information garrisonInfo =
                 new Information("Garrison", "This is a garrison that soldiers can occupy", null,
                                 "buttons/marine.png");
@@ -252,12 +241,12 @@ public class GameState extends SubState implements Controller {
         garrison.getOccupyStrategy().createOccupyActions(garrison);
         myHumanPlayer.add(garrison);
         final Building f = b;
-//
-//        f.getAction((new Command("make Marine"))).apply();
-//
-//        f.getAction((new Command("make Worker"))).apply();
-        
-       //workerTest = new DelayedTask( worker.getAction((new Command("make Marine"))).apply();
+        //
+        // f.getAction((new Command("make Marine"))).apply();
+        //
+        // f.getAction((new Command("make Worker"))).apply();
+
+        // workerTest = new DelayedTask( worker.getAction((new Command("make Marine"))).apply();
 
         final Building testGarrison = garrison;
         myTasks.add(new DelayedTask(10, new Runnable() {
@@ -266,14 +255,14 @@ public class GameState extends SubState implements Controller {
                 if (testGarrison.getOccupyStrategy().getOccupiers().size() > 0) {
                     System.out.println("will puke!");
                     testGarrison.getAction(new Command("deoccupy")).apply();
-                }                
+                }
             }
         }));
-       
+
         b = new Building(new Pixmap(ResourceManager.getInstance()
-                        .<BufferedImage> getFile("images/factory.png", BufferedImage.class)),
-                             new Location3D(100, 500, 0), new Dimension(368, 224), null, 1, 300,
-                             InteractiveEntity.DEFAULT_BUILD_TIME);
+                .<BufferedImage> getFile("images/factory.png", BufferedImage.class)),
+                         new Location3D(100, 500, 0), new Dimension(368, 224), null, 1, 300,
+                         InteractiveEntity.DEFAULT_BUILD_TIME);
         b.setProductionStrategy(new CanProduce(b));
         ((CanProduce) b.getProductionStrategy()).addProducable(new Unit());
         ((CanProduce) b.getProductionStrategy()).createProductionActions(b);
@@ -296,11 +285,11 @@ public class GameState extends SubState implements Controller {
         // u1.getAttacked(u2);
         // }
         // }
-        
+
         for (DelayedTask dt : myTasks) {
             dt.update(elapsedTime);
         }
-        
+
         // now even yuckier
         for (int i = 0; i < p1.size(); ++i) {
             if (p1.get(i) instanceof Unit) {
@@ -308,9 +297,9 @@ public class GameState extends SubState implements Controller {
                     ((Unit) p1.get(i)).occupy(p1.get(j));
                 }
             }
-        }        
+        }
     }
-    
+
     public void initializeGameOver () {
         isGameOver = true;
     }
@@ -319,16 +308,12 @@ public class GameState extends SubState implements Controller {
         return myMap;
     }
 
-<<<<<<< HEAD
     @Override
     public void update (Observable arg0, Object arg1) {
         initializeGameOver();
     }
-    
-    
-=======
+
     public static void setMap (GameMap map) {
         myMap = map;
     }
->>>>>>> ba51a35e27796e8c34d8eb279e70c04e678711a4
 }
