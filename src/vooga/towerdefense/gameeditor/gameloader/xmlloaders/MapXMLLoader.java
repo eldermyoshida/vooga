@@ -77,10 +77,7 @@ import vooga.towerdefense.model.tiles.factories.TileFactory;
  * @author Erick Gonzalez
  */
 public class MapXMLLoader {
-    /**
-     * Relative path to the map file.
-     */
-    public static final String MAPTILES_FILENAME = "/vooga/towerdefense/resources/map.txt";
+    private static final String IMAGE_PATH = "/vooga/towerdefense/images/";
     
     // map_loadfile.xml tags
     private static final String MAP_TAG = "map";
@@ -139,7 +136,7 @@ public class MapXMLLoader {
     
     private Pixmap loadMapImage(Element imageElement) {
         String imagePath = myXMLTool.getContent(imageElement);
-        return new Pixmap(imagePath);
+        return new Pixmap(IMAGE_PATH + imagePath);
     }
     
     private Dimension loadMapDimensions(Element dimensionElement) {

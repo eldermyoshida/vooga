@@ -57,23 +57,18 @@ public class RulesXMLLoader {
             return ruleFactory;
         }
         catch (InstantiationException e) {
-        	System.out.println("1");
             return null;
         }
         catch (IllegalAccessException e) {
-        	System.out.println("2");
             return null;
         }
         catch (IllegalArgumentException e) {
-        	System.out.println("3");
             return null;
         }
         catch (InvocationTargetException e) {
-        	System.out.println("4");
             return null;
         }
         catch (ClassNotFoundException e) {
-        	System.out.println("5");
             return null;
         } 
     }

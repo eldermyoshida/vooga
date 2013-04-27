@@ -12,7 +12,7 @@
 	</view>
 	<map>
 		<Map1>
-			<image>/vooga/towerdefense/images/tower.gif</image>
+			<image>tower.gif</image>
 			<tile_size>50</tile_size>
 			<dimension>
 				<width>500</width>
@@ -33,7 +33,7 @@
 	<gameelements>
 		<TestUnit>
 			<dimension>50, 50</dimension>
-			<image>/images/bear.gif</image>
+			<image>bear.gif</image>
 			<type>Unit</type>
 			<attributes>
 				<HEALTH>100</HEALTH>
@@ -51,7 +51,7 @@
 		</TestUnit>
 		<TestTower>
 			<dimension>50, 50</dimension>
-			<image>/images/tower.gif</image>
+			<image>tower.gif</image>
 			<type>Tower</type>
 			<attributes>
 				<HEALTH>100</HEALTH>
