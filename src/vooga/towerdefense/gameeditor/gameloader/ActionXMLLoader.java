@@ -68,7 +68,6 @@ public class ActionXMLLoader {
         List<ActionFactory> actionFactories = new ArrayList<ActionFactory>();
         for (Element e : subElements.values()) {
             actionFactories.add(loadActionFactory(e));
-            break;
         }
         return actionFactories;
     }
@@ -76,24 +75,17 @@ public class ActionXMLLoader {
     private ActionFactory loadActionFactory (Element actionElement) {
         String actionName = myXMLTool.getTagName(actionElement);
         
-        NodeList nodeList = actionElement.getChildNodes();
-        System.out.println(nodeList.getLength());
-        for (int i = 0; i < nodeList.getLength(); ++i) {
-            Node current = nodeList.item(i);
-            System.out.println(current.getNodeValue());
-        }
-
         List<String> parameterStrings = new ArrayList<String>();
         List<ActionFactory> subActions = new ArrayList<ActionFactory>();
 
         Map<String, Element> subElements = myXMLTool.getChildrenElementMap(actionElement);
 
         for (String subElementName : subElements.keySet()) {
-            if (subElementName.equals(PARAMETER_TAG)) {
-                parameterStrings.add(loadParameterString(subElements.get(subElementName)));
-            }
-            else {
+            if (subElementName.equals(ACTIONS_TAG)) {
                 subActions.add(loadActionFactory(subElements.get(subElementName)));
+            }
+            else {                
+                parameterStrings.add(loadParameterString(subElements.get(subElementName)));
             }
         }
         String[] parameterStringsArray = parameterStrings.toArray(new String[] {});
@@ -115,23 +107,23 @@ public class ActionXMLLoader {
             af = (ActionFactory) constructor.newInstance(parameterStringsArray);
         }
         catch (InstantiationException e) {
-            //System.out.println("InstantiationException");
+            System.out.println("InstantiationException");
             return null;
         }
         catch (IllegalAccessException e) {
-            //System.out.println("IllegalAccessException");
+            System.out.println("IllegalAccessException");
             return null;
         }
         catch (IllegalArgumentException e) {
-            //System.out.println("IllegalArgumentException");
+            System.out.println("IllegalArgumentException");
             return null;
         }
         catch (InvocationTargetException e) {
-            //System.out.println("InvocationTargetException");
+            System.out.println("InvocationTargetException");
             return null;
         }
         catch (ClassNotFoundException e) {
-            //System.out.println("ClassNotFoundException");
+            System.out.println("ClassNotFoundException");
             return null;
         }
         af.addFollowUpActionsFactories(subActions);

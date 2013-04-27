@@ -6,6 +6,7 @@ import java.util.Map;
 import org.w3c.dom.Element;
 import util.XMLTool;
 import vooga.towerdefense.action.Action;
+import vooga.towerdefense.factories.elementfactories.GameElementFactory;
 import vooga.towerdefense.model.GameModel;
 import vooga.towerdefense.model.levels.Level;
 import vooga.towerdefense.model.rules.Rule;
@@ -31,7 +32,7 @@ public class LevelsXMLLoader {
         }
         return levels;
     }
-    
+        
     private Level getLevel(Element levelElement, GameModel model) {
         RulesXMLLoader rulesLoader = new RulesXMLLoader(myXMLTool);
         ActionXMLLoader actionLoader = new ActionXMLLoader(myXMLTool);
