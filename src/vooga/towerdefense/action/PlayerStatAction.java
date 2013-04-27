@@ -24,7 +24,7 @@ public class PlayerStatAction extends Action{
  * @param lifeChange
  * @param moneyChange
  */
-	public PlayerStatAction(Player player,Attribute scoreChange, Attribute lifeChange, Attribute moneyChange){
+	public PlayerStatAction(Player player, Attribute scoreChange, Attribute lifeChange, Attribute moneyChange){
 		myPlayer=player;
 		myScoreChangeReference=scoreChange;
 		myLifeChangeReference=lifeChange;
