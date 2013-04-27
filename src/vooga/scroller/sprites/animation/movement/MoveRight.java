@@ -10,14 +10,14 @@ public class MoveRight extends SpriteMovement {
     
     private ISpriteView myStandView;
 
-    public MoveRight (ISpriteView move, ISpriteView stand, double speed) {
-        super(move, Sprite.RIGHT_DIRECTION, speed);
+    public MoveRight (Sprite sprite, ISpriteView move, ISpriteView stand, double speed) {
+        super(sprite, move, Sprite.RIGHT_DIRECTION, speed);
         myStandView = stand;
     }
     
     @Override
-    public void deactivate(Sprite sprite) {
-        super.deactivate(sprite);
-        sprite.setView(myStandView);
+    public void deactivate() {
+        super.deactivate();
+        getUnit().setView(myStandView);
     }
 }

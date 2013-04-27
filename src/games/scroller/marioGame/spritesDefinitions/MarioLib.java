@@ -3,11 +3,12 @@ package games.scroller.marioGame.spritesDefinitions;
 import java.awt.Dimension;
 import java.awt.geom.Point2D;
 import util.Location;
+import vooga.scroller.extra_resources.sprite_interfaces.ICollectible;
+import vooga.scroller.extra_resources.sprite_interfaces.IEnemy;
+import vooga.scroller.extra_resources.sprite_interfaces.IPlatform;
+import vooga.scroller.level_editor.Level;
 import vooga.scroller.level_editor.library.EncapsulatedSpriteLibrary;
 import vooga.scroller.level_management.LevelPortal;
-import vooga.scroller.marioGame.interfaces.ICollectible;
-import vooga.scroller.marioGame.interfaces.IEnemy;
-import vooga.scroller.marioGame.interfaces.IPlatform;
 import vooga.scroller.sprites.Sprite;
 import vooga.scroller.sprites.animation.Animation;
 import vooga.scroller.sprites.animation.MovingSpriteAnimationFactory;
@@ -56,7 +57,7 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
         }
 
         @Override
-        public void handleDeath () {
+        public void handleDeath (Level level) {
             // killing this does not do anything           
         }
 
@@ -83,7 +84,7 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
         }
 
         @Override
-        public void handleDeath () {
+        public void handleDeath (Level level) {
             // TODO Auto-generated method stub   
         }
         
@@ -118,7 +119,7 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
         }
 
         @Override
-        public void handleDeath () {
+        public void handleDeath (Level level) {
             // TODO Auto-generated method stub   
         }
     }
@@ -153,7 +154,7 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
         }
 
         @Override
-        public void handleDeath () {
+        public void handleDeath (Level level) {
             // TODO Auto-generated method stub
             
         }

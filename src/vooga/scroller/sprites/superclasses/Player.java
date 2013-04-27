@@ -7,6 +7,7 @@ import util.Location;
 import vooga.scroller.level_management.IInputListener;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.interfaces.Locatable;
+import vooga.scroller.util.IGameComponent;
 import vooga.scroller.util.ISpriteView;
 import vooga.scroller.view.GameView;
 
@@ -22,6 +23,7 @@ public abstract class Player extends GameCharacter implements IInputListener, Lo
     private GameView myView;
     private Location myPaintCenter;
     private ScrollingManager myScrollingManager;
+    private IGameComponent myLevel;
 
     public Player (ISpriteView image,
                    Location center,
@@ -59,5 +61,13 @@ public abstract class Player extends GameCharacter implements IInputListener, Lo
      */
     public Location getPaintLocation () {
         return myPaintCenter;
+    }
+    
+    public void setLevel(IGameComponent level){
+        myLevel = level;
+    }
+    
+    public IGameComponent getLevel(){
+        return myLevel;
     }
 }

@@ -3,6 +3,7 @@ package vooga.scroller.sprites.superclasses;
 import java.awt.Dimension;
 import util.Location;
 import util.Vector;
+import vooga.scroller.level_editor.Level;
 import vooga.scroller.sprites.Sprite;
 import vooga.scroller.sprites.interfaces.Locatable;
 import vooga.scroller.util.ISpriteView;
@@ -17,7 +18,7 @@ import vooga.scroller.util.ISpriteView;
  * @author Scott Valentine
  *
  */
-public abstract class GameCharacter extends Sprite {
+public abstract class GameCharacter extends Sprite implements Locatable{
 
     /**
      * Default speed of a game character.
@@ -27,6 +28,7 @@ public abstract class GameCharacter extends Sprite {
     private int myHealth;
     private int myDamage;
     private Locatable myTarget;
+
     
     /**
      * Builds a new GameCharacter that interacts with other game characters in the game.
@@ -45,9 +47,6 @@ public abstract class GameCharacter extends Sprite {
 
     public void update (double elapsedTime, Dimension bounds) {
         super.update(elapsedTime, bounds);
-        if(myHealth <= 0){
-            handleDeath();
-        }
     }
     
     /**
@@ -105,6 +104,6 @@ public abstract class GameCharacter extends Sprite {
     /**
      * Defines how to handle the death of this character.
      */
-    public abstract void handleDeath();
+    public abstract void handleDeath(Level level);
     
 }

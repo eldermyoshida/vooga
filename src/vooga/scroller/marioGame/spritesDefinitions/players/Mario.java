@@ -5,6 +5,7 @@ import util.Location;
 import util.Vector;
 import util.input.InputClassTarget;
 import util.input.InputMethodTarget;
+import vooga.scroller.level_editor.Level;
 import vooga.scroller.level_management.IInputListener;
 import vooga.scroller.marioGame.spritesDefinitions.MarioLib;
 import vooga.scroller.scrollingmanager.ScrollingManager;
@@ -73,8 +74,8 @@ public class Mario extends Player implements IInputListener{
      * Initialize all  possible states, including movement for mario.
      */
     private void intializeStates () {
-        this.addPossibleState(MoveLeft.STATE_ID, new MoveLeft(MOVE_LEFT, STAND_LEFT, SPEED));
-        this.addPossibleState(MoveRight.STATE_ID, new MoveRight(MOVE_RIGHT, STAND_RIGHT, SPEED));
+        this.addPossibleState(MoveLeft.STATE_ID, new MoveLeft(this, MOVE_LEFT, STAND_LEFT, SPEED));
+        this.addPossibleState(MoveRight.STATE_ID, new MoveRight(this, MOVE_RIGHT, STAND_RIGHT, SPEED));
     }
 
     @Override
@@ -98,7 +99,7 @@ public class Mario extends Player implements IInputListener{
     }
 
     @Override
-    public void handleDeath () {
+    public void handleDeath (Level level) {
         
         
     }
