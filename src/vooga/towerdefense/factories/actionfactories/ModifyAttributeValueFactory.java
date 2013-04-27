@@ -4,7 +4,7 @@ import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.actionlist.ModifyAttributeValue;
 import vooga.towerdefense.attributes.Attribute;
 import vooga.towerdefense.factories.ActionAnnotation;
-import vooga.towerdefense.gameElements.GameElement;
+import vooga.towerdefense.gameelements.GameElement;
 
 
 /**

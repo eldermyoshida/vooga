@@ -11,6 +11,12 @@ import vooga.towerdefense.model.GameModel;
 import vooga.towerdefense.model.levels.Level;
 import vooga.towerdefense.model.rules.Rule;
 
+/**
+ * This class is responsible for loading Level objects
+ * from an XML file.
+ * 
+ * @author Erick Gonzalez
+ */
 public class LevelsXMLLoader {
     
     private static final String LEVELS_TAG = "levels";
@@ -19,11 +25,22 @@ public class LevelsXMLLoader {
     
     private XMLTool myXMLTool;
     
+    /**
+     * 
+     * @param xmlTool an XMLTool containing the xml document
+     */
     public LevelsXMLLoader(XMLTool xmlTool) {
         myXMLTool = xmlTool;
     }
     
-    public List<Level> getLevels(GameModel model, GameMap gameMap) {
+    /**
+     * Loads a list of level objects.
+     * 
+     * @param model a game model
+     * @param gameMap a game map
+     * @return a list of level objects
+     */
+    public List<Level> loadLevels(GameModel model, GameMap gameMap) {
         // TODO: Levels element needs to be passed in here
         Element levelsElement = myXMLTool.getElement(LEVELS_TAG);
 
@@ -31,12 +48,12 @@ public class LevelsXMLLoader {
         
         List<Element> subElements = myXMLTool.getChildrenList(levelsElement);
         for (Element subElement : subElements) {
-            levels.add(getLevel(subElement, model, gameMap));
+            levels.add(loadLevel(subElement, model, gameMap));
         }
         return levels;
     }
         
-    private Level getLevel(Element levelElement, GameModel model, GameMap gameMap) {
+    private Level loadLevel(Element levelElement, GameModel model, GameMap gameMap) {
         RulesXMLLoader rulesLoader = new RulesXMLLoader(myXMLTool);
         ActionXMLLoader actionLoader = new ActionXMLLoader(myXMLTool);
         Map<String, Element> subElements = myXMLTool.getChildrenElementMap(levelElement);

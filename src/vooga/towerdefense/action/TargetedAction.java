@@ -3,7 +3,7 @@ package vooga.towerdefense.action;
 import java.util.ArrayList;
 import java.util.List;
 
-import vooga.towerdefense.gameElements.GameElement;
+import vooga.towerdefense.gameelements.GameElement;
 
 /**
  * Actions that require a target or multiple targets. 

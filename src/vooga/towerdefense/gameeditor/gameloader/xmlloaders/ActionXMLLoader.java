@@ -1,3 +1,4 @@
+
 package vooga.towerdefense.gameeditor.gameloader.xmlloaders;
 
 import java.lang.reflect.Constructor;
@@ -8,7 +9,7 @@ import org.w3c.dom.Element;
 import util.XMLTool;
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.factories.actionfactories.ActionFactory;
-import vooga.towerdefense.gameElements.GameElement;
+import vooga.towerdefense.gameelements.GameElement;
 import vooga.towerdefense.model.GameMap;
 
 /**

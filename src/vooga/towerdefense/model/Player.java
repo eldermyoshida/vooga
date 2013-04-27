@@ -7,6 +7,11 @@ import vooga.towerdefense.attributes.AttributeConstants;
 import vooga.towerdefense.attributes.AttributeManager;
 import vooga.towerdefense.controller.Controller;
 
+/**
+ * 
+ * @author JLongley
+ *
+ */
 public class Player {
 
 	private AttributeManager myAttributeManager;

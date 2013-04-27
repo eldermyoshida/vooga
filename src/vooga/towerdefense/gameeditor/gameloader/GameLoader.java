@@ -59,7 +59,7 @@ public class GameLoader {
     
     public List<Level> loadLevels(GameModel model, GameMap gameMap) {
         LevelsXMLLoader loader = new LevelsXMLLoader(myXMLTool);
-        return loader.getLevels(model, gameMap);
+        return loader.loadLevels(model, gameMap);
     }
     
     public List<Rule> loadRules(GameModel model) {
