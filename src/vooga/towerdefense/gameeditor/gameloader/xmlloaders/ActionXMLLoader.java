@@ -89,23 +89,22 @@ public class ActionXMLLoader {
         String actionName = myXMLTool.getTagName(actionElement);
         
         List<String> parameterStrings = new ArrayList<String>();
-        List<ActionFactory> subActions = new ArrayList<ActionFactory>();
+        List<ActionFactory> subActionFactories = new ArrayList<ActionFactory>();
 
         List<Element> subElements = myXMLTool.getChildrenList(actionElement);
 
         for (Element subElement: subElements) {
             String subElementName = myXMLTool.getTagName(subElement);
             if (subElementName.equals(ACTIONS_TAG)) {
-                subActions.add(loadActionFactory(subElement, gameMap));
+                subActionFactories.add(loadActionFactory(subElement, gameMap));
             }
             else {                
                 parameterStrings.add(loadParameterString(subElement));
             }
         }
         
-        Class actionFactoryClass = null;
-        ActionFactory af = null;
         try {
+            //TODO: need to fix this shit
             String thing = "";
             if (actionName.contains("Wave")) {
                 thing = "vooga.towerdefense.factories.waveactionfactories.";
@@ -113,35 +112,32 @@ public class ActionXMLLoader {
                 thing = "vooga.towerdefense.factories.actionfactories.";
             }
             String classPath = thing + actionName + "Factory";
-            actionFactoryClass = Class.forName(classPath);
+            Class actionFactoryClass = Class.forName(classPath);
 
-            Constructor[] constructors = actionFactoryClass.getDeclaredConstructors();            
+            Constructor[] constructors = actionFactoryClass.getDeclaredConstructors();
+            // ActionFactory objects have only one constructor
             Constructor constructor = constructors[0];
-            af = (ActionFactory) constructor.newInstance(parameterStrings.toArray());
+            ActionFactory af = (ActionFactory) constructor.newInstance(parameterStrings.toArray());
+            
+            af.addFollowUpActionsFactories(subActionFactories);
+            af.initialize(gameMap);
+            return af;
         }
         catch (InstantiationException e) {
-            System.out.println("InstantiationException");
             return null;
         }
         catch (IllegalAccessException e) {
-            System.out.println("IllegalAccessException");
             return null;
         }
         catch (IllegalArgumentException e) {
-            System.out.println("IllegalArgumentException");
             return null;
         }
         catch (InvocationTargetException e) {
-            System.out.println("InvocationTargetException");
             return null;
         }
         catch (ClassNotFoundException e) {
-            System.out.println("ClassNotFoundException");
             return null;
-        }
-        af.addFollowUpActionsFactories(subActions);
-        af.initialize(gameMap);
-        return af;
+        }        
     }
 
     private String loadParameterString (Element parameterElement) {
