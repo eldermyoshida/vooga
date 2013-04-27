@@ -141,7 +141,6 @@ public class GameEditorController extends JFrame {
         myXMLDoc.addChild(thisLevel, ruleElement);
         Element actionElement = myXMLDoc.makeElement(ACTIONS_TAG);
         myXMLDoc.addChild(thisLevel, myActionParser.parse(actionElement, actions));
-        myXMLDoc.writeFile("\\testinglevels.xml");
     }
     
     /**

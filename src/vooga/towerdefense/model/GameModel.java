@@ -79,8 +79,9 @@ public class GameModel {
     }
     
     private void updateActions(double elapsedTime) {
-    	for(Action action : myActiveActions)
+    	for(Action action : myActiveActions) {
     		action.update(elapsedTime);
+    	}
     }
     
     /**
@@ -89,7 +90,7 @@ public class GameModel {
     private void checkRules() {
     	for(Rule rule : myRules)
     		rule.apply();
-    	for(Rule rule : myLevels.get(myCurrentLevel).getRules())
+    	for(Rule rule : myLevels.get(myCurrentLevel-1).getRules())
     		rule.apply();
     }
 
@@ -109,6 +110,7 @@ public class GameModel {
     public void startNextLevel () {
     	if (myLevels.size()>myCurrentLevel) {
             myCurrentLevel++;
+            addActions(myLevels.get(myCurrentLevel-1).getActions());
         }
         else {
             win();

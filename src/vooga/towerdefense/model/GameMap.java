@@ -16,6 +16,7 @@ import vooga.towerdefense.action.actionlist.FollowPath;
 import vooga.towerdefense.attributes.AttributeConstants;
 import vooga.towerdefense.attributes.AttributeManager;
 import vooga.towerdefense.gameElements.GameElement;
+import vooga.towerdefense.model.tiles.PathTile;
 import vooga.towerdefense.model.tiles.factories.TileFactory;
 import util.Location;
 import util.Pixmap;
@@ -401,7 +402,16 @@ public class GameMap {
 	}
 
 	public Location getSpawnLocation() {
-		return mySpawnLocation;
+	    Tile t = null;
+	    for (int i = 0; i < myGrid.length; ++i) {
+	        for (int j = 0; j < myGrid[i].length; ++i) {
+	            if (myGrid[j][i] instanceof PathTile) {
+	                t = myGrid[j][i];
+	                break;
+	            }
+	        }
+	    }
+	    return t.getCenter();
 	}
 
 	public Location getDestination() {
