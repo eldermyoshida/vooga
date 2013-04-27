@@ -1,7 +1,6 @@
 package vooga.towerdefense.gameeditor.gamemaker.mapeditor;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
@@ -16,6 +15,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -40,7 +40,6 @@ import vooga.towerdefense.model.Tile;
 public class MapEditorScreen extends GameEditorScreen {
 
     private static final long serialVersionUID = 1L;
-    public static final String CLASS_INDICATOR_STRING = ".png";
     private static final String NEXT_SCREEN_NAME = "GameElementEditorScreen";
     private static final String TITLE_NAME = "MAP ";
     private static final String TILE_PACKAGE_PATH = "vooga.towerdefense.model.tiles";
@@ -74,30 +73,57 @@ public class MapEditorScreen extends GameEditorScreen {
      * @param controller
      */
     public MapEditorScreen (Dimension size, GameEditorController controller) {
-        super(size, controller, TITLE_NAME, NEXT_SCREEN_NAME);
-        myTileSize = 50;
+        super(size, controller, TITLE_NAME, NEXT_SCREEN_NAME);       
+        initVariables();
+        addComponentsToScreen();
         makeListeners();
         addMouseListener(myMouseListener);
+        myBackgroundImageButton.addMouseListener(myMouseListener);
+        myMapNameButton.addMouseListener(myMouseListener);        
+        setVisible(true);
+    }
+
+    /**
+     * initialize variables used
+     */
+    private void initVariables(){
+        myTileSize = 50;
         myMapMakerSize = getController().getMapSize();
         myBackgroundImages = new ArrayList<String>();
         myBackgroundImageButton = new JButton("CHOOSE IMAGE");
         myMapNameButton = new JButton("ENTER NAME");
+        myChooser = new JFileChooser(System.getProperties().getProperty(USER_DIR));
+    }
+    
+    /**
+     * adds various components to screen and align them
+     */
+    private void addComponentsToScreen() {
         add(makeMapBox(myMapMakerSize), BorderLayout.CENTER);
         add(makeLabelText("TILE SIZE"), BorderLayout.EAST);
         add(makeTextField(), BorderLayout.EAST);
         add(myMapNameButton, BorderLayout.EAST);
         add(makeMapNameTextField(), BorderLayout.WEST);
+//        add(EastSectionComponents(), BorderLayout.EAST);
         add(makeLabelText("MAP TILES"), BorderLayout.SOUTH);
         add(makePathTilePainter(), BorderLayout.SOUTH);
         add(makeLabelText("BACKGROUND IMAGE"));
         add(myBackgroundImageButton, BorderLayout.SOUTH);
-        myBackgroundImageButton.addMouseListener(myMouseListener);
-        myMapNameButton.addMouseListener(myMouseListener);
-        myChooser = new JFileChooser(System.getProperties().getProperty(USER_DIR));
-        setVisible(true);
     }
-
-    private Component makeMapNameTextField () {
+    
+//    private JComponent EastSectionComponents(){
+//        JPanel panel = new JPanel();
+//        panel.setPreferredSize(new Dimension(200, 600));
+//        panel.setBackground(Color.GREEN);
+//        panel.add(makeLabelText("TILE SIZE"));
+//        panel.add(makeTextField());
+//        panel.add(myMapNameButton);
+//        panel.add(makeMapNameTextField());
+//        panel.setVisible(true);
+//        return panel;
+//    }
+    
+    private JComponent makeMapNameTextField () {
         myMapNameTextField = new JTextField(FIELD_SIZE);
         myMapNameTextField.addActionListener(myActionListener);
         myMapNameTextField.setVisible(true);
@@ -131,7 +157,6 @@ public class MapEditorScreen extends GameEditorScreen {
                 }
             }
         };
-
         myMouseListener = new MouseAdapter() {
             @Override
             public void mouseClicked (MouseEvent e) {
@@ -234,6 +259,7 @@ public class MapEditorScreen extends GameEditorScreen {
         return null;
     }
 
+    @SuppressWarnings({ "rawtypes", "unused", "unchecked" })
     private void initTileClasses() {
         List<Class> classes = new ArrayList<Class>();
         myTiles = new ArrayList<Tile>();
