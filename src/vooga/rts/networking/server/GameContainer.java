@@ -26,7 +26,7 @@ public class GameContainer extends AbstractThreadContainer {
 
     public GameContainer (String gameName) {
         myGameName = gameName;
-        getLogger().addHandler(new HandlerTxt(myGameName).getHandler());
+        //getLogger().addHandler(new HandlerTxt(myGameName).getHandler());
     }
 
     /**
