@@ -3,18 +3,12 @@ package vooga.rts.networking.server;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.ConsoleHandler;
-import java.util.logging.Handler;
 import java.util.logging.Level;
-import java.util.logging.MemoryHandler;
 import java.util.logging.Logger;
-<<<<<<< HEAD
 import util.logger.HandlerMail;
 import util.logger.HandlerMemory;
 import util.logger.IVoogaHandler;
-=======
->>>>>>> fd7158f3b1dc74cfdcc540640b8fc2a72fa8a43d
 import util.logger.LoggerManager;
-import util.logger.MailingHandler;
 import vooga.rts.networking.NetworkBundle;
 import vooga.rts.networking.communications.ExpandedLobbyInfo;
 import vooga.rts.networking.communications.LobbyInfo;
