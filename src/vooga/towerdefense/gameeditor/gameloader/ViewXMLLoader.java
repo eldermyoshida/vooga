@@ -37,9 +37,8 @@ public class ViewXMLLoader {
         myXMLTool = xmlTool;
     }
     
-    public TDView makeView(Controller controller) throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException {
+    public TDView makeView(TDView view, Controller controller) throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException {
         Element viewElement = myXMLTool.getElement(VIEW_TAG);
-        TDView view = new TDView(controller);
         Map<String, Element> subElements = myXMLTool.getChildrenElementMap(viewElement);
         Element dimensionElement = subElements.get(DIMENSION_TAG);
         Dimension dimension = makeDimensionFrom(myXMLTool.getContent(dimensionElement));
@@ -98,16 +97,17 @@ public class ViewXMLLoader {
         Constructor[] constructors = c.getConstructors();
         Constructor cons = constructors[0];
         JPanel screen = (JPanel) cons.newInstance(dimension, controller);
-        if (myXMLTool.getContent(element).equals(MAPSCREEN_TAG)) {
+        if (myXMLTool.getTagName(element).equals(MAPSCREEN_TAG)) {
+            System.out.println("setting map screen in View XML Loader to " + screen);
             view.setMapScreen((MapScreen)screen);
         }
-        else if (myXMLTool.getContent(element).equals(SHOPSCREEN_TAG)) {
+        else if (myXMLTool.getTagName(element).equals(SHOPSCREEN_TAG)) {
             view.setShopScreen((ShopScreen)screen);
         }
-        else if (myXMLTool.getContent(element).equals(GAME_ELEMENTS_SCREEN_TAG)) {
+        else if (myXMLTool.getTagName(element).equals(GAME_ELEMENTS_SCREEN_TAG)) {
             view.setGameElementInformationScreen((GameElementInformationScreen)screen);
         }
-        else if (myXMLTool.getContent(element).equals(GAME_STATS_SCREEN_TAG)) {
+        else if (myXMLTool.getTagName(element).equals(GAME_STATS_SCREEN_TAG)) {
             view.setStatsScreen((GameStatsScreen)screen);
         }
         return screen;

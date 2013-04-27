@@ -3,7 +3,6 @@ package vooga.towerdefense.model.tiles.factories;
 import java.awt.Dimension;
 import vooga.towerdefense.model.Tile;
 import util.Location;
-import vooga.towerdefense.model.Tile;
 /**
  * An abstract TileFactory.
  * 

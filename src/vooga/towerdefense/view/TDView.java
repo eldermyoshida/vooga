@@ -74,7 +74,6 @@ public class TDView {
         myFrame.setContentPane(myPanel);
         myFrame.setPreferredSize(SIZE);
         myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        showSplashScreen();
         //TODO: uncomment createGUI() if we want hard coded screens.
         //createGUI();
     }
@@ -120,6 +119,7 @@ public class TDView {
      */
     public void showMapChoicesScreen () {
         myFrame.remove(mySplashScreen);
+        mySplashScreen.setVisible(false);
         myNextScreenButton.setVisible(false);
         myMapSelector = new MapsSelectorScreen(MAP_WINDOW_SIZE, this, myController);
         addScreen(myMapSelector, BorderLayout.CENTER);
@@ -134,7 +134,16 @@ public class TDView {
         myLevelSelector = new LevelsSelectorScreen(MAP_WINDOW_SIZE, this);
         addScreen(myLevelSelector, BorderLayout.CENTER);
     }
+    
+    public void showScreen() {
+        myFrame.pack();
+        myFrame.setVisible(true);
+        myFrame.remove(myMapSelector);
+    }
 
+    public void dismissMapSelector(){
+        myMapSelector.setVisible(false);
+    }
     /**
      * adds the parameter screen to the view.
      * 
@@ -142,6 +151,7 @@ public class TDView {
      */
     public void addScreen (JPanel screen, String location) {
         myFrame.getContentPane().add(screen, location);
+        System.out.println("Added screen to tdview");
 
         myFrame.pack();
         myFrame.setVisible(true);
@@ -177,6 +187,7 @@ public class TDView {
      * @param mapscreen is the mapscreen
      */
     public void setMapScreen(MapScreen mapscreen) {
+        System.out.println("tdview: setting map screen to " + mapscreen);
         myMapScreen = mapscreen;
     }
 

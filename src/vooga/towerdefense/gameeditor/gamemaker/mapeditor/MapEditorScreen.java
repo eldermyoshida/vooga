@@ -26,10 +26,6 @@ import util.Pixmap;
 import vooga.towerdefense.gameeditor.gamemaker.GameEditorController;
 import vooga.towerdefense.gameeditor.gamemaker.GameEditorScreen;
 import vooga.towerdefense.model.Tile;
-import vooga.towerdefense.model.tiles.DefaultTile;
-import vooga.towerdefense.model.tiles.GrassTile;
-import vooga.towerdefense.model.tiles.PathTile;
-
 
 /**
  * The MapEditorScreen is responsible for helping
@@ -49,21 +45,7 @@ public class MapEditorScreen extends GameEditorScreen {
     private static final String TITLE_NAME = "MAP ";
     private static final String TILE_PACKAGE_PATH = "vooga.towerdefense.model.tiles";
     private static final String TILE_IMAGES_CLASS_PATH = "vooga/towerdefense/images/map";
-    private static final String GRASS_TILE_NAME = "grass_tile.png";
-    private static final String PATH_TILE_NAME = "path_tile.png";
-    private static final String BLANK_TILE_NAME = "blank_tile.png";
-    private static final String DEFAULT_TILE_NAME = "default_tile.png";
-    private static final Location DEFAULT_LOCATION = new Location(0, 0);
-    private static final Dimension DEFAULT_SIZE = new Dimension(50, 50);
     private static final Dimension TILE_PANEL_SIZE = new Dimension(400, 100);
-    private static final Pixmap GRASS_PIXMAP = new Pixmap("/" + TILE_IMAGES_CLASS_PATH + "/" +
-                                                          GRASS_TILE_NAME);
-    private static final Pixmap PATH_PIXMAP = new Pixmap("/" + TILE_IMAGES_CLASS_PATH + "/" +
-                                                         PATH_TILE_NAME);
-    private static final Pixmap BLANK_PIXMAP = new Pixmap("/" + TILE_IMAGES_CLASS_PATH + "/" +
-                                                          BLANK_TILE_NAME);
-    private static final Pixmap DEFAULT_PIXMAP = new Pixmap("/" + TILE_IMAGES_CLASS_PATH + "/" +
-                                                            DEFAULT_TILE_NAME);
     private static final String USER_DIR = "user.dir";
     private static final String DEFAULT_TILE_SIZE = "50";
 
@@ -176,7 +158,6 @@ public class MapEditorScreen extends GameEditorScreen {
         }
         else {
             myMapNameTextField.setText("");
-            System.out.println("my map name: " + myMapName);
         }
     }
 
@@ -190,6 +171,9 @@ public class MapEditorScreen extends GameEditorScreen {
         myTextField.setText("");
     }
 
+    /**
+     * override the default Java Graphics paintComponent method
+     */
     @Override
     public void paintComponent (Graphics pen) {
         super.paintComponent(pen);
@@ -220,7 +204,6 @@ public class MapEditorScreen extends GameEditorScreen {
      * 
      * @param s string representing the tile that the developer clicked on.
      */
-    // TODO Fix this so that the tiles are not hard-coded!
     public void makeTileInstances (String s) {
         
         for (Tile tile: myTiles) {
@@ -228,19 +211,6 @@ public class MapEditorScreen extends GameEditorScreen {
                myTileToBuild = tile;
            }
         }
-//        
-//        if (s.equals(GRASS_TILE_NAME)) {
-//            myTileToBuild = new GrassTile(3, GRASS_PIXMAP, DEFAULT_LOCATION, DEFAULT_SIZE);
-//        }
-//        else if (s.equals(PATH_TILE_NAME)) {
-//            myTileToBuild = new PathTile(1, PATH_PIXMAP, DEFAULT_LOCATION, DEFAULT_SIZE);
-//        }
-//        else if (s.equals(DEFAULT_TILE_NAME)) {
-//            myTileToBuild = new DefaultTile(2, DEFAULT_PIXMAP, DEFAULT_LOCATION, DEFAULT_SIZE);
-//        }
-//        else if (s.equals(BLANK_TILE_NAME)) {
-//            myTileToBuild = new DefaultTile(0, BLANK_PIXMAP, DEFAULT_LOCATION, DEFAULT_SIZE);
-//        }
         myMapMakerBox.setTile(myTileToBuild);
     }
 
@@ -273,7 +243,6 @@ public class MapEditorScreen extends GameEditorScreen {
                 Class[] types = {Location.class, Dimension.class };
                 Object[] parameters = {new Location(0,0), new Dimension(50,50)};
                 try {
-                  //  if (myClass.)
                     Constructor constructor = myClass.getConstructor(types);
                 }
                 catch (NoSuchMethodException e) {

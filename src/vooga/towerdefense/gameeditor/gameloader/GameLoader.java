@@ -11,6 +11,7 @@ import org.w3c.dom.Element;
 import util.XMLTool;
 import vooga.towerdefense.controller.Controller;
 import vooga.towerdefense.factories.elementfactories.GameElementFactory;
+import vooga.towerdefense.factories.waveactionfactories.WaveActionFactory;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.GameModel;
 import vooga.towerdefense.model.levels.Level;
@@ -39,14 +40,15 @@ public class GameLoader {
         return maps;
     }
     
-    public TDView loadView(Controller controller) throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException {
+    public TDView loadView(TDView view, Controller controller) throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException {
         ViewXMLLoader loader = new ViewXMLLoader(myXMLTool);
-        return loader.makeView(controller);
+        return loader.makeView(view, controller);
     }
     
     public List<GameElementFactory> loadElements(GameMap map) {
         GameElementXMLLoader loader = new GameElementXMLLoader(myXMLTool);
-        gameElements = loader.loadGameElementFactories(map);
+        //TODO: Fix this
+        WaveActionFactory.ourGEFactories = loader.loadGameElementFactories(map);
         return new ArrayList<GameElementFactory>(gameElements.values());
     }
     
@@ -63,6 +65,10 @@ public class GameLoader {
     
     public void startGame(Controller controller) {
         controller.start();
+    }
+    
+    public Map<String, GameElementFactory> getGEFactoryMap() {
+        return gameElements;
     }
 
 }

@@ -27,12 +27,6 @@ import vooga.towerdefense.model.GameLoop;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.GameModel;
 import vooga.towerdefense.model.Tile;
-import vooga.towerdefense.model.levels.Level;
-import vooga.towerdefense.model.rules.NextLevelRule;
-import vooga.towerdefense.model.rules.Rule;
-import vooga.towerdefense.model.shop.Shop;
-import vooga.towerdefense.model.shop.ShopItem;
-import vooga.towerdefense.model.tiles.factories.TileFactory;
 import vooga.towerdefense.model.shop.Shop;
 import vooga.towerdefense.model.shop.ShopItem;
 import vooga.towerdefense.view.TDView;
@@ -100,6 +94,7 @@ public class Controller {
 		setLanguage(language);
 		myGameLoader = new GameLoader(xmlPath);
 		myView = new TDView(this);
+		myView.showSplashScreen();
 		setMaps();
 
 //		setLanguage(language);
@@ -136,7 +131,7 @@ public class Controller {
 	 * @throws IllegalArgumentException 
 	 */
 	private void setView() throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException {
-	    myView = myGameLoader.loadView(this);
+	    myView = myGameLoader.loadView(myView, this);
 	}
 	
 	/**
@@ -146,7 +141,6 @@ public class Controller {
 	    myAvailableMaps = new HashMap<Pixmap, GameMap>();
 	    List<GameMap> mapChoices = myGameLoader.loadMaps();
 	    for (GameMap map : mapChoices) {
-	        System.out.println(map.getBackgroundImage());
 	        myAvailableMaps.put(map.getBackgroundImage(), map);
 	    }
 	}
@@ -162,8 +156,11 @@ public class Controller {
 	 */
 	public void setMap(Pixmap mapChoice) throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException {
 	    System.out.println("Setting map in controller");
+	    System.out.println("pixmap map choice is " + mapChoice);
+	    
 	    addMapAndLoadGame(myAvailableMaps.get(mapChoice));
 	    setView();
+	    myView.showScreen();
 	}
 	
 	/**
@@ -243,6 +240,7 @@ public class Controller {
 	 * updates the display on the MapScreen.
 	 */
 	public void displayMap() {
+	    System.out.println(myView.getMapScreen());
 		myView.getMapScreen().update();
 	}
 

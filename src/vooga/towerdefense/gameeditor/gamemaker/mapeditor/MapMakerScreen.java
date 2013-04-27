@@ -12,7 +12,6 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import util.Location;
-import util.Pixmap;
 import vooga.towerdefense.model.Tile;
 import vooga.towerdefense.model.tiles.DefaultTile;
 
@@ -27,10 +26,6 @@ import vooga.towerdefense.model.tiles.DefaultTile;
 public class MapMakerScreen extends JPanel {
 
     private static final long serialVersionUID = 1L;
- //   private static final String TILE_IMAGES_CLASS_PATH = "vooga/towerdefense/images/map";
-  //  private static final String BLANK_TILE_STRING = "blank_tile.png";
-   // private static final Pixmap DEFAULT_PIXMAP = new Pixmap("/" + TILE_IMAGES_CLASS_PATH + "/" +
-     //                                                       BLANK_TILE_STRING);
     private static final Dimension DEFAULT_TILE_SIZE = new Dimension(50, 50);
     private static final Location DEFAULT_LOCATION = new Location(0, 0);
     private static final DefaultTile DEFAULT_TILE = new DefaultTile(DEFAULT_LOCATION, DEFAULT_TILE_SIZE);
@@ -150,7 +145,6 @@ public class MapMakerScreen extends JPanel {
                 myMapString += Integer.toString(element[j]) + " ";
             }
         }
-        System.out.println("map: " + myMapString);
         return myMapString;
     }
 

@@ -18,7 +18,7 @@
 			0 0 0 0 0 0 0 0 0 0
 			0 0 0 0 0 0 0 0 0 0
 			0 0 0 0 0 0 0 0 0 0
-			0 0 0 0 0 0 0 0 0 0
+			2 2 2 2 2 1 1 1 1 1
 			0 0 0 0 0 0 0 0 0 0
 			0 0 0 0 0 0 0 0 0 0
 			0 0 0 0 0 0 0 0 0 0
@@ -40,8 +40,8 @@
 				<FollowPath>
 				</FollowPath>
 				<Move>
-					<parameter>MOVE_SPEED</parameter>
-					<parameter>DIRECTION</parameter>
+					<parameter1>MOVE_SPEED</parameter1>
+					<parameter2>DIRECTION</parameter2>
 				</Move>
 			</actions>			
 		</TestUnit>
@@ -54,9 +54,9 @@
 			</rules>
 			<actions>
 				<WaveAction>
-					<parameter>10</parameter>
-					<parameter>200</parameter>
-					<parameter>TestUnit</parameter>
+					<parameter1>10</parameter1>
+					<parameter2>200</parameter2>
+					<parameter3>TestUnit</parameter3>
 				</WaveAction>
 			</actions>
 		</Level1>
