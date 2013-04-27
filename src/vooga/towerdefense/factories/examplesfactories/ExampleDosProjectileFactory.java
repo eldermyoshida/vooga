@@ -33,9 +33,9 @@ public class ExampleDosProjectileFactory extends GameElementFactory {
     private AttributeManager AM;
     
     public ExampleDosProjectileFactory(String name, GameElementDefinition definition){
-    	super(name, definition);
+    	super(name, "Projectile", definition);
         def = new ProjectileDefinition();
-        AM = getDefaultAM();
+        AM = new AttributeManager();
     }
     
     public GameElement createElement (Location putHere) {

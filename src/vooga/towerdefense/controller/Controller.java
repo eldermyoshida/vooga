@@ -146,7 +146,6 @@ public class Controller {
 	    myAvailableMaps = new HashMap<Pixmap, GameMap>();
 	    List<GameMap> mapChoices = myGameLoader.loadMaps();
 	    for (GameMap map : mapChoices) {
-	        System.out.println(map.getBackgroundImage());
 	        myAvailableMaps.put(map.getBackgroundImage(), map);
 	    }
 	}
@@ -162,6 +161,8 @@ public class Controller {
 	 */
 	public void setMap(Pixmap mapChoice) throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException {
 	    System.out.println("Setting map in controller");
+	    System.out.println("pixmap map choice is " + mapChoice);
+	    
 	    addMapAndLoadGame(myAvailableMaps.get(mapChoice));
 	    setView();
 	}
@@ -243,6 +244,7 @@ public class Controller {
 	 * updates the display on the MapScreen.
 	 */
 	public void displayMap() {
+	    System.out.println(myView.getMapScreen());
 		myView.getMapScreen().update();
 	}
 

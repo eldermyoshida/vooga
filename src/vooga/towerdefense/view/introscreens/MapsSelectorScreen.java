@@ -85,7 +85,7 @@ public class MapsSelectorScreen extends SelectScreen {
                         // TODO Auto-generated catch block
                         e1.printStackTrace();
                     }
-                    getView().showLevelDifficultyChoicesScreen();
+                    getView().showScreen();
                 }
             }
         });
@@ -146,7 +146,6 @@ public class MapsSelectorScreen extends SelectScreen {
             for (Map.Entry<Pixmap, Rectangle> entry1 : myMapImages.entrySet()) {
                 if (entry1.getKey().getFilePath().equals(CHECKED_IMAGE)) {
                     entry1.getKey().setImage(myPrevName);
-                    mySelectedMap = entry1.getKey();
                     repaint();
                 }
             }
@@ -155,6 +154,7 @@ public class MapsSelectorScreen extends SelectScreen {
         for (Map.Entry<Pixmap, Rectangle> entry : myMapImages.entrySet()) {
             if (entry.getValue().contains(point)) {
                 myMapSelected = true;
+                mySelectedMap = entry.getKey();
                 selectedImage(entry.getKey());
             }
         }

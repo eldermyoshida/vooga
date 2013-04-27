@@ -44,6 +44,7 @@ public class GameModel {
         myLevels = new ArrayList<Level>();
         myRules = new ArrayList<Rule>();
         myGameMap = gameMap;
+        System.out.println(myGameMap + " in model construtctr");
         myShop = shop;
         myCurrentLevel = 0;
        // myPlayer = new Player(controller);
@@ -129,6 +130,7 @@ public class GameModel {
      * @param pen a pen
      */
     public void paintMap (Graphics2D pen) {
+        System.out.println("in model paintMap, map is: " + myGameMap);
         myGameMap.paint(pen);
     }
 

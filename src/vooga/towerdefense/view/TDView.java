@@ -134,6 +134,10 @@ public class TDView {
         myLevelSelector = new LevelsSelectorScreen(MAP_WINDOW_SIZE, this);
         addScreen(myLevelSelector, BorderLayout.CENTER);
     }
+    
+    public void showScreen() {
+        myFrame.setVisible(true);
+    }
 
     /**
      * adds the parameter screen to the view.
@@ -177,6 +181,7 @@ public class TDView {
      * @param mapscreen is the mapscreen
      */
     public void setMapScreen(MapScreen mapscreen) {
+        System.out.println("tdview: setting map screen to " + mapscreen);
         myMapScreen = mapscreen;
     }
 
