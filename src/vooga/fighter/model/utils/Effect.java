@@ -45,6 +45,21 @@ public abstract class Effect {
     }
     
     /**
+     * Initializes effects
+     */
+    public void initialize(){
+    	setDuration();
+    }
+    
+    /**
+     * Sets the duration 
+     */
+    public void setDuration(){
+    	myCounter= new Counter(getProperty("duration"));
+    }
+    
+
+    /**
      * Adds a property for this object. Overwrites any existing value.
      */
     public void addProperty(String key, int value) {
