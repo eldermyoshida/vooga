@@ -2,7 +2,7 @@ package vooga.towerdefense.action.actionlist;
 
 import vooga.towerdefense.action.TargetedAction;
 import vooga.towerdefense.factories.elementfactories.GameElementFactory;
-import vooga.towerdefense.gameElements.GameElement;
+import vooga.towerdefense.gameelements.GameElement;
 import vooga.towerdefense.model.GameMap;
 import util.Location;
 

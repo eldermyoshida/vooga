@@ -3,11 +3,9 @@ package vooga.towerdefense.view.gamescreens;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Point;
-import javax.swing.JPanel;
-import vooga.towerdefense.controller.Controller;
+
 import util.ValueText;
+import vooga.towerdefense.controller.Controller;
 
 
 /**
@@ -17,7 +15,7 @@ import util.ValueText;
  * 
  */
 
-public class GameStatsScreen extends JPanel {
+public class GameStatsScreen extends InformationScreen {
 
     private static final long serialVersionUID = 1L;
     private static final String MONEY_LABEL = "$$";
@@ -28,17 +26,16 @@ public class GameStatsScreen extends JPanel {
     private static final int LIVES_LABEL_Y_OFFSET = 30;
     private static final int XCOORD = 0;
     private static final int YCOORD = 0;
-    private int myStartingMoney = 0;
-    private int myStartingLives = 5;
     private Color myBackgroundColor = Color.WHITE;
     private ValueText myMoney;
     private ValueText myLives;
 
     public GameStatsScreen (Dimension size, Controller controller) {
+    	super(size, controller);
         setPreferredSize(size);
         setFocusable(true);
 
-        initStatistics();
+        //initStatistics();
 
         setVisible(true);
     }
@@ -48,20 +45,20 @@ public class GameStatsScreen extends JPanel {
         super.paintComponent(pen);
         pen.setColor(myBackgroundColor);
         pen.fillRect(XCOORD, YCOORD, getSize().width, getSize().height);
-        paintStats((Graphics2D) pen);
+        //paintStats((Graphics2D) pen);
     }
 
     public void update () {
         // reset the values
     }
 
-    private void initStatistics () {
-        myMoney = new ValueText(MONEY_LABEL, myStartingMoney);
-        myLives = new ValueText(LIVES_LABEL, myStartingLives);
-    }
-
-    private void paintStats (Graphics2D pen) {
-        myMoney.paint(pen, new Point(LABELS_X_OFFSET, MONEY_LABEL_Y_OFFSET), LABEL_COLOR);
-        myLives.paint(pen, new Point(LABELS_X_OFFSET, LIVES_LABEL_Y_OFFSET), LABEL_COLOR);
-    }
+//    private void initStatistics () {
+//        myMoney = new ValueText(MONEY_LABEL, myStartingMoney);
+//        myLives = new ValueText(LIVES_LABEL, myStartingLives);
+//    }
+//
+//    private void paintStats (Graphics2D pen) {
+//        myMoney.paint(pen, new Point(LABELS_X_OFFSET, MONEY_LABEL_Y_OFFSET), LABEL_COLOR);
+//        myLives.paint(pen, new Point(LABELS_X_OFFSET, LIVES_LABEL_Y_OFFSET), LABEL_COLOR);
+//    }
 }

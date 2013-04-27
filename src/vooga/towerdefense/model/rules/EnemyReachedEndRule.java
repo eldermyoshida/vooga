@@ -5,7 +5,7 @@ import java.util.List;
 
 import vooga.towerdefense.attributes.Attribute;
 import vooga.towerdefense.attributes.AttributeConstants;
-import vooga.towerdefense.gameElements.GameElement;
+import vooga.towerdefense.gameelements.GameElement;
 import vooga.towerdefense.model.GameModel;
 import vooga.towerdefense.model.Tile;
 

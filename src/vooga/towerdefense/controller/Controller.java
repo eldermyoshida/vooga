@@ -21,8 +21,8 @@ import vooga.towerdefense.controller.modes.BuildMode;
 import vooga.towerdefense.controller.modes.ControlMode;
 import vooga.towerdefense.controller.modes.SelectMode;
 import vooga.towerdefense.factories.elementfactories.GameElementFactory;
-import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.gameeditor.gameloader.GameLoader;
+import vooga.towerdefense.gameelements.GameElement;
 import vooga.towerdefense.model.GameLoop;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.GameModel;
@@ -475,11 +475,8 @@ public class Controller {
 		return canBuild;
 	}
 
-	public void displayPlayerStatistics(Map<String, Integer> playerData) {
-		String info = "Player info: \n\n";
-		for (String key : playerData.keySet())
-			info += key + ": " + playerData.get(key) + "\n";
-		//myView.getPlayerInfoScreen().displayInformation(info);
+	public void displayPlayerStatistics(String playerData) {
+		myView.getStatsScreen().displayInformation(playerData);
 	}
 	
 	public Dimension getTileSize() {

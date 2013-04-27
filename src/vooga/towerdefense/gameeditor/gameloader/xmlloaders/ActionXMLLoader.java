@@ -1,3 +1,4 @@
+
 package vooga.towerdefense.gameeditor.gameloader.xmlloaders;
 
 import java.lang.reflect.Constructor;
@@ -8,7 +9,7 @@ import org.w3c.dom.Element;
 import util.XMLTool;
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.factories.actionfactories.ActionFactory;
-import vooga.towerdefense.gameElements.GameElement;
+import vooga.towerdefense.gameelements.GameElement;
 import vooga.towerdefense.model.GameMap;
 
 /**
@@ -18,7 +19,7 @@ import vooga.towerdefense.model.GameMap;
  * @author Erick Gonzalez
  */
 public class ActionXMLLoader {
-    private static final String ACTIONS_TAG = "actions"; 
+    private static final String ACTIONS_TAG = "actions";
 
     private XMLTool myXMLTool;
 
@@ -74,8 +75,7 @@ public class ActionXMLLoader {
      * @param gameMap a game map object
      * @return a list of ActionFactory objects acting on the given GameElement
      */
-    public List<ActionFactory> loadActionFactories (Element actionsElement, 
-                                                    GameMap gameMap) {        
+    public List<ActionFactory> loadActionFactories (Element actionsElement, GameMap gameMap) {        
         List<Element> subElements = myXMLTool.getChildrenList(actionsElement);
 
         List<ActionFactory> actionFactories = new ArrayList<ActionFactory>();
@@ -89,10 +89,10 @@ public class ActionXMLLoader {
     private ActionFactory loadActionFactory (Element actionElement, GameMap gameMap) {
         String actionName = myXMLTool.getTagName(actionElement);
         
-        
-        List<ActionFactory> subActionFactories = new ArrayList<ActionFactory>();
-        List<Element> subElements = myXMLTool.getChildrenList(actionElement);
         List<String> parameterStrings = new ArrayList<String>();
+        List<ActionFactory> subActionFactories = new ArrayList<ActionFactory>();
+
+        List<Element> subElements = myXMLTool.getChildrenList(actionElement);
 
         for (Element subElement: subElements) {
             String subElementName = myXMLTool.getTagName(subElement);
@@ -109,8 +109,7 @@ public class ActionXMLLoader {
             String thing = "";
             if (actionName.contains("Wave")) {
                 thing = "vooga.towerdefense.factories.waveactionfactories.";
-            } 
-            else {
+            } else {
                 thing = "vooga.towerdefense.factories.actionfactories.";
             }
             String classPath = thing + actionName + "Factory";

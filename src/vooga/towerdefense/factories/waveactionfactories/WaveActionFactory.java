@@ -5,7 +5,7 @@ import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.waveactions.WaveAction;
 import vooga.towerdefense.factories.actionfactories.ActionFactory;
 import vooga.towerdefense.factories.elementfactories.GameElementFactory;
-import vooga.towerdefense.gameElements.GameElement;
+import vooga.towerdefense.gameelements.GameElement;
 
 /**
  * This action factory builds a wave action.

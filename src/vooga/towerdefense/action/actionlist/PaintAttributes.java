@@ -6,7 +6,7 @@ import java.awt.Graphics2D;
 
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.attributes.Attribute;
-import vooga.towerdefense.gameElements.GameElement;
+import vooga.towerdefense.gameelements.GameElement;
 
 
 /**
