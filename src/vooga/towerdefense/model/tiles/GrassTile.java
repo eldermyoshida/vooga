@@ -30,6 +30,9 @@ public class GrassTile extends Tile {
         setWalkable(false);
     }
     
+    /**
+     * String name of the image used in the Pixmap of this tile 
+     */
     @Override
     public String getName() {
         return NAME;

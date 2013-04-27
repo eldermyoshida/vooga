@@ -7,6 +7,7 @@ import util.Location;
  * An abstract TileFactory.
  * 
  * @author Erick Gonzalez
+ * @author Leonard K. Ng'eno
  */
 public abstract class TileFactory {
     
