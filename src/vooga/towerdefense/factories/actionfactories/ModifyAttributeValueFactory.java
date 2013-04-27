@@ -23,12 +23,14 @@ public class ModifyAttributeValueFactory extends ActionFactory {
      * @param attributeIdToApply
      */
     public ModifyAttributeValueFactory (String attributeToApply, String attributeIdToApply) {
+        super();
         myAttributeToApply = attributeToApply;
         myTargetId = attributeIdToApply;
     }
 
     /**
-     * Builds a ModifyAttributeValueAction that applies modifies value of targets with corresponding targetID.
+     * Builds a ModifyAttributeValueAction that applies modifies value of targets with corresponding
+     * targetID.
      * 
      * @return
      */

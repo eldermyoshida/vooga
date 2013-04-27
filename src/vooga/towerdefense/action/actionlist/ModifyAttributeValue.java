@@ -17,6 +17,7 @@ public class ModifyAttributeValue extends TargetedAction {
     private String myTargetAttribute;
 
     public ModifyAttributeValue (Attribute attributeToApply, String targetAttributeName) {
+        super();
         myTargetAttribute = targetAttributeName;
         myAppliedAttribute = attributeToApply;
  
