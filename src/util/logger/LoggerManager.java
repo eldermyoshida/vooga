@@ -243,22 +243,50 @@ public class LoggerManager {
         for (Handler h : myLogger.getHandlers()) {
             h.setLevel(level);
         }
-        LogRecord l;
     }
     
     /**
-     * Sets the level of the logger and all its handlers
-     * 
-     * @param level
+     * Logs a message on the logger of this manager
+     * @param level the level of the LogRecord
+     * @param message The message to log
      */
     public void log (Level level, String message) {
-        LogRecord l = new LogRecord(level, message);
-        StackTraceElement[] element = Thread.currentThread().getStackTrace();   
-        l.setSourceClassName(element[2].getClassName());
-        l.setSourceMethodName(element[2].getMethodName());
-        
-        myLogger.log(l);
-        
+        LogRecord l = new LogRecord(level, message);   
+        l.setSourceClassName(LoggerReflection.getCallerClassName());
+        l.setSourceMethodName(LoggerReflection.getCallerMethodName());   
+        myLogger.log(l);    
+    }
+    
+    /**
+     * Logs a FINER level message on the logger of this manager
+     * @param message The message to log
+     */
+    public void finer (String message) {
+        log (Level.FINER, message);   
+    }
+    
+    /**
+     * Logs a INFO level message on the logger of this manager
+     * @param message The message to log
+     */
+    public void info (String message) {
+        log (Level.INFO, message);   
+    }
+    
+    /**
+     * Logs a WARNING level message on the logger of this manager
+     * @param message The message to log
+     */
+    public void warning (String message) {
+        log (Level.WARNING, message);   
+    }
+    
+    /**
+     * Logs a SEVERE level message on the logger of this manager
+     * @param message The message to log
+     */
+    public void severe (String message) {
+        log (Level.SEVERE, message);   
     }
 
     /**

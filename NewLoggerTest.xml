@@ -2,8 +2,8 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2013-04-27T16:56:08</date>
-  <millis>1367096168410</millis>
+  <date>2013-04-27T17:04:12</date>
+  <millis>1367096652589</millis>
   <sequence>1</sequence>
   <level>FINEST</level>
   <class>util.logger.LoggerTest</class>
@@ -12,8 +12,8 @@
   <message>Finest Test Message</message>
 </record>
 <record>
-  <date>2013-04-27T16:56:08</date>
-  <millis>1367096168411</millis>
+  <date>2013-04-27T17:04:12</date>
+  <millis>1367096652589</millis>
   <sequence>2</sequence>
   <level>FINER</level>
   <class>util.logger.LoggerTest</class>
@@ -22,8 +22,8 @@
   <message>Finer Test Message</message>
 </record>
 <record>
-  <date>2013-04-27T16:56:08</date>
-  <millis>1367096168411</millis>
+  <date>2013-04-27T17:04:12</date>
+  <millis>1367096652590</millis>
   <sequence>3</sequence>
   <level>FINE</level>
   <class>util.logger.LoggerTest</class>
@@ -32,8 +32,8 @@
   <message>Fine Test Message</message>
 </record>
 <record>
-  <date>2013-04-27T16:56:08</date>
-  <millis>1367096168411</millis>
+  <date>2013-04-27T17:04:12</date>
+  <millis>1367096652590</millis>
   <sequence>4</sequence>
   <level>INFO</level>
   <class>util.logger.LoggerTest</class>
@@ -42,8 +42,8 @@
   <message>Info Test Message</message>
 </record>
 <record>
-  <date>2013-04-27T16:56:08</date>
-  <millis>1367096168411</millis>
+  <date>2013-04-27T17:04:12</date>
+  <millis>1367096652590</millis>
   <sequence>5</sequence>
   <level>WARNING</level>
   <class>util.logger.LoggerTest</class>
@@ -52,8 +52,8 @@
   <message>Warning Test Message</message>
 </record>
 <record>
-  <date>2013-04-27T16:56:08</date>
-  <millis>1367096168412</millis>
+  <date>2013-04-27T17:04:12</date>
+  <millis>1367096652590</millis>
   <sequence>6</sequence>
   <level>SEVERE</level>
   <class>util.logger.LoggerTest</class>
