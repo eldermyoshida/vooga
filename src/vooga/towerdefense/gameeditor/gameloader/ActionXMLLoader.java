@@ -7,17 +7,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import util.XMLTool;
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.factories.actionfactories.ActionFactory;
 import vooga.towerdefense.gameElements.GameElement;
 
 
-/**
- * This class is responsible for loading all Action objects.
- * 
- * @author Erick Gonzalez
- */
 public class ActionXMLLoader {
     private static final String ACTIONS_TAG = "actions";
     private static final String PARAMETER_TAG = "parameter";
@@ -52,7 +49,6 @@ public class ActionXMLLoader {
      */
     public List<Action> loadActions (GameElement e, Element actionsElement) {
         List<ActionFactory> actionFactories = loadActionFactories(actionsElement);
-        System.out.println(actionFactories);
 
         List<Action> actions = new ArrayList<Action>();
         for (ActionFactory af : actionFactories) {
@@ -72,17 +68,26 @@ public class ActionXMLLoader {
         List<ActionFactory> actionFactories = new ArrayList<ActionFactory>();
         for (Element e : subElements.values()) {
             actionFactories.add(loadActionFactory(e));
+            break;
         }
         return actionFactories;
     }
 
     private ActionFactory loadActionFactory (Element actionElement) {
         String actionName = myXMLTool.getTagName(actionElement);
+        
+        NodeList nodeList = actionElement.getChildNodes();
+        System.out.println(nodeList.getLength());
+        for (int i = 0; i < nodeList.getLength(); ++i) {
+            Node current = nodeList.item(i);
+            System.out.println(current.getNodeValue());
+        }
 
         List<String> parameterStrings = new ArrayList<String>();
         List<ActionFactory> subActions = new ArrayList<ActionFactory>();
 
         Map<String, Element> subElements = myXMLTool.getChildrenElementMap(actionElement);
+
         for (String subElementName : subElements.keySet()) {
             if (subElementName.equals(PARAMETER_TAG)) {
                 parameterStrings.add(loadParameterString(subElements.get(subElementName)));
@@ -96,7 +101,13 @@ public class ActionXMLLoader {
         Class actionFactoryClass = null;
         ActionFactory af = null;
         try {
-            String classPath = "vooga.towerdefense.factories.actionfactories." + actionName + "Factory";
+            String thing = "";
+            if (actionName.contains("Wave")) {
+                thing = "vooga.towerdefense.factories.waveactionfactories.";
+            } else {
+                thing = "vooga.towerdefense.factories.actionfactories.";
+            }
+            String classPath = thing + actionName + "Factory";
             actionFactoryClass = Class.forName(classPath);
 
             Constructor[] constructors = actionFactoryClass.getDeclaredConstructors();            
@@ -104,18 +115,23 @@ public class ActionXMLLoader {
             af = (ActionFactory) constructor.newInstance(parameterStringsArray);
         }
         catch (InstantiationException e) {
+            //System.out.println("InstantiationException");
             return null;
         }
         catch (IllegalAccessException e) {
+            //System.out.println("IllegalAccessException");
             return null;
         }
         catch (IllegalArgumentException e) {
+            //System.out.println("IllegalArgumentException");
             return null;
         }
         catch (InvocationTargetException e) {
+            //System.out.println("InvocationTargetException");
             return null;
         }
         catch (ClassNotFoundException e) {
+            //System.out.println("ClassNotFoundException");
             return null;
         }
         af.addFollowUpActionsFactories(subActions);
