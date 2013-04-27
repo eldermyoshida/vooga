@@ -6,8 +6,12 @@ import java.util.List;
 import javax.swing.JPanel;
 import vooga.rts.networking.NetworkBundle;
 import vooga.rts.networking.client.ClientModel;
+import vooga.rts.networking.client.IClientModel;
 import vooga.rts.networking.communications.ExpandedLobbyInfo;
 import vooga.rts.networking.communications.LobbyInfo;
+import vooga.rts.networking.communications.PlayerInfo;
+import vooga.rts.networking.communications.clientmessages.LeaveLobbyMessage;
+import vooga.rts.player.Player;
 
 /**
  * Class used as a meddler between the client view and model
@@ -20,6 +24,7 @@ import vooga.rts.networking.communications.LobbyInfo;
 public class ClientViewAdapter extends ViewAdapter{
     private TableContainerView myServerBrowserView;
     private CreateLobbyView myCreateLobbyView;
+    private LobbyView myLobbyView;
     private ServerBrowserTableAdapter myServerBrowserAdapter = new ServerBrowserTableAdapter();
 
     /**
@@ -31,10 +36,9 @@ public class ClientViewAdapter extends ViewAdapter{
      * @param maxPlayerArray
      */
     public ClientViewAdapter (IModel model,
-                              String gameName, List<String> maps,
+                              String gameName, List<String> factions, List<String> maps,
                               List<Integer> maxPlayerArray) {
         super(model, gameName);
-        
         myServerBrowserView = new TableContainerView(myServerBrowserAdapter);
         myCreateLobbyView = new CreateLobbyView(maps, maxPlayerArray);
         switchToServerBrowserView();
@@ -93,7 +97,7 @@ public class ClientViewAdapter extends ViewAdapter{
      * Switches the current view to the Lobby.
      */
     public void switchToLobbyView (ExpandedLobbyInfo lobbyInfo) {
-        myLobbyView = new LobbyView(myModel, myFactions, lobbyInfo.getMaxPlayers());
+        myLobbyView = new LobbyView(myModel, myModel.getFactions(), lobbyInfo.getMaxPlayers());
         myModel.updateLobby(lobbyInfo);
         myModel.sendUpdatedLobbyInfo();
 
@@ -121,14 +125,6 @@ public class ClientViewAdapter extends ViewAdapter{
 
     /**
      * 
-     * @return the view used by all networking functions
-     */
-    public JPanel getView () {
-        return myContainerPanel;
-    }
-
-    /**
-     * 
      * @param lobbies array with LobbyInfo that should update
      * the ServerBrowserAdapter
      */
@@ -143,22 +139,5 @@ public class ClientViewAdapter extends ViewAdapter{
     public void updateLobby () {
         myLobbyView.update(myModel.getPlayersInfo(), 
                            myModel.getLobbyInfo().getPlayers());
-    }
-
-    /**
-     * Displays a window to the user with a specific message
-     * @param title Title of the window
-     * @param message String to inform the user
-     */
-    public void alertClient (String title, String message) {
-        myContainerPanel.showMessageDialog(title, message);
-    }
-
-    /**
-     * 
-     * @return A list with name of factions of this client view
-     */
-    public List<String> getFactions() {
-        return myFactions;
     }
 }

@@ -6,9 +6,8 @@ import vooga.rts.networking.client.ClientModel;
 import vooga.rts.networking.communications.LobbyInfo;
 
 public abstract class ViewAdapter {
-    private ViewContainerPanel myContainerPanel;
-    private LobbyView myLobbyView;
-    private ClientModel myModel;
+    protected ViewContainerPanel myContainerPanel;
+    protected ClientModel myModel;
     
     public ViewAdapter(IModel model, String gameName) {
         myModel = (ClientModel) model;
@@ -21,15 +20,6 @@ public abstract class ViewAdapter {
      */
     public JPanel getView () {
         return myContainerPanel;
-    }
-
-    /**
-     * Updates the information on the LobbyView according to the
-     * model's current information
-     */
-    public void updateLobby () {
-        myLobbyView.update(myModel.getPlayersInfo(), 
-                           myModel.getLobbyInfo().getPlayers());
     }
 
     /**
