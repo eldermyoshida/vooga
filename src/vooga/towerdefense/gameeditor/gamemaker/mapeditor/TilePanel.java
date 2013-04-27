@@ -1,6 +1,5 @@
 package vooga.towerdefense.gameeditor.gamemaker.mapeditor;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -16,19 +15,20 @@ import javax.swing.JPanel;
 import util.Location;
 import util.Pixmap;
 
+
 /**
  * This is the class that displays the types of tiles that the game developer can use
  * to build their map. The class gives the game developer the ability to click on the
- * type of tile that they want and then click on a grid on the MapMaker to place it 
- * on the clicked grid. 
+ * type of tile that they want and then click on a grid on the MapMaker to place it
+ * on the clicked grid.
  * 
  * @author Leonard K. Ng'eno
- *
+ * 
  */
 public class TilePanel extends JPanel {
 
     private static final long serialVersionUID = 1L;
-    private static final Dimension DEFAULT_SIZE = new Dimension(50,50);
+    private static final Dimension DEFAULT_SIZE = new Dimension(50, 50);
     private MouseAdapter myMouseListener;
     private List<Pixmap> myPixmaps;
     private Map<Pixmap, Rectangle> myBounds;
@@ -56,8 +56,12 @@ public class TilePanel extends JPanel {
         int xC = 30;
         int yC = 30;
         for (int k = 0; k < myPixmaps.size(); k++) {
-            myPixmaps.get(k).paint(pen, new Location(k * DEFAULT_SIZE.width + xC, yC), DEFAULT_SIZE);
-            myBounds.put(myPixmaps.get(k), new Rectangle((k * DEFAULT_SIZE.width + xC) - (DEFAULT_SIZE.width/2), yC - (DEFAULT_SIZE.height/2), DEFAULT_SIZE.width, DEFAULT_SIZE.height));
+            myPixmaps.get(k)
+                    .paint(pen, new Location(k * DEFAULT_SIZE.width + xC, yC), DEFAULT_SIZE);
+            myBounds.put(myPixmaps.get(k), new Rectangle((k * DEFAULT_SIZE.width + xC) -
+                                                         (DEFAULT_SIZE.width / 2),
+                                                         yC - (DEFAULT_SIZE.height / 2),
+                                                         DEFAULT_SIZE.width, DEFAULT_SIZE.height));
             xC += 10;
         }
     }
@@ -75,9 +79,9 @@ public class TilePanel extends JPanel {
         for (Pixmap pixmap : myPixmaps) {
             if (myBounds.get(pixmap).contains(point)) {
                 String[] name = pixmap.getFilePath().split("/");
-                myEditor.makeTileInstances(name[name.length-1]);
+                myEditor.makeTileInstances(name[name.length - 1]);
             }
         }
     }
-    
+
 }

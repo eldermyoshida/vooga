@@ -13,7 +13,7 @@ import util.Location;
 import util.Pixmap;
 import util.XMLTool;
 import vooga.towerdefense.model.GameMap;
-import vooga.towerdefense.model.tiles.Tile;
+import vooga.towerdefense.model.Tile;
 import vooga.towerdefense.model.tiles.factories.DefaultTileFactory;
 import vooga.towerdefense.model.tiles.factories.GrassTileFactory;
 import vooga.towerdefense.model.tiles.factories.PathTileFactory;
@@ -177,8 +177,7 @@ public class MapXMLLoader {
                 int yCenter = (int) (i * tileDimensions.getHeight() + 
                         tileDimensions.getHeight() / 2);
                 int tileId = reader.nextInt();
-                grid[j][i] = getTileFactory(tileId).createTile(tileId, 
-                                                               new Location(xCenter, yCenter), tileDimensions);
+                grid[j][i] = getTileFactory(tileId).createTile(new Location(xCenter, yCenter));
             }
         }
         return grid;

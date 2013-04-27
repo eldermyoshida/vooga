@@ -1,10 +1,9 @@
 package vooga.towerdefense.model.tiles.factories;
 
 import java.awt.Dimension;
-
+import vooga.towerdefense.model.Tile;
 import util.Location;
-import vooga.towerdefense.model.tiles.Tile;
-
+import vooga.towerdefense.model.Tile;
 /**
  * An abstract TileFactory.
  * 
@@ -23,6 +22,6 @@ public abstract class TileFactory {
      * @param center the center of this tile on the map
      * @return the corresponding tile
      */
-    public abstract Tile createTile(int id, Location center, Dimension tileSize);
+    public abstract Tile createTile(Location center);
 
 }
