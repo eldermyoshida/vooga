@@ -10,6 +10,7 @@ import vooga.rts.resourcemanager.ResourceManager;
  * This class stores information relevant to anything that will display Actions onto the GUI
  * 
  * @author Kevin Oh
+ * @modified Francesco Agosti
  * 
  */
 public class Information {

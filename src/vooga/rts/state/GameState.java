@@ -155,7 +155,7 @@ public class GameState extends SubState implements Controller {
                                           DEFAULT_WORKER_INFO);
         getPlayers().getPlayer(playerID).add(worker);
 
-        Unit soldierOne = (Unit) myFactory.getEntitiesMap().get("combat").copy();
+        Unit soldierOne = (Unit) myFactory.getEntitiesMap().get("marine").copy();
         soldierOne =
                 (Unit) setLocationAndInfo(soldierOne, baseLocation,
                                           DEFAULT_SOLDIER_ONE_RELATIVE_LOCATION,
@@ -180,8 +180,6 @@ public class GameState extends SubState implements Controller {
         myTasks.add(new DelayedTask(2, new Runnable() {
             @Override
             public void run () {
-            	System.out.println(f.getInfo().getName());
-            	System.out.println(f.getActions());
                 f.getAction((new Command("make Marine"))).apply();
             }
         }, true));

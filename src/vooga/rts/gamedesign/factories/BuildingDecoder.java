@@ -57,7 +57,9 @@ public class BuildingDecoder extends Decoder {
 
             
             
-            building.setInfo(getInformation(name,nElement.getElementsByTagName("information")));
+          
+            
+           building.setInfo(getInformation(name, nElement));
             
             myFactory.put(name, building);
             

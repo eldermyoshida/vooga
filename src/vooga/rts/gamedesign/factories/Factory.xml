@@ -93,7 +93,7 @@
 			<occupy>cannotbeoccupied</occupy>
 			<upgrade>canupgrade</upgrade>
 			<upgradeTreeName>SoldierUpgrade</upgradeTreeName>
-			<produce>combat</produce>
+			<produce>marine</produce>
 			<myweapons></myweapons>
 			<information>
 				<description>Welcome home</description>

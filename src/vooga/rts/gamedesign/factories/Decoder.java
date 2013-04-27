@@ -44,8 +44,9 @@ public abstract class Decoder {
 	protected static final String CAN_UPGRADE = "canupgrade";
 	protected static final String MYWEAPONS_TAG = "myweapons";
 	protected static final String CANNOT_GATHER = "cannotgather";
-	protected static final int DESCRIPTION_INDEX = 0;
-	protected static final int BUTTON_INDEX = 1;
+	protected static final String INFORMATION_TAG = "information";
+	protected static final String DESCRIPTION_TAG = "description";
+	protected static final String BUTTON_TAG = "button";
 	
 	
 	
@@ -68,12 +69,11 @@ public abstract class Decoder {
 	 * @param listOfInfo
 	 * @return new information from the content of the NodeList
 	 */
-	protected Information getInformation(String name, NodeList listOfInfo){
-		NodeList littleinfos = listOfInfo.item(0).getChildNodes();
-		String description = littleinfos.item(DESCRIPTION_INDEX).getTextContent();
-		String buttonsrc = littleinfos.item(BUTTON_INDEX).getTextContent();
-		System.out.println(description);
-		return new Information(name, description,buttonsrc);
+	protected Information getInformation(String name, Element info){
+		Element infoElement = (Element) info.getElementsByTagName(INFORMATION_TAG).item(0).getChildNodes();
+		String description = getElement(infoElement, DESCRIPTION_TAG);
+		String button = getElement(infoElement, BUTTON_TAG);
+		return new Information(name, description, button);
 	}
 	
 	/**
