@@ -1,7 +1,7 @@
 package vooga.scroller.sprites.animation;
 
+import vooga.scroller.sprites.Sprite;
 import vooga.scroller.util.Pixmap;
-import vooga.scroller.util.Sprite;
 
 /**
  * Animation state that represents moving left. When the sprite stops, this animation

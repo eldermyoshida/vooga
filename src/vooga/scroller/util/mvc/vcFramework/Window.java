@@ -1,23 +1,19 @@
 
 package vooga.scroller.util.mvc.vcFramework;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
-import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.util.List;
 import java.util.ResourceBundle;
-import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
-import vooga.scroller.level_editor.view.LEGridView;
-import vooga.scroller.level_editor.view.LEWorkspaceView;
-import vooga.scroller.level_editor.view.LevelEditing;
 import vooga.scroller.util.Renderable;
 import vooga.scroller.util.mvc.IController;
 import vooga.scroller.util.mvc.IWindow;
@@ -28,136 +24,69 @@ import vooga.scroller.viewUtil.EasyGridFactory;
  * the other view components of the application. It also has support 
  * (or enforces implementation) for common non-domain specific actions available in most GUIs.
  * Among other things, file-opening, multiple tabs, undoing and redoing...
+ * By default, if no tab is specified. Using rendering methods that do not specify a
+ * tab is strongly discouraged.
  * 
  * @author Ross Cahoon, Dagbedji Fagnisse
  *
+ * @param <W> - The Workspace Type
+ * @param <D> - The Domain Descriptor, used in enforcing 
+ *      (1) Chain of responsibility and 
+ *      (2) facilitating bridge
+ * @param <E> - The Editable/Renderable Type
+ * @param <T> - The Domain specific tools
  */
 @SuppressWarnings("serial")
-public abstract class Window<W extends WorkspaceView<D>, D extends IDomainDescriptor,
-R extends WindowComponent, T extends Tools> extends JFrame 
-implements IWindow<W, D, R, T> {
+public abstract class Window<W extends WorkspaceView<D>, 
+                             D extends IDomainDescriptor,
+                             E extends WindowComponent<D>, 
+                             T extends Tools<D>> 
+    extends JFrame implements IWindow<W, D, E, T> {
 
-    private static ResourceBundle ourResources;
     private static final String DEFAULT_RESOURCE_PACKAGE = "vooga.scroller.resources.";
+    private static ResourceBundle ourResources;
     private static final String USER_DIR = "user.dir";
-    private IController<D> myController;
-    private JTabbedPane myTabbedPane;
-    private JMenuBar myMenuBar;
+    
+
     private JFileChooser myChooser;
+    private IController<D> myController;
+    private MenuBarView<D> myMenuBar;
     private Dimension mySize = ViewConstants.DEFAULT_WINDOW_SIZE;
     
+    private JTabbedPane myTabbedPane;    
+
+    private T myTools;
+
     /**
      * Constructor for Window
      * @param title The title of the View
      * @param language The display language for the window
-     * @param lEController The Controller responsible for this view
+     * @param controller The Controller responsible for this view
+     * @param tools to be used with this workspace
      */
-    public Window (String title, String language, IController<D> lEController) {
+    public Window (String title, String language, IController<D> controller, T tools) {
         super(title);
         this.setResizable(false);
         setPreferredSize(mySize);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        myController = lEController;
+        myController = controller;
         // create and arrange sub-parts of the GUI
         ourResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
         myChooser = new JFileChooser(System.getProperties().getProperty(USER_DIR));
         //tabs
         getContentPane().setLayout(new GridBagLayout());
-        setMenu();
+        setTools(tools);
         addComponents();
-    }    
-
-    protected abstract void setMenu ();
-
-    /**
-     * Way to initialize tab creation from the window
-     */
-    public void addTab() {
-        myController.initializeWorkspace();
-    }
-
-    private void addComponents() {
-        myTabbedPane = new JTabbedPane();
-        setJMenuBar(myMenuBar);
-        EasyGridFactory.layoutHorizontal(this, myTabbedPane);
-    }
-
-    protected void setMenu (JMenuBar menu) {
-        myMenuBar = menu;
-    }
-
-    /**
-     * Adds a tab to the view
-     * @param tab The tab to be added
-     * @param p The Renderable that it is associated with
-     */
-    public void addTab (W tab, Renderable<R> p) {
-        myTabbedPane.addTab(getLiteral("TabTitle") + " " + (tab.getID() + 1), tab);
-        tab.setRenderable(p);
-    }
-    /**
-     * Returns the JFileChooser for this View
-     * @return
-     */
-    public JFileChooser getChooser () {
-        return myChooser;
-    }
-
-    /**
-     * Close the window
-     */
-    public void quit () {
-        WindowEvent close = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
-        Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(close);
     }
     
     /**
-     * Save the active workspace - TODO
+     * Helper Method available to lookup values in the Resources
+     * @param s - string literal to be looked up (key)
+     * @return the string literal specified in the relevant properties file
      */
-    public void saveFile () {
-        int response = myChooser.showSaveDialog(null);
-        if (response == JFileChooser.APPROVE_OPTION) {
-            File file2save = myChooser.getSelectedFile();
-            saveFile(file2save);
-        }
-        return;
+    public String getLiteral(String s) {
+        return Window.ourResources.getString(s);
     }
-
-    private void saveFile (File file2save){
-        myController.saveFile(file2save, getActiveTab());
-    }
-
-    /**
-     * Load the specified file in a new tab - TODO
-     * @param file2open
-     */
-    private void loadFile (File file2open){
-        myController.loadFile(file2open);
-    }
-
-    /**
-     * Called by a TabView child view that will request a string to be processed as a Command
-     * @param tabView The Tabview that is requesting the string to be processed
-     * @param s The string to be processed
-     */
-    public void process (W tabView, Object o) {
-        myController.process(tabView, o);
-    }
-    
-    /**
-     * Called by a non TabView child view that will request a string to be processed as a Command
-     * Uses the active tab
-     * @param s The string to be processed
-     */
-    public void process (Object o) {
-        process(getActiveTab(), o);
-    }
-    
-    @SuppressWarnings("unchecked")
-    protected W getActiveTab() {
-        return (W) myTabbedPane.getSelectedComponent();
-    }
-
     /**
      * Gets the resource bundle
      *
@@ -166,15 +95,60 @@ implements IWindow<W, D, R, T> {
         return ourResources;
     }
     
-    /**
-     * Helper Method available to lookup values in the Resources
-     * @param s - string literal to be looked up (key)
-     * @return the string literal specified in the relevant properties file
-     */
-    public static String getLiteral(String s) {
-        return Window.ourResources.getString(s);
+    private void addComponents() {
+        myTabbedPane = new JTabbedPane();
+        setJMenuBar(myMenuBar);
+        EasyGridFactory.layoutHorizontal(this, myTabbedPane);
     }
 
+    /**
+     * Way to initialize tab creation from the window
+     */
+    public void addTab() {
+        myController.initializeWorkspace();
+    }
+
+    /**
+     * Adds a tab to the view
+     * @param tab The tab to be added
+     * @param p The Renderable that it is associated with
+     */
+    public void addTab (W tab, Renderable<D> p) {
+        myTabbedPane.addTab(getLiteral("TabTitle") + " " + (tab.getID() + 1), tab);
+        tab.setRenderable(p);
+    }
+
+    @SuppressWarnings("unchecked")
+    protected W getActiveTab() {
+        return (W) myTabbedPane.getSelectedComponent();
+    }
+
+    /**
+     * Returns the JFileChooser for this View
+     * @return
+     */
+    public JFileChooser getChooser () {
+        return myChooser;
+    }
+    /**
+     * 
+     * @return - number of tabs
+     */
+    public int getTabCount() {
+        return myTabbedPane.getTabCount();
+    }
+
+    protected T getTools() {
+        return myTools;
+    }
+    
+    /**
+     * Load the specified file in a new tab - TODO
+     * @param file2open
+     */
+    private void loadFile (File file2open) {
+        myController.loadFile(file2open);
+    }
 
     /**
      * Initiate the opening of a file
@@ -187,14 +161,120 @@ implements IWindow<W, D, R, T> {
         }
     }
 
-    
+    /**
+     * Called by a non TabView child view that will request a string to be processed as a Command
+     * Uses the active tab
+     * @param o The object to be processed
+     */
+    public void process (Object o) {
+        process(getActiveTab(), o);
+    }
+
+    /**
+     * Called by a TabView child view that will request a string to be processed as a Command
+     * @param tabView The Tabview that is requesting the string to be processed
+     * @param o The object to be processed
+     */
+    public void process (W tabView, Object o) {
+        myController.process(tabView, o);
+    }
     
     /**
-     * 
-     * @return - number of tabs
+     * Close the window
      */
-    public int getTabCount() {
-        return myTabbedPane.getTabCount();
+    public void quit () {
+        WindowEvent close = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
+        Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(close);
+    }
+    
+    /**
+     * redo last (undone) action for active workspace
+     */
+    public void redo () {
+        getActiveTab().redo();
+    }
+
+    /**
+     * This method might not be thread safe under the current implementation.
+     * @param r - object to render
+     */
+    @Override
+    public void render(Renderable<D> r) {
+        showWorkspace(getActiveTab(), r);
+    }
+    
+    /**
+     * Save the active workspace
+     */
+    public void saveFile () {
+        int response = myChooser.showSaveDialog(null);
+        if (response == JFileChooser.APPROVE_OPTION) {
+            File file2save = myChooser.getSelectedFile();
+            saveFile(file2save);
+        }
+        return;
+    }
+
+
+    /**
+     * Get a file from the user and delegate actual saving to controller.
+     * @param file2save
+     */
+    private void saveFile (File file2save) {
+        myController.saveFile(file2save, getActiveTab());
+    }
+
+    
+    protected void setMenu (JMenuBar menu) {
+        myMenuBar = (MenuBarView<D>) menu;
+    }
+    
+    protected void setMenu (T tools) {
+        setMenu(tools.getMenu(this));
+    }
+    
+    private void setTools (T tools) {
+        myTools = tools;
+        setMenu(myTools);
+    }
+    
+    /**
+     * Helper to show a message to the user
+     * @param message - to be shown
+     */
+    @Override
+    public void showMessageDialog (String message) {
+        JOptionPane.showMessageDialog(this, message);
+    }
+    
+    @Override
+    public void showWorkspace (W associatedWorkspaceView, Renderable<D> r) {
+        addTab(associatedWorkspaceView, r);
+    }
+    
+
+    @Override
+    public void setDefaultWorkspaceTools (T tools) {
+        if (tools != null) {
+            setTools(tools);
+        }
+    }
+    
+    @Override
+    public Renderable<D> getRenderable () {
+        return getActiveTab().getRenderable();
+    }
+
+    
+    @Override
+    public void start() {
+        pack();
+        setVisible(true);
+    }
+    
+    @Override
+    public void setRenderable (Renderable<D> renderable) {
+        getActiveTab().setRenderable(renderable);
     }
     
     /**
@@ -204,30 +284,13 @@ implements IWindow<W, D, R, T> {
         getActiveTab().undo();
     }
     
-    /**
-     * redo last (undone) action for active workspace
-     */
-    public void redo () {
-        getActiveTab().redo();
+    public void addDomainSpecificMenus(D d) {
+//        myMenuBar.add(d.getDomainMenuItems());
     }
+
+    public abstract D getDomain() ;
     
-    @Override
-    public void showWorkspace (W associatedWorkspaceView, Renderable<R> r) {
-        addTab(associatedWorkspaceView, r);
-    }
-    
-    @Override
-    public void start() {
-        pack();
-        setVisible(true);
-    }
-    
-    /**
-     * This method might not be thread safe under the current implementation.
-     * @param r - object to render
-     */
-    @Override
-    public void render(Renderable<R> r) {
-        showWorkspace (getActiveTab(), r);
+    public void registerMenu (JMenu jMenu) {
+        myMenuBar.addCustomMenu(jMenu);
     }
 }

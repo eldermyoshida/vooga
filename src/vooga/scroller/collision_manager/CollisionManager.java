@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import vooga.scroller.level_editor.Level;
 import vooga.scroller.marioGame.spritesDefinitions.collisions.VisitMethods;
-import vooga.scroller.util.Sprite;
+import vooga.scroller.sprites.Sprite;
 
 
 /**

@@ -3,12 +3,12 @@ package vooga.scroller.level_management;
 import java.awt.Dimension;
 import java.awt.Image;
 import util.Location;
-import vooga.scroller.sprites.interfaces.IDoor;
+import vooga.scroller.marioGame.interfaces.IDoor;
+import vooga.scroller.sprites.Sprite;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.IGameComponent;
 import vooga.scroller.util.ISpriteView;
 import vooga.scroller.util.Pixmap;
-import vooga.scroller.util.Sprite;
 
 public abstract class LevelPortal extends Sprite implements IDoor {
     

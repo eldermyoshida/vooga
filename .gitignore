@@ -1,4 +1,9 @@
+<<<<<<< HEAD
+bin/*
+=======
 bin/
+bin/**
+>>>>>>> e4a0a1014abb0fde69fcd700105d99fab0596da5
 
 *.class
 
@@ -12,4 +17,7 @@ bin/
 *.ucls
 Thumbs.db
 /bin
+<<<<<<< HEAD
+=======
 src/arcade/resources/ErrorLog*
+>>>>>>> e4a0a1014abb0fde69fcd700105d99fab0596da5

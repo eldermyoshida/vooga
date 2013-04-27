@@ -6,14 +6,15 @@ import java.awt.Image;
 import java.io.IOException;
 import util.Location;
 import vooga.scroller.level_editor.Level;
+import vooga.scroller.level_management.LevelFactory;
 import vooga.scroller.level_management.LevelManager;
 import vooga.scroller.level_management.splash_page.SplashPage;
 import vooga.scroller.marioGame.spritesDefinitions.players.Mario;
 import vooga.scroller.scrollingmanager.ScrollingManager;
+import vooga.scroller.sprites.Sprite;
 import vooga.scroller.sprites.animation.Animation;
 import vooga.scroller.sprites.animation.MovingSpriteAnimationFactory;
 import vooga.scroller.sprites.superclasses.Player;
-import vooga.scroller.util.Sprite;
 import vooga.scroller.view.GameView;
 
 

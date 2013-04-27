@@ -2,8 +2,10 @@
 package vooga.scroller.util.mvc;
 
 import java.awt.Dimension;
-import vooga.scroller.level_editor.view.LevelEditing;
+import javax.swing.JMenu;
+import vooga.scroller.level_editor.LevelEditing;
 import vooga.scroller.util.Renderable;
+import vooga.scroller.util.Renderer;
 import vooga.scroller.util.mvc.vcFramework.IDomainDescriptor;
 
 
@@ -17,7 +19,8 @@ import vooga.scroller.util.mvc.vcFramework.IDomainDescriptor;
  * @author Dagbedji Fagnisse
  *
  */
-public interface IView<R> {
+public interface IView<D extends IDomainDescriptor> 
+                         extends Renderer<D>{
 
     /**
      * Process a String representing a command.
@@ -28,16 +31,20 @@ public interface IView<R> {
     
     
     /**
-     * Render the Renderable Object based on State.
-     * 
-     * @param r - an qualified object that can render itself (eg. paint itself, display some text...)
-     */
-    public void render(Renderable<R> r);
-    
-    /**
      * Provides the size of this view entity. All views are supposed to occupy
      * some space.
      */
     public Dimension getSize();
+
+
+    /**
+     * To enforce language hierarchy/translation
+     * @param string
+     * @return
+     */
+    public String getLiteral (String string);
+
+
+    public void registerMenu (JMenu jMenu);
 
 }

@@ -5,11 +5,12 @@ import java.awt.geom.Point2D;
 import util.Location;
 import vooga.scroller.level_editor.library.EncapsulatedSpriteLibrary;
 import vooga.scroller.level_management.LevelPortal;
+import vooga.scroller.marioGame.interfaces.ICollectible;
+import vooga.scroller.marioGame.interfaces.IEnemy;
+import vooga.scroller.marioGame.interfaces.IPlatform;
+import vooga.scroller.sprites.Sprite;
 import vooga.scroller.sprites.animation.Animation;
 import vooga.scroller.sprites.animation.MovingSpriteAnimationFactory;
-import vooga.scroller.sprites.interfaces.ICollectible;
-import vooga.scroller.sprites.interfaces.IEnemy;
-import vooga.scroller.sprites.interfaces.IPlatform;
 import vooga.scroller.sprites.interfaces.Locatable;
 import vooga.scroller.sprites.movement.BackAndForth;
 import vooga.scroller.sprites.movement.Movement;
@@ -18,7 +19,6 @@ import vooga.scroller.sprites.superclasses.GameCharacter;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.ISpriteView;
 import vooga.scroller.util.Pixmap;
-import vooga.scroller.util.Sprite;
 import util.Vector;
 
 

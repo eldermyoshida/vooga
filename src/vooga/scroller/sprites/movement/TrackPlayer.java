@@ -1,8 +1,8 @@
 package vooga.scroller.sprites.movement;
 
 import util.Vector;
+import vooga.scroller.sprites.Sprite;
 import vooga.scroller.sprites.interfaces.Locatable;
-import vooga.scroller.util.Sprite;
 
 /**
  * This is a type of Movement that does simple AI in tracking the player. This method's execute() 

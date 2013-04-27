@@ -1,6 +1,5 @@
 package vooga.scroller.level_editor.controllerSuite;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -10,26 +9,27 @@ import java.util.Set;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import javax.swing.JFrame;
 import javax.swing.Scrollable;
 import util.Location;
 import vooga.scroller.level_editor.Level;
+import vooga.scroller.level_editor.LevelEditing;
 import vooga.scroller.level_editor.StartPoint;
 import vooga.scroller.level_editor.model.SpriteBox;
 import vooga.scroller.level_editor.view.LEGridView;
 import vooga.scroller.level_management.LevelPortal;
 import vooga.scroller.scrollingmanager.OmniScrollingManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
+import vooga.scroller.sprites.Sprite;
 import vooga.scroller.util.Editable;
 import vooga.scroller.util.IBackgroundView;
 import vooga.scroller.util.Renderable;
-import vooga.scroller.util.Sprite;
+import vooga.scroller.util.Renderer;
+import vooga.scroller.util.mvc.Gaming;
 import vooga.scroller.util.mvc.IView;
 import vooga.scroller.util.mvc.SimpleView;
-import vooga.scroller.view.GameView;
 
 
-public class LEGrid implements Editable, Renderable<LEGridView>, Scrollable {
+public class LEGrid implements Editable, Renderable<LevelEditing>, Scrollable {
 
     public static final int DEFAULT_SPRITE_SIZE = 32;
     private static final Location DEFAULT_START_LOC = new Location(0, 0);
@@ -268,7 +268,7 @@ public class LEGrid implements Editable, Renderable<LEGridView>, Scrollable {
     }
 
     @Override
-    public LEGridView initializeRenderer (IView parent) {
+    public Renderer<LevelEditing> initializeRenderer (IView parent) {
         return new LEGridView(parent, this);
     }
 
@@ -306,19 +306,20 @@ public class LEGrid implements Editable, Renderable<LEGridView>, Scrollable {
         // // TODO Auto-generated method stub
         // ScrollingManager sm = new OmniScrollingManager();
         // GameView display = new GameView(PlatformerConstants.DEFAULT_WINDOW_SIZE, sm);
-        IView simContainer = new SimpleView("Level Simulation");
+        SimpleView simContainer = new SimpleView("Level Simulation");
         ScrollingManager sm = new OmniScrollingManager();
         Level sim = new Level(1, sm, this);
-        GameView display = sim.initializeRenderer(simContainer);
+        Renderer<Gaming> display = sim.initializeRenderer(simContainer);
+        simContainer.start();
         // container that will work with user's OS
-        JFrame frame = new JFrame("Level Simulation");
-        // add our user interface components
-        frame.getContentPane().add(display, BorderLayout.CENTER);
-        // display them
-        frame.pack();
-        frame.setVisible(true);
-        // start animation
-        display.start();
+//        JFrame frame = new JFrame("Level Simulation");
+//        // add our user interface components
+//        frame.getContentPane().add(display, BorderLayout.CENTER);
+//        // display them
+//        frame.pack();
+//        frame.setVisible(true);
+//        // start animation
+//        display.start();
     }
 
 }

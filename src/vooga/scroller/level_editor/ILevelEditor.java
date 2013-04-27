@@ -4,9 +4,9 @@ package vooga.scroller.level_editor;
 import java.awt.Image;
 import java.util.Map;
 import javax.swing.Icon;
+import vooga.scroller.sprites.Sprite;
 import vooga.scroller.util.Editable;
 import vooga.scroller.util.IBackgroundView;
-import vooga.scroller.util.Sprite;
 
 /**
  * Interface between a LevelEditor model and a Level Editor view.

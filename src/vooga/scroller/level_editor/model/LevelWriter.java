@@ -8,9 +8,11 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
 import util.Location;
+import vooga.scroller.level_editor.LevelEditing;
 import vooga.scroller.level_editor.controllerSuite.LEController;
 import vooga.scroller.level_editor.controllerSuite.LEGrid;
-import vooga.scroller.util.Sprite;
+import vooga.scroller.sprites.Sprite;
+import vooga.scroller.util.mvc.IController;
 
 
 /**
@@ -30,6 +32,11 @@ public class LevelWriter {
     private FileWriter myFileWriter;
     private LEGrid myGrid;
     private Location myStartPoint;
+    private IController<LevelEditing> myController;
+
+    public LevelWriter (LEController leController) {
+        myController = leController;
+    }
 
     /**
      * Creates a save file from a LEGrid
@@ -47,7 +54,7 @@ public class LevelWriter {
             myFileWriter = new FileWriter(file);
         }
         catch (IOException e) {
-            LEController.showErrorMsg(myResources.getString("FILE_ERROR"));
+            myController.showErrorMsg(myResources.getString("FILE_ERROR"));
         }
         writeLevel();
         writeLib(libPath);
@@ -80,7 +87,7 @@ public class LevelWriter {
             myFileWriter.write(NEW_LINE);
         }
         catch (IOException e) {
-            LEController.showErrorMsg(myResources.getString("WRITING_ERROR"));
+            myController.showErrorMsg(myResources.getString("WRITING_ERROR"));
         }
 
     }
@@ -93,7 +100,7 @@ public class LevelWriter {
             myFileWriter.write(NEW_LINE);
         }
         catch (IOException e) {
-            LEController.showErrorMsg(myResources.getString("WRITING_ERROR"));
+            myController.showErrorMsg(myResources.getString("WRITING_ERROR"));
         }
     }
 
@@ -108,7 +115,7 @@ public class LevelWriter {
             myFileWriter.write(NEW_LINE);
         }
         catch (IOException e) {
-            LEController.showErrorMsg(myResources.getString("WRITING_ERROR"));
+            myController.showErrorMsg(myResources.getString("WRITING_ERROR"));
         }
 
     }
@@ -127,7 +134,7 @@ public class LevelWriter {
             myFileWriter.close();
         }
         catch (IOException e) {
-            LEController.showErrorMsg(myResources.getString("WRITING_ERROR"));
+            myController.showErrorMsg(myResources.getString("WRITING_ERROR"));
         }
     }
 }
