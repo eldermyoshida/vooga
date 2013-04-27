@@ -27,7 +27,10 @@ public class Move extends Action {
     
     @Override
     public void executeAction(double elapsedTime) {
-        Vector v = new Vector(myDirection.getValue(), mySpeed.getValue());
+//        System.out.println(myDirection.getValue());
+//        System.out.println(mySpeed.getValue());
+//        Vector v = new Vector(myDirection.getValue(), mySpeed.getValue());
+        Vector v = new Vector(0, 20);
         v.scale(elapsedTime / 1000);
         myCenter.translate(v);
     }

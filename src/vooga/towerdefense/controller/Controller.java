@@ -191,7 +191,7 @@ public class Controller {
 	        List<GameElementFactory> factories = myGameLoader.loadElements(map);
 	        myModel = new GameModel(this, map, new Shop(map,factories));
                 myModel.setRules(myGameLoader.loadRules(myModel));
-	        myModel.setLevels(myGameLoader.loadLevels(myModel));
+	        myModel.setLevels(myGameLoader.loadLevels(myModel, map));
 	        myControlMode = new SelectMode();
 	        start();
 	}

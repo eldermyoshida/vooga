@@ -52,9 +52,9 @@ public class GameLoader {
         return new ArrayList<GameElementFactory>(gameElements.values());
     }
     
-    public List<Level> loadLevels(GameModel model) {
+    public List<Level> loadLevels(GameModel model, GameMap gameMap) {
         LevelsXMLLoader loader = new LevelsXMLLoader(myXMLTool);
-        return loader.getLevels(model);
+        return loader.getLevels(model, gameMap);
     }
     
     public List<Rule> loadRules(GameModel model) {

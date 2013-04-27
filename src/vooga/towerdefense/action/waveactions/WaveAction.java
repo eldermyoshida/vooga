@@ -1,6 +1,7 @@
 package vooga.towerdefense.action.waveactions;
 
 import vooga.towerdefense.action.Action;
+import vooga.towerdefense.action.actionlist.Move;
 import vooga.towerdefense.factories.elementfactories.GameElementFactory;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.model.GameMap;
@@ -14,6 +15,7 @@ public class WaveAction extends Action {
 	private GameMap myMap;
 	
 	public WaveAction(int numUnits, int cooldown, GameElementFactory factory, GameMap gameMap) {
+	        System.out.println(numUnits);
 		myUnitsRemaining = numUnits;
 		myCooldown = cooldown;
 		myFactory = factory;
@@ -22,17 +24,24 @@ public class WaveAction extends Action {
 	}
 	@Override
 	public void executeAction(double elapsedTime) {
-		if(myClock > myCooldown) {
+	        if (myUnitsRemaining == 0) {
+		    setEnabled(false);
+		} else if(myClock > myCooldown) {
 			spawnUnit();
 			myClock = 0;
+		        
 		}
-		myClock += elapsedTime;
+	        myClock += elapsedTime;
 	}
 	
 	private void spawnUnit() {
 		GameElement unit = myFactory.createElement(myMap.getSpawnLocation());
+		Move moveAction = (Move) (unit.getActions().get(1));
+//		System.out.println(moveAction.isEnabled());
+//		System.out.println(unit.getActions());
 		System.out.println("spawning unit " + unit);
 		myMap.addGameElement(unit);
+		--myUnitsRemaining;
 	}
 
 }
