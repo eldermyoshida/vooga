@@ -2,8 +2,9 @@ package util.logger;
 
 import java.util.logging.Level;
 
+
 public class LoggerTest {
-    public static void main(String[] args) {
+    public static void main (String[] args) {
         LoggerManager log = new LoggerManager();
         log.log(Level.INFO, "Logger Name is " + log.getLogger().getName());
         log.addTxtHandler("NewLoggerTest");
@@ -11,7 +12,8 @@ public class LoggerTest {
         logEachType(log);
 
     }
-    private static void logEachType(LoggerManager logger) {
+
+    private static void logEachType (LoggerManager logger) {
         logger.log(Level.FINEST, "Finest Test Message");
         logger.log(Level.FINER, "Finer Test Message");
         logger.log(Level.FINE, "Fine Test Message");
