@@ -27,6 +27,8 @@ public class SpriteManager {
     private Player myPlayer;
     private Dimension myFramceOfReferenceSize;
     private Level myLevel;
+    private CollisionManager myCollisionManager;
+
 
     /**
      * Constructs a new SpriteManager given the level in which all the sprites of this manager
@@ -38,6 +40,7 @@ public class SpriteManager {
         myLevel = level;
         mySprites = new ArrayList<Sprite>();
         initFrames();
+        myCollisionManager = new CollisionManager(level);
     }
 
     private void initFrames () {
@@ -167,7 +170,6 @@ public class SpriteManager {
     private void intersectingSprites () {
         Sprite obj1;
         Sprite obj2;
-        CollisionManager cm = new CollisionManager(myLevel);
 
         mySprites.add(myPlayer);
         for (int i = 0; i < mySprites.size(); i++) {
@@ -175,7 +177,7 @@ public class SpriteManager {
                 obj1 = mySprites.get(i);
                 obj2 = mySprites.get(j);
                 if (obj1.intersects(obj2)) {
-                    cm.handleCollision(obj1, obj2);
+                    myCollisionManager.handleCollision(obj1, obj2);
                 }
             }
         }
