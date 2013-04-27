@@ -16,7 +16,7 @@ public class CanUpgrade implements UpgradeStrategy {
         createUpgradeActions(owner);
     }
 
-    public void createUpgradeActions (final InteractiveEntity entity) {        
+    public void createUpgradeActions (final InteractiveEntity entity) {
         for (final UpgradeNode upgrade : myUpgradeTree.getCurrentUpgrades()) {
             entity.addAction(upgrade.getUpgradeName(), new InteractiveAction(entity) {
                 @Override

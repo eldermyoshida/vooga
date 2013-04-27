@@ -278,7 +278,7 @@ public class Factory {
         try {
             f = getClass().getResource(fileName).toURI();
         }
-        catch (URISyntaxException e) {            
+        catch (URISyntaxException e) {
             return;
         }
         File file = new File(f);
@@ -329,7 +329,7 @@ public class Factory {
             try {
                 f = getClass().getResource(fileName).toURI();
             }
-            catch (URISyntaxException e) {            
+            catch (URISyntaxException e) {
                 return;
             }
             File file = new File(f);

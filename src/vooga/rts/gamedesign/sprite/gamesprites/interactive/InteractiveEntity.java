@@ -111,7 +111,6 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
                               int health,
                               double buildTime) {
         super(image, center, size, playerID, health);
-        // myMakers = new HashMap<String, Factory>(); //WHERE SHOULD THIS GO?
         mySound = sound;
         myAttackStrategy = new CannotAttack();
         myProductionStrategy = new CannotProduce();
@@ -345,7 +344,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     public AttackStrategy getAttackStrategy () {
         return myAttackStrategy;
     }
-    
+
     /**
      * Returns the sound that the interactive entity makes.
      * 
@@ -354,14 +353,14 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     public Sound getSound () {
         return mySound;
     }
-    
+
     /**
      * Returns the strategy the entity has for producing (CanProduce or
      * CannotProduce).
      * 
      * @return the production strategy of the entity
      */
-    public ProductionStrategy getProductionStrategy() {
+    public ProductionStrategy getProductionStrategy () {
         return myProductionStrategy;
     }
 
@@ -621,7 +620,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
         }
 
     }
-    
+
     public void addWeapon (Weapon toAdd) {
         myAttackStrategy.addWeapon(toAdd);
 
