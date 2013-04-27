@@ -137,20 +137,12 @@ public class GameElementEditorScreen extends ElementWithActionEditorScreen {
         imagePanel.add(new JLabel("Image: "), BorderLayout.NORTH);
         myImageBox = new JComboBox();
         List<String> images;
-        try {
-            images = getController().getClassNamesInPackage(IMAGE_PACKAGE_PATH);
-            for (String imageName: images) {
-                myImageBox.addItem(imageName);
-            }
-            imagePanel.add(myImageBox, BorderLayout.CENTER);
-            add(imagePanel, BorderLayout.NORTH);
+        images = getController().getFiles(IMAGE_PACKAGE_PATH);
+        for (String imageName: images) {
+            myImageBox.addItem(imageName);
         }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-        catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        imagePanel.add(myImageBox, BorderLayout.CENTER);
+        add(imagePanel, BorderLayout.NORTH);
     }
     
     /**
