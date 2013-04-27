@@ -14,12 +14,12 @@ public class SDimension extends java.awt.Dimension {
 
     public SDimension (int x, int y) {
         super(x, y);
-        scaleXY();
+        //scaleXY();
     }
 
     public SDimension (Dimension d) {
         super(d);
-        scaleXY();
+        //scaleXY();
     }
 
     public void scaleXY () {

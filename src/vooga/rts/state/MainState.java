@@ -83,9 +83,7 @@ public class MainState implements State, Observer {
 
     @Override
     public void paint (Graphics2D pen) {
-        
         myActiveState.paint(pen);
-
     }
 
     @Override

@@ -30,7 +30,7 @@ public class Location extends Point2D.Double {
      */
     public Location (double x, double y) {
         super(x, y);
-        scaleXY();
+        //scaleXY();
     }
 
     /**
@@ -38,7 +38,7 @@ public class Location extends Point2D.Double {
      */
     public Location (Point2D source) {
         super(source.getX(), source.getY());
-        scaleXY();
+        //scaleXY();
     }
     
     private void scaleXY () {
