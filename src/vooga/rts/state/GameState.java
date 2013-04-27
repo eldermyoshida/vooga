@@ -67,7 +67,7 @@ public class GameState extends SubState implements Controller {
         MapLoader ml = null;
         try {
             ml = new MapLoader();
-            ml.loadMapFile("/vooga/rts/tests/maps/ciemas/ciemas.xml");
+            ml.loadMapFile("/vooga/rts/tests/maps/yolo/yolo.xml");
         }
         catch (ParserConfigurationException e) {
         }
