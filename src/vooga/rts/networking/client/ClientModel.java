@@ -203,4 +203,10 @@ public class ClientModel extends Observable implements IClientModel, IModel {
     public List<String> getFactions () {
         return myFactions;
     }
+
+    @Override
+    public void connectionClosed () {
+        // TODO Auto-generated method stub
+        
+    }
 }
