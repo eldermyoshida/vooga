@@ -20,7 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import util.Pixmap;
+import vooga.towerdefense.util.Pixmap;
 import vooga.towerdefense.model.tiles.factories.TileFactory;
 import vooga.towerdefense.gameeditor.controller.GameEditorController;
 import vooga.towerdefense.gameeditor.gamemaker.editorscreens.GameEditorScreen;

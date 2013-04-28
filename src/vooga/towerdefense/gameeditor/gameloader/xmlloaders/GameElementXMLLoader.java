@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.w3c.dom.Element;
-import util.Pixmap;
+import vooga.towerdefense.util.Pixmap;
 import util.XMLTool;
 import vooga.towerdefense.factories.actionfactories.ActionFactory;
 import vooga.towerdefense.factories.attributefactories.AttributeFactory;
