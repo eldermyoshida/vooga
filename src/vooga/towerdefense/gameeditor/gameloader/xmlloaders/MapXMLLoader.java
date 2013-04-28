@@ -185,9 +185,11 @@ public class MapXMLLoader {
         return myTileIdMap.get(tileId);
     }
     
+    @SuppressWarnings("rawtypes")
     private Map<String, TileFactory> getTileIdMap() {
         Map<String, TileFactory> tileIdMap = new HashMap<String, TileFactory>();
-        List<Class> tileFactoryClasses = GameEditorController.getClassesInPackage("vooga.towerdefense.model.tiles.factories");
+        List<Class> tileFactoryClasses = GameEditorController.
+                getClassesInPackage("vooga.towerdefense.model.tiles.factories");
         for (Class c : tileFactoryClasses) {
             Object tileFactory;
             try {
@@ -197,14 +199,17 @@ public class MapXMLLoader {
                 tileIdMap.put((String) id, (TileFactory) tileFactory);
             }
             catch (InstantiationException e) {
+                // null behavior on purpose, don't initialize tile factory
             }
             catch (IllegalAccessException e) {
+                // null behavior on purpose, don't initialize tile factory
             }
             catch (NoSuchFieldException e) {
+                // null behavior on purpose, don't initialize tile factory
             }
             catch (SecurityException e) {
-            }
-             
+               // null behavior on purpose, don't initialize tile factory
+            }             
         }
         return tileIdMap;
     }

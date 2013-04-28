@@ -13,6 +13,12 @@ import vooga.towerdefense.factories.rulefactories.RuleFactory;
 import vooga.towerdefense.model.GameModel;
 import vooga.towerdefense.model.rules.Rule;
 
+/**
+ * This class is responsible for loading Rule objects 
+ * from an XML document.
+ * 
+ * @author Erick Gonzalez
+ */
 public class RulesXMLLoader {
 
     private XMLTool myXMLTool;
@@ -64,7 +70,8 @@ public class RulesXMLLoader {
         List<String> constructorParams = getRuleFactoryConstructorParameters(ruleNameElement);
         
         try {
-            Class ruleFactoryClass = Class.forName("vooga.towerdefense.factories.rulefactories." + myXMLTool.getTagName(ruleNameElement)+ "Factory");
+            Class ruleFactoryClass = Class.forName("vooga.towerdefense.factories.rulefactories." + 
+                    myXMLTool.getTagName(ruleNameElement)+ "Factory");
             // There only exists one rule constructor
             Constructor c = ruleFactoryClass.getConstructors()[0];
             RuleFactory ruleFactory =
