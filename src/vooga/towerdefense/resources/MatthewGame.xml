@@ -141,13 +141,10 @@
 			<actions>
 			    <FindTargets>
 					<parameter>RADIUS</parameter>
-					<FilterTargets>
-					    <parameter>AttackType</parameter>
-					    <ApplyAttributeBuff>
-					    	<parameter>Slow</parameter>
-					    	<parameter>Health</parameter>
-						</ApplyAttributeBuff>
-					</FilterTargets>
+					<ApplyAttributeBuff>
+						<parameter>Slow</parameter>
+					    <parameter>Health</parameter>
+					</ApplyAttributeBuff>
 			    </FindTargets>
 			</actions>			
 		</TestTower>
