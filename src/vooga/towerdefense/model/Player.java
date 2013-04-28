@@ -30,7 +30,7 @@ public class Player {
 	}
 	
 	public void update(double elapsedTime) {
-        myController.displayPlayerStatistics(getPlayerDataString());
+	    myController.displayPlayerStatistics(getPlayerDataString());
     }
 	
 	public String getPlayerDataString() {

@@ -51,6 +51,7 @@ public class TDView {
         myController = controller;
         myFrame = new JFrame(myController.getStringFromResources(TITLE_KEYWORD));
         myPanel = new JPanel();
+        myPanel.setLayout(new BorderLayout());
         myFrame.setContentPane(myPanel);
         myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
@@ -60,7 +61,7 @@ public class TDView {
      */
     public void showSplashScreen () {
         mySplashScreen = new SplashScreen(SPLASH_SCREEN_SIZE);
-        myFrame.getContentPane().add(nextScreenButton());
+        myFrame.getContentPane().add(nextScreenButton(), BorderLayout.EAST);
         addScreen(mySplashScreen, BorderLayout.CENTER);
     }
 
@@ -88,7 +89,6 @@ public class TDView {
      */
     public void addScreen (JPanel screen, String location) {
         myFrame.getContentPane().add(screen, location);
-
         myFrame.pack();
         myFrame.setVisible(true);
     }

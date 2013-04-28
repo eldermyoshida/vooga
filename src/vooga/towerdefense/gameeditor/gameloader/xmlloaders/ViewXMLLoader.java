@@ -1,5 +1,6 @@
 package vooga.towerdefense.gameeditor.gameloader.xmlloaders;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -49,7 +50,8 @@ public class ViewXMLLoader {
                 Element element = subElements.get(s);
                 JPanel screen = getScreen(view, element, controller);
                 Element locationElement = myXMLTool.getChildrenElementMap(element).get(LOCATION_TAG);
-                String location = BORDER_LAYOUT_ADDITION + myXMLTool.getContent(locationElement);
+                String location = myXMLTool.getContent(locationElement);
+
                 view.addScreen(screen, location);
             }
             else {
