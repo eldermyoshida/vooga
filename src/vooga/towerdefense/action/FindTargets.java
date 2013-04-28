@@ -1,8 +1,6 @@
-
 package vooga.towerdefense.action;
 
 import java.util.List;
-
 import vooga.towerdefense.attributes.Attribute;
 import vooga.towerdefense.gameelements.GameElement;
 import vooga.towerdefense.model.GameMap;
@@ -10,8 +8,8 @@ import util.Location;
 
 
 /**
- * Finds targets in area, passes information on to follow up actions. 
- * Only action class that holds the game map. 
+ * Finds targets in area, passes information on to follow up actions.
+ * Only action class that holds the game map.
  * 
  * @author Matthew Roy
  * @author Xu Rui
@@ -29,19 +27,14 @@ public class FindTargets extends TargetedAction {
         mySource = source;
         myMap = map;
     }
-    
+
     @Override
     public void executeAction (double elapsedTime) {
-        System.out.println(myScanningRadius);
-        List<GameElement> newTargets= 
-                   myMap.getTargetsWithinRadius(
-                                                mySource, 
-                                                myScanningRadius.getValue());
-        for (GameElement e : newTargets) {
-            if (e != null) {
-                setTargets(newTargets);
-            }
-        }
+        List<GameElement> newTargets =
+                myMap.getTargetsWithinRadius(
+                                             mySource,
+                                             myScanningRadius.getValue());
+        setTargets(newTargets);
         updateTargetedFollowUpActions(getTargets());
     }
 }

@@ -140,7 +140,4 @@ public class AttributeManager {
     public GameElementFactory getGameElementFactory (String name) {
         return myGameElementFactories.get(name);
     }
-    
-
- 
 }
