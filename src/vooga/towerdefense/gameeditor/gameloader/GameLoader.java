@@ -15,10 +15,12 @@ import vooga.towerdefense.factories.waveactionfactories.WaveActionFactory;
 import vooga.towerdefense.gameeditor.gameloader.xmlloaders.GameElementXMLLoader;
 import vooga.towerdefense.gameeditor.gameloader.xmlloaders.LevelsXMLLoader;
 import vooga.towerdefense.gameeditor.gameloader.xmlloaders.MapXMLLoader;
+import vooga.towerdefense.gameeditor.gameloader.xmlloaders.PlayerXMLLoader;
 import vooga.towerdefense.gameeditor.gameloader.xmlloaders.RulesXMLLoader;
 import vooga.towerdefense.gameeditor.gameloader.xmlloaders.ViewXMLLoader;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.GameModel;
+import vooga.towerdefense.model.Player;
 import vooga.towerdefense.model.levels.Level;
 import vooga.towerdefense.model.rules.Rule;
 import vooga.towerdefense.view.TDView;
@@ -50,16 +52,21 @@ public class GameLoader {
         return loader.makeView(view, controller);
     }
     
-    public List<GameElementFactory> loadElements(GameMap map) {
+    public Player loadPlayer(Controller controller) {
+        PlayerXMLLoader loader = new PlayerXMLLoader(myXMLTool);
+        return loader.loadPlayer(controller);
+    }
+    
+    public List<GameElementFactory> loadElements(GameMap map, Player player) {
         GameElementXMLLoader loader = new GameElementXMLLoader(myXMLTool);
         //TODO: Fix this
-        WaveActionFactory.ourGEFactories = loader.loadGameElementFactories(map);
+        WaveActionFactory.ourGEFactories = loader.loadGameElementFactories(map, player);
         return new ArrayList<GameElementFactory>(WaveActionFactory.ourGEFactories.values());
     }
     
-    public List<Level> loadLevels(GameModel model, GameMap gameMap) {
+    public List<Level> loadLevels(GameModel model, GameMap gameMap, Player player) {
         LevelsXMLLoader loader = new LevelsXMLLoader(myXMLTool);
-        return loader.loadLevels(model, gameMap);
+        return loader.loadLevels(model, gameMap, player);
     }
     
     public List<Rule> loadRules(GameModel model) {

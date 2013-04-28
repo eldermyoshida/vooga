@@ -26,6 +26,7 @@ import vooga.towerdefense.gameelements.GameElement;
 import vooga.towerdefense.model.GameLoop;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.GameModel;
+import vooga.towerdefense.model.Player;
 import vooga.towerdefense.model.Tile;
 import vooga.towerdefense.model.shop.Shop;
 import vooga.towerdefense.model.shop.ShopItem;
@@ -187,10 +188,11 @@ public class Controller {
 //	        levels.add(level);
 //	        List<Rule> rules = new ArrayList<Rule>();
 	        
-	        List<GameElementFactory> factories = myGameLoader.loadElements(map);
-	        myModel = new GameModel(this, map, new Shop(map,factories));
+	        Player player = myGameLoader.loadPlayer(this);
+	        List<GameElementFactory> factories = myGameLoader.loadElements(map, player);
+	        myModel = new GameModel(this, player, map, new Shop(map,factories));
                 myModel.setRules(myGameLoader.loadRules(myModel));
-	        myModel.setLevels(myGameLoader.loadLevels(myModel, map));
+	        myModel.setLevels(myGameLoader.loadLevels(myModel, map, player));
 	        myControlMode = new SelectMode();
 	        start();
 	}
@@ -375,6 +377,7 @@ public class Controller {
 	}
 
 	public Location getPointSnappedToGrid(Location location) {
+	    System.out.println(myModel.getMap().getTile(location));
 		return myModel.getMap().getTile(location).getCenter();
 
 	}

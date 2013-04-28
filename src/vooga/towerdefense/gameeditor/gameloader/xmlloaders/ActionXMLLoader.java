@@ -11,6 +11,7 @@ import vooga.towerdefense.action.Action;
 import vooga.towerdefense.factories.actionfactories.ActionFactory;
 import vooga.towerdefense.gameelements.GameElement;
 import vooga.towerdefense.model.GameMap;
+import vooga.towerdefense.model.Player;
 
 /**
  * This class is responsible for loading Action objects
@@ -41,8 +42,8 @@ public class ActionXMLLoader {
      * @param gameMap a game map
      * @return a list of actions under the actionsElement
      */
-    public List<Action> loadActions (Element actionsElement, GameMap gameMap) {
-        return loadActions(null, actionsElement, gameMap);
+    public List<Action> loadActions (Element actionsElement, GameMap gameMap, Player player) {
+        return loadActions(null, actionsElement, gameMap, player);
     }
 
     
@@ -56,8 +57,8 @@ public class ActionXMLLoader {
      * @param gameMap a game map object
      * @return a list of actions acting on the given GameElement
      */
-    public List<Action> loadActions (GameElement e, Element actionsElement, GameMap gameMap) {
-        List<ActionFactory> actionFactories = loadActionFactories(actionsElement, gameMap);
+    public List<Action> loadActions (GameElement e, Element actionsElement, GameMap gameMap, Player player) {
+        List<ActionFactory> actionFactories = loadActionFactories(actionsElement, gameMap, player);
 
         List<Action> actions = new ArrayList<Action>();
         for (ActionFactory af : actionFactories) {
@@ -75,18 +76,18 @@ public class ActionXMLLoader {
      * @param gameMap a game map object
      * @return a list of ActionFactory objects acting on the given GameElement
      */
-    public List<ActionFactory> loadActionFactories (Element actionsElement, GameMap gameMap) {        
+    public List<ActionFactory> loadActionFactories (Element actionsElement, GameMap gameMap, Player player) {        
         List<Element> subElements = myXMLTool.getChildrenList(actionsElement);
 
         List<ActionFactory> actionFactories = new ArrayList<ActionFactory>();
         for (Element e : subElements) {
-            actionFactories.add(loadActionFactory(e, gameMap));
+            actionFactories.add(loadActionFactory(e, gameMap, player));
         }
         return actionFactories;
     }
 
     @SuppressWarnings("rawtypes")
-    private ActionFactory loadActionFactory (Element actionElement, GameMap gameMap) {
+    private ActionFactory loadActionFactory (Element actionElement, GameMap gameMap, Player player) {
         String actionName = myXMLTool.getTagName(actionElement);
         
         List<String> parameterStrings = new ArrayList<String>();
@@ -97,7 +98,7 @@ public class ActionXMLLoader {
         for (Element subElement: subElements) {
             String subElementName = myXMLTool.getTagName(subElement);
             if (subElementName.equals(ACTIONS_TAG)) {
-                subActionFactories.add(loadActionFactory(subElement, gameMap));
+                subActionFactories.add(loadActionFactory(subElement, gameMap, player));
             }
             else {                
                 parameterStrings.add(loadParameterString(subElement));
@@ -121,7 +122,7 @@ public class ActionXMLLoader {
             ActionFactory af = (ActionFactory) constructor.newInstance(parameterStrings.toArray());
             
             af.addFollowUpActionsFactories(subActionFactories);
-            af.initialize(gameMap);
+            af.initialize(gameMap, player);
             return af;
         }
         catch (InstantiationException e) {
