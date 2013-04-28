@@ -193,7 +193,7 @@ public class MapXMLLoader {
     
     private Map<String, TileFactory> getTileIdMap() {
         Map<String, TileFactory> tileIdMap = new HashMap<String, TileFactory>();
-        List<Class> tileFactoryClasses = tileFactoryClasses = GameEditorController.getClassesInPackage("vooga.towerdefense.model.tiles.factories");            
+        List<Class> tileFactoryClasses = tileFactoryClasses = GameEditorController.getClassesInPackage("vooga.towerdefense.model.tiles.factories");
         for (Class c : tileFactoryClasses) {
             Object tileFactory;
             try {

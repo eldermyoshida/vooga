@@ -12,7 +12,7 @@ import util.Location;
  * @author Leonard K. Ng'eno
  */
 public class GrassTileFactory extends TileFactory {
-    private static final String ID = "0";
+    public static final String ID = "0";
     public GrassTileFactory() {
         super();
     }
@@ -21,10 +21,4 @@ public class GrassTileFactory extends TileFactory {
     public Tile createTile (Location center, GameMap map) {
         return new GrassTile(center, map.getTileSize());
     }
-
-    @Override
-    public String getTileId () {  
-        return ID;
-    }
-    
 }
