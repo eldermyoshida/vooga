@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import util.Location;
 import vooga.rts.IGameLoop;
 import vooga.rts.ai.Path;
 import vooga.rts.ai.PathFinder;
@@ -18,7 +19,6 @@ import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.map.Terrain;
 import vooga.rts.resourcemanager.ResourceManager;
 import vooga.rts.util.Camera;
-import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
 
 
@@ -120,6 +120,9 @@ public class GameMap implements IGameLoop {
         Collections.sort(inRange, new Comparator<T>() {
             @Override
             public int compare (T o1, T o2) {
+                if (o1 != null && o2 != null) {
+                    return 0;
+                }
                 double value1 = o1.getWorldLocation().getDistance(loca);
                 double value2 = o2.getWorldLocation().getDistance(loca);
                 return (int) (value1 - value2);
@@ -127,13 +130,6 @@ public class GameMap implements IGameLoop {
         });
         return inRange;
     }
-
-    /*
-     * public <T extends GameSprite> List<T> getInArea (Location3D loc, double radius, T type, int
-     * teamID, boolean same) {
-     * 
-     * }
-     */
 
     @Override
     public void update (double elapsedTime) {

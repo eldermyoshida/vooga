@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 import java.util.Observable;
 import vooga.rts.IGameLoop;
 import vooga.rts.resourcemanager.ResourceManager;
-import vooga.rts.util.Location;
+import util.Location;
 import vooga.rts.util.Scale;
 
 

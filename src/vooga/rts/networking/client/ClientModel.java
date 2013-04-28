@@ -1,25 +1,19 @@
 package vooga.rts.networking.client;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import javax.swing.JPanel;
-import vooga.rts.networking.NetworkBundle;
-import vooga.rts.networking.client.clientgui.CreateLobbyView;
+import vooga.rts.networking.client.clientgui.ClientViewAdapter;
 import vooga.rts.networking.client.clientgui.IModel;
-import vooga.rts.networking.client.clientgui.LobbyView;
-import vooga.rts.networking.client.clientgui.ServerBrowserTableAdapter;
-import vooga.rts.networking.client.clientgui.TableContainerView;
-import vooga.rts.networking.client.clientgui.ViewContainerPanel;
 import vooga.rts.networking.communications.ExpandedLobbyInfo;
 import vooga.rts.networking.communications.LobbyInfo;
 import vooga.rts.networking.communications.Message;
-import vooga.rts.networking.communications.Player;
+import vooga.rts.networking.communications.PlayerInfo;
 import vooga.rts.networking.communications.clientmessages.InitialConnectionMessage;
 import vooga.rts.networking.communications.clientmessages.JoinLobbyMessage;
 import vooga.rts.networking.communications.clientmessages.LeaveLobbyMessage;
+import vooga.rts.networking.communications.clientmessages.ReadyToStartGameMessage;
 import vooga.rts.networking.communications.clientmessages.RequestServerListMessage;
 import vooga.rts.networking.communications.clientmessages.RequestStartGameMessage;
 import vooga.rts.networking.communications.clientmessages.StartLobbyMessage;
@@ -35,18 +29,16 @@ import vooga.rts.networking.communications.servermessages.ServerInfoMessage;
  * @author Henrique Morales
  * 
  */
-public class ClientModel extends Observable implements IMessageReceiver, IClientModel, IModel {
+public class ClientModel extends Observable implements IClientModel, IModel {
 
     private IClient myClient;
     private String myUserName;
-    private ViewContainerPanel myContainerPanel;
-    private TableContainerView myServerBrowserView;
-    private CreateLobbyView myCreateLobbyView;
     private ExpandedLobbyInfo myLobbyInfo;
-    private LobbyView myLobbyView;
+    private List<PlayerInfo> myUserControlledPlayers = new ArrayList<PlayerInfo>();
+    private PlayerInfo myPlayer;
+    private NetworkedGame myGame;
+    private ClientViewAdapter myViewAdapter;
     private List<String> myFactions;
-    private List<Player> myUserControlledPlayers = new ArrayList<Player>();
-    private ServerBrowserTableAdapter myServerBrowserAdapter = new ServerBrowserTableAdapter();
 
     /**
      * This is the handler of information needed by all of the views in the process of connecting to
@@ -54,23 +46,23 @@ public class ClientModel extends Observable implements IMessageReceiver, IClient
      * 
      * @param gameName
      * @param userName
+     * @param factions
      * @param maps
      * @param maxPlayerArray
      */
-    public ClientModel (String gameName,
+    public ClientModel (NetworkedGame game,
+                        String gameName,
                         String userName,
                         List<String> factions,
                         List<String> maps,
                         List<Integer> maxPlayerArray) {
-        myUserName = userName;
+        myGame = game;
         myFactions = factions;
-        myContainerPanel = new ViewContainerPanel(gameName);
-        myServerBrowserView = new TableContainerView(myServerBrowserAdapter);
-        myCreateLobbyView = new CreateLobbyView(maps, maxPlayerArray);
+        myUserName = userName;
         myClient = new Client(this);
         Message initialConnection = new InitialConnectionMessage(gameName, userName);
         myClient.sendData(initialConnection);
-        switchToServerBrowserView();
+        myViewAdapter = new ClientViewAdapter(this, gameName, maps, maxPlayerArray);
     }
 
     @Override
@@ -86,89 +78,9 @@ public class ClientModel extends Observable implements IMessageReceiver, IClient
     }
 
     /**
-     * Switches the current View to the ServerBrowser.
-     */
-    private void switchToServerBrowserView () {
-        requestLobbies();
-        myContainerPanel.changeView(myServerBrowserView, NetworkBundle.getString("ServerBrowser"));
-        myContainerPanel.changeLeftButton(NetworkBundle.getString("HostGame"),
-                                          new ActionListener() {
-                                              @Override
-                                              public void actionPerformed (ActionEvent arg0) {
-                                                  switchToCreateLobbyView();
-                                              }
-                                          });
-        myContainerPanel.changeRightButton(NetworkBundle.getString("JoinGame"),
-                                           new ActionListener() {
-                                               @Override
-                                               public void actionPerformed (ActionEvent arg0) {
-                                                   if (myServerBrowserView.hasSelectedRow()) {
-                                                       requestJoinLobby(myServerBrowserAdapter
-                                                               .getIdOfRow(myServerBrowserView
-                                                                       .getSelectedRow()));
-                                                   }
-                                               }
-                                           });
-    }
-
-    /**
-     * Switches the current View to the LobbyCreatorScreen.
-     */
-    private void switchToCreateLobbyView () {
-        myContainerPanel.changeView(myCreateLobbyView, NetworkBundle.getString("LobbyCreation"));
-        myContainerPanel.changeLeftButton(NetworkBundle.getString("BackToBrowser"),
-                                          new ActionListener() {
-                                              @Override
-                                              public void actionPerformed (ActionEvent arg0) {
-                                                  switchToServerBrowserView();
-                                              }
-                                          });
-        myContainerPanel.changeRightButton(NetworkBundle.getString("StartLobby"),
-                                           new ActionListener() {
-                                               @Override
-                                               public void actionPerformed (ActionEvent arg0) {
-                                                   if (myCreateLobbyView.allItemsChosen()) {
-                                                       startLobby(myCreateLobbyView.getLobbyInfo());
-                                                   }
-                                               }
-                                           });
-    }
-
-    /**
-     * Switches the current view to the Lobby.
-     */
-    private void switchToLobbyView (ExpandedLobbyInfo lobbyInfo) {
-        myLobbyView = new LobbyView(this, myFactions, lobbyInfo.getMaxPlayers());
-        updateLobby(lobbyInfo);
-        sendUpdatedLobbyInfo();
-
-        myContainerPanel.changeView(myLobbyView, NetworkBundle.getString("LobbyCreation"));
-        myContainerPanel.changeLeftButton(NetworkBundle.getString("LeaveLobby"),
-                                          new ActionListener() {
-                                              @Override
-                                              public void actionPerformed (ActionEvent arg0) {
-                                                  myLobbyInfo.removePlayer(myUserControlledPlayers
-                                                          .get(0));
-                                                  myClient.sendData(new LeaveLobbyMessage(
-                                                                                          myLobbyInfo));
-                                                  switchToServerBrowserView();
-                                              }
-                                          });
-        myContainerPanel.changeRightButton(NetworkBundle.getString("StartLobby"),
-                                           new ActionListener() {
-                                               @Override
-                                               public void actionPerformed (ActionEvent arg0) {
-                                                   if (myLobbyInfo.canStartGame()) {
-                                                       requestStartGame();
-                                                   }
-                                               }
-                                           });
-    }
-
-    /**
      * Request currently available lobbies from the server
      */
-    private void requestLobbies () {
+    public void requestLobbies () {
         myClient.sendData(new RequestServerListMessage());
     }
 
@@ -177,8 +89,15 @@ public class ClientModel extends Observable implements IMessageReceiver, IClient
      * 
      * @param id ID of the lobby to join
      */
-    private void requestJoinLobby (int id) {
+    public void requestJoinLobby (int id) {
         myClient.sendData(new JoinLobbyMessage(id));
+    }
+
+    /**
+     * Request to leave a lobby on the server
+     */
+    public void leaveLobby () {
+        myClient.sendData(new LeaveLobbyMessage(myLobbyInfo));
     }
 
     /**
@@ -186,14 +105,14 @@ public class ClientModel extends Observable implements IMessageReceiver, IClient
      * 
      * @param lobbyInfo Lobby containing information to host a game
      */
-    private void startLobby (LobbyInfo lobbyInfo) {
+    public void startLobby (LobbyInfo lobbyInfo) {
         myClient.sendData(new StartLobbyMessage(lobbyInfo));
     }
 
     /**
      * Request to initiate the game in this lobby
      */
-    private void requestStartGame () {
+    public void requestStartGame () {
         myClient.sendData(new RequestStartGameMessage());
     }
 
@@ -201,7 +120,7 @@ public class ClientModel extends Observable implements IMessageReceiver, IClient
      * Sends an infoLobby so other users can view that the state of
      * the lobby has changed
      */
-    private void sendUpdatedLobbyInfo () {
+    public void sendUpdatedLobbyInfo () {
         myClient.sendData(new UpdateLobbyInfoMessage(myLobbyInfo));
     }
 
@@ -210,12 +129,12 @@ public class ClientModel extends Observable implements IMessageReceiver, IClient
      * @return the view used by all networking functions
      */
     public JPanel getView () {
-        return myContainerPanel;
+        return myViewAdapter.getView();
     }
 
     @Override
     public void addLobbies (LobbyInfo[] lobbies) {
-        myServerBrowserAdapter.changeLobbies(lobbies);
+        myViewAdapter.changeLobbies(lobbies);
     }
 
     @Override
@@ -232,33 +151,62 @@ public class ClientModel extends Observable implements IMessageReceiver, IClient
 
     @Override
     public void switchToLobby (ExpandedLobbyInfo lobbyInfo, int playerID) {
-        Player userPlayer = new Player(myUserName, 1, myFactions.get(0), playerID);
+        myPlayer = new PlayerInfo(myUserName, 1, myFactions.get(0), playerID);
         myUserControlledPlayers.clear();
-        myUserControlledPlayers.add(userPlayer);
-        lobbyInfo.addPlayer(userPlayer);
-        switchToLobbyView(lobbyInfo);
+        myUserControlledPlayers.add(myPlayer);
+        lobbyInfo.addPlayer(myPlayer);
+        myViewAdapter.switchToLobbyView(lobbyInfo);
     }
 
     @Override
     public void updateLobby (ExpandedLobbyInfo lobbyInfo) {
         myLobbyInfo = lobbyInfo;
-        myLobbyView.update(myUserControlledPlayers, myLobbyInfo.getPlayers());
+        myViewAdapter.updateLobby();
     }
 
     @Override
     public void alertClient (String title, String message) {
-        myContainerPanel.showMessageDialog(title, message);
-
+        myViewAdapter.alertClient(title, message);
     }
 
     @Override
     public void loadGame (ExpandedLobbyInfo lobbyInfo) {
-        // TODO
+        myGame.loadGame(lobbyInfo, myPlayer);
+        myClient.sendData(new ReadyToStartGameMessage());
     }
 
     @Override
     public void startGame () {
-        // TODO
+        myGame.startGame(myClient);
+    }
 
+    /**
+     * 
+     * @return LobbyInfo of this model
+     */
+    public ExpandedLobbyInfo getLobbyInfo () {
+        return myLobbyInfo;
+    }
+
+    /**
+     * 
+     * @return List with player information for this lobby
+     */
+    public List<PlayerInfo> getPlayersInfo () {
+        return myUserControlledPlayers;
+    }
+
+    /**
+     * 
+     * @return A list with name of factions of this client view
+     */
+    public List<String> getFactions () {
+        return myFactions;
+    }
+
+    @Override
+    public void connectionClosed () {
+        myViewAdapter.destroyPanel();
+        myGame.serverBrowserClosed();
     }
 }

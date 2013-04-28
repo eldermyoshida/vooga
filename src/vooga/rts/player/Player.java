@@ -6,7 +6,11 @@ import vooga.rts.IGameLoop;
 import vooga.rts.commands.Command;
 import vooga.rts.controller.Controller;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
+import vooga.rts.manager.IndividualResourceManager;
 import vooga.rts.manager.Manager;
+import vooga.rts.resourcemanager.ResourceManager;
+import vooga.rts.util.Location3D;
+
 
 /**
  * Sends commands to its unit manager from either the human input, the network
@@ -17,35 +21,76 @@ import vooga.rts.manager.Manager;
  */
 public class Player extends Observable implements Controller, IGameLoop {
 
-	protected Manager myManager;
-	private int myTeamID;
+    protected Manager myManager;
+    private IndividualResourceManager myResources;
 
-	public Player(int id) {
-		myManager = new Manager(id);
-		myTeamID = id;
-	}
+    private int myPlayerID;
+    private int myTeamID;
 
-	@Override
-	public void sendCommand(Command command) {
-		// TODO Auto-generated method stub
-	}
+    public Player (int playerid, int teamID) {
+        myManager = new Manager(playerid);
+        myPlayerID = playerid;
+        myTeamID = teamID;
+        myResources = new IndividualResourceManager();
+    }
+    
+    /*
+     * METHOD TO BE WRITTEN!
+     * @return
+     */
+    public Location3D getBase() {
+    	return new Location3D();
+    }
+    
+    /*
+     * JUST TO RETURN A VALUE
+     */
+    public Location3D getEnemyBase() {
+    	return new Location3D(700, 700, 0);
+    }
+    
+    /**
+     * @return the resources of the player
+     */
+    public IndividualResourceManager getResouces () {
+        return myResources;
+    }
 
-	public Manager getManager() {
-		return myManager;
-	}
+    @Override
+    public void sendCommand (Command command) {
+        // TODO Auto-generated method stub
+    }
 
-	public void add(InteractiveEntity unit) {
-		unit.setPlayerID(myTeamID);
-		myManager.add(unit);
-	}
+    public Manager getManager () {
+        return myManager;
+    }
 
-	@Override
-	public void paint(Graphics2D pen) {
-		// myManager.paint(pen);
-	}
+    public void add (InteractiveEntity unit) {
+        unit.setPlayerID(myPlayerID);
+        myManager.add(unit);
+    }
 
-	@Override
-	public void update(double elapsedTime) {
-		myManager.update(elapsedTime);
-	}
+    @Override
+    public void paint (Graphics2D pen) {
+        // myManager.paint(pen);
+    }
+
+    @Override
+    public void update (double elapsedTime) {
+        myManager.update(elapsedTime);
+    }
+
+    /**
+     * @return the playerID
+     */
+    public int getPlayerID () {
+        return myPlayerID;
+    }
+
+    /**
+     * @return the teamID
+     */
+    public int getTeamID () {
+        return myTeamID;
+    }
 }

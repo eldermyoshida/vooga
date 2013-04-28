@@ -4,6 +4,7 @@ import vooga.rts.action.InteractiveAction;
 import vooga.rts.commands.Command;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building;
+import vooga.rts.gamedesign.strategy.Strategy;
 import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;
 import vooga.rts.util.DelayedTask;
 import vooga.rts.util.Location3D;
@@ -55,6 +56,18 @@ public class CanProduce implements ProductionStrategy {
     }
 
     /**
+     * Creates a new production strategy that represents an entity that can
+     * produce other entities. It is created with a list of entities that
+     * it can produce and a rally point (where all the units created by this
+     * entity will go).
+     */
+    public CanProduce (InteractiveEntity entity) {
+        myProducables = new ArrayList<InteractiveEntity>();
+        myRallyPoint = new Location3D();
+        setRallyPoint(entity);
+    }
+
+    /**
      * Adds an interactive entity that can be produced to the list of this
      * entities producables.
      * 
@@ -77,11 +90,11 @@ public class CanProduce implements ProductionStrategy {
                 public void apply () {
                     // check for resources
                     final InteractiveEntity unit = producable;
-                    //producer.getEntityState().setProducingState(PR);
+                    // producer.getEntityState().setProducingState(PR);
                     DelayedTask dt = new DelayedTask(5, new Runnable() {
                         @Override
                         public void run () {
-                            
+
                             InteractiveEntity f = ((InteractiveEntity) unit)
                                     .copy();
                             f.setWorldLocation(producer.getWorldLocation());
@@ -89,11 +102,11 @@ public class CanProduce implements ProductionStrategy {
                             producer.setChanged();
                             producer.notifyObservers(f);
                             f.move(myRallyPoint);
-                            //producer.getEntityState()
+                            // producer.getEntityState()
                         }
                     });
                     producer.addTask(dt);
-                    
+
                 }
             });
             producer.addInfo(commandName, producable.getInfo());
@@ -110,6 +123,26 @@ public class CanProduce implements ProductionStrategy {
         for (InteractiveEntity ie : myProducables) {
             ie.update(elapsedTime);
         }
+    }
 
+    public List<InteractiveEntity> getProducables () {
+        return myProducables;
+    }
+
+    public void setProducables (List<InteractiveEntity> producables) {
+        myProducables = producables;
+    }
+
+    public void affect (InteractiveEntity entity) {
+        ProductionStrategy newProduction = new CanProduce(entity);
+        newProduction.setProducables(getProducables());
+        newProduction.createProductionActions(entity);
+        entity.setProductionStrategy(newProduction);
+    }
+
+    @Override
+    public void setRallyPoint (InteractiveEntity entity) {
+        // TODO Auto-generated method stub
+        
     }
 }

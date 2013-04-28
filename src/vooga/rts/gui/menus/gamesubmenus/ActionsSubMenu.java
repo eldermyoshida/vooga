@@ -5,11 +5,11 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Observable;
+import util.Location;
 import vooga.rts.commands.InformationCommand;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gui.Window;
 import vooga.rts.gui.buttons.ActionButton;
-import vooga.rts.util.Location;
 
 
 public class ActionsSubMenu extends SubMenu {
@@ -66,7 +66,6 @@ public class ActionsSubMenu extends SubMenu {
                                  (ACTION_X_PADDING * (i + 1)),
                                  (Window.D_Y - ACTION_MENU_HEIGHT) + ((ACTION_Y_PADDING) * 2) +
                                          ACTION_BUTTON_HEIGHT);
-
         }
     }
 

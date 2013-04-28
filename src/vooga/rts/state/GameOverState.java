@@ -10,14 +10,11 @@ import vooga.rts.commands.Command;
 import vooga.rts.controller.Controller;
 import vooga.rts.gui.menus.GameOverMenu;
 
+
 public class GameOverState extends SubState implements Controller, Observer {
 
-    
-    
-
-    
-    
     GameOverMenu myGameOverMenu;
+
     public GameOverState (Observer observer) {
         super(observer);
         myGameOverMenu = new GameOverMenu();
@@ -31,13 +28,11 @@ public class GameOverState extends SubState implements Controller, Observer {
             myGameOverMenu.handleMouseDown(c.getPosition());
         }
     }
-    
 
     @Override
     public void update (double elapsedTime) {
     }
 
-    
     @Override
     public void paint (Graphics2D pen) {
         myGameOverMenu.paint(pen);
@@ -50,6 +45,12 @@ public class GameOverState extends SubState implements Controller, Observer {
     @Override
     public void update (Observable o, Object arg) {
         System.exit(0);
+    }
+
+    @Override
+    public void activate () {
+        // TODO Auto-generated method stub
+
     }
 
 }

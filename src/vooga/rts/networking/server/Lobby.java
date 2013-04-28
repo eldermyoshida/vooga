@@ -1,7 +1,7 @@
 package vooga.rts.networking.server;
 
 import java.util.logging.Level;
-import util.logger.NetworkLogger;
+import java.util.logging.Logger;
 import vooga.rts.networking.NetworkBundle;
 import vooga.rts.networking.communications.ExpandedLobbyInfo;
 import vooga.rts.networking.communications.LobbyInfo;
@@ -28,8 +28,8 @@ public class Lobby extends Room {
      * @param gameContainer game container
      * @param lobbyInfo lobby info
      */
-    public Lobby (int myRoomNumber, GameContainer gameContainer, LobbyInfo lobbyInfo) {
-        super(myRoomNumber, gameContainer, lobbyInfo);
+    public Lobby (int myRoomNumber, GameContainer gameContainer, LobbyInfo lobbyInfo, Logger logger) {
+        super(myRoomNumber, gameContainer, lobbyInfo, logger);
     }
 
     @Override
@@ -44,9 +44,9 @@ public class Lobby extends Room {
         else {
             sendMessageToAllConnections(new SendLobbyInfoUpdatesMessage(lobbyInfo));
         }
-        NetworkLogger.getLogger().log(Level.INFO,
-                                      NetworkBundle.getString("LobbyLeft") + ": " +
-                                              lobbyInfo.getLobbyName());
+        getLogger().log(Level.INFO,
+                        NetworkBundle.getString("LobbyLeft") + ": " +
+                                lobbyInfo.getLobbyName());
     }
 
     @Override
@@ -61,8 +61,8 @@ public class Lobby extends Room {
     public void clientIsReadyToStart (ConnectionThread thread) {
         numberOfClientsReady++;
         if (numberOfClientsReady == getNumberOfConnections()) {
-            sendMessageToAllConnections (new StartGameMessage());
-            new GameServer(getID(), getGameContainer(), this);
+            sendMessageToAllConnections(new StartGameMessage());
+            new GameServer(getID(), getGameContainer(), this, getLogger());
         }
     }
 

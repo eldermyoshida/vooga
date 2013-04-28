@@ -87,4 +87,9 @@ public class LoadingState extends SubState {
     private boolean isLoading () {
         return ResourceManager.getInstance().isLoading() || !myMain.isReady();
     }
+
+    @Override
+    public void activate () {
+        ResourceManager.getInstance().load();        
+    }
 }

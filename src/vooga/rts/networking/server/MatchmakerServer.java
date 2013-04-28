@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import util.logger.HandlerTxt;
-import util.logger.NetworkLogger;
 import vooga.rts.networking.NetworkBundle;
 
 
@@ -24,10 +23,8 @@ public class MatchmakerServer extends AbstractThreadContainer {
      * Initializes overall server hierarchy.
      */
     public MatchmakerServer () {
-        NetworkLogger instance = NetworkLogger.getInstance();
-        NetworkLogger.setLevel(Level.ALL);
-        instance.addHandler(new HandlerTxt());
-        NetworkLogger.getLogger().log(Level.INFO, NetworkBundle.getString("ServerStarted"));
+        //getLogger().addHandler(new HandlerTxt(getClass().getSimpleName()).getHandler());
+        getLogger().log(Level.INFO, NetworkBundle.getString("ServerStarted"));
     }
 
     /**
@@ -42,15 +39,15 @@ public class MatchmakerServer extends AbstractThreadContainer {
         GameContainer container;
         if (myGameContainers.containsKey(gameName)) {
             container = myGameContainers.get(gameName);
-            NetworkLogger.getLogger().log(Level.INFO,
-                                          NetworkBundle.getString("GameContainerJoined") +
-                                                  gameName);
+            getLogger().log(Level.INFO,
+                            NetworkBundle.getString("GameContainerJoined") +
+                                    gameName);
         }
         else {
-            container = new GameContainer();
+            container = new GameContainer(gameName);
             myGameContainers.put(gameName, container);
-            NetworkLogger.getLogger().log(Level.INFO, NetworkBundle.getString("NewGameContainer") +
-                                                      gameName);
+            getLogger().log(Level.INFO, NetworkBundle.getString("NewGameContainer") +
+                                        gameName);
         }
         container.addConnection(thread);
         removeConnection(thread);

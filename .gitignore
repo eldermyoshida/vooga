@@ -1,7 +1,8 @@
 bin/
+bin/**
 
 *.class
-
+Logger.txt
 *.checkstyle
 .checkstyle
 .classpath
@@ -11,4 +12,5 @@ bin/
 *.project
 *.ucls
 Thumbs.db
-/bin
+/bin/
+src/arcade/resources/ErrorLog*

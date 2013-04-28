@@ -251,14 +251,14 @@ public class GameEntity extends GameSprite {
     public EntityState getEntityState () {
         return myEntityState;
     }
-
+    
     /**
      * If the entity is in a stationary state, it stops moving.
      */
     public void stopMoving () {
         if (!myEntityState.canMove()) {
             setVelocity(getVelocity().getAngle(), 0);
-            getEntityState().stop();
+            myGoal = new Location3D(getWorldLocation());
         }
     }
 }
