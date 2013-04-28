@@ -85,7 +85,7 @@ public class LEController implements IController<LevelEditing> {
         initLevelEditor();
         myModel.setSpriteMap(myToolsManager.getSpriteMap());
         myModel.setBackgroundMap(bgLib.getBackgrounds());
-//        myView.setDefaultWorkspaceTools(myTools);
+        // myView.setDefaultWorkspaceTools(myTools);
         myWorkspace2Tab = new HashMap<Editable, WorkspaceView<LevelEditing>>();
         myTab2Workspace = new HashMap<WorkspaceView<LevelEditing>, Editable>();
         myLevelWriter = new LevelWriter(this);
@@ -99,7 +99,7 @@ public class LEController implements IController<LevelEditing> {
      * @param m
      */
     private void createWorkspaceView (int id, LEGrid m) {
-        LEWorkspaceView associatedWorkspaceView = 
+        LEWorkspaceView associatedWorkspaceView =
                 myView.initializeWorkspaceView(id, (Renderable<LevelEditing>) m);
         myWorkspace2Tab.put(m, associatedWorkspaceView);
         myTab2Workspace.put(associatedWorkspaceView, m);
@@ -139,7 +139,6 @@ public class LEController implements IController<LevelEditing> {
         return myTab2Workspace.get(v);
     }
 
-
     /**
      * This allows the user to specify the number of blocks needed for the level.
      * 
@@ -147,9 +146,9 @@ public class LEController implements IController<LevelEditing> {
      */
     private int[] getNumBlocks () {
         int[] res = new int[2];
-        
-        int a = (int) JOptionPane.showConfirmDialog(null, myGridSpinner, 
-                                                   "Grid Height and Width", 
+
+        int a = (int) JOptionPane.showConfirmDialog(null, myGridSpinner,
+                                                    "Grid Height and Width",
                                                     JOptionPane.OK_CANCEL_OPTION);
         if (a == 0) {
             res[0] = myGridSpinner.getGridWidth();
@@ -219,7 +218,7 @@ public class LEController implements IController<LevelEditing> {
     }
 
     @Override
-    public void start() {
+    public void start () {
         myView.start();
     }
 
@@ -231,13 +230,13 @@ public class LEController implements IController<LevelEditing> {
     public Player getSamplePlayer () {
         return mySamplePlayer;
     }
-    
+
     public void simulate (LEGrid grid) {
         SimpleView simContainer = new SimpleView("Level Simulation");
         ScrollingManager sm = new OmniScrollingManager();
         GameView display = new GameView(PlatformerConstants.DEFAULT_WINDOW_SIZE, sm);
         sm.initView(display);
-        mySamplePlayer = new Mario(new Location(), new Dimension(20, 32), display, sm);
+        mySamplePlayer = new Mario(new Dimension(20, 32), display, sm);
         Level sim = new Level(1, sm, grid);
         SplashPage sp = new TestSplashPage(display, sm);
         Model m = new Model(display, sm, mySamplePlayer, sp, sim);
@@ -245,7 +244,7 @@ public class LEController implements IController<LevelEditing> {
         display.setModel(m);
         sim.addPlayer(mySamplePlayer);
         display.start();
-        simContainer.add((GameView)display);
+        simContainer.add((GameView) display);
         simContainer.start();
     }
 

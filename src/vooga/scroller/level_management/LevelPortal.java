@@ -20,28 +20,18 @@ public abstract class LevelPortal extends Sprite implements IDoor {
     private static final String DEFAULT_FILENAME = "portal.png";
     private static final String DEFAULT_PATH = "/vooga/scroller/images/";
     private static final Dimension DEFAULT_SIZE = new Dimension(50, 50);
-    private static final Location DEFAULT_LOCATION = new Location(0, 0);
     private static final Pixmap DEFAULT_IMG = new Pixmap(DEFAULT_PATH, DEFAULT_FILENAME);
     private IGameComponent myNextLevel;
     private LevelManager myLevelManager;
 
     /**
-     * Default constructor. Calls with default Location.
+     * Default constructor. Creates LevelPortal and initializes the image.
      */
-    public LevelPortal () {
-        this(DEFAULT_LOCATION);
+    protected LevelPortal () {
+        super(DEFAULT_IMG, DEFAULT_SIZE);
         setView(initView());
         setDefaultImg(initView());
         setSize(initSize().width, initSize().height);
-    }
-
-    /**
-     * created LevelPortal from Location
-     * 
-     * @param center - Location of LevelPortal
-     */
-    private LevelPortal (Location center) {
-        super(DEFAULT_IMG, center, DEFAULT_SIZE);
     }
 
     @Override
