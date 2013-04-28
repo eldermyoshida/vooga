@@ -30,6 +30,7 @@ import vooga.rts.gui.menus.gamesubmenus.MiniMapSubMenu;
 import vooga.rts.manager.Manager;
 import vooga.rts.resourcemanager.ResourceManager;
 import vooga.rts.util.Information;
+import vooga.rts.util.Scale;
 import util.Location;
 
 
@@ -44,7 +45,7 @@ public class GameMenu extends Menu {
     // Dimensions
     private static final Dimension EXIT_BUTTON_DIMENSION = new Dimension(200, 40);
     private static final Dimension MINIMAP_DIMENSION = new Dimension(206, 206);
-    
+
     private static final Dimension INFO_DIMENSION = new Dimension(800, 135);
     private static final Dimension ACTIONS_DIMENSION = new Dimension(360, 175);
 
@@ -131,7 +132,6 @@ public class GameMenu extends Menu {
     @Override
     public void paint (Graphics2D pen) {
         super.paint(pen);
-
         for (SubMenu s : mySubMenus) {
             s.paint(pen);
         }

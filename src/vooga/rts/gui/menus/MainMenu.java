@@ -10,6 +10,7 @@ import vooga.rts.gui.Menu;
 import vooga.rts.gui.Window;
 import vooga.rts.gui.buttons.MainMenuButton;
 import vooga.rts.resourcemanager.ResourceManager;
+import vooga.rts.util.Scale;
 import util.Location;
 
 
@@ -70,7 +71,6 @@ public class MainMenu extends Menu {
     public void paint (Graphics2D pen) {
 
         super.paint(pen);
-
         pen.setFont(new Font("Helvetica", Font.BOLD, 100));
         pen.setColor(Color.white);
         pen.drawString("The Vooga RTS Game", 150, 150);
