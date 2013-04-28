@@ -35,8 +35,6 @@ public class Weapon {
     private int myRange;
     private List<Projectile> myProjectiles;
     private double myCooldownTime;
-    // private Interval interval;
-    private Ellipse2D myRangeCircle;
     private Location3D myCenter;
     private AttackingState attackingState;
 
@@ -132,9 +130,6 @@ public class Weapon {
      *         if the interactive is out of the range of the weapon
      */
     public boolean inRange (InteractiveEntity enemy, double distance) {
-//        myRangeCircle = new Ellipse2D.Double(myCenter.getX(), myCenter.getY(), myRange, myRange);
-//        return myRangeCircle.contains(enemy.getWorldLocation().to2D());
-//        ellipse thing doesnt seem to be working very well.
         return (distance < this.myRange);
     }
 

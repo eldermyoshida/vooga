@@ -159,6 +159,7 @@ public class GameEntity extends GameSprite {
      */
     public void setPlayerID (int playerID) {
         myPlayerID = playerID;
+        
     }
 
     /**
