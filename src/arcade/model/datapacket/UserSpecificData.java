@@ -1,7 +1,5 @@
-package arcade.controller;
+package arcade.model.datapacket;
 
-import java.util.Arrays;
-import java.util.List;
 
 public class UserSpecificData {
 	/**
