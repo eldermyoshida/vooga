@@ -210,7 +210,7 @@ public class ClientModel extends Observable implements IClientModel, IModel {
 
     @Override
     public void connectionClosed () {
-        myViewAdapter.destroyPanel();
+        getView().removeAll();
         myGame.serverBrowserClosed();
     }
 }

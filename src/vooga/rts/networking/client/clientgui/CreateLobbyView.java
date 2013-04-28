@@ -69,7 +69,7 @@ public class CreateLobbyView extends JPanel {
                 Integer maxPlayers = myMaxPlayerArray.get(myMapChoices.indexOf(choice));
 
                 Integer[] maxPlayerChoices = new Integer[maxPlayers - 1];
-                for (int b = 2; b <= maxPlayers; b++) {
+                for (int b = 1; b <= maxPlayers; b++) {
                     maxPlayerChoices[b - 2] = b;
                 }
 
