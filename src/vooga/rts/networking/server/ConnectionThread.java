@@ -79,7 +79,6 @@ public class ConnectionThread extends Thread {
                 // first object is not initial connection message
                 myConnectionActive = false;
                 close();
-                sendMessage(new CloseConnectionMessage());
                 return;
             }
 

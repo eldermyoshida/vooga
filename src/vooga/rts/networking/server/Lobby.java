@@ -36,15 +36,7 @@ public class Lobby extends Room {
     @Override
     public void leaveLobby (ConnectionThread thread, ExpandedLobbyInfo lobbyInfo) {
         setLobbyInfo(lobbyInfo);
-        removeConnection(thread);
         getGameContainer().addConnection(thread);
-        getGameContainer().decrementLobbyInfoSize(getID());
-        if (haveNoConnections()) {
-            getGameContainer().removeRoom(this);
-        }
-        else {
-            sendMessageToAllConnections(new SendLobbyInfoUpdatesMessage(lobbyInfo));
-        }
         getLogger().log(Level.INFO,
                         NetworkBundle.getString("LobbyLeft") + ": " +
                                 lobbyInfo.getLobbyName());
@@ -78,6 +70,24 @@ public class Lobby extends Room {
     public void updateLobbyInfo (ConnectionThread thread, ExpandedLobbyInfo lobbyInfo) {
         setLobbyInfo(lobbyInfo);
         sendMessageToAllConnections(new SendLobbyInfoUpdatesMessage(lobbyInfo));
+    }
+    
+    @Override
+    public void removeConnection (ConnectionThread thread) {
+        getLobbyInfo().removePlayer(thread.getID());
+        removeConnectionAndUpdateInfo(thread);
+        
+    }
+    
+    private void removeConnectionAndUpdateInfo (ConnectionThread thread) {
+        super.removeConnection(thread);
+        getGameContainer().decrementLobbyInfoSize(getID());
+        if (haveNoConnections()) {
+            getGameContainer().removeRoom(this);
+        }
+        else {
+            sendMessageToAllConnections(new SendLobbyInfoUpdatesMessage(getLobbyInfo()));
+        }
     }
 
 }

@@ -5,6 +5,8 @@ import java.util.logging.Logger;
 import vooga.rts.networking.NetworkBundle;
 import vooga.rts.networking.communications.GameMessage;
 import vooga.rts.networking.communications.Message;
+import vooga.rts.networking.communications.servermessages.AlertClientMessage;
+import vooga.rts.networking.communications.servermessages.CloseConnectionMessage;
 
 
 /**
@@ -41,4 +43,16 @@ public class GameServer extends Room {
         }
     }
 
+    @Override
+    public void removeConnection (ConnectionThread thread) {
+        super.removeConnection(thread);
+        sendMessageToAllConnections(new AlertClientMessage(
+                                                           NetworkBundle
+                                                                   .getString("LostConnection"),
+                                                           NetworkBundle
+                                                                   .getString("LostConnectionMessage")));
+        sendMessageToAllConnections(new CloseConnectionMessage());
+        removeAllConnections();
+        getGameContainer().removeRoom(this);
+    }
 }
