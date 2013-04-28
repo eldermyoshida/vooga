@@ -13,7 +13,7 @@ import vooga.towerdefense.model.tiles.DefaultTile;
  */
 public class DefaultTileFactory extends TileFactory {
 
-    private static final String ID = "0";
+    public static final String ID = "0";
     private static final String NAME = "blank_tile.png";
 
     public DefaultTileFactory() {

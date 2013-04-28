@@ -11,7 +11,7 @@ import vooga.towerdefense.model.Tile;
  */
 public class SpawnTileFactory extends PathTileFactory { 
     
-    private static final String ID = "s";
+    public static final String ID = "s";
     private static final String NAME = "spawn_tile.png";
 
     public SpawnTileFactory() {

@@ -13,7 +13,7 @@ import vooga.towerdefense.model.tiles.GrassTile;
  */
 public class GrassTileFactory extends TileFactory {
 
-    private static final String ID = "1";
+    public static final String ID = "1";
     private static final String NAME = "grass_tile.png";
 
     public GrassTileFactory() {

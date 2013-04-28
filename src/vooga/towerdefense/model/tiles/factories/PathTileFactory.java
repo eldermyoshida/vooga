@@ -13,7 +13,7 @@ import vooga.towerdefense.model.tiles.PathTile;
  */
 public class PathTileFactory extends TileFactory {
 
-    private static final String ID = "2";
+    public static final String ID = "2";
     private static final String NAME = "path_tile.png";
 
     public PathTileFactory() {

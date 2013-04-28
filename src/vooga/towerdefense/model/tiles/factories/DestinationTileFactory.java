@@ -11,7 +11,7 @@ import vooga.towerdefense.model.Tile;
  */
 public class DestinationTileFactory extends PathTileFactory {
     
-    private static final String ID = "d";
+    public static final String ID = "d";
     private static final String NAME = "end_tile.png";
 
     public DestinationTileFactory() {

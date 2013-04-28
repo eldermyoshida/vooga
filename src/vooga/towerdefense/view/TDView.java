@@ -118,7 +118,6 @@ public class TDView {
      */
     public void addScreen (JPanel screen, String location) {
         myFrame.getContentPane().add(screen, location);
-        System.out.println("sajkdh: " + screen + location);
         myFrame.pack();
         myFrame.setVisible(true);
     }
