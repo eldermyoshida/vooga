@@ -1,4 +1,4 @@
-package vooga.towerdefense.gameeditor.gamemaker;
+package vooga.towerdefense.gameeditor.gamemaker.editorscreens;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -12,6 +12,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import vooga.towerdefense.gameeditor.controller.GameEditorController;
+import vooga.towerdefense.gameeditor.gamemaker.editorscreens.subeditorscreens.ActionSection;
+import vooga.towerdefense.gameeditor.gamemaker.editorscreens.subeditorscreens.AttributeSection;
 
 
 /**

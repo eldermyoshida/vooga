@@ -1,4 +1,4 @@
-package vooga.towerdefense.gameeditor.gamemaker;
+package vooga.towerdefense.gameeditor.controller;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JFrame;
+import vooga.towerdefense.gameeditor.gamemaker.editorscreens.GameEditorScreen;
+import vooga.towerdefense.gameeditor.gamemaker.editorscreens.StartUpScreen;
+import vooga.towerdefense.gameeditor.gamemaker.xmlwriters.XMLWriter;
 
 
 /**
