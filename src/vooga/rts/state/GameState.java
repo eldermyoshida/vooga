@@ -129,7 +129,6 @@ public class GameState extends SubState implements Controller, Observer {
         pen.setBackground(Color.BLACK);
         myMap.paint(pen);                
         myMiniMap.paint(pen);        
-        getPlayers().getHuman().paint(pen);
 
         if (myDrag != null) {
             pen.draw(myDrag);

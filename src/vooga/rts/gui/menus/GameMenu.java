@@ -64,10 +64,6 @@ public class GameMenu extends Menu {
     private SubMenu myActionsSubMenu;
 
     public GameMenu () {
-        // myBGImage =
-        // ResourceManager.getInstance().<BufferedImage> getFile(BG_IMAGE_URL,
-        // BufferedImage.class);
-        // setBGImage(myBGImage);
 
         myExitButton = new ImageButton(EXIT_IMAGE_URL, EXIT_BUTTON_DIMENSION, EXIT_BUTTON_LOCATION);
         addButton(myExitButton);
