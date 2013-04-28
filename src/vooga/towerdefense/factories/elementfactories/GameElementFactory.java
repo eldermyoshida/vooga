@@ -37,6 +37,7 @@ public class GameElementFactory {
     private String myName;
     private GameElementDefinition myDef;
     private List<ActionFactory> myActionsToMake;
+    private List<GameElementFactory> myGameElementFactories;
     private GameMap myMap;
 
     private Pixmap myImage;
@@ -63,7 +64,7 @@ public class GameElementFactory {
         mySize = size;
         myAttributeManagerFactory = attrManager;
         myActionsToMake = myActions;
-        myAttributeManagerFactory.addAttributeFactory(makeAffiliation());
+        myAttributeManagerFactory.addAttributeFactory(makeAffiliation());        
     }
 
     /**
@@ -107,8 +108,10 @@ public class GameElementFactory {
      * 
      * @param map
      */
-    public void initialize (GameMap map) {
+    public void initialize (GameMap map, List<GameElementFactory> gameElementFactories) {
         myMap = map;
+        myGameElementFactories = gameElementFactories;
+        
     }
 
     public GameMap getMap () {
@@ -135,6 +138,9 @@ public class GameElementFactory {
     }
 
     public AttributeManager createAttributeFactory () {
+        for (GameElementFactory f : myGameElementFactories) { 
+            myAttributeManagerFactory.addGameElementFactory(f);
+        }
         return myAttributeManagerFactory.makeAttributeManager();
     }
 
@@ -152,7 +158,7 @@ public class GameElementFactory {
         List<Action> actions = new ArrayList<Action>();
         for (ActionFactory a : myActionsToMake) {
             System.out.println(a);
-            actions.add(a.createAction(element));
+                actions.add(a.createAction(element));
         }
         return actions;
     }
@@ -186,4 +192,14 @@ public class GameElementFactory {
         projectile.addActions(actions);
         return projectile;
     }
+    
+    
+    public void addGameElementFactory(GameElementFactory GEFactory){
+    	myGameElementFactories.add(GEFactory);
+    }
+    
+    public Pixmap getImage() {
+        return myImage;
+    }
+    
 }

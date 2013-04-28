@@ -1,4 +1,4 @@
-package vooga.towerdefense.gameeditor.gamemaker.mapeditor;
+package vooga.towerdefense.gameeditor.gamemaker.editorscreens.mapeditor;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -21,9 +21,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import util.Pixmap;
-import vooga.towerdefense.gameeditor.gamemaker.GameEditorController;
-import vooga.towerdefense.gameeditor.gamemaker.GameEditorScreen;
 import vooga.towerdefense.model.tiles.factories.TileFactory;
+import vooga.towerdefense.gameeditor.controller.GameEditorController;
+import vooga.towerdefense.gameeditor.gamemaker.editorscreens.GameEditorScreen;
+import vooga.towerdefense.gameeditor.gamemaker.editorscreens.mapeditor.MapEditorScreen;
 
 /**
  * The MapEditorScreen is responsible for helping

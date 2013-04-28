@@ -13,14 +13,30 @@ import vooga.towerdefense.factories.rulefactories.RuleFactory;
 import vooga.towerdefense.model.GameModel;
 import vooga.towerdefense.model.rules.Rule;
 
+/**
+ * This class is responsible for loading Rule objects 
+ * from an XML document.
+ * 
+ * @author Erick Gonzalez
+ */
 public class RulesXMLLoader {
 
     private XMLTool myXMLTool;
 
+    /**
+     * 
+     * @param xmlTool an XMLTool containing the xml document
+     */
     public RulesXMLLoader (XMLTool xmlTool) {
         myXMLTool = xmlTool;
     }
     
+    /**
+     * 
+     * @param gameModel a game model
+     * @param rulesElement the rules xml element
+     * @return the list of rules
+     */
     public List<Rule> getRules(GameModel gameModel, Element rulesElement) {
         List<RuleFactory> ruleFactories = getRuleFactories(rulesElement);
         
@@ -32,6 +48,12 @@ public class RulesXMLLoader {
         return rules;
     }
     
+    /**
+     * Given a rules xml element, return a list of rule factory objects.
+     * 
+     * @param rulesElement 
+     * @return a list of RuleFactory objects
+     */
     public List<RuleFactory> getRuleFactories(Element rulesElement) {
         Map<String, Element> subElements = myXMLTool.getChildrenElementMap(rulesElement);
         
@@ -48,7 +70,8 @@ public class RulesXMLLoader {
         List<String> constructorParams = getRuleFactoryConstructorParameters(ruleNameElement);
         
         try {
-            Class ruleFactoryClass = Class.forName("vooga.towerdefense.factories.rulefactories." + myXMLTool.getTagName(ruleNameElement)+ "Factory");
+            Class ruleFactoryClass = Class.forName("vooga.towerdefense.factories.rulefactories." + 
+                    myXMLTool.getTagName(ruleNameElement)+ "Factory");
             // There only exists one rule constructor
             Constructor c = ruleFactoryClass.getConstructors()[0];
             RuleFactory ruleFactory =

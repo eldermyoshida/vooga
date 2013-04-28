@@ -6,7 +6,6 @@ import java.util.List;
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.actionlist.Move;
 import vooga.towerdefense.action.actionlist.MoveToTarget;
-import vooga.towerdefense.attributes.AttributeConstants;
 import vooga.towerdefense.attributes.AttributeConstantsEnum;
 import vooga.towerdefense.attributes.AttributeManager;
 import vooga.towerdefense.factories.definitions.DefinitionConstants;
@@ -51,7 +50,7 @@ public class ExampleDosProjectileFactory extends GameElementFactory {
 
         ArrayList<Action> actions = new ArrayList<Action>();
 
-        actions.add(new MoveToTarget(myProjectile.getCenter(), new Location(400, 400), AM.getAttribute(AttributeConstants.MOVE_SPEED)));
+        actions.add(new MoveToTarget(myProjectile.getCenter(), new Location(400, 400), AM.getAttribute(AttributeConstantsEnum.MOVE_SPEED.getStatusCode())));
 
         myProjectile.addActions(actions);
         return myProjectile;
@@ -85,8 +84,8 @@ public class ExampleDosProjectileFactory extends GameElementFactory {
     public List<Action> createActions(GameElement element) {
         ArrayList<Action> actions = new ArrayList<Action>();
         actions.add(new Move(element.getCenter(), element.getAttributeManager()
-                .getAttribute(AttributeConstants.MOVE_SPEED), element.getAttributeManager()
-                 .getAttribute(AttributeConstants.DIRECTION)));
+                .getAttribute(AttributeConstantsEnum.MOVE_SPEED.getStatusCode()), element.getAttributeManager()
+                 .getAttribute(AttributeConstantsEnum.DIRECTION.getStatusCode())));
         return actions;
     }
 

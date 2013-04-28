@@ -1,9 +1,9 @@
 package vooga.towerdefense.model.tiles.factories;
 
+import util.Location;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.Tile;
 import vooga.towerdefense.model.tiles.PathTile;
-import util.Location;
 
 /**
  * A tile factory that creates PathTile objects.
@@ -12,6 +12,7 @@ import util.Location;
  * @author Leonard K. Ng'eno
  */
 public class PathTileFactory extends TileFactory {
+
     private static final String ID = "2";
     private static final String NAME = "path_tile.png";
 

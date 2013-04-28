@@ -2,11 +2,7 @@
 	<view>
 		<dimension>1100, 800</dimension>
 		<MapScreen>
-<<<<<<< HEAD
-			<dimension>800, 500</dimension>
-=======
 			<dimension>800, 600</dimension>
->>>>>>> ef0beb2e6a1eb053adf8be0395c5f635ffcb3ccd
 			<location>Center</location>
 		</MapScreen>
 		<MultipleScreenPanel>
@@ -22,16 +18,11 @@
 			</NextWaveScreen>
 		</MultipleScreenPanel>
 		<MultipleScreenPanel>
-			<dimension>200, 500</dimension>
+			<dimension>200, 600</dimension>
 			<location>East</location>
 			<GameStatsScreen>
-<<<<<<< HEAD
-				<dimension>200, 300</dimension>
-				<location>Center</location>
-=======
 				<dimension>200, 200</dimension>
 				<location>North</location>
->>>>>>> ef0beb2e6a1eb053adf8be0395c5f635ffcb3ccd
 			</GameStatsScreen>
 			<GameElementInformationScreen>
 				<dimension>200, 200</dimension>
@@ -47,21 +38,21 @@
 				<width>500</width>
 				<height>500</height>
 			</dimension>
-			<grid>0 0 0 0 0 0 0 0 0 0
-			0 0 0 0 0 0 0 0 0 0
-			s 0 0 0 0 0 0 0 0 0
-			0 0 0 0 0 0 0 0 0 0
-			0 0 0 0 0 0 0 0 0 0
-			0 0 0 0 0 0 0 0 0 0
-			0 0 0 0 0 0 0 0 0 0
-			0 0 0 0 0 0 0 0 0 0
-			0 0 0 0 0 0 0 0 0 d
-			0 0 0 0 0 0 0 0 0 0</grid>
+			<grid>1 1 1 1 1 1 1 1 1 1
+			1 1 1 1 1 1 1 1 1 1
+			s 2 2 1 1 1 1 1 1 1
+			1 1 2 1 1 1 1 1 1 1
+			1 1 2 1 1 1 1 1 1 1
+			1 1 2 1 1 1 1 1 1 1
+			1 1 2 1 1 1 1 1 1 1
+			1 1 2 1 1 1 1 1 1 1
+			1 1 2 2 2 2 2 2 2 d
+			1 1 1 1 1 1 1 1 1 1</grid>
 		</Map1>
 	</map>
 	<player>
 		<attributes>
-			<Health>100.0</Health>
+			<Health>10.0</Health>
 			<Score>0.0</Score>
 			<Money>1000.0</Money>
 		</attributes>
@@ -88,15 +79,13 @@
 		<Bear>
 			<dimension>50, 50</dimension>
 			<image>bear.gif</image>
-			<type>Unit</type>
+			<type>Projectile</type>
 			<attributes>
 				<HEALTH>100</HEALTH>
 				<MOVE_SPEED>50</MOVE_SPEED>
 				<DIRECTION>0</DIRECTION>
 			</attributes>
 			<actions>
-				<FollowPath>
-				</FollowPath>
 				<Move>
 					<parameter>MOVE_SPEED</parameter>
 					<parameter>DIRECTION</parameter>
@@ -104,12 +93,13 @@
 			</actions>			
 		</Bear>
 		<Elephant>
-			<dimension>50, 50</dimension>
+			<dimension>80, 80</dimension>
 			<image>dancing_elephant.gif</image>
 			<type>Unit</type>
 			<attributes>
 				<HEALTH>100</HEALTH>
 				<MOVE_SPEED>50</MOVE_SPEED>
+				<FLY_SPEED>10</FLY_SPEED>
 				<DIRECTION>0</DIRECTION>
 			</attributes>
 			<actions>
@@ -118,6 +108,10 @@
 				<Move>
 					<parameter>MOVE_SPEED</parameter>
 					<parameter>DIRECTION</parameter>
+						<Move>
+							<parameter>FLY_SPEED</parameter>
+							<parameter>DIRECTION</parameter>
+						</Move>
 				</Move>
 			</actions>			
 		</Elephant>
@@ -126,10 +120,15 @@
 			<image>tower.gif</image>
 			<type>Tower</type>
 			<attributes>
-				<Health>100</Health>
-				<Cost>100</Cost>
+				<HEALTH>100</HEALTH>
+				<Cost>10</Cost>
+				<MOVE_SPEED>50</MOVE_SPEED>
+				<DIRECTION>0</DIRECTION>
 			</attributes>
 			<actions>
+				<LaunchProjectile>
+					<parameter>Bear</parameter>					
+				</LaunchProjectile>	
 			</actions>			
 		</TestTower>
 	</gameelements>
@@ -144,7 +143,7 @@
 			</rules>
 			<actions>
 				<LevelTimerAction>
-					<parameter>1000</parameter>
+					<parameter>10</parameter>
 				</LevelTimerAction>
 			</actions>
 		</Level0>

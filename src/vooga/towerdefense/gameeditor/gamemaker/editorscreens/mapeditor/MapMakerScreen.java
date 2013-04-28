@@ -1,4 +1,4 @@
-package vooga.towerdefense.gameeditor.gamemaker.mapeditor;
+package vooga.towerdefense.gameeditor.gamemaker.editorscreens.mapeditor;
 
 import java.awt.Color;
 import java.awt.Dimension;

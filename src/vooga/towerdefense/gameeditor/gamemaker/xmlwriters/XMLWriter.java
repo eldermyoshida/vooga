@@ -1,16 +1,10 @@
-package vooga.towerdefense.gameeditor.gamemaker;
+package vooga.towerdefense.gameeditor.gamemaker.xmlwriters;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.w3c.dom.Element;
 import util.XMLTool;
-import vooga.towerdefense.gameeditor.gamemaker.xmlwriters.GameElementXMLWriter;
-import vooga.towerdefense.gameeditor.gamemaker.xmlwriters.LevelXMLWriter;
-import vooga.towerdefense.gameeditor.gamemaker.xmlwriters.MapXMLWriter;
-import vooga.towerdefense.gameeditor.gamemaker.xmlwriters.PlayerXMLWriter;
-import vooga.towerdefense.gameeditor.gamemaker.xmlwriters.RuleXMLWriter;
-import vooga.towerdefense.gameeditor.gamemaker.xmlwriters.ViewXMLWriter;
 
 
 /**
@@ -22,8 +16,14 @@ import vooga.towerdefense.gameeditor.gamemaker.xmlwriters.ViewXMLWriter;
  * 
  */
 public class XMLWriter {
-
+    
+    /**
+     * xml extension constant.
+     */
     public static final String XML_EXTENSION = ".xml";
+    /**
+     * tag constants.
+     */
     public static final String GAME_TAG = "game";
     public static final String VIEW_TAG = "view";
     public static final String PLAYER_TAG = "player";
@@ -62,6 +62,9 @@ public class XMLWriter {
     private RuleXMLWriter myRuleXMLWriter;
     private LevelXMLWriter myLevelXMLWriter;
 
+    /**
+     * constructor.
+     */
     public XMLWriter () {
         myCreatedUnits = new ArrayList<String>();
         myXMLDoc = new XMLTool();
@@ -116,7 +119,6 @@ public class XMLWriter {
                                List<String> viewInfo,
                                Map<String, List<String>> map) {
         myViewXMLWriter.write(myViewParent, dimension, viewInfo, map);
-        myXMLDoc.writeFile("/src/vooga/towerdefense/resources/defaultview.xml");
     }
 
     /**

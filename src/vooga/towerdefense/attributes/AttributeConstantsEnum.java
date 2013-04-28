@@ -37,6 +37,7 @@ public enum AttributeConstantsEnum {
      */
     ATTACK_INTERVAL("Attack_Speed"),
     MOVE_SPEED("Move_Speed"),
+    FLY_SPEED("Fly_Speed"),
     DIRECTION("Direction"),
     UPGRADES("Upgrades"),
     COST("Cost"),

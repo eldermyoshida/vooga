@@ -51,8 +51,6 @@ public class EnemyReachedEndRule extends Rule {
 					.getAttributeManager()
 					.getAttribute(AttributeConstantsEnum.HEALTH.getStatusCode());
 			health.setValue(health.getValue() - HEALTH_COST);
-			System.out.println("enemy reached end");
-			System.out.println("health: "+ health.getValue());
 			myModel.getMap().removeGameElement(e);
 		}
 		enemiesAtEnd.clear();

@@ -1,4 +1,4 @@
-package vooga.towerdefense.gameeditor.gamemaker;
+package vooga.towerdefense.gameeditor.gamemaker.editorscreens;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import vooga.towerdefense.gameeditor.controller.GameEditorController;
 
 
 /**
@@ -29,7 +30,7 @@ public class StartUpScreen extends JPanel {
     private static final String MESSAGE = "PLEASE ENTER NAME AND CONFIRM!";
     private static final String WELCOME_KEYWORD = "WELCOME TO GAME EDITOR";
     private static final String START_KEYWORD = "START";
-    private static final String NEXT_SCREEN_NAME = "vooga.towerdefense.gameeditor.gamemaker.ViewEditorScreen";
+    private static final String NEXT_SCREEN_NAME = "vooga.towerdefense.gameeditor.gamemaker.editorscreens.ViewEditorScreen";
     private static final String GAME_NAME_TEXT = "Game Name: ";
     private static final String SELECT_NAME_TEXT = "Confirm this as Game Name";
     private boolean myConfirmation;

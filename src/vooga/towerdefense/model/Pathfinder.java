@@ -58,7 +58,6 @@ public class Pathfinder {
 
 
 		int[][] obstacleMap = convertMap(myGrid);
-
 		AreaMap map = new AreaMap(myGrid[0].length, myGrid.length, obstacleMap);
 		AStarHeuristic heuristic = new DiagonalHeuristic();
 

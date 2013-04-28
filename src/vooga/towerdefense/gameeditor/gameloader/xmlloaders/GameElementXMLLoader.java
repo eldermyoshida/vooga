@@ -1,7 +1,6 @@
 package vooga.towerdefense.gameeditor.gameloader.xmlloaders;
 
 import java.awt.Dimension;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,6 +44,7 @@ public class GameElementXMLLoader {
      * Loads a map from GameElementFactory name to GameElementFactory objects.
      * 
      * @param map a game map
+     * @param player a player object
      * @return a map from the name of a GameElementFactory to its object
      */
     public Map<String, GameElementFactory> loadGameElementFactories (GameMap map, Player player) {
@@ -58,6 +58,7 @@ public class GameElementXMLLoader {
             gameElementFactories.put(myXMLTool.getTagName(subElement), 
                                      loadGameElementFactory(subElement, map, player));
         }
+        
         return gameElementFactories;
     }
     
@@ -69,8 +70,10 @@ public class GameElementXMLLoader {
         String gameElementType = loadType(subElementMap.get(TYPE_TAG));
         Pixmap elementImage = loadElementImage(subElementMap.get(IMAGE_TAG));
         Dimension elementDimension = loadDimension(subElementMap.get(DIMENSION_TAG));
+        AttributeXMLLoader attributeLoader = new AttributeXMLLoader(myXMLTool);
+        
         List<AttributeFactory> attributeFactories = 
-                loadAttributeFactories(subElementMap.get(ATTRIBUTES_TAG));
+                attributeLoader.loadAttributeFactories(subElementMap.get(ATTRIBUTES_TAG));
         
         ActionXMLLoader loader = new ActionXMLLoader(myXMLTool);
         List<ActionFactory> actionFactories = loader.
@@ -84,7 +87,6 @@ public class GameElementXMLLoader {
                                                               elementDimension,
                                                               managerFactory,
                                                               actionFactories);
-        geFactory.initialize(map);
         return geFactory;
     }
     
@@ -96,27 +98,7 @@ public class GameElementXMLLoader {
     private String loadType (Element typeElement) {
         return myXMLTool.getContent(typeElement);
     }
-    
-    private List<AttributeFactory> loadAttributeFactories (Element attributesElement) {
-        List<AttributeFactory> attributes = new ArrayList<AttributeFactory>();
         
-        List<Element> subElements = myXMLTool.getChildrenList(attributesElement);
-        for (Element subElement : subElements) {
-            AttributeFactory attribute = loadAttributeFactory(subElement);
-            attributes.add(attribute);
-        }
-        return attributes;
-    }
-    
-    private AttributeFactory loadAttributeFactory (Element attributeElement) {
-        return new AttributeFactory(myXMLTool.getTagName(attributeElement),
-                                    loadAttributeValue(attributeElement));
-    }
-    
-    private double loadAttributeValue (Element valueElement) {
-        return Double.parseDouble(myXMLTool.getContent(valueElement));
-    }
-    
     private Dimension loadDimension(Element dimensionElement) {
         String dimensionString = myXMLTool.getContent(dimensionElement);
         String[] dimensionStringArray = dimensionString.split(",\\s+");

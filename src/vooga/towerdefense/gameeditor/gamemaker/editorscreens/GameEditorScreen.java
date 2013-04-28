@@ -1,4 +1,4 @@
-package vooga.towerdefense.gameeditor.gamemaker;
+package vooga.towerdefense.gameeditor.gamemaker.editorscreens;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import vooga.towerdefense.gameeditor.controller.GameEditorController;
 
 
 /**
@@ -24,7 +25,7 @@ public abstract class GameEditorScreen extends JPanel {
     private static final long serialVersionUID = 1L;
     private static final String ADD_BUTTON_TEXT = "Add to game";
     private static final String FINISH_BUTTON_TEXT = "Next section";
-    private String myNextScreenName = "vooga.towerdefense.gameeditor.gamemaker.";
+    private String myNextScreenName = "vooga.towerdefense.gameeditor.gamemaker.editorscreens.";
     private String myTitle = " MAKING SCREEN";
     private MouseAdapter myMouseAdapter;
     private JButton myAddButton;
