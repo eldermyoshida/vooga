@@ -101,7 +101,7 @@ public class TabbedToolsView<D extends IDomainDescriptor> extends
     @Override
     public void render (Renderable<D> tools) {
 //        mySpriteUI.setLayout(new SpringLayout());
-        for (Map<Image, String> m : myTools.EditableDependents()) {
+        for (Map<Image, String> m : myTools.getEditableDependents()) {
             if (m.size()>0) {
             JPanel ed_dep_Buttons = new RadioGroup(this.getSize(), 
                                                    new SelectEditableDependentsListener(),
@@ -120,7 +120,7 @@ public class TabbedToolsView<D extends IDomainDescriptor> extends
             myIndependentsUI.add(ed_ind_Buttons);
             }
         }
-        myTabs.add(myEditableDependentsUI, myTools.EditableDependentsTitle());
+        myTabs.add(myEditableDependentsUI, myTools.getEditableDependentsTitle());
         myTabs.add(myIndependentsUI, myTools.getEditableIndependentsTitle());
 //        myTabs.add(addOtherSpecificTools());
         EasyGridFactory.layout(this, myTabs);
