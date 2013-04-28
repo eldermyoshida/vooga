@@ -1,5 +1,6 @@
 package vooga.towerdefense.model.tiles.factories;
 
+import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.Tile;
 import vooga.towerdefense.model.tiles.GrassTile;
 import util.Location;
@@ -11,10 +12,19 @@ import util.Location;
  * @author Leonard K. Ng'eno
  */
 public class GrassTileFactory extends TileFactory {
+    private static final String ID = "0";
+    public GrassTileFactory() {
+        super();
+    }
 
     @Override
-    public Tile createTile (Location center) {
-        return new GrassTile(center, TileFactory.DEFAULT_TILE_DIMENSIONS);
+    public Tile createTile (Location center, GameMap map) {
+        return new GrassTile(center, map.getTileSize());
+    }
+
+    @Override
+    public String getTileId () {  
+        return ID;
     }
     
 }

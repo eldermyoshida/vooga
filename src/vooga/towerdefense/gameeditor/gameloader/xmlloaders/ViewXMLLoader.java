@@ -18,7 +18,6 @@ import vooga.towerdefense.view.gamescreens.ShopScreen;
 
 /**
  * ViewXMLLoader loads in the View from the XML file.
- *
  * @author Angelica Schwartz
  */
 public class ViewXMLLoader {

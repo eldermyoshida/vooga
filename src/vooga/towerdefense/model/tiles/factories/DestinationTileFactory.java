@@ -9,22 +9,23 @@ import vooga.towerdefense.model.Tile;
  * @author Leonard K. Ng'eno
  *
  */
-public class SpawnTileFactory extends PathTileFactory { 
+public class DestinationTileFactory extends PathTileFactory {
     
-    private static final String ID = "s";
+    private static final String ID = "e";
     
-    public SpawnTileFactory() {
+    public DestinationTileFactory() {
         super();
     }
 
     @Override
-    public Tile createTile (Location center, GameMap map) {
-        map.setSpawnLocation(center);
+    public Tile createTile (Location center, GameMap map) {        
+        map.setDestinationLocation(center);
         return super.createTile(center, map);
     }
 
     @Override
     public String getTileId () {
         return ID;
-    } 
+    }
+    
 }

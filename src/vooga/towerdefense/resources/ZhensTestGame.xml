@@ -16,27 +16,27 @@
 	</view>
 	<map>
 		<Map1>
-			<image>grass_tile.gif</image>
+			<image>tower.gif</image>
 			<tile_size>50</tile_size>
 			<dimension>
 				<width>500</width>
 				<height>500</height>
 			</dimension>
-			<grid>0 0 0 0 0 0 0 0 0 0
-			0 0 0 0 0 0 0 0 0 0
-			s 0 0 0 0 0 0 0 0 0
-			0 0 0 0 0 0 0 0 0 0
-			0 0 0 0 0 0 0 0 0 0
-			0 0 0 0 0 0 0 0 0 0
-			0 0 0 0 0 0 0 0 0 0
-			0 0 0 0 0 0 0 0 0 0
-			0 0 0 0 0 0 0 0 0 d
-			0 0 0 0 0 0 0 0 0 0</grid>
+			<grid>1 1 1 1 1 1 1 1 1 1
+			1 1 1 1 1 1 1 1 1 1
+			1 1 1 1 1 1 1 1 1 1
+			1 1 1 1 1 1 1 1 1 1
+			1 2 2 2 1 1 1 1 1 1
+			s 2 1 2 1 2 2 2 2 e
+			1 1 1 2 1 2 1 1 1 1
+			1 1 1 2 2 2 1 1 1 1
+			1 1 1 1 1 1 1 1 1 1
+			1 1 1 1 1 1 1 1 1 1</grid>
 		</Map1>
 	</map>
 	<player>
 		<attributes>
-			<Health>10.0</Health>
+			<Health>100.0</Health>
 			<Score>0.0</Score>
 			<Money>1000.0</Money>
 		</attributes>
@@ -78,24 +78,6 @@
 				</Move>
 			</actions>			
 		</Bear>
-		<Elephant>
-			<dimension>80, 80</dimension>
-			<image>dancing_elephant.gif</image>
-			<type>Unit</type>
-			<attributes>
-				<HEALTH>100</HEALTH>
-				<MOVE_SPEED>50</MOVE_SPEED>
-				<DIRECTION>0</DIRECTION>
-			</attributes>
-			<actions>
-				<FollowPath>
-				</FollowPath>
-				<Move>
-					<parameter1>MOVE_SPEED</parameter1>
-					<parameter2>DIRECTION</parameter2>
-				</Move>
-			</actions>			
-		</Elephant>
 		<TestTower>
 			<dimension>50, 50</dimension>
 			<image>tower.gif</image>
@@ -110,7 +92,6 @@
 	<rules>
 		<EnemyReachedEndRule/>
 		<NextLevelRule/>
-		<LoseAtZeroHealthRule/>
 	</rules>
 	<levels>
 		<Level1>
@@ -120,11 +101,8 @@
 				<WaveAction>
 					<parameter1>10</parameter1>
 					<parameter2>1000</parameter2>
-					<parameter3>Elephant</parameter3>
+					<parameter3>Dog</parameter3>
 				</WaveAction>
-				<LevelTimerAction>
-					<parameter1>60000</parameter1>
-				</LevelTimerAction>
 			</actions>
 		</Level1>
 		<Level2>
@@ -136,9 +114,6 @@
 					<parameter2>1000</parameter2>
 					<parameter3>Bear</parameter3>
 				</WaveAction>
-				<LevelTimerAction>
-					<parameter1>60000</parameter1>
-				</LevelTimerAction>
 				</actions>
 			</Level2>
 	</levels>
