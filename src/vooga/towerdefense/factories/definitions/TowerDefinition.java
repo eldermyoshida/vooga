@@ -1,8 +1,6 @@
 package vooga.towerdefense.factories.definitions;
 
 import java.awt.Dimension;
-
-import vooga.towerdefense.attributes.DefaultAttributeManager;
 import vooga.towerdefense.factories.attributefactories.AttributeManagerFactory;
 import util.Pixmap;
 import util.Location;
