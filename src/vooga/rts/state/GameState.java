@@ -176,6 +176,7 @@ public class GameState extends SubState implements Controller {
                                        DEFAULT_OCCUPY_RELATIVE_LOCATION);
         getPlayers().getPlayer(playerID).add(startOccupy);
 
+        
         // this is for testing
         final Building f = startProduction;
         myTasks.add(new DelayedTask(2, new Runnable() {
