@@ -1,6 +1,5 @@
 package util.logger;
 
-
 import java.util.logging.Handler;
 import java.util.logging.SocketHandler;
 
@@ -24,6 +23,14 @@ public class HandlerSocket implements IVoogaHandler {
      * @param host name of the host
      * @param port number of the port to create socket
      */
+    public HandlerSocket (String host, int port) {
+        setSocket(host, port);
+    }
+
+    /**
+     * @param host name of the host
+     * @param port number of the port to create socket
+     */
     public void setSocket (String host, int port) {
         myHost = host;
         myPort = port;
@@ -36,7 +43,7 @@ public class HandlerSocket implements IVoogaHandler {
             handler = new SocketHandler(myHost, myPort);
         }
         catch (Exception e) {
-            NetworkLogger.LOGGER.severe(ERROR_MESSAGE);
+            LoggerManager.DEFAULT_LOGGER.severe(ERROR_MESSAGE);
         }
         return handler;
     }

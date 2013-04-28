@@ -1,29 +1,26 @@
 package util;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
-import java.awt.image.RescaleOp;
 
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 import sun.awt.image.ToolkitImage;
-import vooga.fighter.util.Paintable;
+
 
 /**
- * This class represents an image on the screen and adds some utility functions
- * to the Image class.
+ * This class represents an image on the screen and
+ * adds some utility functions to the Image class.
  * 
  * Note, Java only supports the formats: png, jpg, gif.
  * 
- * @author Robert C. Duvall, Dagbedji F Added get icon
- * @author Bill Muensterman and Wayne You added setImageToGrayscale and
- *         paintReverse
+ * @author Robert C. Duvall, Dagbedji F, edited by @author Yoshida, @author Xu Rui, @author
+ *         Bill Muensterman and @author Wayne You added paintReverse
  */
 public class Pixmap implements Paintable {
 	// OS-independent relative resource locations (like URLs)
@@ -133,5 +130,4 @@ public class Pixmap implements Paintable {
 	public Image getImg() {
 		return myImage;
 	}
-
 }
