@@ -30,32 +30,12 @@ public class PlayerXMLLoader {
         Element playerElement = myXMLTool.getElement(PLAYER_TAG);
         Element attributeParent = myXMLTool.getElement(ATTRIBUTES_TAG);
         Map<String, Element> attributes = myXMLTool.getChildrenElementMap(attributeParent);
+        AttributeXMLLoader attributeLoader = new AttributeXMLLoader(myXMLTool);
         List<AttributeFactory> attributeFactories = 
-                loadAttributeFactories(attributeParent);        
+                attributeLoader.loadAttributeFactories(attributeParent);        
         AttributeManagerFactory attributeManagerFactory = new AttributeManagerFactory(attributeFactories);
         AttributeManager attributeManager = attributeManagerFactory.makeAttributeManager();
         return new Player(controller, attributeManager);
         
     }
-    
-    private List<AttributeFactory> loadAttributeFactories (Element attributesElement) {
-        List<AttributeFactory> attributes = new ArrayList<AttributeFactory>();
-        
-        List<Element> subElements = myXMLTool.getChildrenList(attributesElement);
-        for (Element subElement : subElements) {
-            AttributeFactory attribute = loadAttributeFactory(subElement);
-            attributes.add(attribute);
-        }
-        return attributes;
-    }
-    
-    private AttributeFactory loadAttributeFactory (Element attributeElement) {
-        return new AttributeFactory(myXMLTool.getTagName(attributeElement),
-                                    loadAttributeValue(attributeElement));
-    }
-    
-    private double loadAttributeValue (Element valueElement) {
-        return Double.parseDouble(myXMLTool.getContent(valueElement));
-    }
-
 }

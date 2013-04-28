@@ -77,6 +77,7 @@ public class ActionXMLLoader {
      * 
      * @param actionsElement the XML element representing the <actions> tag
      * @param gameMap a game map object
+     * @param player a player object
      * @return a list of ActionFactory objects acting on the given GameElement
      */
     public List<ActionFactory> loadActionFactories (Element actionsElement, GameMap gameMap, 
