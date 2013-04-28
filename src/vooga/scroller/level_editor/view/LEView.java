@@ -46,9 +46,9 @@ public class LEView extends Window<LEWorkspaceView, LevelEditing, LEGridView, LE
      */
     public LEView (String language, LEController lEController, LETools t) {
         super(TITLE, language, lEController, t);
-        myController = lEController;
         registerMenu(makeSimulateMenu());
         registerMenu(makePreferencesMenu());
+        registerMenu(makeHelpMenu());
     }
 
     @Override
@@ -79,6 +79,18 @@ public class LEView extends Window<LEWorkspaceView, LevelEditing, LEGridView, LE
         return result;
     }
 
+
+    /**
+     * This menu handles actions that provide help resources to the user. 
+     * @return
+     */
+    protected JMenu makeHelpMenu () {
+        JMenu result = new JMenu(Window.getResources().getString("HelpMenu"));
+        result.setMnemonic(KeyEvent.VK_H);
+        result.add(new WebInfoAction());
+        result.setEnabled(true);
+        return result;
+    }
 
 
     /**

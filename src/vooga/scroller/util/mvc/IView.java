@@ -18,8 +18,7 @@ import vooga.scroller.util.mvc.vcFramework.IDomainDescriptor;
  * @author Dagbedji Fagnisse
  *
  */
-public interface IView<D extends IDomainDescriptor> 
-                         extends Renderer<D> {
+public interface IView<D extends IDomainDescriptor> {
 
     /**
      * Process a String representing a command.

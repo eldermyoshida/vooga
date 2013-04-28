@@ -3,7 +3,6 @@ package vooga.scroller.util.mvc.vcFramework;
 import java.awt.Image;
 import java.util.List;
 import java.util.Map;
-import vooga.scroller.util.Renderable;
 
 /**
  * Defines a general tools class that is necessary for workspace
