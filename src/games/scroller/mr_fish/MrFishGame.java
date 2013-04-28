@@ -2,11 +2,13 @@ package games.scroller.mr_fish;
 
 import games.scroller.mr_fish.splash.FishSplashPage;
 import games.scroller.mr_fish.sprites.FishLib;
+import games.scroller.mr_fish.sprites.collisions.VisitMethods;
 import games.scroller.mr_fish.sprites.player.MrFish;
 import arcade.games.ArcadeInteraction;
 import arcade.games.GameData;
 import arcade.games.UserGameData;
 import util.Location;
+import vooga.scroller.collision_manager.VisitLibrary;
 import vooga.scroller.level_management.splash_page.SplashPage;
 import vooga.scroller.model.ScrollerGame;
 import vooga.scroller.scrollingmanager.OmniScrollingManager;
@@ -87,6 +89,13 @@ public class MrFishGame extends ScrollerGame {
     @Override
     protected SplashPage setSplashPage () {
         return new FishSplashPage(FishLib.makePixmap(FishLib.IMAGE_LOCATION, SPLASH_DIR), 0, getDisplay(), getScrollingManager());
+    }
+
+
+    @Override
+    protected VisitLibrary setVisitLibrary () {
+        // TODO Auto-generated method stub
+        return new VisitMethods();
     }
 
 }

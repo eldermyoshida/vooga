@@ -18,10 +18,10 @@ import vooga.scroller.extra_resources.inventory.Inventory;
 import vooga.scroller.extra_resources.inventory.InventoryState;
 import vooga.scroller.extra_resources.inventory.Item;
 import vooga.scroller.scrollingmanager.ScrollingManager;
-import vooga.scroller.sprites.animation.movement.MoveDown;
-import vooga.scroller.sprites.animation.movement.MoveLeft;
-import vooga.scroller.sprites.animation.movement.MoveRight;
-import vooga.scroller.sprites.animation.movement.MoveUp;
+import vooga.scroller.sprites.animation.state_movement.MoveDownState;
+import vooga.scroller.sprites.animation.state_movement.MoveLeftState;
+import vooga.scroller.sprites.animation.state_movement.MoveRightState;
+import vooga.scroller.sprites.animation.state_movement.MoveUpState;
 import vooga.scroller.sprites.state.DefaultSpriteState;
 import vooga.scroller.sprites.superclasses.GameCharacter;
 import vooga.scroller.sprites.superclasses.Player;
@@ -82,10 +82,10 @@ public class MrFish extends Player {
         // TODO left, right, up, down, super, invincible
         
         // Movement states
-        this.addPossibleState(MoveLeft.STATE_ID, new MoveLeft(this, MOVE_LEFT, STAND_LEFT, SPEED));
-        this.addPossibleState(MoveRight.STATE_ID, new MoveRight(this, MOVE_RIGHT, STAND_RIGHT, SPEED));
-        this.addPossibleState(MoveUp.STATE_ID, new MoveUp(this, MOVE_UP, STAND_UP, SPEED));
-        this.addPossibleState(MoveDown.STATE_ID, new MoveDown(this, MOVE_DOWN, STAND_DOWN, SPEED));
+        this.addPossibleState(MoveLeftState.STATE_ID, new MoveLeftState(this, MOVE_LEFT, STAND_LEFT, SPEED));
+        this.addPossibleState(MoveRightState.STATE_ID, new MoveRightState(this, MOVE_RIGHT, STAND_RIGHT, SPEED));
+        this.addPossibleState(MoveUpState.STATE_ID, new MoveUpState(this, MOVE_UP, STAND_UP, SPEED));
+        this.addPossibleState(MoveDownState.STATE_ID, new MoveDownState(this, MOVE_DOWN, STAND_DOWN, SPEED));
 
         this.addPossibleState(InventoryState.STATE_ID, new InventoryState(this, myInventory));
         
@@ -125,30 +125,30 @@ public class MrFish extends Player {
     
     @InputMethodTarget(name = "leftstart")
     public void walkLeft() {
-        this.activateState(MoveLeft.STATE_ID);
+        this.activateState(MoveLeftState.STATE_ID);
     }
     
     @InputMethodTarget(name = "leftend")
     public void stopLeft() {        
-        this.deactivateState(MoveLeft.STATE_ID);
+        this.deactivateState(MoveLeftState.STATE_ID);
     }
     
     @InputMethodTarget(name = "upstart")
     public void walkUp() {
-        this.activateState(MoveUp.STATE_ID);
+        this.activateState(MoveUpState.STATE_ID);
         //this.activateState(TiltUp.STATE_ID);
     }
     
     @InputMethodTarget(name = "upend")
     public void stopUp() {
-        this.deactivateState(MoveUp.STATE_ID);
+        this.deactivateState(MoveUpState.STATE_ID);
         //this.deactivateState(TiltUp.STATE_ID);
 
     }
     
     @InputMethodTarget(name = "downstart")
     public void walkDown() {
-        this.activateState(MoveDown.STATE_ID);
+        this.activateState(MoveDownState.STATE_ID);
         //this.activateState(TiltDown.STATE_ID);
 
     }
@@ -157,17 +157,17 @@ public class MrFish extends Player {
     public void stopDown() {
         //this.deactivateState(TiltDown.STATE_ID);
 
-        this.deactivateState(MoveDown.STATE_ID);
+        this.deactivateState(MoveDownState.STATE_ID);
     }
     
     @InputMethodTarget(name = "rightstart")
     public void walkRight() {
-        this.activateState(MoveRight.STATE_ID);
+        this.activateState(MoveRightState.STATE_ID);
     }
     
     @InputMethodTarget(name = "rightend")
     public void stopRight() {
-        this.deactivateState(MoveRight.STATE_ID);
+        this.deactivateState(MoveRightState.STATE_ID);
     }
     
     @InputMethodTarget(name = "fire")

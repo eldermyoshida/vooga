@@ -10,8 +10,8 @@ import vooga.scroller.level_management.IInputListener;
 import vooga.scroller.marioGame.spritesDefinitions.MarioLib;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.Sprite;
-import vooga.scroller.sprites.animation.movement.MoveLeft;
-import vooga.scroller.sprites.animation.movement.MoveRight;
+import vooga.scroller.sprites.animation.state_movement.MoveLeftState;
+import vooga.scroller.sprites.animation.state_movement.MoveRightState;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.ISpriteView;
 import vooga.scroller.util.Pixmap;
@@ -74,8 +74,8 @@ public class Mario extends Player implements IInputListener{
      * Initialize all  possible states, including movement for mario.
      */
     private void intializeStates () {
-        this.addPossibleState(MoveLeft.STATE_ID, new MoveLeft(this, MOVE_LEFT, STAND_LEFT, SPEED));
-        this.addPossibleState(MoveRight.STATE_ID, new MoveRight(this, MOVE_RIGHT, STAND_RIGHT, SPEED));
+        this.addPossibleState(MoveLeftState.STATE_ID, new MoveLeftState(this, MOVE_LEFT, STAND_LEFT, SPEED));
+        this.addPossibleState(MoveRightState.STATE_ID, new MoveRightState(this, MOVE_RIGHT, STAND_RIGHT, SPEED));
     }
 
     @Override
@@ -116,23 +116,23 @@ public class Mario extends Player implements IInputListener{
     @InputMethodTarget(name = "leftstart")
     public void walkLeft() {
         System.out.println("start");
-        this.activateState(MoveLeft.STATE_ID);
+        this.activateState(MoveLeftState.STATE_ID);
     }
     
     @InputMethodTarget(name = "leftend")
     public void stopLeft() {        
         System.out.println("end");
-        this.deactivateState(MoveLeft.STATE_ID);
+        this.deactivateState(MoveLeftState.STATE_ID);
     }
     
     @InputMethodTarget(name = "rightstart")
     public void walkRight() {
-        this.activateState(MoveRight.STATE_ID);
+        this.activateState(MoveRightState.STATE_ID);
     }
     
     @InputMethodTarget(name = "rightend")
     public void stopRight() {
-        this.deactivateState(MoveRight.STATE_ID);
+        this.deactivateState(MoveRightState.STATE_ID);
     }
     
     @InputMethodTarget(name = "jump")
