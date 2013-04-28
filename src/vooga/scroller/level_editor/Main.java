@@ -21,7 +21,7 @@ public class Main {
      */
     public static void main (String[] args) {
 
-        String backgroundPath = "/games/scroller/mrFish/images/";
+        String backgroundPath = "/games/scroller/mr_fish/images/";
         String[] filenames = new String[] { "underwater1.jpg",
                                            "underwater2.jpg",
                                            "underwater3.jpg",
