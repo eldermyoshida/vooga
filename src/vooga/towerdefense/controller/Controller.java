@@ -20,7 +20,7 @@ import vooga.towerdefense.controller.modes.BuildMode;
 import vooga.towerdefense.controller.modes.ControlMode;
 import vooga.towerdefense.controller.modes.SelectMode;
 import vooga.towerdefense.factories.elementfactories.GameElementFactory;
-import vooga.towerdefense.gameeditor.gameloader.GameLoader;
+import vooga.towerdefense.gameeditor.gameloader.xmlloaders.GameLoader;
 import vooga.towerdefense.gameelements.GameElement;
 import vooga.towerdefense.model.GameLoop;
 import vooga.towerdefense.model.GameMap;

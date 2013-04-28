@@ -14,7 +14,7 @@ import org.w3c.dom.Element;
 import util.Location;
 import util.Pixmap;
 import util.XMLTool;
-import vooga.towerdefense.gameeditor.gamemaker.GameEditorController;
+import vooga.towerdefense.gameeditor.controller.GameEditorController;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.Tile;
 import vooga.towerdefense.model.tiles.factories.DefaultTileFactory;

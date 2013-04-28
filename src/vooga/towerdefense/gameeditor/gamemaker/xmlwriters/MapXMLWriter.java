@@ -2,7 +2,6 @@ package vooga.towerdefense.gameeditor.gamemaker.xmlwriters;
 
 import org.w3c.dom.Element;
 import util.XMLTool;
-import vooga.towerdefense.gameeditor.gamemaker.XMLWriter;
 
 /**
  * MapXMLWriter writes the map information to the

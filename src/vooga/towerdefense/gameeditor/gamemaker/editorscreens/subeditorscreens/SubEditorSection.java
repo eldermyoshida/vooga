@@ -1,4 +1,4 @@
-package vooga.towerdefense.gameeditor.gamemaker;
+package vooga.towerdefense.gameeditor.gamemaker.editorscreens.subeditorscreens;
 
 import java.awt.BorderLayout;
 import java.awt.event.MouseEvent;

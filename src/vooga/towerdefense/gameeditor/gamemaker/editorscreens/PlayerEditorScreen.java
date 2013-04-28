@@ -1,8 +1,10 @@
-package vooga.towerdefense.gameeditor.gamemaker;
+package vooga.towerdefense.gameeditor.gamemaker.editorscreens;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
+import vooga.towerdefense.gameeditor.controller.GameEditorController;
+import vooga.towerdefense.gameeditor.gamemaker.editorscreens.subeditorscreens.AttributeSection;
 
 /**
  * PlayerEditorScreen helps the game developer edit

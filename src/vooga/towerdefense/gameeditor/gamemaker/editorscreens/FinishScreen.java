@@ -1,8 +1,9 @@
-package vooga.towerdefense.gameeditor.gamemaker;
+package vooga.towerdefense.gameeditor.gamemaker.editorscreens;
 
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import javax.swing.JButton;
+import vooga.towerdefense.gameeditor.controller.GameEditorController;
 
 
 /**

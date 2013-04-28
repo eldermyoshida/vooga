@@ -1,16 +1,10 @@
-package vooga.towerdefense.gameeditor.gamemaker;
+package vooga.towerdefense.gameeditor.gamemaker.xmlwriters;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.w3c.dom.Element;
 import util.XMLTool;
-import vooga.towerdefense.gameeditor.gamemaker.xmlwriters.GameElementXMLWriter;
-import vooga.towerdefense.gameeditor.gamemaker.xmlwriters.LevelXMLWriter;
-import vooga.towerdefense.gameeditor.gamemaker.xmlwriters.MapXMLWriter;
-import vooga.towerdefense.gameeditor.gamemaker.xmlwriters.PlayerXMLWriter;
-import vooga.towerdefense.gameeditor.gamemaker.xmlwriters.RuleXMLWriter;
-import vooga.towerdefense.gameeditor.gamemaker.xmlwriters.ViewXMLWriter;
 
 
 /**
