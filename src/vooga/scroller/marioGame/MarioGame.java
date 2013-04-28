@@ -5,9 +5,11 @@ import arcade.games.ArcadeInteraction;
 import arcade.games.GameData;
 import arcade.games.UserGameData;
 import util.Location;
+import vooga.scroller.collision_manager.VisitLibrary;
 import vooga.scroller.level_management.splash_page.SplashPage;
 import vooga.scroller.marioGame.splash_page.MarioSplashPage;
 import vooga.scroller.marioGame.spritesDefinitions.MarioLib;
+import vooga.scroller.marioGame.spritesDefinitions.collisions.MarioVisitMethods;
 import vooga.scroller.marioGame.spritesDefinitions.players.Mario;
 import vooga.scroller.model.ScrollerGame;
 import vooga.scroller.scrollingmanager.OmniScrollingManager;
@@ -60,7 +62,6 @@ public class MarioGame extends ScrollerGame {
     }
 
 
-
     @Override
     protected ScrollingManager setScrollingManager () {
         return new UniScrollingManager(Direction.LEFT);
@@ -96,6 +97,12 @@ public class MarioGame extends ScrollerGame {
     @Override
     protected SplashPage setSplashPage () {
         return new MarioSplashPage(MarioLib.makePixmap("MARIO SPLASH.png"), 0, getDisplay(), getScrollingManager());
+    }
+
+
+    @Override
+    protected VisitLibrary setVisitLibrary () {
+        return new MarioVisitMethods();
     }
 
 }

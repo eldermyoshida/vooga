@@ -1,16 +1,13 @@
 package vooga.scroller.model;
 
 import java.awt.BorderLayout;
-import java.awt.GraphicsConfiguration;
-import java.util.List;
 import javax.swing.JFrame;
-import vooga.scroller.level_editor.Level;
+import vooga.scroller.collision_manager.VisitLibrary;
 import vooga.scroller.level_editor.controllerSuite.LEController;
 import vooga.scroller.level_editor.library.BackgroundLib;
 import vooga.scroller.level_editor.library.ISpriteLibrary;
 import vooga.scroller.level_editor.model.LevelParser;
 import vooga.scroller.level_management.LevelManager;
-import vooga.scroller.scrollingmanager.OmniScrollingManager;
 import vooga.scroller.level_management.splash_page.SplashPage;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.superclasses.Player;
@@ -35,6 +32,7 @@ public abstract class ScrollerGame extends Game {
     private LevelManager myLevelManager;
     private String[] myLevels;
     private SplashPage mySplashPage;
+    private static VisitLibrary myVisitLibrary;
 
     public ScrollerGame (ArcadeInteraction arcade) {
         super(arcade);
@@ -44,6 +42,7 @@ public abstract class ScrollerGame extends Game {
     
     private void intializeInstanceVariables() {
         myScrollingManager = setScrollingManager();
+        myVisitLibrary = setVisitLibrary();
         myDisplay = new GameView(PlatformerConstants.DEFAULT_WINDOW_SIZE, myScrollingManager);
         myPlayer = setPlayer(myScrollingManager,myDisplay);
         myLevelsFilePaths = setLevelFileNamesPath();
@@ -52,7 +51,8 @@ public abstract class ScrollerGame extends Game {
     }
 
     protected abstract ScrollingManager setScrollingManager ();
-    
+    protected abstract VisitLibrary setVisitLibrary ();
+
     protected abstract Player setPlayer (ScrollingManager sm, GameView gameView);
     
     protected abstract String setTitle ();
@@ -62,6 +62,7 @@ public abstract class ScrollerGame extends Game {
     protected abstract String setLevelsDirPath();
     
     protected abstract SplashPage setSplashPage();
+    
     
     private String[] setLevelFileNamesPath() {
         String[] res = new String[setLevelFileNames().length];
@@ -103,6 +104,10 @@ public abstract class ScrollerGame extends Game {
     
     protected ScrollingManager getScrollingManager(){
         return myScrollingManager;
+    }
+    
+    public static VisitLibrary getVisitMethods() {
+        return myVisitLibrary;
     }
     
 

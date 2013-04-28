@@ -1,4 +1,4 @@
-package vooga.scroller.sprites.animation.movement;
+package vooga.scroller.sprites.animation.state_movement;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
@@ -7,7 +7,7 @@ import vooga.scroller.sprites.Sprite;
 import vooga.scroller.sprites.state.SpriteState;
 import vooga.scroller.util.ISpriteView;
 
-public class SpriteMovement extends SpriteState<Sprite> {
+public class SpriteMovementState extends SpriteState<Sprite> {
     
     private static final int PRIORITY = 1;
 
@@ -15,7 +15,7 @@ public class SpriteMovement extends SpriteState<Sprite> {
     private double myDirection;
     private double mySpeed;
     
-    public SpriteMovement(Sprite sprite, ISpriteView view, double direction, double speed){
+    public SpriteMovementState(Sprite sprite, ISpriteView view, double direction, double speed){
         super(sprite);
         myView = view;
         myDirection = direction;

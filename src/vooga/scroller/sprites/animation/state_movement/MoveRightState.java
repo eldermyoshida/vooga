@@ -1,16 +1,16 @@
-package vooga.scroller.sprites.animation.movement;
+package vooga.scroller.sprites.animation.state_movement;
 
 import vooga.scroller.sprites.Sprite;
 import vooga.scroller.util.ISpriteView;
 
-public class MoveRight extends SpriteMovement {
+public class MoveRightState extends SpriteMovementState {
     
     public static final int STATE_ID = -5;
 
     
     private ISpriteView myStandView;
 
-    public MoveRight (Sprite sprite, ISpriteView move, ISpriteView stand, double speed) {
+    public MoveRightState (Sprite sprite, ISpriteView move, ISpriteView stand, double speed) {
         super(sprite, move, Sprite.RIGHT_DIRECTION, speed);
         myStandView = stand;
     }
