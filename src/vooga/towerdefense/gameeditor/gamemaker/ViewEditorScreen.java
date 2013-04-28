@@ -35,7 +35,8 @@ public class ViewEditorScreen extends GameEditorScreen {
     /**
      * next screen constant.
      */
-    private static final String NEXT_SCREEN_NAME = "mapeditor.MapEditorScreen";
+   // private static final String NEXT_SCREEN_NAME = "mapeditor.MapEditorScreen";
+    private static final String NEXT_SCREEN_NAME = "PlayerEditorScreen";
     /**
      * package name for the available game screens.
      */
