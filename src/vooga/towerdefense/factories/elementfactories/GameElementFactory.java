@@ -181,7 +181,7 @@ public class GameElementFactory {
         actions.add(new MoveToTarget(projectile.getCenter(),
                                      target.getCenter(), projectile.getAttributeManager()
                                              .getAttribute(AttributeConstantsEnum.MOVE_SPEED
-                                                                   .toString())));
+                                                           .getStatusCode())));
         projectile.addActions(actions);
         return projectile;
     }

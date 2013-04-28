@@ -3,15 +3,15 @@
 		<dimension>1100, 800</dimension>
 		<MapScreen>
 			<dimension>800, 600</dimension>
-			<location>NORTH</location>
+			<location>North</location>
 		</MapScreen>
 		<ShopScreen>
 			<dimension>800, 200</dimension>
-			<location>SOUTH</location>
+			<location>South</location>
 		</ShopScreen>
 		<GameStatsScreen>
 			<dimension>200, 200</dimension>
-			<location>EAST</location>
+			<location>East</location>
 		</GameStatsScreen>
 	</view>
 	<map>
