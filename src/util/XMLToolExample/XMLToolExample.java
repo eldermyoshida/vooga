@@ -1,6 +1,7 @@
 package util.XMLToolExample;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.w3c.dom.Element;
 import util.XMLTool;
@@ -68,14 +69,13 @@ public class XMLToolExample {
         Map<String, String> actorMap = new HashMap<String, String>();
         actorMap.put("name", "Robert S. Duvall");
         actorMap.put("fingers", "10");
-        actorMap.put("eyes", "2");      
-        //Creating a HashMap with the number of artistic awards of Robert S. Duvall...
+        actorMap.put("eyes", "2");
+        // Creating a HashMap with the number of artistic awards of Robert S. Duvall...
         Map<String, String> awardsMap = new HashMap<String, String>();
         awardsMap.put("oscar", "1");
         awardsMap.put("emmy", "2");
         awardsMap.put("goldenGlobe", "4");
         awardsMap.put("bafta", "1");
-
         
         /*
          * Creating an element from a Map. This method is particularly useful when working with
@@ -106,23 +106,40 @@ public class XMLToolExample {
          */
         Element awardsElement = myDoc.makeElement("awards");
         myDoc.addChildrenFromMap(awardsElement, awardsMap);
-        myDoc.addChild(actorElement, awardsElement);     
+        myDoc.addChild(actorElement, awardsElement);
         
     }
     
     private static void readFile () {
+        /*
+         * The reading process is initialized with the constructor of the XMLTool. The XMLTool will
+         * automatically read and translate the XML file at the destination.
+         */
         myReadDoc = new XMLTool(SAVING_LOCATION + FILENAME);
         
-        // getting one unique element form the XML file.
+        /*
+         * There are many different ways to find and get data from the XMl file using the XMLTool.
+         * This tool can handle getting elements from a tag in the entire document or in a parent
+         * element in the format of a single element or a List of elements. It can get the content
+         * from element in various forms.
+         */
+        
+        // getting one unique element from the XML file.
         Element bobElement = myReadDoc.getElement("RobertC");
-        Element languageElement = myReadDoc.getElement("language");
-        // getting the value from an element.
-        System.out.println("The content of the element " + languageElement.getTagName() + " is: " +
-                           languageElement.getTextContent());
-        // It is also possible to get the content of an element using the XMLTool.
-        // Note that the XMLTool has a slightly different implementation.
+        
+        /*
+         * If you are worried there could be more than one instance of that variable in the same
+         * file, use ask the tool to return a list, as follows.
+         */
+        List<Element> humanElements = myReadDoc.getElementList("Human");
+        
+        /*
+         * It is also possible to get the content of an element using the XMLTool.
+         * "language" is the tag.
+         */
         System.out.println("The content of the element " + "language" + " is: " +
                            myReadDoc.getContent("language"));
+        
         // The XMLTool also lets you get a Map that was initially added to the file.
         Map<String, String> bobMap = new HashMap<String, String>();
         bobMap = myReadDoc.getChildrenStringMap(bobElement);
