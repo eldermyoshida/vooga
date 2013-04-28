@@ -4,7 +4,7 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 import util.Location;
-import util.Pixmap;
+import vooga.towerdefense.util.Pixmap;
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.movement.MoveToTarget;
 import vooga.towerdefense.attributes.AttributeConstantsEnum;

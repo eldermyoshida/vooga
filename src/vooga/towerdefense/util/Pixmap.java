@@ -1,13 +1,10 @@
-package util;
+package vooga.towerdefense.util;
 
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
-import java.awt.image.BufferedImage;
-
 import javax.swing.ImageIcon;
 
 
@@ -17,14 +14,11 @@ import javax.swing.ImageIcon;
  * 
  * Note, Java only supports the formats: png, jpg, gif.
  * 
- * @author Robert C. Duvall, Dagbedji F, edited by @author Yoshida, @author Xu Rui, @author
- *         Bill Muensterman and @author Wayne You added paintReverse
- *         @author James Wei added getSize()
+ * @author Robert C. Duvall, Dagbedji F, edited by Elder M. Yoshida and Xu Rui.
  */
-public class Pixmap implements Paintable {
+public class Pixmap {
     private java.awt.Image myImage;
-    private String myFileName;
-    private static final String RESOURCE_LOCATION = "/vooga/";
+    private String myFilePath;
     
     /**
      * Create an image from the given path including filename.
@@ -32,11 +26,11 @@ public class Pixmap implements Paintable {
      * If filePath = "/"+pictureFileNameIncludingFileType, this object will look for a
      * .png/.jpg/.gif file inside src.
      * 
-     * @param fileName Relative resource location including its fileName.
+     * @param filePath Relative resource location including its fileName.
      *        Example: filePath = "/" + "car.png" will look for an image car.png in the src folder.
      */
-    public Pixmap(String fileName) {
-        setImage(fileName);
+    public Pixmap (String filePath) {
+        setImage(filePath);
     }
     
     /**
@@ -44,8 +38,8 @@ public class Pixmap implements Paintable {
      * 
      * @param other A <code>Pixmap</code> to be copied.
      */
-    public Pixmap(Pixmap other) {
-        this(other.myFileName);
+    public Pixmap (Pixmap other) {
+        this(other.myFilePath);
     }
     
     /**
@@ -54,9 +48,9 @@ public class Pixmap implements Paintable {
      * @param filePath Relative resource location including its fileName.
      *        Example: filePath = "/" + "car.png" will look for an image car.png in the src folder.
      */
-    public void setImage (String fileName) {
-        myImage = new ImageIcon(getClass().getResource(RESOURCE_LOCATION + fileName)).getImage();
-        myFileName = fileName;
+    public void setImage (String filePath) {
+        myImage = new ImageIcon(getClass().getResource(filePath)).getImage();
+        myFilePath = filePath;
     }
     
     /**
@@ -92,25 +86,6 @@ public class Pixmap implements Paintable {
     }
     
     /**
-     * Describes how to draw the image on the screen reversed horizontally.
-     * 
-     * @param pen A {@link Graphics2D} object that allows the picture to be painted.
-     * @param center A {@link Point2D} for the location of the center of the picture to be painted.
-     * @param size The size (width, length) of the image.
-     */
-    public void paintReverse (Graphics2D pen, Point2D center, Dimension size) {
-        // Get the current transform
-        AffineTransform saveAT = pen.getTransform();
-        // Perform transformation
-        pen.transform(AffineTransform.getScaleInstance(-1, 1));
-        // Render
-        // g2d.draw(...);
-        paint(pen, center, size);
-        // Restore original transform
-        pen.setTransform(saveAT);
-    }
-    
-    /**
      * Gets the image of this <code>Pixmap</code> as a <code>java.awt.Image</code>
      * 
      * @return the image of this <code>Pixmap</code> as a <code>java.awt.Image</code>
@@ -120,13 +95,12 @@ public class Pixmap implements Paintable {
     }
     
     /**
-     * Returns a Dimension representing the size of the pixmap.
-     * @return
+     * Gets the file path of the image of this Pixmap
+     * @return the file path of the image of this Pixmap
      */
-    public Dimension getSize() {
-        int width = myImage.getWidth(null);
-        int height = myImage.getHeight(null);
-        return new Dimension(width, height);
+    
+    public String getFilePath(){
+    	return myFilePath;
     }
     
 }

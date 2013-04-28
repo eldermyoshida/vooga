@@ -11,7 +11,7 @@ import java.util.Scanner;
 import org.w3c.dom.Element;
 
 import util.Location;
-import util.Pixmap;
+import vooga.towerdefense.util.Pixmap;
 import util.XMLTool;
 import vooga.towerdefense.gameeditor.controller.GameEditorController;
 import vooga.towerdefense.model.GameMap;

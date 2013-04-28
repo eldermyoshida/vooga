@@ -237,13 +237,13 @@ public class GameMap implements IGameLoop {
      * @return a list of locations that players can start at
      */
     public List<Location3D> getPlayerLocations () {
-        return myPlayerLocations;
+     return myPlayerLocations;
     }
     
     /**
      * Adds a location that a player can start at on the map. 
      */
     protected void addPlayerLocation(Location3D loc) {
-        
+        myPlayerLocations.add(loc);
     }
 }

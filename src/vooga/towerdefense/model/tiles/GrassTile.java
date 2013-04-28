@@ -2,7 +2,7 @@ package vooga.towerdefense.model.tiles;
 
 import java.awt.Dimension;
 import util.Location;
-import util.Pixmap;
+import vooga.towerdefense.util.Pixmap;
 import vooga.towerdefense.model.Tile;
 
 /**

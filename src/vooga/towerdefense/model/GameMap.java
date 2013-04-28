@@ -9,7 +9,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import util.Location;
-import util.Pixmap;
+import vooga.towerdefense.util.Pixmap;
 import vooga.rts.util.Vector;
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.movement.FollowPath;

@@ -11,7 +11,6 @@ import java.util.List;
  * Creates and updates user table
  * this clearly needs to be refactored because there is duplicate code
  * @author Natalia Carvalho
- * @editor Joshua Waldman
  */
 public class ScoreTable extends Table {
 
@@ -46,7 +45,8 @@ public class ScoreTable extends Table {
             myPreparedStatement.executeUpdate();
         }
         catch (SQLException e) {
-            writeErrorMessage("Error adding new high score in ScoreTable.java");
+            e.printStackTrace();
+            //writeErrorMessage("Error adding new high score in ScoreTable.java @ Line 54");
         }
     }
     
@@ -73,7 +73,7 @@ public class ScoreTable extends Table {
             return scores;
         }
         catch (SQLException e) {
-            writeErrorMessage("Error getting score for game in ScoreTable.java");
+            writeErrorMessage("Error getting score for game in ScoreTable.java @ Line 78");
         }
         return null;
     }
@@ -96,7 +96,7 @@ public class ScoreTable extends Table {
             }
         }
         catch (SQLException e) {
-            writeErrorMessage("Error printing entire table in ScoreTable.java");
+            writeErrorMessage("Error printing entire table in ScoreTable.java @ Line 99");
         }
     }
 

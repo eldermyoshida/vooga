@@ -118,7 +118,8 @@ public class MapPanel extends JComponent {
         myMap.paint((Graphics2D)g);
         
         for(Location loc : myMap.getAllPlayers().values()) {
-            g.drawImage(myPlayerImage, (int)loc.getX(), (int)loc.getY(), null);
+            Point2D view = Camera.instance().worldToView(new Location3D(loc));
+            g.drawImage(myPlayerImage, (int)view.getX(), (int)view.getY(), null);
         }
     }
 
@@ -237,9 +238,8 @@ public class MapPanel extends JComponent {
      * place player on the map according to the give location3D
      * @param loc
      */
-    public void placePlayer (Location3D loc) {
-        Point2D loc1 = Camera.instance().worldToView(loc);
-        myMap.addPlayer(new Location(loc1.getX(),loc1.getY()));
+    public void placePlayer (Location3D loc) {        
+        myMap.addPlayer(new Location(loc.getX(),loc.getY()));
         repaint();
     }
     
