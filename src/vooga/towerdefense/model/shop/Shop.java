@@ -3,13 +3,11 @@ package vooga.towerdefense.model.shop;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
-import vooga.towerdefense.factories.definitions.DefinitionConstants;
+import util.Location;
 import vooga.towerdefense.factories.elementfactories.GameElementFactory;
 import vooga.towerdefense.model.GameMap;
-import util.Location;
 
 /**
  * The Shop is a container for a list of ShopItems that can be purchased by the
@@ -33,6 +31,7 @@ public class Shop {
 	}
 
 	private void initShopItems(GameMap map, List<GameElementFactory> factories) {
+		
 		int xC = 10;
 		int yC = 10;
 		for (int i = 0; i < factories.size(); ++i) {

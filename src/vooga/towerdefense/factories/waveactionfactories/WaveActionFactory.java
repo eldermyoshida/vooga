@@ -1,6 +1,7 @@
 package vooga.towerdefense.factories.waveactionfactories;
 
 import java.util.Map;
+
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.waveactions.WaveAction;
 import vooga.towerdefense.factories.actionfactories.ActionFactory;
@@ -24,6 +25,7 @@ public class WaveActionFactory extends ActionFactory {
 		myNumUnits = Integer.parseInt(numUnits);
 		myCooldown = Integer.parseInt(cooldown);
 		myFactory = ourGEFactories.get(factory);		
+		
 	}
 	
 	@Override

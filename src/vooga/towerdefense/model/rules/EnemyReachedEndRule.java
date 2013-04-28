@@ -28,8 +28,9 @@ public class EnemyReachedEndRule extends Rule {
 	@Override
 	protected boolean condition() {
 		for(GameElement e : myModel.getMap().getAllGameElements()) {
-			//TODO: figure out affiliation stuff
-			//if(e.getAttributeManager().getAttribute("affilitation") == "enemy") {
+			//TODO: fix the affiliation code
+			////if the element's affiliation is 1, aka, it is an enemy unit
+			//if( Math.floor(e.getAttributeManager().getAttribute("affilitation").getValue()) == 1) {
 				Tile enemyTile = myModel.getMap().getTile(e.getCenter());
 				Tile endTile = myModel.getMap().getTile(myModel.getMap().getEndLocation());
 				if(enemyTile == endTile)
@@ -46,8 +47,6 @@ public class EnemyReachedEndRule extends Rule {
 		for(GameElement e: enemiesAtEnd) {
 			Attribute health = myModel.getPlayer().getAttributeManager().getAttribute(AttributeConstants.HEALTH);
 			health.setValue(health.getValue()-HEALTH_COST);
-			System.out.println("LOST 1 LIFE!");
-			System.out.println("lives: " + health.getValue());
 			myModel.getMap().removeGameElement(e);
 		}
 		enemiesAtEnd.clear();
