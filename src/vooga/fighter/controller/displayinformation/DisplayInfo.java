@@ -44,7 +44,8 @@ public class DisplayInfo extends Observable implements ViewDataSource{
     /**
      * @return object location at list index
      */
-    public Paintable getPaintable (int index) {
+    @Override
+	public Paintable getPaintable (int index) {
         if (index >= myGamePaintables.size()) {
             return myHUDPaintables.get(index - myGamePaintables.size());
         }
@@ -54,7 +55,8 @@ public class DisplayInfo extends Observable implements ViewDataSource{
     /**
      * Returns location
      */
-    public Location getLocation(int index) {
+    @Override
+	public Location getLocation(int index) {
         if (index >= myGamePaintables.size()) {
             return new Location(0,0);
         }
@@ -64,7 +66,8 @@ public class DisplayInfo extends Observable implements ViewDataSource{
     /**
      * @return size of sprite at list index
      */
-    public Dimension getSize (int index) {
+    @Override
+	public Dimension getSize (int index) {
         if (index >= myGamePaintables.size()) {
             return new Dimension(0,0);
         }
@@ -150,7 +153,8 @@ public class DisplayInfo extends Observable implements ViewDataSource{
     /**
      * Returns numbre of objects
      */
-    public int ObjectNumber (){
+    @Override
+	public int ObjectNumber (){
         return myGamePaintables.size() + myHUDPaintables.size();
     }
 
@@ -197,7 +201,8 @@ public class DisplayInfo extends Observable implements ViewDataSource{
     /**
      * Returns effect at index
      */
-    public List<Integer> getImageEffects(int index) {
+    @Override
+	public List<Integer> getImageEffects(int index) {
         if (index >= myGamePaintables.size()) {
             return new ArrayList<Integer>();
         }

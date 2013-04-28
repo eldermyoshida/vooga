@@ -10,11 +10,8 @@ import arcade.games.ArcadeInteraction;
 import arcade.games.Game;
 import arcade.games.GameData;
 import arcade.games.UserGameData;
-import vooga.fighter.model.loaders.MapLoader;
-import vooga.fighter.view.Canvas;
 import vooga.fighter.controller.ControllerManager;
 import vooga.fighter.controller.gameinformation.GameInfo;
-import java.util.Map;
 
 /**
  * 

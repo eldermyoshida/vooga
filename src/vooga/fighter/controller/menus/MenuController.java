@@ -1,8 +1,6 @@
 package vooga.fighter.controller.menus;
 
-import util.Location;
 import util.input.AlertObject;
-import util.input.Input;
 import util.input.InputClassTarget;
 import util.input.InputMethodTarget;
 import util.input.PositionObject;
@@ -11,21 +9,14 @@ import vooga.fighter.controller.displayinformation.DisplayLoopInfo;
 import vooga.fighter.controller.gameinformation.GameInfo;
 import vooga.fighter.controller.interfaces.ControllerDelegate;
 import vooga.fighter.controller.interfaces.ModeCondition;
-import vooga.fighter.controller.levels.OneVOneController;
 import vooga.fighter.model.*;
-import vooga.fighter.model.objects.CharacterObject;
-import vooga.fighter.model.objects.MenuObject;
 import vooga.fighter.model.objects.MouseClickObject;
 import vooga.fighter.model.objects.MouseObject;
 import vooga.fighter.util.CollisionManager;
-import vooga.fighter.util.Paintable;
 import vooga.fighter.view.Canvas;
 
-import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
-import util.input.*;
-import java.util.ResourceBundle;
 
 
 /**
@@ -73,11 +64,13 @@ public abstract class MenuController extends Controller {
     /**
      * Loads the mode associated with MenuController (MenuMode)
      */
-    public void loadMode() {
+    @Override
+	public void loadMode() {
         Mode mode = new MenuMode(new CollisionManager(), super.getName());
         super.setMode(mode);
     }
-    public void initializeMode () {
+    @Override
+	public void initializeMode () {
         MenuGrid grid = new MenuGrid(getMode().getName(), getMode(), getHardFilePath());
         getMode().setMenuGrid(grid);
         getMode().setMenuObjects(grid.getMenuObjects());
@@ -105,7 +98,8 @@ public abstract class MenuController extends Controller {
     /**
      * 
      */
-    public void developerUpdate(){
+    @Override
+	public void developerUpdate(){
 
     }
 
@@ -134,15 +128,18 @@ public abstract class MenuController extends Controller {
         if(getMode().inputReady()) getMode().setChoice(getMode().getCurrentMenu().getValue());
     }
 
-    public MenuMode getMode(){
+    @Override
+	public MenuMode getMode(){
         return (MenuMode) super.getMode();
     }
 
-    public Controller getController() {
+    @Override
+	public Controller getController() {
         return this;
     }
 
-    public void removeListener(){
+    @Override
+	public void removeListener(){
         super.removeListener();
         getInput().removeListener(this);
     }
@@ -161,7 +158,8 @@ public abstract class MenuController extends Controller {
     }
 
     ModeCondition endcondition = new ModeCondition() {
-        public boolean checkCondition(Mode mode) {
+        @Override
+		public boolean checkCondition(Mode mode) {
             return !("".equals(getMode().peekChoice()));
         }
     };

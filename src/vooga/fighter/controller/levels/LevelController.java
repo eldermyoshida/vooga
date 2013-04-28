@@ -59,7 +59,7 @@ public abstract class LevelController extends Controller {
         myResource = ResourceBundle.getBundle(myScorePathway);
         getInput().replaceMappingResourcePath(myInputPathway);
         getInput().addListenerTo(this);
-        GameLoopInfo gameLoopInfo = new GameLoopInfo((LevelMode) getMode());
+        GameLoopInfo gameLoopInfo = new GameLoopInfo(getMode());
         setLoopInfo(gameLoopInfo);
         myWinConditions =new ArrayList<ModeCondition>();
         myUniqueConditions =new ArrayList<ModeCondition>();
@@ -70,15 +70,17 @@ public abstract class LevelController extends Controller {
     /**
      * gets proper mode and sets it via hierarchy to this controller's mode
      */
-    public void loadMode() {
+    @Override
+	public void loadMode() {
         LevelMode temp = new LevelMode(new CollisionManager());
-        super.setMode((Mode) temp);
+        super.setMode(temp);
         myInputObjects = temp.getCharacterObjects();
     }
     /**
      * Initializes all Mode objects, called by setMode in Contoller
      */
-    public void initializeMode(){
+    @Override
+	public void initializeMode(){
         loadMap(getGameInfo().getMapName());
         loadCharacters(getGameInfo().getCharacters(), getMode().getMap().getStartPositions());
         loadHealth();
@@ -93,19 +95,22 @@ public abstract class LevelController extends Controller {
     /**
      * returns the Current Level Mode
      */
-    public LevelMode getMode(){
+    @Override
+	public LevelMode getMode(){
         return (LevelMode) super.getMode();
     }
     /**
      * returns this controller
      */
-    public Controller getController() {
+    @Override
+	public Controller getController() {
         return this;
     }
     /**
      * removes listener from this and super class
      */
-    public void removeListener(){
+    @Override
+	public void removeListener(){
         super.removeListener();
         getInput().removeListener(this);
     }
@@ -151,7 +156,8 @@ public abstract class LevelController extends Controller {
      * sets of conditions that could possible apply and execute appropriately 
      * depending on the condition
      */
-    public void checkConditions(){
+    @Override
+	public void checkConditions(){
         for(ModeCondition condition : getWinConditions()){
             if(condition.checkCondition(getMode())) getManager().notifyEndCondition(myResource.getString(SCORE));
         }
@@ -161,7 +167,8 @@ public abstract class LevelController extends Controller {
      * Anonymous Class that is fed into the winConditions via setupConditions
      */
     ModeCondition wincondition = new ModeCondition() {
-    	public boolean checkCondition(Mode mode) {
+    	@Override
+		public boolean checkCondition(Mode mode) {
     		LevelMode levelmode = (LevelMode) mode;
     		boolean change = false;
     		    for (int i = 0; i < levelmode.getCharacterObjects().size(); i++) {
@@ -184,7 +191,8 @@ public abstract class LevelController extends Controller {
      * as it is called in the update loop, so that they can insert anything they
      * would like in the update loop
      */
-    protected void developerUpdate(){
+    @Override
+	protected void developerUpdate(){
     }
 
 

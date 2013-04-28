@@ -59,7 +59,8 @@ public class MapEditorController extends Controller{
     /**
      * loads relevant data into this controller and returns it
      */
-    public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo,
+    @Override
+	public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo,
                                     String pathway) {
         Controller controller = new MainMenuController(name, frame, manager, gameinfo, pathway);
         return controller;
@@ -68,7 +69,8 @@ public class MapEditorController extends Controller{
     /**
      * notifies the manager that this state has completed
      */
-    public void notifyEndCondition (String endCondition) {
+    @Override
+	public void notifyEndCondition (String endCondition) {
         removeListener();
         getManager().notifyEndCondition(endCondition);
     }
@@ -76,29 +78,33 @@ public class MapEditorController extends Controller{
     /**
      * returns this controller's mode
      */
-    public MapEditorMode getMode(){
+    @Override
+	public MapEditorMode getMode(){
         return (MapEditorMode) super.getMode();
     }
 
     /**
      * loads the mode for this controller
      */
-    public void loadMode() {
+    @Override
+	public void loadMode() {
         MapEditorMode temp = new MapEditorMode(new CollisionManager(), getHardFilePath());
-        super.setMode((Mode) temp);
+        super.setMode(temp);
     }
 
     /**
      * loads the user-selected map 
      */
-    public void initializeMode() {
+    @Override
+	public void initializeMode() {
         loadMap(getGameInfo().getMapName());
     }
 
     /**
      * returns this controller
      */
-    public Controller getController() {
+    @Override
+	public Controller getController() {
         return this;
     }
 
@@ -259,10 +265,12 @@ public class MapEditorController extends Controller{
         }
     }
 
-    public void checkConditions() {
+    @Override
+	public void checkConditions() {
     }
 
-    public void developerUpdate() {
+    @Override
+	public void developerUpdate() {
 
     }
 

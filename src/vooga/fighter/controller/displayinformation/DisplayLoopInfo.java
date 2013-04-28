@@ -82,14 +82,16 @@ public class DisplayLoopInfo extends DisplayInfo implements ViewDataSource{
     /**
      * Updates information
      */
-    public void update() {
+    @Override
+	public void update() {
         updateInfo();
     }
     
     /**
      * clear imagedata
      */
-    public void clear(){
+    @Override
+	public void clear(){
     	super.clear();
         myImageData.clear();
     }

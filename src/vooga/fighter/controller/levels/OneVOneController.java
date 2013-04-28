@@ -2,7 +2,6 @@ package vooga.fighter.controller.levels;
 
 
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import util.Vector;
@@ -12,11 +11,8 @@ import vooga.fighter.controller.gameinformation.GameInfo;
 import vooga.fighter.controller.interfaces.ControllerDelegate;
 import vooga.fighter.forces.Force;
 import vooga.fighter.forces.ForceFactory;
-import vooga.fighter.forces.Gravity;
 import vooga.fighter.model.objects.AttackObject;
 import vooga.fighter.model.objects.CharacterObject;
-import vooga.fighter.model.objects.MouseClickObject;
-import vooga.fighter.util.Physics;
 import vooga.fighter.view.Canvas;
 import vooga.fighter.view.FourPlayerMatchGameLayout;
 
@@ -84,7 +80,8 @@ public class OneVOneController extends LevelController {
     /**
      * Return concrete controller
      */
-    public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo,
+    @Override
+	public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo,
                                     String filepath) {
         Controller controller = new OneVOneController(name, frame, manager, gameinfo, filepath);
         return controller;
@@ -94,7 +91,8 @@ public class OneVOneController extends LevelController {
     /**
      * notify delegate of condition
      */
-    public void notifyEndCondition (String endCondition) {
+    @Override
+	public void notifyEndCondition (String endCondition) {
     	removeListener();
     	getManager().notifyEndCondition(myResources.getString(SCORE));
     }
@@ -159,7 +157,8 @@ public class OneVOneController extends LevelController {
     /**
      * Removes listener
      */
-    public void removeListener(){
+    @Override
+	public void removeListener(){
         super.removeListener();
         getInput().removeListener(this);
     }

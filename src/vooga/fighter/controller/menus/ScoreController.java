@@ -1,14 +1,11 @@
 package vooga.fighter.controller.menus;
 
 import util.input.InputClassTarget;
-import util.input.InputMethodTarget;
-import util.input.PositionObject;
 import vooga.fighter.controller.Controller;
 import vooga.fighter.controller.displayinformation.ScoreInfo;
 import vooga.fighter.controller.gameinformation.GameInfo;
 import vooga.fighter.controller.interfaces.ControllerDelegate;
 import vooga.fighter.controller.interfaces.ModeCondition;
-import vooga.fighter.model.objects.MouseClickObject;
 import vooga.fighter.view.Canvas;
 import vooga.fighter.view.ScoreScreenLayout;
 
@@ -57,7 +54,8 @@ public class ScoreController extends MenuController {
     /**
      * Returns concrete constructor
      */
-    public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo,
+    @Override
+	public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo,
                                     String filepath) {
         Controller controller = new ScoreController(name, frame, manager, gameinfo, filepath);
         return controller;
@@ -66,7 +64,8 @@ public class ScoreController extends MenuController {
     /**
      * Checks this controller's end conditions
      */
-    public void notifyEndCondition(String choice) {
+    @Override
+	public void notifyEndCondition(String choice) {
     	removeListener();
     	getMode().resetChoice();
     	getGameInfo().getCharacters().clear();
@@ -76,7 +75,8 @@ public class ScoreController extends MenuController {
     /**
      * Remove input
      */
-    public void removeListener(){
+    @Override
+	public void removeListener(){
         super.removeListener();
         getInput().removeListener(this);
     }
@@ -84,7 +84,8 @@ public class ScoreController extends MenuController {
     /**
      * check modeconditions
      */
-    public void checkConditions(){
+    @Override
+	public void checkConditions(){
         for(ModeCondition condition: getConditions()){
             if(condition.checkCondition(getMode())) notifyEndCondition(getMode().peekChoice());
         }

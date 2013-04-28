@@ -46,7 +46,8 @@ public class CharacterSelectController extends MenuController {
     /**
      * returns concrete controller
      */
-    public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo,
+    @Override
+	public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo,
                                     String filepath) {
         Controller controller = new CharacterSelectController(name, frame, manager, gameinfo, filepath);
         return controller;
@@ -55,7 +56,8 @@ public class CharacterSelectController extends MenuController {
     /**
      * Notifies the ControllerDelegate of a condition
      */
-    public void notifyEndCondition(String choice) {
+    @Override
+	public void notifyEndCondition(String choice) {
         getGameInfo().addCharacters(choice);
         getMode().resetChoice();
         myCharIndex ++;
@@ -68,7 +70,8 @@ public class CharacterSelectController extends MenuController {
     /**
      * Removes input listener
      */
-    public void removeListener(){
+    @Override
+	public void removeListener(){
         super.removeListener();
         getInput().removeListener(this);
     }
@@ -76,7 +79,8 @@ public class CharacterSelectController extends MenuController {
     /**
      * Checks conditions
      */
-    public void checkConditions(){
+    @Override
+	public void checkConditions(){
         for(ModeCondition condition: getConditions())
             if(condition.checkCondition(getMode())) notifyEndCondition(getMode().peekChoice());
     }

@@ -8,15 +8,11 @@ import util.input.Input;
 import vooga.fighter.controller.displayinformation.DisplayInfo;
 import vooga.fighter.controller.gameinformation.GameInfo;
 import vooga.fighter.controller.interfaces.ControllerDelegate;
-import vooga.fighter.model.*;
-import vooga.fighter.view.Canvas;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ResourceBundle;
 import javax.swing.Timer;
-import util.input.Input;
 import vooga.fighter.model.Mode;
-import vooga.fighter.view.Canvas;
 
 
 /**

@@ -48,7 +48,8 @@ public class MainMenuController extends MenuController {
     /**
      * Returns concrete controller, used when controller is switched to
      */
-    public Controller getController(String name, Canvas frame, ControllerDelegate manager, 
+    @Override
+	public Controller getController(String name, Canvas frame, ControllerDelegate manager, 
                                     GameInfo gameinfo, String pathway) {
         return new MainMenuController(name, frame, manager, gameinfo, pathway);
     }
@@ -68,7 +69,8 @@ public class MainMenuController extends MenuController {
     /**
      * Removes the input listener
      */
-    public void removeListener(){
+    @Override
+	public void removeListener(){
         super.removeListener();
         getInput().removeListener(this);
     }
@@ -76,7 +78,8 @@ public class MainMenuController extends MenuController {
     /**
      * Checks condition
      */
-    public void checkConditions(){
+    @Override
+	public void checkConditions(){
         for(ModeCondition condition: getConditions()){
             if(condition.checkCondition(getMode())) notifyEndCondition(getMode().peekChoice());
         }

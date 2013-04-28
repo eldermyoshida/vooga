@@ -41,7 +41,8 @@ public class MapSelectController extends MenuController {
     /**
      * Returns concrete controller, used when level is switched to by controllermanager
      */
-    public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo,
+    @Override
+	public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo,
                                     String pathway) {
         return new MapSelectController(name, frame, manager, gameinfo, pathway);
     }
@@ -49,7 +50,8 @@ public class MapSelectController extends MenuController {
     /**
      * Notifies the delegate when controller ends
      */
-    public void notifyEndCondition(String choice) {
+    @Override
+	public void notifyEndCondition(String choice) {
         removeListener();
         getMode().resetChoice();
         getGameInfo().setMapName(choice);
@@ -59,7 +61,8 @@ public class MapSelectController extends MenuController {
     /**
      * Removes input
      */
-    public void removeListener(){
+    @Override
+	public void removeListener(){
         super.removeListener();
         getInput().removeListener(this);
     }
@@ -67,7 +70,8 @@ public class MapSelectController extends MenuController {
     /**
      * Checks conditions
      */
-    public void checkConditions(){
+    @Override
+	public void checkConditions(){
         for(ModeCondition condition: getConditions())
             if(condition.checkCondition(getMode())) notifyEndCondition(getMode().peekChoice());
     }
