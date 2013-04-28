@@ -39,6 +39,7 @@ public class LevelEditor implements ILevelEditor {
     private static final String PARAM_COMMAND_ERROR = "Incorrect Parameters";
     private static final String DEFAULT_COMMAND_ERROR = "Incorrect Command";
     private static final String COPY_ERROR = "Cannot copy Sprite. Missing default constructor";
+    private static final String INVOKE_COMMAND_ERROR = "Sprite does not exist in Sprite Map";
     private Editable myGrid;
     private Map<Integer, Sprite> mySpriteMap;
     private Map<Integer, IBackgroundView> myBackgrounds;
@@ -94,7 +95,7 @@ public class LevelEditor implements ILevelEditor {
             addStartPoint(x,y);
         }
         if(id < START_ID) {
-            addDoor(x,y,-id);
+            addDoor(x,y,id);
         }
         else{
             Sprite sprite = getSpriteFromMap(id);
@@ -167,7 +168,7 @@ public class LevelEditor implements ILevelEditor {
             myController.showErrorMsg(PARAM_COMMAND_ERROR);
         }
         catch (InvocationTargetException e) {
-            myController.showErrorMsg(DEFAULT_COMMAND_ERROR);
+            myController.showErrorMsg(INVOKE_COMMAND_ERROR);
         }
     }
 
