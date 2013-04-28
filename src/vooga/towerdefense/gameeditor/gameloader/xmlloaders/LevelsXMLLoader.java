@@ -41,6 +41,7 @@ public class LevelsXMLLoader {
      * 
      * @param model a game model
      * @param gameMap a game map
+     * @param player a player object
      * @return a list of level objects
      */
     public List<Level> loadLevels(GameModel model, GameMap gameMap, Player player) {
@@ -62,7 +63,8 @@ public class LevelsXMLLoader {
         Map<String, Element> subElements = myXMLTool.getChildrenElementMap(levelElement);
 
         List<Rule> rules = rulesLoader.getRules(model, subElements.get(RULES_TAG));
-        List<Action> actions = actionLoader.loadActions(subElements.get(ACTIONS_TAG), gameMap, player);
+        List<Action> actions = actionLoader.loadActions(subElements.get(ACTIONS_TAG), 
+                                                        gameMap, player);
         return new Level(actions, rules);
     }
 }
