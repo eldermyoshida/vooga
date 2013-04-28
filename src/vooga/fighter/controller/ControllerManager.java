@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 import util.input.Input;
+import vooga.fighter.controller.gameinformation.GameInfo;
+import vooga.fighter.controller.interfaces.ControllerDelegate;
 import vooga.fighter.view.Canvas;
 /**
  * Handles switching controllers. Uses ControllerFactory and 

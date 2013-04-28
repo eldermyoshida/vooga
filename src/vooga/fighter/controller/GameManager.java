@@ -11,12 +11,7 @@ import arcade.games.UserGameData;
 import vooga.fighter.model.loaders.MapLoader;
 import vooga.fighter.view.Canvas;
 import vooga.fighter.controller.ControllerManager;
-import vooga.fighter.controller.GameInfo;
-import util.input.*;
-
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
+import vooga.fighter.controller.gameinformation.GameInfo;
 import java.util.Map;
 
 /**
@@ -63,7 +58,7 @@ public static final Dimension SIZE = new Dimension(800, 600);
         return new ControllerManager(canvas, info, factory, progression, myFilePathway);
     }
 
-    protected ControlProgressionManager makeProgression(Map map){
+    protected ControlProgressionManager makeProgression(Map<String, Controller> map){
         return new ControlProgressionManager(map);
     }
 

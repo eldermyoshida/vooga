@@ -7,7 +7,7 @@ import java.awt.geom.Point2D;
 import java.util.Observable;
 
 import util.Text;
-import vooga.fighter.controller.PlayerStatus;
+import vooga.fighter.controller.gameinformation.PlayerStatus;
 
 /**
  * Displays the Player's name, score, and health as text in three rows.

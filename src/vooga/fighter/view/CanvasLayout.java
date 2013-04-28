@@ -4,7 +4,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 
-import vooga.fighter.controller.ViewDataSource;
+import vooga.fighter.controller.interfaces.ViewDataSource;
 
 /**
  * Defines a layout for paintable elements for the canvas.
