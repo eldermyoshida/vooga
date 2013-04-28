@@ -1,6 +1,6 @@
 package vooga.towerdefense.action.actionlist;
 
-import java.awt.Color; 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.attributes.Attribute;
