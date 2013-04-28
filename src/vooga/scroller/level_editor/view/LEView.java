@@ -34,6 +34,7 @@ public class LEView extends Window<LEWorkspaceView, LevelEditing, LEGridView, LE
             LevelEditing.UPDATE_GRID_SIZE;
     private static final String WEB_CONNECTION_PROBLEMS = 
             LevelEditing.WEB_CONNECTION_PROBLEMS;
+    private static final String HELP_URL = LevelEditing.HELP_URL;
 
     private LEController myController;
 
@@ -120,7 +121,7 @@ public class LEView extends Window<LEWorkspaceView, LevelEditing, LEGridView, LE
 
     @Override
     public LevelEditing getDomain () {
-        return new LevelEditing(); //TODO
+        return new LevelEditing();
     }
 
     /**
@@ -197,7 +198,7 @@ public class LEView extends Window<LEWorkspaceView, LevelEditing, LEGridView, LE
         public void actionPerformed (ActionEvent e) {
             try {
                 String url = 
-                        "http://www.cs.duke.edu/courses/spring13/compsci308/assign/03_slogo/";
+                        HELP_URL;
                 java.awt.Desktop.getDesktop().browse(java.net.URI.create(url));
             }
             catch (java.io.IOException er) {

@@ -13,7 +13,6 @@ import vooga.scroller.level_editor.LevelEditing;
 import vooga.scroller.level_editor.commands.CommandConstants;
 import vooga.scroller.level_editor.controllerSuite.GridSpinner;
 import vooga.scroller.level_editor.controllerSuite.LEGrid;
-import vooga.scroller.level_editor.exceptions.LevelEditorException;
 import vooga.scroller.util.Renderable;
 import vooga.scroller.util.Renderer;
 import vooga.scroller.util.mvc.IView;
@@ -26,18 +25,20 @@ import vooga.scroller.util.mvc.vcFramework.WindowComponent;
  * @author Danny Goodman, Deo Fagnisse
  */
 public class LEGridView extends WindowComponent<LevelEditing>
-        implements Scrollable, Renderer<LevelEditing> {
-    
+                        implements Scrollable, Renderer<LevelEditing> {
+
 
     /**
      * 
      */
     private static final long serialVersionUID = 8266835201464623542L;
-    
+
+    private static final String GRID_RENDERING_ERROR = LevelEditing.GRID_RENDERING_ERROR;
+
     private LEGrid myGrid;
     private GridSpinner myGridSpinner;
 
-    
+
     /**
      * Specify a container parent and a width and height ratio.
      * 
@@ -146,11 +147,8 @@ public class LEGridView extends WindowComponent<LevelEditing>
         if (r instanceof LEGrid) {
             render((LEGrid) r);
         }
-        else try {
-            throw new LevelEditorException("LEGridView cannot render" + r.getClass().getName());
-        }
-        catch (LevelEditorException e) {
-            e.printStackTrace();
+        else {
+            showMessageDialog(GRID_RENDERING_ERROR);
         }
     }
 
@@ -185,7 +183,7 @@ public class LEGridView extends WindowComponent<LevelEditing>
     private class GridPositionListener implements MouseListener {
         private static final int LEFT_CLICK = 3;
         private static final int RIGHT_CLICK = 1;
-        
+
         @Override
         public void mouseClicked (MouseEvent e) {
             if (e.getButton() == LEFT_CLICK) {

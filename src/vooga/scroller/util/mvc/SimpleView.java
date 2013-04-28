@@ -3,6 +3,7 @@ package vooga.scroller.util.mvc;
 import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
+import javax.swing.JOptionPane;
 import vooga.scroller.util.Renderable;
 
 public class SimpleView extends JFrame implements IView<Gaming> {
@@ -66,5 +67,13 @@ public class SimpleView extends JFrame implements IView<Gaming> {
         
     }
 
+    /**
+     * Helper to show a message to the user
+     * @param message - to be shown
+     */
+    @Override
+    public void showMessageDialog (String message) {
+        JOptionPane.showMessageDialog(this, message);
+    }
 
 }

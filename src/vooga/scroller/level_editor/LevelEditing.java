@@ -13,6 +13,8 @@ public class LevelEditing implements IDomainDescriptor {
     public static final String UPDATE_GRID_SIZE = "Update Grid Size";
     public static final String SIMULATION_ERROR_MESSAGE = "All levels need a start point and a portal";
     public static final String WEB_CONNECTION_PROBLEMS = "Problems connecting with the Web";
+    public static final String HELP_URL = "http://en.wikipedia.org/wiki/Side-scrolling_video_game";
+    public static final String GRID_RENDERING_ERROR = "Error encountered when trying to display the grid";
 
     @Override
     public String getDomainName () {

@@ -103,6 +103,11 @@ public abstract class WindowComponent<D extends IDomainDescriptor>
         myResponsible.registerMenu(jMenu);
         
     }
+    
+    @Override
+    public void showMessageDialog (String message) {
+        myResponsible.showMessageDialog (message);
+    }
 }
 
 
