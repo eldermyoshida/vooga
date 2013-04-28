@@ -2,6 +2,7 @@ package vooga.rts.manager;
 
 import java.util.HashMap;
 import java.util.Map;
+import vooga.rts.game.RTSGame;
 
 
 /**
@@ -104,6 +105,16 @@ public class IndividualResourceManager {
      */
     public void earn (String type, int amount) {
         setAmount(type, getAmount(type) - amount);
+    }
+    
+    public void setInitialValues(Map<String, Integer> map){
+        for(String key: map.keySet()){
+            if(RTSGame.getFactory().getResourceMap().containsKey(key)){
+                setAmount(key, map.get(key));
+            }
+                
+          }
+        
     }
 
 }

@@ -91,6 +91,7 @@ public class CanProduce implements ProductionStrategy {
 				public void apply() {
 				    if(playerResources.has(costMap)){
 				        playerResources.charge(costMap);
+			                    System.out.println("HAVE " + playerResources.getResources());
 	                                    final InteractiveEntity unit = producable;
 
 	                                        myProduceState = ProducingState.PRODUCING;

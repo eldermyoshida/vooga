@@ -125,6 +125,9 @@ public class GameState extends SubState implements Controller, Observer {
         getPlayers().addPlayer(1);        
         //getPlayers().getPlayer(0).setBase(getMap().getPlayerLocations().get(0));
         getPlayers().getPlayer(0).setBase(new Location3D(200, 200, 0));
+        
+        getPlayers().getPlayer(0).getResources().setInitialValues(RTSGame.getFactory().getStarterPack());
+        
         Location3D playerOneBase = getPlayers().getHuman().getBase();
         generateInitialSprites(0, playerOneBase);
 
