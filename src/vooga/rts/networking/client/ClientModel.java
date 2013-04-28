@@ -44,6 +44,7 @@ public class ClientModel extends Observable implements IClientModel, IModel {
      * This is the handler of information needed by all of the views in the process of connecting to
      * / creating a server, creating a game, waiting in a lobby.
      * 
+     * @param game game that called us
      * @param gameName name of the game
      * @param userName name of the user
      * @param factionNameList a list of all faction choices, in string form
