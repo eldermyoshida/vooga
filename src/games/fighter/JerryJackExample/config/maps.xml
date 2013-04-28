@@ -7,6 +7,7 @@
             <frame image = "fighter/JerryJackExample/images/BlueBackground.jpeg" />
         </state>
         <environmentObject objectName="platform" xCoord="200" yCoord="550" />
+        <environmentObject objectName="island" xCoord="500" yCoord="550" />
     </map>
     <map mapName="RainbowBackground" xSize="1024" ySize="871">
         <startingPos xCoord="140" yCoord="300"/>
