@@ -29,7 +29,6 @@ import vooga.rts.gamedesign.sprite.gamesprites.Projectile;
 import vooga.rts.gamedesign.sprite.gamesprites.Resource;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
-import vooga.rts.gamedesign.state.ProducingState;
 import vooga.rts.gamedesign.state.UnitState;
 import vooga.rts.gamedesign.strategy.Strategy;
 import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
@@ -39,7 +38,6 @@ import vooga.rts.gamedesign.strategy.gatherstrategy.CannotGather;
 import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
 import vooga.rts.gamedesign.strategy.occupystrategy.CannotBeOccupied;
 import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
-import vooga.rts.gamedesign.strategy.production.CanProduce;
 import vooga.rts.gamedesign.strategy.production.CannotProduce;
 import vooga.rts.gamedesign.strategy.production.ProductionStrategy;
 import vooga.rts.gamedesign.strategy.upgradestrategy.CannotUpgrade;
@@ -76,7 +74,6 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     public static final double DEFAULT_BUILD_TIME = 5;
     private boolean isSelected;
     private Sound mySound;
-    private UpgradeTree myUpgradeTree;
     private AttackStrategy myAttackStrategy;
     private ProductionStrategy myProductionStrategy;
     private UpgradeStrategy myUpgradeStrategy;
@@ -533,19 +530,6 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     public void setAttackStrategy (AttackStrategy newStrategy) {
         newStrategy.setWeaponLocation(getWorldLocation());
         myAttackStrategy = newStrategy;
-    }
-
-    /**
-     * Sets the upgrade tree of the entity for a specific team based on an
-     * upgrade tree and player ID that are passed in.
-     * 
-     * @param upgradeTree
-     *        is the new upgrade tree that the entity will have
-     * @param playerID
-     *        is the team that the upgrade is for
-     */
-    public void setUpgradeTree (UpgradeTree upgradeTree, int playerID) {
-        myUpgradeTree = upgradeTree;
     }
 
     @Override
