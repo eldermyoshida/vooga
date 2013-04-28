@@ -6,14 +6,31 @@ import org.w3c.dom.Element;
 import util.XMLTool;
 import vooga.towerdefense.factories.attributefactories.AttributeFactory;
 
-public class AttributeXMLLoader {
+/**
+ * This class is responsible for loading AttributeFactory
+ * objects from an XML file.
+ * 
+ * @author Erick Gonzalez
+ */
+public class AttributeFactoryXMLLoader {
     
     private XMLTool myXMLTool;
     
-    public AttributeXMLLoader(XMLTool xmlTool) {
+    /**
+     * 
+     * @param xmlTool an xmlTool object containing an xml document
+     */
+    public AttributeFactoryXMLLoader(XMLTool xmlTool) {
         myXMLTool = xmlTool;
     }
     
+    /**
+     * Given an attributes xml element, returns a list of 
+     * AttributeFactory objects.
+     * 
+     * @param attributesElement an attributes xml element 
+     * @return a list of AttributeFactory objects
+     */
     public List<AttributeFactory> loadAttributeFactories (Element attributesElement) {
         List<AttributeFactory> attributes = new ArrayList<AttributeFactory>();
         

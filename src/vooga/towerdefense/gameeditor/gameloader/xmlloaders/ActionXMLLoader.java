@@ -21,7 +21,6 @@ import vooga.towerdefense.model.Player;
  */
 public class ActionXMLLoader {
     private static final String PARAMETERS_TAG = "parameter";
-
     private XMLTool myXMLTool;
 
     /**

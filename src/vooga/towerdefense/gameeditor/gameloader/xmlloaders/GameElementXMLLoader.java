@@ -70,7 +70,7 @@ public class GameElementXMLLoader {
         String gameElementType = loadType(subElementMap.get(TYPE_TAG));
         Pixmap elementImage = loadElementImage(subElementMap.get(IMAGE_TAG));
         Dimension elementDimension = loadDimension(subElementMap.get(DIMENSION_TAG));
-        AttributeXMLLoader attributeLoader = new AttributeXMLLoader(myXMLTool);
+        AttributeFactoryXMLLoader attributeLoader = new AttributeFactoryXMLLoader(myXMLTool);
         
         List<AttributeFactory> attributeFactories = 
                 attributeLoader.loadAttributeFactories(subElementMap.get(ATTRIBUTES_TAG));
