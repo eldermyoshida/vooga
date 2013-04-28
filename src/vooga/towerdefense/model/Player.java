@@ -3,7 +3,6 @@ package vooga.towerdefense.model;
 import java.util.HashSet;
 
 import vooga.towerdefense.attributes.Attribute;
-import vooga.towerdefense.attributes.AttributeConstants;
 import vooga.towerdefense.attributes.AttributeManager;
 import vooga.towerdefense.controller.Controller;
 
