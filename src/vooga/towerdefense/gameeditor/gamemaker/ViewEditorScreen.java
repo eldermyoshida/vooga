@@ -135,7 +135,7 @@ public class ViewEditorScreen extends GameEditorScreen {
     private List<String> myScreens;
     private JLabel myScreenLabel, mySizeLabel;
     private JTextField myContainerSize;
-    
+    private JComboBox mySelectedJC;
     /**
      * Constructor.
      * 
@@ -200,6 +200,11 @@ public class ViewEditorScreen extends GameEditorScreen {
                 }
                 else if (e.getSource().equals(myMultiButtonDONE)){
                     doneAddingMultiplePanels();
+                    mySelectedJC.setSelectedItem("");
+                    //mySouthernPanelScreen.setVisible(true);
+                    //revalidate();
+                  //  repaint();
+                  //  setVisibility(true);
                 }
                 checkItemSelected(e);
             }
@@ -209,16 +214,20 @@ public class ViewEditorScreen extends GameEditorScreen {
 
     private void doneAddingMultiplePanels () {
         myMultiScreenMap.put(myKey, myScreens);
-        mySouthernPanelScreen.setVisible(false);
-        mySouthernPanelPosition.setVisible(false);
-        myMultiPanel.setVisible(false);
-        myMultiPanelSize.setVisible(false);
-        myMultiButtonADD.setVisible(false);
-        myMultiButtonDONE.setVisible(false);
-        myScreenLabel.setVisible(false);
-        mySizeLabel.setVisible(false);
+     //   setVisibility (false);
     }
 
+    private void setVisibility (boolean vis) {
+        mySouthernPanelScreen.setVisible(vis);
+        mySouthernPanelPosition.setVisible(vis);
+        myMultiPanel.setVisible(vis);
+        myMultiPanelSize.setVisible(vis);
+        myMultiButtonADD.setVisible(vis);
+        myMultiButtonDONE.setVisible(vis);
+        myScreenLabel.setVisible(vis);
+        mySizeLabel.setVisible(vis);
+    }
+    
     private void addPanelToMultiplePanels () {
         String position = (String)mySouthernPanelPosition.getSelectedItem();
         String screen = (String)myMultiPanel.getSelectedItem();
@@ -233,8 +242,9 @@ public class ViewEditorScreen extends GameEditorScreen {
         for (JComboBox s: myJComboPanels) {
             if (s.getSelectedItem().equals(MULTIPLE_PANEL_NAME)){
                 mySouthernPanelScreen.setVisible(true);
+                System.out.println("goooooooooooooooodddddddddd!");
                 myKey = s.getName();
-                s.resetKeyboardActions();
+                mySelectedJC = s;
             }
         }
     }
@@ -260,6 +270,7 @@ public class ViewEditorScreen extends GameEditorScreen {
         myWestPanel = new JComboBox();
         myWestPanel.setName(WEST_NAME);
         myMultiPanel = new JComboBox();
+        mySelectedJC = new JComboBox();
         mySouthernPanelPosition = new JComboBox();
         myNorthSize = new JTextField(TEXT_FIELD_WIDTH);
         mySouthSize = new JTextField(TEXT_FIELD_WIDTH);
