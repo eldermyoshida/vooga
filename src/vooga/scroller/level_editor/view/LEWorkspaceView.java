@@ -1,19 +1,10 @@
 package vooga.scroller.level_editor.view;
 
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Point;
 import javax.swing.JScrollPane;
-import vooga.scroller.level_editor.Level;
 import vooga.scroller.level_editor.LevelEditing;
 import vooga.scroller.level_editor.commands.CommandConstants;
-import vooga.scroller.level_editor.controllerSuite.LEGrid;
-import vooga.scroller.level_editor.controllerSuite.LETools;
-import vooga.scroller.level_editor.model.EditableGrid;
 import vooga.scroller.util.Renderable;
 import vooga.scroller.util.Renderer;
-import vooga.scroller.util.mvc.IView;
-import vooga.scroller.util.mvc.IWindow;
 import vooga.scroller.util.mvc.vcFramework.Tools;
 import vooga.scroller.util.mvc.vcFramework.WorkspaceView;
 import vooga.scroller.viewUtil.EasyGridFactory;
@@ -26,28 +17,30 @@ import vooga.scroller.viewUtil.EasyGridFactory;
  * 
  */
 public class LEWorkspaceView extends WorkspaceView<LevelEditing> 
-                            implements Renderer<LevelEditing>{
+                            implements Renderer<LevelEditing> {
     /**
      * 
      */
     private static final long serialVersionUID = 1L;
     private Renderer<LevelEditing> myGridView;
-    private TabbedToolsView myToolsView;
+    private TabbedToolsView<LevelEditing> myToolsView;
     private JScrollPane myLevelGridScroller;
     private JScrollPane myToolsScroller;
 
-    /**TODO - Redesign to get rid of casts...
+    /**TODO - This class could use a bit of redesign to reduce the 
+     * amount of casts used.
      * Create a Workspace with the specified host, id, and renderable
      * 
      * @param host - parent containing this workspace, typically a Window
      * @param id - containing tab
-     * @param r - Renderable to be loaded in this workspace.
+     * @param grid - renderable to be loaded in this workspace.
+     * @param tools - tools to be used in editing
      */
     public LEWorkspaceView (LEView host, int id, 
                             Renderable<LevelEditing> grid, Tools<LevelEditing> tools) {
         super(id, host);
         myGridView = grid.initializeRenderer(this);
-        myToolsView = new LEToolsView(tools, this);
+        myToolsView = new TabbedToolsView<LevelEditing>(tools, this);
         myLevelGridScroller = new JScrollPane((LEGridView) myGridView,
                                               JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                                               JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -76,6 +69,10 @@ public class LEWorkspaceView extends WorkspaceView<LevelEditing>
     }
 
 
+    /**
+     * Check for validity of this workspace for simulation
+     * @return - true if the workspace complies with simulation requirements.
+     */
     public boolean isValidForSimulation () {
         return ((LEGridView) myGridView).isValidForSimulation();
     }
@@ -97,6 +94,10 @@ public class LEWorkspaceView extends WorkspaceView<LevelEditing>
         return myGridView.getRenderable();
     }
 
+    /**
+     * Returns the renderer
+     * @return
+     */
     public Renderer<LevelEditing> getEditableRenderer () {
         return myGridView;
     }

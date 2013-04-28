@@ -50,4 +50,11 @@ public interface IView<D extends IDomainDescriptor>
      */
     public void registerMenu (JMenu jMenu);
 
+
+    /**
+     * Display a dialog box on top of this view
+     * @param message
+     */
+    public void showMessageDialog (String message);
+
 }

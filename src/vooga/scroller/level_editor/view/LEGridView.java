@@ -13,7 +13,6 @@ import vooga.scroller.level_editor.LevelEditing;
 import vooga.scroller.level_editor.commands.CommandConstants;
 import vooga.scroller.level_editor.controllerSuite.GridSpinner;
 import vooga.scroller.level_editor.controllerSuite.LEGrid;
-import vooga.scroller.level_editor.exceptions.LevelEditorException;
 import vooga.scroller.util.Renderable;
 import vooga.scroller.util.Renderer;
 import vooga.scroller.util.mvc.IView;
@@ -29,6 +28,7 @@ public class LEGridView extends WindowComponent<LevelEditing>
         implements Scrollable, Renderer<LevelEditing> {
 
     private static final long serialVersionUID = 8266835201464623542L;
+    private static final String GRID_RENDERING_ERROR = LevelEditing.GRID_RENDERING_ERROR;
     private LEGrid myGrid;
     private GridSpinner myGridSpinner;
 
@@ -139,11 +139,8 @@ public class LEGridView extends WindowComponent<LevelEditing>
         if (r instanceof LEGrid) {
             render((LEGrid) r);
         }
-        else try {
-            throw new LevelEditorException("LEGridView cannot render" + r.getClass().getName());
-        }
-        catch (LevelEditorException e) {
-            e.printStackTrace();
+        else {
+            showMessageDialog(GRID_RENDERING_ERROR);
         }
     }
 
