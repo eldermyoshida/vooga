@@ -13,7 +13,6 @@ import vooga.fighter.controller.gameinformation.GameInfo;
 import vooga.fighter.controller.interfaces.ControllerDelegate;
 import vooga.fighter.controller.levels.MainMenuController;
 import vooga.fighter.model.mode.MapEditorMode;
-import vooga.fighter.model.mode.Mode;
 import vooga.fighter.model.objects.EnvironmentObject;
 import vooga.fighter.model.objects.MapObject;
 import vooga.fighter.util.CollisionManager;
