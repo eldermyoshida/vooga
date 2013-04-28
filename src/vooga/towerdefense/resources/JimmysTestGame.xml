@@ -47,7 +47,7 @@
 			<image>dog.gif</image>
 			<type>Unit</type>
 			<attributes>
-				<HEALTH>100</HEALTH>
+				<HEALTH>10</HEALTH>
 				<MOVE_SPEED>50</MOVE_SPEED>
 				<DIRECTION>0</DIRECTION>
 			</attributes>
