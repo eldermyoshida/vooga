@@ -1,13 +1,7 @@
 package arcade.controller;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +20,7 @@ import arcade.games.Game;
 import arcade.games.GameData;
 import arcade.games.GameInfo;
 import arcade.games.UserGameData;
+import arcade.model.datapacket.UserSpecificData;
 import arcade.model.payment.PaymentManager;
 import arcade.model.social.TwitterConnection;
 import arcade.view.MainView;
@@ -36,22 +31,8 @@ public class Controller implements ArcadeInteraction {
 	private static final String RESOURCE_LOCATION = "arcade.resources.";
 	private static final String PAYMENT_MANAGER_LOCATION = "arcade.model.payment.";
 
-	private static final String SOURCE = "src";
-	private static final String PACKAGE_LOCATION = "arcade/resources";
-	private static final String FILENAME = "userPurchases";
-	private static final String EXTENSION = ".properties";
-	private static final String FILEWRITER_LOCATION = SOURCE + "/"
-			+ PACKAGE_LOCATION + "/" + FILENAME + "1" + EXTENSION;
-	private static final String TMP_LOCATION = SOURCE + "/" + PACKAGE_LOCATION
-			+ "/" + FILENAME + "2" + EXTENSION;
-	private static final String PURCHASE_RB_LOCATION = RESOURCE_LOCATION
-			+ FILENAME + "1";
-
 	// Messages
 	public static final String DEFAULT_LOGIN_MESSAGE = "";
-
-	// Status parameterrs
-	private static final String NO_USER_IMAGE = "";
 
 	// View
 	private LoginView myLoginView;
@@ -59,7 +40,6 @@ public class Controller implements ArcadeInteraction {
 
 	// Resource
 	private ResourceBundle myResources;
-	private ResourceBundle userPurchaseHistory;
 
 	// Models
 	private Database myDb;
@@ -80,13 +60,11 @@ public class Controller implements ArcadeInteraction {
 	}
 
 	// Parameters
-	private String myLanguage;
 	private String myCurrentUser;
 	private UserGameData myCurrentUserGameData;
 	private GameData myCurrentGameData;
 
 	public Controller(String language) {
-		myLanguage = language;
 		myResources = ResourceBundle.getBundle(RESOURCE_LOCATION + language);
 		myDb = new Database();
 		myGameInfos = new HashMap<String, GameInfo>();
@@ -407,9 +385,6 @@ public class Controller implements ArcadeInteraction {
 		myCurrentGame.run();
 	}
 
-	private void print(Object print) {
-		System.out.println(print);
-	}
 
 	/**
 	 * Get the list of games from the database.

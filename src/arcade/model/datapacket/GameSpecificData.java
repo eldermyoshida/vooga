@@ -1,4 +1,4 @@
-package arcade.controller;
+package arcade.model.datapacket;
 
 import java.util.Arrays;
 import java.util.List;
@@ -109,8 +109,14 @@ public class GameSpecificData {
 //		}
 //		return output;
 //	}
+	
+//	private String substringStartingWith(String prefix, String target){
+//		return target.substring(target.indexOf(prefix));
+//	}
 //	
+	
 	/**
+	 * Hardcoded. Can use the above methods for better look + efficiency.
 	 * Tedious Java string manipulation to change something like:
 	 * C://blah/blah/blah/src/games/rts/ageOfEmpires/game.java to
 	 * games.rts.ageOfEmpires.game so replace slashes with periods and remove
@@ -139,7 +145,5 @@ public class GameSpecificData {
 	}
 	
 	
-	private String substringStartingWith(String prefix, String target){
-		return target.substring(target.indexOf(prefix));
-	}
+	
 }
