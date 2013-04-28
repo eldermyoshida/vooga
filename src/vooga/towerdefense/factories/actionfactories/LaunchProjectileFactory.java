@@ -23,6 +23,7 @@ public class LaunchProjectileFactory extends ActionFactory {
 	 */
 	public LaunchProjectileFactory(
 			@ActionAnnotation(name = "projectile", value = "name") String factory) {
+		super();
 		myFactoryName = factory;
 	}
 

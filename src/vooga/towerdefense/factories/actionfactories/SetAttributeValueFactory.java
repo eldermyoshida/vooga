@@ -14,6 +14,7 @@ public class SetAttributeValueFactory extends ActionFactory {
 	private String myTargetAttribute;
 	
 	public SetAttributeValueFactory(String attributeReference, String targetAttribute){
+		super();
 		myAttributeReference=attributeReference;
 		myTargetAttribute=targetAttribute;
 	}

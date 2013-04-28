@@ -9,6 +9,7 @@ public class TimerActionFactory extends ActionFactory {
 	
 	private int myDuration;
 	public TimerActionFactory(@ActionAnnotation(name = "duration", value = "int") String duration) {
+		super();
 		myDuration = Integer.parseInt(duration);
 	}
 
