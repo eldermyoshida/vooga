@@ -103,7 +103,7 @@ public class Building extends InteractiveEntity {
     }
     
     @Override
-    public void addActions() {		
+    public void addDefaultActions() {		
 		
     }
 

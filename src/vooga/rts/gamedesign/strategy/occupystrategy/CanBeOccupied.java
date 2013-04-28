@@ -89,7 +89,7 @@ public class CanBeOccupied implements OccupyStrategy {
                 }
             }
         });
-        entity.addInfo(commandName, new Information(commandName, "this deoccupies errboday","buttons/unload.gif",null));
+        entity.addActionInfo(commandName, new Information(commandName, "this deoccupies errboday","buttons/unload.gif",null));
     }
 
     /**

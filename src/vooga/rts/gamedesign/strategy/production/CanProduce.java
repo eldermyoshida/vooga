@@ -119,7 +119,7 @@ public class CanProduce implements ProductionStrategy {
 
                 }
             });
-            producer.addInfo(commandName, producable.getInfo());
+            producer.addActionInfo(commandName, producable.getInfo());
         }
     }
 

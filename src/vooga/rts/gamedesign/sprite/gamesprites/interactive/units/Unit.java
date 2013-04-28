@@ -74,7 +74,7 @@ public class Unit extends InteractiveEntity {
                  int speed) {
         super(image, center, size, sound, playerID, health, buildTime);
         setSpeed(speed);
-        addActions();
+        addDefaultActions();
     }
 
     public Unit (Pixmap image, Sound sound, int health, double buildTime, int speed) {
@@ -84,7 +84,7 @@ public class Unit extends InteractiveEntity {
     }
 
     @Override
-    public void addActions () {
+    public void addDefaultActions () {
         addAction(ClickCommand.LEFT_CLICK, new InteractiveAction(this) {
             private Location3D myLocation;
 
