@@ -33,7 +33,7 @@ import vooga.scroller.view.GameView;
 
 
 @InputClassTarget
-public class Level implements Renderable<Gaming>, IGameComponent {
+public class Level implements IGameComponent {
 
     private Dimension mySize;
     private Dimension frameOfReferenceSize;
@@ -243,23 +243,6 @@ public class Level implements Renderable<Gaming>, IGameComponent {
     public Location getStartPoint () {
         return myStartPoint;
 
-    }
-
-    @Override
-    // TODO - incomplete
-    public Renderer<Gaming> initializeRenderer (IView<?> parent) {
-        // view of user's content
-        ScrollingManager sm = new OmniScrollingManager();
-        GameView display = new GameView(PlatformerConstants.DEFAULT_WINDOW_SIZE, sm);
-        sm.initView(display);
-        Player sample = new MrFish(new Location(), display, sm);
-
-        SplashPage sp = new TestSplashPage(display, myScrollingManager);
-
-        Model m = new Model(display, sm, sample, sp, this);
-        m.start();
-        display.setModel(m);
-        return (Renderer<Gaming>) display;// TODO - bad
     }
 
     /**

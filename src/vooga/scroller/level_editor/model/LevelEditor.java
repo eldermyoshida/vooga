@@ -8,7 +8,6 @@ import vooga.scroller.level_editor.LevelEditing;
 import vooga.scroller.level_editor.commands.Command;
 import vooga.scroller.level_editor.commands.CommandLibrary;
 import vooga.scroller.sprites.Sprite;
-import vooga.scroller.util.Editable;
 import vooga.scroller.util.IBackgroundView;
 import vooga.scroller.util.mvc.IController;
 

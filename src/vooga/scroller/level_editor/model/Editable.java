@@ -1,9 +1,10 @@
 
-package vooga.scroller.util;
+package vooga.scroller.level_editor.model;
 
 import java.awt.Dimension;
 import java.awt.Image;
 import vooga.scroller.sprites.Sprite;
+import vooga.scroller.util.IBackgroundView;
 
 
 

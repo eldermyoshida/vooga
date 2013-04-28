@@ -14,13 +14,14 @@ import util.Location;
 import vooga.scroller.level_editor.Level;
 import vooga.scroller.level_editor.LevelEditing;
 import vooga.scroller.level_editor.StartPoint;
+import vooga.scroller.level_editor.model.Editable;
 import vooga.scroller.level_editor.model.SpriteBox;
 import vooga.scroller.level_editor.view.LEGridView;
 import vooga.scroller.level_management.LevelPortal;
 import vooga.scroller.scrollingmanager.OmniScrollingManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.Sprite;
-import vooga.scroller.util.Editable;
+import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.IBackgroundView;
 import vooga.scroller.util.Renderable;
 import vooga.scroller.util.Renderer;
@@ -41,6 +42,7 @@ public class LEGrid implements Editable, Renderable<LevelEditing>, Scrollable {
     private StartPoint myStartPoint;
     private LevelPortal myDoor;
     private IBackgroundView myBackground;
+    private Player mySamplePlayer;
 
     public LEGrid (int numWidthBlocks, int numHeightBlocks) {
         mySpriteSize = DEFAULT_SPRITE_SIZE;
@@ -357,26 +359,6 @@ public class LEGrid implements Editable, Renderable<LevelEditing>, Scrollable {
         catch (IOException e) {
             // Wont happen
         }
-    }
-
-    public void simulate () {
-        // ScrollingManager sm = new OmniScrollingManager();
-        // GameView display = new GameView(PlatformerConstants.DEFAULT_WINDOW_SIZE, sm);
-        SimpleView simContainer = new SimpleView("Level Simulation");
-        ScrollingManager sm = new OmniScrollingManager();
-        Level sim = new Level(1, sm, this);
-        Renderer<Gaming> display = sim.initializeRenderer(simContainer);
-        simContainer.add((GameView) display);
-        simContainer.start();
-        // container that will work with user's OS
-        // JFrame frame = new JFrame("Level Simulation");
-        // // add our user interface components
-        // frame.getContentPane().add(display, BorderLayout.CENTER);
-        // // display them
-        // frame.pack();
-        // frame.setVisible(true);
-        // // start animation
-        // ((GameView) display).start();
     }
 
     public int getWidthInBlocks () {

@@ -10,6 +10,7 @@ import vooga.scroller.level_editor.LevelEditing;
 import vooga.scroller.level_editor.controllerSuite.LEController;
 import vooga.scroller.level_editor.controllerSuite.LEGrid;
 import vooga.scroller.level_editor.controllerSuite.LETools;
+import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.Renderable;
 import vooga.scroller.util.mvc.vcFramework.Window;
 
@@ -27,12 +28,13 @@ public class LEView extends Window<LEWorkspaceView, LevelEditing, LEGridView, LE
 
     private static final long serialVersionUID = 1L;
     private static final String SIMULATION_ERROR_MESSAGE = 
-            LevelEditing.VIEW_CONSTANTS.SIMULATION_ERROR_MESSAGE;
+            LevelEditing.SIMULATION_ERROR_MESSAGE;
     private static final String TITLE = 
             LevelEditing.VIEW_CONSTANTS.DOMAIN_NAME;
     private static final String UPDATE_GRID_SIZE = 
             LevelEditing.UPDATE_GRID_SIZE;
     
+    private LEController myController;
 
     /**
      * Default constructor - build a Window with the specified language and controller.
@@ -41,6 +43,7 @@ public class LEView extends Window<LEWorkspaceView, LevelEditing, LEGridView, LE
      */
     public LEView (String language, LEController lEController, LETools t) {
         super(TITLE, language, lEController, t);
+        myController = lEController;
         registerMenu(makeSimulateMenu());
         registerMenu(makePreferencesMenu());
     }
@@ -82,11 +85,17 @@ public class LEView extends Window<LEWorkspaceView, LevelEditing, LEGridView, LE
      */
     private void simulate (LEWorkspaceView tab) {
         if (tab.isValidForSimulation()) {
-            ((LEGrid) tab.getRenderable()).simulate();
+            myController.simulate(((LEGrid) tab.getRenderable()));
         }
         else 
             showMessageDialog(SIMULATION_ERROR_MESSAGE);
     }
+    
+    private Player getSamplePlayer () {
+        return myController.getSamplePlayer();
+    }
+
+    
 
     @Override
     public LevelEditing getDomain () {
