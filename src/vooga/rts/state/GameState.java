@@ -154,7 +154,7 @@ public class GameState extends SubState implements Controller {
                 (Unit) setLocation(worker, baseLocation, DEFAULT_WORKER_RELATIVE_LOCATION);
         getPlayers().getPlayer(playerID).add(worker);
 
-        Unit soldierOne = (Unit) myFactory.getEntitiesMap().get("marine").copy();
+        Unit soldierOne = (Unit) myFactory.getEntitiesMap().get("Marine").copy();
         soldierOne =
                 (Unit) setLocation(soldierOne, baseLocation,
                                           DEFAULT_SOLDIER_ONE_RELATIVE_LOCATION);

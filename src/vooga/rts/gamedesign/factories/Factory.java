@@ -374,7 +374,7 @@ public class Factory {
             for (String baby : produces) {
                 InteractiveEntity producable = mySprites.get(baby);
                 //should not be unit
-                producer.addProducable(new Unit());
+                producer.addProducable(producable.copy());
         
             }
         }
