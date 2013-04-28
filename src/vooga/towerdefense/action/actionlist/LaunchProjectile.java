@@ -16,12 +16,12 @@ import util.Location;
 public class LaunchProjectile extends TargetedAction {
 
 	private GameElementFactory myProjectileFactory;
-	private Location myStart;
+	//private Location myStart;
 	private GameMap myMap;
 
     public LaunchProjectile (GameMap map, Location startLocation, GameElementFactory projectileFactory) {
     	myProjectileFactory = projectileFactory;
-    	myStart = startLocation;
+    	//myStart = startLocation;
     	myMap = map;
     }
 
@@ -33,11 +33,14 @@ public class LaunchProjectile extends TargetedAction {
      */
     @Override
     public void executeAction (double elapsedTime) {
-        for (GameElement target : getTargets()) {
+    	GameElement projectile = myProjectileFactory.createElement(new Location(50,50));
+    	myMap.addGameElement(projectile);
+    	
+      /*  for (GameElement target : getTargets()) {
             GameElement projectile = myProjectileFactory.createElement(myStart, target);
             if (myMap.getAllGameElements().contains(projectile)){
             	myMap.addGameElement(projectile);
             }
-        }
+        }*/
     }
 }

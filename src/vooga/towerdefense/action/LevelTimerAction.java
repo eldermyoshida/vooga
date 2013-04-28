@@ -7,11 +7,14 @@ package vooga.towerdefense.action;
  *
  */
 public class LevelTimerAction extends Action {
+
+	private int myDuration;
 	private int myTimer;
 	
 	public LevelTimerAction(int duration) {
 		super();
-		myTimer = duration;
+		myTimer = 0;
+		myDuration = duration;
 	}
 	
 	public int getRemainingTime() {
@@ -21,7 +24,6 @@ public class LevelTimerAction extends Action {
 	@Override
 	public void executeAction(double elapsedTime) {
 		myTimer-=elapsedTime;
-		
 		if(myTimer<=0)
 			setEnabled(false);
 	}
