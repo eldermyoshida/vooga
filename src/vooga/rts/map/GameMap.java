@@ -136,10 +136,9 @@ public class GameMap implements IGameLoop {
     }
 
     @Override
-    public void paint (Graphics2D pen) {
-        TimeIt ti = new TimeIt();
-        myTiles.paint(pen);        
-        //ti.printTime();
+
+    public void paint (Graphics2D pen) {        
+        myTiles.paint(pen);
         
         myNodeMap.paint(pen);        
     }

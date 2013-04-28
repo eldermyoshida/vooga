@@ -84,7 +84,7 @@ public abstract class InteractiveEntity extends GameEntity implements
 	private GatherStrategy myGatherStrategy;
 	private int myArmor;
 	private Map<String, Action> myActions;
-	private Map<String, Information> myActionInfos;
+	private Map<String, Information> myInfos;
 	private List<DelayedTask> myTasks;
 	private double myBuildTime;
 	private Information myInfo;
@@ -119,14 +119,14 @@ public abstract class InteractiveEntity extends GameEntity implements
 		myUpgradeStrategy = new CannotUpgrade();
 		myGatherStrategy = new CannotGather();
 		myActions = new HashMap<String, Action>();
-		myActionInfos = new HashMap<String, Information>();
-		myQueueableTasks = new LinkedList<DelayedTask>();
+		myInfos = new HashMap<String, Information>();
 		isSelected = false;
 		myTasks = new ArrayList<DelayedTask>();
-		myCurQueueTask = new DelayedTask(0,null);
 		myBuildTime = buildTime;
 		myOccupyStrategy = new CannotBeOccupied();
 		myPath = new Path();
+		myQueueableTasks = new LinkedList<DelayedTask>();
+		myCurQueueTask = new DelayedTask(0, null);
 		myFinder = new AstarFinder();
 		myTargetEntity = this;
 		setSpeed(DEFAULT_INTERACTIVEENTITY_SPEED);
@@ -167,7 +167,7 @@ public abstract class InteractiveEntity extends GameEntity implements
 
 	public void addQueueableTask(DelayedTask dt) {
 
-			System.err.println("Size of queue : " + myQueueableTasks.size());
+		System.err.println("Size of queue : " + myQueueableTasks.size());
 		myQueueableTasks.add(dt);
 	}
 
@@ -204,7 +204,7 @@ public abstract class InteractiveEntity extends GameEntity implements
 	 * @param info
 	 */
 	public void addInfo(String command, Information info) {
-		myActionInfos.put(command, info);
+		myInfos.put(command, info);
 	}
 
 	/**
@@ -313,14 +313,9 @@ public abstract class InteractiveEntity extends GameEntity implements
 			return null; // this needs to be fixed
 		for (String s : myActions.keySet()) {
 			// need to check what type it is...eg it cant be a left click
-			String commandName = s.split(" ")[0];
-			// if (commandName.equals("make") || commandName.equals("deoccupy"))
-			// { // very buggy
-			if (!(commandName.equals("leftclick") || commandName
-					.equals("rightclick"))) {
-				System.err.println("yollo: " + commandName);
-				infoCommands
-						.add(new InformationCommand(s, myActionInfos.get(s)));
+			String isMake = s.split(" ")[0];
+			if (isMake.equals("make")) { // very buggy
+				infoCommands.add(new InformationCommand(s, myInfos.get(s)));
 			}
 
 		}
@@ -459,18 +454,12 @@ public abstract class InteractiveEntity extends GameEntity implements
 						.getMaxX(), (float) healthBar.getMaxY(), Color.GREEN));
 		pen.fill(healthBar);
 		pen.setColor(Color.black);
-		if(myProductionStrategy.getProducingState() == ProducingState.PRODUCING) {
-			pen.setColor(Color.RED);
-			pen.drawString("Producing yoloyuoyouo", (int) selectLocation.getX(),(int) selectLocation.getY());
-			pen.setColor(Color.BLACK);
-		}
 
 		if (isSelected) {
 			Ellipse2D.Double selectedCircle = new Ellipse2D.Double(
 					selectLocation.getX() - LOCATION_OFFSET,
 					selectLocation.getY() + LOCATION_OFFSET, 50, 30);
 			pen.fill(selectedCircle);
-
 		}
 		super.paint(pen);
 		if (myAttackStrategy.hasWeapon()) {
@@ -577,17 +566,16 @@ public abstract class InteractiveEntity extends GameEntity implements
 				it.remove();
 			}
 		}
-		if (myCurQueueTask != null ) {
-			
-			if (!myCurQueueTask.isActive() && myQueueableTasks.peek() != null ) {
+		if (myCurQueueTask != null) {
+
+			if (!myCurQueueTask.isActive() && myQueueableTasks.peek() != null) {
 				myCurQueueTask = myQueueableTasks.poll();
 				System.out.println(myCurQueueTask);
 			}
-			
-				myCurQueueTask.update(elapsedTime);
-			
-		}
 
+			myCurQueueTask.update(elapsedTime);
+
+		}
 		if (myAttackStrategy.hasWeapon()) {
 			Weapon weapon = myAttackStrategy.getCurrentWeapon();
 			if (getEntityState().inAttackMode()) {
@@ -695,7 +683,6 @@ public abstract class InteractiveEntity extends GameEntity implements
 				destination);
 		if (myPath != null) {
 			myProductionStrategy.setRallyPoint(this);
-			super.move(myPath.getNext());
 		}
 	}
 

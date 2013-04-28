@@ -13,6 +13,7 @@ import util.Location;
 import vooga.rts.commands.Command;
 import vooga.rts.commands.DragCommand;
 import vooga.rts.controller.Controller;
+import vooga.rts.game.RTSGame;
 import vooga.rts.gamedesign.factories.Factory;
 import vooga.rts.gamedesign.sprite.gamesprites.Resource;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
@@ -48,22 +49,15 @@ public class GameState extends SubState implements Controller, Observer {
                                                                                            0);
     private static final Location3D DEFAULT_SOLDIER_THREE_RELATIVE_LOCATION = new Location3D(300,
                                                                                              0, 0);
-    private static final Information DEFAULT_SOLDIER_INFO =
-            new Information("Marine", "I am a soldier of Nunu.", "buttons/marine.png");
+
     private static final Location3D DEFAULT_WORKER_RELATIVE_LOCATION = new Location3D(200, 200, 0);
-    private static final Information DEFAULT_WORKER_INFO =
-            new Information("Worker",
-                            "I am a worker. I am sent down from Denethor, son of Ecthelion ",
-                            "images/scv.png");
+
     private static final Location3D DEFAULT_PRODUCTION_RELATIVE_LOCATION = new Location3D(000, 500,
                                                                                           0);
-    private static final Information DEFAULT_PRODUCTION_INFO =
-            new Information("Barracks", "This is a barracks that can make awesome pies",
-                            "buttons/marine.png");
-    private static final Location3D DEFAULT_OCCUPY_RELATIVE_LOCATION = new Location3D(300, 100, 0);
-    private static final Information DEFAULT_OCCUPY_INFO =
-            new Information("Garrison", "This is a garrison that soldiers can occupy",
-                            "buttons/marine.png");
+
+
+    private static final Location3D DEFAULT_OCCUPY_RELATIVE_LOCATION = new Location3D(300, 300, 0);
+
 
     private static GameMap myMap;
     private static PlayerManager myPlayers;
@@ -80,9 +74,6 @@ public class GameState extends SubState implements Controller, Observer {
 
     public GameState (Observer observer) {
         super(observer);
-        myFactory = new Factory();
-        myFactory.loadXMLFile("Factory.xml");
-
         MapLoader ml = null;
         try {
             ml = new MapLoader();
@@ -168,14 +159,14 @@ public class GameState extends SubState implements Controller, Observer {
     }
 
     private void generateInitialSprites (int playerID, Location3D baseLocation) {
-        Unit worker = (Unit) myFactory.getEntitiesMap().get("worker").copy();
+        Unit worker = (Unit) RTSGame.getFactory().getEntitiesMap().get("worker").copy();
         worker =
 
                 (Unit) setLocation(worker, baseLocation, DEFAULT_WORKER_RELATIVE_LOCATION);
 
         getPlayers().getPlayer(playerID).add(worker);
 
-        Unit soldierOne = (Unit) myFactory.getEntitiesMap().get("Marine").copy();
+        Unit soldierOne = (Unit) RTSGame.getFactory().getEntitiesMap().get("Marine").copy();
         soldierOne =
 
                 (Unit) setLocation(soldierOne, baseLocation,
@@ -183,15 +174,14 @@ public class GameState extends SubState implements Controller, Observer {
 
         getPlayers().getPlayer(playerID).add(soldierOne);
 
-        Building startProduction = (Building) myFactory.getEntitiesMap().get("home").copy();
+        Building startProduction = (Building) RTSGame.getFactory().getEntitiesMap().get("home").copy();
         startProduction =
                 (Building) setLocation(startProduction, baseLocation,
                                        DEFAULT_PRODUCTION_RELATIVE_LOCATION);
         getPlayers().getPlayer(playerID).add(startProduction);
 
-        Building startOccupy = (Building) myFactory.getEntitiesMap().get("garrison").copy();
-        startOccupy =
-                (Building) setLocation(startOccupy, baseLocation,
+        Building startOccupy = (Building) RTSGame.getFactory().getEntitiesMap().get("garrison").copy();
+        startOccupy = (Building) setLocation(startOccupy, baseLocation,
                                        DEFAULT_OCCUPY_RELATIVE_LOCATION);
         getPlayers().getPlayer(playerID).add(startOccupy);
 

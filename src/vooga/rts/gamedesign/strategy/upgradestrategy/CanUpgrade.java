@@ -30,7 +30,7 @@ public class CanUpgrade implements UpgradeStrategy {
                     upgrade.apply(entity);
                 }
             });
-            entity.addInfo(commandName, new Information(commandName, "This upgrades " + upgrade.getUpgradeName(), "buttons/unload.gif"));
+            entity.addInfo(commandName, new Information(commandName, "This upgrades " + upgrade.getUpgradeName(), "buttons/unload.gif",null));
             
         }
     }
