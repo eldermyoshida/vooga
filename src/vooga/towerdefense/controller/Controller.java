@@ -495,4 +495,7 @@ public class Controller {
 				.modifyValue(-cost);
 	}
 
+	public void updateWaveTimer(double timer) {
+		myView.getNextWaveScreen().updateTimerDisplay(String.valueOf(timer));
+	}
 }
