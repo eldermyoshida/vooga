@@ -139,7 +139,7 @@ public class GameMap implements IGameLoop {
     public void paint (Graphics2D pen) {
         TimeIt ti = new TimeIt();
         myTiles.paint(pen);        
-        ti.printTime();
+        //ti.printTime();
         
         myNodeMap.paint(pen);        
     }

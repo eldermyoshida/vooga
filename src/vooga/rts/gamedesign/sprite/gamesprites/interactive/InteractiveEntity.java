@@ -11,8 +11,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Set;
 
 import vooga.rts.action.Action;
@@ -27,6 +29,7 @@ import vooga.rts.gamedesign.sprite.gamesprites.IAttackable;
 import vooga.rts.gamedesign.sprite.gamesprites.Projectile;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
+import vooga.rts.gamedesign.state.ProducingState;
 import vooga.rts.gamedesign.state.UnitState;
 import vooga.rts.gamedesign.strategy.Strategy;
 import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
@@ -36,6 +39,7 @@ import vooga.rts.gamedesign.strategy.gatherstrategy.CannotGather;
 import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
 import vooga.rts.gamedesign.strategy.occupystrategy.CannotBeOccupied;
 import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
+import vooga.rts.gamedesign.strategy.production.CanProduce;
 import vooga.rts.gamedesign.strategy.production.CannotProduce;
 import vooga.rts.gamedesign.strategy.production.ProductionStrategy;
 import vooga.rts.gamedesign.strategy.upgradestrategy.CannotUpgrade;
@@ -86,6 +90,8 @@ public abstract class InteractiveEntity extends GameEntity implements
 	private Information myInfo;
 	private PathFinder myFinder;
 	private Path myPath;
+	private Queue<DelayedTask> myQueueableTasks;
+	private DelayedTask myCurQueueTask;
 	private InteractiveEntity myTargetEntity;
 
 	/**
@@ -114,10 +120,12 @@ public abstract class InteractiveEntity extends GameEntity implements
 		myGatherStrategy = new CannotGather();
 		myActions = new HashMap<String, Action>();
 		myActionInfos = new HashMap<String, Information>();
+		myQueueableTasks = new LinkedList<DelayedTask>();
 		isSelected = false;
 		myTasks = new ArrayList<DelayedTask>();
+		myCurQueueTask = new DelayedTask(0,null);
 		myBuildTime = buildTime;
-		myOccupyStrategy = new CannotBeOccupied();		
+		myOccupyStrategy = new CannotBeOccupied();
 		myPath = new Path();
 		myFinder = new AstarFinder();
 		myTargetEntity = this;
@@ -155,6 +163,12 @@ public abstract class InteractiveEntity extends GameEntity implements
 
 	public void addTask(DelayedTask dt) {
 		myTasks.add(dt);
+	}
+
+	public void addQueueableTask(DelayedTask dt) {
+
+			System.err.println("Size of queue : " + myQueueableTasks.size());
+		myQueueableTasks.add(dt);
 	}
 
 	public void setInfo(Information info) {
@@ -300,10 +314,13 @@ public abstract class InteractiveEntity extends GameEntity implements
 		for (String s : myActions.keySet()) {
 			// need to check what type it is...eg it cant be a left click
 			String commandName = s.split(" ")[0];
-			//if (commandName.equals("make") || commandName.equals("deoccupy")) { // very buggy
-			if(!(commandName.equals("leftclick") || commandName.equals("rightclick"))) {
+			// if (commandName.equals("make") || commandName.equals("deoccupy"))
+			// { // very buggy
+			if (!(commandName.equals("leftclick") || commandName
+					.equals("rightclick"))) {
 				System.err.println("yollo: " + commandName);
-				infoCommands.add(new InformationCommand(s, myActionInfos.get(s)));
+				infoCommands
+						.add(new InformationCommand(s, myActionInfos.get(s)));
 			}
 
 		}
@@ -442,12 +459,18 @@ public abstract class InteractiveEntity extends GameEntity implements
 						.getMaxX(), (float) healthBar.getMaxY(), Color.GREEN));
 		pen.fill(healthBar);
 		pen.setColor(Color.black);
+		if(myProductionStrategy.getProducingState() == ProducingState.PRODUCING) {
+			pen.setColor(Color.RED);
+			pen.drawString("Producing yoloyuoyouo", (int) selectLocation.getX(),(int) selectLocation.getY());
+			pen.setColor(Color.BLACK);
+		}
 
 		if (isSelected) {
 			Ellipse2D.Double selectedCircle = new Ellipse2D.Double(
 					selectLocation.getX() - LOCATION_OFFSET,
 					selectLocation.getY() + LOCATION_OFFSET, 50, 30);
 			pen.fill(selectedCircle);
+
 		}
 		super.paint(pen);
 		if (myAttackStrategy.hasWeapon()) {
@@ -554,6 +577,17 @@ public abstract class InteractiveEntity extends GameEntity implements
 				it.remove();
 			}
 		}
+		if (myCurQueueTask != null ) {
+			
+			if (!myCurQueueTask.isActive() && myQueueableTasks.peek() != null ) {
+				myCurQueueTask = myQueueableTasks.poll();
+				System.out.println(myCurQueueTask);
+			}
+			
+				myCurQueueTask.update(elapsedTime);
+			
+		}
+
 		if (myAttackStrategy.hasWeapon()) {
 			Weapon weapon = myAttackStrategy.getCurrentWeapon();
 			if (getEntityState().inAttackMode()) {
@@ -591,7 +625,7 @@ public abstract class InteractiveEntity extends GameEntity implements
 	 * Test method to add an interactive entity to
 	 */
 	public void addProducable(InteractiveEntity producable) {
-	    myProductionStrategy.addProducable(producable);
+		myProductionStrategy.addProducable(producable);
 	}
 
 	@Override
@@ -673,11 +707,11 @@ public abstract class InteractiveEntity extends GameEntity implements
 	public void setUpgradeStrategy(UpgradeStrategy upgradeStrategy) {
 		myUpgradeStrategy = upgradeStrategy;
 	}
-	
+
 	/**
-	 * Returns the target entity of this entity.  In other words, if an entity
-	 * is right clicked on, that entity becomes the target entity which is
-	 * returned from this method.
+	 * Returns the target entity of this entity. In other words, if an entity is
+	 * right clicked on, that entity becomes the target entity which is returned
+	 * from this method.
 	 * 
 	 * @return the target interactive entity
 	 */
