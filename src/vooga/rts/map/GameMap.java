@@ -212,7 +212,7 @@ public class GameMap implements IGameLoop {
      * Set the name of the map
      * @param mapName the name of the map
      */
-    protected void setMapName (String mapName) {
+    public void setMapName (String mapName) {
         myMapName = mapName;
     }
 
