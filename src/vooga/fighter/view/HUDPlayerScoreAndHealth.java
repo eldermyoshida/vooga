@@ -17,7 +17,6 @@ import vooga.fighter.controller.PlayerStatus;
  */
 public class HUDPlayerScoreAndHealth extends HUDPlayerValue {
 	private Text myPlayerHealth = new Text("");
-	private Color myValueColor;
 
 	@Override
 	public void update(Observable o, Object arg) {
