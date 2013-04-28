@@ -29,13 +29,16 @@ import vooga.rts.networking.communications.servermessages.AlertClientMessage;
 public abstract class AbstractThreadContainer implements IThreadContainer, IMessageReceiver {
 
     /**
-     * The email handler that sends this to the email.
+     * The email handler that sends the email information contained in the configuration files.
      */
     public static final IVoogaHandler EMAIL_HANDLER =
-            new HandlerMemory(new HandlerMail("vooga-networking-logger@duke.edu",
-                                              new String[] { "david.s.winegar@gmail.com" },
-                                              "mail.smtp.host", "Log update",
-                                              "New log item received: \n"), 1, Level.SEVERE);
+            new HandlerMemory(new HandlerMail(NetworkBundle.getConfigurationItem("emailFrom"),
+                                              new String[] { NetworkBundle
+                                                      .getConfigurationItem("emailTo") },
+                                              NetworkBundle.getConfigurationItem("emailServer"),
+                                              NetworkBundle.getString("emailSubject"),
+                                              NetworkBundle.getString("emailMessage")), 1,
+                              Level.SEVERE);
     private Map<Integer, ConnectionThread> myConnectionThreads =
             new HashMap<Integer, ConnectionThread>();
     private Logger myLogger;
@@ -45,7 +48,7 @@ public abstract class AbstractThreadContainer implements IThreadContainer, IMess
      */
     public AbstractThreadContainer () {
         LoggerManager log = new LoggerManager();
-        // log.addHandler(EMAIL_HANDLER);
+        log.addHandler(EMAIL_HANDLER);
         myLogger = log.getLogger();
     }
 
@@ -127,10 +130,13 @@ public abstract class AbstractThreadContainer implements IThreadContainer, IMess
      * 
      * @param thread to send to
      */
-    protected void sendErrorMessage (ConnectionThread thread) {
+    private void sendErrorMessage (ConnectionThread thread) {
         StackTraceElement[] element = Thread.currentThread().getStackTrace();
         thread.sendMessage(new AlertClientMessage(NetworkBundle.getString("InvalidOperation"),
                                                   element[1].getMethodName()));
+        getLogger().log(Level.SEVERE,
+                        NetworkBundle.getString("InvalidOperation") + ": " +
+                                element[1].getMethodName());
     }
 
     @Override
@@ -147,8 +153,8 @@ public abstract class AbstractThreadContainer implements IThreadContainer, IMess
      */
     @Override
     public void receiveMessageFromClient (Message message, ConnectionThread thread) {
-        LoggerManager.DEFAULT_LOGGER.log(Level.FINEST, NetworkBundle.getString("MessageReceived") +
-                                                       thread.getID());
+        getLogger().log(Level.FINEST, NetworkBundle.getString("MessageReceived") +
+                                      thread.getID());
         stampMessage(message);
         if (message instanceof ClientInfoMessage) {
             ClientInfoMessage systemMessage = (ClientInfoMessage) message;
