@@ -41,7 +41,7 @@ public class GameElementEditorScreen extends GameEditorScreen {
     /**
      * package for the attributes.
      */
-    private static final String ATTRIBUTE_CLASS_PATH = "vooga.towerdefense.attributes.AttributeConstants";
+    private static final String ATTRIBUTE_CLASS_PATH = "vooga.towerdefense.attributes.AttributeConstantsEnum";
     /**
      * text on button to add a new type.
      */

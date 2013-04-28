@@ -38,7 +38,7 @@ public class GameModel {
  * @param gameMap
  * @param shop
  */
-    public GameModel (Controller controller, GameMap gameMap, Shop shop) {
+    public GameModel (Controller controller, Player player, GameMap gameMap, Shop shop) {
         myController = controller;
         myLevels = new ArrayList<Level>();
         myRules = new ArrayList<Rule>();
@@ -46,7 +46,7 @@ public class GameModel {
         myShop = shop;
         myCurrentLevel = 0;
        // myPlayer = new Player(controller);
-        myPlayer = new Player(controller);
+        myPlayer = player;
         myActiveActions = new ArrayList<Action>();
     }
     

@@ -58,8 +58,9 @@ public class BuildMode extends ControlMode {
 		Location snappedLocation = controller
 				.getPointSnappedToGrid(new Location(p.getX(), p.getY()));
 
-		int tilesWide = (int) myItemToBuild.getAttributeManager().getAttribute("Tiles wide").getValue();
-		int tilesTall = (int) myItemToBuild.getAttributeManager().getAttribute("Tiles tall").getValue();
+                Dimension tileSize = controller.getTileSize();
+                int tilesWide = (int) Math.ceil(myItemToBuild.getSize().getWidth()  / tileSize.getWidth());
+                int tilesTall = (int) Math.ceil(myItemToBuild.getSize().getHeight() / tileSize.getHeight());
 		
 		if (controller.canBuildHere(p, tilesWide, tilesTall))
 			controller.paintGhostImage(myItemToBuild.getPixmap(),

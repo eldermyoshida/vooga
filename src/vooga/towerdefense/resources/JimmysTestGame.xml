@@ -34,6 +34,13 @@
 			1 1 1 1 1 1 1 1 1 1</grid>
 		</Map1>
 	</map>
+	<player>
+		<attributes>
+			<Health>100.0</Health>
+			<Score>0.0</Score>
+			<Money>1000.0</Money>
+		</attributes>
+	</player>
 	<gameelements>
 		<TestUnit>
 			<dimension>50, 50</dimension>

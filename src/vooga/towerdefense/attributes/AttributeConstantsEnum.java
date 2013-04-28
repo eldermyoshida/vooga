@@ -21,13 +21,13 @@ public enum AttributeConstantsEnum {
     /**
      * Affiliation value constants
      */
-    AFFILIATION_PLAYER(0.0),
-    AFFILIATION_WAVES(1.0),
-    AFFILIATION_NEUTRAL(2.0),
+    Player(0.0),
+    Enemy(1.0),
+    Neutral(2.0),
     
-    AFFILIATION_TOWER(0.1),
-    AFFILIATION_UNIT(0.2),
-    AFFILIATION_PROJECTILE(0.3),
+    Tower(0.1),
+    Unit(0.2),
+    Projectile(0.3),
     
     ATTACK_DAMAGE("Attack Damage"),
     ATTACK_RADIUS("Attack Range"),

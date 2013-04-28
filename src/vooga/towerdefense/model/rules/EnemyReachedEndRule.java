@@ -5,6 +5,7 @@ import java.util.List;
 
 import vooga.towerdefense.attributes.Attribute;
 import vooga.towerdefense.attributes.AttributeConstants;
+import vooga.towerdefense.attributes.AttributeConstantsEnum;
 import vooga.towerdefense.gameelements.GameElement;
 import vooga.towerdefense.model.GameModel;
 import vooga.towerdefense.model.Tile;
@@ -44,7 +45,8 @@ public class EnemyReachedEndRule extends Rule {
 	@Override
 	protected void execute() {
 		for(GameElement e: enemiesAtEnd) {
-			Attribute health = myModel.getPlayer().getAttributeManager().getAttribute(AttributeConstants.HEALTH);
+		    System.out.println(AttributeConstantsEnum.HEALTH.getStatusCode());
+			Attribute health = myModel.getPlayer().getAttributeManager().getAttribute(AttributeConstantsEnum.HEALTH.getStatusCode());
 			health.setValue(health.getValue()-HEALTH_COST);
 			System.out.println("LOST 1 LIFE!");
 			System.out.println("lives: " + health.getValue());
