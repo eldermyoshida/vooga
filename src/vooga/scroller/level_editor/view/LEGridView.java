@@ -25,8 +25,8 @@ import vooga.scroller.util.mvc.vcFramework.WindowComponent;
  * 
  * @author Danny Goodman, Deo Fagnisse
  */
-public class LEGridView extends WindowComponent<LevelEditing> 
-implements Scrollable, Renderer<LevelEditing>{
+public class LEGridView extends WindowComponent<LevelEditing>
+        implements Scrollable, Renderer<LevelEditing> {
     private class GridPositionListener implements MouseListener {
 
         @Override
@@ -57,9 +57,8 @@ implements Scrollable, Renderer<LevelEditing>{
 
     }
 
-
     private static LEGridView D;
-    
+
     public static double getDefaultHeightRatio () {
         return LevelEditing.VIEW_CONSTANTS.DEFAULT_GRIDVIEW_HEIGHT_RATIO;
     }
@@ -84,7 +83,7 @@ implements Scrollable, Renderer<LevelEditing>{
      * @param e
      */
     public LEGridView (IView<LevelEditing> parent, Renderable<LevelEditing> r) {
-        super(parent,((LEGrid) r).getPixelSize());
+        super(parent, ((LEGrid) r).getPixelSize());
         this.addMouseListener(new GridPositionListener());
 
     }
@@ -156,33 +155,30 @@ implements Scrollable, Renderer<LevelEditing>{
         }
     }
 
-
     @Override
-    public void setRenderable (Renderable<LevelEditing>  r) {
+    public void setRenderable (Renderable<LevelEditing> r) {
         myGrid = (LEGrid) r;
         setSize(myGrid.getPixelSize());
         repaint();
     }
 
-
     @Override
     public void render (Renderable<LevelEditing> r) {
-       if (r instanceof LEGrid) {
-           render((LEGrid) r);
-       }
-    else try {
-        throw new LevelEditorException("LEGridView cannot render" + r.getClass().getName());
-    }
-    catch (LevelEditorException e) {
-        e.printStackTrace();
-    }
+        if (r instanceof LEGrid) {
+            render((LEGrid) r);
+        }
+        else try {
+            throw new LevelEditorException("LEGridView cannot render" + r.getClass().getName());
+        }
+        catch (LevelEditorException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public Renderable<LevelEditing> getRenderable () {
         return myGrid;
     }
-
 
     public void simulate () {
         myGrid.simulate();
@@ -193,19 +189,14 @@ implements Scrollable, Renderer<LevelEditing>{
         myGridSpinner = new GridSpinner(myGrid.getWidthInBlocks(),
                                         myGrid.getHeightInBlocks());
         int a = (int) JOptionPane.showConfirmDialog(
-                                        null, myGridSpinner, 
-                                        "Update Grid Height and Width", 
-                                        JOptionPane.OK_CANCEL_OPTION);
-            if (a == 0) {
-              process(CommandConstants.CHANGE_GRID_SIZE + " " + 
-                      myGridSpinner.getGridWidth() + ", " +
-                      myGridSpinner.getGridHeight());
-            }
+                                                    null, myGridSpinner,
+                                                    "Update Grid Height and Width",
+                                                    JOptionPane.OK_CANCEL_OPTION);
+        if (a == 0) {
+            process(CommandConstants.CHANGE_GRID_SIZE + CommandConstants.SPACE +
+                    myGridSpinner.getGridWidth() + CommandConstants.SPACE +
+                    myGridSpinner.getGridHeight());
+        }
     }
-    
-    
-    
-
-
 
 }

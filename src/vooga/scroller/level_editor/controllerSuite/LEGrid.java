@@ -206,16 +206,28 @@ public class LEGrid implements Editable, Renderable<LevelEditing>, Scrollable {
     }
 
     /**
-     * Get the overall pixels size of this LEGrid.
+     * Get the overall pixel size of this LEGrid.
      * 
      * @return
      */
     public Dimension getPixelSize () {
-        Dimension res = new Dimension(
-                                      mySize.width * mySpriteSize,
-                                      mySize.height * mySpriteSize);
+        Dimension res = new Dimension(getWidth(), getHeight());
 
         return res;
+    }
+
+    /**
+     * @return
+     */
+    private int getHeight () {
+        return mySize.height * mySpriteSize;
+    }
+
+    /**
+     * @return
+     */
+    private int getWidth () {
+        return mySize.width * mySpriteSize;
     }
 
     /**
@@ -278,6 +290,55 @@ public class LEGrid implements Editable, Renderable<LevelEditing>, Scrollable {
         myBackground = bg;
     }
 
+    @Override
+    public void changeGridSize (int width, int height) {
+        myGrid = createResizedGrid(width, height);
+        mySize = new Dimension(width, height);
+        checkStartPoint();
+        checkDoor();
+        checkPaintableBoxes();
+    }
+
+    private SpriteBox[][] createResizedGrid (int width, int height) {
+        SpriteBox[][] newGrid = new SpriteBox[width][height];
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                if (i < mySize.width && j < mySize.height) {
+                    newGrid[i][j] = getBoxFromCoor(i, j);
+                }
+                else {
+                    newGrid[i][j] = new SpriteBox(this, i, j);
+                }
+            }
+        }
+       return newGrid;
+    }
+
+    private void checkStartPoint () {
+        if (myStartPoint != null) {
+            if (myStartPoint.getX() > getWidth() || myStartPoint.getY() > getHeight()) {
+                myStartPoint = null;
+            }
+        }
+    }
+
+    private void checkDoor () {
+        if (myDoor != null) {
+            if (myDoor.getX() > getWidth() || myDoor.getY() > getHeight()) {
+                myDoor = null;
+            }
+        }
+
+    }
+
+    private void checkPaintableBoxes () {
+        for (SpriteBox box : myPaintableBoxes) {
+            if (box.getX() > getWidth() || box.getY() > getHeight()) {
+                myPaintableBoxes.remove(box);
+            }
+        }
+    }
+
     public IBackgroundView getBackground () {
         return myBackground;
     }
@@ -291,37 +352,35 @@ public class LEGrid implements Editable, Renderable<LevelEditing>, Scrollable {
     }
 
     /**
-     * TODO - needs to be completed to provide for fileName etc...
+     * 
      */
     public void saveThumbnail (String levelFilePath) {
         try {
             ImageIO.write(getThumbnail(), "PNG", new File(levelFilePath + ".png"));
         }
         catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            // Wont happen
         }
     }
 
     public void simulate () {
-        // // TODO Auto-generated method stub
         // ScrollingManager sm = new OmniScrollingManager();
         // GameView display = new GameView(PlatformerConstants.DEFAULT_WINDOW_SIZE, sm);
         SimpleView simContainer = new SimpleView("Level Simulation");
         ScrollingManager sm = new OmniScrollingManager();
         Level sim = new Level(1, sm, this);
         Renderer<Gaming> display = sim.initializeRenderer(simContainer);
-        simContainer.add((GameView)display);
+        simContainer.add((GameView) display);
         simContainer.start();
         // container that will work with user's OS
-//        JFrame frame = new JFrame("Level Simulation");
-//        // add our user interface components
-//        frame.getContentPane().add(display, BorderLayout.CENTER);
-//        // display them
-//        frame.pack();
-//        frame.setVisible(true);
-//        // start animation
-//        ((GameView) display).start();
+        // JFrame frame = new JFrame("Level Simulation");
+        // // add our user interface components
+        // frame.getContentPane().add(display, BorderLayout.CENTER);
+        // // display them
+        // frame.pack();
+        // frame.setVisible(true);
+        // // start animation
+        // ((GameView) display).start();
     }
 
     public int getWidthInBlocks () {

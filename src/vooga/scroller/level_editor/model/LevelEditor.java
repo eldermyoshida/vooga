@@ -11,18 +11,6 @@ import vooga.scroller.level_editor.ILevelEditor;
 import vooga.scroller.level_editor.LevelEditing;
 import vooga.scroller.level_editor.commands.Command;
 import vooga.scroller.level_editor.commands.CommandLibrary;
-import vooga.scroller.level_editor.controllerSuite.LEController;
-
-
-
-/**
- * Level Editor creates and edits an Editable Level based on input from the
- * LEController.
- * 
- * @author Danny Goodman
- *
- */
-
 import vooga.scroller.util.Editable;
 import vooga.scroller.util.mvc.IController;
 /**
@@ -129,6 +117,11 @@ public class LevelEditor implements ILevelEditor {
     @Command
     public void changeBackground (int id) {
         myGrid.changeBackground(myBackgrounds.get(id));
+    }
+    
+    @Command
+    public void changeGridSize (int width, int height) {
+        myGrid.changeGridSize(width, height);
     }
 
     private Sprite getSpriteFromMap (int id) {
