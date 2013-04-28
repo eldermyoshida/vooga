@@ -6,6 +6,7 @@ import util.Location;
 import util.Vector;
 import util.input.InputClassTarget;
 import util.input.InputMethodTarget;
+import vooga.scroller.kirbyGame.spritesDefinitions.players.states.FloatState;
 import vooga.scroller.level_editor.Level;
 import vooga.scroller.level_management.IInputListener;
 import vooga.scroller.marioGame.spritesDefinitions.MarioLib;
@@ -24,7 +25,7 @@ import vooga.scroller.view.GameView;
 public class Kirby extends Player implements IInputListener{
 
 
-    private static final String CONTROLS_FILE_PATH = "vooga/scroller/marioGame/controls/MarioMapping";
+    private static final String CONTROLS_FILE_PATH = "vooga/scroller/kirbyGame/controls/KirbyMapping";
    
     
     private static final int MAX_JUMPS = 2;
@@ -32,7 +33,7 @@ public class Kirby extends Player implements IInputListener{
 //    private static final int DEATH_PENALTY = 1000;
 
 
-    private static final Vector JUMP_VELOCITY = new Vector(Sprite.UP_DIRECTION, 100);
+    private static final Vector JUMP_VELOCITY = new Vector(Sprite.UP_DIRECTION, 20);
 
 
     //private static final double MOVE_MAGNITUDE = 10;
@@ -57,7 +58,7 @@ public class Kirby extends Player implements IInputListener{
 
    
     private int myJumpCount;
-    private Force myGravity;
+    private Gravity myGravity;
 
 
     public Kirby (Location center, Dimension size, GameView gameView, ScrollingManager sm) {
@@ -77,6 +78,7 @@ public class Kirby extends Player implements IInputListener{
     private void intializeStates () {
         this.addPossibleState(MoveLeft.STATE_ID, new MoveLeft(this, MOVE_LEFT, STAND_LEFT, SPEED));
         this.addPossibleState(MoveRight.STATE_ID, new MoveRight(this, MOVE_RIGHT, STAND_RIGHT, SPEED));
+        this.addPossibleState(FloatState.STATE_ID, new FloatState(this));
     }
 
     @Override
@@ -87,8 +89,10 @@ public class Kirby extends Player implements IInputListener{
             myJumpCount = 0;
         }
         
+        
         super.update(elapsedTime, bounds);
         checkSpeed();
+        
     }
 
     private void checkSpeed () {
@@ -108,6 +112,10 @@ public class Kirby extends Player implements IInputListener{
     public Player getPlayer () {
         return this;
     }   
+    
+    public Gravity getGravity() {
+        return myGravity;
+    }
     
     @Override
     public String getInputFilePath () {
@@ -136,13 +144,17 @@ public class Kirby extends Player implements IInputListener{
         this.deactivateState(MoveRight.STATE_ID);
     }
     
-    @InputMethodTarget(name = "jump")
-    public void jump() {
-        if(this.getVelocity().getComponentVector(Sprite.UP_DIRECTION).getMagnitude() < .5 &&
-            this.getVelocity().getComponentVector(Sprite.DOWN_DIRECTION).getMagnitude() < .5 && myJumpCount < MAX_JUMPS ) {           
+    @InputMethodTarget(name = "jumpstart")
+    public void startJump() {
+      
             addVector(JUMP_VELOCITY);
-            myJumpCount +=1;
-        }
+            this.activateState(FloatState.STATE_ID);
+        
+    }
+    
+    public void stopJump() {
+        this.deactivateState(FloatState.STATE_ID);
+
     }
 
     

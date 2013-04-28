@@ -41,7 +41,7 @@ public class KirbyLib extends EncapsulatedSpriteLibrary {
 
 
     public static class CutterEnemy extends GameCharacter implements IEnemy {
-        private static final String DEFAULT_IMG = "koopa.png";
+        private static final String DEFAULT_IMG = "cutter.png";
         private static final Dimension KOOPA_SIZE = new Dimension(32, 64);
         private int SPEED = 30;
         private int RADIUS = 45;
@@ -76,7 +76,7 @@ public class KirbyLib extends EncapsulatedSpriteLibrary {
     
     public static class LaserEnemy extends GameCharacter implements IEnemy {
 
-        private static final String DEFAULT_IMG = "turtle.gif";
+        private static final String DEFAULT_IMG = "laser.png";
         private int SPEED = 30;
         private int RADIUS = 45;
         private TrackPlayer movement = new TrackPlayer(this, getLocatable(), SPEED, RADIUS);
@@ -110,7 +110,7 @@ public class KirbyLib extends EncapsulatedSpriteLibrary {
     
     public static class Boss extends GameCharacter implements IEnemy {
 
-        private static final String DEFAULT_IMG = "turtle.gif";
+        private static final String DEFAULT_IMG = "boss.jpg";
         private int SPEED = 30;
         private int RADIUS = 45;
         private TrackPlayer movement = new TrackPlayer(this, getLocatable(), SPEED, RADIUS);
@@ -145,7 +145,7 @@ public class KirbyLib extends EncapsulatedSpriteLibrary {
 
     public static class PlatformOne extends Sprite implements IPlatform {
 
-        private static final String DEFAULT_IMG = "block.png";
+        private static final String DEFAULT_IMG = "green_box.png";
 
         public PlatformOne () {
             this(DEFAULT_LOC);
@@ -162,7 +162,7 @@ public class KirbyLib extends EncapsulatedSpriteLibrary {
 
     public static class PlatformTwo extends Sprite implements IPlatform {
 
-        private static final String DEFAULT_IMG = "block.png";
+        private static final String DEFAULT_IMG = "black_box.jpg";
 
         public PlatformTwo () {
             this(DEFAULT_LOC);
@@ -179,7 +179,7 @@ public class KirbyLib extends EncapsulatedSpriteLibrary {
     
     public static class PlatformThree extends Sprite implements IPlatform {
 
-        private static final String DEFAULT_IMG = "block.png";
+        private static final String DEFAULT_IMG = "red_box.jpg";
 
         public PlatformThree () {
             this(DEFAULT_LOC);
@@ -195,13 +195,10 @@ public class KirbyLib extends EncapsulatedSpriteLibrary {
     }
     
     
-    
-    
-    
     public static class KirbyLaser extends GameCharacter implements IEnemy {
 
         //has no movement right now 
-        private static final String DEFAULT_IMG = "turtle.gif";
+        private static final String DEFAULT_IMG = "kirby_laser.jpg";
         private int SPEED = 30;
 
 
@@ -227,7 +224,7 @@ public class KirbyLib extends EncapsulatedSpriteLibrary {
     public static class EnemyLaser extends GameCharacter implements IEnemy {
 
         //has no movement right now 
-        private static final String DEFAULT_IMG = "turtle.gif";
+        private static final String DEFAULT_IMG = "enemy_laser.jpg";
         private int SPEED = 30;
 
 
@@ -253,7 +250,7 @@ public class KirbyLib extends EncapsulatedSpriteLibrary {
     public static class FireBall extends GameCharacter implements IEnemy {
 
         //has no movement right now 
-        private static final String DEFAULT_IMG = "turtle.gif";
+        private static final String DEFAULT_IMG = "fireball.png";
         private int SPEED = 30;
 
 

@@ -5,6 +5,8 @@ import vooga.scroller.collision_manager.CollisionDirection;
 import vooga.scroller.extra_resources.sprite_interfaces.ICollectible;
 import vooga.scroller.extra_resources.sprite_interfaces.IEnemy;
 import vooga.scroller.extra_resources.sprite_interfaces.IPlatform;
+import vooga.scroller.kirbyGame.spritesDefinitions.players.Kirby;
+import vooga.scroller.kirbyGame.spritesDefinitions.players.states.FloatState;
 import vooga.scroller.marioGame.spritesDefinitions.players.Mario;
 import vooga.scroller.sprites.Sprite;
 import vooga.scroller.sprites.interfaces.IDoor;
@@ -29,26 +31,12 @@ public class KirbyCollisions {
     private static final double FRICTION = .5;
     private CollisionDirection direction = new CollisionDirection();
 
-    protected void marioAndLevelPortalCollision (IDoor levelPortal) {
-        levelPortal.goToNextLevel();
-    }
 
-    protected void marioAndEnemyCollision (Mario player, IEnemy enemy) {
-        if (direction.collisionDirection(player, enemy).equals(Direction.TOP)) {
-            enemy.takeHit(player.getHit());
-        }
-        else {
-            player.takeHit(enemy.getHit());
-        }
-    }
+    protected void kirbyAndPlatformCollision (Kirby player, IPlatform platform) {
 
-    protected void marioAndCollectibleCollision (Mario player, ICollectible collectible) {
-        player.incrementScore(collectible.getValue());
-        collectible.takeHit(player.getHit());
-    }
-
-    protected void marioAndPlatformCollision (Mario player, IPlatform platform) {
-
+        
+        player.stopJump();
+        
         Direction collisionType = direction.collisionDirection(player, platform);
 
         if (collisionType == null) return;

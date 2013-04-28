@@ -8,6 +8,7 @@ import arcade.games.UserGameData;
 import util.Location;
 import vooga.scroller.collision_manager.VisitLibrary;
 import vooga.scroller.kirbyGame.spritesDefinitions.collisions.KirbyVisitMethods;
+import vooga.scroller.kirbyGame.spritesDefinitions.players.Kirby;
 import vooga.scroller.level_management.splash_page.SplashPage;
 import vooga.scroller.marioGame.splash_page.MarioSplashPage;
 import vooga.scroller.marioGame.spritesDefinitions.MarioLib;
@@ -30,8 +31,8 @@ import vooga.scroller.view.GameView;
 public class KirbyGame extends ScrollerGame {
 
     // constants
-    public static final String TITLE = "Mario Demo";
-    public static final String LEVELS_DIR = "src/vooga/scroller/marioGame/sampleLevels/";
+    public static final String TITLE = "Kirby Demo";
+    public static final String LEVELS_DIR = "src/vooga/scroller/kirbyGame/sampleLevels/";
     public static final String SPLASH_DIR = "MARIO SPLASH.png";
 
 
@@ -73,7 +74,7 @@ public class KirbyGame extends ScrollerGame {
 
     @Override
     protected Player setPlayer (ScrollingManager sm, GameView gameView) {
-        return new Mario(new Location(), new Dimension(20, 32), gameView, sm);
+        return new Kirby(new Location(), new Dimension(20, 32), gameView, sm);
     }
 
 

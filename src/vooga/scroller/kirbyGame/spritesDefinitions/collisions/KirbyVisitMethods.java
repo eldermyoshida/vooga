@@ -4,6 +4,7 @@ import vooga.scroller.collision_manager.VisitLibrary;
 import vooga.scroller.extra_resources.sprite_interfaces.ICollectible;
 import vooga.scroller.extra_resources.sprite_interfaces.IEnemy;
 import vooga.scroller.extra_resources.sprite_interfaces.IPlatform;
+import vooga.scroller.kirbyGame.spritesDefinitions.players.Kirby;
 import vooga.scroller.marioGame.spritesDefinitions.players.Mario;
 import vooga.scroller.sprites.interfaces.IDoor;
 import vooga.scroller.sprites.superclasses.Player;
@@ -27,5 +28,9 @@ public class KirbyVisitMethods extends VisitLibrary {
     private KirbyCollisions collisions = new KirbyCollisions();
 
     //FILL VISIT METHODS
+    
+    public void visit (Kirby kirby, IPlatform platform) {
+        collisions.kirbyAndPlatformCollision(kirby, platform);
+    }
     
 }

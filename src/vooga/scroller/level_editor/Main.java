@@ -3,6 +3,7 @@ package vooga.scroller.level_editor;
 
 import games.scroller.marioGame.spritesDefinitions.MarioLib;
 import games.scroller.mr_fish.sprites.FishLib;
+import vooga.scroller.kirbyGame.spritesDefinitions.KirbyLib;
 import vooga.scroller.level_editor.controllerSuite.LEController;
 import vooga.scroller.level_editor.library.BackgroundLib;
 
@@ -19,7 +20,7 @@ public class Main {
                                           "underwater3.jpg",
                                           "bikini_bottom.jpg"};
         
-        LEController.runLevelEditor(new MarioLib(), new BackgroundLib(filenames));
+        LEController.runLevelEditor(new KirbyLib(), new BackgroundLib(filenames));
         
     }
 }
