@@ -18,8 +18,6 @@ import vooga.towerdefense.attributes.AttributeConstantsEnum;
 
 /**
  * Panel that holds the attribute editor screen.
- *
- * @author Angelica Schwartz
  */
 public class AttributeSection extends SubEditorSection {
 
