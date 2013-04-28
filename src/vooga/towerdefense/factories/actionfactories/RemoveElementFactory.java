@@ -12,6 +12,7 @@ import vooga.towerdefense.gameelements.GameElement;
 public class RemoveElementFactory extends ActionFactory {
 	
 	public RemoveElementFactory(){
+		super();
 	}
 	
 	@Override
