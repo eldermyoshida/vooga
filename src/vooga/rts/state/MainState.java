@@ -14,6 +14,7 @@ import vooga.rts.commands.Command;
 import vooga.rts.controller.InputController;
 import vooga.rts.gui.Window;
 import vooga.rts.gui.menus.MultiMenu;
+import vooga.rts.util.Scale;
 
 
 /**
@@ -83,9 +84,7 @@ public class MainState implements State, Observer {
 
     @Override
     public void paint (Graphics2D pen) {
-        float x = ((float) Window.SCREEN_SIZE.getWidth() / (float) Window.D_X);
-        float y = ((float) Window.SCREEN_SIZE.getHeight() / (float) Window.D_Y);
-        pen.scale(x, y);
+        Scale.scalePen(pen);
         myActiveState.paint(pen);
 
     }

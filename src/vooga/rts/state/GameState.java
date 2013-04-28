@@ -25,6 +25,7 @@ import vooga.rts.gamedesign.strategy.occupystrategy.CanBeOccupied;
 import vooga.rts.gamedesign.sprite.map.Terrain;
 import vooga.rts.gamedesign.strategy.production.CanProduce;
 import vooga.rts.gamedesign.weapon.Weapon;
+import vooga.rts.gui.Window;
 import vooga.rts.map.GameMap;
 import vooga.rts.player.HumanPlayer;
 import vooga.rts.player.Player;
@@ -94,6 +95,7 @@ public class GameState extends SubState implements Controller, Observer {
 
     @Override
     public void paint (Graphics2D pen) {
+        pen.scale(1.0, 1.0);
         pen.setBackground(Color.BLACK);
         myMap.paint(pen);
         myHumanPlayer.paint(pen);
