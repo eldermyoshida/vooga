@@ -44,6 +44,10 @@ public class BuildMode extends ControlMode {
 		int tilesTall = (int) Math.ceil(myItemToBuild.getSize().getHeight()
 				/ tileSize.getHeight());
 
+		Location snappedLocation = controller
+				.getPointSnappedToGrid(new Location(p.getX(), p.getY()));
+		myItemToBuild.setCenter(snappedLocation.getX(), snappedLocation.getY());
+
 		if (controller.canBuildHere(p, tilesWide, tilesTall))
 			controller.fixItemOnMap(myItemToBuild, p);
 	}

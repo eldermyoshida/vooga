@@ -19,7 +19,6 @@ public class TimerAction extends Action {
 	@Override
 	public void executeAction(double elapsedTime) {
 		myTimer+=elapsedTime;
-		System.out.println("Time remaining in wave: " + ((myDuration-myTimer)/1000));
 		if(myTimer>myDuration)
 			setEnabled(false);
 	}
