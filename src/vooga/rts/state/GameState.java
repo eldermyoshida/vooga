@@ -41,124 +41,6 @@ import vooga.rts.util.TimeIt;
  * @author Challen Herzberg-Brovold
  * 
  */
-
-<<<<<<< HEAD
-public class GameState extends SubState implements Controller {
-	private static final Location3D DEFAULT_SOLDIER_ONE_RELATIVE_LOCATION = new Location3D(
-			300, 300, 0);
-	private static final Location3D DEFAULT_SOLDIER_TWO_RELATIVE_LOCATION = new Location3D(
-			0, 500, 0);
-	private static final Location3D DEFAULT_SOLDIER_THREE_RELATIVE_LOCATION = new Location3D(
-			300, 0, 0);
-	private static final Information DEFAULT_SOLDIER_INFO = new Information(
-			"Marine", "I am a soldier of Nunu.", "buttons/marine.png");
-	private static final Location3D DEFAULT_WORKER_RELATIVE_LOCATION = new Location3D(
-			200, 200, 0);
-	private static final Information DEFAULT_WORKER_INFO = new Information(
-			"Worker",
-			"I am a worker. I am sent down from Denethor, son of Ecthelion ",
-			"images/scv.png");
-	private static final Location3D DEFAULT_PRODUCTION_RELATIVE_LOCATION = new Location3D(
-			000, 500, 0);
-	private static final Information DEFAULT_PRODUCTION_INFO = new Information(
-			"Barracks", "This is a barracks that can make awesome pies", 
-			"buttons/marine.png");
-	private static final Location3D DEFAULT_OCCUPY_RELATIVE_LOCATION = new Location3D(
-			300, 100, 0);
-	private static final Information DEFAULT_OCCUPY_INFO = new Information(
-			"Garrison", "This is a garrison that soldiers can occupy", "buttons/marine.png");
-
-	private static GameMap myMap;
-	private static PlayerManager myPlayers;
-
-	private List<DelayedTask> myTasks;
-	private FrameCounter myFrames;
-
-	private Rectangle2D myDrag;
-	private Factory myFactory;
-
-	private MiniMap myMiniMap;
-
-	public GameState(Observer observer) {
-		super(observer);
-
-		MapLoader ml = null;
-		try {
-			ml = new MapLoader();
-			ml.loadMapFile("/vooga/rts/tests/maps/testmap/testmap.xml");
-		} catch (ParserConfigurationException e) {
-		} catch (Exception e1) {
-		}
-		setMap(ml.getMyMap());
-		myMiniMap = new MiniMap(getMap(), new Location(50, 500), new Dimension(
-				150, 200));
-
-		// myMap = new GameMap(new Dimension(4000, 2000), true);
-		myPlayers = new PlayerManager();
-		// myMap = new GameMap(8, new Dimension(512, 512));
-
-		myFrames = new FrameCounter(new Location(100, 20));
-		myTasks = new ArrayList<DelayedTask>();
-		setupGame();
-	}
-
-	@Override
-	public void update(double elapsedTime) {
-		myMap.update(elapsedTime);
-		getPlayers().update(elapsedTime);
-
-		for (DelayedTask dt : myTasks) {
-			dt.update(elapsedTime);
-		}
-
-		yuckyUnitUpdate(elapsedTime);
-		myFrames.update(elapsedTime);
-	}
-
-	@Override
-	public void paint(Graphics2D pen) {
-		pen.setBackground(Color.BLACK);
-		myMap.paint(pen);
-		myMiniMap.paint(pen);
-		getPlayers().getHuman().paint(pen);
-
-		if (myDrag != null) {
-			pen.draw(myDrag);
-		}
-
-		Camera.instance().paint(pen);
-		myFrames.paint(pen);
-	}
-
-	@Override
-	public void receiveCommand(Command command) {
-		// If it's a drag, we need to do some extra checking.
-		if (command instanceof DragCommand) {
-			myDrag = ((DragCommand) command).getScreenRectangle();
-			if (myDrag == null) {
-				return;
-			}
-		}
-		sendCommand(command);
-	}
-
-	@Override
-	public void sendCommand(Command command) {
-		getPlayers().getHuman().sendCommand(command);
-	}
-
-	public void setupGame() {
-		getPlayers().addPlayer(1);
-		Location3D playerOneBase = getPlayers().getHuman().getBase();
-		generateInitialSprites(0, playerOneBase);
-
-		getPlayers().addPlayer(2);
-		Location3D playerEnemyBase = getPlayers().getPlayer(1).getEnemyBase();
-		generateInitialSprites(1, playerEnemyBase);
-
-		generateResources();
-	}
-=======
 public class GameState extends SubState implements Controller, Observer {
     private static final Location3D DEFAULT_SOLDIER_ONE_RELATIVE_LOCATION = new Location3D(300,
                                                                                            300, 0);
@@ -223,9 +105,7 @@ public class GameState extends SubState implements Controller, Observer {
 
         for (DelayedTask dt : myTasks) {
             dt.update(elapsedTime);
-        }
-
-        yuckyUnitUpdate(elapsedTime);
+        }        
         myFrames.update(elapsedTime);
     }
 
@@ -251,7 +131,9 @@ public class GameState extends SubState implements Controller, Observer {
         // If it's a drag, we need to do some extra checking.
         if (command instanceof DragCommand) {
             myDrag = ((DragCommand) command).getScreenRectangle();
-            if (myDrag == null) { return; }
+            if (myDrag == null) {
+                return;
+            }
         }
         sendCommand(command);
     }
@@ -272,21 +154,19 @@ public class GameState extends SubState implements Controller, Observer {
 
         generateResources();
     }
->>>>>>> master
 
     private void generateInitialSprites (int playerID, Location3D baseLocation) {
         Unit worker = (Unit) RTSGame.getFactory().getEntitiesMap().get("worker").copy();
         worker =
 
-                (Unit) setLocation(worker, baseLocation, DEFAULT_WORKER_RELATIVE_LOCATION);
+        (Unit) setLocation(worker, baseLocation, DEFAULT_WORKER_RELATIVE_LOCATION);
 
         getPlayers().getPlayer(playerID).add(worker);
 
         Unit soldierOne = (Unit) RTSGame.getFactory().getEntitiesMap().get("Marine").copy();
         soldierOne =
 
-                (Unit) setLocation(soldierOne, baseLocation,
-                                   DEFAULT_SOLDIER_ONE_RELATIVE_LOCATION);
+        (Unit) setLocation(soldierOne, baseLocation, DEFAULT_SOLDIER_ONE_RELATIVE_LOCATION);
 
         getPlayers().getPlayer(playerID).add(soldierOne);
 
@@ -299,8 +179,8 @@ public class GameState extends SubState implements Controller, Observer {
 
         Building startOccupy =
                 (Building) RTSGame.getFactory().getEntitiesMap().get("garrison").copy();
-        startOccupy = (Building) setLocation(startOccupy, baseLocation,
-                                             DEFAULT_OCCUPY_RELATIVE_LOCATION);
+        startOccupy =
+                (Building) setLocation(startOccupy, baseLocation, DEFAULT_OCCUPY_RELATIVE_LOCATION);
         getPlayers().getPlayer(playerID).add(startOccupy);
 
     }
@@ -315,48 +195,26 @@ public class GameState extends SubState implements Controller, Observer {
         return subject;
     }
 
-	private void generateResources() {
-		for (int j = 0; j < 10; j++) {
-			getMap().getResources().add(
-					new Resource(new Pixmap("images/mineral.gif"),
-							new Location3D(600 + j * 30, 600 - j * 20, 0),
-							new Dimension(50, 50), 0, 200, "mineral"));
-		}
+    private void generateResources () {
+        for (int j = 0; j < 10; j++) {
+            getMap().getResources().add(new Resource(new Pixmap("images/mineral.gif"),
+                                                     new Location3D(600 + j * 30, 600 - j * 20, 0),
+                                                     new Dimension(50, 50), 0, 200, "mineral"));
+        }
+    }
 
-<<<<<<< HEAD
-		for (int j = 0; j < 4; j++) {
-			for (int k = 0; k < 8; k++) {
-				getMap().getTerrain().add(
-						new Terrain(new Pixmap("images/gold.png"),
-								new Location3D(100 + k * 25, 100, j * 25),
-								new Dimension(50, 50)));
-			}
-		}
-	}
-=======
     public void initializeGameOver () {
         isGameOver = true;
     }
 
-    private void yuckyUnitUpdate (double elapsedTime) {
->>>>>>> master
+    public static PlayerManager getPlayers () {
+        return myPlayers;
+    }
 
-	private void yuckyUnitUpdate(double elapsedTime) {
+    public static GameMap getMap () {
+        return myMap;
+    }
 
-		List<InteractiveEntity> p1 = getPlayers().getTeam(1).getUnits();
-		List<InteractiveEntity> p2 = getPlayers().getTeam(2).getUnits();
-
-	}
-
-	public static PlayerManager getPlayers() {
-		return myPlayers;
-	}
-
-<<<<<<< HEAD
-	public static GameMap getMap() {
-		return myMap;
-	}
-=======
     @Override
     public void update (Observable arg0, Object arg1) {
         initializeGameOver();
@@ -365,15 +223,10 @@ public class GameState extends SubState implements Controller, Observer {
     public static void setMap (GameMap map) {
         myMap = map;
     }
->>>>>>> master
 
-	public static void setMap(GameMap map) {
-		myMap = map;
-	}
+    @Override
+    public void activate () {
+        // TODO Auto-generated method stub
 
-	@Override
-	public void activate() {
-		// TODO Auto-generated method stub
-
-	}
+    }
 }
