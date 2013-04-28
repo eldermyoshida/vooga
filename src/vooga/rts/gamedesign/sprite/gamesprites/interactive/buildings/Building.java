@@ -98,4 +98,10 @@ public class Building extends InteractiveEntity {
     public void setRallyPoint (Location3D rallyPoint) {
         myRallyPoint = rallyPoint;
     }
+
+	@Override
+	public void addActions() {
+		// TODO Auto-generated method stub
+		
+	}
 }
