@@ -115,7 +115,7 @@ public class LEController implements IController<LevelEditing> {
     }
 
     private String getLanguage () {
-        String[] languages = { "English", "French" };
+        String[] languages = {"English", "French"};
         int n =
                 JOptionPane.showOptionDialog(null,
                                              "Choose a language", "Language Selection",

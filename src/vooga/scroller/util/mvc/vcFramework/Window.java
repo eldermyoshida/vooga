@@ -115,6 +115,7 @@ public abstract class Window<W extends WorkspaceView<D>,
     public void addTab (W tab, Renderable<D> p) {
         myTabbedPane.addTab(getLiteral("TabTitle") + " " + (tab.getID() + 1), tab);
         tab.setRenderable(p);
+        myTabbedPane.setSelectedComponent(tab);
     }
 
     @SuppressWarnings("unchecked")
