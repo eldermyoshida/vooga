@@ -15,7 +15,6 @@ import vooga.towerdefense.factories.definitions.TowerDefinition;
 import vooga.towerdefense.factories.elementfactories.GameElementFactory;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.model.GameMap;
-import vooga.towerdefense.util.Location;
 
 
 /**

@@ -4,7 +4,6 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
-import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
@@ -46,7 +45,8 @@ public class ProductionBuilding extends Building {
      * @return myRallyPoint, the rally point of the
      *         production building
      */
-    public Location3D getRallyPoint () {
+    @Override
+	public Location3D getRallyPoint () {
         return myRallyPoint;
     }
 
@@ -62,7 +62,8 @@ public class ProductionBuilding extends Building {
      * 
      * @param rallyPoint the location of the new rally point
      */
-    public void setRallyPoint (Location3D rallyPoint) {
+    @Override
+	public void setRallyPoint (Location3D rallyPoint) {
         myRallyPoint = rallyPoint;
     }
 

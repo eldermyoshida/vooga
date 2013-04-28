@@ -55,7 +55,8 @@ public class EnvironmentObject extends GameObject {
     /**
      * Updates the environment object. Behavior to be added.
      */
-    public void completeUpdate() {
+    @Override
+	public void completeUpdate() {
         
     }
 }

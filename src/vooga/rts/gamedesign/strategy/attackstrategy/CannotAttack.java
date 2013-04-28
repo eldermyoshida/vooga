@@ -36,6 +36,7 @@ public class CannotAttack implements AttackStrategy {
 	 * Attacks the given IAttackbleable object. In the state of CannotAttack
 	 * does nothing to the IAttackable object.
 	 */
+	@Override
 	public void attack(IAttackable attackable, double distance) {
 		return;
 	}
@@ -45,6 +46,7 @@ public class CannotAttack implements AttackStrategy {
 	 * of CannotAttack returns a null list.
 	 * @return a null list of Weapons
 	 */
+	@Override
 	public List<Weapon> getWeapons() {
 		return null;
 	}
@@ -55,6 +57,7 @@ public class CannotAttack implements AttackStrategy {
 	 * CannotAttack return -1, representing no Weapon has been activated.
 	 * @return -1, representing no Weapon has been activated.
 	 */
+	@Override
 	public int getWeaponIndex() {
 		return -1;
 	}
@@ -63,6 +66,7 @@ public class CannotAttack implements AttackStrategy {
 	 * Adds a Weapon to the list of Weapons belonged to this AttackStrategy.
 	 * @param weapon the new Weapon to be added into the list.
 	 */
+	@Override
 	public void addWeapons(Weapon weapon) {
 		myWeapons.add(weapon);
 
@@ -72,10 +76,12 @@ public class CannotAttack implements AttackStrategy {
 	 * Determines whether this CanAttack is able to attack.
 	 * @return Whether this CanAttack is able to attack.
 	 */
+	@Override
 	public boolean getCanAttack() {
 		return myCanAttack;
 	}
 
+	@Override
 	public Weapon getCurrentWeapon() {
 		return null;
 	}

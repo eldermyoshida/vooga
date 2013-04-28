@@ -39,6 +39,7 @@ public class AttackObjectLoader extends ObjectLoader {
 	 * @param attackName Name tag of the attack to be loaded in the xml file
 	 * @param pathHierarchy The path to the folder containing the game's resources
 	 */
+	@Override
 	protected void load(String attackName, String pathHierarchy) {
 		Document doc = getDocument();
 		NodeList attackNodes = doc.getElementsByTagName(getResourceBundle().getString("Attack"));

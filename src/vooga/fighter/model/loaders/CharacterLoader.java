@@ -40,6 +40,7 @@ public class CharacterLoader extends ObjectLoader {
 	 * @param charName The name of the character to be matched in the xml file
 	 * @param pathHierarchy The path to the folder containing the game's resources
 	 */
+	@Override
 	protected void load(String charName, String pathHierarchy) {
 		Document doc = getDocument();
 		NodeList charNodes = doc.getElementsByTagName(getResourceBundle().getString("Character"));

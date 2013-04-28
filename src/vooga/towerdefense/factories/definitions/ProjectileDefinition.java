@@ -3,8 +3,6 @@ package vooga.towerdefense.factories.definitions;
 import java.awt.Dimension;
 
 import vooga.towerdefense.factories.attributefactories.AttributeManagerFactory;
-import vooga.towerdefense.util.Location;
-import vooga.towerdefense.util.Pixmap;
 
 
 /**
@@ -26,15 +24,18 @@ public class ProjectileDefinition extends GameElementDefinition {
 		mySize = DefinitionConstants.DEFAULT_PROJECTILE_SIZE;
 	}
 	
+	@Override
 	public Pixmap getImage(){
 		return myImage;
 	}
 	
-    public Location getCenter () {
+    @Override
+	public Location getCenter () {
         return myCenter;
     }
 
-    public Dimension getSize () {
+    @Override
+	public Dimension getSize () {
         return mySize;
     }
 

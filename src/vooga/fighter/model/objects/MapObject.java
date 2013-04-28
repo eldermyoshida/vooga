@@ -145,7 +145,8 @@ public class MapObject extends GameObject {
     /**
      * Updates all environmental objects in the map object.
      */
-    public void completeUpdate() {                        
+    @Override
+	public void completeUpdate() {                        
         if (getCurrentState().hasCompleted()) {
             getCurrentState().resetState();
         }
@@ -157,7 +158,8 @@ public class MapObject extends GameObject {
     /**
      * Nothing for now, just return false. Never need to remove map.
      */
-    public boolean shouldBeRemoved() {
+    @Override
+	public boolean shouldBeRemoved() {
         return false;
     }
 }

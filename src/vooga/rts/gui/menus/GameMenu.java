@@ -2,21 +2,13 @@ package vooga.rts.gui.menus;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Observable;
-import javax.imageio.ImageIO;
-import vooga.rts.commands.ClickCommand;
-import vooga.rts.commands.Command;
-import vooga.rts.commands.PositionCommand;
 import vooga.rts.gui.Button;
 import vooga.rts.gui.Menu;
 import vooga.rts.gui.Window;
 import vooga.rts.gui.buttons.ImageButton;
-import vooga.rts.gui.buttons.MainMenuButton;
 import vooga.rts.resourcemanager.ResourceManager;
 import vooga.rts.util.Location;
 

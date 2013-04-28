@@ -1,11 +1,8 @@
 
 package vooga.scroller.util.mvc.vcFramework;
 
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
-import java.awt.Image;
-import java.util.Stack;
 import vooga.scroller.util.Renderable;
 import vooga.scroller.util.mvc.IView;
 import vooga.scroller.util.mvc.vcFramework.ViewConstants;

@@ -1,6 +1,5 @@
 package vooga.rts.networking.client;
 
-import java.util.List;
 import vooga.rts.networking.communications.LobbyInfo;
 
 /**

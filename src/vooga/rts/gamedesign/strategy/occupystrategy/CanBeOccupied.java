@@ -9,10 +9,8 @@ import vooga.rts.gamedesign.sprite.gamesprites.GameEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Soldier;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
-import vooga.rts.gamedesign.state.DetectableState;
 import vooga.rts.gamedesign.state.MovementState;
 import vooga.rts.gamedesign.state.OccupyState;
-import vooga.rts.util.Location3D;
 
 
 /**
@@ -44,7 +42,8 @@ public class CanBeOccupied implements OccupyStrategy {
         myOccupierID = 0;
     }
 
-    public void getOccupied (InteractiveEntity entity, Unit u) {
+    @Override
+	public void getOccupied (InteractiveEntity entity, Unit u) {
         if (myOccupierHashCodes.size() < myMaxOccupiers && verifyOccupier(entity, u)) {
             if (myOccupierID == 0) {
                 myOccupierID = u.getPlayerID();
@@ -59,7 +58,8 @@ public class CanBeOccupied implements OccupyStrategy {
     /**
      * Creates and adds occupy strategy specific actions to entity
      */
-    public void createOccupyActions (final InteractiveEntity entity) {
+    @Override
+	public void createOccupyActions (final InteractiveEntity entity) {
         addDeoccupyAction(entity);
     }
 
@@ -92,7 +92,8 @@ public class CanBeOccupied implements OccupyStrategy {
     /**
      * Adds a new type of object as a valid type of occupier.
      */
-    public void addValidClassType (Unit validOccupier) {
+    @Override
+	public void addValidClassType (Unit validOccupier) {
         Class<?> cls = validOccupier.getClass();
         String className = cls.getName();
         myValidOccupierType.add(className);
@@ -131,7 +132,8 @@ public class CanBeOccupied implements OccupyStrategy {
      * Sets the entity's current occupier id, which represents the player id
      * that is currently occupying the entity.
      */
-    public void setOccupierID (int id) {
+    @Override
+	public void setOccupierID (int id) {
         myOccupierID = id;
     }
 
@@ -139,21 +141,24 @@ public class CanBeOccupied implements OccupyStrategy {
      * Returns the entity's current occupier id, which represents the player id
      * that is currently occupying the entity.
      */
-    public int getOccupierID () {
+    @Override
+	public int getOccupierID () {
         return myOccupierID;
     }
 
     /**
      * Returns the hash code of the list of occupiers.
      */
-    public List<Integer> getOccupiers () {
+    @Override
+	public List<Integer> getOccupiers () {
         return myOccupierHashCodes;
     }
 
     /**
      * Returns the max number of occupiers this entity can take.
      */
-    public int getMaxOccupiers () {
+    @Override
+	public int getMaxOccupiers () {
         return myMaxOccupiers;
     }
 

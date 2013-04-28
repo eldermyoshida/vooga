@@ -4,7 +4,7 @@ import java.awt.geom.Point2D;
 import java.lang.reflect.Field;
 import java.util.Observer;
 
-import vooga.fighter.util.Paintable;
+import util.Paintable;
 
 /**
  * Acts as a display for model data. Throws NullPointerExceptions on Update.

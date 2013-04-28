@@ -1,18 +1,13 @@
 package vooga.scroller.level_editor.view;
 
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Point;
 import javax.swing.JScrollPane;
-import vooga.scroller.level_editor.Level;
+import javax.swing.ScrollPaneConstants;
+
 import vooga.scroller.level_editor.commands.CommandConstants;
 import vooga.scroller.level_editor.controllerSuite.LEGrid;
 import vooga.scroller.level_editor.controllerSuite.LETools;
-import vooga.scroller.util.Editable;
 import vooga.scroller.util.Renderable;
 import vooga.scroller.util.Renderer;
-import vooga.scroller.util.mvc.IView;
-import vooga.scroller.util.mvc.IWindow;
 import vooga.scroller.util.mvc.vcFramework.Tools;
 import vooga.scroller.util.mvc.vcFramework.WorkspaceView;
 import vooga.scroller.viewUtil.EasyGridFactory;
@@ -48,11 +43,11 @@ public class LEWorkspaceView extends WorkspaceView<LevelEditing> implements Rend
         myGridView = grid.initializeRenderer(this);
         myToolsView = ourTools.initializeRenderer(this);
         myLevelGridScroller = new JScrollPane(myGridView,
-                                              JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-                                              JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+                                              ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
+                                              ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         myToolsScroller = new JScrollPane(myToolsView,
-                                              JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-                                              JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+                                              ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+                                              ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         EasyGridFactory.layout(this, myLevelGridScroller, myToolsScroller);
     }
 

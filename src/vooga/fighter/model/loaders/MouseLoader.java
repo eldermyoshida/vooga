@@ -41,6 +41,7 @@ public class MouseLoader extends ObjectLoader {
 	 * @param mouse Name tag of the mouse to be loaded in the xml file
 	 * @param pathHierarchy The path to the folder containing the game's resources
 	 */
+	@Override
 	protected void load(String mouse, String pathHierarchy) {
 		Document doc = getDocument();
 		NodeList menuNodes = doc.getElementsByTagName(getResourceBundle().getString("MouseObject"));

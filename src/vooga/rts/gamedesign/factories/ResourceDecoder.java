@@ -2,10 +2,6 @@ package vooga.rts.gamedesign.factories;
 
 import java.awt.Dimension;
 import java.lang.reflect.InvocationTargetException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
@@ -14,7 +10,6 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import vooga.rts.gamedesign.sprite.gamesprites.*;
-import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.ReflectionHelper;
@@ -59,6 +54,7 @@ public class ResourceDecoder extends Decoder{
 	 * @throws ParserConfigurationException
 	 * @throws SAXException
 	 */
+	@Override
 	public void create(Document doc) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		String path = doc.getElementsByTagName(HEAD_TAG).item(0).getAttributes().getNamedItem(SOURCE_TAG).getTextContent();
 		NodeList nodeLst = doc.getElementsByTagName(TYPE_TAG);

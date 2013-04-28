@@ -33,7 +33,8 @@ public class LevelMode extends Mode {
     /**
      * Updates level mode by calling update in all of its objects.
      */
-    public void update() {
+    @Override
+	public void update() {
         loadAttacks();
         removeAppropriateObjects();
         updateHealth();

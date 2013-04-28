@@ -79,10 +79,10 @@ public class LEController implements IController<LevelEditing> {
      */
     private void createWorkspaceView (int id, LEGrid m) {
         LEWorkspaceView associatedWorkspaceView =
-                myView.initializeWorkspaceView(id, (Renderable<LEGridView>) m);
+                myView.initializeWorkspaceView(id, m);
         myWorkspace2Tab.put(m, associatedWorkspaceView);
         myTab2Workspace.put(associatedWorkspaceView, m);
-        myView.showWorkspace(associatedWorkspaceView, (Renderable<LEGridView>) m);
+        myView.showWorkspace(associatedWorkspaceView, m);
     }
 
     @Override
@@ -187,7 +187,7 @@ public class LEController implements IController<LevelEditing> {
         if (cmd instanceof String) {
             myModel.processCommand(m, (String) cmd);
         }
-        t.setRenderable((Renderable<?>) m);
+        t.setRenderable(m);
     }
 
     @Override

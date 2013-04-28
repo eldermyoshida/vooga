@@ -38,6 +38,7 @@ public class CanGather implements GatherStrategy {
 		myGatherState = GatherState.WAITING;
 	}
 
+	@Override
 	public void gatherResource(int playerID, IGatherable gatherable) {
 		if(((Resource)gatherable).isDead()) {
 			return;

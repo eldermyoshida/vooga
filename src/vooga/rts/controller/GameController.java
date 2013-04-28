@@ -18,16 +18,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
 
-import vooga.rts.gamedesign.Weapon;
 import vooga.rts.gamedesign.factories.Factory;
-import vooga.rts.gamedesign.sprite.rtsprite.Projectile;
-import vooga.rts.gamedesign.sprite.rtsprite.Resource;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings.Barracks;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings.Building;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.buildings.UpgradeBuilding;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Soldier;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Unit;
-import vooga.rts.gamedesign.sprite.rtsprite.interactive.units.Worker;
 import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;
 import vooga.rts.gamedesign.strategy.attackstrategy.CannotAttack;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
@@ -40,7 +31,6 @@ import vooga.rts.player.Team;
 import vooga.rts.resourcemanager.ResourceManager;
 import util.Location;
 import vooga.rts.util.Camera;
-import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.PointTester;
@@ -198,7 +188,8 @@ public class GameController extends AbstractController {
         }
     }
 
-    public void activate () {
+    @Override
+	public void activate () {
         setupGame();
     }
 

@@ -113,7 +113,8 @@ public abstract class GameSprite extends Observable implements IGameLoop {
         mySize = myOriginalSize;
     }
 
-    public void paint (Graphics2D pen) {
+    @Override
+	public void paint (Graphics2D pen) {
         if (!isVisible())
             return;
 
@@ -233,7 +234,8 @@ public abstract class GameSprite extends Observable implements IGameLoop {
         resetBounds();
     }
 
-    public void update (double elapsedTime) {
+    @Override
+	public void update (double elapsedTime) {
 
     }
 

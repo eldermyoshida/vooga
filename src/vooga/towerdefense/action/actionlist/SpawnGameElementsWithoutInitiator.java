@@ -8,7 +8,6 @@ import vooga.towerdefense.factories.examplesfactories.ExampleUnitFactory;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.tiles.Tile;
-import vooga.towerdefense.util.Location;
 
 
 /**

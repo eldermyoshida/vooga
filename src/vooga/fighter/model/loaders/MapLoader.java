@@ -55,6 +55,7 @@ public class MapLoader extends ObjectLoader {
 	 * @param mapName Name tag of the map to be loaded in the xml file
 	 * @param pathHierarchy The path to the folder containing the game's resources
 	 */
+	@Override
 	protected void load(String mapName, String pathHierarchy) {
 		Document doc = getDocument();
 		NodeList mapNodes = doc.getElementsByTagName(getResourceBundle().getString("Map"));
@@ -63,7 +64,7 @@ public class MapLoader extends ObjectLoader {
 			Element node = (Element) mapNodes.item(i);
 			String name = getAttributeValue(node, getResourceBundle().getString("MapName"));
 			if (mapName.equals(name)) {
-				NodeList stateNodes = ((Element) node).getElementsByTagName(getResourceBundle().getString("State"));
+				NodeList stateNodes = node.getElementsByTagName(getResourceBundle().getString("State"));
 				addStates(stateNodes, myMap);
 				myMap.setLocation(new UpdatableLocation(Integer.parseInt(getAttributeValue(node, getResourceBundle()
 					.getString("XSize"))) / 2, Integer.parseInt(getAttributeValue(node, getResourceBundle()

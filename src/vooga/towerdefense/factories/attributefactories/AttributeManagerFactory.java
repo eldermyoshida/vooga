@@ -2,7 +2,6 @@ package vooga.towerdefense.factories.attributefactories;
 
 import java.util.ArrayList;
 import java.util.List;
-import vooga.towerdefense.attributes.Attribute;
 import vooga.towerdefense.attributes.AttributeManager;
 
 

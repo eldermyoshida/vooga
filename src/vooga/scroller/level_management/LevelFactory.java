@@ -3,8 +3,6 @@ package vooga.scroller.level_management;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.ImageIcon;
-import util.Location;
 import vooga.scroller.level_editor.Level;
 import vooga.scroller.level_editor.controllerSuite.LEGrid;
 import vooga.scroller.level_editor.model.LevelParser;
@@ -12,7 +10,6 @@ import vooga.scroller.level_management.splash_page.SplashPage;
 import vooga.scroller.marioGame.spritesDefinitions.MarioLib;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.util.IGameComponent;
-import vooga.scroller.util.Pixmap;
 import vooga.scroller.view.GameView;
 
 

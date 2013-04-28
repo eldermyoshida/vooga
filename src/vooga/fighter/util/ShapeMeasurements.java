@@ -11,7 +11,6 @@ import java.util.List;
 
 import util.Location;
 import util.Vector;
-import vooga.fighter.model.objects.MapObject;
 
 public class ShapeMeasurements {
 	

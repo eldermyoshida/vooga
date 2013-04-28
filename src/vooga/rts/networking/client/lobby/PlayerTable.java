@@ -66,7 +66,8 @@ public class PlayerTable extends JScrollPane {
             private static final long serialVersionUID = -4151956216349241397L;
 
             //  Determine editor to be used by row
-            public TableCellEditor getCellEditor(int row, int column)
+            @Override
+			public TableCellEditor getCellEditor(int row, int column)
             {
                 int modelColumn = convertColumnIndexToModel( column );
 

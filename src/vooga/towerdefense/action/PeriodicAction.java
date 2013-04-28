@@ -15,7 +15,8 @@ public class PeriodicAction extends TargetedAction {
         myTimer = 0;
     }
     
-    public void update(double elapsedTime) {
+    @Override
+	public void update(double elapsedTime) {
         if (isEnabled()) {
             executeAction(elapsedTime);
         }

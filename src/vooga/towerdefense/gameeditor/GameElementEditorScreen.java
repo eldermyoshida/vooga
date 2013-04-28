@@ -148,7 +148,8 @@ public class GameElementEditorScreen extends ElementWithActionEditorScreen {
     /**
      * adds this game element to the game.
      */
-    public void addElementToGame() {
+    @Override
+	public void addElementToGame() {
         getController().addGameElementToGame(myTypeBox.getSelectedItem().toString(), getName(),
                                          myImageBox.getText(),
                                          getAttributes(),

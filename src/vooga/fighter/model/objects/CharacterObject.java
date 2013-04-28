@@ -55,7 +55,8 @@ public class CharacterObject extends GameObject {
      * Updates the character for one game loop cycle. Applies effects currently
      * active on the character.
      */
-    public void completeUpdate() {
+    @Override
+	public void completeUpdate() {
         for (int i=0; i<myActiveEffects.size(); i++) {
             Effect effect = myActiveEffects.get(i);
             effect.update();
@@ -69,7 +70,8 @@ public class CharacterObject extends GameObject {
      * Calls GameObject's updateState() method as well as sets the default state to stand
      * if no other state actions are going on.
      */
-    public void updateState() {
+    @Override
+	public void updateState() {
         super.updateState();
         if (getCurrentState().hasCompleted()) {
             setCurrentState("stand");            

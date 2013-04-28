@@ -70,7 +70,7 @@ public class ViewXMLLoader {
             String location = BORDER_LAYOUT_ADDITION + myXMLTool.getContent(locElement);
             ((MultipleScreenPanel) panel).addScreen(subScreen, location);
         }
-        return (MultipleScreenPanel) panel;
+        return panel;
     }
     
     /**

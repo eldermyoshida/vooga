@@ -14,7 +14,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import vooga.rts.action.Action;
-import vooga.rts.action.InteractiveAction;
 import vooga.rts.action.IActOn;
 import vooga.rts.commands.Command;
 import vooga.rts.gamedesign.sprite.gamesprites.GameEntity;
@@ -104,7 +103,8 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
         setSpeed(DEFAULT_INTERACTIVEENTITY_SPEED);
     }
 
-    public void addAction (String command, Action action) {
+    @Override
+	public void addAction (String command, Action action) {
         myActions.put(command, action);
     }
 
@@ -153,7 +153,8 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
         }
     }
 
-    public int calculateDamage (int damage) {
+    @Override
+	public int calculateDamage (int damage) {
         return damage * (1 - (myArmor / (myArmor + 100)));
     }
 
@@ -448,7 +449,8 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     /**
      * Sets the object to be in the changed state for the observer pattern.
      */
-    public void setChanged () {
+    @Override
+	public void setChanged () {
         super.setChanged();
     }
 

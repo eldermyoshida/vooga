@@ -22,7 +22,8 @@ public class RemoveGameElement extends Action {
         myElement = elementToRemove;
     }
     
-    public void executeAction (double elapsedTime) {
+    @Override
+	public void executeAction (double elapsedTime) {
         execute();
     }
 

@@ -1,9 +1,6 @@
 package vooga.rts.gamedesign.sprite.gamesprites;
 
 import java.awt.Dimension;
-import java.awt.Graphics2D;
-
-
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 

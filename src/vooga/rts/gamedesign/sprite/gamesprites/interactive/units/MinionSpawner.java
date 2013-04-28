@@ -3,7 +3,6 @@ package vooga.rts.gamedesign.sprite.gamesprites.interactive.units;
 import java.awt.Dimension;
 
 
-import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;

@@ -41,6 +41,7 @@ public class MapWriter extends AbstractWriter{
 	/**
 	 * writes the data in the myWriteSource map to an xml file at myFilePath
 	 */
+	@Override
 	public void writeData() {
 		writeData(getFilePath());
 	}
@@ -48,6 +49,7 @@ public class MapWriter extends AbstractWriter{
 	/**
 	 * writes the data in myWriteSource to the xml file at filepath
 	 */
+	@Override
 	public void writeData(String filepath) {
 		getXMLWriter().makeDoc();
 		List<UpdatableLocation> startingPos = myWriteSource.getStartPositions();
@@ -149,6 +151,7 @@ public class MapWriter extends AbstractWriter{
 	 * writes the map's generated xml nodes to the file at input filepath.
 	 * If the map already exists, overwrites that data, if not, adds a new map.
 	 */
+	@Override
 	protected void writeToFile(String filepath) {
 		MapLoader loader = new MapLoader(filepath);
 		Document doc = loader.getDocument();

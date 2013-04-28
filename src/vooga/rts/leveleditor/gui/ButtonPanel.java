@@ -35,19 +35,22 @@ public class ButtonPanel extends JPanel {
     public void initializeButton() {
         JButton ZoomInButton = new JButton("ZoomIn");
         ZoomInButton.addActionListener(new ActionListener() {
-            public void actionPerformed (ActionEvent e) {
+            @Override
+			public void actionPerformed (ActionEvent e) {
                 myCanvas.ZoomIn();
             }
         });
         JButton ZoomOutButton = new JButton("ZoomOut");
         ZoomOutButton.addActionListener(new ActionListener() {
-            public void actionPerformed (ActionEvent e) {
+            @Override
+			public void actionPerformed (ActionEvent e) {
                 myCanvas.ZoomOut();
             }
         });
         JButton RemoveButton = new JButton("Remove");
         RemoveButton.addActionListener(new ActionListener() {
-            public void actionPerformed (ActionEvent e) {
+            @Override
+			public void actionPerformed (ActionEvent e) {
                 myCanvas.remove(true);
                 myCanvas.setMode(MapPanel.RESOURCEMODE);
             }
@@ -55,7 +58,8 @@ public class ButtonPanel extends JPanel {
 
         JButton ClearButton = new JButton("ClearAll");
         ClearButton.addActionListener(new ActionListener() {
-            public void actionPerformed (ActionEvent e) {
+            @Override
+			public void actionPerformed (ActionEvent e) {
                 myCanvas.clear();
             }
         });

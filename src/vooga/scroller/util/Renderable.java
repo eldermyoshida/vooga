@@ -1,7 +1,6 @@
 
 package vooga.scroller.util;
 
-import java.awt.Graphics2D;
 import vooga.scroller.util.mvc.IView;
 import vooga.scroller.view.IPaintable;
 

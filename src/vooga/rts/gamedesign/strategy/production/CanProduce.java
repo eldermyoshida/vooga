@@ -68,7 +68,7 @@ public class CanProduce implements ProductionStrategy {
 						@Override
 						public void run() {
 							//System.out.println("Creating");
-							InteractiveEntity f = ((InteractiveEntity) unit)
+							InteractiveEntity f = unit
 									.copy();
 							f.setWorldLocation(producer.getWorldLocation());
 							producer.setChanged();

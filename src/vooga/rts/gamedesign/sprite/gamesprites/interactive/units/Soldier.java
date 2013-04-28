@@ -51,7 +51,8 @@ public class Soldier extends Unit {
     /*
      * Returns a copy of the default soldier. 
      */
-    public Soldier copy() {
+    @Override
+	public Soldier copy() {
         //System.out.println("soldier's copy method called");
         //return null;
         return new Soldier();
