@@ -71,14 +71,20 @@ public class Lobby extends Room {
         setLobbyInfo(lobbyInfo);
         sendMessageToAllConnections(new SendLobbyInfoUpdatesMessage(lobbyInfo));
     }
-    
+
     @Override
     public void removeConnection (ConnectionThread thread) {
         getLobbyInfo().removePlayer(thread.getID());
         removeConnectionAndUpdateInfo(thread);
-        
+
     }
-    
+
+    /**
+     * Removes the connection from the threads, decrements the lobby size, and if there are no more
+     * connections, removes the lobby. If not it sends a message to all connections.
+     * 
+     * @param thread to remove
+     */
     private void removeConnectionAndUpdateInfo (ConnectionThread thread) {
         super.removeConnection(thread);
         getGameContainer().decrementLobbyInfoSize(getID());

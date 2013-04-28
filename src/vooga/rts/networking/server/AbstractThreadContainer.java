@@ -14,6 +14,7 @@ import vooga.rts.networking.communications.IMessage;
 import vooga.rts.networking.communications.LobbyInfo;
 import vooga.rts.networking.communications.Message;
 import vooga.rts.networking.communications.clientmessages.ClientInfoMessage;
+import vooga.rts.networking.communications.servermessages.AlertClientMessage;
 
 
 /**
@@ -83,35 +84,53 @@ public abstract class AbstractThreadContainer implements IThreadContainer, IMess
 
     @Override
     public void joinGameContainer (ConnectionThread thread, String gameName) {
+        sendErrorMessage(thread);
     }
 
     @Override
     public void joinLobby (ConnectionThread thread, int lobbyNumber) {
+        sendErrorMessage(thread);
     }
 
     @Override
     public void leaveLobby (ConnectionThread thread, ExpandedLobbyInfo lobbyInfo) {
+        sendErrorMessage(thread);
     }
 
     @Override
     public void requestGameStart (ConnectionThread thread) {
+        sendErrorMessage(thread);
     }
 
     @Override
     public void requestLobbies (ConnectionThread thread) {
+        sendErrorMessage(thread);
     }
 
     @Override
     public void startLobby (ConnectionThread thread, LobbyInfo lobbyInfo) {
+        sendErrorMessage(thread);
     }
 
     @Override
     public void updateLobbyInfo (ConnectionThread thread, ExpandedLobbyInfo myLobbyInfo) {
+        sendErrorMessage(thread);
     }
 
     @Override
     public void clientIsReadyToStart (ConnectionThread thread) {
+        sendErrorMessage(thread);
+    }
 
+    /**
+     * Sends an error message to the client with the method that calls this one.
+     * 
+     * @param thread to send to
+     */
+    protected void sendErrorMessage (ConnectionThread thread) {
+        StackTraceElement[] element = Thread.currentThread().getStackTrace();
+        thread.sendMessage(new AlertClientMessage(NetworkBundle.getString("InvalidOperation"),
+                                                  element[1].getMethodName()));
     }
 
     @Override
