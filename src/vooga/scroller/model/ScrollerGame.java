@@ -6,8 +6,6 @@ import vooga.scroller.collision_manager.VisitLibrary;
 import vooga.scroller.level_editor.controllerSuite.LEController;
 import vooga.scroller.level_editor.library.BackgroundLib;
 import vooga.scroller.level_editor.library.ISpriteLibrary;
-import vooga.scroller.level_editor.model.LevelParser;
-import vooga.scroller.level_management.LevelManager;
 import vooga.scroller.level_management.splash_page.SplashPage;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.superclasses.Player;
@@ -28,9 +26,6 @@ public abstract class ScrollerGame extends Game {
     private Player myPlayer;
     private String myTitle;
     private String[] myLevelsFilePaths;
-    private LevelParser myLevelReader;
-    private LevelManager myLevelManager;
-    private String[] myLevels;
     private SplashPage mySplashPage;
     private static VisitLibrary myVisitLibrary;
 

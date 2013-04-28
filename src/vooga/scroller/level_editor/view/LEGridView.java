@@ -41,6 +41,7 @@ public class LEGridView extends WindowComponent<LevelEditing>
      */
     public LEGridView (IView<LevelEditing> parent, Renderable<LevelEditing> r) {
         super(parent, ((LEGrid) r).getPixelSize());
+        myGrid = (LEGrid) r;
         this.addMouseListener(new GridPositionListener());
 
     }

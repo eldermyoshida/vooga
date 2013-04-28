@@ -224,10 +224,6 @@ public class LEController implements IController<LevelEditing> {
         myView.showMessageDialog(copyError);
     }
 
-    public Player getSamplePlayer () {
-        return mySamplePlayer;
-    }
-
     public void simulate (LEGrid grid) {
         SimpleView simContainer = new SimpleView("Level Simulation");
         ScrollingManager sm = new OmniScrollingManager();
@@ -237,9 +233,9 @@ public class LEController implements IController<LevelEditing> {
         Level sim = new Level(1, sm, grid);
         SplashPage sp = new TestSplashPage(display, sm);
         Model m = new Model(display, sm, mySamplePlayer, sp, sim);
-        m.start();
         display.setModel(m);
         sim.addPlayer(mySamplePlayer);
+        m.start();
         display.start();
         simContainer.add((GameView) display);
         simContainer.start();

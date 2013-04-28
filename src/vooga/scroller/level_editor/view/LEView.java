@@ -46,6 +46,7 @@ public class LEView extends Window<LEWorkspaceView, LevelEditing, LEGridView, LE
      */
     public LEView (String language, LEController lEController, LETools t) {
         super(TITLE, language, lEController, t);
+        myController = lEController;
         registerMenu(makeSimulateMenu());
         registerMenu(makePreferencesMenu());
         registerMenu(makeHelpMenu());
