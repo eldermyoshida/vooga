@@ -48,14 +48,14 @@ public class GameContainer extends AbstractThreadContainer {
     protected void addRoom (Room room) {
         myRooms.put(room.getID(), room);
     }
-    
+
     /**
      * Returns the next room number.
      */
     protected int getRoomNumber () {
         return myRoomNumber;
     }
-    
+
     /**
      * Increments the room number.
      */
@@ -102,7 +102,8 @@ public class GameContainer extends AbstractThreadContainer {
     }
 
     /**
-     * Adds a room to the GameContainer. Separated out so that subclasses can instantiates different Rooms.
+     * Adds a room to the GameContainer. Separated out so that subclasses can instantiates different
+     * Rooms.
      */
     protected void addLobby (ConnectionThread thread, LobbyInfo newLobby, Room lobby) {
         myLobbyInfos.put(getRoomNumber(), newLobby);

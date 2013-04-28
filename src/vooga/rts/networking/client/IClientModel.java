@@ -2,6 +2,7 @@ package vooga.rts.networking.client;
 
 import vooga.rts.networking.communications.ExpandedLobbyInfo;
 import vooga.rts.networking.communications.LobbyInfo;
+import vooga.rts.networking.communications.TimeStamp;
 
 
 /**
@@ -59,5 +60,11 @@ public interface IClientModel extends IMessageReceiver {
      * Starts the game.
      */
     public void startGame ();
+
+    /**
+     * Gets the timestamp of a message to test the ping from the server
+     * @param timeStamp of message sent from client
+     */
+    public void setTimeDelay (TimeStamp timeStamp);
 
 }

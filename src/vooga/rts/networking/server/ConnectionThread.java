@@ -97,7 +97,6 @@ public class ConnectionThread extends Thread {
         catch (ClassNotFoundException e) {
             myLogger.log(Level.FINER,
                          NetworkBundle.getString("ConnectionFailedClassEx"));
-            close();
         }
     }
 
@@ -133,7 +132,7 @@ public class ConnectionThread extends Thread {
         }
         myLogger.log(Level.FINER,
                      NetworkBundle.getString("ClosedConnection") +
-                            myID);
+                             myID);
     }
 
     /**

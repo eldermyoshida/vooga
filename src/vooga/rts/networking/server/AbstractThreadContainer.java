@@ -153,8 +153,9 @@ public abstract class AbstractThreadContainer implements IThreadContainer, IMess
      */
     @Override
     public void receiveMessageFromClient (Message message, ConnectionThread thread) {
-        getLogger().log(Level.FINEST, NetworkBundle.getString("MessageReceived") +
-                                      thread.getID());
+        getLogger().log(Level.FINEST,
+                        NetworkBundle.getString("MessageReceived") + thread.getID() + " " +
+                                message.getClass().getSimpleName());
         stampMessage(message);
         if (message instanceof ClientInfoMessage) {
             ClientInfoMessage systemMessage = (ClientInfoMessage) message;
@@ -208,6 +209,9 @@ public abstract class AbstractThreadContainer implements IThreadContainer, IMess
         myConnectionThreads.clear();
     }
 
+    /**
+     * Returns the curent number of connections.
+     */
     protected int getNumberOfConnections () {
         return myConnectionThreads.size();
     }

@@ -6,7 +6,7 @@ import vooga.rts.networking.communications.LobbyInfo;
 
 
 /**
- * This is the superclass for Lobby and GameServer. It represents a small
+ * This is the superclass for Lobby and GameServer.
  * 
  * @author David Winegar
  * 

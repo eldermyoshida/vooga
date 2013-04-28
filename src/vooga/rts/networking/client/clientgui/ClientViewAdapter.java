@@ -16,6 +16,7 @@ import vooga.rts.networking.communications.LobbyInfo;
  * in case data comes from the network
  * 
  * @author Henrique Moraes
+ * @author David Winegar
  * 
  */
 public class ClientViewAdapter extends ViewAdapter {

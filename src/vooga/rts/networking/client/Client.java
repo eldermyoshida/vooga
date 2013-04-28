@@ -111,6 +111,7 @@ public class Client extends Thread implements IClient {
             myLogger.log(Level.WARNING,
                          NetworkBundle.getString("ClosingConnectionsFailed"));
         }
+        myLogger.log(Level.INFO, NetworkBundle.getString("ClosedConnection"));
     }
 
 }

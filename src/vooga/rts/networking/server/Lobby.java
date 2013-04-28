@@ -55,8 +55,16 @@ public class Lobby extends Room {
         myNumberOfClientsReady++;
         if (myNumberOfClientsReady == getNumberOfConnections()) {
             sendMessageToAllConnections(new StartGameMessage());
-            new GameServer(getID(), getGameContainer(), this, getLogger());
+            createGameServerFromLobby();
         }
+    }
+
+    /**
+     * Creates a game server and destroys this lobby. This is overridable for any subclasses that
+     * want to make a different type of GameServer.
+     */
+    protected void createGameServerFromLobby () {
+        new GameServer(getID(), getGameContainer(), this, getLogger());
     }
 
     @Override
@@ -85,7 +93,7 @@ public class Lobby extends Room {
      * 
      * @param thread to remove
      */
-    private void removeConnectionAndUpdateInfo (ConnectionThread thread) {
+    protected void removeConnectionAndUpdateInfo (ConnectionThread thread) {
         super.removeConnection(thread);
         getGameContainer().decrementLobbyInfoSize(getID());
         if (haveNoConnections()) {
