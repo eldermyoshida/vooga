@@ -5,6 +5,7 @@ import games.scroller.mr_fish.sprites.player.MrFish;
 import java.awt.Dimension;
 import util.Location;
 import vooga.scroller.sprites.superclasses.GameCharacter;
+import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.ISpriteView;
 import vooga.scroller.util.Pixmap;
 
@@ -27,7 +28,7 @@ public abstract class Item extends GameCharacter {
     
     public abstract int getValue();
     
-    public abstract void useItem(MrFish p); 
+    public abstract void useItem(Player sprite); 
     
     
     

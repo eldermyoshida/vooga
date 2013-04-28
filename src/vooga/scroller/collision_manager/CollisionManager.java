@@ -1,10 +1,10 @@
 package vooga.scroller.collision_manager;
 
+import games.scroller.mr_fish.sprites.collisions.VisitMethods;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-import vooga.scroller.marioGame.spritesDefinitions.collisions.VisitMethods;
 import vooga.scroller.sprites.Sprite;
 
 
