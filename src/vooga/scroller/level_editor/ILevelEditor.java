@@ -2,7 +2,7 @@ package vooga.scroller.level_editor;
 
 import java.util.Map;
 import javax.swing.Icon;
-import vooga.scroller.level_editor.model.Editable;
+import vooga.scroller.level_editor.model.EditableGrid;
 import vooga.scroller.sprites.Sprite;
 import vooga.scroller.util.IBackgroundView;
 
@@ -32,7 +32,7 @@ public interface ILevelEditor {
      * @param m - An Editable (level) on which the LevelEditor is expected to implement the command.
      * @param cmd - The command the LevelEditor model is expected to process.
      */
-    public void processCommand (Editable m, String cmd);
+    public void processCommand (EditableGrid m, String cmd);
 
     /**
      * Set the SpriteMap to be used when processing commands

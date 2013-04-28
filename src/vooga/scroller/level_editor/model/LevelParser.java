@@ -10,7 +10,6 @@ import java.util.ResourceBundle;
 import java.util.Scanner;
 import util.Location;
 import vooga.scroller.level_editor.LevelEditing;
-import vooga.scroller.level_editor.controllerSuite.LEController;
 import vooga.scroller.level_editor.controllerSuite.LEGrid;
 import vooga.scroller.sprites.Sprite;
 import vooga.scroller.sprites.interfaces.IDoor;
@@ -26,6 +25,8 @@ import vooga.scroller.util.mvc.IController;
  */
 public class LevelParser {
 
+    private static final String PARSING_ERROR = "PARSING_ERROR";
+
     private static final String RESOURCE_PATH = "vooga.scroller.level_editor.model.SaveLoad";
 
     private static final char SPACE = ' ';
@@ -39,17 +40,19 @@ public class LevelParser {
     private IBackgroundView myBackground;
 
     private IController<LevelEditing> myController;
-    
+
     /**
      * Utility constructor. Unfortunately, doesn't handles error properly.
      */
-    public LevelParser() {
+    public LevelParser () {
         myLevelStrings = new ArrayList<String>();
         myCharacterMap = new HashMap<Character, String>();
     }
 
     /**
-     * Initialize instances variables.
+     * sets Controller. calls default constructor.
+     * 
+     * @param con - controller
      */
     public LevelParser (IController<LevelEditing> con) {
         this();
@@ -59,7 +62,7 @@ public class LevelParser {
     /**
      * Creates an LEGrid from a save file.
      * 
-     * @param file
+     * @param file - File to load
      * @return LEGrid
      */
     public LEGrid makeGridFromFile (File file) {
@@ -146,13 +149,13 @@ public class LevelParser {
                         }
                     }
                     catch (InstantiationException e) {
-                        myController.showErrorMsg(myResources.getString("PARSING_ERROR"));
+                        myController.showErrorMsg(myResources.getString(PARSING_ERROR));
                     }
                     catch (IllegalAccessException e) {
-                        myController.showErrorMsg(myResources.getString("PARSING_ERROR"));
+                        myController.showErrorMsg(myResources.getString(PARSING_ERROR));
                     }
                     catch (ClassNotFoundException e) {
-                        myController.showErrorMsg(myResources.getString("PARSING_ERROR"));
+                        myController.showErrorMsg(myResources.getString(PARSING_ERROR));
                     }
                 }
             }

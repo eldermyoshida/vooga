@@ -27,7 +27,7 @@ public class LevelEditor implements ILevelEditor {
     private static final String DEFAULT_COMMAND_ERROR = "Incorrect Command";
     private static final String COPY_ERROR = "Cannot copy Sprite. Missing default constructor";
     private static final String INVOKE_COMMAND_ERROR = "Sprite does not exist in Sprite Map";
-    private Editable myGrid;
+    private EditableGrid myGrid;
     private Map<Integer, Sprite> mySpriteMap;
     private Map<Integer, IBackgroundView> myBackgrounds;
     private IController<LevelEditing> myController;
@@ -49,7 +49,7 @@ public class LevelEditor implements ILevelEditor {
      * @param cmd - the input from the LEView.
      */
     @Override
-    public void processCommand (Editable m, String cmd) {
+    public void processCommand (EditableGrid m, String cmd) {
         myGrid = m;
         processCommand(cmd);
     }
