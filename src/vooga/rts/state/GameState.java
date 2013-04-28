@@ -12,6 +12,7 @@ import util.Location;
 import vooga.rts.commands.Command;
 import vooga.rts.commands.DragCommand;
 import vooga.rts.controller.Controller;
+import vooga.rts.game.RTSGame;
 import vooga.rts.gamedesign.factories.Factory;
 import vooga.rts.gamedesign.sprite.gamesprites.Resource;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
@@ -57,8 +58,11 @@ public class GameState extends SubState implements Controller {
                                                                                           0);
     private static final Information DEFAULT_PRODUCTION_INFO =
             new Information("Barracks", "This is a barracks that can make awesome pies",
+
                             "buttons/marine.png", null);
-    private static final Location3D DEFAULT_OCCUPY_RELATIVE_LOCATION = new Location3D(300, 100, 0);
+
+    private static final Location3D DEFAULT_OCCUPY_RELATIVE_LOCATION = new Location3D(300, 300, 0);
+
     private static final Information DEFAULT_OCCUPY_INFO =
             new Information("Garrison", "This is a garrison that soldiers can occupy",
                             "buttons/marine.png", null);
@@ -69,16 +73,12 @@ public class GameState extends SubState implements Controller {
     private List<DelayedTask> myTasks;
     private FrameCounter myFrames;
 
-    private Rectangle2D myDrag;
-    private Factory myFactory;
+    private Rectangle2D myDrag;    
     
     private MiniMap myMiniMap;
 
     public GameState (Observer observer) {
         super(observer);
-        myFactory = new Factory();
-        myFactory.loadXMLFile("Factory.xml");
-
         MapLoader ml = null;
         try {
             ml = new MapLoader();
@@ -156,29 +156,29 @@ public class GameState extends SubState implements Controller {
     }
 
     private void generateInitialSprites (int playerID, Location3D baseLocation) {
-        Unit worker = (Unit) myFactory.getEntitiesMap().get("worker").copy();
+        Unit worker = (Unit) RTSGame.getFactory().getEntitiesMap().get("worker").copy();
         worker =
                 (Unit) setLocation(worker, baseLocation, DEFAULT_WORKER_RELATIVE_LOCATION);
         getPlayers().getPlayer(playerID).add(worker);
 
-        Unit soldierOne = (Unit) myFactory.getEntitiesMap().get("Marine").copy();
+        Unit soldierOne = (Unit) RTSGame.getFactory().getEntitiesMap().get("Marine").copy();
         soldierOne =
                 (Unit) setLocation(soldierOne, baseLocation,
                                    DEFAULT_SOLDIER_ONE_RELATIVE_LOCATION);
         getPlayers().getPlayer(playerID).add(soldierOne);
 
-        Building startProduction = (Building) myFactory.getEntitiesMap().get("home").copy();
+        Building startProduction = (Building) RTSGame.getFactory().getEntitiesMap().get("home").copy();
         startProduction =
                 (Building) setLocation(startProduction, baseLocation,
                                        DEFAULT_PRODUCTION_RELATIVE_LOCATION);
         getPlayers().getPlayer(playerID).add(startProduction);
 
-        Building startOccupy = (Building) myFactory.getEntitiesMap().get("garrison").copy();
-        startOccupy =
-                (Building) setLocation(startOccupy, baseLocation,
+        Building startOccupy = (Building) RTSGame.getFactory().getEntitiesMap().get("garrison").copy();
+        startOccupy = (Building) setLocation(startOccupy, baseLocation,
                                        DEFAULT_OCCUPY_RELATIVE_LOCATION);
         getPlayers().getPlayer(playerID).add(startOccupy);
 
+        
         // this is for testing
         final Building f = startProduction;
         myTasks.add(new DelayedTask(2, new Runnable() {
@@ -189,6 +189,7 @@ public class GameState extends SubState implements Controller {
             }
         }, true));
 
+        
         // This is for testing
         final Building testGarrison = startOccupy;
 

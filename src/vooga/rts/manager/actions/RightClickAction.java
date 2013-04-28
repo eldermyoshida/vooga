@@ -49,7 +49,6 @@ public class RightClickAction extends ManagerAction {
         if (myLocation.getX() < 0 || myLocation.getY() < 0) {
             myLocation = null;
         }
-        apply();
     }
 
 }
