@@ -47,9 +47,7 @@ public class GameMap implements IGameLoop {
     
     private String myMapName;
     private String myMapDescription;
-    private List<Location3D> myPlayerLocations;
-
-    
+    private List<Location3D> myPlayerLocations;    
 
     /**
      * calculates how many nodes there are
