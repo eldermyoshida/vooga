@@ -31,9 +31,6 @@ public class EditableMap extends GameMap {
      * the default value of team upper limit
      */
     private static final int DEFAULT_TEAM_UPPER_LIMIT = 4;
-    
-    private String myMapName = "CIEMAS";
-    private String myDescription = " our RTS is the best one !";
 
     private PlayerSet myPlayerSet;
 
@@ -54,9 +51,12 @@ public class EditableMap extends GameMap {
                              int tileWidth, int tileHeight) {
         super(new Dimension(tileWidth , tileHeight) , xSize , ySize);
         myTileMap = new EditableTileMap(new Dimension(tileWidth, tileHeight), xSize, ySize);
-        myMapName = name;
-        myDescription = desc;
+        setMapName(name);
+        setMapDescription(desc);
+        
+        // This is set for the update methods.
         GameState.setMap(this);
+        
         initializeMap();
         setTileMap(myTileMap);
     }
@@ -96,7 +96,6 @@ public class EditableMap extends GameMap {
     /**
      * clear all tiles
      */
-
     public void clearMap () {
         myTileMap.removeAllTiles();
         getTerrain().clearAll();
@@ -181,6 +180,7 @@ public class EditableMap extends GameMap {
      */
     public void addPlayer(Location location) {
         myPlayerSet.addPlayer(location);
+        addPlayerLocation(new Location3D(location));
     }
     /**
      * add a player based on x and y
@@ -189,6 +189,7 @@ public class EditableMap extends GameMap {
      */
     public void addPlayer(int x , int y) {
         myPlayerSet.addPlayer(x, y);
+        addPlayerLocation(new Location3D(x, y, 0));
     }
     
     /**
@@ -197,7 +198,7 @@ public class EditableMap extends GameMap {
      * @param end end location
      */
     public void removePlayer(Location start, Location end) {
-        myPlayerSet.removePlayer(start, end);
+        myPlayerSet.removePlayer(start, end);        
     }
     
     /**
@@ -323,14 +324,7 @@ public class EditableMap extends GameMap {
         return getResources().getSize();
     }
     
-    /**
-     * return the map name
-     * @return String
-     */
-    public String getMyMapName () {
-        return myMapName;
-    }
-    
+   
     /**
      * get the number of all players
      * @return
@@ -366,27 +360,6 @@ public class EditableMap extends GameMap {
     }
 
     /**
-     * set the map name 
-     * @param name the name of this map
-     */
-    public void setMyMapName (String name) {
-        this.myMapName = name;
-    }
-    /**
-     * get the description of that map
-     * @return the description of current map
-     */
-    public String getMyDescription () {
-        return myDescription;
-    }
-    /**
-     * set the description of the map
-     * @param des the description
-     */
-    public void setMyDescription (String des) {
-        this.myDescription = des;
-    }
-    /**
      * return all players
      * @return the whole player set
      */
@@ -400,8 +373,6 @@ public class EditableMap extends GameMap {
      */
     public PlayerSet  getPlayerSet() {
         return myPlayerSet;
-    }
-    
-        
+    }    
 }
 

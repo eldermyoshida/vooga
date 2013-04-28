@@ -43,6 +43,12 @@ public class GameMap implements IGameLoop {
     private GameSpriteManager<Terrain> myTerrain;
     private GameSpriteManager<Resource> myResources;
     private Dimension mySize;
+    
+    private String myMapName;
+    private String myMapDescription;
+    private List<Location3D> myPlayerLocations;
+
+    
 
     /**
      * calculates how many nodes there are
@@ -193,5 +199,49 @@ public class GameMap implements IGameLoop {
 
     public Dimension getSize () {
         return mySize;
+    }
+
+    /**
+     * @return the name of the map
+     */
+    public String getMapName () {
+        return myMapName;
+    }
+
+    /**
+     * Set the name of the map
+     * @param mapName the name of the map
+     */
+    protected void setMapName (String mapName) {
+        myMapName = mapName;
+    }
+
+    /**
+     * @return the description of the map
+     */
+    public String getMapDescription () {
+        return myMapDescription;
+    }
+
+    /**
+     * Set the description of the map.
+     * @param mapDescription the description of the map
+     */
+    protected void setMapDescription (String mapDescription) {
+        myMapDescription = mapDescription;
+    }
+    
+    /**
+     * @return a list of locations that players can start at
+     */
+    public List<Location3D> getPlayerLocations () {
+        return myPlayerLocations;
+    }
+    
+    /**
+     * Adds a location that a player can start at on the map. 
+     */
+    protected void addPlayerLocation(Location3D loc) {
+        
     }
 }

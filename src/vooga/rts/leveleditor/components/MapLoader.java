@@ -115,11 +115,11 @@ public class MapLoader {
     public void loadInfo(Element root) {
         NodeList nameList = root.getElementsByTagName("Name");
         Node nameNode = nameList.item(0);
-        myMap.setMyMapName(nameNode.getTextContent());
+        myMap.setMapName(nameNode.getTextContent());
         
         NodeList descriptionList = root.getElementsByTagName("Desc");
         Node descriptionNode = descriptionList.item(0);
-        myMap.setMyMapName(descriptionNode.getTextContent());
+        myMap.setMapName(descriptionNode.getTextContent());
     
         NodeList playerList = root.getElementsByTagName("Player");
         for (int i = 0; i < playerList.getLength(); i++) {
