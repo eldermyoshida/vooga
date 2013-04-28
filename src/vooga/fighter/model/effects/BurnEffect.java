@@ -15,6 +15,13 @@ import vooga.fighter.model.utils.Effect;
 public class BurnEffect extends Effect {
 
     /**
+     * Calls the superclass effect constructor.
+     */
+    public BurnEffect() {
+        super();
+    }
+    
+    /**
      * Constructs a burn effect with given duration and damage over time, and null owner.
      * @param duration is length of burn
      * @param damage is damage over time
