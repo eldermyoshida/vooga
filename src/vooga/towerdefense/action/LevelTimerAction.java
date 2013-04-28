@@ -1,6 +1,4 @@
-package vooga.towerdefense.action.actionlist;
-
-import vooga.towerdefense.action.Action;
+package vooga.towerdefense.action;
 
 /**
  * A simple Action that disables itself after a certain amount of time.
