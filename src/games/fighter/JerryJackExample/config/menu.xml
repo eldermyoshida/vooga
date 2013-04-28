@@ -11,65 +11,65 @@
     </menuobject>
     <menuobject menuobjectname="1v1">
     	<state name = "Unselected">
-            <frame image="fighter/images/1v1.jpg" />
+            <frame image="fighter/JerryJackExample/images/1v1.jpg" />
         </state>
         <state name = "Selected">
-            <frame image="fighter/images/1v1.jpg" />
-            <frame image="fighter/images/fire.png" />   
+            <frame image="fighter/JerryJackExample/images/1v1.jpg" />
+            <frame image="fighter/JerryJackExample/images/fire.png" />   
         </state>
     </menuobject>
     <menuobject menuobjectname="Ryu">
     	<state name = "Unselected">
-            <frame image="fighter/images/ryu_stand1.png" />
+            <frame image="fighter/JerryJackExample/images/ryu_stand1.png" />
         </state>
         <state name = "Selected">
-            <frame image="fighter/images/ryu_stand1.png" />
-            <frame image="fighter/images/fire.png" />   
+            <frame image="fighter/JerryJackExample/images/ryu_stand1.png" />
+            <frame image="fighter/JerryJackExample/images/fire.png" />   
         </state>
     </menuobject>
     <menuobject menuobjectname="MainMenu">
     	<state name = "Unselected">
-            <frame image="fighter/images/MainMenu.jpg" />
+            <frame image="fighter/JerryJackExample/images/MainMenu.jpg" />
         </state>
         <state name = "Selected">
-            <frame image="fighter/images/MainMenu.jpg" />
-            <frame image="fighter/images/fire.png" />   
+            <frame image="fighter/JerryJackExample/images/MainMenu.jpg" />
+            <frame image="fighter/JerryJackExample/images/fire.png" />   
         </state>
     </menuobject>
     <menuobject menuobjectname="CharacterSelectMenu">
     	<state name = "Unselected">
-    		<frame image="fighter/images/CharacterSelect.png" />
+    		<frame image="fighter/JerryJackExample/images/CharacterSelect.png" />
     	</state>
     	<state name = "Selected">
-            <frame image="fighter/images/CharacterSelect.png"  />
-            <frame image="fighter/images/fire.png" />   
+            <frame image="fighter/JerryJackExample/images/CharacterSelect.png"  />
+            <frame image="fighter/JerryJackExample/images/fire.png" />   
         </state>
     </menuobject>
     <menuobject menuobjectname = "BlueMap">
     	<state name = "Unselected">
-    		<frame image = "fighter/images/FinalDestination.jpg" />
+    		<frame image = "fighter/JerryJackExample/images/FinalDestination.jpg" />
     	</state>
     	<state name = "Selected">
-            <frame image="fighter/images/FinalDestination.jpg" />
-            <frame image="fighter/images/fire.png" />   
+            <frame image="fighter/JerryJackExample/images/FinalDestination.jpg" />
+            <frame image="fighter/JerryJackExample/images/fire.png" />   
         </state>
    	</menuobject>
    	 <menuobject menuobjectname = "BacktoCharacter">
     	<state name = "Unselected">
-    		<frame image = "fighter/images/back.png" />
+    		<frame image = "fighter/JerryJackExample/images/back.png" />
     	</state>
     	 <state name = "Selected">
-            <frame image="fighter/images/back.png" />
-            <frame image="fighter/images/fire.png" />   
+            <frame image="fighter/JerryJackExample/images/back.png" />
+            <frame image="fighter/JerryJackExample/images/fire.png" />   
         </state>
    	</menuobject>
    	<menuobject menuobjectname = "NewMap">
     	<state name = "Unselected">
-    		<frame image = "fighter/images/new2.jpg" />
+    		<frame image = "fighter/JerryJackExample/images/new2.jpg" />
     	</state>
     	<state name = "Selected">
-            <frame image="fighter/images/new2.jpg" />
-            <frame image="fighter/images/fire.png" />   
+            <frame image="fighter/JerryJackExample/images/new2.jpg" />
+            <frame image="fighter/JerryJackExample/images/fire.png" />   
         </state>
    	</menuobject>
 </objects>
