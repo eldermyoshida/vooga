@@ -1,23 +1,30 @@
 package vooga.towerdefense.factories.actionfactories;
 
 import vooga.towerdefense.action.Action;
-import vooga.towerdefense.action.OnCollision;
+import vooga.towerdefense.action.response.OnCollision;
+import vooga.towerdefense.factories.ActionAnnotation;
 import vooga.towerdefense.gameelements.GameElement;
 
 /**
- * factory that creates onCollision action, has trivial constructor
- * @author Zhen Gou
- *
+ * Factory that creates onCollision action.
+ * 
+ * @author Xu Rui
+ * 
  */
 public class OnCollisionFactory extends ActionFactory {
-	public OnCollisionFactory(){
+
+	private String myAffiliationReference;
+
+	public OnCollisionFactory(
+			@ActionAnnotation(name = "target affiliation", value = "attribute") String affiliationReference) {
 		super();
+		myAffiliationReference = affiliationReference;
 	}
 
 	@Override
 	protected Action buildAction(GameElement e) {
-		return new OnCollision(e);
+		return new OnCollision(e, e.getAttributeManager().getAttribute(
+				myAffiliationReference));
 	}
-	
 
 }
