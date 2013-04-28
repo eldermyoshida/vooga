@@ -13,7 +13,6 @@ import java.util.logging.Logger;
 /**
  * Establishes connection to the database
  * @author Natalia Carvalho
- * @editor Joshua Waldman
  */
 public class DatabaseConnection {
 
@@ -48,7 +47,7 @@ public class DatabaseConnection {
             Class.forName("org.postgresql.Driver");
         }
         catch (ClassNotFoundException e) {
-            logError("Class not found for Database in DatabaseConnection.java");
+            logError("Class not found for Database in DatabaseConnection.java @Line 46");
         }
 
         myConnection = null;
@@ -56,7 +55,7 @@ public class DatabaseConnection {
             myConnection = DriverManager.getConnection(URL, USER, PASSWORD);
         }
         catch (SQLException e) {
-            logError("SQL Error connection to database in DatabaseConnection.java");
+            logError("SQL Error connection to database in DatabaseConnection.java@Line 54");
         }
         myResultSet = null;
         myPreparedStatement = null;
@@ -78,7 +77,7 @@ public class DatabaseConnection {
             }
         }
         catch (SQLException e) {
-            logError("Error closing connection in DatabaseConnection.java");
+            logError("Error closing connection in DatabaseConnection.java @ Line 68");
         }
     }
        

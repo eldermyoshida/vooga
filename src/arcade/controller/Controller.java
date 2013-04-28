@@ -1,6 +1,6 @@
 package arcade.controller;
 
-import java.io.IOException; 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -336,7 +336,6 @@ public class Controller implements ArcadeInteraction {
 		} catch (IllegalAccessException e) {
 			throw new InvalidPaymentException();
 		}
-
 
 		myPaymentManager.doTransaction(paymentInfo);
 		updateGamePurchaseHistory(game);
