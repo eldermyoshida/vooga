@@ -368,15 +368,14 @@ public class Factory {
         for (String key : myProductionDependencies.keySet()) {
         	InteractiveEntity producer = mySprites.get(key);
             String[] produces = myProductionDependencies.get(key);
-           
             producer.setProductionStrategy(new CanProduce(producer));
-            
             for (String baby : produces) {
                 InteractiveEntity producable = mySprites.get(baby);
-                //should not be unit
+                
                 producer.addProducable(producable.copy());
         
             }
+           
         }
     }
 

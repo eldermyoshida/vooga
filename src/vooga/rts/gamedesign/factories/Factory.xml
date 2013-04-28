@@ -89,7 +89,7 @@
 			<img>images/home.png</img>
 			<sound>pikachu.wav</sound>
 			<health>1000</health>
-			<buildtime>100</buildtime>
+			<buildtime>5</buildtime>
 			<occupy>cannotbeoccupied</occupy>
 			<upgrade>canupgrade</upgrade>
 			<upgradeTreeName>SoldierUpgrade</upgradeTreeName>
@@ -105,11 +105,11 @@
 			<img>images/home.png</img>
 			<sound>pikachu.wav</sound>
 			<health>1000</health>
-			<buildtime>100</buildtime>
+			<buildtime>5</buildtime>
 			<occupy>canbeoccupied</occupy>
 			<upgrade>canupgrade</upgrade>
 			<upgradeTreeName>SoldierUpgrade</upgradeTreeName>
-			<produce></produce>
+			<produce>Marine</produce>
 			<myweapons></myweapons>
 			<information>
 				<description>I am a garrison</description>
@@ -126,7 +126,7 @@
 			<img>images/sprites/soldier.png</img>
 			<sound>pikachu.wav</sound>
 			<health>100</health>
-			<buildtime>100</buildtime>
+			<buildtime>5</buildtime>
 			<speed>180</speed>
 			<gather>cannotgather</gather>
 			<occupy>cannotbeoccupied</occupy>
@@ -144,7 +144,7 @@
 			<img>images/worker.jpg</img>
 			<sound>pikachu.wav</sound>
 			<health>100</health>
-			<buildtime>100</buildtime>
+			<buildtime>5</buildtime>
 			<speed>140</speed>
 			<gather>cangather</gather>
 			<occupy>cannotbeoccupied</occupy>

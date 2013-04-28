@@ -49,14 +49,17 @@ public class GameState extends SubState implements Controller {
     private static final Location3D DEFAULT_WORKER_RELATIVE_LOCATION = new Location3D(200, 200, 0);
     private static final Information DEFAULT_WORKER_INFO =
             new Information("Worker",
-                            "I am a worker. I am sent down from Denethor, son of Ecthelion ", "images/scv.png");
+                            "I am a worker. I am sent down from Denethor, son of Ecthelion ",
+                            "images/scv.png");
     private static final Location3D DEFAULT_PRODUCTION_RELATIVE_LOCATION = new Location3D(000, 500,
                                                                                           0);
     private static final Information DEFAULT_PRODUCTION_INFO =
-            new Information("Barracks", "This is a barracks that can make awesome pies", "buttons/marine.png");
+            new Information("Barracks", "This is a barracks that can make awesome pies",
+                            "buttons/marine.png");
     private static final Location3D DEFAULT_OCCUPY_RELATIVE_LOCATION = new Location3D(300, 100, 0);
     private static final Information DEFAULT_OCCUPY_INFO =
-            new Information("Garrison", "This is a garrison that soldiers can occupy", "buttons/marine.png");
+            new Information("Garrison", "This is a garrison that soldiers can occupy",
+                            "buttons/marine.png");
 
     private static GameMap myMap;
     private static PlayerManager myPlayers;
@@ -124,9 +127,7 @@ public class GameState extends SubState implements Controller {
         // If it's a drag, we need to do some extra checking.
         if (command instanceof DragCommand) {
             myDrag = ((DragCommand) command).getScreenRectangle();
-            if (myDrag == null) {
-                return;
-            }
+            if (myDrag == null) { return; }
         }
         sendCommand(command);
     }
@@ -157,24 +158,25 @@ public class GameState extends SubState implements Controller {
         Unit soldierOne = (Unit) myFactory.getEntitiesMap().get("Marine").copy();
         soldierOne =
                 (Unit) setLocation(soldierOne, baseLocation,
-                                          DEFAULT_SOLDIER_ONE_RELATIVE_LOCATION);
+                                   DEFAULT_SOLDIER_ONE_RELATIVE_LOCATION);
         getPlayers().getPlayer(playerID).add(soldierOne);
 
         Building startProduction = (Building) myFactory.getEntitiesMap().get("home").copy();
         startProduction =
                 (Building) setLocation(startProduction, baseLocation,
-                                              DEFAULT_PRODUCTION_RELATIVE_LOCATION);
+                                       DEFAULT_PRODUCTION_RELATIVE_LOCATION);
         getPlayers().getPlayer(playerID).add(startProduction);
 
         Building startOccupy = (Building) myFactory.getEntitiesMap().get("garrison").copy();
         startOccupy =
                 (Building) setLocation(startOccupy, baseLocation,
-                                              DEFAULT_OCCUPY_RELATIVE_LOCATION);
+                                       DEFAULT_OCCUPY_RELATIVE_LOCATION);
         getPlayers().getPlayer(playerID).add(startOccupy);
 
         // this is for testing
         final Building f = startProduction;
         myTasks.add(new DelayedTask(2, new Runnable() {
+
             @Override
             public void run () {
                 f.getAction((new Command("make Marine"))).apply();
@@ -193,11 +195,12 @@ public class GameState extends SubState implements Controller {
                 }
             }
         }));
+
     }
 
     private InteractiveEntity setLocation (InteractiveEntity subject,
-                                                  Location3D base,
-                                                  Location3D reference) {
+                                           Location3D base,
+                                           Location3D reference) {
         subject.setWorldLocation(new Location3D(base.getX() + reference.getX(), base.getY() +
                                                                                 reference.getY(),
                                                 base.getZ() + reference.getZ()));
