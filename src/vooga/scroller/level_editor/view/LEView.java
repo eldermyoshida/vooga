@@ -151,6 +151,36 @@ public class LEView extends Window<LEWorkspaceView, LevelEditing, LEGridView, LE
         result.setEnabled(false);
         return result;
     }
+
+    /**
+     * TODO
+     * @author Dagbedji Fagnisse
+     *
+     */
+    public class WebInfoAction extends AbstractAction {
+        /**
+         * 
+         */
+        private static final long serialVersionUID = -3838081948621848563L;
+
+        WebInfoAction() {
+            super(getLiteral("WebInfoCommand"));
+            putValue(ACCELERATOR_KEY, 
+                     KeyStroke.getKeyStroke(KeyEvent.VK_W, ActionEvent.CTRL_MASK));
+        }
+
+        @Override
+        public void actionPerformed (ActionEvent e) {
+            try {
+                String url = 
+                        "http://www.cs.duke.edu/courses/spring13/compsci308/assign/03_slogo/";
+                java.awt.Desktop.getDesktop().browse(java.net.URI.create(url));
+            }
+            catch (java.io.IOException er) {
+//                System.out.println(er.getMessage());
+            }
+        }
+    }
     
 
 
